@@ -4,7 +4,8 @@ import { _test_functional_equalsReturnAsync } from "../../internal/_test_functio
 import { DynamicConstant } from "../../structures/DynamicConstant";
 
 export const test_functional_equalsReturnAsync_DynamicConstant =
-  _test_functional_equalsReturnAsync("DynamicConstant")(DynamicConstant)(
-    (p: (input: DynamicConstant) => Promise<DynamicConstant>) =>
-      typia.functional.equalsReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_equalsReturnAsync("DynamicConstant")(DynamicConstant)(
+      (p: (input: DynamicConstant) => Promise<DynamicConstant>) =>
+        typia.functional.equalsReturn(p),
+    );

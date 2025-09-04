@@ -23,14 +23,14 @@
             "required": [
               "name",
               "age"
-            ]
+            ],
+            "description": "Current Type: {@link ClassMethod.Animal}"
           }
         },
         "required": [
           "first"
         ]
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -50,7 +50,8 @@
             "required": [
               "name",
               "age"
-            ]
+            ],
+            "description": "Current Type: {@link ClassMethod.Animal}"
           },
           "second": {
             "type": "object",
@@ -87,9 +88,9 @@
         "required": [
           "name",
           "age"
-        ]
-      },
-      "strict": true
+        ],
+        "description": "Current Type: {@link ClassMethod.Animal}"
+      }
     },
     {
       "name": "coalesce",
@@ -165,8 +166,7 @@
           "age"
         ],
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

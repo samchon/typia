@@ -10,11 +10,12 @@
             "oneOf": [
               {
                 "type": "string",
-                "description": "@minLength 3\n@maxLength 7"
+                "minLength": 3,
+                "maxLength": 7
               },
               {
                 "type": "number",
-                "description": "@minimum 3"
+                "minimum": 3
               }
             ]
           }
@@ -22,6 +23,7 @@
         "required": [
           "value"
         ],
+        "description": "Current Type: {@link TypeTagAtomicUnion.Type}",
         "additionalProperties": false
       }
     }
@@ -29,5 +31,6 @@
   "required": [
     "value"
   ],
+  "description": "Current Type: {@link TypeTagAtomicUnion}",
   "additionalProperties": false
 }

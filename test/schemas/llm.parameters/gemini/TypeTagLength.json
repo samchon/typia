@@ -36,13 +36,15 @@
               "maximum",
               "minimum_and_maximum",
               "equal"
-            ]
+            ],
+            "description": "Current Type: {@link TypeTagLength.Type}"
           }
         }
       },
       "required": [
         "value"
-      ]
+      ],
+      "description": "Current Type: {@link TypeTagLength}"
     },
     "nullable": {
       "type": "object",
@@ -79,7 +81,8 @@
               "maximum",
               "minimum_and_maximum",
               "equal"
-            ]
+            ],
+            "description": "Current Type: {@link TypeTagLength.Type}"
           }
         }
       },
@@ -123,13 +126,15 @@
               "maximum",
               "minimum_and_maximum",
               "equal"
-            ]
+            ],
+            "description": "Current Type: {@link TypeTagLength.Type}"
           }
         }
       },
       "required": [
         "value"
-      ]
+      ],
+      "description": "Current Type: {@link TypeTagLength}"
     },
     "faint": {
       "type": "object",
@@ -166,7 +171,8 @@
               "maximum",
               "minimum_and_maximum",
               "equal"
-            ]
+            ],
+            "description": "Current Type: {@link TypeTagLength.Type}"
           }
         }
       },
@@ -212,13 +218,15 @@
                 "maximum",
                 "minimum_and_maximum",
                 "equal"
-              ]
+              ],
+              "description": "Current Type: {@link TypeTagLength.Type}"
             }
           }
         },
         "required": [
           "value"
-        ]
+        ],
+        "description": "Current Type: {@link TypeTagLength}"
       }
     }
   },

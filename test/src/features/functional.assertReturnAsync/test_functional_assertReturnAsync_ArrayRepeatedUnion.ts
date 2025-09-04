@@ -5,8 +5,9 @@ import { _test_functional_assertReturnAsync } from "../../internal/_test_functio
 import { ArrayRepeatedUnion } from "../../structures/ArrayRepeatedUnion";
 
 export const test_functional_assertReturnAsync_ArrayRepeatedUnion =
-  _test_functional_assertReturnAsync(TypeGuardError)("ArrayRepeatedUnion")(
-    ArrayRepeatedUnion,
-  )((p: (input: ArrayRepeatedUnion) => Promise<ArrayRepeatedUnion>) =>
-    typia.functional.assertReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertReturnAsync(TypeGuardError)("ArrayRepeatedUnion")(
+      ArrayRepeatedUnion,
+    )((p: (input: ArrayRepeatedUnion) => Promise<ArrayRepeatedUnion>) =>
+      typia.functional.assertReturn(p),
+    );

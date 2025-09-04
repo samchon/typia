@@ -1,8 +1,8 @@
 {
   "model": "3.0",
   "options": {
-    "constraint": false,
     "recursive": 3,
+    "constraint": true,
     "separate": null
   },
   "functions": [
@@ -150,7 +150,7 @@
               }
             },
             "required": [],
-            "description": "Make all properties in T optional\n\n------------------------------\n\nDescription of the current {@link PartialObjectPartial.IBase} type:\n\n> Make all properties in T optional",
+            "description": "Description of the current {@link PartialObjectPartial.IBase} type:\n\n> Make all properties in T optional",
             "additionalProperties": false
           }
         },
@@ -158,8 +158,7 @@
           "first"
         ],
         "additionalProperties": false
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -305,7 +304,7 @@
               }
             },
             "required": [],
-            "description": "Make all properties in T optional\n\n------------------------------\n\nDescription of the current {@link PartialObjectPartial.IBase} type:\n\n> Make all properties in T optional",
+            "description": "Description of the current {@link PartialObjectPartial.IBase} type:\n\n> Make all properties in T optional",
             "additionalProperties": false
           },
           "second": {
@@ -596,10 +595,9 @@
           }
         },
         "required": [],
-        "description": "Make all properties in T optional\n\n------------------------------\n\nDescription of the current {@link PartialObjectPartial.IBase} type:\n\n> Make all properties in T optional",
+        "description": "Description of the current {@link PartialObjectPartial.IBase} type:\n\n> Make all properties in T optional",
         "additionalProperties": false
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -1180,8 +1178,7 @@
         "required": [],
         "additionalProperties": false,
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

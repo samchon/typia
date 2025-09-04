@@ -3,10 +3,11 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { ArrayRepeatedUnion } from "../../../structures/ArrayRepeatedUnion";
 
-export const test_llm_application_chatgpt_ArrayRepeatedUnion =
+export const test_llm_application_chatgpt_ArrayRepeatedUnion = (): void =>
   _test_llm_application({
     model: "chatgpt",
     name: "ArrayRepeatedUnion",
+    factory: ArrayRepeatedUnion,
   })(typia.llm.application<ArrayRepeatedUnionApplication, "chatgpt">());
 
 interface ArrayRepeatedUnionApplication {

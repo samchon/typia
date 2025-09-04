@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_functional_assertFunction } from "../../internal/_test_functional_assertFunction";
 import { DynamicArray } from "../../structures/DynamicArray";
 
-export const test_functional_assertFunctionCustom_DynamicArray =
+export const test_functional_assertFunctionCustom_DynamicArray = (): void =>
   _test_functional_assertFunction(CustomGuardError)("DynamicArray")(
     DynamicArray,
   )((p: (input: DynamicArray) => DynamicArray) =>

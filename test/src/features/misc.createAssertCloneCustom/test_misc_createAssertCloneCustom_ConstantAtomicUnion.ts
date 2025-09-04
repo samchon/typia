@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_misc_assertClone } from "../../internal/_test_misc_assertClone";
 import { ConstantAtomicUnion } from "../../structures/ConstantAtomicUnion";
 
-export const test_misc_createAssertCloneCustom_ConstantAtomicUnion =
+export const test_misc_createAssertCloneCustom_ConstantAtomicUnion = (): void =>
   _test_misc_assertClone(CustomGuardError)(
     "ConstantAtomicUnion",
   )<ConstantAtomicUnion>(ConstantAtomicUnion)(

@@ -5,8 +5,9 @@ import { _test_functional_assertReturnAsync } from "../../internal/_test_functio
 import { ObjectPartial } from "../../structures/ObjectPartial";
 
 export const test_functional_assertReturnAsync_ObjectPartial =
-  _test_functional_assertReturnAsync(TypeGuardError)("ObjectPartial")(
-    ObjectPartial,
-  )((p: (input: ObjectPartial) => Promise<ObjectPartial>) =>
-    typia.functional.assertReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertReturnAsync(TypeGuardError)("ObjectPartial")(
+      ObjectPartial,
+    )((p: (input: ObjectPartial) => Promise<ObjectPartial>) =>
+      typia.functional.assertReturn(p),
+    );

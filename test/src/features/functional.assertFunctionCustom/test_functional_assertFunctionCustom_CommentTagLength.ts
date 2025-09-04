@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_functional_assertFunction } from "../../internal/_test_functional_assertFunction";
 import { CommentTagLength } from "../../structures/CommentTagLength";
 
-export const test_functional_assertFunctionCustom_CommentTagLength =
+export const test_functional_assertFunctionCustom_CommentTagLength = (): void =>
   _test_functional_assertFunction(CustomGuardError)("CommentTagLength")(
     CommentTagLength,
   )((p: (input: CommentTagLength) => CommentTagLength) =>

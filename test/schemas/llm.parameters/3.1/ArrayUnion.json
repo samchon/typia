@@ -2,29 +2,7 @@
   "type": "object",
   "properties": {
     "regular": {
-      "type": "array",
-      "items": {
-        "oneOf": [
-          {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          {
-            "type": "array",
-            "items": {
-              "type": "number"
-            }
-          },
-          {
-            "type": "array",
-            "items": {
-              "type": "boolean"
-            }
-          }
-        ]
-      }
+      "$ref": "#/$defs/ArrayUnion"
     },
     "nullable": {
       "oneOf": [
@@ -32,56 +10,12 @@
           "type": "null"
         },
         {
-          "type": "array",
-          "items": {
-            "oneOf": [
-              {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              {
-                "type": "array",
-                "items": {
-                  "type": "number"
-                }
-              },
-              {
-                "type": "array",
-                "items": {
-                  "type": "boolean"
-                }
-              }
-            ]
-          }
+          "$ref": "#/$defs/ArrayUnion"
         }
       ]
     },
     "optional": {
-      "type": "array",
-      "items": {
-        "oneOf": [
-          {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          {
-            "type": "array",
-            "items": {
-              "type": "number"
-            }
-          },
-          {
-            "type": "array",
-            "items": {
-              "type": "boolean"
-            }
-          }
-        ]
-      }
+      "$ref": "#/$defs/ArrayUnion"
     },
     "faint": {
       "oneOf": [
@@ -89,68 +23,51 @@
           "type": "null"
         },
         {
-          "type": "array",
-          "items": {
-            "oneOf": [
-              {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              {
-                "type": "array",
-                "items": {
-                  "type": "number"
-                }
-              },
-              {
-                "type": "array",
-                "items": {
-                  "type": "boolean"
-                }
-              }
-            ]
-          }
+          "$ref": "#/$defs/ArrayUnion"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
-        "type": "array",
-        "items": {
-          "oneOf": [
-            {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            {
-              "type": "array",
-              "items": {
-                "type": "number"
-              }
-            },
-            {
-              "type": "array",
-              "items": {
-                "type": "boolean"
-              }
-            }
-          ]
-        }
+        "$ref": "#/$defs/ArrayUnion"
       }
     }
   },
   "required": [
     "regular",
     "nullable",
-    "optional",
-    "faint",
     "array"
   ],
   "additionalProperties": false,
-  "$defs": {}
+  "$defs": {
+    "ArrayUnion": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ArrayUnion.IUnion"
+      }
+    },
+    "ArrayUnion.IUnion": {
+      "oneOf": [
+        {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "boolean"
+          }
+        }
+      ]
+    }
+  }
 }

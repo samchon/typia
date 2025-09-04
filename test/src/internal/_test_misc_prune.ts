@@ -3,8 +3,7 @@ import { TestStructure } from "../helpers/TestStructure";
 export const _test_misc_prune =
   (name: string) =>
   <T>(factory: TestStructure<T>) =>
-  (prune: (input: T) => void) =>
-  () => {
+  (prune: (input: T) => void): void => {
     const input: T = factory.generate();
 
     // SPOIL OBJECTS

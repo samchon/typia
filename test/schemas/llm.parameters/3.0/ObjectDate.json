@@ -6,28 +6,28 @@
       "properties": {
         "classDate": {
           "type": "string",
-          "description": "@format date-time",
+          "format": "date-time",
           "nullable": true
         },
         "date": {
           "type": "string",
-          "nullable": true,
-          "description": "@format date"
+          "format": "date",
+          "nullable": true
         },
         "datetime": {
           "type": "string",
-          "nullable": true,
-          "description": "@format date-time"
+          "format": "date-time",
+          "nullable": true
         },
         "time": {
           "type": "string",
-          "nullable": true,
-          "description": "@format time"
+          "format": "time",
+          "nullable": true
         },
         "duration": {
           "type": "string",
-          "nullable": true,
-          "description": "@format duration"
+          "format": "duration",
+          "nullable": true
         }
       },
       "required": [
@@ -36,6 +36,7 @@
         "time",
         "duration"
       ],
+      "description": "Current Type: {@link ObjectDate}",
       "additionalProperties": false
     },
     "nullable": {
@@ -43,28 +44,28 @@
       "properties": {
         "classDate": {
           "type": "string",
-          "description": "@format date-time",
+          "format": "date-time",
           "nullable": true
         },
         "date": {
           "type": "string",
-          "nullable": true,
-          "description": "@format date"
+          "format": "date",
+          "nullable": true
         },
         "datetime": {
           "type": "string",
-          "nullable": true,
-          "description": "@format date-time"
+          "format": "date-time",
+          "nullable": true
         },
         "time": {
           "type": "string",
-          "nullable": true,
-          "description": "@format time"
+          "format": "time",
+          "nullable": true
         },
         "duration": {
           "type": "string",
-          "nullable": true,
-          "description": "@format duration"
+          "format": "duration",
+          "nullable": true
         }
       },
       "required": [
@@ -81,28 +82,28 @@
       "properties": {
         "classDate": {
           "type": "string",
-          "description": "@format date-time",
+          "format": "date-time",
           "nullable": true
         },
         "date": {
           "type": "string",
-          "nullable": true,
-          "description": "@format date"
+          "format": "date",
+          "nullable": true
         },
         "datetime": {
           "type": "string",
-          "nullable": true,
-          "description": "@format date-time"
+          "format": "date-time",
+          "nullable": true
         },
         "time": {
           "type": "string",
-          "nullable": true,
-          "description": "@format time"
+          "format": "time",
+          "nullable": true
         },
         "duration": {
           "type": "string",
-          "nullable": true,
-          "description": "@format duration"
+          "format": "duration",
+          "nullable": true
         }
       },
       "required": [
@@ -111,6 +112,7 @@
         "time",
         "duration"
       ],
+      "description": "Current Type: {@link ObjectDate}",
       "additionalProperties": false
     },
     "faint": {
@@ -118,28 +120,28 @@
       "properties": {
         "classDate": {
           "type": "string",
-          "description": "@format date-time",
+          "format": "date-time",
           "nullable": true
         },
         "date": {
           "type": "string",
-          "nullable": true,
-          "description": "@format date"
+          "format": "date",
+          "nullable": true
         },
         "datetime": {
           "type": "string",
-          "nullable": true,
-          "description": "@format date-time"
+          "format": "date-time",
+          "nullable": true
         },
         "time": {
           "type": "string",
-          "nullable": true,
-          "description": "@format time"
+          "format": "time",
+          "nullable": true
         },
         "duration": {
           "type": "string",
-          "nullable": true,
-          "description": "@format duration"
+          "format": "duration",
+          "nullable": true
         }
       },
       "required": [
@@ -158,28 +160,28 @@
         "properties": {
           "classDate": {
             "type": "string",
-            "description": "@format date-time",
+            "format": "date-time",
             "nullable": true
           },
           "date": {
             "type": "string",
-            "nullable": true,
-            "description": "@format date"
+            "format": "date",
+            "nullable": true
           },
           "datetime": {
             "type": "string",
-            "nullable": true,
-            "description": "@format date-time"
+            "format": "date-time",
+            "nullable": true
           },
           "time": {
             "type": "string",
-            "nullable": true,
-            "description": "@format time"
+            "format": "time",
+            "nullable": true
           },
           "duration": {
             "type": "string",
-            "nullable": true,
-            "description": "@format duration"
+            "format": "duration",
+            "nullable": true
           }
         },
         "required": [
@@ -188,6 +190,7 @@
           "time",
           "duration"
         ],
+        "description": "Current Type: {@link ObjectDate}",
         "additionalProperties": false
       }
     }

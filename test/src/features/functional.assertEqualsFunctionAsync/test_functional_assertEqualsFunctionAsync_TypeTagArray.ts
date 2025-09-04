@@ -5,8 +5,9 @@ import { _test_functional_assertEqualsFunctionAsync } from "../../internal/_test
 import { TypeTagArray } from "../../structures/TypeTagArray";
 
 export const test_functional_assertEqualsFunctionAsync_TypeTagArray =
-  _test_functional_assertEqualsFunctionAsync(TypeGuardError)("TypeTagArray")(
-    TypeTagArray,
-  )((p: (input: TypeTagArray) => Promise<TypeTagArray>) =>
-    typia.functional.assertEqualsFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsFunctionAsync(TypeGuardError)("TypeTagArray")(
+      TypeTagArray,
+    )((p: (input: TypeTagArray) => Promise<TypeTagArray>) =>
+      typia.functional.assertEqualsFunction(p),
+    );

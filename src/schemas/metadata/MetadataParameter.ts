@@ -1,3 +1,5 @@
+import ts from "typescript";
+
 import { ClassProperties } from "../../typings/ClassProperties";
 
 import { IJsDocTagInfo } from "./IJsDocTagInfo";
@@ -10,17 +12,17 @@ export class MetadataParameter {
   public type: Metadata;
   public description: string | null;
   public jsDocTags: IJsDocTagInfo[];
+  public tsType?: ts.Type;
 
   private constructor(props: ClassProperties<MetadataParameter>) {
     this.name = props.name;
     this.type = props.type;
     this.description = props.description;
     this.jsDocTags = props.jsDocTags;
+    this.tsType = props.tsType;
   }
 
-  /**
-   * @internal
-   */
+  /** @internal */
   public static create(
     props: ClassProperties<MetadataParameter>,
   ): MetadataParameter {

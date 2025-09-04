@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
 import { ArrayRepeatedRequired } from "../../../structures/ArrayRepeatedRequired";
 
-export const test_llm_parameters_3_1_ArrayRepeatedRequired =
+export const test_llm_parameters_3_1_ArrayRepeatedRequired = (): void =>
   _test_llm_parameters({
     model: "3.1",
     name: "ArrayRepeatedRequired",

@@ -3,10 +3,12 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { TypeTagLength } from "../../../structures/TypeTagLength";
 
-export const test_llm_application_gemini_TypeTagLength = _test_llm_application({
-  model: "gemini",
-  name: "TypeTagLength",
-})(typia.llm.application<TypeTagLengthApplication, "gemini">());
+export const test_llm_application_gemini_TypeTagLength = (): void =>
+  _test_llm_application({
+    model: "gemini",
+    name: "TypeTagLength",
+    factory: TypeTagLength,
+  })(typia.llm.application<TypeTagLengthApplication, "gemini">());
 
 interface TypeTagLengthApplication {
   insert(p: { first: TypeTagLength }): Promise<void>;

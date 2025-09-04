@@ -4,6 +4,7 @@ import { _test_json_validateStringify } from "../../internal/_test_json_validate
 import { ConstantAtomicTagged } from "../../structures/ConstantAtomicTagged";
 
 export const test_json_createValidateStringify_ConstantAtomicTagged =
-  _test_json_validateStringify("ConstantAtomicTagged")<ConstantAtomicTagged>(
-    ConstantAtomicTagged,
-  )(typia.json.createValidateStringify<ConstantAtomicTagged>());
+  (): void =>
+    _test_json_validateStringify("ConstantAtomicTagged")<ConstantAtomicTagged>(
+      ConstantAtomicTagged,
+    )(typia.json.createValidateStringify<ConstantAtomicTagged>());

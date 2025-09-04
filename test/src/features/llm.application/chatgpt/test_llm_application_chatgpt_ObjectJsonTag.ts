@@ -3,12 +3,12 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { ObjectJsonTag } from "../../../structures/ObjectJsonTag";
 
-export const test_llm_application_chatgpt_ObjectJsonTag = _test_llm_application(
-  {
+export const test_llm_application_chatgpt_ObjectJsonTag = (): void =>
+  _test_llm_application({
     model: "chatgpt",
     name: "ObjectJsonTag",
-  },
-)(typia.llm.application<ObjectJsonTagApplication, "chatgpt">());
+    factory: ObjectJsonTag,
+  })(typia.llm.application<ObjectJsonTagApplication, "chatgpt">());
 
 interface ObjectJsonTagApplication {
   insert(p: { first: ObjectJsonTag }): Promise<void>;

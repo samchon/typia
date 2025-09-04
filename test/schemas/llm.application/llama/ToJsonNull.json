@@ -1,7 +1,7 @@
 {
   "model": "llama",
   "options": {
-    "reference": false,
+    "reference": true,
     "separate": null
   },
   "functions": [
@@ -19,8 +19,7 @@
         ],
         "additionalProperties": false,
         "$defs": {}
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -50,8 +49,7 @@
       },
       "output": {
         "type": "null"
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -91,8 +89,7 @@
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
         "$defs": {}
@@ -106,8 +103,7 @@
             "type": "null"
           }
         ]
-      },
-      "strict": true
+      }
     }
   ]
 }

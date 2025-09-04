@@ -5,8 +5,12 @@ import { _test_functional_assertEqualsParametersAsync } from "../../internal/_te
 import { TemplateAtomic } from "../../structures/TemplateAtomic";
 
 export const test_functional_assertEqualsParametersAsyncCustom_TemplateAtomic =
-  _test_functional_assertEqualsParametersAsync(CustomGuardError)(
-    "TemplateAtomic",
-  )(TemplateAtomic)((p: (input: TemplateAtomic) => Promise<TemplateAtomic>) =>
-    typia.functional.assertEqualsParameters(p, (p) => new CustomGuardError(p)),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsParametersAsync(CustomGuardError)(
+      "TemplateAtomic",
+    )(TemplateAtomic)((p: (input: TemplateAtomic) => Promise<TemplateAtomic>) =>
+      typia.functional.assertEqualsParameters(
+        p,
+        (p) => new CustomGuardError(p),
+      ),
+    );

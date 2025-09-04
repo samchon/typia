@@ -5,12 +5,13 @@ import { _test_functional_assertEqualsParametersAsync } from "../../internal/_te
 import { ObjectHttpCommentTag } from "../../structures/ObjectHttpCommentTag";
 
 export const test_functional_assertEqualsParametersAsyncCustom_ObjectHttpCommentTag =
-  _test_functional_assertEqualsParametersAsync(CustomGuardError)(
-    "ObjectHttpCommentTag",
-  )(ObjectHttpCommentTag)(
-    (p: (input: ObjectHttpCommentTag) => Promise<ObjectHttpCommentTag>) =>
-      typia.functional.assertEqualsParameters(
-        p,
-        (p) => new CustomGuardError(p),
-      ),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsParametersAsync(CustomGuardError)(
+      "ObjectHttpCommentTag",
+    )(ObjectHttpCommentTag)(
+      (p: (input: ObjectHttpCommentTag) => Promise<ObjectHttpCommentTag>) =>
+        typia.functional.assertEqualsParameters(
+          p,
+          (p) => new CustomGuardError(p),
+        ),
+    );

@@ -1,4 +1,4 @@
-import { IValidation } from "typia";
+import typia, { IValidation } from "typia";
 
 import { TestStructure } from "../helpers/TestStructure";
 import { _test_notation_general } from "./_test_notation_general";
@@ -9,8 +9,7 @@ export const _test_notation_validateGeneral =
   <U>(functor: {
     convert: (input: T) => IValidation<U>;
     assert: (input: U) => U;
-  }) =>
-  () => {
+  }): void => {
     _test_notation_general(name)(factory)({
       assert: functor.assert,
       convert: (input) => {
@@ -19,9 +18,10 @@ export const _test_notation_validateGeneral =
           throw new Error(
             `Bug on typia.notations.validateX(): failed to understand the ${name} type.`,
           );
+        typia.assertEquals<IValidation.ISuccess<unknown>>(res);
         return res.data;
       },
-    })();
+    }) satisfies void;
 
     const wrong: ISpoiled[] = [];
     for (const spoil of factory.SPOILERS ?? []) {
@@ -34,6 +34,7 @@ export const _test_notation_validateGeneral =
           `Bug on typia.notations.validateX(): failed to detect error on the ${name} type.`,
         );
 
+      typia.assertEquals(valid);
       expected.sort();
       valid.errors.sort((x, y) => (x.path < y.path ? -1 : 1));
 

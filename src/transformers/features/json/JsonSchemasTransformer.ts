@@ -20,7 +20,7 @@ export namespace JsonSchemasTransformer {
   ): ts.Expression => {
     if (!props.expression.typeArguments?.length)
       throw new TransformerError({
-        code: "typia.json.application",
+        code: "typia.json.schemas",
         message: "no generic argument.",
       });
 
@@ -39,12 +39,12 @@ export namespace JsonSchemasTransformer {
     );
     if (types.some((t) => t.isTypeParameter()))
       throw new TransformerError({
-        code: "typia.json.application",
+        code: "typia.json.schemas",
         message: "non-specified generic argument(s).",
       });
 
     // ADDITIONAL PARAMETERS
-    const version: "3.0" | "3.1" = get_parameter<"3.0" | "3.1">({
+    const version: "3.0" | "3.1" = getParameter<"3.0" | "3.1">({
       checker: props.context.checker,
       name: "Version",
       is: (str) => str === "3.0" || str === "3.1",
@@ -56,45 +56,47 @@ export namespace JsonSchemasTransformer {
     // GENERATORS
     //----
     // METADATA
-    const collection: MetadataCollection = new MetadataCollection({
-      replace: MetadataCollection.replace,
-    });
-    const results: ValidationPipe<Metadata, MetadataFactory.IError>[] =
-      types.map((type) =>
-        MetadataFactory.analyze({
-          checker: props.context.checker,
-          transformer: props.context.transformer,
-          options: {
-            escape: true,
-            constant: true,
-            absorb: false,
-            validate: JsonSchemasProgrammer.validate,
-          },
-          collection,
-          type,
-        }),
-      );
-
-    // REPORT BUG IF REQUIRED
-    const metadatas: Metadata[] = [];
-    const errors: MetadataFactory.IError[] = [];
-    for (const r of results) {
-      if (r.success === false) errors.push(...r.errors);
-      else metadatas.push(r.data);
-    }
-    if (errors.length)
-      throw TransformerError.from({
-        code: "typia.json.application",
-        errors,
-      });
+    const analyze = (validate: boolean): Metadata[] => {
+      const results: ValidationPipe<Metadata, MetadataFactory.IError>[] =
+        types.map((type) =>
+          MetadataFactory.analyze({
+            checker: props.context.checker,
+            transformer: props.context.transformer,
+            options: {
+              absorb: validate,
+              constant: true,
+              escape: true,
+              validate:
+                validate === true ? JsonSchemasProgrammer.validate : undefined,
+            },
+            collection: new MetadataCollection({
+              replace: MetadataCollection.replace,
+            }),
+            type,
+          }),
+        );
+      const metadatas: Metadata[] = [];
+      const errors: MetadataFactory.IError[] = [];
+      for (const r of results) {
+        if (r.success === false) errors.push(...r.errors);
+        else metadatas.push(r.data);
+      }
+      if (errors.length)
+        throw TransformerError.from({
+          code: "typia.json.schemas",
+          errors,
+        });
+      return metadatas;
+    };
+    analyze(true);
 
     // APPLICATION
-    const app: IJsonSchemaCollection<any> = JsonSchemasProgrammer.write({
+    const collection: IJsonSchemaCollection<any> = JsonSchemasProgrammer.write({
       version,
-      metadatas,
+      metadatas: analyze(false),
     });
     return ts.factory.createAsExpression(
-      LiteralFactory.write(app),
+      LiteralFactory.write(collection),
       props.context.importer.type({
         file: "typia",
         name: "IJsonSchemaCollection",
@@ -107,7 +109,7 @@ export namespace JsonSchemasTransformer {
     );
   };
 
-  const get_parameter =
+  const getParameter =
     <Value>(props: {
       checker: ts.TypeChecker;
       name: string;
@@ -125,7 +127,7 @@ export namespace JsonSchemasTransformer {
         (type.getFlags() & ts.TypeFlags.BooleanLiteral) === 0
       )
         throw new TransformerError({
-          code: "typia.json.application",
+          code: "typia.json.schemas",
           message: `generic argument "${props.name}" must be constant.`,
         });
 
@@ -135,7 +137,7 @@ export namespace JsonSchemasTransformer {
         : props.checker.typeToString(type);
       if (typeof value !== "string" || props.is(value) === false)
         throw new TransformerError({
-          code: "typia.json.application",
+          code: "typia.json.schemas",
           message: `invalid value on generic argument "${props.name}".`,
         });
       return props.cast(value);

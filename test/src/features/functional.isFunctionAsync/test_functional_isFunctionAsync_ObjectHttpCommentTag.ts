@@ -4,8 +4,9 @@ import { _test_functional_isFunctionAsync } from "../../internal/_test_functiona
 import { ObjectHttpCommentTag } from "../../structures/ObjectHttpCommentTag";
 
 export const test_functional_isFunctionAsync_ObjectHttpCommentTag =
-  _test_functional_isFunctionAsync("ObjectHttpCommentTag")(
-    ObjectHttpCommentTag,
-  )((p: (input: ObjectHttpCommentTag) => Promise<ObjectHttpCommentTag>) =>
-    typia.functional.isFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_isFunctionAsync("ObjectHttpCommentTag")(
+      ObjectHttpCommentTag,
+    )((p: (input: ObjectHttpCommentTag) => Promise<ObjectHttpCommentTag>) =>
+      typia.functional.isFunction(p),
+    );

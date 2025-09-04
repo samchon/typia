@@ -3,10 +3,12 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { ToJsonUnion } from "../../../structures/ToJsonUnion";
 
-export const test_llm_application_chatgpt_ToJsonUnion = _test_llm_application({
-  model: "chatgpt",
-  name: "ToJsonUnion",
-})(typia.llm.application<ToJsonUnionApplication, "chatgpt">());
+export const test_llm_application_chatgpt_ToJsonUnion = (): void =>
+  _test_llm_application({
+    model: "chatgpt",
+    name: "ToJsonUnion",
+    factory: ToJsonUnion,
+  })(typia.llm.application<ToJsonUnionApplication, "chatgpt">());
 
 interface ToJsonUnionApplication {
   insert(p: { first: ToJsonUnion }): Promise<void>;

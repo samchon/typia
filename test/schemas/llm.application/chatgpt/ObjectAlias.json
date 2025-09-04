@@ -1,7 +1,8 @@
 {
   "model": "chatgpt",
   "options": {
-    "reference": false,
+    "reference": true,
+    "strict": false,
     "separate": null
   },
   "functions": [
@@ -11,87 +12,92 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "anyOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "string"
-                    }
-                  ]
-                },
-                "email": {
-                  "type": "string"
-                },
-                "name": {
-                  "type": "string"
-                },
-                "sex": {
-                  "anyOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "number",
-                      "enum": [
-                        1,
-                        2
-                      ]
-                    },
-                    {
-                      "type": "string",
-                      "enum": [
-                        "male",
-                        "female"
-                      ]
-                    }
-                  ]
-                },
-                "age": {
-                  "anyOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "number"
-                    }
-                  ]
-                },
-                "dead": {
-                  "anyOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "boolean"
-                    }
-                  ]
-                }
-              },
-              "required": [
-                "id",
-                "email",
-                "name",
-                "sex",
-                "age",
-                "dead"
-              ],
-              "additionalProperties": false
-            }
+            "$ref": "#/$defs/ObjectAlias"
           }
         },
         "required": [
           "first"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "strict": true
+        "$defs": {
+          "ObjectAlias": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/ObjectAlias.IMember"
+            }
+          },
+          "ObjectAlias.IMember": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ]
+              },
+              "email": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "sex": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "number",
+                    "enum": [
+                      1,
+                      2
+                    ]
+                  },
+                  {
+                    "type": "string",
+                    "enum": [
+                      "male",
+                      "female"
+                    ]
+                  }
+                ]
+              },
+              "age": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ]
+              },
+              "dead": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "boolean"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "id",
+              "email",
+              "name",
+              "sex",
+              "age",
+              "dead"
+            ]
+          }
+        }
+      }
     },
     {
       "name": "reduce",
@@ -99,78 +105,7 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "anyOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "string"
-                    }
-                  ]
-                },
-                "email": {
-                  "type": "string"
-                },
-                "name": {
-                  "type": "string"
-                },
-                "sex": {
-                  "anyOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "number",
-                      "enum": [
-                        1,
-                        2
-                      ]
-                    },
-                    {
-                      "type": "string",
-                      "enum": [
-                        "male",
-                        "female"
-                      ]
-                    }
-                  ]
-                },
-                "age": {
-                  "anyOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "number"
-                    }
-                  ]
-                },
-                "dead": {
-                  "anyOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "boolean"
-                    }
-                  ]
-                }
-              },
-              "required": [
-                "id",
-                "email",
-                "name",
-                "sex",
-                "age",
-                "dead"
-              ],
-              "additionalProperties": false
-            }
+            "$ref": "#/$defs/ObjectAlias"
           },
           "second": {
             "anyOf": [
@@ -178,78 +113,7 @@
                 "type": "null"
               },
               {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "anyOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "string"
-                        }
-                      ]
-                    },
-                    "email": {
-                      "type": "string"
-                    },
-                    "name": {
-                      "type": "string"
-                    },
-                    "sex": {
-                      "anyOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "number",
-                          "enum": [
-                            1,
-                            2
-                          ]
-                        },
-                        {
-                          "type": "string",
-                          "enum": [
-                            "male",
-                            "female"
-                          ]
-                        }
-                      ]
-                    },
-                    "age": {
-                      "anyOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "number"
-                        }
-                      ]
-                    },
-                    "dead": {
-                      "anyOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "boolean"
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "id",
-                    "email",
-                    "name",
-                    "sex",
-                    "age",
-                    "dead"
-                  ],
-                  "additionalProperties": false
-                }
+                "$ref": "#/$defs/ObjectAlias"
               }
             ]
           }
@@ -259,83 +123,88 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "output": {
-        "type": "array",
-        "items": {
-          "type": "object",
-          "properties": {
-            "id": {
-              "anyOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "type": "string"
-                }
-              ]
-            },
-            "email": {
-              "type": "string"
-            },
-            "name": {
-              "type": "string"
-            },
-            "sex": {
-              "anyOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "type": "number",
-                  "enum": [
-                    1,
-                    2
-                  ]
-                },
-                {
-                  "type": "string",
-                  "enum": [
-                    "male",
-                    "female"
-                  ]
-                }
-              ]
-            },
-            "age": {
-              "anyOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "type": "number"
-                }
-              ]
-            },
-            "dead": {
-              "anyOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "type": "boolean"
-                }
-              ]
+        "$defs": {
+          "ObjectAlias": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/ObjectAlias.IMember"
             }
           },
-          "required": [
-            "id",
-            "email",
-            "name",
-            "sex",
-            "age",
-            "dead"
-          ],
-          "additionalProperties": false
+          "ObjectAlias.IMember": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ]
+              },
+              "email": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "sex": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "number",
+                    "enum": [
+                      1,
+                      2
+                    ]
+                  },
+                  {
+                    "type": "string",
+                    "enum": [
+                      "male",
+                      "female"
+                    ]
+                  }
+                ]
+              },
+              "age": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ]
+              },
+              "dead": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "boolean"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "id",
+              "email",
+              "name",
+              "sex",
+              "age",
+              "dead"
+            ]
+          }
         }
       },
-      "strict": true
+      "output": {
+        "$ref": "#/$defs/ObjectAlias"
+      }
     },
     {
       "name": "coalesce",
@@ -348,78 +217,7 @@
                 "type": "null"
               },
               {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "anyOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "string"
-                        }
-                      ]
-                    },
-                    "email": {
-                      "type": "string"
-                    },
-                    "name": {
-                      "type": "string"
-                    },
-                    "sex": {
-                      "anyOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "number",
-                          "enum": [
-                            1,
-                            2
-                          ]
-                        },
-                        {
-                          "type": "string",
-                          "enum": [
-                            "male",
-                            "female"
-                          ]
-                        }
-                      ]
-                    },
-                    "age": {
-                      "anyOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "number"
-                        }
-                      ]
-                    },
-                    "dead": {
-                      "anyOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "boolean"
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "id",
-                    "email",
-                    "name",
-                    "sex",
-                    "age",
-                    "dead"
-                  ],
-                  "additionalProperties": false
-                }
+                "$ref": "#/$defs/ObjectAlias"
               }
             ]
           },
@@ -429,78 +227,7 @@
                 "type": "null"
               },
               {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "anyOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "string"
-                        }
-                      ]
-                    },
-                    "email": {
-                      "type": "string"
-                    },
-                    "name": {
-                      "type": "string"
-                    },
-                    "sex": {
-                      "anyOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "number",
-                          "enum": [
-                            1,
-                            2
-                          ]
-                        },
-                        {
-                          "type": "string",
-                          "enum": [
-                            "male",
-                            "female"
-                          ]
-                        }
-                      ]
-                    },
-                    "age": {
-                      "anyOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "number"
-                        }
-                      ]
-                    },
-                    "dead": {
-                      "anyOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "boolean"
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "id",
-                    "email",
-                    "name",
-                    "sex",
-                    "age",
-                    "dead"
-                  ],
-                  "additionalProperties": false
-                }
+                "$ref": "#/$defs/ObjectAlias"
               }
             ]
           },
@@ -510,89 +237,94 @@
                 "type": "null"
               },
               {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "anyOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "string"
-                        }
-                      ]
-                    },
-                    "email": {
-                      "type": "string"
-                    },
-                    "name": {
-                      "type": "string"
-                    },
-                    "sex": {
-                      "anyOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "number",
-                          "enum": [
-                            1,
-                            2
-                          ]
-                        },
-                        {
-                          "type": "string",
-                          "enum": [
-                            "male",
-                            "female"
-                          ]
-                        }
-                      ]
-                    },
-                    "age": {
-                      "anyOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "number"
-                        }
-                      ]
-                    },
-                    "dead": {
-                      "anyOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "boolean"
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "id",
-                    "email",
-                    "name",
-                    "sex",
-                    "age",
-                    "dead"
-                  ],
-                  "additionalProperties": false
-                }
+                "$ref": "#/$defs/ObjectAlias"
               }
             ]
           }
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "ObjectAlias": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/ObjectAlias.IMember"
+            }
+          },
+          "ObjectAlias.IMember": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ]
+              },
+              "email": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "sex": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "number",
+                    "enum": [
+                      1,
+                      2
+                    ]
+                  },
+                  {
+                    "type": "string",
+                    "enum": [
+                      "male",
+                      "female"
+                    ]
+                  }
+                ]
+              },
+              "age": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ]
+              },
+              "dead": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "boolean"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "id",
+              "email",
+              "name",
+              "sex",
+              "age",
+              "dead"
+            ]
+          }
+        }
       },
       "output": {
         "anyOf": [
@@ -600,82 +332,10 @@
             "type": "null"
           },
           {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "anyOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "string"
-                    }
-                  ]
-                },
-                "email": {
-                  "type": "string"
-                },
-                "name": {
-                  "type": "string"
-                },
-                "sex": {
-                  "anyOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "number",
-                      "enum": [
-                        1,
-                        2
-                      ]
-                    },
-                    {
-                      "type": "string",
-                      "enum": [
-                        "male",
-                        "female"
-                      ]
-                    }
-                  ]
-                },
-                "age": {
-                  "anyOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "number"
-                    }
-                  ]
-                },
-                "dead": {
-                  "anyOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "boolean"
-                    }
-                  ]
-                }
-              },
-              "required": [
-                "id",
-                "email",
-                "name",
-                "sex",
-                "age",
-                "dead"
-              ],
-              "additionalProperties": false
-            }
+            "$ref": "#/$defs/ObjectAlias"
           }
         ]
-      },
-      "strict": true
+      }
     }
   ]
 }

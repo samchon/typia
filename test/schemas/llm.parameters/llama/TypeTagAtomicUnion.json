@@ -2,36 +2,7 @@
   "type": "object",
   "properties": {
     "regular": {
-      "type": "object",
-      "properties": {
-        "value": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "value": {
-                "oneOf": [
-                  {
-                    "type": "string",
-                    "minLength": 3,
-                    "maxLength": 7
-                  },
-                  {
-                    "type": "number",
-                    "minimum": 3
-                  }
-                ]
-              }
-            },
-            "required": [
-              "value"
-            ]
-          }
-        }
-      },
-      "required": [
-        "value"
-      ]
+      "$ref": "#/$defs/TypeTagAtomicUnion"
     },
     "nullable": {
       "oneOf": [
@@ -39,70 +10,12 @@
           "type": "null"
         },
         {
-          "type": "object",
-          "properties": {
-            "value": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "oneOf": [
-                      {
-                        "type": "string",
-                        "minLength": 3,
-                        "maxLength": 7
-                      },
-                      {
-                        "type": "number",
-                        "minimum": 3
-                      }
-                    ]
-                  }
-                },
-                "required": [
-                  "value"
-                ]
-              }
-            }
-          },
-          "required": [
-            "value"
-          ]
+          "$ref": "#/$defs/TypeTagAtomicUnion"
         }
       ]
     },
     "optional": {
-      "type": "object",
-      "properties": {
-        "value": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "value": {
-                "oneOf": [
-                  {
-                    "type": "string",
-                    "minLength": 3,
-                    "maxLength": 7
-                  },
-                  {
-                    "type": "number",
-                    "minimum": 3
-                  }
-                ]
-              }
-            },
-            "required": [
-              "value"
-            ]
-          }
-        }
-      },
-      "required": [
-        "value"
-      ]
+      "$ref": "#/$defs/TypeTagAtomicUnion"
     },
     "faint": {
       "oneOf": [
@@ -110,82 +23,58 @@
           "type": "null"
         },
         {
-          "type": "object",
-          "properties": {
-            "value": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "oneOf": [
-                      {
-                        "type": "string",
-                        "minLength": 3,
-                        "maxLength": 7
-                      },
-                      {
-                        "type": "number",
-                        "minimum": 3
-                      }
-                    ]
-                  }
-                },
-                "required": [
-                  "value"
-                ]
-              }
-            }
-          },
-          "required": [
-            "value"
-          ]
+          "$ref": "#/$defs/TypeTagAtomicUnion"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
-        "type": "object",
-        "properties": {
-          "value": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "value": {
-                  "oneOf": [
-                    {
-                      "type": "string",
-                      "minLength": 3,
-                      "maxLength": 7
-                    },
-                    {
-                      "type": "number",
-                      "minimum": 3
-                    }
-                  ]
-                }
-              },
-              "required": [
-                "value"
-              ]
-            }
-          }
-        },
-        "required": [
-          "value"
-        ]
+        "$ref": "#/$defs/TypeTagAtomicUnion"
       }
     }
   },
   "required": [
     "regular",
     "nullable",
-    "optional",
-    "faint",
     "array"
   ],
   "additionalProperties": false,
-  "$defs": {}
+  "$defs": {
+    "TypeTagAtomicUnion": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/TypeTagAtomicUnion.Type"
+          }
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "TypeTagAtomicUnion.Type": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 3,
+              "maxLength": 7
+            },
+            {
+              "type": "number",
+              "minimum": 3
+            }
+          ]
+        }
+      },
+      "required": [
+        "value"
+      ]
+    }
+  }
 }

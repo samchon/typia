@@ -4,7 +4,9 @@ import { _test_functional_validateEqualsParameters } from "../../internal/_test_
 import { ObjectRecursive } from "../../structures/ObjectRecursive";
 
 export const test_functional_validateEqualsParameters_ObjectRecursive =
-  _test_functional_validateEqualsParameters("ObjectRecursive")(ObjectRecursive)(
-    (p: (input: ObjectRecursive) => ObjectRecursive) =>
+  (): void =>
+    _test_functional_validateEqualsParameters("ObjectRecursive")(
+      ObjectRecursive,
+    )((p: (input: ObjectRecursive) => ObjectRecursive) =>
       typia.functional.validateEqualsParameters(p),
-  );
+    );

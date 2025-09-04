@@ -4,12 +4,13 @@ import { _test_functional_validateEqualsParametersAsync } from "../../internal/_
 import { ObjectUnionNonPredictable } from "../../structures/ObjectUnionNonPredictable";
 
 export const test_functional_validateEqualsParametersAsync_ObjectUnionNonPredictable =
-  _test_functional_validateEqualsParametersAsync("ObjectUnionNonPredictable")(
-    ObjectUnionNonPredictable,
-  )(
-    (
-      p: (
-        input: ObjectUnionNonPredictable,
-      ) => Promise<ObjectUnionNonPredictable>,
-    ) => typia.functional.validateEqualsParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateEqualsParametersAsync("ObjectUnionNonPredictable")(
+      ObjectUnionNonPredictable,
+    )(
+      (
+        p: (
+          input: ObjectUnionNonPredictable,
+        ) => Promise<ObjectUnionNonPredictable>,
+      ) => typia.functional.validateEqualsParameters(p),
+    );

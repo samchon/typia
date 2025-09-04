@@ -1,7 +1,8 @@
 {
   "model": "chatgpt",
   "options": {
-    "reference": false,
+    "reference": true,
+    "strict": false,
     "separate": null
   },
   "functions": [
@@ -19,8 +20,7 @@
         ],
         "additionalProperties": false,
         "$defs": {}
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -50,8 +50,7 @@
       },
       "output": {
         "type": "null"
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -91,8 +90,7 @@
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
         "$defs": {}
@@ -106,8 +104,7 @@
             "type": "null"
           }
         ]
-      },
-      "strict": true
+      }
     }
   ]
 }

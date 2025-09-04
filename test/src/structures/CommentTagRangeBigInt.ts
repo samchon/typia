@@ -6,24 +6,16 @@ export namespace CommentTagRangeBigInt {
   export const JSONABLE = false;
 
   export interface Type {
-    /**
-     * @exclusiveMinimum 3
-     */
+    /** @exclusiveMinimum 3 */
     greater: bigint;
 
-    /**
-     * @minimum 3
-     */
+    /** @minimum 3 */
     greater_equal: bigint;
 
-    /**
-     * @exclusiveMaximum 7
-     */
+    /** @exclusiveMaximum 7 */
     less: bigint;
 
-    /**
-     * @maximum 7
-     */
+    /** @maximum 7 */
     less_equal: bigint;
 
     /**

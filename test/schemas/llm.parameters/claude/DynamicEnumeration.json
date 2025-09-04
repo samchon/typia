@@ -2,59 +2,7 @@
   "type": "object",
   "properties": {
     "regular": {
-      "type": "object",
-      "properties": {
-        "value": {
-          "type": "object",
-          "properties": {
-            "ar": {
-              "type": "string"
-            },
-            "zh-Hans": {
-              "type": "string"
-            },
-            "zh-Hant": {
-              "type": "string"
-            },
-            "en": {
-              "type": "string"
-            },
-            "fr": {
-              "type": "string"
-            },
-            "de": {
-              "type": "string"
-            },
-            "ja": {
-              "type": "string"
-            },
-            "ko": {
-              "type": "string"
-            },
-            "pt": {
-              "type": "string"
-            },
-            "ru": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "ar",
-            "zh-Hans",
-            "zh-Hant",
-            "en",
-            "fr",
-            "de",
-            "ja",
-            "ko",
-            "pt",
-            "ru"
-          ]
-        }
-      },
-      "required": [
-        "value"
-      ]
+      "$ref": "#/$defs/DynamicEnumeration"
     },
     "nullable": {
       "oneOf": [
@@ -62,63 +10,38 @@
           "type": "null"
         },
         {
-          "type": "object",
-          "properties": {
-            "value": {
-              "type": "object",
-              "properties": {
-                "ar": {
-                  "type": "string"
-                },
-                "zh-Hans": {
-                  "type": "string"
-                },
-                "zh-Hant": {
-                  "type": "string"
-                },
-                "en": {
-                  "type": "string"
-                },
-                "fr": {
-                  "type": "string"
-                },
-                "de": {
-                  "type": "string"
-                },
-                "ja": {
-                  "type": "string"
-                },
-                "ko": {
-                  "type": "string"
-                },
-                "pt": {
-                  "type": "string"
-                },
-                "ru": {
-                  "type": "string"
-                }
-              },
-              "required": [
-                "ar",
-                "zh-Hans",
-                "zh-Hant",
-                "en",
-                "fr",
-                "de",
-                "ja",
-                "ko",
-                "pt",
-                "ru"
-              ]
-            }
-          },
-          "required": [
-            "value"
-          ]
+          "$ref": "#/$defs/DynamicEnumeration"
         }
       ]
     },
     "optional": {
+      "$ref": "#/$defs/DynamicEnumeration"
+    },
+    "faint": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/DynamicEnumeration"
+        }
+      ]
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/DynamicEnumeration"
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "array"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "DynamicEnumeration": {
       "type": "object",
       "properties": {
         "value": {
@@ -155,152 +78,12 @@
               "type": "string"
             }
           },
-          "required": [
-            "ar",
-            "zh-Hans",
-            "zh-Hant",
-            "en",
-            "fr",
-            "de",
-            "ja",
-            "ko",
-            "pt",
-            "ru"
-          ]
+          "required": []
         }
       },
       "required": [
         "value"
       ]
-    },
-    "faint": {
-      "oneOf": [
-        {
-          "type": "null"
-        },
-        {
-          "type": "object",
-          "properties": {
-            "value": {
-              "type": "object",
-              "properties": {
-                "ar": {
-                  "type": "string"
-                },
-                "zh-Hans": {
-                  "type": "string"
-                },
-                "zh-Hant": {
-                  "type": "string"
-                },
-                "en": {
-                  "type": "string"
-                },
-                "fr": {
-                  "type": "string"
-                },
-                "de": {
-                  "type": "string"
-                },
-                "ja": {
-                  "type": "string"
-                },
-                "ko": {
-                  "type": "string"
-                },
-                "pt": {
-                  "type": "string"
-                },
-                "ru": {
-                  "type": "string"
-                }
-              },
-              "required": [
-                "ar",
-                "zh-Hans",
-                "zh-Hant",
-                "en",
-                "fr",
-                "de",
-                "ja",
-                "ko",
-                "pt",
-                "ru"
-              ]
-            }
-          },
-          "required": [
-            "value"
-          ]
-        }
-      ]
-    },
-    "array": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "value": {
-            "type": "object",
-            "properties": {
-              "ar": {
-                "type": "string"
-              },
-              "zh-Hans": {
-                "type": "string"
-              },
-              "zh-Hant": {
-                "type": "string"
-              },
-              "en": {
-                "type": "string"
-              },
-              "fr": {
-                "type": "string"
-              },
-              "de": {
-                "type": "string"
-              },
-              "ja": {
-                "type": "string"
-              },
-              "ko": {
-                "type": "string"
-              },
-              "pt": {
-                "type": "string"
-              },
-              "ru": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "ar",
-              "zh-Hans",
-              "zh-Hant",
-              "en",
-              "fr",
-              "de",
-              "ja",
-              "ko",
-              "pt",
-              "ru"
-            ]
-          }
-        },
-        "required": [
-          "value"
-        ]
-      }
     }
-  },
-  "required": [
-    "regular",
-    "nullable",
-    "optional",
-    "faint",
-    "array"
-  ],
-  "additionalProperties": false,
-  "$defs": {}
+  }
 }

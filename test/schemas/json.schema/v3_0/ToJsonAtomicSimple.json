@@ -1,0 +1,28 @@
+{
+  "version": "3.0",
+  "components": {
+    "schemas": {
+      "ToJsonAtomicSimple": {
+        "type": "array",
+        "items": {
+          "oneOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        },
+        "minItems": 3,
+        "maxItems": 3
+      }
+    }
+  },
+  "schema": {
+    "$ref": "#/components/schemas/ToJsonAtomicSimple"
+  }
+}

@@ -1,8 +1,8 @@
 {
   "model": "3.0",
   "options": {
-    "constraint": false,
     "recursive": 3,
+    "constraint": true,
     "separate": null
   },
   "functions": [
@@ -60,16 +60,17 @@
                 "maxItems",
                 "both"
               ],
+              "description": "Current Type: {@link CommentTagArrayUnion.Type}",
               "additionalProperties": false
-            }
+            },
+            "description": "Current Type: {@link CommentTagArrayUnion}"
           }
         },
         "required": [
           "first"
         ],
         "additionalProperties": false
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -125,8 +126,10 @@
                 "maxItems",
                 "both"
               ],
+              "description": "Current Type: {@link CommentTagArrayUnion.Type}",
               "additionalProperties": false
-            }
+            },
+            "description": "Current Type: {@link CommentTagArrayUnion}"
           },
           "second": {
             "type": "array",
@@ -177,6 +180,7 @@
                 "maxItems",
                 "both"
               ],
+              "description": "Current Type: {@link CommentTagArrayUnion.Type}",
               "additionalProperties": false
             },
             "nullable": true
@@ -237,10 +241,11 @@
             "maxItems",
             "both"
           ],
+          "description": "Current Type: {@link CommentTagArrayUnion.Type}",
           "additionalProperties": false
-        }
-      },
-      "strict": true
+        },
+        "description": "Current Type: {@link CommentTagArrayUnion}"
+      }
     },
     {
       "name": "coalesce",
@@ -296,6 +301,7 @@
                 "maxItems",
                 "both"
               ],
+              "description": "Current Type: {@link CommentTagArrayUnion.Type}",
               "additionalProperties": false
             },
             "nullable": true
@@ -349,6 +355,7 @@
                 "maxItems",
                 "both"
               ],
+              "description": "Current Type: {@link CommentTagArrayUnion.Type}",
               "additionalProperties": false
             },
             "nullable": true
@@ -402,6 +409,7 @@
                 "maxItems",
                 "both"
               ],
+              "description": "Current Type: {@link CommentTagArrayUnion.Type}",
               "additionalProperties": false
             },
             "nullable": true
@@ -462,11 +470,11 @@
             "maxItems",
             "both"
           ],
+          "description": "Current Type: {@link CommentTagArrayUnion.Type}",
           "additionalProperties": false
         },
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

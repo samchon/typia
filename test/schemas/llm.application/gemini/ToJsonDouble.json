@@ -23,14 +23,14 @@
             "required": [
               "id",
               "flag"
-            ]
+            ],
+            "description": "Current Type: {@link ToJsonDouble.Child}"
           }
         },
         "required": [
           "first"
         ]
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -50,7 +50,8 @@
             "required": [
               "id",
               "flag"
-            ]
+            ],
+            "description": "Current Type: {@link ToJsonDouble.Child}"
           },
           "second": {
             "type": "object",
@@ -87,9 +88,9 @@
         "required": [
           "id",
           "flag"
-        ]
-      },
-      "strict": true
+        ],
+        "description": "Current Type: {@link ToJsonDouble.Child}"
+      }
     },
     {
       "name": "coalesce",
@@ -165,8 +166,7 @@
           "flag"
         ],
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

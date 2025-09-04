@@ -5,8 +5,12 @@ import { _test_functional_assertEqualsParameters } from "../../internal/_test_fu
 import { TupleRestAtomic } from "../../structures/TupleRestAtomic";
 
 export const test_functional_assertEqualsParametersCustom_TupleRestAtomic =
-  _test_functional_assertEqualsParameters(CustomGuardError)("TupleRestAtomic")(
-    TupleRestAtomic,
-  )((p: (input: TupleRestAtomic) => TupleRestAtomic) =>
-    typia.functional.assertEqualsParameters(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertEqualsParameters(CustomGuardError)(
+      "TupleRestAtomic",
+    )(TupleRestAtomic)((p: (input: TupleRestAtomic) => TupleRestAtomic) =>
+      typia.functional.assertEqualsParameters(
+        p,
+        (p) => new CustomGuardError(p),
+      ),
+    );

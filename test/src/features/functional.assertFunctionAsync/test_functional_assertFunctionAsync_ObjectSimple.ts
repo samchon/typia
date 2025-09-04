@@ -5,8 +5,9 @@ import { _test_functional_assertFunctionAsync } from "../../internal/_test_funct
 import { ObjectSimple } from "../../structures/ObjectSimple";
 
 export const test_functional_assertFunctionAsync_ObjectSimple =
-  _test_functional_assertFunctionAsync(TypeGuardError)("ObjectSimple")(
-    ObjectSimple,
-  )((p: (input: ObjectSimple) => Promise<ObjectSimple>) =>
-    typia.functional.assertFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertFunctionAsync(TypeGuardError)("ObjectSimple")(
+      ObjectSimple,
+    )((p: (input: ObjectSimple) => Promise<ObjectSimple>) =>
+      typia.functional.assertFunction(p),
+    );

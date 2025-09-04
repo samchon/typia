@@ -4,10 +4,13 @@ import { _test_functional_equalsReturnAsync } from "../../internal/_test_functio
 import { ConstantConstEnumeration } from "../../structures/ConstantConstEnumeration";
 
 export const test_functional_equalsReturnAsync_ConstantConstEnumeration =
-  _test_functional_equalsReturnAsync("ConstantConstEnumeration")(
-    ConstantConstEnumeration,
-  )(
-    (
-      p: (input: ConstantConstEnumeration) => Promise<ConstantConstEnumeration>,
-    ) => typia.functional.equalsReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_equalsReturnAsync("ConstantConstEnumeration")(
+      ConstantConstEnumeration,
+    )(
+      (
+        p: (
+          input: ConstantConstEnumeration,
+        ) => Promise<ConstantConstEnumeration>,
+      ) => typia.functional.equalsReturn(p),
+    );

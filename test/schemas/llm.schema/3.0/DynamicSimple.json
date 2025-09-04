@@ -13,5 +13,6 @@
   "required": [
     "value"
   ],
+  "description": "Current Type: {@link DynamicSimple}",
   "additionalProperties": false
 }

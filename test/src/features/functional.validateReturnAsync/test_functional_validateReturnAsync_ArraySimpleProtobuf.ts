@@ -4,8 +4,9 @@ import { _test_functional_validateReturnAsync } from "../../internal/_test_funct
 import { ArraySimpleProtobuf } from "../../structures/ArraySimpleProtobuf";
 
 export const test_functional_validateReturnAsync_ArraySimpleProtobuf =
-  _test_functional_validateReturnAsync("ArraySimpleProtobuf")(
-    ArraySimpleProtobuf,
-  )((p: (input: ArraySimpleProtobuf) => Promise<ArraySimpleProtobuf>) =>
-    typia.functional.validateReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateReturnAsync("ArraySimpleProtobuf")(
+      ArraySimpleProtobuf,
+    )((p: (input: ArraySimpleProtobuf) => Promise<ArraySimpleProtobuf>) =>
+      typia.functional.validateReturn(p),
+    );

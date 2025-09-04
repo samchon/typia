@@ -2,19 +2,7 @@
   "type": "object",
   "properties": {
     "regular": {
-      "type": "object",
-      "properties": {},
-      "required": [],
-      "additionalProperties": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "number"
-          }
-        ]
-      }
+      "$ref": "#/$defs/DynamicUnion"
     },
     "nullable": {
       "oneOf": [
@@ -22,23 +10,38 @@
           "type": "null"
         },
         {
-          "type": "object",
-          "properties": {},
-          "required": [],
-          "additionalProperties": {
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "number"
-              }
-            ]
-          }
+          "$ref": "#/$defs/DynamicUnion"
         }
       ]
     },
     "optional": {
+      "$ref": "#/$defs/DynamicUnion"
+    },
+    "faint": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/DynamicUnion"
+        }
+      ]
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/DynamicUnion"
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "array"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "DynamicUnion": {
       "type": "object",
       "properties": {},
       "required": [],
@@ -52,55 +55,6 @@
           }
         ]
       }
-    },
-    "faint": {
-      "oneOf": [
-        {
-          "type": "null"
-        },
-        {
-          "type": "object",
-          "properties": {},
-          "required": [],
-          "additionalProperties": {
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "number"
-              }
-            ]
-          }
-        }
-      ]
-    },
-    "array": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {},
-        "required": [],
-        "additionalProperties": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "number"
-            }
-          ]
-        }
-      }
     }
-  },
-  "required": [
-    "regular",
-    "nullable",
-    "optional",
-    "faint",
-    "array"
-  ],
-  "additionalProperties": false,
-  "$defs": {}
+  }
 }

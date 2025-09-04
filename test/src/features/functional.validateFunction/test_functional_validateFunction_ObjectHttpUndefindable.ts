@@ -4,8 +4,9 @@ import { _test_functional_validateFunction } from "../../internal/_test_function
 import { ObjectHttpUndefindable } from "../../structures/ObjectHttpUndefindable";
 
 export const test_functional_validateFunction_ObjectHttpUndefindable =
-  _test_functional_validateFunction("ObjectHttpUndefindable")(
-    ObjectHttpUndefindable,
-  )((p: (input: ObjectHttpUndefindable) => ObjectHttpUndefindable) =>
-    typia.functional.validateFunction(p),
-  );
+  (): void =>
+    _test_functional_validateFunction("ObjectHttpUndefindable")(
+      ObjectHttpUndefindable,
+    )((p: (input: ObjectHttpUndefindable) => ObjectHttpUndefindable) =>
+      typia.functional.validateFunction(p),
+    );

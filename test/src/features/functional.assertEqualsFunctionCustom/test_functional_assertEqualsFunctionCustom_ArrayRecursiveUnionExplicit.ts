@@ -5,9 +5,15 @@ import { _test_functional_assertEqualsFunction } from "../../internal/_test_func
 import { ArrayRecursiveUnionExplicit } from "../../structures/ArrayRecursiveUnionExplicit";
 
 export const test_functional_assertEqualsFunctionCustom_ArrayRecursiveUnionExplicit =
-  _test_functional_assertEqualsFunction(CustomGuardError)(
-    "ArrayRecursiveUnionExplicit",
-  )(ArrayRecursiveUnionExplicit)(
-    (p: (input: ArrayRecursiveUnionExplicit) => ArrayRecursiveUnionExplicit) =>
-      typia.functional.assertEqualsFunction(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertEqualsFunction(CustomGuardError)(
+      "ArrayRecursiveUnionExplicit",
+    )(ArrayRecursiveUnionExplicit)(
+      (
+        p: (input: ArrayRecursiveUnionExplicit) => ArrayRecursiveUnionExplicit,
+      ) =>
+        typia.functional.assertEqualsFunction(
+          p,
+          (p) => new CustomGuardError(p),
+        ),
+    );

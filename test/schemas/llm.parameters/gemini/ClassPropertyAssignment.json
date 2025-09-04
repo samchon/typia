@@ -32,7 +32,8 @@
         "note",
         "editable",
         "incremental"
-      ]
+      ],
+      "description": "Current Type: {@link ClassPropertyAssignment}"
     },
     "nullable": {
       "type": "object",
@@ -99,7 +100,8 @@
         "note",
         "editable",
         "incremental"
-      ]
+      ],
+      "description": "Current Type: {@link ClassPropertyAssignment}"
     },
     "faint": {
       "type": "object",
@@ -168,7 +170,8 @@
           "note",
           "editable",
           "incremental"
-        ]
+        ],
+        "description": "Current Type: {@link ClassPropertyAssignment}"
       }
     }
   },

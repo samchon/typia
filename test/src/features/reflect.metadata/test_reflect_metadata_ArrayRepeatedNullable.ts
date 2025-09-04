@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_reflect_metadata } from "../../internal/_test_reflect_metadata";
 import { ArrayRepeatedNullable } from "../../structures/ArrayRepeatedNullable";
 
-export const test_reflect_metadata_ArrayRepeatedNullable =
+export const test_reflect_metadata_ArrayRepeatedNullable = (): void =>
   _test_reflect_metadata("ArrayRepeatedNullable")(
     typia.reflect.metadata<[ArrayRepeatedNullable]>(),
   );

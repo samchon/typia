@@ -5,8 +5,7 @@ import { TestStructure } from "../helpers/TestStructure";
 export const _test_functional_equalsReturn =
   (name: string) =>
   <T>(factory: TestStructure<T>) =>
-  (validate: (p: (input: T) => T) => (input: T) => T | null) =>
-  () => {
+  (validate: (p: (input: T) => T) => (input: T) => T | null): void => {
     const task = (callback: (input: T) => [T, T]) => {
       {
         // SUCCESS

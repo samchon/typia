@@ -5,9 +5,10 @@ import { _test_functional_assertEqualsReturn } from "../../internal/_test_functi
 import { ObjectUnionNonPredictable } from "../../structures/ObjectUnionNonPredictable";
 
 export const test_functional_assertEqualsReturn_ObjectUnionNonPredictable =
-  _test_functional_assertEqualsReturn(TypeGuardError)(
-    "ObjectUnionNonPredictable",
-  )(ObjectUnionNonPredictable)(
-    (p: (input: ObjectUnionNonPredictable) => ObjectUnionNonPredictable) =>
-      typia.functional.assertEqualsReturn(p),
-  );
+  (): void =>
+    _test_functional_assertEqualsReturn(TypeGuardError)(
+      "ObjectUnionNonPredictable",
+    )(ObjectUnionNonPredictable)(
+      (p: (input: ObjectUnionNonPredictable) => ObjectUnionNonPredictable) =>
+        typia.functional.assertEqualsReturn(p),
+    );

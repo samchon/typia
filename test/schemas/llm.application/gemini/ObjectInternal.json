@@ -23,14 +23,14 @@
             "required": [
               "id",
               "name"
-            ]
+            ],
+            "description": "Current Type: {@link ObjectInternal}"
           }
         },
         "required": [
           "first"
         ]
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -50,7 +50,8 @@
             "required": [
               "id",
               "name"
-            ]
+            ],
+            "description": "Current Type: {@link ObjectInternal}"
           },
           "second": {
             "type": "object",
@@ -87,9 +88,9 @@
         "required": [
           "id",
           "name"
-        ]
-      },
-      "strict": true
+        ],
+        "description": "Current Type: {@link ObjectInternal}"
+      }
     },
     {
       "name": "coalesce",
@@ -165,8 +166,7 @@
           "name"
         ],
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

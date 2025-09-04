@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_functional_assertEqualsParameters } from "../../internal/_test_functional_assertEqualsParameters";
 import { ToJsonTuple } from "../../structures/ToJsonTuple";
 
-export const test_functional_assertEqualsParameters_ToJsonTuple =
+export const test_functional_assertEqualsParameters_ToJsonTuple = (): void =>
   _test_functional_assertEqualsParameters(TypeGuardError)("ToJsonTuple")(
     ToJsonTuple,
   )((p: (input: ToJsonTuple) => ToJsonTuple) =>

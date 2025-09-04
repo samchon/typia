@@ -5,9 +5,11 @@ import { _test_functional_assertEqualsReturnAsync } from "../../internal/_test_f
 import { FunctionalPropertyUnion } from "../../structures/FunctionalPropertyUnion";
 
 export const test_functional_assertEqualsReturnAsync_FunctionalPropertyUnion =
-  _test_functional_assertEqualsReturnAsync(TypeGuardError)(
-    "FunctionalPropertyUnion",
-  )(FunctionalPropertyUnion)(
-    (p: (input: FunctionalPropertyUnion) => Promise<FunctionalPropertyUnion>) =>
-      typia.functional.assertEqualsReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsReturnAsync(TypeGuardError)(
+      "FunctionalPropertyUnion",
+    )(FunctionalPropertyUnion)(
+      (
+        p: (input: FunctionalPropertyUnion) => Promise<FunctionalPropertyUnion>,
+      ) => typia.functional.assertEqualsReturn(p),
+    );

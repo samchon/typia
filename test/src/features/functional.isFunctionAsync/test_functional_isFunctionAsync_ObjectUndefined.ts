@@ -4,7 +4,8 @@ import { _test_functional_isFunctionAsync } from "../../internal/_test_functiona
 import { ObjectUndefined } from "../../structures/ObjectUndefined";
 
 export const test_functional_isFunctionAsync_ObjectUndefined =
-  _test_functional_isFunctionAsync("ObjectUndefined")(ObjectUndefined)(
-    (p: (input: ObjectUndefined) => Promise<ObjectUndefined>) =>
-      typia.functional.isFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_isFunctionAsync("ObjectUndefined")(ObjectUndefined)(
+      (p: (input: ObjectUndefined) => Promise<ObjectUndefined>) =>
+        typia.functional.isFunction(p),
+    );

@@ -1,4 +1,3 @@
-import cp from "child_process";
 import fs from "fs";
 
 import { TestStructure } from "./TestStructure";
@@ -7,9 +6,10 @@ export namespace TestReflectMetadataGenerator {
   export const generate = async (
     structures: TestStructure<any>[],
   ): Promise<void> => {
-    const path: string = `${__dirname}/../../src/features/reflect.metadata`;
-    if (fs.existsSync(path)) cp.execSync("npx rimraf " + path);
-    await fs.promises.mkdir(path);
+    const location: string = `${__dirname}/../../src/features/reflect.metadata`;
+    if (fs.existsSync(location) === true)
+      await fs.promises.rm(location, { recursive: true });
+    await fs.promises.mkdir(location, { recursive: true });
 
     for (const s of structures) {
       const content: string = [
@@ -17,13 +17,13 @@ export namespace TestReflectMetadataGenerator {
         `import { ${s.name} } from "../../structures/${s.name}";`,
         `import { _test_reflect_metadata } from "../../internal/_test_reflect_metadata";`,
         "",
-        `export const test_reflect_metadata_${s.name} = `,
+        `export const test_reflect_metadata_${s.name} = (): void =>`,
         `  _test_reflect_metadata("${s.name}")(`,
         `    typia.reflect.metadata<[${s.name}]>()`,
         `  );`,
       ].join("\n");
       await fs.promises.writeFile(
-        `${path}/test_reflect_metadata_${s.name}.ts`,
+        `${location}/test_reflect_metadata_${s.name}.ts`,
         content,
         "utf8",
       );

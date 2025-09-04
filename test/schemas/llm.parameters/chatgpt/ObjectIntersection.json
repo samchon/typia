@@ -2,24 +2,7 @@
   "type": "object",
   "properties": {
     "regular": {
-      "type": "object",
-      "properties": {
-        "email": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        },
-        "vulnerable": {
-          "type": "boolean"
-        }
-      },
-      "required": [
-        "email",
-        "name",
-        "vulnerable"
-      ],
-      "additionalProperties": false
+      "$ref": "#/$defs/ObjectIntersection"
     },
     "nullable": {
       "anyOf": [
@@ -27,28 +10,38 @@
           "type": "null"
         },
         {
-          "type": "object",
-          "properties": {
-            "email": {
-              "type": "string"
-            },
-            "name": {
-              "type": "string"
-            },
-            "vulnerable": {
-              "type": "boolean"
-            }
-          },
-          "required": [
-            "email",
-            "name",
-            "vulnerable"
-          ],
-          "additionalProperties": false
+          "$ref": "#/$defs/ObjectIntersection"
         }
       ]
     },
     "optional": {
+      "$ref": "#/$defs/ObjectIntersection"
+    },
+    "faint": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/ObjectIntersection"
+        }
+      ]
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ObjectIntersection"
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "array"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "ObjectIntersection": {
       "type": "object",
       "properties": {
         "email": {
@@ -65,67 +58,7 @@
         "email",
         "name",
         "vulnerable"
-      ],
-      "additionalProperties": false
-    },
-    "faint": {
-      "anyOf": [
-        {
-          "type": "null"
-        },
-        {
-          "type": "object",
-          "properties": {
-            "email": {
-              "type": "string"
-            },
-            "name": {
-              "type": "string"
-            },
-            "vulnerable": {
-              "type": "boolean"
-            }
-          },
-          "required": [
-            "email",
-            "name",
-            "vulnerable"
-          ],
-          "additionalProperties": false
-        }
       ]
-    },
-    "array": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "email": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "vulnerable": {
-            "type": "boolean"
-          }
-        },
-        "required": [
-          "email",
-          "name",
-          "vulnerable"
-        ],
-        "additionalProperties": false
-      }
     }
-  },
-  "required": [
-    "regular",
-    "nullable",
-    "optional",
-    "faint",
-    "array"
-  ],
-  "additionalProperties": false,
-  "$defs": {}
+  }
 }

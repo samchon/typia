@@ -18,8 +18,7 @@
         "id",
         "name",
         "age"
-      ],
-      "additionalProperties": false
+      ]
     },
     "nullable": {
       "anyOf": [
@@ -43,8 +42,7 @@
             "id",
             "name",
             "age"
-          ],
-          "additionalProperties": false
+          ]
         }
       ]
     },
@@ -65,8 +63,7 @@
         "id",
         "name",
         "age"
-      ],
-      "additionalProperties": false
+      ]
     },
     "faint": {
       "anyOf": [
@@ -90,8 +87,7 @@
             "id",
             "name",
             "age"
-          ],
-          "additionalProperties": false
+          ]
         }
       ]
     },
@@ -114,16 +110,13 @@
           "id",
           "name",
           "age"
-        ],
-        "additionalProperties": false
+        ]
       }
     }
   },
   "required": [
     "regular",
     "nullable",
-    "optional",
-    "faint",
     "array"
   ],
   "additionalProperties": false,

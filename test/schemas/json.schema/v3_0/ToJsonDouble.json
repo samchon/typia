@@ -1,0 +1,25 @@
+{
+  "version": "3.0",
+  "components": {
+    "schemas": {
+      "ToJsonDouble.Child": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "flag": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "flag"
+        ]
+      }
+    }
+  },
+  "schema": {
+    "$ref": "#/components/schemas/ToJsonDouble.Child"
+  }
+}

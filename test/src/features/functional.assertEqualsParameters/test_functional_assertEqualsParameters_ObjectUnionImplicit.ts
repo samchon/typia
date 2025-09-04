@@ -5,9 +5,10 @@ import { _test_functional_assertEqualsParameters } from "../../internal/_test_fu
 import { ObjectUnionImplicit } from "../../structures/ObjectUnionImplicit";
 
 export const test_functional_assertEqualsParameters_ObjectUnionImplicit =
-  _test_functional_assertEqualsParameters(TypeGuardError)(
-    "ObjectUnionImplicit",
-  )(ObjectUnionImplicit)(
-    (p: (input: ObjectUnionImplicit) => ObjectUnionImplicit) =>
-      typia.functional.assertEqualsParameters(p),
-  );
+  (): void =>
+    _test_functional_assertEqualsParameters(TypeGuardError)(
+      "ObjectUnionImplicit",
+    )(ObjectUnionImplicit)(
+      (p: (input: ObjectUnionImplicit) => ObjectUnionImplicit) =>
+        typia.functional.assertEqualsParameters(p),
+    );

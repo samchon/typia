@@ -5,8 +5,10 @@ import { _test_functional_assertEqualsParameters } from "../../internal/_test_fu
 import { ObjectGenericAlias } from "../../structures/ObjectGenericAlias";
 
 export const test_functional_assertEqualsParameters_ObjectGenericAlias =
-  _test_functional_assertEqualsParameters(TypeGuardError)("ObjectGenericAlias")(
-    ObjectGenericAlias,
-  )((p: (input: ObjectGenericAlias) => ObjectGenericAlias) =>
-    typia.functional.assertEqualsParameters(p),
-  );
+  (): void =>
+    _test_functional_assertEqualsParameters(TypeGuardError)(
+      "ObjectGenericAlias",
+    )(ObjectGenericAlias)(
+      (p: (input: ObjectGenericAlias) => ObjectGenericAlias) =>
+        typia.functional.assertEqualsParameters(p),
+    );

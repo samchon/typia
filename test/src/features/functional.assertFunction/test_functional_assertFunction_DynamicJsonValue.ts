@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_functional_assertFunction } from "../../internal/_test_functional_assertFunction";
 import { DynamicJsonValue } from "../../structures/DynamicJsonValue";
 
-export const test_functional_assertFunction_DynamicJsonValue =
+export const test_functional_assertFunction_DynamicJsonValue = (): void =>
   _test_functional_assertFunction(TypeGuardError)("DynamicJsonValue")(
     DynamicJsonValue,
   )((p: (input: DynamicJsonValue) => DynamicJsonValue) =>

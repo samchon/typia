@@ -12,5 +12,6 @@
     "id",
     "name"
   ],
+  "description": "Current Type: {@link ObjectInternal}",
   "additionalProperties": false
 }

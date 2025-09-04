@@ -4,8 +4,9 @@ import { _test_functional_validateReturnAsync } from "../../internal/_test_funct
 import { ObjectUnionExplicit } from "../../structures/ObjectUnionExplicit";
 
 export const test_functional_validateReturnAsync_ObjectUnionExplicit =
-  _test_functional_validateReturnAsync("ObjectUnionExplicit")(
-    ObjectUnionExplicit,
-  )((p: (input: ObjectUnionExplicit) => Promise<ObjectUnionExplicit>) =>
-    typia.functional.validateReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateReturnAsync("ObjectUnionExplicit")(
+      ObjectUnionExplicit,
+    )((p: (input: ObjectUnionExplicit) => Promise<ObjectUnionExplicit>) =>
+      typia.functional.validateReturn(p),
+    );

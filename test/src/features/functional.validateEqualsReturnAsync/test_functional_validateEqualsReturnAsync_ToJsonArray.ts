@@ -4,7 +4,8 @@ import { _test_functional_validateEqualsReturnAsync } from "../../internal/_test
 import { ToJsonArray } from "../../structures/ToJsonArray";
 
 export const test_functional_validateEqualsReturnAsync_ToJsonArray =
-  _test_functional_validateEqualsReturnAsync("ToJsonArray")(ToJsonArray)(
-    (p: (input: ToJsonArray) => Promise<ToJsonArray>) =>
-      typia.functional.validateEqualsReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateEqualsReturnAsync("ToJsonArray")(ToJsonArray)(
+      (p: (input: ToJsonArray) => Promise<ToJsonArray>) =>
+        typia.functional.validateEqualsReturn(p),
+    );

@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_functional_assertEqualsReturn } from "../../internal/_test_functional_assertEqualsReturn";
 import { ObjectHttpTypeTag } from "../../structures/ObjectHttpTypeTag";
 
-export const test_functional_assertEqualsReturn_ObjectHttpTypeTag =
+export const test_functional_assertEqualsReturn_ObjectHttpTypeTag = (): void =>
   _test_functional_assertEqualsReturn(TypeGuardError)("ObjectHttpTypeTag")(
     ObjectHttpTypeTag,
   )((p: (input: ObjectHttpTypeTag) => ObjectHttpTypeTag) =>

@@ -1,8 +1,8 @@
 {
   "model": "3.1",
   "options": {
-    "constraint": false,
-    "reference": false,
+    "reference": true,
+    "constraint": true,
     "separate": null
   },
   "functions": [
@@ -49,8 +49,7 @@
             }
           }
         }
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -109,8 +108,7 @@
       },
       "output": {
         "$ref": "#/$defs/DynamicTree"
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -150,8 +148,7 @@
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
         "$defs": {
@@ -194,8 +191,7 @@
             "$ref": "#/$defs/DynamicTree"
           }
         ]
-      },
-      "strict": true
+      }
     }
   ]
 }

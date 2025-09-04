@@ -3,10 +3,12 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { DynamicNever } from "../../../structures/DynamicNever";
 
-export const test_llm_application_chatgpt_DynamicNever = _test_llm_application({
-  model: "chatgpt",
-  name: "DynamicNever",
-})(typia.llm.application<DynamicNeverApplication, "chatgpt">());
+export const test_llm_application_chatgpt_DynamicNever = (): void =>
+  _test_llm_application({
+    model: "chatgpt",
+    name: "DynamicNever",
+    factory: DynamicNever,
+  })(typia.llm.application<DynamicNeverApplication, "chatgpt">());
 
 interface DynamicNeverApplication {
   insert(p: { first: DynamicNever }): Promise<void>;

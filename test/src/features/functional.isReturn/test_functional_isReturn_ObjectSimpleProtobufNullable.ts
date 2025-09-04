@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_functional_isReturn } from "../../internal/_test_functional_isReturn";
 import { ObjectSimpleProtobufNullable } from "../../structures/ObjectSimpleProtobufNullable";
 
-export const test_functional_isReturn_ObjectSimpleProtobufNullable =
+export const test_functional_isReturn_ObjectSimpleProtobufNullable = (): void =>
   _test_functional_isReturn("ObjectSimpleProtobufNullable")(
     ObjectSimpleProtobufNullable,
   )(

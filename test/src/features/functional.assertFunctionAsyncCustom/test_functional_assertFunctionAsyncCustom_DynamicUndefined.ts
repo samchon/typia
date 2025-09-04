@@ -5,8 +5,9 @@ import { _test_functional_assertFunctionAsync } from "../../internal/_test_funct
 import { DynamicUndefined } from "../../structures/DynamicUndefined";
 
 export const test_functional_assertFunctionAsyncCustom_DynamicUndefined =
-  _test_functional_assertFunctionAsync(CustomGuardError)("DynamicUndefined")(
-    DynamicUndefined,
-  )((p: (input: DynamicUndefined) => Promise<DynamicUndefined>) =>
-    typia.functional.assertFunction(p, (p) => new CustomGuardError(p)),
-  );
+  (): Promise<void> =>
+    _test_functional_assertFunctionAsync(CustomGuardError)("DynamicUndefined")(
+      DynamicUndefined,
+    )((p: (input: DynamicUndefined) => Promise<DynamicUndefined>) =>
+      typia.functional.assertFunction(p, (p) => new CustomGuardError(p)),
+    );

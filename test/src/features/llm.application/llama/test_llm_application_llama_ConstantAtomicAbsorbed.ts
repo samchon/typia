@@ -3,10 +3,11 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { ConstantAtomicAbsorbed } from "../../../structures/ConstantAtomicAbsorbed";
 
-export const test_llm_application_llama_ConstantAtomicAbsorbed =
+export const test_llm_application_llama_ConstantAtomicAbsorbed = (): void =>
   _test_llm_application({
     model: "llama",
     name: "ConstantAtomicAbsorbed",
+    factory: ConstantAtomicAbsorbed,
   })(typia.llm.application<ConstantAtomicAbsorbedApplication, "llama">());
 
 interface ConstantAtomicAbsorbedApplication {

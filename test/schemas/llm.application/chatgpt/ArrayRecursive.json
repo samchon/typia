@@ -1,7 +1,8 @@
 {
   "model": "chatgpt",
   "options": {
-    "reference": false,
+    "reference": true,
+    "strict": false,
     "separate": null
   },
   "functions": [
@@ -38,20 +39,7 @@
                 "type": "number"
               },
               "created_at": {
-                "type": "object",
-                "properties": {
-                  "time": {
-                    "type": "number"
-                  },
-                  "zone": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "time",
-                  "zone"
-                ],
-                "additionalProperties": false
+                "$ref": "#/$defs/ArrayRecursive.ITimestamp"
               }
             },
             "required": [
@@ -60,12 +48,25 @@
               "code",
               "sequence",
               "created_at"
-            ],
-            "additionalProperties": false
+            ]
+          },
+          "ArrayRecursive.ITimestamp": {
+            "type": "object",
+            "properties": {
+              "time": {
+                "type": "number"
+              },
+              "zone": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "time",
+              "zone"
+            ]
           }
         }
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -111,20 +112,7 @@
                 "type": "number"
               },
               "created_at": {
-                "type": "object",
-                "properties": {
-                  "time": {
-                    "type": "number"
-                  },
-                  "zone": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "time",
-                  "zone"
-                ],
-                "additionalProperties": false
+                "$ref": "#/$defs/ArrayRecursive.ITimestamp"
               }
             },
             "required": [
@@ -133,15 +121,28 @@
               "code",
               "sequence",
               "created_at"
-            ],
-            "additionalProperties": false
+            ]
+          },
+          "ArrayRecursive.ITimestamp": {
+            "type": "object",
+            "properties": {
+              "time": {
+                "type": "number"
+              },
+              "zone": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "time",
+              "zone"
+            ]
           }
         }
       },
       "output": {
         "$ref": "#/$defs/ArrayRecursive.ICategory"
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -181,8 +182,7 @@
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
         "$defs": {
@@ -205,20 +205,7 @@
                 "type": "number"
               },
               "created_at": {
-                "type": "object",
-                "properties": {
-                  "time": {
-                    "type": "number"
-                  },
-                  "zone": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "time",
-                  "zone"
-                ],
-                "additionalProperties": false
+                "$ref": "#/$defs/ArrayRecursive.ITimestamp"
               }
             },
             "required": [
@@ -227,8 +214,22 @@
               "code",
               "sequence",
               "created_at"
-            ],
-            "additionalProperties": false
+            ]
+          },
+          "ArrayRecursive.ITimestamp": {
+            "type": "object",
+            "properties": {
+              "time": {
+                "type": "number"
+              },
+              "zone": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "time",
+              "zone"
+            ]
           }
         }
       },
@@ -241,8 +242,7 @@
             "$ref": "#/$defs/ArrayRecursive.ICategory"
           }
         ]
-      },
-      "strict": true
+      }
     }
   ]
 }

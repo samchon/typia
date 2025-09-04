@@ -1,8 +1,8 @@
 {
   "model": "3.0",
   "options": {
-    "constraint": false,
     "recursive": 3,
+    "constraint": true,
     "separate": null
   },
   "functions": [
@@ -27,16 +27,17 @@
                   "type": "boolean",
                   "nullable": true
                 }
-              ]
-            }
+              ],
+              "description": "Current Type: {@link AtomicUnion.Union}"
+            },
+            "description": "Current Type: {@link AtomicUnion}"
           }
         },
         "required": [
           "first"
         ],
         "additionalProperties": false
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -59,8 +60,10 @@
                   "type": "boolean",
                   "nullable": true
                 }
-              ]
-            }
+              ],
+              "description": "Current Type: {@link AtomicUnion.Union}"
+            },
+            "description": "Current Type: {@link AtomicUnion}"
           },
           "second": {
             "type": "array",
@@ -78,7 +81,8 @@
                   "type": "boolean",
                   "nullable": true
                 }
-              ]
+              ],
+              "description": "Current Type: {@link AtomicUnion.Union}"
             },
             "nullable": true
           }
@@ -105,10 +109,11 @@
               "type": "boolean",
               "nullable": true
             }
-          ]
-        }
-      },
-      "strict": true
+          ],
+          "description": "Current Type: {@link AtomicUnion.Union}"
+        },
+        "description": "Current Type: {@link AtomicUnion}"
+      }
     },
     {
       "name": "coalesce",
@@ -131,7 +136,8 @@
                   "type": "boolean",
                   "nullable": true
                 }
-              ]
+              ],
+              "description": "Current Type: {@link AtomicUnion.Union}"
             },
             "nullable": true
           },
@@ -151,7 +157,8 @@
                   "type": "boolean",
                   "nullable": true
                 }
-              ]
+              ],
+              "description": "Current Type: {@link AtomicUnion.Union}"
             },
             "nullable": true
           },
@@ -171,7 +178,8 @@
                   "type": "boolean",
                   "nullable": true
                 }
-              ]
+              ],
+              "description": "Current Type: {@link AtomicUnion.Union}"
             },
             "nullable": true
           }
@@ -198,11 +206,11 @@
               "type": "boolean",
               "nullable": true
             }
-          ]
+          ],
+          "description": "Current Type: {@link AtomicUnion.Union}"
         },
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

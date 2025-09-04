@@ -10,9 +10,7 @@ export class MetadataArray {
 
   private name_?: string;
 
-  /**
-   * @hidden
-   */
+  /** @ignore */
   private constructor(props: ClassProperties<MetadataArray>) {
     this.type = props.type;
     this.tags = props.tags;

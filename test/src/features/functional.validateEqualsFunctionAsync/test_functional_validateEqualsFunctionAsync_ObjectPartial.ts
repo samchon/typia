@@ -4,7 +4,9 @@ import { _test_functional_validateEqualsFunctionAsync } from "../../internal/_te
 import { ObjectPartial } from "../../structures/ObjectPartial";
 
 export const test_functional_validateEqualsFunctionAsync_ObjectPartial =
-  _test_functional_validateEqualsFunctionAsync("ObjectPartial")(ObjectPartial)(
-    (p: (input: ObjectPartial) => Promise<ObjectPartial>) =>
+  (): Promise<void> =>
+    _test_functional_validateEqualsFunctionAsync("ObjectPartial")(
+      ObjectPartial,
+    )((p: (input: ObjectPartial) => Promise<ObjectPartial>) =>
       typia.functional.validateEqualsFunction(p),
-  );
+    );

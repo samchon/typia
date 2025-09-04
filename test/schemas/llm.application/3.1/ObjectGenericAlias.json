@@ -1,8 +1,8 @@
 {
   "model": "3.1",
   "options": {
-    "constraint": false,
-    "reference": false,
+    "reference": true,
+    "constraint": true,
     "separate": null
   },
   "functions": [
@@ -12,6 +12,15 @@
         "type": "object",
         "properties": {
           "first": {
+            "$ref": "#/$defs/ObjectGenericAlias.Alias"
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ObjectGenericAlias.Alias": {
             "type": "object",
             "properties": {
               "value": {
@@ -22,14 +31,8 @@
               "value"
             ]
           }
-        },
-        "required": [
-          "first"
-        ],
-        "additionalProperties": false,
-        "$defs": {}
-      },
-      "strict": true
+        }
+      }
     },
     {
       "name": "reduce",
@@ -37,15 +40,7 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "object",
-            "properties": {
-              "value": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "value"
-            ]
+            "$ref": "#/$defs/ObjectGenericAlias.Alias"
           },
           "second": {
             "oneOf": [
@@ -53,15 +48,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "value"
-                ]
+                "$ref": "#/$defs/ObjectGenericAlias.Alias"
               }
             ]
           }
@@ -71,20 +58,23 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "ObjectGenericAlias.Alias": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "value"
+            ]
+          }
+        }
       },
       "output": {
-        "type": "object",
-        "properties": {
-          "value": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "value"
-        ]
-      },
-      "strict": true
+        "$ref": "#/$defs/ObjectGenericAlias.Alias"
+      }
     },
     {
       "name": "coalesce",
@@ -97,15 +87,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "value"
-                ]
+                "$ref": "#/$defs/ObjectGenericAlias.Alias"
               }
             ]
           },
@@ -115,15 +97,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "value"
-                ]
+                "$ref": "#/$defs/ObjectGenericAlias.Alias"
               }
             ]
           },
@@ -133,33 +107,18 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "value"
-                ]
+                "$ref": "#/$defs/ObjectGenericAlias.Alias"
               }
             ]
           }
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "output": {
-        "oneOf": [
-          {
-            "type": "null"
-          },
-          {
+        "$defs": {
+          "ObjectGenericAlias.Alias": {
             "type": "object",
             "properties": {
               "value": {
@@ -170,9 +129,18 @@
               "value"
             ]
           }
-        ]
+        }
       },
-      "strict": true
+      "output": {
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "$ref": "#/$defs/ObjectGenericAlias.Alias"
+          }
+        ]
+      }
     }
   ]
 }

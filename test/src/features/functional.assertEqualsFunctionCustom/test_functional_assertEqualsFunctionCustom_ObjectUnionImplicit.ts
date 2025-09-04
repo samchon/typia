@@ -5,9 +5,13 @@ import { _test_functional_assertEqualsFunction } from "../../internal/_test_func
 import { ObjectUnionImplicit } from "../../structures/ObjectUnionImplicit";
 
 export const test_functional_assertEqualsFunctionCustom_ObjectUnionImplicit =
-  _test_functional_assertEqualsFunction(CustomGuardError)(
-    "ObjectUnionImplicit",
-  )(ObjectUnionImplicit)(
-    (p: (input: ObjectUnionImplicit) => ObjectUnionImplicit) =>
-      typia.functional.assertEqualsFunction(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertEqualsFunction(CustomGuardError)(
+      "ObjectUnionImplicit",
+    )(ObjectUnionImplicit)(
+      (p: (input: ObjectUnionImplicit) => ObjectUnionImplicit) =>
+        typia.functional.assertEqualsFunction(
+          p,
+          (p) => new CustomGuardError(p),
+        ),
+    );

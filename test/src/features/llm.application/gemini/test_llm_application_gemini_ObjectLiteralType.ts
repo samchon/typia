@@ -3,10 +3,11 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { ObjectLiteralType } from "../../../structures/ObjectLiteralType";
 
-export const test_llm_application_gemini_ObjectLiteralType =
+export const test_llm_application_gemini_ObjectLiteralType = (): void =>
   _test_llm_application({
     model: "gemini",
     name: "ObjectLiteralType",
+    factory: ObjectLiteralType,
   })(typia.llm.application<ObjectLiteralTypeApplication, "gemini">());
 
 interface ObjectLiteralTypeApplication {

@@ -4,12 +4,13 @@ import { _test_functional_isParametersAsync } from "../../internal/_test_functio
 import { ArraySimpleProtobufNullable } from "../../structures/ArraySimpleProtobufNullable";
 
 export const test_functional_isParametersAsync_ArraySimpleProtobufNullable =
-  _test_functional_isParametersAsync("ArraySimpleProtobufNullable")(
-    ArraySimpleProtobufNullable,
-  )(
-    (
-      p: (
-        input: ArraySimpleProtobufNullable,
-      ) => Promise<ArraySimpleProtobufNullable>,
-    ) => typia.functional.isParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_isParametersAsync("ArraySimpleProtobufNullable")(
+      ArraySimpleProtobufNullable,
+    )(
+      (
+        p: (
+          input: ArraySimpleProtobufNullable,
+        ) => Promise<ArraySimpleProtobufNullable>,
+      ) => typia.functional.isParameters(p),
+    );

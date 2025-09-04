@@ -5,8 +5,9 @@ import { _test_functional_assertReturnAsync } from "../../internal/_test_functio
 import { ObjectJsonTag } from "../../structures/ObjectJsonTag";
 
 export const test_functional_assertReturnAsync_ObjectJsonTag =
-  _test_functional_assertReturnAsync(TypeGuardError)("ObjectJsonTag")(
-    ObjectJsonTag,
-  )((p: (input: ObjectJsonTag) => Promise<ObjectJsonTag>) =>
-    typia.functional.assertReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertReturnAsync(TypeGuardError)("ObjectJsonTag")(
+      ObjectJsonTag,
+    )((p: (input: ObjectJsonTag) => Promise<ObjectJsonTag>) =>
+      typia.functional.assertReturn(p),
+    );

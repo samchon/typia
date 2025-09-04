@@ -1,7 +1,7 @@
 {
   "model": "claude",
   "options": {
-    "reference": false,
+    "reference": true,
     "separate": null
   },
   "functions": [
@@ -11,6 +11,15 @@
         "type": "object",
         "properties": {
           "first": {
+            "$ref": "#/$defs/ClassPropertyAssignment"
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ClassPropertyAssignment": {
             "type": "object",
             "properties": {
               "id": {
@@ -37,14 +46,8 @@
               "incremental"
             ]
           }
-        },
-        "required": [
-          "first"
-        ],
-        "additionalProperties": false,
-        "$defs": {}
-      },
-      "strict": true
+        }
+      }
     },
     {
       "name": "reduce",
@@ -52,6 +55,32 @@
         "type": "object",
         "properties": {
           "first": {
+            "$ref": "#/$defs/ClassPropertyAssignment"
+          },
+          "second": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/$defs/ClassPropertyAssignment"
+              }
+            ],
+            "discriminator": {
+              "propertyName": "note",
+              "mapping": {
+                "assignment": "#/$defs/ClassPropertyAssignment"
+              }
+            }
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ClassPropertyAssignment": {
             "type": "object",
             "properties": {
               "id": {
@@ -77,77 +106,12 @@
               "editable",
               "incremental"
             ]
-          },
-          "second": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "number"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "note": {
-                    "const": "assignment"
-                  },
-                  "editable": {
-                    "const": false
-                  },
-                  "incremental": {
-                    "type": "boolean"
-                  }
-                },
-                "required": [
-                  "id",
-                  "name",
-                  "note",
-                  "editable",
-                  "incremental"
-                ]
-              }
-            ]
           }
-        },
-        "required": [
-          "first",
-          "second"
-        ],
-        "additionalProperties": false,
-        "$defs": {}
+        }
       },
       "output": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "number"
-          },
-          "name": {
-            "type": "string"
-          },
-          "note": {
-            "const": "assignment"
-          },
-          "editable": {
-            "const": false
-          },
-          "incremental": {
-            "type": "boolean"
-          }
-        },
-        "required": [
-          "id",
-          "name",
-          "note",
-          "editable",
-          "incremental"
-        ]
-      },
-      "strict": true
+        "$ref": "#/$defs/ClassPropertyAssignment"
+      }
     },
     {
       "name": "coalesce",
@@ -160,33 +124,15 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "number"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "note": {
-                    "const": "assignment"
-                  },
-                  "editable": {
-                    "const": false
-                  },
-                  "incremental": {
-                    "type": "boolean"
-                  }
-                },
-                "required": [
-                  "id",
-                  "name",
-                  "note",
-                  "editable",
-                  "incremental"
-                ]
+                "$ref": "#/$defs/ClassPropertyAssignment"
               }
-            ]
+            ],
+            "discriminator": {
+              "propertyName": "note",
+              "mapping": {
+                "assignment": "#/$defs/ClassPropertyAssignment"
+              }
+            }
           },
           "second": {
             "oneOf": [
@@ -194,33 +140,15 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "number"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "note": {
-                    "const": "assignment"
-                  },
-                  "editable": {
-                    "const": false
-                  },
-                  "incremental": {
-                    "type": "boolean"
-                  }
-                },
-                "required": [
-                  "id",
-                  "name",
-                  "note",
-                  "editable",
-                  "incremental"
-                ]
+                "$ref": "#/$defs/ClassPropertyAssignment"
               }
-            ]
+            ],
+            "discriminator": {
+              "propertyName": "note",
+              "mapping": {
+                "assignment": "#/$defs/ClassPropertyAssignment"
+              }
+            }
           },
           "third": {
             "oneOf": [
@@ -228,49 +156,24 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "number"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "note": {
-                    "const": "assignment"
-                  },
-                  "editable": {
-                    "const": false
-                  },
-                  "incremental": {
-                    "type": "boolean"
-                  }
-                },
-                "required": [
-                  "id",
-                  "name",
-                  "note",
-                  "editable",
-                  "incremental"
-                ]
+                "$ref": "#/$defs/ClassPropertyAssignment"
               }
-            ]
+            ],
+            "discriminator": {
+              "propertyName": "note",
+              "mapping": {
+                "assignment": "#/$defs/ClassPropertyAssignment"
+              }
+            }
           }
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "output": {
-        "oneOf": [
-          {
-            "type": "null"
-          },
-          {
+        "$defs": {
+          "ClassPropertyAssignment": {
             "type": "object",
             "properties": {
               "id": {
@@ -297,9 +200,24 @@
               "incremental"
             ]
           }
-        ]
+        }
       },
-      "strict": true
+      "output": {
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "$ref": "#/$defs/ClassPropertyAssignment"
+          }
+        ],
+        "discriminator": {
+          "propertyName": "note",
+          "mapping": {
+            "assignment": "#/$defs/ClassPropertyAssignment"
+          }
+        }
+      }
     }
   ]
 }

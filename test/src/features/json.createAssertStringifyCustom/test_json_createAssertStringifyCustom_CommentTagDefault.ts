@@ -5,10 +5,11 @@ import { _test_json_assertStringify } from "../../internal/_test_json_assertStri
 import { CommentTagDefault } from "../../structures/CommentTagDefault";
 
 export const test_json_createAssertStringifyCustom_CommentTagDefault =
-  _test_json_assertStringify(CustomGuardError)(
-    "CommentTagDefault",
-  )<CommentTagDefault>(CommentTagDefault)(
-    typia.json.createAssertStringify<CommentTagDefault>(
-      (p) => new CustomGuardError(p),
-    ),
-  );
+  (): void =>
+    _test_json_assertStringify(CustomGuardError)(
+      "CommentTagDefault",
+    )<CommentTagDefault>(CommentTagDefault)(
+      typia.json.createAssertStringify<CommentTagDefault>(
+        (p) => new CustomGuardError(p),
+      ),
+    );

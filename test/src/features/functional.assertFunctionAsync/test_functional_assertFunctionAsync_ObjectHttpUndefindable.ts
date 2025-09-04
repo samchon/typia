@@ -5,9 +5,10 @@ import { _test_functional_assertFunctionAsync } from "../../internal/_test_funct
 import { ObjectHttpUndefindable } from "../../structures/ObjectHttpUndefindable";
 
 export const test_functional_assertFunctionAsync_ObjectHttpUndefindable =
-  _test_functional_assertFunctionAsync(TypeGuardError)(
-    "ObjectHttpUndefindable",
-  )(ObjectHttpUndefindable)(
-    (p: (input: ObjectHttpUndefindable) => Promise<ObjectHttpUndefindable>) =>
-      typia.functional.assertFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertFunctionAsync(TypeGuardError)(
+      "ObjectHttpUndefindable",
+    )(ObjectHttpUndefindable)(
+      (p: (input: ObjectHttpUndefindable) => Promise<ObjectHttpUndefindable>) =>
+        typia.functional.assertFunction(p),
+    );

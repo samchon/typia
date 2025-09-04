@@ -1,7 +1,8 @@
 {
   "model": "chatgpt",
   "options": {
-    "reference": false,
+    "reference": true,
+    "strict": false,
     "separate": null
   },
   "functions": [
@@ -11,68 +12,73 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "items": {
-                  "description": "@minItems 3\n@maxItems 3",
-                  "type": "array",
-                  "items": {
-                    "description": "@format uuid",
-                    "type": "string"
-                  }
-                },
-                "minItems": {
-                  "description": "@minItems 3",
-                  "type": "array",
-                  "items": {
-                    "description": "@minimum 3",
-                    "type": "number"
-                  }
-                },
-                "maxItems": {
-                  "description": "@maxItems 7",
-                  "type": "array",
-                  "items": {
-                    "anyOf": [
-                      {
-                        "type": "string",
-                        "description": "@maxLength 7"
-                      },
-                      {
-                        "type": "number",
-                        "description": "@maximum 7"
-                      }
-                    ]
-                  }
-                },
-                "both": {
-                  "description": "@minItems 3\n@maxItems 7",
-                  "type": "array",
-                  "items": {
-                    "description": "@format uuid",
-                    "type": "string"
-                  }
-                }
-              },
-              "required": [
-                "items",
-                "minItems",
-                "maxItems",
-                "both"
-              ],
-              "additionalProperties": false
-            }
+            "$ref": "#/$defs/TypeTagArrayUnion"
           }
         },
         "required": [
           "first"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "strict": true
+        "$defs": {
+          "TypeTagArrayUnion": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/TypeTagArrayUnion.Type"
+            }
+          },
+          "TypeTagArrayUnion.Type": {
+            "type": "object",
+            "properties": {
+              "items": {
+                "description": "@minItems 3\n@maxItems 3",
+                "type": "array",
+                "items": {
+                  "description": "@format uuid",
+                  "type": "string"
+                }
+              },
+              "minItems": {
+                "description": "@minItems 3",
+                "type": "array",
+                "items": {
+                  "description": "@minimum 3",
+                  "type": "number"
+                }
+              },
+              "maxItems": {
+                "description": "@maxItems 7",
+                "type": "array",
+                "items": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "description": "@maxLength 7"
+                    },
+                    {
+                      "type": "number",
+                      "description": "@maximum 7"
+                    }
+                  ]
+                }
+              },
+              "both": {
+                "description": "@minItems 3\n@maxItems 7",
+                "type": "array",
+                "items": {
+                  "description": "@format uuid",
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "items",
+              "minItems",
+              "maxItems",
+              "both"
+            ]
+          }
+        }
+      }
     },
     {
       "name": "reduce",
@@ -80,59 +86,7 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "items": {
-                  "description": "@minItems 3\n@maxItems 3",
-                  "type": "array",
-                  "items": {
-                    "description": "@format uuid",
-                    "type": "string"
-                  }
-                },
-                "minItems": {
-                  "description": "@minItems 3",
-                  "type": "array",
-                  "items": {
-                    "description": "@minimum 3",
-                    "type": "number"
-                  }
-                },
-                "maxItems": {
-                  "description": "@maxItems 7",
-                  "type": "array",
-                  "items": {
-                    "anyOf": [
-                      {
-                        "type": "string",
-                        "description": "@maxLength 7"
-                      },
-                      {
-                        "type": "number",
-                        "description": "@maximum 7"
-                      }
-                    ]
-                  }
-                },
-                "both": {
-                  "description": "@minItems 3\n@maxItems 7",
-                  "type": "array",
-                  "items": {
-                    "description": "@format uuid",
-                    "type": "string"
-                  }
-                }
-              },
-              "required": [
-                "items",
-                "minItems",
-                "maxItems",
-                "both"
-              ],
-              "additionalProperties": false
-            }
+            "$ref": "#/$defs/TypeTagArrayUnion"
           },
           "second": {
             "anyOf": [
@@ -140,59 +94,7 @@
                 "type": "null"
               },
               {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "items": {
-                      "description": "@minItems 3\n@maxItems 3",
-                      "type": "array",
-                      "items": {
-                        "description": "@format uuid",
-                        "type": "string"
-                      }
-                    },
-                    "minItems": {
-                      "description": "@minItems 3",
-                      "type": "array",
-                      "items": {
-                        "description": "@minimum 3",
-                        "type": "number"
-                      }
-                    },
-                    "maxItems": {
-                      "description": "@maxItems 7",
-                      "type": "array",
-                      "items": {
-                        "anyOf": [
-                          {
-                            "type": "string",
-                            "description": "@maxLength 7"
-                          },
-                          {
-                            "type": "number",
-                            "description": "@maximum 7"
-                          }
-                        ]
-                      }
-                    },
-                    "both": {
-                      "description": "@minItems 3\n@maxItems 7",
-                      "type": "array",
-                      "items": {
-                        "description": "@format uuid",
-                        "type": "string"
-                      }
-                    }
-                  },
-                  "required": [
-                    "items",
-                    "minItems",
-                    "maxItems",
-                    "both"
-                  ],
-                  "additionalProperties": false
-                }
+                "$ref": "#/$defs/TypeTagArrayUnion"
               }
             ]
           }
@@ -202,64 +104,69 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "output": {
-        "type": "array",
-        "items": {
-          "type": "object",
-          "properties": {
+        "$defs": {
+          "TypeTagArrayUnion": {
+            "type": "array",
             "items": {
-              "description": "@minItems 3\n@maxItems 3",
-              "type": "array",
-              "items": {
-                "description": "@format uuid",
-                "type": "string"
-              }
-            },
-            "minItems": {
-              "description": "@minItems 3",
-              "type": "array",
-              "items": {
-                "description": "@minimum 3",
-                "type": "number"
-              }
-            },
-            "maxItems": {
-              "description": "@maxItems 7",
-              "type": "array",
-              "items": {
-                "anyOf": [
-                  {
-                    "type": "string",
-                    "description": "@maxLength 7"
-                  },
-                  {
-                    "type": "number",
-                    "description": "@maximum 7"
-                  }
-                ]
-              }
-            },
-            "both": {
-              "description": "@minItems 3\n@maxItems 7",
-              "type": "array",
-              "items": {
-                "description": "@format uuid",
-                "type": "string"
-              }
+              "$ref": "#/$defs/TypeTagArrayUnion.Type"
             }
           },
-          "required": [
-            "items",
-            "minItems",
-            "maxItems",
-            "both"
-          ],
-          "additionalProperties": false
+          "TypeTagArrayUnion.Type": {
+            "type": "object",
+            "properties": {
+              "items": {
+                "description": "@minItems 3\n@maxItems 3",
+                "type": "array",
+                "items": {
+                  "description": "@format uuid",
+                  "type": "string"
+                }
+              },
+              "minItems": {
+                "description": "@minItems 3",
+                "type": "array",
+                "items": {
+                  "description": "@minimum 3",
+                  "type": "number"
+                }
+              },
+              "maxItems": {
+                "description": "@maxItems 7",
+                "type": "array",
+                "items": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "description": "@maxLength 7"
+                    },
+                    {
+                      "type": "number",
+                      "description": "@maximum 7"
+                    }
+                  ]
+                }
+              },
+              "both": {
+                "description": "@minItems 3\n@maxItems 7",
+                "type": "array",
+                "items": {
+                  "description": "@format uuid",
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "items",
+              "minItems",
+              "maxItems",
+              "both"
+            ]
+          }
         }
       },
-      "strict": true
+      "output": {
+        "$ref": "#/$defs/TypeTagArrayUnion"
+      }
     },
     {
       "name": "coalesce",
@@ -272,59 +179,7 @@
                 "type": "null"
               },
               {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "items": {
-                      "description": "@minItems 3\n@maxItems 3",
-                      "type": "array",
-                      "items": {
-                        "description": "@format uuid",
-                        "type": "string"
-                      }
-                    },
-                    "minItems": {
-                      "description": "@minItems 3",
-                      "type": "array",
-                      "items": {
-                        "description": "@minimum 3",
-                        "type": "number"
-                      }
-                    },
-                    "maxItems": {
-                      "description": "@maxItems 7",
-                      "type": "array",
-                      "items": {
-                        "anyOf": [
-                          {
-                            "type": "string",
-                            "description": "@maxLength 7"
-                          },
-                          {
-                            "type": "number",
-                            "description": "@maximum 7"
-                          }
-                        ]
-                      }
-                    },
-                    "both": {
-                      "description": "@minItems 3\n@maxItems 7",
-                      "type": "array",
-                      "items": {
-                        "description": "@format uuid",
-                        "type": "string"
-                      }
-                    }
-                  },
-                  "required": [
-                    "items",
-                    "minItems",
-                    "maxItems",
-                    "both"
-                  ],
-                  "additionalProperties": false
-                }
+                "$ref": "#/$defs/TypeTagArrayUnion"
               }
             ]
           },
@@ -334,59 +189,7 @@
                 "type": "null"
               },
               {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "items": {
-                      "description": "@minItems 3\n@maxItems 3",
-                      "type": "array",
-                      "items": {
-                        "description": "@format uuid",
-                        "type": "string"
-                      }
-                    },
-                    "minItems": {
-                      "description": "@minItems 3",
-                      "type": "array",
-                      "items": {
-                        "description": "@minimum 3",
-                        "type": "number"
-                      }
-                    },
-                    "maxItems": {
-                      "description": "@maxItems 7",
-                      "type": "array",
-                      "items": {
-                        "anyOf": [
-                          {
-                            "type": "string",
-                            "description": "@maxLength 7"
-                          },
-                          {
-                            "type": "number",
-                            "description": "@maximum 7"
-                          }
-                        ]
-                      }
-                    },
-                    "both": {
-                      "description": "@minItems 3\n@maxItems 7",
-                      "type": "array",
-                      "items": {
-                        "description": "@format uuid",
-                        "type": "string"
-                      }
-                    }
-                  },
-                  "required": [
-                    "items",
-                    "minItems",
-                    "maxItems",
-                    "both"
-                  ],
-                  "additionalProperties": false
-                }
+                "$ref": "#/$defs/TypeTagArrayUnion"
               }
             ]
           },
@@ -396,70 +199,75 @@
                 "type": "null"
               },
               {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "items": {
-                      "description": "@minItems 3\n@maxItems 3",
-                      "type": "array",
-                      "items": {
-                        "description": "@format uuid",
-                        "type": "string"
-                      }
-                    },
-                    "minItems": {
-                      "description": "@minItems 3",
-                      "type": "array",
-                      "items": {
-                        "description": "@minimum 3",
-                        "type": "number"
-                      }
-                    },
-                    "maxItems": {
-                      "description": "@maxItems 7",
-                      "type": "array",
-                      "items": {
-                        "anyOf": [
-                          {
-                            "type": "string",
-                            "description": "@maxLength 7"
-                          },
-                          {
-                            "type": "number",
-                            "description": "@maximum 7"
-                          }
-                        ]
-                      }
-                    },
-                    "both": {
-                      "description": "@minItems 3\n@maxItems 7",
-                      "type": "array",
-                      "items": {
-                        "description": "@format uuid",
-                        "type": "string"
-                      }
-                    }
-                  },
-                  "required": [
-                    "items",
-                    "minItems",
-                    "maxItems",
-                    "both"
-                  ],
-                  "additionalProperties": false
-                }
+                "$ref": "#/$defs/TypeTagArrayUnion"
               }
             ]
           }
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "TypeTagArrayUnion": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/TypeTagArrayUnion.Type"
+            }
+          },
+          "TypeTagArrayUnion.Type": {
+            "type": "object",
+            "properties": {
+              "items": {
+                "description": "@minItems 3\n@maxItems 3",
+                "type": "array",
+                "items": {
+                  "description": "@format uuid",
+                  "type": "string"
+                }
+              },
+              "minItems": {
+                "description": "@minItems 3",
+                "type": "array",
+                "items": {
+                  "description": "@minimum 3",
+                  "type": "number"
+                }
+              },
+              "maxItems": {
+                "description": "@maxItems 7",
+                "type": "array",
+                "items": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "description": "@maxLength 7"
+                    },
+                    {
+                      "type": "number",
+                      "description": "@maximum 7"
+                    }
+                  ]
+                }
+              },
+              "both": {
+                "description": "@minItems 3\n@maxItems 7",
+                "type": "array",
+                "items": {
+                  "description": "@format uuid",
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "items",
+              "minItems",
+              "maxItems",
+              "both"
+            ]
+          }
+        }
       },
       "output": {
         "anyOf": [
@@ -467,63 +275,10 @@
             "type": "null"
           },
           {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "items": {
-                  "description": "@minItems 3\n@maxItems 3",
-                  "type": "array",
-                  "items": {
-                    "description": "@format uuid",
-                    "type": "string"
-                  }
-                },
-                "minItems": {
-                  "description": "@minItems 3",
-                  "type": "array",
-                  "items": {
-                    "description": "@minimum 3",
-                    "type": "number"
-                  }
-                },
-                "maxItems": {
-                  "description": "@maxItems 7",
-                  "type": "array",
-                  "items": {
-                    "anyOf": [
-                      {
-                        "type": "string",
-                        "description": "@maxLength 7"
-                      },
-                      {
-                        "type": "number",
-                        "description": "@maximum 7"
-                      }
-                    ]
-                  }
-                },
-                "both": {
-                  "description": "@minItems 3\n@maxItems 7",
-                  "type": "array",
-                  "items": {
-                    "description": "@format uuid",
-                    "type": "string"
-                  }
-                }
-              },
-              "required": [
-                "items",
-                "minItems",
-                "maxItems",
-                "both"
-              ],
-              "additionalProperties": false
-            }
+            "$ref": "#/$defs/TypeTagArrayUnion"
           }
         ]
-      },
-      "strict": true
+      }
     }
   ]
 }

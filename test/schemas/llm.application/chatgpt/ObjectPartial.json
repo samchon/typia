@@ -1,7 +1,8 @@
 {
   "model": "chatgpt",
   "options": {
-    "reference": false,
+    "reference": true,
+    "strict": false,
     "separate": null
   },
   "functions": [
@@ -11,7 +12,16 @@
         "type": "object",
         "properties": {
           "first": {
-            "description": "Make all properties in T optional\n\n------------------------------\n\nDescription of the current {@link PartialObjectPartial.IBase} type:\n\n> Make all properties in T optional",
+            "$ref": "#/$defs/PartialObjectPartial.IBase"
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "PartialObjectPartial.IBase": {
+            "description": "Make all properties in T optional",
             "type": "object",
             "properties": {
               "boolean": {
@@ -40,21 +50,8 @@
                 ]
               }
             },
-            "required": [
-              "boolean",
-              "number",
-              "string",
-              "array",
-              "object"
-            ],
-            "additionalProperties": false
-          }
-        },
-        "required": [
-          "first"
-        ],
-        "additionalProperties": false,
-        "$defs": {
+            "required": []
+          },
           "ObjectPartial.IBase": {
             "type": "object",
             "properties": {
@@ -90,12 +87,10 @@
               "string",
               "array",
               "object"
-            ],
-            "additionalProperties": false
+            ]
           }
         }
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -103,43 +98,7 @@
         "type": "object",
         "properties": {
           "first": {
-            "description": "Make all properties in T optional\n\n------------------------------\n\nDescription of the current {@link PartialObjectPartial.IBase} type:\n\n> Make all properties in T optional",
-            "type": "object",
-            "properties": {
-              "boolean": {
-                "type": "boolean"
-              },
-              "number": {
-                "type": "number"
-              },
-              "string": {
-                "type": "string"
-              },
-              "array": {
-                "type": "array",
-                "items": {
-                  "type": "number"
-                }
-              },
-              "object": {
-                "anyOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "$ref": "#/$defs/ObjectPartial.IBase"
-                  }
-                ]
-              }
-            },
-            "required": [
-              "boolean",
-              "number",
-              "string",
-              "array",
-              "object"
-            ],
-            "additionalProperties": false
+            "$ref": "#/$defs/PartialObjectPartial.IBase"
           },
           "second": {
             "anyOf": [
@@ -147,43 +106,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "boolean": {
-                    "type": "boolean"
-                  },
-                  "number": {
-                    "type": "number"
-                  },
-                  "string": {
-                    "type": "string"
-                  },
-                  "array": {
-                    "type": "array",
-                    "items": {
-                      "type": "number"
-                    }
-                  },
-                  "object": {
-                    "anyOf": [
-                      {
-                        "type": "null"
-                      },
-                      {
-                        "$ref": "#/$defs/ObjectPartial.IBase"
-                      }
-                    ]
-                  }
-                },
-                "required": [
-                  "boolean",
-                  "number",
-                  "string",
-                  "array",
-                  "object"
-                ],
-                "description": "Make all properties in T optional\n\n------------------------------\n\nDescription of the current {@link PartialObjectPartial.IBase} type:\n\n> Make all properties in T optional",
-                "additionalProperties": false
+                "$ref": "#/$defs/PartialObjectPartial.IBase"
               }
             ]
           }
@@ -194,6 +117,38 @@
         ],
         "additionalProperties": false,
         "$defs": {
+          "PartialObjectPartial.IBase": {
+            "description": "Make all properties in T optional",
+            "type": "object",
+            "properties": {
+              "boolean": {
+                "type": "boolean"
+              },
+              "number": {
+                "type": "number"
+              },
+              "string": {
+                "type": "string"
+              },
+              "array": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                }
+              },
+              "object": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/$defs/ObjectPartial.IBase"
+                  }
+                ]
+              }
+            },
+            "required": []
+          },
           "ObjectPartial.IBase": {
             "type": "object",
             "properties": {
@@ -229,51 +184,13 @@
               "string",
               "array",
               "object"
-            ],
-            "additionalProperties": false
+            ]
           }
         }
       },
       "output": {
-        "description": "Make all properties in T optional\n\n------------------------------\n\nDescription of the current {@link PartialObjectPartial.IBase} type:\n\n> Make all properties in T optional",
-        "type": "object",
-        "properties": {
-          "boolean": {
-            "type": "boolean"
-          },
-          "number": {
-            "type": "number"
-          },
-          "string": {
-            "type": "string"
-          },
-          "array": {
-            "type": "array",
-            "items": {
-              "type": "number"
-            }
-          },
-          "object": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "$ref": "#/$defs/ObjectPartial.IBase"
-              }
-            ]
-          }
-        },
-        "required": [
-          "boolean",
-          "number",
-          "string",
-          "array",
-          "object"
-        ],
-        "additionalProperties": false
-      },
-      "strict": true
+        "$ref": "#/$defs/PartialObjectPartial.IBase"
+      }
     },
     {
       "name": "coalesce",
@@ -286,43 +203,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "boolean": {
-                    "type": "boolean"
-                  },
-                  "number": {
-                    "type": "number"
-                  },
-                  "string": {
-                    "type": "string"
-                  },
-                  "array": {
-                    "type": "array",
-                    "items": {
-                      "type": "number"
-                    }
-                  },
-                  "object": {
-                    "anyOf": [
-                      {
-                        "type": "null"
-                      },
-                      {
-                        "$ref": "#/$defs/ObjectPartial.IBase"
-                      }
-                    ]
-                  }
-                },
-                "required": [
-                  "boolean",
-                  "number",
-                  "string",
-                  "array",
-                  "object"
-                ],
-                "description": "Make all properties in T optional\n\n------------------------------\n\nDescription of the current {@link PartialObjectPartial.IBase} type:\n\n> Make all properties in T optional",
-                "additionalProperties": false
+                "$ref": "#/$defs/PartialObjectPartial.IBase"
               }
             ]
           },
@@ -332,43 +213,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "boolean": {
-                    "type": "boolean"
-                  },
-                  "number": {
-                    "type": "number"
-                  },
-                  "string": {
-                    "type": "string"
-                  },
-                  "array": {
-                    "type": "array",
-                    "items": {
-                      "type": "number"
-                    }
-                  },
-                  "object": {
-                    "anyOf": [
-                      {
-                        "type": "null"
-                      },
-                      {
-                        "$ref": "#/$defs/ObjectPartial.IBase"
-                      }
-                    ]
-                  }
-                },
-                "required": [
-                  "boolean",
-                  "number",
-                  "string",
-                  "array",
-                  "object"
-                ],
-                "description": "Make all properties in T optional\n\n------------------------------\n\nDescription of the current {@link PartialObjectPartial.IBase} type:\n\n> Make all properties in T optional",
-                "additionalProperties": false
+                "$ref": "#/$defs/PartialObjectPartial.IBase"
               }
             ]
           },
@@ -378,54 +223,49 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "boolean": {
-                    "type": "boolean"
-                  },
-                  "number": {
-                    "type": "number"
-                  },
-                  "string": {
-                    "type": "string"
-                  },
-                  "array": {
-                    "type": "array",
-                    "items": {
-                      "type": "number"
-                    }
-                  },
-                  "object": {
-                    "anyOf": [
-                      {
-                        "type": "null"
-                      },
-                      {
-                        "$ref": "#/$defs/ObjectPartial.IBase"
-                      }
-                    ]
-                  }
-                },
-                "required": [
-                  "boolean",
-                  "number",
-                  "string",
-                  "array",
-                  "object"
-                ],
-                "description": "Make all properties in T optional\n\n------------------------------\n\nDescription of the current {@link PartialObjectPartial.IBase} type:\n\n> Make all properties in T optional",
-                "additionalProperties": false
+                "$ref": "#/$defs/PartialObjectPartial.IBase"
               }
             ]
           }
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
         "$defs": {
+          "PartialObjectPartial.IBase": {
+            "description": "Make all properties in T optional",
+            "type": "object",
+            "properties": {
+              "boolean": {
+                "type": "boolean"
+              },
+              "number": {
+                "type": "number"
+              },
+              "string": {
+                "type": "string"
+              },
+              "array": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                }
+              },
+              "object": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/$defs/ObjectPartial.IBase"
+                  }
+                ]
+              }
+            },
+            "required": []
+          },
           "ObjectPartial.IBase": {
             "type": "object",
             "properties": {
@@ -461,8 +301,7 @@
               "string",
               "array",
               "object"
-            ],
-            "additionalProperties": false
+            ]
           }
         }
       },
@@ -472,47 +311,10 @@
             "type": "null"
           },
           {
-            "type": "object",
-            "properties": {
-              "boolean": {
-                "type": "boolean"
-              },
-              "number": {
-                "type": "number"
-              },
-              "string": {
-                "type": "string"
-              },
-              "array": {
-                "type": "array",
-                "items": {
-                  "type": "number"
-                }
-              },
-              "object": {
-                "anyOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "$ref": "#/$defs/ObjectPartial.IBase"
-                  }
-                ]
-              }
-            },
-            "required": [
-              "boolean",
-              "number",
-              "string",
-              "array",
-              "object"
-            ],
-            "description": "Make all properties in T optional\n\n------------------------------\n\nDescription of the current {@link PartialObjectPartial.IBase} type:\n\n> Make all properties in T optional",
-            "additionalProperties": false
+            "$ref": "#/$defs/PartialObjectPartial.IBase"
           }
         ]
-      },
-      "strict": true
+      }
     }
   ]
 }

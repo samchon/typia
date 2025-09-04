@@ -1,8 +1,8 @@
 {
   "model": "3.0",
   "options": {
-    "constraint": false,
     "recursive": 3,
+    "constraint": true,
     "separate": null
   },
   "functions": [
@@ -30,6 +30,7 @@
               "name",
               "dead"
             ],
+            "description": "Current Type: {@link ClassGetter.Person}",
             "additionalProperties": false
           }
         },
@@ -37,8 +38,7 @@
           "first"
         ],
         "additionalProperties": false
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -64,6 +64,7 @@
               "name",
               "dead"
             ],
+            "description": "Current Type: {@link ClassGetter.Person}",
             "additionalProperties": false
           },
           "second": {
@@ -114,9 +115,9 @@
           "name",
           "dead"
         ],
+        "description": "Current Type: {@link ClassGetter.Person}",
         "additionalProperties": false
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -217,8 +218,7 @@
         ],
         "additionalProperties": false,
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

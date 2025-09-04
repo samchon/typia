@@ -4,8 +4,9 @@ import { _test_functional_validateFunction } from "../../internal/_test_function
 import { ArrayRepeatedNullable } from "../../structures/ArrayRepeatedNullable";
 
 export const test_functional_validateFunction_ArrayRepeatedNullable =
-  _test_functional_validateFunction("ArrayRepeatedNullable")(
-    ArrayRepeatedNullable,
-  )((p: (input: ArrayRepeatedNullable) => ArrayRepeatedNullable) =>
-    typia.functional.validateFunction(p),
-  );
+  (): void =>
+    _test_functional_validateFunction("ArrayRepeatedNullable")(
+      ArrayRepeatedNullable,
+    )((p: (input: ArrayRepeatedNullable) => ArrayRepeatedNullable) =>
+      typia.functional.validateFunction(p),
+    );

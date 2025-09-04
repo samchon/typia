@@ -5,12 +5,13 @@ import { _test_functional_assertEqualsReturnAsync } from "../../internal/_test_f
 import { ArrayRecursiveUnionImplicit } from "../../structures/ArrayRecursiveUnionImplicit";
 
 export const test_functional_assertEqualsReturnAsync_ArrayRecursiveUnionImplicit =
-  _test_functional_assertEqualsReturnAsync(TypeGuardError)(
-    "ArrayRecursiveUnionImplicit",
-  )(ArrayRecursiveUnionImplicit)(
-    (
-      p: (
-        input: ArrayRecursiveUnionImplicit,
-      ) => Promise<ArrayRecursiveUnionImplicit>,
-    ) => typia.functional.assertEqualsReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsReturnAsync(TypeGuardError)(
+      "ArrayRecursiveUnionImplicit",
+    )(ArrayRecursiveUnionImplicit)(
+      (
+        p: (
+          input: ArrayRecursiveUnionImplicit,
+        ) => Promise<ArrayRecursiveUnionImplicit>,
+      ) => typia.functional.assertEqualsReturn(p),
+    );

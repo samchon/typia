@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_misc_assertClone } from "../../internal/_test_misc_assertClone";
 import { ConstantIntersection } from "../../structures/ConstantIntersection";
 
-export const test_misc_assertCloneCustom_ConstantIntersection =
+export const test_misc_assertCloneCustom_ConstantIntersection = (): void =>
   _test_misc_assertClone(CustomGuardError)(
     "ConstantIntersection",
   )<ConstantIntersection>(ConstantIntersection)((input) =>

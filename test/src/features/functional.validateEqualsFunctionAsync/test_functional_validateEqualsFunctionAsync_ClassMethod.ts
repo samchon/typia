@@ -4,7 +4,8 @@ import { _test_functional_validateEqualsFunctionAsync } from "../../internal/_te
 import { ClassMethod } from "../../structures/ClassMethod";
 
 export const test_functional_validateEqualsFunctionAsync_ClassMethod =
-  _test_functional_validateEqualsFunctionAsync("ClassMethod")(ClassMethod)(
-    (p: (input: ClassMethod) => Promise<ClassMethod>) =>
-      typia.functional.validateEqualsFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateEqualsFunctionAsync("ClassMethod")(ClassMethod)(
+      (p: (input: ClassMethod) => Promise<ClassMethod>) =>
+        typia.functional.validateEqualsFunction(p),
+    );

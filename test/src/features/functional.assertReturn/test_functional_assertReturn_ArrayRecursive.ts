@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_functional_assertReturn } from "../../internal/_test_functional_assertReturn";
 import { ArrayRecursive } from "../../structures/ArrayRecursive";
 
-export const test_functional_assertReturn_ArrayRecursive =
+export const test_functional_assertReturn_ArrayRecursive = (): void =>
   _test_functional_assertReturn(TypeGuardError)("ArrayRecursive")(
     ArrayRecursive,
   )((p: (input: ArrayRecursive) => ArrayRecursive) =>

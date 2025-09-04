@@ -5,8 +5,9 @@ import { _test_functional_assertParameters } from "../../internal/_test_function
 import { ObjectSimpleProtobuf } from "../../structures/ObjectSimpleProtobuf";
 
 export const test_functional_assertParametersCustom_ObjectSimpleProtobuf =
-  _test_functional_assertParameters(CustomGuardError)("ObjectSimpleProtobuf")(
-    ObjectSimpleProtobuf,
-  )((p: (input: ObjectSimpleProtobuf) => ObjectSimpleProtobuf) =>
-    typia.functional.assertParameters(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertParameters(CustomGuardError)("ObjectSimpleProtobuf")(
+      ObjectSimpleProtobuf,
+    )((p: (input: ObjectSimpleProtobuf) => ObjectSimpleProtobuf) =>
+      typia.functional.assertParameters(p, (p) => new CustomGuardError(p)),
+    );

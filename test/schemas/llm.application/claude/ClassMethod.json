@@ -1,7 +1,7 @@
 {
   "model": "claude",
   "options": {
-    "reference": false,
+    "reference": true,
     "separate": null
   },
   "functions": [
@@ -11,6 +11,15 @@
         "type": "object",
         "properties": {
           "first": {
+            "$ref": "#/$defs/ClassMethod.Animal"
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ClassMethod.Animal": {
             "type": "object",
             "properties": {
               "name": {
@@ -25,14 +34,8 @@
               "age"
             ]
           }
-        },
-        "required": [
-          "first"
-        ],
-        "additionalProperties": false,
-        "$defs": {}
-      },
-      "strict": true
+        }
+      }
     },
     {
       "name": "reduce",
@@ -40,19 +43,7 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "age": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "name",
-              "age"
-            ]
+            "$ref": "#/$defs/ClassMethod.Animal"
           },
           "second": {
             "oneOf": [
@@ -60,19 +51,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string"
-                  },
-                  "age": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "name",
-                  "age"
-                ]
+                "$ref": "#/$defs/ClassMethod.Animal"
               }
             ]
           }
@@ -82,24 +61,27 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "ClassMethod.Animal": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "age": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "name",
+              "age"
+            ]
+          }
+        }
       },
       "output": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "age": {
-            "type": "number"
-          }
-        },
-        "required": [
-          "name",
-          "age"
-        ]
-      },
-      "strict": true
+        "$ref": "#/$defs/ClassMethod.Animal"
+      }
     },
     {
       "name": "coalesce",
@@ -112,19 +94,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string"
-                  },
-                  "age": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "name",
-                  "age"
-                ]
+                "$ref": "#/$defs/ClassMethod.Animal"
               }
             ]
           },
@@ -134,19 +104,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string"
-                  },
-                  "age": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "name",
-                  "age"
-                ]
+                "$ref": "#/$defs/ClassMethod.Animal"
               }
             ]
           },
@@ -156,37 +114,18 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string"
-                  },
-                  "age": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "name",
-                  "age"
-                ]
+                "$ref": "#/$defs/ClassMethod.Animal"
               }
             ]
           }
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "output": {
-        "oneOf": [
-          {
-            "type": "null"
-          },
-          {
+        "$defs": {
+          "ClassMethod.Animal": {
             "type": "object",
             "properties": {
               "name": {
@@ -201,9 +140,18 @@
               "age"
             ]
           }
-        ]
+        }
       },
-      "strict": true
+      "output": {
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "$ref": "#/$defs/ClassMethod.Animal"
+          }
+        ]
+      }
     }
   ]
 }

@@ -3,10 +3,11 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { TemplateAtomic } from "../../../structures/TemplateAtomic";
 
-export const test_llm_application_chatgpt_TemplateAtomic =
+export const test_llm_application_chatgpt_TemplateAtomic = (): void =>
   _test_llm_application({
     model: "chatgpt",
     name: "TemplateAtomic",
+    factory: TemplateAtomic,
   })(typia.llm.application<TemplateAtomicApplication, "chatgpt">());
 
 interface TemplateAtomicApplication {

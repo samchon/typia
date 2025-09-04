@@ -5,8 +5,9 @@ import { _test_functional_assertFunctionAsync } from "../../internal/_test_funct
 import { TypeTagArray } from "../../structures/TypeTagArray";
 
 export const test_functional_assertFunctionAsyncCustom_TypeTagArray =
-  _test_functional_assertFunctionAsync(CustomGuardError)("TypeTagArray")(
-    TypeTagArray,
-  )((p: (input: TypeTagArray) => Promise<TypeTagArray>) =>
-    typia.functional.assertFunction(p, (p) => new CustomGuardError(p)),
-  );
+  (): Promise<void> =>
+    _test_functional_assertFunctionAsync(CustomGuardError)("TypeTagArray")(
+      TypeTagArray,
+    )((p: (input: TypeTagArray) => Promise<TypeTagArray>) =>
+      typia.functional.assertFunction(p, (p) => new CustomGuardError(p)),
+    );

@@ -4,7 +4,9 @@ import { _test_functional_equalsParametersAsync } from "../../internal/_test_fun
 import { TemplateConstant } from "../../structures/TemplateConstant";
 
 export const test_functional_equalsParametersAsync_TemplateConstant =
-  _test_functional_equalsParametersAsync("TemplateConstant")(TemplateConstant)(
-    (p: (input: TemplateConstant) => Promise<TemplateConstant>) =>
+  (): Promise<void> =>
+    _test_functional_equalsParametersAsync("TemplateConstant")(
+      TemplateConstant,
+    )((p: (input: TemplateConstant) => Promise<TemplateConstant>) =>
       typia.functional.equalsParameters(p),
-  );
+    );

@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_protobuf_assertEncode } from "../../internal/_test_protobuf_assertEncode";
 import { ObjectOptional } from "../../structures/ObjectOptional";
 
-export const test_protobuf_createAssertEncode_ObjectOptional =
+export const test_protobuf_createAssertEncode_ObjectOptional = (): void =>
   _test_protobuf_assertEncode(TypeGuardError)("ObjectOptional")<ObjectOptional>(
     ObjectOptional,
   )({

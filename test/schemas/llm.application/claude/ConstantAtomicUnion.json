@@ -1,7 +1,7 @@
 {
   "model": "claude",
   "options": {
-    "reference": false,
+    "reference": true,
     "separate": null
   },
   "functions": [
@@ -11,46 +11,52 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "array",
-            "items": {
-              "oneOf": [
-                {
-                  "const": false
-                },
-                {
-                  "const": 1
-                },
-                {
-                  "const": 2
-                },
-                {
-                  "const": "three"
-                },
-                {
-                  "const": "four"
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "key": {
-                      "const": "key"
-                    }
-                  },
-                  "required": [
-                    "key"
-                  ]
-                }
-              ]
-            }
+            "$ref": "#/$defs/ConstantAtomicUnion"
           }
         },
         "required": [
           "first"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "strict": true
+        "$defs": {
+          "ConstantAtomicUnion": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/ConstantAtomicUnion.Union"
+            }
+          },
+          "ConstantAtomicUnion.Union": {
+            "oneOf": [
+              {
+                "const": false
+              },
+              {
+                "const": 1
+              },
+              {
+                "const": 2
+              },
+              {
+                "const": "three"
+              },
+              {
+                "const": "four"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "key": {
+                    "const": "key"
+                  }
+                },
+                "required": [
+                  "key"
+                ]
+              }
+            ]
+          }
+        }
+      }
     },
     {
       "name": "reduce",
@@ -58,37 +64,7 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "array",
-            "items": {
-              "oneOf": [
-                {
-                  "const": false
-                },
-                {
-                  "const": 1
-                },
-                {
-                  "const": 2
-                },
-                {
-                  "const": "three"
-                },
-                {
-                  "const": "four"
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "key": {
-                      "const": "key"
-                    }
-                  },
-                  "required": [
-                    "key"
-                  ]
-                }
-              ]
-            }
+            "$ref": "#/$defs/ConstantAtomicUnion"
           },
           "second": {
             "oneOf": [
@@ -96,37 +72,7 @@
                 "type": "null"
               },
               {
-                "type": "array",
-                "items": {
-                  "oneOf": [
-                    {
-                      "const": false
-                    },
-                    {
-                      "const": 1
-                    },
-                    {
-                      "const": 2
-                    },
-                    {
-                      "const": "three"
-                    },
-                    {
-                      "const": "four"
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "key": {
-                          "const": "key"
-                        }
-                      },
-                      "required": [
-                        "key"
-                      ]
-                    }
-                  ]
-                }
+                "$ref": "#/$defs/ConstantAtomicUnion"
               }
             ]
           }
@@ -136,42 +82,48 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "output": {
-        "type": "array",
-        "items": {
-          "oneOf": [
-            {
-              "const": false
-            },
-            {
-              "const": 1
-            },
-            {
-              "const": 2
-            },
-            {
-              "const": "three"
-            },
-            {
-              "const": "four"
-            },
-            {
-              "type": "object",
-              "properties": {
-                "key": {
-                  "const": "key"
-                }
-              },
-              "required": [
-                "key"
-              ]
+        "$defs": {
+          "ConstantAtomicUnion": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/ConstantAtomicUnion.Union"
             }
-          ]
+          },
+          "ConstantAtomicUnion.Union": {
+            "oneOf": [
+              {
+                "const": false
+              },
+              {
+                "const": 1
+              },
+              {
+                "const": 2
+              },
+              {
+                "const": "three"
+              },
+              {
+                "const": "four"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "key": {
+                    "const": "key"
+                  }
+                },
+                "required": [
+                  "key"
+                ]
+              }
+            ]
+          }
         }
       },
-      "strict": true
+      "output": {
+        "$ref": "#/$defs/ConstantAtomicUnion"
+      }
     },
     {
       "name": "coalesce",
@@ -184,37 +136,7 @@
                 "type": "null"
               },
               {
-                "type": "array",
-                "items": {
-                  "oneOf": [
-                    {
-                      "const": false
-                    },
-                    {
-                      "const": 1
-                    },
-                    {
-                      "const": 2
-                    },
-                    {
-                      "const": "three"
-                    },
-                    {
-                      "const": "four"
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "key": {
-                          "const": "key"
-                        }
-                      },
-                      "required": [
-                        "key"
-                      ]
-                    }
-                  ]
-                }
+                "$ref": "#/$defs/ConstantAtomicUnion"
               }
             ]
           },
@@ -224,37 +146,7 @@
                 "type": "null"
               },
               {
-                "type": "array",
-                "items": {
-                  "oneOf": [
-                    {
-                      "const": false
-                    },
-                    {
-                      "const": 1
-                    },
-                    {
-                      "const": 2
-                    },
-                    {
-                      "const": "three"
-                    },
-                    {
-                      "const": "four"
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "key": {
-                          "const": "key"
-                        }
-                      },
-                      "required": [
-                        "key"
-                      ]
-                    }
-                  ]
-                }
+                "$ref": "#/$defs/ConstantAtomicUnion"
               }
             ]
           },
@@ -264,48 +156,54 @@
                 "type": "null"
               },
               {
-                "type": "array",
-                "items": {
-                  "oneOf": [
-                    {
-                      "const": false
-                    },
-                    {
-                      "const": 1
-                    },
-                    {
-                      "const": 2
-                    },
-                    {
-                      "const": "three"
-                    },
-                    {
-                      "const": "four"
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "key": {
-                          "const": "key"
-                        }
-                      },
-                      "required": [
-                        "key"
-                      ]
-                    }
-                  ]
-                }
+                "$ref": "#/$defs/ConstantAtomicUnion"
               }
             ]
           }
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "ConstantAtomicUnion": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/ConstantAtomicUnion.Union"
+            }
+          },
+          "ConstantAtomicUnion.Union": {
+            "oneOf": [
+              {
+                "const": false
+              },
+              {
+                "const": 1
+              },
+              {
+                "const": 2
+              },
+              {
+                "const": "three"
+              },
+              {
+                "const": "four"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "key": {
+                    "const": "key"
+                  }
+                },
+                "required": [
+                  "key"
+                ]
+              }
+            ]
+          }
+        }
       },
       "output": {
         "oneOf": [
@@ -313,41 +211,10 @@
             "type": "null"
           },
           {
-            "type": "array",
-            "items": {
-              "oneOf": [
-                {
-                  "const": false
-                },
-                {
-                  "const": 1
-                },
-                {
-                  "const": 2
-                },
-                {
-                  "const": "three"
-                },
-                {
-                  "const": "four"
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "key": {
-                      "const": "key"
-                    }
-                  },
-                  "required": [
-                    "key"
-                  ]
-                }
-              ]
-            }
+            "$ref": "#/$defs/ConstantAtomicUnion"
           }
         ]
-      },
-      "strict": true
+      }
     }
   ]
 }

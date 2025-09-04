@@ -5,10 +5,13 @@ import { _test_functional_assertReturnAsync } from "../../internal/_test_functio
 import { ArrayHierarchicalPointer } from "../../structures/ArrayHierarchicalPointer";
 
 export const test_functional_assertReturnAsyncCustom_ArrayHierarchicalPointer =
-  _test_functional_assertReturnAsync(CustomGuardError)(
-    "ArrayHierarchicalPointer",
-  )(ArrayHierarchicalPointer)(
-    (
-      p: (input: ArrayHierarchicalPointer) => Promise<ArrayHierarchicalPointer>,
-    ) => typia.functional.assertReturn(p, (p) => new CustomGuardError(p)),
-  );
+  (): Promise<void> =>
+    _test_functional_assertReturnAsync(CustomGuardError)(
+      "ArrayHierarchicalPointer",
+    )(ArrayHierarchicalPointer)(
+      (
+        p: (
+          input: ArrayHierarchicalPointer,
+        ) => Promise<ArrayHierarchicalPointer>,
+      ) => typia.functional.assertReturn(p, (p) => new CustomGuardError(p)),
+    );

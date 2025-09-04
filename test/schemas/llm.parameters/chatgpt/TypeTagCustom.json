@@ -2,32 +2,7 @@
   "type": "object",
   "properties": {
     "regular": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "description": "@format uuid",
-          "type": "string"
-        },
-        "dollar": {
-          "x-typia-monetary": "dollar",
-          "type": "string"
-        },
-        "postfix": {
-          "x-typia-postfix": "abcd",
-          "type": "string"
-        },
-        "powerOf": {
-          "x-typia-powerOf": 2,
-          "type": "number"
-        }
-      },
-      "required": [
-        "id",
-        "dollar",
-        "postfix",
-        "powerOf"
-      ],
-      "additionalProperties": false
+      "$ref": "#/$defs/TypeTagCustom"
     },
     "nullable": {
       "anyOf": [
@@ -35,36 +10,38 @@
           "type": "null"
         },
         {
-          "type": "object",
-          "properties": {
-            "id": {
-              "description": "@format uuid",
-              "type": "string"
-            },
-            "dollar": {
-              "x-typia-monetary": "dollar",
-              "type": "string"
-            },
-            "postfix": {
-              "x-typia-postfix": "abcd",
-              "type": "string"
-            },
-            "powerOf": {
-              "x-typia-powerOf": 2,
-              "type": "number"
-            }
-          },
-          "required": [
-            "id",
-            "dollar",
-            "postfix",
-            "powerOf"
-          ],
-          "additionalProperties": false
+          "$ref": "#/$defs/TypeTagCustom"
         }
       ]
     },
     "optional": {
+      "$ref": "#/$defs/TypeTagCustom"
+    },
+    "faint": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/TypeTagCustom"
+        }
+      ]
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/TypeTagCustom"
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "array"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "TypeTagCustom": {
       "type": "object",
       "properties": {
         "id": {
@@ -89,83 +66,7 @@
         "dollar",
         "postfix",
         "powerOf"
-      ],
-      "additionalProperties": false
-    },
-    "faint": {
-      "anyOf": [
-        {
-          "type": "null"
-        },
-        {
-          "type": "object",
-          "properties": {
-            "id": {
-              "description": "@format uuid",
-              "type": "string"
-            },
-            "dollar": {
-              "x-typia-monetary": "dollar",
-              "type": "string"
-            },
-            "postfix": {
-              "x-typia-postfix": "abcd",
-              "type": "string"
-            },
-            "powerOf": {
-              "x-typia-powerOf": 2,
-              "type": "number"
-            }
-          },
-          "required": [
-            "id",
-            "dollar",
-            "postfix",
-            "powerOf"
-          ],
-          "additionalProperties": false
-        }
       ]
-    },
-    "array": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "description": "@format uuid",
-            "type": "string"
-          },
-          "dollar": {
-            "x-typia-monetary": "dollar",
-            "type": "string"
-          },
-          "postfix": {
-            "x-typia-postfix": "abcd",
-            "type": "string"
-          },
-          "powerOf": {
-            "x-typia-powerOf": 2,
-            "type": "number"
-          }
-        },
-        "required": [
-          "id",
-          "dollar",
-          "postfix",
-          "powerOf"
-        ],
-        "additionalProperties": false
-      }
     }
-  },
-  "required": [
-    "regular",
-    "nullable",
-    "optional",
-    "faint",
-    "array"
-  ],
-  "additionalProperties": false,
-  "$defs": {}
+  }
 }

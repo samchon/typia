@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsParameters } from "../../internal/_test_
 import { CommentTagLength } from "../../structures/CommentTagLength";
 
 export const test_functional_validateEqualsParameters_CommentTagLength =
-  _test_functional_validateEqualsParameters("CommentTagLength")(
-    CommentTagLength,
-  )((p: (input: CommentTagLength) => CommentTagLength) =>
-    typia.functional.validateEqualsParameters(p),
-  );
+  (): void =>
+    _test_functional_validateEqualsParameters("CommentTagLength")(
+      CommentTagLength,
+    )((p: (input: CommentTagLength) => CommentTagLength) =>
+      typia.functional.validateEqualsParameters(p),
+    );

@@ -1,7 +1,8 @@
 {
   "model": "chatgpt",
   "options": {
-    "reference": false,
+    "reference": true,
+    "strict": false,
     "separate": null
   },
   "functions": [
@@ -11,6 +12,15 @@
         "type": "object",
         "properties": {
           "first": {
+            "$ref": "#/$defs/ArrayRecursiveUnionExplicitPointer"
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ArrayRecursiveUnionExplicitPointer": {
             "type": "object",
             "properties": {
               "value": {
@@ -22,15 +32,8 @@
             },
             "required": [
               "value"
-            ],
-            "additionalProperties": false
-          }
-        },
-        "required": [
-          "first"
-        ],
-        "additionalProperties": false,
-        "$defs": {
+            ]
+          },
           "ArrayRecursiveUnionExplicitPointer.IBucket": {
             "type": "object",
             "properties": {
@@ -40,138 +43,13 @@
                     "$ref": "#/$defs/ArrayRecursiveUnionExplicitPointer.IDirectory"
                   },
                   {
-                    "type": "object",
-                    "properties": {
-                      "id": {
-                        "type": "number"
-                      },
-                      "name": {
-                        "type": "string"
-                      },
-                      "path": {
-                        "type": "string"
-                      },
-                      "width": {
-                        "type": "number"
-                      },
-                      "height": {
-                        "type": "number"
-                      },
-                      "url": {
-                        "type": "string"
-                      },
-                      "size": {
-                        "type": "number"
-                      },
-                      "type": {
-                        "type": "string",
-                        "enum": [
-                          "file"
-                        ]
-                      },
-                      "extension": {
-                        "type": "string",
-                        "enum": [
-                          "jpg"
-                        ]
-                      }
-                    },
-                    "required": [
-                      "id",
-                      "name",
-                      "path",
-                      "width",
-                      "height",
-                      "url",
-                      "size",
-                      "type",
-                      "extension"
-                    ],
-                    "additionalProperties": false
+                    "$ref": "#/$defs/ArrayRecursiveUnionExplicitPointer.IImageFile"
                   },
                   {
-                    "type": "object",
-                    "properties": {
-                      "id": {
-                        "type": "number"
-                      },
-                      "name": {
-                        "type": "string"
-                      },
-                      "path": {
-                        "type": "string"
-                      },
-                      "size": {
-                        "type": "number"
-                      },
-                      "content": {
-                        "type": "string"
-                      },
-                      "type": {
-                        "type": "string",
-                        "enum": [
-                          "file"
-                        ]
-                      },
-                      "extension": {
-                        "type": "string",
-                        "enum": [
-                          "txt"
-                        ]
-                      }
-                    },
-                    "required": [
-                      "id",
-                      "name",
-                      "path",
-                      "size",
-                      "content",
-                      "type",
-                      "extension"
-                    ],
-                    "additionalProperties": false
+                    "$ref": "#/$defs/ArrayRecursiveUnionExplicitPointer.ITextFile"
                   },
                   {
-                    "type": "object",
-                    "properties": {
-                      "id": {
-                        "type": "number"
-                      },
-                      "name": {
-                        "type": "string"
-                      },
-                      "path": {
-                        "type": "string"
-                      },
-                      "size": {
-                        "type": "number"
-                      },
-                      "count": {
-                        "type": "number"
-                      },
-                      "type": {
-                        "type": "string",
-                        "enum": [
-                          "file"
-                        ]
-                      },
-                      "extension": {
-                        "type": "string",
-                        "enum": [
-                          "zip"
-                        ]
-                      }
-                    },
-                    "required": [
-                      "id",
-                      "name",
-                      "path",
-                      "size",
-                      "count",
-                      "type",
-                      "extension"
-                    ],
-                    "additionalProperties": false
+                    "$ref": "#/$defs/ArrayRecursiveUnionExplicitPointer.IZipFile"
                   },
                   {
                     "$ref": "#/$defs/ArrayRecursiveUnionExplicitPointer.IShortcut"
@@ -181,8 +59,7 @@
             },
             "required": [
               "value"
-            ],
-            "additionalProperties": false
+            ]
           },
           "ArrayRecursiveUnionExplicitPointer.IDirectory": {
             "type": "object",
@@ -215,8 +92,138 @@
               "path",
               "children",
               "type"
-            ],
-            "additionalProperties": false
+            ]
+          },
+          "ArrayRecursiveUnionExplicitPointer.IImageFile": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "name": {
+                "type": "string"
+              },
+              "path": {
+                "type": "string"
+              },
+              "width": {
+                "type": "number"
+              },
+              "height": {
+                "type": "number"
+              },
+              "url": {
+                "type": "string"
+              },
+              "size": {
+                "type": "number"
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "file"
+                ]
+              },
+              "extension": {
+                "type": "string",
+                "enum": [
+                  "jpg"
+                ]
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "path",
+              "width",
+              "height",
+              "url",
+              "size",
+              "type",
+              "extension"
+            ]
+          },
+          "ArrayRecursiveUnionExplicitPointer.ITextFile": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "name": {
+                "type": "string"
+              },
+              "path": {
+                "type": "string"
+              },
+              "size": {
+                "type": "number"
+              },
+              "content": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "file"
+                ]
+              },
+              "extension": {
+                "type": "string",
+                "enum": [
+                  "txt"
+                ]
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "path",
+              "size",
+              "content",
+              "type",
+              "extension"
+            ]
+          },
+          "ArrayRecursiveUnionExplicitPointer.IZipFile": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "name": {
+                "type": "string"
+              },
+              "path": {
+                "type": "string"
+              },
+              "size": {
+                "type": "number"
+              },
+              "count": {
+                "type": "number"
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "file"
+                ]
+              },
+              "extension": {
+                "type": "string",
+                "enum": [
+                  "zip"
+                ]
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "path",
+              "size",
+              "count",
+              "type",
+              "extension"
+            ]
           },
           "ArrayRecursiveUnionExplicitPointer.IShortcut": {
             "type": "object",
@@ -253,12 +260,10 @@
               "target",
               "type",
               "extension"
-            ],
-            "additionalProperties": false
+            ]
           }
         }
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -266,19 +271,7 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "object",
-            "properties": {
-              "value": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/$defs/ArrayRecursiveUnionExplicitPointer.IBucket"
-                }
-              }
-            },
-            "required": [
-              "value"
-            ],
-            "additionalProperties": false
+            "$ref": "#/$defs/ArrayRecursiveUnionExplicitPointer"
           },
           "second": {
             "anyOf": [
@@ -286,19 +279,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/$defs/ArrayRecursiveUnionExplicitPointer.IBucket"
-                    }
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "additionalProperties": false
+                "$ref": "#/$defs/ArrayRecursiveUnionExplicitPointer"
               }
             ]
           }
@@ -309,6 +290,20 @@
         ],
         "additionalProperties": false,
         "$defs": {
+          "ArrayRecursiveUnionExplicitPointer": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ArrayRecursiveUnionExplicitPointer.IBucket"
+                }
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
           "ArrayRecursiveUnionExplicitPointer.IBucket": {
             "type": "object",
             "properties": {
@@ -318,138 +313,13 @@
                     "$ref": "#/$defs/ArrayRecursiveUnionExplicitPointer.IDirectory"
                   },
                   {
-                    "type": "object",
-                    "properties": {
-                      "id": {
-                        "type": "number"
-                      },
-                      "name": {
-                        "type": "string"
-                      },
-                      "path": {
-                        "type": "string"
-                      },
-                      "width": {
-                        "type": "number"
-                      },
-                      "height": {
-                        "type": "number"
-                      },
-                      "url": {
-                        "type": "string"
-                      },
-                      "size": {
-                        "type": "number"
-                      },
-                      "type": {
-                        "type": "string",
-                        "enum": [
-                          "file"
-                        ]
-                      },
-                      "extension": {
-                        "type": "string",
-                        "enum": [
-                          "jpg"
-                        ]
-                      }
-                    },
-                    "required": [
-                      "id",
-                      "name",
-                      "path",
-                      "width",
-                      "height",
-                      "url",
-                      "size",
-                      "type",
-                      "extension"
-                    ],
-                    "additionalProperties": false
+                    "$ref": "#/$defs/ArrayRecursiveUnionExplicitPointer.IImageFile"
                   },
                   {
-                    "type": "object",
-                    "properties": {
-                      "id": {
-                        "type": "number"
-                      },
-                      "name": {
-                        "type": "string"
-                      },
-                      "path": {
-                        "type": "string"
-                      },
-                      "size": {
-                        "type": "number"
-                      },
-                      "content": {
-                        "type": "string"
-                      },
-                      "type": {
-                        "type": "string",
-                        "enum": [
-                          "file"
-                        ]
-                      },
-                      "extension": {
-                        "type": "string",
-                        "enum": [
-                          "txt"
-                        ]
-                      }
-                    },
-                    "required": [
-                      "id",
-                      "name",
-                      "path",
-                      "size",
-                      "content",
-                      "type",
-                      "extension"
-                    ],
-                    "additionalProperties": false
+                    "$ref": "#/$defs/ArrayRecursiveUnionExplicitPointer.ITextFile"
                   },
                   {
-                    "type": "object",
-                    "properties": {
-                      "id": {
-                        "type": "number"
-                      },
-                      "name": {
-                        "type": "string"
-                      },
-                      "path": {
-                        "type": "string"
-                      },
-                      "size": {
-                        "type": "number"
-                      },
-                      "count": {
-                        "type": "number"
-                      },
-                      "type": {
-                        "type": "string",
-                        "enum": [
-                          "file"
-                        ]
-                      },
-                      "extension": {
-                        "type": "string",
-                        "enum": [
-                          "zip"
-                        ]
-                      }
-                    },
-                    "required": [
-                      "id",
-                      "name",
-                      "path",
-                      "size",
-                      "count",
-                      "type",
-                      "extension"
-                    ],
-                    "additionalProperties": false
+                    "$ref": "#/$defs/ArrayRecursiveUnionExplicitPointer.IZipFile"
                   },
                   {
                     "$ref": "#/$defs/ArrayRecursiveUnionExplicitPointer.IShortcut"
@@ -459,8 +329,7 @@
             },
             "required": [
               "value"
-            ],
-            "additionalProperties": false
+            ]
           },
           "ArrayRecursiveUnionExplicitPointer.IDirectory": {
             "type": "object",
@@ -493,8 +362,138 @@
               "path",
               "children",
               "type"
-            ],
-            "additionalProperties": false
+            ]
+          },
+          "ArrayRecursiveUnionExplicitPointer.IImageFile": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "name": {
+                "type": "string"
+              },
+              "path": {
+                "type": "string"
+              },
+              "width": {
+                "type": "number"
+              },
+              "height": {
+                "type": "number"
+              },
+              "url": {
+                "type": "string"
+              },
+              "size": {
+                "type": "number"
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "file"
+                ]
+              },
+              "extension": {
+                "type": "string",
+                "enum": [
+                  "jpg"
+                ]
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "path",
+              "width",
+              "height",
+              "url",
+              "size",
+              "type",
+              "extension"
+            ]
+          },
+          "ArrayRecursiveUnionExplicitPointer.ITextFile": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "name": {
+                "type": "string"
+              },
+              "path": {
+                "type": "string"
+              },
+              "size": {
+                "type": "number"
+              },
+              "content": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "file"
+                ]
+              },
+              "extension": {
+                "type": "string",
+                "enum": [
+                  "txt"
+                ]
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "path",
+              "size",
+              "content",
+              "type",
+              "extension"
+            ]
+          },
+          "ArrayRecursiveUnionExplicitPointer.IZipFile": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "name": {
+                "type": "string"
+              },
+              "path": {
+                "type": "string"
+              },
+              "size": {
+                "type": "number"
+              },
+              "count": {
+                "type": "number"
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "file"
+                ]
+              },
+              "extension": {
+                "type": "string",
+                "enum": [
+                  "zip"
+                ]
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "path",
+              "size",
+              "count",
+              "type",
+              "extension"
+            ]
           },
           "ArrayRecursiveUnionExplicitPointer.IShortcut": {
             "type": "object",
@@ -531,27 +530,13 @@
               "target",
               "type",
               "extension"
-            ],
-            "additionalProperties": false
+            ]
           }
         }
       },
       "output": {
-        "type": "object",
-        "properties": {
-          "value": {
-            "type": "array",
-            "items": {
-              "$ref": "#/$defs/ArrayRecursiveUnionExplicitPointer.IBucket"
-            }
-          }
-        },
-        "required": [
-          "value"
-        ],
-        "additionalProperties": false
-      },
-      "strict": true
+        "$ref": "#/$defs/ArrayRecursiveUnionExplicitPointer"
+      }
     },
     {
       "name": "coalesce",
@@ -564,19 +549,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/$defs/ArrayRecursiveUnionExplicitPointer.IBucket"
-                    }
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "additionalProperties": false
+                "$ref": "#/$defs/ArrayRecursiveUnionExplicitPointer"
               }
             ]
           },
@@ -586,19 +559,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/$defs/ArrayRecursiveUnionExplicitPointer.IBucket"
-                    }
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "additionalProperties": false
+                "$ref": "#/$defs/ArrayRecursiveUnionExplicitPointer"
               }
             ]
           },
@@ -608,30 +569,31 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/$defs/ArrayRecursiveUnionExplicitPointer.IBucket"
-                    }
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "additionalProperties": false
+                "$ref": "#/$defs/ArrayRecursiveUnionExplicitPointer"
               }
             ]
           }
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
         "$defs": {
+          "ArrayRecursiveUnionExplicitPointer": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ArrayRecursiveUnionExplicitPointer.IBucket"
+                }
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
           "ArrayRecursiveUnionExplicitPointer.IBucket": {
             "type": "object",
             "properties": {
@@ -641,138 +603,13 @@
                     "$ref": "#/$defs/ArrayRecursiveUnionExplicitPointer.IDirectory"
                   },
                   {
-                    "type": "object",
-                    "properties": {
-                      "id": {
-                        "type": "number"
-                      },
-                      "name": {
-                        "type": "string"
-                      },
-                      "path": {
-                        "type": "string"
-                      },
-                      "width": {
-                        "type": "number"
-                      },
-                      "height": {
-                        "type": "number"
-                      },
-                      "url": {
-                        "type": "string"
-                      },
-                      "size": {
-                        "type": "number"
-                      },
-                      "type": {
-                        "type": "string",
-                        "enum": [
-                          "file"
-                        ]
-                      },
-                      "extension": {
-                        "type": "string",
-                        "enum": [
-                          "jpg"
-                        ]
-                      }
-                    },
-                    "required": [
-                      "id",
-                      "name",
-                      "path",
-                      "width",
-                      "height",
-                      "url",
-                      "size",
-                      "type",
-                      "extension"
-                    ],
-                    "additionalProperties": false
+                    "$ref": "#/$defs/ArrayRecursiveUnionExplicitPointer.IImageFile"
                   },
                   {
-                    "type": "object",
-                    "properties": {
-                      "id": {
-                        "type": "number"
-                      },
-                      "name": {
-                        "type": "string"
-                      },
-                      "path": {
-                        "type": "string"
-                      },
-                      "size": {
-                        "type": "number"
-                      },
-                      "content": {
-                        "type": "string"
-                      },
-                      "type": {
-                        "type": "string",
-                        "enum": [
-                          "file"
-                        ]
-                      },
-                      "extension": {
-                        "type": "string",
-                        "enum": [
-                          "txt"
-                        ]
-                      }
-                    },
-                    "required": [
-                      "id",
-                      "name",
-                      "path",
-                      "size",
-                      "content",
-                      "type",
-                      "extension"
-                    ],
-                    "additionalProperties": false
+                    "$ref": "#/$defs/ArrayRecursiveUnionExplicitPointer.ITextFile"
                   },
                   {
-                    "type": "object",
-                    "properties": {
-                      "id": {
-                        "type": "number"
-                      },
-                      "name": {
-                        "type": "string"
-                      },
-                      "path": {
-                        "type": "string"
-                      },
-                      "size": {
-                        "type": "number"
-                      },
-                      "count": {
-                        "type": "number"
-                      },
-                      "type": {
-                        "type": "string",
-                        "enum": [
-                          "file"
-                        ]
-                      },
-                      "extension": {
-                        "type": "string",
-                        "enum": [
-                          "zip"
-                        ]
-                      }
-                    },
-                    "required": [
-                      "id",
-                      "name",
-                      "path",
-                      "size",
-                      "count",
-                      "type",
-                      "extension"
-                    ],
-                    "additionalProperties": false
+                    "$ref": "#/$defs/ArrayRecursiveUnionExplicitPointer.IZipFile"
                   },
                   {
                     "$ref": "#/$defs/ArrayRecursiveUnionExplicitPointer.IShortcut"
@@ -782,8 +619,7 @@
             },
             "required": [
               "value"
-            ],
-            "additionalProperties": false
+            ]
           },
           "ArrayRecursiveUnionExplicitPointer.IDirectory": {
             "type": "object",
@@ -816,8 +652,138 @@
               "path",
               "children",
               "type"
-            ],
-            "additionalProperties": false
+            ]
+          },
+          "ArrayRecursiveUnionExplicitPointer.IImageFile": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "name": {
+                "type": "string"
+              },
+              "path": {
+                "type": "string"
+              },
+              "width": {
+                "type": "number"
+              },
+              "height": {
+                "type": "number"
+              },
+              "url": {
+                "type": "string"
+              },
+              "size": {
+                "type": "number"
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "file"
+                ]
+              },
+              "extension": {
+                "type": "string",
+                "enum": [
+                  "jpg"
+                ]
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "path",
+              "width",
+              "height",
+              "url",
+              "size",
+              "type",
+              "extension"
+            ]
+          },
+          "ArrayRecursiveUnionExplicitPointer.ITextFile": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "name": {
+                "type": "string"
+              },
+              "path": {
+                "type": "string"
+              },
+              "size": {
+                "type": "number"
+              },
+              "content": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "file"
+                ]
+              },
+              "extension": {
+                "type": "string",
+                "enum": [
+                  "txt"
+                ]
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "path",
+              "size",
+              "content",
+              "type",
+              "extension"
+            ]
+          },
+          "ArrayRecursiveUnionExplicitPointer.IZipFile": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "name": {
+                "type": "string"
+              },
+              "path": {
+                "type": "string"
+              },
+              "size": {
+                "type": "number"
+              },
+              "count": {
+                "type": "number"
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "file"
+                ]
+              },
+              "extension": {
+                "type": "string",
+                "enum": [
+                  "zip"
+                ]
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "path",
+              "size",
+              "count",
+              "type",
+              "extension"
+            ]
           },
           "ArrayRecursiveUnionExplicitPointer.IShortcut": {
             "type": "object",
@@ -854,8 +820,7 @@
               "target",
               "type",
               "extension"
-            ],
-            "additionalProperties": false
+            ]
           }
         }
       },
@@ -865,23 +830,10 @@
             "type": "null"
           },
           {
-            "type": "object",
-            "properties": {
-              "value": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/$defs/ArrayRecursiveUnionExplicitPointer.IBucket"
-                }
-              }
-            },
-            "required": [
-              "value"
-            ],
-            "additionalProperties": false
+            "$ref": "#/$defs/ArrayRecursiveUnionExplicitPointer"
           }
         ]
-      },
-      "strict": true
+      }
     }
   ]
 }

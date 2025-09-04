@@ -5,8 +5,10 @@ import { _test_functional_assertEqualsReturnAsync } from "../../internal/_test_f
 import { CommentTagFormat } from "../../structures/CommentTagFormat";
 
 export const test_functional_assertEqualsReturnAsync_CommentTagFormat =
-  _test_functional_assertEqualsReturnAsync(TypeGuardError)("CommentTagFormat")(
-    CommentTagFormat,
-  )((p: (input: CommentTagFormat) => Promise<CommentTagFormat>) =>
-    typia.functional.assertEqualsReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsReturnAsync(TypeGuardError)(
+      "CommentTagFormat",
+    )(CommentTagFormat)(
+      (p: (input: CommentTagFormat) => Promise<CommentTagFormat>) =>
+        typia.functional.assertEqualsReturn(p),
+    );

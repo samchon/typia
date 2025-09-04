@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_protobuf_assertEncode } from "../../internal/_test_protobuf_assertEncode";
 import { TypeTagBigInt } from "../../structures/TypeTagBigInt";
 
-export const test_protobuf_createAssertEncode_TypeTagBigInt =
+export const test_protobuf_createAssertEncode_TypeTagBigInt = (): void =>
   _test_protobuf_assertEncode(TypeGuardError)("TypeTagBigInt")<TypeTagBigInt>(
     TypeTagBigInt,
   )({

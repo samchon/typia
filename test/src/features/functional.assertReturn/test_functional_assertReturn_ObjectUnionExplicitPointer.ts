@@ -5,8 +5,9 @@ import { _test_functional_assertReturn } from "../../internal/_test_functional_a
 import { ObjectUnionExplicitPointer } from "../../structures/ObjectUnionExplicitPointer";
 
 export const test_functional_assertReturn_ObjectUnionExplicitPointer =
-  _test_functional_assertReturn(TypeGuardError)("ObjectUnionExplicitPointer")(
-    ObjectUnionExplicitPointer,
-  )((p: (input: ObjectUnionExplicitPointer) => ObjectUnionExplicitPointer) =>
-    typia.functional.assertReturn(p),
-  );
+  (): void =>
+    _test_functional_assertReturn(TypeGuardError)("ObjectUnionExplicitPointer")(
+      ObjectUnionExplicitPointer,
+    )((p: (input: ObjectUnionExplicitPointer) => ObjectUnionExplicitPointer) =>
+      typia.functional.assertReturn(p),
+    );

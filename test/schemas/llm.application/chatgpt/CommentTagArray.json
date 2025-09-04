@@ -1,7 +1,8 @@
 {
   "model": "chatgpt",
   "options": {
-    "reference": false,
+    "reference": true,
+    "strict": false,
     "separate": null
   },
   "functions": [
@@ -11,73 +12,77 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "object",
-            "properties": {
-              "value": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "items": {
-                      "description": "@minItems 3\n@maxItems 3",
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      }
-                    },
-                    "minItems": {
-                      "description": "@minItems 3",
-                      "type": "array",
-                      "items": {
-                        "type": "number"
-                      }
-                    },
-                    "both": {
-                      "description": "@minItems 3\n@maxItems 7",
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      }
-                    },
-                    "equal": {
-                      "description": "@minItems 10\n@maxItems 10",
-                      "type": "array",
-                      "items": {
-                        "type": "number"
-                      }
-                    },
-                    "unique": {
-                      "description": "@uniqueItems",
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      }
-                    }
-                  },
-                  "required": [
-                    "items",
-                    "minItems",
-                    "both",
-                    "equal",
-                    "unique"
-                  ],
-                  "additionalProperties": false
-                }
-              }
-            },
-            "required": [
-              "value"
-            ],
-            "additionalProperties": false
+            "$ref": "#/$defs/CommentTagArray"
           }
         },
         "required": [
           "first"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "strict": true
+        "$defs": {
+          "CommentTagArray": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/CommentTagArray.Type"
+                }
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "CommentTagArray.Type": {
+            "type": "object",
+            "properties": {
+              "items": {
+                "description": "@minItems 3\n@maxItems 3",
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "minItems": {
+                "description": "@minItems 3",
+                "type": "array",
+                "items": {
+                  "type": "number"
+                }
+              },
+              "both": {
+                "description": "@minItems 3\n@maxItems 7",
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "equal": {
+                "description": "@minItems 10\n@maxItems 10",
+                "type": "array",
+                "items": {
+                  "type": "number"
+                }
+              },
+              "unique": {
+                "description": "@uniqueItems",
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "items",
+              "minItems",
+              "both",
+              "equal",
+              "unique"
+            ]
+          }
+        }
+      }
     },
     {
       "name": "reduce",
@@ -85,64 +90,7 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "object",
-            "properties": {
-              "value": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "items": {
-                      "description": "@minItems 3\n@maxItems 3",
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      }
-                    },
-                    "minItems": {
-                      "description": "@minItems 3",
-                      "type": "array",
-                      "items": {
-                        "type": "number"
-                      }
-                    },
-                    "both": {
-                      "description": "@minItems 3\n@maxItems 7",
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      }
-                    },
-                    "equal": {
-                      "description": "@minItems 10\n@maxItems 10",
-                      "type": "array",
-                      "items": {
-                        "type": "number"
-                      }
-                    },
-                    "unique": {
-                      "description": "@uniqueItems",
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      }
-                    }
-                  },
-                  "required": [
-                    "items",
-                    "minItems",
-                    "both",
-                    "equal",
-                    "unique"
-                  ],
-                  "additionalProperties": false
-                }
-              }
-            },
-            "required": [
-              "value"
-            ],
-            "additionalProperties": false
+            "$ref": "#/$defs/CommentTagArray"
           },
           "second": {
             "anyOf": [
@@ -150,64 +98,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "items": {
-                          "description": "@minItems 3\n@maxItems 3",
-                          "type": "array",
-                          "items": {
-                            "type": "string"
-                          }
-                        },
-                        "minItems": {
-                          "description": "@minItems 3",
-                          "type": "array",
-                          "items": {
-                            "type": "number"
-                          }
-                        },
-                        "both": {
-                          "description": "@minItems 3\n@maxItems 7",
-                          "type": "array",
-                          "items": {
-                            "type": "string"
-                          }
-                        },
-                        "equal": {
-                          "description": "@minItems 10\n@maxItems 10",
-                          "type": "array",
-                          "items": {
-                            "type": "number"
-                          }
-                        },
-                        "unique": {
-                          "description": "@uniqueItems",
-                          "type": "array",
-                          "items": {
-                            "type": "string"
-                          }
-                        }
-                      },
-                      "required": [
-                        "items",
-                        "minItems",
-                        "both",
-                        "equal",
-                        "unique"
-                      ],
-                      "additionalProperties": false
-                    }
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "additionalProperties": false
+                "$ref": "#/$defs/CommentTagArray"
               }
             ]
           }
@@ -217,69 +108,73 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "output": {
-        "type": "object",
-        "properties": {
-          "value": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
+        "$defs": {
+          "CommentTagArray": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
                 "items": {
-                  "description": "@minItems 3\n@maxItems 3",
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                "minItems": {
-                  "description": "@minItems 3",
-                  "type": "array",
-                  "items": {
-                    "type": "number"
-                  }
-                },
-                "both": {
-                  "description": "@minItems 3\n@maxItems 7",
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                "equal": {
-                  "description": "@minItems 10\n@maxItems 10",
-                  "type": "array",
-                  "items": {
-                    "type": "number"
-                  }
-                },
-                "unique": {
-                  "description": "@uniqueItems",
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
+                  "$ref": "#/$defs/CommentTagArray.Type"
+                }
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "CommentTagArray.Type": {
+            "type": "object",
+            "properties": {
+              "items": {
+                "description": "@minItems 3\n@maxItems 3",
+                "type": "array",
+                "items": {
+                  "type": "string"
                 }
               },
-              "required": [
-                "items",
-                "minItems",
-                "both",
-                "equal",
-                "unique"
-              ],
-              "additionalProperties": false
-            }
+              "minItems": {
+                "description": "@minItems 3",
+                "type": "array",
+                "items": {
+                  "type": "number"
+                }
+              },
+              "both": {
+                "description": "@minItems 3\n@maxItems 7",
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "equal": {
+                "description": "@minItems 10\n@maxItems 10",
+                "type": "array",
+                "items": {
+                  "type": "number"
+                }
+              },
+              "unique": {
+                "description": "@uniqueItems",
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "items",
+              "minItems",
+              "both",
+              "equal",
+              "unique"
+            ]
           }
-        },
-        "required": [
-          "value"
-        ],
-        "additionalProperties": false
+        }
       },
-      "strict": true
+      "output": {
+        "$ref": "#/$defs/CommentTagArray"
+      }
     },
     {
       "name": "coalesce",
@@ -292,64 +187,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "items": {
-                          "description": "@minItems 3\n@maxItems 3",
-                          "type": "array",
-                          "items": {
-                            "type": "string"
-                          }
-                        },
-                        "minItems": {
-                          "description": "@minItems 3",
-                          "type": "array",
-                          "items": {
-                            "type": "number"
-                          }
-                        },
-                        "both": {
-                          "description": "@minItems 3\n@maxItems 7",
-                          "type": "array",
-                          "items": {
-                            "type": "string"
-                          }
-                        },
-                        "equal": {
-                          "description": "@minItems 10\n@maxItems 10",
-                          "type": "array",
-                          "items": {
-                            "type": "number"
-                          }
-                        },
-                        "unique": {
-                          "description": "@uniqueItems",
-                          "type": "array",
-                          "items": {
-                            "type": "string"
-                          }
-                        }
-                      },
-                      "required": [
-                        "items",
-                        "minItems",
-                        "both",
-                        "equal",
-                        "unique"
-                      ],
-                      "additionalProperties": false
-                    }
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "additionalProperties": false
+                "$ref": "#/$defs/CommentTagArray"
               }
             ]
           },
@@ -359,64 +197,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "items": {
-                          "description": "@minItems 3\n@maxItems 3",
-                          "type": "array",
-                          "items": {
-                            "type": "string"
-                          }
-                        },
-                        "minItems": {
-                          "description": "@minItems 3",
-                          "type": "array",
-                          "items": {
-                            "type": "number"
-                          }
-                        },
-                        "both": {
-                          "description": "@minItems 3\n@maxItems 7",
-                          "type": "array",
-                          "items": {
-                            "type": "string"
-                          }
-                        },
-                        "equal": {
-                          "description": "@minItems 10\n@maxItems 10",
-                          "type": "array",
-                          "items": {
-                            "type": "number"
-                          }
-                        },
-                        "unique": {
-                          "description": "@uniqueItems",
-                          "type": "array",
-                          "items": {
-                            "type": "string"
-                          }
-                        }
-                      },
-                      "required": [
-                        "items",
-                        "minItems",
-                        "both",
-                        "equal",
-                        "unique"
-                      ],
-                      "additionalProperties": false
-                    }
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "additionalProperties": false
+                "$ref": "#/$defs/CommentTagArray"
               }
             ]
           },
@@ -426,75 +207,79 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "items": {
-                          "description": "@minItems 3\n@maxItems 3",
-                          "type": "array",
-                          "items": {
-                            "type": "string"
-                          }
-                        },
-                        "minItems": {
-                          "description": "@minItems 3",
-                          "type": "array",
-                          "items": {
-                            "type": "number"
-                          }
-                        },
-                        "both": {
-                          "description": "@minItems 3\n@maxItems 7",
-                          "type": "array",
-                          "items": {
-                            "type": "string"
-                          }
-                        },
-                        "equal": {
-                          "description": "@minItems 10\n@maxItems 10",
-                          "type": "array",
-                          "items": {
-                            "type": "number"
-                          }
-                        },
-                        "unique": {
-                          "description": "@uniqueItems",
-                          "type": "array",
-                          "items": {
-                            "type": "string"
-                          }
-                        }
-                      },
-                      "required": [
-                        "items",
-                        "minItems",
-                        "both",
-                        "equal",
-                        "unique"
-                      ],
-                      "additionalProperties": false
-                    }
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "additionalProperties": false
+                "$ref": "#/$defs/CommentTagArray"
               }
             ]
           }
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "CommentTagArray": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/CommentTagArray.Type"
+                }
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "CommentTagArray.Type": {
+            "type": "object",
+            "properties": {
+              "items": {
+                "description": "@minItems 3\n@maxItems 3",
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "minItems": {
+                "description": "@minItems 3",
+                "type": "array",
+                "items": {
+                  "type": "number"
+                }
+              },
+              "both": {
+                "description": "@minItems 3\n@maxItems 7",
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "equal": {
+                "description": "@minItems 10\n@maxItems 10",
+                "type": "array",
+                "items": {
+                  "type": "number"
+                }
+              },
+              "unique": {
+                "description": "@uniqueItems",
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "items",
+              "minItems",
+              "both",
+              "equal",
+              "unique"
+            ]
+          }
+        }
       },
       "output": {
         "anyOf": [
@@ -502,68 +287,10 @@
             "type": "null"
           },
           {
-            "type": "object",
-            "properties": {
-              "value": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "items": {
-                      "description": "@minItems 3\n@maxItems 3",
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      }
-                    },
-                    "minItems": {
-                      "description": "@minItems 3",
-                      "type": "array",
-                      "items": {
-                        "type": "number"
-                      }
-                    },
-                    "both": {
-                      "description": "@minItems 3\n@maxItems 7",
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      }
-                    },
-                    "equal": {
-                      "description": "@minItems 10\n@maxItems 10",
-                      "type": "array",
-                      "items": {
-                        "type": "number"
-                      }
-                    },
-                    "unique": {
-                      "description": "@uniqueItems",
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      }
-                    }
-                  },
-                  "required": [
-                    "items",
-                    "minItems",
-                    "both",
-                    "equal",
-                    "unique"
-                  ],
-                  "additionalProperties": false
-                }
-              }
-            },
-            "required": [
-              "value"
-            ],
-            "additionalProperties": false
+            "$ref": "#/$defs/CommentTagArray"
           }
         ]
-      },
-      "strict": true
+      }
     }
   ]
 }

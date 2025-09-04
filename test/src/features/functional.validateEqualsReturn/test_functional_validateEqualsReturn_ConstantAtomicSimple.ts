@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsReturn } from "../../internal/_test_func
 import { ConstantAtomicSimple } from "../../structures/ConstantAtomicSimple";
 
 export const test_functional_validateEqualsReturn_ConstantAtomicSimple =
-  _test_functional_validateEqualsReturn("ConstantAtomicSimple")(
-    ConstantAtomicSimple,
-  )((p: (input: ConstantAtomicSimple) => ConstantAtomicSimple) =>
-    typia.functional.validateEqualsReturn(p),
-  );
+  (): void =>
+    _test_functional_validateEqualsReturn("ConstantAtomicSimple")(
+      ConstantAtomicSimple,
+    )((p: (input: ConstantAtomicSimple) => ConstantAtomicSimple) =>
+      typia.functional.validateEqualsReturn(p),
+    );

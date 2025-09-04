@@ -5,9 +5,11 @@ import { _test_functional_assertEqualsFunction } from "../../internal/_test_func
 import { ObjectUnionCompositePointer } from "../../structures/ObjectUnionCompositePointer";
 
 export const test_functional_assertEqualsFunction_ObjectUnionCompositePointer =
-  _test_functional_assertEqualsFunction(TypeGuardError)(
-    "ObjectUnionCompositePointer",
-  )(ObjectUnionCompositePointer)(
-    (p: (input: ObjectUnionCompositePointer) => ObjectUnionCompositePointer) =>
-      typia.functional.assertEqualsFunction(p),
-  );
+  (): void =>
+    _test_functional_assertEqualsFunction(TypeGuardError)(
+      "ObjectUnionCompositePointer",
+    )(ObjectUnionCompositePointer)(
+      (
+        p: (input: ObjectUnionCompositePointer) => ObjectUnionCompositePointer,
+      ) => typia.functional.assertEqualsFunction(p),
+    );

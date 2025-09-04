@@ -3,10 +3,11 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { ObjectUnionImplicit } from "../../../structures/ObjectUnionImplicit";
 
-export const test_llm_application_3_0_ObjectUnionImplicit =
+export const test_llm_application_3_0_ObjectUnionImplicit = (): void =>
   _test_llm_application({
     model: "3.0",
     name: "ObjectUnionImplicit",
+    factory: ObjectUnionImplicit,
   })(typia.llm.application<ObjectUnionImplicitApplication, "3.0">());
 
 interface ObjectUnionImplicitApplication {

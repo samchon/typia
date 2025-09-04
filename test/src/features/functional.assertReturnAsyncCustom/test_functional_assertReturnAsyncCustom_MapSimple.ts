@@ -5,7 +5,9 @@ import { _test_functional_assertReturnAsync } from "../../internal/_test_functio
 import { MapSimple } from "../../structures/MapSimple";
 
 export const test_functional_assertReturnAsyncCustom_MapSimple =
-  _test_functional_assertReturnAsync(CustomGuardError)("MapSimple")(MapSimple)(
-    (p: (input: MapSimple) => Promise<MapSimple>) =>
+  (): Promise<void> =>
+    _test_functional_assertReturnAsync(CustomGuardError)("MapSimple")(
+      MapSimple,
+    )((p: (input: MapSimple) => Promise<MapSimple>) =>
       typia.functional.assertReturn(p, (p) => new CustomGuardError(p)),
-  );
+    );

@@ -1,7 +1,8 @@
 {
   "model": "chatgpt",
   "options": {
-    "reference": false,
+    "reference": true,
+    "strict": false,
     "separate": null
   },
   "functions": [
@@ -27,8 +28,7 @@
               "id",
               "name",
               "age"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -36,8 +36,7 @@
         ],
         "additionalProperties": false,
         "$defs": {}
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -61,8 +60,7 @@
               "id",
               "name",
               "age"
-            ],
-            "additionalProperties": false
+            ]
           },
           "second": {
             "anyOf": [
@@ -86,8 +84,7 @@
                   "id",
                   "name",
                   "age"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           }
@@ -116,10 +113,8 @@
           "id",
           "name",
           "age"
-        ],
-        "additionalProperties": false
-      },
-      "strict": true
+        ]
+      }
     },
     {
       "name": "coalesce",
@@ -148,8 +143,7 @@
                   "id",
                   "name",
                   "age"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           },
@@ -175,8 +169,7 @@
                   "id",
                   "name",
                   "age"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           },
@@ -202,16 +195,14 @@
                   "id",
                   "name",
                   "age"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           }
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
         "$defs": {}
@@ -238,12 +229,10 @@
               "id",
               "name",
               "age"
-            ],
-            "additionalProperties": false
+            ]
           }
         ]
-      },
-      "strict": true
+      }
     }
   ]
 }

@@ -3,10 +3,11 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { DynamicComposite } from "../../../structures/DynamicComposite";
 
-export const test_llm_application_claude_DynamicComposite =
+export const test_llm_application_claude_DynamicComposite = (): void =>
   _test_llm_application({
     model: "claude",
     name: "DynamicComposite",
+    factory: DynamicComposite,
   })(typia.llm.application<DynamicCompositeApplication, "claude">());
 
 interface DynamicCompositeApplication {

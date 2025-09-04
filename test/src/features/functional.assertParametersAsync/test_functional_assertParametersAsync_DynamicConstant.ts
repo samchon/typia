@@ -5,8 +5,9 @@ import { _test_functional_assertParametersAsync } from "../../internal/_test_fun
 import { DynamicConstant } from "../../structures/DynamicConstant";
 
 export const test_functional_assertParametersAsync_DynamicConstant =
-  _test_functional_assertParametersAsync(TypeGuardError)("DynamicConstant")(
-    DynamicConstant,
-  )((p: (input: DynamicConstant) => Promise<DynamicConstant>) =>
-    typia.functional.assertParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertParametersAsync(TypeGuardError)("DynamicConstant")(
+      DynamicConstant,
+    )((p: (input: DynamicConstant) => Promise<DynamicConstant>) =>
+      typia.functional.assertParameters(p),
+    );

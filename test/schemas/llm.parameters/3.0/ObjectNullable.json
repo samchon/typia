@@ -29,6 +29,7 @@
                   "type",
                   "name"
                 ],
+                "description": "Current Type: {@link ObjectNullable.IManufacturer}",
                 "additionalProperties": false
               },
               "brand": {
@@ -70,6 +71,7 @@
                       "type",
                       "name"
                     ],
+                    "description": "Current Type: {@link ObjectNullable.IBrand}",
                     "additionalProperties": false,
                     "nullable": true
                   },
@@ -90,6 +92,7 @@
                       "type",
                       "name"
                     ],
+                    "description": "Current Type: {@link ObjectNullable.IManufacturer}",
                     "additionalProperties": false,
                     "nullable": true
                   }
@@ -102,6 +105,7 @@
               "brand",
               "similar"
             ],
+            "description": "Current Type: {@link ObjectNullable.IProduct}",
             "additionalProperties": false
           }
         }
@@ -109,6 +113,7 @@
       "required": [
         "value"
       ],
+      "description": "Current Type: {@link ObjectNullable}",
       "additionalProperties": false
     },
     "nullable": {
@@ -139,6 +144,7 @@
                   "type",
                   "name"
                 ],
+                "description": "Current Type: {@link ObjectNullable.IManufacturer}",
                 "additionalProperties": false
               },
               "brand": {
@@ -180,6 +186,7 @@
                       "type",
                       "name"
                     ],
+                    "description": "Current Type: {@link ObjectNullable.IBrand}",
                     "additionalProperties": false,
                     "nullable": true
                   },
@@ -200,6 +207,7 @@
                       "type",
                       "name"
                     ],
+                    "description": "Current Type: {@link ObjectNullable.IManufacturer}",
                     "additionalProperties": false,
                     "nullable": true
                   }
@@ -212,6 +220,7 @@
               "brand",
               "similar"
             ],
+            "description": "Current Type: {@link ObjectNullable.IProduct}",
             "additionalProperties": false
           }
         }
@@ -250,6 +259,7 @@
                   "type",
                   "name"
                 ],
+                "description": "Current Type: {@link ObjectNullable.IManufacturer}",
                 "additionalProperties": false
               },
               "brand": {
@@ -291,6 +301,7 @@
                       "type",
                       "name"
                     ],
+                    "description": "Current Type: {@link ObjectNullable.IBrand}",
                     "additionalProperties": false,
                     "nullable": true
                   },
@@ -311,6 +322,7 @@
                       "type",
                       "name"
                     ],
+                    "description": "Current Type: {@link ObjectNullable.IManufacturer}",
                     "additionalProperties": false,
                     "nullable": true
                   }
@@ -323,6 +335,7 @@
               "brand",
               "similar"
             ],
+            "description": "Current Type: {@link ObjectNullable.IProduct}",
             "additionalProperties": false
           }
         }
@@ -330,6 +343,7 @@
       "required": [
         "value"
       ],
+      "description": "Current Type: {@link ObjectNullable}",
       "additionalProperties": false
     },
     "faint": {
@@ -360,6 +374,7 @@
                   "type",
                   "name"
                 ],
+                "description": "Current Type: {@link ObjectNullable.IManufacturer}",
                 "additionalProperties": false
               },
               "brand": {
@@ -401,6 +416,7 @@
                       "type",
                       "name"
                     ],
+                    "description": "Current Type: {@link ObjectNullable.IBrand}",
                     "additionalProperties": false,
                     "nullable": true
                   },
@@ -421,6 +437,7 @@
                       "type",
                       "name"
                     ],
+                    "description": "Current Type: {@link ObjectNullable.IManufacturer}",
                     "additionalProperties": false,
                     "nullable": true
                   }
@@ -433,6 +450,7 @@
               "brand",
               "similar"
             ],
+            "description": "Current Type: {@link ObjectNullable.IProduct}",
             "additionalProperties": false
           }
         }
@@ -473,6 +491,7 @@
                     "type",
                     "name"
                   ],
+                  "description": "Current Type: {@link ObjectNullable.IManufacturer}",
                   "additionalProperties": false
                 },
                 "brand": {
@@ -514,6 +533,7 @@
                         "type",
                         "name"
                       ],
+                      "description": "Current Type: {@link ObjectNullable.IBrand}",
                       "additionalProperties": false,
                       "nullable": true
                     },
@@ -534,6 +554,7 @@
                         "type",
                         "name"
                       ],
+                      "description": "Current Type: {@link ObjectNullable.IManufacturer}",
                       "additionalProperties": false,
                       "nullable": true
                     }
@@ -546,6 +567,7 @@
                 "brand",
                 "similar"
               ],
+              "description": "Current Type: {@link ObjectNullable.IProduct}",
               "additionalProperties": false
             }
           }
@@ -553,6 +575,7 @@
         "required": [
           "value"
         ],
+        "description": "Current Type: {@link ObjectNullable}",
         "additionalProperties": false
       }
     }

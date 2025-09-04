@@ -5,8 +5,9 @@ import { _test_functional_assertEqualsReturnAsync } from "../../internal/_test_f
 import { DynamicUnion } from "../../structures/DynamicUnion";
 
 export const test_functional_assertEqualsReturnAsync_DynamicUnion =
-  _test_functional_assertEqualsReturnAsync(TypeGuardError)("DynamicUnion")(
-    DynamicUnion,
-  )((p: (input: DynamicUnion) => Promise<DynamicUnion>) =>
-    typia.functional.assertEqualsReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsReturnAsync(TypeGuardError)("DynamicUnion")(
+      DynamicUnion,
+    )((p: (input: DynamicUnion) => Promise<DynamicUnion>) =>
+      typia.functional.assertEqualsReturn(p),
+    );

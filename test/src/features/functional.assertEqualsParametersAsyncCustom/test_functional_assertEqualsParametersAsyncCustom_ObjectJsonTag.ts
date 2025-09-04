@@ -5,8 +5,12 @@ import { _test_functional_assertEqualsParametersAsync } from "../../internal/_te
 import { ObjectJsonTag } from "../../structures/ObjectJsonTag";
 
 export const test_functional_assertEqualsParametersAsyncCustom_ObjectJsonTag =
-  _test_functional_assertEqualsParametersAsync(CustomGuardError)(
-    "ObjectJsonTag",
-  )(ObjectJsonTag)((p: (input: ObjectJsonTag) => Promise<ObjectJsonTag>) =>
-    typia.functional.assertEqualsParameters(p, (p) => new CustomGuardError(p)),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsParametersAsync(CustomGuardError)(
+      "ObjectJsonTag",
+    )(ObjectJsonTag)((p: (input: ObjectJsonTag) => Promise<ObjectJsonTag>) =>
+      typia.functional.assertEqualsParameters(
+        p,
+        (p) => new CustomGuardError(p),
+      ),
+    );

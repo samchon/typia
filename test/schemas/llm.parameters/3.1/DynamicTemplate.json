@@ -2,22 +2,7 @@
   "type": "object",
   "properties": {
     "regular": {
-      "type": "object",
-      "properties": {},
-      "required": [],
-      "additionalProperties": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "number"
-          },
-          {
-            "type": "boolean"
-          }
-        ]
-      }
+      "$ref": "#/$defs/DynamicTemplate"
     },
     "nullable": {
       "oneOf": [
@@ -25,26 +10,38 @@
           "type": "null"
         },
         {
-          "type": "object",
-          "properties": {},
-          "required": [],
-          "additionalProperties": {
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "number"
-              },
-              {
-                "type": "boolean"
-              }
-            ]
-          }
+          "$ref": "#/$defs/DynamicTemplate"
         }
       ]
     },
     "optional": {
+      "$ref": "#/$defs/DynamicTemplate"
+    },
+    "faint": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/DynamicTemplate"
+        }
+      ]
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/DynamicTemplate"
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "array"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "DynamicTemplate": {
       "type": "object",
       "properties": {},
       "required": [],
@@ -61,61 +58,6 @@
           }
         ]
       }
-    },
-    "faint": {
-      "oneOf": [
-        {
-          "type": "null"
-        },
-        {
-          "type": "object",
-          "properties": {},
-          "required": [],
-          "additionalProperties": {
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "number"
-              },
-              {
-                "type": "boolean"
-              }
-            ]
-          }
-        }
-      ]
-    },
-    "array": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {},
-        "required": [],
-        "additionalProperties": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "number"
-            },
-            {
-              "type": "boolean"
-            }
-          ]
-        }
-      }
     }
-  },
-  "required": [
-    "regular",
-    "nullable",
-    "optional",
-    "faint",
-    "array"
-  ],
-  "additionalProperties": false,
-  "$defs": {}
+  }
 }

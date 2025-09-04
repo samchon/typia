@@ -3,10 +3,11 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { TemplateConstant } from "../../../structures/TemplateConstant";
 
-export const test_llm_application_llama_TemplateConstant =
+export const test_llm_application_llama_TemplateConstant = (): void =>
   _test_llm_application({
     model: "llama",
     name: "TemplateConstant",
+    factory: TemplateConstant,
   })(typia.llm.application<TemplateConstantApplication, "llama">());
 
 interface TemplateConstantApplication {

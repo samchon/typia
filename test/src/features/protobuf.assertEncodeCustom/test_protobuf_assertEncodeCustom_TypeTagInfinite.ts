@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_protobuf_assertEncode } from "../../internal/_test_protobuf_assertEncode";
 import { TypeTagInfinite } from "../../structures/TypeTagInfinite";
 
-export const test_protobuf_assertEncodeCustom_TypeTagInfinite =
+export const test_protobuf_assertEncodeCustom_TypeTagInfinite = (): void =>
   _test_protobuf_assertEncode(CustomGuardError)(
     "TypeTagInfinite",
   )<TypeTagInfinite>(TypeTagInfinite)({

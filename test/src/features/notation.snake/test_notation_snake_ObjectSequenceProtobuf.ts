@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_notation_validateGeneral } from "../../internal/_test_notation_validateGeneral";
 import { ObjectSequenceProtobuf } from "../../structures/ObjectSequenceProtobuf";
 
-export const test_notation_validateSnake_ObjectSequenceProtobuf =
+export const test_notation_validateSnake_ObjectSequenceProtobuf = (): void =>
   _test_notation_validateGeneral(
     "ObjectSequenceProtobuf",
   )<ObjectSequenceProtobuf>(ObjectSequenceProtobuf)<

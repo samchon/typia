@@ -5,8 +5,10 @@ import { _test_functional_assertEqualsParameters } from "../../internal/_test_fu
 import { CommentTagInfinite } from "../../structures/CommentTagInfinite";
 
 export const test_functional_assertEqualsParameters_CommentTagInfinite =
-  _test_functional_assertEqualsParameters(TypeGuardError)("CommentTagInfinite")(
-    CommentTagInfinite,
-  )((p: (input: CommentTagInfinite) => CommentTagInfinite) =>
-    typia.functional.assertEqualsParameters(p),
-  );
+  (): void =>
+    _test_functional_assertEqualsParameters(TypeGuardError)(
+      "CommentTagInfinite",
+    )(CommentTagInfinite)(
+      (p: (input: CommentTagInfinite) => CommentTagInfinite) =>
+        typia.functional.assertEqualsParameters(p),
+    );

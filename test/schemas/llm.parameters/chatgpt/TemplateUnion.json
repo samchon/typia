@@ -2,74 +2,7 @@
   "type": "object",
   "properties": {
     "regular": {
-      "type": "object",
-      "properties": {
-        "value": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "prefix": {
-                "description": "@pattern ^((prefix_(.*))|(prefix_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?))$",
-                "type": "string"
-              },
-              "postfix": {
-                "description": "@pattern (((.*)_postfix)|([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_postfix))$",
-                "type": "string"
-              },
-              "middle": {
-                "description": "@pattern ^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$",
-                "type": "string",
-                "enum": [
-                  "the_false_value",
-                  "the_true_value"
-                ]
-              },
-              "mixed": {
-                "anyOf": [
-                  {
-                    "type": "string",
-                    "description": "@pattern ^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$",
-                    "enum": [
-                      "the_A_value",
-                      "the_B_value"
-                    ]
-                  },
-                  {
-                    "type": "number"
-                  },
-                  {
-                    "type": "boolean"
-                  },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "name": {
-                        "type": "string"
-                      }
-                    },
-                    "required": [
-                      "name"
-                    ],
-                    "additionalProperties": false
-                  }
-                ]
-              }
-            },
-            "required": [
-              "prefix",
-              "postfix",
-              "middle",
-              "mixed"
-            ],
-            "additionalProperties": false
-          }
-        }
-      },
-      "required": [
-        "value"
-      ],
-      "additionalProperties": false
+      "$ref": "#/$defs/TemplateUnion"
     },
     "nullable": {
       "anyOf": [
@@ -77,146 +10,12 @@
           "type": "null"
         },
         {
-          "type": "object",
-          "properties": {
-            "value": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "prefix": {
-                    "description": "@pattern ^((prefix_(.*))|(prefix_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?))$",
-                    "type": "string"
-                  },
-                  "postfix": {
-                    "description": "@pattern (((.*)_postfix)|([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_postfix))$",
-                    "type": "string"
-                  },
-                  "middle": {
-                    "description": "@pattern ^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$",
-                    "type": "string",
-                    "enum": [
-                      "the_false_value",
-                      "the_true_value"
-                    ]
-                  },
-                  "mixed": {
-                    "anyOf": [
-                      {
-                        "type": "string",
-                        "description": "@pattern ^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$",
-                        "enum": [
-                          "the_A_value",
-                          "the_B_value"
-                        ]
-                      },
-                      {
-                        "type": "number"
-                      },
-                      {
-                        "type": "boolean"
-                      },
-                      {
-                        "type": "object",
-                        "properties": {
-                          "name": {
-                            "type": "string"
-                          }
-                        },
-                        "required": [
-                          "name"
-                        ],
-                        "additionalProperties": false
-                      }
-                    ]
-                  }
-                },
-                "required": [
-                  "prefix",
-                  "postfix",
-                  "middle",
-                  "mixed"
-                ],
-                "additionalProperties": false
-              }
-            }
-          },
-          "required": [
-            "value"
-          ],
-          "additionalProperties": false
+          "$ref": "#/$defs/TemplateUnion"
         }
       ]
     },
     "optional": {
-      "type": "object",
-      "properties": {
-        "value": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "prefix": {
-                "description": "@pattern ^((prefix_(.*))|(prefix_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?))$",
-                "type": "string"
-              },
-              "postfix": {
-                "description": "@pattern (((.*)_postfix)|([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_postfix))$",
-                "type": "string"
-              },
-              "middle": {
-                "description": "@pattern ^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$",
-                "type": "string",
-                "enum": [
-                  "the_false_value",
-                  "the_true_value"
-                ]
-              },
-              "mixed": {
-                "anyOf": [
-                  {
-                    "type": "string",
-                    "description": "@pattern ^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$",
-                    "enum": [
-                      "the_A_value",
-                      "the_B_value"
-                    ]
-                  },
-                  {
-                    "type": "number"
-                  },
-                  {
-                    "type": "boolean"
-                  },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "name": {
-                        "type": "string"
-                      }
-                    },
-                    "required": [
-                      "name"
-                    ],
-                    "additionalProperties": false
-                  }
-                ]
-              }
-            },
-            "required": [
-              "prefix",
-              "postfix",
-              "middle",
-              "mixed"
-            ],
-            "additionalProperties": false
-          }
-        }
-      },
-      "required": [
-        "value"
-      ],
-      "additionalProperties": false
+      "$ref": "#/$defs/TemplateUnion"
     },
     "faint": {
       "anyOf": [
@@ -224,158 +23,93 @@
           "type": "null"
         },
         {
-          "type": "object",
-          "properties": {
-            "value": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "prefix": {
-                    "description": "@pattern ^((prefix_(.*))|(prefix_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?))$",
-                    "type": "string"
-                  },
-                  "postfix": {
-                    "description": "@pattern (((.*)_postfix)|([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_postfix))$",
-                    "type": "string"
-                  },
-                  "middle": {
-                    "description": "@pattern ^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$",
-                    "type": "string",
-                    "enum": [
-                      "the_false_value",
-                      "the_true_value"
-                    ]
-                  },
-                  "mixed": {
-                    "anyOf": [
-                      {
-                        "type": "string",
-                        "description": "@pattern ^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$",
-                        "enum": [
-                          "the_A_value",
-                          "the_B_value"
-                        ]
-                      },
-                      {
-                        "type": "number"
-                      },
-                      {
-                        "type": "boolean"
-                      },
-                      {
-                        "type": "object",
-                        "properties": {
-                          "name": {
-                            "type": "string"
-                          }
-                        },
-                        "required": [
-                          "name"
-                        ],
-                        "additionalProperties": false
-                      }
-                    ]
-                  }
-                },
-                "required": [
-                  "prefix",
-                  "postfix",
-                  "middle",
-                  "mixed"
-                ],
-                "additionalProperties": false
-              }
-            }
-          },
-          "required": [
-            "value"
-          ],
-          "additionalProperties": false
+          "$ref": "#/$defs/TemplateUnion"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
-        "type": "object",
-        "properties": {
-          "value": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "prefix": {
-                  "description": "@pattern ^((prefix_(.*))|(prefix_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?))$",
-                  "type": "string"
-                },
-                "postfix": {
-                  "description": "@pattern (((.*)_postfix)|([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_postfix))$",
-                  "type": "string"
-                },
-                "middle": {
-                  "description": "@pattern ^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$",
-                  "type": "string",
-                  "enum": [
-                    "the_false_value",
-                    "the_true_value"
-                  ]
-                },
-                "mixed": {
-                  "anyOf": [
-                    {
-                      "type": "string",
-                      "description": "@pattern ^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$",
-                      "enum": [
-                        "the_A_value",
-                        "the_B_value"
-                      ]
-                    },
-                    {
-                      "type": "number"
-                    },
-                    {
-                      "type": "boolean"
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "name": {
-                          "type": "string"
-                        }
-                      },
-                      "required": [
-                        "name"
-                      ],
-                      "additionalProperties": false
-                    }
-                  ]
-                }
-              },
-              "required": [
-                "prefix",
-                "postfix",
-                "middle",
-                "mixed"
-              ],
-              "additionalProperties": false
-            }
-          }
-        },
-        "required": [
-          "value"
-        ],
-        "additionalProperties": false
+        "$ref": "#/$defs/TemplateUnion"
       }
     }
   },
   "required": [
     "regular",
     "nullable",
-    "optional",
-    "faint",
     "array"
   ],
   "additionalProperties": false,
-  "$defs": {}
+  "$defs": {
+    "TemplateUnion": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/TemplateUnion.Type"
+          }
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "TemplateUnion.Type": {
+      "type": "object",
+      "properties": {
+        "prefix": {
+          "description": "@pattern ^((prefix_(.*))|(prefix_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?))$",
+          "type": "string"
+        },
+        "postfix": {
+          "description": "@pattern (((.*)_postfix)|([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_postfix))$",
+          "type": "string"
+        },
+        "middle": {
+          "description": "@pattern ^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$",
+          "type": "string",
+          "enum": [
+            "the_false_value",
+            "the_true_value"
+          ]
+        },
+        "mixed": {
+          "anyOf": [
+            {
+              "type": "string",
+              "description": "@pattern ^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$",
+              "enum": [
+                "the_A_value",
+                "the_B_value"
+              ]
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "name"
+              ]
+            }
+          ]
+        }
+      },
+      "required": [
+        "prefix",
+        "postfix",
+        "middle",
+        "mixed"
+      ]
+    }
+  }
 }

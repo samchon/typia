@@ -5,12 +5,13 @@ import { _test_functional_assertParametersAsync } from "../../internal/_test_fun
 import { ArrayRecursiveUnionExplicitPointer } from "../../structures/ArrayRecursiveUnionExplicitPointer";
 
 export const test_functional_assertParametersAsync_ArrayRecursiveUnionExplicitPointer =
-  _test_functional_assertParametersAsync(TypeGuardError)(
-    "ArrayRecursiveUnionExplicitPointer",
-  )(ArrayRecursiveUnionExplicitPointer)(
-    (
-      p: (
-        input: ArrayRecursiveUnionExplicitPointer,
-      ) => Promise<ArrayRecursiveUnionExplicitPointer>,
-    ) => typia.functional.assertParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertParametersAsync(TypeGuardError)(
+      "ArrayRecursiveUnionExplicitPointer",
+    )(ArrayRecursiveUnionExplicitPointer)(
+      (
+        p: (
+          input: ArrayRecursiveUnionExplicitPointer,
+        ) => Promise<ArrayRecursiveUnionExplicitPointer>,
+      ) => typia.functional.assertParameters(p),
+    );

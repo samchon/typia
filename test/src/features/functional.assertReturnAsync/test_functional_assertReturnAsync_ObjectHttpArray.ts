@@ -5,8 +5,9 @@ import { _test_functional_assertReturnAsync } from "../../internal/_test_functio
 import { ObjectHttpArray } from "../../structures/ObjectHttpArray";
 
 export const test_functional_assertReturnAsync_ObjectHttpArray =
-  _test_functional_assertReturnAsync(TypeGuardError)("ObjectHttpArray")(
-    ObjectHttpArray,
-  )((p: (input: ObjectHttpArray) => Promise<ObjectHttpArray>) =>
-    typia.functional.assertReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertReturnAsync(TypeGuardError)("ObjectHttpArray")(
+      ObjectHttpArray,
+    )((p: (input: ObjectHttpArray) => Promise<ObjectHttpArray>) =>
+      typia.functional.assertReturn(p),
+    );

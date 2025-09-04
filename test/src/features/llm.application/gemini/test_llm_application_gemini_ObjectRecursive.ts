@@ -3,10 +3,11 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { ObjectRecursive } from "../../../structures/ObjectRecursive";
 
-export const test_llm_application_gemini_ObjectRecursive =
+export const test_llm_application_gemini_ObjectRecursive = (): void =>
   _test_llm_application({
     model: "gemini",
     name: "ObjectRecursive",
+    factory: ObjectRecursive,
   })(typia.llm.application<ObjectRecursiveApplication, "gemini">());
 
 interface ObjectRecursiveApplication {

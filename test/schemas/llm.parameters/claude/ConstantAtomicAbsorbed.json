@@ -2,21 +2,7 @@
   "type": "object",
   "properties": {
     "regular": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string",
-          "default": "something"
-        },
-        "age": {
-          "type": "number",
-          "default": 20
-        }
-      },
-      "required": [
-        "id",
-        "age"
-      ]
+      "$ref": "#/$defs/ConstantAtomicAbsorbed"
     },
     "nullable": {
       "oneOf": [
@@ -24,25 +10,38 @@
           "type": "null"
         },
         {
-          "type": "object",
-          "properties": {
-            "id": {
-              "type": "string",
-              "default": "something"
-            },
-            "age": {
-              "type": "number",
-              "default": 20
-            }
-          },
-          "required": [
-            "id",
-            "age"
-          ]
+          "$ref": "#/$defs/ConstantAtomicAbsorbed"
         }
       ]
     },
     "optional": {
+      "$ref": "#/$defs/ConstantAtomicAbsorbed"
+    },
+    "faint": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/ConstantAtomicAbsorbed"
+        }
+      ]
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ConstantAtomicAbsorbed"
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "array"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "ConstantAtomicAbsorbed": {
       "type": "object",
       "properties": {
         "id": {
@@ -58,59 +57,6 @@
         "id",
         "age"
       ]
-    },
-    "faint": {
-      "oneOf": [
-        {
-          "type": "null"
-        },
-        {
-          "type": "object",
-          "properties": {
-            "id": {
-              "type": "string",
-              "default": "something"
-            },
-            "age": {
-              "type": "number",
-              "default": 20
-            }
-          },
-          "required": [
-            "id",
-            "age"
-          ]
-        }
-      ]
-    },
-    "array": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "default": "something"
-          },
-          "age": {
-            "type": "number",
-            "default": 20
-          }
-        },
-        "required": [
-          "id",
-          "age"
-        ]
-      }
     }
-  },
-  "required": [
-    "regular",
-    "nullable",
-    "optional",
-    "faint",
-    "array"
-  ],
-  "additionalProperties": false,
-  "$defs": {}
+  }
 }

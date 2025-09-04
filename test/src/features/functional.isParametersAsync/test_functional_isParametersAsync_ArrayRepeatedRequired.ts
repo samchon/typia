@@ -4,8 +4,9 @@ import { _test_functional_isParametersAsync } from "../../internal/_test_functio
 import { ArrayRepeatedRequired } from "../../structures/ArrayRepeatedRequired";
 
 export const test_functional_isParametersAsync_ArrayRepeatedRequired =
-  _test_functional_isParametersAsync("ArrayRepeatedRequired")(
-    ArrayRepeatedRequired,
-  )((p: (input: ArrayRepeatedRequired) => Promise<ArrayRepeatedRequired>) =>
-    typia.functional.isParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_isParametersAsync("ArrayRepeatedRequired")(
+      ArrayRepeatedRequired,
+    )((p: (input: ArrayRepeatedRequired) => Promise<ArrayRepeatedRequired>) =>
+      typia.functional.isParameters(p),
+    );

@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_assertGuardEquals } from "../../internal/_test_assertGuardEquals";
 import { ConstantAtomicWrapper } from "../../structures/ConstantAtomicWrapper";
 
-export const test_assertGuardEquals_ConstantAtomicWrapper =
+export const test_assertGuardEquals_ConstantAtomicWrapper = (): void =>
   _test_assertGuardEquals(TypeGuardError)(
     "ConstantAtomicWrapper",
   )<ConstantAtomicWrapper>(ConstantAtomicWrapper)((input) =>

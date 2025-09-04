@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsFunction } from "../../internal/_test_fu
 import { TypeTagArrayUnion } from "../../structures/TypeTagArrayUnion";
 
 export const test_functional_validateEqualsFunction_TypeTagArrayUnion =
-  _test_functional_validateEqualsFunction("TypeTagArrayUnion")(
-    TypeTagArrayUnion,
-  )((p: (input: TypeTagArrayUnion) => TypeTagArrayUnion) =>
-    typia.functional.validateEqualsFunction(p),
-  );
+  (): void =>
+    _test_functional_validateEqualsFunction("TypeTagArrayUnion")(
+      TypeTagArrayUnion,
+    )((p: (input: TypeTagArrayUnion) => TypeTagArrayUnion) =>
+      typia.functional.validateEqualsFunction(p),
+    );

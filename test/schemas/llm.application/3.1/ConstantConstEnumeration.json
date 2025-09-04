@@ -1,8 +1,8 @@
 {
   "model": "3.1",
   "options": {
-    "constraint": false,
-    "reference": false,
+    "reference": true,
+    "constraint": true,
     "separate": null
   },
   "functions": [
@@ -12,35 +12,41 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "array",
-            "items": {
-              "oneOf": [
-                {
-                  "const": 0
-                },
-                {
-                  "const": 1
-                },
-                {
-                  "const": 2
-                },
-                {
-                  "const": "Three"
-                },
-                {
-                  "const": "Four"
-                }
-              ]
-            }
+            "$ref": "#/$defs/ConstantConstEnumeration"
           }
         },
         "required": [
           "first"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "strict": true
+        "$defs": {
+          "ConstantConstEnumeration": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/ConstantConstEnumeration.Enumeration"
+            }
+          },
+          "ConstantConstEnumeration.Enumeration": {
+            "oneOf": [
+              {
+                "const": 0
+              },
+              {
+                "const": 1
+              },
+              {
+                "const": 2
+              },
+              {
+                "const": "Three"
+              },
+              {
+                "const": "Four"
+              }
+            ]
+          }
+        }
+      }
     },
     {
       "name": "reduce",
@@ -48,26 +54,7 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "array",
-            "items": {
-              "oneOf": [
-                {
-                  "const": 0
-                },
-                {
-                  "const": 1
-                },
-                {
-                  "const": 2
-                },
-                {
-                  "const": "Three"
-                },
-                {
-                  "const": "Four"
-                }
-              ]
-            }
+            "$ref": "#/$defs/ConstantConstEnumeration"
           },
           "second": {
             "oneOf": [
@@ -75,26 +62,7 @@
                 "type": "null"
               },
               {
-                "type": "array",
-                "items": {
-                  "oneOf": [
-                    {
-                      "const": 0
-                    },
-                    {
-                      "const": 1
-                    },
-                    {
-                      "const": 2
-                    },
-                    {
-                      "const": "Three"
-                    },
-                    {
-                      "const": "Four"
-                    }
-                  ]
-                }
+                "$ref": "#/$defs/ConstantConstEnumeration"
               }
             ]
           }
@@ -104,31 +72,37 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "output": {
-        "type": "array",
-        "items": {
-          "oneOf": [
-            {
-              "const": 0
-            },
-            {
-              "const": 1
-            },
-            {
-              "const": 2
-            },
-            {
-              "const": "Three"
-            },
-            {
-              "const": "Four"
+        "$defs": {
+          "ConstantConstEnumeration": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/ConstantConstEnumeration.Enumeration"
             }
-          ]
+          },
+          "ConstantConstEnumeration.Enumeration": {
+            "oneOf": [
+              {
+                "const": 0
+              },
+              {
+                "const": 1
+              },
+              {
+                "const": 2
+              },
+              {
+                "const": "Three"
+              },
+              {
+                "const": "Four"
+              }
+            ]
+          }
         }
       },
-      "strict": true
+      "output": {
+        "$ref": "#/$defs/ConstantConstEnumeration"
+      }
     },
     {
       "name": "coalesce",
@@ -141,26 +115,7 @@
                 "type": "null"
               },
               {
-                "type": "array",
-                "items": {
-                  "oneOf": [
-                    {
-                      "const": 0
-                    },
-                    {
-                      "const": 1
-                    },
-                    {
-                      "const": 2
-                    },
-                    {
-                      "const": "Three"
-                    },
-                    {
-                      "const": "Four"
-                    }
-                  ]
-                }
+                "$ref": "#/$defs/ConstantConstEnumeration"
               }
             ]
           },
@@ -170,26 +125,7 @@
                 "type": "null"
               },
               {
-                "type": "array",
-                "items": {
-                  "oneOf": [
-                    {
-                      "const": 0
-                    },
-                    {
-                      "const": 1
-                    },
-                    {
-                      "const": 2
-                    },
-                    {
-                      "const": "Three"
-                    },
-                    {
-                      "const": "Four"
-                    }
-                  ]
-                }
+                "$ref": "#/$defs/ConstantConstEnumeration"
               }
             ]
           },
@@ -199,37 +135,43 @@
                 "type": "null"
               },
               {
-                "type": "array",
-                "items": {
-                  "oneOf": [
-                    {
-                      "const": 0
-                    },
-                    {
-                      "const": 1
-                    },
-                    {
-                      "const": 2
-                    },
-                    {
-                      "const": "Three"
-                    },
-                    {
-                      "const": "Four"
-                    }
-                  ]
-                }
+                "$ref": "#/$defs/ConstantConstEnumeration"
               }
             ]
           }
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "ConstantConstEnumeration": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/ConstantConstEnumeration.Enumeration"
+            }
+          },
+          "ConstantConstEnumeration.Enumeration": {
+            "oneOf": [
+              {
+                "const": 0
+              },
+              {
+                "const": 1
+              },
+              {
+                "const": 2
+              },
+              {
+                "const": "Three"
+              },
+              {
+                "const": "Four"
+              }
+            ]
+          }
+        }
       },
       "output": {
         "oneOf": [
@@ -237,30 +179,10 @@
             "type": "null"
           },
           {
-            "type": "array",
-            "items": {
-              "oneOf": [
-                {
-                  "const": 0
-                },
-                {
-                  "const": 1
-                },
-                {
-                  "const": 2
-                },
-                {
-                  "const": "Three"
-                },
-                {
-                  "const": "Four"
-                }
-              ]
-            }
+            "$ref": "#/$defs/ConstantConstEnumeration"
           }
         ]
-      },
-      "strict": true
+      }
     }
   ]
 }

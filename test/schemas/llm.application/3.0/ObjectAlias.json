@@ -1,8 +1,8 @@
 {
   "model": "3.0",
   "options": {
-    "constraint": false,
     "recursive": 3,
+    "constraint": true,
     "separate": null
   },
   "functions": [
@@ -63,16 +63,17 @@
                 "age",
                 "dead"
               ],
+              "description": "Current Type: {@link ObjectAlias.IMember}",
               "additionalProperties": false
-            }
+            },
+            "description": "Current Type: {@link ObjectAlias}"
           }
         },
         "required": [
           "first"
         ],
         "additionalProperties": false
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -131,8 +132,10 @@
                 "age",
                 "dead"
               ],
+              "description": "Current Type: {@link ObjectAlias.IMember}",
               "additionalProperties": false
-            }
+            },
+            "description": "Current Type: {@link ObjectAlias}"
           },
           "second": {
             "type": "array",
@@ -186,6 +189,7 @@
                 "age",
                 "dead"
               ],
+              "description": "Current Type: {@link ObjectAlias.IMember}",
               "additionalProperties": false
             },
             "nullable": true
@@ -249,10 +253,11 @@
             "age",
             "dead"
           ],
+          "description": "Current Type: {@link ObjectAlias.IMember}",
           "additionalProperties": false
-        }
-      },
-      "strict": true
+        },
+        "description": "Current Type: {@link ObjectAlias}"
+      }
     },
     {
       "name": "coalesce",
@@ -311,6 +316,7 @@
                 "age",
                 "dead"
               ],
+              "description": "Current Type: {@link ObjectAlias.IMember}",
               "additionalProperties": false
             },
             "nullable": true
@@ -367,6 +373,7 @@
                 "age",
                 "dead"
               ],
+              "description": "Current Type: {@link ObjectAlias.IMember}",
               "additionalProperties": false
             },
             "nullable": true
@@ -423,6 +430,7 @@
                 "age",
                 "dead"
               ],
+              "description": "Current Type: {@link ObjectAlias.IMember}",
               "additionalProperties": false
             },
             "nullable": true
@@ -486,11 +494,11 @@
             "age",
             "dead"
           ],
+          "description": "Current Type: {@link ObjectAlias.IMember}",
           "additionalProperties": false
         },
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

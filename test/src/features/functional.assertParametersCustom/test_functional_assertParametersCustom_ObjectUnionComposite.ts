@@ -5,8 +5,9 @@ import { _test_functional_assertParameters } from "../../internal/_test_function
 import { ObjectUnionComposite } from "../../structures/ObjectUnionComposite";
 
 export const test_functional_assertParametersCustom_ObjectUnionComposite =
-  _test_functional_assertParameters(CustomGuardError)("ObjectUnionComposite")(
-    ObjectUnionComposite,
-  )((p: (input: ObjectUnionComposite) => ObjectUnionComposite) =>
-    typia.functional.assertParameters(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertParameters(CustomGuardError)("ObjectUnionComposite")(
+      ObjectUnionComposite,
+    )((p: (input: ObjectUnionComposite) => ObjectUnionComposite) =>
+      typia.functional.assertParameters(p, (p) => new CustomGuardError(p)),
+    );

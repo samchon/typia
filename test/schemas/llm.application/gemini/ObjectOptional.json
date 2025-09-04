@@ -26,14 +26,14 @@
                 "type": "number"
               }
             },
-            "required": []
+            "required": [],
+            "description": "Current Type: {@link ObjectOptional}"
           }
         },
         "required": [
           "first"
         ]
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -56,7 +56,8 @@
                 "type": "number"
               }
             },
-            "required": []
+            "required": [],
+            "description": "Current Type: {@link ObjectOptional}"
           },
           "second": {
             "type": "object",
@@ -99,9 +100,9 @@
             "type": "number"
           }
         },
-        "required": []
-      },
-      "strict": true
+        "required": [],
+        "description": "Current Type: {@link ObjectOptional}"
+      }
     },
     {
       "name": "coalesce",
@@ -189,8 +190,7 @@
         },
         "required": [],
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

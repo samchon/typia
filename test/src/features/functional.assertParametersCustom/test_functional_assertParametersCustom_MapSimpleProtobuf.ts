@@ -5,8 +5,9 @@ import { _test_functional_assertParameters } from "../../internal/_test_function
 import { MapSimpleProtobuf } from "../../structures/MapSimpleProtobuf";
 
 export const test_functional_assertParametersCustom_MapSimpleProtobuf =
-  _test_functional_assertParameters(CustomGuardError)("MapSimpleProtobuf")(
-    MapSimpleProtobuf,
-  )((p: (input: MapSimpleProtobuf) => MapSimpleProtobuf) =>
-    typia.functional.assertParameters(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertParameters(CustomGuardError)("MapSimpleProtobuf")(
+      MapSimpleProtobuf,
+    )((p: (input: MapSimpleProtobuf) => MapSimpleProtobuf) =>
+      typia.functional.assertParameters(p, (p) => new CustomGuardError(p)),
+    );

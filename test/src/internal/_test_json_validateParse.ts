@@ -7,8 +7,7 @@ import { _check_invalidate_json_value } from "./_check_invalidate_json_value";
 export const _test_json_validateParse =
   (name: string) =>
   <T>(factory: TestStructure<T>) =>
-  (parse: (input: string) => IValidation<Primitive<T>>) =>
-  () => {
+  (parse: (input: string) => IValidation<Primitive<T>>): void => {
     const data: T = factory.generate();
     const string: string = JSON.stringify(data);
     const expected: Primitive<T> = JSON.parse(string);
@@ -23,6 +22,7 @@ export const _test_json_validateParse =
         `Bug on typia.json.validateParse(): failed to understand the ${name} type.`,
       );
     }
+    typia.assertEquals<IValidation.ISuccess<unknown>>(valid);
 
     const wrong: ISpoiled[] = [];
     for (const spoil of factory.SPOILERS ?? []) {

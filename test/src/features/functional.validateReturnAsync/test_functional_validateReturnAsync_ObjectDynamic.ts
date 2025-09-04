@@ -4,7 +4,8 @@ import { _test_functional_validateReturnAsync } from "../../internal/_test_funct
 import { ObjectDynamic } from "../../structures/ObjectDynamic";
 
 export const test_functional_validateReturnAsync_ObjectDynamic =
-  _test_functional_validateReturnAsync("ObjectDynamic")(ObjectDynamic)(
-    (p: (input: ObjectDynamic) => Promise<ObjectDynamic>) =>
-      typia.functional.validateReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateReturnAsync("ObjectDynamic")(ObjectDynamic)(
+      (p: (input: ObjectDynamic) => Promise<ObjectDynamic>) =>
+        typia.functional.validateReturn(p),
+    );

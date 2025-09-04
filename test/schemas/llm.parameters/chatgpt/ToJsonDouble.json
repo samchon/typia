@@ -2,20 +2,7 @@
   "type": "object",
   "properties": {
     "regular": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "number"
-        },
-        "flag": {
-          "type": "boolean"
-        }
-      },
-      "required": [
-        "id",
-        "flag"
-      ],
-      "additionalProperties": false
+      "$ref": "#/$defs/ToJsonDouble.Child"
     },
     "nullable": {
       "anyOf": [
@@ -23,24 +10,38 @@
           "type": "null"
         },
         {
-          "type": "object",
-          "properties": {
-            "id": {
-              "type": "number"
-            },
-            "flag": {
-              "type": "boolean"
-            }
-          },
-          "required": [
-            "id",
-            "flag"
-          ],
-          "additionalProperties": false
+          "$ref": "#/$defs/ToJsonDouble.Child"
         }
       ]
     },
     "optional": {
+      "$ref": "#/$defs/ToJsonDouble.Child"
+    },
+    "faint": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/ToJsonDouble.Child"
+        }
+      ]
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ToJsonDouble.Child"
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "array"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "ToJsonDouble.Child": {
       "type": "object",
       "properties": {
         "id": {
@@ -53,59 +54,7 @@
       "required": [
         "id",
         "flag"
-      ],
-      "additionalProperties": false
-    },
-    "faint": {
-      "anyOf": [
-        {
-          "type": "null"
-        },
-        {
-          "type": "object",
-          "properties": {
-            "id": {
-              "type": "number"
-            },
-            "flag": {
-              "type": "boolean"
-            }
-          },
-          "required": [
-            "id",
-            "flag"
-          ],
-          "additionalProperties": false
-        }
       ]
-    },
-    "array": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "number"
-          },
-          "flag": {
-            "type": "boolean"
-          }
-        },
-        "required": [
-          "id",
-          "flag"
-        ],
-        "additionalProperties": false
-      }
     }
-  },
-  "required": [
-    "regular",
-    "nullable",
-    "optional",
-    "faint",
-    "array"
-  ],
-  "additionalProperties": false,
-  "$defs": {}
+  }
 }

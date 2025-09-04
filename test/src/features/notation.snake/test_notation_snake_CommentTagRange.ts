@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_notation_validateGeneral } from "../../internal/_test_notation_validateGeneral";
 import { CommentTagRange } from "../../structures/CommentTagRange";
 
-export const test_notation_validateSnake_CommentTagRange =
+export const test_notation_validateSnake_CommentTagRange = (): void =>
   _test_notation_validateGeneral("CommentTagRange")<CommentTagRange>(
     CommentTagRange,
   )<typia.SnakeCase<CommentTagRange>>({

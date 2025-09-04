@@ -5,9 +5,10 @@ import { _test_protobuf_assertDecode } from "../../internal/_test_protobuf_asser
 import { ObjectSequenceProtobuf } from "../../structures/ObjectSequenceProtobuf";
 
 export const test_protobuf_createAssertDecode_ObjectSequenceProtobuf =
-  _test_protobuf_assertDecode(TypeGuardError)(
-    "ObjectSequenceProtobuf",
-  )<ObjectSequenceProtobuf>(ObjectSequenceProtobuf)({
-    decode: typia.protobuf.createAssertDecode<ObjectSequenceProtobuf>(),
-    encode: typia.protobuf.createEncode<ObjectSequenceProtobuf>(),
-  });
+  (): void =>
+    _test_protobuf_assertDecode(TypeGuardError)(
+      "ObjectSequenceProtobuf",
+    )<ObjectSequenceProtobuf>(ObjectSequenceProtobuf)({
+      decode: typia.protobuf.createAssertDecode<ObjectSequenceProtobuf>(),
+      encode: typia.protobuf.createEncode<ObjectSequenceProtobuf>(),
+    });

@@ -5,8 +5,9 @@ import { _test_functional_assertEqualsReturnAsync } from "../../internal/_test_f
 import { CommentTagArray } from "../../structures/CommentTagArray";
 
 export const test_functional_assertEqualsReturnAsync_CommentTagArray =
-  _test_functional_assertEqualsReturnAsync(TypeGuardError)("CommentTagArray")(
-    CommentTagArray,
-  )((p: (input: CommentTagArray) => Promise<CommentTagArray>) =>
-    typia.functional.assertEqualsReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsReturnAsync(TypeGuardError)("CommentTagArray")(
+      CommentTagArray,
+    )((p: (input: CommentTagArray) => Promise<CommentTagArray>) =>
+      typia.functional.assertEqualsReturn(p),
+    );

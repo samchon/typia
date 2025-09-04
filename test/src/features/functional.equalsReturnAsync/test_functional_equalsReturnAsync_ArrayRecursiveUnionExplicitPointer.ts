@@ -4,12 +4,13 @@ import { _test_functional_equalsReturnAsync } from "../../internal/_test_functio
 import { ArrayRecursiveUnionExplicitPointer } from "../../structures/ArrayRecursiveUnionExplicitPointer";
 
 export const test_functional_equalsReturnAsync_ArrayRecursiveUnionExplicitPointer =
-  _test_functional_equalsReturnAsync("ArrayRecursiveUnionExplicitPointer")(
-    ArrayRecursiveUnionExplicitPointer,
-  )(
-    (
-      p: (
-        input: ArrayRecursiveUnionExplicitPointer,
-      ) => Promise<ArrayRecursiveUnionExplicitPointer>,
-    ) => typia.functional.equalsReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_equalsReturnAsync("ArrayRecursiveUnionExplicitPointer")(
+      ArrayRecursiveUnionExplicitPointer,
+    )(
+      (
+        p: (
+          input: ArrayRecursiveUnionExplicitPointer,
+        ) => Promise<ArrayRecursiveUnionExplicitPointer>,
+      ) => typia.functional.equalsReturn(p),
+    );

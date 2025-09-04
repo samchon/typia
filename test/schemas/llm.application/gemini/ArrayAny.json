@@ -60,14 +60,14 @@
               "nullables1",
               "nullables2",
               "union"
-            ]
+            ],
+            "description": "Current Type: {@link ArrayAny}"
           }
         },
         "required": [
           "first"
         ]
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -124,7 +124,8 @@
               "nullables1",
               "nullables2",
               "union"
-            ]
+            ],
+            "description": "Current Type: {@link ArrayAny}"
           },
           "second": {
             "type": "object",
@@ -235,9 +236,9 @@
           "nullables1",
           "nullables2",
           "union"
-        ]
-      },
-      "strict": true
+        ],
+        "description": "Current Type: {@link ArrayAny}"
+      }
     },
     {
       "name": "coalesce",
@@ -461,8 +462,7 @@
           "union"
         ],
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

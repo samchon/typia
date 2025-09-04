@@ -7,8 +7,7 @@ import { resolved_equal_to } from "../helpers/resolved_equal_to";
 export const _test_http_isFormData =
   (name: string) =>
   <T extends object>(factory: TestStructure<T>) =>
-  (decode: (input: FormData) => typia.Resolved<T> | null) =>
-  () => {
+  (decode: (input: FormData) => typia.Resolved<T> | null): void => {
     const data: T = factory.generate();
     const encoded: FormData = create_form_data(data);
     const decoded: typia.Resolved<T> | null = decode(encoded);

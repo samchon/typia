@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_protobuf_assertEncode } from "../../internal/_test_protobuf_assertEncode";
 import { CommentTagRange } from "../../structures/CommentTagRange";
 
-export const test_protobuf_assertEncodeCustom_CommentTagRange =
+export const test_protobuf_assertEncodeCustom_CommentTagRange = (): void =>
   _test_protobuf_assertEncode(CustomGuardError)(
     "CommentTagRange",
   )<CommentTagRange>(CommentTagRange)({

@@ -2,16 +2,7 @@
   "type": "object",
   "properties": {
     "regular": {
-      "type": "object",
-      "properties": {
-        "value": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "value"
-      ],
-      "additionalProperties": false
+      "$ref": "#/$defs/ObjectGenericAlias.Alias"
     },
     "nullable": {
       "anyOf": [
@@ -19,20 +10,38 @@
           "type": "null"
         },
         {
-          "type": "object",
-          "properties": {
-            "value": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "value"
-          ],
-          "additionalProperties": false
+          "$ref": "#/$defs/ObjectGenericAlias.Alias"
         }
       ]
     },
     "optional": {
+      "$ref": "#/$defs/ObjectGenericAlias.Alias"
+    },
+    "faint": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/ObjectGenericAlias.Alias"
+        }
+      ]
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ObjectGenericAlias.Alias"
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "array"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "ObjectGenericAlias.Alias": {
       "type": "object",
       "properties": {
         "value": {
@@ -41,51 +50,7 @@
       },
       "required": [
         "value"
-      ],
-      "additionalProperties": false
-    },
-    "faint": {
-      "anyOf": [
-        {
-          "type": "null"
-        },
-        {
-          "type": "object",
-          "properties": {
-            "value": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "value"
-          ],
-          "additionalProperties": false
-        }
       ]
-    },
-    "array": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "value": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "value"
-        ],
-        "additionalProperties": false
-      }
     }
-  },
-  "required": [
-    "regular",
-    "nullable",
-    "optional",
-    "faint",
-    "array"
-  ],
-  "additionalProperties": false,
-  "$defs": {}
+  }
 }

@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_misc_assertPrune } from "../../internal/_test_misc_assertPrune";
 import { ObjectHttpNullable } from "../../structures/ObjectHttpNullable";
 
-export const test_misc_assertPruneCustom_ObjectHttpNullable =
+export const test_misc_assertPruneCustom_ObjectHttpNullable = (): void =>
   _test_misc_assertPrune(CustomGuardError)(
     "ObjectHttpNullable",
   )<ObjectHttpNullable>(ObjectHttpNullable)((input) =>

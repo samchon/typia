@@ -1,4 +1,4 @@
-import typia, { tags } from "typia";
+import { tags } from "typia";
 import * as __typia_transform__assertGuard from "typia/lib/internal/_assertGuard.js";
 import * as __typia_transform__isFormatEmail from "typia/lib/internal/_isFormatEmail.js";
 import * as __typia_transform__isFormatUuid from "typia/lib/internal/_isFormatUuid.js";
@@ -546,15 +546,19 @@ export const createValidateCamel = (() => {
           value: input,
         }))(input, "$input", true);
       const success = 0 === errors.length;
-      return {
-        success,
-        errors,
-        data: success ? input : undefined,
-      } as any;
+      return success
+        ? {
+            success,
+            data: input,
+          }
+        : ({
+            success,
+            errors,
+            data: input,
+          } as any);
     }
     return {
       success: true,
-      errors: [],
       data: input,
     } as any;
   };
@@ -1098,15 +1102,19 @@ export const createValidatePascal = (() => {
           value: input,
         }))(input, "$input", true);
       const success = 0 === errors.length;
-      return {
-        success,
-        errors,
-        data: success ? input : undefined,
-      } as any;
+      return success
+        ? {
+            success,
+            data: input,
+          }
+        : ({
+            success,
+            errors,
+            data: input,
+          } as any);
     }
     return {
       success: true,
-      errors: [],
       data: input,
     } as any;
   };
@@ -1650,15 +1658,19 @@ export const createValidateSnake = (() => {
           value: input,
         }))(input, "$input", true);
       const success = 0 === errors.length;
-      return {
-        success,
-        errors,
-        data: success ? input : undefined,
-      } as any;
+      return success
+        ? {
+            success,
+            data: input,
+          }
+        : ({
+            success,
+            errors,
+            data: input,
+          } as any);
     }
     return {
       success: true,
-      errors: [],
       data: input,
     } as any;
   };

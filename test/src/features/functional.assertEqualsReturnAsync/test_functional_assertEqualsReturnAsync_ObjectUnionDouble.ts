@@ -5,8 +5,10 @@ import { _test_functional_assertEqualsReturnAsync } from "../../internal/_test_f
 import { ObjectUnionDouble } from "../../structures/ObjectUnionDouble";
 
 export const test_functional_assertEqualsReturnAsync_ObjectUnionDouble =
-  _test_functional_assertEqualsReturnAsync(TypeGuardError)("ObjectUnionDouble")(
-    ObjectUnionDouble,
-  )((p: (input: ObjectUnionDouble) => Promise<ObjectUnionDouble>) =>
-    typia.functional.assertEqualsReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsReturnAsync(TypeGuardError)(
+      "ObjectUnionDouble",
+    )(ObjectUnionDouble)(
+      (p: (input: ObjectUnionDouble) => Promise<ObjectUnionDouble>) =>
+        typia.functional.assertEqualsReturn(p),
+    );

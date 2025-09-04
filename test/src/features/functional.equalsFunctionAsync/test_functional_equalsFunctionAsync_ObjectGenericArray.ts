@@ -4,8 +4,9 @@ import { _test_functional_equalsFunctionAsync } from "../../internal/_test_funct
 import { ObjectGenericArray } from "../../structures/ObjectGenericArray";
 
 export const test_functional_equalsFunctionAsync_ObjectGenericArray =
-  _test_functional_equalsFunctionAsync("ObjectGenericArray")(
-    ObjectGenericArray,
-  )((p: (input: ObjectGenericArray) => Promise<ObjectGenericArray>) =>
-    typia.functional.equalsFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_equalsFunctionAsync("ObjectGenericArray")(
+      ObjectGenericArray,
+    )((p: (input: ObjectGenericArray) => Promise<ObjectGenericArray>) =>
+      typia.functional.equalsFunction(p),
+    );

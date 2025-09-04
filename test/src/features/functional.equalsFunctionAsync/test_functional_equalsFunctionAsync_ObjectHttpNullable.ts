@@ -4,8 +4,9 @@ import { _test_functional_equalsFunctionAsync } from "../../internal/_test_funct
 import { ObjectHttpNullable } from "../../structures/ObjectHttpNullable";
 
 export const test_functional_equalsFunctionAsync_ObjectHttpNullable =
-  _test_functional_equalsFunctionAsync("ObjectHttpNullable")(
-    ObjectHttpNullable,
-  )((p: (input: ObjectHttpNullable) => Promise<ObjectHttpNullable>) =>
-    typia.functional.equalsFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_equalsFunctionAsync("ObjectHttpNullable")(
+      ObjectHttpNullable,
+    )((p: (input: ObjectHttpNullable) => Promise<ObjectHttpNullable>) =>
+      typia.functional.equalsFunction(p),
+    );

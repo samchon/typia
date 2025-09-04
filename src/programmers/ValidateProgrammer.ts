@@ -20,6 +20,7 @@ import { check_object } from "./internal/check_object";
 export namespace ValidateProgrammer {
   export interface IConfig {
     equals: boolean;
+    standardSchema?: boolean;
   }
   export interface IProps extends IProgrammerProps {
     config: IConfig;
@@ -62,7 +63,7 @@ export namespace ValidateProgrammer {
                             : "_path",
                         ),
                         expected: cond.expected,
-                        input: next.input,
+                        value: next.input,
                       }),
                     ),
                   )
@@ -88,7 +89,7 @@ export namespace ValidateProgrammer {
                             : "_path",
                         ),
                         expected: next.entry.expected,
-                        input: next.input,
+                        value: next.input,
                       }),
                     ),
                   ]),
@@ -193,10 +194,6 @@ export namespace ValidateProgrammer {
                     ts.factory.createTrue(),
                   ),
                   ts.factory.createPropertyAssignment(
-                    "errors",
-                    ts.factory.createArrayLiteralExpression([]),
-                  ),
-                  ts.factory.createPropertyAssignment(
                     "data",
                     ts.factory.createIdentifier("input"),
                   ),
@@ -245,6 +242,14 @@ export namespace ValidateProgrammer {
       modulo: props.modulo,
       functor,
       result,
+      returnWrapper: props.config.standardSchema
+        ? (arrow) =>
+            ts.factory.createCallExpression(
+              props.context.importer.internal("createStandardSchema"),
+              undefined,
+              [arrow],
+            )
+        : undefined,
     });
   };
 }
@@ -290,7 +295,7 @@ const combine =
                         : ts.factory.createIdentifier("_exceptionable"),
                     path: ts.factory.createIdentifier(path),
                     expected: next.expected,
-                    input: next.input,
+                    value: next.input,
                   }),
                 ),
           )
@@ -306,7 +311,7 @@ const combine =
                 : ts.factory.createIdentifier("_exceptionable"),
             path: ts.factory.createIdentifier(path),
             expected: next.expected,
-            input: next.input,
+            value: next.input,
           }),
         );
   };
@@ -325,7 +330,7 @@ const validate_object = (props: {
       assert: false,
       reduce: ts.factory.createLogicalAnd,
       positive: ts.factory.createTrue(),
-      superfluous: (input) =>
+      superfluous: (input, description) =>
         create_report_call({
           path: ts.factory.createAdd(
             ts.factory.createIdentifier("_path"),
@@ -336,7 +341,8 @@ const validate_object = (props: {
             ),
           ),
           expected: "undefined",
-          input,
+          value: input,
+          description,
         }),
       halt: (expr) =>
         ts.factory.createLogicalOr(
@@ -383,36 +389,46 @@ const joiner = (props: {
         next.explore?.postfix ? `_path + ${next.explore.postfix}` : "_path",
       ),
       expected: next.expected,
-      input: next.input,
+      value: next.input,
     }),
   tuple: (binaries) =>
     check_everything(ts.factory.createArrayLiteralExpression(binaries, true)),
 });
 
 const create_output = () =>
-  ts.factory.createObjectLiteralExpression(
-    [
-      ts.factory.createShorthandPropertyAssignment("success"),
-      ts.factory.createShorthandPropertyAssignment("errors"),
-      ts.factory.createPropertyAssignment(
-        "data",
-        ts.factory.createConditionalExpression(
-          ts.factory.createIdentifier("success"),
-          undefined,
+  ts.factory.createConditionalExpression(
+    ts.factory.createIdentifier("success"),
+    undefined,
+    ts.factory.createObjectLiteralExpression(
+      [
+        ts.factory.createShorthandPropertyAssignment("success"),
+        ts.factory.createPropertyAssignment(
+          "data",
           ts.factory.createIdentifier("input"),
-          undefined,
-          ts.factory.createIdentifier("undefined"),
         ),
-      ),
-    ],
-    true,
+      ],
+      true,
+    ),
+    undefined,
+    ts.factory.createObjectLiteralExpression(
+      [
+        ts.factory.createShorthandPropertyAssignment("success"),
+        ts.factory.createShorthandPropertyAssignment("errors"),
+        ts.factory.createPropertyAssignment(
+          "data",
+          ts.factory.createIdentifier("input"),
+        ),
+      ],
+      true,
+    ),
   );
 
 const create_report_call = (props: {
   exceptionable?: ts.Expression;
   path: ts.Expression;
   expected: string;
-  input: ts.Expression;
+  value: ts.Expression;
+  description?: ts.Expression;
 }): ts.Expression =>
   ts.factory.createCallExpression(
     ts.factory.createIdentifier("_report"),
@@ -426,7 +442,15 @@ const create_report_call = (props: {
             "expected",
             ts.factory.createStringLiteral(props.expected),
           ),
-          ts.factory.createPropertyAssignment("value", props.input),
+          ts.factory.createPropertyAssignment("value", props.value),
+          ...(props.description
+            ? [
+                ts.factory.createPropertyAssignment(
+                  "description",
+                  props.description,
+                ),
+              ]
+            : []),
         ],
         true,
       ),

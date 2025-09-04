@@ -529,7 +529,7 @@
               "rest": null,
               "arrays": [
                 {
-                  "name": "Array<Uint8Array>",
+                  "name": "Array<Uint8Array<ArrayBufferLike>>",
                   "tags": []
                 }
               ],
@@ -710,7 +710,8 @@
                     "validate": "$importInternal(\"isTypeUint32\")($input)",
                     "exclusive": true,
                     "schema": {
-                      "type": "integer"
+                      "type": "integer",
+                      "minimum": 0
                     }
                   }
                 ]
@@ -802,7 +803,8 @@
                     "validate": "BigInt(0) <= $input",
                     "exclusive": true,
                     "schema": {
-                      "type": "integer"
+                      "type": "integer",
+                      "minimum": 0
                     }
                   }
                 ]
@@ -952,7 +954,7 @@
         "index": null
       },
       {
-        "name": "Array<Uint8Array>",
+        "name": "Array<Uint8Array<ArrayBufferLike>>",
         "value": {
           "any": false,
           "required": true,

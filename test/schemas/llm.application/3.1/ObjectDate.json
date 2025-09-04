@@ -1,8 +1,8 @@
 {
   "model": "3.1",
   "options": {
-    "constraint": false,
-    "reference": false,
+    "reference": true,
+    "constraint": true,
     "separate": null
   },
   "functions": [
@@ -12,6 +12,15 @@
         "type": "object",
         "properties": {
           "first": {
+            "$ref": "#/$defs/ObjectDate"
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ObjectDate": {
             "type": "object",
             "properties": {
               "classDate": {
@@ -21,7 +30,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "@format date-time"
+                    "format": "date-time"
                   }
                 ]
               },
@@ -32,7 +41,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "@format date"
+                    "format": "date"
                   }
                 ]
               },
@@ -43,7 +52,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "@format date-time"
+                    "format": "date-time"
                   }
                 ]
               },
@@ -54,7 +63,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "@format time"
+                    "format": "time"
                   }
                 ]
               },
@@ -65,27 +74,20 @@
                   },
                   {
                     "type": "string",
-                    "description": "@format duration"
+                    "format": "duration"
                   }
                 ]
               }
             },
             "required": [
-              "classDate",
               "date",
               "datetime",
               "time",
               "duration"
             ]
           }
-        },
-        "required": [
-          "first"
-        ],
-        "additionalProperties": false,
-        "$defs": {}
-      },
-      "strict": true
+        }
+      }
     },
     {
       "name": "reduce",
@@ -93,71 +95,7 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "object",
-            "properties": {
-              "classDate": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "string",
-                    "description": "@format date-time"
-                  }
-                ]
-              },
-              "date": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "string",
-                    "description": "@format date"
-                  }
-                ]
-              },
-              "datetime": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "string",
-                    "description": "@format date-time"
-                  }
-                ]
-              },
-              "time": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "string",
-                    "description": "@format time"
-                  }
-                ]
-              },
-              "duration": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "string",
-                    "description": "@format duration"
-                  }
-                ]
-              }
-            },
-            "required": [
-              "classDate",
-              "date",
-              "datetime",
-              "time",
-              "duration"
-            ]
+            "$ref": "#/$defs/ObjectDate"
           },
           "second": {
             "oneOf": [
@@ -165,71 +103,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "classDate": {
-                    "oneOf": [
-                      {
-                        "type": "null"
-                      },
-                      {
-                        "type": "string",
-                        "description": "@format date-time"
-                      }
-                    ]
-                  },
-                  "date": {
-                    "oneOf": [
-                      {
-                        "type": "null"
-                      },
-                      {
-                        "type": "string",
-                        "description": "@format date"
-                      }
-                    ]
-                  },
-                  "datetime": {
-                    "oneOf": [
-                      {
-                        "type": "null"
-                      },
-                      {
-                        "type": "string",
-                        "description": "@format date-time"
-                      }
-                    ]
-                  },
-                  "time": {
-                    "oneOf": [
-                      {
-                        "type": "null"
-                      },
-                      {
-                        "type": "string",
-                        "description": "@format time"
-                      }
-                    ]
-                  },
-                  "duration": {
-                    "oneOf": [
-                      {
-                        "type": "null"
-                      },
-                      {
-                        "type": "string",
-                        "description": "@format duration"
-                      }
-                    ]
-                  }
-                },
-                "required": [
-                  "classDate",
-                  "date",
-                  "datetime",
-                  "time",
-                  "duration"
-                ]
+                "$ref": "#/$defs/ObjectDate"
               }
             ]
           }
@@ -239,76 +113,78 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "output": {
-        "type": "object",
-        "properties": {
-          "classDate": {
-            "oneOf": [
-              {
-                "type": "null"
+        "$defs": {
+          "ObjectDate": {
+            "type": "object",
+            "properties": {
+              "classDate": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string",
+                    "format": "date-time"
+                  }
+                ]
               },
-              {
-                "type": "string",
-                "description": "@format date-time"
-              }
-            ]
-          },
-          "date": {
-            "oneOf": [
-              {
-                "type": "null"
+              "date": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string",
+                    "format": "date"
+                  }
+                ]
               },
-              {
-                "type": "string",
-                "description": "@format date"
-              }
-            ]
-          },
-          "datetime": {
-            "oneOf": [
-              {
-                "type": "null"
+              "datetime": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string",
+                    "format": "date-time"
+                  }
+                ]
               },
-              {
-                "type": "string",
-                "description": "@format date-time"
-              }
-            ]
-          },
-          "time": {
-            "oneOf": [
-              {
-                "type": "null"
+              "time": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string",
+                    "format": "time"
+                  }
+                ]
               },
-              {
-                "type": "string",
-                "description": "@format time"
+              "duration": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string",
+                    "format": "duration"
+                  }
+                ]
               }
-            ]
-          },
-          "duration": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string",
-                "description": "@format duration"
-              }
+            },
+            "required": [
+              "date",
+              "datetime",
+              "time",
+              "duration"
             ]
           }
-        },
-        "required": [
-          "classDate",
-          "date",
-          "datetime",
-          "time",
-          "duration"
-        ]
+        }
       },
-      "strict": true
+      "output": {
+        "$ref": "#/$defs/ObjectDate"
+      }
     },
     {
       "name": "coalesce",
@@ -321,71 +197,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "classDate": {
-                    "oneOf": [
-                      {
-                        "type": "null"
-                      },
-                      {
-                        "type": "string",
-                        "description": "@format date-time"
-                      }
-                    ]
-                  },
-                  "date": {
-                    "oneOf": [
-                      {
-                        "type": "null"
-                      },
-                      {
-                        "type": "string",
-                        "description": "@format date"
-                      }
-                    ]
-                  },
-                  "datetime": {
-                    "oneOf": [
-                      {
-                        "type": "null"
-                      },
-                      {
-                        "type": "string",
-                        "description": "@format date-time"
-                      }
-                    ]
-                  },
-                  "time": {
-                    "oneOf": [
-                      {
-                        "type": "null"
-                      },
-                      {
-                        "type": "string",
-                        "description": "@format time"
-                      }
-                    ]
-                  },
-                  "duration": {
-                    "oneOf": [
-                      {
-                        "type": "null"
-                      },
-                      {
-                        "type": "string",
-                        "description": "@format duration"
-                      }
-                    ]
-                  }
-                },
-                "required": [
-                  "classDate",
-                  "date",
-                  "datetime",
-                  "time",
-                  "duration"
-                ]
+                "$ref": "#/$defs/ObjectDate"
               }
             ]
           },
@@ -395,71 +207,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "classDate": {
-                    "oneOf": [
-                      {
-                        "type": "null"
-                      },
-                      {
-                        "type": "string",
-                        "description": "@format date-time"
-                      }
-                    ]
-                  },
-                  "date": {
-                    "oneOf": [
-                      {
-                        "type": "null"
-                      },
-                      {
-                        "type": "string",
-                        "description": "@format date"
-                      }
-                    ]
-                  },
-                  "datetime": {
-                    "oneOf": [
-                      {
-                        "type": "null"
-                      },
-                      {
-                        "type": "string",
-                        "description": "@format date-time"
-                      }
-                    ]
-                  },
-                  "time": {
-                    "oneOf": [
-                      {
-                        "type": "null"
-                      },
-                      {
-                        "type": "string",
-                        "description": "@format time"
-                      }
-                    ]
-                  },
-                  "duration": {
-                    "oneOf": [
-                      {
-                        "type": "null"
-                      },
-                      {
-                        "type": "string",
-                        "description": "@format duration"
-                      }
-                    ]
-                  }
-                },
-                "required": [
-                  "classDate",
-                  "date",
-                  "datetime",
-                  "time",
-                  "duration"
-                ]
+                "$ref": "#/$defs/ObjectDate"
               }
             ]
           },
@@ -469,89 +217,18 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "classDate": {
-                    "oneOf": [
-                      {
-                        "type": "null"
-                      },
-                      {
-                        "type": "string",
-                        "description": "@format date-time"
-                      }
-                    ]
-                  },
-                  "date": {
-                    "oneOf": [
-                      {
-                        "type": "null"
-                      },
-                      {
-                        "type": "string",
-                        "description": "@format date"
-                      }
-                    ]
-                  },
-                  "datetime": {
-                    "oneOf": [
-                      {
-                        "type": "null"
-                      },
-                      {
-                        "type": "string",
-                        "description": "@format date-time"
-                      }
-                    ]
-                  },
-                  "time": {
-                    "oneOf": [
-                      {
-                        "type": "null"
-                      },
-                      {
-                        "type": "string",
-                        "description": "@format time"
-                      }
-                    ]
-                  },
-                  "duration": {
-                    "oneOf": [
-                      {
-                        "type": "null"
-                      },
-                      {
-                        "type": "string",
-                        "description": "@format duration"
-                      }
-                    ]
-                  }
-                },
-                "required": [
-                  "classDate",
-                  "date",
-                  "datetime",
-                  "time",
-                  "duration"
-                ]
+                "$ref": "#/$defs/ObjectDate"
               }
             ]
           }
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "output": {
-        "oneOf": [
-          {
-            "type": "null"
-          },
-          {
+        "$defs": {
+          "ObjectDate": {
             "type": "object",
             "properties": {
               "classDate": {
@@ -561,7 +238,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "@format date-time"
+                    "format": "date-time"
                   }
                 ]
               },
@@ -572,7 +249,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "@format date"
+                    "format": "date"
                   }
                 ]
               },
@@ -583,7 +260,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "@format date-time"
+                    "format": "date-time"
                   }
                 ]
               },
@@ -594,7 +271,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "@format time"
+                    "format": "time"
                   }
                 ]
               },
@@ -605,22 +282,30 @@
                   },
                   {
                     "type": "string",
-                    "description": "@format duration"
+                    "format": "duration"
                   }
                 ]
               }
             },
             "required": [
-              "classDate",
               "date",
               "datetime",
               "time",
               "duration"
             ]
           }
-        ]
+        }
       },
-      "strict": true
+      "output": {
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "$ref": "#/$defs/ObjectDate"
+          }
+        ]
+      }
     }
   ]
 }

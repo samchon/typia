@@ -1,8 +1,8 @@
 {
   "model": "3.1",
   "options": {
-    "constraint": false,
-    "reference": false,
+    "reference": true,
+    "constraint": true,
     "separate": null
   },
   "functions": [
@@ -12,42 +12,7 @@
         "type": "object",
         "properties": {
           "first": {
-            "description": "Make all properties in T required\n\n------------------------------\n\nDescription of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required",
-            "type": "object",
-            "properties": {
-              "boolean": {
-                "type": "boolean"
-              },
-              "number": {
-                "type": "number"
-              },
-              "string": {
-                "type": "string"
-              },
-              "array": {
-                "type": "array",
-                "items": {
-                  "type": "number"
-                }
-              },
-              "object": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "$ref": "#/$defs/ObjectRequired.IBase"
-                  }
-                ]
-              }
-            },
-            "required": [
-              "boolean",
-              "number",
-              "string",
-              "array",
-              "object"
-            ]
+            "$ref": "#/$defs/RequiredObjectRequired.IBase"
           }
         },
         "required": [
@@ -55,54 +20,8 @@
         ],
         "additionalProperties": false,
         "$defs": {
-          "ObjectRequired.IBase": {
-            "type": "object",
-            "properties": {
-              "boolean": {
-                "type": "boolean"
-              },
-              "number": {
-                "type": "number"
-              },
-              "string": {
-                "type": "string"
-              },
-              "array": {
-                "type": "array",
-                "items": {
-                  "type": "number"
-                }
-              },
-              "object": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "$ref": "#/$defs/ObjectRequired.IBase"
-                  }
-                ]
-              }
-            },
-            "required": [
-              "boolean",
-              "number",
-              "string",
-              "array",
-              "object"
-            ]
-          }
-        }
-      },
-      "strict": true
-    },
-    {
-      "name": "reduce",
-      "parameters": {
-        "type": "object",
-        "properties": {
-          "first": {
-            "description": "Make all properties in T required\n\n------------------------------\n\nDescription of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required",
+          "RequiredObjectRequired.IBase": {
+            "description": "Make all properties in T required",
             "type": "object",
             "properties": {
               "boolean": {
@@ -139,48 +58,55 @@
               "object"
             ]
           },
+          "ObjectRequired.IBase": {
+            "type": "object",
+            "properties": {
+              "boolean": {
+                "type": "boolean"
+              },
+              "number": {
+                "type": "number"
+              },
+              "string": {
+                "type": "string"
+              },
+              "array": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                }
+              },
+              "object": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/$defs/ObjectRequired.IBase"
+                  }
+                ]
+              }
+            },
+            "required": []
+          }
+        }
+      }
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "$ref": "#/$defs/RequiredObjectRequired.IBase"
+          },
           "second": {
             "oneOf": [
               {
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "boolean": {
-                    "type": "boolean"
-                  },
-                  "number": {
-                    "type": "number"
-                  },
-                  "string": {
-                    "type": "string"
-                  },
-                  "array": {
-                    "type": "array",
-                    "items": {
-                      "type": "number"
-                    }
-                  },
-                  "object": {
-                    "oneOf": [
-                      {
-                        "type": "null"
-                      },
-                      {
-                        "$ref": "#/$defs/ObjectRequired.IBase"
-                      }
-                    ]
-                  }
-                },
-                "required": [
-                  "boolean",
-                  "number",
-                  "string",
-                  "array",
-                  "object"
-                ],
-                "description": "Make all properties in T required\n\n------------------------------\n\nDescription of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required"
+                "$ref": "#/$defs/RequiredObjectRequired.IBase"
               }
             ]
           }
@@ -191,7 +117,8 @@
         ],
         "additionalProperties": false,
         "$defs": {
-          "ObjectRequired.IBase": {
+          "RequiredObjectRequired.IBase": {
+            "description": "Make all properties in T required",
             "type": "object",
             "properties": {
               "boolean": {
@@ -227,48 +154,43 @@
               "array",
               "object"
             ]
+          },
+          "ObjectRequired.IBase": {
+            "type": "object",
+            "properties": {
+              "boolean": {
+                "type": "boolean"
+              },
+              "number": {
+                "type": "number"
+              },
+              "string": {
+                "type": "string"
+              },
+              "array": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                }
+              },
+              "object": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/$defs/ObjectRequired.IBase"
+                  }
+                ]
+              }
+            },
+            "required": []
           }
         }
       },
       "output": {
-        "description": "Make all properties in T required\n\n------------------------------\n\nDescription of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required",
-        "type": "object",
-        "properties": {
-          "boolean": {
-            "type": "boolean"
-          },
-          "number": {
-            "type": "number"
-          },
-          "string": {
-            "type": "string"
-          },
-          "array": {
-            "type": "array",
-            "items": {
-              "type": "number"
-            }
-          },
-          "object": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "$ref": "#/$defs/ObjectRequired.IBase"
-              }
-            ]
-          }
-        },
-        "required": [
-          "boolean",
-          "number",
-          "string",
-          "array",
-          "object"
-        ]
-      },
-      "strict": true
+        "$ref": "#/$defs/RequiredObjectRequired.IBase"
+      }
     },
     {
       "name": "coalesce",
@@ -281,42 +203,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "boolean": {
-                    "type": "boolean"
-                  },
-                  "number": {
-                    "type": "number"
-                  },
-                  "string": {
-                    "type": "string"
-                  },
-                  "array": {
-                    "type": "array",
-                    "items": {
-                      "type": "number"
-                    }
-                  },
-                  "object": {
-                    "oneOf": [
-                      {
-                        "type": "null"
-                      },
-                      {
-                        "$ref": "#/$defs/ObjectRequired.IBase"
-                      }
-                    ]
-                  }
-                },
-                "required": [
-                  "boolean",
-                  "number",
-                  "string",
-                  "array",
-                  "object"
-                ],
-                "description": "Make all properties in T required\n\n------------------------------\n\nDescription of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required"
+                "$ref": "#/$defs/RequiredObjectRequired.IBase"
               }
             ]
           },
@@ -326,42 +213,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "boolean": {
-                    "type": "boolean"
-                  },
-                  "number": {
-                    "type": "number"
-                  },
-                  "string": {
-                    "type": "string"
-                  },
-                  "array": {
-                    "type": "array",
-                    "items": {
-                      "type": "number"
-                    }
-                  },
-                  "object": {
-                    "oneOf": [
-                      {
-                        "type": "null"
-                      },
-                      {
-                        "$ref": "#/$defs/ObjectRequired.IBase"
-                      }
-                    ]
-                  }
-                },
-                "required": [
-                  "boolean",
-                  "number",
-                  "string",
-                  "array",
-                  "object"
-                ],
-                "description": "Make all properties in T required\n\n------------------------------\n\nDescription of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required"
+                "$ref": "#/$defs/RequiredObjectRequired.IBase"
               }
             ]
           },
@@ -371,53 +223,55 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "boolean": {
-                    "type": "boolean"
-                  },
-                  "number": {
-                    "type": "number"
-                  },
-                  "string": {
-                    "type": "string"
-                  },
-                  "array": {
-                    "type": "array",
-                    "items": {
-                      "type": "number"
-                    }
-                  },
-                  "object": {
-                    "oneOf": [
-                      {
-                        "type": "null"
-                      },
-                      {
-                        "$ref": "#/$defs/ObjectRequired.IBase"
-                      }
-                    ]
-                  }
-                },
-                "required": [
-                  "boolean",
-                  "number",
-                  "string",
-                  "array",
-                  "object"
-                ],
-                "description": "Make all properties in T required\n\n------------------------------\n\nDescription of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required"
+                "$ref": "#/$defs/RequiredObjectRequired.IBase"
               }
             ]
           }
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
         "$defs": {
+          "RequiredObjectRequired.IBase": {
+            "description": "Make all properties in T required",
+            "type": "object",
+            "properties": {
+              "boolean": {
+                "type": "boolean"
+              },
+              "number": {
+                "type": "number"
+              },
+              "string": {
+                "type": "string"
+              },
+              "array": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                }
+              },
+              "object": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/$defs/ObjectRequired.IBase"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "boolean",
+              "number",
+              "string",
+              "array",
+              "object"
+            ]
+          },
           "ObjectRequired.IBase": {
             "type": "object",
             "properties": {
@@ -447,13 +301,7 @@
                 ]
               }
             },
-            "required": [
-              "boolean",
-              "number",
-              "string",
-              "array",
-              "object"
-            ]
+            "required": []
           }
         }
       },
@@ -463,46 +311,10 @@
             "type": "null"
           },
           {
-            "type": "object",
-            "properties": {
-              "boolean": {
-                "type": "boolean"
-              },
-              "number": {
-                "type": "number"
-              },
-              "string": {
-                "type": "string"
-              },
-              "array": {
-                "type": "array",
-                "items": {
-                  "type": "number"
-                }
-              },
-              "object": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "$ref": "#/$defs/ObjectRequired.IBase"
-                  }
-                ]
-              }
-            },
-            "required": [
-              "boolean",
-              "number",
-              "string",
-              "array",
-              "object"
-            ],
-            "description": "Make all properties in T required\n\n------------------------------\n\nDescription of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required"
+            "$ref": "#/$defs/RequiredObjectRequired.IBase"
           }
         ]
-      },
-      "strict": true
+      }
     }
   ]
 }

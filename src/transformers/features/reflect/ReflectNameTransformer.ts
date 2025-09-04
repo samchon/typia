@@ -26,7 +26,7 @@ export namespace ReflectNameTransformer {
       const second: ts.Node | undefined = props.expression.typeArguments[1]!;
       if (second === undefined) return false;
 
-      // GET BOOELAN VALUE
+      // GET BOOLEAN VALUE
       const value: Metadata = getMetadata({
         context: props.context,
         node: second,
@@ -66,9 +66,9 @@ const getMetadata = (props: {
       checker: props.context.checker,
       transformer: props.context.transformer,
       options: {
-        escape: false,
-        constant: true,
         absorb: false,
+        constant: true,
+        escape: false,
       },
       collection,
       type,

@@ -5,8 +5,10 @@ import { _test_functional_assertParametersAsync } from "../../internal/_test_fun
 import { ObjectGenericArray } from "../../structures/ObjectGenericArray";
 
 export const test_functional_assertParametersAsync_ObjectGenericArray =
-  _test_functional_assertParametersAsync(TypeGuardError)("ObjectGenericArray")(
-    ObjectGenericArray,
-  )((p: (input: ObjectGenericArray) => Promise<ObjectGenericArray>) =>
-    typia.functional.assertParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertParametersAsync(TypeGuardError)(
+      "ObjectGenericArray",
+    )(ObjectGenericArray)(
+      (p: (input: ObjectGenericArray) => Promise<ObjectGenericArray>) =>
+        typia.functional.assertParameters(p),
+    );

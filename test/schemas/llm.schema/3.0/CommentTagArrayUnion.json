@@ -47,6 +47,8 @@
       "maxItems",
       "both"
     ],
+    "description": "Current Type: {@link CommentTagArrayUnion.Type}",
     "additionalProperties": false
-  }
+  },
+  "description": "Current Type: {@link CommentTagArrayUnion}"
 }

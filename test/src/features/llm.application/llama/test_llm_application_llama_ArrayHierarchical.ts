@@ -3,10 +3,11 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { ArrayHierarchical } from "../../../structures/ArrayHierarchical";
 
-export const test_llm_application_llama_ArrayHierarchical =
+export const test_llm_application_llama_ArrayHierarchical = (): void =>
   _test_llm_application({
     model: "llama",
     name: "ArrayHierarchical",
+    factory: ArrayHierarchical,
   })(typia.llm.application<ArrayHierarchicalApplication, "llama">());
 
 interface ArrayHierarchicalApplication {

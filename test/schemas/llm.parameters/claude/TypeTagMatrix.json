@@ -2,26 +2,7 @@
   "type": "object",
   "properties": {
     "regular": {
-      "type": "object",
-      "properties": {
-        "matrix": {
-          "type": "array",
-          "items": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "format": "uuid"
-            },
-            "minItems": 4,
-            "maxItems": 4
-          },
-          "minItems": 3,
-          "maxItems": 3
-        }
-      },
-      "required": [
-        "matrix"
-      ]
+      "$ref": "#/$defs/TypeTagMatrix"
     },
     "nullable": {
       "oneOf": [
@@ -29,30 +10,38 @@
           "type": "null"
         },
         {
-          "type": "object",
-          "properties": {
-            "matrix": {
-              "type": "array",
-              "items": {
-                "type": "array",
-                "items": {
-                  "type": "string",
-                  "format": "uuid"
-                },
-                "minItems": 4,
-                "maxItems": 4
-              },
-              "minItems": 3,
-              "maxItems": 3
-            }
-          },
-          "required": [
-            "matrix"
-          ]
+          "$ref": "#/$defs/TypeTagMatrix"
         }
       ]
     },
     "optional": {
+      "$ref": "#/$defs/TypeTagMatrix"
+    },
+    "faint": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/TypeTagMatrix"
+        }
+      ]
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/TypeTagMatrix"
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "array"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "TypeTagMatrix": {
       "type": "object",
       "properties": {
         "matrix": {
@@ -73,69 +62,6 @@
       "required": [
         "matrix"
       ]
-    },
-    "faint": {
-      "oneOf": [
-        {
-          "type": "null"
-        },
-        {
-          "type": "object",
-          "properties": {
-            "matrix": {
-              "type": "array",
-              "items": {
-                "type": "array",
-                "items": {
-                  "type": "string",
-                  "format": "uuid"
-                },
-                "minItems": 4,
-                "maxItems": 4
-              },
-              "minItems": 3,
-              "maxItems": 3
-            }
-          },
-          "required": [
-            "matrix"
-          ]
-        }
-      ]
-    },
-    "array": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "matrix": {
-            "type": "array",
-            "items": {
-              "type": "array",
-              "items": {
-                "type": "string",
-                "format": "uuid"
-              },
-              "minItems": 4,
-              "maxItems": 4
-            },
-            "minItems": 3,
-            "maxItems": 3
-          }
-        },
-        "required": [
-          "matrix"
-        ]
-      }
     }
-  },
-  "required": [
-    "regular",
-    "nullable",
-    "optional",
-    "faint",
-    "array"
-  ],
-  "additionalProperties": false,
-  "$defs": {}
+  }
 }

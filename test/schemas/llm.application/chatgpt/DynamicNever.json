@@ -1,7 +1,8 @@
 {
   "model": "chatgpt",
   "options": {
-    "reference": false,
+    "reference": true,
+    "strict": false,
     "separate": null
   },
   "functions": [
@@ -11,19 +12,21 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "object",
-            "properties": {},
-            "required": [],
-            "additionalProperties": false
+            "$ref": "#/$defs/DynamicNever"
           }
         },
         "required": [
           "first"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "strict": true
+        "$defs": {
+          "DynamicNever": {
+            "type": "object",
+            "properties": {},
+            "required": []
+          }
+        }
+      }
     },
     {
       "name": "reduce",
@@ -31,10 +34,7 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "object",
-            "properties": {},
-            "required": [],
-            "additionalProperties": false
+            "$ref": "#/$defs/DynamicNever"
           },
           "second": {
             "anyOf": [
@@ -42,10 +42,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {},
-                "required": [],
-                "additionalProperties": false
+                "$ref": "#/$defs/DynamicNever"
               }
             ]
           }
@@ -55,15 +52,17 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "DynamicNever": {
+            "type": "object",
+            "properties": {},
+            "required": []
+          }
+        }
       },
       "output": {
-        "type": "object",
-        "properties": {},
-        "required": [],
-        "additionalProperties": false
-      },
-      "strict": true
+        "$ref": "#/$defs/DynamicNever"
+      }
     },
     {
       "name": "coalesce",
@@ -76,10 +75,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {},
-                "required": [],
-                "additionalProperties": false
+                "$ref": "#/$defs/DynamicNever"
               }
             ]
           },
@@ -89,10 +85,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {},
-                "required": [],
-                "additionalProperties": false
+                "$ref": "#/$defs/DynamicNever"
               }
             ]
           },
@@ -102,21 +95,23 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {},
-                "required": [],
-                "additionalProperties": false
+                "$ref": "#/$defs/DynamicNever"
               }
             ]
           }
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "DynamicNever": {
+            "type": "object",
+            "properties": {},
+            "required": []
+          }
+        }
       },
       "output": {
         "anyOf": [
@@ -124,14 +119,10 @@
             "type": "null"
           },
           {
-            "type": "object",
-            "properties": {},
-            "required": [],
-            "additionalProperties": false
+            "$ref": "#/$defs/DynamicNever"
           }
         ]
-      },
-      "strict": true
+      }
     }
   ]
 }

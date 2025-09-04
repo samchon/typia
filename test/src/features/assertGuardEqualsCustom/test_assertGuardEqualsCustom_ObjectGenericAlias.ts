@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_assertGuardEquals } from "../../internal/_test_assertGuardEquals";
 import { ObjectGenericAlias } from "../../structures/ObjectGenericAlias";
 
-export const test_assertGuardEqualsCustom_ObjectGenericAlias =
+export const test_assertGuardEqualsCustom_ObjectGenericAlias = (): void =>
   _test_assertGuardEquals(CustomGuardError)(
     "ObjectGenericAlias",
   )<ObjectGenericAlias>(ObjectGenericAlias)((input) =>

@@ -3,10 +3,12 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { ObjectPartial } from "../../../structures/ObjectPartial";
 
-export const test_llm_application_claude_ObjectPartial = _test_llm_application({
-  model: "claude",
-  name: "ObjectPartial",
-})(typia.llm.application<ObjectPartialApplication, "claude">());
+export const test_llm_application_claude_ObjectPartial = (): void =>
+  _test_llm_application({
+    model: "claude",
+    name: "ObjectPartial",
+    factory: ObjectPartial,
+  })(typia.llm.application<ObjectPartialApplication, "claude">());
 
 interface ObjectPartialApplication {
   insert(p: { first: ObjectPartial }): Promise<void>;

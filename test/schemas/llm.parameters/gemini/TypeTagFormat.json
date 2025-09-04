@@ -116,7 +116,8 @@
         "duration",
         "jsonPointer",
         "relativeJsonPointer"
-      ]
+      ],
+      "description": "Current Type: {@link TypeTagFormat}"
     },
     "nullable": {
       "type": "object",
@@ -351,7 +352,8 @@
         "duration",
         "jsonPointer",
         "relativeJsonPointer"
-      ]
+      ],
+      "description": "Current Type: {@link TypeTagFormat}"
     },
     "faint": {
       "type": "object",
@@ -588,7 +590,8 @@
           "duration",
           "jsonPointer",
           "relativeJsonPointer"
-        ]
+        ],
+        "description": "Current Type: {@link TypeTagFormat}"
       }
     }
   },

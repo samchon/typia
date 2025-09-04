@@ -5,8 +5,10 @@ import { _test_functional_assertParameters } from "../../internal/_test_function
 import { ObjectPartialAndRequired } from "../../structures/ObjectPartialAndRequired";
 
 export const test_functional_assertParameters_ObjectPartialAndRequired =
-  _test_functional_assertParameters(TypeGuardError)("ObjectPartialAndRequired")(
-    ObjectPartialAndRequired,
-  )((p: (input: ObjectPartialAndRequired) => ObjectPartialAndRequired) =>
-    typia.functional.assertParameters(p),
-  );
+  (): void =>
+    _test_functional_assertParameters(TypeGuardError)(
+      "ObjectPartialAndRequired",
+    )(ObjectPartialAndRequired)(
+      (p: (input: ObjectPartialAndRequired) => ObjectPartialAndRequired) =>
+        typia.functional.assertParameters(p),
+    );

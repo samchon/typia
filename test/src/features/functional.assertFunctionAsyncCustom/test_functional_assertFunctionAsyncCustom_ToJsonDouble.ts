@@ -5,8 +5,9 @@ import { _test_functional_assertFunctionAsync } from "../../internal/_test_funct
 import { ToJsonDouble } from "../../structures/ToJsonDouble";
 
 export const test_functional_assertFunctionAsyncCustom_ToJsonDouble =
-  _test_functional_assertFunctionAsync(CustomGuardError)("ToJsonDouble")(
-    ToJsonDouble,
-  )((p: (input: ToJsonDouble) => Promise<ToJsonDouble>) =>
-    typia.functional.assertFunction(p, (p) => new CustomGuardError(p)),
-  );
+  (): Promise<void> =>
+    _test_functional_assertFunctionAsync(CustomGuardError)("ToJsonDouble")(
+      ToJsonDouble,
+    )((p: (input: ToJsonDouble) => Promise<ToJsonDouble>) =>
+      typia.functional.assertFunction(p, (p) => new CustomGuardError(p)),
+    );

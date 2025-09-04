@@ -1,7 +1,7 @@
 {
   "model": "claude",
   "options": {
-    "reference": false,
+    "reference": true,
     "separate": null
   },
   "functions": [
@@ -11,6 +11,15 @@
         "type": "object",
         "properties": {
           "first": {
+            "$ref": "#/$defs/DynamicSimple"
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "DynamicSimple": {
             "type": "object",
             "properties": {
               "value": {
@@ -26,14 +35,8 @@
               "value"
             ]
           }
-        },
-        "required": [
-          "first"
-        ],
-        "additionalProperties": false,
-        "$defs": {}
-      },
-      "strict": true
+        }
+      }
     },
     {
       "name": "reduce",
@@ -41,20 +44,7 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "object",
-            "properties": {
-              "value": {
-                "type": "object",
-                "properties": {},
-                "required": [],
-                "additionalProperties": {
-                  "type": "number"
-                }
-              }
-            },
-            "required": [
-              "value"
-            ]
+            "$ref": "#/$defs/DynamicSimple"
           },
           "second": {
             "oneOf": [
@@ -62,20 +52,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "object",
-                    "properties": {},
-                    "required": [],
-                    "additionalProperties": {
-                      "type": "number"
-                    }
-                  }
-                },
-                "required": [
-                  "value"
-                ]
+                "$ref": "#/$defs/DynamicSimple"
               }
             ]
           }
@@ -85,25 +62,28 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "DynamicSimple": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "object",
+                "properties": {},
+                "required": [],
+                "additionalProperties": {
+                  "type": "number"
+                }
+              }
+            },
+            "required": [
+              "value"
+            ]
+          }
+        }
       },
       "output": {
-        "type": "object",
-        "properties": {
-          "value": {
-            "type": "object",
-            "properties": {},
-            "required": [],
-            "additionalProperties": {
-              "type": "number"
-            }
-          }
-        },
-        "required": [
-          "value"
-        ]
-      },
-      "strict": true
+        "$ref": "#/$defs/DynamicSimple"
+      }
     },
     {
       "name": "coalesce",
@@ -116,20 +96,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "object",
-                    "properties": {},
-                    "required": [],
-                    "additionalProperties": {
-                      "type": "number"
-                    }
-                  }
-                },
-                "required": [
-                  "value"
-                ]
+                "$ref": "#/$defs/DynamicSimple"
               }
             ]
           },
@@ -139,20 +106,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "object",
-                    "properties": {},
-                    "required": [],
-                    "additionalProperties": {
-                      "type": "number"
-                    }
-                  }
-                },
-                "required": [
-                  "value"
-                ]
+                "$ref": "#/$defs/DynamicSimple"
               }
             ]
           },
@@ -162,38 +116,18 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "object",
-                    "properties": {},
-                    "required": [],
-                    "additionalProperties": {
-                      "type": "number"
-                    }
-                  }
-                },
-                "required": [
-                  "value"
-                ]
+                "$ref": "#/$defs/DynamicSimple"
               }
             ]
           }
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "output": {
-        "oneOf": [
-          {
-            "type": "null"
-          },
-          {
+        "$defs": {
+          "DynamicSimple": {
             "type": "object",
             "properties": {
               "value": {
@@ -209,9 +143,18 @@
               "value"
             ]
           }
-        ]
+        }
       },
-      "strict": true
+      "output": {
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "$ref": "#/$defs/DynamicSimple"
+          }
+        ]
+      }
     }
   ]
 }

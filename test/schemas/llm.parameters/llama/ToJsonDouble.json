@@ -2,19 +2,7 @@
   "type": "object",
   "properties": {
     "regular": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "number"
-        },
-        "flag": {
-          "type": "boolean"
-        }
-      },
-      "required": [
-        "id",
-        "flag"
-      ]
+      "$ref": "#/$defs/ToJsonDouble.Child"
     },
     "nullable": {
       "oneOf": [
@@ -22,23 +10,38 @@
           "type": "null"
         },
         {
-          "type": "object",
-          "properties": {
-            "id": {
-              "type": "number"
-            },
-            "flag": {
-              "type": "boolean"
-            }
-          },
-          "required": [
-            "id",
-            "flag"
-          ]
+          "$ref": "#/$defs/ToJsonDouble.Child"
         }
       ]
     },
     "optional": {
+      "$ref": "#/$defs/ToJsonDouble.Child"
+    },
+    "faint": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/ToJsonDouble.Child"
+        }
+      ]
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ToJsonDouble.Child"
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "array"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "ToJsonDouble.Child": {
       "type": "object",
       "properties": {
         "id": {
@@ -52,55 +55,6 @@
         "id",
         "flag"
       ]
-    },
-    "faint": {
-      "oneOf": [
-        {
-          "type": "null"
-        },
-        {
-          "type": "object",
-          "properties": {
-            "id": {
-              "type": "number"
-            },
-            "flag": {
-              "type": "boolean"
-            }
-          },
-          "required": [
-            "id",
-            "flag"
-          ]
-        }
-      ]
-    },
-    "array": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "number"
-          },
-          "flag": {
-            "type": "boolean"
-          }
-        },
-        "required": [
-          "id",
-          "flag"
-        ]
-      }
     }
-  },
-  "required": [
-    "regular",
-    "nullable",
-    "optional",
-    "faint",
-    "array"
-  ],
-  "additionalProperties": false,
-  "$defs": {}
+  }
 }

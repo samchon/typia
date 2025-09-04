@@ -5,9 +5,10 @@ import { _test_functional_assertEqualsReturnAsync } from "../../internal/_test_f
 import { AtomicIntersection } from "../../structures/AtomicIntersection";
 
 export const test_functional_assertEqualsReturnAsyncCustom_AtomicIntersection =
-  _test_functional_assertEqualsReturnAsync(CustomGuardError)(
-    "AtomicIntersection",
-  )(AtomicIntersection)(
-    (p: (input: AtomicIntersection) => Promise<AtomicIntersection>) =>
-      typia.functional.assertEqualsReturn(p, (p) => new CustomGuardError(p)),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsReturnAsync(CustomGuardError)(
+      "AtomicIntersection",
+    )(AtomicIntersection)(
+      (p: (input: AtomicIntersection) => Promise<AtomicIntersection>) =>
+        typia.functional.assertEqualsReturn(p, (p) => new CustomGuardError(p)),
+    );

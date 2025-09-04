@@ -4,8 +4,9 @@ import { TypeGuardError } from "typia";
 import { _test_assertGuard } from "../../internal/_test_assertGuard";
 import { ConstantAtomicAbsorbed } from "../../structures/ConstantAtomicAbsorbed";
 
-export const test_assertGuard_ConstantAtomicAbsorbed = _test_assertGuard(
-  TypeGuardError,
-)("ConstantAtomicAbsorbed")<ConstantAtomicAbsorbed>(ConstantAtomicAbsorbed)(
-  (input) => typia.assertGuard<ConstantAtomicAbsorbed>(input),
-);
+export const test_assertGuard_ConstantAtomicAbsorbed = (): void =>
+  _test_assertGuard(TypeGuardError)(
+    "ConstantAtomicAbsorbed",
+  )<ConstantAtomicAbsorbed>(ConstantAtomicAbsorbed)((input) =>
+    typia.assertGuard<ConstantAtomicAbsorbed>(input),
+  );

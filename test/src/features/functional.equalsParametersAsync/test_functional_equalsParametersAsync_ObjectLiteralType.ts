@@ -4,8 +4,9 @@ import { _test_functional_equalsParametersAsync } from "../../internal/_test_fun
 import { ObjectLiteralType } from "../../structures/ObjectLiteralType";
 
 export const test_functional_equalsParametersAsync_ObjectLiteralType =
-  _test_functional_equalsParametersAsync("ObjectLiteralType")(
-    ObjectLiteralType,
-  )((p: (input: ObjectLiteralType) => Promise<ObjectLiteralType>) =>
-    typia.functional.equalsParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_equalsParametersAsync("ObjectLiteralType")(
+      ObjectLiteralType,
+    )((p: (input: ObjectLiteralType) => Promise<ObjectLiteralType>) =>
+      typia.functional.equalsParameters(p),
+    );

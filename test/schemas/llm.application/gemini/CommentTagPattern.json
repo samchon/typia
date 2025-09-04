@@ -35,14 +35,14 @@
               "email",
               "ipv4",
               "ipv6"
-            ]
+            ],
+            "description": "Current Type: {@link CommentTagPattern}"
           }
         },
         "required": [
           "first"
         ]
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -74,7 +74,8 @@
               "email",
               "ipv4",
               "ipv6"
-            ]
+            ],
+            "description": "Current Type: {@link CommentTagPattern}"
           },
           "second": {
             "type": "object",
@@ -135,9 +136,9 @@
           "email",
           "ipv4",
           "ipv6"
-        ]
-      },
-      "strict": true
+        ],
+        "description": "Current Type: {@link CommentTagPattern}"
+      }
     },
     {
       "name": "coalesce",
@@ -261,8 +262,7 @@
           "ipv6"
         ],
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

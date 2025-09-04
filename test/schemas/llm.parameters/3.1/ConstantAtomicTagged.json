@@ -2,35 +2,7 @@
   "type": "object",
   "properties": {
     "regular": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "oneOf": [
-            {
-              "const": "latest"
-            },
-            {
-              "type": "string",
-              "description": "@format uuid"
-            }
-          ]
-        },
-        "age": {
-          "oneOf": [
-            {
-              "const": -1
-            },
-            {
-              "type": "integer",
-              "description": "@maximum 100"
-            }
-          ]
-        }
-      },
-      "required": [
-        "id",
-        "age"
-      ]
+      "$ref": "#/$defs/ConstantAtomicTagged"
     },
     "nullable": {
       "oneOf": [
@@ -38,39 +10,38 @@
           "type": "null"
         },
         {
-          "type": "object",
-          "properties": {
-            "id": {
-              "oneOf": [
-                {
-                  "const": "latest"
-                },
-                {
-                  "type": "string",
-                  "description": "@format uuid"
-                }
-              ]
-            },
-            "age": {
-              "oneOf": [
-                {
-                  "const": -1
-                },
-                {
-                  "type": "integer",
-                  "description": "@maximum 100"
-                }
-              ]
-            }
-          },
-          "required": [
-            "id",
-            "age"
-          ]
+          "$ref": "#/$defs/ConstantAtomicTagged"
         }
       ]
     },
     "optional": {
+      "$ref": "#/$defs/ConstantAtomicTagged"
+    },
+    "faint": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/ConstantAtomicTagged"
+        }
+      ]
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ConstantAtomicTagged"
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "array"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "ConstantAtomicTagged": {
       "type": "object",
       "properties": {
         "id": {
@@ -80,7 +51,7 @@
             },
             {
               "type": "string",
-              "description": "@format uuid"
+              "format": "uuid"
             }
           ]
         },
@@ -91,7 +62,8 @@
             },
             {
               "type": "integer",
-              "description": "@maximum 100"
+              "minimum": 0,
+              "maximum": 100
             }
           ]
         }
@@ -100,87 +72,6 @@
         "id",
         "age"
       ]
-    },
-    "faint": {
-      "oneOf": [
-        {
-          "type": "null"
-        },
-        {
-          "type": "object",
-          "properties": {
-            "id": {
-              "oneOf": [
-                {
-                  "const": "latest"
-                },
-                {
-                  "type": "string",
-                  "description": "@format uuid"
-                }
-              ]
-            },
-            "age": {
-              "oneOf": [
-                {
-                  "const": -1
-                },
-                {
-                  "type": "integer",
-                  "description": "@maximum 100"
-                }
-              ]
-            }
-          },
-          "required": [
-            "id",
-            "age"
-          ]
-        }
-      ]
-    },
-    "array": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "oneOf": [
-              {
-                "const": "latest"
-              },
-              {
-                "type": "string",
-                "description": "@format uuid"
-              }
-            ]
-          },
-          "age": {
-            "oneOf": [
-              {
-                "const": -1
-              },
-              {
-                "type": "integer",
-                "description": "@maximum 100"
-              }
-            ]
-          }
-        },
-        "required": [
-          "id",
-          "age"
-        ]
-      }
     }
-  },
-  "required": [
-    "regular",
-    "nullable",
-    "optional",
-    "faint",
-    "array"
-  ],
-  "additionalProperties": false,
-  "$defs": {}
+  }
 }

@@ -1,8 +1,8 @@
 {
   "model": "3.0",
   "options": {
-    "constraint": false,
     "recursive": 3,
+    "constraint": true,
     "separate": null
   },
   "functions": [
@@ -16,16 +16,17 @@
             "properties": {
               "id": {
                 "type": "string",
+                "format": "uuid",
                 "enum": [
                   "latest"
-                ],
-                "description": "@format uuid"
+                ]
               },
               "age": {
                 "oneOf": [
                   {
                     "type": "integer",
-                    "description": "@maximum 100"
+                    "minimum": 0,
+                    "maximum": 100
                   },
                   {
                     "type": "number",
@@ -40,6 +41,7 @@
               "id",
               "age"
             ],
+            "description": "Current Type: {@link ConstantAtomicTagged}",
             "additionalProperties": false
           }
         },
@@ -47,8 +49,7 @@
           "first"
         ],
         "additionalProperties": false
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -60,16 +61,17 @@
             "properties": {
               "id": {
                 "type": "string",
+                "format": "uuid",
                 "enum": [
                   "latest"
-                ],
-                "description": "@format uuid"
+                ]
               },
               "age": {
                 "oneOf": [
                   {
                     "type": "integer",
-                    "description": "@maximum 100"
+                    "minimum": 0,
+                    "maximum": 100
                   },
                   {
                     "type": "number",
@@ -84,6 +86,7 @@
               "id",
               "age"
             ],
+            "description": "Current Type: {@link ConstantAtomicTagged}",
             "additionalProperties": false
           },
           "second": {
@@ -91,16 +94,17 @@
             "properties": {
               "id": {
                 "type": "string",
+                "format": "uuid",
                 "enum": [
                   "latest"
-                ],
-                "description": "@format uuid"
+                ]
               },
               "age": {
                 "oneOf": [
                   {
                     "type": "integer",
-                    "description": "@maximum 100"
+                    "minimum": 0,
+                    "maximum": 100
                   },
                   {
                     "type": "number",
@@ -130,16 +134,17 @@
         "properties": {
           "id": {
             "type": "string",
+            "format": "uuid",
             "enum": [
               "latest"
-            ],
-            "description": "@format uuid"
+            ]
           },
           "age": {
             "oneOf": [
               {
                 "type": "integer",
-                "description": "@maximum 100"
+                "minimum": 0,
+                "maximum": 100
               },
               {
                 "type": "number",
@@ -154,9 +159,9 @@
           "id",
           "age"
         ],
+        "description": "Current Type: {@link ConstantAtomicTagged}",
         "additionalProperties": false
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -168,16 +173,17 @@
             "properties": {
               "id": {
                 "type": "string",
+                "format": "uuid",
                 "enum": [
                   "latest"
-                ],
-                "description": "@format uuid"
+                ]
               },
               "age": {
                 "oneOf": [
                   {
                     "type": "integer",
-                    "description": "@maximum 100"
+                    "minimum": 0,
+                    "maximum": 100
                   },
                   {
                     "type": "number",
@@ -200,16 +206,17 @@
             "properties": {
               "id": {
                 "type": "string",
+                "format": "uuid",
                 "enum": [
                   "latest"
-                ],
-                "description": "@format uuid"
+                ]
               },
               "age": {
                 "oneOf": [
                   {
                     "type": "integer",
-                    "description": "@maximum 100"
+                    "minimum": 0,
+                    "maximum": 100
                   },
                   {
                     "type": "number",
@@ -232,16 +239,17 @@
             "properties": {
               "id": {
                 "type": "string",
+                "format": "uuid",
                 "enum": [
                   "latest"
-                ],
-                "description": "@format uuid"
+                ]
               },
               "age": {
                 "oneOf": [
                   {
                     "type": "integer",
-                    "description": "@maximum 100"
+                    "minimum": 0,
+                    "maximum": 100
                   },
                   {
                     "type": "number",
@@ -271,16 +279,17 @@
         "properties": {
           "id": {
             "type": "string",
+            "format": "uuid",
             "enum": [
               "latest"
-            ],
-            "description": "@format uuid"
+            ]
           },
           "age": {
             "oneOf": [
               {
                 "type": "integer",
-                "description": "@maximum 100"
+                "minimum": 0,
+                "maximum": 100
               },
               {
                 "type": "number",
@@ -297,8 +306,7 @@
         ],
         "additionalProperties": false,
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

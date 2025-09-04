@@ -4,7 +4,8 @@ import { _test_functional_isParametersAsync } from "../../internal/_test_functio
 import { DynamicNever } from "../../structures/DynamicNever";
 
 export const test_functional_isParametersAsync_DynamicNever =
-  _test_functional_isParametersAsync("DynamicNever")(DynamicNever)(
-    (p: (input: DynamicNever) => Promise<DynamicNever>) =>
-      typia.functional.isParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_isParametersAsync("DynamicNever")(DynamicNever)(
+      (p: (input: DynamicNever) => Promise<DynamicNever>) =>
+        typia.functional.isParameters(p),
+    );

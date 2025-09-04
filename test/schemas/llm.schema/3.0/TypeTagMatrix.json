@@ -7,7 +7,7 @@
         "type": "array",
         "items": {
           "type": "string",
-          "description": "@format uuid"
+          "format": "uuid"
         },
         "minItems": 4,
         "maxItems": 4
@@ -19,5 +19,6 @@
   "required": [
     "matrix"
   ],
+  "description": "Current Type: {@link TypeTagMatrix}",
   "additionalProperties": false
 }

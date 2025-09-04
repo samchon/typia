@@ -1,11 +1,10 @@
-.next
+.next/
+_pagefind/
 node_modules/
 out/
-raw/
-
 public/api/
-public/compilers/
+public/compiler/
 public/robots.txt
 public/sitemap*.xml
-
-package-lock.json
+src/raw/
+typedoc-json/

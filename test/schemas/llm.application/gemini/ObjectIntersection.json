@@ -27,14 +27,14 @@
               "email",
               "name",
               "vulnerable"
-            ]
+            ],
+            "description": "Current Type: {@link ObjectIntersection}"
           }
         },
         "required": [
           "first"
         ]
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -58,7 +58,8 @@
               "email",
               "name",
               "vulnerable"
-            ]
+            ],
+            "description": "Current Type: {@link ObjectIntersection}"
           },
           "second": {
             "type": "object",
@@ -103,9 +104,9 @@
           "email",
           "name",
           "vulnerable"
-        ]
-      },
-      "strict": true
+        ],
+        "description": "Current Type: {@link ObjectIntersection}"
+      }
     },
     {
       "name": "coalesce",
@@ -197,8 +198,7 @@
           "vulnerable"
         ],
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

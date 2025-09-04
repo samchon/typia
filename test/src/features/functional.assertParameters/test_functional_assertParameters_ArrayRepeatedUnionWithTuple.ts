@@ -5,9 +5,11 @@ import { _test_functional_assertParameters } from "../../internal/_test_function
 import { ArrayRepeatedUnionWithTuple } from "../../structures/ArrayRepeatedUnionWithTuple";
 
 export const test_functional_assertParameters_ArrayRepeatedUnionWithTuple =
-  _test_functional_assertParameters(TypeGuardError)(
-    "ArrayRepeatedUnionWithTuple",
-  )(ArrayRepeatedUnionWithTuple)(
-    (p: (input: ArrayRepeatedUnionWithTuple) => ArrayRepeatedUnionWithTuple) =>
-      typia.functional.assertParameters(p),
-  );
+  (): void =>
+    _test_functional_assertParameters(TypeGuardError)(
+      "ArrayRepeatedUnionWithTuple",
+    )(ArrayRepeatedUnionWithTuple)(
+      (
+        p: (input: ArrayRepeatedUnionWithTuple) => ArrayRepeatedUnionWithTuple,
+      ) => typia.functional.assertParameters(p),
+    );

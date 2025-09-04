@@ -20,8 +20,10 @@
               "Four"
             ]
           }
-        ]
-      }
+        ],
+        "description": "Current Type: {@link ConstantConstEnumeration.Enumeration}"
+      },
+      "description": "Current Type: {@link ConstantConstEnumeration}"
     },
     "nullable": {
       "type": "array",
@@ -42,7 +44,8 @@
               "Four"
             ]
           }
-        ]
+        ],
+        "description": "Current Type: {@link ConstantConstEnumeration.Enumeration}"
       },
       "nullable": true
     },
@@ -65,8 +68,10 @@
               "Four"
             ]
           }
-        ]
-      }
+        ],
+        "description": "Current Type: {@link ConstantConstEnumeration.Enumeration}"
+      },
+      "description": "Current Type: {@link ConstantConstEnumeration}"
     },
     "faint": {
       "type": "array",
@@ -87,7 +92,8 @@
               "Four"
             ]
           }
-        ]
+        ],
+        "description": "Current Type: {@link ConstantConstEnumeration.Enumeration}"
       },
       "nullable": true
     },
@@ -112,8 +118,10 @@
                 "Four"
               ]
             }
-          ]
-        }
+          ],
+          "description": "Current Type: {@link ConstantConstEnumeration.Enumeration}"
+        },
+        "description": "Current Type: {@link ConstantConstEnumeration}"
       }
     }
   },

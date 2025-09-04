@@ -6,8 +6,7 @@ export const _test_misc_assertPrune =
   (ErrorClass: Function) =>
   (name: string) =>
   <T>(factory: TestStructure<T>) =>
-  (prune: (input: T) => T) =>
-  () => {
+  (prune: (input: T) => T): void => {
     const input: T = factory.generate();
 
     // SPOIL OBJECTS

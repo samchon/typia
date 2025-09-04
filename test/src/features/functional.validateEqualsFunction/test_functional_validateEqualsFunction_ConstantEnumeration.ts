@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsFunction } from "../../internal/_test_fu
 import { ConstantEnumeration } from "../../structures/ConstantEnumeration";
 
 export const test_functional_validateEqualsFunction_ConstantEnumeration =
-  _test_functional_validateEqualsFunction("ConstantEnumeration")(
-    ConstantEnumeration,
-  )((p: (input: ConstantEnumeration) => ConstantEnumeration) =>
-    typia.functional.validateEqualsFunction(p),
-  );
+  (): void =>
+    _test_functional_validateEqualsFunction("ConstantEnumeration")(
+      ConstantEnumeration,
+    )((p: (input: ConstantEnumeration) => ConstantEnumeration) =>
+      typia.functional.validateEqualsFunction(p),
+    );

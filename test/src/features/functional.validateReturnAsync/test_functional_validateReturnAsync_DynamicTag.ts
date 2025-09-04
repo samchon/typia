@@ -4,7 +4,8 @@ import { _test_functional_validateReturnAsync } from "../../internal/_test_funct
 import { DynamicTag } from "../../structures/DynamicTag";
 
 export const test_functional_validateReturnAsync_DynamicTag =
-  _test_functional_validateReturnAsync("DynamicTag")(DynamicTag)(
-    (p: (input: DynamicTag) => Promise<DynamicTag>) =>
-      typia.functional.validateReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateReturnAsync("DynamicTag")(DynamicTag)(
+      (p: (input: DynamicTag) => Promise<DynamicTag>) =>
+        typia.functional.validateReturn(p),
+    );

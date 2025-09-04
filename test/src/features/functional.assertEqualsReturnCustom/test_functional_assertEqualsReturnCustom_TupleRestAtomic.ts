@@ -5,8 +5,9 @@ import { _test_functional_assertEqualsReturn } from "../../internal/_test_functi
 import { TupleRestAtomic } from "../../structures/TupleRestAtomic";
 
 export const test_functional_assertEqualsReturnCustom_TupleRestAtomic =
-  _test_functional_assertEqualsReturn(CustomGuardError)("TupleRestAtomic")(
-    TupleRestAtomic,
-  )((p: (input: TupleRestAtomic) => TupleRestAtomic) =>
-    typia.functional.assertEqualsReturn(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertEqualsReturn(CustomGuardError)("TupleRestAtomic")(
+      TupleRestAtomic,
+    )((p: (input: TupleRestAtomic) => TupleRestAtomic) =>
+      typia.functional.assertEqualsReturn(p, (p) => new CustomGuardError(p)),
+    );

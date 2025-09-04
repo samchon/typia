@@ -1,8 +1,8 @@
 {
   "model": "3.0",
   "options": {
-    "constraint": false,
     "recursive": 3,
+    "constraint": true,
     "separate": null
   },
   "functions": [
@@ -19,8 +19,7 @@
           "first"
         ],
         "additionalProperties": false
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -42,8 +41,7 @@
       },
       "output": {
         "type": "null"
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -68,8 +66,7 @@
       },
       "output": {
         "type": "null"
-      },
-      "strict": true
+      }
     }
   ]
 }

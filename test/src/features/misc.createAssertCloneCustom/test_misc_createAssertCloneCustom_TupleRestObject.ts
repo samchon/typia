@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_misc_assertClone } from "../../internal/_test_misc_assertClone";
 import { TupleRestObject } from "../../structures/TupleRestObject";
 
-export const test_misc_createAssertCloneCustom_TupleRestObject =
+export const test_misc_createAssertCloneCustom_TupleRestObject = (): void =>
   _test_misc_assertClone(CustomGuardError)("TupleRestObject")<TupleRestObject>(
     TupleRestObject,
   )(

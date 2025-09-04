@@ -5,10 +5,11 @@ import { _test_json_assertStringify } from "../../internal/_test_json_assertStri
 import { DynamicEnumeration } from "../../structures/DynamicEnumeration";
 
 export const test_json_createAssertStringifyCustom_DynamicEnumeration =
-  _test_json_assertStringify(CustomGuardError)(
-    "DynamicEnumeration",
-  )<DynamicEnumeration>(DynamicEnumeration)(
-    typia.json.createAssertStringify<DynamicEnumeration>(
-      (p) => new CustomGuardError(p),
-    ),
-  );
+  (): void =>
+    _test_json_assertStringify(CustomGuardError)(
+      "DynamicEnumeration",
+    )<DynamicEnumeration>(DynamicEnumeration)(
+      typia.json.createAssertStringify<DynamicEnumeration>(
+        (p) => new CustomGuardError(p),
+      ),
+    );

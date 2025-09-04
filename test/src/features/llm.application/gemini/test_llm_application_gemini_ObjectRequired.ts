@@ -3,12 +3,12 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { ObjectRequired } from "../../../structures/ObjectRequired";
 
-export const test_llm_application_gemini_ObjectRequired = _test_llm_application(
-  {
+export const test_llm_application_gemini_ObjectRequired = (): void =>
+  _test_llm_application({
     model: "gemini",
     name: "ObjectRequired",
-  },
-)(typia.llm.application<ObjectRequiredApplication, "gemini">());
+    factory: ObjectRequired,
+  })(typia.llm.application<ObjectRequiredApplication, "gemini">());
 
 interface ObjectRequiredApplication {
   insert(p: { first: ObjectRequired }): Promise<void>;

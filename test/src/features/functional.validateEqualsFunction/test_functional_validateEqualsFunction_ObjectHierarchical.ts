@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsFunction } from "../../internal/_test_fu
 import { ObjectHierarchical } from "../../structures/ObjectHierarchical";
 
 export const test_functional_validateEqualsFunction_ObjectHierarchical =
-  _test_functional_validateEqualsFunction("ObjectHierarchical")(
-    ObjectHierarchical,
-  )((p: (input: ObjectHierarchical) => ObjectHierarchical) =>
-    typia.functional.validateEqualsFunction(p),
-  );
+  (): void =>
+    _test_functional_validateEqualsFunction("ObjectHierarchical")(
+      ObjectHierarchical,
+    )((p: (input: ObjectHierarchical) => ObjectHierarchical) =>
+      typia.functional.validateEqualsFunction(p),
+    );

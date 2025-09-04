@@ -3,10 +3,11 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { ObjectUnionComposite } from "../../../structures/ObjectUnionComposite";
 
-export const test_llm_application_llama_ObjectUnionComposite =
+export const test_llm_application_llama_ObjectUnionComposite = (): void =>
   _test_llm_application({
     model: "llama",
     name: "ObjectUnionComposite",
+    factory: ObjectUnionComposite,
   })(typia.llm.application<ObjectUnionCompositeApplication, "llama">());
 
 interface ObjectUnionCompositeApplication {

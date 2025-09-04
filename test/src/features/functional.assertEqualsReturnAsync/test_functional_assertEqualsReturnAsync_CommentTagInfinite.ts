@@ -5,9 +5,10 @@ import { _test_functional_assertEqualsReturnAsync } from "../../internal/_test_f
 import { CommentTagInfinite } from "../../structures/CommentTagInfinite";
 
 export const test_functional_assertEqualsReturnAsync_CommentTagInfinite =
-  _test_functional_assertEqualsReturnAsync(TypeGuardError)(
-    "CommentTagInfinite",
-  )(CommentTagInfinite)(
-    (p: (input: CommentTagInfinite) => Promise<CommentTagInfinite>) =>
-      typia.functional.assertEqualsReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsReturnAsync(TypeGuardError)(
+      "CommentTagInfinite",
+    )(CommentTagInfinite)(
+      (p: (input: CommentTagInfinite) => Promise<CommentTagInfinite>) =>
+        typia.functional.assertEqualsReturn(p),
+    );

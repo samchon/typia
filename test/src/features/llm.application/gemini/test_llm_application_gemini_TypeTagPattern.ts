@@ -3,12 +3,12 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { TypeTagPattern } from "../../../structures/TypeTagPattern";
 
-export const test_llm_application_gemini_TypeTagPattern = _test_llm_application(
-  {
+export const test_llm_application_gemini_TypeTagPattern = (): void =>
+  _test_llm_application({
     model: "gemini",
     name: "TypeTagPattern",
-  },
-)(typia.llm.application<TypeTagPatternApplication, "gemini">());
+    factory: TypeTagPattern,
+  })(typia.llm.application<TypeTagPatternApplication, "gemini">());
 
 interface TypeTagPatternApplication {
   insert(p: { first: TypeTagPattern }): Promise<void>;

@@ -4,8 +4,9 @@ import { _test_functional_validateParametersAsync } from "../../internal/_test_f
 import { ConstantAtomicTagged } from "../../structures/ConstantAtomicTagged";
 
 export const test_functional_validateParametersAsync_ConstantAtomicTagged =
-  _test_functional_validateParametersAsync("ConstantAtomicTagged")(
-    ConstantAtomicTagged,
-  )((p: (input: ConstantAtomicTagged) => Promise<ConstantAtomicTagged>) =>
-    typia.functional.validateParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateParametersAsync("ConstantAtomicTagged")(
+      ConstantAtomicTagged,
+    )((p: (input: ConstantAtomicTagged) => Promise<ConstantAtomicTagged>) =>
+      typia.functional.validateParameters(p),
+    );

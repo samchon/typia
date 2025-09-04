@@ -1,4 +1,11 @@
-import { ILlmSchema, IOpenApiSchemaError, IResult } from "@samchon/openapi";
+import {
+  IChatGptSchema,
+  IGeminiSchema,
+  ILlmSchema,
+  ILlmSchemaV3,
+  IOpenApiSchemaError,
+  IResult,
+} from "@samchon/openapi";
 import { LlmSchemaComposer } from "@samchon/openapi/lib/composers/LlmSchemaComposer";
 
 import { IJsonSchemaCollection } from "../../schemas/json/IJsonSchemaCollection";
@@ -60,16 +67,19 @@ export namespace LlmSchemaProgrammer {
   };
 
   export const validate =
-    (model: ILlmSchema.Model) =>
+    <Model extends ILlmSchema.Model>(props: {
+      model: ILlmSchema.Model;
+      config?: Partial<ILlmSchema.ModelConfig[Model]>;
+    }) =>
     (metadata: Metadata): string[] => {
       const output: string[] = [];
+
+      // no additionalProperties in ChatGPT strict mode or Gemini
       if (
-        metadata.atomics.some((a) => a.type === "bigint") ||
-        metadata.constants.some((c) => c.type === "bigint")
-      )
-        output.push("LLM schema does not support bigint type.");
-      if (
-        (model === "chatgpt" || model === "gemini") &&
+        ((props.model === "chatgpt" &&
+          (props.config as Partial<IChatGptSchema.IConfig> | undefined)
+            ?.strict === true) ||
+          props.model === "gemini") &&
         metadata.objects.some((o) =>
           o.type.properties.some(
             (p) => p.key.isSoleLiteral() === false && p.value.size() !== 0,
@@ -77,8 +87,49 @@ export namespace LlmSchemaProgrammer {
         )
       )
         output.push(
-          `LLM schema of "${model}" does not support dynamic property in object.`,
+          `LLM schema of "${props.model}"${props.model === "chatgpt" ? " (strict mode)" : ""} does not support dynamic property in object.`,
         );
+
+      // ChatGPT strict mode even does not support the optional property
+      if (
+        props.model === "chatgpt" &&
+        (props.config as Partial<IChatGptSchema.IConfig> | undefined)
+          ?.strict === true &&
+        metadata.objects.some((o) =>
+          o.type.properties.some((p) => p.value.isRequired() === false),
+        )
+      )
+        output.push(
+          `LLM schema of "chatgpt" (strict mode) does not support optional property in object.`,
+        );
+
+      // Gemini does not support the union type
+      if (props.model === "gemini" && size(metadata) > 1)
+        output.push("Gemini model does not support the union type.");
+
+      // no recursive rule of Gemini and V3
+      if (
+        (props.model === "gemini" || props.model === "3.0") &&
+        ((props.config as IGeminiSchema.IConfig | undefined)?.recursive ===
+          false ||
+          (props.config as ILlmSchemaV3.IConfig | undefined)?.recursive === 0)
+      ) {
+        if (metadata.objects.some((o) => o.type.recursive))
+          output.push(
+            `LLM schema of "${props.model}" does not support recursive object.`,
+          );
+        if (metadata.arrays.some((a) => a.type.recursive))
+          output.push(
+            `LLM schema of "${props.model}" does not support recursive array.`,
+          );
+      }
+
+      // just JSON rule
+      if (
+        metadata.atomics.some((a) => a.type === "bigint") ||
+        metadata.constants.some((c) => c.type === "bigint")
+      )
+        output.push("LLM schema does not support bigint type.");
       if (
         metadata.tuples.some((t) =>
           t.type.elements.some((e) => e.isRequired() === false),
@@ -98,8 +149,6 @@ export namespace LlmSchemaProgrammer {
           native.name !== "File"
         )
           output.push(`LLM schema does not support ${native.name} type.`);
-      if (model === "gemini" && size(metadata) > 1)
-        output.push("Gemini model does not support the union type.");
       return output;
     };
 }

@@ -5,8 +5,9 @@ import { _test_functional_assertEqualsFunction } from "../../internal/_test_func
 import { ObjectTuple } from "../../structures/ObjectTuple";
 
 export const test_functional_assertEqualsFunctionCustom_ObjectTuple =
-  _test_functional_assertEqualsFunction(CustomGuardError)("ObjectTuple")(
-    ObjectTuple,
-  )((p: (input: ObjectTuple) => ObjectTuple) =>
-    typia.functional.assertEqualsFunction(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertEqualsFunction(CustomGuardError)("ObjectTuple")(
+      ObjectTuple,
+    )((p: (input: ObjectTuple) => ObjectTuple) =>
+      typia.functional.assertEqualsFunction(p, (p) => new CustomGuardError(p)),
+    );

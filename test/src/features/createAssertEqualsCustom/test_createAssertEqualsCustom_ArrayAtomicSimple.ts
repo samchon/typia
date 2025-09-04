@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_assertEquals } from "../../internal/_test_assertEquals";
 import { ArrayAtomicSimple } from "../../structures/ArrayAtomicSimple";
 
-export const test_createAssertEqualsCustom_ArrayAtomicSimple =
+export const test_createAssertEqualsCustom_ArrayAtomicSimple = (): void =>
   _test_assertEquals(CustomGuardError)("ArrayAtomicSimple")<ArrayAtomicSimple>(
     ArrayAtomicSimple,
   )(

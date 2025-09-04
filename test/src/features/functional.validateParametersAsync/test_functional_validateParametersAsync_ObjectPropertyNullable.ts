@@ -4,8 +4,9 @@ import { _test_functional_validateParametersAsync } from "../../internal/_test_f
 import { ObjectPropertyNullable } from "../../structures/ObjectPropertyNullable";
 
 export const test_functional_validateParametersAsync_ObjectPropertyNullable =
-  _test_functional_validateParametersAsync("ObjectPropertyNullable")(
-    ObjectPropertyNullable,
-  )((p: (input: ObjectPropertyNullable) => Promise<ObjectPropertyNullable>) =>
-    typia.functional.validateParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateParametersAsync("ObjectPropertyNullable")(
+      ObjectPropertyNullable,
+    )((p: (input: ObjectPropertyNullable) => Promise<ObjectPropertyNullable>) =>
+      typia.functional.validateParameters(p),
+    );

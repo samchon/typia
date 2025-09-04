@@ -3,10 +3,11 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { ConstantAtomicUnion } from "../../../structures/ConstantAtomicUnion";
 
-export const test_llm_application_chatgpt_ConstantAtomicUnion =
+export const test_llm_application_chatgpt_ConstantAtomicUnion = (): void =>
   _test_llm_application({
     model: "chatgpt",
     name: "ConstantAtomicUnion",
+    factory: ConstantAtomicUnion,
   })(typia.llm.application<ConstantAtomicUnionApplication, "chatgpt">());
 
 interface ConstantAtomicUnionApplication {

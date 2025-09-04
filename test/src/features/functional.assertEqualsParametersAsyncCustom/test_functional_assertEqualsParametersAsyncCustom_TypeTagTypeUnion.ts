@@ -5,12 +5,13 @@ import { _test_functional_assertEqualsParametersAsync } from "../../internal/_te
 import { TypeTagTypeUnion } from "../../structures/TypeTagTypeUnion";
 
 export const test_functional_assertEqualsParametersAsyncCustom_TypeTagTypeUnion =
-  _test_functional_assertEqualsParametersAsync(CustomGuardError)(
-    "TypeTagTypeUnion",
-  )(TypeTagTypeUnion)(
-    (p: (input: TypeTagTypeUnion) => Promise<TypeTagTypeUnion>) =>
-      typia.functional.assertEqualsParameters(
-        p,
-        (p) => new CustomGuardError(p),
-      ),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsParametersAsync(CustomGuardError)(
+      "TypeTagTypeUnion",
+    )(TypeTagTypeUnion)(
+      (p: (input: TypeTagTypeUnion) => Promise<TypeTagTypeUnion>) =>
+        typia.functional.assertEqualsParameters(
+          p,
+          (p) => new CustomGuardError(p),
+        ),
+    );

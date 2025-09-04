@@ -1,11 +1,11 @@
-const HomeLayout = (props: React.HTMLAttributes<HTMLDivElement>) => (
-  <div
-    style={{
-      marginLeft: "-1.5rem",
-      marginRight: "-1.5rem",
-    }}
-  >
-    {props.children}
-  </div>
-);
+"use client";
+
+import { styled } from "@mui/material/styles";
+
+const HomeLayout = styled("div")(({ theme }) => ({
+  [theme.breakpoints.up("lg")]: {
+    marginLeft: "-15rem",
+    marginRight: "-15rem",
+  },
+}));
 export default HomeLayout;

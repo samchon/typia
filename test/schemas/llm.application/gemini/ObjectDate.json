@@ -44,14 +44,14 @@
               "datetime",
               "time",
               "duration"
-            ]
+            ],
+            "description": "Current Type: {@link ObjectDate}"
           }
         },
         "required": [
           "first"
         ]
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -92,7 +92,8 @@
               "datetime",
               "time",
               "duration"
-            ]
+            ],
+            "description": "Current Type: {@link ObjectDate}"
           },
           "second": {
             "type": "object",
@@ -171,9 +172,9 @@
           "datetime",
           "time",
           "duration"
-        ]
-      },
-      "strict": true
+        ],
+        "description": "Current Type: {@link ObjectDate}"
+      }
     },
     {
       "name": "coalesce",
@@ -333,8 +334,7 @@
           "duration"
         ],
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

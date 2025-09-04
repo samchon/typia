@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsFunctionAsync } from "../../internal/_te
 import { ArrayAtomicAlias } from "../../structures/ArrayAtomicAlias";
 
 export const test_functional_validateEqualsFunctionAsync_ArrayAtomicAlias =
-  _test_functional_validateEqualsFunctionAsync("ArrayAtomicAlias")(
-    ArrayAtomicAlias,
-  )((p: (input: ArrayAtomicAlias) => Promise<ArrayAtomicAlias>) =>
-    typia.functional.validateEqualsFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateEqualsFunctionAsync("ArrayAtomicAlias")(
+      ArrayAtomicAlias,
+    )((p: (input: ArrayAtomicAlias) => Promise<ArrayAtomicAlias>) =>
+      typia.functional.validateEqualsFunction(p),
+    );

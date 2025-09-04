@@ -5,8 +5,9 @@ import { _test_functional_assertParametersAsync } from "../../internal/_test_fun
 import { TupleRestObject } from "../../structures/TupleRestObject";
 
 export const test_functional_assertParametersAsync_TupleRestObject =
-  _test_functional_assertParametersAsync(TypeGuardError)("TupleRestObject")(
-    TupleRestObject,
-  )((p: (input: TupleRestObject) => Promise<TupleRestObject>) =>
-    typia.functional.assertParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertParametersAsync(TypeGuardError)("TupleRestObject")(
+      TupleRestObject,
+    )((p: (input: TupleRestObject) => Promise<TupleRestObject>) =>
+      typia.functional.assertParameters(p),
+    );

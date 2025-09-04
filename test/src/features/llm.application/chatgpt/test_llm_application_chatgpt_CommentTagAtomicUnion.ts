@@ -3,10 +3,11 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { CommentTagAtomicUnion } from "../../../structures/CommentTagAtomicUnion";
 
-export const test_llm_application_chatgpt_CommentTagAtomicUnion =
+export const test_llm_application_chatgpt_CommentTagAtomicUnion = (): void =>
   _test_llm_application({
     model: "chatgpt",
     name: "CommentTagAtomicUnion",
+    factory: CommentTagAtomicUnion,
   })(typia.llm.application<CommentTagAtomicUnionApplication, "chatgpt">());
 
 interface CommentTagAtomicUnionApplication {

@@ -4,7 +4,9 @@ import { _test_functional_validateEqualsReturn } from "../../internal/_test_func
 import { CommentTagPattern } from "../../structures/CommentTagPattern";
 
 export const test_functional_validateEqualsReturn_CommentTagPattern =
-  _test_functional_validateEqualsReturn("CommentTagPattern")(CommentTagPattern)(
-    (p: (input: CommentTagPattern) => CommentTagPattern) =>
+  (): void =>
+    _test_functional_validateEqualsReturn("CommentTagPattern")(
+      CommentTagPattern,
+    )((p: (input: CommentTagPattern) => CommentTagPattern) =>
       typia.functional.validateEqualsReturn(p),
-  );
+    );

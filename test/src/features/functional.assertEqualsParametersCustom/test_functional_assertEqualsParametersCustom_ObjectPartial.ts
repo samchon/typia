@@ -5,8 +5,12 @@ import { _test_functional_assertEqualsParameters } from "../../internal/_test_fu
 import { ObjectPartial } from "../../structures/ObjectPartial";
 
 export const test_functional_assertEqualsParametersCustom_ObjectPartial =
-  _test_functional_assertEqualsParameters(CustomGuardError)("ObjectPartial")(
-    ObjectPartial,
-  )((p: (input: ObjectPartial) => ObjectPartial) =>
-    typia.functional.assertEqualsParameters(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertEqualsParameters(CustomGuardError)("ObjectPartial")(
+      ObjectPartial,
+    )((p: (input: ObjectPartial) => ObjectPartial) =>
+      typia.functional.assertEqualsParameters(
+        p,
+        (p) => new CustomGuardError(p),
+      ),
+    );

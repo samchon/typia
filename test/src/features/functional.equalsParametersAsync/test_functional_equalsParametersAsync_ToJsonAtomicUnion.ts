@@ -4,8 +4,9 @@ import { _test_functional_equalsParametersAsync } from "../../internal/_test_fun
 import { ToJsonAtomicUnion } from "../../structures/ToJsonAtomicUnion";
 
 export const test_functional_equalsParametersAsync_ToJsonAtomicUnion =
-  _test_functional_equalsParametersAsync("ToJsonAtomicUnion")(
-    ToJsonAtomicUnion,
-  )((p: (input: ToJsonAtomicUnion) => Promise<ToJsonAtomicUnion>) =>
-    typia.functional.equalsParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_equalsParametersAsync("ToJsonAtomicUnion")(
+      ToJsonAtomicUnion,
+    )((p: (input: ToJsonAtomicUnion) => Promise<ToJsonAtomicUnion>) =>
+      typia.functional.equalsParameters(p),
+    );

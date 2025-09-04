@@ -1,7 +1,7 @@
 {
   "editor.tabSize": 2,
-  "editor.formatOnSave": true,
   "[javascript][typescript][typescriptreact][json]": {
+    "editor.formatOnSave": true,
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.codeActionsOnSave": {
       "source.fixAll.eslint": "explicit"
@@ -9,5 +9,6 @@
   },
   "[mdx]": {
     "editor.wordWrap": "on"
-  }
+  },
+  "typescript.tsdk": "node_modules\\typescript\\lib"
 }

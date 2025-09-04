@@ -5,12 +5,13 @@ import { _test_functional_assertEqualsParametersAsync } from "../../internal/_te
 import { ObjectGenericUnion } from "../../structures/ObjectGenericUnion";
 
 export const test_functional_assertEqualsParametersAsyncCustom_ObjectGenericUnion =
-  _test_functional_assertEqualsParametersAsync(CustomGuardError)(
-    "ObjectGenericUnion",
-  )(ObjectGenericUnion)(
-    (p: (input: ObjectGenericUnion) => Promise<ObjectGenericUnion>) =>
-      typia.functional.assertEqualsParameters(
-        p,
-        (p) => new CustomGuardError(p),
-      ),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsParametersAsync(CustomGuardError)(
+      "ObjectGenericUnion",
+    )(ObjectGenericUnion)(
+      (p: (input: ObjectGenericUnion) => Promise<ObjectGenericUnion>) =>
+        typia.functional.assertEqualsParameters(
+          p,
+          (p) => new CustomGuardError(p),
+        ),
+    );

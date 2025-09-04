@@ -2,9 +2,7 @@
   "type": "object",
   "properties": {
     "regular": {
-      "type": "object",
-      "properties": {},
-      "required": []
+      "$ref": "#/$defs/DynamicNever"
     },
     "nullable": {
       "oneOf": [
@@ -12,16 +10,12 @@
           "type": "null"
         },
         {
-          "type": "object",
-          "properties": {},
-          "required": []
+          "$ref": "#/$defs/DynamicNever"
         }
       ]
     },
     "optional": {
-      "type": "object",
-      "properties": {},
-      "required": []
+      "$ref": "#/$defs/DynamicNever"
     },
     "faint": {
       "oneOf": [
@@ -29,28 +23,28 @@
           "type": "null"
         },
         {
-          "type": "object",
-          "properties": {},
-          "required": []
+          "$ref": "#/$defs/DynamicNever"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
-        "type": "object",
-        "properties": {},
-        "required": []
+        "$ref": "#/$defs/DynamicNever"
       }
     }
   },
   "required": [
     "regular",
     "nullable",
-    "optional",
-    "faint",
     "array"
   ],
   "additionalProperties": false,
-  "$defs": {}
+  "$defs": {
+    "DynamicNever": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    }
+  }
 }

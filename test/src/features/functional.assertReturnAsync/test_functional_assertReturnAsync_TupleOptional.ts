@@ -5,8 +5,9 @@ import { _test_functional_assertReturnAsync } from "../../internal/_test_functio
 import { TupleOptional } from "../../structures/TupleOptional";
 
 export const test_functional_assertReturnAsync_TupleOptional =
-  _test_functional_assertReturnAsync(TypeGuardError)("TupleOptional")(
-    TupleOptional,
-  )((p: (input: TupleOptional) => Promise<TupleOptional>) =>
-    typia.functional.assertReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertReturnAsync(TypeGuardError)("TupleOptional")(
+      TupleOptional,
+    )((p: (input: TupleOptional) => Promise<TupleOptional>) =>
+      typia.functional.assertReturn(p),
+    );

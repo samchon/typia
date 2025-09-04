@@ -1,8 +1,8 @@
 {
   "model": "3.0",
   "options": {
-    "constraint": false,
     "recursive": 3,
+    "constraint": true,
     "separate": null
   },
   "functions": [
@@ -23,11 +23,12 @@
                       "oneOf": [
                         {
                           "type": "string",
-                          "description": "@minLength 3\n@maxLength 7"
+                          "minLength": 3,
+                          "maxLength": 7
                         },
                         {
                           "type": "number",
-                          "description": "@minimum 3"
+                          "minimum": 3
                         }
                       ]
                     }
@@ -35,6 +36,7 @@
                   "required": [
                     "value"
                   ],
+                  "description": "Current Type: {@link CommentTagAtomicUnion.Type}",
                   "additionalProperties": false
                 }
               }
@@ -42,6 +44,7 @@
             "required": [
               "value"
             ],
+            "description": "Current Type: {@link CommentTagAtomicUnion}",
             "additionalProperties": false
           }
         },
@@ -49,8 +52,7 @@
           "first"
         ],
         "additionalProperties": false
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -69,11 +71,12 @@
                       "oneOf": [
                         {
                           "type": "string",
-                          "description": "@minLength 3\n@maxLength 7"
+                          "minLength": 3,
+                          "maxLength": 7
                         },
                         {
                           "type": "number",
-                          "description": "@minimum 3"
+                          "minimum": 3
                         }
                       ]
                     }
@@ -81,6 +84,7 @@
                   "required": [
                     "value"
                   ],
+                  "description": "Current Type: {@link CommentTagAtomicUnion.Type}",
                   "additionalProperties": false
                 }
               }
@@ -88,6 +92,7 @@
             "required": [
               "value"
             ],
+            "description": "Current Type: {@link CommentTagAtomicUnion}",
             "additionalProperties": false
           },
           "second": {
@@ -102,11 +107,12 @@
                       "oneOf": [
                         {
                           "type": "string",
-                          "description": "@minLength 3\n@maxLength 7"
+                          "minLength": 3,
+                          "maxLength": 7
                         },
                         {
                           "type": "number",
-                          "description": "@minimum 3"
+                          "minimum": 3
                         }
                       ]
                     }
@@ -114,6 +120,7 @@
                   "required": [
                     "value"
                   ],
+                  "description": "Current Type: {@link CommentTagAtomicUnion.Type}",
                   "additionalProperties": false
                 }
               }
@@ -143,11 +150,12 @@
                   "oneOf": [
                     {
                       "type": "string",
-                      "description": "@minLength 3\n@maxLength 7"
+                      "minLength": 3,
+                      "maxLength": 7
                     },
                     {
                       "type": "number",
-                      "description": "@minimum 3"
+                      "minimum": 3
                     }
                   ]
                 }
@@ -155,6 +163,7 @@
               "required": [
                 "value"
               ],
+              "description": "Current Type: {@link CommentTagAtomicUnion.Type}",
               "additionalProperties": false
             }
           }
@@ -162,9 +171,9 @@
         "required": [
           "value"
         ],
+        "description": "Current Type: {@link CommentTagAtomicUnion}",
         "additionalProperties": false
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -183,11 +192,12 @@
                       "oneOf": [
                         {
                           "type": "string",
-                          "description": "@minLength 3\n@maxLength 7"
+                          "minLength": 3,
+                          "maxLength": 7
                         },
                         {
                           "type": "number",
-                          "description": "@minimum 3"
+                          "minimum": 3
                         }
                       ]
                     }
@@ -195,6 +205,7 @@
                   "required": [
                     "value"
                   ],
+                  "description": "Current Type: {@link CommentTagAtomicUnion.Type}",
                   "additionalProperties": false
                 }
               }
@@ -217,11 +228,12 @@
                       "oneOf": [
                         {
                           "type": "string",
-                          "description": "@minLength 3\n@maxLength 7"
+                          "minLength": 3,
+                          "maxLength": 7
                         },
                         {
                           "type": "number",
-                          "description": "@minimum 3"
+                          "minimum": 3
                         }
                       ]
                     }
@@ -229,6 +241,7 @@
                   "required": [
                     "value"
                   ],
+                  "description": "Current Type: {@link CommentTagAtomicUnion.Type}",
                   "additionalProperties": false
                 }
               }
@@ -251,11 +264,12 @@
                       "oneOf": [
                         {
                           "type": "string",
-                          "description": "@minLength 3\n@maxLength 7"
+                          "minLength": 3,
+                          "maxLength": 7
                         },
                         {
                           "type": "number",
-                          "description": "@minimum 3"
+                          "minimum": 3
                         }
                       ]
                     }
@@ -263,6 +277,7 @@
                   "required": [
                     "value"
                   ],
+                  "description": "Current Type: {@link CommentTagAtomicUnion.Type}",
                   "additionalProperties": false
                 }
               }
@@ -292,11 +307,12 @@
                   "oneOf": [
                     {
                       "type": "string",
-                      "description": "@minLength 3\n@maxLength 7"
+                      "minLength": 3,
+                      "maxLength": 7
                     },
                     {
                       "type": "number",
-                      "description": "@minimum 3"
+                      "minimum": 3
                     }
                   ]
                 }
@@ -304,6 +320,7 @@
               "required": [
                 "value"
               ],
+              "description": "Current Type: {@link CommentTagAtomicUnion.Type}",
               "additionalProperties": false
             }
           }
@@ -313,8 +330,7 @@
         ],
         "additionalProperties": false,
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

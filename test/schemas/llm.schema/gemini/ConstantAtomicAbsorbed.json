@@ -6,12 +6,12 @@
       "description": "@default something"
     },
     "age": {
-      "type": "number",
-      "description": "@default 20"
+      "type": "number"
     }
   },
   "required": [
     "id",
     "age"
-  ]
+  ],
+  "description": "Current Type: {@link ConstantAtomicAbsorbed}"
 }

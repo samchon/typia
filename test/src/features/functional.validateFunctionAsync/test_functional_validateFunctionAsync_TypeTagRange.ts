@@ -4,7 +4,8 @@ import { _test_functional_validateFunctionAsync } from "../../internal/_test_fun
 import { TypeTagRange } from "../../structures/TypeTagRange";
 
 export const test_functional_validateFunctionAsync_TypeTagRange =
-  _test_functional_validateFunctionAsync("TypeTagRange")(TypeTagRange)(
-    (p: (input: TypeTagRange) => Promise<TypeTagRange>) =>
-      typia.functional.validateFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateFunctionAsync("TypeTagRange")(TypeTagRange)(
+      (p: (input: TypeTagRange) => Promise<TypeTagRange>) =>
+        typia.functional.validateFunction(p),
+    );

@@ -4,7 +4,8 @@ import { _test_functional_isParametersAsync } from "../../internal/_test_functio
 import { ToJsonTuple } from "../../structures/ToJsonTuple";
 
 export const test_functional_isParametersAsync_ToJsonTuple =
-  _test_functional_isParametersAsync("ToJsonTuple")(ToJsonTuple)(
-    (p: (input: ToJsonTuple) => Promise<ToJsonTuple>) =>
-      typia.functional.isParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_isParametersAsync("ToJsonTuple")(ToJsonTuple)(
+      (p: (input: ToJsonTuple) => Promise<ToJsonTuple>) =>
+        typia.functional.isParameters(p),
+    );

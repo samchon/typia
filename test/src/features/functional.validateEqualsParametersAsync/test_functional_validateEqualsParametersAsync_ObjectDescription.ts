@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsParametersAsync } from "../../internal/_
 import { ObjectDescription } from "../../structures/ObjectDescription";
 
 export const test_functional_validateEqualsParametersAsync_ObjectDescription =
-  _test_functional_validateEqualsParametersAsync("ObjectDescription")(
-    ObjectDescription,
-  )((p: (input: ObjectDescription) => Promise<ObjectDescription>) =>
-    typia.functional.validateEqualsParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateEqualsParametersAsync("ObjectDescription")(
+      ObjectDescription,
+    )((p: (input: ObjectDescription) => Promise<ObjectDescription>) =>
+      typia.functional.validateEqualsParameters(p),
+    );

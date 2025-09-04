@@ -5,8 +5,9 @@ import { _test_functional_assertParametersAsync } from "../../internal/_test_fun
 import { ClassGetter } from "../../structures/ClassGetter";
 
 export const test_functional_assertParametersAsync_ClassGetter =
-  _test_functional_assertParametersAsync(TypeGuardError)("ClassGetter")(
-    ClassGetter,
-  )((p: (input: ClassGetter) => Promise<ClassGetter>) =>
-    typia.functional.assertParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertParametersAsync(TypeGuardError)("ClassGetter")(
+      ClassGetter,
+    )((p: (input: ClassGetter) => Promise<ClassGetter>) =>
+      typia.functional.assertParameters(p),
+    );

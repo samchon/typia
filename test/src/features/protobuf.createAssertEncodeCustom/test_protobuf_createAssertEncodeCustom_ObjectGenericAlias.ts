@@ -5,12 +5,13 @@ import { _test_protobuf_assertEncode } from "../../internal/_test_protobuf_asser
 import { ObjectGenericAlias } from "../../structures/ObjectGenericAlias";
 
 export const test_protobuf_createAssertEncodeCustom_ObjectGenericAlias =
-  _test_protobuf_assertEncode(CustomGuardError)(
-    "ObjectGenericAlias",
-  )<ObjectGenericAlias>(ObjectGenericAlias)({
-    encode: typia.protobuf.createAssertEncode<ObjectGenericAlias>(
-      (p) => new CustomGuardError(p),
-    ),
-    decode: typia.protobuf.createDecode<ObjectGenericAlias>(),
-    message: typia.protobuf.message<ObjectGenericAlias>(),
-  });
+  (): void =>
+    _test_protobuf_assertEncode(CustomGuardError)(
+      "ObjectGenericAlias",
+    )<ObjectGenericAlias>(ObjectGenericAlias)({
+      encode: typia.protobuf.createAssertEncode<ObjectGenericAlias>(
+        (p) => new CustomGuardError(p),
+      ),
+      decode: typia.protobuf.createDecode<ObjectGenericAlias>(),
+      message: typia.protobuf.message<ObjectGenericAlias>(),
+    });

@@ -3,8 +3,7 @@ import { TestStructure } from "../helpers/TestStructure";
 export const _test_is =
   (name: string) =>
   <T>(factory: TestStructure<T>) =>
-  (is: (input: T) => boolean) =>
-  () => {
+  (is: (input: T) => boolean): void => {
     if (is(factory.generate()) === false)
       throw new Error(
         `Bug on typia.is(): failed to understand the ${name} type.`,

@@ -4,12 +4,13 @@ import { _test_functional_validateParametersAsync } from "../../internal/_test_f
 import { ArrayRecursiveUnionExplicitPointer } from "../../structures/ArrayRecursiveUnionExplicitPointer";
 
 export const test_functional_validateParametersAsync_ArrayRecursiveUnionExplicitPointer =
-  _test_functional_validateParametersAsync(
-    "ArrayRecursiveUnionExplicitPointer",
-  )(ArrayRecursiveUnionExplicitPointer)(
-    (
-      p: (
-        input: ArrayRecursiveUnionExplicitPointer,
-      ) => Promise<ArrayRecursiveUnionExplicitPointer>,
-    ) => typia.functional.validateParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateParametersAsync(
+      "ArrayRecursiveUnionExplicitPointer",
+    )(ArrayRecursiveUnionExplicitPointer)(
+      (
+        p: (
+          input: ArrayRecursiveUnionExplicitPointer,
+        ) => Promise<ArrayRecursiveUnionExplicitPointer>,
+      ) => typia.functional.validateParameters(p),
+    );

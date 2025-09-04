@@ -4,8 +4,9 @@ import { _test_functional_validateFunctionAsync } from "../../internal/_test_fun
 import { ToJsonAtomicSimple } from "../../structures/ToJsonAtomicSimple";
 
 export const test_functional_validateFunctionAsync_ToJsonAtomicSimple =
-  _test_functional_validateFunctionAsync("ToJsonAtomicSimple")(
-    ToJsonAtomicSimple,
-  )((p: (input: ToJsonAtomicSimple) => Promise<ToJsonAtomicSimple>) =>
-    typia.functional.validateFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateFunctionAsync("ToJsonAtomicSimple")(
+      ToJsonAtomicSimple,
+    )((p: (input: ToJsonAtomicSimple) => Promise<ToJsonAtomicSimple>) =>
+      typia.functional.validateFunction(p),
+    );

@@ -4,8 +4,9 @@ import { _test_functional_validateReturnAsync } from "../../internal/_test_funct
 import { ArrayRepeatedOptional } from "../../structures/ArrayRepeatedOptional";
 
 export const test_functional_validateReturnAsync_ArrayRepeatedOptional =
-  _test_functional_validateReturnAsync("ArrayRepeatedOptional")(
-    ArrayRepeatedOptional,
-  )((p: (input: ArrayRepeatedOptional) => Promise<ArrayRepeatedOptional>) =>
-    typia.functional.validateReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateReturnAsync("ArrayRepeatedOptional")(
+      ArrayRepeatedOptional,
+    )((p: (input: ArrayRepeatedOptional) => Promise<ArrayRepeatedOptional>) =>
+      typia.functional.validateReturn(p),
+    );

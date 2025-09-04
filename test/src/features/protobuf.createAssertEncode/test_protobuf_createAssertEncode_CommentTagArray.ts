@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_protobuf_assertEncode } from "../../internal/_test_protobuf_assertEncode";
 import { CommentTagArray } from "../../structures/CommentTagArray";
 
-export const test_protobuf_createAssertEncode_CommentTagArray =
+export const test_protobuf_createAssertEncode_CommentTagArray = (): void =>
   _test_protobuf_assertEncode(TypeGuardError)(
     "CommentTagArray",
   )<CommentTagArray>(CommentTagArray)({

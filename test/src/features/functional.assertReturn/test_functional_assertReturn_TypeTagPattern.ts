@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_functional_assertReturn } from "../../internal/_test_functional_assertReturn";
 import { TypeTagPattern } from "../../structures/TypeTagPattern";
 
-export const test_functional_assertReturn_TypeTagPattern =
+export const test_functional_assertReturn_TypeTagPattern = (): void =>
   _test_functional_assertReturn(TypeGuardError)("TypeTagPattern")(
     TypeTagPattern,
   )((p: (input: TypeTagPattern) => TypeTagPattern) =>

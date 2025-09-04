@@ -10,11 +10,13 @@ import { IMetadataIteratorProps } from "./IMetadataIteratorProps";
 export const iterate_metadata_native = (
   props: IMetadataIteratorProps,
 ): boolean => {
-  const name: string = TypeFactory.getFullName({
-    checker: props.checker,
-    type: props.type,
-    symbol: props.type.getSymbol(),
-  });
+  const name: string = getNativeName(
+    TypeFactory.getFullName({
+      checker: props.checker,
+      type: props.type,
+      symbol: props.type.getSymbol(),
+    }),
+  );
   const simple: IClassInfo | undefined = SIMPLES.get(name);
   if (
     simple !== undefined &&
@@ -72,7 +74,7 @@ const validate = (props: {
     });
     return (
       returnType !== null &&
-      props.checker.typeToString(returnType) === method.return
+      props.checker.typeToString(returnType).split("<")?.[0] === method.return
     );
   }) &&
   (props.info.properties ?? []).every((property) => {
@@ -82,7 +84,7 @@ const validate = (props: {
       : undefined;
     return (
       propType !== undefined &&
-      props.checker.typeToString(propType) === property.type
+      props.checker.typeToString(propType).split("<")?.[0] === property.type
     );
   });
 
@@ -113,6 +115,14 @@ const getBinaryProps = (className: string): IClassInfo => ({
     }),
   ),
 });
+
+const getNativeName = (name: string): string => {
+  name = name.split("<")?.[0] ?? "";
+  if (name.startsWith('"') && name.slice(0).includes('".'))
+    name = name.slice(name.indexOf('".', 1) + 2);
+  return name;
+};
+
 const SIMPLES: Map<string, IClassInfo> = new Map([
   [
     "Date",
@@ -187,9 +197,9 @@ const SIMPLES: Map<string, IClassInfo> = new Map([
         className,
         {
           methods: [
-            { name: "arrayBuffer", return: "Promise<ArrayBuffer>" },
+            { name: "arrayBuffer", return: "Promise" },
             { name: "slice", return: "Blob" },
-            { name: "text", return: "Promise<string>" },
+            { name: "text", return: "Promise" },
           ],
           properties: [
             { name: "size", type: "number" },

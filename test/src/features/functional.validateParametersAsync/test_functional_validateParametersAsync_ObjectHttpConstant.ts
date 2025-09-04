@@ -4,8 +4,9 @@ import { _test_functional_validateParametersAsync } from "../../internal/_test_f
 import { ObjectHttpConstant } from "../../structures/ObjectHttpConstant";
 
 export const test_functional_validateParametersAsync_ObjectHttpConstant =
-  _test_functional_validateParametersAsync("ObjectHttpConstant")(
-    ObjectHttpConstant,
-  )((p: (input: ObjectHttpConstant) => Promise<ObjectHttpConstant>) =>
-    typia.functional.validateParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateParametersAsync("ObjectHttpConstant")(
+      ObjectHttpConstant,
+    )((p: (input: ObjectHttpConstant) => Promise<ObjectHttpConstant>) =>
+      typia.functional.validateParameters(p),
+    );

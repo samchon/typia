@@ -7,8 +7,7 @@ export const _test_assertGuardEquals =
   (ErrorClass: Function) =>
   (name: string) =>
   <T>(factory: TestStructure<T>) =>
-  (assertEquals: AssertionGuard<T>) =>
-  () => {
+  (assertEquals: AssertionGuard<T>): void => {
     const input: T = factory.generate();
 
     // EXACT TYPE

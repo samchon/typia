@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsFunctionAsync } from "../../internal/_te
 import { TypeTagArrayUnion } from "../../structures/TypeTagArrayUnion";
 
 export const test_functional_validateEqualsFunctionAsync_TypeTagArrayUnion =
-  _test_functional_validateEqualsFunctionAsync("TypeTagArrayUnion")(
-    TypeTagArrayUnion,
-  )((p: (input: TypeTagArrayUnion) => Promise<TypeTagArrayUnion>) =>
-    typia.functional.validateEqualsFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateEqualsFunctionAsync("TypeTagArrayUnion")(
+      TypeTagArrayUnion,
+    )((p: (input: TypeTagArrayUnion) => Promise<TypeTagArrayUnion>) =>
+      typia.functional.validateEqualsFunction(p),
+    );

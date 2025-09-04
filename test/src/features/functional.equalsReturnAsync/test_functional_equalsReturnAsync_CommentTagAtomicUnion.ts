@@ -4,8 +4,9 @@ import { _test_functional_equalsReturnAsync } from "../../internal/_test_functio
 import { CommentTagAtomicUnion } from "../../structures/CommentTagAtomicUnion";
 
 export const test_functional_equalsReturnAsync_CommentTagAtomicUnion =
-  _test_functional_equalsReturnAsync("CommentTagAtomicUnion")(
-    CommentTagAtomicUnion,
-  )((p: (input: CommentTagAtomicUnion) => Promise<CommentTagAtomicUnion>) =>
-    typia.functional.equalsReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_equalsReturnAsync("CommentTagAtomicUnion")(
+      CommentTagAtomicUnion,
+    )((p: (input: CommentTagAtomicUnion) => Promise<CommentTagAtomicUnion>) =>
+      typia.functional.equalsReturn(p),
+    );

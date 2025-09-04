@@ -6,16 +6,17 @@
       "properties": {
         "id": {
           "type": "string",
+          "format": "uuid",
           "enum": [
             "latest"
-          ],
-          "description": "@format uuid"
+          ]
         },
         "age": {
           "oneOf": [
             {
               "type": "integer",
-              "description": "@maximum 100"
+              "minimum": 0,
+              "maximum": 100
             },
             {
               "type": "number",
@@ -30,6 +31,7 @@
         "id",
         "age"
       ],
+      "description": "Current Type: {@link ConstantAtomicTagged}",
       "additionalProperties": false
     },
     "nullable": {
@@ -37,16 +39,17 @@
       "properties": {
         "id": {
           "type": "string",
+          "format": "uuid",
           "enum": [
             "latest"
-          ],
-          "description": "@format uuid"
+          ]
         },
         "age": {
           "oneOf": [
             {
               "type": "integer",
-              "description": "@maximum 100"
+              "minimum": 0,
+              "maximum": 100
             },
             {
               "type": "number",
@@ -69,16 +72,17 @@
       "properties": {
         "id": {
           "type": "string",
+          "format": "uuid",
           "enum": [
             "latest"
-          ],
-          "description": "@format uuid"
+          ]
         },
         "age": {
           "oneOf": [
             {
               "type": "integer",
-              "description": "@maximum 100"
+              "minimum": 0,
+              "maximum": 100
             },
             {
               "type": "number",
@@ -93,6 +97,7 @@
         "id",
         "age"
       ],
+      "description": "Current Type: {@link ConstantAtomicTagged}",
       "additionalProperties": false
     },
     "faint": {
@@ -100,16 +105,17 @@
       "properties": {
         "id": {
           "type": "string",
+          "format": "uuid",
           "enum": [
             "latest"
-          ],
-          "description": "@format uuid"
+          ]
         },
         "age": {
           "oneOf": [
             {
               "type": "integer",
-              "description": "@maximum 100"
+              "minimum": 0,
+              "maximum": 100
             },
             {
               "type": "number",
@@ -134,16 +140,17 @@
         "properties": {
           "id": {
             "type": "string",
+            "format": "uuid",
             "enum": [
               "latest"
-            ],
-            "description": "@format uuid"
+            ]
           },
           "age": {
             "oneOf": [
               {
                 "type": "integer",
-                "description": "@maximum 100"
+                "minimum": 0,
+                "maximum": 100
               },
               {
                 "type": "number",
@@ -158,6 +165,7 @@
           "id",
           "age"
         ],
+        "description": "Current Type: {@link ConstantAtomicTagged}",
         "additionalProperties": false
       }
     }

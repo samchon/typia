@@ -1,0 +1,7 @@
+packages:
+  - 'packages/*'
+  - 'test'
+  - 'test-error'
+  - 'test-esm'
+  - 'benchmark'
+  - 'examples'

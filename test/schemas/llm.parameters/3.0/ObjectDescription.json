@@ -6,13 +6,12 @@
       "properties": {
         "id": {
           "type": "string",
-          "title": "Primary Key",
-          "description": "Primary Key.\n\n\n@format uuid"
+          "format": "uuid",
+          "description": "Primary Key."
         },
         "deprecated": {
           "type": "boolean",
-          "title": "Deprecated property",
-          "description": "Deprecated property.\n\nIf `@deprecated` comment tag being utilized, the property will be marked\nas deprecated in the JSON scheam."
+          "description": "Deprecated property.\n\nIf `@deprecated` comment tag being utilized, the property will be marked as\ndeprecated in the JSON schema."
         },
         "title": {
           "type": "string",
@@ -24,8 +23,7 @@
           "items": {
             "type": "string"
           },
-          "title": "Description property",
-          "description": "Description property.\n\nIf you write first line and the first line ends with \".\" character,\nit would be considered as the title. By the way, description does\nnot exclusive the title, so that full content be written."
+          "description": "Description property.\n\nIf you write first line and the first line ends with \".\" character, it\nwould be considered as the title. By the way, description does not\nexclusive the title, so that full content be written."
         },
         "newLine": {
           "type": "number",
@@ -40,7 +38,7 @@
         "newLine"
       ],
       "title": "This is the title of object type",
-      "description": "An interface designed to test JSON schema's object description.",
+      "description": "Description of the current {@link ObjectDescription} type:\n\n> An interface designed to test JSON schema's object description.",
       "additionalProperties": false
     },
     "nullable": {
@@ -48,13 +46,12 @@
       "properties": {
         "id": {
           "type": "string",
-          "title": "Primary Key",
-          "description": "Primary Key.\n\n\n@format uuid"
+          "format": "uuid",
+          "description": "Primary Key."
         },
         "deprecated": {
           "type": "boolean",
-          "title": "Deprecated property",
-          "description": "Deprecated property.\n\nIf `@deprecated` comment tag being utilized, the property will be marked\nas deprecated in the JSON scheam."
+          "description": "Deprecated property.\n\nIf `@deprecated` comment tag being utilized, the property will be marked as\ndeprecated in the JSON schema."
         },
         "title": {
           "type": "string",
@@ -66,8 +63,7 @@
           "items": {
             "type": "string"
           },
-          "title": "Description property",
-          "description": "Description property.\n\nIf you write first line and the first line ends with \".\" character,\nit would be considered as the title. By the way, description does\nnot exclusive the title, so that full content be written."
+          "description": "Description property.\n\nIf you write first line and the first line ends with \".\" character, it\nwould be considered as the title. By the way, description does not\nexclusive the title, so that full content be written."
         },
         "newLine": {
           "type": "number",
@@ -89,13 +85,12 @@
       "properties": {
         "id": {
           "type": "string",
-          "title": "Primary Key",
-          "description": "Primary Key.\n\n\n@format uuid"
+          "format": "uuid",
+          "description": "Primary Key."
         },
         "deprecated": {
           "type": "boolean",
-          "title": "Deprecated property",
-          "description": "Deprecated property.\n\nIf `@deprecated` comment tag being utilized, the property will be marked\nas deprecated in the JSON scheam."
+          "description": "Deprecated property.\n\nIf `@deprecated` comment tag being utilized, the property will be marked as\ndeprecated in the JSON schema."
         },
         "title": {
           "type": "string",
@@ -107,8 +102,7 @@
           "items": {
             "type": "string"
           },
-          "title": "Description property",
-          "description": "Description property.\n\nIf you write first line and the first line ends with \".\" character,\nit would be considered as the title. By the way, description does\nnot exclusive the title, so that full content be written."
+          "description": "Description property.\n\nIf you write first line and the first line ends with \".\" character, it\nwould be considered as the title. By the way, description does not\nexclusive the title, so that full content be written."
         },
         "newLine": {
           "type": "number",
@@ -123,7 +117,7 @@
         "newLine"
       ],
       "title": "This is the title of object type",
-      "description": "An interface designed to test JSON schema's object description.",
+      "description": "Description of the current {@link ObjectDescription} type:\n\n> An interface designed to test JSON schema's object description.",
       "additionalProperties": false
     },
     "faint": {
@@ -131,13 +125,12 @@
       "properties": {
         "id": {
           "type": "string",
-          "title": "Primary Key",
-          "description": "Primary Key.\n\n\n@format uuid"
+          "format": "uuid",
+          "description": "Primary Key."
         },
         "deprecated": {
           "type": "boolean",
-          "title": "Deprecated property",
-          "description": "Deprecated property.\n\nIf `@deprecated` comment tag being utilized, the property will be marked\nas deprecated in the JSON scheam."
+          "description": "Deprecated property.\n\nIf `@deprecated` comment tag being utilized, the property will be marked as\ndeprecated in the JSON schema."
         },
         "title": {
           "type": "string",
@@ -149,8 +142,7 @@
           "items": {
             "type": "string"
           },
-          "title": "Description property",
-          "description": "Description property.\n\nIf you write first line and the first line ends with \".\" character,\nit would be considered as the title. By the way, description does\nnot exclusive the title, so that full content be written."
+          "description": "Description property.\n\nIf you write first line and the first line ends with \".\" character, it\nwould be considered as the title. By the way, description does not\nexclusive the title, so that full content be written."
         },
         "newLine": {
           "type": "number",
@@ -174,13 +166,12 @@
         "properties": {
           "id": {
             "type": "string",
-            "title": "Primary Key",
-            "description": "Primary Key.\n\n\n@format uuid"
+            "format": "uuid",
+            "description": "Primary Key."
           },
           "deprecated": {
             "type": "boolean",
-            "title": "Deprecated property",
-            "description": "Deprecated property.\n\nIf `@deprecated` comment tag being utilized, the property will be marked\nas deprecated in the JSON scheam."
+            "description": "Deprecated property.\n\nIf `@deprecated` comment tag being utilized, the property will be marked as\ndeprecated in the JSON schema."
           },
           "title": {
             "type": "string",
@@ -192,8 +183,7 @@
             "items": {
               "type": "string"
             },
-            "title": "Description property",
-            "description": "Description property.\n\nIf you write first line and the first line ends with \".\" character,\nit would be considered as the title. By the way, description does\nnot exclusive the title, so that full content be written."
+            "description": "Description property.\n\nIf you write first line and the first line ends with \".\" character, it\nwould be considered as the title. By the way, description does not\nexclusive the title, so that full content be written."
           },
           "newLine": {
             "type": "number",
@@ -208,7 +198,7 @@
           "newLine"
         ],
         "title": "This is the title of object type",
-        "description": "An interface designed to test JSON schema's object description.",
+        "description": "Description of the current {@link ObjectDescription} type:\n\n> An interface designed to test JSON schema's object description.",
         "additionalProperties": false
       }
     }

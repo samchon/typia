@@ -49,7 +49,8 @@
         "middle_boolean",
         "ipv4",
         "email"
-      ]
+      ],
+      "description": "Current Type: {@link TemplateAtomic}"
     },
     "nullable": {
       "type": "object",
@@ -150,7 +151,8 @@
         "middle_boolean",
         "ipv4",
         "email"
-      ]
+      ],
+      "description": "Current Type: {@link TemplateAtomic}"
     },
     "faint": {
       "type": "object",
@@ -253,7 +255,8 @@
           "middle_boolean",
           "ipv4",
           "email"
-        ]
+        ],
+        "description": "Current Type: {@link TemplateAtomic}"
       }
     }
   },

@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
 import { ObjectIntersection } from "../../../structures/ObjectIntersection";
 
-export const test_llm_parameters_chatgpt_ObjectIntersection =
+export const test_llm_parameters_chatgpt_ObjectIntersection = (): void =>
   _test_llm_parameters({
     model: "chatgpt",
     name: "ObjectIntersection",

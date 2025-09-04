@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_functional_validateEqualsFunction } from "../../internal/_test_functional_validateEqualsFunction";
 import { ToJsonTuple } from "../../structures/ToJsonTuple";
 
-export const test_functional_validateEqualsFunction_ToJsonTuple =
+export const test_functional_validateEqualsFunction_ToJsonTuple = (): void =>
   _test_functional_validateEqualsFunction("ToJsonTuple")(ToJsonTuple)(
     (p: (input: ToJsonTuple) => ToJsonTuple) =>
       typia.functional.validateEqualsFunction(p),

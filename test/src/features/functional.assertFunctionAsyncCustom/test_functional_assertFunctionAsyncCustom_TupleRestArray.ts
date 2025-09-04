@@ -5,8 +5,9 @@ import { _test_functional_assertFunctionAsync } from "../../internal/_test_funct
 import { TupleRestArray } from "../../structures/TupleRestArray";
 
 export const test_functional_assertFunctionAsyncCustom_TupleRestArray =
-  _test_functional_assertFunctionAsync(CustomGuardError)("TupleRestArray")(
-    TupleRestArray,
-  )((p: (input: TupleRestArray) => Promise<TupleRestArray>) =>
-    typia.functional.assertFunction(p, (p) => new CustomGuardError(p)),
-  );
+  (): Promise<void> =>
+    _test_functional_assertFunctionAsync(CustomGuardError)("TupleRestArray")(
+      TupleRestArray,
+    )((p: (input: TupleRestArray) => Promise<TupleRestArray>) =>
+      typia.functional.assertFunction(p, (p) => new CustomGuardError(p)),
+    );

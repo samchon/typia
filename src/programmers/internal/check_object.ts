@@ -6,9 +6,7 @@ import { IExpressionEntry } from "../helpers/IExpressionEntry";
 import { check_dynamic_properties } from "./check_dynamic_properties";
 import { check_everything } from "./check_everything";
 
-/**
- * @internal
- */
+/** @internal */
 export const check_object = (props: {
   config: check_object.IConfig;
   context: ITypiaContext;
@@ -45,9 +43,7 @@ export const check_object = (props: {
   });
 };
 
-/**
- * @internal
- */
+/** @internal */
 export namespace check_object {
   export interface IConfig {
     equals: boolean;
@@ -56,14 +52,15 @@ export namespace check_object {
     halt?: undefined | ((exp: ts.Expression) => ts.Expression);
     reduce: (a: ts.Expression, b: ts.Expression) => ts.Expression;
     positive: ts.Expression;
-    superfluous: (value: ts.Expression) => ts.Expression;
+    superfluous: (
+      value: ts.Expression,
+      description?: ts.Expression,
+    ) => ts.Expression;
     entries?: undefined | ts.Identifier;
   }
 }
 
-/**
- * @internal
- */
+/** @internal */
 const reduce = (props: {
   config: check_object.IConfig;
   expressions: ts.Expression[];

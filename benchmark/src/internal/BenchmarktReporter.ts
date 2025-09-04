@@ -84,18 +84,19 @@ export namespace BenchmarkReporter {
       );
     };
 
-  export async function initialize(): Promise<BenchmarkStream> {
+  export async function initialize(props?: {
+    directory?: (location: string) => string;
+    platform?: string;
+  }): Promise<BenchmarkStream> {
     const results: string =
       EXTENSION === "ts"
         ? `${__dirname}/../results`
         : `${__dirname}/../../../benchmark/results`;
 
     const cpu: string = os.cpus()[0].model.trim();
-    const location: string = `${results}/${cpu
-      .split("\\")
-      .join("")
-      .split("/")
-      .join("")}`;
+    const location: string = (props?.directory ?? ((str: string) => str))(
+      `${results}/${cpu.split("\\").join("").split("/").join("")}`,
+    );
 
     await mkdir(results);
     await mkdir(location);
@@ -116,7 +117,10 @@ export namespace BenchmarkReporter {
       ).toLocaleString()} MB`,
     );
     await stream.write(`> - OS: ${stream.environments.os}`);
-    await stream.write(`> - NodeJS version: ${stream.environments.node}`);
+    await stream.write(
+      "> - " +
+        (props?.platform ?? `NodeJS version: ${stream.environments.node}`),
+    );
     await stream.write(`> - Typia version: v${stream.environments.typia}`);
     await stream.write("\n");
     return stream;

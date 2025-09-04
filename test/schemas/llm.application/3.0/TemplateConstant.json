@@ -1,8 +1,8 @@
 {
   "model": "3.0",
   "options": {
-    "constraint": false,
     "recursive": 3,
+    "constraint": true,
     "separate": null
   },
   "functions": [
@@ -55,6 +55,7 @@
                     "postfix",
                     "combined"
                   ],
+                  "description": "Current Type: {@link TemplateConstant.Type}",
                   "additionalProperties": false
                 }
               }
@@ -62,6 +63,7 @@
             "required": [
               "value"
             ],
+            "description": "Current Type: {@link TemplateConstant}",
             "additionalProperties": false
           }
         },
@@ -69,8 +71,7 @@
           "first"
         ],
         "additionalProperties": false
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -121,6 +122,7 @@
                     "postfix",
                     "combined"
                   ],
+                  "description": "Current Type: {@link TemplateConstant.Type}",
                   "additionalProperties": false
                 }
               }
@@ -128,6 +130,7 @@
             "required": [
               "value"
             ],
+            "description": "Current Type: {@link TemplateConstant}",
             "additionalProperties": false
           },
           "second": {
@@ -174,6 +177,7 @@
                     "postfix",
                     "combined"
                   ],
+                  "description": "Current Type: {@link TemplateConstant.Type}",
                   "additionalProperties": false
                 }
               }
@@ -235,6 +239,7 @@
                 "postfix",
                 "combined"
               ],
+              "description": "Current Type: {@link TemplateConstant.Type}",
               "additionalProperties": false
             }
           }
@@ -242,9 +247,9 @@
         "required": [
           "value"
         ],
+        "description": "Current Type: {@link TemplateConstant}",
         "additionalProperties": false
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -295,6 +300,7 @@
                     "postfix",
                     "combined"
                   ],
+                  "description": "Current Type: {@link TemplateConstant.Type}",
                   "additionalProperties": false
                 }
               }
@@ -349,6 +355,7 @@
                     "postfix",
                     "combined"
                   ],
+                  "description": "Current Type: {@link TemplateConstant.Type}",
                   "additionalProperties": false
                 }
               }
@@ -403,6 +410,7 @@
                     "postfix",
                     "combined"
                   ],
+                  "description": "Current Type: {@link TemplateConstant.Type}",
                   "additionalProperties": false
                 }
               }
@@ -464,6 +472,7 @@
                 "postfix",
                 "combined"
               ],
+              "description": "Current Type: {@link TemplateConstant.Type}",
               "additionalProperties": false
             }
           }
@@ -473,8 +482,7 @@
         ],
         "additionalProperties": false,
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

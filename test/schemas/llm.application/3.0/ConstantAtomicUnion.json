@@ -1,8 +1,8 @@
 {
   "model": "3.0",
   "options": {
-    "constraint": false,
     "recursive": 3,
+    "constraint": true,
     "separate": null
   },
   "functions": [
@@ -50,16 +50,17 @@
                     "four"
                   ]
                 }
-              ]
-            }
+              ],
+              "description": "Current Type: {@link ConstantAtomicUnion.Union}"
+            },
+            "description": "Current Type: {@link ConstantAtomicUnion}"
           }
         },
         "required": [
           "first"
         ],
         "additionalProperties": false
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -105,8 +106,10 @@
                     "four"
                   ]
                 }
-              ]
-            }
+              ],
+              "description": "Current Type: {@link ConstantAtomicUnion.Union}"
+            },
+            "description": "Current Type: {@link ConstantAtomicUnion}"
           },
           "second": {
             "type": "array",
@@ -147,7 +150,8 @@
                     "four"
                   ]
                 }
-              ]
+              ],
+              "description": "Current Type: {@link ConstantAtomicUnion.Union}"
             },
             "nullable": true
           }
@@ -197,10 +201,11 @@
                 "four"
               ]
             }
-          ]
-        }
-      },
-      "strict": true
+          ],
+          "description": "Current Type: {@link ConstantAtomicUnion.Union}"
+        },
+        "description": "Current Type: {@link ConstantAtomicUnion}"
+      }
     },
     {
       "name": "coalesce",
@@ -246,7 +251,8 @@
                     "four"
                   ]
                 }
-              ]
+              ],
+              "description": "Current Type: {@link ConstantAtomicUnion.Union}"
             },
             "nullable": true
           },
@@ -289,7 +295,8 @@
                     "four"
                   ]
                 }
-              ]
+              ],
+              "description": "Current Type: {@link ConstantAtomicUnion.Union}"
             },
             "nullable": true
           },
@@ -332,7 +339,8 @@
                     "four"
                   ]
                 }
-              ]
+              ],
+              "description": "Current Type: {@link ConstantAtomicUnion.Union}"
             },
             "nullable": true
           }
@@ -382,11 +390,11 @@
                 "four"
               ]
             }
-          ]
+          ],
+          "description": "Current Type: {@link ConstantAtomicUnion.Union}"
         },
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

@@ -1,7 +1,7 @@
 {
   "model": "llama",
   "options": {
-    "reference": false,
+    "reference": true,
     "separate": null
   },
   "functions": [
@@ -11,6 +11,15 @@
         "type": "object",
         "properties": {
           "first": {
+            "$ref": "#/$defs/ArrayAny"
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ArrayAny": {
             "type": "object",
             "properties": {
               "anys": {
@@ -87,24 +96,13 @@
             },
             "required": [
               "anys",
-              "undefindable1",
-              "undefindable2",
               "nullables1",
               "nullables2",
-              "both1",
-              "both2",
-              "both3",
               "union"
             ]
           }
-        },
-        "required": [
-          "first"
-        ],
-        "additionalProperties": false,
-        "$defs": {}
-      },
-      "strict": true
+        }
+      }
     },
     {
       "name": "reduce",
@@ -112,91 +110,7 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "object",
-            "properties": {
-              "anys": {
-                "type": "array",
-                "items": {}
-              },
-              "undefindable1": {
-                "type": "array",
-                "items": {}
-              },
-              "undefindable2": {
-                "type": "array",
-                "items": {}
-              },
-              "nullables1": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "array",
-                    "items": {}
-                  }
-                ]
-              },
-              "nullables2": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "array",
-                    "items": {}
-                  }
-                ]
-              },
-              "both1": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "array",
-                    "items": {}
-                  }
-                ]
-              },
-              "both2": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "array",
-                    "items": {}
-                  }
-                ]
-              },
-              "both3": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "array",
-                    "items": {}
-                  }
-                ]
-              },
-              "union": {
-                "type": "array",
-                "items": {}
-              }
-            },
-            "required": [
-              "anys",
-              "undefindable1",
-              "undefindable2",
-              "nullables1",
-              "nullables2",
-              "both1",
-              "both2",
-              "both3",
-              "union"
-            ]
+            "$ref": "#/$defs/ArrayAny"
           },
           "second": {
             "oneOf": [
@@ -204,91 +118,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "anys": {
-                    "type": "array",
-                    "items": {}
-                  },
-                  "undefindable1": {
-                    "type": "array",
-                    "items": {}
-                  },
-                  "undefindable2": {
-                    "type": "array",
-                    "items": {}
-                  },
-                  "nullables1": {
-                    "oneOf": [
-                      {
-                        "type": "null"
-                      },
-                      {
-                        "type": "array",
-                        "items": {}
-                      }
-                    ]
-                  },
-                  "nullables2": {
-                    "oneOf": [
-                      {
-                        "type": "null"
-                      },
-                      {
-                        "type": "array",
-                        "items": {}
-                      }
-                    ]
-                  },
-                  "both1": {
-                    "oneOf": [
-                      {
-                        "type": "null"
-                      },
-                      {
-                        "type": "array",
-                        "items": {}
-                      }
-                    ]
-                  },
-                  "both2": {
-                    "oneOf": [
-                      {
-                        "type": "null"
-                      },
-                      {
-                        "type": "array",
-                        "items": {}
-                      }
-                    ]
-                  },
-                  "both3": {
-                    "oneOf": [
-                      {
-                        "type": "null"
-                      },
-                      {
-                        "type": "array",
-                        "items": {}
-                      }
-                    ]
-                  },
-                  "union": {
-                    "type": "array",
-                    "items": {}
-                  }
-                },
-                "required": [
-                  "anys",
-                  "undefindable1",
-                  "undefindable2",
-                  "nullables1",
-                  "nullables2",
-                  "both1",
-                  "both2",
-                  "both3",
-                  "union"
-                ]
+                "$ref": "#/$defs/ArrayAny"
               }
             ]
           }
@@ -298,96 +128,94 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "ArrayAny": {
+            "type": "object",
+            "properties": {
+              "anys": {
+                "type": "array",
+                "items": {}
+              },
+              "undefindable1": {
+                "type": "array",
+                "items": {}
+              },
+              "undefindable2": {
+                "type": "array",
+                "items": {}
+              },
+              "nullables1": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "array",
+                    "items": {}
+                  }
+                ]
+              },
+              "nullables2": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "array",
+                    "items": {}
+                  }
+                ]
+              },
+              "both1": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "array",
+                    "items": {}
+                  }
+                ]
+              },
+              "both2": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "array",
+                    "items": {}
+                  }
+                ]
+              },
+              "both3": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "array",
+                    "items": {}
+                  }
+                ]
+              },
+              "union": {
+                "type": "array",
+                "items": {}
+              }
+            },
+            "required": [
+              "anys",
+              "nullables1",
+              "nullables2",
+              "union"
+            ]
+          }
+        }
       },
       "output": {
-        "type": "object",
-        "properties": {
-          "anys": {
-            "type": "array",
-            "items": {}
-          },
-          "undefindable1": {
-            "type": "array",
-            "items": {}
-          },
-          "undefindable2": {
-            "type": "array",
-            "items": {}
-          },
-          "nullables1": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "array",
-                "items": {}
-              }
-            ]
-          },
-          "nullables2": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "array",
-                "items": {}
-              }
-            ]
-          },
-          "both1": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "array",
-                "items": {}
-              }
-            ]
-          },
-          "both2": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "array",
-                "items": {}
-              }
-            ]
-          },
-          "both3": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "array",
-                "items": {}
-              }
-            ]
-          },
-          "union": {
-            "type": "array",
-            "items": {}
-          }
-        },
-        "required": [
-          "anys",
-          "undefindable1",
-          "undefindable2",
-          "nullables1",
-          "nullables2",
-          "both1",
-          "both2",
-          "both3",
-          "union"
-        ]
-      },
-      "strict": true
+        "$ref": "#/$defs/ArrayAny"
+      }
     },
     {
       "name": "coalesce",
@@ -400,91 +228,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "anys": {
-                    "type": "array",
-                    "items": {}
-                  },
-                  "undefindable1": {
-                    "type": "array",
-                    "items": {}
-                  },
-                  "undefindable2": {
-                    "type": "array",
-                    "items": {}
-                  },
-                  "nullables1": {
-                    "oneOf": [
-                      {
-                        "type": "null"
-                      },
-                      {
-                        "type": "array",
-                        "items": {}
-                      }
-                    ]
-                  },
-                  "nullables2": {
-                    "oneOf": [
-                      {
-                        "type": "null"
-                      },
-                      {
-                        "type": "array",
-                        "items": {}
-                      }
-                    ]
-                  },
-                  "both1": {
-                    "oneOf": [
-                      {
-                        "type": "null"
-                      },
-                      {
-                        "type": "array",
-                        "items": {}
-                      }
-                    ]
-                  },
-                  "both2": {
-                    "oneOf": [
-                      {
-                        "type": "null"
-                      },
-                      {
-                        "type": "array",
-                        "items": {}
-                      }
-                    ]
-                  },
-                  "both3": {
-                    "oneOf": [
-                      {
-                        "type": "null"
-                      },
-                      {
-                        "type": "array",
-                        "items": {}
-                      }
-                    ]
-                  },
-                  "union": {
-                    "type": "array",
-                    "items": {}
-                  }
-                },
-                "required": [
-                  "anys",
-                  "undefindable1",
-                  "undefindable2",
-                  "nullables1",
-                  "nullables2",
-                  "both1",
-                  "both2",
-                  "both3",
-                  "union"
-                ]
+                "$ref": "#/$defs/ArrayAny"
               }
             ]
           },
@@ -494,91 +238,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "anys": {
-                    "type": "array",
-                    "items": {}
-                  },
-                  "undefindable1": {
-                    "type": "array",
-                    "items": {}
-                  },
-                  "undefindable2": {
-                    "type": "array",
-                    "items": {}
-                  },
-                  "nullables1": {
-                    "oneOf": [
-                      {
-                        "type": "null"
-                      },
-                      {
-                        "type": "array",
-                        "items": {}
-                      }
-                    ]
-                  },
-                  "nullables2": {
-                    "oneOf": [
-                      {
-                        "type": "null"
-                      },
-                      {
-                        "type": "array",
-                        "items": {}
-                      }
-                    ]
-                  },
-                  "both1": {
-                    "oneOf": [
-                      {
-                        "type": "null"
-                      },
-                      {
-                        "type": "array",
-                        "items": {}
-                      }
-                    ]
-                  },
-                  "both2": {
-                    "oneOf": [
-                      {
-                        "type": "null"
-                      },
-                      {
-                        "type": "array",
-                        "items": {}
-                      }
-                    ]
-                  },
-                  "both3": {
-                    "oneOf": [
-                      {
-                        "type": "null"
-                      },
-                      {
-                        "type": "array",
-                        "items": {}
-                      }
-                    ]
-                  },
-                  "union": {
-                    "type": "array",
-                    "items": {}
-                  }
-                },
-                "required": [
-                  "anys",
-                  "undefindable1",
-                  "undefindable2",
-                  "nullables1",
-                  "nullables2",
-                  "both1",
-                  "both2",
-                  "both3",
-                  "union"
-                ]
+                "$ref": "#/$defs/ArrayAny"
               }
             ]
           },
@@ -588,109 +248,18 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "anys": {
-                    "type": "array",
-                    "items": {}
-                  },
-                  "undefindable1": {
-                    "type": "array",
-                    "items": {}
-                  },
-                  "undefindable2": {
-                    "type": "array",
-                    "items": {}
-                  },
-                  "nullables1": {
-                    "oneOf": [
-                      {
-                        "type": "null"
-                      },
-                      {
-                        "type": "array",
-                        "items": {}
-                      }
-                    ]
-                  },
-                  "nullables2": {
-                    "oneOf": [
-                      {
-                        "type": "null"
-                      },
-                      {
-                        "type": "array",
-                        "items": {}
-                      }
-                    ]
-                  },
-                  "both1": {
-                    "oneOf": [
-                      {
-                        "type": "null"
-                      },
-                      {
-                        "type": "array",
-                        "items": {}
-                      }
-                    ]
-                  },
-                  "both2": {
-                    "oneOf": [
-                      {
-                        "type": "null"
-                      },
-                      {
-                        "type": "array",
-                        "items": {}
-                      }
-                    ]
-                  },
-                  "both3": {
-                    "oneOf": [
-                      {
-                        "type": "null"
-                      },
-                      {
-                        "type": "array",
-                        "items": {}
-                      }
-                    ]
-                  },
-                  "union": {
-                    "type": "array",
-                    "items": {}
-                  }
-                },
-                "required": [
-                  "anys",
-                  "undefindable1",
-                  "undefindable2",
-                  "nullables1",
-                  "nullables2",
-                  "both1",
-                  "both2",
-                  "both3",
-                  "union"
-                ]
+                "$ref": "#/$defs/ArrayAny"
               }
             ]
           }
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "output": {
-        "oneOf": [
-          {
-            "type": "null"
-          },
-          {
+        "$defs": {
+          "ArrayAny": {
             "type": "object",
             "properties": {
               "anys": {
@@ -767,19 +336,23 @@
             },
             "required": [
               "anys",
-              "undefindable1",
-              "undefindable2",
               "nullables1",
               "nullables2",
-              "both1",
-              "both2",
-              "both3",
               "union"
             ]
           }
-        ]
+        }
       },
-      "strict": true
+      "output": {
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "$ref": "#/$defs/ArrayAny"
+          }
+        ]
+      }
     }
   ]
 }

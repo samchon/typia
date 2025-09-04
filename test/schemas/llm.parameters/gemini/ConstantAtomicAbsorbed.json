@@ -9,14 +9,14 @@
           "description": "@default something"
         },
         "age": {
-          "type": "number",
-          "description": "@default 20"
+          "type": "number"
         }
       },
       "required": [
         "id",
         "age"
-      ]
+      ],
+      "description": "Current Type: {@link ConstantAtomicAbsorbed}"
     },
     "nullable": {
       "type": "object",
@@ -26,8 +26,7 @@
           "description": "@default something"
         },
         "age": {
-          "type": "number",
-          "description": "@default 20"
+          "type": "number"
         }
       },
       "required": [
@@ -44,14 +43,14 @@
           "description": "@default something"
         },
         "age": {
-          "type": "number",
-          "description": "@default 20"
+          "type": "number"
         }
       },
       "required": [
         "id",
         "age"
-      ]
+      ],
+      "description": "Current Type: {@link ConstantAtomicAbsorbed}"
     },
     "faint": {
       "type": "object",
@@ -61,8 +60,7 @@
           "description": "@default something"
         },
         "age": {
-          "type": "number",
-          "description": "@default 20"
+          "type": "number"
         }
       },
       "required": [
@@ -81,14 +79,14 @@
             "description": "@default something"
           },
           "age": {
-            "type": "number",
-            "description": "@default 20"
+            "type": "number"
           }
         },
         "required": [
           "id",
           "age"
-        ]
+        ],
+        "description": "Current Type: {@link ConstantAtomicAbsorbed}"
       }
     }
   },

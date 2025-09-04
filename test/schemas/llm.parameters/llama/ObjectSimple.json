@@ -2,91 +2,7 @@
   "type": "object",
   "properties": {
     "regular": {
-      "type": "object",
-      "properties": {
-        "scale": {
-          "type": "object",
-          "properties": {
-            "x": {
-              "type": "number"
-            },
-            "y": {
-              "type": "number"
-            },
-            "z": {
-              "type": "number"
-            }
-          },
-          "required": [
-            "x",
-            "y",
-            "z"
-          ]
-        },
-        "position": {
-          "type": "object",
-          "properties": {
-            "x": {
-              "type": "number"
-            },
-            "y": {
-              "type": "number"
-            },
-            "z": {
-              "type": "number"
-            }
-          },
-          "required": [
-            "x",
-            "y",
-            "z"
-          ]
-        },
-        "rotate": {
-          "type": "object",
-          "properties": {
-            "x": {
-              "type": "number"
-            },
-            "y": {
-              "type": "number"
-            },
-            "z": {
-              "type": "number"
-            }
-          },
-          "required": [
-            "x",
-            "y",
-            "z"
-          ]
-        },
-        "pivot": {
-          "type": "object",
-          "properties": {
-            "x": {
-              "type": "number"
-            },
-            "y": {
-              "type": "number"
-            },
-            "z": {
-              "type": "number"
-            }
-          },
-          "required": [
-            "x",
-            "y",
-            "z"
-          ]
-        }
-      },
-      "required": [
-        "scale",
-        "position",
-        "rotate",
-        "pivot"
-      ]
+      "$ref": "#/$defs/ObjectSimple.IBox3D"
     },
     "nullable": {
       "oneOf": [
@@ -94,172 +10,51 @@
           "type": "null"
         },
         {
-          "type": "object",
-          "properties": {
-            "scale": {
-              "type": "object",
-              "properties": {
-                "x": {
-                  "type": "number"
-                },
-                "y": {
-                  "type": "number"
-                },
-                "z": {
-                  "type": "number"
-                }
-              },
-              "required": [
-                "x",
-                "y",
-                "z"
-              ]
-            },
-            "position": {
-              "type": "object",
-              "properties": {
-                "x": {
-                  "type": "number"
-                },
-                "y": {
-                  "type": "number"
-                },
-                "z": {
-                  "type": "number"
-                }
-              },
-              "required": [
-                "x",
-                "y",
-                "z"
-              ]
-            },
-            "rotate": {
-              "type": "object",
-              "properties": {
-                "x": {
-                  "type": "number"
-                },
-                "y": {
-                  "type": "number"
-                },
-                "z": {
-                  "type": "number"
-                }
-              },
-              "required": [
-                "x",
-                "y",
-                "z"
-              ]
-            },
-            "pivot": {
-              "type": "object",
-              "properties": {
-                "x": {
-                  "type": "number"
-                },
-                "y": {
-                  "type": "number"
-                },
-                "z": {
-                  "type": "number"
-                }
-              },
-              "required": [
-                "x",
-                "y",
-                "z"
-              ]
-            }
-          },
-          "required": [
-            "scale",
-            "position",
-            "rotate",
-            "pivot"
-          ]
+          "$ref": "#/$defs/ObjectSimple.IBox3D"
         }
       ]
     },
     "optional": {
+      "$ref": "#/$defs/ObjectSimple.IBox3D"
+    },
+    "faint": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/ObjectSimple.IBox3D"
+        }
+      ]
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ObjectSimple.IBox3D"
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "array"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "ObjectSimple.IBox3D": {
       "type": "object",
       "properties": {
         "scale": {
-          "type": "object",
-          "properties": {
-            "x": {
-              "type": "number"
-            },
-            "y": {
-              "type": "number"
-            },
-            "z": {
-              "type": "number"
-            }
-          },
-          "required": [
-            "x",
-            "y",
-            "z"
-          ]
+          "$ref": "#/$defs/ObjectSimple.IPoint3D"
         },
         "position": {
-          "type": "object",
-          "properties": {
-            "x": {
-              "type": "number"
-            },
-            "y": {
-              "type": "number"
-            },
-            "z": {
-              "type": "number"
-            }
-          },
-          "required": [
-            "x",
-            "y",
-            "z"
-          ]
+          "$ref": "#/$defs/ObjectSimple.IPoint3D"
         },
         "rotate": {
-          "type": "object",
-          "properties": {
-            "x": {
-              "type": "number"
-            },
-            "y": {
-              "type": "number"
-            },
-            "z": {
-              "type": "number"
-            }
-          },
-          "required": [
-            "x",
-            "y",
-            "z"
-          ]
+          "$ref": "#/$defs/ObjectSimple.IPoint3D"
         },
         "pivot": {
-          "type": "object",
-          "properties": {
-            "x": {
-              "type": "number"
-            },
-            "y": {
-              "type": "number"
-            },
-            "z": {
-              "type": "number"
-            }
-          },
-          "required": [
-            "x",
-            "y",
-            "z"
-          ]
+          "$ref": "#/$defs/ObjectSimple.IPoint3D"
         }
       },
       "required": [
@@ -269,198 +64,24 @@
         "pivot"
       ]
     },
-    "faint": {
-      "oneOf": [
-        {
-          "type": "null"
+    "ObjectSimple.IPoint3D": {
+      "type": "object",
+      "properties": {
+        "x": {
+          "type": "number"
         },
-        {
-          "type": "object",
-          "properties": {
-            "scale": {
-              "type": "object",
-              "properties": {
-                "x": {
-                  "type": "number"
-                },
-                "y": {
-                  "type": "number"
-                },
-                "z": {
-                  "type": "number"
-                }
-              },
-              "required": [
-                "x",
-                "y",
-                "z"
-              ]
-            },
-            "position": {
-              "type": "object",
-              "properties": {
-                "x": {
-                  "type": "number"
-                },
-                "y": {
-                  "type": "number"
-                },
-                "z": {
-                  "type": "number"
-                }
-              },
-              "required": [
-                "x",
-                "y",
-                "z"
-              ]
-            },
-            "rotate": {
-              "type": "object",
-              "properties": {
-                "x": {
-                  "type": "number"
-                },
-                "y": {
-                  "type": "number"
-                },
-                "z": {
-                  "type": "number"
-                }
-              },
-              "required": [
-                "x",
-                "y",
-                "z"
-              ]
-            },
-            "pivot": {
-              "type": "object",
-              "properties": {
-                "x": {
-                  "type": "number"
-                },
-                "y": {
-                  "type": "number"
-                },
-                "z": {
-                  "type": "number"
-                }
-              },
-              "required": [
-                "x",
-                "y",
-                "z"
-              ]
-            }
-          },
-          "required": [
-            "scale",
-            "position",
-            "rotate",
-            "pivot"
-          ]
+        "y": {
+          "type": "number"
+        },
+        "z": {
+          "type": "number"
         }
+      },
+      "required": [
+        "x",
+        "y",
+        "z"
       ]
-    },
-    "array": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "scale": {
-            "type": "object",
-            "properties": {
-              "x": {
-                "type": "number"
-              },
-              "y": {
-                "type": "number"
-              },
-              "z": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "x",
-              "y",
-              "z"
-            ]
-          },
-          "position": {
-            "type": "object",
-            "properties": {
-              "x": {
-                "type": "number"
-              },
-              "y": {
-                "type": "number"
-              },
-              "z": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "x",
-              "y",
-              "z"
-            ]
-          },
-          "rotate": {
-            "type": "object",
-            "properties": {
-              "x": {
-                "type": "number"
-              },
-              "y": {
-                "type": "number"
-              },
-              "z": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "x",
-              "y",
-              "z"
-            ]
-          },
-          "pivot": {
-            "type": "object",
-            "properties": {
-              "x": {
-                "type": "number"
-              },
-              "y": {
-                "type": "number"
-              },
-              "z": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "x",
-              "y",
-              "z"
-            ]
-          }
-        },
-        "required": [
-          "scale",
-          "position",
-          "rotate",
-          "pivot"
-        ]
-      }
     }
-  },
-  "required": [
-    "regular",
-    "nullable",
-    "optional",
-    "faint",
-    "array"
-  ],
-  "additionalProperties": false,
-  "$defs": {}
+  }
 }

@@ -1,15 +1,1 @@
-{
-  "type": "object",
-  "properties": {},
-  "required": [],
-  "additionalProperties": {
-    "oneOf": [
-      {
-        "type": "string"
-      },
-      {
-        "type": "number"
-      }
-    ]
-  }
-}
+{}

@@ -2,37 +2,7 @@
   "type": "object",
   "properties": {
     "regular": {
-      "type": "array",
-      "items": {
-        "anyOf": [
-          {
-            "type": "object",
-            "properties": {
-              "value": {
-                "description": "@minimum 3",
-                "type": "number"
-              }
-            },
-            "required": [
-              "value"
-            ],
-            "additionalProperties": false
-          },
-          {
-            "type": "object",
-            "properties": {
-              "value": {
-                "description": "@minLength 3\n@maxLength 7",
-                "type": "string"
-              }
-            },
-            "required": [
-              "value"
-            ],
-            "additionalProperties": false
-          }
-        ]
-      }
+      "$ref": "#/$defs/TypeTagObjectUnion"
     },
     "nullable": {
       "anyOf": [
@@ -40,72 +10,12 @@
           "type": "null"
         },
         {
-          "type": "array",
-          "items": {
-            "anyOf": [
-              {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "description": "@minimum 3",
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "additionalProperties": false
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "description": "@minLength 3\n@maxLength 7",
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "additionalProperties": false
-              }
-            ]
-          }
+          "$ref": "#/$defs/TypeTagObjectUnion"
         }
       ]
     },
     "optional": {
-      "type": "array",
-      "items": {
-        "anyOf": [
-          {
-            "type": "object",
-            "properties": {
-              "value": {
-                "description": "@minimum 3",
-                "type": "number"
-              }
-            },
-            "required": [
-              "value"
-            ],
-            "additionalProperties": false
-          },
-          {
-            "type": "object",
-            "properties": {
-              "value": {
-                "description": "@minLength 3\n@maxLength 7",
-                "type": "string"
-              }
-            },
-            "required": [
-              "value"
-            ],
-            "additionalProperties": false
-          }
-        ]
-      }
+      "$ref": "#/$defs/TypeTagObjectUnion"
     },
     "faint": {
       "anyOf": [
@@ -113,84 +23,63 @@
           "type": "null"
         },
         {
-          "type": "array",
-          "items": {
-            "anyOf": [
-              {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "description": "@minimum 3",
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "additionalProperties": false
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "description": "@minLength 3\n@maxLength 7",
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "additionalProperties": false
-              }
-            ]
-          }
+          "$ref": "#/$defs/TypeTagObjectUnion"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
-        "type": "array",
-        "items": {
-          "anyOf": [
-            {
-              "type": "object",
-              "properties": {
-                "value": {
-                  "description": "@minimum 3",
-                  "type": "number"
-                }
-              },
-              "required": [
-                "value"
-              ],
-              "additionalProperties": false
-            },
-            {
-              "type": "object",
-              "properties": {
-                "value": {
-                  "description": "@minLength 3\n@maxLength 7",
-                  "type": "string"
-                }
-              },
-              "required": [
-                "value"
-              ],
-              "additionalProperties": false
-            }
-          ]
-        }
+        "$ref": "#/$defs/TypeTagObjectUnion"
       }
     }
   },
   "required": [
     "regular",
     "nullable",
-    "optional",
-    "faint",
     "array"
   ],
   "additionalProperties": false,
-  "$defs": {}
+  "$defs": {
+    "TypeTagObjectUnion": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/TypeTagObjectUnion.Type"
+      }
+    },
+    "TypeTagObjectUnion.Type": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/TypeTagObjectUnion.Numeric"
+        },
+        {
+          "$ref": "#/$defs/TypeTagObjectUnion.Literal"
+        }
+      ]
+    },
+    "TypeTagObjectUnion.Numeric": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "description": "@minimum 3",
+          "type": "number"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "TypeTagObjectUnion.Literal": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "description": "@minLength 3\n@maxLength 7",
+          "type": "string"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    }
+  }
 }

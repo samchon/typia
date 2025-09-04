@@ -5,8 +5,9 @@ import { _test_functional_assertEqualsParametersAsync } from "../../internal/_te
 import { ObjectPartial } from "../../structures/ObjectPartial";
 
 export const test_functional_assertEqualsParametersAsync_ObjectPartial =
-  _test_functional_assertEqualsParametersAsync(TypeGuardError)("ObjectPartial")(
-    ObjectPartial,
-  )((p: (input: ObjectPartial) => Promise<ObjectPartial>) =>
-    typia.functional.assertEqualsParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsParametersAsync(TypeGuardError)(
+      "ObjectPartial",
+    )(ObjectPartial)((p: (input: ObjectPartial) => Promise<ObjectPartial>) =>
+      typia.functional.assertEqualsParameters(p),
+    );

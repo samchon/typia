@@ -1,15 +1,1 @@
-{
-  "type": "object",
-  "properties": {
-    "id": {
-      "type": "number"
-    },
-    "flag": {
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "id",
-    "flag"
-  ]
-}
+{}

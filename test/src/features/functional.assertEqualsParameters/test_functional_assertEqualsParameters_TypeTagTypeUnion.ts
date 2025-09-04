@@ -5,8 +5,9 @@ import { _test_functional_assertEqualsParameters } from "../../internal/_test_fu
 import { TypeTagTypeUnion } from "../../structures/TypeTagTypeUnion";
 
 export const test_functional_assertEqualsParameters_TypeTagTypeUnion =
-  _test_functional_assertEqualsParameters(TypeGuardError)("TypeTagTypeUnion")(
-    TypeTagTypeUnion,
-  )((p: (input: TypeTagTypeUnion) => TypeTagTypeUnion) =>
-    typia.functional.assertEqualsParameters(p),
-  );
+  (): void =>
+    _test_functional_assertEqualsParameters(TypeGuardError)("TypeTagTypeUnion")(
+      TypeTagTypeUnion,
+    )((p: (input: TypeTagTypeUnion) => TypeTagTypeUnion) =>
+      typia.functional.assertEqualsParameters(p),
+    );

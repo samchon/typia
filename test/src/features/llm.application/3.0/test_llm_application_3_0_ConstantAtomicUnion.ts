@@ -3,10 +3,11 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { ConstantAtomicUnion } from "../../../structures/ConstantAtomicUnion";
 
-export const test_llm_application_3_0_ConstantAtomicUnion =
+export const test_llm_application_3_0_ConstantAtomicUnion = (): void =>
   _test_llm_application({
     model: "3.0",
     name: "ConstantAtomicUnion",
+    factory: ConstantAtomicUnion,
   })(typia.llm.application<ConstantAtomicUnionApplication, "3.0">());
 
 interface ConstantAtomicUnionApplication {

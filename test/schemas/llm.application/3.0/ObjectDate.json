@@ -1,8 +1,8 @@
 {
   "model": "3.0",
   "options": {
-    "constraint": false,
     "recursive": 3,
+    "constraint": true,
     "separate": null
   },
   "functions": [
@@ -16,28 +16,28 @@
             "properties": {
               "classDate": {
                 "type": "string",
-                "description": "@format date-time",
+                "format": "date-time",
                 "nullable": true
               },
               "date": {
                 "type": "string",
-                "nullable": true,
-                "description": "@format date"
+                "format": "date",
+                "nullable": true
               },
               "datetime": {
                 "type": "string",
-                "nullable": true,
-                "description": "@format date-time"
+                "format": "date-time",
+                "nullable": true
               },
               "time": {
                 "type": "string",
-                "nullable": true,
-                "description": "@format time"
+                "format": "time",
+                "nullable": true
               },
               "duration": {
                 "type": "string",
-                "nullable": true,
-                "description": "@format duration"
+                "format": "duration",
+                "nullable": true
               }
             },
             "required": [
@@ -46,6 +46,7 @@
               "time",
               "duration"
             ],
+            "description": "Current Type: {@link ObjectDate}",
             "additionalProperties": false
           }
         },
@@ -53,8 +54,7 @@
           "first"
         ],
         "additionalProperties": false
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -66,28 +66,28 @@
             "properties": {
               "classDate": {
                 "type": "string",
-                "description": "@format date-time",
+                "format": "date-time",
                 "nullable": true
               },
               "date": {
                 "type": "string",
-                "nullable": true,
-                "description": "@format date"
+                "format": "date",
+                "nullable": true
               },
               "datetime": {
                 "type": "string",
-                "nullable": true,
-                "description": "@format date-time"
+                "format": "date-time",
+                "nullable": true
               },
               "time": {
                 "type": "string",
-                "nullable": true,
-                "description": "@format time"
+                "format": "time",
+                "nullable": true
               },
               "duration": {
                 "type": "string",
-                "nullable": true,
-                "description": "@format duration"
+                "format": "duration",
+                "nullable": true
               }
             },
             "required": [
@@ -96,6 +96,7 @@
               "time",
               "duration"
             ],
+            "description": "Current Type: {@link ObjectDate}",
             "additionalProperties": false
           },
           "second": {
@@ -103,28 +104,28 @@
             "properties": {
               "classDate": {
                 "type": "string",
-                "description": "@format date-time",
+                "format": "date-time",
                 "nullable": true
               },
               "date": {
                 "type": "string",
-                "nullable": true,
-                "description": "@format date"
+                "format": "date",
+                "nullable": true
               },
               "datetime": {
                 "type": "string",
-                "nullable": true,
-                "description": "@format date-time"
+                "format": "date-time",
+                "nullable": true
               },
               "time": {
                 "type": "string",
-                "nullable": true,
-                "description": "@format time"
+                "format": "time",
+                "nullable": true
               },
               "duration": {
                 "type": "string",
-                "nullable": true,
-                "description": "@format duration"
+                "format": "duration",
+                "nullable": true
               }
             },
             "required": [
@@ -148,28 +149,28 @@
         "properties": {
           "classDate": {
             "type": "string",
-            "description": "@format date-time",
+            "format": "date-time",
             "nullable": true
           },
           "date": {
             "type": "string",
-            "nullable": true,
-            "description": "@format date"
+            "format": "date",
+            "nullable": true
           },
           "datetime": {
             "type": "string",
-            "nullable": true,
-            "description": "@format date-time"
+            "format": "date-time",
+            "nullable": true
           },
           "time": {
             "type": "string",
-            "nullable": true,
-            "description": "@format time"
+            "format": "time",
+            "nullable": true
           },
           "duration": {
             "type": "string",
-            "nullable": true,
-            "description": "@format duration"
+            "format": "duration",
+            "nullable": true
           }
         },
         "required": [
@@ -178,9 +179,9 @@
           "time",
           "duration"
         ],
+        "description": "Current Type: {@link ObjectDate}",
         "additionalProperties": false
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -192,28 +193,28 @@
             "properties": {
               "classDate": {
                 "type": "string",
-                "description": "@format date-time",
+                "format": "date-time",
                 "nullable": true
               },
               "date": {
                 "type": "string",
-                "nullable": true,
-                "description": "@format date"
+                "format": "date",
+                "nullable": true
               },
               "datetime": {
                 "type": "string",
-                "nullable": true,
-                "description": "@format date-time"
+                "format": "date-time",
+                "nullable": true
               },
               "time": {
                 "type": "string",
-                "nullable": true,
-                "description": "@format time"
+                "format": "time",
+                "nullable": true
               },
               "duration": {
                 "type": "string",
-                "nullable": true,
-                "description": "@format duration"
+                "format": "duration",
+                "nullable": true
               }
             },
             "required": [
@@ -230,28 +231,28 @@
             "properties": {
               "classDate": {
                 "type": "string",
-                "description": "@format date-time",
+                "format": "date-time",
                 "nullable": true
               },
               "date": {
                 "type": "string",
-                "nullable": true,
-                "description": "@format date"
+                "format": "date",
+                "nullable": true
               },
               "datetime": {
                 "type": "string",
-                "nullable": true,
-                "description": "@format date-time"
+                "format": "date-time",
+                "nullable": true
               },
               "time": {
                 "type": "string",
-                "nullable": true,
-                "description": "@format time"
+                "format": "time",
+                "nullable": true
               },
               "duration": {
                 "type": "string",
-                "nullable": true,
-                "description": "@format duration"
+                "format": "duration",
+                "nullable": true
               }
             },
             "required": [
@@ -268,28 +269,28 @@
             "properties": {
               "classDate": {
                 "type": "string",
-                "description": "@format date-time",
+                "format": "date-time",
                 "nullable": true
               },
               "date": {
                 "type": "string",
-                "nullable": true,
-                "description": "@format date"
+                "format": "date",
+                "nullable": true
               },
               "datetime": {
                 "type": "string",
-                "nullable": true,
-                "description": "@format date-time"
+                "format": "date-time",
+                "nullable": true
               },
               "time": {
                 "type": "string",
-                "nullable": true,
-                "description": "@format time"
+                "format": "time",
+                "nullable": true
               },
               "duration": {
                 "type": "string",
-                "nullable": true,
-                "description": "@format duration"
+                "format": "duration",
+                "nullable": true
               }
             },
             "required": [
@@ -313,28 +314,28 @@
         "properties": {
           "classDate": {
             "type": "string",
-            "description": "@format date-time",
+            "format": "date-time",
             "nullable": true
           },
           "date": {
             "type": "string",
-            "nullable": true,
-            "description": "@format date"
+            "format": "date",
+            "nullable": true
           },
           "datetime": {
             "type": "string",
-            "nullable": true,
-            "description": "@format date-time"
+            "format": "date-time",
+            "nullable": true
           },
           "time": {
             "type": "string",
-            "nullable": true,
-            "description": "@format time"
+            "format": "time",
+            "nullable": true
           },
           "duration": {
             "type": "string",
-            "nullable": true,
-            "description": "@format duration"
+            "format": "duration",
+            "nullable": true
           }
         },
         "required": [
@@ -345,8 +346,7 @@
         ],
         "additionalProperties": false,
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

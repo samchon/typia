@@ -1,0 +1,160 @@
+---
+title: Guide Documents > JSON > stringify() function
+---
+import Alert from "@mui/material/Alert";
+import AlertTitle from "@mui/material/AlertTitle";
+import { Tabs } from "nextra/components";
+
+import LocalSource from "../../../components/LocalSource";
+import RemoteSource from "../../../components/RemoteSource";
+
+## `stringify()` functions
+
+<Tabs items={[
+  <code>typia</code>, 
+  <code>TypeGuardError.ts</code>, 
+  <code>IValidation.ts</code>
+]}>
+  <Tabs.Tab>
+```typescript copy
+export namespace json {
+  export function stringify<T>(input: T): string;
+  export function isStringify<T>(input: T | unknown): string | null;
+  export function assertStringify<T>(input: T | unknown): string;
+  export function validateStringify<T>(input: T | unknown): IValidation<string>;
+}
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource 
+      path="src/TypeGuardError.ts"
+      filename="typia/TypeGuardError.ts"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/openapi/refs/heads/master/src/structures/IValidation.ts"
+      filename="@samchon/openapi"
+      showLineNumbers />
+  </Tabs.Tab>
+</Tabs>
+
+You can boost up JSON serialization speed just by calling `typia.json.stringify<T>()` function. Also, you even can ensure type safety of JSON serialization by calling other functions like `typia.json.isStringify()` and `typia.json.assertStringify()` functions.
+
+As `typia.json.stringify<T>()` function writes dedicated JSON serialization code only for the target type `T`, its performance is much faster than native `JSON.stringify()` function. However, because of the dedicated optimal JSON serialization code, when wrong typed data comes, unexpected error be occurred.
+
+Instead, `typia` supports type safe JSON serialization functions like `typia.json.isStringify()`. The `typia.json.isStringify()` is a combination function of `typia.is<T>()` and `typia.json.stringify<T>()` function. It checks whether the input value is valid for the target type `T` or not first, and operate JSON serialization later. If the input value is not matched with the type `T`, it returns `null` value.
+
+  - `typia.json.isStringify()`: [`typia.is<T>()`](../validators/is) + `typia.json.stringify<T>()`
+  - `typia.json.assertStringify()`: [`typia.assert<T>()`](../validators/assert) + `typia.json.stringify<T>()`
+  - `typia.json.validateStringify()`: [`typia.validate<T>()`](../validators/validate) + `typia.json.stringify<T>()`
+
+<br/>
+<Alert severity="success">
+  <AlertTitle> 
+    **AOT compilation** 
+  </AlertTitle>
+
+`typia.json.isStringify()` and other similar functions are still much faster than native `JSON.stringify()` function, even though they include type checking process. This is the power of AOT compilation, writing optimal dedicated code by analyzing TypeScript type, in the compilation level.
+
+</Alert>
+
+<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+  <Tabs.Tab>
+    <LocalSource 
+      path="examples/src/json/isStringify.ts"
+      filename="examples/src/json/isStringify.ts"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource 
+      path="examples/bin/json/isStringify.js"
+      filename="examples/bin/json/isStringify.js"
+      showLineNumbers />
+  </Tabs.Tab>
+</Tabs>
+
+## Reusable functions
+
+<Tabs items={[
+  <code>typia</code>, 
+  <code>TypeGuardError.ts</code>, 
+  <code>IValidation.ts</code>
+]}>
+  <Tabs.Tab>
+```typescript copy
+export namespace json {
+  export function createStringify<T>(): (input: T) => string;
+  export function createIsStringify<T>(): (input: unknown) => string | null;
+  export function createAssertStringify<T>(
+   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+  ): (input: unknown) => string; 
+  export function createValidateStringify<T>(): (input: unknown) => IValidation<string>;
+}
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource 
+      path="src/TypeGuardError.ts"
+      filename="typia/TypeGuardError.ts"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/openapi/refs/heads/master/src/structures/IValidation.ts"
+      filename="@samchon/openapi"
+      showLineNumbers />
+  </Tabs.Tab>
+</Tabs>
+
+Reusable `typia.json.stringify<T>()` function generators.
+
+If you repeat to call `typia.json.stringify<T>()` function on the same type, size of JavaScript files would be larger because of duplicated AOT compilation. To prevent it, you can generate reusable function through `typia.json.createStringify<T>()` function.
+
+Just look at the code below, then you may understand how to use it.
+
+<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+  <Tabs.Tab>
+    <LocalSource 
+      path="examples/src/json/createAssertStringify.ts"
+      filename="examples/src/json/createAssertStringify.ts"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource 
+      path="examples/bin/json/createAssertStringify.js"
+      filename="examples/bin/json/createAssertStringify.js"
+      showLineNumbers />
+  </Tabs.Tab>
+</Tabs>
+
+## Performance
+
+Comparing JSON serialization speed with others, it is maximum 200x faster than `class-transformer`.
+
+For reference, `class-transformer` is the most famous library used in `NestJS` with `class-validator`. Also, `fast-json-stringify` is another famous one used in `fastify`. However, whether they are fast or slow, both of them require extra schema definition, that is different with TypeScript type. If you see the code below without experience of them, you may get shocked: how complicate and inefficient they are:
+
+ - `fast-json-stringify` requires [JSON schema definition](https://github.com/samchon/typia/blob/master/test/schemas/json/swagger/ObjectHierarchical.json).
+ - `class-validator` requires [DTO class with decorator function calls](https://github.com/samchon/typia/blob/master/benchmark/structures/class-validator/ClassValidatorObjectHierarchical.ts).
+
+![Stringify Function Benchmark](https://github.com/samchon/typia/raw/master/benchmark/results/AMD%20Ryzen%209%207940HS%20w%20Radeon%20780M%20Graphics/images/stringify.svg)
+
+> Measured on [AMD Ryzen 9 7940HS, Rog Flow x13](https://github.com/samchon/typia/tree/master/benchmark/results/AMD%20Ryzen%209%207940HS%20w%20Radeon%20780M%20Graphics#stringify)
+
+## Server Performance
+
+Someone may ask:
+
+> JSON serialization speed affects on the server performance? 
+>
+> I think that the JSON serialization is just a tiny thing in the server side, isn't it?
+
+My answer is, "Yes, it affects on the server performance".
+
+Most operations in NodeJS server are asynchronously executed in background thread, what are called "event based non-blocking I/O model". However, JSON serialization is a synchronous operation running on the main thread. Therefore, if the JSON serialization speed is slow, it makes the entire server program slow.
+
+I'll show you the benchmark result that, how JSON serizliation speed affects on the server performance.
+
+![Server Benchmark](https://raw.githubusercontent.com/samchon/typia/master/benchmark/results/AMD%20Ryzen%209%207940HS%20w%20Radeon%20780M%20Graphics/images/server-stringify.svg)
+
+> Measured on [AMD Ryzen 9 7940HS, Rog Flow x13](https://github.com/samchon/typia/tree/master/benchmark/results/AMD%20Ryzen%209%207940HS%20w%20Radeon%20780M%20Graphics#server-stringify)

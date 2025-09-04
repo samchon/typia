@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsReturnAsync } from "../../internal/_test
 import { DynamicConstant } from "../../structures/DynamicConstant";
 
 export const test_functional_validateEqualsReturnAsync_DynamicConstant =
-  _test_functional_validateEqualsReturnAsync("DynamicConstant")(
-    DynamicConstant,
-  )((p: (input: DynamicConstant) => Promise<DynamicConstant>) =>
-    typia.functional.validateEqualsReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateEqualsReturnAsync("DynamicConstant")(
+      DynamicConstant,
+    )((p: (input: DynamicConstant) => Promise<DynamicConstant>) =>
+      typia.functional.validateEqualsReturn(p),
+    );

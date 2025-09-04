@@ -4,8 +4,9 @@ import { _test_functional_equalsParameters } from "../../internal/_test_function
 import { ObjectUnionExplicitPointer } from "../../structures/ObjectUnionExplicitPointer";
 
 export const test_functional_equalsParameters_ObjectUnionExplicitPointer =
-  _test_functional_equalsParameters("ObjectUnionExplicitPointer")(
-    ObjectUnionExplicitPointer,
-  )((p: (input: ObjectUnionExplicitPointer) => ObjectUnionExplicitPointer) =>
-    typia.functional.equalsParameters(p),
-  );
+  (): void =>
+    _test_functional_equalsParameters("ObjectUnionExplicitPointer")(
+      ObjectUnionExplicitPointer,
+    )((p: (input: ObjectUnionExplicitPointer) => ObjectUnionExplicitPointer) =>
+      typia.functional.equalsParameters(p),
+    );

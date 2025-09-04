@@ -48,9 +48,9 @@ export namespace JsonSchemasProgrammer {
       : (writeV3_1(props.metadatas) as IJsonSchemaCollection<Version>);
 
   const writeV3_0 = (
-    medadataList: Array<Metadata>,
+    metadataList: Array<Metadata>,
   ): IJsonSchemaCollection<"3.0"> => {
-    const collection: IJsonSchemaCollection<"3.1"> = writeV3_1(medadataList);
+    const collection: IJsonSchemaCollection<"3.1"> = writeV3_1(metadataList);
     const asset: OpenApiV3Downgrader.IComponentsCollection =
       OpenApiV3Downgrader.downgradeComponents(collection.components);
     const caster = OpenApiV3Downgrader.downgradeSchema(asset);
@@ -81,7 +81,7 @@ export namespace JsonSchemasProgrammer {
         const schema: OpenApi.IJsonSchema | null = generator(meta);
         if (schema === null)
           throw new TransformerError({
-            code: "typia.json.application",
+            code: "typia.json.schemas",
             message: `invalid type on argument - (${meta.getName()}, ${i})`,
           });
         return schema;

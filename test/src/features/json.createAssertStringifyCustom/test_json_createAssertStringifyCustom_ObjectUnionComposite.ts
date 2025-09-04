@@ -5,10 +5,11 @@ import { _test_json_assertStringify } from "../../internal/_test_json_assertStri
 import { ObjectUnionComposite } from "../../structures/ObjectUnionComposite";
 
 export const test_json_createAssertStringifyCustom_ObjectUnionComposite =
-  _test_json_assertStringify(CustomGuardError)(
-    "ObjectUnionComposite",
-  )<ObjectUnionComposite>(ObjectUnionComposite)(
-    typia.json.createAssertStringify<ObjectUnionComposite>(
-      (p) => new CustomGuardError(p),
-    ),
-  );
+  (): void =>
+    _test_json_assertStringify(CustomGuardError)(
+      "ObjectUnionComposite",
+    )<ObjectUnionComposite>(ObjectUnionComposite)(
+      typia.json.createAssertStringify<ObjectUnionComposite>(
+        (p) => new CustomGuardError(p),
+      ),
+    );

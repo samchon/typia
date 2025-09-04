@@ -4,7 +4,9 @@ import { _test_functional_validateEqualsFunctionAsync } from "../../internal/_te
 import { ObjectJsonTag } from "../../structures/ObjectJsonTag";
 
 export const test_functional_validateEqualsFunctionAsync_ObjectJsonTag =
-  _test_functional_validateEqualsFunctionAsync("ObjectJsonTag")(ObjectJsonTag)(
-    (p: (input: ObjectJsonTag) => Promise<ObjectJsonTag>) =>
+  (): Promise<void> =>
+    _test_functional_validateEqualsFunctionAsync("ObjectJsonTag")(
+      ObjectJsonTag,
+    )((p: (input: ObjectJsonTag) => Promise<ObjectJsonTag>) =>
       typia.functional.validateEqualsFunction(p),
-  );
+    );

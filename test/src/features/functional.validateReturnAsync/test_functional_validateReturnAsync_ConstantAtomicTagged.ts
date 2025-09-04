@@ -4,8 +4,9 @@ import { _test_functional_validateReturnAsync } from "../../internal/_test_funct
 import { ConstantAtomicTagged } from "../../structures/ConstantAtomicTagged";
 
 export const test_functional_validateReturnAsync_ConstantAtomicTagged =
-  _test_functional_validateReturnAsync("ConstantAtomicTagged")(
-    ConstantAtomicTagged,
-  )((p: (input: ConstantAtomicTagged) => Promise<ConstantAtomicTagged>) =>
-    typia.functional.validateReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateReturnAsync("ConstantAtomicTagged")(
+      ConstantAtomicTagged,
+    )((p: (input: ConstantAtomicTagged) => Promise<ConstantAtomicTagged>) =>
+      typia.functional.validateReturn(p),
+    );

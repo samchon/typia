@@ -5,8 +5,9 @@ import { _test_functional_assertReturnAsync } from "../../internal/_test_functio
 import { ObjectDescription } from "../../structures/ObjectDescription";
 
 export const test_functional_assertReturnAsync_ObjectDescription =
-  _test_functional_assertReturnAsync(TypeGuardError)("ObjectDescription")(
-    ObjectDescription,
-  )((p: (input: ObjectDescription) => Promise<ObjectDescription>) =>
-    typia.functional.assertReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertReturnAsync(TypeGuardError)("ObjectDescription")(
+      ObjectDescription,
+    )((p: (input: ObjectDescription) => Promise<ObjectDescription>) =>
+      typia.functional.assertReturn(p),
+    );

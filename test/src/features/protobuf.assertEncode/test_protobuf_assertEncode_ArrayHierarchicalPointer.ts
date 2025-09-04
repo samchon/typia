@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_protobuf_assertEncode } from "../../internal/_test_protobuf_assertEncode";
 import { ArrayHierarchicalPointer } from "../../structures/ArrayHierarchicalPointer";
 
-export const test_protobuf_assertEncode_ArrayHierarchicalPointer =
+export const test_protobuf_assertEncode_ArrayHierarchicalPointer = (): void =>
   _test_protobuf_assertEncode(TypeGuardError)(
     "ArrayHierarchicalPointer",
   )<ArrayHierarchicalPointer>(ArrayHierarchicalPointer)({

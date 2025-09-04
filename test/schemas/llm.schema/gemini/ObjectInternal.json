@@ -11,5 +11,6 @@
   "required": [
     "id",
     "name"
-  ]
+  ],
+  "description": "Current Type: {@link ObjectInternal}"
 }

@@ -5,8 +5,10 @@ import { _test_functional_assertEqualsFunction } from "../../internal/_test_func
 import { FunctionalValueUnion } from "../../structures/FunctionalValueUnion";
 
 export const test_functional_assertEqualsFunction_FunctionalValueUnion =
-  _test_functional_assertEqualsFunction(TypeGuardError)("FunctionalValueUnion")(
-    FunctionalValueUnion,
-  )((p: (input: FunctionalValueUnion) => FunctionalValueUnion) =>
-    typia.functional.assertEqualsFunction(p),
-  );
+  (): void =>
+    _test_functional_assertEqualsFunction(TypeGuardError)(
+      "FunctionalValueUnion",
+    )(FunctionalValueUnion)(
+      (p: (input: FunctionalValueUnion) => FunctionalValueUnion) =>
+        typia.functional.assertEqualsFunction(p),
+    );

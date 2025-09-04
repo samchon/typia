@@ -19,6 +19,7 @@
       "required": [
         "value"
       ],
+      "description": "Current Type: {@link DynamicArray}",
       "additionalProperties": false
     },
     "nullable": {
@@ -60,6 +61,7 @@
       "required": [
         "value"
       ],
+      "description": "Current Type: {@link DynamicArray}",
       "additionalProperties": false
     },
     "faint": {
@@ -103,6 +105,7 @@
         "required": [
           "value"
         ],
+        "description": "Current Type: {@link DynamicArray}",
         "additionalProperties": false
       }
     }

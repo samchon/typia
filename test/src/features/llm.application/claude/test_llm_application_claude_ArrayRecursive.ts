@@ -3,12 +3,12 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { ArrayRecursive } from "../../../structures/ArrayRecursive";
 
-export const test_llm_application_claude_ArrayRecursive = _test_llm_application(
-  {
+export const test_llm_application_claude_ArrayRecursive = (): void =>
+  _test_llm_application({
     model: "claude",
     name: "ArrayRecursive",
-  },
-)(typia.llm.application<ArrayRecursiveApplication, "claude">());
+    factory: ArrayRecursive,
+  })(typia.llm.application<ArrayRecursiveApplication, "claude">());
 
 interface ArrayRecursiveApplication {
   insert(p: { first: ArrayRecursive }): Promise<void>;

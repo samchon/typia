@@ -1,7 +1,8 @@
 {
   "model": "chatgpt",
   "options": {
-    "reference": false,
+    "reference": true,
+    "strict": false,
     "separate": null
   },
   "functions": [
@@ -11,370 +12,235 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "object",
-            "properties": {
-              "value": {
-                "anyOf": [
-                  {
-                    "type": "object",
-                    "properties": {
-                      "writer": {
-                        "type": "string"
-                      },
-                      "answer": {
-                        "anyOf": [
-                          {
-                            "type": "null"
-                          },
-                          {
-                            "type": "object",
-                            "properties": {
-                              "id": {
-                                "type": "string"
-                              },
-                              "hit": {
-                                "type": "number"
-                              },
-                              "contents": {
-                                "type": "array",
-                                "items": {
-                                  "type": "object",
-                                  "properties": {
-                                    "id": {
-                                      "type": "string"
-                                    },
-                                    "created_at": {
-                                      "type": "string"
-                                    },
-                                    "title": {
-                                      "type": "string"
-                                    },
-                                    "body": {
-                                      "type": "string"
-                                    },
-                                    "files": {
-                                      "type": "array",
-                                      "items": {
-                                        "type": "object",
-                                        "properties": {
-                                          "name": {
-                                            "type": "string"
-                                          },
-                                          "extension": {
-                                            "anyOf": [
-                                              {
-                                                "type": "null"
-                                              },
-                                              {
-                                                "type": "string"
-                                              }
-                                            ]
-                                          },
-                                          "url": {
-                                            "type": "string"
-                                          }
-                                        },
-                                        "required": [
-                                          "name",
-                                          "extension",
-                                          "url"
-                                        ],
-                                        "additionalProperties": false
-                                      }
-                                    }
-                                  },
-                                  "required": [
-                                    "id",
-                                    "created_at",
-                                    "title",
-                                    "body",
-                                    "files"
-                                  ],
-                                  "additionalProperties": false
-                                }
-                              },
-                              "created_at": {
-                                "type": "string"
-                              }
-                            },
-                            "required": [
-                              "id",
-                              "hit",
-                              "contents",
-                              "created_at"
-                            ],
-                            "additionalProperties": false
-                          }
-                        ]
-                      },
-                      "id": {
-                        "type": "string"
-                      },
-                      "hit": {
-                        "type": "number"
-                      },
-                      "contents": {
-                        "type": "array",
-                        "items": {
-                          "type": "object",
-                          "properties": {
-                            "id": {
-                              "type": "string"
-                            },
-                            "created_at": {
-                              "type": "string"
-                            },
-                            "title": {
-                              "type": "string"
-                            },
-                            "body": {
-                              "type": "string"
-                            },
-                            "files": {
-                              "type": "array",
-                              "items": {
-                                "type": "object",
-                                "properties": {
-                                  "name": {
-                                    "type": "string"
-                                  },
-                                  "extension": {
-                                    "anyOf": [
-                                      {
-                                        "type": "null"
-                                      },
-                                      {
-                                        "type": "string"
-                                      }
-                                    ]
-                                  },
-                                  "url": {
-                                    "type": "string"
-                                  }
-                                },
-                                "required": [
-                                  "name",
-                                  "extension",
-                                  "url"
-                                ],
-                                "additionalProperties": false
-                              }
-                            }
-                          },
-                          "required": [
-                            "id",
-                            "created_at",
-                            "title",
-                            "body",
-                            "files"
-                          ],
-                          "additionalProperties": false
-                        }
-                      },
-                      "created_at": {
-                        "type": "string"
-                      }
-                    },
-                    "required": [
-                      "writer",
-                      "answer",
-                      "id",
-                      "hit",
-                      "contents",
-                      "created_at"
-                    ],
-                    "additionalProperties": false
-                  },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "writer": {
-                        "type": "string"
-                      },
-                      "answer": {
-                        "anyOf": [
-                          {
-                            "type": "null"
-                          },
-                          {
-                            "type": "object",
-                            "properties": {
-                              "id": {
-                                "type": "string"
-                              },
-                              "hit": {
-                                "type": "number"
-                              },
-                              "contents": {
-                                "type": "array",
-                                "items": {
-                                  "type": "object",
-                                  "properties": {
-                                    "id": {
-                                      "type": "string"
-                                    },
-                                    "created_at": {
-                                      "type": "string"
-                                    },
-                                    "title": {
-                                      "type": "string"
-                                    },
-                                    "body": {
-                                      "type": "string"
-                                    },
-                                    "files": {
-                                      "type": "array",
-                                      "items": {
-                                        "type": "object",
-                                        "properties": {
-                                          "name": {
-                                            "type": "string"
-                                          },
-                                          "extension": {
-                                            "anyOf": [
-                                              {
-                                                "type": "null"
-                                              },
-                                              {
-                                                "type": "string"
-                                              }
-                                            ]
-                                          },
-                                          "url": {
-                                            "type": "string"
-                                          }
-                                        },
-                                        "required": [
-                                          "name",
-                                          "extension",
-                                          "url"
-                                        ],
-                                        "additionalProperties": false
-                                      }
-                                    }
-                                  },
-                                  "required": [
-                                    "id",
-                                    "created_at",
-                                    "title",
-                                    "body",
-                                    "files"
-                                  ],
-                                  "additionalProperties": false
-                                }
-                              },
-                              "created_at": {
-                                "type": "string"
-                              }
-                            },
-                            "required": [
-                              "id",
-                              "hit",
-                              "contents",
-                              "created_at"
-                            ],
-                            "additionalProperties": false
-                          }
-                        ]
-                      },
-                      "id": {
-                        "type": "string"
-                      },
-                      "hit": {
-                        "type": "number"
-                      },
-                      "contents": {
-                        "type": "array",
-                        "items": {
-                          "type": "object",
-                          "properties": {
-                            "score": {
-                              "type": "number"
-                            },
-                            "id": {
-                              "type": "string"
-                            },
-                            "created_at": {
-                              "type": "string"
-                            },
-                            "title": {
-                              "type": "string"
-                            },
-                            "body": {
-                              "type": "string"
-                            },
-                            "files": {
-                              "type": "array",
-                              "items": {
-                                "type": "object",
-                                "properties": {
-                                  "name": {
-                                    "type": "string"
-                                  },
-                                  "extension": {
-                                    "anyOf": [
-                                      {
-                                        "type": "null"
-                                      },
-                                      {
-                                        "type": "string"
-                                      }
-                                    ]
-                                  },
-                                  "url": {
-                                    "type": "string"
-                                  }
-                                },
-                                "required": [
-                                  "name",
-                                  "extension",
-                                  "url"
-                                ],
-                                "additionalProperties": false
-                              }
-                            }
-                          },
-                          "required": [
-                            "score",
-                            "id",
-                            "created_at",
-                            "title",
-                            "body",
-                            "files"
-                          ],
-                          "additionalProperties": false
-                        }
-                      },
-                      "created_at": {
-                        "type": "string"
-                      }
-                    },
-                    "required": [
-                      "writer",
-                      "answer",
-                      "id",
-                      "hit",
-                      "contents",
-                      "created_at"
-                    ],
-                    "additionalProperties": false
-                  }
-                ]
-              }
-            },
-            "required": [
-              "value"
-            ],
-            "additionalProperties": false
+            "$ref": "#/$defs/ObjectGenericUnion"
           }
         },
         "required": [
           "first"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "strict": true
+        "$defs": {
+          "ObjectGenericUnion": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "$ref": "#/$defs/ObjectGenericUnion.ISaleEntireArticle"
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "ObjectGenericUnion.ISaleEntireArticle": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/ObjectGenericUnion.ISaleQuestion"
+              },
+              {
+                "$ref": "#/$defs/ObjectGenericUnion.ISaleReview"
+              }
+            ]
+          },
+          "ObjectGenericUnion.ISaleQuestion": {
+            "type": "object",
+            "properties": {
+              "writer": {
+                "type": "string"
+              },
+              "answer": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/$defs/ObjectGenericUnion.ISaleAnswer"
+                  }
+                ]
+              },
+              "id": {
+                "type": "string"
+              },
+              "hit": {
+                "type": "number"
+              },
+              "contents": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ObjectGenericUnion.ISaleArticle.IContent"
+                }
+              },
+              "created_at": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "writer",
+              "answer",
+              "id",
+              "hit",
+              "contents",
+              "created_at"
+            ]
+          },
+          "ObjectGenericUnion.ISaleAnswer": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "hit": {
+                "type": "number"
+              },
+              "contents": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ObjectGenericUnion.ISaleArticle.IContent"
+                }
+              },
+              "created_at": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "hit",
+              "contents",
+              "created_at"
+            ]
+          },
+          "ObjectGenericUnion.ISaleArticle.IContent": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "created_at": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "body": {
+                "type": "string"
+              },
+              "files": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ObjectGenericUnion.IAttachmentFile"
+                }
+              }
+            },
+            "required": [
+              "id",
+              "created_at",
+              "title",
+              "body",
+              "files"
+            ]
+          },
+          "ObjectGenericUnion.IAttachmentFile": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "extension": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ]
+              },
+              "url": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "extension",
+              "url"
+            ]
+          },
+          "ObjectGenericUnion.ISaleReview": {
+            "type": "object",
+            "properties": {
+              "writer": {
+                "type": "string"
+              },
+              "answer": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/$defs/ObjectGenericUnion.ISaleAnswer"
+                  }
+                ]
+              },
+              "id": {
+                "type": "string"
+              },
+              "hit": {
+                "type": "number"
+              },
+              "contents": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ObjectGenericUnion.ISaleReview.IContent"
+                }
+              },
+              "created_at": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "writer",
+              "answer",
+              "id",
+              "hit",
+              "contents",
+              "created_at"
+            ]
+          },
+          "ObjectGenericUnion.ISaleReview.IContent": {
+            "type": "object",
+            "properties": {
+              "score": {
+                "type": "number"
+              },
+              "id": {
+                "type": "string"
+              },
+              "created_at": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "body": {
+                "type": "string"
+              },
+              "files": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ObjectGenericUnion.IAttachmentFile"
+                }
+              }
+            },
+            "required": [
+              "score",
+              "id",
+              "created_at",
+              "title",
+              "body",
+              "files"
+            ]
+          }
+        }
+      }
     },
     {
       "name": "reduce",
@@ -382,361 +248,7 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "object",
-            "properties": {
-              "value": {
-                "anyOf": [
-                  {
-                    "type": "object",
-                    "properties": {
-                      "writer": {
-                        "type": "string"
-                      },
-                      "answer": {
-                        "anyOf": [
-                          {
-                            "type": "null"
-                          },
-                          {
-                            "type": "object",
-                            "properties": {
-                              "id": {
-                                "type": "string"
-                              },
-                              "hit": {
-                                "type": "number"
-                              },
-                              "contents": {
-                                "type": "array",
-                                "items": {
-                                  "type": "object",
-                                  "properties": {
-                                    "id": {
-                                      "type": "string"
-                                    },
-                                    "created_at": {
-                                      "type": "string"
-                                    },
-                                    "title": {
-                                      "type": "string"
-                                    },
-                                    "body": {
-                                      "type": "string"
-                                    },
-                                    "files": {
-                                      "type": "array",
-                                      "items": {
-                                        "type": "object",
-                                        "properties": {
-                                          "name": {
-                                            "type": "string"
-                                          },
-                                          "extension": {
-                                            "anyOf": [
-                                              {
-                                                "type": "null"
-                                              },
-                                              {
-                                                "type": "string"
-                                              }
-                                            ]
-                                          },
-                                          "url": {
-                                            "type": "string"
-                                          }
-                                        },
-                                        "required": [
-                                          "name",
-                                          "extension",
-                                          "url"
-                                        ],
-                                        "additionalProperties": false
-                                      }
-                                    }
-                                  },
-                                  "required": [
-                                    "id",
-                                    "created_at",
-                                    "title",
-                                    "body",
-                                    "files"
-                                  ],
-                                  "additionalProperties": false
-                                }
-                              },
-                              "created_at": {
-                                "type": "string"
-                              }
-                            },
-                            "required": [
-                              "id",
-                              "hit",
-                              "contents",
-                              "created_at"
-                            ],
-                            "additionalProperties": false
-                          }
-                        ]
-                      },
-                      "id": {
-                        "type": "string"
-                      },
-                      "hit": {
-                        "type": "number"
-                      },
-                      "contents": {
-                        "type": "array",
-                        "items": {
-                          "type": "object",
-                          "properties": {
-                            "id": {
-                              "type": "string"
-                            },
-                            "created_at": {
-                              "type": "string"
-                            },
-                            "title": {
-                              "type": "string"
-                            },
-                            "body": {
-                              "type": "string"
-                            },
-                            "files": {
-                              "type": "array",
-                              "items": {
-                                "type": "object",
-                                "properties": {
-                                  "name": {
-                                    "type": "string"
-                                  },
-                                  "extension": {
-                                    "anyOf": [
-                                      {
-                                        "type": "null"
-                                      },
-                                      {
-                                        "type": "string"
-                                      }
-                                    ]
-                                  },
-                                  "url": {
-                                    "type": "string"
-                                  }
-                                },
-                                "required": [
-                                  "name",
-                                  "extension",
-                                  "url"
-                                ],
-                                "additionalProperties": false
-                              }
-                            }
-                          },
-                          "required": [
-                            "id",
-                            "created_at",
-                            "title",
-                            "body",
-                            "files"
-                          ],
-                          "additionalProperties": false
-                        }
-                      },
-                      "created_at": {
-                        "type": "string"
-                      }
-                    },
-                    "required": [
-                      "writer",
-                      "answer",
-                      "id",
-                      "hit",
-                      "contents",
-                      "created_at"
-                    ],
-                    "additionalProperties": false
-                  },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "writer": {
-                        "type": "string"
-                      },
-                      "answer": {
-                        "anyOf": [
-                          {
-                            "type": "null"
-                          },
-                          {
-                            "type": "object",
-                            "properties": {
-                              "id": {
-                                "type": "string"
-                              },
-                              "hit": {
-                                "type": "number"
-                              },
-                              "contents": {
-                                "type": "array",
-                                "items": {
-                                  "type": "object",
-                                  "properties": {
-                                    "id": {
-                                      "type": "string"
-                                    },
-                                    "created_at": {
-                                      "type": "string"
-                                    },
-                                    "title": {
-                                      "type": "string"
-                                    },
-                                    "body": {
-                                      "type": "string"
-                                    },
-                                    "files": {
-                                      "type": "array",
-                                      "items": {
-                                        "type": "object",
-                                        "properties": {
-                                          "name": {
-                                            "type": "string"
-                                          },
-                                          "extension": {
-                                            "anyOf": [
-                                              {
-                                                "type": "null"
-                                              },
-                                              {
-                                                "type": "string"
-                                              }
-                                            ]
-                                          },
-                                          "url": {
-                                            "type": "string"
-                                          }
-                                        },
-                                        "required": [
-                                          "name",
-                                          "extension",
-                                          "url"
-                                        ],
-                                        "additionalProperties": false
-                                      }
-                                    }
-                                  },
-                                  "required": [
-                                    "id",
-                                    "created_at",
-                                    "title",
-                                    "body",
-                                    "files"
-                                  ],
-                                  "additionalProperties": false
-                                }
-                              },
-                              "created_at": {
-                                "type": "string"
-                              }
-                            },
-                            "required": [
-                              "id",
-                              "hit",
-                              "contents",
-                              "created_at"
-                            ],
-                            "additionalProperties": false
-                          }
-                        ]
-                      },
-                      "id": {
-                        "type": "string"
-                      },
-                      "hit": {
-                        "type": "number"
-                      },
-                      "contents": {
-                        "type": "array",
-                        "items": {
-                          "type": "object",
-                          "properties": {
-                            "score": {
-                              "type": "number"
-                            },
-                            "id": {
-                              "type": "string"
-                            },
-                            "created_at": {
-                              "type": "string"
-                            },
-                            "title": {
-                              "type": "string"
-                            },
-                            "body": {
-                              "type": "string"
-                            },
-                            "files": {
-                              "type": "array",
-                              "items": {
-                                "type": "object",
-                                "properties": {
-                                  "name": {
-                                    "type": "string"
-                                  },
-                                  "extension": {
-                                    "anyOf": [
-                                      {
-                                        "type": "null"
-                                      },
-                                      {
-                                        "type": "string"
-                                      }
-                                    ]
-                                  },
-                                  "url": {
-                                    "type": "string"
-                                  }
-                                },
-                                "required": [
-                                  "name",
-                                  "extension",
-                                  "url"
-                                ],
-                                "additionalProperties": false
-                              }
-                            }
-                          },
-                          "required": [
-                            "score",
-                            "id",
-                            "created_at",
-                            "title",
-                            "body",
-                            "files"
-                          ],
-                          "additionalProperties": false
-                        }
-                      },
-                      "created_at": {
-                        "type": "string"
-                      }
-                    },
-                    "required": [
-                      "writer",
-                      "answer",
-                      "id",
-                      "hit",
-                      "contents",
-                      "created_at"
-                    ],
-                    "additionalProperties": false
-                  }
-                ]
-              }
-            },
-            "required": [
-              "value"
-            ],
-            "additionalProperties": false
+            "$ref": "#/$defs/ObjectGenericUnion"
           },
           "second": {
             "anyOf": [
@@ -744,361 +256,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "anyOf": [
-                      {
-                        "type": "object",
-                        "properties": {
-                          "writer": {
-                            "type": "string"
-                          },
-                          "answer": {
-                            "anyOf": [
-                              {
-                                "type": "null"
-                              },
-                              {
-                                "type": "object",
-                                "properties": {
-                                  "id": {
-                                    "type": "string"
-                                  },
-                                  "hit": {
-                                    "type": "number"
-                                  },
-                                  "contents": {
-                                    "type": "array",
-                                    "items": {
-                                      "type": "object",
-                                      "properties": {
-                                        "id": {
-                                          "type": "string"
-                                        },
-                                        "created_at": {
-                                          "type": "string"
-                                        },
-                                        "title": {
-                                          "type": "string"
-                                        },
-                                        "body": {
-                                          "type": "string"
-                                        },
-                                        "files": {
-                                          "type": "array",
-                                          "items": {
-                                            "type": "object",
-                                            "properties": {
-                                              "name": {
-                                                "type": "string"
-                                              },
-                                              "extension": {
-                                                "anyOf": [
-                                                  {
-                                                    "type": "null"
-                                                  },
-                                                  {
-                                                    "type": "string"
-                                                  }
-                                                ]
-                                              },
-                                              "url": {
-                                                "type": "string"
-                                              }
-                                            },
-                                            "required": [
-                                              "name",
-                                              "extension",
-                                              "url"
-                                            ],
-                                            "additionalProperties": false
-                                          }
-                                        }
-                                      },
-                                      "required": [
-                                        "id",
-                                        "created_at",
-                                        "title",
-                                        "body",
-                                        "files"
-                                      ],
-                                      "additionalProperties": false
-                                    }
-                                  },
-                                  "created_at": {
-                                    "type": "string"
-                                  }
-                                },
-                                "required": [
-                                  "id",
-                                  "hit",
-                                  "contents",
-                                  "created_at"
-                                ],
-                                "additionalProperties": false
-                              }
-                            ]
-                          },
-                          "id": {
-                            "type": "string"
-                          },
-                          "hit": {
-                            "type": "number"
-                          },
-                          "contents": {
-                            "type": "array",
-                            "items": {
-                              "type": "object",
-                              "properties": {
-                                "id": {
-                                  "type": "string"
-                                },
-                                "created_at": {
-                                  "type": "string"
-                                },
-                                "title": {
-                                  "type": "string"
-                                },
-                                "body": {
-                                  "type": "string"
-                                },
-                                "files": {
-                                  "type": "array",
-                                  "items": {
-                                    "type": "object",
-                                    "properties": {
-                                      "name": {
-                                        "type": "string"
-                                      },
-                                      "extension": {
-                                        "anyOf": [
-                                          {
-                                            "type": "null"
-                                          },
-                                          {
-                                            "type": "string"
-                                          }
-                                        ]
-                                      },
-                                      "url": {
-                                        "type": "string"
-                                      }
-                                    },
-                                    "required": [
-                                      "name",
-                                      "extension",
-                                      "url"
-                                    ],
-                                    "additionalProperties": false
-                                  }
-                                }
-                              },
-                              "required": [
-                                "id",
-                                "created_at",
-                                "title",
-                                "body",
-                                "files"
-                              ],
-                              "additionalProperties": false
-                            }
-                          },
-                          "created_at": {
-                            "type": "string"
-                          }
-                        },
-                        "required": [
-                          "writer",
-                          "answer",
-                          "id",
-                          "hit",
-                          "contents",
-                          "created_at"
-                        ],
-                        "additionalProperties": false
-                      },
-                      {
-                        "type": "object",
-                        "properties": {
-                          "writer": {
-                            "type": "string"
-                          },
-                          "answer": {
-                            "anyOf": [
-                              {
-                                "type": "null"
-                              },
-                              {
-                                "type": "object",
-                                "properties": {
-                                  "id": {
-                                    "type": "string"
-                                  },
-                                  "hit": {
-                                    "type": "number"
-                                  },
-                                  "contents": {
-                                    "type": "array",
-                                    "items": {
-                                      "type": "object",
-                                      "properties": {
-                                        "id": {
-                                          "type": "string"
-                                        },
-                                        "created_at": {
-                                          "type": "string"
-                                        },
-                                        "title": {
-                                          "type": "string"
-                                        },
-                                        "body": {
-                                          "type": "string"
-                                        },
-                                        "files": {
-                                          "type": "array",
-                                          "items": {
-                                            "type": "object",
-                                            "properties": {
-                                              "name": {
-                                                "type": "string"
-                                              },
-                                              "extension": {
-                                                "anyOf": [
-                                                  {
-                                                    "type": "null"
-                                                  },
-                                                  {
-                                                    "type": "string"
-                                                  }
-                                                ]
-                                              },
-                                              "url": {
-                                                "type": "string"
-                                              }
-                                            },
-                                            "required": [
-                                              "name",
-                                              "extension",
-                                              "url"
-                                            ],
-                                            "additionalProperties": false
-                                          }
-                                        }
-                                      },
-                                      "required": [
-                                        "id",
-                                        "created_at",
-                                        "title",
-                                        "body",
-                                        "files"
-                                      ],
-                                      "additionalProperties": false
-                                    }
-                                  },
-                                  "created_at": {
-                                    "type": "string"
-                                  }
-                                },
-                                "required": [
-                                  "id",
-                                  "hit",
-                                  "contents",
-                                  "created_at"
-                                ],
-                                "additionalProperties": false
-                              }
-                            ]
-                          },
-                          "id": {
-                            "type": "string"
-                          },
-                          "hit": {
-                            "type": "number"
-                          },
-                          "contents": {
-                            "type": "array",
-                            "items": {
-                              "type": "object",
-                              "properties": {
-                                "score": {
-                                  "type": "number"
-                                },
-                                "id": {
-                                  "type": "string"
-                                },
-                                "created_at": {
-                                  "type": "string"
-                                },
-                                "title": {
-                                  "type": "string"
-                                },
-                                "body": {
-                                  "type": "string"
-                                },
-                                "files": {
-                                  "type": "array",
-                                  "items": {
-                                    "type": "object",
-                                    "properties": {
-                                      "name": {
-                                        "type": "string"
-                                      },
-                                      "extension": {
-                                        "anyOf": [
-                                          {
-                                            "type": "null"
-                                          },
-                                          {
-                                            "type": "string"
-                                          }
-                                        ]
-                                      },
-                                      "url": {
-                                        "type": "string"
-                                      }
-                                    },
-                                    "required": [
-                                      "name",
-                                      "extension",
-                                      "url"
-                                    ],
-                                    "additionalProperties": false
-                                  }
-                                }
-                              },
-                              "required": [
-                                "score",
-                                "id",
-                                "created_at",
-                                "title",
-                                "body",
-                                "files"
-                              ],
-                              "additionalProperties": false
-                            }
-                          },
-                          "created_at": {
-                            "type": "string"
-                          }
-                        },
-                        "required": [
-                          "writer",
-                          "answer",
-                          "id",
-                          "hit",
-                          "contents",
-                          "created_at"
-                        ],
-                        "additionalProperties": false
-                      }
-                    ]
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "additionalProperties": false
+                "$ref": "#/$defs/ObjectGenericUnion"
               }
             ]
           }
@@ -1108,366 +266,231 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "output": {
-        "type": "object",
-        "properties": {
-          "value": {
+        "$defs": {
+          "ObjectGenericUnion": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "$ref": "#/$defs/ObjectGenericUnion.ISaleEntireArticle"
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "ObjectGenericUnion.ISaleEntireArticle": {
             "anyOf": [
               {
-                "type": "object",
-                "properties": {
-                  "writer": {
-                    "type": "string"
-                  },
-                  "answer": {
-                    "anyOf": [
-                      {
-                        "type": "null"
-                      },
-                      {
-                        "type": "object",
-                        "properties": {
-                          "id": {
-                            "type": "string"
-                          },
-                          "hit": {
-                            "type": "number"
-                          },
-                          "contents": {
-                            "type": "array",
-                            "items": {
-                              "type": "object",
-                              "properties": {
-                                "id": {
-                                  "type": "string"
-                                },
-                                "created_at": {
-                                  "type": "string"
-                                },
-                                "title": {
-                                  "type": "string"
-                                },
-                                "body": {
-                                  "type": "string"
-                                },
-                                "files": {
-                                  "type": "array",
-                                  "items": {
-                                    "type": "object",
-                                    "properties": {
-                                      "name": {
-                                        "type": "string"
-                                      },
-                                      "extension": {
-                                        "anyOf": [
-                                          {
-                                            "type": "null"
-                                          },
-                                          {
-                                            "type": "string"
-                                          }
-                                        ]
-                                      },
-                                      "url": {
-                                        "type": "string"
-                                      }
-                                    },
-                                    "required": [
-                                      "name",
-                                      "extension",
-                                      "url"
-                                    ],
-                                    "additionalProperties": false
-                                  }
-                                }
-                              },
-                              "required": [
-                                "id",
-                                "created_at",
-                                "title",
-                                "body",
-                                "files"
-                              ],
-                              "additionalProperties": false
-                            }
-                          },
-                          "created_at": {
-                            "type": "string"
-                          }
-                        },
-                        "required": [
-                          "id",
-                          "hit",
-                          "contents",
-                          "created_at"
-                        ],
-                        "additionalProperties": false
-                      }
-                    ]
-                  },
-                  "id": {
-                    "type": "string"
-                  },
-                  "hit": {
-                    "type": "number"
-                  },
-                  "contents": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "id": {
-                          "type": "string"
-                        },
-                        "created_at": {
-                          "type": "string"
-                        },
-                        "title": {
-                          "type": "string"
-                        },
-                        "body": {
-                          "type": "string"
-                        },
-                        "files": {
-                          "type": "array",
-                          "items": {
-                            "type": "object",
-                            "properties": {
-                              "name": {
-                                "type": "string"
-                              },
-                              "extension": {
-                                "anyOf": [
-                                  {
-                                    "type": "null"
-                                  },
-                                  {
-                                    "type": "string"
-                                  }
-                                ]
-                              },
-                              "url": {
-                                "type": "string"
-                              }
-                            },
-                            "required": [
-                              "name",
-                              "extension",
-                              "url"
-                            ],
-                            "additionalProperties": false
-                          }
-                        }
-                      },
-                      "required": [
-                        "id",
-                        "created_at",
-                        "title",
-                        "body",
-                        "files"
-                      ],
-                      "additionalProperties": false
-                    }
-                  },
-                  "created_at": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "writer",
-                  "answer",
-                  "id",
-                  "hit",
-                  "contents",
-                  "created_at"
-                ],
-                "additionalProperties": false
+                "$ref": "#/$defs/ObjectGenericUnion.ISaleQuestion"
               },
               {
-                "type": "object",
-                "properties": {
-                  "writer": {
-                    "type": "string"
-                  },
-                  "answer": {
-                    "anyOf": [
-                      {
-                        "type": "null"
-                      },
-                      {
-                        "type": "object",
-                        "properties": {
-                          "id": {
-                            "type": "string"
-                          },
-                          "hit": {
-                            "type": "number"
-                          },
-                          "contents": {
-                            "type": "array",
-                            "items": {
-                              "type": "object",
-                              "properties": {
-                                "id": {
-                                  "type": "string"
-                                },
-                                "created_at": {
-                                  "type": "string"
-                                },
-                                "title": {
-                                  "type": "string"
-                                },
-                                "body": {
-                                  "type": "string"
-                                },
-                                "files": {
-                                  "type": "array",
-                                  "items": {
-                                    "type": "object",
-                                    "properties": {
-                                      "name": {
-                                        "type": "string"
-                                      },
-                                      "extension": {
-                                        "anyOf": [
-                                          {
-                                            "type": "null"
-                                          },
-                                          {
-                                            "type": "string"
-                                          }
-                                        ]
-                                      },
-                                      "url": {
-                                        "type": "string"
-                                      }
-                                    },
-                                    "required": [
-                                      "name",
-                                      "extension",
-                                      "url"
-                                    ],
-                                    "additionalProperties": false
-                                  }
-                                }
-                              },
-                              "required": [
-                                "id",
-                                "created_at",
-                                "title",
-                                "body",
-                                "files"
-                              ],
-                              "additionalProperties": false
-                            }
-                          },
-                          "created_at": {
-                            "type": "string"
-                          }
-                        },
-                        "required": [
-                          "id",
-                          "hit",
-                          "contents",
-                          "created_at"
-                        ],
-                        "additionalProperties": false
-                      }
-                    ]
-                  },
-                  "id": {
-                    "type": "string"
-                  },
-                  "hit": {
-                    "type": "number"
-                  },
-                  "contents": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "score": {
-                          "type": "number"
-                        },
-                        "id": {
-                          "type": "string"
-                        },
-                        "created_at": {
-                          "type": "string"
-                        },
-                        "title": {
-                          "type": "string"
-                        },
-                        "body": {
-                          "type": "string"
-                        },
-                        "files": {
-                          "type": "array",
-                          "items": {
-                            "type": "object",
-                            "properties": {
-                              "name": {
-                                "type": "string"
-                              },
-                              "extension": {
-                                "anyOf": [
-                                  {
-                                    "type": "null"
-                                  },
-                                  {
-                                    "type": "string"
-                                  }
-                                ]
-                              },
-                              "url": {
-                                "type": "string"
-                              }
-                            },
-                            "required": [
-                              "name",
-                              "extension",
-                              "url"
-                            ],
-                            "additionalProperties": false
-                          }
-                        }
-                      },
-                      "required": [
-                        "score",
-                        "id",
-                        "created_at",
-                        "title",
-                        "body",
-                        "files"
-                      ],
-                      "additionalProperties": false
-                    }
-                  },
-                  "created_at": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "writer",
-                  "answer",
-                  "id",
-                  "hit",
-                  "contents",
-                  "created_at"
-                ],
-                "additionalProperties": false
+                "$ref": "#/$defs/ObjectGenericUnion.ISaleReview"
               }
             ]
+          },
+          "ObjectGenericUnion.ISaleQuestion": {
+            "type": "object",
+            "properties": {
+              "writer": {
+                "type": "string"
+              },
+              "answer": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/$defs/ObjectGenericUnion.ISaleAnswer"
+                  }
+                ]
+              },
+              "id": {
+                "type": "string"
+              },
+              "hit": {
+                "type": "number"
+              },
+              "contents": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ObjectGenericUnion.ISaleArticle.IContent"
+                }
+              },
+              "created_at": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "writer",
+              "answer",
+              "id",
+              "hit",
+              "contents",
+              "created_at"
+            ]
+          },
+          "ObjectGenericUnion.ISaleAnswer": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "hit": {
+                "type": "number"
+              },
+              "contents": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ObjectGenericUnion.ISaleArticle.IContent"
+                }
+              },
+              "created_at": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "hit",
+              "contents",
+              "created_at"
+            ]
+          },
+          "ObjectGenericUnion.ISaleArticle.IContent": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "created_at": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "body": {
+                "type": "string"
+              },
+              "files": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ObjectGenericUnion.IAttachmentFile"
+                }
+              }
+            },
+            "required": [
+              "id",
+              "created_at",
+              "title",
+              "body",
+              "files"
+            ]
+          },
+          "ObjectGenericUnion.IAttachmentFile": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "extension": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ]
+              },
+              "url": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "extension",
+              "url"
+            ]
+          },
+          "ObjectGenericUnion.ISaleReview": {
+            "type": "object",
+            "properties": {
+              "writer": {
+                "type": "string"
+              },
+              "answer": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/$defs/ObjectGenericUnion.ISaleAnswer"
+                  }
+                ]
+              },
+              "id": {
+                "type": "string"
+              },
+              "hit": {
+                "type": "number"
+              },
+              "contents": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ObjectGenericUnion.ISaleReview.IContent"
+                }
+              },
+              "created_at": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "writer",
+              "answer",
+              "id",
+              "hit",
+              "contents",
+              "created_at"
+            ]
+          },
+          "ObjectGenericUnion.ISaleReview.IContent": {
+            "type": "object",
+            "properties": {
+              "score": {
+                "type": "number"
+              },
+              "id": {
+                "type": "string"
+              },
+              "created_at": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "body": {
+                "type": "string"
+              },
+              "files": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ObjectGenericUnion.IAttachmentFile"
+                }
+              }
+            },
+            "required": [
+              "score",
+              "id",
+              "created_at",
+              "title",
+              "body",
+              "files"
+            ]
           }
-        },
-        "required": [
-          "value"
-        ],
-        "additionalProperties": false
+        }
       },
-      "strict": true
+      "output": {
+        "$ref": "#/$defs/ObjectGenericUnion"
+      }
     },
     {
       "name": "coalesce",
@@ -1480,361 +503,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "anyOf": [
-                      {
-                        "type": "object",
-                        "properties": {
-                          "writer": {
-                            "type": "string"
-                          },
-                          "answer": {
-                            "anyOf": [
-                              {
-                                "type": "null"
-                              },
-                              {
-                                "type": "object",
-                                "properties": {
-                                  "id": {
-                                    "type": "string"
-                                  },
-                                  "hit": {
-                                    "type": "number"
-                                  },
-                                  "contents": {
-                                    "type": "array",
-                                    "items": {
-                                      "type": "object",
-                                      "properties": {
-                                        "id": {
-                                          "type": "string"
-                                        },
-                                        "created_at": {
-                                          "type": "string"
-                                        },
-                                        "title": {
-                                          "type": "string"
-                                        },
-                                        "body": {
-                                          "type": "string"
-                                        },
-                                        "files": {
-                                          "type": "array",
-                                          "items": {
-                                            "type": "object",
-                                            "properties": {
-                                              "name": {
-                                                "type": "string"
-                                              },
-                                              "extension": {
-                                                "anyOf": [
-                                                  {
-                                                    "type": "null"
-                                                  },
-                                                  {
-                                                    "type": "string"
-                                                  }
-                                                ]
-                                              },
-                                              "url": {
-                                                "type": "string"
-                                              }
-                                            },
-                                            "required": [
-                                              "name",
-                                              "extension",
-                                              "url"
-                                            ],
-                                            "additionalProperties": false
-                                          }
-                                        }
-                                      },
-                                      "required": [
-                                        "id",
-                                        "created_at",
-                                        "title",
-                                        "body",
-                                        "files"
-                                      ],
-                                      "additionalProperties": false
-                                    }
-                                  },
-                                  "created_at": {
-                                    "type": "string"
-                                  }
-                                },
-                                "required": [
-                                  "id",
-                                  "hit",
-                                  "contents",
-                                  "created_at"
-                                ],
-                                "additionalProperties": false
-                              }
-                            ]
-                          },
-                          "id": {
-                            "type": "string"
-                          },
-                          "hit": {
-                            "type": "number"
-                          },
-                          "contents": {
-                            "type": "array",
-                            "items": {
-                              "type": "object",
-                              "properties": {
-                                "id": {
-                                  "type": "string"
-                                },
-                                "created_at": {
-                                  "type": "string"
-                                },
-                                "title": {
-                                  "type": "string"
-                                },
-                                "body": {
-                                  "type": "string"
-                                },
-                                "files": {
-                                  "type": "array",
-                                  "items": {
-                                    "type": "object",
-                                    "properties": {
-                                      "name": {
-                                        "type": "string"
-                                      },
-                                      "extension": {
-                                        "anyOf": [
-                                          {
-                                            "type": "null"
-                                          },
-                                          {
-                                            "type": "string"
-                                          }
-                                        ]
-                                      },
-                                      "url": {
-                                        "type": "string"
-                                      }
-                                    },
-                                    "required": [
-                                      "name",
-                                      "extension",
-                                      "url"
-                                    ],
-                                    "additionalProperties": false
-                                  }
-                                }
-                              },
-                              "required": [
-                                "id",
-                                "created_at",
-                                "title",
-                                "body",
-                                "files"
-                              ],
-                              "additionalProperties": false
-                            }
-                          },
-                          "created_at": {
-                            "type": "string"
-                          }
-                        },
-                        "required": [
-                          "writer",
-                          "answer",
-                          "id",
-                          "hit",
-                          "contents",
-                          "created_at"
-                        ],
-                        "additionalProperties": false
-                      },
-                      {
-                        "type": "object",
-                        "properties": {
-                          "writer": {
-                            "type": "string"
-                          },
-                          "answer": {
-                            "anyOf": [
-                              {
-                                "type": "null"
-                              },
-                              {
-                                "type": "object",
-                                "properties": {
-                                  "id": {
-                                    "type": "string"
-                                  },
-                                  "hit": {
-                                    "type": "number"
-                                  },
-                                  "contents": {
-                                    "type": "array",
-                                    "items": {
-                                      "type": "object",
-                                      "properties": {
-                                        "id": {
-                                          "type": "string"
-                                        },
-                                        "created_at": {
-                                          "type": "string"
-                                        },
-                                        "title": {
-                                          "type": "string"
-                                        },
-                                        "body": {
-                                          "type": "string"
-                                        },
-                                        "files": {
-                                          "type": "array",
-                                          "items": {
-                                            "type": "object",
-                                            "properties": {
-                                              "name": {
-                                                "type": "string"
-                                              },
-                                              "extension": {
-                                                "anyOf": [
-                                                  {
-                                                    "type": "null"
-                                                  },
-                                                  {
-                                                    "type": "string"
-                                                  }
-                                                ]
-                                              },
-                                              "url": {
-                                                "type": "string"
-                                              }
-                                            },
-                                            "required": [
-                                              "name",
-                                              "extension",
-                                              "url"
-                                            ],
-                                            "additionalProperties": false
-                                          }
-                                        }
-                                      },
-                                      "required": [
-                                        "id",
-                                        "created_at",
-                                        "title",
-                                        "body",
-                                        "files"
-                                      ],
-                                      "additionalProperties": false
-                                    }
-                                  },
-                                  "created_at": {
-                                    "type": "string"
-                                  }
-                                },
-                                "required": [
-                                  "id",
-                                  "hit",
-                                  "contents",
-                                  "created_at"
-                                ],
-                                "additionalProperties": false
-                              }
-                            ]
-                          },
-                          "id": {
-                            "type": "string"
-                          },
-                          "hit": {
-                            "type": "number"
-                          },
-                          "contents": {
-                            "type": "array",
-                            "items": {
-                              "type": "object",
-                              "properties": {
-                                "score": {
-                                  "type": "number"
-                                },
-                                "id": {
-                                  "type": "string"
-                                },
-                                "created_at": {
-                                  "type": "string"
-                                },
-                                "title": {
-                                  "type": "string"
-                                },
-                                "body": {
-                                  "type": "string"
-                                },
-                                "files": {
-                                  "type": "array",
-                                  "items": {
-                                    "type": "object",
-                                    "properties": {
-                                      "name": {
-                                        "type": "string"
-                                      },
-                                      "extension": {
-                                        "anyOf": [
-                                          {
-                                            "type": "null"
-                                          },
-                                          {
-                                            "type": "string"
-                                          }
-                                        ]
-                                      },
-                                      "url": {
-                                        "type": "string"
-                                      }
-                                    },
-                                    "required": [
-                                      "name",
-                                      "extension",
-                                      "url"
-                                    ],
-                                    "additionalProperties": false
-                                  }
-                                }
-                              },
-                              "required": [
-                                "score",
-                                "id",
-                                "created_at",
-                                "title",
-                                "body",
-                                "files"
-                              ],
-                              "additionalProperties": false
-                            }
-                          },
-                          "created_at": {
-                            "type": "string"
-                          }
-                        },
-                        "required": [
-                          "writer",
-                          "answer",
-                          "id",
-                          "hit",
-                          "contents",
-                          "created_at"
-                        ],
-                        "additionalProperties": false
-                      }
-                    ]
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "additionalProperties": false
+                "$ref": "#/$defs/ObjectGenericUnion"
               }
             ]
           },
@@ -1844,361 +513,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "anyOf": [
-                      {
-                        "type": "object",
-                        "properties": {
-                          "writer": {
-                            "type": "string"
-                          },
-                          "answer": {
-                            "anyOf": [
-                              {
-                                "type": "null"
-                              },
-                              {
-                                "type": "object",
-                                "properties": {
-                                  "id": {
-                                    "type": "string"
-                                  },
-                                  "hit": {
-                                    "type": "number"
-                                  },
-                                  "contents": {
-                                    "type": "array",
-                                    "items": {
-                                      "type": "object",
-                                      "properties": {
-                                        "id": {
-                                          "type": "string"
-                                        },
-                                        "created_at": {
-                                          "type": "string"
-                                        },
-                                        "title": {
-                                          "type": "string"
-                                        },
-                                        "body": {
-                                          "type": "string"
-                                        },
-                                        "files": {
-                                          "type": "array",
-                                          "items": {
-                                            "type": "object",
-                                            "properties": {
-                                              "name": {
-                                                "type": "string"
-                                              },
-                                              "extension": {
-                                                "anyOf": [
-                                                  {
-                                                    "type": "null"
-                                                  },
-                                                  {
-                                                    "type": "string"
-                                                  }
-                                                ]
-                                              },
-                                              "url": {
-                                                "type": "string"
-                                              }
-                                            },
-                                            "required": [
-                                              "name",
-                                              "extension",
-                                              "url"
-                                            ],
-                                            "additionalProperties": false
-                                          }
-                                        }
-                                      },
-                                      "required": [
-                                        "id",
-                                        "created_at",
-                                        "title",
-                                        "body",
-                                        "files"
-                                      ],
-                                      "additionalProperties": false
-                                    }
-                                  },
-                                  "created_at": {
-                                    "type": "string"
-                                  }
-                                },
-                                "required": [
-                                  "id",
-                                  "hit",
-                                  "contents",
-                                  "created_at"
-                                ],
-                                "additionalProperties": false
-                              }
-                            ]
-                          },
-                          "id": {
-                            "type": "string"
-                          },
-                          "hit": {
-                            "type": "number"
-                          },
-                          "contents": {
-                            "type": "array",
-                            "items": {
-                              "type": "object",
-                              "properties": {
-                                "id": {
-                                  "type": "string"
-                                },
-                                "created_at": {
-                                  "type": "string"
-                                },
-                                "title": {
-                                  "type": "string"
-                                },
-                                "body": {
-                                  "type": "string"
-                                },
-                                "files": {
-                                  "type": "array",
-                                  "items": {
-                                    "type": "object",
-                                    "properties": {
-                                      "name": {
-                                        "type": "string"
-                                      },
-                                      "extension": {
-                                        "anyOf": [
-                                          {
-                                            "type": "null"
-                                          },
-                                          {
-                                            "type": "string"
-                                          }
-                                        ]
-                                      },
-                                      "url": {
-                                        "type": "string"
-                                      }
-                                    },
-                                    "required": [
-                                      "name",
-                                      "extension",
-                                      "url"
-                                    ],
-                                    "additionalProperties": false
-                                  }
-                                }
-                              },
-                              "required": [
-                                "id",
-                                "created_at",
-                                "title",
-                                "body",
-                                "files"
-                              ],
-                              "additionalProperties": false
-                            }
-                          },
-                          "created_at": {
-                            "type": "string"
-                          }
-                        },
-                        "required": [
-                          "writer",
-                          "answer",
-                          "id",
-                          "hit",
-                          "contents",
-                          "created_at"
-                        ],
-                        "additionalProperties": false
-                      },
-                      {
-                        "type": "object",
-                        "properties": {
-                          "writer": {
-                            "type": "string"
-                          },
-                          "answer": {
-                            "anyOf": [
-                              {
-                                "type": "null"
-                              },
-                              {
-                                "type": "object",
-                                "properties": {
-                                  "id": {
-                                    "type": "string"
-                                  },
-                                  "hit": {
-                                    "type": "number"
-                                  },
-                                  "contents": {
-                                    "type": "array",
-                                    "items": {
-                                      "type": "object",
-                                      "properties": {
-                                        "id": {
-                                          "type": "string"
-                                        },
-                                        "created_at": {
-                                          "type": "string"
-                                        },
-                                        "title": {
-                                          "type": "string"
-                                        },
-                                        "body": {
-                                          "type": "string"
-                                        },
-                                        "files": {
-                                          "type": "array",
-                                          "items": {
-                                            "type": "object",
-                                            "properties": {
-                                              "name": {
-                                                "type": "string"
-                                              },
-                                              "extension": {
-                                                "anyOf": [
-                                                  {
-                                                    "type": "null"
-                                                  },
-                                                  {
-                                                    "type": "string"
-                                                  }
-                                                ]
-                                              },
-                                              "url": {
-                                                "type": "string"
-                                              }
-                                            },
-                                            "required": [
-                                              "name",
-                                              "extension",
-                                              "url"
-                                            ],
-                                            "additionalProperties": false
-                                          }
-                                        }
-                                      },
-                                      "required": [
-                                        "id",
-                                        "created_at",
-                                        "title",
-                                        "body",
-                                        "files"
-                                      ],
-                                      "additionalProperties": false
-                                    }
-                                  },
-                                  "created_at": {
-                                    "type": "string"
-                                  }
-                                },
-                                "required": [
-                                  "id",
-                                  "hit",
-                                  "contents",
-                                  "created_at"
-                                ],
-                                "additionalProperties": false
-                              }
-                            ]
-                          },
-                          "id": {
-                            "type": "string"
-                          },
-                          "hit": {
-                            "type": "number"
-                          },
-                          "contents": {
-                            "type": "array",
-                            "items": {
-                              "type": "object",
-                              "properties": {
-                                "score": {
-                                  "type": "number"
-                                },
-                                "id": {
-                                  "type": "string"
-                                },
-                                "created_at": {
-                                  "type": "string"
-                                },
-                                "title": {
-                                  "type": "string"
-                                },
-                                "body": {
-                                  "type": "string"
-                                },
-                                "files": {
-                                  "type": "array",
-                                  "items": {
-                                    "type": "object",
-                                    "properties": {
-                                      "name": {
-                                        "type": "string"
-                                      },
-                                      "extension": {
-                                        "anyOf": [
-                                          {
-                                            "type": "null"
-                                          },
-                                          {
-                                            "type": "string"
-                                          }
-                                        ]
-                                      },
-                                      "url": {
-                                        "type": "string"
-                                      }
-                                    },
-                                    "required": [
-                                      "name",
-                                      "extension",
-                                      "url"
-                                    ],
-                                    "additionalProperties": false
-                                  }
-                                }
-                              },
-                              "required": [
-                                "score",
-                                "id",
-                                "created_at",
-                                "title",
-                                "body",
-                                "files"
-                              ],
-                              "additionalProperties": false
-                            }
-                          },
-                          "created_at": {
-                            "type": "string"
-                          }
-                        },
-                        "required": [
-                          "writer",
-                          "answer",
-                          "id",
-                          "hit",
-                          "contents",
-                          "created_at"
-                        ],
-                        "additionalProperties": false
-                      }
-                    ]
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "additionalProperties": false
+                "$ref": "#/$defs/ObjectGenericUnion"
               }
             ]
           },
@@ -2208,372 +523,237 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "anyOf": [
-                      {
-                        "type": "object",
-                        "properties": {
-                          "writer": {
-                            "type": "string"
-                          },
-                          "answer": {
-                            "anyOf": [
-                              {
-                                "type": "null"
-                              },
-                              {
-                                "type": "object",
-                                "properties": {
-                                  "id": {
-                                    "type": "string"
-                                  },
-                                  "hit": {
-                                    "type": "number"
-                                  },
-                                  "contents": {
-                                    "type": "array",
-                                    "items": {
-                                      "type": "object",
-                                      "properties": {
-                                        "id": {
-                                          "type": "string"
-                                        },
-                                        "created_at": {
-                                          "type": "string"
-                                        },
-                                        "title": {
-                                          "type": "string"
-                                        },
-                                        "body": {
-                                          "type": "string"
-                                        },
-                                        "files": {
-                                          "type": "array",
-                                          "items": {
-                                            "type": "object",
-                                            "properties": {
-                                              "name": {
-                                                "type": "string"
-                                              },
-                                              "extension": {
-                                                "anyOf": [
-                                                  {
-                                                    "type": "null"
-                                                  },
-                                                  {
-                                                    "type": "string"
-                                                  }
-                                                ]
-                                              },
-                                              "url": {
-                                                "type": "string"
-                                              }
-                                            },
-                                            "required": [
-                                              "name",
-                                              "extension",
-                                              "url"
-                                            ],
-                                            "additionalProperties": false
-                                          }
-                                        }
-                                      },
-                                      "required": [
-                                        "id",
-                                        "created_at",
-                                        "title",
-                                        "body",
-                                        "files"
-                                      ],
-                                      "additionalProperties": false
-                                    }
-                                  },
-                                  "created_at": {
-                                    "type": "string"
-                                  }
-                                },
-                                "required": [
-                                  "id",
-                                  "hit",
-                                  "contents",
-                                  "created_at"
-                                ],
-                                "additionalProperties": false
-                              }
-                            ]
-                          },
-                          "id": {
-                            "type": "string"
-                          },
-                          "hit": {
-                            "type": "number"
-                          },
-                          "contents": {
-                            "type": "array",
-                            "items": {
-                              "type": "object",
-                              "properties": {
-                                "id": {
-                                  "type": "string"
-                                },
-                                "created_at": {
-                                  "type": "string"
-                                },
-                                "title": {
-                                  "type": "string"
-                                },
-                                "body": {
-                                  "type": "string"
-                                },
-                                "files": {
-                                  "type": "array",
-                                  "items": {
-                                    "type": "object",
-                                    "properties": {
-                                      "name": {
-                                        "type": "string"
-                                      },
-                                      "extension": {
-                                        "anyOf": [
-                                          {
-                                            "type": "null"
-                                          },
-                                          {
-                                            "type": "string"
-                                          }
-                                        ]
-                                      },
-                                      "url": {
-                                        "type": "string"
-                                      }
-                                    },
-                                    "required": [
-                                      "name",
-                                      "extension",
-                                      "url"
-                                    ],
-                                    "additionalProperties": false
-                                  }
-                                }
-                              },
-                              "required": [
-                                "id",
-                                "created_at",
-                                "title",
-                                "body",
-                                "files"
-                              ],
-                              "additionalProperties": false
-                            }
-                          },
-                          "created_at": {
-                            "type": "string"
-                          }
-                        },
-                        "required": [
-                          "writer",
-                          "answer",
-                          "id",
-                          "hit",
-                          "contents",
-                          "created_at"
-                        ],
-                        "additionalProperties": false
-                      },
-                      {
-                        "type": "object",
-                        "properties": {
-                          "writer": {
-                            "type": "string"
-                          },
-                          "answer": {
-                            "anyOf": [
-                              {
-                                "type": "null"
-                              },
-                              {
-                                "type": "object",
-                                "properties": {
-                                  "id": {
-                                    "type": "string"
-                                  },
-                                  "hit": {
-                                    "type": "number"
-                                  },
-                                  "contents": {
-                                    "type": "array",
-                                    "items": {
-                                      "type": "object",
-                                      "properties": {
-                                        "id": {
-                                          "type": "string"
-                                        },
-                                        "created_at": {
-                                          "type": "string"
-                                        },
-                                        "title": {
-                                          "type": "string"
-                                        },
-                                        "body": {
-                                          "type": "string"
-                                        },
-                                        "files": {
-                                          "type": "array",
-                                          "items": {
-                                            "type": "object",
-                                            "properties": {
-                                              "name": {
-                                                "type": "string"
-                                              },
-                                              "extension": {
-                                                "anyOf": [
-                                                  {
-                                                    "type": "null"
-                                                  },
-                                                  {
-                                                    "type": "string"
-                                                  }
-                                                ]
-                                              },
-                                              "url": {
-                                                "type": "string"
-                                              }
-                                            },
-                                            "required": [
-                                              "name",
-                                              "extension",
-                                              "url"
-                                            ],
-                                            "additionalProperties": false
-                                          }
-                                        }
-                                      },
-                                      "required": [
-                                        "id",
-                                        "created_at",
-                                        "title",
-                                        "body",
-                                        "files"
-                                      ],
-                                      "additionalProperties": false
-                                    }
-                                  },
-                                  "created_at": {
-                                    "type": "string"
-                                  }
-                                },
-                                "required": [
-                                  "id",
-                                  "hit",
-                                  "contents",
-                                  "created_at"
-                                ],
-                                "additionalProperties": false
-                              }
-                            ]
-                          },
-                          "id": {
-                            "type": "string"
-                          },
-                          "hit": {
-                            "type": "number"
-                          },
-                          "contents": {
-                            "type": "array",
-                            "items": {
-                              "type": "object",
-                              "properties": {
-                                "score": {
-                                  "type": "number"
-                                },
-                                "id": {
-                                  "type": "string"
-                                },
-                                "created_at": {
-                                  "type": "string"
-                                },
-                                "title": {
-                                  "type": "string"
-                                },
-                                "body": {
-                                  "type": "string"
-                                },
-                                "files": {
-                                  "type": "array",
-                                  "items": {
-                                    "type": "object",
-                                    "properties": {
-                                      "name": {
-                                        "type": "string"
-                                      },
-                                      "extension": {
-                                        "anyOf": [
-                                          {
-                                            "type": "null"
-                                          },
-                                          {
-                                            "type": "string"
-                                          }
-                                        ]
-                                      },
-                                      "url": {
-                                        "type": "string"
-                                      }
-                                    },
-                                    "required": [
-                                      "name",
-                                      "extension",
-                                      "url"
-                                    ],
-                                    "additionalProperties": false
-                                  }
-                                }
-                              },
-                              "required": [
-                                "score",
-                                "id",
-                                "created_at",
-                                "title",
-                                "body",
-                                "files"
-                              ],
-                              "additionalProperties": false
-                            }
-                          },
-                          "created_at": {
-                            "type": "string"
-                          }
-                        },
-                        "required": [
-                          "writer",
-                          "answer",
-                          "id",
-                          "hit",
-                          "contents",
-                          "created_at"
-                        ],
-                        "additionalProperties": false
-                      }
-                    ]
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "additionalProperties": false
+                "$ref": "#/$defs/ObjectGenericUnion"
               }
             ]
           }
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "ObjectGenericUnion": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "$ref": "#/$defs/ObjectGenericUnion.ISaleEntireArticle"
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "ObjectGenericUnion.ISaleEntireArticle": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/ObjectGenericUnion.ISaleQuestion"
+              },
+              {
+                "$ref": "#/$defs/ObjectGenericUnion.ISaleReview"
+              }
+            ]
+          },
+          "ObjectGenericUnion.ISaleQuestion": {
+            "type": "object",
+            "properties": {
+              "writer": {
+                "type": "string"
+              },
+              "answer": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/$defs/ObjectGenericUnion.ISaleAnswer"
+                  }
+                ]
+              },
+              "id": {
+                "type": "string"
+              },
+              "hit": {
+                "type": "number"
+              },
+              "contents": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ObjectGenericUnion.ISaleArticle.IContent"
+                }
+              },
+              "created_at": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "writer",
+              "answer",
+              "id",
+              "hit",
+              "contents",
+              "created_at"
+            ]
+          },
+          "ObjectGenericUnion.ISaleAnswer": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "hit": {
+                "type": "number"
+              },
+              "contents": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ObjectGenericUnion.ISaleArticle.IContent"
+                }
+              },
+              "created_at": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "hit",
+              "contents",
+              "created_at"
+            ]
+          },
+          "ObjectGenericUnion.ISaleArticle.IContent": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "created_at": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "body": {
+                "type": "string"
+              },
+              "files": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ObjectGenericUnion.IAttachmentFile"
+                }
+              }
+            },
+            "required": [
+              "id",
+              "created_at",
+              "title",
+              "body",
+              "files"
+            ]
+          },
+          "ObjectGenericUnion.IAttachmentFile": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "extension": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ]
+              },
+              "url": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "extension",
+              "url"
+            ]
+          },
+          "ObjectGenericUnion.ISaleReview": {
+            "type": "object",
+            "properties": {
+              "writer": {
+                "type": "string"
+              },
+              "answer": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/$defs/ObjectGenericUnion.ISaleAnswer"
+                  }
+                ]
+              },
+              "id": {
+                "type": "string"
+              },
+              "hit": {
+                "type": "number"
+              },
+              "contents": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ObjectGenericUnion.ISaleReview.IContent"
+                }
+              },
+              "created_at": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "writer",
+              "answer",
+              "id",
+              "hit",
+              "contents",
+              "created_at"
+            ]
+          },
+          "ObjectGenericUnion.ISaleReview.IContent": {
+            "type": "object",
+            "properties": {
+              "score": {
+                "type": "number"
+              },
+              "id": {
+                "type": "string"
+              },
+              "created_at": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "body": {
+                "type": "string"
+              },
+              "files": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ObjectGenericUnion.IAttachmentFile"
+                }
+              }
+            },
+            "required": [
+              "score",
+              "id",
+              "created_at",
+              "title",
+              "body",
+              "files"
+            ]
+          }
+        }
       },
       "output": {
         "anyOf": [
@@ -2581,365 +761,10 @@
             "type": "null"
           },
           {
-            "type": "object",
-            "properties": {
-              "value": {
-                "anyOf": [
-                  {
-                    "type": "object",
-                    "properties": {
-                      "writer": {
-                        "type": "string"
-                      },
-                      "answer": {
-                        "anyOf": [
-                          {
-                            "type": "null"
-                          },
-                          {
-                            "type": "object",
-                            "properties": {
-                              "id": {
-                                "type": "string"
-                              },
-                              "hit": {
-                                "type": "number"
-                              },
-                              "contents": {
-                                "type": "array",
-                                "items": {
-                                  "type": "object",
-                                  "properties": {
-                                    "id": {
-                                      "type": "string"
-                                    },
-                                    "created_at": {
-                                      "type": "string"
-                                    },
-                                    "title": {
-                                      "type": "string"
-                                    },
-                                    "body": {
-                                      "type": "string"
-                                    },
-                                    "files": {
-                                      "type": "array",
-                                      "items": {
-                                        "type": "object",
-                                        "properties": {
-                                          "name": {
-                                            "type": "string"
-                                          },
-                                          "extension": {
-                                            "anyOf": [
-                                              {
-                                                "type": "null"
-                                              },
-                                              {
-                                                "type": "string"
-                                              }
-                                            ]
-                                          },
-                                          "url": {
-                                            "type": "string"
-                                          }
-                                        },
-                                        "required": [
-                                          "name",
-                                          "extension",
-                                          "url"
-                                        ],
-                                        "additionalProperties": false
-                                      }
-                                    }
-                                  },
-                                  "required": [
-                                    "id",
-                                    "created_at",
-                                    "title",
-                                    "body",
-                                    "files"
-                                  ],
-                                  "additionalProperties": false
-                                }
-                              },
-                              "created_at": {
-                                "type": "string"
-                              }
-                            },
-                            "required": [
-                              "id",
-                              "hit",
-                              "contents",
-                              "created_at"
-                            ],
-                            "additionalProperties": false
-                          }
-                        ]
-                      },
-                      "id": {
-                        "type": "string"
-                      },
-                      "hit": {
-                        "type": "number"
-                      },
-                      "contents": {
-                        "type": "array",
-                        "items": {
-                          "type": "object",
-                          "properties": {
-                            "id": {
-                              "type": "string"
-                            },
-                            "created_at": {
-                              "type": "string"
-                            },
-                            "title": {
-                              "type": "string"
-                            },
-                            "body": {
-                              "type": "string"
-                            },
-                            "files": {
-                              "type": "array",
-                              "items": {
-                                "type": "object",
-                                "properties": {
-                                  "name": {
-                                    "type": "string"
-                                  },
-                                  "extension": {
-                                    "anyOf": [
-                                      {
-                                        "type": "null"
-                                      },
-                                      {
-                                        "type": "string"
-                                      }
-                                    ]
-                                  },
-                                  "url": {
-                                    "type": "string"
-                                  }
-                                },
-                                "required": [
-                                  "name",
-                                  "extension",
-                                  "url"
-                                ],
-                                "additionalProperties": false
-                              }
-                            }
-                          },
-                          "required": [
-                            "id",
-                            "created_at",
-                            "title",
-                            "body",
-                            "files"
-                          ],
-                          "additionalProperties": false
-                        }
-                      },
-                      "created_at": {
-                        "type": "string"
-                      }
-                    },
-                    "required": [
-                      "writer",
-                      "answer",
-                      "id",
-                      "hit",
-                      "contents",
-                      "created_at"
-                    ],
-                    "additionalProperties": false
-                  },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "writer": {
-                        "type": "string"
-                      },
-                      "answer": {
-                        "anyOf": [
-                          {
-                            "type": "null"
-                          },
-                          {
-                            "type": "object",
-                            "properties": {
-                              "id": {
-                                "type": "string"
-                              },
-                              "hit": {
-                                "type": "number"
-                              },
-                              "contents": {
-                                "type": "array",
-                                "items": {
-                                  "type": "object",
-                                  "properties": {
-                                    "id": {
-                                      "type": "string"
-                                    },
-                                    "created_at": {
-                                      "type": "string"
-                                    },
-                                    "title": {
-                                      "type": "string"
-                                    },
-                                    "body": {
-                                      "type": "string"
-                                    },
-                                    "files": {
-                                      "type": "array",
-                                      "items": {
-                                        "type": "object",
-                                        "properties": {
-                                          "name": {
-                                            "type": "string"
-                                          },
-                                          "extension": {
-                                            "anyOf": [
-                                              {
-                                                "type": "null"
-                                              },
-                                              {
-                                                "type": "string"
-                                              }
-                                            ]
-                                          },
-                                          "url": {
-                                            "type": "string"
-                                          }
-                                        },
-                                        "required": [
-                                          "name",
-                                          "extension",
-                                          "url"
-                                        ],
-                                        "additionalProperties": false
-                                      }
-                                    }
-                                  },
-                                  "required": [
-                                    "id",
-                                    "created_at",
-                                    "title",
-                                    "body",
-                                    "files"
-                                  ],
-                                  "additionalProperties": false
-                                }
-                              },
-                              "created_at": {
-                                "type": "string"
-                              }
-                            },
-                            "required": [
-                              "id",
-                              "hit",
-                              "contents",
-                              "created_at"
-                            ],
-                            "additionalProperties": false
-                          }
-                        ]
-                      },
-                      "id": {
-                        "type": "string"
-                      },
-                      "hit": {
-                        "type": "number"
-                      },
-                      "contents": {
-                        "type": "array",
-                        "items": {
-                          "type": "object",
-                          "properties": {
-                            "score": {
-                              "type": "number"
-                            },
-                            "id": {
-                              "type": "string"
-                            },
-                            "created_at": {
-                              "type": "string"
-                            },
-                            "title": {
-                              "type": "string"
-                            },
-                            "body": {
-                              "type": "string"
-                            },
-                            "files": {
-                              "type": "array",
-                              "items": {
-                                "type": "object",
-                                "properties": {
-                                  "name": {
-                                    "type": "string"
-                                  },
-                                  "extension": {
-                                    "anyOf": [
-                                      {
-                                        "type": "null"
-                                      },
-                                      {
-                                        "type": "string"
-                                      }
-                                    ]
-                                  },
-                                  "url": {
-                                    "type": "string"
-                                  }
-                                },
-                                "required": [
-                                  "name",
-                                  "extension",
-                                  "url"
-                                ],
-                                "additionalProperties": false
-                              }
-                            }
-                          },
-                          "required": [
-                            "score",
-                            "id",
-                            "created_at",
-                            "title",
-                            "body",
-                            "files"
-                          ],
-                          "additionalProperties": false
-                        }
-                      },
-                      "created_at": {
-                        "type": "string"
-                      }
-                    },
-                    "required": [
-                      "writer",
-                      "answer",
-                      "id",
-                      "hit",
-                      "contents",
-                      "created_at"
-                    ],
-                    "additionalProperties": false
-                  }
-                ]
-              }
-            },
-            "required": [
-              "value"
-            ],
-            "additionalProperties": false
+            "$ref": "#/$defs/ObjectGenericUnion"
           }
         ]
-      },
-      "strict": true
+      }
     }
   ]
 }

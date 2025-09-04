@@ -6,7 +6,7 @@
       "properties": {
         "id": {
           "type": "string",
-          "description": "@format uuid"
+          "format": "uuid"
         },
         "dollar": {
           "type": "string",
@@ -27,6 +27,7 @@
         "postfix",
         "powerOf"
       ],
+      "description": "Current Type: {@link TypeTagCustom}",
       "additionalProperties": false
     },
     "nullable": {
@@ -34,7 +35,7 @@
       "properties": {
         "id": {
           "type": "string",
-          "description": "@format uuid"
+          "format": "uuid"
         },
         "dollar": {
           "type": "string",
@@ -63,7 +64,7 @@
       "properties": {
         "id": {
           "type": "string",
-          "description": "@format uuid"
+          "format": "uuid"
         },
         "dollar": {
           "type": "string",
@@ -84,6 +85,7 @@
         "postfix",
         "powerOf"
       ],
+      "description": "Current Type: {@link TypeTagCustom}",
       "additionalProperties": false
     },
     "faint": {
@@ -91,7 +93,7 @@
       "properties": {
         "id": {
           "type": "string",
-          "description": "@format uuid"
+          "format": "uuid"
         },
         "dollar": {
           "type": "string",
@@ -122,7 +124,7 @@
         "properties": {
           "id": {
             "type": "string",
-            "description": "@format uuid"
+            "format": "uuid"
           },
           "dollar": {
             "type": "string",
@@ -143,6 +145,7 @@
           "postfix",
           "powerOf"
         ],
+        "description": "Current Type: {@link TypeTagCustom}",
         "additionalProperties": false
       }
     }

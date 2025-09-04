@@ -1,0 +1,349 @@
+---
+title: Guide Documents > Large Language Model > parameters() function
+---
+import { Callout, Tabs } from "nextra/components";
+
+import LocalSource from "../../../components/LocalSource";
+import RemoteSource from "../../../components/RemoteSource";
+import ValidatorSupportMatrixSnippet from "../../../snippets/ValidatorSupportMatrixSnippet.mdx";
+
+## `parameters()` function
+
+<Tabs items={[
+    <code>typia</code>,
+    <code>ILlmApplication</code>,
+    <code>ILlmFunction</code>,
+    <code>ILlmSchema</code>,
+  ]}>
+  <Tabs.Tab>
+```typescript filename="typia" showLineNumbers {20-25}
+export namespace llm {
+  // LLM FUNCTION CALLING APPLICATION SCHEMA
+  export function application<
+    App extends Record<string, any>,
+    Model extends ILlmSchema.Model,
+    Config extends Partial<ILlmSchema.ModelConfig[Model]> = {},
+  >(
+    options?: Partial<Pick<ILlmApplication.IOptions<Model>, "separate">>,
+  ): ILlmApplication<Model>;
+
+  // STRUCTURED OUTPUT
+  export function parameters<
+    Parameters extends Record<string, any>,
+    Model extends ILlmSchema.Model,
+    Config extends Partial<ILlmSchema.ModelConfig[Model]> = {},
+  >(): ILlmSchema.ModelParameters[Model];
+
+  // TYPE SCHEMA
+  export function schema<
+    T,
+    Model extends ILlmSchema.Model,
+    Config extends Partial<ILlmSchema.ModelConfig[Model]> = {},
+  >(
+    ...$defs: Extract<
+      ILlmSchema.ModelSchema[Model],
+      { $ref: string }
+    > extends never
+      ? []
+      : [Record<string, ILlmSchema.ModelSchema[Model]>]
+  ): ILlmSchema.ModelSchema[Model];
+}
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/openapi/refs/heads/master/src/structures/ILlmApplication.ts"
+      filename="@samchon/openapi"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/openapi/refs/heads/master/src/structures/ILlmFunction.ts"
+      filename="@samchon/openapi"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/openapi/refs/heads/master/src/structures/ILlmSchema.ts"
+      filename="@samchon/openapi"
+      showLineNumbers />
+  </Tabs.Tab>
+</Tabs>
+
+Structured output schema of LLM (Large Language Model).
+
+`typia.llm.parameters<Parameters, Model>()` is a function generating structured output of LLM (Large Language Model) from a TypeScript object type. It is used to LLM function calling or structured output feature provided by OpenAI like LLM providers.
+
+Return value type `ILlmSchema.IParameters` is a similar with the JSON schema definition's object type. However, its detailed specification becomes different by LLM provider model you've chosen. Here is the list of LLM schema definitions of each model. Determine one of them carefully reading the LLM schema definitions.
+
+  - Supported schemas
+    - [`IChatGptSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IChatGptSchema.ts): OpenAI ChatGPT
+    - [`IClaudeSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IClaudeSchema.ts): Anthropic Claude
+    - [`IGeminiSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IGeminiSchema.ts): Google Gemini
+    - [`ILlamaSchema`](https://github.com/samchon/openapi/blob/master/src/structures/ILlamaSchema.ts): Meta Llama
+  - Midldle layer schemas
+    - [`ILlmSchemaV3`](https://github.com/samchon/openapi/blob/master/src/structures/ILlmSchemaV3.ts): middle layer based on OpenAPI v3.0 specification
+    - [`ILlmSchemaV3_1`](https://github.com/samchon/openapi/blob/master/src/structures/ILlmSchemaV3_1.ts): middle layer based on OpenAPI v3.1 specification
+  
+<Callout type="info">
+**LLM Function Calling** and **Structured Output**
+
+LLM selects proper function and fill arguments.
+
+In nowadays, most LLM (Large Language Model) like OpenAI are supporting "function calling" feature. The "LLM function calling" means that LLM automatically selects a proper function and fills parameter values from conversation with the user (may by chatting text).
+
+Structured output is another feature of LLM. The "structured output" means that LLM automatically transforms the output conversation into a structured data format like JSON.
+
+- https://platform.openai.com/docs/guides/function-calling
+- https://platform.openai.com/docs/guides/structured-outputs
+</Callout>
+
+<Tabs items={["TypeScript Source Code", "Compiled JavaScript"]}>
+  <Tabs.Tab>
+    <LocalSource 
+      path="examples/src/llm/parameters.ts"
+      filename="example/src/llm/parameters.ts"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource 
+      path="examples/bin/llm/parameters.js"
+      filename="example/bin/llm/parameters.js"
+      showLineNumbers />
+  </Tabs.Tab>
+</Tabs>
+
+[📖 Playground Link](https://typia.io/playground/?script=JYWwDg9gTgLgBAbzgSQMIAsCGMDiYYDKAxugKYiZwC+cAZlBCHAEQACAzpiCRAHYD0EMKV6YwwZgG4AUKEiw4MAJ7jMAGkSLMAc3bU6DJs2Wqp0uLN4xSUWpiKkUAWXIAjG4nNxymYABsALjh2GChgXm04ADItXQA6ADFoChgAHmYff2YAPhk4OFEQUiCQsIi8uB1igoBXEHcoCvQIV1dgUnYS0PDtAG0AXQqAKwhw0gATAH1sLrLImJgddkTk7HTx7FIcmSppIj4QuDAgtCxcfGIyCjjkAAVMKC5Sayg9AF5FFWBMOL8-EDiYAeTxe7FSyBc9RsGmYJGw2nwOQAFABKGT7XjsCB+Ui-CDaJFgNFAA)
+
+## Structured Output
+
+```typescript filename="src/examples/llm.parameters.ts" copy showLineNumbers {4-10, 36}
+import OpenAI from "openai";
+import typia, { tags } from "typia";
+
+interface IMember {
+  email: string & tags.Format<"email">;
+  name: string;
+  age: number;
+  hobbies: string[];
+  joined_at: string & tags.Format<"date">;
+}
+
+const main = async (): Promise<void> => {
+  const client: OpenAI = new OpenAI({
+    apiKey: TestGlobal.env.CHATGPT_API_KEY,
+    // apiKey: "<YOUR_OPENAI_API_KEY>",
+  });
+  const completion: OpenAI.ChatCompletion =
+    await client.chat.completions.create({
+      model: "gpt-4o",
+      messages: [
+        {
+          role: "user",
+          content: [
+            "I am a new member of the community.",
+            "",
+            "My name is John Doe, and I am 25 years old.",
+            "I like playing basketball and reading books,",
+            "and joined to this community at 2022-01-01.",
+          ].join("\n"),
+        },
+      ],
+      response_format: {
+        type: "json_schema",
+        json_schema: {
+          name: "member",
+          schema: typia.llm.parameters<IMember, "chatgpt">() as any,
+        },
+      },
+    });
+  console.log(JSON.parse(completion.choices[0].message.content!));
+};
+main().catch(console.error);
+```
+
+> ```bash filename="Terminal"
+> {
+>   email: 'john.doe@example.com',
+>   name: 'John Doe',
+>   age: 25,
+>   hobbies: [ 'playing basketball', 'reading books' ],
+>   joined_at: '2022-01-01'
+> }
+> ```
+
+You can utilize the `typia.llm.parameters<Parameters, Model>()` function to generate structured output like above.
+
+Just configure output mode as JSON schema, and deliver the `typia.llm.parameters<Parameters, Model>()` function returned value to the LLM provider like OpenAI (ChatGPT). Then, the LLM provider will automatically transform the output conversation into a structured data format of the `Parameters` type.
+
+## Validation Feedback
+
+```typescript filename="src/examples/llm.parameters.ts" copy showLineNumbers {4-10, 13, 32-49, 55, 60}
+import OpenAI from "openai";
+import typia, { IValidation, tags } from "typia";
+
+interface IMember {
+  email: string & tags.Format<"email">;
+  name: string;
+  age: number;
+  hobbies: string[];
+  joined_at: string & tags.Format<"date">;
+}
+
+const step = async (
+  failure?: IValidation.IFailure | undefined,
+): Promise<IValidation<IMember>> => {
+  const client: OpenAI = new OpenAI({
+    apiKey: "<YOUR_OPENAI_API_KEY>",
+  });
+  const completion: OpenAI.ChatCompletion =
+    await client.chat.completions.create({
+      model: "gpt-4o",
+      messages: [
+        {
+          role: "user",
+          content: [
+            "I am a new member of the community.",
+            "",
+            "My name is John Doe, and I am 25 years old.",
+            "I like playing basketball and reading books,",
+            "and joined to this community at 2022-01-01.",
+          ].join("\n"),
+        },
+        ...(failure
+          ? [
+              {
+                role: "system",
+                content: [
+                  "You A.I. agent had taken a mistak that",
+                  "returning wrong typed structured data.",
+                  "",
+                  "Here is the detailed list of type errors.",
+                  "Review and correct them at the next step.",
+                  "",
+                  "```json",
+                  JSON.stringify(failure.errors, null, 2),
+                  "```",
+                ].join("\n"),
+              } satisfies OpenAI.ChatCompletionSystemMessageParam,
+            ]
+          : []),
+      ],
+      response_format: {
+        type: "json_schema",
+        json_schema: {
+          name: "member",
+          schema: typia.llm.parameters<IMember, "chatgpt">() as any,
+        },
+      },
+    });
+  const member: IMember = JSON.parse(completion.choices[0].message.content!);
+  return typia.validate(member);
+};
+
+const main = async (): Promise<void> => {
+  let result: IValidation<IMember> | undefined = undefined;
+  for (let i: number = 0; i < 2; ++i) {
+    if (result && result.success === true) break;
+    result = await step(result);
+  }
+  console.log(result);
+};
+
+main().catch(console.error);
+```
+
+> ```bash filename="Terminal"
+> {
+>   email: 'john.doe@example.com',
+>   name: 'John Doe',
+>   age: 25,
+>   hobbies: [ 'playing basketball', 'reading books' ],
+>   joined_at: '2022-01-01'
+> }
+> ```
+
+Is LLM Structured Output perfect? No, absolutely not.
+
+LLM (Large Language Model) service vendor like OpenAI takes a lot of type level mistakes when composing the arguments of function calling or structured output. Even though target schema is super simple like `Array<string>` type, LLM often fills it just by a `string` typed value.
+
+In my experience, OpenAI `gpt-4o-mini` (`8b` parameters) is taking about 70% of type level mistakes when filling the arguments of structured output to Shopping Mall service. To overcome the imperfection of such structured output, you have to utilize the validation feedback strategy with [`typia.validate<T>()`](/docs/validators/validate) function.
+
+The key concept of validation feedback strategy is, let LLM structured output to construct invalid typed arguments first, and informing detailed type errors to the LLM, so that induce LLM to emend the wrong typed arguments at the next turn. In this way, I could uprise the success rate of structured output from 30% to 99% just by one step validation feedback. Even though the LLM is still occurs type error, it always has been caught at the next turn.
+
+For reference, the [`typia.validate<T>()`](/docs/validators/validate) function creates validation logic by analyzing TypeScript source codes and types in the compilation level. Therefore, it is accurate and detailed than any other validator libraries. This is exactly what is needed for function calling, and I can confidentelly say that `typia` is the best library for LLM structured output.
+
+<ValidatorSupportMatrixSnippet />
+
+Additionally, this validation feedback strategy is useful for some LLM providers do not supporting restriction properties of JSON schema like OpenAI ([`IChatGptSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IChatGptSchema.ts)) and Gemini ([`IGeminiSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IGeminiSchema.ts)). For example, OpenAI and Gemini do not support `format` property of JSON schema, so that cannot understand the `UUID` like type. Even though `typia.llm.application<App, Model>()` function is writing the restriction information to the `description` property of JSON schema, but LLM provider does not reflect it perfectly.
+
+Also, some LLM providers which have not specified the JSON schema version like Claude ([`IClaudeSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IClaudeSchema.ts)) and Llama ([`ILlamaSchema`](https://github.com/samchon/openapi/blob/master/src/structures/ILlamaSchema.ts)), they tend to fail a lot of function calling about the restriction properties. In fact, Llama does not support the structured output formally, so you have to detour it by prompt template, and its success rate is lower than others.
+
+In that case, if you give validation feedback from `ILlmFunction.validate()` function to the LLM agent, the LLM agent will be able to understand the restriction information exactly and fill the arguments properly.
+
+  - Restriction properties of JSON schema
+    - `string`: `minLength`, `maxLength`, `pattern`, `format`, `contentMediaType`
+    - `number`: `minimum`, `maximum`, `exclusiveMinimum`, `exclusiveMaximum`, `multipleOf`
+    - `array`: `minItems`, `maxItems`, `uniqueItems`, `items`
+
+## Restrictions
+
+`typia.llm.parameters<Parameters, Model>()` follows the same restrictions [`typia.llm.schema<T, Model>()`](./schema) function. Also, it has only one additional restriction; the keyworded argument.
+
+In the LLM function calling and structured output, the parameters must be a keyworded object type with static keys without any dynamic keys. Also, the object type must not be nullable or optional.
+
+If you don't follow the LLM's keyworded arguments rule, `typia.llm.parameters<Parameters, Model>()` will throw compilation error like below.
+
+<Tabs items={["TypeScript Source Code", "Console Output"]}>
+  <Tabs.Tab>
+```typescript filename="src/examples/llm.parameters.violation.ts" showLineNumbers
+import typia from "typia";
+
+typia.llm.parameters<string>();
+typia.llm.parameters<Record<string, boolean>, "chatgpt">();
+typia.llm.parameters<Array<number>>();
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```bash filename="Terminal"
+src/examples/llm.parameters.violation.ts:3:1 - error TS(typia.llm.parameters): unsupported type detected       
+
+- string
+  - LLM parameters must be an object type.        
+
+3 typia.llm.parameters<string, "chatgpt">();     
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~      
+
+src/examples/llm.parameters.violation.ts:3:22 - error TS2344: Type 'string' does not satisfy the constraint 'Record<string, any>'.
+
+3 typia.llm.parameters<string, "chatgpt">();     
+                       ~~~~~~
+
+src/examples/llm.parameters.violation.ts:4:1 - error TS(typia.llm.parameters): unsupported type detected       
+
+- Recordstringboolean
+  - LLM parameters must be an object type.        
+
+- Recordstringboolean
+  - LLM parameters must not have dynamic keys.   
+  - LLM schema of "gemini" does not support dynamic property in object.
+
+- Recordstringboolean: Recordstringboolean       
+  - LLM schema of "gemini" does not support dynamic property in object.
+
+4 typia.llm.parameters<Record<string, boolean>, "gemini">();
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+src/examples/llm.parameters.violation.ts:5:1 - error TS(typia.llm.parameters): unsupported type detected       
+
+- Arraynumber
+  - LLM parameters must be an object type.        
+
+5 typia.llm.parameters<Array<number>, "claude">();
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Found 4 errors in the same file, starting at: src/examples/llm.parameters.violation.ts
+```
+  </Tabs.Tab>
+</Tabs>

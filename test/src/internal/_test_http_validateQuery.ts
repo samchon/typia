@@ -7,8 +7,9 @@ import { resolved_equal_to } from "../helpers/resolved_equal_to";
 export const _test_http_validateQuery =
   (name: string) =>
   <T extends object>(factory: TestStructure<T>) =>
-  (decode: (input: URLSearchParams) => typia.IValidation<typia.Resolved<T>>) =>
-  () => {
+  (
+    decode: (input: URLSearchParams) => typia.IValidation<typia.Resolved<T>>,
+  ): void => {
     const data: T = factory.generate();
     const encoded: URLSearchParams = create_query(data);
 
@@ -17,6 +18,7 @@ export const _test_http_validateQuery =
       throw new Error(
         `Bug on typia.http.validateQuery(): failed to understand ${name} type.`,
       );
+    typia.assertEquals<typia.IValidation.ISuccess<unknown>>(result);
 
     const equal: boolean =
       result !== null && resolved_equal_to(name)(data, result.data);
@@ -38,7 +40,7 @@ export const _test_http_validateQuery =
           `Bug on typia.http.validateQuery(): failed to detect error on the ${name} type.`,
         );
 
-      typia.assert(valid);
+      typia.assertEquals(valid);
       expected.sort();
       valid.errors.sort((x, y) => (x.path < y.path ? -1 : 1));
 

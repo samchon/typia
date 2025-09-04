@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsFunction } from "../../internal/_test_fu
 import { ObjectGenericArray } from "../../structures/ObjectGenericArray";
 
 export const test_functional_validateEqualsFunction_ObjectGenericArray =
-  _test_functional_validateEqualsFunction("ObjectGenericArray")(
-    ObjectGenericArray,
-  )((p: (input: ObjectGenericArray) => ObjectGenericArray) =>
-    typia.functional.validateEqualsFunction(p),
-  );
+  (): void =>
+    _test_functional_validateEqualsFunction("ObjectGenericArray")(
+      ObjectGenericArray,
+    )((p: (input: ObjectGenericArray) => ObjectGenericArray) =>
+      typia.functional.validateEqualsFunction(p),
+    );

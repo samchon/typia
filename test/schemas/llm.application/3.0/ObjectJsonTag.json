@@ -1,8 +1,8 @@
 {
   "model": "3.0",
   "options": {
-    "constraint": false,
     "recursive": 3,
+    "constraint": true,
     "separate": null
   },
   "functions": [
@@ -20,7 +20,6 @@
               },
               "description": {
                 "type": "string",
-                "title": "Descripted property",
                 "description": "Descripted property."
               },
               "title": {
@@ -40,6 +39,7 @@
               "title",
               "complicate_title"
             ],
+            "description": "Current Type: {@link ObjectJsonTag}",
             "additionalProperties": false
           }
         },
@@ -47,8 +47,7 @@
           "first"
         ],
         "additionalProperties": false
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -64,7 +63,6 @@
               },
               "description": {
                 "type": "string",
-                "title": "Descripted property",
                 "description": "Descripted property."
               },
               "title": {
@@ -84,6 +82,7 @@
               "title",
               "complicate_title"
             ],
+            "description": "Current Type: {@link ObjectJsonTag}",
             "additionalProperties": false
           },
           "second": {
@@ -95,7 +94,6 @@
               },
               "description": {
                 "type": "string",
-                "title": "Descripted property",
                 "description": "Descripted property."
               },
               "title": {
@@ -134,7 +132,6 @@
           },
           "description": {
             "type": "string",
-            "title": "Descripted property",
             "description": "Descripted property."
           },
           "title": {
@@ -154,9 +151,9 @@
           "title",
           "complicate_title"
         ],
+        "description": "Current Type: {@link ObjectJsonTag}",
         "additionalProperties": false
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -172,7 +169,6 @@
               },
               "description": {
                 "type": "string",
-                "title": "Descripted property",
                 "description": "Descripted property."
               },
               "title": {
@@ -204,7 +200,6 @@
               },
               "description": {
                 "type": "string",
-                "title": "Descripted property",
                 "description": "Descripted property."
               },
               "title": {
@@ -236,7 +231,6 @@
               },
               "description": {
                 "type": "string",
-                "title": "Descripted property",
                 "description": "Descripted property."
               },
               "title": {
@@ -275,7 +269,6 @@
           },
           "description": {
             "type": "string",
-            "title": "Descripted property",
             "description": "Descripted property."
           },
           "title": {
@@ -297,8 +290,7 @@
         ],
         "additionalProperties": false,
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

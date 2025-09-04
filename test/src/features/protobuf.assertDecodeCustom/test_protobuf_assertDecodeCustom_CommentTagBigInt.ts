@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_protobuf_assertDecode } from "../../internal/_test_protobuf_assertDecode";
 import { CommentTagBigInt } from "../../structures/CommentTagBigInt";
 
-export const test_protobuf_assertDecodeCustom_CommentTagBigInt =
+export const test_protobuf_assertDecodeCustom_CommentTagBigInt = (): void =>
   _test_protobuf_assertDecode(CustomGuardError)(
     "CommentTagBigInt",
   )<CommentTagBigInt>(CommentTagBigInt)({

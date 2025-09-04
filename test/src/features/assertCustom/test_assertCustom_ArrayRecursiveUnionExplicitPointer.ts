@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_assert } from "../../internal/_test_assert";
 import { ArrayRecursiveUnionExplicitPointer } from "../../structures/ArrayRecursiveUnionExplicitPointer";
 
-export const test_assertCustom_ArrayRecursiveUnionExplicitPointer =
+export const test_assertCustom_ArrayRecursiveUnionExplicitPointer = (): void =>
   _test_assert(CustomGuardError)(
     "ArrayRecursiveUnionExplicitPointer",
   )<ArrayRecursiveUnionExplicitPointer>(ArrayRecursiveUnionExplicitPointer)(

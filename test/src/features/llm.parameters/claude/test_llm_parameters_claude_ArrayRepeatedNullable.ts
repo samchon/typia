@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
 import { ArrayRepeatedNullable } from "../../../structures/ArrayRepeatedNullable";
 
-export const test_llm_parameters_claude_ArrayRepeatedNullable =
+export const test_llm_parameters_claude_ArrayRepeatedNullable = (): void =>
   _test_llm_parameters({
     model: "claude",
     name: "ArrayRepeatedNullable",

@@ -5,8 +5,10 @@ import { _test_functional_assertEqualsReturn } from "../../internal/_test_functi
 import { ConstantAtomicAbsorbed } from "../../structures/ConstantAtomicAbsorbed";
 
 export const test_functional_assertEqualsReturn_ConstantAtomicAbsorbed =
-  _test_functional_assertEqualsReturn(TypeGuardError)("ConstantAtomicAbsorbed")(
-    ConstantAtomicAbsorbed,
-  )((p: (input: ConstantAtomicAbsorbed) => ConstantAtomicAbsorbed) =>
-    typia.functional.assertEqualsReturn(p),
-  );
+  (): void =>
+    _test_functional_assertEqualsReturn(TypeGuardError)(
+      "ConstantAtomicAbsorbed",
+    )(ConstantAtomicAbsorbed)(
+      (p: (input: ConstantAtomicAbsorbed) => ConstantAtomicAbsorbed) =>
+        typia.functional.assertEqualsReturn(p),
+    );

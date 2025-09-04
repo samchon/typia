@@ -5,8 +5,9 @@ import { _test_functional_assertFunctionAsync } from "../../internal/_test_funct
 import { ClassClosure } from "../../structures/ClassClosure";
 
 export const test_functional_assertFunctionAsync_ClassClosure =
-  _test_functional_assertFunctionAsync(TypeGuardError)("ClassClosure")(
-    ClassClosure,
-  )((p: (input: ClassClosure) => Promise<ClassClosure>) =>
-    typia.functional.assertFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertFunctionAsync(TypeGuardError)("ClassClosure")(
+      ClassClosure,
+    )((p: (input: ClassClosure) => Promise<ClassClosure>) =>
+      typia.functional.assertFunction(p),
+    );

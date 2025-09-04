@@ -3,10 +3,11 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { CommentTagFormat } from "../../../structures/CommentTagFormat";
 
-export const test_llm_application_gemini_CommentTagFormat =
+export const test_llm_application_gemini_CommentTagFormat = (): void =>
   _test_llm_application({
     model: "gemini",
     name: "CommentTagFormat",
+    factory: CommentTagFormat,
   })(typia.llm.application<CommentTagFormatApplication, "gemini">());
 
 interface CommentTagFormatApplication {

@@ -5,8 +5,9 @@ import { _test_functional_assertReturnAsync } from "../../internal/_test_functio
 import { ArraySimpleProtobuf } from "../../structures/ArraySimpleProtobuf";
 
 export const test_functional_assertReturnAsync_ArraySimpleProtobuf =
-  _test_functional_assertReturnAsync(TypeGuardError)("ArraySimpleProtobuf")(
-    ArraySimpleProtobuf,
-  )((p: (input: ArraySimpleProtobuf) => Promise<ArraySimpleProtobuf>) =>
-    typia.functional.assertReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertReturnAsync(TypeGuardError)("ArraySimpleProtobuf")(
+      ArraySimpleProtobuf,
+    )((p: (input: ArraySimpleProtobuf) => Promise<ArraySimpleProtobuf>) =>
+      typia.functional.assertReturn(p),
+    );

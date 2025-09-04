@@ -5,8 +5,9 @@ import { _test_functional_assertEqualsFunctionAsync } from "../../internal/_test
 import { AtomicAlias } from "../../structures/AtomicAlias";
 
 export const test_functional_assertEqualsFunctionAsyncCustom_AtomicAlias =
-  _test_functional_assertEqualsFunctionAsync(CustomGuardError)("AtomicAlias")(
-    AtomicAlias,
-  )((p: (input: AtomicAlias) => Promise<AtomicAlias>) =>
-    typia.functional.assertEqualsFunction(p, (p) => new CustomGuardError(p)),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsFunctionAsync(CustomGuardError)("AtomicAlias")(
+      AtomicAlias,
+    )((p: (input: AtomicAlias) => Promise<AtomicAlias>) =>
+      typia.functional.assertEqualsFunction(p, (p) => new CustomGuardError(p)),
+    );

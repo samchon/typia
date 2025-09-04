@@ -44,6 +44,7 @@
                           "time",
                           "zone"
                         ],
+                        "description": "Current Type: {@link ArrayRecursive.ITimestamp}",
                         "additionalProperties": false
                       }
                     },
@@ -54,6 +55,7 @@
                       "sequence",
                       "created_at"
                     ],
+                    "description": "Current Type: {@link ArrayRecursive.ICategory}",
                     "additionalProperties": false
                   }
                 },
@@ -80,6 +82,7 @@
                     "time",
                     "zone"
                   ],
+                  "description": "Current Type: {@link ArrayRecursive.ITimestamp}",
                   "additionalProperties": false
                 }
               },
@@ -90,6 +93,7 @@
                 "sequence",
                 "created_at"
               ],
+              "description": "Current Type: {@link ArrayRecursive.ICategory}",
               "additionalProperties": false
             }
           },
@@ -116,6 +120,7 @@
               "time",
               "zone"
             ],
+            "description": "Current Type: {@link ArrayRecursive.ITimestamp}",
             "additionalProperties": false
           }
         },
@@ -126,6 +131,7 @@
           "sequence",
           "created_at"
         ],
+        "description": "Current Type: {@link ArrayRecursive.ICategory}",
         "additionalProperties": false
       }
     },
@@ -152,6 +158,7 @@
         "time",
         "zone"
       ],
+      "description": "Current Type: {@link ArrayRecursive.ITimestamp}",
       "additionalProperties": false
     }
   },
@@ -162,5 +169,6 @@
     "sequence",
     "created_at"
   ],
+  "description": "Current Type: {@link ArrayRecursive.ICategory}",
   "additionalProperties": false
 }

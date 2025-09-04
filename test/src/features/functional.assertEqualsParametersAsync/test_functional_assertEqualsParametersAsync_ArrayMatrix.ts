@@ -5,8 +5,9 @@ import { _test_functional_assertEqualsParametersAsync } from "../../internal/_te
 import { ArrayMatrix } from "../../structures/ArrayMatrix";
 
 export const test_functional_assertEqualsParametersAsync_ArrayMatrix =
-  _test_functional_assertEqualsParametersAsync(TypeGuardError)("ArrayMatrix")(
-    ArrayMatrix,
-  )((p: (input: ArrayMatrix) => Promise<ArrayMatrix>) =>
-    typia.functional.assertEqualsParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsParametersAsync(TypeGuardError)("ArrayMatrix")(
+      ArrayMatrix,
+    )((p: (input: ArrayMatrix) => Promise<ArrayMatrix>) =>
+      typia.functional.assertEqualsParameters(p),
+    );

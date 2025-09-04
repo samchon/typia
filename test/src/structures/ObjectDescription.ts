@@ -6,8 +6,8 @@ import { Spoiler } from "../helpers/Spoiler";
 /**
  * An interface designed to test JSON schema's object description.
  *
- * @title This is the title of object type
  * @author Samchon
+ * @title This is the title of object type
  */
 export interface ObjectDescription {
   /**
@@ -20,8 +20,8 @@ export interface ObjectDescription {
   /**
    * Deprecated property.
    *
-   * If `@deprecated` comment tag being utilized, the property will be marked
-   * as deprecated in the JSON scheam.
+   * If `@deprecated` comment tag being utilized, the property will be marked as
+   * deprecated in the JSON schema.
    *
    * @deprecated
    */
@@ -37,9 +37,9 @@ export interface ObjectDescription {
   /**
    * Description property.
    *
-   * If you write first line and the first line ends with "." character,
-   * it would be considered as the title. By the way, description does
-   * not exclusive the title, so that full content be written.
+   * If you write first line and the first line ends with "." character, it
+   * would be considered as the title. By the way, description does not
+   * exclusive the title, so that full content be written.
    */
   descriptions: string[];
 

@@ -5,8 +5,9 @@ import { _test_functional_assertReturnAsync } from "../../internal/_test_functio
 import { FunctionalValue } from "../../structures/FunctionalValue";
 
 export const test_functional_assertReturnAsync_FunctionalValue =
-  _test_functional_assertReturnAsync(TypeGuardError)("FunctionalValue")(
-    FunctionalValue,
-  )((p: (input: FunctionalValue) => Promise<FunctionalValue>) =>
-    typia.functional.assertReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertReturnAsync(TypeGuardError)("FunctionalValue")(
+      FunctionalValue,
+    )((p: (input: FunctionalValue) => Promise<FunctionalValue>) =>
+      typia.functional.assertReturn(p),
+    );

@@ -5,8 +5,9 @@ import { _test_functional_assertReturnAsync } from "../../internal/_test_functio
 import { DynamicTemplate } from "../../structures/DynamicTemplate";
 
 export const test_functional_assertReturnAsync_DynamicTemplate =
-  _test_functional_assertReturnAsync(TypeGuardError)("DynamicTemplate")(
-    DynamicTemplate,
-  )((p: (input: DynamicTemplate) => Promise<DynamicTemplate>) =>
-    typia.functional.assertReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertReturnAsync(TypeGuardError)("DynamicTemplate")(
+      DynamicTemplate,
+    )((p: (input: DynamicTemplate) => Promise<DynamicTemplate>) =>
+      typia.functional.assertReturn(p),
+    );

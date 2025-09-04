@@ -5,8 +5,9 @@ import { _test_functional_assertReturnAsync } from "../../internal/_test_functio
 import { ObjectDynamic } from "../../structures/ObjectDynamic";
 
 export const test_functional_assertReturnAsyncCustom_ObjectDynamic =
-  _test_functional_assertReturnAsync(CustomGuardError)("ObjectDynamic")(
-    ObjectDynamic,
-  )((p: (input: ObjectDynamic) => Promise<ObjectDynamic>) =>
-    typia.functional.assertReturn(p, (p) => new CustomGuardError(p)),
-  );
+  (): Promise<void> =>
+    _test_functional_assertReturnAsync(CustomGuardError)("ObjectDynamic")(
+      ObjectDynamic,
+    )((p: (input: ObjectDynamic) => Promise<ObjectDynamic>) =>
+      typia.functional.assertReturn(p, (p) => new CustomGuardError(p)),
+    );

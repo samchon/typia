@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_json_assertStringify } from "../../internal/_test_json_assertStringify";
 import { CommentTagArrayUnion } from "../../structures/CommentTagArrayUnion";
 
-export const test_json_assertStringifyCustom_CommentTagArrayUnion =
+export const test_json_assertStringifyCustom_CommentTagArrayUnion = (): void =>
   _test_json_assertStringify(CustomGuardError)(
     "CommentTagArrayUnion",
   )<CommentTagArrayUnion>(CommentTagArrayUnion)((input) =>

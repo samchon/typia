@@ -5,9 +5,10 @@ import { _test_functional_assertFunctionAsync } from "../../internal/_test_funct
 import { CommentTagAtomicUnion } from "../../structures/CommentTagAtomicUnion";
 
 export const test_functional_assertFunctionAsyncCustom_CommentTagAtomicUnion =
-  _test_functional_assertFunctionAsync(CustomGuardError)(
-    "CommentTagAtomicUnion",
-  )(CommentTagAtomicUnion)(
-    (p: (input: CommentTagAtomicUnion) => Promise<CommentTagAtomicUnion>) =>
-      typia.functional.assertFunction(p, (p) => new CustomGuardError(p)),
-  );
+  (): Promise<void> =>
+    _test_functional_assertFunctionAsync(CustomGuardError)(
+      "CommentTagAtomicUnion",
+    )(CommentTagAtomicUnion)(
+      (p: (input: CommentTagAtomicUnion) => Promise<CommentTagAtomicUnion>) =>
+        typia.functional.assertFunction(p, (p) => new CustomGuardError(p)),
+    );

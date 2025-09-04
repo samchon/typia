@@ -57,7 +57,8 @@
                     "extension",
                     "url",
                     "created_at"
-                  ]
+                  ],
+                  "description": "Current Type: {@link ObjectPrimitive.IFile}"
                 }
               },
               "secret": {
@@ -75,14 +76,14 @@
               "files",
               "secret",
               "created_at"
-            ]
+            ],
+            "description": "Current Type: {@link ObjectPrimitive.IArticle}"
           }
         },
         "required": [
           "first"
         ]
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -136,7 +137,8 @@
                     "extension",
                     "url",
                     "created_at"
-                  ]
+                  ],
+                  "description": "Current Type: {@link ObjectPrimitive.IFile}"
                 }
               },
               "secret": {
@@ -154,7 +156,8 @@
               "files",
               "secret",
               "created_at"
-            ]
+            ],
+            "description": "Current Type: {@link ObjectPrimitive.IArticle}"
           },
           "second": {
             "type": "object",
@@ -203,7 +206,8 @@
                     "extension",
                     "url",
                     "created_at"
-                  ]
+                  ],
+                  "description": "Current Type: {@link ObjectPrimitive.IFile}"
                 }
               },
               "secret": {
@@ -277,7 +281,8 @@
                 "extension",
                 "url",
                 "created_at"
-              ]
+              ],
+              "description": "Current Type: {@link ObjectPrimitive.IFile}"
             }
           },
           "secret": {
@@ -295,9 +300,9 @@
           "files",
           "secret",
           "created_at"
-        ]
-      },
-      "strict": true
+        ],
+        "description": "Current Type: {@link ObjectPrimitive.IArticle}"
+      }
     },
     {
       "name": "coalesce",
@@ -351,7 +356,8 @@
                     "extension",
                     "url",
                     "created_at"
-                  ]
+                  ],
+                  "description": "Current Type: {@link ObjectPrimitive.IFile}"
                 }
               },
               "secret": {
@@ -419,7 +425,8 @@
                     "extension",
                     "url",
                     "created_at"
-                  ]
+                  ],
+                  "description": "Current Type: {@link ObjectPrimitive.IFile}"
                 }
               },
               "secret": {
@@ -487,7 +494,8 @@
                     "extension",
                     "url",
                     "created_at"
-                  ]
+                  ],
+                  "description": "Current Type: {@link ObjectPrimitive.IFile}"
                 }
               },
               "secret": {
@@ -561,7 +569,8 @@
                 "extension",
                 "url",
                 "created_at"
-              ]
+              ],
+              "description": "Current Type: {@link ObjectPrimitive.IFile}"
             }
           },
           "secret": {
@@ -581,8 +590,7 @@
           "created_at"
         ],
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

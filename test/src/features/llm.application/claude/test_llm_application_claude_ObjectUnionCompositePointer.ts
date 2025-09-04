@@ -4,10 +4,14 @@ import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { ObjectUnionCompositePointer } from "../../../structures/ObjectUnionCompositePointer";
 
 export const test_llm_application_claude_ObjectUnionCompositePointer =
-  _test_llm_application({
-    model: "claude",
-    name: "ObjectUnionCompositePointer",
-  })(typia.llm.application<ObjectUnionCompositePointerApplication, "claude">());
+  (): void =>
+    _test_llm_application({
+      model: "claude",
+      name: "ObjectUnionCompositePointer",
+      factory: ObjectUnionCompositePointer,
+    })(
+      typia.llm.application<ObjectUnionCompositePointerApplication, "claude">(),
+    );
 
 interface ObjectUnionCompositePointerApplication {
   insert(p: { first: ObjectUnionCompositePointer }): Promise<void>;

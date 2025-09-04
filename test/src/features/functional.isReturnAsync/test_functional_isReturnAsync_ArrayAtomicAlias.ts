@@ -4,7 +4,8 @@ import { _test_functional_isReturnAsync } from "../../internal/_test_functional_
 import { ArrayAtomicAlias } from "../../structures/ArrayAtomicAlias";
 
 export const test_functional_isReturnAsync_ArrayAtomicAlias =
-  _test_functional_isReturnAsync("ArrayAtomicAlias")(ArrayAtomicAlias)(
-    (p: (input: ArrayAtomicAlias) => Promise<ArrayAtomicAlias>) =>
-      typia.functional.isReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_isReturnAsync("ArrayAtomicAlias")(ArrayAtomicAlias)(
+      (p: (input: ArrayAtomicAlias) => Promise<ArrayAtomicAlias>) =>
+        typia.functional.isReturn(p),
+    );

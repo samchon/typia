@@ -2,366 +2,7 @@
   "type": "object",
   "properties": {
     "regular": {
-      "type": "object",
-      "properties": {
-        "value": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "value": {
-                "oneOf": [
-                  {
-                    "type": "object",
-                    "properties": {
-                      "x": {
-                        "type": "number"
-                      },
-                      "y": {
-                        "type": "number"
-                      }
-                    },
-                    "required": [
-                      "x",
-                      "y"
-                    ]
-                  },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "p1": {
-                        "type": "object",
-                        "properties": {
-                          "x": {
-                            "type": "number"
-                          },
-                          "y": {
-                            "type": "number"
-                          }
-                        },
-                        "required": [
-                          "x",
-                          "y"
-                        ]
-                      },
-                      "p2": {
-                        "type": "object",
-                        "properties": {
-                          "x": {
-                            "type": "number"
-                          },
-                          "y": {
-                            "type": "number"
-                          }
-                        },
-                        "required": [
-                          "x",
-                          "y"
-                        ]
-                      }
-                    },
-                    "required": [
-                      "p1",
-                      "p2"
-                    ]
-                  },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "p1": {
-                        "type": "object",
-                        "properties": {
-                          "x": {
-                            "type": "number"
-                          },
-                          "y": {
-                            "type": "number"
-                          }
-                        },
-                        "required": [
-                          "x",
-                          "y"
-                        ]
-                      },
-                      "p2": {
-                        "type": "object",
-                        "properties": {
-                          "x": {
-                            "type": "number"
-                          },
-                          "y": {
-                            "type": "number"
-                          }
-                        },
-                        "required": [
-                          "x",
-                          "y"
-                        ]
-                      },
-                      "p3": {
-                        "type": "object",
-                        "properties": {
-                          "x": {
-                            "type": "number"
-                          },
-                          "y": {
-                            "type": "number"
-                          }
-                        },
-                        "required": [
-                          "x",
-                          "y"
-                        ]
-                      }
-                    },
-                    "required": [
-                      "p1",
-                      "p2",
-                      "p3"
-                    ]
-                  },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "p1": {
-                        "type": "object",
-                        "properties": {
-                          "x": {
-                            "type": "number"
-                          },
-                          "y": {
-                            "type": "number"
-                          }
-                        },
-                        "required": [
-                          "x",
-                          "y"
-                        ]
-                      },
-                      "p2": {
-                        "type": "object",
-                        "properties": {
-                          "x": {
-                            "type": "number"
-                          },
-                          "y": {
-                            "type": "number"
-                          }
-                        },
-                        "required": [
-                          "x",
-                          "y"
-                        ]
-                      },
-                      "p3": {
-                        "type": "object",
-                        "properties": {
-                          "x": {
-                            "type": "number"
-                          },
-                          "y": {
-                            "type": "number"
-                          }
-                        },
-                        "required": [
-                          "x",
-                          "y"
-                        ]
-                      },
-                      "p4": {
-                        "type": "object",
-                        "properties": {
-                          "x": {
-                            "type": "number"
-                          },
-                          "y": {
-                            "type": "number"
-                          }
-                        },
-                        "required": [
-                          "x",
-                          "y"
-                        ]
-                      }
-                    },
-                    "required": [
-                      "p1",
-                      "p2",
-                      "p3",
-                      "p4"
-                    ]
-                  },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "points": {
-                        "type": "array",
-                        "items": {
-                          "type": "object",
-                          "properties": {
-                            "x": {
-                              "type": "number"
-                            },
-                            "y": {
-                              "type": "number"
-                            }
-                          },
-                          "required": [
-                            "x",
-                            "y"
-                          ]
-                        }
-                      }
-                    },
-                    "required": [
-                      "points"
-                    ]
-                  },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "outer": {
-                        "type": "array",
-                        "items": {
-                          "type": "object",
-                          "properties": {
-                            "x": {
-                              "type": "number"
-                            },
-                            "y": {
-                              "type": "number"
-                            }
-                          },
-                          "required": [
-                            "x",
-                            "y"
-                          ]
-                        }
-                      },
-                      "inner": {
-                        "type": "object",
-                        "properties": {
-                          "x": {
-                            "type": "number"
-                          },
-                          "y": {
-                            "type": "number"
-                          }
-                        },
-                        "required": [
-                          "x",
-                          "y"
-                        ]
-                      }
-                    },
-                    "required": [
-                      "outer",
-                      "inner"
-                    ]
-                  },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "outer": {
-                        "type": "object",
-                        "properties": {
-                          "points": {
-                            "type": "array",
-                            "items": {
-                              "type": "object",
-                              "properties": {
-                                "x": {
-                                  "type": "number"
-                                },
-                                "y": {
-                                  "type": "number"
-                                }
-                              },
-                              "required": [
-                                "x",
-                                "y"
-                              ]
-                            }
-                          }
-                        },
-                        "required": [
-                          "points"
-                        ]
-                      },
-                      "inner": {
-                        "type": "array",
-                        "items": {
-                          "type": "object",
-                          "properties": {
-                            "points": {
-                              "type": "array",
-                              "items": {
-                                "type": "object",
-                                "properties": {
-                                  "x": {
-                                    "type": "number"
-                                  },
-                                  "y": {
-                                    "type": "number"
-                                  }
-                                },
-                                "required": [
-                                  "x",
-                                  "y"
-                                ]
-                              }
-                            }
-                          },
-                          "required": [
-                            "points"
-                          ]
-                        }
-                      }
-                    },
-                    "required": [
-                      "outer",
-                      "inner"
-                    ]
-                  },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "centroid": {
-                        "type": "object",
-                        "properties": {
-                          "x": {
-                            "type": "number"
-                          },
-                          "y": {
-                            "type": "number"
-                          }
-                        },
-                        "required": [
-                          "x",
-                          "y"
-                        ]
-                      },
-                      "radius": {
-                        "type": "number"
-                      }
-                    },
-                    "required": [
-                      "centroid",
-                      "radius"
-                    ]
-                  }
-                ]
-              }
-            },
-            "required": [
-              "value"
-            ]
-          }
-        }
-      },
-      "required": [
-        "value"
-      ]
+      "$ref": "#/$defs/ObjectUnionCompositePointer"
     },
     "nullable": {
       "oneOf": [
@@ -369,730 +10,12 @@
           "type": "null"
         },
         {
-          "type": "object",
-          "properties": {
-            "value": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "oneOf": [
-                      {
-                        "type": "object",
-                        "properties": {
-                          "x": {
-                            "type": "number"
-                          },
-                          "y": {
-                            "type": "number"
-                          }
-                        },
-                        "required": [
-                          "x",
-                          "y"
-                        ]
-                      },
-                      {
-                        "type": "object",
-                        "properties": {
-                          "p1": {
-                            "type": "object",
-                            "properties": {
-                              "x": {
-                                "type": "number"
-                              },
-                              "y": {
-                                "type": "number"
-                              }
-                            },
-                            "required": [
-                              "x",
-                              "y"
-                            ]
-                          },
-                          "p2": {
-                            "type": "object",
-                            "properties": {
-                              "x": {
-                                "type": "number"
-                              },
-                              "y": {
-                                "type": "number"
-                              }
-                            },
-                            "required": [
-                              "x",
-                              "y"
-                            ]
-                          }
-                        },
-                        "required": [
-                          "p1",
-                          "p2"
-                        ]
-                      },
-                      {
-                        "type": "object",
-                        "properties": {
-                          "p1": {
-                            "type": "object",
-                            "properties": {
-                              "x": {
-                                "type": "number"
-                              },
-                              "y": {
-                                "type": "number"
-                              }
-                            },
-                            "required": [
-                              "x",
-                              "y"
-                            ]
-                          },
-                          "p2": {
-                            "type": "object",
-                            "properties": {
-                              "x": {
-                                "type": "number"
-                              },
-                              "y": {
-                                "type": "number"
-                              }
-                            },
-                            "required": [
-                              "x",
-                              "y"
-                            ]
-                          },
-                          "p3": {
-                            "type": "object",
-                            "properties": {
-                              "x": {
-                                "type": "number"
-                              },
-                              "y": {
-                                "type": "number"
-                              }
-                            },
-                            "required": [
-                              "x",
-                              "y"
-                            ]
-                          }
-                        },
-                        "required": [
-                          "p1",
-                          "p2",
-                          "p3"
-                        ]
-                      },
-                      {
-                        "type": "object",
-                        "properties": {
-                          "p1": {
-                            "type": "object",
-                            "properties": {
-                              "x": {
-                                "type": "number"
-                              },
-                              "y": {
-                                "type": "number"
-                              }
-                            },
-                            "required": [
-                              "x",
-                              "y"
-                            ]
-                          },
-                          "p2": {
-                            "type": "object",
-                            "properties": {
-                              "x": {
-                                "type": "number"
-                              },
-                              "y": {
-                                "type": "number"
-                              }
-                            },
-                            "required": [
-                              "x",
-                              "y"
-                            ]
-                          },
-                          "p3": {
-                            "type": "object",
-                            "properties": {
-                              "x": {
-                                "type": "number"
-                              },
-                              "y": {
-                                "type": "number"
-                              }
-                            },
-                            "required": [
-                              "x",
-                              "y"
-                            ]
-                          },
-                          "p4": {
-                            "type": "object",
-                            "properties": {
-                              "x": {
-                                "type": "number"
-                              },
-                              "y": {
-                                "type": "number"
-                              }
-                            },
-                            "required": [
-                              "x",
-                              "y"
-                            ]
-                          }
-                        },
-                        "required": [
-                          "p1",
-                          "p2",
-                          "p3",
-                          "p4"
-                        ]
-                      },
-                      {
-                        "type": "object",
-                        "properties": {
-                          "points": {
-                            "type": "array",
-                            "items": {
-                              "type": "object",
-                              "properties": {
-                                "x": {
-                                  "type": "number"
-                                },
-                                "y": {
-                                  "type": "number"
-                                }
-                              },
-                              "required": [
-                                "x",
-                                "y"
-                              ]
-                            }
-                          }
-                        },
-                        "required": [
-                          "points"
-                        ]
-                      },
-                      {
-                        "type": "object",
-                        "properties": {
-                          "outer": {
-                            "type": "array",
-                            "items": {
-                              "type": "object",
-                              "properties": {
-                                "x": {
-                                  "type": "number"
-                                },
-                                "y": {
-                                  "type": "number"
-                                }
-                              },
-                              "required": [
-                                "x",
-                                "y"
-                              ]
-                            }
-                          },
-                          "inner": {
-                            "type": "object",
-                            "properties": {
-                              "x": {
-                                "type": "number"
-                              },
-                              "y": {
-                                "type": "number"
-                              }
-                            },
-                            "required": [
-                              "x",
-                              "y"
-                            ]
-                          }
-                        },
-                        "required": [
-                          "outer",
-                          "inner"
-                        ]
-                      },
-                      {
-                        "type": "object",
-                        "properties": {
-                          "outer": {
-                            "type": "object",
-                            "properties": {
-                              "points": {
-                                "type": "array",
-                                "items": {
-                                  "type": "object",
-                                  "properties": {
-                                    "x": {
-                                      "type": "number"
-                                    },
-                                    "y": {
-                                      "type": "number"
-                                    }
-                                  },
-                                  "required": [
-                                    "x",
-                                    "y"
-                                  ]
-                                }
-                              }
-                            },
-                            "required": [
-                              "points"
-                            ]
-                          },
-                          "inner": {
-                            "type": "array",
-                            "items": {
-                              "type": "object",
-                              "properties": {
-                                "points": {
-                                  "type": "array",
-                                  "items": {
-                                    "type": "object",
-                                    "properties": {
-                                      "x": {
-                                        "type": "number"
-                                      },
-                                      "y": {
-                                        "type": "number"
-                                      }
-                                    },
-                                    "required": [
-                                      "x",
-                                      "y"
-                                    ]
-                                  }
-                                }
-                              },
-                              "required": [
-                                "points"
-                              ]
-                            }
-                          }
-                        },
-                        "required": [
-                          "outer",
-                          "inner"
-                        ]
-                      },
-                      {
-                        "type": "object",
-                        "properties": {
-                          "centroid": {
-                            "type": "object",
-                            "properties": {
-                              "x": {
-                                "type": "number"
-                              },
-                              "y": {
-                                "type": "number"
-                              }
-                            },
-                            "required": [
-                              "x",
-                              "y"
-                            ]
-                          },
-                          "radius": {
-                            "type": "number"
-                          }
-                        },
-                        "required": [
-                          "centroid",
-                          "radius"
-                        ]
-                      }
-                    ]
-                  }
-                },
-                "required": [
-                  "value"
-                ]
-              }
-            }
-          },
-          "required": [
-            "value"
-          ]
+          "$ref": "#/$defs/ObjectUnionCompositePointer"
         }
       ]
     },
     "optional": {
-      "type": "object",
-      "properties": {
-        "value": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "value": {
-                "oneOf": [
-                  {
-                    "type": "object",
-                    "properties": {
-                      "x": {
-                        "type": "number"
-                      },
-                      "y": {
-                        "type": "number"
-                      }
-                    },
-                    "required": [
-                      "x",
-                      "y"
-                    ]
-                  },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "p1": {
-                        "type": "object",
-                        "properties": {
-                          "x": {
-                            "type": "number"
-                          },
-                          "y": {
-                            "type": "number"
-                          }
-                        },
-                        "required": [
-                          "x",
-                          "y"
-                        ]
-                      },
-                      "p2": {
-                        "type": "object",
-                        "properties": {
-                          "x": {
-                            "type": "number"
-                          },
-                          "y": {
-                            "type": "number"
-                          }
-                        },
-                        "required": [
-                          "x",
-                          "y"
-                        ]
-                      }
-                    },
-                    "required": [
-                      "p1",
-                      "p2"
-                    ]
-                  },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "p1": {
-                        "type": "object",
-                        "properties": {
-                          "x": {
-                            "type": "number"
-                          },
-                          "y": {
-                            "type": "number"
-                          }
-                        },
-                        "required": [
-                          "x",
-                          "y"
-                        ]
-                      },
-                      "p2": {
-                        "type": "object",
-                        "properties": {
-                          "x": {
-                            "type": "number"
-                          },
-                          "y": {
-                            "type": "number"
-                          }
-                        },
-                        "required": [
-                          "x",
-                          "y"
-                        ]
-                      },
-                      "p3": {
-                        "type": "object",
-                        "properties": {
-                          "x": {
-                            "type": "number"
-                          },
-                          "y": {
-                            "type": "number"
-                          }
-                        },
-                        "required": [
-                          "x",
-                          "y"
-                        ]
-                      }
-                    },
-                    "required": [
-                      "p1",
-                      "p2",
-                      "p3"
-                    ]
-                  },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "p1": {
-                        "type": "object",
-                        "properties": {
-                          "x": {
-                            "type": "number"
-                          },
-                          "y": {
-                            "type": "number"
-                          }
-                        },
-                        "required": [
-                          "x",
-                          "y"
-                        ]
-                      },
-                      "p2": {
-                        "type": "object",
-                        "properties": {
-                          "x": {
-                            "type": "number"
-                          },
-                          "y": {
-                            "type": "number"
-                          }
-                        },
-                        "required": [
-                          "x",
-                          "y"
-                        ]
-                      },
-                      "p3": {
-                        "type": "object",
-                        "properties": {
-                          "x": {
-                            "type": "number"
-                          },
-                          "y": {
-                            "type": "number"
-                          }
-                        },
-                        "required": [
-                          "x",
-                          "y"
-                        ]
-                      },
-                      "p4": {
-                        "type": "object",
-                        "properties": {
-                          "x": {
-                            "type": "number"
-                          },
-                          "y": {
-                            "type": "number"
-                          }
-                        },
-                        "required": [
-                          "x",
-                          "y"
-                        ]
-                      }
-                    },
-                    "required": [
-                      "p1",
-                      "p2",
-                      "p3",
-                      "p4"
-                    ]
-                  },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "points": {
-                        "type": "array",
-                        "items": {
-                          "type": "object",
-                          "properties": {
-                            "x": {
-                              "type": "number"
-                            },
-                            "y": {
-                              "type": "number"
-                            }
-                          },
-                          "required": [
-                            "x",
-                            "y"
-                          ]
-                        }
-                      }
-                    },
-                    "required": [
-                      "points"
-                    ]
-                  },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "outer": {
-                        "type": "array",
-                        "items": {
-                          "type": "object",
-                          "properties": {
-                            "x": {
-                              "type": "number"
-                            },
-                            "y": {
-                              "type": "number"
-                            }
-                          },
-                          "required": [
-                            "x",
-                            "y"
-                          ]
-                        }
-                      },
-                      "inner": {
-                        "type": "object",
-                        "properties": {
-                          "x": {
-                            "type": "number"
-                          },
-                          "y": {
-                            "type": "number"
-                          }
-                        },
-                        "required": [
-                          "x",
-                          "y"
-                        ]
-                      }
-                    },
-                    "required": [
-                      "outer",
-                      "inner"
-                    ]
-                  },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "outer": {
-                        "type": "object",
-                        "properties": {
-                          "points": {
-                            "type": "array",
-                            "items": {
-                              "type": "object",
-                              "properties": {
-                                "x": {
-                                  "type": "number"
-                                },
-                                "y": {
-                                  "type": "number"
-                                }
-                              },
-                              "required": [
-                                "x",
-                                "y"
-                              ]
-                            }
-                          }
-                        },
-                        "required": [
-                          "points"
-                        ]
-                      },
-                      "inner": {
-                        "type": "array",
-                        "items": {
-                          "type": "object",
-                          "properties": {
-                            "points": {
-                              "type": "array",
-                              "items": {
-                                "type": "object",
-                                "properties": {
-                                  "x": {
-                                    "type": "number"
-                                  },
-                                  "y": {
-                                    "type": "number"
-                                  }
-                                },
-                                "required": [
-                                  "x",
-                                  "y"
-                                ]
-                              }
-                            }
-                          },
-                          "required": [
-                            "points"
-                          ]
-                        }
-                      }
-                    },
-                    "required": [
-                      "outer",
-                      "inner"
-                    ]
-                  },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "centroid": {
-                        "type": "object",
-                        "properties": {
-                          "x": {
-                            "type": "number"
-                          },
-                          "y": {
-                            "type": "number"
-                          }
-                        },
-                        "required": [
-                          "x",
-                          "y"
-                        ]
-                      },
-                      "radius": {
-                        "type": "number"
-                      }
-                    },
-                    "required": [
-                      "centroid",
-                      "radius"
-                    ]
-                  }
-                ]
-              }
-            },
-            "required": [
-              "value"
-            ]
-          }
-        }
-      },
-      "required": [
-        "value"
-      ]
+      "$ref": "#/$defs/ObjectUnionCompositePointer"
     },
     "faint": {
       "oneOf": [
@@ -1100,742 +23,210 @@
           "type": "null"
         },
         {
-          "type": "object",
-          "properties": {
-            "value": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "oneOf": [
-                      {
-                        "type": "object",
-                        "properties": {
-                          "x": {
-                            "type": "number"
-                          },
-                          "y": {
-                            "type": "number"
-                          }
-                        },
-                        "required": [
-                          "x",
-                          "y"
-                        ]
-                      },
-                      {
-                        "type": "object",
-                        "properties": {
-                          "p1": {
-                            "type": "object",
-                            "properties": {
-                              "x": {
-                                "type": "number"
-                              },
-                              "y": {
-                                "type": "number"
-                              }
-                            },
-                            "required": [
-                              "x",
-                              "y"
-                            ]
-                          },
-                          "p2": {
-                            "type": "object",
-                            "properties": {
-                              "x": {
-                                "type": "number"
-                              },
-                              "y": {
-                                "type": "number"
-                              }
-                            },
-                            "required": [
-                              "x",
-                              "y"
-                            ]
-                          }
-                        },
-                        "required": [
-                          "p1",
-                          "p2"
-                        ]
-                      },
-                      {
-                        "type": "object",
-                        "properties": {
-                          "p1": {
-                            "type": "object",
-                            "properties": {
-                              "x": {
-                                "type": "number"
-                              },
-                              "y": {
-                                "type": "number"
-                              }
-                            },
-                            "required": [
-                              "x",
-                              "y"
-                            ]
-                          },
-                          "p2": {
-                            "type": "object",
-                            "properties": {
-                              "x": {
-                                "type": "number"
-                              },
-                              "y": {
-                                "type": "number"
-                              }
-                            },
-                            "required": [
-                              "x",
-                              "y"
-                            ]
-                          },
-                          "p3": {
-                            "type": "object",
-                            "properties": {
-                              "x": {
-                                "type": "number"
-                              },
-                              "y": {
-                                "type": "number"
-                              }
-                            },
-                            "required": [
-                              "x",
-                              "y"
-                            ]
-                          }
-                        },
-                        "required": [
-                          "p1",
-                          "p2",
-                          "p3"
-                        ]
-                      },
-                      {
-                        "type": "object",
-                        "properties": {
-                          "p1": {
-                            "type": "object",
-                            "properties": {
-                              "x": {
-                                "type": "number"
-                              },
-                              "y": {
-                                "type": "number"
-                              }
-                            },
-                            "required": [
-                              "x",
-                              "y"
-                            ]
-                          },
-                          "p2": {
-                            "type": "object",
-                            "properties": {
-                              "x": {
-                                "type": "number"
-                              },
-                              "y": {
-                                "type": "number"
-                              }
-                            },
-                            "required": [
-                              "x",
-                              "y"
-                            ]
-                          },
-                          "p3": {
-                            "type": "object",
-                            "properties": {
-                              "x": {
-                                "type": "number"
-                              },
-                              "y": {
-                                "type": "number"
-                              }
-                            },
-                            "required": [
-                              "x",
-                              "y"
-                            ]
-                          },
-                          "p4": {
-                            "type": "object",
-                            "properties": {
-                              "x": {
-                                "type": "number"
-                              },
-                              "y": {
-                                "type": "number"
-                              }
-                            },
-                            "required": [
-                              "x",
-                              "y"
-                            ]
-                          }
-                        },
-                        "required": [
-                          "p1",
-                          "p2",
-                          "p3",
-                          "p4"
-                        ]
-                      },
-                      {
-                        "type": "object",
-                        "properties": {
-                          "points": {
-                            "type": "array",
-                            "items": {
-                              "type": "object",
-                              "properties": {
-                                "x": {
-                                  "type": "number"
-                                },
-                                "y": {
-                                  "type": "number"
-                                }
-                              },
-                              "required": [
-                                "x",
-                                "y"
-                              ]
-                            }
-                          }
-                        },
-                        "required": [
-                          "points"
-                        ]
-                      },
-                      {
-                        "type": "object",
-                        "properties": {
-                          "outer": {
-                            "type": "array",
-                            "items": {
-                              "type": "object",
-                              "properties": {
-                                "x": {
-                                  "type": "number"
-                                },
-                                "y": {
-                                  "type": "number"
-                                }
-                              },
-                              "required": [
-                                "x",
-                                "y"
-                              ]
-                            }
-                          },
-                          "inner": {
-                            "type": "object",
-                            "properties": {
-                              "x": {
-                                "type": "number"
-                              },
-                              "y": {
-                                "type": "number"
-                              }
-                            },
-                            "required": [
-                              "x",
-                              "y"
-                            ]
-                          }
-                        },
-                        "required": [
-                          "outer",
-                          "inner"
-                        ]
-                      },
-                      {
-                        "type": "object",
-                        "properties": {
-                          "outer": {
-                            "type": "object",
-                            "properties": {
-                              "points": {
-                                "type": "array",
-                                "items": {
-                                  "type": "object",
-                                  "properties": {
-                                    "x": {
-                                      "type": "number"
-                                    },
-                                    "y": {
-                                      "type": "number"
-                                    }
-                                  },
-                                  "required": [
-                                    "x",
-                                    "y"
-                                  ]
-                                }
-                              }
-                            },
-                            "required": [
-                              "points"
-                            ]
-                          },
-                          "inner": {
-                            "type": "array",
-                            "items": {
-                              "type": "object",
-                              "properties": {
-                                "points": {
-                                  "type": "array",
-                                  "items": {
-                                    "type": "object",
-                                    "properties": {
-                                      "x": {
-                                        "type": "number"
-                                      },
-                                      "y": {
-                                        "type": "number"
-                                      }
-                                    },
-                                    "required": [
-                                      "x",
-                                      "y"
-                                    ]
-                                  }
-                                }
-                              },
-                              "required": [
-                                "points"
-                              ]
-                            }
-                          }
-                        },
-                        "required": [
-                          "outer",
-                          "inner"
-                        ]
-                      },
-                      {
-                        "type": "object",
-                        "properties": {
-                          "centroid": {
-                            "type": "object",
-                            "properties": {
-                              "x": {
-                                "type": "number"
-                              },
-                              "y": {
-                                "type": "number"
-                              }
-                            },
-                            "required": [
-                              "x",
-                              "y"
-                            ]
-                          },
-                          "radius": {
-                            "type": "number"
-                          }
-                        },
-                        "required": [
-                          "centroid",
-                          "radius"
-                        ]
-                      }
-                    ]
-                  }
-                },
-                "required": [
-                  "value"
-                ]
-              }
-            }
-          },
-          "required": [
-            "value"
-          ]
+          "$ref": "#/$defs/ObjectUnionCompositePointer"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
-        "type": "object",
-        "properties": {
-          "value": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "value": {
-                  "oneOf": [
-                    {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y"
-                      ]
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "p1": {
-                          "type": "object",
-                          "properties": {
-                            "x": {
-                              "type": "number"
-                            },
-                            "y": {
-                              "type": "number"
-                            }
-                          },
-                          "required": [
-                            "x",
-                            "y"
-                          ]
-                        },
-                        "p2": {
-                          "type": "object",
-                          "properties": {
-                            "x": {
-                              "type": "number"
-                            },
-                            "y": {
-                              "type": "number"
-                            }
-                          },
-                          "required": [
-                            "x",
-                            "y"
-                          ]
-                        }
-                      },
-                      "required": [
-                        "p1",
-                        "p2"
-                      ]
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "p1": {
-                          "type": "object",
-                          "properties": {
-                            "x": {
-                              "type": "number"
-                            },
-                            "y": {
-                              "type": "number"
-                            }
-                          },
-                          "required": [
-                            "x",
-                            "y"
-                          ]
-                        },
-                        "p2": {
-                          "type": "object",
-                          "properties": {
-                            "x": {
-                              "type": "number"
-                            },
-                            "y": {
-                              "type": "number"
-                            }
-                          },
-                          "required": [
-                            "x",
-                            "y"
-                          ]
-                        },
-                        "p3": {
-                          "type": "object",
-                          "properties": {
-                            "x": {
-                              "type": "number"
-                            },
-                            "y": {
-                              "type": "number"
-                            }
-                          },
-                          "required": [
-                            "x",
-                            "y"
-                          ]
-                        }
-                      },
-                      "required": [
-                        "p1",
-                        "p2",
-                        "p3"
-                      ]
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "p1": {
-                          "type": "object",
-                          "properties": {
-                            "x": {
-                              "type": "number"
-                            },
-                            "y": {
-                              "type": "number"
-                            }
-                          },
-                          "required": [
-                            "x",
-                            "y"
-                          ]
-                        },
-                        "p2": {
-                          "type": "object",
-                          "properties": {
-                            "x": {
-                              "type": "number"
-                            },
-                            "y": {
-                              "type": "number"
-                            }
-                          },
-                          "required": [
-                            "x",
-                            "y"
-                          ]
-                        },
-                        "p3": {
-                          "type": "object",
-                          "properties": {
-                            "x": {
-                              "type": "number"
-                            },
-                            "y": {
-                              "type": "number"
-                            }
-                          },
-                          "required": [
-                            "x",
-                            "y"
-                          ]
-                        },
-                        "p4": {
-                          "type": "object",
-                          "properties": {
-                            "x": {
-                              "type": "number"
-                            },
-                            "y": {
-                              "type": "number"
-                            }
-                          },
-                          "required": [
-                            "x",
-                            "y"
-                          ]
-                        }
-                      },
-                      "required": [
-                        "p1",
-                        "p2",
-                        "p3",
-                        "p4"
-                      ]
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "points": {
-                          "type": "array",
-                          "items": {
-                            "type": "object",
-                            "properties": {
-                              "x": {
-                                "type": "number"
-                              },
-                              "y": {
-                                "type": "number"
-                              }
-                            },
-                            "required": [
-                              "x",
-                              "y"
-                            ]
-                          }
-                        }
-                      },
-                      "required": [
-                        "points"
-                      ]
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "outer": {
-                          "type": "array",
-                          "items": {
-                            "type": "object",
-                            "properties": {
-                              "x": {
-                                "type": "number"
-                              },
-                              "y": {
-                                "type": "number"
-                              }
-                            },
-                            "required": [
-                              "x",
-                              "y"
-                            ]
-                          }
-                        },
-                        "inner": {
-                          "type": "object",
-                          "properties": {
-                            "x": {
-                              "type": "number"
-                            },
-                            "y": {
-                              "type": "number"
-                            }
-                          },
-                          "required": [
-                            "x",
-                            "y"
-                          ]
-                        }
-                      },
-                      "required": [
-                        "outer",
-                        "inner"
-                      ]
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "outer": {
-                          "type": "object",
-                          "properties": {
-                            "points": {
-                              "type": "array",
-                              "items": {
-                                "type": "object",
-                                "properties": {
-                                  "x": {
-                                    "type": "number"
-                                  },
-                                  "y": {
-                                    "type": "number"
-                                  }
-                                },
-                                "required": [
-                                  "x",
-                                  "y"
-                                ]
-                              }
-                            }
-                          },
-                          "required": [
-                            "points"
-                          ]
-                        },
-                        "inner": {
-                          "type": "array",
-                          "items": {
-                            "type": "object",
-                            "properties": {
-                              "points": {
-                                "type": "array",
-                                "items": {
-                                  "type": "object",
-                                  "properties": {
-                                    "x": {
-                                      "type": "number"
-                                    },
-                                    "y": {
-                                      "type": "number"
-                                    }
-                                  },
-                                  "required": [
-                                    "x",
-                                    "y"
-                                  ]
-                                }
-                              }
-                            },
-                            "required": [
-                              "points"
-                            ]
-                          }
-                        }
-                      },
-                      "required": [
-                        "outer",
-                        "inner"
-                      ]
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "centroid": {
-                          "type": "object",
-                          "properties": {
-                            "x": {
-                              "type": "number"
-                            },
-                            "y": {
-                              "type": "number"
-                            }
-                          },
-                          "required": [
-                            "x",
-                            "y"
-                          ]
-                        },
-                        "radius": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "centroid",
-                        "radius"
-                      ]
-                    }
-                  ]
-                }
-              },
-              "required": [
-                "value"
-              ]
-            }
-          }
-        },
-        "required": [
-          "value"
-        ]
+        "$ref": "#/$defs/ObjectUnionCompositePointer"
       }
     }
   },
   "required": [
     "regular",
     "nullable",
-    "optional",
-    "faint",
     "array"
   ],
   "additionalProperties": false,
-  "$defs": {}
+  "$defs": {
+    "ObjectUnionCompositePointer": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/IPointerIPointILineITriangleIRectangleIPolylineIPolygonIPointedShapeICircle"
+          }
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "IPointerIPointILineITriangleIRectangleIPolylineIPolygonIPointedShapeICircle": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/ObjectUnionCompositePointer.IPoint"
+            },
+            {
+              "$ref": "#/$defs/ObjectUnionCompositePointer.ILine"
+            },
+            {
+              "$ref": "#/$defs/ObjectUnionCompositePointer.ITriangle"
+            },
+            {
+              "$ref": "#/$defs/ObjectUnionCompositePointer.IRectangle"
+            },
+            {
+              "$ref": "#/$defs/ObjectUnionCompositePointer.IPolyline"
+            },
+            {
+              "$ref": "#/$defs/ObjectUnionCompositePointer.IPointedShape"
+            },
+            {
+              "$ref": "#/$defs/ObjectUnionCompositePointer.IPolygon"
+            },
+            {
+              "$ref": "#/$defs/ObjectUnionCompositePointer.ICircle"
+            }
+          ]
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "ObjectUnionCompositePointer.IPoint": {
+      "type": "object",
+      "properties": {
+        "x": {
+          "type": "number"
+        },
+        "y": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "x",
+        "y"
+      ]
+    },
+    "ObjectUnionCompositePointer.ILine": {
+      "type": "object",
+      "properties": {
+        "p1": {
+          "$ref": "#/$defs/ObjectUnionCompositePointer.IPoint"
+        },
+        "p2": {
+          "$ref": "#/$defs/ObjectUnionCompositePointer.IPoint"
+        }
+      },
+      "required": [
+        "p1",
+        "p2"
+      ]
+    },
+    "ObjectUnionCompositePointer.ITriangle": {
+      "type": "object",
+      "properties": {
+        "p1": {
+          "$ref": "#/$defs/ObjectUnionCompositePointer.IPoint"
+        },
+        "p2": {
+          "$ref": "#/$defs/ObjectUnionCompositePointer.IPoint"
+        },
+        "p3": {
+          "$ref": "#/$defs/ObjectUnionCompositePointer.IPoint"
+        }
+      },
+      "required": [
+        "p1",
+        "p2",
+        "p3"
+      ]
+    },
+    "ObjectUnionCompositePointer.IRectangle": {
+      "type": "object",
+      "properties": {
+        "p1": {
+          "$ref": "#/$defs/ObjectUnionCompositePointer.IPoint"
+        },
+        "p2": {
+          "$ref": "#/$defs/ObjectUnionCompositePointer.IPoint"
+        },
+        "p3": {
+          "$ref": "#/$defs/ObjectUnionCompositePointer.IPoint"
+        },
+        "p4": {
+          "$ref": "#/$defs/ObjectUnionCompositePointer.IPoint"
+        }
+      },
+      "required": [
+        "p1",
+        "p2",
+        "p3",
+        "p4"
+      ]
+    },
+    "ObjectUnionCompositePointer.IPolyline": {
+      "type": "object",
+      "properties": {
+        "points": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ObjectUnionCompositePointer.IPoint"
+          }
+        }
+      },
+      "required": [
+        "points"
+      ]
+    },
+    "ObjectUnionCompositePointer.IPointedShape": {
+      "type": "object",
+      "properties": {
+        "outer": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ObjectUnionCompositePointer.IPoint"
+          }
+        },
+        "inner": {
+          "$ref": "#/$defs/ObjectUnionCompositePointer.IPoint"
+        }
+      },
+      "required": [
+        "outer",
+        "inner"
+      ]
+    },
+    "ObjectUnionCompositePointer.IPolygon": {
+      "type": "object",
+      "properties": {
+        "outer": {
+          "$ref": "#/$defs/ObjectUnionCompositePointer.IPolyline"
+        },
+        "inner": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ObjectUnionCompositePointer.IPolyline"
+          }
+        }
+      },
+      "required": [
+        "outer",
+        "inner"
+      ]
+    },
+    "ObjectUnionCompositePointer.ICircle": {
+      "type": "object",
+      "properties": {
+        "centroid": {
+          "$ref": "#/$defs/ObjectUnionCompositePointer.IPoint"
+        },
+        "radius": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "centroid",
+        "radius"
+      ]
+    }
+  }
 }

@@ -7,8 +7,7 @@ export const _test_functional_assertEqualsParameters =
   (ErrorClass: Function) =>
   (name: string) =>
   <T>(factory: TestStructure<T>) =>
-  (assertEquals: (p: (input: T) => T) => (input: T) => T) =>
-  () => {
+  (assertEquals: (p: (input: T) => T) => (input: T) => T): void => {
     const validate = (replacer: string) => (callback: (input: T) => [T, T]) => {
       // EXACT TYPE
       try {

@@ -2,37 +2,7 @@
   "type": "object",
   "properties": {
     "regular": {
-      "type": "object",
-      "properties": {
-        "value": {
-          "type": "object",
-          "properties": {
-            "a": {
-              "type": "number"
-            },
-            "b": {
-              "type": "number"
-            },
-            "c": {
-              "type": "number"
-            },
-            "d": {
-              "type": "number"
-            }
-          },
-          "required": [
-            "a",
-            "b",
-            "c",
-            "d"
-          ],
-          "additionalProperties": false
-        }
-      },
-      "required": [
-        "value"
-      ],
-      "additionalProperties": false
+      "$ref": "#/$defs/DynamicConstant"
     },
     "nullable": {
       "anyOf": [
@@ -40,41 +10,38 @@
           "type": "null"
         },
         {
-          "type": "object",
-          "properties": {
-            "value": {
-              "type": "object",
-              "properties": {
-                "a": {
-                  "type": "number"
-                },
-                "b": {
-                  "type": "number"
-                },
-                "c": {
-                  "type": "number"
-                },
-                "d": {
-                  "type": "number"
-                }
-              },
-              "required": [
-                "a",
-                "b",
-                "c",
-                "d"
-              ],
-              "additionalProperties": false
-            }
-          },
-          "required": [
-            "value"
-          ],
-          "additionalProperties": false
+          "$ref": "#/$defs/DynamicConstant"
         }
       ]
     },
     "optional": {
+      "$ref": "#/$defs/DynamicConstant"
+    },
+    "faint": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/DynamicConstant"
+        }
+      ]
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/DynamicConstant"
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "array"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "DynamicConstant": {
       "type": "object",
       "properties": {
         "value": {
@@ -98,99 +65,12 @@
             "b",
             "c",
             "d"
-          ],
-          "additionalProperties": false
+          ]
         }
       },
       "required": [
         "value"
-      ],
-      "additionalProperties": false
-    },
-    "faint": {
-      "anyOf": [
-        {
-          "type": "null"
-        },
-        {
-          "type": "object",
-          "properties": {
-            "value": {
-              "type": "object",
-              "properties": {
-                "a": {
-                  "type": "number"
-                },
-                "b": {
-                  "type": "number"
-                },
-                "c": {
-                  "type": "number"
-                },
-                "d": {
-                  "type": "number"
-                }
-              },
-              "required": [
-                "a",
-                "b",
-                "c",
-                "d"
-              ],
-              "additionalProperties": false
-            }
-          },
-          "required": [
-            "value"
-          ],
-          "additionalProperties": false
-        }
       ]
-    },
-    "array": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "value": {
-            "type": "object",
-            "properties": {
-              "a": {
-                "type": "number"
-              },
-              "b": {
-                "type": "number"
-              },
-              "c": {
-                "type": "number"
-              },
-              "d": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "a",
-              "b",
-              "c",
-              "d"
-            ],
-            "additionalProperties": false
-          }
-        },
-        "required": [
-          "value"
-        ],
-        "additionalProperties": false
-      }
     }
-  },
-  "required": [
-    "regular",
-    "nullable",
-    "optional",
-    "faint",
-    "array"
-  ],
-  "additionalProperties": false,
-  "$defs": {}
+  }
 }

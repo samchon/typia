@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_assertGuard } from "../../internal/_test_assertGuard";
 import { MapSimpleProtobufOptional } from "../../structures/MapSimpleProtobufOptional";
 
-export const test_assertGuardCustom_MapSimpleProtobufOptional =
+export const test_assertGuardCustom_MapSimpleProtobufOptional = (): void =>
   _test_assertGuard(CustomGuardError)(
     "MapSimpleProtobufOptional",
   )<MapSimpleProtobufOptional>(MapSimpleProtobufOptional)((input) =>

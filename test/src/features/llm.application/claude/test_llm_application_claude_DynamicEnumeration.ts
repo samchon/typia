@@ -3,10 +3,11 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { DynamicEnumeration } from "../../../structures/DynamicEnumeration";
 
-export const test_llm_application_claude_DynamicEnumeration =
+export const test_llm_application_claude_DynamicEnumeration = (): void =>
   _test_llm_application({
     model: "claude",
     name: "DynamicEnumeration",
+    factory: DynamicEnumeration,
   })(typia.llm.application<DynamicEnumerationApplication, "claude">());
 
 interface DynamicEnumerationApplication {

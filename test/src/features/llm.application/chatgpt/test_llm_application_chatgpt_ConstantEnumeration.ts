@@ -3,10 +3,11 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { ConstantEnumeration } from "../../../structures/ConstantEnumeration";
 
-export const test_llm_application_chatgpt_ConstantEnumeration =
+export const test_llm_application_chatgpt_ConstantEnumeration = (): void =>
   _test_llm_application({
     model: "chatgpt",
     name: "ConstantEnumeration",
+    factory: ConstantEnumeration,
   })(typia.llm.application<ConstantEnumerationApplication, "chatgpt">());
 
 interface ConstantEnumerationApplication {

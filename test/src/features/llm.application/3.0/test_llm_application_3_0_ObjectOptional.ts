@@ -3,10 +3,12 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { ObjectOptional } from "../../../structures/ObjectOptional";
 
-export const test_llm_application_3_0_ObjectOptional = _test_llm_application({
-  model: "3.0",
-  name: "ObjectOptional",
-})(typia.llm.application<ObjectOptionalApplication, "3.0">());
+export const test_llm_application_3_0_ObjectOptional = (): void =>
+  _test_llm_application({
+    model: "3.0",
+    name: "ObjectOptional",
+    factory: ObjectOptional,
+  })(typia.llm.application<ObjectOptionalApplication, "3.0">());
 
 interface ObjectOptionalApplication {
   insert(p: { first: ObjectOptional }): Promise<void>;

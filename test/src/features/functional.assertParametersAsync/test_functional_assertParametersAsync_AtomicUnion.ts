@@ -5,8 +5,9 @@ import { _test_functional_assertParametersAsync } from "../../internal/_test_fun
 import { AtomicUnion } from "../../structures/AtomicUnion";
 
 export const test_functional_assertParametersAsync_AtomicUnion =
-  _test_functional_assertParametersAsync(TypeGuardError)("AtomicUnion")(
-    AtomicUnion,
-  )((p: (input: AtomicUnion) => Promise<AtomicUnion>) =>
-    typia.functional.assertParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertParametersAsync(TypeGuardError)("AtomicUnion")(
+      AtomicUnion,
+    )((p: (input: AtomicUnion) => Promise<AtomicUnion>) =>
+      typia.functional.assertParameters(p),
+    );

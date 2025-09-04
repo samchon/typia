@@ -4,7 +4,9 @@ import { _test_functional_isParametersAsync } from "../../internal/_test_functio
 import { CommentTagInfinite } from "../../structures/CommentTagInfinite";
 
 export const test_functional_isParametersAsync_CommentTagInfinite =
-  _test_functional_isParametersAsync("CommentTagInfinite")(CommentTagInfinite)(
-    (p: (input: CommentTagInfinite) => Promise<CommentTagInfinite>) =>
+  (): Promise<void> =>
+    _test_functional_isParametersAsync("CommentTagInfinite")(
+      CommentTagInfinite,
+    )((p: (input: CommentTagInfinite) => Promise<CommentTagInfinite>) =>
       typia.functional.isParameters(p),
-  );
+    );

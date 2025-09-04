@@ -1,8 +1,8 @@
 {
   "model": "3.0",
   "options": {
-    "constraint": false,
     "recursive": 3,
+    "constraint": true,
     "separate": null
   },
   "functions": [
@@ -42,6 +42,7 @@
                       "body",
                       "rank"
                     ],
+                    "description": "Current Type: {@link ArraySimple.IHobby}",
                     "additionalProperties": false
                   }
                 }
@@ -51,16 +52,17 @@
                 "email",
                 "hobbies"
               ],
+              "description": "Current Type: {@link ArraySimple.IPerson}",
               "additionalProperties": false
-            }
+            },
+            "description": "Current Type: {@link ArraySimple}"
           }
         },
         "required": [
           "first"
         ],
         "additionalProperties": false
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -98,6 +100,7 @@
                       "body",
                       "rank"
                     ],
+                    "description": "Current Type: {@link ArraySimple.IHobby}",
                     "additionalProperties": false
                   }
                 }
@@ -107,8 +110,10 @@
                 "email",
                 "hobbies"
               ],
+              "description": "Current Type: {@link ArraySimple.IPerson}",
               "additionalProperties": false
-            }
+            },
+            "description": "Current Type: {@link ArraySimple}"
           },
           "second": {
             "type": "array",
@@ -141,6 +146,7 @@
                       "body",
                       "rank"
                     ],
+                    "description": "Current Type: {@link ArraySimple.IHobby}",
                     "additionalProperties": false
                   }
                 }
@@ -150,6 +156,7 @@
                 "email",
                 "hobbies"
               ],
+              "description": "Current Type: {@link ArraySimple.IPerson}",
               "additionalProperties": false
             },
             "nullable": true
@@ -192,6 +199,7 @@
                   "body",
                   "rank"
                 ],
+                "description": "Current Type: {@link ArraySimple.IHobby}",
                 "additionalProperties": false
               }
             }
@@ -201,10 +209,11 @@
             "email",
             "hobbies"
           ],
+          "description": "Current Type: {@link ArraySimple.IPerson}",
           "additionalProperties": false
-        }
-      },
-      "strict": true
+        },
+        "description": "Current Type: {@link ArraySimple}"
+      }
     },
     {
       "name": "coalesce",
@@ -242,6 +251,7 @@
                       "body",
                       "rank"
                     ],
+                    "description": "Current Type: {@link ArraySimple.IHobby}",
                     "additionalProperties": false
                   }
                 }
@@ -251,6 +261,7 @@
                 "email",
                 "hobbies"
               ],
+              "description": "Current Type: {@link ArraySimple.IPerson}",
               "additionalProperties": false
             },
             "nullable": true
@@ -286,6 +297,7 @@
                       "body",
                       "rank"
                     ],
+                    "description": "Current Type: {@link ArraySimple.IHobby}",
                     "additionalProperties": false
                   }
                 }
@@ -295,6 +307,7 @@
                 "email",
                 "hobbies"
               ],
+              "description": "Current Type: {@link ArraySimple.IPerson}",
               "additionalProperties": false
             },
             "nullable": true
@@ -330,6 +343,7 @@
                       "body",
                       "rank"
                     ],
+                    "description": "Current Type: {@link ArraySimple.IHobby}",
                     "additionalProperties": false
                   }
                 }
@@ -339,6 +353,7 @@
                 "email",
                 "hobbies"
               ],
+              "description": "Current Type: {@link ArraySimple.IPerson}",
               "additionalProperties": false
             },
             "nullable": true
@@ -381,6 +396,7 @@
                   "body",
                   "rank"
                 ],
+                "description": "Current Type: {@link ArraySimple.IHobby}",
                 "additionalProperties": false
               }
             }
@@ -390,11 +406,11 @@
             "email",
             "hobbies"
           ],
+          "description": "Current Type: {@link ArraySimple.IPerson}",
           "additionalProperties": false
         },
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

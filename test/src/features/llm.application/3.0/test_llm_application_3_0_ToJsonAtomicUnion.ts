@@ -3,12 +3,12 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { ToJsonAtomicUnion } from "../../../structures/ToJsonAtomicUnion";
 
-export const test_llm_application_3_0_ToJsonAtomicUnion = _test_llm_application(
-  {
+export const test_llm_application_3_0_ToJsonAtomicUnion = (): void =>
+  _test_llm_application({
     model: "3.0",
     name: "ToJsonAtomicUnion",
-  },
-)(typia.llm.application<ToJsonAtomicUnionApplication, "3.0">());
+    factory: ToJsonAtomicUnion,
+  })(typia.llm.application<ToJsonAtomicUnionApplication, "3.0">());
 
 interface ToJsonAtomicUnionApplication {
   insert(p: { first: ToJsonAtomicUnion }): Promise<void>;

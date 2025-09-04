@@ -3,10 +3,12 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { AtomicUnion } from "../../../structures/AtomicUnion";
 
-export const test_llm_application_chatgpt_AtomicUnion = _test_llm_application({
-  model: "chatgpt",
-  name: "AtomicUnion",
-})(typia.llm.application<AtomicUnionApplication, "chatgpt">());
+export const test_llm_application_chatgpt_AtomicUnion = (): void =>
+  _test_llm_application({
+    model: "chatgpt",
+    name: "AtomicUnion",
+    factory: AtomicUnion,
+  })(typia.llm.application<AtomicUnionApplication, "chatgpt">());
 
 interface AtomicUnionApplication {
   insert(p: { first: AtomicUnion }): Promise<void>;

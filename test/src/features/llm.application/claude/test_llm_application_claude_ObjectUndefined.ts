@@ -3,10 +3,11 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { ObjectUndefined } from "../../../structures/ObjectUndefined";
 
-export const test_llm_application_claude_ObjectUndefined =
+export const test_llm_application_claude_ObjectUndefined = (): void =>
   _test_llm_application({
     model: "claude",
     name: "ObjectUndefined",
+    factory: ObjectUndefined,
   })(typia.llm.application<ObjectUndefinedApplication, "claude">());
 
 interface ObjectUndefinedApplication {

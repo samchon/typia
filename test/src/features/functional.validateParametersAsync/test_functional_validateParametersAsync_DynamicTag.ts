@@ -4,7 +4,8 @@ import { _test_functional_validateParametersAsync } from "../../internal/_test_f
 import { DynamicTag } from "../../structures/DynamicTag";
 
 export const test_functional_validateParametersAsync_DynamicTag =
-  _test_functional_validateParametersAsync("DynamicTag")(DynamicTag)(
-    (p: (input: DynamicTag) => Promise<DynamicTag>) =>
-      typia.functional.validateParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateParametersAsync("DynamicTag")(DynamicTag)(
+      (p: (input: DynamicTag) => Promise<DynamicTag>) =>
+        typia.functional.validateParameters(p),
+    );

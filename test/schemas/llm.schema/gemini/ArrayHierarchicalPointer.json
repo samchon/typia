@@ -28,7 +28,8 @@
             "required": [
               "time",
               "zone"
-            ]
+            ],
+            "description": "Current Type: {@link ArrayHierarchicalPointer.ITimestamp}"
           },
           "departments": {
             "type": "array",
@@ -57,7 +58,8 @@
                   "required": [
                     "time",
                     "zone"
-                  ]
+                  ],
+                  "description": "Current Type: {@link ArrayHierarchicalPointer.ITimestamp}"
                 },
                 "employees": {
                   "type": "array",
@@ -76,7 +78,7 @@
                       "grade": {
                         "type": "number"
                       },
-                      "employeed_at": {
+                      "employed_at": {
                         "type": "object",
                         "properties": {
                           "time": {
@@ -89,7 +91,8 @@
                         "required": [
                           "time",
                           "zone"
-                        ]
+                        ],
+                        "description": "Current Type: {@link ArrayHierarchicalPointer.ITimestamp}"
                       }
                     },
                     "required": [
@@ -97,8 +100,9 @@
                       "name",
                       "age",
                       "grade",
-                      "employeed_at"
-                    ]
+                      "employed_at"
+                    ],
+                    "description": "Current Type: {@link ArrayHierarchicalPointer.IEmployee}"
                   }
                 }
               },
@@ -108,7 +112,8 @@
                 "sales",
                 "created_at",
                 "employees"
-              ]
+              ],
+              "description": "Current Type: {@link ArrayHierarchicalPointer.IDepartment}"
             }
           }
         },
@@ -118,11 +123,13 @@
           "name",
           "established_at",
           "departments"
-        ]
+        ],
+        "description": "Current Type: {@link ArrayHierarchicalPointer.ICompany}"
       }
     }
   },
   "required": [
     "value"
-  ]
+  ],
+  "description": "Current Type: {@link ArrayHierarchicalPointer}"
 }

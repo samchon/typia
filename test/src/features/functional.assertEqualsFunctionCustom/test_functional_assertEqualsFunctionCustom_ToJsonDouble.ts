@@ -5,8 +5,9 @@ import { _test_functional_assertEqualsFunction } from "../../internal/_test_func
 import { ToJsonDouble } from "../../structures/ToJsonDouble";
 
 export const test_functional_assertEqualsFunctionCustom_ToJsonDouble =
-  _test_functional_assertEqualsFunction(CustomGuardError)("ToJsonDouble")(
-    ToJsonDouble,
-  )((p: (input: ToJsonDouble) => ToJsonDouble) =>
-    typia.functional.assertEqualsFunction(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertEqualsFunction(CustomGuardError)("ToJsonDouble")(
+      ToJsonDouble,
+    )((p: (input: ToJsonDouble) => ToJsonDouble) =>
+      typia.functional.assertEqualsFunction(p, (p) => new CustomGuardError(p)),
+    );

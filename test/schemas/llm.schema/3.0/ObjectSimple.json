@@ -19,6 +19,7 @@
         "y",
         "z"
       ],
+      "description": "Current Type: {@link ObjectSimple.IPoint3D}",
       "additionalProperties": false
     },
     "position": {
@@ -39,6 +40,7 @@
         "y",
         "z"
       ],
+      "description": "Current Type: {@link ObjectSimple.IPoint3D}",
       "additionalProperties": false
     },
     "rotate": {
@@ -59,6 +61,7 @@
         "y",
         "z"
       ],
+      "description": "Current Type: {@link ObjectSimple.IPoint3D}",
       "additionalProperties": false
     },
     "pivot": {
@@ -79,6 +82,7 @@
         "y",
         "z"
       ],
+      "description": "Current Type: {@link ObjectSimple.IPoint3D}",
       "additionalProperties": false
     }
   },
@@ -88,5 +92,6 @@
     "rotate",
     "pivot"
   ],
+  "description": "Current Type: {@link ObjectSimple.IBox3D}",
   "additionalProperties": false
 }

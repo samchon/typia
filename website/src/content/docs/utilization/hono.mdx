@@ -1,0 +1,35 @@
+---
+title: Guide Documents > Utilization Cases > Hono
+---
+
+[Hono](https://hono.dev) is a small, simple, and ultrafast web framework for the Edges.
+
+If you are using `Hono` with `typia`, you can use [ `@hono/typia-validator` ](https://github.com/honojs/middleware/tree/main/packages/typia-validator) to validate the request body.
+
+
+```typescript copy showLineNumbers {7, 8, 13}
+import { Hono } from "hono";
+import { typiaValidator } from '@hono/typia-validator'
+import typia, { type tags } from "typia";
+
+import { IBbsArticle } from "../structures/IBbsArticle";
+
+/** create a validate function */
+const validate = typia.createValidate<IBbsArticle>();
+
+const app = new Hono();
+
+app.post("/",
+  typiaValidator('json', validate),
+  (c) => {
+    const data = c.req.valid("json");
+    return c.json({
+      id: data.id,
+      title: data.title,
+      body: data.body,
+      created_at: data.created_at,
+    });
+  });
+
+export default app;
+```

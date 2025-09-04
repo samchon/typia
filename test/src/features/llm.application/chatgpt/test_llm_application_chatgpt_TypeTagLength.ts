@@ -3,12 +3,12 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { TypeTagLength } from "../../../structures/TypeTagLength";
 
-export const test_llm_application_chatgpt_TypeTagLength = _test_llm_application(
-  {
+export const test_llm_application_chatgpt_TypeTagLength = (): void =>
+  _test_llm_application({
     model: "chatgpt",
     name: "TypeTagLength",
-  },
-)(typia.llm.application<TypeTagLengthApplication, "chatgpt">());
+    factory: TypeTagLength,
+  })(typia.llm.application<TypeTagLengthApplication, "chatgpt">());
 
 interface TypeTagLengthApplication {
   insert(p: { first: TypeTagLength }): Promise<void>;

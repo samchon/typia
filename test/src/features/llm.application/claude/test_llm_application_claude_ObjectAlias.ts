@@ -3,10 +3,12 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { ObjectAlias } from "../../../structures/ObjectAlias";
 
-export const test_llm_application_claude_ObjectAlias = _test_llm_application({
-  model: "claude",
-  name: "ObjectAlias",
-})(typia.llm.application<ObjectAliasApplication, "claude">());
+export const test_llm_application_claude_ObjectAlias = (): void =>
+  _test_llm_application({
+    model: "claude",
+    name: "ObjectAlias",
+    factory: ObjectAlias,
+  })(typia.llm.application<ObjectAliasApplication, "claude">());
 
 interface ObjectAliasApplication {
   insert(p: { first: ObjectAlias }): Promise<void>;

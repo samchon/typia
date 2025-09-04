@@ -4,7 +4,9 @@ import { _test_functional_validateParametersAsync } from "../../internal/_test_f
 import { TupleRestAtomic } from "../../structures/TupleRestAtomic";
 
 export const test_functional_validateParametersAsync_TupleRestAtomic =
-  _test_functional_validateParametersAsync("TupleRestAtomic")(TupleRestAtomic)(
-    (p: (input: TupleRestAtomic) => Promise<TupleRestAtomic>) =>
+  (): Promise<void> =>
+    _test_functional_validateParametersAsync("TupleRestAtomic")(
+      TupleRestAtomic,
+    )((p: (input: TupleRestAtomic) => Promise<TupleRestAtomic>) =>
       typia.functional.validateParameters(p),
-  );
+    );

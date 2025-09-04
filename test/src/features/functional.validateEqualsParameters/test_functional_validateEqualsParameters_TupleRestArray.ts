@@ -4,7 +4,8 @@ import { _test_functional_validateEqualsParameters } from "../../internal/_test_
 import { TupleRestArray } from "../../structures/TupleRestArray";
 
 export const test_functional_validateEqualsParameters_TupleRestArray =
-  _test_functional_validateEqualsParameters("TupleRestArray")(TupleRestArray)(
-    (p: (input: TupleRestArray) => TupleRestArray) =>
-      typia.functional.validateEqualsParameters(p),
-  );
+  (): void =>
+    _test_functional_validateEqualsParameters("TupleRestArray")(TupleRestArray)(
+      (p: (input: TupleRestArray) => TupleRestArray) =>
+        typia.functional.validateEqualsParameters(p),
+    );

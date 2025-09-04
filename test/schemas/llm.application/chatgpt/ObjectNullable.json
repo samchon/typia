@@ -1,7 +1,8 @@
 {
   "model": "chatgpt",
   "options": {
-    "reference": false,
+    "reference": true,
+    "strict": false,
     "separate": null
   },
   "functions": [
@@ -11,130 +12,119 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "object",
-            "properties": {
-              "value": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "name": {
-                      "type": "string"
-                    },
-                    "manufacturer": {
-                      "type": "object",
-                      "properties": {
-                        "type": {
-                          "type": "string",
-                          "enum": [
-                            "manufacturer"
-                          ]
-                        },
-                        "name": {
-                          "type": "string"
-                        }
-                      },
-                      "required": [
-                        "type",
-                        "name"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "brand": {
-                      "anyOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "object",
-                          "properties": {
-                            "type": {
-                              "type": "string",
-                              "enum": [
-                                "brand"
-                              ]
-                            },
-                            "name": {
-                              "type": "string"
-                            }
-                          },
-                          "required": [
-                            "type",
-                            "name"
-                          ],
-                          "additionalProperties": false
-                        }
-                      ]
-                    },
-                    "similar": {
-                      "anyOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "object",
-                          "properties": {
-                            "type": {
-                              "type": "string",
-                              "enum": [
-                                "brand"
-                              ]
-                            },
-                            "name": {
-                              "type": "string"
-                            }
-                          },
-                          "required": [
-                            "type",
-                            "name"
-                          ],
-                          "additionalProperties": false
-                        },
-                        {
-                          "type": "object",
-                          "properties": {
-                            "type": {
-                              "type": "string",
-                              "enum": [
-                                "manufacturer"
-                              ]
-                            },
-                            "name": {
-                              "type": "string"
-                            }
-                          },
-                          "required": [
-                            "type",
-                            "name"
-                          ],
-                          "additionalProperties": false
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "name",
-                    "manufacturer",
-                    "brand",
-                    "similar"
-                  ],
-                  "additionalProperties": false
-                }
-              }
-            },
-            "required": [
-              "value"
-            ],
-            "additionalProperties": false
+            "$ref": "#/$defs/ObjectNullable"
           }
         },
         "required": [
           "first"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "strict": true
+        "$defs": {
+          "ObjectNullable": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ObjectNullable.IProduct"
+                }
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "ObjectNullable.IProduct": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "manufacturer": {
+                "$ref": "#/$defs/ObjectNullable.IManufacturer"
+              },
+              "brand": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/$defs/ObjectNullable.IBrand"
+                  }
+                ],
+                "x-discriminator": {
+                  "propertyName": "type",
+                  "mapping": {
+                    "brand": "#/$defs/ObjectNullable.IBrand"
+                  }
+                }
+              },
+              "similar": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/$defs/ObjectNullable.IBrand"
+                  },
+                  {
+                    "$ref": "#/$defs/ObjectNullable.IManufacturer"
+                  }
+                ],
+                "x-discriminator": {
+                  "propertyName": "type",
+                  "mapping": {
+                    "brand": "#/$defs/ObjectNullable.IBrand",
+                    "manufacturer": "#/$defs/ObjectNullable.IManufacturer"
+                  }
+                }
+              }
+            },
+            "required": [
+              "name",
+              "manufacturer",
+              "brand",
+              "similar"
+            ]
+          },
+          "ObjectNullable.IManufacturer": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "manufacturer"
+                ]
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "type",
+              "name"
+            ]
+          },
+          "ObjectNullable.IBrand": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "brand"
+                ]
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "type",
+              "name"
+            ]
+          }
+        }
+      }
     },
     {
       "name": "reduce",
@@ -142,121 +132,7 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "object",
-            "properties": {
-              "value": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "name": {
-                      "type": "string"
-                    },
-                    "manufacturer": {
-                      "type": "object",
-                      "properties": {
-                        "type": {
-                          "type": "string",
-                          "enum": [
-                            "manufacturer"
-                          ]
-                        },
-                        "name": {
-                          "type": "string"
-                        }
-                      },
-                      "required": [
-                        "type",
-                        "name"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "brand": {
-                      "anyOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "object",
-                          "properties": {
-                            "type": {
-                              "type": "string",
-                              "enum": [
-                                "brand"
-                              ]
-                            },
-                            "name": {
-                              "type": "string"
-                            }
-                          },
-                          "required": [
-                            "type",
-                            "name"
-                          ],
-                          "additionalProperties": false
-                        }
-                      ]
-                    },
-                    "similar": {
-                      "anyOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "object",
-                          "properties": {
-                            "type": {
-                              "type": "string",
-                              "enum": [
-                                "brand"
-                              ]
-                            },
-                            "name": {
-                              "type": "string"
-                            }
-                          },
-                          "required": [
-                            "type",
-                            "name"
-                          ],
-                          "additionalProperties": false
-                        },
-                        {
-                          "type": "object",
-                          "properties": {
-                            "type": {
-                              "type": "string",
-                              "enum": [
-                                "manufacturer"
-                              ]
-                            },
-                            "name": {
-                              "type": "string"
-                            }
-                          },
-                          "required": [
-                            "type",
-                            "name"
-                          ],
-                          "additionalProperties": false
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "name",
-                    "manufacturer",
-                    "brand",
-                    "similar"
-                  ],
-                  "additionalProperties": false
-                }
-              }
-            },
-            "required": [
-              "value"
-            ],
-            "additionalProperties": false
+            "$ref": "#/$defs/ObjectNullable"
           },
           "second": {
             "anyOf": [
@@ -264,121 +140,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "name": {
-                          "type": "string"
-                        },
-                        "manufacturer": {
-                          "type": "object",
-                          "properties": {
-                            "type": {
-                              "type": "string",
-                              "enum": [
-                                "manufacturer"
-                              ]
-                            },
-                            "name": {
-                              "type": "string"
-                            }
-                          },
-                          "required": [
-                            "type",
-                            "name"
-                          ],
-                          "additionalProperties": false
-                        },
-                        "brand": {
-                          "anyOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "type": {
-                                  "type": "string",
-                                  "enum": [
-                                    "brand"
-                                  ]
-                                },
-                                "name": {
-                                  "type": "string"
-                                }
-                              },
-                              "required": [
-                                "type",
-                                "name"
-                              ],
-                              "additionalProperties": false
-                            }
-                          ]
-                        },
-                        "similar": {
-                          "anyOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "type": {
-                                  "type": "string",
-                                  "enum": [
-                                    "brand"
-                                  ]
-                                },
-                                "name": {
-                                  "type": "string"
-                                }
-                              },
-                              "required": [
-                                "type",
-                                "name"
-                              ],
-                              "additionalProperties": false
-                            },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "type": {
-                                  "type": "string",
-                                  "enum": [
-                                    "manufacturer"
-                                  ]
-                                },
-                                "name": {
-                                  "type": "string"
-                                }
-                              },
-                              "required": [
-                                "type",
-                                "name"
-                              ],
-                              "additionalProperties": false
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "name",
-                        "manufacturer",
-                        "brand",
-                        "similar"
-                      ],
-                      "additionalProperties": false
-                    }
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "additionalProperties": false
+                "$ref": "#/$defs/ObjectNullable"
               }
             ]
           }
@@ -388,126 +150,115 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "output": {
-        "type": "object",
-        "properties": {
-          "value": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "type": "string"
-                },
-                "manufacturer": {
-                  "type": "object",
-                  "properties": {
-                    "type": {
-                      "type": "string",
-                      "enum": [
-                        "manufacturer"
-                      ]
-                    },
-                    "name": {
-                      "type": "string"
-                    }
+        "$defs": {
+          "ObjectNullable": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ObjectNullable.IProduct"
+                }
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "ObjectNullable.IProduct": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "manufacturer": {
+                "$ref": "#/$defs/ObjectNullable.IManufacturer"
+              },
+              "brand": {
+                "anyOf": [
+                  {
+                    "type": "null"
                   },
-                  "required": [
-                    "type",
-                    "name"
-                  ],
-                  "additionalProperties": false
-                },
-                "brand": {
-                  "anyOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "type": {
-                          "type": "string",
-                          "enum": [
-                            "brand"
-                          ]
-                        },
-                        "name": {
-                          "type": "string"
-                        }
-                      },
-                      "required": [
-                        "type",
-                        "name"
-                      ],
-                      "additionalProperties": false
-                    }
-                  ]
-                },
-                "similar": {
-                  "anyOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "type": {
-                          "type": "string",
-                          "enum": [
-                            "brand"
-                          ]
-                        },
-                        "name": {
-                          "type": "string"
-                        }
-                      },
-                      "required": [
-                        "type",
-                        "name"
-                      ],
-                      "additionalProperties": false
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "type": {
-                          "type": "string",
-                          "enum": [
-                            "manufacturer"
-                          ]
-                        },
-                        "name": {
-                          "type": "string"
-                        }
-                      },
-                      "required": [
-                        "type",
-                        "name"
-                      ],
-                      "additionalProperties": false
-                    }
-                  ]
+                  {
+                    "$ref": "#/$defs/ObjectNullable.IBrand"
+                  }
+                ],
+                "x-discriminator": {
+                  "propertyName": "type",
+                  "mapping": {
+                    "brand": "#/$defs/ObjectNullable.IBrand"
+                  }
                 }
               },
-              "required": [
-                "name",
-                "manufacturer",
-                "brand",
-                "similar"
-              ],
-              "additionalProperties": false
-            }
+              "similar": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/$defs/ObjectNullable.IBrand"
+                  },
+                  {
+                    "$ref": "#/$defs/ObjectNullable.IManufacturer"
+                  }
+                ],
+                "x-discriminator": {
+                  "propertyName": "type",
+                  "mapping": {
+                    "brand": "#/$defs/ObjectNullable.IBrand",
+                    "manufacturer": "#/$defs/ObjectNullable.IManufacturer"
+                  }
+                }
+              }
+            },
+            "required": [
+              "name",
+              "manufacturer",
+              "brand",
+              "similar"
+            ]
+          },
+          "ObjectNullable.IManufacturer": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "manufacturer"
+                ]
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "type",
+              "name"
+            ]
+          },
+          "ObjectNullable.IBrand": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "brand"
+                ]
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "type",
+              "name"
+            ]
           }
-        },
-        "required": [
-          "value"
-        ],
-        "additionalProperties": false
+        }
       },
-      "strict": true
+      "output": {
+        "$ref": "#/$defs/ObjectNullable"
+      }
     },
     {
       "name": "coalesce",
@@ -520,121 +271,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "name": {
-                          "type": "string"
-                        },
-                        "manufacturer": {
-                          "type": "object",
-                          "properties": {
-                            "type": {
-                              "type": "string",
-                              "enum": [
-                                "manufacturer"
-                              ]
-                            },
-                            "name": {
-                              "type": "string"
-                            }
-                          },
-                          "required": [
-                            "type",
-                            "name"
-                          ],
-                          "additionalProperties": false
-                        },
-                        "brand": {
-                          "anyOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "type": {
-                                  "type": "string",
-                                  "enum": [
-                                    "brand"
-                                  ]
-                                },
-                                "name": {
-                                  "type": "string"
-                                }
-                              },
-                              "required": [
-                                "type",
-                                "name"
-                              ],
-                              "additionalProperties": false
-                            }
-                          ]
-                        },
-                        "similar": {
-                          "anyOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "type": {
-                                  "type": "string",
-                                  "enum": [
-                                    "brand"
-                                  ]
-                                },
-                                "name": {
-                                  "type": "string"
-                                }
-                              },
-                              "required": [
-                                "type",
-                                "name"
-                              ],
-                              "additionalProperties": false
-                            },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "type": {
-                                  "type": "string",
-                                  "enum": [
-                                    "manufacturer"
-                                  ]
-                                },
-                                "name": {
-                                  "type": "string"
-                                }
-                              },
-                              "required": [
-                                "type",
-                                "name"
-                              ],
-                              "additionalProperties": false
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "name",
-                        "manufacturer",
-                        "brand",
-                        "similar"
-                      ],
-                      "additionalProperties": false
-                    }
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "additionalProperties": false
+                "$ref": "#/$defs/ObjectNullable"
               }
             ]
           },
@@ -644,121 +281,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "name": {
-                          "type": "string"
-                        },
-                        "manufacturer": {
-                          "type": "object",
-                          "properties": {
-                            "type": {
-                              "type": "string",
-                              "enum": [
-                                "manufacturer"
-                              ]
-                            },
-                            "name": {
-                              "type": "string"
-                            }
-                          },
-                          "required": [
-                            "type",
-                            "name"
-                          ],
-                          "additionalProperties": false
-                        },
-                        "brand": {
-                          "anyOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "type": {
-                                  "type": "string",
-                                  "enum": [
-                                    "brand"
-                                  ]
-                                },
-                                "name": {
-                                  "type": "string"
-                                }
-                              },
-                              "required": [
-                                "type",
-                                "name"
-                              ],
-                              "additionalProperties": false
-                            }
-                          ]
-                        },
-                        "similar": {
-                          "anyOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "type": {
-                                  "type": "string",
-                                  "enum": [
-                                    "brand"
-                                  ]
-                                },
-                                "name": {
-                                  "type": "string"
-                                }
-                              },
-                              "required": [
-                                "type",
-                                "name"
-                              ],
-                              "additionalProperties": false
-                            },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "type": {
-                                  "type": "string",
-                                  "enum": [
-                                    "manufacturer"
-                                  ]
-                                },
-                                "name": {
-                                  "type": "string"
-                                }
-                              },
-                              "required": [
-                                "type",
-                                "name"
-                              ],
-                              "additionalProperties": false
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "name",
-                        "manufacturer",
-                        "brand",
-                        "similar"
-                      ],
-                      "additionalProperties": false
-                    }
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "additionalProperties": false
+                "$ref": "#/$defs/ObjectNullable"
               }
             ]
           },
@@ -768,132 +291,121 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "name": {
-                          "type": "string"
-                        },
-                        "manufacturer": {
-                          "type": "object",
-                          "properties": {
-                            "type": {
-                              "type": "string",
-                              "enum": [
-                                "manufacturer"
-                              ]
-                            },
-                            "name": {
-                              "type": "string"
-                            }
-                          },
-                          "required": [
-                            "type",
-                            "name"
-                          ],
-                          "additionalProperties": false
-                        },
-                        "brand": {
-                          "anyOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "type": {
-                                  "type": "string",
-                                  "enum": [
-                                    "brand"
-                                  ]
-                                },
-                                "name": {
-                                  "type": "string"
-                                }
-                              },
-                              "required": [
-                                "type",
-                                "name"
-                              ],
-                              "additionalProperties": false
-                            }
-                          ]
-                        },
-                        "similar": {
-                          "anyOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "type": {
-                                  "type": "string",
-                                  "enum": [
-                                    "brand"
-                                  ]
-                                },
-                                "name": {
-                                  "type": "string"
-                                }
-                              },
-                              "required": [
-                                "type",
-                                "name"
-                              ],
-                              "additionalProperties": false
-                            },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "type": {
-                                  "type": "string",
-                                  "enum": [
-                                    "manufacturer"
-                                  ]
-                                },
-                                "name": {
-                                  "type": "string"
-                                }
-                              },
-                              "required": [
-                                "type",
-                                "name"
-                              ],
-                              "additionalProperties": false
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "name",
-                        "manufacturer",
-                        "brand",
-                        "similar"
-                      ],
-                      "additionalProperties": false
-                    }
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "additionalProperties": false
+                "$ref": "#/$defs/ObjectNullable"
               }
             ]
           }
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "ObjectNullable": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ObjectNullable.IProduct"
+                }
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "ObjectNullable.IProduct": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "manufacturer": {
+                "$ref": "#/$defs/ObjectNullable.IManufacturer"
+              },
+              "brand": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/$defs/ObjectNullable.IBrand"
+                  }
+                ],
+                "x-discriminator": {
+                  "propertyName": "type",
+                  "mapping": {
+                    "brand": "#/$defs/ObjectNullable.IBrand"
+                  }
+                }
+              },
+              "similar": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/$defs/ObjectNullable.IBrand"
+                  },
+                  {
+                    "$ref": "#/$defs/ObjectNullable.IManufacturer"
+                  }
+                ],
+                "x-discriminator": {
+                  "propertyName": "type",
+                  "mapping": {
+                    "brand": "#/$defs/ObjectNullable.IBrand",
+                    "manufacturer": "#/$defs/ObjectNullable.IManufacturer"
+                  }
+                }
+              }
+            },
+            "required": [
+              "name",
+              "manufacturer",
+              "brand",
+              "similar"
+            ]
+          },
+          "ObjectNullable.IManufacturer": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "manufacturer"
+                ]
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "type",
+              "name"
+            ]
+          },
+          "ObjectNullable.IBrand": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "brand"
+                ]
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "type",
+              "name"
+            ]
+          }
+        }
       },
       "output": {
         "anyOf": [
@@ -901,125 +413,10 @@
             "type": "null"
           },
           {
-            "type": "object",
-            "properties": {
-              "value": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "name": {
-                      "type": "string"
-                    },
-                    "manufacturer": {
-                      "type": "object",
-                      "properties": {
-                        "type": {
-                          "type": "string",
-                          "enum": [
-                            "manufacturer"
-                          ]
-                        },
-                        "name": {
-                          "type": "string"
-                        }
-                      },
-                      "required": [
-                        "type",
-                        "name"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "brand": {
-                      "anyOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "object",
-                          "properties": {
-                            "type": {
-                              "type": "string",
-                              "enum": [
-                                "brand"
-                              ]
-                            },
-                            "name": {
-                              "type": "string"
-                            }
-                          },
-                          "required": [
-                            "type",
-                            "name"
-                          ],
-                          "additionalProperties": false
-                        }
-                      ]
-                    },
-                    "similar": {
-                      "anyOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "object",
-                          "properties": {
-                            "type": {
-                              "type": "string",
-                              "enum": [
-                                "brand"
-                              ]
-                            },
-                            "name": {
-                              "type": "string"
-                            }
-                          },
-                          "required": [
-                            "type",
-                            "name"
-                          ],
-                          "additionalProperties": false
-                        },
-                        {
-                          "type": "object",
-                          "properties": {
-                            "type": {
-                              "type": "string",
-                              "enum": [
-                                "manufacturer"
-                              ]
-                            },
-                            "name": {
-                              "type": "string"
-                            }
-                          },
-                          "required": [
-                            "type",
-                            "name"
-                          ],
-                          "additionalProperties": false
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "name",
-                    "manufacturer",
-                    "brand",
-                    "similar"
-                  ],
-                  "additionalProperties": false
-                }
-              }
-            },
-            "required": [
-              "value"
-            ],
-            "additionalProperties": false
+            "$ref": "#/$defs/ObjectNullable"
           }
         ]
-      },
-      "strict": true
+      }
     }
   ]
 }

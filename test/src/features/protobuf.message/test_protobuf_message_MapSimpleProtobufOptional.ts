@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_protobuf_message } from "../../internal/_test_protobuf_message";
 import { MapSimpleProtobufOptional } from "../../structures/MapSimpleProtobufOptional";
 
-export const test_protobuf_message_MapSimpleProtobufOptional =
+export const test_protobuf_message_MapSimpleProtobufOptional = (): void =>
   _test_protobuf_message("MapSimpleProtobufOptional")(
     typia.protobuf.message<MapSimpleProtobufOptional>(),
   );

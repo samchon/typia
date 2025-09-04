@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_functional_assertParameters } from "../../internal/_test_functional_assertParameters";
 import { ObjectSimple } from "../../structures/ObjectSimple";
 
-export const test_functional_assertParametersCustom_ObjectSimple =
+export const test_functional_assertParametersCustom_ObjectSimple = (): void =>
   _test_functional_assertParameters(CustomGuardError)("ObjectSimple")(
     ObjectSimple,
   )((p: (input: ObjectSimple) => ObjectSimple) =>

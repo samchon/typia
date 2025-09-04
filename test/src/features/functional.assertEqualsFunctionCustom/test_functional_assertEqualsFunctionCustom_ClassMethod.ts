@@ -5,8 +5,9 @@ import { _test_functional_assertEqualsFunction } from "../../internal/_test_func
 import { ClassMethod } from "../../structures/ClassMethod";
 
 export const test_functional_assertEqualsFunctionCustom_ClassMethod =
-  _test_functional_assertEqualsFunction(CustomGuardError)("ClassMethod")(
-    ClassMethod,
-  )((p: (input: ClassMethod) => ClassMethod) =>
-    typia.functional.assertEqualsFunction(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertEqualsFunction(CustomGuardError)("ClassMethod")(
+      ClassMethod,
+    )((p: (input: ClassMethod) => ClassMethod) =>
+      typia.functional.assertEqualsFunction(p, (p) => new CustomGuardError(p)),
+    );

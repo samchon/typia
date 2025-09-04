@@ -1,7 +1,8 @@
 {
   "model": "chatgpt",
   "options": {
-    "reference": false,
+    "reference": true,
+    "strict": false,
     "separate": null
   },
   "functions": [
@@ -11,10 +12,7 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "array",
-            "items": {
-              "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IBucket"
-            }
+            "$ref": "#/$defs/ArrayRecursiveUnionImplicit"
           }
         },
         "required": [
@@ -22,6 +20,12 @@
         ],
         "additionalProperties": false,
         "$defs": {
+          "ArrayRecursiveUnionImplicit": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IBucket"
+            }
+          },
           "ArrayRecursiveUnionImplicit.IBucket": {
             "anyOf": [
               {
@@ -31,96 +35,13 @@
                 "$ref": "#/$defs/ArrayRecursiveUnionImplicit.ISharedDirectory"
               },
               {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "number"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "path": {
-                    "type": "string"
-                  },
-                  "width": {
-                    "type": "number"
-                  },
-                  "height": {
-                    "type": "number"
-                  },
-                  "url": {
-                    "type": "string"
-                  },
-                  "size": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "id",
-                  "name",
-                  "path",
-                  "width",
-                  "height",
-                  "url",
-                  "size"
-                ],
-                "additionalProperties": false
+                "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IImageFile"
               },
               {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "number"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "path": {
-                    "type": "string"
-                  },
-                  "size": {
-                    "type": "number"
-                  },
-                  "content": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "id",
-                  "name",
-                  "path",
-                  "size",
-                  "content"
-                ],
-                "additionalProperties": false
+                "$ref": "#/$defs/ArrayRecursiveUnionImplicit.ITextFile"
               },
               {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "number"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "path": {
-                    "type": "string"
-                  },
-                  "size": {
-                    "type": "number"
-                  },
-                  "count": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "id",
-                  "name",
-                  "path",
-                  "size",
-                  "count"
-                ],
-                "additionalProperties": false
+                "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IZipFile"
               },
               {
                 "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IShortcut"
@@ -151,8 +72,7 @@
               "name",
               "path",
               "children"
-            ],
-            "additionalProperties": false
+            ]
           },
           "ArrayRecursiveUnionImplicit.ISharedDirectory": {
             "type": "object",
@@ -186,8 +106,96 @@
               "name",
               "path",
               "children"
-            ],
-            "additionalProperties": false
+            ]
+          },
+          "ArrayRecursiveUnionImplicit.IImageFile": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "name": {
+                "type": "string"
+              },
+              "path": {
+                "type": "string"
+              },
+              "width": {
+                "type": "number"
+              },
+              "height": {
+                "type": "number"
+              },
+              "url": {
+                "type": "string"
+              },
+              "size": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "path",
+              "width",
+              "height",
+              "url",
+              "size"
+            ]
+          },
+          "ArrayRecursiveUnionImplicit.ITextFile": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "name": {
+                "type": "string"
+              },
+              "path": {
+                "type": "string"
+              },
+              "size": {
+                "type": "number"
+              },
+              "content": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "path",
+              "size",
+              "content"
+            ]
+          },
+          "ArrayRecursiveUnionImplicit.IZipFile": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "name": {
+                "type": "string"
+              },
+              "path": {
+                "type": "string"
+              },
+              "size": {
+                "type": "number"
+              },
+              "count": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "path",
+              "size",
+              "count"
+            ]
           },
           "ArrayRecursiveUnionImplicit.IShortcut": {
             "type": "object",
@@ -210,12 +218,10 @@
               "name",
               "path",
               "target"
-            ],
-            "additionalProperties": false
+            ]
           }
         }
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -223,10 +229,7 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "array",
-            "items": {
-              "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IBucket"
-            }
+            "$ref": "#/$defs/ArrayRecursiveUnionImplicit"
           },
           "second": {
             "anyOf": [
@@ -234,10 +237,7 @@
                 "type": "null"
               },
               {
-                "type": "array",
-                "items": {
-                  "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IBucket"
-                }
+                "$ref": "#/$defs/ArrayRecursiveUnionImplicit"
               }
             ]
           }
@@ -248,6 +248,12 @@
         ],
         "additionalProperties": false,
         "$defs": {
+          "ArrayRecursiveUnionImplicit": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IBucket"
+            }
+          },
           "ArrayRecursiveUnionImplicit.IBucket": {
             "anyOf": [
               {
@@ -257,96 +263,13 @@
                 "$ref": "#/$defs/ArrayRecursiveUnionImplicit.ISharedDirectory"
               },
               {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "number"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "path": {
-                    "type": "string"
-                  },
-                  "width": {
-                    "type": "number"
-                  },
-                  "height": {
-                    "type": "number"
-                  },
-                  "url": {
-                    "type": "string"
-                  },
-                  "size": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "id",
-                  "name",
-                  "path",
-                  "width",
-                  "height",
-                  "url",
-                  "size"
-                ],
-                "additionalProperties": false
+                "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IImageFile"
               },
               {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "number"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "path": {
-                    "type": "string"
-                  },
-                  "size": {
-                    "type": "number"
-                  },
-                  "content": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "id",
-                  "name",
-                  "path",
-                  "size",
-                  "content"
-                ],
-                "additionalProperties": false
+                "$ref": "#/$defs/ArrayRecursiveUnionImplicit.ITextFile"
               },
               {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "number"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "path": {
-                    "type": "string"
-                  },
-                  "size": {
-                    "type": "number"
-                  },
-                  "count": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "id",
-                  "name",
-                  "path",
-                  "size",
-                  "count"
-                ],
-                "additionalProperties": false
+                "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IZipFile"
               },
               {
                 "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IShortcut"
@@ -377,8 +300,7 @@
               "name",
               "path",
               "children"
-            ],
-            "additionalProperties": false
+            ]
           },
           "ArrayRecursiveUnionImplicit.ISharedDirectory": {
             "type": "object",
@@ -412,8 +334,96 @@
               "name",
               "path",
               "children"
-            ],
-            "additionalProperties": false
+            ]
+          },
+          "ArrayRecursiveUnionImplicit.IImageFile": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "name": {
+                "type": "string"
+              },
+              "path": {
+                "type": "string"
+              },
+              "width": {
+                "type": "number"
+              },
+              "height": {
+                "type": "number"
+              },
+              "url": {
+                "type": "string"
+              },
+              "size": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "path",
+              "width",
+              "height",
+              "url",
+              "size"
+            ]
+          },
+          "ArrayRecursiveUnionImplicit.ITextFile": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "name": {
+                "type": "string"
+              },
+              "path": {
+                "type": "string"
+              },
+              "size": {
+                "type": "number"
+              },
+              "content": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "path",
+              "size",
+              "content"
+            ]
+          },
+          "ArrayRecursiveUnionImplicit.IZipFile": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "name": {
+                "type": "string"
+              },
+              "path": {
+                "type": "string"
+              },
+              "size": {
+                "type": "number"
+              },
+              "count": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "path",
+              "size",
+              "count"
+            ]
           },
           "ArrayRecursiveUnionImplicit.IShortcut": {
             "type": "object",
@@ -436,18 +446,13 @@
               "name",
               "path",
               "target"
-            ],
-            "additionalProperties": false
+            ]
           }
         }
       },
       "output": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IBucket"
-        }
-      },
-      "strict": true
+        "$ref": "#/$defs/ArrayRecursiveUnionImplicit"
+      }
     },
     {
       "name": "coalesce",
@@ -460,10 +465,7 @@
                 "type": "null"
               },
               {
-                "type": "array",
-                "items": {
-                  "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IBucket"
-                }
+                "$ref": "#/$defs/ArrayRecursiveUnionImplicit"
               }
             ]
           },
@@ -473,10 +475,7 @@
                 "type": "null"
               },
               {
-                "type": "array",
-                "items": {
-                  "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IBucket"
-                }
+                "$ref": "#/$defs/ArrayRecursiveUnionImplicit"
               }
             ]
           },
@@ -486,21 +485,23 @@
                 "type": "null"
               },
               {
-                "type": "array",
-                "items": {
-                  "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IBucket"
-                }
+                "$ref": "#/$defs/ArrayRecursiveUnionImplicit"
               }
             ]
           }
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
         "$defs": {
+          "ArrayRecursiveUnionImplicit": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IBucket"
+            }
+          },
           "ArrayRecursiveUnionImplicit.IBucket": {
             "anyOf": [
               {
@@ -510,96 +511,13 @@
                 "$ref": "#/$defs/ArrayRecursiveUnionImplicit.ISharedDirectory"
               },
               {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "number"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "path": {
-                    "type": "string"
-                  },
-                  "width": {
-                    "type": "number"
-                  },
-                  "height": {
-                    "type": "number"
-                  },
-                  "url": {
-                    "type": "string"
-                  },
-                  "size": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "id",
-                  "name",
-                  "path",
-                  "width",
-                  "height",
-                  "url",
-                  "size"
-                ],
-                "additionalProperties": false
+                "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IImageFile"
               },
               {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "number"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "path": {
-                    "type": "string"
-                  },
-                  "size": {
-                    "type": "number"
-                  },
-                  "content": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "id",
-                  "name",
-                  "path",
-                  "size",
-                  "content"
-                ],
-                "additionalProperties": false
+                "$ref": "#/$defs/ArrayRecursiveUnionImplicit.ITextFile"
               },
               {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "number"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "path": {
-                    "type": "string"
-                  },
-                  "size": {
-                    "type": "number"
-                  },
-                  "count": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "id",
-                  "name",
-                  "path",
-                  "size",
-                  "count"
-                ],
-                "additionalProperties": false
+                "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IZipFile"
               },
               {
                 "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IShortcut"
@@ -630,8 +548,7 @@
               "name",
               "path",
               "children"
-            ],
-            "additionalProperties": false
+            ]
           },
           "ArrayRecursiveUnionImplicit.ISharedDirectory": {
             "type": "object",
@@ -665,8 +582,96 @@
               "name",
               "path",
               "children"
-            ],
-            "additionalProperties": false
+            ]
+          },
+          "ArrayRecursiveUnionImplicit.IImageFile": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "name": {
+                "type": "string"
+              },
+              "path": {
+                "type": "string"
+              },
+              "width": {
+                "type": "number"
+              },
+              "height": {
+                "type": "number"
+              },
+              "url": {
+                "type": "string"
+              },
+              "size": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "path",
+              "width",
+              "height",
+              "url",
+              "size"
+            ]
+          },
+          "ArrayRecursiveUnionImplicit.ITextFile": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "name": {
+                "type": "string"
+              },
+              "path": {
+                "type": "string"
+              },
+              "size": {
+                "type": "number"
+              },
+              "content": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "path",
+              "size",
+              "content"
+            ]
+          },
+          "ArrayRecursiveUnionImplicit.IZipFile": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "name": {
+                "type": "string"
+              },
+              "path": {
+                "type": "string"
+              },
+              "size": {
+                "type": "number"
+              },
+              "count": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "path",
+              "size",
+              "count"
+            ]
           },
           "ArrayRecursiveUnionImplicit.IShortcut": {
             "type": "object",
@@ -689,8 +694,7 @@
               "name",
               "path",
               "target"
-            ],
-            "additionalProperties": false
+            ]
           }
         }
       },
@@ -700,14 +704,10 @@
             "type": "null"
           },
           {
-            "type": "array",
-            "items": {
-              "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IBucket"
-            }
+            "$ref": "#/$defs/ArrayRecursiveUnionImplicit"
           }
         ]
-      },
-      "strict": true
+      }
     }
   ]
 }

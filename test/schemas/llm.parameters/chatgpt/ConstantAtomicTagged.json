@@ -2,35 +2,7 @@
   "type": "object",
   "properties": {
     "regular": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "description": "@format uuid",
-          "type": "string",
-          "enum": [
-            "latest"
-          ]
-        },
-        "age": {
-          "anyOf": [
-            {
-              "type": "integer",
-              "description": "@maximum 100"
-            },
-            {
-              "type": "number",
-              "enum": [
-                -1
-              ]
-            }
-          ]
-        }
-      },
-      "required": [
-        "id",
-        "age"
-      ],
-      "additionalProperties": false
+      "$ref": "#/$defs/ConstantAtomicTagged"
     },
     "nullable": {
       "anyOf": [
@@ -38,39 +10,38 @@
           "type": "null"
         },
         {
-          "type": "object",
-          "properties": {
-            "id": {
-              "description": "@format uuid",
-              "type": "string",
-              "enum": [
-                "latest"
-              ]
-            },
-            "age": {
-              "anyOf": [
-                {
-                  "type": "integer",
-                  "description": "@maximum 100"
-                },
-                {
-                  "type": "number",
-                  "enum": [
-                    -1
-                  ]
-                }
-              ]
-            }
-          },
-          "required": [
-            "id",
-            "age"
-          ],
-          "additionalProperties": false
+          "$ref": "#/$defs/ConstantAtomicTagged"
         }
       ]
     },
     "optional": {
+      "$ref": "#/$defs/ConstantAtomicTagged"
+    },
+    "faint": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/ConstantAtomicTagged"
+        }
+      ]
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ConstantAtomicTagged"
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "array"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "ConstantAtomicTagged": {
       "type": "object",
       "properties": {
         "id": {
@@ -84,7 +55,7 @@
           "anyOf": [
             {
               "type": "integer",
-              "description": "@maximum 100"
+              "description": "@minimum 0\n@maximum 100"
             },
             {
               "type": "number",
@@ -98,89 +69,7 @@
       "required": [
         "id",
         "age"
-      ],
-      "additionalProperties": false
-    },
-    "faint": {
-      "anyOf": [
-        {
-          "type": "null"
-        },
-        {
-          "type": "object",
-          "properties": {
-            "id": {
-              "description": "@format uuid",
-              "type": "string",
-              "enum": [
-                "latest"
-              ]
-            },
-            "age": {
-              "anyOf": [
-                {
-                  "type": "integer",
-                  "description": "@maximum 100"
-                },
-                {
-                  "type": "number",
-                  "enum": [
-                    -1
-                  ]
-                }
-              ]
-            }
-          },
-          "required": [
-            "id",
-            "age"
-          ],
-          "additionalProperties": false
-        }
       ]
-    },
-    "array": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "description": "@format uuid",
-            "type": "string",
-            "enum": [
-              "latest"
-            ]
-          },
-          "age": {
-            "anyOf": [
-              {
-                "type": "integer",
-                "description": "@maximum 100"
-              },
-              {
-                "type": "number",
-                "enum": [
-                  -1
-                ]
-              }
-            ]
-          }
-        },
-        "required": [
-          "id",
-          "age"
-        ],
-        "additionalProperties": false
-      }
     }
-  },
-  "required": [
-    "regular",
-    "nullable",
-    "optional",
-    "faint",
-    "array"
-  ],
-  "additionalProperties": false,
-  "$defs": {}
+  }
 }

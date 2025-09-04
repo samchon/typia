@@ -5,9 +5,10 @@ import { _test_functional_assertEqualsFunctionAsync } from "../../internal/_test
 import { ObjectIntersection } from "../../structures/ObjectIntersection";
 
 export const test_functional_assertEqualsFunctionAsync_ObjectIntersection =
-  _test_functional_assertEqualsFunctionAsync(TypeGuardError)(
-    "ObjectIntersection",
-  )(ObjectIntersection)(
-    (p: (input: ObjectIntersection) => Promise<ObjectIntersection>) =>
-      typia.functional.assertEqualsFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsFunctionAsync(TypeGuardError)(
+      "ObjectIntersection",
+    )(ObjectIntersection)(
+      (p: (input: ObjectIntersection) => Promise<ObjectIntersection>) =>
+        typia.functional.assertEqualsFunction(p),
+    );

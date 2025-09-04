@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_misc_assertClone } from "../../internal/_test_misc_assertClone";
 import { TemplateUnion } from "../../structures/TemplateUnion";
 
-export const test_misc_createAssertCloneCustom_TemplateUnion =
+export const test_misc_createAssertCloneCustom_TemplateUnion = (): void =>
   _test_misc_assertClone(CustomGuardError)("TemplateUnion")<TemplateUnion>(
     TemplateUnion,
   )(

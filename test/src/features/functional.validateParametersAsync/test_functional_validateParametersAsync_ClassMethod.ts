@@ -4,7 +4,8 @@ import { _test_functional_validateParametersAsync } from "../../internal/_test_f
 import { ClassMethod } from "../../structures/ClassMethod";
 
 export const test_functional_validateParametersAsync_ClassMethod =
-  _test_functional_validateParametersAsync("ClassMethod")(ClassMethod)(
-    (p: (input: ClassMethod) => Promise<ClassMethod>) =>
-      typia.functional.validateParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateParametersAsync("ClassMethod")(ClassMethod)(
+      (p: (input: ClassMethod) => Promise<ClassMethod>) =>
+        typia.functional.validateParameters(p),
+    );

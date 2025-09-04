@@ -3,10 +3,11 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { CommentTagDefault } from "../../../structures/CommentTagDefault";
 
-export const test_llm_application_claude_CommentTagDefault =
+export const test_llm_application_claude_CommentTagDefault = (): void =>
   _test_llm_application({
     model: "claude",
     name: "CommentTagDefault",
+    factory: CommentTagDefault,
   })(typia.llm.application<CommentTagDefaultApplication, "claude">());
 
 interface CommentTagDefaultApplication {

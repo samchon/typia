@@ -1,16 +1,1 @@
-{
-  "type": "object",
-  "properties": {
-    "value": {
-      "type": "object",
-      "properties": {},
-      "required": [],
-      "additionalProperties": {
-        "type": "number"
-      }
-    }
-  },
-  "required": [
-    "value"
-  ]
-}
+{}

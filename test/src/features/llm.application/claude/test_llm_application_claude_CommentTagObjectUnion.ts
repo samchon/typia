@@ -3,10 +3,11 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { CommentTagObjectUnion } from "../../../structures/CommentTagObjectUnion";
 
-export const test_llm_application_claude_CommentTagObjectUnion =
+export const test_llm_application_claude_CommentTagObjectUnion = (): void =>
   _test_llm_application({
     model: "claude",
     name: "CommentTagObjectUnion",
+    factory: CommentTagObjectUnion,
   })(typia.llm.application<CommentTagObjectUnionApplication, "claude">());
 
 interface CommentTagObjectUnionApplication {

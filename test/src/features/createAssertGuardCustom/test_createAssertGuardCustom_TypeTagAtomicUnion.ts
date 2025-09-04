@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_assertGuard } from "../../internal/_test_assertGuard";
 import { TypeTagAtomicUnion } from "../../structures/TypeTagAtomicUnion";
 
-export const test_createAssertGuardCustom_TypeTagAtomicUnion =
+export const test_createAssertGuardCustom_TypeTagAtomicUnion = (): void =>
   _test_assertGuard(CustomGuardError)("TypeTagAtomicUnion")<TypeTagAtomicUnion>(
     TypeTagAtomicUnion,
   )(

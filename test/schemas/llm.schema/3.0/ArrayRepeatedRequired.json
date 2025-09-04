@@ -39,16 +39,24 @@
                       {
                         "type": "array",
                         "items": {},
-                        "maxItems": 0
+                        "maxItems": 0,
+                        "description": "Current Type: {@link ArrayArrayRepeatedRequired}"
                       }
-                    ]
-                  }
+                    ],
+                    "description": "Current Type: {@link ArrayRepeatedRequired}"
+                  },
+                  "description": "Current Type: {@link ArrayArrayRepeatedRequired}"
                 }
-              ]
-            }
+              ],
+              "description": "Current Type: {@link ArrayRepeatedRequired}"
+            },
+            "description": "Current Type: {@link ArrayArrayRepeatedRequired}"
           }
-        ]
-      }
+        ],
+        "description": "Current Type: {@link ArrayRepeatedRequired}"
+      },
+      "description": "Current Type: {@link ArrayArrayRepeatedRequired}"
     }
-  ]
+  ],
+  "description": "Current Type: {@link ArrayRepeatedRequired}"
 }

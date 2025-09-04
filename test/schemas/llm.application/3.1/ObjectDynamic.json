@@ -1,8 +1,8 @@
 {
   "model": "3.1",
   "options": {
-    "constraint": false,
-    "reference": false,
+    "reference": true,
+    "constraint": true,
     "separate": null
   },
   "functions": [
@@ -12,6 +12,15 @@
         "type": "object",
         "properties": {
           "first": {
+            "$ref": "#/$defs/ObjectDynamic"
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ObjectDynamic": {
             "type": "object",
             "properties": {},
             "required": [],
@@ -29,14 +38,8 @@
               ]
             }
           }
-        },
-        "required": [
-          "first"
-        ],
-        "additionalProperties": false,
-        "$defs": {}
-      },
-      "strict": true
+        }
+      }
     },
     {
       "name": "reduce",
@@ -44,22 +47,7 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "object",
-            "properties": {},
-            "required": [],
-            "additionalProperties": {
-              "oneOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "number"
-                },
-                {
-                  "type": "boolean"
-                }
-              ]
-            }
+            "$ref": "#/$defs/ObjectDynamic"
           },
           "second": {
             "oneOf": [
@@ -67,22 +55,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {},
-                "required": [],
-                "additionalProperties": {
-                  "oneOf": [
-                    {
-                      "type": "string"
-                    },
-                    {
-                      "type": "number"
-                    },
-                    {
-                      "type": "boolean"
-                    }
-                  ]
-                }
+                "$ref": "#/$defs/ObjectDynamic"
               }
             ]
           }
@@ -92,27 +65,30 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "output": {
-        "type": "object",
-        "properties": {},
-        "required": [],
-        "additionalProperties": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "number"
-            },
-            {
-              "type": "boolean"
+        "$defs": {
+          "ObjectDynamic": {
+            "type": "object",
+            "properties": {},
+            "required": [],
+            "additionalProperties": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "boolean"
+                }
+              ]
             }
-          ]
+          }
         }
       },
-      "strict": true
+      "output": {
+        "$ref": "#/$defs/ObjectDynamic"
+      }
     },
     {
       "name": "coalesce",
@@ -125,22 +101,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {},
-                "required": [],
-                "additionalProperties": {
-                  "oneOf": [
-                    {
-                      "type": "string"
-                    },
-                    {
-                      "type": "number"
-                    },
-                    {
-                      "type": "boolean"
-                    }
-                  ]
-                }
+                "$ref": "#/$defs/ObjectDynamic"
               }
             ]
           },
@@ -150,22 +111,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {},
-                "required": [],
-                "additionalProperties": {
-                  "oneOf": [
-                    {
-                      "type": "string"
-                    },
-                    {
-                      "type": "number"
-                    },
-                    {
-                      "type": "boolean"
-                    }
-                  ]
-                }
+                "$ref": "#/$defs/ObjectDynamic"
               }
             ]
           },
@@ -175,40 +121,18 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {},
-                "required": [],
-                "additionalProperties": {
-                  "oneOf": [
-                    {
-                      "type": "string"
-                    },
-                    {
-                      "type": "number"
-                    },
-                    {
-                      "type": "boolean"
-                    }
-                  ]
-                }
+                "$ref": "#/$defs/ObjectDynamic"
               }
             ]
           }
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "output": {
-        "oneOf": [
-          {
-            "type": "null"
-          },
-          {
+        "$defs": {
+          "ObjectDynamic": {
             "type": "object",
             "properties": {},
             "required": [],
@@ -226,9 +150,18 @@
               ]
             }
           }
-        ]
+        }
       },
-      "strict": true
+      "output": {
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "$ref": "#/$defs/ObjectDynamic"
+          }
+        ]
+      }
     }
   ]
 }

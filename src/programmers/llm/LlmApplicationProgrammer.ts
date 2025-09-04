@@ -7,19 +7,29 @@ import {
 } from "@samchon/openapi";
 import { LlmSchemaComposer } from "@samchon/openapi/lib/composers/LlmSchemaComposer";
 import { ILlmFunction } from "@samchon/openapi/lib/structures/ILlmFunction";
+import ts from "typescript";
 
 import { MetadataFactory } from "../../factories/MetadataFactory";
+import { TypeFactory } from "../../factories/TypeFactory";
 
 import { __IJsonApplication } from "../../schemas/json/__IJsonApplication";
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataFunction } from "../../schemas/metadata/MetadataFunction";
 import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
+import { MetadataParameter } from "../../schemas/metadata/MetadataParameter";
 
+import { ITypiaContext } from "../../transformers/ITypiaContext";
+
+import { IValidation } from "../../IValidation";
+import { ValidateProgrammer } from "../ValidateProgrammer";
 import { JsonApplicationProgrammer } from "../json/JsonApplicationProgrammer";
 import { LlmSchemaProgrammer } from "./LlmSchemaProgrammer";
 
 export namespace LlmApplicationProgrammer {
-  export const validate = (model: ILlmSchema.Model) => {
+  export const validate = <Model extends ILlmSchema.Model>(props: {
+    model: Model;
+    config?: Partial<ILlmSchema.ModelConfig[Model]>;
+  }) => {
     let top: Metadata | undefined;
     return (
       metadata: Metadata,
@@ -36,17 +46,17 @@ export namespace LlmApplicationProgrammer {
           metadata.functions.length === 1
         )
           return validateFunction(explore.property, metadata.functions[0]!);
-        else return LlmSchemaProgrammer.validate(model)(metadata);
+        else return LlmSchemaProgrammer.validate(props)(metadata);
 
       const output: string[] = [];
-      const valid: boolean =
+      const validity: boolean =
         metadata.size() === 1 &&
         metadata.objects.length === 1 &&
         metadata.isRequired() === true &&
         metadata.nullable === false;
-      if (valid === false)
+      if (validity === false)
         output.push(
-          "LLM application's generic arugment must be a class/interface type.",
+          "LLM application's generic argument must be a class/interface type.",
         );
 
       const object: MetadataObjectType | undefined = metadata.objects[0]?.type;
@@ -57,23 +67,40 @@ export namespace LlmApplicationProgrammer {
           );
         let least: boolean = false;
         for (const p of object.properties) {
+          const name: string = JSON.stringify(p.key.getSoleLiteral()!);
           const value: Metadata = p.value;
           if (value.functions.length) {
             least ||= true;
-            if (valid === false) {
+            if (validity === false) {
               if (value.functions.length !== 1 || value.size() !== 1)
                 output.push(
-                  "LLM application's function type does not allow union type.",
+                  `LLM application's function (${name}) type does not allow union type.`,
                 );
               if (value.isRequired() === false)
                 output.push(
-                  "LLM application's function type must be required.",
+                  `LLM application's function (${name}) type must be required.`,
                 );
               if (value.nullable === true)
                 output.push(
-                  "LLM application's function type must not be nullable.",
+                  `LLM application's function (${name}) type must not be nullable.`,
                 );
             }
+
+            const description: string | undefined = concatDescription(
+              JsonApplicationProgrammer.writeDescription({
+                description:
+                  p.description ??
+                  p.jsDocTags.find((tag) => tag.name === "description")
+                    ?.text?.[0]?.text ??
+                  null,
+                jsDocTags: p.jsDocTags,
+                kind: "summary",
+              }),
+            );
+            if (description !== undefined && description.length > 1_024)
+              output.push(
+                `LLM application's function (${name}) description must not exceed 1,024 characters.`,
+              );
           }
         }
         if (least === false)
@@ -90,27 +117,37 @@ export namespace LlmApplicationProgrammer {
     const prefix: string = `LLM application's function (${JSON.stringify(name)})`;
     if (func.output.size() && func.output.isRequired() === false)
       output.push(
-        `${prefix}'s return type must not be union type with undefined.`,
+        `${prefix} return type cannot be optional (union with undefined).`,
       );
-    if (func.parameters.length !== 1)
-      output.push(`${prefix} must have a single parameter.`);
+    if (/^[0-9]/.test(name[0] ?? "") === true)
+      output.push(`${prefix} name cannot start with a number.`);
+    if (/^[a-zA-Z0-9_-]+$/.test(name) === false)
+      output.push(
+        `${prefix} name must contain only alphanumeric characters, underscores, or hyphens.`,
+      );
+    if (name.length > 64)
+      output.push(`${prefix} name cannot exceed 64 characters.`);
+    if (func.parameters.length !== 0 && func.parameters.length !== 1)
+      output.push(
+        `${prefix} must have exactly one parameter or no parameters.`,
+      );
     if (func.parameters.length !== 0) {
       const type: Metadata = func.parameters[0]!.type;
       if (type.size() !== 1 || type.objects.length !== 1)
-        output.push(`${prefix}'s parameter must be an object type.`);
+        output.push(`${prefix} parameter must be a single object type.`);
       else {
         if (
           type.objects[0]!.type.properties.some(
             (p) => p.key.isSoleLiteral() === false,
           )
         )
-          output.push(`${prefix}'s parameter must not have dynamic keys.`);
+          output.push(`${prefix} parameter cannot have dynamic property keys.`);
         if (type.isRequired() === false)
           output.push(
-            `${prefix}'s parameter must not be union type with undefined.`,
+            `${prefix} parameter cannot be optional (union with undefined).`,
           );
         if (type.nullable === true)
-          output.push(`${prefix}'s parameter must not be nullable.`);
+          output.push(`${prefix} parameter cannot be nullable.`);
       }
     }
     return output;
@@ -118,35 +155,59 @@ export namespace LlmApplicationProgrammer {
 
   export const write = <Model extends ILlmSchema.Model>(props: {
     model: Model;
+    context: ITypiaContext;
+    modulo: ts.LeftHandSideExpression;
     metadata: Metadata;
-    config?: Partial<ILlmSchema.ModelConfig[Model]>;
+    config?: Partial<
+      ILlmSchema.ModelConfig[Model] & {
+        equals: boolean;
+      }
+    >;
+    name?: string;
   }): ILlmApplication<Model> => {
-    const errors: string[] = validate(props.model)(props.metadata, {
-      top: true,
-      object: null,
-      property: null,
-      parameter: null,
-      nested: null,
-      aliased: false,
-      escaped: false,
-      output: false,
-    });
-    if (errors.length)
-      throw new Error("Failed to write LLM application: " + errors.join("\n"));
+    const metadata: Metadata = Metadata.unalias(props.metadata);
+    const functionParameters: Record<string, MetadataParameter> =
+      Object.fromEntries(
+        metadata.objects[0]!.type.properties.filter(
+          (p) =>
+            p.key.isSoleLiteral() &&
+            p.value.size() === 1 &&
+            p.value.nullable === false &&
+            p.value.isRequired() === true &&
+            Metadata.unalias(p.value).functions.length === 1,
+        )
+          .filter(
+            (p) =>
+              p.jsDocTags.find(
+                (tag) => tag.name === "hidden" || tag.name === "internal",
+              ) === undefined,
+          )
+          .map((p) => [
+            p.key.getSoleLiteral()!,
+            Metadata.unalias(p.value).functions[0]!.parameters[0]!,
+          ]),
+      );
 
     const errorMessages: string[] = [];
     const application: __IJsonApplication<"3.1"> =
       JsonApplicationProgrammer.write({
         version: "3.1",
-        metadata: props.metadata,
+        metadata,
+        filter: (p) =>
+          p.jsDocTags.some((tag) => tag.name === "human") === false,
       });
     const functions: Array<ILlmFunction<Model> | null> =
       application.functions.map((func) =>
         writeFunction({
           model: props.model,
+          context: props.context,
+          modulo: props.modulo,
+          className: props.name,
+          config: props.config,
           components: application.components,
           function: func,
           errors: errorMessages,
+          parameter: functionParameters[func.name] ?? null,
         }),
       );
     if (functions.some((func) => func === null))
@@ -167,9 +228,20 @@ export namespace LlmApplicationProgrammer {
 
   const writeFunction = <Model extends ILlmSchema.Model>(props: {
     model: Model;
+    context: ITypiaContext;
+    modulo: ts.LeftHandSideExpression;
     components: OpenApi.IComponents;
     function: __IJsonApplication.IFunction<OpenApi.IJsonSchema>;
+    parameter: MetadataParameter | null;
     errors: string[];
+    className?: string;
+    config:
+      | Partial<
+          ILlmSchema.ModelConfig[Model] & {
+            equals: boolean;
+          }
+        >
+      | undefined;
   }): ILlmFunction<Model> | null => {
     const parameters: ILlmSchema.ModelParameters[Model] | null =
       writeParameters({
@@ -214,7 +286,14 @@ export namespace LlmApplicationProgrammer {
       })(),
       deprecated: props.function.deprecated,
       tags: props.function.tags,
-      strict: true,
+      validate: writeValidator({
+        context: props.context,
+        modulo: props.modulo,
+        parameter: props.parameter,
+        name: props.function.name,
+        className: props.className,
+        equals: props.config?.equals ?? false,
+      }),
     };
   };
 
@@ -225,18 +304,26 @@ export namespace LlmApplicationProgrammer {
     errors: string[];
     accessor: string;
   }): ILlmSchema.ModelParameters[Model] | null => {
-    const schema = props.function.parameters[0]?.schema;
-    if (!schema) return null;
-
+    const schema = props.function.parameters[0]?.schema ?? {
+      type: "object",
+      properties: {},
+      additionalProperties: false,
+      required: [],
+    };
     const result: IResult<
       ILlmSchema.ModelParameters[Model],
       IOpenApiSchemaError
     > = LlmSchemaComposer.parameters(props.model)({
       config: LlmSchemaComposer.defaultConfig(props.model) as any,
       components: props.components,
-      schema: schema as
-        | OpenApi.IJsonSchema.IObject
-        | OpenApi.IJsonSchema.IReference,
+      schema: {
+        ...(schema as
+          | OpenApi.IJsonSchema.IObject
+          | OpenApi.IJsonSchema.IReference),
+        title: schema.title ?? props.function.parameters[0]?.title,
+        description:
+          schema.description ?? props.function.parameters[0]?.description,
+      },
       accessor: props.accessor,
     }) as IResult<ILlmSchema.ModelParameters[Model], IOpenApiSchemaError>;
     if (result.success === false) {
@@ -273,4 +360,58 @@ export namespace LlmApplicationProgrammer {
     }
     return result.value;
   };
+
+  const writeValidator = (props: {
+    context: ITypiaContext;
+    modulo: ts.LeftHandSideExpression;
+    parameter: MetadataParameter | null;
+    name: string;
+    equals: boolean;
+    className?: string;
+  }): ((props: unknown) => IValidation<unknown>) => {
+    if (props.parameter === null)
+      return ValidateProgrammer.write({
+        ...props,
+        type: props.context.checker.getTypeFromTypeNode(
+          TypeFactory.keyword("any"),
+        ),
+        config: {
+          equals: props.equals,
+        },
+        name: undefined,
+      }) as any;
+
+    const type: ts.Type | undefined = props.parameter.tsType;
+    if (type === undefined)
+      // unreachable
+      throw new Error(
+        "Failed to write LLM application's function validator. You don't have to call `LlmApplicationOfValidator.write()` function by yourself, but only by the `typia.llm.applicationOfValidate()` function.",
+      );
+    return ValidateProgrammer.write({
+      ...props,
+      type: props.parameter.tsType!,
+      config: {
+        equals: props.equals,
+      },
+      name: props.className
+        ? `Parameters<${props.className}[${JSON.stringify(props.name)}]>[0]`
+        : undefined,
+    }) satisfies ts.CallExpression as any as (
+      props: unknown,
+    ) => IValidation<unknown>;
+  };
 }
+
+const concatDescription = (p: {
+  summary?: string | undefined;
+  description?: string | undefined;
+}): string | undefined => {
+  if (!p.summary?.length || !p.description?.length)
+    return p.summary ?? p.description;
+  const summary: string = p.summary.endsWith(".")
+    ? p.summary.slice(0, -1)
+    : p.summary;
+  return p.description.startsWith(summary)
+    ? p.description
+    : summary + ".\n\n" + p.description;
+};

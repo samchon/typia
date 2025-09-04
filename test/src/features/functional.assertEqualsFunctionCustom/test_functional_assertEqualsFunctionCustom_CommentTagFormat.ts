@@ -5,8 +5,9 @@ import { _test_functional_assertEqualsFunction } from "../../internal/_test_func
 import { CommentTagFormat } from "../../structures/CommentTagFormat";
 
 export const test_functional_assertEqualsFunctionCustom_CommentTagFormat =
-  _test_functional_assertEqualsFunction(CustomGuardError)("CommentTagFormat")(
-    CommentTagFormat,
-  )((p: (input: CommentTagFormat) => CommentTagFormat) =>
-    typia.functional.assertEqualsFunction(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertEqualsFunction(CustomGuardError)("CommentTagFormat")(
+      CommentTagFormat,
+    )((p: (input: CommentTagFormat) => CommentTagFormat) =>
+      typia.functional.assertEqualsFunction(p, (p) => new CustomGuardError(p)),
+    );

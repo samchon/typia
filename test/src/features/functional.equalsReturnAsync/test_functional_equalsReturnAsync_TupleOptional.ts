@@ -4,7 +4,8 @@ import { _test_functional_equalsReturnAsync } from "../../internal/_test_functio
 import { TupleOptional } from "../../structures/TupleOptional";
 
 export const test_functional_equalsReturnAsync_TupleOptional =
-  _test_functional_equalsReturnAsync("TupleOptional")(TupleOptional)(
-    (p: (input: TupleOptional) => Promise<TupleOptional>) =>
-      typia.functional.equalsReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_equalsReturnAsync("TupleOptional")(TupleOptional)(
+      (p: (input: TupleOptional) => Promise<TupleOptional>) =>
+        typia.functional.equalsReturn(p),
+    );

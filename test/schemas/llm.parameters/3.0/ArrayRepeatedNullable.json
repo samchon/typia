@@ -51,21 +51,29 @@
                             "type": "array",
                             "items": {},
                             "maxItems": 0,
+                            "description": "Current Type: {@link ArrayArrayRepeatedNullable}",
                             "nullable": true
                           }
-                        ]
+                        ],
+                        "description": "Current Type: {@link ArrayRepeatedNullable}"
                       },
+                      "description": "Current Type: {@link ArrayArrayRepeatedNullable}",
                       "nullable": true
                     }
-                  ]
+                  ],
+                  "description": "Current Type: {@link ArrayRepeatedNullable}"
                 },
+                "description": "Current Type: {@link ArrayArrayRepeatedNullable}",
                 "nullable": true
               }
-            ]
+            ],
+            "description": "Current Type: {@link ArrayRepeatedNullable}"
           },
+          "description": "Current Type: {@link ArrayArrayRepeatedNullable}",
           "nullable": true
         }
-      ]
+      ],
+      "description": "Current Type: {@link ArrayRepeatedNullable}"
     },
     "nullable": {
       "oneOf": [
@@ -117,21 +125,29 @@
                             "type": "array",
                             "items": {},
                             "maxItems": 0,
+                            "description": "Current Type: {@link ArrayArrayRepeatedNullable}",
                             "nullable": true
                           }
-                        ]
+                        ],
+                        "description": "Current Type: {@link ArrayRepeatedNullable}"
                       },
+                      "description": "Current Type: {@link ArrayArrayRepeatedNullable}",
                       "nullable": true
                     }
-                  ]
+                  ],
+                  "description": "Current Type: {@link ArrayRepeatedNullable}"
                 },
+                "description": "Current Type: {@link ArrayArrayRepeatedNullable}",
                 "nullable": true
               }
-            ]
+            ],
+            "description": "Current Type: {@link ArrayRepeatedNullable}"
           },
+          "description": "Current Type: {@link ArrayArrayRepeatedNullable}",
           "nullable": true
         }
-      ]
+      ],
+      "description": "Current Type: {@link ArrayRepeatedNullable}"
     },
     "optional": {
       "oneOf": [
@@ -191,20 +207,28 @@
                                   "type": "number",
                                   "nullable": true
                                 }
-                              ]
+                              ],
+                              "description": "Current Type: {@link ArrayRepeatedNullable}"
                             },
+                            "description": "Current Type: {@link ArrayArrayRepeatedNullable}",
                             "nullable": true
                           }
-                        ]
+                        ],
+                        "description": "Current Type: {@link ArrayRepeatedNullable}"
                       },
+                      "description": "Current Type: {@link ArrayArrayRepeatedNullable}",
                       "nullable": true
                     }
-                  ]
+                  ],
+                  "description": "Current Type: {@link ArrayRepeatedNullable}"
                 },
+                "description": "Current Type: {@link ArrayArrayRepeatedNullable}",
                 "nullable": true
               }
-            ]
+            ],
+            "description": "Current Type: {@link ArrayRepeatedNullable}"
           },
+          "description": "Current Type: {@link ArrayArrayRepeatedNullable}",
           "nullable": true
         }
       ]
@@ -267,20 +291,28 @@
                                   "type": "number",
                                   "nullable": true
                                 }
-                              ]
+                              ],
+                              "description": "Current Type: {@link ArrayRepeatedNullable}"
                             },
+                            "description": "Current Type: {@link ArrayArrayRepeatedNullable}",
                             "nullable": true
                           }
-                        ]
+                        ],
+                        "description": "Current Type: {@link ArrayRepeatedNullable}"
                       },
+                      "description": "Current Type: {@link ArrayArrayRepeatedNullable}",
                       "nullable": true
                     }
-                  ]
+                  ],
+                  "description": "Current Type: {@link ArrayRepeatedNullable}"
                 },
+                "description": "Current Type: {@link ArrayArrayRepeatedNullable}",
                 "nullable": true
               }
-            ]
+            ],
+            "description": "Current Type: {@link ArrayRepeatedNullable}"
           },
+          "description": "Current Type: {@link ArrayArrayRepeatedNullable}",
           "nullable": true
         }
       ]
@@ -337,21 +369,29 @@
                               "type": "array",
                               "items": {},
                               "maxItems": 0,
+                              "description": "Current Type: {@link ArrayArrayRepeatedNullable}",
                               "nullable": true
                             }
-                          ]
+                          ],
+                          "description": "Current Type: {@link ArrayRepeatedNullable}"
                         },
+                        "description": "Current Type: {@link ArrayArrayRepeatedNullable}",
                         "nullable": true
                       }
-                    ]
+                    ],
+                    "description": "Current Type: {@link ArrayRepeatedNullable}"
                   },
+                  "description": "Current Type: {@link ArrayArrayRepeatedNullable}",
                   "nullable": true
                 }
-              ]
+              ],
+              "description": "Current Type: {@link ArrayRepeatedNullable}"
             },
+            "description": "Current Type: {@link ArrayArrayRepeatedNullable}",
             "nullable": true
           }
-        ]
+        ],
+        "description": "Current Type: {@link ArrayRepeatedNullable}"
       }
     }
   },

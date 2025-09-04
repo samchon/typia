@@ -1,7 +1,8 @@
 {
   "model": "chatgpt",
   "options": {
-    "reference": false,
+    "reference": true,
+    "strict": false,
     "separate": null
   },
   "functions": [
@@ -11,6 +12,15 @@
         "type": "object",
         "properties": {
           "first": {
+            "$ref": "#/$defs/ArrayMatrix"
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ArrayMatrix": {
             "type": "array",
             "items": {
               "type": "array",
@@ -22,14 +32,8 @@
               }
             }
           }
-        },
-        "required": [
-          "first"
-        ],
-        "additionalProperties": false,
-        "$defs": {}
-      },
-      "strict": true
+        }
+      }
     },
     {
       "name": "reduce",
@@ -37,16 +41,7 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "array",
-            "items": {
-              "type": "array",
-              "items": {
-                "type": "array",
-                "items": {
-                  "type": "number"
-                }
-              }
-            }
+            "$ref": "#/$defs/ArrayMatrix"
           },
           "second": {
             "anyOf": [
@@ -54,16 +49,7 @@
                 "type": "null"
               },
               {
-                "type": "array",
-                "items": {
-                  "type": "array",
-                  "items": {
-                    "type": "array",
-                    "items": {
-                      "type": "number"
-                    }
-                  }
-                }
+                "$ref": "#/$defs/ArrayMatrix"
               }
             ]
           }
@@ -73,21 +59,24 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "output": {
-        "type": "array",
-        "items": {
-          "type": "array",
-          "items": {
+        "$defs": {
+          "ArrayMatrix": {
             "type": "array",
             "items": {
-              "type": "number"
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                }
+              }
             }
           }
         }
       },
-      "strict": true
+      "output": {
+        "$ref": "#/$defs/ArrayMatrix"
+      }
     },
     {
       "name": "coalesce",
@@ -100,16 +89,7 @@
                 "type": "null"
               },
               {
-                "type": "array",
-                "items": {
-                  "type": "array",
-                  "items": {
-                    "type": "array",
-                    "items": {
-                      "type": "number"
-                    }
-                  }
-                }
+                "$ref": "#/$defs/ArrayMatrix"
               }
             ]
           },
@@ -119,16 +99,7 @@
                 "type": "null"
               },
               {
-                "type": "array",
-                "items": {
-                  "type": "array",
-                  "items": {
-                    "type": "array",
-                    "items": {
-                      "type": "number"
-                    }
-                  }
-                }
+                "$ref": "#/$defs/ArrayMatrix"
               }
             ]
           },
@@ -138,34 +109,18 @@
                 "type": "null"
               },
               {
-                "type": "array",
-                "items": {
-                  "type": "array",
-                  "items": {
-                    "type": "array",
-                    "items": {
-                      "type": "number"
-                    }
-                  }
-                }
+                "$ref": "#/$defs/ArrayMatrix"
               }
             ]
           }
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "output": {
-        "anyOf": [
-          {
-            "type": "null"
-          },
-          {
+        "$defs": {
+          "ArrayMatrix": {
             "type": "array",
             "items": {
               "type": "array",
@@ -177,9 +132,18 @@
               }
             }
           }
-        ]
+        }
       },
-      "strict": true
+      "output": {
+        "anyOf": [
+          {
+            "type": "null"
+          },
+          {
+            "$ref": "#/$defs/ArrayMatrix"
+          }
+        ]
+      }
     }
   ]
 }

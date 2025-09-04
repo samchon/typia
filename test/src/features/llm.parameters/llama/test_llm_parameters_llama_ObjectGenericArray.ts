@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
 import { ObjectGenericArray } from "../../../structures/ObjectGenericArray";
 
-export const test_llm_parameters_llama_ObjectGenericArray =
+export const test_llm_parameters_llama_ObjectGenericArray = (): void =>
   _test_llm_parameters({
     model: "llama",
     name: "ObjectGenericArray",

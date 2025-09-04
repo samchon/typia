@@ -5,8 +5,9 @@ import { _test_functional_assertReturnAsync } from "../../internal/_test_functio
 import { TemplateConstant } from "../../structures/TemplateConstant";
 
 export const test_functional_assertReturnAsync_TemplateConstant =
-  _test_functional_assertReturnAsync(TypeGuardError)("TemplateConstant")(
-    TemplateConstant,
-  )((p: (input: TemplateConstant) => Promise<TemplateConstant>) =>
-    typia.functional.assertReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertReturnAsync(TypeGuardError)("TemplateConstant")(
+      TemplateConstant,
+    )((p: (input: TemplateConstant) => Promise<TemplateConstant>) =>
+      typia.functional.assertReturn(p),
+    );

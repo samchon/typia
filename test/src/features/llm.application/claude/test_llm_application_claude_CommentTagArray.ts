@@ -3,10 +3,11 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { CommentTagArray } from "../../../structures/CommentTagArray";
 
-export const test_llm_application_claude_CommentTagArray =
+export const test_llm_application_claude_CommentTagArray = (): void =>
   _test_llm_application({
     model: "claude",
     name: "CommentTagArray",
+    factory: CommentTagArray,
   })(typia.llm.application<CommentTagArrayApplication, "claude">());
 
 interface CommentTagArrayApplication {

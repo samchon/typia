@@ -5,8 +5,10 @@ import { _test_functional_assertParametersAsync } from "../../internal/_test_fun
 import { ToJsonAtomicSimple } from "../../structures/ToJsonAtomicSimple";
 
 export const test_functional_assertParametersAsync_ToJsonAtomicSimple =
-  _test_functional_assertParametersAsync(TypeGuardError)("ToJsonAtomicSimple")(
-    ToJsonAtomicSimple,
-  )((p: (input: ToJsonAtomicSimple) => Promise<ToJsonAtomicSimple>) =>
-    typia.functional.assertParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertParametersAsync(TypeGuardError)(
+      "ToJsonAtomicSimple",
+    )(ToJsonAtomicSimple)(
+      (p: (input: ToJsonAtomicSimple) => Promise<ToJsonAtomicSimple>) =>
+        typia.functional.assertParameters(p),
+    );

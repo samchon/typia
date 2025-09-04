@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_json_assertStringify } from "../../internal/_test_json_assertStringify";
 import { ObjectLiteralProperty } from "../../structures/ObjectLiteralProperty";
 
-export const test_json_assertStringifyCustom_ObjectLiteralProperty =
+export const test_json_assertStringifyCustom_ObjectLiteralProperty = (): void =>
   _test_json_assertStringify(CustomGuardError)(
     "ObjectLiteralProperty",
   )<ObjectLiteralProperty>(ObjectLiteralProperty)((input) =>

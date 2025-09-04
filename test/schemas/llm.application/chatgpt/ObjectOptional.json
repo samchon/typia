@@ -1,7 +1,8 @@
 {
   "model": "chatgpt",
   "options": {
-    "reference": false,
+    "reference": true,
+    "strict": false,
     "separate": null
   },
   "functions": [
@@ -11,6 +12,15 @@
         "type": "object",
         "properties": {
           "first": {
+            "$ref": "#/$defs/ObjectOptional"
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ObjectOptional": {
             "type": "object",
             "properties": {
               "id": {
@@ -26,22 +36,10 @@
                 "type": "number"
               }
             },
-            "required": [
-              "id",
-              "name",
-              "email",
-              "sequence"
-            ],
-            "additionalProperties": false
+            "required": []
           }
-        },
-        "required": [
-          "first"
-        ],
-        "additionalProperties": false,
-        "$defs": {}
-      },
-      "strict": true
+        }
+      }
     },
     {
       "name": "reduce",
@@ -49,28 +47,7 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "email": {
-                "type": "string"
-              },
-              "sequence": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "id",
-              "name",
-              "email",
-              "sequence"
-            ],
-            "additionalProperties": false
+            "$ref": "#/$defs/ObjectOptional"
           },
           "second": {
             "anyOf": [
@@ -78,28 +55,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "string"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "email": {
-                    "type": "string"
-                  },
-                  "sequence": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "id",
-                  "name",
-                  "email",
-                  "sequence"
-                ],
-                "additionalProperties": false
+                "$ref": "#/$defs/ObjectOptional"
               }
             ]
           }
@@ -109,33 +65,30 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "ObjectOptional": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "sequence": {
+                "type": "number"
+              }
+            },
+            "required": []
+          }
+        }
       },
       "output": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "email": {
-            "type": "string"
-          },
-          "sequence": {
-            "type": "number"
-          }
-        },
-        "required": [
-          "id",
-          "name",
-          "email",
-          "sequence"
-        ],
-        "additionalProperties": false
-      },
-      "strict": true
+        "$ref": "#/$defs/ObjectOptional"
+      }
     },
     {
       "name": "coalesce",
@@ -148,28 +101,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "string"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "email": {
-                    "type": "string"
-                  },
-                  "sequence": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "id",
-                  "name",
-                  "email",
-                  "sequence"
-                ],
-                "additionalProperties": false
+                "$ref": "#/$defs/ObjectOptional"
               }
             ]
           },
@@ -179,28 +111,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "string"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "email": {
-                    "type": "string"
-                  },
-                  "sequence": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "id",
-                  "name",
-                  "email",
-                  "sequence"
-                ],
-                "additionalProperties": false
+                "$ref": "#/$defs/ObjectOptional"
               }
             ]
           },
@@ -210,46 +121,18 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "string"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "email": {
-                    "type": "string"
-                  },
-                  "sequence": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "id",
-                  "name",
-                  "email",
-                  "sequence"
-                ],
-                "additionalProperties": false
+                "$ref": "#/$defs/ObjectOptional"
               }
             ]
           }
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "output": {
-        "anyOf": [
-          {
-            "type": "null"
-          },
-          {
+        "$defs": {
+          "ObjectOptional": {
             "type": "object",
             "properties": {
               "id": {
@@ -265,17 +148,20 @@
                 "type": "number"
               }
             },
-            "required": [
-              "id",
-              "name",
-              "email",
-              "sequence"
-            ],
-            "additionalProperties": false
+            "required": []
+          }
+        }
+      },
+      "output": {
+        "anyOf": [
+          {
+            "type": "null"
+          },
+          {
+            "$ref": "#/$defs/ObjectOptional"
           }
         ]
-      },
-      "strict": true
+      }
     }
   ]
 }

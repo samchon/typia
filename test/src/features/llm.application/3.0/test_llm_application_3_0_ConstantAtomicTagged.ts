@@ -3,10 +3,11 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { ConstantAtomicTagged } from "../../../structures/ConstantAtomicTagged";
 
-export const test_llm_application_3_0_ConstantAtomicTagged =
+export const test_llm_application_3_0_ConstantAtomicTagged = (): void =>
   _test_llm_application({
     model: "3.0",
     name: "ConstantAtomicTagged",
+    factory: ConstantAtomicTagged,
   })(typia.llm.application<ConstantAtomicTaggedApplication, "3.0">());
 
 interface ConstantAtomicTaggedApplication {

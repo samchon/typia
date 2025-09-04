@@ -5,8 +5,10 @@ import { _test_functional_assertEqualsFunctionAsync } from "../../internal/_test
 import { ObjectHttpArray } from "../../structures/ObjectHttpArray";
 
 export const test_functional_assertEqualsFunctionAsync_ObjectHttpArray =
-  _test_functional_assertEqualsFunctionAsync(TypeGuardError)("ObjectHttpArray")(
-    ObjectHttpArray,
-  )((p: (input: ObjectHttpArray) => Promise<ObjectHttpArray>) =>
-    typia.functional.assertEqualsFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsFunctionAsync(TypeGuardError)(
+      "ObjectHttpArray",
+    )(ObjectHttpArray)(
+      (p: (input: ObjectHttpArray) => Promise<ObjectHttpArray>) =>
+        typia.functional.assertEqualsFunction(p),
+    );

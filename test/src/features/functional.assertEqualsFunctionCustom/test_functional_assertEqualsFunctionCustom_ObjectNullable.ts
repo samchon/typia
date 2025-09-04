@@ -5,8 +5,9 @@ import { _test_functional_assertEqualsFunction } from "../../internal/_test_func
 import { ObjectNullable } from "../../structures/ObjectNullable";
 
 export const test_functional_assertEqualsFunctionCustom_ObjectNullable =
-  _test_functional_assertEqualsFunction(CustomGuardError)("ObjectNullable")(
-    ObjectNullable,
-  )((p: (input: ObjectNullable) => ObjectNullable) =>
-    typia.functional.assertEqualsFunction(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertEqualsFunction(CustomGuardError)("ObjectNullable")(
+      ObjectNullable,
+    )((p: (input: ObjectNullable) => ObjectNullable) =>
+      typia.functional.assertEqualsFunction(p, (p) => new CustomGuardError(p)),
+    );

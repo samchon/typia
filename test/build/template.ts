@@ -2,8 +2,9 @@ import cp from "child_process";
 import fs from "fs";
 
 import { TestFeature } from "./internal/TestFeature";
-// import { TestJsonApplicationGenerator } from "./internal/TestJsonApplicationGenerator";
+import { TestJsonSchemaGenerator } from "./internal/TestJsonSchemaGenerator";
 import { TestJsonSchemasGenerator } from "./internal/TestJsonSchemasGenerator";
+import { TestLlmApplicationEqualsGenerator } from "./internal/TestLlmApplicationEqualsGenerator";
 import { TestLlmApplicationGenerator } from "./internal/TestLlmApplicationGenerator";
 import { TestLlmParametersGenerator } from "./internal/TestLlmParametersGenerator";
 import { TestLlmSchemaGenerator } from "./internal/TestLlmSchemaGenerator";
@@ -48,8 +49,10 @@ async function generate(
     "src",
     "features",
     [
-      feat.module ? `${feat.module}.${method}` : method,
-      ...(feat.custom === true ? ["Custom"] : ""),
+      feat.prefix ? `${feat.prefix}.` : "",
+      feat.module ? `${feat.module}.` : "",
+      method,
+      feat.custom === true ? "Custom" : "",
     ].join(""),
   ].join("/");
 
@@ -72,6 +75,8 @@ async function generate(
     else if (feat.dynamic === false && s.name.startsWith("Dynamic")) continue;
 
     const location: string = `${path}/test_${
+      feat.prefix ? `${feat.prefix}_` : ""
+    }${
       feat.module ? `${feat.module}_` : ""
     }${method}${feat.custom === true ? "Custom" : ""}_${s.name}.ts`;
     await fs.promises.writeFile(
@@ -92,13 +97,14 @@ function script(
     ? feat.programmer(create)(struct.name)
     : write_common({
         module: feat.module,
+        prefix: feat.prefix,
         method,
       })(create)(struct.name);
   if (false === method.toLowerCase().includes("assert")) return content;
 
   method = method.replace("Async", "");
   const from: number = content.indexOf("export const");
-  const to: number = content.indexOf("(", from + 1);
+  const to: number = content.indexOf("(", content.indexOf("_test", from + 1));
   const replacer =
     feat.custom === true
       ? create === true
@@ -154,8 +160,12 @@ async function main(): Promise<void> {
     })),
   ];
   for (const feature of featureList) {
-    await generate(feature, structures, false);
-    if (feature.creatable) await generate(feature, structures, true);
+    if (feature.createOnly) {
+      await generate(feature, structures, true);
+    } else {
+      await generate(feature, structures, false);
+      if (feature.creatable) await generate(feature, structures, true);
+    }
   }
 
   // SCHEMAS
@@ -163,21 +173,22 @@ async function main(): Promise<void> {
   if (fs.existsSync(schemas)) cp.execSync(`npx rimraf ${schemas}`);
   await fs.promises.mkdir(schemas, { recursive: true });
 
-  // await TestJsonApplicationGenerator.generate(structures);
   await TestJsonSchemasGenerator.generate(structures);
+  await TestJsonSchemaGenerator.generate(structures);
   await TestProtobufMessageGenerator.generate(structures);
   await TestReflectMetadataGenerator.generate(structures);
 
   // FILL SCHEMA CONTENTS
   cp.execSync("npm run build", { stdio: "inherit" });
 
-  // await TestJsonApplicationGenerator.schemas();
   await TestJsonSchemasGenerator.schemas();
+  await TestJsonSchemaGenerator.schemas();
   await TestProtobufMessageGenerator.schemas();
   await TestReflectMetadataGenerator.schemas();
 
   // LLM SCHEMAS AGAIN
   await TestLlmApplicationGenerator.generate(structures);
+  await TestLlmApplicationEqualsGenerator.generate(structures);
   await TestLlmParametersGenerator.generate(structures);
   await TestLlmSchemaGenerator.generate(structures);
 
@@ -186,7 +197,9 @@ async function main(): Promise<void> {
   await TestLlmParametersGenerator.schemas();
   await TestLlmSchemaGenerator.schemas();
 
-  cp.execSync("npm run prettier", { stdio: "inherit" });
+  try {
+    cp.execSync("npm run prettier", { stdio: "inherit" });
+  } catch {}
 }
 main().catch((exp) => {
   console.log(exp);

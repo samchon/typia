@@ -17,7 +17,8 @@
           "type": "number"
         }
       },
-      "required": []
+      "required": [],
+      "description": "Current Type: {@link ObjectOptional}"
     },
     "nullable": {
       "type": "object",
@@ -54,7 +55,8 @@
           "type": "number"
         }
       },
-      "required": []
+      "required": [],
+      "description": "Current Type: {@link ObjectOptional}"
     },
     "faint": {
       "type": "object",
@@ -93,7 +95,8 @@
             "type": "number"
           }
         },
-        "required": []
+        "required": [],
+        "description": "Current Type: {@link ObjectOptional}"
       }
     }
   },

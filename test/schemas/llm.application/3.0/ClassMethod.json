@@ -1,8 +1,8 @@
 {
   "model": "3.0",
   "options": {
-    "constraint": false,
     "recursive": 3,
+    "constraint": true,
     "separate": null
   },
   "functions": [
@@ -25,6 +25,7 @@
               "name",
               "age"
             ],
+            "description": "Current Type: {@link ClassMethod.Animal}",
             "additionalProperties": false
           }
         },
@@ -32,8 +33,7 @@
           "first"
         ],
         "additionalProperties": false
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -54,6 +54,7 @@
               "name",
               "age"
             ],
+            "description": "Current Type: {@link ClassMethod.Animal}",
             "additionalProperties": false
           },
           "second": {
@@ -94,9 +95,9 @@
           "name",
           "age"
         ],
+        "description": "Current Type: {@link ClassMethod.Animal}",
         "additionalProperties": false
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -177,8 +178,7 @@
         ],
         "additionalProperties": false,
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

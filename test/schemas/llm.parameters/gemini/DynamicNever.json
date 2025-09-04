@@ -4,7 +4,8 @@
     "regular": {
       "type": "object",
       "properties": {},
-      "required": []
+      "required": [],
+      "description": "Current Type: {@link DynamicNever}"
     },
     "nullable": {
       "type": "object",
@@ -15,7 +16,8 @@
     "optional": {
       "type": "object",
       "properties": {},
-      "required": []
+      "required": [],
+      "description": "Current Type: {@link DynamicNever}"
     },
     "faint": {
       "type": "object",
@@ -28,7 +30,8 @@
       "items": {
         "type": "object",
         "properties": {},
-        "required": []
+        "required": [],
+        "description": "Current Type: {@link DynamicNever}"
       }
     }
   },

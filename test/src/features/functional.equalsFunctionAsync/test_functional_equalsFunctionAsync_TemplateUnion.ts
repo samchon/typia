@@ -4,7 +4,8 @@ import { _test_functional_equalsFunctionAsync } from "../../internal/_test_funct
 import { TemplateUnion } from "../../structures/TemplateUnion";
 
 export const test_functional_equalsFunctionAsync_TemplateUnion =
-  _test_functional_equalsFunctionAsync("TemplateUnion")(TemplateUnion)(
-    (p: (input: TemplateUnion) => Promise<TemplateUnion>) =>
-      typia.functional.equalsFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_equalsFunctionAsync("TemplateUnion")(TemplateUnion)(
+      (p: (input: TemplateUnion) => Promise<TemplateUnion>) =>
+        typia.functional.equalsFunction(p),
+    );

@@ -1,8 +1,8 @@
 {
   "model": "3.1",
   "options": {
-    "constraint": false,
-    "reference": false,
+    "reference": true,
+    "constraint": true,
     "separate": null
   },
   "functions": [
@@ -12,15 +12,24 @@
         "type": "object",
         "properties": {
           "first": {
+            "$ref": "#/$defs/ConstantAtomicAbsorbed"
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ConstantAtomicAbsorbed": {
             "type": "object",
             "properties": {
               "id": {
-                "description": "@default something",
-                "type": "string"
+                "type": "string",
+                "default": "something"
               },
               "age": {
-                "description": "@default 20",
-                "type": "number"
+                "type": "number",
+                "default": 20
               }
             },
             "required": [
@@ -28,14 +37,8 @@
               "age"
             ]
           }
-        },
-        "required": [
-          "first"
-        ],
-        "additionalProperties": false,
-        "$defs": {}
-      },
-      "strict": true
+        }
+      }
     },
     {
       "name": "reduce",
@@ -43,21 +46,7 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "description": "@default something",
-                "type": "string"
-              },
-              "age": {
-                "description": "@default 20",
-                "type": "number"
-              }
-            },
-            "required": [
-              "id",
-              "age"
-            ]
+            "$ref": "#/$defs/ConstantAtomicAbsorbed"
           },
           "second": {
             "oneOf": [
@@ -65,21 +54,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "description": "@default something",
-                    "type": "string"
-                  },
-                  "age": {
-                    "description": "@default 20",
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "id",
-                  "age"
-                ]
+                "$ref": "#/$defs/ConstantAtomicAbsorbed"
               }
             ]
           }
@@ -89,26 +64,29 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "ConstantAtomicAbsorbed": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "default": "something"
+              },
+              "age": {
+                "type": "number",
+                "default": 20
+              }
+            },
+            "required": [
+              "id",
+              "age"
+            ]
+          }
+        }
       },
       "output": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "description": "@default something",
-            "type": "string"
-          },
-          "age": {
-            "description": "@default 20",
-            "type": "number"
-          }
-        },
-        "required": [
-          "id",
-          "age"
-        ]
-      },
-      "strict": true
+        "$ref": "#/$defs/ConstantAtomicAbsorbed"
+      }
     },
     {
       "name": "coalesce",
@@ -121,21 +99,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "description": "@default something",
-                    "type": "string"
-                  },
-                  "age": {
-                    "description": "@default 20",
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "id",
-                  "age"
-                ]
+                "$ref": "#/$defs/ConstantAtomicAbsorbed"
               }
             ]
           },
@@ -145,21 +109,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "description": "@default something",
-                    "type": "string"
-                  },
-                  "age": {
-                    "description": "@default 20",
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "id",
-                  "age"
-                ]
+                "$ref": "#/$defs/ConstantAtomicAbsorbed"
               }
             ]
           },
@@ -169,48 +119,27 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "description": "@default something",
-                    "type": "string"
-                  },
-                  "age": {
-                    "description": "@default 20",
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "id",
-                  "age"
-                ]
+                "$ref": "#/$defs/ConstantAtomicAbsorbed"
               }
             ]
           }
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "output": {
-        "oneOf": [
-          {
-            "type": "null"
-          },
-          {
+        "$defs": {
+          "ConstantAtomicAbsorbed": {
             "type": "object",
             "properties": {
               "id": {
-                "description": "@default something",
-                "type": "string"
+                "type": "string",
+                "default": "something"
               },
               "age": {
-                "description": "@default 20",
-                "type": "number"
+                "type": "number",
+                "default": 20
               }
             },
             "required": [
@@ -218,9 +147,18 @@
               "age"
             ]
           }
-        ]
+        }
       },
-      "strict": true
+      "output": {
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "$ref": "#/$defs/ConstantAtomicAbsorbed"
+          }
+        ]
+      }
     }
   ]
 }

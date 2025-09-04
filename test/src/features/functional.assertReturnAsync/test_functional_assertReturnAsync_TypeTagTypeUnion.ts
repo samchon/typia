@@ -5,8 +5,9 @@ import { _test_functional_assertReturnAsync } from "../../internal/_test_functio
 import { TypeTagTypeUnion } from "../../structures/TypeTagTypeUnion";
 
 export const test_functional_assertReturnAsync_TypeTagTypeUnion =
-  _test_functional_assertReturnAsync(TypeGuardError)("TypeTagTypeUnion")(
-    TypeTagTypeUnion,
-  )((p: (input: TypeTagTypeUnion) => Promise<TypeTagTypeUnion>) =>
-    typia.functional.assertReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertReturnAsync(TypeGuardError)("TypeTagTypeUnion")(
+      TypeTagTypeUnion,
+    )((p: (input: TypeTagTypeUnion) => Promise<TypeTagTypeUnion>) =>
+      typia.functional.assertReturn(p),
+    );

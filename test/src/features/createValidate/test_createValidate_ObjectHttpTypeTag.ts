@@ -3,8 +3,7 @@ import typia from "typia";
 import { _test_validate } from "../../internal/_test_validate";
 import { ObjectHttpTypeTag } from "../../structures/ObjectHttpTypeTag";
 
-export const test_createValidate_ObjectHttpTypeTag = _test_validate(
-  "ObjectHttpTypeTag",
-)<ObjectHttpTypeTag>(ObjectHttpTypeTag)(
-  typia.createValidate<ObjectHttpTypeTag>(),
-);
+export const test_createValidate_ObjectHttpTypeTag = (): void =>
+  _test_validate("ObjectHttpTypeTag")<ObjectHttpTypeTag>(ObjectHttpTypeTag)(
+    typia.createValidate<ObjectHttpTypeTag>(),
+  );

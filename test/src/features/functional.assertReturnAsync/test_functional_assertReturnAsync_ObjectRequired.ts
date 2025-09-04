@@ -5,8 +5,9 @@ import { _test_functional_assertReturnAsync } from "../../internal/_test_functio
 import { ObjectRequired } from "../../structures/ObjectRequired";
 
 export const test_functional_assertReturnAsync_ObjectRequired =
-  _test_functional_assertReturnAsync(TypeGuardError)("ObjectRequired")(
-    ObjectRequired,
-  )((p: (input: ObjectRequired) => Promise<ObjectRequired>) =>
-    typia.functional.assertReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertReturnAsync(TypeGuardError)("ObjectRequired")(
+      ObjectRequired,
+    )((p: (input: ObjectRequired) => Promise<ObjectRequired>) =>
+      typia.functional.assertReturn(p),
+    );

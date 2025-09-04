@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_assertGuardEquals } from "../../internal/_test_assertGuardEquals";
 import { TupleOptional } from "../../structures/TupleOptional";
 
-export const test_createAssertGuardEquals_TupleOptional =
+export const test_createAssertGuardEquals_TupleOptional = (): void =>
   _test_assertGuardEquals(TypeGuardError)("TupleOptional")<TupleOptional>(
     TupleOptional,
   )(typia.createAssertGuardEquals<TupleOptional>());

@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsReturn } from "../../internal/_test_func
 import { ObjectLiteralProperty } from "../../structures/ObjectLiteralProperty";
 
 export const test_functional_validateEqualsReturn_ObjectLiteralProperty =
-  _test_functional_validateEqualsReturn("ObjectLiteralProperty")(
-    ObjectLiteralProperty,
-  )((p: (input: ObjectLiteralProperty) => ObjectLiteralProperty) =>
-    typia.functional.validateEqualsReturn(p),
-  );
+  (): void =>
+    _test_functional_validateEqualsReturn("ObjectLiteralProperty")(
+      ObjectLiteralProperty,
+    )((p: (input: ObjectLiteralProperty) => ObjectLiteralProperty) =>
+      typia.functional.validateEqualsReturn(p),
+    );

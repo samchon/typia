@@ -4,7 +4,8 @@ import { _test_functional_isParametersAsync } from "../../internal/_test_functio
 import { ObjectJsonTag } from "../../structures/ObjectJsonTag";
 
 export const test_functional_isParametersAsync_ObjectJsonTag =
-  _test_functional_isParametersAsync("ObjectJsonTag")(ObjectJsonTag)(
-    (p: (input: ObjectJsonTag) => Promise<ObjectJsonTag>) =>
-      typia.functional.isParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_isParametersAsync("ObjectJsonTag")(ObjectJsonTag)(
+      (p: (input: ObjectJsonTag) => Promise<ObjectJsonTag>) =>
+        typia.functional.isParameters(p),
+    );

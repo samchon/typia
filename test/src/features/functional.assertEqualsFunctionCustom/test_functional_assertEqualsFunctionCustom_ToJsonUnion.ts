@@ -5,8 +5,9 @@ import { _test_functional_assertEqualsFunction } from "../../internal/_test_func
 import { ToJsonUnion } from "../../structures/ToJsonUnion";
 
 export const test_functional_assertEqualsFunctionCustom_ToJsonUnion =
-  _test_functional_assertEqualsFunction(CustomGuardError)("ToJsonUnion")(
-    ToJsonUnion,
-  )((p: (input: ToJsonUnion) => ToJsonUnion) =>
-    typia.functional.assertEqualsFunction(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertEqualsFunction(CustomGuardError)("ToJsonUnion")(
+      ToJsonUnion,
+    )((p: (input: ToJsonUnion) => ToJsonUnion) =>
+      typia.functional.assertEqualsFunction(p, (p) => new CustomGuardError(p)),
+    );

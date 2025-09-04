@@ -1,8 +1,8 @@
 {
   "model": "3.0",
   "options": {
-    "constraint": false,
     "recursive": 3,
+    "constraint": true,
     "separate": null
   },
   "functions": [
@@ -23,19 +23,22 @@
                       "type": "integer"
                     },
                     "uint": {
-                      "type": "integer"
+                      "type": "integer",
+                      "minimum": 0
                     },
                     "int32": {
                       "type": "integer"
                     },
                     "uint32": {
-                      "type": "integer"
+                      "type": "integer",
+                      "minimum": 0
                     },
                     "int64": {
                       "type": "integer"
                     },
                     "uint64": {
-                      "type": "integer"
+                      "type": "integer",
+                      "minimum": 0
                     },
                     "float": {
                       "type": "number"
@@ -50,6 +53,7 @@
                     "uint64",
                     "float"
                   ],
+                  "description": "Current Type: {@link TypeTagType.Type}",
                   "additionalProperties": false
                 }
               }
@@ -57,6 +61,7 @@
             "required": [
               "value"
             ],
+            "description": "Current Type: {@link TypeTagType}",
             "additionalProperties": false
           }
         },
@@ -64,8 +69,7 @@
           "first"
         ],
         "additionalProperties": false
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -84,19 +88,22 @@
                       "type": "integer"
                     },
                     "uint": {
-                      "type": "integer"
+                      "type": "integer",
+                      "minimum": 0
                     },
                     "int32": {
                       "type": "integer"
                     },
                     "uint32": {
-                      "type": "integer"
+                      "type": "integer",
+                      "minimum": 0
                     },
                     "int64": {
                       "type": "integer"
                     },
                     "uint64": {
-                      "type": "integer"
+                      "type": "integer",
+                      "minimum": 0
                     },
                     "float": {
                       "type": "number"
@@ -111,6 +118,7 @@
                     "uint64",
                     "float"
                   ],
+                  "description": "Current Type: {@link TypeTagType.Type}",
                   "additionalProperties": false
                 }
               }
@@ -118,6 +126,7 @@
             "required": [
               "value"
             ],
+            "description": "Current Type: {@link TypeTagType}",
             "additionalProperties": false
           },
           "second": {
@@ -132,19 +141,22 @@
                       "type": "integer"
                     },
                     "uint": {
-                      "type": "integer"
+                      "type": "integer",
+                      "minimum": 0
                     },
                     "int32": {
                       "type": "integer"
                     },
                     "uint32": {
-                      "type": "integer"
+                      "type": "integer",
+                      "minimum": 0
                     },
                     "int64": {
                       "type": "integer"
                     },
                     "uint64": {
-                      "type": "integer"
+                      "type": "integer",
+                      "minimum": 0
                     },
                     "float": {
                       "type": "number"
@@ -159,6 +171,7 @@
                     "uint64",
                     "float"
                   ],
+                  "description": "Current Type: {@link TypeTagType.Type}",
                   "additionalProperties": false
                 }
               }
@@ -188,19 +201,22 @@
                   "type": "integer"
                 },
                 "uint": {
-                  "type": "integer"
+                  "type": "integer",
+                  "minimum": 0
                 },
                 "int32": {
                   "type": "integer"
                 },
                 "uint32": {
-                  "type": "integer"
+                  "type": "integer",
+                  "minimum": 0
                 },
                 "int64": {
                   "type": "integer"
                 },
                 "uint64": {
-                  "type": "integer"
+                  "type": "integer",
+                  "minimum": 0
                 },
                 "float": {
                   "type": "number"
@@ -215,6 +231,7 @@
                 "uint64",
                 "float"
               ],
+              "description": "Current Type: {@link TypeTagType.Type}",
               "additionalProperties": false
             }
           }
@@ -222,9 +239,9 @@
         "required": [
           "value"
         ],
+        "description": "Current Type: {@link TypeTagType}",
         "additionalProperties": false
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -243,19 +260,22 @@
                       "type": "integer"
                     },
                     "uint": {
-                      "type": "integer"
+                      "type": "integer",
+                      "minimum": 0
                     },
                     "int32": {
                       "type": "integer"
                     },
                     "uint32": {
-                      "type": "integer"
+                      "type": "integer",
+                      "minimum": 0
                     },
                     "int64": {
                       "type": "integer"
                     },
                     "uint64": {
-                      "type": "integer"
+                      "type": "integer",
+                      "minimum": 0
                     },
                     "float": {
                       "type": "number"
@@ -270,6 +290,7 @@
                     "uint64",
                     "float"
                   ],
+                  "description": "Current Type: {@link TypeTagType.Type}",
                   "additionalProperties": false
                 }
               }
@@ -292,19 +313,22 @@
                       "type": "integer"
                     },
                     "uint": {
-                      "type": "integer"
+                      "type": "integer",
+                      "minimum": 0
                     },
                     "int32": {
                       "type": "integer"
                     },
                     "uint32": {
-                      "type": "integer"
+                      "type": "integer",
+                      "minimum": 0
                     },
                     "int64": {
                       "type": "integer"
                     },
                     "uint64": {
-                      "type": "integer"
+                      "type": "integer",
+                      "minimum": 0
                     },
                     "float": {
                       "type": "number"
@@ -319,6 +343,7 @@
                     "uint64",
                     "float"
                   ],
+                  "description": "Current Type: {@link TypeTagType.Type}",
                   "additionalProperties": false
                 }
               }
@@ -341,19 +366,22 @@
                       "type": "integer"
                     },
                     "uint": {
-                      "type": "integer"
+                      "type": "integer",
+                      "minimum": 0
                     },
                     "int32": {
                       "type": "integer"
                     },
                     "uint32": {
-                      "type": "integer"
+                      "type": "integer",
+                      "minimum": 0
                     },
                     "int64": {
                       "type": "integer"
                     },
                     "uint64": {
-                      "type": "integer"
+                      "type": "integer",
+                      "minimum": 0
                     },
                     "float": {
                       "type": "number"
@@ -368,6 +396,7 @@
                     "uint64",
                     "float"
                   ],
+                  "description": "Current Type: {@link TypeTagType.Type}",
                   "additionalProperties": false
                 }
               }
@@ -397,19 +426,22 @@
                   "type": "integer"
                 },
                 "uint": {
-                  "type": "integer"
+                  "type": "integer",
+                  "minimum": 0
                 },
                 "int32": {
                   "type": "integer"
                 },
                 "uint32": {
-                  "type": "integer"
+                  "type": "integer",
+                  "minimum": 0
                 },
                 "int64": {
                   "type": "integer"
                 },
                 "uint64": {
-                  "type": "integer"
+                  "type": "integer",
+                  "minimum": 0
                 },
                 "float": {
                   "type": "number"
@@ -424,6 +456,7 @@
                 "uint64",
                 "float"
               ],
+              "description": "Current Type: {@link TypeTagType.Type}",
               "additionalProperties": false
             }
           }
@@ -433,8 +466,7 @@
         ],
         "additionalProperties": false,
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

@@ -5,8 +5,9 @@ import { _test_functional_assertReturnAsync } from "../../internal/_test_functio
 import { ObjectHttpCommentTag } from "../../structures/ObjectHttpCommentTag";
 
 export const test_functional_assertReturnAsync_ObjectHttpCommentTag =
-  _test_functional_assertReturnAsync(TypeGuardError)("ObjectHttpCommentTag")(
-    ObjectHttpCommentTag,
-  )((p: (input: ObjectHttpCommentTag) => Promise<ObjectHttpCommentTag>) =>
-    typia.functional.assertReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertReturnAsync(TypeGuardError)("ObjectHttpCommentTag")(
+      ObjectHttpCommentTag,
+    )((p: (input: ObjectHttpCommentTag) => Promise<ObjectHttpCommentTag>) =>
+      typia.functional.assertReturn(p),
+    );

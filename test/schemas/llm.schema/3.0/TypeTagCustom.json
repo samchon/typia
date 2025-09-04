@@ -3,7 +3,7 @@
   "properties": {
     "id": {
       "type": "string",
-      "description": "@format uuid"
+      "format": "uuid"
     },
     "dollar": {
       "type": "string",
@@ -24,5 +24,6 @@
     "postfix",
     "powerOf"
   ],
+  "description": "Current Type: {@link TypeTagCustom}",
   "additionalProperties": false
 }

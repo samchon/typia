@@ -5,8 +5,12 @@ import { _test_functional_assertEqualsParameters } from "../../internal/_test_fu
 import { TypeTagFormat } from "../../structures/TypeTagFormat";
 
 export const test_functional_assertEqualsParametersCustom_TypeTagFormat =
-  _test_functional_assertEqualsParameters(CustomGuardError)("TypeTagFormat")(
-    TypeTagFormat,
-  )((p: (input: TypeTagFormat) => TypeTagFormat) =>
-    typia.functional.assertEqualsParameters(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertEqualsParameters(CustomGuardError)("TypeTagFormat")(
+      TypeTagFormat,
+    )((p: (input: TypeTagFormat) => TypeTagFormat) =>
+      typia.functional.assertEqualsParameters(
+        p,
+        (p) => new CustomGuardError(p),
+      ),
+    );

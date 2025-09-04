@@ -5,9 +5,13 @@ import { _test_functional_assertEqualsFunction } from "../../internal/_test_func
 import { ObjectLiteralProperty } from "../../structures/ObjectLiteralProperty";
 
 export const test_functional_assertEqualsFunctionCustom_ObjectLiteralProperty =
-  _test_functional_assertEqualsFunction(CustomGuardError)(
-    "ObjectLiteralProperty",
-  )(ObjectLiteralProperty)(
-    (p: (input: ObjectLiteralProperty) => ObjectLiteralProperty) =>
-      typia.functional.assertEqualsFunction(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertEqualsFunction(CustomGuardError)(
+      "ObjectLiteralProperty",
+    )(ObjectLiteralProperty)(
+      (p: (input: ObjectLiteralProperty) => ObjectLiteralProperty) =>
+        typia.functional.assertEqualsFunction(
+          p,
+          (p) => new CustomGuardError(p),
+        ),
+    );

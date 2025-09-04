@@ -3,10 +3,11 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { ObjectNullable } from "../../../structures/ObjectNullable";
 
-export const test_llm_application_chatgpt_ObjectNullable =
+export const test_llm_application_chatgpt_ObjectNullable = (): void =>
   _test_llm_application({
     model: "chatgpt",
     name: "ObjectNullable",
+    factory: ObjectNullable,
   })(typia.llm.application<ObjectNullableApplication, "chatgpt">());
 
 interface ObjectNullableApplication {

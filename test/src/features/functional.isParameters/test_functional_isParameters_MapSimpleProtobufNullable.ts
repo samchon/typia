@@ -4,8 +4,9 @@ import { _test_functional_isParameters } from "../../internal/_test_functional_i
 import { MapSimpleProtobufNullable } from "../../structures/MapSimpleProtobufNullable";
 
 export const test_functional_isParameters_MapSimpleProtobufNullable =
-  _test_functional_isParameters("MapSimpleProtobufNullable")(
-    MapSimpleProtobufNullable,
-  )((p: (input: MapSimpleProtobufNullable) => MapSimpleProtobufNullable) =>
-    typia.functional.isParameters(p),
-  );
+  (): void =>
+    _test_functional_isParameters("MapSimpleProtobufNullable")(
+      MapSimpleProtobufNullable,
+    )((p: (input: MapSimpleProtobufNullable) => MapSimpleProtobufNullable) =>
+      typia.functional.isParameters(p),
+    );

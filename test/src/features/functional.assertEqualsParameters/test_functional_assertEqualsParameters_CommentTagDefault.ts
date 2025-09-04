@@ -5,8 +5,9 @@ import { _test_functional_assertEqualsParameters } from "../../internal/_test_fu
 import { CommentTagDefault } from "../../structures/CommentTagDefault";
 
 export const test_functional_assertEqualsParameters_CommentTagDefault =
-  _test_functional_assertEqualsParameters(TypeGuardError)("CommentTagDefault")(
-    CommentTagDefault,
-  )((p: (input: CommentTagDefault) => CommentTagDefault) =>
-    typia.functional.assertEqualsParameters(p),
-  );
+  (): void =>
+    _test_functional_assertEqualsParameters(TypeGuardError)(
+      "CommentTagDefault",
+    )(CommentTagDefault)((p: (input: CommentTagDefault) => CommentTagDefault) =>
+      typia.functional.assertEqualsParameters(p),
+    );

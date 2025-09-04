@@ -5,8 +5,10 @@ import { _test_functional_assertEqualsReturnAsync } from "../../internal/_test_f
 import { ToJsonAtomicUnion } from "../../structures/ToJsonAtomicUnion";
 
 export const test_functional_assertEqualsReturnAsync_ToJsonAtomicUnion =
-  _test_functional_assertEqualsReturnAsync(TypeGuardError)("ToJsonAtomicUnion")(
-    ToJsonAtomicUnion,
-  )((p: (input: ToJsonAtomicUnion) => Promise<ToJsonAtomicUnion>) =>
-    typia.functional.assertEqualsReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsReturnAsync(TypeGuardError)(
+      "ToJsonAtomicUnion",
+    )(ToJsonAtomicUnion)(
+      (p: (input: ToJsonAtomicUnion) => Promise<ToJsonAtomicUnion>) =>
+        typia.functional.assertEqualsReturn(p),
+    );

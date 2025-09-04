@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_misc_assertClone } from "../../internal/_test_misc_assertClone";
 import { ArrayRepeatedNullable } from "../../structures/ArrayRepeatedNullable";
 
-export const test_misc_assertCloneCustom_ArrayRepeatedNullable =
+export const test_misc_assertCloneCustom_ArrayRepeatedNullable = (): void =>
   _test_misc_assertClone(CustomGuardError)(
     "ArrayRepeatedNullable",
   )<ArrayRepeatedNullable>(ArrayRepeatedNullable)((input) =>

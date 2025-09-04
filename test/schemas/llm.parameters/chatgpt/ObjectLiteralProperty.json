@@ -2,20 +2,7 @@
   "type": "object",
   "properties": {
     "regular": {
-      "type": "object",
-      "properties": {
-        "something-interesting-do-you-want?": {
-          "type": "string"
-        },
-        "or-something-crazy-do-you-want?": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "something-interesting-do-you-want?",
-        "or-something-crazy-do-you-want?"
-      ],
-      "additionalProperties": false
+      "$ref": "#/$defs/ObjectLiteralProperty.ISomething"
     },
     "nullable": {
       "anyOf": [
@@ -23,24 +10,38 @@
           "type": "null"
         },
         {
-          "type": "object",
-          "properties": {
-            "something-interesting-do-you-want?": {
-              "type": "string"
-            },
-            "or-something-crazy-do-you-want?": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "something-interesting-do-you-want?",
-            "or-something-crazy-do-you-want?"
-          ],
-          "additionalProperties": false
+          "$ref": "#/$defs/ObjectLiteralProperty.ISomething"
         }
       ]
     },
     "optional": {
+      "$ref": "#/$defs/ObjectLiteralProperty.ISomething"
+    },
+    "faint": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/ObjectLiteralProperty.ISomething"
+        }
+      ]
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ObjectLiteralProperty.ISomething"
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "array"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "ObjectLiteralProperty.ISomething": {
       "type": "object",
       "properties": {
         "something-interesting-do-you-want?": {
@@ -53,59 +54,7 @@
       "required": [
         "something-interesting-do-you-want?",
         "or-something-crazy-do-you-want?"
-      ],
-      "additionalProperties": false
-    },
-    "faint": {
-      "anyOf": [
-        {
-          "type": "null"
-        },
-        {
-          "type": "object",
-          "properties": {
-            "something-interesting-do-you-want?": {
-              "type": "string"
-            },
-            "or-something-crazy-do-you-want?": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "something-interesting-do-you-want?",
-            "or-something-crazy-do-you-want?"
-          ],
-          "additionalProperties": false
-        }
       ]
-    },
-    "array": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "something-interesting-do-you-want?": {
-            "type": "string"
-          },
-          "or-something-crazy-do-you-want?": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "something-interesting-do-you-want?",
-          "or-something-crazy-do-you-want?"
-        ],
-        "additionalProperties": false
-      }
     }
-  },
-  "required": [
-    "regular",
-    "nullable",
-    "optional",
-    "faint",
-    "array"
-  ],
-  "additionalProperties": false,
-  "$defs": {}
+  }
 }

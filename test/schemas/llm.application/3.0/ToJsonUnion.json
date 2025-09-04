@@ -1,8 +1,8 @@
 {
   "model": "3.0",
   "options": {
-    "constraint": false,
     "recursive": 3,
+    "constraint": true,
     "separate": null
   },
   "functions": [
@@ -36,6 +36,7 @@
                     "mobile",
                     "name"
                   ],
+                  "description": "Current Type: {@link ToJsonUnion.ICitizen}",
                   "additionalProperties": false
                 },
                 {
@@ -56,6 +57,7 @@
                     "brand",
                     "name"
                   ],
+                  "description": "Current Type: {@link ToJsonUnion.IProduct}",
                   "additionalProperties": false
                 },
                 {
@@ -82,18 +84,19 @@
                     "mobile",
                     "name"
                   ],
+                  "description": "Current Type: {@link ToJsonUnion.ICitizen}",
                   "additionalProperties": false
                 }
               ]
-            }
+            },
+            "description": "Current Type: {@link ToJsonUnion}"
           }
         },
         "required": [
           "first"
         ],
         "additionalProperties": false
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -125,6 +128,7 @@
                     "mobile",
                     "name"
                   ],
+                  "description": "Current Type: {@link ToJsonUnion.ICitizen}",
                   "additionalProperties": false
                 },
                 {
@@ -145,6 +149,7 @@
                     "brand",
                     "name"
                   ],
+                  "description": "Current Type: {@link ToJsonUnion.IProduct}",
                   "additionalProperties": false
                 },
                 {
@@ -171,10 +176,12 @@
                     "mobile",
                     "name"
                   ],
+                  "description": "Current Type: {@link ToJsonUnion.ICitizen}",
                   "additionalProperties": false
                 }
               ]
-            }
+            },
+            "description": "Current Type: {@link ToJsonUnion}"
           },
           "second": {
             "type": "array",
@@ -201,6 +208,7 @@
                     "mobile",
                     "name"
                   ],
+                  "description": "Current Type: {@link ToJsonUnion.ICitizen}",
                   "additionalProperties": false
                 },
                 {
@@ -221,6 +229,7 @@
                     "brand",
                     "name"
                   ],
+                  "description": "Current Type: {@link ToJsonUnion.IProduct}",
                   "additionalProperties": false
                 },
                 {
@@ -247,6 +256,7 @@
                     "mobile",
                     "name"
                   ],
+                  "description": "Current Type: {@link ToJsonUnion.ICitizen}",
                   "additionalProperties": false
                 }
               ]
@@ -285,6 +295,7 @@
                 "mobile",
                 "name"
               ],
+              "description": "Current Type: {@link ToJsonUnion.ICitizen}",
               "additionalProperties": false
             },
             {
@@ -305,6 +316,7 @@
                 "brand",
                 "name"
               ],
+              "description": "Current Type: {@link ToJsonUnion.IProduct}",
               "additionalProperties": false
             },
             {
@@ -331,12 +343,13 @@
                 "mobile",
                 "name"
               ],
+              "description": "Current Type: {@link ToJsonUnion.ICitizen}",
               "additionalProperties": false
             }
           ]
-        }
-      },
-      "strict": true
+        },
+        "description": "Current Type: {@link ToJsonUnion}"
+      }
     },
     {
       "name": "coalesce",
@@ -368,6 +381,7 @@
                     "mobile",
                     "name"
                   ],
+                  "description": "Current Type: {@link ToJsonUnion.ICitizen}",
                   "additionalProperties": false
                 },
                 {
@@ -388,6 +402,7 @@
                     "brand",
                     "name"
                   ],
+                  "description": "Current Type: {@link ToJsonUnion.IProduct}",
                   "additionalProperties": false
                 },
                 {
@@ -414,6 +429,7 @@
                     "mobile",
                     "name"
                   ],
+                  "description": "Current Type: {@link ToJsonUnion.ICitizen}",
                   "additionalProperties": false
                 }
               ]
@@ -445,6 +461,7 @@
                     "mobile",
                     "name"
                   ],
+                  "description": "Current Type: {@link ToJsonUnion.ICitizen}",
                   "additionalProperties": false
                 },
                 {
@@ -465,6 +482,7 @@
                     "brand",
                     "name"
                   ],
+                  "description": "Current Type: {@link ToJsonUnion.IProduct}",
                   "additionalProperties": false
                 },
                 {
@@ -491,6 +509,7 @@
                     "mobile",
                     "name"
                   ],
+                  "description": "Current Type: {@link ToJsonUnion.ICitizen}",
                   "additionalProperties": false
                 }
               ]
@@ -522,6 +541,7 @@
                     "mobile",
                     "name"
                   ],
+                  "description": "Current Type: {@link ToJsonUnion.ICitizen}",
                   "additionalProperties": false
                 },
                 {
@@ -542,6 +562,7 @@
                     "brand",
                     "name"
                   ],
+                  "description": "Current Type: {@link ToJsonUnion.IProduct}",
                   "additionalProperties": false
                 },
                 {
@@ -568,6 +589,7 @@
                     "mobile",
                     "name"
                   ],
+                  "description": "Current Type: {@link ToJsonUnion.ICitizen}",
                   "additionalProperties": false
                 }
               ]
@@ -606,6 +628,7 @@
                 "mobile",
                 "name"
               ],
+              "description": "Current Type: {@link ToJsonUnion.ICitizen}",
               "additionalProperties": false
             },
             {
@@ -626,6 +649,7 @@
                 "brand",
                 "name"
               ],
+              "description": "Current Type: {@link ToJsonUnion.IProduct}",
               "additionalProperties": false
             },
             {
@@ -652,13 +676,13 @@
                 "mobile",
                 "name"
               ],
+              "description": "Current Type: {@link ToJsonUnion.ICitizen}",
               "additionalProperties": false
             }
           ]
         },
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

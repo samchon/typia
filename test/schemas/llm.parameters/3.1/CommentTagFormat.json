@@ -2,121 +2,7 @@
   "type": "object",
   "properties": {
     "regular": {
-      "type": "object",
-      "properties": {
-        "byte": {
-          "description": "@format byte",
-          "type": "string"
-        },
-        "password": {
-          "description": "@format password",
-          "type": "string"
-        },
-        "regex": {
-          "description": "@format regex",
-          "type": "string"
-        },
-        "uuid": {
-          "description": "@format uuid",
-          "type": "string"
-        },
-        "email": {
-          "description": "@format email",
-          "type": "string"
-        },
-        "hostname": {
-          "description": "@format hostname",
-          "type": "string"
-        },
-        "idnEmail": {
-          "description": "@format idn-email",
-          "type": "string"
-        },
-        "idnHostname": {
-          "description": "@format idn-hostname",
-          "type": "string"
-        },
-        "iri": {
-          "description": "@format iri",
-          "type": "string"
-        },
-        "iriReference": {
-          "description": "@format iri-reference",
-          "type": "string"
-        },
-        "ipv4": {
-          "description": "@format ipv4",
-          "type": "string"
-        },
-        "ipv6": {
-          "description": "@format ipv6",
-          "type": "string"
-        },
-        "uri": {
-          "description": "@format uri",
-          "type": "string"
-        },
-        "uriReference": {
-          "description": "@format uri-reference",
-          "type": "string"
-        },
-        "uriTemplate": {
-          "description": "@format uri-template",
-          "type": "string"
-        },
-        "url": {
-          "description": "@format url",
-          "type": "string"
-        },
-        "datetime": {
-          "description": "@format date-time",
-          "type": "string"
-        },
-        "date": {
-          "description": "@format date",
-          "type": "string"
-        },
-        "time": {
-          "description": "@format time",
-          "type": "string"
-        },
-        "duration": {
-          "description": "@format duration",
-          "type": "string"
-        },
-        "jsonPointer": {
-          "description": "@format json-pointer",
-          "type": "string"
-        },
-        "relativeJsonPointer": {
-          "description": "@format relative-json-pointer",
-          "type": "string"
-        }
-      },
-      "required": [
-        "byte",
-        "password",
-        "regex",
-        "uuid",
-        "email",
-        "hostname",
-        "idnEmail",
-        "idnHostname",
-        "iri",
-        "iriReference",
-        "ipv4",
-        "ipv6",
-        "uri",
-        "uriReference",
-        "uriTemplate",
-        "url",
-        "datetime",
-        "date",
-        "time",
-        "duration",
-        "jsonPointer",
-        "relativeJsonPointer"
-      ]
+      "$ref": "#/$defs/CommentTagFormat"
     },
     "nullable": {
       "oneOf": [
@@ -124,214 +10,127 @@
           "type": "null"
         },
         {
-          "type": "object",
-          "properties": {
-            "byte": {
-              "description": "@format byte",
-              "type": "string"
-            },
-            "password": {
-              "description": "@format password",
-              "type": "string"
-            },
-            "regex": {
-              "description": "@format regex",
-              "type": "string"
-            },
-            "uuid": {
-              "description": "@format uuid",
-              "type": "string"
-            },
-            "email": {
-              "description": "@format email",
-              "type": "string"
-            },
-            "hostname": {
-              "description": "@format hostname",
-              "type": "string"
-            },
-            "idnEmail": {
-              "description": "@format idn-email",
-              "type": "string"
-            },
-            "idnHostname": {
-              "description": "@format idn-hostname",
-              "type": "string"
-            },
-            "iri": {
-              "description": "@format iri",
-              "type": "string"
-            },
-            "iriReference": {
-              "description": "@format iri-reference",
-              "type": "string"
-            },
-            "ipv4": {
-              "description": "@format ipv4",
-              "type": "string"
-            },
-            "ipv6": {
-              "description": "@format ipv6",
-              "type": "string"
-            },
-            "uri": {
-              "description": "@format uri",
-              "type": "string"
-            },
-            "uriReference": {
-              "description": "@format uri-reference",
-              "type": "string"
-            },
-            "uriTemplate": {
-              "description": "@format uri-template",
-              "type": "string"
-            },
-            "url": {
-              "description": "@format url",
-              "type": "string"
-            },
-            "datetime": {
-              "description": "@format date-time",
-              "type": "string"
-            },
-            "date": {
-              "description": "@format date",
-              "type": "string"
-            },
-            "time": {
-              "description": "@format time",
-              "type": "string"
-            },
-            "duration": {
-              "description": "@format duration",
-              "type": "string"
-            },
-            "jsonPointer": {
-              "description": "@format json-pointer",
-              "type": "string"
-            },
-            "relativeJsonPointer": {
-              "description": "@format relative-json-pointer",
-              "type": "string"
-            }
-          },
-          "required": [
-            "byte",
-            "password",
-            "regex",
-            "uuid",
-            "email",
-            "hostname",
-            "idnEmail",
-            "idnHostname",
-            "iri",
-            "iriReference",
-            "ipv4",
-            "ipv6",
-            "uri",
-            "uriReference",
-            "uriTemplate",
-            "url",
-            "datetime",
-            "date",
-            "time",
-            "duration",
-            "jsonPointer",
-            "relativeJsonPointer"
-          ]
+          "$ref": "#/$defs/CommentTagFormat"
         }
       ]
     },
     "optional": {
+      "$ref": "#/$defs/CommentTagFormat"
+    },
+    "faint": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/CommentTagFormat"
+        }
+      ]
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/CommentTagFormat"
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "array"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "CommentTagFormat": {
       "type": "object",
       "properties": {
         "byte": {
-          "description": "@format byte",
-          "type": "string"
+          "type": "string",
+          "format": "byte"
         },
         "password": {
-          "description": "@format password",
-          "type": "string"
+          "type": "string",
+          "format": "password"
         },
         "regex": {
-          "description": "@format regex",
-          "type": "string"
+          "type": "string",
+          "format": "regex"
         },
         "uuid": {
-          "description": "@format uuid",
-          "type": "string"
+          "type": "string",
+          "format": "uuid"
         },
         "email": {
-          "description": "@format email",
-          "type": "string"
+          "type": "string",
+          "format": "email"
         },
         "hostname": {
-          "description": "@format hostname",
-          "type": "string"
+          "type": "string",
+          "format": "hostname"
         },
         "idnEmail": {
-          "description": "@format idn-email",
-          "type": "string"
+          "type": "string",
+          "format": "idn-email"
         },
         "idnHostname": {
-          "description": "@format idn-hostname",
-          "type": "string"
+          "type": "string",
+          "format": "idn-hostname"
         },
         "iri": {
-          "description": "@format iri",
-          "type": "string"
+          "type": "string",
+          "format": "iri"
         },
         "iriReference": {
-          "description": "@format iri-reference",
-          "type": "string"
+          "type": "string",
+          "format": "iri-reference"
         },
         "ipv4": {
-          "description": "@format ipv4",
-          "type": "string"
+          "type": "string",
+          "format": "ipv4"
         },
         "ipv6": {
-          "description": "@format ipv6",
-          "type": "string"
+          "type": "string",
+          "format": "ipv6"
         },
         "uri": {
-          "description": "@format uri",
-          "type": "string"
+          "type": "string",
+          "format": "uri"
         },
         "uriReference": {
-          "description": "@format uri-reference",
-          "type": "string"
+          "type": "string",
+          "format": "uri-reference"
         },
         "uriTemplate": {
-          "description": "@format uri-template",
-          "type": "string"
+          "type": "string",
+          "format": "uri-template"
         },
         "url": {
-          "description": "@format url",
-          "type": "string"
+          "type": "string",
+          "format": "url"
         },
         "datetime": {
-          "description": "@format date-time",
-          "type": "string"
+          "type": "string",
+          "format": "date-time"
         },
         "date": {
-          "description": "@format date",
-          "type": "string"
+          "type": "string",
+          "format": "date"
         },
         "time": {
-          "description": "@format time",
-          "type": "string"
+          "type": "string",
+          "format": "time"
         },
         "duration": {
-          "description": "@format duration",
-          "type": "string"
+          "type": "string",
+          "format": "duration"
         },
         "jsonPointer": {
-          "description": "@format json-pointer",
-          "type": "string"
+          "type": "string",
+          "format": "json-pointer"
         },
         "relativeJsonPointer": {
-          "description": "@format relative-json-pointer",
-          "type": "string"
+          "type": "string",
+          "format": "relative-json-pointer"
         }
       },
       "required": [
@@ -358,259 +157,6 @@
         "jsonPointer",
         "relativeJsonPointer"
       ]
-    },
-    "faint": {
-      "oneOf": [
-        {
-          "type": "null"
-        },
-        {
-          "type": "object",
-          "properties": {
-            "byte": {
-              "description": "@format byte",
-              "type": "string"
-            },
-            "password": {
-              "description": "@format password",
-              "type": "string"
-            },
-            "regex": {
-              "description": "@format regex",
-              "type": "string"
-            },
-            "uuid": {
-              "description": "@format uuid",
-              "type": "string"
-            },
-            "email": {
-              "description": "@format email",
-              "type": "string"
-            },
-            "hostname": {
-              "description": "@format hostname",
-              "type": "string"
-            },
-            "idnEmail": {
-              "description": "@format idn-email",
-              "type": "string"
-            },
-            "idnHostname": {
-              "description": "@format idn-hostname",
-              "type": "string"
-            },
-            "iri": {
-              "description": "@format iri",
-              "type": "string"
-            },
-            "iriReference": {
-              "description": "@format iri-reference",
-              "type": "string"
-            },
-            "ipv4": {
-              "description": "@format ipv4",
-              "type": "string"
-            },
-            "ipv6": {
-              "description": "@format ipv6",
-              "type": "string"
-            },
-            "uri": {
-              "description": "@format uri",
-              "type": "string"
-            },
-            "uriReference": {
-              "description": "@format uri-reference",
-              "type": "string"
-            },
-            "uriTemplate": {
-              "description": "@format uri-template",
-              "type": "string"
-            },
-            "url": {
-              "description": "@format url",
-              "type": "string"
-            },
-            "datetime": {
-              "description": "@format date-time",
-              "type": "string"
-            },
-            "date": {
-              "description": "@format date",
-              "type": "string"
-            },
-            "time": {
-              "description": "@format time",
-              "type": "string"
-            },
-            "duration": {
-              "description": "@format duration",
-              "type": "string"
-            },
-            "jsonPointer": {
-              "description": "@format json-pointer",
-              "type": "string"
-            },
-            "relativeJsonPointer": {
-              "description": "@format relative-json-pointer",
-              "type": "string"
-            }
-          },
-          "required": [
-            "byte",
-            "password",
-            "regex",
-            "uuid",
-            "email",
-            "hostname",
-            "idnEmail",
-            "idnHostname",
-            "iri",
-            "iriReference",
-            "ipv4",
-            "ipv6",
-            "uri",
-            "uriReference",
-            "uriTemplate",
-            "url",
-            "datetime",
-            "date",
-            "time",
-            "duration",
-            "jsonPointer",
-            "relativeJsonPointer"
-          ]
-        }
-      ]
-    },
-    "array": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "byte": {
-            "description": "@format byte",
-            "type": "string"
-          },
-          "password": {
-            "description": "@format password",
-            "type": "string"
-          },
-          "regex": {
-            "description": "@format regex",
-            "type": "string"
-          },
-          "uuid": {
-            "description": "@format uuid",
-            "type": "string"
-          },
-          "email": {
-            "description": "@format email",
-            "type": "string"
-          },
-          "hostname": {
-            "description": "@format hostname",
-            "type": "string"
-          },
-          "idnEmail": {
-            "description": "@format idn-email",
-            "type": "string"
-          },
-          "idnHostname": {
-            "description": "@format idn-hostname",
-            "type": "string"
-          },
-          "iri": {
-            "description": "@format iri",
-            "type": "string"
-          },
-          "iriReference": {
-            "description": "@format iri-reference",
-            "type": "string"
-          },
-          "ipv4": {
-            "description": "@format ipv4",
-            "type": "string"
-          },
-          "ipv6": {
-            "description": "@format ipv6",
-            "type": "string"
-          },
-          "uri": {
-            "description": "@format uri",
-            "type": "string"
-          },
-          "uriReference": {
-            "description": "@format uri-reference",
-            "type": "string"
-          },
-          "uriTemplate": {
-            "description": "@format uri-template",
-            "type": "string"
-          },
-          "url": {
-            "description": "@format url",
-            "type": "string"
-          },
-          "datetime": {
-            "description": "@format date-time",
-            "type": "string"
-          },
-          "date": {
-            "description": "@format date",
-            "type": "string"
-          },
-          "time": {
-            "description": "@format time",
-            "type": "string"
-          },
-          "duration": {
-            "description": "@format duration",
-            "type": "string"
-          },
-          "jsonPointer": {
-            "description": "@format json-pointer",
-            "type": "string"
-          },
-          "relativeJsonPointer": {
-            "description": "@format relative-json-pointer",
-            "type": "string"
-          }
-        },
-        "required": [
-          "byte",
-          "password",
-          "regex",
-          "uuid",
-          "email",
-          "hostname",
-          "idnEmail",
-          "idnHostname",
-          "iri",
-          "iriReference",
-          "ipv4",
-          "ipv6",
-          "uri",
-          "uriReference",
-          "uriTemplate",
-          "url",
-          "datetime",
-          "date",
-          "time",
-          "duration",
-          "jsonPointer",
-          "relativeJsonPointer"
-        ]
-      }
     }
-  },
-  "required": [
-    "regular",
-    "nullable",
-    "optional",
-    "faint",
-    "array"
-  ],
-  "additionalProperties": false,
-  "$defs": {}
+  }
 }

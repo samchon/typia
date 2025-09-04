@@ -5,8 +5,9 @@ import { _test_functional_assertFunction } from "../../internal/_test_functional
 import { AtomicIntersection } from "../../structures/AtomicIntersection";
 
 export const test_functional_assertFunctionCustom_AtomicIntersection =
-  _test_functional_assertFunction(CustomGuardError)("AtomicIntersection")(
-    AtomicIntersection,
-  )((p: (input: AtomicIntersection) => AtomicIntersection) =>
-    typia.functional.assertFunction(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertFunction(CustomGuardError)("AtomicIntersection")(
+      AtomicIntersection,
+    )((p: (input: AtomicIntersection) => AtomicIntersection) =>
+      typia.functional.assertFunction(p, (p) => new CustomGuardError(p)),
+    );

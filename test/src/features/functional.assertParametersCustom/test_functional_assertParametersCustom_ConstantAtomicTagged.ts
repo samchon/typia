@@ -5,8 +5,9 @@ import { _test_functional_assertParameters } from "../../internal/_test_function
 import { ConstantAtomicTagged } from "../../structures/ConstantAtomicTagged";
 
 export const test_functional_assertParametersCustom_ConstantAtomicTagged =
-  _test_functional_assertParameters(CustomGuardError)("ConstantAtomicTagged")(
-    ConstantAtomicTagged,
-  )((p: (input: ConstantAtomicTagged) => ConstantAtomicTagged) =>
-    typia.functional.assertParameters(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertParameters(CustomGuardError)("ConstantAtomicTagged")(
+      ConstantAtomicTagged,
+    )((p: (input: ConstantAtomicTagged) => ConstantAtomicTagged) =>
+      typia.functional.assertParameters(p, (p) => new CustomGuardError(p)),
+    );

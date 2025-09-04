@@ -5,9 +5,10 @@ import { _test_functional_assertEqualsReturnAsync } from "../../internal/_test_f
 import { ObjectHttpCommentTag } from "../../structures/ObjectHttpCommentTag";
 
 export const test_functional_assertEqualsReturnAsync_ObjectHttpCommentTag =
-  _test_functional_assertEqualsReturnAsync(TypeGuardError)(
-    "ObjectHttpCommentTag",
-  )(ObjectHttpCommentTag)(
-    (p: (input: ObjectHttpCommentTag) => Promise<ObjectHttpCommentTag>) =>
-      typia.functional.assertEqualsReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsReturnAsync(TypeGuardError)(
+      "ObjectHttpCommentTag",
+    )(ObjectHttpCommentTag)(
+      (p: (input: ObjectHttpCommentTag) => Promise<ObjectHttpCommentTag>) =>
+        typia.functional.assertEqualsReturn(p),
+    );

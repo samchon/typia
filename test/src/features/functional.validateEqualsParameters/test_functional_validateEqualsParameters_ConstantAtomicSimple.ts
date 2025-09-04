@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsParameters } from "../../internal/_test_
 import { ConstantAtomicSimple } from "../../structures/ConstantAtomicSimple";
 
 export const test_functional_validateEqualsParameters_ConstantAtomicSimple =
-  _test_functional_validateEqualsParameters("ConstantAtomicSimple")(
-    ConstantAtomicSimple,
-  )((p: (input: ConstantAtomicSimple) => ConstantAtomicSimple) =>
-    typia.functional.validateEqualsParameters(p),
-  );
+  (): void =>
+    _test_functional_validateEqualsParameters("ConstantAtomicSimple")(
+      ConstantAtomicSimple,
+    )((p: (input: ConstantAtomicSimple) => ConstantAtomicSimple) =>
+      typia.functional.validateEqualsParameters(p),
+    );

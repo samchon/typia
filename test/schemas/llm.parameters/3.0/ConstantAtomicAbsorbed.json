@@ -6,17 +6,18 @@
       "properties": {
         "id": {
           "type": "string",
-          "description": "@default something"
+          "default": "something"
         },
         "age": {
           "type": "number",
-          "description": "@default 20"
+          "default": 20
         }
       },
       "required": [
         "id",
         "age"
       ],
+      "description": "Current Type: {@link ConstantAtomicAbsorbed}",
       "additionalProperties": false
     },
     "nullable": {
@@ -24,11 +25,11 @@
       "properties": {
         "id": {
           "type": "string",
-          "description": "@default something"
+          "default": "something"
         },
         "age": {
           "type": "number",
-          "description": "@default 20"
+          "default": 20
         }
       },
       "required": [
@@ -43,17 +44,18 @@
       "properties": {
         "id": {
           "type": "string",
-          "description": "@default something"
+          "default": "something"
         },
         "age": {
           "type": "number",
-          "description": "@default 20"
+          "default": 20
         }
       },
       "required": [
         "id",
         "age"
       ],
+      "description": "Current Type: {@link ConstantAtomicAbsorbed}",
       "additionalProperties": false
     },
     "faint": {
@@ -61,11 +63,11 @@
       "properties": {
         "id": {
           "type": "string",
-          "description": "@default something"
+          "default": "something"
         },
         "age": {
           "type": "number",
-          "description": "@default 20"
+          "default": 20
         }
       },
       "required": [
@@ -82,17 +84,18 @@
         "properties": {
           "id": {
             "type": "string",
-            "description": "@default something"
+            "default": "something"
           },
           "age": {
             "type": "number",
-            "description": "@default 20"
+            "default": 20
           }
         },
         "required": [
           "id",
           "age"
         ],
+        "description": "Current Type: {@link ConstantAtomicAbsorbed}",
         "additionalProperties": false
       }
     }

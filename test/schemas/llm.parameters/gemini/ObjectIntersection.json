@@ -18,7 +18,8 @@
         "email",
         "name",
         "vulnerable"
-      ]
+      ],
+      "description": "Current Type: {@link ObjectIntersection}"
     },
     "nullable": {
       "type": "object",
@@ -57,7 +58,8 @@
         "email",
         "name",
         "vulnerable"
-      ]
+      ],
+      "description": "Current Type: {@link ObjectIntersection}"
     },
     "faint": {
       "type": "object",
@@ -98,7 +100,8 @@
           "email",
           "name",
           "vulnerable"
-        ]
+        ],
+        "description": "Current Type: {@link ObjectIntersection}"
       }
     }
   },

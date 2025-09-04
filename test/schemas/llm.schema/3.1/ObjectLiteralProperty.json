@@ -1,15 +1,1 @@
-{
-  "type": "object",
-  "properties": {
-    "something-interesting-do-you-want?": {
-      "type": "string"
-    },
-    "or-something-crazy-do-you-want?": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "something-interesting-do-you-want?",
-    "or-something-crazy-do-you-want?"
-  ]
-}
+{}

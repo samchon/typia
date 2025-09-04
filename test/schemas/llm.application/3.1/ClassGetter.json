@@ -1,8 +1,8 @@
 {
   "model": "3.1",
   "options": {
-    "constraint": false,
-    "reference": false,
+    "reference": true,
+    "constraint": true,
     "separate": null
   },
   "functions": [
@@ -12,6 +12,15 @@
         "type": "object",
         "properties": {
           "first": {
+            "$ref": "#/$defs/ClassGetter.Person"
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ClassGetter.Person": {
             "type": "object",
             "properties": {
               "id": {
@@ -37,14 +46,8 @@
               "dead"
             ]
           }
-        },
-        "required": [
-          "first"
-        ],
-        "additionalProperties": false,
-        "$defs": {}
-      },
-      "strict": true
+        }
+      }
     },
     {
       "name": "reduce",
@@ -52,30 +55,7 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "dead": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "boolean"
-                  }
-                ]
-              }
-            },
-            "required": [
-              "id",
-              "name",
-              "dead"
-            ]
+            "$ref": "#/$defs/ClassGetter.Person"
           },
           "second": {
             "oneOf": [
@@ -83,30 +63,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "string"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "dead": {
-                    "oneOf": [
-                      {
-                        "type": "null"
-                      },
-                      {
-                        "type": "boolean"
-                      }
-                    ]
-                  }
-                },
-                "required": [
-                  "id",
-                  "name",
-                  "dead"
-                ]
+                "$ref": "#/$defs/ClassGetter.Person"
               }
             ]
           }
@@ -116,35 +73,38 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "output": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "dead": {
-            "oneOf": [
-              {
-                "type": "null"
+        "$defs": {
+          "ClassGetter.Person": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
               },
-              {
-                "type": "boolean"
+              "name": {
+                "type": "string"
+              },
+              "dead": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "boolean"
+                  }
+                ]
               }
+            },
+            "required": [
+              "id",
+              "name",
+              "dead"
             ]
           }
-        },
-        "required": [
-          "id",
-          "name",
-          "dead"
-        ]
+        }
       },
-      "strict": true
+      "output": {
+        "$ref": "#/$defs/ClassGetter.Person"
+      }
     },
     {
       "name": "coalesce",
@@ -157,30 +117,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "string"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "dead": {
-                    "oneOf": [
-                      {
-                        "type": "null"
-                      },
-                      {
-                        "type": "boolean"
-                      }
-                    ]
-                  }
-                },
-                "required": [
-                  "id",
-                  "name",
-                  "dead"
-                ]
+                "$ref": "#/$defs/ClassGetter.Person"
               }
             ]
           },
@@ -190,30 +127,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "string"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "dead": {
-                    "oneOf": [
-                      {
-                        "type": "null"
-                      },
-                      {
-                        "type": "boolean"
-                      }
-                    ]
-                  }
-                },
-                "required": [
-                  "id",
-                  "name",
-                  "dead"
-                ]
+                "$ref": "#/$defs/ClassGetter.Person"
               }
             ]
           },
@@ -223,48 +137,18 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "string"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "dead": {
-                    "oneOf": [
-                      {
-                        "type": "null"
-                      },
-                      {
-                        "type": "boolean"
-                      }
-                    ]
-                  }
-                },
-                "required": [
-                  "id",
-                  "name",
-                  "dead"
-                ]
+                "$ref": "#/$defs/ClassGetter.Person"
               }
             ]
           }
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "output": {
-        "oneOf": [
-          {
-            "type": "null"
-          },
-          {
+        "$defs": {
+          "ClassGetter.Person": {
             "type": "object",
             "properties": {
               "id": {
@@ -290,9 +174,18 @@
               "dead"
             ]
           }
-        ]
+        }
       },
-      "strict": true
+      "output": {
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "$ref": "#/$defs/ClassGetter.Person"
+          }
+        ]
+      }
     }
   ]
 }

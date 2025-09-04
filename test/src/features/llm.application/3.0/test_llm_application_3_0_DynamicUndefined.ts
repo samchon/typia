@@ -3,10 +3,12 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { DynamicUndefined } from "../../../structures/DynamicUndefined";
 
-export const test_llm_application_3_0_DynamicUndefined = _test_llm_application({
-  model: "3.0",
-  name: "DynamicUndefined",
-})(typia.llm.application<DynamicUndefinedApplication, "3.0">());
+export const test_llm_application_3_0_DynamicUndefined = (): void =>
+  _test_llm_application({
+    model: "3.0",
+    name: "DynamicUndefined",
+    factory: DynamicUndefined,
+  })(typia.llm.application<DynamicUndefinedApplication, "3.0">());
 
 interface DynamicUndefinedApplication {
   insert(p: { first: DynamicUndefined }): Promise<void>;

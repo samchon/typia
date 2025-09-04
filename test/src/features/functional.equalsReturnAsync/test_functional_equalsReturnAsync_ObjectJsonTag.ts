@@ -4,7 +4,8 @@ import { _test_functional_equalsReturnAsync } from "../../internal/_test_functio
 import { ObjectJsonTag } from "../../structures/ObjectJsonTag";
 
 export const test_functional_equalsReturnAsync_ObjectJsonTag =
-  _test_functional_equalsReturnAsync("ObjectJsonTag")(ObjectJsonTag)(
-    (p: (input: ObjectJsonTag) => Promise<ObjectJsonTag>) =>
-      typia.functional.equalsReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_equalsReturnAsync("ObjectJsonTag")(ObjectJsonTag)(
+      (p: (input: ObjectJsonTag) => Promise<ObjectJsonTag>) =>
+        typia.functional.equalsReturn(p),
+    );

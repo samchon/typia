@@ -30,6 +30,7 @@
           "id",
           "name"
         ],
+        "description": "Current Type: {@link ObjectUndefined.IClassroom}",
         "additionalProperties": false
       },
       "grade": {
@@ -41,6 +42,8 @@
       "name",
       "unknown"
     ],
+    "description": "Current Type: {@link ObjectUndefined.ILecture}",
     "additionalProperties": false
-  }
+  },
+  "description": "Current Type: {@link ObjectUndefined}"
 }

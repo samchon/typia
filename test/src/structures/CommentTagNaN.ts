@@ -9,24 +9,16 @@ export interface CommentTagNaN {
    */
   ranged: number;
 
-  /**
-   * @minimum 0
-   */
+  /** @minimum 0 */
   minimum: number;
 
-  /**
-   * @maximum 100
-   */
+  /** @maximum 100 */
   maximum: number;
 
-  /**
-   * @multipleOf 3
-   */
+  /** @multipleOf 3 */
   multipleOf: number;
 
-  /**
-   * @type int
-   */
+  /** @type int */
   typed: number;
 }
 export namespace CommentTagNaN {

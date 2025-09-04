@@ -4,12 +4,13 @@ import { _test_functional_validateParametersAsync } from "../../internal/_test_f
 import { ArraySimpleProtobufOptional } from "../../structures/ArraySimpleProtobufOptional";
 
 export const test_functional_validateParametersAsync_ArraySimpleProtobufOptional =
-  _test_functional_validateParametersAsync("ArraySimpleProtobufOptional")(
-    ArraySimpleProtobufOptional,
-  )(
-    (
-      p: (
-        input: ArraySimpleProtobufOptional,
-      ) => Promise<ArraySimpleProtobufOptional>,
-    ) => typia.functional.validateParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateParametersAsync("ArraySimpleProtobufOptional")(
+      ArraySimpleProtobufOptional,
+    )(
+      (
+        p: (
+          input: ArraySimpleProtobufOptional,
+        ) => Promise<ArraySimpleProtobufOptional>,
+      ) => typia.functional.validateParameters(p),
+    );

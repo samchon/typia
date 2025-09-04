@@ -33,11 +33,13 @@
           "maximum",
           "minimum_and_maximum",
           "equal"
-        ]
+        ],
+        "description": "Current Type: {@link CommentTagLength.Type}"
       }
     }
   },
   "required": [
     "value"
-  ]
+  ],
+  "description": "Current Type: {@link CommentTagLength}"
 }

@@ -16,5 +16,6 @@
   "required": [
     "value"
   ],
+  "description": "Current Type: {@link DynamicArray}",
   "additionalProperties": false
 }

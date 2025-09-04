@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_assertGuard } from "../../internal/_test_assertGuard";
 import { ObjectSimpleProtobufOptional } from "../../structures/ObjectSimpleProtobufOptional";
 
-export const test_createAssertGuard_ObjectSimpleProtobufOptional =
+export const test_createAssertGuard_ObjectSimpleProtobufOptional = (): void =>
   _test_assertGuard(TypeGuardError)(
     "ObjectSimpleProtobufOptional",
   )<ObjectSimpleProtobufOptional>(ObjectSimpleProtobufOptional)(

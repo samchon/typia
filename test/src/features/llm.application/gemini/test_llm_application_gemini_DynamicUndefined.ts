@@ -3,10 +3,11 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { DynamicUndefined } from "../../../structures/DynamicUndefined";
 
-export const test_llm_application_gemini_DynamicUndefined =
+export const test_llm_application_gemini_DynamicUndefined = (): void =>
   _test_llm_application({
     model: "gemini",
     name: "DynamicUndefined",
+    factory: DynamicUndefined,
   })(typia.llm.application<DynamicUndefinedApplication, "gemini">());
 
 interface DynamicUndefinedApplication {

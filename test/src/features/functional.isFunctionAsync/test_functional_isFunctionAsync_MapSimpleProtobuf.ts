@@ -4,7 +4,8 @@ import { _test_functional_isFunctionAsync } from "../../internal/_test_functiona
 import { MapSimpleProtobuf } from "../../structures/MapSimpleProtobuf";
 
 export const test_functional_isFunctionAsync_MapSimpleProtobuf =
-  _test_functional_isFunctionAsync("MapSimpleProtobuf")(MapSimpleProtobuf)(
-    (p: (input: MapSimpleProtobuf) => Promise<MapSimpleProtobuf>) =>
-      typia.functional.isFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_isFunctionAsync("MapSimpleProtobuf")(MapSimpleProtobuf)(
+      (p: (input: MapSimpleProtobuf) => Promise<MapSimpleProtobuf>) =>
+        typia.functional.isFunction(p),
+    );

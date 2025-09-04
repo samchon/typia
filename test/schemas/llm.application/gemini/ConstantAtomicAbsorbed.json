@@ -18,21 +18,20 @@
                 "description": "@default something"
               },
               "age": {
-                "type": "number",
-                "description": "@default 20"
+                "type": "number"
               }
             },
             "required": [
               "id",
               "age"
-            ]
+            ],
+            "description": "Current Type: {@link ConstantAtomicAbsorbed}"
           }
         },
         "required": [
           "first"
         ]
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -47,14 +46,14 @@
                 "description": "@default something"
               },
               "age": {
-                "type": "number",
-                "description": "@default 20"
+                "type": "number"
               }
             },
             "required": [
               "id",
               "age"
-            ]
+            ],
+            "description": "Current Type: {@link ConstantAtomicAbsorbed}"
           },
           "second": {
             "type": "object",
@@ -64,8 +63,7 @@
                 "description": "@default something"
               },
               "age": {
-                "type": "number",
-                "description": "@default 20"
+                "type": "number"
               }
             },
             "required": [
@@ -88,16 +86,15 @@
             "description": "@default something"
           },
           "age": {
-            "type": "number",
-            "description": "@default 20"
+            "type": "number"
           }
         },
         "required": [
           "id",
           "age"
-        ]
-      },
-      "strict": true
+        ],
+        "description": "Current Type: {@link ConstantAtomicAbsorbed}"
+      }
     },
     {
       "name": "coalesce",
@@ -112,8 +109,7 @@
                 "description": "@default something"
               },
               "age": {
-                "type": "number",
-                "description": "@default 20"
+                "type": "number"
               }
             },
             "required": [
@@ -130,8 +126,7 @@
                 "description": "@default something"
               },
               "age": {
-                "type": "number",
-                "description": "@default 20"
+                "type": "number"
               }
             },
             "required": [
@@ -148,8 +143,7 @@
                 "description": "@default something"
               },
               "age": {
-                "type": "number",
-                "description": "@default 20"
+                "type": "number"
               }
             },
             "required": [
@@ -172,8 +166,7 @@
             "description": "@default something"
           },
           "age": {
-            "type": "number",
-            "description": "@default 20"
+            "type": "number"
           }
         },
         "required": [
@@ -181,8 +174,7 @@
           "age"
         ],
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

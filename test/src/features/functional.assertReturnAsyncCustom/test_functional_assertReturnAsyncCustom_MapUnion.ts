@@ -5,7 +5,8 @@ import { _test_functional_assertReturnAsync } from "../../internal/_test_functio
 import { MapUnion } from "../../structures/MapUnion";
 
 export const test_functional_assertReturnAsyncCustom_MapUnion =
-  _test_functional_assertReturnAsync(CustomGuardError)("MapUnion")(MapUnion)(
-    (p: (input: MapUnion) => Promise<MapUnion>) =>
-      typia.functional.assertReturn(p, (p) => new CustomGuardError(p)),
-  );
+  (): Promise<void> =>
+    _test_functional_assertReturnAsync(CustomGuardError)("MapUnion")(MapUnion)(
+      (p: (input: MapUnion) => Promise<MapUnion>) =>
+        typia.functional.assertReturn(p, (p) => new CustomGuardError(p)),
+    );

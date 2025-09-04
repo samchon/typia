@@ -103,7 +103,10 @@ export namespace ExpressionFactory {
     return prev;
   };
 
-  export const selfCall = (body: ts.ConciseBody) =>
+  export const selfCall = (
+    body: ts.ConciseBody,
+    type?: ts.TypeNode | undefined,
+  ) =>
     ts.isCallExpression(body)
       ? body
       : ts.factory.createCallExpression(
@@ -112,7 +115,7 @@ export namespace ExpressionFactory {
               undefined,
               undefined,
               [],
-              undefined,
+              type,
               undefined,
               body,
             ),

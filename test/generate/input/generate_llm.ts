@@ -1,7 +1,11 @@
-import { LlmTypeCheckerV3_1 } from "@samchon/openapi";
+import { ILlmApplication, LlamaTypeChecker } from "@samchon/openapi";
 import typia, { tags } from "typia";
 
-export const schema = typia.llm.schema<ICompany, "chatgpt">({});
+export const schema = typia.llm.schema<
+  ICompany,
+  "chatgpt",
+  { reference: true }
+>({});
 
 export const parameters = typia.llm.parameters<
   {
@@ -12,27 +16,47 @@ export const parameters = typia.llm.parameters<
   "claude"
 >();
 
-export const application = typia.llm.application<
+export const application = typia.llm.application<IApplication, "llama">({
+  separate: (schema) =>
+    LlamaTypeChecker.isString(schema) && schema.format === "date-time",
+});
+
+typia.llm.application<IApplication, "llama">({
+  separate: (schema) =>
+    LlamaTypeChecker.isString(schema) && schema.format === "date-time",
+} satisfies Partial<Pick<ILlmApplication.IOptions<"llama">, "separate">>);
+
+export const controller = typia.llm.controller<IApplication, "deepseek">(
+  "company",
   {
-    establishCompany(props: { company: ICompany }): ICompany;
-    createDepartment(props: {
-      company: ICompany;
-      department: IDepartment;
-    }): IDepartment;
-    hire(props: {
+    establishCompany: (props: { company: ICompany }) => props.company,
+    createDepartment: (props: { company: ICompany; department: IDepartment }) =>
+      props.department,
+    hire: async (props: {
       company: ICompany;
       department: IDepartment;
       employee: IEmployee;
-    }): Promise<IEmployee>;
-    erase(props: {
-      entity: ICompany | IDepartment | IEmployee;
-    }): Promise<string & tags.Format<"uuid">>;
+    }) => props.employee,
+    erase: async (props: { entity: ICompany | IDepartment | IEmployee }) =>
+      props.entity.id,
   },
-  "llama"
->({
-  separate: (schema) =>
-    LlmTypeCheckerV3_1.isString(schema) && schema.format === "date-time",
-});
+);
+
+export interface IApplication {
+  establishCompany(props: { company: ICompany }): ICompany;
+  createDepartment(props: {
+    company: ICompany;
+    department: IDepartment;
+  }): IDepartment;
+  hire(props: {
+    company: ICompany;
+    department: IDepartment;
+    employee: IEmployee;
+  }): Promise<IEmployee>;
+  erase(props: {
+    entity: ICompany | IDepartment | IEmployee;
+  }): Promise<string & tags.Format<"uuid">>;
+}
 
 export interface ICompany {
   id: string & tags.Format<"uuid">;
@@ -54,5 +78,5 @@ export interface IEmployee {
   name: string;
   age: number;
   grade: number;
-  employeed_at: string & tags.Format<"date-time">;
+  employed_at: string & tags.Format<"date-time">;
 }

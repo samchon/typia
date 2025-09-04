@@ -4,15 +4,17 @@ import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { ArrayRecursiveUnionExplicitPointer } from "../../../structures/ArrayRecursiveUnionExplicitPointer";
 
 export const test_llm_application_llama_ArrayRecursiveUnionExplicitPointer =
-  _test_llm_application({
-    model: "llama",
-    name: "ArrayRecursiveUnionExplicitPointer",
-  })(
-    typia.llm.application<
-      ArrayRecursiveUnionExplicitPointerApplication,
-      "llama"
-    >(),
-  );
+  (): void =>
+    _test_llm_application({
+      model: "llama",
+      name: "ArrayRecursiveUnionExplicitPointer",
+      factory: ArrayRecursiveUnionExplicitPointer,
+    })(
+      typia.llm.application<
+        ArrayRecursiveUnionExplicitPointerApplication,
+        "llama"
+      >(),
+    );
 
 interface ArrayRecursiveUnionExplicitPointerApplication {
   insert(p: { first: ArrayRecursiveUnionExplicitPointer }): Promise<void>;

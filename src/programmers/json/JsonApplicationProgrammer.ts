@@ -5,6 +5,7 @@ import { IJsDocTagInfo } from "../../schemas/metadata/IJsDocTagInfo";
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataFunction } from "../../schemas/metadata/MetadataFunction";
 import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
+import { MetadataProperty } from "../../schemas/metadata/MetadataProperty";
 
 import { JsonSchemasProgrammer } from "./JsonSchemasProgrammer";
 
@@ -23,7 +24,7 @@ export namespace JsonApplicationProgrammer {
       metadata.nullable === false;
     if (valid === false)
       output.push(
-        "JSON application's generic arugment must be a class/interface type.",
+        "JSON application's generic argument must be a class/interface type.",
       );
 
     const object: MetadataObjectType | undefined = metadata.objects[0]?.type;
@@ -60,20 +61,8 @@ export namespace JsonApplicationProgrammer {
   export const write = <Version extends "3.0" | "3.1">(props: {
     version: Version;
     metadata: Metadata;
+    filter?: (prop: MetadataProperty) => boolean;
   }): __IJsonApplication<Version> => {
-    const errors: string[] = validate(props.metadata, {
-      top: true,
-      object: null,
-      property: null,
-      parameter: null,
-      nested: null,
-      aliased: false,
-      escaped: false,
-      output: false,
-    });
-    if (errors.length)
-      throw new Error("Failed to write LLM application: " + errors.join("\n"));
-
     const object: MetadataObjectType = props.metadata.objects[0]!.type;
     const definitions: Metadata[] = [];
     const setters: Array<(schema: __IJsonApplication.Schema<Version>) => void> =
@@ -95,19 +84,20 @@ export namespace JsonApplicationProgrammer {
           p.value.size() === 1 &&
           p.value.nullable === false &&
           p.value.isRequired() === true &&
-          p.value.functions.length === 1,
+          Metadata.unalias(p.value).functions.length === 1,
       )
       .filter(
         (p) =>
           p.jsDocTags.find(
             (tag) => tag.name === "hidden" || tag.name === "internal",
-          ) === undefined,
+          ) === undefined &&
+          (props.filter === undefined || props.filter(p) === true),
       )
       .map((r) =>
         collectFunction({
           version: props.version,
           name: r.key.getSoleLiteral()!,
-          function: r.value.functions[0]!,
+          function: Metadata.unalias(r.value).functions[0]!,
           description: r.description,
           jsDocTags: r.jsDocTags,
           collect,
@@ -125,6 +115,33 @@ export namespace JsonApplicationProgrammer {
       components: components as any,
       functions,
     };
+  };
+
+  export const writeDescription = <Kind extends "summary" | "title">(props: {
+    description: string | null;
+    jsDocTags: IJsDocTagInfo[];
+    kind: Kind;
+  }): Kind extends "summary"
+    ? { summary?: string; description?: string }
+    : { title?: string; description?: string } => {
+    const title: string | undefined = (() => {
+      const [explicit] = getJsDocTexts({
+        jsDocTags: props.jsDocTags,
+        name: props.kind,
+      });
+      if (explicit?.length) return explicit;
+      else if (!props.description?.length) return undefined;
+
+      const index: number = props.description.indexOf("\n");
+      const top: string = (
+        index === -1 ? props.description : props.description.substring(0, index)
+      ).trim();
+      return top.endsWith(".") ? top.substring(0, top.length - 1) : undefined;
+    })();
+    return {
+      [props.kind]: title,
+      description: props.description?.length ? props.description : undefined,
+    } as any;
   };
 
   const collectFunction = <Version extends "3.0" | "3.1">(props: {
@@ -213,33 +230,6 @@ export namespace JsonApplicationProgrammer {
     };
   };
 }
-
-const writeDescription = <Kind extends "summary" | "title">(props: {
-  description: string | null;
-  jsDocTags: IJsDocTagInfo[];
-  kind: Kind;
-}): Kind extends "summary"
-  ? { summary?: string; description?: string }
-  : { title?: string; description?: string } => {
-  const title: string | undefined = (() => {
-    const [explicit] = getJsDocTexts({
-      jsDocTags: props.jsDocTags,
-      name: props.kind,
-    });
-    if (explicit?.length) return explicit;
-    else if (!props.description?.length) return undefined;
-
-    const index: number = props.description.indexOf("\n");
-    const top: string = (
-      index === -1 ? props.description : props.description.substring(0, index)
-    ).trim();
-    return top.endsWith(".") ? top.substring(0, top.length - 1) : undefined;
-  })();
-  return {
-    [props.kind]: title,
-    description: props.description?.length ? props.description : undefined,
-  } as any;
-};
 
 const writeDescriptionFromJsDocTag = (props: {
   jsDocTags: IJsDocTagInfo[];

@@ -5,8 +5,10 @@ import { _test_functional_assertEqualsParameters } from "../../internal/_test_fu
 import { ToJsonAtomicSimple } from "../../structures/ToJsonAtomicSimple";
 
 export const test_functional_assertEqualsParameters_ToJsonAtomicSimple =
-  _test_functional_assertEqualsParameters(TypeGuardError)("ToJsonAtomicSimple")(
-    ToJsonAtomicSimple,
-  )((p: (input: ToJsonAtomicSimple) => ToJsonAtomicSimple) =>
-    typia.functional.assertEqualsParameters(p),
-  );
+  (): void =>
+    _test_functional_assertEqualsParameters(TypeGuardError)(
+      "ToJsonAtomicSimple",
+    )(ToJsonAtomicSimple)(
+      (p: (input: ToJsonAtomicSimple) => ToJsonAtomicSimple) =>
+        typia.functional.assertEqualsParameters(p),
+    );

@@ -1,8 +1,8 @@
 {
   "model": "3.0",
   "options": {
-    "constraint": false,
     "recursive": 3,
+    "constraint": true,
     "separate": null
   },
   "functions": [
@@ -65,6 +65,7 @@
                     "equal",
                     "unique"
                   ],
+                  "description": "Current Type: {@link CommentTagArray.Type}",
                   "additionalProperties": false
                 }
               }
@@ -72,6 +73,7 @@
             "required": [
               "value"
             ],
+            "description": "Current Type: {@link CommentTagArray}",
             "additionalProperties": false
           }
         },
@@ -79,8 +81,7 @@
           "first"
         ],
         "additionalProperties": false
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -141,6 +142,7 @@
                     "equal",
                     "unique"
                   ],
+                  "description": "Current Type: {@link CommentTagArray.Type}",
                   "additionalProperties": false
                 }
               }
@@ -148,6 +150,7 @@
             "required": [
               "value"
             ],
+            "description": "Current Type: {@link CommentTagArray}",
             "additionalProperties": false
           },
           "second": {
@@ -204,6 +207,7 @@
                     "equal",
                     "unique"
                   ],
+                  "description": "Current Type: {@link CommentTagArray.Type}",
                   "additionalProperties": false
                 }
               }
@@ -275,6 +279,7 @@
                 "equal",
                 "unique"
               ],
+              "description": "Current Type: {@link CommentTagArray.Type}",
               "additionalProperties": false
             }
           }
@@ -282,9 +287,9 @@
         "required": [
           "value"
         ],
+        "description": "Current Type: {@link CommentTagArray}",
         "additionalProperties": false
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -345,6 +350,7 @@
                     "equal",
                     "unique"
                   ],
+                  "description": "Current Type: {@link CommentTagArray.Type}",
                   "additionalProperties": false
                 }
               }
@@ -409,6 +415,7 @@
                     "equal",
                     "unique"
                   ],
+                  "description": "Current Type: {@link CommentTagArray.Type}",
                   "additionalProperties": false
                 }
               }
@@ -473,6 +480,7 @@
                     "equal",
                     "unique"
                   ],
+                  "description": "Current Type: {@link CommentTagArray.Type}",
                   "additionalProperties": false
                 }
               }
@@ -544,6 +552,7 @@
                 "equal",
                 "unique"
               ],
+              "description": "Current Type: {@link CommentTagArray.Type}",
               "additionalProperties": false
             }
           }
@@ -553,8 +562,7 @@
         ],
         "additionalProperties": false,
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

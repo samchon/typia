@@ -2,37 +2,7 @@
   "type": "object",
   "properties": {
     "regular": {
-      "type": "array",
-      "items": {
-        "anyOf": [
-          {
-            "type": "object",
-            "properties": {
-              "value": {
-                "description": "@minimum 3",
-                "type": "number"
-              }
-            },
-            "required": [
-              "value"
-            ],
-            "additionalProperties": false
-          },
-          {
-            "type": "object",
-            "properties": {
-              "value": {
-                "description": "@minLength 3\n@maxLength 7",
-                "type": "string"
-              }
-            },
-            "required": [
-              "value"
-            ],
-            "additionalProperties": false
-          }
-        ]
-      }
+      "$ref": "#/$defs/CommentTagObjectUnion"
     },
     "nullable": {
       "anyOf": [
@@ -40,72 +10,12 @@
           "type": "null"
         },
         {
-          "type": "array",
-          "items": {
-            "anyOf": [
-              {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "description": "@minimum 3",
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "additionalProperties": false
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "description": "@minLength 3\n@maxLength 7",
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "additionalProperties": false
-              }
-            ]
-          }
+          "$ref": "#/$defs/CommentTagObjectUnion"
         }
       ]
     },
     "optional": {
-      "type": "array",
-      "items": {
-        "anyOf": [
-          {
-            "type": "object",
-            "properties": {
-              "value": {
-                "description": "@minimum 3",
-                "type": "number"
-              }
-            },
-            "required": [
-              "value"
-            ],
-            "additionalProperties": false
-          },
-          {
-            "type": "object",
-            "properties": {
-              "value": {
-                "description": "@minLength 3\n@maxLength 7",
-                "type": "string"
-              }
-            },
-            "required": [
-              "value"
-            ],
-            "additionalProperties": false
-          }
-        ]
-      }
+      "$ref": "#/$defs/CommentTagObjectUnion"
     },
     "faint": {
       "anyOf": [
@@ -113,84 +23,63 @@
           "type": "null"
         },
         {
-          "type": "array",
-          "items": {
-            "anyOf": [
-              {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "description": "@minimum 3",
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "additionalProperties": false
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "description": "@minLength 3\n@maxLength 7",
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "additionalProperties": false
-              }
-            ]
-          }
+          "$ref": "#/$defs/CommentTagObjectUnion"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
-        "type": "array",
-        "items": {
-          "anyOf": [
-            {
-              "type": "object",
-              "properties": {
-                "value": {
-                  "description": "@minimum 3",
-                  "type": "number"
-                }
-              },
-              "required": [
-                "value"
-              ],
-              "additionalProperties": false
-            },
-            {
-              "type": "object",
-              "properties": {
-                "value": {
-                  "description": "@minLength 3\n@maxLength 7",
-                  "type": "string"
-                }
-              },
-              "required": [
-                "value"
-              ],
-              "additionalProperties": false
-            }
-          ]
-        }
+        "$ref": "#/$defs/CommentTagObjectUnion"
       }
     }
   },
   "required": [
     "regular",
     "nullable",
-    "optional",
-    "faint",
     "array"
   ],
   "additionalProperties": false,
-  "$defs": {}
+  "$defs": {
+    "CommentTagObjectUnion": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/CommentTagObjectUnion.Type"
+      }
+    },
+    "CommentTagObjectUnion.Type": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/CommentTagObjectUnion.Numeric"
+        },
+        {
+          "$ref": "#/$defs/CommentTagObjectUnion.Literal"
+        }
+      ]
+    },
+    "CommentTagObjectUnion.Numeric": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "description": "@minimum 3",
+          "type": "number"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "CommentTagObjectUnion.Literal": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "description": "@minLength 3\n@maxLength 7",
+          "type": "string"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    }
+  }
 }

@@ -5,8 +5,10 @@ import { _test_functional_assertParametersAsync } from "../../internal/_test_fun
 import { ToJsonAtomicUnion } from "../../structures/ToJsonAtomicUnion";
 
 export const test_functional_assertParametersAsyncCustom_ToJsonAtomicUnion =
-  _test_functional_assertParametersAsync(CustomGuardError)("ToJsonAtomicUnion")(
-    ToJsonAtomicUnion,
-  )((p: (input: ToJsonAtomicUnion) => Promise<ToJsonAtomicUnion>) =>
-    typia.functional.assertParameters(p, (p) => new CustomGuardError(p)),
-  );
+  (): Promise<void> =>
+    _test_functional_assertParametersAsync(CustomGuardError)(
+      "ToJsonAtomicUnion",
+    )(ToJsonAtomicUnion)(
+      (p: (input: ToJsonAtomicUnion) => Promise<ToJsonAtomicUnion>) =>
+        typia.functional.assertParameters(p, (p) => new CustomGuardError(p)),
+    );

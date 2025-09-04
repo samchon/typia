@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_functional_assertReturn } from "../../internal/_test_functional_assertReturn";
 import { ToJsonDouble } from "../../structures/ToJsonDouble";
 
-export const test_functional_assertReturn_ToJsonDouble =
+export const test_functional_assertReturn_ToJsonDouble = (): void =>
   _test_functional_assertReturn(TypeGuardError)("ToJsonDouble")(ToJsonDouble)(
     (p: (input: ToJsonDouble) => ToJsonDouble) =>
       typia.functional.assertReturn(p),

@@ -4,8 +4,9 @@ import { _test_functional_equalsFunctionAsync } from "../../internal/_test_funct
 import { FunctionalTupleUnion } from "../../structures/FunctionalTupleUnion";
 
 export const test_functional_equalsFunctionAsync_FunctionalTupleUnion =
-  _test_functional_equalsFunctionAsync("FunctionalTupleUnion")(
-    FunctionalTupleUnion,
-  )((p: (input: FunctionalTupleUnion) => Promise<FunctionalTupleUnion>) =>
-    typia.functional.equalsFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_equalsFunctionAsync("FunctionalTupleUnion")(
+      FunctionalTupleUnion,
+    )((p: (input: FunctionalTupleUnion) => Promise<FunctionalTupleUnion>) =>
+      typia.functional.equalsFunction(p),
+    );

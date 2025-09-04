@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_misc_assertPrune } from "../../internal/_test_misc_assertPrune";
 import { ObjectLiteralProperty } from "../../structures/ObjectLiteralProperty";
 
-export const test_misc_createAssertPrune_ObjectLiteralProperty =
+export const test_misc_createAssertPrune_ObjectLiteralProperty = (): void =>
   _test_misc_assertPrune(TypeGuardError)(
     "ObjectLiteralProperty",
   )<ObjectLiteralProperty>(ObjectLiteralProperty)(

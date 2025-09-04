@@ -3,12 +3,12 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { CommentTagDefault } from "../../../structures/CommentTagDefault";
 
-export const test_llm_application_3_1_CommentTagDefault = _test_llm_application(
-  {
+export const test_llm_application_3_1_CommentTagDefault = (): void =>
+  _test_llm_application({
     model: "3.1",
     name: "CommentTagDefault",
-  },
-)(typia.llm.application<CommentTagDefaultApplication, "3.1">());
+    factory: CommentTagDefault,
+  })(typia.llm.application<CommentTagDefaultApplication, "3.1">());
 
 interface CommentTagDefaultApplication {
   insert(p: { first: CommentTagDefault }): Promise<void>;

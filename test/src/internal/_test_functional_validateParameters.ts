@@ -5,8 +5,7 @@ import { TestStructure } from "../helpers/TestStructure";
 export const _test_functional_validateParameters =
   (name: string) =>
   <T>(factory: TestStructure<T>) =>
-  (validate: (p: (input: T) => T) => (input: T) => IValidation<T>) =>
-  () => {
+  (validate: (p: (input: T) => T) => (input: T) => IValidation<T>): void => {
     const task = (replacer: string) => (callback: (input: T) => [T, T]) => {
       const [x, y]: [T, T] = callback(factory.generate());
       if (validate(() => y)(x).success === false)
@@ -26,7 +25,7 @@ export const _test_functional_validateParameters =
           throw new Error(
             `Bug on typia.functional.validateFunction(): failed to detect error on the ${name} type.`,
           );
-        typia.assert(valid);
+        typia.assertEquals(valid);
         valid.errors.sort((x, y) => (x.path < y.path ? -1 : 1));
 
         if (

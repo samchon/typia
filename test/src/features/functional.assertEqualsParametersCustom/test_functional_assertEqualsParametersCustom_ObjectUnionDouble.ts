@@ -5,8 +5,12 @@ import { _test_functional_assertEqualsParameters } from "../../internal/_test_fu
 import { ObjectUnionDouble } from "../../structures/ObjectUnionDouble";
 
 export const test_functional_assertEqualsParametersCustom_ObjectUnionDouble =
-  _test_functional_assertEqualsParameters(CustomGuardError)(
-    "ObjectUnionDouble",
-  )(ObjectUnionDouble)((p: (input: ObjectUnionDouble) => ObjectUnionDouble) =>
-    typia.functional.assertEqualsParameters(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertEqualsParameters(CustomGuardError)(
+      "ObjectUnionDouble",
+    )(ObjectUnionDouble)((p: (input: ObjectUnionDouble) => ObjectUnionDouble) =>
+      typia.functional.assertEqualsParameters(
+        p,
+        (p) => new CustomGuardError(p),
+      ),
+    );

@@ -4,10 +4,13 @@ import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
 import { ArrayRecursiveUnionImplicit } from "../../../structures/ArrayRecursiveUnionImplicit";
 
 export const test_llm_parameters_chatgpt_ArrayRecursiveUnionImplicit =
-  _test_llm_parameters({
-    model: "chatgpt",
-    name: "ArrayRecursiveUnionImplicit",
-  })(typia.llm.parameters<ArrayRecursiveUnionImplicitParameters, "chatgpt">());
+  (): void =>
+    _test_llm_parameters({
+      model: "chatgpt",
+      name: "ArrayRecursiveUnionImplicit",
+    })(
+      typia.llm.parameters<ArrayRecursiveUnionImplicitParameters, "chatgpt">(),
+    );
 
 interface ArrayRecursiveUnionImplicitParameters {
   regular: ArrayRecursiveUnionImplicit;

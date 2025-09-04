@@ -4,8 +4,9 @@ import { _test_functional_equalsFunctionAsync } from "../../internal/_test_funct
 import { ObjectLiteralProperty } from "../../structures/ObjectLiteralProperty";
 
 export const test_functional_equalsFunctionAsync_ObjectLiteralProperty =
-  _test_functional_equalsFunctionAsync("ObjectLiteralProperty")(
-    ObjectLiteralProperty,
-  )((p: (input: ObjectLiteralProperty) => Promise<ObjectLiteralProperty>) =>
-    typia.functional.equalsFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_equalsFunctionAsync("ObjectLiteralProperty")(
+      ObjectLiteralProperty,
+    )((p: (input: ObjectLiteralProperty) => Promise<ObjectLiteralProperty>) =>
+      typia.functional.equalsFunction(p),
+    );

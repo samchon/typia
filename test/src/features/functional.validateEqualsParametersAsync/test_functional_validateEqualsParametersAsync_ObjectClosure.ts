@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsParametersAsync } from "../../internal/_
 import { ObjectClosure } from "../../structures/ObjectClosure";
 
 export const test_functional_validateEqualsParametersAsync_ObjectClosure =
-  _test_functional_validateEqualsParametersAsync("ObjectClosure")(
-    ObjectClosure,
-  )((p: (input: ObjectClosure) => Promise<ObjectClosure>) =>
-    typia.functional.validateEqualsParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateEqualsParametersAsync("ObjectClosure")(
+      ObjectClosure,
+    )((p: (input: ObjectClosure) => Promise<ObjectClosure>) =>
+      typia.functional.validateEqualsParameters(p),
+    );

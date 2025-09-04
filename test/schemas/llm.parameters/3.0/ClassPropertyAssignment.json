@@ -33,6 +33,7 @@
         "editable",
         "incremental"
       ],
+      "description": "Current Type: {@link ClassPropertyAssignment}",
       "additionalProperties": false
     },
     "nullable": {
@@ -102,6 +103,7 @@
         "editable",
         "incremental"
       ],
+      "description": "Current Type: {@link ClassPropertyAssignment}",
       "additionalProperties": false
     },
     "faint": {
@@ -173,6 +175,7 @@
           "editable",
           "incremental"
         ],
+        "description": "Current Type: {@link ClassPropertyAssignment}",
         "additionalProperties": false
       }
     }

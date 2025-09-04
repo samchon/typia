@@ -1,8 +1,8 @@
 {
   "model": "3.0",
   "options": {
-    "constraint": false,
     "recursive": 3,
+    "constraint": true,
     "separate": null
   },
   "functions": [
@@ -16,17 +16,18 @@
             "properties": {
               "id": {
                 "type": "string",
-                "description": "@default something"
+                "default": "something"
               },
               "age": {
                 "type": "number",
-                "description": "@default 20"
+                "default": 20
               }
             },
             "required": [
               "id",
               "age"
             ],
+            "description": "Current Type: {@link ConstantAtomicAbsorbed}",
             "additionalProperties": false
           }
         },
@@ -34,8 +35,7 @@
           "first"
         ],
         "additionalProperties": false
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -47,17 +47,18 @@
             "properties": {
               "id": {
                 "type": "string",
-                "description": "@default something"
+                "default": "something"
               },
               "age": {
                 "type": "number",
-                "description": "@default 20"
+                "default": 20
               }
             },
             "required": [
               "id",
               "age"
             ],
+            "description": "Current Type: {@link ConstantAtomicAbsorbed}",
             "additionalProperties": false
           },
           "second": {
@@ -65,11 +66,11 @@
             "properties": {
               "id": {
                 "type": "string",
-                "description": "@default something"
+                "default": "something"
               },
               "age": {
                 "type": "number",
-                "description": "@default 20"
+                "default": 20
               }
             },
             "required": [
@@ -91,20 +92,20 @@
         "properties": {
           "id": {
             "type": "string",
-            "description": "@default something"
+            "default": "something"
           },
           "age": {
             "type": "number",
-            "description": "@default 20"
+            "default": 20
           }
         },
         "required": [
           "id",
           "age"
         ],
+        "description": "Current Type: {@link ConstantAtomicAbsorbed}",
         "additionalProperties": false
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -116,11 +117,11 @@
             "properties": {
               "id": {
                 "type": "string",
-                "description": "@default something"
+                "default": "something"
               },
               "age": {
                 "type": "number",
-                "description": "@default 20"
+                "default": 20
               }
             },
             "required": [
@@ -135,11 +136,11 @@
             "properties": {
               "id": {
                 "type": "string",
-                "description": "@default something"
+                "default": "something"
               },
               "age": {
                 "type": "number",
-                "description": "@default 20"
+                "default": 20
               }
             },
             "required": [
@@ -154,11 +155,11 @@
             "properties": {
               "id": {
                 "type": "string",
-                "description": "@default something"
+                "default": "something"
               },
               "age": {
                 "type": "number",
-                "description": "@default 20"
+                "default": 20
               }
             },
             "required": [
@@ -180,11 +181,11 @@
         "properties": {
           "id": {
             "type": "string",
-            "description": "@default something"
+            "default": "something"
           },
           "age": {
             "type": "number",
-            "description": "@default 20"
+            "default": 20
           }
         },
         "required": [
@@ -193,8 +194,7 @@
         ],
         "additionalProperties": false,
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

@@ -5,8 +5,9 @@ import { _test_functional_assertParameters } from "../../internal/_test_function
 import { CommentTagRangeBigInt } from "../../structures/CommentTagRangeBigInt";
 
 export const test_functional_assertParameters_CommentTagRangeBigInt =
-  _test_functional_assertParameters(TypeGuardError)("CommentTagRangeBigInt")(
-    CommentTagRangeBigInt,
-  )((p: (input: CommentTagRangeBigInt) => CommentTagRangeBigInt) =>
-    typia.functional.assertParameters(p),
-  );
+  (): void =>
+    _test_functional_assertParameters(TypeGuardError)("CommentTagRangeBigInt")(
+      CommentTagRangeBigInt,
+    )((p: (input: CommentTagRangeBigInt) => CommentTagRangeBigInt) =>
+      typia.functional.assertParameters(p),
+    );

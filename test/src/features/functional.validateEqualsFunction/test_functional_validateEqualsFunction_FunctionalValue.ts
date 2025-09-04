@@ -4,7 +4,8 @@ import { _test_functional_validateEqualsFunction } from "../../internal/_test_fu
 import { FunctionalValue } from "../../structures/FunctionalValue";
 
 export const test_functional_validateEqualsFunction_FunctionalValue =
-  _test_functional_validateEqualsFunction("FunctionalValue")(FunctionalValue)(
-    (p: (input: FunctionalValue) => FunctionalValue) =>
-      typia.functional.validateEqualsFunction(p),
-  );
+  (): void =>
+    _test_functional_validateEqualsFunction("FunctionalValue")(FunctionalValue)(
+      (p: (input: FunctionalValue) => FunctionalValue) =>
+        typia.functional.validateEqualsFunction(p),
+    );

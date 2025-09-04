@@ -3,10 +3,11 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { ObjectUnionComposite } from "../../../structures/ObjectUnionComposite";
 
-export const test_llm_application_chatgpt_ObjectUnionComposite =
+export const test_llm_application_chatgpt_ObjectUnionComposite = (): void =>
   _test_llm_application({
     model: "chatgpt",
     name: "ObjectUnionComposite",
+    factory: ObjectUnionComposite,
   })(typia.llm.application<ObjectUnionCompositeApplication, "chatgpt">());
 
 interface ObjectUnionCompositeApplication {

@@ -3,8 +3,7 @@ import { TestStructure } from "../helpers/TestStructure";
 export const _test_equals =
   (name: string) =>
   <T>(factory: TestStructure<T>) =>
-  (equals: (input: T) => boolean, repeat: number = 1) =>
-  () => {
+  (equals: (input: T) => boolean, repeat: number = 1): void => {
     if (equals(factory.generate()) === false)
       throw new Error(
         `Bug on typia.equals(): failed to understand the ${name} type.`,

@@ -4,8 +4,9 @@ import { _test_functional_validateReturn } from "../../internal/_test_functional
 import { ObjectPartialAndRequired } from "../../structures/ObjectPartialAndRequired";
 
 export const test_functional_validateReturn_ObjectPartialAndRequired =
-  _test_functional_validateReturn("ObjectPartialAndRequired")(
-    ObjectPartialAndRequired,
-  )((p: (input: ObjectPartialAndRequired) => ObjectPartialAndRequired) =>
-    typia.functional.validateReturn(p),
-  );
+  (): void =>
+    _test_functional_validateReturn("ObjectPartialAndRequired")(
+      ObjectPartialAndRequired,
+    )((p: (input: ObjectPartialAndRequired) => ObjectPartialAndRequired) =>
+      typia.functional.validateReturn(p),
+    );

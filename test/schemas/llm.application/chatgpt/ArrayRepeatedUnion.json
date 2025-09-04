@@ -1,7 +1,8 @@
 {
   "model": "chatgpt",
   "options": {
-    "reference": false,
+    "reference": true,
+    "strict": false,
     "separate": null
   },
   "functions": [
@@ -39,96 +40,7 @@
               {
                 "type": "array",
                 "items": {
-                  "type": "object",
-                  "properties": {
-                    "scale": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        },
-                        "z": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y",
-                        "z"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "position": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        },
-                        "z": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y",
-                        "z"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "rotate": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        },
-                        "z": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y",
-                        "z"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "pivot": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        },
-                        "z": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y",
-                        "z"
-                      ],
-                      "additionalProperties": false
-                    }
-                  },
-                  "required": [
-                    "scale",
-                    "position",
-                    "rotate",
-                    "pivot"
-                  ],
-                  "additionalProperties": false
+                  "$ref": "#/$defs/ArrayRepeatedUnion.IBox3D"
                 }
               }
             ]
@@ -138,10 +50,51 @@
             "items": {
               "$ref": "#/$defs/ArrayRepeatedUnion"
             }
+          },
+          "ArrayRepeatedUnion.IBox3D": {
+            "type": "object",
+            "properties": {
+              "scale": {
+                "$ref": "#/$defs/ArrayRepeatedUnion.IPoint3D"
+              },
+              "position": {
+                "$ref": "#/$defs/ArrayRepeatedUnion.IPoint3D"
+              },
+              "rotate": {
+                "$ref": "#/$defs/ArrayRepeatedUnion.IPoint3D"
+              },
+              "pivot": {
+                "$ref": "#/$defs/ArrayRepeatedUnion.IPoint3D"
+              }
+            },
+            "required": [
+              "scale",
+              "position",
+              "rotate",
+              "pivot"
+            ]
+          },
+          "ArrayRepeatedUnion.IPoint3D": {
+            "type": "object",
+            "properties": {
+              "x": {
+                "type": "number"
+              },
+              "y": {
+                "type": "number"
+              },
+              "z": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "x",
+              "y",
+              "z"
+            ]
           }
         }
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -174,96 +127,7 @@
               {
                 "type": "array",
                 "items": {
-                  "type": "object",
-                  "properties": {
-                    "scale": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        },
-                        "z": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y",
-                        "z"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "position": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        },
-                        "z": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y",
-                        "z"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "rotate": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        },
-                        "z": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y",
-                        "z"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "pivot": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        },
-                        "z": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y",
-                        "z"
-                      ],
-                      "additionalProperties": false
-                    }
-                  },
-                  "required": [
-                    "scale",
-                    "position",
-                    "rotate",
-                    "pivot"
-                  ],
-                  "additionalProperties": false
+                  "$ref": "#/$defs/ArrayRepeatedUnion.IBox3D"
                 }
               }
             ]
@@ -295,96 +159,7 @@
               {
                 "type": "array",
                 "items": {
-                  "type": "object",
-                  "properties": {
-                    "scale": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        },
-                        "z": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y",
-                        "z"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "position": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        },
-                        "z": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y",
-                        "z"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "rotate": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        },
-                        "z": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y",
-                        "z"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "pivot": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        },
-                        "z": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y",
-                        "z"
-                      ],
-                      "additionalProperties": false
-                    }
-                  },
-                  "required": [
-                    "scale",
-                    "position",
-                    "rotate",
-                    "pivot"
-                  ],
-                  "additionalProperties": false
+                  "$ref": "#/$defs/ArrayRepeatedUnion.IBox3D"
                 }
               }
             ]
@@ -394,13 +169,54 @@
             "items": {
               "$ref": "#/$defs/ArrayRepeatedUnion"
             }
+          },
+          "ArrayRepeatedUnion.IBox3D": {
+            "type": "object",
+            "properties": {
+              "scale": {
+                "$ref": "#/$defs/ArrayRepeatedUnion.IPoint3D"
+              },
+              "position": {
+                "$ref": "#/$defs/ArrayRepeatedUnion.IPoint3D"
+              },
+              "rotate": {
+                "$ref": "#/$defs/ArrayRepeatedUnion.IPoint3D"
+              },
+              "pivot": {
+                "$ref": "#/$defs/ArrayRepeatedUnion.IPoint3D"
+              }
+            },
+            "required": [
+              "scale",
+              "position",
+              "rotate",
+              "pivot"
+            ]
+          },
+          "ArrayRepeatedUnion.IPoint3D": {
+            "type": "object",
+            "properties": {
+              "x": {
+                "type": "number"
+              },
+              "y": {
+                "type": "number"
+              },
+              "z": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "x",
+              "y",
+              "z"
+            ]
           }
         }
       },
       "output": {
         "$ref": "#/$defs/ArrayRepeatedUnion"
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -430,96 +246,7 @@
               {
                 "type": "array",
                 "items": {
-                  "type": "object",
-                  "properties": {
-                    "scale": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        },
-                        "z": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y",
-                        "z"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "position": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        },
-                        "z": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y",
-                        "z"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "rotate": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        },
-                        "z": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y",
-                        "z"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "pivot": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        },
-                        "z": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y",
-                        "z"
-                      ],
-                      "additionalProperties": false
-                    }
-                  },
-                  "required": [
-                    "scale",
-                    "position",
-                    "rotate",
-                    "pivot"
-                  ],
-                  "additionalProperties": false
+                  "$ref": "#/$defs/ArrayRepeatedUnion.IBox3D"
                 }
               }
             ]
@@ -547,96 +274,7 @@
               {
                 "type": "array",
                 "items": {
-                  "type": "object",
-                  "properties": {
-                    "scale": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        },
-                        "z": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y",
-                        "z"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "position": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        },
-                        "z": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y",
-                        "z"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "rotate": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        },
-                        "z": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y",
-                        "z"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "pivot": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        },
-                        "z": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y",
-                        "z"
-                      ],
-                      "additionalProperties": false
-                    }
-                  },
-                  "required": [
-                    "scale",
-                    "position",
-                    "rotate",
-                    "pivot"
-                  ],
-                  "additionalProperties": false
+                  "$ref": "#/$defs/ArrayRepeatedUnion.IBox3D"
                 }
               }
             ]
@@ -664,96 +302,7 @@
               {
                 "type": "array",
                 "items": {
-                  "type": "object",
-                  "properties": {
-                    "scale": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        },
-                        "z": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y",
-                        "z"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "position": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        },
-                        "z": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y",
-                        "z"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "rotate": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        },
-                        "z": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y",
-                        "z"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "pivot": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        },
-                        "z": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y",
-                        "z"
-                      ],
-                      "additionalProperties": false
-                    }
-                  },
-                  "required": [
-                    "scale",
-                    "position",
-                    "rotate",
-                    "pivot"
-                  ],
-                  "additionalProperties": false
+                  "$ref": "#/$defs/ArrayRepeatedUnion.IBox3D"
                 }
               }
             ]
@@ -761,8 +310,7 @@
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
         "$defs": {
@@ -792,98 +340,51 @@
               {
                 "type": "array",
                 "items": {
-                  "type": "object",
-                  "properties": {
-                    "scale": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        },
-                        "z": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y",
-                        "z"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "position": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        },
-                        "z": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y",
-                        "z"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "rotate": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        },
-                        "z": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y",
-                        "z"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "pivot": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        },
-                        "z": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y",
-                        "z"
-                      ],
-                      "additionalProperties": false
-                    }
-                  },
-                  "required": [
-                    "scale",
-                    "position",
-                    "rotate",
-                    "pivot"
-                  ],
-                  "additionalProperties": false
+                  "$ref": "#/$defs/ArrayRepeatedUnion.IBox3D"
                 }
               }
+            ]
+          },
+          "ArrayRepeatedUnion.IBox3D": {
+            "type": "object",
+            "properties": {
+              "scale": {
+                "$ref": "#/$defs/ArrayRepeatedUnion.IPoint3D"
+              },
+              "position": {
+                "$ref": "#/$defs/ArrayRepeatedUnion.IPoint3D"
+              },
+              "rotate": {
+                "$ref": "#/$defs/ArrayRepeatedUnion.IPoint3D"
+              },
+              "pivot": {
+                "$ref": "#/$defs/ArrayRepeatedUnion.IPoint3D"
+              }
+            },
+            "required": [
+              "scale",
+              "position",
+              "rotate",
+              "pivot"
+            ]
+          },
+          "ArrayRepeatedUnion.IPoint3D": {
+            "type": "object",
+            "properties": {
+              "x": {
+                "type": "number"
+              },
+              "y": {
+                "type": "number"
+              },
+              "z": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "x",
+              "y",
+              "z"
             ]
           }
         }
@@ -911,101 +412,11 @@
           {
             "type": "array",
             "items": {
-              "type": "object",
-              "properties": {
-                "scale": {
-                  "type": "object",
-                  "properties": {
-                    "x": {
-                      "type": "number"
-                    },
-                    "y": {
-                      "type": "number"
-                    },
-                    "z": {
-                      "type": "number"
-                    }
-                  },
-                  "required": [
-                    "x",
-                    "y",
-                    "z"
-                  ],
-                  "additionalProperties": false
-                },
-                "position": {
-                  "type": "object",
-                  "properties": {
-                    "x": {
-                      "type": "number"
-                    },
-                    "y": {
-                      "type": "number"
-                    },
-                    "z": {
-                      "type": "number"
-                    }
-                  },
-                  "required": [
-                    "x",
-                    "y",
-                    "z"
-                  ],
-                  "additionalProperties": false
-                },
-                "rotate": {
-                  "type": "object",
-                  "properties": {
-                    "x": {
-                      "type": "number"
-                    },
-                    "y": {
-                      "type": "number"
-                    },
-                    "z": {
-                      "type": "number"
-                    }
-                  },
-                  "required": [
-                    "x",
-                    "y",
-                    "z"
-                  ],
-                  "additionalProperties": false
-                },
-                "pivot": {
-                  "type": "object",
-                  "properties": {
-                    "x": {
-                      "type": "number"
-                    },
-                    "y": {
-                      "type": "number"
-                    },
-                    "z": {
-                      "type": "number"
-                    }
-                  },
-                  "required": [
-                    "x",
-                    "y",
-                    "z"
-                  ],
-                  "additionalProperties": false
-                }
-              },
-              "required": [
-                "scale",
-                "position",
-                "rotate",
-                "pivot"
-              ],
-              "additionalProperties": false
+              "$ref": "#/$defs/ArrayRepeatedUnion.IBox3D"
             }
           }
         ]
-      },
-      "strict": true
+      }
     }
   ]
 }

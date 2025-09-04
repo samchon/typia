@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsParametersAsync } from "../../internal/_
 import { ObjectOptional } from "../../structures/ObjectOptional";
 
 export const test_functional_validateEqualsParametersAsync_ObjectOptional =
-  _test_functional_validateEqualsParametersAsync("ObjectOptional")(
-    ObjectOptional,
-  )((p: (input: ObjectOptional) => Promise<ObjectOptional>) =>
-    typia.functional.validateEqualsParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateEqualsParametersAsync("ObjectOptional")(
+      ObjectOptional,
+    )((p: (input: ObjectOptional) => Promise<ObjectOptional>) =>
+      typia.functional.validateEqualsParameters(p),
+    );

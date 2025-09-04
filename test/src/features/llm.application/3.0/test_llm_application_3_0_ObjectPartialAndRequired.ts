@@ -3,10 +3,11 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { ObjectPartialAndRequired } from "../../../structures/ObjectPartialAndRequired";
 
-export const test_llm_application_3_0_ObjectPartialAndRequired =
+export const test_llm_application_3_0_ObjectPartialAndRequired = (): void =>
   _test_llm_application({
     model: "3.0",
     name: "ObjectPartialAndRequired",
+    factory: ObjectPartialAndRequired,
   })(typia.llm.application<ObjectPartialAndRequiredApplication, "3.0">());
 
 interface ObjectPartialAndRequiredApplication {

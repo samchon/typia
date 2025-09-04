@@ -3,10 +3,11 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { CommentTagLength } from "../../../structures/CommentTagLength";
 
-export const test_llm_application_llama_CommentTagLength =
+export const test_llm_application_llama_CommentTagLength = (): void =>
   _test_llm_application({
     model: "llama",
     name: "CommentTagLength",
+    factory: CommentTagLength,
   })(typia.llm.application<CommentTagLengthApplication, "llama">());
 
 interface CommentTagLengthApplication {

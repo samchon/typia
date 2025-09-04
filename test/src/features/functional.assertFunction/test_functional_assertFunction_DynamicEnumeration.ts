@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_functional_assertFunction } from "../../internal/_test_functional_assertFunction";
 import { DynamicEnumeration } from "../../structures/DynamicEnumeration";
 
-export const test_functional_assertFunction_DynamicEnumeration =
+export const test_functional_assertFunction_DynamicEnumeration = (): void =>
   _test_functional_assertFunction(TypeGuardError)("DynamicEnumeration")(
     DynamicEnumeration,
   )((p: (input: DynamicEnumeration) => DynamicEnumeration) =>

@@ -53,20 +53,21 @@
                     "prefix",
                     "postfix",
                     "combined"
-                  ]
+                  ],
+                  "description": "Current Type: {@link TemplateConstant.Type}"
                 }
               }
             },
             "required": [
               "value"
-            ]
+            ],
+            "description": "Current Type: {@link TemplateConstant}"
           }
         },
         "required": [
           "first"
         ]
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -116,13 +117,15 @@
                     "prefix",
                     "postfix",
                     "combined"
-                  ]
+                  ],
+                  "description": "Current Type: {@link TemplateConstant.Type}"
                 }
               }
             },
             "required": [
               "value"
-            ]
+            ],
+            "description": "Current Type: {@link TemplateConstant}"
           },
           "second": {
             "type": "object",
@@ -167,7 +170,8 @@
                     "prefix",
                     "postfix",
                     "combined"
-                  ]
+                  ],
+                  "description": "Current Type: {@link TemplateConstant.Type}"
                 }
               }
             },
@@ -225,15 +229,16 @@
                 "prefix",
                 "postfix",
                 "combined"
-              ]
+              ],
+              "description": "Current Type: {@link TemplateConstant.Type}"
             }
           }
         },
         "required": [
           "value"
-        ]
-      },
-      "strict": true
+        ],
+        "description": "Current Type: {@link TemplateConstant}"
+      }
     },
     {
       "name": "coalesce",
@@ -283,7 +288,8 @@
                     "prefix",
                     "postfix",
                     "combined"
-                  ]
+                  ],
+                  "description": "Current Type: {@link TemplateConstant.Type}"
                 }
               }
             },
@@ -335,7 +341,8 @@
                     "prefix",
                     "postfix",
                     "combined"
-                  ]
+                  ],
+                  "description": "Current Type: {@link TemplateConstant.Type}"
                 }
               }
             },
@@ -387,7 +394,8 @@
                     "prefix",
                     "postfix",
                     "combined"
-                  ]
+                  ],
+                  "description": "Current Type: {@link TemplateConstant.Type}"
                 }
               }
             },
@@ -445,7 +453,8 @@
                 "prefix",
                 "postfix",
                 "combined"
-              ]
+              ],
+              "description": "Current Type: {@link TemplateConstant.Type}"
             }
           }
         },
@@ -453,8 +462,7 @@
           "value"
         ],
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

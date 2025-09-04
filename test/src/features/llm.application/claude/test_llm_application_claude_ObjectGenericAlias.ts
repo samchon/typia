@@ -3,10 +3,11 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { ObjectGenericAlias } from "../../../structures/ObjectGenericAlias";
 
-export const test_llm_application_claude_ObjectGenericAlias =
+export const test_llm_application_claude_ObjectGenericAlias = (): void =>
   _test_llm_application({
     model: "claude",
     name: "ObjectGenericAlias",
+    factory: ObjectGenericAlias,
   })(typia.llm.application<ObjectGenericAliasApplication, "claude">());
 
 interface ObjectGenericAliasApplication {

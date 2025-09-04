@@ -5,8 +5,9 @@ import { _test_functional_assertParameters } from "../../internal/_test_function
 import { ArrayAtomicSimple } from "../../structures/ArrayAtomicSimple";
 
 export const test_functional_assertParametersCustom_ArrayAtomicSimple =
-  _test_functional_assertParameters(CustomGuardError)("ArrayAtomicSimple")(
-    ArrayAtomicSimple,
-  )((p: (input: ArrayAtomicSimple) => ArrayAtomicSimple) =>
-    typia.functional.assertParameters(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertParameters(CustomGuardError)("ArrayAtomicSimple")(
+      ArrayAtomicSimple,
+    )((p: (input: ArrayAtomicSimple) => ArrayAtomicSimple) =>
+      typia.functional.assertParameters(p, (p) => new CustomGuardError(p)),
+    );

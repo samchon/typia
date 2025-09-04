@@ -5,8 +5,9 @@ import { _test_functional_assertParameters } from "../../internal/_test_function
 import { CommentTagInfinite } from "../../structures/CommentTagInfinite";
 
 export const test_functional_assertParametersCustom_CommentTagInfinite =
-  _test_functional_assertParameters(CustomGuardError)("CommentTagInfinite")(
-    CommentTagInfinite,
-  )((p: (input: CommentTagInfinite) => CommentTagInfinite) =>
-    typia.functional.assertParameters(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertParameters(CustomGuardError)("CommentTagInfinite")(
+      CommentTagInfinite,
+    )((p: (input: CommentTagInfinite) => CommentTagInfinite) =>
+      typia.functional.assertParameters(p, (p) => new CustomGuardError(p)),
+    );

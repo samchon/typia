@@ -5,12 +5,13 @@ import { _test_functional_assertReturnAsync } from "../../internal/_test_functio
 import { ArrayRecursiveUnionExplicit } from "../../structures/ArrayRecursiveUnionExplicit";
 
 export const test_functional_assertReturnAsyncCustom_ArrayRecursiveUnionExplicit =
-  _test_functional_assertReturnAsync(CustomGuardError)(
-    "ArrayRecursiveUnionExplicit",
-  )(ArrayRecursiveUnionExplicit)(
-    (
-      p: (
-        input: ArrayRecursiveUnionExplicit,
-      ) => Promise<ArrayRecursiveUnionExplicit>,
-    ) => typia.functional.assertReturn(p, (p) => new CustomGuardError(p)),
-  );
+  (): Promise<void> =>
+    _test_functional_assertReturnAsync(CustomGuardError)(
+      "ArrayRecursiveUnionExplicit",
+    )(ArrayRecursiveUnionExplicit)(
+      (
+        p: (
+          input: ArrayRecursiveUnionExplicit,
+        ) => Promise<ArrayRecursiveUnionExplicit>,
+      ) => typia.functional.assertReturn(p, (p) => new CustomGuardError(p)),
+    );

@@ -4,7 +4,8 @@ import { _test_functional_validateFunctionAsync } from "../../internal/_test_fun
 import { TypeTagNaN } from "../../structures/TypeTagNaN";
 
 export const test_functional_validateFunctionAsync_TypeTagNaN =
-  _test_functional_validateFunctionAsync("TypeTagNaN")(TypeTagNaN)(
-    (p: (input: TypeTagNaN) => Promise<TypeTagNaN>) =>
-      typia.functional.validateFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateFunctionAsync("TypeTagNaN")(TypeTagNaN)(
+      (p: (input: TypeTagNaN) => Promise<TypeTagNaN>) =>
+        typia.functional.validateFunction(p),
+    );

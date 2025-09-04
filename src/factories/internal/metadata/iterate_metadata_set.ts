@@ -18,10 +18,9 @@ export const iterate_metadata_set = (
     checker: props.checker,
     type: type,
     symbol: type.getSymbol(),
+    aliasTypeArguments: false,
   });
-  const generic = type.aliasSymbol
-    ? type.aliasTypeArguments
-    : props.checker.getTypeArguments(type as ts.TypeReference);
+  const generic = props.checker.getTypeArguments(type as ts.TypeReference);
   if (name.substring(0, 4) !== "Set<" || generic?.length !== 1) return false;
 
   const key: ts.Type = generic[0]!;

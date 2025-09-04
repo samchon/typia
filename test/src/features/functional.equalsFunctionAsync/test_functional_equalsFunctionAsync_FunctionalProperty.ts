@@ -4,8 +4,9 @@ import { _test_functional_equalsFunctionAsync } from "../../internal/_test_funct
 import { FunctionalProperty } from "../../structures/FunctionalProperty";
 
 export const test_functional_equalsFunctionAsync_FunctionalProperty =
-  _test_functional_equalsFunctionAsync("FunctionalProperty")(
-    FunctionalProperty,
-  )((p: (input: FunctionalProperty) => Promise<FunctionalProperty>) =>
-    typia.functional.equalsFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_equalsFunctionAsync("FunctionalProperty")(
+      FunctionalProperty,
+    )((p: (input: FunctionalProperty) => Promise<FunctionalProperty>) =>
+      typia.functional.equalsFunction(p),
+    );

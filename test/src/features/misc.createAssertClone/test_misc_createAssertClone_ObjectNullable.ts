@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_misc_assertClone } from "../../internal/_test_misc_assertClone";
 import { ObjectNullable } from "../../structures/ObjectNullable";
 
-export const test_misc_createAssertClone_ObjectNullable =
+export const test_misc_createAssertClone_ObjectNullable = (): void =>
   _test_misc_assertClone(TypeGuardError)("ObjectNullable")<ObjectNullable>(
     ObjectNullable,
   )(typia.misc.createAssertClone<ObjectNullable>());

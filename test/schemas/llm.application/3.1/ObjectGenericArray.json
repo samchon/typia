@@ -1,8 +1,8 @@
 {
   "model": "3.1",
   "options": {
-    "constraint": false,
-    "reference": false,
+    "reference": true,
+    "constraint": true,
     "separate": null
   },
   "functions": [
@@ -12,111 +12,24 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "object",
-            "properties": {
-              "pagination": {
-                "type": "object",
-                "properties": {
-                  "page": {
-                    "type": "number"
-                  },
-                  "limit": {
-                    "type": "number"
-                  },
-                  "total_count": {
-                    "type": "number"
-                  },
-                  "total_pages": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "page",
-                  "limit",
-                  "total_count",
-                  "total_pages"
-                ]
-              },
-              "data": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "name": {
-                      "type": "string"
-                    },
-                    "age": {
-                      "type": "number"
-                    }
-                  },
-                  "required": [
-                    "name",
-                    "age"
-                  ]
-                }
-              }
-            },
-            "required": [
-              "pagination",
-              "data"
-            ]
+            "$ref": "#/$defs/ObjectGenericArray"
           }
         },
         "required": [
           "first"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "strict": true
-    },
-    {
-      "name": "reduce",
-      "parameters": {
-        "type": "object",
-        "properties": {
-          "first": {
+        "$defs": {
+          "ObjectGenericArray": {
             "type": "object",
             "properties": {
               "pagination": {
-                "type": "object",
-                "properties": {
-                  "page": {
-                    "type": "number"
-                  },
-                  "limit": {
-                    "type": "number"
-                  },
-                  "total_count": {
-                    "type": "number"
-                  },
-                  "total_pages": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "page",
-                  "limit",
-                  "total_count",
-                  "total_pages"
-                ]
+                "$ref": "#/$defs/ObjectGenericArray.IPagination"
               },
               "data": {
                 "type": "array",
                 "items": {
-                  "type": "object",
-                  "properties": {
-                    "name": {
-                      "type": "string"
-                    },
-                    "age": {
-                      "type": "number"
-                    }
-                  },
-                  "required": [
-                    "name",
-                    "age"
-                  ]
+                  "$ref": "#/$defs/ObjectGenericArray.IPerson"
                 }
               }
             },
@@ -125,75 +38,7 @@
               "data"
             ]
           },
-          "second": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "pagination": {
-                    "type": "object",
-                    "properties": {
-                      "page": {
-                        "type": "number"
-                      },
-                      "limit": {
-                        "type": "number"
-                      },
-                      "total_count": {
-                        "type": "number"
-                      },
-                      "total_pages": {
-                        "type": "number"
-                      }
-                    },
-                    "required": [
-                      "page",
-                      "limit",
-                      "total_count",
-                      "total_pages"
-                    ]
-                  },
-                  "data": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "name": {
-                          "type": "string"
-                        },
-                        "age": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "name",
-                        "age"
-                      ]
-                    }
-                  }
-                },
-                "required": [
-                  "pagination",
-                  "data"
-                ]
-              }
-            ]
-          }
-        },
-        "required": [
-          "first",
-          "second"
-        ],
-        "additionalProperties": false,
-        "$defs": {}
-      },
-      "output": {
-        "type": "object",
-        "properties": {
-          "pagination": {
+          "ObjectGenericArray.IPagination": {
             "type": "object",
             "properties": {
               "page": {
@@ -216,31 +61,110 @@
               "total_pages"
             ]
           },
-          "data": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "type": "string"
-                },
-                "age": {
-                  "type": "number"
-                }
+          "ObjectGenericArray.IPerson": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
               },
-              "required": [
-                "name",
-                "age"
-              ]
-            }
+              "age": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "name",
+              "age"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "$ref": "#/$defs/ObjectGenericArray"
+          },
+          "second": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/$defs/ObjectGenericArray"
+              }
+            ]
           }
         },
         "required": [
-          "pagination",
-          "data"
-        ]
+          "first",
+          "second"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ObjectGenericArray": {
+            "type": "object",
+            "properties": {
+              "pagination": {
+                "$ref": "#/$defs/ObjectGenericArray.IPagination"
+              },
+              "data": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ObjectGenericArray.IPerson"
+                }
+              }
+            },
+            "required": [
+              "pagination",
+              "data"
+            ]
+          },
+          "ObjectGenericArray.IPagination": {
+            "type": "object",
+            "properties": {
+              "page": {
+                "type": "number"
+              },
+              "limit": {
+                "type": "number"
+              },
+              "total_count": {
+                "type": "number"
+              },
+              "total_pages": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "page",
+              "limit",
+              "total_count",
+              "total_pages"
+            ]
+          },
+          "ObjectGenericArray.IPerson": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "age": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "name",
+              "age"
+            ]
+          }
+        }
       },
-      "strict": true
+      "output": {
+        "$ref": "#/$defs/ObjectGenericArray"
+      }
     },
     {
       "name": "coalesce",
@@ -253,54 +177,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "pagination": {
-                    "type": "object",
-                    "properties": {
-                      "page": {
-                        "type": "number"
-                      },
-                      "limit": {
-                        "type": "number"
-                      },
-                      "total_count": {
-                        "type": "number"
-                      },
-                      "total_pages": {
-                        "type": "number"
-                      }
-                    },
-                    "required": [
-                      "page",
-                      "limit",
-                      "total_count",
-                      "total_pages"
-                    ]
-                  },
-                  "data": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "name": {
-                          "type": "string"
-                        },
-                        "age": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "name",
-                        "age"
-                      ]
-                    }
-                  }
-                },
-                "required": [
-                  "pagination",
-                  "data"
-                ]
+                "$ref": "#/$defs/ObjectGenericArray"
               }
             ]
           },
@@ -310,54 +187,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "pagination": {
-                    "type": "object",
-                    "properties": {
-                      "page": {
-                        "type": "number"
-                      },
-                      "limit": {
-                        "type": "number"
-                      },
-                      "total_count": {
-                        "type": "number"
-                      },
-                      "total_pages": {
-                        "type": "number"
-                      }
-                    },
-                    "required": [
-                      "page",
-                      "limit",
-                      "total_count",
-                      "total_pages"
-                    ]
-                  },
-                  "data": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "name": {
-                          "type": "string"
-                        },
-                        "age": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "name",
-                        "age"
-                      ]
-                    }
-                  }
-                },
-                "required": [
-                  "pagination",
-                  "data"
-                ]
+                "$ref": "#/$defs/ObjectGenericArray"
               }
             ]
           },
@@ -367,113 +197,27 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "pagination": {
-                    "type": "object",
-                    "properties": {
-                      "page": {
-                        "type": "number"
-                      },
-                      "limit": {
-                        "type": "number"
-                      },
-                      "total_count": {
-                        "type": "number"
-                      },
-                      "total_pages": {
-                        "type": "number"
-                      }
-                    },
-                    "required": [
-                      "page",
-                      "limit",
-                      "total_count",
-                      "total_pages"
-                    ]
-                  },
-                  "data": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "name": {
-                          "type": "string"
-                        },
-                        "age": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "name",
-                        "age"
-                      ]
-                    }
-                  }
-                },
-                "required": [
-                  "pagination",
-                  "data"
-                ]
+                "$ref": "#/$defs/ObjectGenericArray"
               }
             ]
           }
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "output": {
-        "oneOf": [
-          {
-            "type": "null"
-          },
-          {
+        "$defs": {
+          "ObjectGenericArray": {
             "type": "object",
             "properties": {
               "pagination": {
-                "type": "object",
-                "properties": {
-                  "page": {
-                    "type": "number"
-                  },
-                  "limit": {
-                    "type": "number"
-                  },
-                  "total_count": {
-                    "type": "number"
-                  },
-                  "total_pages": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "page",
-                  "limit",
-                  "total_count",
-                  "total_pages"
-                ]
+                "$ref": "#/$defs/ObjectGenericArray.IPagination"
               },
               "data": {
                 "type": "array",
                 "items": {
-                  "type": "object",
-                  "properties": {
-                    "name": {
-                      "type": "string"
-                    },
-                    "age": {
-                      "type": "number"
-                    }
-                  },
-                  "required": [
-                    "name",
-                    "age"
-                  ]
+                  "$ref": "#/$defs/ObjectGenericArray.IPerson"
                 }
               }
             },
@@ -481,10 +225,57 @@
               "pagination",
               "data"
             ]
+          },
+          "ObjectGenericArray.IPagination": {
+            "type": "object",
+            "properties": {
+              "page": {
+                "type": "number"
+              },
+              "limit": {
+                "type": "number"
+              },
+              "total_count": {
+                "type": "number"
+              },
+              "total_pages": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "page",
+              "limit",
+              "total_count",
+              "total_pages"
+            ]
+          },
+          "ObjectGenericArray.IPerson": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "age": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "name",
+              "age"
+            ]
+          }
+        }
+      },
+      "output": {
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "$ref": "#/$defs/ObjectGenericArray"
           }
         ]
-      },
-      "strict": true
+      }
     }
   ]
 }

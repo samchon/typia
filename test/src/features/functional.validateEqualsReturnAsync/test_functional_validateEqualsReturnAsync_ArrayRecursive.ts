@@ -4,7 +4,9 @@ import { _test_functional_validateEqualsReturnAsync } from "../../internal/_test
 import { ArrayRecursive } from "../../structures/ArrayRecursive";
 
 export const test_functional_validateEqualsReturnAsync_ArrayRecursive =
-  _test_functional_validateEqualsReturnAsync("ArrayRecursive")(ArrayRecursive)(
-    (p: (input: ArrayRecursive) => Promise<ArrayRecursive>) =>
+  (): Promise<void> =>
+    _test_functional_validateEqualsReturnAsync("ArrayRecursive")(
+      ArrayRecursive,
+    )((p: (input: ArrayRecursive) => Promise<ArrayRecursive>) =>
       typia.functional.validateEqualsReturn(p),
-  );
+    );

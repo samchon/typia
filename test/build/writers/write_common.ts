@@ -17,7 +17,7 @@ import { _${file({
     })}";
 import { ${structure} } from "../../structures/${structure}";
 
-export const ${file(p)}_${structure} = _${file({
+export const ${file(p)}_${structure} = (): void => _${file({
       ...p,
       method: p.method.startsWith("create")
         ? StringUtil.localize(p.method.replace("create", ""))
@@ -29,7 +29,8 @@ export const ${file(p)}_${structure} = _${file({
 )(${functor(p)(create)(structure)});
 `;
 
-const file = (p: IProps) => "test_" + method(p).replace(".", "_");
+const file = (p: IProps) =>
+  "test_" + (p.prefix ? `${p.prefix}_` : "") + method(p).replace(".", "_");
 const method = (p: IProps) =>
   [p.module, p.method].filter((str) => !!str).join(".");
 const functor = (p: IProps) => (create: boolean) => (structure: string) =>
@@ -39,5 +40,6 @@ const functor = (p: IProps) => (create: boolean) => (structure: string) =>
 
 interface IProps {
   module: string | null;
+  prefix?: string;
   method: string;
 }

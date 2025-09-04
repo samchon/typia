@@ -4,8 +4,9 @@ import { _test_functional_validateFunctionAsync } from "../../internal/_test_fun
 import { TypeTagTypeBigInt } from "../../structures/TypeTagTypeBigInt";
 
 export const test_functional_validateFunctionAsync_TypeTagTypeBigInt =
-  _test_functional_validateFunctionAsync("TypeTagTypeBigInt")(
-    TypeTagTypeBigInt,
-  )((p: (input: TypeTagTypeBigInt) => Promise<TypeTagTypeBigInt>) =>
-    typia.functional.validateFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateFunctionAsync("TypeTagTypeBigInt")(
+      TypeTagTypeBigInt,
+    )((p: (input: TypeTagTypeBigInt) => Promise<TypeTagTypeBigInt>) =>
+      typia.functional.validateFunction(p),
+    );

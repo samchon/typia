@@ -5,8 +5,9 @@ import { _test_functional_assertEqualsParametersAsync } from "../../internal/_te
 import { TypeTagFormat } from "../../structures/TypeTagFormat";
 
 export const test_functional_assertEqualsParametersAsync_TypeTagFormat =
-  _test_functional_assertEqualsParametersAsync(TypeGuardError)("TypeTagFormat")(
-    TypeTagFormat,
-  )((p: (input: TypeTagFormat) => Promise<TypeTagFormat>) =>
-    typia.functional.assertEqualsParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsParametersAsync(TypeGuardError)(
+      "TypeTagFormat",
+    )(TypeTagFormat)((p: (input: TypeTagFormat) => Promise<TypeTagFormat>) =>
+      typia.functional.assertEqualsParameters(p),
+    );

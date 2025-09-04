@@ -5,9 +5,13 @@ import { _test_functional_assertEqualsFunctionAsync } from "../../internal/_test
 import { ObjectHttpTypeTag } from "../../structures/ObjectHttpTypeTag";
 
 export const test_functional_assertEqualsFunctionAsyncCustom_ObjectHttpTypeTag =
-  _test_functional_assertEqualsFunctionAsync(CustomGuardError)(
-    "ObjectHttpTypeTag",
-  )(ObjectHttpTypeTag)(
-    (p: (input: ObjectHttpTypeTag) => Promise<ObjectHttpTypeTag>) =>
-      typia.functional.assertEqualsFunction(p, (p) => new CustomGuardError(p)),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsFunctionAsync(CustomGuardError)(
+      "ObjectHttpTypeTag",
+    )(ObjectHttpTypeTag)(
+      (p: (input: ObjectHttpTypeTag) => Promise<ObjectHttpTypeTag>) =>
+        typia.functional.assertEqualsFunction(
+          p,
+          (p) => new CustomGuardError(p),
+        ),
+    );

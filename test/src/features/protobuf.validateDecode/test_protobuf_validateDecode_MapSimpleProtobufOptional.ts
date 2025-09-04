@@ -4,10 +4,11 @@ import { _test_protobuf_validateDecode } from "../../internal/_test_protobuf_val
 import { MapSimpleProtobufOptional } from "../../structures/MapSimpleProtobufOptional";
 
 export const test_protobuf_validateDecode_MapSimpleProtobufOptional =
-  _test_protobuf_validateDecode(
-    "MapSimpleProtobufOptional",
-  )<MapSimpleProtobufOptional>(MapSimpleProtobufOptional)({
-    decode: (input) =>
-      typia.protobuf.validateDecode<MapSimpleProtobufOptional>(input),
-    encode: typia.protobuf.createEncode<MapSimpleProtobufOptional>(),
-  });
+  (): void =>
+    _test_protobuf_validateDecode(
+      "MapSimpleProtobufOptional",
+    )<MapSimpleProtobufOptional>(MapSimpleProtobufOptional)({
+      decode: (input) =>
+        typia.protobuf.validateDecode<MapSimpleProtobufOptional>(input),
+      encode: typia.protobuf.createEncode<MapSimpleProtobufOptional>(),
+    });

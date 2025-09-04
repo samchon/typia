@@ -5,8 +5,9 @@ import { _test_functional_assertParametersAsync } from "../../internal/_test_fun
 import { TypeTagType } from "../../structures/TypeTagType";
 
 export const test_functional_assertParametersAsyncCustom_TypeTagType =
-  _test_functional_assertParametersAsync(CustomGuardError)("TypeTagType")(
-    TypeTagType,
-  )((p: (input: TypeTagType) => Promise<TypeTagType>) =>
-    typia.functional.assertParameters(p, (p) => new CustomGuardError(p)),
-  );
+  (): Promise<void> =>
+    _test_functional_assertParametersAsync(CustomGuardError)("TypeTagType")(
+      TypeTagType,
+    )((p: (input: TypeTagType) => Promise<TypeTagType>) =>
+      typia.functional.assertParameters(p, (p) => new CustomGuardError(p)),
+    );

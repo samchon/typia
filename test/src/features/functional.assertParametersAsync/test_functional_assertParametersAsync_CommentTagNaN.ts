@@ -5,8 +5,9 @@ import { _test_functional_assertParametersAsync } from "../../internal/_test_fun
 import { CommentTagNaN } from "../../structures/CommentTagNaN";
 
 export const test_functional_assertParametersAsync_CommentTagNaN =
-  _test_functional_assertParametersAsync(TypeGuardError)("CommentTagNaN")(
-    CommentTagNaN,
-  )((p: (input: CommentTagNaN) => Promise<CommentTagNaN>) =>
-    typia.functional.assertParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertParametersAsync(TypeGuardError)("CommentTagNaN")(
+      CommentTagNaN,
+    )((p: (input: CommentTagNaN) => Promise<CommentTagNaN>) =>
+      typia.functional.assertParameters(p),
+    );

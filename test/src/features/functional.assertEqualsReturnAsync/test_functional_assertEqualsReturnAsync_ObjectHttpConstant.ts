@@ -5,9 +5,10 @@ import { _test_functional_assertEqualsReturnAsync } from "../../internal/_test_f
 import { ObjectHttpConstant } from "../../structures/ObjectHttpConstant";
 
 export const test_functional_assertEqualsReturnAsync_ObjectHttpConstant =
-  _test_functional_assertEqualsReturnAsync(TypeGuardError)(
-    "ObjectHttpConstant",
-  )(ObjectHttpConstant)(
-    (p: (input: ObjectHttpConstant) => Promise<ObjectHttpConstant>) =>
-      typia.functional.assertEqualsReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsReturnAsync(TypeGuardError)(
+      "ObjectHttpConstant",
+    )(ObjectHttpConstant)(
+      (p: (input: ObjectHttpConstant) => Promise<ObjectHttpConstant>) =>
+        typia.functional.assertEqualsReturn(p),
+    );

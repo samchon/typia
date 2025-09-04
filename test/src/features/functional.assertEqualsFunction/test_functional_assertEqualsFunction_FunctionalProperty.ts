@@ -5,8 +5,9 @@ import { _test_functional_assertEqualsFunction } from "../../internal/_test_func
 import { FunctionalProperty } from "../../structures/FunctionalProperty";
 
 export const test_functional_assertEqualsFunction_FunctionalProperty =
-  _test_functional_assertEqualsFunction(TypeGuardError)("FunctionalProperty")(
-    FunctionalProperty,
-  )((p: (input: FunctionalProperty) => FunctionalProperty) =>
-    typia.functional.assertEqualsFunction(p),
-  );
+  (): void =>
+    _test_functional_assertEqualsFunction(TypeGuardError)("FunctionalProperty")(
+      FunctionalProperty,
+    )((p: (input: FunctionalProperty) => FunctionalProperty) =>
+      typia.functional.assertEqualsFunction(p),
+    );

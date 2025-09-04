@@ -5,8 +5,9 @@ import { _test_functional_assertParameters } from "../../internal/_test_function
 import { ArraySimpleProtobuf } from "../../structures/ArraySimpleProtobuf";
 
 export const test_functional_assertParametersCustom_ArraySimpleProtobuf =
-  _test_functional_assertParameters(CustomGuardError)("ArraySimpleProtobuf")(
-    ArraySimpleProtobuf,
-  )((p: (input: ArraySimpleProtobuf) => ArraySimpleProtobuf) =>
-    typia.functional.assertParameters(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertParameters(CustomGuardError)("ArraySimpleProtobuf")(
+      ArraySimpleProtobuf,
+    )((p: (input: ArraySimpleProtobuf) => ArraySimpleProtobuf) =>
+      typia.functional.assertParameters(p, (p) => new CustomGuardError(p)),
+    );

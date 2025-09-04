@@ -4,7 +4,8 @@ import { _test_functional_validateParametersAsync } from "../../internal/_test_f
 import { ToJsonNull } from "../../structures/ToJsonNull";
 
 export const test_functional_validateParametersAsync_ToJsonNull =
-  _test_functional_validateParametersAsync("ToJsonNull")(ToJsonNull)(
-    (p: (input: ToJsonNull) => Promise<ToJsonNull>) =>
-      typia.functional.validateParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateParametersAsync("ToJsonNull")(ToJsonNull)(
+      (p: (input: ToJsonNull) => Promise<ToJsonNull>) =>
+        typia.functional.validateParameters(p),
+    );

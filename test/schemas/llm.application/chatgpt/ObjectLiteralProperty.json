@@ -1,7 +1,8 @@
 {
   "model": "chatgpt",
   "options": {
-    "reference": false,
+    "reference": true,
+    "strict": false,
     "separate": null
   },
   "functions": [
@@ -11,6 +12,15 @@
         "type": "object",
         "properties": {
           "first": {
+            "$ref": "#/$defs/ObjectLiteralProperty.ISomething"
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ObjectLiteralProperty.ISomething": {
             "type": "object",
             "properties": {
               "something-interesting-do-you-want?": {
@@ -23,17 +33,10 @@
             "required": [
               "something-interesting-do-you-want?",
               "or-something-crazy-do-you-want?"
-            ],
-            "additionalProperties": false
+            ]
           }
-        },
-        "required": [
-          "first"
-        ],
-        "additionalProperties": false,
-        "$defs": {}
-      },
-      "strict": true
+        }
+      }
     },
     {
       "name": "reduce",
@@ -41,20 +44,7 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "object",
-            "properties": {
-              "something-interesting-do-you-want?": {
-                "type": "string"
-              },
-              "or-something-crazy-do-you-want?": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "something-interesting-do-you-want?",
-              "or-something-crazy-do-you-want?"
-            ],
-            "additionalProperties": false
+            "$ref": "#/$defs/ObjectLiteralProperty.ISomething"
           },
           "second": {
             "anyOf": [
@@ -62,20 +52,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "something-interesting-do-you-want?": {
-                    "type": "string"
-                  },
-                  "or-something-crazy-do-you-want?": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "something-interesting-do-you-want?",
-                  "or-something-crazy-do-you-want?"
-                ],
-                "additionalProperties": false
+                "$ref": "#/$defs/ObjectLiteralProperty.ISomething"
               }
             ]
           }
@@ -85,25 +62,27 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "ObjectLiteralProperty.ISomething": {
+            "type": "object",
+            "properties": {
+              "something-interesting-do-you-want?": {
+                "type": "string"
+              },
+              "or-something-crazy-do-you-want?": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "something-interesting-do-you-want?",
+              "or-something-crazy-do-you-want?"
+            ]
+          }
+        }
       },
       "output": {
-        "type": "object",
-        "properties": {
-          "something-interesting-do-you-want?": {
-            "type": "string"
-          },
-          "or-something-crazy-do-you-want?": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "something-interesting-do-you-want?",
-          "or-something-crazy-do-you-want?"
-        ],
-        "additionalProperties": false
-      },
-      "strict": true
+        "$ref": "#/$defs/ObjectLiteralProperty.ISomething"
+      }
     },
     {
       "name": "coalesce",
@@ -116,20 +95,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "something-interesting-do-you-want?": {
-                    "type": "string"
-                  },
-                  "or-something-crazy-do-you-want?": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "something-interesting-do-you-want?",
-                  "or-something-crazy-do-you-want?"
-                ],
-                "additionalProperties": false
+                "$ref": "#/$defs/ObjectLiteralProperty.ISomething"
               }
             ]
           },
@@ -139,20 +105,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "something-interesting-do-you-want?": {
-                    "type": "string"
-                  },
-                  "or-something-crazy-do-you-want?": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "something-interesting-do-you-want?",
-                  "or-something-crazy-do-you-want?"
-                ],
-                "additionalProperties": false
+                "$ref": "#/$defs/ObjectLiteralProperty.ISomething"
               }
             ]
           },
@@ -162,38 +115,18 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "something-interesting-do-you-want?": {
-                    "type": "string"
-                  },
-                  "or-something-crazy-do-you-want?": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "something-interesting-do-you-want?",
-                  "or-something-crazy-do-you-want?"
-                ],
-                "additionalProperties": false
+                "$ref": "#/$defs/ObjectLiteralProperty.ISomething"
               }
             ]
           }
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "output": {
-        "anyOf": [
-          {
-            "type": "null"
-          },
-          {
+        "$defs": {
+          "ObjectLiteralProperty.ISomething": {
             "type": "object",
             "properties": {
               "something-interesting-do-you-want?": {
@@ -206,12 +139,20 @@
             "required": [
               "something-interesting-do-you-want?",
               "or-something-crazy-do-you-want?"
-            ],
-            "additionalProperties": false
+            ]
+          }
+        }
+      },
+      "output": {
+        "anyOf": [
+          {
+            "type": "null"
+          },
+          {
+            "$ref": "#/$defs/ObjectLiteralProperty.ISomething"
           }
         ]
-      },
-      "strict": true
+      }
     }
   ]
 }

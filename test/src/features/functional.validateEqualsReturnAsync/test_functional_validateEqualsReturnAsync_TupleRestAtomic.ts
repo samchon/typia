@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsReturnAsync } from "../../internal/_test
 import { TupleRestAtomic } from "../../structures/TupleRestAtomic";
 
 export const test_functional_validateEqualsReturnAsync_TupleRestAtomic =
-  _test_functional_validateEqualsReturnAsync("TupleRestAtomic")(
-    TupleRestAtomic,
-  )((p: (input: TupleRestAtomic) => Promise<TupleRestAtomic>) =>
-    typia.functional.validateEqualsReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateEqualsReturnAsync("TupleRestAtomic")(
+      TupleRestAtomic,
+    )((p: (input: TupleRestAtomic) => Promise<TupleRestAtomic>) =>
+      typia.functional.validateEqualsReturn(p),
+    );

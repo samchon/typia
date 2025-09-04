@@ -5,8 +5,9 @@ import { _test_functional_assertParameters } from "../../internal/_test_function
 import { ObjectHttpNullable } from "../../structures/ObjectHttpNullable";
 
 export const test_functional_assertParametersCustom_ObjectHttpNullable =
-  _test_functional_assertParameters(CustomGuardError)("ObjectHttpNullable")(
-    ObjectHttpNullable,
-  )((p: (input: ObjectHttpNullable) => ObjectHttpNullable) =>
-    typia.functional.assertParameters(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertParameters(CustomGuardError)("ObjectHttpNullable")(
+      ObjectHttpNullable,
+    )((p: (input: ObjectHttpNullable) => ObjectHttpNullable) =>
+      typia.functional.assertParameters(p, (p) => new CustomGuardError(p)),
+    );

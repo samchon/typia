@@ -1,4 +1,4 @@
-import typia, { tags } from "typia";
+import { tags } from "typia";
 import * as __typia_transform__ProtobufReader from "typia/lib/internal/_ProtobufReader.js";
 import * as __typia_transform__ProtobufSizer from "typia/lib/internal/_ProtobufSizer.js";
 import * as __typia_transform__ProtobufWriter from "typia/lib/internal/_ProtobufWriter.js";
@@ -433,15 +433,19 @@ export const createValidateEncode = (() => {
           value: input,
         }))(input, "$input", true);
       const success = 0 === errors.length;
-      return {
-        success,
-        errors,
-        data: success ? input : undefined,
-      } as any;
+      return success
+        ? {
+            success,
+            data: input,
+          }
+        : ({
+            success,
+            errors,
+            data: input,
+          } as any);
     }
     return {
       success: true,
-      errors: [],
       data: input,
     } as any;
   };
@@ -867,15 +871,19 @@ export const createValidateDecode = (() => {
           value: input,
         }))(input, "$input", true);
       const success = 0 === errors.length;
-      return {
-        success,
-        errors,
-        data: success ? input : undefined,
-      } as any;
+      return success
+        ? {
+            success,
+            data: input,
+          }
+        : ({
+            success,
+            errors,
+            data: input,
+          } as any);
     }
     return {
       success: true,
-      errors: [],
       data: input,
     } as any;
   };

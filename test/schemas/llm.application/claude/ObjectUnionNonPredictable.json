@@ -1,7 +1,7 @@
 {
   "model": "claude",
   "options": {
-    "reference": false,
+    "reference": true,
     "separate": null
   },
   "functions": [
@@ -11,188 +11,21 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "object",
-            "properties": {
-              "value": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "value": {
-                      "type": "object",
-                      "properties": {
-                        "value": {
-                          "oneOf": [
-                            {
-                              "type": "object",
-                              "properties": {
-                                "value": {
-                                  "type": "object",
-                                  "properties": {
-                                    "value": {
-                                      "type": "boolean"
-                                    }
-                                  },
-                                  "required": [
-                                    "value"
-                                  ]
-                                }
-                              },
-                              "required": [
-                                "value"
-                              ]
-                            },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "value": {
-                                  "type": "object",
-                                  "properties": {
-                                    "value": {
-                                      "type": "number"
-                                    }
-                                  },
-                                  "required": [
-                                    "value"
-                                  ]
-                                }
-                              },
-                              "required": [
-                                "value"
-                              ]
-                            },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "value": {
-                                  "type": "object",
-                                  "properties": {
-                                    "value": {
-                                      "type": "string"
-                                    }
-                                  },
-                                  "required": [
-                                    "value"
-                                  ]
-                                }
-                              },
-                              "required": [
-                                "value"
-                              ]
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "value"
-                      ]
-                    }
-                  },
-                  "required": [
-                    "value"
-                  ]
-                }
-              }
-            },
-            "required": [
-              "value"
-            ]
+            "$ref": "#/$defs/ObjectUnionNonPredictable"
           }
         },
         "required": [
           "first"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "strict": true
-    },
-    {
-      "name": "reduce",
-      "parameters": {
-        "type": "object",
-        "properties": {
-          "first": {
+        "$defs": {
+          "ObjectUnionNonPredictable": {
             "type": "object",
             "properties": {
               "value": {
                 "type": "array",
                 "items": {
-                  "type": "object",
-                  "properties": {
-                    "value": {
-                      "type": "object",
-                      "properties": {
-                        "value": {
-                          "oneOf": [
-                            {
-                              "type": "object",
-                              "properties": {
-                                "value": {
-                                  "type": "object",
-                                  "properties": {
-                                    "value": {
-                                      "type": "boolean"
-                                    }
-                                  },
-                                  "required": [
-                                    "value"
-                                  ]
-                                }
-                              },
-                              "required": [
-                                "value"
-                              ]
-                            },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "value": {
-                                  "type": "object",
-                                  "properties": {
-                                    "value": {
-                                      "type": "number"
-                                    }
-                                  },
-                                  "required": [
-                                    "value"
-                                  ]
-                                }
-                              },
-                              "required": [
-                                "value"
-                              ]
-                            },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "value": {
-                                  "type": "object",
-                                  "properties": {
-                                    "value": {
-                                      "type": "string"
-                                    }
-                                  },
-                                  "required": [
-                                    "value"
-                                  ]
-                                }
-                              },
-                              "required": [
-                                "value"
-                              ]
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "value"
-                      ]
-                    }
-                  },
-                  "required": [
-                    "value"
-                  ]
+                  "$ref": "#/$defs/ObjectUnionNonPredictable.IWrapperObjectUnionNonPredictable.IUnion"
                 }
               }
             },
@@ -200,98 +33,125 @@
               "value"
             ]
           },
+          "ObjectUnionNonPredictable.IWrapperObjectUnionNonPredictable.IUnion": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "$ref": "#/$defs/IPointerObjectUnionNonPredictable.IUnion"
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "IPointerObjectUnionNonPredictable.IUnion": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "$ref": "#/$defs/ObjectUnionNonPredictable.IUnion"
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "ObjectUnionNonPredictable.IUnion": {
+            "oneOf": [
+              {
+                "$ref": "#/$defs/ObjectUnionNonPredictable.IWrapperboolean"
+              },
+              {
+                "$ref": "#/$defs/ObjectUnionNonPredictable.IWrappernumber"
+              },
+              {
+                "$ref": "#/$defs/ObjectUnionNonPredictable.IWrapperstring"
+              }
+            ]
+          },
+          "ObjectUnionNonPredictable.IWrapperboolean": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "$ref": "#/$defs/IPointerboolean"
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "IPointerboolean": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "ObjectUnionNonPredictable.IWrappernumber": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "$ref": "#/$defs/IPointernumber"
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "IPointernumber": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "ObjectUnionNonPredictable.IWrapperstring": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "$ref": "#/$defs/IPointerstring"
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "IPointerstring": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "value"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "$ref": "#/$defs/ObjectUnionNonPredictable"
+          },
           "second": {
             "oneOf": [
               {
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "value": {
-                          "type": "object",
-                          "properties": {
-                            "value": {
-                              "oneOf": [
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "value": {
-                                      "type": "object",
-                                      "properties": {
-                                        "value": {
-                                          "type": "boolean"
-                                        }
-                                      },
-                                      "required": [
-                                        "value"
-                                      ]
-                                    }
-                                  },
-                                  "required": [
-                                    "value"
-                                  ]
-                                },
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "value": {
-                                      "type": "object",
-                                      "properties": {
-                                        "value": {
-                                          "type": "number"
-                                        }
-                                      },
-                                      "required": [
-                                        "value"
-                                      ]
-                                    }
-                                  },
-                                  "required": [
-                                    "value"
-                                  ]
-                                },
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "value": {
-                                      "type": "object",
-                                      "properties": {
-                                        "value": {
-                                          "type": "string"
-                                        }
-                                      },
-                                      "required": [
-                                        "value"
-                                      ]
-                                    }
-                                  },
-                                  "required": [
-                                    "value"
-                                  ]
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "value"
-                          ]
-                        }
-                      },
-                      "required": [
-                        "value"
-                      ]
-                    }
-                  }
-                },
-                "required": [
-                  "value"
-                ]
+                "$ref": "#/$defs/ObjectUnionNonPredictable"
               }
             ]
           }
@@ -301,97 +161,127 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "ObjectUnionNonPredictable": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ObjectUnionNonPredictable.IWrapperObjectUnionNonPredictable.IUnion"
+                }
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "ObjectUnionNonPredictable.IWrapperObjectUnionNonPredictable.IUnion": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "$ref": "#/$defs/IPointerObjectUnionNonPredictable.IUnion"
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "IPointerObjectUnionNonPredictable.IUnion": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "$ref": "#/$defs/ObjectUnionNonPredictable.IUnion"
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "ObjectUnionNonPredictable.IUnion": {
+            "oneOf": [
+              {
+                "$ref": "#/$defs/ObjectUnionNonPredictable.IWrapperboolean"
+              },
+              {
+                "$ref": "#/$defs/ObjectUnionNonPredictable.IWrappernumber"
+              },
+              {
+                "$ref": "#/$defs/ObjectUnionNonPredictable.IWrapperstring"
+              }
+            ]
+          },
+          "ObjectUnionNonPredictable.IWrapperboolean": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "$ref": "#/$defs/IPointerboolean"
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "IPointerboolean": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "ObjectUnionNonPredictable.IWrappernumber": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "$ref": "#/$defs/IPointernumber"
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "IPointernumber": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "ObjectUnionNonPredictable.IWrapperstring": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "$ref": "#/$defs/IPointerstring"
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "IPointerstring": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "value"
+            ]
+          }
+        }
       },
       "output": {
-        "type": "object",
-        "properties": {
-          "value": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "value": {
-                  "type": "object",
-                  "properties": {
-                    "value": {
-                      "oneOf": [
-                        {
-                          "type": "object",
-                          "properties": {
-                            "value": {
-                              "type": "object",
-                              "properties": {
-                                "value": {
-                                  "type": "boolean"
-                                }
-                              },
-                              "required": [
-                                "value"
-                              ]
-                            }
-                          },
-                          "required": [
-                            "value"
-                          ]
-                        },
-                        {
-                          "type": "object",
-                          "properties": {
-                            "value": {
-                              "type": "object",
-                              "properties": {
-                                "value": {
-                                  "type": "number"
-                                }
-                              },
-                              "required": [
-                                "value"
-                              ]
-                            }
-                          },
-                          "required": [
-                            "value"
-                          ]
-                        },
-                        {
-                          "type": "object",
-                          "properties": {
-                            "value": {
-                              "type": "object",
-                              "properties": {
-                                "value": {
-                                  "type": "string"
-                                }
-                              },
-                              "required": [
-                                "value"
-                              ]
-                            }
-                          },
-                          "required": [
-                            "value"
-                          ]
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "value"
-                  ]
-                }
-              },
-              "required": [
-                "value"
-              ]
-            }
-          }
-        },
-        "required": [
-          "value"
-        ]
-      },
-      "strict": true
+        "$ref": "#/$defs/ObjectUnionNonPredictable"
+      }
     },
     {
       "name": "coalesce",
@@ -404,92 +294,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "value": {
-                          "type": "object",
-                          "properties": {
-                            "value": {
-                              "oneOf": [
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "value": {
-                                      "type": "object",
-                                      "properties": {
-                                        "value": {
-                                          "type": "boolean"
-                                        }
-                                      },
-                                      "required": [
-                                        "value"
-                                      ]
-                                    }
-                                  },
-                                  "required": [
-                                    "value"
-                                  ]
-                                },
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "value": {
-                                      "type": "object",
-                                      "properties": {
-                                        "value": {
-                                          "type": "number"
-                                        }
-                                      },
-                                      "required": [
-                                        "value"
-                                      ]
-                                    }
-                                  },
-                                  "required": [
-                                    "value"
-                                  ]
-                                },
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "value": {
-                                      "type": "object",
-                                      "properties": {
-                                        "value": {
-                                          "type": "string"
-                                        }
-                                      },
-                                      "required": [
-                                        "value"
-                                      ]
-                                    }
-                                  },
-                                  "required": [
-                                    "value"
-                                  ]
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "value"
-                          ]
-                        }
-                      },
-                      "required": [
-                        "value"
-                      ]
-                    }
-                  }
-                },
-                "required": [
-                  "value"
-                ]
+                "$ref": "#/$defs/ObjectUnionNonPredictable"
               }
             ]
           },
@@ -499,92 +304,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "value": {
-                          "type": "object",
-                          "properties": {
-                            "value": {
-                              "oneOf": [
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "value": {
-                                      "type": "object",
-                                      "properties": {
-                                        "value": {
-                                          "type": "boolean"
-                                        }
-                                      },
-                                      "required": [
-                                        "value"
-                                      ]
-                                    }
-                                  },
-                                  "required": [
-                                    "value"
-                                  ]
-                                },
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "value": {
-                                      "type": "object",
-                                      "properties": {
-                                        "value": {
-                                          "type": "number"
-                                        }
-                                      },
-                                      "required": [
-                                        "value"
-                                      ]
-                                    }
-                                  },
-                                  "required": [
-                                    "value"
-                                  ]
-                                },
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "value": {
-                                      "type": "object",
-                                      "properties": {
-                                        "value": {
-                                          "type": "string"
-                                        }
-                                      },
-                                      "required": [
-                                        "value"
-                                      ]
-                                    }
-                                  },
-                                  "required": [
-                                    "value"
-                                  ]
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "value"
-                          ]
-                        }
-                      },
-                      "required": [
-                        "value"
-                      ]
-                    }
-                  }
-                },
-                "required": [
-                  "value"
-                ]
+                "$ref": "#/$defs/ObjectUnionNonPredictable"
               }
             ]
           },
@@ -594,103 +314,133 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "value": {
-                          "type": "object",
-                          "properties": {
-                            "value": {
-                              "oneOf": [
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "value": {
-                                      "type": "object",
-                                      "properties": {
-                                        "value": {
-                                          "type": "boolean"
-                                        }
-                                      },
-                                      "required": [
-                                        "value"
-                                      ]
-                                    }
-                                  },
-                                  "required": [
-                                    "value"
-                                  ]
-                                },
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "value": {
-                                      "type": "object",
-                                      "properties": {
-                                        "value": {
-                                          "type": "number"
-                                        }
-                                      },
-                                      "required": [
-                                        "value"
-                                      ]
-                                    }
-                                  },
-                                  "required": [
-                                    "value"
-                                  ]
-                                },
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "value": {
-                                      "type": "object",
-                                      "properties": {
-                                        "value": {
-                                          "type": "string"
-                                        }
-                                      },
-                                      "required": [
-                                        "value"
-                                      ]
-                                    }
-                                  },
-                                  "required": [
-                                    "value"
-                                  ]
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "value"
-                          ]
-                        }
-                      },
-                      "required": [
-                        "value"
-                      ]
-                    }
-                  }
-                },
-                "required": [
-                  "value"
-                ]
+                "$ref": "#/$defs/ObjectUnionNonPredictable"
               }
             ]
           }
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "ObjectUnionNonPredictable": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ObjectUnionNonPredictable.IWrapperObjectUnionNonPredictable.IUnion"
+                }
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "ObjectUnionNonPredictable.IWrapperObjectUnionNonPredictable.IUnion": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "$ref": "#/$defs/IPointerObjectUnionNonPredictable.IUnion"
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "IPointerObjectUnionNonPredictable.IUnion": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "$ref": "#/$defs/ObjectUnionNonPredictable.IUnion"
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "ObjectUnionNonPredictable.IUnion": {
+            "oneOf": [
+              {
+                "$ref": "#/$defs/ObjectUnionNonPredictable.IWrapperboolean"
+              },
+              {
+                "$ref": "#/$defs/ObjectUnionNonPredictable.IWrappernumber"
+              },
+              {
+                "$ref": "#/$defs/ObjectUnionNonPredictable.IWrapperstring"
+              }
+            ]
+          },
+          "ObjectUnionNonPredictable.IWrapperboolean": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "$ref": "#/$defs/IPointerboolean"
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "IPointerboolean": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "ObjectUnionNonPredictable.IWrappernumber": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "$ref": "#/$defs/IPointernumber"
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "IPointernumber": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "ObjectUnionNonPredictable.IWrapperstring": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "$ref": "#/$defs/IPointerstring"
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "IPointerstring": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "value"
+            ]
+          }
+        }
       },
       "output": {
         "oneOf": [
@@ -698,96 +448,10 @@
             "type": "null"
           },
           {
-            "type": "object",
-            "properties": {
-              "value": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "value": {
-                      "type": "object",
-                      "properties": {
-                        "value": {
-                          "oneOf": [
-                            {
-                              "type": "object",
-                              "properties": {
-                                "value": {
-                                  "type": "object",
-                                  "properties": {
-                                    "value": {
-                                      "type": "boolean"
-                                    }
-                                  },
-                                  "required": [
-                                    "value"
-                                  ]
-                                }
-                              },
-                              "required": [
-                                "value"
-                              ]
-                            },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "value": {
-                                  "type": "object",
-                                  "properties": {
-                                    "value": {
-                                      "type": "number"
-                                    }
-                                  },
-                                  "required": [
-                                    "value"
-                                  ]
-                                }
-                              },
-                              "required": [
-                                "value"
-                              ]
-                            },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "value": {
-                                  "type": "object",
-                                  "properties": {
-                                    "value": {
-                                      "type": "string"
-                                    }
-                                  },
-                                  "required": [
-                                    "value"
-                                  ]
-                                }
-                              },
-                              "required": [
-                                "value"
-                              ]
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "value"
-                      ]
-                    }
-                  },
-                  "required": [
-                    "value"
-                  ]
-                }
-              }
-            },
-            "required": [
-              "value"
-            ]
+            "$ref": "#/$defs/ObjectUnionNonPredictable"
           }
         ]
-      },
-      "strict": true
+      }
     }
   ]
 }

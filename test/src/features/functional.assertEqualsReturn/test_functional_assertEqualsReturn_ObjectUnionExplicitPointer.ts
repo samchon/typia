@@ -5,9 +5,10 @@ import { _test_functional_assertEqualsReturn } from "../../internal/_test_functi
 import { ObjectUnionExplicitPointer } from "../../structures/ObjectUnionExplicitPointer";
 
 export const test_functional_assertEqualsReturn_ObjectUnionExplicitPointer =
-  _test_functional_assertEqualsReturn(TypeGuardError)(
-    "ObjectUnionExplicitPointer",
-  )(ObjectUnionExplicitPointer)(
-    (p: (input: ObjectUnionExplicitPointer) => ObjectUnionExplicitPointer) =>
-      typia.functional.assertEqualsReturn(p),
-  );
+  (): void =>
+    _test_functional_assertEqualsReturn(TypeGuardError)(
+      "ObjectUnionExplicitPointer",
+    )(ObjectUnionExplicitPointer)(
+      (p: (input: ObjectUnionExplicitPointer) => ObjectUnionExplicitPointer) =>
+        typia.functional.assertEqualsReturn(p),
+    );

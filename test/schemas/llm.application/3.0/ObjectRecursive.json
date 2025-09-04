@@ -1,8 +1,8 @@
 {
   "model": "3.0",
   "options": {
-    "constraint": false,
     "recursive": 3,
+    "constraint": true,
     "separate": null
   },
   "functions": [
@@ -52,6 +52,7 @@
                               "time",
                               "zone"
                             ],
+                            "description": "Current Type: {@link ObjectRecursive.ITimestamp}",
                             "additionalProperties": false
                           }
                         },
@@ -92,6 +93,7 @@
                           "time",
                           "zone"
                         ],
+                        "description": "Current Type: {@link ObjectRecursive.ITimestamp}",
                         "additionalProperties": false
                       }
                     },
@@ -132,6 +134,7 @@
                       "time",
                       "zone"
                     ],
+                    "description": "Current Type: {@link ObjectRecursive.ITimestamp}",
                     "additionalProperties": false
                   }
                 },
@@ -172,6 +175,7 @@
                   "time",
                   "zone"
                 ],
+                "description": "Current Type: {@link ObjectRecursive.ITimestamp}",
                 "additionalProperties": false
               }
             },
@@ -183,6 +187,7 @@
               "sequence",
               "created_at"
             ],
+            "description": "Current Type: {@link ObjectRecursive.IDepartment}",
             "additionalProperties": false
           }
         },
@@ -190,8 +195,7 @@
           "first"
         ],
         "additionalProperties": false
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -239,6 +243,7 @@
                               "time",
                               "zone"
                             ],
+                            "description": "Current Type: {@link ObjectRecursive.ITimestamp}",
                             "additionalProperties": false
                           }
                         },
@@ -279,6 +284,7 @@
                           "time",
                           "zone"
                         ],
+                        "description": "Current Type: {@link ObjectRecursive.ITimestamp}",
                         "additionalProperties": false
                       }
                     },
@@ -319,6 +325,7 @@
                       "time",
                       "zone"
                     ],
+                    "description": "Current Type: {@link ObjectRecursive.ITimestamp}",
                     "additionalProperties": false
                   }
                 },
@@ -359,6 +366,7 @@
                   "time",
                   "zone"
                 ],
+                "description": "Current Type: {@link ObjectRecursive.ITimestamp}",
                 "additionalProperties": false
               }
             },
@@ -370,6 +378,7 @@
               "sequence",
               "created_at"
             ],
+            "description": "Current Type: {@link ObjectRecursive.IDepartment}",
             "additionalProperties": false
           },
           "second": {
@@ -413,6 +422,7 @@
                               "time",
                               "zone"
                             ],
+                            "description": "Current Type: {@link ObjectRecursive.ITimestamp}",
                             "additionalProperties": false
                           }
                         },
@@ -453,6 +463,7 @@
                           "time",
                           "zone"
                         ],
+                        "description": "Current Type: {@link ObjectRecursive.ITimestamp}",
                         "additionalProperties": false
                       }
                     },
@@ -493,6 +504,7 @@
                       "time",
                       "zone"
                     ],
+                    "description": "Current Type: {@link ObjectRecursive.ITimestamp}",
                     "additionalProperties": false
                   }
                 },
@@ -533,6 +545,7 @@
                   "time",
                   "zone"
                 ],
+                "description": "Current Type: {@link ObjectRecursive.ITimestamp}",
                 "additionalProperties": false
               }
             },
@@ -595,6 +608,7 @@
                           "time",
                           "zone"
                         ],
+                        "description": "Current Type: {@link ObjectRecursive.ITimestamp}",
                         "additionalProperties": false
                       }
                     },
@@ -635,6 +649,7 @@
                       "time",
                       "zone"
                     ],
+                    "description": "Current Type: {@link ObjectRecursive.ITimestamp}",
                     "additionalProperties": false
                   }
                 },
@@ -675,6 +690,7 @@
                   "time",
                   "zone"
                 ],
+                "description": "Current Type: {@link ObjectRecursive.ITimestamp}",
                 "additionalProperties": false
               }
             },
@@ -715,6 +731,7 @@
               "time",
               "zone"
             ],
+            "description": "Current Type: {@link ObjectRecursive.ITimestamp}",
             "additionalProperties": false
           }
         },
@@ -726,9 +743,9 @@
           "sequence",
           "created_at"
         ],
+        "description": "Current Type: {@link ObjectRecursive.IDepartment}",
         "additionalProperties": false
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -776,6 +793,7 @@
                               "time",
                               "zone"
                             ],
+                            "description": "Current Type: {@link ObjectRecursive.ITimestamp}",
                             "additionalProperties": false
                           }
                         },
@@ -816,6 +834,7 @@
                           "time",
                           "zone"
                         ],
+                        "description": "Current Type: {@link ObjectRecursive.ITimestamp}",
                         "additionalProperties": false
                       }
                     },
@@ -856,6 +875,7 @@
                       "time",
                       "zone"
                     ],
+                    "description": "Current Type: {@link ObjectRecursive.ITimestamp}",
                     "additionalProperties": false
                   }
                 },
@@ -896,6 +916,7 @@
                   "time",
                   "zone"
                 ],
+                "description": "Current Type: {@link ObjectRecursive.ITimestamp}",
                 "additionalProperties": false
               }
             },
@@ -951,6 +972,7 @@
                               "time",
                               "zone"
                             ],
+                            "description": "Current Type: {@link ObjectRecursive.ITimestamp}",
                             "additionalProperties": false
                           }
                         },
@@ -991,6 +1013,7 @@
                           "time",
                           "zone"
                         ],
+                        "description": "Current Type: {@link ObjectRecursive.ITimestamp}",
                         "additionalProperties": false
                       }
                     },
@@ -1031,6 +1054,7 @@
                       "time",
                       "zone"
                     ],
+                    "description": "Current Type: {@link ObjectRecursive.ITimestamp}",
                     "additionalProperties": false
                   }
                 },
@@ -1071,6 +1095,7 @@
                   "time",
                   "zone"
                 ],
+                "description": "Current Type: {@link ObjectRecursive.ITimestamp}",
                 "additionalProperties": false
               }
             },
@@ -1126,6 +1151,7 @@
                               "time",
                               "zone"
                             ],
+                            "description": "Current Type: {@link ObjectRecursive.ITimestamp}",
                             "additionalProperties": false
                           }
                         },
@@ -1166,6 +1192,7 @@
                           "time",
                           "zone"
                         ],
+                        "description": "Current Type: {@link ObjectRecursive.ITimestamp}",
                         "additionalProperties": false
                       }
                     },
@@ -1206,6 +1233,7 @@
                       "time",
                       "zone"
                     ],
+                    "description": "Current Type: {@link ObjectRecursive.ITimestamp}",
                     "additionalProperties": false
                   }
                 },
@@ -1246,6 +1274,7 @@
                   "time",
                   "zone"
                 ],
+                "description": "Current Type: {@link ObjectRecursive.ITimestamp}",
                 "additionalProperties": false
               }
             },
@@ -1308,6 +1337,7 @@
                           "time",
                           "zone"
                         ],
+                        "description": "Current Type: {@link ObjectRecursive.ITimestamp}",
                         "additionalProperties": false
                       }
                     },
@@ -1348,6 +1378,7 @@
                       "time",
                       "zone"
                     ],
+                    "description": "Current Type: {@link ObjectRecursive.ITimestamp}",
                     "additionalProperties": false
                   }
                 },
@@ -1388,6 +1419,7 @@
                   "time",
                   "zone"
                 ],
+                "description": "Current Type: {@link ObjectRecursive.ITimestamp}",
                 "additionalProperties": false
               }
             },
@@ -1428,6 +1460,7 @@
               "time",
               "zone"
             ],
+            "description": "Current Type: {@link ObjectRecursive.ITimestamp}",
             "additionalProperties": false
           }
         },
@@ -1441,8 +1474,7 @@
         ],
         "additionalProperties": false,
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

@@ -5,8 +5,12 @@ import { _test_functional_assertEqualsParameters } from "../../internal/_test_fu
 import { CommentTagNaN } from "../../structures/CommentTagNaN";
 
 export const test_functional_assertEqualsParametersCustom_CommentTagNaN =
-  _test_functional_assertEqualsParameters(CustomGuardError)("CommentTagNaN")(
-    CommentTagNaN,
-  )((p: (input: CommentTagNaN) => CommentTagNaN) =>
-    typia.functional.assertEqualsParameters(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertEqualsParameters(CustomGuardError)("CommentTagNaN")(
+      CommentTagNaN,
+    )((p: (input: CommentTagNaN) => CommentTagNaN) =>
+      typia.functional.assertEqualsParameters(
+        p,
+        (p) => new CustomGuardError(p),
+      ),
+    );

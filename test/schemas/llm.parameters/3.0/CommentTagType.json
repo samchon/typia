@@ -11,25 +11,26 @@
             "properties": {
               "int": {
                 "type": "integer",
-                "title": "Integer value",
                 "description": "Integer value."
               },
               "uint": {
                 "type": "integer",
-                "title": "Unsigned integer value",
+                "minimum": 0,
                 "description": "Unsigned integer value."
               },
               "int32": {
                 "type": "integer"
               },
               "uint32": {
-                "type": "integer"
+                "type": "integer",
+                "minimum": 0
               },
               "int64": {
                 "type": "integer"
               },
               "uint64": {
-                "type": "integer"
+                "type": "integer",
+                "minimum": 0
               },
               "float": {
                 "type": "number"
@@ -44,6 +45,7 @@
               "uint64",
               "float"
             ],
+            "description": "Current Type: {@link CommentTagType.Type}",
             "additionalProperties": false
           }
         }
@@ -51,6 +53,7 @@
       "required": [
         "value"
       ],
+      "description": "Current Type: {@link CommentTagType}",
       "additionalProperties": false
     },
     "nullable": {
@@ -63,25 +66,26 @@
             "properties": {
               "int": {
                 "type": "integer",
-                "title": "Integer value",
                 "description": "Integer value."
               },
               "uint": {
                 "type": "integer",
-                "title": "Unsigned integer value",
+                "minimum": 0,
                 "description": "Unsigned integer value."
               },
               "int32": {
                 "type": "integer"
               },
               "uint32": {
-                "type": "integer"
+                "type": "integer",
+                "minimum": 0
               },
               "int64": {
                 "type": "integer"
               },
               "uint64": {
-                "type": "integer"
+                "type": "integer",
+                "minimum": 0
               },
               "float": {
                 "type": "number"
@@ -96,6 +100,7 @@
               "uint64",
               "float"
             ],
+            "description": "Current Type: {@link CommentTagType.Type}",
             "additionalProperties": false
           }
         }
@@ -116,25 +121,26 @@
             "properties": {
               "int": {
                 "type": "integer",
-                "title": "Integer value",
                 "description": "Integer value."
               },
               "uint": {
                 "type": "integer",
-                "title": "Unsigned integer value",
+                "minimum": 0,
                 "description": "Unsigned integer value."
               },
               "int32": {
                 "type": "integer"
               },
               "uint32": {
-                "type": "integer"
+                "type": "integer",
+                "minimum": 0
               },
               "int64": {
                 "type": "integer"
               },
               "uint64": {
-                "type": "integer"
+                "type": "integer",
+                "minimum": 0
               },
               "float": {
                 "type": "number"
@@ -149,6 +155,7 @@
               "uint64",
               "float"
             ],
+            "description": "Current Type: {@link CommentTagType.Type}",
             "additionalProperties": false
           }
         }
@@ -156,6 +163,7 @@
       "required": [
         "value"
       ],
+      "description": "Current Type: {@link CommentTagType}",
       "additionalProperties": false
     },
     "faint": {
@@ -168,25 +176,26 @@
             "properties": {
               "int": {
                 "type": "integer",
-                "title": "Integer value",
                 "description": "Integer value."
               },
               "uint": {
                 "type": "integer",
-                "title": "Unsigned integer value",
+                "minimum": 0,
                 "description": "Unsigned integer value."
               },
               "int32": {
                 "type": "integer"
               },
               "uint32": {
-                "type": "integer"
+                "type": "integer",
+                "minimum": 0
               },
               "int64": {
                 "type": "integer"
               },
               "uint64": {
-                "type": "integer"
+                "type": "integer",
+                "minimum": 0
               },
               "float": {
                 "type": "number"
@@ -201,6 +210,7 @@
               "uint64",
               "float"
             ],
+            "description": "Current Type: {@link CommentTagType.Type}",
             "additionalProperties": false
           }
         }
@@ -223,25 +233,26 @@
               "properties": {
                 "int": {
                   "type": "integer",
-                  "title": "Integer value",
                   "description": "Integer value."
                 },
                 "uint": {
                   "type": "integer",
-                  "title": "Unsigned integer value",
+                  "minimum": 0,
                   "description": "Unsigned integer value."
                 },
                 "int32": {
                   "type": "integer"
                 },
                 "uint32": {
-                  "type": "integer"
+                  "type": "integer",
+                  "minimum": 0
                 },
                 "int64": {
                   "type": "integer"
                 },
                 "uint64": {
-                  "type": "integer"
+                  "type": "integer",
+                  "minimum": 0
                 },
                 "float": {
                   "type": "number"
@@ -256,6 +267,7 @@
                 "uint64",
                 "float"
               ],
+              "description": "Current Type: {@link CommentTagType.Type}",
               "additionalProperties": false
             }
           }
@@ -263,6 +275,7 @@
         "required": [
           "value"
         ],
+        "description": "Current Type: {@link CommentTagType}",
         "additionalProperties": false
       }
     }

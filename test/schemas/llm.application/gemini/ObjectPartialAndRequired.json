@@ -110,14 +110,14 @@
             "required": [
               "object",
               "array"
-            ]
+            ],
+            "description": "Current Type: {@link ObjectPartialAndRequired}"
           }
         },
         "required": [
           "first"
         ]
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -224,7 +224,8 @@
             "required": [
               "object",
               "array"
-            ]
+            ],
+            "description": "Current Type: {@link ObjectPartialAndRequired}"
           },
           "second": {
             "type": "object",
@@ -435,9 +436,9 @@
         "required": [
           "object",
           "array"
-        ]
-      },
-      "strict": true
+        ],
+        "description": "Current Type: {@link ObjectPartialAndRequired}"
+      }
     },
     {
       "name": "coalesce",
@@ -861,8 +862,7 @@
           "array"
         ],
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

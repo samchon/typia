@@ -3,12 +3,12 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { TypeTagFormat } from "../../../structures/TypeTagFormat";
 
-export const test_llm_application_chatgpt_TypeTagFormat = _test_llm_application(
-  {
+export const test_llm_application_chatgpt_TypeTagFormat = (): void =>
+  _test_llm_application({
     model: "chatgpt",
     name: "TypeTagFormat",
-  },
-)(typia.llm.application<TypeTagFormatApplication, "chatgpt">());
+    factory: TypeTagFormat,
+  })(typia.llm.application<TypeTagFormatApplication, "chatgpt">());
 
 interface TypeTagFormatApplication {
   insert(p: { first: TypeTagFormat }): Promise<void>;

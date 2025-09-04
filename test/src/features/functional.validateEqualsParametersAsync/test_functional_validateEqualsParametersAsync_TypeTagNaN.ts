@@ -4,7 +4,8 @@ import { _test_functional_validateEqualsParametersAsync } from "../../internal/_
 import { TypeTagNaN } from "../../structures/TypeTagNaN";
 
 export const test_functional_validateEqualsParametersAsync_TypeTagNaN =
-  _test_functional_validateEqualsParametersAsync("TypeTagNaN")(TypeTagNaN)(
-    (p: (input: TypeTagNaN) => Promise<TypeTagNaN>) =>
-      typia.functional.validateEqualsParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateEqualsParametersAsync("TypeTagNaN")(TypeTagNaN)(
+      (p: (input: TypeTagNaN) => Promise<TypeTagNaN>) =>
+        typia.functional.validateEqualsParameters(p),
+    );

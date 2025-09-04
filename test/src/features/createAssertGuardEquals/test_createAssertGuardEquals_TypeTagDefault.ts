@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_assertGuardEquals } from "../../internal/_test_assertGuardEquals";
 import { TypeTagDefault } from "../../structures/TypeTagDefault";
 
-export const test_createAssertGuardEquals_TypeTagDefault =
+export const test_createAssertGuardEquals_TypeTagDefault = (): void =>
   _test_assertGuardEquals(TypeGuardError)("TypeTagDefault")<TypeTagDefault>(
     TypeTagDefault,
   )(typia.createAssertGuardEquals<TypeTagDefault>());

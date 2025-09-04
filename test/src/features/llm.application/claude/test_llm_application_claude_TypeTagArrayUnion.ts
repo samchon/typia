@@ -3,10 +3,11 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { TypeTagArrayUnion } from "../../../structures/TypeTagArrayUnion";
 
-export const test_llm_application_claude_TypeTagArrayUnion =
+export const test_llm_application_claude_TypeTagArrayUnion = (): void =>
   _test_llm_application({
     model: "claude",
     name: "TypeTagArrayUnion",
+    factory: TypeTagArrayUnion,
   })(typia.llm.application<TypeTagArrayUnionApplication, "claude">());
 
 interface TypeTagArrayUnionApplication {

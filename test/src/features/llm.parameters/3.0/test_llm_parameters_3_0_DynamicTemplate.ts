@@ -3,10 +3,11 @@ import typia from "typia";
 import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
 import { DynamicTemplate } from "../../../structures/DynamicTemplate";
 
-export const test_llm_parameters_3_0_DynamicTemplate = _test_llm_parameters({
-  model: "3.0",
-  name: "DynamicTemplate",
-})(typia.llm.parameters<DynamicTemplateParameters, "3.0">());
+export const test_llm_parameters_3_0_DynamicTemplate = (): void =>
+  _test_llm_parameters({
+    model: "3.0",
+    name: "DynamicTemplate",
+  })(typia.llm.parameters<DynamicTemplateParameters, "3.0">());
 
 interface DynamicTemplateParameters {
   regular: DynamicTemplate;

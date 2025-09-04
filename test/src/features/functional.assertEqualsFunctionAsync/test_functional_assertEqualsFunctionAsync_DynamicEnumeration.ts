@@ -5,9 +5,10 @@ import { _test_functional_assertEqualsFunctionAsync } from "../../internal/_test
 import { DynamicEnumeration } from "../../structures/DynamicEnumeration";
 
 export const test_functional_assertEqualsFunctionAsync_DynamicEnumeration =
-  _test_functional_assertEqualsFunctionAsync(TypeGuardError)(
-    "DynamicEnumeration",
-  )(DynamicEnumeration)(
-    (p: (input: DynamicEnumeration) => Promise<DynamicEnumeration>) =>
-      typia.functional.assertEqualsFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsFunctionAsync(TypeGuardError)(
+      "DynamicEnumeration",
+    )(DynamicEnumeration)(
+      (p: (input: DynamicEnumeration) => Promise<DynamicEnumeration>) =>
+        typia.functional.assertEqualsFunction(p),
+    );

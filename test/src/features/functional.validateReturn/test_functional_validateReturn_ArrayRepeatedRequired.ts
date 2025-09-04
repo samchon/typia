@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_functional_validateReturn } from "../../internal/_test_functional_validateReturn";
 import { ArrayRepeatedRequired } from "../../structures/ArrayRepeatedRequired";
 
-export const test_functional_validateReturn_ArrayRepeatedRequired =
+export const test_functional_validateReturn_ArrayRepeatedRequired = (): void =>
   _test_functional_validateReturn("ArrayRepeatedRequired")(
     ArrayRepeatedRequired,
   )((p: (input: ArrayRepeatedRequired) => ArrayRepeatedRequired) =>

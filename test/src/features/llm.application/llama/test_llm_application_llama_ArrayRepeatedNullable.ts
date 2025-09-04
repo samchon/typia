@@ -3,10 +3,11 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { ArrayRepeatedNullable } from "../../../structures/ArrayRepeatedNullable";
 
-export const test_llm_application_llama_ArrayRepeatedNullable =
+export const test_llm_application_llama_ArrayRepeatedNullable = (): void =>
   _test_llm_application({
     model: "llama",
     name: "ArrayRepeatedNullable",
+    factory: ArrayRepeatedNullable,
   })(typia.llm.application<ArrayRepeatedNullableApplication, "llama">());
 
 interface ArrayRepeatedNullableApplication {

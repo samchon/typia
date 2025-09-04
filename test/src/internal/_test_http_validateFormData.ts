@@ -7,8 +7,7 @@ import { resolved_equal_to } from "../helpers/resolved_equal_to";
 export const _test_http_validateFormData =
   (name: string) =>
   <T extends object>(factory: TestStructure<T>) =>
-  (decode: (input: FormData) => typia.IValidation<typia.Resolved<T>>) =>
-  () => {
+  (decode: (input: FormData) => typia.IValidation<typia.Resolved<T>>): void => {
     const data: T = factory.generate();
     const encoded: FormData = create_form_data(data);
 
@@ -17,6 +16,7 @@ export const _test_http_validateFormData =
       throw new Error(
         `Bug on typia.http.validateFormData(): failed to understand ${name} type.`,
       );
+    typia.assertEquals<typia.IValidation.ISuccess<unknown>>(result);
 
     const equal: boolean =
       result !== null && resolved_equal_to(name)(data, result.data);
@@ -38,7 +38,7 @@ export const _test_http_validateFormData =
           `Bug on typia.http.validateFormData(): failed to detect error on the ${name} type.`,
         );
 
-      typia.assert(valid);
+      typia.assertEquals(valid);
       expected.sort();
       valid.errors.sort((x, y) => (x.path < y.path ? -1 : 1));
 

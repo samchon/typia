@@ -1,12 +1,11 @@
-import { IValidation, assert } from "typia";
+import { IValidation, assertEquals } from "typia";
 
 import { TestStructure } from "../helpers/TestStructure";
 
 export const _test_misc_validatePrune =
   (name: string) =>
   <T>(factory: TestStructure<T>) =>
-  (prune: (input: T) => IValidation<T>) =>
-  () => {
+  (prune: (input: T) => IValidation<T>): void => {
     const input: T = factory.generate();
 
     // SPOIL OBJECTS
@@ -45,7 +44,7 @@ export const _test_misc_validatePrune =
           `Bug on typia.misc.validatePrune(): failed to detect error on the ${name} type.`,
         );
 
-      assert(valid);
+      assertEquals(valid);
       expected.sort();
       valid.errors.sort((x, y) => (x.path < y.path ? -1 : 1));
 

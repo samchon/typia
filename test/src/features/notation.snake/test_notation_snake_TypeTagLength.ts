@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_notation_validateGeneral } from "../../internal/_test_notation_validateGeneral";
 import { TypeTagLength } from "../../structures/TypeTagLength";
 
-export const test_notation_validateSnake_TypeTagLength =
+export const test_notation_validateSnake_TypeTagLength = (): void =>
   _test_notation_validateGeneral("TypeTagLength")<TypeTagLength>(TypeTagLength)<
     typia.SnakeCase<TypeTagLength>
   >({

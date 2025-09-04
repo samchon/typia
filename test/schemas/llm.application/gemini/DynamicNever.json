@@ -13,14 +13,14 @@
           "first": {
             "type": "object",
             "properties": {},
-            "required": []
+            "required": [],
+            "description": "Current Type: {@link DynamicNever}"
           }
         },
         "required": [
           "first"
         ]
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -30,7 +30,8 @@
           "first": {
             "type": "object",
             "properties": {},
-            "required": []
+            "required": [],
+            "description": "Current Type: {@link DynamicNever}"
           },
           "second": {
             "type": "object",
@@ -47,9 +48,9 @@
       "output": {
         "type": "object",
         "properties": {},
-        "required": []
-      },
-      "strict": true
+        "required": [],
+        "description": "Current Type: {@link DynamicNever}"
+      }
     },
     {
       "name": "coalesce",
@@ -85,8 +86,7 @@
         "properties": {},
         "required": [],
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

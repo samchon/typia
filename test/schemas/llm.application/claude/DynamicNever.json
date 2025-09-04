@@ -1,7 +1,7 @@
 {
   "model": "claude",
   "options": {
-    "reference": false,
+    "reference": true,
     "separate": null
   },
   "functions": [
@@ -11,18 +11,21 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "object",
-            "properties": {},
-            "required": []
+            "$ref": "#/$defs/DynamicNever"
           }
         },
         "required": [
           "first"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "strict": true
+        "$defs": {
+          "DynamicNever": {
+            "type": "object",
+            "properties": {},
+            "required": []
+          }
+        }
+      }
     },
     {
       "name": "reduce",
@@ -30,9 +33,7 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "object",
-            "properties": {},
-            "required": []
+            "$ref": "#/$defs/DynamicNever"
           },
           "second": {
             "oneOf": [
@@ -40,9 +41,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {},
-                "required": []
+                "$ref": "#/$defs/DynamicNever"
               }
             ]
           }
@@ -52,14 +51,17 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "DynamicNever": {
+            "type": "object",
+            "properties": {},
+            "required": []
+          }
+        }
       },
       "output": {
-        "type": "object",
-        "properties": {},
-        "required": []
-      },
-      "strict": true
+        "$ref": "#/$defs/DynamicNever"
+      }
     },
     {
       "name": "coalesce",
@@ -72,9 +74,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {},
-                "required": []
+                "$ref": "#/$defs/DynamicNever"
               }
             ]
           },
@@ -84,9 +84,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {},
-                "required": []
+                "$ref": "#/$defs/DynamicNever"
               }
             ]
           },
@@ -96,20 +94,23 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {},
-                "required": []
+                "$ref": "#/$defs/DynamicNever"
               }
             ]
           }
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "DynamicNever": {
+            "type": "object",
+            "properties": {},
+            "required": []
+          }
+        }
       },
       "output": {
         "oneOf": [
@@ -117,13 +118,10 @@
             "type": "null"
           },
           {
-            "type": "object",
-            "properties": {},
-            "required": []
+            "$ref": "#/$defs/DynamicNever"
           }
         ]
-      },
-      "strict": true
+      }
     }
   ]
 }

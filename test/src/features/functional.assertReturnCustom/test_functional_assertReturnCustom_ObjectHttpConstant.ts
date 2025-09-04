@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_functional_assertReturn } from "../../internal/_test_functional_assertReturn";
 import { ObjectHttpConstant } from "../../structures/ObjectHttpConstant";
 
-export const test_functional_assertReturnCustom_ObjectHttpConstant =
+export const test_functional_assertReturnCustom_ObjectHttpConstant = (): void =>
   _test_functional_assertReturn(CustomGuardError)("ObjectHttpConstant")(
     ObjectHttpConstant,
   )((p: (input: ObjectHttpConstant) => ObjectHttpConstant) =>

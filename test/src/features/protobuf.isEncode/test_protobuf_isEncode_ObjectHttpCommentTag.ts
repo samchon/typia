@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_protobuf_isEncode } from "../../internal/_test_protobuf_isEncode";
 import { ObjectHttpCommentTag } from "../../structures/ObjectHttpCommentTag";
 
-export const test_protobuf_isEncode_ObjectHttpCommentTag =
+export const test_protobuf_isEncode_ObjectHttpCommentTag = (): void =>
   _test_protobuf_isEncode("ObjectHttpCommentTag")<ObjectHttpCommentTag>(
     ObjectHttpCommentTag,
   )({

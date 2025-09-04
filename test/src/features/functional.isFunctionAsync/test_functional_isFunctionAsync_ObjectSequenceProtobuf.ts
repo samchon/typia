@@ -4,8 +4,9 @@ import { _test_functional_isFunctionAsync } from "../../internal/_test_functiona
 import { ObjectSequenceProtobuf } from "../../structures/ObjectSequenceProtobuf";
 
 export const test_functional_isFunctionAsync_ObjectSequenceProtobuf =
-  _test_functional_isFunctionAsync("ObjectSequenceProtobuf")(
-    ObjectSequenceProtobuf,
-  )((p: (input: ObjectSequenceProtobuf) => Promise<ObjectSequenceProtobuf>) =>
-    typia.functional.isFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_isFunctionAsync("ObjectSequenceProtobuf")(
+      ObjectSequenceProtobuf,
+    )((p: (input: ObjectSequenceProtobuf) => Promise<ObjectSequenceProtobuf>) =>
+      typia.functional.isFunction(p),
+    );

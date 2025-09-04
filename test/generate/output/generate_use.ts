@@ -1,7 +1,7 @@
 "use strict";
 "use server";
 
-import typia, { tags } from "typia";
+import { tags } from "typia";
 import * as __typia_transform__isFormatUuid from "typia/lib/internal/_isFormatUuid.js";
 
 (() => {

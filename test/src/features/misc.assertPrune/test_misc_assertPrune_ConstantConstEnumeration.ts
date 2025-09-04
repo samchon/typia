@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_misc_assertPrune } from "../../internal/_test_misc_assertPrune";
 import { ConstantConstEnumeration } from "../../structures/ConstantConstEnumeration";
 
-export const test_misc_assertPrune_ConstantConstEnumeration =
+export const test_misc_assertPrune_ConstantConstEnumeration = (): void =>
   _test_misc_assertPrune(TypeGuardError)(
     "ConstantConstEnumeration",
   )<ConstantConstEnumeration>(ConstantConstEnumeration)((input) =>

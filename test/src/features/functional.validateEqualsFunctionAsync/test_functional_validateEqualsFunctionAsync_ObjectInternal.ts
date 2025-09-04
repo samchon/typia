@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsFunctionAsync } from "../../internal/_te
 import { ObjectInternal } from "../../structures/ObjectInternal";
 
 export const test_functional_validateEqualsFunctionAsync_ObjectInternal =
-  _test_functional_validateEqualsFunctionAsync("ObjectInternal")(
-    ObjectInternal,
-  )((p: (input: ObjectInternal) => Promise<ObjectInternal>) =>
-    typia.functional.validateEqualsFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateEqualsFunctionAsync("ObjectInternal")(
+      ObjectInternal,
+    )((p: (input: ObjectInternal) => Promise<ObjectInternal>) =>
+      typia.functional.validateEqualsFunction(p),
+    );

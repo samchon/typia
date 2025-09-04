@@ -1,4 +1,3 @@
-import cp from "child_process";
 import fs from "fs";
 
 import { TestStructure } from "./TestStructure";
@@ -7,10 +6,7 @@ export namespace TestJsonSchemasGenerator {
   export async function generate(
     structures: TestStructure<any>[],
   ): Promise<void> {
-    const location: string = `${__dirname}/../../src/features/json.schemas`;
-    if (fs.existsSync(location)) cp.execSync("npx rimraf " + location);
-    await fs.promises.mkdir(location);
-
+    await mkdir(`${__dirname}/../../src/features/json.schemas`);
     for (const version of ["3.0", "3.1"] as const)
       await functor(structures, version);
   }
@@ -31,7 +27,7 @@ export namespace TestJsonSchemasGenerator {
         `import { ${s.name} } from "../../../structures/${s.name}";`,
         `import { _test_json_schemas } from "../../../internal/_test_json_schemas";`,
         "",
-        `export const test_json_schemas_${title}_${s.name} = `,
+        `export const test_json_schemas_${title}_${s.name} = (): void =>`,
         `  _test_json_schemas({`,
         `    version: "${version}",`,
         `    name: "${s.name}", `,
@@ -86,7 +82,8 @@ export namespace TestJsonSchemasGenerator {
   }
 
   async function mkdir(path: string): Promise<void> {
-    if (fs.existsSync(path)) cp.execSync(`npx rimraf ${path}`);
-    await fs.promises.mkdir(path);
+    if (fs.existsSync(path) === true)
+      await fs.promises.rm(path, { recursive: true });
+    await fs.promises.mkdir(path, { recursive: true });
   }
 }

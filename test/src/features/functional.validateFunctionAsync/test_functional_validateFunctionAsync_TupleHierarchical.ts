@@ -4,8 +4,9 @@ import { _test_functional_validateFunctionAsync } from "../../internal/_test_fun
 import { TupleHierarchical } from "../../structures/TupleHierarchical";
 
 export const test_functional_validateFunctionAsync_TupleHierarchical =
-  _test_functional_validateFunctionAsync("TupleHierarchical")(
-    TupleHierarchical,
-  )((p: (input: TupleHierarchical) => Promise<TupleHierarchical>) =>
-    typia.functional.validateFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateFunctionAsync("TupleHierarchical")(
+      TupleHierarchical,
+    )((p: (input: TupleHierarchical) => Promise<TupleHierarchical>) =>
+      typia.functional.validateFunction(p),
+    );

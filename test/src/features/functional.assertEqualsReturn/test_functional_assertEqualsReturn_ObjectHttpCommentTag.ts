@@ -5,8 +5,9 @@ import { _test_functional_assertEqualsReturn } from "../../internal/_test_functi
 import { ObjectHttpCommentTag } from "../../structures/ObjectHttpCommentTag";
 
 export const test_functional_assertEqualsReturn_ObjectHttpCommentTag =
-  _test_functional_assertEqualsReturn(TypeGuardError)("ObjectHttpCommentTag")(
-    ObjectHttpCommentTag,
-  )((p: (input: ObjectHttpCommentTag) => ObjectHttpCommentTag) =>
-    typia.functional.assertEqualsReturn(p),
-  );
+  (): void =>
+    _test_functional_assertEqualsReturn(TypeGuardError)("ObjectHttpCommentTag")(
+      ObjectHttpCommentTag,
+    )((p: (input: ObjectHttpCommentTag) => ObjectHttpCommentTag) =>
+      typia.functional.assertEqualsReturn(p),
+    );

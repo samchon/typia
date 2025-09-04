@@ -3,10 +3,11 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { TemplateConstant } from "../../../structures/TemplateConstant";
 
-export const test_llm_application_chatgpt_TemplateConstant =
+export const test_llm_application_chatgpt_TemplateConstant = (): void =>
   _test_llm_application({
     model: "chatgpt",
     name: "TemplateConstant",
+    factory: TemplateConstant,
   })(typia.llm.application<TemplateConstantApplication, "chatgpt">());
 
 interface TemplateConstantApplication {

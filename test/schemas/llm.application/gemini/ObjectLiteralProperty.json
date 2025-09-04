@@ -23,14 +23,14 @@
             "required": [
               "something-interesting-do-you-want?",
               "or-something-crazy-do-you-want?"
-            ]
+            ],
+            "description": "Current Type: {@link ObjectLiteralProperty.ISomething}"
           }
         },
         "required": [
           "first"
         ]
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -50,7 +50,8 @@
             "required": [
               "something-interesting-do-you-want?",
               "or-something-crazy-do-you-want?"
-            ]
+            ],
+            "description": "Current Type: {@link ObjectLiteralProperty.ISomething}"
           },
           "second": {
             "type": "object",
@@ -87,9 +88,9 @@
         "required": [
           "something-interesting-do-you-want?",
           "or-something-crazy-do-you-want?"
-        ]
-      },
-      "strict": true
+        ],
+        "description": "Current Type: {@link ObjectLiteralProperty.ISomething}"
+      }
     },
     {
       "name": "coalesce",
@@ -165,8 +166,7 @@
           "or-something-crazy-do-you-want?"
         ],
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

@@ -5,8 +5,9 @@ import { _test_functional_assertEqualsFunction } from "../../internal/_test_func
 import { ObjectClosure } from "../../structures/ObjectClosure";
 
 export const test_functional_assertEqualsFunctionCustom_ObjectClosure =
-  _test_functional_assertEqualsFunction(CustomGuardError)("ObjectClosure")(
-    ObjectClosure,
-  )((p: (input: ObjectClosure) => ObjectClosure) =>
-    typia.functional.assertEqualsFunction(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertEqualsFunction(CustomGuardError)("ObjectClosure")(
+      ObjectClosure,
+    )((p: (input: ObjectClosure) => ObjectClosure) =>
+      typia.functional.assertEqualsFunction(p, (p) => new CustomGuardError(p)),
+    );

@@ -1,8 +1,8 @@
 {
   "model": "3.0",
   "options": {
-    "constraint": false,
     "recursive": 3,
+    "constraint": true,
     "separate": null
   },
   "functions": [
@@ -59,6 +59,7 @@
                     "url",
                     "created_at"
                   ],
+                  "description": "Current Type: {@link ObjectPrimitive.IFile}",
                   "additionalProperties": false
                 }
               },
@@ -78,6 +79,7 @@
               "secret",
               "created_at"
             ],
+            "description": "Current Type: {@link ObjectPrimitive.IArticle}",
             "additionalProperties": false
           }
         },
@@ -85,8 +87,7 @@
           "first"
         ],
         "additionalProperties": false
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -141,6 +142,7 @@
                     "url",
                     "created_at"
                   ],
+                  "description": "Current Type: {@link ObjectPrimitive.IFile}",
                   "additionalProperties": false
                 }
               },
@@ -160,6 +162,7 @@
               "secret",
               "created_at"
             ],
+            "description": "Current Type: {@link ObjectPrimitive.IArticle}",
             "additionalProperties": false
           },
           "second": {
@@ -210,6 +213,7 @@
                     "url",
                     "created_at"
                   ],
+                  "description": "Current Type: {@link ObjectPrimitive.IFile}",
                   "additionalProperties": false
                 }
               },
@@ -287,6 +291,7 @@
                 "url",
                 "created_at"
               ],
+              "description": "Current Type: {@link ObjectPrimitive.IFile}",
               "additionalProperties": false
             }
           },
@@ -306,9 +311,9 @@
           "secret",
           "created_at"
         ],
+        "description": "Current Type: {@link ObjectPrimitive.IArticle}",
         "additionalProperties": false
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -363,6 +368,7 @@
                     "url",
                     "created_at"
                   ],
+                  "description": "Current Type: {@link ObjectPrimitive.IFile}",
                   "additionalProperties": false
                 }
               },
@@ -433,6 +439,7 @@
                     "url",
                     "created_at"
                   ],
+                  "description": "Current Type: {@link ObjectPrimitive.IFile}",
                   "additionalProperties": false
                 }
               },
@@ -503,6 +510,7 @@
                     "url",
                     "created_at"
                   ],
+                  "description": "Current Type: {@link ObjectPrimitive.IFile}",
                   "additionalProperties": false
                 }
               },
@@ -580,6 +588,7 @@
                 "url",
                 "created_at"
               ],
+              "description": "Current Type: {@link ObjectPrimitive.IFile}",
               "additionalProperties": false
             }
           },
@@ -601,8 +610,7 @@
         ],
         "additionalProperties": false,
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

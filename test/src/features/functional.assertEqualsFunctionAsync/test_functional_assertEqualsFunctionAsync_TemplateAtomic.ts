@@ -5,8 +5,9 @@ import { _test_functional_assertEqualsFunctionAsync } from "../../internal/_test
 import { TemplateAtomic } from "../../structures/TemplateAtomic";
 
 export const test_functional_assertEqualsFunctionAsync_TemplateAtomic =
-  _test_functional_assertEqualsFunctionAsync(TypeGuardError)("TemplateAtomic")(
-    TemplateAtomic,
-  )((p: (input: TemplateAtomic) => Promise<TemplateAtomic>) =>
-    typia.functional.assertEqualsFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsFunctionAsync(TypeGuardError)(
+      "TemplateAtomic",
+    )(TemplateAtomic)((p: (input: TemplateAtomic) => Promise<TemplateAtomic>) =>
+      typia.functional.assertEqualsFunction(p),
+    );

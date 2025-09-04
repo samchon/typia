@@ -10,17 +10,17 @@ export const _test_protobuf_validateEncode =
     message: string;
     encode: (input: T) => typia.IValidation<Uint8Array>;
     decode: (input: Uint8Array) => typia.Resolved<T>;
-  }) =>
-  () => {
+  }): void => {
     _test_protobuf_encode(name)(factory)({
       message: functor.message,
       decode: functor.decode,
       encode: (input: T) => {
         const result: typia.IValidation<Uint8Array> = functor.encode(input);
         if (!result.success) throw new Error();
+        typia.assertEquals(result);
         return result.data;
       },
-    })();
+    }) satisfies void;
 
     const wrong: ISpoiled[] = [];
     for (const spoil of factory.SPOILERS ?? []) {
@@ -33,7 +33,7 @@ export const _test_protobuf_validateEncode =
           `Bug on typia.json.validateEncode(): failed to detect error on the ${name} type.`,
         );
 
-      typia.assert(valid);
+      typia.assertEquals(valid);
       expected.sort();
       valid.errors.sort((x, y) => (x.path < y.path ? -1 : 1));
 

@@ -4,8 +4,9 @@ import { _test_functional_validateParametersAsync } from "../../internal/_test_f
 import { ObjectHierarchical } from "../../structures/ObjectHierarchical";
 
 export const test_functional_validateParametersAsync_ObjectHierarchical =
-  _test_functional_validateParametersAsync("ObjectHierarchical")(
-    ObjectHierarchical,
-  )((p: (input: ObjectHierarchical) => Promise<ObjectHierarchical>) =>
-    typia.functional.validateParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateParametersAsync("ObjectHierarchical")(
+      ObjectHierarchical,
+    )((p: (input: ObjectHierarchical) => Promise<ObjectHierarchical>) =>
+      typia.functional.validateParameters(p),
+    );

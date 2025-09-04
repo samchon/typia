@@ -3,10 +3,11 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { ObjectLiteralProperty } from "../../../structures/ObjectLiteralProperty";
 
-export const test_llm_application_3_0_ObjectLiteralProperty =
+export const test_llm_application_3_0_ObjectLiteralProperty = (): void =>
   _test_llm_application({
     model: "3.0",
     name: "ObjectLiteralProperty",
+    factory: ObjectLiteralProperty,
   })(typia.llm.application<ObjectLiteralPropertyApplication, "3.0">());
 
 interface ObjectLiteralPropertyApplication {

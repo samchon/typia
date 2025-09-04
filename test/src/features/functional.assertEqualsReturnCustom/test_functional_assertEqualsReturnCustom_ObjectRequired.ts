@@ -5,8 +5,9 @@ import { _test_functional_assertEqualsReturn } from "../../internal/_test_functi
 import { ObjectRequired } from "../../structures/ObjectRequired";
 
 export const test_functional_assertEqualsReturnCustom_ObjectRequired =
-  _test_functional_assertEqualsReturn(CustomGuardError)("ObjectRequired")(
-    ObjectRequired,
-  )((p: (input: ObjectRequired) => ObjectRequired) =>
-    typia.functional.assertEqualsReturn(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertEqualsReturn(CustomGuardError)("ObjectRequired")(
+      ObjectRequired,
+    )((p: (input: ObjectRequired) => ObjectRequired) =>
+      typia.functional.assertEqualsReturn(p, (p) => new CustomGuardError(p)),
+    );

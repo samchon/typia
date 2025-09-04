@@ -1,8 +1,8 @@
 {
   "model": "3.0",
   "options": {
-    "constraint": false,
     "recursive": 3,
+    "constraint": true,
     "separate": null
   },
   "functions": [
@@ -52,26 +52,33 @@
                                 {
                                   "type": "array",
                                   "items": {},
-                                  "maxItems": 0
+                                  "maxItems": 0,
+                                  "description": "Current Type: {@link ArrayArrayRepeatedRequired}"
                                 }
-                              ]
-                            }
+                              ],
+                              "description": "Current Type: {@link ArrayRepeatedRequired}"
+                            },
+                            "description": "Current Type: {@link ArrayArrayRepeatedRequired}"
                           }
-                        ]
-                      }
+                        ],
+                        "description": "Current Type: {@link ArrayRepeatedRequired}"
+                      },
+                      "description": "Current Type: {@link ArrayArrayRepeatedRequired}"
                     }
-                  ]
-                }
+                  ],
+                  "description": "Current Type: {@link ArrayRepeatedRequired}"
+                },
+                "description": "Current Type: {@link ArrayArrayRepeatedRequired}"
               }
-            ]
+            ],
+            "description": "Current Type: {@link ArrayRepeatedRequired}"
           }
         },
         "required": [
           "first"
         ],
         "additionalProperties": false
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -119,18 +126,26 @@
                                 {
                                   "type": "array",
                                   "items": {},
-                                  "maxItems": 0
+                                  "maxItems": 0,
+                                  "description": "Current Type: {@link ArrayArrayRepeatedRequired}"
                                 }
-                              ]
-                            }
+                              ],
+                              "description": "Current Type: {@link ArrayRepeatedRequired}"
+                            },
+                            "description": "Current Type: {@link ArrayArrayRepeatedRequired}"
                           }
-                        ]
-                      }
+                        ],
+                        "description": "Current Type: {@link ArrayRepeatedRequired}"
+                      },
+                      "description": "Current Type: {@link ArrayArrayRepeatedRequired}"
                     }
-                  ]
-                }
+                  ],
+                  "description": "Current Type: {@link ArrayRepeatedRequired}"
+                },
+                "description": "Current Type: {@link ArrayArrayRepeatedRequired}"
               }
-            ]
+            ],
+            "description": "Current Type: {@link ArrayRepeatedRequired}"
           },
           "second": {
             "oneOf": [
@@ -182,17 +197,25 @@
                                       {
                                         "type": "number"
                                       }
-                                    ]
-                                  }
+                                    ],
+                                    "description": "Current Type: {@link ArrayRepeatedRequired}"
+                                  },
+                                  "description": "Current Type: {@link ArrayArrayRepeatedRequired}"
                                 }
-                              ]
-                            }
+                              ],
+                              "description": "Current Type: {@link ArrayRepeatedRequired}"
+                            },
+                            "description": "Current Type: {@link ArrayArrayRepeatedRequired}"
                           }
-                        ]
-                      }
+                        ],
+                        "description": "Current Type: {@link ArrayRepeatedRequired}"
+                      },
+                      "description": "Current Type: {@link ArrayArrayRepeatedRequired}"
                     }
-                  ]
+                  ],
+                  "description": "Current Type: {@link ArrayRepeatedRequired}"
                 },
+                "description": "Current Type: {@link ArrayArrayRepeatedRequired}",
                 "nullable": true
               }
             ]
@@ -245,20 +268,27 @@
                             {
                               "type": "array",
                               "items": {},
-                              "maxItems": 0
+                              "maxItems": 0,
+                              "description": "Current Type: {@link ArrayArrayRepeatedRequired}"
                             }
-                          ]
-                        }
+                          ],
+                          "description": "Current Type: {@link ArrayRepeatedRequired}"
+                        },
+                        "description": "Current Type: {@link ArrayArrayRepeatedRequired}"
                       }
-                    ]
-                  }
+                    ],
+                    "description": "Current Type: {@link ArrayRepeatedRequired}"
+                  },
+                  "description": "Current Type: {@link ArrayArrayRepeatedRequired}"
                 }
-              ]
-            }
+              ],
+              "description": "Current Type: {@link ArrayRepeatedRequired}"
+            },
+            "description": "Current Type: {@link ArrayArrayRepeatedRequired}"
           }
-        ]
-      },
-      "strict": true
+        ],
+        "description": "Current Type: {@link ArrayRepeatedRequired}"
+      }
     },
     {
       "name": "coalesce",
@@ -315,17 +345,25 @@
                                       {
                                         "type": "number"
                                       }
-                                    ]
-                                  }
+                                    ],
+                                    "description": "Current Type: {@link ArrayRepeatedRequired}"
+                                  },
+                                  "description": "Current Type: {@link ArrayArrayRepeatedRequired}"
                                 }
-                              ]
-                            }
+                              ],
+                              "description": "Current Type: {@link ArrayRepeatedRequired}"
+                            },
+                            "description": "Current Type: {@link ArrayArrayRepeatedRequired}"
                           }
-                        ]
-                      }
+                        ],
+                        "description": "Current Type: {@link ArrayRepeatedRequired}"
+                      },
+                      "description": "Current Type: {@link ArrayArrayRepeatedRequired}"
                     }
-                  ]
+                  ],
+                  "description": "Current Type: {@link ArrayRepeatedRequired}"
                 },
+                "description": "Current Type: {@link ArrayArrayRepeatedRequired}",
                 "nullable": true
               }
             ]
@@ -380,17 +418,25 @@
                                       {
                                         "type": "number"
                                       }
-                                    ]
-                                  }
+                                    ],
+                                    "description": "Current Type: {@link ArrayRepeatedRequired}"
+                                  },
+                                  "description": "Current Type: {@link ArrayArrayRepeatedRequired}"
                                 }
-                              ]
-                            }
+                              ],
+                              "description": "Current Type: {@link ArrayRepeatedRequired}"
+                            },
+                            "description": "Current Type: {@link ArrayArrayRepeatedRequired}"
                           }
-                        ]
-                      }
+                        ],
+                        "description": "Current Type: {@link ArrayRepeatedRequired}"
+                      },
+                      "description": "Current Type: {@link ArrayArrayRepeatedRequired}"
                     }
-                  ]
+                  ],
+                  "description": "Current Type: {@link ArrayRepeatedRequired}"
                 },
+                "description": "Current Type: {@link ArrayArrayRepeatedRequired}",
                 "nullable": true
               }
             ]
@@ -445,17 +491,25 @@
                                       {
                                         "type": "number"
                                       }
-                                    ]
-                                  }
+                                    ],
+                                    "description": "Current Type: {@link ArrayRepeatedRequired}"
+                                  },
+                                  "description": "Current Type: {@link ArrayArrayRepeatedRequired}"
                                 }
-                              ]
-                            }
+                              ],
+                              "description": "Current Type: {@link ArrayRepeatedRequired}"
+                            },
+                            "description": "Current Type: {@link ArrayArrayRepeatedRequired}"
                           }
-                        ]
-                      }
+                        ],
+                        "description": "Current Type: {@link ArrayRepeatedRequired}"
+                      },
+                      "description": "Current Type: {@link ArrayArrayRepeatedRequired}"
                     }
-                  ]
+                  ],
+                  "description": "Current Type: {@link ArrayRepeatedRequired}"
                 },
+                "description": "Current Type: {@link ArrayArrayRepeatedRequired}",
                 "nullable": true
               }
             ]
@@ -517,22 +571,29 @@
                                   {
                                     "type": "number"
                                   }
-                                ]
-                              }
+                                ],
+                                "description": "Current Type: {@link ArrayRepeatedRequired}"
+                              },
+                              "description": "Current Type: {@link ArrayArrayRepeatedRequired}"
                             }
-                          ]
-                        }
+                          ],
+                          "description": "Current Type: {@link ArrayRepeatedRequired}"
+                        },
+                        "description": "Current Type: {@link ArrayArrayRepeatedRequired}"
                       }
-                    ]
-                  }
+                    ],
+                    "description": "Current Type: {@link ArrayRepeatedRequired}"
+                  },
+                  "description": "Current Type: {@link ArrayArrayRepeatedRequired}"
                 }
-              ]
+              ],
+              "description": "Current Type: {@link ArrayRepeatedRequired}"
             },
+            "description": "Current Type: {@link ArrayArrayRepeatedRequired}",
             "nullable": true
           }
         ]
-      },
-      "strict": true
+      }
     }
   ]
 }

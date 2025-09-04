@@ -1,0 +1,666 @@
+---
+title: Guide Documents > Pure TypeScript Type
+---
+import { Tabs } from 'nextra/components'
+
+# Pure TypeScript
+## Outline
+```typescript filename="assertArticle.ts" showLineNumbers
+typia.assert<IBbsArticle>(article);
+```
+
+`typia` needs only one line with pure TypeScript type.
+
+You know what? Every other validator libraries need extra schema definition, that is different with pure TypeScript type. For an example, `class-validator` is the most famous validator due to used in `NestJS`. However, `NestJS` and `class-validator` force you to define triple duplicated DTO schema.
+
+  1. TypeScript Type
+  2. `class-validator` decorators
+  3. `@nestjs/swagger` decorators
+
+Another famous validator library `ajv` requires JSON schema definition. Move to the [#Demonstration](#demonstration), and click the `ajv (JSON Schema)` tab, then you may understand how it terrible. It requires hundreds of lines of JSON schema definition even just for a simple DTO.
+
+Those duplicated schema definitions are not only annoying, but also error-prone. If you take any mistake on the extra schema definition, such mistake can't be detected by TypeScript compiler. It will be detected only at runtime, therefore become a critical runtime error. Another words, it is not type safe.
+
+Besides, `typia` only needs pure TypeScript type. You don't need to define any extra schema like `class-validator` or `ajv`. Just define pure TypeScript type only (especially recommend to use `interface` type), then `typia` will do all the rest.
+
+
+
+
+## Demonstration
+If you're confusing how `typia` is different with others, just see example codes below.
+
+At first, look at the first (*`class-validator`*) tab, and find the `BbsArticle.files` property, enhanced by blue colored blocks. Looking at the `files` property, how do you feel? Just defining an array object type, you've to call 7 decorator functions. If you take any mistake when using the decorator like omitting `isArray` property, it would be a critical runtime error.
+
+Besides, `typia` needs only one line. Click the third (*`typia`*) tab, and find the `IAttachmentFile.files` property. Only one line being used, and they are even not class, but just interface types. Comparing it to the first and second tabs, how do you feel? Isn't it more simple and readable?
+
+This is the power of `typia`, with pure TypeScript type.
+
+<Tabs items={[
+  <span>
+    <code>class-validator</code> <sub>(Triple duplicated)</sub>
+  </span>,
+  <span>
+    <code>ajv</code> <sub>(JSON Schema)</sub>
+  </span>,
+  <span>
+    <code>typia</code> <sub>(Pure TypeScript)</sub>
+  </span>
+]}>
+  <Tabs.Tab>
+```typescript filename="BbsArticle.ts" showLineNumbers {24-35}
+import { ApiProperty } from "@nestjs/swagger";
+import {
+  ArrayNotEmpty,
+  IsArray,
+  IsObject,
+  IsOptional,
+  IsString,
+  Match,
+  MaxLength,
+  Type,
+  ValidateNested,
+} from "class-validator";
+
+export class BbsArticle {
+  @ApiProperty({
+    format: "uuid",
+  })
+  @IsString()
+  id!: string;
+
+  // DUPLICATED SCHEMA DEFINITION
+  // - duplicated function call + property type
+  // - have to specify `isArray` and `nullable` props by yourself
+  @ApiProperty({
+    type: () => AttachmentFile,
+    nullable: true,
+    isArray: true,
+    description: "List of attached files.",
+  })
+  @Type(() => AttachmentFile)
+  @IsArray()
+  @IsOptional()
+  @IsObject({ each: true })
+  @ValidateNested({ each: true })
+  files!: AttachmentFile[] | null;
+
+  @ApiProperty({
+    type: "string",
+    nullable: true,
+    minLength: 5,
+    maxLength: 100,
+    description: "Title of the article.",
+  })
+  @IsOptional()
+  @IsString()
+  title!: string | null;
+
+  @ApiProperty({
+    description: "Main content body of the article.",
+  })
+  @IsString()
+  body!: string;
+
+  @ApiProperty({
+    format: "date-time",
+    description: "Creation time of article",
+  })
+  @IsString()
+  created_at!: string;
+}
+
+export class AttachmentFile {
+  @ApiProperty({
+    type: "string",
+    maxLength: 255,
+    pattern: "^[a-zA-Z0-9-_]+$",
+    description: "File name.",
+  })
+  @Matches(/^[a-z0-9]+$/)
+  @MaxLength(255)
+  @IsString()
+  name!: string | null;
+
+  @ApiProperty({
+    type: "string",
+    nullable: true,
+    maxLength: 255,
+    pattern: "^[a-zA-Z0-9-_]+$",
+    description: "File extension.",
+  })
+  @Matches(/^[a-z0-9]+$/)
+  @MaxLength(8)
+  @IsOptional()
+  @IsString()
+  extension!: string | null;
+
+  @ApiProperty({
+    format: "url",
+    description: "URL of the file.",
+  })
+  @IsString()
+  url!: string;
+}
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```json filename="BbsArticle.json" showLineNumbers {18-26}
+{
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/IBbsArticle"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "IBbsArticle": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Primary Key",
+            "description": "Primary Key."
+          },
+          "files": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IAttachmentFile"
+            },
+            "nullable": true,
+            "title": "List of attached files",
+            "description": "List of attached files."
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 5,
+            "nullable": true,
+            "title": "Title of the article",
+            "description": "Title of the article."
+          },
+          "body": {
+            "type": "string",
+            "title": "Main content body of the article",
+            "description": "Main content body of the article."
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Creation time of article",
+            "description": "Creation time of article."
+          }
+        },
+        "nullable": false,
+        "required": [
+          "id",
+          "files",
+          "title",
+          "body",
+          "created_at"
+        ]
+      },
+      "IAttachmentFile": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 255,
+            "pattern": "^[a-z0-9]+$",
+            "title": "File name",
+            "description": "File name."
+          },
+          "extension": {
+            "type": "string",
+            "maxLength": 8,
+            "pattern": "^[a-z0-9]+$",
+            "nullable": true,
+            "title": "File extension",
+            "description": "File extension."
+          },
+          "url": {
+            "type": "string",
+            "title": "URL of the file",
+            "description": "URL of the file."
+          }
+        },
+        "nullable": false,
+        "required": [
+          "name",
+          "extension",
+          "url"
+        ]
+      }
+    }
+  },
+  "purpose": "swagger",
+  "surplus": false
+}
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```typescript filename="IBbsArticle.ts" showLineNumbers {9-12}
+import typia, { tags } from "typia";
+
+export interface IBbsArticle {
+  /**
+   * Primary Key.
+   */
+  id: string & tags.Format<"uuid">;
+
+  /**
+   * List of attached files.
+   */
+  files: null | IAttachmentFile[];
+
+  /**
+   * Title of the article.
+   */
+  title: null | (string & tags.MinLength<5> & tags.MaxLength<100>);
+
+  /**
+   * Main content body of the article.
+   */
+  body: string;
+
+  /**
+   * Creation time of article.
+   */
+  created_at: string & tags.Format<"date-time">;
+}
+
+export interface IAttachmentFile {
+  /**
+   * File name.
+   */
+  name: string & tags.Pattern<"^[a-z0-9]+$"> & tags.MaxLength<255>;
+
+  /**
+   * File extension.
+   */
+  extension: null | (string & tags.Pattern<"^[a-z0-9]+$"> & tags.MaxLength<8>);
+
+  /**
+   * URL of the file.
+   */
+  url: string;
+}
+```
+  </Tabs.Tab>
+</Tabs>
+
+
+
+
+## AOT Compilation
+Someone may be suspicious of the phrase "Pure TypeScript Type".
+
+> "As you know, TypeScript types do not have any tangible instance when compiled to JS. 
+>
+> However, with only these fictitious TypeScript types, how can `typia` validates types at runtime? How `typia` builds much faster JSON serializer only with these types? Are these things really possible without extra schema definition like `class-validator` or `ajv`?"
+
+My answer is: "Yes, it is possible due to `typia` analyzes your server code, and performs AOT compilation".
+
+Such compile time optimization is called AOT (Ahead of Time) compilation. And this is the secret why `typia` can do everything with only pure TypeScript type. Read below example codes, and just look how JavaScript file being compiled. Then you may understand why `typia` is much easier, and furthermore much faster.
+
+  - Runtime validator is **20,000x** faster than `class-validator`
+  - JSON serialization is **200x faster** than `class-transformer`
+
+<Tabs 
+  items={[
+    <code>IBbsArticle.ts</code>,
+    <code>assertArticle.ts</code>,
+    'Compiled JavaScript File'
+  ]}
+  defaultIndex={1}>
+  <Tabs.Tab>
+```typescript copy filenam="IBbsArticle.ts" showLineNumbers
+import typia, { tags } from "typia";
+
+export interface IBbsArticle {
+  /**
+   * Primary Key.
+   */
+  id: string & tags.Format<"uuid">;
+
+  /**
+   * List of attached files.
+   */
+  files: null | IAttachmentFile[];
+
+  /**
+   * Title of the article.
+   */
+  title: null | (string & tags.MinLength<5> & tags.MaxLength<100>);
+
+  /**
+   * Main content body of the article.
+   */
+  body: string;
+
+  /**
+   * Creation time of article.
+   */
+  created_at: string & tags.Format<"date-time">;
+}
+
+export interface IAttachmentFile {
+  /**
+   * File name.
+   */
+  name: string & tags.Pattern<"^[a-z0-9]+$"> & tags.MaxLength<255>;
+
+  /**
+   * File extension.
+   */
+  extension: null | (string & tags.Pattern<"^[a-z0-9]+$"> & tags.MaxLength<8>);
+
+  /**
+   * URL of the file.
+   */
+  url: string;
+}
+```
+    </Tabs.Tab>
+    <Tabs.Tab>
+```typescript filename="assertArticle.ts" showLineNumbers
+import typia from "typia";
+
+import { IBbsArticle } from "./IBbsArticle";
+
+export const assertArticle = typia.createAssert<IBbsArticle>();
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```javascript filename="assertArticle.js" showLineNumbers
+import * as __typia_transform__isFormatUuid from "typia/lib/internal/_isFormatUuid.js";
+import * as __typia_transform__isFormatDateTime from "typia/lib/internal/_isFormatDateTime.js";
+import * as __typia_transform__assertGuard from "typia/lib/internal/_assertGuard.js";
+import typia from "typia";
+export const assertArticle = (() => {
+  const _io0 = (input) =>
+    "string" === typeof input.id &&
+    __typia_transform__isFormatUuid._isFormatUuid(input.id) &&
+    (null === input.files ||
+      (Array.isArray(input.files) &&
+        input.files.every(
+          (elem) => "object" === typeof elem && null !== elem && _io1(elem),
+        ))) &&
+    (null === input.title ||
+      ("string" === typeof input.title &&
+        5 <= input.title.length &&
+        input.title.length <= 100)) &&
+    "string" === typeof input.body &&
+    "string" === typeof input.created_at &&
+    __typia_transform__isFormatDateTime._isFormatDateTime(input.created_at);
+  const _io1 = (input) =>
+    "string" === typeof input.name &&
+    RegExp("^[a-z0-9]+$").test(input.name) &&
+    input.name.length <= 255 &&
+    (null === input.extension ||
+      ("string" === typeof input.extension &&
+        RegExp("^[a-z0-9]+$").test(input.extension) &&
+        input.extension.length <= 8)) &&
+    "string" === typeof input.url;
+  const _ao0 = (input, _path, _exceptionable = true) =>
+    (("string" === typeof input.id &&
+      (__typia_transform__isFormatUuid._isFormatUuid(input.id) ||
+        __typia_transform__assertGuard._assertGuard(
+          _exceptionable,
+          {
+            method: "typia.createAssert",
+            path: _path + ".id",
+            expected: 'string & Format<"uuid">',
+            value: input.id,
+          },
+          _errorFactory,
+        ))) ||
+      __typia_transform__assertGuard._assertGuard(
+        _exceptionable,
+        {
+          method: "typia.createAssert",
+          path: _path + ".id",
+          expected: '(string & Format<"uuid">)',
+          value: input.id,
+        },
+        _errorFactory,
+      )) &&
+    (null === input.files ||
+      ((Array.isArray(input.files) ||
+        __typia_transform__assertGuard._assertGuard(
+          _exceptionable,
+          {
+            method: "typia.createAssert",
+            path: _path + ".files",
+            expected: "(Array<IAttachmentFile> | null)",
+            value: input.files,
+          },
+          _errorFactory,
+        )) &&
+        input.files.every(
+          (elem, _index2) =>
+            ((("object" === typeof elem && null !== elem) ||
+              __typia_transform__assertGuard._assertGuard(
+                _exceptionable,
+                {
+                  method: "typia.createAssert",
+                  path: _path + ".files[" + _index2 + "]",
+                  expected: "IAttachmentFile",
+                  value: elem,
+                },
+                _errorFactory,
+              )) &&
+              _ao1(
+                elem,
+                _path + ".files[" + _index2 + "]",
+                true && _exceptionable,
+              )) ||
+            __typia_transform__assertGuard._assertGuard(
+              _exceptionable,
+              {
+                method: "typia.createAssert",
+                path: _path + ".files[" + _index2 + "]",
+                expected: "IAttachmentFile",
+                value: elem,
+              },
+              _errorFactory,
+            ),
+        )) ||
+      __typia_transform__assertGuard._assertGuard(
+        _exceptionable,
+        {
+          method: "typia.createAssert",
+          path: _path + ".files",
+          expected: "(Array<IAttachmentFile> | null)",
+          value: input.files,
+        },
+        _errorFactory,
+      )) &&
+    (null === input.title ||
+      ("string" === typeof input.title &&
+        (5 <= input.title.length ||
+          __typia_transform__assertGuard._assertGuard(
+            _exceptionable,
+            {
+              method: "typia.createAssert",
+              path: _path + ".title",
+              expected: "string & MinLength<5>",
+              value: input.title,
+            },
+            _errorFactory,
+          )) &&
+        (input.title.length <= 100 ||
+          __typia_transform__assertGuard._assertGuard(
+            _exceptionable,
+            {
+              method: "typia.createAssert",
+              path: _path + ".title",
+              expected: "string & MaxLength<100>",
+              value: input.title,
+            },
+            _errorFactory,
+          ))) ||
+      __typia_transform__assertGuard._assertGuard(
+        _exceptionable,
+        {
+          method: "typia.createAssert",
+          path: _path + ".title",
+          expected: "((string & MinLength<5> & MaxLength<100>) | null)",
+          value: input.title,
+        },
+        _errorFactory,
+      )) &&
+    ("string" === typeof input.body ||
+      __typia_transform__assertGuard._assertGuard(
+        _exceptionable,
+        {
+          method: "typia.createAssert",
+          path: _path + ".body",
+          expected: "string",
+          value: input.body,
+        },
+        _errorFactory,
+      )) &&
+    (("string" === typeof input.created_at &&
+      (__typia_transform__isFormatDateTime._isFormatDateTime(
+        input.created_at,
+      ) ||
+        __typia_transform__assertGuard._assertGuard(
+          _exceptionable,
+          {
+            method: "typia.createAssert",
+            path: _path + ".created_at",
+            expected: 'string & Format<"date-time">',
+            value: input.created_at,
+          },
+          _errorFactory,
+        ))) ||
+      __typia_transform__assertGuard._assertGuard(
+        _exceptionable,
+        {
+          method: "typia.createAssert",
+          path: _path + ".created_at",
+          expected: '(string & Format<"date-time">)',
+          value: input.created_at,
+        },
+        _errorFactory,
+      ));
+  const _ao1 = (input, _path, _exceptionable = true) =>
+    (("string" === typeof input.name &&
+      (RegExp("^[a-z0-9]+$").test(input.name) ||
+        __typia_transform__assertGuard._assertGuard(
+          _exceptionable,
+          {
+            method: "typia.createAssert",
+            path: _path + ".name",
+            expected: 'string & Pattern<"^[a-z0-9]+$">',
+            value: input.name,
+          },
+          _errorFactory,
+        )) &&
+      (input.name.length <= 255 ||
+        __typia_transform__assertGuard._assertGuard(
+          _exceptionable,
+          {
+            method: "typia.createAssert",
+            path: _path + ".name",
+            expected: "string & MaxLength<255>",
+            value: input.name,
+          },
+          _errorFactory,
+        ))) ||
+      __typia_transform__assertGuard._assertGuard(
+        _exceptionable,
+        {
+          method: "typia.createAssert",
+          path: _path + ".name",
+          expected: '(string & Pattern<"^[a-z0-9]+$"> & MaxLength<255>)',
+          value: input.name,
+        },
+        _errorFactory,
+      )) &&
+    (null === input.extension ||
+      ("string" === typeof input.extension &&
+        (RegExp("^[a-z0-9]+$").test(input.extension) ||
+          __typia_transform__assertGuard._assertGuard(
+            _exceptionable,
+            {
+              method: "typia.createAssert",
+              path: _path + ".extension",
+              expected: 'string & Pattern<"^[a-z0-9]+$">',
+              value: input.extension,
+            },
+            _errorFactory,
+          )) &&
+        (input.extension.length <= 8 ||
+          __typia_transform__assertGuard._assertGuard(
+            _exceptionable,
+            {
+              method: "typia.createAssert",
+              path: _path + ".extension",
+              expected: "string & MaxLength<8>",
+              value: input.extension,
+            },
+            _errorFactory,
+          ))) ||
+      __typia_transform__assertGuard._assertGuard(
+        _exceptionable,
+        {
+          method: "typia.createAssert",
+          path: _path + ".extension",
+          expected: '((string & Pattern<"^[a-z0-9]+$"> & MaxLength<8>) | null)',
+          value: input.extension,
+        },
+        _errorFactory,
+      )) &&
+    ("string" === typeof input.url ||
+      __typia_transform__assertGuard._assertGuard(
+        _exceptionable,
+        {
+          method: "typia.createAssert",
+          path: _path + ".url",
+          expected: "string",
+          value: input.url,
+        },
+        _errorFactory,
+      ));
+  const __is = (input) =>
+    "object" === typeof input && null !== input && _io0(input);
+  let _errorFactory;
+  return (input, errorFactory) => {
+    if (false === __is(input)) {
+      _errorFactory = errorFactory;
+      ((input, _path, _exceptionable = true) =>
+        ((("object" === typeof input && null !== input) ||
+          __typia_transform__assertGuard._assertGuard(
+            true,
+            {
+              method: "typia.createAssert",
+              path: _path + "",
+              expected: "IBbsArticle",
+              value: input,
+            },
+            _errorFactory,
+          )) &&
+          _ao0(input, _path + "", true)) ||
+        __typia_transform__assertGuard._assertGuard(
+          true,
+          {
+            method: "typia.createAssert",
+            path: _path + "",
+            expected: "IBbsArticle",
+            value: input,
+          },
+          _errorFactory,
+        ))(input, "$input", true);
+    }
+    return input;
+  };
+})();
+```
+  </Tabs.Tab>
+</Tabs>
+
+![Assert Function Benchmark](https://github.com/samchon/typia/raw/master/benchmark/results/AMD%20Ryzen%209%207940HS%20w%20Radeon%20780M%20Graphics/images/assert.svg)
+
+> Measured on [AMD Ryzen 9 7940HS, Rog Flow x13](https://github.com/samchon/typia/tree/master/benchmark/results/AMD%20Ryzen%209%207940HS%20w%20Radeon%20780M%20Graphics#assert)

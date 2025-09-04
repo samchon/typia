@@ -4,7 +4,10 @@ typia.llm.schema<
   {
     dictionary: Record<string, string>;
   },
-  "chatgpt"
+  "chatgpt",
+  {
+    strict: true;
+  }
 >({});
 typia.llm.parameters<
   {
@@ -12,15 +15,21 @@ typia.llm.parameters<
       dictionary: Record<string, string>;
     };
   },
-  "chatgpt"
+  "chatgpt",
+  {
+    strict: true;
+  }
 >();
 typia.llm.application<
   {
-    inser(props: {
+    insert(props: {
       input: {
         dictionary: Record<string, string>;
       };
     }): void;
   },
-  "chatgpt"
+  "chatgpt",
+  {
+    strict: true;
+  }
 >();

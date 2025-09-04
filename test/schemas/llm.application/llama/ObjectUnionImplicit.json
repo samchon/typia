@@ -1,7 +1,7 @@
 {
   "model": "llama",
   "options": {
-    "reference": false,
+    "reference": true,
     "separate": null
   },
   "functions": [
@@ -11,614 +11,281 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "array",
-            "items": {
-              "oneOf": [
-                {
-                  "type": "object",
-                  "properties": {
-                    "x": {
-                      "type": "number"
-                    },
-                    "y": {
-                      "type": "number"
-                    },
-                    "slope": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "number"
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "x",
-                    "y",
-                    "slope"
-                  ]
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "p1": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        },
-                        "slope": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y",
-                        "slope"
-                      ]
-                    },
-                    "p2": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        },
-                        "slope": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y",
-                        "slope"
-                      ]
-                    },
-                    "width": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "number"
-                        }
-                      ]
-                    },
-                    "distance": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "number"
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "p1",
-                    "p2",
-                    "width",
-                    "distance"
-                  ]
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "p1": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        },
-                        "slope": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y",
-                        "slope"
-                      ]
-                    },
-                    "p2": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        },
-                        "slope": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y",
-                        "slope"
-                      ]
-                    },
-                    "p3": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        },
-                        "slope": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y",
-                        "slope"
-                      ]
-                    },
-                    "width": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "number"
-                        }
-                      ]
-                    },
-                    "height": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "number"
-                        }
-                      ]
-                    },
-                    "area": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "number"
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "p1",
-                    "p2",
-                    "p3",
-                    "width",
-                    "height",
-                    "area"
-                  ]
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "p1": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        },
-                        "slope": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y",
-                        "slope"
-                      ]
-                    },
-                    "p2": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        },
-                        "slope": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y",
-                        "slope"
-                      ]
-                    },
-                    "p3": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        },
-                        "slope": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y",
-                        "slope"
-                      ]
-                    },
-                    "p4": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        },
-                        "slope": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y",
-                        "slope"
-                      ]
-                    },
-                    "width": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "number"
-                        }
-                      ]
-                    },
-                    "height": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "number"
-                        }
-                      ]
-                    },
-                    "area": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "number"
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "p1",
-                    "p2",
-                    "p3",
-                    "p4",
-                    "width",
-                    "height",
-                    "area"
-                  ]
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "points": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "x": {
-                            "type": "number"
-                          },
-                          "y": {
-                            "type": "number"
-                          },
-                          "slope": {
-                            "oneOf": [
-                              {
-                                "type": "null"
-                              },
-                              {
-                                "type": "number"
-                              }
-                            ]
-                          }
-                        },
-                        "required": [
-                          "x",
-                          "y",
-                          "slope"
-                        ]
-                      }
-                    },
-                    "length": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "number"
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "points",
-                    "length"
-                  ]
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "outer": {
-                      "type": "object",
-                      "properties": {
-                        "points": {
-                          "type": "array",
-                          "items": {
-                            "type": "object",
-                            "properties": {
-                              "x": {
-                                "type": "number"
-                              },
-                              "y": {
-                                "type": "number"
-                              },
-                              "slope": {
-                                "oneOf": [
-                                  {
-                                    "type": "null"
-                                  },
-                                  {
-                                    "type": "number"
-                                  }
-                                ]
-                              }
-                            },
-                            "required": [
-                              "x",
-                              "y",
-                              "slope"
-                            ]
-                          }
-                        },
-                        "length": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "points",
-                        "length"
-                      ]
-                    },
-                    "inner": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "points": {
-                            "type": "array",
-                            "items": {
-                              "type": "object",
-                              "properties": {
-                                "x": {
-                                  "type": "number"
-                                },
-                                "y": {
-                                  "type": "number"
-                                },
-                                "slope": {
-                                  "oneOf": [
-                                    {
-                                      "type": "null"
-                                    },
-                                    {
-                                      "type": "number"
-                                    }
-                                  ]
-                                }
-                              },
-                              "required": [
-                                "x",
-                                "y",
-                                "slope"
-                              ]
-                            }
-                          },
-                          "length": {
-                            "oneOf": [
-                              {
-                                "type": "null"
-                              },
-                              {
-                                "type": "number"
-                              }
-                            ]
-                          }
-                        },
-                        "required": [
-                          "points",
-                          "length"
-                        ]
-                      }
-                    },
-                    "area": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "number"
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "outer",
-                    "inner",
-                    "area"
-                  ]
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "radius": {
-                      "type": "number"
-                    },
-                    "centroid": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        },
-                        "slope": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y",
-                        "slope"
-                      ]
-                    },
-                    "area": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "number"
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "radius",
-                    "centroid",
-                    "area"
-                  ]
-                }
-              ]
-            }
+            "$ref": "#/$defs/ObjectUnionImplicit"
           }
         },
         "required": [
           "first"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "strict": true
+        "$defs": {
+          "ObjectUnionImplicit": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/ObjectUnionImplicit.IPoint"
+                },
+                {
+                  "$ref": "#/$defs/ObjectUnionImplicit.ILine"
+                },
+                {
+                  "$ref": "#/$defs/ObjectUnionImplicit.ITriangle"
+                },
+                {
+                  "$ref": "#/$defs/ObjectUnionImplicit.IRectangle"
+                },
+                {
+                  "$ref": "#/$defs/ObjectUnionImplicit.IPolyline"
+                },
+                {
+                  "$ref": "#/$defs/ObjectUnionImplicit.IPolygon"
+                },
+                {
+                  "$ref": "#/$defs/ObjectUnionImplicit.ICircle"
+                }
+              ]
+            }
+          },
+          "ObjectUnionImplicit.IPoint": {
+            "type": "object",
+            "properties": {
+              "x": {
+                "type": "number"
+              },
+              "y": {
+                "type": "number"
+              },
+              "slope": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "x",
+              "y"
+            ]
+          },
+          "ObjectUnionImplicit.ILine": {
+            "type": "object",
+            "properties": {
+              "p1": {
+                "$ref": "#/$defs/ObjectUnionImplicit.IPoint"
+              },
+              "p2": {
+                "$ref": "#/$defs/ObjectUnionImplicit.IPoint"
+              },
+              "width": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ]
+              },
+              "distance": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "p1",
+              "p2"
+            ]
+          },
+          "ObjectUnionImplicit.ITriangle": {
+            "type": "object",
+            "properties": {
+              "p1": {
+                "$ref": "#/$defs/ObjectUnionImplicit.IPoint"
+              },
+              "p2": {
+                "$ref": "#/$defs/ObjectUnionImplicit.IPoint"
+              },
+              "p3": {
+                "$ref": "#/$defs/ObjectUnionImplicit.IPoint"
+              },
+              "width": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ]
+              },
+              "height": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ]
+              },
+              "area": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "p1",
+              "p2",
+              "p3"
+            ]
+          },
+          "ObjectUnionImplicit.IRectangle": {
+            "type": "object",
+            "properties": {
+              "p1": {
+                "$ref": "#/$defs/ObjectUnionImplicit.IPoint"
+              },
+              "p2": {
+                "$ref": "#/$defs/ObjectUnionImplicit.IPoint"
+              },
+              "p3": {
+                "$ref": "#/$defs/ObjectUnionImplicit.IPoint"
+              },
+              "p4": {
+                "$ref": "#/$defs/ObjectUnionImplicit.IPoint"
+              },
+              "width": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ]
+              },
+              "height": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ]
+              },
+              "area": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "p1",
+              "p2",
+              "p3",
+              "p4"
+            ]
+          },
+          "ObjectUnionImplicit.IPolyline": {
+            "type": "object",
+            "properties": {
+              "points": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ObjectUnionImplicit.IPoint"
+                }
+              },
+              "length": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "points"
+            ]
+          },
+          "ObjectUnionImplicit.IPolygon": {
+            "type": "object",
+            "properties": {
+              "outer": {
+                "$ref": "#/$defs/ObjectUnionImplicit.IPolyline"
+              },
+              "inner": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ObjectUnionImplicit.IPolyline"
+                }
+              },
+              "area": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "outer"
+            ]
+          },
+          "ObjectUnionImplicit.ICircle": {
+            "type": "object",
+            "properties": {
+              "radius": {
+                "type": "number"
+              },
+              "centroid": {
+                "$ref": "#/$defs/ObjectUnionImplicit.IPoint"
+              },
+              "area": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "radius"
+            ]
+          }
+        }
+      }
     },
     {
       "name": "reduce",
@@ -626,605 +293,7 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "array",
-            "items": {
-              "oneOf": [
-                {
-                  "type": "object",
-                  "properties": {
-                    "x": {
-                      "type": "number"
-                    },
-                    "y": {
-                      "type": "number"
-                    },
-                    "slope": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "number"
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "x",
-                    "y",
-                    "slope"
-                  ]
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "p1": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        },
-                        "slope": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y",
-                        "slope"
-                      ]
-                    },
-                    "p2": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        },
-                        "slope": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y",
-                        "slope"
-                      ]
-                    },
-                    "width": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "number"
-                        }
-                      ]
-                    },
-                    "distance": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "number"
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "p1",
-                    "p2",
-                    "width",
-                    "distance"
-                  ]
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "p1": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        },
-                        "slope": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y",
-                        "slope"
-                      ]
-                    },
-                    "p2": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        },
-                        "slope": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y",
-                        "slope"
-                      ]
-                    },
-                    "p3": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        },
-                        "slope": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y",
-                        "slope"
-                      ]
-                    },
-                    "width": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "number"
-                        }
-                      ]
-                    },
-                    "height": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "number"
-                        }
-                      ]
-                    },
-                    "area": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "number"
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "p1",
-                    "p2",
-                    "p3",
-                    "width",
-                    "height",
-                    "area"
-                  ]
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "p1": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        },
-                        "slope": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y",
-                        "slope"
-                      ]
-                    },
-                    "p2": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        },
-                        "slope": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y",
-                        "slope"
-                      ]
-                    },
-                    "p3": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        },
-                        "slope": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y",
-                        "slope"
-                      ]
-                    },
-                    "p4": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        },
-                        "slope": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y",
-                        "slope"
-                      ]
-                    },
-                    "width": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "number"
-                        }
-                      ]
-                    },
-                    "height": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "number"
-                        }
-                      ]
-                    },
-                    "area": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "number"
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "p1",
-                    "p2",
-                    "p3",
-                    "p4",
-                    "width",
-                    "height",
-                    "area"
-                  ]
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "points": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "x": {
-                            "type": "number"
-                          },
-                          "y": {
-                            "type": "number"
-                          },
-                          "slope": {
-                            "oneOf": [
-                              {
-                                "type": "null"
-                              },
-                              {
-                                "type": "number"
-                              }
-                            ]
-                          }
-                        },
-                        "required": [
-                          "x",
-                          "y",
-                          "slope"
-                        ]
-                      }
-                    },
-                    "length": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "number"
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "points",
-                    "length"
-                  ]
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "outer": {
-                      "type": "object",
-                      "properties": {
-                        "points": {
-                          "type": "array",
-                          "items": {
-                            "type": "object",
-                            "properties": {
-                              "x": {
-                                "type": "number"
-                              },
-                              "y": {
-                                "type": "number"
-                              },
-                              "slope": {
-                                "oneOf": [
-                                  {
-                                    "type": "null"
-                                  },
-                                  {
-                                    "type": "number"
-                                  }
-                                ]
-                              }
-                            },
-                            "required": [
-                              "x",
-                              "y",
-                              "slope"
-                            ]
-                          }
-                        },
-                        "length": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "points",
-                        "length"
-                      ]
-                    },
-                    "inner": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "points": {
-                            "type": "array",
-                            "items": {
-                              "type": "object",
-                              "properties": {
-                                "x": {
-                                  "type": "number"
-                                },
-                                "y": {
-                                  "type": "number"
-                                },
-                                "slope": {
-                                  "oneOf": [
-                                    {
-                                      "type": "null"
-                                    },
-                                    {
-                                      "type": "number"
-                                    }
-                                  ]
-                                }
-                              },
-                              "required": [
-                                "x",
-                                "y",
-                                "slope"
-                              ]
-                            }
-                          },
-                          "length": {
-                            "oneOf": [
-                              {
-                                "type": "null"
-                              },
-                              {
-                                "type": "number"
-                              }
-                            ]
-                          }
-                        },
-                        "required": [
-                          "points",
-                          "length"
-                        ]
-                      }
-                    },
-                    "area": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "number"
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "outer",
-                    "inner",
-                    "area"
-                  ]
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "radius": {
-                      "type": "number"
-                    },
-                    "centroid": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        },
-                        "slope": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y",
-                        "slope"
-                      ]
-                    },
-                    "area": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "number"
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "radius",
-                    "centroid",
-                    "area"
-                  ]
-                }
-              ]
-            }
+            "$ref": "#/$defs/ObjectUnionImplicit"
           },
           "second": {
             "oneOf": [
@@ -1232,605 +301,7 @@
                 "type": "null"
               },
               {
-                "type": "array",
-                "items": {
-                  "oneOf": [
-                    {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        },
-                        "slope": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y",
-                        "slope"
-                      ]
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "p1": {
-                          "type": "object",
-                          "properties": {
-                            "x": {
-                              "type": "number"
-                            },
-                            "y": {
-                              "type": "number"
-                            },
-                            "slope": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "number"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "x",
-                            "y",
-                            "slope"
-                          ]
-                        },
-                        "p2": {
-                          "type": "object",
-                          "properties": {
-                            "x": {
-                              "type": "number"
-                            },
-                            "y": {
-                              "type": "number"
-                            },
-                            "slope": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "number"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "x",
-                            "y",
-                            "slope"
-                          ]
-                        },
-                        "width": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        },
-                        "distance": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "p1",
-                        "p2",
-                        "width",
-                        "distance"
-                      ]
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "p1": {
-                          "type": "object",
-                          "properties": {
-                            "x": {
-                              "type": "number"
-                            },
-                            "y": {
-                              "type": "number"
-                            },
-                            "slope": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "number"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "x",
-                            "y",
-                            "slope"
-                          ]
-                        },
-                        "p2": {
-                          "type": "object",
-                          "properties": {
-                            "x": {
-                              "type": "number"
-                            },
-                            "y": {
-                              "type": "number"
-                            },
-                            "slope": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "number"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "x",
-                            "y",
-                            "slope"
-                          ]
-                        },
-                        "p3": {
-                          "type": "object",
-                          "properties": {
-                            "x": {
-                              "type": "number"
-                            },
-                            "y": {
-                              "type": "number"
-                            },
-                            "slope": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "number"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "x",
-                            "y",
-                            "slope"
-                          ]
-                        },
-                        "width": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        },
-                        "height": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        },
-                        "area": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "p1",
-                        "p2",
-                        "p3",
-                        "width",
-                        "height",
-                        "area"
-                      ]
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "p1": {
-                          "type": "object",
-                          "properties": {
-                            "x": {
-                              "type": "number"
-                            },
-                            "y": {
-                              "type": "number"
-                            },
-                            "slope": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "number"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "x",
-                            "y",
-                            "slope"
-                          ]
-                        },
-                        "p2": {
-                          "type": "object",
-                          "properties": {
-                            "x": {
-                              "type": "number"
-                            },
-                            "y": {
-                              "type": "number"
-                            },
-                            "slope": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "number"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "x",
-                            "y",
-                            "slope"
-                          ]
-                        },
-                        "p3": {
-                          "type": "object",
-                          "properties": {
-                            "x": {
-                              "type": "number"
-                            },
-                            "y": {
-                              "type": "number"
-                            },
-                            "slope": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "number"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "x",
-                            "y",
-                            "slope"
-                          ]
-                        },
-                        "p4": {
-                          "type": "object",
-                          "properties": {
-                            "x": {
-                              "type": "number"
-                            },
-                            "y": {
-                              "type": "number"
-                            },
-                            "slope": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "number"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "x",
-                            "y",
-                            "slope"
-                          ]
-                        },
-                        "width": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        },
-                        "height": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        },
-                        "area": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "p1",
-                        "p2",
-                        "p3",
-                        "p4",
-                        "width",
-                        "height",
-                        "area"
-                      ]
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "points": {
-                          "type": "array",
-                          "items": {
-                            "type": "object",
-                            "properties": {
-                              "x": {
-                                "type": "number"
-                              },
-                              "y": {
-                                "type": "number"
-                              },
-                              "slope": {
-                                "oneOf": [
-                                  {
-                                    "type": "null"
-                                  },
-                                  {
-                                    "type": "number"
-                                  }
-                                ]
-                              }
-                            },
-                            "required": [
-                              "x",
-                              "y",
-                              "slope"
-                            ]
-                          }
-                        },
-                        "length": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "points",
-                        "length"
-                      ]
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "outer": {
-                          "type": "object",
-                          "properties": {
-                            "points": {
-                              "type": "array",
-                              "items": {
-                                "type": "object",
-                                "properties": {
-                                  "x": {
-                                    "type": "number"
-                                  },
-                                  "y": {
-                                    "type": "number"
-                                  },
-                                  "slope": {
-                                    "oneOf": [
-                                      {
-                                        "type": "null"
-                                      },
-                                      {
-                                        "type": "number"
-                                      }
-                                    ]
-                                  }
-                                },
-                                "required": [
-                                  "x",
-                                  "y",
-                                  "slope"
-                                ]
-                              }
-                            },
-                            "length": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "number"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "points",
-                            "length"
-                          ]
-                        },
-                        "inner": {
-                          "type": "array",
-                          "items": {
-                            "type": "object",
-                            "properties": {
-                              "points": {
-                                "type": "array",
-                                "items": {
-                                  "type": "object",
-                                  "properties": {
-                                    "x": {
-                                      "type": "number"
-                                    },
-                                    "y": {
-                                      "type": "number"
-                                    },
-                                    "slope": {
-                                      "oneOf": [
-                                        {
-                                          "type": "null"
-                                        },
-                                        {
-                                          "type": "number"
-                                        }
-                                      ]
-                                    }
-                                  },
-                                  "required": [
-                                    "x",
-                                    "y",
-                                    "slope"
-                                  ]
-                                }
-                              },
-                              "length": {
-                                "oneOf": [
-                                  {
-                                    "type": "null"
-                                  },
-                                  {
-                                    "type": "number"
-                                  }
-                                ]
-                              }
-                            },
-                            "required": [
-                              "points",
-                              "length"
-                            ]
-                          }
-                        },
-                        "area": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "outer",
-                        "inner",
-                        "area"
-                      ]
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "radius": {
-                          "type": "number"
-                        },
-                        "centroid": {
-                          "type": "object",
-                          "properties": {
-                            "x": {
-                              "type": "number"
-                            },
-                            "y": {
-                              "type": "number"
-                            },
-                            "slope": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "number"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "x",
-                            "y",
-                            "slope"
-                          ]
-                        },
-                        "area": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "radius",
-                        "centroid",
-                        "area"
-                      ]
-                    }
-                  ]
-                }
+                "$ref": "#/$defs/ObjectUnionImplicit"
               }
             ]
           }
@@ -1840,610 +311,277 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "output": {
-        "type": "array",
-        "items": {
-          "oneOf": [
-            {
-              "type": "object",
-              "properties": {
-                "x": {
-                  "type": "number"
+        "$defs": {
+          "ObjectUnionImplicit": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/ObjectUnionImplicit.IPoint"
                 },
-                "y": {
-                  "type": "number"
+                {
+                  "$ref": "#/$defs/ObjectUnionImplicit.ILine"
                 },
-                "slope": {
-                  "oneOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "number"
-                    }
-                  ]
+                {
+                  "$ref": "#/$defs/ObjectUnionImplicit.ITriangle"
+                },
+                {
+                  "$ref": "#/$defs/ObjectUnionImplicit.IRectangle"
+                },
+                {
+                  "$ref": "#/$defs/ObjectUnionImplicit.IPolyline"
+                },
+                {
+                  "$ref": "#/$defs/ObjectUnionImplicit.IPolygon"
+                },
+                {
+                  "$ref": "#/$defs/ObjectUnionImplicit.ICircle"
                 }
-              },
-              "required": [
-                "x",
-                "y",
-                "slope"
-              ]
-            },
-            {
-              "type": "object",
-              "properties": {
-                "p1": {
-                  "type": "object",
-                  "properties": {
-                    "x": {
-                      "type": "number"
-                    },
-                    "y": {
-                      "type": "number"
-                    },
-                    "slope": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "number"
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "x",
-                    "y",
-                    "slope"
-                  ]
-                },
-                "p2": {
-                  "type": "object",
-                  "properties": {
-                    "x": {
-                      "type": "number"
-                    },
-                    "y": {
-                      "type": "number"
-                    },
-                    "slope": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "number"
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "x",
-                    "y",
-                    "slope"
-                  ]
-                },
-                "width": {
-                  "oneOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "number"
-                    }
-                  ]
-                },
-                "distance": {
-                  "oneOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "number"
-                    }
-                  ]
-                }
-              },
-              "required": [
-                "p1",
-                "p2",
-                "width",
-                "distance"
-              ]
-            },
-            {
-              "type": "object",
-              "properties": {
-                "p1": {
-                  "type": "object",
-                  "properties": {
-                    "x": {
-                      "type": "number"
-                    },
-                    "y": {
-                      "type": "number"
-                    },
-                    "slope": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "number"
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "x",
-                    "y",
-                    "slope"
-                  ]
-                },
-                "p2": {
-                  "type": "object",
-                  "properties": {
-                    "x": {
-                      "type": "number"
-                    },
-                    "y": {
-                      "type": "number"
-                    },
-                    "slope": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "number"
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "x",
-                    "y",
-                    "slope"
-                  ]
-                },
-                "p3": {
-                  "type": "object",
-                  "properties": {
-                    "x": {
-                      "type": "number"
-                    },
-                    "y": {
-                      "type": "number"
-                    },
-                    "slope": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "number"
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "x",
-                    "y",
-                    "slope"
-                  ]
-                },
-                "width": {
-                  "oneOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "number"
-                    }
-                  ]
-                },
-                "height": {
-                  "oneOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "number"
-                    }
-                  ]
-                },
-                "area": {
-                  "oneOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "number"
-                    }
-                  ]
-                }
-              },
-              "required": [
-                "p1",
-                "p2",
-                "p3",
-                "width",
-                "height",
-                "area"
-              ]
-            },
-            {
-              "type": "object",
-              "properties": {
-                "p1": {
-                  "type": "object",
-                  "properties": {
-                    "x": {
-                      "type": "number"
-                    },
-                    "y": {
-                      "type": "number"
-                    },
-                    "slope": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "number"
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "x",
-                    "y",
-                    "slope"
-                  ]
-                },
-                "p2": {
-                  "type": "object",
-                  "properties": {
-                    "x": {
-                      "type": "number"
-                    },
-                    "y": {
-                      "type": "number"
-                    },
-                    "slope": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "number"
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "x",
-                    "y",
-                    "slope"
-                  ]
-                },
-                "p3": {
-                  "type": "object",
-                  "properties": {
-                    "x": {
-                      "type": "number"
-                    },
-                    "y": {
-                      "type": "number"
-                    },
-                    "slope": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "number"
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "x",
-                    "y",
-                    "slope"
-                  ]
-                },
-                "p4": {
-                  "type": "object",
-                  "properties": {
-                    "x": {
-                      "type": "number"
-                    },
-                    "y": {
-                      "type": "number"
-                    },
-                    "slope": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "number"
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "x",
-                    "y",
-                    "slope"
-                  ]
-                },
-                "width": {
-                  "oneOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "number"
-                    }
-                  ]
-                },
-                "height": {
-                  "oneOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "number"
-                    }
-                  ]
-                },
-                "area": {
-                  "oneOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "number"
-                    }
-                  ]
-                }
-              },
-              "required": [
-                "p1",
-                "p2",
-                "p3",
-                "p4",
-                "width",
-                "height",
-                "area"
-              ]
-            },
-            {
-              "type": "object",
-              "properties": {
-                "points": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "x": {
-                        "type": "number"
-                      },
-                      "y": {
-                        "type": "number"
-                      },
-                      "slope": {
-                        "oneOf": [
-                          {
-                            "type": "null"
-                          },
-                          {
-                            "type": "number"
-                          }
-                        ]
-                      }
-                    },
-                    "required": [
-                      "x",
-                      "y",
-                      "slope"
-                    ]
-                  }
-                },
-                "length": {
-                  "oneOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "number"
-                    }
-                  ]
-                }
-              },
-              "required": [
-                "points",
-                "length"
-              ]
-            },
-            {
-              "type": "object",
-              "properties": {
-                "outer": {
-                  "type": "object",
-                  "properties": {
-                    "points": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "x": {
-                            "type": "number"
-                          },
-                          "y": {
-                            "type": "number"
-                          },
-                          "slope": {
-                            "oneOf": [
-                              {
-                                "type": "null"
-                              },
-                              {
-                                "type": "number"
-                              }
-                            ]
-                          }
-                        },
-                        "required": [
-                          "x",
-                          "y",
-                          "slope"
-                        ]
-                      }
-                    },
-                    "length": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "number"
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "points",
-                    "length"
-                  ]
-                },
-                "inner": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "points": {
-                        "type": "array",
-                        "items": {
-                          "type": "object",
-                          "properties": {
-                            "x": {
-                              "type": "number"
-                            },
-                            "y": {
-                              "type": "number"
-                            },
-                            "slope": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "number"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "x",
-                            "y",
-                            "slope"
-                          ]
-                        }
-                      },
-                      "length": {
-                        "oneOf": [
-                          {
-                            "type": "null"
-                          },
-                          {
-                            "type": "number"
-                          }
-                        ]
-                      }
-                    },
-                    "required": [
-                      "points",
-                      "length"
-                    ]
-                  }
-                },
-                "area": {
-                  "oneOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "number"
-                    }
-                  ]
-                }
-              },
-              "required": [
-                "outer",
-                "inner",
-                "area"
-              ]
-            },
-            {
-              "type": "object",
-              "properties": {
-                "radius": {
-                  "type": "number"
-                },
-                "centroid": {
-                  "type": "object",
-                  "properties": {
-                    "x": {
-                      "type": "number"
-                    },
-                    "y": {
-                      "type": "number"
-                    },
-                    "slope": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "number"
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "x",
-                    "y",
-                    "slope"
-                  ]
-                },
-                "area": {
-                  "oneOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "number"
-                    }
-                  ]
-                }
-              },
-              "required": [
-                "radius",
-                "centroid",
-                "area"
               ]
             }
-          ]
+          },
+          "ObjectUnionImplicit.IPoint": {
+            "type": "object",
+            "properties": {
+              "x": {
+                "type": "number"
+              },
+              "y": {
+                "type": "number"
+              },
+              "slope": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "x",
+              "y"
+            ]
+          },
+          "ObjectUnionImplicit.ILine": {
+            "type": "object",
+            "properties": {
+              "p1": {
+                "$ref": "#/$defs/ObjectUnionImplicit.IPoint"
+              },
+              "p2": {
+                "$ref": "#/$defs/ObjectUnionImplicit.IPoint"
+              },
+              "width": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ]
+              },
+              "distance": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "p1",
+              "p2"
+            ]
+          },
+          "ObjectUnionImplicit.ITriangle": {
+            "type": "object",
+            "properties": {
+              "p1": {
+                "$ref": "#/$defs/ObjectUnionImplicit.IPoint"
+              },
+              "p2": {
+                "$ref": "#/$defs/ObjectUnionImplicit.IPoint"
+              },
+              "p3": {
+                "$ref": "#/$defs/ObjectUnionImplicit.IPoint"
+              },
+              "width": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ]
+              },
+              "height": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ]
+              },
+              "area": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "p1",
+              "p2",
+              "p3"
+            ]
+          },
+          "ObjectUnionImplicit.IRectangle": {
+            "type": "object",
+            "properties": {
+              "p1": {
+                "$ref": "#/$defs/ObjectUnionImplicit.IPoint"
+              },
+              "p2": {
+                "$ref": "#/$defs/ObjectUnionImplicit.IPoint"
+              },
+              "p3": {
+                "$ref": "#/$defs/ObjectUnionImplicit.IPoint"
+              },
+              "p4": {
+                "$ref": "#/$defs/ObjectUnionImplicit.IPoint"
+              },
+              "width": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ]
+              },
+              "height": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ]
+              },
+              "area": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "p1",
+              "p2",
+              "p3",
+              "p4"
+            ]
+          },
+          "ObjectUnionImplicit.IPolyline": {
+            "type": "object",
+            "properties": {
+              "points": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ObjectUnionImplicit.IPoint"
+                }
+              },
+              "length": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "points"
+            ]
+          },
+          "ObjectUnionImplicit.IPolygon": {
+            "type": "object",
+            "properties": {
+              "outer": {
+                "$ref": "#/$defs/ObjectUnionImplicit.IPolyline"
+              },
+              "inner": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ObjectUnionImplicit.IPolyline"
+                }
+              },
+              "area": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "outer"
+            ]
+          },
+          "ObjectUnionImplicit.ICircle": {
+            "type": "object",
+            "properties": {
+              "radius": {
+                "type": "number"
+              },
+              "centroid": {
+                "$ref": "#/$defs/ObjectUnionImplicit.IPoint"
+              },
+              "area": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "radius"
+            ]
+          }
         }
       },
-      "strict": true
+      "output": {
+        "$ref": "#/$defs/ObjectUnionImplicit"
+      }
     },
     {
       "name": "coalesce",
@@ -2456,605 +594,7 @@
                 "type": "null"
               },
               {
-                "type": "array",
-                "items": {
-                  "oneOf": [
-                    {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        },
-                        "slope": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y",
-                        "slope"
-                      ]
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "p1": {
-                          "type": "object",
-                          "properties": {
-                            "x": {
-                              "type": "number"
-                            },
-                            "y": {
-                              "type": "number"
-                            },
-                            "slope": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "number"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "x",
-                            "y",
-                            "slope"
-                          ]
-                        },
-                        "p2": {
-                          "type": "object",
-                          "properties": {
-                            "x": {
-                              "type": "number"
-                            },
-                            "y": {
-                              "type": "number"
-                            },
-                            "slope": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "number"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "x",
-                            "y",
-                            "slope"
-                          ]
-                        },
-                        "width": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        },
-                        "distance": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "p1",
-                        "p2",
-                        "width",
-                        "distance"
-                      ]
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "p1": {
-                          "type": "object",
-                          "properties": {
-                            "x": {
-                              "type": "number"
-                            },
-                            "y": {
-                              "type": "number"
-                            },
-                            "slope": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "number"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "x",
-                            "y",
-                            "slope"
-                          ]
-                        },
-                        "p2": {
-                          "type": "object",
-                          "properties": {
-                            "x": {
-                              "type": "number"
-                            },
-                            "y": {
-                              "type": "number"
-                            },
-                            "slope": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "number"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "x",
-                            "y",
-                            "slope"
-                          ]
-                        },
-                        "p3": {
-                          "type": "object",
-                          "properties": {
-                            "x": {
-                              "type": "number"
-                            },
-                            "y": {
-                              "type": "number"
-                            },
-                            "slope": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "number"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "x",
-                            "y",
-                            "slope"
-                          ]
-                        },
-                        "width": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        },
-                        "height": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        },
-                        "area": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "p1",
-                        "p2",
-                        "p3",
-                        "width",
-                        "height",
-                        "area"
-                      ]
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "p1": {
-                          "type": "object",
-                          "properties": {
-                            "x": {
-                              "type": "number"
-                            },
-                            "y": {
-                              "type": "number"
-                            },
-                            "slope": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "number"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "x",
-                            "y",
-                            "slope"
-                          ]
-                        },
-                        "p2": {
-                          "type": "object",
-                          "properties": {
-                            "x": {
-                              "type": "number"
-                            },
-                            "y": {
-                              "type": "number"
-                            },
-                            "slope": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "number"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "x",
-                            "y",
-                            "slope"
-                          ]
-                        },
-                        "p3": {
-                          "type": "object",
-                          "properties": {
-                            "x": {
-                              "type": "number"
-                            },
-                            "y": {
-                              "type": "number"
-                            },
-                            "slope": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "number"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "x",
-                            "y",
-                            "slope"
-                          ]
-                        },
-                        "p4": {
-                          "type": "object",
-                          "properties": {
-                            "x": {
-                              "type": "number"
-                            },
-                            "y": {
-                              "type": "number"
-                            },
-                            "slope": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "number"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "x",
-                            "y",
-                            "slope"
-                          ]
-                        },
-                        "width": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        },
-                        "height": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        },
-                        "area": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "p1",
-                        "p2",
-                        "p3",
-                        "p4",
-                        "width",
-                        "height",
-                        "area"
-                      ]
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "points": {
-                          "type": "array",
-                          "items": {
-                            "type": "object",
-                            "properties": {
-                              "x": {
-                                "type": "number"
-                              },
-                              "y": {
-                                "type": "number"
-                              },
-                              "slope": {
-                                "oneOf": [
-                                  {
-                                    "type": "null"
-                                  },
-                                  {
-                                    "type": "number"
-                                  }
-                                ]
-                              }
-                            },
-                            "required": [
-                              "x",
-                              "y",
-                              "slope"
-                            ]
-                          }
-                        },
-                        "length": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "points",
-                        "length"
-                      ]
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "outer": {
-                          "type": "object",
-                          "properties": {
-                            "points": {
-                              "type": "array",
-                              "items": {
-                                "type": "object",
-                                "properties": {
-                                  "x": {
-                                    "type": "number"
-                                  },
-                                  "y": {
-                                    "type": "number"
-                                  },
-                                  "slope": {
-                                    "oneOf": [
-                                      {
-                                        "type": "null"
-                                      },
-                                      {
-                                        "type": "number"
-                                      }
-                                    ]
-                                  }
-                                },
-                                "required": [
-                                  "x",
-                                  "y",
-                                  "slope"
-                                ]
-                              }
-                            },
-                            "length": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "number"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "points",
-                            "length"
-                          ]
-                        },
-                        "inner": {
-                          "type": "array",
-                          "items": {
-                            "type": "object",
-                            "properties": {
-                              "points": {
-                                "type": "array",
-                                "items": {
-                                  "type": "object",
-                                  "properties": {
-                                    "x": {
-                                      "type": "number"
-                                    },
-                                    "y": {
-                                      "type": "number"
-                                    },
-                                    "slope": {
-                                      "oneOf": [
-                                        {
-                                          "type": "null"
-                                        },
-                                        {
-                                          "type": "number"
-                                        }
-                                      ]
-                                    }
-                                  },
-                                  "required": [
-                                    "x",
-                                    "y",
-                                    "slope"
-                                  ]
-                                }
-                              },
-                              "length": {
-                                "oneOf": [
-                                  {
-                                    "type": "null"
-                                  },
-                                  {
-                                    "type": "number"
-                                  }
-                                ]
-                              }
-                            },
-                            "required": [
-                              "points",
-                              "length"
-                            ]
-                          }
-                        },
-                        "area": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "outer",
-                        "inner",
-                        "area"
-                      ]
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "radius": {
-                          "type": "number"
-                        },
-                        "centroid": {
-                          "type": "object",
-                          "properties": {
-                            "x": {
-                              "type": "number"
-                            },
-                            "y": {
-                              "type": "number"
-                            },
-                            "slope": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "number"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "x",
-                            "y",
-                            "slope"
-                          ]
-                        },
-                        "area": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "radius",
-                        "centroid",
-                        "area"
-                      ]
-                    }
-                  ]
-                }
+                "$ref": "#/$defs/ObjectUnionImplicit"
               }
             ]
           },
@@ -3064,605 +604,7 @@
                 "type": "null"
               },
               {
-                "type": "array",
-                "items": {
-                  "oneOf": [
-                    {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        },
-                        "slope": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y",
-                        "slope"
-                      ]
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "p1": {
-                          "type": "object",
-                          "properties": {
-                            "x": {
-                              "type": "number"
-                            },
-                            "y": {
-                              "type": "number"
-                            },
-                            "slope": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "number"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "x",
-                            "y",
-                            "slope"
-                          ]
-                        },
-                        "p2": {
-                          "type": "object",
-                          "properties": {
-                            "x": {
-                              "type": "number"
-                            },
-                            "y": {
-                              "type": "number"
-                            },
-                            "slope": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "number"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "x",
-                            "y",
-                            "slope"
-                          ]
-                        },
-                        "width": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        },
-                        "distance": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "p1",
-                        "p2",
-                        "width",
-                        "distance"
-                      ]
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "p1": {
-                          "type": "object",
-                          "properties": {
-                            "x": {
-                              "type": "number"
-                            },
-                            "y": {
-                              "type": "number"
-                            },
-                            "slope": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "number"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "x",
-                            "y",
-                            "slope"
-                          ]
-                        },
-                        "p2": {
-                          "type": "object",
-                          "properties": {
-                            "x": {
-                              "type": "number"
-                            },
-                            "y": {
-                              "type": "number"
-                            },
-                            "slope": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "number"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "x",
-                            "y",
-                            "slope"
-                          ]
-                        },
-                        "p3": {
-                          "type": "object",
-                          "properties": {
-                            "x": {
-                              "type": "number"
-                            },
-                            "y": {
-                              "type": "number"
-                            },
-                            "slope": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "number"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "x",
-                            "y",
-                            "slope"
-                          ]
-                        },
-                        "width": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        },
-                        "height": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        },
-                        "area": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "p1",
-                        "p2",
-                        "p3",
-                        "width",
-                        "height",
-                        "area"
-                      ]
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "p1": {
-                          "type": "object",
-                          "properties": {
-                            "x": {
-                              "type": "number"
-                            },
-                            "y": {
-                              "type": "number"
-                            },
-                            "slope": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "number"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "x",
-                            "y",
-                            "slope"
-                          ]
-                        },
-                        "p2": {
-                          "type": "object",
-                          "properties": {
-                            "x": {
-                              "type": "number"
-                            },
-                            "y": {
-                              "type": "number"
-                            },
-                            "slope": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "number"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "x",
-                            "y",
-                            "slope"
-                          ]
-                        },
-                        "p3": {
-                          "type": "object",
-                          "properties": {
-                            "x": {
-                              "type": "number"
-                            },
-                            "y": {
-                              "type": "number"
-                            },
-                            "slope": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "number"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "x",
-                            "y",
-                            "slope"
-                          ]
-                        },
-                        "p4": {
-                          "type": "object",
-                          "properties": {
-                            "x": {
-                              "type": "number"
-                            },
-                            "y": {
-                              "type": "number"
-                            },
-                            "slope": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "number"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "x",
-                            "y",
-                            "slope"
-                          ]
-                        },
-                        "width": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        },
-                        "height": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        },
-                        "area": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "p1",
-                        "p2",
-                        "p3",
-                        "p4",
-                        "width",
-                        "height",
-                        "area"
-                      ]
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "points": {
-                          "type": "array",
-                          "items": {
-                            "type": "object",
-                            "properties": {
-                              "x": {
-                                "type": "number"
-                              },
-                              "y": {
-                                "type": "number"
-                              },
-                              "slope": {
-                                "oneOf": [
-                                  {
-                                    "type": "null"
-                                  },
-                                  {
-                                    "type": "number"
-                                  }
-                                ]
-                              }
-                            },
-                            "required": [
-                              "x",
-                              "y",
-                              "slope"
-                            ]
-                          }
-                        },
-                        "length": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "points",
-                        "length"
-                      ]
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "outer": {
-                          "type": "object",
-                          "properties": {
-                            "points": {
-                              "type": "array",
-                              "items": {
-                                "type": "object",
-                                "properties": {
-                                  "x": {
-                                    "type": "number"
-                                  },
-                                  "y": {
-                                    "type": "number"
-                                  },
-                                  "slope": {
-                                    "oneOf": [
-                                      {
-                                        "type": "null"
-                                      },
-                                      {
-                                        "type": "number"
-                                      }
-                                    ]
-                                  }
-                                },
-                                "required": [
-                                  "x",
-                                  "y",
-                                  "slope"
-                                ]
-                              }
-                            },
-                            "length": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "number"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "points",
-                            "length"
-                          ]
-                        },
-                        "inner": {
-                          "type": "array",
-                          "items": {
-                            "type": "object",
-                            "properties": {
-                              "points": {
-                                "type": "array",
-                                "items": {
-                                  "type": "object",
-                                  "properties": {
-                                    "x": {
-                                      "type": "number"
-                                    },
-                                    "y": {
-                                      "type": "number"
-                                    },
-                                    "slope": {
-                                      "oneOf": [
-                                        {
-                                          "type": "null"
-                                        },
-                                        {
-                                          "type": "number"
-                                        }
-                                      ]
-                                    }
-                                  },
-                                  "required": [
-                                    "x",
-                                    "y",
-                                    "slope"
-                                  ]
-                                }
-                              },
-                              "length": {
-                                "oneOf": [
-                                  {
-                                    "type": "null"
-                                  },
-                                  {
-                                    "type": "number"
-                                  }
-                                ]
-                              }
-                            },
-                            "required": [
-                              "points",
-                              "length"
-                            ]
-                          }
-                        },
-                        "area": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "outer",
-                        "inner",
-                        "area"
-                      ]
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "radius": {
-                          "type": "number"
-                        },
-                        "centroid": {
-                          "type": "object",
-                          "properties": {
-                            "x": {
-                              "type": "number"
-                            },
-                            "y": {
-                              "type": "number"
-                            },
-                            "slope": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "number"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "x",
-                            "y",
-                            "slope"
-                          ]
-                        },
-                        "area": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "radius",
-                        "centroid",
-                        "area"
-                      ]
-                    }
-                  ]
-                }
+                "$ref": "#/$defs/ObjectUnionImplicit"
               }
             ]
           },
@@ -3672,616 +614,283 @@
                 "type": "null"
               },
               {
-                "type": "array",
-                "items": {
-                  "oneOf": [
-                    {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        },
-                        "slope": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y",
-                        "slope"
-                      ]
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "p1": {
-                          "type": "object",
-                          "properties": {
-                            "x": {
-                              "type": "number"
-                            },
-                            "y": {
-                              "type": "number"
-                            },
-                            "slope": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "number"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "x",
-                            "y",
-                            "slope"
-                          ]
-                        },
-                        "p2": {
-                          "type": "object",
-                          "properties": {
-                            "x": {
-                              "type": "number"
-                            },
-                            "y": {
-                              "type": "number"
-                            },
-                            "slope": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "number"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "x",
-                            "y",
-                            "slope"
-                          ]
-                        },
-                        "width": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        },
-                        "distance": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "p1",
-                        "p2",
-                        "width",
-                        "distance"
-                      ]
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "p1": {
-                          "type": "object",
-                          "properties": {
-                            "x": {
-                              "type": "number"
-                            },
-                            "y": {
-                              "type": "number"
-                            },
-                            "slope": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "number"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "x",
-                            "y",
-                            "slope"
-                          ]
-                        },
-                        "p2": {
-                          "type": "object",
-                          "properties": {
-                            "x": {
-                              "type": "number"
-                            },
-                            "y": {
-                              "type": "number"
-                            },
-                            "slope": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "number"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "x",
-                            "y",
-                            "slope"
-                          ]
-                        },
-                        "p3": {
-                          "type": "object",
-                          "properties": {
-                            "x": {
-                              "type": "number"
-                            },
-                            "y": {
-                              "type": "number"
-                            },
-                            "slope": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "number"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "x",
-                            "y",
-                            "slope"
-                          ]
-                        },
-                        "width": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        },
-                        "height": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        },
-                        "area": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "p1",
-                        "p2",
-                        "p3",
-                        "width",
-                        "height",
-                        "area"
-                      ]
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "p1": {
-                          "type": "object",
-                          "properties": {
-                            "x": {
-                              "type": "number"
-                            },
-                            "y": {
-                              "type": "number"
-                            },
-                            "slope": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "number"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "x",
-                            "y",
-                            "slope"
-                          ]
-                        },
-                        "p2": {
-                          "type": "object",
-                          "properties": {
-                            "x": {
-                              "type": "number"
-                            },
-                            "y": {
-                              "type": "number"
-                            },
-                            "slope": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "number"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "x",
-                            "y",
-                            "slope"
-                          ]
-                        },
-                        "p3": {
-                          "type": "object",
-                          "properties": {
-                            "x": {
-                              "type": "number"
-                            },
-                            "y": {
-                              "type": "number"
-                            },
-                            "slope": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "number"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "x",
-                            "y",
-                            "slope"
-                          ]
-                        },
-                        "p4": {
-                          "type": "object",
-                          "properties": {
-                            "x": {
-                              "type": "number"
-                            },
-                            "y": {
-                              "type": "number"
-                            },
-                            "slope": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "number"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "x",
-                            "y",
-                            "slope"
-                          ]
-                        },
-                        "width": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        },
-                        "height": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        },
-                        "area": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "p1",
-                        "p2",
-                        "p3",
-                        "p4",
-                        "width",
-                        "height",
-                        "area"
-                      ]
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "points": {
-                          "type": "array",
-                          "items": {
-                            "type": "object",
-                            "properties": {
-                              "x": {
-                                "type": "number"
-                              },
-                              "y": {
-                                "type": "number"
-                              },
-                              "slope": {
-                                "oneOf": [
-                                  {
-                                    "type": "null"
-                                  },
-                                  {
-                                    "type": "number"
-                                  }
-                                ]
-                              }
-                            },
-                            "required": [
-                              "x",
-                              "y",
-                              "slope"
-                            ]
-                          }
-                        },
-                        "length": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "points",
-                        "length"
-                      ]
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "outer": {
-                          "type": "object",
-                          "properties": {
-                            "points": {
-                              "type": "array",
-                              "items": {
-                                "type": "object",
-                                "properties": {
-                                  "x": {
-                                    "type": "number"
-                                  },
-                                  "y": {
-                                    "type": "number"
-                                  },
-                                  "slope": {
-                                    "oneOf": [
-                                      {
-                                        "type": "null"
-                                      },
-                                      {
-                                        "type": "number"
-                                      }
-                                    ]
-                                  }
-                                },
-                                "required": [
-                                  "x",
-                                  "y",
-                                  "slope"
-                                ]
-                              }
-                            },
-                            "length": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "number"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "points",
-                            "length"
-                          ]
-                        },
-                        "inner": {
-                          "type": "array",
-                          "items": {
-                            "type": "object",
-                            "properties": {
-                              "points": {
-                                "type": "array",
-                                "items": {
-                                  "type": "object",
-                                  "properties": {
-                                    "x": {
-                                      "type": "number"
-                                    },
-                                    "y": {
-                                      "type": "number"
-                                    },
-                                    "slope": {
-                                      "oneOf": [
-                                        {
-                                          "type": "null"
-                                        },
-                                        {
-                                          "type": "number"
-                                        }
-                                      ]
-                                    }
-                                  },
-                                  "required": [
-                                    "x",
-                                    "y",
-                                    "slope"
-                                  ]
-                                }
-                              },
-                              "length": {
-                                "oneOf": [
-                                  {
-                                    "type": "null"
-                                  },
-                                  {
-                                    "type": "number"
-                                  }
-                                ]
-                              }
-                            },
-                            "required": [
-                              "points",
-                              "length"
-                            ]
-                          }
-                        },
-                        "area": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "outer",
-                        "inner",
-                        "area"
-                      ]
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "radius": {
-                          "type": "number"
-                        },
-                        "centroid": {
-                          "type": "object",
-                          "properties": {
-                            "x": {
-                              "type": "number"
-                            },
-                            "y": {
-                              "type": "number"
-                            },
-                            "slope": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "number"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "x",
-                            "y",
-                            "slope"
-                          ]
-                        },
-                        "area": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "radius",
-                        "centroid",
-                        "area"
-                      ]
-                    }
-                  ]
-                }
+                "$ref": "#/$defs/ObjectUnionImplicit"
               }
             ]
           }
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "ObjectUnionImplicit": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/ObjectUnionImplicit.IPoint"
+                },
+                {
+                  "$ref": "#/$defs/ObjectUnionImplicit.ILine"
+                },
+                {
+                  "$ref": "#/$defs/ObjectUnionImplicit.ITriangle"
+                },
+                {
+                  "$ref": "#/$defs/ObjectUnionImplicit.IRectangle"
+                },
+                {
+                  "$ref": "#/$defs/ObjectUnionImplicit.IPolyline"
+                },
+                {
+                  "$ref": "#/$defs/ObjectUnionImplicit.IPolygon"
+                },
+                {
+                  "$ref": "#/$defs/ObjectUnionImplicit.ICircle"
+                }
+              ]
+            }
+          },
+          "ObjectUnionImplicit.IPoint": {
+            "type": "object",
+            "properties": {
+              "x": {
+                "type": "number"
+              },
+              "y": {
+                "type": "number"
+              },
+              "slope": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "x",
+              "y"
+            ]
+          },
+          "ObjectUnionImplicit.ILine": {
+            "type": "object",
+            "properties": {
+              "p1": {
+                "$ref": "#/$defs/ObjectUnionImplicit.IPoint"
+              },
+              "p2": {
+                "$ref": "#/$defs/ObjectUnionImplicit.IPoint"
+              },
+              "width": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ]
+              },
+              "distance": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "p1",
+              "p2"
+            ]
+          },
+          "ObjectUnionImplicit.ITriangle": {
+            "type": "object",
+            "properties": {
+              "p1": {
+                "$ref": "#/$defs/ObjectUnionImplicit.IPoint"
+              },
+              "p2": {
+                "$ref": "#/$defs/ObjectUnionImplicit.IPoint"
+              },
+              "p3": {
+                "$ref": "#/$defs/ObjectUnionImplicit.IPoint"
+              },
+              "width": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ]
+              },
+              "height": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ]
+              },
+              "area": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "p1",
+              "p2",
+              "p3"
+            ]
+          },
+          "ObjectUnionImplicit.IRectangle": {
+            "type": "object",
+            "properties": {
+              "p1": {
+                "$ref": "#/$defs/ObjectUnionImplicit.IPoint"
+              },
+              "p2": {
+                "$ref": "#/$defs/ObjectUnionImplicit.IPoint"
+              },
+              "p3": {
+                "$ref": "#/$defs/ObjectUnionImplicit.IPoint"
+              },
+              "p4": {
+                "$ref": "#/$defs/ObjectUnionImplicit.IPoint"
+              },
+              "width": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ]
+              },
+              "height": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ]
+              },
+              "area": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "p1",
+              "p2",
+              "p3",
+              "p4"
+            ]
+          },
+          "ObjectUnionImplicit.IPolyline": {
+            "type": "object",
+            "properties": {
+              "points": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ObjectUnionImplicit.IPoint"
+                }
+              },
+              "length": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "points"
+            ]
+          },
+          "ObjectUnionImplicit.IPolygon": {
+            "type": "object",
+            "properties": {
+              "outer": {
+                "$ref": "#/$defs/ObjectUnionImplicit.IPolyline"
+              },
+              "inner": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ObjectUnionImplicit.IPolyline"
+                }
+              },
+              "area": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "outer"
+            ]
+          },
+          "ObjectUnionImplicit.ICircle": {
+            "type": "object",
+            "properties": {
+              "radius": {
+                "type": "number"
+              },
+              "centroid": {
+                "$ref": "#/$defs/ObjectUnionImplicit.IPoint"
+              },
+              "area": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "radius"
+            ]
+          }
+        }
       },
       "output": {
         "oneOf": [
@@ -4289,609 +898,10 @@
             "type": "null"
           },
           {
-            "type": "array",
-            "items": {
-              "oneOf": [
-                {
-                  "type": "object",
-                  "properties": {
-                    "x": {
-                      "type": "number"
-                    },
-                    "y": {
-                      "type": "number"
-                    },
-                    "slope": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "number"
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "x",
-                    "y",
-                    "slope"
-                  ]
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "p1": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        },
-                        "slope": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y",
-                        "slope"
-                      ]
-                    },
-                    "p2": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        },
-                        "slope": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y",
-                        "slope"
-                      ]
-                    },
-                    "width": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "number"
-                        }
-                      ]
-                    },
-                    "distance": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "number"
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "p1",
-                    "p2",
-                    "width",
-                    "distance"
-                  ]
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "p1": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        },
-                        "slope": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y",
-                        "slope"
-                      ]
-                    },
-                    "p2": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        },
-                        "slope": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y",
-                        "slope"
-                      ]
-                    },
-                    "p3": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        },
-                        "slope": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y",
-                        "slope"
-                      ]
-                    },
-                    "width": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "number"
-                        }
-                      ]
-                    },
-                    "height": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "number"
-                        }
-                      ]
-                    },
-                    "area": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "number"
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "p1",
-                    "p2",
-                    "p3",
-                    "width",
-                    "height",
-                    "area"
-                  ]
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "p1": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        },
-                        "slope": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y",
-                        "slope"
-                      ]
-                    },
-                    "p2": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        },
-                        "slope": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y",
-                        "slope"
-                      ]
-                    },
-                    "p3": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        },
-                        "slope": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y",
-                        "slope"
-                      ]
-                    },
-                    "p4": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        },
-                        "slope": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y",
-                        "slope"
-                      ]
-                    },
-                    "width": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "number"
-                        }
-                      ]
-                    },
-                    "height": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "number"
-                        }
-                      ]
-                    },
-                    "area": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "number"
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "p1",
-                    "p2",
-                    "p3",
-                    "p4",
-                    "width",
-                    "height",
-                    "area"
-                  ]
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "points": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "x": {
-                            "type": "number"
-                          },
-                          "y": {
-                            "type": "number"
-                          },
-                          "slope": {
-                            "oneOf": [
-                              {
-                                "type": "null"
-                              },
-                              {
-                                "type": "number"
-                              }
-                            ]
-                          }
-                        },
-                        "required": [
-                          "x",
-                          "y",
-                          "slope"
-                        ]
-                      }
-                    },
-                    "length": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "number"
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "points",
-                    "length"
-                  ]
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "outer": {
-                      "type": "object",
-                      "properties": {
-                        "points": {
-                          "type": "array",
-                          "items": {
-                            "type": "object",
-                            "properties": {
-                              "x": {
-                                "type": "number"
-                              },
-                              "y": {
-                                "type": "number"
-                              },
-                              "slope": {
-                                "oneOf": [
-                                  {
-                                    "type": "null"
-                                  },
-                                  {
-                                    "type": "number"
-                                  }
-                                ]
-                              }
-                            },
-                            "required": [
-                              "x",
-                              "y",
-                              "slope"
-                            ]
-                          }
-                        },
-                        "length": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "points",
-                        "length"
-                      ]
-                    },
-                    "inner": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "points": {
-                            "type": "array",
-                            "items": {
-                              "type": "object",
-                              "properties": {
-                                "x": {
-                                  "type": "number"
-                                },
-                                "y": {
-                                  "type": "number"
-                                },
-                                "slope": {
-                                  "oneOf": [
-                                    {
-                                      "type": "null"
-                                    },
-                                    {
-                                      "type": "number"
-                                    }
-                                  ]
-                                }
-                              },
-                              "required": [
-                                "x",
-                                "y",
-                                "slope"
-                              ]
-                            }
-                          },
-                          "length": {
-                            "oneOf": [
-                              {
-                                "type": "null"
-                              },
-                              {
-                                "type": "number"
-                              }
-                            ]
-                          }
-                        },
-                        "required": [
-                          "points",
-                          "length"
-                        ]
-                      }
-                    },
-                    "area": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "number"
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "outer",
-                    "inner",
-                    "area"
-                  ]
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "radius": {
-                      "type": "number"
-                    },
-                    "centroid": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        },
-                        "slope": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y",
-                        "slope"
-                      ]
-                    },
-                    "area": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "number"
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "radius",
-                    "centroid",
-                    "area"
-                  ]
-                }
-              ]
-            }
+            "$ref": "#/$defs/ObjectUnionImplicit"
           }
         ]
-      },
-      "strict": true
+      }
     }
   ]
 }

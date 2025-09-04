@@ -5,8 +5,9 @@ import { _test_functional_assertReturnAsync } from "../../internal/_test_functio
 import { ArrayAtomicAlias } from "../../structures/ArrayAtomicAlias";
 
 export const test_functional_assertReturnAsyncCustom_ArrayAtomicAlias =
-  _test_functional_assertReturnAsync(CustomGuardError)("ArrayAtomicAlias")(
-    ArrayAtomicAlias,
-  )((p: (input: ArrayAtomicAlias) => Promise<ArrayAtomicAlias>) =>
-    typia.functional.assertReturn(p, (p) => new CustomGuardError(p)),
-  );
+  (): Promise<void> =>
+    _test_functional_assertReturnAsync(CustomGuardError)("ArrayAtomicAlias")(
+      ArrayAtomicAlias,
+    )((p: (input: ArrayAtomicAlias) => Promise<ArrayAtomicAlias>) =>
+      typia.functional.assertReturn(p, (p) => new CustomGuardError(p)),
+    );

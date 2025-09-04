@@ -2,31 +2,7 @@
   "type": "object",
   "properties": {
     "regular": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        },
-        "dead": {
-          "anyOf": [
-            {
-              "type": "null"
-            },
-            {
-              "type": "boolean"
-            }
-          ]
-        }
-      },
-      "required": [
-        "id",
-        "name",
-        "dead"
-      ],
-      "additionalProperties": false
+      "$ref": "#/$defs/ClassGetter.Person"
     },
     "nullable": {
       "anyOf": [
@@ -34,35 +10,38 @@
           "type": "null"
         },
         {
-          "type": "object",
-          "properties": {
-            "id": {
-              "type": "string"
-            },
-            "name": {
-              "type": "string"
-            },
-            "dead": {
-              "anyOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "type": "boolean"
-                }
-              ]
-            }
-          },
-          "required": [
-            "id",
-            "name",
-            "dead"
-          ],
-          "additionalProperties": false
+          "$ref": "#/$defs/ClassGetter.Person"
         }
       ]
     },
     "optional": {
+      "$ref": "#/$defs/ClassGetter.Person"
+    },
+    "faint": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/ClassGetter.Person"
+        }
+      ]
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ClassGetter.Person"
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "array"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "ClassGetter.Person": {
       "type": "object",
       "properties": {
         "id": {
@@ -86,81 +65,7 @@
         "id",
         "name",
         "dead"
-      ],
-      "additionalProperties": false
-    },
-    "faint": {
-      "anyOf": [
-        {
-          "type": "null"
-        },
-        {
-          "type": "object",
-          "properties": {
-            "id": {
-              "type": "string"
-            },
-            "name": {
-              "type": "string"
-            },
-            "dead": {
-              "anyOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "type": "boolean"
-                }
-              ]
-            }
-          },
-          "required": [
-            "id",
-            "name",
-            "dead"
-          ],
-          "additionalProperties": false
-        }
       ]
-    },
-    "array": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "dead": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "boolean"
-              }
-            ]
-          }
-        },
-        "required": [
-          "id",
-          "name",
-          "dead"
-        ],
-        "additionalProperties": false
-      }
     }
-  },
-  "required": [
-    "regular",
-    "nullable",
-    "optional",
-    "faint",
-    "array"
-  ],
-  "additionalProperties": false,
-  "$defs": {}
+  }
 }

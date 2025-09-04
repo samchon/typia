@@ -37,7 +37,8 @@
                   "required": [
                     "time",
                     "zone"
-                  ]
+                  ],
+                  "description": "Current Type: {@link ArrayHierarchical.ITimestamp}"
                 },
                 "departments": {
                   "type": "array",
@@ -66,7 +67,8 @@
                         "required": [
                           "time",
                           "zone"
-                        ]
+                        ],
+                        "description": "Current Type: {@link ArrayHierarchical.ITimestamp}"
                       },
                       "employees": {
                         "type": "array",
@@ -85,7 +87,7 @@
                             "grade": {
                               "type": "number"
                             },
-                            "employeed_at": {
+                            "employed_at": {
                               "type": "object",
                               "properties": {
                                 "time": {
@@ -98,7 +100,8 @@
                               "required": [
                                 "time",
                                 "zone"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ArrayHierarchical.ITimestamp}"
                             }
                           },
                           "required": [
@@ -106,8 +109,9 @@
                             "name",
                             "age",
                             "grade",
-                            "employeed_at"
-                          ]
+                            "employed_at"
+                          ],
+                          "description": "Current Type: {@link ArrayHierarchical.IEmployee}"
                         }
                       }
                     },
@@ -117,7 +121,8 @@
                       "sales",
                       "created_at",
                       "employees"
-                    ]
+                    ],
+                    "description": "Current Type: {@link ArrayHierarchical.IDepartment}"
                   }
                 }
               },
@@ -127,15 +132,16 @@
                 "name",
                 "established_at",
                 "departments"
-              ]
-            }
+              ],
+              "description": "Current Type: {@link ArrayHierarchical.ICompany}"
+            },
+            "description": "Current Type: {@link ArrayHierarchical}"
           }
         },
         "required": [
           "first"
         ]
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -169,7 +175,8 @@
                   "required": [
                     "time",
                     "zone"
-                  ]
+                  ],
+                  "description": "Current Type: {@link ArrayHierarchical.ITimestamp}"
                 },
                 "departments": {
                   "type": "array",
@@ -198,7 +205,8 @@
                         "required": [
                           "time",
                           "zone"
-                        ]
+                        ],
+                        "description": "Current Type: {@link ArrayHierarchical.ITimestamp}"
                       },
                       "employees": {
                         "type": "array",
@@ -217,7 +225,7 @@
                             "grade": {
                               "type": "number"
                             },
-                            "employeed_at": {
+                            "employed_at": {
                               "type": "object",
                               "properties": {
                                 "time": {
@@ -230,7 +238,8 @@
                               "required": [
                                 "time",
                                 "zone"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ArrayHierarchical.ITimestamp}"
                             }
                           },
                           "required": [
@@ -238,8 +247,9 @@
                             "name",
                             "age",
                             "grade",
-                            "employeed_at"
-                          ]
+                            "employed_at"
+                          ],
+                          "description": "Current Type: {@link ArrayHierarchical.IEmployee}"
                         }
                       }
                     },
@@ -249,7 +259,8 @@
                       "sales",
                       "created_at",
                       "employees"
-                    ]
+                    ],
+                    "description": "Current Type: {@link ArrayHierarchical.IDepartment}"
                   }
                 }
               },
@@ -259,8 +270,10 @@
                 "name",
                 "established_at",
                 "departments"
-              ]
-            }
+              ],
+              "description": "Current Type: {@link ArrayHierarchical.ICompany}"
+            },
+            "description": "Current Type: {@link ArrayHierarchical}"
           },
           "second": {
             "type": "array",
@@ -289,7 +302,8 @@
                   "required": [
                     "time",
                     "zone"
-                  ]
+                  ],
+                  "description": "Current Type: {@link ArrayHierarchical.ITimestamp}"
                 },
                 "departments": {
                   "type": "array",
@@ -318,7 +332,8 @@
                         "required": [
                           "time",
                           "zone"
-                        ]
+                        ],
+                        "description": "Current Type: {@link ArrayHierarchical.ITimestamp}"
                       },
                       "employees": {
                         "type": "array",
@@ -337,7 +352,7 @@
                             "grade": {
                               "type": "number"
                             },
-                            "employeed_at": {
+                            "employed_at": {
                               "type": "object",
                               "properties": {
                                 "time": {
@@ -350,7 +365,8 @@
                               "required": [
                                 "time",
                                 "zone"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ArrayHierarchical.ITimestamp}"
                             }
                           },
                           "required": [
@@ -358,8 +374,9 @@
                             "name",
                             "age",
                             "grade",
-                            "employeed_at"
-                          ]
+                            "employed_at"
+                          ],
+                          "description": "Current Type: {@link ArrayHierarchical.IEmployee}"
                         }
                       }
                     },
@@ -369,7 +386,8 @@
                       "sales",
                       "created_at",
                       "employees"
-                    ]
+                    ],
+                    "description": "Current Type: {@link ArrayHierarchical.IDepartment}"
                   }
                 }
               },
@@ -379,7 +397,8 @@
                 "name",
                 "established_at",
                 "departments"
-              ]
+              ],
+              "description": "Current Type: {@link ArrayHierarchical.ICompany}"
             },
             "nullable": true
           }
@@ -416,7 +435,8 @@
               "required": [
                 "time",
                 "zone"
-              ]
+              ],
+              "description": "Current Type: {@link ArrayHierarchical.ITimestamp}"
             },
             "departments": {
               "type": "array",
@@ -445,7 +465,8 @@
                     "required": [
                       "time",
                       "zone"
-                    ]
+                    ],
+                    "description": "Current Type: {@link ArrayHierarchical.ITimestamp}"
                   },
                   "employees": {
                     "type": "array",
@@ -464,7 +485,7 @@
                         "grade": {
                           "type": "number"
                         },
-                        "employeed_at": {
+                        "employed_at": {
                           "type": "object",
                           "properties": {
                             "time": {
@@ -477,7 +498,8 @@
                           "required": [
                             "time",
                             "zone"
-                          ]
+                          ],
+                          "description": "Current Type: {@link ArrayHierarchical.ITimestamp}"
                         }
                       },
                       "required": [
@@ -485,8 +507,9 @@
                         "name",
                         "age",
                         "grade",
-                        "employeed_at"
-                      ]
+                        "employed_at"
+                      ],
+                      "description": "Current Type: {@link ArrayHierarchical.IEmployee}"
                     }
                   }
                 },
@@ -496,7 +519,8 @@
                   "sales",
                   "created_at",
                   "employees"
-                ]
+                ],
+                "description": "Current Type: {@link ArrayHierarchical.IDepartment}"
               }
             }
           },
@@ -506,10 +530,11 @@
             "name",
             "established_at",
             "departments"
-          ]
-        }
-      },
-      "strict": true
+          ],
+          "description": "Current Type: {@link ArrayHierarchical.ICompany}"
+        },
+        "description": "Current Type: {@link ArrayHierarchical}"
+      }
     },
     {
       "name": "coalesce",
@@ -543,7 +568,8 @@
                   "required": [
                     "time",
                     "zone"
-                  ]
+                  ],
+                  "description": "Current Type: {@link ArrayHierarchical.ITimestamp}"
                 },
                 "departments": {
                   "type": "array",
@@ -572,7 +598,8 @@
                         "required": [
                           "time",
                           "zone"
-                        ]
+                        ],
+                        "description": "Current Type: {@link ArrayHierarchical.ITimestamp}"
                       },
                       "employees": {
                         "type": "array",
@@ -591,7 +618,7 @@
                             "grade": {
                               "type": "number"
                             },
-                            "employeed_at": {
+                            "employed_at": {
                               "type": "object",
                               "properties": {
                                 "time": {
@@ -604,7 +631,8 @@
                               "required": [
                                 "time",
                                 "zone"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ArrayHierarchical.ITimestamp}"
                             }
                           },
                           "required": [
@@ -612,8 +640,9 @@
                             "name",
                             "age",
                             "grade",
-                            "employeed_at"
-                          ]
+                            "employed_at"
+                          ],
+                          "description": "Current Type: {@link ArrayHierarchical.IEmployee}"
                         }
                       }
                     },
@@ -623,7 +652,8 @@
                       "sales",
                       "created_at",
                       "employees"
-                    ]
+                    ],
+                    "description": "Current Type: {@link ArrayHierarchical.IDepartment}"
                   }
                 }
               },
@@ -633,7 +663,8 @@
                 "name",
                 "established_at",
                 "departments"
-              ]
+              ],
+              "description": "Current Type: {@link ArrayHierarchical.ICompany}"
             },
             "nullable": true
           },
@@ -664,7 +695,8 @@
                   "required": [
                     "time",
                     "zone"
-                  ]
+                  ],
+                  "description": "Current Type: {@link ArrayHierarchical.ITimestamp}"
                 },
                 "departments": {
                   "type": "array",
@@ -693,7 +725,8 @@
                         "required": [
                           "time",
                           "zone"
-                        ]
+                        ],
+                        "description": "Current Type: {@link ArrayHierarchical.ITimestamp}"
                       },
                       "employees": {
                         "type": "array",
@@ -712,7 +745,7 @@
                             "grade": {
                               "type": "number"
                             },
-                            "employeed_at": {
+                            "employed_at": {
                               "type": "object",
                               "properties": {
                                 "time": {
@@ -725,7 +758,8 @@
                               "required": [
                                 "time",
                                 "zone"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ArrayHierarchical.ITimestamp}"
                             }
                           },
                           "required": [
@@ -733,8 +767,9 @@
                             "name",
                             "age",
                             "grade",
-                            "employeed_at"
-                          ]
+                            "employed_at"
+                          ],
+                          "description": "Current Type: {@link ArrayHierarchical.IEmployee}"
                         }
                       }
                     },
@@ -744,7 +779,8 @@
                       "sales",
                       "created_at",
                       "employees"
-                    ]
+                    ],
+                    "description": "Current Type: {@link ArrayHierarchical.IDepartment}"
                   }
                 }
               },
@@ -754,7 +790,8 @@
                 "name",
                 "established_at",
                 "departments"
-              ]
+              ],
+              "description": "Current Type: {@link ArrayHierarchical.ICompany}"
             },
             "nullable": true
           },
@@ -785,7 +822,8 @@
                   "required": [
                     "time",
                     "zone"
-                  ]
+                  ],
+                  "description": "Current Type: {@link ArrayHierarchical.ITimestamp}"
                 },
                 "departments": {
                   "type": "array",
@@ -814,7 +852,8 @@
                         "required": [
                           "time",
                           "zone"
-                        ]
+                        ],
+                        "description": "Current Type: {@link ArrayHierarchical.ITimestamp}"
                       },
                       "employees": {
                         "type": "array",
@@ -833,7 +872,7 @@
                             "grade": {
                               "type": "number"
                             },
-                            "employeed_at": {
+                            "employed_at": {
                               "type": "object",
                               "properties": {
                                 "time": {
@@ -846,7 +885,8 @@
                               "required": [
                                 "time",
                                 "zone"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ArrayHierarchical.ITimestamp}"
                             }
                           },
                           "required": [
@@ -854,8 +894,9 @@
                             "name",
                             "age",
                             "grade",
-                            "employeed_at"
-                          ]
+                            "employed_at"
+                          ],
+                          "description": "Current Type: {@link ArrayHierarchical.IEmployee}"
                         }
                       }
                     },
@@ -865,7 +906,8 @@
                       "sales",
                       "created_at",
                       "employees"
-                    ]
+                    ],
+                    "description": "Current Type: {@link ArrayHierarchical.IDepartment}"
                   }
                 }
               },
@@ -875,7 +917,8 @@
                 "name",
                 "established_at",
                 "departments"
-              ]
+              ],
+              "description": "Current Type: {@link ArrayHierarchical.ICompany}"
             },
             "nullable": true
           }
@@ -912,7 +955,8 @@
               "required": [
                 "time",
                 "zone"
-              ]
+              ],
+              "description": "Current Type: {@link ArrayHierarchical.ITimestamp}"
             },
             "departments": {
               "type": "array",
@@ -941,7 +985,8 @@
                     "required": [
                       "time",
                       "zone"
-                    ]
+                    ],
+                    "description": "Current Type: {@link ArrayHierarchical.ITimestamp}"
                   },
                   "employees": {
                     "type": "array",
@@ -960,7 +1005,7 @@
                         "grade": {
                           "type": "number"
                         },
-                        "employeed_at": {
+                        "employed_at": {
                           "type": "object",
                           "properties": {
                             "time": {
@@ -973,7 +1018,8 @@
                           "required": [
                             "time",
                             "zone"
-                          ]
+                          ],
+                          "description": "Current Type: {@link ArrayHierarchical.ITimestamp}"
                         }
                       },
                       "required": [
@@ -981,8 +1027,9 @@
                         "name",
                         "age",
                         "grade",
-                        "employeed_at"
-                      ]
+                        "employed_at"
+                      ],
+                      "description": "Current Type: {@link ArrayHierarchical.IEmployee}"
                     }
                   }
                 },
@@ -992,7 +1039,8 @@
                   "sales",
                   "created_at",
                   "employees"
-                ]
+                ],
+                "description": "Current Type: {@link ArrayHierarchical.IDepartment}"
               }
             }
           },
@@ -1002,11 +1050,11 @@
             "name",
             "established_at",
             "departments"
-          ]
+          ],
+          "description": "Current Type: {@link ArrayHierarchical.ICompany}"
         },
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

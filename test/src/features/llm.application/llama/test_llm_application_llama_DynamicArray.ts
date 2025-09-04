@@ -3,10 +3,12 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { DynamicArray } from "../../../structures/DynamicArray";
 
-export const test_llm_application_llama_DynamicArray = _test_llm_application({
-  model: "llama",
-  name: "DynamicArray",
-})(typia.llm.application<DynamicArrayApplication, "llama">());
+export const test_llm_application_llama_DynamicArray = (): void =>
+  _test_llm_application({
+    model: "llama",
+    name: "DynamicArray",
+    factory: DynamicArray,
+  })(typia.llm.application<DynamicArrayApplication, "llama">());
 
 interface DynamicArrayApplication {
   insert(p: { first: DynamicArray }): Promise<void>;

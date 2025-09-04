@@ -1,8 +1,8 @@
 {
   "model": "3.1",
   "options": {
-    "constraint": false,
-    "reference": false,
+    "reference": true,
+    "constraint": true,
     "separate": null
   },
   "functions": [
@@ -20,8 +20,7 @@
         ],
         "additionalProperties": false,
         "$defs": {}
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -51,8 +50,7 @@
       },
       "output": {
         "type": "null"
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -92,8 +90,7 @@
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
         "$defs": {}
@@ -107,8 +104,7 @@
             "type": "null"
           }
         ]
-      },
-      "strict": true
+      }
     }
   ]
 }

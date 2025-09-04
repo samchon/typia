@@ -4,7 +4,8 @@ import { _test_functional_validateEqualsParameters } from "../../internal/_test_
 import { CommentTagNaN } from "../../structures/CommentTagNaN";
 
 export const test_functional_validateEqualsParameters_CommentTagNaN =
-  _test_functional_validateEqualsParameters("CommentTagNaN")(CommentTagNaN)(
-    (p: (input: CommentTagNaN) => CommentTagNaN) =>
-      typia.functional.validateEqualsParameters(p),
-  );
+  (): void =>
+    _test_functional_validateEqualsParameters("CommentTagNaN")(CommentTagNaN)(
+      (p: (input: CommentTagNaN) => CommentTagNaN) =>
+        typia.functional.validateEqualsParameters(p),
+    );

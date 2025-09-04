@@ -17,6 +17,8 @@
           "Four"
         ]
       }
-    ]
-  }
+    ],
+    "description": "Current Type: {@link ConstantConstEnumeration.Enumeration}"
+  },
+  "description": "Current Type: {@link ConstantConstEnumeration}"
 }

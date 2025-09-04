@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_assertGuardEquals } from "../../internal/_test_assertGuardEquals";
 import { FunctionalArray } from "../../structures/FunctionalArray";
 
-export const test_createAssertGuardEquals_FunctionalArray =
+export const test_createAssertGuardEquals_FunctionalArray = (): void =>
   _test_assertGuardEquals(TypeGuardError)("FunctionalArray")<FunctionalArray>(
     FunctionalArray,
   )(typia.createAssertGuardEquals<FunctionalArray>());

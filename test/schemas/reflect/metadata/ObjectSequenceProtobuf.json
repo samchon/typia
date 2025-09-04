@@ -165,7 +165,8 @@
                         "validate": "$importInternal(\"isTypeUint64\")($input)",
                         "exclusive": true,
                         "schema": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 0
                         }
                       },
                       {

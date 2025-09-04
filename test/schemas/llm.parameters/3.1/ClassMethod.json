@@ -2,19 +2,7 @@
   "type": "object",
   "properties": {
     "regular": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "age": {
-          "type": "number"
-        }
-      },
-      "required": [
-        "name",
-        "age"
-      ]
+      "$ref": "#/$defs/ClassMethod.Animal"
     },
     "nullable": {
       "oneOf": [
@@ -22,23 +10,38 @@
           "type": "null"
         },
         {
-          "type": "object",
-          "properties": {
-            "name": {
-              "type": "string"
-            },
-            "age": {
-              "type": "number"
-            }
-          },
-          "required": [
-            "name",
-            "age"
-          ]
+          "$ref": "#/$defs/ClassMethod.Animal"
         }
       ]
     },
     "optional": {
+      "$ref": "#/$defs/ClassMethod.Animal"
+    },
+    "faint": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/ClassMethod.Animal"
+        }
+      ]
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ClassMethod.Animal"
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "array"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "ClassMethod.Animal": {
       "type": "object",
       "properties": {
         "name": {
@@ -52,55 +55,6 @@
         "name",
         "age"
       ]
-    },
-    "faint": {
-      "oneOf": [
-        {
-          "type": "null"
-        },
-        {
-          "type": "object",
-          "properties": {
-            "name": {
-              "type": "string"
-            },
-            "age": {
-              "type": "number"
-            }
-          },
-          "required": [
-            "name",
-            "age"
-          ]
-        }
-      ]
-    },
-    "array": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "age": {
-            "type": "number"
-          }
-        },
-        "required": [
-          "name",
-          "age"
-        ]
-      }
     }
-  },
-  "required": [
-    "regular",
-    "nullable",
-    "optional",
-    "faint",
-    "array"
-  ],
-  "additionalProperties": false,
-  "$defs": {}
+  }
 }

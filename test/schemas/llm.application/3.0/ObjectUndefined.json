@@ -1,8 +1,8 @@
 {
   "model": "3.0",
   "options": {
-    "constraint": false,
     "recursive": 3,
+    "constraint": true,
     "separate": null
   },
   "functions": [
@@ -43,6 +43,7 @@
                     "id",
                     "name"
                   ],
+                  "description": "Current Type: {@link ObjectUndefined.IClassroom}",
                   "additionalProperties": false
                 },
                 "grade": {
@@ -54,16 +55,17 @@
                 "name",
                 "unknown"
               ],
+              "description": "Current Type: {@link ObjectUndefined.ILecture}",
               "additionalProperties": false
-            }
+            },
+            "description": "Current Type: {@link ObjectUndefined}"
           }
         },
         "required": [
           "first"
         ],
         "additionalProperties": false
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -102,6 +104,7 @@
                     "id",
                     "name"
                   ],
+                  "description": "Current Type: {@link ObjectUndefined.IClassroom}",
                   "additionalProperties": false
                 },
                 "grade": {
@@ -113,8 +116,10 @@
                 "name",
                 "unknown"
               ],
+              "description": "Current Type: {@link ObjectUndefined.ILecture}",
               "additionalProperties": false
-            }
+            },
+            "description": "Current Type: {@link ObjectUndefined}"
           },
           "second": {
             "type": "array",
@@ -148,6 +153,7 @@
                     "id",
                     "name"
                   ],
+                  "description": "Current Type: {@link ObjectUndefined.IClassroom}",
                   "additionalProperties": false
                 },
                 "grade": {
@@ -159,6 +165,7 @@
                 "name",
                 "unknown"
               ],
+              "description": "Current Type: {@link ObjectUndefined.ILecture}",
               "additionalProperties": false
             },
             "nullable": true
@@ -202,6 +209,7 @@
                 "id",
                 "name"
               ],
+              "description": "Current Type: {@link ObjectUndefined.IClassroom}",
               "additionalProperties": false
             },
             "grade": {
@@ -213,10 +221,11 @@
             "name",
             "unknown"
           ],
+          "description": "Current Type: {@link ObjectUndefined.ILecture}",
           "additionalProperties": false
-        }
-      },
-      "strict": true
+        },
+        "description": "Current Type: {@link ObjectUndefined}"
+      }
     },
     {
       "name": "coalesce",
@@ -255,6 +264,7 @@
                     "id",
                     "name"
                   ],
+                  "description": "Current Type: {@link ObjectUndefined.IClassroom}",
                   "additionalProperties": false
                 },
                 "grade": {
@@ -266,6 +276,7 @@
                 "name",
                 "unknown"
               ],
+              "description": "Current Type: {@link ObjectUndefined.ILecture}",
               "additionalProperties": false
             },
             "nullable": true
@@ -302,6 +313,7 @@
                     "id",
                     "name"
                   ],
+                  "description": "Current Type: {@link ObjectUndefined.IClassroom}",
                   "additionalProperties": false
                 },
                 "grade": {
@@ -313,6 +325,7 @@
                 "name",
                 "unknown"
               ],
+              "description": "Current Type: {@link ObjectUndefined.ILecture}",
               "additionalProperties": false
             },
             "nullable": true
@@ -349,6 +362,7 @@
                     "id",
                     "name"
                   ],
+                  "description": "Current Type: {@link ObjectUndefined.IClassroom}",
                   "additionalProperties": false
                 },
                 "grade": {
@@ -360,6 +374,7 @@
                 "name",
                 "unknown"
               ],
+              "description": "Current Type: {@link ObjectUndefined.ILecture}",
               "additionalProperties": false
             },
             "nullable": true
@@ -403,6 +418,7 @@
                 "id",
                 "name"
               ],
+              "description": "Current Type: {@link ObjectUndefined.IClassroom}",
               "additionalProperties": false
             },
             "grade": {
@@ -414,11 +430,11 @@
             "name",
             "unknown"
           ],
+          "description": "Current Type: {@link ObjectUndefined.ILecture}",
           "additionalProperties": false
         },
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

@@ -4,10 +4,13 @@ import { _test_functional_validateEqualsFunctionAsync } from "../../internal/_te
 import { ObjectPartialAndRequired } from "../../structures/ObjectPartialAndRequired";
 
 export const test_functional_validateEqualsFunctionAsync_ObjectPartialAndRequired =
-  _test_functional_validateEqualsFunctionAsync("ObjectPartialAndRequired")(
-    ObjectPartialAndRequired,
-  )(
-    (
-      p: (input: ObjectPartialAndRequired) => Promise<ObjectPartialAndRequired>,
-    ) => typia.functional.validateEqualsFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateEqualsFunctionAsync("ObjectPartialAndRequired")(
+      ObjectPartialAndRequired,
+    )(
+      (
+        p: (
+          input: ObjectPartialAndRequired,
+        ) => Promise<ObjectPartialAndRequired>,
+      ) => typia.functional.validateEqualsFunction(p),
+    );

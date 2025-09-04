@@ -1,8 +1,8 @@
 {
   "model": "3.1",
   "options": {
-    "constraint": false,
-    "reference": false,
+    "reference": true,
+    "constraint": true,
     "separate": null
   },
   "functions": [
@@ -12,138 +12,21 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "object",
-            "properties": {
-              "value": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "greater": {
-                      "description": "@minimum 3\n@exclusiveMinimum true",
-                      "type": "integer"
-                    },
-                    "greater_equal": {
-                      "description": "@minimum 3",
-                      "type": "integer"
-                    },
-                    "less": {
-                      "description": "@maximum 7\n@exclusiveMaximum true",
-                      "type": "integer"
-                    },
-                    "less_equal": {
-                      "description": "@maximum 7",
-                      "type": "integer"
-                    },
-                    "greater_less": {
-                      "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true\n@exclusiveMaximum true",
-                      "type": "integer"
-                    },
-                    "greater_equal_less": {
-                      "description": "@minimum 3\n@maximum 7\n@exclusiveMaximum true",
-                      "type": "integer"
-                    },
-                    "greater_less_equal": {
-                      "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true",
-                      "type": "integer"
-                    },
-                    "greater_equal_less_equal": {
-                      "description": "@minimum 3\n@maximum 7",
-                      "type": "integer"
-                    },
-                    "equal": {
-                      "description": "@minimum 10\n@maximum 10",
-                      "type": "integer"
-                    }
-                  },
-                  "required": [
-                    "greater",
-                    "greater_equal",
-                    "less",
-                    "less_equal",
-                    "greater_less",
-                    "greater_equal_less",
-                    "greater_less_equal",
-                    "greater_equal_less_equal",
-                    "equal"
-                  ]
-                }
-              }
-            },
-            "required": [
-              "value"
-            ]
+            "$ref": "#/$defs/CommentTagRange"
           }
         },
         "required": [
           "first"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "strict": true
-    },
-    {
-      "name": "reduce",
-      "parameters": {
-        "type": "object",
-        "properties": {
-          "first": {
+        "$defs": {
+          "CommentTagRange": {
             "type": "object",
             "properties": {
               "value": {
                 "type": "array",
                 "items": {
-                  "type": "object",
-                  "properties": {
-                    "greater": {
-                      "description": "@minimum 3\n@exclusiveMinimum true",
-                      "type": "integer"
-                    },
-                    "greater_equal": {
-                      "description": "@minimum 3",
-                      "type": "integer"
-                    },
-                    "less": {
-                      "description": "@maximum 7\n@exclusiveMaximum true",
-                      "type": "integer"
-                    },
-                    "less_equal": {
-                      "description": "@maximum 7",
-                      "type": "integer"
-                    },
-                    "greater_less": {
-                      "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true\n@exclusiveMaximum true",
-                      "type": "integer"
-                    },
-                    "greater_equal_less": {
-                      "description": "@minimum 3\n@maximum 7\n@exclusiveMaximum true",
-                      "type": "integer"
-                    },
-                    "greater_less_equal": {
-                      "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true",
-                      "type": "integer"
-                    },
-                    "greater_equal_less_equal": {
-                      "description": "@minimum 3\n@maximum 7",
-                      "type": "integer"
-                    },
-                    "equal": {
-                      "description": "@minimum 10\n@maximum 10",
-                      "type": "integer"
-                    }
-                  },
-                  "required": [
-                    "greater",
-                    "greater_equal",
-                    "less",
-                    "less_equal",
-                    "greater_less",
-                    "greater_equal_less",
-                    "greater_less_equal",
-                    "greater_equal_less_equal",
-                    "equal"
-                  ]
+                  "$ref": "#/$defs/CommentTagRange.Type"
                 }
               }
             },
@@ -151,73 +34,81 @@
               "value"
             ]
           },
+          "CommentTagRange.Type": {
+            "type": "object",
+            "properties": {
+              "greater": {
+                "type": "integer",
+                "exclusiveMinimum": 3
+              },
+              "greater_equal": {
+                "type": "integer",
+                "minimum": 3
+              },
+              "less": {
+                "type": "integer",
+                "exclusiveMaximum": 7
+              },
+              "less_equal": {
+                "type": "integer",
+                "maximum": 7
+              },
+              "greater_less": {
+                "type": "integer",
+                "exclusiveMinimum": 3,
+                "exclusiveMaximum": 7
+              },
+              "greater_equal_less": {
+                "type": "integer",
+                "minimum": 3,
+                "exclusiveMaximum": 7
+              },
+              "greater_less_equal": {
+                "type": "integer",
+                "exclusiveMinimum": 3,
+                "maximum": 7
+              },
+              "greater_equal_less_equal": {
+                "type": "integer",
+                "minimum": 3,
+                "maximum": 7
+              },
+              "equal": {
+                "type": "integer",
+                "minimum": 10,
+                "maximum": 10
+              }
+            },
+            "required": [
+              "greater",
+              "greater_equal",
+              "less",
+              "less_equal",
+              "greater_less",
+              "greater_equal_less",
+              "greater_less_equal",
+              "greater_equal_less_equal",
+              "equal"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "$ref": "#/$defs/CommentTagRange"
+          },
           "second": {
             "oneOf": [
               {
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "greater": {
-                          "description": "@minimum 3\n@exclusiveMinimum true",
-                          "type": "integer"
-                        },
-                        "greater_equal": {
-                          "description": "@minimum 3",
-                          "type": "integer"
-                        },
-                        "less": {
-                          "description": "@maximum 7\n@exclusiveMaximum true",
-                          "type": "integer"
-                        },
-                        "less_equal": {
-                          "description": "@maximum 7",
-                          "type": "integer"
-                        },
-                        "greater_less": {
-                          "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true\n@exclusiveMaximum true",
-                          "type": "integer"
-                        },
-                        "greater_equal_less": {
-                          "description": "@minimum 3\n@maximum 7\n@exclusiveMaximum true",
-                          "type": "integer"
-                        },
-                        "greater_less_equal": {
-                          "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true",
-                          "type": "integer"
-                        },
-                        "greater_equal_less_equal": {
-                          "description": "@minimum 3\n@maximum 7",
-                          "type": "integer"
-                        },
-                        "equal": {
-                          "description": "@minimum 10\n@maximum 10",
-                          "type": "integer"
-                        }
-                      },
-                      "required": [
-                        "greater",
-                        "greater_equal",
-                        "less",
-                        "less_equal",
-                        "greater_less",
-                        "greater_equal_less",
-                        "greater_less_equal",
-                        "greater_equal_less_equal",
-                        "equal"
-                      ]
-                    }
-                  }
-                },
-                "required": [
-                  "value"
-                ]
+                "$ref": "#/$defs/CommentTagRange"
               }
             ]
           }
@@ -227,72 +118,83 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "CommentTagRange": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/CommentTagRange.Type"
+                }
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "CommentTagRange.Type": {
+            "type": "object",
+            "properties": {
+              "greater": {
+                "type": "integer",
+                "exclusiveMinimum": 3
+              },
+              "greater_equal": {
+                "type": "integer",
+                "minimum": 3
+              },
+              "less": {
+                "type": "integer",
+                "exclusiveMaximum": 7
+              },
+              "less_equal": {
+                "type": "integer",
+                "maximum": 7
+              },
+              "greater_less": {
+                "type": "integer",
+                "exclusiveMinimum": 3,
+                "exclusiveMaximum": 7
+              },
+              "greater_equal_less": {
+                "type": "integer",
+                "minimum": 3,
+                "exclusiveMaximum": 7
+              },
+              "greater_less_equal": {
+                "type": "integer",
+                "exclusiveMinimum": 3,
+                "maximum": 7
+              },
+              "greater_equal_less_equal": {
+                "type": "integer",
+                "minimum": 3,
+                "maximum": 7
+              },
+              "equal": {
+                "type": "integer",
+                "minimum": 10,
+                "maximum": 10
+              }
+            },
+            "required": [
+              "greater",
+              "greater_equal",
+              "less",
+              "less_equal",
+              "greater_less",
+              "greater_equal_less",
+              "greater_less_equal",
+              "greater_equal_less_equal",
+              "equal"
+            ]
+          }
+        }
       },
       "output": {
-        "type": "object",
-        "properties": {
-          "value": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "greater": {
-                  "description": "@minimum 3\n@exclusiveMinimum true",
-                  "type": "integer"
-                },
-                "greater_equal": {
-                  "description": "@minimum 3",
-                  "type": "integer"
-                },
-                "less": {
-                  "description": "@maximum 7\n@exclusiveMaximum true",
-                  "type": "integer"
-                },
-                "less_equal": {
-                  "description": "@maximum 7",
-                  "type": "integer"
-                },
-                "greater_less": {
-                  "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true\n@exclusiveMaximum true",
-                  "type": "integer"
-                },
-                "greater_equal_less": {
-                  "description": "@minimum 3\n@maximum 7\n@exclusiveMaximum true",
-                  "type": "integer"
-                },
-                "greater_less_equal": {
-                  "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true",
-                  "type": "integer"
-                },
-                "greater_equal_less_equal": {
-                  "description": "@minimum 3\n@maximum 7",
-                  "type": "integer"
-                },
-                "equal": {
-                  "description": "@minimum 10\n@maximum 10",
-                  "type": "integer"
-                }
-              },
-              "required": [
-                "greater",
-                "greater_equal",
-                "less",
-                "less_equal",
-                "greater_less",
-                "greater_equal_less",
-                "greater_less_equal",
-                "greater_equal_less_equal",
-                "equal"
-              ]
-            }
-          }
-        },
-        "required": [
-          "value"
-        ]
-      },
-      "strict": true
+        "$ref": "#/$defs/CommentTagRange"
+      }
     },
     {
       "name": "coalesce",
@@ -305,67 +207,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "greater": {
-                          "description": "@minimum 3\n@exclusiveMinimum true",
-                          "type": "integer"
-                        },
-                        "greater_equal": {
-                          "description": "@minimum 3",
-                          "type": "integer"
-                        },
-                        "less": {
-                          "description": "@maximum 7\n@exclusiveMaximum true",
-                          "type": "integer"
-                        },
-                        "less_equal": {
-                          "description": "@maximum 7",
-                          "type": "integer"
-                        },
-                        "greater_less": {
-                          "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true\n@exclusiveMaximum true",
-                          "type": "integer"
-                        },
-                        "greater_equal_less": {
-                          "description": "@minimum 3\n@maximum 7\n@exclusiveMaximum true",
-                          "type": "integer"
-                        },
-                        "greater_less_equal": {
-                          "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true",
-                          "type": "integer"
-                        },
-                        "greater_equal_less_equal": {
-                          "description": "@minimum 3\n@maximum 7",
-                          "type": "integer"
-                        },
-                        "equal": {
-                          "description": "@minimum 10\n@maximum 10",
-                          "type": "integer"
-                        }
-                      },
-                      "required": [
-                        "greater",
-                        "greater_equal",
-                        "less",
-                        "less_equal",
-                        "greater_less",
-                        "greater_equal_less",
-                        "greater_less_equal",
-                        "greater_equal_less_equal",
-                        "equal"
-                      ]
-                    }
-                  }
-                },
-                "required": [
-                  "value"
-                ]
+                "$ref": "#/$defs/CommentTagRange"
               }
             ]
           },
@@ -375,67 +217,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "greater": {
-                          "description": "@minimum 3\n@exclusiveMinimum true",
-                          "type": "integer"
-                        },
-                        "greater_equal": {
-                          "description": "@minimum 3",
-                          "type": "integer"
-                        },
-                        "less": {
-                          "description": "@maximum 7\n@exclusiveMaximum true",
-                          "type": "integer"
-                        },
-                        "less_equal": {
-                          "description": "@maximum 7",
-                          "type": "integer"
-                        },
-                        "greater_less": {
-                          "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true\n@exclusiveMaximum true",
-                          "type": "integer"
-                        },
-                        "greater_equal_less": {
-                          "description": "@minimum 3\n@maximum 7\n@exclusiveMaximum true",
-                          "type": "integer"
-                        },
-                        "greater_less_equal": {
-                          "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true",
-                          "type": "integer"
-                        },
-                        "greater_equal_less_equal": {
-                          "description": "@minimum 3\n@maximum 7",
-                          "type": "integer"
-                        },
-                        "equal": {
-                          "description": "@minimum 10\n@maximum 10",
-                          "type": "integer"
-                        }
-                      },
-                      "required": [
-                        "greater",
-                        "greater_equal",
-                        "less",
-                        "less_equal",
-                        "greater_less",
-                        "greater_equal_less",
-                        "greater_less_equal",
-                        "greater_equal_less_equal",
-                        "equal"
-                      ]
-                    }
-                  }
-                },
-                "required": [
-                  "value"
-                ]
+                "$ref": "#/$defs/CommentTagRange"
               }
             ]
           },
@@ -445,78 +227,89 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "greater": {
-                          "description": "@minimum 3\n@exclusiveMinimum true",
-                          "type": "integer"
-                        },
-                        "greater_equal": {
-                          "description": "@minimum 3",
-                          "type": "integer"
-                        },
-                        "less": {
-                          "description": "@maximum 7\n@exclusiveMaximum true",
-                          "type": "integer"
-                        },
-                        "less_equal": {
-                          "description": "@maximum 7",
-                          "type": "integer"
-                        },
-                        "greater_less": {
-                          "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true\n@exclusiveMaximum true",
-                          "type": "integer"
-                        },
-                        "greater_equal_less": {
-                          "description": "@minimum 3\n@maximum 7\n@exclusiveMaximum true",
-                          "type": "integer"
-                        },
-                        "greater_less_equal": {
-                          "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true",
-                          "type": "integer"
-                        },
-                        "greater_equal_less_equal": {
-                          "description": "@minimum 3\n@maximum 7",
-                          "type": "integer"
-                        },
-                        "equal": {
-                          "description": "@minimum 10\n@maximum 10",
-                          "type": "integer"
-                        }
-                      },
-                      "required": [
-                        "greater",
-                        "greater_equal",
-                        "less",
-                        "less_equal",
-                        "greater_less",
-                        "greater_equal_less",
-                        "greater_less_equal",
-                        "greater_equal_less_equal",
-                        "equal"
-                      ]
-                    }
-                  }
-                },
-                "required": [
-                  "value"
-                ]
+                "$ref": "#/$defs/CommentTagRange"
               }
             ]
           }
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "CommentTagRange": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/CommentTagRange.Type"
+                }
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "CommentTagRange.Type": {
+            "type": "object",
+            "properties": {
+              "greater": {
+                "type": "integer",
+                "exclusiveMinimum": 3
+              },
+              "greater_equal": {
+                "type": "integer",
+                "minimum": 3
+              },
+              "less": {
+                "type": "integer",
+                "exclusiveMaximum": 7
+              },
+              "less_equal": {
+                "type": "integer",
+                "maximum": 7
+              },
+              "greater_less": {
+                "type": "integer",
+                "exclusiveMinimum": 3,
+                "exclusiveMaximum": 7
+              },
+              "greater_equal_less": {
+                "type": "integer",
+                "minimum": 3,
+                "exclusiveMaximum": 7
+              },
+              "greater_less_equal": {
+                "type": "integer",
+                "exclusiveMinimum": 3,
+                "maximum": 7
+              },
+              "greater_equal_less_equal": {
+                "type": "integer",
+                "minimum": 3,
+                "maximum": 7
+              },
+              "equal": {
+                "type": "integer",
+                "minimum": 10,
+                "maximum": 10
+              }
+            },
+            "required": [
+              "greater",
+              "greater_equal",
+              "less",
+              "less_equal",
+              "greater_less",
+              "greater_equal_less",
+              "greater_less_equal",
+              "greater_equal_less_equal",
+              "equal"
+            ]
+          }
+        }
       },
       "output": {
         "oneOf": [
@@ -524,71 +317,10 @@
             "type": "null"
           },
           {
-            "type": "object",
-            "properties": {
-              "value": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "greater": {
-                      "description": "@minimum 3\n@exclusiveMinimum true",
-                      "type": "integer"
-                    },
-                    "greater_equal": {
-                      "description": "@minimum 3",
-                      "type": "integer"
-                    },
-                    "less": {
-                      "description": "@maximum 7\n@exclusiveMaximum true",
-                      "type": "integer"
-                    },
-                    "less_equal": {
-                      "description": "@maximum 7",
-                      "type": "integer"
-                    },
-                    "greater_less": {
-                      "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true\n@exclusiveMaximum true",
-                      "type": "integer"
-                    },
-                    "greater_equal_less": {
-                      "description": "@minimum 3\n@maximum 7\n@exclusiveMaximum true",
-                      "type": "integer"
-                    },
-                    "greater_less_equal": {
-                      "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true",
-                      "type": "integer"
-                    },
-                    "greater_equal_less_equal": {
-                      "description": "@minimum 3\n@maximum 7",
-                      "type": "integer"
-                    },
-                    "equal": {
-                      "description": "@minimum 10\n@maximum 10",
-                      "type": "integer"
-                    }
-                  },
-                  "required": [
-                    "greater",
-                    "greater_equal",
-                    "less",
-                    "less_equal",
-                    "greater_less",
-                    "greater_equal_less",
-                    "greater_less_equal",
-                    "greater_equal_less_equal",
-                    "equal"
-                  ]
-                }
-              }
-            },
-            "required": [
-              "value"
-            ]
+            "$ref": "#/$defs/CommentTagRange"
           }
         ]
-      },
-      "strict": true
+      }
     }
   ]
 }

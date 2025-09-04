@@ -5,8 +5,10 @@ import { _test_functional_assertEqualsReturnAsync } from "../../internal/_test_f
 import { ArrayAtomicSimple } from "../../structures/ArrayAtomicSimple";
 
 export const test_functional_assertEqualsReturnAsync_ArrayAtomicSimple =
-  _test_functional_assertEqualsReturnAsync(TypeGuardError)("ArrayAtomicSimple")(
-    ArrayAtomicSimple,
-  )((p: (input: ArrayAtomicSimple) => Promise<ArrayAtomicSimple>) =>
-    typia.functional.assertEqualsReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsReturnAsync(TypeGuardError)(
+      "ArrayAtomicSimple",
+    )(ArrayAtomicSimple)(
+      (p: (input: ArrayAtomicSimple) => Promise<ArrayAtomicSimple>) =>
+        typia.functional.assertEqualsReturn(p),
+    );

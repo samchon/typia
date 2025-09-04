@@ -15,6 +15,7 @@
         "id",
         "flag"
       ],
+      "description": "Current Type: {@link ToJsonDouble.Child}",
       "additionalProperties": false
     },
     "nullable": {
@@ -48,6 +49,7 @@
         "id",
         "flag"
       ],
+      "description": "Current Type: {@link ToJsonDouble.Child}",
       "additionalProperties": false
     },
     "faint": {
@@ -83,6 +85,7 @@
           "id",
           "flag"
         ],
+        "description": "Current Type: {@link ToJsonDouble.Child}",
         "additionalProperties": false
       }
     }

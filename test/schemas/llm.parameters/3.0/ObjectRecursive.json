@@ -42,6 +42,7 @@
                         "time",
                         "zone"
                       ],
+                      "description": "Current Type: {@link ObjectRecursive.ITimestamp}",
                       "additionalProperties": false
                     }
                   },
@@ -82,6 +83,7 @@
                     "time",
                     "zone"
                   ],
+                  "description": "Current Type: {@link ObjectRecursive.ITimestamp}",
                   "additionalProperties": false
                 }
               },
@@ -122,6 +124,7 @@
                 "time",
                 "zone"
               ],
+              "description": "Current Type: {@link ObjectRecursive.ITimestamp}",
               "additionalProperties": false
             }
           },
@@ -162,6 +165,7 @@
             "time",
             "zone"
           ],
+          "description": "Current Type: {@link ObjectRecursive.ITimestamp}",
           "additionalProperties": false
         }
       },
@@ -173,6 +177,7 @@
         "sequence",
         "created_at"
       ],
+      "description": "Current Type: {@link ObjectRecursive.IDepartment}",
       "additionalProperties": false
     },
     "nullable": {
@@ -216,6 +221,7 @@
                         "time",
                         "zone"
                       ],
+                      "description": "Current Type: {@link ObjectRecursive.ITimestamp}",
                       "additionalProperties": false
                     }
                   },
@@ -256,6 +262,7 @@
                     "time",
                     "zone"
                   ],
+                  "description": "Current Type: {@link ObjectRecursive.ITimestamp}",
                   "additionalProperties": false
                 }
               },
@@ -296,6 +303,7 @@
                 "time",
                 "zone"
               ],
+              "description": "Current Type: {@link ObjectRecursive.ITimestamp}",
               "additionalProperties": false
             }
           },
@@ -336,6 +344,7 @@
             "time",
             "zone"
           ],
+          "description": "Current Type: {@link ObjectRecursive.ITimestamp}",
           "additionalProperties": false
         }
       },
@@ -391,6 +400,7 @@
                         "time",
                         "zone"
                       ],
+                      "description": "Current Type: {@link ObjectRecursive.ITimestamp}",
                       "additionalProperties": false
                     }
                   },
@@ -431,6 +441,7 @@
                     "time",
                     "zone"
                   ],
+                  "description": "Current Type: {@link ObjectRecursive.ITimestamp}",
                   "additionalProperties": false
                 }
               },
@@ -471,6 +482,7 @@
                 "time",
                 "zone"
               ],
+              "description": "Current Type: {@link ObjectRecursive.ITimestamp}",
               "additionalProperties": false
             }
           },
@@ -511,6 +523,7 @@
             "time",
             "zone"
           ],
+          "description": "Current Type: {@link ObjectRecursive.ITimestamp}",
           "additionalProperties": false
         }
       },
@@ -522,6 +535,7 @@
         "sequence",
         "created_at"
       ],
+      "description": "Current Type: {@link ObjectRecursive.IDepartment}",
       "additionalProperties": false
     },
     "faint": {
@@ -565,6 +579,7 @@
                         "time",
                         "zone"
                       ],
+                      "description": "Current Type: {@link ObjectRecursive.ITimestamp}",
                       "additionalProperties": false
                     }
                   },
@@ -605,6 +620,7 @@
                     "time",
                     "zone"
                   ],
+                  "description": "Current Type: {@link ObjectRecursive.ITimestamp}",
                   "additionalProperties": false
                 }
               },
@@ -645,6 +661,7 @@
                 "time",
                 "zone"
               ],
+              "description": "Current Type: {@link ObjectRecursive.ITimestamp}",
               "additionalProperties": false
             }
           },
@@ -685,6 +702,7 @@
             "time",
             "zone"
           ],
+          "description": "Current Type: {@link ObjectRecursive.ITimestamp}",
           "additionalProperties": false
         }
       },
@@ -742,6 +760,7 @@
                           "time",
                           "zone"
                         ],
+                        "description": "Current Type: {@link ObjectRecursive.ITimestamp}",
                         "additionalProperties": false
                       }
                     },
@@ -782,6 +801,7 @@
                       "time",
                       "zone"
                     ],
+                    "description": "Current Type: {@link ObjectRecursive.ITimestamp}",
                     "additionalProperties": false
                   }
                 },
@@ -822,6 +842,7 @@
                   "time",
                   "zone"
                 ],
+                "description": "Current Type: {@link ObjectRecursive.ITimestamp}",
                 "additionalProperties": false
               }
             },
@@ -862,6 +883,7 @@
               "time",
               "zone"
             ],
+            "description": "Current Type: {@link ObjectRecursive.ITimestamp}",
             "additionalProperties": false
           }
         },
@@ -873,6 +895,7 @@
           "sequence",
           "created_at"
         ],
+        "description": "Current Type: {@link ObjectRecursive.IDepartment}",
         "additionalProperties": false
       }
     }

@@ -8,22 +8,30 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       id-token: write
-      contents: none
+      contents: write
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 20.x
           registry-url: https://registry.npmjs.org/
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
       - name: Install dependencies
-        run: npm install
+        run: pnpm install
       - name: Publish to npm
-        run: npm run package:latest
+        run: pnpm run package:latest
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH }}
+      - name: Root
+        run: pnpm run package:tgz
       - name: Website Setup
         working-directory: website
-        run: npm install && npm run build
+        run: |
+          npm cache clean --force
+          npm install
+          npm run build
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@4.1.3
         with:

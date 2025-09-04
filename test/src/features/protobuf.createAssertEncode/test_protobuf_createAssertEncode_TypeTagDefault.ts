@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_protobuf_assertEncode } from "../../internal/_test_protobuf_assertEncode";
 import { TypeTagDefault } from "../../structures/TypeTagDefault";
 
-export const test_protobuf_createAssertEncode_TypeTagDefault =
+export const test_protobuf_createAssertEncode_TypeTagDefault = (): void =>
   _test_protobuf_assertEncode(TypeGuardError)("TypeTagDefault")<TypeTagDefault>(
     TypeTagDefault,
   )({

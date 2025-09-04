@@ -5,8 +5,9 @@ import { _test_functional_assertReturnAsync } from "../../internal/_test_functio
 import { ClassMethod } from "../../structures/ClassMethod";
 
 export const test_functional_assertReturnAsync_ClassMethod =
-  _test_functional_assertReturnAsync(TypeGuardError)("ClassMethod")(
-    ClassMethod,
-  )((p: (input: ClassMethod) => Promise<ClassMethod>) =>
-    typia.functional.assertReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertReturnAsync(TypeGuardError)("ClassMethod")(
+      ClassMethod,
+    )((p: (input: ClassMethod) => Promise<ClassMethod>) =>
+      typia.functional.assertReturn(p),
+    );

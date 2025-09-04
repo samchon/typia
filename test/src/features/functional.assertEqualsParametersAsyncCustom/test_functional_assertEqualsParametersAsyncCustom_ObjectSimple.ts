@@ -5,8 +5,12 @@ import { _test_functional_assertEqualsParametersAsync } from "../../internal/_te
 import { ObjectSimple } from "../../structures/ObjectSimple";
 
 export const test_functional_assertEqualsParametersAsyncCustom_ObjectSimple =
-  _test_functional_assertEqualsParametersAsync(CustomGuardError)(
-    "ObjectSimple",
-  )(ObjectSimple)((p: (input: ObjectSimple) => Promise<ObjectSimple>) =>
-    typia.functional.assertEqualsParameters(p, (p) => new CustomGuardError(p)),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsParametersAsync(CustomGuardError)(
+      "ObjectSimple",
+    )(ObjectSimple)((p: (input: ObjectSimple) => Promise<ObjectSimple>) =>
+      typia.functional.assertEqualsParameters(
+        p,
+        (p) => new CustomGuardError(p),
+      ),
+    );

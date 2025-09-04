@@ -4,7 +4,8 @@ import { _test_functional_isReturnAsync } from "../../internal/_test_functional_
 import { FunctionalArray } from "../../structures/FunctionalArray";
 
 export const test_functional_isReturnAsync_FunctionalArray =
-  _test_functional_isReturnAsync("FunctionalArray")(FunctionalArray)(
-    (p: (input: FunctionalArray) => Promise<FunctionalArray>) =>
-      typia.functional.isReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_isReturnAsync("FunctionalArray")(FunctionalArray)(
+      (p: (input: FunctionalArray) => Promise<FunctionalArray>) =>
+        typia.functional.isReturn(p),
+    );

@@ -3,10 +3,11 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { ArrayRepeatedRequired } from "../../../structures/ArrayRepeatedRequired";
 
-export const test_llm_application_3_0_ArrayRepeatedRequired =
+export const test_llm_application_3_0_ArrayRepeatedRequired = (): void =>
   _test_llm_application({
     model: "3.0",
     name: "ArrayRepeatedRequired",
+    factory: ArrayRepeatedRequired,
   })(typia.llm.application<ArrayRepeatedRequiredApplication, "3.0">());
 
 interface ArrayRepeatedRequiredApplication {

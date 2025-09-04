@@ -4,7 +4,8 @@ import { _test_functional_validateParametersAsync } from "../../internal/_test_f
 import { DynamicArray } from "../../structures/DynamicArray";
 
 export const test_functional_validateParametersAsync_DynamicArray =
-  _test_functional_validateParametersAsync("DynamicArray")(DynamicArray)(
-    (p: (input: DynamicArray) => Promise<DynamicArray>) =>
-      typia.functional.validateParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateParametersAsync("DynamicArray")(DynamicArray)(
+      (p: (input: DynamicArray) => Promise<DynamicArray>) =>
+        typia.functional.validateParameters(p),
+    );

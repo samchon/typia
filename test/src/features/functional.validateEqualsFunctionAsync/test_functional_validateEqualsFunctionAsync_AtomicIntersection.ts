@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsFunctionAsync } from "../../internal/_te
 import { AtomicIntersection } from "../../structures/AtomicIntersection";
 
 export const test_functional_validateEqualsFunctionAsync_AtomicIntersection =
-  _test_functional_validateEqualsFunctionAsync("AtomicIntersection")(
-    AtomicIntersection,
-  )((p: (input: AtomicIntersection) => Promise<AtomicIntersection>) =>
-    typia.functional.validateEqualsFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateEqualsFunctionAsync("AtomicIntersection")(
+      AtomicIntersection,
+    )((p: (input: AtomicIntersection) => Promise<AtomicIntersection>) =>
+      typia.functional.validateEqualsFunction(p),
+    );

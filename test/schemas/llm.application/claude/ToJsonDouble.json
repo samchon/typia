@@ -1,7 +1,7 @@
 {
   "model": "claude",
   "options": {
-    "reference": false,
+    "reference": true,
     "separate": null
   },
   "functions": [
@@ -11,6 +11,15 @@
         "type": "object",
         "properties": {
           "first": {
+            "$ref": "#/$defs/ToJsonDouble.Child"
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ToJsonDouble.Child": {
             "type": "object",
             "properties": {
               "id": {
@@ -25,14 +34,8 @@
               "flag"
             ]
           }
-        },
-        "required": [
-          "first"
-        ],
-        "additionalProperties": false,
-        "$defs": {}
-      },
-      "strict": true
+        }
+      }
     },
     {
       "name": "reduce",
@@ -40,19 +43,7 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "number"
-              },
-              "flag": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "id",
-              "flag"
-            ]
+            "$ref": "#/$defs/ToJsonDouble.Child"
           },
           "second": {
             "oneOf": [
@@ -60,19 +51,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "number"
-                  },
-                  "flag": {
-                    "type": "boolean"
-                  }
-                },
-                "required": [
-                  "id",
-                  "flag"
-                ]
+                "$ref": "#/$defs/ToJsonDouble.Child"
               }
             ]
           }
@@ -82,24 +61,27 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "ToJsonDouble.Child": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "flag": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id",
+              "flag"
+            ]
+          }
+        }
       },
       "output": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "number"
-          },
-          "flag": {
-            "type": "boolean"
-          }
-        },
-        "required": [
-          "id",
-          "flag"
-        ]
-      },
-      "strict": true
+        "$ref": "#/$defs/ToJsonDouble.Child"
+      }
     },
     {
       "name": "coalesce",
@@ -112,19 +94,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "number"
-                  },
-                  "flag": {
-                    "type": "boolean"
-                  }
-                },
-                "required": [
-                  "id",
-                  "flag"
-                ]
+                "$ref": "#/$defs/ToJsonDouble.Child"
               }
             ]
           },
@@ -134,19 +104,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "number"
-                  },
-                  "flag": {
-                    "type": "boolean"
-                  }
-                },
-                "required": [
-                  "id",
-                  "flag"
-                ]
+                "$ref": "#/$defs/ToJsonDouble.Child"
               }
             ]
           },
@@ -156,37 +114,18 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "number"
-                  },
-                  "flag": {
-                    "type": "boolean"
-                  }
-                },
-                "required": [
-                  "id",
-                  "flag"
-                ]
+                "$ref": "#/$defs/ToJsonDouble.Child"
               }
             ]
           }
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "output": {
-        "oneOf": [
-          {
-            "type": "null"
-          },
-          {
+        "$defs": {
+          "ToJsonDouble.Child": {
             "type": "object",
             "properties": {
               "id": {
@@ -201,9 +140,18 @@
               "flag"
             ]
           }
-        ]
+        }
       },
-      "strict": true
+      "output": {
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "$ref": "#/$defs/ToJsonDouble.Child"
+          }
+        ]
+      }
     }
   ]
 }

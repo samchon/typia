@@ -4,8 +4,9 @@ import { _test_functional_validateFunction } from "../../internal/_test_function
 import { CommentTagRangeBigInt } from "../../structures/CommentTagRangeBigInt";
 
 export const test_functional_validateFunction_CommentTagRangeBigInt =
-  _test_functional_validateFunction("CommentTagRangeBigInt")(
-    CommentTagRangeBigInt,
-  )((p: (input: CommentTagRangeBigInt) => CommentTagRangeBigInt) =>
-    typia.functional.validateFunction(p),
-  );
+  (): void =>
+    _test_functional_validateFunction("CommentTagRangeBigInt")(
+      CommentTagRangeBigInt,
+    )((p: (input: CommentTagRangeBigInt) => CommentTagRangeBigInt) =>
+      typia.functional.validateFunction(p),
+    );

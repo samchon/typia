@@ -5,8 +5,10 @@ import { _test_functional_assertFunctionAsync } from "../../internal/_test_funct
 import { ObjectHierarchical } from "../../structures/ObjectHierarchical";
 
 export const test_functional_assertFunctionAsyncCustom_ObjectHierarchical =
-  _test_functional_assertFunctionAsync(CustomGuardError)("ObjectHierarchical")(
-    ObjectHierarchical,
-  )((p: (input: ObjectHierarchical) => Promise<ObjectHierarchical>) =>
-    typia.functional.assertFunction(p, (p) => new CustomGuardError(p)),
-  );
+  (): Promise<void> =>
+    _test_functional_assertFunctionAsync(CustomGuardError)(
+      "ObjectHierarchical",
+    )(ObjectHierarchical)(
+      (p: (input: ObjectHierarchical) => Promise<ObjectHierarchical>) =>
+        typia.functional.assertFunction(p, (p) => new CustomGuardError(p)),
+    );

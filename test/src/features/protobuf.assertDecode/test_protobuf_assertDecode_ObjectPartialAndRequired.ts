@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_protobuf_assertDecode } from "../../internal/_test_protobuf_assertDecode";
 import { ObjectPartialAndRequired } from "../../structures/ObjectPartialAndRequired";
 
-export const test_protobuf_assertDecode_ObjectPartialAndRequired =
+export const test_protobuf_assertDecode_ObjectPartialAndRequired = (): void =>
   _test_protobuf_assertDecode(TypeGuardError)(
     "ObjectPartialAndRequired",
   )<ObjectPartialAndRequired>(ObjectPartialAndRequired)({

@@ -5,8 +5,13 @@ import { _test_functional_assertEqualsFunction } from "../../internal/_test_func
 import { ObjectHierarchical } from "../../structures/ObjectHierarchical";
 
 export const test_functional_assertEqualsFunctionCustom_ObjectHierarchical =
-  _test_functional_assertEqualsFunction(CustomGuardError)("ObjectHierarchical")(
-    ObjectHierarchical,
-  )((p: (input: ObjectHierarchical) => ObjectHierarchical) =>
-    typia.functional.assertEqualsFunction(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertEqualsFunction(CustomGuardError)(
+      "ObjectHierarchical",
+    )(ObjectHierarchical)(
+      (p: (input: ObjectHierarchical) => ObjectHierarchical) =>
+        typia.functional.assertEqualsFunction(
+          p,
+          (p) => new CustomGuardError(p),
+        ),
+    );

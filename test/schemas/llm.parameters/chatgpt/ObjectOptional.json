@@ -2,28 +2,7 @@
   "type": "object",
   "properties": {
     "regular": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        },
-        "email": {
-          "type": "string"
-        },
-        "sequence": {
-          "type": "number"
-        }
-      },
-      "required": [
-        "id",
-        "name",
-        "email",
-        "sequence"
-      ],
-      "additionalProperties": false
+      "$ref": "#/$defs/ObjectOptional"
     },
     "nullable": {
       "anyOf": [
@@ -31,32 +10,38 @@
           "type": "null"
         },
         {
-          "type": "object",
-          "properties": {
-            "id": {
-              "type": "string"
-            },
-            "name": {
-              "type": "string"
-            },
-            "email": {
-              "type": "string"
-            },
-            "sequence": {
-              "type": "number"
-            }
-          },
-          "required": [
-            "id",
-            "name",
-            "email",
-            "sequence"
-          ],
-          "additionalProperties": false
+          "$ref": "#/$defs/ObjectOptional"
         }
       ]
     },
     "optional": {
+      "$ref": "#/$defs/ObjectOptional"
+    },
+    "faint": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/ObjectOptional"
+        }
+      ]
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ObjectOptional"
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "array"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "ObjectOptional": {
       "type": "object",
       "properties": {
         "id": {
@@ -72,80 +57,7 @@
           "type": "number"
         }
       },
-      "required": [
-        "id",
-        "name",
-        "email",
-        "sequence"
-      ],
-      "additionalProperties": false
-    },
-    "faint": {
-      "anyOf": [
-        {
-          "type": "null"
-        },
-        {
-          "type": "object",
-          "properties": {
-            "id": {
-              "type": "string"
-            },
-            "name": {
-              "type": "string"
-            },
-            "email": {
-              "type": "string"
-            },
-            "sequence": {
-              "type": "number"
-            }
-          },
-          "required": [
-            "id",
-            "name",
-            "email",
-            "sequence"
-          ],
-          "additionalProperties": false
-        }
-      ]
-    },
-    "array": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "email": {
-            "type": "string"
-          },
-          "sequence": {
-            "type": "number"
-          }
-        },
-        "required": [
-          "id",
-          "name",
-          "email",
-          "sequence"
-        ],
-        "additionalProperties": false
-      }
+      "required": []
     }
-  },
-  "required": [
-    "regular",
-    "nullable",
-    "optional",
-    "faint",
-    "array"
-  ],
-  "additionalProperties": false,
-  "$defs": {}
+  }
 }

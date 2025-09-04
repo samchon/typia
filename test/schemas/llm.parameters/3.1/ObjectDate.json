@@ -2,71 +2,7 @@
   "type": "object",
   "properties": {
     "regular": {
-      "type": "object",
-      "properties": {
-        "classDate": {
-          "oneOf": [
-            {
-              "type": "null"
-            },
-            {
-              "type": "string",
-              "description": "@format date-time"
-            }
-          ]
-        },
-        "date": {
-          "oneOf": [
-            {
-              "type": "null"
-            },
-            {
-              "type": "string",
-              "description": "@format date"
-            }
-          ]
-        },
-        "datetime": {
-          "oneOf": [
-            {
-              "type": "null"
-            },
-            {
-              "type": "string",
-              "description": "@format date-time"
-            }
-          ]
-        },
-        "time": {
-          "oneOf": [
-            {
-              "type": "null"
-            },
-            {
-              "type": "string",
-              "description": "@format time"
-            }
-          ]
-        },
-        "duration": {
-          "oneOf": [
-            {
-              "type": "null"
-            },
-            {
-              "type": "string",
-              "description": "@format duration"
-            }
-          ]
-        }
-      },
-      "required": [
-        "classDate",
-        "date",
-        "datetime",
-        "time",
-        "duration"
-      ]
+      "$ref": "#/$defs/ObjectDate"
     },
     "nullable": {
       "oneOf": [
@@ -74,75 +10,38 @@
           "type": "null"
         },
         {
-          "type": "object",
-          "properties": {
-            "classDate": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "type": "string",
-                  "description": "@format date-time"
-                }
-              ]
-            },
-            "date": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "type": "string",
-                  "description": "@format date"
-                }
-              ]
-            },
-            "datetime": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "type": "string",
-                  "description": "@format date-time"
-                }
-              ]
-            },
-            "time": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "type": "string",
-                  "description": "@format time"
-                }
-              ]
-            },
-            "duration": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "type": "string",
-                  "description": "@format duration"
-                }
-              ]
-            }
-          },
-          "required": [
-            "classDate",
-            "date",
-            "datetime",
-            "time",
-            "duration"
-          ]
+          "$ref": "#/$defs/ObjectDate"
         }
       ]
     },
     "optional": {
+      "$ref": "#/$defs/ObjectDate"
+    },
+    "faint": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/ObjectDate"
+        }
+      ]
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ObjectDate"
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "array"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "ObjectDate": {
       "type": "object",
       "properties": {
         "classDate": {
@@ -152,7 +51,7 @@
             },
             {
               "type": "string",
-              "description": "@format date-time"
+              "format": "date-time"
             }
           ]
         },
@@ -163,7 +62,7 @@
             },
             {
               "type": "string",
-              "description": "@format date"
+              "format": "date"
             }
           ]
         },
@@ -174,7 +73,7 @@
             },
             {
               "type": "string",
-              "description": "@format date-time"
+              "format": "date-time"
             }
           ]
         },
@@ -185,7 +84,7 @@
             },
             {
               "type": "string",
-              "description": "@format time"
+              "format": "time"
             }
           ]
         },
@@ -196,171 +95,17 @@
             },
             {
               "type": "string",
-              "description": "@format duration"
+              "format": "duration"
             }
           ]
         }
       },
       "required": [
-        "classDate",
         "date",
         "datetime",
         "time",
         "duration"
       ]
-    },
-    "faint": {
-      "oneOf": [
-        {
-          "type": "null"
-        },
-        {
-          "type": "object",
-          "properties": {
-            "classDate": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "type": "string",
-                  "description": "@format date-time"
-                }
-              ]
-            },
-            "date": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "type": "string",
-                  "description": "@format date"
-                }
-              ]
-            },
-            "datetime": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "type": "string",
-                  "description": "@format date-time"
-                }
-              ]
-            },
-            "time": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "type": "string",
-                  "description": "@format time"
-                }
-              ]
-            },
-            "duration": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "type": "string",
-                  "description": "@format duration"
-                }
-              ]
-            }
-          },
-          "required": [
-            "classDate",
-            "date",
-            "datetime",
-            "time",
-            "duration"
-          ]
-        }
-      ]
-    },
-    "array": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "classDate": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string",
-                "description": "@format date-time"
-              }
-            ]
-          },
-          "date": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string",
-                "description": "@format date"
-              }
-            ]
-          },
-          "datetime": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string",
-                "description": "@format date-time"
-              }
-            ]
-          },
-          "time": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string",
-                "description": "@format time"
-              }
-            ]
-          },
-          "duration": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string",
-                "description": "@format duration"
-              }
-            ]
-          }
-        },
-        "required": [
-          "classDate",
-          "date",
-          "datetime",
-          "time",
-          "duration"
-        ]
-      }
     }
-  },
-  "required": [
-    "regular",
-    "nullable",
-    "optional",
-    "faint",
-    "array"
-  ],
-  "additionalProperties": false,
-  "$defs": {}
+  }
 }

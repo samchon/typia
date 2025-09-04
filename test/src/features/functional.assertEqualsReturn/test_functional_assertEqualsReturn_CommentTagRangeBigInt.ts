@@ -5,8 +5,10 @@ import { _test_functional_assertEqualsReturn } from "../../internal/_test_functi
 import { CommentTagRangeBigInt } from "../../structures/CommentTagRangeBigInt";
 
 export const test_functional_assertEqualsReturn_CommentTagRangeBigInt =
-  _test_functional_assertEqualsReturn(TypeGuardError)("CommentTagRangeBigInt")(
-    CommentTagRangeBigInt,
-  )((p: (input: CommentTagRangeBigInt) => CommentTagRangeBigInt) =>
-    typia.functional.assertEqualsReturn(p),
-  );
+  (): void =>
+    _test_functional_assertEqualsReturn(TypeGuardError)(
+      "CommentTagRangeBigInt",
+    )(CommentTagRangeBigInt)(
+      (p: (input: CommentTagRangeBigInt) => CommentTagRangeBigInt) =>
+        typia.functional.assertEqualsReturn(p),
+    );

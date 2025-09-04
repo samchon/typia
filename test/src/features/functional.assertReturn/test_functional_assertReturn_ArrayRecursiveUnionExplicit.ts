@@ -5,8 +5,11 @@ import { _test_functional_assertReturn } from "../../internal/_test_functional_a
 import { ArrayRecursiveUnionExplicit } from "../../structures/ArrayRecursiveUnionExplicit";
 
 export const test_functional_assertReturn_ArrayRecursiveUnionExplicit =
-  _test_functional_assertReturn(TypeGuardError)("ArrayRecursiveUnionExplicit")(
-    ArrayRecursiveUnionExplicit,
-  )((p: (input: ArrayRecursiveUnionExplicit) => ArrayRecursiveUnionExplicit) =>
-    typia.functional.assertReturn(p),
-  );
+  (): void =>
+    _test_functional_assertReturn(TypeGuardError)(
+      "ArrayRecursiveUnionExplicit",
+    )(ArrayRecursiveUnionExplicit)(
+      (
+        p: (input: ArrayRecursiveUnionExplicit) => ArrayRecursiveUnionExplicit,
+      ) => typia.functional.assertReturn(p),
+    );

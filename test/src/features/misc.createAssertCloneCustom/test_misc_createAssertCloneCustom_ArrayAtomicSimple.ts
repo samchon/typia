@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_misc_assertClone } from "../../internal/_test_misc_assertClone";
 import { ArrayAtomicSimple } from "../../structures/ArrayAtomicSimple";
 
-export const test_misc_createAssertCloneCustom_ArrayAtomicSimple =
+export const test_misc_createAssertCloneCustom_ArrayAtomicSimple = (): void =>
   _test_misc_assertClone(CustomGuardError)(
     "ArrayAtomicSimple",
   )<ArrayAtomicSimple>(ArrayAtomicSimple)(

@@ -4,6 +4,14 @@ on:
     branches:
       - master
     paths:
+      - .github/workflows/website.yml
+      - 'examples/**'
+      - 'website/**'
+      - 'website/package.json'
+  pull_request:
+    paths:
+      - .github/workflows/website.yml
+      - 'examples/**'
       - 'website/**'
       - 'website/package.json'
 jobs:
@@ -14,13 +22,21 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20.x
-      - name: Root Install
-        run: npm install
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+      - name: Root
+        run: |
+          pnpm install
+          pnpm run package:tgz
       - name: Build
         working-directory: website
-        run: npm install && npm run build
+        run: |
+          npm install --force
+          npm run build
       - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@4.1.3
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
           folder: ./website/out

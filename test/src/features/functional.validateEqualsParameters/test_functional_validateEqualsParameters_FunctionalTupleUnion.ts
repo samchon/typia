@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsParameters } from "../../internal/_test_
 import { FunctionalTupleUnion } from "../../structures/FunctionalTupleUnion";
 
 export const test_functional_validateEqualsParameters_FunctionalTupleUnion =
-  _test_functional_validateEqualsParameters("FunctionalTupleUnion")(
-    FunctionalTupleUnion,
-  )((p: (input: FunctionalTupleUnion) => FunctionalTupleUnion) =>
-    typia.functional.validateEqualsParameters(p),
-  );
+  (): void =>
+    _test_functional_validateEqualsParameters("FunctionalTupleUnion")(
+      FunctionalTupleUnion,
+    )((p: (input: FunctionalTupleUnion) => FunctionalTupleUnion) =>
+      typia.functional.validateEqualsParameters(p),
+    );

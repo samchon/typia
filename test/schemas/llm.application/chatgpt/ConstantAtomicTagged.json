@@ -1,7 +1,8 @@
 {
   "model": "chatgpt",
   "options": {
-    "reference": false,
+    "reference": true,
+    "strict": false,
     "separate": null
   },
   "functions": [
@@ -11,6 +12,15 @@
         "type": "object",
         "properties": {
           "first": {
+            "$ref": "#/$defs/ConstantAtomicTagged"
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ConstantAtomicTagged": {
             "type": "object",
             "properties": {
               "id": {
@@ -24,7 +34,7 @@
                 "anyOf": [
                   {
                     "type": "integer",
-                    "description": "@maximum 100"
+                    "description": "@minimum 0\n@maximum 100"
                   },
                   {
                     "type": "number",
@@ -38,17 +48,10 @@
             "required": [
               "id",
               "age"
-            ],
-            "additionalProperties": false
+            ]
           }
-        },
-        "required": [
-          "first"
-        ],
-        "additionalProperties": false,
-        "$defs": {}
-      },
-      "strict": true
+        }
+      }
     },
     {
       "name": "reduce",
@@ -56,35 +59,7 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "description": "@format uuid",
-                "type": "string",
-                "enum": [
-                  "latest"
-                ]
-              },
-              "age": {
-                "anyOf": [
-                  {
-                    "type": "integer",
-                    "description": "@maximum 100"
-                  },
-                  {
-                    "type": "number",
-                    "enum": [
-                      -1
-                    ]
-                  }
-                ]
-              }
-            },
-            "required": [
-              "id",
-              "age"
-            ],
-            "additionalProperties": false
+            "$ref": "#/$defs/ConstantAtomicTagged"
           },
           "second": {
             "anyOf": [
@@ -92,35 +67,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "description": "@format uuid",
-                    "type": "string",
-                    "enum": [
-                      "latest"
-                    ]
-                  },
-                  "age": {
-                    "anyOf": [
-                      {
-                        "type": "integer",
-                        "description": "@maximum 100"
-                      },
-                      {
-                        "type": "number",
-                        "enum": [
-                          -1
-                        ]
-                      }
-                    ]
-                  }
-                },
-                "required": [
-                  "id",
-                  "age"
-                ],
-                "additionalProperties": false
+                "$ref": "#/$defs/ConstantAtomicTagged"
               }
             ]
           }
@@ -130,40 +77,42 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "output": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "description": "@format uuid",
-            "type": "string",
-            "enum": [
-              "latest"
-            ]
-          },
-          "age": {
-            "anyOf": [
-              {
-                "type": "integer",
-                "description": "@maximum 100"
-              },
-              {
-                "type": "number",
+        "$defs": {
+          "ConstantAtomicTagged": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "description": "@format uuid",
+                "type": "string",
                 "enum": [
-                  -1
+                  "latest"
+                ]
+              },
+              "age": {
+                "anyOf": [
+                  {
+                    "type": "integer",
+                    "description": "@minimum 0\n@maximum 100"
+                  },
+                  {
+                    "type": "number",
+                    "enum": [
+                      -1
+                    ]
+                  }
                 ]
               }
+            },
+            "required": [
+              "id",
+              "age"
             ]
           }
-        },
-        "required": [
-          "id",
-          "age"
-        ],
-        "additionalProperties": false
+        }
       },
-      "strict": true
+      "output": {
+        "$ref": "#/$defs/ConstantAtomicTagged"
+      }
     },
     {
       "name": "coalesce",
@@ -176,35 +125,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "description": "@format uuid",
-                    "type": "string",
-                    "enum": [
-                      "latest"
-                    ]
-                  },
-                  "age": {
-                    "anyOf": [
-                      {
-                        "type": "integer",
-                        "description": "@maximum 100"
-                      },
-                      {
-                        "type": "number",
-                        "enum": [
-                          -1
-                        ]
-                      }
-                    ]
-                  }
-                },
-                "required": [
-                  "id",
-                  "age"
-                ],
-                "additionalProperties": false
+                "$ref": "#/$defs/ConstantAtomicTagged"
               }
             ]
           },
@@ -214,35 +135,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "description": "@format uuid",
-                    "type": "string",
-                    "enum": [
-                      "latest"
-                    ]
-                  },
-                  "age": {
-                    "anyOf": [
-                      {
-                        "type": "integer",
-                        "description": "@maximum 100"
-                      },
-                      {
-                        "type": "number",
-                        "enum": [
-                          -1
-                        ]
-                      }
-                    ]
-                  }
-                },
-                "required": [
-                  "id",
-                  "age"
-                ],
-                "additionalProperties": false
+                "$ref": "#/$defs/ConstantAtomicTagged"
               }
             ]
           },
@@ -252,53 +145,18 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "description": "@format uuid",
-                    "type": "string",
-                    "enum": [
-                      "latest"
-                    ]
-                  },
-                  "age": {
-                    "anyOf": [
-                      {
-                        "type": "integer",
-                        "description": "@maximum 100"
-                      },
-                      {
-                        "type": "number",
-                        "enum": [
-                          -1
-                        ]
-                      }
-                    ]
-                  }
-                },
-                "required": [
-                  "id",
-                  "age"
-                ],
-                "additionalProperties": false
+                "$ref": "#/$defs/ConstantAtomicTagged"
               }
             ]
           }
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "output": {
-        "anyOf": [
-          {
-            "type": "null"
-          },
-          {
+        "$defs": {
+          "ConstantAtomicTagged": {
             "type": "object",
             "properties": {
               "id": {
@@ -312,7 +170,7 @@
                 "anyOf": [
                   {
                     "type": "integer",
-                    "description": "@maximum 100"
+                    "description": "@minimum 0\n@maximum 100"
                   },
                   {
                     "type": "number",
@@ -326,12 +184,20 @@
             "required": [
               "id",
               "age"
-            ],
-            "additionalProperties": false
+            ]
+          }
+        }
+      },
+      "output": {
+        "anyOf": [
+          {
+            "type": "null"
+          },
+          {
+            "$ref": "#/$defs/ConstantAtomicTagged"
           }
         ]
-      },
-      "strict": true
+      }
     }
   ]
 }

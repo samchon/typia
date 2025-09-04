@@ -4,8 +4,9 @@ import { _test_functional_isReturnAsync } from "../../internal/_test_functional_
 import { ConstantAtomicWrapper } from "../../structures/ConstantAtomicWrapper";
 
 export const test_functional_isReturnAsync_ConstantAtomicWrapper =
-  _test_functional_isReturnAsync("ConstantAtomicWrapper")(
-    ConstantAtomicWrapper,
-  )((p: (input: ConstantAtomicWrapper) => Promise<ConstantAtomicWrapper>) =>
-    typia.functional.isReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_isReturnAsync("ConstantAtomicWrapper")(
+      ConstantAtomicWrapper,
+    )((p: (input: ConstantAtomicWrapper) => Promise<ConstantAtomicWrapper>) =>
+      typia.functional.isReturn(p),
+    );

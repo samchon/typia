@@ -4,12 +4,13 @@ import { _test_functional_validateEqualsParametersAsync } from "../../internal/_
 import { ObjectUnionExplicitPointer } from "../../structures/ObjectUnionExplicitPointer";
 
 export const test_functional_validateEqualsParametersAsync_ObjectUnionExplicitPointer =
-  _test_functional_validateEqualsParametersAsync("ObjectUnionExplicitPointer")(
-    ObjectUnionExplicitPointer,
-  )(
-    (
-      p: (
-        input: ObjectUnionExplicitPointer,
-      ) => Promise<ObjectUnionExplicitPointer>,
-    ) => typia.functional.validateEqualsParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateEqualsParametersAsync(
+      "ObjectUnionExplicitPointer",
+    )(ObjectUnionExplicitPointer)(
+      (
+        p: (
+          input: ObjectUnionExplicitPointer,
+        ) => Promise<ObjectUnionExplicitPointer>,
+      ) => typia.functional.validateEqualsParameters(p),
+    );

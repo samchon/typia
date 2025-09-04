@@ -1,7 +1,8 @@
 {
   "model": "chatgpt",
   "options": {
-    "reference": false,
+    "reference": true,
+    "strict": false,
     "separate": null
   },
   "functions": [
@@ -11,6 +12,15 @@
         "type": "object",
         "properties": {
           "first": {
+            "$ref": "#/$defs/TypeTagCustom"
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "TypeTagCustom": {
             "type": "object",
             "properties": {
               "id": {
@@ -35,17 +45,10 @@
               "dollar",
               "postfix",
               "powerOf"
-            ],
-            "additionalProperties": false
+            ]
           }
-        },
-        "required": [
-          "first"
-        ],
-        "additionalProperties": false,
-        "$defs": {}
-      },
-      "strict": true
+        }
+      }
     },
     {
       "name": "reduce",
@@ -53,32 +56,7 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "description": "@format uuid",
-                "type": "string"
-              },
-              "dollar": {
-                "x-typia-monetary": "dollar",
-                "type": "string"
-              },
-              "postfix": {
-                "x-typia-postfix": "abcd",
-                "type": "string"
-              },
-              "powerOf": {
-                "x-typia-powerOf": 2,
-                "type": "number"
-              }
-            },
-            "required": [
-              "id",
-              "dollar",
-              "postfix",
-              "powerOf"
-            ],
-            "additionalProperties": false
+            "$ref": "#/$defs/TypeTagCustom"
           },
           "second": {
             "anyOf": [
@@ -86,32 +64,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "description": "@format uuid",
-                    "type": "string"
-                  },
-                  "dollar": {
-                    "x-typia-monetary": "dollar",
-                    "type": "string"
-                  },
-                  "postfix": {
-                    "x-typia-postfix": "abcd",
-                    "type": "string"
-                  },
-                  "powerOf": {
-                    "x-typia-powerOf": 2,
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "id",
-                  "dollar",
-                  "postfix",
-                  "powerOf"
-                ],
-                "additionalProperties": false
+                "$ref": "#/$defs/TypeTagCustom"
               }
             ]
           }
@@ -121,37 +74,39 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "TypeTagCustom": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "description": "@format uuid",
+                "type": "string"
+              },
+              "dollar": {
+                "x-typia-monetary": "dollar",
+                "type": "string"
+              },
+              "postfix": {
+                "x-typia-postfix": "abcd",
+                "type": "string"
+              },
+              "powerOf": {
+                "x-typia-powerOf": 2,
+                "type": "number"
+              }
+            },
+            "required": [
+              "id",
+              "dollar",
+              "postfix",
+              "powerOf"
+            ]
+          }
+        }
       },
       "output": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "description": "@format uuid",
-            "type": "string"
-          },
-          "dollar": {
-            "x-typia-monetary": "dollar",
-            "type": "string"
-          },
-          "postfix": {
-            "x-typia-postfix": "abcd",
-            "type": "string"
-          },
-          "powerOf": {
-            "x-typia-powerOf": 2,
-            "type": "number"
-          }
-        },
-        "required": [
-          "id",
-          "dollar",
-          "postfix",
-          "powerOf"
-        ],
-        "additionalProperties": false
-      },
-      "strict": true
+        "$ref": "#/$defs/TypeTagCustom"
+      }
     },
     {
       "name": "coalesce",
@@ -164,32 +119,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "description": "@format uuid",
-                    "type": "string"
-                  },
-                  "dollar": {
-                    "x-typia-monetary": "dollar",
-                    "type": "string"
-                  },
-                  "postfix": {
-                    "x-typia-postfix": "abcd",
-                    "type": "string"
-                  },
-                  "powerOf": {
-                    "x-typia-powerOf": 2,
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "id",
-                  "dollar",
-                  "postfix",
-                  "powerOf"
-                ],
-                "additionalProperties": false
+                "$ref": "#/$defs/TypeTagCustom"
               }
             ]
           },
@@ -199,32 +129,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "description": "@format uuid",
-                    "type": "string"
-                  },
-                  "dollar": {
-                    "x-typia-monetary": "dollar",
-                    "type": "string"
-                  },
-                  "postfix": {
-                    "x-typia-postfix": "abcd",
-                    "type": "string"
-                  },
-                  "powerOf": {
-                    "x-typia-powerOf": 2,
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "id",
-                  "dollar",
-                  "postfix",
-                  "powerOf"
-                ],
-                "additionalProperties": false
+                "$ref": "#/$defs/TypeTagCustom"
               }
             ]
           },
@@ -234,50 +139,18 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "description": "@format uuid",
-                    "type": "string"
-                  },
-                  "dollar": {
-                    "x-typia-monetary": "dollar",
-                    "type": "string"
-                  },
-                  "postfix": {
-                    "x-typia-postfix": "abcd",
-                    "type": "string"
-                  },
-                  "powerOf": {
-                    "x-typia-powerOf": 2,
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "id",
-                  "dollar",
-                  "postfix",
-                  "powerOf"
-                ],
-                "additionalProperties": false
+                "$ref": "#/$defs/TypeTagCustom"
               }
             ]
           }
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "output": {
-        "anyOf": [
-          {
-            "type": "null"
-          },
-          {
+        "$defs": {
+          "TypeTagCustom": {
             "type": "object",
             "properties": {
               "id": {
@@ -302,12 +175,20 @@
               "dollar",
               "postfix",
               "powerOf"
-            ],
-            "additionalProperties": false
+            ]
+          }
+        }
+      },
+      "output": {
+        "anyOf": [
+          {
+            "type": "null"
+          },
+          {
+            "$ref": "#/$defs/TypeTagCustom"
           }
         ]
-      },
-      "strict": true
+      }
     }
   ]
 }

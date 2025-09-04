@@ -5,8 +5,9 @@ import { _test_functional_assertFunctionAsync } from "../../internal/_test_funct
 import { ClassGetter } from "../../structures/ClassGetter";
 
 export const test_functional_assertFunctionAsync_ClassGetter =
-  _test_functional_assertFunctionAsync(TypeGuardError)("ClassGetter")(
-    ClassGetter,
-  )((p: (input: ClassGetter) => Promise<ClassGetter>) =>
-    typia.functional.assertFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertFunctionAsync(TypeGuardError)("ClassGetter")(
+      ClassGetter,
+    )((p: (input: ClassGetter) => Promise<ClassGetter>) =>
+      typia.functional.assertFunction(p),
+    );

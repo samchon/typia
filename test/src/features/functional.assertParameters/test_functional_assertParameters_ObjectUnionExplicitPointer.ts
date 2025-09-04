@@ -5,9 +5,10 @@ import { _test_functional_assertParameters } from "../../internal/_test_function
 import { ObjectUnionExplicitPointer } from "../../structures/ObjectUnionExplicitPointer";
 
 export const test_functional_assertParameters_ObjectUnionExplicitPointer =
-  _test_functional_assertParameters(TypeGuardError)(
-    "ObjectUnionExplicitPointer",
-  )(ObjectUnionExplicitPointer)(
-    (p: (input: ObjectUnionExplicitPointer) => ObjectUnionExplicitPointer) =>
-      typia.functional.assertParameters(p),
-  );
+  (): void =>
+    _test_functional_assertParameters(TypeGuardError)(
+      "ObjectUnionExplicitPointer",
+    )(ObjectUnionExplicitPointer)(
+      (p: (input: ObjectUnionExplicitPointer) => ObjectUnionExplicitPointer) =>
+        typia.functional.assertParameters(p),
+    );

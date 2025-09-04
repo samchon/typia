@@ -5,12 +5,13 @@ import { _test_functional_assertEqualsFunction } from "../../internal/_test_func
 import { ArrayRecursiveUnionExplicitPointer } from "../../structures/ArrayRecursiveUnionExplicitPointer";
 
 export const test_functional_assertEqualsFunction_ArrayRecursiveUnionExplicitPointer =
-  _test_functional_assertEqualsFunction(TypeGuardError)(
-    "ArrayRecursiveUnionExplicitPointer",
-  )(ArrayRecursiveUnionExplicitPointer)(
-    (
-      p: (
-        input: ArrayRecursiveUnionExplicitPointer,
-      ) => ArrayRecursiveUnionExplicitPointer,
-    ) => typia.functional.assertEqualsFunction(p),
-  );
+  (): void =>
+    _test_functional_assertEqualsFunction(TypeGuardError)(
+      "ArrayRecursiveUnionExplicitPointer",
+    )(ArrayRecursiveUnionExplicitPointer)(
+      (
+        p: (
+          input: ArrayRecursiveUnionExplicitPointer,
+        ) => ArrayRecursiveUnionExplicitPointer,
+      ) => typia.functional.assertEqualsFunction(p),
+    );

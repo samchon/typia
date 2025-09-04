@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_functional_assertParameters } from "../../internal/_test_functional_assertParameters";
 import { FunctionalTupleUnion } from "../../structures/FunctionalTupleUnion";
 
-export const test_functional_assertParameters_FunctionalTupleUnion =
+export const test_functional_assertParameters_FunctionalTupleUnion = (): void =>
   _test_functional_assertParameters(TypeGuardError)("FunctionalTupleUnion")(
     FunctionalTupleUnion,
   )((p: (input: FunctionalTupleUnion) => FunctionalTupleUnion) =>

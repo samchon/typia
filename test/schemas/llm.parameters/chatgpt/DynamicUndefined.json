@@ -2,10 +2,7 @@
   "type": "object",
   "properties": {
     "regular": {
-      "type": "object",
-      "properties": {},
-      "required": [],
-      "additionalProperties": false
+      "$ref": "#/$defs/DynamicUndefined"
     },
     "nullable": {
       "anyOf": [
@@ -13,18 +10,12 @@
           "type": "null"
         },
         {
-          "type": "object",
-          "properties": {},
-          "required": [],
-          "additionalProperties": false
+          "$ref": "#/$defs/DynamicUndefined"
         }
       ]
     },
     "optional": {
-      "type": "object",
-      "properties": {},
-      "required": [],
-      "additionalProperties": false
+      "$ref": "#/$defs/DynamicUndefined"
     },
     "faint": {
       "anyOf": [
@@ -32,30 +23,28 @@
           "type": "null"
         },
         {
-          "type": "object",
-          "properties": {},
-          "required": [],
-          "additionalProperties": false
+          "$ref": "#/$defs/DynamicUndefined"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
-        "type": "object",
-        "properties": {},
-        "required": [],
-        "additionalProperties": false
+        "$ref": "#/$defs/DynamicUndefined"
       }
     }
   },
   "required": [
     "regular",
     "nullable",
-    "optional",
-    "faint",
     "array"
   ],
   "additionalProperties": false,
-  "$defs": {}
+  "$defs": {
+    "DynamicUndefined": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    }
+  }
 }

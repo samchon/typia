@@ -1,7 +1,7 @@
 {
   "model": "llama",
   "options": {
-    "reference": false,
+    "reference": true,
     "separate": null
   },
   "functions": [
@@ -11,104 +11,21 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "object",
-            "properties": {
-              "value": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "int": {
-                      "type": "integer"
-                    },
-                    "uint": {
-                      "type": "integer"
-                    },
-                    "int32": {
-                      "type": "integer"
-                    },
-                    "uint32": {
-                      "type": "integer"
-                    },
-                    "int64": {
-                      "type": "integer"
-                    },
-                    "uint64": {
-                      "type": "integer"
-                    },
-                    "float": {
-                      "type": "number"
-                    }
-                  },
-                  "required": [
-                    "int",
-                    "uint",
-                    "int32",
-                    "uint32",
-                    "int64",
-                    "uint64",
-                    "float"
-                  ]
-                }
-              }
-            },
-            "required": [
-              "value"
-            ]
+            "$ref": "#/$defs/TypeTagType"
           }
         },
         "required": [
           "first"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "strict": true
-    },
-    {
-      "name": "reduce",
-      "parameters": {
-        "type": "object",
-        "properties": {
-          "first": {
+        "$defs": {
+          "TypeTagType": {
             "type": "object",
             "properties": {
               "value": {
                 "type": "array",
                 "items": {
-                  "type": "object",
-                  "properties": {
-                    "int": {
-                      "type": "integer"
-                    },
-                    "uint": {
-                      "type": "integer"
-                    },
-                    "int32": {
-                      "type": "integer"
-                    },
-                    "uint32": {
-                      "type": "integer"
-                    },
-                    "int64": {
-                      "type": "integer"
-                    },
-                    "uint64": {
-                      "type": "integer"
-                    },
-                    "float": {
-                      "type": "number"
-                    }
-                  },
-                  "required": [
-                    "int",
-                    "uint",
-                    "int32",
-                    "uint32",
-                    "int64",
-                    "uint64",
-                    "float"
-                  ]
+                  "$ref": "#/$defs/TypeTagType.Type"
                 }
               }
             },
@@ -116,56 +33,62 @@
               "value"
             ]
           },
+          "TypeTagType.Type": {
+            "type": "object",
+            "properties": {
+              "int": {
+                "type": "integer"
+              },
+              "uint": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "int32": {
+                "type": "integer"
+              },
+              "uint32": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "int64": {
+                "type": "integer"
+              },
+              "uint64": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "float": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "int",
+              "uint",
+              "int32",
+              "uint32",
+              "int64",
+              "uint64",
+              "float"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "$ref": "#/$defs/TypeTagType"
+          },
           "second": {
             "oneOf": [
               {
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "int": {
-                          "type": "integer"
-                        },
-                        "uint": {
-                          "type": "integer"
-                        },
-                        "int32": {
-                          "type": "integer"
-                        },
-                        "uint32": {
-                          "type": "integer"
-                        },
-                        "int64": {
-                          "type": "integer"
-                        },
-                        "uint64": {
-                          "type": "integer"
-                        },
-                        "float": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "int",
-                        "uint",
-                        "int32",
-                        "uint32",
-                        "int64",
-                        "uint64",
-                        "float"
-                      ]
-                    }
-                  }
-                },
-                "required": [
-                  "value"
-                ]
+                "$ref": "#/$defs/TypeTagType"
               }
             ]
           }
@@ -175,55 +98,64 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "TypeTagType": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/TypeTagType.Type"
+                }
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "TypeTagType.Type": {
+            "type": "object",
+            "properties": {
+              "int": {
+                "type": "integer"
+              },
+              "uint": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "int32": {
+                "type": "integer"
+              },
+              "uint32": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "int64": {
+                "type": "integer"
+              },
+              "uint64": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "float": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "int",
+              "uint",
+              "int32",
+              "uint32",
+              "int64",
+              "uint64",
+              "float"
+            ]
+          }
+        }
       },
       "output": {
-        "type": "object",
-        "properties": {
-          "value": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "int": {
-                  "type": "integer"
-                },
-                "uint": {
-                  "type": "integer"
-                },
-                "int32": {
-                  "type": "integer"
-                },
-                "uint32": {
-                  "type": "integer"
-                },
-                "int64": {
-                  "type": "integer"
-                },
-                "uint64": {
-                  "type": "integer"
-                },
-                "float": {
-                  "type": "number"
-                }
-              },
-              "required": [
-                "int",
-                "uint",
-                "int32",
-                "uint32",
-                "int64",
-                "uint64",
-                "float"
-              ]
-            }
-          }
-        },
-        "required": [
-          "value"
-        ]
-      },
-      "strict": true
+        "$ref": "#/$defs/TypeTagType"
+      }
     },
     {
       "name": "coalesce",
@@ -236,50 +168,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "int": {
-                          "type": "integer"
-                        },
-                        "uint": {
-                          "type": "integer"
-                        },
-                        "int32": {
-                          "type": "integer"
-                        },
-                        "uint32": {
-                          "type": "integer"
-                        },
-                        "int64": {
-                          "type": "integer"
-                        },
-                        "uint64": {
-                          "type": "integer"
-                        },
-                        "float": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "int",
-                        "uint",
-                        "int32",
-                        "uint32",
-                        "int64",
-                        "uint64",
-                        "float"
-                      ]
-                    }
-                  }
-                },
-                "required": [
-                  "value"
-                ]
+                "$ref": "#/$defs/TypeTagType"
               }
             ]
           },
@@ -289,50 +178,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "int": {
-                          "type": "integer"
-                        },
-                        "uint": {
-                          "type": "integer"
-                        },
-                        "int32": {
-                          "type": "integer"
-                        },
-                        "uint32": {
-                          "type": "integer"
-                        },
-                        "int64": {
-                          "type": "integer"
-                        },
-                        "uint64": {
-                          "type": "integer"
-                        },
-                        "float": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "int",
-                        "uint",
-                        "int32",
-                        "uint32",
-                        "int64",
-                        "uint64",
-                        "float"
-                      ]
-                    }
-                  }
-                },
-                "required": [
-                  "value"
-                ]
+                "$ref": "#/$defs/TypeTagType"
               }
             ]
           },
@@ -342,61 +188,70 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "int": {
-                          "type": "integer"
-                        },
-                        "uint": {
-                          "type": "integer"
-                        },
-                        "int32": {
-                          "type": "integer"
-                        },
-                        "uint32": {
-                          "type": "integer"
-                        },
-                        "int64": {
-                          "type": "integer"
-                        },
-                        "uint64": {
-                          "type": "integer"
-                        },
-                        "float": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "int",
-                        "uint",
-                        "int32",
-                        "uint32",
-                        "int64",
-                        "uint64",
-                        "float"
-                      ]
-                    }
-                  }
-                },
-                "required": [
-                  "value"
-                ]
+                "$ref": "#/$defs/TypeTagType"
               }
             ]
           }
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "TypeTagType": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/TypeTagType.Type"
+                }
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "TypeTagType.Type": {
+            "type": "object",
+            "properties": {
+              "int": {
+                "type": "integer"
+              },
+              "uint": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "int32": {
+                "type": "integer"
+              },
+              "uint32": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "int64": {
+                "type": "integer"
+              },
+              "uint64": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "float": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "int",
+              "uint",
+              "int32",
+              "uint32",
+              "int64",
+              "uint64",
+              "float"
+            ]
+          }
+        }
       },
       "output": {
         "oneOf": [
@@ -404,54 +259,10 @@
             "type": "null"
           },
           {
-            "type": "object",
-            "properties": {
-              "value": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "int": {
-                      "type": "integer"
-                    },
-                    "uint": {
-                      "type": "integer"
-                    },
-                    "int32": {
-                      "type": "integer"
-                    },
-                    "uint32": {
-                      "type": "integer"
-                    },
-                    "int64": {
-                      "type": "integer"
-                    },
-                    "uint64": {
-                      "type": "integer"
-                    },
-                    "float": {
-                      "type": "number"
-                    }
-                  },
-                  "required": [
-                    "int",
-                    "uint",
-                    "int32",
-                    "uint32",
-                    "int64",
-                    "uint64",
-                    "float"
-                  ]
-                }
-              }
-            },
-            "required": [
-              "value"
-            ]
+            "$ref": "#/$defs/TypeTagType"
           }
         ]
-      },
-      "strict": true
+      }
     }
   ]
 }

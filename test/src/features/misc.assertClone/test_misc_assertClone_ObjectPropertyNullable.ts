@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_misc_assertClone } from "../../internal/_test_misc_assertClone";
 import { ObjectPropertyNullable } from "../../structures/ObjectPropertyNullable";
 
-export const test_misc_assertClone_ObjectPropertyNullable =
+export const test_misc_assertClone_ObjectPropertyNullable = (): void =>
   _test_misc_assertClone(TypeGuardError)(
     "ObjectPropertyNullable",
   )<ObjectPropertyNullable>(ObjectPropertyNullable)((input) =>

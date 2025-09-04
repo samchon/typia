@@ -1,8 +1,8 @@
 {
   "model": "3.0",
   "options": {
-    "constraint": false,
     "recursive": 3,
+    "constraint": true,
     "separate": null
   },
   "functions": [
@@ -20,7 +20,7 @@
                   "type": "array",
                   "items": {
                     "type": "string",
-                    "description": "@format uuid"
+                    "format": "uuid"
                   },
                   "minItems": 3,
                   "maxItems": 3
@@ -29,7 +29,7 @@
                   "type": "array",
                   "items": {
                     "type": "number",
-                    "description": "@minimum 3"
+                    "minimum": 3
                   },
                   "minItems": 3
                 },
@@ -39,11 +39,11 @@
                     "oneOf": [
                       {
                         "type": "string",
-                        "description": "@maxLength 7"
+                        "maxLength": 7
                       },
                       {
                         "type": "number",
-                        "description": "@maximum 7"
+                        "maximum": 7
                       }
                     ]
                   },
@@ -53,7 +53,7 @@
                   "type": "array",
                   "items": {
                     "type": "string",
-                    "description": "@format uuid"
+                    "format": "uuid"
                   },
                   "minItems": 3,
                   "maxItems": 7
@@ -65,16 +65,17 @@
                 "maxItems",
                 "both"
               ],
+              "description": "Current Type: {@link TypeTagArrayUnion.Type}",
               "additionalProperties": false
-            }
+            },
+            "description": "Current Type: {@link TypeTagArrayUnion}"
           }
         },
         "required": [
           "first"
         ],
         "additionalProperties": false
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -90,7 +91,7 @@
                   "type": "array",
                   "items": {
                     "type": "string",
-                    "description": "@format uuid"
+                    "format": "uuid"
                   },
                   "minItems": 3,
                   "maxItems": 3
@@ -99,7 +100,7 @@
                   "type": "array",
                   "items": {
                     "type": "number",
-                    "description": "@minimum 3"
+                    "minimum": 3
                   },
                   "minItems": 3
                 },
@@ -109,11 +110,11 @@
                     "oneOf": [
                       {
                         "type": "string",
-                        "description": "@maxLength 7"
+                        "maxLength": 7
                       },
                       {
                         "type": "number",
-                        "description": "@maximum 7"
+                        "maximum": 7
                       }
                     ]
                   },
@@ -123,7 +124,7 @@
                   "type": "array",
                   "items": {
                     "type": "string",
-                    "description": "@format uuid"
+                    "format": "uuid"
                   },
                   "minItems": 3,
                   "maxItems": 7
@@ -135,8 +136,10 @@
                 "maxItems",
                 "both"
               ],
+              "description": "Current Type: {@link TypeTagArrayUnion.Type}",
               "additionalProperties": false
-            }
+            },
+            "description": "Current Type: {@link TypeTagArrayUnion}"
           },
           "second": {
             "type": "array",
@@ -147,7 +150,7 @@
                   "type": "array",
                   "items": {
                     "type": "string",
-                    "description": "@format uuid"
+                    "format": "uuid"
                   },
                   "minItems": 3,
                   "maxItems": 3
@@ -156,7 +159,7 @@
                   "type": "array",
                   "items": {
                     "type": "number",
-                    "description": "@minimum 3"
+                    "minimum": 3
                   },
                   "minItems": 3
                 },
@@ -166,11 +169,11 @@
                     "oneOf": [
                       {
                         "type": "string",
-                        "description": "@maxLength 7"
+                        "maxLength": 7
                       },
                       {
                         "type": "number",
-                        "description": "@maximum 7"
+                        "maximum": 7
                       }
                     ]
                   },
@@ -180,7 +183,7 @@
                   "type": "array",
                   "items": {
                     "type": "string",
-                    "description": "@format uuid"
+                    "format": "uuid"
                   },
                   "minItems": 3,
                   "maxItems": 7
@@ -192,6 +195,7 @@
                 "maxItems",
                 "both"
               ],
+              "description": "Current Type: {@link TypeTagArrayUnion.Type}",
               "additionalProperties": false
             },
             "nullable": true
@@ -212,7 +216,7 @@
               "type": "array",
               "items": {
                 "type": "string",
-                "description": "@format uuid"
+                "format": "uuid"
               },
               "minItems": 3,
               "maxItems": 3
@@ -221,7 +225,7 @@
               "type": "array",
               "items": {
                 "type": "number",
-                "description": "@minimum 3"
+                "minimum": 3
               },
               "minItems": 3
             },
@@ -231,11 +235,11 @@
                 "oneOf": [
                   {
                     "type": "string",
-                    "description": "@maxLength 7"
+                    "maxLength": 7
                   },
                   {
                     "type": "number",
-                    "description": "@maximum 7"
+                    "maximum": 7
                   }
                 ]
               },
@@ -245,7 +249,7 @@
               "type": "array",
               "items": {
                 "type": "string",
-                "description": "@format uuid"
+                "format": "uuid"
               },
               "minItems": 3,
               "maxItems": 7
@@ -257,10 +261,11 @@
             "maxItems",
             "both"
           ],
+          "description": "Current Type: {@link TypeTagArrayUnion.Type}",
           "additionalProperties": false
-        }
-      },
-      "strict": true
+        },
+        "description": "Current Type: {@link TypeTagArrayUnion}"
+      }
     },
     {
       "name": "coalesce",
@@ -276,7 +281,7 @@
                   "type": "array",
                   "items": {
                     "type": "string",
-                    "description": "@format uuid"
+                    "format": "uuid"
                   },
                   "minItems": 3,
                   "maxItems": 3
@@ -285,7 +290,7 @@
                   "type": "array",
                   "items": {
                     "type": "number",
-                    "description": "@minimum 3"
+                    "minimum": 3
                   },
                   "minItems": 3
                 },
@@ -295,11 +300,11 @@
                     "oneOf": [
                       {
                         "type": "string",
-                        "description": "@maxLength 7"
+                        "maxLength": 7
                       },
                       {
                         "type": "number",
-                        "description": "@maximum 7"
+                        "maximum": 7
                       }
                     ]
                   },
@@ -309,7 +314,7 @@
                   "type": "array",
                   "items": {
                     "type": "string",
-                    "description": "@format uuid"
+                    "format": "uuid"
                   },
                   "minItems": 3,
                   "maxItems": 7
@@ -321,6 +326,7 @@
                 "maxItems",
                 "both"
               ],
+              "description": "Current Type: {@link TypeTagArrayUnion.Type}",
               "additionalProperties": false
             },
             "nullable": true
@@ -334,7 +340,7 @@
                   "type": "array",
                   "items": {
                     "type": "string",
-                    "description": "@format uuid"
+                    "format": "uuid"
                   },
                   "minItems": 3,
                   "maxItems": 3
@@ -343,7 +349,7 @@
                   "type": "array",
                   "items": {
                     "type": "number",
-                    "description": "@minimum 3"
+                    "minimum": 3
                   },
                   "minItems": 3
                 },
@@ -353,11 +359,11 @@
                     "oneOf": [
                       {
                         "type": "string",
-                        "description": "@maxLength 7"
+                        "maxLength": 7
                       },
                       {
                         "type": "number",
-                        "description": "@maximum 7"
+                        "maximum": 7
                       }
                     ]
                   },
@@ -367,7 +373,7 @@
                   "type": "array",
                   "items": {
                     "type": "string",
-                    "description": "@format uuid"
+                    "format": "uuid"
                   },
                   "minItems": 3,
                   "maxItems": 7
@@ -379,6 +385,7 @@
                 "maxItems",
                 "both"
               ],
+              "description": "Current Type: {@link TypeTagArrayUnion.Type}",
               "additionalProperties": false
             },
             "nullable": true
@@ -392,7 +399,7 @@
                   "type": "array",
                   "items": {
                     "type": "string",
-                    "description": "@format uuid"
+                    "format": "uuid"
                   },
                   "minItems": 3,
                   "maxItems": 3
@@ -401,7 +408,7 @@
                   "type": "array",
                   "items": {
                     "type": "number",
-                    "description": "@minimum 3"
+                    "minimum": 3
                   },
                   "minItems": 3
                 },
@@ -411,11 +418,11 @@
                     "oneOf": [
                       {
                         "type": "string",
-                        "description": "@maxLength 7"
+                        "maxLength": 7
                       },
                       {
                         "type": "number",
-                        "description": "@maximum 7"
+                        "maximum": 7
                       }
                     ]
                   },
@@ -425,7 +432,7 @@
                   "type": "array",
                   "items": {
                     "type": "string",
-                    "description": "@format uuid"
+                    "format": "uuid"
                   },
                   "minItems": 3,
                   "maxItems": 7
@@ -437,6 +444,7 @@
                 "maxItems",
                 "both"
               ],
+              "description": "Current Type: {@link TypeTagArrayUnion.Type}",
               "additionalProperties": false
             },
             "nullable": true
@@ -457,7 +465,7 @@
               "type": "array",
               "items": {
                 "type": "string",
-                "description": "@format uuid"
+                "format": "uuid"
               },
               "minItems": 3,
               "maxItems": 3
@@ -466,7 +474,7 @@
               "type": "array",
               "items": {
                 "type": "number",
-                "description": "@minimum 3"
+                "minimum": 3
               },
               "minItems": 3
             },
@@ -476,11 +484,11 @@
                 "oneOf": [
                   {
                     "type": "string",
-                    "description": "@maxLength 7"
+                    "maxLength": 7
                   },
                   {
                     "type": "number",
-                    "description": "@maximum 7"
+                    "maximum": 7
                   }
                 ]
               },
@@ -490,7 +498,7 @@
               "type": "array",
               "items": {
                 "type": "string",
-                "description": "@format uuid"
+                "format": "uuid"
               },
               "minItems": 3,
               "maxItems": 7
@@ -502,11 +510,11 @@
             "maxItems",
             "both"
           ],
+          "description": "Current Type: {@link TypeTagArrayUnion.Type}",
           "additionalProperties": false
         },
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

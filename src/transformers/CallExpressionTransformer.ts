@@ -62,11 +62,13 @@ import { JsonCreateValidateParseTransformer } from "./features/json/JsonCreateVa
 import { JsonCreateValidateStringifyTransformer } from "./features/json/JsonCreateValidateStringifyProgrammer";
 import { JsonIsParseTransformer } from "./features/json/JsonIsParseTransformer";
 import { JsonIsStringifyTransformer } from "./features/json/JsonIsStringifyTransformer";
+import { JsonSchemaTransformer } from "./features/json/JsonSchemaTransformer";
 import { JsonSchemasTransformer } from "./features/json/JsonSchemasTransformer";
 import { JsonStringifyTransformer } from "./features/json/JsonStringifyTransformer";
 import { JsonValidateParseTransformer } from "./features/json/JsonValidateParseTransformer";
 import { JsonValidateStringifyTransformer } from "./features/json/JsonValidateStringifyTransformer";
 import { LlmApplicationTransformer } from "./features/llm/LlmApplicationTransformer";
+import { LlmControllerTransformer } from "./features/llm/LlmControllerTransformer";
 import { LlmParametersTransformer } from "./features/llm/LlmParametersTransformer";
 import { LlmSchemaTransformer } from "./features/llm/LlmSchemaTransformer";
 import { MiscAssertCloneTransformer } from "./features/misc/MiscAssertCloneTransformer";
@@ -194,14 +196,20 @@ const FUNCTORS: Record<string, Record<string, () => Task>> = {
       CreateAssertTransformer.transform({ equals: false, guard: false }),
     createIs: () => CreateIsTransformer.transform({ equals: false }),
     createValidate: () =>
-      CreateValidateTransformer.transform({ equals: false }),
+      CreateValidateTransformer.transform({
+        equals: false,
+        standardSchema: true,
+      }),
     createAssertEquals: () =>
       CreateAssertTransformer.transform({ equals: true, guard: false }),
     createAssertGuardEquals: () =>
       CreateAssertTransformer.transform({ equals: true, guard: true }),
     createEquals: () => CreateIsTransformer.transform({ equals: true }),
     createValidateEquals: () =>
-      CreateValidateTransformer.transform({ equals: true }),
+      CreateValidateTransformer.transform({
+        equals: true,
+        standardSchema: true,
+      }),
     createRandom: () => CreateRandomTransformer.transform,
   },
   functional: {
@@ -394,15 +402,16 @@ const FUNCTORS: Record<string, Record<string, () => Task>> = {
     createValidateQuery: () => CreateHttpValidateQueryTransformer.transform,
   },
   llm: {
+    controller: () => LlmControllerTransformer.transform,
+    applicationOfValidate: () => LlmApplicationTransformer.transform,
     application: () => LlmApplicationTransformer.transform,
     parameters: () => LlmParametersTransformer.transform,
     schema: () => LlmSchemaTransformer.transform,
   },
   json: {
     // METADATA
-    // application: () => JsonApplicationTransformer.transform,
-    application: () => JsonSchemasTransformer.transform,
     schemas: () => JsonSchemasTransformer.transform,
+    schema: () => JsonSchemaTransformer.transform,
 
     // PARSER
     isParse: () => JsonIsParseTransformer.transform,

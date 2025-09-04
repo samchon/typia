@@ -11,8 +11,7 @@ export const _test_protobuf_encode =
     message: string;
     encode: (input: T) => Uint8Array;
     decode: (input: Uint8Array) => typia.Resolved<T>;
-  }) =>
-  () => {
+  }): void => {
     const data: T = factory.generate();
     const result: Uint8Array = (() => {
       try {

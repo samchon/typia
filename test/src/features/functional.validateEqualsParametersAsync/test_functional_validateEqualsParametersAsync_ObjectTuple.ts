@@ -4,7 +4,8 @@ import { _test_functional_validateEqualsParametersAsync } from "../../internal/_
 import { ObjectTuple } from "../../structures/ObjectTuple";
 
 export const test_functional_validateEqualsParametersAsync_ObjectTuple =
-  _test_functional_validateEqualsParametersAsync("ObjectTuple")(ObjectTuple)(
-    (p: (input: ObjectTuple) => Promise<ObjectTuple>) =>
-      typia.functional.validateEqualsParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateEqualsParametersAsync("ObjectTuple")(ObjectTuple)(
+      (p: (input: ObjectTuple) => Promise<ObjectTuple>) =>
+        typia.functional.validateEqualsParameters(p),
+    );

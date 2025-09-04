@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsFunctionAsync } from "../../internal/_te
 import { ObjectHttpArray } from "../../structures/ObjectHttpArray";
 
 export const test_functional_validateEqualsFunctionAsync_ObjectHttpArray =
-  _test_functional_validateEqualsFunctionAsync("ObjectHttpArray")(
-    ObjectHttpArray,
-  )((p: (input: ObjectHttpArray) => Promise<ObjectHttpArray>) =>
-    typia.functional.validateEqualsFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateEqualsFunctionAsync("ObjectHttpArray")(
+      ObjectHttpArray,
+    )((p: (input: ObjectHttpArray) => Promise<ObjectHttpArray>) =>
+      typia.functional.validateEqualsFunction(p),
+    );

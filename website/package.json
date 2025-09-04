@@ -1,14 +1,18 @@
 {
-  "name": "typia.io",
+  "private": true,
+  "name": "@typia/website",
   "version": "0.1.0",
   "description": "Typia Guide Documents",
-  "private": true,
   "scripts": {
-    "build": "rimraf .next && rimraf out && npm run build:typedoc && next build && node build/sitemap",
-    "build:typedoc": "typedoc --plugin typedoc-github-theme --theme typedoc-github-theme",
+    "build": "npm run prebuild && next build && npm run postbuild",
+    "prebuild": "rimraf .next && rimraf out && npm run build:compiler && npm run build:typedoc",
+    "postbuild": "npm run build:pagefind && npm run build:sitemap",
+    "build:compiler": "node build/compiler",
+    "build:typedoc": "node build/typedoc",
+    "build:pagefind": "pagefind --site .next/server/app --output-path out/_pagefind",
+    "build:sitemap": "node build/sitemap",
     "deploy": "node build/deploy",
-    "dev": "next dev",
-    "prepare": "node build/raw && rspack && npm run build:typedoc"
+    "dev": "next dev"
   },
   "repository": {
     "type": "git",
@@ -25,21 +29,20 @@
     "@monaco-editor/react": "^4.6.0",
     "@mui/icons-material": "^5.15.4",
     "@mui/material": "^5.12.0",
-    "@rollup/browser": "^4.13.0",
-    "@samchon/openapi": "latest",
+    "@rollup/browser": "4.13.0",
+    "embed-typescript": "^1.1.0",
     "lz-string": "^1.5.0",
     "monaco-editor": "^0.50.0",
-    "next": "^14.2.3",
-    "nextra": "^2.13.4",
-    "nextra-theme-docs": "^2.13.4",
+    "next": "^15.3.4",
+    "nextra": "^4.2.17",
+    "nextra-theme-docs": "^4.2.17",
     "path": "^0.12.7",
     "prettier": "^3.2.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "tgrid": "^1.0.3",
     "tstl": "^3.0.0",
-    "typescript": "^5.6.3",
-    "typia": "latest"
+    "typia": "../typia.tgz"
   },
   "devDependencies": {
     "@rspack/cli": "^1.0.0",
@@ -49,13 +52,14 @@
     "@types/prettier": "^3.0.0",
     "@types/react": "^18.0.35",
     "gh-pages": "^5.0.0",
-    "next-sitemap": "^4.0.7",
+    "next-sitemap": "^4.2.3",
+    "pagefind": "^1.3.0",
     "process": "^0.11.10",
     "rimraf": "^5.0.0",
     "ts-loader": "^9.5.1",
     "ts-node": "^10.9.1",
-    "typedoc": "^0.26.11",
-    "typedoc-github-theme": "^0.1.1",
+    "typedoc": "^0.28.9",
+    "typescript": "~5.9.2",
     "write-file-webpack-plugin": "^4.5.1"
   }
 }

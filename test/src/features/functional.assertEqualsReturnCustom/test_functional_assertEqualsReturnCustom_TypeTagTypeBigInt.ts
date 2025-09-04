@@ -5,8 +5,9 @@ import { _test_functional_assertEqualsReturn } from "../../internal/_test_functi
 import { TypeTagTypeBigInt } from "../../structures/TypeTagTypeBigInt";
 
 export const test_functional_assertEqualsReturnCustom_TypeTagTypeBigInt =
-  _test_functional_assertEqualsReturn(CustomGuardError)("TypeTagTypeBigInt")(
-    TypeTagTypeBigInt,
-  )((p: (input: TypeTagTypeBigInt) => TypeTagTypeBigInt) =>
-    typia.functional.assertEqualsReturn(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertEqualsReturn(CustomGuardError)("TypeTagTypeBigInt")(
+      TypeTagTypeBigInt,
+    )((p: (input: TypeTagTypeBigInt) => TypeTagTypeBigInt) =>
+      typia.functional.assertEqualsReturn(p, (p) => new CustomGuardError(p)),
+    );

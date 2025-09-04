@@ -1,7 +1,8 @@
 {
   "model": "chatgpt",
   "options": {
-    "reference": false,
+    "reference": true,
+    "strict": false,
     "separate": null
   },
   "functions": [
@@ -11,35 +12,41 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "array",
-            "items": {
-              "anyOf": [
-                {
-                  "type": "number",
-                  "enum": [
-                    0,
-                    1,
-                    2
-                  ]
-                },
-                {
-                  "type": "string",
-                  "enum": [
-                    "Three",
-                    "Four"
-                  ]
-                }
-              ]
-            }
+            "$ref": "#/$defs/ConstantConstEnumeration"
           }
         },
         "required": [
           "first"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "strict": true
+        "$defs": {
+          "ConstantConstEnumeration": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/ConstantConstEnumeration.Enumeration"
+            }
+          },
+          "ConstantConstEnumeration.Enumeration": {
+            "anyOf": [
+              {
+                "type": "number",
+                "enum": [
+                  0,
+                  1,
+                  2
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "Three",
+                  "Four"
+                ]
+              }
+            ]
+          }
+        }
+      }
     },
     {
       "name": "reduce",
@@ -47,26 +54,7 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "array",
-            "items": {
-              "anyOf": [
-                {
-                  "type": "number",
-                  "enum": [
-                    0,
-                    1,
-                    2
-                  ]
-                },
-                {
-                  "type": "string",
-                  "enum": [
-                    "Three",
-                    "Four"
-                  ]
-                }
-              ]
-            }
+            "$ref": "#/$defs/ConstantConstEnumeration"
           },
           "second": {
             "anyOf": [
@@ -74,26 +62,7 @@
                 "type": "null"
               },
               {
-                "type": "array",
-                "items": {
-                  "anyOf": [
-                    {
-                      "type": "number",
-                      "enum": [
-                        0,
-                        1,
-                        2
-                      ]
-                    },
-                    {
-                      "type": "string",
-                      "enum": [
-                        "Three",
-                        "Four"
-                      ]
-                    }
-                  ]
-                }
+                "$ref": "#/$defs/ConstantConstEnumeration"
               }
             ]
           }
@@ -103,31 +72,37 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "output": {
-        "type": "array",
-        "items": {
-          "anyOf": [
-            {
-              "type": "number",
-              "enum": [
-                0,
-                1,
-                2
-              ]
-            },
-            {
-              "type": "string",
-              "enum": [
-                "Three",
-                "Four"
-              ]
+        "$defs": {
+          "ConstantConstEnumeration": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/ConstantConstEnumeration.Enumeration"
             }
-          ]
+          },
+          "ConstantConstEnumeration.Enumeration": {
+            "anyOf": [
+              {
+                "type": "number",
+                "enum": [
+                  0,
+                  1,
+                  2
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "Three",
+                  "Four"
+                ]
+              }
+            ]
+          }
         }
       },
-      "strict": true
+      "output": {
+        "$ref": "#/$defs/ConstantConstEnumeration"
+      }
     },
     {
       "name": "coalesce",
@@ -140,26 +115,7 @@
                 "type": "null"
               },
               {
-                "type": "array",
-                "items": {
-                  "anyOf": [
-                    {
-                      "type": "number",
-                      "enum": [
-                        0,
-                        1,
-                        2
-                      ]
-                    },
-                    {
-                      "type": "string",
-                      "enum": [
-                        "Three",
-                        "Four"
-                      ]
-                    }
-                  ]
-                }
+                "$ref": "#/$defs/ConstantConstEnumeration"
               }
             ]
           },
@@ -169,26 +125,7 @@
                 "type": "null"
               },
               {
-                "type": "array",
-                "items": {
-                  "anyOf": [
-                    {
-                      "type": "number",
-                      "enum": [
-                        0,
-                        1,
-                        2
-                      ]
-                    },
-                    {
-                      "type": "string",
-                      "enum": [
-                        "Three",
-                        "Four"
-                      ]
-                    }
-                  ]
-                }
+                "$ref": "#/$defs/ConstantConstEnumeration"
               }
             ]
           },
@@ -198,37 +135,43 @@
                 "type": "null"
               },
               {
-                "type": "array",
-                "items": {
-                  "anyOf": [
-                    {
-                      "type": "number",
-                      "enum": [
-                        0,
-                        1,
-                        2
-                      ]
-                    },
-                    {
-                      "type": "string",
-                      "enum": [
-                        "Three",
-                        "Four"
-                      ]
-                    }
-                  ]
-                }
+                "$ref": "#/$defs/ConstantConstEnumeration"
               }
             ]
           }
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "ConstantConstEnumeration": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/ConstantConstEnumeration.Enumeration"
+            }
+          },
+          "ConstantConstEnumeration.Enumeration": {
+            "anyOf": [
+              {
+                "type": "number",
+                "enum": [
+                  0,
+                  1,
+                  2
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "Three",
+                  "Four"
+                ]
+              }
+            ]
+          }
+        }
       },
       "output": {
         "anyOf": [
@@ -236,30 +179,10 @@
             "type": "null"
           },
           {
-            "type": "array",
-            "items": {
-              "anyOf": [
-                {
-                  "type": "number",
-                  "enum": [
-                    0,
-                    1,
-                    2
-                  ]
-                },
-                {
-                  "type": "string",
-                  "enum": [
-                    "Three",
-                    "Four"
-                  ]
-                }
-              ]
-            }
+            "$ref": "#/$defs/ConstantConstEnumeration"
           }
         ]
-      },
-      "strict": true
+      }
     }
   ]
 }

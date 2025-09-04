@@ -5,6 +5,7 @@
       "type": "object",
       "properties": {},
       "required": [],
+      "description": "Current Type: {@link DynamicUnion}",
       "additionalProperties": {
         "oneOf": [
           {
@@ -36,6 +37,7 @@
       "type": "object",
       "properties": {},
       "required": [],
+      "description": "Current Type: {@link DynamicUnion}",
       "additionalProperties": {
         "oneOf": [
           {
@@ -69,6 +71,7 @@
         "type": "object",
         "properties": {},
         "required": [],
+        "description": "Current Type: {@link DynamicUnion}",
         "additionalProperties": {
           "oneOf": [
             {

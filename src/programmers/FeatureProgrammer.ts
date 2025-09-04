@@ -25,26 +25,18 @@ export namespace FeatureProgrammer {
   export interface IConfig<Output extends ts.ConciseBody = ts.ConciseBody> {
     types: IConfig.ITypes;
 
-    /**
-     * Prefix name of internal functions for specific types.
-     */
+    /** Prefix name of internal functions for specific types. */
     prefix: string;
 
-    /**
-     * Whether to archive access path or not.
-     */
+    /** Whether to archive access path or not. */
     path: boolean;
 
-    /**
-     * Whether to trace exception or not.
-     */
+    /** Whether to trace exception or not. */
     trace: boolean;
 
     addition?: undefined | ((collection: MetadataCollection) => ts.Statement[]);
 
-    /**
-     * Initializer of metadata.
-     */
+    /** Initializer of metadata. */
     initializer: (props: {
       context: ITypiaContext;
       functor: FunctionProgrammer;
@@ -54,23 +46,17 @@ export namespace FeatureProgrammer {
       metadata: Metadata;
     };
 
-    /**
-     * Decoder, station of every types.
-     */
+    /** Decoder, station of every types. */
     decoder: (props: {
       metadata: Metadata;
       input: ts.Expression;
       explore: IExplore;
     }) => Output;
 
-    /**
-     * Object configurator.
-     */
+    /** Object configurator. */
     objector: IConfig.IObjector<Output>;
 
-    /**
-     * Generator of functions for object types.
-     */
+    /** Generator of functions for object types. */
     generator: IConfig.IGenerator;
   }
   export namespace IConfig {
@@ -80,27 +66,21 @@ export namespace FeatureProgrammer {
     }
 
     export interface IObjector<Output extends ts.ConciseBody = ts.ConciseBody> {
-      /**
-       * Type checker when union object type comes.
-       */
+      /** Type checker when union object type comes. */
       checker: (props: {
         metadata: Metadata;
         input: ts.Expression;
         explore: IExplore;
       }) => ts.Expression;
 
-      /**
-       * Decoder, function call expression generator of specific typed objects.
-       */
+      /** Decoder, function call expression generator of specific typed objects. */
       decoder: (props: {
         input: ts.Expression;
         object: MetadataObjectType;
         explore: IExplore;
       }) => ts.Expression;
 
-      /**
-       * Joiner of expressions from properties.
-       */
+      /** Joiner of expressions from properties. */
       joiner(props: {
         entries: IExpressionEntry<Output>[];
         input?: ts.Expression;
@@ -110,8 +90,8 @@ export namespace FeatureProgrammer {
       /**
        * Union type specificator.
        *
-       * Expression of an algorithm specifying object type and calling
-       * the `decoder` function of the specified object type.
+       * Expression of an algorithm specifying object type and calling the
+       * `decoder` function of the specified object type.
        */
       unionizer: (props: {
         objects: MetadataObjectType[];
@@ -135,14 +115,14 @@ export namespace FeatureProgrammer {
        * Transformer of type checking expression by discrimination.
        *
        * When an object type has been specified by a discrimination without full
-       * iteration, the `unionizer` will decode the object instance after
-       * the last type checking.
+       * iteration, the `unionizer` will decode the object instance after the
+       * last type checking.
        *
        * In such circumtance, you can transform the last type checking function.
        *
+       * @deprecated
        * @param exp Current expression about type checking
        * @returns Transformed expression
-       * @deprecated
        */
       is?: undefined | ((exp: ts.Expression) => ts.Expression);
 
@@ -150,24 +130,24 @@ export namespace FeatureProgrammer {
        * Transformer of non-undefined type checking by discrimination.
        *
        * When specifying an union type of objects, `typia` tries to find
-       * descrimination way just by checking only one property type.
-       * If succeeded to find the discrimination way, `typia` will check the target
+       * discrimination way just by checking only one property type. If
+       * succeeded to find the discrimination way, `typia` will check the target
        * property type and in the checking, non-undefined type checking would be
        * done.
        *
        * In such process, you can transform the non-undefined type checking.
        *
+       * @deprecated
        * @param exp
        * @returns Transformed expression
-       * @deprecated
        */
       required?: undefined | ((exp: ts.Expression) => ts.Expression);
 
       /**
-       * Conditon wrapper when unable to specify any object type.
+       * Condition wrapper when unable to specify any object type.
        *
        * When failed to specify an object type through discrimination, full
-       * iteration type checking would be happend. In such circumstance, you
+       * iteration type checking would be happened. In such circumstance, you
        * can wrap the condition with additional function.
        *
        * @param props Properties of condition
@@ -182,9 +162,7 @@ export namespace FeatureProgrammer {
             explore: IExplore;
           }) => ts.Expression);
 
-      /**
-       * Return type.
-       */
+      /** Return type. */
       type?: undefined | ts.TypeNode;
     }
     export interface IGenerator {
@@ -297,6 +275,7 @@ export namespace FeatureProgrammer {
     modulo: ts.LeftHandSideExpression;
     functor: FunctionProgrammer;
     result: IDecomposed;
+    returnWrapper?: (arrow: ts.ArrowFunction) => ts.Expression;
   }): ts.CallExpression =>
     ts.factory.createCallExpression(
       ts.factory.createArrowFunction(
@@ -311,7 +290,11 @@ export namespace FeatureProgrammer {
             .filter(([k]) => props.functor.hasLocal(k))
             .map(([_k, v]) => v),
           ...props.result.statements,
-          ts.factory.createReturnStatement(props.result.arrow),
+          ts.factory.createReturnStatement(
+            props.returnWrapper
+              ? props.returnWrapper(props.result.arrow)
+              : props.result.arrow,
+          ),
         ]),
       ),
       undefined,

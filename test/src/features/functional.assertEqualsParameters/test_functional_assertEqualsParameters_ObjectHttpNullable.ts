@@ -5,8 +5,10 @@ import { _test_functional_assertEqualsParameters } from "../../internal/_test_fu
 import { ObjectHttpNullable } from "../../structures/ObjectHttpNullable";
 
 export const test_functional_assertEqualsParameters_ObjectHttpNullable =
-  _test_functional_assertEqualsParameters(TypeGuardError)("ObjectHttpNullable")(
-    ObjectHttpNullable,
-  )((p: (input: ObjectHttpNullable) => ObjectHttpNullable) =>
-    typia.functional.assertEqualsParameters(p),
-  );
+  (): void =>
+    _test_functional_assertEqualsParameters(TypeGuardError)(
+      "ObjectHttpNullable",
+    )(ObjectHttpNullable)(
+      (p: (input: ObjectHttpNullable) => ObjectHttpNullable) =>
+        typia.functional.assertEqualsParameters(p),
+    );

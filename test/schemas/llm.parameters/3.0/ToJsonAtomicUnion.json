@@ -18,7 +18,8 @@
             "nullable": true
           }
         ]
-      }
+      },
+      "description": "Current Type: {@link ToJsonAtomicUnion}"
     },
     "nullable": {
       "type": "array",
@@ -57,7 +58,8 @@
             "nullable": true
           }
         ]
-      }
+      },
+      "description": "Current Type: {@link ToJsonAtomicUnion}"
     },
     "faint": {
       "type": "array",
@@ -98,7 +100,8 @@
               "nullable": true
             }
           ]
-        }
+        },
+        "description": "Current Type: {@link ToJsonAtomicUnion}"
       }
     }
   },

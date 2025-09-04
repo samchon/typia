@@ -4,7 +4,8 @@ import { _test_functional_isFunctionAsync } from "../../internal/_test_functiona
 import { ObjectLiteralType } from "../../structures/ObjectLiteralType";
 
 export const test_functional_isFunctionAsync_ObjectLiteralType =
-  _test_functional_isFunctionAsync("ObjectLiteralType")(ObjectLiteralType)(
-    (p: (input: ObjectLiteralType) => Promise<ObjectLiteralType>) =>
-      typia.functional.isFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_isFunctionAsync("ObjectLiteralType")(ObjectLiteralType)(
+      (p: (input: ObjectLiteralType) => Promise<ObjectLiteralType>) =>
+        typia.functional.isFunction(p),
+    );

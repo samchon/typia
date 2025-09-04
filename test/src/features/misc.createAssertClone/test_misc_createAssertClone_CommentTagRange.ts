@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_misc_assertClone } from "../../internal/_test_misc_assertClone";
 import { CommentTagRange } from "../../structures/CommentTagRange";
 
-export const test_misc_createAssertClone_CommentTagRange =
+export const test_misc_createAssertClone_CommentTagRange = (): void =>
   _test_misc_assertClone(TypeGuardError)("CommentTagRange")<CommentTagRange>(
     CommentTagRange,
   )(typia.misc.createAssertClone<CommentTagRange>());

@@ -35,7 +35,8 @@
         "datetime",
         "time",
         "duration"
-      ]
+      ],
+      "description": "Current Type: {@link ObjectDate}"
     },
     "nullable": {
       "type": "object",
@@ -108,7 +109,8 @@
         "datetime",
         "time",
         "duration"
-      ]
+      ],
+      "description": "Current Type: {@link ObjectDate}"
     },
     "faint": {
       "type": "object",
@@ -183,7 +185,8 @@
           "datetime",
           "time",
           "duration"
-        ]
+        ],
+        "description": "Current Type: {@link ObjectDate}"
       }
     }
   },

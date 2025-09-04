@@ -30,7 +30,8 @@
                   "x",
                   "y",
                   "z"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectSimple.IPoint3D}"
               },
               "position": {
                 "type": "object",
@@ -49,7 +50,8 @@
                   "x",
                   "y",
                   "z"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectSimple.IPoint3D}"
               },
               "rotate": {
                 "type": "object",
@@ -68,7 +70,8 @@
                   "x",
                   "y",
                   "z"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectSimple.IPoint3D}"
               },
               "pivot": {
                 "type": "object",
@@ -87,7 +90,8 @@
                   "x",
                   "y",
                   "z"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectSimple.IPoint3D}"
               }
             },
             "required": [
@@ -95,14 +99,14 @@
               "position",
               "rotate",
               "pivot"
-            ]
+            ],
+            "description": "Current Type: {@link ObjectSimple.IBox3D}"
           }
         },
         "required": [
           "first"
         ]
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -129,7 +133,8 @@
                   "x",
                   "y",
                   "z"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectSimple.IPoint3D}"
               },
               "position": {
                 "type": "object",
@@ -148,7 +153,8 @@
                   "x",
                   "y",
                   "z"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectSimple.IPoint3D}"
               },
               "rotate": {
                 "type": "object",
@@ -167,7 +173,8 @@
                   "x",
                   "y",
                   "z"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectSimple.IPoint3D}"
               },
               "pivot": {
                 "type": "object",
@@ -186,7 +193,8 @@
                   "x",
                   "y",
                   "z"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectSimple.IPoint3D}"
               }
             },
             "required": [
@@ -194,7 +202,8 @@
               "position",
               "rotate",
               "pivot"
-            ]
+            ],
+            "description": "Current Type: {@link ObjectSimple.IBox3D}"
           },
           "second": {
             "type": "object",
@@ -216,7 +225,8 @@
                   "x",
                   "y",
                   "z"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectSimple.IPoint3D}"
               },
               "position": {
                 "type": "object",
@@ -235,7 +245,8 @@
                   "x",
                   "y",
                   "z"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectSimple.IPoint3D}"
               },
               "rotate": {
                 "type": "object",
@@ -254,7 +265,8 @@
                   "x",
                   "y",
                   "z"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectSimple.IPoint3D}"
               },
               "pivot": {
                 "type": "object",
@@ -273,7 +285,8 @@
                   "x",
                   "y",
                   "z"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectSimple.IPoint3D}"
               }
             },
             "required": [
@@ -310,7 +323,8 @@
               "x",
               "y",
               "z"
-            ]
+            ],
+            "description": "Current Type: {@link ObjectSimple.IPoint3D}"
           },
           "position": {
             "type": "object",
@@ -329,7 +343,8 @@
               "x",
               "y",
               "z"
-            ]
+            ],
+            "description": "Current Type: {@link ObjectSimple.IPoint3D}"
           },
           "rotate": {
             "type": "object",
@@ -348,7 +363,8 @@
               "x",
               "y",
               "z"
-            ]
+            ],
+            "description": "Current Type: {@link ObjectSimple.IPoint3D}"
           },
           "pivot": {
             "type": "object",
@@ -367,7 +383,8 @@
               "x",
               "y",
               "z"
-            ]
+            ],
+            "description": "Current Type: {@link ObjectSimple.IPoint3D}"
           }
         },
         "required": [
@@ -375,9 +392,9 @@
           "position",
           "rotate",
           "pivot"
-        ]
-      },
-      "strict": true
+        ],
+        "description": "Current Type: {@link ObjectSimple.IBox3D}"
+      }
     },
     {
       "name": "coalesce",
@@ -404,7 +421,8 @@
                   "x",
                   "y",
                   "z"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectSimple.IPoint3D}"
               },
               "position": {
                 "type": "object",
@@ -423,7 +441,8 @@
                   "x",
                   "y",
                   "z"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectSimple.IPoint3D}"
               },
               "rotate": {
                 "type": "object",
@@ -442,7 +461,8 @@
                   "x",
                   "y",
                   "z"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectSimple.IPoint3D}"
               },
               "pivot": {
                 "type": "object",
@@ -461,7 +481,8 @@
                   "x",
                   "y",
                   "z"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectSimple.IPoint3D}"
               }
             },
             "required": [
@@ -492,7 +513,8 @@
                   "x",
                   "y",
                   "z"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectSimple.IPoint3D}"
               },
               "position": {
                 "type": "object",
@@ -511,7 +533,8 @@
                   "x",
                   "y",
                   "z"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectSimple.IPoint3D}"
               },
               "rotate": {
                 "type": "object",
@@ -530,7 +553,8 @@
                   "x",
                   "y",
                   "z"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectSimple.IPoint3D}"
               },
               "pivot": {
                 "type": "object",
@@ -549,7 +573,8 @@
                   "x",
                   "y",
                   "z"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectSimple.IPoint3D}"
               }
             },
             "required": [
@@ -580,7 +605,8 @@
                   "x",
                   "y",
                   "z"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectSimple.IPoint3D}"
               },
               "position": {
                 "type": "object",
@@ -599,7 +625,8 @@
                   "x",
                   "y",
                   "z"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectSimple.IPoint3D}"
               },
               "rotate": {
                 "type": "object",
@@ -618,7 +645,8 @@
                   "x",
                   "y",
                   "z"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectSimple.IPoint3D}"
               },
               "pivot": {
                 "type": "object",
@@ -637,7 +665,8 @@
                   "x",
                   "y",
                   "z"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectSimple.IPoint3D}"
               }
             },
             "required": [
@@ -674,7 +703,8 @@
               "x",
               "y",
               "z"
-            ]
+            ],
+            "description": "Current Type: {@link ObjectSimple.IPoint3D}"
           },
           "position": {
             "type": "object",
@@ -693,7 +723,8 @@
               "x",
               "y",
               "z"
-            ]
+            ],
+            "description": "Current Type: {@link ObjectSimple.IPoint3D}"
           },
           "rotate": {
             "type": "object",
@@ -712,7 +743,8 @@
               "x",
               "y",
               "z"
-            ]
+            ],
+            "description": "Current Type: {@link ObjectSimple.IPoint3D}"
           },
           "pivot": {
             "type": "object",
@@ -731,7 +763,8 @@
               "x",
               "y",
               "z"
-            ]
+            ],
+            "description": "Current Type: {@link ObjectSimple.IPoint3D}"
           }
         },
         "required": [
@@ -741,8 +774,7 @@
           "pivot"
         ],
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

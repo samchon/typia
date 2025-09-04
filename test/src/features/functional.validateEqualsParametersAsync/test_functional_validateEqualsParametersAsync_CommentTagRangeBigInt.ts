@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsParametersAsync } from "../../internal/_
 import { CommentTagRangeBigInt } from "../../structures/CommentTagRangeBigInt";
 
 export const test_functional_validateEqualsParametersAsync_CommentTagRangeBigInt =
-  _test_functional_validateEqualsParametersAsync("CommentTagRangeBigInt")(
-    CommentTagRangeBigInt,
-  )((p: (input: CommentTagRangeBigInt) => Promise<CommentTagRangeBigInt>) =>
-    typia.functional.validateEqualsParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateEqualsParametersAsync("CommentTagRangeBigInt")(
+      CommentTagRangeBigInt,
+    )((p: (input: CommentTagRangeBigInt) => Promise<CommentTagRangeBigInt>) =>
+      typia.functional.validateEqualsParameters(p),
+    );

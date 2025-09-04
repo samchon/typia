@@ -3,12 +3,12 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { ObjectInternal } from "../../../structures/ObjectInternal";
 
-export const test_llm_application_claude_ObjectInternal = _test_llm_application(
-  {
+export const test_llm_application_claude_ObjectInternal = (): void =>
+  _test_llm_application({
     model: "claude",
     name: "ObjectInternal",
-  },
-)(typia.llm.application<ObjectInternalApplication, "claude">());
+    factory: ObjectInternal,
+  })(typia.llm.application<ObjectInternalApplication, "claude">());
 
 interface ObjectInternalApplication {
   insert(p: { first: ObjectInternal }): Promise<void>;

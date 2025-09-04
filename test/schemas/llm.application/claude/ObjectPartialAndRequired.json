@@ -1,7 +1,7 @@
 {
   "model": "claude",
   "options": {
-    "reference": false,
+    "reference": true,
     "separate": null
   },
   "functions": [
@@ -49,16 +49,12 @@
               }
             },
             "required": [
-              "string",
-              "number",
-              "boolean",
               "object",
               "array"
             ]
           }
         }
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -115,9 +111,6 @@
               }
             },
             "required": [
-              "string",
-              "number",
-              "boolean",
               "object",
               "array"
             ]
@@ -126,8 +119,7 @@
       },
       "output": {
         "$ref": "#/$defs/ObjectPartialAndRequired"
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -167,8 +159,7 @@
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
         "$defs": {
@@ -202,9 +193,6 @@
               }
             },
             "required": [
-              "string",
-              "number",
-              "boolean",
               "object",
               "array"
             ]
@@ -220,8 +208,7 @@
             "$ref": "#/$defs/ObjectPartialAndRequired"
           }
         ]
-      },
-      "strict": true
+      }
     }
   ]
 }

@@ -5,8 +5,9 @@ import { _test_functional_assertParametersAsync } from "../../internal/_test_fun
 import { NativeUnion } from "../../structures/NativeUnion";
 
 export const test_functional_assertParametersAsync_NativeUnion =
-  _test_functional_assertParametersAsync(TypeGuardError)("NativeUnion")(
-    NativeUnion,
-  )((p: (input: NativeUnion) => Promise<NativeUnion>) =>
-    typia.functional.assertParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertParametersAsync(TypeGuardError)("NativeUnion")(
+      NativeUnion,
+    )((p: (input: NativeUnion) => Promise<NativeUnion>) =>
+      typia.functional.assertParameters(p),
+    );

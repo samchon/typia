@@ -39,14 +39,14 @@
             },
             "required": [
               "value"
-            ]
+            ],
+            "description": "Current Type: {@link DynamicConstant}"
           }
         },
         "required": [
           "first"
         ]
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -82,7 +82,8 @@
             },
             "required": [
               "value"
-            ]
+            ],
+            "description": "Current Type: {@link DynamicConstant}"
           },
           "second": {
             "type": "object",
@@ -151,9 +152,9 @@
         },
         "required": [
           "value"
-        ]
-      },
-      "strict": true
+        ],
+        "description": "Current Type: {@link DynamicConstant}"
+      }
     },
     {
       "name": "coalesce",
@@ -293,8 +294,7 @@
           "value"
         ],
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

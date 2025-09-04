@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_protobuf_assertEncode } from "../../internal/_test_protobuf_assertEncode";
 import { ObjectHttpTypeTag } from "../../structures/ObjectHttpTypeTag";
 
-export const test_protobuf_assertEncodeCustom_ObjectHttpTypeTag =
+export const test_protobuf_assertEncodeCustom_ObjectHttpTypeTag = (): void =>
   _test_protobuf_assertEncode(CustomGuardError)(
     "ObjectHttpTypeTag",
   )<ObjectHttpTypeTag>(ObjectHttpTypeTag)({

@@ -4,8 +4,9 @@ import { _test_functional_validateReturnAsync } from "../../internal/_test_funct
 import { ObjectUnionComposite } from "../../structures/ObjectUnionComposite";
 
 export const test_functional_validateReturnAsync_ObjectUnionComposite =
-  _test_functional_validateReturnAsync("ObjectUnionComposite")(
-    ObjectUnionComposite,
-  )((p: (input: ObjectUnionComposite) => Promise<ObjectUnionComposite>) =>
-    typia.functional.validateReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateReturnAsync("ObjectUnionComposite")(
+      ObjectUnionComposite,
+    )((p: (input: ObjectUnionComposite) => Promise<ObjectUnionComposite>) =>
+      typia.functional.validateReturn(p),
+    );

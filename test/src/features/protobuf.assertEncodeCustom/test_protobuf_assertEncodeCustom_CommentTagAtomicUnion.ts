@@ -5,14 +5,15 @@ import { _test_protobuf_assertEncode } from "../../internal/_test_protobuf_asser
 import { CommentTagAtomicUnion } from "../../structures/CommentTagAtomicUnion";
 
 export const test_protobuf_assertEncodeCustom_CommentTagAtomicUnion =
-  _test_protobuf_assertEncode(CustomGuardError)(
-    "CommentTagAtomicUnion",
-  )<CommentTagAtomicUnion>(CommentTagAtomicUnion)({
-    encode: (input) =>
-      typia.protobuf.assertEncode<CommentTagAtomicUnion>(
-        input,
-        (p) => new CustomGuardError(p),
-      ),
-    decode: typia.protobuf.createDecode<CommentTagAtomicUnion>(),
-    message: typia.protobuf.message<CommentTagAtomicUnion>(),
-  });
+  (): void =>
+    _test_protobuf_assertEncode(CustomGuardError)(
+      "CommentTagAtomicUnion",
+    )<CommentTagAtomicUnion>(CommentTagAtomicUnion)({
+      encode: (input) =>
+        typia.protobuf.assertEncode<CommentTagAtomicUnion>(
+          input,
+          (p) => new CustomGuardError(p),
+        ),
+      decode: typia.protobuf.createDecode<CommentTagAtomicUnion>(),
+      message: typia.protobuf.message<CommentTagAtomicUnion>(),
+    });

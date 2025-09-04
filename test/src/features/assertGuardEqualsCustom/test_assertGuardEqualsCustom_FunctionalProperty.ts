@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_assertGuardEquals } from "../../internal/_test_assertGuardEquals";
 import { FunctionalProperty } from "../../structures/FunctionalProperty";
 
-export const test_assertGuardEqualsCustom_FunctionalProperty =
+export const test_assertGuardEqualsCustom_FunctionalProperty = (): void =>
   _test_assertGuardEquals(CustomGuardError)(
     "FunctionalProperty",
   )<FunctionalProperty>(FunctionalProperty)((input) =>

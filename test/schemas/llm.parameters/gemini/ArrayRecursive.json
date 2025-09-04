@@ -22,7 +22,7 @@
                           "children": {
                             "type": "array",
                             "items": {},
-                            "maxItems": 0
+                            "description": "@maxItems 0"
                           },
                           "id": {
                             "type": "number"
@@ -46,7 +46,8 @@
                             "required": [
                               "time",
                               "zone"
-                            ]
+                            ],
+                            "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
                           }
                         },
                         "required": [
@@ -55,7 +56,8 @@
                           "code",
                           "sequence",
                           "created_at"
-                        ]
+                        ],
+                        "description": "Current Type: {@link ArrayRecursive.ICategory}"
                       }
                     },
                     "id": {
@@ -80,7 +82,8 @@
                       "required": [
                         "time",
                         "zone"
-                      ]
+                      ],
+                      "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
                     }
                   },
                   "required": [
@@ -89,7 +92,8 @@
                     "code",
                     "sequence",
                     "created_at"
-                  ]
+                  ],
+                  "description": "Current Type: {@link ArrayRecursive.ICategory}"
                 }
               },
               "id": {
@@ -114,7 +118,8 @@
                 "required": [
                   "time",
                   "zone"
-                ]
+                ],
+                "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
               }
             },
             "required": [
@@ -123,7 +128,8 @@
               "code",
               "sequence",
               "created_at"
-            ]
+            ],
+            "description": "Current Type: {@link ArrayRecursive.ICategory}"
           }
         },
         "id": {
@@ -148,7 +154,8 @@
           "required": [
             "time",
             "zone"
-          ]
+          ],
+          "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
         }
       },
       "required": [
@@ -157,7 +164,8 @@
         "code",
         "sequence",
         "created_at"
-      ]
+      ],
+      "description": "Current Type: {@link ArrayRecursive.ICategory}"
     },
     "nullable": {
       "type": "object",
@@ -180,7 +188,7 @@
                           "children": {
                             "type": "array",
                             "items": {},
-                            "maxItems": 0
+                            "description": "@maxItems 0"
                           },
                           "id": {
                             "type": "number"
@@ -204,7 +212,8 @@
                             "required": [
                               "time",
                               "zone"
-                            ]
+                            ],
+                            "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
                           }
                         },
                         "required": [
@@ -213,7 +222,8 @@
                           "code",
                           "sequence",
                           "created_at"
-                        ]
+                        ],
+                        "description": "Current Type: {@link ArrayRecursive.ICategory}"
                       }
                     },
                     "id": {
@@ -238,7 +248,8 @@
                       "required": [
                         "time",
                         "zone"
-                      ]
+                      ],
+                      "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
                     }
                   },
                   "required": [
@@ -247,7 +258,8 @@
                     "code",
                     "sequence",
                     "created_at"
-                  ]
+                  ],
+                  "description": "Current Type: {@link ArrayRecursive.ICategory}"
                 }
               },
               "id": {
@@ -272,7 +284,8 @@
                 "required": [
                   "time",
                   "zone"
-                ]
+                ],
+                "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
               }
             },
             "required": [
@@ -281,7 +294,8 @@
               "code",
               "sequence",
               "created_at"
-            ]
+            ],
+            "description": "Current Type: {@link ArrayRecursive.ICategory}"
           }
         },
         "id": {
@@ -306,7 +320,8 @@
           "required": [
             "time",
             "zone"
-          ]
+          ],
+          "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
         }
       },
       "required": [
@@ -339,7 +354,7 @@
                           "children": {
                             "type": "array",
                             "items": {},
-                            "maxItems": 0
+                            "description": "@maxItems 0"
                           },
                           "id": {
                             "type": "number"
@@ -363,7 +378,8 @@
                             "required": [
                               "time",
                               "zone"
-                            ]
+                            ],
+                            "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
                           }
                         },
                         "required": [
@@ -372,7 +388,8 @@
                           "code",
                           "sequence",
                           "created_at"
-                        ]
+                        ],
+                        "description": "Current Type: {@link ArrayRecursive.ICategory}"
                       }
                     },
                     "id": {
@@ -397,7 +414,8 @@
                       "required": [
                         "time",
                         "zone"
-                      ]
+                      ],
+                      "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
                     }
                   },
                   "required": [
@@ -406,7 +424,8 @@
                     "code",
                     "sequence",
                     "created_at"
-                  ]
+                  ],
+                  "description": "Current Type: {@link ArrayRecursive.ICategory}"
                 }
               },
               "id": {
@@ -431,7 +450,8 @@
                 "required": [
                   "time",
                   "zone"
-                ]
+                ],
+                "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
               }
             },
             "required": [
@@ -440,7 +460,8 @@
               "code",
               "sequence",
               "created_at"
-            ]
+            ],
+            "description": "Current Type: {@link ArrayRecursive.ICategory}"
           }
         },
         "id": {
@@ -465,7 +486,8 @@
           "required": [
             "time",
             "zone"
-          ]
+          ],
+          "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
         }
       },
       "required": [
@@ -474,7 +496,8 @@
         "code",
         "sequence",
         "created_at"
-      ]
+      ],
+      "description": "Current Type: {@link ArrayRecursive.ICategory}"
     },
     "faint": {
       "type": "object",
@@ -497,7 +520,7 @@
                           "children": {
                             "type": "array",
                             "items": {},
-                            "maxItems": 0
+                            "description": "@maxItems 0"
                           },
                           "id": {
                             "type": "number"
@@ -521,7 +544,8 @@
                             "required": [
                               "time",
                               "zone"
-                            ]
+                            ],
+                            "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
                           }
                         },
                         "required": [
@@ -530,7 +554,8 @@
                           "code",
                           "sequence",
                           "created_at"
-                        ]
+                        ],
+                        "description": "Current Type: {@link ArrayRecursive.ICategory}"
                       }
                     },
                     "id": {
@@ -555,7 +580,8 @@
                       "required": [
                         "time",
                         "zone"
-                      ]
+                      ],
+                      "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
                     }
                   },
                   "required": [
@@ -564,7 +590,8 @@
                     "code",
                     "sequence",
                     "created_at"
-                  ]
+                  ],
+                  "description": "Current Type: {@link ArrayRecursive.ICategory}"
                 }
               },
               "id": {
@@ -589,7 +616,8 @@
                 "required": [
                   "time",
                   "zone"
-                ]
+                ],
+                "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
               }
             },
             "required": [
@@ -598,7 +626,8 @@
               "code",
               "sequence",
               "created_at"
-            ]
+            ],
+            "description": "Current Type: {@link ArrayRecursive.ICategory}"
           }
         },
         "id": {
@@ -623,7 +652,8 @@
           "required": [
             "time",
             "zone"
-          ]
+          ],
+          "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
         }
       },
       "required": [
@@ -658,7 +688,7 @@
                             "children": {
                               "type": "array",
                               "items": {},
-                              "maxItems": 0
+                              "description": "@maxItems 0"
                             },
                             "id": {
                               "type": "number"
@@ -682,7 +712,8 @@
                               "required": [
                                 "time",
                                 "zone"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
                             }
                           },
                           "required": [
@@ -691,7 +722,8 @@
                             "code",
                             "sequence",
                             "created_at"
-                          ]
+                          ],
+                          "description": "Current Type: {@link ArrayRecursive.ICategory}"
                         }
                       },
                       "id": {
@@ -716,7 +748,8 @@
                         "required": [
                           "time",
                           "zone"
-                        ]
+                        ],
+                        "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
                       }
                     },
                     "required": [
@@ -725,7 +758,8 @@
                       "code",
                       "sequence",
                       "created_at"
-                    ]
+                    ],
+                    "description": "Current Type: {@link ArrayRecursive.ICategory}"
                   }
                 },
                 "id": {
@@ -750,7 +784,8 @@
                   "required": [
                     "time",
                     "zone"
-                  ]
+                  ],
+                  "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
                 }
               },
               "required": [
@@ -759,7 +794,8 @@
                 "code",
                 "sequence",
                 "created_at"
-              ]
+              ],
+              "description": "Current Type: {@link ArrayRecursive.ICategory}"
             }
           },
           "id": {
@@ -784,7 +820,8 @@
             "required": [
               "time",
               "zone"
-            ]
+            ],
+            "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
           }
         },
         "required": [
@@ -793,7 +830,8 @@
           "code",
           "sequence",
           "created_at"
-        ]
+        ],
+        "description": "Current Type: {@link ArrayRecursive.ICategory}"
       }
     }
   },

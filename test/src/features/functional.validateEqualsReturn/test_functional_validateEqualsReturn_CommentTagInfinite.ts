@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsReturn } from "../../internal/_test_func
 import { CommentTagInfinite } from "../../structures/CommentTagInfinite";
 
 export const test_functional_validateEqualsReturn_CommentTagInfinite =
-  _test_functional_validateEqualsReturn("CommentTagInfinite")(
-    CommentTagInfinite,
-  )((p: (input: CommentTagInfinite) => CommentTagInfinite) =>
-    typia.functional.validateEqualsReturn(p),
-  );
+  (): void =>
+    _test_functional_validateEqualsReturn("CommentTagInfinite")(
+      CommentTagInfinite,
+    )((p: (input: CommentTagInfinite) => CommentTagInfinite) =>
+      typia.functional.validateEqualsReturn(p),
+    );

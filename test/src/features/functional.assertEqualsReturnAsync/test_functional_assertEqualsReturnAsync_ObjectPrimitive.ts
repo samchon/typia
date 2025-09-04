@@ -5,8 +5,9 @@ import { _test_functional_assertEqualsReturnAsync } from "../../internal/_test_f
 import { ObjectPrimitive } from "../../structures/ObjectPrimitive";
 
 export const test_functional_assertEqualsReturnAsync_ObjectPrimitive =
-  _test_functional_assertEqualsReturnAsync(TypeGuardError)("ObjectPrimitive")(
-    ObjectPrimitive,
-  )((p: (input: ObjectPrimitive) => Promise<ObjectPrimitive>) =>
-    typia.functional.assertEqualsReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsReturnAsync(TypeGuardError)("ObjectPrimitive")(
+      ObjectPrimitive,
+    )((p: (input: ObjectPrimitive) => Promise<ObjectPrimitive>) =>
+      typia.functional.assertEqualsReturn(p),
+    );

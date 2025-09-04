@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsParametersAsync } from "../../internal/_
 import { ToJsonAtomicSimple } from "../../structures/ToJsonAtomicSimple";
 
 export const test_functional_validateEqualsParametersAsync_ToJsonAtomicSimple =
-  _test_functional_validateEqualsParametersAsync("ToJsonAtomicSimple")(
-    ToJsonAtomicSimple,
-  )((p: (input: ToJsonAtomicSimple) => Promise<ToJsonAtomicSimple>) =>
-    typia.functional.validateEqualsParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateEqualsParametersAsync("ToJsonAtomicSimple")(
+      ToJsonAtomicSimple,
+    )((p: (input: ToJsonAtomicSimple) => Promise<ToJsonAtomicSimple>) =>
+      typia.functional.validateEqualsParameters(p),
+    );

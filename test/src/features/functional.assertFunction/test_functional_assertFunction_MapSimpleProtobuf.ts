@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_functional_assertFunction } from "../../internal/_test_functional_assertFunction";
 import { MapSimpleProtobuf } from "../../structures/MapSimpleProtobuf";
 
-export const test_functional_assertFunction_MapSimpleProtobuf =
+export const test_functional_assertFunction_MapSimpleProtobuf = (): void =>
   _test_functional_assertFunction(TypeGuardError)("MapSimpleProtobuf")(
     MapSimpleProtobuf,
   )((p: (input: MapSimpleProtobuf) => MapSimpleProtobuf) =>

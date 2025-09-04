@@ -4,8 +4,9 @@ import { _test_functional_isFunctionAsync } from "../../internal/_test_functiona
 import { ObjectPropertyNullable } from "../../structures/ObjectPropertyNullable";
 
 export const test_functional_isFunctionAsync_ObjectPropertyNullable =
-  _test_functional_isFunctionAsync("ObjectPropertyNullable")(
-    ObjectPropertyNullable,
-  )((p: (input: ObjectPropertyNullable) => Promise<ObjectPropertyNullable>) =>
-    typia.functional.isFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_isFunctionAsync("ObjectPropertyNullable")(
+      ObjectPropertyNullable,
+    )((p: (input: ObjectPropertyNullable) => Promise<ObjectPropertyNullable>) =>
+      typia.functional.isFunction(p),
+    );

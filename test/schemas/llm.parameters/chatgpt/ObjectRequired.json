@@ -2,43 +2,7 @@
   "type": "object",
   "properties": {
     "regular": {
-      "description": "Make all properties in T required\n\n------------------------------\n\nDescription of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required",
-      "type": "object",
-      "properties": {
-        "boolean": {
-          "type": "boolean"
-        },
-        "number": {
-          "type": "number"
-        },
-        "string": {
-          "type": "string"
-        },
-        "array": {
-          "type": "array",
-          "items": {
-            "type": "number"
-          }
-        },
-        "object": {
-          "anyOf": [
-            {
-              "type": "null"
-            },
-            {
-              "$ref": "#/$defs/ObjectRequired.IBase"
-            }
-          ]
-        }
-      },
-      "required": [
-        "boolean",
-        "number",
-        "string",
-        "array",
-        "object"
-      ],
-      "additionalProperties": false
+      "$ref": "#/$defs/RequiredObjectRequired.IBase"
     },
     "nullable": {
       "anyOf": [
@@ -46,48 +10,39 @@
           "type": "null"
         },
         {
-          "type": "object",
-          "properties": {
-            "boolean": {
-              "type": "boolean"
-            },
-            "number": {
-              "type": "number"
-            },
-            "string": {
-              "type": "string"
-            },
-            "array": {
-              "type": "array",
-              "items": {
-                "type": "number"
-              }
-            },
-            "object": {
-              "anyOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "$ref": "#/$defs/ObjectRequired.IBase"
-                }
-              ]
-            }
-          },
-          "required": [
-            "boolean",
-            "number",
-            "string",
-            "array",
-            "object"
-          ],
-          "description": "Make all properties in T required\n\n------------------------------\n\nDescription of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required",
-          "additionalProperties": false
+          "$ref": "#/$defs/RequiredObjectRequired.IBase"
         }
       ]
     },
     "optional": {
-      "description": "Make all properties in T required\n\n------------------------------\n\nDescription of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required",
+      "$ref": "#/$defs/RequiredObjectRequired.IBase"
+    },
+    "faint": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/RequiredObjectRequired.IBase"
+        }
+      ]
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/RequiredObjectRequired.IBase"
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "array"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "RequiredObjectRequired.IBase": {
+      "description": "Make all properties in T required",
       "type": "object",
       "properties": {
         "boolean": {
@@ -122,107 +77,8 @@
         "string",
         "array",
         "object"
-      ],
-      "additionalProperties": false
-    },
-    "faint": {
-      "anyOf": [
-        {
-          "type": "null"
-        },
-        {
-          "type": "object",
-          "properties": {
-            "boolean": {
-              "type": "boolean"
-            },
-            "number": {
-              "type": "number"
-            },
-            "string": {
-              "type": "string"
-            },
-            "array": {
-              "type": "array",
-              "items": {
-                "type": "number"
-              }
-            },
-            "object": {
-              "anyOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "$ref": "#/$defs/ObjectRequired.IBase"
-                }
-              ]
-            }
-          },
-          "required": [
-            "boolean",
-            "number",
-            "string",
-            "array",
-            "object"
-          ],
-          "description": "Make all properties in T required\n\n------------------------------\n\nDescription of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required",
-          "additionalProperties": false
-        }
       ]
     },
-    "array": {
-      "type": "array",
-      "items": {
-        "description": "Make all properties in T required\n\n------------------------------\n\nDescription of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required",
-        "type": "object",
-        "properties": {
-          "boolean": {
-            "type": "boolean"
-          },
-          "number": {
-            "type": "number"
-          },
-          "string": {
-            "type": "string"
-          },
-          "array": {
-            "type": "array",
-            "items": {
-              "type": "number"
-            }
-          },
-          "object": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "$ref": "#/$defs/ObjectRequired.IBase"
-              }
-            ]
-          }
-        },
-        "required": [
-          "boolean",
-          "number",
-          "string",
-          "array",
-          "object"
-        ],
-        "additionalProperties": false
-      }
-    }
-  },
-  "required": [
-    "regular",
-    "nullable",
-    "optional",
-    "faint",
-    "array"
-  ],
-  "additionalProperties": false,
-  "$defs": {
     "ObjectRequired.IBase": {
       "type": "object",
       "properties": {
@@ -252,14 +108,7 @@
           ]
         }
       },
-      "required": [
-        "boolean",
-        "number",
-        "string",
-        "array",
-        "object"
-      ],
-      "additionalProperties": false
+      "required": []
     }
   }
 }

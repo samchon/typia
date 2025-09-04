@@ -5,8 +5,9 @@ import { _test_functional_assertReturnAsync } from "../../internal/_test_functio
 import { DynamicSimple } from "../../structures/DynamicSimple";
 
 export const test_functional_assertReturnAsyncCustom_DynamicSimple =
-  _test_functional_assertReturnAsync(CustomGuardError)("DynamicSimple")(
-    DynamicSimple,
-  )((p: (input: DynamicSimple) => Promise<DynamicSimple>) =>
-    typia.functional.assertReturn(p, (p) => new CustomGuardError(p)),
-  );
+  (): Promise<void> =>
+    _test_functional_assertReturnAsync(CustomGuardError)("DynamicSimple")(
+      DynamicSimple,
+    )((p: (input: DynamicSimple) => Promise<DynamicSimple>) =>
+      typia.functional.assertReturn(p, (p) => new CustomGuardError(p)),
+    );

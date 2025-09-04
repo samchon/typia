@@ -5,8 +5,12 @@ import { _test_functional_assertEqualsParameters } from "../../internal/_test_fu
 import { CommentTagType } from "../../structures/CommentTagType";
 
 export const test_functional_assertEqualsParametersCustom_CommentTagType =
-  _test_functional_assertEqualsParameters(CustomGuardError)("CommentTagType")(
-    CommentTagType,
-  )((p: (input: CommentTagType) => CommentTagType) =>
-    typia.functional.assertEqualsParameters(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertEqualsParameters(CustomGuardError)("CommentTagType")(
+      CommentTagType,
+    )((p: (input: CommentTagType) => CommentTagType) =>
+      typia.functional.assertEqualsParameters(
+        p,
+        (p) => new CustomGuardError(p),
+      ),
+    );

@@ -4,7 +4,8 @@ import { _test_functional_equalsFunctionAsync } from "../../internal/_test_funct
 import { DynamicComposite } from "../../structures/DynamicComposite";
 
 export const test_functional_equalsFunctionAsync_DynamicComposite =
-  _test_functional_equalsFunctionAsync("DynamicComposite")(DynamicComposite)(
-    (p: (input: DynamicComposite) => Promise<DynamicComposite>) =>
-      typia.functional.equalsFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_equalsFunctionAsync("DynamicComposite")(DynamicComposite)(
+      (p: (input: DynamicComposite) => Promise<DynamicComposite>) =>
+        typia.functional.equalsFunction(p),
+    );

@@ -24,19 +24,21 @@
                     },
                     "uint": {
                       "type": "integer",
-                      "description": "Unsigned integer value."
+                      "description": "Unsigned integer value.\n\n\n@minimum 0"
                     },
                     "int32": {
                       "type": "integer"
                     },
                     "uint32": {
-                      "type": "integer"
+                      "type": "integer",
+                      "description": "@minimum 0"
                     },
                     "int64": {
                       "type": "integer"
                     },
                     "uint64": {
-                      "type": "integer"
+                      "type": "integer",
+                      "description": "@minimum 0"
                     },
                     "float": {
                       "type": "number"
@@ -50,20 +52,21 @@
                     "int64",
                     "uint64",
                     "float"
-                  ]
+                  ],
+                  "description": "Current Type: {@link CommentTagType.Type}"
                 }
               }
             },
             "required": [
               "value"
-            ]
+            ],
+            "description": "Current Type: {@link CommentTagType}"
           }
         },
         "required": [
           "first"
         ]
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -84,19 +87,21 @@
                     },
                     "uint": {
                       "type": "integer",
-                      "description": "Unsigned integer value."
+                      "description": "Unsigned integer value.\n\n\n@minimum 0"
                     },
                     "int32": {
                       "type": "integer"
                     },
                     "uint32": {
-                      "type": "integer"
+                      "type": "integer",
+                      "description": "@minimum 0"
                     },
                     "int64": {
                       "type": "integer"
                     },
                     "uint64": {
-                      "type": "integer"
+                      "type": "integer",
+                      "description": "@minimum 0"
                     },
                     "float": {
                       "type": "number"
@@ -110,13 +115,15 @@
                     "int64",
                     "uint64",
                     "float"
-                  ]
+                  ],
+                  "description": "Current Type: {@link CommentTagType.Type}"
                 }
               }
             },
             "required": [
               "value"
-            ]
+            ],
+            "description": "Current Type: {@link CommentTagType}"
           },
           "second": {
             "type": "object",
@@ -132,19 +139,21 @@
                     },
                     "uint": {
                       "type": "integer",
-                      "description": "Unsigned integer value."
+                      "description": "Unsigned integer value.\n\n\n@minimum 0"
                     },
                     "int32": {
                       "type": "integer"
                     },
                     "uint32": {
-                      "type": "integer"
+                      "type": "integer",
+                      "description": "@minimum 0"
                     },
                     "int64": {
                       "type": "integer"
                     },
                     "uint64": {
-                      "type": "integer"
+                      "type": "integer",
+                      "description": "@minimum 0"
                     },
                     "float": {
                       "type": "number"
@@ -158,7 +167,8 @@
                     "int64",
                     "uint64",
                     "float"
-                  ]
+                  ],
+                  "description": "Current Type: {@link CommentTagType.Type}"
                 }
               }
             },
@@ -187,19 +197,21 @@
                 },
                 "uint": {
                   "type": "integer",
-                  "description": "Unsigned integer value."
+                  "description": "Unsigned integer value.\n\n\n@minimum 0"
                 },
                 "int32": {
                   "type": "integer"
                 },
                 "uint32": {
-                  "type": "integer"
+                  "type": "integer",
+                  "description": "@minimum 0"
                 },
                 "int64": {
                   "type": "integer"
                 },
                 "uint64": {
-                  "type": "integer"
+                  "type": "integer",
+                  "description": "@minimum 0"
                 },
                 "float": {
                   "type": "number"
@@ -213,15 +225,16 @@
                 "int64",
                 "uint64",
                 "float"
-              ]
+              ],
+              "description": "Current Type: {@link CommentTagType.Type}"
             }
           }
         },
         "required": [
           "value"
-        ]
-      },
-      "strict": true
+        ],
+        "description": "Current Type: {@link CommentTagType}"
+      }
     },
     {
       "name": "coalesce",
@@ -242,19 +255,21 @@
                     },
                     "uint": {
                       "type": "integer",
-                      "description": "Unsigned integer value."
+                      "description": "Unsigned integer value.\n\n\n@minimum 0"
                     },
                     "int32": {
                       "type": "integer"
                     },
                     "uint32": {
-                      "type": "integer"
+                      "type": "integer",
+                      "description": "@minimum 0"
                     },
                     "int64": {
                       "type": "integer"
                     },
                     "uint64": {
-                      "type": "integer"
+                      "type": "integer",
+                      "description": "@minimum 0"
                     },
                     "float": {
                       "type": "number"
@@ -268,7 +283,8 @@
                     "int64",
                     "uint64",
                     "float"
-                  ]
+                  ],
+                  "description": "Current Type: {@link CommentTagType.Type}"
                 }
               }
             },
@@ -291,19 +307,21 @@
                     },
                     "uint": {
                       "type": "integer",
-                      "description": "Unsigned integer value."
+                      "description": "Unsigned integer value.\n\n\n@minimum 0"
                     },
                     "int32": {
                       "type": "integer"
                     },
                     "uint32": {
-                      "type": "integer"
+                      "type": "integer",
+                      "description": "@minimum 0"
                     },
                     "int64": {
                       "type": "integer"
                     },
                     "uint64": {
-                      "type": "integer"
+                      "type": "integer",
+                      "description": "@minimum 0"
                     },
                     "float": {
                       "type": "number"
@@ -317,7 +335,8 @@
                     "int64",
                     "uint64",
                     "float"
-                  ]
+                  ],
+                  "description": "Current Type: {@link CommentTagType.Type}"
                 }
               }
             },
@@ -340,19 +359,21 @@
                     },
                     "uint": {
                       "type": "integer",
-                      "description": "Unsigned integer value."
+                      "description": "Unsigned integer value.\n\n\n@minimum 0"
                     },
                     "int32": {
                       "type": "integer"
                     },
                     "uint32": {
-                      "type": "integer"
+                      "type": "integer",
+                      "description": "@minimum 0"
                     },
                     "int64": {
                       "type": "integer"
                     },
                     "uint64": {
-                      "type": "integer"
+                      "type": "integer",
+                      "description": "@minimum 0"
                     },
                     "float": {
                       "type": "number"
@@ -366,7 +387,8 @@
                     "int64",
                     "uint64",
                     "float"
-                  ]
+                  ],
+                  "description": "Current Type: {@link CommentTagType.Type}"
                 }
               }
             },
@@ -395,19 +417,21 @@
                 },
                 "uint": {
                   "type": "integer",
-                  "description": "Unsigned integer value."
+                  "description": "Unsigned integer value.\n\n\n@minimum 0"
                 },
                 "int32": {
                   "type": "integer"
                 },
                 "uint32": {
-                  "type": "integer"
+                  "type": "integer",
+                  "description": "@minimum 0"
                 },
                 "int64": {
                   "type": "integer"
                 },
                 "uint64": {
-                  "type": "integer"
+                  "type": "integer",
+                  "description": "@minimum 0"
                 },
                 "float": {
                   "type": "number"
@@ -421,7 +445,8 @@
                 "int64",
                 "uint64",
                 "float"
-              ]
+              ],
+              "description": "Current Type: {@link CommentTagType.Type}"
             }
           }
         },
@@ -429,8 +454,7 @@
           "value"
         ],
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

@@ -11,6 +11,7 @@
       "required": [
         "value"
       ],
+      "description": "Current Type: {@link ObjectGenericAlias.Alias}",
       "additionalProperties": false
     },
     "nullable": {
@@ -36,6 +37,7 @@
       "required": [
         "value"
       ],
+      "description": "Current Type: {@link ObjectGenericAlias.Alias}",
       "additionalProperties": false
     },
     "faint": {
@@ -63,6 +65,7 @@
         "required": [
           "value"
         ],
+        "description": "Current Type: {@link ObjectGenericAlias.Alias}",
         "additionalProperties": false
       }
     }

@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_protobuf_assertDecode } from "../../internal/_test_protobuf_assertDecode";
 import { ObjectJsonTag } from "../../structures/ObjectJsonTag";
 
-export const test_protobuf_assertDecode_ObjectJsonTag =
+export const test_protobuf_assertDecode_ObjectJsonTag = (): void =>
   _test_protobuf_assertDecode(TypeGuardError)("ObjectJsonTag")<ObjectJsonTag>(
     ObjectJsonTag,
   )({

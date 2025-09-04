@@ -35,14 +35,14 @@
               "dollar",
               "postfix",
               "powerOf"
-            ]
+            ],
+            "description": "Current Type: {@link TypeTagCustom}"
           }
         },
         "required": [
           "first"
         ]
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -74,7 +74,8 @@
               "dollar",
               "postfix",
               "powerOf"
-            ]
+            ],
+            "description": "Current Type: {@link TypeTagCustom}"
           },
           "second": {
             "type": "object",
@@ -135,9 +136,9 @@
           "dollar",
           "postfix",
           "powerOf"
-        ]
-      },
-      "strict": true
+        ],
+        "description": "Current Type: {@link TypeTagCustom}"
+      }
     },
     {
       "name": "coalesce",
@@ -261,8 +262,7 @@
           "powerOf"
         ],
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

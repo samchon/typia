@@ -11,9 +11,7 @@ import { check_dynamic_key } from "./check_dynamic_key";
 import { check_everything } from "./check_everything";
 import { check_object } from "./check_object";
 
-/**
- * @internal
- */
+/** @internal */
 export const check_dynamic_properties = (props: {
   config: check_object.IConfig;
   context: ITypiaContext;
@@ -89,9 +87,7 @@ export const check_dynamic_properties = (props: {
     : right;
 };
 
-/**
- * @internal
- */
+/** @internal */
 const check_dynamic_property = (props: {
   config: check_object.IConfig;
   context: ITypiaContext;
@@ -159,7 +155,36 @@ const check_dynamic_property = (props: {
         : [
             ts.factory.createReturnStatement(
               props.config.equals === true
-                ? props.config.superfluous(value)
+                ? props.config.superfluous(
+                    value,
+                    ts.factory.createCallExpression(
+                      ts.factory.createPropertyAccessExpression(
+                        ts.factory.createArrayLiteralExpression(
+                          [
+                            ts.factory.createTemplateExpression(
+                              ts.factory.createTemplateHead("The property `"),
+                              [
+                                ts.factory.createTemplateSpan(
+                                  ts.factory.createIdentifier("key"),
+                                  ts.factory.createTemplateTail(
+                                    "` is not defined in the object type.",
+                                  ),
+                                ),
+                              ],
+                            ),
+                            ts.factory.createStringLiteral(""),
+                            ts.factory.createStringLiteral(
+                              "Please remove the property next time.",
+                            ),
+                          ],
+                          true,
+                        ),
+                        "join",
+                      ),
+                      undefined,
+                      [ts.factory.createStringLiteral("\n")],
+                    ),
+                  )
                 : props.config.positive,
             ),
           ]),
@@ -178,9 +203,7 @@ const check_dynamic_property = (props: {
   );
 };
 
-/**
- * @internal
- */
+/** @internal */
 const is_regular_property = (regular: IExpressionEntry[]) =>
   ts.factory.createCallExpression(
     IdentifierFactory.access(

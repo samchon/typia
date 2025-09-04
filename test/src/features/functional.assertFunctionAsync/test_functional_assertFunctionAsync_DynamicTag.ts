@@ -5,8 +5,9 @@ import { _test_functional_assertFunctionAsync } from "../../internal/_test_funct
 import { DynamicTag } from "../../structures/DynamicTag";
 
 export const test_functional_assertFunctionAsync_DynamicTag =
-  _test_functional_assertFunctionAsync(TypeGuardError)("DynamicTag")(
-    DynamicTag,
-  )((p: (input: DynamicTag) => Promise<DynamicTag>) =>
-    typia.functional.assertFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertFunctionAsync(TypeGuardError)("DynamicTag")(
+      DynamicTag,
+    )((p: (input: DynamicTag) => Promise<DynamicTag>) =>
+      typia.functional.assertFunction(p),
+    );

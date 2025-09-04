@@ -3,10 +3,11 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { DynamicTemplate } from "../../../structures/DynamicTemplate";
 
-export const test_llm_application_claude_DynamicTemplate =
+export const test_llm_application_claude_DynamicTemplate = (): void =>
   _test_llm_application({
     model: "claude",
     name: "DynamicTemplate",
+    factory: DynamicTemplate,
   })(typia.llm.application<DynamicTemplateApplication, "claude">());
 
 interface DynamicTemplateApplication {

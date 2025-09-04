@@ -1,8 +1,8 @@
 {
   "model": "3.0",
   "options": {
-    "constraint": false,
     "recursive": 3,
+    "constraint": true,
     "separate": null
   },
   "functions": [
@@ -16,23 +16,23 @@
             "properties": {
               "prefix": {
                 "type": "string",
-                "description": "@pattern ^(prefix_(.*))"
+                "pattern": "^(prefix_(.*))"
               },
               "postfix": {
                 "type": "string",
-                "description": "@pattern ((.*)_postfix)$"
+                "pattern": "((.*)_postfix)$"
               },
               "middle_string": {
                 "type": "string",
-                "description": "@pattern ^(the_(.*)_value)$"
+                "pattern": "^(the_(.*)_value)$"
               },
               "middle_string_empty": {
                 "type": "string",
-                "description": "@pattern ^(the_(.*)_value)$"
+                "pattern": "^(the_(.*)_value)$"
               },
               "middle_numeric": {
                 "type": "string",
-                "description": "@pattern ^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+                "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
               },
               "middle_boolean": {
                 "type": "string",
@@ -43,11 +43,11 @@
               },
               "ipv4": {
                 "type": "string",
-                "description": "@pattern ^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$"
+                "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$"
               },
               "email": {
                 "type": "string",
-                "description": "@pattern ((.*)@(.*)\\.(.*))"
+                "pattern": "((.*)@(.*)\\.(.*))"
               }
             },
             "required": [
@@ -60,6 +60,7 @@
               "ipv4",
               "email"
             ],
+            "description": "Current Type: {@link TemplateAtomic}",
             "additionalProperties": false
           }
         },
@@ -67,8 +68,7 @@
           "first"
         ],
         "additionalProperties": false
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -80,23 +80,23 @@
             "properties": {
               "prefix": {
                 "type": "string",
-                "description": "@pattern ^(prefix_(.*))"
+                "pattern": "^(prefix_(.*))"
               },
               "postfix": {
                 "type": "string",
-                "description": "@pattern ((.*)_postfix)$"
+                "pattern": "((.*)_postfix)$"
               },
               "middle_string": {
                 "type": "string",
-                "description": "@pattern ^(the_(.*)_value)$"
+                "pattern": "^(the_(.*)_value)$"
               },
               "middle_string_empty": {
                 "type": "string",
-                "description": "@pattern ^(the_(.*)_value)$"
+                "pattern": "^(the_(.*)_value)$"
               },
               "middle_numeric": {
                 "type": "string",
-                "description": "@pattern ^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+                "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
               },
               "middle_boolean": {
                 "type": "string",
@@ -107,11 +107,11 @@
               },
               "ipv4": {
                 "type": "string",
-                "description": "@pattern ^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$"
+                "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$"
               },
               "email": {
                 "type": "string",
-                "description": "@pattern ((.*)@(.*)\\.(.*))"
+                "pattern": "((.*)@(.*)\\.(.*))"
               }
             },
             "required": [
@@ -124,6 +124,7 @@
               "ipv4",
               "email"
             ],
+            "description": "Current Type: {@link TemplateAtomic}",
             "additionalProperties": false
           },
           "second": {
@@ -131,23 +132,23 @@
             "properties": {
               "prefix": {
                 "type": "string",
-                "description": "@pattern ^(prefix_(.*))"
+                "pattern": "^(prefix_(.*))"
               },
               "postfix": {
                 "type": "string",
-                "description": "@pattern ((.*)_postfix)$"
+                "pattern": "((.*)_postfix)$"
               },
               "middle_string": {
                 "type": "string",
-                "description": "@pattern ^(the_(.*)_value)$"
+                "pattern": "^(the_(.*)_value)$"
               },
               "middle_string_empty": {
                 "type": "string",
-                "description": "@pattern ^(the_(.*)_value)$"
+                "pattern": "^(the_(.*)_value)$"
               },
               "middle_numeric": {
                 "type": "string",
-                "description": "@pattern ^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+                "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
               },
               "middle_boolean": {
                 "type": "string",
@@ -158,11 +159,11 @@
               },
               "ipv4": {
                 "type": "string",
-                "description": "@pattern ^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$"
+                "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$"
               },
               "email": {
                 "type": "string",
-                "description": "@pattern ((.*)@(.*)\\.(.*))"
+                "pattern": "((.*)@(.*)\\.(.*))"
               }
             },
             "required": [
@@ -190,23 +191,23 @@
         "properties": {
           "prefix": {
             "type": "string",
-            "description": "@pattern ^(prefix_(.*))"
+            "pattern": "^(prefix_(.*))"
           },
           "postfix": {
             "type": "string",
-            "description": "@pattern ((.*)_postfix)$"
+            "pattern": "((.*)_postfix)$"
           },
           "middle_string": {
             "type": "string",
-            "description": "@pattern ^(the_(.*)_value)$"
+            "pattern": "^(the_(.*)_value)$"
           },
           "middle_string_empty": {
             "type": "string",
-            "description": "@pattern ^(the_(.*)_value)$"
+            "pattern": "^(the_(.*)_value)$"
           },
           "middle_numeric": {
             "type": "string",
-            "description": "@pattern ^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+            "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
           },
           "middle_boolean": {
             "type": "string",
@@ -217,11 +218,11 @@
           },
           "ipv4": {
             "type": "string",
-            "description": "@pattern ^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$"
+            "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$"
           },
           "email": {
             "type": "string",
-            "description": "@pattern ((.*)@(.*)\\.(.*))"
+            "pattern": "((.*)@(.*)\\.(.*))"
           }
         },
         "required": [
@@ -234,9 +235,9 @@
           "ipv4",
           "email"
         ],
+        "description": "Current Type: {@link TemplateAtomic}",
         "additionalProperties": false
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -248,23 +249,23 @@
             "properties": {
               "prefix": {
                 "type": "string",
-                "description": "@pattern ^(prefix_(.*))"
+                "pattern": "^(prefix_(.*))"
               },
               "postfix": {
                 "type": "string",
-                "description": "@pattern ((.*)_postfix)$"
+                "pattern": "((.*)_postfix)$"
               },
               "middle_string": {
                 "type": "string",
-                "description": "@pattern ^(the_(.*)_value)$"
+                "pattern": "^(the_(.*)_value)$"
               },
               "middle_string_empty": {
                 "type": "string",
-                "description": "@pattern ^(the_(.*)_value)$"
+                "pattern": "^(the_(.*)_value)$"
               },
               "middle_numeric": {
                 "type": "string",
-                "description": "@pattern ^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+                "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
               },
               "middle_boolean": {
                 "type": "string",
@@ -275,11 +276,11 @@
               },
               "ipv4": {
                 "type": "string",
-                "description": "@pattern ^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$"
+                "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$"
               },
               "email": {
                 "type": "string",
-                "description": "@pattern ((.*)@(.*)\\.(.*))"
+                "pattern": "((.*)@(.*)\\.(.*))"
               }
             },
             "required": [
@@ -300,23 +301,23 @@
             "properties": {
               "prefix": {
                 "type": "string",
-                "description": "@pattern ^(prefix_(.*))"
+                "pattern": "^(prefix_(.*))"
               },
               "postfix": {
                 "type": "string",
-                "description": "@pattern ((.*)_postfix)$"
+                "pattern": "((.*)_postfix)$"
               },
               "middle_string": {
                 "type": "string",
-                "description": "@pattern ^(the_(.*)_value)$"
+                "pattern": "^(the_(.*)_value)$"
               },
               "middle_string_empty": {
                 "type": "string",
-                "description": "@pattern ^(the_(.*)_value)$"
+                "pattern": "^(the_(.*)_value)$"
               },
               "middle_numeric": {
                 "type": "string",
-                "description": "@pattern ^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+                "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
               },
               "middle_boolean": {
                 "type": "string",
@@ -327,11 +328,11 @@
               },
               "ipv4": {
                 "type": "string",
-                "description": "@pattern ^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$"
+                "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$"
               },
               "email": {
                 "type": "string",
-                "description": "@pattern ((.*)@(.*)\\.(.*))"
+                "pattern": "((.*)@(.*)\\.(.*))"
               }
             },
             "required": [
@@ -352,23 +353,23 @@
             "properties": {
               "prefix": {
                 "type": "string",
-                "description": "@pattern ^(prefix_(.*))"
+                "pattern": "^(prefix_(.*))"
               },
               "postfix": {
                 "type": "string",
-                "description": "@pattern ((.*)_postfix)$"
+                "pattern": "((.*)_postfix)$"
               },
               "middle_string": {
                 "type": "string",
-                "description": "@pattern ^(the_(.*)_value)$"
+                "pattern": "^(the_(.*)_value)$"
               },
               "middle_string_empty": {
                 "type": "string",
-                "description": "@pattern ^(the_(.*)_value)$"
+                "pattern": "^(the_(.*)_value)$"
               },
               "middle_numeric": {
                 "type": "string",
-                "description": "@pattern ^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+                "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
               },
               "middle_boolean": {
                 "type": "string",
@@ -379,11 +380,11 @@
               },
               "ipv4": {
                 "type": "string",
-                "description": "@pattern ^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$"
+                "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$"
               },
               "email": {
                 "type": "string",
-                "description": "@pattern ((.*)@(.*)\\.(.*))"
+                "pattern": "((.*)@(.*)\\.(.*))"
               }
             },
             "required": [
@@ -411,23 +412,23 @@
         "properties": {
           "prefix": {
             "type": "string",
-            "description": "@pattern ^(prefix_(.*))"
+            "pattern": "^(prefix_(.*))"
           },
           "postfix": {
             "type": "string",
-            "description": "@pattern ((.*)_postfix)$"
+            "pattern": "((.*)_postfix)$"
           },
           "middle_string": {
             "type": "string",
-            "description": "@pattern ^(the_(.*)_value)$"
+            "pattern": "^(the_(.*)_value)$"
           },
           "middle_string_empty": {
             "type": "string",
-            "description": "@pattern ^(the_(.*)_value)$"
+            "pattern": "^(the_(.*)_value)$"
           },
           "middle_numeric": {
             "type": "string",
-            "description": "@pattern ^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+            "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
           },
           "middle_boolean": {
             "type": "string",
@@ -438,11 +439,11 @@
           },
           "ipv4": {
             "type": "string",
-            "description": "@pattern ^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$"
+            "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$"
           },
           "email": {
             "type": "string",
-            "description": "@pattern ((.*)@(.*)\\.(.*))"
+            "pattern": "((.*)@(.*)\\.(.*))"
           }
         },
         "required": [
@@ -457,8 +458,7 @@
         ],
         "additionalProperties": false,
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

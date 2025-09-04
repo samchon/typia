@@ -2,35 +2,7 @@
   "type": "object",
   "properties": {
     "regular": {
-      "type": "object",
-      "properties": {
-        "value": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "value": {
-                "oneOf": [
-                  {
-                    "type": "string",
-                    "description": "@minLength 3\n@maxLength 7"
-                  },
-                  {
-                    "type": "number",
-                    "description": "@minimum 3"
-                  }
-                ]
-              }
-            },
-            "required": [
-              "value"
-            ]
-          }
-        }
-      },
-      "required": [
-        "value"
-      ]
+      "$ref": "#/$defs/CommentTagAtomicUnion"
     },
     "nullable": {
       "oneOf": [
@@ -38,68 +10,12 @@
           "type": "null"
         },
         {
-          "type": "object",
-          "properties": {
-            "value": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "oneOf": [
-                      {
-                        "type": "string",
-                        "description": "@minLength 3\n@maxLength 7"
-                      },
-                      {
-                        "type": "number",
-                        "description": "@minimum 3"
-                      }
-                    ]
-                  }
-                },
-                "required": [
-                  "value"
-                ]
-              }
-            }
-          },
-          "required": [
-            "value"
-          ]
+          "$ref": "#/$defs/CommentTagAtomicUnion"
         }
       ]
     },
     "optional": {
-      "type": "object",
-      "properties": {
-        "value": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "value": {
-                "oneOf": [
-                  {
-                    "type": "string",
-                    "description": "@minLength 3\n@maxLength 7"
-                  },
-                  {
-                    "type": "number",
-                    "description": "@minimum 3"
-                  }
-                ]
-              }
-            },
-            "required": [
-              "value"
-            ]
-          }
-        }
-      },
-      "required": [
-        "value"
-      ]
+      "$ref": "#/$defs/CommentTagAtomicUnion"
     },
     "faint": {
       "oneOf": [
@@ -107,80 +23,58 @@
           "type": "null"
         },
         {
-          "type": "object",
-          "properties": {
-            "value": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "oneOf": [
-                      {
-                        "type": "string",
-                        "description": "@minLength 3\n@maxLength 7"
-                      },
-                      {
-                        "type": "number",
-                        "description": "@minimum 3"
-                      }
-                    ]
-                  }
-                },
-                "required": [
-                  "value"
-                ]
-              }
-            }
-          },
-          "required": [
-            "value"
-          ]
+          "$ref": "#/$defs/CommentTagAtomicUnion"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
-        "type": "object",
-        "properties": {
-          "value": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "value": {
-                  "oneOf": [
-                    {
-                      "type": "string",
-                      "description": "@minLength 3\n@maxLength 7"
-                    },
-                    {
-                      "type": "number",
-                      "description": "@minimum 3"
-                    }
-                  ]
-                }
-              },
-              "required": [
-                "value"
-              ]
-            }
-          }
-        },
-        "required": [
-          "value"
-        ]
+        "$ref": "#/$defs/CommentTagAtomicUnion"
       }
     }
   },
   "required": [
     "regular",
     "nullable",
-    "optional",
-    "faint",
     "array"
   ],
   "additionalProperties": false,
-  "$defs": {}
+  "$defs": {
+    "CommentTagAtomicUnion": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/CommentTagAtomicUnion.Type"
+          }
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "CommentTagAtomicUnion.Type": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 3,
+              "maxLength": 7
+            },
+            {
+              "type": "number",
+              "minimum": 3
+            }
+          ]
+        }
+      },
+      "required": [
+        "value"
+      ]
+    }
+  }
 }

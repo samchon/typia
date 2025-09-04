@@ -4,8 +4,11 @@ import { _test_functional_equalsParameters } from "../../internal/_test_function
 import { ArrayRecursiveUnionExplicit } from "../../structures/ArrayRecursiveUnionExplicit";
 
 export const test_functional_equalsParameters_ArrayRecursiveUnionExplicit =
-  _test_functional_equalsParameters("ArrayRecursiveUnionExplicit")(
-    ArrayRecursiveUnionExplicit,
-  )((p: (input: ArrayRecursiveUnionExplicit) => ArrayRecursiveUnionExplicit) =>
-    typia.functional.equalsParameters(p),
-  );
+  (): void =>
+    _test_functional_equalsParameters("ArrayRecursiveUnionExplicit")(
+      ArrayRecursiveUnionExplicit,
+    )(
+      (
+        p: (input: ArrayRecursiveUnionExplicit) => ArrayRecursiveUnionExplicit,
+      ) => typia.functional.equalsParameters(p),
+    );

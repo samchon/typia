@@ -9,9 +9,7 @@ import { ITypiaContext } from "../../transformers/ITypiaContext";
 import { ICheckEntry } from "../helpers/ICheckEntry";
 import { OptionPredicator } from "../helpers/OptionPredicator";
 
-/**
- * @internal
- */
+/** @internal */
 export const check_number = (props: {
   numeric: boolean;
   context: ITypiaContext;
@@ -56,9 +54,7 @@ export const check_number = (props: {
   };
 };
 
-/**
- * @internal
- */
+/** @internal */
 const check_numeric_type_tags = (props: {
   context: ITypiaContext;
   atomic: MetadataAtomic;

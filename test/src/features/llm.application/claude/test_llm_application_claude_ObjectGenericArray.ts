@@ -3,10 +3,11 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { ObjectGenericArray } from "../../../structures/ObjectGenericArray";
 
-export const test_llm_application_claude_ObjectGenericArray =
+export const test_llm_application_claude_ObjectGenericArray = (): void =>
   _test_llm_application({
     model: "claude",
     name: "ObjectGenericArray",
+    factory: ObjectGenericArray,
   })(typia.llm.application<ObjectGenericArrayApplication, "claude">());
 
 interface ObjectGenericArrayApplication {

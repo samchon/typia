@@ -5,8 +5,10 @@ import { _test_functional_assertParameters } from "../../internal/_test_function
 import { ArrayRepeatedRequired } from "../../structures/ArrayRepeatedRequired";
 
 export const test_functional_assertParametersCustom_ArrayRepeatedRequired =
-  _test_functional_assertParameters(CustomGuardError)("ArrayRepeatedRequired")(
-    ArrayRepeatedRequired,
-  )((p: (input: ArrayRepeatedRequired) => ArrayRepeatedRequired) =>
-    typia.functional.assertParameters(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertParameters(CustomGuardError)(
+      "ArrayRepeatedRequired",
+    )(ArrayRepeatedRequired)(
+      (p: (input: ArrayRepeatedRequired) => ArrayRepeatedRequired) =>
+        typia.functional.assertParameters(p, (p) => new CustomGuardError(p)),
+    );

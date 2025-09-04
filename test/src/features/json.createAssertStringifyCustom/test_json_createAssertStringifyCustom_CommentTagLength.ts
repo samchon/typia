@@ -5,10 +5,11 @@ import { _test_json_assertStringify } from "../../internal/_test_json_assertStri
 import { CommentTagLength } from "../../structures/CommentTagLength";
 
 export const test_json_createAssertStringifyCustom_CommentTagLength =
-  _test_json_assertStringify(CustomGuardError)(
-    "CommentTagLength",
-  )<CommentTagLength>(CommentTagLength)(
-    typia.json.createAssertStringify<CommentTagLength>(
-      (p) => new CustomGuardError(p),
-    ),
-  );
+  (): void =>
+    _test_json_assertStringify(CustomGuardError)(
+      "CommentTagLength",
+    )<CommentTagLength>(CommentTagLength)(
+      typia.json.createAssertStringify<CommentTagLength>(
+        (p) => new CustomGuardError(p),
+      ),
+    );

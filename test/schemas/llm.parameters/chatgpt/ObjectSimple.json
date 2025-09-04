@@ -2,96 +2,7 @@
   "type": "object",
   "properties": {
     "regular": {
-      "type": "object",
-      "properties": {
-        "scale": {
-          "type": "object",
-          "properties": {
-            "x": {
-              "type": "number"
-            },
-            "y": {
-              "type": "number"
-            },
-            "z": {
-              "type": "number"
-            }
-          },
-          "required": [
-            "x",
-            "y",
-            "z"
-          ],
-          "additionalProperties": false
-        },
-        "position": {
-          "type": "object",
-          "properties": {
-            "x": {
-              "type": "number"
-            },
-            "y": {
-              "type": "number"
-            },
-            "z": {
-              "type": "number"
-            }
-          },
-          "required": [
-            "x",
-            "y",
-            "z"
-          ],
-          "additionalProperties": false
-        },
-        "rotate": {
-          "type": "object",
-          "properties": {
-            "x": {
-              "type": "number"
-            },
-            "y": {
-              "type": "number"
-            },
-            "z": {
-              "type": "number"
-            }
-          },
-          "required": [
-            "x",
-            "y",
-            "z"
-          ],
-          "additionalProperties": false
-        },
-        "pivot": {
-          "type": "object",
-          "properties": {
-            "x": {
-              "type": "number"
-            },
-            "y": {
-              "type": "number"
-            },
-            "z": {
-              "type": "number"
-            }
-          },
-          "required": [
-            "x",
-            "y",
-            "z"
-          ],
-          "additionalProperties": false
-        }
-      },
-      "required": [
-        "scale",
-        "position",
-        "rotate",
-        "pivot"
-      ],
-      "additionalProperties": false
+      "$ref": "#/$defs/ObjectSimple.IBox3D"
     },
     "nullable": {
       "anyOf": [
@@ -99,190 +10,12 @@
           "type": "null"
         },
         {
-          "type": "object",
-          "properties": {
-            "scale": {
-              "type": "object",
-              "properties": {
-                "x": {
-                  "type": "number"
-                },
-                "y": {
-                  "type": "number"
-                },
-                "z": {
-                  "type": "number"
-                }
-              },
-              "required": [
-                "x",
-                "y",
-                "z"
-              ],
-              "additionalProperties": false
-            },
-            "position": {
-              "type": "object",
-              "properties": {
-                "x": {
-                  "type": "number"
-                },
-                "y": {
-                  "type": "number"
-                },
-                "z": {
-                  "type": "number"
-                }
-              },
-              "required": [
-                "x",
-                "y",
-                "z"
-              ],
-              "additionalProperties": false
-            },
-            "rotate": {
-              "type": "object",
-              "properties": {
-                "x": {
-                  "type": "number"
-                },
-                "y": {
-                  "type": "number"
-                },
-                "z": {
-                  "type": "number"
-                }
-              },
-              "required": [
-                "x",
-                "y",
-                "z"
-              ],
-              "additionalProperties": false
-            },
-            "pivot": {
-              "type": "object",
-              "properties": {
-                "x": {
-                  "type": "number"
-                },
-                "y": {
-                  "type": "number"
-                },
-                "z": {
-                  "type": "number"
-                }
-              },
-              "required": [
-                "x",
-                "y",
-                "z"
-              ],
-              "additionalProperties": false
-            }
-          },
-          "required": [
-            "scale",
-            "position",
-            "rotate",
-            "pivot"
-          ],
-          "additionalProperties": false
+          "$ref": "#/$defs/ObjectSimple.IBox3D"
         }
       ]
     },
     "optional": {
-      "type": "object",
-      "properties": {
-        "scale": {
-          "type": "object",
-          "properties": {
-            "x": {
-              "type": "number"
-            },
-            "y": {
-              "type": "number"
-            },
-            "z": {
-              "type": "number"
-            }
-          },
-          "required": [
-            "x",
-            "y",
-            "z"
-          ],
-          "additionalProperties": false
-        },
-        "position": {
-          "type": "object",
-          "properties": {
-            "x": {
-              "type": "number"
-            },
-            "y": {
-              "type": "number"
-            },
-            "z": {
-              "type": "number"
-            }
-          },
-          "required": [
-            "x",
-            "y",
-            "z"
-          ],
-          "additionalProperties": false
-        },
-        "rotate": {
-          "type": "object",
-          "properties": {
-            "x": {
-              "type": "number"
-            },
-            "y": {
-              "type": "number"
-            },
-            "z": {
-              "type": "number"
-            }
-          },
-          "required": [
-            "x",
-            "y",
-            "z"
-          ],
-          "additionalProperties": false
-        },
-        "pivot": {
-          "type": "object",
-          "properties": {
-            "x": {
-              "type": "number"
-            },
-            "y": {
-              "type": "number"
-            },
-            "z": {
-              "type": "number"
-            }
-          },
-          "required": [
-            "x",
-            "y",
-            "z"
-          ],
-          "additionalProperties": false
-        }
-      },
-      "required": [
-        "scale",
-        "position",
-        "rotate",
-        "pivot"
-      ],
-      "additionalProperties": false
+      "$ref": "#/$defs/ObjectSimple.IBox3D"
     },
     "faint": {
       "anyOf": [
@@ -290,202 +23,65 @@
           "type": "null"
         },
         {
-          "type": "object",
-          "properties": {
-            "scale": {
-              "type": "object",
-              "properties": {
-                "x": {
-                  "type": "number"
-                },
-                "y": {
-                  "type": "number"
-                },
-                "z": {
-                  "type": "number"
-                }
-              },
-              "required": [
-                "x",
-                "y",
-                "z"
-              ],
-              "additionalProperties": false
-            },
-            "position": {
-              "type": "object",
-              "properties": {
-                "x": {
-                  "type": "number"
-                },
-                "y": {
-                  "type": "number"
-                },
-                "z": {
-                  "type": "number"
-                }
-              },
-              "required": [
-                "x",
-                "y",
-                "z"
-              ],
-              "additionalProperties": false
-            },
-            "rotate": {
-              "type": "object",
-              "properties": {
-                "x": {
-                  "type": "number"
-                },
-                "y": {
-                  "type": "number"
-                },
-                "z": {
-                  "type": "number"
-                }
-              },
-              "required": [
-                "x",
-                "y",
-                "z"
-              ],
-              "additionalProperties": false
-            },
-            "pivot": {
-              "type": "object",
-              "properties": {
-                "x": {
-                  "type": "number"
-                },
-                "y": {
-                  "type": "number"
-                },
-                "z": {
-                  "type": "number"
-                }
-              },
-              "required": [
-                "x",
-                "y",
-                "z"
-              ],
-              "additionalProperties": false
-            }
-          },
-          "required": [
-            "scale",
-            "position",
-            "rotate",
-            "pivot"
-          ],
-          "additionalProperties": false
+          "$ref": "#/$defs/ObjectSimple.IBox3D"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
-        "type": "object",
-        "properties": {
-          "scale": {
-            "type": "object",
-            "properties": {
-              "x": {
-                "type": "number"
-              },
-              "y": {
-                "type": "number"
-              },
-              "z": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "x",
-              "y",
-              "z"
-            ],
-            "additionalProperties": false
-          },
-          "position": {
-            "type": "object",
-            "properties": {
-              "x": {
-                "type": "number"
-              },
-              "y": {
-                "type": "number"
-              },
-              "z": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "x",
-              "y",
-              "z"
-            ],
-            "additionalProperties": false
-          },
-          "rotate": {
-            "type": "object",
-            "properties": {
-              "x": {
-                "type": "number"
-              },
-              "y": {
-                "type": "number"
-              },
-              "z": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "x",
-              "y",
-              "z"
-            ],
-            "additionalProperties": false
-          },
-          "pivot": {
-            "type": "object",
-            "properties": {
-              "x": {
-                "type": "number"
-              },
-              "y": {
-                "type": "number"
-              },
-              "z": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "x",
-              "y",
-              "z"
-            ],
-            "additionalProperties": false
-          }
-        },
-        "required": [
-          "scale",
-          "position",
-          "rotate",
-          "pivot"
-        ],
-        "additionalProperties": false
+        "$ref": "#/$defs/ObjectSimple.IBox3D"
       }
     }
   },
   "required": [
     "regular",
     "nullable",
-    "optional",
-    "faint",
     "array"
   ],
   "additionalProperties": false,
-  "$defs": {}
+  "$defs": {
+    "ObjectSimple.IBox3D": {
+      "type": "object",
+      "properties": {
+        "scale": {
+          "$ref": "#/$defs/ObjectSimple.IPoint3D"
+        },
+        "position": {
+          "$ref": "#/$defs/ObjectSimple.IPoint3D"
+        },
+        "rotate": {
+          "$ref": "#/$defs/ObjectSimple.IPoint3D"
+        },
+        "pivot": {
+          "$ref": "#/$defs/ObjectSimple.IPoint3D"
+        }
+      },
+      "required": [
+        "scale",
+        "position",
+        "rotate",
+        "pivot"
+      ]
+    },
+    "ObjectSimple.IPoint3D": {
+      "type": "object",
+      "properties": {
+        "x": {
+          "type": "number"
+        },
+        "y": {
+          "type": "number"
+        },
+        "z": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "x",
+        "y",
+        "z"
+      ]
+    }
+  }
 }

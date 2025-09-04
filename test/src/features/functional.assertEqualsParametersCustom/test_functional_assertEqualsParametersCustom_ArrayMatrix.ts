@@ -5,8 +5,12 @@ import { _test_functional_assertEqualsParameters } from "../../internal/_test_fu
 import { ArrayMatrix } from "../../structures/ArrayMatrix";
 
 export const test_functional_assertEqualsParametersCustom_ArrayMatrix =
-  _test_functional_assertEqualsParameters(CustomGuardError)("ArrayMatrix")(
-    ArrayMatrix,
-  )((p: (input: ArrayMatrix) => ArrayMatrix) =>
-    typia.functional.assertEqualsParameters(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertEqualsParameters(CustomGuardError)("ArrayMatrix")(
+      ArrayMatrix,
+    )((p: (input: ArrayMatrix) => ArrayMatrix) =>
+      typia.functional.assertEqualsParameters(
+        p,
+        (p) => new CustomGuardError(p),
+      ),
+    );

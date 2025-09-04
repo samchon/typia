@@ -4,7 +4,8 @@ import { _test_functional_equalsReturnAsync } from "../../internal/_test_functio
 import { ObjectUndefined } from "../../structures/ObjectUndefined";
 
 export const test_functional_equalsReturnAsync_ObjectUndefined =
-  _test_functional_equalsReturnAsync("ObjectUndefined")(ObjectUndefined)(
-    (p: (input: ObjectUndefined) => Promise<ObjectUndefined>) =>
-      typia.functional.equalsReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_equalsReturnAsync("ObjectUndefined")(ObjectUndefined)(
+      (p: (input: ObjectUndefined) => Promise<ObjectUndefined>) =>
+        typia.functional.equalsReturn(p),
+    );

@@ -4,7 +4,8 @@ import { _test_functional_equalsParametersAsync } from "../../internal/_test_fun
 import { ObjectRequired } from "../../structures/ObjectRequired";
 
 export const test_functional_equalsParametersAsync_ObjectRequired =
-  _test_functional_equalsParametersAsync("ObjectRequired")(ObjectRequired)(
-    (p: (input: ObjectRequired) => Promise<ObjectRequired>) =>
-      typia.functional.equalsParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_equalsParametersAsync("ObjectRequired")(ObjectRequired)(
+      (p: (input: ObjectRequired) => Promise<ObjectRequired>) =>
+        typia.functional.equalsParameters(p),
+    );

@@ -7,8 +7,7 @@ import { TestStructure } from "../helpers/TestStructure";
 export const _test_validateEquals =
   (name: string) =>
   <T>(factory: TestStructure<T>) =>
-  (validateEquals: (input: T) => IValidation<T>) =>
-  () => {
+  (validateEquals: (input: T) => IValidation<T>): void => {
     const input: T = factory.generate();
 
     // EXACT TYPE
@@ -21,7 +20,7 @@ export const _test_validateEquals =
       throw new Error(
         "Bug on typia.validateEquals(): failed to archive the input value.",
       );
-    typia.assert(valid);
+    typia.assertEquals(valid);
     if (factory.ADDABLE === false) return;
 
     // EXPECTED

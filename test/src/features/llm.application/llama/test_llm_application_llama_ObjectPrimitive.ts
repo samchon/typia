@@ -3,12 +3,12 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { ObjectPrimitive } from "../../../structures/ObjectPrimitive";
 
-export const test_llm_application_llama_ObjectPrimitive = _test_llm_application(
-  {
+export const test_llm_application_llama_ObjectPrimitive = (): void =>
+  _test_llm_application({
     model: "llama",
     name: "ObjectPrimitive",
-  },
-)(typia.llm.application<ObjectPrimitiveApplication, "llama">());
+    factory: ObjectPrimitive,
+  })(typia.llm.application<ObjectPrimitiveApplication, "llama">());
 
 interface ObjectPrimitiveApplication {
   insert(p: { first: ObjectPrimitive }): Promise<void>;

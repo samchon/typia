@@ -1,8 +1,8 @@
 {
   "model": "3.0",
   "options": {
-    "constraint": false,
     "recursive": 3,
+    "constraint": true,
     "separate": null
   },
   "functions": [
@@ -16,7 +16,7 @@
             "properties": {
               "id": {
                 "type": "string",
-                "description": "@format uuid"
+                "format": "uuid"
               },
               "dollar": {
                 "type": "string",
@@ -37,6 +37,7 @@
               "postfix",
               "powerOf"
             ],
+            "description": "Current Type: {@link TypeTagCustom}",
             "additionalProperties": false
           }
         },
@@ -44,8 +45,7 @@
           "first"
         ],
         "additionalProperties": false
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -57,7 +57,7 @@
             "properties": {
               "id": {
                 "type": "string",
-                "description": "@format uuid"
+                "format": "uuid"
               },
               "dollar": {
                 "type": "string",
@@ -78,6 +78,7 @@
               "postfix",
               "powerOf"
             ],
+            "description": "Current Type: {@link TypeTagCustom}",
             "additionalProperties": false
           },
           "second": {
@@ -85,7 +86,7 @@
             "properties": {
               "id": {
                 "type": "string",
-                "description": "@format uuid"
+                "format": "uuid"
               },
               "dollar": {
                 "type": "string",
@@ -121,7 +122,7 @@
         "properties": {
           "id": {
             "type": "string",
-            "description": "@format uuid"
+            "format": "uuid"
           },
           "dollar": {
             "type": "string",
@@ -142,9 +143,9 @@
           "postfix",
           "powerOf"
         ],
+        "description": "Current Type: {@link TypeTagCustom}",
         "additionalProperties": false
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -156,7 +157,7 @@
             "properties": {
               "id": {
                 "type": "string",
-                "description": "@format uuid"
+                "format": "uuid"
               },
               "dollar": {
                 "type": "string",
@@ -185,7 +186,7 @@
             "properties": {
               "id": {
                 "type": "string",
-                "description": "@format uuid"
+                "format": "uuid"
               },
               "dollar": {
                 "type": "string",
@@ -214,7 +215,7 @@
             "properties": {
               "id": {
                 "type": "string",
-                "description": "@format uuid"
+                "format": "uuid"
               },
               "dollar": {
                 "type": "string",
@@ -250,7 +251,7 @@
         "properties": {
           "id": {
             "type": "string",
-            "description": "@format uuid"
+            "format": "uuid"
           },
           "dollar": {
             "type": "string",
@@ -273,8 +274,7 @@
         ],
         "additionalProperties": false,
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

@@ -5,8 +5,9 @@ import { _test_functional_assertEqualsFunction } from "../../internal/_test_func
 import { ClassGetter } from "../../structures/ClassGetter";
 
 export const test_functional_assertEqualsFunctionCustom_ClassGetter =
-  _test_functional_assertEqualsFunction(CustomGuardError)("ClassGetter")(
-    ClassGetter,
-  )((p: (input: ClassGetter) => ClassGetter) =>
-    typia.functional.assertEqualsFunction(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertEqualsFunction(CustomGuardError)("ClassGetter")(
+      ClassGetter,
+    )((p: (input: ClassGetter) => ClassGetter) =>
+      typia.functional.assertEqualsFunction(p, (p) => new CustomGuardError(p)),
+    );

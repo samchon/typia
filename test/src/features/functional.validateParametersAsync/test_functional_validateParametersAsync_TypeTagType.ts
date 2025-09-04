@@ -4,7 +4,8 @@ import { _test_functional_validateParametersAsync } from "../../internal/_test_f
 import { TypeTagType } from "../../structures/TypeTagType";
 
 export const test_functional_validateParametersAsync_TypeTagType =
-  _test_functional_validateParametersAsync("TypeTagType")(TypeTagType)(
-    (p: (input: TypeTagType) => Promise<TypeTagType>) =>
-      typia.functional.validateParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateParametersAsync("TypeTagType")(TypeTagType)(
+      (p: (input: TypeTagType) => Promise<TypeTagType>) =>
+        typia.functional.validateParameters(p),
+    );

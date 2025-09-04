@@ -5,29 +5,19 @@ import { _ProtobufSizer } from "./_ProtobufSizer";
 
 /// @reference https://github.com/piotr-oles/as-proto/blob/main/packages/as-proto/assembly/internal/FixedWriter.ts
 export class _ProtobufWriter implements _IProtobufWriter {
-  /**
-   * Related sizer
-   */
+  /** Related sizer */
   private readonly sizer: _ProtobufSizer;
 
-  /**
-   * Current pointer.
-   */
+  /** Current pointer. */
   private ptr: number;
 
-  /**
-   * Protobuf buffer.
-   */
+  /** Protobuf buffer. */
   private buf: Uint8Array;
 
-  /**
-   * DataView for buffer.
-   */
+  /** DataView for buffer. */
   private view: DataView;
 
-  /**
-   * Index in varlen array from sizer.
-   */
+  /** Index in varlen array from sizer. */
   private varlenidx: number;
 
   constructor(sizer: _ProtobufSizer) {

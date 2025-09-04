@@ -3,10 +3,11 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { ObjectIntersection } from "../../../structures/ObjectIntersection";
 
-export const test_llm_application_claude_ObjectIntersection =
+export const test_llm_application_claude_ObjectIntersection = (): void =>
   _test_llm_application({
     model: "claude",
     name: "ObjectIntersection",
+    factory: ObjectIntersection,
   })(typia.llm.application<ObjectIntersectionApplication, "claude">());
 
 interface ObjectIntersectionApplication {

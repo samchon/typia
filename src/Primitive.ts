@@ -8,36 +8,34 @@ import { Format } from "./tags";
 /**
  * Primitive type of JSON.
  *
- * `Primitive<T>` is a TMP (Type Meta Programming) type which converts
- * its argument as a primitive type within framework JSON.
+ * `Primitive<T>` is a TMP (Type Meta Programming) type which converts its
+ * argument as a primitive type within the framework JSON.
  *
- * If the target argument is a built-in class which returns its origin primitive type
- * through the `valueOf()` method like the `String` or `Number`, its return type would
- * be the `string` or `number`. Otherwise, the built-in class does not have the
- * `valueOf()` method, the return type would be an empty object (`{}`).
+ * If the target argument is a built-in class which returns its origin primitive
+ * type through the `valueOf()` method like the `String` or `Number`, its return
+ * type will be the `string` or `number`. Otherwise, if the built-in class does
+ * not have the `valueOf()` method, the return type will be an empty object
+ * (`{}`).
  *
- * Otherwise, the target argument is a type of custom class, all of its custom method
- * would be erased and its prototype would be changed to the primitive `object`.
- * Therefore, return type of the TMP type finally be the primitive object.
+ * Otherwise, if the target argument is a type of custom class, all of its
+ * custom methods will be erased and its prototype will be changed to the
+ * primitive `object`. Therefore, the return type of the TMP type will finally
+ * be the primitive object.
  *
- * In addition, if the target argument is a type of custom class and it has a special
- * method `toJSON()`, return type of this `Primitive` would be not `Primitive<Instance>`
- * but `Primitive<ReturnType<Instance.toJSON>>`.
+ * In addition, if the target argument is a type of custom class and it has a
+ * special method `toJSON()`, the return type of this `Primitive` will be not
+ * `Primitive<Instance>` but `Primitive<ReturnType<Instance.toJSON>>`.
  *
- * Before                  | After
- * ------------------------|----------------------------------------
- * `Boolean`               | `boolean`
- * `Number`                | `number`
- * `String`                | `string`
- * `Class`                 | `object`
- * `Class` with `toJSON()` | `Primitive<ReturnType<Class.toJSON>>`
- * Native Class            | never
- * Others                  | No change
+ * Before | After
+ * ------------------------|---------------------------------------- `Boolean` |
+ * `boolean` `Number` | `number` `String` | `string` `Class` | `object` `Class`
+ * with `toJSON()` | `Primitive<ReturnType<Class.toJSON>>` Native Class | never
+ * Others | No change
  *
- * @template T Target argument type.
  * @author Jeongho Nam - https://github.com/samchon
  * @author Kyungsu Kang - https://github.com/kakasoo
  * @author Michael - https://github.com/8471919
+ * @template T Target argument type.
  */
 export type Primitive<T> =
   Equal<T, PrimitiveMain<T>> extends true ? T : PrimitiveMain<T>;

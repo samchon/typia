@@ -5,13 +5,14 @@ import { _test_protobuf_assertDecode } from "../../internal/_test_protobuf_asser
 import { ObjectUnionExplicitPointer } from "../../structures/ObjectUnionExplicitPointer";
 
 export const test_protobuf_assertDecodeCustom_ObjectUnionExplicitPointer =
-  _test_protobuf_assertDecode(CustomGuardError)(
-    "ObjectUnionExplicitPointer",
-  )<ObjectUnionExplicitPointer>(ObjectUnionExplicitPointer)({
-    decode: (input) =>
-      typia.protobuf.assertDecode<ObjectUnionExplicitPointer>(
-        input,
-        (p) => new CustomGuardError(p),
-      ),
-    encode: typia.protobuf.createEncode<ObjectUnionExplicitPointer>(),
-  });
+  (): void =>
+    _test_protobuf_assertDecode(CustomGuardError)(
+      "ObjectUnionExplicitPointer",
+    )<ObjectUnionExplicitPointer>(ObjectUnionExplicitPointer)({
+      decode: (input) =>
+        typia.protobuf.assertDecode<ObjectUnionExplicitPointer>(
+          input,
+          (p) => new CustomGuardError(p),
+        ),
+      encode: typia.protobuf.createEncode<ObjectUnionExplicitPointer>(),
+    });

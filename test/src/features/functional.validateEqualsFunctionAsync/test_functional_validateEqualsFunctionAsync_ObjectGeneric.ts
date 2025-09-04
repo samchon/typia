@@ -4,7 +4,9 @@ import { _test_functional_validateEqualsFunctionAsync } from "../../internal/_te
 import { ObjectGeneric } from "../../structures/ObjectGeneric";
 
 export const test_functional_validateEqualsFunctionAsync_ObjectGeneric =
-  _test_functional_validateEqualsFunctionAsync("ObjectGeneric")(ObjectGeneric)(
-    (p: (input: ObjectGeneric) => Promise<ObjectGeneric>) =>
+  (): Promise<void> =>
+    _test_functional_validateEqualsFunctionAsync("ObjectGeneric")(
+      ObjectGeneric,
+    )((p: (input: ObjectGeneric) => Promise<ObjectGeneric>) =>
       typia.functional.validateEqualsFunction(p),
-  );
+    );

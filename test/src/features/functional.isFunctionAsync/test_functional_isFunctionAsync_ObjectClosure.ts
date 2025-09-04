@@ -4,7 +4,8 @@ import { _test_functional_isFunctionAsync } from "../../internal/_test_functiona
 import { ObjectClosure } from "../../structures/ObjectClosure";
 
 export const test_functional_isFunctionAsync_ObjectClosure =
-  _test_functional_isFunctionAsync("ObjectClosure")(ObjectClosure)(
-    (p: (input: ObjectClosure) => Promise<ObjectClosure>) =>
-      typia.functional.isFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_isFunctionAsync("ObjectClosure")(ObjectClosure)(
+      (p: (input: ObjectClosure) => Promise<ObjectClosure>) =>
+        typia.functional.isFunction(p),
+    );

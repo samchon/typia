@@ -1,8 +1,8 @@
 {
   "model": "3.0",
   "options": {
-    "constraint": false,
     "recursive": 3,
+    "constraint": true,
     "separate": null
   },
   "functions": [
@@ -15,6 +15,7 @@
             "type": "object",
             "properties": {},
             "required": [],
+            "description": "Current Type: {@link ObjectDynamic}",
             "additionalProperties": {
               "oneOf": [
                 {
@@ -34,8 +35,7 @@
           "first"
         ],
         "additionalProperties": false
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -46,6 +46,7 @@
             "type": "object",
             "properties": {},
             "required": [],
+            "description": "Current Type: {@link ObjectDynamic}",
             "additionalProperties": {
               "oneOf": [
                 {
@@ -90,6 +91,7 @@
         "type": "object",
         "properties": {},
         "required": [],
+        "description": "Current Type: {@link ObjectDynamic}",
         "additionalProperties": {
           "oneOf": [
             {
@@ -103,8 +105,7 @@
             }
           ]
         }
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -193,8 +194,7 @@
           ]
         },
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

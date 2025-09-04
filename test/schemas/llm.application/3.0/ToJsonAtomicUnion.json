@@ -1,8 +1,8 @@
 {
   "model": "3.0",
   "options": {
-    "constraint": false,
     "recursive": 3,
+    "constraint": true,
     "separate": null
   },
   "functions": [
@@ -28,15 +28,15 @@
                   "nullable": true
                 }
               ]
-            }
+            },
+            "description": "Current Type: {@link ToJsonAtomicUnion}"
           }
         },
         "required": [
           "first"
         ],
         "additionalProperties": false
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -60,7 +60,8 @@
                   "nullable": true
                 }
               ]
-            }
+            },
+            "description": "Current Type: {@link ToJsonAtomicUnion}"
           },
           "second": {
             "type": "array",
@@ -106,9 +107,9 @@
               "nullable": true
             }
           ]
-        }
-      },
-      "strict": true
+        },
+        "description": "Current Type: {@link ToJsonAtomicUnion}"
+      }
     },
     {
       "name": "coalesce",
@@ -201,8 +202,7 @@
           ]
         },
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

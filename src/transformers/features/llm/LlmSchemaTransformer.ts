@@ -36,39 +36,52 @@ export namespace LlmSchemaTransformer {
       method: "schema",
       node: props.expression.typeArguments[1],
     });
+    const config: Partial<ILlmSchema.IConfig> = LlmModelPredicator.getConfig({
+      context: props.context,
+      method: "schema",
+      model,
+      node: props.expression.typeArguments[2],
+    }) as Partial<ILlmSchema.IConfig>;
+
     const type: ts.Type = props.context.checker.getTypeFromTypeNode(top);
-    const collection: MetadataCollection = new MetadataCollection({
-      replace: MetadataCollection.replace,
-    });
-    const result: ValidationPipe<Metadata, MetadataFactory.IError> =
-      MetadataFactory.analyze({
-        checker: props.context.checker,
-        transformer: props.context.transformer,
-        options: {
-          escape: true,
-          constant: true,
-          absorb: false,
-          validate: LlmSchemaProgrammer.validate(model),
-        },
-        collection,
-        type,
-      });
-    if (result.success === false)
-      throw TransformerError.from({
-        code: "typia.llm.schema",
-        errors: result.errors,
-      });
+
+    // VALIDATE TYPE
+    const analyze = (validate: boolean): Metadata => {
+      const result: ValidationPipe<Metadata, MetadataFactory.IError> =
+        MetadataFactory.analyze({
+          checker: props.context.checker,
+          transformer: props.context.transformer,
+          options: {
+            absorb: validate,
+            constant: true,
+            escape: true,
+            validate:
+              validate === true
+                ? LlmSchemaProgrammer.validate({
+                    model,
+                    config,
+                  })
+                : undefined,
+          },
+          collection: new MetadataCollection({
+            replace: MetadataCollection.replace,
+          }),
+          type,
+        });
+      if (result.success === false)
+        throw TransformerError.from({
+          code: "typia.llm.schema",
+          errors: result.errors,
+        });
+      return result.data;
+    };
+    analyze(true);
 
     // GENERATE LLM SCHEMA
     const out: LlmSchemaProgrammer.IOutput<any> = LlmSchemaProgrammer.write({
       model,
-      metadata: result.data,
-      config: LlmModelPredicator.getConfig({
-        context: props.context,
-        method: "schema",
-        model,
-        node: props.expression.typeArguments[2],
-      }),
+      metadata: analyze(false),
+      config,
     });
     const schemaTypeNode = props.context.importer.type({
       file: "@samchon/openapi",
@@ -88,10 +101,24 @@ export namespace LlmSchemaTransformer {
         undefined,
         [
           IdentifierFactory.parameter(
-            "$defs",
-            ts.factory.createTypeReferenceNode("Record", [
-              ts.factory.createKeywordTypeNode(ts.SyntaxKind.StringKeyword),
-              schemaTypeNode,
+            "props",
+            ts.factory.createTypeLiteralNode([
+              ts.factory.createPropertySignature(
+                undefined,
+                ts.factory.createIdentifier("$defs"),
+                ts.factory.createToken(ts.SyntaxKind.QuestionToken),
+                ts.factory.createUnionTypeNode([
+                  ts.factory.createTypeReferenceNode("Record", [
+                    ts.factory.createKeywordTypeNode(
+                      ts.SyntaxKind.StringKeyword,
+                    ),
+                    schemaTypeNode,
+                  ]),
+                  ts.factory.createKeywordTypeNode(
+                    ts.SyntaxKind.UndefinedKeyword,
+                  ),
+                ]),
+              ),
             ]),
             undefined,
           ),
@@ -100,22 +127,35 @@ export namespace LlmSchemaTransformer {
         undefined,
         ts.factory.createBlock(
           [
-            ts.factory.createExpressionStatement(
-              ts.factory.createCallExpression(
-                ts.factory.createIdentifier("Object.assign"),
-                undefined,
-                [
-                  ts.factory.createIdentifier("$defs"),
-                  ts.factory.createAsExpression(
-                    LiteralFactory.write(out.$defs),
-                    ts.factory.createTypeReferenceNode("Record", [
-                      ts.factory.createKeywordTypeNode(
-                        ts.SyntaxKind.StringKeyword,
-                      ),
-                      schemaTypeNode,
-                    ]),
-                  ),
-                ],
+            ts.factory.createIfStatement(
+              ts.factory.createStrictInequality(
+                ts.factory.createIdentifier("undefined"),
+                IdentifierFactory.access(
+                  ts.factory.createIdentifier("props"),
+                  "$defs",
+                  true,
+                ),
+              ),
+              ts.factory.createExpressionStatement(
+                ts.factory.createCallExpression(
+                  ts.factory.createIdentifier("Object.assign"),
+                  undefined,
+                  [
+                    IdentifierFactory.access(
+                      ts.factory.createIdentifier("props"),
+                      "$defs",
+                    ),
+                    ts.factory.createAsExpression(
+                      LiteralFactory.write(out.$defs),
+                      ts.factory.createTypeReferenceNode("Record", [
+                        ts.factory.createKeywordTypeNode(
+                          ts.SyntaxKind.StringKeyword,
+                        ),
+                        schemaTypeNode,
+                      ]),
+                    ),
+                  ],
+                ),
               ),
             ),
             ts.factory.createReturnStatement(literal),

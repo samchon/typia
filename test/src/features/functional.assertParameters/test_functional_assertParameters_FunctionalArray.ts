@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_functional_assertParameters } from "../../internal/_test_functional_assertParameters";
 import { FunctionalArray } from "../../structures/FunctionalArray";
 
-export const test_functional_assertParameters_FunctionalArray =
+export const test_functional_assertParameters_FunctionalArray = (): void =>
   _test_functional_assertParameters(TypeGuardError)("FunctionalArray")(
     FunctionalArray,
   )((p: (input: FunctionalArray) => FunctionalArray) =>

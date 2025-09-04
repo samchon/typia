@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_functional_assertReturn } from "../../internal/_test_functional_assertReturn";
 import { ArrayAtomicAlias } from "../../structures/ArrayAtomicAlias";
 
-export const test_functional_assertReturn_ArrayAtomicAlias =
+export const test_functional_assertReturn_ArrayAtomicAlias = (): void =>
   _test_functional_assertReturn(TypeGuardError)("ArrayAtomicAlias")(
     ArrayAtomicAlias,
   )((p: (input: ArrayAtomicAlias) => ArrayAtomicAlias) =>

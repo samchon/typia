@@ -5,8 +5,12 @@ import { _test_functional_assertEqualsParameters } from "../../internal/_test_fu
 import { ObjectPrimitive } from "../../structures/ObjectPrimitive";
 
 export const test_functional_assertEqualsParametersCustom_ObjectPrimitive =
-  _test_functional_assertEqualsParameters(CustomGuardError)("ObjectPrimitive")(
-    ObjectPrimitive,
-  )((p: (input: ObjectPrimitive) => ObjectPrimitive) =>
-    typia.functional.assertEqualsParameters(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertEqualsParameters(CustomGuardError)(
+      "ObjectPrimitive",
+    )(ObjectPrimitive)((p: (input: ObjectPrimitive) => ObjectPrimitive) =>
+      typia.functional.assertEqualsParameters(
+        p,
+        (p) => new CustomGuardError(p),
+      ),
+    );

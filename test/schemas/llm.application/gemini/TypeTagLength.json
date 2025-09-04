@@ -45,20 +45,21 @@
                     "maximum",
                     "minimum_and_maximum",
                     "equal"
-                  ]
+                  ],
+                  "description": "Current Type: {@link TypeTagLength.Type}"
                 }
               }
             },
             "required": [
               "value"
-            ]
+            ],
+            "description": "Current Type: {@link TypeTagLength}"
           }
         },
         "required": [
           "first"
         ]
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -100,13 +101,15 @@
                     "maximum",
                     "minimum_and_maximum",
                     "equal"
-                  ]
+                  ],
+                  "description": "Current Type: {@link TypeTagLength.Type}"
                 }
               }
             },
             "required": [
               "value"
-            ]
+            ],
+            "description": "Current Type: {@link TypeTagLength}"
           },
           "second": {
             "type": "object",
@@ -143,7 +146,8 @@
                     "maximum",
                     "minimum_and_maximum",
                     "equal"
-                  ]
+                  ],
+                  "description": "Current Type: {@link TypeTagLength.Type}"
                 }
               }
             },
@@ -193,15 +197,16 @@
                 "maximum",
                 "minimum_and_maximum",
                 "equal"
-              ]
+              ],
+              "description": "Current Type: {@link TypeTagLength.Type}"
             }
           }
         },
         "required": [
           "value"
-        ]
-      },
-      "strict": true
+        ],
+        "description": "Current Type: {@link TypeTagLength}"
+      }
     },
     {
       "name": "coalesce",
@@ -243,7 +248,8 @@
                     "maximum",
                     "minimum_and_maximum",
                     "equal"
-                  ]
+                  ],
+                  "description": "Current Type: {@link TypeTagLength.Type}"
                 }
               }
             },
@@ -287,7 +293,8 @@
                     "maximum",
                     "minimum_and_maximum",
                     "equal"
-                  ]
+                  ],
+                  "description": "Current Type: {@link TypeTagLength.Type}"
                 }
               }
             },
@@ -331,7 +338,8 @@
                     "maximum",
                     "minimum_and_maximum",
                     "equal"
-                  ]
+                  ],
+                  "description": "Current Type: {@link TypeTagLength.Type}"
                 }
               }
             },
@@ -381,7 +389,8 @@
                 "maximum",
                 "minimum_and_maximum",
                 "equal"
-              ]
+              ],
+              "description": "Current Type: {@link TypeTagLength.Type}"
             }
           }
         },
@@ -389,8 +398,7 @@
           "value"
         ],
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

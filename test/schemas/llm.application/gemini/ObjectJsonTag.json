@@ -23,11 +23,11 @@
               },
               "title": {
                 "type": "string",
-                "description": "something.\n\nTitled property."
+                "description": "Titled property.\n\n@title something"
               },
               "complicate_title": {
                 "type": "string",
-                "description": "something weirdo with {@link something } tag.\n\nComplicate title."
+                "description": "Complicate title.\n\n@title something weirdo with {@link something } tag"
               }
             },
             "required": [
@@ -35,14 +35,14 @@
               "description",
               "title",
               "complicate_title"
-            ]
+            ],
+            "description": "Current Type: {@link ObjectJsonTag}"
           }
         },
         "required": [
           "first"
         ]
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -62,11 +62,11 @@
               },
               "title": {
                 "type": "string",
-                "description": "something.\n\nTitled property."
+                "description": "Titled property.\n\n@title something"
               },
               "complicate_title": {
                 "type": "string",
-                "description": "something weirdo with {@link something } tag.\n\nComplicate title."
+                "description": "Complicate title.\n\n@title something weirdo with {@link something } tag"
               }
             },
             "required": [
@@ -74,7 +74,8 @@
               "description",
               "title",
               "complicate_title"
-            ]
+            ],
+            "description": "Current Type: {@link ObjectJsonTag}"
           },
           "second": {
             "type": "object",
@@ -89,11 +90,11 @@
               },
               "title": {
                 "type": "string",
-                "description": "something.\n\nTitled property."
+                "description": "Titled property.\n\n@title something"
               },
               "complicate_title": {
                 "type": "string",
-                "description": "something weirdo with {@link something } tag.\n\nComplicate title."
+                "description": "Complicate title.\n\n@title something weirdo with {@link something } tag"
               }
             },
             "required": [
@@ -123,11 +124,11 @@
           },
           "title": {
             "type": "string",
-            "description": "something.\n\nTitled property."
+            "description": "Titled property.\n\n@title something"
           },
           "complicate_title": {
             "type": "string",
-            "description": "something weirdo with {@link something } tag.\n\nComplicate title."
+            "description": "Complicate title.\n\n@title something weirdo with {@link something } tag"
           }
         },
         "required": [
@@ -135,9 +136,9 @@
           "description",
           "title",
           "complicate_title"
-        ]
-      },
-      "strict": true
+        ],
+        "description": "Current Type: {@link ObjectJsonTag}"
+      }
     },
     {
       "name": "coalesce",
@@ -157,11 +158,11 @@
               },
               "title": {
                 "type": "string",
-                "description": "something.\n\nTitled property."
+                "description": "Titled property.\n\n@title something"
               },
               "complicate_title": {
                 "type": "string",
-                "description": "something weirdo with {@link something } tag.\n\nComplicate title."
+                "description": "Complicate title.\n\n@title something weirdo with {@link something } tag"
               }
             },
             "required": [
@@ -185,11 +186,11 @@
               },
               "title": {
                 "type": "string",
-                "description": "something.\n\nTitled property."
+                "description": "Titled property.\n\n@title something"
               },
               "complicate_title": {
                 "type": "string",
-                "description": "something weirdo with {@link something } tag.\n\nComplicate title."
+                "description": "Complicate title.\n\n@title something weirdo with {@link something } tag"
               }
             },
             "required": [
@@ -213,11 +214,11 @@
               },
               "title": {
                 "type": "string",
-                "description": "something.\n\nTitled property."
+                "description": "Titled property.\n\n@title something"
               },
               "complicate_title": {
                 "type": "string",
-                "description": "something weirdo with {@link something } tag.\n\nComplicate title."
+                "description": "Complicate title.\n\n@title something weirdo with {@link something } tag"
               }
             },
             "required": [
@@ -247,11 +248,11 @@
           },
           "title": {
             "type": "string",
-            "description": "something.\n\nTitled property."
+            "description": "Titled property.\n\n@title something"
           },
           "complicate_title": {
             "type": "string",
-            "description": "something weirdo with {@link something } tag.\n\nComplicate title."
+            "description": "Complicate title.\n\n@title something weirdo with {@link something } tag"
           }
         },
         "required": [
@@ -261,8 +262,7 @@
           "complicate_title"
         ],
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

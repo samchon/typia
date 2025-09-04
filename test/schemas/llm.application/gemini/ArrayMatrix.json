@@ -20,14 +20,14 @@
                   "type": "number"
                 }
               }
-            }
+            },
+            "description": "Current Type: {@link ArrayMatrix}"
           }
         },
         "required": [
           "first"
         ]
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -44,7 +44,8 @@
                   "type": "number"
                 }
               }
-            }
+            },
+            "description": "Current Type: {@link ArrayMatrix}"
           },
           "second": {
             "type": "array",
@@ -75,9 +76,9 @@
               "type": "number"
             }
           }
-        }
-      },
-      "strict": true
+        },
+        "description": "Current Type: {@link ArrayMatrix}"
+      }
     },
     {
       "name": "coalesce",
@@ -141,8 +142,7 @@
           }
         },
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

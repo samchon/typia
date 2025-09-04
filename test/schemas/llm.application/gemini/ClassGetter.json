@@ -28,14 +28,14 @@
               "id",
               "name",
               "dead"
-            ]
+            ],
+            "description": "Current Type: {@link ClassGetter.Person}"
           }
         },
         "required": [
           "first"
         ]
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -60,7 +60,8 @@
               "id",
               "name",
               "dead"
-            ]
+            ],
+            "description": "Current Type: {@link ClassGetter.Person}"
           },
           "second": {
             "type": "object",
@@ -107,9 +108,9 @@
           "id",
           "name",
           "dead"
-        ]
-      },
-      "strict": true
+        ],
+        "description": "Current Type: {@link ClassGetter.Person}"
+      }
     },
     {
       "name": "coalesce",
@@ -205,8 +206,7 @@
           "dead"
         ],
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

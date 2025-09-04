@@ -4,8 +4,9 @@ import { _test_functional_isParametersAsync } from "../../internal/_test_functio
 import { ObjectHttpUndefindable } from "../../structures/ObjectHttpUndefindable";
 
 export const test_functional_isParametersAsync_ObjectHttpUndefindable =
-  _test_functional_isParametersAsync("ObjectHttpUndefindable")(
-    ObjectHttpUndefindable,
-  )((p: (input: ObjectHttpUndefindable) => Promise<ObjectHttpUndefindable>) =>
-    typia.functional.isParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_isParametersAsync("ObjectHttpUndefindable")(
+      ObjectHttpUndefindable,
+    )((p: (input: ObjectHttpUndefindable) => Promise<ObjectHttpUndefindable>) =>
+      typia.functional.isParameters(p),
+    );

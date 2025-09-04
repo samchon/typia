@@ -125,14 +125,14 @@
               "duration",
               "jsonPointer",
               "relativeJsonPointer"
-            ]
+            ],
+            "description": "Current Type: {@link TypeTagFormat}"
           }
         },
         "required": [
           "first"
         ]
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -254,7 +254,8 @@
               "duration",
               "jsonPointer",
               "relativeJsonPointer"
-            ]
+            ],
+            "description": "Current Type: {@link TypeTagFormat}"
           },
           "second": {
             "type": "object",
@@ -495,9 +496,9 @@
           "duration",
           "jsonPointer",
           "relativeJsonPointer"
-        ]
-      },
-      "strict": true
+        ],
+        "description": "Current Type: {@link TypeTagFormat}"
+      }
     },
     {
       "name": "coalesce",
@@ -981,8 +982,7 @@
           "relativeJsonPointer"
         ],
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

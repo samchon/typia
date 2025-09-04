@@ -19,7 +19,13 @@ export namespace LlmModelPredicator {
     method: string;
     model: ILlmSchema.Model;
     node: ts.TypeNode | undefined;
-  }): Partial<ILlmSchema.ModelConfig[ILlmSchema.Model]> | undefined => {
+  }):
+    | Partial<
+        ILlmSchema.ModelConfig[ILlmSchema.Model] & {
+          equals: boolean;
+        }
+      >
+    | undefined => {
     if (props.node === undefined) return undefined;
     const type: ts.Type = props.context.checker.getTypeFromTypeNode(props.node);
     const collection: MetadataCollection = new MetadataCollection();
@@ -28,9 +34,9 @@ export namespace LlmModelPredicator {
         checker: props.context.checker,
         transformer: props.context.transformer,
         options: {
+          absorb: true,
           escape: false,
           constant: true,
-          absorb: false,
           functional: false,
         },
         collection,

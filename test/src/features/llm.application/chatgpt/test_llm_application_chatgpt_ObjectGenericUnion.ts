@@ -3,10 +3,11 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { ObjectGenericUnion } from "../../../structures/ObjectGenericUnion";
 
-export const test_llm_application_chatgpt_ObjectGenericUnion =
+export const test_llm_application_chatgpt_ObjectGenericUnion = (): void =>
   _test_llm_application({
     model: "chatgpt",
     name: "ObjectGenericUnion",
+    factory: ObjectGenericUnion,
   })(typia.llm.application<ObjectGenericUnionApplication, "chatgpt">());
 
 interface ObjectGenericUnionApplication {

@@ -2,31 +2,7 @@
   "type": "object",
   "properties": {
     "regular": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "number"
-        },
-        "name": {
-          "type": "string"
-        },
-        "note": {
-          "const": "assignment"
-        },
-        "editable": {
-          "const": false
-        },
-        "incremental": {
-          "type": "boolean"
-        }
-      },
-      "required": [
-        "id",
-        "name",
-        "note",
-        "editable",
-        "incremental"
-      ]
+      "$ref": "#/$defs/ClassPropertyAssignment"
     },
     "nullable": {
       "oneOf": [
@@ -34,35 +10,50 @@
           "type": "null"
         },
         {
-          "type": "object",
-          "properties": {
-            "id": {
-              "type": "number"
-            },
-            "name": {
-              "type": "string"
-            },
-            "note": {
-              "const": "assignment"
-            },
-            "editable": {
-              "const": false
-            },
-            "incremental": {
-              "type": "boolean"
-            }
-          },
-          "required": [
-            "id",
-            "name",
-            "note",
-            "editable",
-            "incremental"
-          ]
+          "$ref": "#/$defs/ClassPropertyAssignment"
         }
-      ]
+      ],
+      "discriminator": {
+        "propertyName": "note",
+        "mapping": {
+          "assignment": "#/$defs/ClassPropertyAssignment"
+        }
+      }
     },
     "optional": {
+      "$ref": "#/$defs/ClassPropertyAssignment"
+    },
+    "faint": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/ClassPropertyAssignment"
+        }
+      ],
+      "discriminator": {
+        "propertyName": "note",
+        "mapping": {
+          "assignment": "#/$defs/ClassPropertyAssignment"
+        }
+      }
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ClassPropertyAssignment"
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "array"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "ClassPropertyAssignment": {
       "type": "object",
       "properties": {
         "id": {
@@ -88,79 +79,6 @@
         "editable",
         "incremental"
       ]
-    },
-    "faint": {
-      "oneOf": [
-        {
-          "type": "null"
-        },
-        {
-          "type": "object",
-          "properties": {
-            "id": {
-              "type": "number"
-            },
-            "name": {
-              "type": "string"
-            },
-            "note": {
-              "const": "assignment"
-            },
-            "editable": {
-              "const": false
-            },
-            "incremental": {
-              "type": "boolean"
-            }
-          },
-          "required": [
-            "id",
-            "name",
-            "note",
-            "editable",
-            "incremental"
-          ]
-        }
-      ]
-    },
-    "array": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "number"
-          },
-          "name": {
-            "type": "string"
-          },
-          "note": {
-            "const": "assignment"
-          },
-          "editable": {
-            "const": false
-          },
-          "incremental": {
-            "type": "boolean"
-          }
-        },
-        "required": [
-          "id",
-          "name",
-          "note",
-          "editable",
-          "incremental"
-        ]
-      }
     }
-  },
-  "required": [
-    "regular",
-    "nullable",
-    "optional",
-    "faint",
-    "array"
-  ],
-  "additionalProperties": false,
-  "$defs": {}
+  }
 }

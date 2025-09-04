@@ -4,7 +4,8 @@ import { _test_functional_isFunctionAsync } from "../../internal/_test_functiona
 import { ToJsonAtomicSimple } from "../../structures/ToJsonAtomicSimple";
 
 export const test_functional_isFunctionAsync_ToJsonAtomicSimple =
-  _test_functional_isFunctionAsync("ToJsonAtomicSimple")(ToJsonAtomicSimple)(
-    (p: (input: ToJsonAtomicSimple) => Promise<ToJsonAtomicSimple>) =>
-      typia.functional.isFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_isFunctionAsync("ToJsonAtomicSimple")(ToJsonAtomicSimple)(
+      (p: (input: ToJsonAtomicSimple) => Promise<ToJsonAtomicSimple>) =>
+        typia.functional.isFunction(p),
+    );

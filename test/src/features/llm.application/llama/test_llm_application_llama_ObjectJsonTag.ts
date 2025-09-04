@@ -3,10 +3,12 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { ObjectJsonTag } from "../../../structures/ObjectJsonTag";
 
-export const test_llm_application_llama_ObjectJsonTag = _test_llm_application({
-  model: "llama",
-  name: "ObjectJsonTag",
-})(typia.llm.application<ObjectJsonTagApplication, "llama">());
+export const test_llm_application_llama_ObjectJsonTag = (): void =>
+  _test_llm_application({
+    model: "llama",
+    name: "ObjectJsonTag",
+    factory: ObjectJsonTag,
+  })(typia.llm.application<ObjectJsonTagApplication, "llama">());
 
 interface ObjectJsonTagApplication {
   insert(p: { first: ObjectJsonTag }): Promise<void>;

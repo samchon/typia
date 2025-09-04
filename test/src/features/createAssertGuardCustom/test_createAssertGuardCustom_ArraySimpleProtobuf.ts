@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_assertGuard } from "../../internal/_test_assertGuard";
 import { ArraySimpleProtobuf } from "../../structures/ArraySimpleProtobuf";
 
-export const test_createAssertGuardCustom_ArraySimpleProtobuf =
+export const test_createAssertGuardCustom_ArraySimpleProtobuf = (): void =>
   _test_assertGuard(CustomGuardError)(
     "ArraySimpleProtobuf",
   )<ArraySimpleProtobuf>(ArraySimpleProtobuf)(

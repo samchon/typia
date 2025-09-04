@@ -14,7 +14,8 @@
       "required": [
         "something-interesting-do-you-want?",
         "or-something-crazy-do-you-want?"
-      ]
+      ],
+      "description": "Current Type: {@link ObjectLiteralProperty.ISomething}"
     },
     "nullable": {
       "type": "object",
@@ -45,7 +46,8 @@
       "required": [
         "something-interesting-do-you-want?",
         "or-something-crazy-do-you-want?"
-      ]
+      ],
+      "description": "Current Type: {@link ObjectLiteralProperty.ISomething}"
     },
     "faint": {
       "type": "object",
@@ -78,7 +80,8 @@
         "required": [
           "something-interesting-do-you-want?",
           "or-something-crazy-do-you-want?"
-        ]
+        ],
+        "description": "Current Type: {@link ObjectLiteralProperty.ISomething}"
       }
     }
   },

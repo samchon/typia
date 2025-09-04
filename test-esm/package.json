@@ -12,8 +12,9 @@
   },
   "scripts": {
     "build": "tsc",
+    "generate": "typia generate --input generate/input --output generate/output --project tsconfig.generate.json && tsc --project tsconfig.generate.json && prettier generate/output/*.ts --write",
     "prepare": "ts-patch install",
-    "start": "node bin"
+    "start": "node bin && npm run generate"
   },
   "repository": {
     "type": "git",
@@ -31,11 +32,11 @@
   "homepage": "https://github.com/samchon/typia#readme",
   "devDependencies": {
     "@types/cli": "^0.11.25",
-    "@types/node": "^20.9.4",
-    "ts-patch": "^3.2.0",
-    "typescript": "~5.6.3"
+    "@types/node": "^22.10.1",
+    "ts-patch": "^3.3.0",
+    "typescript": "~5.9.2"
   },
   "dependencies": {
-    "typia": "../"
+    "typia": "workspace:^"
   }
 }

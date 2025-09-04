@@ -5,12 +5,11 @@ import { TestStructure } from "../helpers/TestStructure";
 export const _test_functional_validateParametersAsync =
   (name: string) =>
   <T>(factory: TestStructure<T>) =>
-  (
+  async (
     validate: (
       p: (input: T) => Promise<T>,
     ) => (input: T) => Promise<IValidation<T>>,
-  ) =>
-  async () => {
+  ): Promise<void> => {
     const task =
       (replacer: string) => async (callback: (input: T) => [T, T]) => {
         const [x, y]: [T, T] = callback(factory.generate());
@@ -31,7 +30,7 @@ export const _test_functional_validateParametersAsync =
             throw new Error(
               `Bug on await typia.functional.validateFunction(): failed to detect error on the ${name} type.`,
             );
-          typia.assert(valid);
+          typia.assertEquals(valid);
           valid.errors.sort((x, y) => (x.path < y.path ? -1 : 1));
 
           if (

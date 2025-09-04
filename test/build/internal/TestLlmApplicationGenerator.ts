@@ -1,15 +1,45 @@
-import cp from "child_process";
 import fs from "fs";
+import { VariadicSingleton } from "tstl";
 
 import { TestStructure } from "./TestStructure";
 
 export namespace TestLlmApplicationGenerator {
+  export const MODELS = ["3.0", "3.1", "chatgpt", "claude", "gemini", "llama"];
+
+  export const isApplicable = (model: string, structure: string) =>
+    applicable.get(model, structure);
+
+  const applicable = new VariadicSingleton(
+    async (model: string, structure: string): Promise<boolean> => {
+      if (structure === "UltimateUnion") return false;
+      const location: string = `${__dirname}/../../schemas/json.schemas/v3_1/${structure}.json`;
+      if (fs.existsSync(location) === false) return false;
+
+      const v31: string = await fs.promises.readFile(location, "utf8");
+      if (
+        model === "gemini" &&
+        (v31.includes(`"additionalProperties": {`) === true ||
+          v31.includes(`"additionalProperties": true`) === true)
+      )
+        return false;
+      else if (v31.includes(`"prefixItems":`) === true) return false;
+      else if (model === "gemini") {
+        // GEMINI DOES NOT SUPPORT UNION TYPE
+        const json: string = await fs.promises.readFile(
+          location.replace("v3_1", "v3_0"),
+          "utf8",
+        );
+        if (json.includes(`"oneOf":`) === true) return false;
+      }
+      return true;
+    },
+  );
+
   export async function generate(
     structures: TestStructure<any>[],
   ): Promise<void> {
     const location: string = `${__dirname}/../../src/features/llm.application`;
-    if (fs.existsSync(location)) cp.execSync("npx rimraf " + location);
-    await fs.promises.mkdir(location);
+    await mkdir(location);
     for (const model of MODELS) {
       await fs.promises.mkdir(`${location}/${model}`);
       await application(model, structures);
@@ -21,43 +51,17 @@ export namespace TestLlmApplicationGenerator {
     structures: TestStructure<any>[],
   ): Promise<void> {
     for (const s of structures) {
-      if (s.name === "UltimateUnion")
-        continue; // TOO MUCH LARGE
-      else if (
-        fs.existsSync(
-          `${__dirname}/../../schemas/json.schemas/v3_1/${s.name}.json`,
-        ) === false
-      )
-        continue;
-
-      const v31: string = await fs.promises.readFile(
-        `${__dirname}/../../schemas/json.schemas/v3_1/${s.name}.json`,
-        "utf8",
-      );
-      if (
-        (model === "chatgpt" || model === "gemini") &&
-        (v31.includes(`"additionalProperties": {`) === true ||
-          v31.includes(`"additionalProperties": true`) === true)
-      )
-        continue;
-      else if (v31.includes(`"prefixItems":`) === true) continue;
-      else if (model === "gemini") {
-        // GEMINI DOES NOT SUPPORT UNION TYPE
-        const json: string = await fs.promises.readFile(
-          `${__dirname}/../../schemas/json.schemas/v3_0/${s.name}.json`,
-          "utf8",
-        );
-        if (json.includes(`"oneOf":`) === true) continue;
-      }
+      if ((await isApplicable(model, s.name)) === false) continue;
       const content: string[] = [
         `import typia from "typia";`,
         `import { ${s.name} } from "../../../structures/${s.name}";`,
         `import { _test_llm_application } from "../../../internal/_test_llm_application";`,
         "",
-        `export const test_llm_application_${model.replace(".", "_")}_${s.name} = `,
+        `export const test_llm_application_${model.replace(".", "_")}_${s.name} = (): void =>`,
         `  _test_llm_application({`,
         `    model: ${JSON.stringify(model)},`,
         `    name: ${JSON.stringify(s.name)},`,
+        `    factory: ${s.name}`,
         `  })(`,
         `    typia.llm.application<${s.name}Application, ${JSON.stringify(model)}>(),`,
         `  );`,
@@ -82,7 +86,6 @@ export namespace TestLlmApplicationGenerator {
 
   export async function schemas(): Promise<void> {
     const location: string = `${__dirname}/../../schemas/llm.application`;
-    if (fs.existsSync(location)) cp.execSync("npx rimraf " + location);
     await mkdir(location);
     for (const model of MODELS) {
       await mkdir(`${location}/${model}`);
@@ -121,9 +124,8 @@ export namespace TestLlmApplicationGenerator {
   }
 
   async function mkdir(path: string): Promise<void> {
-    if (fs.existsSync(path)) cp.execSync(`npx rimraf ${path}`);
+    if (fs.existsSync(path) === true)
+      await fs.promises.rm(path, { recursive: true });
     await fs.promises.mkdir(path, { recursive: true });
   }
 }
-
-const MODELS = ["3.0", "3.1", "chatgpt", "claude", "gemini", "llama"];

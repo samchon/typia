@@ -19,14 +19,14 @@
             },
             "required": [
               "value"
-            ]
+            ],
+            "description": "Current Type: {@link ObjectGenericAlias.Alias}"
           }
         },
         "required": [
           "first"
         ]
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -42,7 +42,8 @@
             },
             "required": [
               "value"
-            ]
+            ],
+            "description": "Current Type: {@link ObjectGenericAlias.Alias}"
           },
           "second": {
             "type": "object",
@@ -71,9 +72,9 @@
         },
         "required": [
           "value"
-        ]
-      },
-      "strict": true
+        ],
+        "description": "Current Type: {@link ObjectGenericAlias.Alias}"
+      }
     },
     {
       "name": "coalesce",
@@ -133,8 +134,7 @@
           "value"
         ],
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

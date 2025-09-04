@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsReturn } from "../../internal/_test_func
 import { CommentTagTypeBigInt } from "../../structures/CommentTagTypeBigInt";
 
 export const test_functional_validateEqualsReturn_CommentTagTypeBigInt =
-  _test_functional_validateEqualsReturn("CommentTagTypeBigInt")(
-    CommentTagTypeBigInt,
-  )((p: (input: CommentTagTypeBigInt) => CommentTagTypeBigInt) =>
-    typia.functional.validateEqualsReturn(p),
-  );
+  (): void =>
+    _test_functional_validateEqualsReturn("CommentTagTypeBigInt")(
+      CommentTagTypeBigInt,
+    )((p: (input: CommentTagTypeBigInt) => CommentTagTypeBigInt) =>
+      typia.functional.validateEqualsReturn(p),
+    );

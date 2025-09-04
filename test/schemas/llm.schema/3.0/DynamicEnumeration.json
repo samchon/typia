@@ -42,5 +42,6 @@
   "required": [
     "value"
   ],
+  "description": "Current Type: {@link DynamicEnumeration}",
   "additionalProperties": false
 }

@@ -4,8 +4,9 @@ import { _test_json_validateParse } from "../../internal/_test_json_validatePars
 import { ArrayRepeatedUnionWithTuple } from "../../structures/ArrayRepeatedUnionWithTuple";
 
 export const test_json_createValidateParse_ArrayRepeatedUnionWithTuple =
-  _test_json_validateParse(
-    "ArrayRepeatedUnionWithTuple",
-  )<ArrayRepeatedUnionWithTuple>(ArrayRepeatedUnionWithTuple)(
-    typia.json.createValidateParse<ArrayRepeatedUnionWithTuple>(),
-  );
+  (): void =>
+    _test_json_validateParse(
+      "ArrayRepeatedUnionWithTuple",
+    )<ArrayRepeatedUnionWithTuple>(ArrayRepeatedUnionWithTuple)(
+      typia.json.createValidateParse<ArrayRepeatedUnionWithTuple>(),
+    );

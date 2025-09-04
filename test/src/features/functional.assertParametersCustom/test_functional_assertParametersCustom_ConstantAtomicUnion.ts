@@ -5,8 +5,9 @@ import { _test_functional_assertParameters } from "../../internal/_test_function
 import { ConstantAtomicUnion } from "../../structures/ConstantAtomicUnion";
 
 export const test_functional_assertParametersCustom_ConstantAtomicUnion =
-  _test_functional_assertParameters(CustomGuardError)("ConstantAtomicUnion")(
-    ConstantAtomicUnion,
-  )((p: (input: ConstantAtomicUnion) => ConstantAtomicUnion) =>
-    typia.functional.assertParameters(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertParameters(CustomGuardError)("ConstantAtomicUnion")(
+      ConstantAtomicUnion,
+    )((p: (input: ConstantAtomicUnion) => ConstantAtomicUnion) =>
+      typia.functional.assertParameters(p, (p) => new CustomGuardError(p)),
+    );

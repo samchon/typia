@@ -5,12 +5,13 @@ import { _test_functional_assertEqualsParametersAsync } from "../../internal/_te
 import { CommentTagBigInt } from "../../structures/CommentTagBigInt";
 
 export const test_functional_assertEqualsParametersAsyncCustom_CommentTagBigInt =
-  _test_functional_assertEqualsParametersAsync(CustomGuardError)(
-    "CommentTagBigInt",
-  )(CommentTagBigInt)(
-    (p: (input: CommentTagBigInt) => Promise<CommentTagBigInt>) =>
-      typia.functional.assertEqualsParameters(
-        p,
-        (p) => new CustomGuardError(p),
-      ),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsParametersAsync(CustomGuardError)(
+      "CommentTagBigInt",
+    )(CommentTagBigInt)(
+      (p: (input: CommentTagBigInt) => Promise<CommentTagBigInt>) =>
+        typia.functional.assertEqualsParameters(
+          p,
+          (p) => new CustomGuardError(p),
+        ),
+    );

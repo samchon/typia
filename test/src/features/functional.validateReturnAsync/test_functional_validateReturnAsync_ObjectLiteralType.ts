@@ -4,7 +4,9 @@ import { _test_functional_validateReturnAsync } from "../../internal/_test_funct
 import { ObjectLiteralType } from "../../structures/ObjectLiteralType";
 
 export const test_functional_validateReturnAsync_ObjectLiteralType =
-  _test_functional_validateReturnAsync("ObjectLiteralType")(ObjectLiteralType)(
-    (p: (input: ObjectLiteralType) => Promise<ObjectLiteralType>) =>
+  (): Promise<void> =>
+    _test_functional_validateReturnAsync("ObjectLiteralType")(
+      ObjectLiteralType,
+    )((p: (input: ObjectLiteralType) => Promise<ObjectLiteralType>) =>
       typia.functional.validateReturn(p),
-  );
+    );

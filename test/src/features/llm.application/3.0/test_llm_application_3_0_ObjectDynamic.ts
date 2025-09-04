@@ -3,10 +3,12 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { ObjectDynamic } from "../../../structures/ObjectDynamic";
 
-export const test_llm_application_3_0_ObjectDynamic = _test_llm_application({
-  model: "3.0",
-  name: "ObjectDynamic",
-})(typia.llm.application<ObjectDynamicApplication, "3.0">());
+export const test_llm_application_3_0_ObjectDynamic = (): void =>
+  _test_llm_application({
+    model: "3.0",
+    name: "ObjectDynamic",
+    factory: ObjectDynamic,
+  })(typia.llm.application<ObjectDynamicApplication, "3.0">());
 
 interface ObjectDynamicApplication {
   insert(p: { first: ObjectDynamic }): Promise<void>;

@@ -4,7 +4,8 @@ import { _test_functional_equalsReturnAsync } from "../../internal/_test_functio
 import { ObjectClosure } from "../../structures/ObjectClosure";
 
 export const test_functional_equalsReturnAsync_ObjectClosure =
-  _test_functional_equalsReturnAsync("ObjectClosure")(ObjectClosure)(
-    (p: (input: ObjectClosure) => Promise<ObjectClosure>) =>
-      typia.functional.equalsReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_equalsReturnAsync("ObjectClosure")(ObjectClosure)(
+      (p: (input: ObjectClosure) => Promise<ObjectClosure>) =>
+        typia.functional.equalsReturn(p),
+    );

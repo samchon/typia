@@ -3,12 +3,12 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { ObjectNullable } from "../../../structures/ObjectNullable";
 
-export const test_llm_application_claude_ObjectNullable = _test_llm_application(
-  {
+export const test_llm_application_claude_ObjectNullable = (): void =>
+  _test_llm_application({
     model: "claude",
     name: "ObjectNullable",
-  },
-)(typia.llm.application<ObjectNullableApplication, "claude">());
+    factory: ObjectNullable,
+  })(typia.llm.application<ObjectNullableApplication, "claude">());
 
 interface ObjectNullableApplication {
   insert(p: { first: ObjectNullable }): Promise<void>;

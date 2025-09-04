@@ -5,8 +5,12 @@ import { _test_functional_assertEqualsParameters } from "../../internal/_test_fu
 import { TypeTagTuple } from "../../structures/TypeTagTuple";
 
 export const test_functional_assertEqualsParametersCustom_TypeTagTuple =
-  _test_functional_assertEqualsParameters(CustomGuardError)("TypeTagTuple")(
-    TypeTagTuple,
-  )((p: (input: TypeTagTuple) => TypeTagTuple) =>
-    typia.functional.assertEqualsParameters(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertEqualsParameters(CustomGuardError)("TypeTagTuple")(
+      TypeTagTuple,
+    )((p: (input: TypeTagTuple) => TypeTagTuple) =>
+      typia.functional.assertEqualsParameters(
+        p,
+        (p) => new CustomGuardError(p),
+      ),
+    );

@@ -43,7 +43,8 @@
       },
       "required": [
         "value"
-      ]
+      ],
+      "description": "Current Type: {@link DynamicEnumeration}"
     },
     "nullable": {
       "type": "object",
@@ -132,7 +133,8 @@
       },
       "required": [
         "value"
-      ]
+      ],
+      "description": "Current Type: {@link DynamicEnumeration}"
     },
     "faint": {
       "type": "object",
@@ -223,7 +225,8 @@
         },
         "required": [
           "value"
-        ]
+        ],
+        "description": "Current Type: {@link DynamicEnumeration}"
       }
     }
   },

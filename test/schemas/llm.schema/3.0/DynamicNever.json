@@ -2,5 +2,6 @@
   "type": "object",
   "properties": {},
   "required": [],
+  "description": "Current Type: {@link DynamicNever}",
   "additionalProperties": false
 }

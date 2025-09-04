@@ -1,7 +1,8 @@
 {
   "model": "chatgpt",
   "options": {
-    "reference": false,
+    "reference": true,
+    "strict": false,
     "separate": null
   },
   "functions": [
@@ -11,159 +12,171 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "array",
-            "items": {
-              "anyOf": [
-                {
-                  "type": "object",
-                  "properties": {
-                    "value": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "child": {
-                      "anyOf": [
-                        {
-                          "type": "object",
-                          "properties": {
-                            "value": {
-                              "type": "object",
-                              "properties": {
-                                "y": {
-                                  "type": "number"
-                                }
-                              },
-                              "required": [
-                                "y"
-                              ],
-                              "additionalProperties": false
-                            }
-                          },
-                          "required": [
-                            "value"
-                          ],
-                          "additionalProperties": false
-                        },
-                        {
-                          "type": "object",
-                          "properties": {
-                            "value": {
-                              "type": "object",
-                              "properties": {
-                                "y": {
-                                  "type": "boolean"
-                                }
-                              },
-                              "required": [
-                                "y"
-                              ],
-                              "additionalProperties": false
-                            }
-                          },
-                          "required": [
-                            "value"
-                          ],
-                          "additionalProperties": false
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "value",
-                    "child"
-                  ],
-                  "additionalProperties": false
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "value": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "string"
-                        }
-                      },
-                      "required": [
-                        "x"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "child": {
-                      "anyOf": [
-                        {
-                          "type": "object",
-                          "properties": {
-                            "value": {
-                              "type": "object",
-                              "properties": {
-                                "y": {
-                                  "type": "array",
-                                  "items": {
-                                    "type": "number"
-                                  }
-                                }
-                              },
-                              "required": [
-                                "y"
-                              ],
-                              "additionalProperties": false
-                            }
-                          },
-                          "required": [
-                            "value"
-                          ],
-                          "additionalProperties": false
-                        },
-                        {
-                          "type": "object",
-                          "properties": {
-                            "value": {
-                              "type": "object",
-                              "properties": {
-                                "y": {
-                                  "type": "string"
-                                }
-                              },
-                              "required": [
-                                "y"
-                              ],
-                              "additionalProperties": false
-                            }
-                          },
-                          "required": [
-                            "value"
-                          ],
-                          "additionalProperties": false
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "value",
-                    "child"
-                  ],
-                  "additionalProperties": false
-                }
-              ]
-            }
+            "$ref": "#/$defs/ObjectUnionDouble"
           }
         },
         "required": [
           "first"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "strict": true
+        "$defs": {
+          "ObjectUnionDouble": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/ObjectUnionDouble.Union"
+            }
+          },
+          "ObjectUnionDouble.Union": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/ObjectUnionDouble.IA"
+              },
+              {
+                "$ref": "#/$defs/ObjectUnionDouble.IB"
+              }
+            ]
+          },
+          "ObjectUnionDouble.IA": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "object",
+                "properties": {
+                  "x": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "x"
+                ]
+              },
+              "child": {
+                "anyOf": [
+                  {
+                    "$ref": "#/$defs/ObjectUnionDouble.IAB"
+                  },
+                  {
+                    "$ref": "#/$defs/ObjectUnionDouble.IAA"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "value",
+              "child"
+            ]
+          },
+          "ObjectUnionDouble.IAB": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "object",
+                "properties": {
+                  "y": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "y"
+                ]
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "ObjectUnionDouble.IAA": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "object",
+                "properties": {
+                  "y": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "y"
+                ]
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "ObjectUnionDouble.IB": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "object",
+                "properties": {
+                  "x": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "x"
+                ]
+              },
+              "child": {
+                "anyOf": [
+                  {
+                    "$ref": "#/$defs/ObjectUnionDouble.IBB"
+                  },
+                  {
+                    "$ref": "#/$defs/ObjectUnionDouble.IBA"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "value",
+              "child"
+            ]
+          },
+          "ObjectUnionDouble.IBB": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "object",
+                "properties": {
+                  "y": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  }
+                },
+                "required": [
+                  "y"
+                ]
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "ObjectUnionDouble.IBA": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "object",
+                "properties": {
+                  "y": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "y"
+                ]
+              }
+            },
+            "required": [
+              "value"
+            ]
+          }
+        }
+      }
     },
     {
       "name": "reduce",
@@ -171,150 +184,7 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "array",
-            "items": {
-              "anyOf": [
-                {
-                  "type": "object",
-                  "properties": {
-                    "value": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "child": {
-                      "anyOf": [
-                        {
-                          "type": "object",
-                          "properties": {
-                            "value": {
-                              "type": "object",
-                              "properties": {
-                                "y": {
-                                  "type": "number"
-                                }
-                              },
-                              "required": [
-                                "y"
-                              ],
-                              "additionalProperties": false
-                            }
-                          },
-                          "required": [
-                            "value"
-                          ],
-                          "additionalProperties": false
-                        },
-                        {
-                          "type": "object",
-                          "properties": {
-                            "value": {
-                              "type": "object",
-                              "properties": {
-                                "y": {
-                                  "type": "boolean"
-                                }
-                              },
-                              "required": [
-                                "y"
-                              ],
-                              "additionalProperties": false
-                            }
-                          },
-                          "required": [
-                            "value"
-                          ],
-                          "additionalProperties": false
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "value",
-                    "child"
-                  ],
-                  "additionalProperties": false
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "value": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "string"
-                        }
-                      },
-                      "required": [
-                        "x"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "child": {
-                      "anyOf": [
-                        {
-                          "type": "object",
-                          "properties": {
-                            "value": {
-                              "type": "object",
-                              "properties": {
-                                "y": {
-                                  "type": "array",
-                                  "items": {
-                                    "type": "number"
-                                  }
-                                }
-                              },
-                              "required": [
-                                "y"
-                              ],
-                              "additionalProperties": false
-                            }
-                          },
-                          "required": [
-                            "value"
-                          ],
-                          "additionalProperties": false
-                        },
-                        {
-                          "type": "object",
-                          "properties": {
-                            "value": {
-                              "type": "object",
-                              "properties": {
-                                "y": {
-                                  "type": "string"
-                                }
-                              },
-                              "required": [
-                                "y"
-                              ],
-                              "additionalProperties": false
-                            }
-                          },
-                          "required": [
-                            "value"
-                          ],
-                          "additionalProperties": false
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "value",
-                    "child"
-                  ],
-                  "additionalProperties": false
-                }
-              ]
-            }
+            "$ref": "#/$defs/ObjectUnionDouble"
           },
           "second": {
             "anyOf": [
@@ -322,150 +192,7 @@
                 "type": "null"
               },
               {
-                "type": "array",
-                "items": {
-                  "anyOf": [
-                    {
-                      "type": "object",
-                      "properties": {
-                        "value": {
-                          "type": "object",
-                          "properties": {
-                            "x": {
-                              "type": "number"
-                            }
-                          },
-                          "required": [
-                            "x"
-                          ],
-                          "additionalProperties": false
-                        },
-                        "child": {
-                          "anyOf": [
-                            {
-                              "type": "object",
-                              "properties": {
-                                "value": {
-                                  "type": "object",
-                                  "properties": {
-                                    "y": {
-                                      "type": "number"
-                                    }
-                                  },
-                                  "required": [
-                                    "y"
-                                  ],
-                                  "additionalProperties": false
-                                }
-                              },
-                              "required": [
-                                "value"
-                              ],
-                              "additionalProperties": false
-                            },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "value": {
-                                  "type": "object",
-                                  "properties": {
-                                    "y": {
-                                      "type": "boolean"
-                                    }
-                                  },
-                                  "required": [
-                                    "y"
-                                  ],
-                                  "additionalProperties": false
-                                }
-                              },
-                              "required": [
-                                "value"
-                              ],
-                              "additionalProperties": false
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "value",
-                        "child"
-                      ],
-                      "additionalProperties": false
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "value": {
-                          "type": "object",
-                          "properties": {
-                            "x": {
-                              "type": "string"
-                            }
-                          },
-                          "required": [
-                            "x"
-                          ],
-                          "additionalProperties": false
-                        },
-                        "child": {
-                          "anyOf": [
-                            {
-                              "type": "object",
-                              "properties": {
-                                "value": {
-                                  "type": "object",
-                                  "properties": {
-                                    "y": {
-                                      "type": "array",
-                                      "items": {
-                                        "type": "number"
-                                      }
-                                    }
-                                  },
-                                  "required": [
-                                    "y"
-                                  ],
-                                  "additionalProperties": false
-                                }
-                              },
-                              "required": [
-                                "value"
-                              ],
-                              "additionalProperties": false
-                            },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "value": {
-                                  "type": "object",
-                                  "properties": {
-                                    "y": {
-                                      "type": "string"
-                                    }
-                                  },
-                                  "required": [
-                                    "y"
-                                  ],
-                                  "additionalProperties": false
-                                }
-                              },
-                              "required": [
-                                "value"
-                              ],
-                              "additionalProperties": false
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "value",
-                        "child"
-                      ],
-                      "additionalProperties": false
-                    }
-                  ]
-                }
+                "$ref": "#/$defs/ObjectUnionDouble"
               }
             ]
           }
@@ -475,155 +202,167 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "output": {
-        "type": "array",
-        "items": {
-          "anyOf": [
-            {
-              "type": "object",
-              "properties": {
-                "value": {
-                  "type": "object",
-                  "properties": {
-                    "x": {
+        "$defs": {
+          "ObjectUnionDouble": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/ObjectUnionDouble.Union"
+            }
+          },
+          "ObjectUnionDouble.Union": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/ObjectUnionDouble.IA"
+              },
+              {
+                "$ref": "#/$defs/ObjectUnionDouble.IB"
+              }
+            ]
+          },
+          "ObjectUnionDouble.IA": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "object",
+                "properties": {
+                  "x": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "x"
+                ]
+              },
+              "child": {
+                "anyOf": [
+                  {
+                    "$ref": "#/$defs/ObjectUnionDouble.IAB"
+                  },
+                  {
+                    "$ref": "#/$defs/ObjectUnionDouble.IAA"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "value",
+              "child"
+            ]
+          },
+          "ObjectUnionDouble.IAB": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "object",
+                "properties": {
+                  "y": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "y"
+                ]
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "ObjectUnionDouble.IAA": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "object",
+                "properties": {
+                  "y": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "y"
+                ]
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "ObjectUnionDouble.IB": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "object",
+                "properties": {
+                  "x": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "x"
+                ]
+              },
+              "child": {
+                "anyOf": [
+                  {
+                    "$ref": "#/$defs/ObjectUnionDouble.IBB"
+                  },
+                  {
+                    "$ref": "#/$defs/ObjectUnionDouble.IBA"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "value",
+              "child"
+            ]
+          },
+          "ObjectUnionDouble.IBB": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "object",
+                "properties": {
+                  "y": {
+                    "type": "array",
+                    "items": {
                       "type": "number"
                     }
-                  },
-                  "required": [
-                    "x"
-                  ],
-                  "additionalProperties": false
+                  }
                 },
-                "child": {
-                  "anyOf": [
-                    {
-                      "type": "object",
-                      "properties": {
-                        "value": {
-                          "type": "object",
-                          "properties": {
-                            "y": {
-                              "type": "number"
-                            }
-                          },
-                          "required": [
-                            "y"
-                          ],
-                          "additionalProperties": false
-                        }
-                      },
-                      "required": [
-                        "value"
-                      ],
-                      "additionalProperties": false
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "value": {
-                          "type": "object",
-                          "properties": {
-                            "y": {
-                              "type": "boolean"
-                            }
-                          },
-                          "required": [
-                            "y"
-                          ],
-                          "additionalProperties": false
-                        }
-                      },
-                      "required": [
-                        "value"
-                      ],
-                      "additionalProperties": false
-                    }
-                  ]
-                }
-              },
-              "required": [
-                "value",
-                "child"
-              ],
-              "additionalProperties": false
+                "required": [
+                  "y"
+                ]
+              }
             },
-            {
-              "type": "object",
-              "properties": {
-                "value": {
-                  "type": "object",
-                  "properties": {
-                    "x": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "x"
-                  ],
-                  "additionalProperties": false
+            "required": [
+              "value"
+            ]
+          },
+          "ObjectUnionDouble.IBA": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "object",
+                "properties": {
+                  "y": {
+                    "type": "string"
+                  }
                 },
-                "child": {
-                  "anyOf": [
-                    {
-                      "type": "object",
-                      "properties": {
-                        "value": {
-                          "type": "object",
-                          "properties": {
-                            "y": {
-                              "type": "array",
-                              "items": {
-                                "type": "number"
-                              }
-                            }
-                          },
-                          "required": [
-                            "y"
-                          ],
-                          "additionalProperties": false
-                        }
-                      },
-                      "required": [
-                        "value"
-                      ],
-                      "additionalProperties": false
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "value": {
-                          "type": "object",
-                          "properties": {
-                            "y": {
-                              "type": "string"
-                            }
-                          },
-                          "required": [
-                            "y"
-                          ],
-                          "additionalProperties": false
-                        }
-                      },
-                      "required": [
-                        "value"
-                      ],
-                      "additionalProperties": false
-                    }
-                  ]
-                }
-              },
-              "required": [
-                "value",
-                "child"
-              ],
-              "additionalProperties": false
-            }
-          ]
+                "required": [
+                  "y"
+                ]
+              }
+            },
+            "required": [
+              "value"
+            ]
+          }
         }
       },
-      "strict": true
+      "output": {
+        "$ref": "#/$defs/ObjectUnionDouble"
+      }
     },
     {
       "name": "coalesce",
@@ -636,150 +375,7 @@
                 "type": "null"
               },
               {
-                "type": "array",
-                "items": {
-                  "anyOf": [
-                    {
-                      "type": "object",
-                      "properties": {
-                        "value": {
-                          "type": "object",
-                          "properties": {
-                            "x": {
-                              "type": "number"
-                            }
-                          },
-                          "required": [
-                            "x"
-                          ],
-                          "additionalProperties": false
-                        },
-                        "child": {
-                          "anyOf": [
-                            {
-                              "type": "object",
-                              "properties": {
-                                "value": {
-                                  "type": "object",
-                                  "properties": {
-                                    "y": {
-                                      "type": "number"
-                                    }
-                                  },
-                                  "required": [
-                                    "y"
-                                  ],
-                                  "additionalProperties": false
-                                }
-                              },
-                              "required": [
-                                "value"
-                              ],
-                              "additionalProperties": false
-                            },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "value": {
-                                  "type": "object",
-                                  "properties": {
-                                    "y": {
-                                      "type": "boolean"
-                                    }
-                                  },
-                                  "required": [
-                                    "y"
-                                  ],
-                                  "additionalProperties": false
-                                }
-                              },
-                              "required": [
-                                "value"
-                              ],
-                              "additionalProperties": false
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "value",
-                        "child"
-                      ],
-                      "additionalProperties": false
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "value": {
-                          "type": "object",
-                          "properties": {
-                            "x": {
-                              "type": "string"
-                            }
-                          },
-                          "required": [
-                            "x"
-                          ],
-                          "additionalProperties": false
-                        },
-                        "child": {
-                          "anyOf": [
-                            {
-                              "type": "object",
-                              "properties": {
-                                "value": {
-                                  "type": "object",
-                                  "properties": {
-                                    "y": {
-                                      "type": "array",
-                                      "items": {
-                                        "type": "number"
-                                      }
-                                    }
-                                  },
-                                  "required": [
-                                    "y"
-                                  ],
-                                  "additionalProperties": false
-                                }
-                              },
-                              "required": [
-                                "value"
-                              ],
-                              "additionalProperties": false
-                            },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "value": {
-                                  "type": "object",
-                                  "properties": {
-                                    "y": {
-                                      "type": "string"
-                                    }
-                                  },
-                                  "required": [
-                                    "y"
-                                  ],
-                                  "additionalProperties": false
-                                }
-                              },
-                              "required": [
-                                "value"
-                              ],
-                              "additionalProperties": false
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "value",
-                        "child"
-                      ],
-                      "additionalProperties": false
-                    }
-                  ]
-                }
+                "$ref": "#/$defs/ObjectUnionDouble"
               }
             ]
           },
@@ -789,150 +385,7 @@
                 "type": "null"
               },
               {
-                "type": "array",
-                "items": {
-                  "anyOf": [
-                    {
-                      "type": "object",
-                      "properties": {
-                        "value": {
-                          "type": "object",
-                          "properties": {
-                            "x": {
-                              "type": "number"
-                            }
-                          },
-                          "required": [
-                            "x"
-                          ],
-                          "additionalProperties": false
-                        },
-                        "child": {
-                          "anyOf": [
-                            {
-                              "type": "object",
-                              "properties": {
-                                "value": {
-                                  "type": "object",
-                                  "properties": {
-                                    "y": {
-                                      "type": "number"
-                                    }
-                                  },
-                                  "required": [
-                                    "y"
-                                  ],
-                                  "additionalProperties": false
-                                }
-                              },
-                              "required": [
-                                "value"
-                              ],
-                              "additionalProperties": false
-                            },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "value": {
-                                  "type": "object",
-                                  "properties": {
-                                    "y": {
-                                      "type": "boolean"
-                                    }
-                                  },
-                                  "required": [
-                                    "y"
-                                  ],
-                                  "additionalProperties": false
-                                }
-                              },
-                              "required": [
-                                "value"
-                              ],
-                              "additionalProperties": false
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "value",
-                        "child"
-                      ],
-                      "additionalProperties": false
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "value": {
-                          "type": "object",
-                          "properties": {
-                            "x": {
-                              "type": "string"
-                            }
-                          },
-                          "required": [
-                            "x"
-                          ],
-                          "additionalProperties": false
-                        },
-                        "child": {
-                          "anyOf": [
-                            {
-                              "type": "object",
-                              "properties": {
-                                "value": {
-                                  "type": "object",
-                                  "properties": {
-                                    "y": {
-                                      "type": "array",
-                                      "items": {
-                                        "type": "number"
-                                      }
-                                    }
-                                  },
-                                  "required": [
-                                    "y"
-                                  ],
-                                  "additionalProperties": false
-                                }
-                              },
-                              "required": [
-                                "value"
-                              ],
-                              "additionalProperties": false
-                            },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "value": {
-                                  "type": "object",
-                                  "properties": {
-                                    "y": {
-                                      "type": "string"
-                                    }
-                                  },
-                                  "required": [
-                                    "y"
-                                  ],
-                                  "additionalProperties": false
-                                }
-                              },
-                              "required": [
-                                "value"
-                              ],
-                              "additionalProperties": false
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "value",
-                        "child"
-                      ],
-                      "additionalProperties": false
-                    }
-                  ]
-                }
+                "$ref": "#/$defs/ObjectUnionDouble"
               }
             ]
           },
@@ -942,161 +395,173 @@
                 "type": "null"
               },
               {
-                "type": "array",
-                "items": {
-                  "anyOf": [
-                    {
-                      "type": "object",
-                      "properties": {
-                        "value": {
-                          "type": "object",
-                          "properties": {
-                            "x": {
-                              "type": "number"
-                            }
-                          },
-                          "required": [
-                            "x"
-                          ],
-                          "additionalProperties": false
-                        },
-                        "child": {
-                          "anyOf": [
-                            {
-                              "type": "object",
-                              "properties": {
-                                "value": {
-                                  "type": "object",
-                                  "properties": {
-                                    "y": {
-                                      "type": "number"
-                                    }
-                                  },
-                                  "required": [
-                                    "y"
-                                  ],
-                                  "additionalProperties": false
-                                }
-                              },
-                              "required": [
-                                "value"
-                              ],
-                              "additionalProperties": false
-                            },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "value": {
-                                  "type": "object",
-                                  "properties": {
-                                    "y": {
-                                      "type": "boolean"
-                                    }
-                                  },
-                                  "required": [
-                                    "y"
-                                  ],
-                                  "additionalProperties": false
-                                }
-                              },
-                              "required": [
-                                "value"
-                              ],
-                              "additionalProperties": false
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "value",
-                        "child"
-                      ],
-                      "additionalProperties": false
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "value": {
-                          "type": "object",
-                          "properties": {
-                            "x": {
-                              "type": "string"
-                            }
-                          },
-                          "required": [
-                            "x"
-                          ],
-                          "additionalProperties": false
-                        },
-                        "child": {
-                          "anyOf": [
-                            {
-                              "type": "object",
-                              "properties": {
-                                "value": {
-                                  "type": "object",
-                                  "properties": {
-                                    "y": {
-                                      "type": "array",
-                                      "items": {
-                                        "type": "number"
-                                      }
-                                    }
-                                  },
-                                  "required": [
-                                    "y"
-                                  ],
-                                  "additionalProperties": false
-                                }
-                              },
-                              "required": [
-                                "value"
-                              ],
-                              "additionalProperties": false
-                            },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "value": {
-                                  "type": "object",
-                                  "properties": {
-                                    "y": {
-                                      "type": "string"
-                                    }
-                                  },
-                                  "required": [
-                                    "y"
-                                  ],
-                                  "additionalProperties": false
-                                }
-                              },
-                              "required": [
-                                "value"
-                              ],
-                              "additionalProperties": false
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "value",
-                        "child"
-                      ],
-                      "additionalProperties": false
-                    }
-                  ]
-                }
+                "$ref": "#/$defs/ObjectUnionDouble"
               }
             ]
           }
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "ObjectUnionDouble": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/ObjectUnionDouble.Union"
+            }
+          },
+          "ObjectUnionDouble.Union": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/ObjectUnionDouble.IA"
+              },
+              {
+                "$ref": "#/$defs/ObjectUnionDouble.IB"
+              }
+            ]
+          },
+          "ObjectUnionDouble.IA": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "object",
+                "properties": {
+                  "x": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "x"
+                ]
+              },
+              "child": {
+                "anyOf": [
+                  {
+                    "$ref": "#/$defs/ObjectUnionDouble.IAB"
+                  },
+                  {
+                    "$ref": "#/$defs/ObjectUnionDouble.IAA"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "value",
+              "child"
+            ]
+          },
+          "ObjectUnionDouble.IAB": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "object",
+                "properties": {
+                  "y": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "y"
+                ]
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "ObjectUnionDouble.IAA": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "object",
+                "properties": {
+                  "y": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "y"
+                ]
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "ObjectUnionDouble.IB": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "object",
+                "properties": {
+                  "x": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "x"
+                ]
+              },
+              "child": {
+                "anyOf": [
+                  {
+                    "$ref": "#/$defs/ObjectUnionDouble.IBB"
+                  },
+                  {
+                    "$ref": "#/$defs/ObjectUnionDouble.IBA"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "value",
+              "child"
+            ]
+          },
+          "ObjectUnionDouble.IBB": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "object",
+                "properties": {
+                  "y": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  }
+                },
+                "required": [
+                  "y"
+                ]
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "ObjectUnionDouble.IBA": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "object",
+                "properties": {
+                  "y": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "y"
+                ]
+              }
+            },
+            "required": [
+              "value"
+            ]
+          }
+        }
       },
       "output": {
         "anyOf": [
@@ -1104,154 +569,10 @@
             "type": "null"
           },
           {
-            "type": "array",
-            "items": {
-              "anyOf": [
-                {
-                  "type": "object",
-                  "properties": {
-                    "value": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "child": {
-                      "anyOf": [
-                        {
-                          "type": "object",
-                          "properties": {
-                            "value": {
-                              "type": "object",
-                              "properties": {
-                                "y": {
-                                  "type": "number"
-                                }
-                              },
-                              "required": [
-                                "y"
-                              ],
-                              "additionalProperties": false
-                            }
-                          },
-                          "required": [
-                            "value"
-                          ],
-                          "additionalProperties": false
-                        },
-                        {
-                          "type": "object",
-                          "properties": {
-                            "value": {
-                              "type": "object",
-                              "properties": {
-                                "y": {
-                                  "type": "boolean"
-                                }
-                              },
-                              "required": [
-                                "y"
-                              ],
-                              "additionalProperties": false
-                            }
-                          },
-                          "required": [
-                            "value"
-                          ],
-                          "additionalProperties": false
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "value",
-                    "child"
-                  ],
-                  "additionalProperties": false
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "value": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "string"
-                        }
-                      },
-                      "required": [
-                        "x"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "child": {
-                      "anyOf": [
-                        {
-                          "type": "object",
-                          "properties": {
-                            "value": {
-                              "type": "object",
-                              "properties": {
-                                "y": {
-                                  "type": "array",
-                                  "items": {
-                                    "type": "number"
-                                  }
-                                }
-                              },
-                              "required": [
-                                "y"
-                              ],
-                              "additionalProperties": false
-                            }
-                          },
-                          "required": [
-                            "value"
-                          ],
-                          "additionalProperties": false
-                        },
-                        {
-                          "type": "object",
-                          "properties": {
-                            "value": {
-                              "type": "object",
-                              "properties": {
-                                "y": {
-                                  "type": "string"
-                                }
-                              },
-                              "required": [
-                                "y"
-                              ],
-                              "additionalProperties": false
-                            }
-                          },
-                          "required": [
-                            "value"
-                          ],
-                          "additionalProperties": false
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "value",
-                    "child"
-                  ],
-                  "additionalProperties": false
-                }
-              ]
-            }
+            "$ref": "#/$defs/ObjectUnionDouble"
           }
         ]
-      },
-      "strict": true
+      }
     }
   ]
 }

@@ -4,8 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_json_assertStringify } from "../../internal/_test_json_assertStringify";
 import { ArrayAny } from "../../structures/ArrayAny";
 
-export const test_json_assertStringify_ArrayAny = _test_json_assertStringify(
-  TypeGuardError,
-)("ArrayAny")<ArrayAny>(ArrayAny)((input) =>
-  typia.json.assertStringify<ArrayAny>(input),
-);
+export const test_json_assertStringify_ArrayAny = (): void =>
+  _test_json_assertStringify(TypeGuardError)("ArrayAny")<ArrayAny>(ArrayAny)(
+    (input) => typia.json.assertStringify<ArrayAny>(input),
+  );

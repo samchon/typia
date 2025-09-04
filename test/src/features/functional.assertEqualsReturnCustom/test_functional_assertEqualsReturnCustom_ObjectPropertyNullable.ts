@@ -5,9 +5,10 @@ import { _test_functional_assertEqualsReturn } from "../../internal/_test_functi
 import { ObjectPropertyNullable } from "../../structures/ObjectPropertyNullable";
 
 export const test_functional_assertEqualsReturnCustom_ObjectPropertyNullable =
-  _test_functional_assertEqualsReturn(CustomGuardError)(
-    "ObjectPropertyNullable",
-  )(ObjectPropertyNullable)(
-    (p: (input: ObjectPropertyNullable) => ObjectPropertyNullable) =>
-      typia.functional.assertEqualsReturn(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertEqualsReturn(CustomGuardError)(
+      "ObjectPropertyNullable",
+    )(ObjectPropertyNullable)(
+      (p: (input: ObjectPropertyNullable) => ObjectPropertyNullable) =>
+        typia.functional.assertEqualsReturn(p, (p) => new CustomGuardError(p)),
+    );

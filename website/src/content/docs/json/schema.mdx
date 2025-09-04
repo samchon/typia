@@ -1,0 +1,204 @@
+---
+title: Guide Documents > JSON > Schema
+---
+import { Tabs } from "nextra/components";
+
+import LocalSource from "../../../components/LocalSource";
+import RemoteSource from "../../../components/RemoteSource";
+
+## `schemas()` function
+
+<Tabs items={[
+  <code>typia</code>, 
+  <code>IJsonSchemaCollection.ts</code>, 
+  <code>OpenApi</code>,
+  <code>OpenApiV3</code>,
+]}>
+  <Tabs.Tab>
+```typescript copy
+export namespace json {
+  export function schemas<
+    Schemas extends unknown[],
+    Version extends "3.0" | "3.1" = "3.1",
+  >(): IJsonSchemaCollection<Version>;
+}
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource 
+      path="src/schemas/json/IJsonSchemaCollection.ts"
+      filename="typia/IJsonSchemaCollection.ts"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/openapi/refs/heads/master/src/OpenApi.ts"
+      filename="@samchon/openapi"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/openapi/refs/heads/master/src/OpenApiV3.ts"
+      filename="@samchon/openapi"
+      showLineNumbers />
+  </Tabs.Tab>
+</Tabs>
+
+JSON schema generator.
+
+  - Definitions:
+    - [`IJsonSchemaCollection`](https://github.com/samchon/typia/blob/master/src/schemas/json/IJsonSchemaCollection.ts)
+    - [OpenAPI v3.0](https://github.com/samchon/openapi/blob/master/src/OpenApiV3.ts)
+    - [OpenAPI v3.1](https://github.com/samchon/openapi/blob/master/src/OpenApi.ts)
+
+When you need JSON schema, do not write it by yourself, but just call `typia.json.schemas()` function. 
+
+If you call the `typia.json.schemas()` with specialization of target `Schemas`, `typia` will analyze your `Schemas` and generate JSON schema definition in the compilation level. However, note that, JSON schema definitions of "OpenAPI v3.0" and "OpenAPI v3.1" are a little bit different. Therefore, you have to consider which value to assign in the `Version` argument.
+
+  - Swagger can't express tuple type
+  - Swagger can't express pattern property
+
+<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+  <Tabs.Tab>
+    <LocalSource 
+      path="examples/src/json/schemas.ts"
+      filename="examples/src/json/schemas.ts"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource 
+      path="examples/bin/json/schemas.js"
+      filename="examples/bin/json/schemas.js"
+      showLineNumbers />
+  </Tabs.Tab>
+</Tabs>
+
+## Specialization
+
+You can utilize [type tags](../validators/tags/#type-tags) (or [validator's comment tags](../validators/tags/#comment-tags)) to constructing special fields of JSON schema. 
+
+If you write any comment on a property, it would fill the `IJsonSchema.description` value. Also, there're special comment tags only for JSON schema definition that are different with [validator's comment tags](../validators/tags/#comment-tags) like below.
+
+  - `@deprecated`
+  - `@hidden`
+  - `@internal`
+  - `@title {string}`
+
+Let's see how those [type tags](../validators/tags/#type-tags), comment tags and description comments are working with example code.
+
+<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+  <Tabs.Tab>
+    <LocalSource 
+      path="examples/src/json/schemas-comment-tags.ts"
+      filename="examples/src/json/schemas-comment-tags.ts"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource 
+      path="examples/bin/json/schemas-comment-tags.js"
+      filename="examples/bin/json/schemas-comment-tags.js"
+      showLineNumbers />
+  </Tabs.Tab>
+</Tabs>
+
+## Customization
+
+If what you want is not just filling regular properties of JSON schema specification, but to adding custom properties into the JSON schema definition, you can do it through the `tags.TagBase.schema` property type or `tags.JsonSchemaPlugin` type. 
+
+For reference, the custom property must be started with `x-` prefix. It's a rule of JSON schema.
+
+<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+  <Tabs.Tab>
+    <LocalSource 
+      path="examples/src/json/schemas-type-tags.ts"
+      filename="examples/src/schema-type-tags.ts"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource 
+      path="examples/bin/json/schemas-type-tags.js"
+      filename="examples/bin/json/schemas-type-tags.js"
+      showLineNumbers />
+  </Tabs.Tab>
+</Tabs>
+
+## Restrictions
+
+JSON schema does not support `bigint` type.
+
+So if you use `bigint` type in one of your onetarget schemas, `typia` will make compile error like below.
+
+<Tabs items={["TypeScript Source Code", "Console Output"]}>
+  <Tabs.Tab>
+```typescript filename="json.schemas.ts" copy showLineNumbers 
+import typia, { tags } from "typia";
+
+interface Something {
+  bigint: bigint;
+  array: bigint[];
+  nested: Nested;
+}
+interface Nested {
+  uint64: bigint & tags.Type<"uint64">;
+}
+
+typia.json.schemas<[Something]>();
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```bash
+main.ts:12:1 - error TS(typia.json.schemas): unsupported type detected
+
+- Something.bigint: bigint
+  - JSON does not support bigint type.
+
+- Something.array: bigint
+  - JSON does not support bigint type.
+
+- Nested.uint64: (bigint & Type<"uint64">)
+  - JSON does not support bigint type.
+```
+  </Tabs.Tab>
+</Tabs>
+
+Also, if you put any type of native classes like `Map` or `Uint8Array`, it would also be error, either. By the way, only `Date` class is exceptional, and it would be considered as `string & Format<"date-time">` type like below.
+
+<Tabs items={["TypeScript Source Code", "Console Output"]}>
+  <Tabs.Tab>
+```typescript filename="json.schemas.native.ts" showLineNumbers copy
+import typia from "typia";
+
+interface Native {
+  date: Date;
+}
+typia.json.schemas<[Native]>();
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```typescript filename="json.schemas.native.js" showLineNumbers
+import typia from "typia";
+({
+  version: "3.1",
+  components: {
+    schemas: {
+      Native: {
+        type: "object",
+        properties: {
+          date: {
+            type: "string",
+            format: "date-time",
+          },
+        },
+        required: ["date"],
+      },
+    },
+  },
+  schemas: [
+    {
+      $ref: "#/components/schemas/Native",
+    },
+  ],
+});
+```
+  </Tabs.Tab>
+</Tabs>

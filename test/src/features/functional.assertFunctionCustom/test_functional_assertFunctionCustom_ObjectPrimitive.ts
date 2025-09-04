@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_functional_assertFunction } from "../../internal/_test_functional_assertFunction";
 import { ObjectPrimitive } from "../../structures/ObjectPrimitive";
 
-export const test_functional_assertFunctionCustom_ObjectPrimitive =
+export const test_functional_assertFunctionCustom_ObjectPrimitive = (): void =>
   _test_functional_assertFunction(CustomGuardError)("ObjectPrimitive")(
     ObjectPrimitive,
   )((p: (input: ObjectPrimitive) => ObjectPrimitive) =>

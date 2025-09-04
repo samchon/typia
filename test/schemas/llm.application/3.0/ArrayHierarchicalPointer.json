@@ -1,8 +1,8 @@
 {
   "model": "3.0",
   "options": {
-    "constraint": false,
     "recursive": 3,
+    "constraint": true,
     "separate": null
   },
   "functions": [
@@ -42,6 +42,7 @@
                         "time",
                         "zone"
                       ],
+                      "description": "Current Type: {@link ArrayHierarchicalPointer.ITimestamp}",
                       "additionalProperties": false
                     },
                     "departments": {
@@ -72,6 +73,7 @@
                               "time",
                               "zone"
                             ],
+                            "description": "Current Type: {@link ArrayHierarchicalPointer.ITimestamp}",
                             "additionalProperties": false
                           },
                           "employees": {
@@ -91,7 +93,7 @@
                                 "grade": {
                                   "type": "number"
                                 },
-                                "employeed_at": {
+                                "employed_at": {
                                   "type": "object",
                                   "properties": {
                                     "time": {
@@ -105,6 +107,7 @@
                                     "time",
                                     "zone"
                                   ],
+                                  "description": "Current Type: {@link ArrayHierarchicalPointer.ITimestamp}",
                                   "additionalProperties": false
                                 }
                               },
@@ -113,8 +116,9 @@
                                 "name",
                                 "age",
                                 "grade",
-                                "employeed_at"
+                                "employed_at"
                               ],
+                              "description": "Current Type: {@link ArrayHierarchicalPointer.IEmployee}",
                               "additionalProperties": false
                             }
                           }
@@ -126,6 +130,7 @@
                           "created_at",
                           "employees"
                         ],
+                        "description": "Current Type: {@link ArrayHierarchicalPointer.IDepartment}",
                         "additionalProperties": false
                       }
                     }
@@ -137,6 +142,7 @@
                     "established_at",
                     "departments"
                   ],
+                  "description": "Current Type: {@link ArrayHierarchicalPointer.ICompany}",
                   "additionalProperties": false
                 }
               }
@@ -144,6 +150,7 @@
             "required": [
               "value"
             ],
+            "description": "Current Type: {@link ArrayHierarchicalPointer}",
             "additionalProperties": false
           }
         },
@@ -151,8 +158,7 @@
           "first"
         ],
         "additionalProperties": false
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -190,6 +196,7 @@
                         "time",
                         "zone"
                       ],
+                      "description": "Current Type: {@link ArrayHierarchicalPointer.ITimestamp}",
                       "additionalProperties": false
                     },
                     "departments": {
@@ -220,6 +227,7 @@
                               "time",
                               "zone"
                             ],
+                            "description": "Current Type: {@link ArrayHierarchicalPointer.ITimestamp}",
                             "additionalProperties": false
                           },
                           "employees": {
@@ -239,7 +247,7 @@
                                 "grade": {
                                   "type": "number"
                                 },
-                                "employeed_at": {
+                                "employed_at": {
                                   "type": "object",
                                   "properties": {
                                     "time": {
@@ -253,6 +261,7 @@
                                     "time",
                                     "zone"
                                   ],
+                                  "description": "Current Type: {@link ArrayHierarchicalPointer.ITimestamp}",
                                   "additionalProperties": false
                                 }
                               },
@@ -261,8 +270,9 @@
                                 "name",
                                 "age",
                                 "grade",
-                                "employeed_at"
+                                "employed_at"
                               ],
+                              "description": "Current Type: {@link ArrayHierarchicalPointer.IEmployee}",
                               "additionalProperties": false
                             }
                           }
@@ -274,6 +284,7 @@
                           "created_at",
                           "employees"
                         ],
+                        "description": "Current Type: {@link ArrayHierarchicalPointer.IDepartment}",
                         "additionalProperties": false
                       }
                     }
@@ -285,6 +296,7 @@
                     "established_at",
                     "departments"
                   ],
+                  "description": "Current Type: {@link ArrayHierarchicalPointer.ICompany}",
                   "additionalProperties": false
                 }
               }
@@ -292,6 +304,7 @@
             "required": [
               "value"
             ],
+            "description": "Current Type: {@link ArrayHierarchicalPointer}",
             "additionalProperties": false
           },
           "second": {
@@ -325,6 +338,7 @@
                         "time",
                         "zone"
                       ],
+                      "description": "Current Type: {@link ArrayHierarchicalPointer.ITimestamp}",
                       "additionalProperties": false
                     },
                     "departments": {
@@ -355,6 +369,7 @@
                               "time",
                               "zone"
                             ],
+                            "description": "Current Type: {@link ArrayHierarchicalPointer.ITimestamp}",
                             "additionalProperties": false
                           },
                           "employees": {
@@ -374,7 +389,7 @@
                                 "grade": {
                                   "type": "number"
                                 },
-                                "employeed_at": {
+                                "employed_at": {
                                   "type": "object",
                                   "properties": {
                                     "time": {
@@ -388,6 +403,7 @@
                                     "time",
                                     "zone"
                                   ],
+                                  "description": "Current Type: {@link ArrayHierarchicalPointer.ITimestamp}",
                                   "additionalProperties": false
                                 }
                               },
@@ -396,8 +412,9 @@
                                 "name",
                                 "age",
                                 "grade",
-                                "employeed_at"
+                                "employed_at"
                               ],
+                              "description": "Current Type: {@link ArrayHierarchicalPointer.IEmployee}",
                               "additionalProperties": false
                             }
                           }
@@ -409,6 +426,7 @@
                           "created_at",
                           "employees"
                         ],
+                        "description": "Current Type: {@link ArrayHierarchicalPointer.IDepartment}",
                         "additionalProperties": false
                       }
                     }
@@ -420,6 +438,7 @@
                     "established_at",
                     "departments"
                   ],
+                  "description": "Current Type: {@link ArrayHierarchicalPointer.ICompany}",
                   "additionalProperties": false
                 }
               }
@@ -468,6 +487,7 @@
                     "time",
                     "zone"
                   ],
+                  "description": "Current Type: {@link ArrayHierarchicalPointer.ITimestamp}",
                   "additionalProperties": false
                 },
                 "departments": {
@@ -498,6 +518,7 @@
                           "time",
                           "zone"
                         ],
+                        "description": "Current Type: {@link ArrayHierarchicalPointer.ITimestamp}",
                         "additionalProperties": false
                       },
                       "employees": {
@@ -517,7 +538,7 @@
                             "grade": {
                               "type": "number"
                             },
-                            "employeed_at": {
+                            "employed_at": {
                               "type": "object",
                               "properties": {
                                 "time": {
@@ -531,6 +552,7 @@
                                 "time",
                                 "zone"
                               ],
+                              "description": "Current Type: {@link ArrayHierarchicalPointer.ITimestamp}",
                               "additionalProperties": false
                             }
                           },
@@ -539,8 +561,9 @@
                             "name",
                             "age",
                             "grade",
-                            "employeed_at"
+                            "employed_at"
                           ],
+                          "description": "Current Type: {@link ArrayHierarchicalPointer.IEmployee}",
                           "additionalProperties": false
                         }
                       }
@@ -552,6 +575,7 @@
                       "created_at",
                       "employees"
                     ],
+                    "description": "Current Type: {@link ArrayHierarchicalPointer.IDepartment}",
                     "additionalProperties": false
                   }
                 }
@@ -563,6 +587,7 @@
                 "established_at",
                 "departments"
               ],
+              "description": "Current Type: {@link ArrayHierarchicalPointer.ICompany}",
               "additionalProperties": false
             }
           }
@@ -570,9 +595,9 @@
         "required": [
           "value"
         ],
+        "description": "Current Type: {@link ArrayHierarchicalPointer}",
         "additionalProperties": false
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -610,6 +635,7 @@
                         "time",
                         "zone"
                       ],
+                      "description": "Current Type: {@link ArrayHierarchicalPointer.ITimestamp}",
                       "additionalProperties": false
                     },
                     "departments": {
@@ -640,6 +666,7 @@
                               "time",
                               "zone"
                             ],
+                            "description": "Current Type: {@link ArrayHierarchicalPointer.ITimestamp}",
                             "additionalProperties": false
                           },
                           "employees": {
@@ -659,7 +686,7 @@
                                 "grade": {
                                   "type": "number"
                                 },
-                                "employeed_at": {
+                                "employed_at": {
                                   "type": "object",
                                   "properties": {
                                     "time": {
@@ -673,6 +700,7 @@
                                     "time",
                                     "zone"
                                   ],
+                                  "description": "Current Type: {@link ArrayHierarchicalPointer.ITimestamp}",
                                   "additionalProperties": false
                                 }
                               },
@@ -681,8 +709,9 @@
                                 "name",
                                 "age",
                                 "grade",
-                                "employeed_at"
+                                "employed_at"
                               ],
+                              "description": "Current Type: {@link ArrayHierarchicalPointer.IEmployee}",
                               "additionalProperties": false
                             }
                           }
@@ -694,6 +723,7 @@
                           "created_at",
                           "employees"
                         ],
+                        "description": "Current Type: {@link ArrayHierarchicalPointer.IDepartment}",
                         "additionalProperties": false
                       }
                     }
@@ -705,6 +735,7 @@
                     "established_at",
                     "departments"
                   ],
+                  "description": "Current Type: {@link ArrayHierarchicalPointer.ICompany}",
                   "additionalProperties": false
                 }
               }
@@ -746,6 +777,7 @@
                         "time",
                         "zone"
                       ],
+                      "description": "Current Type: {@link ArrayHierarchicalPointer.ITimestamp}",
                       "additionalProperties": false
                     },
                     "departments": {
@@ -776,6 +808,7 @@
                               "time",
                               "zone"
                             ],
+                            "description": "Current Type: {@link ArrayHierarchicalPointer.ITimestamp}",
                             "additionalProperties": false
                           },
                           "employees": {
@@ -795,7 +828,7 @@
                                 "grade": {
                                   "type": "number"
                                 },
-                                "employeed_at": {
+                                "employed_at": {
                                   "type": "object",
                                   "properties": {
                                     "time": {
@@ -809,6 +842,7 @@
                                     "time",
                                     "zone"
                                   ],
+                                  "description": "Current Type: {@link ArrayHierarchicalPointer.ITimestamp}",
                                   "additionalProperties": false
                                 }
                               },
@@ -817,8 +851,9 @@
                                 "name",
                                 "age",
                                 "grade",
-                                "employeed_at"
+                                "employed_at"
                               ],
+                              "description": "Current Type: {@link ArrayHierarchicalPointer.IEmployee}",
                               "additionalProperties": false
                             }
                           }
@@ -830,6 +865,7 @@
                           "created_at",
                           "employees"
                         ],
+                        "description": "Current Type: {@link ArrayHierarchicalPointer.IDepartment}",
                         "additionalProperties": false
                       }
                     }
@@ -841,6 +877,7 @@
                     "established_at",
                     "departments"
                   ],
+                  "description": "Current Type: {@link ArrayHierarchicalPointer.ICompany}",
                   "additionalProperties": false
                 }
               }
@@ -882,6 +919,7 @@
                         "time",
                         "zone"
                       ],
+                      "description": "Current Type: {@link ArrayHierarchicalPointer.ITimestamp}",
                       "additionalProperties": false
                     },
                     "departments": {
@@ -912,6 +950,7 @@
                               "time",
                               "zone"
                             ],
+                            "description": "Current Type: {@link ArrayHierarchicalPointer.ITimestamp}",
                             "additionalProperties": false
                           },
                           "employees": {
@@ -931,7 +970,7 @@
                                 "grade": {
                                   "type": "number"
                                 },
-                                "employeed_at": {
+                                "employed_at": {
                                   "type": "object",
                                   "properties": {
                                     "time": {
@@ -945,6 +984,7 @@
                                     "time",
                                     "zone"
                                   ],
+                                  "description": "Current Type: {@link ArrayHierarchicalPointer.ITimestamp}",
                                   "additionalProperties": false
                                 }
                               },
@@ -953,8 +993,9 @@
                                 "name",
                                 "age",
                                 "grade",
-                                "employeed_at"
+                                "employed_at"
                               ],
+                              "description": "Current Type: {@link ArrayHierarchicalPointer.IEmployee}",
                               "additionalProperties": false
                             }
                           }
@@ -966,6 +1007,7 @@
                           "created_at",
                           "employees"
                         ],
+                        "description": "Current Type: {@link ArrayHierarchicalPointer.IDepartment}",
                         "additionalProperties": false
                       }
                     }
@@ -977,6 +1019,7 @@
                     "established_at",
                     "departments"
                   ],
+                  "description": "Current Type: {@link ArrayHierarchicalPointer.ICompany}",
                   "additionalProperties": false
                 }
               }
@@ -1025,6 +1068,7 @@
                     "time",
                     "zone"
                   ],
+                  "description": "Current Type: {@link ArrayHierarchicalPointer.ITimestamp}",
                   "additionalProperties": false
                 },
                 "departments": {
@@ -1055,6 +1099,7 @@
                           "time",
                           "zone"
                         ],
+                        "description": "Current Type: {@link ArrayHierarchicalPointer.ITimestamp}",
                         "additionalProperties": false
                       },
                       "employees": {
@@ -1074,7 +1119,7 @@
                             "grade": {
                               "type": "number"
                             },
-                            "employeed_at": {
+                            "employed_at": {
                               "type": "object",
                               "properties": {
                                 "time": {
@@ -1088,6 +1133,7 @@
                                 "time",
                                 "zone"
                               ],
+                              "description": "Current Type: {@link ArrayHierarchicalPointer.ITimestamp}",
                               "additionalProperties": false
                             }
                           },
@@ -1096,8 +1142,9 @@
                             "name",
                             "age",
                             "grade",
-                            "employeed_at"
+                            "employed_at"
                           ],
+                          "description": "Current Type: {@link ArrayHierarchicalPointer.IEmployee}",
                           "additionalProperties": false
                         }
                       }
@@ -1109,6 +1156,7 @@
                       "created_at",
                       "employees"
                     ],
+                    "description": "Current Type: {@link ArrayHierarchicalPointer.IDepartment}",
                     "additionalProperties": false
                   }
                 }
@@ -1120,6 +1168,7 @@
                 "established_at",
                 "departments"
               ],
+              "description": "Current Type: {@link ArrayHierarchicalPointer.ICompany}",
               "additionalProperties": false
             }
           }
@@ -1129,8 +1178,7 @@
         ],
         "additionalProperties": false,
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

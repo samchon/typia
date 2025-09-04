@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsParameters } from "../../internal/_test_
 import { ObjectLiteralType } from "../../structures/ObjectLiteralType";
 
 export const test_functional_validateEqualsParameters_ObjectLiteralType =
-  _test_functional_validateEqualsParameters("ObjectLiteralType")(
-    ObjectLiteralType,
-  )((p: (input: ObjectLiteralType) => ObjectLiteralType) =>
-    typia.functional.validateEqualsParameters(p),
-  );
+  (): void =>
+    _test_functional_validateEqualsParameters("ObjectLiteralType")(
+      ObjectLiteralType,
+    )((p: (input: ObjectLiteralType) => ObjectLiteralType) =>
+      typia.functional.validateEqualsParameters(p),
+    );

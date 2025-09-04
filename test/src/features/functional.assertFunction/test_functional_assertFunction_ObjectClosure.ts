@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_functional_assertFunction } from "../../internal/_test_functional_assertFunction";
 import { ObjectClosure } from "../../structures/ObjectClosure";
 
-export const test_functional_assertFunction_ObjectClosure =
+export const test_functional_assertFunction_ObjectClosure = (): void =>
   _test_functional_assertFunction(TypeGuardError)("ObjectClosure")(
     ObjectClosure,
   )((p: (input: ObjectClosure) => ObjectClosure) =>

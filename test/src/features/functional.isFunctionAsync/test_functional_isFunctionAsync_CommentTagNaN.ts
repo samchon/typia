@@ -4,7 +4,8 @@ import { _test_functional_isFunctionAsync } from "../../internal/_test_functiona
 import { CommentTagNaN } from "../../structures/CommentTagNaN";
 
 export const test_functional_isFunctionAsync_CommentTagNaN =
-  _test_functional_isFunctionAsync("CommentTagNaN")(CommentTagNaN)(
-    (p: (input: CommentTagNaN) => Promise<CommentTagNaN>) =>
-      typia.functional.isFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_isFunctionAsync("CommentTagNaN")(CommentTagNaN)(
+      (p: (input: CommentTagNaN) => Promise<CommentTagNaN>) =>
+        typia.functional.isFunction(p),
+    );

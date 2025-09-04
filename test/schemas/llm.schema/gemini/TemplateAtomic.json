@@ -46,5 +46,6 @@
     "middle_boolean",
     "ipv4",
     "email"
-  ]
+  ],
+  "description": "Current Type: {@link TemplateAtomic}"
 }

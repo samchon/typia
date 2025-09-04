@@ -3,10 +3,11 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { ConstantConstEnumeration } from "../../../structures/ConstantConstEnumeration";
 
-export const test_llm_application_3_1_ConstantConstEnumeration =
+export const test_llm_application_3_1_ConstantConstEnumeration = (): void =>
   _test_llm_application({
     model: "3.1",
     name: "ConstantConstEnumeration",
+    factory: ConstantConstEnumeration,
   })(typia.llm.application<ConstantConstEnumerationApplication, "3.1">());
 
 interface ConstantConstEnumerationApplication {

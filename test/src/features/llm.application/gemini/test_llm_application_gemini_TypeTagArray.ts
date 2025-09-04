@@ -3,10 +3,12 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { TypeTagArray } from "../../../structures/TypeTagArray";
 
-export const test_llm_application_gemini_TypeTagArray = _test_llm_application({
-  model: "gemini",
-  name: "TypeTagArray",
-})(typia.llm.application<TypeTagArrayApplication, "gemini">());
+export const test_llm_application_gemini_TypeTagArray = (): void =>
+  _test_llm_application({
+    model: "gemini",
+    name: "TypeTagArray",
+    factory: TypeTagArray,
+  })(typia.llm.application<TypeTagArrayApplication, "gemini">());
 
 interface TypeTagArrayApplication {
   insert(p: { first: TypeTagArray }): Promise<void>;

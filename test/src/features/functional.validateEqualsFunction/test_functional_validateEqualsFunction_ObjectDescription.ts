@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsFunction } from "../../internal/_test_fu
 import { ObjectDescription } from "../../structures/ObjectDescription";
 
 export const test_functional_validateEqualsFunction_ObjectDescription =
-  _test_functional_validateEqualsFunction("ObjectDescription")(
-    ObjectDescription,
-  )((p: (input: ObjectDescription) => ObjectDescription) =>
-    typia.functional.validateEqualsFunction(p),
-  );
+  (): void =>
+    _test_functional_validateEqualsFunction("ObjectDescription")(
+      ObjectDescription,
+    )((p: (input: ObjectDescription) => ObjectDescription) =>
+      typia.functional.validateEqualsFunction(p),
+    );

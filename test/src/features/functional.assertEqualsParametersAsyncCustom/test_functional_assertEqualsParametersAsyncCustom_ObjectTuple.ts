@@ -5,8 +5,12 @@ import { _test_functional_assertEqualsParametersAsync } from "../../internal/_te
 import { ObjectTuple } from "../../structures/ObjectTuple";
 
 export const test_functional_assertEqualsParametersAsyncCustom_ObjectTuple =
-  _test_functional_assertEqualsParametersAsync(CustomGuardError)("ObjectTuple")(
-    ObjectTuple,
-  )((p: (input: ObjectTuple) => Promise<ObjectTuple>) =>
-    typia.functional.assertEqualsParameters(p, (p) => new CustomGuardError(p)),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsParametersAsync(CustomGuardError)(
+      "ObjectTuple",
+    )(ObjectTuple)((p: (input: ObjectTuple) => Promise<ObjectTuple>) =>
+      typia.functional.assertEqualsParameters(
+        p,
+        (p) => new CustomGuardError(p),
+      ),
+    );

@@ -4,7 +4,9 @@ import { _test_functional_isReturnAsync } from "../../internal/_test_functional_
 import { FunctionalArrayUnion } from "../../structures/FunctionalArrayUnion";
 
 export const test_functional_isReturnAsync_FunctionalArrayUnion =
-  _test_functional_isReturnAsync("FunctionalArrayUnion")(FunctionalArrayUnion)(
-    (p: (input: FunctionalArrayUnion) => Promise<FunctionalArrayUnion>) =>
+  (): Promise<void> =>
+    _test_functional_isReturnAsync("FunctionalArrayUnion")(
+      FunctionalArrayUnion,
+    )((p: (input: FunctionalArrayUnion) => Promise<FunctionalArrayUnion>) =>
       typia.functional.isReturn(p),
-  );
+    );

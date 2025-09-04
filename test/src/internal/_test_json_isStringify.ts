@@ -4,8 +4,7 @@ import { primitive_equal_to } from "../helpers/primitive_equal_to";
 export const _test_json_isStringify =
   (name: string) =>
   <T>(factory: TestStructure<T>) =>
-  (stringify: (input: T) => string | null) =>
-  () => {
+  (stringify: (input: T) => string | null): void => {
     const data: T = factory.generate();
     const optimized: string | null = stringify(data);
 

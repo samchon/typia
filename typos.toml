@@ -1,0 +1,17 @@
+[default]
+locale = 'en-us'
+extend-ignore-re = [
+  "(?Rm)^.*(<!--|#|//)\\s*spellchecker:disable-line(-->|\n)?$",
+  "(?s)(<!--|#|//)\\s*spellchecker:off\\s*(-->|\n).*?(<!--|#|//)\\s*spellchecker:on",
+]
+
+[default.extend-words]
+Jeongho = "Jeongho"
+Nam = "Nam"
+typia = "typia"
+
+[files]
+extend-exclude = [
+  "test/schemas", 
+  "examples/bin",
+]

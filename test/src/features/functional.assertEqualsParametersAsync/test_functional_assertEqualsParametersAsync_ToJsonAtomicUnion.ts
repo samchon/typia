@@ -5,9 +5,10 @@ import { _test_functional_assertEqualsParametersAsync } from "../../internal/_te
 import { ToJsonAtomicUnion } from "../../structures/ToJsonAtomicUnion";
 
 export const test_functional_assertEqualsParametersAsync_ToJsonAtomicUnion =
-  _test_functional_assertEqualsParametersAsync(TypeGuardError)(
-    "ToJsonAtomicUnion",
-  )(ToJsonAtomicUnion)(
-    (p: (input: ToJsonAtomicUnion) => Promise<ToJsonAtomicUnion>) =>
-      typia.functional.assertEqualsParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsParametersAsync(TypeGuardError)(
+      "ToJsonAtomicUnion",
+    )(ToJsonAtomicUnion)(
+      (p: (input: ToJsonAtomicUnion) => Promise<ToJsonAtomicUnion>) =>
+        typia.functional.assertEqualsParameters(p),
+    );

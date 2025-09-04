@@ -5,8 +5,10 @@ import { _test_functional_assertEqualsParameters } from "../../internal/_test_fu
 import { ObjectIntersection } from "../../structures/ObjectIntersection";
 
 export const test_functional_assertEqualsParameters_ObjectIntersection =
-  _test_functional_assertEqualsParameters(TypeGuardError)("ObjectIntersection")(
-    ObjectIntersection,
-  )((p: (input: ObjectIntersection) => ObjectIntersection) =>
-    typia.functional.assertEqualsParameters(p),
-  );
+  (): void =>
+    _test_functional_assertEqualsParameters(TypeGuardError)(
+      "ObjectIntersection",
+    )(ObjectIntersection)(
+      (p: (input: ObjectIntersection) => ObjectIntersection) =>
+        typia.functional.assertEqualsParameters(p),
+    );

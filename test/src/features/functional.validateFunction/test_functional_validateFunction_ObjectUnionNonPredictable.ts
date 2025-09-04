@@ -4,8 +4,9 @@ import { _test_functional_validateFunction } from "../../internal/_test_function
 import { ObjectUnionNonPredictable } from "../../structures/ObjectUnionNonPredictable";
 
 export const test_functional_validateFunction_ObjectUnionNonPredictable =
-  _test_functional_validateFunction("ObjectUnionNonPredictable")(
-    ObjectUnionNonPredictable,
-  )((p: (input: ObjectUnionNonPredictable) => ObjectUnionNonPredictable) =>
-    typia.functional.validateFunction(p),
-  );
+  (): void =>
+    _test_functional_validateFunction("ObjectUnionNonPredictable")(
+      ObjectUnionNonPredictable,
+    )((p: (input: ObjectUnionNonPredictable) => ObjectUnionNonPredictable) =>
+      typia.functional.validateFunction(p),
+    );

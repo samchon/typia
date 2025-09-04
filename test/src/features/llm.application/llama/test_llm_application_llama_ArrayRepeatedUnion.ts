@@ -3,10 +3,11 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { ArrayRepeatedUnion } from "../../../structures/ArrayRepeatedUnion";
 
-export const test_llm_application_llama_ArrayRepeatedUnion =
+export const test_llm_application_llama_ArrayRepeatedUnion = (): void =>
   _test_llm_application({
     model: "llama",
     name: "ArrayRepeatedUnion",
+    factory: ArrayRepeatedUnion,
   })(typia.llm.application<ArrayRepeatedUnionApplication, "llama">());
 
 interface ArrayRepeatedUnionApplication {

@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_protobuf_assertDecode } from "../../internal/_test_protobuf_assertDecode";
 import { TemplateAtomic } from "../../structures/TemplateAtomic";
 
-export const test_protobuf_assertDecodeCustom_TemplateAtomic =
+export const test_protobuf_assertDecodeCustom_TemplateAtomic = (): void =>
   _test_protobuf_assertDecode(CustomGuardError)(
     "TemplateAtomic",
   )<TemplateAtomic>(TemplateAtomic)({

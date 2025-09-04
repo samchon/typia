@@ -45,7 +45,8 @@
           "extension",
           "url",
           "created_at"
-        ]
+        ],
+        "description": "Current Type: {@link ObjectPrimitive.IFile}"
       }
     },
     "secret": {
@@ -63,5 +64,6 @@
     "files",
     "secret",
     "created_at"
-  ]
+  ],
+  "description": "Current Type: {@link ObjectPrimitive.IArticle}"
 }

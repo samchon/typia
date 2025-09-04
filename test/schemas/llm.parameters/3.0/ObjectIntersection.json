@@ -19,6 +19,7 @@
         "name",
         "vulnerable"
       ],
+      "description": "Current Type: {@link ObjectIntersection}",
       "additionalProperties": false
     },
     "nullable": {
@@ -60,6 +61,7 @@
         "name",
         "vulnerable"
       ],
+      "description": "Current Type: {@link ObjectIntersection}",
       "additionalProperties": false
     },
     "faint": {
@@ -103,6 +105,7 @@
           "name",
           "vulnerable"
         ],
+        "description": "Current Type: {@link ObjectIntersection}",
         "additionalProperties": false
       }
     }

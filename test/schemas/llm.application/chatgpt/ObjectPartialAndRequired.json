@@ -1,7 +1,8 @@
 {
   "model": "chatgpt",
   "options": {
-    "reference": false,
+    "reference": true,
+    "strict": false,
     "separate": null
   },
   "functions": [
@@ -49,17 +50,12 @@
               }
             },
             "required": [
-              "string",
-              "number",
-              "boolean",
               "object",
               "array"
-            ],
-            "additionalProperties": false
+            ]
           }
         }
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -116,20 +112,15 @@
               }
             },
             "required": [
-              "string",
-              "number",
-              "boolean",
               "object",
               "array"
-            ],
-            "additionalProperties": false
+            ]
           }
         }
       },
       "output": {
         "$ref": "#/$defs/ObjectPartialAndRequired"
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -169,8 +160,7 @@
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
         "$defs": {
@@ -204,13 +194,9 @@
               }
             },
             "required": [
-              "string",
-              "number",
-              "boolean",
               "object",
               "array"
-            ],
-            "additionalProperties": false
+            ]
           }
         }
       },
@@ -223,8 +209,7 @@
             "$ref": "#/$defs/ObjectPartialAndRequired"
           }
         ]
-      },
-      "strict": true
+      }
     }
   ]
 }

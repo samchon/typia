@@ -41,14 +41,14 @@
               "note",
               "editable",
               "incremental"
-            ]
+            ],
+            "description": "Current Type: {@link ClassPropertyAssignment}"
           }
         },
         "required": [
           "first"
         ]
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -86,7 +86,8 @@
               "note",
               "editable",
               "incremental"
-            ]
+            ],
+            "description": "Current Type: {@link ClassPropertyAssignment}"
           },
           "second": {
             "type": "object",
@@ -159,9 +160,9 @@
           "note",
           "editable",
           "incremental"
-        ]
-      },
-      "strict": true
+        ],
+        "description": "Current Type: {@link ClassPropertyAssignment}"
+      }
     },
     {
       "name": "coalesce",
@@ -309,8 +310,7 @@
           "incremental"
         ],
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

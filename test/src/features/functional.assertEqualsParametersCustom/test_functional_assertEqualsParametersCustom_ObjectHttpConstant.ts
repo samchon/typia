@@ -5,12 +5,13 @@ import { _test_functional_assertEqualsParameters } from "../../internal/_test_fu
 import { ObjectHttpConstant } from "../../structures/ObjectHttpConstant";
 
 export const test_functional_assertEqualsParametersCustom_ObjectHttpConstant =
-  _test_functional_assertEqualsParameters(CustomGuardError)(
-    "ObjectHttpConstant",
-  )(ObjectHttpConstant)(
-    (p: (input: ObjectHttpConstant) => ObjectHttpConstant) =>
-      typia.functional.assertEqualsParameters(
-        p,
-        (p) => new CustomGuardError(p),
-      ),
-  );
+  (): void =>
+    _test_functional_assertEqualsParameters(CustomGuardError)(
+      "ObjectHttpConstant",
+    )(ObjectHttpConstant)(
+      (p: (input: ObjectHttpConstant) => ObjectHttpConstant) =>
+        typia.functional.assertEqualsParameters(
+          p,
+          (p) => new CustomGuardError(p),
+        ),
+    );

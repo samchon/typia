@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_functional_assertParameters } from "../../internal/_test_functional_assertParameters";
 import { CommentTagDefault } from "../../structures/CommentTagDefault";
 
-export const test_functional_assertParameters_CommentTagDefault =
+export const test_functional_assertParameters_CommentTagDefault = (): void =>
   _test_functional_assertParameters(TypeGuardError)("CommentTagDefault")(
     CommentTagDefault,
   )((p: (input: CommentTagDefault) => CommentTagDefault) =>

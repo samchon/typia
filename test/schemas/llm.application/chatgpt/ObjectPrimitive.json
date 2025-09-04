@@ -1,7 +1,8 @@
 {
   "model": "chatgpt",
   "options": {
-    "reference": false,
+    "reference": true,
+    "strict": false,
     "separate": null
   },
   "functions": [
@@ -11,6 +12,15 @@
         "type": "object",
         "properties": {
           "first": {
+            "$ref": "#/$defs/ObjectPrimitive.IArticle"
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ObjectPrimitive.IArticle": {
             "type": "object",
             "properties": {
               "id": {
@@ -33,32 +43,7 @@
               "files": {
                 "type": "array",
                 "items": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "string"
-                    },
-                    "name": {
-                      "type": "string"
-                    },
-                    "extension": {
-                      "type": "string"
-                    },
-                    "url": {
-                      "type": "string"
-                    },
-                    "created_at": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "id",
-                    "name",
-                    "extension",
-                    "url",
-                    "created_at"
-                  ],
-                  "additionalProperties": false
+                  "$ref": "#/$defs/ObjectPrimitive.IFile"
                 }
               },
               "secret": {
@@ -76,17 +61,37 @@
               "files",
               "secret",
               "created_at"
-            ],
-            "additionalProperties": false
+            ]
+          },
+          "ObjectPrimitive.IFile": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "extension": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              },
+              "created_at": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "extension",
+              "url",
+              "created_at"
+            ]
           }
-        },
-        "required": [
-          "first"
-        ],
-        "additionalProperties": false,
-        "$defs": {}
-      },
-      "strict": true
+        }
+      }
     },
     {
       "name": "reduce",
@@ -94,73 +99,7 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "extension": {
-                "type": "string",
-                "enum": [
-                  "txt",
-                  "md",
-                  "html"
-                ]
-              },
-              "title": {
-                "type": "string"
-              },
-              "body": {
-                "type": "string"
-              },
-              "files": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "string"
-                    },
-                    "name": {
-                      "type": "string"
-                    },
-                    "extension": {
-                      "type": "string"
-                    },
-                    "url": {
-                      "type": "string"
-                    },
-                    "created_at": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "id",
-                    "name",
-                    "extension",
-                    "url",
-                    "created_at"
-                  ],
-                  "additionalProperties": false
-                }
-              },
-              "secret": {
-                "type": "boolean"
-              },
-              "created_at": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id",
-              "extension",
-              "title",
-              "body",
-              "files",
-              "secret",
-              "created_at"
-            ],
-            "additionalProperties": false
+            "$ref": "#/$defs/ObjectPrimitive.IArticle"
           },
           "second": {
             "anyOf": [
@@ -168,73 +107,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "string"
-                  },
-                  "extension": {
-                    "type": "string",
-                    "enum": [
-                      "txt",
-                      "md",
-                      "html"
-                    ]
-                  },
-                  "title": {
-                    "type": "string"
-                  },
-                  "body": {
-                    "type": "string"
-                  },
-                  "files": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "id": {
-                          "type": "string"
-                        },
-                        "name": {
-                          "type": "string"
-                        },
-                        "extension": {
-                          "type": "string"
-                        },
-                        "url": {
-                          "type": "string"
-                        },
-                        "created_at": {
-                          "type": "string"
-                        }
-                      },
-                      "required": [
-                        "id",
-                        "name",
-                        "extension",
-                        "url",
-                        "created_at"
-                      ],
-                      "additionalProperties": false
-                    }
-                  },
-                  "secret": {
-                    "type": "boolean"
-                  },
-                  "created_at": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "id",
-                  "extension",
-                  "title",
-                  "body",
-                  "files",
-                  "secret",
-                  "created_at"
-                ],
-                "additionalProperties": false
+                "$ref": "#/$defs/ObjectPrimitive.IArticle"
               }
             ]
           }
@@ -244,78 +117,82 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "output": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "extension": {
-            "type": "string",
-            "enum": [
-              "txt",
-              "md",
-              "html"
-            ]
-          },
-          "title": {
-            "type": "string"
-          },
-          "body": {
-            "type": "string"
-          },
-          "files": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "string"
-                },
-                "name": {
-                  "type": "string"
-                },
-                "extension": {
-                  "type": "string"
-                },
-                "url": {
-                  "type": "string"
-                },
-                "created_at": {
-                  "type": "string"
+        "$defs": {
+          "ObjectPrimitive.IArticle": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "extension": {
+                "type": "string",
+                "enum": [
+                  "txt",
+                  "md",
+                  "html"
+                ]
+              },
+              "title": {
+                "type": "string"
+              },
+              "body": {
+                "type": "string"
+              },
+              "files": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ObjectPrimitive.IFile"
                 }
               },
-              "required": [
-                "id",
-                "name",
-                "extension",
-                "url",
-                "created_at"
-              ],
-              "additionalProperties": false
-            }
+              "secret": {
+                "type": "boolean"
+              },
+              "created_at": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "extension",
+              "title",
+              "body",
+              "files",
+              "secret",
+              "created_at"
+            ]
           },
-          "secret": {
-            "type": "boolean"
-          },
-          "created_at": {
-            "type": "string"
+          "ObjectPrimitive.IFile": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "extension": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              },
+              "created_at": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "extension",
+              "url",
+              "created_at"
+            ]
           }
-        },
-        "required": [
-          "id",
-          "extension",
-          "title",
-          "body",
-          "files",
-          "secret",
-          "created_at"
-        ],
-        "additionalProperties": false
+        }
       },
-      "strict": true
+      "output": {
+        "$ref": "#/$defs/ObjectPrimitive.IArticle"
+      }
     },
     {
       "name": "coalesce",
@@ -328,73 +205,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "string"
-                  },
-                  "extension": {
-                    "type": "string",
-                    "enum": [
-                      "txt",
-                      "md",
-                      "html"
-                    ]
-                  },
-                  "title": {
-                    "type": "string"
-                  },
-                  "body": {
-                    "type": "string"
-                  },
-                  "files": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "id": {
-                          "type": "string"
-                        },
-                        "name": {
-                          "type": "string"
-                        },
-                        "extension": {
-                          "type": "string"
-                        },
-                        "url": {
-                          "type": "string"
-                        },
-                        "created_at": {
-                          "type": "string"
-                        }
-                      },
-                      "required": [
-                        "id",
-                        "name",
-                        "extension",
-                        "url",
-                        "created_at"
-                      ],
-                      "additionalProperties": false
-                    }
-                  },
-                  "secret": {
-                    "type": "boolean"
-                  },
-                  "created_at": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "id",
-                  "extension",
-                  "title",
-                  "body",
-                  "files",
-                  "secret",
-                  "created_at"
-                ],
-                "additionalProperties": false
+                "$ref": "#/$defs/ObjectPrimitive.IArticle"
               }
             ]
           },
@@ -404,73 +215,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "string"
-                  },
-                  "extension": {
-                    "type": "string",
-                    "enum": [
-                      "txt",
-                      "md",
-                      "html"
-                    ]
-                  },
-                  "title": {
-                    "type": "string"
-                  },
-                  "body": {
-                    "type": "string"
-                  },
-                  "files": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "id": {
-                          "type": "string"
-                        },
-                        "name": {
-                          "type": "string"
-                        },
-                        "extension": {
-                          "type": "string"
-                        },
-                        "url": {
-                          "type": "string"
-                        },
-                        "created_at": {
-                          "type": "string"
-                        }
-                      },
-                      "required": [
-                        "id",
-                        "name",
-                        "extension",
-                        "url",
-                        "created_at"
-                      ],
-                      "additionalProperties": false
-                    }
-                  },
-                  "secret": {
-                    "type": "boolean"
-                  },
-                  "created_at": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "id",
-                  "extension",
-                  "title",
-                  "body",
-                  "files",
-                  "secret",
-                  "created_at"
-                ],
-                "additionalProperties": false
+                "$ref": "#/$defs/ObjectPrimitive.IArticle"
               }
             ]
           },
@@ -480,91 +225,18 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "string"
-                  },
-                  "extension": {
-                    "type": "string",
-                    "enum": [
-                      "txt",
-                      "md",
-                      "html"
-                    ]
-                  },
-                  "title": {
-                    "type": "string"
-                  },
-                  "body": {
-                    "type": "string"
-                  },
-                  "files": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "id": {
-                          "type": "string"
-                        },
-                        "name": {
-                          "type": "string"
-                        },
-                        "extension": {
-                          "type": "string"
-                        },
-                        "url": {
-                          "type": "string"
-                        },
-                        "created_at": {
-                          "type": "string"
-                        }
-                      },
-                      "required": [
-                        "id",
-                        "name",
-                        "extension",
-                        "url",
-                        "created_at"
-                      ],
-                      "additionalProperties": false
-                    }
-                  },
-                  "secret": {
-                    "type": "boolean"
-                  },
-                  "created_at": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "id",
-                  "extension",
-                  "title",
-                  "body",
-                  "files",
-                  "secret",
-                  "created_at"
-                ],
-                "additionalProperties": false
+                "$ref": "#/$defs/ObjectPrimitive.IArticle"
               }
             ]
           }
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "output": {
-        "anyOf": [
-          {
-            "type": "null"
-          },
-          {
+        "$defs": {
+          "ObjectPrimitive.IArticle": {
             "type": "object",
             "properties": {
               "id": {
@@ -587,32 +259,7 @@
               "files": {
                 "type": "array",
                 "items": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "string"
-                    },
-                    "name": {
-                      "type": "string"
-                    },
-                    "extension": {
-                      "type": "string"
-                    },
-                    "url": {
-                      "type": "string"
-                    },
-                    "created_at": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "id",
-                    "name",
-                    "extension",
-                    "url",
-                    "created_at"
-                  ],
-                  "additionalProperties": false
+                  "$ref": "#/$defs/ObjectPrimitive.IFile"
                 }
               },
               "secret": {
@@ -630,12 +277,47 @@
               "files",
               "secret",
               "created_at"
-            ],
-            "additionalProperties": false
+            ]
+          },
+          "ObjectPrimitive.IFile": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "extension": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              },
+              "created_at": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "extension",
+              "url",
+              "created_at"
+            ]
+          }
+        }
+      },
+      "output": {
+        "anyOf": [
+          {
+            "type": "null"
+          },
+          {
+            "$ref": "#/$defs/ObjectPrimitive.IArticle"
           }
         ]
-      },
-      "strict": true
+      }
     }
   ]
 }

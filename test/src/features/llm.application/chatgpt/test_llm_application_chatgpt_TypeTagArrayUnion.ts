@@ -3,10 +3,11 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { TypeTagArrayUnion } from "../../../structures/TypeTagArrayUnion";
 
-export const test_llm_application_chatgpt_TypeTagArrayUnion =
+export const test_llm_application_chatgpt_TypeTagArrayUnion = (): void =>
   _test_llm_application({
     model: "chatgpt",
     name: "TypeTagArrayUnion",
+    factory: TypeTagArrayUnion,
   })(typia.llm.application<TypeTagArrayUnionApplication, "chatgpt">());
 
 interface TypeTagArrayUnionApplication {

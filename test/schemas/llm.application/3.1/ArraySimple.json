@@ -1,8 +1,8 @@
 {
   "model": "3.1",
   "options": {
-    "constraint": false,
-    "reference": false,
+    "reference": true,
+    "constraint": true,
     "separate": null
   },
   "functions": [
@@ -12,54 +12,63 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "type": "string"
-                },
-                "email": {
-                  "type": "string"
-                },
-                "hobbies": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "name": {
-                        "type": "string"
-                      },
-                      "body": {
-                        "type": "string"
-                      },
-                      "rank": {
-                        "type": "number"
-                      }
-                    },
-                    "required": [
-                      "name",
-                      "body",
-                      "rank"
-                    ]
-                  }
-                }
-              },
-              "required": [
-                "name",
-                "email",
-                "hobbies"
-              ]
-            }
+            "$ref": "#/$defs/ArraySimple"
           }
         },
         "required": [
           "first"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "strict": true
+        "$defs": {
+          "ArraySimple": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/ArraySimple.IPerson"
+            }
+          },
+          "ArraySimple.IPerson": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "hobbies": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ArraySimple.IHobby"
+                }
+              }
+            },
+            "required": [
+              "name",
+              "email",
+              "hobbies"
+            ]
+          },
+          "ArraySimple.IHobby": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "body": {
+                "type": "string"
+              },
+              "rank": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "name",
+              "body",
+              "rank"
+            ]
+          }
+        }
+      }
     },
     {
       "name": "reduce",
@@ -67,45 +76,7 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "type": "string"
-                },
-                "email": {
-                  "type": "string"
-                },
-                "hobbies": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "name": {
-                        "type": "string"
-                      },
-                      "body": {
-                        "type": "string"
-                      },
-                      "rank": {
-                        "type": "number"
-                      }
-                    },
-                    "required": [
-                      "name",
-                      "body",
-                      "rank"
-                    ]
-                  }
-                }
-              },
-              "required": [
-                "name",
-                "email",
-                "hobbies"
-              ]
-            }
+            "$ref": "#/$defs/ArraySimple"
           },
           "second": {
             "oneOf": [
@@ -113,45 +84,7 @@
                 "type": "null"
               },
               {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "name": {
-                      "type": "string"
-                    },
-                    "email": {
-                      "type": "string"
-                    },
-                    "hobbies": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "name": {
-                            "type": "string"
-                          },
-                          "body": {
-                            "type": "string"
-                          },
-                          "rank": {
-                            "type": "number"
-                          }
-                        },
-                        "required": [
-                          "name",
-                          "body",
-                          "rank"
-                        ]
-                      }
-                    }
-                  },
-                  "required": [
-                    "name",
-                    "email",
-                    "hobbies"
-                  ]
-                }
+                "$ref": "#/$defs/ArraySimple"
               }
             ]
           }
@@ -161,50 +94,59 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "output": {
-        "type": "array",
-        "items": {
-          "type": "object",
-          "properties": {
-            "name": {
-              "type": "string"
-            },
-            "email": {
-              "type": "string"
-            },
-            "hobbies": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string"
-                  },
-                  "body": {
-                    "type": "string"
-                  },
-                  "rank": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "name",
-                  "body",
-                  "rank"
-                ]
-              }
+        "$defs": {
+          "ArraySimple": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/ArraySimple.IPerson"
             }
           },
-          "required": [
-            "name",
-            "email",
-            "hobbies"
-          ]
+          "ArraySimple.IPerson": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "hobbies": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ArraySimple.IHobby"
+                }
+              }
+            },
+            "required": [
+              "name",
+              "email",
+              "hobbies"
+            ]
+          },
+          "ArraySimple.IHobby": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "body": {
+                "type": "string"
+              },
+              "rank": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "name",
+              "body",
+              "rank"
+            ]
+          }
         }
       },
-      "strict": true
+      "output": {
+        "$ref": "#/$defs/ArraySimple"
+      }
     },
     {
       "name": "coalesce",
@@ -217,45 +159,7 @@
                 "type": "null"
               },
               {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "name": {
-                      "type": "string"
-                    },
-                    "email": {
-                      "type": "string"
-                    },
-                    "hobbies": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "name": {
-                            "type": "string"
-                          },
-                          "body": {
-                            "type": "string"
-                          },
-                          "rank": {
-                            "type": "number"
-                          }
-                        },
-                        "required": [
-                          "name",
-                          "body",
-                          "rank"
-                        ]
-                      }
-                    }
-                  },
-                  "required": [
-                    "name",
-                    "email",
-                    "hobbies"
-                  ]
-                }
+                "$ref": "#/$defs/ArraySimple"
               }
             ]
           },
@@ -265,45 +169,7 @@
                 "type": "null"
               },
               {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "name": {
-                      "type": "string"
-                    },
-                    "email": {
-                      "type": "string"
-                    },
-                    "hobbies": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "name": {
-                            "type": "string"
-                          },
-                          "body": {
-                            "type": "string"
-                          },
-                          "rank": {
-                            "type": "number"
-                          }
-                        },
-                        "required": [
-                          "name",
-                          "body",
-                          "rank"
-                        ]
-                      }
-                    }
-                  },
-                  "required": [
-                    "name",
-                    "email",
-                    "hobbies"
-                  ]
-                }
+                "$ref": "#/$defs/ArraySimple"
               }
             ]
           },
@@ -313,56 +179,65 @@
                 "type": "null"
               },
               {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "name": {
-                      "type": "string"
-                    },
-                    "email": {
-                      "type": "string"
-                    },
-                    "hobbies": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "name": {
-                            "type": "string"
-                          },
-                          "body": {
-                            "type": "string"
-                          },
-                          "rank": {
-                            "type": "number"
-                          }
-                        },
-                        "required": [
-                          "name",
-                          "body",
-                          "rank"
-                        ]
-                      }
-                    }
-                  },
-                  "required": [
-                    "name",
-                    "email",
-                    "hobbies"
-                  ]
-                }
+                "$ref": "#/$defs/ArraySimple"
               }
             ]
           }
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "ArraySimple": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/ArraySimple.IPerson"
+            }
+          },
+          "ArraySimple.IPerson": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "hobbies": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ArraySimple.IHobby"
+                }
+              }
+            },
+            "required": [
+              "name",
+              "email",
+              "hobbies"
+            ]
+          },
+          "ArraySimple.IHobby": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "body": {
+                "type": "string"
+              },
+              "rank": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "name",
+              "body",
+              "rank"
+            ]
+          }
+        }
       },
       "output": {
         "oneOf": [
@@ -370,49 +245,10 @@
             "type": "null"
           },
           {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "type": "string"
-                },
-                "email": {
-                  "type": "string"
-                },
-                "hobbies": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "name": {
-                        "type": "string"
-                      },
-                      "body": {
-                        "type": "string"
-                      },
-                      "rank": {
-                        "type": "number"
-                      }
-                    },
-                    "required": [
-                      "name",
-                      "body",
-                      "rank"
-                    ]
-                  }
-                }
-              },
-              "required": [
-                "name",
-                "email",
-                "hobbies"
-              ]
-            }
+            "$ref": "#/$defs/ArraySimple"
           }
         ]
-      },
-      "strict": true
+      }
     }
   ]
 }

@@ -4,12 +4,13 @@ import { _test_functional_validateParametersAsync } from "../../internal/_test_f
 import { MapSimpleProtobufNullable } from "../../structures/MapSimpleProtobufNullable";
 
 export const test_functional_validateParametersAsync_MapSimpleProtobufNullable =
-  _test_functional_validateParametersAsync("MapSimpleProtobufNullable")(
-    MapSimpleProtobufNullable,
-  )(
-    (
-      p: (
-        input: MapSimpleProtobufNullable,
-      ) => Promise<MapSimpleProtobufNullable>,
-    ) => typia.functional.validateParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateParametersAsync("MapSimpleProtobufNullable")(
+      MapSimpleProtobufNullable,
+    )(
+      (
+        p: (
+          input: MapSimpleProtobufNullable,
+        ) => Promise<MapSimpleProtobufNullable>,
+      ) => typia.functional.validateParameters(p),
+    );

@@ -1,8 +1,8 @@
 {
   "model": "3.0",
   "options": {
-    "constraint": false,
     "recursive": 3,
+    "constraint": true,
     "separate": null
   },
   "functions": [
@@ -20,12 +20,13 @@
                   "properties": {
                     "value": {
                       "type": "number",
-                      "description": "@minimum 3"
+                      "minimum": 3
                     }
                   },
                   "required": [
                     "value"
                   ],
+                  "description": "Current Type: {@link TypeTagObjectUnion.Numeric}",
                   "additionalProperties": false
                 },
                 {
@@ -33,24 +34,27 @@
                   "properties": {
                     "value": {
                       "type": "string",
-                      "description": "@minLength 3\n@maxLength 7"
+                      "minLength": 3,
+                      "maxLength": 7
                     }
                   },
                   "required": [
                     "value"
                   ],
+                  "description": "Current Type: {@link TypeTagObjectUnion.Literal}",
                   "additionalProperties": false
                 }
-              ]
-            }
+              ],
+              "description": "Current Type: {@link TypeTagObjectUnion.Type}"
+            },
+            "description": "Current Type: {@link TypeTagObjectUnion}"
           }
         },
         "required": [
           "first"
         ],
         "additionalProperties": false
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -66,12 +70,13 @@
                   "properties": {
                     "value": {
                       "type": "number",
-                      "description": "@minimum 3"
+                      "minimum": 3
                     }
                   },
                   "required": [
                     "value"
                   ],
+                  "description": "Current Type: {@link TypeTagObjectUnion.Numeric}",
                   "additionalProperties": false
                 },
                 {
@@ -79,16 +84,20 @@
                   "properties": {
                     "value": {
                       "type": "string",
-                      "description": "@minLength 3\n@maxLength 7"
+                      "minLength": 3,
+                      "maxLength": 7
                     }
                   },
                   "required": [
                     "value"
                   ],
+                  "description": "Current Type: {@link TypeTagObjectUnion.Literal}",
                   "additionalProperties": false
                 }
-              ]
-            }
+              ],
+              "description": "Current Type: {@link TypeTagObjectUnion.Type}"
+            },
+            "description": "Current Type: {@link TypeTagObjectUnion}"
           },
           "second": {
             "type": "array",
@@ -99,12 +108,13 @@
                   "properties": {
                     "value": {
                       "type": "number",
-                      "description": "@minimum 3"
+                      "minimum": 3
                     }
                   },
                   "required": [
                     "value"
                   ],
+                  "description": "Current Type: {@link TypeTagObjectUnion.Numeric}",
                   "additionalProperties": false
                 },
                 {
@@ -112,15 +122,18 @@
                   "properties": {
                     "value": {
                       "type": "string",
-                      "description": "@minLength 3\n@maxLength 7"
+                      "minLength": 3,
+                      "maxLength": 7
                     }
                   },
                   "required": [
                     "value"
                   ],
+                  "description": "Current Type: {@link TypeTagObjectUnion.Literal}",
                   "additionalProperties": false
                 }
-              ]
+              ],
+              "description": "Current Type: {@link TypeTagObjectUnion.Type}"
             },
             "nullable": true
           }
@@ -140,12 +153,13 @@
               "properties": {
                 "value": {
                   "type": "number",
-                  "description": "@minimum 3"
+                  "minimum": 3
                 }
               },
               "required": [
                 "value"
               ],
+              "description": "Current Type: {@link TypeTagObjectUnion.Numeric}",
               "additionalProperties": false
             },
             {
@@ -153,18 +167,21 @@
               "properties": {
                 "value": {
                   "type": "string",
-                  "description": "@minLength 3\n@maxLength 7"
+                  "minLength": 3,
+                  "maxLength": 7
                 }
               },
               "required": [
                 "value"
               ],
+              "description": "Current Type: {@link TypeTagObjectUnion.Literal}",
               "additionalProperties": false
             }
-          ]
-        }
-      },
-      "strict": true
+          ],
+          "description": "Current Type: {@link TypeTagObjectUnion.Type}"
+        },
+        "description": "Current Type: {@link TypeTagObjectUnion}"
+      }
     },
     {
       "name": "coalesce",
@@ -180,12 +197,13 @@
                   "properties": {
                     "value": {
                       "type": "number",
-                      "description": "@minimum 3"
+                      "minimum": 3
                     }
                   },
                   "required": [
                     "value"
                   ],
+                  "description": "Current Type: {@link TypeTagObjectUnion.Numeric}",
                   "additionalProperties": false
                 },
                 {
@@ -193,15 +211,18 @@
                   "properties": {
                     "value": {
                       "type": "string",
-                      "description": "@minLength 3\n@maxLength 7"
+                      "minLength": 3,
+                      "maxLength": 7
                     }
                   },
                   "required": [
                     "value"
                   ],
+                  "description": "Current Type: {@link TypeTagObjectUnion.Literal}",
                   "additionalProperties": false
                 }
-              ]
+              ],
+              "description": "Current Type: {@link TypeTagObjectUnion.Type}"
             },
             "nullable": true
           },
@@ -214,12 +235,13 @@
                   "properties": {
                     "value": {
                       "type": "number",
-                      "description": "@minimum 3"
+                      "minimum": 3
                     }
                   },
                   "required": [
                     "value"
                   ],
+                  "description": "Current Type: {@link TypeTagObjectUnion.Numeric}",
                   "additionalProperties": false
                 },
                 {
@@ -227,15 +249,18 @@
                   "properties": {
                     "value": {
                       "type": "string",
-                      "description": "@minLength 3\n@maxLength 7"
+                      "minLength": 3,
+                      "maxLength": 7
                     }
                   },
                   "required": [
                     "value"
                   ],
+                  "description": "Current Type: {@link TypeTagObjectUnion.Literal}",
                   "additionalProperties": false
                 }
-              ]
+              ],
+              "description": "Current Type: {@link TypeTagObjectUnion.Type}"
             },
             "nullable": true
           },
@@ -248,12 +273,13 @@
                   "properties": {
                     "value": {
                       "type": "number",
-                      "description": "@minimum 3"
+                      "minimum": 3
                     }
                   },
                   "required": [
                     "value"
                   ],
+                  "description": "Current Type: {@link TypeTagObjectUnion.Numeric}",
                   "additionalProperties": false
                 },
                 {
@@ -261,15 +287,18 @@
                   "properties": {
                     "value": {
                       "type": "string",
-                      "description": "@minLength 3\n@maxLength 7"
+                      "minLength": 3,
+                      "maxLength": 7
                     }
                   },
                   "required": [
                     "value"
                   ],
+                  "description": "Current Type: {@link TypeTagObjectUnion.Literal}",
                   "additionalProperties": false
                 }
-              ]
+              ],
+              "description": "Current Type: {@link TypeTagObjectUnion.Type}"
             },
             "nullable": true
           }
@@ -289,12 +318,13 @@
               "properties": {
                 "value": {
                   "type": "number",
-                  "description": "@minimum 3"
+                  "minimum": 3
                 }
               },
               "required": [
                 "value"
               ],
+              "description": "Current Type: {@link TypeTagObjectUnion.Numeric}",
               "additionalProperties": false
             },
             {
@@ -302,19 +332,21 @@
               "properties": {
                 "value": {
                   "type": "string",
-                  "description": "@minLength 3\n@maxLength 7"
+                  "minLength": 3,
+                  "maxLength": 7
                 }
               },
               "required": [
                 "value"
               ],
+              "description": "Current Type: {@link TypeTagObjectUnion.Literal}",
               "additionalProperties": false
             }
-          ]
+          ],
+          "description": "Current Type: {@link TypeTagObjectUnion.Type}"
         },
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

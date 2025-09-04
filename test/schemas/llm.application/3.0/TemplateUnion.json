@@ -1,8 +1,8 @@
 {
   "model": "3.0",
   "options": {
-    "constraint": false,
     "recursive": 3,
+    "constraint": true,
     "separate": null
   },
   "functions": [
@@ -21,29 +21,29 @@
                   "properties": {
                     "prefix": {
                       "type": "string",
-                      "description": "@pattern ^((prefix_(.*))|(prefix_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?))$"
+                      "pattern": "^((prefix_(.*))|(prefix_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?))$"
                     },
                     "postfix": {
                       "type": "string",
-                      "description": "@pattern (((.*)_postfix)|([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_postfix))$"
+                      "pattern": "(((.*)_postfix)|([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_postfix))$"
                     },
                     "middle": {
                       "type": "string",
+                      "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$",
                       "enum": [
                         "the_false_value",
                         "the_true_value"
-                      ],
-                      "description": "@pattern ^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+                      ]
                     },
                     "mixed": {
                       "oneOf": [
                         {
                           "type": "string",
+                          "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$",
                           "enum": [
                             "the_A_value",
                             "the_B_value"
-                          ],
-                          "description": "@pattern ^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+                          ]
                         },
                         {
                           "type": "number"
@@ -72,6 +72,7 @@
                     "middle",
                     "mixed"
                   ],
+                  "description": "Current Type: {@link TemplateUnion.Type}",
                   "additionalProperties": false
                 }
               }
@@ -79,6 +80,7 @@
             "required": [
               "value"
             ],
+            "description": "Current Type: {@link TemplateUnion}",
             "additionalProperties": false
           }
         },
@@ -86,8 +88,7 @@
           "first"
         ],
         "additionalProperties": false
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -104,29 +105,29 @@
                   "properties": {
                     "prefix": {
                       "type": "string",
-                      "description": "@pattern ^((prefix_(.*))|(prefix_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?))$"
+                      "pattern": "^((prefix_(.*))|(prefix_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?))$"
                     },
                     "postfix": {
                       "type": "string",
-                      "description": "@pattern (((.*)_postfix)|([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_postfix))$"
+                      "pattern": "(((.*)_postfix)|([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_postfix))$"
                     },
                     "middle": {
                       "type": "string",
+                      "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$",
                       "enum": [
                         "the_false_value",
                         "the_true_value"
-                      ],
-                      "description": "@pattern ^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+                      ]
                     },
                     "mixed": {
                       "oneOf": [
                         {
                           "type": "string",
+                          "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$",
                           "enum": [
                             "the_A_value",
                             "the_B_value"
-                          ],
-                          "description": "@pattern ^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+                          ]
                         },
                         {
                           "type": "number"
@@ -155,6 +156,7 @@
                     "middle",
                     "mixed"
                   ],
+                  "description": "Current Type: {@link TemplateUnion.Type}",
                   "additionalProperties": false
                 }
               }
@@ -162,6 +164,7 @@
             "required": [
               "value"
             ],
+            "description": "Current Type: {@link TemplateUnion}",
             "additionalProperties": false
           },
           "second": {
@@ -174,29 +177,29 @@
                   "properties": {
                     "prefix": {
                       "type": "string",
-                      "description": "@pattern ^((prefix_(.*))|(prefix_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?))$"
+                      "pattern": "^((prefix_(.*))|(prefix_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?))$"
                     },
                     "postfix": {
                       "type": "string",
-                      "description": "@pattern (((.*)_postfix)|([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_postfix))$"
+                      "pattern": "(((.*)_postfix)|([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_postfix))$"
                     },
                     "middle": {
                       "type": "string",
+                      "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$",
                       "enum": [
                         "the_false_value",
                         "the_true_value"
-                      ],
-                      "description": "@pattern ^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+                      ]
                     },
                     "mixed": {
                       "oneOf": [
                         {
                           "type": "string",
+                          "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$",
                           "enum": [
                             "the_A_value",
                             "the_B_value"
-                          ],
-                          "description": "@pattern ^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+                          ]
                         },
                         {
                           "type": "number"
@@ -225,6 +228,7 @@
                     "middle",
                     "mixed"
                   ],
+                  "description": "Current Type: {@link TemplateUnion.Type}",
                   "additionalProperties": false
                 }
               }
@@ -252,29 +256,29 @@
               "properties": {
                 "prefix": {
                   "type": "string",
-                  "description": "@pattern ^((prefix_(.*))|(prefix_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?))$"
+                  "pattern": "^((prefix_(.*))|(prefix_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?))$"
                 },
                 "postfix": {
                   "type": "string",
-                  "description": "@pattern (((.*)_postfix)|([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_postfix))$"
+                  "pattern": "(((.*)_postfix)|([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_postfix))$"
                 },
                 "middle": {
                   "type": "string",
+                  "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$",
                   "enum": [
                     "the_false_value",
                     "the_true_value"
-                  ],
-                  "description": "@pattern ^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+                  ]
                 },
                 "mixed": {
                   "oneOf": [
                     {
                       "type": "string",
+                      "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$",
                       "enum": [
                         "the_A_value",
                         "the_B_value"
-                      ],
-                      "description": "@pattern ^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+                      ]
                     },
                     {
                       "type": "number"
@@ -303,6 +307,7 @@
                 "middle",
                 "mixed"
               ],
+              "description": "Current Type: {@link TemplateUnion.Type}",
               "additionalProperties": false
             }
           }
@@ -310,9 +315,9 @@
         "required": [
           "value"
         ],
+        "description": "Current Type: {@link TemplateUnion}",
         "additionalProperties": false
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -329,29 +334,29 @@
                   "properties": {
                     "prefix": {
                       "type": "string",
-                      "description": "@pattern ^((prefix_(.*))|(prefix_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?))$"
+                      "pattern": "^((prefix_(.*))|(prefix_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?))$"
                     },
                     "postfix": {
                       "type": "string",
-                      "description": "@pattern (((.*)_postfix)|([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_postfix))$"
+                      "pattern": "(((.*)_postfix)|([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_postfix))$"
                     },
                     "middle": {
                       "type": "string",
+                      "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$",
                       "enum": [
                         "the_false_value",
                         "the_true_value"
-                      ],
-                      "description": "@pattern ^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+                      ]
                     },
                     "mixed": {
                       "oneOf": [
                         {
                           "type": "string",
+                          "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$",
                           "enum": [
                             "the_A_value",
                             "the_B_value"
-                          ],
-                          "description": "@pattern ^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+                          ]
                         },
                         {
                           "type": "number"
@@ -380,6 +385,7 @@
                     "middle",
                     "mixed"
                   ],
+                  "description": "Current Type: {@link TemplateUnion.Type}",
                   "additionalProperties": false
                 }
               }
@@ -400,29 +406,29 @@
                   "properties": {
                     "prefix": {
                       "type": "string",
-                      "description": "@pattern ^((prefix_(.*))|(prefix_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?))$"
+                      "pattern": "^((prefix_(.*))|(prefix_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?))$"
                     },
                     "postfix": {
                       "type": "string",
-                      "description": "@pattern (((.*)_postfix)|([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_postfix))$"
+                      "pattern": "(((.*)_postfix)|([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_postfix))$"
                     },
                     "middle": {
                       "type": "string",
+                      "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$",
                       "enum": [
                         "the_false_value",
                         "the_true_value"
-                      ],
-                      "description": "@pattern ^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+                      ]
                     },
                     "mixed": {
                       "oneOf": [
                         {
                           "type": "string",
+                          "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$",
                           "enum": [
                             "the_A_value",
                             "the_B_value"
-                          ],
-                          "description": "@pattern ^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+                          ]
                         },
                         {
                           "type": "number"
@@ -451,6 +457,7 @@
                     "middle",
                     "mixed"
                   ],
+                  "description": "Current Type: {@link TemplateUnion.Type}",
                   "additionalProperties": false
                 }
               }
@@ -471,29 +478,29 @@
                   "properties": {
                     "prefix": {
                       "type": "string",
-                      "description": "@pattern ^((prefix_(.*))|(prefix_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?))$"
+                      "pattern": "^((prefix_(.*))|(prefix_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?))$"
                     },
                     "postfix": {
                       "type": "string",
-                      "description": "@pattern (((.*)_postfix)|([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_postfix))$"
+                      "pattern": "(((.*)_postfix)|([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_postfix))$"
                     },
                     "middle": {
                       "type": "string",
+                      "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$",
                       "enum": [
                         "the_false_value",
                         "the_true_value"
-                      ],
-                      "description": "@pattern ^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+                      ]
                     },
                     "mixed": {
                       "oneOf": [
                         {
                           "type": "string",
+                          "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$",
                           "enum": [
                             "the_A_value",
                             "the_B_value"
-                          ],
-                          "description": "@pattern ^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+                          ]
                         },
                         {
                           "type": "number"
@@ -522,6 +529,7 @@
                     "middle",
                     "mixed"
                   ],
+                  "description": "Current Type: {@link TemplateUnion.Type}",
                   "additionalProperties": false
                 }
               }
@@ -549,29 +557,29 @@
               "properties": {
                 "prefix": {
                   "type": "string",
-                  "description": "@pattern ^((prefix_(.*))|(prefix_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?))$"
+                  "pattern": "^((prefix_(.*))|(prefix_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?))$"
                 },
                 "postfix": {
                   "type": "string",
-                  "description": "@pattern (((.*)_postfix)|([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_postfix))$"
+                  "pattern": "(((.*)_postfix)|([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_postfix))$"
                 },
                 "middle": {
                   "type": "string",
+                  "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$",
                   "enum": [
                     "the_false_value",
                     "the_true_value"
-                  ],
-                  "description": "@pattern ^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+                  ]
                 },
                 "mixed": {
                   "oneOf": [
                     {
                       "type": "string",
+                      "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$",
                       "enum": [
                         "the_A_value",
                         "the_B_value"
-                      ],
-                      "description": "@pattern ^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+                      ]
                     },
                     {
                       "type": "number"
@@ -600,6 +608,7 @@
                 "middle",
                 "mixed"
               ],
+              "description": "Current Type: {@link TemplateUnion.Type}",
               "additionalProperties": false
             }
           }
@@ -609,8 +618,7 @@
         ],
         "additionalProperties": false,
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

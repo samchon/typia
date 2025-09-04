@@ -5,8 +5,12 @@ import { _test_functional_assertEqualsParameters } from "../../internal/_test_fu
 import { ArrayUnion } from "../../structures/ArrayUnion";
 
 export const test_functional_assertEqualsParametersCustom_ArrayUnion =
-  _test_functional_assertEqualsParameters(CustomGuardError)("ArrayUnion")(
-    ArrayUnion,
-  )((p: (input: ArrayUnion) => ArrayUnion) =>
-    typia.functional.assertEqualsParameters(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertEqualsParameters(CustomGuardError)("ArrayUnion")(
+      ArrayUnion,
+    )((p: (input: ArrayUnion) => ArrayUnion) =>
+      typia.functional.assertEqualsParameters(
+        p,
+        (p) => new CustomGuardError(p),
+      ),
+    );

@@ -5,8 +5,9 @@ import { _test_functional_assertReturn } from "../../internal/_test_functional_a
 import { FunctionalPropertyUnion } from "../../structures/FunctionalPropertyUnion";
 
 export const test_functional_assertReturnCustom_FunctionalPropertyUnion =
-  _test_functional_assertReturn(CustomGuardError)("FunctionalPropertyUnion")(
-    FunctionalPropertyUnion,
-  )((p: (input: FunctionalPropertyUnion) => FunctionalPropertyUnion) =>
-    typia.functional.assertReturn(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertReturn(CustomGuardError)("FunctionalPropertyUnion")(
+      FunctionalPropertyUnion,
+    )((p: (input: FunctionalPropertyUnion) => FunctionalPropertyUnion) =>
+      typia.functional.assertReturn(p, (p) => new CustomGuardError(p)),
+    );

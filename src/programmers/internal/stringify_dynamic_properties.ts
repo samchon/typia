@@ -6,9 +6,7 @@ import { TemplateFactory } from "../../factories/TemplateFactory";
 import { IExpressionEntry } from "../helpers/IExpressionEntry";
 import { metadata_to_pattern } from "./metadata_to_pattern";
 
-/**
- * @internal
- */
+/** @internal */
 export const stringify_dynamic_properties = (
   dynamic: IExpressionEntry<ts.Expression>[],
   regular: string[],
@@ -143,9 +141,7 @@ export const stringify_dynamic_properties = (
   return output();
 };
 
-/**
- * @internal
- */
+/** @internal */
 const stringify = (
   entry: IExpressionEntry<ts.Expression>,
 ): ts.ReturnStatement =>

@@ -6,8 +6,7 @@ import { resolved_equal_to } from "../helpers/resolved_equal_to";
 export const _test_misc_isClone =
   (name: string) =>
   <T>(factory: TestStructure<T>) =>
-  (clone: (input: T) => Resolved<T> | null) =>
-  () => {
+  (clone: (input: T) => Resolved<T> | null): void => {
     const data: T = factory.generate();
     const cloned: Resolved<T> | null = clone(data);
 

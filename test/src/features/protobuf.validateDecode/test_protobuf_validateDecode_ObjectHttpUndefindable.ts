@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_protobuf_validateDecode } from "../../internal/_test_protobuf_validateDecode";
 import { ObjectHttpUndefindable } from "../../structures/ObjectHttpUndefindable";
 
-export const test_protobuf_validateDecode_ObjectHttpUndefindable =
+export const test_protobuf_validateDecode_ObjectHttpUndefindable = (): void =>
   _test_protobuf_validateDecode(
     "ObjectHttpUndefindable",
   )<ObjectHttpUndefindable>(ObjectHttpUndefindable)({

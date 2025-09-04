@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsParametersAsync } from "../../internal/_
 import { ConstantAtomicWrapper } from "../../structures/ConstantAtomicWrapper";
 
 export const test_functional_validateEqualsParametersAsync_ConstantAtomicWrapper =
-  _test_functional_validateEqualsParametersAsync("ConstantAtomicWrapper")(
-    ConstantAtomicWrapper,
-  )((p: (input: ConstantAtomicWrapper) => Promise<ConstantAtomicWrapper>) =>
-    typia.functional.validateEqualsParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateEqualsParametersAsync("ConstantAtomicWrapper")(
+      ConstantAtomicWrapper,
+    )((p: (input: ConstantAtomicWrapper) => Promise<ConstantAtomicWrapper>) =>
+      typia.functional.validateEqualsParameters(p),
+    );
