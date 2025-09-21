@@ -403,7 +403,7 @@ export namespace TestFeature {
     //----
     // NOTATIONS
     //----
-    ...["camel", "pascal", "snake"]
+    ...["camel", "kebab", "pascal", "snake"]
       .map((method) =>
         ([null, "assert", "is", "validate"] as const).map((mode) => ({
           module: "notation",
