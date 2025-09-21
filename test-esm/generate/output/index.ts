@@ -1,5 +1,4 @@
 import { ILlmController } from "@samchon/openapi";
-import typia from "typia";
 import * as __typia_transform__isFormatDateTime from "typia/lib/internal/_isFormatDateTime.js";
 import * as __typia_transform__isFormatUuid from "typia/lib/internal/_isFormatUuid.js";
 import * as __typia_transform__validateReport from "typia/lib/internal/_validateReport.js";
@@ -11,7 +10,7 @@ const controller: ILlmController<"chatgpt"> =
     const application = {
       model: "chatgpt",
       options: {
-        reference: false,
+        reference: true,
         strict: false,
         separate: null,
       },

@@ -2,114 +2,70 @@ import { Spoiler } from "../helpers/Spoiler";
 import { TypeTagFormat } from "./TypeTagFormat";
 
 export interface CommentTagFormat {
-  /**
-   * @format byte
-   */
+  /** @format byte */
   byte: string;
 
-  /**
-   * @format password
-   */
+  /** @format password */
   password: string;
 
-  /**
-   * @format regex
-   */
+  /** @format regex */
   regex: string;
 
-  /**
-   * @format uuid
-   */
+  /** @format uuid */
   uuid: string;
 
-  /**
-   * @format email
-   */
+  /** @format email */
   email: string;
 
-  /**
-   * @format hostname
-   */
+  /** @format hostname */
   hostname: string;
 
-  /**
-   * @format idn-email
-   */
+  /** @format idn-email */
   idnEmail: string;
 
-  /**
-   * @format idn-hostname
-   */
+  /** @format idn-hostname */
   idnHostname: string;
 
-  /**
-   * @format iri
-   */
+  /** @format iri */
   iri: string;
 
-  /**
-   * @format iri-reference
-   */
+  /** @format iri-reference */
   iriReference: string;
 
-  /**
-   * @format ipv4
-   */
+  /** @format ipv4 */
   ipv4: string;
 
-  /**
-   * @format ipv6
-   */
+  /** @format ipv6 */
   ipv6: string;
 
-  /**
-   * @format uri
-   */
+  /** @format uri */
   uri: string;
 
-  /**
-   * @format uri-reference
-   */
+  /** @format uri-reference */
   uriReference: string;
 
-  /**
-   * @format uri-template
-   */
+  /** @format uri-template */
   uriTemplate: string;
 
-  /**
-   * @format url
-   */
+  /** @format url */
   url: string;
 
-  /**
-   * @format date-time
-   */
+  /** @format date-time */
   datetime: string;
 
-  /**
-   * @format date
-   */
+  /** @format date */
   date: string;
 
-  /**
-   * @format time
-   */
+  /** @format time */
   time: string;
 
-  /**
-   * @format duration
-   */
+  /** @format duration */
   duration: string;
 
-  /**
-   * @format json-pointer
-   */
+  /** @format json-pointer */
   jsonPointer: string;
 
-  /**
-   * @format relative-json-pointer
-   */
+  /** @format relative-json-pointer */
   relativeJsonPointer: string;
 }
 export namespace CommentTagFormat {

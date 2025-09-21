@@ -8,17 +8,13 @@ export class MetadataApplication {
   public readonly metadatas: Metadata[];
   public readonly components: MetadataComponents;
 
-  /**
-   * @hidden
-   */
+  /** @ignore */
   private constructor(props: ClassProperties<MetadataApplication>) {
     this.metadatas = props.metadatas;
     this.components = props.components;
   }
 
-  /**
-   * @internal
-   */
+  /** @internal */
   public static create(
     props: ClassProperties<MetadataApplication>,
   ): MetadataApplication {

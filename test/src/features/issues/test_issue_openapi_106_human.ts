@@ -6,9 +6,7 @@ import { TestValidator } from "../../helpers/TestValidator";
 interface SomeApplication {
   plus(props: { x: number; y: number }): number;
 
-  /**
-   * @human
-   */
+  /** @human */
   minus(props: { x: number; y: number }): number;
 }
 

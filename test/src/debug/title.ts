@@ -20,9 +20,7 @@ interface NoTitleTag {
  * @title This is the title tag
  */
 interface WithTitleTag {
-  /**
-   * @title This is title tag.
-   */
+  /** @title This is title tag. */
   title: string;
 
   /**

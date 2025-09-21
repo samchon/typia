@@ -10,9 +10,7 @@ import { check_number } from "./check_number";
 import { check_string } from "./check_string";
 import { check_template } from "./check_template";
 
-/**
- * @internal
- */
+/** @internal */
 export const check_dynamic_key = (props: {
   context: ITypiaContext;
   metadata: Metadata;
@@ -181,9 +179,7 @@ export const check_dynamic_key = (props: {
       : conditions.reduce(ts.factory.createLogicalOr);
 };
 
-/**
- * @internal
- */
+/** @internal */
 const atomist = (entry: ICheckEntry) =>
   [
     ...(entry.expression ? [entry.expression] : []),

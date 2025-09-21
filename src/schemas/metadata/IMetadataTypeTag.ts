@@ -9,8 +9,6 @@ export interface IMetadataTypeTag {
   validate?: string | undefined;
   schema?: object | undefined;
 
-  /**
-   * @internal
-   */
+  /** @internal */
   predicate?: (input: ts.Expression) => ts.Expression;
 }

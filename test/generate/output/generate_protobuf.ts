@@ -1,4 +1,4 @@
-import typia, { tags } from "typia";
+import { tags } from "typia";
 import * as __typia_transform__ProtobufReader from "typia/lib/internal/_ProtobufReader.js";
 import * as __typia_transform__ProtobufSizer from "typia/lib/internal/_ProtobufSizer.js";
 import * as __typia_transform__ProtobufWriter from "typia/lib/internal/_ProtobufWriter.js";

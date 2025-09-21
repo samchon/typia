@@ -8,7 +8,8 @@ export namespace TupleUnion {
   }
 
   /**
-   * @todo detailed error path should be changed after union explorer optimization
+   * @todo Detailed error path should be changed after union explorer
+   *   optimization
    */
   export const SPOILERS: Spoiler<TupleUnion>[] = [
     (input) => {

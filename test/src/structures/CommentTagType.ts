@@ -18,29 +18,19 @@ export namespace CommentTagType {
      */
     uint: number;
 
-    /**
-     * @type {int32}
-     */
+    /** @type {int32} */
     int32: number;
 
-    /**
-     * @type uint32
-     */
+    /** @type uint32 */
     uint32: number;
 
-    /**
-     * @type int64
-     */
+    /** @type int64 */
     int64: number;
 
-    /**
-     * @type {uint64}
-     */
+    /** @type {uint64} */
     uint64: number;
 
-    /**
-     * @type float
-     */
+    /** @type float */
     float: number;
   }
 

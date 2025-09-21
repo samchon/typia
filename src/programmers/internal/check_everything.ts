@@ -3,9 +3,7 @@ import ts from "typescript";
 import { IdentifierFactory } from "../../factories/IdentifierFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
 
-/**
- * @internal
- */
+/** @internal */
 export const check_everything = (array: ts.Expression) =>
   ts.factory.createCallExpression(
     IdentifierFactory.access(array, "every"),

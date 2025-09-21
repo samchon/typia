@@ -9,19 +9,13 @@ export interface CommentTagBigInt {
    */
   ranged: bigint;
 
-  /**
-   * @minimum 0
-   */
+  /** @minimum 0 */
   minimum: bigint;
 
-  /**
-   * @maximum 100
-   */
+  /** @maximum 100 */
   maximum: bigint;
 
-  /**
-   * @multipleOf 3
-   */
+  /** @multipleOf 3 */
   multipleOf: bigint;
 }
 export namespace CommentTagBigInt {

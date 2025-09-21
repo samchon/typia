@@ -36,6 +36,7 @@
     "@types/node": "^20.9.4",
     "@types/uuid": "^9.0.7",
     "prettier": "^3.2.5",
+    "prettier-plugin-jsdoc": "^1.3.3",
     "rimraf": "^5.0.5",
     "ts-node": "^10.9.2",
     "ts-patch": "^3.3.0",
@@ -48,7 +49,7 @@
     "source-map-support": "^0.5.21",
     "suppress-warnings": "^1.0.2",
     "tstl": "^3.0.0",
-    "uuid": "^9.0.1",
-    "typia": "workspace:^"
+    "typia": "workspace:^",
+    "uuid": "^9.0.1"
   }
 }

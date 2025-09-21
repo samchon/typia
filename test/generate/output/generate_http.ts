@@ -1,4 +1,4 @@
-import typia, { tags } from "typia";
+import { tags } from "typia";
 import * as __typia_transform__assertGuard from "typia/lib/internal/_assertGuard.js";
 import * as __typia_transform__httpQueryParseURLSearchParams from "typia/lib/internal/_httpQueryParseURLSearchParams.js";
 import * as __typia_transform__httpQueryReadBigint from "typia/lib/internal/_httpQueryReadBigint.js";

@@ -1,12 +1,8 @@
 export interface ObjectJsonTag {
-  /**
-   * @deprecated
-   */
+  /** @deprecated */
   vulnerable: string;
 
-  /**
-   * Descripted property.
-   */
+  /** Descripted property. */
   description: string;
 
   /**

@@ -98,9 +98,7 @@ export namespace MetadataFactory {
         };
   };
 
-  /**
-   * @internal
-   */
+  /** @internal */
   export const soleLiteral = (value: string): Metadata => {
     const meta: Metadata = Metadata.initialize();
     meta.constants.push(

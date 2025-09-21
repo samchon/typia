@@ -52,9 +52,7 @@ export class ImportProgrammer {
     );
   }
 
-  /**
-   * @internal
-   */
+  /** @internal */
   public internal(name: string): ts.PropertyAccessExpression {
     if (name.startsWith("_") === false) name = `_${name}`;
     return ts.factory.createPropertyAccessExpression(
@@ -66,9 +64,7 @@ export class ImportProgrammer {
     );
   }
 
-  /**
-   * @internal
-   */
+  /** @internal */
   public getInternalText(name: string): string {
     if (name.startsWith("_") === false) name = `_${name}`;
     const asset: IAsset | undefined = this.take(
@@ -78,9 +74,7 @@ export class ImportProgrammer {
     return `${asset.namespace.name}.${name}`;
   }
 
-  /**
-   * @internal
-   */
+  /** @internal */
   private take(file: string): IAsset {
     return MapUtil.take(this.assets_, file, () => ({
       file,

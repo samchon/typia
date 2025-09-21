@@ -7,9 +7,7 @@ import { Metadata } from "../../schemas/metadata/Metadata";
 
 import { IExpressionEntry } from "../helpers/IExpressionEntry";
 
-/**
- * @internal
- */
+/** @internal */
 export const stringify_regular_properties = (props: {
   regular: IExpressionEntry<ts.Expression>[];
   dynamic: IExpressionEntry<ts.Expression>[];
@@ -74,8 +72,6 @@ export const stringify_regular_properties = (props: {
   return output;
 };
 
-/**
- * @internal
- */
+/** @internal */
 const sequence = (meta: Metadata): number =>
   meta.any || !meta.isRequired() || meta.functions.length ? 0 : 1;

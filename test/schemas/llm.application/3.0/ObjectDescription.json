@@ -21,7 +21,7 @@
               },
               "deprecated": {
                 "type": "boolean",
-                "description": "Deprecated property.\n\nIf `@deprecated` comment tag being utilized, the property will be marked\nas deprecated in the JSON schema."
+                "description": "Deprecated property.\n\nIf `@deprecated` comment tag being utilized, the property will be marked as\ndeprecated in the JSON schema."
               },
               "title": {
                 "type": "string",
@@ -33,7 +33,7 @@
                 "items": {
                   "type": "string"
                 },
-                "description": "Description property.\n\nIf you write first line and the first line ends with \".\" character,\nit would be considered as the title. By the way, description does\nnot exclusive the title, so that full content be written."
+                "description": "Description property.\n\nIf you write first line and the first line ends with \".\" character, it\nwould be considered as the title. By the way, description does not\nexclusive the title, so that full content be written."
               },
               "newLine": {
                 "type": "number",
@@ -73,7 +73,7 @@
               },
               "deprecated": {
                 "type": "boolean",
-                "description": "Deprecated property.\n\nIf `@deprecated` comment tag being utilized, the property will be marked\nas deprecated in the JSON schema."
+                "description": "Deprecated property.\n\nIf `@deprecated` comment tag being utilized, the property will be marked as\ndeprecated in the JSON schema."
               },
               "title": {
                 "type": "string",
@@ -85,7 +85,7 @@
                 "items": {
                   "type": "string"
                 },
-                "description": "Description property.\n\nIf you write first line and the first line ends with \".\" character,\nit would be considered as the title. By the way, description does\nnot exclusive the title, so that full content be written."
+                "description": "Description property.\n\nIf you write first line and the first line ends with \".\" character, it\nwould be considered as the title. By the way, description does not\nexclusive the title, so that full content be written."
               },
               "newLine": {
                 "type": "number",
@@ -113,7 +113,7 @@
               },
               "deprecated": {
                 "type": "boolean",
-                "description": "Deprecated property.\n\nIf `@deprecated` comment tag being utilized, the property will be marked\nas deprecated in the JSON schema."
+                "description": "Deprecated property.\n\nIf `@deprecated` comment tag being utilized, the property will be marked as\ndeprecated in the JSON schema."
               },
               "title": {
                 "type": "string",
@@ -125,7 +125,7 @@
                 "items": {
                   "type": "string"
                 },
-                "description": "Description property.\n\nIf you write first line and the first line ends with \".\" character,\nit would be considered as the title. By the way, description does\nnot exclusive the title, so that full content be written."
+                "description": "Description property.\n\nIf you write first line and the first line ends with \".\" character, it\nwould be considered as the title. By the way, description does not\nexclusive the title, so that full content be written."
               },
               "newLine": {
                 "type": "number",
@@ -159,7 +159,7 @@
           },
           "deprecated": {
             "type": "boolean",
-            "description": "Deprecated property.\n\nIf `@deprecated` comment tag being utilized, the property will be marked\nas deprecated in the JSON schema."
+            "description": "Deprecated property.\n\nIf `@deprecated` comment tag being utilized, the property will be marked as\ndeprecated in the JSON schema."
           },
           "title": {
             "type": "string",
@@ -171,7 +171,7 @@
             "items": {
               "type": "string"
             },
-            "description": "Description property.\n\nIf you write first line and the first line ends with \".\" character,\nit would be considered as the title. By the way, description does\nnot exclusive the title, so that full content be written."
+            "description": "Description property.\n\nIf you write first line and the first line ends with \".\" character, it\nwould be considered as the title. By the way, description does not\nexclusive the title, so that full content be written."
           },
           "newLine": {
             "type": "number",
@@ -205,7 +205,7 @@
               },
               "deprecated": {
                 "type": "boolean",
-                "description": "Deprecated property.\n\nIf `@deprecated` comment tag being utilized, the property will be marked\nas deprecated in the JSON schema."
+                "description": "Deprecated property.\n\nIf `@deprecated` comment tag being utilized, the property will be marked as\ndeprecated in the JSON schema."
               },
               "title": {
                 "type": "string",
@@ -217,7 +217,7 @@
                 "items": {
                   "type": "string"
                 },
-                "description": "Description property.\n\nIf you write first line and the first line ends with \".\" character,\nit would be considered as the title. By the way, description does\nnot exclusive the title, so that full content be written."
+                "description": "Description property.\n\nIf you write first line and the first line ends with \".\" character, it\nwould be considered as the title. By the way, description does not\nexclusive the title, so that full content be written."
               },
               "newLine": {
                 "type": "number",
@@ -244,7 +244,7 @@
               },
               "deprecated": {
                 "type": "boolean",
-                "description": "Deprecated property.\n\nIf `@deprecated` comment tag being utilized, the property will be marked\nas deprecated in the JSON schema."
+                "description": "Deprecated property.\n\nIf `@deprecated` comment tag being utilized, the property will be marked as\ndeprecated in the JSON schema."
               },
               "title": {
                 "type": "string",
@@ -256,7 +256,7 @@
                 "items": {
                   "type": "string"
                 },
-                "description": "Description property.\n\nIf you write first line and the first line ends with \".\" character,\nit would be considered as the title. By the way, description does\nnot exclusive the title, so that full content be written."
+                "description": "Description property.\n\nIf you write first line and the first line ends with \".\" character, it\nwould be considered as the title. By the way, description does not\nexclusive the title, so that full content be written."
               },
               "newLine": {
                 "type": "number",
@@ -283,7 +283,7 @@
               },
               "deprecated": {
                 "type": "boolean",
-                "description": "Deprecated property.\n\nIf `@deprecated` comment tag being utilized, the property will be marked\nas deprecated in the JSON schema."
+                "description": "Deprecated property.\n\nIf `@deprecated` comment tag being utilized, the property will be marked as\ndeprecated in the JSON schema."
               },
               "title": {
                 "type": "string",
@@ -295,7 +295,7 @@
                 "items": {
                   "type": "string"
                 },
-                "description": "Description property.\n\nIf you write first line and the first line ends with \".\" character,\nit would be considered as the title. By the way, description does\nnot exclusive the title, so that full content be written."
+                "description": "Description property.\n\nIf you write first line and the first line ends with \".\" character, it\nwould be considered as the title. By the way, description does not\nexclusive the title, so that full content be written."
               },
               "newLine": {
                 "type": "number",
@@ -329,7 +329,7 @@
           },
           "deprecated": {
             "type": "boolean",
-            "description": "Deprecated property.\n\nIf `@deprecated` comment tag being utilized, the property will be marked\nas deprecated in the JSON schema."
+            "description": "Deprecated property.\n\nIf `@deprecated` comment tag being utilized, the property will be marked as\ndeprecated in the JSON schema."
           },
           "title": {
             "type": "string",
@@ -341,7 +341,7 @@
             "items": {
               "type": "string"
             },
-            "description": "Description property.\n\nIf you write first line and the first line ends with \".\" character,\nit would be considered as the title. By the way, description does\nnot exclusive the title, so that full content be written."
+            "description": "Description property.\n\nIf you write first line and the first line ends with \".\" character, it\nwould be considered as the title. By the way, description does not\nexclusive the title, so that full content be written."
           },
           "newLine": {
             "type": "number",

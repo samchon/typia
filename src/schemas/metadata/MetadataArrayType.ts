@@ -10,9 +10,7 @@ export class MetadataArrayType {
   public readonly recursive: boolean;
   public readonly index: number | null;
 
-  /**
-   * @hidden
-   */
+  /** @ignore */
   private constructor(props: ClassProperties<MetadataArrayType>) {
     this.name = props.name;
     this.value = props.value;
@@ -21,9 +19,7 @@ export class MetadataArrayType {
     this.nullables = props.nullables;
   }
 
-  /**
-   * @internal
-   */
+  /** @internal */
   public static _From_without_value(
     props: Omit<IMetadataArrayType, "value">,
   ): MetadataArrayType {
@@ -36,9 +32,7 @@ export class MetadataArrayType {
     });
   }
 
-  /**
-   * @internal
-   */
+  /** @internal */
   public static create(
     props: ClassProperties<MetadataArrayType>,
   ): MetadataArrayType {

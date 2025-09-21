@@ -1,4 +1,4 @@
-import typia, { tags } from "typia";
+import { tags } from "typia";
 import * as __typia_transform__assertGuard from "typia/lib/internal/_assertGuard.js";
 import * as __typia_transform__isFormatEmail from "typia/lib/internal/_isFormatEmail.js";
 import * as __typia_transform__isFormatUuid from "typia/lib/internal/_isFormatUuid.js";

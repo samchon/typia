@@ -1,4 +1,4 @@
-import typia, { tags } from "typia";
+import { tags } from "typia";
 import * as __typia_transform__accessExpressionAsString from "typia/lib/internal/_accessExpressionAsString.js";
 import * as __typia_transform__assertGuard from "typia/lib/internal/_assertGuard.js";
 import * as __typia_transform__createStandardSchema from "typia/lib/internal/_createStandardSchema.js";
