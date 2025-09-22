@@ -65,6 +65,7 @@ export default async function RootLayout(props) {
         //   saturation: { dark: 100, light: 100 },
         // }}
       >
+        <meta name="description" content={description} />
         {/* ICONS */}
         <link rel="manifest" href="/favicon/site.webmanifest" />
         <link
