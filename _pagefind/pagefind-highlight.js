@@ -29,7 +29,7 @@ var require_mark = __commonJS({
   "node_modules/mark.js/dist/mark.js"(exports, module) {
     (function(global, factory) {
       typeof exports === "object" && typeof module !== "undefined" ? module.exports = factory() : typeof define === "function" && define.amd ? define(factory) : global.Mark = factory();
-    })(exports, function() {
+    })(exports, (function() {
       "use strict";
       var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function(obj) {
         return typeof obj;
@@ -41,25 +41,22 @@ var require_mark = __commonJS({
           throw new TypeError("Cannot call a class as a function");
         }
       };
-      var createClass = function() {
+      var createClass = /* @__PURE__ */ (function() {
         function defineProperties(target, props) {
           for (var i = 0; i < props.length; i++) {
             var descriptor = props[i];
             descriptor.enumerable = descriptor.enumerable || false;
             descriptor.configurable = true;
-            if ("value" in descriptor)
-              descriptor.writable = true;
+            if ("value" in descriptor) descriptor.writable = true;
             Object.defineProperty(target, descriptor.key, descriptor);
           }
         }
         return function(Constructor, protoProps, staticProps) {
-          if (protoProps)
-            defineProperties(Constructor.prototype, protoProps);
-          if (staticProps)
-            defineProperties(Constructor, staticProps);
+          if (protoProps) defineProperties(Constructor.prototype, protoProps);
+          if (staticProps) defineProperties(Constructor, staticProps);
           return Constructor;
         };
-      }();
+      })();
       var _extends = Object.assign || function(target) {
         for (var i = 1; i < arguments.length; i++) {
           var source = arguments[i];
@@ -71,7 +68,7 @@ var require_mark = __commonJS({
         }
         return target;
       };
-      var DOMIterator = function() {
+      var DOMIterator = (function() {
         function DOMIterator2(ctx) {
           var iframes = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : true;
           var exclude = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : [];
@@ -381,8 +378,8 @@ var require_mark = __commonJS({
           }
         }]);
         return DOMIterator2;
-      }();
-      var Mark$1 = function() {
+      })();
+      var Mark$1 = (function() {
         function Mark3(ctx) {
           classCallCheck(this, Mark3);
           this.ctx = ctx;
@@ -962,7 +959,7 @@ var require_mark = __commonJS({
           }
         }]);
         return Mark3;
-      }();
+      })();
       function Mark2(ctx) {
         var _this = this;
         var instance = new Mark$1(ctx);
@@ -985,7 +982,7 @@ var require_mark = __commonJS({
         return this;
       }
       return Mark2;
-    });
+    }));
   }
 });
 
@@ -1024,8 +1021,7 @@ var PagefindHighlight = class {
   }
   // Inline styles might be too hard to override
   addHighlightStyles(className) {
-    if (!className)
-      return;
+    if (!className) return;
     const styleElement = document.createElement("style");
     styleElement.innerText = `:where(.${className}) { background-color: yellow; color: black; }`;
     document.head.appendChild(styleElement);
@@ -1046,8 +1042,7 @@ var PagefindHighlight = class {
   }
   highlight() {
     const params = this.getHighlightParams(this.highlightParam);
-    if (!params || params.length === 0)
-      return;
+    if (!params || params.length === 0) return;
     this.addStyles && this.addHighlightStyles(this.markOptions.className);
     const markInstance = this.createMarkInstance();
     this.markText(markInstance, params);
