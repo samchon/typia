@@ -13,6 +13,7 @@
   },
   "homepage": "https://typia.io",
   "devDependencies": {
-    "typia": "../../typia.tgz"
+    "typia": "../../typia.tgz",
+    "@autobe/interface": "^0.24.1"
   }
 }
