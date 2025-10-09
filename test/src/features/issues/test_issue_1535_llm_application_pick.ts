@@ -14,13 +14,13 @@ export const test_issue_1535_llm_application_pick = (): void => {
     )(props.expected.sort());
   assert({
     title: "all",
-    application: typia.llm.application<Mathmatics, "chatgpt">(),
+    application: typia.llm.application<Mathematics, "chatgpt">(),
     expected: ["plus", "minus", "multiply", "divide"],
   });
   assert({
     title: "pick",
     application: typia.llm.application<
-      Pick<Mathmatics, "plus" | "divide">,
+      Pick<Mathematics, "plus" | "divide">,
       "chatgpt"
     >(),
     expected: ["plus", "divide"],
@@ -28,22 +28,22 @@ export const test_issue_1535_llm_application_pick = (): void => {
   assert({
     title: "omit",
     application: typia.llm.application<
-      Omit<Mathmatics, "minus" | "multiply">,
+      Omit<Mathematics, "minus" | "multiply">,
       "chatgpt"
     >(),
     expected: ["plus", "divide"],
   });
 };
 
-type PlusFunction = MathmaticsFunction;
-type MathmaticsFunction = Operation;
+type PlusFunction = MathematicsFunction;
+type MathematicsFunction = Operation;
 type Operation = (props: { x: number; y: number }) => number;
 
 type Operator = Calculator;
-type Calculator = Mathmatics;
-interface Mathmatics {
+type Calculator = Mathematics;
+interface Mathematics {
   plus: PlusFunction;
-  minus: MathmaticsFunction;
+  minus: MathematicsFunction;
   multiply: Operation;
   divide: (props: { x: number; y: number }) => number;
 }
