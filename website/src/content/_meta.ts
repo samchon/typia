@@ -6,6 +6,7 @@ export default {
     type: "page",
     display: "hidden",
     theme: {
+      copyPage: false,
       toc: false,
     },
   },
@@ -17,6 +18,7 @@ export default {
     title: "💻 Playground",
     type: "page",
     theme: {
+      copyPage: false,
       layout: "full",
       footer: false,
     },
