@@ -197,7 +197,7 @@ export namespace TestValidator {
     };
 
   /**
-   * Valiate search options.
+   * Validate search options.
    *
    * Test a pagination API supporting search options.
    *
