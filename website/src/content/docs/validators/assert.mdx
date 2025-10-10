@@ -142,7 +142,7 @@ Assertion guard of a value type.
 
 `typia.assertGuard<T>()` is similar with [`typia.assert<T>()`](#assert-function) throwing a `TypeGuardError` when wrong type. 
 
-However, [`typia.assert<T>()`](#assert-function) returns the paramteric input value itself when there's no type problem on the parametric input value, whereas the `typia.assertGuard<T>()` function returns nothing. Instead, the parametric input value would be automatically cased to the type `T`. This is the concept of "Assertion Guard" of a value type.
+However, [`typia.assert<T>()`](#assert-function) returns the parametric input value itself when there's no type problem on the parametric input value, whereas the `typia.assertGuard<T>()` function returns nothing. Instead, the parametric input value would be automatically cased to the type `T`. This is the concept of "Assertion Guard" of a value type.
 
 Such similarities and differences of `typia.assertGuard<T>()` and [`typia.assert<T>()`](#assert-function) functions are the same in the case of `typia.assertGuardEquals<T>()` and [`typia.assertEquals<T>()`](#assertequals-function) functions. If there's no type problem on the `typia.assertGuardEquals<T>()` function, it also performs the "Assertion Guard".
 

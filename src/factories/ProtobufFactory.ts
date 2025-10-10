@@ -547,7 +547,7 @@ export namespace ProtobufFactory {
   };
 
   /* -----------------------------------------------------------
-    SEQUENE VALIDATOR
+    SEQUENCE VALIDATOR
   ----------------------------------------------------------- */
   const validateObject = (next: {
     object: MetadataObjectType;
