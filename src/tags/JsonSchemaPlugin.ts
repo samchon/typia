@@ -23,7 +23,7 @@ import { TagBase } from "./TagBase";
  *     "x-format": "currency",
  *     "x-example": 19.99
  *   }>;
- *   ```
+ *   ```;
  *
  * @template Schema - Object containing custom properties to add to the JSON
  *   Schema

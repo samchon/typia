@@ -620,6 +620,7 @@ export namespace CheckerProgrammer {
           expression: props.config.atomist({
             explore: props.explore,
             entry: check_template({
+              context: props.context,
               templates: props.metadata.templates,
               input: props.input,
             }),

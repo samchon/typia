@@ -125,6 +125,7 @@ export const check_dynamic_key = (props: {
     conditions.push(
       atomist(
         check_template({
+          context: props.context,
           templates: props.metadata.templates,
           input: props.input,
         }),
