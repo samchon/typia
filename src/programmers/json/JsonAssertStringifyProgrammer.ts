@@ -27,7 +27,7 @@ export namespace JsonAssertStringifyProgrammer {
         options: {
           ...props.context.options,
           functional: false,
-          numeric: true,
+          finite: true,
         },
       },
       config: {
