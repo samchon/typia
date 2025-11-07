@@ -28,7 +28,7 @@ export namespace ProtobufAssertEncodeProgrammer {
         options: {
           ...props.context.options,
           functional: false,
-          numeric: true,
+          finite: true,
         },
       },
       config: {
