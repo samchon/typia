@@ -1,5 +1,6 @@
 import cp from "child_process";
 import fs from "fs";
+import path from "path";
 import { Singleton, VariadicSingleton } from "tstl";
 
 export function getLocalSourceFile(location: string): Promise<string> {
@@ -16,7 +17,7 @@ const loader = new VariadicSingleton(async (location: string) => {
 });
 
 const root = new Singleton(async () => {
-  let cwd: string = `${__dirname}/..`;
+  let cwd: string = `${__dirname}/../..`;
   while (true) {
     cwd += "/..";
     if (fs.existsSync(`${cwd}/package.json`) === false) continue;
@@ -25,7 +26,7 @@ const root = new Singleton(async () => {
     );
     if (name === "typia") break;
   }
-  return cwd;
+  return path.resolve(cwd);
 });
 
 const examples = new Singleton(async () => {
