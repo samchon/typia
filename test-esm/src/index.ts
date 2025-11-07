@@ -16,7 +16,7 @@ console.log(
       id: string;
     },
     "gemini"
-  >(),
+  >({}),
   typia.llm.controller<{ say(): void }, "gemini">("default", {
     say: () => console.log("say"),
   }),
