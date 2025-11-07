@@ -7,4 +7,4 @@ export const test_llm_schema_gemini_CommentTagRange = (): void =>
   _test_llm_schema({
     model: "gemini",
     name: "CommentTagRange",
-  })(typia.llm.schema<CommentTagRange, "gemini">());
+  })(typia.llm.schema<CommentTagRange, "gemini">({}));

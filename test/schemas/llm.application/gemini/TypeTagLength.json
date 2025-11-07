@@ -1,7 +1,7 @@
 {
   "model": "gemini",
   "options": {
-    "recursive": 3,
+    "reference": true,
     "separate": null
   },
   "functions": [
@@ -11,54 +11,61 @@
         "type": "object",
         "properties": {
           "first": {
+            "$ref": "#/$defs/TypeTagLength"
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "TypeTagLength": {
             "type": "object",
             "properties": {
               "value": {
                 "type": "array",
                 "items": {
-                  "type": "object",
-                  "properties": {
-                    "fixed": {
-                      "type": "string",
-                      "description": "@minLength 5\n@maxLength 5"
-                    },
-                    "minimum": {
-                      "type": "string",
-                      "description": "@minLength 3"
-                    },
-                    "maximum": {
-                      "type": "string",
-                      "description": "@maxLength 7"
-                    },
-                    "minimum_and_maximum": {
-                      "type": "string",
-                      "description": "@minLength 3\n@maxLength 7"
-                    },
-                    "equal": {
-                      "type": "string",
-                      "description": "@minLength 10\n@maxLength 19"
-                    }
-                  },
-                  "required": [
-                    "fixed",
-                    "minimum",
-                    "maximum",
-                    "minimum_and_maximum",
-                    "equal"
-                  ],
-                  "description": "Current Type: {@link TypeTagLength.Type}"
+                  "$ref": "#/$defs/TypeTagLength.Type"
                 }
               }
             },
             "required": [
               "value"
-            ],
-            "description": "Current Type: {@link TypeTagLength}"
+            ]
+          },
+          "TypeTagLength.Type": {
+            "type": "object",
+            "properties": {
+              "fixed": {
+                "description": "@minLength 5\n@maxLength 5",
+                "type": "string"
+              },
+              "minimum": {
+                "description": "@minLength 3",
+                "type": "string"
+              },
+              "maximum": {
+                "description": "@maxLength 7",
+                "type": "string"
+              },
+              "minimum_and_maximum": {
+                "description": "@minLength 3\n@maxLength 7",
+                "type": "string"
+              },
+              "equal": {
+                "description": "@minLength 10\n@maxLength 19",
+                "type": "string"
+              }
+            },
+            "required": [
+              "fixed",
+              "minimum",
+              "maximum",
+              "minimum_and_maximum",
+              "equal"
+            ]
           }
-        },
-        "required": [
-          "first"
-        ]
+        }
       }
     },
     {
@@ -67,145 +74,75 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "object",
-            "properties": {
-              "value": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "fixed": {
-                      "type": "string",
-                      "description": "@minLength 5\n@maxLength 5"
-                    },
-                    "minimum": {
-                      "type": "string",
-                      "description": "@minLength 3"
-                    },
-                    "maximum": {
-                      "type": "string",
-                      "description": "@maxLength 7"
-                    },
-                    "minimum_and_maximum": {
-                      "type": "string",
-                      "description": "@minLength 3\n@maxLength 7"
-                    },
-                    "equal": {
-                      "type": "string",
-                      "description": "@minLength 10\n@maxLength 19"
-                    }
-                  },
-                  "required": [
-                    "fixed",
-                    "minimum",
-                    "maximum",
-                    "minimum_and_maximum",
-                    "equal"
-                  ],
-                  "description": "Current Type: {@link TypeTagLength.Type}"
-                }
-              }
-            },
-            "required": [
-              "value"
-            ],
-            "description": "Current Type: {@link TypeTagLength}"
+            "$ref": "#/$defs/TypeTagLength"
           },
           "second": {
-            "type": "object",
-            "properties": {
-              "value": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "fixed": {
-                      "type": "string",
-                      "description": "@minLength 5\n@maxLength 5"
-                    },
-                    "minimum": {
-                      "type": "string",
-                      "description": "@minLength 3"
-                    },
-                    "maximum": {
-                      "type": "string",
-                      "description": "@maxLength 7"
-                    },
-                    "minimum_and_maximum": {
-                      "type": "string",
-                      "description": "@minLength 3\n@maxLength 7"
-                    },
-                    "equal": {
-                      "type": "string",
-                      "description": "@minLength 10\n@maxLength 19"
-                    }
-                  },
-                  "required": [
-                    "fixed",
-                    "minimum",
-                    "maximum",
-                    "minimum_and_maximum",
-                    "equal"
-                  ],
-                  "description": "Current Type: {@link TypeTagLength.Type}"
-                }
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/$defs/TypeTagLength"
               }
-            },
-            "required": [
-              "value"
-            ],
-            "nullable": true
+            ]
           }
         },
         "required": [
           "first",
           "second"
-        ]
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "TypeTagLength": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/TypeTagLength.Type"
+                }
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "TypeTagLength.Type": {
+            "type": "object",
+            "properties": {
+              "fixed": {
+                "description": "@minLength 5\n@maxLength 5",
+                "type": "string"
+              },
+              "minimum": {
+                "description": "@minLength 3",
+                "type": "string"
+              },
+              "maximum": {
+                "description": "@maxLength 7",
+                "type": "string"
+              },
+              "minimum_and_maximum": {
+                "description": "@minLength 3\n@maxLength 7",
+                "type": "string"
+              },
+              "equal": {
+                "description": "@minLength 10\n@maxLength 19",
+                "type": "string"
+              }
+            },
+            "required": [
+              "fixed",
+              "minimum",
+              "maximum",
+              "minimum_and_maximum",
+              "equal"
+            ]
+          }
+        }
       },
       "output": {
-        "type": "object",
-        "properties": {
-          "value": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "fixed": {
-                  "type": "string",
-                  "description": "@minLength 5\n@maxLength 5"
-                },
-                "minimum": {
-                  "type": "string",
-                  "description": "@minLength 3"
-                },
-                "maximum": {
-                  "type": "string",
-                  "description": "@maxLength 7"
-                },
-                "minimum_and_maximum": {
-                  "type": "string",
-                  "description": "@minLength 3\n@maxLength 7"
-                },
-                "equal": {
-                  "type": "string",
-                  "description": "@minLength 10\n@maxLength 19"
-                }
-              },
-              "required": [
-                "fixed",
-                "minimum",
-                "maximum",
-                "minimum_and_maximum",
-                "equal"
-              ],
-              "description": "Current Type: {@link TypeTagLength.Type}"
-            }
-          }
-        },
-        "required": [
-          "value"
-        ],
-        "description": "Current Type: {@link TypeTagLength}"
+        "$ref": "#/$defs/TypeTagLength"
       }
     },
     {
@@ -214,190 +151,99 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "object",
-            "properties": {
-              "value": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "fixed": {
-                      "type": "string",
-                      "description": "@minLength 5\n@maxLength 5"
-                    },
-                    "minimum": {
-                      "type": "string",
-                      "description": "@minLength 3"
-                    },
-                    "maximum": {
-                      "type": "string",
-                      "description": "@maxLength 7"
-                    },
-                    "minimum_and_maximum": {
-                      "type": "string",
-                      "description": "@minLength 3\n@maxLength 7"
-                    },
-                    "equal": {
-                      "type": "string",
-                      "description": "@minLength 10\n@maxLength 19"
-                    }
-                  },
-                  "required": [
-                    "fixed",
-                    "minimum",
-                    "maximum",
-                    "minimum_and_maximum",
-                    "equal"
-                  ],
-                  "description": "Current Type: {@link TypeTagLength.Type}"
-                }
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/$defs/TypeTagLength"
               }
-            },
-            "required": [
-              "value"
-            ],
-            "nullable": true
+            ]
           },
           "second": {
-            "type": "object",
-            "properties": {
-              "value": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "fixed": {
-                      "type": "string",
-                      "description": "@minLength 5\n@maxLength 5"
-                    },
-                    "minimum": {
-                      "type": "string",
-                      "description": "@minLength 3"
-                    },
-                    "maximum": {
-                      "type": "string",
-                      "description": "@maxLength 7"
-                    },
-                    "minimum_and_maximum": {
-                      "type": "string",
-                      "description": "@minLength 3\n@maxLength 7"
-                    },
-                    "equal": {
-                      "type": "string",
-                      "description": "@minLength 10\n@maxLength 19"
-                    }
-                  },
-                  "required": [
-                    "fixed",
-                    "minimum",
-                    "maximum",
-                    "minimum_and_maximum",
-                    "equal"
-                  ],
-                  "description": "Current Type: {@link TypeTagLength.Type}"
-                }
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/$defs/TypeTagLength"
               }
-            },
-            "required": [
-              "value"
-            ],
-            "nullable": true
+            ]
           },
           "third": {
-            "type": "object",
-            "properties": {
-              "value": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "fixed": {
-                      "type": "string",
-                      "description": "@minLength 5\n@maxLength 5"
-                    },
-                    "minimum": {
-                      "type": "string",
-                      "description": "@minLength 3"
-                    },
-                    "maximum": {
-                      "type": "string",
-                      "description": "@maxLength 7"
-                    },
-                    "minimum_and_maximum": {
-                      "type": "string",
-                      "description": "@minLength 3\n@maxLength 7"
-                    },
-                    "equal": {
-                      "type": "string",
-                      "description": "@minLength 10\n@maxLength 19"
-                    }
-                  },
-                  "required": [
-                    "fixed",
-                    "minimum",
-                    "maximum",
-                    "minimum_and_maximum",
-                    "equal"
-                  ],
-                  "description": "Current Type: {@link TypeTagLength.Type}"
-                }
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/$defs/TypeTagLength"
               }
-            },
-            "required": [
-              "value"
-            ],
-            "nullable": true
+            ]
           }
         },
         "required": [
           "first",
           "second"
-        ]
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "TypeTagLength": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/TypeTagLength.Type"
+                }
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "TypeTagLength.Type": {
+            "type": "object",
+            "properties": {
+              "fixed": {
+                "description": "@minLength 5\n@maxLength 5",
+                "type": "string"
+              },
+              "minimum": {
+                "description": "@minLength 3",
+                "type": "string"
+              },
+              "maximum": {
+                "description": "@maxLength 7",
+                "type": "string"
+              },
+              "minimum_and_maximum": {
+                "description": "@minLength 3\n@maxLength 7",
+                "type": "string"
+              },
+              "equal": {
+                "description": "@minLength 10\n@maxLength 19",
+                "type": "string"
+              }
+            },
+            "required": [
+              "fixed",
+              "minimum",
+              "maximum",
+              "minimum_and_maximum",
+              "equal"
+            ]
+          }
+        }
       },
       "output": {
-        "type": "object",
-        "properties": {
-          "value": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "fixed": {
-                  "type": "string",
-                  "description": "@minLength 5\n@maxLength 5"
-                },
-                "minimum": {
-                  "type": "string",
-                  "description": "@minLength 3"
-                },
-                "maximum": {
-                  "type": "string",
-                  "description": "@maxLength 7"
-                },
-                "minimum_and_maximum": {
-                  "type": "string",
-                  "description": "@minLength 3\n@maxLength 7"
-                },
-                "equal": {
-                  "type": "string",
-                  "description": "@minLength 10\n@maxLength 19"
-                }
-              },
-              "required": [
-                "fixed",
-                "minimum",
-                "maximum",
-                "minimum_and_maximum",
-                "equal"
-              ],
-              "description": "Current Type: {@link TypeTagLength.Type}"
-            }
+        "anyOf": [
+          {
+            "type": "null"
+          },
+          {
+            "$ref": "#/$defs/TypeTagLength"
           }
-        },
-        "required": [
-          "value"
-        ],
-        "nullable": true
+        ]
       }
     }
   ]

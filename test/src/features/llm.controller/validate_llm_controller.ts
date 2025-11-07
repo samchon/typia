@@ -12,23 +12,10 @@ export const test_llm_controller_claude = (): void =>
     typia.llm.controller<Calculator, "claude">("claude", new Calculator()),
     typia.createAssertGuard<ILlmController<"claude", Calculator>>(),
   );
-
-export const test_llm_controller_deepseek = (): void =>
-  validate_llm_controller(
-    typia.llm.controller<Calculator, "deepseek">("deepseek", new Calculator()),
-    typia.createAssertGuard<ILlmController<"deepseek", Calculator>>(),
-  );
-
 export const test_llm_controller_gemini = (): void =>
   validate_llm_controller(
     typia.llm.controller<Calculator, "gemini">("gemini", new Calculator()),
     typia.createAssertGuard<ILlmController<"gemini", Calculator>>(),
-  );
-
-export const test_llm_controller_llama = (): void =>
-  validate_llm_controller(
-    typia.llm.controller<Calculator, "llama">("llama", new Calculator()),
-    typia.createAssertGuard<ILlmController<"llama", Calculator>>(),
   );
 
 export const test_llm_controller_llm_v30 = (): void =>
@@ -37,7 +24,7 @@ export const test_llm_controller_llm_v30 = (): void =>
     typia.createAssertGuard<ILlmController<"3.0", Calculator>>(),
   );
 
-export const test_llm_controller_v31 = (): void =>
+export const test_llm_controller_llm_v31 = (): void =>
   validate_llm_controller(
     typia.llm.controller<Calculator, "3.1">("3.1", new Calculator()),
     typia.createAssertGuard<ILlmController<"3.1", Calculator>>(),

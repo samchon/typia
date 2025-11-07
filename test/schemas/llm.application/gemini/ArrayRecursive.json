@@ -1,7 +1,7 @@
 {
   "model": "gemini",
   "options": {
-    "recursive": 3,
+    "reference": true,
     "separate": null
   },
   "functions": [
@@ -11,134 +11,21 @@
         "type": "object",
         "properties": {
           "first": {
+            "$ref": "#/$defs/ArrayRecursive.ICategory"
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ArrayRecursive.ICategory": {
             "type": "object",
             "properties": {
               "children": {
                 "type": "array",
                 "items": {
-                  "type": "object",
-                  "properties": {
-                    "children": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "children": {
-                            "type": "array",
-                            "items": {
-                              "type": "object",
-                              "properties": {
-                                "children": {
-                                  "type": "array",
-                                  "items": {},
-                                  "description": "@maxItems 0"
-                                },
-                                "id": {
-                                  "type": "number"
-                                },
-                                "code": {
-                                  "type": "string"
-                                },
-                                "sequence": {
-                                  "type": "number"
-                                },
-                                "created_at": {
-                                  "type": "object",
-                                  "properties": {
-                                    "time": {
-                                      "type": "number"
-                                    },
-                                    "zone": {
-                                      "type": "number"
-                                    }
-                                  },
-                                  "required": [
-                                    "time",
-                                    "zone"
-                                  ],
-                                  "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
-                                }
-                              },
-                              "required": [
-                                "children",
-                                "id",
-                                "code",
-                                "sequence",
-                                "created_at"
-                              ],
-                              "description": "Current Type: {@link ArrayRecursive.ICategory}"
-                            }
-                          },
-                          "id": {
-                            "type": "number"
-                          },
-                          "code": {
-                            "type": "string"
-                          },
-                          "sequence": {
-                            "type": "number"
-                          },
-                          "created_at": {
-                            "type": "object",
-                            "properties": {
-                              "time": {
-                                "type": "number"
-                              },
-                              "zone": {
-                                "type": "number"
-                              }
-                            },
-                            "required": [
-                              "time",
-                              "zone"
-                            ],
-                            "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
-                          }
-                        },
-                        "required": [
-                          "children",
-                          "id",
-                          "code",
-                          "sequence",
-                          "created_at"
-                        ],
-                        "description": "Current Type: {@link ArrayRecursive.ICategory}"
-                      }
-                    },
-                    "id": {
-                      "type": "number"
-                    },
-                    "code": {
-                      "type": "string"
-                    },
-                    "sequence": {
-                      "type": "number"
-                    },
-                    "created_at": {
-                      "type": "object",
-                      "properties": {
-                        "time": {
-                          "type": "number"
-                        },
-                        "zone": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "time",
-                        "zone"
-                      ],
-                      "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
-                    }
-                  },
-                  "required": [
-                    "children",
-                    "id",
-                    "code",
-                    "sequence",
-                    "created_at"
-                  ],
-                  "description": "Current Type: {@link ArrayRecursive.ICategory}"
+                  "$ref": "#/$defs/ArrayRecursive.ICategory"
                 }
               },
               "id": {
@@ -151,20 +38,7 @@
                 "type": "number"
               },
               "created_at": {
-                "type": "object",
-                "properties": {
-                  "time": {
-                    "type": "number"
-                  },
-                  "zone": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "time",
-                  "zone"
-                ],
-                "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
+                "$ref": "#/$defs/ArrayRecursive.ITimestamp"
               }
             },
             "required": [
@@ -173,13 +47,24 @@
               "code",
               "sequence",
               "created_at"
-            ],
-            "description": "Current Type: {@link ArrayRecursive.ICategory}"
+            ]
+          },
+          "ArrayRecursive.ITimestamp": {
+            "type": "object",
+            "properties": {
+              "time": {
+                "type": "number"
+              },
+              "zone": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "time",
+              "zone"
+            ]
           }
-        },
-        "required": [
-          "first"
-        ]
+        }
       }
     },
     {
@@ -188,484 +73,56 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "object",
-            "properties": {
-              "children": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "children": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "children": {
-                            "type": "array",
-                            "items": {
-                              "type": "object",
-                              "properties": {
-                                "children": {
-                                  "type": "array",
-                                  "items": {},
-                                  "description": "@maxItems 0"
-                                },
-                                "id": {
-                                  "type": "number"
-                                },
-                                "code": {
-                                  "type": "string"
-                                },
-                                "sequence": {
-                                  "type": "number"
-                                },
-                                "created_at": {
-                                  "type": "object",
-                                  "properties": {
-                                    "time": {
-                                      "type": "number"
-                                    },
-                                    "zone": {
-                                      "type": "number"
-                                    }
-                                  },
-                                  "required": [
-                                    "time",
-                                    "zone"
-                                  ],
-                                  "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
-                                }
-                              },
-                              "required": [
-                                "children",
-                                "id",
-                                "code",
-                                "sequence",
-                                "created_at"
-                              ],
-                              "description": "Current Type: {@link ArrayRecursive.ICategory}"
-                            }
-                          },
-                          "id": {
-                            "type": "number"
-                          },
-                          "code": {
-                            "type": "string"
-                          },
-                          "sequence": {
-                            "type": "number"
-                          },
-                          "created_at": {
-                            "type": "object",
-                            "properties": {
-                              "time": {
-                                "type": "number"
-                              },
-                              "zone": {
-                                "type": "number"
-                              }
-                            },
-                            "required": [
-                              "time",
-                              "zone"
-                            ],
-                            "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
-                          }
-                        },
-                        "required": [
-                          "children",
-                          "id",
-                          "code",
-                          "sequence",
-                          "created_at"
-                        ],
-                        "description": "Current Type: {@link ArrayRecursive.ICategory}"
-                      }
-                    },
-                    "id": {
-                      "type": "number"
-                    },
-                    "code": {
-                      "type": "string"
-                    },
-                    "sequence": {
-                      "type": "number"
-                    },
-                    "created_at": {
-                      "type": "object",
-                      "properties": {
-                        "time": {
-                          "type": "number"
-                        },
-                        "zone": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "time",
-                        "zone"
-                      ],
-                      "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
-                    }
-                  },
-                  "required": [
-                    "children",
-                    "id",
-                    "code",
-                    "sequence",
-                    "created_at"
-                  ],
-                  "description": "Current Type: {@link ArrayRecursive.ICategory}"
-                }
-              },
-              "id": {
-                "type": "number"
-              },
-              "code": {
-                "type": "string"
-              },
-              "sequence": {
-                "type": "number"
-              },
-              "created_at": {
-                "type": "object",
-                "properties": {
-                  "time": {
-                    "type": "number"
-                  },
-                  "zone": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "time",
-                  "zone"
-                ],
-                "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
-              }
-            },
-            "required": [
-              "children",
-              "id",
-              "code",
-              "sequence",
-              "created_at"
-            ],
-            "description": "Current Type: {@link ArrayRecursive.ICategory}"
+            "$ref": "#/$defs/ArrayRecursive.ICategory"
           },
           "second": {
-            "type": "object",
-            "properties": {
-              "children": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "children": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "children": {
-                            "type": "array",
-                            "items": {
-                              "type": "object",
-                              "properties": {
-                                "children": {
-                                  "type": "array",
-                                  "items": {},
-                                  "description": "@maxItems 0"
-                                },
-                                "id": {
-                                  "type": "number"
-                                },
-                                "code": {
-                                  "type": "string"
-                                },
-                                "sequence": {
-                                  "type": "number"
-                                },
-                                "created_at": {
-                                  "type": "object",
-                                  "properties": {
-                                    "time": {
-                                      "type": "number"
-                                    },
-                                    "zone": {
-                                      "type": "number"
-                                    }
-                                  },
-                                  "required": [
-                                    "time",
-                                    "zone"
-                                  ],
-                                  "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
-                                }
-                              },
-                              "required": [
-                                "children",
-                                "id",
-                                "code",
-                                "sequence",
-                                "created_at"
-                              ],
-                              "description": "Current Type: {@link ArrayRecursive.ICategory}"
-                            }
-                          },
-                          "id": {
-                            "type": "number"
-                          },
-                          "code": {
-                            "type": "string"
-                          },
-                          "sequence": {
-                            "type": "number"
-                          },
-                          "created_at": {
-                            "type": "object",
-                            "properties": {
-                              "time": {
-                                "type": "number"
-                              },
-                              "zone": {
-                                "type": "number"
-                              }
-                            },
-                            "required": [
-                              "time",
-                              "zone"
-                            ],
-                            "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
-                          }
-                        },
-                        "required": [
-                          "children",
-                          "id",
-                          "code",
-                          "sequence",
-                          "created_at"
-                        ],
-                        "description": "Current Type: {@link ArrayRecursive.ICategory}"
-                      }
-                    },
-                    "id": {
-                      "type": "number"
-                    },
-                    "code": {
-                      "type": "string"
-                    },
-                    "sequence": {
-                      "type": "number"
-                    },
-                    "created_at": {
-                      "type": "object",
-                      "properties": {
-                        "time": {
-                          "type": "number"
-                        },
-                        "zone": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "time",
-                        "zone"
-                      ],
-                      "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
-                    }
-                  },
-                  "required": [
-                    "children",
-                    "id",
-                    "code",
-                    "sequence",
-                    "created_at"
-                  ],
-                  "description": "Current Type: {@link ArrayRecursive.ICategory}"
-                }
+            "anyOf": [
+              {
+                "type": "null"
               },
-              "id": {
-                "type": "number"
-              },
-              "code": {
-                "type": "string"
-              },
-              "sequence": {
-                "type": "number"
-              },
-              "created_at": {
-                "type": "object",
-                "properties": {
-                  "time": {
-                    "type": "number"
-                  },
-                  "zone": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "time",
-                  "zone"
-                ],
-                "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
+              {
+                "$ref": "#/$defs/ArrayRecursive.ICategory"
               }
-            },
-            "required": [
-              "children",
-              "id",
-              "code",
-              "sequence",
-              "created_at"
-            ],
-            "nullable": true
+            ]
           }
         },
         "required": [
           "first",
           "second"
-        ]
-      },
-      "output": {
-        "type": "object",
-        "properties": {
-          "children": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "children": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "children": {
-                        "type": "array",
-                        "items": {
-                          "type": "object",
-                          "properties": {
-                            "children": {
-                              "type": "array",
-                              "items": {},
-                              "description": "@maxItems 0"
-                            },
-                            "id": {
-                              "type": "number"
-                            },
-                            "code": {
-                              "type": "string"
-                            },
-                            "sequence": {
-                              "type": "number"
-                            },
-                            "created_at": {
-                              "type": "object",
-                              "properties": {
-                                "time": {
-                                  "type": "number"
-                                },
-                                "zone": {
-                                  "type": "number"
-                                }
-                              },
-                              "required": [
-                                "time",
-                                "zone"
-                              ],
-                              "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
-                            }
-                          },
-                          "required": [
-                            "children",
-                            "id",
-                            "code",
-                            "sequence",
-                            "created_at"
-                          ],
-                          "description": "Current Type: {@link ArrayRecursive.ICategory}"
-                        }
-                      },
-                      "id": {
-                        "type": "number"
-                      },
-                      "code": {
-                        "type": "string"
-                      },
-                      "sequence": {
-                        "type": "number"
-                      },
-                      "created_at": {
-                        "type": "object",
-                        "properties": {
-                          "time": {
-                            "type": "number"
-                          },
-                          "zone": {
-                            "type": "number"
-                          }
-                        },
-                        "required": [
-                          "time",
-                          "zone"
-                        ],
-                        "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
-                      }
-                    },
-                    "required": [
-                      "children",
-                      "id",
-                      "code",
-                      "sequence",
-                      "created_at"
-                    ],
-                    "description": "Current Type: {@link ArrayRecursive.ICategory}"
-                  }
-                },
-                "id": {
-                  "type": "number"
-                },
-                "code": {
-                  "type": "string"
-                },
-                "sequence": {
-                  "type": "number"
-                },
-                "created_at": {
-                  "type": "object",
-                  "properties": {
-                    "time": {
-                      "type": "number"
-                    },
-                    "zone": {
-                      "type": "number"
-                    }
-                  },
-                  "required": [
-                    "time",
-                    "zone"
-                  ],
-                  "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ArrayRecursive.ICategory": {
+            "type": "object",
+            "properties": {
+              "children": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ArrayRecursive.ICategory"
                 }
               },
-              "required": [
-                "children",
-                "id",
-                "code",
-                "sequence",
-                "created_at"
-              ],
-              "description": "Current Type: {@link ArrayRecursive.ICategory}"
-            }
+              "id": {
+                "type": "number"
+              },
+              "code": {
+                "type": "string"
+              },
+              "sequence": {
+                "type": "number"
+              },
+              "created_at": {
+                "$ref": "#/$defs/ArrayRecursive.ITimestamp"
+              }
+            },
+            "required": [
+              "children",
+              "id",
+              "code",
+              "sequence",
+              "created_at"
+            ]
           },
-          "id": {
-            "type": "number"
-          },
-          "code": {
-            "type": "string"
-          },
-          "sequence": {
-            "type": "number"
-          },
-          "created_at": {
+          "ArrayRecursive.ITimestamp": {
             "type": "object",
             "properties": {
               "time": {
@@ -678,18 +135,12 @@
             "required": [
               "time",
               "zone"
-            ],
-            "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
+            ]
           }
-        },
-        "required": [
-          "children",
-          "id",
-          "code",
-          "sequence",
-          "created_at"
-        ],
-        "description": "Current Type: {@link ArrayRecursive.ICategory}"
+        }
+      },
+      "output": {
+        "$ref": "#/$defs/ArrayRecursive.ICategory"
       }
     },
     {
@@ -698,650 +149,73 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "object",
-            "properties": {
-              "children": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "children": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "children": {
-                            "type": "array",
-                            "items": {
-                              "type": "object",
-                              "properties": {
-                                "children": {
-                                  "type": "array",
-                                  "items": {},
-                                  "description": "@maxItems 0"
-                                },
-                                "id": {
-                                  "type": "number"
-                                },
-                                "code": {
-                                  "type": "string"
-                                },
-                                "sequence": {
-                                  "type": "number"
-                                },
-                                "created_at": {
-                                  "type": "object",
-                                  "properties": {
-                                    "time": {
-                                      "type": "number"
-                                    },
-                                    "zone": {
-                                      "type": "number"
-                                    }
-                                  },
-                                  "required": [
-                                    "time",
-                                    "zone"
-                                  ],
-                                  "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
-                                }
-                              },
-                              "required": [
-                                "children",
-                                "id",
-                                "code",
-                                "sequence",
-                                "created_at"
-                              ],
-                              "description": "Current Type: {@link ArrayRecursive.ICategory}"
-                            }
-                          },
-                          "id": {
-                            "type": "number"
-                          },
-                          "code": {
-                            "type": "string"
-                          },
-                          "sequence": {
-                            "type": "number"
-                          },
-                          "created_at": {
-                            "type": "object",
-                            "properties": {
-                              "time": {
-                                "type": "number"
-                              },
-                              "zone": {
-                                "type": "number"
-                              }
-                            },
-                            "required": [
-                              "time",
-                              "zone"
-                            ],
-                            "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
-                          }
-                        },
-                        "required": [
-                          "children",
-                          "id",
-                          "code",
-                          "sequence",
-                          "created_at"
-                        ],
-                        "description": "Current Type: {@link ArrayRecursive.ICategory}"
-                      }
-                    },
-                    "id": {
-                      "type": "number"
-                    },
-                    "code": {
-                      "type": "string"
-                    },
-                    "sequence": {
-                      "type": "number"
-                    },
-                    "created_at": {
-                      "type": "object",
-                      "properties": {
-                        "time": {
-                          "type": "number"
-                        },
-                        "zone": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "time",
-                        "zone"
-                      ],
-                      "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
-                    }
-                  },
-                  "required": [
-                    "children",
-                    "id",
-                    "code",
-                    "sequence",
-                    "created_at"
-                  ],
-                  "description": "Current Type: {@link ArrayRecursive.ICategory}"
-                }
+            "anyOf": [
+              {
+                "type": "null"
               },
-              "id": {
-                "type": "number"
-              },
-              "code": {
-                "type": "string"
-              },
-              "sequence": {
-                "type": "number"
-              },
-              "created_at": {
-                "type": "object",
-                "properties": {
-                  "time": {
-                    "type": "number"
-                  },
-                  "zone": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "time",
-                  "zone"
-                ],
-                "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
+              {
+                "$ref": "#/$defs/ArrayRecursive.ICategory"
               }
-            },
-            "required": [
-              "children",
-              "id",
-              "code",
-              "sequence",
-              "created_at"
-            ],
-            "nullable": true
+            ]
           },
           "second": {
-            "type": "object",
-            "properties": {
-              "children": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "children": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "children": {
-                            "type": "array",
-                            "items": {
-                              "type": "object",
-                              "properties": {
-                                "children": {
-                                  "type": "array",
-                                  "items": {},
-                                  "description": "@maxItems 0"
-                                },
-                                "id": {
-                                  "type": "number"
-                                },
-                                "code": {
-                                  "type": "string"
-                                },
-                                "sequence": {
-                                  "type": "number"
-                                },
-                                "created_at": {
-                                  "type": "object",
-                                  "properties": {
-                                    "time": {
-                                      "type": "number"
-                                    },
-                                    "zone": {
-                                      "type": "number"
-                                    }
-                                  },
-                                  "required": [
-                                    "time",
-                                    "zone"
-                                  ],
-                                  "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
-                                }
-                              },
-                              "required": [
-                                "children",
-                                "id",
-                                "code",
-                                "sequence",
-                                "created_at"
-                              ],
-                              "description": "Current Type: {@link ArrayRecursive.ICategory}"
-                            }
-                          },
-                          "id": {
-                            "type": "number"
-                          },
-                          "code": {
-                            "type": "string"
-                          },
-                          "sequence": {
-                            "type": "number"
-                          },
-                          "created_at": {
-                            "type": "object",
-                            "properties": {
-                              "time": {
-                                "type": "number"
-                              },
-                              "zone": {
-                                "type": "number"
-                              }
-                            },
-                            "required": [
-                              "time",
-                              "zone"
-                            ],
-                            "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
-                          }
-                        },
-                        "required": [
-                          "children",
-                          "id",
-                          "code",
-                          "sequence",
-                          "created_at"
-                        ],
-                        "description": "Current Type: {@link ArrayRecursive.ICategory}"
-                      }
-                    },
-                    "id": {
-                      "type": "number"
-                    },
-                    "code": {
-                      "type": "string"
-                    },
-                    "sequence": {
-                      "type": "number"
-                    },
-                    "created_at": {
-                      "type": "object",
-                      "properties": {
-                        "time": {
-                          "type": "number"
-                        },
-                        "zone": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "time",
-                        "zone"
-                      ],
-                      "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
-                    }
-                  },
-                  "required": [
-                    "children",
-                    "id",
-                    "code",
-                    "sequence",
-                    "created_at"
-                  ],
-                  "description": "Current Type: {@link ArrayRecursive.ICategory}"
-                }
+            "anyOf": [
+              {
+                "type": "null"
               },
-              "id": {
-                "type": "number"
-              },
-              "code": {
-                "type": "string"
-              },
-              "sequence": {
-                "type": "number"
-              },
-              "created_at": {
-                "type": "object",
-                "properties": {
-                  "time": {
-                    "type": "number"
-                  },
-                  "zone": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "time",
-                  "zone"
-                ],
-                "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
+              {
+                "$ref": "#/$defs/ArrayRecursive.ICategory"
               }
-            },
-            "required": [
-              "children",
-              "id",
-              "code",
-              "sequence",
-              "created_at"
-            ],
-            "nullable": true
+            ]
           },
           "third": {
-            "type": "object",
-            "properties": {
-              "children": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "children": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "children": {
-                            "type": "array",
-                            "items": {
-                              "type": "object",
-                              "properties": {
-                                "children": {
-                                  "type": "array",
-                                  "items": {},
-                                  "description": "@maxItems 0"
-                                },
-                                "id": {
-                                  "type": "number"
-                                },
-                                "code": {
-                                  "type": "string"
-                                },
-                                "sequence": {
-                                  "type": "number"
-                                },
-                                "created_at": {
-                                  "type": "object",
-                                  "properties": {
-                                    "time": {
-                                      "type": "number"
-                                    },
-                                    "zone": {
-                                      "type": "number"
-                                    }
-                                  },
-                                  "required": [
-                                    "time",
-                                    "zone"
-                                  ],
-                                  "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
-                                }
-                              },
-                              "required": [
-                                "children",
-                                "id",
-                                "code",
-                                "sequence",
-                                "created_at"
-                              ],
-                              "description": "Current Type: {@link ArrayRecursive.ICategory}"
-                            }
-                          },
-                          "id": {
-                            "type": "number"
-                          },
-                          "code": {
-                            "type": "string"
-                          },
-                          "sequence": {
-                            "type": "number"
-                          },
-                          "created_at": {
-                            "type": "object",
-                            "properties": {
-                              "time": {
-                                "type": "number"
-                              },
-                              "zone": {
-                                "type": "number"
-                              }
-                            },
-                            "required": [
-                              "time",
-                              "zone"
-                            ],
-                            "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
-                          }
-                        },
-                        "required": [
-                          "children",
-                          "id",
-                          "code",
-                          "sequence",
-                          "created_at"
-                        ],
-                        "description": "Current Type: {@link ArrayRecursive.ICategory}"
-                      }
-                    },
-                    "id": {
-                      "type": "number"
-                    },
-                    "code": {
-                      "type": "string"
-                    },
-                    "sequence": {
-                      "type": "number"
-                    },
-                    "created_at": {
-                      "type": "object",
-                      "properties": {
-                        "time": {
-                          "type": "number"
-                        },
-                        "zone": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "time",
-                        "zone"
-                      ],
-                      "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
-                    }
-                  },
-                  "required": [
-                    "children",
-                    "id",
-                    "code",
-                    "sequence",
-                    "created_at"
-                  ],
-                  "description": "Current Type: {@link ArrayRecursive.ICategory}"
-                }
+            "anyOf": [
+              {
+                "type": "null"
               },
-              "id": {
-                "type": "number"
-              },
-              "code": {
-                "type": "string"
-              },
-              "sequence": {
-                "type": "number"
-              },
-              "created_at": {
-                "type": "object",
-                "properties": {
-                  "time": {
-                    "type": "number"
-                  },
-                  "zone": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "time",
-                  "zone"
-                ],
-                "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
+              {
+                "$ref": "#/$defs/ArrayRecursive.ICategory"
               }
-            },
-            "required": [
-              "children",
-              "id",
-              "code",
-              "sequence",
-              "created_at"
-            ],
-            "nullable": true
+            ]
           }
         },
         "required": [
           "first",
           "second"
-        ]
-      },
-      "output": {
-        "type": "object",
-        "properties": {
-          "children": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "children": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "children": {
-                        "type": "array",
-                        "items": {
-                          "type": "object",
-                          "properties": {
-                            "children": {
-                              "type": "array",
-                              "items": {},
-                              "description": "@maxItems 0"
-                            },
-                            "id": {
-                              "type": "number"
-                            },
-                            "code": {
-                              "type": "string"
-                            },
-                            "sequence": {
-                              "type": "number"
-                            },
-                            "created_at": {
-                              "type": "object",
-                              "properties": {
-                                "time": {
-                                  "type": "number"
-                                },
-                                "zone": {
-                                  "type": "number"
-                                }
-                              },
-                              "required": [
-                                "time",
-                                "zone"
-                              ],
-                              "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
-                            }
-                          },
-                          "required": [
-                            "children",
-                            "id",
-                            "code",
-                            "sequence",
-                            "created_at"
-                          ],
-                          "description": "Current Type: {@link ArrayRecursive.ICategory}"
-                        }
-                      },
-                      "id": {
-                        "type": "number"
-                      },
-                      "code": {
-                        "type": "string"
-                      },
-                      "sequence": {
-                        "type": "number"
-                      },
-                      "created_at": {
-                        "type": "object",
-                        "properties": {
-                          "time": {
-                            "type": "number"
-                          },
-                          "zone": {
-                            "type": "number"
-                          }
-                        },
-                        "required": [
-                          "time",
-                          "zone"
-                        ],
-                        "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
-                      }
-                    },
-                    "required": [
-                      "children",
-                      "id",
-                      "code",
-                      "sequence",
-                      "created_at"
-                    ],
-                    "description": "Current Type: {@link ArrayRecursive.ICategory}"
-                  }
-                },
-                "id": {
-                  "type": "number"
-                },
-                "code": {
-                  "type": "string"
-                },
-                "sequence": {
-                  "type": "number"
-                },
-                "created_at": {
-                  "type": "object",
-                  "properties": {
-                    "time": {
-                      "type": "number"
-                    },
-                    "zone": {
-                      "type": "number"
-                    }
-                  },
-                  "required": [
-                    "time",
-                    "zone"
-                  ],
-                  "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ArrayRecursive.ICategory": {
+            "type": "object",
+            "properties": {
+              "children": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ArrayRecursive.ICategory"
                 }
               },
-              "required": [
-                "children",
-                "id",
-                "code",
-                "sequence",
-                "created_at"
-              ],
-              "description": "Current Type: {@link ArrayRecursive.ICategory}"
-            }
+              "id": {
+                "type": "number"
+              },
+              "code": {
+                "type": "string"
+              },
+              "sequence": {
+                "type": "number"
+              },
+              "created_at": {
+                "$ref": "#/$defs/ArrayRecursive.ITimestamp"
+              }
+            },
+            "required": [
+              "children",
+              "id",
+              "code",
+              "sequence",
+              "created_at"
+            ]
           },
-          "id": {
-            "type": "number"
-          },
-          "code": {
-            "type": "string"
-          },
-          "sequence": {
-            "type": "number"
-          },
-          "created_at": {
+          "ArrayRecursive.ITimestamp": {
             "type": "object",
             "properties": {
               "time": {
@@ -1354,18 +228,19 @@
             "required": [
               "time",
               "zone"
-            ],
-            "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
+            ]
           }
-        },
-        "required": [
-          "children",
-          "id",
-          "code",
-          "sequence",
-          "created_at"
-        ],
-        "nullable": true
+        }
+      },
+      "output": {
+        "anyOf": [
+          {
+            "type": "null"
+          },
+          {
+            "$ref": "#/$defs/ArrayRecursive.ICategory"
+          }
+        ]
       }
     }
   ]

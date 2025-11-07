@@ -7,4 +7,4 @@ export const test_llm_schema_gemini_ObjectRecursive = (): void =>
   _test_llm_schema({
     model: "gemini",
     name: "ObjectRecursive",
-  })(typia.llm.schema<ObjectRecursive, "gemini">());
+  })(typia.llm.schema<ObjectRecursive, "gemini">({}));

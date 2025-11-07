@@ -9,7 +9,7 @@ export namespace TestLlmParametersGenerator {
   ): Promise<void> {
     const location: string = `${__dirname}/../../src/features/llm.parameters`;
     await mkdir(location);
-    for (const model of MODELS) {
+    for (const model of TestLlmApplicationGenerator.MODELS) {
       await fs.promises.mkdir(`${location}/${model}`);
       await parameters(model, structures);
     }
@@ -20,10 +20,7 @@ export namespace TestLlmParametersGenerator {
     structures: TestStructure<any>[],
   ): Promise<void> {
     for (const s of structures) {
-      if (
-        (await TestLlmApplicationGenerator.isApplicable(model, s.name)) ===
-        false
-      )
+      if ((await TestLlmApplicationGenerator.isApplicable(s.name)) === false)
         continue;
       const content: string[] = [
         `import typia from "typia";`,
@@ -57,7 +54,7 @@ export namespace TestLlmParametersGenerator {
   export async function schemas(): Promise<void> {
     const location: string = `${__dirname}/../../schemas/llm.parameters`;
     await mkdir(location);
-    for (const model of MODELS) {
+    for (const model of TestLlmApplicationGenerator.MODELS) {
       await mkdir(`${location}/${model}`);
       await iterate(model);
     }
@@ -99,5 +96,3 @@ export namespace TestLlmParametersGenerator {
     await fs.promises.mkdir(path, { recursive: true });
   }
 }
-
-const MODELS = ["3.0", "3.1", "chatgpt", "claude", "gemini", "llama"];

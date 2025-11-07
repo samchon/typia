@@ -1,7 +1,7 @@
 {
   "model": "gemini",
   "options": {
-    "recursive": 3,
+    "reference": true,
     "separate": null
   },
   "functions": [
@@ -32,7 +32,9 @@
         },
         "required": [
           "first"
-        ]
+        ],
+        "additionalProperties": false,
+        "$defs": {}
       }
     },
     {
@@ -60,30 +62,38 @@
             ]
           },
           "second": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
+            "anyOf": [
+              {
+                "type": "null"
               },
-              "name": {
-                "type": "string"
-              },
-              "age": {
-                "type": "number"
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "age": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "id",
+                  "name",
+                  "age"
+                ]
               }
-            },
-            "required": [
-              "id",
-              "name",
-              "age"
-            ],
-            "nullable": true
+            ]
           }
         },
         "required": [
           "first",
           "second"
-        ]
+        ],
+        "additionalProperties": false,
+        "$defs": {}
       },
       "output": {
         "type": "object",
@@ -111,90 +121,116 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
+            "anyOf": [
+              {
+                "type": "null"
               },
-              "name": {
-                "type": "string"
-              },
-              "age": {
-                "type": "number"
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "age": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "id",
+                  "name",
+                  "age"
+                ]
               }
-            },
-            "required": [
-              "id",
-              "name",
-              "age"
-            ],
-            "nullable": true
+            ]
           },
           "second": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
+            "anyOf": [
+              {
+                "type": "null"
               },
-              "name": {
-                "type": "string"
-              },
-              "age": {
-                "type": "number"
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "age": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "id",
+                  "name",
+                  "age"
+                ]
               }
-            },
-            "required": [
-              "id",
-              "name",
-              "age"
-            ],
-            "nullable": true
+            ]
           },
           "third": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
+            "anyOf": [
+              {
+                "type": "null"
               },
-              "name": {
-                "type": "string"
-              },
-              "age": {
-                "type": "number"
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "age": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "id",
+                  "name",
+                  "age"
+                ]
               }
-            },
-            "required": [
-              "id",
-              "name",
-              "age"
-            ],
-            "nullable": true
+            ]
           }
         },
         "required": [
           "first",
           "second"
-        ]
+        ],
+        "additionalProperties": false,
+        "$defs": {}
       },
       "output": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
+        "anyOf": [
+          {
+            "type": "null"
           },
-          "name": {
-            "type": "string"
-          },
-          "age": {
-            "type": "number"
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "age": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "age"
+            ]
           }
-        },
-        "required": [
-          "id",
-          "name",
-          "age"
-        ],
-        "nullable": true
+        ]
       }
     }
   ]

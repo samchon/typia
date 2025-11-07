@@ -1,4 +1,4 @@
-import { ILlmApplication, LlamaTypeChecker } from "@samchon/openapi";
+import { ClaudeTypeChecker, ILlmApplication } from "@samchon/openapi";
 import typia, { tags } from "typia";
 
 export const schema = typia.llm.schema<
@@ -16,17 +16,17 @@ export const parameters = typia.llm.parameters<
   "claude"
 >();
 
-export const application = typia.llm.application<IApplication, "llama">({
+export const application = typia.llm.application<IApplication, "claude">({
   separate: (schema) =>
-    LlamaTypeChecker.isString(schema) && schema.format === "date-time",
+    ClaudeTypeChecker.isString(schema) && schema.format === "date-time",
 });
 
-typia.llm.application<IApplication, "llama">({
+typia.llm.application<IApplication, "claude">({
   separate: (schema) =>
-    LlamaTypeChecker.isString(schema) && schema.format === "date-time",
-} satisfies Partial<Pick<ILlmApplication.IOptions<"llama">, "separate">>);
+    ClaudeTypeChecker.isString(schema) && schema.format === "date-time",
+} satisfies Partial<Pick<ILlmApplication.IOptions<"claude">, "separate">>);
 
-export const controller = typia.llm.controller<IApplication, "deepseek">(
+export const controller = typia.llm.controller<IApplication, "claude">(
   "company",
   {
     establishCompany: (props: { company: ICompany }) => props.company,

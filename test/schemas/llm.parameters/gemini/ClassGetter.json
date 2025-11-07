@@ -2,111 +2,35 @@
   "type": "object",
   "properties": {
     "regular": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        },
-        "dead": {
-          "type": "boolean",
-          "nullable": true
-        }
-      },
-      "required": [
-        "id",
-        "name",
-        "dead"
-      ],
-      "description": "Current Type: {@link ClassGetter.Person}"
+      "$ref": "#/$defs/ClassGetter.Person"
     },
     "nullable": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string"
+      "anyOf": [
+        {
+          "type": "null"
         },
-        "name": {
-          "type": "string"
-        },
-        "dead": {
-          "type": "boolean",
-          "nullable": true
+        {
+          "$ref": "#/$defs/ClassGetter.Person"
         }
-      },
-      "required": [
-        "id",
-        "name",
-        "dead"
-      ],
-      "nullable": true
+      ]
     },
     "optional": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        },
-        "dead": {
-          "type": "boolean",
-          "nullable": true
-        }
-      },
-      "required": [
-        "id",
-        "name",
-        "dead"
-      ],
-      "description": "Current Type: {@link ClassGetter.Person}"
+      "$ref": "#/$defs/ClassGetter.Person"
     },
     "faint": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string"
+      "anyOf": [
+        {
+          "type": "null"
         },
-        "name": {
-          "type": "string"
-        },
-        "dead": {
-          "type": "boolean",
-          "nullable": true
+        {
+          "$ref": "#/$defs/ClassGetter.Person"
         }
-      },
-      "required": [
-        "id",
-        "name",
-        "dead"
-      ],
-      "nullable": true
+      ]
     },
     "array": {
       "type": "array",
       "items": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "dead": {
-            "type": "boolean",
-            "nullable": true
-          }
-        },
-        "required": [
-          "id",
-          "name",
-          "dead"
-        ],
-        "description": "Current Type: {@link ClassGetter.Person}"
+        "$ref": "#/$defs/ClassGetter.Person"
       }
     }
   },
@@ -114,5 +38,34 @@
     "regular",
     "nullable",
     "array"
-  ]
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "ClassGetter.Person": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "dead": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "boolean"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "dead"
+      ]
+    }
+  }
 }

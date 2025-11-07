@@ -1,7 +1,7 @@
 {
   "model": "gemini",
   "options": {
-    "recursive": 3,
+    "reference": true,
     "separate": null
   },
   "functions": [
@@ -11,15 +11,20 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "object",
-            "properties": {},
-            "required": [],
-            "description": "Current Type: {@link DynamicUndefined}"
+            "$ref": "#/$defs/DynamicUndefined"
           }
         },
         "required": [
           "first"
-        ]
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "DynamicUndefined": {
+            "type": "object",
+            "properties": {},
+            "required": []
+          }
+        }
       }
     },
     {
@@ -28,28 +33,34 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "object",
-            "properties": {},
-            "required": [],
-            "description": "Current Type: {@link DynamicUndefined}"
+            "$ref": "#/$defs/DynamicUndefined"
           },
           "second": {
-            "type": "object",
-            "properties": {},
-            "required": [],
-            "nullable": true
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/$defs/DynamicUndefined"
+              }
+            ]
           }
         },
         "required": [
           "first",
           "second"
-        ]
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "DynamicUndefined": {
+            "type": "object",
+            "properties": {},
+            "required": []
+          }
+        }
       },
       "output": {
-        "type": "object",
-        "properties": {},
-        "required": [],
-        "description": "Current Type: {@link DynamicUndefined}"
+        "$ref": "#/$defs/DynamicUndefined"
       }
     },
     {
@@ -58,34 +69,58 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "object",
-            "properties": {},
-            "required": [],
-            "nullable": true
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/$defs/DynamicUndefined"
+              }
+            ]
           },
           "second": {
-            "type": "object",
-            "properties": {},
-            "required": [],
-            "nullable": true
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/$defs/DynamicUndefined"
+              }
+            ]
           },
           "third": {
-            "type": "object",
-            "properties": {},
-            "required": [],
-            "nullable": true
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/$defs/DynamicUndefined"
+              }
+            ]
           }
         },
         "required": [
           "first",
           "second"
-        ]
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "DynamicUndefined": {
+            "type": "object",
+            "properties": {},
+            "required": []
+          }
+        }
       },
       "output": {
-        "type": "object",
-        "properties": {},
-        "required": [],
-        "nullable": true
+        "anyOf": [
+          {
+            "type": "null"
+          },
+          {
+            "$ref": "#/$defs/DynamicUndefined"
+          }
+        ]
       }
     }
   ]

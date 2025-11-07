@@ -1,7 +1,7 @@
 {
   "model": "gemini",
   "options": {
-    "recursive": 3,
+    "reference": true,
     "separate": null
   },
   "functions": [
@@ -11,32 +11,71 @@
         "type": "object",
         "properties": {
           "first": {
+            "$ref": "#/$defs/ObjectDate"
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ObjectDate": {
             "type": "object",
             "properties": {
               "classDate": {
-                "type": "string",
-                "description": "@format date-time",
-                "nullable": true
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string",
+                    "description": "@format date-time"
+                  }
+                ]
               },
               "date": {
-                "type": "string",
-                "nullable": true,
-                "description": "@format date"
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string",
+                    "description": "@format date"
+                  }
+                ]
               },
               "datetime": {
-                "type": "string",
-                "nullable": true,
-                "description": "@format date-time"
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string",
+                    "description": "@format date-time"
+                  }
+                ]
               },
               "time": {
-                "type": "string",
-                "nullable": true,
-                "description": "@format time"
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string",
+                    "description": "@format time"
+                  }
+                ]
               },
               "duration": {
-                "type": "string",
-                "nullable": true,
-                "description": "@format duration"
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string",
+                    "description": "@format duration"
+                  }
+                ]
               }
             },
             "required": [
@@ -44,13 +83,9 @@
               "datetime",
               "time",
               "duration"
-            ],
-            "description": "Current Type: {@link ObjectDate}"
+            ]
           }
-        },
-        "required": [
-          "first"
-        ]
+        }
       }
     },
     {
@@ -59,121 +94,95 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "object",
-            "properties": {
-              "classDate": {
-                "type": "string",
-                "description": "@format date-time",
-                "nullable": true
-              },
-              "date": {
-                "type": "string",
-                "nullable": true,
-                "description": "@format date"
-              },
-              "datetime": {
-                "type": "string",
-                "nullable": true,
-                "description": "@format date-time"
-              },
-              "time": {
-                "type": "string",
-                "nullable": true,
-                "description": "@format time"
-              },
-              "duration": {
-                "type": "string",
-                "nullable": true,
-                "description": "@format duration"
-              }
-            },
-            "required": [
-              "date",
-              "datetime",
-              "time",
-              "duration"
-            ],
-            "description": "Current Type: {@link ObjectDate}"
+            "$ref": "#/$defs/ObjectDate"
           },
           "second": {
-            "type": "object",
-            "properties": {
-              "classDate": {
-                "type": "string",
-                "description": "@format date-time",
-                "nullable": true
+            "anyOf": [
+              {
+                "type": "null"
               },
-              "date": {
-                "type": "string",
-                "nullable": true,
-                "description": "@format date"
-              },
-              "datetime": {
-                "type": "string",
-                "nullable": true,
-                "description": "@format date-time"
-              },
-              "time": {
-                "type": "string",
-                "nullable": true,
-                "description": "@format time"
-              },
-              "duration": {
-                "type": "string",
-                "nullable": true,
-                "description": "@format duration"
+              {
+                "$ref": "#/$defs/ObjectDate"
               }
-            },
-            "required": [
-              "date",
-              "datetime",
-              "time",
-              "duration"
-            ],
-            "nullable": true
+            ]
           }
         },
         "required": [
           "first",
           "second"
-        ]
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ObjectDate": {
+            "type": "object",
+            "properties": {
+              "classDate": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string",
+                    "description": "@format date-time"
+                  }
+                ]
+              },
+              "date": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string",
+                    "description": "@format date"
+                  }
+                ]
+              },
+              "datetime": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string",
+                    "description": "@format date-time"
+                  }
+                ]
+              },
+              "time": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string",
+                    "description": "@format time"
+                  }
+                ]
+              },
+              "duration": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string",
+                    "description": "@format duration"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "date",
+              "datetime",
+              "time",
+              "duration"
+            ]
+          }
+        }
       },
       "output": {
-        "type": "object",
-        "properties": {
-          "classDate": {
-            "type": "string",
-            "description": "@format date-time",
-            "nullable": true
-          },
-          "date": {
-            "type": "string",
-            "nullable": true,
-            "description": "@format date"
-          },
-          "datetime": {
-            "type": "string",
-            "nullable": true,
-            "description": "@format date-time"
-          },
-          "time": {
-            "type": "string",
-            "nullable": true,
-            "description": "@format time"
-          },
-          "duration": {
-            "type": "string",
-            "nullable": true,
-            "description": "@format duration"
-          }
-        },
-        "required": [
-          "date",
-          "datetime",
-          "time",
-          "duration"
-        ],
-        "description": "Current Type: {@link ObjectDate}"
+        "$ref": "#/$defs/ObjectDate"
       }
     },
     {
@@ -182,158 +191,119 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "object",
-            "properties": {
-              "classDate": {
-                "type": "string",
-                "description": "@format date-time",
-                "nullable": true
+            "anyOf": [
+              {
+                "type": "null"
               },
-              "date": {
-                "type": "string",
-                "nullable": true,
-                "description": "@format date"
-              },
-              "datetime": {
-                "type": "string",
-                "nullable": true,
-                "description": "@format date-time"
-              },
-              "time": {
-                "type": "string",
-                "nullable": true,
-                "description": "@format time"
-              },
-              "duration": {
-                "type": "string",
-                "nullable": true,
-                "description": "@format duration"
+              {
+                "$ref": "#/$defs/ObjectDate"
               }
-            },
-            "required": [
-              "date",
-              "datetime",
-              "time",
-              "duration"
-            ],
-            "nullable": true
+            ]
           },
           "second": {
-            "type": "object",
-            "properties": {
-              "classDate": {
-                "type": "string",
-                "description": "@format date-time",
-                "nullable": true
+            "anyOf": [
+              {
+                "type": "null"
               },
-              "date": {
-                "type": "string",
-                "nullable": true,
-                "description": "@format date"
-              },
-              "datetime": {
-                "type": "string",
-                "nullable": true,
-                "description": "@format date-time"
-              },
-              "time": {
-                "type": "string",
-                "nullable": true,
-                "description": "@format time"
-              },
-              "duration": {
-                "type": "string",
-                "nullable": true,
-                "description": "@format duration"
+              {
+                "$ref": "#/$defs/ObjectDate"
               }
-            },
-            "required": [
-              "date",
-              "datetime",
-              "time",
-              "duration"
-            ],
-            "nullable": true
+            ]
           },
           "third": {
-            "type": "object",
-            "properties": {
-              "classDate": {
-                "type": "string",
-                "description": "@format date-time",
-                "nullable": true
+            "anyOf": [
+              {
+                "type": "null"
               },
-              "date": {
-                "type": "string",
-                "nullable": true,
-                "description": "@format date"
-              },
-              "datetime": {
-                "type": "string",
-                "nullable": true,
-                "description": "@format date-time"
-              },
-              "time": {
-                "type": "string",
-                "nullable": true,
-                "description": "@format time"
-              },
-              "duration": {
-                "type": "string",
-                "nullable": true,
-                "description": "@format duration"
+              {
+                "$ref": "#/$defs/ObjectDate"
               }
-            },
-            "required": [
-              "date",
-              "datetime",
-              "time",
-              "duration"
-            ],
-            "nullable": true
+            ]
           }
         },
         "required": [
           "first",
           "second"
-        ]
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ObjectDate": {
+            "type": "object",
+            "properties": {
+              "classDate": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string",
+                    "description": "@format date-time"
+                  }
+                ]
+              },
+              "date": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string",
+                    "description": "@format date"
+                  }
+                ]
+              },
+              "datetime": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string",
+                    "description": "@format date-time"
+                  }
+                ]
+              },
+              "time": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string",
+                    "description": "@format time"
+                  }
+                ]
+              },
+              "duration": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string",
+                    "description": "@format duration"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "date",
+              "datetime",
+              "time",
+              "duration"
+            ]
+          }
+        }
       },
       "output": {
-        "type": "object",
-        "properties": {
-          "classDate": {
-            "type": "string",
-            "description": "@format date-time",
-            "nullable": true
+        "anyOf": [
+          {
+            "type": "null"
           },
-          "date": {
-            "type": "string",
-            "nullable": true,
-            "description": "@format date"
-          },
-          "datetime": {
-            "type": "string",
-            "nullable": true,
-            "description": "@format date-time"
-          },
-          "time": {
-            "type": "string",
-            "nullable": true,
-            "description": "@format time"
-          },
-          "duration": {
-            "type": "string",
-            "nullable": true,
-            "description": "@format duration"
+          {
+            "$ref": "#/$defs/ObjectDate"
           }
-        },
-        "required": [
-          "date",
-          "datetime",
-          "time",
-          "duration"
-        ],
-        "nullable": true
+        ]
       }
     }
   ]

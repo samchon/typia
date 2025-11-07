@@ -2,111 +2,35 @@
   "type": "object",
   "properties": {
     "regular": {
-      "type": "object",
-      "properties": {
-        "matrix": {
-          "type": "array",
-          "items": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "description": "@format uuid"
-            },
-            "description": "@minItems 4\n@maxItems 4"
-          },
-          "description": "@minItems 3\n@maxItems 3"
-        }
-      },
-      "required": [
-        "matrix"
-      ],
-      "description": "Current Type: {@link TypeTagMatrix}"
+      "$ref": "#/$defs/TypeTagMatrix"
     },
     "nullable": {
-      "type": "object",
-      "properties": {
-        "matrix": {
-          "type": "array",
-          "items": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "description": "@format uuid"
-            },
-            "description": "@minItems 4\n@maxItems 4"
-          },
-          "description": "@minItems 3\n@maxItems 3"
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/TypeTagMatrix"
         }
-      },
-      "required": [
-        "matrix"
-      ],
-      "nullable": true
+      ]
     },
     "optional": {
-      "type": "object",
-      "properties": {
-        "matrix": {
-          "type": "array",
-          "items": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "description": "@format uuid"
-            },
-            "description": "@minItems 4\n@maxItems 4"
-          },
-          "description": "@minItems 3\n@maxItems 3"
-        }
-      },
-      "required": [
-        "matrix"
-      ],
-      "description": "Current Type: {@link TypeTagMatrix}"
+      "$ref": "#/$defs/TypeTagMatrix"
     },
     "faint": {
-      "type": "object",
-      "properties": {
-        "matrix": {
-          "type": "array",
-          "items": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "description": "@format uuid"
-            },
-            "description": "@minItems 4\n@maxItems 4"
-          },
-          "description": "@minItems 3\n@maxItems 3"
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/TypeTagMatrix"
         }
-      },
-      "required": [
-        "matrix"
-      ],
-      "nullable": true
+      ]
     },
     "array": {
       "type": "array",
       "items": {
-        "type": "object",
-        "properties": {
-          "matrix": {
-            "type": "array",
-            "items": {
-              "type": "array",
-              "items": {
-                "type": "string",
-                "description": "@format uuid"
-              },
-              "description": "@minItems 4\n@maxItems 4"
-            },
-            "description": "@minItems 3\n@maxItems 3"
-          }
-        },
-        "required": [
-          "matrix"
-        ],
-        "description": "Current Type: {@link TypeTagMatrix}"
+        "$ref": "#/$defs/TypeTagMatrix"
       }
     }
   },
@@ -114,5 +38,28 @@
     "regular",
     "nullable",
     "array"
-  ]
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "TypeTagMatrix": {
+      "type": "object",
+      "properties": {
+        "matrix": {
+          "description": "@minItems 3\n@maxItems 3",
+          "type": "array",
+          "items": {
+            "description": "@minItems 4\n@maxItems 4",
+            "type": "array",
+            "items": {
+              "description": "@format uuid",
+              "type": "string"
+            }
+          }
+        }
+      },
+      "required": [
+        "matrix"
+      ]
+    }
+  }
 }

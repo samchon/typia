@@ -21,24 +21,30 @@
       ]
     },
     "nullable": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string"
+      "anyOf": [
+        {
+          "type": "null"
         },
-        "name": {
-          "type": "string"
-        },
-        "age": {
-          "type": "number"
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "age": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "id",
+            "name",
+            "age"
+          ]
         }
-      },
-      "required": [
-        "id",
-        "name",
-        "age"
-      ],
-      "nullable": true
+      ]
     },
     "optional": {
       "type": "object",
@@ -60,24 +66,30 @@
       ]
     },
     "faint": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string"
+      "anyOf": [
+        {
+          "type": "null"
         },
-        "name": {
-          "type": "string"
-        },
-        "age": {
-          "type": "number"
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "age": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "id",
+            "name",
+            "age"
+          ]
         }
-      },
-      "required": [
-        "id",
-        "name",
-        "age"
-      ],
-      "nullable": true
+      ]
     },
     "array": {
       "type": "array",
@@ -106,5 +118,7 @@
     "regular",
     "nullable",
     "array"
-  ]
+  ],
+  "additionalProperties": false,
+  "$defs": {}
 }

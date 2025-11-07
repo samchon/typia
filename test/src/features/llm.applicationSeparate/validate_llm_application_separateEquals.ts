@@ -6,6 +6,7 @@ import {
   ILlmApplication,
   ILlmFunction,
   ILlmSchema,
+  ILlmSchemaV3,
   IValidation,
 } from "@samchon/openapi";
 import typia, { tags } from "typia";
@@ -26,23 +27,9 @@ export const test_llm_application_claude_separateEquals = (): void =>
     }),
   );
 
-export const test_llm_application_deepseek_separateEquals = (): void =>
-  validate_llm_application_separateEquals(
-    typia.llm.application<IMembership, "deepseek", { equals: true }>({
-      separate,
-    }),
-  );
-
 export const test_llm_application_gemini_separateEquals = (): void =>
   validate_llm_application_separateEquals(
     typia.llm.application<IMembership, "gemini", { equals: true }>({
-      separate,
-    }),
-  );
-
-export const test_llm_application_llama_separateEquals = (): void =>
-  validate_llm_application_separateEquals(
-    typia.llm.application<IMembership, "llama", { equals: true }>({
       separate,
     }),
   );
@@ -54,7 +41,7 @@ export const test_llm_application_llm_v30_separateEquals = (): void =>
     }),
   );
 
-export const test_llm_application_v3_separateEquals = (): void =>
+export const test_llm_application_llm_v31_separateEquals = (): void =>
   validate_llm_application_separateEquals(
     typia.llm.application<IMembership, "3.1", { equals: true }>({
       separate,
@@ -62,8 +49,8 @@ export const test_llm_application_v3_separateEquals = (): void =>
   );
 
 const separate = (
-  schema: IChatGptSchema | IClaudeSchema | IGeminiSchema,
-): boolean => ClaudeTypeChecker.isInteger(schema);
+  schema: IChatGptSchema | IClaudeSchema | IGeminiSchema | ILlmSchemaV3,
+): boolean => ClaudeTypeChecker.isInteger(schema as any);
 
 const validate_llm_application_separateEquals = <
   Model extends ILlmSchema.Model,

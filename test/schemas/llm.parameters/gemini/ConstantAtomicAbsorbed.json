@@ -2,91 +2,35 @@
   "type": "object",
   "properties": {
     "regular": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string",
-          "description": "@default something"
-        },
-        "age": {
-          "type": "number"
-        }
-      },
-      "required": [
-        "id",
-        "age"
-      ],
-      "description": "Current Type: {@link ConstantAtomicAbsorbed}"
+      "$ref": "#/$defs/ConstantAtomicAbsorbed"
     },
     "nullable": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string",
-          "description": "@default something"
+      "anyOf": [
+        {
+          "type": "null"
         },
-        "age": {
-          "type": "number"
+        {
+          "$ref": "#/$defs/ConstantAtomicAbsorbed"
         }
-      },
-      "required": [
-        "id",
-        "age"
-      ],
-      "nullable": true
+      ]
     },
     "optional": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string",
-          "description": "@default something"
-        },
-        "age": {
-          "type": "number"
-        }
-      },
-      "required": [
-        "id",
-        "age"
-      ],
-      "description": "Current Type: {@link ConstantAtomicAbsorbed}"
+      "$ref": "#/$defs/ConstantAtomicAbsorbed"
     },
     "faint": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string",
-          "description": "@default something"
+      "anyOf": [
+        {
+          "type": "null"
         },
-        "age": {
-          "type": "number"
+        {
+          "$ref": "#/$defs/ConstantAtomicAbsorbed"
         }
-      },
-      "required": [
-        "id",
-        "age"
-      ],
-      "nullable": true
+      ]
     },
     "array": {
       "type": "array",
       "items": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "description": "@default something"
-          },
-          "age": {
-            "type": "number"
-          }
-        },
-        "required": [
-          "id",
-          "age"
-        ],
-        "description": "Current Type: {@link ConstantAtomicAbsorbed}"
+        "$ref": "#/$defs/ConstantAtomicAbsorbed"
       }
     }
   },
@@ -94,5 +38,24 @@
     "regular",
     "nullable",
     "array"
-  ]
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "ConstantAtomicAbsorbed": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "@default something",
+          "type": "string"
+        },
+        "age": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "id",
+        "age"
+      ]
+    }
+  }
 }

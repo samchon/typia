@@ -1,7 +1,7 @@
 {
   "model": "gemini",
   "options": {
-    "recursive": 3,
+    "reference": true,
     "separate": null
   },
   "functions": [
@@ -11,6 +11,15 @@
         "type": "object",
         "properties": {
           "first": {
+            "$ref": "#/$defs/ToJsonDouble.Child"
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ToJsonDouble.Child": {
             "type": "object",
             "properties": {
               "id": {
@@ -23,13 +32,9 @@
             "required": [
               "id",
               "flag"
-            ],
-            "description": "Current Type: {@link ToJsonDouble.Child}"
+            ]
           }
-        },
-        "required": [
-          "first"
-        ]
+        }
       }
     },
     {
@@ -38,58 +43,44 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "number"
-              },
-              "flag": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "id",
-              "flag"
-            ],
-            "description": "Current Type: {@link ToJsonDouble.Child}"
+            "$ref": "#/$defs/ToJsonDouble.Child"
           },
           "second": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "number"
+            "anyOf": [
+              {
+                "type": "null"
               },
-              "flag": {
-                "type": "boolean"
+              {
+                "$ref": "#/$defs/ToJsonDouble.Child"
               }
-            },
-            "required": [
-              "id",
-              "flag"
-            ],
-            "nullable": true
+            ]
           }
         },
         "required": [
           "first",
           "second"
-        ]
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ToJsonDouble.Child": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "flag": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id",
+              "flag"
+            ]
+          }
+        }
       },
       "output": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "number"
-          },
-          "flag": {
-            "type": "boolean"
-          }
-        },
-        "required": [
-          "id",
-          "flag"
-        ],
-        "description": "Current Type: {@link ToJsonDouble.Child}"
+        "$ref": "#/$defs/ToJsonDouble.Child"
       }
     },
     {
@@ -98,74 +89,68 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "number"
+            "anyOf": [
+              {
+                "type": "null"
               },
-              "flag": {
-                "type": "boolean"
+              {
+                "$ref": "#/$defs/ToJsonDouble.Child"
               }
-            },
-            "required": [
-              "id",
-              "flag"
-            ],
-            "nullable": true
+            ]
           },
           "second": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "number"
+            "anyOf": [
+              {
+                "type": "null"
               },
-              "flag": {
-                "type": "boolean"
+              {
+                "$ref": "#/$defs/ToJsonDouble.Child"
               }
-            },
-            "required": [
-              "id",
-              "flag"
-            ],
-            "nullable": true
+            ]
           },
           "third": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "number"
+            "anyOf": [
+              {
+                "type": "null"
               },
-              "flag": {
-                "type": "boolean"
+              {
+                "$ref": "#/$defs/ToJsonDouble.Child"
               }
-            },
-            "required": [
-              "id",
-              "flag"
-            ],
-            "nullable": true
+            ]
           }
         },
         "required": [
           "first",
           "second"
-        ]
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ToJsonDouble.Child": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "flag": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id",
+              "flag"
+            ]
+          }
+        }
       },
       "output": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "number"
+        "anyOf": [
+          {
+            "type": "null"
           },
-          "flag": {
-            "type": "boolean"
+          {
+            "$ref": "#/$defs/ToJsonDouble.Child"
           }
-        },
-        "required": [
-          "id",
-          "flag"
-        ],
-        "nullable": true
+        ]
       }
     }
   ]

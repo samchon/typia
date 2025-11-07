@@ -7,4 +7,4 @@ export const test_llm_schema_gemini_TemplateConstant = (): void =>
   _test_llm_schema({
     model: "gemini",
     name: "TemplateConstant",
-  })(typia.llm.schema<TemplateConstant, "gemini">());
+  })(typia.llm.schema<TemplateConstant, "gemini">({}));

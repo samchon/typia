@@ -7,4 +7,4 @@ export const test_llm_schema_gemini_DynamicUndefined = (): void =>
   _test_llm_schema({
     model: "gemini",
     name: "DynamicUndefined",
-  })(typia.llm.schema<DynamicUndefined, "gemini">());
+  })(typia.llm.schema<DynamicUndefined, "gemini">({}));

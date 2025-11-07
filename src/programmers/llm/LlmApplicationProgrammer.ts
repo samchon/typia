@@ -1,4 +1,6 @@
 import {
+  ChatGptTypeChecker,
+  IChatGptSchema,
   ILlmApplication,
   ILlmSchema,
   IOpenApiSchemaError,
@@ -259,8 +261,15 @@ export namespace LlmApplicationProgrammer {
         accessor: `$input.${props.function.name}.output`,
       });
     if (output === null) return null;
-    else if (
+
+    const isReference = (
+      schema: unknown,
+    ): schema is IChatGptSchema.IReference =>
+      ChatGptTypeChecker.isReference(schema as any);
+    if (
       output &&
+      props.model !== "chatgpt" &&
+      isReference(output) === false &&
       output.description === undefined &&
       !!props.function.output?.description?.length
     )

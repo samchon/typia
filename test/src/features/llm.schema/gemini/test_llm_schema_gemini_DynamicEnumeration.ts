@@ -7,4 +7,4 @@ export const test_llm_schema_gemini_DynamicEnumeration = (): void =>
   _test_llm_schema({
     model: "gemini",
     name: "DynamicEnumeration",
-  })(typia.llm.schema<DynamicEnumeration, "gemini">());
+  })(typia.llm.schema<DynamicEnumeration, "gemini">({}));

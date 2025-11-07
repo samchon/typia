@@ -7,4 +7,4 @@ export const test_llm_schema_gemini_CommentTagPattern = (): void =>
   _test_llm_schema({
     model: "gemini",
     name: "CommentTagPattern",
-  })(typia.llm.schema<CommentTagPattern, "gemini">());
+  })(typia.llm.schema<CommentTagPattern, "gemini">({}));

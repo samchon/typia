@@ -1,7 +1,7 @@
 {
   "model": "gemini",
   "options": {
-    "recursive": 3,
+    "reference": true,
     "separate": null
   },
   "functions": [
@@ -11,6 +11,15 @@
         "type": "object",
         "properties": {
           "first": {
+            "$ref": "#/$defs/ObjectPartialAndRequired"
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ObjectPartialAndRequired": {
             "type": "object",
             "properties": {
               "string": {
@@ -23,82 +32,14 @@
                 "type": "boolean"
               },
               "object": {
-                "type": "object",
-                "properties": {
-                  "string": {
-                    "type": "string"
+                "anyOf": [
+                  {
+                    "type": "null"
                   },
-                  "number": {
-                    "type": "number"
-                  },
-                  "boolean": {
-                    "type": "boolean"
-                  },
-                  "object": {
-                    "type": "object",
-                    "properties": {
-                      "string": {
-                        "type": "string"
-                      },
-                      "number": {
-                        "type": "number"
-                      },
-                      "boolean": {
-                        "type": "boolean"
-                      },
-                      "object": {
-                        "type": "object",
-                        "properties": {
-                          "string": {
-                            "type": "string"
-                          },
-                          "number": {
-                            "type": "number"
-                          },
-                          "boolean": {
-                            "type": "boolean"
-                          },
-                          "object": {
-                            "type": "null"
-                          },
-                          "array": {
-                            "type": "array",
-                            "items": {
-                              "type": "number"
-                            }
-                          }
-                        },
-                        "required": [
-                          "object",
-                          "array"
-                        ],
-                        "nullable": true
-                      },
-                      "array": {
-                        "type": "array",
-                        "items": {
-                          "type": "number"
-                        }
-                      }
-                    },
-                    "required": [
-                      "object",
-                      "array"
-                    ],
-                    "nullable": true
-                  },
-                  "array": {
-                    "type": "array",
-                    "items": {
-                      "type": "number"
-                    }
+                  {
+                    "$ref": "#/$defs/ObjectPartialAndRequired"
                   }
-                },
-                "required": [
-                  "object",
-                  "array"
-                ],
-                "nullable": true
+                ]
               },
               "array": {
                 "type": "array",
@@ -110,13 +51,9 @@
             "required": [
               "object",
               "array"
-            ],
-            "description": "Current Type: {@link ObjectPartialAndRequired}"
+            ]
           }
-        },
-        "required": [
-          "first"
-        ]
+        }
       }
     },
     {
@@ -125,230 +62,26 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "object",
-            "properties": {
-              "string": {
-                "type": "string"
-              },
-              "number": {
-                "type": "number"
-              },
-              "boolean": {
-                "type": "boolean"
-              },
-              "object": {
-                "type": "object",
-                "properties": {
-                  "string": {
-                    "type": "string"
-                  },
-                  "number": {
-                    "type": "number"
-                  },
-                  "boolean": {
-                    "type": "boolean"
-                  },
-                  "object": {
-                    "type": "object",
-                    "properties": {
-                      "string": {
-                        "type": "string"
-                      },
-                      "number": {
-                        "type": "number"
-                      },
-                      "boolean": {
-                        "type": "boolean"
-                      },
-                      "object": {
-                        "type": "object",
-                        "properties": {
-                          "string": {
-                            "type": "string"
-                          },
-                          "number": {
-                            "type": "number"
-                          },
-                          "boolean": {
-                            "type": "boolean"
-                          },
-                          "object": {
-                            "type": "null"
-                          },
-                          "array": {
-                            "type": "array",
-                            "items": {
-                              "type": "number"
-                            }
-                          }
-                        },
-                        "required": [
-                          "object",
-                          "array"
-                        ],
-                        "nullable": true
-                      },
-                      "array": {
-                        "type": "array",
-                        "items": {
-                          "type": "number"
-                        }
-                      }
-                    },
-                    "required": [
-                      "object",
-                      "array"
-                    ],
-                    "nullable": true
-                  },
-                  "array": {
-                    "type": "array",
-                    "items": {
-                      "type": "number"
-                    }
-                  }
-                },
-                "required": [
-                  "object",
-                  "array"
-                ],
-                "nullable": true
-              },
-              "array": {
-                "type": "array",
-                "items": {
-                  "type": "number"
-                }
-              }
-            },
-            "required": [
-              "object",
-              "array"
-            ],
-            "description": "Current Type: {@link ObjectPartialAndRequired}"
+            "$ref": "#/$defs/ObjectPartialAndRequired"
           },
           "second": {
-            "type": "object",
-            "properties": {
-              "string": {
-                "type": "string"
+            "anyOf": [
+              {
+                "type": "null"
               },
-              "number": {
-                "type": "number"
-              },
-              "boolean": {
-                "type": "boolean"
-              },
-              "object": {
-                "type": "object",
-                "properties": {
-                  "string": {
-                    "type": "string"
-                  },
-                  "number": {
-                    "type": "number"
-                  },
-                  "boolean": {
-                    "type": "boolean"
-                  },
-                  "object": {
-                    "type": "object",
-                    "properties": {
-                      "string": {
-                        "type": "string"
-                      },
-                      "number": {
-                        "type": "number"
-                      },
-                      "boolean": {
-                        "type": "boolean"
-                      },
-                      "object": {
-                        "type": "object",
-                        "properties": {
-                          "string": {
-                            "type": "string"
-                          },
-                          "number": {
-                            "type": "number"
-                          },
-                          "boolean": {
-                            "type": "boolean"
-                          },
-                          "object": {
-                            "type": "null"
-                          },
-                          "array": {
-                            "type": "array",
-                            "items": {
-                              "type": "number"
-                            }
-                          }
-                        },
-                        "required": [
-                          "object",
-                          "array"
-                        ],
-                        "nullable": true
-                      },
-                      "array": {
-                        "type": "array",
-                        "items": {
-                          "type": "number"
-                        }
-                      }
-                    },
-                    "required": [
-                      "object",
-                      "array"
-                    ],
-                    "nullable": true
-                  },
-                  "array": {
-                    "type": "array",
-                    "items": {
-                      "type": "number"
-                    }
-                  }
-                },
-                "required": [
-                  "object",
-                  "array"
-                ],
-                "nullable": true
-              },
-              "array": {
-                "type": "array",
-                "items": {
-                  "type": "number"
-                }
+              {
+                "$ref": "#/$defs/ObjectPartialAndRequired"
               }
-            },
-            "required": [
-              "object",
-              "array"
-            ],
-            "nullable": true
+            ]
           }
         },
         "required": [
           "first",
           "second"
-        ]
-      },
-      "output": {
-        "type": "object",
-        "properties": {
-          "string": {
-            "type": "string"
-          },
-          "number": {
-            "type": "number"
-          },
-          "boolean": {
-            "type": "boolean"
-          },
-          "object": {
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ObjectPartialAndRequired": {
             "type": "object",
             "properties": {
               "string": {
@@ -361,57 +94,14 @@
                 "type": "boolean"
               },
               "object": {
-                "type": "object",
-                "properties": {
-                  "string": {
-                    "type": "string"
+                "anyOf": [
+                  {
+                    "type": "null"
                   },
-                  "number": {
-                    "type": "number"
-                  },
-                  "boolean": {
-                    "type": "boolean"
-                  },
-                  "object": {
-                    "type": "object",
-                    "properties": {
-                      "string": {
-                        "type": "string"
-                      },
-                      "number": {
-                        "type": "number"
-                      },
-                      "boolean": {
-                        "type": "boolean"
-                      },
-                      "object": {
-                        "type": "null"
-                      },
-                      "array": {
-                        "type": "array",
-                        "items": {
-                          "type": "number"
-                        }
-                      }
-                    },
-                    "required": [
-                      "object",
-                      "array"
-                    ],
-                    "nullable": true
-                  },
-                  "array": {
-                    "type": "array",
-                    "items": {
-                      "type": "number"
-                    }
+                  {
+                    "$ref": "#/$defs/ObjectPartialAndRequired"
                   }
-                },
-                "required": [
-                  "object",
-                  "array"
-                ],
-                "nullable": true
+                ]
               },
               "array": {
                 "type": "array",
@@ -423,21 +113,12 @@
             "required": [
               "object",
               "array"
-            ],
-            "nullable": true
-          },
-          "array": {
-            "type": "array",
-            "items": {
-              "type": "number"
-            }
+            ]
           }
-        },
-        "required": [
-          "object",
-          "array"
-        ],
-        "description": "Current Type: {@link ObjectPartialAndRequired}"
+        }
+      },
+      "output": {
+        "$ref": "#/$defs/ObjectPartialAndRequired"
       }
     },
     {
@@ -446,333 +127,43 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "object",
-            "properties": {
-              "string": {
-                "type": "string"
+            "anyOf": [
+              {
+                "type": "null"
               },
-              "number": {
-                "type": "number"
-              },
-              "boolean": {
-                "type": "boolean"
-              },
-              "object": {
-                "type": "object",
-                "properties": {
-                  "string": {
-                    "type": "string"
-                  },
-                  "number": {
-                    "type": "number"
-                  },
-                  "boolean": {
-                    "type": "boolean"
-                  },
-                  "object": {
-                    "type": "object",
-                    "properties": {
-                      "string": {
-                        "type": "string"
-                      },
-                      "number": {
-                        "type": "number"
-                      },
-                      "boolean": {
-                        "type": "boolean"
-                      },
-                      "object": {
-                        "type": "object",
-                        "properties": {
-                          "string": {
-                            "type": "string"
-                          },
-                          "number": {
-                            "type": "number"
-                          },
-                          "boolean": {
-                            "type": "boolean"
-                          },
-                          "object": {
-                            "type": "null"
-                          },
-                          "array": {
-                            "type": "array",
-                            "items": {
-                              "type": "number"
-                            }
-                          }
-                        },
-                        "required": [
-                          "object",
-                          "array"
-                        ],
-                        "nullable": true
-                      },
-                      "array": {
-                        "type": "array",
-                        "items": {
-                          "type": "number"
-                        }
-                      }
-                    },
-                    "required": [
-                      "object",
-                      "array"
-                    ],
-                    "nullable": true
-                  },
-                  "array": {
-                    "type": "array",
-                    "items": {
-                      "type": "number"
-                    }
-                  }
-                },
-                "required": [
-                  "object",
-                  "array"
-                ],
-                "nullable": true
-              },
-              "array": {
-                "type": "array",
-                "items": {
-                  "type": "number"
-                }
+              {
+                "$ref": "#/$defs/ObjectPartialAndRequired"
               }
-            },
-            "required": [
-              "object",
-              "array"
-            ],
-            "nullable": true
+            ]
           },
           "second": {
-            "type": "object",
-            "properties": {
-              "string": {
-                "type": "string"
+            "anyOf": [
+              {
+                "type": "null"
               },
-              "number": {
-                "type": "number"
-              },
-              "boolean": {
-                "type": "boolean"
-              },
-              "object": {
-                "type": "object",
-                "properties": {
-                  "string": {
-                    "type": "string"
-                  },
-                  "number": {
-                    "type": "number"
-                  },
-                  "boolean": {
-                    "type": "boolean"
-                  },
-                  "object": {
-                    "type": "object",
-                    "properties": {
-                      "string": {
-                        "type": "string"
-                      },
-                      "number": {
-                        "type": "number"
-                      },
-                      "boolean": {
-                        "type": "boolean"
-                      },
-                      "object": {
-                        "type": "object",
-                        "properties": {
-                          "string": {
-                            "type": "string"
-                          },
-                          "number": {
-                            "type": "number"
-                          },
-                          "boolean": {
-                            "type": "boolean"
-                          },
-                          "object": {
-                            "type": "null"
-                          },
-                          "array": {
-                            "type": "array",
-                            "items": {
-                              "type": "number"
-                            }
-                          }
-                        },
-                        "required": [
-                          "object",
-                          "array"
-                        ],
-                        "nullable": true
-                      },
-                      "array": {
-                        "type": "array",
-                        "items": {
-                          "type": "number"
-                        }
-                      }
-                    },
-                    "required": [
-                      "object",
-                      "array"
-                    ],
-                    "nullable": true
-                  },
-                  "array": {
-                    "type": "array",
-                    "items": {
-                      "type": "number"
-                    }
-                  }
-                },
-                "required": [
-                  "object",
-                  "array"
-                ],
-                "nullable": true
-              },
-              "array": {
-                "type": "array",
-                "items": {
-                  "type": "number"
-                }
+              {
+                "$ref": "#/$defs/ObjectPartialAndRequired"
               }
-            },
-            "required": [
-              "object",
-              "array"
-            ],
-            "nullable": true
+            ]
           },
           "third": {
-            "type": "object",
-            "properties": {
-              "string": {
-                "type": "string"
+            "anyOf": [
+              {
+                "type": "null"
               },
-              "number": {
-                "type": "number"
-              },
-              "boolean": {
-                "type": "boolean"
-              },
-              "object": {
-                "type": "object",
-                "properties": {
-                  "string": {
-                    "type": "string"
-                  },
-                  "number": {
-                    "type": "number"
-                  },
-                  "boolean": {
-                    "type": "boolean"
-                  },
-                  "object": {
-                    "type": "object",
-                    "properties": {
-                      "string": {
-                        "type": "string"
-                      },
-                      "number": {
-                        "type": "number"
-                      },
-                      "boolean": {
-                        "type": "boolean"
-                      },
-                      "object": {
-                        "type": "object",
-                        "properties": {
-                          "string": {
-                            "type": "string"
-                          },
-                          "number": {
-                            "type": "number"
-                          },
-                          "boolean": {
-                            "type": "boolean"
-                          },
-                          "object": {
-                            "type": "null"
-                          },
-                          "array": {
-                            "type": "array",
-                            "items": {
-                              "type": "number"
-                            }
-                          }
-                        },
-                        "required": [
-                          "object",
-                          "array"
-                        ],
-                        "nullable": true
-                      },
-                      "array": {
-                        "type": "array",
-                        "items": {
-                          "type": "number"
-                        }
-                      }
-                    },
-                    "required": [
-                      "object",
-                      "array"
-                    ],
-                    "nullable": true
-                  },
-                  "array": {
-                    "type": "array",
-                    "items": {
-                      "type": "number"
-                    }
-                  }
-                },
-                "required": [
-                  "object",
-                  "array"
-                ],
-                "nullable": true
-              },
-              "array": {
-                "type": "array",
-                "items": {
-                  "type": "number"
-                }
+              {
+                "$ref": "#/$defs/ObjectPartialAndRequired"
               }
-            },
-            "required": [
-              "object",
-              "array"
-            ],
-            "nullable": true
+            ]
           }
         },
         "required": [
           "first",
           "second"
-        ]
-      },
-      "output": {
-        "type": "object",
-        "properties": {
-          "string": {
-            "type": "string"
-          },
-          "number": {
-            "type": "number"
-          },
-          "boolean": {
-            "type": "boolean"
-          },
-          "object": {
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ObjectPartialAndRequired": {
             "type": "object",
             "properties": {
               "string": {
@@ -785,57 +176,14 @@
                 "type": "boolean"
               },
               "object": {
-                "type": "object",
-                "properties": {
-                  "string": {
-                    "type": "string"
+                "anyOf": [
+                  {
+                    "type": "null"
                   },
-                  "number": {
-                    "type": "number"
-                  },
-                  "boolean": {
-                    "type": "boolean"
-                  },
-                  "object": {
-                    "type": "object",
-                    "properties": {
-                      "string": {
-                        "type": "string"
-                      },
-                      "number": {
-                        "type": "number"
-                      },
-                      "boolean": {
-                        "type": "boolean"
-                      },
-                      "object": {
-                        "type": "null"
-                      },
-                      "array": {
-                        "type": "array",
-                        "items": {
-                          "type": "number"
-                        }
-                      }
-                    },
-                    "required": [
-                      "object",
-                      "array"
-                    ],
-                    "nullable": true
-                  },
-                  "array": {
-                    "type": "array",
-                    "items": {
-                      "type": "number"
-                    }
+                  {
+                    "$ref": "#/$defs/ObjectPartialAndRequired"
                   }
-                },
-                "required": [
-                  "object",
-                  "array"
-                ],
-                "nullable": true
+                ]
               },
               "array": {
                 "type": "array",
@@ -847,21 +195,19 @@
             "required": [
               "object",
               "array"
-            ],
-            "nullable": true
-          },
-          "array": {
-            "type": "array",
-            "items": {
-              "type": "number"
-            }
+            ]
           }
-        },
-        "required": [
-          "object",
-          "array"
-        ],
-        "nullable": true
+        }
+      },
+      "output": {
+        "anyOf": [
+          {
+            "type": "null"
+          },
+          {
+            "$ref": "#/$defs/ObjectPartialAndRequired"
+          }
+        ]
       }
     }
   ]

@@ -2,66 +2,35 @@
   "type": "object",
   "properties": {
     "regular": {
-      "type": "object",
-      "properties": {
-        "value": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "value"
-      ],
-      "description": "Current Type: {@link ObjectGenericAlias.Alias}"
+      "$ref": "#/$defs/ObjectGenericAlias.Alias"
     },
     "nullable": {
-      "type": "object",
-      "properties": {
-        "value": {
-          "type": "string"
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/ObjectGenericAlias.Alias"
         }
-      },
-      "required": [
-        "value"
-      ],
-      "nullable": true
+      ]
     },
     "optional": {
-      "type": "object",
-      "properties": {
-        "value": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "value"
-      ],
-      "description": "Current Type: {@link ObjectGenericAlias.Alias}"
+      "$ref": "#/$defs/ObjectGenericAlias.Alias"
     },
     "faint": {
-      "type": "object",
-      "properties": {
-        "value": {
-          "type": "string"
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/ObjectGenericAlias.Alias"
         }
-      },
-      "required": [
-        "value"
-      ],
-      "nullable": true
+      ]
     },
     "array": {
       "type": "array",
       "items": {
-        "type": "object",
-        "properties": {
-          "value": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "value"
-        ],
-        "description": "Current Type: {@link ObjectGenericAlias.Alias}"
+        "$ref": "#/$defs/ObjectGenericAlias.Alias"
       }
     }
   },
@@ -69,5 +38,19 @@
     "regular",
     "nullable",
     "array"
-  ]
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "ObjectGenericAlias.Alias": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    }
+  }
 }

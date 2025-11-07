@@ -7,4 +7,4 @@ export const test_llm_schema_gemini_ClassPropertyAssignment = (): void =>
   _test_llm_schema({
     model: "gemini",
     name: "ClassPropertyAssignment",
-  })(typia.llm.schema<ClassPropertyAssignment, "gemini">());
+  })(typia.llm.schema<ClassPropertyAssignment, "gemini">({}));

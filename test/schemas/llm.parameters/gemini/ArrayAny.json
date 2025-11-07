@@ -2,271 +2,35 @@
   "type": "object",
   "properties": {
     "regular": {
-      "type": "object",
-      "properties": {
-        "anys": {
-          "type": "array",
-          "items": {}
-        },
-        "undefindable1": {
-          "type": "array",
-          "items": {}
-        },
-        "undefindable2": {
-          "type": "array",
-          "items": {}
-        },
-        "nullables1": {
-          "type": "array",
-          "items": {},
-          "nullable": true
-        },
-        "nullables2": {
-          "type": "array",
-          "items": {},
-          "nullable": true
-        },
-        "both1": {
-          "type": "array",
-          "items": {},
-          "nullable": true
-        },
-        "both2": {
-          "type": "array",
-          "items": {},
-          "nullable": true
-        },
-        "both3": {
-          "type": "array",
-          "items": {},
-          "nullable": true
-        },
-        "union": {
-          "type": "array",
-          "items": {}
-        }
-      },
-      "required": [
-        "anys",
-        "nullables1",
-        "nullables2",
-        "union"
-      ],
-      "description": "Current Type: {@link ArrayAny}"
+      "$ref": "#/$defs/ArrayAny"
     },
     "nullable": {
-      "type": "object",
-      "properties": {
-        "anys": {
-          "type": "array",
-          "items": {}
+      "anyOf": [
+        {
+          "type": "null"
         },
-        "undefindable1": {
-          "type": "array",
-          "items": {}
-        },
-        "undefindable2": {
-          "type": "array",
-          "items": {}
-        },
-        "nullables1": {
-          "type": "array",
-          "items": {},
-          "nullable": true
-        },
-        "nullables2": {
-          "type": "array",
-          "items": {},
-          "nullable": true
-        },
-        "both1": {
-          "type": "array",
-          "items": {},
-          "nullable": true
-        },
-        "both2": {
-          "type": "array",
-          "items": {},
-          "nullable": true
-        },
-        "both3": {
-          "type": "array",
-          "items": {},
-          "nullable": true
-        },
-        "union": {
-          "type": "array",
-          "items": {}
+        {
+          "$ref": "#/$defs/ArrayAny"
         }
-      },
-      "required": [
-        "anys",
-        "nullables1",
-        "nullables2",
-        "union"
-      ],
-      "nullable": true
+      ]
     },
     "optional": {
-      "type": "object",
-      "properties": {
-        "anys": {
-          "type": "array",
-          "items": {}
-        },
-        "undefindable1": {
-          "type": "array",
-          "items": {}
-        },
-        "undefindable2": {
-          "type": "array",
-          "items": {}
-        },
-        "nullables1": {
-          "type": "array",
-          "items": {},
-          "nullable": true
-        },
-        "nullables2": {
-          "type": "array",
-          "items": {},
-          "nullable": true
-        },
-        "both1": {
-          "type": "array",
-          "items": {},
-          "nullable": true
-        },
-        "both2": {
-          "type": "array",
-          "items": {},
-          "nullable": true
-        },
-        "both3": {
-          "type": "array",
-          "items": {},
-          "nullable": true
-        },
-        "union": {
-          "type": "array",
-          "items": {}
-        }
-      },
-      "required": [
-        "anys",
-        "nullables1",
-        "nullables2",
-        "union"
-      ],
-      "description": "Current Type: {@link ArrayAny}"
+      "$ref": "#/$defs/ArrayAny"
     },
     "faint": {
-      "type": "object",
-      "properties": {
-        "anys": {
-          "type": "array",
-          "items": {}
+      "anyOf": [
+        {
+          "type": "null"
         },
-        "undefindable1": {
-          "type": "array",
-          "items": {}
-        },
-        "undefindable2": {
-          "type": "array",
-          "items": {}
-        },
-        "nullables1": {
-          "type": "array",
-          "items": {},
-          "nullable": true
-        },
-        "nullables2": {
-          "type": "array",
-          "items": {},
-          "nullable": true
-        },
-        "both1": {
-          "type": "array",
-          "items": {},
-          "nullable": true
-        },
-        "both2": {
-          "type": "array",
-          "items": {},
-          "nullable": true
-        },
-        "both3": {
-          "type": "array",
-          "items": {},
-          "nullable": true
-        },
-        "union": {
-          "type": "array",
-          "items": {}
+        {
+          "$ref": "#/$defs/ArrayAny"
         }
-      },
-      "required": [
-        "anys",
-        "nullables1",
-        "nullables2",
-        "union"
-      ],
-      "nullable": true
+      ]
     },
     "array": {
       "type": "array",
       "items": {
-        "type": "object",
-        "properties": {
-          "anys": {
-            "type": "array",
-            "items": {}
-          },
-          "undefindable1": {
-            "type": "array",
-            "items": {}
-          },
-          "undefindable2": {
-            "type": "array",
-            "items": {}
-          },
-          "nullables1": {
-            "type": "array",
-            "items": {},
-            "nullable": true
-          },
-          "nullables2": {
-            "type": "array",
-            "items": {},
-            "nullable": true
-          },
-          "both1": {
-            "type": "array",
-            "items": {},
-            "nullable": true
-          },
-          "both2": {
-            "type": "array",
-            "items": {},
-            "nullable": true
-          },
-          "both3": {
-            "type": "array",
-            "items": {},
-            "nullable": true
-          },
-          "union": {
-            "type": "array",
-            "items": {}
-          }
-        },
-        "required": [
-          "anys",
-          "nullables1",
-          "nullables2",
-          "union"
-        ],
-        "description": "Current Type: {@link ArrayAny}"
+        "$ref": "#/$defs/ArrayAny"
       }
     }
   },
@@ -274,5 +38,90 @@
     "regular",
     "nullable",
     "array"
-  ]
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "ArrayAny": {
+      "type": "object",
+      "properties": {
+        "anys": {
+          "type": "array",
+          "items": {}
+        },
+        "undefindable1": {
+          "type": "array",
+          "items": {}
+        },
+        "undefindable2": {
+          "type": "array",
+          "items": {}
+        },
+        "nullables1": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {}
+            }
+          ]
+        },
+        "nullables2": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {}
+            }
+          ]
+        },
+        "both1": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {}
+            }
+          ]
+        },
+        "both2": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {}
+            }
+          ]
+        },
+        "both3": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {}
+            }
+          ]
+        },
+        "union": {
+          "type": "array",
+          "items": {}
+        }
+      },
+      "required": [
+        "anys",
+        "nullables1",
+        "nullables2",
+        "union"
+      ]
+    }
+  }
 }

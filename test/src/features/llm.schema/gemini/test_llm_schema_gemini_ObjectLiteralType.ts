@@ -7,4 +7,4 @@ export const test_llm_schema_gemini_ObjectLiteralType = (): void =>
   _test_llm_schema({
     model: "gemini",
     name: "ObjectLiteralType",
-  })(typia.llm.schema<ObjectLiteralType, "gemini">());
+  })(typia.llm.schema<ObjectLiteralType, "gemini">({}));

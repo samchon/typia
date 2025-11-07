@@ -2,176 +2,47 @@
   "type": "object",
   "properties": {
     "regular": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "number"
-        },
-        "name": {
-          "type": "string"
-        },
-        "note": {
-          "type": "string",
-          "enum": [
-            "assignment"
-          ]
-        },
-        "editable": {
-          "type": "boolean",
-          "enum": [
-            false
-          ]
-        },
-        "incremental": {
-          "type": "boolean"
-        }
-      },
-      "required": [
-        "id",
-        "name",
-        "note",
-        "editable",
-        "incremental"
-      ],
-      "description": "Current Type: {@link ClassPropertyAssignment}"
+      "$ref": "#/$defs/ClassPropertyAssignment"
     },
     "nullable": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "number"
+      "anyOf": [
+        {
+          "type": "null"
         },
-        "name": {
-          "type": "string"
-        },
-        "note": {
-          "type": "string",
-          "enum": [
-            "assignment"
-          ]
-        },
-        "editable": {
-          "type": "boolean",
-          "enum": [
-            false
-          ]
-        },
-        "incremental": {
-          "type": "boolean"
+        {
+          "$ref": "#/$defs/ClassPropertyAssignment"
         }
-      },
-      "required": [
-        "id",
-        "name",
-        "note",
-        "editable",
-        "incremental"
       ],
-      "nullable": true
+      "x-discriminator": {
+        "propertyName": "note",
+        "mapping": {
+          "assignment": "#/$defs/ClassPropertyAssignment"
+        }
+      }
     },
     "optional": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "number"
-        },
-        "name": {
-          "type": "string"
-        },
-        "note": {
-          "type": "string",
-          "enum": [
-            "assignment"
-          ]
-        },
-        "editable": {
-          "type": "boolean",
-          "enum": [
-            false
-          ]
-        },
-        "incremental": {
-          "type": "boolean"
-        }
-      },
-      "required": [
-        "id",
-        "name",
-        "note",
-        "editable",
-        "incremental"
-      ],
-      "description": "Current Type: {@link ClassPropertyAssignment}"
+      "$ref": "#/$defs/ClassPropertyAssignment"
     },
     "faint": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "number"
+      "anyOf": [
+        {
+          "type": "null"
         },
-        "name": {
-          "type": "string"
-        },
-        "note": {
-          "type": "string",
-          "enum": [
-            "assignment"
-          ]
-        },
-        "editable": {
-          "type": "boolean",
-          "enum": [
-            false
-          ]
-        },
-        "incremental": {
-          "type": "boolean"
+        {
+          "$ref": "#/$defs/ClassPropertyAssignment"
         }
-      },
-      "required": [
-        "id",
-        "name",
-        "note",
-        "editable",
-        "incremental"
       ],
-      "nullable": true
+      "x-discriminator": {
+        "propertyName": "note",
+        "mapping": {
+          "assignment": "#/$defs/ClassPropertyAssignment"
+        }
+      }
     },
     "array": {
       "type": "array",
       "items": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "number"
-          },
-          "name": {
-            "type": "string"
-          },
-          "note": {
-            "type": "string",
-            "enum": [
-              "assignment"
-            ]
-          },
-          "editable": {
-            "type": "boolean",
-            "enum": [
-              false
-            ]
-          },
-          "incremental": {
-            "type": "boolean"
-          }
-        },
-        "required": [
-          "id",
-          "name",
-          "note",
-          "editable",
-          "incremental"
-        ],
-        "description": "Current Type: {@link ClassPropertyAssignment}"
+        "$ref": "#/$defs/ClassPropertyAssignment"
       }
     }
   },
@@ -179,5 +50,41 @@
     "regular",
     "nullable",
     "array"
-  ]
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "ClassPropertyAssignment": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        },
+        "note": {
+          "type": "string",
+          "enum": [
+            "assignment"
+          ]
+        },
+        "editable": {
+          "type": "boolean",
+          "enum": [
+            false
+          ]
+        },
+        "incremental": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "note",
+        "editable",
+        "incremental"
+      ]
+    }
+  }
 }

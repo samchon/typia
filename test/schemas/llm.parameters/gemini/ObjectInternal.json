@@ -2,86 +2,35 @@
   "type": "object",
   "properties": {
     "regular": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "id",
-        "name"
-      ],
-      "description": "Current Type: {@link ObjectInternal}"
+      "$ref": "#/$defs/ObjectInternal"
     },
     "nullable": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string"
+      "anyOf": [
+        {
+          "type": "null"
         },
-        "name": {
-          "type": "string"
+        {
+          "$ref": "#/$defs/ObjectInternal"
         }
-      },
-      "required": [
-        "id",
-        "name"
-      ],
-      "nullable": true
+      ]
     },
     "optional": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "id",
-        "name"
-      ],
-      "description": "Current Type: {@link ObjectInternal}"
+      "$ref": "#/$defs/ObjectInternal"
     },
     "faint": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string"
+      "anyOf": [
+        {
+          "type": "null"
         },
-        "name": {
-          "type": "string"
+        {
+          "$ref": "#/$defs/ObjectInternal"
         }
-      },
-      "required": [
-        "id",
-        "name"
-      ],
-      "nullable": true
+      ]
     },
     "array": {
       "type": "array",
       "items": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "id",
-          "name"
-        ],
-        "description": "Current Type: {@link ObjectInternal}"
+        "$ref": "#/$defs/ObjectInternal"
       }
     }
   },
@@ -89,5 +38,23 @@
     "regular",
     "nullable",
     "array"
-  ]
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "ObjectInternal": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "name"
+      ]
+    }
+  }
 }

@@ -7,4 +7,4 @@ export const test_llm_schema_gemini_DynamicConstant = (): void =>
   _test_llm_schema({
     model: "gemini",
     name: "DynamicConstant",
-  })(typia.llm.schema<DynamicConstant, "gemini">());
+  })(typia.llm.schema<DynamicConstant, "gemini">({}));

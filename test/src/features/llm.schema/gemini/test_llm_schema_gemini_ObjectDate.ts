@@ -7,4 +7,4 @@ export const test_llm_schema_gemini_ObjectDate = (): void =>
   _test_llm_schema({
     model: "gemini",
     name: "ObjectDate",
-  })(typia.llm.schema<ObjectDate, "gemini">());
+  })(typia.llm.schema<ObjectDate, "gemini">({}));
