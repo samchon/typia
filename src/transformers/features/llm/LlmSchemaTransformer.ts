@@ -164,7 +164,9 @@ export namespace LlmSchemaTransformer {
         ),
       ),
       undefined,
-      [props.expression.arguments[0]!],
+      props.expression.arguments?.[0] !== undefined
+        ? [props.expression.arguments[0]!]
+        : [],
     );
   };
 }
