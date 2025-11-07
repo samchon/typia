@@ -1,4 +1,4 @@
-import { OpenApi } from "@samchon/openapi";
+import { IJsonSchemaAttribute, OpenApi } from "@samchon/openapi";
 
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataAtomic } from "../../schemas/metadata/MetadataAtomic";
@@ -24,7 +24,7 @@ import { json_schema_tuple } from "./json_schema_tuple";
 export const json_schema_station = <BlockNever extends boolean>(props: {
   blockNever: BlockNever;
   components: OpenApi.IComponents;
-  attribute: OpenApi.IJsonSchema.__IAttribute;
+  attribute: IJsonSchemaAttribute;
   metadata: Metadata;
 }): BlockNever extends true
   ? OpenApi.IJsonSchema | null

@@ -1,6 +1,5 @@
 import {
   IChatGptSchema,
-  IGeminiSchema,
   ILlmSchema,
   ILlmSchemaV3,
   IOpenApiSchemaError,
@@ -76,10 +75,9 @@ export namespace LlmSchemaProgrammer {
 
       // no additionalProperties in ChatGPT strict mode or Gemini
       if (
-        ((props.model === "chatgpt" &&
-          (props.config as Partial<IChatGptSchema.IConfig> | undefined)
-            ?.strict === true) ||
-          props.model === "gemini") &&
+        props.model === "chatgpt" &&
+        (props.config as Partial<IChatGptSchema.IConfig> | undefined)
+          ?.strict === true &&
         metadata.objects.some((o) =>
           o.type.properties.some(
             (p) => p.key.isSoleLiteral() === false && p.value.size() !== 0,
@@ -103,14 +101,10 @@ export namespace LlmSchemaProgrammer {
           `LLM schema of "chatgpt" (strict mode) does not support optional property in object.`,
         );
 
-      // Gemini does not support the union type
-      if (props.model === "gemini" && size(metadata) > 1)
-        output.push("Gemini model does not support the union type.");
-
       // no recursive rule of Gemini and V3
       if (
-        (props.model === "gemini" || props.model === "3.0") &&
-        ((props.config as IGeminiSchema.IConfig | undefined)?.recursive ===
+        props.model === "3.0" &&
+        ((props.config as ILlmSchemaV3.IConfig | undefined)?.recursive ===
           false ||
           (props.config as ILlmSchemaV3.IConfig | undefined)?.recursive === 0)
       ) {
