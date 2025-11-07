@@ -459,6 +459,14 @@
               "tuples": [],
               "objects": [
                 {
+                  "name": "OpenApi.IJsonSchema.IString",
+                  "tags": []
+                },
+                {
+                  "name": "OpenApi.IJsonSchema.INumber",
+                  "tags": []
+                },
+                {
                   "name": "OpenApi.IJsonSchema.IConstant",
                   "tags": []
                 },
@@ -467,15 +475,7 @@
                   "tags": []
                 },
                 {
-                  "name": "OpenApi.IJsonSchema.INumber",
-                  "tags": []
-                },
-                {
                   "name": "OpenApi.IJsonSchema.IInteger",
-                  "tags": []
-                },
-                {
-                  "name": "OpenApi.IJsonSchema.IString",
                   "tags": []
                 },
                 {
@@ -520,6 +520,1534 @@
         "jsDocTags": [],
         "index": 2,
         "recursive": true,
+        "nullables": [
+          false
+        ]
+      },
+      {
+        "name": "OpenApi.IJsonSchema.IString",
+        "properties": [
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    {
+                      "value": "default",
+                      "tags": []
+                    }
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": true,
+              "optional": true,
+              "nullable": false,
+              "functions": [],
+              "atomics": [
+                {
+                  "type": "string",
+                  "tags": []
+                }
+              ],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": "Default value of the string type.",
+            "jsDocTags": []
+          },
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    {
+                      "value": "format",
+                      "tags": []
+                    }
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": true,
+              "optional": true,
+              "nullable": false,
+              "functions": [],
+              "atomics": [
+                {
+                  "type": "string",
+                  "tags": []
+                }
+              ],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": "Format restriction.",
+            "jsDocTags": []
+          },
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    {
+                      "value": "pattern",
+                      "tags": []
+                    }
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": true,
+              "optional": true,
+              "nullable": false,
+              "functions": [],
+              "atomics": [
+                {
+                  "type": "string",
+                  "tags": []
+                }
+              ],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": "Pattern restriction.",
+            "jsDocTags": []
+          },
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    {
+                      "value": "contentMediaType",
+                      "tags": []
+                    }
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": true,
+              "optional": true,
+              "nullable": false,
+              "functions": [],
+              "atomics": [
+                {
+                  "type": "string",
+                  "tags": []
+                }
+              ],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": "Content media type restriction.",
+            "jsDocTags": []
+          },
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    {
+                      "value": "minLength",
+                      "tags": []
+                    }
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": true,
+              "optional": true,
+              "nullable": false,
+              "functions": [],
+              "atomics": [
+                {
+                  "type": "number",
+                  "tags": [
+                    [
+                      {
+                        "target": "number",
+                        "name": "Type<\"uint64\">",
+                        "kind": "type",
+                        "value": "uint64",
+                        "validate": "Math.floor($input) === $input && 0 <= $input && $input <= 18446744073709551615",
+                        "exclusive": true,
+                        "schema": {
+                          "type": "integer",
+                          "minimum": 0
+                        }
+                      }
+                    ]
+                  ]
+                }
+              ],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": "Minimum length restriction.",
+            "jsDocTags": [
+              {
+                "name": "type",
+                "text": [
+                  {
+                    "text": "uint64",
+                    "kind": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    {
+                      "value": "maxLength",
+                      "tags": []
+                    }
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": true,
+              "optional": true,
+              "nullable": false,
+              "functions": [],
+              "atomics": [
+                {
+                  "type": "number",
+                  "tags": [
+                    [
+                      {
+                        "target": "number",
+                        "name": "Type<\"uint64\">",
+                        "kind": "type",
+                        "value": "uint64",
+                        "validate": "Math.floor($input) === $input && 0 <= $input && $input <= 18446744073709551615",
+                        "exclusive": true,
+                        "schema": {
+                          "type": "integer",
+                          "minimum": 0
+                        }
+                      }
+                    ]
+                  ]
+                }
+              ],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": "Maximum length restriction.",
+            "jsDocTags": [
+              {
+                "name": "type",
+                "text": [
+                  {
+                    "text": "uint64",
+                    "kind": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    {
+                      "value": "type",
+                      "tags": []
+                    }
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    {
+                      "value": "string",
+                      "tags": []
+                    }
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": "Discriminator value of the type.",
+            "jsDocTags": []
+          },
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    {
+                      "value": "title",
+                      "tags": []
+                    }
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": true,
+              "optional": true,
+              "nullable": false,
+              "functions": [],
+              "atomics": [
+                {
+                  "type": "string",
+                  "tags": []
+                }
+              ],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": "Title of the schema.",
+            "jsDocTags": []
+          },
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    {
+                      "value": "description",
+                      "tags": []
+                    }
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": true,
+              "optional": true,
+              "nullable": false,
+              "functions": [],
+              "atomics": [
+                {
+                  "type": "string",
+                  "tags": []
+                }
+              ],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": "Detailed description of the schema.",
+            "jsDocTags": []
+          },
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    {
+                      "value": "deprecated",
+                      "tags": []
+                    }
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": true,
+              "optional": true,
+              "nullable": false,
+              "functions": [],
+              "atomics": [
+                {
+                  "type": "boolean",
+                  "tags": []
+                }
+              ],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": "Whether the type is deprecated or not.",
+            "jsDocTags": []
+          },
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    {
+                      "value": "example",
+                      "tags": []
+                    }
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": true,
+              "required": true,
+              "optional": true,
+              "nullable": false,
+              "functions": [],
+              "atomics": [],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": "Example value.",
+            "jsDocTags": []
+          },
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    {
+                      "value": "examples",
+                      "tags": []
+                    }
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": true,
+              "optional": true,
+              "nullable": false,
+              "functions": [],
+              "atomics": [],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [
+                {
+                  "name": "Record<string, any>",
+                  "tags": []
+                }
+              ],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": "List of example values as key-value pairs.",
+            "jsDocTags": []
+          }
+        ],
+        "description": "String type info.",
+        "jsDocTags": [],
+        "index": 3,
+        "recursive": false,
+        "nullables": [
+          false
+        ]
+      },
+      {
+        "name": "Record<string, any>",
+        "properties": [
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [
+                {
+                  "type": "string",
+                  "tags": []
+                }
+              ],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": true,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": null,
+            "jsDocTags": []
+          }
+        ],
+        "description": "Construct a type with a set of properties K of type T",
+        "jsDocTags": [],
+        "index": 4,
+        "recursive": false,
+        "nullables": [
+          false
+        ]
+      },
+      {
+        "name": "OpenApi.IJsonSchema.INumber",
+        "properties": [
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    {
+                      "value": "default",
+                      "tags": []
+                    }
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": true,
+              "optional": true,
+              "nullable": false,
+              "functions": [],
+              "atomics": [
+                {
+                  "type": "number",
+                  "tags": []
+                }
+              ],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": "Default value of the number type.",
+            "jsDocTags": []
+          },
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    {
+                      "value": "minimum",
+                      "tags": []
+                    }
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": true,
+              "optional": true,
+              "nullable": false,
+              "functions": [],
+              "atomics": [
+                {
+                  "type": "number",
+                  "tags": []
+                }
+              ],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": "Minimum value restriction.",
+            "jsDocTags": []
+          },
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    {
+                      "value": "maximum",
+                      "tags": []
+                    }
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": true,
+              "optional": true,
+              "nullable": false,
+              "functions": [],
+              "atomics": [
+                {
+                  "type": "number",
+                  "tags": []
+                }
+              ],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": "Maximum value restriction.",
+            "jsDocTags": []
+          },
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    {
+                      "value": "exclusiveMinimum",
+                      "tags": []
+                    }
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": true,
+              "optional": true,
+              "nullable": false,
+              "functions": [],
+              "atomics": [
+                {
+                  "type": "number",
+                  "tags": []
+                }
+              ],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": "Exclusive minimum value restriction.",
+            "jsDocTags": []
+          },
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    {
+                      "value": "exclusiveMaximum",
+                      "tags": []
+                    }
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": true,
+              "optional": true,
+              "nullable": false,
+              "functions": [],
+              "atomics": [
+                {
+                  "type": "number",
+                  "tags": []
+                }
+              ],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": "Exclusive maximum value restriction.",
+            "jsDocTags": []
+          },
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    {
+                      "value": "multipleOf",
+                      "tags": []
+                    }
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": true,
+              "optional": true,
+              "nullable": false,
+              "functions": [],
+              "atomics": [
+                {
+                  "type": "number",
+                  "tags": [
+                    [
+                      {
+                        "target": "number",
+                        "name": "ExclusiveMinimum<0>",
+                        "kind": "exclusiveMinimum",
+                        "value": 0,
+                        "validate": "0 < $input",
+                        "exclusive": [
+                          "minimum",
+                          "exclusiveMinimum"
+                        ],
+                        "schema": {
+                          "exclusiveMinimum": 0
+                        }
+                      }
+                    ]
+                  ]
+                }
+              ],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": "Multiple of value restriction.",
+            "jsDocTags": [
+              {
+                "name": "exclusiveMinimum",
+                "text": [
+                  {
+                    "text": "0",
+                    "kind": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    {
+                      "value": "type",
+                      "tags": []
+                    }
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    {
+                      "value": "number",
+                      "tags": []
+                    }
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": "Discriminator value of the type.",
+            "jsDocTags": []
+          },
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    {
+                      "value": "title",
+                      "tags": []
+                    }
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": true,
+              "optional": true,
+              "nullable": false,
+              "functions": [],
+              "atomics": [
+                {
+                  "type": "string",
+                  "tags": []
+                }
+              ],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": "Title of the schema.",
+            "jsDocTags": []
+          },
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    {
+                      "value": "description",
+                      "tags": []
+                    }
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": true,
+              "optional": true,
+              "nullable": false,
+              "functions": [],
+              "atomics": [
+                {
+                  "type": "string",
+                  "tags": []
+                }
+              ],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": "Detailed description of the schema.",
+            "jsDocTags": []
+          },
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    {
+                      "value": "deprecated",
+                      "tags": []
+                    }
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": true,
+              "optional": true,
+              "nullable": false,
+              "functions": [],
+              "atomics": [
+                {
+                  "type": "boolean",
+                  "tags": []
+                }
+              ],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": "Whether the type is deprecated or not.",
+            "jsDocTags": []
+          },
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    {
+                      "value": "example",
+                      "tags": []
+                    }
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": true,
+              "required": true,
+              "optional": true,
+              "nullable": false,
+              "functions": [],
+              "atomics": [],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": "Example value.",
+            "jsDocTags": []
+          },
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    {
+                      "value": "examples",
+                      "tags": []
+                    }
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": true,
+              "optional": true,
+              "nullable": false,
+              "functions": [],
+              "atomics": [],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [
+                {
+                  "name": "Record<string, any>",
+                  "tags": []
+                }
+              ],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": "List of example values as key-value pairs.",
+            "jsDocTags": []
+          }
+        ],
+        "description": "Number (double) type info.",
+        "jsDocTags": [],
+        "index": 5,
+        "recursive": false,
         "nullables": [
           false
         ]
@@ -875,66 +2403,7 @@
         ],
         "description": "Constant value type.",
         "jsDocTags": [],
-        "index": 3,
-        "recursive": false,
-        "nullables": [
-          false
-        ]
-      },
-      {
-        "name": "Record<string, any>",
-        "properties": [
-          {
-            "key": {
-              "any": false,
-              "required": true,
-              "optional": false,
-              "nullable": false,
-              "functions": [],
-              "atomics": [
-                {
-                  "type": "string",
-                  "tags": []
-                }
-              ],
-              "constants": [],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "value": {
-              "any": true,
-              "required": true,
-              "optional": false,
-              "nullable": false,
-              "functions": [],
-              "atomics": [],
-              "constants": [],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "description": null,
-            "jsDocTags": []
-          }
-        ],
-        "description": "Construct a type with a set of properties K of type T",
-        "jsDocTags": [],
-        "index": 4,
+        "index": 6,
         "recursive": false,
         "nullables": [
           false
@@ -1345,7 +2814,7 @@
         ],
         "description": "Boolean type info.",
         "jsDocTags": [],
-        "index": 5,
+        "index": 7,
         "recursive": false,
         "nullables": [
           false
@@ -2161,1475 +3630,6 @@
         ],
         "description": "Integer type info.",
         "jsDocTags": [],
-        "index": 6,
-        "recursive": false,
-        "nullables": [
-          false
-        ]
-      },
-      {
-        "name": "OpenApi.IJsonSchema.INumber",
-        "properties": [
-          {
-            "key": {
-              "any": false,
-              "required": true,
-              "optional": false,
-              "nullable": false,
-              "functions": [],
-              "atomics": [],
-              "constants": [
-                {
-                  "type": "string",
-                  "values": [
-                    {
-                      "value": "default",
-                      "tags": []
-                    }
-                  ]
-                }
-              ],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "value": {
-              "any": false,
-              "required": true,
-              "optional": true,
-              "nullable": false,
-              "functions": [],
-              "atomics": [
-                {
-                  "type": "number",
-                  "tags": []
-                }
-              ],
-              "constants": [],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "description": "Default value of the number type.",
-            "jsDocTags": []
-          },
-          {
-            "key": {
-              "any": false,
-              "required": true,
-              "optional": false,
-              "nullable": false,
-              "functions": [],
-              "atomics": [],
-              "constants": [
-                {
-                  "type": "string",
-                  "values": [
-                    {
-                      "value": "minimum",
-                      "tags": []
-                    }
-                  ]
-                }
-              ],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "value": {
-              "any": false,
-              "required": true,
-              "optional": true,
-              "nullable": false,
-              "functions": [],
-              "atomics": [
-                {
-                  "type": "number",
-                  "tags": []
-                }
-              ],
-              "constants": [],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "description": "Minimum value restriction.",
-            "jsDocTags": []
-          },
-          {
-            "key": {
-              "any": false,
-              "required": true,
-              "optional": false,
-              "nullable": false,
-              "functions": [],
-              "atomics": [],
-              "constants": [
-                {
-                  "type": "string",
-                  "values": [
-                    {
-                      "value": "maximum",
-                      "tags": []
-                    }
-                  ]
-                }
-              ],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "value": {
-              "any": false,
-              "required": true,
-              "optional": true,
-              "nullable": false,
-              "functions": [],
-              "atomics": [
-                {
-                  "type": "number",
-                  "tags": []
-                }
-              ],
-              "constants": [],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "description": "Maximum value restriction.",
-            "jsDocTags": []
-          },
-          {
-            "key": {
-              "any": false,
-              "required": true,
-              "optional": false,
-              "nullable": false,
-              "functions": [],
-              "atomics": [],
-              "constants": [
-                {
-                  "type": "string",
-                  "values": [
-                    {
-                      "value": "exclusiveMinimum",
-                      "tags": []
-                    }
-                  ]
-                }
-              ],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "value": {
-              "any": false,
-              "required": true,
-              "optional": true,
-              "nullable": false,
-              "functions": [],
-              "atomics": [
-                {
-                  "type": "number",
-                  "tags": []
-                }
-              ],
-              "constants": [],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "description": "Exclusive minimum value restriction.",
-            "jsDocTags": []
-          },
-          {
-            "key": {
-              "any": false,
-              "required": true,
-              "optional": false,
-              "nullable": false,
-              "functions": [],
-              "atomics": [],
-              "constants": [
-                {
-                  "type": "string",
-                  "values": [
-                    {
-                      "value": "exclusiveMaximum",
-                      "tags": []
-                    }
-                  ]
-                }
-              ],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "value": {
-              "any": false,
-              "required": true,
-              "optional": true,
-              "nullable": false,
-              "functions": [],
-              "atomics": [
-                {
-                  "type": "number",
-                  "tags": []
-                }
-              ],
-              "constants": [],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "description": "Exclusive maximum value restriction.",
-            "jsDocTags": []
-          },
-          {
-            "key": {
-              "any": false,
-              "required": true,
-              "optional": false,
-              "nullable": false,
-              "functions": [],
-              "atomics": [],
-              "constants": [
-                {
-                  "type": "string",
-                  "values": [
-                    {
-                      "value": "multipleOf",
-                      "tags": []
-                    }
-                  ]
-                }
-              ],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "value": {
-              "any": false,
-              "required": true,
-              "optional": true,
-              "nullable": false,
-              "functions": [],
-              "atomics": [
-                {
-                  "type": "number",
-                  "tags": [
-                    [
-                      {
-                        "target": "number",
-                        "name": "ExclusiveMinimum<0>",
-                        "kind": "exclusiveMinimum",
-                        "value": 0,
-                        "validate": "0 < $input",
-                        "exclusive": [
-                          "minimum",
-                          "exclusiveMinimum"
-                        ],
-                        "schema": {
-                          "exclusiveMinimum": 0
-                        }
-                      }
-                    ]
-                  ]
-                }
-              ],
-              "constants": [],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "description": "Multiple of value restriction.",
-            "jsDocTags": [
-              {
-                "name": "exclusiveMinimum",
-                "text": [
-                  {
-                    "text": "0",
-                    "kind": "text"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "key": {
-              "any": false,
-              "required": true,
-              "optional": false,
-              "nullable": false,
-              "functions": [],
-              "atomics": [],
-              "constants": [
-                {
-                  "type": "string",
-                  "values": [
-                    {
-                      "value": "type",
-                      "tags": []
-                    }
-                  ]
-                }
-              ],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "value": {
-              "any": false,
-              "required": true,
-              "optional": false,
-              "nullable": false,
-              "functions": [],
-              "atomics": [],
-              "constants": [
-                {
-                  "type": "string",
-                  "values": [
-                    {
-                      "value": "number",
-                      "tags": []
-                    }
-                  ]
-                }
-              ],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "description": "Discriminator value of the type.",
-            "jsDocTags": []
-          },
-          {
-            "key": {
-              "any": false,
-              "required": true,
-              "optional": false,
-              "nullable": false,
-              "functions": [],
-              "atomics": [],
-              "constants": [
-                {
-                  "type": "string",
-                  "values": [
-                    {
-                      "value": "title",
-                      "tags": []
-                    }
-                  ]
-                }
-              ],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "value": {
-              "any": false,
-              "required": true,
-              "optional": true,
-              "nullable": false,
-              "functions": [],
-              "atomics": [
-                {
-                  "type": "string",
-                  "tags": []
-                }
-              ],
-              "constants": [],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "description": "Title of the schema.",
-            "jsDocTags": []
-          },
-          {
-            "key": {
-              "any": false,
-              "required": true,
-              "optional": false,
-              "nullable": false,
-              "functions": [],
-              "atomics": [],
-              "constants": [
-                {
-                  "type": "string",
-                  "values": [
-                    {
-                      "value": "description",
-                      "tags": []
-                    }
-                  ]
-                }
-              ],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "value": {
-              "any": false,
-              "required": true,
-              "optional": true,
-              "nullable": false,
-              "functions": [],
-              "atomics": [
-                {
-                  "type": "string",
-                  "tags": []
-                }
-              ],
-              "constants": [],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "description": "Detailed description of the schema.",
-            "jsDocTags": []
-          },
-          {
-            "key": {
-              "any": false,
-              "required": true,
-              "optional": false,
-              "nullable": false,
-              "functions": [],
-              "atomics": [],
-              "constants": [
-                {
-                  "type": "string",
-                  "values": [
-                    {
-                      "value": "deprecated",
-                      "tags": []
-                    }
-                  ]
-                }
-              ],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "value": {
-              "any": false,
-              "required": true,
-              "optional": true,
-              "nullable": false,
-              "functions": [],
-              "atomics": [
-                {
-                  "type": "boolean",
-                  "tags": []
-                }
-              ],
-              "constants": [],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "description": "Whether the type is deprecated or not.",
-            "jsDocTags": []
-          },
-          {
-            "key": {
-              "any": false,
-              "required": true,
-              "optional": false,
-              "nullable": false,
-              "functions": [],
-              "atomics": [],
-              "constants": [
-                {
-                  "type": "string",
-                  "values": [
-                    {
-                      "value": "example",
-                      "tags": []
-                    }
-                  ]
-                }
-              ],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "value": {
-              "any": true,
-              "required": true,
-              "optional": true,
-              "nullable": false,
-              "functions": [],
-              "atomics": [],
-              "constants": [],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "description": "Example value.",
-            "jsDocTags": []
-          },
-          {
-            "key": {
-              "any": false,
-              "required": true,
-              "optional": false,
-              "nullable": false,
-              "functions": [],
-              "atomics": [],
-              "constants": [
-                {
-                  "type": "string",
-                  "values": [
-                    {
-                      "value": "examples",
-                      "tags": []
-                    }
-                  ]
-                }
-              ],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "value": {
-              "any": false,
-              "required": true,
-              "optional": true,
-              "nullable": false,
-              "functions": [],
-              "atomics": [],
-              "constants": [],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [
-                {
-                  "name": "Record<string, any>",
-                  "tags": []
-                }
-              ],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "description": "List of example values as key-value pairs.",
-            "jsDocTags": []
-          }
-        ],
-        "description": "Number (double) type info.",
-        "jsDocTags": [],
-        "index": 7,
-        "recursive": false,
-        "nullables": [
-          false
-        ]
-      },
-      {
-        "name": "OpenApi.IJsonSchema.IString",
-        "properties": [
-          {
-            "key": {
-              "any": false,
-              "required": true,
-              "optional": false,
-              "nullable": false,
-              "functions": [],
-              "atomics": [],
-              "constants": [
-                {
-                  "type": "string",
-                  "values": [
-                    {
-                      "value": "default",
-                      "tags": []
-                    }
-                  ]
-                }
-              ],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "value": {
-              "any": false,
-              "required": true,
-              "optional": true,
-              "nullable": false,
-              "functions": [],
-              "atomics": [
-                {
-                  "type": "string",
-                  "tags": []
-                }
-              ],
-              "constants": [],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "description": "Default value of the string type.",
-            "jsDocTags": []
-          },
-          {
-            "key": {
-              "any": false,
-              "required": true,
-              "optional": false,
-              "nullable": false,
-              "functions": [],
-              "atomics": [],
-              "constants": [
-                {
-                  "type": "string",
-                  "values": [
-                    {
-                      "value": "format",
-                      "tags": []
-                    }
-                  ]
-                }
-              ],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "value": {
-              "any": false,
-              "required": true,
-              "optional": true,
-              "nullable": false,
-              "functions": [],
-              "atomics": [
-                {
-                  "type": "string",
-                  "tags": []
-                }
-              ],
-              "constants": [],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "description": "Format restriction.",
-            "jsDocTags": []
-          },
-          {
-            "key": {
-              "any": false,
-              "required": true,
-              "optional": false,
-              "nullable": false,
-              "functions": [],
-              "atomics": [],
-              "constants": [
-                {
-                  "type": "string",
-                  "values": [
-                    {
-                      "value": "pattern",
-                      "tags": []
-                    }
-                  ]
-                }
-              ],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "value": {
-              "any": false,
-              "required": true,
-              "optional": true,
-              "nullable": false,
-              "functions": [],
-              "atomics": [
-                {
-                  "type": "string",
-                  "tags": []
-                }
-              ],
-              "constants": [],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "description": "Pattern restriction.",
-            "jsDocTags": []
-          },
-          {
-            "key": {
-              "any": false,
-              "required": true,
-              "optional": false,
-              "nullable": false,
-              "functions": [],
-              "atomics": [],
-              "constants": [
-                {
-                  "type": "string",
-                  "values": [
-                    {
-                      "value": "contentMediaType",
-                      "tags": []
-                    }
-                  ]
-                }
-              ],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "value": {
-              "any": false,
-              "required": true,
-              "optional": true,
-              "nullable": false,
-              "functions": [],
-              "atomics": [
-                {
-                  "type": "string",
-                  "tags": []
-                }
-              ],
-              "constants": [],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "description": "Content media type restriction.",
-            "jsDocTags": []
-          },
-          {
-            "key": {
-              "any": false,
-              "required": true,
-              "optional": false,
-              "nullable": false,
-              "functions": [],
-              "atomics": [],
-              "constants": [
-                {
-                  "type": "string",
-                  "values": [
-                    {
-                      "value": "minLength",
-                      "tags": []
-                    }
-                  ]
-                }
-              ],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "value": {
-              "any": false,
-              "required": true,
-              "optional": true,
-              "nullable": false,
-              "functions": [],
-              "atomics": [
-                {
-                  "type": "number",
-                  "tags": [
-                    [
-                      {
-                        "target": "number",
-                        "name": "Type<\"uint64\">",
-                        "kind": "type",
-                        "value": "uint64",
-                        "validate": "Math.floor($input) === $input && 0 <= $input && $input <= 18446744073709551615",
-                        "exclusive": true,
-                        "schema": {
-                          "type": "integer",
-                          "minimum": 0
-                        }
-                      }
-                    ]
-                  ]
-                }
-              ],
-              "constants": [],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "description": "Minimum length restriction.",
-            "jsDocTags": [
-              {
-                "name": "type",
-                "text": [
-                  {
-                    "text": "uint64",
-                    "kind": "text"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "key": {
-              "any": false,
-              "required": true,
-              "optional": false,
-              "nullable": false,
-              "functions": [],
-              "atomics": [],
-              "constants": [
-                {
-                  "type": "string",
-                  "values": [
-                    {
-                      "value": "maxLength",
-                      "tags": []
-                    }
-                  ]
-                }
-              ],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "value": {
-              "any": false,
-              "required": true,
-              "optional": true,
-              "nullable": false,
-              "functions": [],
-              "atomics": [
-                {
-                  "type": "number",
-                  "tags": [
-                    [
-                      {
-                        "target": "number",
-                        "name": "Type<\"uint64\">",
-                        "kind": "type",
-                        "value": "uint64",
-                        "validate": "Math.floor($input) === $input && 0 <= $input && $input <= 18446744073709551615",
-                        "exclusive": true,
-                        "schema": {
-                          "type": "integer",
-                          "minimum": 0
-                        }
-                      }
-                    ]
-                  ]
-                }
-              ],
-              "constants": [],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "description": "Maximum length restriction.",
-            "jsDocTags": [
-              {
-                "name": "type",
-                "text": [
-                  {
-                    "text": "uint64",
-                    "kind": "text"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "key": {
-              "any": false,
-              "required": true,
-              "optional": false,
-              "nullable": false,
-              "functions": [],
-              "atomics": [],
-              "constants": [
-                {
-                  "type": "string",
-                  "values": [
-                    {
-                      "value": "type",
-                      "tags": []
-                    }
-                  ]
-                }
-              ],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "value": {
-              "any": false,
-              "required": true,
-              "optional": false,
-              "nullable": false,
-              "functions": [],
-              "atomics": [],
-              "constants": [
-                {
-                  "type": "string",
-                  "values": [
-                    {
-                      "value": "string",
-                      "tags": []
-                    }
-                  ]
-                }
-              ],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "description": "Discriminator value of the type.",
-            "jsDocTags": []
-          },
-          {
-            "key": {
-              "any": false,
-              "required": true,
-              "optional": false,
-              "nullable": false,
-              "functions": [],
-              "atomics": [],
-              "constants": [
-                {
-                  "type": "string",
-                  "values": [
-                    {
-                      "value": "title",
-                      "tags": []
-                    }
-                  ]
-                }
-              ],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "value": {
-              "any": false,
-              "required": true,
-              "optional": true,
-              "nullable": false,
-              "functions": [],
-              "atomics": [
-                {
-                  "type": "string",
-                  "tags": []
-                }
-              ],
-              "constants": [],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "description": "Title of the schema.",
-            "jsDocTags": []
-          },
-          {
-            "key": {
-              "any": false,
-              "required": true,
-              "optional": false,
-              "nullable": false,
-              "functions": [],
-              "atomics": [],
-              "constants": [
-                {
-                  "type": "string",
-                  "values": [
-                    {
-                      "value": "description",
-                      "tags": []
-                    }
-                  ]
-                }
-              ],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "value": {
-              "any": false,
-              "required": true,
-              "optional": true,
-              "nullable": false,
-              "functions": [],
-              "atomics": [
-                {
-                  "type": "string",
-                  "tags": []
-                }
-              ],
-              "constants": [],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "description": "Detailed description of the schema.",
-            "jsDocTags": []
-          },
-          {
-            "key": {
-              "any": false,
-              "required": true,
-              "optional": false,
-              "nullable": false,
-              "functions": [],
-              "atomics": [],
-              "constants": [
-                {
-                  "type": "string",
-                  "values": [
-                    {
-                      "value": "deprecated",
-                      "tags": []
-                    }
-                  ]
-                }
-              ],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "value": {
-              "any": false,
-              "required": true,
-              "optional": true,
-              "nullable": false,
-              "functions": [],
-              "atomics": [
-                {
-                  "type": "boolean",
-                  "tags": []
-                }
-              ],
-              "constants": [],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "description": "Whether the type is deprecated or not.",
-            "jsDocTags": []
-          },
-          {
-            "key": {
-              "any": false,
-              "required": true,
-              "optional": false,
-              "nullable": false,
-              "functions": [],
-              "atomics": [],
-              "constants": [
-                {
-                  "type": "string",
-                  "values": [
-                    {
-                      "value": "example",
-                      "tags": []
-                    }
-                  ]
-                }
-              ],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "value": {
-              "any": true,
-              "required": true,
-              "optional": true,
-              "nullable": false,
-              "functions": [],
-              "atomics": [],
-              "constants": [],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "description": "Example value.",
-            "jsDocTags": []
-          },
-          {
-            "key": {
-              "any": false,
-              "required": true,
-              "optional": false,
-              "nullable": false,
-              "functions": [],
-              "atomics": [],
-              "constants": [
-                {
-                  "type": "string",
-                  "values": [
-                    {
-                      "value": "examples",
-                      "tags": []
-                    }
-                  ]
-                }
-              ],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "value": {
-              "any": false,
-              "required": true,
-              "optional": true,
-              "nullable": false,
-              "functions": [],
-              "atomics": [],
-              "constants": [],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [
-                {
-                  "name": "Record<string, any>",
-                  "tags": []
-                }
-              ],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "description": "List of example values as key-value pairs.",
-            "jsDocTags": []
-          }
-        ],
-        "description": "String type info.",
-        "jsDocTags": [],
         "index": 8,
         "recursive": false,
         "nullables": [
@@ -3684,6 +3684,14 @@
               "tuples": [],
               "objects": [
                 {
+                  "name": "OpenApi.IJsonSchema.IString",
+                  "tags": []
+                },
+                {
+                  "name": "OpenApi.IJsonSchema.INumber",
+                  "tags": []
+                },
+                {
                   "name": "OpenApi.IJsonSchema.IConstant",
                   "tags": []
                 },
@@ -3692,15 +3700,7 @@
                   "tags": []
                 },
                 {
-                  "name": "OpenApi.IJsonSchema.INumber",
-                  "tags": []
-                },
-                {
                   "name": "OpenApi.IJsonSchema.IInteger",
-                  "tags": []
-                },
-                {
-                  "name": "OpenApi.IJsonSchema.IString",
                   "tags": []
                 },
                 {
@@ -4484,6 +4484,14 @@
               "tuples": [],
               "objects": [
                 {
+                  "name": "OpenApi.IJsonSchema.IString",
+                  "tags": []
+                },
+                {
+                  "name": "OpenApi.IJsonSchema.INumber",
+                  "tags": []
+                },
+                {
                   "name": "OpenApi.IJsonSchema.IConstant",
                   "tags": []
                 },
@@ -4492,15 +4500,7 @@
                   "tags": []
                 },
                 {
-                  "name": "OpenApi.IJsonSchema.INumber",
-                  "tags": []
-                },
-                {
                   "name": "OpenApi.IJsonSchema.IInteger",
-                  "tags": []
-                },
-                {
-                  "name": "OpenApi.IJsonSchema.IString",
                   "tags": []
                 },
                 {
@@ -5160,6 +5160,14 @@
               "tuples": [],
               "objects": [
                 {
+                  "name": "OpenApi.IJsonSchema.IString",
+                  "tags": []
+                },
+                {
+                  "name": "OpenApi.IJsonSchema.INumber",
+                  "tags": []
+                },
+                {
                   "name": "OpenApi.IJsonSchema.IConstant",
                   "tags": []
                 },
@@ -5168,15 +5176,7 @@
                   "tags": []
                 },
                 {
-                  "name": "OpenApi.IJsonSchema.INumber",
-                  "tags": []
-                },
-                {
                   "name": "OpenApi.IJsonSchema.IInteger",
-                  "tags": []
-                },
-                {
-                  "name": "OpenApi.IJsonSchema.IString",
                   "tags": []
                 },
                 {
@@ -6019,7 +6019,7 @@
               "rest": null,
               "arrays": [
                 {
-                  "name": "Array<IConstant | IBoolean | IInteger | INumber | IString | IArray | ITuple | IObject | IReference<string> | INull | IUnknown>",
+                  "name": "Array<IString | INumber | IConstant | IBoolean | IInteger | IArray | ITuple | IObject | IReference<string> | INull | IUnknown>",
                   "tags": []
                 }
               ],
@@ -9423,6 +9423,14 @@
           "tuples": [],
           "objects": [
             {
+              "name": "OpenApi.IJsonSchema.IString",
+              "tags": []
+            },
+            {
+              "name": "OpenApi.IJsonSchema.INumber",
+              "tags": []
+            },
+            {
               "name": "OpenApi.IJsonSchema.IConstant",
               "tags": []
             },
@@ -9431,15 +9439,7 @@
               "tags": []
             },
             {
-              "name": "OpenApi.IJsonSchema.INumber",
-              "tags": []
-            },
-            {
               "name": "OpenApi.IJsonSchema.IInteger",
-              "tags": []
-            },
-            {
-              "name": "OpenApi.IJsonSchema.IString",
               "tags": []
             },
             {
@@ -9483,7 +9483,7 @@
         "index": null
       },
       {
-        "name": "Array<IConstant | IBoolean | IInteger | INumber | IString | IArray | ITuple | IObject | IReference<string> | INull | IUnknown>",
+        "name": "Array<IString | INumber | IConstant | IBoolean | IInteger | IArray | ITuple | IObject | IReference<string> | INull | IUnknown>",
         "value": {
           "any": false,
           "required": true,
@@ -9499,6 +9499,14 @@
           "tuples": [],
           "objects": [
             {
+              "name": "OpenApi.IJsonSchema.IString",
+              "tags": []
+            },
+            {
+              "name": "OpenApi.IJsonSchema.INumber",
+              "tags": []
+            },
+            {
               "name": "OpenApi.IJsonSchema.IConstant",
               "tags": []
             },
@@ -9507,15 +9515,7 @@
               "tags": []
             },
             {
-              "name": "OpenApi.IJsonSchema.INumber",
-              "tags": []
-            },
-            {
               "name": "OpenApi.IJsonSchema.IInteger",
-              "tags": []
-            },
-            {
-              "name": "OpenApi.IJsonSchema.IString",
               "tags": []
             },
             {
