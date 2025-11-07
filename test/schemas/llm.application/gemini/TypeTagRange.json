@@ -1,7 +1,7 @@
 {
   "model": "gemini",
   "options": {
-    "recursive": 3,
+    "reference": true,
     "separate": null
   },
   "functions": [
@@ -11,74 +11,81 @@
         "type": "object",
         "properties": {
           "first": {
+            "$ref": "#/$defs/TypeTagRange"
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "TypeTagRange": {
             "type": "object",
             "properties": {
               "value": {
                 "type": "array",
                 "items": {
-                  "type": "object",
-                  "properties": {
-                    "greater": {
-                      "type": "integer",
-                      "description": "@exclusiveMinimum 3"
-                    },
-                    "greater_equal": {
-                      "type": "integer",
-                      "description": "@minimum 3"
-                    },
-                    "less": {
-                      "type": "integer",
-                      "description": "@exclusiveMaximum 7"
-                    },
-                    "less_equal": {
-                      "type": "integer",
-                      "description": "@maximum 7"
-                    },
-                    "greater_less": {
-                      "type": "integer",
-                      "description": "@exclusiveMinimum 3\n@exclusiveMaximum 7"
-                    },
-                    "greater_equal_less": {
-                      "type": "integer",
-                      "description": "@minimum 3\n@exclusiveMaximum 7"
-                    },
-                    "greater_less_equal": {
-                      "type": "integer",
-                      "description": "@maximum 7\n@exclusiveMinimum 3"
-                    },
-                    "greater_equal_less_equal": {
-                      "type": "integer",
-                      "description": "@minimum 3\n@maximum 7"
-                    },
-                    "equal": {
-                      "type": "integer",
-                      "description": "@minimum 10\n@maximum 10"
-                    }
-                  },
-                  "required": [
-                    "greater",
-                    "greater_equal",
-                    "less",
-                    "less_equal",
-                    "greater_less",
-                    "greater_equal_less",
-                    "greater_less_equal",
-                    "greater_equal_less_equal",
-                    "equal"
-                  ],
-                  "description": "Current Type: {@link TypeTagRange.Type}"
+                  "$ref": "#/$defs/TypeTagRange.Type"
                 }
               }
             },
             "required": [
               "value"
-            ],
-            "description": "Current Type: {@link TypeTagRange}"
+            ]
+          },
+          "TypeTagRange.Type": {
+            "type": "object",
+            "properties": {
+              "greater": {
+                "description": "@exclusiveMinimum 3",
+                "type": "integer"
+              },
+              "greater_equal": {
+                "description": "@minimum 3",
+                "type": "integer"
+              },
+              "less": {
+                "description": "@exclusiveMaximum 7",
+                "type": "integer"
+              },
+              "less_equal": {
+                "description": "@maximum 7",
+                "type": "integer"
+              },
+              "greater_less": {
+                "description": "@exclusiveMinimum 3\n@exclusiveMaximum 7",
+                "type": "integer"
+              },
+              "greater_equal_less": {
+                "description": "@minimum 3\n@exclusiveMaximum 7",
+                "type": "integer"
+              },
+              "greater_less_equal": {
+                "description": "@maximum 7\n@exclusiveMinimum 3",
+                "type": "integer"
+              },
+              "greater_equal_less_equal": {
+                "description": "@minimum 3\n@maximum 7",
+                "type": "integer"
+              },
+              "equal": {
+                "description": "@minimum 10\n@maximum 10",
+                "type": "integer"
+              }
+            },
+            "required": [
+              "greater",
+              "greater_equal",
+              "less",
+              "less_equal",
+              "greater_less",
+              "greater_equal_less",
+              "greater_less_equal",
+              "greater_equal_less_equal",
+              "equal"
+            ]
           }
-        },
-        "required": [
-          "first"
-        ]
+        }
       }
     },
     {
@@ -87,205 +94,95 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "object",
-            "properties": {
-              "value": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "greater": {
-                      "type": "integer",
-                      "description": "@exclusiveMinimum 3"
-                    },
-                    "greater_equal": {
-                      "type": "integer",
-                      "description": "@minimum 3"
-                    },
-                    "less": {
-                      "type": "integer",
-                      "description": "@exclusiveMaximum 7"
-                    },
-                    "less_equal": {
-                      "type": "integer",
-                      "description": "@maximum 7"
-                    },
-                    "greater_less": {
-                      "type": "integer",
-                      "description": "@exclusiveMinimum 3\n@exclusiveMaximum 7"
-                    },
-                    "greater_equal_less": {
-                      "type": "integer",
-                      "description": "@minimum 3\n@exclusiveMaximum 7"
-                    },
-                    "greater_less_equal": {
-                      "type": "integer",
-                      "description": "@maximum 7\n@exclusiveMinimum 3"
-                    },
-                    "greater_equal_less_equal": {
-                      "type": "integer",
-                      "description": "@minimum 3\n@maximum 7"
-                    },
-                    "equal": {
-                      "type": "integer",
-                      "description": "@minimum 10\n@maximum 10"
-                    }
-                  },
-                  "required": [
-                    "greater",
-                    "greater_equal",
-                    "less",
-                    "less_equal",
-                    "greater_less",
-                    "greater_equal_less",
-                    "greater_less_equal",
-                    "greater_equal_less_equal",
-                    "equal"
-                  ],
-                  "description": "Current Type: {@link TypeTagRange.Type}"
-                }
-              }
-            },
-            "required": [
-              "value"
-            ],
-            "description": "Current Type: {@link TypeTagRange}"
+            "$ref": "#/$defs/TypeTagRange"
           },
           "second": {
-            "type": "object",
-            "properties": {
-              "value": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "greater": {
-                      "type": "integer",
-                      "description": "@exclusiveMinimum 3"
-                    },
-                    "greater_equal": {
-                      "type": "integer",
-                      "description": "@minimum 3"
-                    },
-                    "less": {
-                      "type": "integer",
-                      "description": "@exclusiveMaximum 7"
-                    },
-                    "less_equal": {
-                      "type": "integer",
-                      "description": "@maximum 7"
-                    },
-                    "greater_less": {
-                      "type": "integer",
-                      "description": "@exclusiveMinimum 3\n@exclusiveMaximum 7"
-                    },
-                    "greater_equal_less": {
-                      "type": "integer",
-                      "description": "@minimum 3\n@exclusiveMaximum 7"
-                    },
-                    "greater_less_equal": {
-                      "type": "integer",
-                      "description": "@maximum 7\n@exclusiveMinimum 3"
-                    },
-                    "greater_equal_less_equal": {
-                      "type": "integer",
-                      "description": "@minimum 3\n@maximum 7"
-                    },
-                    "equal": {
-                      "type": "integer",
-                      "description": "@minimum 10\n@maximum 10"
-                    }
-                  },
-                  "required": [
-                    "greater",
-                    "greater_equal",
-                    "less",
-                    "less_equal",
-                    "greater_less",
-                    "greater_equal_less",
-                    "greater_less_equal",
-                    "greater_equal_less_equal",
-                    "equal"
-                  ],
-                  "description": "Current Type: {@link TypeTagRange.Type}"
-                }
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/$defs/TypeTagRange"
               }
-            },
-            "required": [
-              "value"
-            ],
-            "nullable": true
+            ]
           }
         },
         "required": [
           "first",
           "second"
-        ]
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "TypeTagRange": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/TypeTagRange.Type"
+                }
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "TypeTagRange.Type": {
+            "type": "object",
+            "properties": {
+              "greater": {
+                "description": "@exclusiveMinimum 3",
+                "type": "integer"
+              },
+              "greater_equal": {
+                "description": "@minimum 3",
+                "type": "integer"
+              },
+              "less": {
+                "description": "@exclusiveMaximum 7",
+                "type": "integer"
+              },
+              "less_equal": {
+                "description": "@maximum 7",
+                "type": "integer"
+              },
+              "greater_less": {
+                "description": "@exclusiveMinimum 3\n@exclusiveMaximum 7",
+                "type": "integer"
+              },
+              "greater_equal_less": {
+                "description": "@minimum 3\n@exclusiveMaximum 7",
+                "type": "integer"
+              },
+              "greater_less_equal": {
+                "description": "@maximum 7\n@exclusiveMinimum 3",
+                "type": "integer"
+              },
+              "greater_equal_less_equal": {
+                "description": "@minimum 3\n@maximum 7",
+                "type": "integer"
+              },
+              "equal": {
+                "description": "@minimum 10\n@maximum 10",
+                "type": "integer"
+              }
+            },
+            "required": [
+              "greater",
+              "greater_equal",
+              "less",
+              "less_equal",
+              "greater_less",
+              "greater_equal_less",
+              "greater_less_equal",
+              "greater_equal_less_equal",
+              "equal"
+            ]
+          }
+        }
       },
       "output": {
-        "type": "object",
-        "properties": {
-          "value": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "greater": {
-                  "type": "integer",
-                  "description": "@exclusiveMinimum 3"
-                },
-                "greater_equal": {
-                  "type": "integer",
-                  "description": "@minimum 3"
-                },
-                "less": {
-                  "type": "integer",
-                  "description": "@exclusiveMaximum 7"
-                },
-                "less_equal": {
-                  "type": "integer",
-                  "description": "@maximum 7"
-                },
-                "greater_less": {
-                  "type": "integer",
-                  "description": "@exclusiveMinimum 3\n@exclusiveMaximum 7"
-                },
-                "greater_equal_less": {
-                  "type": "integer",
-                  "description": "@minimum 3\n@exclusiveMaximum 7"
-                },
-                "greater_less_equal": {
-                  "type": "integer",
-                  "description": "@maximum 7\n@exclusiveMinimum 3"
-                },
-                "greater_equal_less_equal": {
-                  "type": "integer",
-                  "description": "@minimum 3\n@maximum 7"
-                },
-                "equal": {
-                  "type": "integer",
-                  "description": "@minimum 10\n@maximum 10"
-                }
-              },
-              "required": [
-                "greater",
-                "greater_equal",
-                "less",
-                "less_equal",
-                "greater_less",
-                "greater_equal_less",
-                "greater_less_equal",
-                "greater_equal_less_equal",
-                "equal"
-              ],
-              "description": "Current Type: {@link TypeTagRange.Type}"
-            }
-          }
-        },
-        "required": [
-          "value"
-        ],
-        "description": "Current Type: {@link TypeTagRange}"
+        "$ref": "#/$defs/TypeTagRange"
       }
     },
     {
@@ -294,270 +191,119 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "object",
-            "properties": {
-              "value": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "greater": {
-                      "type": "integer",
-                      "description": "@exclusiveMinimum 3"
-                    },
-                    "greater_equal": {
-                      "type": "integer",
-                      "description": "@minimum 3"
-                    },
-                    "less": {
-                      "type": "integer",
-                      "description": "@exclusiveMaximum 7"
-                    },
-                    "less_equal": {
-                      "type": "integer",
-                      "description": "@maximum 7"
-                    },
-                    "greater_less": {
-                      "type": "integer",
-                      "description": "@exclusiveMinimum 3\n@exclusiveMaximum 7"
-                    },
-                    "greater_equal_less": {
-                      "type": "integer",
-                      "description": "@minimum 3\n@exclusiveMaximum 7"
-                    },
-                    "greater_less_equal": {
-                      "type": "integer",
-                      "description": "@maximum 7\n@exclusiveMinimum 3"
-                    },
-                    "greater_equal_less_equal": {
-                      "type": "integer",
-                      "description": "@minimum 3\n@maximum 7"
-                    },
-                    "equal": {
-                      "type": "integer",
-                      "description": "@minimum 10\n@maximum 10"
-                    }
-                  },
-                  "required": [
-                    "greater",
-                    "greater_equal",
-                    "less",
-                    "less_equal",
-                    "greater_less",
-                    "greater_equal_less",
-                    "greater_less_equal",
-                    "greater_equal_less_equal",
-                    "equal"
-                  ],
-                  "description": "Current Type: {@link TypeTagRange.Type}"
-                }
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/$defs/TypeTagRange"
               }
-            },
-            "required": [
-              "value"
-            ],
-            "nullable": true
+            ]
           },
           "second": {
-            "type": "object",
-            "properties": {
-              "value": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "greater": {
-                      "type": "integer",
-                      "description": "@exclusiveMinimum 3"
-                    },
-                    "greater_equal": {
-                      "type": "integer",
-                      "description": "@minimum 3"
-                    },
-                    "less": {
-                      "type": "integer",
-                      "description": "@exclusiveMaximum 7"
-                    },
-                    "less_equal": {
-                      "type": "integer",
-                      "description": "@maximum 7"
-                    },
-                    "greater_less": {
-                      "type": "integer",
-                      "description": "@exclusiveMinimum 3\n@exclusiveMaximum 7"
-                    },
-                    "greater_equal_less": {
-                      "type": "integer",
-                      "description": "@minimum 3\n@exclusiveMaximum 7"
-                    },
-                    "greater_less_equal": {
-                      "type": "integer",
-                      "description": "@maximum 7\n@exclusiveMinimum 3"
-                    },
-                    "greater_equal_less_equal": {
-                      "type": "integer",
-                      "description": "@minimum 3\n@maximum 7"
-                    },
-                    "equal": {
-                      "type": "integer",
-                      "description": "@minimum 10\n@maximum 10"
-                    }
-                  },
-                  "required": [
-                    "greater",
-                    "greater_equal",
-                    "less",
-                    "less_equal",
-                    "greater_less",
-                    "greater_equal_less",
-                    "greater_less_equal",
-                    "greater_equal_less_equal",
-                    "equal"
-                  ],
-                  "description": "Current Type: {@link TypeTagRange.Type}"
-                }
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/$defs/TypeTagRange"
               }
-            },
-            "required": [
-              "value"
-            ],
-            "nullable": true
+            ]
           },
           "third": {
-            "type": "object",
-            "properties": {
-              "value": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "greater": {
-                      "type": "integer",
-                      "description": "@exclusiveMinimum 3"
-                    },
-                    "greater_equal": {
-                      "type": "integer",
-                      "description": "@minimum 3"
-                    },
-                    "less": {
-                      "type": "integer",
-                      "description": "@exclusiveMaximum 7"
-                    },
-                    "less_equal": {
-                      "type": "integer",
-                      "description": "@maximum 7"
-                    },
-                    "greater_less": {
-                      "type": "integer",
-                      "description": "@exclusiveMinimum 3\n@exclusiveMaximum 7"
-                    },
-                    "greater_equal_less": {
-                      "type": "integer",
-                      "description": "@minimum 3\n@exclusiveMaximum 7"
-                    },
-                    "greater_less_equal": {
-                      "type": "integer",
-                      "description": "@maximum 7\n@exclusiveMinimum 3"
-                    },
-                    "greater_equal_less_equal": {
-                      "type": "integer",
-                      "description": "@minimum 3\n@maximum 7"
-                    },
-                    "equal": {
-                      "type": "integer",
-                      "description": "@minimum 10\n@maximum 10"
-                    }
-                  },
-                  "required": [
-                    "greater",
-                    "greater_equal",
-                    "less",
-                    "less_equal",
-                    "greater_less",
-                    "greater_equal_less",
-                    "greater_less_equal",
-                    "greater_equal_less_equal",
-                    "equal"
-                  ],
-                  "description": "Current Type: {@link TypeTagRange.Type}"
-                }
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/$defs/TypeTagRange"
               }
-            },
-            "required": [
-              "value"
-            ],
-            "nullable": true
+            ]
           }
         },
         "required": [
           "first",
           "second"
-        ]
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "TypeTagRange": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/TypeTagRange.Type"
+                }
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "TypeTagRange.Type": {
+            "type": "object",
+            "properties": {
+              "greater": {
+                "description": "@exclusiveMinimum 3",
+                "type": "integer"
+              },
+              "greater_equal": {
+                "description": "@minimum 3",
+                "type": "integer"
+              },
+              "less": {
+                "description": "@exclusiveMaximum 7",
+                "type": "integer"
+              },
+              "less_equal": {
+                "description": "@maximum 7",
+                "type": "integer"
+              },
+              "greater_less": {
+                "description": "@exclusiveMinimum 3\n@exclusiveMaximum 7",
+                "type": "integer"
+              },
+              "greater_equal_less": {
+                "description": "@minimum 3\n@exclusiveMaximum 7",
+                "type": "integer"
+              },
+              "greater_less_equal": {
+                "description": "@maximum 7\n@exclusiveMinimum 3",
+                "type": "integer"
+              },
+              "greater_equal_less_equal": {
+                "description": "@minimum 3\n@maximum 7",
+                "type": "integer"
+              },
+              "equal": {
+                "description": "@minimum 10\n@maximum 10",
+                "type": "integer"
+              }
+            },
+            "required": [
+              "greater",
+              "greater_equal",
+              "less",
+              "less_equal",
+              "greater_less",
+              "greater_equal_less",
+              "greater_less_equal",
+              "greater_equal_less_equal",
+              "equal"
+            ]
+          }
+        }
       },
       "output": {
-        "type": "object",
-        "properties": {
-          "value": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "greater": {
-                  "type": "integer",
-                  "description": "@exclusiveMinimum 3"
-                },
-                "greater_equal": {
-                  "type": "integer",
-                  "description": "@minimum 3"
-                },
-                "less": {
-                  "type": "integer",
-                  "description": "@exclusiveMaximum 7"
-                },
-                "less_equal": {
-                  "type": "integer",
-                  "description": "@maximum 7"
-                },
-                "greater_less": {
-                  "type": "integer",
-                  "description": "@exclusiveMinimum 3\n@exclusiveMaximum 7"
-                },
-                "greater_equal_less": {
-                  "type": "integer",
-                  "description": "@minimum 3\n@exclusiveMaximum 7"
-                },
-                "greater_less_equal": {
-                  "type": "integer",
-                  "description": "@maximum 7\n@exclusiveMinimum 3"
-                },
-                "greater_equal_less_equal": {
-                  "type": "integer",
-                  "description": "@minimum 3\n@maximum 7"
-                },
-                "equal": {
-                  "type": "integer",
-                  "description": "@minimum 10\n@maximum 10"
-                }
-              },
-              "required": [
-                "greater",
-                "greater_equal",
-                "less",
-                "less_equal",
-                "greater_less",
-                "greater_equal_less",
-                "greater_less_equal",
-                "greater_equal_less_equal",
-                "equal"
-              ],
-              "description": "Current Type: {@link TypeTagRange.Type}"
-            }
+        "anyOf": [
+          {
+            "type": "null"
+          },
+          {
+            "$ref": "#/$defs/TypeTagRange"
           }
-        },
-        "required": [
-          "value"
-        ],
-        "nullable": true
+        ]
       }
     }
   ]

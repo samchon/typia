@@ -1,0 +1,97 @@
+{
+  "type": "object",
+  "properties": {
+    "regular": {
+      "$ref": "#/$defs/CommentTagArrayUnion"
+    },
+    "nullable": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/CommentTagArrayUnion"
+        }
+      ]
+    },
+    "optional": {
+      "$ref": "#/$defs/CommentTagArrayUnion"
+    },
+    "faint": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/CommentTagArrayUnion"
+        }
+      ]
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/CommentTagArrayUnion"
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "array"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "CommentTagArrayUnion": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/CommentTagArrayUnion.Type"
+      }
+    },
+    "CommentTagArrayUnion.Type": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "description": "@minItems 3\n@maxItems 3",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "minItems": {
+          "description": "@minItems 3",
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        },
+        "maxItems": {
+          "description": "@maxItems 7",
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          }
+        },
+        "both": {
+          "description": "@minItems 3\n@maxItems 7",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "items",
+        "minItems",
+        "maxItems",
+        "both"
+      ]
+    }
+  }
+}

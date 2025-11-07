@@ -1,7 +1,7 @@
 {
   "model": "gemini",
   "options": {
-    "recursive": 3,
+    "reference": true,
     "separate": null
   },
   "functions": [
@@ -11,6 +11,15 @@
         "type": "object",
         "properties": {
           "first": {
+            "$ref": "#/$defs/ArrayMatrix"
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ArrayMatrix": {
             "type": "array",
             "items": {
               "type": "array",
@@ -20,13 +29,9 @@
                   "type": "number"
                 }
               }
-            },
-            "description": "Current Type: {@link ArrayMatrix}"
+            }
           }
-        },
-        "required": [
-          "first"
-        ]
+        }
       }
     },
     {
@@ -35,49 +40,41 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "array",
-            "items": {
-              "type": "array",
-              "items": {
-                "type": "array",
-                "items": {
-                  "type": "number"
-                }
-              }
-            },
-            "description": "Current Type: {@link ArrayMatrix}"
+            "$ref": "#/$defs/ArrayMatrix"
           },
           "second": {
-            "type": "array",
-            "items": {
-              "type": "array",
-              "items": {
-                "type": "array",
-                "items": {
-                  "type": "number"
-                }
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/$defs/ArrayMatrix"
               }
-            },
-            "nullable": true
+            ]
           }
         },
         "required": [
           "first",
           "second"
-        ]
-      },
-      "output": {
-        "type": "array",
-        "items": {
-          "type": "array",
-          "items": {
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ArrayMatrix": {
             "type": "array",
             "items": {
-              "type": "number"
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                }
+              }
             }
           }
-        },
-        "description": "Current Type: {@link ArrayMatrix}"
+        }
+      },
+      "output": {
+        "$ref": "#/$defs/ArrayMatrix"
       }
     },
     {
@@ -86,62 +83,65 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "array",
-            "items": {
-              "type": "array",
-              "items": {
-                "type": "array",
-                "items": {
-                  "type": "number"
-                }
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/$defs/ArrayMatrix"
               }
-            },
-            "nullable": true
+            ]
           },
           "second": {
-            "type": "array",
-            "items": {
-              "type": "array",
-              "items": {
-                "type": "array",
-                "items": {
-                  "type": "number"
-                }
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/$defs/ArrayMatrix"
               }
-            },
-            "nullable": true
+            ]
           },
           "third": {
-            "type": "array",
-            "items": {
-              "type": "array",
-              "items": {
-                "type": "array",
-                "items": {
-                  "type": "number"
-                }
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/$defs/ArrayMatrix"
               }
-            },
-            "nullable": true
+            ]
           }
         },
         "required": [
           "first",
           "second"
-        ]
-      },
-      "output": {
-        "type": "array",
-        "items": {
-          "type": "array",
-          "items": {
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ArrayMatrix": {
             "type": "array",
             "items": {
-              "type": "number"
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                }
+              }
             }
           }
-        },
-        "nullable": true
+        }
+      },
+      "output": {
+        "anyOf": [
+          {
+            "type": "null"
+          },
+          {
+            "$ref": "#/$defs/ArrayMatrix"
+          }
+        ]
       }
     }
   ]

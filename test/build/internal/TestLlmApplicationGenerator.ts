@@ -4,33 +4,18 @@ import { VariadicSingleton } from "tstl";
 import { TestStructure } from "./TestStructure";
 
 export namespace TestLlmApplicationGenerator {
-  export const MODELS = ["3.0", "3.1", "chatgpt", "claude", "gemini", "llama"];
+  export const MODELS = ["3.0", "3.1", "chatgpt", "claude", "gemini"];
 
-  export const isApplicable = (model: string, structure: string) =>
-    applicable.get(model, structure);
+  export const isApplicable = (structure: string) => applicable.get(structure);
 
   const applicable = new VariadicSingleton(
-    async (model: string, structure: string): Promise<boolean> => {
+    async (structure: string): Promise<boolean> => {
       if (structure === "UltimateUnion") return false;
       const location: string = `${__dirname}/../../schemas/json.schemas/v3_1/${structure}.json`;
       if (fs.existsSync(location) === false) return false;
 
       const v31: string = await fs.promises.readFile(location, "utf8");
-      if (
-        model === "gemini" &&
-        (v31.includes(`"additionalProperties": {`) === true ||
-          v31.includes(`"additionalProperties": true`) === true)
-      )
-        return false;
-      else if (v31.includes(`"prefixItems":`) === true) return false;
-      else if (model === "gemini") {
-        // GEMINI DOES NOT SUPPORT UNION TYPE
-        const json: string = await fs.promises.readFile(
-          location.replace("v3_1", "v3_0"),
-          "utf8",
-        );
-        if (json.includes(`"oneOf":`) === true) return false;
-      }
+      if (v31.includes(`"prefixItems":`) === true) return false;
       return true;
     },
   );
@@ -51,7 +36,7 @@ export namespace TestLlmApplicationGenerator {
     structures: TestStructure<any>[],
   ): Promise<void> {
     for (const s of structures) {
-      if ((await isApplicable(model, s.name)) === false) continue;
+      if ((await isApplicable(s.name)) === false) continue;
       const content: string[] = [
         `import typia from "typia";`,
         `import { ${s.name} } from "../../../structures/${s.name}";`,

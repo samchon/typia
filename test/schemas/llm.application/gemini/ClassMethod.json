@@ -1,7 +1,7 @@
 {
   "model": "gemini",
   "options": {
-    "recursive": 3,
+    "reference": true,
     "separate": null
   },
   "functions": [
@@ -11,6 +11,15 @@
         "type": "object",
         "properties": {
           "first": {
+            "$ref": "#/$defs/ClassMethod.Animal"
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ClassMethod.Animal": {
             "type": "object",
             "properties": {
               "name": {
@@ -23,13 +32,9 @@
             "required": [
               "name",
               "age"
-            ],
-            "description": "Current Type: {@link ClassMethod.Animal}"
+            ]
           }
-        },
-        "required": [
-          "first"
-        ]
+        }
       }
     },
     {
@@ -38,58 +43,44 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "age": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "name",
-              "age"
-            ],
-            "description": "Current Type: {@link ClassMethod.Animal}"
+            "$ref": "#/$defs/ClassMethod.Animal"
           },
           "second": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
+            "anyOf": [
+              {
+                "type": "null"
               },
-              "age": {
-                "type": "number"
+              {
+                "$ref": "#/$defs/ClassMethod.Animal"
               }
-            },
-            "required": [
-              "name",
-              "age"
-            ],
-            "nullable": true
+            ]
           }
         },
         "required": [
           "first",
           "second"
-        ]
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ClassMethod.Animal": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "age": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "name",
+              "age"
+            ]
+          }
+        }
       },
       "output": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "age": {
-            "type": "number"
-          }
-        },
-        "required": [
-          "name",
-          "age"
-        ],
-        "description": "Current Type: {@link ClassMethod.Animal}"
+        "$ref": "#/$defs/ClassMethod.Animal"
       }
     },
     {
@@ -98,74 +89,68 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
+            "anyOf": [
+              {
+                "type": "null"
               },
-              "age": {
-                "type": "number"
+              {
+                "$ref": "#/$defs/ClassMethod.Animal"
               }
-            },
-            "required": [
-              "name",
-              "age"
-            ],
-            "nullable": true
+            ]
           },
           "second": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
+            "anyOf": [
+              {
+                "type": "null"
               },
-              "age": {
-                "type": "number"
+              {
+                "$ref": "#/$defs/ClassMethod.Animal"
               }
-            },
-            "required": [
-              "name",
-              "age"
-            ],
-            "nullable": true
+            ]
           },
           "third": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
+            "anyOf": [
+              {
+                "type": "null"
               },
-              "age": {
-                "type": "number"
+              {
+                "$ref": "#/$defs/ClassMethod.Animal"
               }
-            },
-            "required": [
-              "name",
-              "age"
-            ],
-            "nullable": true
+            ]
           }
         },
         "required": [
           "first",
           "second"
-        ]
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ClassMethod.Animal": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "age": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "name",
+              "age"
+            ]
+          }
+        }
       },
       "output": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
+        "anyOf": [
+          {
+            "type": "null"
           },
-          "age": {
-            "type": "number"
+          {
+            "$ref": "#/$defs/ClassMethod.Animal"
           }
-        },
-        "required": [
-          "name",
-          "age"
-        ],
-        "nullable": true
+        ]
       }
     }
   ]

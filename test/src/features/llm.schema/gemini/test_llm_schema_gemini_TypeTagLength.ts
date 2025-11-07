@@ -7,4 +7,4 @@ export const test_llm_schema_gemini_TypeTagLength = (): void =>
   _test_llm_schema({
     model: "gemini",
     name: "TypeTagLength",
-  })(typia.llm.schema<TypeTagLength, "gemini">());
+  })(typia.llm.schema<TypeTagLength, "gemini">({}));

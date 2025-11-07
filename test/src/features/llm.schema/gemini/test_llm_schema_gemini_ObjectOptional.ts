@@ -7,4 +7,4 @@ export const test_llm_schema_gemini_ObjectOptional = (): void =>
   _test_llm_schema({
     model: "gemini",
     name: "ObjectOptional",
-  })(typia.llm.schema<ObjectOptional, "gemini">());
+  })(typia.llm.schema<ObjectOptional, "gemini">({}));

@@ -5,13 +5,27 @@
       "type": "null"
     },
     "nullable": {
-      "type": "null"
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "optional": {
       "type": "null"
     },
     "faint": {
-      "type": "null"
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "array": {
       "type": "array",
@@ -24,5 +38,7 @@
     "regular",
     "nullable",
     "array"
-  ]
+  ],
+  "additionalProperties": false,
+  "$defs": {}
 }

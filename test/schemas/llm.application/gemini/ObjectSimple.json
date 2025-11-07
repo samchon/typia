@@ -1,7 +1,7 @@
 {
   "model": "gemini",
   "options": {
-    "recursive": 3,
+    "reference": true,
     "separate": null
   },
   "functions": [
@@ -11,87 +11,28 @@
         "type": "object",
         "properties": {
           "first": {
+            "$ref": "#/$defs/ObjectSimple.IBox3D"
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ObjectSimple.IBox3D": {
             "type": "object",
             "properties": {
               "scale": {
-                "type": "object",
-                "properties": {
-                  "x": {
-                    "type": "number"
-                  },
-                  "y": {
-                    "type": "number"
-                  },
-                  "z": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "x",
-                  "y",
-                  "z"
-                ],
-                "description": "Current Type: {@link ObjectSimple.IPoint3D}"
+                "$ref": "#/$defs/ObjectSimple.IPoint3D"
               },
               "position": {
-                "type": "object",
-                "properties": {
-                  "x": {
-                    "type": "number"
-                  },
-                  "y": {
-                    "type": "number"
-                  },
-                  "z": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "x",
-                  "y",
-                  "z"
-                ],
-                "description": "Current Type: {@link ObjectSimple.IPoint3D}"
+                "$ref": "#/$defs/ObjectSimple.IPoint3D"
               },
               "rotate": {
-                "type": "object",
-                "properties": {
-                  "x": {
-                    "type": "number"
-                  },
-                  "y": {
-                    "type": "number"
-                  },
-                  "z": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "x",
-                  "y",
-                  "z"
-                ],
-                "description": "Current Type: {@link ObjectSimple.IPoint3D}"
+                "$ref": "#/$defs/ObjectSimple.IPoint3D"
               },
               "pivot": {
-                "type": "object",
-                "properties": {
-                  "x": {
-                    "type": "number"
-                  },
-                  "y": {
-                    "type": "number"
-                  },
-                  "z": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "x",
-                  "y",
-                  "z"
-                ],
-                "description": "Current Type: {@link ObjectSimple.IPoint3D}"
+                "$ref": "#/$defs/ObjectSimple.IPoint3D"
               }
             },
             "required": [
@@ -99,13 +40,28 @@
               "position",
               "rotate",
               "pivot"
-            ],
-            "description": "Current Type: {@link ObjectSimple.IBox3D}"
+            ]
+          },
+          "ObjectSimple.IPoint3D": {
+            "type": "object",
+            "properties": {
+              "x": {
+                "type": "number"
+              },
+              "y": {
+                "type": "number"
+              },
+              "z": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "x",
+              "y",
+              "z"
+            ]
           }
-        },
-        "required": [
-          "first"
-        ]
+        }
       }
     },
     {
@@ -114,286 +70,71 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "object",
-            "properties": {
-              "scale": {
-                "type": "object",
-                "properties": {
-                  "x": {
-                    "type": "number"
-                  },
-                  "y": {
-                    "type": "number"
-                  },
-                  "z": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "x",
-                  "y",
-                  "z"
-                ],
-                "description": "Current Type: {@link ObjectSimple.IPoint3D}"
-              },
-              "position": {
-                "type": "object",
-                "properties": {
-                  "x": {
-                    "type": "number"
-                  },
-                  "y": {
-                    "type": "number"
-                  },
-                  "z": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "x",
-                  "y",
-                  "z"
-                ],
-                "description": "Current Type: {@link ObjectSimple.IPoint3D}"
-              },
-              "rotate": {
-                "type": "object",
-                "properties": {
-                  "x": {
-                    "type": "number"
-                  },
-                  "y": {
-                    "type": "number"
-                  },
-                  "z": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "x",
-                  "y",
-                  "z"
-                ],
-                "description": "Current Type: {@link ObjectSimple.IPoint3D}"
-              },
-              "pivot": {
-                "type": "object",
-                "properties": {
-                  "x": {
-                    "type": "number"
-                  },
-                  "y": {
-                    "type": "number"
-                  },
-                  "z": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "x",
-                  "y",
-                  "z"
-                ],
-                "description": "Current Type: {@link ObjectSimple.IPoint3D}"
-              }
-            },
-            "required": [
-              "scale",
-              "position",
-              "rotate",
-              "pivot"
-            ],
-            "description": "Current Type: {@link ObjectSimple.IBox3D}"
+            "$ref": "#/$defs/ObjectSimple.IBox3D"
           },
           "second": {
-            "type": "object",
-            "properties": {
-              "scale": {
-                "type": "object",
-                "properties": {
-                  "x": {
-                    "type": "number"
-                  },
-                  "y": {
-                    "type": "number"
-                  },
-                  "z": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "x",
-                  "y",
-                  "z"
-                ],
-                "description": "Current Type: {@link ObjectSimple.IPoint3D}"
+            "anyOf": [
+              {
+                "type": "null"
               },
-              "position": {
-                "type": "object",
-                "properties": {
-                  "x": {
-                    "type": "number"
-                  },
-                  "y": {
-                    "type": "number"
-                  },
-                  "z": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "x",
-                  "y",
-                  "z"
-                ],
-                "description": "Current Type: {@link ObjectSimple.IPoint3D}"
-              },
-              "rotate": {
-                "type": "object",
-                "properties": {
-                  "x": {
-                    "type": "number"
-                  },
-                  "y": {
-                    "type": "number"
-                  },
-                  "z": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "x",
-                  "y",
-                  "z"
-                ],
-                "description": "Current Type: {@link ObjectSimple.IPoint3D}"
-              },
-              "pivot": {
-                "type": "object",
-                "properties": {
-                  "x": {
-                    "type": "number"
-                  },
-                  "y": {
-                    "type": "number"
-                  },
-                  "z": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "x",
-                  "y",
-                  "z"
-                ],
-                "description": "Current Type: {@link ObjectSimple.IPoint3D}"
+              {
+                "$ref": "#/$defs/ObjectSimple.IBox3D"
               }
-            },
-            "required": [
-              "scale",
-              "position",
-              "rotate",
-              "pivot"
-            ],
-            "nullable": true
+            ]
           }
         },
         "required": [
           "first",
           "second"
-        ]
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ObjectSimple.IBox3D": {
+            "type": "object",
+            "properties": {
+              "scale": {
+                "$ref": "#/$defs/ObjectSimple.IPoint3D"
+              },
+              "position": {
+                "$ref": "#/$defs/ObjectSimple.IPoint3D"
+              },
+              "rotate": {
+                "$ref": "#/$defs/ObjectSimple.IPoint3D"
+              },
+              "pivot": {
+                "$ref": "#/$defs/ObjectSimple.IPoint3D"
+              }
+            },
+            "required": [
+              "scale",
+              "position",
+              "rotate",
+              "pivot"
+            ]
+          },
+          "ObjectSimple.IPoint3D": {
+            "type": "object",
+            "properties": {
+              "x": {
+                "type": "number"
+              },
+              "y": {
+                "type": "number"
+              },
+              "z": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "x",
+              "y",
+              "z"
+            ]
+          }
+        }
       },
       "output": {
-        "type": "object",
-        "properties": {
-          "scale": {
-            "type": "object",
-            "properties": {
-              "x": {
-                "type": "number"
-              },
-              "y": {
-                "type": "number"
-              },
-              "z": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "x",
-              "y",
-              "z"
-            ],
-            "description": "Current Type: {@link ObjectSimple.IPoint3D}"
-          },
-          "position": {
-            "type": "object",
-            "properties": {
-              "x": {
-                "type": "number"
-              },
-              "y": {
-                "type": "number"
-              },
-              "z": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "x",
-              "y",
-              "z"
-            ],
-            "description": "Current Type: {@link ObjectSimple.IPoint3D}"
-          },
-          "rotate": {
-            "type": "object",
-            "properties": {
-              "x": {
-                "type": "number"
-              },
-              "y": {
-                "type": "number"
-              },
-              "z": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "x",
-              "y",
-              "z"
-            ],
-            "description": "Current Type: {@link ObjectSimple.IPoint3D}"
-          },
-          "pivot": {
-            "type": "object",
-            "properties": {
-              "x": {
-                "type": "number"
-              },
-              "y": {
-                "type": "number"
-              },
-              "z": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "x",
-              "y",
-              "z"
-            ],
-            "description": "Current Type: {@link ObjectSimple.IPoint3D}"
-          }
-        },
-        "required": [
-          "scale",
-          "position",
-          "rotate",
-          "pivot"
-        ],
-        "description": "Current Type: {@link ObjectSimple.IBox3D}"
+        "$ref": "#/$defs/ObjectSimple.IBox3D"
       }
     },
     {
@@ -402,378 +143,95 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "object",
-            "properties": {
-              "scale": {
-                "type": "object",
-                "properties": {
-                  "x": {
-                    "type": "number"
-                  },
-                  "y": {
-                    "type": "number"
-                  },
-                  "z": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "x",
-                  "y",
-                  "z"
-                ],
-                "description": "Current Type: {@link ObjectSimple.IPoint3D}"
+            "anyOf": [
+              {
+                "type": "null"
               },
-              "position": {
-                "type": "object",
-                "properties": {
-                  "x": {
-                    "type": "number"
-                  },
-                  "y": {
-                    "type": "number"
-                  },
-                  "z": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "x",
-                  "y",
-                  "z"
-                ],
-                "description": "Current Type: {@link ObjectSimple.IPoint3D}"
-              },
-              "rotate": {
-                "type": "object",
-                "properties": {
-                  "x": {
-                    "type": "number"
-                  },
-                  "y": {
-                    "type": "number"
-                  },
-                  "z": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "x",
-                  "y",
-                  "z"
-                ],
-                "description": "Current Type: {@link ObjectSimple.IPoint3D}"
-              },
-              "pivot": {
-                "type": "object",
-                "properties": {
-                  "x": {
-                    "type": "number"
-                  },
-                  "y": {
-                    "type": "number"
-                  },
-                  "z": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "x",
-                  "y",
-                  "z"
-                ],
-                "description": "Current Type: {@link ObjectSimple.IPoint3D}"
+              {
+                "$ref": "#/$defs/ObjectSimple.IBox3D"
               }
-            },
-            "required": [
-              "scale",
-              "position",
-              "rotate",
-              "pivot"
-            ],
-            "nullable": true
+            ]
           },
           "second": {
-            "type": "object",
-            "properties": {
-              "scale": {
-                "type": "object",
-                "properties": {
-                  "x": {
-                    "type": "number"
-                  },
-                  "y": {
-                    "type": "number"
-                  },
-                  "z": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "x",
-                  "y",
-                  "z"
-                ],
-                "description": "Current Type: {@link ObjectSimple.IPoint3D}"
+            "anyOf": [
+              {
+                "type": "null"
               },
-              "position": {
-                "type": "object",
-                "properties": {
-                  "x": {
-                    "type": "number"
-                  },
-                  "y": {
-                    "type": "number"
-                  },
-                  "z": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "x",
-                  "y",
-                  "z"
-                ],
-                "description": "Current Type: {@link ObjectSimple.IPoint3D}"
-              },
-              "rotate": {
-                "type": "object",
-                "properties": {
-                  "x": {
-                    "type": "number"
-                  },
-                  "y": {
-                    "type": "number"
-                  },
-                  "z": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "x",
-                  "y",
-                  "z"
-                ],
-                "description": "Current Type: {@link ObjectSimple.IPoint3D}"
-              },
-              "pivot": {
-                "type": "object",
-                "properties": {
-                  "x": {
-                    "type": "number"
-                  },
-                  "y": {
-                    "type": "number"
-                  },
-                  "z": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "x",
-                  "y",
-                  "z"
-                ],
-                "description": "Current Type: {@link ObjectSimple.IPoint3D}"
+              {
+                "$ref": "#/$defs/ObjectSimple.IBox3D"
               }
-            },
-            "required": [
-              "scale",
-              "position",
-              "rotate",
-              "pivot"
-            ],
-            "nullable": true
+            ]
           },
           "third": {
-            "type": "object",
-            "properties": {
-              "scale": {
-                "type": "object",
-                "properties": {
-                  "x": {
-                    "type": "number"
-                  },
-                  "y": {
-                    "type": "number"
-                  },
-                  "z": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "x",
-                  "y",
-                  "z"
-                ],
-                "description": "Current Type: {@link ObjectSimple.IPoint3D}"
+            "anyOf": [
+              {
+                "type": "null"
               },
-              "position": {
-                "type": "object",
-                "properties": {
-                  "x": {
-                    "type": "number"
-                  },
-                  "y": {
-                    "type": "number"
-                  },
-                  "z": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "x",
-                  "y",
-                  "z"
-                ],
-                "description": "Current Type: {@link ObjectSimple.IPoint3D}"
-              },
-              "rotate": {
-                "type": "object",
-                "properties": {
-                  "x": {
-                    "type": "number"
-                  },
-                  "y": {
-                    "type": "number"
-                  },
-                  "z": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "x",
-                  "y",
-                  "z"
-                ],
-                "description": "Current Type: {@link ObjectSimple.IPoint3D}"
-              },
-              "pivot": {
-                "type": "object",
-                "properties": {
-                  "x": {
-                    "type": "number"
-                  },
-                  "y": {
-                    "type": "number"
-                  },
-                  "z": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "x",
-                  "y",
-                  "z"
-                ],
-                "description": "Current Type: {@link ObjectSimple.IPoint3D}"
+              {
+                "$ref": "#/$defs/ObjectSimple.IBox3D"
               }
-            },
-            "required": [
-              "scale",
-              "position",
-              "rotate",
-              "pivot"
-            ],
-            "nullable": true
+            ]
           }
         },
         "required": [
           "first",
           "second"
-        ]
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ObjectSimple.IBox3D": {
+            "type": "object",
+            "properties": {
+              "scale": {
+                "$ref": "#/$defs/ObjectSimple.IPoint3D"
+              },
+              "position": {
+                "$ref": "#/$defs/ObjectSimple.IPoint3D"
+              },
+              "rotate": {
+                "$ref": "#/$defs/ObjectSimple.IPoint3D"
+              },
+              "pivot": {
+                "$ref": "#/$defs/ObjectSimple.IPoint3D"
+              }
+            },
+            "required": [
+              "scale",
+              "position",
+              "rotate",
+              "pivot"
+            ]
+          },
+          "ObjectSimple.IPoint3D": {
+            "type": "object",
+            "properties": {
+              "x": {
+                "type": "number"
+              },
+              "y": {
+                "type": "number"
+              },
+              "z": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "x",
+              "y",
+              "z"
+            ]
+          }
+        }
       },
       "output": {
-        "type": "object",
-        "properties": {
-          "scale": {
-            "type": "object",
-            "properties": {
-              "x": {
-                "type": "number"
-              },
-              "y": {
-                "type": "number"
-              },
-              "z": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "x",
-              "y",
-              "z"
-            ],
-            "description": "Current Type: {@link ObjectSimple.IPoint3D}"
+        "anyOf": [
+          {
+            "type": "null"
           },
-          "position": {
-            "type": "object",
-            "properties": {
-              "x": {
-                "type": "number"
-              },
-              "y": {
-                "type": "number"
-              },
-              "z": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "x",
-              "y",
-              "z"
-            ],
-            "description": "Current Type: {@link ObjectSimple.IPoint3D}"
-          },
-          "rotate": {
-            "type": "object",
-            "properties": {
-              "x": {
-                "type": "number"
-              },
-              "y": {
-                "type": "number"
-              },
-              "z": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "x",
-              "y",
-              "z"
-            ],
-            "description": "Current Type: {@link ObjectSimple.IPoint3D}"
-          },
-          "pivot": {
-            "type": "object",
-            "properties": {
-              "x": {
-                "type": "number"
-              },
-              "y": {
-                "type": "number"
-              },
-              "z": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "x",
-              "y",
-              "z"
-            ],
-            "description": "Current Type: {@link ObjectSimple.IPoint3D}"
+          {
+            "$ref": "#/$defs/ObjectSimple.IBox3D"
           }
-        },
-        "required": [
-          "scale",
-          "position",
-          "rotate",
-          "pivot"
-        ],
-        "nullable": true
+        ]
       }
     }
   ]

@@ -1,7 +1,7 @@
 {
   "model": "gemini",
   "options": {
-    "recursive": 3,
+    "reference": true,
     "separate": null
   },
   "functions": [
@@ -11,6 +11,15 @@
         "type": "object",
         "properties": {
           "first": {
+            "$ref": "#/$defs/ObjectOptional"
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ObjectOptional": {
             "type": "object",
             "properties": {
               "id": {
@@ -26,13 +35,9 @@
                 "type": "number"
               }
             },
-            "required": [],
-            "description": "Current Type: {@link ObjectOptional}"
+            "required": []
           }
-        },
-        "required": [
-          "first"
-        ]
+        }
       }
     },
     {
@@ -41,67 +46,47 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "email": {
-                "type": "string"
-              },
-              "sequence": {
-                "type": "number"
-              }
-            },
-            "required": [],
-            "description": "Current Type: {@link ObjectOptional}"
+            "$ref": "#/$defs/ObjectOptional"
           },
           "second": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
+            "anyOf": [
+              {
+                "type": "null"
               },
-              "name": {
-                "type": "string"
-              },
-              "email": {
-                "type": "string"
-              },
-              "sequence": {
-                "type": "number"
+              {
+                "$ref": "#/$defs/ObjectOptional"
               }
-            },
-            "required": [],
-            "nullable": true
+            ]
           }
         },
         "required": [
           "first",
           "second"
-        ]
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ObjectOptional": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "sequence": {
+                "type": "number"
+              }
+            },
+            "required": []
+          }
+        }
       },
       "output": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "email": {
-            "type": "string"
-          },
-          "sequence": {
-            "type": "number"
-          }
-        },
-        "required": [],
-        "description": "Current Type: {@link ObjectOptional}"
+        "$ref": "#/$defs/ObjectOptional"
       }
     },
     {
@@ -110,86 +95,71 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
+            "anyOf": [
+              {
+                "type": "null"
               },
-              "name": {
-                "type": "string"
-              },
-              "email": {
-                "type": "string"
-              },
-              "sequence": {
-                "type": "number"
+              {
+                "$ref": "#/$defs/ObjectOptional"
               }
-            },
-            "required": [],
-            "nullable": true
+            ]
           },
           "second": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
+            "anyOf": [
+              {
+                "type": "null"
               },
-              "name": {
-                "type": "string"
-              },
-              "email": {
-                "type": "string"
-              },
-              "sequence": {
-                "type": "number"
+              {
+                "$ref": "#/$defs/ObjectOptional"
               }
-            },
-            "required": [],
-            "nullable": true
+            ]
           },
           "third": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
+            "anyOf": [
+              {
+                "type": "null"
               },
-              "name": {
-                "type": "string"
-              },
-              "email": {
-                "type": "string"
-              },
-              "sequence": {
-                "type": "number"
+              {
+                "$ref": "#/$defs/ObjectOptional"
               }
-            },
-            "required": [],
-            "nullable": true
+            ]
           }
         },
         "required": [
           "first",
           "second"
-        ]
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ObjectOptional": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "sequence": {
+                "type": "number"
+              }
+            },
+            "required": []
+          }
+        }
       },
       "output": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
+        "anyOf": [
+          {
+            "type": "null"
           },
-          "name": {
-            "type": "string"
-          },
-          "email": {
-            "type": "string"
-          },
-          "sequence": {
-            "type": "number"
+          {
+            "$ref": "#/$defs/ObjectOptional"
           }
-        },
-        "required": [],
-        "nullable": true
+        ]
       }
     }
   ]

@@ -2,71 +2,35 @@
   "type": "object",
   "properties": {
     "regular": {
-      "type": "array",
-      "items": {
-        "type": "array",
-        "items": {
-          "type": "array",
-          "items": {
-            "type": "number"
-          }
-        }
-      },
-      "description": "Current Type: {@link ArrayMatrix}"
+      "$ref": "#/$defs/ArrayMatrix"
     },
     "nullable": {
-      "type": "array",
-      "items": {
-        "type": "array",
-        "items": {
-          "type": "array",
-          "items": {
-            "type": "number"
-          }
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/ArrayMatrix"
         }
-      },
-      "nullable": true
+      ]
     },
     "optional": {
-      "type": "array",
-      "items": {
-        "type": "array",
-        "items": {
-          "type": "array",
-          "items": {
-            "type": "number"
-          }
-        }
-      },
-      "description": "Current Type: {@link ArrayMatrix}"
+      "$ref": "#/$defs/ArrayMatrix"
     },
     "faint": {
-      "type": "array",
-      "items": {
-        "type": "array",
-        "items": {
-          "type": "array",
-          "items": {
-            "type": "number"
-          }
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/ArrayMatrix"
         }
-      },
-      "nullable": true
+      ]
     },
     "array": {
       "type": "array",
       "items": {
-        "type": "array",
-        "items": {
-          "type": "array",
-          "items": {
-            "type": "array",
-            "items": {
-              "type": "number"
-            }
-          }
-        },
-        "description": "Current Type: {@link ArrayMatrix}"
+        "$ref": "#/$defs/ArrayMatrix"
       }
     }
   },
@@ -74,5 +38,20 @@
     "regular",
     "nullable",
     "array"
-  ]
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "ArrayMatrix": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        }
+      }
+    }
+  }
 }

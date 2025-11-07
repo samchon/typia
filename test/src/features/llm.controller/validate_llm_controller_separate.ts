@@ -6,6 +6,7 @@ import {
   ILlmController,
   ILlmFunction,
   ILlmSchema,
+  ILlmSchemaV3,
 } from "@samchon/openapi";
 import typia, { tags } from "typia";
 
@@ -27,27 +28,9 @@ export const test_llm_controller_claude_separate = (): void =>
     }),
   );
 
-export const test_llm_controller_deepseek_separate = (): void =>
-  validate_llm_controller_separate(
-    typia.llm.controller<Membership, "deepseek">(
-      "membership",
-      new Membership(),
-      {
-        separate,
-      },
-    ),
-  );
-
 export const test_llm_controller_gemini_separate = (): void =>
   validate_llm_controller_separate(
     typia.llm.controller<Membership, "gemini">("membership", new Membership(), {
-      separate,
-    }),
-  );
-
-export const test_llm_controller_llama_separate = (): void =>
-  validate_llm_controller_separate(
-    typia.llm.controller<Membership, "llama">("membership", new Membership(), {
       separate,
     }),
   );
@@ -59,16 +42,14 @@ export const test_llm_controller_llm_v30_separate = (): void =>
     }),
   );
 
-export const test_llm_controller_v3_separate = (): void =>
+export const test_llm_controller_llm_v31_separate = (): void =>
   validate_llm_controller_separate(
     typia.llm.controller<Membership, "3.1">("membership", new Membership(), {
       separate,
     }),
   );
 
-export const validate_llm_controller_separate = <
-  Model extends ILlmSchema.Model,
->(
+const validate_llm_controller_separate = <Model extends ILlmSchema.Model>(
   controller: ILlmController<Model>,
 ): void => {
   const func: ILlmFunction<Model> = controller.application.functions[0]!;
@@ -86,5 +67,5 @@ class Membership {
   }
 }
 const separate = (
-  schema: IChatGptSchema | IClaudeSchema | IGeminiSchema,
-): boolean => ClaudeTypeChecker.isInteger(schema);
+  schema: IChatGptSchema | IClaudeSchema | IGeminiSchema | ILlmSchemaV3,
+): boolean => ClaudeTypeChecker.isInteger(schema as any);

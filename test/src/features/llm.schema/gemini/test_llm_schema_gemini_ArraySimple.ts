@@ -7,4 +7,4 @@ export const test_llm_schema_gemini_ArraySimple = (): void =>
   _test_llm_schema({
     model: "gemini",
     name: "ArraySimple",
-  })(typia.llm.schema<ArraySimple, "gemini">());
+  })(typia.llm.schema<ArraySimple, "gemini">({}));

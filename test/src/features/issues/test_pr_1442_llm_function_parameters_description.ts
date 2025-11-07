@@ -4,16 +4,16 @@ import typia, { tags } from "typia";
 import { TestValidator } from "../../helpers/TestValidator";
 
 export const test_pr_1442_llm_function_parameters_description = (): void => {
-  const app: ILlmApplication<"chatgpt"> = typia.llm.application<
+  const app: ILlmApplication<"claude"> = typia.llm.application<
     BbsArticleController,
-    "chatgpt"
+    "claude"
   >();
   for (const func of app.functions)
     TestValidator.equals("parameters.description")(
       !!func.parameters.description,
     )(true);
 
-  const func: ILlmFunction<"chatgpt"> | undefined = app.functions.find(
+  const func: ILlmFunction<"claude"> | undefined = app.functions.find(
     (func) => func.name === "create",
   );
   TestValidator.equals("parameters.description")(

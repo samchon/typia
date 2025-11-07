@@ -7,4 +7,4 @@ export const test_llm_schema_gemini_ObjectJsonTag = (): void =>
   _test_llm_schema({
     model: "gemini",
     name: "ObjectJsonTag",
-  })(typia.llm.schema<ObjectJsonTag, "gemini">());
+  })(typia.llm.schema<ObjectJsonTag, "gemini">({}));

@@ -7,4 +7,4 @@ export const test_llm_schema_gemini_TemplateAtomic = (): void =>
   _test_llm_schema({
     model: "gemini",
     name: "TemplateAtomic",
-  })(typia.llm.schema<TemplateAtomic, "gemini">());
+  })(typia.llm.schema<TemplateAtomic, "gemini">({}));

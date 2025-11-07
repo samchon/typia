@@ -2,86 +2,35 @@
   "type": "object",
   "properties": {
     "regular": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "age": {
-          "type": "number"
-        }
-      },
-      "required": [
-        "name",
-        "age"
-      ],
-      "description": "Current Type: {@link ClassMethod.Animal}"
+      "$ref": "#/$defs/ClassMethod.Animal"
     },
     "nullable": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string"
+      "anyOf": [
+        {
+          "type": "null"
         },
-        "age": {
-          "type": "number"
+        {
+          "$ref": "#/$defs/ClassMethod.Animal"
         }
-      },
-      "required": [
-        "name",
-        "age"
-      ],
-      "nullable": true
+      ]
     },
     "optional": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "age": {
-          "type": "number"
-        }
-      },
-      "required": [
-        "name",
-        "age"
-      ],
-      "description": "Current Type: {@link ClassMethod.Animal}"
+      "$ref": "#/$defs/ClassMethod.Animal"
     },
     "faint": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string"
+      "anyOf": [
+        {
+          "type": "null"
         },
-        "age": {
-          "type": "number"
+        {
+          "$ref": "#/$defs/ClassMethod.Animal"
         }
-      },
-      "required": [
-        "name",
-        "age"
-      ],
-      "nullable": true
+      ]
     },
     "array": {
       "type": "array",
       "items": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "age": {
-            "type": "number"
-          }
-        },
-        "required": [
-          "name",
-          "age"
-        ],
-        "description": "Current Type: {@link ClassMethod.Animal}"
+        "$ref": "#/$defs/ClassMethod.Animal"
       }
     }
   },
@@ -89,5 +38,23 @@
     "regular",
     "nullable",
     "array"
-  ]
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "ClassMethod.Animal": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "age": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "name",
+        "age"
+      ]
+    }
+  }
 }

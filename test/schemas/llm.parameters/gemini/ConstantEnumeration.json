@@ -1,0 +1,70 @@
+{
+  "type": "object",
+  "properties": {
+    "regular": {
+      "$ref": "#/$defs/ConstantEnumeration"
+    },
+    "nullable": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/ConstantEnumeration"
+        }
+      ]
+    },
+    "optional": {
+      "$ref": "#/$defs/ConstantEnumeration"
+    },
+    "faint": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/ConstantEnumeration"
+        }
+      ]
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ConstantEnumeration"
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "array"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "ConstantEnumeration": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ConstantEnumeration.Enumeration"
+      }
+    },
+    "ConstantEnumeration.Enumeration": {
+      "anyOf": [
+        {
+          "type": "number",
+          "enum": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "type": "string",
+          "enum": [
+            "Three",
+            "Four"
+          ]
+        }
+      ]
+    }
+  }
+}

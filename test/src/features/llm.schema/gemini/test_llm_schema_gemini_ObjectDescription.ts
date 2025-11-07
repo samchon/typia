@@ -7,4 +7,4 @@ export const test_llm_schema_gemini_ObjectDescription = (): void =>
   _test_llm_schema({
     model: "gemini",
     name: "ObjectDescription",
-  })(typia.llm.schema<ObjectDescription, "gemini">());
+  })(typia.llm.schema<ObjectDescription, "gemini">({}));

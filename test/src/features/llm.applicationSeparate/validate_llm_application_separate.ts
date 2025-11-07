@@ -6,6 +6,7 @@ import {
   ILlmApplication,
   ILlmFunction,
   ILlmSchema,
+  ILlmSchemaV3,
 } from "@samchon/openapi";
 import typia, { tags } from "typia";
 
@@ -23,23 +24,9 @@ export const test_llm_application_claude_separate = (): void =>
     }),
   );
 
-export const test_llm_application_deepseek_separate = (): void =>
-  validate_llm_application_separate(
-    typia.llm.application<IMembership, "deepseek">({
-      separate,
-    }),
-  );
-
 export const test_llm_application_gemini_separate = (): void =>
   validate_llm_application_separate(
     typia.llm.application<IMembership, "gemini">({
-      separate,
-    }),
-  );
-
-export const test_llm_application_llama_separate = (): void =>
-  validate_llm_application_separate(
-    typia.llm.application<IMembership, "llama">({
       separate,
     }),
   );
@@ -51,7 +38,7 @@ export const test_llm_application_llm_v30_separate = (): void =>
     }),
   );
 
-export const test_llm_application_v3_separate = (): void =>
+export const test_llm_application_llm_v31_separate = (): void =>
   validate_llm_application_separate(
     typia.llm.application<IMembership, "3.1">({
       separate,
@@ -59,8 +46,8 @@ export const test_llm_application_v3_separate = (): void =>
   );
 
 const separate = (
-  schema: IChatGptSchema | IClaudeSchema | IGeminiSchema,
-): boolean => ClaudeTypeChecker.isInteger(schema);
+  schema: IChatGptSchema | IClaudeSchema | IGeminiSchema | ILlmSchemaV3,
+): boolean => ClaudeTypeChecker.isInteger(schema as any);
 
 const validate_llm_application_separate = <Model extends ILlmSchema.Model>(
   app: ILlmApplication<Model>,

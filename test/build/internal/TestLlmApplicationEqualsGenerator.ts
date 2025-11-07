@@ -20,10 +20,7 @@ export namespace TestLlmApplicationEqualsGenerator {
     structures: TestStructure<any>[],
   ): Promise<void> {
     for (const s of structures) {
-      if (
-        (await TestLlmApplicationGenerator.isApplicable(model, s.name)) ===
-        false
-      )
+      if ((await TestLlmApplicationGenerator.isApplicable(s.name)) === false)
         continue;
       const content: string[] = [
         `import typia from "typia";`,

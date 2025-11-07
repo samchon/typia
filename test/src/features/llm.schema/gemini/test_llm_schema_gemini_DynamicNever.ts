@@ -7,4 +7,4 @@ export const test_llm_schema_gemini_DynamicNever = (): void =>
   _test_llm_schema({
     model: "gemini",
     name: "DynamicNever",
-  })(typia.llm.schema<DynamicNever, "gemini">());
+  })(typia.llm.schema<DynamicNever, "gemini">({}));

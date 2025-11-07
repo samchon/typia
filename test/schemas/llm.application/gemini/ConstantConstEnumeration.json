@@ -1,0 +1,187 @@
+{
+  "model": "gemini",
+  "options": {
+    "reference": true,
+    "separate": null
+  },
+  "functions": [
+    {
+      "name": "insert",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "$ref": "#/$defs/ConstantConstEnumeration"
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ConstantConstEnumeration": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/ConstantConstEnumeration.Enumeration"
+            }
+          },
+          "ConstantConstEnumeration.Enumeration": {
+            "anyOf": [
+              {
+                "type": "number",
+                "enum": [
+                  0,
+                  1,
+                  2
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "Three",
+                  "Four"
+                ]
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "$ref": "#/$defs/ConstantConstEnumeration"
+          },
+          "second": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/$defs/ConstantConstEnumeration"
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ConstantConstEnumeration": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/ConstantConstEnumeration.Enumeration"
+            }
+          },
+          "ConstantConstEnumeration.Enumeration": {
+            "anyOf": [
+              {
+                "type": "number",
+                "enum": [
+                  0,
+                  1,
+                  2
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "Three",
+                  "Four"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "output": {
+        "$ref": "#/$defs/ConstantConstEnumeration"
+      }
+    },
+    {
+      "name": "coalesce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/$defs/ConstantConstEnumeration"
+              }
+            ]
+          },
+          "second": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/$defs/ConstantConstEnumeration"
+              }
+            ]
+          },
+          "third": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/$defs/ConstantConstEnumeration"
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ConstantConstEnumeration": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/ConstantConstEnumeration.Enumeration"
+            }
+          },
+          "ConstantConstEnumeration.Enumeration": {
+            "anyOf": [
+              {
+                "type": "number",
+                "enum": [
+                  0,
+                  1,
+                  2
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "Three",
+                  "Four"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "output": {
+        "anyOf": [
+          {
+            "type": "null"
+          },
+          {
+            "$ref": "#/$defs/ConstantConstEnumeration"
+          }
+        ]
+      }
+    }
+  ]
+}

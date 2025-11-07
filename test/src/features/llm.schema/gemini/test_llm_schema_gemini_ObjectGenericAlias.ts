@@ -7,4 +7,4 @@ export const test_llm_schema_gemini_ObjectGenericAlias = (): void =>
   _test_llm_schema({
     model: "gemini",
     name: "ObjectGenericAlias",
-  })(typia.llm.schema<ObjectGenericAlias, "gemini">());
+  })(typia.llm.schema<ObjectGenericAlias, "gemini">({}));

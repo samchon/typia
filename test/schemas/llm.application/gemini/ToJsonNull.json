@@ -1,7 +1,7 @@
 {
   "model": "gemini",
   "options": {
-    "recursive": 3,
+    "reference": true,
     "separate": null
   },
   "functions": [
@@ -16,7 +16,9 @@
         },
         "required": [
           "first"
-        ]
+        ],
+        "additionalProperties": false,
+        "$defs": {}
       }
     },
     {
@@ -28,13 +30,22 @@
             "type": "null"
           },
           "second": {
-            "type": "null"
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "required": [
           "first",
           "second"
-        ]
+        ],
+        "additionalProperties": false,
+        "$defs": {}
       },
       "output": {
         "type": "null"
@@ -46,22 +57,52 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "null"
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "second": {
-            "type": "null"
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "third": {
-            "type": "null"
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "required": [
           "first",
           "second"
-        ]
+        ],
+        "additionalProperties": false,
+        "$defs": {}
       },
       "output": {
-        "type": "null"
+        "anyOf": [
+          {
+            "type": "null"
+          },
+          {
+            "type": "null"
+          }
+        ]
       }
     }
   ]

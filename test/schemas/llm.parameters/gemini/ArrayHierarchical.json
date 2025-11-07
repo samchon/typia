@@ -2,641 +2,35 @@
   "type": "object",
   "properties": {
     "regular": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "number"
-          },
-          "serial": {
-            "type": "number"
-          },
-          "name": {
-            "type": "string"
-          },
-          "established_at": {
-            "type": "object",
-            "properties": {
-              "time": {
-                "type": "number"
-              },
-              "zone": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "time",
-              "zone"
-            ],
-            "description": "Current Type: {@link ArrayHierarchical.ITimestamp}"
-          },
-          "departments": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "number"
-                },
-                "code": {
-                  "type": "string"
-                },
-                "sales": {
-                  "type": "number"
-                },
-                "created_at": {
-                  "type": "object",
-                  "properties": {
-                    "time": {
-                      "type": "number"
-                    },
-                    "zone": {
-                      "type": "number"
-                    }
-                  },
-                  "required": [
-                    "time",
-                    "zone"
-                  ],
-                  "description": "Current Type: {@link ArrayHierarchical.ITimestamp}"
-                },
-                "employees": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "id": {
-                        "type": "number"
-                      },
-                      "name": {
-                        "type": "string"
-                      },
-                      "age": {
-                        "type": "number"
-                      },
-                      "grade": {
-                        "type": "number"
-                      },
-                      "employed_at": {
-                        "type": "object",
-                        "properties": {
-                          "time": {
-                            "type": "number"
-                          },
-                          "zone": {
-                            "type": "number"
-                          }
-                        },
-                        "required": [
-                          "time",
-                          "zone"
-                        ],
-                        "description": "Current Type: {@link ArrayHierarchical.ITimestamp}"
-                      }
-                    },
-                    "required": [
-                      "id",
-                      "name",
-                      "age",
-                      "grade",
-                      "employed_at"
-                    ],
-                    "description": "Current Type: {@link ArrayHierarchical.IEmployee}"
-                  }
-                }
-              },
-              "required": [
-                "id",
-                "code",
-                "sales",
-                "created_at",
-                "employees"
-              ],
-              "description": "Current Type: {@link ArrayHierarchical.IDepartment}"
-            }
-          }
-        },
-        "required": [
-          "id",
-          "serial",
-          "name",
-          "established_at",
-          "departments"
-        ],
-        "description": "Current Type: {@link ArrayHierarchical.ICompany}"
-      },
-      "description": "Current Type: {@link ArrayHierarchical}"
+      "$ref": "#/$defs/ArrayHierarchical"
     },
     "nullable": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "number"
-          },
-          "serial": {
-            "type": "number"
-          },
-          "name": {
-            "type": "string"
-          },
-          "established_at": {
-            "type": "object",
-            "properties": {
-              "time": {
-                "type": "number"
-              },
-              "zone": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "time",
-              "zone"
-            ],
-            "description": "Current Type: {@link ArrayHierarchical.ITimestamp}"
-          },
-          "departments": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "number"
-                },
-                "code": {
-                  "type": "string"
-                },
-                "sales": {
-                  "type": "number"
-                },
-                "created_at": {
-                  "type": "object",
-                  "properties": {
-                    "time": {
-                      "type": "number"
-                    },
-                    "zone": {
-                      "type": "number"
-                    }
-                  },
-                  "required": [
-                    "time",
-                    "zone"
-                  ],
-                  "description": "Current Type: {@link ArrayHierarchical.ITimestamp}"
-                },
-                "employees": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "id": {
-                        "type": "number"
-                      },
-                      "name": {
-                        "type": "string"
-                      },
-                      "age": {
-                        "type": "number"
-                      },
-                      "grade": {
-                        "type": "number"
-                      },
-                      "employed_at": {
-                        "type": "object",
-                        "properties": {
-                          "time": {
-                            "type": "number"
-                          },
-                          "zone": {
-                            "type": "number"
-                          }
-                        },
-                        "required": [
-                          "time",
-                          "zone"
-                        ],
-                        "description": "Current Type: {@link ArrayHierarchical.ITimestamp}"
-                      }
-                    },
-                    "required": [
-                      "id",
-                      "name",
-                      "age",
-                      "grade",
-                      "employed_at"
-                    ],
-                    "description": "Current Type: {@link ArrayHierarchical.IEmployee}"
-                  }
-                }
-              },
-              "required": [
-                "id",
-                "code",
-                "sales",
-                "created_at",
-                "employees"
-              ],
-              "description": "Current Type: {@link ArrayHierarchical.IDepartment}"
-            }
-          }
+      "anyOf": [
+        {
+          "type": "null"
         },
-        "required": [
-          "id",
-          "serial",
-          "name",
-          "established_at",
-          "departments"
-        ],
-        "description": "Current Type: {@link ArrayHierarchical.ICompany}"
-      },
-      "nullable": true
+        {
+          "$ref": "#/$defs/ArrayHierarchical"
+        }
+      ]
     },
     "optional": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "number"
-          },
-          "serial": {
-            "type": "number"
-          },
-          "name": {
-            "type": "string"
-          },
-          "established_at": {
-            "type": "object",
-            "properties": {
-              "time": {
-                "type": "number"
-              },
-              "zone": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "time",
-              "zone"
-            ],
-            "description": "Current Type: {@link ArrayHierarchical.ITimestamp}"
-          },
-          "departments": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "number"
-                },
-                "code": {
-                  "type": "string"
-                },
-                "sales": {
-                  "type": "number"
-                },
-                "created_at": {
-                  "type": "object",
-                  "properties": {
-                    "time": {
-                      "type": "number"
-                    },
-                    "zone": {
-                      "type": "number"
-                    }
-                  },
-                  "required": [
-                    "time",
-                    "zone"
-                  ],
-                  "description": "Current Type: {@link ArrayHierarchical.ITimestamp}"
-                },
-                "employees": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "id": {
-                        "type": "number"
-                      },
-                      "name": {
-                        "type": "string"
-                      },
-                      "age": {
-                        "type": "number"
-                      },
-                      "grade": {
-                        "type": "number"
-                      },
-                      "employed_at": {
-                        "type": "object",
-                        "properties": {
-                          "time": {
-                            "type": "number"
-                          },
-                          "zone": {
-                            "type": "number"
-                          }
-                        },
-                        "required": [
-                          "time",
-                          "zone"
-                        ],
-                        "description": "Current Type: {@link ArrayHierarchical.ITimestamp}"
-                      }
-                    },
-                    "required": [
-                      "id",
-                      "name",
-                      "age",
-                      "grade",
-                      "employed_at"
-                    ],
-                    "description": "Current Type: {@link ArrayHierarchical.IEmployee}"
-                  }
-                }
-              },
-              "required": [
-                "id",
-                "code",
-                "sales",
-                "created_at",
-                "employees"
-              ],
-              "description": "Current Type: {@link ArrayHierarchical.IDepartment}"
-            }
-          }
-        },
-        "required": [
-          "id",
-          "serial",
-          "name",
-          "established_at",
-          "departments"
-        ],
-        "description": "Current Type: {@link ArrayHierarchical.ICompany}"
-      },
-      "description": "Current Type: {@link ArrayHierarchical}"
+      "$ref": "#/$defs/ArrayHierarchical"
     },
     "faint": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "number"
-          },
-          "serial": {
-            "type": "number"
-          },
-          "name": {
-            "type": "string"
-          },
-          "established_at": {
-            "type": "object",
-            "properties": {
-              "time": {
-                "type": "number"
-              },
-              "zone": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "time",
-              "zone"
-            ],
-            "description": "Current Type: {@link ArrayHierarchical.ITimestamp}"
-          },
-          "departments": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "number"
-                },
-                "code": {
-                  "type": "string"
-                },
-                "sales": {
-                  "type": "number"
-                },
-                "created_at": {
-                  "type": "object",
-                  "properties": {
-                    "time": {
-                      "type": "number"
-                    },
-                    "zone": {
-                      "type": "number"
-                    }
-                  },
-                  "required": [
-                    "time",
-                    "zone"
-                  ],
-                  "description": "Current Type: {@link ArrayHierarchical.ITimestamp}"
-                },
-                "employees": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "id": {
-                        "type": "number"
-                      },
-                      "name": {
-                        "type": "string"
-                      },
-                      "age": {
-                        "type": "number"
-                      },
-                      "grade": {
-                        "type": "number"
-                      },
-                      "employed_at": {
-                        "type": "object",
-                        "properties": {
-                          "time": {
-                            "type": "number"
-                          },
-                          "zone": {
-                            "type": "number"
-                          }
-                        },
-                        "required": [
-                          "time",
-                          "zone"
-                        ],
-                        "description": "Current Type: {@link ArrayHierarchical.ITimestamp}"
-                      }
-                    },
-                    "required": [
-                      "id",
-                      "name",
-                      "age",
-                      "grade",
-                      "employed_at"
-                    ],
-                    "description": "Current Type: {@link ArrayHierarchical.IEmployee}"
-                  }
-                }
-              },
-              "required": [
-                "id",
-                "code",
-                "sales",
-                "created_at",
-                "employees"
-              ],
-              "description": "Current Type: {@link ArrayHierarchical.IDepartment}"
-            }
-          }
+      "anyOf": [
+        {
+          "type": "null"
         },
-        "required": [
-          "id",
-          "serial",
-          "name",
-          "established_at",
-          "departments"
-        ],
-        "description": "Current Type: {@link ArrayHierarchical.ICompany}"
-      },
-      "nullable": true
+        {
+          "$ref": "#/$defs/ArrayHierarchical"
+        }
+      ]
     },
     "array": {
       "type": "array",
       "items": {
-        "type": "array",
-        "items": {
-          "type": "object",
-          "properties": {
-            "id": {
-              "type": "number"
-            },
-            "serial": {
-              "type": "number"
-            },
-            "name": {
-              "type": "string"
-            },
-            "established_at": {
-              "type": "object",
-              "properties": {
-                "time": {
-                  "type": "number"
-                },
-                "zone": {
-                  "type": "number"
-                }
-              },
-              "required": [
-                "time",
-                "zone"
-              ],
-              "description": "Current Type: {@link ArrayHierarchical.ITimestamp}"
-            },
-            "departments": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "number"
-                  },
-                  "code": {
-                    "type": "string"
-                  },
-                  "sales": {
-                    "type": "number"
-                  },
-                  "created_at": {
-                    "type": "object",
-                    "properties": {
-                      "time": {
-                        "type": "number"
-                      },
-                      "zone": {
-                        "type": "number"
-                      }
-                    },
-                    "required": [
-                      "time",
-                      "zone"
-                    ],
-                    "description": "Current Type: {@link ArrayHierarchical.ITimestamp}"
-                  },
-                  "employees": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "id": {
-                          "type": "number"
-                        },
-                        "name": {
-                          "type": "string"
-                        },
-                        "age": {
-                          "type": "number"
-                        },
-                        "grade": {
-                          "type": "number"
-                        },
-                        "employed_at": {
-                          "type": "object",
-                          "properties": {
-                            "time": {
-                              "type": "number"
-                            },
-                            "zone": {
-                              "type": "number"
-                            }
-                          },
-                          "required": [
-                            "time",
-                            "zone"
-                          ],
-                          "description": "Current Type: {@link ArrayHierarchical.ITimestamp}"
-                        }
-                      },
-                      "required": [
-                        "id",
-                        "name",
-                        "age",
-                        "grade",
-                        "employed_at"
-                      ],
-                      "description": "Current Type: {@link ArrayHierarchical.IEmployee}"
-                    }
-                  }
-                },
-                "required": [
-                  "id",
-                  "code",
-                  "sales",
-                  "created_at",
-                  "employees"
-                ],
-                "description": "Current Type: {@link ArrayHierarchical.IDepartment}"
-              }
-            }
-          },
-          "required": [
-            "id",
-            "serial",
-            "name",
-            "established_at",
-            "departments"
-          ],
-          "description": "Current Type: {@link ArrayHierarchical.ICompany}"
-        },
-        "description": "Current Type: {@link ArrayHierarchical}"
+        "$ref": "#/$defs/ArrayHierarchical"
       }
     }
   },
@@ -644,5 +38,116 @@
     "regular",
     "nullable",
     "array"
-  ]
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "ArrayHierarchical": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ArrayHierarchical.ICompany"
+      }
+    },
+    "ArrayHierarchical.ICompany": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number"
+        },
+        "serial": {
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        },
+        "established_at": {
+          "$ref": "#/$defs/ArrayHierarchical.ITimestamp"
+        },
+        "departments": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ArrayHierarchical.IDepartment"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "serial",
+        "name",
+        "established_at",
+        "departments"
+      ]
+    },
+    "ArrayHierarchical.ITimestamp": {
+      "type": "object",
+      "properties": {
+        "time": {
+          "type": "number"
+        },
+        "zone": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "time",
+        "zone"
+      ]
+    },
+    "ArrayHierarchical.IDepartment": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number"
+        },
+        "code": {
+          "type": "string"
+        },
+        "sales": {
+          "type": "number"
+        },
+        "created_at": {
+          "$ref": "#/$defs/ArrayHierarchical.ITimestamp"
+        },
+        "employees": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ArrayHierarchical.IEmployee"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "code",
+        "sales",
+        "created_at",
+        "employees"
+      ]
+    },
+    "ArrayHierarchical.IEmployee": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        },
+        "age": {
+          "type": "number"
+        },
+        "grade": {
+          "type": "number"
+        },
+        "employed_at": {
+          "$ref": "#/$defs/ArrayHierarchical.ITimestamp"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "age",
+        "grade",
+        "employed_at"
+      ]
+    }
+  }
 }

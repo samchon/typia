@@ -9,7 +9,7 @@ export namespace TestLlmSchemaGenerator {
   ): Promise<void> {
     const location: string = `${__dirname}/../../src/features/llm.schema`;
     await mkdir(location);
-    for (const model of MODELS) {
+    for (const model of TestLlmApplicationGenerator.MODELS) {
       await fs.promises.mkdir(`${location}/${model}`);
       await application(model, structures);
     }
@@ -20,10 +20,7 @@ export namespace TestLlmSchemaGenerator {
     structures: TestStructure<any>[],
   ): Promise<void> {
     for (const s of structures) {
-      if (
-        (await TestLlmApplicationGenerator.isApplicable(model, s.name)) ===
-        false
-      )
+      if ((await TestLlmApplicationGenerator.isApplicable(s.name)) === false)
         continue;
       const content: string[] = [
         `import typia from "typia";`,
@@ -47,7 +44,7 @@ export namespace TestLlmSchemaGenerator {
   export async function schemas(): Promise<void> {
     const location: string = `${__dirname}/../../schemas/llm.schema`;
     await mkdir(location);
-    for (const model of MODELS) {
+    for (const model of TestLlmApplicationGenerator.MODELS) {
       await mkdir(`${location}/${model}`);
       await iterate(model);
     }
@@ -90,5 +87,4 @@ export namespace TestLlmSchemaGenerator {
   }
 }
 
-const MODELS = ["3.0", "3.1", "chatgpt", "claude", "llama", "gemini"];
-const REFERENCEABLE = ["3.1", "chatgpt", "claude", "llama"];
+const REFERENCEABLE = ["3.1", "chatgpt", "claude", "gemini"];

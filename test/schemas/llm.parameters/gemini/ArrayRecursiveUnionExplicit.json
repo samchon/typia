@@ -1,0 +1,271 @@
+{
+  "type": "object",
+  "properties": {
+    "regular": {
+      "$ref": "#/$defs/ArrayRecursiveUnionExplicit"
+    },
+    "nullable": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/ArrayRecursiveUnionExplicit"
+        }
+      ]
+    },
+    "optional": {
+      "$ref": "#/$defs/ArrayRecursiveUnionExplicit"
+    },
+    "faint": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/ArrayRecursiveUnionExplicit"
+        }
+      ]
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ArrayRecursiveUnionExplicit"
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "array"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "ArrayRecursiveUnionExplicit": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ArrayRecursiveUnionExplicit.IBucket"
+      }
+    },
+    "ArrayRecursiveUnionExplicit.IBucket": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ArrayRecursiveUnionExplicit.IDirectory"
+        },
+        {
+          "$ref": "#/$defs/ArrayRecursiveUnionExplicit.IImageFile"
+        },
+        {
+          "$ref": "#/$defs/ArrayRecursiveUnionExplicit.ITextFile"
+        },
+        {
+          "$ref": "#/$defs/ArrayRecursiveUnionExplicit.IZipFile"
+        },
+        {
+          "$ref": "#/$defs/ArrayRecursiveUnionExplicit.IShortcut"
+        }
+      ]
+    },
+    "ArrayRecursiveUnionExplicit.IDirectory": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ArrayRecursiveUnionExplicit.IBucket"
+          }
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "directory"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "path",
+        "children",
+        "type"
+      ]
+    },
+    "ArrayRecursiveUnionExplicit.IImageFile": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "width": {
+          "type": "number"
+        },
+        "height": {
+          "type": "number"
+        },
+        "url": {
+          "type": "string"
+        },
+        "size": {
+          "type": "number"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "file"
+          ]
+        },
+        "extension": {
+          "type": "string",
+          "enum": [
+            "jpg"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "path",
+        "width",
+        "height",
+        "url",
+        "size",
+        "type",
+        "extension"
+      ]
+    },
+    "ArrayRecursiveUnionExplicit.ITextFile": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "size": {
+          "type": "number"
+        },
+        "content": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "file"
+          ]
+        },
+        "extension": {
+          "type": "string",
+          "enum": [
+            "txt"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "path",
+        "size",
+        "content",
+        "type",
+        "extension"
+      ]
+    },
+    "ArrayRecursiveUnionExplicit.IZipFile": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "size": {
+          "type": "number"
+        },
+        "count": {
+          "type": "number"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "file"
+          ]
+        },
+        "extension": {
+          "type": "string",
+          "enum": [
+            "zip"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "path",
+        "size",
+        "count",
+        "type",
+        "extension"
+      ]
+    },
+    "ArrayRecursiveUnionExplicit.IShortcut": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "target": {
+          "$ref": "#/$defs/ArrayRecursiveUnionExplicit.IBucket"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "file"
+          ]
+        },
+        "extension": {
+          "type": "string",
+          "enum": [
+            "lnk"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "path",
+        "target",
+        "type",
+        "extension"
+      ]
+    }
+  }
+}

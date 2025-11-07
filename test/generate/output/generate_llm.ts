@@ -1,4 +1,4 @@
-import { ILlmApplication, LlamaTypeChecker } from "@samchon/openapi";
+import { ClaudeTypeChecker, ILlmApplication } from "@samchon/openapi";
 import { tags } from "typia";
 import * as __typia_transform__isFormatDateTime from "typia/lib/internal/_isFormatDateTime.js";
 import * as __typia_transform__isFormatUuid from "typia/lib/internal/_isFormatUuid.js";
@@ -206,7 +206,7 @@ export const parameters = {
 } as import("@samchon/openapi").ILlmSchema.IParameters<"claude">;
 export const application = (() => {
   const application = {
-    model: "llama",
+    model: "claude",
     options: {
       reference: true,
       separate: null,
@@ -2215,16 +2215,16 @@ export const application = (() => {
         })(),
       },
     ],
-  } as import("@samchon/openapi").ILlmApplication<"llama">;
+  } as import("@samchon/openapi").ILlmApplication<"claude">;
   __typia_transform__llmApplicationFinalize._llmApplicationFinalize(
     application,
     {
       ...({
         separate: (schema) =>
-          LlamaTypeChecker.isString(schema) && schema.format === "date-time",
+          ClaudeTypeChecker.isString(schema) && schema.format === "date-time",
       } satisfies Partial<
         Pick<
-          import("@samchon/openapi").ILlmApplication.IOptions<"llama">,
+          import("@samchon/openapi").ILlmApplication.IOptions<"claude">,
           "separate" | "validate"
         >
       >),
@@ -2235,7 +2235,7 @@ export const application = (() => {
 })();
 (() => {
   const application = {
-    model: "llama",
+    model: "claude",
     options: {
       reference: true,
       separate: null,
@@ -4244,18 +4244,18 @@ export const application = (() => {
         })(),
       },
     ],
-  } as import("@samchon/openapi").ILlmApplication<"llama">;
+  } as import("@samchon/openapi").ILlmApplication<"claude">;
   __typia_transform__llmApplicationFinalize._llmApplicationFinalize(
     application,
     {
       ...({
         separate: (schema) =>
-          LlamaTypeChecker.isString(schema) && schema.format === "date-time",
+          ClaudeTypeChecker.isString(schema) && schema.format === "date-time",
       } satisfies Partial<
-        Pick<ILlmApplication.IOptions<"llama">, "separate">
+        Pick<ILlmApplication.IOptions<"claude">, "separate">
       > satisfies Partial<
         Pick<
-          import("@samchon/openapi").ILlmApplication.IOptions<"llama">,
+          import("@samchon/openapi").ILlmApplication.IOptions<"claude">,
           "separate" | "validate"
         >
       >),
@@ -4265,11 +4265,11 @@ export const application = (() => {
   return application;
 })();
 export const controller = ((): import("@samchon/openapi").ILlmController<
-  "deepseek",
+  "claude",
   IApplication
 > => {
   const application = {
-    model: "deepseek",
+    model: "claude",
     options: {
       reference: true,
       separate: null,
@@ -6278,7 +6278,7 @@ export const controller = ((): import("@samchon/openapi").ILlmController<
         })(),
       },
     ],
-  } as import("@samchon/openapi").ILlmApplication<"deepseek">;
+  } as import("@samchon/openapi").ILlmApplication<"claude">;
   return {
     protocol: "class",
     name: "company",

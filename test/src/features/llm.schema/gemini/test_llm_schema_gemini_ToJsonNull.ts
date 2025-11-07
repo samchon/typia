@@ -7,4 +7,4 @@ export const test_llm_schema_gemini_ToJsonNull = (): void =>
   _test_llm_schema({
     model: "gemini",
     name: "ToJsonNull",
-  })(typia.llm.schema<ToJsonNull, "gemini">());
+  })(typia.llm.schema<ToJsonNull, "gemini">({}));

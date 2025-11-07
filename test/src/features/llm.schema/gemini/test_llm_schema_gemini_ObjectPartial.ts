@@ -7,4 +7,4 @@ export const test_llm_schema_gemini_ObjectPartial = (): void =>
   _test_llm_schema({
     model: "gemini",
     name: "ObjectPartial",
-  })(typia.llm.schema<ObjectPartial, "gemini">());
+  })(typia.llm.schema<ObjectPartial, "gemini">({}));

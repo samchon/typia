@@ -7,4 +7,4 @@ export const test_llm_schema_gemini_ObjectRequired = (): void =>
   _test_llm_schema({
     model: "gemini",
     name: "ObjectRequired",
-  })(typia.llm.schema<ObjectRequired, "gemini">());
+  })(typia.llm.schema<ObjectRequired, "gemini">({}));

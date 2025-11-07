@@ -7,4 +7,4 @@ export const test_llm_schema_gemini_ObjectGenericArray = (): void =>
   _test_llm_schema({
     model: "gemini",
     name: "ObjectGenericArray",
-  })(typia.llm.schema<ObjectGenericArray, "gemini">());
+  })(typia.llm.schema<ObjectGenericArray, "gemini">({}));

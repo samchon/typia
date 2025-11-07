@@ -1,0 +1,616 @@
+{
+  "model": "gemini",
+  "options": {
+    "reference": true,
+    "separate": null
+  },
+  "functions": [
+    {
+      "name": "insert",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "$ref": "#/$defs/ObjectUnionComposite"
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ObjectUnionComposite": {
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/ObjectUnionComposite.IPoint"
+                },
+                {
+                  "$ref": "#/$defs/ObjectUnionComposite.ILine"
+                },
+                {
+                  "$ref": "#/$defs/ObjectUnionComposite.ITriangle"
+                },
+                {
+                  "$ref": "#/$defs/ObjectUnionComposite.IRectangle"
+                },
+                {
+                  "$ref": "#/$defs/ObjectUnionComposite.IPolyline"
+                },
+                {
+                  "$ref": "#/$defs/ObjectUnionComposite.IPointedShape"
+                },
+                {
+                  "$ref": "#/$defs/ObjectUnionComposite.IPolygon"
+                },
+                {
+                  "$ref": "#/$defs/ObjectUnionComposite.ICircle"
+                }
+              ]
+            }
+          },
+          "ObjectUnionComposite.IPoint": {
+            "type": "object",
+            "properties": {
+              "x": {
+                "type": "number"
+              },
+              "y": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "x",
+              "y"
+            ]
+          },
+          "ObjectUnionComposite.ILine": {
+            "type": "object",
+            "properties": {
+              "p1": {
+                "$ref": "#/$defs/ObjectUnionComposite.IPoint"
+              },
+              "p2": {
+                "$ref": "#/$defs/ObjectUnionComposite.IPoint"
+              }
+            },
+            "required": [
+              "p1",
+              "p2"
+            ]
+          },
+          "ObjectUnionComposite.ITriangle": {
+            "type": "object",
+            "properties": {
+              "p1": {
+                "$ref": "#/$defs/ObjectUnionComposite.IPoint"
+              },
+              "p2": {
+                "$ref": "#/$defs/ObjectUnionComposite.IPoint"
+              },
+              "p3": {
+                "$ref": "#/$defs/ObjectUnionComposite.IPoint"
+              }
+            },
+            "required": [
+              "p1",
+              "p2",
+              "p3"
+            ]
+          },
+          "ObjectUnionComposite.IRectangle": {
+            "type": "object",
+            "properties": {
+              "p1": {
+                "$ref": "#/$defs/ObjectUnionComposite.IPoint"
+              },
+              "p2": {
+                "$ref": "#/$defs/ObjectUnionComposite.IPoint"
+              },
+              "p3": {
+                "$ref": "#/$defs/ObjectUnionComposite.IPoint"
+              },
+              "p4": {
+                "$ref": "#/$defs/ObjectUnionComposite.IPoint"
+              }
+            },
+            "required": [
+              "p1",
+              "p2",
+              "p3",
+              "p4"
+            ]
+          },
+          "ObjectUnionComposite.IPolyline": {
+            "type": "object",
+            "properties": {
+              "points": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ObjectUnionComposite.IPoint"
+                }
+              }
+            },
+            "required": [
+              "points"
+            ]
+          },
+          "ObjectUnionComposite.IPointedShape": {
+            "type": "object",
+            "properties": {
+              "outer": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ObjectUnionComposite.IPoint"
+                }
+              },
+              "inner": {
+                "$ref": "#/$defs/ObjectUnionComposite.IPoint"
+              }
+            },
+            "required": [
+              "outer",
+              "inner"
+            ]
+          },
+          "ObjectUnionComposite.IPolygon": {
+            "type": "object",
+            "properties": {
+              "outer": {
+                "$ref": "#/$defs/ObjectUnionComposite.IPolyline"
+              },
+              "inner": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ObjectUnionComposite.IPolyline"
+                }
+              }
+            },
+            "required": [
+              "outer",
+              "inner"
+            ]
+          },
+          "ObjectUnionComposite.ICircle": {
+            "type": "object",
+            "properties": {
+              "centroid": {
+                "$ref": "#/$defs/ObjectUnionComposite.IPoint"
+              },
+              "radius": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "centroid",
+              "radius"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "$ref": "#/$defs/ObjectUnionComposite"
+          },
+          "second": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/$defs/ObjectUnionComposite"
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ObjectUnionComposite": {
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/ObjectUnionComposite.IPoint"
+                },
+                {
+                  "$ref": "#/$defs/ObjectUnionComposite.ILine"
+                },
+                {
+                  "$ref": "#/$defs/ObjectUnionComposite.ITriangle"
+                },
+                {
+                  "$ref": "#/$defs/ObjectUnionComposite.IRectangle"
+                },
+                {
+                  "$ref": "#/$defs/ObjectUnionComposite.IPolyline"
+                },
+                {
+                  "$ref": "#/$defs/ObjectUnionComposite.IPointedShape"
+                },
+                {
+                  "$ref": "#/$defs/ObjectUnionComposite.IPolygon"
+                },
+                {
+                  "$ref": "#/$defs/ObjectUnionComposite.ICircle"
+                }
+              ]
+            }
+          },
+          "ObjectUnionComposite.IPoint": {
+            "type": "object",
+            "properties": {
+              "x": {
+                "type": "number"
+              },
+              "y": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "x",
+              "y"
+            ]
+          },
+          "ObjectUnionComposite.ILine": {
+            "type": "object",
+            "properties": {
+              "p1": {
+                "$ref": "#/$defs/ObjectUnionComposite.IPoint"
+              },
+              "p2": {
+                "$ref": "#/$defs/ObjectUnionComposite.IPoint"
+              }
+            },
+            "required": [
+              "p1",
+              "p2"
+            ]
+          },
+          "ObjectUnionComposite.ITriangle": {
+            "type": "object",
+            "properties": {
+              "p1": {
+                "$ref": "#/$defs/ObjectUnionComposite.IPoint"
+              },
+              "p2": {
+                "$ref": "#/$defs/ObjectUnionComposite.IPoint"
+              },
+              "p3": {
+                "$ref": "#/$defs/ObjectUnionComposite.IPoint"
+              }
+            },
+            "required": [
+              "p1",
+              "p2",
+              "p3"
+            ]
+          },
+          "ObjectUnionComposite.IRectangle": {
+            "type": "object",
+            "properties": {
+              "p1": {
+                "$ref": "#/$defs/ObjectUnionComposite.IPoint"
+              },
+              "p2": {
+                "$ref": "#/$defs/ObjectUnionComposite.IPoint"
+              },
+              "p3": {
+                "$ref": "#/$defs/ObjectUnionComposite.IPoint"
+              },
+              "p4": {
+                "$ref": "#/$defs/ObjectUnionComposite.IPoint"
+              }
+            },
+            "required": [
+              "p1",
+              "p2",
+              "p3",
+              "p4"
+            ]
+          },
+          "ObjectUnionComposite.IPolyline": {
+            "type": "object",
+            "properties": {
+              "points": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ObjectUnionComposite.IPoint"
+                }
+              }
+            },
+            "required": [
+              "points"
+            ]
+          },
+          "ObjectUnionComposite.IPointedShape": {
+            "type": "object",
+            "properties": {
+              "outer": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ObjectUnionComposite.IPoint"
+                }
+              },
+              "inner": {
+                "$ref": "#/$defs/ObjectUnionComposite.IPoint"
+              }
+            },
+            "required": [
+              "outer",
+              "inner"
+            ]
+          },
+          "ObjectUnionComposite.IPolygon": {
+            "type": "object",
+            "properties": {
+              "outer": {
+                "$ref": "#/$defs/ObjectUnionComposite.IPolyline"
+              },
+              "inner": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ObjectUnionComposite.IPolyline"
+                }
+              }
+            },
+            "required": [
+              "outer",
+              "inner"
+            ]
+          },
+          "ObjectUnionComposite.ICircle": {
+            "type": "object",
+            "properties": {
+              "centroid": {
+                "$ref": "#/$defs/ObjectUnionComposite.IPoint"
+              },
+              "radius": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "centroid",
+              "radius"
+            ]
+          }
+        }
+      },
+      "output": {
+        "$ref": "#/$defs/ObjectUnionComposite"
+      }
+    },
+    {
+      "name": "coalesce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/$defs/ObjectUnionComposite"
+              }
+            ]
+          },
+          "second": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/$defs/ObjectUnionComposite"
+              }
+            ]
+          },
+          "third": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/$defs/ObjectUnionComposite"
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ObjectUnionComposite": {
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/ObjectUnionComposite.IPoint"
+                },
+                {
+                  "$ref": "#/$defs/ObjectUnionComposite.ILine"
+                },
+                {
+                  "$ref": "#/$defs/ObjectUnionComposite.ITriangle"
+                },
+                {
+                  "$ref": "#/$defs/ObjectUnionComposite.IRectangle"
+                },
+                {
+                  "$ref": "#/$defs/ObjectUnionComposite.IPolyline"
+                },
+                {
+                  "$ref": "#/$defs/ObjectUnionComposite.IPointedShape"
+                },
+                {
+                  "$ref": "#/$defs/ObjectUnionComposite.IPolygon"
+                },
+                {
+                  "$ref": "#/$defs/ObjectUnionComposite.ICircle"
+                }
+              ]
+            }
+          },
+          "ObjectUnionComposite.IPoint": {
+            "type": "object",
+            "properties": {
+              "x": {
+                "type": "number"
+              },
+              "y": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "x",
+              "y"
+            ]
+          },
+          "ObjectUnionComposite.ILine": {
+            "type": "object",
+            "properties": {
+              "p1": {
+                "$ref": "#/$defs/ObjectUnionComposite.IPoint"
+              },
+              "p2": {
+                "$ref": "#/$defs/ObjectUnionComposite.IPoint"
+              }
+            },
+            "required": [
+              "p1",
+              "p2"
+            ]
+          },
+          "ObjectUnionComposite.ITriangle": {
+            "type": "object",
+            "properties": {
+              "p1": {
+                "$ref": "#/$defs/ObjectUnionComposite.IPoint"
+              },
+              "p2": {
+                "$ref": "#/$defs/ObjectUnionComposite.IPoint"
+              },
+              "p3": {
+                "$ref": "#/$defs/ObjectUnionComposite.IPoint"
+              }
+            },
+            "required": [
+              "p1",
+              "p2",
+              "p3"
+            ]
+          },
+          "ObjectUnionComposite.IRectangle": {
+            "type": "object",
+            "properties": {
+              "p1": {
+                "$ref": "#/$defs/ObjectUnionComposite.IPoint"
+              },
+              "p2": {
+                "$ref": "#/$defs/ObjectUnionComposite.IPoint"
+              },
+              "p3": {
+                "$ref": "#/$defs/ObjectUnionComposite.IPoint"
+              },
+              "p4": {
+                "$ref": "#/$defs/ObjectUnionComposite.IPoint"
+              }
+            },
+            "required": [
+              "p1",
+              "p2",
+              "p3",
+              "p4"
+            ]
+          },
+          "ObjectUnionComposite.IPolyline": {
+            "type": "object",
+            "properties": {
+              "points": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ObjectUnionComposite.IPoint"
+                }
+              }
+            },
+            "required": [
+              "points"
+            ]
+          },
+          "ObjectUnionComposite.IPointedShape": {
+            "type": "object",
+            "properties": {
+              "outer": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ObjectUnionComposite.IPoint"
+                }
+              },
+              "inner": {
+                "$ref": "#/$defs/ObjectUnionComposite.IPoint"
+              }
+            },
+            "required": [
+              "outer",
+              "inner"
+            ]
+          },
+          "ObjectUnionComposite.IPolygon": {
+            "type": "object",
+            "properties": {
+              "outer": {
+                "$ref": "#/$defs/ObjectUnionComposite.IPolyline"
+              },
+              "inner": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ObjectUnionComposite.IPolyline"
+                }
+              }
+            },
+            "required": [
+              "outer",
+              "inner"
+            ]
+          },
+          "ObjectUnionComposite.ICircle": {
+            "type": "object",
+            "properties": {
+              "centroid": {
+                "$ref": "#/$defs/ObjectUnionComposite.IPoint"
+              },
+              "radius": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "centroid",
+              "radius"
+            ]
+          }
+        }
+      },
+      "output": {
+        "anyOf": [
+          {
+            "type": "null"
+          },
+          {
+            "$ref": "#/$defs/ObjectUnionComposite"
+          }
+        ]
+      }
+    }
+  ]
+}

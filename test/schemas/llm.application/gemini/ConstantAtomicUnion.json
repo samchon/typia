@@ -1,0 +1,244 @@
+{
+  "model": "gemini",
+  "options": {
+    "reference": true,
+    "separate": null
+  },
+  "functions": [
+    {
+      "name": "insert",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "$ref": "#/$defs/ConstantAtomicUnion"
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ConstantAtomicUnion": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/ConstantAtomicUnion.Union"
+            }
+          },
+          "ConstantAtomicUnion.Union": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "key": {
+                    "type": "string",
+                    "enum": [
+                      "key"
+                    ]
+                  }
+                },
+                "required": [
+                  "key"
+                ]
+              },
+              {
+                "type": "boolean",
+                "enum": [
+                  false
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  1,
+                  2
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "three",
+                  "four"
+                ]
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "$ref": "#/$defs/ConstantAtomicUnion"
+          },
+          "second": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/$defs/ConstantAtomicUnion"
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ConstantAtomicUnion": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/ConstantAtomicUnion.Union"
+            }
+          },
+          "ConstantAtomicUnion.Union": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "key": {
+                    "type": "string",
+                    "enum": [
+                      "key"
+                    ]
+                  }
+                },
+                "required": [
+                  "key"
+                ]
+              },
+              {
+                "type": "boolean",
+                "enum": [
+                  false
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  1,
+                  2
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "three",
+                  "four"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "output": {
+        "$ref": "#/$defs/ConstantAtomicUnion"
+      }
+    },
+    {
+      "name": "coalesce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/$defs/ConstantAtomicUnion"
+              }
+            ]
+          },
+          "second": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/$defs/ConstantAtomicUnion"
+              }
+            ]
+          },
+          "third": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/$defs/ConstantAtomicUnion"
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ConstantAtomicUnion": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/ConstantAtomicUnion.Union"
+            }
+          },
+          "ConstantAtomicUnion.Union": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "key": {
+                    "type": "string",
+                    "enum": [
+                      "key"
+                    ]
+                  }
+                },
+                "required": [
+                  "key"
+                ]
+              },
+              {
+                "type": "boolean",
+                "enum": [
+                  false
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  1,
+                  2
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "three",
+                  "four"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "output": {
+        "anyOf": [
+          {
+            "type": "null"
+          },
+          {
+            "$ref": "#/$defs/ConstantAtomicUnion"
+          }
+        ]
+      }
+    }
+  ]
+}

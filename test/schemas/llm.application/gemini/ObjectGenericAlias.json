@@ -1,7 +1,7 @@
 {
   "model": "gemini",
   "options": {
-    "recursive": 3,
+    "reference": true,
     "separate": null
   },
   "functions": [
@@ -11,6 +11,15 @@
         "type": "object",
         "properties": {
           "first": {
+            "$ref": "#/$defs/ObjectGenericAlias.Alias"
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ObjectGenericAlias.Alias": {
             "type": "object",
             "properties": {
               "value": {
@@ -19,13 +28,9 @@
             },
             "required": [
               "value"
-            ],
-            "description": "Current Type: {@link ObjectGenericAlias.Alias}"
+            ]
           }
-        },
-        "required": [
-          "first"
-        ]
+        }
       }
     },
     {
@@ -34,46 +39,40 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "object",
-            "properties": {
-              "value": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "value"
-            ],
-            "description": "Current Type: {@link ObjectGenericAlias.Alias}"
+            "$ref": "#/$defs/ObjectGenericAlias.Alias"
           },
           "second": {
-            "type": "object",
-            "properties": {
-              "value": {
-                "type": "string"
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/$defs/ObjectGenericAlias.Alias"
               }
-            },
-            "required": [
-              "value"
-            ],
-            "nullable": true
+            ]
           }
         },
         "required": [
           "first",
           "second"
-        ]
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ObjectGenericAlias.Alias": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "value"
+            ]
+          }
+        }
       },
       "output": {
-        "type": "object",
-        "properties": {
-          "value": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "value"
-        ],
-        "description": "Current Type: {@link ObjectGenericAlias.Alias}"
+        "$ref": "#/$defs/ObjectGenericAlias.Alias"
       }
     },
     {
@@ -82,58 +81,64 @@
         "type": "object",
         "properties": {
           "first": {
-            "type": "object",
-            "properties": {
-              "value": {
-                "type": "string"
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/$defs/ObjectGenericAlias.Alias"
               }
-            },
-            "required": [
-              "value"
-            ],
-            "nullable": true
+            ]
           },
           "second": {
-            "type": "object",
-            "properties": {
-              "value": {
-                "type": "string"
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/$defs/ObjectGenericAlias.Alias"
               }
-            },
-            "required": [
-              "value"
-            ],
-            "nullable": true
+            ]
           },
           "third": {
-            "type": "object",
-            "properties": {
-              "value": {
-                "type": "string"
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/$defs/ObjectGenericAlias.Alias"
               }
-            },
-            "required": [
-              "value"
-            ],
-            "nullable": true
+            ]
           }
         },
         "required": [
           "first",
           "second"
-        ]
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ObjectGenericAlias.Alias": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "value"
+            ]
+          }
+        }
       },
       "output": {
-        "type": "object",
-        "properties": {
-          "value": {
-            "type": "string"
+        "anyOf": [
+          {
+            "type": "null"
+          },
+          {
+            "$ref": "#/$defs/ObjectGenericAlias.Alias"
           }
-        },
-        "required": [
-          "value"
-        ],
-        "nullable": true
+        ]
       }
     }
   ]
