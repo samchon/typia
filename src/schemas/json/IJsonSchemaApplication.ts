@@ -1,17 +1,19 @@
 import { OpenApi, OpenApiV3 } from "@samchon/openapi";
 
-export interface __IJsonApplication<
+export interface IJsonSchemaApplication<
   Version extends "3.0" | "3.1" = "3.1",
   App extends any = object,
 > {
   version: Version;
-  components: __IJsonApplication.IComponents<
-    __IJsonApplication.Schema<Version>
+  components: IJsonSchemaApplication.IComponents<
+    IJsonSchemaApplication.Schema<Version>
   >;
-  functions: __IJsonApplication.IFunction<__IJsonApplication.Schema<Version>>[];
+  functions: IJsonSchemaApplication.IFunction<
+    IJsonSchemaApplication.Schema<Version>
+  >[];
   __application?: App | undefined;
 }
-export namespace __IJsonApplication {
+export namespace IJsonSchemaApplication {
   export type Schema<Version extends "3.0" | "3.1"> = Version extends "3.1"
     ? OpenApi.IJsonSchema
     : OpenApiV3.IJsonSchema;
