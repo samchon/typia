@@ -18,7 +18,7 @@ export function validate<T>(input: unknown): IValidation<T>; // detailed
 
 // JSON FUNCTIONS
 export namespace json {
-  export function application<T>(): IJsonApplication; // JSON schema
+  export function schema<T>(): IJsonSchemaUnit<T>; // JSON schema
   export function assertParse<T>(input: string): T; // type safe parser
   export function assertStringify<T>(input: T): string; // safe and faster
 }
@@ -33,7 +33,9 @@ export namespace llm {
   ): ILlmController<Model>; // +executor
   // structured output
   export function parameters<P, Model>(): ILlmSchema.IParameters<Model>; 
-  export function schema<T, Model>(): ILlmSchema<Model>; // type schema
+  export function schema<T, Model>(
+    $defs: Record<string, ILlmSchema<Model>>,
+  ): ILlmSchema<Model>; // type schema
 }
 
 // PROTOCOL BUFFER
