@@ -1,3 +1,4 @@
+import { IJsonSchemaApplication } from "./schemas/json/IJsonSchemaApplication";
 import { IJsonSchemaCollection } from "./schemas/json/IJsonSchemaCollection";
 import { IJsonSchemaUnit } from "./schemas/json/IJsonSchemaUnit";
 
@@ -16,6 +17,54 @@ import { TypeGuardError } from "./TypeGuardError";
 ==============================================================
     METADATA
 ----------------------------------------------------------- */
+/**
+ * > You must configure the generic argument `Type`.
+ *
+ * JSON schema generator.
+ *
+ * Creates a JSON schema unit which contains a main JSON schema and its
+ * components. Note that, all of the named types are stored in the
+ * {@link IJsonSchemaUnit.components} property for the `$ref` referencing.
+ *
+ * Also, you can specify the OpenAPI version by configuring the second generic
+ * argument `Version`. For reference, the default version is `"3.1"`, and key
+ * different of `"3.0"` and `"3.1"` is whether supporting the tuple type or
+ * not.
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ * @template Type Target type
+ * @template Version Version of OpenAPI specification. Default is 3.1
+ * @returns JSON schema unit
+ */
+export function schema(): never;
+
+/**
+ * JSON schema generator.
+ *
+ * Creates a JSON schema unit which contains a main JSON schema and its
+ * components. Note that, all of the named types are stored in the
+ * {@link IJsonSchemaUnit.components} property for the `$ref` referencing.
+ *
+ * Also, you can specify the OpenAPI version by configuring the second generic
+ * argument `Version`. For reference, the default version is `"3.1"`, and key
+ * different of `"3.0"` and `"3.1"` is whether supporting the tuple type or
+ * not.
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ * @template Type Target type
+ * @template Version Version of OpenAPI specification. Default is 3.1
+ * @returns JSON schema unit
+ */
+export function schema<
+  Type extends unknown,
+  Version extends "3.0" | "3.1" = "3.1",
+>(): IJsonSchemaUnit<Version, Type>;
+
+/** @internal */
+export function schema(): never {
+  NoTransformConfigurationError("json.schema");
+}
+
 /**
  * > You must configure the generic argument `Types`.
  *
@@ -65,51 +114,99 @@ export function schemas(): never {
 }
 
 /**
- * > You must configure the generic argument `Type`.
+ * > You must configure the generic argument `Class`.
  *
- * JSON schema generator.
+ * TypeScript class to JSON function schema application.
  *
- * Creates a JSON schema unit which contains a main JSON schema and its
- * components. Note that, all of the named types are stored in the
- * {@link IJsonSchemaUnit.components} property for the `$ref` referencing.
+ * Creates a JSON function schema application from a TypeScript class or
+ * interface type containing the target functions. This is an intermediate-level
+ * function designed for professional developers who want to build custom LLM
+ * function calling schemas or need to transform class methods into structured
+ * JSON schema representations.
+ *
+ * Unlike {@link schema} which creates a schema for a single type, this function
+ * analyzes an entire class/interface and generates JSON schemas for all its
+ * methods, their parameters, and return types. The returned
+ * {@link IJsonSchemaApplication} contains:
+ *
+ * - {@link IJsonSchemaApplication.functions}: Array of function metadata with
+ *   parameter and return type schemas
+ * - {@link IJsonSchemaApplication.components}: Shared schema components for `$ref`
+ *   referencing
+ *
+ * This function serves as the underlying implementation for
+ * {@link llm.application}, and can be used when you need to:
+ *
+ * - Create your own custom LLM function calling schema format
+ * - Transform class methods into structured JSON schema format
+ * - Build API documentation or code generation tools
+ * - Develop alternative LLM integrations beyond the built-in providers
+ *
+ * For direct LLM function calling implementations, consider using
+ * {@link llm.application} instead, which provides provider-specific schemas for
+ * ChatGPT, Claude, Gemini, and other LLM providers.
  *
  * Also, you can specify the OpenAPI version by configuring the second generic
- * argument `Version`. For reference, the default version is `"3.1"`, and key
- * different of `"3.0"` and `"3.1"` is whether supporting the tuple type or
- * not.
+ * argument `Version`. For reference, the default version is `"3.1"`, and the
+ * key difference between `"3.0"` and `"3.1"` is whether supporting the tuple
+ * type or not.
  *
  * @author Jeongho Nam - https://github.com/samchon
- * @template Type Target type
+ * @template Class Target class or interface type containing the functions
  * @template Version Version of OpenAPI specification. Default is 3.1
- * @returns JSON schema unit
+ * @returns JSON function schema application
  */
-export function schema(): never;
+export function application(): never;
 
 /**
- * JSON schema generator.
+ * TypeScript class to JSON function schema application.
  *
- * Creates a JSON schema unit which contains a main JSON schema and its
- * components. Note that, all of the named types are stored in the
- * {@link IJsonSchemaUnit.components} property for the `$ref` referencing.
+ * Creates a JSON function schema application from a TypeScript class or
+ * interface type containing the target functions. This is an intermediate-level
+ * function designed for professional developers who want to build custom LLM
+ * function calling schemas or need to transform class methods into structured
+ * JSON schema representations.
+ *
+ * Unlike {@link schema} which creates a schema for a single type, this function
+ * analyzes an entire class/interface and generates JSON schemas for all its
+ * methods, their parameters, and return types. The returned
+ * {@link IJsonSchemaApplication} contains:
+ *
+ * - {@link IJsonSchemaApplication.functions}: Array of function metadata with
+ *   parameter and return type schemas
+ * - {@link IJsonSchemaApplication.components}: Shared schema components for `$ref`
+ *   referencing
+ *
+ * This function serves as the underlying implementation for
+ * {@link llm.application}, and can be used when you need to:
+ *
+ * - Create your own custom LLM function calling schema format
+ * - Transform class methods into structured JSON schema format
+ * - Build API documentation or code generation tools
+ * - Develop alternative LLM integrations beyond the built-in providers
+ *
+ * For direct LLM function calling implementations, consider using
+ * {@link llm.application} instead, which provides provider-specific schemas for
+ * ChatGPT, Claude, Gemini, and other LLM providers.
  *
  * Also, you can specify the OpenAPI version by configuring the second generic
- * argument `Version`. For reference, the default version is `"3.1"`, and key
- * different of `"3.0"` and `"3.1"` is whether supporting the tuple type or
- * not.
+ * argument `Version`. For reference, the default version is `"3.1"`, and the
+ * key difference between `"3.0"` and `"3.1"` is whether supporting the tuple
+ * type or not.
  *
  * @author Jeongho Nam - https://github.com/samchon
- * @template Type Target type
+ * @template Class Target class or interface type containing the functions
  * @template Version Version of OpenAPI specification. Default is 3.1
- * @returns JSON schema unit
+ * @returns JSON function schema application
  */
-export function schema<
-  Type extends unknown,
+export function application<
+  Class extends object,
   Version extends "3.0" | "3.1" = "3.1",
->(): IJsonSchemaUnit<Version, Type>;
+>(): IJsonSchemaApplication<Version, Class>;
 
 /** @internal */
-export function schema(): never {
-  NoTransformConfigurationError("json.schema");
+export function application(): never {
+  NoTransformConfigurationError("json.application");
 }
 
 /* -----------------------------------------------------------

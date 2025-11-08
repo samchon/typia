@@ -19,7 +19,7 @@ export * as reflect from "./reflect";
 export * as tags from "./tags";
 
 export * from "./schemas/metadata/IJsDocTagInfo";
-export * from "./schemas/json/IJsonApplication";
+export * from "./schemas/json/IJsonSchemaApplication";
 export * from "./schemas/json/IJsonSchemaCollection";
 export * from "./schemas/json/IJsonSchemaUnit";
 export * from "./AssertionGuard";

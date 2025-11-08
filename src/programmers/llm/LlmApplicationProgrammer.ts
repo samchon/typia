@@ -14,7 +14,7 @@ import ts from "typescript";
 import { MetadataFactory } from "../../factories/MetadataFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
 
-import { __IJsonApplication } from "../../schemas/json/__IJsonApplication";
+import { IJsonSchemaApplication } from "../../schemas/json/IJsonSchemaApplication";
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataFunction } from "../../schemas/metadata/MetadataFunction";
 import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
@@ -191,7 +191,7 @@ export namespace LlmApplicationProgrammer {
       );
 
     const errorMessages: string[] = [];
-    const application: __IJsonApplication<"3.1"> =
+    const application: IJsonSchemaApplication<"3.1"> =
       JsonApplicationProgrammer.write({
         version: "3.1",
         metadata,
@@ -233,7 +233,7 @@ export namespace LlmApplicationProgrammer {
     context: ITypiaContext;
     modulo: ts.LeftHandSideExpression;
     components: OpenApi.IComponents;
-    function: __IJsonApplication.IFunction<OpenApi.IJsonSchema>;
+    function: IJsonSchemaApplication.IFunction<OpenApi.IJsonSchema>;
     parameter: MetadataParameter | null;
     errors: string[];
     className?: string;
@@ -309,7 +309,7 @@ export namespace LlmApplicationProgrammer {
   const writeParameters = <Model extends ILlmSchema.Model>(props: {
     model: Model;
     components: OpenApi.IComponents;
-    function: __IJsonApplication.IFunction<OpenApi.IJsonSchema>;
+    function: IJsonSchemaApplication.IFunction<OpenApi.IJsonSchema>;
     errors: string[];
     accessor: string;
   }): ILlmSchema.ModelParameters[Model] | null => {
