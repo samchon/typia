@@ -40,22 +40,22 @@
                 "type": "integer"
               },
               "uint": {
-                "description": "@minimum 0",
-                "type": "integer"
+                "type": "integer",
+                "minimum": 0
               },
               "int32": {
                 "type": "integer"
               },
               "uint32": {
-                "description": "@minimum 0",
-                "type": "integer"
+                "type": "integer",
+                "minimum": 0
               },
               "int64": {
                 "type": "integer"
               },
               "uint64": {
-                "description": "@minimum 0",
-                "type": "integer"
+                "type": "integer",
+                "minimum": 0
               },
               "float": {
                 "type": "number"
@@ -120,22 +120,22 @@
                 "type": "integer"
               },
               "uint": {
-                "description": "@minimum 0",
-                "type": "integer"
+                "type": "integer",
+                "minimum": 0
               },
               "int32": {
                 "type": "integer"
               },
               "uint32": {
-                "description": "@minimum 0",
-                "type": "integer"
+                "type": "integer",
+                "minimum": 0
               },
               "int64": {
                 "type": "integer"
               },
               "uint64": {
-                "description": "@minimum 0",
-                "type": "integer"
+                "type": "integer",
+                "minimum": 0
               },
               "float": {
                 "type": "number"
@@ -220,22 +220,22 @@
                 "type": "integer"
               },
               "uint": {
-                "description": "@minimum 0",
-                "type": "integer"
+                "type": "integer",
+                "minimum": 0
               },
               "int32": {
                 "type": "integer"
               },
               "uint32": {
-                "description": "@minimum 0",
-                "type": "integer"
+                "type": "integer",
+                "minimum": 0
               },
               "int64": {
                 "type": "integer"
               },
               "uint64": {
-                "description": "@minimum 0",
-                "type": "integer"
+                "type": "integer",
+                "minimum": 0
               },
               "float": {
                 "type": "number"

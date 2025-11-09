@@ -47,8 +47,9 @@
       "type": "object",
       "properties": {
         "id": {
-          "description": "Primary Key.\n\n\n@format uuid",
-          "type": "string"
+          "description": "Primary Key.",
+          "type": "string",
+          "format": "uuid"
         },
         "deprecated": {
           "description": "Deprecated property.\n\nIf `@deprecated` comment tag being utilized, the property will be marked as\ndeprecated in the JSON schema.",

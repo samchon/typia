@@ -45,11 +45,12 @@
       "type": "object",
       "properties": {
         "id": {
-          "description": "@default something",
-          "type": "string"
+          "type": "string",
+          "default": "something"
         },
         "age": {
-          "type": "number"
+          "type": "number",
+          "default": 20
         }
       },
       "required": [

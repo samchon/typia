@@ -29,7 +29,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "@format date-time"
+                    "format": "date-time"
                   }
                 ]
               },
@@ -40,7 +40,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "@format date"
+                    "format": "date"
                   }
                 ]
               },
@@ -51,7 +51,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "@format date-time"
+                    "format": "date-time"
                   }
                 ]
               },
@@ -62,7 +62,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "@format time"
+                    "format": "time"
                   }
                 ]
               },
@@ -73,7 +73,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "@format duration"
+                    "format": "duration"
                   }
                 ]
               }
@@ -123,7 +123,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "@format date-time"
+                    "format": "date-time"
                   }
                 ]
               },
@@ -134,7 +134,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "@format date"
+                    "format": "date"
                   }
                 ]
               },
@@ -145,7 +145,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "@format date-time"
+                    "format": "date-time"
                   }
                 ]
               },
@@ -156,7 +156,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "@format time"
+                    "format": "time"
                   }
                 ]
               },
@@ -167,7 +167,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "@format duration"
+                    "format": "duration"
                   }
                 ]
               }
@@ -237,7 +237,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "@format date-time"
+                    "format": "date-time"
                   }
                 ]
               },
@@ -248,7 +248,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "@format date"
+                    "format": "date"
                   }
                 ]
               },
@@ -259,7 +259,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "@format date-time"
+                    "format": "date-time"
                   }
                 ]
               },
@@ -270,7 +270,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "@format time"
+                    "format": "time"
                   }
                 ]
               },
@@ -281,7 +281,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "@format duration"
+                    "format": "duration"
                   }
                 ]
               }

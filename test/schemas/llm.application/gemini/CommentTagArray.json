@@ -37,39 +37,42 @@
             "type": "object",
             "properties": {
               "items": {
-                "description": "@minItems 3\n@maxItems 3",
                 "type": "array",
                 "items": {
                   "type": "string"
-                }
+                },
+                "minItems": 3,
+                "maxItems": 3
               },
               "minItems": {
-                "description": "@minItems 3",
                 "type": "array",
                 "items": {
                   "type": "number"
-                }
+                },
+                "minItems": 3
               },
               "both": {
-                "description": "@minItems 3\n@maxItems 7",
                 "type": "array",
                 "items": {
                   "type": "string"
-                }
+                },
+                "minItems": 3,
+                "maxItems": 7
               },
               "equal": {
-                "description": "@minItems 10\n@maxItems 10",
                 "type": "array",
                 "items": {
                   "type": "number"
-                }
+                },
+                "minItems": 10,
+                "maxItems": 10
               },
               "unique": {
-                "description": "@uniqueItems",
                 "type": "array",
                 "items": {
                   "type": "string"
-                }
+                },
+                "uniqueItems": true
               }
             },
             "required": [
@@ -126,39 +129,42 @@
             "type": "object",
             "properties": {
               "items": {
-                "description": "@minItems 3\n@maxItems 3",
                 "type": "array",
                 "items": {
                   "type": "string"
-                }
+                },
+                "minItems": 3,
+                "maxItems": 3
               },
               "minItems": {
-                "description": "@minItems 3",
                 "type": "array",
                 "items": {
                   "type": "number"
-                }
+                },
+                "minItems": 3
               },
               "both": {
-                "description": "@minItems 3\n@maxItems 7",
                 "type": "array",
                 "items": {
                   "type": "string"
-                }
+                },
+                "minItems": 3,
+                "maxItems": 7
               },
               "equal": {
-                "description": "@minItems 10\n@maxItems 10",
                 "type": "array",
                 "items": {
                   "type": "number"
-                }
+                },
+                "minItems": 10,
+                "maxItems": 10
               },
               "unique": {
-                "description": "@uniqueItems",
                 "type": "array",
                 "items": {
                   "type": "string"
-                }
+                },
+                "uniqueItems": true
               }
             },
             "required": [
@@ -235,39 +241,42 @@
             "type": "object",
             "properties": {
               "items": {
-                "description": "@minItems 3\n@maxItems 3",
                 "type": "array",
                 "items": {
                   "type": "string"
-                }
+                },
+                "minItems": 3,
+                "maxItems": 3
               },
               "minItems": {
-                "description": "@minItems 3",
                 "type": "array",
                 "items": {
                   "type": "number"
-                }
+                },
+                "minItems": 3
               },
               "both": {
-                "description": "@minItems 3\n@maxItems 7",
                 "type": "array",
                 "items": {
                   "type": "string"
-                }
+                },
+                "minItems": 3,
+                "maxItems": 7
               },
               "equal": {
-                "description": "@minItems 10\n@maxItems 10",
                 "type": "array",
                 "items": {
                   "type": "number"
-                }
+                },
+                "minItems": 10,
+                "maxItems": 10
               },
               "unique": {
-                "description": "@uniqueItems",
                 "type": "array",
                 "items": {
                   "type": "string"
-                }
+                },
+                "uniqueItems": true
               }
             },
             "required": [

@@ -45,8 +45,8 @@
       "type": "object",
       "properties": {
         "id": {
-          "description": "@format uuid",
-          "type": "string"
+          "type": "string",
+          "format": "uuid"
         },
         "dollar": {
           "x-typia-monetary": "dollar",

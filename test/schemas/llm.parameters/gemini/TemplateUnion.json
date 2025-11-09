@@ -59,16 +59,16 @@
       "type": "object",
       "properties": {
         "prefix": {
-          "description": "@pattern ^((prefix_(.*))|(prefix_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?))$",
-          "type": "string"
+          "type": "string",
+          "pattern": "^((prefix_(.*))|(prefix_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?))$"
         },
         "postfix": {
-          "description": "@pattern (((.*)_postfix)|([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_postfix))$",
-          "type": "string"
+          "type": "string",
+          "pattern": "(((.*)_postfix)|([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_postfix))$"
         },
         "middle": {
-          "description": "@pattern ^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$",
           "type": "string",
+          "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$",
           "enum": [
             "the_false_value",
             "the_true_value"
@@ -78,7 +78,7 @@
           "anyOf": [
             {
               "type": "string",
-              "description": "@pattern ^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$",
+              "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$",
               "enum": [
                 "the_A_value",
                 "the_B_value"
