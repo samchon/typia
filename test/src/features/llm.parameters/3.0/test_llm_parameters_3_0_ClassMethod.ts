@@ -1,13 +1,14 @@
 import typia from "typia";
-
-import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
 import { ClassMethod } from "../../../structures/ClassMethod";
+import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
 
 export const test_llm_parameters_3_0_ClassMethod = (): void =>
   _test_llm_parameters({
     model: "3.0",
     name: "ClassMethod",
-  })(typia.llm.parameters<ClassMethodParameters, "3.0">());
+  })(
+    typia.llm.parameters<ClassMethodParameters, "3.0">(),
+  );
 
 interface ClassMethodParameters {
   regular: ClassMethod;

@@ -1,0 +1,413 @@
+{
+  "metadatas": [
+    {
+      "any": false,
+      "required": true,
+      "optional": false,
+      "nullable": false,
+      "functions": [],
+      "atomics": [],
+      "constants": [],
+      "templates": [],
+      "escaped": null,
+      "rest": null,
+      "arrays": [
+        {
+          "name": "SetUnion",
+          "tags": []
+        }
+      ],
+      "tuples": [],
+      "objects": [],
+      "aliases": [],
+      "natives": [],
+      "sets": [],
+      "maps": []
+    }
+  ],
+  "components": {
+    "objects": [
+      {
+        "name": "SetUnion.Person",
+        "properties": [
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    {
+                      "value": "id",
+                      "tags": []
+                    }
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [
+                {
+                  "type": "string",
+                  "tags": []
+                }
+              ],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": null,
+            "jsDocTags": []
+          },
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    {
+                      "value": "name",
+                      "tags": []
+                    }
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [
+                {
+                  "type": "string",
+                  "tags": []
+                }
+              ],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": null,
+            "jsDocTags": []
+          },
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    {
+                      "value": "age",
+                      "tags": []
+                    }
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [
+                {
+                  "type": "number",
+                  "tags": []
+                }
+              ],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": null,
+            "jsDocTags": []
+          }
+        ],
+        "jsDocTags": [],
+        "index": 0,
+        "recursive": false,
+        "nullables": [
+          false
+        ]
+      }
+    ],
+    "aliases": [],
+    "arrays": [
+      {
+        "name": "SetUnion",
+        "value": {
+          "any": false,
+          "required": true,
+          "optional": false,
+          "nullable": false,
+          "functions": [],
+          "atomics": [],
+          "constants": [],
+          "templates": [],
+          "escaped": null,
+          "rest": null,
+          "arrays": [],
+          "tuples": [],
+          "objects": [],
+          "aliases": [],
+          "natives": [],
+          "sets": [
+            {
+              "value": {
+                "any": false,
+                "required": true,
+                "optional": false,
+                "nullable": false,
+                "functions": [],
+                "atomics": [
+                  {
+                    "type": "boolean",
+                    "tags": []
+                  }
+                ],
+                "constants": [],
+                "templates": [],
+                "escaped": null,
+                "rest": null,
+                "arrays": [],
+                "tuples": [],
+                "objects": [],
+                "aliases": [],
+                "natives": [],
+                "sets": [],
+                "maps": []
+              },
+              "tags": []
+            },
+            {
+              "value": {
+                "any": false,
+                "required": true,
+                "optional": false,
+                "nullable": false,
+                "functions": [],
+                "atomics": [
+                  {
+                    "type": "number",
+                    "tags": []
+                  }
+                ],
+                "constants": [],
+                "templates": [],
+                "escaped": null,
+                "rest": null,
+                "arrays": [],
+                "tuples": [],
+                "objects": [],
+                "aliases": [],
+                "natives": [],
+                "sets": [],
+                "maps": []
+              },
+              "tags": []
+            },
+            {
+              "value": {
+                "any": false,
+                "required": true,
+                "optional": false,
+                "nullable": false,
+                "functions": [],
+                "atomics": [
+                  {
+                    "type": "string",
+                    "tags": []
+                  }
+                ],
+                "constants": [],
+                "templates": [],
+                "escaped": null,
+                "rest": null,
+                "arrays": [],
+                "tuples": [],
+                "objects": [],
+                "aliases": [],
+                "natives": [],
+                "sets": [],
+                "maps": []
+              },
+              "tags": []
+            },
+            {
+              "value": {
+                "any": false,
+                "required": true,
+                "optional": false,
+                "nullable": false,
+                "functions": [],
+                "atomics": [],
+                "constants": [],
+                "templates": [],
+                "escaped": null,
+                "rest": null,
+                "arrays": [
+                  {
+                    "name": "Array<number>",
+                    "tags": []
+                  }
+                ],
+                "tuples": [],
+                "objects": [],
+                "aliases": [],
+                "natives": [],
+                "sets": [],
+                "maps": []
+              },
+              "tags": []
+            },
+            {
+              "value": {
+                "any": false,
+                "required": true,
+                "optional": false,
+                "nullable": false,
+                "functions": [],
+                "atomics": [],
+                "constants": [],
+                "templates": [],
+                "escaped": null,
+                "rest": null,
+                "arrays": [],
+                "tuples": [],
+                "objects": [
+                  {
+                    "name": "SetUnion.Person",
+                    "tags": []
+                  }
+                ],
+                "aliases": [],
+                "natives": [],
+                "sets": [],
+                "maps": []
+              },
+              "tags": []
+            }
+          ],
+          "maps": []
+        },
+        "nullables": [
+          false
+        ],
+        "recursive": false,
+        "index": null
+      },
+      {
+        "name": "Array<number>",
+        "value": {
+          "any": false,
+          "required": true,
+          "optional": false,
+          "nullable": false,
+          "functions": [],
+          "atomics": [
+            {
+              "type": "number",
+              "tags": []
+            }
+          ],
+          "constants": [],
+          "templates": [],
+          "escaped": null,
+          "rest": null,
+          "arrays": [],
+          "tuples": [],
+          "objects": [],
+          "aliases": [],
+          "natives": [],
+          "sets": [],
+          "maps": []
+        },
+        "nullables": [
+          false
+        ],
+        "recursive": false,
+        "index": null
+      }
+    ],
+    "tuples": []
+  }
+}

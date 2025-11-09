@@ -1,13 +1,14 @@
 import typia from "typia";
-
-import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
 import { ObjectNullable } from "../../../structures/ObjectNullable";
+import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
 
 export const test_llm_parameters_chatgpt_ObjectNullable = (): void =>
   _test_llm_parameters({
     model: "chatgpt",
     name: "ObjectNullable",
-  })(typia.llm.parameters<ObjectNullableParameters, "chatgpt">());
+  })(
+    typia.llm.parameters<ObjectNullableParameters, "chatgpt">(),
+  );
 
 interface ObjectNullableParameters {
   regular: ObjectNullable;

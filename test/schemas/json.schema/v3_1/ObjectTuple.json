@@ -1,0 +1,60 @@
+{
+  "version": "3.1",
+  "components": {
+    "schemas": {
+      "ObjectTuple": {
+        "type": "array",
+        "prefixItems": [
+          {
+            "$ref": "#/components/schemas/ObjectTuple.ISection"
+          },
+          {
+            "$ref": "#/components/schemas/ObjectTuple.ICitizen"
+          }
+        ],
+        "additionalItems": false
+      },
+      "ObjectTuple.ISection": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "code": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "code",
+          "name"
+        ]
+      },
+      "ObjectTuple.ICitizen": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "mobile": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "mobile",
+          "name"
+        ]
+      }
+    }
+  },
+  "schema": {
+    "$ref": "#/components/schemas/ObjectTuple"
+  }
+}

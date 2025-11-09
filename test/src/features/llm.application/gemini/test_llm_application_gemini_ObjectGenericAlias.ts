@@ -1,24 +1,22 @@
 import typia from "typia";
-
-import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { ObjectGenericAlias } from "../../../structures/ObjectGenericAlias";
+import { _test_llm_application } from "../../../internal/_test_llm_application";
 
 export const test_llm_application_gemini_ObjectGenericAlias = (): void =>
   _test_llm_application({
     model: "gemini",
     name: "ObjectGenericAlias",
-    factory: ObjectGenericAlias,
-  })(typia.llm.application<ObjectGenericAliasApplication, "gemini">());
+    factory: ObjectGenericAlias
+  })(
+    typia.llm.application<ObjectGenericAliasApplication, "gemini">(),
+  );
 
 interface ObjectGenericAliasApplication {
   insert(p: { first: ObjectGenericAlias }): Promise<void>;
-  reduce(p: {
-    first: ObjectGenericAlias;
-    second: ObjectGenericAlias | null;
-  }): Promise<ObjectGenericAlias>;
+  reduce(p: { first: ObjectGenericAlias, second: ObjectGenericAlias | null }): Promise<ObjectGenericAlias>;
   coalesce(p: {
-    first: ObjectGenericAlias | null;
-    second: ObjectGenericAlias | null;
-    third?: ObjectGenericAlias | null;
+    first: ObjectGenericAlias | null,
+    second: ObjectGenericAlias | null,
+    third?: ObjectGenericAlias | null,
   }): Promise<ObjectGenericAlias | null>;
 }

@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+message ObjectPartialAndRequired {
+  optional string string = 1;
+  optional double number = 2;
+  optional bool boolean = 3;
+  optional ObjectPartialAndRequired object = 4;
+  repeated double array = 5;
+}

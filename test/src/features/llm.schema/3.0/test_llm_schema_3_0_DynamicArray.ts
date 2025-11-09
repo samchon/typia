@@ -1,7 +1,6 @@
 import typia from "typia";
-
-import { _test_llm_schema } from "../../../internal/_test_llm_schema";
 import { DynamicArray } from "../../../structures/DynamicArray";
+import { _test_llm_schema } from "../../../internal/_test_llm_schema";
 
 export const test_llm_schema_3_0_DynamicArray = (): void =>
   _test_llm_schema({

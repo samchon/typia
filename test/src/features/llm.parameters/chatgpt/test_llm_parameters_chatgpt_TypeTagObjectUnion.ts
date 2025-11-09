@@ -1,13 +1,14 @@
 import typia from "typia";
-
-import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
 import { TypeTagObjectUnion } from "../../../structures/TypeTagObjectUnion";
+import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
 
 export const test_llm_parameters_chatgpt_TypeTagObjectUnion = (): void =>
   _test_llm_parameters({
     model: "chatgpt",
     name: "TypeTagObjectUnion",
-  })(typia.llm.parameters<TypeTagObjectUnionParameters, "chatgpt">());
+  })(
+    typia.llm.parameters<TypeTagObjectUnionParameters, "chatgpt">(),
+  );
 
 interface TypeTagObjectUnionParameters {
   regular: TypeTagObjectUnion;

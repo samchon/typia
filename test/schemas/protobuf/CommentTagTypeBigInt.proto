@@ -1,0 +1,6 @@
+syntax = "proto3";
+
+message CommentTagTypeBigInt {
+  required int64 in64 = 1;
+  required uint64 uint64 = 2;
+}

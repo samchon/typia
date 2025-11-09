@@ -1,0 +1,95 @@
+{
+  "metadatas": [
+    {
+      "any": false,
+      "required": true,
+      "optional": false,
+      "nullable": false,
+      "functions": [],
+      "atomics": [],
+      "constants": [],
+      "templates": [],
+      "escaped": null,
+      "rest": null,
+      "arrays": [
+        {
+          "name": "FunctionalValueUnion",
+          "tags": []
+        }
+      ],
+      "tuples": [],
+      "objects": [],
+      "aliases": [],
+      "natives": [],
+      "sets": [],
+      "maps": []
+    }
+  ],
+  "components": {
+    "objects": [],
+    "aliases": [],
+    "arrays": [
+      {
+        "name": "FunctionalValueUnion",
+        "value": {
+          "any": false,
+          "required": true,
+          "optional": false,
+          "nullable": true,
+          "functions": [
+            {
+              "parameters": [],
+              "output": {
+                "any": true,
+                "required": true,
+                "optional": false,
+                "nullable": false,
+                "functions": [],
+                "atomics": [],
+                "constants": [],
+                "templates": [],
+                "escaped": null,
+                "rest": null,
+                "arrays": [],
+                "tuples": [],
+                "objects": [],
+                "aliases": [],
+                "natives": [],
+                "sets": [],
+                "maps": []
+              },
+              "async": false
+            }
+          ],
+          "atomics": [
+            {
+              "type": "string",
+              "tags": []
+            },
+            {
+              "type": "number",
+              "tags": []
+            }
+          ],
+          "constants": [],
+          "templates": [],
+          "escaped": null,
+          "rest": null,
+          "arrays": [],
+          "tuples": [],
+          "objects": [],
+          "aliases": [],
+          "natives": [],
+          "sets": [],
+          "maps": []
+        },
+        "nullables": [
+          false
+        ],
+        "recursive": false,
+        "index": null
+      }
+    ],
+    "tuples": []
+  }
+}

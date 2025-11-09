@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+message ClassNonPublic {
+  message Accessor {
+    required string implicit = 1;
+    required string shown = 2;
+  }
+}

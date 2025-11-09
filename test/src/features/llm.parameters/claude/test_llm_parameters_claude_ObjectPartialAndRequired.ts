@@ -1,13 +1,14 @@
 import typia from "typia";
-
-import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
 import { ObjectPartialAndRequired } from "../../../structures/ObjectPartialAndRequired";
+import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
 
 export const test_llm_parameters_claude_ObjectPartialAndRequired = (): void =>
   _test_llm_parameters({
     model: "claude",
     name: "ObjectPartialAndRequired",
-  })(typia.llm.parameters<ObjectPartialAndRequiredParameters, "claude">());
+  })(
+    typia.llm.parameters<ObjectPartialAndRequiredParameters, "claude">(),
+  );
 
 interface ObjectPartialAndRequiredParameters {
   regular: ObjectPartialAndRequired;

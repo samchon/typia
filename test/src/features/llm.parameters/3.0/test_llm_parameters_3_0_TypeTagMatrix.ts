@@ -1,13 +1,14 @@
 import typia from "typia";
-
-import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
 import { TypeTagMatrix } from "../../../structures/TypeTagMatrix";
+import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
 
 export const test_llm_parameters_3_0_TypeTagMatrix = (): void =>
   _test_llm_parameters({
     model: "3.0",
     name: "TypeTagMatrix",
-  })(typia.llm.parameters<TypeTagMatrixParameters, "3.0">());
+  })(
+    typia.llm.parameters<TypeTagMatrixParameters, "3.0">(),
+  );
 
 interface TypeTagMatrixParameters {
   regular: TypeTagMatrix;

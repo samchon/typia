@@ -1,13 +1,14 @@
 import typia from "typia";
-
-import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
 import { TypeTagType } from "../../../structures/TypeTagType";
+import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
 
 export const test_llm_parameters_3_1_TypeTagType = (): void =>
   _test_llm_parameters({
     model: "3.1",
     name: "TypeTagType",
-  })(typia.llm.parameters<TypeTagTypeParameters, "3.1">());
+  })(
+    typia.llm.parameters<TypeTagTypeParameters, "3.1">(),
+  );
 
 interface TypeTagTypeParameters {
   regular: TypeTagType;

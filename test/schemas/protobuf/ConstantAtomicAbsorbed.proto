@@ -1,0 +1,6 @@
+syntax = "proto3";
+
+message ConstantAtomicAbsorbed {
+  required string id = 1;
+  required double age = 2;
+}

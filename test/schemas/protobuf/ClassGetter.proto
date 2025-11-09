@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+message ClassGetter {
+  message Person {
+    required string id = 1;
+    required string name = 2;
+    optional bool dead = 3;
+  }
+}

@@ -1,24 +1,22 @@
 import typia from "typia";
-
-import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { TypeTagRange } from "../../../structures/TypeTagRange";
+import { _test_llm_application } from "../../../internal/_test_llm_application";
 
 export const test_llm_application_3_0_TypeTagRange = (): void =>
   _test_llm_application({
     model: "3.0",
     name: "TypeTagRange",
-    factory: TypeTagRange,
-  })(typia.llm.application<TypeTagRangeApplication, "3.0">());
+    factory: TypeTagRange
+  })(
+    typia.llm.application<TypeTagRangeApplication, "3.0">(),
+  );
 
 interface TypeTagRangeApplication {
   insert(p: { first: TypeTagRange }): Promise<void>;
-  reduce(p: {
-    first: TypeTagRange;
-    second: TypeTagRange | null;
-  }): Promise<TypeTagRange>;
+  reduce(p: { first: TypeTagRange, second: TypeTagRange | null }): Promise<TypeTagRange>;
   coalesce(p: {
-    first: TypeTagRange | null;
-    second: TypeTagRange | null;
-    third?: TypeTagRange | null;
+    first: TypeTagRange | null,
+    second: TypeTagRange | null,
+    third?: TypeTagRange | null,
   }): Promise<TypeTagRange | null>;
 }

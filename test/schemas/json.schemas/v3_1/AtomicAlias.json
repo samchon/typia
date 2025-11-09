@@ -1,0 +1,27 @@
+{
+  "version": "3.1",
+  "components": {
+    "schemas": {
+      "AtomicAlias": {
+        "type": "array",
+        "prefixItems": [
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "type": "string"
+          }
+        ],
+        "additionalItems": false
+      }
+    }
+  },
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/AtomicAlias"
+    }
+  ]
+}

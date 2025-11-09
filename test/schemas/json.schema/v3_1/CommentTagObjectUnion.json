@@ -1,0 +1,51 @@
+{
+  "version": "3.1",
+  "components": {
+    "schemas": {
+      "CommentTagObjectUnion": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/CommentTagObjectUnion.Type"
+        }
+      },
+      "CommentTagObjectUnion.Type": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/CommentTagObjectUnion.Numeric"
+          },
+          {
+            "$ref": "#/components/schemas/CommentTagObjectUnion.Literal"
+          }
+        ]
+      },
+      "CommentTagObjectUnion.Numeric": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "number",
+            "minimum": 3
+          }
+        },
+        "required": [
+          "value"
+        ]
+      },
+      "CommentTagObjectUnion.Literal": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 7
+          }
+        },
+        "required": [
+          "value"
+        ]
+      }
+    }
+  },
+  "schema": {
+    "$ref": "#/components/schemas/CommentTagObjectUnion"
+  }
+}

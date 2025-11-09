@@ -1,13 +1,14 @@
 import typia from "typia";
-
-import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
 import { CommentTagObjectUnion } from "../../../structures/CommentTagObjectUnion";
+import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
 
 export const test_llm_parameters_chatgpt_CommentTagObjectUnion = (): void =>
   _test_llm_parameters({
     model: "chatgpt",
     name: "CommentTagObjectUnion",
-  })(typia.llm.parameters<CommentTagObjectUnionParameters, "chatgpt">());
+  })(
+    typia.llm.parameters<CommentTagObjectUnionParameters, "chatgpt">(),
+  );
 
 interface CommentTagObjectUnionParameters {
   regular: CommentTagObjectUnion;

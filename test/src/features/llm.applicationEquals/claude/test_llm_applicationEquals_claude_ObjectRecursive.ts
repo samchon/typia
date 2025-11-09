@@ -1,30 +1,22 @@
 import typia from "typia";
-
-import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
 import { ObjectRecursive } from "../../../structures/ObjectRecursive";
+import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
 
 export const test_llm_applicationEquals_claude_ObjectRecursive = (): void =>
   _test_llm_applicationEquals({
     model: "claude",
     name: "ObjectRecursive",
-    factory: ObjectRecursive,
+    factory: ObjectRecursive
   })(
-    typia.llm.application<
-      ObjectRecursiveApplication,
-      "claude",
-      { equals: true }
-    >(),
+    typia.llm.application<ObjectRecursiveApplication, "claude", { equals: true }>(),
   );
 
 interface ObjectRecursiveApplication {
   insert(p: { first: ObjectRecursive }): Promise<void>;
-  reduce(p: {
-    first: ObjectRecursive;
-    second: ObjectRecursive | null;
-  }): Promise<ObjectRecursive>;
+  reduce(p: { first: ObjectRecursive, second: ObjectRecursive | null }): Promise<ObjectRecursive>;
   coalesce(p: {
-    first: ObjectRecursive | null;
-    second: ObjectRecursive | null;
-    third?: ObjectRecursive | null;
+    first: ObjectRecursive | null,
+    second: ObjectRecursive | null,
+    third?: ObjectRecursive | null,
   }): Promise<ObjectRecursive | null>;
 }

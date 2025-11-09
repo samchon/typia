@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+message DynamicConstant {
+  required __type value = 1;
+}
+
+message __type {
+  required double a = 1;
+  required double b = 2;
+  required double c = 3;
+  required double d = 4;
+}

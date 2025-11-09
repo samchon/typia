@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+message TypeTagFormat {
+  required string byte = 1;
+  required string password = 2;
+  required string regex = 3;
+  required string uuid = 4;
+  required string email = 5;
+  required string hostname = 6;
+  required string idnEmail = 7;
+  required string idnHostname = 8;
+  required string iri = 9;
+  required string iriReference = 10;
+  required string ipv4 = 11;
+  required string ipv6 = 12;
+  required string uri = 13;
+  required string uriReference = 14;
+  required string uriTemplate = 15;
+  required string url = 16;
+  required string datetime = 17;
+  required string date = 18;
+  required string time = 19;
+  required string duration = 20;
+  required string jsonPointer = 21;
+  required string relativeJsonPointer = 22;
+}

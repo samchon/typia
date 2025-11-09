@@ -1,24 +1,22 @@
 import typia from "typia";
-
-import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { ObjectDescription } from "../../../structures/ObjectDescription";
+import { _test_llm_application } from "../../../internal/_test_llm_application";
 
 export const test_llm_application_3_1_ObjectDescription = (): void =>
   _test_llm_application({
     model: "3.1",
     name: "ObjectDescription",
-    factory: ObjectDescription,
-  })(typia.llm.application<ObjectDescriptionApplication, "3.1">());
+    factory: ObjectDescription
+  })(
+    typia.llm.application<ObjectDescriptionApplication, "3.1">(),
+  );
 
 interface ObjectDescriptionApplication {
   insert(p: { first: ObjectDescription }): Promise<void>;
-  reduce(p: {
-    first: ObjectDescription;
-    second: ObjectDescription | null;
-  }): Promise<ObjectDescription>;
+  reduce(p: { first: ObjectDescription, second: ObjectDescription | null }): Promise<ObjectDescription>;
   coalesce(p: {
-    first: ObjectDescription | null;
-    second: ObjectDescription | null;
-    third?: ObjectDescription | null;
+    first: ObjectDescription | null,
+    second: ObjectDescription | null,
+    third?: ObjectDescription | null,
   }): Promise<ObjectDescription | null>;
 }

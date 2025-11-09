@@ -1,13 +1,14 @@
 import typia from "typia";
-
-import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
 import { DynamicTemplate } from "../../../structures/DynamicTemplate";
+import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
 
 export const test_llm_parameters_chatgpt_DynamicTemplate = (): void =>
   _test_llm_parameters({
     model: "chatgpt",
     name: "DynamicTemplate",
-  })(typia.llm.parameters<DynamicTemplateParameters, "chatgpt">());
+  })(
+    typia.llm.parameters<DynamicTemplateParameters, "chatgpt">(),
+  );
 
 interface DynamicTemplateParameters {
   regular: DynamicTemplate;

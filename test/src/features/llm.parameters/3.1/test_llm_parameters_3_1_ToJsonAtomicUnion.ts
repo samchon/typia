@@ -1,13 +1,14 @@
 import typia from "typia";
-
-import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
 import { ToJsonAtomicUnion } from "../../../structures/ToJsonAtomicUnion";
+import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
 
 export const test_llm_parameters_3_1_ToJsonAtomicUnion = (): void =>
   _test_llm_parameters({
     model: "3.1",
     name: "ToJsonAtomicUnion",
-  })(typia.llm.parameters<ToJsonAtomicUnionParameters, "3.1">());
+  })(
+    typia.llm.parameters<ToJsonAtomicUnionParameters, "3.1">(),
+  );
 
 interface ToJsonAtomicUnionParameters {
   regular: ToJsonAtomicUnion;

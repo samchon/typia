@@ -1,0 +1,443 @@
+{
+  "metadatas": [
+    {
+      "any": false,
+      "required": true,
+      "optional": false,
+      "nullable": false,
+      "functions": [],
+      "atomics": [],
+      "constants": [],
+      "templates": [],
+      "escaped": null,
+      "rest": null,
+      "arrays": [],
+      "tuples": [],
+      "objects": [
+        {
+          "name": "ObjectDate",
+          "tags": []
+        }
+      ],
+      "aliases": [],
+      "natives": [],
+      "sets": [],
+      "maps": []
+    }
+  ],
+  "components": {
+    "objects": [
+      {
+        "name": "ObjectDate",
+        "properties": [
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    {
+                      "value": "classDate",
+                      "tags": []
+                    }
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": true,
+              "optional": true,
+              "nullable": true,
+              "functions": [],
+              "atomics": [],
+              "constants": [],
+              "templates": [],
+              "escaped": {
+                "original": {
+                  "any": false,
+                  "required": true,
+                  "optional": false,
+                  "nullable": false,
+                  "functions": [],
+                  "atomics": [],
+                  "constants": [],
+                  "templates": [],
+                  "escaped": null,
+                  "rest": null,
+                  "arrays": [],
+                  "tuples": [],
+                  "objects": [],
+                  "aliases": [],
+                  "natives": [
+                    {
+                      "name": "Date",
+                      "tags": []
+                    }
+                  ],
+                  "sets": [],
+                  "maps": []
+                },
+                "returns": {
+                  "any": false,
+                  "required": true,
+                  "optional": false,
+                  "nullable": false,
+                  "functions": [],
+                  "atomics": [
+                    {
+                      "type": "string",
+                      "tags": []
+                    }
+                  ],
+                  "constants": [],
+                  "templates": [],
+                  "escaped": null,
+                  "rest": null,
+                  "arrays": [],
+                  "tuples": [],
+                  "objects": [],
+                  "aliases": [],
+                  "natives": [],
+                  "sets": [],
+                  "maps": []
+                }
+              },
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": null,
+            "jsDocTags": []
+          },
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    {
+                      "value": "date",
+                      "tags": []
+                    }
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": true,
+              "functions": [],
+              "atomics": [
+                {
+                  "type": "string",
+                  "tags": [
+                    [
+                      {
+                        "target": "string",
+                        "name": "Format<\"date\">",
+                        "kind": "format",
+                        "value": "date",
+                        "validate": "$importInternal(\"isFormatDate\")($input)",
+                        "exclusive": [
+                          "format",
+                          "pattern"
+                        ],
+                        "schema": {
+                          "format": "date"
+                        }
+                      }
+                    ]
+                  ]
+                }
+              ],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": null,
+            "jsDocTags": []
+          },
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    {
+                      "value": "datetime",
+                      "tags": []
+                    }
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": true,
+              "functions": [],
+              "atomics": [
+                {
+                  "type": "string",
+                  "tags": [
+                    [
+                      {
+                        "target": "string",
+                        "name": "Format<\"date-time\">",
+                        "kind": "format",
+                        "value": "date-time",
+                        "validate": "$importInternal(\"isFormatDateTime\")($input)",
+                        "exclusive": [
+                          "format",
+                          "pattern"
+                        ],
+                        "schema": {
+                          "format": "date-time"
+                        }
+                      }
+                    ]
+                  ]
+                }
+              ],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": null,
+            "jsDocTags": []
+          },
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    {
+                      "value": "time",
+                      "tags": []
+                    }
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": true,
+              "functions": [],
+              "atomics": [
+                {
+                  "type": "string",
+                  "tags": [
+                    [
+                      {
+                        "target": "string",
+                        "name": "Format<\"time\">",
+                        "kind": "format",
+                        "value": "time",
+                        "validate": "$importInternal(\"isFormatTime\")($input)",
+                        "exclusive": [
+                          "format",
+                          "pattern"
+                        ],
+                        "schema": {
+                          "format": "time"
+                        }
+                      }
+                    ]
+                  ]
+                }
+              ],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": null,
+            "jsDocTags": []
+          },
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    {
+                      "value": "duration",
+                      "tags": []
+                    }
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": true,
+              "functions": [],
+              "atomics": [
+                {
+                  "type": "string",
+                  "tags": [
+                    [
+                      {
+                        "target": "string",
+                        "name": "Format<\"duration\">",
+                        "kind": "format",
+                        "value": "duration",
+                        "validate": "$importInternal(\"isFormatDuration\")($input)",
+                        "exclusive": [
+                          "format",
+                          "pattern"
+                        ],
+                        "schema": {
+                          "format": "duration"
+                        }
+                      }
+                    ]
+                  ]
+                }
+              ],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": null,
+            "jsDocTags": []
+          }
+        ],
+        "jsDocTags": [],
+        "index": 0,
+        "recursive": false,
+        "nullables": [
+          false
+        ]
+      }
+    ],
+    "aliases": [],
+    "arrays": [],
+    "tuples": []
+  }
+}

@@ -1,7 +1,6 @@
 import typia from "typia";
-
-import { _test_llm_schema } from "../../../internal/_test_llm_schema";
 import { ArrayRecursiveUnionImplicit } from "../../../structures/ArrayRecursiveUnionImplicit";
+import { _test_llm_schema } from "../../../internal/_test_llm_schema";
 
 export const test_llm_schema_3_0_ArrayRecursiveUnionImplicit = (): void =>
   _test_llm_schema({

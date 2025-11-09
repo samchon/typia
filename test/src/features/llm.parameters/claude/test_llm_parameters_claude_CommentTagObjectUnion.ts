@@ -1,13 +1,14 @@
 import typia from "typia";
-
-import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
 import { CommentTagObjectUnion } from "../../../structures/CommentTagObjectUnion";
+import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
 
 export const test_llm_parameters_claude_CommentTagObjectUnion = (): void =>
   _test_llm_parameters({
     model: "claude",
     name: "CommentTagObjectUnion",
-  })(typia.llm.parameters<CommentTagObjectUnionParameters, "claude">());
+  })(
+    typia.llm.parameters<CommentTagObjectUnionParameters, "claude">(),
+  );
 
 interface CommentTagObjectUnionParameters {
   regular: CommentTagObjectUnion;

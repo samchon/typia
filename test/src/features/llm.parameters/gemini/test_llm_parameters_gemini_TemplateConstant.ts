@@ -1,13 +1,14 @@
 import typia from "typia";
-
-import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
 import { TemplateConstant } from "../../../structures/TemplateConstant";
+import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
 
 export const test_llm_parameters_gemini_TemplateConstant = (): void =>
   _test_llm_parameters({
     model: "gemini",
     name: "TemplateConstant",
-  })(typia.llm.parameters<TemplateConstantParameters, "gemini">());
+  })(
+    typia.llm.parameters<TemplateConstantParameters, "gemini">(),
+  );
 
 interface TemplateConstantParameters {
   regular: TemplateConstant;

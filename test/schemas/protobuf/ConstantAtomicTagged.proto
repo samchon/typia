@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+message ConstantAtomicTagged {
+  required string id = 1;
+  oneof age {
+    int32 v2 = 2;
+    uint32 v3 = 3;
+  }
+}

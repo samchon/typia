@@ -1,7 +1,6 @@
 import typia from "typia";
-
-import { _test_llm_schema } from "../../../internal/_test_llm_schema";
 import { ArrayRepeatedNullable } from "../../../structures/ArrayRepeatedNullable";
+import { _test_llm_schema } from "../../../internal/_test_llm_schema";
 
 export const test_llm_schema_claude_ArrayRepeatedNullable = (): void =>
   _test_llm_schema({

@@ -1,13 +1,14 @@
 import typia from "typia";
-
-import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
 import { ObjectUndefined } from "../../../structures/ObjectUndefined";
+import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
 
 export const test_llm_parameters_gemini_ObjectUndefined = (): void =>
   _test_llm_parameters({
     model: "gemini",
     name: "ObjectUndefined",
-  })(typia.llm.parameters<ObjectUndefinedParameters, "gemini">());
+  })(
+    typia.llm.parameters<ObjectUndefinedParameters, "gemini">(),
+  );
 
 interface ObjectUndefinedParameters {
   regular: ObjectUndefined;

@@ -1,16 +1,14 @@
 import typia from "typia";
-
-import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
 import { ObjectUnionCompositePointer } from "../../../structures/ObjectUnionCompositePointer";
+import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
 
-export const test_llm_parameters_chatgpt_ObjectUnionCompositePointer =
-  (): void =>
-    _test_llm_parameters({
-      model: "chatgpt",
-      name: "ObjectUnionCompositePointer",
-    })(
-      typia.llm.parameters<ObjectUnionCompositePointerParameters, "chatgpt">(),
-    );
+export const test_llm_parameters_chatgpt_ObjectUnionCompositePointer = (): void =>
+  _test_llm_parameters({
+    model: "chatgpt",
+    name: "ObjectUnionCompositePointer",
+  })(
+    typia.llm.parameters<ObjectUnionCompositePointerParameters, "chatgpt">(),
+  );
 
 interface ObjectUnionCompositePointerParameters {
   regular: ObjectUnionCompositePointer;

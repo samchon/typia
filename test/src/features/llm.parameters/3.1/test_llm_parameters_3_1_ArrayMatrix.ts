@@ -1,13 +1,14 @@
 import typia from "typia";
-
-import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
 import { ArrayMatrix } from "../../../structures/ArrayMatrix";
+import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
 
 export const test_llm_parameters_3_1_ArrayMatrix = (): void =>
   _test_llm_parameters({
     model: "3.1",
     name: "ArrayMatrix",
-  })(typia.llm.parameters<ArrayMatrixParameters, "3.1">());
+  })(
+    typia.llm.parameters<ArrayMatrixParameters, "3.1">(),
+  );
 
 interface ArrayMatrixParameters {
   regular: ArrayMatrix;

@@ -1,13 +1,14 @@
 import typia from "typia";
-
-import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
 import { ObjectUnionNonPredictable } from "../../../structures/ObjectUnionNonPredictable";
+import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
 
 export const test_llm_parameters_chatgpt_ObjectUnionNonPredictable = (): void =>
   _test_llm_parameters({
     model: "chatgpt",
     name: "ObjectUnionNonPredictable",
-  })(typia.llm.parameters<ObjectUnionNonPredictableParameters, "chatgpt">());
+  })(
+    typia.llm.parameters<ObjectUnionNonPredictableParameters, "chatgpt">(),
+  );
 
 interface ObjectUnionNonPredictableParameters {
   regular: ObjectUnionNonPredictable;

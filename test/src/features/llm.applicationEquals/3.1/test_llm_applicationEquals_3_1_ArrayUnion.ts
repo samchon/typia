@@ -1,24 +1,22 @@
 import typia from "typia";
-
-import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
 import { ArrayUnion } from "../../../structures/ArrayUnion";
+import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
 
 export const test_llm_applicationEquals_3_1_ArrayUnion = (): void =>
   _test_llm_applicationEquals({
     model: "3.1",
     name: "ArrayUnion",
-    factory: ArrayUnion,
-  })(typia.llm.application<ArrayUnionApplication, "3.1", { equals: true }>());
+    factory: ArrayUnion
+  })(
+    typia.llm.application<ArrayUnionApplication, "3.1", { equals: true }>(),
+  );
 
 interface ArrayUnionApplication {
   insert(p: { first: ArrayUnion }): Promise<void>;
-  reduce(p: {
-    first: ArrayUnion;
-    second: ArrayUnion | null;
-  }): Promise<ArrayUnion>;
+  reduce(p: { first: ArrayUnion, second: ArrayUnion | null }): Promise<ArrayUnion>;
   coalesce(p: {
-    first: ArrayUnion | null;
-    second: ArrayUnion | null;
-    third?: ArrayUnion | null;
+    first: ArrayUnion | null,
+    second: ArrayUnion | null,
+    third?: ArrayUnion | null,
   }): Promise<ArrayUnion | null>;
 }

@@ -1,7 +1,6 @@
 import typia from "typia";
-
-import { _test_llm_schema } from "../../../internal/_test_llm_schema";
 import { ArrayHierarchical } from "../../../structures/ArrayHierarchical";
+import { _test_llm_schema } from "../../../internal/_test_llm_schema";
 
 export const test_llm_schema_chatgpt_ArrayHierarchical = (): void =>
   _test_llm_schema({

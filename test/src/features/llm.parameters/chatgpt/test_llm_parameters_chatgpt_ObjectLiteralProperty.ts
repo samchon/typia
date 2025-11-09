@@ -1,13 +1,14 @@
 import typia from "typia";
-
-import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
 import { ObjectLiteralProperty } from "../../../structures/ObjectLiteralProperty";
+import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
 
 export const test_llm_parameters_chatgpt_ObjectLiteralProperty = (): void =>
   _test_llm_parameters({
     model: "chatgpt",
     name: "ObjectLiteralProperty",
-  })(typia.llm.parameters<ObjectLiteralPropertyParameters, "chatgpt">());
+  })(
+    typia.llm.parameters<ObjectLiteralPropertyParameters, "chatgpt">(),
+  );
 
 interface ObjectLiteralPropertyParameters {
   regular: ObjectLiteralProperty;

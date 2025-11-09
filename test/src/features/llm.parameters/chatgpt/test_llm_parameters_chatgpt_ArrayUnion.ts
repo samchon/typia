@@ -1,13 +1,14 @@
 import typia from "typia";
-
-import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
 import { ArrayUnion } from "../../../structures/ArrayUnion";
+import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
 
 export const test_llm_parameters_chatgpt_ArrayUnion = (): void =>
   _test_llm_parameters({
     model: "chatgpt",
     name: "ArrayUnion",
-  })(typia.llm.parameters<ArrayUnionParameters, "chatgpt">());
+  })(
+    typia.llm.parameters<ArrayUnionParameters, "chatgpt">(),
+  );
 
 interface ArrayUnionParameters {
   regular: ArrayUnion;

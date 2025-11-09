@@ -1,30 +1,22 @@
 import typia from "typia";
-
-import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
 import { ArrayRepeatedUnion } from "../../../structures/ArrayRepeatedUnion";
+import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
 
 export const test_llm_applicationEquals_3_0_ArrayRepeatedUnion = (): void =>
   _test_llm_applicationEquals({
     model: "3.0",
     name: "ArrayRepeatedUnion",
-    factory: ArrayRepeatedUnion,
+    factory: ArrayRepeatedUnion
   })(
-    typia.llm.application<
-      ArrayRepeatedUnionApplication,
-      "3.0",
-      { equals: true }
-    >(),
+    typia.llm.application<ArrayRepeatedUnionApplication, "3.0", { equals: true }>(),
   );
 
 interface ArrayRepeatedUnionApplication {
   insert(p: { first: ArrayRepeatedUnion }): Promise<void>;
-  reduce(p: {
-    first: ArrayRepeatedUnion;
-    second: ArrayRepeatedUnion | null;
-  }): Promise<ArrayRepeatedUnion>;
+  reduce(p: { first: ArrayRepeatedUnion, second: ArrayRepeatedUnion | null }): Promise<ArrayRepeatedUnion>;
   coalesce(p: {
-    first: ArrayRepeatedUnion | null;
-    second: ArrayRepeatedUnion | null;
-    third?: ArrayRepeatedUnion | null;
+    first: ArrayRepeatedUnion | null,
+    second: ArrayRepeatedUnion | null,
+    third?: ArrayRepeatedUnion | null,
   }): Promise<ArrayRepeatedUnion | null>;
 }

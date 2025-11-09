@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+message TemplateUnion {
+  repeated TemplateUnion.Type value = 1;
+  message Type {
+    required string prefix = 1;
+    required string postfix = 2;
+    required string middle = 3;
+    oneof mixed {
+      bool v4 = 4;
+      double v5 = 5;
+      string v6 = 6;
+      __type v7 = 7;
+    }
+  }
+}
+
+message __type {
+  required string name = 1;
+}

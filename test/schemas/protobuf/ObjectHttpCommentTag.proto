@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+message ObjectHttpCommentTag {
+  required int32 int = 1;
+  required uint64 uint64 = 2;
+  required string uuid = 3;
+  repeated double items = 4;
+}

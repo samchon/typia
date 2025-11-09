@@ -1,0 +1,1050 @@
+{
+  "version": "3.0",
+  "components": {
+    "schemas": {
+      "UltimateUnion": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/IJsonSchemaCollection.IV3_1Arrayunknown"
+        }
+      },
+      "IJsonSchemaCollection.IV3_1Arrayunknown": {
+        "type": "object",
+        "properties": {
+          "version": {
+            "type": "string",
+            "enum": [
+              "3.1"
+            ],
+            "description": "OpenAPI specification version identifier.\n\nAlways set to \"3.1\" to indicate this collection uses OpenAPI v3.1 schema\nformat with enhanced JSON Schema compatibility."
+          },
+          "components": {
+            "$ref": "#/components/schemas/OpenApi.IComponents",
+            "description": "Reusable schema components for OpenAPI v3.1.\n\nContains reusable schema definitions and other components following the\nOpenAPI v3.1 specification. This structure is similar to v3.0 but\nsupports enhanced JSON Schema features and improved type definitions.\n\nComponents include:\n\n- Schemas: Named type definitions with enhanced JSON Schema support\n- SecuritySchemes: Authentication and authorization schemes\n\nThe emended OpenAPI v3.1 format used here removes ambiguous expressions\nand standardizes certain patterns for better tooling compatibility."
+          },
+          "schemas": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OpenApi.IJsonSchema"
+            },
+            "description": "Array of generated JSON schemas with v3.1 enhancements.\n\nContains JSON schema definitions that take advantage of OpenAPI v3.1's\nenhanced capabilities. These schemas can express more complex TypeScript\ntypes accurately, including:\n\n- Tuple types using prefixItems\n- Union types with proper null handling\n- Complex nested object structures\n- Pattern-based property definitions\n\nEach schema corresponds to one of the input TypeScript types and may\nreference components defined in the {@link components} property."
+          },
+          "__types": {
+            "type": "array",
+            "items": {},
+            "description": "Type metadata for compile-time type tracking.\n\nThis optional property stores the original TypeScript types that were\nused to generate the JSON schemas. It provides compile-time type safety\nand enables better development experience without affecting runtime\nbehavior.\n\nBenefits include:\n\n- Strong typing connection to original TypeScript definitions\n- Enhanced IDE support and autocompletion\n- Compile-time validation of schema usage\n- Type-safe integration with validation libraries"
+          }
+        },
+        "required": [
+          "version",
+          "components",
+          "schemas"
+        ],
+        "description": "JSON Schema collection formatted for OpenAPI v3.1 specification.\n\nThis interface represents a collection of JSON schemas that comply with\nOpenAPI v3.1 standards, which provide enhanced JSON Schema compatibility\nand support for modern JSON Schema features. OpenAPI v3.1 is based on JSON\nSchema Draft 2020-12 and offers significant improvements over v3.0.\n\nKey advantages of v3.1:\n\n- Full tuple type support with prefixItems\n- Pattern properties support for dynamic object keys\n- Proper null type handling via union types\n- Enhanced JSON Schema Draft 2020-12 compatibility\n- Better const, enum, and validation support"
+      },
+      "OpenApi.IComponents": {
+        "type": "object",
+        "properties": {
+          "schemas": {
+            "$ref": "#/components/schemas/RecordstringOpenApi.IJsonSchema",
+            "description": "An object to hold reusable DTO schemas.\n\nIn other words, a collection of named JSON schemas."
+          },
+          "securitySchemes": {
+            "$ref": "#/components/schemas/RecordstringOpenApi.ISecurityScheme",
+            "description": "An object to hold reusable security schemes.\n\nIn other words, a collection of named security schemes."
+          }
+        },
+        "required": [],
+        "description": "Reusable components in OpenAPI.\n\nA storage of reusable components in OpenAPI document.\n\nIn other words, it is a storage of named DTO schemas and security schemes."
+      },
+      "RecordstringOpenApi.IJsonSchema": {
+        "type": "object",
+        "properties": {},
+        "required": [],
+        "description": "Construct a type with a set of properties K of type T",
+        "additionalProperties": {
+          "$ref": "#/components/schemas/OpenApi.IJsonSchema"
+        }
+      },
+      "OpenApi.IJsonSchema": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/OpenApi.IJsonSchema.IString"
+          },
+          {
+            "$ref": "#/components/schemas/OpenApi.IJsonSchema.INumber"
+          },
+          {
+            "$ref": "#/components/schemas/OpenApi.IJsonSchema.IConstant"
+          },
+          {
+            "$ref": "#/components/schemas/OpenApi.IJsonSchema.IBoolean"
+          },
+          {
+            "$ref": "#/components/schemas/OpenApi.IJsonSchema.IInteger"
+          },
+          {
+            "$ref": "#/components/schemas/OpenApi.IJsonSchema.IArray"
+          },
+          {
+            "$ref": "#/components/schemas/OpenApi.IJsonSchema.ITuple"
+          },
+          {
+            "$ref": "#/components/schemas/OpenApi.IJsonSchema.IObject"
+          },
+          {
+            "$ref": "#/components/schemas/OpenApi.IJsonSchema.IReferencestring"
+          },
+          {
+            "$ref": "#/components/schemas/OpenApi.IJsonSchema.IOneOf"
+          },
+          {
+            "$ref": "#/components/schemas/OpenApi.IJsonSchema.INull"
+          },
+          {
+            "$ref": "#/components/schemas/OpenApi.IJsonSchema.IUnknown"
+          }
+        ],
+        "description": "Type schema information.\n\n`OpenApi.IJsonSchema` is a type schema info for OpenAPI.\n\n`OpenApi.IJsonSchema` basically follows the JSON schema definition of\nOpenAPI v3.1, but is refined to remove ambiguous and duplicated expressions\nof OpenAPI v3.1 for convenience and clarity.\n\n- Decompose mixed type: {@link OpenApiV3_1.IJsonSchema.IMixed}\n- Resolve nullable property:\n  {@link OpenApiV3_1.IJsonSchema.__ISignificant.nullable}\n- Array type utilizes only single {@link OpenAPI.IJsonSchema.IArray.items}\n- Tuple type utilizes only {@link OpenApi.IJsonSchema.ITuple.prefixItems}\n- Merge {@link OpenApiV3_1.IJsonSchema.IAllOf} to\n  {@link OpenApi.IJsonSchema.IObject}\n- Merge {@link OpenApiV3_1.IJsonSchema.IAnyOf} to\n  {@link OpenApi.IJsonSchema.IOneOf}\n- Merge {@link OpenApiV3_1.IJsonSchema.IRecursiveReference} to\n  {@link OpenApi.IJsonSchema.IReference}"
+      },
+      "OpenApi.IJsonSchema.IString": {
+        "type": "object",
+        "properties": {
+          "default": {
+            "type": "string",
+            "description": "Default value of the string type."
+          },
+          "format": {
+            "type": "string",
+            "description": "Format restriction."
+          },
+          "pattern": {
+            "type": "string",
+            "description": "Pattern restriction."
+          },
+          "contentMediaType": {
+            "type": "string",
+            "description": "Content media type restriction."
+          },
+          "minLength": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Minimum length restriction."
+          },
+          "maxLength": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Maximum length restriction."
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "string"
+            ],
+            "description": "Discriminator value of the type."
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of the schema."
+          },
+          "description": {
+            "type": "string",
+            "description": "Detailed description of the schema."
+          },
+          "deprecated": {
+            "type": "boolean",
+            "description": "Whether the type is deprecated or not."
+          },
+          "example": {
+            "description": "Example value."
+          },
+          "examples": {
+            "$ref": "#/components/schemas/Recordstringany",
+            "description": "List of example values as key-value pairs."
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "description": "String type info."
+      },
+      "Recordstringany": {
+        "type": "object",
+        "properties": {},
+        "required": [],
+        "description": "Construct a type with a set of properties K of type T",
+        "additionalProperties": {}
+      },
+      "OpenApi.IJsonSchema.INumber": {
+        "type": "object",
+        "properties": {
+          "default": {
+            "type": "number",
+            "description": "Default value of the number type."
+          },
+          "minimum": {
+            "type": "number",
+            "description": "Minimum value restriction."
+          },
+          "maximum": {
+            "type": "number",
+            "description": "Maximum value restriction."
+          },
+          "exclusiveMinimum": {
+            "type": "number",
+            "description": "Exclusive minimum value restriction."
+          },
+          "exclusiveMaximum": {
+            "type": "number",
+            "description": "Exclusive maximum value restriction."
+          },
+          "multipleOf": {
+            "type": "number",
+            "exclusiveMinimum": 0,
+            "description": "Multiple of value restriction."
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "number"
+            ],
+            "description": "Discriminator value of the type."
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of the schema."
+          },
+          "description": {
+            "type": "string",
+            "description": "Detailed description of the schema."
+          },
+          "deprecated": {
+            "type": "boolean",
+            "description": "Whether the type is deprecated or not."
+          },
+          "example": {
+            "description": "Example value."
+          },
+          "examples": {
+            "$ref": "#/components/schemas/Recordstringany",
+            "description": "List of example values as key-value pairs."
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "description": "Number (double) type info."
+      },
+      "OpenApi.IJsonSchema.IConstant": {
+        "type": "object",
+        "properties": {
+          "const": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "type": "boolean"
+              }
+            ],
+            "description": "The constant value."
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of the schema."
+          },
+          "description": {
+            "type": "string",
+            "description": "Detailed description of the schema."
+          },
+          "deprecated": {
+            "type": "boolean",
+            "description": "Whether the type is deprecated or not."
+          },
+          "example": {
+            "description": "Example value."
+          },
+          "examples": {
+            "$ref": "#/components/schemas/Recordstringany",
+            "description": "List of example values as key-value pairs."
+          }
+        },
+        "required": [
+          "const"
+        ],
+        "description": "Constant value type."
+      },
+      "OpenApi.IJsonSchema.IBoolean": {
+        "type": "object",
+        "properties": {
+          "default": {
+            "type": "boolean",
+            "description": "The default value of the boolean type."
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "boolean"
+            ],
+            "description": "Discriminator value of the type."
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of the schema."
+          },
+          "description": {
+            "type": "string",
+            "description": "Detailed description of the schema."
+          },
+          "deprecated": {
+            "type": "boolean",
+            "description": "Whether the type is deprecated or not."
+          },
+          "example": {
+            "description": "Example value."
+          },
+          "examples": {
+            "$ref": "#/components/schemas/Recordstringany",
+            "description": "List of example values as key-value pairs."
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "description": "Boolean type info."
+      },
+      "OpenApi.IJsonSchema.IInteger": {
+        "type": "object",
+        "properties": {
+          "default": {
+            "type": "integer",
+            "description": "Default value of the integer type."
+          },
+          "minimum": {
+            "type": "integer",
+            "description": "Minimum value restriction."
+          },
+          "maximum": {
+            "type": "integer",
+            "description": "Maximum value restriction."
+          },
+          "exclusiveMinimum": {
+            "type": "number",
+            "description": "Exclusive minimum value restriction."
+          },
+          "exclusiveMaximum": {
+            "type": "number",
+            "description": "Exclusive maximum value restriction."
+          },
+          "multipleOf": {
+            "type": "integer",
+            "exclusiveMinimum": 0,
+            "description": "Multiple of value restriction."
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "integer"
+            ],
+            "description": "Discriminator value of the type."
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of the schema."
+          },
+          "description": {
+            "type": "string",
+            "description": "Detailed description of the schema."
+          },
+          "deprecated": {
+            "type": "boolean",
+            "description": "Whether the type is deprecated or not."
+          },
+          "example": {
+            "description": "Example value."
+          },
+          "examples": {
+            "$ref": "#/components/schemas/Recordstringany",
+            "description": "List of example values as key-value pairs."
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "description": "Integer type info."
+      },
+      "OpenApi.IJsonSchema.IArray": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "$ref": "#/components/schemas/OpenApi.IJsonSchema",
+            "description": "Items type info.\n\nThe `items` means the type of the array elements. In other words, it is\nthe type schema info of the `T` in the TypeScript array type\n`Array<T>`."
+          },
+          "uniqueItems": {
+            "type": "boolean",
+            "description": "Unique items restriction.\n\nIf this property value is `true`, target array must have unique items."
+          },
+          "minItems": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Minimum items restriction.\n\nRestriction of minimum number of items in the array."
+          },
+          "maxItems": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Maximum items restriction.\n\nRestriction of maximum number of items in the array."
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "array"
+            ],
+            "description": "Discriminator value of the type."
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of the schema."
+          },
+          "description": {
+            "type": "string",
+            "description": "Detailed description of the schema."
+          },
+          "deprecated": {
+            "type": "boolean",
+            "description": "Whether the type is deprecated or not."
+          },
+          "example": {
+            "description": "Example value."
+          },
+          "examples": {
+            "$ref": "#/components/schemas/Recordstringany",
+            "description": "List of example values as key-value pairs."
+          }
+        },
+        "required": [
+          "items",
+          "type"
+        ],
+        "description": "Array type info."
+      },
+      "OpenApi.IJsonSchema.ITuple": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "array"
+            ],
+            "description": "Discriminator value of the type.\n\nNote that, the tuple type cannot be distinguished with {@link IArray}\ntype just by this `discriminator` property.\n\nTo check whether the type is tuple or array, you have to check the\nexistence of {@link IArray.items} or {@link ITuple.prefixItems}\nproperties."
+          },
+          "prefixItems": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OpenApi.IJsonSchema"
+            },
+            "description": "Prefix items.\n\nThe `prefixItems` means the type schema info of the prefix items in the\ntuple type. In the TypeScript, it is expressed as `[T1, T2]`.\n\nIf you want to express `[T1, T2, ...TO[]]` type, you can configure the\n`...TO[]` through the {@link additionalItems} property."
+          },
+          "additionalItems": {
+            "oneOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "$ref": "#/components/schemas/OpenApi.IJsonSchema.IString"
+              },
+              {
+                "$ref": "#/components/schemas/OpenApi.IJsonSchema.INumber"
+              },
+              {
+                "$ref": "#/components/schemas/OpenApi.IJsonSchema.IConstant"
+              },
+              {
+                "$ref": "#/components/schemas/OpenApi.IJsonSchema.IBoolean"
+              },
+              {
+                "$ref": "#/components/schemas/OpenApi.IJsonSchema.IInteger"
+              },
+              {
+                "$ref": "#/components/schemas/OpenApi.IJsonSchema.IArray"
+              },
+              {
+                "$ref": "#/components/schemas/OpenApi.IJsonSchema.ITuple"
+              },
+              {
+                "$ref": "#/components/schemas/OpenApi.IJsonSchema.IObject"
+              },
+              {
+                "$ref": "#/components/schemas/OpenApi.IJsonSchema.IReferencestring"
+              },
+              {
+                "$ref": "#/components/schemas/OpenApi.IJsonSchema.IOneOf"
+              },
+              {
+                "$ref": "#/components/schemas/OpenApi.IJsonSchema.IUnknown"
+              },
+              {
+                "$ref": "#/components/schemas/OpenApi.IJsonSchema.INull"
+              }
+            ],
+            "description": "Additional items.\n\nThe `additionalItems` means the type schema info of the additional\nitems after the {@link prefixItems}. In the TypeScript, if there's a\ntype `[T1, T2, ...TO[]]`, the `...TO[]` is represented by the\n`additionalItems`.\n\nBy the way, if you configure the `additionalItems` as `true`, it means\nthe additional items are not restricted. They can be any type, so that\nit is equivalent to the TypeScript type `[T1, T2, ...any[]]`.\n\nOtherwise configure the `additionalItems` as the {@link IJsonSchema}, it\nmeans the additional items must follow the type schema info. Therefore,\nit is equivalent to the TypeScript type `[T1, T2, ...TO[]]`."
+          },
+          "uniqueItems": {
+            "type": "boolean",
+            "description": "Unique items restriction.\n\nIf this property value is `true`, target tuple must have unique items."
+          },
+          "minItems": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Minimum items restriction.\n\nRestriction of minimum number of items in the tuple."
+          },
+          "maxItems": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Maximum items restriction.\n\nRestriction of maximum number of items in the tuple."
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of the schema."
+          },
+          "description": {
+            "type": "string",
+            "description": "Detailed description of the schema."
+          },
+          "deprecated": {
+            "type": "boolean",
+            "description": "Whether the type is deprecated or not."
+          },
+          "example": {
+            "description": "Example value."
+          },
+          "examples": {
+            "$ref": "#/components/schemas/Recordstringany",
+            "description": "List of example values as key-value pairs."
+          }
+        },
+        "required": [
+          "type",
+          "prefixItems"
+        ],
+        "description": "Tuple type info."
+      },
+      "OpenApi.IJsonSchema.IObject": {
+        "type": "object",
+        "properties": {
+          "properties": {
+            "$ref": "#/components/schemas/RecordstringOpenApi.IJsonSchema",
+            "description": "Properties of the object.\n\nThe `properties` means a list of key-value pairs of the object's\nregular properties. The key is the name of the regular property, and\nthe value is the type schema info.\n\nIf you need additional properties that is represented by dynamic key,\nyou can use the {@link additionalProperties} instead."
+          },
+          "additionalProperties": {
+            "oneOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "$ref": "#/components/schemas/OpenApi.IJsonSchema.IString"
+              },
+              {
+                "$ref": "#/components/schemas/OpenApi.IJsonSchema.INumber"
+              },
+              {
+                "$ref": "#/components/schemas/OpenApi.IJsonSchema.IConstant"
+              },
+              {
+                "$ref": "#/components/schemas/OpenApi.IJsonSchema.IBoolean"
+              },
+              {
+                "$ref": "#/components/schemas/OpenApi.IJsonSchema.IInteger"
+              },
+              {
+                "$ref": "#/components/schemas/OpenApi.IJsonSchema.IArray"
+              },
+              {
+                "$ref": "#/components/schemas/OpenApi.IJsonSchema.ITuple"
+              },
+              {
+                "$ref": "#/components/schemas/OpenApi.IJsonSchema.IObject"
+              },
+              {
+                "$ref": "#/components/schemas/OpenApi.IJsonSchema.IReferencestring"
+              },
+              {
+                "$ref": "#/components/schemas/OpenApi.IJsonSchema.IOneOf"
+              },
+              {
+                "$ref": "#/components/schemas/OpenApi.IJsonSchema.IUnknown"
+              },
+              {
+                "$ref": "#/components/schemas/OpenApi.IJsonSchema.INull"
+              }
+            ],
+            "description": "Additional properties' info.\n\nThe `additionalProperties` means the type schema info of the additional\nproperties that are not listed in the {@link properties}.\n\nIf the value is `true`, it means that the additional properties are not\nrestricted. They can be any type. Otherwise, if the value is\n{@link IJsonSchema} type, it means that the additional properties must\nfollow the type schema info.\n\n- `true`: `Record<string, any>`\n- `IJsonSchema`: `Record<string, T>`"
+          },
+          "required": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of key values of the required properties.\n\nThe `required` means a list of the key values of the required\n{@link properties}. If some property key is not listed in the `required`\nlist, it means that property is optional. Otherwise some property key\nexists in the `required` list, it means that the property must be\nfilled.\n\nBelow is an example of the {@link properties} and `required`.\n\n```typescript\ninterface SomeObject {\n  id: string;\n  email: string;\n  name?: string;\n}\n```\n\nAs you can see, `id` and `email` {@link properties} are {@link required},\nso that they are listed in the `required` list.\n\n```json\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"id\": { \"type\": \"string\" },\n    \"email\": { \"type\": \"string\" },\n    \"name\": { \"type\": \"string\" }\n  },\n  \"required\": [\"id\", \"email\"]\n}\n```"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "object"
+            ],
+            "description": "Discriminator value of the type."
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of the schema."
+          },
+          "description": {
+            "type": "string",
+            "description": "Detailed description of the schema."
+          },
+          "deprecated": {
+            "type": "boolean",
+            "description": "Whether the type is deprecated or not."
+          },
+          "example": {
+            "description": "Example value."
+          },
+          "examples": {
+            "$ref": "#/components/schemas/Recordstringany",
+            "description": "List of example values as key-value pairs."
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "description": "Object type info."
+      },
+      "OpenApi.IJsonSchema.IReferencestring": {
+        "type": "object",
+        "properties": {
+          "$ref": {
+            "type": "string",
+            "description": "Reference to the named schema.\n\nThe `ref` is a reference to the named schema. Format of the `$ref` is\nfollowing the JSON Pointer specification. In the OpenAPI, the `$ref`\nstarts with `#/components/schemas/` which means the type is stored in\nthe {@link OpenApi.IComponents.schemas} object.\n\n- `#/components/schemas/SomeObject`\n- `#/components/schemas/AnotherObject`"
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of the schema."
+          },
+          "description": {
+            "type": "string",
+            "description": "Detailed description of the schema."
+          },
+          "deprecated": {
+            "type": "boolean",
+            "description": "Whether the type is deprecated or not."
+          },
+          "example": {
+            "description": "Example value."
+          },
+          "examples": {
+            "$ref": "#/components/schemas/Recordstringany",
+            "description": "List of example values as key-value pairs."
+          }
+        },
+        "required": [
+          "$ref"
+        ],
+        "description": "Reference type directing named schema."
+      },
+      "OpenApi.IJsonSchema.IOneOf": {
+        "type": "object",
+        "properties": {
+          "oneOf": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/OpenApi.IJsonSchema.IString"
+                },
+                {
+                  "$ref": "#/components/schemas/OpenApi.IJsonSchema.INumber"
+                },
+                {
+                  "$ref": "#/components/schemas/OpenApi.IJsonSchema.IConstant"
+                },
+                {
+                  "$ref": "#/components/schemas/OpenApi.IJsonSchema.IBoolean"
+                },
+                {
+                  "$ref": "#/components/schemas/OpenApi.IJsonSchema.IInteger"
+                },
+                {
+                  "$ref": "#/components/schemas/OpenApi.IJsonSchema.IArray"
+                },
+                {
+                  "$ref": "#/components/schemas/OpenApi.IJsonSchema.ITuple"
+                },
+                {
+                  "$ref": "#/components/schemas/OpenApi.IJsonSchema.IObject"
+                },
+                {
+                  "$ref": "#/components/schemas/OpenApi.IJsonSchema.IReferencestring"
+                },
+                {
+                  "$ref": "#/components/schemas/OpenApi.IJsonSchema.IUnknown"
+                },
+                {
+                  "$ref": "#/components/schemas/OpenApi.IJsonSchema.INull"
+                }
+              ]
+            },
+            "description": "List of the union types."
+          },
+          "discriminator": {
+            "$ref": "#/components/schemas/OpenApi.IJsonSchema.IOneOf.IDiscriminator",
+            "description": "Discriminator info of the union type."
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of the schema."
+          },
+          "description": {
+            "type": "string",
+            "description": "Detailed description of the schema."
+          },
+          "deprecated": {
+            "type": "boolean",
+            "description": "Whether the type is deprecated or not."
+          },
+          "example": {
+            "description": "Example value."
+          },
+          "examples": {
+            "$ref": "#/components/schemas/Recordstringany",
+            "description": "List of example values as key-value pairs."
+          }
+        },
+        "required": [
+          "oneOf"
+        ],
+        "description": "Union type.\n\n`IOneOf` represents an union type of the TypeScript (`A | B | C`).\n\nFor reference, even though your Swagger (or OpenAPI) document has defined\n`anyOf` instead of the `oneOf`, {@link OpenApi} forcibly converts it to\n`oneOf` type."
+      },
+      "OpenApi.IJsonSchema.IUnknown": {
+        "type": "object",
+        "properties": {
+          "default": {
+            "description": "Default value of the `any` type."
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of the schema."
+          },
+          "description": {
+            "type": "string",
+            "description": "Detailed description of the schema."
+          },
+          "deprecated": {
+            "type": "boolean",
+            "description": "Whether the type is deprecated or not."
+          },
+          "example": {
+            "description": "Example value."
+          },
+          "examples": {
+            "$ref": "#/components/schemas/Recordstringany",
+            "description": "List of example values as key-value pairs."
+          }
+        },
+        "required": [],
+        "description": "Unknown, the `any` type."
+      },
+      "OpenApi.IJsonSchema.INull": {
+        "type": "object",
+        "properties": {
+          "default": {
+            "type": "null",
+            "description": "Default value of the `null` type."
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "null"
+            ],
+            "description": "Discriminator value of the type."
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of the schema."
+          },
+          "description": {
+            "type": "string",
+            "description": "Detailed description of the schema."
+          },
+          "deprecated": {
+            "type": "boolean",
+            "description": "Whether the type is deprecated or not."
+          },
+          "example": {
+            "description": "Example value."
+          },
+          "examples": {
+            "$ref": "#/components/schemas/Recordstringany",
+            "description": "List of example values as key-value pairs."
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "description": "Null type."
+      },
+      "OpenApi.IJsonSchema.IOneOf.IDiscriminator": {
+        "type": "object",
+        "properties": {
+          "propertyName": {
+            "type": "string",
+            "description": "Property name for the discriminator."
+          },
+          "mapping": {
+            "$ref": "#/components/schemas/Recordstringstring",
+            "description": "Mapping of the discriminator value to the schema name.\n\nThis property is valid only for {@link IReference} typed\n{@link IOneOf.oneof} elements. Therefore, `key` of `mapping` is the\ndiscriminator value, and `value` of `mapping` is the schema name like\n`#/components/schemas/SomeObject`."
+          }
+        },
+        "required": [
+          "propertyName"
+        ],
+        "description": "Discriminator info of the union type."
+      },
+      "Recordstringstring": {
+        "type": "object",
+        "properties": {},
+        "required": [],
+        "description": "Construct a type with a set of properties K of type T",
+        "additionalProperties": {
+          "type": "string"
+        }
+      },
+      "RecordstringOpenApi.ISecurityScheme": {
+        "type": "object",
+        "properties": {},
+        "required": [],
+        "description": "Construct a type with a set of properties K of type T",
+        "additionalProperties": {
+          "$ref": "#/components/schemas/OpenApi.ISecurityScheme"
+        }
+      },
+      "OpenApi.ISecurityScheme": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/OpenApi.ISecurityScheme.IApiKey"
+          },
+          {
+            "$ref": "#/components/schemas/OpenApi.ISecurityScheme.IHttpBasic"
+          },
+          {
+            "$ref": "#/components/schemas/OpenApi.ISecurityScheme.IHttpBearer"
+          },
+          {
+            "$ref": "#/components/schemas/OpenApi.ISecurityScheme.IOAuth2"
+          },
+          {
+            "$ref": "#/components/schemas/OpenApi.ISecurityScheme.IOpenId"
+          }
+        ],
+        "description": "Security scheme of Swagger Documents.\n\n`OpenApi.ISecurityScheme` is a data structure representing content of\n`securitySchemes` in `swagger.json` file. It is composed with 5 types of\nsecurity schemes as an union type like below."
+      },
+      "OpenApi.ISecurityScheme.IApiKey": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "apiKey"
+            ]
+          },
+          "in": {
+            "type": "string",
+            "enum": [
+              "cookie",
+              "header",
+              "query"
+            ]
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "description": "Normal API key type."
+      },
+      "OpenApi.ISecurityScheme.IHttpBasic": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "http"
+            ]
+          },
+          "scheme": {
+            "type": "string",
+            "enum": [
+              "basic"
+            ]
+          },
+          "description": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "type",
+          "scheme"
+        ],
+        "description": "HTTP basic authentication type."
+      },
+      "OpenApi.ISecurityScheme.IHttpBearer": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "http"
+            ]
+          },
+          "scheme": {
+            "type": "string",
+            "enum": [
+              "bearer"
+            ]
+          },
+          "bearerFormat": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "type",
+          "scheme"
+        ],
+        "description": "HTTP bearer authentication type."
+      },
+      "OpenApi.ISecurityScheme.IOAuth2": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "oauth2"
+            ]
+          },
+          "flows": {
+            "$ref": "#/components/schemas/OpenApi.ISecurityScheme.IOAuth2.IFlowSet"
+          },
+          "description": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "type",
+          "flows"
+        ],
+        "description": "OAuth2 authentication type."
+      },
+      "OpenApi.ISecurityScheme.IOAuth2.IFlowSet": {
+        "type": "object",
+        "properties": {
+          "authorizationCode": {
+            "$ref": "#/components/schemas/OpenApi.ISecurityScheme.IOAuth2.IFlow"
+          },
+          "implicit": {
+            "$ref": "#/components/schemas/OmitOpenApi.ISecurityScheme.IOAuth2.IFlowtokenUrl"
+          },
+          "password": {
+            "$ref": "#/components/schemas/OmitOpenApi.ISecurityScheme.IOAuth2.IFlowauthorizationUrl"
+          },
+          "clientCredentials": {
+            "$ref": "#/components/schemas/OmitOpenApi.ISecurityScheme.IOAuth2.IFlowauthorizationUrl"
+          }
+        },
+        "required": []
+      },
+      "OpenApi.ISecurityScheme.IOAuth2.IFlow": {
+        "type": "object",
+        "properties": {
+          "authorizationUrl": {
+            "type": "string"
+          },
+          "tokenUrl": {
+            "type": "string"
+          },
+          "refreshUrl": {
+            "type": "string"
+          },
+          "scopes": {
+            "$ref": "#/components/schemas/Recordstringstring"
+          }
+        },
+        "required": []
+      },
+      "OmitOpenApi.ISecurityScheme.IOAuth2.IFlowtokenUrl": {
+        "type": "object",
+        "properties": {
+          "authorizationUrl": {
+            "type": "string"
+          },
+          "refreshUrl": {
+            "type": "string"
+          },
+          "scopes": {
+            "$ref": "#/components/schemas/Recordstringstring"
+          }
+        },
+        "required": [],
+        "description": "Construct a type with the properties of T except for those in type K."
+      },
+      "OmitOpenApi.ISecurityScheme.IOAuth2.IFlowauthorizationUrl": {
+        "type": "object",
+        "properties": {
+          "tokenUrl": {
+            "type": "string"
+          },
+          "refreshUrl": {
+            "type": "string"
+          },
+          "scopes": {
+            "$ref": "#/components/schemas/Recordstringstring"
+          }
+        },
+        "required": [],
+        "description": "Construct a type with the properties of T except for those in type K."
+      },
+      "OpenApi.ISecurityScheme.IOpenId": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "openIdConnect"
+            ]
+          },
+          "openIdConnectUrl": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "type",
+          "openIdConnectUrl"
+        ]
+      }
+    }
+  },
+  "schema": {
+    "$ref": "#/components/schemas/UltimateUnion"
+  }
+}

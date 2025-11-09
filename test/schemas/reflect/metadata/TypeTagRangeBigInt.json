@@ -1,0 +1,925 @@
+{
+  "metadatas": [
+    {
+      "any": false,
+      "required": true,
+      "optional": false,
+      "nullable": false,
+      "functions": [],
+      "atomics": [],
+      "constants": [],
+      "templates": [],
+      "escaped": null,
+      "rest": null,
+      "arrays": [],
+      "tuples": [],
+      "objects": [
+        {
+          "name": "TypeTagRangeBigInt",
+          "tags": []
+        }
+      ],
+      "aliases": [],
+      "natives": [],
+      "sets": [],
+      "maps": []
+    }
+  ],
+  "components": {
+    "objects": [
+      {
+        "name": "TypeTagRangeBigInt",
+        "properties": [
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    {
+                      "value": "value",
+                      "tags": []
+                    }
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [
+                {
+                  "name": "Array<TypeTagRangeBigInt.Type>",
+                  "tags": []
+                }
+              ],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": null,
+            "jsDocTags": []
+          }
+        ],
+        "jsDocTags": [],
+        "index": 0,
+        "recursive": false,
+        "nullables": [
+          false
+        ]
+      },
+      {
+        "name": "TypeTagRangeBigInt.Type",
+        "properties": [
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    {
+                      "value": "greater",
+                      "tags": []
+                    }
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [
+                {
+                  "type": "bigint",
+                  "tags": [
+                    [
+                      {
+                        "target": "bigint",
+                        "name": "ExclusiveMinimum<3n>",
+                        "kind": "exclusiveMinimum",
+                        "value": {
+                          "type": "bigint",
+                          "value": "3"
+                        },
+                        "validate": "BigInt(3) < $input",
+                        "exclusive": [
+                          "exclusiveMinimum",
+                          "minimum"
+                        ],
+                        "schema": {
+                          "exclusiveMinimum": 3
+                        }
+                      }
+                    ]
+                  ]
+                }
+              ],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": null,
+            "jsDocTags": []
+          },
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    {
+                      "value": "greater_equal",
+                      "tags": []
+                    }
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [
+                {
+                  "type": "bigint",
+                  "tags": [
+                    [
+                      {
+                        "target": "bigint",
+                        "name": "Minimum<3n>",
+                        "kind": "minimum",
+                        "value": {
+                          "type": "bigint",
+                          "value": "3"
+                        },
+                        "validate": "BigInt(3) <= $input",
+                        "exclusive": [
+                          "minimum",
+                          "exclusiveMinimum"
+                        ],
+                        "schema": {
+                          "minimum": 3
+                        }
+                      }
+                    ]
+                  ]
+                }
+              ],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": null,
+            "jsDocTags": []
+          },
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    {
+                      "value": "less",
+                      "tags": []
+                    }
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [
+                {
+                  "type": "bigint",
+                  "tags": [
+                    [
+                      {
+                        "target": "bigint",
+                        "name": "ExclusiveMaximum<7n>",
+                        "kind": "exclusiveMaximum",
+                        "value": {
+                          "type": "bigint",
+                          "value": "7"
+                        },
+                        "validate": "$input < BigInt(7)",
+                        "exclusive": [
+                          "exclusiveMaximum",
+                          "maximum"
+                        ],
+                        "schema": {
+                          "exclusiveMaximum": 7
+                        }
+                      }
+                    ]
+                  ]
+                }
+              ],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": null,
+            "jsDocTags": []
+          },
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    {
+                      "value": "less_equal",
+                      "tags": []
+                    }
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [
+                {
+                  "type": "bigint",
+                  "tags": [
+                    [
+                      {
+                        "target": "bigint",
+                        "name": "Maximum<7n>",
+                        "kind": "maximum",
+                        "value": {
+                          "type": "bigint",
+                          "value": "7"
+                        },
+                        "validate": "$input <= BigInt(7)",
+                        "exclusive": [
+                          "maximum",
+                          "exclusiveMaximum"
+                        ],
+                        "schema": {
+                          "maximum": 7
+                        }
+                      }
+                    ]
+                  ]
+                }
+              ],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": null,
+            "jsDocTags": []
+          },
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    {
+                      "value": "greater_less",
+                      "tags": []
+                    }
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [
+                {
+                  "type": "bigint",
+                  "tags": [
+                    [
+                      {
+                        "target": "bigint",
+                        "name": "ExclusiveMinimum<3n>",
+                        "kind": "exclusiveMinimum",
+                        "value": {
+                          "type": "bigint",
+                          "value": "3"
+                        },
+                        "validate": "BigInt(3) < $input",
+                        "exclusive": [
+                          "exclusiveMinimum",
+                          "minimum"
+                        ],
+                        "schema": {
+                          "exclusiveMinimum": 3
+                        }
+                      },
+                      {
+                        "target": "bigint",
+                        "name": "ExclusiveMaximum<7n>",
+                        "kind": "exclusiveMaximum",
+                        "value": {
+                          "type": "bigint",
+                          "value": "7"
+                        },
+                        "validate": "$input < BigInt(7)",
+                        "exclusive": [
+                          "exclusiveMaximum",
+                          "maximum"
+                        ],
+                        "schema": {
+                          "exclusiveMaximum": 7
+                        }
+                      }
+                    ]
+                  ]
+                }
+              ],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": null,
+            "jsDocTags": []
+          },
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    {
+                      "value": "greater_equal_less",
+                      "tags": []
+                    }
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [
+                {
+                  "type": "bigint",
+                  "tags": [
+                    [
+                      {
+                        "target": "bigint",
+                        "name": "Minimum<3n>",
+                        "kind": "minimum",
+                        "value": {
+                          "type": "bigint",
+                          "value": "3"
+                        },
+                        "validate": "BigInt(3) <= $input",
+                        "exclusive": [
+                          "minimum",
+                          "exclusiveMinimum"
+                        ],
+                        "schema": {
+                          "minimum": 3
+                        }
+                      },
+                      {
+                        "target": "bigint",
+                        "name": "ExclusiveMaximum<7n>",
+                        "kind": "exclusiveMaximum",
+                        "value": {
+                          "type": "bigint",
+                          "value": "7"
+                        },
+                        "validate": "$input < BigInt(7)",
+                        "exclusive": [
+                          "exclusiveMaximum",
+                          "maximum"
+                        ],
+                        "schema": {
+                          "exclusiveMaximum": 7
+                        }
+                      }
+                    ]
+                  ]
+                }
+              ],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": null,
+            "jsDocTags": []
+          },
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    {
+                      "value": "greater_less_equal",
+                      "tags": []
+                    }
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [
+                {
+                  "type": "bigint",
+                  "tags": [
+                    [
+                      {
+                        "target": "bigint",
+                        "name": "ExclusiveMinimum<3n>",
+                        "kind": "exclusiveMinimum",
+                        "value": {
+                          "type": "bigint",
+                          "value": "3"
+                        },
+                        "validate": "BigInt(3) < $input",
+                        "exclusive": [
+                          "exclusiveMinimum",
+                          "minimum"
+                        ],
+                        "schema": {
+                          "exclusiveMinimum": 3
+                        }
+                      },
+                      {
+                        "target": "bigint",
+                        "name": "Maximum<7n>",
+                        "kind": "maximum",
+                        "value": {
+                          "type": "bigint",
+                          "value": "7"
+                        },
+                        "validate": "$input <= BigInt(7)",
+                        "exclusive": [
+                          "maximum",
+                          "exclusiveMaximum"
+                        ],
+                        "schema": {
+                          "maximum": 7
+                        }
+                      }
+                    ]
+                  ]
+                }
+              ],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": null,
+            "jsDocTags": []
+          },
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    {
+                      "value": "greater_equal_less_equal",
+                      "tags": []
+                    }
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [
+                {
+                  "type": "bigint",
+                  "tags": [
+                    [
+                      {
+                        "target": "bigint",
+                        "name": "Minimum<3n>",
+                        "kind": "minimum",
+                        "value": {
+                          "type": "bigint",
+                          "value": "3"
+                        },
+                        "validate": "BigInt(3) <= $input",
+                        "exclusive": [
+                          "minimum",
+                          "exclusiveMinimum"
+                        ],
+                        "schema": {
+                          "minimum": 3
+                        }
+                      },
+                      {
+                        "target": "bigint",
+                        "name": "Maximum<7n>",
+                        "kind": "maximum",
+                        "value": {
+                          "type": "bigint",
+                          "value": "7"
+                        },
+                        "validate": "$input <= BigInt(7)",
+                        "exclusive": [
+                          "maximum",
+                          "exclusiveMaximum"
+                        ],
+                        "schema": {
+                          "maximum": 7
+                        }
+                      }
+                    ]
+                  ]
+                }
+              ],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": null,
+            "jsDocTags": []
+          },
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    {
+                      "value": "equal",
+                      "tags": []
+                    }
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [
+                {
+                  "type": "bigint",
+                  "tags": [
+                    [
+                      {
+                        "target": "bigint",
+                        "name": "Minimum<10n>",
+                        "kind": "minimum",
+                        "value": {
+                          "type": "bigint",
+                          "value": "10"
+                        },
+                        "validate": "BigInt(10) <= $input",
+                        "exclusive": [
+                          "minimum",
+                          "exclusiveMinimum"
+                        ],
+                        "schema": {
+                          "minimum": 10
+                        }
+                      },
+                      {
+                        "target": "bigint",
+                        "name": "Maximum<10n>",
+                        "kind": "maximum",
+                        "value": {
+                          "type": "bigint",
+                          "value": "10"
+                        },
+                        "validate": "$input <= BigInt(10)",
+                        "exclusive": [
+                          "maximum",
+                          "exclusiveMaximum"
+                        ],
+                        "schema": {
+                          "maximum": 10
+                        }
+                      }
+                    ]
+                  ]
+                }
+              ],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": null,
+            "jsDocTags": []
+          }
+        ],
+        "jsDocTags": [],
+        "index": 1,
+        "recursive": false,
+        "nullables": [
+          false
+        ]
+      }
+    ],
+    "aliases": [],
+    "arrays": [
+      {
+        "name": "Array<TypeTagRangeBigInt.Type>",
+        "value": {
+          "any": false,
+          "required": true,
+          "optional": false,
+          "nullable": false,
+          "functions": [],
+          "atomics": [],
+          "constants": [],
+          "templates": [],
+          "escaped": null,
+          "rest": null,
+          "arrays": [],
+          "tuples": [],
+          "objects": [
+            {
+              "name": "TypeTagRangeBigInt.Type",
+              "tags": []
+            }
+          ],
+          "aliases": [],
+          "natives": [],
+          "sets": [],
+          "maps": []
+        },
+        "nullables": [
+          false
+        ],
+        "recursive": false,
+        "index": null
+      }
+    ],
+    "tuples": []
+  }
+}

@@ -1,13 +1,14 @@
 import typia from "typia";
-
-import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
 import { CommentTagArray } from "../../../structures/CommentTagArray";
+import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
 
 export const test_llm_parameters_claude_CommentTagArray = (): void =>
   _test_llm_parameters({
     model: "claude",
     name: "CommentTagArray",
-  })(typia.llm.parameters<CommentTagArrayParameters, "claude">());
+  })(
+    typia.llm.parameters<CommentTagArrayParameters, "claude">(),
+  );
 
 interface CommentTagArrayParameters {
   regular: CommentTagArray;

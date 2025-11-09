@@ -1,13 +1,14 @@
 import typia from "typia";
-
-import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
 import { ObjectUnionExplicitPointer } from "../../../structures/ObjectUnionExplicitPointer";
+import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
 
 export const test_llm_parameters_3_0_ObjectUnionExplicitPointer = (): void =>
   _test_llm_parameters({
     model: "3.0",
     name: "ObjectUnionExplicitPointer",
-  })(typia.llm.parameters<ObjectUnionExplicitPointerParameters, "3.0">());
+  })(
+    typia.llm.parameters<ObjectUnionExplicitPointerParameters, "3.0">(),
+  );
 
 interface ObjectUnionExplicitPointerParameters {
   regular: ObjectUnionExplicitPointer;
