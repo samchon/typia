@@ -1,14 +1,13 @@
 import typia from "typia";
-import { CommentTagFormat } from "../../../structures/CommentTagFormat";
+
 import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
+import { CommentTagFormat } from "../../../structures/CommentTagFormat";
 
 export const test_llm_parameters_chatgpt_CommentTagFormat = (): void =>
   _test_llm_parameters({
     model: "chatgpt",
     name: "CommentTagFormat",
-  })(
-    typia.llm.parameters<CommentTagFormatParameters, "chatgpt">(),
-  );
+  })(typia.llm.parameters<CommentTagFormatParameters, "chatgpt">());
 
 interface CommentTagFormatParameters {
   regular: CommentTagFormat;

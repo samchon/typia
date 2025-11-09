@@ -1,13 +1,14 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_functional_assertParametersAsync } from "../../internal/_test_functional_assertParametersAsync";
 import { ObjectUnionComposite } from "../../structures/ObjectUnionComposite";
 
-import { TypeGuardError } from "typia";
-
-export const test_functional_assertParametersAsync_ObjectUnionComposite = (): Promise<void> => _test_functional_assertParametersAsync(TypeGuardError)(
-  "ObjectUnionComposite"
-)(ObjectUnionComposite)(
-  (p: (input: ObjectUnionComposite) => Promise<ObjectUnionComposite>) =>
-    typia.functional.assertParameters(p),
-)
+export const test_functional_assertParametersAsync_ObjectUnionComposite =
+  (): Promise<void> =>
+    _test_functional_assertParametersAsync(TypeGuardError)(
+      "ObjectUnionComposite",
+    )(ObjectUnionComposite)(
+      (p: (input: ObjectUnionComposite) => Promise<ObjectUnionComposite>) =>
+        typia.functional.assertParameters(p),
+    );

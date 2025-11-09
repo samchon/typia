@@ -1,8 +1,9 @@
 import typia from "typia";
-import { ObjectDescription } from "../../structures/ObjectDescription";
+
 import { _test_reflect_metadata } from "../../internal/_test_reflect_metadata";
+import { ObjectDescription } from "../../structures/ObjectDescription";
 
 export const test_reflect_metadata_ObjectDescription = (): void =>
   _test_reflect_metadata("ObjectDescription")(
-    typia.reflect.metadata<[ObjectDescription]>()
+    typia.reflect.metadata<[ObjectDescription]>(),
   );

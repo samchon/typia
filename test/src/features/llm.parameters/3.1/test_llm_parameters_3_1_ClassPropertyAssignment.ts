@@ -1,14 +1,13 @@
 import typia from "typia";
-import { ClassPropertyAssignment } from "../../../structures/ClassPropertyAssignment";
+
 import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
+import { ClassPropertyAssignment } from "../../../structures/ClassPropertyAssignment";
 
 export const test_llm_parameters_3_1_ClassPropertyAssignment = (): void =>
   _test_llm_parameters({
     model: "3.1",
     name: "ClassPropertyAssignment",
-  })(
-    typia.llm.parameters<ClassPropertyAssignmentParameters, "3.1">(),
-  );
+  })(typia.llm.parameters<ClassPropertyAssignmentParameters, "3.1">());
 
 interface ClassPropertyAssignmentParameters {
   regular: ClassPropertyAssignment;

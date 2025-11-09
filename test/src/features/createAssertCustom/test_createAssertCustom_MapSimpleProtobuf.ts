@@ -1,12 +1,10 @@
 import typia from "typia";
 
+import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_assert } from "../../internal/_test_assert";
 import { MapSimpleProtobuf } from "../../structures/MapSimpleProtobuf";
 
-import { CustomGuardError } from "../../internal/CustomGuardError";
-
-export const test_createAssertCustom_MapSimpleProtobuf = (): void => _test_assert(CustomGuardError)(
-    "MapSimpleProtobuf",
-)<MapSimpleProtobuf>(
-    MapSimpleProtobuf
-)(typia.createAssert<MapSimpleProtobuf>((p) => new CustomGuardError(p)));
+export const test_createAssertCustom_MapSimpleProtobuf = (): void =>
+  _test_assert(CustomGuardError)("MapSimpleProtobuf")<MapSimpleProtobuf>(
+    MapSimpleProtobuf,
+  )(typia.createAssert<MapSimpleProtobuf>((p) => new CustomGuardError(p)));

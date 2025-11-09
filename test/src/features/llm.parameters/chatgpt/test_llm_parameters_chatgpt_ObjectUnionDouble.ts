@@ -1,14 +1,13 @@
 import typia from "typia";
-import { ObjectUnionDouble } from "../../../structures/ObjectUnionDouble";
+
 import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
+import { ObjectUnionDouble } from "../../../structures/ObjectUnionDouble";
 
 export const test_llm_parameters_chatgpt_ObjectUnionDouble = (): void =>
   _test_llm_parameters({
     model: "chatgpt",
     name: "ObjectUnionDouble",
-  })(
-    typia.llm.parameters<ObjectUnionDoubleParameters, "chatgpt">(),
-  );
+  })(typia.llm.parameters<ObjectUnionDoubleParameters, "chatgpt">());
 
 interface ObjectUnionDoubleParameters {
   regular: ObjectUnionDouble;

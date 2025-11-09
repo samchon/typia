@@ -1,0 +1,144 @@
+{
+  "model": "3.1",
+  "options": {
+    "reference": true,
+    "constraint": true,
+    "separate": null
+  },
+  "functions": [
+    {
+      "name": "insert",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "$ref": "#/$defs/ArrayRepeatedNullable"
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ArrayRepeatedNullable": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "$ref": "#/$defs/ArrayArrayRepeatedNullable"
+              }
+            ]
+          },
+          "ArrayArrayRepeatedNullable": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/ArrayRepeatedNullable"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "$ref": "#/$defs/ArrayRepeatedNullable"
+          },
+          "second": {
+            "$ref": "#/$defs/ArrayRepeatedNullable"
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ArrayRepeatedNullable": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "$ref": "#/$defs/ArrayArrayRepeatedNullable"
+              }
+            ]
+          },
+          "ArrayArrayRepeatedNullable": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/ArrayRepeatedNullable"
+            }
+          }
+        }
+      },
+      "output": {
+        "$ref": "#/$defs/ArrayRepeatedNullable"
+      }
+    },
+    {
+      "name": "coalesce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "$ref": "#/$defs/ArrayRepeatedNullable"
+          },
+          "second": {
+            "$ref": "#/$defs/ArrayRepeatedNullable"
+          },
+          "third": {
+            "$ref": "#/$defs/ArrayRepeatedNullable"
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ArrayRepeatedNullable": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "$ref": "#/$defs/ArrayArrayRepeatedNullable"
+              }
+            ]
+          },
+          "ArrayArrayRepeatedNullable": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/ArrayRepeatedNullable"
+            }
+          }
+        }
+      },
+      "output": {
+        "$ref": "#/$defs/ArrayRepeatedNullable"
+      }
+    }
+  ]
+}

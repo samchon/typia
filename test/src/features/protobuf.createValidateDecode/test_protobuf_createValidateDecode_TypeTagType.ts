@@ -3,9 +3,8 @@ import typia from "typia";
 import { _test_protobuf_validateDecode } from "../../internal/_test_protobuf_validateDecode";
 import { TypeTagType } from "../../structures/TypeTagType";
 
-export const test_protobuf_createValidateDecode_TypeTagType = (): void => _test_protobuf_validateDecode(
-  "TypeTagType",
-)<TypeTagType>(TypeTagType)({
-  decode: typia.protobuf.createValidateDecode<TypeTagType>(),
-  encode: typia.protobuf.createEncode<TypeTagType>(),
-});
+export const test_protobuf_createValidateDecode_TypeTagType = (): void =>
+  _test_protobuf_validateDecode("TypeTagType")<TypeTagType>(TypeTagType)({
+    decode: typia.protobuf.createValidateDecode<TypeTagType>(),
+    encode: typia.protobuf.createEncode<TypeTagType>(),
+  });

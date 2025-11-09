@@ -1,14 +1,13 @@
 import typia from "typia";
-import { DynamicNever } from "../../../structures/DynamicNever";
+
 import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
+import { DynamicNever } from "../../../structures/DynamicNever";
 
 export const test_llm_parameters_chatgpt_DynamicNever = (): void =>
   _test_llm_parameters({
     model: "chatgpt",
     name: "DynamicNever",
-  })(
-    typia.llm.parameters<DynamicNeverParameters, "chatgpt">(),
-  );
+  })(typia.llm.parameters<DynamicNeverParameters, "chatgpt">());
 
 interface DynamicNeverParameters {
   regular: DynamicNever;

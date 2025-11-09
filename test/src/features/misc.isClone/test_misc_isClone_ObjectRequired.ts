@@ -3,8 +3,7 @@ import typia from "typia";
 import { _test_misc_isClone } from "../../internal/_test_misc_isClone";
 import { ObjectRequired } from "../../structures/ObjectRequired";
 
-export const test_misc_isClone_ObjectRequired = (): void => _test_misc_isClone(
-    "ObjectRequired",
-)<ObjectRequired>(
-    ObjectRequired
-)((input) => typia.misc.isClone<ObjectRequired>(input));
+export const test_misc_isClone_ObjectRequired = (): void =>
+  _test_misc_isClone("ObjectRequired")<ObjectRequired>(ObjectRequired)(
+    (input) => typia.misc.isClone<ObjectRequired>(input),
+  );

@@ -1,14 +1,13 @@
 import typia from "typia";
-import { TypeTagAtomicUnion } from "../../../structures/TypeTagAtomicUnion";
+
 import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
+import { TypeTagAtomicUnion } from "../../../structures/TypeTagAtomicUnion";
 
 export const test_llm_parameters_3_0_TypeTagAtomicUnion = (): void =>
   _test_llm_parameters({
     model: "3.0",
     name: "TypeTagAtomicUnion",
-  })(
-    typia.llm.parameters<TypeTagAtomicUnionParameters, "3.0">(),
-  );
+  })(typia.llm.parameters<TypeTagAtomicUnionParameters, "3.0">());
 
 interface TypeTagAtomicUnionParameters {
   regular: TypeTagAtomicUnion;

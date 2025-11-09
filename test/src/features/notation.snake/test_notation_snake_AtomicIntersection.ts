@@ -4,9 +4,10 @@ import { _test_notation_validateGeneral } from "../../internal/_test_notation_va
 import { AtomicIntersection } from "../../structures/AtomicIntersection";
 
 export const test_notation_validateSnake_AtomicIntersection = (): void =>
-    _test_notation_validateGeneral("AtomicIntersection")<AtomicIntersection>(
-        AtomicIntersection
+  _test_notation_validateGeneral("AtomicIntersection")<AtomicIntersection>(
+    AtomicIntersection,
   )<typia.SnakeCase<AtomicIntersection>>({
-    convert: (input) => typia.notations.validateSnake<AtomicIntersection>(input),
+    convert: (input) =>
+      typia.notations.validateSnake<AtomicIntersection>(input),
     assert: typia.createAssert<typia.SnakeCase<AtomicIntersection>>(),
   });

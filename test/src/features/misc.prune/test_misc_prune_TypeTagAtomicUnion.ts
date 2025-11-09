@@ -3,8 +3,7 @@ import typia from "typia";
 import { _test_misc_prune } from "../../internal/_test_misc_prune";
 import { TypeTagAtomicUnion } from "../../structures/TypeTagAtomicUnion";
 
-export const test_misc_prune_TypeTagAtomicUnion = (): void => _test_misc_prune(
-    "TypeTagAtomicUnion",
-)<TypeTagAtomicUnion>(
-    TypeTagAtomicUnion
-)((input) => typia.misc.prune<TypeTagAtomicUnion>(input));
+export const test_misc_prune_TypeTagAtomicUnion = (): void =>
+  _test_misc_prune("TypeTagAtomicUnion")<TypeTagAtomicUnion>(
+    TypeTagAtomicUnion,
+  )((input) => typia.misc.prune<TypeTagAtomicUnion>(input));

@@ -1,12 +1,15 @@
 import typia from "typia";
 
+import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_assertEquals } from "../../internal/_test_assertEquals";
 import { ClassPropertyAssignment } from "../../structures/ClassPropertyAssignment";
 
-import { CustomGuardError } from "../../internal/CustomGuardError";
-
-export const test_assertEqualsCustom_ClassPropertyAssignment = (): void => _test_assertEquals(CustomGuardError)(
+export const test_assertEqualsCustom_ClassPropertyAssignment = (): void =>
+  _test_assertEquals(CustomGuardError)(
     "ClassPropertyAssignment",
-)<ClassPropertyAssignment>(
-    ClassPropertyAssignment
-)((input) => typia.assertEquals<ClassPropertyAssignment>(input, (p) => new CustomGuardError(p)));
+  )<ClassPropertyAssignment>(ClassPropertyAssignment)((input) =>
+    typia.assertEquals<ClassPropertyAssignment>(
+      input,
+      (p) => new CustomGuardError(p),
+    ),
+  );

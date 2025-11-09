@@ -4,9 +4,10 @@ import { _test_notation_validateGeneral } from "../../internal/_test_notation_va
 import { ObjectHttpFormData } from "../../structures/ObjectHttpFormData";
 
 export const test_notation_validatePascal_ObjectHttpFormData = (): void =>
-    _test_notation_validateGeneral("ObjectHttpFormData")<ObjectHttpFormData>(
-        ObjectHttpFormData
+  _test_notation_validateGeneral("ObjectHttpFormData")<ObjectHttpFormData>(
+    ObjectHttpFormData,
   )<typia.PascalCase<ObjectHttpFormData>>({
-    convert: (input) => typia.notations.validatePascal<ObjectHttpFormData>(input),
+    convert: (input) =>
+      typia.notations.validatePascal<ObjectHttpFormData>(input),
     assert: typia.createAssert<typia.PascalCase<ObjectHttpFormData>>(),
   });

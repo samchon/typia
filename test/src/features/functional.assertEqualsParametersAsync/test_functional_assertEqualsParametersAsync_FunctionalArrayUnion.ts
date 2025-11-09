@@ -1,13 +1,14 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_functional_assertEqualsParametersAsync } from "../../internal/_test_functional_assertEqualsParametersAsync";
 import { FunctionalArrayUnion } from "../../structures/FunctionalArrayUnion";
 
-import { TypeGuardError } from "typia";
-
-export const test_functional_assertEqualsParametersAsync_FunctionalArrayUnion = (): Promise<void> => _test_functional_assertEqualsParametersAsync(TypeGuardError)(
-  "FunctionalArrayUnion"
-)(FunctionalArrayUnion)(
-  (p: (input: FunctionalArrayUnion) => Promise<FunctionalArrayUnion>) =>
-    typia.functional.assertEqualsParameters(p),
-)
+export const test_functional_assertEqualsParametersAsync_FunctionalArrayUnion =
+  (): Promise<void> =>
+    _test_functional_assertEqualsParametersAsync(TypeGuardError)(
+      "FunctionalArrayUnion",
+    )(FunctionalArrayUnion)(
+      (p: (input: FunctionalArrayUnion) => Promise<FunctionalArrayUnion>) =>
+        typia.functional.assertEqualsParameters(p),
+    );

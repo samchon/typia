@@ -1,12 +1,12 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertStringify } from "../../internal/_test_json_assertStringify";
 import { CommentTagLength } from "../../structures/CommentTagLength";
 
-import { TypeGuardError } from "typia";
-
-export const test_json_createAssertStringify_CommentTagLength = (): void => _test_json_assertStringify(TypeGuardError)(
+export const test_json_createAssertStringify_CommentTagLength = (): void =>
+  _test_json_assertStringify(TypeGuardError)(
     "CommentTagLength",
-)<CommentTagLength>(
-    CommentTagLength
-)(typia.json.createAssertStringify<CommentTagLength>());
+  )<CommentTagLength>(CommentTagLength)(
+    typia.json.createAssertStringify<CommentTagLength>(),
+  );

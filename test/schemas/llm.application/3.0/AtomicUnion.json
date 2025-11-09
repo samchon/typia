@@ -1,0 +1,216 @@
+{
+  "model": "3.0",
+  "options": {
+    "recursive": 3,
+    "constraint": true,
+    "separate": null
+  },
+  "functions": [
+    {
+      "name": "insert",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "nullable": true
+                },
+                {
+                  "type": "number",
+                  "nullable": true
+                },
+                {
+                  "type": "boolean",
+                  "nullable": true
+                }
+              ],
+              "description": "Current Type: {@link AtomicUnion.Union}"
+            },
+            "description": "Current Type: {@link AtomicUnion}"
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "nullable": true
+                },
+                {
+                  "type": "number",
+                  "nullable": true
+                },
+                {
+                  "type": "boolean",
+                  "nullable": true
+                }
+              ],
+              "description": "Current Type: {@link AtomicUnion.Union}"
+            },
+            "description": "Current Type: {@link AtomicUnion}"
+          },
+          "second": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "nullable": true
+                },
+                {
+                  "type": "number",
+                  "nullable": true
+                },
+                {
+                  "type": "boolean",
+                  "nullable": true
+                }
+              ],
+              "description": "Current Type: {@link AtomicUnion.Union}"
+            },
+            "nullable": true
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "type": "array",
+        "items": {
+          "oneOf": [
+            {
+              "type": "string",
+              "nullable": true
+            },
+            {
+              "type": "number",
+              "nullable": true
+            },
+            {
+              "type": "boolean",
+              "nullable": true
+            }
+          ],
+          "description": "Current Type: {@link AtomicUnion.Union}"
+        },
+        "description": "Current Type: {@link AtomicUnion}"
+      }
+    },
+    {
+      "name": "coalesce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "nullable": true
+                },
+                {
+                  "type": "number",
+                  "nullable": true
+                },
+                {
+                  "type": "boolean",
+                  "nullable": true
+                }
+              ],
+              "description": "Current Type: {@link AtomicUnion.Union}"
+            },
+            "nullable": true
+          },
+          "second": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "nullable": true
+                },
+                {
+                  "type": "number",
+                  "nullable": true
+                },
+                {
+                  "type": "boolean",
+                  "nullable": true
+                }
+              ],
+              "description": "Current Type: {@link AtomicUnion.Union}"
+            },
+            "nullable": true
+          },
+          "third": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "nullable": true
+                },
+                {
+                  "type": "number",
+                  "nullable": true
+                },
+                {
+                  "type": "boolean",
+                  "nullable": true
+                }
+              ],
+              "description": "Current Type: {@link AtomicUnion.Union}"
+            },
+            "nullable": true
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "type": "array",
+        "items": {
+          "oneOf": [
+            {
+              "type": "string",
+              "nullable": true
+            },
+            {
+              "type": "number",
+              "nullable": true
+            },
+            {
+              "type": "boolean",
+              "nullable": true
+            }
+          ],
+          "description": "Current Type: {@link AtomicUnion.Union}"
+        },
+        "nullable": true
+      }
+    }
+  ]
+}

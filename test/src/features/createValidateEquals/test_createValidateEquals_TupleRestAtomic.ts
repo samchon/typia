@@ -3,8 +3,7 @@ import typia from "typia";
 import { _test_validateEquals } from "../../internal/_test_validateEquals";
 import { TupleRestAtomic } from "../../structures/TupleRestAtomic";
 
-export const test_createValidateEquals_TupleRestAtomic = (): void => _test_validateEquals(
-    "TupleRestAtomic",
-)<TupleRestAtomic>(
-    TupleRestAtomic
-)(typia.createValidateEquals<TupleRestAtomic>());
+export const test_createValidateEquals_TupleRestAtomic = (): void =>
+  _test_validateEquals("TupleRestAtomic")<TupleRestAtomic>(TupleRestAtomic)(
+    typia.createValidateEquals<TupleRestAtomic>(),
+  );

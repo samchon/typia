@@ -1,14 +1,13 @@
 import typia from "typia";
-import { TemplateAtomic } from "../../../structures/TemplateAtomic";
+
 import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
+import { TemplateAtomic } from "../../../structures/TemplateAtomic";
 
 export const test_llm_parameters_3_0_TemplateAtomic = (): void =>
   _test_llm_parameters({
     model: "3.0",
     name: "TemplateAtomic",
-  })(
-    typia.llm.parameters<TemplateAtomicParameters, "3.0">(),
-  );
+  })(typia.llm.parameters<TemplateAtomicParameters, "3.0">());
 
 interface TemplateAtomicParameters {
   regular: TemplateAtomic;

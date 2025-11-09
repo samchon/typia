@@ -1,14 +1,13 @@
 import typia from "typia";
-import { ObjectPrimitive } from "../../../structures/ObjectPrimitive";
+
 import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
+import { ObjectPrimitive } from "../../../structures/ObjectPrimitive";
 
 export const test_llm_parameters_chatgpt_ObjectPrimitive = (): void =>
   _test_llm_parameters({
     model: "chatgpt",
     name: "ObjectPrimitive",
-  })(
-    typia.llm.parameters<ObjectPrimitiveParameters, "chatgpt">(),
-  );
+  })(typia.llm.parameters<ObjectPrimitiveParameters, "chatgpt">());
 
 interface ObjectPrimitiveParameters {
   regular: ObjectPrimitive;

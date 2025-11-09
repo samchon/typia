@@ -1,12 +1,14 @@
 import typia from "typia";
 
+import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_assertGuardEquals } from "../../internal/_test_assertGuardEquals";
 import { DynamicComposite } from "../../structures/DynamicComposite";
 
-import { CustomGuardError } from "../../internal/CustomGuardError";
-
-export const test_createAssertGuardEqualsCustom_DynamicComposite = (): void => _test_assertGuardEquals(CustomGuardError)(
+export const test_createAssertGuardEqualsCustom_DynamicComposite = (): void =>
+  _test_assertGuardEquals(CustomGuardError)(
     "DynamicComposite",
-)<DynamicComposite>(
-    DynamicComposite
-)(typia.createAssertGuardEquals<DynamicComposite>((p) => new CustomGuardError(p)));
+  )<DynamicComposite>(DynamicComposite)(
+    typia.createAssertGuardEquals<DynamicComposite>(
+      (p) => new CustomGuardError(p),
+    ),
+  );

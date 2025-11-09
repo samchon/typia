@@ -1,0 +1,98 @@
+{
+  "type": "object",
+  "properties": {
+    "regular": {
+      "$ref": "#/$defs/ObjectRecursive.IDepartment"
+    },
+    "nullable": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/ObjectRecursive.IDepartment"
+        }
+      ]
+    },
+    "optional": {
+      "$ref": "#/$defs/ObjectRecursive.IDepartment"
+    },
+    "faint": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/ObjectRecursive.IDepartment"
+        }
+      ]
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ObjectRecursive.IDepartment"
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "array"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "ObjectRecursive.IDepartment": {
+      "type": "object",
+      "properties": {
+        "parent": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/ObjectRecursive.IDepartment"
+            }
+          ]
+        },
+        "id": {
+          "type": "number"
+        },
+        "code": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "sequence": {
+          "type": "number"
+        },
+        "created_at": {
+          "$ref": "#/$defs/ObjectRecursive.ITimestamp"
+        }
+      },
+      "required": [
+        "parent",
+        "id",
+        "code",
+        "name",
+        "sequence",
+        "created_at"
+      ]
+    },
+    "ObjectRecursive.ITimestamp": {
+      "type": "object",
+      "properties": {
+        "time": {
+          "type": "number"
+        },
+        "zone": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "time",
+        "zone"
+      ]
+    }
+  }
+}

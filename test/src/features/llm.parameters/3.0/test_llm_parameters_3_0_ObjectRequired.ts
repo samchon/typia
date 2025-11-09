@@ -1,14 +1,13 @@
 import typia from "typia";
-import { ObjectRequired } from "../../../structures/ObjectRequired";
+
 import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
+import { ObjectRequired } from "../../../structures/ObjectRequired";
 
 export const test_llm_parameters_3_0_ObjectRequired = (): void =>
   _test_llm_parameters({
     model: "3.0",
     name: "ObjectRequired",
-  })(
-    typia.llm.parameters<ObjectRequiredParameters, "3.0">(),
-  );
+  })(typia.llm.parameters<ObjectRequiredParameters, "3.0">());
 
 interface ObjectRequiredParameters {
   regular: ObjectRequired;

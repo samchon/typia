@@ -3,8 +3,7 @@ import typia from "typia";
 import { _test_equals } from "../../internal/_test_equals";
 import { ObjectIntersection } from "../../structures/ObjectIntersection";
 
-export const test_createEquals_ObjectIntersection = (): void => _test_equals(
-    "ObjectIntersection",
-)<ObjectIntersection>(
-    ObjectIntersection
-)(typia.createEquals<ObjectIntersection>());
+export const test_createEquals_ObjectIntersection = (): void =>
+  _test_equals("ObjectIntersection")<ObjectIntersection>(ObjectIntersection)(
+    typia.createEquals<ObjectIntersection>(),
+  );

@@ -4,9 +4,9 @@ import { _test_notation_validateGeneral } from "../../internal/_test_notation_va
 import { TupleUnion } from "../../structures/TupleUnion";
 
 export const test_notation_createValidateCamel_TupleUnion = (): void =>
-    _test_notation_validateGeneral("TupleUnion")<TupleUnion>(
-        TupleUnion
-  )<typia.CamelCase<TupleUnion>>({
+  _test_notation_validateGeneral("TupleUnion")<TupleUnion>(TupleUnion)<
+    typia.CamelCase<TupleUnion>
+  >({
     convert: typia.notations.createValidateCamel<TupleUnion>(),
     assert: typia.createAssert<typia.CamelCase<TupleUnion>>(),
   });

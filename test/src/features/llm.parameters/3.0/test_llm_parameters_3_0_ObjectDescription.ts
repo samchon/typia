@@ -1,14 +1,13 @@
 import typia from "typia";
-import { ObjectDescription } from "../../../structures/ObjectDescription";
+
 import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
+import { ObjectDescription } from "../../../structures/ObjectDescription";
 
 export const test_llm_parameters_3_0_ObjectDescription = (): void =>
   _test_llm_parameters({
     model: "3.0",
     name: "ObjectDescription",
-  })(
-    typia.llm.parameters<ObjectDescriptionParameters, "3.0">(),
-  );
+  })(typia.llm.parameters<ObjectDescriptionParameters, "3.0">());
 
 interface ObjectDescriptionParameters {
   regular: ObjectDescription;

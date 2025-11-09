@@ -4,8 +4,8 @@ import { _test_notation_validateGeneral } from "../../internal/_test_notation_va
 import { TypeTagTypeUnion } from "../../structures/TypeTagTypeUnion";
 
 export const test_notation_createValidateSnake_TypeTagTypeUnion = (): void =>
-    _test_notation_validateGeneral("TypeTagTypeUnion")<TypeTagTypeUnion>(
-        TypeTagTypeUnion
+  _test_notation_validateGeneral("TypeTagTypeUnion")<TypeTagTypeUnion>(
+    TypeTagTypeUnion,
   )<typia.SnakeCase<TypeTagTypeUnion>>({
     convert: typia.notations.createValidateSnake<TypeTagTypeUnion>(),
     assert: typia.createAssert<typia.SnakeCase<TypeTagTypeUnion>>(),

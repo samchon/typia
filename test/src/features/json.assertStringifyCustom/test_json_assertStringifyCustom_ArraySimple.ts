@@ -1,12 +1,15 @@
 import typia from "typia";
 
+import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_json_assertStringify } from "../../internal/_test_json_assertStringify";
 import { ArraySimple } from "../../structures/ArraySimple";
 
-import { CustomGuardError } from "../../internal/CustomGuardError";
-
-export const test_json_assertStringifyCustom_ArraySimple = (): void => _test_json_assertStringify(CustomGuardError)(
-    "ArraySimple",
-)<ArraySimple>(
-    ArraySimple
-)((input) => typia.json.assertStringify<ArraySimple>(input, (p) => new CustomGuardError(p)));
+export const test_json_assertStringifyCustom_ArraySimple = (): void =>
+  _test_json_assertStringify(CustomGuardError)("ArraySimple")<ArraySimple>(
+    ArraySimple,
+  )((input) =>
+    typia.json.assertStringify<ArraySimple>(
+      input,
+      (p) => new CustomGuardError(p),
+    ),
+  );

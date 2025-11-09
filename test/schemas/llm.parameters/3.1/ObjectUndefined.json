@@ -1,0 +1,95 @@
+{
+  "type": "object",
+  "properties": {
+    "regular": {
+      "$ref": "#/$defs/ObjectUndefined"
+    },
+    "nullable": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/ObjectUndefined"
+        }
+      ]
+    },
+    "optional": {
+      "$ref": "#/$defs/ObjectUndefined"
+    },
+    "faint": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/ObjectUndefined"
+        }
+      ]
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ObjectUndefined"
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "array"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "ObjectUndefined": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ObjectUndefined.ILecture"
+      }
+    },
+    "ObjectUndefined.ILecture": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "professor": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "classroom": {
+          "$ref": "#/$defs/ObjectUndefined.IClassroom"
+        },
+        "grade": {
+          "type": "number"
+        },
+        "unknown": {}
+      },
+      "required": [
+        "name",
+        "unknown"
+      ]
+    },
+    "ObjectUndefined.IClassroom": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "name"
+      ]
+    }
+  }
+}

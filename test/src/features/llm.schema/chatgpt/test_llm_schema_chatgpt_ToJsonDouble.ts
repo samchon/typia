@@ -1,6 +1,7 @@
 import typia from "typia";
-import { ToJsonDouble } from "../../../structures/ToJsonDouble";
+
 import { _test_llm_schema } from "../../../internal/_test_llm_schema";
+import { ToJsonDouble } from "../../../structures/ToJsonDouble";
 
 export const test_llm_schema_chatgpt_ToJsonDouble = (): void =>
   _test_llm_schema({

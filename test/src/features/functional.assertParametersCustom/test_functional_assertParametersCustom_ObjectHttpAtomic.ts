@@ -1,12 +1,13 @@
 import typia from "typia";
 
+import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_functional_assertParameters } from "../../internal/_test_functional_assertParameters";
 import { ObjectHttpAtomic } from "../../structures/ObjectHttpAtomic";
 
-import { CustomGuardError } from "../../internal/CustomGuardError";
-
-export const test_functional_assertParametersCustom_ObjectHttpAtomic = (): void => _test_functional_assertParameters(CustomGuardError)(
-  "ObjectHttpAtomic"
-)(ObjectHttpAtomic)(
-  (p: (input: ObjectHttpAtomic) => ObjectHttpAtomic) => typia.functional.assertParameters(p, (p) => new CustomGuardError(p)),
-)
+export const test_functional_assertParametersCustom_ObjectHttpAtomic =
+  (): void =>
+    _test_functional_assertParameters(CustomGuardError)("ObjectHttpAtomic")(
+      ObjectHttpAtomic,
+    )((p: (input: ObjectHttpAtomic) => ObjectHttpAtomic) =>
+      typia.functional.assertParameters(p, (p) => new CustomGuardError(p)),
+    );

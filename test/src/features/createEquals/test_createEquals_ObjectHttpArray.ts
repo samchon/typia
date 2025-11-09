@@ -3,8 +3,7 @@ import typia from "typia";
 import { _test_equals } from "../../internal/_test_equals";
 import { ObjectHttpArray } from "../../structures/ObjectHttpArray";
 
-export const test_createEquals_ObjectHttpArray = (): void => _test_equals(
-    "ObjectHttpArray",
-)<ObjectHttpArray>(
-    ObjectHttpArray
-)(typia.createEquals<ObjectHttpArray>());
+export const test_createEquals_ObjectHttpArray = (): void =>
+  _test_equals("ObjectHttpArray")<ObjectHttpArray>(ObjectHttpArray)(
+    typia.createEquals<ObjectHttpArray>(),
+  );

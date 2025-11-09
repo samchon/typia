@@ -1,6 +1,7 @@
 import typia from "typia";
-import { CommentTagObjectUnion } from "../../../structures/CommentTagObjectUnion";
+
 import { _test_llm_schema } from "../../../internal/_test_llm_schema";
+import { CommentTagObjectUnion } from "../../../structures/CommentTagObjectUnion";
 
 export const test_llm_schema_3_0_CommentTagObjectUnion = (): void =>
   _test_llm_schema({

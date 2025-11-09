@@ -1,14 +1,13 @@
 import typia from "typia";
-import { ArrayHierarchical } from "../../../structures/ArrayHierarchical";
+
 import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
+import { ArrayHierarchical } from "../../../structures/ArrayHierarchical";
 
 export const test_llm_parameters_gemini_ArrayHierarchical = (): void =>
   _test_llm_parameters({
     model: "gemini",
     name: "ArrayHierarchical",
-  })(
-    typia.llm.parameters<ArrayHierarchicalParameters, "gemini">(),
-  );
+  })(typia.llm.parameters<ArrayHierarchicalParameters, "gemini">());
 
 interface ArrayHierarchicalParameters {
   regular: ArrayHierarchical;

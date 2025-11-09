@@ -1,12 +1,15 @@
 import typia from "typia";
 
+import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_assertEquals } from "../../internal/_test_assertEquals";
 import { ConstantConstEnumeration } from "../../structures/ConstantConstEnumeration";
 
-import { CustomGuardError } from "../../internal/CustomGuardError";
-
-export const test_assertEqualsCustom_ConstantConstEnumeration = (): void => _test_assertEquals(CustomGuardError)(
+export const test_assertEqualsCustom_ConstantConstEnumeration = (): void =>
+  _test_assertEquals(CustomGuardError)(
     "ConstantConstEnumeration",
-)<ConstantConstEnumeration>(
-    ConstantConstEnumeration
-)((input) => typia.assertEquals<ConstantConstEnumeration>(input, (p) => new CustomGuardError(p)));
+  )<ConstantConstEnumeration>(ConstantConstEnumeration)((input) =>
+    typia.assertEquals<ConstantConstEnumeration>(
+      input,
+      (p) => new CustomGuardError(p),
+    ),
+  );

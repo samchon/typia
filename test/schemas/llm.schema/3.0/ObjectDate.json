@@ -1,0 +1,38 @@
+{
+  "type": "object",
+  "properties": {
+    "classDate": {
+      "type": "string",
+      "format": "date-time",
+      "nullable": true
+    },
+    "date": {
+      "type": "string",
+      "format": "date",
+      "nullable": true
+    },
+    "datetime": {
+      "type": "string",
+      "format": "date-time",
+      "nullable": true
+    },
+    "time": {
+      "type": "string",
+      "format": "time",
+      "nullable": true
+    },
+    "duration": {
+      "type": "string",
+      "format": "duration",
+      "nullable": true
+    }
+  },
+  "required": [
+    "date",
+    "datetime",
+    "time",
+    "duration"
+  ],
+  "description": "Current Type: {@link ObjectDate}",
+  "additionalProperties": false
+}

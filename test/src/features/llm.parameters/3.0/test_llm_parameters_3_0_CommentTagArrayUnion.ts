@@ -1,14 +1,13 @@
 import typia from "typia";
-import { CommentTagArrayUnion } from "../../../structures/CommentTagArrayUnion";
+
 import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
+import { CommentTagArrayUnion } from "../../../structures/CommentTagArrayUnion";
 
 export const test_llm_parameters_3_0_CommentTagArrayUnion = (): void =>
   _test_llm_parameters({
     model: "3.0",
     name: "CommentTagArrayUnion",
-  })(
-    typia.llm.parameters<CommentTagArrayUnionParameters, "3.0">(),
-  );
+  })(typia.llm.parameters<CommentTagArrayUnionParameters, "3.0">());
 
 interface CommentTagArrayUnionParameters {
   regular: CommentTagArrayUnion;

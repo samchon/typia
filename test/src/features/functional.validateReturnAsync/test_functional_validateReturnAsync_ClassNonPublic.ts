@@ -3,9 +3,9 @@ import typia from "typia";
 import { _test_functional_validateReturnAsync } from "../../internal/_test_functional_validateReturnAsync";
 import { ClassNonPublic } from "../../structures/ClassNonPublic";
 
-export const test_functional_validateReturnAsync_ClassNonPublic = (): Promise<void> => _test_functional_validateReturnAsync(
-  "ClassNonPublic"
-)(ClassNonPublic)(
-  (p: (input: ClassNonPublic) => Promise<ClassNonPublic>) =>
-    typia.functional.validateReturn(p),
-)
+export const test_functional_validateReturnAsync_ClassNonPublic =
+  (): Promise<void> =>
+    _test_functional_validateReturnAsync("ClassNonPublic")(ClassNonPublic)(
+      (p: (input: ClassNonPublic) => Promise<ClassNonPublic>) =>
+        typia.functional.validateReturn(p),
+    );

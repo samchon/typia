@@ -1,14 +1,13 @@
 import typia from "typia";
-import { DynamicSimple } from "../../../structures/DynamicSimple";
+
 import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
+import { DynamicSimple } from "../../../structures/DynamicSimple";
 
 export const test_llm_parameters_claude_DynamicSimple = (): void =>
   _test_llm_parameters({
     model: "claude",
     name: "DynamicSimple",
-  })(
-    typia.llm.parameters<DynamicSimpleParameters, "claude">(),
-  );
+  })(typia.llm.parameters<DynamicSimpleParameters, "claude">());
 
 interface DynamicSimpleParameters {
   regular: DynamicSimple;

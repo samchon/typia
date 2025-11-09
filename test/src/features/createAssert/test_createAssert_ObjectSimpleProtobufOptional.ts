@@ -1,12 +1,12 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assert } from "../../internal/_test_assert";
 import { ObjectSimpleProtobufOptional } from "../../structures/ObjectSimpleProtobufOptional";
 
-import { TypeGuardError } from "typia";
-
-export const test_createAssert_ObjectSimpleProtobufOptional = (): void => _test_assert(TypeGuardError)(
+export const test_createAssert_ObjectSimpleProtobufOptional = (): void =>
+  _test_assert(TypeGuardError)(
     "ObjectSimpleProtobufOptional",
-)<ObjectSimpleProtobufOptional>(
-    ObjectSimpleProtobufOptional
-)(typia.createAssert<ObjectSimpleProtobufOptional>());
+  )<ObjectSimpleProtobufOptional>(ObjectSimpleProtobufOptional)(
+    typia.createAssert<ObjectSimpleProtobufOptional>(),
+  );

@@ -1,6 +1,7 @@
 import typia from "typia";
-import { TypeTagObjectUnion } from "../../../structures/TypeTagObjectUnion";
+
 import { _test_llm_schema } from "../../../internal/_test_llm_schema";
+import { TypeTagObjectUnion } from "../../../structures/TypeTagObjectUnion";
 
 export const test_llm_schema_chatgpt_TypeTagObjectUnion = (): void =>
   _test_llm_schema({

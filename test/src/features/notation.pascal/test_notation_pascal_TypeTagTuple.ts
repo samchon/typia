@@ -4,9 +4,9 @@ import { _test_notation_validateGeneral } from "../../internal/_test_notation_va
 import { TypeTagTuple } from "../../structures/TypeTagTuple";
 
 export const test_notation_validatePascal_TypeTagTuple = (): void =>
-    _test_notation_validateGeneral("TypeTagTuple")<TypeTagTuple>(
-        TypeTagTuple
-  )<typia.PascalCase<TypeTagTuple>>({
+  _test_notation_validateGeneral("TypeTagTuple")<TypeTagTuple>(TypeTagTuple)<
+    typia.PascalCase<TypeTagTuple>
+  >({
     convert: (input) => typia.notations.validatePascal<TypeTagTuple>(input),
     assert: typia.createAssert<typia.PascalCase<TypeTagTuple>>(),
   });

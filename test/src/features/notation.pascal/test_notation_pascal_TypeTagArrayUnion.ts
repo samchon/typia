@@ -4,9 +4,10 @@ import { _test_notation_validateGeneral } from "../../internal/_test_notation_va
 import { TypeTagArrayUnion } from "../../structures/TypeTagArrayUnion";
 
 export const test_notation_validatePascal_TypeTagArrayUnion = (): void =>
-    _test_notation_validateGeneral("TypeTagArrayUnion")<TypeTagArrayUnion>(
-        TypeTagArrayUnion
+  _test_notation_validateGeneral("TypeTagArrayUnion")<TypeTagArrayUnion>(
+    TypeTagArrayUnion,
   )<typia.PascalCase<TypeTagArrayUnion>>({
-    convert: (input) => typia.notations.validatePascal<TypeTagArrayUnion>(input),
+    convert: (input) =>
+      typia.notations.validatePascal<TypeTagArrayUnion>(input),
     assert: typia.createAssert<typia.PascalCase<TypeTagArrayUnion>>(),
   });

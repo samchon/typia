@@ -3,8 +3,7 @@ import typia from "typia";
 import { _test_is } from "../../internal/_test_is";
 import { TypeTagCustom } from "../../structures/TypeTagCustom";
 
-export const test_is_TypeTagCustom = (): void => _test_is(
-    "TypeTagCustom",
-)<TypeTagCustom>(
-    TypeTagCustom
-)((input) => typia.is<TypeTagCustom>(input));
+export const test_is_TypeTagCustom = (): void =>
+  _test_is("TypeTagCustom")<TypeTagCustom>(TypeTagCustom)((input) =>
+    typia.is<TypeTagCustom>(input),
+  );

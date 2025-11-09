@@ -1,0 +1,98 @@
+{
+  "type": "object",
+  "properties": {
+    "regular": {
+      "$ref": "#/$defs/CommentTagType"
+    },
+    "nullable": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/CommentTagType"
+        }
+      ]
+    },
+    "optional": {
+      "$ref": "#/$defs/CommentTagType"
+    },
+    "faint": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/CommentTagType"
+        }
+      ]
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/CommentTagType"
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "array"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "CommentTagType": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/CommentTagType.Type"
+          }
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "CommentTagType.Type": {
+      "type": "object",
+      "properties": {
+        "int": {
+          "description": "Integer value.",
+          "type": "integer"
+        },
+        "uint": {
+          "description": "Unsigned integer value.\n\n\n@minimum 0",
+          "type": "integer"
+        },
+        "int32": {
+          "type": "integer"
+        },
+        "uint32": {
+          "description": "@minimum 0",
+          "type": "integer"
+        },
+        "int64": {
+          "type": "integer"
+        },
+        "uint64": {
+          "description": "@minimum 0",
+          "type": "integer"
+        },
+        "float": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "int",
+        "uint",
+        "int32",
+        "uint32",
+        "int64",
+        "uint64",
+        "float"
+      ]
+    }
+  }
+}

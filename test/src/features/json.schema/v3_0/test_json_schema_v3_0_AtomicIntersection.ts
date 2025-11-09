@@ -1,9 +1,10 @@
 import typia from "typia";
-import { AtomicIntersection } from "../../../structures/AtomicIntersection";
+
 import { _test_json_schema } from "../../../internal/_test_json_schema";
+import { AtomicIntersection } from "../../../structures/AtomicIntersection";
 
 export const test_json_schema_v3_0_AtomicIntersection = (): void =>
   _test_json_schema({
     version: "3.0",
-    name: "AtomicIntersection", 
+    name: "AtomicIntersection",
   })(typia.json.schema<AtomicIntersection, "3.0">());

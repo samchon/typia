@@ -1,0 +1,200 @@
+{
+  "model": "3.1",
+  "options": {
+    "reference": true,
+    "constraint": true,
+    "separate": null
+  },
+  "functions": [
+    {
+      "name": "insert",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "$ref": "#/$defs/ArrayRepeatedRequired"
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ArrayRepeatedRequired": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "$ref": "#/$defs/ArrayArrayRepeatedRequired"
+              }
+            ]
+          },
+          "ArrayArrayRepeatedRequired": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/ArrayRepeatedRequired"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "$ref": "#/$defs/ArrayRepeatedRequired"
+          },
+          "second": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "$ref": "#/$defs/ArrayArrayRepeatedRequired"
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ArrayRepeatedRequired": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "$ref": "#/$defs/ArrayArrayRepeatedRequired"
+              }
+            ]
+          },
+          "ArrayArrayRepeatedRequired": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/ArrayRepeatedRequired"
+            }
+          }
+        }
+      },
+      "output": {
+        "$ref": "#/$defs/ArrayRepeatedRequired"
+      }
+    },
+    {
+      "name": "coalesce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "$ref": "#/$defs/ArrayArrayRepeatedRequired"
+              }
+            ]
+          },
+          "second": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "$ref": "#/$defs/ArrayArrayRepeatedRequired"
+              }
+            ]
+          },
+          "third": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "$ref": "#/$defs/ArrayArrayRepeatedRequired"
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ArrayArrayRepeatedRequired": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/ArrayRepeatedRequired"
+            }
+          },
+          "ArrayRepeatedRequired": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "$ref": "#/$defs/ArrayArrayRepeatedRequired"
+              }
+            ]
+          }
+        }
+      },
+      "output": {
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "$ref": "#/$defs/ArrayArrayRepeatedRequired"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -4,8 +4,8 @@ import { _test_notation_validateGeneral } from "../../internal/_test_notation_va
 import { CommentTagArray } from "../../structures/CommentTagArray";
 
 export const test_notation_validateCamel_CommentTagArray = (): void =>
-    _test_notation_validateGeneral("CommentTagArray")<CommentTagArray>(
-        CommentTagArray
+  _test_notation_validateGeneral("CommentTagArray")<CommentTagArray>(
+    CommentTagArray,
   )<typia.CamelCase<CommentTagArray>>({
     convert: (input) => typia.notations.validateCamel<CommentTagArray>(input),
     assert: typia.createAssert<typia.CamelCase<CommentTagArray>>(),

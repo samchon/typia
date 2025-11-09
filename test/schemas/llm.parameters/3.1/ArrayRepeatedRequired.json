@@ -1,0 +1,86 @@
+{
+  "type": "object",
+  "properties": {
+    "regular": {
+      "$ref": "#/$defs/ArrayRepeatedRequired"
+    },
+    "nullable": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "$ref": "#/$defs/ArrayArrayRepeatedRequired"
+        }
+      ]
+    },
+    "optional": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "$ref": "#/$defs/ArrayArrayRepeatedRequired"
+        }
+      ]
+    },
+    "faint": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "$ref": "#/$defs/ArrayArrayRepeatedRequired"
+        }
+      ]
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ArrayRepeatedRequired"
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "array"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "ArrayRepeatedRequired": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "$ref": "#/$defs/ArrayArrayRepeatedRequired"
+        }
+      ]
+    },
+    "ArrayArrayRepeatedRequired": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ArrayRepeatedRequired"
+      }
+    }
+  }
+}

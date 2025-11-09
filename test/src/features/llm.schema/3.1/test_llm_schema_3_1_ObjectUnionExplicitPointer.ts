@@ -1,6 +1,7 @@
 import typia from "typia";
-import { ObjectUnionExplicitPointer } from "../../../structures/ObjectUnionExplicitPointer";
+
 import { _test_llm_schema } from "../../../internal/_test_llm_schema";
+import { ObjectUnionExplicitPointer } from "../../../structures/ObjectUnionExplicitPointer";
 
 export const test_llm_schema_3_1_ObjectUnionExplicitPointer = (): void =>
   _test_llm_schema({

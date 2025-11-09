@@ -1,0 +1,18 @@
+{
+  "type": "object",
+  "properties": {
+    "value": {
+      "type": "object",
+      "properties": {},
+      "required": [],
+      "additionalProperties": {
+        "type": "number"
+      }
+    }
+  },
+  "required": [
+    "value"
+  ],
+  "description": "Current Type: {@link DynamicSimple}",
+  "additionalProperties": false
+}

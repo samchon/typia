@@ -1,0 +1,239 @@
+{
+  "model": "3.1",
+  "options": {
+    "reference": true,
+    "constraint": true,
+    "separate": null
+  },
+  "functions": [
+    {
+      "name": "insert",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "$ref": "#/$defs/ObjectSimple.IBox3D"
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ObjectSimple.IBox3D": {
+            "type": "object",
+            "properties": {
+              "scale": {
+                "$ref": "#/$defs/ObjectSimple.IPoint3D"
+              },
+              "position": {
+                "$ref": "#/$defs/ObjectSimple.IPoint3D"
+              },
+              "rotate": {
+                "$ref": "#/$defs/ObjectSimple.IPoint3D"
+              },
+              "pivot": {
+                "$ref": "#/$defs/ObjectSimple.IPoint3D"
+              }
+            },
+            "required": [
+              "scale",
+              "position",
+              "rotate",
+              "pivot"
+            ]
+          },
+          "ObjectSimple.IPoint3D": {
+            "type": "object",
+            "properties": {
+              "x": {
+                "type": "number"
+              },
+              "y": {
+                "type": "number"
+              },
+              "z": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "x",
+              "y",
+              "z"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "$ref": "#/$defs/ObjectSimple.IBox3D"
+          },
+          "second": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/$defs/ObjectSimple.IBox3D"
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ObjectSimple.IBox3D": {
+            "type": "object",
+            "properties": {
+              "scale": {
+                "$ref": "#/$defs/ObjectSimple.IPoint3D"
+              },
+              "position": {
+                "$ref": "#/$defs/ObjectSimple.IPoint3D"
+              },
+              "rotate": {
+                "$ref": "#/$defs/ObjectSimple.IPoint3D"
+              },
+              "pivot": {
+                "$ref": "#/$defs/ObjectSimple.IPoint3D"
+              }
+            },
+            "required": [
+              "scale",
+              "position",
+              "rotate",
+              "pivot"
+            ]
+          },
+          "ObjectSimple.IPoint3D": {
+            "type": "object",
+            "properties": {
+              "x": {
+                "type": "number"
+              },
+              "y": {
+                "type": "number"
+              },
+              "z": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "x",
+              "y",
+              "z"
+            ]
+          }
+        }
+      },
+      "output": {
+        "$ref": "#/$defs/ObjectSimple.IBox3D"
+      }
+    },
+    {
+      "name": "coalesce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/$defs/ObjectSimple.IBox3D"
+              }
+            ]
+          },
+          "second": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/$defs/ObjectSimple.IBox3D"
+              }
+            ]
+          },
+          "third": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/$defs/ObjectSimple.IBox3D"
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ObjectSimple.IBox3D": {
+            "type": "object",
+            "properties": {
+              "scale": {
+                "$ref": "#/$defs/ObjectSimple.IPoint3D"
+              },
+              "position": {
+                "$ref": "#/$defs/ObjectSimple.IPoint3D"
+              },
+              "rotate": {
+                "$ref": "#/$defs/ObjectSimple.IPoint3D"
+              },
+              "pivot": {
+                "$ref": "#/$defs/ObjectSimple.IPoint3D"
+              }
+            },
+            "required": [
+              "scale",
+              "position",
+              "rotate",
+              "pivot"
+            ]
+          },
+          "ObjectSimple.IPoint3D": {
+            "type": "object",
+            "properties": {
+              "x": {
+                "type": "number"
+              },
+              "y": {
+                "type": "number"
+              },
+              "z": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "x",
+              "y",
+              "z"
+            ]
+          }
+        }
+      },
+      "output": {
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "$ref": "#/$defs/ObjectSimple.IBox3D"
+          }
+        ]
+      }
+    }
+  ]
+}

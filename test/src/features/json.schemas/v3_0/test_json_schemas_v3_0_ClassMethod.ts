@@ -1,9 +1,10 @@
 import typia from "typia";
-import { ClassMethod } from "../../../structures/ClassMethod";
+
 import { _test_json_schemas } from "../../../internal/_test_json_schemas";
+import { ClassMethod } from "../../../structures/ClassMethod";
 
 export const test_json_schemas_v3_0_ClassMethod = (): void =>
   _test_json_schemas({
     version: "3.0",
-    name: "ClassMethod", 
+    name: "ClassMethod",
   })(typia.json.schemas<[ClassMethod], "3.0">());

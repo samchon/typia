@@ -3,8 +3,7 @@ import typia from "typia";
 import { _test_misc_validateClone } from "../../internal/_test_misc_validateClone";
 import { DynamicUnion } from "../../structures/DynamicUnion";
 
-export const test_misc_validateClone_DynamicUnion = (): void => _test_misc_validateClone(
-    "DynamicUnion",
-)<DynamicUnion>(
-    DynamicUnion
-)((input) => typia.misc.validateClone<DynamicUnion>(input));
+export const test_misc_validateClone_DynamicUnion = (): void =>
+  _test_misc_validateClone("DynamicUnion")<DynamicUnion>(DynamicUnion)(
+    (input) => typia.misc.validateClone<DynamicUnion>(input),
+  );

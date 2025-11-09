@@ -1,12 +1,12 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assert } from "../../internal/_test_assert";
 import { ConstantConstEnumeration } from "../../structures/ConstantConstEnumeration";
 
-import { TypeGuardError } from "typia";
-
-export const test_assert_ConstantConstEnumeration = (): void => _test_assert(TypeGuardError)(
+export const test_assert_ConstantConstEnumeration = (): void =>
+  _test_assert(TypeGuardError)(
     "ConstantConstEnumeration",
-)<ConstantConstEnumeration>(
-    ConstantConstEnumeration
-)((input) => typia.assert<ConstantConstEnumeration>(input));
+  )<ConstantConstEnumeration>(ConstantConstEnumeration)((input) =>
+    typia.assert<ConstantConstEnumeration>(input),
+  );

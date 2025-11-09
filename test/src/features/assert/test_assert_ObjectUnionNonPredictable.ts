@@ -1,12 +1,12 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assert } from "../../internal/_test_assert";
 import { ObjectUnionNonPredictable } from "../../structures/ObjectUnionNonPredictable";
 
-import { TypeGuardError } from "typia";
-
-export const test_assert_ObjectUnionNonPredictable = (): void => _test_assert(TypeGuardError)(
+export const test_assert_ObjectUnionNonPredictable = (): void =>
+  _test_assert(TypeGuardError)(
     "ObjectUnionNonPredictable",
-)<ObjectUnionNonPredictable>(
-    ObjectUnionNonPredictable
-)((input) => typia.assert<ObjectUnionNonPredictable>(input));
+  )<ObjectUnionNonPredictable>(ObjectUnionNonPredictable)((input) =>
+    typia.assert<ObjectUnionNonPredictable>(input),
+  );

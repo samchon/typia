@@ -3,8 +3,7 @@ import typia from "typia";
 import { _test_json_isStringify } from "../../internal/_test_json_isStringify";
 import { ObjectJsonTag } from "../../structures/ObjectJsonTag";
 
-export const test_json_createIsStringify_ObjectJsonTag = (): void => _test_json_isStringify(
-    "ObjectJsonTag",
-)<ObjectJsonTag>(
-    ObjectJsonTag
-)(typia.json.createIsStringify<ObjectJsonTag>());
+export const test_json_createIsStringify_ObjectJsonTag = (): void =>
+  _test_json_isStringify("ObjectJsonTag")<ObjectJsonTag>(ObjectJsonTag)(
+    typia.json.createIsStringify<ObjectJsonTag>(),
+  );

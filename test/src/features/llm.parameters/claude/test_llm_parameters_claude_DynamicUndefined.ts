@@ -1,14 +1,13 @@
 import typia from "typia";
-import { DynamicUndefined } from "../../../structures/DynamicUndefined";
+
 import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
+import { DynamicUndefined } from "../../../structures/DynamicUndefined";
 
 export const test_llm_parameters_claude_DynamicUndefined = (): void =>
   _test_llm_parameters({
     model: "claude",
     name: "DynamicUndefined",
-  })(
-    typia.llm.parameters<DynamicUndefinedParameters, "claude">(),
-  );
+  })(typia.llm.parameters<DynamicUndefinedParameters, "claude">());
 
 interface DynamicUndefinedParameters {
   regular: DynamicUndefined;

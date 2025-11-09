@@ -1,12 +1,15 @@
 import typia from "typia";
 
+import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_misc_assertClone } from "../../internal/_test_misc_assertClone";
 import { CommentTagFormat } from "../../structures/CommentTagFormat";
 
-import { CustomGuardError } from "../../internal/CustomGuardError";
-
-export const test_misc_assertCloneCustom_CommentTagFormat = (): void => _test_misc_assertClone(CustomGuardError)(
+export const test_misc_assertCloneCustom_CommentTagFormat = (): void =>
+  _test_misc_assertClone(CustomGuardError)(
     "CommentTagFormat",
-)<CommentTagFormat>(
-    CommentTagFormat
-)((input) => typia.misc.assertClone<CommentTagFormat>(input, (p) => new CustomGuardError(p)));
+  )<CommentTagFormat>(CommentTagFormat)((input) =>
+    typia.misc.assertClone<CommentTagFormat>(
+      input,
+      (p) => new CustomGuardError(p),
+    ),
+  );

@@ -1,12 +1,10 @@
 import typia from "typia";
 
+import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_json_assertParse } from "../../internal/_test_json_assertParse";
 import { ClassGetter } from "../../structures/ClassGetter";
 
-import { CustomGuardError } from "../../internal/CustomGuardError";
-
-export const test_json_createAssertParseCustom_ClassGetter = (): void => _test_json_assertParse(CustomGuardError)(
-    "ClassGetter",
-)<ClassGetter>(
-    ClassGetter
-)(typia.json.createAssertParse<ClassGetter>((p) => new CustomGuardError(p)));
+export const test_json_createAssertParseCustom_ClassGetter = (): void =>
+  _test_json_assertParse(CustomGuardError)("ClassGetter")<ClassGetter>(
+    ClassGetter,
+  )(typia.json.createAssertParse<ClassGetter>((p) => new CustomGuardError(p)));

@@ -1,22 +1,24 @@
 import typia from "typia";
-import { ArrayRecursiveUnionExplicit } from "../../../structures/ArrayRecursiveUnionExplicit";
+
 import { _test_llm_application } from "../../../internal/_test_llm_application";
+import { ArrayRecursiveUnionExplicit } from "../../../structures/ArrayRecursiveUnionExplicit";
 
 export const test_llm_application_3_1_ArrayRecursiveUnionExplicit = (): void =>
   _test_llm_application({
     model: "3.1",
     name: "ArrayRecursiveUnionExplicit",
-    factory: ArrayRecursiveUnionExplicit
-  })(
-    typia.llm.application<ArrayRecursiveUnionExplicitApplication, "3.1">(),
-  );
+    factory: ArrayRecursiveUnionExplicit,
+  })(typia.llm.application<ArrayRecursiveUnionExplicitApplication, "3.1">());
 
 interface ArrayRecursiveUnionExplicitApplication {
   insert(p: { first: ArrayRecursiveUnionExplicit }): Promise<void>;
-  reduce(p: { first: ArrayRecursiveUnionExplicit, second: ArrayRecursiveUnionExplicit | null }): Promise<ArrayRecursiveUnionExplicit>;
+  reduce(p: {
+    first: ArrayRecursiveUnionExplicit;
+    second: ArrayRecursiveUnionExplicit | null;
+  }): Promise<ArrayRecursiveUnionExplicit>;
   coalesce(p: {
-    first: ArrayRecursiveUnionExplicit | null,
-    second: ArrayRecursiveUnionExplicit | null,
-    third?: ArrayRecursiveUnionExplicit | null,
+    first: ArrayRecursiveUnionExplicit | null;
+    second: ArrayRecursiveUnionExplicit | null;
+    third?: ArrayRecursiveUnionExplicit | null;
   }): Promise<ArrayRecursiveUnionExplicit | null>;
 }

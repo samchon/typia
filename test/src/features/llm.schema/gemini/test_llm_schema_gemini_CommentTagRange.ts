@@ -1,6 +1,7 @@
 import typia from "typia";
-import { CommentTagRange } from "../../../structures/CommentTagRange";
+
 import { _test_llm_schema } from "../../../internal/_test_llm_schema";
+import { CommentTagRange } from "../../../structures/CommentTagRange";
 
 export const test_llm_schema_gemini_CommentTagRange = (): void =>
   _test_llm_schema({

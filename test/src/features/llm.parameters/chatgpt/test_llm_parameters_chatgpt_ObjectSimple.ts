@@ -1,14 +1,13 @@
 import typia from "typia";
-import { ObjectSimple } from "../../../structures/ObjectSimple";
+
 import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
+import { ObjectSimple } from "../../../structures/ObjectSimple";
 
 export const test_llm_parameters_chatgpt_ObjectSimple = (): void =>
   _test_llm_parameters({
     model: "chatgpt",
     name: "ObjectSimple",
-  })(
-    typia.llm.parameters<ObjectSimpleParameters, "chatgpt">(),
-  );
+  })(typia.llm.parameters<ObjectSimpleParameters, "chatgpt">());
 
 interface ObjectSimpleParameters {
   regular: ObjectSimple;

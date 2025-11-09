@@ -1,0 +1,13 @@
+{
+  "type": "array",
+  "items": {
+    "type": "array",
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      }
+    }
+  },
+  "description": "Current Type: {@link ArrayMatrix}"
+}

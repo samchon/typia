@@ -1,0 +1,624 @@
+{
+  "model": "3.0",
+  "options": {
+    "recursive": 3,
+    "constraint": true,
+    "separate": null
+  },
+  "functions": [
+    {
+      "name": "insert",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "greater": {
+                      "type": "integer",
+                      "exclusiveMinimum": 3
+                    },
+                    "greater_equal": {
+                      "type": "integer",
+                      "minimum": 3
+                    },
+                    "less": {
+                      "type": "integer",
+                      "exclusiveMaximum": 7
+                    },
+                    "less_equal": {
+                      "type": "integer",
+                      "maximum": 7
+                    },
+                    "greater_less": {
+                      "type": "integer",
+                      "exclusiveMinimum": 3,
+                      "exclusiveMaximum": 7
+                    },
+                    "greater_equal_less": {
+                      "type": "integer",
+                      "minimum": 3,
+                      "exclusiveMaximum": 7
+                    },
+                    "greater_less_equal": {
+                      "type": "integer",
+                      "exclusiveMinimum": 3,
+                      "maximum": 7
+                    },
+                    "greater_equal_less_equal": {
+                      "type": "integer",
+                      "minimum": 3,
+                      "maximum": 7
+                    },
+                    "equal": {
+                      "type": "integer",
+                      "minimum": 10,
+                      "maximum": 10
+                    }
+                  },
+                  "required": [
+                    "greater",
+                    "greater_equal",
+                    "less",
+                    "less_equal",
+                    "greater_less",
+                    "greater_equal_less",
+                    "greater_less_equal",
+                    "greater_equal_less_equal",
+                    "equal"
+                  ],
+                  "description": "Current Type: {@link TypeTagRange.Type}",
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "description": "Current Type: {@link TypeTagRange}",
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "greater": {
+                      "type": "integer",
+                      "exclusiveMinimum": 3
+                    },
+                    "greater_equal": {
+                      "type": "integer",
+                      "minimum": 3
+                    },
+                    "less": {
+                      "type": "integer",
+                      "exclusiveMaximum": 7
+                    },
+                    "less_equal": {
+                      "type": "integer",
+                      "maximum": 7
+                    },
+                    "greater_less": {
+                      "type": "integer",
+                      "exclusiveMinimum": 3,
+                      "exclusiveMaximum": 7
+                    },
+                    "greater_equal_less": {
+                      "type": "integer",
+                      "minimum": 3,
+                      "exclusiveMaximum": 7
+                    },
+                    "greater_less_equal": {
+                      "type": "integer",
+                      "exclusiveMinimum": 3,
+                      "maximum": 7
+                    },
+                    "greater_equal_less_equal": {
+                      "type": "integer",
+                      "minimum": 3,
+                      "maximum": 7
+                    },
+                    "equal": {
+                      "type": "integer",
+                      "minimum": 10,
+                      "maximum": 10
+                    }
+                  },
+                  "required": [
+                    "greater",
+                    "greater_equal",
+                    "less",
+                    "less_equal",
+                    "greater_less",
+                    "greater_equal_less",
+                    "greater_less_equal",
+                    "greater_equal_less_equal",
+                    "equal"
+                  ],
+                  "description": "Current Type: {@link TypeTagRange.Type}",
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "description": "Current Type: {@link TypeTagRange}",
+            "additionalProperties": false
+          },
+          "second": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "greater": {
+                      "type": "integer",
+                      "exclusiveMinimum": 3
+                    },
+                    "greater_equal": {
+                      "type": "integer",
+                      "minimum": 3
+                    },
+                    "less": {
+                      "type": "integer",
+                      "exclusiveMaximum": 7
+                    },
+                    "less_equal": {
+                      "type": "integer",
+                      "maximum": 7
+                    },
+                    "greater_less": {
+                      "type": "integer",
+                      "exclusiveMinimum": 3,
+                      "exclusiveMaximum": 7
+                    },
+                    "greater_equal_less": {
+                      "type": "integer",
+                      "minimum": 3,
+                      "exclusiveMaximum": 7
+                    },
+                    "greater_less_equal": {
+                      "type": "integer",
+                      "exclusiveMinimum": 3,
+                      "maximum": 7
+                    },
+                    "greater_equal_less_equal": {
+                      "type": "integer",
+                      "minimum": 3,
+                      "maximum": 7
+                    },
+                    "equal": {
+                      "type": "integer",
+                      "minimum": 10,
+                      "maximum": 10
+                    }
+                  },
+                  "required": [
+                    "greater",
+                    "greater_equal",
+                    "less",
+                    "less_equal",
+                    "greater_less",
+                    "greater_equal_less",
+                    "greater_less_equal",
+                    "greater_equal_less_equal",
+                    "equal"
+                  ],
+                  "description": "Current Type: {@link TypeTagRange.Type}",
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "additionalProperties": false,
+            "nullable": true
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "greater": {
+                  "type": "integer",
+                  "exclusiveMinimum": 3
+                },
+                "greater_equal": {
+                  "type": "integer",
+                  "minimum": 3
+                },
+                "less": {
+                  "type": "integer",
+                  "exclusiveMaximum": 7
+                },
+                "less_equal": {
+                  "type": "integer",
+                  "maximum": 7
+                },
+                "greater_less": {
+                  "type": "integer",
+                  "exclusiveMinimum": 3,
+                  "exclusiveMaximum": 7
+                },
+                "greater_equal_less": {
+                  "type": "integer",
+                  "minimum": 3,
+                  "exclusiveMaximum": 7
+                },
+                "greater_less_equal": {
+                  "type": "integer",
+                  "exclusiveMinimum": 3,
+                  "maximum": 7
+                },
+                "greater_equal_less_equal": {
+                  "type": "integer",
+                  "minimum": 3,
+                  "maximum": 7
+                },
+                "equal": {
+                  "type": "integer",
+                  "minimum": 10,
+                  "maximum": 10
+                }
+              },
+              "required": [
+                "greater",
+                "greater_equal",
+                "less",
+                "less_equal",
+                "greater_less",
+                "greater_equal_less",
+                "greater_less_equal",
+                "greater_equal_less_equal",
+                "equal"
+              ],
+              "description": "Current Type: {@link TypeTagRange.Type}",
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "description": "Current Type: {@link TypeTagRange}",
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "coalesce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "greater": {
+                      "type": "integer",
+                      "exclusiveMinimum": 3
+                    },
+                    "greater_equal": {
+                      "type": "integer",
+                      "minimum": 3
+                    },
+                    "less": {
+                      "type": "integer",
+                      "exclusiveMaximum": 7
+                    },
+                    "less_equal": {
+                      "type": "integer",
+                      "maximum": 7
+                    },
+                    "greater_less": {
+                      "type": "integer",
+                      "exclusiveMinimum": 3,
+                      "exclusiveMaximum": 7
+                    },
+                    "greater_equal_less": {
+                      "type": "integer",
+                      "minimum": 3,
+                      "exclusiveMaximum": 7
+                    },
+                    "greater_less_equal": {
+                      "type": "integer",
+                      "exclusiveMinimum": 3,
+                      "maximum": 7
+                    },
+                    "greater_equal_less_equal": {
+                      "type": "integer",
+                      "minimum": 3,
+                      "maximum": 7
+                    },
+                    "equal": {
+                      "type": "integer",
+                      "minimum": 10,
+                      "maximum": 10
+                    }
+                  },
+                  "required": [
+                    "greater",
+                    "greater_equal",
+                    "less",
+                    "less_equal",
+                    "greater_less",
+                    "greater_equal_less",
+                    "greater_less_equal",
+                    "greater_equal_less_equal",
+                    "equal"
+                  ],
+                  "description": "Current Type: {@link TypeTagRange.Type}",
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "additionalProperties": false,
+            "nullable": true
+          },
+          "second": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "greater": {
+                      "type": "integer",
+                      "exclusiveMinimum": 3
+                    },
+                    "greater_equal": {
+                      "type": "integer",
+                      "minimum": 3
+                    },
+                    "less": {
+                      "type": "integer",
+                      "exclusiveMaximum": 7
+                    },
+                    "less_equal": {
+                      "type": "integer",
+                      "maximum": 7
+                    },
+                    "greater_less": {
+                      "type": "integer",
+                      "exclusiveMinimum": 3,
+                      "exclusiveMaximum": 7
+                    },
+                    "greater_equal_less": {
+                      "type": "integer",
+                      "minimum": 3,
+                      "exclusiveMaximum": 7
+                    },
+                    "greater_less_equal": {
+                      "type": "integer",
+                      "exclusiveMinimum": 3,
+                      "maximum": 7
+                    },
+                    "greater_equal_less_equal": {
+                      "type": "integer",
+                      "minimum": 3,
+                      "maximum": 7
+                    },
+                    "equal": {
+                      "type": "integer",
+                      "minimum": 10,
+                      "maximum": 10
+                    }
+                  },
+                  "required": [
+                    "greater",
+                    "greater_equal",
+                    "less",
+                    "less_equal",
+                    "greater_less",
+                    "greater_equal_less",
+                    "greater_less_equal",
+                    "greater_equal_less_equal",
+                    "equal"
+                  ],
+                  "description": "Current Type: {@link TypeTagRange.Type}",
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "additionalProperties": false,
+            "nullable": true
+          },
+          "third": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "greater": {
+                      "type": "integer",
+                      "exclusiveMinimum": 3
+                    },
+                    "greater_equal": {
+                      "type": "integer",
+                      "minimum": 3
+                    },
+                    "less": {
+                      "type": "integer",
+                      "exclusiveMaximum": 7
+                    },
+                    "less_equal": {
+                      "type": "integer",
+                      "maximum": 7
+                    },
+                    "greater_less": {
+                      "type": "integer",
+                      "exclusiveMinimum": 3,
+                      "exclusiveMaximum": 7
+                    },
+                    "greater_equal_less": {
+                      "type": "integer",
+                      "minimum": 3,
+                      "exclusiveMaximum": 7
+                    },
+                    "greater_less_equal": {
+                      "type": "integer",
+                      "exclusiveMinimum": 3,
+                      "maximum": 7
+                    },
+                    "greater_equal_less_equal": {
+                      "type": "integer",
+                      "minimum": 3,
+                      "maximum": 7
+                    },
+                    "equal": {
+                      "type": "integer",
+                      "minimum": 10,
+                      "maximum": 10
+                    }
+                  },
+                  "required": [
+                    "greater",
+                    "greater_equal",
+                    "less",
+                    "less_equal",
+                    "greater_less",
+                    "greater_equal_less",
+                    "greater_less_equal",
+                    "greater_equal_less_equal",
+                    "equal"
+                  ],
+                  "description": "Current Type: {@link TypeTagRange.Type}",
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "additionalProperties": false,
+            "nullable": true
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "greater": {
+                  "type": "integer",
+                  "exclusiveMinimum": 3
+                },
+                "greater_equal": {
+                  "type": "integer",
+                  "minimum": 3
+                },
+                "less": {
+                  "type": "integer",
+                  "exclusiveMaximum": 7
+                },
+                "less_equal": {
+                  "type": "integer",
+                  "maximum": 7
+                },
+                "greater_less": {
+                  "type": "integer",
+                  "exclusiveMinimum": 3,
+                  "exclusiveMaximum": 7
+                },
+                "greater_equal_less": {
+                  "type": "integer",
+                  "minimum": 3,
+                  "exclusiveMaximum": 7
+                },
+                "greater_less_equal": {
+                  "type": "integer",
+                  "exclusiveMinimum": 3,
+                  "maximum": 7
+                },
+                "greater_equal_less_equal": {
+                  "type": "integer",
+                  "minimum": 3,
+                  "maximum": 7
+                },
+                "equal": {
+                  "type": "integer",
+                  "minimum": 10,
+                  "maximum": 10
+                }
+              },
+              "required": [
+                "greater",
+                "greater_equal",
+                "less",
+                "less_equal",
+                "greater_less",
+                "greater_equal_less",
+                "greater_less_equal",
+                "greater_equal_less_equal",
+                "equal"
+              ],
+              "description": "Current Type: {@link TypeTagRange.Type}",
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "additionalProperties": false,
+        "nullable": true
+      }
+    }
+  ]
+}

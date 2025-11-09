@@ -1,14 +1,13 @@
 import typia from "typia";
-import { ObjectIntersection } from "../../../structures/ObjectIntersection";
+
 import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
+import { ObjectIntersection } from "../../../structures/ObjectIntersection";
 
 export const test_llm_parameters_chatgpt_ObjectIntersection = (): void =>
   _test_llm_parameters({
     model: "chatgpt",
     name: "ObjectIntersection",
-  })(
-    typia.llm.parameters<ObjectIntersectionParameters, "chatgpt">(),
-  );
+  })(typia.llm.parameters<ObjectIntersectionParameters, "chatgpt">());
 
 interface ObjectIntersectionParameters {
   regular: ObjectIntersection;

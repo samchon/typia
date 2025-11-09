@@ -1,12 +1,12 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertGuard } from "../../internal/_test_assertGuard";
 import { ObjectHttpUndefindable } from "../../structures/ObjectHttpUndefindable";
 
-import { TypeGuardError } from "typia";
-
-export const test_createAssertGuard_ObjectHttpUndefindable = (): void => _test_assertGuard(TypeGuardError)(
+export const test_createAssertGuard_ObjectHttpUndefindable = (): void =>
+  _test_assertGuard(TypeGuardError)(
     "ObjectHttpUndefindable",
-)<ObjectHttpUndefindable>(
-    ObjectHttpUndefindable
-)(typia.createAssertGuard<ObjectHttpUndefindable>());
+  )<ObjectHttpUndefindable>(ObjectHttpUndefindable)(
+    typia.createAssertGuard<ObjectHttpUndefindable>(),
+  );

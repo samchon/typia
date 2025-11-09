@@ -1,6 +1,7 @@
 import typia from "typia";
-import { ConstantAtomicTagged } from "../../../structures/ConstantAtomicTagged";
+
 import { _test_llm_schema } from "../../../internal/_test_llm_schema";
+import { ConstantAtomicTagged } from "../../../structures/ConstantAtomicTagged";
 
 export const test_llm_schema_3_1_ConstantAtomicTagged = (): void =>
   _test_llm_schema({

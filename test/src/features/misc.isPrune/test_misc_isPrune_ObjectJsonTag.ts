@@ -3,8 +3,7 @@ import typia from "typia";
 import { _test_misc_isPrune } from "../../internal/_test_misc_isPrune";
 import { ObjectJsonTag } from "../../structures/ObjectJsonTag";
 
-export const test_misc_isPrune_ObjectJsonTag = (): void => _test_misc_isPrune(
-    "ObjectJsonTag",
-)<ObjectJsonTag>(
-    ObjectJsonTag
-)((input) => typia.misc.isPrune<ObjectJsonTag>(input));
+export const test_misc_isPrune_ObjectJsonTag = (): void =>
+  _test_misc_isPrune("ObjectJsonTag")<ObjectJsonTag>(ObjectJsonTag)((input) =>
+    typia.misc.isPrune<ObjectJsonTag>(input),
+  );

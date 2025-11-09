@@ -3,9 +3,9 @@ import typia from "typia";
 import { _test_functional_isReturnAsync } from "../../internal/_test_functional_isReturnAsync";
 import { DynamicEnumeration } from "../../structures/DynamicEnumeration";
 
-export const test_functional_isReturnAsync_DynamicEnumeration = (): Promise<void> => _test_functional_isReturnAsync(
-  "DynamicEnumeration"
-)(DynamicEnumeration)(
-  (p: (input: DynamicEnumeration) => Promise<DynamicEnumeration>) =>
-    typia.functional.isReturn(p),
-)
+export const test_functional_isReturnAsync_DynamicEnumeration =
+  (): Promise<void> =>
+    _test_functional_isReturnAsync("DynamicEnumeration")(DynamicEnumeration)(
+      (p: (input: DynamicEnumeration) => Promise<DynamicEnumeration>) =>
+        typia.functional.isReturn(p),
+    );

@@ -1,14 +1,13 @@
 import typia from "typia";
-import { DynamicTemplate } from "../../../structures/DynamicTemplate";
+
 import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
+import { DynamicTemplate } from "../../../structures/DynamicTemplate";
 
 export const test_llm_parameters_gemini_DynamicTemplate = (): void =>
   _test_llm_parameters({
     model: "gemini",
     name: "DynamicTemplate",
-  })(
-    typia.llm.parameters<DynamicTemplateParameters, "gemini">(),
-  );
+  })(typia.llm.parameters<DynamicTemplateParameters, "gemini">());
 
 interface DynamicTemplateParameters {
   regular: DynamicTemplate;

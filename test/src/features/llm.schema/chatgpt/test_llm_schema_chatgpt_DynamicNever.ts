@@ -1,6 +1,7 @@
 import typia from "typia";
-import { DynamicNever } from "../../../structures/DynamicNever";
+
 import { _test_llm_schema } from "../../../internal/_test_llm_schema";
+import { DynamicNever } from "../../../structures/DynamicNever";
 
 export const test_llm_schema_chatgpt_DynamicNever = (): void =>
   _test_llm_schema({

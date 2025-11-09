@@ -3,8 +3,7 @@ import typia from "typia";
 import { _test_misc_clone } from "../../internal/_test_misc_clone";
 import { ArrayRepeatedUnion } from "../../structures/ArrayRepeatedUnion";
 
-export const test_misc_createClone_ArrayRepeatedUnion = (): void => _test_misc_clone(
-    "ArrayRepeatedUnion",
-)<ArrayRepeatedUnion>(
-    ArrayRepeatedUnion
-)(typia.misc.createClone<ArrayRepeatedUnion>());
+export const test_misc_createClone_ArrayRepeatedUnion = (): void =>
+  _test_misc_clone("ArrayRepeatedUnion")<ArrayRepeatedUnion>(
+    ArrayRepeatedUnion,
+  )(typia.misc.createClone<ArrayRepeatedUnion>());

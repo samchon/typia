@@ -1,12 +1,12 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertStringify } from "../../internal/_test_json_assertStringify";
 import { AtomicIntersection } from "../../structures/AtomicIntersection";
 
-import { TypeGuardError } from "typia";
-
-export const test_json_createAssertStringify_AtomicIntersection = (): void => _test_json_assertStringify(TypeGuardError)(
+export const test_json_createAssertStringify_AtomicIntersection = (): void =>
+  _test_json_assertStringify(TypeGuardError)(
     "AtomicIntersection",
-)<AtomicIntersection>(
-    AtomicIntersection
-)(typia.json.createAssertStringify<AtomicIntersection>());
+  )<AtomicIntersection>(AtomicIntersection)(
+    typia.json.createAssertStringify<AtomicIntersection>(),
+  );

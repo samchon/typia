@@ -1,14 +1,13 @@
 import typia from "typia";
-import { ObjectOptional } from "../../../structures/ObjectOptional";
+
 import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
+import { ObjectOptional } from "../../../structures/ObjectOptional";
 
 export const test_llm_parameters_3_0_ObjectOptional = (): void =>
   _test_llm_parameters({
     model: "3.0",
     name: "ObjectOptional",
-  })(
-    typia.llm.parameters<ObjectOptionalParameters, "3.0">(),
-  );
+  })(typia.llm.parameters<ObjectOptionalParameters, "3.0">());
 
 interface ObjectOptionalParameters {
   regular: ObjectOptional;

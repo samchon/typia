@@ -1,12 +1,10 @@
 import typia from "typia";
 
+import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_assertEquals } from "../../internal/_test_assertEquals";
 import { ClassClosure } from "../../structures/ClassClosure";
 
-import { CustomGuardError } from "../../internal/CustomGuardError";
-
-export const test_createAssertEqualsCustom_ClassClosure = (): void => _test_assertEquals(CustomGuardError)(
-    "ClassClosure",
-)<ClassClosure>(
-    ClassClosure
-)(typia.createAssertEquals<ClassClosure>((p) => new CustomGuardError(p)));
+export const test_createAssertEqualsCustom_ClassClosure = (): void =>
+  _test_assertEquals(CustomGuardError)("ClassClosure")<ClassClosure>(
+    ClassClosure,
+  )(typia.createAssertEquals<ClassClosure>((p) => new CustomGuardError(p)));

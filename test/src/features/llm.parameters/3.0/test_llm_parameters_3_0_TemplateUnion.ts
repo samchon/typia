@@ -1,14 +1,13 @@
 import typia from "typia";
-import { TemplateUnion } from "../../../structures/TemplateUnion";
+
 import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
+import { TemplateUnion } from "../../../structures/TemplateUnion";
 
 export const test_llm_parameters_3_0_TemplateUnion = (): void =>
   _test_llm_parameters({
     model: "3.0",
     name: "TemplateUnion",
-  })(
-    typia.llm.parameters<TemplateUnionParameters, "3.0">(),
-  );
+  })(typia.llm.parameters<TemplateUnionParameters, "3.0">());
 
 interface TemplateUnionParameters {
   regular: TemplateUnion;

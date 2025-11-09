@@ -4,8 +4,8 @@ import { _test_notation_validateGeneral } from "../../internal/_test_notation_va
 import { TypeTagTypeBigInt } from "../../structures/TypeTagTypeBigInt";
 
 export const test_notation_validateSnake_TypeTagTypeBigInt = (): void =>
-    _test_notation_validateGeneral("TypeTagTypeBigInt")<TypeTagTypeBigInt>(
-        TypeTagTypeBigInt
+  _test_notation_validateGeneral("TypeTagTypeBigInt")<TypeTagTypeBigInt>(
+    TypeTagTypeBigInt,
   )<typia.SnakeCase<TypeTagTypeBigInt>>({
     convert: (input) => typia.notations.validateSnake<TypeTagTypeBigInt>(input),
     assert: typia.createAssert<typia.SnakeCase<TypeTagTypeBigInt>>(),

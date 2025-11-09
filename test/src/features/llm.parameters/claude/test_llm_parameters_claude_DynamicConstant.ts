@@ -1,14 +1,13 @@
 import typia from "typia";
-import { DynamicConstant } from "../../../structures/DynamicConstant";
+
 import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
+import { DynamicConstant } from "../../../structures/DynamicConstant";
 
 export const test_llm_parameters_claude_DynamicConstant = (): void =>
   _test_llm_parameters({
     model: "claude",
     name: "DynamicConstant",
-  })(
-    typia.llm.parameters<DynamicConstantParameters, "claude">(),
-  );
+  })(typia.llm.parameters<DynamicConstantParameters, "claude">());
 
 interface DynamicConstantParameters {
   regular: DynamicConstant;

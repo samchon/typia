@@ -3,8 +3,7 @@ import typia from "typia";
 import { _test_misc_prune } from "../../internal/_test_misc_prune";
 import { DynamicConstant } from "../../structures/DynamicConstant";
 
-export const test_misc_prune_DynamicConstant = (): void => _test_misc_prune(
-    "DynamicConstant",
-)<DynamicConstant>(
-    DynamicConstant
-)((input) => typia.misc.prune<DynamicConstant>(input));
+export const test_misc_prune_DynamicConstant = (): void =>
+  _test_misc_prune("DynamicConstant")<DynamicConstant>(DynamicConstant)(
+    (input) => typia.misc.prune<DynamicConstant>(input),
+  );

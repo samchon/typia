@@ -1,14 +1,13 @@
 import typia from "typia";
-import { AtomicUnion } from "../../../structures/AtomicUnion";
+
 import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
+import { AtomicUnion } from "../../../structures/AtomicUnion";
 
 export const test_llm_parameters_gemini_AtomicUnion = (): void =>
   _test_llm_parameters({
     model: "gemini",
     name: "AtomicUnion",
-  })(
-    typia.llm.parameters<AtomicUnionParameters, "gemini">(),
-  );
+  })(typia.llm.parameters<AtomicUnionParameters, "gemini">());
 
 interface AtomicUnionParameters {
   regular: AtomicUnion;

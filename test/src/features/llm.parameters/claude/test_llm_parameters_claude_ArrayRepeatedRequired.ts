@@ -1,14 +1,13 @@
 import typia from "typia";
-import { ArrayRepeatedRequired } from "../../../structures/ArrayRepeatedRequired";
+
 import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
+import { ArrayRepeatedRequired } from "../../../structures/ArrayRepeatedRequired";
 
 export const test_llm_parameters_claude_ArrayRepeatedRequired = (): void =>
   _test_llm_parameters({
     model: "claude",
     name: "ArrayRepeatedRequired",
-  })(
-    typia.llm.parameters<ArrayRepeatedRequiredParameters, "claude">(),
-  );
+  })(typia.llm.parameters<ArrayRepeatedRequiredParameters, "claude">());
 
 interface ArrayRepeatedRequiredParameters {
   regular: ArrayRepeatedRequired;

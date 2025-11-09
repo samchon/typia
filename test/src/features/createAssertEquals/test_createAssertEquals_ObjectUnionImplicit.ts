@@ -1,12 +1,12 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertEquals } from "../../internal/_test_assertEquals";
 import { ObjectUnionImplicit } from "../../structures/ObjectUnionImplicit";
 
-import { TypeGuardError } from "typia";
-
-export const test_createAssertEquals_ObjectUnionImplicit = (): void => _test_assertEquals(TypeGuardError)(
+export const test_createAssertEquals_ObjectUnionImplicit = (): void =>
+  _test_assertEquals(TypeGuardError)(
     "ObjectUnionImplicit",
-)<ObjectUnionImplicit>(
-    ObjectUnionImplicit
-)(typia.createAssertEquals<ObjectUnionImplicit>());
+  )<ObjectUnionImplicit>(ObjectUnionImplicit)(
+    typia.createAssertEquals<ObjectUnionImplicit>(),
+  );

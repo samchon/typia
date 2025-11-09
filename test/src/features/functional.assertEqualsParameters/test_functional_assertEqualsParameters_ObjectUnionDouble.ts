@@ -1,12 +1,13 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_functional_assertEqualsParameters } from "../../internal/_test_functional_assertEqualsParameters";
 import { ObjectUnionDouble } from "../../structures/ObjectUnionDouble";
 
-import { TypeGuardError } from "typia";
-
-export const test_functional_assertEqualsParameters_ObjectUnionDouble = (): void => _test_functional_assertEqualsParameters(TypeGuardError)(
-  "ObjectUnionDouble"
-)(ObjectUnionDouble)(
-  (p: (input: ObjectUnionDouble) => ObjectUnionDouble) => typia.functional.assertEqualsParameters(p),
-)
+export const test_functional_assertEqualsParameters_ObjectUnionDouble =
+  (): void =>
+    _test_functional_assertEqualsParameters(TypeGuardError)(
+      "ObjectUnionDouble",
+    )(ObjectUnionDouble)((p: (input: ObjectUnionDouble) => ObjectUnionDouble) =>
+      typia.functional.assertEqualsParameters(p),
+    );

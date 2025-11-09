@@ -1,6 +1,7 @@
 import typia from "typia";
-import { CommentTagAtomicUnion } from "../../../structures/CommentTagAtomicUnion";
+
 import { _test_llm_schema } from "../../../internal/_test_llm_schema";
+import { CommentTagAtomicUnion } from "../../../structures/CommentTagAtomicUnion";
 
 export const test_llm_schema_chatgpt_CommentTagAtomicUnion = (): void =>
   _test_llm_schema({

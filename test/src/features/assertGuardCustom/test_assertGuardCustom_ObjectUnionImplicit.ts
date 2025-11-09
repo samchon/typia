@@ -1,12 +1,15 @@
 import typia from "typia";
 
+import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_assertGuard } from "../../internal/_test_assertGuard";
 import { ObjectUnionImplicit } from "../../structures/ObjectUnionImplicit";
 
-import { CustomGuardError } from "../../internal/CustomGuardError";
-
-export const test_assertGuardCustom_ObjectUnionImplicit = (): void => _test_assertGuard(CustomGuardError)(
+export const test_assertGuardCustom_ObjectUnionImplicit = (): void =>
+  _test_assertGuard(CustomGuardError)(
     "ObjectUnionImplicit",
-)<ObjectUnionImplicit>(
-    ObjectUnionImplicit
-)((input) => typia.assertGuard<ObjectUnionImplicit>(input, (p) => new CustomGuardError(p)));
+  )<ObjectUnionImplicit>(ObjectUnionImplicit)((input) =>
+    typia.assertGuard<ObjectUnionImplicit>(
+      input,
+      (p) => new CustomGuardError(p),
+    ),
+  );

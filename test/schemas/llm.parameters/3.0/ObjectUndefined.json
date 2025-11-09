@@ -1,0 +1,259 @@
+{
+  "type": "object",
+  "properties": {
+    "regular": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "professor": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
+          "classroom": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "name"
+            ],
+            "description": "Current Type: {@link ObjectUndefined.IClassroom}",
+            "additionalProperties": false
+          },
+          "grade": {
+            "type": "number"
+          },
+          "unknown": {}
+        },
+        "required": [
+          "name",
+          "unknown"
+        ],
+        "description": "Current Type: {@link ObjectUndefined.ILecture}",
+        "additionalProperties": false
+      },
+      "description": "Current Type: {@link ObjectUndefined}"
+    },
+    "nullable": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "professor": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
+          "classroom": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "name"
+            ],
+            "description": "Current Type: {@link ObjectUndefined.IClassroom}",
+            "additionalProperties": false
+          },
+          "grade": {
+            "type": "number"
+          },
+          "unknown": {}
+        },
+        "required": [
+          "name",
+          "unknown"
+        ],
+        "description": "Current Type: {@link ObjectUndefined.ILecture}",
+        "additionalProperties": false
+      },
+      "nullable": true
+    },
+    "optional": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "professor": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
+          "classroom": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "name"
+            ],
+            "description": "Current Type: {@link ObjectUndefined.IClassroom}",
+            "additionalProperties": false
+          },
+          "grade": {
+            "type": "number"
+          },
+          "unknown": {}
+        },
+        "required": [
+          "name",
+          "unknown"
+        ],
+        "description": "Current Type: {@link ObjectUndefined.ILecture}",
+        "additionalProperties": false
+      },
+      "description": "Current Type: {@link ObjectUndefined}"
+    },
+    "faint": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "professor": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
+          "classroom": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "name"
+            ],
+            "description": "Current Type: {@link ObjectUndefined.IClassroom}",
+            "additionalProperties": false
+          },
+          "grade": {
+            "type": "number"
+          },
+          "unknown": {}
+        },
+        "required": [
+          "name",
+          "unknown"
+        ],
+        "description": "Current Type: {@link ObjectUndefined.ILecture}",
+        "additionalProperties": false
+      },
+      "nullable": true
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "professor": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "number"
+                }
+              ]
+            },
+            "classroom": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id",
+                "name"
+              ],
+              "description": "Current Type: {@link ObjectUndefined.IClassroom}",
+              "additionalProperties": false
+            },
+            "grade": {
+              "type": "number"
+            },
+            "unknown": {}
+          },
+          "required": [
+            "name",
+            "unknown"
+          ],
+          "description": "Current Type: {@link ObjectUndefined.ILecture}",
+          "additionalProperties": false
+        },
+        "description": "Current Type: {@link ObjectUndefined}"
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "array"
+  ],
+  "additionalProperties": false
+}

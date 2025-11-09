@@ -3,8 +3,7 @@ import typia from "typia";
 import { _test_json_stringify } from "../../internal/_test_json_stringify";
 import { ObjectPrimitive } from "../../structures/ObjectPrimitive";
 
-export const test_json_createStringify_ObjectPrimitive = (): void => _test_json_stringify(
-    "ObjectPrimitive",
-)<ObjectPrimitive>(
-    ObjectPrimitive
-)(typia.json.createStringify<ObjectPrimitive>());
+export const test_json_createStringify_ObjectPrimitive = (): void =>
+  _test_json_stringify("ObjectPrimitive")<ObjectPrimitive>(ObjectPrimitive)(
+    typia.json.createStringify<ObjectPrimitive>(),
+  );

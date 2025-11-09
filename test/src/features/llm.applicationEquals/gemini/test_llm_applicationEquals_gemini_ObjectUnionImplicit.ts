@@ -1,22 +1,30 @@
 import typia from "typia";
-import { ObjectUnionImplicit } from "../../../structures/ObjectUnionImplicit";
+
 import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
+import { ObjectUnionImplicit } from "../../../structures/ObjectUnionImplicit";
 
 export const test_llm_applicationEquals_gemini_ObjectUnionImplicit = (): void =>
   _test_llm_applicationEquals({
     model: "gemini",
     name: "ObjectUnionImplicit",
-    factory: ObjectUnionImplicit
+    factory: ObjectUnionImplicit,
   })(
-    typia.llm.application<ObjectUnionImplicitApplication, "gemini", { equals: true }>(),
+    typia.llm.application<
+      ObjectUnionImplicitApplication,
+      "gemini",
+      { equals: true }
+    >(),
   );
 
 interface ObjectUnionImplicitApplication {
   insert(p: { first: ObjectUnionImplicit }): Promise<void>;
-  reduce(p: { first: ObjectUnionImplicit, second: ObjectUnionImplicit | null }): Promise<ObjectUnionImplicit>;
+  reduce(p: {
+    first: ObjectUnionImplicit;
+    second: ObjectUnionImplicit | null;
+  }): Promise<ObjectUnionImplicit>;
   coalesce(p: {
-    first: ObjectUnionImplicit | null,
-    second: ObjectUnionImplicit | null,
-    third?: ObjectUnionImplicit | null,
+    first: ObjectUnionImplicit | null;
+    second: ObjectUnionImplicit | null;
+    third?: ObjectUnionImplicit | null;
   }): Promise<ObjectUnionImplicit | null>;
 }

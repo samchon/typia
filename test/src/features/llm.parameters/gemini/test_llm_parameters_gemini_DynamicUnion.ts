@@ -1,14 +1,13 @@
 import typia from "typia";
-import { DynamicUnion } from "../../../structures/DynamicUnion";
+
 import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
+import { DynamicUnion } from "../../../structures/DynamicUnion";
 
 export const test_llm_parameters_gemini_DynamicUnion = (): void =>
   _test_llm_parameters({
     model: "gemini",
     name: "DynamicUnion",
-  })(
-    typia.llm.parameters<DynamicUnionParameters, "gemini">(),
-  );
+  })(typia.llm.parameters<DynamicUnionParameters, "gemini">());
 
 interface DynamicUnionParameters {
   regular: DynamicUnion;

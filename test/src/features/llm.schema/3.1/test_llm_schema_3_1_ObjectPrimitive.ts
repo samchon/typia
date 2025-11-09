@@ -1,6 +1,7 @@
 import typia from "typia";
-import { ObjectPrimitive } from "../../../structures/ObjectPrimitive";
+
 import { _test_llm_schema } from "../../../internal/_test_llm_schema";
+import { ObjectPrimitive } from "../../../structures/ObjectPrimitive";
 
 export const test_llm_schema_3_1_ObjectPrimitive = (): void =>
   _test_llm_schema({

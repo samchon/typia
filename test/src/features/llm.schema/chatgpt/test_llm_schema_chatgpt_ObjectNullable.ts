@@ -1,6 +1,7 @@
 import typia from "typia";
-import { ObjectNullable } from "../../../structures/ObjectNullable";
+
 import { _test_llm_schema } from "../../../internal/_test_llm_schema";
+import { ObjectNullable } from "../../../structures/ObjectNullable";
 
 export const test_llm_schema_chatgpt_ObjectNullable = (): void =>
   _test_llm_schema({

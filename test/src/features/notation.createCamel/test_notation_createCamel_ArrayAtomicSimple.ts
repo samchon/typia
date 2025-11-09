@@ -4,8 +4,8 @@ import { _test_notation_validateGeneral } from "../../internal/_test_notation_va
 import { ArrayAtomicSimple } from "../../structures/ArrayAtomicSimple";
 
 export const test_notation_createValidateCamel_ArrayAtomicSimple = (): void =>
-    _test_notation_validateGeneral("ArrayAtomicSimple")<ArrayAtomicSimple>(
-        ArrayAtomicSimple
+  _test_notation_validateGeneral("ArrayAtomicSimple")<ArrayAtomicSimple>(
+    ArrayAtomicSimple,
   )<typia.CamelCase<ArrayAtomicSimple>>({
     convert: typia.notations.createValidateCamel<ArrayAtomicSimple>(),
     assert: typia.createAssert<typia.CamelCase<ArrayAtomicSimple>>(),

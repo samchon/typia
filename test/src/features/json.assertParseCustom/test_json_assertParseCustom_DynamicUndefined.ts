@@ -1,12 +1,15 @@
 import typia from "typia";
 
+import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_json_assertParse } from "../../internal/_test_json_assertParse";
 import { DynamicUndefined } from "../../structures/DynamicUndefined";
 
-import { CustomGuardError } from "../../internal/CustomGuardError";
-
-export const test_json_assertParseCustom_DynamicUndefined = (): void => _test_json_assertParse(CustomGuardError)(
+export const test_json_assertParseCustom_DynamicUndefined = (): void =>
+  _test_json_assertParse(CustomGuardError)(
     "DynamicUndefined",
-)<DynamicUndefined>(
-    DynamicUndefined
-)((input) => typia.json.assertParse<DynamicUndefined>(input, (p) => new CustomGuardError(p)));
+  )<DynamicUndefined>(DynamicUndefined)((input) =>
+    typia.json.assertParse<DynamicUndefined>(
+      input,
+      (p) => new CustomGuardError(p),
+    ),
+  );

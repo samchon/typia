@@ -3,9 +3,10 @@ import typia from "typia";
 import { _test_random } from "../../internal/_test_random";
 import { ObjectHttpArray } from "../../structures/ObjectHttpArray";
 
-export const test_createRandom_ObjectHttpArray = (): void => _test_random("ObjectHttpArray")<ObjectHttpArray>(
-    ObjectHttpArray
-)({
-  random: typia.createRandom<ObjectHttpArray>((ObjectHttpArray as any).RANDOM),
-  assert: typia.createAssert<ObjectHttpArray>(),
-});
+export const test_createRandom_ObjectHttpArray = (): void =>
+  _test_random("ObjectHttpArray")<ObjectHttpArray>(ObjectHttpArray)({
+    random: typia.createRandom<ObjectHttpArray>(
+      (ObjectHttpArray as any).RANDOM,
+    ),
+    assert: typia.createAssert<ObjectHttpArray>(),
+  });

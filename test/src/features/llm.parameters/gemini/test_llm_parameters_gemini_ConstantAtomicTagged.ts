@@ -1,14 +1,13 @@
 import typia from "typia";
-import { ConstantAtomicTagged } from "../../../structures/ConstantAtomicTagged";
+
 import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
+import { ConstantAtomicTagged } from "../../../structures/ConstantAtomicTagged";
 
 export const test_llm_parameters_gemini_ConstantAtomicTagged = (): void =>
   _test_llm_parameters({
     model: "gemini",
     name: "ConstantAtomicTagged",
-  })(
-    typia.llm.parameters<ConstantAtomicTaggedParameters, "gemini">(),
-  );
+  })(typia.llm.parameters<ConstantAtomicTaggedParameters, "gemini">());
 
 interface ConstantAtomicTaggedParameters {
   regular: ConstantAtomicTagged;

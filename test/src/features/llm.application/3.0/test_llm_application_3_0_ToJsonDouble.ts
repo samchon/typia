@@ -1,22 +1,24 @@
 import typia from "typia";
-import { ToJsonDouble } from "../../../structures/ToJsonDouble";
+
 import { _test_llm_application } from "../../../internal/_test_llm_application";
+import { ToJsonDouble } from "../../../structures/ToJsonDouble";
 
 export const test_llm_application_3_0_ToJsonDouble = (): void =>
   _test_llm_application({
     model: "3.0",
     name: "ToJsonDouble",
-    factory: ToJsonDouble
-  })(
-    typia.llm.application<ToJsonDoubleApplication, "3.0">(),
-  );
+    factory: ToJsonDouble,
+  })(typia.llm.application<ToJsonDoubleApplication, "3.0">());
 
 interface ToJsonDoubleApplication {
   insert(p: { first: ToJsonDouble }): Promise<void>;
-  reduce(p: { first: ToJsonDouble, second: ToJsonDouble | null }): Promise<ToJsonDouble>;
+  reduce(p: {
+    first: ToJsonDouble;
+    second: ToJsonDouble | null;
+  }): Promise<ToJsonDouble>;
   coalesce(p: {
-    first: ToJsonDouble | null,
-    second: ToJsonDouble | null,
-    third?: ToJsonDouble | null,
+    first: ToJsonDouble | null;
+    second: ToJsonDouble | null;
+    third?: ToJsonDouble | null;
   }): Promise<ToJsonDouble | null>;
 }

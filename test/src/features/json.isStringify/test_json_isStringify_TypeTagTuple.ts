@@ -3,8 +3,7 @@ import typia from "typia";
 import { _test_json_isStringify } from "../../internal/_test_json_isStringify";
 import { TypeTagTuple } from "../../structures/TypeTagTuple";
 
-export const test_json_isStringify_TypeTagTuple = (): void => _test_json_isStringify(
-    "TypeTagTuple",
-)<TypeTagTuple>(
-    TypeTagTuple
-)((input) => typia.json.isStringify<TypeTagTuple>(input));
+export const test_json_isStringify_TypeTagTuple = (): void =>
+  _test_json_isStringify("TypeTagTuple")<TypeTagTuple>(TypeTagTuple)((input) =>
+    typia.json.isStringify<TypeTagTuple>(input),
+  );

@@ -1,6 +1,7 @@
 import typia from "typia";
-import { DynamicEnumeration } from "../../../structures/DynamicEnumeration";
+
 import { _test_llm_schema } from "../../../internal/_test_llm_schema";
+import { DynamicEnumeration } from "../../../structures/DynamicEnumeration";
 
 export const test_llm_schema_3_0_DynamicEnumeration = (): void =>
   _test_llm_schema({

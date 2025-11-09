@@ -1,0 +1,599 @@
+{
+  "model": "3.0",
+  "options": {
+    "recursive": 3,
+    "constraint": true,
+    "separate": null
+  },
+  "functions": [
+    {
+      "name": "insert",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "oneOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {},
+                                  "maxItems": 0,
+                                  "description": "Current Type: {@link ArrayArrayRepeatedRequired}"
+                                }
+                              ],
+                              "description": "Current Type: {@link ArrayRepeatedRequired}"
+                            },
+                            "description": "Current Type: {@link ArrayArrayRepeatedRequired}"
+                          }
+                        ],
+                        "description": "Current Type: {@link ArrayRepeatedRequired}"
+                      },
+                      "description": "Current Type: {@link ArrayArrayRepeatedRequired}"
+                    }
+                  ],
+                  "description": "Current Type: {@link ArrayRepeatedRequired}"
+                },
+                "description": "Current Type: {@link ArrayArrayRepeatedRequired}"
+              }
+            ],
+            "description": "Current Type: {@link ArrayRepeatedRequired}"
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "oneOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {},
+                                  "maxItems": 0,
+                                  "description": "Current Type: {@link ArrayArrayRepeatedRequired}"
+                                }
+                              ],
+                              "description": "Current Type: {@link ArrayRepeatedRequired}"
+                            },
+                            "description": "Current Type: {@link ArrayArrayRepeatedRequired}"
+                          }
+                        ],
+                        "description": "Current Type: {@link ArrayRepeatedRequired}"
+                      },
+                      "description": "Current Type: {@link ArrayArrayRepeatedRequired}"
+                    }
+                  ],
+                  "description": "Current Type: {@link ArrayRepeatedRequired}"
+                },
+                "description": "Current Type: {@link ArrayArrayRepeatedRequired}"
+              }
+            ],
+            "description": "Current Type: {@link ArrayRepeatedRequired}"
+          },
+          "second": {
+            "oneOf": [
+              {
+                "type": "string",
+                "nullable": true
+              },
+              {
+                "type": "number",
+                "nullable": true
+              },
+              {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "oneOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {
+                                    "oneOf": [
+                                      {
+                                        "type": "string"
+                                      },
+                                      {
+                                        "type": "number"
+                                      }
+                                    ],
+                                    "description": "Current Type: {@link ArrayRepeatedRequired}"
+                                  },
+                                  "description": "Current Type: {@link ArrayArrayRepeatedRequired}"
+                                }
+                              ],
+                              "description": "Current Type: {@link ArrayRepeatedRequired}"
+                            },
+                            "description": "Current Type: {@link ArrayArrayRepeatedRequired}"
+                          }
+                        ],
+                        "description": "Current Type: {@link ArrayRepeatedRequired}"
+                      },
+                      "description": "Current Type: {@link ArrayArrayRepeatedRequired}"
+                    }
+                  ],
+                  "description": "Current Type: {@link ArrayRepeatedRequired}"
+                },
+                "description": "Current Type: {@link ArrayArrayRepeatedRequired}",
+                "nullable": true
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "oneOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "array",
+                              "items": {},
+                              "maxItems": 0,
+                              "description": "Current Type: {@link ArrayArrayRepeatedRequired}"
+                            }
+                          ],
+                          "description": "Current Type: {@link ArrayRepeatedRequired}"
+                        },
+                        "description": "Current Type: {@link ArrayArrayRepeatedRequired}"
+                      }
+                    ],
+                    "description": "Current Type: {@link ArrayRepeatedRequired}"
+                  },
+                  "description": "Current Type: {@link ArrayArrayRepeatedRequired}"
+                }
+              ],
+              "description": "Current Type: {@link ArrayRepeatedRequired}"
+            },
+            "description": "Current Type: {@link ArrayArrayRepeatedRequired}"
+          }
+        ],
+        "description": "Current Type: {@link ArrayRepeatedRequired}"
+      }
+    },
+    {
+      "name": "coalesce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "oneOf": [
+              {
+                "type": "string",
+                "nullable": true
+              },
+              {
+                "type": "number",
+                "nullable": true
+              },
+              {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "oneOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {
+                                    "oneOf": [
+                                      {
+                                        "type": "string"
+                                      },
+                                      {
+                                        "type": "number"
+                                      }
+                                    ],
+                                    "description": "Current Type: {@link ArrayRepeatedRequired}"
+                                  },
+                                  "description": "Current Type: {@link ArrayArrayRepeatedRequired}"
+                                }
+                              ],
+                              "description": "Current Type: {@link ArrayRepeatedRequired}"
+                            },
+                            "description": "Current Type: {@link ArrayArrayRepeatedRequired}"
+                          }
+                        ],
+                        "description": "Current Type: {@link ArrayRepeatedRequired}"
+                      },
+                      "description": "Current Type: {@link ArrayArrayRepeatedRequired}"
+                    }
+                  ],
+                  "description": "Current Type: {@link ArrayRepeatedRequired}"
+                },
+                "description": "Current Type: {@link ArrayArrayRepeatedRequired}",
+                "nullable": true
+              }
+            ]
+          },
+          "second": {
+            "oneOf": [
+              {
+                "type": "string",
+                "nullable": true
+              },
+              {
+                "type": "number",
+                "nullable": true
+              },
+              {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "oneOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {
+                                    "oneOf": [
+                                      {
+                                        "type": "string"
+                                      },
+                                      {
+                                        "type": "number"
+                                      }
+                                    ],
+                                    "description": "Current Type: {@link ArrayRepeatedRequired}"
+                                  },
+                                  "description": "Current Type: {@link ArrayArrayRepeatedRequired}"
+                                }
+                              ],
+                              "description": "Current Type: {@link ArrayRepeatedRequired}"
+                            },
+                            "description": "Current Type: {@link ArrayArrayRepeatedRequired}"
+                          }
+                        ],
+                        "description": "Current Type: {@link ArrayRepeatedRequired}"
+                      },
+                      "description": "Current Type: {@link ArrayArrayRepeatedRequired}"
+                    }
+                  ],
+                  "description": "Current Type: {@link ArrayRepeatedRequired}"
+                },
+                "description": "Current Type: {@link ArrayArrayRepeatedRequired}",
+                "nullable": true
+              }
+            ]
+          },
+          "third": {
+            "oneOf": [
+              {
+                "type": "string",
+                "nullable": true
+              },
+              {
+                "type": "number",
+                "nullable": true
+              },
+              {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "oneOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {
+                                    "oneOf": [
+                                      {
+                                        "type": "string"
+                                      },
+                                      {
+                                        "type": "number"
+                                      }
+                                    ],
+                                    "description": "Current Type: {@link ArrayRepeatedRequired}"
+                                  },
+                                  "description": "Current Type: {@link ArrayArrayRepeatedRequired}"
+                                }
+                              ],
+                              "description": "Current Type: {@link ArrayRepeatedRequired}"
+                            },
+                            "description": "Current Type: {@link ArrayArrayRepeatedRequired}"
+                          }
+                        ],
+                        "description": "Current Type: {@link ArrayRepeatedRequired}"
+                      },
+                      "description": "Current Type: {@link ArrayArrayRepeatedRequired}"
+                    }
+                  ],
+                  "description": "Current Type: {@link ArrayRepeatedRequired}"
+                },
+                "description": "Current Type: {@link ArrayArrayRepeatedRequired}",
+                "nullable": true
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "oneOf": [
+          {
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "type": "number",
+            "nullable": true
+          },
+          {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "oneOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "array",
+                              "items": {
+                                "oneOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "number"
+                                  }
+                                ],
+                                "description": "Current Type: {@link ArrayRepeatedRequired}"
+                              },
+                              "description": "Current Type: {@link ArrayArrayRepeatedRequired}"
+                            }
+                          ],
+                          "description": "Current Type: {@link ArrayRepeatedRequired}"
+                        },
+                        "description": "Current Type: {@link ArrayArrayRepeatedRequired}"
+                      }
+                    ],
+                    "description": "Current Type: {@link ArrayRepeatedRequired}"
+                  },
+                  "description": "Current Type: {@link ArrayArrayRepeatedRequired}"
+                }
+              ],
+              "description": "Current Type: {@link ArrayRepeatedRequired}"
+            },
+            "description": "Current Type: {@link ArrayArrayRepeatedRequired}",
+            "nullable": true
+          }
+        ]
+      }
+    }
+  ]
+}

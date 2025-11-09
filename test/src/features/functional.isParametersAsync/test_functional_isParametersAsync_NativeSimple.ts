@@ -3,9 +3,9 @@ import typia from "typia";
 import { _test_functional_isParametersAsync } from "../../internal/_test_functional_isParametersAsync";
 import { NativeSimple } from "../../structures/NativeSimple";
 
-export const test_functional_isParametersAsync_NativeSimple = (): Promise<void> => _test_functional_isParametersAsync(
-  "NativeSimple"
-)(NativeSimple)(
-  (p: (input: NativeSimple) => Promise<NativeSimple>) =>
-    typia.functional.isParameters(p),
-)
+export const test_functional_isParametersAsync_NativeSimple =
+  (): Promise<void> =>
+    _test_functional_isParametersAsync("NativeSimple")(NativeSimple)(
+      (p: (input: NativeSimple) => Promise<NativeSimple>) =>
+        typia.functional.isParameters(p),
+    );

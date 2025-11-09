@@ -1,0 +1,3278 @@
+{
+  "type": "array",
+  "items": {
+    "oneOf": [
+      {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          },
+          "children": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "path": {
+                      "type": "string"
+                    },
+                    "children": {
+                      "type": "array",
+                      "items": {
+                        "oneOf": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "number"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "path": {
+                                "type": "string"
+                              },
+                              "children": {
+                                "type": "array",
+                                "items": {
+                                  "oneOf": [
+                                    {
+                                      "type": "object",
+                                      "properties": {
+                                        "id": {
+                                          "type": "number"
+                                        },
+                                        "name": {
+                                          "type": "string"
+                                        },
+                                        "path": {
+                                          "type": "string"
+                                        },
+                                        "children": {
+                                          "type": "array",
+                                          "items": {},
+                                          "maxItems": 0
+                                        }
+                                      },
+                                      "required": [
+                                        "id",
+                                        "name",
+                                        "path",
+                                        "children"
+                                      ],
+                                      "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IDirectory}",
+                                      "additionalProperties": false
+                                    },
+                                    {
+                                      "type": "object",
+                                      "properties": {
+                                        "access": {
+                                          "type": "string",
+                                          "enum": [
+                                            "read",
+                                            "write"
+                                          ]
+                                        },
+                                        "id": {
+                                          "type": "number"
+                                        },
+                                        "name": {
+                                          "type": "string"
+                                        },
+                                        "path": {
+                                          "type": "string"
+                                        },
+                                        "children": {
+                                          "type": "array",
+                                          "items": {},
+                                          "maxItems": 0
+                                        }
+                                      },
+                                      "required": [
+                                        "access",
+                                        "id",
+                                        "name",
+                                        "path",
+                                        "children"
+                                      ],
+                                      "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ISharedDirectory}",
+                                      "additionalProperties": false
+                                    },
+                                    {
+                                      "type": "object",
+                                      "properties": {
+                                        "id": {
+                                          "type": "number"
+                                        },
+                                        "name": {
+                                          "type": "string"
+                                        },
+                                        "path": {
+                                          "type": "string"
+                                        },
+                                        "width": {
+                                          "type": "number"
+                                        },
+                                        "height": {
+                                          "type": "number"
+                                        },
+                                        "url": {
+                                          "type": "string"
+                                        },
+                                        "size": {
+                                          "type": "number"
+                                        }
+                                      },
+                                      "required": [
+                                        "id",
+                                        "name",
+                                        "path",
+                                        "width",
+                                        "height",
+                                        "url",
+                                        "size"
+                                      ],
+                                      "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IImageFile}",
+                                      "additionalProperties": false
+                                    },
+                                    {
+                                      "type": "object",
+                                      "properties": {
+                                        "id": {
+                                          "type": "number"
+                                        },
+                                        "name": {
+                                          "type": "string"
+                                        },
+                                        "path": {
+                                          "type": "string"
+                                        },
+                                        "size": {
+                                          "type": "number"
+                                        },
+                                        "content": {
+                                          "type": "string"
+                                        }
+                                      },
+                                      "required": [
+                                        "id",
+                                        "name",
+                                        "path",
+                                        "size",
+                                        "content"
+                                      ],
+                                      "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ITextFile}",
+                                      "additionalProperties": false
+                                    },
+                                    {
+                                      "type": "object",
+                                      "properties": {
+                                        "id": {
+                                          "type": "number"
+                                        },
+                                        "name": {
+                                          "type": "string"
+                                        },
+                                        "path": {
+                                          "type": "string"
+                                        },
+                                        "size": {
+                                          "type": "number"
+                                        },
+                                        "count": {
+                                          "type": "number"
+                                        }
+                                      },
+                                      "required": [
+                                        "id",
+                                        "name",
+                                        "path",
+                                        "size",
+                                        "count"
+                                      ],
+                                      "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IZipFile}",
+                                      "additionalProperties": false
+                                    }
+                                  ],
+                                  "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IBucket}"
+                                }
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "name",
+                              "path",
+                              "children"
+                            ],
+                            "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IDirectory}",
+                            "additionalProperties": false
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "access": {
+                                "type": "string",
+                                "enum": [
+                                  "read",
+                                  "write"
+                                ]
+                              },
+                              "id": {
+                                "type": "number"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "path": {
+                                "type": "string"
+                              },
+                              "children": {
+                                "type": "array",
+                                "items": {},
+                                "maxItems": 0
+                              }
+                            },
+                            "required": [
+                              "access",
+                              "id",
+                              "name",
+                              "path",
+                              "children"
+                            ],
+                            "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ISharedDirectory}",
+                            "additionalProperties": false
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "number"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "path": {
+                                "type": "string"
+                              },
+                              "width": {
+                                "type": "number"
+                              },
+                              "height": {
+                                "type": "number"
+                              },
+                              "url": {
+                                "type": "string"
+                              },
+                              "size": {
+                                "type": "number"
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "name",
+                              "path",
+                              "width",
+                              "height",
+                              "url",
+                              "size"
+                            ],
+                            "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IImageFile}",
+                            "additionalProperties": false
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "number"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "path": {
+                                "type": "string"
+                              },
+                              "size": {
+                                "type": "number"
+                              },
+                              "content": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "name",
+                              "path",
+                              "size",
+                              "content"
+                            ],
+                            "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ITextFile}",
+                            "additionalProperties": false
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "number"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "path": {
+                                "type": "string"
+                              },
+                              "size": {
+                                "type": "number"
+                              },
+                              "count": {
+                                "type": "number"
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "name",
+                              "path",
+                              "size",
+                              "count"
+                            ],
+                            "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IZipFile}",
+                            "additionalProperties": false
+                          }
+                        ],
+                        "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IBucket}"
+                      }
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name",
+                    "path",
+                    "children"
+                  ],
+                  "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IDirectory}",
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "access": {
+                      "type": "string",
+                      "enum": [
+                        "read",
+                        "write"
+                      ]
+                    },
+                    "id": {
+                      "type": "number"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "path": {
+                      "type": "string"
+                    },
+                    "children": {
+                      "type": "array",
+                      "items": {},
+                      "maxItems": 0
+                    }
+                  },
+                  "required": [
+                    "access",
+                    "id",
+                    "name",
+                    "path",
+                    "children"
+                  ],
+                  "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ISharedDirectory}",
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "path": {
+                      "type": "string"
+                    },
+                    "width": {
+                      "type": "number"
+                    },
+                    "height": {
+                      "type": "number"
+                    },
+                    "url": {
+                      "type": "string"
+                    },
+                    "size": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name",
+                    "path",
+                    "width",
+                    "height",
+                    "url",
+                    "size"
+                  ],
+                  "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IImageFile}",
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "path": {
+                      "type": "string"
+                    },
+                    "size": {
+                      "type": "number"
+                    },
+                    "content": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name",
+                    "path",
+                    "size",
+                    "content"
+                  ],
+                  "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ITextFile}",
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "path": {
+                      "type": "string"
+                    },
+                    "size": {
+                      "type": "number"
+                    },
+                    "count": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name",
+                    "path",
+                    "size",
+                    "count"
+                  ],
+                  "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IZipFile}",
+                  "additionalProperties": false
+                }
+              ],
+              "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IBucket}"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "path",
+          "children"
+        ],
+        "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IDirectory}",
+        "additionalProperties": false
+      },
+      {
+        "type": "object",
+        "properties": {
+          "access": {
+            "type": "string",
+            "enum": [
+              "read",
+              "write"
+            ]
+          },
+          "id": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          },
+          "children": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "path": {
+                      "type": "string"
+                    },
+                    "children": {
+                      "type": "array",
+                      "items": {
+                        "oneOf": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "number"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "path": {
+                                "type": "string"
+                              },
+                              "children": {
+                                "type": "array",
+                                "items": {
+                                  "oneOf": [
+                                    {
+                                      "type": "object",
+                                      "properties": {
+                                        "id": {
+                                          "type": "number"
+                                        },
+                                        "name": {
+                                          "type": "string"
+                                        },
+                                        "path": {
+                                          "type": "string"
+                                        },
+                                        "children": {
+                                          "type": "array",
+                                          "items": {},
+                                          "maxItems": 0
+                                        }
+                                      },
+                                      "required": [
+                                        "id",
+                                        "name",
+                                        "path",
+                                        "children"
+                                      ],
+                                      "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IDirectory}",
+                                      "additionalProperties": false
+                                    },
+                                    {
+                                      "type": "object",
+                                      "properties": {
+                                        "access": {
+                                          "type": "string",
+                                          "enum": [
+                                            "read",
+                                            "write"
+                                          ]
+                                        },
+                                        "id": {
+                                          "type": "number"
+                                        },
+                                        "name": {
+                                          "type": "string"
+                                        },
+                                        "path": {
+                                          "type": "string"
+                                        },
+                                        "children": {
+                                          "type": "array",
+                                          "items": {},
+                                          "maxItems": 0
+                                        }
+                                      },
+                                      "required": [
+                                        "access",
+                                        "id",
+                                        "name",
+                                        "path",
+                                        "children"
+                                      ],
+                                      "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ISharedDirectory}",
+                                      "additionalProperties": false
+                                    },
+                                    {
+                                      "type": "object",
+                                      "properties": {
+                                        "id": {
+                                          "type": "number"
+                                        },
+                                        "name": {
+                                          "type": "string"
+                                        },
+                                        "path": {
+                                          "type": "string"
+                                        },
+                                        "width": {
+                                          "type": "number"
+                                        },
+                                        "height": {
+                                          "type": "number"
+                                        },
+                                        "url": {
+                                          "type": "string"
+                                        },
+                                        "size": {
+                                          "type": "number"
+                                        }
+                                      },
+                                      "required": [
+                                        "id",
+                                        "name",
+                                        "path",
+                                        "width",
+                                        "height",
+                                        "url",
+                                        "size"
+                                      ],
+                                      "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IImageFile}",
+                                      "additionalProperties": false
+                                    },
+                                    {
+                                      "type": "object",
+                                      "properties": {
+                                        "id": {
+                                          "type": "number"
+                                        },
+                                        "name": {
+                                          "type": "string"
+                                        },
+                                        "path": {
+                                          "type": "string"
+                                        },
+                                        "size": {
+                                          "type": "number"
+                                        },
+                                        "content": {
+                                          "type": "string"
+                                        }
+                                      },
+                                      "required": [
+                                        "id",
+                                        "name",
+                                        "path",
+                                        "size",
+                                        "content"
+                                      ],
+                                      "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ITextFile}",
+                                      "additionalProperties": false
+                                    },
+                                    {
+                                      "type": "object",
+                                      "properties": {
+                                        "id": {
+                                          "type": "number"
+                                        },
+                                        "name": {
+                                          "type": "string"
+                                        },
+                                        "path": {
+                                          "type": "string"
+                                        },
+                                        "size": {
+                                          "type": "number"
+                                        },
+                                        "count": {
+                                          "type": "number"
+                                        }
+                                      },
+                                      "required": [
+                                        "id",
+                                        "name",
+                                        "path",
+                                        "size",
+                                        "count"
+                                      ],
+                                      "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IZipFile}",
+                                      "additionalProperties": false
+                                    }
+                                  ],
+                                  "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IBucket}"
+                                }
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "name",
+                              "path",
+                              "children"
+                            ],
+                            "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IDirectory}",
+                            "additionalProperties": false
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "access": {
+                                "type": "string",
+                                "enum": [
+                                  "read",
+                                  "write"
+                                ]
+                              },
+                              "id": {
+                                "type": "number"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "path": {
+                                "type": "string"
+                              },
+                              "children": {
+                                "type": "array",
+                                "items": {},
+                                "maxItems": 0
+                              }
+                            },
+                            "required": [
+                              "access",
+                              "id",
+                              "name",
+                              "path",
+                              "children"
+                            ],
+                            "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ISharedDirectory}",
+                            "additionalProperties": false
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "number"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "path": {
+                                "type": "string"
+                              },
+                              "width": {
+                                "type": "number"
+                              },
+                              "height": {
+                                "type": "number"
+                              },
+                              "url": {
+                                "type": "string"
+                              },
+                              "size": {
+                                "type": "number"
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "name",
+                              "path",
+                              "width",
+                              "height",
+                              "url",
+                              "size"
+                            ],
+                            "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IImageFile}",
+                            "additionalProperties": false
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "number"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "path": {
+                                "type": "string"
+                              },
+                              "size": {
+                                "type": "number"
+                              },
+                              "content": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "name",
+                              "path",
+                              "size",
+                              "content"
+                            ],
+                            "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ITextFile}",
+                            "additionalProperties": false
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "number"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "path": {
+                                "type": "string"
+                              },
+                              "size": {
+                                "type": "number"
+                              },
+                              "count": {
+                                "type": "number"
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "name",
+                              "path",
+                              "size",
+                              "count"
+                            ],
+                            "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IZipFile}",
+                            "additionalProperties": false
+                          }
+                        ],
+                        "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IBucket}"
+                      }
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name",
+                    "path",
+                    "children"
+                  ],
+                  "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IDirectory}",
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "access": {
+                      "type": "string",
+                      "enum": [
+                        "read",
+                        "write"
+                      ]
+                    },
+                    "id": {
+                      "type": "number"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "path": {
+                      "type": "string"
+                    },
+                    "children": {
+                      "type": "array",
+                      "items": {
+                        "oneOf": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "number"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "path": {
+                                "type": "string"
+                              },
+                              "children": {
+                                "type": "array",
+                                "items": {
+                                  "oneOf": [
+                                    {
+                                      "type": "object",
+                                      "properties": {
+                                        "id": {
+                                          "type": "number"
+                                        },
+                                        "name": {
+                                          "type": "string"
+                                        },
+                                        "path": {
+                                          "type": "string"
+                                        },
+                                        "children": {
+                                          "type": "array",
+                                          "items": {},
+                                          "maxItems": 0
+                                        }
+                                      },
+                                      "required": [
+                                        "id",
+                                        "name",
+                                        "path",
+                                        "children"
+                                      ],
+                                      "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IDirectory}",
+                                      "additionalProperties": false
+                                    },
+                                    {
+                                      "type": "object",
+                                      "properties": {
+                                        "access": {
+                                          "type": "string",
+                                          "enum": [
+                                            "read",
+                                            "write"
+                                          ]
+                                        },
+                                        "id": {
+                                          "type": "number"
+                                        },
+                                        "name": {
+                                          "type": "string"
+                                        },
+                                        "path": {
+                                          "type": "string"
+                                        },
+                                        "children": {
+                                          "type": "array",
+                                          "items": {},
+                                          "maxItems": 0
+                                        }
+                                      },
+                                      "required": [
+                                        "access",
+                                        "id",
+                                        "name",
+                                        "path",
+                                        "children"
+                                      ],
+                                      "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ISharedDirectory}",
+                                      "additionalProperties": false
+                                    },
+                                    {
+                                      "type": "object",
+                                      "properties": {
+                                        "id": {
+                                          "type": "number"
+                                        },
+                                        "name": {
+                                          "type": "string"
+                                        },
+                                        "path": {
+                                          "type": "string"
+                                        },
+                                        "width": {
+                                          "type": "number"
+                                        },
+                                        "height": {
+                                          "type": "number"
+                                        },
+                                        "url": {
+                                          "type": "string"
+                                        },
+                                        "size": {
+                                          "type": "number"
+                                        }
+                                      },
+                                      "required": [
+                                        "id",
+                                        "name",
+                                        "path",
+                                        "width",
+                                        "height",
+                                        "url",
+                                        "size"
+                                      ],
+                                      "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IImageFile}",
+                                      "additionalProperties": false
+                                    },
+                                    {
+                                      "type": "object",
+                                      "properties": {
+                                        "id": {
+                                          "type": "number"
+                                        },
+                                        "name": {
+                                          "type": "string"
+                                        },
+                                        "path": {
+                                          "type": "string"
+                                        },
+                                        "size": {
+                                          "type": "number"
+                                        },
+                                        "content": {
+                                          "type": "string"
+                                        }
+                                      },
+                                      "required": [
+                                        "id",
+                                        "name",
+                                        "path",
+                                        "size",
+                                        "content"
+                                      ],
+                                      "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ITextFile}",
+                                      "additionalProperties": false
+                                    },
+                                    {
+                                      "type": "object",
+                                      "properties": {
+                                        "id": {
+                                          "type": "number"
+                                        },
+                                        "name": {
+                                          "type": "string"
+                                        },
+                                        "path": {
+                                          "type": "string"
+                                        },
+                                        "size": {
+                                          "type": "number"
+                                        },
+                                        "count": {
+                                          "type": "number"
+                                        }
+                                      },
+                                      "required": [
+                                        "id",
+                                        "name",
+                                        "path",
+                                        "size",
+                                        "count"
+                                      ],
+                                      "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IZipFile}",
+                                      "additionalProperties": false
+                                    }
+                                  ],
+                                  "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IBucket}"
+                                }
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "name",
+                              "path",
+                              "children"
+                            ],
+                            "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IDirectory}",
+                            "additionalProperties": false
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "access": {
+                                "type": "string",
+                                "enum": [
+                                  "read",
+                                  "write"
+                                ]
+                              },
+                              "id": {
+                                "type": "number"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "path": {
+                                "type": "string"
+                              },
+                              "children": {
+                                "type": "array",
+                                "items": {
+                                  "oneOf": [
+                                    {
+                                      "type": "object",
+                                      "properties": {
+                                        "id": {
+                                          "type": "number"
+                                        },
+                                        "name": {
+                                          "type": "string"
+                                        },
+                                        "path": {
+                                          "type": "string"
+                                        },
+                                        "children": {
+                                          "type": "array",
+                                          "items": {},
+                                          "maxItems": 0
+                                        }
+                                      },
+                                      "required": [
+                                        "id",
+                                        "name",
+                                        "path",
+                                        "children"
+                                      ],
+                                      "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IDirectory}",
+                                      "additionalProperties": false
+                                    },
+                                    {
+                                      "type": "object",
+                                      "properties": {
+                                        "access": {
+                                          "type": "string",
+                                          "enum": [
+                                            "read",
+                                            "write"
+                                          ]
+                                        },
+                                        "id": {
+                                          "type": "number"
+                                        },
+                                        "name": {
+                                          "type": "string"
+                                        },
+                                        "path": {
+                                          "type": "string"
+                                        },
+                                        "children": {
+                                          "type": "array",
+                                          "items": {},
+                                          "maxItems": 0
+                                        }
+                                      },
+                                      "required": [
+                                        "access",
+                                        "id",
+                                        "name",
+                                        "path",
+                                        "children"
+                                      ],
+                                      "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ISharedDirectory}",
+                                      "additionalProperties": false
+                                    },
+                                    {
+                                      "type": "object",
+                                      "properties": {
+                                        "id": {
+                                          "type": "number"
+                                        },
+                                        "name": {
+                                          "type": "string"
+                                        },
+                                        "path": {
+                                          "type": "string"
+                                        },
+                                        "width": {
+                                          "type": "number"
+                                        },
+                                        "height": {
+                                          "type": "number"
+                                        },
+                                        "url": {
+                                          "type": "string"
+                                        },
+                                        "size": {
+                                          "type": "number"
+                                        }
+                                      },
+                                      "required": [
+                                        "id",
+                                        "name",
+                                        "path",
+                                        "width",
+                                        "height",
+                                        "url",
+                                        "size"
+                                      ],
+                                      "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IImageFile}",
+                                      "additionalProperties": false
+                                    },
+                                    {
+                                      "type": "object",
+                                      "properties": {
+                                        "id": {
+                                          "type": "number"
+                                        },
+                                        "name": {
+                                          "type": "string"
+                                        },
+                                        "path": {
+                                          "type": "string"
+                                        },
+                                        "size": {
+                                          "type": "number"
+                                        },
+                                        "content": {
+                                          "type": "string"
+                                        }
+                                      },
+                                      "required": [
+                                        "id",
+                                        "name",
+                                        "path",
+                                        "size",
+                                        "content"
+                                      ],
+                                      "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ITextFile}",
+                                      "additionalProperties": false
+                                    },
+                                    {
+                                      "type": "object",
+                                      "properties": {
+                                        "id": {
+                                          "type": "number"
+                                        },
+                                        "name": {
+                                          "type": "string"
+                                        },
+                                        "path": {
+                                          "type": "string"
+                                        },
+                                        "size": {
+                                          "type": "number"
+                                        },
+                                        "count": {
+                                          "type": "number"
+                                        }
+                                      },
+                                      "required": [
+                                        "id",
+                                        "name",
+                                        "path",
+                                        "size",
+                                        "count"
+                                      ],
+                                      "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IZipFile}",
+                                      "additionalProperties": false
+                                    }
+                                  ],
+                                  "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IBucket}"
+                                }
+                              }
+                            },
+                            "required": [
+                              "access",
+                              "id",
+                              "name",
+                              "path",
+                              "children"
+                            ],
+                            "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ISharedDirectory}",
+                            "additionalProperties": false
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "number"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "path": {
+                                "type": "string"
+                              },
+                              "width": {
+                                "type": "number"
+                              },
+                              "height": {
+                                "type": "number"
+                              },
+                              "url": {
+                                "type": "string"
+                              },
+                              "size": {
+                                "type": "number"
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "name",
+                              "path",
+                              "width",
+                              "height",
+                              "url",
+                              "size"
+                            ],
+                            "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IImageFile}",
+                            "additionalProperties": false
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "number"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "path": {
+                                "type": "string"
+                              },
+                              "size": {
+                                "type": "number"
+                              },
+                              "content": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "name",
+                              "path",
+                              "size",
+                              "content"
+                            ],
+                            "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ITextFile}",
+                            "additionalProperties": false
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "number"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "path": {
+                                "type": "string"
+                              },
+                              "size": {
+                                "type": "number"
+                              },
+                              "count": {
+                                "type": "number"
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "name",
+                              "path",
+                              "size",
+                              "count"
+                            ],
+                            "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IZipFile}",
+                            "additionalProperties": false
+                          }
+                        ],
+                        "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IBucket}"
+                      }
+                    }
+                  },
+                  "required": [
+                    "access",
+                    "id",
+                    "name",
+                    "path",
+                    "children"
+                  ],
+                  "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ISharedDirectory}",
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "path": {
+                      "type": "string"
+                    },
+                    "width": {
+                      "type": "number"
+                    },
+                    "height": {
+                      "type": "number"
+                    },
+                    "url": {
+                      "type": "string"
+                    },
+                    "size": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name",
+                    "path",
+                    "width",
+                    "height",
+                    "url",
+                    "size"
+                  ],
+                  "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IImageFile}",
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "path": {
+                      "type": "string"
+                    },
+                    "size": {
+                      "type": "number"
+                    },
+                    "content": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name",
+                    "path",
+                    "size",
+                    "content"
+                  ],
+                  "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ITextFile}",
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "path": {
+                      "type": "string"
+                    },
+                    "size": {
+                      "type": "number"
+                    },
+                    "count": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name",
+                    "path",
+                    "size",
+                    "count"
+                  ],
+                  "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IZipFile}",
+                  "additionalProperties": false
+                }
+              ],
+              "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IBucket}"
+            }
+          }
+        },
+        "required": [
+          "access",
+          "id",
+          "name",
+          "path",
+          "children"
+        ],
+        "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ISharedDirectory}",
+        "additionalProperties": false
+      },
+      {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          },
+          "width": {
+            "type": "number"
+          },
+          "height": {
+            "type": "number"
+          },
+          "url": {
+            "type": "string"
+          },
+          "size": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "path",
+          "width",
+          "height",
+          "url",
+          "size"
+        ],
+        "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IImageFile}",
+        "additionalProperties": false
+      },
+      {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          },
+          "size": {
+            "type": "number"
+          },
+          "content": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "path",
+          "size",
+          "content"
+        ],
+        "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ITextFile}",
+        "additionalProperties": false
+      },
+      {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          },
+          "size": {
+            "type": "number"
+          },
+          "count": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "path",
+          "size",
+          "count"
+        ],
+        "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IZipFile}",
+        "additionalProperties": false
+      },
+      {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          },
+          "target": {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "path": {
+                    "type": "string"
+                  },
+                  "children": {
+                    "type": "array",
+                    "items": {
+                      "oneOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "number"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "path": {
+                              "type": "string"
+                            },
+                            "children": {
+                              "type": "array",
+                              "items": {
+                                "oneOf": [
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "id": {
+                                        "type": "number"
+                                      },
+                                      "name": {
+                                        "type": "string"
+                                      },
+                                      "path": {
+                                        "type": "string"
+                                      },
+                                      "children": {
+                                        "type": "array",
+                                        "items": {},
+                                        "maxItems": 0
+                                      }
+                                    },
+                                    "required": [
+                                      "id",
+                                      "name",
+                                      "path",
+                                      "children"
+                                    ],
+                                    "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IDirectory}",
+                                    "additionalProperties": false
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "access": {
+                                        "type": "string",
+                                        "enum": [
+                                          "read",
+                                          "write"
+                                        ]
+                                      },
+                                      "id": {
+                                        "type": "number"
+                                      },
+                                      "name": {
+                                        "type": "string"
+                                      },
+                                      "path": {
+                                        "type": "string"
+                                      },
+                                      "children": {
+                                        "type": "array",
+                                        "items": {},
+                                        "maxItems": 0
+                                      }
+                                    },
+                                    "required": [
+                                      "access",
+                                      "id",
+                                      "name",
+                                      "path",
+                                      "children"
+                                    ],
+                                    "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ISharedDirectory}",
+                                    "additionalProperties": false
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "id": {
+                                        "type": "number"
+                                      },
+                                      "name": {
+                                        "type": "string"
+                                      },
+                                      "path": {
+                                        "type": "string"
+                                      },
+                                      "width": {
+                                        "type": "number"
+                                      },
+                                      "height": {
+                                        "type": "number"
+                                      },
+                                      "url": {
+                                        "type": "string"
+                                      },
+                                      "size": {
+                                        "type": "number"
+                                      }
+                                    },
+                                    "required": [
+                                      "id",
+                                      "name",
+                                      "path",
+                                      "width",
+                                      "height",
+                                      "url",
+                                      "size"
+                                    ],
+                                    "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IImageFile}",
+                                    "additionalProperties": false
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "id": {
+                                        "type": "number"
+                                      },
+                                      "name": {
+                                        "type": "string"
+                                      },
+                                      "path": {
+                                        "type": "string"
+                                      },
+                                      "size": {
+                                        "type": "number"
+                                      },
+                                      "content": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "required": [
+                                      "id",
+                                      "name",
+                                      "path",
+                                      "size",
+                                      "content"
+                                    ],
+                                    "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ITextFile}",
+                                    "additionalProperties": false
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "id": {
+                                        "type": "number"
+                                      },
+                                      "name": {
+                                        "type": "string"
+                                      },
+                                      "path": {
+                                        "type": "string"
+                                      },
+                                      "size": {
+                                        "type": "number"
+                                      },
+                                      "count": {
+                                        "type": "number"
+                                      }
+                                    },
+                                    "required": [
+                                      "id",
+                                      "name",
+                                      "path",
+                                      "size",
+                                      "count"
+                                    ],
+                                    "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IZipFile}",
+                                    "additionalProperties": false
+                                  }
+                                ],
+                                "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IBucket}"
+                              }
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "name",
+                            "path",
+                            "children"
+                          ],
+                          "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IDirectory}",
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "access": {
+                              "type": "string",
+                              "enum": [
+                                "read",
+                                "write"
+                              ]
+                            },
+                            "id": {
+                              "type": "number"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "path": {
+                              "type": "string"
+                            },
+                            "children": {
+                              "type": "array",
+                              "items": {},
+                              "maxItems": 0
+                            }
+                          },
+                          "required": [
+                            "access",
+                            "id",
+                            "name",
+                            "path",
+                            "children"
+                          ],
+                          "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ISharedDirectory}",
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "number"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "path": {
+                              "type": "string"
+                            },
+                            "width": {
+                              "type": "number"
+                            },
+                            "height": {
+                              "type": "number"
+                            },
+                            "url": {
+                              "type": "string"
+                            },
+                            "size": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "name",
+                            "path",
+                            "width",
+                            "height",
+                            "url",
+                            "size"
+                          ],
+                          "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IImageFile}",
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "number"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "path": {
+                              "type": "string"
+                            },
+                            "size": {
+                              "type": "number"
+                            },
+                            "content": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "name",
+                            "path",
+                            "size",
+                            "content"
+                          ],
+                          "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ITextFile}",
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "number"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "path": {
+                              "type": "string"
+                            },
+                            "size": {
+                              "type": "number"
+                            },
+                            "count": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "name",
+                            "path",
+                            "size",
+                            "count"
+                          ],
+                          "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IZipFile}",
+                          "additionalProperties": false
+                        }
+                      ],
+                      "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IBucket}"
+                    }
+                  }
+                },
+                "required": [
+                  "id",
+                  "name",
+                  "path",
+                  "children"
+                ],
+                "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IDirectory}",
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "access": {
+                    "type": "string",
+                    "enum": [
+                      "read",
+                      "write"
+                    ]
+                  },
+                  "id": {
+                    "type": "number"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "path": {
+                    "type": "string"
+                  },
+                  "children": {
+                    "type": "array",
+                    "items": {
+                      "oneOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "number"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "path": {
+                              "type": "string"
+                            },
+                            "children": {
+                              "type": "array",
+                              "items": {
+                                "oneOf": [
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "id": {
+                                        "type": "number"
+                                      },
+                                      "name": {
+                                        "type": "string"
+                                      },
+                                      "path": {
+                                        "type": "string"
+                                      },
+                                      "children": {
+                                        "type": "array",
+                                        "items": {},
+                                        "maxItems": 0
+                                      }
+                                    },
+                                    "required": [
+                                      "id",
+                                      "name",
+                                      "path",
+                                      "children"
+                                    ],
+                                    "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IDirectory}",
+                                    "additionalProperties": false
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "access": {
+                                        "type": "string",
+                                        "enum": [
+                                          "read",
+                                          "write"
+                                        ]
+                                      },
+                                      "id": {
+                                        "type": "number"
+                                      },
+                                      "name": {
+                                        "type": "string"
+                                      },
+                                      "path": {
+                                        "type": "string"
+                                      },
+                                      "children": {
+                                        "type": "array",
+                                        "items": {},
+                                        "maxItems": 0
+                                      }
+                                    },
+                                    "required": [
+                                      "access",
+                                      "id",
+                                      "name",
+                                      "path",
+                                      "children"
+                                    ],
+                                    "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ISharedDirectory}",
+                                    "additionalProperties": false
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "id": {
+                                        "type": "number"
+                                      },
+                                      "name": {
+                                        "type": "string"
+                                      },
+                                      "path": {
+                                        "type": "string"
+                                      },
+                                      "width": {
+                                        "type": "number"
+                                      },
+                                      "height": {
+                                        "type": "number"
+                                      },
+                                      "url": {
+                                        "type": "string"
+                                      },
+                                      "size": {
+                                        "type": "number"
+                                      }
+                                    },
+                                    "required": [
+                                      "id",
+                                      "name",
+                                      "path",
+                                      "width",
+                                      "height",
+                                      "url",
+                                      "size"
+                                    ],
+                                    "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IImageFile}",
+                                    "additionalProperties": false
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "id": {
+                                        "type": "number"
+                                      },
+                                      "name": {
+                                        "type": "string"
+                                      },
+                                      "path": {
+                                        "type": "string"
+                                      },
+                                      "size": {
+                                        "type": "number"
+                                      },
+                                      "content": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "required": [
+                                      "id",
+                                      "name",
+                                      "path",
+                                      "size",
+                                      "content"
+                                    ],
+                                    "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ITextFile}",
+                                    "additionalProperties": false
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "id": {
+                                        "type": "number"
+                                      },
+                                      "name": {
+                                        "type": "string"
+                                      },
+                                      "path": {
+                                        "type": "string"
+                                      },
+                                      "size": {
+                                        "type": "number"
+                                      },
+                                      "count": {
+                                        "type": "number"
+                                      }
+                                    },
+                                    "required": [
+                                      "id",
+                                      "name",
+                                      "path",
+                                      "size",
+                                      "count"
+                                    ],
+                                    "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IZipFile}",
+                                    "additionalProperties": false
+                                  }
+                                ],
+                                "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IBucket}"
+                              }
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "name",
+                            "path",
+                            "children"
+                          ],
+                          "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IDirectory}",
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "access": {
+                              "type": "string",
+                              "enum": [
+                                "read",
+                                "write"
+                              ]
+                            },
+                            "id": {
+                              "type": "number"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "path": {
+                              "type": "string"
+                            },
+                            "children": {
+                              "type": "array",
+                              "items": {
+                                "oneOf": [
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "id": {
+                                        "type": "number"
+                                      },
+                                      "name": {
+                                        "type": "string"
+                                      },
+                                      "path": {
+                                        "type": "string"
+                                      },
+                                      "children": {
+                                        "type": "array",
+                                        "items": {},
+                                        "maxItems": 0
+                                      }
+                                    },
+                                    "required": [
+                                      "id",
+                                      "name",
+                                      "path",
+                                      "children"
+                                    ],
+                                    "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IDirectory}",
+                                    "additionalProperties": false
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "access": {
+                                        "type": "string",
+                                        "enum": [
+                                          "read",
+                                          "write"
+                                        ]
+                                      },
+                                      "id": {
+                                        "type": "number"
+                                      },
+                                      "name": {
+                                        "type": "string"
+                                      },
+                                      "path": {
+                                        "type": "string"
+                                      },
+                                      "children": {
+                                        "type": "array",
+                                        "items": {},
+                                        "maxItems": 0
+                                      }
+                                    },
+                                    "required": [
+                                      "access",
+                                      "id",
+                                      "name",
+                                      "path",
+                                      "children"
+                                    ],
+                                    "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ISharedDirectory}",
+                                    "additionalProperties": false
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "id": {
+                                        "type": "number"
+                                      },
+                                      "name": {
+                                        "type": "string"
+                                      },
+                                      "path": {
+                                        "type": "string"
+                                      },
+                                      "width": {
+                                        "type": "number"
+                                      },
+                                      "height": {
+                                        "type": "number"
+                                      },
+                                      "url": {
+                                        "type": "string"
+                                      },
+                                      "size": {
+                                        "type": "number"
+                                      }
+                                    },
+                                    "required": [
+                                      "id",
+                                      "name",
+                                      "path",
+                                      "width",
+                                      "height",
+                                      "url",
+                                      "size"
+                                    ],
+                                    "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IImageFile}",
+                                    "additionalProperties": false
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "id": {
+                                        "type": "number"
+                                      },
+                                      "name": {
+                                        "type": "string"
+                                      },
+                                      "path": {
+                                        "type": "string"
+                                      },
+                                      "size": {
+                                        "type": "number"
+                                      },
+                                      "content": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "required": [
+                                      "id",
+                                      "name",
+                                      "path",
+                                      "size",
+                                      "content"
+                                    ],
+                                    "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ITextFile}",
+                                    "additionalProperties": false
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "id": {
+                                        "type": "number"
+                                      },
+                                      "name": {
+                                        "type": "string"
+                                      },
+                                      "path": {
+                                        "type": "string"
+                                      },
+                                      "size": {
+                                        "type": "number"
+                                      },
+                                      "count": {
+                                        "type": "number"
+                                      }
+                                    },
+                                    "required": [
+                                      "id",
+                                      "name",
+                                      "path",
+                                      "size",
+                                      "count"
+                                    ],
+                                    "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IZipFile}",
+                                    "additionalProperties": false
+                                  }
+                                ],
+                                "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IBucket}"
+                              }
+                            }
+                          },
+                          "required": [
+                            "access",
+                            "id",
+                            "name",
+                            "path",
+                            "children"
+                          ],
+                          "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ISharedDirectory}",
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "number"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "path": {
+                              "type": "string"
+                            },
+                            "width": {
+                              "type": "number"
+                            },
+                            "height": {
+                              "type": "number"
+                            },
+                            "url": {
+                              "type": "string"
+                            },
+                            "size": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "name",
+                            "path",
+                            "width",
+                            "height",
+                            "url",
+                            "size"
+                          ],
+                          "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IImageFile}",
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "number"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "path": {
+                              "type": "string"
+                            },
+                            "size": {
+                              "type": "number"
+                            },
+                            "content": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "name",
+                            "path",
+                            "size",
+                            "content"
+                          ],
+                          "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ITextFile}",
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "number"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "path": {
+                              "type": "string"
+                            },
+                            "size": {
+                              "type": "number"
+                            },
+                            "count": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "name",
+                            "path",
+                            "size",
+                            "count"
+                          ],
+                          "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IZipFile}",
+                          "additionalProperties": false
+                        }
+                      ],
+                      "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IBucket}"
+                    }
+                  }
+                },
+                "required": [
+                  "access",
+                  "id",
+                  "name",
+                  "path",
+                  "children"
+                ],
+                "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ISharedDirectory}",
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "path": {
+                    "type": "string"
+                  },
+                  "width": {
+                    "type": "number"
+                  },
+                  "height": {
+                    "type": "number"
+                  },
+                  "url": {
+                    "type": "string"
+                  },
+                  "size": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "id",
+                  "name",
+                  "path",
+                  "width",
+                  "height",
+                  "url",
+                  "size"
+                ],
+                "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IImageFile}",
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "path": {
+                    "type": "string"
+                  },
+                  "size": {
+                    "type": "number"
+                  },
+                  "content": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id",
+                  "name",
+                  "path",
+                  "size",
+                  "content"
+                ],
+                "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ITextFile}",
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "path": {
+                    "type": "string"
+                  },
+                  "size": {
+                    "type": "number"
+                  },
+                  "count": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "id",
+                  "name",
+                  "path",
+                  "size",
+                  "count"
+                ],
+                "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IZipFile}",
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "path": {
+                    "type": "string"
+                  },
+                  "target": {
+                    "oneOf": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "number"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "path": {
+                            "type": "string"
+                          },
+                          "children": {
+                            "type": "array",
+                            "items": {
+                              "oneOf": [
+                                {
+                                  "type": "object",
+                                  "properties": {
+                                    "id": {
+                                      "type": "number"
+                                    },
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "path": {
+                                      "type": "string"
+                                    },
+                                    "children": {
+                                      "type": "array",
+                                      "items": {},
+                                      "maxItems": 0
+                                    }
+                                  },
+                                  "required": [
+                                    "id",
+                                    "name",
+                                    "path",
+                                    "children"
+                                  ],
+                                  "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IDirectory}",
+                                  "additionalProperties": false
+                                },
+                                {
+                                  "type": "object",
+                                  "properties": {
+                                    "access": {
+                                      "type": "string",
+                                      "enum": [
+                                        "read",
+                                        "write"
+                                      ]
+                                    },
+                                    "id": {
+                                      "type": "number"
+                                    },
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "path": {
+                                      "type": "string"
+                                    },
+                                    "children": {
+                                      "type": "array",
+                                      "items": {},
+                                      "maxItems": 0
+                                    }
+                                  },
+                                  "required": [
+                                    "access",
+                                    "id",
+                                    "name",
+                                    "path",
+                                    "children"
+                                  ],
+                                  "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ISharedDirectory}",
+                                  "additionalProperties": false
+                                },
+                                {
+                                  "type": "object",
+                                  "properties": {
+                                    "id": {
+                                      "type": "number"
+                                    },
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "path": {
+                                      "type": "string"
+                                    },
+                                    "width": {
+                                      "type": "number"
+                                    },
+                                    "height": {
+                                      "type": "number"
+                                    },
+                                    "url": {
+                                      "type": "string"
+                                    },
+                                    "size": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "id",
+                                    "name",
+                                    "path",
+                                    "width",
+                                    "height",
+                                    "url",
+                                    "size"
+                                  ],
+                                  "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IImageFile}",
+                                  "additionalProperties": false
+                                },
+                                {
+                                  "type": "object",
+                                  "properties": {
+                                    "id": {
+                                      "type": "number"
+                                    },
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "path": {
+                                      "type": "string"
+                                    },
+                                    "size": {
+                                      "type": "number"
+                                    },
+                                    "content": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "id",
+                                    "name",
+                                    "path",
+                                    "size",
+                                    "content"
+                                  ],
+                                  "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ITextFile}",
+                                  "additionalProperties": false
+                                },
+                                {
+                                  "type": "object",
+                                  "properties": {
+                                    "id": {
+                                      "type": "number"
+                                    },
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "path": {
+                                      "type": "string"
+                                    },
+                                    "size": {
+                                      "type": "number"
+                                    },
+                                    "count": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "id",
+                                    "name",
+                                    "path",
+                                    "size",
+                                    "count"
+                                  ],
+                                  "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IZipFile}",
+                                  "additionalProperties": false
+                                }
+                              ],
+                              "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IBucket}"
+                            }
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "name",
+                          "path",
+                          "children"
+                        ],
+                        "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IDirectory}",
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "access": {
+                            "type": "string",
+                            "enum": [
+                              "read",
+                              "write"
+                            ]
+                          },
+                          "id": {
+                            "type": "number"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "path": {
+                            "type": "string"
+                          },
+                          "children": {
+                            "type": "array",
+                            "items": {
+                              "oneOf": [
+                                {
+                                  "type": "object",
+                                  "properties": {
+                                    "id": {
+                                      "type": "number"
+                                    },
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "path": {
+                                      "type": "string"
+                                    },
+                                    "children": {
+                                      "type": "array",
+                                      "items": {},
+                                      "maxItems": 0
+                                    }
+                                  },
+                                  "required": [
+                                    "id",
+                                    "name",
+                                    "path",
+                                    "children"
+                                  ],
+                                  "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IDirectory}",
+                                  "additionalProperties": false
+                                },
+                                {
+                                  "type": "object",
+                                  "properties": {
+                                    "access": {
+                                      "type": "string",
+                                      "enum": [
+                                        "read",
+                                        "write"
+                                      ]
+                                    },
+                                    "id": {
+                                      "type": "number"
+                                    },
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "path": {
+                                      "type": "string"
+                                    },
+                                    "children": {
+                                      "type": "array",
+                                      "items": {},
+                                      "maxItems": 0
+                                    }
+                                  },
+                                  "required": [
+                                    "access",
+                                    "id",
+                                    "name",
+                                    "path",
+                                    "children"
+                                  ],
+                                  "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ISharedDirectory}",
+                                  "additionalProperties": false
+                                },
+                                {
+                                  "type": "object",
+                                  "properties": {
+                                    "id": {
+                                      "type": "number"
+                                    },
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "path": {
+                                      "type": "string"
+                                    },
+                                    "width": {
+                                      "type": "number"
+                                    },
+                                    "height": {
+                                      "type": "number"
+                                    },
+                                    "url": {
+                                      "type": "string"
+                                    },
+                                    "size": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "id",
+                                    "name",
+                                    "path",
+                                    "width",
+                                    "height",
+                                    "url",
+                                    "size"
+                                  ],
+                                  "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IImageFile}",
+                                  "additionalProperties": false
+                                },
+                                {
+                                  "type": "object",
+                                  "properties": {
+                                    "id": {
+                                      "type": "number"
+                                    },
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "path": {
+                                      "type": "string"
+                                    },
+                                    "size": {
+                                      "type": "number"
+                                    },
+                                    "content": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "id",
+                                    "name",
+                                    "path",
+                                    "size",
+                                    "content"
+                                  ],
+                                  "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ITextFile}",
+                                  "additionalProperties": false
+                                },
+                                {
+                                  "type": "object",
+                                  "properties": {
+                                    "id": {
+                                      "type": "number"
+                                    },
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "path": {
+                                      "type": "string"
+                                    },
+                                    "size": {
+                                      "type": "number"
+                                    },
+                                    "count": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "id",
+                                    "name",
+                                    "path",
+                                    "size",
+                                    "count"
+                                  ],
+                                  "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IZipFile}",
+                                  "additionalProperties": false
+                                }
+                              ],
+                              "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IBucket}"
+                            }
+                          }
+                        },
+                        "required": [
+                          "access",
+                          "id",
+                          "name",
+                          "path",
+                          "children"
+                        ],
+                        "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ISharedDirectory}",
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "number"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "path": {
+                            "type": "string"
+                          },
+                          "width": {
+                            "type": "number"
+                          },
+                          "height": {
+                            "type": "number"
+                          },
+                          "url": {
+                            "type": "string"
+                          },
+                          "size": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "name",
+                          "path",
+                          "width",
+                          "height",
+                          "url",
+                          "size"
+                        ],
+                        "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IImageFile}",
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "number"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "path": {
+                            "type": "string"
+                          },
+                          "size": {
+                            "type": "number"
+                          },
+                          "content": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "name",
+                          "path",
+                          "size",
+                          "content"
+                        ],
+                        "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ITextFile}",
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "number"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "path": {
+                            "type": "string"
+                          },
+                          "size": {
+                            "type": "number"
+                          },
+                          "count": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "name",
+                          "path",
+                          "size",
+                          "count"
+                        ],
+                        "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IZipFile}",
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "number"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "path": {
+                            "type": "string"
+                          },
+                          "target": {
+                            "oneOf": [
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "id": {
+                                    "type": "number"
+                                  },
+                                  "name": {
+                                    "type": "string"
+                                  },
+                                  "path": {
+                                    "type": "string"
+                                  },
+                                  "children": {
+                                    "type": "array",
+                                    "items": {},
+                                    "maxItems": 0
+                                  }
+                                },
+                                "required": [
+                                  "id",
+                                  "name",
+                                  "path",
+                                  "children"
+                                ],
+                                "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IDirectory}",
+                                "additionalProperties": false
+                              },
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "access": {
+                                    "type": "string",
+                                    "enum": [
+                                      "read",
+                                      "write"
+                                    ]
+                                  },
+                                  "id": {
+                                    "type": "number"
+                                  },
+                                  "name": {
+                                    "type": "string"
+                                  },
+                                  "path": {
+                                    "type": "string"
+                                  },
+                                  "children": {
+                                    "type": "array",
+                                    "items": {},
+                                    "maxItems": 0
+                                  }
+                                },
+                                "required": [
+                                  "access",
+                                  "id",
+                                  "name",
+                                  "path",
+                                  "children"
+                                ],
+                                "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ISharedDirectory}",
+                                "additionalProperties": false
+                              },
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "id": {
+                                    "type": "number"
+                                  },
+                                  "name": {
+                                    "type": "string"
+                                  },
+                                  "path": {
+                                    "type": "string"
+                                  },
+                                  "width": {
+                                    "type": "number"
+                                  },
+                                  "height": {
+                                    "type": "number"
+                                  },
+                                  "url": {
+                                    "type": "string"
+                                  },
+                                  "size": {
+                                    "type": "number"
+                                  }
+                                },
+                                "required": [
+                                  "id",
+                                  "name",
+                                  "path",
+                                  "width",
+                                  "height",
+                                  "url",
+                                  "size"
+                                ],
+                                "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IImageFile}",
+                                "additionalProperties": false
+                              },
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "id": {
+                                    "type": "number"
+                                  },
+                                  "name": {
+                                    "type": "string"
+                                  },
+                                  "path": {
+                                    "type": "string"
+                                  },
+                                  "size": {
+                                    "type": "number"
+                                  },
+                                  "content": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "id",
+                                  "name",
+                                  "path",
+                                  "size",
+                                  "content"
+                                ],
+                                "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ITextFile}",
+                                "additionalProperties": false
+                              },
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "id": {
+                                    "type": "number"
+                                  },
+                                  "name": {
+                                    "type": "string"
+                                  },
+                                  "path": {
+                                    "type": "string"
+                                  },
+                                  "size": {
+                                    "type": "number"
+                                  },
+                                  "count": {
+                                    "type": "number"
+                                  }
+                                },
+                                "required": [
+                                  "id",
+                                  "name",
+                                  "path",
+                                  "size",
+                                  "count"
+                                ],
+                                "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IZipFile}",
+                                "additionalProperties": false
+                              }
+                            ],
+                            "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IBucket}"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "name",
+                          "path",
+                          "target"
+                        ],
+                        "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IShortcut}",
+                        "additionalProperties": false
+                      }
+                    ],
+                    "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IBucket}"
+                  }
+                },
+                "required": [
+                  "id",
+                  "name",
+                  "path",
+                  "target"
+                ],
+                "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IShortcut}",
+                "additionalProperties": false
+              }
+            ],
+            "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IBucket}"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "path",
+          "target"
+        ],
+        "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IShortcut}",
+        "additionalProperties": false
+      }
+    ],
+    "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IBucket}"
+  },
+  "description": "Current Type: {@link ArrayRecursiveUnionImplicit}"
+}

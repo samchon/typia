@@ -1,14 +1,13 @@
 import typia from "typia";
-import { ConstantEnumeration } from "../../../structures/ConstantEnumeration";
+
 import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
+import { ConstantEnumeration } from "../../../structures/ConstantEnumeration";
 
 export const test_llm_parameters_claude_ConstantEnumeration = (): void =>
   _test_llm_parameters({
     model: "claude",
     name: "ConstantEnumeration",
-  })(
-    typia.llm.parameters<ConstantEnumerationParameters, "claude">(),
-  );
+  })(typia.llm.parameters<ConstantEnumerationParameters, "claude">());
 
 interface ConstantEnumerationParameters {
   regular: ConstantEnumeration;

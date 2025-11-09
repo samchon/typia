@@ -1,14 +1,13 @@
 import typia from "typia";
-import { ObjectRequired } from "../../../structures/ObjectRequired";
+
 import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
+import { ObjectRequired } from "../../../structures/ObjectRequired";
 
 export const test_llm_parameters_chatgpt_ObjectRequired = (): void =>
   _test_llm_parameters({
     model: "chatgpt",
     name: "ObjectRequired",
-  })(
-    typia.llm.parameters<ObjectRequiredParameters, "chatgpt">(),
-  );
+  })(typia.llm.parameters<ObjectRequiredParameters, "chatgpt">());
 
 interface ObjectRequiredParameters {
   regular: ObjectRequired;

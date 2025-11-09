@@ -3,8 +3,7 @@ import typia from "typia";
 import { _test_is } from "../../internal/_test_is";
 import { CommentTagLength } from "../../structures/CommentTagLength";
 
-export const test_createIs_CommentTagLength = (): void => _test_is(
-    "CommentTagLength",
-)<CommentTagLength>(
-    CommentTagLength
-)(typia.createIs<CommentTagLength>());
+export const test_createIs_CommentTagLength = (): void =>
+  _test_is("CommentTagLength")<CommentTagLength>(CommentTagLength)(
+    typia.createIs<CommentTagLength>(),
+  );

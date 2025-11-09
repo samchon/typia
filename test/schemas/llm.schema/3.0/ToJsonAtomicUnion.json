@@ -1,0 +1,20 @@
+{
+  "type": "array",
+  "items": {
+    "oneOf": [
+      {
+        "type": "string",
+        "nullable": true
+      },
+      {
+        "type": "number",
+        "nullable": true
+      },
+      {
+        "type": "boolean",
+        "nullable": true
+      }
+    ]
+  },
+  "description": "Current Type: {@link ToJsonAtomicUnion}"
+}

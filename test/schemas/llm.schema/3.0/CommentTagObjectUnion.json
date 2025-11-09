@@ -1,0 +1,38 @@
+{
+  "type": "array",
+  "items": {
+    "oneOf": [
+      {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "number",
+            "minimum": 3
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "description": "Current Type: {@link CommentTagObjectUnion.Numeric}",
+        "additionalProperties": false
+      },
+      {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 7
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "description": "Current Type: {@link CommentTagObjectUnion.Literal}",
+        "additionalProperties": false
+      }
+    ],
+    "description": "Current Type: {@link CommentTagObjectUnion.Type}"
+  },
+  "description": "Current Type: {@link CommentTagObjectUnion}"
+}

@@ -3,8 +3,9 @@ import typia from "typia";
 import { _test_equals } from "../../internal/_test_equals";
 import { ArrayRecursiveUnionExplicitPointer } from "../../structures/ArrayRecursiveUnionExplicitPointer";
 
-export const test_createEquals_ArrayRecursiveUnionExplicitPointer = (): void => _test_equals(
+export const test_createEquals_ArrayRecursiveUnionExplicitPointer = (): void =>
+  _test_equals(
     "ArrayRecursiveUnionExplicitPointer",
-)<ArrayRecursiveUnionExplicitPointer>(
-    ArrayRecursiveUnionExplicitPointer
-)(typia.createEquals<ArrayRecursiveUnionExplicitPointer>());
+  )<ArrayRecursiveUnionExplicitPointer>(ArrayRecursiveUnionExplicitPointer)(
+    typia.createEquals<ArrayRecursiveUnionExplicitPointer>(),
+  );

@@ -1,0 +1,3224 @@
+{
+  "model": "3.0",
+  "options": {
+    "recursive": 3,
+    "constraint": true,
+    "separate": null
+  },
+  "functions": [
+    {
+      "name": "insert",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "x": {
+                      "type": "number"
+                    },
+                    "y": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "x",
+                    "y"
+                  ],
+                  "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "p1": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                      "additionalProperties": false
+                    },
+                    "p2": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": [
+                    "p1",
+                    "p2"
+                  ],
+                  "description": "Current Type: {@link ObjectUnionComposite.ILine}",
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "p1": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                      "additionalProperties": false
+                    },
+                    "p2": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                      "additionalProperties": false
+                    },
+                    "p3": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": [
+                    "p1",
+                    "p2",
+                    "p3"
+                  ],
+                  "description": "Current Type: {@link ObjectUnionComposite.ITriangle}",
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "p1": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                      "additionalProperties": false
+                    },
+                    "p2": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                      "additionalProperties": false
+                    },
+                    "p3": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                      "additionalProperties": false
+                    },
+                    "p4": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": [
+                    "p1",
+                    "p2",
+                    "p3",
+                    "p4"
+                  ],
+                  "description": "Current Type: {@link ObjectUnionComposite.IRectangle}",
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "points": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "x": {
+                            "type": "number"
+                          },
+                          "y": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "x",
+                          "y"
+                        ],
+                        "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                        "additionalProperties": false
+                      }
+                    }
+                  },
+                  "required": [
+                    "points"
+                  ],
+                  "description": "Current Type: {@link ObjectUnionComposite.IPolyline}",
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "outer": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "x": {
+                            "type": "number"
+                          },
+                          "y": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "x",
+                          "y"
+                        ],
+                        "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                        "additionalProperties": false
+                      }
+                    },
+                    "inner": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": [
+                    "outer",
+                    "inner"
+                  ],
+                  "description": "Current Type: {@link ObjectUnionComposite.IPointedShape}",
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "outer": {
+                      "type": "object",
+                      "properties": {
+                        "points": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "x": {
+                                "type": "number"
+                              },
+                              "y": {
+                                "type": "number"
+                              }
+                            },
+                            "required": [
+                              "x",
+                              "y"
+                            ],
+                            "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                            "additionalProperties": false
+                          }
+                        }
+                      },
+                      "required": [
+                        "points"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionComposite.IPolyline}",
+                      "additionalProperties": false
+                    },
+                    "inner": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "points": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "x": {
+                                  "type": "number"
+                                },
+                                "y": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "x",
+                                "y"
+                              ],
+                              "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                              "additionalProperties": false
+                            }
+                          }
+                        },
+                        "required": [
+                          "points"
+                        ],
+                        "description": "Current Type: {@link ObjectUnionComposite.IPolyline}",
+                        "additionalProperties": false
+                      }
+                    }
+                  },
+                  "required": [
+                    "outer",
+                    "inner"
+                  ],
+                  "description": "Current Type: {@link ObjectUnionComposite.IPolygon}",
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "centroid": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                      "additionalProperties": false
+                    },
+                    "radius": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "centroid",
+                    "radius"
+                  ],
+                  "description": "Current Type: {@link ObjectUnionComposite.ICircle}",
+                  "additionalProperties": false
+                }
+              ]
+            },
+            "description": "Current Type: {@link ObjectUnionComposite}"
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "x": {
+                      "type": "number"
+                    },
+                    "y": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "x",
+                    "y"
+                  ],
+                  "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "p1": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                      "additionalProperties": false
+                    },
+                    "p2": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": [
+                    "p1",
+                    "p2"
+                  ],
+                  "description": "Current Type: {@link ObjectUnionComposite.ILine}",
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "p1": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                      "additionalProperties": false
+                    },
+                    "p2": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                      "additionalProperties": false
+                    },
+                    "p3": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": [
+                    "p1",
+                    "p2",
+                    "p3"
+                  ],
+                  "description": "Current Type: {@link ObjectUnionComposite.ITriangle}",
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "p1": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                      "additionalProperties": false
+                    },
+                    "p2": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                      "additionalProperties": false
+                    },
+                    "p3": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                      "additionalProperties": false
+                    },
+                    "p4": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": [
+                    "p1",
+                    "p2",
+                    "p3",
+                    "p4"
+                  ],
+                  "description": "Current Type: {@link ObjectUnionComposite.IRectangle}",
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "points": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "x": {
+                            "type": "number"
+                          },
+                          "y": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "x",
+                          "y"
+                        ],
+                        "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                        "additionalProperties": false
+                      }
+                    }
+                  },
+                  "required": [
+                    "points"
+                  ],
+                  "description": "Current Type: {@link ObjectUnionComposite.IPolyline}",
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "outer": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "x": {
+                            "type": "number"
+                          },
+                          "y": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "x",
+                          "y"
+                        ],
+                        "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                        "additionalProperties": false
+                      }
+                    },
+                    "inner": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": [
+                    "outer",
+                    "inner"
+                  ],
+                  "description": "Current Type: {@link ObjectUnionComposite.IPointedShape}",
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "outer": {
+                      "type": "object",
+                      "properties": {
+                        "points": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "x": {
+                                "type": "number"
+                              },
+                              "y": {
+                                "type": "number"
+                              }
+                            },
+                            "required": [
+                              "x",
+                              "y"
+                            ],
+                            "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                            "additionalProperties": false
+                          }
+                        }
+                      },
+                      "required": [
+                        "points"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionComposite.IPolyline}",
+                      "additionalProperties": false
+                    },
+                    "inner": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "points": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "x": {
+                                  "type": "number"
+                                },
+                                "y": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "x",
+                                "y"
+                              ],
+                              "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                              "additionalProperties": false
+                            }
+                          }
+                        },
+                        "required": [
+                          "points"
+                        ],
+                        "description": "Current Type: {@link ObjectUnionComposite.IPolyline}",
+                        "additionalProperties": false
+                      }
+                    }
+                  },
+                  "required": [
+                    "outer",
+                    "inner"
+                  ],
+                  "description": "Current Type: {@link ObjectUnionComposite.IPolygon}",
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "centroid": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                      "additionalProperties": false
+                    },
+                    "radius": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "centroid",
+                    "radius"
+                  ],
+                  "description": "Current Type: {@link ObjectUnionComposite.ICircle}",
+                  "additionalProperties": false
+                }
+              ]
+            },
+            "description": "Current Type: {@link ObjectUnionComposite}"
+          },
+          "second": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "x": {
+                      "type": "number"
+                    },
+                    "y": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "x",
+                    "y"
+                  ],
+                  "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "p1": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                      "additionalProperties": false
+                    },
+                    "p2": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": [
+                    "p1",
+                    "p2"
+                  ],
+                  "description": "Current Type: {@link ObjectUnionComposite.ILine}",
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "p1": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                      "additionalProperties": false
+                    },
+                    "p2": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                      "additionalProperties": false
+                    },
+                    "p3": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": [
+                    "p1",
+                    "p2",
+                    "p3"
+                  ],
+                  "description": "Current Type: {@link ObjectUnionComposite.ITriangle}",
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "p1": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                      "additionalProperties": false
+                    },
+                    "p2": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                      "additionalProperties": false
+                    },
+                    "p3": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                      "additionalProperties": false
+                    },
+                    "p4": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": [
+                    "p1",
+                    "p2",
+                    "p3",
+                    "p4"
+                  ],
+                  "description": "Current Type: {@link ObjectUnionComposite.IRectangle}",
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "points": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "x": {
+                            "type": "number"
+                          },
+                          "y": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "x",
+                          "y"
+                        ],
+                        "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                        "additionalProperties": false
+                      }
+                    }
+                  },
+                  "required": [
+                    "points"
+                  ],
+                  "description": "Current Type: {@link ObjectUnionComposite.IPolyline}",
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "outer": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "x": {
+                            "type": "number"
+                          },
+                          "y": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "x",
+                          "y"
+                        ],
+                        "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                        "additionalProperties": false
+                      }
+                    },
+                    "inner": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": [
+                    "outer",
+                    "inner"
+                  ],
+                  "description": "Current Type: {@link ObjectUnionComposite.IPointedShape}",
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "outer": {
+                      "type": "object",
+                      "properties": {
+                        "points": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "x": {
+                                "type": "number"
+                              },
+                              "y": {
+                                "type": "number"
+                              }
+                            },
+                            "required": [
+                              "x",
+                              "y"
+                            ],
+                            "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                            "additionalProperties": false
+                          }
+                        }
+                      },
+                      "required": [
+                        "points"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionComposite.IPolyline}",
+                      "additionalProperties": false
+                    },
+                    "inner": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "points": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "x": {
+                                  "type": "number"
+                                },
+                                "y": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "x",
+                                "y"
+                              ],
+                              "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                              "additionalProperties": false
+                            }
+                          }
+                        },
+                        "required": [
+                          "points"
+                        ],
+                        "description": "Current Type: {@link ObjectUnionComposite.IPolyline}",
+                        "additionalProperties": false
+                      }
+                    }
+                  },
+                  "required": [
+                    "outer",
+                    "inner"
+                  ],
+                  "description": "Current Type: {@link ObjectUnionComposite.IPolygon}",
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "centroid": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                      "additionalProperties": false
+                    },
+                    "radius": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "centroid",
+                    "radius"
+                  ],
+                  "description": "Current Type: {@link ObjectUnionComposite.ICircle}",
+                  "additionalProperties": false
+                }
+              ]
+            },
+            "nullable": true
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "type": "array",
+        "items": {
+          "oneOf": [
+            {
+              "type": "object",
+              "properties": {
+                "x": {
+                  "type": "number"
+                },
+                "y": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "x",
+                "y"
+              ],
+              "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "p1": {
+                  "type": "object",
+                  "properties": {
+                    "x": {
+                      "type": "number"
+                    },
+                    "y": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "x",
+                    "y"
+                  ],
+                  "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                  "additionalProperties": false
+                },
+                "p2": {
+                  "type": "object",
+                  "properties": {
+                    "x": {
+                      "type": "number"
+                    },
+                    "y": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "x",
+                    "y"
+                  ],
+                  "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "p1",
+                "p2"
+              ],
+              "description": "Current Type: {@link ObjectUnionComposite.ILine}",
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "p1": {
+                  "type": "object",
+                  "properties": {
+                    "x": {
+                      "type": "number"
+                    },
+                    "y": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "x",
+                    "y"
+                  ],
+                  "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                  "additionalProperties": false
+                },
+                "p2": {
+                  "type": "object",
+                  "properties": {
+                    "x": {
+                      "type": "number"
+                    },
+                    "y": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "x",
+                    "y"
+                  ],
+                  "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                  "additionalProperties": false
+                },
+                "p3": {
+                  "type": "object",
+                  "properties": {
+                    "x": {
+                      "type": "number"
+                    },
+                    "y": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "x",
+                    "y"
+                  ],
+                  "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "p1",
+                "p2",
+                "p3"
+              ],
+              "description": "Current Type: {@link ObjectUnionComposite.ITriangle}",
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "p1": {
+                  "type": "object",
+                  "properties": {
+                    "x": {
+                      "type": "number"
+                    },
+                    "y": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "x",
+                    "y"
+                  ],
+                  "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                  "additionalProperties": false
+                },
+                "p2": {
+                  "type": "object",
+                  "properties": {
+                    "x": {
+                      "type": "number"
+                    },
+                    "y": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "x",
+                    "y"
+                  ],
+                  "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                  "additionalProperties": false
+                },
+                "p3": {
+                  "type": "object",
+                  "properties": {
+                    "x": {
+                      "type": "number"
+                    },
+                    "y": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "x",
+                    "y"
+                  ],
+                  "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                  "additionalProperties": false
+                },
+                "p4": {
+                  "type": "object",
+                  "properties": {
+                    "x": {
+                      "type": "number"
+                    },
+                    "y": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "x",
+                    "y"
+                  ],
+                  "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "p1",
+                "p2",
+                "p3",
+                "p4"
+              ],
+              "description": "Current Type: {@link ObjectUnionComposite.IRectangle}",
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "points": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "x": {
+                        "type": "number"
+                      },
+                      "y": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "x",
+                      "y"
+                    ],
+                    "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": [
+                "points"
+              ],
+              "description": "Current Type: {@link ObjectUnionComposite.IPolyline}",
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "outer": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "x": {
+                        "type": "number"
+                      },
+                      "y": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "x",
+                      "y"
+                    ],
+                    "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                    "additionalProperties": false
+                  }
+                },
+                "inner": {
+                  "type": "object",
+                  "properties": {
+                    "x": {
+                      "type": "number"
+                    },
+                    "y": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "x",
+                    "y"
+                  ],
+                  "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "outer",
+                "inner"
+              ],
+              "description": "Current Type: {@link ObjectUnionComposite.IPointedShape}",
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "outer": {
+                  "type": "object",
+                  "properties": {
+                    "points": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "x": {
+                            "type": "number"
+                          },
+                          "y": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "x",
+                          "y"
+                        ],
+                        "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                        "additionalProperties": false
+                      }
+                    }
+                  },
+                  "required": [
+                    "points"
+                  ],
+                  "description": "Current Type: {@link ObjectUnionComposite.IPolyline}",
+                  "additionalProperties": false
+                },
+                "inner": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "points": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ],
+                          "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                          "additionalProperties": false
+                        }
+                      }
+                    },
+                    "required": [
+                      "points"
+                    ],
+                    "description": "Current Type: {@link ObjectUnionComposite.IPolyline}",
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": [
+                "outer",
+                "inner"
+              ],
+              "description": "Current Type: {@link ObjectUnionComposite.IPolygon}",
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "centroid": {
+                  "type": "object",
+                  "properties": {
+                    "x": {
+                      "type": "number"
+                    },
+                    "y": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "x",
+                    "y"
+                  ],
+                  "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                  "additionalProperties": false
+                },
+                "radius": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "centroid",
+                "radius"
+              ],
+              "description": "Current Type: {@link ObjectUnionComposite.ICircle}",
+              "additionalProperties": false
+            }
+          ]
+        },
+        "description": "Current Type: {@link ObjectUnionComposite}"
+      }
+    },
+    {
+      "name": "coalesce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "x": {
+                      "type": "number"
+                    },
+                    "y": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "x",
+                    "y"
+                  ],
+                  "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "p1": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                      "additionalProperties": false
+                    },
+                    "p2": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": [
+                    "p1",
+                    "p2"
+                  ],
+                  "description": "Current Type: {@link ObjectUnionComposite.ILine}",
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "p1": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                      "additionalProperties": false
+                    },
+                    "p2": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                      "additionalProperties": false
+                    },
+                    "p3": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": [
+                    "p1",
+                    "p2",
+                    "p3"
+                  ],
+                  "description": "Current Type: {@link ObjectUnionComposite.ITriangle}",
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "p1": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                      "additionalProperties": false
+                    },
+                    "p2": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                      "additionalProperties": false
+                    },
+                    "p3": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                      "additionalProperties": false
+                    },
+                    "p4": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": [
+                    "p1",
+                    "p2",
+                    "p3",
+                    "p4"
+                  ],
+                  "description": "Current Type: {@link ObjectUnionComposite.IRectangle}",
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "points": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "x": {
+                            "type": "number"
+                          },
+                          "y": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "x",
+                          "y"
+                        ],
+                        "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                        "additionalProperties": false
+                      }
+                    }
+                  },
+                  "required": [
+                    "points"
+                  ],
+                  "description": "Current Type: {@link ObjectUnionComposite.IPolyline}",
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "outer": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "x": {
+                            "type": "number"
+                          },
+                          "y": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "x",
+                          "y"
+                        ],
+                        "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                        "additionalProperties": false
+                      }
+                    },
+                    "inner": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": [
+                    "outer",
+                    "inner"
+                  ],
+                  "description": "Current Type: {@link ObjectUnionComposite.IPointedShape}",
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "outer": {
+                      "type": "object",
+                      "properties": {
+                        "points": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "x": {
+                                "type": "number"
+                              },
+                              "y": {
+                                "type": "number"
+                              }
+                            },
+                            "required": [
+                              "x",
+                              "y"
+                            ],
+                            "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                            "additionalProperties": false
+                          }
+                        }
+                      },
+                      "required": [
+                        "points"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionComposite.IPolyline}",
+                      "additionalProperties": false
+                    },
+                    "inner": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "points": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "x": {
+                                  "type": "number"
+                                },
+                                "y": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "x",
+                                "y"
+                              ],
+                              "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                              "additionalProperties": false
+                            }
+                          }
+                        },
+                        "required": [
+                          "points"
+                        ],
+                        "description": "Current Type: {@link ObjectUnionComposite.IPolyline}",
+                        "additionalProperties": false
+                      }
+                    }
+                  },
+                  "required": [
+                    "outer",
+                    "inner"
+                  ],
+                  "description": "Current Type: {@link ObjectUnionComposite.IPolygon}",
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "centroid": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                      "additionalProperties": false
+                    },
+                    "radius": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "centroid",
+                    "radius"
+                  ],
+                  "description": "Current Type: {@link ObjectUnionComposite.ICircle}",
+                  "additionalProperties": false
+                }
+              ]
+            },
+            "nullable": true
+          },
+          "second": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "x": {
+                      "type": "number"
+                    },
+                    "y": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "x",
+                    "y"
+                  ],
+                  "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "p1": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                      "additionalProperties": false
+                    },
+                    "p2": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": [
+                    "p1",
+                    "p2"
+                  ],
+                  "description": "Current Type: {@link ObjectUnionComposite.ILine}",
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "p1": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                      "additionalProperties": false
+                    },
+                    "p2": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                      "additionalProperties": false
+                    },
+                    "p3": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": [
+                    "p1",
+                    "p2",
+                    "p3"
+                  ],
+                  "description": "Current Type: {@link ObjectUnionComposite.ITriangle}",
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "p1": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                      "additionalProperties": false
+                    },
+                    "p2": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                      "additionalProperties": false
+                    },
+                    "p3": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                      "additionalProperties": false
+                    },
+                    "p4": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": [
+                    "p1",
+                    "p2",
+                    "p3",
+                    "p4"
+                  ],
+                  "description": "Current Type: {@link ObjectUnionComposite.IRectangle}",
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "points": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "x": {
+                            "type": "number"
+                          },
+                          "y": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "x",
+                          "y"
+                        ],
+                        "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                        "additionalProperties": false
+                      }
+                    }
+                  },
+                  "required": [
+                    "points"
+                  ],
+                  "description": "Current Type: {@link ObjectUnionComposite.IPolyline}",
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "outer": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "x": {
+                            "type": "number"
+                          },
+                          "y": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "x",
+                          "y"
+                        ],
+                        "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                        "additionalProperties": false
+                      }
+                    },
+                    "inner": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": [
+                    "outer",
+                    "inner"
+                  ],
+                  "description": "Current Type: {@link ObjectUnionComposite.IPointedShape}",
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "outer": {
+                      "type": "object",
+                      "properties": {
+                        "points": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "x": {
+                                "type": "number"
+                              },
+                              "y": {
+                                "type": "number"
+                              }
+                            },
+                            "required": [
+                              "x",
+                              "y"
+                            ],
+                            "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                            "additionalProperties": false
+                          }
+                        }
+                      },
+                      "required": [
+                        "points"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionComposite.IPolyline}",
+                      "additionalProperties": false
+                    },
+                    "inner": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "points": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "x": {
+                                  "type": "number"
+                                },
+                                "y": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "x",
+                                "y"
+                              ],
+                              "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                              "additionalProperties": false
+                            }
+                          }
+                        },
+                        "required": [
+                          "points"
+                        ],
+                        "description": "Current Type: {@link ObjectUnionComposite.IPolyline}",
+                        "additionalProperties": false
+                      }
+                    }
+                  },
+                  "required": [
+                    "outer",
+                    "inner"
+                  ],
+                  "description": "Current Type: {@link ObjectUnionComposite.IPolygon}",
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "centroid": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                      "additionalProperties": false
+                    },
+                    "radius": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "centroid",
+                    "radius"
+                  ],
+                  "description": "Current Type: {@link ObjectUnionComposite.ICircle}",
+                  "additionalProperties": false
+                }
+              ]
+            },
+            "nullable": true
+          },
+          "third": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "x": {
+                      "type": "number"
+                    },
+                    "y": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "x",
+                    "y"
+                  ],
+                  "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "p1": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                      "additionalProperties": false
+                    },
+                    "p2": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": [
+                    "p1",
+                    "p2"
+                  ],
+                  "description": "Current Type: {@link ObjectUnionComposite.ILine}",
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "p1": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                      "additionalProperties": false
+                    },
+                    "p2": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                      "additionalProperties": false
+                    },
+                    "p3": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": [
+                    "p1",
+                    "p2",
+                    "p3"
+                  ],
+                  "description": "Current Type: {@link ObjectUnionComposite.ITriangle}",
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "p1": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                      "additionalProperties": false
+                    },
+                    "p2": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                      "additionalProperties": false
+                    },
+                    "p3": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                      "additionalProperties": false
+                    },
+                    "p4": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": [
+                    "p1",
+                    "p2",
+                    "p3",
+                    "p4"
+                  ],
+                  "description": "Current Type: {@link ObjectUnionComposite.IRectangle}",
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "points": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "x": {
+                            "type": "number"
+                          },
+                          "y": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "x",
+                          "y"
+                        ],
+                        "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                        "additionalProperties": false
+                      }
+                    }
+                  },
+                  "required": [
+                    "points"
+                  ],
+                  "description": "Current Type: {@link ObjectUnionComposite.IPolyline}",
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "outer": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "x": {
+                            "type": "number"
+                          },
+                          "y": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "x",
+                          "y"
+                        ],
+                        "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                        "additionalProperties": false
+                      }
+                    },
+                    "inner": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": [
+                    "outer",
+                    "inner"
+                  ],
+                  "description": "Current Type: {@link ObjectUnionComposite.IPointedShape}",
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "outer": {
+                      "type": "object",
+                      "properties": {
+                        "points": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "x": {
+                                "type": "number"
+                              },
+                              "y": {
+                                "type": "number"
+                              }
+                            },
+                            "required": [
+                              "x",
+                              "y"
+                            ],
+                            "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                            "additionalProperties": false
+                          }
+                        }
+                      },
+                      "required": [
+                        "points"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionComposite.IPolyline}",
+                      "additionalProperties": false
+                    },
+                    "inner": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "points": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "x": {
+                                  "type": "number"
+                                },
+                                "y": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "x",
+                                "y"
+                              ],
+                              "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                              "additionalProperties": false
+                            }
+                          }
+                        },
+                        "required": [
+                          "points"
+                        ],
+                        "description": "Current Type: {@link ObjectUnionComposite.IPolyline}",
+                        "additionalProperties": false
+                      }
+                    }
+                  },
+                  "required": [
+                    "outer",
+                    "inner"
+                  ],
+                  "description": "Current Type: {@link ObjectUnionComposite.IPolygon}",
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "centroid": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                      "additionalProperties": false
+                    },
+                    "radius": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "centroid",
+                    "radius"
+                  ],
+                  "description": "Current Type: {@link ObjectUnionComposite.ICircle}",
+                  "additionalProperties": false
+                }
+              ]
+            },
+            "nullable": true
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "type": "array",
+        "items": {
+          "oneOf": [
+            {
+              "type": "object",
+              "properties": {
+                "x": {
+                  "type": "number"
+                },
+                "y": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "x",
+                "y"
+              ],
+              "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "p1": {
+                  "type": "object",
+                  "properties": {
+                    "x": {
+                      "type": "number"
+                    },
+                    "y": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "x",
+                    "y"
+                  ],
+                  "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                  "additionalProperties": false
+                },
+                "p2": {
+                  "type": "object",
+                  "properties": {
+                    "x": {
+                      "type": "number"
+                    },
+                    "y": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "x",
+                    "y"
+                  ],
+                  "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "p1",
+                "p2"
+              ],
+              "description": "Current Type: {@link ObjectUnionComposite.ILine}",
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "p1": {
+                  "type": "object",
+                  "properties": {
+                    "x": {
+                      "type": "number"
+                    },
+                    "y": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "x",
+                    "y"
+                  ],
+                  "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                  "additionalProperties": false
+                },
+                "p2": {
+                  "type": "object",
+                  "properties": {
+                    "x": {
+                      "type": "number"
+                    },
+                    "y": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "x",
+                    "y"
+                  ],
+                  "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                  "additionalProperties": false
+                },
+                "p3": {
+                  "type": "object",
+                  "properties": {
+                    "x": {
+                      "type": "number"
+                    },
+                    "y": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "x",
+                    "y"
+                  ],
+                  "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "p1",
+                "p2",
+                "p3"
+              ],
+              "description": "Current Type: {@link ObjectUnionComposite.ITriangle}",
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "p1": {
+                  "type": "object",
+                  "properties": {
+                    "x": {
+                      "type": "number"
+                    },
+                    "y": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "x",
+                    "y"
+                  ],
+                  "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                  "additionalProperties": false
+                },
+                "p2": {
+                  "type": "object",
+                  "properties": {
+                    "x": {
+                      "type": "number"
+                    },
+                    "y": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "x",
+                    "y"
+                  ],
+                  "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                  "additionalProperties": false
+                },
+                "p3": {
+                  "type": "object",
+                  "properties": {
+                    "x": {
+                      "type": "number"
+                    },
+                    "y": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "x",
+                    "y"
+                  ],
+                  "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                  "additionalProperties": false
+                },
+                "p4": {
+                  "type": "object",
+                  "properties": {
+                    "x": {
+                      "type": "number"
+                    },
+                    "y": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "x",
+                    "y"
+                  ],
+                  "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "p1",
+                "p2",
+                "p3",
+                "p4"
+              ],
+              "description": "Current Type: {@link ObjectUnionComposite.IRectangle}",
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "points": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "x": {
+                        "type": "number"
+                      },
+                      "y": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "x",
+                      "y"
+                    ],
+                    "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": [
+                "points"
+              ],
+              "description": "Current Type: {@link ObjectUnionComposite.IPolyline}",
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "outer": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "x": {
+                        "type": "number"
+                      },
+                      "y": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "x",
+                      "y"
+                    ],
+                    "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                    "additionalProperties": false
+                  }
+                },
+                "inner": {
+                  "type": "object",
+                  "properties": {
+                    "x": {
+                      "type": "number"
+                    },
+                    "y": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "x",
+                    "y"
+                  ],
+                  "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "outer",
+                "inner"
+              ],
+              "description": "Current Type: {@link ObjectUnionComposite.IPointedShape}",
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "outer": {
+                  "type": "object",
+                  "properties": {
+                    "points": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "x": {
+                            "type": "number"
+                          },
+                          "y": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "x",
+                          "y"
+                        ],
+                        "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                        "additionalProperties": false
+                      }
+                    }
+                  },
+                  "required": [
+                    "points"
+                  ],
+                  "description": "Current Type: {@link ObjectUnionComposite.IPolyline}",
+                  "additionalProperties": false
+                },
+                "inner": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "points": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ],
+                          "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                          "additionalProperties": false
+                        }
+                      }
+                    },
+                    "required": [
+                      "points"
+                    ],
+                    "description": "Current Type: {@link ObjectUnionComposite.IPolyline}",
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": [
+                "outer",
+                "inner"
+              ],
+              "description": "Current Type: {@link ObjectUnionComposite.IPolygon}",
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "centroid": {
+                  "type": "object",
+                  "properties": {
+                    "x": {
+                      "type": "number"
+                    },
+                    "y": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "x",
+                    "y"
+                  ],
+                  "description": "Current Type: {@link ObjectUnionComposite.IPoint}",
+                  "additionalProperties": false
+                },
+                "radius": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "centroid",
+                "radius"
+              ],
+              "description": "Current Type: {@link ObjectUnionComposite.ICircle}",
+              "additionalProperties": false
+            }
+          ]
+        },
+        "nullable": true
+      }
+    }
+  ]
+}

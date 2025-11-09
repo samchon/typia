@@ -3,8 +3,7 @@ import typia from "typia";
 import { _test_json_validateParse } from "../../internal/_test_json_validateParse";
 import { CommentTagArrayUnion } from "../../structures/CommentTagArrayUnion";
 
-export const test_json_createValidateParse_CommentTagArrayUnion = (): void => _test_json_validateParse(
-    "CommentTagArrayUnion",
-)<CommentTagArrayUnion>(
-    CommentTagArrayUnion
-)(typia.json.createValidateParse<CommentTagArrayUnion>());
+export const test_json_createValidateParse_CommentTagArrayUnion = (): void =>
+  _test_json_validateParse("CommentTagArrayUnion")<CommentTagArrayUnion>(
+    CommentTagArrayUnion,
+  )(typia.json.createValidateParse<CommentTagArrayUnion>());

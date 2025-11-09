@@ -1,14 +1,13 @@
 import typia from "typia";
-import { TypeTagFormat } from "../../../structures/TypeTagFormat";
+
 import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
+import { TypeTagFormat } from "../../../structures/TypeTagFormat";
 
 export const test_llm_parameters_claude_TypeTagFormat = (): void =>
   _test_llm_parameters({
     model: "claude",
     name: "TypeTagFormat",
-  })(
-    typia.llm.parameters<TypeTagFormatParameters, "claude">(),
-  );
+  })(typia.llm.parameters<TypeTagFormatParameters, "claude">());
 
 interface TypeTagFormatParameters {
   regular: TypeTagFormat;

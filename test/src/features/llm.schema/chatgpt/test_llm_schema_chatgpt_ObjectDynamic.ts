@@ -1,6 +1,7 @@
 import typia from "typia";
-import { ObjectDynamic } from "../../../structures/ObjectDynamic";
+
 import { _test_llm_schema } from "../../../internal/_test_llm_schema";
+import { ObjectDynamic } from "../../../structures/ObjectDynamic";
 
 export const test_llm_schema_chatgpt_ObjectDynamic = (): void =>
   _test_llm_schema({

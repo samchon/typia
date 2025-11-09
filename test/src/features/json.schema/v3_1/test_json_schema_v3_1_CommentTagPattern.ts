@@ -1,9 +1,10 @@
 import typia from "typia";
-import { CommentTagPattern } from "../../../structures/CommentTagPattern";
+
 import { _test_json_schema } from "../../../internal/_test_json_schema";
+import { CommentTagPattern } from "../../../structures/CommentTagPattern";
 
 export const test_json_schema_v3_1_CommentTagPattern = (): void =>
   _test_json_schema({
     version: "3.1",
-    name: "CommentTagPattern", 
+    name: "CommentTagPattern",
   })(typia.json.schema<CommentTagPattern, "3.1">());

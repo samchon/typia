@@ -1,12 +1,12 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertGuard } from "../../internal/_test_assertGuard";
 import { ObjectSimpleProtobufNullable } from "../../structures/ObjectSimpleProtobufNullable";
 
-import { TypeGuardError } from "typia";
-
-export const test_createAssertGuard_ObjectSimpleProtobufNullable = (): void => _test_assertGuard(TypeGuardError)(
+export const test_createAssertGuard_ObjectSimpleProtobufNullable = (): void =>
+  _test_assertGuard(TypeGuardError)(
     "ObjectSimpleProtobufNullable",
-)<ObjectSimpleProtobufNullable>(
-    ObjectSimpleProtobufNullable
-)(typia.createAssertGuard<ObjectSimpleProtobufNullable>());
+  )<ObjectSimpleProtobufNullable>(ObjectSimpleProtobufNullable)(
+    typia.createAssertGuard<ObjectSimpleProtobufNullable>(),
+  );

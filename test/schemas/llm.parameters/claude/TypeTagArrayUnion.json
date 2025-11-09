@@ -1,0 +1,104 @@
+{
+  "type": "object",
+  "properties": {
+    "regular": {
+      "$ref": "#/$defs/TypeTagArrayUnion"
+    },
+    "nullable": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/TypeTagArrayUnion"
+        }
+      ]
+    },
+    "optional": {
+      "$ref": "#/$defs/TypeTagArrayUnion"
+    },
+    "faint": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/TypeTagArrayUnion"
+        }
+      ]
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/TypeTagArrayUnion"
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "array"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "TypeTagArrayUnion": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/TypeTagArrayUnion.Type"
+      }
+    },
+    "TypeTagArrayUnion.Type": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "minItems": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "minimum": 3
+          },
+          "minItems": 3
+        },
+        "maxItems": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "type": "string",
+                "maxLength": 7
+              },
+              {
+                "type": "number",
+                "maximum": 7
+              }
+            ]
+          },
+          "maxItems": 7
+        },
+        "both": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "minItems": 3,
+          "maxItems": 7
+        }
+      },
+      "required": [
+        "items",
+        "minItems",
+        "maxItems",
+        "both"
+      ]
+    }
+  }
+}

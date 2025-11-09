@@ -1,9 +1,10 @@
 import typia from "typia";
-import { ObjectPrimitive } from "../../../structures/ObjectPrimitive";
+
 import { _test_json_schema } from "../../../internal/_test_json_schema";
+import { ObjectPrimitive } from "../../../structures/ObjectPrimitive";
 
 export const test_json_schema_v3_1_ObjectPrimitive = (): void =>
   _test_json_schema({
     version: "3.1",
-    name: "ObjectPrimitive", 
+    name: "ObjectPrimitive",
   })(typia.json.schema<ObjectPrimitive, "3.1">());

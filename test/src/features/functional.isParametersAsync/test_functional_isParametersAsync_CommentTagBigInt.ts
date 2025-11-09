@@ -3,9 +3,9 @@ import typia from "typia";
 import { _test_functional_isParametersAsync } from "../../internal/_test_functional_isParametersAsync";
 import { CommentTagBigInt } from "../../structures/CommentTagBigInt";
 
-export const test_functional_isParametersAsync_CommentTagBigInt = (): Promise<void> => _test_functional_isParametersAsync(
-  "CommentTagBigInt"
-)(CommentTagBigInt)(
-  (p: (input: CommentTagBigInt) => Promise<CommentTagBigInt>) =>
-    typia.functional.isParameters(p),
-)
+export const test_functional_isParametersAsync_CommentTagBigInt =
+  (): Promise<void> =>
+    _test_functional_isParametersAsync("CommentTagBigInt")(CommentTagBigInt)(
+      (p: (input: CommentTagBigInt) => Promise<CommentTagBigInt>) =>
+        typia.functional.isParameters(p),
+    );

@@ -1,7 +1,9 @@
 import typia from "typia";
-import { ObjectInternal } from "../../structures/ObjectInternal";
-import { _test_protobuf_message } from "../../internal/_test_protobuf_message";
 
-export const test_protobuf_message_ObjectInternal = (): void => _test_protobuf_message(
-  "ObjectInternal",
-)(typia.protobuf.message<ObjectInternal>());
+import { _test_protobuf_message } from "../../internal/_test_protobuf_message";
+import { ObjectInternal } from "../../structures/ObjectInternal";
+
+export const test_protobuf_message_ObjectInternal = (): void =>
+  _test_protobuf_message("ObjectInternal")(
+    typia.protobuf.message<ObjectInternal>(),
+  );

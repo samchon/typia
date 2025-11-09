@@ -1,12 +1,14 @@
 import typia from "typia";
 
+import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_assertEquals } from "../../internal/_test_assertEquals";
 import { ObjectGenericArray } from "../../structures/ObjectGenericArray";
 
-import { CustomGuardError } from "../../internal/CustomGuardError";
-
-export const test_createAssertEqualsCustom_ObjectGenericArray = (): void => _test_assertEquals(CustomGuardError)(
+export const test_createAssertEqualsCustom_ObjectGenericArray = (): void =>
+  _test_assertEquals(CustomGuardError)(
     "ObjectGenericArray",
-)<ObjectGenericArray>(
-    ObjectGenericArray
-)(typia.createAssertEquals<ObjectGenericArray>((p) => new CustomGuardError(p)));
+  )<ObjectGenericArray>(ObjectGenericArray)(
+    typia.createAssertEquals<ObjectGenericArray>(
+      (p) => new CustomGuardError(p),
+    ),
+  );

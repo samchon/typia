@@ -3,10 +3,11 @@ import typia from "typia";
 import { _test_protobuf_validateEncode } from "../../internal/_test_protobuf_validateEncode";
 import { CommentTagInfinite } from "../../structures/CommentTagInfinite";
 
-export const test_protobuf_validateEncode_CommentTagInfinite = (): void => _test_protobuf_validateEncode(
-  "CommentTagInfinite",
-)<CommentTagInfinite>(CommentTagInfinite)({
-  encode: (input) => typia.protobuf.validateEncode<CommentTagInfinite>(input),
-  decode: typia.protobuf.createDecode<CommentTagInfinite>(),
-  message: typia.protobuf.message<CommentTagInfinite>(),
-});
+export const test_protobuf_validateEncode_CommentTagInfinite = (): void =>
+  _test_protobuf_validateEncode("CommentTagInfinite")<CommentTagInfinite>(
+    CommentTagInfinite,
+  )({
+    encode: (input) => typia.protobuf.validateEncode<CommentTagInfinite>(input),
+    decode: typia.protobuf.createDecode<CommentTagInfinite>(),
+    message: typia.protobuf.message<CommentTagInfinite>(),
+  });

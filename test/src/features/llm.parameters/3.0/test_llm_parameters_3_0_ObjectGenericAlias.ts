@@ -1,14 +1,13 @@
 import typia from "typia";
-import { ObjectGenericAlias } from "../../../structures/ObjectGenericAlias";
+
 import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
+import { ObjectGenericAlias } from "../../../structures/ObjectGenericAlias";
 
 export const test_llm_parameters_3_0_ObjectGenericAlias = (): void =>
   _test_llm_parameters({
     model: "3.0",
     name: "ObjectGenericAlias",
-  })(
-    typia.llm.parameters<ObjectGenericAliasParameters, "3.0">(),
-  );
+  })(typia.llm.parameters<ObjectGenericAliasParameters, "3.0">());
 
 interface ObjectGenericAliasParameters {
   regular: ObjectGenericAlias;

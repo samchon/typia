@@ -4,8 +4,8 @@ import { _test_notation_validateGeneral } from "../../internal/_test_notation_va
 import { ObjectHttpConstant } from "../../structures/ObjectHttpConstant";
 
 export const test_notation_createValidateCamel_ObjectHttpConstant = (): void =>
-    _test_notation_validateGeneral("ObjectHttpConstant")<ObjectHttpConstant>(
-        ObjectHttpConstant
+  _test_notation_validateGeneral("ObjectHttpConstant")<ObjectHttpConstant>(
+    ObjectHttpConstant,
   )<typia.CamelCase<ObjectHttpConstant>>({
     convert: typia.notations.createValidateCamel<ObjectHttpConstant>(),
     assert: typia.createAssert<typia.CamelCase<ObjectHttpConstant>>(),

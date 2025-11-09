@@ -1,9 +1,10 @@
 import typia from "typia";
-import { ArrayHierarchical } from "../../../structures/ArrayHierarchical";
+
 import { _test_json_schemas } from "../../../internal/_test_json_schemas";
+import { ArrayHierarchical } from "../../../structures/ArrayHierarchical";
 
 export const test_json_schemas_v3_1_ArrayHierarchical = (): void =>
   _test_json_schemas({
     version: "3.1",
-    name: "ArrayHierarchical", 
+    name: "ArrayHierarchical",
   })(typia.json.schemas<[ArrayHierarchical], "3.1">());

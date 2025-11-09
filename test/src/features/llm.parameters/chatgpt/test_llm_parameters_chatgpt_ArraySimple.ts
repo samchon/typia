@@ -1,14 +1,13 @@
 import typia from "typia";
-import { ArraySimple } from "../../../structures/ArraySimple";
+
 import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
+import { ArraySimple } from "../../../structures/ArraySimple";
 
 export const test_llm_parameters_chatgpt_ArraySimple = (): void =>
   _test_llm_parameters({
     model: "chatgpt",
     name: "ArraySimple",
-  })(
-    typia.llm.parameters<ArraySimpleParameters, "chatgpt">(),
-  );
+  })(typia.llm.parameters<ArraySimpleParameters, "chatgpt">());
 
 interface ArraySimpleParameters {
   regular: ArraySimple;

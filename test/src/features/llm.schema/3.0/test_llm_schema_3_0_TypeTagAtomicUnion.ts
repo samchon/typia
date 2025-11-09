@@ -1,6 +1,7 @@
 import typia from "typia";
-import { TypeTagAtomicUnion } from "../../../structures/TypeTagAtomicUnion";
+
 import { _test_llm_schema } from "../../../internal/_test_llm_schema";
+import { TypeTagAtomicUnion } from "../../../structures/TypeTagAtomicUnion";
 
 export const test_llm_schema_3_0_TypeTagAtomicUnion = (): void =>
   _test_llm_schema({

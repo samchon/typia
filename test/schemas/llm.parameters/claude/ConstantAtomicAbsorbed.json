@@ -1,0 +1,62 @@
+{
+  "type": "object",
+  "properties": {
+    "regular": {
+      "$ref": "#/$defs/ConstantAtomicAbsorbed"
+    },
+    "nullable": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/ConstantAtomicAbsorbed"
+        }
+      ]
+    },
+    "optional": {
+      "$ref": "#/$defs/ConstantAtomicAbsorbed"
+    },
+    "faint": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/ConstantAtomicAbsorbed"
+        }
+      ]
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ConstantAtomicAbsorbed"
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "array"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "ConstantAtomicAbsorbed": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "default": "something"
+        },
+        "age": {
+          "type": "number",
+          "default": 20
+        }
+      },
+      "required": [
+        "id",
+        "age"
+      ]
+    }
+  }
+}

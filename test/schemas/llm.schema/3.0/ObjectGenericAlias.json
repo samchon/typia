@@ -1,0 +1,13 @@
+{
+  "type": "object",
+  "properties": {
+    "value": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "value"
+  ],
+  "description": "Current Type: {@link ObjectGenericAlias.Alias}",
+  "additionalProperties": false
+}

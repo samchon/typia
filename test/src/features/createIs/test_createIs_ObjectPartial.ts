@@ -3,8 +3,7 @@ import typia from "typia";
 import { _test_is } from "../../internal/_test_is";
 import { ObjectPartial } from "../../structures/ObjectPartial";
 
-export const test_createIs_ObjectPartial = (): void => _test_is(
-    "ObjectPartial",
-)<ObjectPartial>(
-    ObjectPartial
-)(typia.createIs<ObjectPartial>());
+export const test_createIs_ObjectPartial = (): void =>
+  _test_is("ObjectPartial")<ObjectPartial>(ObjectPartial)(
+    typia.createIs<ObjectPartial>(),
+  );

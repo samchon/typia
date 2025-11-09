@@ -1,14 +1,13 @@
 import typia from "typia";
-import { ObjectDynamic } from "../../../structures/ObjectDynamic";
+
 import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
+import { ObjectDynamic } from "../../../structures/ObjectDynamic";
 
 export const test_llm_parameters_3_0_ObjectDynamic = (): void =>
   _test_llm_parameters({
     model: "3.0",
     name: "ObjectDynamic",
-  })(
-    typia.llm.parameters<ObjectDynamicParameters, "3.0">(),
-  );
+  })(typia.llm.parameters<ObjectDynamicParameters, "3.0">());
 
 interface ObjectDynamicParameters {
   regular: ObjectDynamic;

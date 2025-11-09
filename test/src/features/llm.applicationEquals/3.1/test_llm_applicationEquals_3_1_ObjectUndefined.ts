@@ -1,22 +1,30 @@
 import typia from "typia";
-import { ObjectUndefined } from "../../../structures/ObjectUndefined";
+
 import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
+import { ObjectUndefined } from "../../../structures/ObjectUndefined";
 
 export const test_llm_applicationEquals_3_1_ObjectUndefined = (): void =>
   _test_llm_applicationEquals({
     model: "3.1",
     name: "ObjectUndefined",
-    factory: ObjectUndefined
+    factory: ObjectUndefined,
   })(
-    typia.llm.application<ObjectUndefinedApplication, "3.1", { equals: true }>(),
+    typia.llm.application<
+      ObjectUndefinedApplication,
+      "3.1",
+      { equals: true }
+    >(),
   );
 
 interface ObjectUndefinedApplication {
   insert(p: { first: ObjectUndefined }): Promise<void>;
-  reduce(p: { first: ObjectUndefined, second: ObjectUndefined | null }): Promise<ObjectUndefined>;
+  reduce(p: {
+    first: ObjectUndefined;
+    second: ObjectUndefined | null;
+  }): Promise<ObjectUndefined>;
   coalesce(p: {
-    first: ObjectUndefined | null,
-    second: ObjectUndefined | null,
-    third?: ObjectUndefined | null,
+    first: ObjectUndefined | null;
+    second: ObjectUndefined | null;
+    third?: ObjectUndefined | null;
   }): Promise<ObjectUndefined | null>;
 }

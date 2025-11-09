@@ -1,22 +1,30 @@
 import typia from "typia";
-import { CommentTagDefault } from "../../../structures/CommentTagDefault";
+
 import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
+import { CommentTagDefault } from "../../../structures/CommentTagDefault";
 
 export const test_llm_applicationEquals_gemini_CommentTagDefault = (): void =>
   _test_llm_applicationEquals({
     model: "gemini",
     name: "CommentTagDefault",
-    factory: CommentTagDefault
+    factory: CommentTagDefault,
   })(
-    typia.llm.application<CommentTagDefaultApplication, "gemini", { equals: true }>(),
+    typia.llm.application<
+      CommentTagDefaultApplication,
+      "gemini",
+      { equals: true }
+    >(),
   );
 
 interface CommentTagDefaultApplication {
   insert(p: { first: CommentTagDefault }): Promise<void>;
-  reduce(p: { first: CommentTagDefault, second: CommentTagDefault | null }): Promise<CommentTagDefault>;
+  reduce(p: {
+    first: CommentTagDefault;
+    second: CommentTagDefault | null;
+  }): Promise<CommentTagDefault>;
   coalesce(p: {
-    first: CommentTagDefault | null,
-    second: CommentTagDefault | null,
-    third?: CommentTagDefault | null,
+    first: CommentTagDefault | null;
+    second: CommentTagDefault | null;
+    third?: CommentTagDefault | null;
   }): Promise<CommentTagDefault | null>;
 }

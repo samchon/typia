@@ -1,12 +1,12 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertParse } from "../../internal/_test_json_assertParse";
 import { ConstantEnumeration } from "../../structures/ConstantEnumeration";
 
-import { TypeGuardError } from "typia";
-
-export const test_json_assertParse_ConstantEnumeration = (): void => _test_json_assertParse(TypeGuardError)(
+export const test_json_assertParse_ConstantEnumeration = (): void =>
+  _test_json_assertParse(TypeGuardError)(
     "ConstantEnumeration",
-)<ConstantEnumeration>(
-    ConstantEnumeration
-)((input) => typia.json.assertParse<ConstantEnumeration>(input));
+  )<ConstantEnumeration>(ConstantEnumeration)((input) =>
+    typia.json.assertParse<ConstantEnumeration>(input),
+  );

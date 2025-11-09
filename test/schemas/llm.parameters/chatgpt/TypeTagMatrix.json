@@ -1,0 +1,65 @@
+{
+  "type": "object",
+  "properties": {
+    "regular": {
+      "$ref": "#/$defs/TypeTagMatrix"
+    },
+    "nullable": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/TypeTagMatrix"
+        }
+      ]
+    },
+    "optional": {
+      "$ref": "#/$defs/TypeTagMatrix"
+    },
+    "faint": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/TypeTagMatrix"
+        }
+      ]
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/TypeTagMatrix"
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "array"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "TypeTagMatrix": {
+      "type": "object",
+      "properties": {
+        "matrix": {
+          "description": "@minItems 3\n@maxItems 3",
+          "type": "array",
+          "items": {
+            "description": "@minItems 4\n@maxItems 4",
+            "type": "array",
+            "items": {
+              "description": "@format uuid",
+              "type": "string"
+            }
+          }
+        }
+      },
+      "required": [
+        "matrix"
+      ]
+    }
+  }
+}
