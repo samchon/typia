@@ -4,12 +4,9 @@ import { _test_notation_validateGeneral } from "../../internal/_test_notation_va
 import { ConstantAtomicAbsorbed } from "../../structures/ConstantAtomicAbsorbed";
 
 export const test_notation_validateSnake_ConstantAtomicAbsorbed = (): void =>
-  _test_notation_validateGeneral(
-    "ConstantAtomicAbsorbed",
-  )<ConstantAtomicAbsorbed>(ConstantAtomicAbsorbed)<
-    typia.SnakeCase<ConstantAtomicAbsorbed>
-  >({
-    convert: (input) =>
-      typia.notations.validateSnake<ConstantAtomicAbsorbed>(input),
+    _test_notation_validateGeneral("ConstantAtomicAbsorbed")<ConstantAtomicAbsorbed>(
+        ConstantAtomicAbsorbed
+  )<typia.SnakeCase<ConstantAtomicAbsorbed>>({
+    convert: (input) => typia.notations.validateSnake<ConstantAtomicAbsorbed>(input),
     assert: typia.createAssert<typia.SnakeCase<ConstantAtomicAbsorbed>>(),
   });

@@ -1,9 +1,8 @@
 import typia from "typia";
-
-import { _test_reflect_metadata } from "../../internal/_test_reflect_metadata";
 import { AtomicIntersection } from "../../structures/AtomicIntersection";
+import { _test_reflect_metadata } from "../../internal/_test_reflect_metadata";
 
 export const test_reflect_metadata_AtomicIntersection = (): void =>
   _test_reflect_metadata("AtomicIntersection")(
-    typia.reflect.metadata<[AtomicIntersection]>(),
+    typia.reflect.metadata<[AtomicIntersection]>()
   );

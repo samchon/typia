@@ -1,9 +1,8 @@
 import typia from "typia";
-
-import { _test_reflect_metadata } from "../../internal/_test_reflect_metadata";
 import { ArraySimpleProtobufNullable } from "../../structures/ArraySimpleProtobufNullable";
+import { _test_reflect_metadata } from "../../internal/_test_reflect_metadata";
 
 export const test_reflect_metadata_ArraySimpleProtobufNullable = (): void =>
   _test_reflect_metadata("ArraySimpleProtobufNullable")(
-    typia.reflect.metadata<[ArraySimpleProtobufNullable]>(),
+    typia.reflect.metadata<[ArraySimpleProtobufNullable]>()
   );

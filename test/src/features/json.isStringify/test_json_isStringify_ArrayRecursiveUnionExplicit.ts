@@ -3,9 +3,8 @@ import typia from "typia";
 import { _test_json_isStringify } from "../../internal/_test_json_isStringify";
 import { ArrayRecursiveUnionExplicit } from "../../structures/ArrayRecursiveUnionExplicit";
 
-export const test_json_isStringify_ArrayRecursiveUnionExplicit = (): void =>
-  _test_json_isStringify(
+export const test_json_isStringify_ArrayRecursiveUnionExplicit = (): void => _test_json_isStringify(
     "ArrayRecursiveUnionExplicit",
-  )<ArrayRecursiveUnionExplicit>(ArrayRecursiveUnionExplicit)((input) =>
-    typia.json.isStringify<ArrayRecursiveUnionExplicit>(input),
-  );
+)<ArrayRecursiveUnionExplicit>(
+    ArrayRecursiveUnionExplicit
+)((input) => typia.json.isStringify<ArrayRecursiveUnionExplicit>(input));

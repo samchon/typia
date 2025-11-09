@@ -3,7 +3,8 @@ import typia from "typia";
 import { _test_is } from "../../internal/_test_is";
 import { FunctionalValue } from "../../structures/FunctionalValue";
 
-export const test_is_FunctionalValue = (): void =>
-  _test_is("FunctionalValue")<FunctionalValue>(FunctionalValue)((input) =>
-    typia.is<FunctionalValue>(input),
-  );
+export const test_is_FunctionalValue = (): void => _test_is(
+    "FunctionalValue",
+)<FunctionalValue>(
+    FunctionalValue
+)((input) => typia.is<FunctionalValue>(input));

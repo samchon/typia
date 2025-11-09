@@ -1,10 +1,9 @@
 import typia from "typia";
-
-import { _test_json_schemas } from "../../../internal/_test_json_schemas";
 import { DynamicSimple } from "../../../structures/DynamicSimple";
+import { _test_json_schemas } from "../../../internal/_test_json_schemas";
 
 export const test_json_schemas_v3_0_DynamicSimple = (): void =>
   _test_json_schemas({
     version: "3.0",
-    name: "DynamicSimple",
+    name: "DynamicSimple", 
   })(typia.json.schemas<[DynamicSimple], "3.0">());

@@ -1,14 +1,12 @@
 import typia from "typia";
 
-import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_json_assertStringify } from "../../internal/_test_json_assertStringify";
 import { TupleRestArray } from "../../structures/TupleRestArray";
 
-export const test_json_createAssertStringifyCustom_TupleRestArray = (): void =>
-  _test_json_assertStringify(CustomGuardError)(
+import { CustomGuardError } from "../../internal/CustomGuardError";
+
+export const test_json_createAssertStringifyCustom_TupleRestArray = (): void => _test_json_assertStringify(CustomGuardError)(
     "TupleRestArray",
-  )<TupleRestArray>(TupleRestArray)(
-    typia.json.createAssertStringify<TupleRestArray>(
-      (p) => new CustomGuardError(p),
-    ),
-  );
+)<TupleRestArray>(
+    TupleRestArray
+)(typia.json.createAssertStringify<TupleRestArray>((p) => new CustomGuardError(p)));

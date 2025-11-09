@@ -3,7 +3,8 @@ import typia from "typia";
 import { _test_misc_validateClone } from "../../internal/_test_misc_validateClone";
 import { AtomicIntersection } from "../../structures/AtomicIntersection";
 
-export const test_misc_validateClone_AtomicIntersection = (): void =>
-  _test_misc_validateClone("AtomicIntersection")<AtomicIntersection>(
-    AtomicIntersection,
-  )((input) => typia.misc.validateClone<AtomicIntersection>(input));
+export const test_misc_validateClone_AtomicIntersection = (): void => _test_misc_validateClone(
+    "AtomicIntersection",
+)<AtomicIntersection>(
+    AtomicIntersection
+)((input) => typia.misc.validateClone<AtomicIntersection>(input));

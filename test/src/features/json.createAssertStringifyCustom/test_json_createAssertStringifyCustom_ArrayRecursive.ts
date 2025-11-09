@@ -1,14 +1,12 @@
 import typia from "typia";
 
-import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_json_assertStringify } from "../../internal/_test_json_assertStringify";
 import { ArrayRecursive } from "../../structures/ArrayRecursive";
 
-export const test_json_createAssertStringifyCustom_ArrayRecursive = (): void =>
-  _test_json_assertStringify(CustomGuardError)(
+import { CustomGuardError } from "../../internal/CustomGuardError";
+
+export const test_json_createAssertStringifyCustom_ArrayRecursive = (): void => _test_json_assertStringify(CustomGuardError)(
     "ArrayRecursive",
-  )<ArrayRecursive>(ArrayRecursive)(
-    typia.json.createAssertStringify<ArrayRecursive>(
-      (p) => new CustomGuardError(p),
-    ),
-  );
+)<ArrayRecursive>(
+    ArrayRecursive
+)(typia.json.createAssertStringify<ArrayRecursive>((p) => new CustomGuardError(p)));

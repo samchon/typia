@@ -1,7 +1,0 @@
-syntax = "proto3";
-
-message __object {
-  required string id = 1;
-  required string name = 2;
-  required double age = 3;
-}

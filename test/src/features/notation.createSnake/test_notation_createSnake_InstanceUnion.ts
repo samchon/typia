@@ -4,9 +4,9 @@ import { _test_notation_validateGeneral } from "../../internal/_test_notation_va
 import { InstanceUnion } from "../../structures/InstanceUnion";
 
 export const test_notation_createValidateSnake_InstanceUnion = (): void =>
-  _test_notation_validateGeneral("InstanceUnion")<InstanceUnion>(InstanceUnion)<
-    typia.SnakeCase<InstanceUnion>
-  >({
+    _test_notation_validateGeneral("InstanceUnion")<InstanceUnion>(
+        InstanceUnion
+  )<typia.SnakeCase<InstanceUnion>>({
     convert: typia.notations.createValidateSnake<InstanceUnion>(),
     assert: typia.createAssert<typia.SnakeCase<InstanceUnion>>(),
   });

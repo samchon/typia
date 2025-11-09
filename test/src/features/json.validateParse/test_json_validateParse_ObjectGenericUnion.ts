@@ -3,7 +3,8 @@ import typia from "typia";
 import { _test_json_validateParse } from "../../internal/_test_json_validateParse";
 import { ObjectGenericUnion } from "../../structures/ObjectGenericUnion";
 
-export const test_json_validateParse_ObjectGenericUnion = (): void =>
-  _test_json_validateParse("ObjectGenericUnion")<ObjectGenericUnion>(
-    ObjectGenericUnion,
-  )((input) => typia.json.validateParse<ObjectGenericUnion>(input));
+export const test_json_validateParse_ObjectGenericUnion = (): void => _test_json_validateParse(
+    "ObjectGenericUnion",
+)<ObjectGenericUnion>(
+    ObjectGenericUnion
+)((input) => typia.json.validateParse<ObjectGenericUnion>(input));

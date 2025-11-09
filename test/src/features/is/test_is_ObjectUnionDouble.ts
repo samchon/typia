@@ -3,7 +3,8 @@ import typia from "typia";
 import { _test_is } from "../../internal/_test_is";
 import { ObjectUnionDouble } from "../../structures/ObjectUnionDouble";
 
-export const test_is_ObjectUnionDouble = (): void =>
-  _test_is("ObjectUnionDouble")<ObjectUnionDouble>(ObjectUnionDouble)((input) =>
-    typia.is<ObjectUnionDouble>(input),
-  );
+export const test_is_ObjectUnionDouble = (): void => _test_is(
+    "ObjectUnionDouble",
+)<ObjectUnionDouble>(
+    ObjectUnionDouble
+)((input) => typia.is<ObjectUnionDouble>(input));

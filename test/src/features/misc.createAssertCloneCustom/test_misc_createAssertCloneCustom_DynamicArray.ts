@@ -1,10 +1,12 @@
 import typia from "typia";
 
-import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_misc_assertClone } from "../../internal/_test_misc_assertClone";
 import { DynamicArray } from "../../structures/DynamicArray";
 
-export const test_misc_createAssertCloneCustom_DynamicArray = (): void =>
-  _test_misc_assertClone(CustomGuardError)("DynamicArray")<DynamicArray>(
-    DynamicArray,
-  )(typia.misc.createAssertClone<DynamicArray>((p) => new CustomGuardError(p)));
+import { CustomGuardError } from "../../internal/CustomGuardError";
+
+export const test_misc_createAssertCloneCustom_DynamicArray = (): void => _test_misc_assertClone(CustomGuardError)(
+    "DynamicArray",
+)<DynamicArray>(
+    DynamicArray
+)(typia.misc.createAssertClone<DynamicArray>((p) => new CustomGuardError(p)));

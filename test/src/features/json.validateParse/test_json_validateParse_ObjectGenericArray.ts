@@ -3,7 +3,8 @@ import typia from "typia";
 import { _test_json_validateParse } from "../../internal/_test_json_validateParse";
 import { ObjectGenericArray } from "../../structures/ObjectGenericArray";
 
-export const test_json_validateParse_ObjectGenericArray = (): void =>
-  _test_json_validateParse("ObjectGenericArray")<ObjectGenericArray>(
-    ObjectGenericArray,
-  )((input) => typia.json.validateParse<ObjectGenericArray>(input));
+export const test_json_validateParse_ObjectGenericArray = (): void => _test_json_validateParse(
+    "ObjectGenericArray",
+)<ObjectGenericArray>(
+    ObjectGenericArray
+)((input) => typia.json.validateParse<ObjectGenericArray>(input));

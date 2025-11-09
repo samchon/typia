@@ -3,7 +3,8 @@ import typia from "typia";
 import { _test_equals } from "../../internal/_test_equals";
 import { TupleUnion } from "../../structures/TupleUnion";
 
-export const test_createEquals_TupleUnion = (): void =>
-  _test_equals("TupleUnion")<TupleUnion>(TupleUnion)(
-    typia.createEquals<TupleUnion>(),
-  );
+export const test_createEquals_TupleUnion = (): void => _test_equals(
+    "TupleUnion",
+)<TupleUnion>(
+    TupleUnion
+)(typia.createEquals<TupleUnion>());

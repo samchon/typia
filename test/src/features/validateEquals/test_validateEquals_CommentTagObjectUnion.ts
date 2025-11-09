@@ -3,7 +3,8 @@ import typia from "typia";
 import { _test_validateEquals } from "../../internal/_test_validateEquals";
 import { CommentTagObjectUnion } from "../../structures/CommentTagObjectUnion";
 
-export const test_validateEquals_CommentTagObjectUnion = (): void =>
-  _test_validateEquals("CommentTagObjectUnion")<CommentTagObjectUnion>(
-    CommentTagObjectUnion,
-  )((input) => typia.validateEquals<CommentTagObjectUnion>(input));
+export const test_validateEquals_CommentTagObjectUnion = (): void => _test_validateEquals(
+    "CommentTagObjectUnion",
+)<CommentTagObjectUnion>(
+    CommentTagObjectUnion
+)((input) => typia.validateEquals<CommentTagObjectUnion>(input));

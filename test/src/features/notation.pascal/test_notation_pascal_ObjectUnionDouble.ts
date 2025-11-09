@@ -4,10 +4,9 @@ import { _test_notation_validateGeneral } from "../../internal/_test_notation_va
 import { ObjectUnionDouble } from "../../structures/ObjectUnionDouble";
 
 export const test_notation_validatePascal_ObjectUnionDouble = (): void =>
-  _test_notation_validateGeneral("ObjectUnionDouble")<ObjectUnionDouble>(
-    ObjectUnionDouble,
+    _test_notation_validateGeneral("ObjectUnionDouble")<ObjectUnionDouble>(
+        ObjectUnionDouble
   )<typia.PascalCase<ObjectUnionDouble>>({
-    convert: (input) =>
-      typia.notations.validatePascal<ObjectUnionDouble>(input),
+    convert: (input) => typia.notations.validatePascal<ObjectUnionDouble>(input),
     assert: typia.createAssert<typia.PascalCase<ObjectUnionDouble>>(),
   });

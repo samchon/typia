@@ -3,8 +3,9 @@ import typia from "typia";
 import { _test_random } from "../../internal/_test_random";
 import { SetUnion } from "../../structures/SetUnion";
 
-export const test_random_SetUnion = (): void =>
-  _test_random("SetUnion")<SetUnion>(SetUnion)({
-    random: () => typia.random<SetUnion>((SetUnion as any).RANDOM),
-    assert: typia.createAssert<SetUnion>(),
-  });
+export const test_random_SetUnion = (): void => _test_random("SetUnion")<SetUnion>(
+    SetUnion
+)({
+  random: () => typia.random<SetUnion>((SetUnion as any).RANDOM),
+  assert: typia.createAssert<SetUnion>(),
+});

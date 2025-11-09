@@ -1,12 +1,12 @@
 import typia from "typia";
-import { TypeGuardError } from "typia";
 
 import { _test_misc_assertClone } from "../../internal/_test_misc_assertClone";
 import { ObjectUnionComposite } from "../../structures/ObjectUnionComposite";
 
-export const test_misc_assertClone_ObjectUnionComposite = (): void =>
-  _test_misc_assertClone(TypeGuardError)(
+import { TypeGuardError } from "typia";
+
+export const test_misc_assertClone_ObjectUnionComposite = (): void => _test_misc_assertClone(TypeGuardError)(
     "ObjectUnionComposite",
-  )<ObjectUnionComposite>(ObjectUnionComposite)((input) =>
-    typia.misc.assertClone<ObjectUnionComposite>(input),
-  );
+)<ObjectUnionComposite>(
+    ObjectUnionComposite
+)((input) => typia.misc.assertClone<ObjectUnionComposite>(input));

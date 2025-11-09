@@ -3,7 +3,8 @@ import typia from "typia";
 import { _test_equals } from "../../internal/_test_equals";
 import { TypeTagRangeBigInt } from "../../structures/TypeTagRangeBigInt";
 
-export const test_equals_TypeTagRangeBigInt = (): void =>
-  _test_equals("TypeTagRangeBigInt")<TypeTagRangeBigInt>(TypeTagRangeBigInt)(
-    (input) => typia.equals<TypeTagRangeBigInt>(input),
-  );
+export const test_equals_TypeTagRangeBigInt = (): void => _test_equals(
+    "TypeTagRangeBigInt",
+)<TypeTagRangeBigInt>(
+    TypeTagRangeBigInt
+)((input) => typia.equals<TypeTagRangeBigInt>(input));

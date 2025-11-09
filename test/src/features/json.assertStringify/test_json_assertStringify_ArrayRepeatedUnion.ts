@@ -1,12 +1,12 @@
 import typia from "typia";
-import { TypeGuardError } from "typia";
 
 import { _test_json_assertStringify } from "../../internal/_test_json_assertStringify";
 import { ArrayRepeatedUnion } from "../../structures/ArrayRepeatedUnion";
 
-export const test_json_assertStringify_ArrayRepeatedUnion = (): void =>
-  _test_json_assertStringify(TypeGuardError)(
+import { TypeGuardError } from "typia";
+
+export const test_json_assertStringify_ArrayRepeatedUnion = (): void => _test_json_assertStringify(TypeGuardError)(
     "ArrayRepeatedUnion",
-  )<ArrayRepeatedUnion>(ArrayRepeatedUnion)((input) =>
-    typia.json.assertStringify<ArrayRepeatedUnion>(input),
-  );
+)<ArrayRepeatedUnion>(
+    ArrayRepeatedUnion
+)((input) => typia.json.assertStringify<ArrayRepeatedUnion>(input));

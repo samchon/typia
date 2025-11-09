@@ -1,15 +1,12 @@
 import typia from "typia";
 
-import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_json_assertParse } from "../../internal/_test_json_assertParse";
 import { ObjectGenericArray } from "../../structures/ObjectGenericArray";
 
-export const test_json_assertParseCustom_ObjectGenericArray = (): void =>
-  _test_json_assertParse(CustomGuardError)(
+import { CustomGuardError } from "../../internal/CustomGuardError";
+
+export const test_json_assertParseCustom_ObjectGenericArray = (): void => _test_json_assertParse(CustomGuardError)(
     "ObjectGenericArray",
-  )<ObjectGenericArray>(ObjectGenericArray)((input) =>
-    typia.json.assertParse<ObjectGenericArray>(
-      input,
-      (p) => new CustomGuardError(p),
-    ),
-  );
+)<ObjectGenericArray>(
+    ObjectGenericArray
+)((input) => typia.json.assertParse<ObjectGenericArray>(input, (p) => new CustomGuardError(p)));

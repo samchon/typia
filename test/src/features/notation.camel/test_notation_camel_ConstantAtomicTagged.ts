@@ -4,10 +4,9 @@ import { _test_notation_validateGeneral } from "../../internal/_test_notation_va
 import { ConstantAtomicTagged } from "../../structures/ConstantAtomicTagged";
 
 export const test_notation_validateCamel_ConstantAtomicTagged = (): void =>
-  _test_notation_validateGeneral("ConstantAtomicTagged")<ConstantAtomicTagged>(
-    ConstantAtomicTagged,
+    _test_notation_validateGeneral("ConstantAtomicTagged")<ConstantAtomicTagged>(
+        ConstantAtomicTagged
   )<typia.CamelCase<ConstantAtomicTagged>>({
-    convert: (input) =>
-      typia.notations.validateCamel<ConstantAtomicTagged>(input),
+    convert: (input) => typia.notations.validateCamel<ConstantAtomicTagged>(input),
     assert: typia.createAssert<typia.CamelCase<ConstantAtomicTagged>>(),
   });

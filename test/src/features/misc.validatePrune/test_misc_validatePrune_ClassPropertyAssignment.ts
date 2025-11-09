@@ -3,7 +3,8 @@ import typia from "typia";
 import { _test_misc_validatePrune } from "../../internal/_test_misc_validatePrune";
 import { ClassPropertyAssignment } from "../../structures/ClassPropertyAssignment";
 
-export const test_misc_validatePrune_ClassPropertyAssignment = (): void =>
-  _test_misc_validatePrune("ClassPropertyAssignment")<ClassPropertyAssignment>(
-    ClassPropertyAssignment,
-  )((input) => typia.misc.validatePrune<ClassPropertyAssignment>(input));
+export const test_misc_validatePrune_ClassPropertyAssignment = (): void => _test_misc_validatePrune(
+    "ClassPropertyAssignment",
+)<ClassPropertyAssignment>(
+    ClassPropertyAssignment
+)((input) => typia.misc.validatePrune<ClassPropertyAssignment>(input));

@@ -3,7 +3,8 @@ import typia from "typia";
 import { _test_json_validateParse } from "../../internal/_test_json_validateParse";
 import { ConstantAtomicSimple } from "../../structures/ConstantAtomicSimple";
 
-export const test_json_validateParse_ConstantAtomicSimple = (): void =>
-  _test_json_validateParse("ConstantAtomicSimple")<ConstantAtomicSimple>(
-    ConstantAtomicSimple,
-  )((input) => typia.json.validateParse<ConstantAtomicSimple>(input));
+export const test_json_validateParse_ConstantAtomicSimple = (): void => _test_json_validateParse(
+    "ConstantAtomicSimple",
+)<ConstantAtomicSimple>(
+    ConstantAtomicSimple
+)((input) => typia.json.validateParse<ConstantAtomicSimple>(input));

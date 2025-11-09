@@ -4,10 +4,9 @@ import { _test_notation_validateGeneral } from "../../internal/_test_notation_va
 import { ObjectHttpCommentTag } from "../../structures/ObjectHttpCommentTag";
 
 export const test_notation_validateSnake_ObjectHttpCommentTag = (): void =>
-  _test_notation_validateGeneral("ObjectHttpCommentTag")<ObjectHttpCommentTag>(
-    ObjectHttpCommentTag,
+    _test_notation_validateGeneral("ObjectHttpCommentTag")<ObjectHttpCommentTag>(
+        ObjectHttpCommentTag
   )<typia.SnakeCase<ObjectHttpCommentTag>>({
-    convert: (input) =>
-      typia.notations.validateSnake<ObjectHttpCommentTag>(input),
+    convert: (input) => typia.notations.validateSnake<ObjectHttpCommentTag>(input),
     assert: typia.createAssert<typia.SnakeCase<ObjectHttpCommentTag>>(),
   });

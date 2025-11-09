@@ -4,9 +4,9 @@ import { _test_notation_validateGeneral } from "../../internal/_test_notation_va
 import { ObjectDynamic } from "../../structures/ObjectDynamic";
 
 export const test_notation_createValidatePascal_ObjectDynamic = (): void =>
-  _test_notation_validateGeneral("ObjectDynamic")<ObjectDynamic>(ObjectDynamic)<
-    typia.PascalCase<ObjectDynamic>
-  >({
+    _test_notation_validateGeneral("ObjectDynamic")<ObjectDynamic>(
+        ObjectDynamic
+  )<typia.PascalCase<ObjectDynamic>>({
     convert: typia.notations.createValidatePascal<ObjectDynamic>(),
     assert: typia.createAssert<typia.PascalCase<ObjectDynamic>>(),
   });

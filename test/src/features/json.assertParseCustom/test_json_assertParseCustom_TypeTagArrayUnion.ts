@@ -1,15 +1,12 @@
 import typia from "typia";
 
-import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_json_assertParse } from "../../internal/_test_json_assertParse";
 import { TypeTagArrayUnion } from "../../structures/TypeTagArrayUnion";
 
-export const test_json_assertParseCustom_TypeTagArrayUnion = (): void =>
-  _test_json_assertParse(CustomGuardError)(
+import { CustomGuardError } from "../../internal/CustomGuardError";
+
+export const test_json_assertParseCustom_TypeTagArrayUnion = (): void => _test_json_assertParse(CustomGuardError)(
     "TypeTagArrayUnion",
-  )<TypeTagArrayUnion>(TypeTagArrayUnion)((input) =>
-    typia.json.assertParse<TypeTagArrayUnion>(
-      input,
-      (p) => new CustomGuardError(p),
-    ),
-  );
+)<TypeTagArrayUnion>(
+    TypeTagArrayUnion
+)((input) => typia.json.assertParse<TypeTagArrayUnion>(input, (p) => new CustomGuardError(p)));

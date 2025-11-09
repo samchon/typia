@@ -1,12 +1,12 @@
 import typia from "typia";
-import { TypeGuardError } from "typia";
 
 import { _test_json_assertStringify } from "../../internal/_test_json_assertStringify";
 import { ObjectUnionDouble } from "../../structures/ObjectUnionDouble";
 
-export const test_json_assertStringify_ObjectUnionDouble = (): void =>
-  _test_json_assertStringify(TypeGuardError)(
+import { TypeGuardError } from "typia";
+
+export const test_json_assertStringify_ObjectUnionDouble = (): void => _test_json_assertStringify(TypeGuardError)(
     "ObjectUnionDouble",
-  )<ObjectUnionDouble>(ObjectUnionDouble)((input) =>
-    typia.json.assertStringify<ObjectUnionDouble>(input),
-  );
+)<ObjectUnionDouble>(
+    ObjectUnionDouble
+)((input) => typia.json.assertStringify<ObjectUnionDouble>(input));

@@ -1,9 +1,8 @@
 import typia from "typia";
-
-import { _test_reflect_metadata } from "../../internal/_test_reflect_metadata";
 import { ObjectGenericAlias } from "../../structures/ObjectGenericAlias";
+import { _test_reflect_metadata } from "../../internal/_test_reflect_metadata";
 
 export const test_reflect_metadata_ObjectGenericAlias = (): void =>
   _test_reflect_metadata("ObjectGenericAlias")(
-    typia.reflect.metadata<[ObjectGenericAlias]>(),
+    typia.reflect.metadata<[ObjectGenericAlias]>()
   );

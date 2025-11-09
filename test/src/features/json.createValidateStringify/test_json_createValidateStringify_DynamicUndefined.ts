@@ -3,7 +3,8 @@ import typia from "typia";
 import { _test_json_validateStringify } from "../../internal/_test_json_validateStringify";
 import { DynamicUndefined } from "../../structures/DynamicUndefined";
 
-export const test_json_createValidateStringify_DynamicUndefined = (): void =>
-  _test_json_validateStringify("DynamicUndefined")<DynamicUndefined>(
-    DynamicUndefined,
-  )(typia.json.createValidateStringify<DynamicUndefined>());
+export const test_json_createValidateStringify_DynamicUndefined = (): void => _test_json_validateStringify(
+    "DynamicUndefined",
+)<DynamicUndefined>(
+    DynamicUndefined
+)(typia.json.createValidateStringify<DynamicUndefined>());

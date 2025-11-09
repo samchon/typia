@@ -1,9 +1,7 @@
 import typia from "typia";
-
-import { _test_protobuf_message } from "../../internal/_test_protobuf_message";
 import { TypeTagInfinite } from "../../structures/TypeTagInfinite";
+import { _test_protobuf_message } from "../../internal/_test_protobuf_message";
 
-export const test_protobuf_message_TypeTagInfinite = (): void =>
-  _test_protobuf_message("TypeTagInfinite")(
-    typia.protobuf.message<TypeTagInfinite>(),
-  );
+export const test_protobuf_message_TypeTagInfinite = (): void => _test_protobuf_message(
+  "TypeTagInfinite",
+)(typia.protobuf.message<TypeTagInfinite>());

@@ -1,15 +1,12 @@
 import typia from "typia";
 
-import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_json_assertStringify } from "../../internal/_test_json_assertStringify";
 import { ArrayRepeatedNullable } from "../../structures/ArrayRepeatedNullable";
 
-export const test_json_assertStringifyCustom_ArrayRepeatedNullable = (): void =>
-  _test_json_assertStringify(CustomGuardError)(
+import { CustomGuardError } from "../../internal/CustomGuardError";
+
+export const test_json_assertStringifyCustom_ArrayRepeatedNullable = (): void => _test_json_assertStringify(CustomGuardError)(
     "ArrayRepeatedNullable",
-  )<ArrayRepeatedNullable>(ArrayRepeatedNullable)((input) =>
-    typia.json.assertStringify<ArrayRepeatedNullable>(
-      input,
-      (p) => new CustomGuardError(p),
-    ),
-  );
+)<ArrayRepeatedNullable>(
+    ArrayRepeatedNullable
+)((input) => typia.json.assertStringify<ArrayRepeatedNullable>(input, (p) => new CustomGuardError(p)));

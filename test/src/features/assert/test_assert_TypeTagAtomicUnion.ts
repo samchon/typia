@@ -1,10 +1,12 @@
 import typia from "typia";
-import { TypeGuardError } from "typia";
 
 import { _test_assert } from "../../internal/_test_assert";
 import { TypeTagAtomicUnion } from "../../structures/TypeTagAtomicUnion";
 
-export const test_assert_TypeTagAtomicUnion = (): void =>
-  _test_assert(TypeGuardError)("TypeTagAtomicUnion")<TypeTagAtomicUnion>(
-    TypeTagAtomicUnion,
-  )((input) => typia.assert<TypeTagAtomicUnion>(input));
+import { TypeGuardError } from "typia";
+
+export const test_assert_TypeTagAtomicUnion = (): void => _test_assert(TypeGuardError)(
+    "TypeTagAtomicUnion",
+)<TypeTagAtomicUnion>(
+    TypeTagAtomicUnion
+)((input) => typia.assert<TypeTagAtomicUnion>(input));

@@ -1,9 +1,7 @@
 import typia from "typia";
-
-import { _test_protobuf_message } from "../../internal/_test_protobuf_message";
 import { ObjectUnionNonPredictable } from "../../structures/ObjectUnionNonPredictable";
+import { _test_protobuf_message } from "../../internal/_test_protobuf_message";
 
-export const test_protobuf_message_ObjectUnionNonPredictable = (): void =>
-  _test_protobuf_message("ObjectUnionNonPredictable")(
-    typia.protobuf.message<ObjectUnionNonPredictable>(),
-  );
+export const test_protobuf_message_ObjectUnionNonPredictable = (): void => _test_protobuf_message(
+  "ObjectUnionNonPredictable",
+)(typia.protobuf.message<ObjectUnionNonPredictable>());

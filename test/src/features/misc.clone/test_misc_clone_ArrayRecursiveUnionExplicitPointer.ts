@@ -3,9 +3,8 @@ import typia from "typia";
 import { _test_misc_clone } from "../../internal/_test_misc_clone";
 import { ArrayRecursiveUnionExplicitPointer } from "../../structures/ArrayRecursiveUnionExplicitPointer";
 
-export const test_misc_clone_ArrayRecursiveUnionExplicitPointer = (): void =>
-  _test_misc_clone(
+export const test_misc_clone_ArrayRecursiveUnionExplicitPointer = (): void => _test_misc_clone(
     "ArrayRecursiveUnionExplicitPointer",
-  )<ArrayRecursiveUnionExplicitPointer>(ArrayRecursiveUnionExplicitPointer)(
-    (input) => typia.misc.clone<ArrayRecursiveUnionExplicitPointer>(input),
-  );
+)<ArrayRecursiveUnionExplicitPointer>(
+    ArrayRecursiveUnionExplicitPointer
+)((input) => typia.misc.clone<ArrayRecursiveUnionExplicitPointer>(input));

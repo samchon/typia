@@ -3,7 +3,8 @@ import typia from "typia";
 import { _test_misc_clone } from "../../internal/_test_misc_clone";
 import { ObjectUnionExplicitPointer } from "../../structures/ObjectUnionExplicitPointer";
 
-export const test_misc_clone_ObjectUnionExplicitPointer = (): void =>
-  _test_misc_clone("ObjectUnionExplicitPointer")<ObjectUnionExplicitPointer>(
-    ObjectUnionExplicitPointer,
-  )((input) => typia.misc.clone<ObjectUnionExplicitPointer>(input));
+export const test_misc_clone_ObjectUnionExplicitPointer = (): void => _test_misc_clone(
+    "ObjectUnionExplicitPointer",
+)<ObjectUnionExplicitPointer>(
+    ObjectUnionExplicitPointer
+)((input) => typia.misc.clone<ObjectUnionExplicitPointer>(input));

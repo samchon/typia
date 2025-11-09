@@ -4,8 +4,8 @@ import { _test_notation_validateGeneral } from "../../internal/_test_notation_va
 import { TupleRestAtomic } from "../../structures/TupleRestAtomic";
 
 export const test_notation_validateSnake_TupleRestAtomic = (): void =>
-  _test_notation_validateGeneral("TupleRestAtomic")<TupleRestAtomic>(
-    TupleRestAtomic,
+    _test_notation_validateGeneral("TupleRestAtomic")<TupleRestAtomic>(
+        TupleRestAtomic
   )<typia.SnakeCase<TupleRestAtomic>>({
     convert: (input) => typia.notations.validateSnake<TupleRestAtomic>(input),
     assert: typia.createAssert<typia.SnakeCase<TupleRestAtomic>>(),

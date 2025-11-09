@@ -4,10 +4,9 @@ import { _test_notation_validateGeneral } from "../../internal/_test_notation_va
 import { CommentTagTypeBigInt } from "../../structures/CommentTagTypeBigInt";
 
 export const test_notation_validateCamel_CommentTagTypeBigInt = (): void =>
-  _test_notation_validateGeneral("CommentTagTypeBigInt")<CommentTagTypeBigInt>(
-    CommentTagTypeBigInt,
+    _test_notation_validateGeneral("CommentTagTypeBigInt")<CommentTagTypeBigInt>(
+        CommentTagTypeBigInt
   )<typia.CamelCase<CommentTagTypeBigInt>>({
-    convert: (input) =>
-      typia.notations.validateCamel<CommentTagTypeBigInt>(input),
+    convert: (input) => typia.notations.validateCamel<CommentTagTypeBigInt>(input),
     assert: typia.createAssert<typia.CamelCase<CommentTagTypeBigInt>>(),
   });

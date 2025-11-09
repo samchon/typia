@@ -3,7 +3,8 @@ import typia from "typia";
 import { _test_json_stringify } from "../../internal/_test_json_stringify";
 import { ObjectAlias } from "../../structures/ObjectAlias";
 
-export const test_json_stringify_ObjectAlias = (): void =>
-  _test_json_stringify("ObjectAlias")<ObjectAlias>(ObjectAlias)((input) =>
-    typia.json.stringify<ObjectAlias>(input),
-  );
+export const test_json_stringify_ObjectAlias = (): void => _test_json_stringify(
+    "ObjectAlias",
+)<ObjectAlias>(
+    ObjectAlias
+)((input) => typia.json.stringify<ObjectAlias>(input));

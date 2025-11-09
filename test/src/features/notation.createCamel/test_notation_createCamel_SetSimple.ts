@@ -4,9 +4,9 @@ import { _test_notation_validateGeneral } from "../../internal/_test_notation_va
 import { SetSimple } from "../../structures/SetSimple";
 
 export const test_notation_createValidateCamel_SetSimple = (): void =>
-  _test_notation_validateGeneral("SetSimple")<SetSimple>(SetSimple)<
-    typia.CamelCase<SetSimple>
-  >({
+    _test_notation_validateGeneral("SetSimple")<SetSimple>(
+        SetSimple
+  )<typia.CamelCase<SetSimple>>({
     convert: typia.notations.createValidateCamel<SetSimple>(),
     assert: typia.createAssert<typia.CamelCase<SetSimple>>(),
   });

@@ -1,10 +1,9 @@
 import typia from "typia";
-
-import { _test_json_schema } from "../../../internal/_test_json_schema";
 import { TypeTagType } from "../../../structures/TypeTagType";
+import { _test_json_schema } from "../../../internal/_test_json_schema";
 
 export const test_json_schema_v3_0_TypeTagType = (): void =>
   _test_json_schema({
     version: "3.0",
-    name: "TypeTagType",
+    name: "TypeTagType", 
   })(typia.json.schema<TypeTagType, "3.0">());

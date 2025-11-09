@@ -3,7 +3,8 @@ import typia from "typia";
 import { _test_validateEquals } from "../../internal/_test_validateEquals";
 import { DynamicEnumeration } from "../../structures/DynamicEnumeration";
 
-export const test_validateEquals_DynamicEnumeration = (): void =>
-  _test_validateEquals("DynamicEnumeration")<DynamicEnumeration>(
-    DynamicEnumeration,
-  )((input) => typia.validateEquals<DynamicEnumeration>(input));
+export const test_validateEquals_DynamicEnumeration = (): void => _test_validateEquals(
+    "DynamicEnumeration",
+)<DynamicEnumeration>(
+    DynamicEnumeration
+)((input) => typia.validateEquals<DynamicEnumeration>(input));

@@ -4,10 +4,9 @@ import { _test_notation_validateGeneral } from "../../internal/_test_notation_va
 import { ConstantIntersection } from "../../structures/ConstantIntersection";
 
 export const test_notation_validateCamel_ConstantIntersection = (): void =>
-  _test_notation_validateGeneral("ConstantIntersection")<ConstantIntersection>(
-    ConstantIntersection,
+    _test_notation_validateGeneral("ConstantIntersection")<ConstantIntersection>(
+        ConstantIntersection
   )<typia.CamelCase<ConstantIntersection>>({
-    convert: (input) =>
-      typia.notations.validateCamel<ConstantIntersection>(input),
+    convert: (input) => typia.notations.validateCamel<ConstantIntersection>(input),
     assert: typia.createAssert<typia.CamelCase<ConstantIntersection>>(),
   });

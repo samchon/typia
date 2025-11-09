@@ -1,9 +1,8 @@
 import typia from "typia";
-
-import { _test_reflect_metadata } from "../../internal/_test_reflect_metadata";
 import { ObjectUnionCompositePointer } from "../../structures/ObjectUnionCompositePointer";
+import { _test_reflect_metadata } from "../../internal/_test_reflect_metadata";
 
 export const test_reflect_metadata_ObjectUnionCompositePointer = (): void =>
   _test_reflect_metadata("ObjectUnionCompositePointer")(
-    typia.reflect.metadata<[ObjectUnionCompositePointer]>(),
+    typia.reflect.metadata<[ObjectUnionCompositePointer]>()
   );

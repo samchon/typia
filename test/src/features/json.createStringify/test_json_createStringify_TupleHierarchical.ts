@@ -3,7 +3,8 @@ import typia from "typia";
 import { _test_json_stringify } from "../../internal/_test_json_stringify";
 import { TupleHierarchical } from "../../structures/TupleHierarchical";
 
-export const test_json_createStringify_TupleHierarchical = (): void =>
-  _test_json_stringify("TupleHierarchical")<TupleHierarchical>(
-    TupleHierarchical,
-  )(typia.json.createStringify<TupleHierarchical>());
+export const test_json_createStringify_TupleHierarchical = (): void => _test_json_stringify(
+    "TupleHierarchical",
+)<TupleHierarchical>(
+    TupleHierarchical
+)(typia.json.createStringify<TupleHierarchical>());

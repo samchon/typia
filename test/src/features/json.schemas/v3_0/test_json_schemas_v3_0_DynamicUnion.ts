@@ -1,10 +1,9 @@
 import typia from "typia";
-
-import { _test_json_schemas } from "../../../internal/_test_json_schemas";
 import { DynamicUnion } from "../../../structures/DynamicUnion";
+import { _test_json_schemas } from "../../../internal/_test_json_schemas";
 
 export const test_json_schemas_v3_0_DynamicUnion = (): void =>
   _test_json_schemas({
     version: "3.0",
-    name: "DynamicUnion",
+    name: "DynamicUnion", 
   })(typia.json.schemas<[DynamicUnion], "3.0">());

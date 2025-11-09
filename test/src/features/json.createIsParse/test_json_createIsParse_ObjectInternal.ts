@@ -3,7 +3,8 @@ import typia from "typia";
 import { _test_json_isParse } from "../../internal/_test_json_isParse";
 import { ObjectInternal } from "../../structures/ObjectInternal";
 
-export const test_json_createIsParse_ObjectInternal = (): void =>
-  _test_json_isParse("ObjectInternal")<ObjectInternal>(ObjectInternal)(
-    typia.json.createIsParse<ObjectInternal>(),
-  );
+export const test_json_createIsParse_ObjectInternal = (): void => _test_json_isParse(
+    "ObjectInternal",
+)<ObjectInternal>(
+    ObjectInternal
+)(typia.json.createIsParse<ObjectInternal>());

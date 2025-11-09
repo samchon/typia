@@ -3,7 +3,8 @@ import typia from "typia";
 import { _test_validateEquals } from "../../internal/_test_validateEquals";
 import { AtomicUnion } from "../../structures/AtomicUnion";
 
-export const test_validateEquals_AtomicUnion = (): void =>
-  _test_validateEquals("AtomicUnion")<AtomicUnion>(AtomicUnion)((input) =>
-    typia.validateEquals<AtomicUnion>(input),
-  );
+export const test_validateEquals_AtomicUnion = (): void => _test_validateEquals(
+    "AtomicUnion",
+)<AtomicUnion>(
+    AtomicUnion
+)((input) => typia.validateEquals<AtomicUnion>(input));

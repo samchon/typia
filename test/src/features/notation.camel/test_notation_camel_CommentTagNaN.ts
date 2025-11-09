@@ -4,9 +4,9 @@ import { _test_notation_validateGeneral } from "../../internal/_test_notation_va
 import { CommentTagNaN } from "../../structures/CommentTagNaN";
 
 export const test_notation_validateCamel_CommentTagNaN = (): void =>
-  _test_notation_validateGeneral("CommentTagNaN")<CommentTagNaN>(CommentTagNaN)<
-    typia.CamelCase<CommentTagNaN>
-  >({
+    _test_notation_validateGeneral("CommentTagNaN")<CommentTagNaN>(
+        CommentTagNaN
+  )<typia.CamelCase<CommentTagNaN>>({
     convert: (input) => typia.notations.validateCamel<CommentTagNaN>(input),
     assert: typia.createAssert<typia.CamelCase<CommentTagNaN>>(),
   });

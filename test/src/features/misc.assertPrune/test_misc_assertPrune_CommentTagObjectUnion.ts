@@ -1,12 +1,12 @@
 import typia from "typia";
-import { TypeGuardError } from "typia";
 
 import { _test_misc_assertPrune } from "../../internal/_test_misc_assertPrune";
 import { CommentTagObjectUnion } from "../../structures/CommentTagObjectUnion";
 
-export const test_misc_assertPrune_CommentTagObjectUnion = (): void =>
-  _test_misc_assertPrune(TypeGuardError)(
+import { TypeGuardError } from "typia";
+
+export const test_misc_assertPrune_CommentTagObjectUnion = (): void => _test_misc_assertPrune(TypeGuardError)(
     "CommentTagObjectUnion",
-  )<CommentTagObjectUnion>(CommentTagObjectUnion)((input) =>
-    typia.misc.assertPrune<CommentTagObjectUnion>(input),
-  );
+)<CommentTagObjectUnion>(
+    CommentTagObjectUnion
+)((input) => typia.misc.assertPrune<CommentTagObjectUnion>(input));

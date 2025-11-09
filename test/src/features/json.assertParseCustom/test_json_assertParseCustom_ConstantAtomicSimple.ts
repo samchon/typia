@@ -1,15 +1,12 @@
 import typia from "typia";
 
-import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_json_assertParse } from "../../internal/_test_json_assertParse";
 import { ConstantAtomicSimple } from "../../structures/ConstantAtomicSimple";
 
-export const test_json_assertParseCustom_ConstantAtomicSimple = (): void =>
-  _test_json_assertParse(CustomGuardError)(
+import { CustomGuardError } from "../../internal/CustomGuardError";
+
+export const test_json_assertParseCustom_ConstantAtomicSimple = (): void => _test_json_assertParse(CustomGuardError)(
     "ConstantAtomicSimple",
-  )<ConstantAtomicSimple>(ConstantAtomicSimple)((input) =>
-    typia.json.assertParse<ConstantAtomicSimple>(
-      input,
-      (p) => new CustomGuardError(p),
-    ),
-  );
+)<ConstantAtomicSimple>(
+    ConstantAtomicSimple
+)((input) => typia.json.assertParse<ConstantAtomicSimple>(input, (p) => new CustomGuardError(p)));

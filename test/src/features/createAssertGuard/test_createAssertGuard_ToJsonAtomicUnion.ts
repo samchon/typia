@@ -1,10 +1,12 @@
 import typia from "typia";
-import { TypeGuardError } from "typia";
 
 import { _test_assertGuard } from "../../internal/_test_assertGuard";
 import { ToJsonAtomicUnion } from "../../structures/ToJsonAtomicUnion";
 
-export const test_createAssertGuard_ToJsonAtomicUnion = (): void =>
-  _test_assertGuard(TypeGuardError)("ToJsonAtomicUnion")<ToJsonAtomicUnion>(
-    ToJsonAtomicUnion,
-  )(typia.createAssertGuard<ToJsonAtomicUnion>());
+import { TypeGuardError } from "typia";
+
+export const test_createAssertGuard_ToJsonAtomicUnion = (): void => _test_assertGuard(TypeGuardError)(
+    "ToJsonAtomicUnion",
+)<ToJsonAtomicUnion>(
+    ToJsonAtomicUnion
+)(typia.createAssertGuard<ToJsonAtomicUnion>());

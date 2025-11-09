@@ -4,8 +4,8 @@ import { _test_notation_validateGeneral } from "../../internal/_test_notation_va
 import { ConstantEnumeration } from "../../structures/ConstantEnumeration";
 
 export const test_notation_createValidateCamel_ConstantEnumeration = (): void =>
-  _test_notation_validateGeneral("ConstantEnumeration")<ConstantEnumeration>(
-    ConstantEnumeration,
+    _test_notation_validateGeneral("ConstantEnumeration")<ConstantEnumeration>(
+        ConstantEnumeration
   )<typia.CamelCase<ConstantEnumeration>>({
     convert: typia.notations.createValidateCamel<ConstantEnumeration>(),
     assert: typia.createAssert<typia.CamelCase<ConstantEnumeration>>(),
