@@ -1,0 +1,12 @@
+import typia from "typia";
+
+import { _test_notation_validateGeneral } from "../../internal/_test_notation_validateGeneral";
+import { ObjectPrimitive } from "../../structures/ObjectPrimitive";
+
+export const test_notation_validateKebab_ObjectPrimitive = (): void =>
+  _test_notation_validateGeneral("ObjectPrimitive")<ObjectPrimitive>(
+    ObjectPrimitive,
+  )<typia.KebabCase<ObjectPrimitive>>({
+    convert: (input) => typia.notations.validateKebab<ObjectPrimitive>(input),
+    assert: typia.createAssert<typia.KebabCase<ObjectPrimitive>>(),
+  });

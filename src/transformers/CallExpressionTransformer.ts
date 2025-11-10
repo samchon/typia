@@ -521,6 +521,15 @@ const FUNCTORS: Record<string, Record<string, () => Task>> = {
     validateSnake: () =>
       NotationValidateGeneralTransformer.transform(NamingConvention.snake),
 
+    // KEBAB
+    kebab: () => NotationGeneralTransformer.transform(NamingConvention.kebab),
+    assertKebab: () =>
+      NotationAssertGeneralTransformer.transform(NamingConvention.kebab),
+    isKebab: () =>
+      NotationIsGeneralTransformer.transform(NamingConvention.kebab),
+    validateKebab: () =>
+      NotationValidateGeneralTransformer.transform(NamingConvention.kebab),
+
     // FACTORIES
     createCamel: () =>
       NotationCreateGeneralTransformer.transform(NamingConvention.camel),
@@ -551,6 +560,16 @@ const FUNCTORS: Record<string, Record<string, () => Task>> = {
     createValidateSnake: () =>
       NotationCreateValidateGeneralTransformer.transform(
         NamingConvention.snake,
+      ),
+    createKebab: () =>
+      NotationCreateGeneralTransformer.transform(NamingConvention.kebab),
+    createAssertKebab: () =>
+      NotationCreateAssertGeneralTransformer.transform(NamingConvention.kebab),
+    createIsKebab: () =>
+      NotationCreateIsGeneralTransformer.transform(NamingConvention.kebab),
+    createValidateKebab: () =>
+      NotationCreateValidateGeneralTransformer.transform(
+        NamingConvention.kebab,
       ),
   },
 };

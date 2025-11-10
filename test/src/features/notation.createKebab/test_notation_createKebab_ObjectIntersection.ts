@@ -1,0 +1,12 @@
+import typia from "typia";
+
+import { _test_notation_validateGeneral } from "../../internal/_test_notation_validateGeneral";
+import { ObjectIntersection } from "../../structures/ObjectIntersection";
+
+export const test_notation_createValidateKebab_ObjectIntersection = (): void =>
+  _test_notation_validateGeneral("ObjectIntersection")<ObjectIntersection>(
+    ObjectIntersection,
+  )<typia.KebabCase<ObjectIntersection>>({
+    convert: typia.notations.createValidateKebab<ObjectIntersection>(),
+    assert: typia.createAssert<typia.KebabCase<ObjectIntersection>>(),
+  });
