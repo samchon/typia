@@ -118,5 +118,6 @@
     "claude",
     "gemini",
     "llama"
-  ]
+  ],
+  "packageManager": "pnpm@10.6.4"
 }
