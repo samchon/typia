@@ -63,14 +63,16 @@ export const emplace_metadata_object = (
     ).filter(props.filter ?? (() => true));
 
     // CHECK MUTABILITY
-    const mutability: "readonly" | null | undefined = props.node
-      ? ts.canHaveModifiers(props.node) &&
-        ts
-          .getModifiers(props.node)
-          ?.some((modifier) => modifier.kind === ts.SyntaxKind.ReadonlyKeyword)
+    const mutability: "readonly" | null | undefined =
+      props.node &&
+      ts.canHaveModifiers(props.node) &&
+      ts
+        .getModifiers(props.node)
+        ?.some(
+          (modifier) => modifier.kind === ts.SyntaxKind.ReadonlyKeyword,
+        ) === true
         ? "readonly"
-        : null
-      : null;
+        : null;
 
     // THE PROPERTY
     const property: MetadataProperty = MetadataProperty.create({
