@@ -51,6 +51,7 @@ export const emplace_metadata_object = (
     key: Metadata;
     value: Metadata;
     symbol: ts.Symbol | undefined;
+    node?: ts.Declaration;
     filter?: (doc: ts.JSDocTagInfo) => boolean;
   }): MetadataProperty => {
     // COMMENTS AND TAGS
@@ -61,12 +62,23 @@ export const emplace_metadata_object = (
       props.symbol?.getJsDocTags() ?? []
     ).filter(props.filter ?? (() => true));
 
+    // CHECK MUTABILITY
+    const mutability: "readonly" | null | undefined = props.node
+      ? ts.canHaveModifiers(props.node) &&
+        ts
+          .getModifiers(props.node)
+          ?.some((modifier) => modifier.kind === ts.SyntaxKind.ReadonlyKeyword)
+        ? "readonly"
+        : null
+      : null;
+
     // THE PROPERTY
     const property: MetadataProperty = MetadataProperty.create({
       key: props.key,
       value: props.value,
       description,
       jsDocTags,
+      mutability,
     });
     obj.properties.push(property);
     return property;
@@ -118,6 +130,7 @@ export const emplace_metadata_object = (
       key,
       value,
       symbol,
+      node,
     });
   }
 
@@ -180,6 +193,7 @@ export const emplace_metadata_object = (
       symbol: index.declaration?.parent
         ? props.checker.getSymbolAtLocation(index.declaration.parent)
         : undefined,
+      node: index.declaration,
       filter: (doc) => doc.name !== "default",
     });
   }
