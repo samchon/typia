@@ -69,10 +69,7 @@ export namespace DeployRunner {
         "utf8",
       );
       if (tag !== "test")
-        cp.execSync(
-          `npm publish --tag ${tag}${tag === "latest" ? " --provenance" : ""}`,
-          { stdio: "inherit" },
-        );
+        cp.execSync(`npm publish --tag ${tag}`, { stdio: "inherit" });
       return version;
     } catch (error) {
       throw error;
