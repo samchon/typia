@@ -76,6 +76,7 @@ const create_object_schema = (props: {
           undefined,
         title: json_schema_title(property),
         description: json_schema_description(property),
+        readOnly: property.mutability === "readonly" ? true : undefined,
       },
       metadata: property.value,
     });

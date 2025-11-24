@@ -132,7 +132,8 @@
               ]
             },
             "description": null,
-            "jsDocTags": []
+            "jsDocTags": [],
+            "mutability": null
           },
           {
             "key": {
@@ -250,7 +251,8 @@
               ]
             },
             "description": null,
-            "jsDocTags": []
+            "jsDocTags": [],
+            "mutability": null
           },
           {
             "key": {
@@ -354,7 +356,8 @@
               ]
             },
             "description": null,
-            "jsDocTags": []
+            "jsDocTags": [],
+            "mutability": null
           },
           {
             "key": {
@@ -458,7 +461,8 @@
               ]
             },
             "description": null,
-            "jsDocTags": []
+            "jsDocTags": [],
+            "mutability": null
           },
           {
             "key": {
@@ -576,7 +580,8 @@
               ]
             },
             "description": null,
-            "jsDocTags": []
+            "jsDocTags": [],
+            "mutability": null
           },
           {
             "key": {
@@ -680,7 +685,8 @@
               ]
             },
             "description": null,
-            "jsDocTags": []
+            "jsDocTags": [],
+            "mutability": null
           },
           {
             "key": {
@@ -784,7 +790,8 @@
               ]
             },
             "description": null,
-            "jsDocTags": []
+            "jsDocTags": [],
+            "mutability": null
           }
         ],
         "jsDocTags": [],

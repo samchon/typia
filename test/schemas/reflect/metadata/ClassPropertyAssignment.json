@@ -85,7 +85,8 @@
               "maps": []
             },
             "description": null,
-            "jsDocTags": []
+            "jsDocTags": [],
+            "mutability": "readonly"
           },
           {
             "key": {
@@ -142,7 +143,8 @@
               "maps": []
             },
             "description": null,
-            "jsDocTags": []
+            "jsDocTags": [],
+            "mutability": "readonly"
           },
           {
             "key": {
@@ -204,7 +206,8 @@
               "maps": []
             },
             "description": null,
-            "jsDocTags": []
+            "jsDocTags": [],
+            "mutability": "readonly"
           },
           {
             "key": {
@@ -266,7 +269,8 @@
               "maps": []
             },
             "description": null,
-            "jsDocTags": []
+            "jsDocTags": [],
+            "mutability": "readonly"
           },
           {
             "key": {
@@ -323,7 +327,8 @@
               "maps": []
             },
             "description": null,
-            "jsDocTags": []
+            "jsDocTags": [],
+            "mutability": null
           }
         ],
         "jsDocTags": [],

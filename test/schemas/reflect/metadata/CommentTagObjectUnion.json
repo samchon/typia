@@ -112,7 +112,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "mutability": null
           }
         ],
         "jsDocTags": [],
@@ -224,7 +225,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "mutability": null
           }
         ],
         "jsDocTags": [],

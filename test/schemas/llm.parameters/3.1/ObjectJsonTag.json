@@ -45,8 +45,8 @@
       "type": "object",
       "properties": {
         "vulnerable": {
-          "type": "string",
-          "deprecated": true
+          "deprecated": true,
+          "type": "string"
         },
         "description": {
           "description": "Descripted property.",

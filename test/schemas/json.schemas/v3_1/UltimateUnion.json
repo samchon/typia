@@ -66,12 +66,6 @@
       "OpenApi.IJsonSchema": {
         "oneOf": [
           {
-            "$ref": "#/components/schemas/OpenApi.IJsonSchema.IString"
-          },
-          {
-            "$ref": "#/components/schemas/OpenApi.IJsonSchema.INumber"
-          },
-          {
             "$ref": "#/components/schemas/OpenApi.IJsonSchema.IConstant"
           },
           {
@@ -79,6 +73,12 @@
           },
           {
             "$ref": "#/components/schemas/OpenApi.IJsonSchema.IInteger"
+          },
+          {
+            "$ref": "#/components/schemas/OpenApi.IJsonSchema.INumber"
+          },
+          {
+            "$ref": "#/components/schemas/OpenApi.IJsonSchema.IString"
           },
           {
             "$ref": "#/components/schemas/OpenApi.IJsonSchema.IArray"
@@ -103,128 +103,6 @@
           }
         ],
         "description": "Type schema information.\n\n`OpenApi.IJsonSchema` is a type schema info for OpenAPI.\n\n`OpenApi.IJsonSchema` basically follows the JSON schema definition of\nOpenAPI v3.1, but is refined to remove ambiguous and duplicated expressions\nof OpenAPI v3.1 for convenience and clarity.\n\n- Decompose mixed type: {@link OpenApiV3_1.IJsonSchema.IMixed}\n- Resolve nullable property:\n  {@link OpenApiV3_1.IJsonSchema.__ISignificant.nullable}\n- Array type utilizes only single {@link OpenAPI.IJsonSchema.IArray.items}\n- Tuple type utilizes only {@link OpenApi.IJsonSchema.ITuple.prefixItems}\n- Merge {@link OpenApiV3_1.IJsonSchema.IAllOf} to\n  {@link OpenApi.IJsonSchema.IObject}\n- Merge {@link OpenApiV3_1.IJsonSchema.IAnyOf} to\n  {@link OpenApi.IJsonSchema.IOneOf}\n- Merge {@link OpenApiV3_1.IJsonSchema.IRecursiveReference} to\n  {@link OpenApi.IJsonSchema.IReference}"
-      },
-      "OpenApi.IJsonSchema.IString": {
-        "type": "object",
-        "properties": {
-          "default": {
-            "type": "string",
-            "description": "Default value of the string type."
-          },
-          "format": {
-            "type": "string",
-            "description": "Format restriction."
-          },
-          "pattern": {
-            "type": "string",
-            "description": "Pattern restriction."
-          },
-          "contentMediaType": {
-            "type": "string",
-            "description": "Content media type restriction."
-          },
-          "minLength": {
-            "type": "integer",
-            "minimum": 0,
-            "description": "Minimum length restriction."
-          },
-          "maxLength": {
-            "type": "integer",
-            "minimum": 0,
-            "description": "Maximum length restriction."
-          },
-          "type": {
-            "const": "string",
-            "description": "Discriminator value of the type."
-          },
-          "title": {
-            "type": "string",
-            "description": "Title of the schema."
-          },
-          "description": {
-            "type": "string",
-            "description": "Detailed description of the schema."
-          },
-          "deprecated": {
-            "type": "boolean",
-            "description": "Whether the type is deprecated or not."
-          },
-          "example": {
-            "description": "Example value."
-          },
-          "examples": {
-            "$ref": "#/components/schemas/Recordstringany",
-            "description": "List of example values as key-value pairs."
-          }
-        },
-        "required": [
-          "type"
-        ],
-        "description": "String type info."
-      },
-      "Recordstringany": {
-        "type": "object",
-        "properties": {},
-        "required": [],
-        "description": "Construct a type with a set of properties K of type T",
-        "additionalProperties": {}
-      },
-      "OpenApi.IJsonSchema.INumber": {
-        "type": "object",
-        "properties": {
-          "default": {
-            "type": "number",
-            "description": "Default value of the number type."
-          },
-          "minimum": {
-            "type": "number",
-            "description": "Minimum value restriction."
-          },
-          "maximum": {
-            "type": "number",
-            "description": "Maximum value restriction."
-          },
-          "exclusiveMinimum": {
-            "type": "number",
-            "description": "Exclusive minimum value restriction."
-          },
-          "exclusiveMaximum": {
-            "type": "number",
-            "description": "Exclusive maximum value restriction."
-          },
-          "multipleOf": {
-            "type": "number",
-            "exclusiveMinimum": 0,
-            "description": "Multiple of value restriction."
-          },
-          "type": {
-            "const": "number",
-            "description": "Discriminator value of the type."
-          },
-          "title": {
-            "type": "string",
-            "description": "Title of the schema."
-          },
-          "description": {
-            "type": "string",
-            "description": "Detailed description of the schema."
-          },
-          "deprecated": {
-            "type": "boolean",
-            "description": "Whether the type is deprecated or not."
-          },
-          "example": {
-            "description": "Example value."
-          },
-          "examples": {
-            "$ref": "#/components/schemas/Recordstringany",
-            "description": "List of example values as key-value pairs."
-          }
-        },
-        "required": [
-          "type"
-        ],
-        "description": "Number (double) type info."
       },
       "OpenApi.IJsonSchema.IConstant": {
         "type": "object",
@@ -261,12 +139,27 @@
           "examples": {
             "$ref": "#/components/schemas/Recordstringany",
             "description": "List of example values as key-value pairs."
+          },
+          "readOnly": {
+            "type": "boolean",
+            "description": "Whether the property is read-only."
+          },
+          "writeOnly": {
+            "type": "boolean",
+            "description": "Whether the property is write-only."
           }
         },
         "required": [
           "const"
         ],
         "description": "Constant value type."
+      },
+      "Recordstringany": {
+        "type": "object",
+        "properties": {},
+        "required": [],
+        "description": "Construct a type with a set of properties K of type T",
+        "additionalProperties": {}
       },
       "OpenApi.IJsonSchema.IBoolean": {
         "type": "object",
@@ -297,6 +190,14 @@
           "examples": {
             "$ref": "#/components/schemas/Recordstringany",
             "description": "List of example values as key-value pairs."
+          },
+          "readOnly": {
+            "type": "boolean",
+            "description": "Whether the property is read-only."
+          },
+          "writeOnly": {
+            "type": "boolean",
+            "description": "Whether the property is write-only."
           }
         },
         "required": [
@@ -354,12 +255,151 @@
           "examples": {
             "$ref": "#/components/schemas/Recordstringany",
             "description": "List of example values as key-value pairs."
+          },
+          "readOnly": {
+            "type": "boolean",
+            "description": "Whether the property is read-only."
+          },
+          "writeOnly": {
+            "type": "boolean",
+            "description": "Whether the property is write-only."
           }
         },
         "required": [
           "type"
         ],
         "description": "Integer type info."
+      },
+      "OpenApi.IJsonSchema.INumber": {
+        "type": "object",
+        "properties": {
+          "default": {
+            "type": "number",
+            "description": "Default value of the number type."
+          },
+          "minimum": {
+            "type": "number",
+            "description": "Minimum value restriction."
+          },
+          "maximum": {
+            "type": "number",
+            "description": "Maximum value restriction."
+          },
+          "exclusiveMinimum": {
+            "type": "number",
+            "description": "Exclusive minimum value restriction."
+          },
+          "exclusiveMaximum": {
+            "type": "number",
+            "description": "Exclusive maximum value restriction."
+          },
+          "multipleOf": {
+            "type": "number",
+            "exclusiveMinimum": 0,
+            "description": "Multiple of value restriction."
+          },
+          "type": {
+            "const": "number",
+            "description": "Discriminator value of the type."
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of the schema."
+          },
+          "description": {
+            "type": "string",
+            "description": "Detailed description of the schema."
+          },
+          "deprecated": {
+            "type": "boolean",
+            "description": "Whether the type is deprecated or not."
+          },
+          "example": {
+            "description": "Example value."
+          },
+          "examples": {
+            "$ref": "#/components/schemas/Recordstringany",
+            "description": "List of example values as key-value pairs."
+          },
+          "readOnly": {
+            "type": "boolean",
+            "description": "Whether the property is read-only."
+          },
+          "writeOnly": {
+            "type": "boolean",
+            "description": "Whether the property is write-only."
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "description": "Number (double) type info."
+      },
+      "OpenApi.IJsonSchema.IString": {
+        "type": "object",
+        "properties": {
+          "default": {
+            "type": "string",
+            "description": "Default value of the string type."
+          },
+          "format": {
+            "type": "string",
+            "description": "Format restriction."
+          },
+          "pattern": {
+            "type": "string",
+            "description": "Pattern restriction."
+          },
+          "contentMediaType": {
+            "type": "string",
+            "description": "Content media type restriction."
+          },
+          "minLength": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Minimum length restriction."
+          },
+          "maxLength": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Maximum length restriction."
+          },
+          "type": {
+            "const": "string",
+            "description": "Discriminator value of the type."
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of the schema."
+          },
+          "description": {
+            "type": "string",
+            "description": "Detailed description of the schema."
+          },
+          "deprecated": {
+            "type": "boolean",
+            "description": "Whether the type is deprecated or not."
+          },
+          "example": {
+            "description": "Example value."
+          },
+          "examples": {
+            "$ref": "#/components/schemas/Recordstringany",
+            "description": "List of example values as key-value pairs."
+          },
+          "readOnly": {
+            "type": "boolean",
+            "description": "Whether the property is read-only."
+          },
+          "writeOnly": {
+            "type": "boolean",
+            "description": "Whether the property is write-only."
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "description": "String type info."
       },
       "OpenApi.IJsonSchema.IArray": {
         "type": "object",
@@ -404,6 +444,14 @@
           "examples": {
             "$ref": "#/components/schemas/Recordstringany",
             "description": "List of example values as key-value pairs."
+          },
+          "readOnly": {
+            "type": "boolean",
+            "description": "Whether the property is read-only."
+          },
+          "writeOnly": {
+            "type": "boolean",
+            "description": "Whether the property is write-only."
           }
         },
         "required": [
@@ -432,19 +480,19 @@
                 "type": "boolean"
               },
               {
-                "$ref": "#/components/schemas/OpenApi.IJsonSchema.IString"
-              },
-              {
-                "$ref": "#/components/schemas/OpenApi.IJsonSchema.INumber"
-              },
-              {
                 "$ref": "#/components/schemas/OpenApi.IJsonSchema.IConstant"
               },
               {
                 "$ref": "#/components/schemas/OpenApi.IJsonSchema.IBoolean"
               },
               {
+                "$ref": "#/components/schemas/OpenApi.IJsonSchema.INumber"
+              },
+              {
                 "$ref": "#/components/schemas/OpenApi.IJsonSchema.IInteger"
+              },
+              {
+                "$ref": "#/components/schemas/OpenApi.IJsonSchema.IString"
               },
               {
                 "$ref": "#/components/schemas/OpenApi.IJsonSchema.IArray"
@@ -502,6 +550,14 @@
           "examples": {
             "$ref": "#/components/schemas/Recordstringany",
             "description": "List of example values as key-value pairs."
+          },
+          "readOnly": {
+            "type": "boolean",
+            "description": "Whether the property is read-only."
+          },
+          "writeOnly": {
+            "type": "boolean",
+            "description": "Whether the property is write-only."
           }
         },
         "required": [
@@ -523,19 +579,19 @@
                 "type": "boolean"
               },
               {
-                "$ref": "#/components/schemas/OpenApi.IJsonSchema.IString"
-              },
-              {
-                "$ref": "#/components/schemas/OpenApi.IJsonSchema.INumber"
-              },
-              {
                 "$ref": "#/components/schemas/OpenApi.IJsonSchema.IConstant"
               },
               {
                 "$ref": "#/components/schemas/OpenApi.IJsonSchema.IBoolean"
               },
               {
+                "$ref": "#/components/schemas/OpenApi.IJsonSchema.INumber"
+              },
+              {
                 "$ref": "#/components/schemas/OpenApi.IJsonSchema.IInteger"
+              },
+              {
+                "$ref": "#/components/schemas/OpenApi.IJsonSchema.IString"
               },
               {
                 "$ref": "#/components/schemas/OpenApi.IJsonSchema.IArray"
@@ -590,6 +646,14 @@
           "examples": {
             "$ref": "#/components/schemas/Recordstringany",
             "description": "List of example values as key-value pairs."
+          },
+          "readOnly": {
+            "type": "boolean",
+            "description": "Whether the property is read-only."
+          },
+          "writeOnly": {
+            "type": "boolean",
+            "description": "Whether the property is write-only."
           }
         },
         "required": [
@@ -622,6 +686,14 @@
           "examples": {
             "$ref": "#/components/schemas/Recordstringany",
             "description": "List of example values as key-value pairs."
+          },
+          "readOnly": {
+            "type": "boolean",
+            "description": "Whether the property is read-only."
+          },
+          "writeOnly": {
+            "type": "boolean",
+            "description": "Whether the property is write-only."
           }
         },
         "required": [
@@ -637,19 +709,19 @@
             "items": {
               "oneOf": [
                 {
-                  "$ref": "#/components/schemas/OpenApi.IJsonSchema.IString"
-                },
-                {
-                  "$ref": "#/components/schemas/OpenApi.IJsonSchema.INumber"
-                },
-                {
                   "$ref": "#/components/schemas/OpenApi.IJsonSchema.IConstant"
                 },
                 {
                   "$ref": "#/components/schemas/OpenApi.IJsonSchema.IBoolean"
                 },
                 {
+                  "$ref": "#/components/schemas/OpenApi.IJsonSchema.INumber"
+                },
+                {
                   "$ref": "#/components/schemas/OpenApi.IJsonSchema.IInteger"
+                },
+                {
+                  "$ref": "#/components/schemas/OpenApi.IJsonSchema.IString"
                 },
                 {
                   "$ref": "#/components/schemas/OpenApi.IJsonSchema.IArray"
@@ -695,6 +767,14 @@
           "examples": {
             "$ref": "#/components/schemas/Recordstringany",
             "description": "List of example values as key-value pairs."
+          },
+          "readOnly": {
+            "type": "boolean",
+            "description": "Whether the property is read-only."
+          },
+          "writeOnly": {
+            "type": "boolean",
+            "description": "Whether the property is write-only."
           }
         },
         "required": [
@@ -726,6 +806,14 @@
           "examples": {
             "$ref": "#/components/schemas/Recordstringany",
             "description": "List of example values as key-value pairs."
+          },
+          "readOnly": {
+            "type": "boolean",
+            "description": "Whether the property is read-only."
+          },
+          "writeOnly": {
+            "type": "boolean",
+            "description": "Whether the property is write-only."
           }
         },
         "required": [],
@@ -760,6 +848,14 @@
           "examples": {
             "$ref": "#/components/schemas/Recordstringany",
             "description": "List of example values as key-value pairs."
+          },
+          "readOnly": {
+            "type": "boolean",
+            "description": "Whether the property is read-only."
+          },
+          "writeOnly": {
+            "type": "boolean",
+            "description": "Whether the property is write-only."
           }
         },
         "required": [

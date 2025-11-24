@@ -23,9 +23,11 @@
             "type": "object",
             "properties": {
               "name": {
+                "readOnly": true,
                 "type": "string"
               },
               "age": {
+                "readOnly": true,
                 "type": "number"
               }
             },
@@ -66,9 +68,11 @@
             "type": "object",
             "properties": {
               "name": {
+                "readOnly": true,
                 "type": "string"
               },
               "age": {
+                "readOnly": true,
                 "type": "number"
               }
             },
@@ -129,9 +133,11 @@
             "type": "object",
             "properties": {
               "name": {
+                "readOnly": true,
                 "type": "string"
               },
               "age": {
+                "readOnly": true,
                 "type": "number"
               }
             },

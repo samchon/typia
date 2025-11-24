@@ -15,10 +15,12 @@
             "type": "object",
             "properties": {
               "name": {
-                "type": "string"
+                "type": "string",
+                "readOnly": true
               },
               "age": {
-                "type": "number"
+                "type": "number",
+                "readOnly": true
               }
             },
             "required": [
@@ -44,10 +46,12 @@
             "type": "object",
             "properties": {
               "name": {
-                "type": "string"
+                "type": "string",
+                "readOnly": true
               },
               "age": {
-                "type": "number"
+                "type": "number",
+                "readOnly": true
               }
             },
             "required": [
@@ -61,10 +65,12 @@
             "type": "object",
             "properties": {
               "name": {
-                "type": "string"
+                "type": "string",
+                "readOnly": true
               },
               "age": {
-                "type": "number"
+                "type": "number",
+                "readOnly": true
               }
             },
             "required": [
@@ -85,10 +91,12 @@
         "type": "object",
         "properties": {
           "name": {
-            "type": "string"
+            "type": "string",
+            "readOnly": true
           },
           "age": {
-            "type": "number"
+            "type": "number",
+            "readOnly": true
           }
         },
         "required": [
@@ -108,10 +116,12 @@
             "type": "object",
             "properties": {
               "name": {
-                "type": "string"
+                "type": "string",
+                "readOnly": true
               },
               "age": {
-                "type": "number"
+                "type": "number",
+                "readOnly": true
               }
             },
             "required": [
@@ -125,10 +135,12 @@
             "type": "object",
             "properties": {
               "name": {
-                "type": "string"
+                "type": "string",
+                "readOnly": true
               },
               "age": {
-                "type": "number"
+                "type": "number",
+                "readOnly": true
               }
             },
             "required": [
@@ -142,10 +154,12 @@
             "type": "object",
             "properties": {
               "name": {
-                "type": "string"
+                "type": "string",
+                "readOnly": true
               },
               "age": {
-                "type": "number"
+                "type": "number",
+                "readOnly": true
               }
             },
             "required": [
@@ -166,10 +180,12 @@
         "type": "object",
         "properties": {
           "name": {
-            "type": "string"
+            "type": "string",
+            "readOnly": true
           },
           "age": {
-            "type": "number"
+            "type": "number",
+            "readOnly": true
           }
         },
         "required": [

@@ -85,7 +85,8 @@
               "maps": []
             },
             "description": "Reference of the value.",
-            "jsDocTags": []
+            "jsDocTags": [],
+            "mutability": null
           }
         ],
         "description": "Pointer referencing value.",
@@ -214,7 +215,8 @@
               "maps": []
             },
             "description": null,
-            "jsDocTags": []
+            "jsDocTags": [],
+            "mutability": null
           },
           {
             "key": {
@@ -284,7 +286,8 @@
               "maps": []
             },
             "description": null,
-            "jsDocTags": []
+            "jsDocTags": [],
+            "mutability": null
           },
           {
             "key": {
@@ -354,7 +357,8 @@
               "maps": []
             },
             "description": null,
-            "jsDocTags": []
+            "jsDocTags": [],
+            "mutability": null
           },
           {
             "key": {
@@ -471,7 +475,8 @@
               ]
             },
             "description": null,
-            "jsDocTags": []
+            "jsDocTags": [],
+            "mutability": null
           },
           {
             "key": {
@@ -559,7 +564,8 @@
               "maps": []
             },
             "description": null,
-            "jsDocTags": []
+            "jsDocTags": [],
+            "mutability": null
           },
           {
             "key": {
@@ -633,7 +639,8 @@
               "maps": []
             },
             "description": null,
-            "jsDocTags": []
+            "jsDocTags": [],
+            "mutability": null
           },
           {
             "key": {
@@ -690,7 +697,8 @@
               "maps": []
             },
             "description": null,
-            "jsDocTags": []
+            "jsDocTags": [],
+            "mutability": null
           }
         ],
         "jsDocTags": [],
@@ -775,7 +783,8 @@
               "maps": []
             },
             "description": null,
-            "jsDocTags": []
+            "jsDocTags": [],
+            "mutability": null
           },
           {
             "key": {
@@ -832,7 +841,8 @@
               "maps": []
             },
             "description": null,
-            "jsDocTags": []
+            "jsDocTags": [],
+            "mutability": null
           },
           {
             "key": {
@@ -889,7 +899,8 @@
               "maps": []
             },
             "description": null,
-            "jsDocTags": []
+            "jsDocTags": [],
+            "mutability": null
           }
         ],
         "jsDocTags": [],

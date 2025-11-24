@@ -112,7 +112,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "mutability": null
           },
           {
             "key": {
@@ -173,7 +174,8 @@
               {
                 "name": "deprecated"
               }
-            ]
+            ],
+            "mutability": null
           },
           {
             "key": {
@@ -240,7 +242,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "mutability": null
           },
           {
             "key": {
@@ -297,7 +300,8 @@
               "maps": []
             },
             "description": "Description property.\n\nIf you write first line and the first line ends with \".\" character, it\nwould be considered as the title. By the way, description does not\nexclusive the title, so that full content be written.",
-            "jsDocTags": []
+            "jsDocTags": [],
+            "mutability": null
           },
           {
             "key": {
@@ -354,7 +358,8 @@
               "maps": []
             },
             "description": "New line before dot character\n\nIf dot character (\".\") being used before the first new line, it would not\nbe considered as title in the JSON schema.",
-            "jsDocTags": []
+            "jsDocTags": [],
+            "mutability": null
           }
         ],
         "description": "An interface designed to test JSON schema's object description.",
