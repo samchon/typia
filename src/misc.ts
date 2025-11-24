@@ -507,7 +507,7 @@ export function createPrune(): never;
 export function createPrune<T extends object>(): (input: T) => void;
 
 /** @internal */
-export function createPrune<T extends object>(): (input: T) => void {
+export function createPrune(): never {
   NoTransformConfigurationError("misc.createPrune");
 }
 
@@ -534,10 +534,10 @@ export function createAssertPrune(
  */
 export function createAssertPrune<T extends object>(
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
-): (input: T) => T;
+): (input: unknown) => T;
 
 /** @internal */
-export function createAssertPrune<T extends object>(): (input: T) => T {
+export function createAssertPrune(): never {
   NoTransformConfigurationError("misc.createAssertPrune");
 }
 
@@ -558,10 +558,12 @@ export function createIsPrune(): never;
  * @template T Type of the input value
  * @returns A reusable `isPrune` function
  */
-export function createIsPrune<T extends object>(): (input: T) => input is T;
+export function createIsPrune<T extends object>(): (
+  input: unknown,
+) => input is T;
 
 /** @internal */
-export function createIsPrune<T extends object>(): (input: T) => input is T {
+export function createIsPrune(): never {
   NoTransformConfigurationError("misc.createIsPrune");
 }
 
@@ -583,12 +585,10 @@ export function createValidatePrune(): never;
  * @returns A reusable `validatePrune` function
  */
 export function createValidatePrune<T extends object>(): (
-  input: T,
+  input: unknown,
 ) => IValidation<T>;
 
 /** @internal */
-export function createValidatePrune<T extends object>(): (
-  input: T,
-) => IValidation<T> {
+export function createValidatePrune(): never {
   NoTransformConfigurationError("misc.createValidatePrune");
 }
