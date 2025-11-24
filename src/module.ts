@@ -708,11 +708,11 @@ export function createValidate(): never;
  * @returns A reusable `validate` function
  */
 export function createValidate<T>(): ((input: unknown) => IValidation<T>) &
-  StandardSchemaV1<unknown, T>;
+  StandardSchemaV1<T, T>;
 
 /** @internal */
 export function createValidate(): ((input: unknown) => IValidation) &
-  StandardSchemaV1<unknown, unknown> {
+  StandardSchemaV1<never, never> {
   NoTransformConfigurationError("createValidate");
 }
 
@@ -852,11 +852,11 @@ export function createValidateEquals(): never;
 export function createValidateEquals<T>(): ((
   input: unknown,
 ) => IValidation<T>) &
-  StandardSchemaV1<unknown, T>;
+  StandardSchemaV1<T, T>;
 
 /** @internal */
 export function createValidateEquals(): ((input: unknown) => IValidation) &
-  StandardSchemaV1<unknown, unknown> {
+  StandardSchemaV1<never, never> {
   NoTransformConfigurationError("createValidateEquals");
 }
 
