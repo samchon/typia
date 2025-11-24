@@ -6,4 +6,5 @@ export interface IMetadataProperty {
   value: IMetadata;
   description: string | null;
   jsDocTags: IJsDocTagInfo[];
+  mutability?: "readonly" | null | undefined;
 }

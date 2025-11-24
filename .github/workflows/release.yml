@@ -3,27 +3,23 @@ name: release
 on:
   release:
     types: [created]
+permissions:
+  id-token: write
+  contents: read
 jobs:
   publish:
     runs-on: ubuntu-latest
-    permissions:
-      id-token: write
-      contents: write
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
           node-version: 20.x
           registry-url: https://registry.npmjs.org/
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 8
+      - uses: pnpm/action-setup@v4
       - name: Install dependencies
         run: pnpm install
       - name: Publish to npm
         run: pnpm run package:latest
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH }}
       - name: Root
         run: pnpm run package:tgz
       - name: Website Setup

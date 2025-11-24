@@ -11,6 +11,7 @@ export class MetadataProperty {
   public readonly value: Metadata;
   public readonly description: string | null;
   public readonly jsDocTags: IJsDocTagInfo[];
+  public readonly mutability?: "readonly" | null | undefined;
 
   public of_protobuf_?: IProtobufProperty;
 
@@ -23,6 +24,7 @@ export class MetadataProperty {
     this.value = props.value;
     this.description = props.description;
     this.jsDocTags = props.jsDocTags;
+    this.mutability = props.mutability;
   }
 
   /** @internal */
@@ -39,6 +41,7 @@ export class MetadataProperty {
       value: Metadata.from(property.value, dict),
       description: property.description,
       jsDocTags: property.jsDocTags.slice(),
+      mutability: property.mutability,
     });
   }
 
@@ -48,6 +51,7 @@ export class MetadataProperty {
       value: this.value.toJSON(),
       description: this.description,
       jsDocTags: this.jsDocTags,
+      mutability: this.mutability,
     };
   }
 }
