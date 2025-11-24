@@ -57,18 +57,22 @@
       "type": "object",
       "properties": {
         "id": {
+          "readOnly": true,
           "type": "number"
         },
         "name": {
+          "readOnly": true,
           "type": "string"
         },
         "note": {
+          "readOnly": true,
           "type": "string",
           "enum": [
             "assignment"
           ]
         },
         "editable": {
+          "readOnly": true,
           "type": "boolean",
           "enum": [
             false

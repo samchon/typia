@@ -23,12 +23,15 @@
             "type": "object",
             "properties": {
               "id": {
+                "readOnly": true,
                 "type": "string"
               },
               "name": {
+                "readOnly": true,
                 "type": "string"
               },
               "dead": {
+                "readOnly": true,
                 "oneOf": [
                   {
                     "type": "null"
@@ -77,12 +80,15 @@
             "type": "object",
             "properties": {
               "id": {
+                "readOnly": true,
                 "type": "string"
               },
               "name": {
+                "readOnly": true,
                 "type": "string"
               },
               "dead": {
+                "readOnly": true,
                 "oneOf": [
                   {
                     "type": "null"
@@ -151,12 +157,15 @@
             "type": "object",
             "properties": {
               "id": {
+                "readOnly": true,
                 "type": "string"
               },
               "name": {
+                "readOnly": true,
                 "type": "string"
               },
               "dead": {
+                "readOnly": true,
                 "oneOf": [
                   {
                     "type": "null"

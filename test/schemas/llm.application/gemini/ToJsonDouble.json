@@ -23,9 +23,11 @@
             "type": "object",
             "properties": {
               "id": {
+                "readOnly": true,
                 "type": "number"
               },
               "flag": {
+                "readOnly": true,
                 "type": "boolean"
               }
             },
@@ -66,9 +68,11 @@
             "type": "object",
             "properties": {
               "id": {
+                "readOnly": true,
                 "type": "number"
               },
               "flag": {
+                "readOnly": true,
                 "type": "boolean"
               }
             },
@@ -129,9 +133,11 @@
             "type": "object",
             "properties": {
               "id": {
+                "readOnly": true,
                 "type": "number"
               },
               "flag": {
+                "readOnly": true,
                 "type": "boolean"
               }
             },

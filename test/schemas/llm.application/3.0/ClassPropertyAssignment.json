@@ -15,22 +15,26 @@
             "type": "object",
             "properties": {
               "id": {
-                "type": "number"
+                "type": "number",
+                "readOnly": true
               },
               "name": {
-                "type": "string"
+                "type": "string",
+                "readOnly": true
               },
               "note": {
                 "type": "string",
                 "enum": [
                   "assignment"
-                ]
+                ],
+                "readOnly": true
               },
               "editable": {
                 "type": "boolean",
                 "enum": [
                   false
-                ]
+                ],
+                "readOnly": true
               },
               "incremental": {
                 "type": "boolean"
@@ -62,22 +66,26 @@
             "type": "object",
             "properties": {
               "id": {
-                "type": "number"
+                "type": "number",
+                "readOnly": true
               },
               "name": {
-                "type": "string"
+                "type": "string",
+                "readOnly": true
               },
               "note": {
                 "type": "string",
                 "enum": [
                   "assignment"
-                ]
+                ],
+                "readOnly": true
               },
               "editable": {
                 "type": "boolean",
                 "enum": [
                   false
-                ]
+                ],
+                "readOnly": true
               },
               "incremental": {
                 "type": "boolean"
@@ -97,22 +105,26 @@
             "type": "object",
             "properties": {
               "id": {
-                "type": "number"
+                "type": "number",
+                "readOnly": true
               },
               "name": {
-                "type": "string"
+                "type": "string",
+                "readOnly": true
               },
               "note": {
                 "type": "string",
                 "enum": [
                   "assignment"
-                ]
+                ],
+                "readOnly": true
               },
               "editable": {
                 "type": "boolean",
                 "enum": [
                   false
-                ]
+                ],
+                "readOnly": true
               },
               "incremental": {
                 "type": "boolean"
@@ -139,22 +151,26 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "number"
+            "type": "number",
+            "readOnly": true
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "readOnly": true
           },
           "note": {
             "type": "string",
             "enum": [
               "assignment"
-            ]
+            ],
+            "readOnly": true
           },
           "editable": {
             "type": "boolean",
             "enum": [
               false
-            ]
+            ],
+            "readOnly": true
           },
           "incremental": {
             "type": "boolean"
@@ -180,22 +196,26 @@
             "type": "object",
             "properties": {
               "id": {
-                "type": "number"
+                "type": "number",
+                "readOnly": true
               },
               "name": {
-                "type": "string"
+                "type": "string",
+                "readOnly": true
               },
               "note": {
                 "type": "string",
                 "enum": [
                   "assignment"
-                ]
+                ],
+                "readOnly": true
               },
               "editable": {
                 "type": "boolean",
                 "enum": [
                   false
-                ]
+                ],
+                "readOnly": true
               },
               "incremental": {
                 "type": "boolean"
@@ -215,22 +235,26 @@
             "type": "object",
             "properties": {
               "id": {
-                "type": "number"
+                "type": "number",
+                "readOnly": true
               },
               "name": {
-                "type": "string"
+                "type": "string",
+                "readOnly": true
               },
               "note": {
                 "type": "string",
                 "enum": [
                   "assignment"
-                ]
+                ],
+                "readOnly": true
               },
               "editable": {
                 "type": "boolean",
                 "enum": [
                   false
-                ]
+                ],
+                "readOnly": true
               },
               "incremental": {
                 "type": "boolean"
@@ -250,22 +274,26 @@
             "type": "object",
             "properties": {
               "id": {
-                "type": "number"
+                "type": "number",
+                "readOnly": true
               },
               "name": {
-                "type": "string"
+                "type": "string",
+                "readOnly": true
               },
               "note": {
                 "type": "string",
                 "enum": [
                   "assignment"
-                ]
+                ],
+                "readOnly": true
               },
               "editable": {
                 "type": "boolean",
                 "enum": [
                   false
-                ]
+                ],
+                "readOnly": true
               },
               "incremental": {
                 "type": "boolean"
@@ -292,22 +320,26 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "number"
+            "type": "number",
+            "readOnly": true
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "readOnly": true
           },
           "note": {
             "type": "string",
             "enum": [
               "assignment"
-            ]
+            ],
+            "readOnly": true
           },
           "editable": {
             "type": "boolean",
             "enum": [
               false
-            ]
+            ],
+            "readOnly": true
           },
           "incremental": {
             "type": "boolean"

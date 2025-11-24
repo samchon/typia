@@ -85,7 +85,8 @@
               "maps": []
             },
             "description": null,
-            "jsDocTags": []
+            "jsDocTags": [],
+            "mutability": null
           }
         ],
         "jsDocTags": [],
@@ -227,7 +228,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "mutability": null
           }
         ],
         "jsDocTags": [],

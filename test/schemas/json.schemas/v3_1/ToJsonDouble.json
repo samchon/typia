@@ -6,10 +6,12 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "number"
+            "type": "number",
+            "readOnly": true
           },
           "flag": {
-            "type": "boolean"
+            "type": "boolean",
+            "readOnly": true
           }
         },
         "required": [

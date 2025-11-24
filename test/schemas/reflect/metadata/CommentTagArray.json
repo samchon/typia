@@ -85,7 +85,8 @@
               "maps": []
             },
             "description": null,
-            "jsDocTags": []
+            "jsDocTags": [],
+            "mutability": null
           }
         ],
         "jsDocTags": [],
@@ -188,7 +189,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "mutability": null
           },
           {
             "key": {
@@ -269,7 +271,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "mutability": null
           },
           {
             "key": {
@@ -370,7 +373,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "mutability": null
           },
           {
             "key": {
@@ -471,7 +475,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "mutability": null
           },
           {
             "key": {
@@ -546,7 +551,8 @@
               {
                 "name": "uniqueItems"
               }
-            ]
+            ],
+            "mutability": null
           }
         ],
         "jsDocTags": [],

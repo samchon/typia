@@ -89,7 +89,8 @@
               {
                 "name": "deprecated"
               }
-            ]
+            ],
+            "mutability": null
           },
           {
             "key": {
@@ -146,7 +147,8 @@
               "maps": []
             },
             "description": "Descripted property.",
-            "jsDocTags": []
+            "jsDocTags": [],
+            "mutability": null
           },
           {
             "key": {
@@ -213,7 +215,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "mutability": null
           },
           {
             "key": {
@@ -296,7 +299,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "mutability": null
           }
         ],
         "jsDocTags": [],

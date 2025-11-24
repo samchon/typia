@@ -57,15 +57,19 @@
       "type": "object",
       "properties": {
         "id": {
+          "readOnly": true,
           "type": "number"
         },
         "name": {
+          "readOnly": true,
           "type": "string"
         },
         "note": {
+          "readOnly": true,
           "const": "assignment"
         },
         "editable": {
+          "readOnly": true,
           "const": false
         },
         "incremental": {

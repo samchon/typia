@@ -52,8 +52,8 @@
         },
         "deprecated": {
           "description": "Deprecated property.\n\nIf `@deprecated` comment tag being utilized, the property will be marked as\ndeprecated in the JSON schema.",
-          "type": "boolean",
-          "deprecated": true
+          "deprecated": true,
+          "type": "boolean"
         },
         "title": {
           "title": "This is the title",

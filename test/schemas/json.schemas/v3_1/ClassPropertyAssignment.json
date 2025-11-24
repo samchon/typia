@@ -6,16 +6,20 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "number"
+            "type": "number",
+            "readOnly": true
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "readOnly": true
           },
           "note": {
-            "const": "assignment"
+            "const": "assignment",
+            "readOnly": true
           },
           "editable": {
-            "const": false
+            "const": false,
+            "readOnly": true
           },
           "incremental": {
             "type": "boolean"

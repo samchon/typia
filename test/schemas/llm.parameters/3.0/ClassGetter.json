@@ -5,14 +5,17 @@
       "type": "object",
       "properties": {
         "id": {
-          "type": "string"
+          "type": "string",
+          "readOnly": true
         },
         "name": {
-          "type": "string"
+          "type": "string",
+          "readOnly": true
         },
         "dead": {
           "type": "boolean",
-          "nullable": true
+          "nullable": true,
+          "readOnly": true
         }
       },
       "required": [
@@ -27,14 +30,17 @@
       "type": "object",
       "properties": {
         "id": {
-          "type": "string"
+          "type": "string",
+          "readOnly": true
         },
         "name": {
-          "type": "string"
+          "type": "string",
+          "readOnly": true
         },
         "dead": {
           "type": "boolean",
-          "nullable": true
+          "nullable": true,
+          "readOnly": true
         }
       },
       "required": [
@@ -49,14 +55,17 @@
       "type": "object",
       "properties": {
         "id": {
-          "type": "string"
+          "type": "string",
+          "readOnly": true
         },
         "name": {
-          "type": "string"
+          "type": "string",
+          "readOnly": true
         },
         "dead": {
           "type": "boolean",
-          "nullable": true
+          "nullable": true,
+          "readOnly": true
         }
       },
       "required": [
@@ -71,14 +80,17 @@
       "type": "object",
       "properties": {
         "id": {
-          "type": "string"
+          "type": "string",
+          "readOnly": true
         },
         "name": {
-          "type": "string"
+          "type": "string",
+          "readOnly": true
         },
         "dead": {
           "type": "boolean",
-          "nullable": true
+          "nullable": true,
+          "readOnly": true
         }
       },
       "required": [
@@ -95,14 +107,17 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "string"
+            "type": "string",
+            "readOnly": true
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "readOnly": true
           },
           "dead": {
             "type": "boolean",
-            "nullable": true
+            "nullable": true,
+            "readOnly": true
           }
         },
         "required": [
