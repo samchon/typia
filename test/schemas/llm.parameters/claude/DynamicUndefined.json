@@ -43,8 +43,7 @@
   "$defs": {
     "DynamicUndefined": {
       "type": "object",
-      "properties": {},
-      "required": []
+      "properties": {}
     }
   }
 }

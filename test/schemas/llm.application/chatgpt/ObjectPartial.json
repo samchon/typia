@@ -49,8 +49,7 @@
                   }
                 ]
               }
-            },
-            "required": []
+            }
           },
           "ObjectPartial.IBase": {
             "type": "object",
@@ -146,8 +145,7 @@
                   }
                 ]
               }
-            },
-            "required": []
+            }
           },
           "ObjectPartial.IBase": {
             "type": "object",
@@ -263,8 +261,7 @@
                   }
                 ]
               }
-            },
-            "required": []
+            }
           },
           "ObjectPartial.IBase": {
             "type": "object",

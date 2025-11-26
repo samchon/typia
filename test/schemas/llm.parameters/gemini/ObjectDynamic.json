@@ -44,7 +44,6 @@
     "ObjectDynamic": {
       "type": "object",
       "properties": {},
-      "required": [],
       "additionalProperties": {
         "anyOf": [
           {

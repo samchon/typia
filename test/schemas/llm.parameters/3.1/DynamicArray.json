@@ -47,7 +47,6 @@
         "value": {
           "type": "object",
           "properties": {},
-          "required": [],
           "additionalProperties": {
             "type": "array",
             "items": {

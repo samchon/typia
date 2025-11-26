@@ -4,7 +4,6 @@
     "regular": {
       "type": "object",
       "properties": {},
-      "required": [],
       "description": "Current Type: {@link DynamicTemplate}",
       "additionalProperties": {
         "oneOf": [
@@ -23,7 +22,6 @@
     "nullable": {
       "type": "object",
       "properties": {},
-      "required": [],
       "additionalProperties": {
         "oneOf": [
           {
@@ -42,7 +40,6 @@
     "optional": {
       "type": "object",
       "properties": {},
-      "required": [],
       "description": "Current Type: {@link DynamicTemplate}",
       "additionalProperties": {
         "oneOf": [
@@ -61,7 +58,6 @@
     "faint": {
       "type": "object",
       "properties": {},
-      "required": [],
       "additionalProperties": {
         "oneOf": [
           {
@@ -82,7 +78,6 @@
       "items": {
         "type": "object",
         "properties": {},
-        "required": [],
         "description": "Current Type: {@link DynamicTemplate}",
         "additionalProperties": {
           "oneOf": [

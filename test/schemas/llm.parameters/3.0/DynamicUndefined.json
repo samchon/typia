@@ -4,28 +4,24 @@
     "regular": {
       "type": "object",
       "properties": {},
-      "required": [],
       "description": "Current Type: {@link DynamicUndefined}",
       "additionalProperties": false
     },
     "nullable": {
       "type": "object",
       "properties": {},
-      "required": [],
       "additionalProperties": false,
       "nullable": true
     },
     "optional": {
       "type": "object",
       "properties": {},
-      "required": [],
       "description": "Current Type: {@link DynamicUndefined}",
       "additionalProperties": false
     },
     "faint": {
       "type": "object",
       "properties": {},
-      "required": [],
       "additionalProperties": false,
       "nullable": true
     },
@@ -34,7 +30,6 @@
       "items": {
         "type": "object",
         "properties": {},
-        "required": [],
         "description": "Current Type: {@link DynamicUndefined}",
         "additionalProperties": false
       }

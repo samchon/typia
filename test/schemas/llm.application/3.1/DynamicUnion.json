@@ -23,7 +23,6 @@
           "DynamicUnion": {
             "type": "object",
             "properties": {},
-            "required": [],
             "additionalProperties": {
               "oneOf": [
                 {
@@ -66,7 +65,6 @@
           "DynamicUnion": {
             "type": "object",
             "properties": {},
-            "required": [],
             "additionalProperties": {
               "oneOf": [
                 {
@@ -129,7 +127,6 @@
           "DynamicUnion": {
             "type": "object",
             "properties": {},
-            "required": [],
             "additionalProperties": {
               "oneOf": [
                 {

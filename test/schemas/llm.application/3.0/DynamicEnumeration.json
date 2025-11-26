@@ -48,7 +48,6 @@
                     "type": "string"
                   }
                 },
-                "required": [],
                 "additionalProperties": false
               }
             },
@@ -107,7 +106,6 @@
                     "type": "string"
                   }
                 },
-                "required": [],
                 "additionalProperties": false
               }
             },
@@ -154,7 +152,6 @@
                     "type": "string"
                   }
                 },
-                "required": [],
                 "additionalProperties": false
               }
             },
@@ -208,7 +205,6 @@
                 "type": "string"
               }
             },
-            "required": [],
             "additionalProperties": false
           }
         },
@@ -261,7 +257,6 @@
                     "type": "string"
                   }
                 },
-                "required": [],
                 "additionalProperties": false
               }
             },
@@ -308,7 +303,6 @@
                     "type": "string"
                   }
                 },
-                "required": [],
                 "additionalProperties": false
               }
             },
@@ -355,7 +349,6 @@
                     "type": "string"
                   }
                 },
-                "required": [],
                 "additionalProperties": false
               }
             },
@@ -409,7 +402,6 @@
                 "type": "string"
               }
             },
-            "required": [],
             "additionalProperties": false
           }
         },

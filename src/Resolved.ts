@@ -22,7 +22,9 @@ import { ValueOf } from "./typings/ValueOf";
  *
  * Before | After
  * ------------------------|---------------------------------------- `Boolean` |
- * `boolean` `Number` | `number` `BigInt` | `bigint` `String` | `string` `Class`
+ * `boolean` `Number` | `number` `BigInt` | `bigint` `String` | `string`
+ * `Class`
+ *
  * | `interface` Native Class or Others | No change
  *
  * @author Jeongho Nam - https://github.com/samchon

@@ -99,7 +99,7 @@ const create_object_schema = (props: {
   return {
     type: "object",
     properties,
-    required,
+    ...(required.length ? { required } : {}),
     title: (() => {
       const info: IJsDocTagInfo | undefined = props.object.type.jsDocTags.find(
         (tag) => tag.name === "title",

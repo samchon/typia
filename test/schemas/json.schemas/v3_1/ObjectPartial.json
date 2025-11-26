@@ -31,7 +31,6 @@
             ]
           }
         },
-        "required": [],
         "description": "Make all properties in T optional"
       },
       "ObjectPartial.IBase": {

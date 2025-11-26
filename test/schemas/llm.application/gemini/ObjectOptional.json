@@ -34,8 +34,7 @@
               "sequence": {
                 "type": "number"
               }
-            },
-            "required": []
+            }
           }
         }
       }
@@ -80,8 +79,7 @@
               "sequence": {
                 "type": "number"
               }
-            },
-            "required": []
+            }
           }
         }
       },
@@ -146,8 +144,7 @@
               "sequence": {
                 "type": "number"
               }
-            },
-            "required": []
+            }
           }
         }
       },

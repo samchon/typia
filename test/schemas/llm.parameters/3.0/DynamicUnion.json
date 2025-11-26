@@ -4,7 +4,6 @@
     "regular": {
       "type": "object",
       "properties": {},
-      "required": [],
       "description": "Current Type: {@link DynamicUnion}",
       "additionalProperties": {
         "oneOf": [
@@ -20,7 +19,6 @@
     "nullable": {
       "type": "object",
       "properties": {},
-      "required": [],
       "additionalProperties": {
         "oneOf": [
           {
@@ -36,7 +34,6 @@
     "optional": {
       "type": "object",
       "properties": {},
-      "required": [],
       "description": "Current Type: {@link DynamicUnion}",
       "additionalProperties": {
         "oneOf": [
@@ -52,7 +49,6 @@
     "faint": {
       "type": "object",
       "properties": {},
-      "required": [],
       "additionalProperties": {
         "oneOf": [
           {
@@ -70,7 +66,6 @@
       "items": {
         "type": "object",
         "properties": {},
-        "required": [],
         "description": "Current Type: {@link DynamicUnion}",
         "additionalProperties": {
           "oneOf": [

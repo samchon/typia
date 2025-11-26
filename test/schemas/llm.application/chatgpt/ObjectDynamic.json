@@ -23,7 +23,6 @@
           "ObjectDynamic": {
             "type": "object",
             "properties": {},
-            "required": [],
             "additionalProperties": {
               "anyOf": [
                 {
@@ -69,7 +68,6 @@
           "ObjectDynamic": {
             "type": "object",
             "properties": {},
-            "required": [],
             "additionalProperties": {
               "anyOf": [
                 {
@@ -135,7 +133,6 @@
           "ObjectDynamic": {
             "type": "object",
             "properties": {},
-            "required": [],
             "additionalProperties": {
               "anyOf": [
                 {

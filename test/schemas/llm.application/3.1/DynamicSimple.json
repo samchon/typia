@@ -26,7 +26,6 @@
               "value": {
                 "type": "object",
                 "properties": {},
-                "required": [],
                 "additionalProperties": {
                   "type": "number"
                 }
@@ -70,7 +69,6 @@
               "value": {
                 "type": "object",
                 "properties": {},
-                "required": [],
                 "additionalProperties": {
                   "type": "number"
                 }
@@ -134,7 +132,6 @@
               "value": {
                 "type": "object",
                 "properties": {},
-                "required": [],
                 "additionalProperties": {
                   "type": "number"
                 }

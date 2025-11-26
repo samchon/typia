@@ -43,7 +43,6 @@
             "description": "Construct a type with a set of properties K of type T",
             "type": "object",
             "properties": {},
-            "required": [],
             "additionalProperties": {
               "$ref": "#/$defs/DynamicTree"
             }
@@ -99,7 +98,6 @@
             "description": "Construct a type with a set of properties K of type T",
             "type": "object",
             "properties": {},
-            "required": [],
             "additionalProperties": {
               "$ref": "#/$defs/DynamicTree"
             }
@@ -175,7 +173,6 @@
             "description": "Construct a type with a set of properties K of type T",
             "type": "object",
             "properties": {},
-            "required": [],
             "additionalProperties": {
               "$ref": "#/$defs/DynamicTree"
             }

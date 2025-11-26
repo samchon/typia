@@ -21,8 +21,7 @@
         "$defs": {
           "DynamicNever": {
             "type": "object",
-            "properties": {},
-            "required": []
+            "properties": {}
           }
         }
       }
@@ -54,8 +53,7 @@
         "$defs": {
           "DynamicNever": {
             "type": "object",
-            "properties": {},
-            "required": []
+            "properties": {}
           }
         }
       },
@@ -107,8 +105,7 @@
         "$defs": {
           "DynamicNever": {
             "type": "object",
-            "properties": {},
-            "required": []
+            "properties": {}
           }
         }
       },

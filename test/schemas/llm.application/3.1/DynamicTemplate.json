@@ -23,7 +23,6 @@
           "DynamicTemplate": {
             "type": "object",
             "properties": {},
-            "required": [],
             "additionalProperties": {
               "oneOf": [
                 {
@@ -69,7 +68,6 @@
           "DynamicTemplate": {
             "type": "object",
             "properties": {},
-            "required": [],
             "additionalProperties": {
               "oneOf": [
                 {
@@ -135,7 +133,6 @@
           "DynamicTemplate": {
             "type": "object",
             "properties": {},
-            "required": [],
             "additionalProperties": {
               "oneOf": [
                 {

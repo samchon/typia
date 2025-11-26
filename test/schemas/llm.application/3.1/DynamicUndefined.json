@@ -22,8 +22,7 @@
         "$defs": {
           "DynamicUndefined": {
             "type": "object",
-            "properties": {},
-            "required": []
+            "properties": {}
           }
         }
       }
@@ -55,8 +54,7 @@
         "$defs": {
           "DynamicUndefined": {
             "type": "object",
-            "properties": {},
-            "required": []
+            "properties": {}
           }
         }
       },
@@ -108,8 +106,7 @@
         "$defs": {
           "DynamicUndefined": {
             "type": "object",
-            "properties": {},
-            "required": []
+            "properties": {}
           }
         }
       },

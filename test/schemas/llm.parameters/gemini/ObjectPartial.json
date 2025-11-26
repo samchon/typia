@@ -70,8 +70,7 @@
             }
           ]
         }
-      },
-      "required": []
+      }
     },
     "ObjectPartial.IBase": {
       "type": "object",

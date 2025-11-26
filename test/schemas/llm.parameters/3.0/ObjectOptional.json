@@ -17,7 +17,6 @@
           "type": "number"
         }
       },
-      "required": [],
       "description": "Current Type: {@link ObjectOptional}",
       "additionalProperties": false
     },
@@ -37,7 +36,6 @@
           "type": "number"
         }
       },
-      "required": [],
       "additionalProperties": false,
       "nullable": true
     },
@@ -57,7 +55,6 @@
           "type": "number"
         }
       },
-      "required": [],
       "description": "Current Type: {@link ObjectOptional}",
       "additionalProperties": false
     },
@@ -77,7 +74,6 @@
           "type": "number"
         }
       },
-      "required": [],
       "additionalProperties": false,
       "nullable": true
     },
@@ -99,7 +95,6 @@
             "type": "number"
           }
         },
-        "required": [],
         "description": "Current Type: {@link ObjectOptional}",
         "additionalProperties": false
       }

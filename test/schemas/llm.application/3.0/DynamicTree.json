@@ -23,7 +23,6 @@
               "children": {
                 "type": "object",
                 "properties": {},
-                "required": [],
                 "description": "Description of the current {@link RecordstringDynamicTree} type:\n\n> Construct a type with a set of properties K of type T",
                 "additionalProperties": {
                   "type": "object",
@@ -37,7 +36,6 @@
                     "children": {
                       "type": "object",
                       "properties": {},
-                      "required": [],
                       "description": "Description of the current {@link RecordstringDynamicTree} type:\n\n> Construct a type with a set of properties K of type T",
                       "additionalProperties": {
                         "type": "object",
@@ -51,7 +49,6 @@
                           "children": {
                             "type": "object",
                             "properties": {},
-                            "required": [],
                             "description": "Description of the current {@link RecordstringDynamicTree} type:\n\n> Construct a type with a set of properties K of type T",
                             "additionalProperties": {
                               "type": "object",
@@ -65,7 +62,6 @@
                                 "children": {
                                   "type": "object",
                                   "properties": {},
-                                  "required": [],
                                   "description": "Description of the current {@link RecordstringDynamicTree} type:\n\n> Construct a type with a set of properties K of type T",
                                   "additionalProperties": false
                                 }
@@ -132,7 +128,6 @@
               "children": {
                 "type": "object",
                 "properties": {},
-                "required": [],
                 "description": "Description of the current {@link RecordstringDynamicTree} type:\n\n> Construct a type with a set of properties K of type T",
                 "additionalProperties": {
                   "type": "object",
@@ -146,7 +141,6 @@
                     "children": {
                       "type": "object",
                       "properties": {},
-                      "required": [],
                       "description": "Description of the current {@link RecordstringDynamicTree} type:\n\n> Construct a type with a set of properties K of type T",
                       "additionalProperties": {
                         "type": "object",
@@ -160,7 +154,6 @@
                           "children": {
                             "type": "object",
                             "properties": {},
-                            "required": [],
                             "description": "Description of the current {@link RecordstringDynamicTree} type:\n\n> Construct a type with a set of properties K of type T",
                             "additionalProperties": {
                               "type": "object",
@@ -174,7 +167,6 @@
                                 "children": {
                                   "type": "object",
                                   "properties": {},
-                                  "required": [],
                                   "description": "Description of the current {@link RecordstringDynamicTree} type:\n\n> Construct a type with a set of properties K of type T",
                                   "additionalProperties": false
                                 }
@@ -229,7 +221,6 @@
               "children": {
                 "type": "object",
                 "properties": {},
-                "required": [],
                 "description": "Description of the current {@link RecordstringDynamicTree} type:\n\n> Construct a type with a set of properties K of type T",
                 "additionalProperties": {
                   "type": "object",
@@ -243,7 +234,6 @@
                     "children": {
                       "type": "object",
                       "properties": {},
-                      "required": [],
                       "description": "Description of the current {@link RecordstringDynamicTree} type:\n\n> Construct a type with a set of properties K of type T",
                       "additionalProperties": {
                         "type": "object",
@@ -257,7 +247,6 @@
                           "children": {
                             "type": "object",
                             "properties": {},
-                            "required": [],
                             "description": "Description of the current {@link RecordstringDynamicTree} type:\n\n> Construct a type with a set of properties K of type T",
                             "additionalProperties": {
                               "type": "object",
@@ -271,7 +260,6 @@
                                 "children": {
                                   "type": "object",
                                   "properties": {},
-                                  "required": [],
                                   "description": "Description of the current {@link RecordstringDynamicTree} type:\n\n> Construct a type with a set of properties K of type T",
                                   "additionalProperties": false
                                 }
@@ -333,7 +321,6 @@
           "children": {
             "type": "object",
             "properties": {},
-            "required": [],
             "description": "Description of the current {@link RecordstringDynamicTree} type:\n\n> Construct a type with a set of properties K of type T",
             "additionalProperties": {
               "type": "object",
@@ -347,7 +334,6 @@
                 "children": {
                   "type": "object",
                   "properties": {},
-                  "required": [],
                   "description": "Description of the current {@link RecordstringDynamicTree} type:\n\n> Construct a type with a set of properties K of type T",
                   "additionalProperties": {
                     "type": "object",
@@ -361,7 +347,6 @@
                       "children": {
                         "type": "object",
                         "properties": {},
-                        "required": [],
                         "description": "Description of the current {@link RecordstringDynamicTree} type:\n\n> Construct a type with a set of properties K of type T",
                         "additionalProperties": {
                           "type": "object",
@@ -375,7 +360,6 @@
                             "children": {
                               "type": "object",
                               "properties": {},
-                              "required": [],
                               "description": "Description of the current {@link RecordstringDynamicTree} type:\n\n> Construct a type with a set of properties K of type T",
                               "additionalProperties": false
                             }
@@ -436,7 +420,6 @@
               "children": {
                 "type": "object",
                 "properties": {},
-                "required": [],
                 "description": "Description of the current {@link RecordstringDynamicTree} type:\n\n> Construct a type with a set of properties K of type T",
                 "additionalProperties": {
                   "type": "object",
@@ -450,7 +433,6 @@
                     "children": {
                       "type": "object",
                       "properties": {},
-                      "required": [],
                       "description": "Description of the current {@link RecordstringDynamicTree} type:\n\n> Construct a type with a set of properties K of type T",
                       "additionalProperties": {
                         "type": "object",
@@ -464,7 +446,6 @@
                           "children": {
                             "type": "object",
                             "properties": {},
-                            "required": [],
                             "description": "Description of the current {@link RecordstringDynamicTree} type:\n\n> Construct a type with a set of properties K of type T",
                             "additionalProperties": {
                               "type": "object",
@@ -478,7 +459,6 @@
                                 "children": {
                                   "type": "object",
                                   "properties": {},
-                                  "required": [],
                                   "description": "Description of the current {@link RecordstringDynamicTree} type:\n\n> Construct a type with a set of properties K of type T",
                                   "additionalProperties": false
                                 }
@@ -533,7 +513,6 @@
               "children": {
                 "type": "object",
                 "properties": {},
-                "required": [],
                 "description": "Description of the current {@link RecordstringDynamicTree} type:\n\n> Construct a type with a set of properties K of type T",
                 "additionalProperties": {
                   "type": "object",
@@ -547,7 +526,6 @@
                     "children": {
                       "type": "object",
                       "properties": {},
-                      "required": [],
                       "description": "Description of the current {@link RecordstringDynamicTree} type:\n\n> Construct a type with a set of properties K of type T",
                       "additionalProperties": {
                         "type": "object",
@@ -561,7 +539,6 @@
                           "children": {
                             "type": "object",
                             "properties": {},
-                            "required": [],
                             "description": "Description of the current {@link RecordstringDynamicTree} type:\n\n> Construct a type with a set of properties K of type T",
                             "additionalProperties": {
                               "type": "object",
@@ -575,7 +552,6 @@
                                 "children": {
                                   "type": "object",
                                   "properties": {},
-                                  "required": [],
                                   "description": "Description of the current {@link RecordstringDynamicTree} type:\n\n> Construct a type with a set of properties K of type T",
                                   "additionalProperties": false
                                 }
@@ -630,7 +606,6 @@
               "children": {
                 "type": "object",
                 "properties": {},
-                "required": [],
                 "description": "Description of the current {@link RecordstringDynamicTree} type:\n\n> Construct a type with a set of properties K of type T",
                 "additionalProperties": {
                   "type": "object",
@@ -644,7 +619,6 @@
                     "children": {
                       "type": "object",
                       "properties": {},
-                      "required": [],
                       "description": "Description of the current {@link RecordstringDynamicTree} type:\n\n> Construct a type with a set of properties K of type T",
                       "additionalProperties": {
                         "type": "object",
@@ -658,7 +632,6 @@
                           "children": {
                             "type": "object",
                             "properties": {},
-                            "required": [],
                             "description": "Description of the current {@link RecordstringDynamicTree} type:\n\n> Construct a type with a set of properties K of type T",
                             "additionalProperties": {
                               "type": "object",
@@ -672,7 +645,6 @@
                                 "children": {
                                   "type": "object",
                                   "properties": {},
-                                  "required": [],
                                   "description": "Description of the current {@link RecordstringDynamicTree} type:\n\n> Construct a type with a set of properties K of type T",
                                   "additionalProperties": false
                                 }
@@ -734,7 +706,6 @@
           "children": {
             "type": "object",
             "properties": {},
-            "required": [],
             "description": "Description of the current {@link RecordstringDynamicTree} type:\n\n> Construct a type with a set of properties K of type T",
             "additionalProperties": {
               "type": "object",
@@ -748,7 +719,6 @@
                 "children": {
                   "type": "object",
                   "properties": {},
-                  "required": [],
                   "description": "Description of the current {@link RecordstringDynamicTree} type:\n\n> Construct a type with a set of properties K of type T",
                   "additionalProperties": {
                     "type": "object",
@@ -762,7 +732,6 @@
                       "children": {
                         "type": "object",
                         "properties": {},
-                        "required": [],
                         "description": "Description of the current {@link RecordstringDynamicTree} type:\n\n> Construct a type with a set of properties K of type T",
                         "additionalProperties": {
                           "type": "object",
@@ -776,7 +745,6 @@
                             "children": {
                               "type": "object",
                               "properties": {},
-                              "required": [],
                               "description": "Description of the current {@link RecordstringDynamicTree} type:\n\n> Construct a type with a set of properties K of type T",
                               "additionalProperties": false
                             }

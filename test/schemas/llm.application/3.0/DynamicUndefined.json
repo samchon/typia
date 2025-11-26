@@ -14,7 +14,6 @@
           "first": {
             "type": "object",
             "properties": {},
-            "required": [],
             "description": "Current Type: {@link DynamicUndefined}",
             "additionalProperties": false
           }
@@ -33,14 +32,12 @@
           "first": {
             "type": "object",
             "properties": {},
-            "required": [],
             "description": "Current Type: {@link DynamicUndefined}",
             "additionalProperties": false
           },
           "second": {
             "type": "object",
             "properties": {},
-            "required": [],
             "additionalProperties": false,
             "nullable": true
           }
@@ -54,7 +51,6 @@
       "output": {
         "type": "object",
         "properties": {},
-        "required": [],
         "description": "Current Type: {@link DynamicUndefined}",
         "additionalProperties": false
       }
@@ -67,21 +63,18 @@
           "first": {
             "type": "object",
             "properties": {},
-            "required": [],
             "additionalProperties": false,
             "nullable": true
           },
           "second": {
             "type": "object",
             "properties": {},
-            "required": [],
             "additionalProperties": false,
             "nullable": true
           },
           "third": {
             "type": "object",
             "properties": {},
-            "required": [],
             "additionalProperties": false,
             "nullable": true
           }
@@ -95,7 +88,6 @@
       "output": {
         "type": "object",
         "properties": {},
-        "required": [],
         "additionalProperties": false,
         "nullable": true
       }

@@ -17,8 +17,7 @@
           "sequence": {
             "type": "number"
           }
-        },
-        "required": []
+        }
       }
     }
   },

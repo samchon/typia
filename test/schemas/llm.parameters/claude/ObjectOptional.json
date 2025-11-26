@@ -56,8 +56,7 @@
         "sequence": {
           "type": "number"
         }
-      },
-      "required": []
+      }
     }
   }
 }

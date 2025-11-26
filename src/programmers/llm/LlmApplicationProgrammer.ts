@@ -317,7 +317,6 @@ export namespace LlmApplicationProgrammer {
       type: "object",
       properties: {},
       additionalProperties: false,
-      required: [],
     };
     const result: IResult<
       ILlmSchema.ModelParameters[Model],

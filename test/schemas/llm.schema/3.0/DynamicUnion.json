@@ -1,7 +1,6 @@
 {
   "type": "object",
   "properties": {},
-  "required": [],
   "description": "Current Type: {@link DynamicUnion}",
   "additionalProperties": {
     "oneOf": [
