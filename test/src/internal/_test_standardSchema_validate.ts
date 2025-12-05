@@ -6,7 +6,7 @@ import { TestStructure } from "../helpers/TestStructure";
 export const _test_standardSchema_validate =
   (name: string) =>
   <T>(factory: TestStructure<T>) =>
-  (validate: StandardSchemaV1<unknown, T>): void => {
+  (validate: StandardSchemaV1<T, T>): void => {
     const input: T = factory.generate();
     const valid = validate["~standard"].validate(input);
     if (!("value" in valid))
