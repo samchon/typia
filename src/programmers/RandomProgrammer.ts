@@ -504,7 +504,12 @@ export namespace RandomProgrammer {
                 .join("")}`,
               arguments: [],
             };
-          } else if (string.pattern !== undefined)
+          } else if (string.pattern !== undefined) {
+            const flags: string | undefined = (
+              schema as OpenApi.IJsonSchema.IString & {
+                "x-pattern-flags"?: string;
+              }
+            )["x-pattern-flags"];
             return {
               method: "pattern",
               internal: "randomPattern",
@@ -512,14 +517,22 @@ export namespace RandomProgrammer {
                 ts.factory.createNewExpression(
                   ts.factory.createIdentifier("RegExp"),
                   undefined,
-                  [
-                    ts.factory.createStringLiteral(
-                      (schema as OpenApi.IJsonSchema.IString).pattern!,
-                    ),
-                  ],
+                  flags !== undefined
+                    ? [
+                        ts.factory.createStringLiteral(
+                          (schema as OpenApi.IJsonSchema.IString).pattern!,
+                        ),
+                        ts.factory.createStringLiteral(flags),
+                      ]
+                    : [
+                        ts.factory.createStringLiteral(
+                          (schema as OpenApi.IJsonSchema.IString).pattern!,
+                        ),
+                      ],
                 ),
               ],
             };
+          }
         } else if (props.atomic.type === "number") {
           const number:
             | OpenApi.IJsonSchema.INumber
