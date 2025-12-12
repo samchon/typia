@@ -11,19 +11,28 @@ export namespace TypiaProgrammer {
     input: string;
     output: string;
     project: string;
+    files?: string[];
   }
 
   export const build = async (
     location: TypiaProgrammer.ILocation,
   ): Promise<void> => {
-    location.input = path.resolve(location.input);
+    const hasFiles = location.files && location.files.length > 0;
+
+    // Resolve paths
+    if (!hasFiles) {
+      location.input = path.resolve(location.input);
+    }
     location.output = path.resolve(location.output);
 
-    if ((await is_directory(location.input)) === false)
-      throw new URIError(
-        "Error on TypiaGenerator.generate(): input path is not a directory.",
-      );
-    else if (fs.existsSync(location.output) === false)
+    // Validate directories
+    if (!hasFiles) {
+      if ((await is_directory(location.input)) === false)
+        throw new URIError(
+          "Error on TypiaGenerator.generate(): input path is not a directory.",
+        );
+    }
+    if (fs.existsSync(location.output) === false)
       await fs.promises.mkdir(location.output, { recursive: true });
     else if ((await is_directory(location.output)) === false) {
       const parent: string = path.join(location.output, "..");
@@ -33,6 +42,11 @@ export namespace TypiaProgrammer {
         );
       await fs.promises.mkdir(location.output);
     }
+
+    // Resolve file paths
+    const resolvedFiles = hasFiles
+      ? location.files!.map((f) => path.resolve(f))
+      : [];
 
     // CREATE PROGRAM
     const { options: compilerOptions } = ts.parseJsonConfigFileContent(
@@ -47,16 +61,18 @@ export namespace TypiaProgrammer {
     );
 
     const program: ts.Program = ts.createProgram(
-      await (async () => {
-        const container: string[] = [];
-        await gather({
-          location,
-          container,
-          from: location.input,
-          to: location.output,
-        });
-        return container;
-      })(),
+      hasFiles
+        ? resolvedFiles
+        : await (async () => {
+            const container: string[] = [];
+            await gather({
+              location,
+              container,
+              from: location.input,
+              to: location.output,
+            });
+            return container;
+          })(),
       compilerOptions,
     );
 
@@ -65,16 +81,23 @@ export namespace TypiaProgrammer {
     const result: ts.TransformationResult<ts.SourceFile> = ts.transform(
       program
         .getSourceFiles()
-        .filter(
-          (file) =>
-            !file.isDeclarationFile &&
-            path.resolve(file.fileName).indexOf(location.input) !== -1,
-        ),
-      [
-        ImportTransformer.transform({
-          from: location.input,
-          to: location.output,
+        .filter((file) => {
+          if (file.isDeclarationFile) return false;
+          const resolved = path.resolve(file.fileName);
+          return hasFiles
+            ? resolvedFiles.includes(resolved)
+            : resolved.indexOf(location.input) !== -1;
         }),
+      [
+        // Skip import transformation when processing individual files
+        ...(hasFiles
+          ? []
+          : [
+              ImportTransformer.transform({
+                from: location.input,
+                to: location.output,
+              }),
+            ]),
         transform(
           program,
           ((compilerOptions.plugins as any[]) ?? []).find(
@@ -125,9 +148,9 @@ export namespace TypiaProgrammer {
       newLine: ts.NewLineKind.LineFeed,
     });
     for (const file of result.transformed) {
-      const to: string = path
-        .resolve(file.fileName)
-        .replace(location.input, location.output);
+      const to: string = hasFiles
+        ? path.join(location.output, path.basename(file.fileName))
+        : path.resolve(file.fileName).replace(location.input, location.output);
 
       const content: string = printer.printFile(file);
       await fs.promises.writeFile(to, content, "utf8");
