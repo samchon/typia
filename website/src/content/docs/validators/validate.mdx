@@ -131,8 +131,8 @@ In the below example case, as `id` property is different with its type definitio
 ]}>
   <Tabs.Tab>
 ```typescript copy
-export function createValidate<T> = (input: unknown) => IValidation<T> & StandardSchemaV1<unknown, T>;
-export function createValidateEquals<T> = (input: unknown) => IValidation<T> & StandardSchemaV1<unknown, T>;
+export function createValidate<T> = (input: unknown) => IValidation<T> & StandardSchemaV1<T, T>;
+export function createValidateEquals<T> = (input: unknown) => IValidation<T> & StandardSchemaV1<T, T>;
 ```
   </Tabs.Tab>
   <Tabs.Tab>

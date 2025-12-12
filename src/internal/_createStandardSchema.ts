@@ -4,7 +4,7 @@ import { IValidation } from "../IValidation";
 
 export const _createStandardSchema = <T>(
   fn: (input: unknown) => IValidation<T>,
-): ((input: unknown) => IValidation<T>) & StandardSchemaV1<unknown, T> =>
+): ((input: unknown) => IValidation<T>) & StandardSchemaV1<T, T> =>
   Object.assign(fn, {
     "~standard": {
       version: 1,
@@ -25,7 +25,7 @@ export const _createStandardSchema = <T>(
         }
       },
     },
-  } satisfies StandardSchemaV1<unknown, T>);
+  } satisfies StandardSchemaV1<T, T>);
 
 enum PathParserState {
   // Start of a new segment
