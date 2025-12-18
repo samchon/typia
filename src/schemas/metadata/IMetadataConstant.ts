@@ -14,5 +14,10 @@ export namespace IMetadataConstant {
   > {
     type: Type;
     values: IMetadataConstantValue<Value>[];
+    /**
+     * The name of the enum type if this constant originates from a TypeScript enum.
+     * Used to generate `$ref` schemas for enums.
+     */
+    enumName?: string;
   }
 }

@@ -11,7 +11,10 @@ import { json_schema_alias } from "./json_schema_alias";
 import { json_schema_array } from "./json_schema_array";
 import { json_schema_bigint } from "./json_schema_bigint";
 import { json_schema_boolean } from "./json_schema_boolean";
-import { json_schema_constant } from "./json_schema_constant";
+import {
+  json_schema_constant,
+  json_schema_enum_ref,
+} from "./json_schema_constant";
 import { json_schema_discriminator } from "./json_schema_discriminator";
 import { json_schema_escaped } from "./json_schema_escaped";
 import { json_schema_native } from "./json_schema_native";
@@ -68,7 +71,15 @@ export const json_schema_station = <BlockNever extends boolean>(props: {
       }) === false
     )
       continue;
-    else json_schema_constant(constant).forEach(insert);
+    else if (constant.enumName) {
+      // If the constant has an enum name, generate a $ref to the enum schema
+      json_schema_enum_ref({
+        components: props.components,
+        constant,
+      }).forEach(insert);
+    } else {
+      json_schema_constant(constant).forEach(insert);
+    }
   for (const a of props.metadata.atomics)
     if (a.type === "boolean") json_schema_boolean(a).forEach(insert);
     else if (a.type === "bigint") json_schema_bigint(a).forEach(insert);

@@ -6,10 +6,16 @@ import { MetadataConstantValue } from "./MetadataConstantValue";
 export class MetadataConstant {
   public readonly type: "boolean" | "bigint" | "number" | "string";
   public readonly values: MetadataConstantValue[];
+  /**
+   * The name of the enum type if this constant originates from a TypeScript enum.
+   * Used to generate `$ref` schemas for enums.
+   */
+  public readonly enumName?: string;
 
   private constructor(props: ClassProperties<MetadataConstant>) {
     this.type = props.type;
     this.values = props.values.map(MetadataConstantValue.create);
+    this.enumName = props.enumName;
   }
 
   public static create(
@@ -22,6 +28,7 @@ export class MetadataConstant {
     return MetadataConstant.create({
       type: json.type,
       values: json.values.map(MetadataConstantValue.from),
+      enumName: json.enumName,
     });
   }
 
@@ -29,6 +36,7 @@ export class MetadataConstant {
     return {
       type: this.type,
       values: this.values.map((value) => value.toJSON()),
+      enumName: this.enumName,
     };
   }
 }
