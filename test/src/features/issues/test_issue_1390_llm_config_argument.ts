@@ -7,16 +7,12 @@ import { ArrayRecursive } from "../../structures/ArrayRecursive";
 export const test_issue_1390_llm_config_argument = (): void => {
   TestValidator.equals("reference false")(
     keys(($defs) =>
-      typia.llm.schema<ArrayRecursive, { reference: false }>({
-        $defs,
-      }),
+      typia.llm.schema<ArrayRecursive, { reference: false }>($defs),
     ),
   )(["ArrayRecursive.ICategory"]);
   TestValidator.equals("reference true")(
     keys(($defs) =>
-      typia.llm.schema<ArrayRecursive, { reference: true }>({
-        $defs,
-      }),
+      typia.llm.schema<ArrayRecursive, { reference: true }>($defs),
     ),
   )(["ArrayRecursive.ICategory", "ArrayRecursive.ITimestamp"]);
 };
