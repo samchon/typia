@@ -4,11 +4,11 @@ import fs from "fs";
 import { primitive_equal_to } from "../helpers/primitive_equal_to";
 
 export const _test_llm_schema =
-  <Model extends ILlmSchema.Model>(props: { model: Model; name: string }) =>
-  (expected: ILlmSchema.ModelSchema[Model]): void => {
-    const actual: ILlmSchema.ModelSchema[Model] = JSON.parse(
+  (name: string) =>
+  (expected: ILlmSchema): void => {
+    const actual: ILlmSchema = JSON.parse(
       fs.readFileSync(
-        `${__dirname}/../../schemas/llm.schema/${props.model}/${props.name}.json`,
+        `${__dirname}/../../schemas/llm.schema/${name}.json`,
         "utf8",
       ),
     );
@@ -17,13 +17,11 @@ export const _test_llm_schema =
 
     if (primitive_equal_to(actual, expected) === false)
       throw new Error(
-        `Bug on typia.llm.schema<${props.name}, "${props.model}">(): failed to understand the ${props.name} type.`,
+        `Bug on typia.llm.schema<${name}>(): failed to understand the ${name} type.`,
       );
   };
 
-function sort<Model extends ILlmSchema.Model>(
-  app: ILlmSchema.ModelSchema[Model],
-): void {
+function sort(app: ILlmSchema): void {
   function object(elem: object) {
     for (const value of Object.values(elem)) iterate(value);
   }
