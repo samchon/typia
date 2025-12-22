@@ -1,0 +1,160 @@
+{
+  "type": "object",
+  "properties": {
+    "regular": {
+      "$ref": "#/$defs/ObjectUnionNonPredictable"
+    },
+    "nullable": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/ObjectUnionNonPredictable"
+        }
+      ]
+    },
+    "optional": {
+      "$ref": "#/$defs/ObjectUnionNonPredictable"
+    },
+    "faint": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/ObjectUnionNonPredictable"
+        }
+      ]
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ObjectUnionNonPredictable"
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "array"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "ObjectUnionNonPredictable": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ObjectUnionNonPredictable.IWrapperObjectUnionNonPredictable.IUnion"
+          }
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "ObjectUnionNonPredictable.IWrapperObjectUnionNonPredictable.IUnion": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "$ref": "#/$defs/IPointerObjectUnionNonPredictable.IUnion"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "IPointerObjectUnionNonPredictable.IUnion": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "$ref": "#/$defs/ObjectUnionNonPredictable.IUnion"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "ObjectUnionNonPredictable.IUnion": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ObjectUnionNonPredictable.IWrapperboolean"
+        },
+        {
+          "$ref": "#/$defs/ObjectUnionNonPredictable.IWrappernumber"
+        },
+        {
+          "$ref": "#/$defs/ObjectUnionNonPredictable.IWrapperstring"
+        }
+      ]
+    },
+    "ObjectUnionNonPredictable.IWrapperboolean": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "$ref": "#/$defs/IPointerboolean"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "IPointerboolean": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "ObjectUnionNonPredictable.IWrappernumber": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "$ref": "#/$defs/IPointernumber"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "IPointernumber": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "ObjectUnionNonPredictable.IWrapperstring": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "$ref": "#/$defs/IPointerstring"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "IPointerstring": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    }
+  }
+}

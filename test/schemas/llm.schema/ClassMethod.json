@@ -1,0 +1,24 @@
+{
+  "$defs": {
+    "ClassMethod.Animal": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "age": {
+          "readOnly": true,
+          "type": "number"
+        }
+      },
+      "required": [
+        "name",
+        "age"
+      ]
+    }
+  },
+  "schema": {
+    "$ref": "#/$defs/ClassMethod.Animal"
+  }
+}

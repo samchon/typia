@@ -1,0 +1,125 @@
+{
+  "type": "object",
+  "properties": {
+    "regular": {
+      "$ref": "#/$defs/TemplateUnion"
+    },
+    "nullable": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/TemplateUnion"
+        }
+      ]
+    },
+    "optional": {
+      "$ref": "#/$defs/TemplateUnion"
+    },
+    "faint": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/TemplateUnion"
+        }
+      ]
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/TemplateUnion"
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "array"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "TemplateUnion": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/TemplateUnion.Type"
+          }
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "TemplateUnion.Type": {
+      "type": "object",
+      "properties": {
+        "prefix": {
+          "type": "string",
+          "pattern": "^((prefix_(.*))|(prefix_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?))$"
+        },
+        "postfix": {
+          "type": "string",
+          "pattern": "(((.*)_postfix)|([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_postfix))$"
+        },
+        "middle": {
+          "anyOf": [
+            {
+              "type": "string",
+              "enum": [
+                "the_false_value",
+                "the_true_value"
+              ]
+            },
+            {
+              "type": "string",
+              "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+            }
+          ]
+        },
+        "mixed": {
+          "anyOf": [
+            {
+              "type": "string",
+              "enum": [
+                "the_A_value",
+                "the_B_value"
+              ]
+            },
+            {
+              "type": "string",
+              "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "name"
+              ]
+            }
+          ]
+        }
+      },
+      "required": [
+        "prefix",
+        "postfix",
+        "middle",
+        "mixed"
+      ]
+    }
+  }
+}

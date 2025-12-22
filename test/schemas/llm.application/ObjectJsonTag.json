@@ -1,0 +1,200 @@
+{
+  "config": {
+    "reference": true,
+    "strict": false,
+    "separate": null,
+    "validate": null
+  },
+  "functions": [
+    {
+      "name": "insert",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "$ref": "#/$defs/ObjectJsonTag"
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ObjectJsonTag": {
+            "type": "object",
+            "properties": {
+              "vulnerable": {
+                "deprecated": true,
+                "type": "string"
+              },
+              "description": {
+                "description": "Descripted property.",
+                "type": "string"
+              },
+              "title": {
+                "title": "something",
+                "description": "Titled property.",
+                "type": "string"
+              },
+              "complicate_title": {
+                "title": "something weirdo with {@link something } tag",
+                "description": "Complicate title.",
+                "type": "string"
+              }
+            },
+            "required": [
+              "vulnerable",
+              "description",
+              "title",
+              "complicate_title"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "$ref": "#/$defs/ObjectJsonTag"
+          },
+          "second": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/$defs/ObjectJsonTag"
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ObjectJsonTag": {
+            "type": "object",
+            "properties": {
+              "vulnerable": {
+                "deprecated": true,
+                "type": "string"
+              },
+              "description": {
+                "description": "Descripted property.",
+                "type": "string"
+              },
+              "title": {
+                "title": "something",
+                "description": "Titled property.",
+                "type": "string"
+              },
+              "complicate_title": {
+                "title": "something weirdo with {@link something } tag",
+                "description": "Complicate title.",
+                "type": "string"
+              }
+            },
+            "required": [
+              "vulnerable",
+              "description",
+              "title",
+              "complicate_title"
+            ]
+          }
+        }
+      },
+      "output": {
+        "$ref": "#/$defs/ObjectJsonTag"
+      }
+    },
+    {
+      "name": "coalesce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/$defs/ObjectJsonTag"
+              }
+            ]
+          },
+          "second": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/$defs/ObjectJsonTag"
+              }
+            ]
+          },
+          "third": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/$defs/ObjectJsonTag"
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ObjectJsonTag": {
+            "type": "object",
+            "properties": {
+              "vulnerable": {
+                "deprecated": true,
+                "type": "string"
+              },
+              "description": {
+                "description": "Descripted property.",
+                "type": "string"
+              },
+              "title": {
+                "title": "something",
+                "description": "Titled property.",
+                "type": "string"
+              },
+              "complicate_title": {
+                "title": "something weirdo with {@link something } tag",
+                "description": "Complicate title.",
+                "type": "string"
+              }
+            },
+            "required": [
+              "vulnerable",
+              "description",
+              "title",
+              "complicate_title"
+            ]
+          }
+        }
+      },
+      "output": {
+        "anyOf": [
+          {
+            "type": "null"
+          },
+          {
+            "$ref": "#/$defs/ObjectJsonTag"
+          }
+        ]
+      }
+    }
+  ]
+}

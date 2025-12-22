@@ -1,0 +1,80 @@
+{
+  "type": "object",
+  "properties": {
+    "regular": {
+      "$ref": "#/$defs/TypeTagAtomicUnion"
+    },
+    "nullable": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/TypeTagAtomicUnion"
+        }
+      ]
+    },
+    "optional": {
+      "$ref": "#/$defs/TypeTagAtomicUnion"
+    },
+    "faint": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/TypeTagAtomicUnion"
+        }
+      ]
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/TypeTagAtomicUnion"
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "array"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "TypeTagAtomicUnion": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/TypeTagAtomicUnion.Type"
+          }
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "TypeTagAtomicUnion.Type": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 3,
+              "maxLength": 7
+            },
+            {
+              "type": "number",
+              "minimum": 3
+            }
+          ]
+        }
+      },
+      "required": [
+        "value"
+      ]
+    }
+  }
+}

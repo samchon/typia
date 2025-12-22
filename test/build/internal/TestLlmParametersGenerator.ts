@@ -51,7 +51,7 @@ export namespace TestLlmParametersGenerator {
   }
 
   function getSchema(content: string): object {
-    const first: number = content.lastIndexOf(`})({`) + 4;
+    const first: number = content.lastIndexOf(`)({`) + 4;
     const last: number = content.lastIndexOf("}");
     return new Function("return {" + content.substring(first, last) + "}")();
   }

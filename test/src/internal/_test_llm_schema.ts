@@ -3,25 +3,29 @@ import fs from "fs";
 
 import { primitive_equal_to } from "../helpers/primitive_equal_to";
 
-export const _test_llm_schema =
-  (name: string) =>
-  (expected: ILlmSchema): void => {
-    const actual: ILlmSchema = JSON.parse(
-      fs.readFileSync(
-        `${__dirname}/../../schemas/llm.schema/${name}.json`,
-        "utf8",
-      ),
+export const _test_llm_schema = (props: {
+  name: string;
+  schema: ILlmSchema;
+  $defs: Record<string, ILlmSchema>;
+}): void => {
+  const actual: IEntry = JSON.parse(
+    fs.readFileSync(
+      `${__dirname}/../../schemas/llm.schema/${props.name}.json`,
+      "utf8",
+    ),
+  );
+  if (
+    primitive_equal_to(actual, {
+      schema: props.schema,
+      $defs: props.$defs,
+    }) === false
+  )
+    throw new Error(
+      `Bug on typia.llm.schema<${props.name}>(): failed to understand the ${props.name} type.`,
     );
-    sort(expected);
-    sort(actual);
+};
 
-    if (primitive_equal_to(actual, expected) === false)
-      throw new Error(
-        `Bug on typia.llm.schema<${name}>(): failed to understand the ${name} type.`,
-      );
-  };
-
-function sort(app: ILlmSchema): void {
+function sort(entry: IEntry): void {
   function object(elem: object) {
     for (const value of Object.values(elem)) iterate(value);
   }
@@ -38,5 +42,11 @@ function sort(app: ILlmSchema): void {
     else if (Array.isArray(elem)) array(elem);
     else if (typeof elem === "object") object(elem);
   }
-  iterate(app);
+  iterate(entry.schema);
+  for (const value of Object.values(entry.$defs)) iterate(value);
+}
+
+interface IEntry {
+  schema: ILlmSchema;
+  $defs: Record<string, ILlmSchema>;
 }

@@ -1,0 +1,320 @@
+{
+  "config": {
+    "reference": true,
+    "strict": false,
+    "separate": null,
+    "validate": null
+  },
+  "functions": [
+    {
+      "name": "insert",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "$ref": "#/$defs/TypeTagArray"
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "TypeTagArray": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/TypeTagArray.Type"
+                }
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "TypeTagArray.Type": {
+            "type": "object",
+            "properties": {
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "minItems": 3,
+                "maxItems": 3
+              },
+              "minItems": {
+                "type": "array",
+                "items": {
+                  "type": "number",
+                  "minimum": 3
+                },
+                "minItems": 3
+              },
+              "both": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "minItems": 3,
+                "maxItems": 7
+              },
+              "equal": {
+                "type": "array",
+                "items": {
+                  "type": "number",
+                  "minimum": 10,
+                  "maximum": 10
+                },
+                "minItems": 10,
+                "maxItems": 10
+              },
+              "unique": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "uniqueItems": true
+              }
+            },
+            "required": [
+              "items",
+              "minItems",
+              "both",
+              "equal",
+              "unique"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "$ref": "#/$defs/TypeTagArray"
+          },
+          "second": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/$defs/TypeTagArray"
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "TypeTagArray": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/TypeTagArray.Type"
+                }
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "TypeTagArray.Type": {
+            "type": "object",
+            "properties": {
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "minItems": 3,
+                "maxItems": 3
+              },
+              "minItems": {
+                "type": "array",
+                "items": {
+                  "type": "number",
+                  "minimum": 3
+                },
+                "minItems": 3
+              },
+              "both": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "minItems": 3,
+                "maxItems": 7
+              },
+              "equal": {
+                "type": "array",
+                "items": {
+                  "type": "number",
+                  "minimum": 10,
+                  "maximum": 10
+                },
+                "minItems": 10,
+                "maxItems": 10
+              },
+              "unique": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "uniqueItems": true
+              }
+            },
+            "required": [
+              "items",
+              "minItems",
+              "both",
+              "equal",
+              "unique"
+            ]
+          }
+        }
+      },
+      "output": {
+        "$ref": "#/$defs/TypeTagArray"
+      }
+    },
+    {
+      "name": "coalesce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/$defs/TypeTagArray"
+              }
+            ]
+          },
+          "second": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/$defs/TypeTagArray"
+              }
+            ]
+          },
+          "third": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/$defs/TypeTagArray"
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "TypeTagArray": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/TypeTagArray.Type"
+                }
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "TypeTagArray.Type": {
+            "type": "object",
+            "properties": {
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "minItems": 3,
+                "maxItems": 3
+              },
+              "minItems": {
+                "type": "array",
+                "items": {
+                  "type": "number",
+                  "minimum": 3
+                },
+                "minItems": 3
+              },
+              "both": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "minItems": 3,
+                "maxItems": 7
+              },
+              "equal": {
+                "type": "array",
+                "items": {
+                  "type": "number",
+                  "minimum": 10,
+                  "maximum": 10
+                },
+                "minItems": 10,
+                "maxItems": 10
+              },
+              "unique": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "uniqueItems": true
+              }
+            },
+            "required": [
+              "items",
+              "minItems",
+              "both",
+              "equal",
+              "unique"
+            ]
+          }
+        }
+      },
+      "output": {
+        "anyOf": [
+          {
+            "type": "null"
+          },
+          {
+            "$ref": "#/$defs/TypeTagArray"
+          }
+        ]
+      }
+    }
+  ]
+}

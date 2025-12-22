@@ -37,7 +37,7 @@ export namespace LlmSchemaProgrammer {
         components: collection.components,
         schema: collection.schemas[0]!,
         $defs,
-      }) as IResult<ILlmSchema, IOpenApiSchemaError>;
+      });
     if (result.success === false)
       throw new TransformerError({
         code: "typia.llm.schema",

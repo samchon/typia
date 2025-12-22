@@ -1,22 +1,14 @@
 import typia from "typia";
 
 export const test_issue_1486_llm_type_alias_object = () => {
-  typia.llm.application<
-    {
-      call(input: FinishEvaluateMessageType): void;
-    },
-    "chatgpt"
-  >();
-  typia.llm.application<
-    {
-      call(input: FinishEvaluateMessageType): void;
-    },
-    "chatgpt"
-  >();
-  typia.llm.parameters<FinishEvaluateMessageType, "chatgpt">();
-  typia.llm.schema<FinishEvaluateMessageType, "chatgpt">({
-    $defs: {},
-  });
+  typia.llm.application<{
+    call(input: FinishEvaluateMessageType): void;
+  }>();
+  typia.llm.application<{
+    call(input: FinishEvaluateMessageType): void;
+  }>();
+  typia.llm.parameters<FinishEvaluateMessageType>();
+  typia.llm.schema<FinishEvaluateMessageType>({});
 };
 
 type FinishEvaluateMessageType = {

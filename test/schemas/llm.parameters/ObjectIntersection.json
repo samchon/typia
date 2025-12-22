@@ -1,0 +1,64 @@
+{
+  "type": "object",
+  "properties": {
+    "regular": {
+      "$ref": "#/$defs/ObjectIntersection"
+    },
+    "nullable": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/ObjectIntersection"
+        }
+      ]
+    },
+    "optional": {
+      "$ref": "#/$defs/ObjectIntersection"
+    },
+    "faint": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/ObjectIntersection"
+        }
+      ]
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ObjectIntersection"
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "array"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "ObjectIntersection": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "vulnerable": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "email",
+        "name",
+        "vulnerable"
+      ]
+    }
+  }
+}

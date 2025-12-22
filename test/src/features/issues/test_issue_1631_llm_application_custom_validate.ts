@@ -7,10 +7,7 @@ export const test_issue_1631_llm_application_custom_validate = (): void => {
   let applicationCustom: boolean = false;
   let controllerCustom: boolean = false;
 
-  const app: ILlmApplication<"chatgpt"> = typia.llm.application<
-    BbsArticleService,
-    "chatgpt"
-  >({
+  const app: ILlmApplication = typia.llm.application<BbsArticleService>({
     validate: {
       create: (input: unknown): IValidation<IBbsArticle.ICreate> => {
         applicationCustom = true;
@@ -20,17 +17,18 @@ export const test_issue_1631_llm_application_custom_validate = (): void => {
   });
   app.functions[0]?.validate("something");
 
-  const controller: ILlmController<"chatgpt"> = typia.llm.controller<
-    BbsArticleService,
-    "chatgpt"
-  >("bbs", new BbsArticleService(), {
-    validate: {
-      create: (input: unknown): IValidation<IBbsArticle.ICreate> => {
-        controllerCustom = true;
-        return typia.validate<IBbsArticle.ICreate>(input);
+  const controller: ILlmController = typia.llm.controller<BbsArticleService>(
+    "bbs",
+    new BbsArticleService(),
+    {
+      validate: {
+        create: (input: unknown): IValidation<IBbsArticle.ICreate> => {
+          controllerCustom = true;
+          return typia.validate<IBbsArticle.ICreate>(input);
+        },
       },
     },
-  });
+  );
   controller.application.functions[0]?.validate("something");
 
   TestValidator.equals("application custom")(applicationCustom)(true);

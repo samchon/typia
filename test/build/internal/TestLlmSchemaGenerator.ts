@@ -17,14 +17,21 @@ export namespace TestLlmSchemaGenerator {
       if ((await TestLlmApplicationGenerator.isApplicable(s.name)) === false)
         continue;
       const content: string[] = [
+        `import { ILlmSchema } from "@samchon/openapi";`,
         `import typia from "typia";`,
+        ``,
         `import { ${s.name} } from "../../structures/${s.name}";`,
         `import { _test_llm_schema } from "../../internal/_test_llm_schema";`,
         "",
-        `export const test_llm_schema_${s.name} = (): void =>`,
-        `  _test_llm_schema(`,
-        `    ${JSON.stringify(s.name)},`,
-        `  )(typia.llm.schema<${s.name}>({});`,
+        `export const test_llm_schema_${s.name} = (): void => {`,
+        `  const $defs: Record<string, ILlmSchema> = {};`,
+        `  const schema: ILlmSchema = typia.llm.schema<${s.name}>($defs);`,
+        `  _test_llm_schema({`,
+        `    name: ${JSON.stringify(s.name)},`,
+        `    schema,`,
+        `    $defs,`,
+        `  });`,
+        `};`,
       ];
       await fs.promises.writeFile(
         `${__dirname}/../../src/features/llm.schema/test_llm_schema_${s.name}.ts`,
@@ -40,10 +47,51 @@ export namespace TestLlmSchemaGenerator {
     await iterate();
   }
 
-  function getSchema(content: string): object {
-    const first: number = content.lastIndexOf(`})({`) + 4;
-    const last: number = content.lastIndexOf("}");
-    return new Function("return {" + content.substring(first, last) + "}")();
+  function getSchema(location: string, content: string): object {
+    const isReference: boolean =
+      content.indexOf("Object.assign($defs, {") !== -1;
+    const $defs: string =
+      isReference === true
+        ? "return {" +
+          content
+            .substring(
+              content.indexOf("Object.assign($defs, {") +
+                "Object.assign($defs, {".length,
+              content.lastIndexOf("return {"),
+            )
+            .trim()
+            .slice(0, -2)
+        : "return {}";
+    const schema: string =
+      isReference === true
+        ? content
+            .substring(
+              content.indexOf("return {"),
+              content.lastIndexOf("})($defs);"),
+            )
+            .trim()
+            .slice(0, -1)
+        : content
+            .substring(
+              content.indexOf("const schema = {"),
+              content.indexOf("};", content.indexOf("const schema = {") + 1) +
+                1,
+            )
+            .replace("const schema = ", "return ");
+    const print = (script: string) => {
+      try {
+        return new Function(script)();
+      } catch (error) {
+        console.log("========== ERROR ==========");
+        console.log(location);
+        console.log(script);
+        throw error;
+      }
+    };
+    return {
+      $defs: print($defs),
+      schema: print(schema),
+    };
   }
 
   async function iterate(): Promise<void> {
@@ -59,6 +107,7 @@ export namespace TestLlmSchemaGenerator {
       const location: string =
         __dirname + `/../../bin/features/llm.schema/${file.slice(0, -3)}.js`;
       const schema: object = getSchema(
+        location,
         await fs.promises.readFile(location, "utf8"),
       );
       await fs.promises.writeFile(

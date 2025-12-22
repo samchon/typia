@@ -1,0 +1,26 @@
+{
+  "$defs": {
+    "ToJsonAtomicUnion": {
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "type": "null"
+          },
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "type": "boolean"
+          }
+        ]
+      }
+    }
+  },
+  "schema": {
+    "$ref": "#/$defs/ToJsonAtomicUnion"
+  }
+}

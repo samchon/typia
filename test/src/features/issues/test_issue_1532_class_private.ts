@@ -4,12 +4,9 @@ import typia from "typia";
 import { TestValidator } from "../../helpers/TestValidator";
 
 export const test_issue_1532_class_private = (): void => {
-  const app: ILlmApplication<"chatgpt"> = typia.llm.application<
-    Application,
-    "chatgpt"
-  >();
+  const app: ILlmApplication = typia.llm.application<Application>();
   const assert = (name: string, visible: boolean): void => {
-    const func: ILlmFunction<"chatgpt"> | undefined = app.functions.find(
+    const func: ILlmFunction | undefined = app.functions.find(
       (f) => f.name === name,
     );
     TestValidator.equals("visible")(visible)(!!func);

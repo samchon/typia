@@ -1,0 +1,12 @@
+{
+  "$defs": {
+    "DynamicUndefined": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    }
+  },
+  "schema": {
+    "$ref": "#/$defs/DynamicUndefined"
+  }
+}
