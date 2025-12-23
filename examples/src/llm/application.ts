@@ -3,8 +3,5 @@ import typia from "typia";
 
 import { BbsArticleService } from "./BbsArticleService";
 
-const app: ILlmApplication<"chatgpt"> = typia.llm.application<
-  BbsArticleService,
-  "chatgpt"
->();
+const app: ILlmApplication = typia.llm.application<BbsArticleService>();
 console.log(app);

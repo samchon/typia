@@ -1,11 +1,8 @@
 import { ILlmApplication, ILlmFunction } from "@samchon/openapi";
 import typia, { tags } from "typia";
 
-const app: ILlmApplication<"chatgpt"> = typia.llm.application<
-  BbsArticleController,
-  "chatgpt"
->();
-const func: ILlmFunction<"chatgpt"> | undefined = app.functions.find(
+const app: ILlmApplication = typia.llm.application<BbsArticleController>();
+const func: ILlmFunction | undefined = app.functions.find(
   (func) => func.name === "create",
 );
 console.log(func?.description);
@@ -20,9 +17,7 @@ interface BbsArticleController {
    * @returns Newly created article
    */
   create(props: {
-    /**
-     * Information of the article to create
-     */
+    /** Information of the article to create */
     input: IBbsArticle.ICreate;
   }): Promise<IBbsArticle>;
 
@@ -35,14 +30,10 @@ interface BbsArticleController {
    * @param input New content to update
    */
   update(props: {
-    /**
-     * Target article's {@link IBbsArticle.id}.
-     */
+    /** Target article's {@link IBbsArticle.id}. */
     id: string & tags.Format<"uuid">;
 
-    /**
-     * New content to update.
-     */
+    /** New content to update. */
     input: IBbsArticle.IUpdate;
   }): Promise<void>;
 
@@ -54,9 +45,7 @@ interface BbsArticleController {
    * @param props Properties of erase function
    */
   erase(props: {
-    /**
-     * Target article's {@link IBbsArticle.id}.
-     */
+    /** Target article's {@link IBbsArticle.id}. */
     id: string & tags.Format<"uuid">;
   }): Promise<void>;
 }
@@ -64,28 +53,21 @@ interface BbsArticleController {
 /**
  * Article entity.
  *
- * `IBbsArticle` is an entity representing an article in the BBS (Bulletin Board System).
+ * `IBbsArticle` is an entity representing an article in the BBS (Bulletin Board
+ * System).
  */
 interface IBbsArticle extends IBbsArticle.ICreate {
-  /**
-   * Primary Key.
-   */
+  /** Primary Key. */
   id: string & tags.Format<"uuid">;
 
-  /**
-   * Creation time of the article.
-   */
+  /** Creation time of the article. */
   created_at: string & tags.Format<"date-time">;
 
-  /**
-   * Last updated time of the article.
-   */
+  /** Last updated time of the article. */
   updated_at: string & tags.Format<"date-time">;
 }
 namespace IBbsArticle {
-  /**
-   * Information of the article to create.
-   */
+  /** Information of the article to create. */
   export interface ICreate {
     /**
      * Title of the article.

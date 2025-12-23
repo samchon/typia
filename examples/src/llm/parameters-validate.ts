@@ -52,7 +52,7 @@ const step = async (
         type: "json_schema",
         json_schema: {
           name: "member",
-          schema: typia.llm.parameters<IMember, "chatgpt">() as any,
+          schema: typia.llm.parameters<IMember>() as any,
         },
       },
     });

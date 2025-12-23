@@ -1,6 +1,8 @@
+import { ILlmSchema } from "@samchon/openapi";
 import typia, { tags } from "typia";
 
-typia.llm.schema<IDepartment, "gemini">({});
+const $defs: Record<string, ILlmSchema> = {};
+typia.llm.schema<IDepartment>($defs);
 
 interface IDepartment {
   id: string & tags.Format<"uuid">;

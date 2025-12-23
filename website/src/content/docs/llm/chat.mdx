@@ -41,7 +41,7 @@ const agent = new Agentica({
     model: "gpt-4o-mini",
   },
   controllers: [
-    typia.llm.controller<BbsArticleService, "chatgpt">(
+    typia.llm.controller<BbsArticleService>(
       "bbs",
       new BbsArticleService(),
     ),
@@ -88,9 +88,9 @@ Look at below demonstration, and feel how `@agentica` is powerful. Now, you can 
 import { Agentica, assertHttpController } from "@agentica/core";
 import OpenAI from "openai";
 import typia from "typia";
- 
+
 import { MobileFileSystem } from "./services/MobileFileSystem";
- 
+
 const agent = new Agentica({
   vendor: {
     api: new OpenAI({ apiKey: "********" }),
@@ -98,14 +98,13 @@ const agent = new Agentica({
   },
   controllers: [
     // functions from TypeScript class
-    typia.llm.controller<MobileFileSystem, "chatgpt">(
+    typia.llm.controller<MobileFileSystem>(
       "filesystem",
       MobileFileSystem(),
     ),
     // functions from Swagger/OpenAPI
     assertHttpController({
       name: "shopping",
-      model: "chatgpt",
       document: await fetch(
         "https://shopping-be.wrtn.ai/editor/swagger.json",
       ).then(r => r.json()),
@@ -233,7 +232,7 @@ The answer is not, and LLM (Large Language Model) vendors like OpenAI take a lot
 
 Therefore, when developing an LLM function calling agent, the validation feedback process is essentially required. If LLM takes a type level mistake on arguments composition, the agent must feedback the most detailed validation errors, and let the LLM to retry the function calling referencing the validation errors.
 
-About the validation feedback, `@agentica/core` is utilizing [`typia.validate<T>()`](https://typia.io/docs/validators/validate) and [`typia.llm.application<Class, Model>()`](https://typia.io/docs/llm/application/#application) functions. They construct validation logic by analyzing TypeScript source codes and types in the compilation level, so that detailed and accurate than any other validators like below.
+About the validation feedback, `@agentica/core` is utilizing [`typia.validate<T>()`](https://typia.io/docs/validators/validate) and [`typia.llm.application<Class>()`](https://typia.io/docs/llm/application/#application) functions. They construct validation logic by analyzing TypeScript source codes and types in the compilation level, so that detailed and accurate than any other validators like below.
 
 Such validation feedback strategy and combination with `typia` runtime validator, `@agentica/core` has achieved the most ideal LLM function calling. In my experience, when using OpenAI's `gpt-4o-mini` model, it tends to construct invalid function calling arguments at the first trial about 50% of the time. By the way, if correct it through validation feedback with `typia`, success rate soars to 99%. And I've never had a failure when trying validation feedback twice.
 
@@ -241,9 +240,7 @@ For reference, the embedded [`typia.validate<T>()`](/docs/validators/validate) f
 
 <ValidatorSupportMatrixSnippet />
 
-Additionally, this validation feedback strategy is useful for some LLM providers do not supporting restriction properties of JSON schema like OpenAI ([`IChatGptSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IChatGptSchema.ts)) and Gemini ([`IGeminiSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IGeminiSchema.ts)). For example, OpenAI and Gemini do not support `format` property of JSON schema, so that cannot understand the `UUID` like type. Even though `typia.llm.application<App, Model>()` function is writing the restriction information to the `description` property of JSON schema, but LLM provider does not reflect it perfectly.
-
-Also, some LLM providers which have not specified the JSON schema version like Claude ([`IClaudeSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IClaudeSchema.ts)) and Llama ([`ILlamaSchema`](https://github.com/samchon/openapi/blob/master/src/structures/ILlamaSchema.ts)), they tend to fail a lot of function calling about the restriction properties. In fact, Llama does not support function calling formally, so you have to detour it by prompt template, and its success rate is lower than others.
+Additionally, this validation feedback strategy is useful for some LLM providers do not supporting restriction properties of JSON schema. For example, some LLM providers do not support `format` property of JSON schema, so that cannot understand the `UUID` like type. Even though `typia.llm.application<App>()` function is writing the restriction information to the `description` property of JSON schema, but LLM provider does not reflect it perfectly.
 
 In that case, if you give validation feedback from `ILlmFunction.validate()` function to the LLM agent, the LLM agent will be able to understand the restriction information exactly and fill the arguments properly.
 
@@ -271,7 +268,7 @@ flowchart
   end
 ```
 
-`@agentica/core` obtains LLM function calling schemas from both Swagger/OpenAPI documents and TypeScript class types. The TypeScript class type can be converted to LLM function calling schema by [`typia.llm.application<Class, Model>()`](https://typia.io/docs/llm/application#application) function. Then how about OpenAPI document? How Swagger document can be LLM function calling schema.
+`@agentica/core` obtains LLM function calling schemas from both Swagger/OpenAPI documents and TypeScript class types. The TypeScript class type can be converted to LLM function calling schema by [`typia.llm.application<Class>()`](https://typia.io/docs/llm/application#application) function. Then how about OpenAPI document? How Swagger document can be LLM function calling schema.
 
 The secret is in the above diagram. 
 
