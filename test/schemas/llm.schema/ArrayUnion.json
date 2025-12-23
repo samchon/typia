@@ -1,0 +1,35 @@
+{
+  "$defs": {
+    "ArrayUnion": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ArrayUnion.IUnion"
+      }
+    },
+    "ArrayUnion.IUnion": {
+      "anyOf": [
+        {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "boolean"
+          }
+        }
+      ]
+    }
+  },
+  "schema": {
+    "$ref": "#/$defs/ArrayUnion"
+  }
+}

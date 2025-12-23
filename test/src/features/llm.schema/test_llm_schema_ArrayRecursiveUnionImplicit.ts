@@ -1,0 +1,16 @@
+import { ILlmSchema } from "@samchon/openapi";
+import typia from "typia";
+
+import { _test_llm_schema } from "../../internal/_test_llm_schema";
+import { ArrayRecursiveUnionImplicit } from "../../structures/ArrayRecursiveUnionImplicit";
+
+export const test_llm_schema_ArrayRecursiveUnionImplicit = (): void => {
+  const $defs: Record<string, ILlmSchema> = {};
+  const schema: ILlmSchema =
+    typia.llm.schema<ArrayRecursiveUnionImplicit>($defs);
+  _test_llm_schema({
+    name: "ArrayRecursiveUnionImplicit",
+    schema,
+    $defs,
+  });
+};

@@ -1,0 +1,26 @@
+{
+  "$defs": {
+    "ArrayRepeatedRequired": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "$ref": "#/$defs/ArrayArrayRepeatedRequired"
+        }
+      ]
+    },
+    "ArrayArrayRepeatedRequired": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ArrayRepeatedRequired"
+      }
+    }
+  },
+  "schema": {
+    "$ref": "#/$defs/ArrayRepeatedRequired"
+  }
+}

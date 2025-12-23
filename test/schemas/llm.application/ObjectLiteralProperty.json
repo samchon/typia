@@ -1,0 +1,158 @@
+{
+  "config": {
+    "reference": true,
+    "strict": false,
+    "separate": null,
+    "validate": null
+  },
+  "functions": [
+    {
+      "name": "insert",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "$ref": "#/$defs/ObjectLiteralProperty.ISomething"
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ObjectLiteralProperty.ISomething": {
+            "type": "object",
+            "properties": {
+              "something-interesting-do-you-want?": {
+                "type": "string"
+              },
+              "or-something-crazy-do-you-want?": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "something-interesting-do-you-want?",
+              "or-something-crazy-do-you-want?"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "$ref": "#/$defs/ObjectLiteralProperty.ISomething"
+          },
+          "second": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/$defs/ObjectLiteralProperty.ISomething"
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ObjectLiteralProperty.ISomething": {
+            "type": "object",
+            "properties": {
+              "something-interesting-do-you-want?": {
+                "type": "string"
+              },
+              "or-something-crazy-do-you-want?": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "something-interesting-do-you-want?",
+              "or-something-crazy-do-you-want?"
+            ]
+          }
+        }
+      },
+      "output": {
+        "$ref": "#/$defs/ObjectLiteralProperty.ISomething"
+      }
+    },
+    {
+      "name": "coalesce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/$defs/ObjectLiteralProperty.ISomething"
+              }
+            ]
+          },
+          "second": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/$defs/ObjectLiteralProperty.ISomething"
+              }
+            ]
+          },
+          "third": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/$defs/ObjectLiteralProperty.ISomething"
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ObjectLiteralProperty.ISomething": {
+            "type": "object",
+            "properties": {
+              "something-interesting-do-you-want?": {
+                "type": "string"
+              },
+              "or-something-crazy-do-you-want?": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "something-interesting-do-you-want?",
+              "or-something-crazy-do-you-want?"
+            ]
+          }
+        }
+      },
+      "output": {
+        "anyOf": [
+          {
+            "type": "null"
+          },
+          {
+            "$ref": "#/$defs/ObjectLiteralProperty.ISomething"
+          }
+        ]
+      }
+    }
+  ]
+}

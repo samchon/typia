@@ -1,0 +1,121 @@
+{
+  "type": "object",
+  "properties": {
+    "regular": {
+      "$ref": "#/$defs/ObjectAlias"
+    },
+    "nullable": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/ObjectAlias"
+        }
+      ]
+    },
+    "optional": {
+      "$ref": "#/$defs/ObjectAlias"
+    },
+    "faint": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/ObjectAlias"
+        }
+      ]
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ObjectAlias"
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "array"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "ObjectAlias": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ObjectAlias.IMember"
+      }
+    },
+    "ObjectAlias.IMember": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        },
+        "email": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "sex": {
+          "anyOf": [
+            {
+              "type": "number",
+              "enum": [
+                1,
+                2
+              ]
+            },
+            {
+              "type": "string",
+              "enum": [
+                "male",
+                "female"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "age": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "dead": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "boolean"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "email",
+        "name",
+        "sex",
+        "age",
+        "dead"
+      ]
+    }
+  }
+}

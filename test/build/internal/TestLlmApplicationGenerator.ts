@@ -4,8 +4,6 @@ import { VariadicSingleton } from "tstl";
 import { TestStructure } from "./TestStructure";
 
 export namespace TestLlmApplicationGenerator {
-  export const MODELS = ["3.0", "3.1", "chatgpt", "claude", "gemini"];
-
   export const isApplicable = (structure: string) => applicable.get(structure);
 
   const applicable = new VariadicSingleton(
@@ -25,30 +23,23 @@ export namespace TestLlmApplicationGenerator {
   ): Promise<void> {
     const location: string = `${__dirname}/../../src/features/llm.application`;
     await mkdir(location);
-    for (const model of MODELS) {
-      await fs.promises.mkdir(`${location}/${model}`);
-      await application(model, structures);
-    }
+    await application(structures);
   }
 
-  async function application(
-    model: string,
-    structures: TestStructure<any>[],
-  ): Promise<void> {
+  async function application(structures: TestStructure<any>[]): Promise<void> {
     for (const s of structures) {
       if ((await isApplicable(s.name)) === false) continue;
       const content: string[] = [
         `import typia from "typia";`,
-        `import { ${s.name} } from "../../../structures/${s.name}";`,
-        `import { _test_llm_application } from "../../../internal/_test_llm_application";`,
+        `import { ${s.name} } from "../../structures/${s.name}";`,
+        `import { _test_llm_application } from "../../internal/_test_llm_application";`,
         "",
-        `export const test_llm_application_${model.replace(".", "_")}_${s.name} = (): void =>`,
+        `export const test_llm_application_${s.name} = (): void =>`,
         `  _test_llm_application({`,
-        `    model: ${JSON.stringify(model)},`,
         `    name: ${JSON.stringify(s.name)},`,
         `    factory: ${s.name}`,
         `  })(`,
-        `    typia.llm.application<${s.name}Application, ${JSON.stringify(model)}>(),`,
+        `    typia.llm.application<${s.name}Application>(),`,
         `  );`,
         ``,
         `interface ${s.name}Application {`,
@@ -62,7 +53,7 @@ export namespace TestLlmApplicationGenerator {
         `}`,
       ];
       await fs.promises.writeFile(
-        `${__dirname}/../../src/features/llm.application/${model}/test_llm_application_${model.replace(".", "_")}_${s.name}.ts`,
+        `${__dirname}/../../src/features/llm.application/test_llm_application_${s.name}.ts`,
         content.join("\n"),
         "utf8",
       );
@@ -72,10 +63,7 @@ export namespace TestLlmApplicationGenerator {
   export async function schemas(): Promise<void> {
     const location: string = `${__dirname}/../../schemas/llm.application`;
     await mkdir(location);
-    for (const model of MODELS) {
-      await mkdir(`${location}/${model}`);
-      await iterate(model);
-    }
+    await iterate();
   }
 
   function getSchema(content: string): object {
@@ -84,19 +72,19 @@ export namespace TestLlmApplicationGenerator {
     return new Function("return {" + content.substring(first, last) + "}")();
   }
 
-  async function iterate(model: string): Promise<void> {
-    const path: string = `${__dirname}/../../src/features/llm.application/${model}`;
-    const schemaPath: string = `${__dirname}/../../schemas/llm.application/${model}`;
+  async function iterate(): Promise<void> {
+    const path: string = `${__dirname}/../../src/features/llm.application`;
+    const schemaPath: string = `${__dirname}/../../schemas/llm.application`;
     for (const file of await fs.promises.readdir(path)) {
       if (file.substring(file.length - 3) !== ".ts") continue;
 
       const name: string = file.substring(
-        `test_llm_application_${model.replace(".", "_")}_`.length,
+        `test_llm_application_`.length,
         file.length - 3,
       );
       const location: string =
         __dirname +
-        `/../../bin/features/llm.application/${model}/${file.slice(0, -3)}.js`;
+        `/../../bin/features/llm.application/${file.slice(0, -3)}.js`;
       const schema: object = getSchema(
         await fs.promises.readFile(location, "utf8"),
       );

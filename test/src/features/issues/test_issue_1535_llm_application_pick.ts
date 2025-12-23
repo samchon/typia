@@ -6,7 +6,7 @@ import { TestValidator } from "../../helpers/TestValidator";
 export const test_issue_1535_llm_application_pick = (): void => {
   const assert = (props: {
     title: string;
-    application: ILlmApplication<"chatgpt">;
+    application: ILlmApplication;
     expected: string[];
   }): void =>
     TestValidator.equals(props.title)(
@@ -14,23 +14,18 @@ export const test_issue_1535_llm_application_pick = (): void => {
     )(props.expected.sort());
   assert({
     title: "all",
-    application: typia.llm.application<Mathematics, "chatgpt">(),
+    application: typia.llm.application<Mathematics>(),
     expected: ["plus", "minus", "multiply", "divide"],
   });
   assert({
     title: "pick",
-    application: typia.llm.application<
-      Pick<Mathematics, "plus" | "divide">,
-      "chatgpt"
-    >(),
+    application: typia.llm.application<Pick<Mathematics, "plus" | "divide">>(),
     expected: ["plus", "divide"],
   });
   assert({
     title: "omit",
-    application: typia.llm.application<
-      Omit<Mathematics, "minus" | "multiply">,
-      "chatgpt"
-    >(),
+    application:
+      typia.llm.application<Omit<Mathematics, "minus" | "multiply">>(),
     expected: ["plus", "divide"],
   });
 };
@@ -39,7 +34,6 @@ type PlusFunction = MathematicsFunction;
 type MathematicsFunction = Operation;
 type Operation = (props: { x: number; y: number }) => number;
 
-type Operator = Calculator;
 type Calculator = Mathematics;
 interface Mathematics {
   plus: PlusFunction;

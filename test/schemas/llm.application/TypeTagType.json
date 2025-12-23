@@ -1,0 +1,269 @@
+{
+  "config": {
+    "reference": true,
+    "strict": false,
+    "separate": null,
+    "validate": null
+  },
+  "functions": [
+    {
+      "name": "insert",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "$ref": "#/$defs/TypeTagType"
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "TypeTagType": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/TypeTagType.Type"
+                }
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "TypeTagType.Type": {
+            "type": "object",
+            "properties": {
+              "int": {
+                "type": "integer"
+              },
+              "uint": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "int32": {
+                "type": "integer"
+              },
+              "uint32": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "int64": {
+                "type": "integer"
+              },
+              "uint64": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "float": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "int",
+              "uint",
+              "int32",
+              "uint32",
+              "int64",
+              "uint64",
+              "float"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "$ref": "#/$defs/TypeTagType"
+          },
+          "second": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/$defs/TypeTagType"
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "TypeTagType": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/TypeTagType.Type"
+                }
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "TypeTagType.Type": {
+            "type": "object",
+            "properties": {
+              "int": {
+                "type": "integer"
+              },
+              "uint": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "int32": {
+                "type": "integer"
+              },
+              "uint32": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "int64": {
+                "type": "integer"
+              },
+              "uint64": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "float": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "int",
+              "uint",
+              "int32",
+              "uint32",
+              "int64",
+              "uint64",
+              "float"
+            ]
+          }
+        }
+      },
+      "output": {
+        "$ref": "#/$defs/TypeTagType"
+      }
+    },
+    {
+      "name": "coalesce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/$defs/TypeTagType"
+              }
+            ]
+          },
+          "second": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/$defs/TypeTagType"
+              }
+            ]
+          },
+          "third": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/$defs/TypeTagType"
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "TypeTagType": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/TypeTagType.Type"
+                }
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "TypeTagType.Type": {
+            "type": "object",
+            "properties": {
+              "int": {
+                "type": "integer"
+              },
+              "uint": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "int32": {
+                "type": "integer"
+              },
+              "uint32": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "int64": {
+                "type": "integer"
+              },
+              "uint64": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "float": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "int",
+              "uint",
+              "int32",
+              "uint32",
+              "int64",
+              "uint64",
+              "float"
+            ]
+          }
+        }
+      },
+      "output": {
+        "anyOf": [
+          {
+            "type": "null"
+          },
+          {
+            "$ref": "#/$defs/TypeTagType"
+          }
+        ]
+      }
+    }
+  ]
+}

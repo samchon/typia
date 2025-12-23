@@ -1,46 +1,36 @@
-import { ClaudeTypeChecker, ILlmApplication } from "@samchon/openapi";
+import { ILlmApplication, LlmTypeChecker } from "@samchon/openapi";
 import typia, { tags } from "typia";
 
-export const schema = typia.llm.schema<
-  ICompany,
-  "chatgpt",
-  { reference: true }
->({});
+export const schema = typia.llm.schema<ICompany>({});
 
-export const parameters = typia.llm.parameters<
-  {
+export const parameters = typia.llm.parameters<{
+  company: ICompany;
+  department: IDepartment;
+  employee: IEmployee;
+}>();
+
+export const application = typia.llm.application<IApplication>({
+  separate: (schema) =>
+    LlmTypeChecker.isString(schema) && schema.format === "date-time",
+});
+
+typia.llm.application<IApplication>({
+  separate: (schema) =>
+    LlmTypeChecker.isString(schema) && schema.format === "date-time",
+} satisfies Partial<Pick<ILlmApplication.IConfig, "separate">>);
+
+export const controller = typia.llm.controller<IApplication>("company", {
+  establishCompany: (props: { company: ICompany }) => props.company,
+  createDepartment: (props: { company: ICompany; department: IDepartment }) =>
+    props.department,
+  hire: async (props: {
     company: ICompany;
     department: IDepartment;
     employee: IEmployee;
-  },
-  "claude"
->();
-
-export const application = typia.llm.application<IApplication, "claude">({
-  separate: (schema) =>
-    ClaudeTypeChecker.isString(schema) && schema.format === "date-time",
+  }) => props.employee,
+  erase: async (props: { entity: ICompany | IDepartment | IEmployee }) =>
+    props.entity.id,
 });
-
-typia.llm.application<IApplication, "claude">({
-  separate: (schema) =>
-    ClaudeTypeChecker.isString(schema) && schema.format === "date-time",
-} satisfies Partial<Pick<ILlmApplication.IOptions<"claude">, "separate">>);
-
-export const controller = typia.llm.controller<IApplication, "claude">(
-  "company",
-  {
-    establishCompany: (props: { company: ICompany }) => props.company,
-    createDepartment: (props: { company: ICompany; department: IDepartment }) =>
-      props.department,
-    hire: async (props: {
-      company: ICompany;
-      department: IDepartment;
-      employee: IEmployee;
-    }) => props.employee,
-    erase: async (props: { entity: ICompany | IDepartment | IEmployee }) =>
-      props.entity.id,
-  },
-);
 
 export interface IApplication {
   establishCompany(props: { company: ICompany }): ICompany;

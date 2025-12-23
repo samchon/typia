@@ -1,5 +1,4 @@
 import { ILlmSchema } from "@samchon/openapi";
-import { ILlmFunction } from "@samchon/openapi/lib/structures/ILlmFunction";
 import ts from "typescript";
 
 import { LiteralFactory } from "../../../factories/LiteralFactory";
@@ -8,7 +7,7 @@ import { MetadataFactory } from "../../../factories/MetadataFactory";
 
 import { Metadata } from "../../../schemas/metadata/Metadata";
 
-import { LlmModelPredicator } from "../../../programmers/llm/LlmModelPredicator";
+import { LlmMetadataFactory } from "../../../programmers/llm/LlmMetadataFactory";
 import { LlmParametersProgrammer } from "../../../programmers/llm/LlmParametersProgrammer";
 
 import { ValidationPipe } from "../../../typings/ValidationPipe";
@@ -31,16 +30,10 @@ export namespace LlmParametersTransformer {
     if (ts.isTypeNode(top) === false) return props.expression;
 
     // GET TYPE
-    const model: ILlmSchema.Model = LlmModelPredicator.getModel({
-      checker: props.context.checker,
-      method: "parameters",
-      node: props.expression.typeArguments[1],
-    });
-    const config: Partial<ILlmSchema.IConfig> = LlmModelPredicator.getConfig({
+    const config: Partial<ILlmSchema.IConfig> = LlmMetadataFactory.getConfig({
       context: props.context,
       method: "parameters",
-      model,
-      node: props.expression.typeArguments[2],
+      node: props.expression.typeArguments[1],
     }) as Partial<ILlmSchema.IConfig>;
 
     const type: ts.Type = props.context.checker.getTypeFromTypeNode(top);
@@ -57,10 +50,12 @@ export namespace LlmParametersTransformer {
             constant: true,
             validate:
               validate === true
-                ? LlmParametersProgrammer.validate({
-                    model,
-                    config,
-                  })
+                ? (metadata, explore) =>
+                    LlmParametersProgrammer.validate({
+                      config,
+                      metadata,
+                      explore,
+                    })
                 : undefined,
           },
           collection: new MetadataCollection({
@@ -78,8 +73,7 @@ export namespace LlmParametersTransformer {
     analyze(true);
 
     // GENERATE LLM SCHEMA
-    const out: ILlmFunction<any>["parameters"] = LlmParametersProgrammer.write({
-      model,
+    const out: ILlmSchema.IParameters = LlmParametersProgrammer.write({
       metadata: analyze(false),
       config,
     });
@@ -91,11 +85,6 @@ export namespace LlmParametersTransformer {
           ts.factory.createIdentifier("ILlmSchema"),
           ts.factory.createIdentifier("IParameters"),
         ),
-        arguments: [
-          ts.factory.createLiteralTypeNode(
-            ts.factory.createStringLiteral(model),
-          ),
-        ],
       }),
     );
   };

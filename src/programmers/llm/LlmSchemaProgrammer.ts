@@ -1,10 +1,4 @@
-import {
-  IChatGptSchema,
-  ILlmSchema,
-  ILlmSchemaV3,
-  IOpenApiSchemaError,
-  IResult,
-} from "@samchon/openapi";
+import { ILlmSchema, IOpenApiSchemaError, IResult } from "@samchon/openapi";
 import { LlmSchemaComposer } from "@samchon/openapi/lib/composers/LlmSchemaComposer";
 
 import { IJsonSchemaCollection } from "../../schemas/json/IJsonSchemaCollection";
@@ -21,34 +15,29 @@ import { json_schema_string } from "../internal/json_schema_string";
 import { JsonSchemasProgrammer } from "../json/JsonSchemasProgrammer";
 
 export namespace LlmSchemaProgrammer {
-  export interface IOutput<Model extends ILlmSchema.Model> {
-    model: Model;
-    schema: ILlmSchema.ModelSchema[Model];
-    $defs: Record<string, ILlmSchema.ModelSchema[Model]>;
+  export interface IOutput {
+    schema: ILlmSchema;
+    $defs: Record<string, ILlmSchema>;
   }
 
-  export const write = <Model extends ILlmSchema.Model>(props: {
-    model: Model;
+  export const write = (props: {
     metadata: Metadata;
-    config?: Partial<ILlmSchema.ModelConfig[Model]>;
-  }): IOutput<Model> => {
+    config?: Partial<ILlmSchema.IConfig>;
+  }): IOutput => {
     const collection: IJsonSchemaCollection<"3.1"> =
       JsonSchemasProgrammer.write({
         version: "3.1",
         metadatas: [props.metadata],
       });
 
-    const $defs: Record<string, ILlmSchema.ModelSchema[Model]> = {};
-    const result: IResult<ILlmSchema.ModelSchema[Model], IOpenApiSchemaError> =
-      LlmSchemaComposer.schema(props.model)({
-        config: {
-          ...LlmSchemaComposer.defaultConfig(props.model),
-          ...props.config,
-        } as any,
+    const $defs: Record<string, ILlmSchema> = {};
+    const result: IResult<ILlmSchema, IOpenApiSchemaError> =
+      LlmSchemaComposer.schema({
+        config: LlmSchemaComposer.getConfig(props.config),
         components: collection.components,
         schema: collection.schemas[0]!,
-        $defs: $defs as any,
-      }) as IResult<ILlmSchema.ModelSchema[Model], IOpenApiSchemaError>;
+        $defs,
+      });
     if (result.success === false)
       throw new TransformerError({
         code: "typia.llm.schema",
@@ -59,92 +48,64 @@ export namespace LlmSchemaProgrammer {
             .join("\n"),
       });
     return {
-      model: props.model,
       $defs,
       schema: result.value,
     };
   };
 
-  export const validate =
-    <Model extends ILlmSchema.Model>(props: {
-      model: ILlmSchema.Model;
-      config?: Partial<ILlmSchema.ModelConfig[Model]>;
-    }) =>
-    (metadata: Metadata): string[] => {
-      const output: string[] = [];
+  export const validate = (props: {
+    config?: Partial<ILlmSchema.IConfig>;
+    metadata: Metadata;
+  }): string[] => {
+    const output: string[] = [];
 
-      // no additionalProperties in ChatGPT strict mode or Gemini
-      if (
-        props.model === "chatgpt" &&
-        (props.config as Partial<IChatGptSchema.IConfig> | undefined)
-          ?.strict === true &&
-        metadata.objects.some((o) =>
-          o.type.properties.some(
-            (p) => p.key.isSoleLiteral() === false && p.value.size() !== 0,
-          ),
-        )
+    // no additionalProperties in OpenAI strict mode
+    const config: ILlmSchema.IConfig = LlmSchemaComposer.getConfig(
+      props.config,
+    );
+    if (
+      config.strict === true &&
+      props.metadata.objects.some((o) =>
+        o.type.properties.some(
+          (p) => p.key.isSoleLiteral() === false && p.value.size() !== 0,
+        ),
       )
-        output.push(
-          `LLM schema of "${props.model}"${props.model === "chatgpt" ? " (strict mode)" : ""} does not support dynamic property in object.`,
-        );
+    )
+      output.push(`Strict mode does not allow dynamic property in object.`);
 
-      // ChatGPT strict mode even does not support the optional property
-      if (
-        props.model === "chatgpt" &&
-        (props.config as Partial<IChatGptSchema.IConfig> | undefined)
-          ?.strict === true &&
-        metadata.objects.some((o) =>
-          o.type.properties.some((p) => p.value.isRequired() === false),
-        )
+    // OpenAI strict mode even does not support the optional property
+    if (
+      config.strict === true &&
+      props.metadata.objects.some((o) =>
+        o.type.properties.some((p) => p.value.isRequired() === false),
       )
-        output.push(
-          `LLM schema of "chatgpt" (strict mode) does not support optional property in object.`,
-        );
+    )
+      output.push(`Strict mode does not support optional property in object.`);
 
-      // no recursive rule of Gemini and V3
+    // just JSON rule
+    if (
+      props.metadata.atomics.some((a) => a.type === "bigint") ||
+      props.metadata.constants.some((c) => c.type === "bigint")
+    )
+      output.push("LLM schema does not support bigint type.");
+    if (props.metadata.tuples.length !== 0)
+      output.push("LLM schema does not support tuple type.");
+    if (props.metadata.arrays.some((a) => a.type.value.isRequired() === false))
+      output.push("LLM schema does not support undefined type in array.");
+    if (props.metadata.maps.length)
+      output.push("LLM schema does not support Map type.");
+    if (props.metadata.sets.length)
+      output.push("LLM schema does not support Set type.");
+    for (const native of props.metadata.natives)
       if (
-        props.model === "3.0" &&
-        ((props.config as ILlmSchemaV3.IConfig | undefined)?.recursive ===
-          false ||
-          (props.config as ILlmSchemaV3.IConfig | undefined)?.recursive === 0)
-      ) {
-        if (metadata.objects.some((o) => o.type.recursive))
-          output.push(
-            `LLM schema of "${props.model}" does not support recursive object.`,
-          );
-        if (metadata.arrays.some((a) => a.type.recursive))
-          output.push(
-            `LLM schema of "${props.model}" does not support recursive array.`,
-          );
-      }
-
-      // just JSON rule
-      if (
-        metadata.atomics.some((a) => a.type === "bigint") ||
-        metadata.constants.some((c) => c.type === "bigint")
+        AtomicPredicator.native(native.name) === false &&
+        native.name !== "Date" &&
+        native.name !== "Blob" &&
+        native.name !== "File"
       )
-        output.push("LLM schema does not support bigint type.");
-      if (
-        metadata.tuples.some((t) =>
-          t.type.elements.some((e) => e.isRequired() === false),
-        ) ||
-        metadata.arrays.some((a) => a.type.value.isRequired() === false)
-      )
-        output.push("LLM schema does not support undefined type in array.");
-      if (metadata.maps.length)
-        output.push("LLM schema does not support Map type.");
-      if (metadata.sets.length)
-        output.push("LLM schema does not support Set type.");
-      for (const native of metadata.natives)
-        if (
-          AtomicPredicator.native(native.name) === false &&
-          native.name !== "Date" &&
-          native.name !== "Blob" &&
-          native.name !== "File"
-        )
-          output.push(`LLM schema does not support ${native.name} type.`);
-      return output;
-    };
+        output.push(`LLM schema does not support ${native.name} type.`);
+    return output;
+  };
 }
 
 const size = (metadata: Metadata): number =>

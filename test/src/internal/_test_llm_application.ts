@@ -6,15 +6,11 @@ import { TestStructure } from "../helpers/TestStructure";
 import { primitive_equal_to } from "../helpers/primitive_equal_to";
 
 export const _test_llm_application =
-  <Model extends ILlmSchema.Model>(props: {
-    model: Model;
-    name: string;
-    factory: TestStructure<any>;
-  }) =>
-  (app: ILlmApplication<Model>): void => {
-    const actual: ILlmApplication<Model> = JSON.parse(
+  (props: { name: string; factory: TestStructure<any> }) =>
+  (app: ILlmApplication): void => {
+    const actual: ILlmApplication = JSON.parse(
       fs.readFileSync(
-        `${__dirname}/../../schemas/llm.application/${props.model}/${props.name}.json`,
+        `${__dirname}/../../schemas/llm.application/${props.name}.json`,
         "utf8",
       ),
     );
@@ -23,12 +19,10 @@ export const _test_llm_application =
 
     if (primitive_equal_to(actual, app) === false)
       throw new Error(
-        `Bug on typia.llm.application<${props.name}Application, "${props.model}">(): failed to understand the ${props.name} type.`,
+        `Bug on typia.llm.application<${props.name}Application>(): failed to understand the ${props.name} type.`,
       );
 
-    const func: ILlmFunction<Model> = app.functions.find(
-      (f) => f.name === "insert",
-    )!;
+    const func: ILlmFunction = app.functions.find((f) => f.name === "insert")!;
     const input: object = {
       first: props.factory.generate(),
     };
@@ -79,9 +73,7 @@ export const _test_llm_application =
     }
   };
 
-function sort<Model extends ILlmSchema.Model>(
-  app: ILlmApplication<Model>,
-): void {
+function sort(app: ILlmApplication): void {
   function object(elem: object) {
     for (const value of Object.values(elem)) iterate(value);
   }

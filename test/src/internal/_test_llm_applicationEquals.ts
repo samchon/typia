@@ -10,15 +10,9 @@ import { Escaper } from "../../../lib/utils/Escaper";
 import { TestStructure } from "../helpers/TestStructure";
 
 export const _test_llm_applicationEquals =
-  <Model extends ILlmSchema.Model>(props: {
-    model: Model;
-    name: string;
-    factory: TestStructure<any>;
-  }) =>
-  (app: ILlmApplication<Model>): void => {
-    const func: ILlmFunction<Model> = app.functions.find(
-      (f) => f.name === "insert",
-    )!;
+  (props: { name: string; factory: TestStructure<any> }) =>
+  (app: ILlmApplication): void => {
+    const func: ILlmFunction = app.functions.find((f) => f.name === "insert")!;
     const input = {
       first: props.factory.generate(),
     };

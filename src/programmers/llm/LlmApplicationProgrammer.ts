@@ -1,10 +1,9 @@
 import {
-  ChatGptTypeChecker,
-  IChatGptSchema,
   ILlmApplication,
   ILlmSchema,
   IOpenApiSchemaError,
   IResult,
+  LlmTypeChecker,
   OpenApi,
 } from "@samchon/openapi";
 import { LlmSchemaComposer } from "@samchon/openapi/lib/composers/LlmSchemaComposer";
@@ -28,90 +27,89 @@ import { JsonApplicationProgrammer } from "../json/JsonApplicationProgrammer";
 import { LlmSchemaProgrammer } from "./LlmSchemaProgrammer";
 
 export namespace LlmApplicationProgrammer {
-  export const validate = <Model extends ILlmSchema.Model>(props: {
-    model: Model;
-    config?: Partial<ILlmSchema.ModelConfig[Model]>;
-  }) => {
-    let top: Metadata | undefined;
-    return (
-      metadata: Metadata,
-      explore: MetadataFactory.IExplore,
-    ): string[] => {
-      top ??= metadata;
-      if (explore.top === false)
-        if (
-          explore.object === top?.objects[0]?.type &&
-          typeof explore.property === "string" &&
-          metadata.size() === 1 &&
-          metadata.nullable === false &&
-          metadata.isRequired() === true &&
-          metadata.functions.length === 1
-        )
-          return validateFunction(explore.property, metadata.functions[0]!);
-        else return LlmSchemaProgrammer.validate(props)(metadata);
-
-      const output: string[] = [];
-      const validity: boolean =
-        metadata.size() === 1 &&
-        metadata.objects.length === 1 &&
-        metadata.isRequired() === true &&
-        metadata.nullable === false;
-      if (validity === false)
-        output.push(
-          "LLM application's generic argument must be a class/interface type.",
+  export const validate = (props: {
+    config?: Partial<ILlmSchema.IConfig>;
+    metadata: Metadata;
+    explore: MetadataFactory.IExplore;
+  }): string[] => {
+    const top: Metadata = props.metadata;
+    if (props.explore.top === false)
+      if (
+        props.explore.object === top?.objects[0]?.type &&
+        typeof props.explore.property === "string" &&
+        props.metadata.size() === 1 &&
+        props.metadata.nullable === false &&
+        props.metadata.isRequired() === true &&
+        props.metadata.functions.length === 1
+      )
+        return validateFunction(
+          props.explore.property,
+          props.metadata.functions[0]!,
         );
+      else return LlmSchemaProgrammer.validate(props);
 
-      const object: MetadataObjectType | undefined = metadata.objects[0]?.type;
-      if (object !== undefined) {
-        if (object.properties.some((p) => p.key.isSoleLiteral() === false))
-          output.push(
-            "LLM application does not allow dynamic keys on class/interface type.",
-          );
-        let least: boolean = false;
-        for (const p of object.properties) {
-          const name: string = JSON.stringify(p.key.getSoleLiteral()!);
-          const value: Metadata = p.value;
-          if (value.functions.length) {
-            least ||= true;
-            if (validity === false) {
-              if (value.functions.length !== 1 || value.size() !== 1)
-                output.push(
-                  `LLM application's function (${name}) type does not allow union type.`,
-                );
-              if (value.isRequired() === false)
-                output.push(
-                  `LLM application's function (${name}) type must be required.`,
-                );
-              if (value.nullable === true)
-                output.push(
-                  `LLM application's function (${name}) type must not be nullable.`,
-                );
-            }
+    const output: string[] = [];
+    const validity: boolean =
+      props.metadata.size() === 1 &&
+      props.metadata.objects.length === 1 &&
+      props.metadata.isRequired() === true &&
+      props.metadata.nullable === false;
+    if (validity === false)
+      output.push(
+        "LLM application's generic argument must be a class/interface type.",
+      );
 
-            const description: string | undefined = concatDescription(
-              JsonApplicationProgrammer.writeDescription({
-                description:
-                  p.description ??
-                  p.jsDocTags.find((tag) => tag.name === "description")
-                    ?.text?.[0]?.text ??
-                  null,
-                jsDocTags: p.jsDocTags,
-                kind: "summary",
-              }),
-            );
-            if (description !== undefined && description.length > 1_024)
+    const object: MetadataObjectType | undefined =
+      props.metadata.objects[0]?.type;
+    if (object !== undefined) {
+      if (object.properties.some((p) => p.key.isSoleLiteral() === false))
+        output.push(
+          "LLM application does not allow dynamic keys on class/interface type.",
+        );
+      let least: boolean = false;
+      for (const p of object.properties) {
+        const name: string = JSON.stringify(p.key.getSoleLiteral()!);
+        const value: Metadata = p.value;
+        if (value.functions.length) {
+          least ||= true;
+          if (validity === false) {
+            if (value.functions.length !== 1 || value.size() !== 1)
               output.push(
-                `LLM application's function (${name}) description must not exceed 1,024 characters.`,
+                `LLM application's function (${name}) type does not allow union type.`,
+              );
+            if (value.isRequired() === false)
+              output.push(
+                `LLM application's function (${name}) type must be required.`,
+              );
+            if (value.nullable === true)
+              output.push(
+                `LLM application's function (${name}) type must not be nullable.`,
               );
           }
-        }
-        if (least === false)
-          output.push(
-            "LLM application's target type must have at least a function type.",
+
+          const description: string | undefined = concatDescription(
+            JsonApplicationProgrammer.writeDescription({
+              description:
+                p.description ??
+                p.jsDocTags.find((tag) => tag.name === "description")?.text?.[0]
+                  ?.text ??
+                null,
+              jsDocTags: p.jsDocTags,
+              kind: "summary",
+            }),
           );
+          if (description !== undefined && description.length > 1_024)
+            output.push(
+              `LLM application's function (${name}) description must not exceed 1,024 characters.`,
+            );
+        }
       }
-      return output;
-    };
+      if (least === false)
+        output.push(
+          "LLM application's target type must have at least a function type.",
+        );
+    }
+    return output;
   };
 
   const validateFunction = (name: string, func: MetadataFunction): string[] => {
@@ -155,18 +153,17 @@ export namespace LlmApplicationProgrammer {
     return output;
   };
 
-  export const write = <Model extends ILlmSchema.Model>(props: {
-    model: Model;
+  export const write = (props: {
     context: ITypiaContext;
     modulo: ts.LeftHandSideExpression;
     metadata: Metadata;
     config?: Partial<
-      ILlmSchema.ModelConfig[Model] & {
+      ILlmSchema.IConfig & {
         equals: boolean;
       }
     >;
     name?: string;
-  }): ILlmApplication<Model> => {
+  }): ILlmApplication => {
     const metadata: Metadata = Metadata.unalias(props.metadata);
     const functionParameters: Record<string, MetadataParameter> =
       Object.fromEntries(
@@ -198,10 +195,9 @@ export namespace LlmApplicationProgrammer {
         filter: (p) =>
           p.jsDocTags.some((tag) => tag.name === "human") === false,
       });
-    const functions: Array<ILlmFunction<Model> | null> =
-      application.functions.map((func) =>
+    const functions: Array<ILlmFunction | null> = application.functions.map(
+      (func) =>
         writeFunction({
-          model: props.model,
           context: props.context,
           modulo: props.modulo,
           className: props.name,
@@ -211,25 +207,23 @@ export namespace LlmApplicationProgrammer {
           errors: errorMessages,
           parameter: functionParameters[func.name] ?? null,
         }),
-      );
+    );
     if (functions.some((func) => func === null))
       throw new Error(
         "Failed to write LLM application:\n\n" +
           errorMessages.map((str) => `  - ${str}`).join("\n"),
       );
     return {
-      model: props.model,
-      options: {
-        ...LlmSchemaComposer.defaultConfig(props.model),
-        ...props.config,
+      config: {
+        ...LlmSchemaComposer.getConfig(props.config),
         separate: null,
+        validate: null,
       },
-      functions: functions as ILlmFunction<Model>[],
+      functions: functions.filter((f) => f !== null),
     };
   };
 
-  const writeFunction = <Model extends ILlmSchema.Model>(props: {
-    model: Model;
+  const writeFunction = (props: {
     context: ITypiaContext;
     modulo: ts.LeftHandSideExpression;
     components: OpenApi.IComponents;
@@ -239,37 +233,34 @@ export namespace LlmApplicationProgrammer {
     className?: string;
     config:
       | Partial<
-          ILlmSchema.ModelConfig[Model] & {
+          ILlmSchema.IConfig & {
             equals: boolean;
           }
         >
       | undefined;
-  }): ILlmFunction<Model> | null => {
-    const parameters: ILlmSchema.ModelParameters[Model] | null =
-      writeParameters({
-        ...props,
-        accessor: `$input.${props.function.name}.parameters`,
-      });
+  }): ILlmFunction | null => {
+    const config: ILlmSchema.IConfig = LlmSchemaComposer.getConfig(
+      props.config,
+    );
+    const parameters: ILlmSchema.IParameters | null = writeParameters({
+      ...props,
+      config,
+      accessor: `$input.${props.function.name}.parameters`,
+    });
     if (parameters === null) return null;
-    const output: ILlmSchema.ModelSchema[Model] | null | undefined =
-      writeOutput({
-        model: props.model,
-        parameters,
-        components: props.components,
-        schema: props.function.output?.schema ?? null,
-        errors: props.errors,
-        accessor: `$input.${props.function.name}.output`,
-      });
+    const output: ILlmSchema | null | undefined = writeOutput({
+      parameters,
+      config,
+      components: props.components,
+      schema: props.function.output?.schema ?? null,
+      errors: props.errors,
+      accessor: `$input.${props.function.name}.output`,
+    });
     if (output === null) return null;
 
-    const isReference = (
-      schema: unknown,
-    ): schema is IChatGptSchema.IReference =>
-      ChatGptTypeChecker.isReference(schema as any);
     if (
       output &&
-      props.model !== "chatgpt" &&
-      isReference(output) === false &&
+      LlmTypeChecker.isReference(output) === false &&
       output.description === undefined &&
       !!props.function.output?.description?.length
     )
@@ -277,9 +268,7 @@ export namespace LlmApplicationProgrammer {
     return {
       name: props.function.name,
       parameters,
-      output: (output ?? undefined) as
-        | ILlmSchema.ModelSchema[Model]
-        | undefined,
+      output: output ?? undefined,
       description: (() => {
         if (
           !props.function.summary?.length ||
@@ -306,35 +295,34 @@ export namespace LlmApplicationProgrammer {
     };
   };
 
-  const writeParameters = <Model extends ILlmSchema.Model>(props: {
-    model: Model;
+  const writeParameters = (props: {
     components: OpenApi.IComponents;
     function: IJsonSchemaApplication.IFunction<OpenApi.IJsonSchema>;
     errors: string[];
     accessor: string;
-  }): ILlmSchema.ModelParameters[Model] | null => {
-    const schema = props.function.parameters[0]?.schema ?? {
-      type: "object",
-      properties: {},
-      additionalProperties: false,
-      required: [],
-    };
-    const result: IResult<
-      ILlmSchema.ModelParameters[Model],
-      IOpenApiSchemaError
-    > = LlmSchemaComposer.parameters(props.model)({
-      config: LlmSchemaComposer.defaultConfig(props.model) as any,
-      components: props.components,
-      schema: {
-        ...(schema as
-          | OpenApi.IJsonSchema.IObject
-          | OpenApi.IJsonSchema.IReference),
-        title: schema.title ?? props.function.parameters[0]?.title,
-        description:
-          schema.description ?? props.function.parameters[0]?.description,
-      },
-      accessor: props.accessor,
-    }) as IResult<ILlmSchema.ModelParameters[Model], IOpenApiSchemaError>;
+    config: ILlmSchema.IConfig;
+  }): ILlmSchema.IParameters | null => {
+    const schema: OpenApi.IJsonSchema.IObject | OpenApi.IJsonSchema.IReference =
+      (props.function.parameters[0]?.schema as
+        | OpenApi.IJsonSchema.IObject
+        | OpenApi.IJsonSchema.IReference) ?? {
+        type: "object",
+        properties: {},
+        additionalProperties: false,
+        required: [],
+      };
+    const result: IResult<ILlmSchema.IParameters, IOpenApiSchemaError> =
+      LlmSchemaComposer.parameters({
+        config: props.config,
+        components: props.components,
+        schema: {
+          ...schema,
+          title: schema.title ?? props.function.parameters[0]?.title,
+          description:
+            schema.description ?? props.function.parameters[0]?.description,
+        },
+        accessor: props.accessor,
+      });
     if (result.success === false) {
       props.errors.push(
         ...result.error.reasons.map((r) => `  - ${r.accessor}: ${r.message}`),
@@ -344,23 +332,23 @@ export namespace LlmApplicationProgrammer {
     return result.value;
   };
 
-  const writeOutput = <Model extends ILlmSchema.Model>(props: {
-    model: Model;
-    parameters: ILlmSchema.ModelParameters[Model];
+  const writeOutput = (props: {
+    parameters: ILlmSchema.IParameters;
     components: OpenApi.IComponents;
+    config: ILlmSchema.IConfig;
     schema: OpenApi.IJsonSchema | null;
     errors: string[];
     accessor: string;
-  }): ILlmSchema.ModelSchema[Model] | null | undefined => {
+  }): ILlmSchema | null | undefined => {
     if (props.schema === null) return undefined;
-    const result: IResult<ILlmSchema.ModelSchema[Model], IOpenApiSchemaError> =
-      LlmSchemaComposer.schema(props.model)({
-        config: LlmSchemaComposer.defaultConfig(props.model) as any,
+    const result: IResult<ILlmSchema, IOpenApiSchemaError> =
+      LlmSchemaComposer.schema({
+        config: props.config,
         components: props.components,
         schema: props.schema,
         $defs: (props.parameters as any).$defs,
         accessor: props.accessor,
-      }) as IResult<ILlmSchema.ModelSchema[Model], IOpenApiSchemaError>;
+      });
     if (result.success === false) {
       props.errors.push(
         ...result.error.reasons.map((r) => `  - ${r.accessor}: ${r.message}`),
