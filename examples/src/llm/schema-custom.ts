@@ -1,9 +1,8 @@
-import { IChatGptSchema } from "@samchon/openapi";
+import { ILlmSchema } from "@samchon/openapi";
 import typia, { tags } from "typia";
 
-export const schema: IChatGptSchema = typia.llm.schema<IAccount, "chatgpt">({
-  $defs: {},
-});
+const $defs: Record<string, ILlmSchema> = {};
+export const schema: ILlmSchema = typia.llm.schema<IAccount>($defs);
 
 type Monetary<Value extends string> = tags.TagBase<{
   target: "number";

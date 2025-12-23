@@ -1,10 +1,7 @@
-import { IChatGptSchema } from "@samchon/openapi";
+import { ILlmSchema } from "@samchon/openapi";
 import typia, { tags } from "typia";
 
-const parameters: IChatGptSchema.IParameters = typia.llm.parameters<
-  IMember,
-  "chatgpt"
->();
+const parameters: ILlmSchema.IParameters = typia.llm.parameters<IMember>();
 console.log(parameters);
 
 interface IMember {

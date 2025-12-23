@@ -26,16 +26,16 @@ export namespace json {
 // AI FUNCTION CALLING SCHEMA
 export namespace llm {
   // collection of function calling schemas
-  export function application<Class, Model>(): ILlmApplication<Class>;
-  export function controller<Class, Model>(
+  export function application<Class>(): ILlmApplication<Class>;
+  export function controller<Class>(
     name: string,
     execute: Class,
-  ): ILlmController<Model>; // +executor
+  ): ILlmController; // +executor
   // structured output
-  export function parameters<P, Model>(): ILlmSchema.IParameters<Model>; 
-  export function schema<T, Model>(
-    $defs: Record<string, ILlmSchema<Model>>,
-  ): ILlmSchema<Model>; // type schema
+  export function parameters<P>(): ILlmSchema.IParameters;
+  export function schema<T>(
+    $defs: Record<string, ILlmSchema>,
+  ): ILlmSchema; // type schema
 }
 
 // PROTOCOL BUFFER
