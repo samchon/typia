@@ -22,32 +22,24 @@ export namespace llm {
   // LLM FUNCTION CALLING APPLICATION SCHEMA
   export function application<
     App extends Record<string, any>,
-    Model extends ILlmSchema.Model,
-    Config extends Partial<ILlmSchema.ModelConfig[Model]> = {},
+    Config extends Partial<ILlmSchema.IConfig> = {},
   >(
-    options?: Partial<Pick<ILlmApplication.IOptions<Model>, "separate">>,
-  ): ILlmApplication<Model>;
+    config?: Partial<Pick<ILlmApplication.IConfig, "separate">>,
+  ): ILlmApplication;
 
   // STRUCTURED OUTPUT
   export function parameters<
     Parameters extends Record<string, any>,
-    Model extends ILlmSchema.Model,
-    Config extends Partial<ILlmSchema.ModelConfig[Model]> = {},
-  >(): ILlmSchema.ModelParameters[Model];
+    Config extends Partial<ILlmSchema.IConfig> = {},
+  >(): ILlmSchema.IParameters;
 
   // TYPE SCHEMA
   export function schema<
     T,
-    Model extends ILlmSchema.Model,
-    Config extends Partial<ILlmSchema.ModelConfig[Model]> = {},
+    Config extends Partial<ILlmSchema.IConfig> = {},
   >(
-    ...$defs: Extract<
-      ILlmSchema.ModelSchema[Model],
-      { $ref: string }
-    > extends never
-      ? []
-      : [Record<string, ILlmSchema.ModelSchema[Model]>]
-  ): ILlmSchema.ModelSchema[Model];
+    $defs: Record<string, ILlmSchema>,
+  ): ILlmSchema;
 }
 ```
   </Tabs.Tab>
@@ -73,22 +65,11 @@ export namespace llm {
 
 LLM function calling application schema from a native TypeScript class or interface type.
 
-`typia.llm.application<App, Model>()` is a function composing LLM (Large Language Model) calling application schema from a native TypeScript class or interface type. The function returns an `ILlmApplication` instance, which is a data structure representing a collection of LLM function calling schemas. 
+`typia.llm.application<App>()` is a function composing LLM (Large Language Model) calling application schema from a native TypeScript class or interface type. The function returns an `ILlmApplication` instance, which is a data structure representing a collection of LLM function calling schemas.
 
 If you put LLM function schema instances registered in the `ILlmApplication.functions` to the LLM provider like `OpenAI ChatGPT`, the LLM will select a proper function to call with parameter values of the target function in the conversations with the user. This is the "LLM Function Calling".
 
-You can specify the LLM provide model by the second `Model` template argument. It's because detailed specification of the function schema is different by the LLM provider model. Here is the list of LLM schema definitions of each model. Determine one of them carefully reading the LLM schema definitions.
-
-If you've determined, let's make A.I. Chatbot super-easily with `typia.llm.application<App, Model>()` function.
-
-  - Supported schemas
-    - [`IChatGptSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IChatGptSchema.ts): OpenAI ChatGPT
-    - [`IClaudeSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IClaudeSchema.ts): Anthropic Claude
-    - [`IGeminiSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IGeminiSchema.ts): Google Gemini
-    - [`ILlamaSchema`](https://github.com/samchon/openapi/blob/master/src/structures/ILlamaSchema.ts): Meta Llama
-  - Midldle layer schemas
-    - [`ILlmSchemaV3`](https://github.com/samchon/openapi/blob/master/src/structures/ILlmSchemaV3.ts): middle layer based on OpenAPI v3.0 specification
-    - [`ILlmSchemaV3_1`](https://github.com/samchon/openapi/blob/master/src/structures/ILlmSchemaV3_1.ts): middle layer based on OpenAPI v3.1 specification
+Let's make A.I. Chatbot super-easily with `typia.llm.application<App>()` function.
 
 <Callout type="info">
 **LLM Function Calling** and **Structured Output**
@@ -145,7 +126,7 @@ Is LLM Function Calling perfect? No, absolutely not.
 
 LLM (Large Language Model) service vendor like OpenAI takes a lot of type level mistakes when composing the arguments of function calling or structured output. Even though target schema is super simple like `Array<string>` type, LLM often fills it just by a `string` typed value.
 
-In my experience, OpenAI `gpt-4o-mini` (`8b` parameters) is taking about 70% of type level mistakes when filling the arguments of function calling to Shopping Mall service. To overcome the imperfection of such LLM function calling, `typia.llm.application<App, Model>()` function embeds [`typia.validate<T>()`](/docs/validators/validate) function for the validation feedback strategy.
+In my experience, OpenAI `gpt-4o-mini` (`8b` parameters) is taking about 70% of type level mistakes when filling the arguments of function calling to Shopping Mall service. To overcome the imperfection of such LLM function calling, `typia.llm.application<App>()` function embeds [`typia.validate<T>()`](/docs/validators/validate) function for the validation feedback strategy.
 
 The key concept of validation feedback strategy is, let LLM function calling to construct invalid typed arguments first, and informing detailed type errors to the LLM, so that induce LLM to emend the wrong typed arguments at the next turn. In this way, I could uprise the success rate of function calling from 30% to 99% just by one step validation feedback. Even though the LLM is still occurs type error, it always has been caught at the next turn.
 
@@ -153,9 +134,7 @@ For reference, the embedded [`typia.validate<T>()`](/docs/validators/validate) f
 
 <ValidatorSupportMatrixSnippet />
 
-Additionally, this validation feedback strategy is useful for some LLM providers do not supporting restriction properties of JSON schema like OpenAI ([`IChatGptSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IChatGptSchema.ts)) and Gemini ([`IGeminiSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IGeminiSchema.ts)). For example, OpenAI and Gemini do not support `format` property of JSON schema, so that cannot understand the `UUID` like type. Even though `typia.llm.application<App, Model>()` function is writing the restriction information to the `description` property of JSON schema, but LLM provider does not reflect it perfectly.
-
-Also, some LLM providers which have not specified the JSON schema version like Claude ([`IClaudeSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IClaudeSchema.ts)) and Llama ([`ILlamaSchema`](https://github.com/samchon/openapi/blob/master/src/structures/ILlamaSchema.ts)), they tend to fail a lot of function calling about the restriction properties. In fact, Llama does not support function calling formally, so you have to detour it by prompt template, and its success rate is lower than others.
+Additionally, this validation feedback strategy is useful for some LLM providers do not supporting restriction properties of JSON schema. For example, some LLM providers do not support `format` property of JSON schema, so that cannot understand the `UUID` like type. Even though `typia.llm.application<App>()` function is writing the restriction information to the `description` property of JSON schema, but LLM provider does not reflect it perfectly.
 
 In that case, if you give validation feedback from `ILlmFunction.validate()` function to the LLM agent, the LLM agent will be able to understand the restriction information exactly and fill the arguments properly.
 
@@ -210,14 +189,14 @@ Here is the example separating the parameter schemas.
 
 ## Restrictions
 
-`typia.llm.application<App, Model>()` follows the same restrictions of below.
+`typia.llm.application<App>()` follows the same restrictions of below.
 
-About the function parameters type, it follows the restriction of both [`typia.llm.parameters<Params, Models>()`](./parameters) and [`typia.llm.schema<T, Model>()`](./schema) functions. Therefore, the parameters must be a keyworded object type with static keys without any dynamic keys. Also, the object type must not be nullable or optional.
+About the function parameters type, it follows the restriction of both [`typia.llm.parameters<Params>()`](./parameters) and [`typia.llm.schema<T>()`](./schema) functions. Therefore, the parameters must be a keyworded object type with static keys without any dynamic keys. Also, the object type must not be nullable or optional.
 
-About the return value type, it follows the restriction of [`typia.llm.schema<T, Model>()`](./schema) function. By the way, if the return type is union type with `undefined`, it would be compilation error, due to OpenAPI (JSON schema) specification does not support the undefindable union type.
+About the return value type, it follows the restriction of [`typia.llm.schema<T>()`](./schema) function. By the way, if the return type is union type with `undefined`, it would be compilation error, due to OpenAPI (JSON schema) specification does not support the undefindable union type.
 
-  - [`typia.llm.parameters<Params, Models>()`](./parameters)
-  - [`typia.llm.schema<T, Model>()`](./schema)
+  - [`typia.llm.parameters<Params>()`](./parameters)
+  - [`typia.llm.schema<T>()`](./schema)
 
 <Tabs items={["TypeScript Source Code", "Console Output"]}>
   <Tabs.Tab>
@@ -225,10 +204,7 @@ About the return value type, it follows the restriction of [`typia.llm.schema<T,
 import { ILlmApplication } from "@samchon/openapi";
 import typia, { tags } from "typia";
 
-const app: ILlmApplication<"chatgpt"> = typia.llm.application<
-  BbsArticleController,
-  "chatgpt"
->();
+const app: ILlmApplication = typia.llm.application<BbsArticleController>();
 
 console.log(app);
 
@@ -254,22 +230,16 @@ interface BbsArticleController {
   </Tabs.Tab>
   <Tabs.Tab>
 ```bash filename="Terminal"
-src/examples/llm.application.violation.ts:4:41 - error TS(typia.llm.application): unsupported type detected    
+src/examples/llm.application.violation.ts:4:29 - error TS(typia.llm.application): unsupported type detected
 
 - BbsArticleController.create: unknown
-  - LLM application's function ("create")'s return type must not be union type with undefined.    
+  - LLM application's function ("create")'s return type must not be union type with undefined.
 
 - BbsArticleController.erase: unknown
   - LLM application's function ("erase")'s parameter must be an object type.
 
-4 const app: ILlmApplication<"chatgpt"> = typia.llm.application<
-                                          ~~~~~~~~~~~~~~~~~~~~~~
-5   BbsArticleController,
-  ~~~~~~~~~~~~~~~~~~~~~~~
-6   "chatgpt"
-  ~~~~~~~~~~~
-7 >();
-  ~~~
+4 const app: ILlmApplication = typia.llm.application<BbsArticleController>();
+                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 Found 1 error in src/examples/llm.application.violation.ts:4

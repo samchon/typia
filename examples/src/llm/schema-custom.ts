@@ -1,7 +1,7 @@
 import { ILlmSchema } from "@samchon/openapi";
 import typia, { tags } from "typia";
 
-const $defs: Record<string, ILlmSchema> = {};
+export const $defs: Record<string, ILlmSchema> = {};
 export const schema: ILlmSchema = typia.llm.schema<IAccount>($defs);
 
 type Monetary<Value extends string> = tags.TagBase<{
