@@ -1,24 +1,20 @@
-import { IChatGptSchema } from "@samchon/openapi";
+import { ILlmSchema } from "@samchon/openapi";
 import typia, { tags } from "typia";
 
-export const $defs: Record<string, IChatGptSchema> = {};
-export const schema: IChatGptSchema = typia.llm.schema<
+export const $defs: Record<string, ILlmSchema> = {};
+export const schema: ILlmSchema = typia.llm.schema<
   IBbsArticle,
-  "chatgpt",
   { reference: true }
->({
-  $defs,
-});
+>($defs);
 
 /**
  * Article entity.
  *
- * `IBbsArticle` is an entity representing an article in the BBS (Bulletin Board System).
+ * `IBbsArticle` is an entity representing an article in the BBS (Bulletin Board
+ * System).
  */
 interface IBbsArticle {
-  /**
-   * Primary Key.
-   */
+  /** Primary Key. */
   id: string & tags.Format<"uuid">;
 
   /**
@@ -46,13 +42,9 @@ interface IBbsArticle {
     | null
     | (string & tags.Format<"uri"> & tags.ContentMediaType<"image/*">);
 
-  /**
-   * Creation time of the article.
-   */
+  /** Creation time of the article. */
   created_at: string & tags.Format<"date-time">;
 
-  /**
-   * Last updated time of the article.
-   */
+  /** Last updated time of the article. */
   updated_at: string & tags.Format<"date-time">;
 }

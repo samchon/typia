@@ -26,16 +26,16 @@ export namespace json {
 // AI FUNCTION CALLING SCHEMA
 export namespace llm {
   // collection of function calling schemas
-  export function application<Class, Model>(): ILlmApplication<Class>;
-  export function controller<Class, Model>(
+  export function application<Class>(): ILlmApplication<Class>;
+  export function controller<Class>(
     name: string,
     execute: Class,
-  ): ILlmController<Model>; // +executor
+  ): ILlmController; // +executor
   // structured output
-  export function parameters<P, Model>(): ILlmSchema.IParameters<Model>; 
-  export function schema<T, Model>(
-    $defs: Record<string, ILlmSchema<Model>>,
-  ): ILlmSchema<Model>; // type schema
+  export function parameters<P>(): ILlmSchema.IParameters;
+  export function schema<T>(
+    $defs: Record<string, ILlmSchema>,
+  ): ILlmSchema; // type schema
 }
 
 // PROTOCOL BUFFER
@@ -62,9 +62,6 @@ export function random<T>(g?: Partial<IRandomGenerator>): T;
 > - **Only one line** required, with pure TypeScript type
 > - Runtime validator is **20,000x faster** than `class-validator`
 > - JSON serialization is **200x faster** than `class-transformer`
-
-
-
 
 ## Transformation
 If you call `typia` function, it would be compiled like below.
@@ -153,3 +150,10 @@ Check out the document in the [website](https://typia.io/docs/):
     - [tRPC](https://typia.io/docs/utilization/trpc/)
   - [⇲ Benchmark Result](https://github.com/samchon/typia/tree/master/benchmark/results/11th%20Gen%20Intel(R)%20Core(TM)%20i5-1135G7%20%40%202.40GHz)
   - [⇲ `dev.to` Articles](https://dev.to/samchon/series/22474)
+
+
+
+
+## References
+  - inspired by [`typescript-is`](https://github.com/woutervh-/typescript-is)
+  - inspired by [`ts-patch`](https://github.com/nonara/ts-patch)

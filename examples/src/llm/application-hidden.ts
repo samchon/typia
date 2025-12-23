@@ -3,10 +3,7 @@ import typia, { tags } from "typia";
 
 import { IBbsArticle } from "./IBbsArticle";
 
-const app: ILlmApplication<"chatgpt"> = typia.llm.application<
-  BbsArticleController,
-  "chatgpt"
->();
+const app: ILlmApplication = typia.llm.application<BbsArticleController>();
 
 console.log(app);
 
@@ -20,9 +17,7 @@ interface BbsArticleController {
    * @returns Newly created article
    */
   create(props: {
-    /**
-     * Information of the article to create
-     */
+    /** Information of the article to create */
     input: IBbsArticle.ICreate;
   }): Promise<IBbsArticle>;
 
@@ -31,14 +26,12 @@ interface BbsArticleController {
    *
    * Reads an article from the DB.
    *
+   * @ignore
    * @param props Properties of read function
    * @returns The article
-   * @hidden
    */
   at(props: {
-    /**
-     * Target article's {@link IBbsArticle.id}.
-     */
+    /** Target article's {@link IBbsArticle.id}. */
     id: string & tags.Format<"uuid">;
   }): Promise<IBbsArticle>;
 
@@ -52,14 +45,10 @@ interface BbsArticleController {
    * @internal
    */
   update(props: {
-    /**
-     * Target article's {@link IBbsArticle.id}.
-     */
+    /** Target article's {@link IBbsArticle.id}. */
     id: string & tags.Format<"uuid">;
 
-    /**
-     * New content to update.
-     */
+    /** New content to update. */
     input: IBbsArticle.IUpdate;
   }): Promise<void>;
 
@@ -72,9 +61,7 @@ interface BbsArticleController {
    * @human
    */
   erase(props: {
-    /**
-     * Target article's {@link IBbsArticle.id}.
-     */
+    /** Target article's {@link IBbsArticle.id}. */
     id: string & tags.Format<"uuid">;
   }): Promise<void>;
 }

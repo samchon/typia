@@ -69,16 +69,16 @@ export namespace json {
 // AI FUNCTION CALLING SCHEMA
 export namespace llm {
   // collection of function calling schemas
-  export function application<Class, Model>(): ILlmApplication<Class>;
-  export function controller<Class, Model>(
+  export function application<Class>(): ILlmApplication<Class>;
+  export function controller<Class>(
     name: string,
     execute: Class,
-  ): ILlmController<Model>; // +executor
+  ): ILlmController; // +executor
   // structured output
-  export function parameters<P, Model>(): ILlmSchema.IParameters<Model>; 
-  export function schema<T, Model>(
-    $defs: Record<string, ILlmSchema<Model>>,
-  ): ILlmSchema<Model>; // type schema
+  export function parameters<P>(): ILlmSchema.IParameters;
+  export function schema<T>(
+    $defs: Record<string, ILlmSchema>,
+  ): ILlmSchema; // type schema
 }
 
 // PROTOCOL BUFFER
@@ -157,3 +157,8 @@ Also, `typia` is re-distributing half of donations to core contributors of `typi
   - [`ryoppippi/unplugin-typia`](https://github.com/ryoppippi/unplugin-typia)
 
 [![Sponsors](https://opencollective.com/typia/badge.svg?avatarHeight=75&width=600)](https://opencollective.com/typia)
+
+## References
+
+  - inspired by [`typescript-is`](https://github.com/woutervh-/typescript-is)
+  - inspired by [`ts-patch`](https://github.com/nonara/ts-patch)
