@@ -1,10 +1,10 @@
 import typia from "typia";
 
-typia.llm.schema<[string, number]>({ $defs: {} });
-typia.llm.schema<[string, number]>({ $defs: {} });
-typia.llm.schema<[string, number]>({ $defs: {} });
-typia.llm.schema<[string, number]>({ $defs: {} });
-typia.llm.schema<[string, number]>({ $defs: {} });
+typia.llm.schema<[string, number]>({});
+typia.llm.schema<[string, number]>({});
+typia.llm.schema<[string, number]>({});
+typia.llm.schema<[string, number]>({});
+typia.llm.schema<[string, number]>({});
 
 typia.llm.parameters<IProps>();
 typia.llm.parameters<IProps>();

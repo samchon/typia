@@ -73,7 +73,7 @@ export namespace LlmSchemaProgrammer {
     )
       output.push(`Strict mode does not allow dynamic property in object.`);
 
-    // ChatGPT strict mode even does not support the optional property
+    // OpenAI strict mode even does not support the optional property
     if (
       config.strict === true &&
       props.metadata.objects.some((o) =>
@@ -88,12 +88,9 @@ export namespace LlmSchemaProgrammer {
       props.metadata.constants.some((c) => c.type === "bigint")
     )
       output.push("LLM schema does not support bigint type.");
-    if (
-      props.metadata.tuples.some((t) =>
-        t.type.elements.some((e) => e.isRequired() === false),
-      ) ||
-      props.metadata.arrays.some((a) => a.type.value.isRequired() === false)
-    )
+    if (props.metadata.tuples.length !== 0)
+      output.push("LLM schema does not support tuple type.");
+    if (props.metadata.arrays.some((a) => a.type.value.isRequired() === false))
       output.push("LLM schema does not support undefined type in array.");
     if (props.metadata.maps.length)
       output.push("LLM schema does not support Map type.");
