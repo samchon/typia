@@ -79,16 +79,14 @@ import { NoTransformConfigurationError } from "./transformers/NoTransformConfigu
  * @template Config Configuration of LLM schema composition
  * @param name Identifier name of the controller
  * @param execute Executor instance
- * @param options Options for the LLM application construction
+ * @param config Options for the LLM application construction
  * @returns Controller of LLM function calling
  * @reference https://wrtnlabs.io/agentica/docs/core/controller/typescript/
  */
 export function controller(
   name: string,
   execute: object,
-  options?: Partial<
-    Pick<ILlmApplication.IOptions<any, any>, "separate" | "validate">
-  >,
+  config?: Partial<Pick<ILlmApplication.IConfig<any>, "separate" | "validate">>,
 ): never;
 
 /**
@@ -166,15 +164,14 @@ export function controller(
  * @template Config Configuration of LLM schema composition
  * @param name Identifier name of the controller
  * @param execute Executor instance
- * @param options Options for the LLM application construction
+ * @param config Options for the LLM application construction
  * @returns Controller of LLM function calling
  * @reference https://wrtnlabs.io/agentica/docs/core/controller/typescript/
  */
 export function controller<
   Class extends Record<string, any>,
-  Model extends ILlmSchema.Model,
   Config extends Partial<
-    ILlmSchema.ModelConfig[Model] & {
+    ILlmSchema.IConfig & {
       /**
        * Whether to disallow superfluous properties or not.
        *
@@ -190,10 +187,10 @@ export function controller<
 >(
   name: string,
   execute: Class,
-  options?: Partial<
-    Pick<ILlmApplication.IOptions<Model, Class>, "separate" | "validate">
+  config?: Partial<
+    Pick<ILlmApplication.IConfig<Class>, "separate" | "validate">
   >,
-): ILlmController<Model>;
+): ILlmController<Class>;
 
 /** @internal */
 export function controller(..._args: any[]): never {
@@ -219,7 +216,7 @@ export function controller(..._args: any[]): never {
  * must be composed by human, not by LLM. File uploading feature or some
  * sensitive information like security keys (password) are the examples. In that
  * case, you can separate the function parameters to both LLM and human sides by
- * configuring the {@link ILlmApplication.IOptions.separate} property. The
+ * configuring the {@link ILlmApplication.IConfig.separate} property. The
  * separated parameters are assigned to the {@link ILlmFunction.separated}
  * property.
  *
@@ -229,7 +226,7 @@ export function controller(..._args: any[]): never {
  * return value to the LLM by system prompt. The LLM will continue the next
  * conversation based on the return value.
  *
- * Additionally, if you've configured {@link ILlmApplication.IOptions.separate},
+ * Additionally, if you've configured {@link ILlmApplication.IConfig.separate},
  * so that the parameters are separated to human and LLM sides, you can merge
  * these human and LLM sides' parameters into one through
  * {@link HttpLlm.mergeParameters} before the actual LLM function call
@@ -261,14 +258,12 @@ export function controller(..._args: any[]): never {
  *   call
  * @template Model LLM schema model
  * @template Config Configuration of LLM schema composition
- * @param options Options for the LLM application construction
+ * @param config Options for the LLM application construction
  * @returns Application of LLM function calling schemas
  * @reference https://platform.openai.com/docs/guides/function-calling
  */
 export function application(
-  options?: Partial<
-    Pick<ILlmApplication.IOptions<any, any>, "separate" | "validate">
-  >,
+  config?: Partial<Pick<ILlmApplication.IConfig<any>, "separate" | "validate">>,
 ): never;
 
 /**
@@ -288,7 +283,7 @@ export function application(
  * must be composed by human, not by LLM. File uploading feature or some
  * sensitive information like security keys (password) are the examples. In that
  * case, you can separate the function parameters to both LLM and human sides by
- * configuring the {@link ILlmApplication.IOptions.separate} property. The
+ * configuring the {@link ILlmApplication.IConfig.separate} property. The
  * separated parameters are assigned to the {@link ILlmFunction.separated}
  * property.
  *
@@ -298,7 +293,7 @@ export function application(
  * return value to the LLM by system prompt. The LLM will continue the next
  * conversation based on the return value.
  *
- * Additionally, if you've configured {@link ILlmApplication.IOptions.separate},
+ * Additionally, if you've configured {@link ILlmApplication.IConfig.separate},
  * so that the parameters are separated to human and LLM sides, you can merge
  * these human and LLM sides' parameters into one through
  * {@link HttpLlm.mergeParameters} before the actual LLM function call
@@ -330,15 +325,14 @@ export function application(
  *   call
  * @template Model LLM schema model
  * @template Config Configuration of LLM schema composition
- * @param options Options for the LLM application construction
+ * @param config Options for the LLM application construction
  * @returns Application of LLM function calling schemas
  * @reference https://platform.openai.com/docs/guides/function-calling
  */
 export function application<
   Class extends Record<string, any>,
-  Model extends ILlmSchema.Model,
   Config extends Partial<
-    {
+    ILlmSchema.IConfig & {
       /**
        * Whether to disallow superfluous properties or not.
        *
@@ -349,13 +343,13 @@ export function application<
        * @default false
        */
       equals: boolean;
-    } & ILlmSchema.ModelConfig[Model]
+    }
   > = {},
 >(
-  options?: Partial<
-    Pick<ILlmApplication.IOptions<Model, Class>, "separate" | "validate">
+  config?: Partial<
+    Pick<ILlmApplication.IConfig<Class>, "separate" | "validate">
   >,
-): ILlmApplication<Model, Class>;
+): ILlmApplication<Class>;
 
 /** @internal */
 export function application(): never {
@@ -466,9 +460,8 @@ export function parameters(): never;
  */
 export function parameters<
   Parameters extends Record<string, any>,
-  Model extends ILlmSchema.Model,
-  Config extends Partial<ILlmSchema.ModelConfig[Model]> = {},
->(): ILlmSchema.ModelParameters[Model];
+  Config extends Partial<ILlmSchema.IConfig> = {},
+>(): ILlmSchema.IParameters;
 
 /** @internal */
 export function parameters(): never {
@@ -596,18 +589,9 @@ export function schema(): never;
  * @reference https://platform.openai.com/docs/guides/function-calling
  * @reference https://platform.openai.com/docs/guides/structured-outputs
  */
-export function schema<
-  T,
-  Model extends ILlmSchema.Model,
-  Config extends Partial<ILlmSchema.ModelConfig[Model]> = {},
->(
-  ...$defs: Extract<
-    ILlmSchema.ModelSchema[Model],
-    { $ref: string }
-  > extends never
-    ? []
-    : [Record<string, ILlmSchema.ModelSchema[Model]>]
-): ILlmSchema.ModelSchema[Model];
+export function schema<T, Config extends Partial<ILlmSchema.IConfig> = {}>(
+  $defs: Record<string, ILlmSchema>,
+): ILlmSchema;
 
 /** @internal */
 export function schema(): never {

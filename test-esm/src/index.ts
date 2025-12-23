@@ -8,16 +8,13 @@ console.log(
     value: number;
     binary: Uint8Array;
   }>(),
-  typia.llm.schema<
-    {
-      /**
-       * Primary Key.
-       */
-      id: string;
-    },
-    "gemini"
-  >({}),
-  typia.llm.controller<{ say(): void }, "gemini">("default", {
+  typia.llm.schema<{
+    /** Primary Key. */
+    id: string;
+  }>({
+    $defs: {},
+  }),
+  typia.llm.controller<{ say(): void }>("default", {
     say: () => console.log("say"),
   }),
 );

@@ -1,5 +1,4 @@
 import { ILlmSchema } from "@samchon/openapi";
-import { LlmSchemaComposer } from "@samchon/openapi/lib/composers/LlmSchemaComposer";
 import ts from "typescript";
 
 import { MetadataCollection } from "../../factories/MetadataCollection";
@@ -13,20 +12,20 @@ import { TransformerError } from "../../transformers/TransformerError";
 
 import { ValidationPipe } from "../../typings/ValidationPipe";
 
-export namespace LlmModelPredicator {
+export namespace LlmMetadataFactory {
   export const getConfig = (props: {
     context: ITypiaContext;
     method: string;
-    model: ILlmSchema.Model;
     node: ts.TypeNode | undefined;
   }):
     | Partial<
-        ILlmSchema.ModelConfig[ILlmSchema.Model] & {
+        ILlmSchema.IConfig & {
           equals: boolean;
         }
       >
     | undefined => {
     if (props.node === undefined) return undefined;
+
     const type: ts.Type = props.context.checker.getTypeFromTypeNode(props.node);
     const collection: MetadataCollection = new MetadataCollection();
     const result: ValidationPipe<Metadata, MetadataFactory.IError> =
@@ -79,7 +78,7 @@ export namespace LlmModelPredicator {
         code: `typia.llm.${props.method}`,
         message: `Invalid generic argument "Config". It must be a literal object type. Do not allow variable type.`,
       });
-    const config: Partial<ILlmSchema.ModelConfig[ILlmSchema.Model]> = {};
+    const config: Partial<ILlmSchema.IConfig> = {};
     for (const prop of obj.type.properties) {
       const key: string = prop.key.getSoleLiteral()!;
       const value: boolean | bigint | number | string =
@@ -92,42 +91,5 @@ export namespace LlmModelPredicator {
       (config as any)[key] = value;
     }
     return config;
-  };
-
-  export const getModel = (props: {
-    checker: ts.TypeChecker;
-    method: string;
-    node: ts.TypeNode | undefined;
-  }): ILlmSchema.Model => {
-    if (props.node === undefined)
-      throw new TransformerError({
-        code: `typia.llm.${props.method}`,
-        message: `generic argument "Model" must be specified.`,
-      });
-
-    // CHECK LITERAL TYPE
-    const type: ts.Type = props.checker.getTypeFromTypeNode(props.node);
-    if (
-      !type.isLiteral() &&
-      (type.getFlags() & ts.TypeFlags.BooleanLiteral) === 0
-    )
-      throw new TransformerError({
-        code: `typia.llm.${props.method}`,
-        message: `generic argument "Model" must be constant.`,
-      });
-
-    // GET VALUE AND VALIDATE IT
-    const value = type.isLiteral()
-      ? type.value
-      : props.checker.typeToString(type);
-    if (
-      typeof value !== "string" ||
-      LlmSchemaComposer.defaultConfig(value as "3.0") === undefined
-    )
-      throw new TransformerError({
-        code: "typia.llm.schema",
-        message: `invalid value on generic argument "Model".`,
-      });
-    return value as ILlmSchema.Model;
   };
 }

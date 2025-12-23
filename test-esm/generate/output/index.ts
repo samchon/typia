@@ -5,14 +5,14 @@ import * as __typia_transform__validateReport from "typia/lib/internal/_validate
 
 import IApplication from "./IApplication";
 
-const controller: ILlmController<"chatgpt"> =
-  ((): import("@samchon/openapi").ILlmController<"chatgpt", IApplication> => {
+const controller: ILlmController<IApplication> =
+  ((): import("@samchon/openapi").ILlmController<IApplication> => {
     const application = {
-      model: "chatgpt",
-      options: {
+      config: {
         reference: true,
         strict: false,
         separate: null,
+        validate: null,
       },
       functions: [
         {
@@ -31,8 +31,8 @@ const controller: ILlmController<"chatgpt"> =
                 type: "object",
                 properties: {
                   id: {
-                    description: "@format uuid",
                     type: "string",
+                    format: "uuid",
                   },
                   serial: {
                     type: "number",
@@ -41,8 +41,8 @@ const controller: ILlmController<"chatgpt"> =
                     type: "string",
                   },
                   established_at: {
-                    description: "@format date-time",
                     type: "string",
+                    format: "date-time",
                   },
                   departments: {
                     type: "array",
@@ -63,8 +63,8 @@ const controller: ILlmController<"chatgpt"> =
                 type: "object",
                 properties: {
                   id: {
-                    description: "@format uuid",
                     type: "string",
+                    format: "uuid",
                   },
                   code: {
                     type: "string",
@@ -73,8 +73,8 @@ const controller: ILlmController<"chatgpt"> =
                     type: "number",
                   },
                   created_at: {
-                    description: "@format date-time",
                     type: "string",
+                    format: "date-time",
                   },
                   children: {
                     type: "array",
@@ -422,8 +422,8 @@ const controller: ILlmController<"chatgpt"> =
                 type: "object",
                 properties: {
                   id: {
-                    description: "@format uuid",
                     type: "string",
+                    format: "uuid",
                   },
                   serial: {
                     type: "number",
@@ -432,8 +432,8 @@ const controller: ILlmController<"chatgpt"> =
                     type: "string",
                   },
                   established_at: {
-                    description: "@format date-time",
                     type: "string",
+                    format: "date-time",
                   },
                   departments: {
                     type: "array",
@@ -454,8 +454,8 @@ const controller: ILlmController<"chatgpt"> =
                 type: "object",
                 properties: {
                   id: {
-                    description: "@format uuid",
                     type: "string",
+                    format: "uuid",
                   },
                   code: {
                     type: "string",
@@ -464,8 +464,8 @@ const controller: ILlmController<"chatgpt"> =
                     type: "number",
                   },
                   created_at: {
-                    description: "@format date-time",
                     type: "string",
+                    format: "date-time",
                   },
                   children: {
                     type: "array",
@@ -836,8 +836,8 @@ const controller: ILlmController<"chatgpt"> =
                 type: "object",
                 properties: {
                   id: {
-                    description: "@format uuid",
                     type: "string",
+                    format: "uuid",
                   },
                   serial: {
                     type: "number",
@@ -846,8 +846,8 @@ const controller: ILlmController<"chatgpt"> =
                     type: "string",
                   },
                   established_at: {
-                    description: "@format date-time",
                     type: "string",
+                    format: "date-time",
                   },
                   departments: {
                     type: "array",
@@ -868,8 +868,8 @@ const controller: ILlmController<"chatgpt"> =
                 type: "object",
                 properties: {
                   id: {
-                    description: "@format uuid",
                     type: "string",
+                    format: "uuid",
                   },
                   code: {
                     type: "string",
@@ -878,8 +878,8 @@ const controller: ILlmController<"chatgpt"> =
                     type: "number",
                   },
                   created_at: {
-                    description: "@format date-time",
                     type: "string",
+                    format: "date-time",
                   },
                   children: {
                     type: "array",
@@ -1271,8 +1271,8 @@ const controller: ILlmController<"chatgpt"> =
                 type: "object",
                 properties: {
                   id: {
-                    description: "@format uuid",
                     type: "string",
+                    format: "uuid",
                   },
                   serial: {
                     type: "number",
@@ -1281,8 +1281,8 @@ const controller: ILlmController<"chatgpt"> =
                     type: "string",
                   },
                   established_at: {
-                    description: "@format date-time",
                     type: "string",
+                    format: "date-time",
                   },
                   departments: {
                     type: "array",
@@ -1303,8 +1303,8 @@ const controller: ILlmController<"chatgpt"> =
                 type: "object",
                 properties: {
                   id: {
-                    description: "@format uuid",
                     type: "string",
+                    format: "uuid",
                   },
                   code: {
                     type: "string",
@@ -1313,8 +1313,8 @@ const controller: ILlmController<"chatgpt"> =
                     type: "number",
                   },
                   created_at: {
-                    description: "@format date-time",
                     type: "string",
+                    format: "date-time",
                   },
                   children: {
                     type: "array",
@@ -1341,8 +1341,8 @@ const controller: ILlmController<"chatgpt"> =
             },
           },
           output: {
-            description: "@format uuid",
             type: "string",
+            format: "uuid",
           },
           validate: (() => {
             const _io0 = (input: any): boolean =>
@@ -1667,7 +1667,7 @@ const controller: ILlmController<"chatgpt"> =
           })(),
         },
       ],
-    } as import("@samchon/openapi").ILlmApplication<"chatgpt">;
+    } as import("@samchon/openapi").ILlmApplication;
     return {
       protocol: "class",
       name: "application",

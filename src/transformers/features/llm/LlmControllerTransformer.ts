@@ -28,11 +28,6 @@ export namespace LlmControllerTransformer {
       props.context.importer.type({
         file: "@samchon/openapi",
         name: "ILlmApplication",
-        arguments: [
-          ts.factory.createLiteralTypeNode(
-            ts.factory.createStringLiteral(dec.application.model),
-          ),
-        ],
       }),
     );
     const value: ts.Expression = ts.factory.createObjectLiteralExpression(
@@ -68,7 +63,6 @@ export namespace LlmControllerTransformer {
                     value: ts.factory.createIdentifier("application"),
                     argument: props.expression.arguments[2]!,
                     equals: dec.config?.equals,
-                    model: dec.application.model,
                   }),
                 ),
               ]
@@ -80,12 +74,7 @@ export namespace LlmControllerTransformer {
       props.context.importer.type({
         file: "@samchon/openapi",
         name: "ILlmController",
-        arguments: [
-          ts.factory.createLiteralTypeNode(
-            ts.factory.createStringLiteral(dec.application.model),
-          ),
-          dec.node,
-        ],
+        arguments: [dec.node],
       }),
     );
   };

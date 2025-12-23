@@ -18,11 +18,10 @@ import { JsonSchemasProgrammer } from "../json/JsonSchemasProgrammer";
 import { LlmSchemaProgrammer } from "./LlmSchemaProgrammer";
 
 export namespace LlmParametersProgrammer {
-  export const write = <Model extends ILlmSchema.Model>(props: {
-    model: Model;
+  export const write = (props: {
     metadata: Metadata;
-    config?: Partial<ILlmSchema.ModelConfig[Model]>;
-  }): ILlmSchema.ModelParameters[Model] => {
+    config?: Partial<ILlmSchema.IConfig>;
+  }): ILlmSchema.IParameters => {
     const collection: IJsonSchemaCollection<"3.1"> =
       JsonSchemasProgrammer.write({
         version: "3.1",
@@ -39,17 +38,12 @@ export namespace LlmParametersProgrammer {
       throw new Error("Unreachable code. Failed to find the object schema.");
     })();
 
-    const result: IResult<
-      ILlmSchema.ModelParameters[Model],
-      IOpenApiSchemaError
-    > = LlmSchemaComposer.parameters(props.model)({
-      config: {
-        ...LlmSchemaComposer.defaultConfig(props.model),
-        ...props.config,
-      } as any,
-      components: collection.components,
-      schema,
-    }) as IResult<ILlmSchema.ModelParameters[Model], IOpenApiSchemaError>;
+    const result: IResult<ILlmSchema.IParameters, IOpenApiSchemaError> =
+      LlmSchemaComposer.parameters({
+        config: LlmSchemaComposer.getConfig(props.config),
+        components: collection.components,
+        schema,
+      });
     if (result.success === false)
       throw new TransformerError({
         code: "typia.llm.parameters",
@@ -62,32 +56,31 @@ export namespace LlmParametersProgrammer {
     return result.value;
   };
 
-  export const validate =
-    <Model extends ILlmSchema.Model>(props: {
-      model: Model;
-      config?: Partial<ILlmSchema.ModelConfig[Model]>;
-    }) =>
-    (metadata: Metadata, explore: MetadataFactory.IExplore): string[] => {
-      const output: string[] = [];
-      if (explore.top === true) {
-        if (metadata.objects.length === 0)
-          output.push("LLM parameters must be an object type.");
-        else if (metadata.objects.length !== 1 || metadata.size() > 1)
-          output.push("LLM parameters must be a single object type.");
-        else {
-          if (
-            metadata.objects[0]!.type.properties.some(
-              (p) => p.key.isSoleLiteral() === false,
-            )
+  export const validate = (props: {
+    config?: Partial<ILlmSchema.IConfig>;
+    metadata: Metadata;
+    explore: MetadataFactory.IExplore;
+  }): string[] => {
+    const output: string[] = [];
+    if (props.explore.top === true) {
+      if (props.metadata.objects.length === 0)
+        output.push("LLM parameters must be an object type.");
+      else if (props.metadata.objects.length !== 1 || props.metadata.size() > 1)
+        output.push("LLM parameters must be a single object type.");
+      else {
+        if (
+          props.metadata.objects[0]!.type.properties.some(
+            (p) => p.key.isSoleLiteral() === false,
           )
-            output.push("LLM parameters must not have dynamic keys.");
-          if (metadata.nullable)
-            output.push("LLM parameters must be a non-nullable object type.");
-          if (metadata.isRequired() === false)
-            output.push("LLM parameters must be a non-undefined object type.");
-        }
+        )
+          output.push("LLM parameters must not have dynamic keys.");
+        if (props.metadata.nullable)
+          output.push("LLM parameters must be a non-nullable object type.");
+        if (props.metadata.isRequired() === false)
+          output.push("LLM parameters must be a non-undefined object type.");
       }
-      output.push(...LlmSchemaProgrammer.validate(props)(metadata));
-      return output;
-    };
+    }
+    output.push(...LlmSchemaProgrammer.validate(props));
+    return output;
+  };
 }

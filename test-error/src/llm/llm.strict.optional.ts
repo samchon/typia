@@ -2,9 +2,8 @@ import typia from "typia";
 
 typia.llm.schema<
   {
-    dictionary: Record<string, string>;
+    id?: string;
   },
-  "chatgpt",
   {
     strict: true;
   }
@@ -12,10 +11,9 @@ typia.llm.schema<
 typia.llm.parameters<
   {
     input: {
-      dictionary: Record<string, string>;
+      age?: number;
     };
   },
-  "chatgpt",
   {
     strict: true;
   }
@@ -24,11 +22,10 @@ typia.llm.application<
   {
     insert(props: {
       input: {
-        dictionary: Record<string, string>;
+        etc?: boolean;
       };
     }): void;
   },
-  "chatgpt",
   {
     strict: true;
   }

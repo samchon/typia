@@ -10,7 +10,7 @@ import { StatementFactory } from "../../../factories/StatementFactory";
 import { Metadata } from "../../../schemas/metadata/Metadata";
 
 import { LlmApplicationProgrammer } from "../../../programmers/llm/LlmApplicationProgrammer";
-import { LlmModelPredicator } from "../../../programmers/llm/LlmModelPredicator";
+import { LlmMetadataFactory } from "../../../programmers/llm/LlmMetadataFactory";
 
 import { ValidationPipe } from "../../../typings/ValidationPipe";
 
@@ -28,14 +28,10 @@ export namespace LlmApplicationTransformer {
       props.context.importer.type({
         file: "@samchon/openapi",
         name: "ILlmApplication",
-        arguments: [
-          ts.factory.createLiteralTypeNode(
-            ts.factory.createStringLiteral(dec.application.model),
-          ),
-        ],
+        arguments: [dec.node],
       }),
     );
-    if (!props.expression.arguments?.[0]) return literal;
+    if (props.expression.arguments?.[0] === undefined) return literal;
     return ExpressionFactory.selfCall(
       ts.factory.createBlock(
         [
@@ -49,7 +45,6 @@ export namespace LlmApplicationTransformer {
               value: ts.factory.createIdentifier("application"),
               argument: props.expression.arguments[0]!,
               equals: dec.config?.equals,
-              model: dec.application.model,
             }),
           ),
           ts.factory.createReturnStatement(
@@ -66,7 +61,7 @@ export namespace LlmApplicationTransformer {
     method: string,
     props: ITransformProps,
   ): {
-    application: ILlmApplication<ILlmSchema.Model>;
+    application: ILlmApplication;
     type: ts.Type;
     node: ts.TypeNode;
     config:
@@ -87,22 +82,16 @@ export namespace LlmApplicationTransformer {
     if (ts.isTypeNode(top) === false) return null;
 
     // GET TYPE
-    const model: ILlmSchema.Model = LlmModelPredicator.getModel({
-      checker: props.context.checker,
-      method,
-      node: props.expression.typeArguments[1],
-    });
     const config:
       | Partial<
           ILlmSchema.IConfig & {
             equals: boolean;
           }
         >
-      | undefined = LlmModelPredicator.getConfig({
+      | undefined = LlmMetadataFactory.getConfig({
       context: props.context,
       method,
-      model,
-      node: props.expression.typeArguments[2],
+      node: props.expression.typeArguments[1],
     });
     const type: ts.Type = props.context.checker.getTypeFromTypeNode(top);
 
@@ -119,10 +108,12 @@ export namespace LlmApplicationTransformer {
             functional: true,
             validate:
               validate === true
-                ? LlmApplicationProgrammer.validate({
-                    model,
-                    config,
-                  })
+                ? (metadata, explore) =>
+                    LlmApplicationProgrammer.validate({
+                      config,
+                      metadata,
+                      explore,
+                    })
                 : undefined,
           },
           collection: new MetadataCollection({
@@ -142,7 +133,6 @@ export namespace LlmApplicationTransformer {
     // GENERATE LLM APPLICATION
     return {
       application: LlmApplicationProgrammer.write({
-        model,
         context: props.context,
         modulo: props.modulo,
         metadata: analyze(false),
@@ -160,7 +150,6 @@ export namespace LlmApplicationTransformer {
     value: ts.Expression;
     argument: ts.Expression;
     equals?: boolean;
-    model: ILlmSchema.Model;
   }) => {
     const satisfiesTypeNode: ts.TypeNode = ts.factory.createTypeReferenceNode(
       ts.factory.createIdentifier("Partial"),
@@ -175,13 +164,9 @@ export namespace LlmApplicationTransformer {
               undefined,
               ts.factory.createQualifiedName(
                 ts.factory.createIdentifier("ILlmApplication"),
-                ts.factory.createIdentifier("IOptions"),
+                ts.factory.createIdentifier("IConfig"),
               ),
-              [
-                ts.factory.createLiteralTypeNode(
-                  ts.factory.createStringLiteral(props.model),
-                ),
-              ],
+              undefined,
               false,
             ),
             ts.factory.createUnionTypeNode([
