@@ -19,9 +19,11 @@ import { ITypiaContext } from "./ITypiaContext";
 import { AssertTransformer } from "./features/AssertTransformer";
 import { CreateAssertTransformer } from "./features/CreateAssertTransformer";
 import { CreateIsTransformer } from "./features/CreateIsTransformer";
+import { CreateIsShallowTransformer } from "./features/CreateIsShallowTransformer";
 import { CreateRandomTransformer } from "./features/CreateRandomTransformer";
 import { CreateValidateTransformer } from "./features/CreateValidateTransformer";
 import { IsTransformer } from "./features/IsTransformer";
+import { IsShallowTransformer } from "./features/IsShallowTransformer";
 import { RandomTransformer } from "./features/RandomTransformer";
 import { ValidateTransformer } from "./features/ValidateTransformer";
 import { CreateHttpAssertFormDataTransformer } from "./features/http/CreateHttpAssertFormDataTransformer";
@@ -174,6 +176,7 @@ const FUNCTORS: Record<string, Record<string, () => Task>> = {
     assertType: () =>
       AssertTransformer.transform({ equals: false, guard: false }),
     is: () => IsTransformer.transform({ equals: false }),
+    isShallow: () => IsShallowTransformer.transform({ equals: false }),
     validate: () => ValidateTransformer.transform({ equals: false }),
 
     // STRICT
@@ -196,6 +199,8 @@ const FUNCTORS: Record<string, Record<string, () => Task>> = {
     createAssertType: () =>
       CreateAssertTransformer.transform({ equals: false, guard: false }),
     createIs: () => CreateIsTransformer.transform({ equals: false }),
+    createIsShallow: () =>
+      CreateIsShallowTransformer.transform({ equals: false }),
     createValidate: () =>
       CreateValidateTransformer.transform({
         equals: false,

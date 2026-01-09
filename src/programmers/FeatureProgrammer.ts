@@ -34,6 +34,9 @@ export namespace FeatureProgrammer {
     /** Whether to trace exception or not. */
     trace: boolean;
 
+    /** Maximum depth for shallow checks. */
+    maxDepth?: number;
+
     addition?: undefined | ((collection: MetadataCollection) => ts.Statement[]);
 
     /** Initializer of metadata. */
@@ -183,6 +186,8 @@ export namespace FeatureProgrammer {
     from: "top" | "array" | "object";
     postfix: string;
     start?: undefined | number;
+    depth?: undefined | number;
+    maxDepth?: undefined | number;
   }
 
   export type Decoder<
@@ -227,6 +232,8 @@ export namespace FeatureProgrammer {
           source: "top",
           from: "top",
           postfix: '""',
+          depth: props.config.maxDepth !== undefined ? 0 : undefined,
+          maxDepth: props.config.maxDepth,
         },
       }),
       statements: props.config.addition
