@@ -225,19 +225,21 @@ export function is(): never {
  * Tests a value type with limited depth checking.
  *
  * Tests a parametric value type and returns whether it's following the type `T`
- * or not, but only checks up to a specified depth. This is useful for discriminated
- * unions where you only need to check a few properties to determine the type.
- * 
+ * or not, but only checks up to a specified depth. This is useful for
+ * discriminated unions where you only need to check a few properties to
+ * determine the type.
+ *
  * If the parametric value matches the type `T` at the specified depth level,
  * `true` value will be returned. Otherwise, `false` value will be returned.
- * 
+ *
  * When `maxDepth` is not specified, defaults to 2 levels of checking.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @template T Type of the input value
  * @param input A value to be tested
  * @param maxDepth Maximum depth to check (default: 2)
- * @returns Whether the parametric value is following the type `T` at the specified depth
+ * @returns Whether the parametric value is following the type `T` at the
+ *   specified depth
  */
 export function isShallow<T>(input: T, maxDepth?: number): input is T;
 
@@ -245,19 +247,21 @@ export function isShallow<T>(input: T, maxDepth?: number): input is T;
  * Tests a value type with limited depth checking.
  *
  * Tests a parametric value type and returns whether it's following the type `T`
- * or not, but only checks up to a specified depth. This is useful for discriminated
- * unions where you only need to check a few properties to determine the type.
- * 
+ * or not, but only checks up to a specified depth. This is useful for
+ * discriminated unions where you only need to check a few properties to
+ * determine the type.
+ *
  * If the parametric value matches the type `T` at the specified depth level,
  * `true` value will be returned. Otherwise, `false` value will be returned.
- * 
+ *
  * When `maxDepth` is not specified, defaults to 2 levels of checking.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @template T Type of the input value
  * @param input A value to be tested
  * @param maxDepth Maximum depth to check (default: 2)
- * @returns Whether the parametric value is following the type `T` at the specified depth
+ * @returns Whether the parametric value is following the type `T` at the
+ *   specified depth
  */
 export function isShallow<T>(input: unknown, maxDepth?: number): input is T;
 

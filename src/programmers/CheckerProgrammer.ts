@@ -1609,12 +1609,12 @@ export namespace CheckerProgrammer {
         );
 }
 
-const incrementDepth = (explore: CheckerProgrammer.IExplore): CheckerProgrammer.IExplore => ({
+const incrementDepth = (
+  explore: CheckerProgrammer.IExplore,
+): CheckerProgrammer.IExplore => ({
   ...explore,
   depth:
-    explore.maxDepth !== undefined
-      ? (explore.depth ?? 0) + 1
-      : explore.depth,
+    explore.maxDepth !== undefined ? (explore.depth ?? 0) + 1 : explore.depth,
 });
 
 const create_add = (props: {

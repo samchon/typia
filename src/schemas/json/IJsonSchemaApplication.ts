@@ -19,17 +19,15 @@ export namespace IJsonSchemaApplication {
     : OpenApiV3.IJsonSchema;
 
   export interface IComponents<
-    Schema extends
-      | OpenApi.IJsonSchema
-      | OpenApiV3.IJsonSchema = OpenApi.IJsonSchema,
+    Schema extends OpenApi.IJsonSchema | OpenApiV3.IJsonSchema =
+      OpenApi.IJsonSchema,
   > {
     schemas?: Record<string, Schema>;
   }
 
   export interface IFunction<
-    Schema extends
-      | OpenApi.IJsonSchema
-      | OpenApiV3.IJsonSchema = OpenApi.IJsonSchema,
+    Schema extends OpenApi.IJsonSchema | OpenApiV3.IJsonSchema =
+      OpenApi.IJsonSchema,
   > {
     async: boolean;
     name: string;
@@ -42,9 +40,8 @@ export namespace IJsonSchemaApplication {
   }
 
   export interface IParameter<
-    Schema extends
-      | OpenApi.IJsonSchema
-      | OpenApiV3.IJsonSchema = OpenApi.IJsonSchema,
+    Schema extends OpenApi.IJsonSchema | OpenApiV3.IJsonSchema =
+      OpenApi.IJsonSchema,
   > {
     name: string;
     required: boolean;
@@ -54,9 +51,8 @@ export namespace IJsonSchemaApplication {
   }
 
   export interface IOutput<
-    Schema extends
-      | OpenApi.IJsonSchema
-      | OpenApiV3.IJsonSchema = OpenApi.IJsonSchema,
+    Schema extends OpenApi.IJsonSchema | OpenApiV3.IJsonSchema =
+      OpenApi.IJsonSchema,
   > {
     schema: Schema;
     required: boolean;

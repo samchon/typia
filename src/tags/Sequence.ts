@@ -22,7 +22,7 @@ import { TagBase } from "./TagBase";
  *
  *   // Generate Protocol Buffer message
  *   const message = typia.protobuf.message<User>();
- *   ```
+ *   ```;
  *
  * @template N - Field number (positive integer from 1 to 536,870,911, excluding
  *   19000-19999)
