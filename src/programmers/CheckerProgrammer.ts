@@ -45,6 +45,7 @@ export namespace CheckerProgrammer {
     trace: boolean;
     equals: boolean;
     numeric: boolean;
+    maxDepth?: number;
     addition?: () => ts.Statement[];
     decoder?: (props: {
       metadata: Metadata;
@@ -417,6 +418,14 @@ export namespace CheckerProgrammer {
   }): ts.Expression => {
     if (props.metadata.any) return props.config.success;
 
+    // Check if max depth is reached
+    if (
+      props.explore.maxDepth !== undefined &&
+      props.explore.depth !== undefined &&
+      props.explore.depth >= props.explore.maxDepth
+    )
+      return props.config.success;
+
     const top: IBinary[] = [];
     const binaries: IBinary[] = [];
     const add = (next: {
@@ -671,10 +680,10 @@ export namespace CheckerProgrammer {
             functor: props.functor,
             sets: props.metadata.sets,
             input: props.input,
-            explore: {
+            explore: incrementDepth({
               ...props.explore,
               from: "array",
-            },
+            }),
           }),
         );
     }
@@ -702,10 +711,10 @@ export namespace CheckerProgrammer {
             functor: props.functor,
             maps: props.metadata.maps,
             input: props.input,
-            explore: {
+            explore: incrementDepth({
               ...props.explore,
               from: "array",
-            },
+            }),
           }),
         );
     }
@@ -740,10 +749,10 @@ export namespace CheckerProgrammer {
               functor: props.functor,
               tuple: props.metadata.tuples[0]!,
               input: props.input,
-              explore: {
+              explore: incrementDepth({
                 ...props.explore,
                 from: "array",
-              },
+              }),
             }),
           );
         // TUPLE ONLY
@@ -755,10 +764,10 @@ export namespace CheckerProgrammer {
               functor: props.functor,
               tuples: props.metadata.tuples,
               input: props.input,
-              explore: {
+              explore: incrementDepth({
                 ...props.explore,
                 from: "array",
-              },
+              }),
             }),
           );
       else if (props.metadata.arrays.some((elem) => elem.type.value.any))
@@ -773,10 +782,10 @@ export namespace CheckerProgrammer {
               functor: props.functor,
               array: props.metadata.arrays[0]!,
               input: props.input,
-              explore: {
+              explore: incrementDepth({
                 ...props.explore,
                 from: "array",
-              },
+              }),
             }),
           );
         else
@@ -787,10 +796,10 @@ export namespace CheckerProgrammer {
               functor: props.functor,
               arrays: props.metadata.arrays,
               input: props.input,
-              explore: {
+              explore: incrementDepth({
                 ...props.explore,
                 from: "array",
-              },
+              }),
             }),
           );
       else
@@ -826,10 +835,10 @@ export namespace CheckerProgrammer {
           functor: props.functor,
           metadata: props.metadata,
           input: props.input,
-          explore: {
+          explore: incrementDepth({
             ...props.explore,
             from: "object",
-          },
+          }),
         }),
       });
 
@@ -1599,6 +1608,14 @@ export namespace CheckerProgrammer {
           FeatureProgrammer.argumentsArray(props),
         );
 }
+
+const incrementDepth = (
+  explore: CheckerProgrammer.IExplore,
+): CheckerProgrammer.IExplore => ({
+  ...explore,
+  depth:
+    explore.maxDepth !== undefined ? (explore.depth ?? 0) + 1 : explore.depth,
+});
 
 const create_add = (props: {
   binaries: CheckerProgrammer.IBinary[];

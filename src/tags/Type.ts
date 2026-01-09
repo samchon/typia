@@ -23,7 +23,7 @@ import { TagBase } from "./TagBase";
  *   type UserId = number & Type<"uint32">;    // 0 to 4,294,967,295
  *   type FileSize = bigint & Type<"int64">;   // Large file sizes
  *   type Coordinate = number & Type<"double">; // High precision coordinates
- *   ```
+ *   ```;
  *
  * @template Value - The numeric type representation
  */

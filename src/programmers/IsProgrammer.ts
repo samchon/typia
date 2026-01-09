@@ -23,11 +23,13 @@ export namespace IsProgrammer {
     options?: Partial<CONFIG.IOptions>;
     context: ITypiaContext;
     functor: FunctionProgrammer;
+    maxDepth?: number;
   }): CheckerProgrammer.IConfig => ({
     prefix: "_i",
     equals: !!props.options?.object,
     trace: false,
     path: false,
+    maxDepth: props.maxDepth,
     numeric: OptionPredicator.numeric({
       numeric: props.options?.numeric,
     }),
@@ -105,6 +107,7 @@ export namespace IsProgrammer {
   ----------------------------------------------------------- */
   export interface IConfig {
     equals: boolean;
+    maxDepth?: number;
   }
   export interface IProps extends IProgrammerProps {
     config: IConfig;
@@ -139,6 +142,7 @@ export namespace IsProgrammer {
         },
         context: props.context,
         functor: props.functor,
+        maxDepth: props.config.maxDepth,
       }),
       trace: props.config.equals,
     };
