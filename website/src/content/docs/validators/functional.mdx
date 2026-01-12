@@ -36,9 +36,9 @@ export namespace functional {
 
 Asserts a function.
 
-`typia.functional.assertFunction<T>()` asserts a function, by wrapping the parameter function and checking its parameters and return value through [`typia.assert<T>()`](./assert) function. If some parameter or return value does not match the expected type, it throws a `TypeGuardError` error.
+`typia.functional.assertFunction<T>()` asserts a function, by wrapping the parameter function and checking its parameters and return value through [`typia.assert<T>()`](../assert) function. If some parameter or return value does not match the expected type, it throws a `TypeGuardError` error.
 
-For reference, `TypeGuardError.path` would be a little bit different with individual [`typia.assert<T>()`](./assert) function. If `TypeGuardError` occurs from some parameter, the path would start from `$input.parameters[<index>]`. Otherwise the path would start from `$input.return`.
+For reference, `TypeGuardError.path` would be a little bit different with individual [`typia.assert<T>()`](../assert) function. If `TypeGuardError` occurs from some parameter, the path would start from `$input.parameters[<index>]`. Otherwise the path would start from `$input.return`.
 
   - `$input.parameters[0].~`
   - `$input.return.~`
@@ -92,7 +92,7 @@ export namespace functional {
 
 Tests a function.
 
-`typia.functional.isFunction<T>()` tests a function, by wrapping the parameter function and checking its parameters and return value through [`typia.is<T>()`](./is) function. If some parameter or return value does not match the expected type, it returns `null`. Otherwise, it returns the return value of the parameter function.
+`typia.functional.isFunction<T>()` tests a function, by wrapping the parameter function and checking its parameters and return value through [`typia.is<T>()`](../is) function. If some parameter or return value does not match the expected type, it returns `null`. Otherwise, it returns the return value of the parameter function.
 
 By the way, if you don't want to test both parameters and return value, but one of them, you can use `typia.functional.isParameters<T>()` or `typia.functional.isReturn<T>()` instead. Otherwise, if you want to prohibit superfluous properties, `typia.functional.equalsFunction<T>()` would be helpful.
 
@@ -115,9 +115,9 @@ Also, if what you want is not just type checking, but want to know the detailed 
 
 Validates a function.
 
-`typia.functional.validateFunction<T>()` validates a function, by wrapping the parameter function and checking its parameters and return value through [`typia.validate<T>()`](./validate) function. If some parameter or return value does not match the expected type, it returns a `IValidation.IFailure` typed object. Otherwise, it returns a `IValidation.ISuccess` typed object instead.
+`typia.functional.validateFunction<T>()` validates a function, by wrapping the parameter function and checking its parameters and return value through [`typia.validate<T>()`](../validate) function. If some parameter or return value does not match the expected type, it returns a `IValidation.IFailure` typed object. Otherwise, it returns a `IValidation.ISuccess` typed object instead.
 
-For reference, `IValidation.IError.path` would be a little bit different with individual [`typia.validate<T>()`](./validate) function. If `IValidation.IError` occurs from some parameter, the path would start from `$input.parameters[<index>]`. Otherwise the path would start from `$input.return`.
+For reference, `IValidation.IError.path` would be a little bit different with individual [`typia.validate<T>()`](../validate) function. If `IValidation.IError` occurs from some parameter, the path would start from `$input.parameters[<index>]`. Otherwise the path would start from `$input.return`.
 
   - `$input.parameters[0].~`
   - `$input.return.~`

@@ -48,7 +48,7 @@ export namespace protobuf {
 
 Protocol Buffer Encoder.
 
-You can easily convert a JavaScript object to a binary data of Protocol Buffer, without any extra Protocol Buffer [Message Schema](./message) definition. `typia.protobuf.encode<T>()` function analyzes your type `T`, and generates a Protocol Buffer Message Schema internally. And then, it converts the `input` instance to the binary data of Protocol Buffer format.
+You can easily convert a JavaScript object to a binary data of Protocol Buffer, without any extra Protocol Buffer [Message Schema](../message) definition. `typia.protobuf.encode<T>()` function analyzes your type `T`, and generates a Protocol Buffer Message Schema internally. And then, it converts the `input` instance to the binary data of Protocol Buffer format.
 
 By the way, `typia.protobuf.encode<T>()` function does not validate the `input` value. It just believes user and `input` value, and converts to the Protocol Buffer binary data directly without any validation. By the way, if the `input` value was not validate, the encoded binary data never can be decoded. So, if you can't sure the `input` value type, you should use below functions instead.
 
@@ -146,8 +146,8 @@ Protocol Buffer supports special numeric types like `int32` or `uint64` that are
 
 To know how to define special numeric types like `uint64`, and to understand which TypeScript types are not supported in Protocol Buffer specs, it would better to read below documents. I recommend you to read them before using `typia.protobuf.encode<T>()` related functions.
 
-  - [Typia Guide Documents > Protocol Buffer > Message Schema](./message)
-    - [`message()` function](./message#message-function)
-    - [Type Tags](./message#type-tags)
-    - [Comment Tags](./message#comment-tags)
-    - [Restrictions](./message#restrictions)
+  - [Typia Guide Documents > Protocol Buffer > Message Schema](../message)
+    - [`message()` function](../message#message-function)
+    - [Type Tags](../message#type-tags)
+    - [Comment Tags](../message#comment-tags)
+    - [Restrictions](../message#restrictions)

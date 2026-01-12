@@ -63,7 +63,7 @@ export namespace llm {
 
 Type schema in the LLM function calling application.
 
-`typia.llm.schema<T>()` is a function generating type schema which is used in the LLM (Large Language Model) function calling application schema or structured output, especially composed by the [`typia.llm.parameters<Parameters>()`](./parameters) and [`typia.llm.application<App>()`](./application) functions.
+`typia.llm.schema<T>()` is a function generating type schema which is used in the LLM (Large Language Model) function calling application schema or structured output, especially composed by the [`typia.llm.parameters<Parameters>()`](../parameters) and [`typia.llm.application<App>()`](../application) functions.
 
 Return value type `ILlmSchema` is similar with the JSON schema definition.
 
@@ -152,7 +152,7 @@ LLM schema does not support `bigint` type.
 
 LLM schema is based on the JSON schema definition of the OpenAPI v3.0 specification. Therefore, limitations of the JSON schema is also applied to the LLM schema, and the `bigint` type is not supported in the LLM function calling schema composition.
 
-Also, LLM schema does not support the tuple type, which is represented by the `OpenApi.IJsonSchema.ITuple` type. It's no LLM providers are supporting the tuple type, and such tuple type harms the separation option of the [`typia.llm.application<App>()`](./application) function. If you need a tuple type, just change the tuple type to a regular object type instead.
+Also, LLM schema does not support the tuple type, which is represented by the `OpenApi.IJsonSchema.ITuple` type. It's no LLM providers are supporting the tuple type, and such tuple type harms the separation option of the [`typia.llm.application<App>()`](../application) function. If you need a tuple type, just change the tuple type to a regular object type instead.
 
 <Tabs items={["TypeScript Source Code", "Console Output"]}>
   <Tabs.Tab>

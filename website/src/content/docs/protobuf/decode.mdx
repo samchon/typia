@@ -50,13 +50,13 @@ export namespace protobuf {
 
 Protocol Buffer Decoder.
 
-You can easily convert a Protocol Buffer's binary data to a JavaScript object, without any extra Protocol Buffer [Message Schema](./message) definition. `typia.protobuf.decode<T>()` function analyzes your type `T`, and generates a Protocol Buffer Message Schema internally.And then, it converts the binary data to a JavaScript object.
+You can easily convert a Protocol Buffer's binary data to a JavaScript object, without any extra Protocol Buffer [Message Schema](../message) definition. `typia.protobuf.decode<T>()` function analyzes your type `T`, and generates a Protocol Buffer Message Schema internally.And then, it converts the binary data to a JavaScript object.
 
 By the way, as Protocol Buffer handles binary data directly, there's no way when `input` binary data was not encoded from the `T` typed value. In that case, unexpected behavior or internal error would be occurred. Therefore, I recommend you to encode binary data of Protocol Buffer from type safe encode functions like below, Use `typia.protobuf.encode<T>()` function only when you can trust it.
 
-  - [`typia.protobuf.isEncode<T>()`](./encode)
-  - [`typia.protobuf.assertEncode<T>()`](./encode)
-  - [`typia.protobuf.validateEncode<T>()`](./encode)
+  - [`typia.protobuf.isEncode<T>()`](../encode)
+  - [`typia.protobuf.assertEncode<T>()`](../encode)
+  - [`typia.protobuf.validateEncode<T>()`](../encode)
 
 For reference, `typia` provides type safe decorators like below, but they are just for additional type validation like `number & Minimum<7>` or `string & Format<"uuid">` cases, that are represented by [Special Tags](../validators/tags). Thus, I repeat that, you've to ensure type safety when using decoder function.
 
@@ -157,8 +157,8 @@ Protocol Buffer supports special numeric types like `int32` or `uint64` that are
 
 To know how to define special numeric types like `uint64`, and to understand which TypeScript types are not supported in Protocol Buffer specs, it would better to read below documents. I recommend you to read them before using `typia.protobuf.decode<T>()` related functions.
 
-  - [Typia Guide Documents > Protocol Buffer > Message Schema](./message)
-    - [`message()` function](./message#message-function)
-    - [Type Tags](./message#type-tags)
-    - [Comment Tags](./message#comment-tags)
-    - [Restrictions](./message#restrictions)
+  - [Typia Guide Documents > Protocol Buffer > Message Schema](../message)
+    - [`message()` function](../message#message-function)
+    - [Type Tags](../message#type-tags)
+    - [Comment Tags](../message#comment-tags)
+    - [Restrictions](../message#restrictions)
