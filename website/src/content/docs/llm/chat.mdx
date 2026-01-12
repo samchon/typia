@@ -37,6 +37,7 @@ import { BbsArticleService } from "./BbsArticleService";
 const agent = new Agentica({
   service: {
     api: new OpenAI({ apiKey: "*****" }),
+    model: "openai/gpt-4.1-mini",
   },
   controllers: [
     typia.llm.controller<BbsArticleService>(
@@ -92,6 +93,7 @@ import { MobileFileSystem } from "./services/MobileFileSystem";
 const agent = new Agentica({
   vendor: {
     api: new OpenAI({ apiKey: "********" }),
+    model: "openai/gpt-4.1-mini",
   },
   controllers: [
     // functions from TypeScript class
