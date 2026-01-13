@@ -27,7 +27,7 @@ const SourceEditor = (props: {
     const model = monaco.editor.createModel(
       props.script,
       "typescript",
-      monaco.Uri.parse("file:///main.ts"),
+      monaco.Uri.parse("file:///src/main.ts"),
     );
     editor.setModel(model);
   };

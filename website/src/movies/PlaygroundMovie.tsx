@@ -27,6 +27,7 @@ import { COMPILER_OPTIONS } from "../compiler/COMPILER_OPTIONS";
 import { PLAYGROUND_DEFAULT_SCRIPT } from "../components/playground/PLAYGROUND_DEFAULT_SCRIPT";
 import external from "../raw/external.json";
 import { ITransformOptions } from "typia/lib/transformers/ITransformOptions";
+import { PlaygroundExampleStorage } from "../compiler/PlaygroundExampleStorage";
 
 const PlaygroundMovie = () => {
   const [source, setSource] = useState<string | null>(null);
@@ -186,10 +187,10 @@ const PlaygroundMovie = () => {
         {source !== null && (
           <SourceEditor
             options={COMPILER_OPTIONS}
-            imports={Object.entries(external).map(([Key, value]) => [
-              `file:///${Key}`,
-              value,
-            ])}
+            imports={Object.entries({
+              ...external,
+              ...PlaygroundExampleStorage,
+            }).map(([Key, value]) => [`file:///${Key}`, value])}
             script={source}
             setScript={handleChange}
           />
