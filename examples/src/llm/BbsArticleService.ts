@@ -1,11 +1,8 @@
 import { tags } from "typia";
-import { v4 } from "uuid";
 
 import { IBbsArticle } from "./IBbsArticle";
 
-export class BbsArticleService {
-  private readonly articles: IBbsArticle[] = [];
-
+export declare class BbsArticleService {
   /**
    * Get all articles.
    *
@@ -13,9 +10,7 @@ export class BbsArticleService {
    *
    * @returns List of every articles
    */
-  public index(): IBbsArticle[] {
-    return this.articles;
-  }
+  public index(): IBbsArticle[];
 
   /**
    * Create a new article.
@@ -26,22 +21,9 @@ export class BbsArticleService {
    * @returns Newly created article
    */
   public create(props: {
-    /**
-     * Information of the article to create
-     */
+    /** Information of the article to create */
     input: IBbsArticle.ICreate;
-  }): IBbsArticle {
-    const article: IBbsArticle = {
-      id: v4(),
-      title: props.input.title,
-      body: props.input.body,
-      thumbnail: props.input.thumbnail,
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString(),
-    };
-    this.articles.push(article);
-    return article;
-  }
+  }): IBbsArticle;
 
   /**
    * Update an article.
@@ -52,27 +34,12 @@ export class BbsArticleService {
    * @param input New content to update
    */
   public update(props: {
-    /**
-     * Target article's {@link IBbsArticle.id}.
-     */
+    /** Target article's {@link IBbsArticle.id}. */
     id: string & tags.Format<"uuid">;
 
-    /**
-     * New content to update.
-     */
+    /** New content to update. */
     input: IBbsArticle.IUpdate;
-  }): void {
-    const article: IBbsArticle | undefined = this.articles.find(
-      (a) => a.id === props.id,
-    );
-    if (article === undefined)
-      throw new Error("Unable to find the matched article.");
-    if (props.input.title !== undefined) article.title = props.input.title;
-    if (props.input.body !== undefined) article.body = props.input.body;
-    if (props.input.thumbnail !== undefined)
-      article.thumbnail = props.input.thumbnail;
-    article.updated_at = new Date().toISOString();
-  }
+  }): void;
 
   /**
    * Erase an article.
@@ -82,13 +49,7 @@ export class BbsArticleService {
    * @param props Properties of erase function
    */
   public erase(props: {
-    /**
-     * Target article's {@link IBbsArticle.id}.
-     */
+    /** Target article's {@link IBbsArticle.id}. */
     id: string & tags.Format<"uuid">;
-  }): void {
-    const index: number = this.articles.findIndex((a) => a.id === props.id);
-    if (index === -1) throw new Error("Unable to find the matched article.");
-    this.articles.splice(index, 1);
-  }
+  }): void;
 }
