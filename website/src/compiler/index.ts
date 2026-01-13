@@ -11,6 +11,7 @@ import { ICompilerService } from "./ICompilerService";
 import external from "../raw/external.json";
 import { RollupBundler } from "./RollupBundler";
 import ts from "typescript";
+import { PlaygroundExampleStorage } from "./PlaygroundExampleStorage";
 
 const main = async (): Promise<void> => {
   const worker = new WorkerServer();
@@ -30,6 +31,7 @@ const main = async (): Promise<void> => {
         }),
       });
       const result: IEmbedTypeScriptResult = compiler.compile({
+        ...PlaygroundExampleStorage,
         "src/index.ts": props.source,
       });
       return result.type === "success"
@@ -66,6 +68,7 @@ const main = async (): Promise<void> => {
         }),
       });
       const result: IEmbedTypeScriptTransformation = compiler.transform({
+        ...PlaygroundExampleStorage,
         "src/index.ts": props.source,
       });
       return result.type === "success"
