@@ -15,8 +15,6 @@
   "devDependencies": {
     "typia": "../../typia.tgz",
     "@autobe/interface": "latest",
-    "@samchon/openapi": "latest",
-    "@types/uuid": "latest",
-    "uuid": "latest"
+    "@samchon/openapi": "latest"
   }
 }
