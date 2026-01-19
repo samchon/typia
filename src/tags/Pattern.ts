@@ -13,20 +13,42 @@ import { TagBase } from "./TagBase";
  * type HexColor = string & Pattern<"^#[0-9A-Fa-f]{6}$">; // #FF5733
  * ```
  *
+ * You can also specify regex flags as a second parameter:
+ *
+ * ```ts
+ * // Case-insensitive matching
+ * type CaseInsensitive = string & Pattern<"^hello$", "i">;
+ *
+ * // Unicode property escapes (requires 'u' flag)
+ * type Identifier = string & Pattern<"^[\\p{ID_Start}_$][\\p{ID_Continue}_$]*$", "u">;
+ * ```
+ *
+ * Supported flags: `d`, `g`, `i`, `m`, `s`, `u`, `v`, `y` (can be combined)
+ *
  * Note: This tag is mutually exclusive with the Format tag. You cannot use both
  * Pattern and Format on the same type.
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export type Pattern<Value extends string> = TagBase<{
+export type Pattern<
+  Value extends string,
+  Flags extends string = "",
+> = TagBase<{
   target: "string";
   kind: "pattern";
   value: Value;
-  validate: `RegExp("${Serialize<Value>}").test($input)`;
+  validate: Flags extends ""
+    ? `RegExp("${Serialize<Value>}").test($input)`
+    : `RegExp("${Serialize<Value>}", "${Flags}").test($input)`;
   exclusive: ["format", "pattern"];
-  schema: {
-    pattern: Value;
-  };
+  schema: Flags extends ""
+    ? {
+        pattern: Value;
+      }
+    : {
+        pattern: Value;
+        "x-pattern-flags": Flags;
+      };
 }>;
 
 /// reference: https://github.com/type-challenges/type-challenges/issues/22394#issuecomment-1397158205

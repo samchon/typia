@@ -524,21 +524,56 @@ const PARSER: Record<
       ],
     };
   },
-  pattern: ({ value }) => ({
-    string: [
-      {
-        name: `Pattern<${JSON.stringify(value)}>`,
-        target: "string",
-        kind: "pattern",
-        value: value,
-        validate: `RegExp(${JSON.stringify(value)}).test($input)`,
-        exclusive: ["format"],
-        schema: {
-          pattern: value,
+  pattern: ({ value }) => {
+    // Support regex literal syntax: /pattern/flags
+    const match = value.match(/^\/(.*)\/([dgimsuy]*)$/);
+    if (match !== null) {
+      const [, pattern, flags] = match;
+      return {
+        string: [
+          {
+            name:
+              flags === ""
+                ? `Pattern<${JSON.stringify(pattern)}>`
+                : `Pattern<${JSON.stringify(pattern)}, ${JSON.stringify(flags)}>`,
+            target: "string",
+            kind: "pattern",
+            value: pattern,
+            validate:
+              flags === ""
+                ? `RegExp(${JSON.stringify(pattern)}).test($input)`
+                : `RegExp(${JSON.stringify(pattern)}, ${JSON.stringify(flags)}).test($input)`,
+            exclusive: ["format"],
+            schema:
+              flags === ""
+                ? {
+                    pattern: pattern,
+                  }
+                : {
+                    pattern: pattern,
+                    "x-pattern-flags": flags,
+                  },
+          },
+        ],
+      };
+    }
+    // Legacy format: just the pattern (no flags)
+    return {
+      string: [
+        {
+          name: `Pattern<${JSON.stringify(value)}>`,
+          target: "string",
+          kind: "pattern",
+          value: value,
+          validate: `RegExp(${JSON.stringify(value)}).test($input)`,
+          exclusive: ["format"],
+          schema: {
+            pattern: value,
+          },
         },
-      },
-    ],
-  }),
+      ],
+    };
+  },
   length: (props) => ({
     string: [
       {
