@@ -53,10 +53,12 @@ export type Type<
   exclusive: true;
   schema: Value extends "uint32" | "uint64"
     ? {
+        format: Value;
         type: "integer";
         minimum: 0;
       }
     : {
+        format: Value;
         type: Value extends "int32" | "uint32" | "int64" | "uint64"
           ? "integer"
           : "number";
