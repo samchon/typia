@@ -1,7 +1,15 @@
 packages:
+  - 'internals/*'
   - 'packages/*'
-  - 'test'
-  - 'test-error'
-  - 'test-esm'
-  - 'benchmark'
-  - 'examples'
+  - 'test/*'
+catalogs:
+  typescript:
+    ts-node: ^10.9.2
+    ts-patch: ^3.3.0
+    typescript: ~5.9.3
+  utils:
+    '@types/node': ^25.0.10
+    '@types/uuid': ^11.0.0
+    openai: ^6.16.0
+    rimraf: ^6.1.2
+    uuid: ^13.0.0

@@ -1,8 +1,0 @@
-syntax = "proto3";
-
-message ObjectHttpAtomic {
-  required bool boolean = 1;
-  required int64 bigint = 2;
-  required double number = 3;
-  required string string = 4;
-}
