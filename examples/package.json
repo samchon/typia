@@ -22,16 +22,15 @@
   },
   "homepage": "https://typia.io",
   "devDependencies": {
-    "@types/node": "^20.9.4",
-    "@types/uuid": "^10.0.0",
-    "prettier": "^3.2.5",
-    "rimraf": "^5.0.5",
-    "ts-patch": "^3.3.0",
-    "typescript": "~5.9.2"
+    "@types/node": "catalog:utils",
+    "@types/uuid": "catalog:utils",
+    "rimraf": "catalog:utils",
+    "ts-patch": "catalogs:typescript",
+    "typescript": "catalogs:typescript"
   },
   "dependencies": {
-    "openai": "^4.90.0",
+    "openai": "catalog:utils",
     "typia": "workspace:^",
-    "uuid": "^9.0.1"
+    "uuid": "catalog:utils"
   }
 }

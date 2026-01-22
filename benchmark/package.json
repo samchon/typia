@@ -36,9 +36,9 @@
     "@types/body-parser": "^1.19.5",
     "@types/d3": "^7.4.0",
     "@types/express": "^4.17.14",
-    "@types/node": "^18.15.12",
+    "@types/node": "catalog:utils",
     "@types/physical-cpu-count": "^2.0.0",
-    "@types/uuid": "^8.3.4",
+    "@types/uuid": "catalog:utils",
     "ajv": "^8.12.0",
     "autocannon": "^7.10.0",
     "benchmark": "^2.1.4",
@@ -61,8 +61,8 @@
     "ts-node": "^10.9.1",
     "ts-patch": "^3.3.0",
     "tstl": "^3.0.0",
-    "typescript": "~5.9.2",
-    "uuid": "^8.3.2",
+    "typescript": "catalog:typescript",
+    "uuid": "catalog:typescript",
     "zod": "^3.19.1"
   },
   "dependencies": {
@@ -72,6 +72,6 @@
     "suppress-warnings": "^1.0.2",
     "tstl": "^3.0.0",
     "typia": "workspace:^",
-    "uuid": "^9.0.1"
+    "uuid": "catalog:utils"
   }
 }

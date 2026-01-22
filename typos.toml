@@ -12,6 +12,5 @@ typia = "typia"
 
 [files]
 extend-exclude = [
-  "test/schemas", 
   "examples/bin",
 ]
