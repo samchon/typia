@@ -62,7 +62,7 @@
     "ts-patch": "^3.3.0",
     "tstl": "^3.0.0",
     "typescript": "catalog:typescript",
-    "uuid": "catalog:typescript",
+    "uuid": "catalog:utils",
     "zod": "^3.19.1"
   },
   "dependencies": {
