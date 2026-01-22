@@ -1,10 +1,7 @@
 packages:
-  - 'benchmark'
-  - 'examples'
+  - 'internals/*'
   - 'packages/*'
-  - 'test'
-  - 'test-error'
-  - 'test-esm'
+  - 'test/*'
 catalogs:
   typescript:
     ts-node: ^10.9.2
