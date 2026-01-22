@@ -14,6 +14,8 @@ export const json_schema_jsDocTags = <Schema extends OpenApi.IJsonSchema>(
       .map((s) => s.text.split("\r\n").join("\n"))[0];
     if (value === undefined) continue;
     else (schema as any)[tag.name] = cast(value);
+
+    console.log(tag);
   }
   return schema;
 };

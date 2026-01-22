@@ -13,8 +13,8 @@ export const test_pr_1714_json_schema_plugin_by_jsDocTags = (): void => {
     throw new Error("Generated JSON schema for ISomething is not an object.");
 
   TestValidator.equals("x-autobe-database-schema")(
-    (something.properties?.id as any)?.["x-autobe-database-schema"],
-  )("something");
+    (something as any)?.["x-autobe-database-schema"],
+  )("somethings");
   TestValidator.equals("x-custom-tag")(
     (something.properties?.id as any)?.["x-custom-tag"],
   )(3);
