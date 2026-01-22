@@ -3,6 +3,7 @@ import { OpenApi } from "@samchon/openapi";
 import { MetadataAlias } from "../../schemas/metadata/MetadataAlias";
 
 import { json_schema_description } from "./json_schema_description";
+import { json_schema_jsDocTags } from "./json_schema_jsDocTags";
 import { json_schema_object } from "./json_schema_object";
 import { json_schema_station } from "./json_schema_station";
 import { json_schema_title } from "./json_schema_title";
@@ -40,8 +41,10 @@ export const json_schema_alias = <BlockNever extends boolean>(props: {
       },
       metadata: props.alias.type.value,
     });
-    if (schema !== null)
+    if (schema !== null) {
+      json_schema_jsDocTags(schema, props.alias.type.jsDocTags);
       Object.assign(props.components.schemas[props.alias.type.name]!, schema);
+    }
   }
   return [{ $ref }];
 };
