@@ -11,7 +11,7 @@ export const json_schema_jsDocTags = <Schema extends OpenApi.IJsonSchema>(
 
     const value: string | undefined = tag.text
       ?.filter((s) => s.kind === "text")
-      .map((s) => s.text)[0];
+      .map((s) => s.text.split("\r\n").join("\n"))[0];
     if (value === undefined) continue;
     else (schema as any)[tag.name] = cast(value);
   }
