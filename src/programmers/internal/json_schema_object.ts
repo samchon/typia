@@ -9,6 +9,7 @@ import { MetadataObject } from "../../schemas/metadata/MetadataObject";
 import { PatternUtil } from "../../utils/PatternUtil";
 
 import { json_schema_description } from "./json_schema_description";
+import { json_schema_jsDocTags } from "./json_schema_jsDocTags";
 import { json_schema_plugin } from "./json_schema_plugin";
 import { json_schema_station } from "./json_schema_station";
 import { json_schema_title } from "./json_schema_title";
@@ -66,8 +67,7 @@ const create_object_schema = (props: {
       continue;
     else if (property.jsDocTags.find((tag) => tag.name === "hidden")) continue; // THE HIDDEN TAG
 
-    const key: string | null = property.key.getSoleLiteral();
-    const schema: OpenApi.IJsonSchema | null = json_schema_station({
+    const value: OpenApi.IJsonSchema | null = json_schema_station({
       blockNever: true,
       components: props.components,
       attribute: {
@@ -80,10 +80,12 @@ const create_object_schema = (props: {
       },
       metadata: property.value,
     });
+    if (value === null) continue;
+    else json_schema_jsDocTags(value, property.jsDocTags);
 
-    if (schema === null) continue;
+    const key: string | null = property.key.getSoleLiteral();
     if (key !== null) {
-      properties[key] = schema;
+      properties[key] = value;
       if (property.value.isRequired() === true) required.push(key);
     } else {
       const pattern: string = metadata_to_pattern({
@@ -91,27 +93,29 @@ const create_object_schema = (props: {
         metadata: property.key,
       });
       if (pattern === PatternUtil.STRING)
-        extraMeta.additionalProperties = [property.value, schema];
-      else extraMeta.patternProperties[pattern] = [property.value, schema];
+        extraMeta.additionalProperties = [property.value, value];
+      else extraMeta.patternProperties[pattern] = [property.value, value];
     }
   }
 
-  return {
-    type: "object",
-    properties,
-    required,
-    title: (() => {
-      const info: IJsDocTagInfo | undefined = props.object.type.jsDocTags.find(
-        (tag) => tag.name === "title",
-      );
-      return info?.text?.length ? CommentFactory.merge(info.text) : undefined;
-    })(),
-    description: json_schema_description(props.object.type),
-    additionalProperties: join({
-      components: props.components,
-      extra: extraMeta,
-    }),
-  };
+  return json_schema_jsDocTags(
+    {
+      type: "object",
+      properties,
+      required,
+      title: (() => {
+        const info: IJsDocTagInfo | undefined =
+          props.object.type.jsDocTags.find((tag) => tag.name === "title");
+        return info?.text?.length ? CommentFactory.merge(info.text) : undefined;
+      })(),
+      description: json_schema_description(props.object.type),
+      additionalProperties: join({
+        components: props.components,
+        extra: extraMeta,
+      }),
+    },
+    props.object.type.jsDocTags,
+  );
 };
 
 /** @internal */
