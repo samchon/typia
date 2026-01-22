@@ -21,6 +21,9 @@ export const test_pr_1714_json_schema_plugin_by_jsDocTags = (): void => {
   TestValidator.equals("x-valid")(
     (something.properties?.id as any)?.["x-valid"],
   )(true);
+  TestValidator.equals("regular tag")(
+    (something.properties?.id as any)?.["regular"],
+  )(undefined);
 };
 
 /**
@@ -35,6 +38,7 @@ interface ISomething {
    * @x-autobe-database-schema-member id
    * @x-custom-tag 3
    * @x-valid true
+   * @regular This is a regular tag and should be ignored.
    */
   id: string;
 }
