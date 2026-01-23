@@ -15,6 +15,9 @@ export const test_pr_1714_json_schema_plugin_by_jsDocTags = (): void => {
   TestValidator.equals("x-autobe-database-schema")(
     (something as any)?.["x-autobe-database-schema"],
   )("somethings");
+  TestValidator.equals("x-null-value")(
+    (something.properties?.id as any)?.["x-null-value"],
+  )(null);
   TestValidator.equals("x-custom-tag")(
     (something.properties?.id as any)?.["x-custom-tag"],
   )(3);
@@ -36,6 +39,7 @@ interface ISomething {
    * Primary Key.
    *
    * @x-autobe-database-schema-member id
+   * @x-null-value null
    * @x-custom-tag 3
    * @x-valid true
    * @regular This is a regular tag and should be ignored.

@@ -18,10 +18,10 @@ export const json_schema_jsDocTags = <Schema extends OpenApi.IJsonSchema>(
   return schema;
 };
 
-const cast = (value: string): string | number | boolean => {
+const cast = (value: string): string | number | boolean | null => {
   if (value === "true") return true;
   if (value === "false") return false;
   const num: number = Number(value);
   if (Number.isNaN(num) === false) return num;
-  return value;
+  return value === "null" ? null : value;
 };
