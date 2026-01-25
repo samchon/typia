@@ -119,7 +119,9 @@ export namespace LlmSchemaComposer {
           });
         else if (OpenApiTypeChecker.isReference(next)) {
           // UNABLE TO FIND MATCHED REFERENCE
-          const key: string = next.$ref.split("#/components/schemas/")[1];
+          const key: string =
+            next.$ref.split("#/components/schemas/")[1] ??
+            next.$ref.split("/").at(-1)!;
           if (props.components.schemas?.[key] === undefined)
             reasons.push({
               schema: next,
@@ -173,7 +175,9 @@ export namespace LlmSchemaComposer {
         input.oneOf.forEach((s, i) => visit(s, `${accessor}.oneOf[${i}]`));
       } else if (OpenApiTypeChecker.isReference(input)) {
         // REFERENCE TYPE
-        const key: string = input.$ref.split("#/components/schemas/")[1];
+        const key: string =
+          input.$ref.split("#/components/schemas/")[1] ??
+          input.$ref.split("/").at(-1)!;
         const target: OpenApi.IJsonSchema | undefined =
           props.components.schemas?.[key];
         if (target === undefined) return;
@@ -365,9 +369,10 @@ export namespace LlmSchemaComposer {
           ...attribute,
           ...union[0],
           description:
-            props.config.strict === true && LlmTypeChecker.isReference(union[0])
+            props.config.strict === true &&
+            LlmTypeChecker.isReference(union[0]!)
               ? undefined
-              : (union[0].description ?? attribute.description),
+              : (union[0]!.description ?? attribute.description),
         },
       };
     return {
@@ -601,7 +606,9 @@ export namespace LlmSchemaComposer {
     $defs: Record<string, ILlmSchema>;
     schema: ILlmSchema.IReference;
   }): [ILlmSchema.IReference | null, ILlmSchema.IReference | null] => {
-    const key: string = props.schema.$ref.split("#/$defs/")[1];
+    const key: string =
+      props.schema.$ref.split("#/$defs/")[1] ??
+      props.schema.$ref.split("/").at(-1)!;
     const humanKey: string = props.convention(key, "human");
     const llmKey: string = props.convention(key, "llm");
 
@@ -720,7 +727,8 @@ export namespace LlmSchemaComposer {
         });
       else if (LlmTypeChecker.isAnyOf(schema)) schema.anyOf.forEach(visit);
       else if (LlmTypeChecker.isReference(schema)) {
-        const key: string = schema.$ref.split("#/$defs/")[1];
+        const key: string =
+          schema.$ref.split("#/$defs/")[1] ?? schema.$ref.split("/").at(-1)!;
         if (props.components.schemas?.[key] === undefined) {
           props.components.schemas ??= {};
           props.components.schemas[key] = {};

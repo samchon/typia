@@ -119,7 +119,7 @@ const _Propagate = async (
       response.headers.get("Content-Type") ??
       ""
     )
-      .split(";")[0]
+      .split(";")[0]!
       .trim();
     if (type === "" || type.startsWith("text/"))
       return out(await response.text());

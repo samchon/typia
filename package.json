@@ -54,5 +54,10 @@
     "gemini",
     "llama"
   ],
-  "packageManager": "pnpm@10.6.4"
+  "packageManager": "pnpm@10.6.4",
+  "dependencies": {
+    "@trivago/prettier-plugin-sort-imports": "^6.0.2",
+    "prettier": "^3.8.1",
+    "prettier-plugin-jsdoc": "^1.8.0"
+  }
 }

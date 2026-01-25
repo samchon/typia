@@ -307,7 +307,7 @@ export namespace SwaggerV2Upgrader {
         if (TypeChecker.isAnyOf(schema)) schema["x-anyOf"].forEach(visit);
         else if (TypeChecker.isOneOf(schema)) schema["x-oneOf"].forEach(visit);
         else if (TypeChecker.isAllOf(schema))
-          if (schema.allOf.length === 1) visit(schema.allOf[0]);
+          if (schema.allOf.length === 1) visit(schema.allOf[0]!);
           else union.push(convertAllOfSchema(definitions)(schema));
         // ATOMIC TYPE CASE (CONSIDER ENUM VALUES)
         else if (
@@ -446,7 +446,7 @@ export namespace SwaggerV2Upgrader {
       ) {
         const type: OpenApi.IJsonSchema = union.filter(
           (x) => OpenApiTypeChecker.isNull(x) === false,
-        )[0];
+        )[0]!;
         for (const key of [
           "title",
           "description",

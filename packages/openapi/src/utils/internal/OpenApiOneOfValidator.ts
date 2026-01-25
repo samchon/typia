@@ -75,7 +75,7 @@ export namespace OpenApiOneOfValidator {
       return {
         branches: [
           {
-            schema: significant[0].schema,
+            schema: significant[0]!.schema,
             predicator: (value) => value !== null,
           },
         ],
@@ -124,7 +124,7 @@ export namespace OpenApiOneOfValidator {
     if (arraySchemas.length === 1)
       return [
         {
-          schema: arraySchemas[0].schema,
+          schema: arraySchemas[0]!.schema,
           predicator: (value) => Array.isArray(value),
         },
       ];
@@ -167,7 +167,7 @@ export namespace OpenApiOneOfValidator {
     if (objectSchemas.length === 1)
       return [
         {
-          schema: objectSchemas[0].schema,
+          schema: objectSchemas[0]!.schema,
           predicator: noArray
             ? (value) => typeof value === "object" && value !== null
             : (value) =>
@@ -242,9 +242,9 @@ export namespace OpenApiOneOfValidator {
         if (candidates.length === 0) return null;
         const top: string =
           candidates.find((key) =>
-            OpenApiTypeChecker.isConstant(obj.escaped.properties![key]),
-          ) ?? candidates[0];
-        const target: OpenApi.IJsonSchema = obj.escaped.properties![top];
+            OpenApiTypeChecker.isConstant(obj.escaped.properties![key]!),
+          ) ?? candidates[0]!;
+        const target: OpenApi.IJsonSchema = obj.escaped.properties![top]!;
         return {
           schema: obj.schema,
           predicator: OpenApiTypeChecker.isConstant(target)

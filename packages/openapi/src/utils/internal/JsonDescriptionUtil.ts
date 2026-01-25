@@ -9,9 +9,10 @@ export namespace JsonDescriptionUtil {
     schema: OpenApi.IJsonSchema.IReference;
     escape: boolean;
   }): string | undefined => {
-    const accessors: string[] = props.schema.$ref
-      .split(props.prefix)[1]
-      .split(".");
+    const accessors: string[] = (
+      props.schema.$ref.split(props.prefix)[1] ??
+      props.schema.$ref.split("/").at(-1)!
+    ).split(".");
     const pReferences: IParentReference[] = accessors
       .slice(0, props.escape ? accessors.length : accessors.length - 1)
       .map((_, i, array) => array.slice(0, i + 1).join("."))

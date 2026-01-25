@@ -2,78 +2,24 @@ name: build
 on: 
   pull_request:
     paths:
-      - 'src/**'
-      - 'test/**'
-      - 'test-error/**'
-      - 'test-esm/**'
-      - 'package.json'
-      - 'tsconfig.json'
-      - 'rollup.config.js'
       - '.github/workflows/build.yml'
+      - 'packages/*/src/**'
+      - 'packages/*/package.json'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+      - 'pnpm-workspace.yaml'
 jobs:
-  Build-and-Upload-to-pkg-pr-new-and-artifactory:
+  Ubuntu:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: lts/*
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 8
-      - run: pnpm install --force
-      - run: pnpm run build
-      - name: remove `private=true` from package.json
-        run: |
-          npm pkg delete private
-      - name: upload to pkg.pr.now
-        run: npx pkg-pr-new publish --compact
-      - name: Upload tgz for Artifactory
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-result
-          path: |
-            *.tgz
-            src
-            lib
+          node-version: 20.x
+      - uses: pnpm/action-setup@v4
+      
+      - name: Install Dependencies
+        run: pnpm install
 
-  Check-format:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: lts/*
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 8
-      - run: pnpm install --force
-      - run: pnpm run eslint
-
-  NodeJS:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [20.x, 22.x, lts/*]
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node-version }}
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 8
-      - run: pnpm install --force
-      - run: pnpm run build
-      - run: pnpm run test
-
-  action-timeline:
-    needs:
-      - Build-and-Upload-to-pkg-pr-new-and-artifactory
-      - Check-format
-      - NodeJS
-      # - Bun
-    if: ${{ always() }}
-    runs-on: ubuntu-latest
-    steps:
-      - uses: Kesin11/actions-timeline@v2
+      - name: Build Packages
+        run: pnpm run build

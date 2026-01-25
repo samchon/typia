@@ -81,7 +81,9 @@ export namespace OpenApiTypeCheckerBase {
     schema: OpenApi.IJsonSchema;
   }): boolean => {
     if (isReference(props.schema) === false) return false;
-    const current: string = props.schema.$ref.split(props.prefix)[1];
+    const current: string =
+      props.schema.$ref.split(props.prefix)[1] ??
+      props.schema.$ref.split("/").at(-1)!;
     let counter: number = 0;
     visit({
       prefix: props.prefix,
@@ -89,7 +91,9 @@ export namespace OpenApiTypeCheckerBase {
       schema: props.schema,
       closure: (schema) => {
         if (isReference(schema)) {
-          const next: string = schema.$ref.split(props.prefix)[1];
+          const next: string =
+            schema.$ref.split(props.prefix)[1] ??
+            schema.$ref.split("/").at(-1)!;
           if (current === next) ++counter;
         }
       },
@@ -279,7 +283,9 @@ export namespace OpenApiTypeCheckerBase {
   }): OpenApi.IJsonSchema | null | undefined => {
     if (isReference(props.schema)) {
       // REFERENCE
-      const key: string = props.schema.$ref.split(props.prefix)[1];
+      const key: string =
+        props.schema.$ref.split(props.prefix)[1] ??
+        props.schema.$ref.split("/").at(-1)!;
       const target: OpenApi.IJsonSchema | undefined =
         props.components.schemas?.[key];
       if (target === undefined) {

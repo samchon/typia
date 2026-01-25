@@ -92,7 +92,7 @@ export namespace HttpMigrateRouteAccessor {
           children: new Set(),
           entries: [],
         }));
-        if (namespace.length) top.children.add(namespace[0]);
+        if (namespace.length) top.children.add(namespace[0]!);
       }
       return dict;
     };

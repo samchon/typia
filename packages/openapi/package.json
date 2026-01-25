@@ -2,9 +2,7 @@
   "name": "@samchon/openapi",
   "version": "6.0.0",
   "description": "Universal OpenAPI to LLM function calling schemas. Transform any Swagger/OpenAPI document into type-safe schemas for OpenAI, Claude, Qwen, and more.",
-  "main": "./lib/index.js",
-  "module": "./lib/index.mjs",
-  "typings": "./lib/index.d.ts",
+  "main": "src/index.ts",
   "scripts": {
     "prepare": "ts-patch install",
     "build": "rimraf lib && tsc && rollup -c && ts-node build/post.ts",
@@ -51,6 +49,7 @@
     "rollup": "^4.18.1",
     "rollup-plugin-auto-external": "^2.0.0",
     "tinyglobby": "^0.2.10",
+    "ts-node": "catalog:typescript",
     "ts-patch": "catalog:typescript",
     "typescript": "catalog:typescript"
   },
@@ -69,5 +68,10 @@
     "onlyBuiltDependencies": [
       "@nestjs/core"
     ]
+  },
+  "publishConfig": {
+    "main": "./lib/index.js",
+    "module": "./lib/index.mjs",
+    "typings": "./lib/index.d.ts"
   }
 }
