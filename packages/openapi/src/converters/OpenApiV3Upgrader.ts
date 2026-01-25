@@ -285,7 +285,7 @@ export namespace OpenApiV3Upgrader {
         if (TypeChecker.isAnyOf(schema)) schema.anyOf.forEach(visit);
         else if (TypeChecker.isOneOf(schema)) schema.oneOf.forEach(visit);
         else if (TypeChecker.isAllOf(schema))
-          if (schema.allOf.length === 1) visit(schema.allOf[0]);
+          if (schema.allOf.length === 1) visit(schema.allOf[0]!);
           else union.push(convertAllOfSchema(components)(schema));
         // ATOMIC TYPE CASE (CONSIDER ENUM VALUES)
         else if (
@@ -392,7 +392,7 @@ export namespace OpenApiV3Upgrader {
       ) {
         const type: OpenApi.IJsonSchema = union.filter(
           (x) => OpenApiTypeChecker.isNull(x) === false,
-        )[0];
+        )[0]!;
         for (const key of [
           "title",
           "description",

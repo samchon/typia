@@ -25,8 +25,8 @@
     "@types/node": "catalog:utils",
     "@types/uuid": "catalog:utils",
     "rimraf": "catalog:utils",
-    "ts-patch": "catalogs:typescript",
-    "typescript": "catalogs:typescript"
+    "ts-patch": "catalog:typescript",
+    "typescript": "catalog:typescript"
   },
   "dependencies": {
     "openai": "catalog:utils",

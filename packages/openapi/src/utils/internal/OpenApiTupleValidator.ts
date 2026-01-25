@@ -14,7 +14,7 @@ export namespace OpenApiTupleValidator {
         .map((v, i) =>
           OpenApiStationValidator.validate({
             ...ctx,
-            schema: ctx.schema.prefixItems[i],
+            schema: ctx.schema.prefixItems[i]!,
             value: v,
             path: `${ctx.path}[${i}]`,
           }),
@@ -42,7 +42,7 @@ export namespace OpenApiTupleValidator {
           i < ctx.schema.prefixItems.length
             ? OpenApiStationValidator.validate({
                 ...ctx,
-                schema: ctx.schema.prefixItems[i],
+                schema: ctx.schema.prefixItems[i]!,
                 value: v,
                 path: `${ctx.path}[${i}]`,
               })

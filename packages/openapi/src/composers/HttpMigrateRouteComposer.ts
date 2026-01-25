@@ -117,7 +117,7 @@ export namespace HttpMigrateRouteComposer {
         }) satisfies IHttpMigrateRoute.IHeaders;
 
       if (objects.length === 1 && primitives.length === 0)
-        return out(parameters[0]);
+        return out(parameters[0]!);
       else if (objects.length > 1) {
         failures.push(`${type} typed parameters must be only one object type`);
         return false;
@@ -245,9 +245,9 @@ export namespace HttpMigrateRouteComposer {
       .filter((p) => p.in === "path")
       .map((p, i) => ({
         // FILL KEY NAME IF NOT EXISTS
-        name: parameterNames[i],
+        name: parameterNames[i]!,
         key: (() => {
-          let key: string = EndpointUtil.normalize(parameterNames[i]);
+          let key: string = EndpointUtil.normalize(parameterNames[i]!);
           if (Escaper.variable(key)) return key;
           while (true) {
             key = "_" + key;
@@ -266,9 +266,9 @@ export namespace HttpMigrateRouteComposer {
         .filter((p) => p.in === "path")
         .map((p, i) => ({
           // FILL KEY NAME IF NOT EXISTS
-          name: parameterNames[i],
+          name: parameterNames[i]!,
           key: (() => {
-            let key: string = EndpointUtil.normalize(parameterNames[i]);
+            let key: string = EndpointUtil.normalize(parameterNames[i]!);
             if (Escaper.variable(key)) return key;
             while (true) {
               key = "_" + key;
