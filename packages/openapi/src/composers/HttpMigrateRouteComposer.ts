@@ -316,11 +316,7 @@ export namespace HttpMigrateRouteComposer {
     query: IHttpMigrateRoute.IQuery | null;
     body: IHttpMigrateRoute.IBody | null;
   }): string => {
-    const commentTags: string[] = [];
-    const add = (text: string) => {
-      if (commentTags.every((line) => line !== text)) commentTags.push(text);
-    };
-
+    // write basic description combining with summary
     let description: string = props.operation.description ?? "";
     if (!!props.operation.summary?.length) {
       const summary: string = props.operation.summary.endsWith(".")
@@ -337,6 +333,15 @@ export namespace HttpMigrateRouteComposer {
       .map((s) => s.trim())
       .join("\n");
 
+    //----
+    // compose jsdoc comment tags
+    //----
+    const commentTags: string[] = [];
+    const add = (text: string) => {
+      if (commentTags.every((line) => line !== text)) commentTags.push(text);
+    };
+
+    // parameters
     add("@param connection");
     for (const p of props.parameters ?? []) {
       const param = p.parameter();
@@ -347,12 +352,33 @@ export namespace HttpMigrateRouteComposer {
     }
     if (props.body?.description()?.length)
       add(`@param body ${writeIndented(props.body.description()!, 12)}`);
+
+    // security
     for (const security of props.operation.security ?? [])
       for (const [name, scopes] of Object.entries(security))
         add(`@security ${[name, ...scopes].join("")}`);
+
+    // categorizing tags
     if (props.operation.tags)
       props.operation.tags.forEach((name) => add(`@tag ${name}`));
+
+    // deprecated
     if (props.operation.deprecated) add("@deprecated");
+
+    // plugin properties
+    for (const [key, value] of Object.entries(props.operation)) {
+      if (key.startsWith("x-") === false) continue;
+      else if (
+        value !== null &&
+        typeof value !== "boolean" &&
+        typeof value !== "number" &&
+        typeof value !== "string"
+      )
+        continue;
+      add(`@${key} ${value}`);
+    }
+
+    // finalize description
     description = description.length
       ? commentTags.length
         ? `${description}\n\n${commentTags.join("\n")}`
