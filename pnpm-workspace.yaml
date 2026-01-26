@@ -7,6 +7,14 @@ catalogs:
     ts-node: ^10.9.2
     ts-patch: ^3.3.0
     typescript: ~5.9.3
+  rollup:
+    rollup: ^4.56.0
+    rollup-plugin-auto-external: ^2.0.0
+    rollup-plugin-node-externals: ^8.1.2
+    '@rollup/plugin-commonjs': ^29.0.0
+    '@rollup/plugin-node-resolve': ^16.0.3
+    '@rollup/plugin-terser': ^0.4.4
+    '@rollup/plugin-typescript': ^12.3.0
   utils:
     '@types/node': ^25.0.10
     '@types/uuid': ^11.0.0
