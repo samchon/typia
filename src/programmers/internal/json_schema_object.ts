@@ -67,7 +67,10 @@ const create_object_schema = (props: {
       continue;
     else if (
       property.jsDocTags.find(
-        (tag) => tag.name === "hidden" || tag.name === "ignore",
+        (tag) =>
+          tag.name === "hidden" ||
+          tag.name === "ignore" ||
+          tag.name === "internal",
       )
     )
       continue; // THE HIDDEN/IGNORE TAG
