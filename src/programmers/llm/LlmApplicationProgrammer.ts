@@ -178,7 +178,10 @@ export namespace LlmApplicationProgrammer {
           .filter(
             (p) =>
               p.jsDocTags.find(
-                (tag) => tag.name === "hidden" || tag.name === "internal",
+                (tag) =>
+                  tag.name === "hidden" ||
+                  tag.name === "internal" ||
+                  tag.name === "ignore",
               ) === undefined,
           )
           .map((p) => [
