@@ -65,7 +65,15 @@ const create_object_schema = (props: {
       property.value.size() === 0
     )
       continue;
-    else if (property.jsDocTags.find((tag) => tag.name === "hidden")) continue; // THE HIDDEN TAG
+    else if (
+      property.jsDocTags.find(
+        (tag) =>
+          tag.name === "hidden" ||
+          tag.name === "ignore" ||
+          tag.name === "internal",
+      )
+    )
+      continue; // THE HIDDEN/IGNORE/INTERNAL TAGS
 
     const value: OpenApi.IJsonSchema | null = json_schema_station({
       blockNever: true,
