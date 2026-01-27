@@ -1,14 +1,12 @@
 //================================================================
-
 /**
- * TSTL - TypeScript Standard Template Library
- *
  * @packageDocumentation
- * @module std
- * @preferred
+ * @module std.internal
  */
 //================================================================
-import * as std from "./module";
-
-export default std;
-export * from "./module";
+export interface IEmpty {
+  /**
+   * Test whether container is empty.
+   */
+  empty(): boolean;
+}

@@ -1,14 +1,11 @@
 //================================================================
-
 /**
- * TSTL - TypeScript Standard Template Library
- *
  * @packageDocumentation
- * @module std
- * @preferred
+ * @module std.experimental
  */
 //================================================================
-import * as std from "./module";
+export * from "./FlatSet";
+export * from "./FlatMultiSet";
 
-export default std;
-export * from "./module";
+export * from "./FlatMap";
+export * from "./FlatMultiMap";

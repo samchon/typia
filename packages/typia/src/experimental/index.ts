@@ -1,14 +1,14 @@
 //================================================================
 
 /**
- * TSTL - TypeScript Standard Template Library
+ * Experimental Features
  *
  * @packageDocumentation
- * @module std
+ * @module std.experimental
  * @preferred
  */
 //================================================================
-import * as std from "./module";
+import * as experimental from "./module";
 
-export default std;
+export default experimental;
 export * from "./module";

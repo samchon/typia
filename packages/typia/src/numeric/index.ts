@@ -1,14 +1,11 @@
 //================================================================
-
 /**
- * TSTL - TypeScript Standard Template Library
- *
  * @packageDocumentation
  * @module std
- * @preferred
  */
 //================================================================
-import * as std from "./module";
+export * from "./operators";
+export * from "./operations";
+export * from "./special_math/index";
 
-export default std;
-export * from "./module";
+export * from "./IComputable";
