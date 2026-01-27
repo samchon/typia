@@ -73,7 +73,7 @@ const create_object_schema = (props: {
           tag.name === "internal",
       )
     )
-      continue; // THE HIDDEN/IGNORE TAG
+      continue; // THE HIDDEN/IGNORE/INTERNAL TAGS
 
     const value: OpenApi.IJsonSchema | null = json_schema_station({
       blockNever: true,
