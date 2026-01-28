@@ -24,6 +24,7 @@ export namespace TypiaGenerateWizard {
     action,
   ) => {
     // PREPARE ASSETS
+    command.argument("[files...]", "input .ts files (alternative to --input)");
     command.option("--input [path]", "input directory");
     command.option("--output [directory]", "output directory");
     command.option("--project [project]", "tsconfig.json file location");
@@ -68,7 +69,11 @@ export namespace TypiaGenerateWizard {
     };
 
     return action(async (options) => {
-      options.input ??= await input("input")("input directory");
+      // If files are provided, input directory is not required
+      const hasFiles = options.files && options.files.length > 0;
+      if (!hasFiles) {
+        options.input ??= await input("input")("input directory");
+      }
       options.output ??= await input("output")("output directory");
       options.project ??= await configure();
       return options as IArguments;
@@ -79,5 +84,6 @@ export namespace TypiaGenerateWizard {
     input: string;
     output: string;
     project: string;
+    files?: string[];
   }
 }
