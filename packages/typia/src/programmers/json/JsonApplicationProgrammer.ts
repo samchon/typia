@@ -90,7 +90,10 @@ export namespace JsonApplicationProgrammer {
       .filter(
         (p) =>
           p.jsDocTags.find(
-            (tag) => tag.name === "hidden" || tag.name === "internal",
+            (tag) =>
+              tag.name === "hidden" ||
+              tag.name === "ignore" ||
+              tag.name === "internal",
           ) === undefined &&
           (props.filter === undefined || props.filter(p) === true),
       )
