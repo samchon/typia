@@ -3,7 +3,6 @@
   "name": "@typia/test-transformer",
   "version": "0.1.0",
   "description": "Test program for typia on CJS mode",
-  "main": "bin/index.js",
   "scripts": {
     "build": "rimraf bin && tsc",
     "prepare": "ts-patch install",
