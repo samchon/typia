@@ -34,7 +34,9 @@
   "dependencies": {
     "@nestia/e2e": "catalog:utils",
     "@samchon/openapi": "workspace:^",
+    "@standard-schema/spec": "^1.0.0",
     "chalk": "4.1.2",
+    "protobufjs": "^8.0.0",
     "randexp": "^0.5.3",
     "tstl": "catalog:utils",
     "typia": "workspace:^",

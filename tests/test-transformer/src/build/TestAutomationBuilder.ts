@@ -3,7 +3,7 @@ import fs from "fs";
 
 import { TestGlobal } from "../TestGlobal";
 import { StringUtil } from "../utils/StringUtil";
-import { TestStructure } from "../utils/TestStructure";
+import { TestAutomationMetadata } from "./TestAutomationMetadata";
 import { TestAutomationTemplate } from "./TestAutomationTemplate";
 import { write_common } from "./writers/write_common";
 
@@ -14,23 +14,25 @@ export namespace TestAutomationBuilder {
       await fs.promises.rm(location, { recursive: true, force: true });
     await fs.promises.mkdir(location, { recursive: true });
 
-    const structures: TestStructure<any>[] = await loadStructures();
+    const metadata: TestAutomationMetadata<any>[] = await loadMetadata();
     const templates: TestAutomationTemplate[] = TestAutomationTemplate.DATA;
     for (const tpl of templates)
-      if (tpl.createOnly) await generateFeatureSet(tpl, structures, true);
+      if (tpl.createOnly) await generateFeatureSet(tpl, metadata, true);
       else {
-        await generateFeatureSet(tpl, structures, false);
-        if (tpl.creatable) await generateFeatureSet(tpl, structures, true);
+        await generateFeatureSet(tpl, metadata, false);
+        if (tpl.creatable) await generateFeatureSet(tpl, metadata, true);
       }
   };
 
-  async function loadStructures(): Promise<TestStructure<any>[]> {
+  async function loadMetadata(): Promise<TestAutomationMetadata<any>[]> {
     const path: string = `${TestGlobal.ROOT}/src/structures`;
-    const output: TestStructure<any>[] = [];
+    const output: TestAutomationMetadata<any>[] = [];
 
     for (const file of await fs.promises.readdir(path)) {
       const location: string = `${path}/${file}`;
-      const modulo: Record<string, TestStructure<any>> = await import(location);
+      const modulo: Record<string, TestAutomationMetadata<any>> = await import(
+        location
+      );
       output.push({
         ...Object.values(modulo)[0]!,
         name: file.substring(0, file.length - 3),
@@ -41,17 +43,16 @@ export namespace TestAutomationBuilder {
 
   async function generateFeatureSet(
     template: TestAutomationTemplate,
-    structures: TestStructure<any>[],
+    metadata: TestAutomationMetadata<any>[],
     create: boolean,
   ): Promise<void> {
     const method: string = create
       ? `create${StringUtil.capitalize(template.method)}`
       : template.method;
     const path: string = [
-      __dirname,
-      "..",
+      TestGlobal.ROOT,
       "src",
-      "features",
+      "automated",
       [
         template.prefix ? `${template.prefix}.` : "",
         template.module ? `${template.module}.` : "",
@@ -63,7 +64,7 @@ export namespace TestAutomationBuilder {
     if (fs.existsSync(path)) cp.execSync(`npx rimraf ${path}`);
     await fs.promises.mkdir(path, { recursive: true });
 
-    for (const s of structures) {
+    for (const s of metadata) {
       if (s.generate === undefined) continue;
       else if (template.jsonable && s.JSONABLE === false) continue;
       else if (template.strict && s.ADDABLE === false) continue;
@@ -99,7 +100,7 @@ export namespace TestAutomationBuilder {
   function writeScript(
     feat: TestAutomationTemplate,
     method: string,
-    struct: TestStructure<any>,
+    struct: TestAutomationMetadata<any>,
     create: boolean,
   ): string {
     const content: string = feat.programmer
