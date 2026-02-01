@@ -1,14 +1,7 @@
 //================================================================
-
 /**
- * TSTL - TypeScript Standard Template Library
- *
  * @packageDocumentation
- * @module std
- * @preferred
+ * @module std.ranges
  */
 //================================================================
-import * as std from "./module";
-
-export default std;
-export * from "./module";
+export * from "./operations";

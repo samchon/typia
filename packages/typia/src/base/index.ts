@@ -1,14 +1,14 @@
 //================================================================
 
 /**
- * TSTL - TypeScript Standard Template Library
+ * Basic Features
  *
  * @packageDocumentation
- * @module std
+ * @module std.base
  * @preferred
  */
 //================================================================
-import * as std from "./module";
+import * as base from "./module";
 
-export default std;
+export default base;
 export * from "./module";

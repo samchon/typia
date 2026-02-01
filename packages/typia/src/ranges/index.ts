@@ -1,14 +1,14 @@
 //================================================================
 
 /**
- * TSTL - TypeScript Standard Template Library
+ * Ranged Features
  *
  * @packageDocumentation
- * @module std
+ * @module std.ranges
  * @preferred
  */
 //================================================================
-import * as std from "./module";
+import * as ranges from "./module";
 
-export default std;
+export default ranges;
 export * from "./module";
