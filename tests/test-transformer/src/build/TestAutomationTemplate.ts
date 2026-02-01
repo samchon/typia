@@ -1,6 +1,6 @@
 // import { write_functional } from "./writers/write_functional";
 // import { write_functionalAsync } from "./writers/write_functionalAsync";
-import { write_notation } from "./writers/write_notation";
+// import { write_notation } from "./writers/write_notation";
 import { write_protobuf_decode } from "./writers/write_protobuf_decode";
 import { write_protobuf_encode } from "./writers/write_protobuf_encode";
 import { write_random } from "./writers/write_random";
@@ -403,22 +403,22 @@ export namespace TestAutomationTemplate {
     //----
     // NOTATIONS
     //----
-    ...["camel", "pascal", "snake"]
-      .map((method) =>
-        ([null, "assert", "is", "validate"] as const).map((mode) => ({
-          module: "notation",
-          method,
-          creatable: true,
-          resolved: true as const,
-          spoilable: false,
-          dynamic: false as const,
-          programmer: write_notation({
-            method,
-            mode,
-          }),
-        })),
-      )
-      .flat(),
+    // ...["camel", "pascal", "snake"]
+    //   .map((method) =>
+    //     ([null, "assert", "is", "validate"] as const).map((mode) => ({
+    //       module: "notation",
+    //       method,
+    //       creatable: true,
+    //       resolved: true as const,
+    //       spoilable: false,
+    //       dynamic: false as const,
+    //       programmer: write_notation({
+    //         method,
+    //         mode,
+    //       }),
+    //     })),
+    //   )
+    //   .flat(),
 
     //----
     // MISCELLANEOUS
