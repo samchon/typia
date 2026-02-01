@@ -10,7 +10,10 @@ import { FunctionalIsReturnProgrammer } from "../programmers/functional/Function
 import { FunctionalValidateFunctionProgrammer } from "../programmers/functional/FunctionalValidateFunctionProgrammer";
 import { FunctionalValidateParametersProgrammer } from "../programmers/functional/FunctionalValidateParametersProgrammer";
 import { FunctionalValidateReturnProgrammer } from "../programmers/functional/FunctionalValidateReturnProgrammer";
+import { FunctionalGenericTransformer } from "./features/functional/FunctionalGenericTransformer";
+
 import { NamingConvention } from "../utils/NamingConvention";
+
 import { ITransformProps } from "./ITransformProps";
 import { ITypiaContext } from "./ITypiaContext";
 import { AssertTransformer } from "./features/AssertTransformer";
@@ -21,7 +24,6 @@ import { CreateValidateTransformer } from "./features/CreateValidateTransformer"
 import { IsTransformer } from "./features/IsTransformer";
 import { RandomTransformer } from "./features/RandomTransformer";
 import { ValidateTransformer } from "./features/ValidateTransformer";
-import { FunctionalGenericTransformer } from "./features/functional/FunctionalGenericTransformer";
 import { CreateHttpAssertFormDataTransformer } from "./features/http/CreateHttpAssertFormDataTransformer";
 import { CreateHttpAssertHeadersTransformer } from "./features/http/CreateHttpAssertHeadersTransformer";
 import { CreateHttpAssertQueryTransformer } from "./features/http/CreateHttpAssertQueryTransformer";
@@ -155,10 +157,8 @@ export namespace CallExpressionTransformer {
 
   const isTarget = (location: string): boolean => {
     const files: string[] = Object.keys(FUNCTORS);
-    return files.some(
-      (f) =>
-        location.includes(path.join("typia", "lib", `${f}.d.ts`)) ||
-        location.includes(path.join("typia", "src", `${f}.ts`)),
+    return files.some((f) =>
+      location.includes(path.join("typia", "lib", `${f}.d.ts`)),
     );
   };
 }
