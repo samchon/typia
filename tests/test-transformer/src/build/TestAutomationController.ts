@@ -1,4 +1,3 @@
-import cp from "child_process";
 import fs from "fs";
 
 import { TestGlobal } from "../TestGlobal";
@@ -7,8 +6,10 @@ import { TestAutomationMetadata } from "./TestAutomationMetadata";
 import { TestAutomationTemplate } from "./TestAutomationTemplate";
 import { write_common } from "./writers/write_common";
 
-export namespace TestAutomationBuilder {
-  export const generate = async (): Promise<void> => {
+export namespace TestAutomationController {
+  export const iterate = async (
+    visit: (location: string) => Promise<void>,
+  ): Promise<void> => {
     const location: string = `${TestGlobal.ROOT}/src/automated`;
     if (fs.existsSync(location))
       await fs.promises.rm(location, { recursive: true, force: true });
@@ -17,10 +18,10 @@ export namespace TestAutomationBuilder {
     const metadata: TestAutomationMetadata<any>[] = await loadMetadata();
     const templates: TestAutomationTemplate[] = TestAutomationTemplate.DATA;
     for (const tpl of templates)
-      if (tpl.createOnly) await generateFeatureSet(tpl, metadata, true);
+      if (tpl.createOnly) await generateFeatureSet(visit, tpl, metadata, true);
       else {
-        await generateFeatureSet(tpl, metadata, false);
-        if (tpl.creatable) await generateFeatureSet(tpl, metadata, true);
+        await generateFeatureSet(visit, tpl, metadata, false);
+        if (tpl.creatable) await generateFeatureSet(visit, tpl, metadata, true);
       }
   };
 
@@ -42,10 +43,13 @@ export namespace TestAutomationBuilder {
   }
 
   async function generateFeatureSet(
+    visit: (location: string) => Promise<void>,
     template: TestAutomationTemplate,
     metadata: TestAutomationMetadata<any>[],
     create: boolean,
   ): Promise<void> {
+    if (create === false) return;
+
     const method: string = create
       ? `create${StringUtil.capitalize(template.method)}`
       : template.method;
@@ -61,7 +65,11 @@ export namespace TestAutomationBuilder {
       ].join(""),
     ].join("/");
 
-    if (fs.existsSync(path)) cp.execSync(`npx rimraf ${path}`);
+    if (fs.existsSync(path))
+      await fs.promises.rm(path, {
+        recursive: true,
+        force: true,
+      });
     await fs.promises.mkdir(path, { recursive: true });
 
     for (const s of metadata) {
@@ -95,6 +103,7 @@ export namespace TestAutomationBuilder {
         "utf8",
       );
     }
+    await visit(path);
   }
 
   function writeScript(

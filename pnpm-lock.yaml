@@ -56,6 +56,9 @@ catalogs:
     rimraf:
       specifier: ^6.1.2
       version: 6.1.2
+    tgrid:
+      specifier: ^1.2.1
+      version: 1.2.1
     tstl:
       specifier: ^3.0.0
       version: 3.0.0
@@ -401,6 +404,9 @@ importers:
       randexp:
         specifier: ^0.5.3
         version: 0.5.3
+      tgrid:
+        specifier: catalog:utils
+        version: 1.2.1
       tstl:
         specifier: catalog:utils
         version: 3.0.0
@@ -3363,6 +3369,9 @@ packages:
 
   tgrid@0.10.3:
     resolution: {integrity: sha512-EWIdHvc1BOX0p88P/lg8wXk1nnNmXCc6wf2mm7S/wxAWUXdAfk1klBBbM7FC+//tSlLHy6ITlmZHWxe+XmrNJg==}
+
+  tgrid@1.2.1:
+    resolution: {integrity: sha512-8E37I7G5RiMlwNmsiA6y/FAiKTEGU1Hg4t0Set0WAcRdMnLugXzjRx9bBduF1YROT/hdcS8BNefSPKNHmwYtYA==}
 
   thread-stream@3.1.0:
     resolution: {integrity: sha512-OqyPZ9u96VohAyMfJykzmivOrY2wfMSf3C5TtFJVgN+Hm6aj+voFhlK+kZEIv2FBh1X6Xp3DlnCOfEQ3B2J86A==}
@@ -7454,6 +7463,18 @@ snapshots:
   text-table@0.2.0: {}
 
   tgrid@0.10.3:
+    dependencies:
+      '@types/node': 20.19.30
+      '@types/websocket': 1.0.10
+      '@types/ws': 7.4.7
+      import2: 1.0.3
+      tstl: 3.0.0
+      ws: 7.5.10
+    transitivePeerDependencies:
+      - bufferutil
+      - utf-8-validate
+
+  tgrid@1.2.1:
     dependencies:
       '@types/node': 20.19.30
       '@types/websocket': 1.0.10

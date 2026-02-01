@@ -24,3 +24,4 @@ catalogs:
     rimraf: ^6.1.2
     uuid: ^13.0.0
     tstl: ^3.0.0
+    tgrid: ^1.2.1
