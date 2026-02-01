@@ -1,0 +1,13 @@
+import typia from "typia";
+
+import { _test_protobuf_assertDecode } from "../../internal/_test_protobuf_assertDecode";
+import { ObjectHttpArray } from "../../structures/ObjectHttpArray";
+
+import { TypeGuardError } from "typia";
+
+export const test_protobuf_createAssertDecode_ObjectHttpArray = (): void => _test_protobuf_assertDecode(TypeGuardError)(
+  "ObjectHttpArray",
+)<ObjectHttpArray>(ObjectHttpArray)({
+  decode: typia.protobuf.createAssertDecode<ObjectHttpArray>(),
+  encode: typia.protobuf.createEncode<ObjectHttpArray>(),
+});

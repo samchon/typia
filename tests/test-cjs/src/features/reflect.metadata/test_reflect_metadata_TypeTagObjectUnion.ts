@@ -1,9 +1,0 @@
-import typia from "typia";
-
-import { _test_reflect_metadata } from "../../internal/_test_reflect_metadata";
-import { TypeTagObjectUnion } from "../../structures/TypeTagObjectUnion";
-
-export const test_reflect_metadata_TypeTagObjectUnion = (): void =>
-  _test_reflect_metadata("TypeTagObjectUnion")(
-    typia.reflect.metadata<[TypeTagObjectUnion]>(),
-  );

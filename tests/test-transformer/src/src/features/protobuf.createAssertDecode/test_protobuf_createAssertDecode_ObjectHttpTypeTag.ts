@@ -1,0 +1,13 @@
+import typia from "typia";
+
+import { _test_protobuf_assertDecode } from "../../internal/_test_protobuf_assertDecode";
+import { ObjectHttpTypeTag } from "../../structures/ObjectHttpTypeTag";
+
+import { TypeGuardError } from "typia";
+
+export const test_protobuf_createAssertDecode_ObjectHttpTypeTag = (): void => _test_protobuf_assertDecode(TypeGuardError)(
+  "ObjectHttpTypeTag",
+)<ObjectHttpTypeTag>(ObjectHttpTypeTag)({
+  decode: typia.protobuf.createAssertDecode<ObjectHttpTypeTag>(),
+  encode: typia.protobuf.createEncode<ObjectHttpTypeTag>(),
+});

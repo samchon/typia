@@ -1,0 +1,10 @@
+import typia from "typia";
+
+import { _test_json_isParse } from "../../internal/_test_json_isParse";
+import { ObjectLiteralProperty } from "../../structures/ObjectLiteralProperty";
+
+export const test_json_createIsParse_ObjectLiteralProperty = (): void => _test_json_isParse(
+    "ObjectLiteralProperty",
+)<ObjectLiteralProperty>(
+    ObjectLiteralProperty
+)(typia.json.createIsParse<ObjectLiteralProperty>());

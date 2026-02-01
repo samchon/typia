@@ -1,0 +1,13 @@
+import typia from "typia";
+
+import { _test_protobuf_assertDecode } from "../../internal/_test_protobuf_assertDecode";
+import { TypeTagTypeBigInt } from "../../structures/TypeTagTypeBigInt";
+
+import { TypeGuardError } from "typia";
+
+export const test_protobuf_createAssertDecode_TypeTagTypeBigInt = (): void => _test_protobuf_assertDecode(TypeGuardError)(
+  "TypeTagTypeBigInt",
+)<TypeTagTypeBigInt>(TypeTagTypeBigInt)({
+  decode: typia.protobuf.createAssertDecode<TypeTagTypeBigInt>(),
+  encode: typia.protobuf.createEncode<TypeTagTypeBigInt>(),
+});

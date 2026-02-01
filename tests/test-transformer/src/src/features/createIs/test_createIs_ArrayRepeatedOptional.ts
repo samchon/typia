@@ -1,0 +1,10 @@
+import typia from "typia";
+
+import { _test_is } from "../../internal/_test_is";
+import { ArrayRepeatedOptional } from "../../structures/ArrayRepeatedOptional";
+
+export const test_createIs_ArrayRepeatedOptional = (): void => _test_is(
+    "ArrayRepeatedOptional",
+)<ArrayRepeatedOptional>(
+    ArrayRepeatedOptional
+)(typia.createIs<ArrayRepeatedOptional>());

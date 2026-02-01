@@ -1,0 +1,44 @@
+{
+  "private": true,
+  "name": "@typia/test-transformer",
+  "version": "0.1.0",
+  "description": "Test program for typia on CJS mode",
+  "main": "bin/index.js",
+  "scripts": {
+    "build": "rimraf bin && tsc",
+    "prepare": "ts-patch install",
+    "start": "ts-node src/index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/samchon/typia"
+  },
+  "keywords": [
+    "typia",
+    "test"
+  ],
+  "author": "Jeongho Nam",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/samchon/typia/issues"
+  },
+  "homepage": "https://typia.io",
+  "devDependencies": {
+    "@types/node": "catalog:utils",
+    "@types/ts-expose-internals": "catalog:typescript",
+    "@types/uuid": "catalog:utils",
+    "rimraf": "catalog:utils",
+    "ts-node": "catalog:typescript",
+    "ts-patch": "catalog:typescript",
+    "typescript": "catalog:typescript"
+  },
+  "dependencies": {
+    "@nestia/e2e": "catalog:utils",
+    "@samchon/openapi": "workspace:^",
+    "chalk": "4.1.2",
+    "randexp": "^0.5.3",
+    "tstl": "catalog:utils",
+    "typia": "workspace:^",
+    "uuid": "catalog:utils"
+  }
+}

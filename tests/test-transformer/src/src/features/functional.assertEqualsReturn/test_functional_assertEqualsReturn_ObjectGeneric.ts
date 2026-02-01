@@ -1,0 +1,12 @@
+import typia from "typia";
+
+import { _test_functional_assertEqualsReturn } from "../../internal/_test_functional_assertEqualsReturn";
+import { ObjectGeneric } from "../../structures/ObjectGeneric";
+
+import { TypeGuardError } from "typia";
+
+export const test_functional_assertEqualsReturn_ObjectGeneric = (): void => _test_functional_assertEqualsReturn(TypeGuardError)(
+  "ObjectGeneric"
+)(ObjectGeneric)(
+  (p: (input: ObjectGeneric) => ObjectGeneric) => typia.functional.assertEqualsReturn(p),
+)

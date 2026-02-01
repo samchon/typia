@@ -1,0 +1,12 @@
+import typia from "typia";
+
+import { _test_assertGuard } from "../../internal/_test_assertGuard";
+import { ClassClosure } from "../../structures/ClassClosure";
+
+import { TypeGuardError } from "typia";
+
+export const test_assertGuard_ClassClosure = (): void => _test_assertGuard(TypeGuardError)(
+    "ClassClosure",
+)<ClassClosure>(
+    ClassClosure
+)((input) => typia.assertGuard<ClassClosure>(input));
