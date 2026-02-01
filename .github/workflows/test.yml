@@ -5,6 +5,8 @@ on:
       - '.github/workflows/build.yml'
       - 'packages/*/src/**'
       - 'packages/*/package.json'
+      - 'tests/*/test-*/**'
+      - 'tests/*/test-*/package.json'
       - 'package.json'
       - 'pnpm-lock.yaml'
       - 'pnpm-workspace.yaml'
