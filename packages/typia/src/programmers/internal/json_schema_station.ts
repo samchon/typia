@@ -1,11 +1,12 @@
-import { IJsonSchemaAttribute, OpenApi } from "@samchon/openapi";
+import {
+  IJsonSchemaAttribute,
+  OpenApi,
+  OpenApiExclusiveEmender,
+} from "@samchon/openapi";
 
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataAtomic } from "../../schemas/metadata/MetadataAtomic";
 import { MetadataNative } from "../../schemas/metadata/MetadataNative";
-
-import { OpenApiExclusiveEmender } from "@samchon/openapi/lib/utils/OpenApiExclusiveEmender";
-
 import { AtomicPredicator } from "../helpers/AtomicPredicator";
 import { json_schema_alias } from "./json_schema_alias";
 import { json_schema_array } from "./json_schema_array";

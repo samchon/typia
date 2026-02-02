@@ -1,5 +1,8 @@
-import { ILlmApplication, IValidation } from "@samchon/openapi";
-import { LlmSchemaComposer } from "@samchon/openapi/lib/composers/LlmSchemaComposer";
+import {
+  ILlmApplication,
+  IValidation,
+  LlmSchemaComposer,
+} from "@samchon/openapi";
 
 export const _llmApplicationFinalize = (
   app: ILlmApplication,

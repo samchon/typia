@@ -2,18 +2,15 @@ import {
   ILlmSchema,
   IOpenApiSchemaError,
   IResult,
+  LlmSchemaComposer,
   OpenApi,
   OpenApiTypeChecker,
 } from "@samchon/openapi";
-import { LlmSchemaComposer } from "@samchon/openapi/lib/composers/LlmSchemaComposer";
 
 import { MetadataFactory } from "../../factories/MetadataFactory";
-
-import { Metadata } from "../../schemas/metadata/Metadata";
-
-import { TransformerError } from "../../transformers/TransformerError";
-
 import { IJsonSchemaCollection } from "../../module";
+import { Metadata } from "../../schemas/metadata/Metadata";
+import { TransformerError } from "../../transformers/TransformerError";
 import { JsonSchemasProgrammer } from "../json/JsonSchemasProgrammer";
 import { LlmSchemaProgrammer } from "./LlmSchemaProgrammer";
 

@@ -1,11 +1,8 @@
-import { OpenApi } from "@samchon/openapi";
-import { OpenApiV3Downgrader } from "@samchon/openapi/lib/converters/OpenApiV3Downgrader";
+import { OpenApi, OpenApiV3Downgrader } from "@samchon/openapi";
 
 import { IJsonSchemaCollection } from "../../schemas/json/IJsonSchemaCollection";
 import { Metadata } from "../../schemas/metadata/Metadata";
-
 import { TransformerError } from "../../transformers/TransformerError";
-
 import { AtomicPredicator } from "../helpers/AtomicPredicator";
 import { json_schema_station } from "../internal/json_schema_station";
 

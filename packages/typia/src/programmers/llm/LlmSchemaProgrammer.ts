@@ -1,11 +1,13 @@
-import { ILlmSchema, IOpenApiSchemaError, IResult } from "@samchon/openapi";
-import { LlmSchemaComposer } from "@samchon/openapi/lib/composers/LlmSchemaComposer";
+import {
+  ILlmSchema,
+  IOpenApiSchemaError,
+  IResult,
+  LlmSchemaComposer,
+} from "@samchon/openapi";
 
 import { IJsonSchemaCollection } from "../../schemas/json/IJsonSchemaCollection";
 import { Metadata } from "../../schemas/metadata/Metadata";
-
 import { TransformerError } from "../../transformers/TransformerError";
-
 import { AtomicPredicator } from "../helpers/AtomicPredicator";
 import { json_schema_bigint } from "../internal/json_schema_bigint";
 import { json_schema_boolean } from "../internal/json_schema_boolean";
