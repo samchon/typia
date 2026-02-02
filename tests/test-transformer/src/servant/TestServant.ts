@@ -31,7 +31,11 @@ export class TestServant {
     exceptions.push(
       ...report.executions.map((e) => e.error).filter((e) => e !== null),
     );
-    return exceptions;
+    return exceptions.map((err) => ({
+      name: err.name,
+      message: err.message,
+      stack: err.stack,
+    }));
   }
 }
 export namespace TestServant {
