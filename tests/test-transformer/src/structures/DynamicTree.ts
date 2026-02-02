@@ -1,4 +1,4 @@
-import { ArrayUtil } from "typia/lib/utils/ArrayUtil";
+import { ArrayUtil } from "typia/src/utils/ArrayUtil";
 import { v4 } from "uuid";
 
 import { Spoiler } from "../utils/Spoiler";

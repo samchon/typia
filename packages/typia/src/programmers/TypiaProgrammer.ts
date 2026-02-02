@@ -2,9 +2,8 @@ import fs from "fs";
 import path from "path";
 import ts from "typescript";
 
-import { ImportTransformer } from "../transformers/ImportTransformer";
-
 import transform from "../transform";
+import { ImportTransformer } from "../transformers/ImportTransformer";
 
 export namespace TypiaProgrammer {
   export interface ILocation {
@@ -79,7 +78,7 @@ export namespace TypiaProgrammer {
           program,
           ((compilerOptions.plugins as any[]) ?? []).find(
             (p: any) =>
-              p.transform === "typia/lib/transform" ||
+              p.transform === "typia/src/transform" ||
               p.transform === "../src/transform.ts",
           ) ?? {},
           {

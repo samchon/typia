@@ -7,19 +7,15 @@ import { NumericRangeFactory } from "../../factories/NumericRangeFactory";
 import { ProtobufFactory } from "../../factories/ProtobufFactory";
 import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
-
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataMap } from "../../schemas/metadata/MetadataMap";
 import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
 import { IProtobufProperty } from "../../schemas/protobuf/IProtobufProperty";
 import { IProtobufPropertyType } from "../../schemas/protobuf/IProtobufPropertyType";
 import { IProtobufSchema } from "../../schemas/protobuf/IProtobufSchema";
-
 import { IProgrammerProps } from "../../transformers/IProgrammerProps";
 import { ITypiaContext } from "../../transformers/ITypiaContext";
-
 import { ProtobufAtomic } from "../../typings/ProtobufAtomic";
-
 import { FeatureProgrammer } from "../FeatureProgrammer";
 import { IsProgrammer } from "../IsProgrammer";
 import { FunctionProgrammer } from "../helpers/FunctionProgrammer";
@@ -158,7 +154,7 @@ export namespace ProtobufEncodeProgrammer {
           undefined,
           "Writer",
           props.context.importer.type({
-            file: "typia/lib/internal/_IProtobufWriter.js",
+            file: "typia/src/internal/_IProtobufWriter.js",
             name: "_IProtobufWriter",
           }),
         ),

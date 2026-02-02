@@ -1,5 +1,5 @@
 import { Resolved } from "typia";
-import { ArrayUtil } from "typia/lib/utils/ArrayUtil";
+import { ArrayUtil } from "typia/src/utils/ArrayUtil";
 
 import { TestStructure } from "../utils/TestStructure";
 

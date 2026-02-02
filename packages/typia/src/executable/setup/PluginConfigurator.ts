@@ -44,7 +44,7 @@ export namespace PluginConfigurator {
       (p) =>
         typeof p === "object" &&
         p !== null &&
-        p.transform === "typia/lib/transform",
+        p.transform === "typia/src/transform",
     );
     if (
       strictNullChecks !== false &&
@@ -63,7 +63,7 @@ export namespace PluginConfigurator {
       plugins.push(
         comments.parse(`
                         {
-                            "transform": "typia/lib/transform"
+                            "transform": "typia/src/transform"
                         }`) as comments.CommentObject,
       );
     await fs.promises.writeFile(

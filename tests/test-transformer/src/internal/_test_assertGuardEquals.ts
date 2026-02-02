@@ -1,5 +1,5 @@
 import typia, { AssertionGuard, TypeGuardError } from "typia";
-import { Escaper } from "typia/lib/utils/Escaper";
+import { Escaper } from "typia/src/utils/Escaper";
 
 import { TestStructure } from "../utils/TestStructure";
 

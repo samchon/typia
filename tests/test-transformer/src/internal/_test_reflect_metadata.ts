@@ -1,5 +1,5 @@
 import fs from "fs";
-import { IMetadataApplication } from "typia/lib/schemas/metadata/IMetadataApplication";
+import { IMetadataApplication } from "typia/src/schemas/metadata/IMetadataApplication";
 
 import { primitive_equal_to } from "../utils/primitive_equal_to";
 

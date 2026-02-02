@@ -1,6 +1,6 @@
 import typia from "typia";
-import { IValidation } from "typia/lib/IValidation";
-import { Escaper } from "typia/lib/utils/Escaper";
+import { IValidation } from "typia/src/IValidation";
+import { Escaper } from "typia/src/utils/Escaper";
 
 import { TestStructure } from "../utils/TestStructure";
 

@@ -1,6 +1,6 @@
 import { IPointer } from "tstl";
 import typia from "typia";
-import { ArrayUtil } from "typia/lib/utils/ArrayUtil";
+import { ArrayUtil } from "typia/src/utils/ArrayUtil";
 
 import { Spoiler } from "../utils/Spoiler";
 import { TestRandomGenerator } from "../utils/TestRandomGenerator";
