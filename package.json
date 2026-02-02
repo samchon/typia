@@ -5,6 +5,7 @@
   "description": "Typia Station",
   "scripts": {
     "build": "pnpm --filter=./packages/* -r build",
+    "test": "pnpm --filter=./tests/test-* -r start",
     "package:latest": "pnpm --filter=./packages/* -r publish --tag latest --access public",
     "package:next": "pnpm --filter=./packages/* -r publish --tag next --access public"
   },

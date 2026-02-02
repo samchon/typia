@@ -1,4 +1,4 @@
-import { ITransformOptions } from "typia/lib/transformers/ITransformOptions";
+import { ITransformOptions } from "typia/src/transformers/ITransformOptions";
 
 export interface ICompilerService {
   compile(props: ICompilerService.IProps): Promise<ICompilerService.IResult>;
