@@ -384,7 +384,7 @@ importers:
         specifier: catalog:typescript
         version: 5.9.3
 
-  tests/test-transformer:
+  tests/test-automated:
     dependencies:
       '@nestia/e2e':
         specifier: catalog:utils
