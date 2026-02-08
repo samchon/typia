@@ -1,8 +1,8 @@
 {
   "private": true,
-  "name": "@typia/test-transformer",
+  "name": "@typia/test-automated",
   "version": "0.1.0",
-  "description": "Test program for typia on CJS mode",
+  "description": "Automated test features of typia.",
   "scripts": {
     "build": "rimraf bin && tsc",
     "prepare": "ts-patch install",

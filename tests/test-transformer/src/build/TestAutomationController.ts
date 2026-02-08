@@ -10,7 +10,7 @@ export namespace TestAutomationController {
   export const iterate = async (
     visit: (location: string) => Promise<void>,
   ): Promise<void> => {
-    const location: string = `${TestGlobal.ROOT}/src/automated`;
+    const location: string = `${TestGlobal.ROOT}/src/features`;
     if (fs.existsSync(location))
       await fs.promises.rm(location, { recursive: true, force: true });
     await fs.promises.mkdir(location, { recursive: true });
@@ -56,7 +56,7 @@ export namespace TestAutomationController {
     const path: string = [
       TestGlobal.ROOT,
       "src",
-      "automated",
+      "features",
       [
         template.prefix ? `${template.prefix}.` : "",
         template.module ? `${template.module}.` : "",

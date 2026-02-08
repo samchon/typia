@@ -2,9 +2,7 @@ import ts from "typescript";
 
 import { MetadataConstant } from "../../../schemas/metadata/MetadataConstant";
 import { MetadataConstantValue } from "../../../schemas/metadata/MetadataConstantValue";
-
 import { ArrayUtil } from "../../../utils/ArrayUtil";
-
 import { CommentFactory } from "../../CommentFactory";
 import { IMetadataIteratorProps } from "./IMetadataIteratorProps";
 
@@ -50,7 +48,6 @@ export const iterate_metadata_constant = (
     );
     return true;
   } else if (filter(ts.TypeFlags.BooleanLiteral)) {
-    comment();
     const value: boolean = props.checker.typeToString(props.type) === "true";
     const constant: MetadataConstant = ArrayUtil.take(
       props.metadata.constants,
