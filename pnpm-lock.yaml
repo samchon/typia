@@ -399,8 +399,8 @@ importers:
         specifier: 4.1.2
         version: 4.1.2
       protobufjs:
-        specifier: ^8.0.0
-        version: 8.0.0
+        specifier: 7.2.5
+        version: 7.2.5
       randexp:
         specifier: ^0.5.3
         version: 0.5.3
@@ -3029,8 +3029,8 @@ packages:
     resolution: {integrity: sha512-7PiHtLll5LdnKIMw100I+8xJXR5gW2QwWYkT6iJva0bXitZKa/XMrSbdmg3r2Xnaidz9Qumd0VPaMrZlF9V9sA==}
     engines: {node: '>=0.4.0'}
 
-  protobufjs@8.0.0:
-    resolution: {integrity: sha512-jx6+sE9h/UryaCZhsJWbJtTEy47yXoGNYI4z8ZaRncM0zBKeRqjO2JEcOUYwrYGb1WLhXM1FfMzW3annvFv0rw==}
+  protobufjs@7.2.5:
+    resolution: {integrity: sha512-gGXRSXvxQ7UiPgfw8gevrfRWcTlSbOFg+p/N+JVJEK5VhueL2miT6qTymqAmjr1Q5WbOCyJbyrk6JfWKwlFn6A==}
     engines: {node: '>=12.0.0'}
 
   proxy-addr@2.0.7:
@@ -7071,7 +7071,7 @@ snapshots:
 
   progress@2.0.3: {}
 
-  protobufjs@8.0.0:
+  protobufjs@7.2.5:
     dependencies:
       '@protobufjs/aspromise': 1.1.2
       '@protobufjs/base64': 1.1.2

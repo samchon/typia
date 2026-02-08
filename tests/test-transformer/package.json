@@ -36,7 +36,7 @@
     "@samchon/openapi": "workspace:^",
     "@standard-schema/spec": "^1.0.0",
     "chalk": "4.1.2",
-    "protobufjs": "^8.0.0",
+    "protobufjs": "7.2.5",
     "randexp": "^0.5.3",
     "tgrid": "catalog:utils",
     "tstl": "catalog:utils",
