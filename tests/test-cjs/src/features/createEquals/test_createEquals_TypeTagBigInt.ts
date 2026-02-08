@@ -1,9 +1,0 @@
-import typia from "typia";
-
-import { _test_equals } from "../../internal/_test_equals";
-import { TypeTagBigInt } from "../../structures/TypeTagBigInt";
-
-export const test_createEquals_TypeTagBigInt = (): void =>
-  _test_equals("TypeTagBigInt")<TypeTagBigInt>(TypeTagBigInt)(
-    typia.createEquals<TypeTagBigInt>(),
-  );

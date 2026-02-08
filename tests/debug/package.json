@@ -1,0 +1,40 @@
+{
+  "private": true,
+  "name": "@typia/debug",
+  "version": "0.1.0",
+  "description": "Convenient debug program for typia",
+  "scripts": {
+    "build": "rimraf bin && tsc",
+    "prepare": "ts-patch install",
+    "start": "ts-node src/index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/samchon/typia"
+  },
+  "keywords": [
+    "typia",
+    "test"
+  ],
+  "author": "Jeongho Nam",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/samchon/typia/issues"
+  },
+  "homepage": "https://typia.io",
+  "devDependencies": {
+    "@types/node": "catalog:utils",
+    "@types/ts-expose-internals": "catalog:typescript",
+    "@types/uuid": "catalog:utils",
+    "rimraf": "catalog:utils",
+    "ts-node": "catalog:typescript",
+    "ts-patch": "catalog:typescript",
+    "typescript": "catalog:typescript"
+  },
+  "dependencies": {
+    "@samchon/openapi": "workspace:^",
+    "tstl": "catalog:utils",
+    "typia": "workspace:^",
+    "uuid": "catalog:utils"
+  }
+}

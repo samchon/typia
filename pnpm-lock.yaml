@@ -28,6 +28,9 @@ catalogs:
       specifier: ^8.1.2
       version: 8.1.2
   typescript:
+    '@types/ts-expose-internals':
+      specifier: npm:ts-expose-internals@5.6.3
+      version: 5.6.3
     ts-node:
       specifier: ^10.9.2
       version: 10.9.2
@@ -38,6 +41,9 @@ catalogs:
       specifier: ~5.9.3
       version: 5.9.3
   utils:
+    '@nestia/e2e':
+      specifier: ^10.0.0
+      version: 10.0.2
     '@types/node':
       specifier: ^25.0.10
       version: 25.0.10
@@ -50,6 +56,12 @@ catalogs:
     rimraf:
       specifier: ^6.1.2
       version: 6.1.2
+    tgrid:
+      specifier: ^1.2.1
+      version: 1.2.1
+    tstl:
+      specifier: ^3.0.0
+      version: 3.0.0
     uuid:
       specifier: ^13.0.0
       version: 13.0.0
@@ -296,7 +308,7 @@ importers:
         specifier: ^18.15.12
         version: 18.19.130
       '@types/ts-expose-internals':
-        specifier: npm:ts-expose-internals@5.6.3
+        specifier: catalog:typescript
         version: ts-expose-internals@5.6.3
       '@typescript-eslint/eslint-plugin':
         specifier: ^8.1.0
@@ -331,6 +343,98 @@ importers:
       ts-node:
         specifier: catalog:typescript
         version: 10.9.2(@types/node@18.19.130)(typescript@5.9.3)
+      typescript:
+        specifier: catalog:typescript
+        version: 5.9.3
+
+  tests/debug:
+    dependencies:
+      '@samchon/openapi':
+        specifier: workspace:^
+        version: link:../../packages/openapi
+      tstl:
+        specifier: catalog:utils
+        version: 3.0.0
+      typia:
+        specifier: workspace:^
+        version: link:../../packages/typia
+      uuid:
+        specifier: catalog:utils
+        version: 13.0.0
+    devDependencies:
+      '@types/node':
+        specifier: catalog:utils
+        version: 25.0.10
+      '@types/ts-expose-internals':
+        specifier: catalog:typescript
+        version: ts-expose-internals@5.6.3
+      '@types/uuid':
+        specifier: catalog:utils
+        version: 11.0.0
+      rimraf:
+        specifier: catalog:utils
+        version: 6.1.2
+      ts-node:
+        specifier: catalog:typescript
+        version: 10.9.2(@types/node@25.0.10)(typescript@5.9.3)
+      ts-patch:
+        specifier: catalog:typescript
+        version: 3.3.0
+      typescript:
+        specifier: catalog:typescript
+        version: 5.9.3
+
+  tests/test-automated:
+    dependencies:
+      '@nestia/e2e':
+        specifier: catalog:utils
+        version: 10.0.2
+      '@samchon/openapi':
+        specifier: workspace:^
+        version: link:../../packages/openapi
+      '@standard-schema/spec':
+        specifier: ^1.0.0
+        version: 1.1.0
+      chalk:
+        specifier: 4.1.2
+        version: 4.1.2
+      protobufjs:
+        specifier: 7.2.5
+        version: 7.2.5
+      randexp:
+        specifier: ^0.5.3
+        version: 0.5.3
+      tgrid:
+        specifier: catalog:utils
+        version: 1.2.1
+      tstl:
+        specifier: catalog:utils
+        version: 3.0.0
+      typia:
+        specifier: workspace:^
+        version: link:../../packages/typia
+      uuid:
+        specifier: catalog:utils
+        version: 13.0.0
+    devDependencies:
+      '@types/node':
+        specifier: catalog:utils
+        version: 25.0.10
+      '@types/ts-expose-internals':
+        specifier: catalog:typescript
+        version: ts-expose-internals@5.6.3
+      '@types/uuid':
+        specifier: catalog:utils
+        version: 11.0.0
+      rimraf:
+        specifier: catalog:utils
+        version: 6.1.2
+      ts-node:
+        specifier: catalog:typescript
+        version: 10.9.2(@types/node@25.0.10)(typescript@5.9.3)
+      ts-patch:
+        specifier: catalog:typescript
+        version: 3.3.0
       typescript:
         specifier: catalog:typescript
         version: 5.9.3
@@ -723,6 +827,9 @@ packages:
   '@mongodb-js/saslprep@1.4.5':
     resolution: {integrity: sha512-k64Lbyb7ycCSXHSLzxVdb2xsKGPMvYZfCICXvDsI8Z65CeWQzTEKS4YmGbnqw+U9RBvLPTsB6UCmwkgsDTGWIw==}
 
+  '@nestia/e2e@10.0.2':
+    resolution: {integrity: sha512-HarFjqMPPg8WaJSUA4jaT22pkzqluZ9fAsdBXJ3th3j8Bj3t02oolqM2Rr3Qv3MkFpLjPJ1G1E3grXqLpXAE1g==}
+
   '@nodelib/fs.scandir@2.1.5':
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
     engines: {node: '>= 8'}
@@ -737,6 +844,36 @@ packages:
 
   '@pinojs/redact@0.4.0':
     resolution: {integrity: sha512-k2ENnmBugE/rzQfEcdWHcCY+/FM3VLzH9cYEsbdsoqrvzAKRhUZeRNhAZvB8OitQJ1TBed3yqWtdjzS6wJKBwg==}
+
+  '@protobufjs/aspromise@1.1.2':
+    resolution: {integrity: sha512-j+gKExEuLmKwvz3OgROXtrJ2UG2x8Ch2YZUxahh+s1F2HZ+wAceUNLkvy6zKCPVRkU++ZWQrdxsUeQXmcg4uoQ==}
+
+  '@protobufjs/base64@1.1.2':
+    resolution: {integrity: sha512-AZkcAA5vnN/v4PDqKyMR5lx7hZttPDgClv83E//FMNhR2TMcLUhfRUBHCmSl0oi9zMgDDqRUJkSxO3wm85+XLg==}
+
+  '@protobufjs/codegen@2.0.4':
+    resolution: {integrity: sha512-YyFaikqM5sH0ziFZCN3xDC7zeGaB/d0IUb9CATugHWbd1FRFwWwt4ld4OYMPWu5a3Xe01mGAULCdqhMlPl29Jg==}
+
+  '@protobufjs/eventemitter@1.1.0':
+    resolution: {integrity: sha512-j9ednRT81vYJ9OfVuXG6ERSTdEL1xVsNgqpkxMsbIabzSo3goCjDIveeGv5d03om39ML71RdmrGNjG5SReBP/Q==}
+
+  '@protobufjs/fetch@1.1.0':
+    resolution: {integrity: sha512-lljVXpqXebpsijW71PZaCYeIcE5on1w5DlQy5WH6GLbFryLUrBD4932W/E2BSpfRJWseIL4v/KPgBFxDOIdKpQ==}
+
+  '@protobufjs/float@1.0.2':
+    resolution: {integrity: sha512-Ddb+kVXlXst9d+R9PfTIxh1EdNkgoRe5tOX6t01f1lYWOvJnSPDBlG241QLzcyPdoNTsblLUdujGSE4RzrTZGQ==}
+
+  '@protobufjs/inquire@1.1.0':
+    resolution: {integrity: sha512-kdSefcPdruJiFMVSbn801t4vFK7KB/5gd2fYvrxhuJYg8ILrmn9SKSX2tZdV6V+ksulWqS7aXjBcRXl3wHoD9Q==}
+
+  '@protobufjs/path@1.1.2':
+    resolution: {integrity: sha512-6JOcJ5Tm08dOHAbdR3GrvP+yUUfkjG5ePsHYczMFLq3ZmMkAD98cDgcT2iA1lJ9NVwFd4tH/iSSoe44YWkltEA==}
+
+  '@protobufjs/pool@1.1.0':
+    resolution: {integrity: sha512-0kELaGSIDBKvcgS4zkjz1PeddatrjYcmMWOlAuAPwAeccUrPHdUqo/J6LiymHHEiJT5NrF1UVwxY14f+fy4WQw==}
+
+  '@protobufjs/utf8@1.1.0':
+    resolution: {integrity: sha512-Vvn3zZrhQZkkBE8LSuW3em98c0FwgO4nxzv6OdSxPKJIEKY2bGbHn+mhGIPerzI4twdxaP8/0+06HBpwf345Lw==}
 
   '@rollup/plugin-commonjs@29.0.0':
     resolution: {integrity: sha512-U2YHaxR2cU/yAiwKJtJRhnyLk7cifnQw0zUpISsocBDoHDJn+HTV74ABqnwr5bEgWUwFZC9oFL6wLe21lHu5eQ==}
@@ -2480,6 +2617,9 @@ packages:
     resolution: {integrity: sha512-HgMmCqIJSAKqo68l0rS2AanEWfkxaZ5wNiEFb5ggm08lDs9Xl2KxBlX3PTcaD2chBM1gXAYf491/M2Rv8Jwayg==}
     engines: {node: '>= 0.6.0'}
 
+  long@5.3.2:
+    resolution: {integrity: sha512-mNAgZ1GmyNhD7AuqnTG3/VQ26o760+ZYBPKjPvugO8+nLbYfX6TVpJPseBvopbdY+qpZ/lKUnmEc1LeZYS3QAA==}
+
   lru-cache@10.4.3:
     resolution: {integrity: sha512-JNAzZcXrCt42VGLuYz0zfAzDfAvJWW6AfYlDBQyDV5DClI2m5sAmK+OIO7s59XfsRsWHp02jAJrRadPRGTt6SQ==}
 
@@ -2889,6 +3029,10 @@ packages:
     resolution: {integrity: sha512-7PiHtLll5LdnKIMw100I+8xJXR5gW2QwWYkT6iJva0bXitZKa/XMrSbdmg3r2Xnaidz9Qumd0VPaMrZlF9V9sA==}
     engines: {node: '>=0.4.0'}
 
+  protobufjs@7.2.5:
+    resolution: {integrity: sha512-gGXRSXvxQ7UiPgfw8gevrfRWcTlSbOFg+p/N+JVJEK5VhueL2miT6qTymqAmjr1Q5WbOCyJbyrk6JfWKwlFn6A==}
+    engines: {node: '>=12.0.0'}
+
   proxy-addr@2.0.7:
     resolution: {integrity: sha512-llQsMLSUDUPT44jdrU/O37qlnifitDP+ZwrmmZcoSKyLKvtZxpyV0n2/bD/N4tBAAZ/gJEdZU7KMraoK1+XYAg==}
     engines: {node: '>= 0.10'}
@@ -3225,6 +3369,9 @@ packages:
 
   tgrid@0.10.3:
     resolution: {integrity: sha512-EWIdHvc1BOX0p88P/lg8wXk1nnNmXCc6wf2mm7S/wxAWUXdAfk1klBBbM7FC+//tSlLHy6ITlmZHWxe+XmrNJg==}
+
+  tgrid@1.2.1:
+    resolution: {integrity: sha512-8E37I7G5RiMlwNmsiA6y/FAiKTEGU1Hg4t0Set0WAcRdMnLugXzjRx9bBduF1YROT/hdcS8BNefSPKNHmwYtYA==}
 
   thread-stream@3.1.0:
     resolution: {integrity: sha512-OqyPZ9u96VohAyMfJykzmivOrY2wfMSf3C5TtFJVgN+Hm6aj+voFhlK+kZEIv2FBh1X6Xp3DlnCOfEQ3B2J86A==}
@@ -4337,6 +4484,8 @@ snapshots:
       sparse-bitfield: 3.0.3
     optional: true
 
+  '@nestia/e2e@10.0.2': {}
+
   '@nodelib/fs.scandir@2.1.5':
     dependencies:
       '@nodelib/fs.stat': 2.0.5
@@ -4350,6 +4499,29 @@ snapshots:
       fastq: 1.20.1
 
   '@pinojs/redact@0.4.0': {}
+
+  '@protobufjs/aspromise@1.1.2': {}
+
+  '@protobufjs/base64@1.1.2': {}
+
+  '@protobufjs/codegen@2.0.4': {}
+
+  '@protobufjs/eventemitter@1.1.0': {}
+
+  '@protobufjs/fetch@1.1.0':
+    dependencies:
+      '@protobufjs/aspromise': 1.1.2
+      '@protobufjs/inquire': 1.1.0
+
+  '@protobufjs/float@1.0.2': {}
+
+  '@protobufjs/inquire@1.1.0': {}
+
+  '@protobufjs/path@1.1.2': {}
+
+  '@protobufjs/pool@1.1.0': {}
+
+  '@protobufjs/utf8@1.1.0': {}
 
   '@rollup/plugin-commonjs@29.0.0(rollup@4.56.0)':
     dependencies:
@@ -4854,7 +5026,7 @@ snapshots:
 
   '@types/connect@3.4.38':
     dependencies:
-      '@types/node': 25.0.10
+      '@types/node': 18.19.130
 
   '@types/d3-array@3.2.2': {}
 
@@ -4981,7 +5153,7 @@ snapshots:
 
   '@types/express-serve-static-core@4.19.8':
     dependencies:
-      '@types/node': 25.0.10
+      '@types/node': 18.19.130
       '@types/qs': 6.14.0
       '@types/range-parser': 1.2.7
       '@types/send': 1.2.1
@@ -5033,16 +5205,16 @@ snapshots:
   '@types/send@0.17.6':
     dependencies:
       '@types/mime': 1.3.5
-      '@types/node': 25.0.10
+      '@types/node': 18.19.130
 
   '@types/send@1.2.1':
     dependencies:
-      '@types/node': 25.0.10
+      '@types/node': 18.19.130
 
   '@types/serve-static@1.15.10':
     dependencies:
       '@types/http-errors': 2.0.5
-      '@types/node': 25.0.10
+      '@types/node': 18.19.130
       '@types/send': 0.17.6
 
   '@types/through@0.0.33':
@@ -5061,7 +5233,7 @@ snapshots:
 
   '@types/websocket@1.0.10':
     dependencies:
-      '@types/node': 25.0.10
+      '@types/node': 18.19.130
 
   '@types/whatwg-url@8.2.2':
     dependencies:
@@ -5070,7 +5242,7 @@ snapshots:
 
   '@types/ws@7.4.7':
     dependencies:
-      '@types/node': 25.0.10
+      '@types/node': 18.19.130
 
   '@typescript-eslint/eslint-plugin@8.53.1(@typescript-eslint/parser@8.53.1(eslint@8.57.1)(typescript@5.9.3))(eslint@8.57.1)(typescript@5.9.3)':
     dependencies:
@@ -6442,6 +6614,8 @@ snapshots:
 
   loglevel@1.9.2: {}
 
+  long@5.3.2: {}
+
   lru-cache@10.4.3: {}
 
   lru-cache@11.2.4: {}
@@ -6897,6 +7071,21 @@ snapshots:
 
   progress@2.0.3: {}
 
+  protobufjs@7.2.5:
+    dependencies:
+      '@protobufjs/aspromise': 1.1.2
+      '@protobufjs/base64': 1.1.2
+      '@protobufjs/codegen': 2.0.4
+      '@protobufjs/eventemitter': 1.1.0
+      '@protobufjs/fetch': 1.1.0
+      '@protobufjs/float': 1.0.2
+      '@protobufjs/inquire': 1.1.0
+      '@protobufjs/path': 1.1.2
+      '@protobufjs/pool': 1.1.0
+      '@protobufjs/utf8': 1.1.0
+      '@types/node': 18.19.130
+      long: 5.3.2
+
   proxy-addr@2.0.7:
     dependencies:
       forwarded: 0.2.0
@@ -7274,6 +7463,18 @@ snapshots:
   text-table@0.2.0: {}
 
   tgrid@0.10.3:
+    dependencies:
+      '@types/node': 20.19.30
+      '@types/websocket': 1.0.10
+      '@types/ws': 7.4.7
+      import2: 1.0.3
+      tstl: 3.0.0
+      ws: 7.5.10
+    transitivePeerDependencies:
+      - bufferutil
+      - utf-8-validate
+
+  tgrid@1.2.1:
     dependencies:
       '@types/node': 20.19.30
       '@types/websocket': 1.0.10

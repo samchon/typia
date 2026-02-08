@@ -51,3 +51,10 @@ export * from "./structures/IValidation";
 export * from "./HttpLlm";
 export * from "./McpLlm";
 export * from "./utils/LlmTypeChecker";
+
+//----
+// UTILS
+//----
+export * from "./composers/LlmSchemaComposer";
+export * from "./utils/OpenApiExclusiveEmender";
+export * from "./converters/OpenApiV3Downgrader";

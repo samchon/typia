@@ -1,9 +1,0 @@
-import typia from "typia";
-
-import { _test_equals } from "../../internal/_test_equals";
-import { TypeTagCustom } from "../../structures/TypeTagCustom";
-
-export const test_equals_TypeTagCustom = (): void =>
-  _test_equals("TypeTagCustom")<TypeTagCustom>(TypeTagCustom)((input) =>
-    typia.equals<TypeTagCustom>(input),
-  );
