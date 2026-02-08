@@ -30,7 +30,7 @@ const validate = (directory) => {
 const main = () => {
   // BUILD THE ERRORS PROJECT
   try {
-    cp.execSync("npm run build", {
+    cp.execSync("pnpm run build", {
       cwd: __dirname,
       stdio: "ignore",
     });
