@@ -439,6 +439,19 @@ importers:
         specifier: catalog:typescript
         version: 5.9.3
 
+  tests/test-error:
+    dependencies:
+      typia:
+        specifier: workspace:^
+        version: link:../../packages/typia
+    devDependencies:
+      ts-patch:
+        specifier: catalog:typescript
+        version: 3.3.0
+      typescript:
+        specifier: catalog:typescript
+        version: 5.9.3
+
 packages:
 
   '@ampproject/remapping@2.3.0':
