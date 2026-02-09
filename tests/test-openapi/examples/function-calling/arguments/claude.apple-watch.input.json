@@ -1,0 +1,416 @@
+{
+  "trial": 1,
+  "success": true,
+  "data": {
+    "input": {
+      "section_code": "general",
+      "opened_at": null,
+      "closed_at": null,
+      "channels": [
+        {
+          "code": "samchon",
+          "category_codes": [
+            "smart_watches",
+            "electronics"
+          ]
+        }
+      ],
+      "content": {
+        "title": "Apple Watch",
+        "format": "md",
+        "body": "# Apple Watch Series 9\n\nExperience the next generation of smart watches with the Apple Watch Series 9. Featuring advanced health monitoring, fitness tracking, and seamless integration with your Apple devices.\n\n## Key Features:\n- Always-On Retina display\n- Advanced health sensors\n- GPS + Cellular connectivity options\n- Up to 18 hours of battery life\n- Water resistant up to 50 meters\n- Available in various finishes and band options\n\n## Health & Fitness Features:\n- Heart rate monitoring\n- ECG app\n- Blood oxygen measurement\n- Sleep tracking\n- Activity rings\n- Workout tracking for various activities\n\n## Smart Features:\n- Siri voice assistant\n- Apple Pay\n- Message and call handling\n- App notifications\n- Music streaming",
+        "files": [],
+        "thumbnails": []
+      },
+      "tags": [
+        "apple",
+        "smartwatch",
+        "wearable",
+        "apple watch",
+        "fitness tracker"
+      ],
+      "units": [
+        {
+          "name": "Apple Watch Series 9",
+          "primary": true,
+          "required": true,
+          "options": [
+            {
+              "type": "select",
+              "name": "Size",
+              "variable": true,
+              "candidates": [
+                {
+                  "name": "41mm"
+                },
+                {
+                  "name": "45mm"
+                }
+              ]
+            },
+            {
+              "type": "select",
+              "name": "Case Material",
+              "variable": true,
+              "candidates": [
+                {
+                  "name": "Aluminum"
+                },
+                {
+                  "name": "Stainless Steel"
+                }
+              ]
+            },
+            {
+              "type": "select",
+              "name": "Color",
+              "variable": true,
+              "candidates": [
+                {
+                  "name": "Midnight"
+                },
+                {
+                  "name": "Starlight"
+                },
+                {
+                  "name": "Silver"
+                },
+                {
+                  "name": "Gold"
+                }
+              ]
+            },
+            {
+              "type": "select",
+              "name": "Connectivity",
+              "variable": true,
+              "candidates": [
+                {
+                  "name": "GPS"
+                },
+                {
+                  "name": "GPS + Cellular"
+                }
+              ]
+            }
+          ],
+          "stocks": [
+            {
+              "name": "41mm Aluminum GPS Midnight",
+              "price": {
+                "nominal": 399,
+                "real": 399
+              },
+              "quantity": 100,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 0
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 0
+                },
+                {
+                  "option_index": 2,
+                  "candidate_index": 0
+                },
+                {
+                  "option_index": 3,
+                  "candidate_index": 0
+                }
+              ]
+            },
+            {
+              "name": "41mm Aluminum GPS Starlight",
+              "price": {
+                "nominal": 399,
+                "real": 399
+              },
+              "quantity": 100,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 0
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 0
+                },
+                {
+                  "option_index": 2,
+                  "candidate_index": 1
+                },
+                {
+                  "option_index": 3,
+                  "candidate_index": 0
+                }
+              ]
+            },
+            {
+              "name": "41mm Aluminum GPS+Cellular Midnight",
+              "price": {
+                "nominal": 499,
+                "real": 499
+              },
+              "quantity": 100,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 0
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 0
+                },
+                {
+                  "option_index": 2,
+                  "candidate_index": 0
+                },
+                {
+                  "option_index": 3,
+                  "candidate_index": 1
+                }
+              ]
+            },
+            {
+              "name": "41mm Aluminum GPS+Cellular Starlight",
+              "price": {
+                "nominal": 499,
+                "real": 499
+              },
+              "quantity": 100,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 0
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 0
+                },
+                {
+                  "option_index": 2,
+                  "candidate_index": 1
+                },
+                {
+                  "option_index": 3,
+                  "candidate_index": 1
+                }
+              ]
+            },
+            {
+              "name": "45mm Aluminum GPS Midnight",
+              "price": {
+                "nominal": 429,
+                "real": 429
+              },
+              "quantity": 100,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 1
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 0
+                },
+                {
+                  "option_index": 2,
+                  "candidate_index": 0
+                },
+                {
+                  "option_index": 3,
+                  "candidate_index": 0
+                }
+              ]
+            },
+            {
+              "name": "45mm Aluminum GPS Starlight",
+              "price": {
+                "nominal": 429,
+                "real": 429
+              },
+              "quantity": 100,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 1
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 0
+                },
+                {
+                  "option_index": 2,
+                  "candidate_index": 1
+                },
+                {
+                  "option_index": 3,
+                  "candidate_index": 0
+                }
+              ]
+            },
+            {
+              "name": "45mm Aluminum GPS+Cellular Midnight",
+              "price": {
+                "nominal": 529,
+                "real": 529
+              },
+              "quantity": 100,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 1
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 0
+                },
+                {
+                  "option_index": 2,
+                  "candidate_index": 0
+                },
+                {
+                  "option_index": 3,
+                  "candidate_index": 1
+                }
+              ]
+            },
+            {
+              "name": "45mm Aluminum GPS+Cellular Starlight",
+              "price": {
+                "nominal": 529,
+                "real": 529
+              },
+              "quantity": 100,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 1
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 0
+                },
+                {
+                  "option_index": 2,
+                  "candidate_index": 1
+                },
+                {
+                  "option_index": 3,
+                  "candidate_index": 1
+                }
+              ]
+            },
+            {
+              "name": "41mm Stainless Steel GPS+Cellular Silver",
+              "price": {
+                "nominal": 699,
+                "real": 699
+              },
+              "quantity": 50,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 0
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 1
+                },
+                {
+                  "option_index": 2,
+                  "candidate_index": 2
+                },
+                {
+                  "option_index": 3,
+                  "candidate_index": 1
+                }
+              ]
+            },
+            {
+              "name": "41mm Stainless Steel GPS+Cellular Gold",
+              "price": {
+                "nominal": 699,
+                "real": 699
+              },
+              "quantity": 50,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 0
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 1
+                },
+                {
+                  "option_index": 2,
+                  "candidate_index": 3
+                },
+                {
+                  "option_index": 3,
+                  "candidate_index": 1
+                }
+              ]
+            },
+            {
+              "name": "45mm Stainless Steel GPS+Cellular Silver",
+              "price": {
+                "nominal": 749,
+                "real": 749
+              },
+              "quantity": 50,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 1
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 1
+                },
+                {
+                  "option_index": 2,
+                  "candidate_index": 2
+                },
+                {
+                  "option_index": 3,
+                  "candidate_index": 1
+                }
+              ]
+            },
+            {
+              "name": "45mm Stainless Steel GPS+Cellular Gold",
+              "price": {
+                "nominal": 749,
+                "real": 749
+              },
+              "quantity": 50,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 1
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 1
+                },
+                {
+                  "option_index": 2,
+                  "candidate_index": 3
+                },
+                {
+                  "option_index": 3,
+                  "candidate_index": 1
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "status": null
+    }
+  }
+}

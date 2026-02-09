@@ -1,0 +1,47 @@
+{
+  "description": "Current Type: {@link IComposeProps}",
+  "type": "object",
+  "properties": {
+    "categories": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/IShoppingCategory"
+      }
+    }
+  },
+  "required": [
+    "categories"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "IShoppingCategory": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "title": "Identifier code of the category",
+          "description": "Identifier code of the category.",
+          "type": "string",
+          "pattern": "^[a-z0-9_]+$"
+        },
+        "name": {
+          "title": "Name of the category",
+          "description": "Name of the category.",
+          "type": "string"
+        },
+        "children": {
+          "title": "Children categories belong to this category",
+          "description": "Children categories belong to this category.",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/IShoppingCategory"
+          }
+        }
+      },
+      "required": [
+        "code",
+        "name",
+        "children"
+      ]
+    }
+  }
+}

@@ -1,0 +1,153 @@
+{
+  "trial": 1,
+  "success": true,
+  "data": {
+    "categories": [
+      {
+        "code": "electronics",
+        "name": "Electronics",
+        "children": [
+          {
+            "code": "desktops",
+            "name": "Desktops",
+            "children": []
+          },
+          {
+            "code": "laptops",
+            "name": "Laptops",
+            "children": [
+              {
+                "code": "ultrabooks",
+                "name": "Ultrabooks",
+                "children": []
+              },
+              {
+                "code": "macbooks",
+                "name": "Macbooks",
+                "children": []
+              },
+              {
+                "code": "desknotes",
+                "name": "Desknotes",
+                "children": []
+              },
+              {
+                "code": "2_in_1_laptops",
+                "name": "2 in 1 Laptops",
+                "children": []
+              }
+            ]
+          },
+          {
+            "code": "tablets",
+            "name": "Tablets",
+            "children": [
+              {
+                "code": "ipads",
+                "name": "iPads",
+                "children": []
+              },
+              {
+                "code": "android_tablets",
+                "name": "Android Tablets",
+                "children": []
+              },
+              {
+                "code": "windows_tablets",
+                "name": "Windows Tablets",
+                "children": []
+              }
+            ]
+          },
+          {
+            "code": "smart_phones",
+            "name": "Smart Phones",
+            "children": [
+              {
+                "code": "mini_smartphones",
+                "name": "Mini Smartphones",
+                "children": []
+              },
+              {
+                "code": "phablets",
+                "name": "Phablets",
+                "children": []
+              },
+              {
+                "code": "gaming_smartphones",
+                "name": "Gaming Smartphones",
+                "children": []
+              },
+              {
+                "code": "rugged_smartphones",
+                "name": "Rugged Smartphones",
+                "children": []
+              },
+              {
+                "code": "foldable_smartphones",
+                "name": "Foldable Smartphones",
+                "children": []
+              }
+            ]
+          },
+          {
+            "code": "smart_watches",
+            "name": "Smart Watches",
+            "children": []
+          },
+          {
+            "code": "smart_glasses",
+            "name": "Smart Glasses",
+            "children": []
+          },
+          {
+            "code": "cameras",
+            "name": "Cameras",
+            "children": []
+          },
+          {
+            "code": "televisions",
+            "name": "Televisions",
+            "children": []
+          }
+        ]
+      },
+      {
+        "code": "furnitures",
+        "name": "Furnitures",
+        "children": []
+      },
+      {
+        "code": "accessories",
+        "name": "Accessories",
+        "children": [
+          {
+            "code": "jewelry",
+            "name": "Jewelry",
+            "children": []
+          },
+          {
+            "code": "clothing",
+            "name": "Clothing",
+            "children": []
+          },
+          {
+            "code": "shoes",
+            "name": "Shoes",
+            "children": []
+          }
+        ]
+      },
+      {
+        "code": "clothes",
+        "name": "Clothes",
+        "children": []
+      },
+      {
+        "code": "others",
+        "name": "Others",
+        "children": []
+      }
+    ]
+  }
+}

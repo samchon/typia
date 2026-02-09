@@ -1,0 +1,215 @@
+{
+  "trial": 1,
+  "success": true,
+  "data": {
+    "input": {
+      "channels": [
+        {
+          "code": "samchon",
+          "category_codes": [
+            "smart_watches"
+          ]
+        }
+      ],
+      "units": [
+        {
+          "stocks": [
+            {
+              "choices": [],
+              "name": "Warranty Program",
+              "quantity": 10000,
+              "price": {
+                "real": 89000,
+                "nominal": 100000
+              }
+            }
+          ],
+          "options": [],
+          "primary": false,
+          "required": false,
+          "name": "Warranty Program"
+        },
+        {
+          "stocks": [
+            {
+              "price": {
+                "nominal": 50000,
+                "real": 39000
+              },
+              "name": "Replacement Strap",
+              "choices": [],
+              "quantity": 5000
+            }
+          ],
+          "required": false,
+          "name": "Replacement Strap",
+          "options": [],
+          "primary": false
+        },
+        {
+          "primary": true,
+          "stocks": [
+            {
+              "price": {
+                "nominal": 400000,
+                "real": 359000
+              },
+              "quantity": 1000,
+              "name": "Standard Green",
+              "choices": [
+                {
+                  "candidate_index": 0,
+                  "option_index": 0
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 0
+                }
+              ]
+            },
+            {
+              "choices": [
+                {
+                  "candidate_index": 0,
+                  "option_index": 0
+                },
+                {
+                  "candidate_index": 1,
+                  "option_index": 1
+                }
+              ],
+              "name": "Standard Silver",
+              "quantity": 1000,
+              "price": {
+                "real": 359000,
+                "nominal": 400000
+              }
+            },
+            {
+              "price": {
+                "nominal": 400000,
+                "real": 359000
+              },
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 0
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 2
+                }
+              ],
+              "name": "Standard Cream",
+              "quantity": 1000
+            },
+            {
+              "quantity": 1000,
+              "name": "Ultra Green",
+              "price": {
+                "nominal": 600000,
+                "real": 549000
+              },
+              "choices": [
+                {
+                  "candidate_index": 1,
+                  "option_index": 0
+                },
+                {
+                  "candidate_index": 0,
+                  "option_index": 1
+                }
+              ]
+            },
+            {
+              "quantity": 1000,
+              "price": {
+                "nominal": 600000,
+                "real": 549000
+              },
+              "choices": [
+                {
+                  "candidate_index": 1,
+                  "option_index": 0
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 1
+                }
+              ],
+              "name": "Ultra Silver"
+            },
+            {
+              "price": {
+                "real": 549000,
+                "nominal": 600000
+              },
+              "quantity": 1000,
+              "name": "Ultra Cream",
+              "choices": [
+                {
+                  "candidate_index": 1,
+                  "option_index": 0
+                },
+                {
+                  "candidate_index": 2,
+                  "option_index": 1
+                }
+              ]
+            }
+          ],
+          "options": [
+            {
+              "candidates": [
+                {
+                  "name": "Standard"
+                },
+                {
+                  "name": "Ultra"
+                }
+              ],
+              "type": "select",
+              "name": "Model",
+              "variable": true
+            },
+            {
+              "candidates": [
+                {
+                  "name": "Green"
+                },
+                {
+                  "name": "Silver"
+                },
+                {
+                  "name": "Cream"
+                }
+              ],
+              "variable": true,
+              "name": "Color",
+              "type": "select"
+            }
+          ],
+          "required": true,
+          "name": "Galaxy Watch 7"
+        }
+      ],
+      "opened_at": "2024-08-01T00:00:00.000Z",
+      "section_code": "general",
+      "closed_at": null,
+      "tags": [],
+      "content": {
+        "files": [],
+        "title": "Galaxy Watch 7",
+        "thumbnails": [
+          {
+            "extension": "png",
+            "url": "https://images.samsung.com/kdp/goods/2024/07/07/597615f6-b6f9-4ae4-a93d-cbba6bdde2c6.png?$944_550_PNG$",
+            "name": "galaxy-watch-7-thumbnail"
+          }
+        ],
+        "format": "md",
+        "body": "The Galaxy Watch 7 is a premium smartwatch designed with innovative aesthetics and high-quality materials, making it a perfect fit for both daily life and work. ([samsung.com](https://www.samsung.com/sec/watches/galaxy-watch/galaxy-watch7/))\n\n“Upgrade Your Style”: The Galaxy Watch 7 adds a sophisticated touch to your wrist with its floating glass design and a variety of color options.\n“Personalized Sleep Coaching”: Its sleep tracking feature analyzes your sleep patterns and provides personalized sleep coaching.\n\n“Enhanced Workout Tracking”: Supports a wide range of workout modes and provides detailed data such as heart rate and calorie burn.\n\n“Powerful Performance”: Equipped with the latest processor and long battery life, it offers stable performance for everything from daily use to high-intensity workouts.\n\nIn summary, the Galaxy Watch 7 is a premium smartwatch combining style, functionality, and durability, making it the perfect choice to enhance your health and lifestyle."
+      }
+    }
+  }
+}

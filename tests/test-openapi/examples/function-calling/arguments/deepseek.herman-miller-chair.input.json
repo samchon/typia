@@ -1,0 +1,213 @@
+{
+  "trial": 1,
+  "success": true,
+  "data": {
+    "input": {
+      "section_code": "general",
+      "opened_at": null,
+      "closed_at": null,
+      "content": {
+        "title": "Herman Miller Chair",
+        "format": "txt",
+        "body": "The Herman Miller chair is an iconic ergonomic seating solution designed to provide unparalleled comfort and support. With its innovative design and high-quality materials, it is perfect for both home and office use.\n\n\"Elevate Your Workspace\": The Herman Miller chair enhances your productivity with its ergonomic features, ensuring you stay comfortable during long hours of work.\n\"Timeless Design\": Combining aesthetics with functionality, this chair fits seamlessly into any environment, adding a touch of elegance to your space.\n\"Adjustable Comfort\": With customizable settings, the Herman Miller chair adapts to your body, promoting better posture and reducing fatigue.\n\"Built to Last\": Made from durable materials, this chair is designed for longevity, making it a worthwhile investment for anyone seeking quality seating.\nIn summary, the Herman Miller chair stands out as a premium choice for users who value comfort, style, and durability. Whether for work or leisure, this chair is ready to enhance your experience and support your well-being.",
+        "files": [],
+        "thumbnails": [
+          {
+            "name": "herman-miller-chair-thumbnail",
+            "extension": "png",
+            "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRaJWHEnwGGg-8rHni_2hN8HKUSkEBdU3X4w&s"
+          }
+        ]
+      },
+      "channels": [
+        {
+          "code": "samchon",
+          "category_codes": []
+        }
+      ],
+      "tags": [],
+      "units": [
+        {
+          "name": "Herman Miller Chair",
+          "options": [
+            {
+              "type": "select",
+              "name": "Model",
+              "variable": true,
+              "candidates": [
+                {
+                  "name": "Aeron"
+                },
+                {
+                  "name": "Embody"
+                }
+              ]
+            },
+            {
+              "type": "select",
+              "name": "Color",
+              "variable": true,
+              "candidates": [
+                {
+                  "name": "Black"
+                },
+                {
+                  "name": "Gray"
+                },
+                {
+                  "name": "White"
+                }
+              ]
+            }
+          ],
+          "primary": true,
+          "required": true,
+          "stocks": [
+            {
+              "name": "Aeron - Black",
+              "price": {
+                "nominal": 1200000,
+                "real": 1099000
+              },
+              "quantity": 1000,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 0
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 0
+                }
+              ]
+            },
+            {
+              "name": "Aeron - Gray",
+              "price": {
+                "nominal": 1200000,
+                "real": 1099000
+              },
+              "quantity": 1000,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 0
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 1
+                }
+              ]
+            },
+            {
+              "name": "Aeron - White",
+              "price": {
+                "nominal": 1200000,
+                "real": 1099000
+              },
+              "quantity": 1000,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 0
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 2
+                }
+              ]
+            },
+            {
+              "name": "Embody - Black",
+              "price": {
+                "nominal": 1800000,
+                "real": 1599000
+              },
+              "quantity": 1000,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 1
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 0
+                }
+              ]
+            },
+            {
+              "name": "Embody - Gray",
+              "price": {
+                "nominal": 1800000,
+                "real": 1599000
+              },
+              "quantity": 1000,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 1
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 1
+                }
+              ]
+            },
+            {
+              "name": "Embody - White",
+              "price": {
+                "nominal": 1800000,
+                "real": 1599000
+              },
+              "quantity": 1000,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 1
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Warranty Program",
+          "options": [],
+          "primary": false,
+          "required": false,
+          "stocks": [
+            {
+              "name": "Warranty Program",
+              "price": {
+                "nominal": 100000,
+                "real": 89000
+              },
+              "quantity": 10000,
+              "choices": []
+            }
+          ]
+        },
+        {
+          "name": "Replacement Cushion",
+          "options": [],
+          "primary": false,
+          "required": false,
+          "stocks": [
+            {
+              "name": "Replacement Cushion",
+              "price": {
+                "nominal": 50000,
+                "real": 39000
+              },
+              "quantity": 5000,
+              "choices": []
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

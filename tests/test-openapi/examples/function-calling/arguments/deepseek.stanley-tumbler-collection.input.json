@@ -1,0 +1,169 @@
+{
+  "trial": 1,
+  "success": true,
+  "data": {
+    "input": {
+      "section_code": "general",
+      "opened_at": null,
+      "closed_at": null,
+      "content": {
+        "title": "Stanley Tumbler Collection",
+        "format": "md",
+        "body": "The Stanley Tumbler Collection offers a range of versatile, durable, and stylish tumblers to suit every lifestyle. With customizable options and eco-friendly designs, these tumblers are the ideal choice for anyone looking to elevate their drinkware experience. Don’t miss this opportunity to grab your Stanley Tumbler today!\n\n### Product Description\n\nThe Stanley Tumbler Collection is the perfect companion for staying hydrated, whether you're at work, on the go, or exploring the great outdoors. Designed with functionality and durability in mind, these tumblers are built to keep your drinks at the perfect temperature all day long.\n\n- **Built for Adventure**: The Stanley Tumbler features rugged construction, making it ideal for outdoor enthusiasts and urban adventurers alike.\n- **Temperature Control at Its Best**: With double-wall vacuum insulation, the Stanley Tumbler keeps drinks hot for up to 7 hours or cold for up to 11 hours.\n- **Leakproof and Spillproof**: Designed for ease of use, these tumblers are 100% leakproof, ensuring your drink stays exactly where it belongs.\n- **Eco-Friendly and Sustainable**: Made with 18/8 stainless steel, Stanley Tumblers are BPA-free and built to last, reducing waste from disposable cups.\n\nIn summary, the Stanley Tumbler Collection combines durability, functionality, and style. Whether you're sipping coffee during your morning commute or staying hydrated during a hike, Stanley Tumblers are designed to meet your needs. Choose Stanley and enjoy unmatched quality and performance.",
+        "files": [],
+        "thumbnails": [
+          {
+            "name": "stanley-tumbler-collection-thumbnail",
+            "extension": "jpeg",
+            "url": "https://serpapi.com/searches/673d71322c566d56d9c20ceb/images/ce9a07f2aa831dbec8bb1c287299706e24a52a8e0c119fa162041805038957a7.jpeg"
+          }
+        ]
+      },
+      "channels": [
+        {
+          "code": "samchon",
+          "category_codes": [
+            "accessories"
+          ]
+        }
+      ],
+      "tags": [
+        "tumbler",
+        "hydration",
+        "eco-friendly",
+        "outdoor"
+      ],
+      "units": [
+        {
+          "name": "Classic Tumbler",
+          "options": [
+            {
+              "type": "select",
+              "name": "Capacity",
+              "variable": true,
+              "candidates": [
+                {
+                  "name": "16 oz"
+                },
+                {
+                  "name": "20 oz"
+                },
+                {
+                  "name": "24 oz"
+                }
+              ]
+            },
+            {
+              "type": "select",
+              "name": "Color Options",
+              "variable": true,
+              "candidates": [
+                {
+                  "name": "Matte Black"
+                },
+                {
+                  "name": "Hammertone Green"
+                },
+                {
+                  "name": "Polar White"
+                }
+              ]
+            }
+          ],
+          "primary": true,
+          "required": true,
+          "stocks": [
+            {
+              "name": "16 oz, Matte Black",
+              "price": {
+                "nominal": 40000,
+                "real": 35000
+              },
+              "quantity": 2000,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 0
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 0
+                }
+              ]
+            },
+            {
+              "name": "20 oz, Hammertone Green",
+              "price": {
+                "nominal": 50000,
+                "real": 44000
+              },
+              "quantity": 2000,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 1
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 1
+                }
+              ]
+            },
+            {
+              "name": "24 oz, Polar White",
+              "price": {
+                "nominal": 60000,
+                "real": 54000
+              },
+              "quantity": 2000,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 2
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Adventure Quencher Tumbler",
+          "options": [],
+          "primary": false,
+          "required": false,
+          "stocks": [
+            {
+              "name": "Adventure Quencher Tumbler",
+              "price": {
+                "nominal": 70000,
+                "real": 64000
+              },
+              "quantity": 5000,
+              "choices": []
+            }
+          ]
+        },
+        {
+          "name": "Accessories Set",
+          "options": [],
+          "primary": false,
+          "required": false,
+          "stocks": [
+            {
+              "name": "Accessories Set",
+              "price": {
+                "nominal": 20000,
+                "real": 18000
+              },
+              "quantity": 10000,
+              "choices": []
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

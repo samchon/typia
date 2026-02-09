@@ -1,0 +1,143 @@
+{
+  "trial": 1,
+  "success": true,
+  "data": {
+    "input": {
+      "section_code": "general",
+      "channels": [
+        {
+          "code": "samchon",
+          "category_codes": [
+            "tablets",
+            "ipads"
+          ]
+        }
+      ],
+      "opened_at": "2024-07-19T12:00:00.000Z",
+      "units": [
+        {
+          "required": true,
+          "primary": true,
+          "stocks": [
+            {
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 0
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 0
+                }
+              ],
+              "quantity": 100,
+              "name": "64GB, Wi-Fi",
+              "price": {
+                "real": 329,
+                "nominal": 329
+              }
+            },
+            {
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 0
+                },
+                {
+                  "candidate_index": 1,
+                  "option_index": 1
+                }
+              ],
+              "quantity": 50,
+              "name": "64GB, Wi-Fi + Cellular",
+              "price": {
+                "nominal": 459,
+                "real": 459
+              }
+            },
+            {
+              "quantity": 100,
+              "choices": [
+                {
+                  "candidate_index": 1,
+                  "option_index": 0
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 0
+                }
+              ],
+              "price": {
+                "real": 429,
+                "nominal": 429
+              },
+              "name": "256GB, Wi-Fi"
+            },
+            {
+              "price": {
+                "nominal": 559,
+                "real": 559
+              },
+              "quantity": 50,
+              "choices": [
+                {
+                  "candidate_index": 1,
+                  "option_index": 0
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 1
+                }
+              ],
+              "name": "256GB, Wi-Fi + Cellular"
+            }
+          ],
+          "name": "iPad",
+          "options": [
+            {
+              "variable": true,
+              "type": "select",
+              "name": "Storage",
+              "candidates": [
+                {
+                  "name": "64GB"
+                },
+                {
+                  "name": "256GB"
+                }
+              ]
+            },
+            {
+              "type": "select",
+              "variable": true,
+              "name": "Connectivity",
+              "candidates": [
+                {
+                  "name": "Wi-Fi"
+                },
+                {
+                  "name": "Wi-Fi + Cellular"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "tags": [
+        "apple",
+        "ipad",
+        "tablet",
+        "technology",
+        "versatile"
+      ],
+      "content": {
+        "thumbnails": [],
+        "title": "Apple iPad",
+        "body": "Experience the versatility of the Apple iPad. Perfect for work, play, and everything in between. Browse, create, and connect like never before with its stunning display and powerful performance.",
+        "format": "html",
+        "files": []
+      },
+      "closed_at": null
+    }
+  }
+}

@@ -1,0 +1,353 @@
+{
+  "description": "Current Type: {@link ShoppingSalePrompt.ICreateProps}",
+  "type": "object",
+  "properties": {
+    "input": {
+      "$ref": "#/$defs/IShoppingSale.ICreate"
+    }
+  },
+  "required": [
+    "input"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "IShoppingSale.ICreate": {
+      "description": "Creation information of sale.",
+      "type": "object",
+      "properties": {
+        "section_code": {
+          "description": "Belonged section's {@link IShoppingSection.code}.",
+          "type": "string"
+        },
+        "status": {
+          "description": "Initial status of the sale.\n\n`null` or `undefined`: No restriction\n`paused`: Starts with {@link ITimestamps.paused_at paused} status\n`suspended`: Starts with {@link ITimestamps.suspended_at suspended} status",
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "enum": [
+                "paused",
+                "suspended"
+              ]
+            }
+          ]
+        },
+        "opened_at": {
+          "description": "Opening time of the sale.",
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        },
+        "closed_at": {
+          "description": "Closing time of the sale.\n\nIf this value is `null`, the sale be continued forever.",
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        },
+        "content": {
+          "description": "Description and image content describing the sale.",
+          "$ref": "#/$defs/IShoppingSaleContent.ICreate"
+        },
+        "channels": {
+          "description": "List of channels and categories.\n\nWhich channels and categories the sale is registered to.",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/IShoppingSaleChannel.ICreate"
+          },
+          "minItems": 1
+        },
+        "units": {
+          "description": "List of units.\n\nRecords about individual product composition information that are sold\nin the sale. Each {@link IShoppingSaleUnit unit} record has configurable\n{@link IShoppingSaleUnitOption options},\n{@link IShoppingSaleUnitOptionCandidate candidate} values for each\noption, and {@link IShoppingSaleUnitStock final stocks} determined by\nselecting every candidate values of each option.",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/IShoppingSaleUnit.ICreate"
+          },
+          "minItems": 1
+        },
+        "tags": {
+          "description": "List of search tags.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "section_code",
+        "opened_at",
+        "closed_at",
+        "content",
+        "channels",
+        "units",
+        "tags"
+      ]
+    },
+    "IShoppingSaleContent.ICreate": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "format": {
+          "$ref": "#/$defs/IShoppingSaleContent.Type"
+        },
+        "body": {
+          "type": "string"
+        },
+        "files": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/IAttachmentFile.ICreate"
+          }
+        },
+        "thumbnails": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/IAttachmentFile.ICreate"
+          }
+        }
+      },
+      "required": [
+        "title",
+        "format",
+        "body",
+        "files",
+        "thumbnails"
+      ]
+    },
+    "IShoppingSaleContent.Type": {
+      "type": "string",
+      "enum": [
+        "html",
+        "md",
+        "txt"
+      ]
+    },
+    "IAttachmentFile.ICreate": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "File name, except extension.\n\nIf there's file `.gitignore`, then its name is an empty string.",
+          "type": "string",
+          "maxLength": 255
+        },
+        "extension": {
+          "description": "Extension.\n\nPossible to omit like `README` case.",
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 8
+            }
+          ]
+        },
+        "url": {
+          "description": "URL path of the real file.",
+          "type": "string",
+          "format": "uri"
+        }
+      },
+      "required": [
+        "name",
+        "extension",
+        "url"
+      ]
+    },
+    "IShoppingSaleChannel.ICreate": {
+      "description": "Creation information of the target channel (and categories) of sale to sell.",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Target channel's {@link IShoppingChannel.code}.",
+          "type": "string"
+        },
+        "category_codes": {
+          "description": "List of target categories' {@link IShoppingChannelCategory.code}s.\n\nIf empty, it means all categories of the channel is listing the sale.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "code",
+        "category_codes"
+      ]
+    },
+    "IShoppingSaleUnit.ICreate": {
+      "description": "Creation information of sale unit.",
+      "type": "object",
+      "properties": {
+        "options": {
+          "description": "List of options.",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/IShoppingSaleUnitSelectableOption.ICreate"
+          }
+        },
+        "stocks": {
+          "description": "List of final stocks.",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/IShoppingSaleUnitStock.ICreate"
+          },
+          "minItems": 1
+        },
+        "name": {
+          "description": "Representative name of the unit.",
+          "type": "string"
+        },
+        "primary": {
+          "description": "Whether the unit is primary or not.\n\nJust a labeling value.",
+          "type": "boolean"
+        },
+        "required": {
+          "description": "Whether the unit is required or not.\n\nWhen the unit is required, the customer must select the unit. If do not\nselect, customer can't buy it.\n\nFor example, if there's a sale \"Macbook Set\" and one of the unit is the\n\"Main Body\", is it possible to buy the \"Macbook Set\" without the\n\"Main Body\" unit? This property is for that case.",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "options",
+        "stocks",
+        "name",
+        "primary",
+        "required"
+      ]
+    },
+    "IShoppingSaleUnitSelectableOption.ICreate": {
+      "description": "Creation information of the selectable option.",
+      "type": "object",
+      "properties": {
+        "type": {
+          "description": "Discriminant for the type of selectable option.",
+          "type": "string",
+          "enum": [
+            "select"
+          ]
+        },
+        "name": {
+          "description": "Represents the name of the option.",
+          "type": "string"
+        },
+        "variable": {
+          "description": "Whether the option is variable or not.\n\nWhen type of current option is \"select\", this attribute means whether\nselecting different candidate value affects the final stock or not.",
+          "type": "boolean"
+        },
+        "candidates": {
+          "description": "List of candidate values.",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/IShoppingSaleUnitOptionCandidate.ICreate"
+          },
+          "minItems": 1
+        }
+      },
+      "required": [
+        "type",
+        "name",
+        "variable",
+        "candidates"
+      ]
+    },
+    "IShoppingSaleUnitOptionCandidate.ICreate": {
+      "description": "Creation information of the candidate value.",
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "Represents the name of the candidate value.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "IShoppingSaleUnitStock.ICreate": {
+      "description": "Creation information of the stock.",
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "Representative name of the stock.",
+          "type": "string"
+        },
+        "price": {
+          "description": "Price of the stock.",
+          "$ref": "#/$defs/IShoppingPrice"
+        },
+        "quantity": {
+          "description": "Initial inventory quantity.",
+          "type": "integer",
+          "minimum": 1
+        },
+        "choices": {
+          "description": "List of choices.\n\nWhich candidate values being chosen for each option.",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/IShoppingSaleUnitStockChoice.ICreate"
+          }
+        }
+      },
+      "required": [
+        "name",
+        "price",
+        "quantity",
+        "choices"
+      ]
+    },
+    "IShoppingPrice": {
+      "description": "Shopping price interface.",
+      "type": "object",
+      "properties": {
+        "nominal": {
+          "description": "Nominal price.\n\nThis is not {@link real real price} to pay, but just a nominal price to show.\nIf this value is greater than the {@link real real price}, it would be shown\nlike {@link IShoppingSeller seller} is giving a discount.",
+          "type": "number",
+          "minimum": 0
+        },
+        "real": {
+          "description": "Real price to pay.",
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "nominal",
+        "real"
+      ]
+    },
+    "IShoppingSaleUnitStockChoice.ICreate": {
+      "description": "Creation information of stock choice.",
+      "type": "object",
+      "properties": {
+        "option_index": {
+          "description": "Target option's index number in\n{@link IShoppingSaleUnit.ICreate.options}.",
+          "type": "integer",
+          "minimum": 0
+        },
+        "candidate_index": {
+          "description": "Target candidate's index number in\n{@link IShoppingSaleUnitSelectableOption.ICreate.candidates}.",
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "option_index",
+        "candidate_index"
+      ]
+    }
+  }
+}

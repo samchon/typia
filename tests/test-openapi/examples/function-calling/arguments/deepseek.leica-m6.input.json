@@ -1,0 +1,113 @@
+{
+  "trial": 1,
+  "success": true,
+  "data": {
+    "input": {
+      "section_code": "general",
+      "opened_at": null,
+      "closed_at": null,
+      "content": {
+        "title": "Leica M6 (2022 Reissue): The Return of a Legend",
+        "format": "txt",
+        "body": "The Leica M6, a beloved classic in the world of film photography, is back! The 2022 reissue brings modern enhancements while staying true to the original’s timeless charm. Designed for enthusiasts and professionals, the new M6 is a tribute to the past, with a touch of the future.\n\n- **\"Rediscover the Classic\":** The Leica M6 reissue retains the original design, offering the same iconic look and feel that photographers fell in love with decades ago.\n- **\"Enhanced for the Modern Era\":** Now featuring improved durability, a brighter viewfinder, and the latest advancements in metering, the M6 reissue ensures a seamless shooting experience.\n- **\"Craftsmanship Meets Tradition\":** Made in Germany, the M6 embodies Leica's dedication to quality and precision, delivering a tool that feels as good as it performs.\n- **\"For the Love of Film\":** The M6 is perfect for those who cherish the art of analog photography, providing an unmatched tactile and creative experience.\n\nIn summary, the 2022 Leica M6 reissue is a perfect blend of heritage and innovation. It’s a must-have for collectors, analog enthusiasts, and anyone seeking the pure joy of shooting on film with a legendary camera.",
+        "files": [],
+        "thumbnails": [
+          {
+            "name": "leica-m6-thumbnail-1.png",
+            "extension": "png",
+            "url": "https://leica-camera.com/sites/default/files/styles/r_media_medium_desktop_4_3/public/pm-84724-10557_leica_m6_black_front_1.png?itok=SpVHc0cq"
+          },
+          {
+            "name": "leica-m6-thumbnail-2.webp",
+            "extension": "webp",
+            "url": "https://leica-camera.com/sites/default/files/styles/r_media_fullscreen/public/2022-09/leica_m6_packaging_ambient_3840x2160.jpg.webp?itok=lig4kkiB"
+          }
+        ]
+      },
+      "channels": [
+        {
+          "code": "samchon",
+          "category_codes": [
+            "cameras"
+          ]
+        }
+      ],
+      "units": [
+        {
+          "name": "Leica M6 Body (2022 Reissue)",
+          "options": [
+            {
+              "type": "select",
+              "name": "Finish",
+              "variable": true,
+              "candidates": [
+                {
+                  "name": "Black Paint Finish"
+                },
+                {
+                  "name": "Silver Chrome Finish"
+                }
+              ]
+            }
+          ],
+          "primary": true,
+          "required": true,
+          "stocks": [
+            {
+              "name": "Black Paint Finish",
+              "price": {
+                "nominal": 7200000,
+                "real": 6899000
+              },
+              "quantity": 500,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 0
+                }
+              ]
+            },
+            {
+              "name": "Silver Chrome Finish",
+              "price": {
+                "nominal": 7200000,
+                "real": 6899000
+              },
+              "quantity": 500,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "50mm Summilux Lens",
+          "options": [],
+          "primary": false,
+          "required": false,
+          "stocks": [
+            {
+              "name": "50mm Summilux Lens",
+              "price": {
+                "nominal": 5200000,
+                "real": 4999000
+              },
+              "quantity": 1000,
+              "choices": []
+            }
+          ]
+        }
+      ],
+      "tags": [
+        "Leica M6",
+        "Film Camera",
+        "Photography",
+        "2022 Reissue",
+        "50mm Summilux Lens"
+      ]
+    }
+  }
+}

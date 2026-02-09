@@ -1,0 +1,221 @@
+{
+  "trial": 1,
+  "success": true,
+  "data": {
+    "input": {
+      "section_code": "general",
+      "status": null,
+      "opened_at": null,
+      "closed_at": null,
+      "content": {
+        "title": "Galaxy Watch 7",
+        "format": "txt",
+        "body": "The Galaxy Watch 7 is a premium smartwatch designed with innovative aesthetics and high-quality materials, making it a perfect fit for both daily life and work. (https://www.samsung.com/sec/watches/galaxy-watch/galaxy-watch7/)\n“Upgrade Your Style”: The Galaxy Watch 7 adds a sophisticated touch to your wrist with its floating glass design and a variety of color options.\n“Personalized Sleep Coaching”: Its sleep tracking feature analyzes your sleep patterns and provides personalized sleep coaching.\n“Enhanced Workout Tracking”: Supports a wide range of workout modes and provides detailed data such as heart rate and calorie burn.\n“Powerful Performance”: Equipped with the latest processor and long battery life, it offers stable performance for everything from daily use to high-intensity workouts.\nIn summary, the Galaxy Watch 7 is a premium smartwatch combining style, functionality, and durability, making it the perfect choice to enhance your health and lifestyle.",
+        "files": [],
+        "thumbnails": [
+          {
+            "name": "galaxy-watch-7-thumbnail",
+            "extension": "png",
+            "url": "https://images.samsung.com/kdp/goods/2024/07/07/597615f6-b6f9-4ae4-a93d-cbba6bdde2c6.png?$944_550_PNG$"
+          }
+        ]
+      },
+      "channels": [
+        {
+          "code": "samchon",
+          "category_codes": [
+            "electronics",
+            "smart_watches"
+          ]
+        }
+      ],
+      "units": [
+        {
+          "options": [],
+          "stocks": [
+            {
+              "name": "Warranty Program",
+              "price": {
+                "nominal": 100000,
+                "real": 89000
+              },
+              "quantity": 10000,
+              "choices": []
+            }
+          ],
+          "name": "Warranty Program",
+          "primary": false,
+          "required": false
+        },
+        {
+          "options": [],
+          "stocks": [
+            {
+              "name": "Replacement Strap",
+              "price": {
+                "nominal": 50000,
+                "real": 39000
+              },
+              "quantity": 5000,
+              "choices": []
+            }
+          ],
+          "name": "Replacement Strap",
+          "primary": false,
+          "required": false
+        },
+        {
+          "options": [
+            {
+              "type": "select",
+              "name": "Model",
+              "variable": true,
+              "candidates": [
+                {
+                  "name": "Standard"
+                },
+                {
+                  "name": "Ultra"
+                }
+              ]
+            },
+            {
+              "type": "select",
+              "name": "Color",
+              "variable": true,
+              "candidates": [
+                {
+                  "name": "Green"
+                },
+                {
+                  "name": "Silver"
+                },
+                {
+                  "name": "Cream"
+                }
+              ]
+            }
+          ],
+          "stocks": [
+            {
+              "name": "(Standard, Green)",
+              "price": {
+                "nominal": 400000,
+                "real": 359000
+              },
+              "quantity": 1000,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 0
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 0
+                }
+              ]
+            },
+            {
+              "name": "(Standard, Silver)",
+              "price": {
+                "nominal": 400000,
+                "real": 359000
+              },
+              "quantity": 1000,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 0
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 1
+                }
+              ]
+            },
+            {
+              "name": "(Standard, Cream)",
+              "price": {
+                "nominal": 400000,
+                "real": 359000
+              },
+              "quantity": 1000,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 0
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 2
+                }
+              ]
+            },
+            {
+              "name": "(Ultra, Green)",
+              "price": {
+                "nominal": 600000,
+                "real": 549000
+              },
+              "quantity": 1000,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 1
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 0
+                }
+              ]
+            },
+            {
+              "name": "(Ultra, Silver)",
+              "price": {
+                "nominal": 600000,
+                "real": 549000
+              },
+              "quantity": 1000,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 1
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 1
+                }
+              ]
+            },
+            {
+              "name": "(Ultra, Cream)",
+              "price": {
+                "nominal": 600000,
+                "real": 549000
+              },
+              "quantity": 1000,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 1
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 2
+                }
+              ]
+            }
+          ],
+          "name": "Galaxy Watch 7",
+          "primary": true,
+          "required": true
+        }
+      ],
+      "tags": [
+        "smartwatch",
+        "galaxy watch 7",
+        "samsung"
+      ]
+    }
+  }
+}

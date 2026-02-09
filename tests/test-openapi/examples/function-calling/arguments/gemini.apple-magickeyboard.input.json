@@ -1,0 +1,87 @@
+{
+  "trial": 1,
+  "success": true,
+  "data": {
+    "input": {
+      "units": [
+        {
+          "options": [
+            {
+              "variable": false,
+              "type": "select",
+              "name": "Layout",
+              "candidates": [
+                {
+                  "name": "US"
+                },
+                {
+                  "name": "KR"
+                }
+              ]
+            }
+          ],
+          "primary": true,
+          "name": "Keyboard",
+          "required": true,
+          "stocks": [
+            {
+              "name": "US",
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 0
+                }
+              ],
+              "price": {
+                "real": 99,
+                "nominal": 129
+              },
+              "quantity": 500
+            },
+            {
+              "price": {
+                "real": 109,
+                "nominal": 139
+              },
+              "quantity": 100,
+              "name": "KR",
+              "choices": [
+                {
+                  "candidate_index": 1,
+                  "option_index": 0
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "opened_at": "2024-07-19T12:00:00.000Z",
+      "channels": [
+        {
+          "category_codes": [
+            "electronics",
+            "desktops",
+            "laptops",
+            "macbooks"
+          ],
+          "code": "samchon"
+        }
+      ],
+      "section_code": "general",
+      "tags": [
+        "apple",
+        "keyboard",
+        "magic keyboard",
+        "accessories"
+      ],
+      "content": {
+        "body": "The Apple Magic Keyboard combines a sleek design with enhanced key features. It features a stable scissor mechanism beneath each key for increased stability, as well as optimized key travel and a lower profile for a comfortable and precise typing experience. The numeric keypad is also great for spreadsheets and finance applications. The built-in rechargeable battery is incredibly long-lasting, powering your keyboard for about a month or more between charges.",
+        "thumbnails": [],
+        "files": [],
+        "format": "html",
+        "title": "Apple Magic Keyboard"
+      },
+      "closed_at": null
+    }
+  }
+}

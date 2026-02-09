@@ -1,0 +1,194 @@
+{
+  "trial": 1,
+  "success": true,
+  "data": {
+    "input": {
+      "section_code": "general",
+      "channels": [
+        {
+          "code": "samchon",
+          "category_codes": [
+            "electronics",
+            "desktops"
+          ]
+        }
+      ],
+      "opened_at": null,
+      "closed_at": null,
+      "content": {
+        "title": "Apple iMac",
+        "format": "md",
+        "body": "# Apple iMac\n\nExperience the power of creativity with the all-new Apple iMac. Featuring a stunning Retina display, powerful M1 chip, and a beautifully thin design that will transform your workspace.\n\n## Key Features\n- Stunning 4.5K Retina display\n- Apple M1 chip for exceptional performance\n- 1080p FaceTime HD camera\n- Studio-quality three-mic array\n- Six-speaker sound system\n- Magic Keyboard with Touch ID\n- Magic Mouse\n\n## Available in Multiple Colors\nChoose from vibrant colors to match your style:\n- Silver\n- Blue\n- Green\n- Pink\n- Orange\n- Purple\n- Yellow\n\n## Technical Specifications\n- 8-core CPU with 4 performance cores and 4 efficiency cores\n- Up to 8-core GPU\n- 16-core Neural Engine\n- 8GB unified memory\n- 256GB SSD storage (configurable up to 2TB)\n\nTransform your desktop experience with the most powerful and versatile all-in-one computer from Apple.",
+        "files": [],
+        "thumbnails": []
+      },
+      "tags": [
+        "apple",
+        "imac",
+        "desktop",
+        "computer",
+        "all-in-one",
+        "m1"
+      ],
+      "units": [
+        {
+          "name": "iMac 24-inch",
+          "primary": true,
+          "required": true,
+          "options": [
+            {
+              "type": "select",
+              "name": "Color",
+              "variable": true,
+              "candidates": [
+                {
+                  "name": "Silver"
+                },
+                {
+                  "name": "Blue"
+                },
+                {
+                  "name": "Green"
+                },
+                {
+                  "name": "Pink"
+                },
+                {
+                  "name": "Orange"
+                },
+                {
+                  "name": "Purple"
+                },
+                {
+                  "name": "Yellow"
+                }
+              ]
+            },
+            {
+              "type": "select",
+              "name": "Storage",
+              "variable": true,
+              "candidates": [
+                {
+                  "name": "256GB"
+                },
+                {
+                  "name": "512GB"
+                },
+                {
+                  "name": "1TB"
+                },
+                {
+                  "name": "2TB"
+                }
+              ]
+            },
+            {
+              "type": "select",
+              "name": "Memory",
+              "variable": true,
+              "candidates": [
+                {
+                  "name": "8GB"
+                },
+                {
+                  "name": "16GB"
+                }
+              ]
+            }
+          ],
+          "stocks": [
+            {
+              "name": "iMac 24\" 256GB Silver 8GB",
+              "price": {
+                "nominal": 1499,
+                "real": 1499
+              },
+              "quantity": 50,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 0
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 0
+                },
+                {
+                  "option_index": 2,
+                  "candidate_index": 0
+                }
+              ]
+            },
+            {
+              "name": "iMac 24\" 256GB Silver 16GB",
+              "price": {
+                "nominal": 1699,
+                "real": 1699
+              },
+              "quantity": 50,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 0
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 0
+                },
+                {
+                  "option_index": 2,
+                  "candidate_index": 1
+                }
+              ]
+            },
+            {
+              "name": "iMac 24\" 512GB Silver 8GB",
+              "price": {
+                "nominal": 1699,
+                "real": 1699
+              },
+              "quantity": 50,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 0
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 1
+                },
+                {
+                  "option_index": 2,
+                  "candidate_index": 0
+                }
+              ]
+            },
+            {
+              "name": "iMac 24\" 512GB Silver 16GB",
+              "price": {
+                "nominal": 1899,
+                "real": 1899
+              },
+              "quantity": 50,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 0
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 1
+                },
+                {
+                  "option_index": 2,
+                  "candidate_index": 1
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,301 @@
+{
+  "trial": 1,
+  "success": true,
+  "data": {
+    "input": {
+      "section_code": "general",
+      "opened_at": "2024-06-01T00:00:00Z",
+      "closed_at": null,
+      "content": {
+        "title": "Surface Pro 9",
+        "format": "html",
+        "body": "<p>The Surface Pro 9 is a versatile 2-in-1 device that combines the power of a laptop with the flexibility of a tablet. It features advanced technology, making it suitable for both professional and personal use.</p>\n<ul>\n<li><strong>\"Unleash Your Creativity Anywhere\"</strong>: The Surface Pro 9 is designed for those who need power and portability, making it perfect for creative professionals and students alike.</li>\n<li><strong>\"The Ultimate 2-in-1 Experience\"</strong>: With its detachable keyboard and touchscreen capabilities, the Surface Pro 9 adapts to your needs, whether you're working, studying, or relaxing.</li>\n<li><strong>\"Stay Connected with 5G\"</strong>: Experience lightning-fast internet speeds and seamless connectivity, no matter where you are.</li>\n<li><strong>\"Power Meets Flexibility\"</strong>: The Surface Pro 9 combines the performance of a laptop with the convenience of a tablet, making it the ideal device for multitasking.</li>\n</ul>\n<p>In summary, the Surface Pro 9 stands out as a powerful and flexible device, perfect for users who require both performance and portability. With its advanced features and sleek design, it is an excellent choice for anyone looking to enhance their productivity and creativity. Whether for work or play, the Surface Pro 9 is ready to meet your needs.</p>",
+        "files": [],
+        "thumbnails": [
+          {
+            "name": "microsoft-surface-pro-9-thumbnail-1",
+            "extension": "jpeg",
+            "url": "https://serpapi.com/searches/673d3a37e45f3316ecd8ab3e/images/1be25e6e2b1fb7509f1af89c326cb41749301b94375eb5680b9bddcdf88fabcb.jpeg"
+          },
+          {
+            "name": "microsoft-surface-pro-9-thumbnail-2",
+            "extension": "jpeg",
+            "url": "https://serpapi.com/searches/673d3a37e45f3316ecd8ab3e/images/1be25e6e2b1fb750d6c1bc749467f5aba0340886f4f4943fe72302c5e658b15a.jpeg"
+          },
+          {
+            "name": "microsoft-surface-pro-9-thumbnail-3",
+            "extension": "jpeg",
+            "url": "https://serpapi.com/searches/673d3a37e45f3316ecd8ab3e/images/1be25e6e2b1fb7505946d975aac683f8826bcb8c509672de4a5f8c71f149fdef.jpeg"
+          }
+        ]
+      },
+      "channels": [
+        {
+          "code": "samchon",
+          "category_codes": [
+            "laptops",
+            "ultrabooks",
+            "2_in_1_laptops"
+          ]
+        }
+      ],
+      "units": [
+        {
+          "options": [
+            {
+              "type": "select",
+              "name": "CPU",
+              "variable": true,
+              "candidates": [
+                {
+                  "name": "Intel Core i3"
+                },
+                {
+                  "name": "Intel Core i5"
+                },
+                {
+                  "name": "Intel Core i7"
+                }
+              ]
+            },
+            {
+              "type": "select",
+              "name": "RAM",
+              "variable": true,
+              "candidates": [
+                {
+                  "name": "8 GB"
+                },
+                {
+                  "name": "16 GB"
+                },
+                {
+                  "name": "32 GB"
+                }
+              ]
+            },
+            {
+              "type": "select",
+              "name": "Storage",
+              "variable": true,
+              "candidates": [
+                {
+                  "name": "128 GB"
+                },
+                {
+                  "name": "256 GB"
+                },
+                {
+                  "name": "512 GB"
+                }
+              ]
+            }
+          ],
+          "stocks": [
+            {
+              "name": "Surface Pro 9 (i3, 8 GB, 128 GB)",
+              "price": {
+                "nominal": 1000000,
+                "real": 899000
+              },
+              "quantity": 1000,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 0
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 0
+                },
+                {
+                  "option_index": 2,
+                  "candidate_index": 0
+                }
+              ]
+            },
+            {
+              "name": "Surface Pro 9 (i3, 16 GB, 256 GB)",
+              "price": {
+                "nominal": 1200000,
+                "real": 1099000
+              },
+              "quantity": 1000,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 0
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 1
+                },
+                {
+                  "option_index": 2,
+                  "candidate_index": 1
+                }
+              ]
+            },
+            {
+              "name": "Surface Pro 9 (i3, 16 GB, 512 GB)",
+              "price": {
+                "nominal": 1400000,
+                "real": 1299000
+              },
+              "quantity": 1000,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 0
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 1
+                },
+                {
+                  "option_index": 2,
+                  "candidate_index": 2
+                }
+              ]
+            },
+            {
+              "name": "Surface Pro 9 (i5, 16 GB, 256 GB)",
+              "price": {
+                "nominal": 1500000,
+                "real": 1399000
+              },
+              "quantity": 1000,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 1
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 1
+                },
+                {
+                  "option_index": 2,
+                  "candidate_index": 1
+                }
+              ]
+            },
+            {
+              "name": "Surface Pro 9 (i5, 32 GB, 512 GB)",
+              "price": {
+                "nominal": 1800000,
+                "real": 1699000
+              },
+              "quantity": 1000,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 1
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 2
+                },
+                {
+                  "option_index": 2,
+                  "candidate_index": 2
+                }
+              ]
+            },
+            {
+              "name": "Surface Pro 9 (i7, 16 GB, 512 GB)",
+              "price": {
+                "nominal": 1800000,
+                "real": 1699000
+              },
+              "quantity": 1000,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 2
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 1
+                },
+                {
+                  "option_index": 2,
+                  "candidate_index": 2
+                }
+              ]
+            },
+            {
+              "name": "Surface Pro 9 (i7, 32 GB, 512 GB)",
+              "price": {
+                "nominal": 2000000,
+                "real": 1899000
+              },
+              "quantity": 1000,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 2
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 2
+                },
+                {
+                  "option_index": 2,
+                  "candidate_index": 2
+                }
+              ]
+            }
+          ],
+          "name": "Surface Pro 9 Entity",
+          "primary": true,
+          "required": true
+        },
+        {
+          "options": [],
+          "stocks": [
+            {
+              "name": "Warranty Program",
+              "price": {
+                "nominal": 100000,
+                "real": 89000
+              },
+              "quantity": 10000,
+              "choices": []
+            }
+          ],
+          "name": "Warranty Program",
+          "primary": false,
+          "required": false
+        },
+        {
+          "options": [],
+          "stocks": [
+            {
+              "name": "Magnetic Keyboard",
+              "price": {
+                "nominal": 200000,
+                "real": 169000
+              },
+              "quantity": 8000,
+              "choices": []
+            }
+          ],
+          "name": "Magnetic Keyboard",
+          "primary": false,
+          "required": false
+        }
+      ],
+      "tags": [
+        "Surface Pro 9",
+        "Microsoft",
+        "2-in-1",
+        "Laptop",
+        "Tablet",
+        "5G",
+        "Productivity",
+        "Creativity"
+      ]
+    }
+  }
+}

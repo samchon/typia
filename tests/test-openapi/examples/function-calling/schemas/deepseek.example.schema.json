@@ -1,0 +1,20 @@
+{
+  "description": "Current Type: {@link IPerson}",
+  "type": "object",
+  "properties": {
+    "name": {
+      "example": "John Doe",
+      "type": "string"
+    },
+    "age": {
+      "example": 42,
+      "type": "number"
+    }
+  },
+  "required": [
+    "name",
+    "age"
+  ],
+  "additionalProperties": false,
+  "$defs": {}
+}

@@ -1,0 +1,403 @@
+{
+  "trial": 1,
+  "success": true,
+  "data": {
+    "input": {
+      "section_code": "general",
+      "status": null,
+      "opened_at": null,
+      "closed_at": null,
+      "content": {
+        "title": "Apple iPad",
+        "format": "md",
+        "body": "Explore the range of Apple iPad models, known for their sleek design, performance, and versatility. Ideal for both personal and professional use, iPads offer unmatched convenience and power.",
+        "files": [],
+        "thumbnails": [
+          {
+            "name": "ipad_thumbnail",
+            "extension": "jpg",
+            "url": "https://example.com/ipad_thumbnail.jpg"
+          }
+        ]
+      },
+      "channels": [
+        {
+          "code": "samchon",
+          "category_codes": [
+            "ipads"
+          ]
+        }
+      ],
+      "units": [
+        {
+          "options": [
+            {
+              "type": "select",
+              "name": "Model",
+              "variable": true,
+              "candidates": [
+                {
+                  "name": "iPad Mini"
+                },
+                {
+                  "name": "iPad Air"
+                },
+                {
+                  "name": "iPad Pro"
+                }
+              ]
+            },
+            {
+              "type": "select",
+              "name": "Storage",
+              "variable": true,
+              "candidates": [
+                {
+                  "name": "64GB"
+                },
+                {
+                  "name": "256GB"
+                },
+                {
+                  "name": "512GB"
+                }
+              ]
+            },
+            {
+              "type": "select",
+              "name": "Color",
+              "variable": false,
+              "candidates": [
+                {
+                  "name": "Silver"
+                },
+                {
+                  "name": "Space Gray"
+                }
+              ]
+            }
+          ],
+          "stocks": [
+            {
+              "name": "iPad Mini 64GB Silver",
+              "price": {
+                "nominal": 499,
+                "real": 499
+              },
+              "quantity": 100,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 0
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 0
+                },
+                {
+                  "option_index": 2,
+                  "candidate_index": 0
+                }
+              ]
+            },
+            {
+              "name": "iPad Mini 64GB Space Gray",
+              "price": {
+                "nominal": 499,
+                "real": 499
+              },
+              "quantity": 100,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 0
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 0
+                },
+                {
+                  "option_index": 2,
+                  "candidate_index": 1
+                }
+              ]
+            },
+            {
+              "name": "iPad Mini 256GB Silver",
+              "price": {
+                "nominal": 649,
+                "real": 649
+              },
+              "quantity": 80,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 0
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 1
+                },
+                {
+                  "option_index": 2,
+                  "candidate_index": 0
+                }
+              ]
+            },
+            {
+              "name": "iPad Mini 256GB Space Gray",
+              "price": {
+                "nominal": 649,
+                "real": 649
+              },
+              "quantity": 80,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 0
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 1
+                },
+                {
+                  "option_index": 2,
+                  "candidate_index": 1
+                }
+              ]
+            },
+            {
+              "name": "iPad Air 64GB Silver",
+              "price": {
+                "nominal": 599,
+                "real": 599
+              },
+              "quantity": 90,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 1
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 0
+                },
+                {
+                  "option_index": 2,
+                  "candidate_index": 0
+                }
+              ]
+            },
+            {
+              "name": "iPad Air 64GB Space Gray",
+              "price": {
+                "nominal": 599,
+                "real": 599
+              },
+              "quantity": 90,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 1
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 0
+                },
+                {
+                  "option_index": 2,
+                  "candidate_index": 1
+                }
+              ]
+            },
+            {
+              "name": "iPad Air 256GB Silver",
+              "price": {
+                "nominal": 749,
+                "real": 749
+              },
+              "quantity": 70,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 1
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 1
+                },
+                {
+                  "option_index": 2,
+                  "candidate_index": 0
+                }
+              ]
+            },
+            {
+              "name": "iPad Air 256GB Space Gray",
+              "price": {
+                "nominal": 749,
+                "real": 749
+              },
+              "quantity": 70,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 1
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 1
+                },
+                {
+                  "option_index": 2,
+                  "candidate_index": 1
+                }
+              ]
+            },
+            {
+              "name": "iPad Pro 64GB Silver",
+              "price": {
+                "nominal": 799,
+                "real": 799
+              },
+              "quantity": 60,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 2
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 0
+                },
+                {
+                  "option_index": 2,
+                  "candidate_index": 0
+                }
+              ]
+            },
+            {
+              "name": "iPad Pro 64GB Space Gray",
+              "price": {
+                "nominal": 799,
+                "real": 799
+              },
+              "quantity": 60,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 2
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 0
+                },
+                {
+                  "option_index": 2,
+                  "candidate_index": 1
+                }
+              ]
+            },
+            {
+              "name": "iPad Pro 256GB Silver",
+              "price": {
+                "nominal": 949,
+                "real": 949
+              },
+              "quantity": 50,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 2
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 1
+                },
+                {
+                  "option_index": 2,
+                  "candidate_index": 0
+                }
+              ]
+            },
+            {
+              "name": "iPad Pro 256GB Space Gray",
+              "price": {
+                "nominal": 949,
+                "real": 949
+              },
+              "quantity": 50,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 2
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 1
+                },
+                {
+                  "option_index": 2,
+                  "candidate_index": 1
+                }
+              ]
+            },
+            {
+              "name": "iPad Pro 512GB Silver",
+              "price": {
+                "nominal": 1149,
+                "real": 1149
+              },
+              "quantity": 40,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 2
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 2
+                },
+                {
+                  "option_index": 2,
+                  "candidate_index": 0
+                }
+              ]
+            },
+            {
+              "name": "iPad Pro 512GB Space Gray",
+              "price": {
+                "nominal": 1149,
+                "real": 1149
+              },
+              "quantity": 40,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 2
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 2
+                },
+                {
+                  "option_index": 2,
+                  "candidate_index": 1
+                }
+              ]
+            }
+          ],
+          "name": "iPad Selection",
+          "primary": true,
+          "required": true
+        }
+      ],
+      "tags": [
+        "apple",
+        "ipad",
+        "tablet",
+        "electronics"
+      ]
+    }
+  }
+}

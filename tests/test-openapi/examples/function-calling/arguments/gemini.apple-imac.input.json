@@ -1,0 +1,140 @@
+{
+  "trial": 1,
+  "success": true,
+  "data": {
+    "input": {
+      "closed_at": "2024-07-30T12:00:00.000Z",
+      "units": [
+        {
+          "required": true,
+          "name": "iMac",
+          "primary": true,
+          "options": [
+            {
+              "type": "select",
+              "name": "Display",
+              "variable": true,
+              "candidates": [
+                {
+                  "name": "24\" 4.5K Retina Display"
+                },
+                {
+                  "name": "27\" 5K Retina Display"
+                }
+              ]
+            },
+            {
+              "candidates": [
+                {
+                  "name": "Apple M1 Chip"
+                },
+                {
+                  "name": "Intel Core i7"
+                }
+              ],
+              "variable": true,
+              "type": "select",
+              "name": "Processor"
+            }
+          ],
+          "stocks": [
+            {
+              "price": {
+                "nominal": 1400,
+                "real": 1400
+              },
+              "name": "Apple iMac 24\" M1",
+              "choices": [
+                {
+                  "candidate_index": 0,
+                  "option_index": 0
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 0
+                }
+              ],
+              "quantity": 100
+            },
+            {
+              "name": "Apple iMac 24\" i7",
+              "price": {
+                "real": 1600,
+                "nominal": 1699
+              },
+              "choices": [
+                {
+                  "candidate_index": 0,
+                  "option_index": 0
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 1
+                }
+              ],
+              "quantity": 50
+            },
+            {
+              "price": {
+                "real": 2199,
+                "nominal": 2199
+              },
+              "quantity": 75,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 1
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 0
+                }
+              ],
+              "name": "Apple iMac 27\" M1"
+            },
+            {
+              "quantity": 25,
+              "name": "Apple iMac 27\" i7",
+              "choices": [
+                {
+                  "candidate_index": 1,
+                  "option_index": 0
+                },
+                {
+                  "candidate_index": 1,
+                  "option_index": 1
+                }
+              ],
+              "price": {
+                "real": 2300,
+                "nominal": 2499
+              }
+            }
+          ]
+        }
+      ],
+      "channels": [
+        {
+          "code": "samchon",
+          "category_codes": [
+            "desktops"
+          ]
+        }
+      ],
+      "opened_at": "2024-07-01T12:00:00.000Z",
+      "section_code": "general",
+      "content": {
+        "format": "md",
+        "files": [],
+        "title": "Apple iMac",
+        "body": "The Apple iMac is an all-in-one desktop computer designed for both consumers and professionals. It features a sleek, minimalist design, a high-resolution Retina display, and powerful processors, making it an excellent choice for a variety of tasks, including photo and video editing, graphic design, and general productivity. The latest models include upgraded processors, improved graphics, and enhanced audio and video capabilities. It also comes with various accessories as an option.",
+        "thumbnails": []
+      },
+      "tags": [
+        "imac",
+        "apple",
+        "desktop"
+      ]
+    }
+  }
+}

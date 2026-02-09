@@ -1,0 +1,87 @@
+{
+  "trial": 1,
+  "success": true,
+  "data": {
+    "input": {
+      "units": [
+        {
+          "stocks": [
+            {
+              "choices": [],
+              "quantity": 100,
+              "name": "AirPods (2nd Generation)",
+              "price": {
+                "real": 99,
+                "nominal": 99
+              }
+            }
+          ],
+          "primary": true,
+          "options": [],
+          "name": "AirPods (2nd Generation)",
+          "required": true
+        },
+        {
+          "name": "AirPods (3rd Generation)",
+          "stocks": [
+            {
+              "name": "AirPods (3rd Generation)",
+              "choices": [],
+              "price": {
+                "real": 179,
+                "nominal": 179
+              },
+              "quantity": 100
+            }
+          ],
+          "required": true,
+          "primary": false,
+          "options": []
+        },
+        {
+          "required": true,
+          "stocks": [
+            {
+              "quantity": 50,
+              "price": {
+                "real": 249,
+                "nominal": 249
+              },
+              "choices": [],
+              "name": "AirPods Pro (2nd Generation)"
+            }
+          ],
+          "primary": false,
+          "options": [],
+          "name": "AirPods Pro (2nd Generation)"
+        }
+      ],
+      "channels": [
+        {
+          "code": "samchon",
+          "category_codes": [
+            "electronics",
+            "smart_phones"
+          ]
+        }
+      ],
+      "tags": [
+        "apple",
+        "airpods",
+        "wireless",
+        "earbuds",
+        "bluetooth"
+      ],
+      "section_code": "general",
+      "opened_at": "2024-07-20T12:34:56.789Z",
+      "closed_at": "2024-07-30T12:34:56.789Z",
+      "content": {
+        "format": "html",
+        "title": "Apple AirPods",
+        "body": "Experience the magic of AirPods. Immerse yourself in rich, high-quality audio, whether you're listening to music, taking calls, or enjoying your favorite podcasts. With their sleek design and comfortable fit, AirPods are the perfect companion for your everyday adventures.",
+        "files": [],
+        "thumbnails": []
+      }
+    }
+  }
+}

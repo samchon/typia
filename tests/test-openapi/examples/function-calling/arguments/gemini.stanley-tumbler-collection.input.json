@@ -1,0 +1,164 @@
+{
+  "trial": 1,
+  "success": true,
+  "data": {
+    "input": {
+      "channels": [
+        {
+          "code": "samchon",
+          "category_codes": [
+            "others"
+          ]
+        }
+      ],
+      "units": [
+        {
+          "stocks": [
+            {
+              "name": "(16 oz, Matte Black)",
+              "price": {
+                "real": 35000,
+                "nominal": 40000
+              },
+              "quantity": 2000,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 0
+                },
+                {
+                  "candidate_index": 0,
+                  "option_index": 1
+                }
+              ]
+            },
+            {
+              "choices": [
+                {
+                  "candidate_index": 1,
+                  "option_index": 0
+                },
+                {
+                  "candidate_index": 1,
+                  "option_index": 1
+                }
+              ],
+              "quantity": 2000,
+              "price": {
+                "nominal": 50000,
+                "real": 44000
+              },
+              "name": "(20 oz, Hammertone Green)"
+            },
+            {
+              "name": "(24 oz, Polar White)",
+              "quantity": 2000,
+              "price": {
+                "nominal": 60000,
+                "real": 54000
+              },
+              "choices": [
+                {
+                  "candidate_index": 2,
+                  "option_index": 0
+                },
+                {
+                  "candidate_index": 2,
+                  "option_index": 1
+                }
+              ]
+            }
+          ],
+          "primary": true,
+          "options": [
+            {
+              "type": "select",
+              "name": "Capacity",
+              "candidates": [
+                {
+                  "name": "16 oz"
+                },
+                {
+                  "name": "20 oz"
+                },
+                {
+                  "name": "24 oz"
+                }
+              ],
+              "variable": true
+            },
+            {
+              "name": "Color Options",
+              "candidates": [
+                {
+                  "name": "Matte Black"
+                },
+                {
+                  "name": "Hammertone Green"
+                },
+                {
+                  "name": "Polar White"
+                }
+              ],
+              "type": "select",
+              "variable": true
+            }
+          ],
+          "required": true,
+          "name": "Classic Tumbler"
+        },
+        {
+          "primary": false,
+          "name": "Adventure Quencher Tumbler",
+          "stocks": [
+            {
+              "quantity": 5000,
+              "price": {
+                "real": 64000,
+                "nominal": 70000
+              },
+              "choices": [],
+              "name": "Adventure Quencher Tumbler"
+            }
+          ],
+          "required": false,
+          "options": []
+        },
+        {
+          "stocks": [
+            {
+              "price": {
+                "real": 18000,
+                "nominal": 20000
+              },
+              "choices": [],
+              "name": "Accessories Set",
+              "quantity": 10000
+            }
+          ],
+          "name": "Accessories Set",
+          "required": false,
+          "primary": false,
+          "options": []
+        }
+      ],
+      "closed_at": null,
+      "opened_at": null,
+      "tags": [],
+      "content": {
+        "files": [],
+        "title": "Stanley Tumbler Collection",
+        "format": "md",
+        "body": "> The Stanley Tumbler Collection is the perfect companion for staying hydrated, whether you're at work, on the go, or exploring the great outdoors. Designed with functionality and durability in mind, these tumblers are built to keep your drinks at the perfect temperature all day long.\n> \n> - **\"Built for Adventure\"**: The Stanley Tumbler features rugged construction, making it ideal for outdoor enthusiasts and urban adventurers alike.\n> - **\"Temperature Control at Its Best\"**: With double-wall vacuum insulation, the Stanley Tumbler keeps drinks hot for up to 7 hours or cold for up to 11 hours.\n> - **\"Leakproof and Spillproof\"**: Designed for ease of use, these tumblers are 100% leakproof, ensuring your drink stays exactly where it belongs.\n> - **\"Eco-Friendly and Sustainable\"**: Made with 18/8 stainless steel, Stanley Tumblers are BPA-free and built to last, reducing waste from disposable cups.\n> \n> In summary, the Stanley Tumbler Collection combines durability, functionality, and style. Whether you're sipping coffee during your morning commute or staying hydrated during a hike, Stanley Tumblers are designed to meet your needs. Choose Stanley and enjoy unmatched quality and performance.\n> ",
+        "thumbnails": [
+          {
+            "url": "https://serpapi.com/searches/673d71322c566d56d9c20ceb/images/ce9a07f2aa831dbec8bb1c287299706e24a52a8e0c119fa162041805038957a7.jpeg",
+            "name": "stanley-tumbler-collection-thumbnail",
+            "extension": "jpeg"
+          }
+        ]
+      },
+      "section_code": "general"
+    }
+  }
+}

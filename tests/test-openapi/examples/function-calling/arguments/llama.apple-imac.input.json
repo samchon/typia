@@ -1,0 +1,55 @@
+{
+  "trial": 1,
+  "success": true,
+  "data": {
+    "input": {
+      "section_code": "general",
+      "status": null,
+      "opened_at": null,
+      "closed_at": null,
+      "content": {
+        "title": "Apple iMac",
+        "format": "html",
+        "body": "The Apple iMac is a line of all-in-one desktop computers designed and built by Apple Inc. It has a sleek and compact design, making it perfect for home or office use. With its powerful processor and high-quality display, it's ideal for tasks like video editing, gaming, and more.",
+        "files": [],
+        "thumbnails": []
+      },
+      "channels": [
+        {
+          "code": "samchon",
+          "category_codes": [
+            "electronics",
+            "computers",
+            "desktops",
+            "all_in_one"
+          ]
+        }
+      ],
+      "units": [
+        {
+          "options": [],
+          "stocks": [
+            {
+              "name": "21.5-inch iMac",
+              "price": {
+                "nominal": 1099,
+                "real": 1099
+              },
+              "quantity": 10,
+              "choices": []
+            }
+          ],
+          "name": "Apple iMac",
+          "primary": true,
+          "required": true
+        }
+      ],
+      "tags": [
+        "apple",
+        "imac",
+        "desktop",
+        "computer"
+      ]
+    }
+  }
+}

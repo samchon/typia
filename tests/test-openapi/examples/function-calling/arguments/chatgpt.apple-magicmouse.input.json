@@ -1,0 +1,92 @@
+{
+  "trial": 1,
+  "success": true,
+  "data": {
+    "input": {
+      "section_code": "general",
+      "status": null,
+      "opened_at": null,
+      "closed_at": null,
+      "content": {
+        "title": "Apple Magic Mouse",
+        "format": "md",
+        "body": "The Apple Magic Mouse is a multi-touch, wireless peripheral device with a sleek design. It combines elegance and cutting-edge technology, featuring a low-profile and an ambidextrous design, making it suitable for both right and left-handed users.\n\nKey features include:\n\n- **Multi-Touch Surface**: Allows for scrolling, swiping, and other gestures common to Apple devices.\n- **Wireless Connectivity**: Utilizes Bluetooth to connect seamlessly with your Mac, providing a cable-free experience.\n- **Rechargeable Battery**: An integrated rechargeable battery that lasts up to a month on a single charge.\n- **Smooth Control**: With laser tracking, enjoy smooth and accurate control on almost any surface.",
+        "files": [],
+        "thumbnails": [
+          {
+            "name": "apple-magic-mouse",
+            "extension": "jpg",
+            "url": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MK2E3_AV2?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=1631141312000"
+          }
+        ]
+      },
+      "channels": [
+        {
+          "code": "samchon",
+          "category_codes": [
+            "electronics",
+            "accessories"
+          ]
+        }
+      ],
+      "units": [
+        {
+          "options": [
+            {
+              "type": "select",
+              "name": "Color",
+              "variable": true,
+              "candidates": [
+                {
+                  "name": "White"
+                },
+                {
+                  "name": "Space Grey"
+                }
+              ]
+            }
+          ],
+          "stocks": [
+            {
+              "name": "White",
+              "price": {
+                "nominal": 99,
+                "real": 89
+              },
+              "quantity": 30,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 0
+                }
+              ]
+            },
+            {
+              "name": "Space Grey",
+              "price": {
+                "nominal": 99,
+                "real": 89
+              },
+              "quantity": 20,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 1
+                }
+              ]
+            }
+          ],
+          "name": "Apple Magic Mouse",
+          "primary": true,
+          "required": true
+        }
+      ],
+      "tags": [
+        "Apple",
+        "Magic Mouse",
+        "Wireless Mouse",
+        "Bluetooth Mouse"
+      ]
+    }
+  }
+}

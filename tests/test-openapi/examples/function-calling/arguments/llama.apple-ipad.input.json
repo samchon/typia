@@ -1,0 +1,98 @@
+{
+  "trial": 1,
+  "success": true,
+  "data": {
+    "input": {
+      "section_code": "general",
+      "status": null,
+      "opened_at": "2024-03-16T00:00:00.000Z",
+      "closed_at": null,
+      "content": {
+        "title": "Apple iPad",
+        "format": "html",
+        "body": "Introduction of the new Apple iPad",
+        "files": [
+          {
+            "name": "iPad_image",
+            "extension": "jpg",
+            "url": "https://example.com/ipad_image.jpg"
+          }
+        ],
+        "thumbnails": [
+          {
+            "name": "iPad_thumbnail",
+            "extension": "jpg",
+            "url": "https://example.com/ipad_thumbnail.jpg"
+          }
+        ]
+      },
+      "channels": [
+        {
+          "code": "samchon",
+          "category_codes": [
+            "electronics",
+            "tablets",
+            "ipads"
+          ]
+        }
+      ],
+      "units": [
+        {
+          "options": [
+            {
+              "type": "select",
+              "name": "Color",
+              "variable": true,
+              "candidates": [
+                {
+                  "name": "Space Gray"
+                },
+                {
+                  "name": "Silver"
+                }
+              ]
+            }
+          ],
+          "stocks": [
+            {
+              "name": "64GB Space Gray",
+              "price": {
+                "nominal": 599,
+                "real": 549
+              },
+              "quantity": 100,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 0
+                }
+              ]
+            },
+            {
+              "name": "64GB Silver",
+              "price": {
+                "nominal": 599,
+                "real": 549
+              },
+              "quantity": 100,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 1
+                }
+              ]
+            }
+          ],
+          "name": "Apple iPad",
+          "primary": true,
+          "required": true
+        }
+      ],
+      "tags": [
+        "Apple",
+        "iPad",
+        "Tablet"
+      ]
+    }
+  }
+}

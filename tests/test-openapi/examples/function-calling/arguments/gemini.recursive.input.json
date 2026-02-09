@@ -1,0 +1,178 @@
+{
+  "trial": 3,
+  "success": false,
+  "data": {
+    "categories": [
+      "electronics",
+      "electronics > desktops",
+      "electronics > laptops",
+      "electronics > laptops > ultrabooks",
+      "electronics > laptops > macbooks",
+      "electronics > laptops > desknotes",
+      "electronics > laptops > 2 in 1 laptops",
+      "electronics > tablets",
+      "electronics > tablets > ipads",
+      "electronics > tablets > android tablets",
+      "electronics > tablets > windows tablets",
+      "electronics > smart phones",
+      "electronics > smart phones > mini smartphones",
+      "electronics > smart phones > phablets",
+      "electronics > smart phones > gaming smartphones",
+      "electronics > smart phones > rugged smartphones",
+      "electronics > smart phones > foldable smartphones",
+      "electronics > smart watches",
+      "electronics > smart glasses",
+      "electronics > cameras",
+      "electronics > televisions",
+      "furnitures",
+      "accessories",
+      "accessories > jewelry",
+      "accessories > clothing",
+      "accessories > shoes",
+      "clothes",
+      "others"
+    ]
+  },
+  "errors": [
+    {
+      "path": "$input.categories[0]",
+      "expected": "IShoppingCategory",
+      "value": "electronics"
+    },
+    {
+      "path": "$input.categories[1]",
+      "expected": "IShoppingCategory",
+      "value": "electronics > desktops"
+    },
+    {
+      "path": "$input.categories[2]",
+      "expected": "IShoppingCategory",
+      "value": "electronics > laptops"
+    },
+    {
+      "path": "$input.categories[3]",
+      "expected": "IShoppingCategory",
+      "value": "electronics > laptops > ultrabooks"
+    },
+    {
+      "path": "$input.categories[4]",
+      "expected": "IShoppingCategory",
+      "value": "electronics > laptops > macbooks"
+    },
+    {
+      "path": "$input.categories[5]",
+      "expected": "IShoppingCategory",
+      "value": "electronics > laptops > desknotes"
+    },
+    {
+      "path": "$input.categories[6]",
+      "expected": "IShoppingCategory",
+      "value": "electronics > laptops > 2 in 1 laptops"
+    },
+    {
+      "path": "$input.categories[7]",
+      "expected": "IShoppingCategory",
+      "value": "electronics > tablets"
+    },
+    {
+      "path": "$input.categories[8]",
+      "expected": "IShoppingCategory",
+      "value": "electronics > tablets > ipads"
+    },
+    {
+      "path": "$input.categories[9]",
+      "expected": "IShoppingCategory",
+      "value": "electronics > tablets > android tablets"
+    },
+    {
+      "path": "$input.categories[10]",
+      "expected": "IShoppingCategory",
+      "value": "electronics > tablets > windows tablets"
+    },
+    {
+      "path": "$input.categories[11]",
+      "expected": "IShoppingCategory",
+      "value": "electronics > smart phones"
+    },
+    {
+      "path": "$input.categories[12]",
+      "expected": "IShoppingCategory",
+      "value": "electronics > smart phones > mini smartphones"
+    },
+    {
+      "path": "$input.categories[13]",
+      "expected": "IShoppingCategory",
+      "value": "electronics > smart phones > phablets"
+    },
+    {
+      "path": "$input.categories[14]",
+      "expected": "IShoppingCategory",
+      "value": "electronics > smart phones > gaming smartphones"
+    },
+    {
+      "path": "$input.categories[15]",
+      "expected": "IShoppingCategory",
+      "value": "electronics > smart phones > rugged smartphones"
+    },
+    {
+      "path": "$input.categories[16]",
+      "expected": "IShoppingCategory",
+      "value": "electronics > smart phones > foldable smartphones"
+    },
+    {
+      "path": "$input.categories[17]",
+      "expected": "IShoppingCategory",
+      "value": "electronics > smart watches"
+    },
+    {
+      "path": "$input.categories[18]",
+      "expected": "IShoppingCategory",
+      "value": "electronics > smart glasses"
+    },
+    {
+      "path": "$input.categories[19]",
+      "expected": "IShoppingCategory",
+      "value": "electronics > cameras"
+    },
+    {
+      "path": "$input.categories[20]",
+      "expected": "IShoppingCategory",
+      "value": "electronics > televisions"
+    },
+    {
+      "path": "$input.categories[21]",
+      "expected": "IShoppingCategory",
+      "value": "furnitures"
+    },
+    {
+      "path": "$input.categories[22]",
+      "expected": "IShoppingCategory",
+      "value": "accessories"
+    },
+    {
+      "path": "$input.categories[23]",
+      "expected": "IShoppingCategory",
+      "value": "accessories > jewelry"
+    },
+    {
+      "path": "$input.categories[24]",
+      "expected": "IShoppingCategory",
+      "value": "accessories > clothing"
+    },
+    {
+      "path": "$input.categories[25]",
+      "expected": "IShoppingCategory",
+      "value": "accessories > shoes"
+    },
+    {
+      "path": "$input.categories[26]",
+      "expected": "IShoppingCategory",
+      "value": "clothes"
+    },
+    {
+      "path": "$input.categories[27]",
+      "expected": "IShoppingCategory",
+      "value": "others"
+    }
+  ]
+}

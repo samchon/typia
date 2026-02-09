@@ -1,0 +1,16 @@
+{
+  "trial": 3,
+  "success": false,
+  "data": {
+    "etc": "{\"hobby\":\"Soccer\", \"job\":\"Scientist\"}",
+    "name": "John Doe",
+    "age": 42
+  },
+  "errors": [
+    {
+      "path": "$input.etc",
+      "expected": "Recordstringstring",
+      "value": "{\"hobby\":\"Soccer\", \"job\":\"Scientist\"}"
+    }
+  ]
+}

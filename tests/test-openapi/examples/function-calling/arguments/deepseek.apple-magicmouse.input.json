@@ -1,0 +1,86 @@
+{
+  "trial": 1,
+  "success": true,
+  "data": {
+    "input": {
+      "section_code": "general",
+      "opened_at": null,
+      "closed_at": null,
+      "content": {
+        "title": "Apple Magic Mouse",
+        "format": "html",
+        "body": "<p>The Apple Magic Mouse is designed to be both functional and aesthetically pleasing. It features a seamless multi-touch surface that allows for intuitive gesture control, making navigation effortless. With its sleek design and advanced technology, the Magic Mouse enhances your computing experience.</p>",
+        "files": [],
+        "thumbnails": []
+      },
+      "channels": [
+        {
+          "code": "samchon",
+          "category_codes": [
+            "electronics",
+            "accessories"
+          ]
+        }
+      ],
+      "tags": [
+        "Apple",
+        "Mouse",
+        "Magic Mouse",
+        "Bluetooth",
+        "Accessories"
+      ],
+      "units": [
+        {
+          "name": "Apple Magic Mouse",
+          "primary": true,
+          "required": true,
+          "options": [
+            {
+              "type": "select",
+              "name": "Color",
+              "variable": true,
+              "candidates": [
+                {
+                  "name": "White"
+                },
+                {
+                  "name": "Black"
+                }
+              ]
+            }
+          ],
+          "stocks": [
+            {
+              "name": "White Magic Mouse",
+              "price": {
+                "nominal": 99.99,
+                "real": 79.99
+              },
+              "quantity": 100,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 0
+                }
+              ]
+            },
+            {
+              "name": "Black Magic Mouse",
+              "price": {
+                "nominal": 99.99,
+                "real": 79.99
+              },
+              "quantity": 100,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 1
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

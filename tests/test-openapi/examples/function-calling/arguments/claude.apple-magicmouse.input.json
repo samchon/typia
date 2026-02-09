@@ -1,0 +1,86 @@
+{
+  "trial": 1,
+  "success": true,
+  "data": {
+    "input": {
+      "section_code": "general",
+      "opened_at": null,
+      "closed_at": null,
+      "content": {
+        "title": "Apple Magic Mouse",
+        "format": "md",
+        "body": "# Apple Magic Mouse\n\nExperience the magic of effortless navigation with the Apple Magic Mouse. This revolutionary mouse combines the simplicity of a traditional mouse with advanced Multi-Touch surface technology.\n\n## Features\n- Multi-Touch surface for intuitive gestures\n- Seamless top shell design\n- Optimized foot design for smoother movement\n- Automatic pairing with Mac devices\n- Rechargeable battery with long life\n\n## Technical Specifications\n- Bluetooth wireless technology\n- Lightning port for recharging\n- Compatible with Mac computers\n- Up to 1-month battery life on full charge\n\n## Package Contents\n- Apple Magic Mouse\n- Lightning to USB Cable\n- Documentation",
+        "files": [],
+        "thumbnails": []
+      },
+      "channels": [
+        {
+          "code": "samchon",
+          "category_codes": [
+            "electronics",
+            "accessories"
+          ]
+        }
+      ],
+      "units": [
+        {
+          "name": "Magic Mouse",
+          "primary": true,
+          "required": true,
+          "options": [
+            {
+              "type": "select",
+              "name": "Color",
+              "variable": true,
+              "candidates": [
+                {
+                  "name": "White with Silver"
+                },
+                {
+                  "name": "Black with Space Gray"
+                }
+              ]
+            }
+          ],
+          "stocks": [
+            {
+              "name": "Magic Mouse - White with Silver",
+              "price": {
+                "nominal": 99,
+                "real": 79
+              },
+              "quantity": 100,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 0
+                }
+              ]
+            },
+            {
+              "name": "Magic Mouse - Black with Space Gray",
+              "price": {
+                "nominal": 99,
+                "real": 79
+              },
+              "quantity": 100,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 1
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "tags": [
+        "apple",
+        "mouse",
+        "magic mouse",
+        "computer accessories",
+        "bluetooth mouse"
+      ]
+    }
+  }
+}

@@ -1,0 +1,127 @@
+{
+  "trial": 1,
+  "success": true,
+  "data": {
+    "input": {
+      "section_code": "general",
+      "opened_at": null,
+      "closed_at": null,
+      "content": {
+        "title": "Apple AirPods",
+        "format": "md",
+        "body": "# Apple AirPods\n\nExperience magical wireless audio with Apple AirPods. These revolutionary earphones feature:\n\n- Automatic connection with your Apple devices\n- Quick access to Siri with voice command\n- Rich, high-quality audio experience\n- Active Noise Cancellation (Pro models)\n- Adaptive EQ for optimal sound\n- Wireless charging case\n- Up to 24 hours of battery life with charging case\n\n## Features\n- Easy setup for all Apple devices\n- Seamless switching between devices\n- Voice-activated Siri access\n- Superior sound quality\n- Comfortable, lightweight design\n\n## Package Contents\n- AirPods\n- Charging Case\n- Lightning to USB-C Cable\n- Documentation",
+        "files": [],
+        "thumbnails": []
+      },
+      "channels": [
+        {
+          "code": "samchon",
+          "category_codes": [
+            "electronics"
+          ]
+        }
+      ],
+      "tags": [
+        "airpods",
+        "apple",
+        "wireless",
+        "earphones",
+        "bluetooth"
+      ],
+      "units": [
+        {
+          "name": "AirPods Model",
+          "primary": true,
+          "required": true,
+          "options": [
+            {
+              "type": "select",
+              "name": "Model",
+              "variable": true,
+              "candidates": [
+                {
+                  "name": "AirPods (2nd Generation)"
+                },
+                {
+                  "name": "AirPods (3rd Generation)"
+                },
+                {
+                  "name": "AirPods Pro (2nd Generation)"
+                }
+              ]
+            },
+            {
+              "type": "select",
+              "name": "Case Type",
+              "variable": true,
+              "candidates": [
+                {
+                  "name": "Standard Charging Case"
+                },
+                {
+                  "name": "MagSafe Charging Case"
+                }
+              ]
+            }
+          ],
+          "stocks": [
+            {
+              "name": "AirPods 2nd Gen with Standard Case",
+              "price": {
+                "nominal": 159.99,
+                "real": 149.99
+              },
+              "quantity": 100,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 0
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 0
+                }
+              ]
+            },
+            {
+              "name": "AirPods 3rd Gen with MagSafe Case",
+              "price": {
+                "nominal": 179.99,
+                "real": 169.99
+              },
+              "quantity": 100,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 1
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 1
+                }
+              ]
+            },
+            {
+              "name": "AirPods Pro 2nd Gen with MagSafe Case",
+              "price": {
+                "nominal": 249.99,
+                "real": 239.99
+              },
+              "quantity": 100,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 2
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 1
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

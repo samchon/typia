@@ -1,0 +1,42 @@
+{
+  "description": "",
+  "type": "object",
+  "properties": {
+    "input": {
+      "description": "Current Type: {@link IPerson}",
+      "type": "object",
+      "properties": {
+        "name": {
+          "title": "The name of the person",
+          "description": "The name of the person.",
+          "type": "string"
+        },
+        "age": {
+          "title": "The age of the person",
+          "description": "The age of the person.",
+          "type": "integer"
+        },
+        "etc": {
+          "title": "Additional information about the person",
+          "description": "Additional information about the person.\n\n------------------------------\n\nDescription of the current {@link Recordstringstring} type:\n\n> Construct a type with a set of properties K of type T",
+          "type": "object",
+          "properties": {},
+          "required": [],
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "name",
+        "age",
+        "etc"
+      ]
+    }
+  },
+  "required": [
+    "input"
+  ],
+  "additionalProperties": false,
+  "$defs": {}
+}

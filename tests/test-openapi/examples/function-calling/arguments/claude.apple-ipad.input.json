@@ -1,0 +1,227 @@
+{
+  "trial": 1,
+  "success": true,
+  "data": {
+    "input": {
+      "section_code": "general",
+      "channels": [
+        {
+          "code": "samchon",
+          "category_codes": [
+            "tablets",
+            "ipads"
+          ]
+        }
+      ],
+      "opened_at": null,
+      "closed_at": null,
+      "content": {
+        "title": "Apple iPad",
+        "format": "md",
+        "body": "# Apple iPad\n\nExperience the magic of iPad - the versatile tablet that lets you create, work, and play like never before.\n\n## Features\n- Beautiful Retina display\n- Powerful A-series chip\n- Support for Apple Pencil\n- All-day battery life\n- iPadOS with multitasking capabilities\n\n## What's in the box\n- iPad\n- USB-C to Lightning Cable\n- 20W USB-C Power Adapter\n- Documentation\n\n## Why choose iPad?\n- Perfect for both productivity and entertainment\n- Huge selection of apps from the App Store\n- Seamless integration with other Apple devices\n- Industry-leading security and privacy",
+        "files": [],
+        "thumbnails": []
+      },
+      "tags": [
+        "iPad",
+        "Apple",
+        "Tablet",
+        "iOS"
+      ],
+      "units": [
+        {
+          "name": "iPad",
+          "primary": true,
+          "required": true,
+          "options": [
+            {
+              "type": "select",
+              "name": "Model",
+              "variable": true,
+              "candidates": [
+                {
+                  "name": "iPad (9th generation)"
+                },
+                {
+                  "name": "iPad (10th generation)"
+                },
+                {
+                  "name": "iPad Air"
+                },
+                {
+                  "name": "iPad Pro 11-inch"
+                },
+                {
+                  "name": "iPad Pro 12.9-inch"
+                }
+              ]
+            },
+            {
+              "type": "select",
+              "name": "Storage",
+              "variable": true,
+              "candidates": [
+                {
+                  "name": "64GB"
+                },
+                {
+                  "name": "256GB"
+                },
+                {
+                  "name": "512GB"
+                },
+                {
+                  "name": "1TB"
+                }
+              ]
+            },
+            {
+              "type": "select",
+              "name": "Connectivity",
+              "variable": true,
+              "candidates": [
+                {
+                  "name": "Wi-Fi"
+                },
+                {
+                  "name": "Wi-Fi + Cellular"
+                }
+              ]
+            },
+            {
+              "type": "select",
+              "name": "Color",
+              "variable": false,
+              "candidates": [
+                {
+                  "name": "Space Gray"
+                },
+                {
+                  "name": "Silver"
+                },
+                {
+                  "name": "Rose Gold"
+                },
+                {
+                  "name": "Sky Blue"
+                }
+              ]
+            }
+          ],
+          "stocks": [
+            {
+              "name": "iPad (9th generation) 64GB Wi-Fi",
+              "price": {
+                "nominal": 329.99,
+                "real": 329.99
+              },
+              "quantity": 100,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 0
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 0
+                },
+                {
+                  "option_index": 2,
+                  "candidate_index": 0
+                }
+              ]
+            },
+            {
+              "name": "iPad (10th generation) 256GB Wi-Fi",
+              "price": {
+                "nominal": 599.99,
+                "real": 579.99
+              },
+              "quantity": 75,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 1
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 1
+                },
+                {
+                  "option_index": 2,
+                  "candidate_index": 0
+                }
+              ]
+            },
+            {
+              "name": "iPad Air 256GB Wi-Fi + Cellular",
+              "price": {
+                "nominal": 899.99,
+                "real": 849.99
+              },
+              "quantity": 50,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 2
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 1
+                },
+                {
+                  "option_index": 2,
+                  "candidate_index": 1
+                }
+              ]
+            },
+            {
+              "name": "iPad Pro 11-inch 512GB Wi-Fi",
+              "price": {
+                "nominal": 1099.99,
+                "real": 1049.99
+              },
+              "quantity": 30,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 3
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 2
+                },
+                {
+                  "option_index": 2,
+                  "candidate_index": 0
+                }
+              ]
+            },
+            {
+              "name": "iPad Pro 12.9-inch 1TB Wi-Fi + Cellular",
+              "price": {
+                "nominal": 1799.99,
+                "real": 1699.99
+              },
+              "quantity": 20,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 4
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 3
+                },
+                {
+                  "option_index": 2,
+                  "candidate_index": 1
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

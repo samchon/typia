@@ -1,0 +1,24 @@
+{
+  "type": "object",
+  "properties": {
+    "input": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "number"
+        }
+      ],
+      "additionalItems": false
+    }
+  },
+  "required": [
+    "input"
+  ],
+  "additionalProperties": false
+}

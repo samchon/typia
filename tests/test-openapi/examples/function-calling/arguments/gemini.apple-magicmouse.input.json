@@ -1,0 +1,86 @@
+{
+  "trial": 1,
+  "success": true,
+  "data": {
+    "input": {
+      "units": [
+        {
+          "stocks": [
+            {
+              "quantity": 50,
+              "name": "Silver",
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 0
+                }
+              ],
+              "price": {
+                "real": 79,
+                "nominal": 79
+              }
+            },
+            {
+              "price": {
+                "real": 99,
+                "nominal": 99
+              },
+              "name": "Black",
+              "choices": [
+                {
+                  "candidate_index": 1,
+                  "option_index": 0
+                }
+              ],
+              "quantity": 50
+            }
+          ],
+          "required": true,
+          "options": [
+            {
+              "type": "select",
+              "variable": true,
+              "candidates": [
+                {
+                  "name": "Silver"
+                },
+                {
+                  "name": "Black"
+                }
+              ],
+              "name": "color"
+            }
+          ],
+          "primary": true,
+          "name": "Color"
+        }
+      ],
+      "content": {
+        "files": [],
+        "format": "html",
+        "body": "The Apple Magic Mouse is a wireless, rechargeable mouse with a sleek, minimalist design. It features a Multi-Touch surface that allows you to perform gestures such as swiping between web pages and scrolling through documents. The Magic Mouse also has a laser tracking engine that provides precise cursor control on most surfaces. Its rechargeable battery lasts about a month on a single charge.  It is compatible with Macs running OS X 10.6.8 or later and iPads running iPadOS 13.4 or later.",
+        "title": "Apple Magic Mouse",
+        "thumbnails": []
+      },
+      "channels": [
+        {
+          "code": "samchon",
+          "category_codes": [
+            "electronics",
+            "smart_phones"
+          ]
+        }
+      ],
+      "section_code": "general",
+      "tags": [
+        "apple",
+        "magic mouse",
+        "wireless",
+        "rechargeable",
+        "multi-touch"
+      ],
+      "opened_at": "2024-07-01T00:00:00.000Z",
+      "closed_at": "2024-07-30T00:00:00.000Z"
+    }
+  }
+}

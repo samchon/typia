@@ -1,0 +1,85 @@
+{
+  "trial": 1,
+  "success": true,
+  "data": {
+    "input": {
+      "section_code": "general",
+      "opened_at": null,
+      "closed_at": null,
+      "content": {
+        "title": "Apple AirPods",
+        "format": "html",
+        "body": "Discover the magic of wireless audio with Apple AirPods. These iconic earbuds deliver seamless connectivity, exceptional sound quality, and effortless control. Whether you're listening to music, taking calls, or using Siri, AirPods provide a truly wireless experience.",
+        "files": [],
+        "thumbnails": []
+      },
+      "channels": [
+        {
+          "code": "samchon",
+          "category_codes": [
+            "electronics",
+            "accessories"
+          ]
+        }
+      ],
+      "units": [
+        {
+          "name": "Apple AirPods (2nd Generation)",
+          "primary": true,
+          "required": true,
+          "options": [
+            {
+              "type": "select",
+              "name": "Color",
+              "variable": false,
+              "candidates": [
+                {
+                  "name": "White"
+                },
+                {
+                  "name": "Black"
+                }
+              ]
+            }
+          ],
+          "stocks": [
+            {
+              "name": "White",
+              "price": {
+                "nominal": 159,
+                "real": 159
+              },
+              "quantity": 100,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 0
+                }
+              ]
+            },
+            {
+              "name": "Black",
+              "price": {
+                "nominal": 159,
+                "real": 159
+              },
+              "quantity": 80,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 1
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "tags": [
+        "wireless earbuds",
+        "Apple",
+        "AirPods",
+        "audio"
+      ]
+    }
+  }
+}

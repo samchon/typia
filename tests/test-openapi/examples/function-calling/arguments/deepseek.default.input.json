@@ -1,0 +1,8 @@
+{
+  "trial": 3,
+  "success": true,
+  "data": {
+    "name": "John Doe",
+    "age": 42
+  }
+}

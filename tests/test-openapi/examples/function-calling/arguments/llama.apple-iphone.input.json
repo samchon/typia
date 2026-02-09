@@ -1,0 +1,327 @@
+{
+  "trial": 1,
+  "success": true,
+  "data": {
+    "input": {
+      "section_code": "general",
+      "status": null,
+      "opened_at": null,
+      "closed_at": null,
+      "content": {
+        "title": "iPhone 16: Redefining Innovation",
+        "format": "html",
+        "body": "> The iPhone 16 takes mobile technology to new heights with its cutting-edge design, enhanced performance, and revolutionary features. With a stunning ProMotion XDR display, an even more powerful A18 Bionic chip, and advanced camera capabilities, the iPhone 16 delivers unparalleled speed, clarity, and creativity. Whether you're capturing cinematic moments or experiencing seamless multitasking, the iPhone 16 ensures every interaction feels extraordinary.\n>\n> **Tagline:**\n>\n> \"iPhone 16: The Future in Your Hands.\"\n>",
+        "files": [],
+        "thumbnails": [
+          {
+            "name": "",
+            "extension": "jpeg",
+            "url": "https://serpapi.com/searches/673d45f1bbc18bba240d3d4a/images/dbe630a9b7aa7b2757c88476b16680958208286d1a50297b172d53ed4bec4bd7.jpeg"
+          },
+          {
+            "name": "",
+            "extension": "jpeg",
+            "url": "https://serpapi.com/searches/673d45f1bbc18bba240d3d4a/images/dbe630a9b7aa7b27d67682ac72cf28e88e98dc5b91a205f6c97946f84d6162a9.jpeg"
+          }
+        ]
+      },
+      "channels": [
+        {
+          "code": "samchon",
+          "category_codes": [
+            "electronics",
+            "smart_phones"
+          ]
+        }
+      ],
+      "units": [
+        {
+          "options": [
+            {
+              "type": "select",
+              "name": "Model",
+              "variable": true,
+              "candidates": [
+                {
+                  "name": "iPhone 16 Basic"
+                },
+                {
+                  "name": "iPhone 16 Plus"
+                },
+                {
+                  "name": "iPhone 16 Pro"
+                },
+                {
+                  "name": "iPhone 16 Pro Max"
+                }
+              ]
+            },
+            {
+              "type": "select",
+              "name": "Storage",
+              "variable": true,
+              "candidates": [
+                {
+                  "name": "128 GB"
+                },
+                {
+                  "name": "256 GB"
+                },
+                {
+                  "name": "512 GB"
+                },
+                {
+                  "name": "1 TB"
+                }
+              ]
+            }
+          ],
+          "stocks": [
+            {
+              "name": "(Basic, 128GB)",
+              "price": {
+                "nominal": 1250000,
+                "real": 1250000
+              },
+              "quantity": 1000,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 0
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 0
+                }
+              ]
+            },
+            {
+              "name": "(Basic, 256GB)",
+              "price": {
+                "nominal": 1400000,
+                "real": 1400000
+              },
+              "quantity": 1000,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 0
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 1
+                }
+              ]
+            },
+            {
+              "name": "(Basic, 512GB)",
+              "price": {
+                "nominal": 1700000,
+                "real": 1700000
+              },
+              "quantity": 1000,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 0
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 2
+                }
+              ]
+            },
+            {
+              "name": "(Plus, 128GB)",
+              "price": {
+                "nominal": 1350000,
+                "real": 1350000
+              },
+              "quantity": 1000,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 1
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 0
+                }
+              ]
+            },
+            {
+              "name": "(Plus, 256GB)",
+              "price": {
+                "nominal": 1500000,
+                "real": 1500000
+              },
+              "quantity": 1000,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 1
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 1
+                }
+              ]
+            },
+            {
+              "name": "(Plus, 512GB)",
+              "price": {
+                "nominal": 1800000,
+                "real": 1800000
+              },
+              "quantity": 1000,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 1
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 2
+                }
+              ]
+            },
+            {
+              "name": "(Pro, 128GB)",
+              "price": {
+                "nominal": 1550000,
+                "real": 1550000
+              },
+              "quantity": 1000,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 2
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 0
+                }
+              ]
+            },
+            {
+              "name": "(Pro, 256GB)",
+              "price": {
+                "nominal": 1700000,
+                "real": 1700000
+              },
+              "quantity": 1000,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 2
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 1
+                }
+              ]
+            },
+            {
+              "name": "(Pro, 512GB)",
+              "price": {
+                "nominal": 2000000,
+                "real": 2000000
+              },
+              "quantity": 1000,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 2
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 2
+                }
+              ]
+            },
+            {
+              "name": "(Pro, 1TB)",
+              "price": {
+                "nominal": 2300000,
+                "real": 2300000
+              },
+              "quantity": 1000,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 2
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 3
+                }
+              ]
+            },
+            {
+              "name": "(Pro Max, 256GB)",
+              "price": {
+                "nominal": 1900000,
+                "real": 1900000
+              },
+              "quantity": 1000,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 3
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 1
+                }
+              ]
+            },
+            {
+              "name": "(Pro Max, 512GB)",
+              "price": {
+                "nominal": 2200000,
+                "real": 2200000
+              },
+              "quantity": 1000,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 3
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 2
+                }
+              ]
+            },
+            {
+              "name": "(Pro Max, 1TB)",
+              "price": {
+                "nominal": 2500000,
+                "real": 2500000
+              },
+              "quantity": 1000,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 3
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 3
+                }
+              ]
+            }
+          ],
+          "name": "iPhone Entity",
+          "primary": true,
+          "required": true
+        }
+      ],
+      "tags": [
+        "iPhone",
+        "Apple",
+        "Smartphone"
+      ]
+    }
+  }
+}

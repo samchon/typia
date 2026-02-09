@@ -1,0 +1,102 @@
+{
+  "trial": 1,
+  "success": true,
+  "data": {
+    "input": {
+      "section_code": "general",
+      "opened_at": null,
+      "closed_at": null,
+      "content": {
+        "title": "Apple Magic Keyboard",
+        "format": "html",
+        "body": "<p>The Apple Magic Keyboard is designed for iPad Pro and iPad Air. It features a full-sized layout with comfortable and stable scissor mechanisms beneath each key, delivering a responsive, precise, and quiet typing experience. The keyboard also includes a trackpad that supports Multi-Touch gestures, enabling users to navigate iPadOS with ease. With its sleek and portable design, the Magic Keyboard is perfect for on-the-go use, providing a seamless typing experience wherever you are.</p>",
+        "files": [
+          {
+            "name": "apple_magic_keyboard_image1",
+            "extension": "jpg",
+            "url": "https://example.com/magic_keyboard_image1.jpg"
+          },
+          {
+            "name": "apple_magic_keyboard_image2",
+            "extension": "jpg",
+            "url": "https://example.com/magic_keyboard_image2.jpg"
+          }
+        ],
+        "thumbnails": [
+          {
+            "name": "apple_magic_keyboard_thumbnail",
+            "extension": "jpg",
+            "url": "https://example.com/magic_keyboard_thumbnail.jpg"
+          }
+        ]
+      },
+      "channels": [
+        {
+          "code": "samchon",
+          "category_codes": [
+            "accessories",
+            "electronics"
+          ]
+        }
+      ],
+      "units": [
+        {
+          "name": "Magic Keyboard",
+          "primary": true,
+          "required": true,
+          "options": [
+            {
+              "type": "select",
+              "name": "Color",
+              "variable": false,
+              "candidates": [
+                {
+                  "name": "White"
+                },
+                {
+                  "name": "Black"
+                }
+              ]
+            }
+          ],
+          "stocks": [
+            {
+              "name": "White Magic Keyboard",
+              "price": {
+                "nominal": 299,
+                "real": 289
+              },
+              "quantity": 500,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 0
+                }
+              ]
+            },
+            {
+              "name": "Black Magic Keyboard",
+              "price": {
+                "nominal": 299,
+                "real": 289
+              },
+              "quantity": 500,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 1
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "tags": [
+        "keyboard",
+        "apple",
+        "magic keyboard",
+        "iPad accessories"
+      ]
+    }
+  }
+}

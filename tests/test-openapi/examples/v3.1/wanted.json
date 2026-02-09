@@ -1,0 +1,3077 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Wanted OpenAPI V1 Server",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "/v1"
+    }
+  ],
+  "paths": {
+    "/ai/pass/text-prediction/async": {
+      "post": {
+        "tags": [
+          "AI"
+        ],
+        "summary": "[유료] 텍스트 서류합격예측 실행(비동기)",
+        "description": "**본 API는 별도의 계약후 사용이 가능합니다.(문의 : team-ml@wantedlab.com)**\n\n비동기로 예측을 실행하므로 API호출 즉시 완료되며 callback_url로 결과가 전달됩니다.**(한번 호출 시 입력데이터는 최대 50개 입니다.)**",
+        "operationId": "_유료__텍스트_서류합격예측_실행_비동기__ai_pass_text_prediction_async_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/PassTextPredictionRequestSerializer"
+                  }
+                ],
+                "title": "입력데이터",
+                "description": "최대 50개"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AsyncPredictionResponseSerializer"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "비인증 사용자",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenAPIExceptionResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "필수 요청 데이터 누락",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenAPIExceptionResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "ClientIdHeader": []
+          },
+          {
+            "ClientSecretHeader": []
+          },
+          {
+            "PermissionsDependency": []
+          }
+        ]
+      }
+    },
+    "/ai/apply/text-prediction/async": {
+      "post": {
+        "tags": [
+          "AI"
+        ],
+        "summary": "[유료] 텍스트 지원예측 실행(비동기)",
+        "description": "**본 API는 별도의 계약후 사용이 가능합니다.(문의 : team-ml@wantedlab.com)**\n\n비동기로 예측을 실행하므로 API호출 즉시 완료되며 callback_url로 결과가 전달됩니다.**(한번 호출 시 입력데이터는 최대 50개 입니다.)**",
+        "operationId": "_유료__텍스트_지원예측_실행_비동기__ai_apply_text_prediction_async_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ApplyTextPredictionRequestSerializer"
+                  }
+                ],
+                "title": "입력데이터",
+                "description": "최대 50개"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AsyncPredictionResponseSerializer"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "비인증 사용자",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenAPIExceptionResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "필수 요청 데이터 누락",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenAPIExceptionResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "ClientIdHeader": []
+          },
+          {
+            "ClientSecretHeader": []
+          },
+          {
+            "PermissionsDependency": []
+          }
+        ]
+      }
+    },
+    "/applications": {
+      "get": {
+        "tags": [
+          "Application"
+        ],
+        "summary": "지원 목록 조회",
+        "operationId": "get_application_list_applications_get",
+        "parameters": [
+          {
+            "description": "검색어(회사명/포지션명/지원자명)",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Q",
+              "description": "검색어(회사명/포지션명/지원자명)"
+            },
+            "name": "q",
+            "in": "query"
+          },
+          {
+            "description": "포지션ID",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "title": "Job Id",
+              "description": "포지션ID"
+            },
+            "name": "job_id",
+            "in": "query"
+          },
+          {
+            "description": "지원서 상태; complete(지원서 접수), pass(서류 통과), reject(불합격), hire(최종합격)",
+            "required": false,
+            "schema": {
+              "items": {
+                "$ref": "#/components/schemas/ApplicationStatusSearchEnum"
+              },
+              "type": "array",
+              "description": "지원서 상태; complete(지원서 접수), pass(서류 통과), reject(불합격), hire(최종합격)"
+            },
+            "name": "status",
+            "in": "query"
+          },
+          {
+            "description": "지원서 제출 날짜 시작 범위 (포맷: YYYY-MM-DD)",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date",
+              "title": "Start Date",
+              "description": "지원서 제출 날짜 시작 범위 (포맷: YYYY-MM-DD)"
+            },
+            "name": "start_date",
+            "in": "query"
+          },
+          {
+            "description": "지원서 제출 날짜 종료 범위 (포맷: YYYY-MM-DD)",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date",
+              "title": "End Date",
+              "description": "지원서 제출 날짜 종료 범위 (포맷: YYYY-MM-DD)"
+            },
+            "name": "end_date",
+            "in": "query"
+          },
+          {
+            "description": "취소한 지원서 조회시 True",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "title": "Is Cancel",
+              "description": "취소한 지원서 조회시 True",
+              "default": false
+            },
+            "name": "is_cancel",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "title": "Offset",
+              "default": 0
+            },
+            "name": "offset",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "title": "Limit",
+              "default": 20
+            },
+            "name": "limit",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApplicationListResponseSerializer"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "비인증 사용자",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenAPIExceptionResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "필수 요청 데이터 누락",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenAPIExceptionResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "ClientIdHeader": []
+          },
+          {
+            "ClientSecretHeader": []
+          },
+          {
+            "PermissionsDependency": []
+          },
+          {
+            "PermissionsDependency": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Application"
+        ],
+        "summary": "포지션 지원",
+        "operationId": "apply_for_job_applications_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApplyJobRequestSerializer"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApplicationResponseSerializer"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "AlreadyAppliedJob": {
+                    "value": {
+                      "error_code": "AlreadyAppliedJob",
+                      "message": "이미 지원한 포지션입니다."
+                    }
+                  },
+                  "JobNotExists": {
+                    "value": {
+                      "error_code": "JobNotExists",
+                      "message": "존재하지 않는 포지션입니다."
+                    }
+                  },
+                  "FileNotFound": {
+                    "value": {
+                      "error_code": "FileNotFound",
+                      "message": "존재하지 않는 파일입니다."
+                    }
+                  },
+                  "DuplicateFile": {
+                    "value": {
+                      "error_code": "DuplicateFile",
+                      "message": "중복된 파일로 지원할 수 없습니다."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "비인증 사용자",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenAPIExceptionResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "필수 요청 데이터 누락",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenAPIExceptionResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "ClientIdHeader": []
+          },
+          {
+            "ClientSecretHeader": []
+          },
+          {
+            "PermissionsDependency": []
+          },
+          {
+            "PermissionsDependency": []
+          }
+        ]
+      }
+    },
+    "/applications/{application_id}/cancel": {
+      "patch": {
+        "tags": [
+          "Application"
+        ],
+        "summary": "지원 취소",
+        "operationId": "cancel_application_applications__application_id__cancel_patch",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Application Id"
+            },
+            "name": "application_id",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CancelApplicationRequestSerializer"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "ApplicationNotFound": {
+                    "value": {
+                      "error_code": "ApplicationNotFound",
+                      "message": "존재하지 않는 지원서입니다."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "비인증 사용자",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenAPIExceptionResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "필수 요청 데이터 누락",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenAPIExceptionResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "ClientIdHeader": []
+          },
+          {
+            "ClientSecretHeader": []
+          },
+          {
+            "PermissionsDependency": []
+          },
+          {
+            "PermissionsDependency": []
+          }
+        ]
+      }
+    },
+    "/companies/{company_id}": {
+      "get": {
+        "tags": [
+          "Company"
+        ],
+        "summary": "기업 상세 조회",
+        "operationId": "get_company_companies__company_id__get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Company Id"
+            },
+            "name": "company_id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CompanyResponseSerializer"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "JobNotExists": {
+                    "value": {
+                      "error_code": "JobNotExists",
+                      "message": "존재하지 않는 포지션입니다."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "비인증 사용자",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenAPIExceptionResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "필수 요청 데이터 누락",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenAPIExceptionResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "ClientIdHeader": []
+          },
+          {
+            "ClientSecretHeader": []
+          },
+          {
+            "PermissionsDependency": []
+          }
+        ]
+      }
+    },
+    "/companies/{company_id}/jobs": {
+      "get": {
+        "tags": [
+          "Company"
+        ],
+        "summary": "기업의 채용 중인 포지션 목록 조회",
+        "operationId": "get_company_job_list_companies__company_id__jobs_get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Company Id"
+            },
+            "name": "company_id",
+            "in": "path"
+          },
+          {
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "title": "Offset",
+              "default": 0
+            },
+            "name": "offset",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "title": "Limit",
+              "default": 12
+            },
+            "name": "limit",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CompanyJobListResponseSerializer"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "비인증 사용자",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenAPIExceptionResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "필수 요청 데이터 누락",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenAPIExceptionResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "ClientIdHeader": []
+          },
+          {
+            "ClientSecretHeader": []
+          },
+          {
+            "PermissionsDependency": []
+          }
+        ]
+      }
+    },
+    "/jobs": {
+      "get": {
+        "tags": [
+          "Job"
+        ],
+        "summary": "(탐색) 포지션 리스트 조회",
+        "operationId": "get_job_list_jobs_get",
+        "parameters": [
+          {
+            "description": "직군/직무 태그ID(최대 5개)",
+            "required": false,
+            "schema": {
+              "items": {
+                "type": "integer"
+              },
+              "type": "array",
+              "maxItems": 5,
+              "minItems": 0,
+              "title": "Category Tags",
+              "description": "직군/직무 태그ID(최대 5개)"
+            },
+            "name": "category_tags",
+            "in": "query"
+          },
+          {
+            "description": "스킬 태그 ID(최대 5개)",
+            "required": false,
+            "schema": {
+              "items": {
+                "type": "integer"
+              },
+              "type": "array",
+              "maxItems": 5,
+              "minItems": 0,
+              "title": "Skill Tags",
+              "description": "스킬 태그 ID(최대 5개)"
+            },
+            "name": "skill_tags",
+            "in": "query"
+          },
+          {
+            "description": "경력. 10 입력시 연차 10년 이상의 포지션 노출됨",
+            "required": false,
+            "schema": {
+              "items": {
+                "type": "integer",
+                "maximum": 10,
+                "minimum": 0
+              },
+              "type": "array",
+              "maximum": 10,
+              "minimum": 0,
+              "maxItems": 2,
+              "title": "Years",
+              "description": "경력. 10 입력시 연차 10년 이상의 포지션 노출됨"
+            },
+            "name": "years",
+            "in": "query"
+          },
+          {
+            "description": "지역. 국가",
+            "required": false,
+            "schema": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array",
+              "title": "Locations",
+              "description": "지역. 국가"
+            },
+            "name": "locations",
+            "in": "query"
+          },
+          {
+            "description": "정렬",
+            "required": false,
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/JobSortEnum"
+                }
+              ],
+              "description": "정렬",
+              "default": "job.latest_order"
+            },
+            "name": "sort",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "title": "Offset",
+              "default": 0
+            },
+            "name": "offset",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "title": "Limit",
+              "default": 20
+            },
+            "name": "limit",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JobListResponseSerializer"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "비인증 사용자",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenAPIExceptionResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "필수 요청 데이터 누락",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenAPIExceptionResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "ClientIdHeader": []
+          },
+          {
+            "ClientSecretHeader": []
+          },
+          {
+            "PermissionsDependency": []
+          }
+        ]
+      }
+    },
+    "/jobs/{job_id}": {
+      "get": {
+        "tags": [
+          "Job"
+        ],
+        "summary": "포지션 상세 조회",
+        "operationId": "get_job_jobs__job_id__get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "포지션ID"
+            },
+            "name": "job_id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/openapi__apis__v1__jobs__serializers__JobResponseSerializer"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "JobNotExists": {
+                    "value": {
+                      "error_code": "JobNotExists",
+                      "message": "존재하지 않는 포지션입니다."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "비인증 사용자",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenAPIExceptionResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "필수 요청 데이터 누락",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenAPIExceptionResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "ClientIdHeader": []
+          },
+          {
+            "ClientSecretHeader": []
+          },
+          {
+            "PermissionsDependency": []
+          }
+        ]
+      }
+    },
+    "/tags/categories": {
+      "get": {
+        "tags": [
+          "Tag"
+        ],
+        "summary": "직군/직무 리스트 조회",
+        "operationId": "get_categories_tags_categories_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TagListResponseSerializer"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "비인증 사용자",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenAPIExceptionResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "필수 요청 데이터 누락",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenAPIExceptionResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "ClientIdHeader": []
+          },
+          {
+            "ClientSecretHeader": []
+          },
+          {
+            "PermissionsDependency": []
+          }
+        ]
+      }
+    },
+    "/tags/skills": {
+      "get": {
+        "tags": [
+          "Tag"
+        ],
+        "summary": "스킬 리스트 조회",
+        "operationId": "get_skills_tags_skills_get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Keyword"
+            },
+            "name": "keyword",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SkillListResponseSerializer"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "비인증 사용자",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenAPIExceptionResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "필수 요청 데이터 누락",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenAPIExceptionResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "ClientIdHeader": []
+          },
+          {
+            "ClientSecretHeader": []
+          },
+          {
+            "PermissionsDependency": []
+          }
+        ]
+      }
+    },
+    "/search/company/autocomplate": {
+      "get": {
+        "tags": [
+          "Search"
+        ],
+        "summary": "Authcomplate",
+        "operationId": "authcomplate_search_company_autocomplate_get",
+        "parameters": [
+          {
+            "description": "검색할 회사명",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Query",
+              "description": "검색할 회사명"
+            },
+            "name": "query",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CompanyAutoCompleteResponseSerializer"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "비인증 사용자",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenAPIExceptionResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "필수 요청 데이터 누락",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenAPIExceptionResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "ClientIdHeader": []
+          },
+          {
+            "ClientSecretHeader": []
+          },
+          {
+            "PermissionsDependency": []
+          }
+        ]
+      }
+    },
+    "/search/company": {
+      "get": {
+        "tags": [
+          "Search"
+        ],
+        "summary": "Search Companies",
+        "operationId": "search_companies_search_company_get",
+        "parameters": [
+          {
+            "description": "검색할 회사명, 또는 사업자번호",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Query",
+              "description": "검색할 회사명, 또는 사업자번호"
+            },
+            "name": "query",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "title": "Offset",
+              "default": 0
+            },
+            "name": "offset",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "title": "Limit",
+              "default": 20
+            },
+            "name": "limit",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchCompanyResponseSerializer"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "비인증 사용자",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenAPIExceptionResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "필수 요청 데이터 누락",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenAPIExceptionResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "ClientIdHeader": []
+          },
+          {
+            "ClientSecretHeader": []
+          },
+          {
+            "PermissionsDependency": []
+          }
+        ]
+      }
+    },
+    "/files": {
+      "get": {
+        "tags": [
+          "File"
+        ],
+        "summary": "첨부파일 목록 조회",
+        "operationId": "get_file_list_files_get",
+        "parameters": [
+          {
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "title": "Offset",
+              "default": 0
+            },
+            "name": "offset",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "title": "Limit",
+              "default": 20
+            },
+            "name": "limit",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetFileListResponseSerializer"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "비인증 사용자",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenAPIExceptionResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "필수 요청 데이터 누락",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenAPIExceptionResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "ClientIdHeader": []
+          },
+          {
+            "ClientSecretHeader": []
+          },
+          {
+            "PermissionsDependency": []
+          },
+          {
+            "PermissionsDependency": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "File"
+        ],
+        "summary": "지원서 첨부파일 업로드",
+        "description": "**파일 업로드 방법**\n\n    1. `POST /v1/files/upload-url` 요청\n\n    2. 1번 응답 `presigned_url`을 통해 임시 파일 업로드\n\n        a. `presigned_url`은 60분 동안 유효\n\n        b. `presigned_url`은 PUT 메소드, Content-Type 헤더를 'application/binary'로 요청\n\n    3. 1번 응답 `upload_key`를 `POST /v1/files` 요청 데이터에 넣어 파일 업로드 완료",
+        "operationId": "upload_file_files_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UploadFileRequestSerializer"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UploadFileResponseSerializer"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "비인증 사용자",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenAPIExceptionResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "필수 요청 데이터 누락",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenAPIExceptionResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "ClientIdHeader": []
+          },
+          {
+            "ClientSecretHeader": []
+          },
+          {
+            "PermissionsDependency": []
+          },
+          {
+            "PermissionsDependency": []
+          }
+        ]
+      }
+    },
+    "/files/{file_key}/download": {
+      "get": {
+        "tags": [
+          "File"
+        ],
+        "summary": "첨부파일 다운로드",
+        "operationId": "get_download_url_files__file_key__download_get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "File Key"
+            },
+            "name": "file_key",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetDownloadUrlResponseSerializer"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "FileNotFound": {
+                    "value": {
+                      "error_code": "FileNotFound",
+                      "message": "존재하지 않는 파일입니다."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "비인증 사용자",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenAPIExceptionResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "필수 요청 데이터 누락",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenAPIExceptionResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "ClientIdHeader": []
+          },
+          {
+            "ClientSecretHeader": []
+          },
+          {
+            "PermissionsDependency": []
+          },
+          {
+            "PermissionsDependency": []
+          }
+        ]
+      }
+    },
+    "/files/upload-url": {
+      "post": {
+        "tags": [
+          "File"
+        ],
+        "summary": "첨부파일 업로드용 presigned url 생성",
+        "operationId": "generate_presigned_url_files_upload_url_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreatePresignedURLResponseSerializer"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "비인증 사용자",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenAPIExceptionResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "필수 요청 데이터 누락",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenAPIExceptionResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "ClientIdHeader": []
+          },
+          {
+            "ClientSecretHeader": []
+          },
+          {
+            "PermissionsDependency": []
+          },
+          {
+            "PermissionsDependency": []
+          }
+        ]
+      }
+    },
+    "/stat/application/summary": {
+      "get": {
+        "tags": [
+          "Stat"
+        ],
+        "summary": "(클라이언트별) 지원 현황 summary 조회",
+        "operationId": "get_application_summary_by_client_stat_application_summary_get",
+        "parameters": [
+          {
+            "description": "지원서 제출 날짜 시작 범위 (포맷: YYYY-MM-DD)",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date",
+              "title": "Start Date",
+              "description": "지원서 제출 날짜 시작 범위 (포맷: YYYY-MM-DD)",
+              "default": "2023-11-24"
+            },
+            "name": "start_date",
+            "in": "query"
+          },
+          {
+            "description": "지원서 제출 날짜 종료 범위 (포맷: YYYY-MM-DD)",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date",
+              "title": "End Date",
+              "description": "지원서 제출 날짜 종료 범위 (포맷: YYYY-MM-DD)",
+              "default": "2024-02-22"
+            },
+            "name": "end_date",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApplicationSummaryResponseSerializer"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "InvalidDateRange": {
+                    "value": {
+                      "error_code": "InvalidDateRange",
+                      "message": "시작 날짜와 종료 날짜의 차이는 90일을 넘을 수 없습니다."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "비인증 사용자",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenAPIExceptionResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "필수 요청 데이터 누락",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenAPIExceptionResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "ClientIdHeader": []
+          },
+          {
+            "ClientSecretHeader": []
+          },
+          {
+            "PermissionsDependency": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AddressResponseSerializer": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          },
+          "country": {
+            "type": "string",
+            "title": "국가"
+          },
+          "country_code": {
+            "type": "string",
+            "title": "국가 코드"
+          },
+          "location": {
+            "type": "string",
+            "title": "Location"
+          },
+          "full_location": {
+            "type": "string",
+            "title": "전체 주소"
+          },
+          "geo_location": {
+            "type": "object",
+            "title": "Geo Location"
+          }
+        },
+        "type": "object",
+        "title": "AddressResponseSerializer"
+      },
+      "ApplicationListResponseSerializer": {
+        "properties": {
+          "links": {
+            "$ref": "#/components/schemas/LinksSchema"
+          },
+          "applications": {
+            "items": {
+              "$ref": "#/components/schemas/ApplicationResponseSerializer"
+            },
+            "type": "array",
+            "title": "Applications"
+          }
+        },
+        "type": "object",
+        "title": "ApplicationListResponseSerializer"
+      },
+      "ApplicationResponseSerializer": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id",
+            "description": "지원서ID"
+          },
+          "oneid": {
+            "type": "string",
+            "title": "Oneid",
+            "description": "지원자ID"
+          },
+          "username": {
+            "type": "string",
+            "title": "Username",
+            "description": "지원자명"
+          },
+          "email": {
+            "type": "string",
+            "title": "Email",
+            "description": "지원자 이메일"
+          },
+          "mobile": {
+            "type": "string",
+            "title": "Mobile",
+            "description": "포맷팅 된 전화번호 (e.g. +821086388688)"
+          },
+          "application_status": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ApplicationStatusSearchEnum"
+              }
+            ],
+            "description": "지원서 상태"
+          },
+          "apply_time": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Apply Time",
+            "description": "지원서 제출 시간"
+          },
+          "edited_time": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Edited Time",
+            "description": "지원서 수정 시간"
+          },
+          "open_time": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Open Time",
+            "description": "지원서 최초 열람 시간"
+          },
+          "cancel_time": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Cancel Time",
+            "description": "지원 취소 시간"
+          },
+          "cancel_reason": {
+            "type": "string",
+            "title": "Cancel Reason",
+            "description": "지원 취소 사유"
+          },
+          "company_id": {
+            "type": "integer",
+            "title": "Company Id"
+          },
+          "company_name": {
+            "type": "string",
+            "title": "Company Name",
+            "description": "기업명"
+          },
+          "job_id": {
+            "type": "integer",
+            "title": "Job Id",
+            "description": "포지션ID"
+          },
+          "job_name": {
+            "type": "string",
+            "title": "Job Name",
+            "description": "지원 시점의 포지션명"
+          },
+          "job_detail": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/openapi__apis__v1__applications__serializers__JobDetailResponseSerializer"
+              }
+            ],
+            "title": "Job Detail",
+            "description": "포지션 상세"
+          },
+          "resumes": {
+            "items": {
+              "$ref": "#/components/schemas/FilesResponseSerializer"
+            },
+            "type": "array",
+            "title": "Resumes",
+            "description": "첨부파일 목록"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "oneid",
+          "username",
+          "email",
+          "mobile",
+          "application_status",
+          "apply_time",
+          "company_id",
+          "job_id"
+        ],
+        "title": "ApplicationResponseSerializer",
+        "example": {
+          "id": 688129,
+          "oneid": "QrKSEkh74AFf",
+          "username": "지원자명",
+          "email": "user@test.com",
+          "mobile": "+821023456789",
+          "application_status": "complte",
+          "apply_time": "2023-03-15T02:09:27.883418",
+          "company_id": 1422,
+          "company_name": "원티드랩",
+          "job_id": 23920,
+          "job_name": "포지션명",
+          "job_detail": {
+            "id": 23920,
+            "status": "active",
+            "company_id": 1,
+            "logo_url": {
+              "origin": "https://...",
+              "thumb": "https://..."
+            }
+          },
+          "files": [
+            {
+              "key": "qwefew-qweifj-1234",
+              "title": "이력서.pdf",
+              "update_time": "2023-03-15T02:09:27.883418"
+            }
+          ]
+        }
+      },
+      "ApplicationStatusSearchEnum": {
+        "type": "string",
+        "enum": [
+          "complete",
+          "pass",
+          "reject",
+          "hire"
+        ],
+        "title": "ApplicationStatusSearchEnum",
+        "description": "An enumeration."
+      },
+      "ApplicationSummaryResponseSerializer": {
+        "properties": {
+          "complete": {
+            "type": "integer",
+            "title": "Complete",
+            "default": 0
+          },
+          "document_pass": {
+            "type": "integer",
+            "title": "Document Pass",
+            "default": 0
+          },
+          "hire": {
+            "type": "integer",
+            "title": "Hire",
+            "default": 0
+          },
+          "reject": {
+            "type": "integer",
+            "title": "Reject",
+            "default": 0
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total",
+            "default": 0
+          }
+        },
+        "type": "object",
+        "title": "ApplicationSummaryResponseSerializer",
+        "example": {
+          "complete": 1,
+          "document_pass": 1,
+          "hire": 0,
+          "reject": 1,
+          "total": 3
+        }
+      },
+      "ApplyJobRequestSerializer": {
+        "properties": {
+          "job_id": {
+            "type": "integer",
+            "title": "Job Id"
+          },
+          "username": {
+            "type": "string",
+            "title": "Username"
+          },
+          "email": {
+            "type": "string",
+            "title": "Email"
+          },
+          "mobile": {
+            "type": "string",
+            "title": "Mobile"
+          },
+          "resume_keys": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Resume Keys",
+            "description": "지원시 첨부할 파일 리스트"
+          }
+        },
+        "type": "object",
+        "required": [
+          "job_id",
+          "username",
+          "email",
+          "mobile",
+          "resume_keys"
+        ],
+        "title": "ApplyJobRequestSerializer"
+      },
+      "ApplyTextPredictionRequestSerializer": {
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/ResumeJdTextPredictionItemSerializer"
+            },
+            "type": "array",
+            "title": "예측요청 데이터 리스트"
+          },
+          "callback_url": {
+            "type": "string",
+            "title": "CallbackURL",
+            "description": "비동기 처리후 결과를 통보받을 URL",
+            "example": "http://my-server.com/v1/apply/callback"
+          },
+          "request_id": {
+            "type": "string",
+            "title": "요청ID",
+            "description": "처리결과 통보 시 요청ID가 함께 전달됨.\n        기본적으로 UUID형태로 자동생성 되나, 클라이언트 측 로직에 의해 비동기 요청 프로세스보다 통보URL호출이 먼저 이루어 지는 경우 미리 request_id를 지정해야 함\n        ",
+            "example": "55e41f9f-a5a6-4836-8490-68914ff51b64"
+          }
+        },
+        "type": "object",
+        "required": [
+          "data",
+          "callback_url"
+        ],
+        "title": "ApplyTextPredictionRequestSerializer"
+      },
+      "AsyncPredictionResponseSerializer": {
+        "properties": {
+          "request_id": {
+            "type": "string",
+            "title": "요청ID",
+            "description": "\nCallbackURL 호출 시 어떤 요청에대한 결과인지 구분을 위해 요청ID를 함께 전달\n",
+            "example": "55e41f9f-a5a6-4836-8490-68914ff51b64"
+          }
+        },
+        "type": "object",
+        "required": [
+          "request_id"
+        ],
+        "title": "AsyncPredictionResponseSerializer"
+      },
+      "CancelApplicationRequestSerializer": {
+        "properties": {
+          "cancel_reason": {
+            "type": "string",
+            "title": "Cancel Reason"
+          }
+        },
+        "type": "object",
+        "title": "CancelApplicationRequestSerializer"
+      },
+      "CategoryTagResponseSerializer": {
+        "properties": {
+          "parent_tag": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/openapi__apis__v1__jobs__serializers__TagResponseSerializer"
+              }
+            ],
+            "title": "직군"
+          },
+          "child_tags": {
+            "items": {
+              "$ref": "#/components/schemas/openapi__apis__v1__jobs__serializers__TagResponseSerializer"
+            },
+            "type": "array",
+            "title": "직무"
+          }
+        },
+        "type": "object",
+        "title": "CategoryTagResponseSerializer"
+      },
+      "CompanyAutoCompleteResponseSerializer": {
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/_CompanyAutoCompleteSerializer"
+            },
+            "type": "array",
+            "title": "Data"
+          }
+        },
+        "type": "object",
+        "title": "CompanyAutoCompleteResponseSerializer",
+        "example": {
+          "data": [
+            {
+              "company_id": 518,
+              "name": "원티드랩",
+              "logo_image": "https://image.jpg"
+            }
+          ]
+        }
+      },
+      "CompanyDetailResponseSerializer": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "기업ID"
+          },
+          "company_confirm": {
+            "type": "boolean",
+            "title": "기업 승인여부",
+            "description": "True: 승인 완료,\n False: 승인 거절, 승인 요청중, 승인 요청 안함"
+          },
+          "registration_number": {
+            "type": "string",
+            "title": "사업자번호"
+          },
+          "name": {
+            "type": "string",
+            "title": "기업명"
+          },
+          "logo_url": {
+            "$ref": "#/components/schemas/ImageUrlSchema"
+          },
+          "images": {
+            "items": {
+              "type": "object"
+            },
+            "type": "array",
+            "title": "회사 이미지"
+          },
+          "description": {
+            "type": "string",
+            "title": "회사소개"
+          },
+          "link": {
+            "type": "string",
+            "title": "기업 페이지 링크"
+          },
+          "url": {
+            "type": "string",
+            "title": "회사 상세 페이지 url"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "company_confirm",
+          "name",
+          "url"
+        ],
+        "title": "CompanyDetailResponseSerializer"
+      },
+      "CompanyJobListResponseSerializer": {
+        "properties": {
+          "links": {
+            "$ref": "#/components/schemas/LinksSchema"
+          },
+          "jobs": {
+            "items": {
+              "$ref": "#/components/schemas/openapi__apis__v1__companies__serializers__JobResponseSerializer"
+            },
+            "type": "array",
+            "title": "Jobs"
+          }
+        },
+        "type": "object",
+        "title": "CompanyJobListResponseSerializer",
+        "example": {
+          "links": {
+            "next": "/v1/companies/79/jobs?offset=12&limit=12"
+          },
+          "jobs": [
+            {
+              "id": 23617,
+              "name": "VR 엔지니어",
+              "reward": {
+                "country": "KR",
+                "total": "100만원",
+                "recommender": "50만원",
+                "recommendee": "50만원"
+              },
+              "url": "https://www.wanted.co.kr/wd/10002"
+            },
+            {
+              "id": 23652,
+              "name": "QA",
+              "due_time": "2023-03-21"
+            }
+          ]
+        }
+      },
+      "CompanyResponseSerializer": {
+        "properties": {
+          "company": {
+            "$ref": "#/components/schemas/CompanyDetailResponseSerializer"
+          }
+        },
+        "type": "object",
+        "title": "CompanyResponseSerializer",
+        "example": {
+          "company": {
+            "id": 79,
+            "company_confirm": true,
+            "registration_number": "12622032023",
+            "name": "원티드랩",
+            "logo_url": {
+              "origin": "https://...",
+              "thumb": "https://..."
+            },
+            "images": [
+              {
+                "id": 1894,
+                "is_title": true,
+                "origin": "https://...",
+                "thumb": "https://..."
+              },
+              {
+                "id": 1889,
+                "is_title": false,
+                "origin": "https://...",
+                "thumb": "https://..."
+              }
+            ],
+            "description": "원티드랩 회사 소개",
+            "link": "http://wanted.co.kr/",
+            "url": "https://www.wanted.co.kr/company/79?client_id=xxxx"
+          }
+        }
+      },
+      "CompanyTagResponseSerializer": {
+        "properties": {
+          "tag_type_id": {
+            "type": "integer",
+            "title": "태그ID"
+          },
+          "text": {
+            "type": "string",
+            "title": "태그명"
+          }
+        },
+        "type": "object",
+        "title": "CompanyTagResponseSerializer"
+      },
+      "CountryEnum": {
+        "type": "string",
+        "enum": [
+          "KR",
+          "JP",
+          "TW",
+          "HK",
+          "SG",
+          "WW"
+        ],
+        "title": "CountryEnum",
+        "description": "An enumeration."
+      },
+      "CreatePresignedURLResponseSerializer": {
+        "properties": {
+          "presigned_url": {
+            "type": "string",
+            "title": "Presigned Url"
+          },
+          "upload_key": {
+            "type": "string",
+            "title": "Upload Key"
+          }
+        },
+        "type": "object",
+        "required": [
+          "presigned_url",
+          "upload_key"
+        ],
+        "title": "CreatePresignedURLResponseSerializer",
+        "example": {
+          "presigned_url": "https://...",
+          "upload_key": "qwe0982awfwef"
+        }
+      },
+      "FilesResponseSerializer": {
+        "properties": {
+          "key": {
+            "type": "string",
+            "title": "Key"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "update_time": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Update Time"
+          }
+        },
+        "type": "object",
+        "required": [
+          "key",
+          "update_time"
+        ],
+        "title": "FilesResponseSerializer"
+      },
+      "GetDownloadUrlResponseSerializer": {
+        "properties": {
+          "presigned_url": {
+            "type": "string",
+            "title": "Presigned Url"
+          }
+        },
+        "type": "object",
+        "required": [
+          "presigned_url"
+        ],
+        "title": "GetDownloadUrlResponseSerializer",
+        "example": {
+          "url": "https://..."
+        }
+      },
+      "GetFileListResponseSerializer": {
+        "properties": {
+          "links": {
+            "$ref": "#/components/schemas/LinksSchema"
+          },
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/FilesResponseSerializer"
+            },
+            "type": "array",
+            "title": "Data"
+          }
+        },
+        "type": "object",
+        "title": "GetFileListResponseSerializer",
+        "example": {
+          "data": [
+            {
+              "key": "AAUIBQQDSgdNVQ==",
+              "title": "string.pdf",
+              "update_time": "2023-04-10T16:53:23"
+            }
+          ],
+          "links": {
+            "prev": "http://...",
+            "next": "http://..."
+          }
+        }
+      },
+      "ImageUrlResponseSerializer": {
+        "properties": {
+          "origin": {
+            "type": "string",
+            "maxLength": 2083,
+            "minLength": 1,
+            "format": "uri",
+            "title": "Origin"
+          },
+          "thumb": {
+            "type": "string",
+            "maxLength": 2083,
+            "minLength": 1,
+            "format": "uri",
+            "title": "Thumb"
+          },
+          "is_title": {
+            "type": "boolean",
+            "title": "Is Title",
+            "default": false
+          }
+        },
+        "type": "object",
+        "title": "ImageUrlResponseSerializer"
+      },
+      "ImageUrlSchema": {
+        "properties": {
+          "origin": {
+            "type": "string",
+            "maxLength": 2083,
+            "minLength": 1,
+            "format": "uri",
+            "title": "Origin",
+            "description": "원본 이미지 URL"
+          },
+          "thumb": {
+            "type": "string",
+            "maxLength": 2083,
+            "minLength": 1,
+            "format": "uri",
+            "title": "Thumb",
+            "description": "썸네일 이미지 URL"
+          }
+        },
+        "type": "object",
+        "title": "ImageUrlSchema"
+      },
+      "JobCompanyResponseSerializer": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "기업ID"
+          },
+          "name": {
+            "type": "string",
+            "title": "기업명"
+          },
+          "link": {
+            "type": "string",
+            "title": "기업 페이지 링크"
+          },
+          "registration_number": {
+            "type": "string",
+            "title": "사업자번호"
+          },
+          "logo_img": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ImageUrlResponseSerializer"
+              }
+            ],
+            "title": "로고 이미지"
+          },
+          "description": {
+            "type": "string",
+            "title": "회사소개"
+          },
+          "company_tags": {
+            "items": {
+              "$ref": "#/components/schemas/CompanyTagResponseSerializer"
+            },
+            "type": "array",
+            "title": "기업 태그",
+            "default": []
+          }
+        },
+        "type": "object",
+        "title": "JobCompanyResponseSerializer"
+      },
+      "JobListAddressResponseSerializer": {
+        "properties": {
+          "country": {
+            "type": "string",
+            "title": "Country"
+          },
+          "location": {
+            "type": "string",
+            "title": "Location"
+          },
+          "full_location": {
+            "type": "string",
+            "title": "Full Location"
+          }
+        },
+        "type": "object",
+        "title": "JobListAddressResponseSerializer"
+      },
+      "JobListDetailResponseSerializer": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "포지션ID"
+          },
+          "status": {
+            "$ref": "#/components/schemas/JobStatusEnum"
+          },
+          "due_time": {
+            "type": "string",
+            "format": "date",
+            "title": "마감일"
+          },
+          "position": {
+            "type": "string",
+            "title": "포지션명"
+          },
+          "company": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/JobCompanyResponseSerializer"
+              }
+            ],
+            "title": "회사"
+          },
+          "reward": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/RewardResponseSerializer"
+              }
+            ],
+            "title": "보상금"
+          },
+          "address": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/JobListAddressResponseSerializer"
+              }
+            ],
+            "title": "주소"
+          },
+          "title_img": {
+            "$ref": "#/components/schemas/ImageUrlResponseSerializer"
+          },
+          "logo_img": {
+            "$ref": "#/components/schemas/ImageUrlResponseSerializer"
+          },
+          "category_tags": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CategoryTagResponseSerializer"
+              }
+            ],
+            "title": "직군/직무 태그"
+          },
+          "url": {
+            "type": "string",
+            "title": "포지션 페이지 상세 URL"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "status",
+          "position",
+          "company",
+          "url"
+        ],
+        "title": "JobListDetailResponseSerializer"
+      },
+      "JobListResponseSerializer": {
+        "properties": {
+          "links": {
+            "$ref": "#/components/schemas/LinksSchema"
+          },
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/JobListDetailResponseSerializer"
+            },
+            "type": "array",
+            "title": "Data"
+          }
+        },
+        "type": "object",
+        "title": "JobListResponseSerializer",
+        "example": {
+          "data": [
+            {
+              "id": 24049,
+              "status": "active",
+              "due_time": "2023-05-01",
+              "name": "포지션명",
+              "address": {
+                "country": "한국",
+                "location": "서울"
+              },
+              "title_img": {
+                "origin": "https://...",
+                "thumb": "https://..."
+              },
+              "logo_img": {
+                "origin": "https://...",
+                "thumb": "https://..."
+              },
+              "company": {
+                "id": 7565,
+                "name": "기업명"
+              },
+              "reward": {
+                "total": "100만원",
+                "recommender": "50만원",
+                "recommendee": "50만원"
+              }
+            }
+          ],
+          "links": {
+            "prev": "/api/chaos/jobs/v1?country=KR&sort=company.response_rate_order&offset=1&limit=1",
+            "next": "/api/chaos/jobs/v1?country=KR&sort=company.response_rate_order&offset=1&limit=1"
+          }
+        }
+      },
+      "JobSortEnum": {
+        "enum": [
+          "job.latest_order",
+          "job.popularity_order",
+          "company.response_rate_order"
+        ],
+        "title": "JobSortEnum",
+        "description": "An enumeration."
+      },
+      "JobStatusEnum": {
+        "type": "string",
+        "enum": [
+          "request",
+          "draft",
+          "active",
+          "archived",
+          "close",
+          "saved"
+        ],
+        "title": "JobStatusEnum",
+        "description": "An enumeration."
+      },
+      "LinksSchema": {
+        "properties": {
+          "prev": {
+            "type": "string",
+            "title": "Prev",
+            "description": "이전페이지"
+          },
+          "next": {
+            "type": "string",
+            "title": "Next",
+            "description": "다음페이지"
+          }
+        },
+        "type": "object",
+        "title": "LinksSchema"
+      },
+      "OpenAPIExceptionResponse": {
+        "properties": {
+          "error_code": {
+            "type": "string",
+            "title": "Error Code"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message"
+          },
+          "data": {
+            "type": "object",
+            "title": "Data"
+          }
+        },
+        "type": "object",
+        "required": [
+          "error_code",
+          "message"
+        ],
+        "title": "OpenAPIExceptionResponse"
+      },
+      "ParentTagResponseSerializer": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id",
+            "description": "태그ID"
+          },
+          "parent_id": {
+            "type": "integer",
+            "title": "Parent Id",
+            "description": "상위 태그ID"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title",
+            "description": "태그명"
+          },
+          "title_thumb_img": {
+            "type": "string",
+            "maxLength": 2083,
+            "minLength": 1,
+            "format": "uri",
+            "title": "Title Thumb Img",
+            "description": "태그 이미지 URL"
+          },
+          "sub_tags": {
+            "items": {
+              "$ref": "#/components/schemas/openapi__apis__v1__tags__serializers__TagResponseSerializer"
+            },
+            "type": "array",
+            "title": "Sub Tags"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "title"
+        ],
+        "title": "ParentTagResponseSerializer"
+      },
+      "PassTextPredictionRequestSerializer": {
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/ResumeJdTextPredictionItemSerializer"
+            },
+            "type": "array",
+            "title": "예측요청 데이터 리스트"
+          },
+          "callback_url": {
+            "type": "string",
+            "title": "CallbackURL",
+            "description": "비동기 처리후 결과를 통보받을 URL",
+            "example": "http://my-server.com/v1/pass/callback"
+          },
+          "request_id": {
+            "type": "string",
+            "title": "요청ID",
+            "description": "처리결과 통보 시 요청ID가 함께 전달됨.\n        기본적으로 UUID형태로 자동생성 되나, 클라이언트 측 로직에 의해 비동기 요청 프로세스보다 통보URL호출이 먼저 이루어 지는 경우 미리 request_id를 지정해야 함\n        ",
+            "example": "55e41f9f-a5a6-4836-8490-68914ff51b64"
+          }
+        },
+        "type": "object",
+        "required": [
+          "data",
+          "callback_url"
+        ],
+        "title": "PassTextPredictionRequestSerializer"
+      },
+      "ResumeJdTextPredictionItemSerializer": {
+        "properties": {
+          "resume": {
+            "type": "string",
+            "title": "이력서텍스트",
+            "example": "5년차 소프트웨어 엔지니어 입니다..."
+          },
+          "jd": {
+            "type": "string",
+            "title": "JD텍스트",
+            "example": "5년차 소프트웨어 엔지니어 구합니다..."
+          }
+        },
+        "type": "object",
+        "required": [
+          "resume",
+          "jd"
+        ],
+        "title": "ResumeJdTextPredictionItemSerializer"
+      },
+      "RewardResponseSerializer": {
+        "properties": {
+          "country": {
+            "$ref": "#/components/schemas/CountryEnum"
+          },
+          "formatted_total": {
+            "type": "string",
+            "title": "Formatted Total",
+            "description": "전체 보상금",
+            "default": "0"
+          },
+          "formatted_recommender": {
+            "type": "string",
+            "title": "Formatted Recommender",
+            "description": "추천인 보상금",
+            "default": "0"
+          },
+          "formatted_recommendee": {
+            "type": "string",
+            "title": "Formatted Recommendee",
+            "description": "지원자 보상금",
+            "default": "0"
+          }
+        },
+        "type": "object",
+        "title": "RewardResponseSerializer"
+      },
+      "SearchCompanyResponseSerializer": {
+        "properties": {
+          "links": {
+            "$ref": "#/components/schemas/LinksSchema"
+          },
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/_SearchCompanySchema"
+            },
+            "type": "array",
+            "title": "Data"
+          }
+        },
+        "type": "object",
+        "title": "SearchCompanyResponseSerializer",
+        "example": {
+          "links": {
+            "next": "/api/chaos/search/v1/company?query=%EC%9B%90%ED%8B%B0%EB%93%9C&offset=1&limit=1&offset=1&limit=1"
+          },
+          "companies": [
+            {
+              "id": 79,
+              "name": "원티드랩",
+              "logo_img": {
+                "origin": "https://static.wanted.co.kr/nextweek/images/wdes/0_4.7d6ea9b0.test_nextweek.jpg",
+                "thumb": "https://static.wanted.co.kr/nextweek/images/wdes/0_5.7d6ea9b0.test_nextweek.jpg"
+              },
+              "title_img": {
+                "origin": "https://static.wanted.co.kr/images/company/79/15562_2_6.__1080_790.jpg",
+                "thumb": "https://static.wanted.co.kr/images/company/79/15562_2_6.__400_400.jpg"
+              },
+              "description": "원티드랩 최고",
+              "url": "https://www.wanted.co.kr/company/79?client_id=xxxx"
+            }
+          ]
+        }
+      },
+      "SkillListResponseSerializer": {
+        "properties": {
+          "skills": {
+            "items": {
+              "$ref": "#/components/schemas/ParentTagResponseSerializer"
+            },
+            "type": "array",
+            "title": "Skills"
+          }
+        },
+        "type": "object",
+        "title": "SkillListResponseSerializer",
+        "example": {
+          "data": [
+            {
+              "id": 1540,
+              "title": "Java"
+            }
+          ]
+        }
+      },
+      "TagListResponseSerializer": {
+        "properties": {
+          "tags": {
+            "items": {
+              "$ref": "#/components/schemas/ParentTagResponseSerializer"
+            },
+            "type": "array",
+            "title": "Tags"
+          }
+        },
+        "type": "object",
+        "title": "TagListResponseSerializer",
+        "example": {
+          "data": [
+            {
+              "id": 518,
+              "title": "개발",
+              "image_url": "https://...",
+              "sub_tags": [
+                {
+                  "id": 873,
+                  "parent_id": 518,
+                  "title": "웹 개발자",
+                  "image_url": "https://..."
+                },
+                {
+                  "id": 872,
+                  "parent_id": 518,
+                  "title": "서버 개발자",
+                  "image_url": "https://..."
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "UploadFileRequestSerializer": {
+        "properties": {
+          "upload_key": {
+            "type": "string",
+            "title": "Upload Key",
+            "description": "`/v1/files/upload-url` 응답의 upload_key"
+          },
+          "title": {
+            "type": "string",
+            "title": "파일명",
+            "description": "`/v1/files/upload-url` 응답의 `presigned_url` 이용해서 업로드한 파일의 확장자를 포함한 파일명"
+          }
+        },
+        "type": "object",
+        "required": [
+          "upload_key",
+          "title"
+        ],
+        "title": "UploadFileRequestSerializer",
+        "example": {
+          "upload_key": "0362e393-45b7-4bca-9e33-676cffcc5cbe",
+          "title": "첨부파일.pdf"
+        }
+      },
+      "UploadFileResponseSerializer": {
+        "properties": {
+          "key": {
+            "type": "string",
+            "title": "Key"
+          }
+        },
+        "type": "object",
+        "required": [
+          "key"
+        ],
+        "title": "UploadFileResponseSerializer",
+        "example": {
+          "key": "AAUIBQQGSgdNVQ=="
+        }
+      },
+      "_CompanyAutoCompleteSerializer": {
+        "properties": {
+          "company_id": {
+            "type": "integer",
+            "title": "Company Id",
+            "description": "회사 ID"
+          },
+          "name_ko": {
+            "type": "string",
+            "title": "Name Ko",
+            "description": "회사명"
+          },
+          "logo_image": {
+            "type": "string",
+            "title": "Logo Image",
+            "description": "회사로고 이미지 url"
+          }
+        },
+        "type": "object",
+        "required": [
+          "company_id",
+          "name_ko"
+        ],
+        "title": "_CompanyAutoCompleteSerializer"
+      },
+      "_SearchCompanySchema": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id",
+            "description": "회사 ID"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name",
+            "description": "회사명"
+          },
+          "logo_img": {
+            "$ref": "#/components/schemas/ImageUrlSchema"
+          },
+          "title_img": {
+            "$ref": "#/components/schemas/ImageUrlSchema"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description",
+            "description": "회사설명"
+          },
+          "url": {
+            "type": "string",
+            "title": "Url",
+            "description": "회사 상세 페이지 url"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "url"
+        ],
+        "title": "_SearchCompanySchema"
+      },
+      "openapi__apis__v1__applications__serializers__JobDetailResponseSerializer": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          },
+          "status": {
+            "$ref": "#/components/schemas/JobStatusEnum"
+          },
+          "company_id": {
+            "type": "integer",
+            "title": "Company Id"
+          },
+          "due_time": {
+            "type": "string",
+            "format": "date",
+            "title": "Due Time",
+            "description": "마감일"
+          },
+          "logo_url": {
+            "$ref": "#/components/schemas/ImageUrlResponseSerializer"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "status"
+        ],
+        "title": "JobDetailResponseSerializer"
+      },
+      "openapi__apis__v1__companies__serializers__JobResponseSerializer": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id",
+            "description": "포지션ID"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name",
+            "description": "포지션명"
+          },
+          "due_time": {
+            "type": "string",
+            "format": "date",
+            "title": "Due Time",
+            "description": "마감일"
+          },
+          "reward": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/RewardResponseSerializer"
+              }
+            ],
+            "title": "Reward",
+            "description": "보상금"
+          },
+          "url": {
+            "type": "string",
+            "title": "포지션 페이지 상세 URL"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "url"
+        ],
+        "title": "JobResponseSerializer"
+      },
+      "openapi__apis__v1__jobs__serializers__JobDetailResponseSerializer": {
+        "properties": {
+          "position": {
+            "type": "string",
+            "title": "포지션명"
+          },
+          "intro": {
+            "type": "string",
+            "title": "인트로"
+          },
+          "main_tasks": {
+            "type": "string",
+            "title": "주요업무"
+          },
+          "requirements": {
+            "type": "string",
+            "title": "자격요건"
+          },
+          "preferred_points": {
+            "type": "string",
+            "title": "우대사항"
+          },
+          "benefits": {
+            "type": "string",
+            "title": "혜택 및 복지"
+          }
+        },
+        "type": "object",
+        "title": "JobDetailResponseSerializer"
+      },
+      "openapi__apis__v1__jobs__serializers__JobResponseSerializer": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "포지션ID"
+          },
+          "status": {
+            "$ref": "#/components/schemas/JobStatusEnum"
+          },
+          "due_time": {
+            "type": "string",
+            "format": "date",
+            "title": "마감일"
+          },
+          "detail": {
+            "$ref": "#/components/schemas/openapi__apis__v1__jobs__serializers__JobDetailResponseSerializer"
+          },
+          "category_tags": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CategoryTagResponseSerializer"
+              }
+            ],
+            "title": "직군/직무 태그"
+          },
+          "skill_tags": {
+            "items": {
+              "$ref": "#/components/schemas/openapi__apis__v1__jobs__serializers__TagResponseSerializer"
+            },
+            "type": "array",
+            "title": "스킬 태그"
+          },
+          "company": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/JobCompanyResponseSerializer"
+              }
+            ],
+            "title": "회사"
+          },
+          "reward": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/RewardResponseSerializer"
+              }
+            ],
+            "title": "보상금"
+          },
+          "address": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/AddressResponseSerializer"
+              }
+            ],
+            "title": "주소"
+          },
+          "images": {
+            "items": {
+              "$ref": "#/components/schemas/ImageUrlResponseSerializer"
+            },
+            "type": "array",
+            "title": "Images"
+          },
+          "url": {
+            "type": "string",
+            "title": "포지션 페이지 상세 URL"
+          }
+        },
+        "type": "object",
+        "required": [
+          "url"
+        ],
+        "title": "JobResponseSerializer",
+        "example": {
+          "id": 24090,
+          "status": "active",
+          "due_time": "2023-05-01",
+          "detail": {
+            "intro": "‘원티드랩’은 전 세계 모든 기업과 직장인의 고민을 해결하기 위한 HR 스타트업입니다. 직장인의 90%는 이직을 생각하지만, 어떤 기업이 자신에게 최선의 선택인지 알지 못한 채 업무에 자신을 맞추고 있습니다. 기업은 누군가에 의해 검증된 인재를 채용하고 싶지만, 그 비용과 시간이 만만치 않아 잡포털 광고와 오프라인 헤드헌팅에 의존하고 있습니다. \n\n우리는 단순한 채용 서비스가 되려는 것이 아닙니다. 우리는 ‘좋은 일자리와 숨은 인재를 연결하는 가장 효율적이고 인간적인 방법’이라는 문제를 풀고자 합니다. 인재에게는 자신의 역량을 유감없이 발휘할 수 있는 일자리를 추천하고, 기업에게는 필요한 자리에 딱 맞는 인재를 추천하는 서비스입니다. 이를 위해 모바일 / 소셜 네트워크 / 빅데이터에 기반한 HR 솔루션들을 하나씩 만들어나가고 있습니다. 우리의 시선은 한국에 머물러 있지 않습니다. \n\n2015년 5월 서비스를 시작하여, 2019년 3월 현재 4000여 기업, 60만 유저(한국 기준)가 이용 중에 있습니다. 2017년 5월에는 100억 투자를 받았으며, 한국/일본/대만/싱가폴/홍콩 오피스에 65여명의 구성원들과 함께 아시아 HR 시장을 선도하고자 합니다.  \n \n2016년 아시아 최초로 설립된 Google Campus의 첫 번째 입주기업으로 선발되었으며, 2016년 KMA 대한민국모바일어워드 대상 수상, 2017년 AWS의 떠오르는 스타트업 선정, Facebook Korea가 선정한 대표적인 파트너십 사례로 소개, 2018년 Forbes가 선정한 2018년 주목해야 할 한국 스타트업으로 선정되었고, 또한 Google TensorFlow를 활용하여 매칭 서비스를 하고 있는 국내 첫 사례로 구글 개발자 행사에서 사례를 발표하기도 하였습니다.",
+            "main_tasks": "• 메이플 스토리2 기획 업무 \n• 게임의 재미를 위한 다양한 룰이나 시스템을 기획하고 이를 구현",
+            "requirements": "• 실무에서 MS Office를 활용하는데 큰 문제가 없는 분 \n• 게임을 즐기고 좋아하시는 분",
+            "preferred_points": "• 독특하고 창의적인 아이디어가 넘치는 분 \n• 특정 포지션에 종속되지 않고 게임 기획 전반의 다양한 역할을 수행할 수 있으신 분 \n• 메이플 스토리2의 플레이 경험과 이해도가 있으신  분",
+            "benefits": "• 전 직장보다 시간적/경제적으로 더 나은 삶 추구\n• 하루 8시간, 야근없이 집중하는 문화 정착\n• 편리한 출퇴근 (역삼역 3번 출구 도보 10초)\n• 자율적 업무환경 (위워크 사무실, 라운지/부스, 수평적 조직, 맥주 무한대)\n• 휴가다운 휴가 (사유나 승인없이 스스로 휴가 계획, 3/5/7년 만근시 2주 리프레시 휴가)\n• 반려동물, 휴대가능한 악기, 자전거와 동반출근 가능\n• 업무관련 컨퍼런스/교육/도서구매비 지원\n• 월 1회 팀 식사 및 티타임 제공\n• 직무 수행에 필요한 최신장비/소프트웨어 제공\n• 최고의 업무 환경인 Wework 역삼역점 입주사입니다. 안락한 환경, 국내/외 지점 자유로운 이용, 맥주와 커피 무한제공, 수시 이벤트 등의 서비스를 제공합니다.\n\n기타\n• 본 채용은 사업 확장에 따른 신규 채용입니다.  \n• 일을 더 잘하기 위한 방법 중 하나로 월 2회 리모트 근무를 하실 수 있습니다.",
+            "name": "테스트 포지션"
+          },
+          "url": "https://www.wanted.co.kr/wd/24090",
+          "company": {
+            "id": 79,
+            "name": "원티드랩",
+            "description": "원티드랩 일껄요",
+            "link": "https://",
+            "registration_number": "2991023012",
+            "company_tags": [
+              {
+                "id": 9962,
+                "text": "맥주"
+              }
+            ],
+            "logo_img": {
+              "origin": "https://...",
+              "thumb": "https://..."
+            }
+          },
+          "address": {
+            "id": 5873,
+            "country": "한국",
+            "country_code": "kr",
+            "location": "서울",
+            "district": "seoul.songpa-gu",
+            "full_location": "서울시 송파구 올림픽로 300",
+            "geo_location": {
+              "bounds": {
+                "northeast": {
+                  "lat": 37.5137876,
+                  "lng": 127.1047335
+                },
+                "southwest": {
+                  "lat": 37.5130537,
+                  "lng": 127.1034478
+                }
+              },
+              "location": {
+                "lat": 37.5134449,
+                "lng": 127.1041611
+              },
+              "location_type": "ROOFTOP",
+              "viewport": {
+                "northeast": {
+                  "lat": 37.5147696302915,
+                  "lng": 127.1054396302915
+                },
+                "southwest": {
+                  "lat": 37.5120716697085,
+                  "lng": 127.1027416697085
+                }
+              }
+            }
+          },
+          "reward": {
+            "total": "100만원",
+            "recommender": "50만원",
+            "recommendee": "50만원"
+          },
+          "category_tags": {
+            "parent_tag": {
+              "id": 530,
+              "text": "영업"
+            },
+            "child_tags": [
+              {
+                "id": 768,
+                "text": "주요고객사 담당자"
+              }
+            ]
+          },
+          "skill_tags": [
+            {
+              "id": 1630,
+              "text": "영업"
+            }
+          ],
+          "images": [
+            {
+              "origin": "https://...",
+              "thumb": "https://...",
+              "is_title": true
+            },
+            {
+              "origin": "https://...",
+              "thumb": "https://...",
+              "is_title": false
+            }
+          ]
+        }
+      },
+      "openapi__apis__v1__jobs__serializers__TagResponseSerializer": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "태그ID"
+          },
+          "text": {
+            "type": "string",
+            "title": "태그명"
+          }
+        },
+        "type": "object",
+        "title": "TagResponseSerializer"
+      },
+      "openapi__apis__v1__tags__serializers__TagResponseSerializer": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id",
+            "description": "태그ID"
+          },
+          "parent_id": {
+            "type": "integer",
+            "title": "Parent Id",
+            "description": "상위 태그ID"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title",
+            "description": "태그명"
+          },
+          "title_thumb_img": {
+            "type": "string",
+            "maxLength": 2083,
+            "minLength": 1,
+            "format": "uri",
+            "title": "Title Thumb Img",
+            "description": "태그 이미지 URL"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "title"
+        ],
+        "title": "TagResponseSerializer"
+      }
+    },
+    "securitySchemes": {
+      "ClientIdHeader": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "wanted-client-id"
+      },
+      "ClientSecretHeader": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "wanted-client-secret"
+      },
+      "PermissionsDependency": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "Authorization"
+      }
+    }
+  }
+}

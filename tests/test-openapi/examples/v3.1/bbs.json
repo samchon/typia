@@ -1,0 +1,369 @@
+{
+  "openapi": "3.1.0",
+  "servers": [
+    {
+      "url": "https://github.com/samchon/nestia",
+      "description": "insert your server url"
+    }
+  ],
+  "info": {
+    "version": "3.7.0-dev.20240711",
+    "title": "@samchon/nestia-test",
+    "description": "Test program of Nestia",
+    "license": {
+      "name": "MIT"
+    }
+  },
+  "paths": {
+    "/bbs/articles": {
+      "post": {
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "description": "Content to store",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IBbsArticle.ICreate"
+              },
+              "example": {
+                "title": "wanfi",
+                "body": "dihsfonqr",
+                "files": [
+                  {
+                    "name": null,
+                    "extension": null,
+                    "url": "https://xkjzcsqgah.mac"
+                  },
+                  {
+                    "name": null,
+                    "extension": "ib",
+                    "url": "https://hjbkzabvyu.tif"
+                  },
+                  {
+                    "name": null,
+                    "extension": null,
+                    "url": "https://hgfibjpkhm.wqw"
+                  }
+                ]
+              },
+              "examples": {
+                "z": {
+                  "title": "niuzm",
+                  "body": "vjhlv",
+                  "files": [
+                    {
+                      "name": "kswkxztzbvpoxuupjqdtsvwfkqwmxzyvxysehydczvzwmmpdlaxsttxtnvezzzodlkpsdfsrhhbzuofrcmlettknvjdgdkkhqo",
+                      "extension": "ew",
+                      "url": "https://aqsgnjktsl.aca"
+                    },
+                    {
+                      "name": "gnwumdwsaldlmzhkgacrxrtvjyynwndltwmqfcxokhjpsqwrbedfjbsfzacdoicaqoxlqbtwntkdbanhnozeyfkcvjipdrokqgvvfbowtckgzsvdmcbhdelrvwmiqbonterexgsxxbeepqgsexiytgvxzniivekgpfikv",
+                      "extension": null,
+                      "url": "https://aggfmwklav.ijm"
+                    },
+                    {
+                      "name": "zgmfcdxldnprbxrlhqidfpzofjamgcyvzfrtlzquqjitlczyqnuqcmkbwxueerffstugbokobjgcrejzejbixsthbemqvwmkwbxhleafajqukfnucjauwdsneapgosjnxtjwlgzyaobbaxvgavwmjwhggiird",
+                      "extension": "nyi",
+                      "url": "https://sbufdobevq.gec"
+                    }
+                  ]
+                },
+                "y": {
+                  "title": "mzgy",
+                  "body": "uymevmpdas",
+                  "files": [
+                    {
+                      "name": "ptouplqcgjcqitusvvhnszwowspyxcpvdmtdgnyhxyxydnca",
+                      "extension": null,
+                      "url": "https://verdfefmjz.xhg"
+                    },
+                    {
+                      "name": "mjitvwkigmahrcvdhrqobraiipcblptprqoozhetzzzlktfdc",
+                      "extension": null,
+                      "url": "https://jqqizhyzom.tte"
+                    },
+                    {
+                      "name": "reswhbdndrlcozgkwwywvkjgycowdoqneqwhopcvhrgtmalpbgfzhvrfwdbdixyhxdvtzzdwmciwpjyadcpnkoyksyqkpphhlirjxsmkvymigaqkaybmiavrrbaopobepjgkmvoaszilkkpdnjytdwatmsrvfiuodqdmmqharqekemjslifyawmckxcbzycyxatzaionxqxoyqnnbohscelnlimnjjbjfohcwyqydoud",
+                      "extension": "y",
+                      "url": "https://pjmpsvxacs.smz"
+                    }
+                  ]
+                },
+                "x": {
+                  "title": "tiwfhcbficjthjsvhkxvcrmk",
+                  "body": "ksakxgg",
+                  "files": []
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Newly archived article",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IBbsArticle"
+                },
+                "example": {
+                  "id": "471cf11d-fe9a-44ec-95fe-9b36a177af20",
+                  "created_at": "2024-07-12T03:10:03.714Z",
+                  "title": "hbojqusfxdxvdeumyugbt",
+                  "body": "bbjwbm",
+                  "files": [
+                    {
+                      "name": null,
+                      "extension": null,
+                      "url": "https://tdregslzcx.rbw"
+                    },
+                    {
+                      "name": "ngzzatngkilxidnygwarylmeootqeptfciryqazlsonievuxwargfvoisyhwvaoiiprxqgzysyxynxlkvylwkanhcztsqostlhtrecxuullppeszurangxxqwgjxjfqsippawrugziwdotpqpztvfpvzjvopspxxrpiaogongkdgati",
+                      "extension": null,
+                      "url": "https://sfmxgrvujc.dpk"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "summary": "Create an article",
+        "description": "Create an article."
+      }
+    },
+    "/bbs/articles/{id}": {
+      "put": {
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true,
+            "example": "67595ae0-0f6a-4cc6-a0a3-2ad88d186199"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PartialIBbsArticle.ICreate"
+              },
+              "example": {
+                "title": "yysmaicfrvejhzg",
+                "files": []
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IBbsArticle"
+                },
+                "example": {
+                  "id": "e313fb9a-5105-43e2-8f8c-fd625afb667b",
+                  "created_at": "2024-06-30T01:01:50.475Z",
+                  "title": "ogrjjzcaanrypgenncvdnlehukaoaj",
+                  "body": "iyduciryf",
+                  "files": [
+                    {
+                      "name": null,
+                      "extension": null,
+                      "url": "https://wnwxqgwygx.vwq"
+                    },
+                    {
+                      "name": null,
+                      "extension": null,
+                      "url": "https://bknprzutya.kgf"
+                    },
+                    {
+                      "name": "znhhzvhymyuybosvhteocafvhigeeufyyouasqxvxwsbwnjxwohriihuwbirgrzfvby",
+                      "extension": null,
+                      "url": "https://rdxqfffvss.orf"
+                    }
+                  ]
+                },
+                "examples": {
+                  "b": {
+                    "id": "9624d317-b124-4cbc-8ee0-4ce817df45e2",
+                    "created_at": "2024-07-13T07:30:24.155Z",
+                    "title": "prxcmgnwiohign",
+                    "body": "ilvyb",
+                    "files": [
+                      {
+                        "name": null,
+                        "extension": null,
+                        "url": "https://bkmcmcvanp.toi"
+                      },
+                      {
+                        "name": null,
+                        "extension": "xqyu",
+                        "url": "https://pqiytxcovf.fnj"
+                      },
+                      {
+                        "name": "qxsiowaknproxtrmecuwwdsenrteikthzughrnkjlgyorwsdqjrz",
+                        "extension": "oqnyw",
+                        "url": "https://ciavlfjiyo.mju"
+                      }
+                    ]
+                  },
+                  "a": {
+                    "id": "b1637c66-155a-4e65-9f7f-2c9774ac14d7",
+                    "created_at": "2024-07-12T20:26:05.146Z",
+                    "title": "xahjxavbornuphosaqojvi",
+                    "body": "kenhbvfz",
+                    "files": [
+                      {
+                        "name": "fxpbzvjffasupllrbzmwlgsdbryyybgfhnfgqvvgshvpweafebhvtagtcyoruneimzxwsrniqviqefbcbydsnmtilpnawoacaqrqlenypnmjzzgggwwvuixxdcybeppzmcvdshzvjmegxzjuybyxcbdeuksgyptbnhcrmfxcslebhcjzsutgdhfktbvceusaeezbvijppsagyrxifvxvxfddleklhcebdvlyjogjfnabxddnaicwfvisxaywu",
+                        "extension": "dydhfuyx",
+                        "url": "https://byoyitpyli.vjq"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "IBbsArticle.ICreate": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 50
+          },
+          "body": {
+            "type": "string"
+          },
+          "files": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IAttachmentFile"
+            }
+          }
+        },
+        "required": [
+          "title",
+          "body",
+          "files"
+        ]
+      },
+      "IAttachmentFile": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "maxLength": 255
+              }
+            ]
+          },
+          "extension": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 8
+              }
+            ]
+          },
+          "url": {
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "required": [
+          "name",
+          "extension",
+          "url"
+        ]
+      },
+      "IBbsArticle": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 50
+          },
+          "body": {
+            "type": "string"
+          },
+          "files": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IAttachmentFile"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "created_at",
+          "title",
+          "body",
+          "files"
+        ]
+      },
+      "PartialIBbsArticle.ICreate": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 50
+          },
+          "body": {
+            "type": "string"
+          },
+          "files": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IAttachmentFile"
+            }
+          }
+        },
+        "description": "Make all properties in T optional"
+      }
+    },
+    "securitySchemes": {
+      "bearer": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "Authorization"
+      }
+    }
+  },
+  "tags": []
+}

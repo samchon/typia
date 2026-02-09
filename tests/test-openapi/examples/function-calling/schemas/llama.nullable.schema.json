@@ -1,0 +1,72 @@
+{
+  "type": "object",
+  "properties": {
+    "input": {
+      "description": "Current Type: {@link IPolygon}",
+      "type": "object",
+      "properties": {
+        "type": {
+          "const": "polygon"
+        },
+        "inner": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": {
+                  "description": "Current Type: {@link IPoint}",
+                  "type": "object",
+                  "properties": {
+                    "x": {
+                      "type": "number"
+                    },
+                    "y": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "x",
+                    "y"
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "outer": {
+          "type": "array",
+          "items": {
+            "description": "Current Type: {@link IPoint}",
+            "type": "object",
+            "properties": {
+              "x": {
+                "type": "number"
+              },
+              "y": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "x",
+              "y"
+            ]
+          }
+        }
+      },
+      "required": [
+        "type",
+        "inner",
+        "outer"
+      ]
+    }
+  },
+  "required": [
+    "input"
+  ],
+  "additionalProperties": false,
+  "$defs": {}
+}

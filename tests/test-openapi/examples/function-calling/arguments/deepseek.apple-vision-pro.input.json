@@ -1,0 +1,113 @@
+{
+  "trial": 1,
+  "success": true,
+  "data": {
+    "input": {
+      "section_code": "general",
+      "opened_at": null,
+      "closed_at": null,
+      "content": {
+        "title": "Apple Vision Air",
+        "format": "html",
+        "body": "The Apple Vision Air is a groundbreaking addition to Apple's lineup of innovative devices, designed to enhance your digital experience through augmented reality. With its sleek design and advanced technology, the Vision Air aims to redefine how users interact with their surroundings, providing a seamless blend of the physical and digital worlds.",
+        "files": [
+          {
+            "name": "apple-vision-pro-thumbnail",
+            "extension": "png",
+            "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdIP_qI0xBL04d0DRIw7tIU9y0cLcwfIqi7g&s"
+          }
+        ],
+        "thumbnails": [
+          {
+            "name": "apple-vision-pro-thumbnail",
+            "extension": "png",
+            "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdIP_qI0xBL04d0DRIw7tIU9y0cLcwfIqi7g&s"
+          }
+        ]
+      },
+      "channels": [
+        {
+          "code": "samchon",
+          "category_codes": [
+            "electronics",
+            "smart_glasses"
+          ]
+        }
+      ],
+      "units": [
+        {
+          "name": "Apple Vision Air",
+          "options": [
+            {
+              "type": "select",
+              "name": "Storage Capacity",
+              "variable": true,
+              "candidates": [
+                {
+                  "name": "256GB"
+                },
+                {
+                  "name": "512GB"
+                },
+                {
+                  "name": "1TB"
+                }
+              ]
+            }
+          ],
+          "stocks": [
+            {
+              "name": "AVA-2023-001 | 256GB | ₩2,990,000",
+              "price": {
+                "nominal": 2990000,
+                "real": 2990000
+              },
+              "quantity": 100,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 0
+                }
+              ]
+            },
+            {
+              "name": "AVA-2023-002 | 512GB | ₩3,490,000",
+              "price": {
+                "nominal": 3490000,
+                "real": 3490000
+              },
+              "quantity": 100,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 1
+                }
+              ]
+            },
+            {
+              "name": "AVA-2023-003 | 1TB | ₩3,990,000",
+              "price": {
+                "nominal": 3990000,
+                "real": 3990000
+              },
+              "quantity": 100,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 2
+                }
+              ]
+            }
+          ],
+          "primary": true,
+          "required": true
+        }
+      ],
+      "tags": [
+        "Apple",
+        "Vision Air",
+        "Augmented Reality"
+      ]
+    }
+  }
+}

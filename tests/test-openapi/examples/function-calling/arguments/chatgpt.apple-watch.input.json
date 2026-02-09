@@ -1,0 +1,182 @@
+{
+  "trial": 1,
+  "success": true,
+  "data": {
+    "input": {
+      "section_code": "general",
+      "status": null,
+      "opened_at": null,
+      "closed_at": null,
+      "content": {
+        "title": "Apple Watch",
+        "format": "html",
+        "body": "Experience the modern elegance and performance of the Apple Watch, designed to keep you connected, active, and healthy.",
+        "files": [],
+        "thumbnails": []
+      },
+      "channels": [
+        {
+          "code": "samchon",
+          "category_codes": [
+            "smart_watches",
+            "electronics"
+          ]
+        }
+      ],
+      "units": [
+        {
+          "options": [
+            {
+              "type": "select",
+              "name": "Color",
+              "variable": true,
+              "candidates": [
+                {
+                  "name": "Silver"
+                },
+                {
+                  "name": "Space Gray"
+                },
+                {
+                  "name": "Gold"
+                }
+              ]
+            },
+            {
+              "type": "select",
+              "name": "Size",
+              "variable": true,
+              "candidates": [
+                {
+                  "name": "40mm"
+                },
+                {
+                  "name": "44mm"
+                }
+              ]
+            }
+          ],
+          "stocks": [
+            {
+              "name": "Silver 40mm",
+              "price": {
+                "nominal": 399,
+                "real": 379
+              },
+              "quantity": 100,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 0
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 0
+                }
+              ]
+            },
+            {
+              "name": "Silver 44mm",
+              "price": {
+                "nominal": 429,
+                "real": 399
+              },
+              "quantity": 100,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 0
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 1
+                }
+              ]
+            },
+            {
+              "name": "Space Gray 40mm",
+              "price": {
+                "nominal": 399,
+                "real": 379
+              },
+              "quantity": 100,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 1
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 0
+                }
+              ]
+            },
+            {
+              "name": "Space Gray 44mm",
+              "price": {
+                "nominal": 429,
+                "real": 399
+              },
+              "quantity": 100,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 1
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 1
+                }
+              ]
+            },
+            {
+              "name": "Gold 40mm",
+              "price": {
+                "nominal": 399,
+                "real": 379
+              },
+              "quantity": 50,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 2
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 0
+                }
+              ]
+            },
+            {
+              "name": "Gold 44mm",
+              "price": {
+                "nominal": 429,
+                "real": 399
+              },
+              "quantity": 50,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 2
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 1
+                }
+              ]
+            }
+          ],
+          "name": "Apple Watch",
+          "primary": true,
+          "required": true
+        }
+      ],
+      "tags": [
+        "Apple",
+        "Watch",
+        "Electronics",
+        "Smartwatch"
+      ]
+    }
+  }
+}

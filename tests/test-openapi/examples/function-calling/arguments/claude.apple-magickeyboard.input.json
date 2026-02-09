@@ -1,0 +1,143 @@
+{
+  "trial": 1,
+  "success": true,
+  "data": {
+    "input": {
+      "section_code": "general",
+      "opened_at": null,
+      "closed_at": null,
+      "content": {
+        "title": "Apple Magic Keyboard",
+        "format": "md",
+        "body": "# Apple Magic Keyboard\n\nThe Magic Keyboard is the perfect companion for your Mac or iPad. It features a sleek, modern design with a built-in rechargeable battery and enhanced key stability.\n\n## Features\n- Optimized key travel for precise typing\n- Automatic pairing with your Mac or iPad\n- Extended layout with numeric keypad\n- Built-in rechargeable battery lasting up to a month\n- Lightning port for charging\n\n## Compatibility\n- Mac computers with macOS 10.12.4 or later\n- iPad models with iPadOS 13.4 or later\n\n## What's in the Box\n- Apple Magic Keyboard\n- Lightning to USB Cable\n- Documentation",
+        "files": [],
+        "thumbnails": []
+      },
+      "channels": [
+        {
+          "code": "samchon",
+          "category_codes": [
+            "electronics",
+            "accessories"
+          ]
+        }
+      ],
+      "units": [
+        {
+          "name": "Magic Keyboard",
+          "primary": true,
+          "required": true,
+          "options": [
+            {
+              "type": "select",
+              "name": "Layout",
+              "variable": true,
+              "candidates": [
+                {
+                  "name": "US English"
+                },
+                {
+                  "name": "UK English"
+                }
+              ]
+            },
+            {
+              "type": "select",
+              "name": "Numeric Keypad",
+              "variable": true,
+              "candidates": [
+                {
+                  "name": "With Numeric Keypad"
+                },
+                {
+                  "name": "Without Numeric Keypad"
+                }
+              ]
+            }
+          ],
+          "stocks": [
+            {
+              "name": "US English with Numeric Keypad",
+              "price": {
+                "nominal": 129.99,
+                "real": 129.99
+              },
+              "quantity": 100,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 0
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 0
+                }
+              ]
+            },
+            {
+              "name": "US English without Numeric Keypad",
+              "price": {
+                "nominal": 99.99,
+                "real": 99.99
+              },
+              "quantity": 100,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 0
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 1
+                }
+              ]
+            },
+            {
+              "name": "UK English with Numeric Keypad",
+              "price": {
+                "nominal": 129.99,
+                "real": 129.99
+              },
+              "quantity": 100,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 1
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 0
+                }
+              ]
+            },
+            {
+              "name": "UK English without Numeric Keypad",
+              "price": {
+                "nominal": 99.99,
+                "real": 99.99
+              },
+              "quantity": 100,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 1
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 1
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "tags": [
+        "apple",
+        "keyboard",
+        "magic keyboard",
+        "mac accessories",
+        "ipad accessories"
+      ]
+    }
+  }
+}

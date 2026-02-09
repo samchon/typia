@@ -1,0 +1,237 @@
+{
+  "trial": 1,
+  "success": true,
+  "data": {
+    "input": {
+      "section_code": "general",
+      "opened_at": null,
+      "closed_at": null,
+      "content": {
+        "title": "Apple iMac",
+        "format": "html",
+        "body": "<p>The Apple iMac is a sleek all-in-one desktop computer designed for both performance and style. It features a stunning Retina display, powerful processors, and a variety of storage options to suit your needs. Whether you're a creative professional or a casual user, the iMac offers a seamless computing experience.</p>",
+        "files": [],
+        "thumbnails": []
+      },
+      "channels": [
+        {
+          "code": "samchon",
+          "category_codes": [
+            "desktops"
+          ]
+        }
+      ],
+      "tags": [
+        "apple",
+        "imac",
+        "desktop",
+        "all-in-one"
+      ],
+      "units": [
+        {
+          "name": "iMac Base Unit",
+          "options": [
+            {
+              "type": "select",
+              "name": "Storage",
+              "variable": true,
+              "candidates": [
+                {
+                  "name": "256GB SSD"
+                },
+                {
+                  "name": "512GB SSD"
+                },
+                {
+                  "name": "1TB SSD"
+                }
+              ]
+            },
+            {
+              "type": "select",
+              "name": "Processor",
+              "variable": true,
+              "candidates": [
+                {
+                  "name": "M1 Chip"
+                },
+                {
+                  "name": "M1 Pro Chip"
+                },
+                {
+                  "name": "M1 Max Chip"
+                }
+              ]
+            }
+          ],
+          "primary": true,
+          "required": true,
+          "stocks": [
+            {
+              "name": "256GB SSD with M1 Chip",
+              "price": {
+                "nominal": 1299,
+                "real": 1299
+              },
+              "quantity": 100,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 0
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 0
+                }
+              ]
+            },
+            {
+              "name": "512GB SSD with M1 Chip",
+              "price": {
+                "nominal": 1499,
+                "real": 1499
+              },
+              "quantity": 80,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 1
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 0
+                }
+              ]
+            },
+            {
+              "name": "1TB SSD with M1 Chip",
+              "price": {
+                "nominal": 1699,
+                "real": 1699
+              },
+              "quantity": 60,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 2
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 0
+                }
+              ]
+            },
+            {
+              "name": "256GB SSD with M1 Pro Chip",
+              "price": {
+                "nominal": 1799,
+                "real": 1799
+              },
+              "quantity": 50,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 0
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 1
+                }
+              ]
+            },
+            {
+              "name": "512GB SSD with M1 Pro Chip",
+              "price": {
+                "nominal": 1999,
+                "real": 1999
+              },
+              "quantity": 40,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 1
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 1
+                }
+              ]
+            },
+            {
+              "name": "1TB SSD with M1 Pro Chip",
+              "price": {
+                "nominal": 2199,
+                "real": 2199
+              },
+              "quantity": 30,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 2
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 1
+                }
+              ]
+            },
+            {
+              "name": "256GB SSD with M1 Max Chip",
+              "price": {
+                "nominal": 2299,
+                "real": 2299
+              },
+              "quantity": 20,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 0
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 2
+                }
+              ]
+            },
+            {
+              "name": "512GB SSD with M1 Max Chip",
+              "price": {
+                "nominal": 2499,
+                "real": 2499
+              },
+              "quantity": 15,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 1
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 2
+                }
+              ]
+            },
+            {
+              "name": "1TB SSD with M1 Max Chip",
+              "price": {
+                "nominal": 2699,
+                "real": 2699
+              },
+              "quantity": 10,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 2
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 2
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

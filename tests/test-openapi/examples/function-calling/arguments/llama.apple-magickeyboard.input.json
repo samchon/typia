@@ -1,0 +1,85 @@
+{
+  "trial": 1,
+  "success": true,
+  "data": {
+    "input": {
+      "section_code": "general",
+      "status": null,
+      "opened_at": null,
+      "closed_at": null,
+      "content": {
+        "title": "Apple Magic Keyboard",
+        "format": "html",
+        "body": "The Apple Magic Keyboard is a wireless keyboard designed for use with Mac computers. It features a compact tenkeyless design, making it ideal for use in tight spaces. The keyboard also includes a number of features such as backlit keys, a built-in rechargeable battery, and Bluetooth connectivity.",
+        "files": [],
+        "thumbnails": []
+      },
+      "channels": [
+        {
+          "code": "samchon",
+          "category_codes": [
+            "electronics",
+            "accessories"
+          ]
+        }
+      ],
+      "units": [
+        {
+          "options": [
+            {
+              "type": "select",
+              "name": "Color",
+              "variable": false,
+              "candidates": [
+                {
+                  "name": "Silver"
+                },
+                {
+                  "name": "Space Gray"
+                }
+              ]
+            }
+          ],
+          "stocks": [
+            {
+              "name": "Silver",
+              "price": {
+                "nominal": 99.99,
+                "real": 99.99
+              },
+              "quantity": 100,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 0
+                }
+              ]
+            },
+            {
+              "name": "Space Gray",
+              "price": {
+                "nominal": 99.99,
+                "real": 99.99
+              },
+              "quantity": 100,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 1
+                }
+              ]
+            }
+          ],
+          "name": "Apple Magic Keyboard",
+          "primary": true,
+          "required": true
+        }
+      ],
+      "tags": [
+        "apple",
+        "magic keyboard",
+        "wireless keyboard"
+      ]
+    }
+  }
+}

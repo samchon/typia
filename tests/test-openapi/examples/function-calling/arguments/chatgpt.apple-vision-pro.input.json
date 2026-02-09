@@ -1,0 +1,109 @@
+{
+  "trial": 1,
+  "success": true,
+  "data": {
+    "input": {
+      "section_code": "general",
+      "status": null,
+      "opened_at": null,
+      "closed_at": null,
+      "content": {
+        "title": "Apple Vision Air",
+        "format": "md",
+        "body": "### Preface\n\nThe Apple Vision Air is a groundbreaking addition to Apple's lineup of innovative devices, designed to enhance your digital experience through augmented reality. With its sleek design and advanced technology, the Vision Air aims to redefine how users interact with their surroundings, providing a seamless blend of the physical and digital worlds.\n\n### Content\n\n![apple-vision-pro-thumbnail.png](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdIP_qI0xBL04d0DRIw7tIU9y0cLcwfIqi7g&s)\n\nThe Apple Vision Air features a lightweight and comfortable design, making it perfect for extended use. Equipped with high-resolution displays and cutting-edge optics, it offers stunning visuals that immerse users in their augmented reality experiences. The device is powered by the latest Apple silicon, ensuring smooth performance and efficient battery life.\n\nThe Apple Vision Air is more than just a device; it’s a gateway to a new reality. Whether for work, play, or exploration, it represents the future of immersive technology.\n\n### Key Features\n\nAugmented Reality Capabilities: Experience a new dimension of interaction with AR applications that enhance everyday tasks and entertainment.\n\nHigh-Resolution Display: Enjoy vibrant and crisp visuals, making every detail come to life.\nIntuitive Controls: Navigate effortlessly with gesture controls and voice commands, designed for user convenience.\n\nSeamless Integration: Connect with other Apple devices for a unified ecosystem that enhances productivity and creativity.\n\nDurability and Comfort: Built with premium materials, the Vision Air ensures longevity and comfort during prolonged use.",
+        "files": [],
+        "thumbnails": [
+          {
+            "name": "apple-vision-pro-thumbnail",
+            "extension": "png",
+            "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdIP_qI0xBL04d0DRIw7tIU9y0cLcwfIqi7g&s"
+          }
+        ]
+      },
+      "channels": [
+        {
+          "code": "samchon",
+          "category_codes": [
+            "smart_glasses"
+          ]
+        }
+      ],
+      "units": [
+        {
+          "options": [
+            {
+              "type": "select",
+              "name": "Storage Capacity",
+              "variable": true,
+              "candidates": [
+                {
+                  "name": "256GB"
+                },
+                {
+                  "name": "512GB"
+                },
+                {
+                  "name": "1TB"
+                }
+              ]
+            }
+          ],
+          "stocks": [
+            {
+              "name": "AVA-2023-001",
+              "price": {
+                "nominal": 2990000,
+                "real": 2990000
+              },
+              "quantity": 100,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 0
+                }
+              ]
+            },
+            {
+              "name": "AVA-2023-002",
+              "price": {
+                "nominal": 3490000,
+                "real": 3490000
+              },
+              "quantity": 100,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 1
+                }
+              ]
+            },
+            {
+              "name": "AVA-2023-003",
+              "price": {
+                "nominal": 3990000,
+                "real": 3990000
+              },
+              "quantity": 100,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 2
+                }
+              ]
+            }
+          ],
+          "name": "Apple Vision Air",
+          "primary": true,
+          "required": true
+        }
+      ],
+      "tags": [
+        "Apple Vision Air",
+        "AR",
+        "Innovative Devices",
+        "Augmented Reality",
+        "Smart Glasses"
+      ]
+    }
+  }
+}

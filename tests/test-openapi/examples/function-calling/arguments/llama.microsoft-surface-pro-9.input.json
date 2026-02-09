@@ -1,0 +1,125 @@
+{
+  "trial": 1,
+  "success": true,
+  "data": {
+    "input": {
+      "section_code": "general",
+      "status": null,
+      "opened_at": null,
+      "closed_at": null,
+      "content": {
+        "title": "Surface Pro 9",
+        "format": "md",
+        "body": "> The Surface Pro 9 is a versatile 2-in-1 device that combines the power of a laptop with the flexibility of a tablet. It features advanced technology, making it suitable for both professional and personal use.\n>\n> - \"Unleash Your Creativity Anywhere\": The Surface Pro 9 is designed for those who need power and portability, making it perfect for creative professionals and students alike.\n> - \"The Ultimate 2-in-1 Experience\": With its detachable keyboard and touchscreen capabilities, the Surface Pro 9 adapts to your needs, whether you're working, studying, or relaxing.\n> - \"Stay Connected with 5G\": Experience lightning-fast internet speeds and seamless connectivity, no matter where you are.\n> - \"Power Meets Flexibility\": The Surface Pro 9 combines the performance of a laptop with the convenience of a tablet, making it the ideal device for multitasking.\n>\n> In summary, the Surface Pro 9 stands out as a powerful and flexible device, perfect for users who require both performance and portability. With its advanced features and sleek design, it is an excellent choice for anyone looking to enhance their productivity and creativity. Whether for work or play, the Surface Pro 9 is ready to meet your needs.",
+        "files": [],
+        "thumbnails": [
+          {
+            "name": "",
+            "extension": "jpeg",
+            "url": "https://serpapi.com/searches/673d3a37e45f3316ecd8ab3e/images/1be25e6e2b1fb7509f1af89c326cb41749301b94375eb5680b9bddcdf88fabcb.jpeg"
+          },
+          {
+            "name": "",
+            "extension": "jpeg",
+            "url": "https://serpapi.com/searches/673d3a37e45f3316ecd8ab3e/images/1be25e6e2b1fb750d6c1bc749467f5aba0340886f4f4943fe72302c5e658b15a.jpeg"
+          },
+          {
+            "name": "",
+            "extension": "jpeg",
+            "url": "https://serpapi.com/searches/673d3a37e45f3316ecd8ab3e/images/1be25e6e2b1fb7505946d975aac683f8826bcb8c509672de4a5f8c71f149fdef.jpeg"
+          }
+        ]
+      },
+      "channels": [
+        {
+          "code": "samchon",
+          "category_codes": [
+            "electronics",
+            "laptops"
+          ]
+        }
+      ],
+      "units": [
+        {
+          "options": [
+            {
+              "type": "select",
+              "name": "CPU",
+              "variable": true,
+              "candidates": [
+                {
+                  "name": "Intel Core i3"
+                },
+                {
+                  "name": "Intel Core i5"
+                },
+                {
+                  "name": "Intel Core i7"
+                }
+              ]
+            }
+          ],
+          "stocks": [
+            {
+              "name": "Surface Pro 9 Entity",
+              "price": {
+                "nominal": 1000000,
+                "real": 899000
+              },
+              "quantity": 1000,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 0
+                }
+              ]
+            }
+          ],
+          "name": "Surface Pro 9 Entity",
+          "primary": true,
+          "required": true
+        },
+        {
+          "options": [],
+          "stocks": [
+            {
+              "name": "Warranty Program",
+              "price": {
+                "nominal": 100000,
+                "real": 89000
+              },
+              "quantity": 10000,
+              "choices": []
+            }
+          ],
+          "name": "Warranty Program",
+          "primary": false,
+          "required": false
+        },
+        {
+          "options": [],
+          "stocks": [
+            {
+              "name": "Magnetic Keyboard",
+              "price": {
+                "nominal": 200000,
+                "real": 169000
+              },
+              "quantity": 8000,
+              "choices": []
+            }
+          ],
+          "name": "Magnetic Keyboard",
+          "primary": false,
+          "required": false
+        }
+      ],
+      "tags": [
+        "Surface Pro 9",
+        "2-in-1 device",
+        "laptop",
+        "tablet"
+      ]
+    }
+  }
+}

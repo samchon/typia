@@ -1,0 +1,144 @@
+{
+  "trial": 1,
+  "success": true,
+  "data": {
+    "input": {
+      "section_code": "general",
+      "channels": [
+        {
+          "code": "samchon",
+          "category_codes": [
+            "smart_watches"
+          ]
+        }
+      ],
+      "content": {
+        "title": "Apple Watch",
+        "body": "The Apple Watch is a wearable smartwatch that allows users to track their fitness, receive notifications, and make payments. It has a variety of features, including heart rate tracking, GPS, and cellular connectivity. The Apple Watch is available in a variety of sizes and colors. It is a popular device for both fitness enthusiasts and casual users.",
+        "files": [],
+        "thumbnails": [],
+        "format": "txt"
+      },
+      "opened_at": "2024-07-23T12:00:00.000Z",
+      "units": [
+        {
+          "stocks": [
+            {
+              "price": {
+                "real": 399,
+                "nominal": 399
+              },
+              "name": "Apple Watch 41mm GPS",
+              "quantity": 100,
+              "choices": [
+                {
+                  "candidate_index": 0,
+                  "option_index": 0
+                },
+                {
+                  "candidate_index": 0,
+                  "option_index": 1
+                }
+              ]
+            },
+            {
+              "name": "Apple Watch 41mm GPS + Cellular",
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 0
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 1
+                }
+              ],
+              "price": {
+                "nominal": 499,
+                "real": 499
+              },
+              "quantity": 100
+            },
+            {
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 1
+                },
+                {
+                  "option_index": 1,
+                  "candidate_index": 0
+                }
+              ],
+              "name": "Apple Watch 45mm GPS",
+              "price": {
+                "real": 429,
+                "nominal": 429
+              },
+              "quantity": 100
+            },
+            {
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 1
+                },
+                {
+                  "candidate_index": 1,
+                  "option_index": 1
+                }
+              ],
+              "quantity": 100,
+              "price": {
+                "nominal": 529,
+                "real": 529
+              },
+              "name": "Apple Watch 45mm GPS + Cellular"
+            }
+          ],
+          "primary": true,
+          "options": [
+            {
+              "variable": false,
+              "type": "select",
+              "name": "Size",
+              "candidates": [
+                {
+                  "name": "41mm"
+                },
+                {
+                  "name": "45mm"
+                }
+              ]
+            },
+            {
+              "variable": false,
+              "candidates": [
+                {
+                  "name": "GPS"
+                },
+                {
+                  "name": "GPS + Cellular"
+                }
+              ],
+              "name": "Connectivity",
+              "type": "select"
+            }
+          ],
+          "required": true,
+          "name": "Apple Watch"
+        }
+      ],
+      "tags": [
+        "apple",
+        "watch",
+        "smartwatch",
+        "wearable",
+        "fitness",
+        "notifications",
+        "payments"
+      ],
+      "closed_at": "2024-07-30T12:00:00.000Z"
+    }
+  }
+}

@@ -1,0 +1,97 @@
+{
+  "trial": 1,
+  "success": true,
+  "data": {
+    "input": {
+      "section_code": "general",
+      "status": null,
+      "opened_at": "2024-03-16T00:00:00.000Z",
+      "closed_at": null,
+      "content": {
+        "title": "Apple AirPods",
+        "format": "html",
+        "body": "Apple AirPods are wireless earbuds designed to work seamlessly with your Apple devices. With advanced noise cancellation and seamless connectivity, you can enjoy your favorite music, podcasts, and phone calls with ease.",
+        "files": [
+          {
+            "name": "airpods",
+            "extension": "jpg",
+            "url": "https://example.com/airpods.jpg"
+          }
+        ],
+        "thumbnails": [
+          {
+            "name": "airpods_thumb",
+            "extension": "jpg",
+            "url": "https://example.com/airpods_thumb.jpg"
+          }
+        ]
+      },
+      "channels": [
+        {
+          "code": "samchon",
+          "category_codes": [
+            "electronics",
+            "accessories"
+          ]
+        }
+      ],
+      "units": [
+        {
+          "options": [
+            {
+              "type": "select",
+              "name": "Color",
+              "variable": true,
+              "candidates": [
+                {
+                  "name": "White"
+                },
+                {
+                  "name": "Black"
+                }
+              ]
+            }
+          ],
+          "stocks": [
+            {
+              "name": "Apple AirPods (White)",
+              "price": {
+                "nominal": 159.99,
+                "real": 149.99
+              },
+              "quantity": 100,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 0
+                }
+              ]
+            },
+            {
+              "name": "Apple AirPods (Black)",
+              "price": {
+                "nominal": 159.99,
+                "real": 149.99
+              },
+              "quantity": 100,
+              "choices": [
+                {
+                  "option_index": 0,
+                  "candidate_index": 1
+                }
+              ]
+            }
+          ],
+          "name": "Apple AirPods",
+          "primary": true,
+          "required": true
+        }
+      ],
+      "tags": [
+        "AirPods",
+        "Apple",
+        "Wireless Earbuds"
+      ]
+    }
+  }
+}
