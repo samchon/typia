@@ -17,7 +17,7 @@ catalogs:
     '@rollup/plugin-terser': ^0.4.4
     '@rollup/plugin-typescript': ^12.3.0
   utils:
-    '@nestia/e2e': ^10.0.0
+    '@nestia/e2e': ^10.0.2
     '@types/node': ^25.0.10
     '@types/uuid': ^11.0.0
     openai: ^6.16.0
