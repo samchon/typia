@@ -4,6 +4,7 @@ import chalk from "chalk";
 import { TestGlobal } from "./TestGlobal";
 
 const main = async (): Promise<void> => {
+  // DO TEST
   const include: string[] = TestGlobal.getArguments("include");
   const exclude: string[] = TestGlobal.getArguments("exclude");
   const report: DynamicExecutor.IReport = await DynamicExecutor.validate({
