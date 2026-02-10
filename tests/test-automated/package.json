@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "description": "Automated test features of typia.",
   "scripts": {
-    "build": "rimraf bin && tsc",
+    "build": "tsc",
     "prepare": "ts-patch install",
     "start": "node -r ts-node/register --max-old-space-size=16000 src/index.ts"
   },
@@ -26,7 +26,6 @@
     "@types/node": "catalog:utils",
     "@types/ts-expose-internals": "catalog:typescript",
     "@types/uuid": "catalog:utils",
-    "rimraf": "catalog:utils",
     "ts-node": "catalog:typescript",
     "ts-patch": "catalog:typescript",
     "typescript": "catalog:typescript"
