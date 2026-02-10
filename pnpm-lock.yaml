@@ -232,6 +232,15 @@ importers:
         specifier: catalog:typescript
         version: 5.9.3
 
+  packages/interface:
+    devDependencies:
+      rimraf:
+        specifier: catalog:utils
+        version: 6.1.2
+      typescript:
+        specifier: catalog:typescript
+        version: 5.9.3
+
   packages/openapi:
     devDependencies:
       '@modelcontextprotocol/sdk':
@@ -343,6 +352,19 @@ importers:
       ts-node:
         specifier: catalog:typescript
         version: 10.9.2(@types/node@18.19.130)(typescript@5.9.3)
+      typescript:
+        specifier: catalog:typescript
+        version: 5.9.3
+
+  packages/utils:
+    dependencies:
+      '@typia/interface':
+        specifier: workspace:^
+        version: link:../interface
+    devDependencies:
+      rimraf:
+        specifier: catalog:utils
+        version: 6.1.2
       typescript:
         specifier: catalog:typescript
         version: 5.9.3
