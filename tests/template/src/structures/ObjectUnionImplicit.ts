@@ -1,5 +1,5 @@
-import { TestRandomGenerator } from "../../utils/TestRandomGenerator";
-import { Spoiler } from "../Spoiler";
+import { Spoiler } from "../utils/Spoiler";
+import { TestRandomGenerator } from "../utils/TestRandomGenerator";
 
 export type ObjectUnionImplicit = Array<
   | ObjectUnionImplicit.IPoint
@@ -172,5 +172,5 @@ const scalar = (): number | null | undefined =>
   Math.random() < 1 / 3
     ? null
     : Math.random() < 0.5
-    ? TestRandomGenerator.integer()
-    : undefined;
+      ? TestRandomGenerator.integer()
+      : undefined;

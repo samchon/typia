@@ -9,30 +9,32 @@ export namespace OpenApiIntegerValidator {
       return ctx.report(ctx);
     return [
       ctx.schema.minimum !== undefined
-        ? ctx.schema.exclusiveMinimum
-          ? ctx.value > ctx.schema.minimum ||
-            ctx.report({
-              ...ctx,
-              expected: `number & Type<"int32"> & ExclusiveMinimum<${ctx.schema.minimum}>`,
-            })
-          : ctx.value >= ctx.schema.minimum ||
-            ctx.report({
-              ...ctx,
-              expected: `number & Type<"int32"> & Minimum<${ctx.schema.minimum}>`,
-            })
+        ? ctx.value >= ctx.schema.minimum ||
+          ctx.report({
+            ...ctx,
+            expected: `number & Type<"int32"> & Minimum<${ctx.schema.minimum}>`,
+          })
         : true,
       ctx.schema.maximum !== undefined
-        ? ctx.schema.exclusiveMaximum
-          ? ctx.value < ctx.schema.maximum ||
-            ctx.report({
-              ...ctx,
-              expected: `number & Type<"int32"> & ExclusiveMaximum<${ctx.schema.maximum}>`,
-            })
-          : ctx.value <= ctx.schema.maximum ||
-            ctx.report({
-              ...ctx,
-              expected: `number & Type<"int32"> & Maximum<${ctx.schema.maximum}>`,
-            })
+        ? ctx.value <= ctx.schema.maximum ||
+          ctx.report({
+            ...ctx,
+            expected: `number & Type<"int32"> & Maximum<${ctx.schema.maximum}>`,
+          })
+        : true,
+      ctx.schema.exclusiveMinimum !== undefined
+        ? ctx.value > ctx.schema.exclusiveMinimum ||
+          ctx.report({
+            ...ctx,
+            expected: `number & Type<"int32"> & ExclusiveMinimum<${ctx.schema.exclusiveMinimum}>`,
+          })
+        : true,
+      ctx.schema.exclusiveMaximum !== undefined
+        ? ctx.value < ctx.schema.exclusiveMaximum ||
+          ctx.report({
+            ...ctx,
+            expected: `number & Type<"int32"> & ExclusiveMaximum<${ctx.schema.exclusiveMaximum}>`,
+          })
         : true,
       ctx.schema.multipleOf !== undefined
         ? ctx.value % ctx.schema.multipleOf === 0 ||
