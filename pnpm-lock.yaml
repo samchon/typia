@@ -42,7 +42,7 @@ catalogs:
       version: 5.9.3
   utils:
     '@nestia/e2e':
-      specifier: ^10.0.0
+      specifier: ^10.0.2
       version: 10.0.2
     '@types/node':
       specifier: ^25.0.10
@@ -384,23 +384,11 @@ importers:
         specifier: catalog:typescript
         version: 5.9.3
 
-  tests/test-automated:
+  tests/template:
     dependencies:
-      '@nestia/e2e':
-        specifier: catalog:utils
-        version: 10.0.2
-      '@samchon/openapi':
-        specifier: workspace:^
-        version: link:../../packages/openapi
-      '@standard-schema/spec':
-        specifier: ^1.0.0
-        version: 1.1.0
       chalk:
         specifier: 4.1.2
         version: 4.1.2
-      protobufjs:
-        specifier: 7.2.5
-        version: 7.2.5
       randexp:
         specifier: ^0.5.3
         version: 0.5.3
@@ -417,12 +405,12 @@ importers:
         specifier: catalog:utils
         version: 13.0.0
     devDependencies:
+      '@nestia/e2e':
+        specifier: catalog:utils
+        version: 10.0.2
       '@types/node':
         specifier: catalog:utils
         version: 25.2.2
-      '@types/ts-expose-internals':
-        specifier: catalog:typescript
-        version: ts-expose-internals@5.6.3
       '@types/uuid':
         specifier: catalog:utils
         version: 11.0.0
@@ -463,6 +451,98 @@ importers:
       chalk:
         specifier: ^5.6.2
         version: 5.6.2
+      tstl:
+        specifier: catalog:utils
+        version: 3.0.0
+      typia:
+        specifier: workspace:^
+        version: link:../../packages/typia
+      uuid:
+        specifier: catalog:utils
+        version: 13.0.0
+    devDependencies:
+      '@types/node':
+        specifier: catalog:utils
+        version: 25.2.2
+      '@types/ts-expose-internals':
+        specifier: catalog:typescript
+        version: ts-expose-internals@5.6.3
+      '@types/uuid':
+        specifier: catalog:utils
+        version: 11.0.0
+      ts-node:
+        specifier: catalog:typescript
+        version: 10.9.2(@types/node@25.2.2)(typescript@5.9.3)
+      ts-patch:
+        specifier: catalog:typescript
+        version: 3.3.0
+      typescript:
+        specifier: catalog:typescript
+        version: 5.9.3
+
+  tests/test-openapi-automated:
+    dependencies:
+      '@nestia/e2e':
+        specifier: catalog:utils
+        version: 10.0.2
+      '@samchon/openapi':
+        specifier: workspace:^
+        version: link:../../packages/openapi
+      '@typia/template':
+        specifier: workspace:^
+        version: link:../template
+      tgrid:
+        specifier: catalog:utils
+        version: 1.2.1
+      typia:
+        specifier: workspace:^
+        version: link:../../packages/typia
+      uuid:
+        specifier: catalog:utils
+        version: 13.0.0
+    devDependencies:
+      '@types/node':
+        specifier: catalog:utils
+        version: 25.2.2
+      '@types/ts-expose-internals':
+        specifier: catalog:typescript
+        version: ts-expose-internals@5.6.3
+      '@types/uuid':
+        specifier: catalog:utils
+        version: 11.0.0
+      ts-node:
+        specifier: catalog:typescript
+        version: 10.9.2(@types/node@25.2.2)(typescript@5.9.3)
+      ts-patch:
+        specifier: catalog:typescript
+        version: 3.3.0
+      typescript:
+        specifier: catalog:typescript
+        version: 5.9.3
+
+  tests/test-typia-automated:
+    dependencies:
+      '@nestia/e2e':
+        specifier: catalog:utils
+        version: 10.0.2
+      '@samchon/openapi':
+        specifier: workspace:^
+        version: link:../../packages/openapi
+      '@standard-schema/spec':
+        specifier: ^1.0.0
+        version: 1.1.0
+      '@typia/template':
+        specifier: workspace:^
+        version: link:../template
+      protobufjs:
+        specifier: 7.2.5
+        version: 7.2.5
+      randexp:
+        specifier: ^0.5.3
+        version: 0.5.3
+      tgrid:
+        specifier: catalog:utils
+        version: 1.2.1
       tstl:
         specifier: catalog:utils
         version: 3.0.0

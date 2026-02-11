@@ -1,0 +1,41 @@
+{
+  "private": true,
+  "name": "@typia/test-openapiautomated",
+  "version": "0.1.0",
+  "description": "Automated test features of openapi.",
+  "scripts": {
+    "build": "tsc",
+    "prepare": "ts-patch install",
+    "start": "node -r ts-node/register src/index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/samchon/typia"
+  },
+  "keywords": [
+    "typia",
+    "test"
+  ],
+  "author": "Jeongho Nam",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/samchon/typia/issues"
+  },
+  "homepage": "https://typia.io",
+  "devDependencies": {
+    "@types/node": "catalog:utils",
+    "@types/ts-expose-internals": "catalog:typescript",
+    "@types/uuid": "catalog:utils",
+    "ts-node": "catalog:typescript",
+    "ts-patch": "catalog:typescript",
+    "typescript": "catalog:typescript"
+  },
+  "dependencies": {
+    "@nestia/e2e": "catalog:utils",
+    "@samchon/openapi": "workspace:^",
+    "@typia/template": "workspace:^",
+    "tgrid": "catalog:utils",
+    "typia": "workspace:^",
+    "uuid": "catalog:utils"
+  }
+}

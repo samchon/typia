@@ -1,0 +1,45 @@
+{
+  "private": true,
+  "name": "@typia/test-typia-automated",
+  "version": "0.1.0",
+  "description": "Automated test features of typia.",
+  "scripts": {
+    "build": "tsc",
+    "prepare": "ts-patch install",
+    "start": "node -r ts-node/register --max-old-space-size=16000 src/index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/samchon/typia"
+  },
+  "keywords": [
+    "typia",
+    "test"
+  ],
+  "author": "Jeongho Nam",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/samchon/typia/issues"
+  },
+  "homepage": "https://typia.io",
+  "devDependencies": {
+    "@types/node": "catalog:utils",
+    "@types/ts-expose-internals": "catalog:typescript",
+    "@types/uuid": "catalog:utils",
+    "ts-node": "catalog:typescript",
+    "ts-patch": "catalog:typescript",
+    "typescript": "catalog:typescript"
+  },
+  "dependencies": {
+    "@nestia/e2e": "catalog:utils",
+    "@samchon/openapi": "workspace:^",
+    "@standard-schema/spec": "^1.0.0",
+    "@typia/template": "workspace:^",
+    "protobufjs": "7.2.5",
+    "randexp": "^0.5.3",
+    "tgrid": "catalog:utils",
+    "tstl": "catalog:utils",
+    "typia": "workspace:^",
+    "uuid": "catalog:utils"
+  }
+}
