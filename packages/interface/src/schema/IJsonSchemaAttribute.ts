@@ -10,7 +10,7 @@
  * - {@link OpenApiV3_1.IJsonSchema}
  * - {@link OpenApiV3.IJsonSchema}
  * - {@link SwaggerV2.IJsonSchema}
- * - {@link ILlmSchemaV3}
+ * - {@link ILlmSchema}
  *
  * For example, if you extend the `IJsonSchemaAttribute` interface like below,
  * every JSON schema types in `@samchon/openapi` will have a new custom
