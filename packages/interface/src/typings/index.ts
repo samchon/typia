@@ -1,3 +1,4 @@
+export * from "./AssertionGuard";
 export * from "./CamelCase";
 export * from "./PascalCase";
 export * from "./Primitive";
