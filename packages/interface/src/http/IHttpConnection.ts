@@ -127,11 +127,9 @@ export namespace IHttpConnection {
     | boolean
     | number
     | bigint
-    | string
     | Array<boolean>
     | Array<number>
     | Array<bigint>
-    | Array<number>
     | Array<string>;
 
   // /**
