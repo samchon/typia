@@ -1,17 +1,13 @@
+import { IJsonSchemaUnit } from "@typia/interface";
 import ts from "typescript";
 
 import { LiteralFactory } from "../../../factories/LiteralFactory";
 import { MetadataCollection } from "../../../factories/MetadataCollection";
 import { MetadataFactory } from "../../../factories/MetadataFactory";
-
-import { Metadata } from "../../../schemas/metadata/Metadata";
-
 import { JsonSchemaProgrammer } from "../../../programmers/json/JsonSchemaProgrammer";
 import { JsonSchemasProgrammer } from "../../../programmers/json/JsonSchemasProgrammer";
-
+import { Metadata } from "../../../schemas/metadata/Metadata";
 import { ValidationPipe } from "../../../typings/ValidationPipe";
-
-import { IJsonSchemaUnit } from "../../../module";
 import { ITransformProps } from "../../ITransformProps";
 import { TransformerError } from "../../TransformerError";
 

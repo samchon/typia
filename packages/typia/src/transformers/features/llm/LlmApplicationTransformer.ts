@@ -1,4 +1,4 @@
-import { ILlmApplication, ILlmSchema } from "@samchon/openapi";
+import { ILlmApplication, ILlmSchema } from "@typia/interface";
 import ts from "typescript";
 
 import { ExpressionFactory } from "../../../factories/ExpressionFactory";
@@ -6,14 +6,10 @@ import { LiteralFactory } from "../../../factories/LiteralFactory";
 import { MetadataCollection } from "../../../factories/MetadataCollection";
 import { MetadataFactory } from "../../../factories/MetadataFactory";
 import { StatementFactory } from "../../../factories/StatementFactory";
-
-import { Metadata } from "../../../schemas/metadata/Metadata";
-
 import { LlmApplicationProgrammer } from "../../../programmers/llm/LlmApplicationProgrammer";
 import { LlmMetadataFactory } from "../../../programmers/llm/LlmMetadataFactory";
-
+import { Metadata } from "../../../schemas/metadata/Metadata";
 import { ValidationPipe } from "../../../typings/ValidationPipe";
-
 import { ITransformProps } from "../../ITransformProps";
 import { ITypiaContext } from "../../ITypiaContext";
 import { TransformerError } from "../../TransformerError";

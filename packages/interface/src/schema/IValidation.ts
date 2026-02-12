@@ -30,6 +30,7 @@
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @template T The type to validate
+ * @reference Inspired by [typescript-is]()
  */
 export type IValidation<T = unknown> =
   | IValidation.ISuccess<T>

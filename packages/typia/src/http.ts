@@ -1,11 +1,12 @@
-import { NoTransformConfigurationError } from "./transformers/NoTransformConfigurationError";
+import {
+  IReadableURLSearchParams,
+  IValidation,
+  Resolved,
+} from "@typia/interface";
 
-import { Atomic } from "./typings/Atomic";
-
-import { IReadableURLSearchParams } from "./IReadableURLSearchParams";
-import { IValidation } from "./IValidation";
-import { Resolved } from "./Resolved";
 import { TypeGuardError } from "./TypeGuardError";
+import { NoTransformConfigurationError } from "./transformers/NoTransformConfigurationError";
+import { Atomic } from "./typings/Atomic";
 
 /* ===========================================================
     HTTP

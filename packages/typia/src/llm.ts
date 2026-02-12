@@ -1,4 +1,4 @@
-import { ILlmApplication, ILlmController, ILlmSchema } from "@samchon/openapi";
+import { ILlmApplication, ILlmController, ILlmSchema } from "@typia/interface";
 
 import { NoTransformConfigurationError } from "./transformers/NoTransformConfigurationError";
 
