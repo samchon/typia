@@ -1,7 +1,7 @@
-import { NoTransformConfigurationError } from "./transformers/NoTransformConfigurationError";
+import { IValidation } from "@typia/interface";
 
-import { IValidation } from "./IValidation";
 import { TypeGuardError } from "./TypeGuardError";
+import { NoTransformConfigurationError } from "./transformers/NoTransformConfigurationError";
 
 /* ===========================================================
   FUNCTIONAL

@@ -1,4 +1,4 @@
-import { Resolved } from "../Resolved";
+import { Resolved } from "@typia/interface";
 
 export const _miscCloneAny = <T>(value: T): Resolved<T> =>
   cloneMain(value) as Resolved<T>;

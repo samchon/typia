@@ -1,18 +1,14 @@
-import { ILlmSchema } from "@samchon/openapi";
+import { ILlmSchema } from "@typia/interface";
 import ts from "typescript";
 
 import { IdentifierFactory } from "../../../factories/IdentifierFactory";
 import { LiteralFactory } from "../../../factories/LiteralFactory";
 import { MetadataCollection } from "../../../factories/MetadataCollection";
 import { MetadataFactory } from "../../../factories/MetadataFactory";
-
-import { Metadata } from "../../../schemas/metadata/Metadata";
-
 import { LlmMetadataFactory } from "../../../programmers/llm/LlmMetadataFactory";
 import { LlmSchemaProgrammer } from "../../../programmers/llm/LlmSchemaProgrammer";
-
+import { Metadata } from "../../../schemas/metadata/Metadata";
 import { ValidationPipe } from "../../../typings/ValidationPipe";
-
 import { ITransformProps } from "../../ITransformProps";
 import { TransformerError } from "../../TransformerError";
 

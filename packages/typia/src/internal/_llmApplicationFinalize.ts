@@ -1,8 +1,4 @@
-import {
-  ILlmApplication,
-  IValidation,
-  LlmSchemaComposer,
-} from "@samchon/openapi";
+import { ILlmApplication, IValidation } from "@typia/interface";
 
 export const _llmApplicationFinalize = (
   app: ILlmApplication,

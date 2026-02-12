@@ -1,7 +1,7 @@
-import { Equal } from "./typings/Equal";
-import { IsTuple } from "./typings/IsTuple";
-import { NativeClass } from "./typings/NativeClass";
-import { ValueOf } from "./typings/ValueOf";
+import { Equal } from "./internal/Equal";
+import { IsTuple } from "./internal/IsTuple";
+import { NativeClass } from "./internal/NativeClass";
+import { ValueOf } from "./internal/ValueOf";
 
 /**
  * Pascal case type.

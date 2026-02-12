@@ -1,8 +1,7 @@
-import { NoTransformConfigurationError } from "./transformers/NoTransformConfigurationError";
+import { IValidation, Resolved } from "@typia/interface";
 
-import { IValidation } from "./IValidation";
-import { Resolved } from "./Resolved";
 import { TypeGuardError } from "./TypeGuardError";
+import { NoTransformConfigurationError } from "./transformers/NoTransformConfigurationError";
 
 /* ===========================================================
     PROTOCOL BUFFER

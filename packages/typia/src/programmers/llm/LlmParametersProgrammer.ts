@@ -1,14 +1,12 @@
 import {
+  IJsonSchemaCollection,
+  IJsonSchemaTransformError,
   ILlmSchema,
-  IOpenApiSchemaError,
   IResult,
-  LlmSchemaComposer,
   OpenApi,
-  OpenApiTypeChecker,
-} from "@samchon/openapi";
+} from "@typia/interface";
 
 import { MetadataFactory } from "../../factories/MetadataFactory";
-import { IJsonSchemaCollection } from "../../module";
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { TransformerError } from "../../transformers/TransformerError";
 import { JsonSchemasProgrammer } from "../json/JsonSchemasProgrammer";
@@ -35,7 +33,7 @@ export namespace LlmParametersProgrammer {
       throw new Error("Unreachable code. Failed to find the object schema.");
     })();
 
-    const result: IResult<ILlmSchema.IParameters, IOpenApiSchemaError> =
+    const result: IResult<ILlmSchema.IParameters, IJsonSchemaTransformError> =
       LlmSchemaComposer.parameters({
         config: LlmSchemaComposer.getConfig(props.config),
         components: collection.components,

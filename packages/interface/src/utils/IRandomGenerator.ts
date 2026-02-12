@@ -1,4 +1,4 @@
-import { OpenApi } from "@samchon/openapi";
+import { OpenApi } from "../openapi/OpenApi";
 
 /**
  * Interface for generating random values for various data types.

@@ -1,4 +1,5 @@
-import type { OpenApi, OpenApiV3 } from "@samchon/openapi";
+import { OpenApi } from "../openapi/OpenApi";
+import { OpenApiV3 } from "../openapi/OpenApiV3";
 
 /**
  * Collection of JSON schemas with OpenAPI specification support.

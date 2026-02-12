@@ -1,12 +1,10 @@
+import { IValidation, Primitive } from "@typia/interface";
+
+import { TypeGuardError } from "./TypeGuardError";
 import { IJsonSchemaApplication } from "./schemas/json/IJsonSchemaApplication";
 import { IJsonSchemaCollection } from "./schemas/json/IJsonSchemaCollection";
 import { IJsonSchemaUnit } from "./schemas/json/IJsonSchemaUnit";
-
 import { NoTransformConfigurationError } from "./transformers/NoTransformConfigurationError";
-
-import { IValidation } from "./IValidation";
-import { Primitive } from "./Primitive";
-import { TypeGuardError } from "./TypeGuardError";
 
 /* ===========================================================
     JSON

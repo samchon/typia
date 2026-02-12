@@ -6,4 +6,7 @@
  *
  * @author https://github.com/miyaji255
  */
-export type IReadableURLSearchParams = Pick<URLSearchParams, "get" | "getAll">;
+export type IReadableURLSearchParams = Pick<
+  URLSearchParams,
+  "size" | "get" | "getAll"
+>;

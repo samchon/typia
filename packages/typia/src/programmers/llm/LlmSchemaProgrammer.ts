@@ -1,11 +1,10 @@
 import {
+  IJsonSchemaCollection,
+  IJsonSchemaTransformError,
   ILlmSchema,
-  IOpenApiSchemaError,
   IResult,
-  LlmSchemaComposer,
-} from "@samchon/openapi";
+} from "@typia/interface";
 
-import { IJsonSchemaCollection } from "../../schemas/json/IJsonSchemaCollection";
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { TransformerError } from "../../transformers/TransformerError";
 import { AtomicPredicator } from "../helpers/AtomicPredicator";
@@ -33,7 +32,7 @@ export namespace LlmSchemaProgrammer {
       });
 
     const $defs: Record<string, ILlmSchema> = {};
-    const result: IResult<ILlmSchema, IOpenApiSchemaError> =
+    const result: IResult<ILlmSchema, IJsonSchemaTransformError> =
       LlmSchemaComposer.schema({
         config: LlmSchemaComposer.getConfig(props.config),
         components: collection.components,

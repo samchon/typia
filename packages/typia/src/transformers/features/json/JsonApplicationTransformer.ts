@@ -1,16 +1,12 @@
+import { IJsonSchemaApplication } from "@typia/interface";
 import ts from "typescript";
 
 import { LiteralFactory } from "../../../factories/LiteralFactory";
 import { MetadataCollection } from "../../../factories/MetadataCollection";
 import { MetadataFactory } from "../../../factories/MetadataFactory";
-
-import { IJsonSchemaApplication } from "../../../schemas/json/IJsonSchemaApplication";
-import { Metadata } from "../../../schemas/metadata/Metadata";
-
 import { JsonApplicationProgrammer } from "../../../programmers/json/JsonApplicationProgrammer";
-
+import { Metadata } from "../../../schemas/metadata/Metadata";
 import { ValidationPipe } from "../../../typings/ValidationPipe";
-
 import { ITransformProps } from "../../ITransformProps";
 import { TransformerError } from "../../TransformerError";
 

@@ -2,15 +2,12 @@ import {
   ILlmApplication,
   ILlmFunction,
   ILlmSchema,
-  IOpenApiSchemaError,
   IResult,
-  LlmSchemaComposer,
-  LlmTypeChecker,
+  IValidation,
   OpenApi,
-} from "@samchon/openapi";
+} from "@typia/interface";
 import ts from "typescript";
 
-import { IValidation } from "../../IValidation";
 import { MetadataFactory } from "../../factories/MetadataFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
 import { IJsonSchemaApplication } from "../../schemas/json/IJsonSchemaApplication";
