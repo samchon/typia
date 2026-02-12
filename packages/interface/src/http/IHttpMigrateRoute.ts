@@ -191,7 +191,7 @@ export namespace IHttpMigrateRoute {
      * Original parameter info from the OpenAPI document.
      *
      * The `parameter` is a function returning the original
-     * {@link OpenApi.IOperation.IParameter} from the {@link OpenAPI} document.
+     * {@link OpenApi.IOperation.IParameter} from the {@link OpenApi} document.
      */
     parameter: () => OpenApi.IOperation.IParameter;
   }
