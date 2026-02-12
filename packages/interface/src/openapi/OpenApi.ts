@@ -486,7 +486,7 @@ export namespace OpenApi {
    * - Decompose mixed type: {@link OpenApiV3_1.IJsonSchema.IMixed}
    * - Resolve nullable property:
    *   {@link OpenApiV3_1.IJsonSchema.__ISignificant.nullable}
-   * - Array type utilizes only single {@link OpenAPI.IJsonSchema.IArray.items}
+   * - Array type utilizes only single {@link OpenApi.IJsonSchema.IArray.items}
    * - Tuple type utilizes only {@link OpenApi.IJsonSchema.ITuple.prefixItems}
    * - Merge {@link OpenApiV3_1.IJsonSchema.IAllOf} to
    *   {@link OpenApi.IJsonSchema.IObject}
