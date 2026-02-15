@@ -1,8 +1,7 @@
-import { OpenApi } from "@samchon/openapi";
+import { OpenApi } from "@typia/interface";
 
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataTuple } from "../../schemas/metadata/MetadataTuple";
-
 import { json_schema_station } from "./json_schema_station";
 
 export const json_schema_tuple = (props: {

@@ -1,15 +1,12 @@
-import { ILlmSchema } from "@samchon/openapi";
+import { ILlmSchema } from "@typia/interface";
 import ts from "typescript";
 
 import { MetadataCollection } from "../../factories/MetadataCollection";
 import { MetadataFactory } from "../../factories/MetadataFactory";
-
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataObject } from "../../schemas/metadata/MetadataObject";
-
 import { ITypiaContext } from "../../transformers/ITypiaContext";
 import { TransformerError } from "../../transformers/TransformerError";
-
 import { ValidationPipe } from "../../typings/ValidationPipe";
 
 export namespace LlmMetadataFactory {

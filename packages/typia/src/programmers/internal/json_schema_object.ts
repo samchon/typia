@@ -1,13 +1,10 @@
-import { OpenApi } from "@samchon/openapi";
+import { OpenApi } from "@typia/interface";
 
 import { CommentFactory } from "../../factories/CommentFactory";
-
 import { IJsDocTagInfo } from "../../schemas/metadata/IJsDocTagInfo";
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataObject } from "../../schemas/metadata/MetadataObject";
-
 import { PatternUtil } from "../../utils/PatternUtil";
-
 import { json_schema_description } from "./json_schema_description";
 import { json_schema_jsDocTags } from "./json_schema_jsDocTags";
 import { json_schema_plugin } from "./json_schema_plugin";

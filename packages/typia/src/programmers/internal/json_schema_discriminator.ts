@@ -1,7 +1,6 @@
-import { OpenApi } from "@samchon/openapi";
+import { OpenApi } from "@typia/interface";
 
 import { Metadata } from "../../schemas/metadata/Metadata";
-
 import { UnionPredicator } from "../helpers/UnionPredicator";
 
 export const json_schema_discriminator = (

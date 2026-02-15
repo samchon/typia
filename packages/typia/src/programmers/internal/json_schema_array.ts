@@ -1,7 +1,6 @@
-import { OpenApi } from "@samchon/openapi";
+import { OpenApi } from "@typia/interface";
 
 import { MetadataArray } from "../../schemas/metadata/MetadataArray";
-
 import { json_schema_plugin } from "./json_schema_plugin";
 import { json_schema_station } from "./json_schema_station";
 

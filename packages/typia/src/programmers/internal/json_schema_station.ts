@@ -1,8 +1,4 @@
-import {
-  IJsonSchemaAttribute,
-  OpenApi,
-  OpenApiExclusiveEmender,
-} from "@samchon/openapi";
+import { IJsonSchemaAttribute, OpenApi } from "@typia/interface";
 
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataAtomic } from "../../schemas/metadata/MetadataAtomic";

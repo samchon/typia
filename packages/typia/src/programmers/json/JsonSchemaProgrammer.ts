@@ -1,8 +1,6 @@
-import { OpenApi } from "@samchon/openapi";
+import { IJsonSchemaUnit, OpenApi } from "@typia/interface";
 
-import { IJsonSchemaUnit } from "../../schemas/json/IJsonSchemaUnit";
 import { Metadata } from "../../schemas/metadata/Metadata";
-
 import { JsonSchemasProgrammer } from "./JsonSchemasProgrammer";
 
 export namespace JsonSchemaProgrammer {

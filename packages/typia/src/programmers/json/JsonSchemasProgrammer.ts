@@ -1,6 +1,6 @@
-import { OpenApi, OpenApiV3Downgrader } from "@samchon/openapi";
+import { OpenApiV3Downgrader } from "@samchon/openapi";
+import { IJsonSchemaCollection, OpenApi } from "@typia/interface";
 
-import { IJsonSchemaCollection } from "../../schemas/json/IJsonSchemaCollection";
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { TransformerError } from "../../transformers/TransformerError";
 import { AtomicPredicator } from "../helpers/AtomicPredicator";

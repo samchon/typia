@@ -1,9 +1,8 @@
-import { OpenApi } from "@samchon/openapi";
+import { OpenApi } from "@typia/interface";
 
 import { IMetadataTypeTag } from "../../schemas/metadata/IMetadataTypeTag";
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataTemplate } from "../../schemas/metadata/MetadataTemplate";
-
 import { json_schema_plugin } from "./json_schema_plugin";
 import { metadata_to_pattern } from "./metadata_to_pattern";
 

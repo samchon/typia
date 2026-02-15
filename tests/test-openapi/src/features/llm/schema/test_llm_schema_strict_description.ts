@@ -1,6 +1,6 @@
 import { TestValidator } from "@nestia/e2e";
-import { OpenApi } from "@samchon/openapi";
 import { LlmSchemaComposer } from "@samchon/openapi/src/composers/LlmSchemaComposer";
+import { OpenApi } from "@typia/interface";
 import typia, { IJsonSchemaCollection, tags } from "typia";
 
 export const test_llm_schema_strict_description = () => {

@@ -1,12 +1,11 @@
-import { MetadataFactory } from "../../factories/MetadataFactory";
+import { IJsonSchemaApplication } from "@typia/interface";
 
-import { IJsonSchemaApplication } from "../../schemas/json/IJsonSchemaApplication";
+import { MetadataFactory } from "../../factories/MetadataFactory";
 import { IJsDocTagInfo } from "../../schemas/metadata/IJsDocTagInfo";
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataFunction } from "../../schemas/metadata/MetadataFunction";
 import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
 import { MetadataProperty } from "../../schemas/metadata/MetadataProperty";
-
 import { JsonSchemasProgrammer } from "./JsonSchemasProgrammer";
 
 export namespace JsonApplicationProgrammer {

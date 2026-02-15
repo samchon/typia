@@ -1,7 +1,6 @@
-import { OpenApi } from "@samchon/openapi";
+import { OpenApi } from "@typia/interface";
 
 import { MetadataNative } from "../../schemas/metadata/MetadataNative";
-
 import { json_schema_plugin } from "./json_schema_plugin";
 
 export const json_schema_native = (props: {

@@ -1,4 +1,4 @@
-import { OpenApi } from "@samchon/openapi";
+import { OpenApi } from "@typia/interface";
 
 import { IJsDocTagInfo } from "../../schemas/metadata/IJsDocTagInfo";
 

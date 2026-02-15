@@ -1,4 +1,6 @@
 import {
+  IJsonSchemaApplication,
+  IJsonSchemaTransformError,
   ILlmApplication,
   ILlmFunction,
   ILlmSchema,
@@ -10,7 +12,6 @@ import ts from "typescript";
 
 import { MetadataFactory } from "../../factories/MetadataFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
-import { IJsonSchemaApplication } from "../../schemas/json/IJsonSchemaApplication";
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataFunction } from "../../schemas/metadata/MetadataFunction";
 import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
@@ -308,7 +309,7 @@ export namespace LlmApplicationProgrammer {
         additionalProperties: false,
         required: [],
       };
-    const result: IResult<ILlmSchema.IParameters, IOpenApiSchemaError> =
+    const result: IResult<ILlmSchema.IParameters, IJsonSchemaTransformError> =
       LlmSchemaComposer.parameters({
         config: props.config,
         components: props.components,
