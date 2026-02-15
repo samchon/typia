@@ -4,3 +4,5 @@ export * from "./PascalCase";
 export * from "./Primitive";
 export * from "./Resolved";
 export * from "./SnakeCase";
+
+export * from "./Atomic";
