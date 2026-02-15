@@ -1,17 +1,15 @@
-import { OpenApi } from "@samchon/openapi";
+import { IJsonSchemaUnit, OpenApi } from "@typia/interface";
 
-import { IJsonSchemaUnit } from "../../schemas/json/IJsonSchemaUnit";
-import { Metadata } from "../../schemas/metadata/Metadata";
-
+import { MetadataSchema } from "../../schemas/metadata/MetadataSchema";
 import { JsonSchemasProgrammer } from "./JsonSchemasProgrammer";
 
 export namespace JsonSchemaProgrammer {
-  export const validate = (metadata: Metadata): string[] =>
+  export const validate = (metadata: MetadataSchema): string[] =>
     JsonSchemasProgrammer.validate(metadata);
 
   export const write = <Version extends "3.0" | "3.1">(props: {
     version: Version;
-    metadata: Metadata;
+    metadata: MetadataSchema;
   }): IJsonSchemaUnit<Version> => {
     const collection = JsonSchemasProgrammer.write({
       version: props.version,

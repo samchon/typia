@@ -1,16 +1,16 @@
-import { ClassProperties } from "../../typings/ClassProperties";
+import { IMetadataSchemaCollection } from "@typia/interface";
 
-import { IMetadataApplication } from "./IMetadataApplication";
-import { Metadata } from "./Metadata";
+import { ClassProperties } from "../../typings/ClassProperties";
 import { MetadataComponents } from "./MetadataComponents";
+import { MetadataSchema } from "./MetadataSchema";
 
 export class MetadataApplication {
-  public readonly metadatas: Metadata[];
+  public readonly schemas: MetadataSchema[];
   public readonly components: MetadataComponents;
 
   /** @ignore */
   private constructor(props: ClassProperties<MetadataApplication>) {
-    this.metadatas = props.metadatas;
+    this.schemas = props.schemas;
     this.components = props.components;
   }
 
@@ -21,19 +21,19 @@ export class MetadataApplication {
     return new MetadataApplication(props);
   }
 
-  public static from(app: IMetadataApplication): MetadataApplication {
+  public static from(app: IMetadataSchemaCollection): MetadataApplication {
     const components: MetadataComponents = MetadataComponents.from(
       app.components,
     );
-    const metadatas: Metadata[] = app.metadatas.map((metadata) =>
-      Metadata.from(metadata, components.dictionary),
+    const metadatas: MetadataSchema[] = app.schemas.map((metadata) =>
+      MetadataSchema.from(metadata, components.dictionary),
     );
-    return MetadataApplication.create({ metadatas, components });
+    return MetadataApplication.create({ schemas: metadatas, components });
   }
 
-  public toJSON(): IMetadataApplication {
+  public toJSON(): IMetadataSchemaCollection {
     return {
-      metadatas: this.metadatas.map((metadata) => metadata.toJSON()),
+      schemas: this.schemas.map((s) => s.toJSON()),
       components: this.components.toJSON(),
     };
   }

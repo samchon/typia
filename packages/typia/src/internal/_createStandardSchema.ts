@@ -1,6 +1,5 @@
 import { StandardSchemaV1 } from "@standard-schema/spec";
-
-import { IValidation } from "../IValidation";
+import { IValidation } from "@typia/interface";
 
 export const _createStandardSchema = <T>(
   fn: (input: unknown) => IValidation<T>,

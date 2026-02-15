@@ -1,22 +1,20 @@
-import { OpenApi } from "@samchon/openapi";
+import { OpenApi } from "@typia/interface";
 import ts from "typescript";
 
 import { ExpressionFactory } from "../../factories/ExpressionFactory";
 import { IdentifierFactory } from "../../factories/IdentifierFactory";
 import { LiteralFactory } from "../../factories/LiteralFactory";
-
-import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataArray } from "../../schemas/metadata/MetadataArray";
 import { MetadataArrayType } from "../../schemas/metadata/MetadataArrayType";
 import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
 import { MetadataProperty } from "../../schemas/metadata/MetadataProperty";
+import { MetadataSchema } from "../../schemas/metadata/MetadataSchema";
 import { MetadataTuple } from "../../schemas/metadata/MetadataTuple";
 import { MetadataTupleType } from "../../schemas/metadata/MetadataTupleType";
-
 import { Escaper } from "../../utils/Escaper";
 
 export namespace RandomJoiner {
-  export type Decoder = (metadata: Metadata) => ts.Expression;
+  export type Decoder = (metadata: MetadataSchema) => ts.Expression;
 
   export const array = (props: {
     decode: Decoder;
@@ -79,7 +77,7 @@ export namespace RandomJoiner {
 
   export const tuple = (props: {
     decode: Decoder;
-    elements: Metadata[];
+    elements: MetadataSchema[];
   }): ts.ArrayLiteralExpression =>
     ts.factory.createArrayLiteralExpression(
       props.elements.map((elem) => props.decode(elem.rest ?? elem)),
@@ -139,8 +137,8 @@ export namespace RandomJoiner {
     const array: MetadataArray = MetadataArray.create({
       type: MetadataArrayType.create({
         name: `Array<[${props.property.key.getName()}, ${props.property.value.getName()}]>`,
-        value: Metadata.create({
-          ...Metadata.initialize(),
+        value: MetadataSchema.create({
+          ...MetadataSchema.initialize(),
           tuples: [tuple],
         }),
         nullables: [false],
@@ -157,8 +155,8 @@ export namespace RandomJoiner {
       undefined,
       [
         props.decode(
-          Metadata.create({
-            ...Metadata.initialize(),
+          MetadataSchema.create({
+            ...MetadataSchema.initialize(),
             arrays: [array],
           }),
         ),

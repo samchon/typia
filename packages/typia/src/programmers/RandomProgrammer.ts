@@ -1,32 +1,28 @@
-import { OpenApi } from "@samchon/openapi";
+import { OpenApi } from "@typia/interface";
 import ts from "typescript";
 
 import { ExpressionFactory } from "../factories/ExpressionFactory";
 import { IdentifierFactory } from "../factories/IdentifierFactory";
 import { LiteralFactory } from "../factories/LiteralFactory";
-import { MetadataCollection } from "../factories/MetadataCollection";
 import { MetadataCommentTagFactory } from "../factories/MetadataCommentTagFactory";
+import { MetadataComponents } from "../factories/MetadataComponents";
 import { MetadataFactory } from "../factories/MetadataFactory";
 import { StatementFactory } from "../factories/StatementFactory";
 import { TemplateFactory } from "../factories/TemplateFactory";
 import { TypeFactory } from "../factories/TypeFactory";
-
-import { Metadata } from "../schemas/metadata/Metadata";
 import { MetadataArray } from "../schemas/metadata/MetadataArray";
 import { MetadataArrayType } from "../schemas/metadata/MetadataArrayType";
 import { MetadataAtomic } from "../schemas/metadata/MetadataAtomic";
 import { MetadataMap } from "../schemas/metadata/MetadataMap";
 import { MetadataObjectType } from "../schemas/metadata/MetadataObjectType";
+import { MetadataSchema } from "../schemas/metadata/MetadataSchema";
 import { MetadataSet } from "../schemas/metadata/MetadataSet";
 import { MetadataTemplate } from "../schemas/metadata/MetadataTemplate";
 import { MetadataTuple } from "../schemas/metadata/MetadataTuple";
 import { MetadataTupleType } from "../schemas/metadata/MetadataTupleType";
-
 import { ITypiaContext } from "../transformers/ITypiaContext";
 import { TransformerError } from "../transformers/TransformerError";
-
 import { StringUtil } from "../utils/StringUtil";
-
 import { FeatureProgrammer } from "./FeatureProgrammer";
 import { FunctionProgrammer } from "./helpers/FunctionProgrammer";
 import { RandomJoiner } from "./helpers/RandomJoiner";
@@ -55,7 +51,7 @@ export namespace RandomProgrammer {
   export const decompose = (
     props: IDecomposeProps,
   ): FeatureProgrammer.IDecomposed => {
-    const collection: MetadataCollection = new MetadataCollection();
+    const collection: MetadataComponents = new MetadataComponents();
     const result = MetadataFactory.analyze({
       checker: props.context.checker,
       transformer: props.context.transformer,
@@ -72,7 +68,7 @@ export namespace RandomProgrammer {
           return output;
         },
       },
-      collection,
+      components: collection,
       type: props.type,
     });
     if (result.success === false)
@@ -190,7 +186,7 @@ export namespace RandomProgrammer {
   const write_object_functions = (props: {
     context: ITypiaContext;
     functor: FunctionProgrammer;
-    collection: MetadataCollection;
+    collection: MetadataComponents;
   }): ts.VariableStatement[] =>
     props.collection.objects().map((obj, i) =>
       StatementFactory.constant({
@@ -232,7 +228,7 @@ export namespace RandomProgrammer {
   const write_array_functions = (props: {
     context: ITypiaContext;
     functor: FunctionProgrammer;
-    collection: MetadataCollection;
+    collection: MetadataComponents;
   }): ts.VariableStatement[] =>
     props.collection
       .arrays()
@@ -288,7 +284,7 @@ export namespace RandomProgrammer {
   const write_tuple_functions = (props: {
     context: ITypiaContext;
     functor: FunctionProgrammer;
-    collection: MetadataCollection;
+    collection: MetadataComponents;
   }): ts.VariableStatement[] =>
     props.collection
       .tuples()
@@ -337,7 +333,7 @@ export namespace RandomProgrammer {
     context: ITypiaContext;
     functor: FunctionProgrammer;
     explore: IExplore;
-    metadata: Metadata;
+    metadata: MetadataSchema;
   }): ts.Expression => {
     const expressions: ts.Expression[] = [];
     if (props.metadata.any === true)
@@ -734,8 +730,8 @@ export namespace RandomProgrammer {
               index: null,
               recursive: false,
               nullables: [],
-              value: Metadata.create({
-                ...Metadata.initialize(),
+              value: MetadataSchema.create({
+                ...MetadataSchema.initialize(),
                 tuples: [
                   (() => {
                     const type = MetadataTupleType.create({
@@ -869,8 +865,8 @@ export namespace RandomProgrammer {
       props.name === "BigInt64Array" || props.name === "BigUint64Array"
         ? "bigint"
         : "number";
-    const value: Metadata = Metadata.create({
-      ...Metadata.initialize(),
+    const value: MetadataSchema = MetadataSchema.create({
+      ...MetadataSchema.initialize(),
       atomics: [
         MetadataAtomic.create({
           type: atomic,

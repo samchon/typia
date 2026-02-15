@@ -1,7 +1,6 @@
-import { ClassProperties } from "../../typings/ClassProperties";
+import { IMetadataSchema, IMetadataTypeTag } from "@typia/interface";
 
-import { IMetadataObject } from "./IMetadataObject";
-import { IMetadataTypeTag } from "./IMetadataTypeTag";
+import { ClassProperties } from "../../typings/ClassProperties";
 import { MetadataObjectType } from "./MetadataObjectType";
 
 export class MetadataObject {
@@ -37,7 +36,7 @@ export class MetadataObject {
     })());
   }
 
-  public toJSON(): IMetadataObject {
+  public toJSON(): IMetadataSchema.IReference {
     return {
       name: this.type.name,
       tags: this.tags.map((row) => row.slice()),

@@ -1,14 +1,12 @@
-import { OpenApi } from "@samchon/openapi";
+import { IMetadataTypeTag, OpenApi } from "@typia/interface";
 
-import { IMetadataTypeTag } from "../../schemas/metadata/IMetadataTypeTag";
-import { Metadata } from "../../schemas/metadata/Metadata";
+import { MetadataSchema } from "../../schemas/metadata/MetadataSchema";
 import { MetadataTemplate } from "../../schemas/metadata/MetadataTemplate";
-
 import { json_schema_plugin } from "./json_schema_plugin";
 import { metadata_to_pattern } from "./metadata_to_pattern";
 
 export const json_schema_templates = (
-  metadata: Metadata,
+  metadata: MetadataSchema,
 ): OpenApi.IJsonSchema[] => {
   const pureTemplates: MetadataTemplate[] = metadata.templates.filter(
     (t) => isPure(t.tags ?? []) === true,
@@ -23,8 +21,8 @@ export const json_schema_templates = (
       type: "string",
       pattern: metadata_to_pattern({
         top: true,
-        metadata: Metadata.create({
-          ...Metadata.initialize(),
+        metadata: MetadataSchema.create({
+          ...MetadataSchema.initialize(),
           templates: pureTemplates,
         }),
       }),
@@ -36,8 +34,8 @@ export const json_schema_templates = (
           type: "string",
           pattern: metadata_to_pattern({
             top: false,
-            metadata: Metadata.create({
-              ...Metadata.initialize(),
+            metadata: MetadataSchema.create({
+              ...MetadataSchema.initialize(),
               templates: [tpl],
             }),
           }),

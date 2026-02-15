@@ -1,8 +1,7 @@
 import ts from "typescript";
 
-import { Metadata } from "../../../schemas/metadata/Metadata";
 import { MetadataAtomic } from "../../../schemas/metadata/MetadataAtomic";
-
+import { MetadataSchema } from "../../../schemas/metadata/MetadataSchema";
 import { ArrayUtil } from "../../../utils/ArrayUtil";
 
 const same = (type: ts.Type | null) => {
@@ -11,7 +10,7 @@ const same = (type: ts.Type | null) => {
 };
 
 export const iterate_metadata_atomic = (props: {
-  metadata: Metadata;
+  metadata: MetadataSchema;
   type: ts.Type;
 }): boolean => {
   // PREPARE INTERNAL FUNCTIONS

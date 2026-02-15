@@ -1,14 +1,10 @@
 import ts from "typescript";
 
-import { Metadata } from "../schemas/metadata/Metadata";
-
 import { AtomicPredicator } from "../programmers/helpers/AtomicPredicator";
-
+import { MetadataSchema } from "../schemas/metadata/MetadataSchema";
 import { TransformerError } from "../transformers/TransformerError";
-
 import { ValidationPipe } from "../typings/ValidationPipe";
-
-import { MetadataCollection } from "./MetadataCollection";
+import { MetadataComponents } from "./MetadataComponents";
 import { MetadataFactory } from "./MetadataFactory";
 
 export namespace JsonMetadataFactory {
@@ -20,13 +16,13 @@ export namespace JsonMetadataFactory {
     validate?: MetadataFactory.Validator;
   }
   export interface IOutput {
-    collection: MetadataCollection;
-    metadata: Metadata;
+    collection: MetadataComponents;
+    metadata: MetadataSchema;
   }
 
   export const analyze = (props: IProps): IOutput => {
-    const collection: MetadataCollection = new MetadataCollection();
-    const result: ValidationPipe<Metadata, MetadataFactory.IError> =
+    const collection: MetadataComponents = new MetadataComponents();
+    const result: ValidationPipe<MetadataSchema, MetadataFactory.IError> =
       MetadataFactory.analyze({
         checker: props.checker,
         transformer: props.transformer,
@@ -42,7 +38,7 @@ export namespace JsonMetadataFactory {
               }
             : validate,
         },
-        collection,
+        components: collection,
         type: props.type,
       });
     if (result.success === false)
@@ -56,7 +52,7 @@ export namespace JsonMetadataFactory {
     };
   };
 
-  export const validate = (meta: Metadata) => {
+  export const validate = (meta: MetadataSchema) => {
     const output: string[] = [];
     if (
       meta.atomics.some((a) => a.type === "bigint") ||

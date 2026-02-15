@@ -1,18 +1,17 @@
-import { ClassProperties } from "../../typings/ClassProperties";
+import { IMetadataSchema, IMetadataTypeTag } from "@typia/interface";
 
+import { ClassProperties } from "../../typings/ClassProperties";
 import { IMetadataDictionary } from "./IMetadataDictionary";
-import { IMetadataTemplate } from "./IMetadataTemplate";
-import { IMetadataTypeTag } from "./IMetadataTypeTag";
-import { Metadata } from "./Metadata";
+import { MetadataSchema } from "./MetadataSchema";
 
 export class MetadataTemplate {
-  public readonly row: Metadata[];
+  public readonly row: MetadataSchema[];
   public readonly tags: IMetadataTypeTag[][];
 
   private name_?: string;
 
   private constructor(props: ClassProperties<MetadataTemplate>) {
-    this.row = props.row.map(Metadata.create);
+    this.row = props.row.map(MetadataSchema.create);
     this.tags = props.tags;
   }
 
@@ -23,11 +22,11 @@ export class MetadataTemplate {
   }
 
   public static from(
-    json: IMetadataTemplate,
+    json: IMetadataSchema.ITemplate,
     dict: IMetadataDictionary,
   ): MetadataTemplate {
     return new MetadataTemplate({
-      row: json.row.map((m) => Metadata.from(m, dict)),
+      row: json.row.map((m) => MetadataSchema.from(m, dict)),
       tags: json.tags,
     });
   }
@@ -53,7 +52,7 @@ export class MetadataTemplate {
     );
   }
 
-  public toJSON(): IMetadataTemplate {
+  public toJSON(): IMetadataSchema.ITemplate {
     return {
       row: this.row.map((m) => m.toJSON()),
       tags: this.tags,

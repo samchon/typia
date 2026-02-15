@@ -2,9 +2,7 @@ import ts from "typescript";
 
 import { TemplateFactory } from "../../factories/TemplateFactory";
 import { ValueFactory } from "../../factories/ValueFactory";
-
-import { Metadata } from "../../schemas/metadata/Metadata";
-
+import { MetadataSchema } from "../../schemas/metadata/MetadataSchema";
 import { IExpressionEntry } from "../helpers/IExpressionEntry";
 
 /** @internal */
@@ -73,5 +71,5 @@ export const stringify_regular_properties = (props: {
 };
 
 /** @internal */
-const sequence = (meta: Metadata): number =>
+const sequence = (meta: MetadataSchema): number =>
   meta.any || !meta.isRequired() || meta.functions.length ? 0 : 1;

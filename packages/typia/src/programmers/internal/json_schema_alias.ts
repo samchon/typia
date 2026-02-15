@@ -1,7 +1,6 @@
-import { OpenApi } from "@samchon/openapi";
+import { OpenApi } from "@typia/interface";
 
 import { MetadataAlias } from "../../schemas/metadata/MetadataAlias";
-
 import { json_schema_description } from "./json_schema_description";
 import { json_schema_jsDocTags } from "./json_schema_jsDocTags";
 import { json_schema_object } from "./json_schema_object";

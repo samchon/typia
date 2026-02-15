@@ -1,6 +1,6 @@
-import { CommentFactory } from "../../factories/CommentFactory";
+import { IJsDocTagInfo } from "@typia/interface";
 
-import { IJsDocTagInfo } from "../../schemas/metadata/IJsDocTagInfo";
+import { CommentFactory } from "../../factories/CommentFactory";
 
 export const json_schema_title = (schema: {
   description?: string | null | undefined;

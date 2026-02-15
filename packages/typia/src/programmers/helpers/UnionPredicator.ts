@@ -1,7 +1,6 @@
-import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
 import { MetadataProperty } from "../../schemas/metadata/MetadataProperty";
-
+import { MetadataSchema } from "../../schemas/metadata/MetadataSchema";
 import { ArrayUtil } from "../../utils/ArrayUtil";
 import { MapUtil } from "../../utils/MapUtil";
 
@@ -51,7 +50,9 @@ export namespace UnionPredicator {
         // NO NEIGHBORHOOD
         const unique: boolean =
           neighbors.length === 0 ||
-          neighbors.every((n) => !Metadata.intersects(prop.value, n.value));
+          neighbors.every(
+            (n) => !MetadataSchema.intersects(prop.value, n.value),
+          );
         if (unique === true)
           children.push({
             property: prop,

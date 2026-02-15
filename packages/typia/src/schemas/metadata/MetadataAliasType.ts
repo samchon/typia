@@ -1,12 +1,11 @@
-import { ClassProperties } from "../../typings/ClassProperties";
+import { IJsDocTagInfo, IMetadataSchema } from "@typia/interface";
 
-import { IJsDocTagInfo } from "./IJsDocTagInfo";
-import { IMetadataAliasType } from "./IMetadataAliasType";
-import { Metadata } from "./Metadata";
+import { ClassProperties } from "../../typings/ClassProperties";
+import { MetadataSchema } from "./MetadataSchema";
 
 export class MetadataAliasType {
   public readonly name: string;
-  public readonly value: Metadata;
+  public readonly value: MetadataSchema;
   public readonly description: string | null;
   public readonly jsDocTags: IJsDocTagInfo[];
   public readonly recursive: boolean;
@@ -33,7 +32,9 @@ export class MetadataAliasType {
   }
 
   /** @internal */
-  public static _From_without_value(props: Omit<IMetadataAliasType, "value">) {
+  public static _From_without_value(
+    props: Omit<IMetadataSchema.IAliasType, "value">,
+  ) {
     return MetadataAliasType.create({
       name: props.name,
       value: null!,
@@ -44,7 +45,7 @@ export class MetadataAliasType {
     });
   }
 
-  public toJSON(): IMetadataAliasType {
+  public toJSON(): IMetadataSchema.IAliasType {
     return {
       name: this.name,
       value: this.value.toJSON(),

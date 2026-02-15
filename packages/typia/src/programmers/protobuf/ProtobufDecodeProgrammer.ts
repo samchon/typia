@@ -2,22 +2,19 @@ import ts from "typescript";
 
 import { ExpressionFactory } from "../../factories/ExpressionFactory";
 import { IdentifierFactory } from "../../factories/IdentifierFactory";
-import { MetadataCollection } from "../../factories/MetadataCollection";
+import { MetadataComponents } from "../../factories/MetadataComponents";
 import { MetadataFactory } from "../../factories/MetadataFactory";
 import { ProtobufFactory } from "../../factories/ProtobufFactory";
 import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
-
-import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
 import { MetadataProperty } from "../../schemas/metadata/MetadataProperty";
+import { MetadataSchema } from "../../schemas/metadata/MetadataSchema";
 import { IProtobufProperty } from "../../schemas/protobuf/IProtobufProperty";
 import { IProtobufPropertyType } from "../../schemas/protobuf/IProtobufPropertyType";
 import { IProtobufSchema } from "../../schemas/protobuf/IProtobufSchema";
-
 import { IProgrammerProps } from "../../transformers/IProgrammerProps";
 import { ITypiaContext } from "../../transformers/ITypiaContext";
-
 import { FeatureProgrammer } from "../FeatureProgrammer";
 import { FunctionProgrammer } from "../helpers/FunctionProgrammer";
 import { ProtobufUtil } from "../helpers/ProtobufUtil";
@@ -30,12 +27,12 @@ export namespace ProtobufDecodeProgrammer {
     type: ts.Type;
     name: string | undefined;
   }): FeatureProgrammer.IDecomposed => {
-    const collection: MetadataCollection = new MetadataCollection();
-    const meta: Metadata = ProtobufFactory.metadata({
+    const collection: MetadataComponents = new MetadataComponents();
+    const meta: MetadataSchema = ProtobufFactory.metadata({
       method: props.modulo.getText(),
       checker: props.context.checker,
       transformer: props.context.transformer,
-      collection,
+      components: collection,
       type: props.type,
     });
     return {
@@ -252,7 +249,7 @@ export namespace ProtobufDecodeProgrammer {
     ];
   };
 
-  const write_property_default_value = (value: Metadata) =>
+  const write_property_default_value = (value: MetadataSchema) =>
     ts.factory.createAsExpression(
       value.nullable
         ? ts.factory.createNull()
@@ -298,7 +295,7 @@ export namespace ProtobufDecodeProgrammer {
   ----------------------------------------------------------- */
   const decode_property = (props: {
     context: ITypiaContext;
-    metadata: Metadata;
+    metadata: MetadataSchema;
     protobuf: IProtobufProperty;
     accessor: ts.Expression;
   }): ts.CaseClause[] =>
@@ -372,8 +369,8 @@ export namespace ProtobufDecodeProgrammer {
       );
     else if (props.schema.type === "map")
       if (props.schema.map instanceof MetadataObjectType) {
-        const key: Metadata = props.schema.map.properties[0]!.key;
-        const value: Metadata = props.schema.map.properties[0]!.value;
+        const key: MetadataSchema = props.schema.map.properties[0]!.key;
+        const value: MetadataSchema = props.schema.map.properties[0]!.value;
         return out(
           `Record<${key.getName()}, ${value.getName()}>`,
           decode_map({
@@ -396,8 +393,8 @@ export namespace ProtobufDecodeProgrammer {
           }),
         );
       } else {
-        const key: Metadata = props.schema.map.key;
-        const value: Metadata = props.schema.map.value;
+        const key: MetadataSchema = props.schema.map.key;
+        const value: MetadataSchema = props.schema.map.value;
         return out(
           `Map<${key.getName()}, ${value.getName()}>`,
           decode_map({
@@ -531,8 +528,8 @@ export namespace ProtobufDecodeProgrammer {
   const decode_map = (props: {
     context: ITypiaContext;
     accessor: ts.Expression;
-    key: Metadata;
-    value: Metadata;
+    key: MetadataSchema;
+    value: MetadataSchema;
     schema: IProtobufSchema.IMap;
     initializer: ts.Expression;
     required: boolean;
@@ -628,7 +625,7 @@ const callReader = (
 const createObjectType = (
   definitions: Array<{
     key: string;
-    value: Metadata;
+    value: MetadataSchema;
   }>,
 ): MetadataObjectType => {
   const properties: MetadataProperty[] = definitions.map((def) =>

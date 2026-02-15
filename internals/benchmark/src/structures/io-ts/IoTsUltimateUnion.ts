@@ -1,4 +1,4 @@
-import { OpenApi } from "@samchon/openapi";
+import { OpenApi } from "@typia/interface";
 import * as t from "io-ts";
 import { IJsonSchemaCollection } from "typia";
 

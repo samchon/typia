@@ -1,12 +1,11 @@
 import {
+  IJsonSchemaCollection,
+  IJsonSchemaTransformError,
   ILlmSchema,
-  IOpenApiSchemaError,
   IResult,
-  LlmSchemaComposer,
-} from "@samchon/openapi";
+} from "@typia/interface";
 
-import { IJsonSchemaCollection } from "../../schemas/json/IJsonSchemaCollection";
-import { Metadata } from "../../schemas/metadata/Metadata";
+import { MetadataSchema } from "../../schemas/metadata/MetadataSchema";
 import { TransformerError } from "../../transformers/TransformerError";
 import { AtomicPredicator } from "../helpers/AtomicPredicator";
 import { json_schema_bigint } from "../internal/json_schema_bigint";
@@ -23,7 +22,7 @@ export namespace LlmSchemaProgrammer {
   }
 
   export const write = (props: {
-    metadata: Metadata;
+    metadata: MetadataSchema;
     config?: Partial<ILlmSchema.IConfig>;
   }): IOutput => {
     const collection: IJsonSchemaCollection<"3.1"> =
@@ -33,7 +32,7 @@ export namespace LlmSchemaProgrammer {
       });
 
     const $defs: Record<string, ILlmSchema> = {};
-    const result: IResult<ILlmSchema, IOpenApiSchemaError> =
+    const result: IResult<ILlmSchema, IJsonSchemaTransformError> =
       LlmSchemaComposer.schema({
         config: LlmSchemaComposer.getConfig(props.config),
         components: collection.components,
@@ -57,7 +56,7 @@ export namespace LlmSchemaProgrammer {
 
   export const validate = (props: {
     config?: Partial<ILlmSchema.IConfig>;
-    metadata: Metadata;
+    metadata: MetadataSchema;
   }): string[] => {
     const output: string[] = [];
 
@@ -110,7 +109,7 @@ export namespace LlmSchemaProgrammer {
   };
 }
 
-const size = (metadata: Metadata): number =>
+const size = (metadata: MetadataSchema): number =>
   (metadata.escaped ? size(metadata.escaped.returns) : 0) +
   metadata.aliases.length +
   metadata.objects.length +

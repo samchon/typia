@@ -1,10 +1,12 @@
-import { NoTransformConfigurationError } from "./transformers/NoTransformConfigurationError";
+import {
+  CamelCase,
+  IValidation,
+  PascalCase,
+  SnakeCase,
+} from "@typia/interface";
 
-import { CamelCase } from "./CamelCase";
-import { IValidation } from "./IValidation";
-import { PascalCase } from "./PascalCase";
-import { SnakeCase } from "./SnakeCase";
 import { TypeGuardError } from "./TypeGuardError";
+import { NoTransformConfigurationError } from "./transformers/NoTransformConfigurationError";
 
 /* ===========================================================
     NOTATIONS (NAMING CONVENTIONS)

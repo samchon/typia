@@ -1,11 +1,11 @@
-import { ClassProperties } from "../../typings/ClassProperties";
+import { IMetadataSchema } from "@typia/interface";
 
-import { IMetadataTupleType } from "./IMetadataTupleType";
-import { Metadata } from "./Metadata";
+import { ClassProperties } from "../../typings/ClassProperties";
+import { MetadataSchema } from "./MetadataSchema";
 
 export class MetadataTupleType {
   public readonly name: string;
-  public readonly elements: Metadata[];
+  public readonly elements: MetadataSchema[];
 
   public readonly index: number | null;
   public readonly recursive: boolean;
@@ -25,7 +25,7 @@ export class MetadataTupleType {
 
   /** @internal */
   public static _From_without_elements(
-    props: Omit<IMetadataTupleType, "elements">,
+    props: Omit<IMetadataSchema.ITupleType, "elements">,
   ): MetadataTupleType {
     return MetadataTupleType.create({
       name: props.name,
@@ -49,7 +49,7 @@ export class MetadataTupleType {
     );
   }
 
-  public toJSON(): IMetadataTupleType {
+  public toJSON(): IMetadataSchema.ITupleType {
     return {
       name: this.name,
       index: this.index,

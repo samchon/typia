@@ -1,8 +1,8 @@
-import { IMetadataTypeTag } from "../schemas/metadata/IMetadataTypeTag";
-import { Metadata } from "../schemas/metadata/Metadata";
+import { IMetadataTypeTag } from "@typia/interface";
+
 import { MetadataObjectType } from "../schemas/metadata/MetadataObjectType";
 import { MetadataProperty } from "../schemas/metadata/MetadataProperty";
-
+import { MetadataSchema } from "../schemas/metadata/MetadataSchema";
 import { MetadataFactory } from "./MetadataFactory";
 import { MetadataTypeTagSchemaFactory } from "./MetadataTypeTagSchemaFactory";
 
@@ -14,7 +14,7 @@ export namespace MetadataTypeTagFactory {
     if (top.key.isSoleLiteral() === false) return false;
     else if (top.key.getSoleLiteral() !== "typia.tag") return false;
 
-    const value: Metadata = top.value;
+    const value: MetadataSchema = top.value;
     if (
       value.size() !== 1 ||
       value.objects.length !== 1 ||
@@ -187,7 +187,7 @@ export namespace MetadataTypeTagFactory {
   const validate_property = (props: {
     report: (next: { property: string | null; message: string }) => false;
     key: string;
-    value: Metadata;
+    value: MetadataSchema;
   }): boolean => {
     if (
       // TARGET
@@ -329,7 +329,7 @@ export namespace MetadataTypeTagFactory {
       );
     })();
     const schema: object | undefined = (() => {
-      const p: Metadata | undefined = find("schema")?.value;
+      const p: MetadataSchema | undefined = find("schema")?.value;
       if (p === undefined) return undefined;
       else if (p.size() === 0 && p.isRequired() === false) return undefined;
       else if (
@@ -366,7 +366,7 @@ export namespace MetadataTypeTagFactory {
   const get_exclusive = (props: {
     report: (next: { property: string | null; message: string }) => false;
     key: string;
-    value: Metadata | undefined;
+    value: MetadataSchema | undefined;
   }): boolean | string[] | null => {
     if (props.value === undefined) return false;
     else if (

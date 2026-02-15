@@ -1,13 +1,10 @@
 import ts from "typescript";
 
-import { Metadata } from "../../../schemas/metadata/Metadata";
 import { MetadataObjectType } from "../../../schemas/metadata/MetadataObjectType";
 import { MetadataProperty } from "../../../schemas/metadata/MetadataProperty";
-
+import { MetadataSchema } from "../../../schemas/metadata/MetadataSchema";
 import { Writable } from "../../../typings/Writable";
-
 import { ArrayUtil } from "../../../utils/ArrayUtil";
-
 import { CommentFactory } from "../../CommentFactory";
 import { IMetadataIteratorProps } from "./IMetadataIteratorProps";
 import { MetadataHelper } from "./MetadataHelper";
@@ -18,7 +15,7 @@ export const emplace_metadata_object = (
   props: IMetadataIteratorProps,
 ): MetadataObjectType => {
   // EMPLACE OBJECT
-  const [obj, newbie] = props.collection.emplace(props.checker, props.type);
+  const [obj, newbie] = props.components.emplace(props.checker, props.type);
   ArrayUtil.add(
     obj.nullables,
     props.metadata.nullable,
@@ -48,8 +45,8 @@ export const emplace_metadata_object = (
     : (node) => isProperty(node);
 
   const insert = (props: {
-    key: Metadata;
-    value: Metadata;
+    key: MetadataSchema;
+    value: MetadataSchema;
     symbol: ts.Symbol | undefined;
     node?: ts.Declaration;
     filter?: (doc: ts.JSDocTagInfo) => boolean;
@@ -111,8 +108,8 @@ export const emplace_metadata_object = (
     if ((node && pred(node) === false) || type === undefined) continue;
 
     // GET EXACT TYPE
-    const key: Metadata = MetadataHelper.literal_to_metadata(symbol.name);
-    const value: Metadata = explore_metadata({
+    const key: MetadataSchema = MetadataHelper.literal_to_metadata(symbol.name);
+    const value: MetadataSchema = explore_metadata({
       ...props,
       type,
       explore: {
@@ -157,8 +154,8 @@ export const emplace_metadata_object = (
         },
         intersected: false,
       });
-    const key: Metadata = analyzer(index.keyType)(null);
-    const value: Metadata = analyzer(index.type)({});
+    const key: MetadataSchema = analyzer(index.keyType)(null);
+    const value: MetadataSchema = analyzer(index.type)({});
 
     if (
       key.atomics.length +
@@ -214,7 +211,7 @@ const significant = (functional: boolean) =>
         ts.isShorthandPropertyAssignment(node);
 
 const iterate_optional_coalesce = (props: {
-  metadata: Metadata;
+  metadata: MetadataSchema;
   type: ts.Type;
 }): void => {
   if (props.type.isUnionOrIntersection())

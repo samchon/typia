@@ -1,6 +1,4 @@
-import { OpenApi } from "@samchon/openapi";
-
-import { IJsDocTagInfo } from "../../schemas/metadata/IJsDocTagInfo";
+import { IJsDocTagInfo, OpenApi } from "@typia/interface";
 
 export const json_schema_jsDocTags = <Schema extends OpenApi.IJsonSchema>(
   schema: Schema,

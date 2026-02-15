@@ -1,21 +1,17 @@
+import { IMetadataTypeTag } from "@typia/interface";
 import ts from "typescript";
 
-import { IMetadataTypeTag } from "../schemas/metadata/IMetadataTypeTag";
-import { Metadata } from "../schemas/metadata/Metadata";
+import { ProtobufUtil } from "../programmers/helpers/ProtobufUtil";
 import { MetadataObjectType } from "../schemas/metadata/MetadataObjectType";
 import { MetadataProperty } from "../schemas/metadata/MetadataProperty";
+import { MetadataSchema } from "../schemas/metadata/MetadataSchema";
 import { IProtobufProperty } from "../schemas/protobuf/IProtobufProperty";
 import { IProtobufPropertyType } from "../schemas/protobuf/IProtobufPropertyType";
 import { IProtobufSchema } from "../schemas/protobuf/IProtobufSchema";
-
-import { ProtobufUtil } from "../programmers/helpers/ProtobufUtil";
-
 import { TransformerError } from "../transformers/TransformerError";
-
 import { ProtobufAtomic } from "../typings/ProtobufAtomic";
 import { ValidationPipe } from "../typings/ValidationPipe";
-
-import { MetadataCollection } from "./MetadataCollection";
+import { MetadataComponents } from "./MetadataComponents";
 import { MetadataFactory } from "./MetadataFactory";
 
 export namespace ProtobufFactory {
@@ -23,16 +19,16 @@ export namespace ProtobufFactory {
     method: string;
     checker: ts.TypeChecker;
     transformer?: ts.TransformationContext;
-    collection: MetadataCollection;
+    components: MetadataComponents;
     type: ts.Type;
   }
 
   /* -----------------------------------------------------------
     METADATA COMPOSER
   ----------------------------------------------------------- */
-  export const metadata = (props: IProps): Metadata => {
+  export const metadata = (props: IProps): MetadataSchema => {
     // COMPOSE METADATA WITH INDIVIDUAL VALIDATIONS
-    const result: ValidationPipe<Metadata, MetadataFactory.IError> =
+    const result: ValidationPipe<MetadataSchema, MetadataFactory.IError> =
       MetadataFactory.analyze({
         ...props,
         transformer: props.transformer,
@@ -133,7 +129,7 @@ export namespace ProtobufFactory {
     };
   };
 
-  const emplaceSchema = (metadata: Metadata): IProtobufSchema => {
+  const emplaceSchema = (metadata: MetadataSchema): IProtobufSchema => {
     for (const native of metadata.natives)
       if (native.name === "Uint8Array")
         return {
@@ -179,7 +175,7 @@ export namespace ProtobufFactory {
   };
 
   const emplaceAtomic = (
-    meta: Metadata,
+    meta: MetadataSchema,
   ): Map<ProtobufAtomic, IProtobufPropertyType> => {
     const map: Map<ProtobufAtomic, IProtobufPropertyType> = new Map();
 
@@ -343,7 +339,10 @@ export namespace ProtobufFactory {
   ----------------------------------------------------------- */
   const validate = () => {
     const visited: WeakSet<MetadataObjectType> = new WeakSet();
-    return (meta: Metadata, explore: MetadataFactory.IExplore): string[] => {
+    return (
+      meta: MetadataSchema,
+      explore: MetadataFactory.IExplore,
+    ): string[] => {
       const errors: string[] = [];
       const insert = (msg: string) => errors.push(msg);
 
@@ -585,7 +584,7 @@ export namespace ProtobufFactory {
   };
 
   const validateProperty = (next: {
-    metadata: Metadata;
+    metadata: MetadataSchema;
     errors: string[];
   }): void => {
     let expected: number = 0;
@@ -644,7 +643,7 @@ export namespace ProtobufFactory {
   };
 
   const validateBooleanSequence = (next: {
-    metadata: Metadata;
+    metadata: MetadataSchema;
     errors: string[];
     add: (value: number) => boolean;
   }): void => {
@@ -696,7 +695,7 @@ export namespace ProtobufFactory {
       categories: Set<string>;
     }) =>
     (next: {
-      metadata: Metadata;
+      metadata: MetadataSchema;
       errors: string[];
       add: (value: number) => boolean;
     }): void => {
@@ -760,7 +759,7 @@ export namespace ProtobufFactory {
     };
 
   const validateStringSequence = (next: {
-    metadata: Metadata;
+    metadata: MetadataSchema;
     errors: string[];
     add: (value: number) => boolean;
   }): void => {

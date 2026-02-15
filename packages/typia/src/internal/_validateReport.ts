@@ -1,4 +1,4 @@
-import { IValidation } from "../IValidation";
+import { IValidation } from "@typia/interface";
 
 export const _validateReport = (array: IValidation.IError[]) => {
   const reportable = (path: string): boolean => {

@@ -1,12 +1,12 @@
-import { ClassProperties } from "../../typings/ClassProperties";
+import { IMetadataSchema } from "@typia/interface";
 
+import { ClassProperties } from "../../typings/ClassProperties";
 import { IMetadataDictionary } from "./IMetadataDictionary";
-import { IMetadataEscaped } from "./IMetadataEscaped";
-import { Metadata } from "./Metadata";
+import { MetadataSchema } from "./MetadataSchema";
 
 export class MetadataEscaped {
-  public readonly original: Metadata;
-  public readonly returns: Metadata;
+  public readonly original: MetadataSchema;
+  public readonly returns: MetadataSchema;
 
   /** @ignore */
   private constructor(props: ClassProperties<MetadataEscaped>) {
@@ -16,12 +16,12 @@ export class MetadataEscaped {
 
   /** @internal */
   public static from(
-    props: IMetadataEscaped,
+    props: IMetadataSchema.IEscaped,
     dict: IMetadataDictionary,
   ): MetadataEscaped {
     return MetadataEscaped.create({
-      original: Metadata.from(props.original, dict),
-      returns: Metadata.from(props.returns, dict),
+      original: MetadataSchema.from(props.original, dict),
+      returns: MetadataSchema.from(props.returns, dict),
     });
   }
 
@@ -36,7 +36,7 @@ export class MetadataEscaped {
     return this.returns.getName();
   }
 
-  public toJSON(): IMetadataEscaped {
+  public toJSON(): IMetadataSchema.IEscaped {
     return {
       original: this.original.toJSON(),
       returns: this.returns.toJSON(),

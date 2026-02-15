@@ -1,7 +1,6 @@
-import { ClassProperties } from "../../typings/ClassProperties";
+import { IJsDocTagInfo, IMetadataSchema } from "@typia/interface";
 
-import { IJsDocTagInfo } from "./IJsDocTagInfo";
-import { IMetadataObjectType } from "./IMetadataObjectType";
+import { ClassProperties } from "../../typings/ClassProperties";
 import { MetadataProperty } from "./MetadataProperty";
 
 export class MetadataObjectType {
@@ -50,7 +49,7 @@ export class MetadataObjectType {
 
   /** @internal */
   public static _From_without_properties(
-    obj: IMetadataObjectType,
+    obj: IMetadataSchema.IObjectType,
   ): MetadataObjectType {
     return MetadataObjectType.create({
       name: obj.name,
@@ -96,7 +95,7 @@ export class MetadataObjectType {
     })());
   }
 
-  public toJSON(): IMetadataObjectType {
+  public toJSON(): IMetadataSchema.IObjectType {
     return {
       name: this.name,
       properties: this.properties.map((property) => property.toJSON()),

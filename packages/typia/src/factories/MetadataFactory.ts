@@ -1,30 +1,28 @@
 import ts from "typescript";
 
-import { Metadata } from "../schemas/metadata/Metadata";
 import { MetadataAliasType } from "../schemas/metadata/MetadataAliasType";
 import { MetadataArrayType } from "../schemas/metadata/MetadataArrayType";
 import { MetadataConstant } from "../schemas/metadata/MetadataConstant";
 import { MetadataFunction } from "../schemas/metadata/MetadataFunction";
 import { MetadataObject } from "../schemas/metadata/MetadataObject";
 import { MetadataObjectType } from "../schemas/metadata/MetadataObjectType";
+import { MetadataSchema } from "../schemas/metadata/MetadataSchema";
 import { MetadataTupleType } from "../schemas/metadata/MetadataTupleType";
+import { ValidationPipe } from "../typings/ValidationPipe";
+import { ExpressionFactory } from "./ExpressionFactory";
+import { MetadataComponents } from "./MetadataComponents";
 import { explore_metadata } from "./internal/metadata/explore_metadata";
 import { iterate_metadata_collection } from "./internal/metadata/iterate_metadata_collection";
 import { iterate_metadata_sort } from "./internal/metadata/iterate_metadata_sort";
 
-import { ValidationPipe } from "../typings/ValidationPipe";
-
-import { ExpressionFactory } from "./ExpressionFactory";
-import { MetadataCollection } from "./MetadataCollection";
-
 export namespace MetadataFactory {
-  export type Validator = (meta: Metadata, explore: IExplore) => string[];
+  export type Validator = (meta: MetadataSchema, explore: IExplore) => string[];
 
   export interface IProps {
     checker: ts.TypeChecker;
     transformer: ts.TransformationContext | undefined;
     options: IOptions;
-    collection: MetadataCollection;
+    components: MetadataComponents;
     type: ts.Type | null;
   }
   export interface IOptions {
@@ -52,9 +50,11 @@ export namespace MetadataFactory {
     messages: string[];
   }
 
-  export const analyze = (props: IProps): ValidationPipe<Metadata, IError> => {
+  export const analyze = (
+    props: IProps,
+  ): ValidationPipe<MetadataSchema, IError> => {
     const errors: IError[] = [];
-    const metadata: Metadata = explore_metadata({
+    const metadata: MetadataSchema = explore_metadata({
       ...props,
       errors,
       explore: {
@@ -71,10 +71,10 @@ export namespace MetadataFactory {
     });
     iterate_metadata_collection({
       errors,
-      collection: props.collection,
+      collection: props.components,
     });
     iterate_metadata_sort({
-      collection: props.collection,
+      collection: props.components,
       metadata: metadata,
     });
 
@@ -99,8 +99,8 @@ export namespace MetadataFactory {
   };
 
   /** @internal */
-  export const soleLiteral = (value: string): Metadata => {
-    const meta: Metadata = Metadata.initialize();
+  export const soleLiteral = (value: string): MetadataSchema => {
+    const meta: MetadataSchema = MetadataSchema.initialize();
     meta.constants.push(
       MetadataConstant.from({
         values: [
@@ -119,7 +119,7 @@ export namespace MetadataFactory {
     transformer?: ts.TransformationContext;
     options: IOptions;
     functor: Validator;
-    metadata: Metadata;
+    metadata: MetadataSchema;
   }): IError[] => {
     const visitor: IValidationVisitor = {
       functor: props.functor,
@@ -150,7 +150,7 @@ export namespace MetadataFactory {
   const validateMeta = (props: {
     options: IOptions;
     visitor: IValidationVisitor;
-    metadata: Metadata;
+    metadata: MetadataSchema;
     explore: IExplore;
   }) => {
     const result: string[] = [];
@@ -316,8 +316,8 @@ export namespace MetadataFactory {
         output: false,
       };
       const errors: string[] = props.options.validate(
-        Metadata.create({
-          ...Metadata.initialize(),
+        MetadataSchema.create({
+          ...MetadataSchema.initialize(),
           objects: [
             MetadataObject.create({
               type: props.object,

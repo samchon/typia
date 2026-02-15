@@ -1,12 +1,11 @@
-import { Metadata } from "../../schemas/metadata/Metadata";
+import { Atomic } from "@typia/interface";
 
-import { Atomic } from "../../typings/Atomic";
-
+import { MetadataSchema } from "../../schemas/metadata/MetadataSchema";
 import { ArrayUtil } from "../../utils/ArrayUtil";
 
 export namespace AtomicPredicator {
   export const constant = (props: {
-    metadata: Metadata;
+    metadata: MetadataSchema;
     name: Atomic.Literal;
   }): boolean =>
     !ArrayUtil.has(
@@ -15,7 +14,7 @@ export namespace AtomicPredicator {
     );
 
   export const atomic = (props: {
-    metadata: Metadata;
+    metadata: MetadataSchema;
     name: Atomic.Literal;
   }): boolean =>
     !ArrayUtil.has(
@@ -25,7 +24,7 @@ export namespace AtomicPredicator {
 
   export const native = (name: string) => LIKE.has(name.toLowerCase());
 
-  export const template = (metadata: Metadata): boolean =>
+  export const template = (metadata: MetadataSchema): boolean =>
     !ArrayUtil.has(
       metadata.natives,
       (native) => native.name.toLowerCase() === "string",

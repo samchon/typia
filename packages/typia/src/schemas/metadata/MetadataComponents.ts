@@ -1,13 +1,13 @@
+import { IMetadataComponents } from "@typia/interface";
+
 import { ClassProperties } from "../../typings/ClassProperties";
 import { Writable } from "../../typings/Writable";
-
-import { IMetadataComponents } from "./IMetadataComponents";
 import { IMetadataDictionary } from "./IMetadataDictionary";
-import { Metadata } from "./Metadata";
 import { MetadataAliasType } from "./MetadataAliasType";
 import { MetadataArrayType } from "./MetadataArrayType";
 import { MetadataObjectType } from "./MetadataObjectType";
 import { MetadataProperty } from "./MetadataProperty";
+import { MetadataSchema } from "./MetadataSchema";
 import { MetadataTupleType } from "./MetadataTupleType";
 
 export class MetadataComponents {
@@ -25,6 +25,7 @@ export class MetadataComponents {
     this.dictionary = props.dictionary;
   }
 
+  /** @internal */
   public static from(json: IMetadataComponents): MetadataComponents {
     // INITIALIZE COMPONENTS
     const dictionary: IMetadataDictionary = {
@@ -64,18 +65,18 @@ export class MetadataComponents {
           ),
         );
     for (const alias of json.aliases)
-      Writable(dictionary.aliases.get(alias.name)!).value = Metadata.from(
+      Writable(dictionary.aliases.get(alias.name)!).value = MetadataSchema.from(
         alias.value,
         dictionary,
       );
     for (const array of json.arrays)
-      Writable(dictionary.arrays.get(array.name)!).value = Metadata.from(
+      Writable(dictionary.arrays.get(array.name)!).value = MetadataSchema.from(
         array.value,
         dictionary,
       );
     for (const tuple of json.tuples)
       Writable(dictionary.tuples.get(tuple.name)!).elements =
-        tuple.elements.map((elem) => Metadata.from(elem, dictionary));
+        tuple.elements.map((elem) => MetadataSchema.from(elem, dictionary));
 
     // FINALIZE
     return new MetadataComponents({

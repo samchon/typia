@@ -1,12 +1,8 @@
-import {
-  IJsonSchemaAttribute,
-  OpenApi,
-  OpenApiExclusiveEmender,
-} from "@samchon/openapi";
+import { IJsonSchemaAttribute, OpenApi } from "@typia/interface";
 
-import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataAtomic } from "../../schemas/metadata/MetadataAtomic";
 import { MetadataNative } from "../../schemas/metadata/MetadataNative";
+import { MetadataSchema } from "../../schemas/metadata/MetadataSchema";
 import { AtomicPredicator } from "../helpers/AtomicPredicator";
 import { json_schema_alias } from "./json_schema_alias";
 import { json_schema_array } from "./json_schema_array";
@@ -26,7 +22,7 @@ export const json_schema_station = <BlockNever extends boolean>(props: {
   blockNever: BlockNever;
   components: OpenApi.IComponents;
   attribute: IJsonSchemaAttribute;
-  metadata: Metadata;
+  metadata: MetadataSchema;
 }): BlockNever extends true
   ? OpenApi.IJsonSchema | null
   : OpenApi.IJsonSchema => {

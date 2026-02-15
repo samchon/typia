@@ -1,4 +1,4 @@
-import { IReadableURLSearchParams } from "../IReadableURLSearchParams";
+import { IReadableURLSearchParams } from "@typia/interface";
 
 export const _httpQueryParseURLSearchParams = (
   input: string | IReadableURLSearchParams,

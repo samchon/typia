@@ -1,16 +1,12 @@
+import { IJsonSchemaCollection } from "@typia/interface";
 import ts from "typescript";
 
 import { LiteralFactory } from "../../../factories/LiteralFactory";
-import { MetadataCollection } from "../../../factories/MetadataCollection";
+import { MetadataComponents } from "../../../factories/MetadataComponents";
 import { MetadataFactory } from "../../../factories/MetadataFactory";
-
-import { IJsonSchemaCollection } from "../../../schemas/json/IJsonSchemaCollection";
-import { Metadata } from "../../../schemas/metadata/Metadata";
-
 import { JsonSchemasProgrammer } from "../../../programmers/json/JsonSchemasProgrammer";
-
+import { MetadataSchema } from "../../../schemas/metadata/MetadataSchema";
 import { ValidationPipe } from "../../../typings/ValidationPipe";
-
 import { ITransformProps } from "../../ITransformProps";
 import { TransformerError } from "../../TransformerError";
 
@@ -56,8 +52,8 @@ export namespace JsonSchemasTransformer {
     // GENERATORS
     //----
     // METADATA
-    const analyze = (validate: boolean): Metadata[] => {
-      const results: ValidationPipe<Metadata, MetadataFactory.IError>[] =
+    const analyze = (validate: boolean): MetadataSchema[] => {
+      const results: ValidationPipe<MetadataSchema, MetadataFactory.IError>[] =
         types.map((type) =>
           MetadataFactory.analyze({
             checker: props.context.checker,
@@ -69,13 +65,13 @@ export namespace JsonSchemasTransformer {
               validate:
                 validate === true ? JsonSchemasProgrammer.validate : undefined,
             },
-            collection: new MetadataCollection({
-              replace: MetadataCollection.replace,
+            components: new MetadataComponents({
+              replace: MetadataComponents.replace,
             }),
             type,
           }),
         );
-      const metadatas: Metadata[] = [];
+      const metadatas: MetadataSchema[] = [];
       const errors: MetadataFactory.IError[] = [];
       for (const r of results) {
         if (r.success === false) errors.push(...r.errors);

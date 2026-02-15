@@ -3,6 +3,15 @@
   "version": "6.0.0",
   "description": "Universal OpenAPI to LLM function calling schemas. Transform any Swagger/OpenAPI document into type-safe schemas for OpenAI, Claude, Qwen, and more.",
   "main": "src/index.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./lib/index.mjs",
+      "require": "./lib/index.js",
+      "default": "./lib/index.js"
+    },
+    "./package.json": "./package.json"
+  },
   "scripts": {
     "prepare": "ts-patch install",
     "build": "rimraf lib && tsc && rollup -c && ts-node build/post.ts",

@@ -1,7 +1,6 @@
-import { ClassProperties } from "../../typings/ClassProperties";
+import { IMetadataSchema, IMetadataTypeTag } from "@typia/interface";
 
-import { IMetadataAtomic } from "./IMetadataAtomic";
-import { IMetadataTypeTag } from "./IMetadataTypeTag";
+import { ClassProperties } from "../../typings/ClassProperties";
 
 export class MetadataAtomic {
   public readonly type: "boolean" | "bigint" | "number" | "string";
@@ -19,7 +18,7 @@ export class MetadataAtomic {
     return new MetadataAtomic(props);
   }
 
-  public static from(json: IMetadataAtomic): MetadataAtomic {
+  public static from(json: IMetadataSchema.IAtomic): MetadataAtomic {
     return MetadataAtomic.create({
       type: json.type,
       tags: json.tags.map((row) =>
@@ -45,7 +44,7 @@ export class MetadataAtomic {
     return (this.name_ ??= getName(this));
   }
 
-  public toJSON(): IMetadataAtomic {
+  public toJSON(): IMetadataSchema.IAtomic {
     return {
       type: this.type,
       tags: this.tags.map((row) =>

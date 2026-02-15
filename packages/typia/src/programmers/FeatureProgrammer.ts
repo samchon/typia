@@ -1,17 +1,14 @@
 import ts from "typescript";
 
 import { IdentifierFactory } from "../factories/IdentifierFactory";
-import { MetadataCollection } from "../factories/MetadataCollection";
+import { MetadataComponents } from "../factories/MetadataComponents";
 import { StatementFactory } from "../factories/StatementFactory";
 import { TypeFactory } from "../factories/TypeFactory";
 import { ValueFactory } from "../factories/ValueFactory";
-
-import { Metadata } from "../schemas/metadata/Metadata";
 import { MetadataArray } from "../schemas/metadata/MetadataArray";
 import { MetadataObjectType } from "../schemas/metadata/MetadataObjectType";
-
+import { MetadataSchema } from "../schemas/metadata/MetadataSchema";
 import { ITypiaContext } from "../transformers/ITypiaContext";
-
 import { CheckerProgrammer } from "./CheckerProgrammer";
 import { FunctionProgrammer } from "./helpers/FunctionProgrammer";
 import { IExpressionEntry } from "./helpers/IExpressionEntry";
@@ -34,7 +31,7 @@ export namespace FeatureProgrammer {
     /** Whether to trace exception or not. */
     trace: boolean;
 
-    addition?: undefined | ((collection: MetadataCollection) => ts.Statement[]);
+    addition?: undefined | ((collection: MetadataComponents) => ts.Statement[]);
 
     /** Initializer of metadata. */
     initializer: (props: {
@@ -42,13 +39,13 @@ export namespace FeatureProgrammer {
       functor: FunctionProgrammer;
       type: ts.Type;
     }) => {
-      collection: MetadataCollection;
-      metadata: Metadata;
+      collection: MetadataComponents;
+      metadata: MetadataSchema;
     };
 
     /** Decoder, station of every types. */
     decoder: (props: {
-      metadata: Metadata;
+      metadata: MetadataSchema;
       input: ts.Expression;
       explore: IExplore;
     }) => Output;
@@ -68,7 +65,7 @@ export namespace FeatureProgrammer {
     export interface IObjector<Output extends ts.ConciseBody = ts.ConciseBody> {
       /** Type checker when union object type comes. */
       checker: (props: {
-        metadata: Metadata;
+        metadata: MetadataSchema;
         input: ts.Expression;
         explore: IExplore;
       }) => ts.Expression;
@@ -168,12 +165,12 @@ export namespace FeatureProgrammer {
     export interface IGenerator {
       objects?:
         | undefined
-        | ((collection: MetadataCollection) => ts.VariableStatement[]);
+        | ((collection: MetadataComponents) => ts.VariableStatement[]);
       unions?:
         | undefined
-        | ((collection: MetadataCollection) => ts.VariableStatement[]);
-      arrays: (collection: MetadataCollection) => ts.VariableStatement[];
-      tuples: (collection: MetadataCollection) => ts.VariableStatement[];
+        | ((collection: MetadataComponents) => ts.VariableStatement[]);
+      arrays: (collection: MetadataComponents) => ts.VariableStatement[];
+      tuples: (collection: MetadataComponents) => ts.VariableStatement[];
     }
   }
 
@@ -380,7 +377,7 @@ export namespace FeatureProgrammer {
   export const write_object_functions = (props: {
     config: IConfig;
     context: ITypiaContext;
-    collection: MetadataCollection;
+    collection: MetadataComponents;
   }) =>
     props.collection.objects().map((object) =>
       StatementFactory.constant({
@@ -411,7 +408,7 @@ export namespace FeatureProgrammer {
 
   export const write_union_functions = (props: {
     config: IConfig;
-    collection: MetadataCollection;
+    collection: MetadataComponents;
   }) =>
     props.collection.unions().map((union, i) =>
       StatementFactory.constant({

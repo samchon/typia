@@ -1,15 +1,14 @@
-import { Metadata } from "../../../schemas/metadata/Metadata";
 import { MetadataArrayType } from "../../../schemas/metadata/MetadataArrayType";
 import { MetadataObjectType } from "../../../schemas/metadata/MetadataObjectType";
+import { MetadataSchema } from "../../../schemas/metadata/MetadataSchema";
 import { MetadataTupleType } from "../../../schemas/metadata/MetadataTupleType";
-
-import { MetadataCollection } from "../../MetadataCollection";
+import { MetadataComponents } from "../../MetadataComponents";
 import { MetadataFactory } from "../../MetadataFactory";
 import { iterate_metadata_comment_tags } from "./iterate_metadata_comment_tags";
 
 export const iterate_metadata_collection = (props: {
   errors: MetadataFactory.IError[];
-  collection: MetadataCollection;
+  collection: MetadataComponents;
 }): void => {
   for (const array of props.collection.arrays())
     if (array.recursive === null)
@@ -23,7 +22,7 @@ export const iterate_metadata_collection = (props: {
       );
   for (const tuple of props.collection.tuples())
     if (tuple.recursive === null) {
-      const visited: Set<Metadata> = new Set();
+      const visited: Set<MetadataSchema> = new Set();
       props.collection.setTupleRecursive(
         tuple,
         tuple.elements.some((e) =>
@@ -41,7 +40,7 @@ export const iterate_metadata_collection = (props: {
       object,
     });
     if (object.recursive === null) {
-      const visited: Set<Metadata> = new Set();
+      const visited: Set<MetadataSchema> = new Set();
       props.collection.setObjectRecursive(
         object,
         object.properties.some((p) =>
@@ -57,14 +56,14 @@ export const iterate_metadata_collection = (props: {
 };
 
 const isArrayRecursive = (props: {
-  visited: Set<Metadata>;
+  visited: Set<MetadataSchema>;
   array: MetadataArrayType;
-  metadata: Metadata;
+  metadata: MetadataSchema;
 }): boolean => {
   if (props.visited.has(props.metadata)) return false;
   props.visited.add(props.metadata);
 
-  const next = (metadata: Metadata): boolean =>
+  const next = (metadata: MetadataSchema): boolean =>
     isArrayRecursive({
       ...props,
       metadata,
@@ -85,14 +84,14 @@ const isArrayRecursive = (props: {
 };
 
 const isTupleRecursive = (props: {
-  visited: Set<Metadata>;
+  visited: Set<MetadataSchema>;
   tuple: MetadataTupleType;
-  metadata: Metadata;
+  metadata: MetadataSchema;
 }): boolean => {
   if (props.visited.has(props.metadata)) return false;
   props.visited.add(props.metadata);
 
-  const next = (metadata: Metadata): boolean =>
+  const next = (metadata: MetadataSchema): boolean =>
     isTupleRecursive({
       ...props,
       metadata,
@@ -113,14 +112,14 @@ const isTupleRecursive = (props: {
 };
 
 const isObjectRecursive = (props: {
-  visited: Set<Metadata>;
+  visited: Set<MetadataSchema>;
   object: MetadataObjectType;
-  metadata: Metadata;
+  metadata: MetadataSchema;
 }): boolean => {
   if (props.visited.has(props.metadata)) return false;
   props.visited.add(props.metadata);
 
-  const next = (metadata: Metadata): boolean =>
+  const next = (metadata: MetadataSchema): boolean =>
     isObjectRecursive({
       ...props,
       metadata,

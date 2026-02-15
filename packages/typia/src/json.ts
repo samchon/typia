@@ -1,12 +1,13 @@
-import { IJsonSchemaApplication } from "./schemas/json/IJsonSchemaApplication";
-import { IJsonSchemaCollection } from "./schemas/json/IJsonSchemaCollection";
-import { IJsonSchemaUnit } from "./schemas/json/IJsonSchemaUnit";
+import {
+  IJsonSchemaApplication,
+  IJsonSchemaCollection,
+  IJsonSchemaUnit,
+  IValidation,
+  Primitive,
+} from "@typia/interface";
 
-import { NoTransformConfigurationError } from "./transformers/NoTransformConfigurationError";
-
-import { IValidation } from "./IValidation";
-import { Primitive } from "./Primitive";
 import { TypeGuardError } from "./TypeGuardError";
+import { NoTransformConfigurationError } from "./transformers/NoTransformConfigurationError";
 
 /* ===========================================================
     JSON

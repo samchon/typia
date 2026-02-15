@@ -1,10 +1,8 @@
 import ts from "typescript";
 
-import { Metadata } from "../../../schemas/metadata/Metadata";
 import { MetadataEscaped } from "../../../schemas/metadata/MetadataEscaped";
-
+import { MetadataSchema } from "../../../schemas/metadata/MetadataSchema";
 import { Writable } from "../../../typings/Writable";
-
 import { TypeFactory } from "../../TypeFactory";
 import { IMetadataIteratorProps } from "./IMetadataIteratorProps";
 import { iterate_metadata } from "./iterate_metadata";
@@ -24,8 +22,8 @@ export const iterate_metadata_escape = (
 
   if (props.metadata.escaped === null) {
     Writable(props.metadata).escaped = MetadataEscaped.create({
-      original: Metadata.initialize(),
-      returns: Metadata.initialize(),
+      original: MetadataSchema.initialize(),
+      returns: MetadataSchema.initialize(),
     });
   }
   iterate_metadata({

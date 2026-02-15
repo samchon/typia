@@ -1,8 +1,7 @@
 import ts from "typescript";
 
-import { Metadata } from "../../../schemas/metadata/Metadata";
+import { MetadataSchema } from "../../../schemas/metadata/MetadataSchema";
 import { MetadataTemplate } from "../../../schemas/metadata/MetadataTemplate";
-
 import { IMetadataIteratorProps } from "./IMetadataIteratorProps";
 import { MetadataHelper } from "./MetadataHelper";
 import { explore_metadata } from "./explore_metadata";
@@ -14,7 +13,7 @@ export const iterate_metadata_template = (
   if (!filter(ts.TypeFlags.TemplateLiteral)) return false;
 
   const template: ts.TemplateLiteralType = props.type as ts.TemplateLiteralType;
-  const row: Metadata[] = [];
+  const row: MetadataSchema[] = [];
 
   template.texts.forEach((text, i) => {
     // TEXT LITERAL TYPE

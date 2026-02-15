@@ -2,15 +2,12 @@ import ts from "typescript";
 
 import { ExpressionFactory } from "../factories/ExpressionFactory";
 import { IdentifierFactory } from "../factories/IdentifierFactory";
-import { MetadataCollection } from "../factories/MetadataCollection";
+import { MetadataComponents } from "../factories/MetadataComponents";
 import { ValueFactory } from "../factories/ValueFactory";
-
-import { Metadata } from "../schemas/metadata/Metadata";
 import { MetadataObjectType } from "../schemas/metadata/MetadataObjectType";
-
+import { MetadataSchema } from "../schemas/metadata/MetadataSchema";
 import { IProgrammerProps } from "../transformers/IProgrammerProps";
 import { ITypiaContext } from "../transformers/ITypiaContext";
-
 import { CheckerProgrammer } from "./CheckerProgrammer";
 import { FeatureProgrammer } from "./FeatureProgrammer";
 import { FunctionProgrammer } from "./helpers/FunctionProgrammer";
@@ -183,7 +180,7 @@ export namespace IsProgrammer {
   export const write_function_statements = (props: {
     context: ITypiaContext;
     functor: FunctionProgrammer;
-    collection: MetadataCollection;
+    collection: MetadataComponents;
   }) => {
     const config: CheckerProgrammer.IConfig = configure(props);
     const next = {
@@ -221,7 +218,7 @@ export namespace IsProgrammer {
   export const decode = (props: {
     context: ITypiaContext;
     functor: FunctionProgrammer;
-    metadata: Metadata;
+    metadata: MetadataSchema;
     input: ts.Expression;
     explore: CheckerProgrammer.IExplore;
   }) =>

@@ -1,9 +1,8 @@
-import { Metadata } from "../../../schemas/metadata/Metadata";
 import { MetadataAtomic } from "../../../schemas/metadata/MetadataAtomic";
-
+import { MetadataSchema } from "../../../schemas/metadata/MetadataSchema";
 import { ArrayUtil } from "../../../utils/ArrayUtil";
 
-export const emend_metadata_atomics = (meta: Metadata) => {
+export const emend_metadata_atomics = (meta: MetadataSchema) => {
   // ATOMICS
   for (const a of meta.atomics) {
     if (is_not_pure(a)) continue;

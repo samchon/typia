@@ -1,19 +1,15 @@
-import { ILlmApplication, ILlmSchema } from "@samchon/openapi";
+import { ILlmApplication, ILlmSchema } from "@typia/interface";
 import ts from "typescript";
 
 import { ExpressionFactory } from "../../../factories/ExpressionFactory";
 import { LiteralFactory } from "../../../factories/LiteralFactory";
-import { MetadataCollection } from "../../../factories/MetadataCollection";
+import { MetadataComponents } from "../../../factories/MetadataComponents";
 import { MetadataFactory } from "../../../factories/MetadataFactory";
 import { StatementFactory } from "../../../factories/StatementFactory";
-
-import { Metadata } from "../../../schemas/metadata/Metadata";
-
 import { LlmApplicationProgrammer } from "../../../programmers/llm/LlmApplicationProgrammer";
 import { LlmMetadataFactory } from "../../../programmers/llm/LlmMetadataFactory";
-
+import { MetadataSchema } from "../../../schemas/metadata/MetadataSchema";
 import { ValidationPipe } from "../../../typings/ValidationPipe";
-
 import { ITransformProps } from "../../ITransformProps";
 import { ITypiaContext } from "../../ITypiaContext";
 import { TransformerError } from "../../TransformerError";
@@ -96,8 +92,8 @@ export namespace LlmApplicationTransformer {
     const type: ts.Type = props.context.checker.getTypeFromTypeNode(top);
 
     // VALIDATE TYPE
-    const analyze = (validate: boolean): Metadata => {
-      const result: ValidationPipe<Metadata, MetadataFactory.IError> =
+    const analyze = (validate: boolean): MetadataSchema => {
+      const result: ValidationPipe<MetadataSchema, MetadataFactory.IError> =
         MetadataFactory.analyze({
           checker: props.context.checker,
           transformer: props.context.transformer,
@@ -116,8 +112,8 @@ export namespace LlmApplicationTransformer {
                     })
                 : undefined,
           },
-          collection: new MetadataCollection({
-            replace: MetadataCollection.replace,
+          components: new MetadataComponents({
+            replace: MetadataComponents.replace,
           }),
           type,
         });

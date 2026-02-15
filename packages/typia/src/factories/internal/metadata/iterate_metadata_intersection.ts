@@ -1,9 +1,8 @@
-// import ts from "typescript";
-import { IMetadataTypeTag } from "../../../schemas/metadata/IMetadataTypeTag";
-import { Metadata } from "../../../schemas/metadata/Metadata";
-import { MetadataObjectType } from "../../../schemas/metadata/MetadataObjectType";
+import { IMetadataTypeTag } from "@typia/interface";
 
-import { MetadataCollection } from "../../MetadataCollection";
+import { MetadataObjectType } from "../../../schemas/metadata/MetadataObjectType";
+import { MetadataSchema } from "../../../schemas/metadata/MetadataSchema";
+import { MetadataComponents } from "../../MetadataComponents";
 import { MetadataFactory } from "../../MetadataFactory";
 import { MetadataTypeTagFactory } from "../../MetadataTypeTagFactory";
 import { IMetadataIteratorProps } from "./IMetadataIteratorProps";
@@ -17,11 +16,11 @@ export const iterate_metadata_intersection = (
   else if (props.type.isIntersection() === false) return false;
 
   // CONSTRUCT FAKE METADATA LIST
-  const commit: MetadataCollection = props.collection.clone();
-  props.collection["options"] = undefined;
+  const commit: MetadataComponents = props.components.clone();
+  props.components["options"] = undefined;
 
   const fakeErrors: MetadataFactory.IError[] = [];
-  const children: Metadata[] = props.type.types.map((t) =>
+  const children: MetadataSchema[] = props.type.types.map((t) =>
     explore_metadata({
       ...props,
       options: {
@@ -29,7 +28,7 @@ export const iterate_metadata_intersection = (
         absorb: true,
         functional: false,
       },
-      collection: props.collection,
+      components: props.components,
       errors: fakeErrors,
       type: t,
       explore: {
@@ -42,7 +41,7 @@ export const iterate_metadata_intersection = (
 
   // ERROR OR ANY TYPE CASE
   const escape = (out: boolean) => {
-    Object.assign(props.collection, commit);
+    Object.assign(props.components, commit);
     return out;
   };
   if (fakeErrors.length) {
@@ -54,7 +53,7 @@ export const iterate_metadata_intersection = (
 
   // PREPARE MEATDATAS AND TAGS
   const indexes: number[] = [];
-  const metadatas: Metadata[] = [];
+  const metadatas: MetadataSchema[] = [];
   const tagObjects: MetadataObjectType[] = [];
   children.forEach((child, i) => {
     if (
@@ -192,7 +191,7 @@ export const iterate_metadata_intersection = (
     objects: tagObjects,
     explore: props.explore,
   });
-  Object.assign(props.collection, commit);
+  Object.assign(props.components, commit);
   iterate_metadata({
     ...props,
     type: props.type.types[indexes[0]!]!,

@@ -1,9 +1,7 @@
 import ts from "typescript";
 
-import { Metadata } from "../../schemas/metadata/Metadata";
-
+import { MetadataSchema } from "../../schemas/metadata/MetadataSchema";
 import { ITypiaContext } from "../../transformers/ITypiaContext";
-
 import { ICheckEntry } from "../helpers/ICheckEntry";
 import { check_bigint } from "./check_bigint";
 import { check_number } from "./check_number";
@@ -13,7 +11,7 @@ import { check_template } from "./check_template";
 /** @internal */
 export const check_dynamic_key = (props: {
   context: ITypiaContext;
-  metadata: Metadata;
+  metadata: MetadataSchema;
   input: ts.Expression;
 }): ts.Expression => {
   // IF PURE STRING EXISTS, THEN SKIP VALIDATION

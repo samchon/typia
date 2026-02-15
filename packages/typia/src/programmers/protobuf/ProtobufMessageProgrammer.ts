@@ -1,17 +1,14 @@
 import ts from "typescript";
 
 import { IdentifierFactory } from "../../factories/IdentifierFactory";
-import { MetadataCollection } from "../../factories/MetadataCollection";
+import { MetadataComponents } from "../../factories/MetadataComponents";
 import { ProtobufFactory } from "../../factories/ProtobufFactory";
-
-import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
+import { MetadataSchema } from "../../schemas/metadata/MetadataSchema";
 import { IProtobufProperty } from "../../schemas/protobuf/IProtobufProperty";
 import { IProtobufPropertyType } from "../../schemas/protobuf/IProtobufPropertyType";
 import { IProtobufSchema } from "../../schemas/protobuf/IProtobufSchema";
-
 import { ITypiaContext } from "../../transformers/ITypiaContext";
-
 import { MapUtil } from "../../utils/MapUtil";
 import { ProtobufNameEncoder } from "../../utils/ProtobufNameEncoder";
 
@@ -22,12 +19,12 @@ export namespace ProtobufMessageProgrammer {
   }
   export const write = (props: IProps) => {
     // PARSE TARGET TYPE
-    const collection: MetadataCollection = new MetadataCollection();
+    const collection: MetadataComponents = new MetadataComponents();
     ProtobufFactory.metadata({
       method: "message",
       checker: props.context.checker,
       transformer: props.context.transformer,
-      collection,
+      components: collection,
       type: props.type,
     });
 
@@ -125,7 +122,7 @@ export namespace ProtobufMessageProgrammer {
   ----------------------------------------------------------- */
   const decodeProperty = (props: {
     key: string;
-    value: Metadata;
+    value: MetadataSchema;
     union: IProtobufPropertyType[];
   }): string => {
     if (props.union.length === 1) {

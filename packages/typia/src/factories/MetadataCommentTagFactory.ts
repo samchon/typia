@@ -1,11 +1,9 @@
+import { IMetadataTypeTag } from "@typia/interface";
 import ts from "typescript";
 
-import { IMetadataTypeTag } from "../schemas/metadata/IMetadataTypeTag";
-import { Metadata } from "../schemas/metadata/Metadata";
-
-import { Writable } from "../typings/Writable";
-
+import { MetadataSchema } from "../schemas/metadata/MetadataSchema";
 import { FormatCheatSheet } from "../tags/internal/FormatCheatSheet";
+import { Writable } from "../typings/Writable";
 import { MetadataFactory } from "./MetadataFactory";
 import { MetadataTypeTagFactory } from "./MetadataTypeTagFactory";
 
@@ -13,7 +11,7 @@ import { MetadataTypeTagFactory } from "./MetadataTypeTagFactory";
 export namespace MetadataCommentTagFactory {
   export const analyze = (props: {
     errors: MetadataFactory.IError[];
-    metadata: Metadata;
+    metadata: MetadataSchema;
     tags: ts.JSDocTagInfo[];
     explore: MetadataFactory.IExplore;
   }): void => {

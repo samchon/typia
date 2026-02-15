@@ -1,14 +1,13 @@
-import { ClassProperties } from "../../typings/ClassProperties";
+import { IJsDocTagInfo, IMetadataSchema } from "@typia/interface";
 
+import { ClassProperties } from "../../typings/ClassProperties";
 import { IProtobufProperty } from "../protobuf/IProtobufProperty";
-import { IJsDocTagInfo } from "./IJsDocTagInfo";
 import { IMetadataDictionary } from "./IMetadataDictionary";
-import { IMetadataProperty } from "./IMetadataProperty";
-import { Metadata } from "./Metadata";
+import { MetadataSchema } from "./MetadataSchema";
 
 export class MetadataProperty {
-  public readonly key: Metadata;
-  public readonly value: Metadata;
+  public readonly key: MetadataSchema;
+  public readonly value: MetadataSchema;
   public readonly description: string | null;
   public readonly jsDocTags: IJsDocTagInfo[];
   public readonly mutability?: "readonly" | null | undefined;
@@ -35,17 +34,20 @@ export class MetadataProperty {
   }
 
   /** @internal */
-  public static from(property: IMetadataProperty, dict: IMetadataDictionary) {
+  public static from(
+    property: IMetadataSchema.IProperty,
+    dict: IMetadataDictionary,
+  ) {
     return MetadataProperty.create({
-      key: Metadata.from(property.key, dict),
-      value: Metadata.from(property.value, dict),
+      key: MetadataSchema.from(property.key, dict),
+      value: MetadataSchema.from(property.value, dict),
       description: property.description,
       jsDocTags: property.jsDocTags.slice(),
       mutability: property.mutability,
     });
   }
 
-  public toJSON(): IMetadataProperty {
+  public toJSON(): IMetadataSchema.IProperty {
     return {
       key: this.key.toJSON(),
       value: this.value.toJSON(),

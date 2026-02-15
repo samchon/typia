@@ -2,24 +2,21 @@ import ts from "typescript";
 
 import { ExpressionFactory } from "../factories/ExpressionFactory";
 import { IdentifierFactory } from "../factories/IdentifierFactory";
-import { MetadataCollection } from "../factories/MetadataCollection";
+import { MetadataComponents } from "../factories/MetadataComponents";
 import { MetadataFactory } from "../factories/MetadataFactory";
 import { StatementFactory } from "../factories/StatementFactory";
 import { TypeFactory } from "../factories/TypeFactory";
 import { ValueFactory } from "../factories/ValueFactory";
-
-import { Metadata } from "../schemas/metadata/Metadata";
 import { MetadataArray } from "../schemas/metadata/MetadataArray";
 import { MetadataConstant } from "../schemas/metadata/MetadataConstant";
 import { MetadataMap } from "../schemas/metadata/MetadataMap";
 import { MetadataObjectType } from "../schemas/metadata/MetadataObjectType";
+import { MetadataSchema } from "../schemas/metadata/MetadataSchema";
 import { MetadataSet } from "../schemas/metadata/MetadataSet";
 import { MetadataTuple } from "../schemas/metadata/MetadataTuple";
 import { MetadataTupleType } from "../schemas/metadata/MetadataTupleType";
-
 import { ITypiaContext } from "../transformers/ITypiaContext";
 import { TransformerError } from "../transformers/TransformerError";
-
 import { FeatureProgrammer } from "./FeatureProgrammer";
 import { IsProgrammer } from "./IsProgrammer";
 import { AtomicPredicator } from "./helpers/AtomicPredicator";
@@ -47,7 +44,7 @@ export namespace CheckerProgrammer {
     numeric: boolean;
     addition?: () => ts.Statement[];
     decoder?: (props: {
-      metadata: Metadata;
+      metadata: MetadataSchema;
       input: ts.Expression;
       explore: IExplore;
     }) => ts.Expression;
@@ -139,7 +136,7 @@ export namespace CheckerProgrammer {
     context: ITypiaContext;
     config: IConfig;
     functor: FunctionProgrammer;
-    collection: MetadataCollection;
+    collection: MetadataComponents;
   }): ts.VariableStatement[] =>
     FeatureProgrammer.write_object_functions({
       config: configure(props),
@@ -151,7 +148,7 @@ export namespace CheckerProgrammer {
     context: ITypiaContext;
     config: IConfig;
     functor: FunctionProgrammer;
-    collection: MetadataCollection;
+    collection: MetadataComponents;
   }): ts.VariableStatement[] =>
     FeatureProgrammer.write_union_functions({
       config: configure({
@@ -169,7 +166,7 @@ export namespace CheckerProgrammer {
     context: ITypiaContext;
     config: IConfig;
     functor: FunctionProgrammer;
-    collection: MetadataCollection;
+    collection: MetadataComponents;
   }): ts.VariableStatement[] =>
     props.collection
       .arrays()
@@ -209,7 +206,7 @@ export namespace CheckerProgrammer {
     context: ITypiaContext;
     config: IConfig;
     functor: FunctionProgrammer;
-    collection: MetadataCollection;
+    collection: MetadataComponents;
   }): ts.VariableStatement[] =>
     props.collection
       .tuples()
@@ -265,7 +262,7 @@ export namespace CheckerProgrammer {
     path: props.config.path,
     prefix: props.config.prefix,
     initializer: (next) => {
-      const collection: MetadataCollection = new MetadataCollection();
+      const collection: MetadataComponents = new MetadataComponents();
       const result = MetadataFactory.analyze({
         checker: next.context.checker,
         transformer: next.context.transformer,
@@ -274,7 +271,7 @@ export namespace CheckerProgrammer {
           constant: true,
           absorb: true,
         },
-        collection,
+        components: collection,
         type: next.type,
       });
       if (result.success === false)
@@ -412,7 +409,7 @@ export namespace CheckerProgrammer {
     config: IConfig;
     functor: FunctionProgrammer;
     input: ts.Expression;
-    metadata: Metadata;
+    metadata: MetadataSchema;
     explore: IExplore;
   }): ts.Expression => {
     if (props.metadata.any) return props.config.success;
@@ -1195,7 +1192,7 @@ export namespace CheckerProgrammer {
     config: IConfig;
     context: ITypiaContext;
     functor: FunctionProgrammer;
-    metadata: Metadata;
+    metadata: MetadataSchema;
     input: ts.Expression;
     explore: IExplore;
   }): ts.Expression =>
@@ -1578,7 +1575,7 @@ export namespace CheckerProgrammer {
     config: IConfig;
     functor: FunctionProgrammer;
     input: ts.Expression;
-    metadata: Metadata;
+    metadata: MetadataSchema;
     explore: IExplore;
   }) =>
     props.metadata.objects.length === 1

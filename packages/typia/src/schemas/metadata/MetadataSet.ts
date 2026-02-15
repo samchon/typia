@@ -1,11 +1,10 @@
-import { ClassProperties } from "../../typings/ClassProperties";
+import { IMetadataSchema, IMetadataTypeTag } from "@typia/interface";
 
-import { IMetadataSet } from "./IMetadataSet";
-import { IMetadataTypeTag } from "./IMetadataTypeTag";
-import { Metadata } from "./Metadata";
+import { ClassProperties } from "../../typings/ClassProperties";
+import { MetadataSchema } from "./MetadataSchema";
 
 export class MetadataSet {
-  public readonly value: Metadata;
+  public readonly value: MetadataSchema;
   public readonly tags: IMetadataTypeTag[][];
   private name_?: string;
 
@@ -36,7 +35,7 @@ export class MetadataSet {
     })());
   }
 
-  public toJSON(): IMetadataSet {
+  public toJSON(): IMetadataSchema.ISet {
     return {
       value: this.value.toJSON(),
       tags: this.tags,

@@ -1,6 +1,4 @@
-import { OpenApi } from "@samchon/openapi";
-
-import { IMetadataTypeTag } from "../../schemas/metadata/IMetadataTypeTag";
+import { IMetadataTypeTag, OpenApi } from "@typia/interface";
 
 export const json_schema_plugin = <Schema extends OpenApi.IJsonSchema>(props: {
   schema: Schema;
