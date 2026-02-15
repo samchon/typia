@@ -2,11 +2,11 @@ import { IJsonSchemaUnit } from "@typia/interface";
 import ts from "typescript";
 
 import { LiteralFactory } from "../../../factories/LiteralFactory";
-import { MetadataCollection } from "../../../factories/MetadataCollection";
+import { MetadataComponents } from "../../../factories/MetadataComponents";
 import { MetadataFactory } from "../../../factories/MetadataFactory";
 import { JsonSchemaProgrammer } from "../../../programmers/json/JsonSchemaProgrammer";
 import { JsonSchemasProgrammer } from "../../../programmers/json/JsonSchemasProgrammer";
-import { Metadata } from "../../../schemas/metadata/Metadata";
+import { MetadataSchema } from "../../../schemas/metadata/MetadataSchema";
 import { ValidationPipe } from "../../../typings/ValidationPipe";
 import { ITransformProps } from "../../ITransformProps";
 import { TransformerError } from "../../TransformerError";
@@ -50,8 +50,8 @@ export namespace JsonSchemaTransformer {
     // GENERATORS
     //----
     // METADATA
-    const analyze = (validate: boolean): Metadata => {
-      const results: ValidationPipe<Metadata, MetadataFactory.IError> =
+    const analyze = (validate: boolean): MetadataSchema => {
+      const results: ValidationPipe<MetadataSchema, MetadataFactory.IError> =
         MetadataFactory.analyze({
           checker: props.context.checker,
           transformer: props.context.transformer,
@@ -62,8 +62,8 @@ export namespace JsonSchemaTransformer {
             validate:
               validate === true ? JsonSchemasProgrammer.validate : undefined,
           },
-          collection: new MetadataCollection({
-            replace: MetadataCollection.replace,
+          components: new MetadataComponents({
+            replace: MetadataComponents.replace,
           }),
           type,
         });

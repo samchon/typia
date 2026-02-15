@@ -2,16 +2,14 @@ import ts from "typescript";
 
 import { ExpressionFactory } from "../../factories/ExpressionFactory";
 import { IdentifierFactory } from "../../factories/IdentifierFactory";
-
-import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataArray } from "../../schemas/metadata/MetadataArray";
 import { MetadataArrayType } from "../../schemas/metadata/MetadataArrayType";
 import { MetadataMap } from "../../schemas/metadata/MetadataMap";
 import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
+import { MetadataSchema } from "../../schemas/metadata/MetadataSchema";
 import { MetadataSet } from "../../schemas/metadata/MetadataSet";
 import { MetadataTuple } from "../../schemas/metadata/MetadataTuple";
 import { MetadataTupleType } from "../../schemas/metadata/MetadataTupleType";
-
 import { FeatureProgrammer } from "../FeatureProgrammer";
 import { check_union_array_like } from "../internal/check_union_array_like";
 import { UnionPredicator } from "./UnionPredicator";
@@ -179,7 +177,7 @@ export namespace UnionExplorer {
     arrays: MetadataArray[];
     explore: FeatureProgrammer.IExplore;
   }) =>
-    check_union_array_like<MetadataArray, MetadataArray, Metadata>({
+    check_union_array_like<MetadataArray, MetadataArray, MetadataSchema>({
       config: props.config,
       accessor: {
         transform: (x) => x,
@@ -197,7 +195,7 @@ export namespace UnionExplorer {
   export namespace array {
     export type IConfig = check_union_array_like.IConfig<
       MetadataArray,
-      Metadata
+      MetadataSchema
     >;
   }
 
@@ -211,7 +209,7 @@ export namespace UnionExplorer {
     check_union_array_like<
       MetadataArray | MetadataTuple,
       MetadataArray | MetadataTuple,
-      Metadata | MetadataTuple
+      MetadataSchema | MetadataTuple
     >({
       config: props.config,
       accessor: {
@@ -230,7 +228,7 @@ export namespace UnionExplorer {
   export namespace array_or_tuple {
     export type IConfig = check_union_array_like.IConfig<
       MetadataArray | MetadataTuple,
-      Metadata | MetadataTuple
+      MetadataSchema | MetadataTuple
     >;
   }
 
@@ -241,10 +239,10 @@ export namespace UnionExplorer {
     sets: MetadataSet[];
     explore: FeatureProgrammer.IExplore;
   }) =>
-    check_union_array_like<Metadata, MetadataArray, Metadata>({
+    check_union_array_like<MetadataSchema, MetadataArray, MetadataSchema>({
       config: props.config,
       accessor: {
-        transform: (value: Metadata) =>
+        transform: (value: MetadataSchema) =>
           MetadataArray.create({
             tags: [],
             type: MetadataArrayType.create({
@@ -288,7 +286,7 @@ export namespace UnionExplorer {
   export namespace set {
     export type IConfig = check_union_array_like.IConfig<
       MetadataArray,
-      Metadata
+      MetadataSchema
     >;
   }
 
@@ -299,11 +297,18 @@ export namespace UnionExplorer {
     maps: MetadataMap[];
     explore: FeatureProgrammer.IExplore;
   }) =>
-    check_union_array_like<MetadataMap, MetadataArray, [Metadata, Metadata]>({
+    check_union_array_like<
+      MetadataMap,
+      MetadataArray,
+      [MetadataSchema, MetadataSchema]
+    >({
       config: props.config,
       accessor: {
         element: (array) =>
-          array.type.value.tuples[0]!.type.elements as [Metadata, Metadata],
+          array.type.value.tuples[0]!.type.elements as [
+            MetadataSchema,
+            MetadataSchema,
+          ],
         size: (input) => IdentifierFactory.access(input, "size"),
         front: (input) =>
           IdentifierFactory.access(
@@ -335,8 +340,8 @@ export namespace UnionExplorer {
               index: null,
               recursive: false,
               nullables: [],
-              value: Metadata.create({
-                ...Metadata.initialize(),
+              value: MetadataSchema.create({
+                ...MetadataSchema.initialize(),
                 tuples: [
                   (() => {
                     const tuple = MetadataTuple.create({
@@ -366,7 +371,7 @@ export namespace UnionExplorer {
   export namespace map {
     export type IConfig = check_union_array_like.IConfig<
       MetadataArray,
-      [Metadata, Metadata]
+      [MetadataSchema, MetadataSchema]
     >;
   }
 }

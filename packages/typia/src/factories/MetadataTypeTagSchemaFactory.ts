@@ -1,5 +1,5 @@
-import { Metadata } from "../schemas/metadata/Metadata";
 import { MetadataObjectType } from "../schemas/metadata/MetadataObjectType";
+import { MetadataSchema } from "../schemas/metadata/MetadataSchema";
 
 export namespace MetadataTypeTagSchemaFactory {
   export const object = (props: {
@@ -33,7 +33,7 @@ export namespace MetadataTypeTagSchemaFactory {
     report: (message: string) => false;
     object: MetadataObjectType;
     key: string;
-    metadata: Metadata;
+    metadata: MetadataSchema;
   }): any => {
     if (
       props.metadata.any ||

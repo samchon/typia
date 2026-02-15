@@ -1,18 +1,14 @@
 import ts from "typescript";
 
 import { IdentifierFactory } from "../../factories/IdentifierFactory";
-import { MetadataCollection } from "../../factories/MetadataCollection";
+import { MetadataComponents } from "../../factories/MetadataComponents";
 import { MetadataFactory } from "../../factories/MetadataFactory";
 import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
-
-import { Metadata } from "../../schemas/metadata/Metadata";
-
+import { MetadataSchema } from "../../schemas/metadata/MetadataSchema";
 import { IProgrammerProps } from "../../transformers/IProgrammerProps";
 import { TransformerError } from "../../transformers/TransformerError";
-
 import { StringUtil } from "../../utils/StringUtil";
-
 import { AssertProgrammer } from "../AssertProgrammer";
 import { HttpMetadataUtil } from "../helpers/HttpMetadataUtil";
 
@@ -27,7 +23,7 @@ export namespace HttpParameterProgrammer {
         absorb: true,
         validate,
       },
-      collection: new MetadataCollection(),
+      components: new MetadataComponents(),
       type: props.type,
     });
     if (result.success === false)
@@ -94,7 +90,7 @@ export namespace HttpParameterProgrammer {
     );
   };
 
-  export const validate = (meta: Metadata): string[] => {
+  export const validate = (meta: MetadataSchema): string[] => {
     const errors: string[] = [];
     const insert = (msg: string) => errors.push(msg);
 

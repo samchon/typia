@@ -2,14 +2,14 @@ import ts from "typescript";
 
 import { ExpressionFactory } from "../../factories/ExpressionFactory";
 import { IdentifierFactory } from "../../factories/IdentifierFactory";
-import { MetadataCollection } from "../../factories/MetadataCollection";
+import { MetadataComponents } from "../../factories/MetadataComponents";
 import { NumericRangeFactory } from "../../factories/NumericRangeFactory";
 import { ProtobufFactory } from "../../factories/ProtobufFactory";
 import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
-import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataMap } from "../../schemas/metadata/MetadataMap";
 import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
+import { MetadataSchema } from "../../schemas/metadata/MetadataSchema";
 import { IProtobufProperty } from "../../schemas/protobuf/IProtobufProperty";
 import { IProtobufPropertyType } from "../../schemas/protobuf/IProtobufPropertyType";
 import { IProtobufSchema } from "../../schemas/protobuf/IProtobufSchema";
@@ -32,12 +32,12 @@ export namespace ProtobufEncodeProgrammer {
     type: ts.Type;
     name: string | undefined;
   }): FeatureProgrammer.IDecomposed => {
-    const collection: MetadataCollection = new MetadataCollection();
-    const metadata: Metadata = ProtobufFactory.metadata({
+    const collection: MetadataComponents = new MetadataComponents();
+    const metadata: MetadataSchema = ProtobufFactory.metadata({
       method: props.modulo.getText(),
       checker: props.context.checker,
       transformer: props.context.transformer,
-      collection,
+      components: collection,
       type: props.type,
     });
 
@@ -124,8 +124,8 @@ export namespace ProtobufEncodeProgrammer {
   const write_encoder = (props: {
     context: ITypiaContext;
     functor: FunctionProgrammer;
-    collection: MetadataCollection;
-    metadata: Metadata;
+    collection: MetadataComponents;
+    metadata: MetadataSchema;
   }): ts.ArrowFunction => {
     const functors = props.collection
       .objects()
@@ -236,7 +236,7 @@ export namespace ProtobufEncodeProgrammer {
   const decode_property = (props: {
     context: ITypiaContext;
     functor: FunctionProgrammer;
-    metadata: Metadata;
+    metadata: MetadataSchema;
     protobuf: IProtobufProperty;
     input: ts.Expression;
     explore: FeatureProgrammer.IExplore;

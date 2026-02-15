@@ -1,13 +1,13 @@
-import { ClassProperties } from "../../typings/ClassProperties";
+import { IMetadataSchema } from "@typia/interface";
 
+import { ClassProperties } from "../../typings/ClassProperties";
 import { IMetadataDictionary } from "./IMetadataDictionary";
-import { IMetadataFunction } from "./IMetadataFunction";
-import { Metadata } from "./Metadata";
 import { MetadataParameter } from "./MetadataParameter";
+import { MetadataSchema } from "./MetadataSchema";
 
 export class MetadataFunction {
   public parameters: MetadataParameter[];
-  public output: Metadata;
+  public output: MetadataSchema;
   public async: boolean;
 
   /** @ignore */
@@ -25,17 +25,17 @@ export class MetadataFunction {
   }
 
   public static from(
-    json: IMetadataFunction,
+    json: IMetadataSchema.IFunction,
     dict: IMetadataDictionary,
   ): MetadataFunction {
     return MetadataFunction.create({
       parameters: json.parameters.map((p) => MetadataParameter.from(p, dict)),
-      output: Metadata.from(json.output, dict),
+      output: MetadataSchema.from(json.output, dict),
       async: json.async,
     });
   }
 
-  public toJSON(): IMetadataFunction {
+  public toJSON(): IMetadataSchema.IFunction {
     return {
       parameters: this.parameters.map((p) => p.toJSON()),
       output: this.output.toJSON(),

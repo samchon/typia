@@ -2,11 +2,11 @@ import { ILlmSchema } from "@typia/interface";
 import ts from "typescript";
 
 import { LiteralFactory } from "../../../factories/LiteralFactory";
-import { MetadataCollection } from "../../../factories/MetadataCollection";
+import { MetadataComponents } from "../../../factories/MetadataComponents";
 import { MetadataFactory } from "../../../factories/MetadataFactory";
 import { LlmMetadataFactory } from "../../../programmers/llm/LlmMetadataFactory";
 import { LlmParametersProgrammer } from "../../../programmers/llm/LlmParametersProgrammer";
-import { Metadata } from "../../../schemas/metadata/Metadata";
+import { MetadataSchema } from "../../../schemas/metadata/MetadataSchema";
 import { ValidationPipe } from "../../../typings/ValidationPipe";
 import { ITransformProps } from "../../ITransformProps";
 import { TransformerError } from "../../TransformerError";
@@ -35,8 +35,8 @@ export namespace LlmParametersTransformer {
     const type: ts.Type = props.context.checker.getTypeFromTypeNode(top);
 
     // VALIDATE TYPE
-    const analyze = (validate: boolean): Metadata => {
-      const result: ValidationPipe<Metadata, MetadataFactory.IError> =
+    const analyze = (validate: boolean): MetadataSchema => {
+      const result: ValidationPipe<MetadataSchema, MetadataFactory.IError> =
         MetadataFactory.analyze({
           checker: props.context.checker,
           transformer: props.context.transformer,
@@ -54,8 +54,8 @@ export namespace LlmParametersTransformer {
                     })
                 : undefined,
           },
-          collection: new MetadataCollection({
-            replace: MetadataCollection.replace,
+          components: new MetadataComponents({
+            replace: MetadataComponents.replace,
           }),
           type,
         });

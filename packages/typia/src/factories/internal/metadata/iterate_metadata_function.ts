@@ -1,11 +1,9 @@
 import ts from "typescript";
 
 import { FunctionalGeneralProgrammer } from "../../../programmers/functional/internal/FunctionalGeneralProgrammer";
-
-import { Metadata } from "../../../schemas/metadata/Metadata";
 import { MetadataFunction } from "../../../schemas/metadata/MetadataFunction";
 import { MetadataParameter } from "../../../schemas/metadata/MetadataParameter";
-
+import { MetadataSchema } from "../../../schemas/metadata/MetadataSchema";
 import { CommentFactory } from "../../CommentFactory";
 import { TypeFactory } from "../../TypeFactory";
 import { IMetadataIteratorProps } from "./IMetadataIteratorProps";
@@ -23,7 +21,7 @@ export const iterate_metadata_function = (
       props.metadata.functions.push(
         MetadataFunction.create({
           parameters: [],
-          output: Metadata.initialize(),
+          output: MetadataSchema.initialize(),
           async: false,
         }),
       );
@@ -33,7 +31,7 @@ export const iterate_metadata_function = (
       props.metadata.functions.push(
         MetadataFunction.create({
           parameters: [],
-          output: Metadata.initialize(),
+          output: MetadataSchema.initialize(),
           async: false,
         }),
       );

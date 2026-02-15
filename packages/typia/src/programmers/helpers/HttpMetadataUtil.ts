@@ -1,8 +1,8 @@
-import { Metadata } from "../../schemas/metadata/Metadata";
+import { MetadataSchema } from "../../schemas/metadata/MetadataSchema";
 
 export namespace HttpMetadataUtil {
   export const atomics = (
-    metadata: Metadata,
+    metadata: MetadataSchema,
   ): Set<"boolean" | "bigint" | "number" | "string"> =>
     new Set([
       ...metadata.atomics.map((a) => a.type),
@@ -10,7 +10,7 @@ export namespace HttpMetadataUtil {
       ...(metadata.templates.length ? (["string"] as const) : []),
     ]);
 
-  export const isUnion = (metadata: Metadata): boolean =>
+  export const isUnion = (metadata: MetadataSchema): boolean =>
     atomics(metadata).size +
       metadata.arrays.length +
       metadata.tuples.length +

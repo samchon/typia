@@ -1,9 +1,8 @@
-import { OpenApi } from "@typia/interface";
+import { IJsDocTagInfo, OpenApi } from "@typia/interface";
 
 import { CommentFactory } from "../../factories/CommentFactory";
-import { IJsDocTagInfo } from "../../schemas/metadata/IJsDocTagInfo";
-import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataObject } from "../../schemas/metadata/MetadataObject";
+import { MetadataSchema } from "../../schemas/metadata/MetadataSchema";
 import { PatternUtil } from "../../utils/PatternUtil";
 import { json_schema_description } from "./json_schema_description";
 import { json_schema_jsDocTags } from "./json_schema_jsDocTags";
@@ -129,7 +128,7 @@ const join = (props: {
   extra: ISuperfluous;
 }): OpenApi.IJsonSchema | undefined => {
   // LIST UP METADATA
-  const elements: [Metadata, OpenApi.IJsonSchema][] = Object.values(
+  const elements: [MetadataSchema, OpenApi.IJsonSchema][] = Object.values(
     props.extra.patternProperties || {},
   );
   if (props.extra.additionalProperties)
@@ -140,9 +139,9 @@ const join = (props: {
   else if (elements.length === 1) return elements[0]![1]!;
 
   // MERGE METADATA AND GENERATE VULNERABLE SCHEMA
-  const metadata: Metadata = elements
+  const metadata: MetadataSchema = elements
     .map((tuple) => tuple[0])
-    .reduce((x, y) => Metadata.merge(x, y));
+    .reduce((x, y) => MetadataSchema.merge(x, y));
   return (
     json_schema_station({
       blockNever: true,
@@ -155,6 +154,6 @@ const join = (props: {
 
 /** @internal */
 interface ISuperfluous {
-  additionalProperties?: undefined | [Metadata, OpenApi.IJsonSchema];
-  patternProperties: Record<string, [Metadata, OpenApi.IJsonSchema]>;
+  additionalProperties?: undefined | [MetadataSchema, OpenApi.IJsonSchema];
+  patternProperties: Record<string, [MetadataSchema, OpenApi.IJsonSchema]>;
 }

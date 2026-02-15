@@ -4,20 +4,18 @@ import { ExpressionFactory } from "../../factories/ExpressionFactory";
 import { IdentifierFactory } from "../../factories/IdentifierFactory";
 import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
-
-import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataArray } from "../../schemas/metadata/MetadataArray";
 import { MetadataArrayType } from "../../schemas/metadata/MetadataArrayType";
 import { MetadataMap } from "../../schemas/metadata/MetadataMap";
+import { MetadataSchema } from "../../schemas/metadata/MetadataSchema";
 import { MetadataTuple } from "../../schemas/metadata/MetadataTuple";
-
 import { CheckerProgrammer } from "../CheckerProgrammer";
 import { FeatureProgrammer } from "../FeatureProgrammer";
 import { UnionExplorer } from "../helpers/UnionExplorer";
 
 /** @internal */
 export const check_union_array_like = <
-  Origin extends Metadata | MetadataArray | MetadataTuple | MetadataMap,
+  Origin extends MetadataSchema | MetadataArray | MetadataTuple | MetadataMap,
   Category extends MetadataArray | MetadataTuple,
   Element,
 >(props: {

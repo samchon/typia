@@ -1,10 +1,10 @@
 import { ILlmSchema } from "@typia/interface";
 import ts from "typescript";
 
-import { MetadataCollection } from "../../factories/MetadataCollection";
+import { MetadataComponents } from "../../factories/MetadataComponents";
 import { MetadataFactory } from "../../factories/MetadataFactory";
-import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataObject } from "../../schemas/metadata/MetadataObject";
+import { MetadataSchema } from "../../schemas/metadata/MetadataSchema";
 import { ITypiaContext } from "../../transformers/ITypiaContext";
 import { TransformerError } from "../../transformers/TransformerError";
 import { ValidationPipe } from "../../typings/ValidationPipe";
@@ -24,8 +24,8 @@ export namespace LlmMetadataFactory {
     if (props.node === undefined) return undefined;
 
     const type: ts.Type = props.context.checker.getTypeFromTypeNode(props.node);
-    const collection: MetadataCollection = new MetadataCollection();
-    const result: ValidationPipe<Metadata, MetadataFactory.IError> =
+    const collection: MetadataComponents = new MetadataComponents();
+    const result: ValidationPipe<MetadataSchema, MetadataFactory.IError> =
       MetadataFactory.analyze({
         checker: props.context.checker,
         transformer: props.context.transformer,
@@ -35,7 +35,7 @@ export namespace LlmMetadataFactory {
           constant: true,
           functional: false,
         },
-        collection,
+        components: collection,
         type,
       });
     if (result.success === false)
@@ -44,7 +44,7 @@ export namespace LlmMetadataFactory {
         message: `Failed to analyze generic argument "Config".`,
       });
 
-    const meta: Metadata = result.data;
+    const meta: MetadataSchema = result.data;
     if (
       meta.size() !== 1 ||
       meta.objects.length !== 1 ||

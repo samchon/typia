@@ -1,13 +1,11 @@
-import { Metadata } from "../../schemas/metadata/Metadata";
-
+import { MetadataSchema } from "../../schemas/metadata/MetadataSchema";
 import { PatternUtil } from "../../utils/PatternUtil";
-
 import { metadata_to_pattern } from "./metadata_to_pattern";
 
 /** @internal */
 export const template_to_pattern = (props: {
   top: boolean;
-  template: Metadata[];
+  template: MetadataSchema[];
 }) => {
   const pattern: string = props.template
     .map((meta) =>

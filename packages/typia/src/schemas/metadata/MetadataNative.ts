@@ -1,7 +1,6 @@
-import { ClassProperties } from "../../typings/ClassProperties";
+import { IMetadataSchema, IMetadataTypeTag } from "@typia/interface";
 
-import { IMetadataNative } from "./IMetadataNative";
-import { IMetadataTypeTag } from "./IMetadataTypeTag";
+import { ClassProperties } from "../../typings/ClassProperties";
 
 export class MetadataNative {
   public readonly name: string;
@@ -35,7 +34,7 @@ export class MetadataNative {
     })());
   }
 
-  public toJSON(): IMetadataNative {
+  public toJSON(): IMetadataSchema.IReference {
     return {
       name: this.name,
       tags: this.tags,

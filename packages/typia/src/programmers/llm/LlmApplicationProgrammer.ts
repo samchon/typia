@@ -12,10 +12,10 @@ import ts from "typescript";
 
 import { MetadataFactory } from "../../factories/MetadataFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
-import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataFunction } from "../../schemas/metadata/MetadataFunction";
 import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
 import { MetadataParameter } from "../../schemas/metadata/MetadataParameter";
+import { MetadataSchema } from "../../schemas/metadata/MetadataSchema";
 import { ITypiaContext } from "../../transformers/ITypiaContext";
 import { ValidateProgrammer } from "../ValidateProgrammer";
 import { JsonApplicationProgrammer } from "../json/JsonApplicationProgrammer";
@@ -24,10 +24,10 @@ import { LlmSchemaProgrammer } from "./LlmSchemaProgrammer";
 export namespace LlmApplicationProgrammer {
   export const validate = (props: {
     config?: Partial<ILlmSchema.IConfig>;
-    metadata: Metadata;
+    metadata: MetadataSchema;
     explore: MetadataFactory.IExplore;
   }): string[] => {
-    const top: Metadata = props.metadata;
+    const top: MetadataSchema = props.metadata;
     if (props.explore.top === false)
       if (
         props.explore.object === top?.objects[0]?.type &&
@@ -64,7 +64,7 @@ export namespace LlmApplicationProgrammer {
       let least: boolean = false;
       for (const p of object.properties) {
         const name: string = JSON.stringify(p.key.getSoleLiteral()!);
-        const value: Metadata = p.value;
+        const value: MetadataSchema = p.value;
         if (value.functions.length) {
           least ||= true;
           if (validity === false) {
@@ -127,7 +127,7 @@ export namespace LlmApplicationProgrammer {
         `${prefix} must have exactly one parameter or no parameters.`,
       );
     if (func.parameters.length !== 0) {
-      const type: Metadata = func.parameters[0]!.type;
+      const type: MetadataSchema = func.parameters[0]!.type;
       if (type.size() !== 1 || type.objects.length !== 1)
         output.push(`${prefix} parameter must be a single object type.`);
       else {
@@ -151,7 +151,7 @@ export namespace LlmApplicationProgrammer {
   export const write = (props: {
     context: ITypiaContext;
     modulo: ts.LeftHandSideExpression;
-    metadata: Metadata;
+    metadata: MetadataSchema;
     config?: Partial<
       ILlmSchema.IConfig & {
         equals: boolean;
@@ -159,7 +159,7 @@ export namespace LlmApplicationProgrammer {
     >;
     name?: string;
   }): ILlmApplication => {
-    const metadata: Metadata = Metadata.unalias(props.metadata);
+    const metadata: MetadataSchema = MetadataSchema.unalias(props.metadata);
     const functionParameters: Record<string, MetadataParameter> =
       Object.fromEntries(
         metadata.objects[0]!.type.properties.filter(
@@ -168,7 +168,7 @@ export namespace LlmApplicationProgrammer {
             p.value.size() === 1 &&
             p.value.nullable === false &&
             p.value.isRequired() === true &&
-            Metadata.unalias(p.value).functions.length === 1,
+            MetadataSchema.unalias(p.value).functions.length === 1,
         )
           .filter(
             (p) =>
@@ -181,7 +181,7 @@ export namespace LlmApplicationProgrammer {
           )
           .map((p) => [
             p.key.getSoleLiteral()!,
-            Metadata.unalias(p.value).functions[0]!.parameters[0]!,
+            MetadataSchema.unalias(p.value).functions[0]!.parameters[0]!,
           ]),
       );
 

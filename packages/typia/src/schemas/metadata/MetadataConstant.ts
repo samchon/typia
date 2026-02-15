@@ -1,6 +1,6 @@
-import { ClassProperties } from "../../typings/ClassProperties";
+import { IMetadataSchema } from "@typia/interface";
 
-import { IMetadataConstant } from "./IMetadataConstant";
+import { ClassProperties } from "../../typings/ClassProperties";
 import { MetadataConstantValue } from "./MetadataConstantValue";
 
 export class MetadataConstant {
@@ -18,14 +18,14 @@ export class MetadataConstant {
     return new MetadataConstant(props);
   }
 
-  public static from(json: IMetadataConstant): MetadataConstant {
+  public static from(json: IMetadataSchema.IConstant): MetadataConstant {
     return MetadataConstant.create({
       type: json.type,
       values: json.values.map(MetadataConstantValue.from),
     });
   }
 
-  public toJSON(): IMetadataConstant {
+  public toJSON(): IMetadataSchema.IConstant {
     return {
       type: this.type,
       values: this.values.map((value) => value.toJSON()),

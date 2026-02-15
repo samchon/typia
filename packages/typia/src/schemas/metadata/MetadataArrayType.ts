@@ -1,11 +1,11 @@
-import { ClassProperties } from "../../typings/ClassProperties";
+import { IMetadataSchema } from "@typia/interface/src/metadata/IMetadataSchema";
 
-import { IMetadataArrayType } from "./IMetadataArrayType";
-import { Metadata } from "./Metadata";
+import { ClassProperties } from "../../typings/ClassProperties";
+import { MetadataSchema } from "./MetadataSchema";
 
 export class MetadataArrayType {
   public readonly name: string;
-  public readonly value: Metadata;
+  public readonly value: MetadataSchema;
   public readonly nullables: boolean[];
   public readonly recursive: boolean;
   public readonly index: number | null;
@@ -21,7 +21,7 @@ export class MetadataArrayType {
 
   /** @internal */
   public static _From_without_value(
-    props: Omit<IMetadataArrayType, "value">,
+    props: Omit<IMetadataSchema.IArrayType, "value">,
   ): MetadataArrayType {
     return MetadataArrayType.create({
       name: props.name,
@@ -39,7 +39,7 @@ export class MetadataArrayType {
     return new MetadataArrayType(props);
   }
 
-  public toJSON(): IMetadataArrayType {
+  public toJSON(): IMetadataSchema.IArrayType {
     return {
       name: this.name,
       value: this.value.toJSON(),

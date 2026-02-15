@@ -1,20 +1,17 @@
+import { IMetadataComponents } from "@typia/interface";
 import ts from "typescript";
 
-import { IMetadataComponents } from "../schemas/metadata/IMetadataComponents";
-import { Metadata } from "../schemas/metadata/Metadata";
 import { MetadataAliasType } from "../schemas/metadata/MetadataAliasType";
 import { MetadataArrayType } from "../schemas/metadata/MetadataArrayType";
 import { MetadataObjectType } from "../schemas/metadata/MetadataObjectType";
+import { MetadataSchema } from "../schemas/metadata/MetadataSchema";
 import { MetadataTupleType } from "../schemas/metadata/MetadataTupleType";
-
 import { Writable } from "../typings/Writable";
-
 import { MapUtil } from "../utils/MapUtil";
-
 import { CommentFactory } from "./CommentFactory";
 import { TypeFactory } from "./TypeFactory";
 
-export class MetadataCollection {
+export class MetadataComponents {
   private objects_: Map<ts.Type, MetadataObjectType>;
   private object_unions_: Map<string, MetadataObjectType[]>;
   private aliases_: Map<ts.Type, MetadataAliasType>;
@@ -26,7 +23,7 @@ export class MetadataCollection {
   private recursive_array_index_: number;
   private recursive_tuple_index_: number;
 
-  public constructor(private options?: Partial<MetadataCollection.IOptions>) {
+  public constructor(private options?: Partial<MetadataComponents.IOptions>) {
     this.objects_ = new Map();
     this.object_unions_ = new Map();
     this.aliases_ = new Map();
@@ -39,8 +36,8 @@ export class MetadataCollection {
     this.recursive_tuple_index_ = 0;
   }
 
-  public clone(): MetadataCollection {
-    const output: MetadataCollection = new MetadataCollection(this.options);
+  public clone(): MetadataComponents {
+    const output: MetadataComponents = new MetadataComponents(this.options);
     output.objects_ = new Map(this.objects_);
     output.object_unions_ = new Map(this.object_unions_);
     output.aliases_ = new Map(this.aliases_);
@@ -101,7 +98,7 @@ export class MetadataCollection {
   }
 
   /** @internal */
-  public getUnionIndex(meta: Metadata): number {
+  public getUnionIndex(meta: MetadataSchema): number {
     const key: string = meta.objects.map((obj) => obj.type.name).join(" | ");
     MapUtil.take(this.object_unions_, key, () =>
       meta.objects.map((o) => o.type),
@@ -142,7 +139,7 @@ export class MetadataCollection {
     checker: ts.TypeChecker,
     type: ts.Type,
     symbol: ts.Symbol,
-  ): [MetadataAliasType, boolean, (meta: Metadata) => void] {
+  ): [MetadataAliasType, boolean, (meta: MetadataSchema) => void] {
     const oldbie = this.aliases_.get(type);
     if (oldbie !== undefined) return [oldbie, false, () => {}];
 
@@ -162,7 +159,7 @@ export class MetadataCollection {
   public emplaceArray(
     checker: ts.TypeChecker,
     type: ts.Type,
-  ): [MetadataArrayType, boolean, (meta: Metadata) => void] {
+  ): [MetadataArrayType, boolean, (meta: MetadataSchema) => void] {
     const oldbie = this.arrays_.get(type);
     if (oldbie !== undefined) return [oldbie, false, () => {}];
 
@@ -181,7 +178,7 @@ export class MetadataCollection {
   public emplaceTuple(
     checker: ts.TypeChecker,
     type: ts.TupleType,
-  ): [MetadataTupleType, boolean, (elements: Metadata[]) => void] {
+  ): [MetadataTupleType, boolean, (elements: MetadataSchema[]) => void] {
     const oldbie = this.tuples_.get(type);
     if (oldbie !== undefined) return [oldbie, false, () => {}];
 
@@ -227,7 +224,7 @@ export class MetadataCollection {
     };
   }
 }
-export namespace MetadataCollection {
+export namespace MetadataComponents {
   export interface IOptions {
     replace?(str: string): string;
   }

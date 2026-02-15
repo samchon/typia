@@ -2,25 +2,21 @@ import ts from "typescript";
 
 import { ExpressionFactory } from "../../factories/ExpressionFactory";
 import { IdentifierFactory } from "../../factories/IdentifierFactory";
-import { MetadataCollection } from "../../factories/MetadataCollection";
+import { MetadataComponents } from "../../factories/MetadataComponents";
 import { MetadataFactory } from "../../factories/MetadataFactory";
 import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
-
-import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataArray } from "../../schemas/metadata/MetadataArray";
 import { MetadataMap } from "../../schemas/metadata/MetadataMap";
 import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
+import { MetadataSchema } from "../../schemas/metadata/MetadataSchema";
 import { MetadataSet } from "../../schemas/metadata/MetadataSet";
 import { MetadataTuple } from "../../schemas/metadata/MetadataTuple";
 import { MetadataTupleType } from "../../schemas/metadata/MetadataTupleType";
-
 import { IProgrammerProps } from "../../transformers/IProgrammerProps";
 import { ITypiaContext } from "../../transformers/ITypiaContext";
 import { TransformerError } from "../../transformers/TransformerError";
-
 import { StringUtil } from "../../utils/StringUtil";
-
 import { FeatureProgrammer } from "../FeatureProgrammer";
 import { IsProgrammer } from "../IsProgrammer";
 import { FunctionProgrammer } from "../helpers/FunctionProgrammer";
@@ -108,7 +104,7 @@ export namespace NotationGeneralProgrammer {
   const write_array_functions = (props: {
     config: FeatureProgrammer.IConfig;
     functor: FunctionProgrammer;
-    collection: MetadataCollection;
+    collection: MetadataComponents;
   }): ts.VariableStatement[] =>
     props.collection
       .arrays()
@@ -149,7 +145,7 @@ export namespace NotationGeneralProgrammer {
     rename: (str: string) => string;
     context: ITypiaContext;
     functor: FunctionProgrammer;
-    collection: MetadataCollection;
+    collection: MetadataComponents;
   }): ts.VariableStatement[] =>
     props.collection
       .tuples()
@@ -190,7 +186,7 @@ export namespace NotationGeneralProgrammer {
     rename: (str: string) => string;
     context: ITypiaContext;
     functor: FunctionProgrammer;
-    metadata: Metadata;
+    metadata: MetadataSchema;
     explore: FeatureProgrammer.IExplore;
     input: ts.Expression;
   }): ts.Expression => {
@@ -242,7 +238,7 @@ export namespace NotationGeneralProgrammer {
           IsProgrammer.decode({
             ...props,
             metadata: (() => {
-              const partial = Metadata.initialize();
+              const partial = MetadataSchema.initialize();
               partial.tuples.push(tuple);
               return partial;
             })(),
@@ -489,8 +485,8 @@ export namespace NotationGeneralProgrammer {
     const rest = (() => {
       if (props.tuple.elements.length === 0) return null;
 
-      const last: Metadata = props.tuple.elements.at(-1)!;
-      const rest: Metadata | null = last.rest;
+      const last: MetadataSchema = props.tuple.elements.at(-1)!;
+      const rest: MetadataSchema | null = last.rest;
       if (rest === null) return null;
 
       return decode({
@@ -659,7 +655,7 @@ export namespace NotationGeneralProgrammer {
     config: FeatureProgrammer.IConfig;
     functor: FunctionProgrammer;
     input: ts.Expression;
-    metadata: Metadata;
+    metadata: MetadataSchema;
     explore: FeatureProgrammer.IExplore;
   }) => {
     if (props.metadata.objects.length === 1)
@@ -921,7 +917,7 @@ export namespace NotationGeneralProgrammer {
   };
 
   const initializer: FeatureProgrammer.IConfig["initializer"] = (props) => {
-    const collection = new MetadataCollection();
+    const collection = new MetadataComponents();
     const result = MetadataFactory.analyze({
       checker: props.context.checker,
       transformer: props.context.transformer,
@@ -930,7 +926,7 @@ export namespace NotationGeneralProgrammer {
         constant: true,
         absorb: true,
       },
-      collection,
+      components: collection,
       type: props.type,
     });
     if (result.success === false)
@@ -973,7 +969,7 @@ export namespace NotationGeneralProgrammer {
       ),
     );
 
-  const is_instance = (metadata: Metadata): boolean =>
+  const is_instance = (metadata: MetadataSchema): boolean =>
     !!metadata.objects.length ||
     !!metadata.arrays.length ||
     !!metadata.tuples.length ||

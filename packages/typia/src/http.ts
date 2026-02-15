@@ -1,4 +1,5 @@
 import {
+  Atomic,
   IReadableURLSearchParams,
   IValidation,
   Resolved,
@@ -6,7 +7,6 @@ import {
 
 import { TypeGuardError } from "./TypeGuardError";
 import { NoTransformConfigurationError } from "./transformers/NoTransformConfigurationError";
-import { Atomic } from "./typings/Atomic";
 
 /* ===========================================================
     HTTP

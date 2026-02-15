@@ -7,14 +7,14 @@ import {
 } from "@typia/interface";
 
 import { MetadataFactory } from "../../factories/MetadataFactory";
-import { Metadata } from "../../schemas/metadata/Metadata";
+import { MetadataSchema } from "../../schemas/metadata/MetadataSchema";
 import { TransformerError } from "../../transformers/TransformerError";
 import { JsonSchemasProgrammer } from "../json/JsonSchemasProgrammer";
 import { LlmSchemaProgrammer } from "./LlmSchemaProgrammer";
 
 export namespace LlmParametersProgrammer {
   export const write = (props: {
-    metadata: Metadata;
+    metadata: MetadataSchema;
     config?: Partial<ILlmSchema.IConfig>;
   }): ILlmSchema.IParameters => {
     const collection: IJsonSchemaCollection<"3.1"> =
@@ -53,7 +53,7 @@ export namespace LlmParametersProgrammer {
 
   export const validate = (props: {
     config?: Partial<ILlmSchema.IConfig>;
-    metadata: Metadata;
+    metadata: MetadataSchema;
     explore: MetadataFactory.IExplore;
   }): string[] => {
     const output: string[] = [];

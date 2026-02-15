@@ -2,21 +2,18 @@ import ts from "typescript";
 
 import { ExpressionFactory } from "../../factories/ExpressionFactory";
 import { IdentifierFactory } from "../../factories/IdentifierFactory";
-import { MetadataCollection } from "../../factories/MetadataCollection";
+import { MetadataComponents } from "../../factories/MetadataComponents";
 import { MetadataFactory } from "../../factories/MetadataFactory";
 import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
-
-import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataArray } from "../../schemas/metadata/MetadataArray";
 import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
+import { MetadataSchema } from "../../schemas/metadata/MetadataSchema";
 import { MetadataTuple } from "../../schemas/metadata/MetadataTuple";
 import { MetadataTupleType } from "../../schemas/metadata/MetadataTupleType";
-
 import { IProgrammerProps } from "../../transformers/IProgrammerProps";
 import { ITypiaContext } from "../../transformers/ITypiaContext";
 import { TransformerError } from "../../transformers/TransformerError";
-
 import { FeatureProgrammer } from "../FeatureProgrammer";
 import { IsProgrammer } from "../IsProgrammer";
 import { FunctionProgrammer } from "../helpers/FunctionProgrammer";
@@ -79,7 +76,7 @@ export namespace MiscPruneProgrammer {
   const write_array_functions = (props: {
     config: FeatureProgrammer.IConfig;
     functor: FunctionProgrammer;
-    collection: MetadataCollection;
+    collection: MetadataComponents;
   }): ts.VariableStatement[] =>
     props.collection
       .arrays()
@@ -120,7 +117,7 @@ export namespace MiscPruneProgrammer {
     context: ITypiaContext;
     config: FeatureProgrammer.IConfig;
     functor: FunctionProgrammer;
-    collection: MetadataCollection;
+    collection: MetadataComponents;
   }): ts.VariableStatement[] =>
     props.collection
       .tuples()
@@ -163,7 +160,7 @@ export namespace MiscPruneProgrammer {
     config: FeatureProgrammer.IConfig;
     functor: FunctionProgrammer;
     input: ts.Expression;
-    metadata: Metadata;
+    metadata: MetadataSchema;
     explore: FeatureProgrammer.IExplore;
   }): ts.ConciseBody => {
     if (filter(props.metadata) === false) return ts.factory.createBlock([]);
@@ -188,7 +185,7 @@ export namespace MiscPruneProgrammer {
           IsProgrammer.decode({
             ...props,
             metadata: (() => {
-              const partial = Metadata.initialize();
+              const partial = MetadataSchema.initialize();
               partial.tuples.push(tuple);
               return partial;
             })(),
@@ -392,8 +389,8 @@ export namespace MiscPruneProgrammer {
     const rest = (() => {
       if (props.tuple.elements.length === 0) return null;
 
-      const last: Metadata = props.tuple.elements.at(-1)!;
-      const rest: Metadata | null = last.rest;
+      const last: MetadataSchema = props.tuple.elements.at(-1)!;
+      const rest: MetadataSchema | null = last.rest;
       if (rest === null || filter(rest) === false) return null;
 
       return decode({
@@ -425,7 +422,7 @@ export namespace MiscPruneProgrammer {
     config: FeatureProgrammer.IConfig;
     functor: FunctionProgrammer;
     input: ts.Expression;
-    metadata: Metadata;
+    metadata: MetadataSchema;
     explore: FeatureProgrammer.IExplore;
   }) => {
     if (props.metadata.objects.length === 1)
@@ -559,7 +556,7 @@ export namespace MiscPruneProgrammer {
   };
 
   // @todo -> must filter out recursive visit
-  const filter = (metadata: Metadata): boolean =>
+  const filter = (metadata: MetadataSchema): boolean =>
     metadata.any === false &&
     (metadata.objects.length !== 0 ||
       metadata.tuples.some(
@@ -674,7 +671,7 @@ export namespace MiscPruneProgrammer {
   };
 
   const initializer: FeatureProgrammer.IConfig["initializer"] = (props) => {
-    const collection = new MetadataCollection();
+    const collection = new MetadataComponents();
     const result = MetadataFactory.analyze({
       checker: props.context.checker,
       transformer: props.context.transformer,
@@ -683,7 +680,7 @@ export namespace MiscPruneProgrammer {
         constant: true,
         absorb: true,
       },
-      collection,
+      components: collection,
       type: props.type,
     });
     if (result.success === false)

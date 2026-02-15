@@ -7,13 +7,10 @@
 ==============================================================
     LITERALS
 ----------------------------------------------------------- */
-import { NoTransformConfigurationError } from "./transformers/NoTransformConfigurationError";
+import { Atomic, IValidation, Resolved } from "@typia/interface";
 
-import { Atomic } from "./typings/Atomic";
-
-import { IValidation } from "./IValidation";
-import { Resolved } from "./Resolved";
 import { TypeGuardError } from "./TypeGuardError";
+import { NoTransformConfigurationError } from "./transformers/NoTransformConfigurationError";
 
 /**
  * > You must configure the generic argument `T`.

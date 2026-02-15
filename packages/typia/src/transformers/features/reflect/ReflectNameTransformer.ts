@@ -1,12 +1,9 @@
 import ts from "typescript";
 
-import { MetadataCollection } from "../../../factories/MetadataCollection";
+import { MetadataComponents } from "../../../factories/MetadataComponents";
 import { MetadataFactory } from "../../../factories/MetadataFactory";
-
-import { Metadata } from "../../../schemas/metadata/Metadata";
-
+import { MetadataSchema } from "../../../schemas/metadata/MetadataSchema";
 import { ValidationPipe } from "../../../typings/ValidationPipe";
-
 import { ITransformProps } from "../../ITransformProps";
 import { ITypiaContext } from "../../ITypiaContext";
 import { TransformerError } from "../../TransformerError";
@@ -27,7 +24,7 @@ export namespace ReflectNameTransformer {
       if (second === undefined) return false;
 
       // GET BOOLEAN VALUE
-      const value: Metadata = getMetadata({
+      const value: MetadataSchema = getMetadata({
         context: props.context,
         node: second,
       });
@@ -54,14 +51,14 @@ export namespace ReflectNameTransformer {
 const getMetadata = (props: {
   context: ITypiaContext;
   node: ts.Node;
-}): Metadata => {
+}): MetadataSchema => {
   const type: ts.Type = props.context.checker.getTypeFromTypeNode(
     props.node as ts.TypeNode,
   );
-  const collection: MetadataCollection = new MetadataCollection({
-    replace: MetadataCollection.replace,
+  const collection: MetadataComponents = new MetadataComponents({
+    replace: MetadataComponents.replace,
   });
-  const result: ValidationPipe<Metadata, MetadataFactory.IError> =
+  const result: ValidationPipe<MetadataSchema, MetadataFactory.IError> =
     MetadataFactory.analyze({
       checker: props.context.checker,
       transformer: props.context.transformer,
@@ -70,7 +67,7 @@ const getMetadata = (props: {
         constant: true,
         escape: false,
       },
-      collection,
+      components: collection,
       type,
     });
   if (result.success === false)

@@ -1,14 +1,15 @@
 import ts from "typescript";
 
-import { Metadata } from "../../../schemas/metadata/Metadata";
-
+import { MetadataSchema } from "../../../schemas/metadata/MetadataSchema";
 import { IMetadataIteratorProps } from "./IMetadataIteratorProps";
 import { emend_metadata_atomics } from "./emend_metadata_atomics";
 import { iterate_metadata } from "./iterate_metadata";
 
-export const explore_metadata = (props: Required<IProps>): Metadata => {
+export const explore_metadata = (props: Required<IProps>): MetadataSchema => {
   // CONSTRUCT METADATA
-  const metadata: Metadata = Metadata.initialize(props.explore.escaped);
+  const metadata: MetadataSchema = MetadataSchema.initialize(
+    props.explore.escaped,
+  );
   if (props.type === null) return metadata;
 
   // ITERATE TYPESCRIPT TYPES

@@ -1,13 +1,11 @@
-import { Metadata } from "../../schemas/metadata/Metadata";
-
+import { MetadataSchema } from "../../schemas/metadata/MetadataSchema";
 import { PatternUtil } from "../../utils/PatternUtil";
-
 import { template_to_pattern } from "./template_to_pattern";
 
 /** @internal */
 export const metadata_to_pattern = (props: {
   top: boolean;
-  metadata: Metadata;
+  metadata: MetadataSchema;
 }): string => {
   if (props.metadata.atomics.find((a) => a.type === "string") !== undefined)
     return "(.*)";

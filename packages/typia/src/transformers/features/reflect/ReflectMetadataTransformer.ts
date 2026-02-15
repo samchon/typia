@@ -1,12 +1,10 @@
+import { IMetadataSchemaCollection } from "@typia/interface";
 import ts from "typescript";
 
 import { LiteralFactory } from "../../../factories/LiteralFactory";
-import { MetadataCollection } from "../../../factories/MetadataCollection";
+import { MetadataComponents } from "../../../factories/MetadataComponents";
 import { MetadataFactory } from "../../../factories/MetadataFactory";
-
-import { IMetadataApplication } from "../../../schemas/metadata/IMetadataApplication";
-import { Metadata } from "../../../schemas/metadata/Metadata";
-
+import { MetadataSchema } from "../../../schemas/metadata/MetadataSchema";
 import { ITransformProps } from "../../ITransformProps";
 import { TransformerError } from "../../TransformerError";
 
@@ -37,8 +35,8 @@ export namespace ReflectMetadataTransformer {
       });
 
     // METADATA
-    const collection: MetadataCollection = new MetadataCollection();
-    const metadatas: Array<Metadata> = types.map((type) => {
+    const components: MetadataComponents = new MetadataComponents();
+    const schemas: Array<MetadataSchema> = types.map((type) => {
       const result = MetadataFactory.analyze({
         checker: props.context.checker,
         transformer: props.context.transformer,
@@ -48,7 +46,7 @@ export namespace ReflectMetadataTransformer {
           absorb: true,
           functional: true,
         },
-        collection,
+        components: components,
         type,
       });
       if (result.success === false)
@@ -60,10 +58,10 @@ export namespace ReflectMetadataTransformer {
     });
 
     // CONVERT TO PRIMITIVE TYPE
-    const app: IMetadataApplication = {
-      metadatas: metadatas.map((metadata) => metadata.toJSON()),
-      components: collection.toJSON(),
+    const collection: IMetadataSchemaCollection = {
+      schemas: schemas.map((s) => s.toJSON()),
+      components: components.toJSON(),
     };
-    return LiteralFactory.write(app);
+    return LiteralFactory.write(collection);
   };
 }

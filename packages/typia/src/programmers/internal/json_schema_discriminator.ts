@@ -1,10 +1,10 @@
 import { OpenApi } from "@typia/interface";
 
-import { Metadata } from "../../schemas/metadata/Metadata";
+import { MetadataSchema } from "../../schemas/metadata/MetadataSchema";
 import { UnionPredicator } from "../helpers/UnionPredicator";
 
 export const json_schema_discriminator = (
-  metadata: Metadata,
+  metadata: MetadataSchema,
 ): OpenApi.IJsonSchema.IOneOf.IDiscriminator | undefined => {
   if (
     metadata.size() === 0 ||

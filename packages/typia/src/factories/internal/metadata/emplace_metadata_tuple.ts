@@ -1,12 +1,9 @@
 import ts from "typescript";
 
-import { Metadata } from "../../../schemas/metadata/Metadata";
+import { MetadataSchema } from "../../../schemas/metadata/MetadataSchema";
 import { MetadataTupleType } from "../../../schemas/metadata/MetadataTupleType";
-
 import { Writable } from "../../../typings/Writable";
-
 import { ArrayUtil } from "../../../utils/ArrayUtil";
-
 import { IMetadataIteratorProps } from "./IMetadataIteratorProps";
 import { explore_metadata } from "./explore_metadata";
 
@@ -14,7 +11,7 @@ export const emplace_metadata_tuple = (
   props: IMetadataIteratorProps<ts.TupleType>,
 ): MetadataTupleType => {
   // CHECK EXISTENCE
-  const [tuple, newbie, closure] = props.collection.emplaceTuple(
+  const [tuple, newbie, closure] = props.components.emplaceTuple(
     props.checker,
     props.type,
   );
@@ -26,10 +23,10 @@ export const emplace_metadata_tuple = (
     props.type.elementFlags ??
     (props.type.target as ts.TupleType)?.elementFlags ??
     [];
-  const elements: Metadata[] = props.checker
+  const elements: MetadataSchema[] = props.checker
     .getTypeArguments(props.type as ts.TypeReference)
     .map((elem, i) => {
-      const child: Metadata = explore_metadata({
+      const child: MetadataSchema = explore_metadata({
         ...props,
         type: elem,
         explore: {
@@ -47,7 +44,7 @@ export const emplace_metadata_tuple = (
 
       // REST TYPE
       if (flag !== ts.ElementFlags.Rest) return child;
-      const wrapper: Metadata = Metadata.initialize();
+      const wrapper: MetadataSchema = MetadataSchema.initialize();
       Writable(wrapper).rest = child;
       return wrapper;
     });

@@ -1,10 +1,8 @@
+import { IMetadataSchema, IMetadataTypeTag } from "@typia/interface";
+
 import { ClassProperties } from "../../typings/ClassProperties";
-
 import { ArrayUtil } from "../../utils/ArrayUtil";
-
-import { IMetadata } from "./IMetadata";
 import { IMetadataDictionary } from "./IMetadataDictionary";
-import { IMetadataTypeTag } from "./IMetadataTypeTag";
 import { MetadataAlias } from "./MetadataAlias";
 import { MetadataArray } from "./MetadataArray";
 import { MetadataAtomic } from "./MetadataAtomic";
@@ -19,7 +17,7 @@ import { MetadataSet } from "./MetadataSet";
 import { MetadataTemplate } from "./MetadataTemplate";
 import { MetadataTuple } from "./MetadataTuple";
 
-export class Metadata {
+export class MetadataSchema {
   public any: boolean;
   public required: boolean;
   public optional: boolean;
@@ -30,7 +28,7 @@ export class Metadata {
   public constants: MetadataConstant[];
   public templates: MetadataTemplate[];
 
-  public rest: Metadata | null;
+  public rest: MetadataSchema | null;
   public aliases: MetadataAlias[];
   public arrays: MetadataArray[];
   public tuples: MetadataTuple[];
@@ -52,7 +50,7 @@ export class Metadata {
     CONSTRUCTORS
   ----------------------------------------------------------- */
   /** @ignore */
-  private constructor(props: ClassProperties<Metadata>) {
+  private constructor(props: ClassProperties<MetadataSchema>) {
     this.any = props.any;
     this.required = props.required;
     this.optional = props.optional;
@@ -76,13 +74,13 @@ export class Metadata {
   }
 
   /** @internal */
-  public static create(props: ClassProperties<Metadata>): Metadata {
-    return new Metadata(props);
+  public static create(props: ClassProperties<MetadataSchema>): MetadataSchema {
+    return new MetadataSchema(props);
   }
 
   /** @internal */
-  public static initialize(parentResolved: boolean = false): Metadata {
-    const meta: Metadata = Metadata.create({
+  public static initialize(parentResolved: boolean = false): MetadataSchema {
+    const meta: MetadataSchema = MetadataSchema.create({
       any: false,
       nullable: false,
       required: true,
@@ -107,7 +105,7 @@ export class Metadata {
     return meta;
   }
 
-  public toJSON(): IMetadata {
+  public toJSON(): IMetadataSchema {
     return {
       any: this.any,
       required: this.required,
@@ -132,8 +130,11 @@ export class Metadata {
     };
   }
 
-  public static from(meta: IMetadata, dict: IMetadataDictionary): Metadata {
-    return Metadata.create({
+  public static from(
+    meta: IMetadataSchema,
+    dict: IMetadataDictionary,
+  ): MetadataSchema {
+    return MetadataSchema.create({
       any: meta.any,
       required: meta.required,
       optional: meta.optional,
@@ -193,7 +194,7 @@ export class Metadata {
       natives: meta.natives.map((native) => MetadataNative.create(native)),
       sets: meta.sets.map((set) =>
         MetadataSet.create({
-          value: Metadata.from(set.value, dict),
+          value: MetadataSchema.from(set.value, dict),
           tags: set.tags.map((r) => r.slice()),
         }),
       ),
@@ -324,8 +325,8 @@ export class Metadata {
     return this.parent_resolved_;
   }
 }
-export namespace Metadata {
-  export const intersects = (x: Metadata, y: Metadata): boolean => {
+export namespace MetadataSchema {
+  export const intersects = (x: MetadataSchema, y: MetadataSchema): boolean => {
     // CHECK ANY & OPTIONAL
     if (x.any || y.any) return true;
     if (x.isRequired() === false && false === y.isRequired()) return true;
@@ -394,8 +395,8 @@ export namespace Metadata {
   };
 
   export const covers = (
-    x: Metadata,
-    y: Metadata,
+    x: MetadataSchema,
+    y: MetadataSchema,
     level: number = 0,
     escaped: boolean = false,
   ): boolean => {
@@ -500,8 +501,11 @@ export namespace Metadata {
   };
 
   /** @internal */
-  export const merge = (x: Metadata, y: Metadata): Metadata => {
-    const output: Metadata = Metadata.create({
+  export const merge = (
+    x: MetadataSchema,
+    y: MetadataSchema,
+  ): MetadataSchema => {
+    const output: MetadataSchema = MetadataSchema.create({
       any: x.any || y.any,
       nullable: x.nullable || y.nullable,
       required: x.required && y.required,
@@ -580,8 +584,8 @@ export namespace Metadata {
   };
 
   /** @internal */
-  export const unalias = (w: Metadata) => {
-    const visited: Set<Metadata> = new Set();
+  export const unalias = (w: MetadataSchema) => {
+    const visited: Set<MetadataSchema> = new Set();
     while (
       w.size() === 1 &&
       w.nullable === false &&
@@ -596,7 +600,7 @@ export namespace Metadata {
   };
 }
 
-const getName = (metadata: Metadata): string => {
+const getName = (metadata: MetadataSchema): string => {
   if (metadata.any === true) return "any";
 
   const elements: string[] = [];

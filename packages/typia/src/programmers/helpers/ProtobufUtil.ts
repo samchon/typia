@@ -1,7 +1,7 @@
-import { IMetadataTypeTag } from "../../schemas/metadata/IMetadataTypeTag";
-import { Metadata } from "../../schemas/metadata/Metadata";
-import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
+import { IMetadataTypeTag } from "@typia/interface";
 
+import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
+import { MetadataSchema } from "../../schemas/metadata/MetadataSchema";
 import { ProtobufAtomic } from "../../typings/ProtobufAtomic";
 
 export namespace ProtobufUtil {
@@ -9,7 +9,7 @@ export namespace ProtobufUtil {
     obj.properties.length >= 1 &&
     obj.properties.every((p) => p.key.isSoleLiteral());
 
-  export const size = (meta: Metadata): number =>
+  export const size = (meta: MetadataSchema): number =>
     getAtomics(meta).size +
     meta.arrays.length +
     meta.tuples.length +
@@ -30,10 +30,10 @@ export namespace ProtobufUtil {
     return Number.isNaN(value) ? null : value;
   };
 
-  export const isUnion = (meta: Metadata): boolean => size(meta) > 1;
+  export const isUnion = (meta: MetadataSchema): boolean => size(meta) > 1;
 
   export const getAtomics = (
-    meta: Metadata,
+    meta: MetadataSchema,
     union?: Map<string, number | null>,
   ): Map<string, number | null> => {
     const map: Map<ProtobufAtomic, number | null> = union ?? new Map();
@@ -92,7 +92,7 @@ export namespace ProtobufUtil {
   };
 
   export const getNumbers = (
-    meta: Metadata,
+    meta: MetadataSchema,
     union?: Map<string, number | null>,
   ): Map<string, number | null> => {
     const map: Map<ProtobufAtomic.Numeric, number | null> = union ?? new Map();
@@ -120,7 +120,7 @@ export namespace ProtobufUtil {
   };
 
   export const getBigints = (
-    meta: Metadata,
+    meta: MetadataSchema,
     union?: Map<string, number | null>,
   ): Map<string, number | null> => {
     const map: Map<ProtobufAtomic.BigNumeric, number | null> =

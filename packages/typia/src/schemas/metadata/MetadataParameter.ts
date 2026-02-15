@@ -1,15 +1,13 @@
+import { IJsDocTagInfo, IMetadataSchema } from "@typia/interface";
 import ts from "typescript";
 
 import { ClassProperties } from "../../typings/ClassProperties";
-
-import { IJsDocTagInfo } from "./IJsDocTagInfo";
 import { IMetadataDictionary } from "./IMetadataDictionary";
-import { IMetadataParameter } from "./IMetadataParameter";
-import { Metadata } from "./Metadata";
+import { MetadataSchema } from "./MetadataSchema";
 
 export class MetadataParameter {
   public name: string;
-  public type: Metadata;
+  public type: MetadataSchema;
   public description: string | null;
   public jsDocTags: IJsDocTagInfo[];
   public tsType?: ts.Type;
@@ -30,18 +28,18 @@ export class MetadataParameter {
   }
 
   public static from(
-    json: IMetadataParameter,
+    json: IMetadataSchema.IParameter,
     dict: IMetadataDictionary,
   ): MetadataParameter {
     return MetadataParameter.create({
       name: json.name,
-      type: Metadata.from(json.type, dict),
+      type: MetadataSchema.from(json.type, dict),
       description: json.description,
       jsDocTags: json.jsDocTags,
     });
   }
 
-  public toJSON(): IMetadataParameter {
+  public toJSON(): IMetadataSchema.IParameter {
     return {
       name: this.name,
       type: this.type.toJSON(),

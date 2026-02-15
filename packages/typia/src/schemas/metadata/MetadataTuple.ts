@@ -1,7 +1,6 @@
-import { ClassProperties } from "../../typings/ClassProperties";
+import { IMetadataSchema, IMetadataTypeTag } from "@typia/interface";
 
-import { IMetadataTuple } from "./IMetadataTuple";
-import { IMetadataTypeTag } from "./IMetadataTypeTag";
+import { ClassProperties } from "../../typings/ClassProperties";
 import { MetadataTupleType } from "./MetadataTupleType";
 
 export class MetadataTuple {
@@ -19,7 +18,7 @@ export class MetadataTuple {
     return new MetadataTuple(props);
   }
 
-  public toJSON(): IMetadataTuple {
+  public toJSON(): IMetadataSchema.IReference {
     return {
       name: this.type.name,
       tags: this.tags.map((row) => row.slice()),

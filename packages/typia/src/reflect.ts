@@ -1,4 +1,7 @@
-import { IMetadataApplication } from "./schemas/metadata/IMetadataApplication";
+import {
+  IMetadataSchemaCollection,
+  IMetadataSchemaUnit,
+} from "@typia/interface";
 
 import { NoTransformConfigurationError } from "./transformers/NoTransformConfigurationError";
 
@@ -17,7 +20,7 @@ import { NoTransformConfigurationError } from "./transformers/NoTransformConfigu
  * @template Types Tuple of target types
  * @returns Metadata application
  */
-export function metadata(): never;
+export function schemas(): never;
 
 /**
  * Metadata Application.
@@ -32,11 +35,19 @@ export function metadata(): never;
  * @template Types Tuple of target types
  * @returns Metadata application
  */
-export function metadata<Types extends unknown[]>(): IMetadataApplication;
+export function schemas<Types extends unknown[]>(): IMetadataSchemaCollection;
 
 /** @internal */
-export function metadata(): never {
-  NoTransformConfigurationError("reflect.metadata");
+export function schemas(): never {
+  NoTransformConfigurationError("reflect.schemas");
+}
+
+export function schema(): never;
+export function schema<Type>(): IMetadataSchemaUnit;
+
+/** @internal */
+export function schema(): never {
+  NoTransformConfigurationError("reflect.schema");
 }
 
 export function name<T, Regular extends boolean = false>(): string;

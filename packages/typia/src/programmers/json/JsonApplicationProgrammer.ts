@@ -1,16 +1,15 @@
-import { IJsonSchemaApplication } from "@typia/interface";
+import { IJsDocTagInfo, IJsonSchemaApplication } from "@typia/interface";
 
 import { MetadataFactory } from "../../factories/MetadataFactory";
-import { IJsDocTagInfo } from "../../schemas/metadata/IJsDocTagInfo";
-import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataFunction } from "../../schemas/metadata/MetadataFunction";
 import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
 import { MetadataProperty } from "../../schemas/metadata/MetadataProperty";
+import { MetadataSchema } from "../../schemas/metadata/MetadataSchema";
 import { JsonSchemasProgrammer } from "./JsonSchemasProgrammer";
 
 export namespace JsonApplicationProgrammer {
   export const validate = (
-    metadata: Metadata,
+    metadata: MetadataSchema,
     explore: MetadataFactory.IExplore,
   ): string[] => {
     if (explore.top === false) return JsonSchemasProgrammer.validate(metadata);
@@ -32,7 +31,7 @@ export namespace JsonApplicationProgrammer {
         output.push("JSON application does not allow dynamic keys.");
       let least: boolean = false;
       for (const p of object.properties) {
-        const value: Metadata = p.value;
+        const value: MetadataSchema = p.value;
         if (value.functions.length) {
           least ||= true;
           if (valid === false) {
@@ -59,16 +58,16 @@ export namespace JsonApplicationProgrammer {
 
   export const write = <Version extends "3.0" | "3.1">(props: {
     version: Version;
-    metadata: Metadata;
+    metadata: MetadataSchema;
     filter?: (prop: MetadataProperty) => boolean;
   }): IJsonSchemaApplication<Version> => {
     const object: MetadataObjectType = props.metadata.objects[0]!.type;
-    const definitions: Metadata[] = [];
+    const definitions: MetadataSchema[] = [];
     const setters: Array<
       (schema: IJsonSchemaApplication.Schema<Version>) => void
     > = [];
     const collect = (
-      metadata: Metadata,
+      metadata: MetadataSchema,
       setter: (schema: IJsonSchemaApplication.Schema<Version>) => void,
     ): void => {
       definitions.push(metadata);
@@ -84,7 +83,7 @@ export namespace JsonApplicationProgrammer {
           p.value.size() === 1 &&
           p.value.nullable === false &&
           p.value.isRequired() === true &&
-          Metadata.unalias(p.value).functions.length === 1,
+          MetadataSchema.unalias(p.value).functions.length === 1,
       )
       .filter(
         (p) =>
@@ -100,7 +99,7 @@ export namespace JsonApplicationProgrammer {
         collectFunction({
           version: props.version,
           name: r.key.getSoleLiteral()!,
-          function: Metadata.unalias(r.value).functions[0]!,
+          function: MetadataSchema.unalias(r.value).functions[0]!,
           description: r.description,
           jsDocTags: r.jsDocTags,
           collect,
@@ -154,7 +153,7 @@ export namespace JsonApplicationProgrammer {
     description: string | null;
     jsDocTags: IJsDocTagInfo[];
     collect: (
-      metadata: Metadata,
+      metadata: MetadataSchema,
       setter: (schema: IJsonSchemaApplication.Schema<Version>) => void,
     ) => void;
   }): IJsonSchemaApplication.IFunction<

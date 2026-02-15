@@ -2,10 +2,10 @@ import { IJsonSchemaApplication } from "@typia/interface";
 import ts from "typescript";
 
 import { LiteralFactory } from "../../../factories/LiteralFactory";
-import { MetadataCollection } from "../../../factories/MetadataCollection";
+import { MetadataComponents } from "../../../factories/MetadataComponents";
 import { MetadataFactory } from "../../../factories/MetadataFactory";
 import { JsonApplicationProgrammer } from "../../../programmers/json/JsonApplicationProgrammer";
-import { Metadata } from "../../../schemas/metadata/Metadata";
+import { MetadataSchema } from "../../../schemas/metadata/MetadataSchema";
 import { ValidationPipe } from "../../../typings/ValidationPipe";
 import { ITransformProps } from "../../ITransformProps";
 import { TransformerError } from "../../TransformerError";
@@ -32,10 +32,10 @@ export namespace JsonApplicationTransformer {
 
     // GET TYPE
     const type: ts.Type = props.context.checker.getTypeFromTypeNode(top);
-    const collection: MetadataCollection = new MetadataCollection({
-      replace: MetadataCollection.replace,
+    const collection: MetadataComponents = new MetadataComponents({
+      replace: MetadataComponents.replace,
     });
-    const result: ValidationPipe<Metadata, MetadataFactory.IError> =
+    const result: ValidationPipe<MetadataSchema, MetadataFactory.IError> =
       MetadataFactory.analyze({
         checker: props.context.checker,
         transformer: props.context.transformer,
@@ -46,7 +46,7 @@ export namespace JsonApplicationTransformer {
           functional: true,
           validate: JsonApplicationProgrammer.validate,
         },
-        collection,
+        components: collection,
         type,
       });
     if (result.success === false)

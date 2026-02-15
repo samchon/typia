@@ -1,15 +1,12 @@
+import { Atomic } from "@typia/interface";
 import ts from "typescript";
 
 import { ExpressionFactory } from "../../factories/ExpressionFactory";
-import { MetadataCollection } from "../../factories/MetadataCollection";
+import { MetadataComponents } from "../../factories/MetadataComponents";
 import { MetadataFactory } from "../../factories/MetadataFactory";
-
-import { Metadata } from "../../schemas/metadata/Metadata";
-
+import { MetadataSchema } from "../../schemas/metadata/MetadataSchema";
 import { ITypiaContext } from "../../transformers/ITypiaContext";
 import { TransformerError } from "../../transformers/TransformerError";
-
-import { Atomic } from "../../typings/Atomic";
 
 export namespace MiscLiteralsProgrammer {
   export interface IProps {
@@ -35,7 +32,7 @@ export namespace MiscLiteralsProgrammer {
           return [];
         },
       },
-      collection: new MetadataCollection(),
+      components: new MetadataComponents(),
       type: props.type,
     });
     if (result.success === false)
@@ -44,7 +41,7 @@ export namespace MiscLiteralsProgrammer {
         errors: result.errors,
       });
 
-    const metadata: Metadata = result.data;
+    const metadata: MetadataSchema = result.data;
     const values: Set<Atomic.Type | null> = new Set([
       ...metadata.constants.map((c) => c.values.map((v) => v.value)).flat(),
       ...(metadata.atomics.filter((a) => a.type === "boolean").length

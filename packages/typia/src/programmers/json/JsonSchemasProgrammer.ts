@@ -1,13 +1,13 @@
 import { OpenApiV3Downgrader } from "@samchon/openapi";
 import { IJsonSchemaCollection, OpenApi } from "@typia/interface";
 
-import { Metadata } from "../../schemas/metadata/Metadata";
+import { MetadataSchema } from "../../schemas/metadata/MetadataSchema";
 import { TransformerError } from "../../transformers/TransformerError";
 import { AtomicPredicator } from "../helpers/AtomicPredicator";
 import { json_schema_station } from "../internal/json_schema_station";
 
 export namespace JsonSchemasProgrammer {
-  export const validate = (metadata: Metadata): string[] => {
+  export const validate = (metadata: MetadataSchema): string[] => {
     const output: string[] = [];
     if (
       metadata.atomics.some((a) => a.type === "bigint") ||
@@ -38,14 +38,14 @@ export namespace JsonSchemasProgrammer {
 
   export const write = <Version extends "3.0" | "3.1">(props: {
     version: Version;
-    metadatas: Array<Metadata>;
+    metadatas: Array<MetadataSchema>;
   }): IJsonSchemaCollection<Version> =>
     props.version === "3.0"
       ? (writeV3_0(props.metadatas) as IJsonSchemaCollection<Version>)
       : (writeV3_1(props.metadatas) as IJsonSchemaCollection<Version>);
 
   const writeV3_0 = (
-    metadataList: Array<Metadata>,
+    metadataList: Array<MetadataSchema>,
   ): IJsonSchemaCollection<"3.0"> => {
     const collection: IJsonSchemaCollection<"3.1"> = writeV3_1(metadataList);
     const asset: OpenApiV3Downgrader.IComponentsCollection =
@@ -59,12 +59,12 @@ export namespace JsonSchemasProgrammer {
   };
 
   const writeV3_1 = (
-    metadataList: Array<Metadata>,
+    metadataList: Array<MetadataSchema>,
   ): IJsonSchemaCollection<"3.1"> => {
     const components: OpenApi.IComponents = {
       schemas: {},
     };
-    const generator = (metadata: Metadata): OpenApi.IJsonSchema | null =>
+    const generator = (metadata: MetadataSchema): OpenApi.IJsonSchema | null =>
       json_schema_station({
         blockNever: true,
         components,

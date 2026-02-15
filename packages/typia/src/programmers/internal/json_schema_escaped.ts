@@ -1,8 +1,8 @@
 import { OpenApiTypeChecker } from "@samchon/openapi";
 import { OpenApi } from "@typia/interface";
 
-import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataEscaped } from "../../schemas/metadata/MetadataEscaped";
+import { MetadataSchema } from "../../schemas/metadata/MetadataSchema";
 import { json_schema_station } from "./json_schema_station";
 
 /** @internal */
@@ -46,8 +46,8 @@ export const json_schema_escaped = (props: {
 
 /** @internal */
 const is_date = (props: {
-  visited: Set<Metadata>;
-  metadata: Metadata;
+  visited: Set<MetadataSchema>;
+  metadata: MetadataSchema;
 }): boolean => {
   if (props.visited.has(props.metadata)) return false;
   props.visited.add(props.metadata);

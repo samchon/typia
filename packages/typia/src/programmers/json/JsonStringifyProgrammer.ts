@@ -1,25 +1,21 @@
+import { Atomic } from "@typia/interface";
 import ts from "typescript";
 
 import { ExpressionFactory } from "../../factories/ExpressionFactory";
 import { IdentifierFactory } from "../../factories/IdentifierFactory";
 import { JsonMetadataFactory } from "../../factories/JsonMetadataFactory";
-import { MetadataCollection } from "../../factories/MetadataCollection";
+import { MetadataComponents } from "../../factories/MetadataComponents";
 import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
 import { ValueFactory } from "../../factories/ValueFactory";
-
-import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataArray } from "../../schemas/metadata/MetadataArray";
 import { MetadataAtomic } from "../../schemas/metadata/MetadataAtomic";
 import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
+import { MetadataSchema } from "../../schemas/metadata/MetadataSchema";
 import { MetadataTuple } from "../../schemas/metadata/MetadataTuple";
 import { MetadataTupleType } from "../../schemas/metadata/MetadataTupleType";
-
 import { IProgrammerProps } from "../../transformers/IProgrammerProps";
 import { ITypiaContext } from "../../transformers/ITypiaContext";
-
-import { Atomic } from "../../typings/Atomic";
-
 import { FeatureProgrammer } from "../FeatureProgrammer";
 import { IsProgrammer } from "../IsProgrammer";
 import { AtomicPredicator } from "../helpers/AtomicPredicator";
@@ -89,7 +85,7 @@ export namespace JsonStringifyProgrammer {
   const write_array_functions = (props: {
     config: FeatureProgrammer.IConfig;
     functor: FunctionProgrammer;
-    collection: MetadataCollection;
+    collection: MetadataComponents;
   }): ts.VariableStatement[] =>
     props.collection
       .arrays()
@@ -130,7 +126,7 @@ export namespace JsonStringifyProgrammer {
     context: ITypiaContext;
     config: FeatureProgrammer.IConfig;
     functor: FunctionProgrammer;
-    collection: MetadataCollection;
+    collection: MetadataComponents;
   }): ts.VariableStatement[] =>
     props.collection
       .tuples()
@@ -173,7 +169,7 @@ export namespace JsonStringifyProgrammer {
     config: FeatureProgrammer.IConfig;
     functor: FunctionProgrammer;
     input: ts.Expression;
-    metadata: Metadata;
+    metadata: MetadataSchema;
     explore: FeatureProgrammer.IExplore;
   }): ts.Expression => {
     // ANY TYPE
@@ -262,8 +258,8 @@ export namespace JsonStringifyProgrammer {
     // TEMPLATES
     if (props.metadata.templates.length)
       if (AtomicPredicator.template(props.metadata)) {
-        const partial = Metadata.initialize();
-        partial.atomics.push(
+        const partial = MetadataSchema.initialize();
+        (partial.atomics.push(
           MetadataAtomic.create({ type: "string", tags: [] }),
         ),
           unions.push({
@@ -278,7 +274,7 @@ export namespace JsonStringifyProgrammer {
                 ...props,
                 type: "string",
               }),
-          });
+          }));
       }
 
     // CONSTANTS
@@ -297,7 +293,7 @@ export namespace JsonStringifyProgrammer {
             IsProgrammer.decode({
               ...props,
               metadata: (() => {
-                const partial = Metadata.initialize();
+                const partial = MetadataSchema.initialize();
                 partial.atomics.push(
                   MetadataAtomic.create({
                     type: constant.type,
@@ -320,7 +316,7 @@ export namespace JsonStringifyProgrammer {
             IsProgrammer.decode({
               ...props,
               metadata: (() => {
-                const partial = Metadata.initialize();
+                const partial = MetadataSchema.initialize();
                 partial.atomics.push(
                   MetadataAtomic.create({
                     type: "string",
@@ -351,7 +347,7 @@ export namespace JsonStringifyProgrammer {
             IsProgrammer.decode({
               ...props,
               metadata: (() => {
-                const partial = Metadata.initialize();
+                const partial = MetadataSchema.initialize();
                 partial.atomics.push(a);
                 return partial;
               })(),
@@ -371,7 +367,7 @@ export namespace JsonStringifyProgrammer {
           IsProgrammer.decode({
             ...props,
             metadata: (() => {
-              const partial = Metadata.initialize();
+              const partial = MetadataSchema.initialize();
               partial.tuples.push(tuple);
               return partial;
             })(),
@@ -730,7 +726,7 @@ export namespace JsonStringifyProgrammer {
     config: FeatureProgrammer.IConfig;
     functor: FunctionProgrammer;
     input: ts.Expression;
-    metadata: Metadata;
+    metadata: MetadataSchema;
     explore: FeatureProgrammer.IExplore;
   }): ts.Expression => {
     return decode({
@@ -755,7 +751,7 @@ export namespace JsonStringifyProgrammer {
     config: FeatureProgrammer.IConfig;
     functor: FunctionProgrammer;
     input: ts.Expression;
-    metadata: Metadata;
+    metadata: MetadataSchema;
     explore: FeatureProgrammer.IExplore;
   }) =>
     props.metadata.objects.length === 1
@@ -897,7 +893,7 @@ export namespace JsonStringifyProgrammer {
   ----------------------------------------------------------- */
   const wrap_required = (props: {
     input: ts.Expression;
-    metadata: Metadata;
+    metadata: MetadataSchema;
     explore: FeatureProgrammer.IExplore;
     expression: ts.Expression;
   }): ts.Expression => {
@@ -919,7 +915,7 @@ export namespace JsonStringifyProgrammer {
 
   const wrap_nullable = (props: {
     input: ts.Expression;
-    metadata: Metadata;
+    metadata: MetadataSchema;
     expression: ts.Expression;
   }): ts.Expression => {
     if (props.metadata.nullable === false) return props.expression;
@@ -934,7 +930,7 @@ export namespace JsonStringifyProgrammer {
 
   const wrap_functional = (props: {
     input: ts.Expression;
-    metadata: Metadata;
+    metadata: MetadataSchema;
     explore: FeatureProgrammer.IExplore;
     expression: ts.Expression;
   }): ts.Expression => {

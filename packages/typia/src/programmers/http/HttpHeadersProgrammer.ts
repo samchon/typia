@@ -1,27 +1,22 @@
+import { Atomic } from "@typia/interface";
 import ts from "typescript";
 
 import { ExpressionFactory } from "../../factories/ExpressionFactory";
 import { IdentifierFactory } from "../../factories/IdentifierFactory";
-import { MetadataCollection } from "../../factories/MetadataCollection";
+import { MetadataComponents } from "../../factories/MetadataComponents";
 import { MetadataFactory } from "../../factories/MetadataFactory";
 import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
-
-import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataArrayType } from "../../schemas/metadata/MetadataArrayType";
 import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
 import { MetadataProperty } from "../../schemas/metadata/MetadataProperty";
-
+import { MetadataSchema } from "../../schemas/metadata/MetadataSchema";
 import { IProgrammerProps } from "../../transformers/IProgrammerProps";
 import { ITypiaContext } from "../../transformers/ITypiaContext";
 import { TransformerError } from "../../transformers/TransformerError";
-
-import { Atomic } from "../../typings/Atomic";
-
 import { Escaper } from "../../utils/Escaper";
 import { MapUtil } from "../../utils/MapUtil";
 import { StringUtil } from "../../utils/StringUtil";
-
 import { FeatureProgrammer } from "../FeatureProgrammer";
 import { FunctionProgrammer } from "../helpers/FunctionProgrammer";
 import { HttpMetadataUtil } from "../helpers/HttpMetadataUtil";
@@ -36,7 +31,7 @@ export namespace HttpHeadersProgrammer {
     name: string | undefined;
   }): FeatureProgrammer.IDecomposed => {
     // ANALYZE TYPE
-    const collection: MetadataCollection = new MetadataCollection();
+    const collection: MetadataComponents = new MetadataComponents();
     const result = MetadataFactory.analyze({
       checker: props.context.checker,
       transformer: props.context.transformer,
@@ -46,7 +41,7 @@ export namespace HttpHeadersProgrammer {
         absorb: true,
         validate,
       },
-      collection,
+      components: collection,
       type: props.type,
     });
     if (result.success === false)
@@ -108,7 +103,7 @@ export namespace HttpHeadersProgrammer {
   };
 
   export const validate = (
-    metadata: Metadata,
+    metadata: MetadataSchema,
     explore: MetadataFactory.IExplore,
   ): string[] => {
     const errors: string[] = [];
@@ -250,7 +245,7 @@ export namespace HttpHeadersProgrammer {
   }): ts.PropertyAssignment => {
     const key: string = props.property.key.constants[0]!.values[0]!
       .value as string;
-    const value: Metadata = props.property.value;
+    const value: MetadataSchema = props.property.value;
 
     const [type, isArray]: [Atomic.Literal, boolean] = value.atomics.length
       ? [value.atomics[0]!.type, false]
@@ -259,7 +254,7 @@ export namespace HttpHeadersProgrammer {
         : value.templates.length
           ? ["string", false]
           : (() => {
-              const meta: Metadata =
+              const meta: MetadataSchema =
                 value.arrays[0]?.type.value ??
                 value.tuples[0]!.type.elements[0]!;
               return meta.atomics.length
@@ -312,7 +307,7 @@ export namespace HttpHeadersProgrammer {
     context: ITypiaContext;
     type: Atomic.Literal;
     key: string;
-    value: Metadata;
+    value: MetadataSchema;
     input: ts.Expression;
   }) => {
     const reader =

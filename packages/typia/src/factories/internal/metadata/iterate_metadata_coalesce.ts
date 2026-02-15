@@ -1,11 +1,10 @@
 import ts from "typescript";
 
-import { Metadata } from "../../../schemas/metadata/Metadata";
-
+import { MetadataSchema } from "../../../schemas/metadata/MetadataSchema";
 import { Writable } from "../../../typings/Writable";
 
 export const iterate_metadata_coalesce = (props: {
-  metadata: Metadata;
+  metadata: MetadataSchema;
   type: ts.Type;
 }): boolean => {
   const filter = (flag: ts.TypeFlags) => (props.type.getFlags() & flag) !== 0;

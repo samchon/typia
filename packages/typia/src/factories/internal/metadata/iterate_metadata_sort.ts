@@ -1,14 +1,13 @@
-import { Metadata } from "../../../schemas/metadata/Metadata";
 import { MetadataObjectType } from "../../../schemas/metadata/MetadataObjectType";
-
-import { MetadataCollection } from "../../MetadataCollection";
+import { MetadataSchema } from "../../../schemas/metadata/MetadataSchema";
+import { MetadataComponents } from "../../MetadataComponents";
 
 export const iterate_metadata_sort = (props: {
-  collection: MetadataCollection;
-  metadata: Metadata;
+  collection: MetadataComponents;
+  metadata: MetadataSchema;
 }) => {
-  const visited: Set<Metadata> = new Set();
-  const next = (metadata: Metadata) =>
+  const visited: Set<MetadataSchema> = new Set();
+  const next = (metadata: MetadataSchema) =>
     iterate({
       visited,
       collection: props.collection,
@@ -23,14 +22,14 @@ export const iterate_metadata_sort = (props: {
 };
 
 const iterate = (props: {
-  visited: Set<Metadata>;
-  collection: MetadataCollection;
-  metadata: Metadata;
+  visited: Set<MetadataSchema>;
+  collection: MetadataComponents;
+  metadata: MetadataSchema;
 }) => {
   if (props.visited.has(props.metadata)) return;
   props.visited.add(props.metadata);
 
-  const next = (metadata: Metadata) =>
+  const next = (metadata: MetadataSchema) =>
     iterate({
       ...props,
       metadata,
@@ -57,21 +56,25 @@ const iterate = (props: {
   // SORT ARRAYS AND TUPLES
   if (props.metadata.arrays.length > 1)
     props.metadata.arrays.sort((x, y) =>
-      Metadata.covers(x.type.value, y.type.value)
+      MetadataSchema.covers(x.type.value, y.type.value)
         ? -1
-        : Metadata.covers(y.type.value, x.type.value)
+        : MetadataSchema.covers(y.type.value, x.type.value)
           ? 1
           : 0,
     );
   if (props.metadata.tuples.length > 1)
     props.metadata.tuples.sort((x, y) => {
-      const xt = Metadata.initialize();
-      const yt = Metadata.initialize();
+      const xt = MetadataSchema.initialize();
+      const yt = MetadataSchema.initialize();
 
       xt.tuples.push(x);
       yt.tuples.push(y);
 
-      return Metadata.covers(xt, yt) ? -1 : Metadata.covers(yt, xt) ? 1 : 0;
+      return MetadataSchema.covers(xt, yt)
+        ? -1
+        : MetadataSchema.covers(yt, xt)
+          ? 1
+          : 0;
     });
 
   // SORT CONSTANT VALUES

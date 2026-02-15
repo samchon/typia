@@ -1,8 +1,10 @@
-import { ClassProperties } from "../../typings/ClassProperties";
+import {
+  IJsDocTagInfo,
+  IMetadataSchema,
+  IMetadataTypeTag,
+} from "@typia/interface";
 
-import { IJsDocTagInfo } from "./IJsDocTagInfo";
-import { IMetadataConstantValue } from "./IMetadataConstantValue";
-import { IMetadataTypeTag } from "./IMetadataTypeTag";
+import { ClassProperties } from "../../typings/ClassProperties";
 
 export class MetadataConstantValue {
   public readonly value: boolean | bigint | number | string;
@@ -24,7 +26,9 @@ export class MetadataConstantValue {
     return new MetadataConstantValue(props);
   }
 
-  public static from(json: IMetadataConstantValue<any>): MetadataConstantValue {
+  public static from(
+    json: IMetadataSchema.IConstant.IValue<any>,
+  ): MetadataConstantValue {
     return MetadataConstantValue.create({
       value: typeof json.value === "bigint" ? BigInt(json.value) : json.value,
       tags: json.tags,
@@ -37,7 +41,7 @@ export class MetadataConstantValue {
     return (this.name_ ??= getName(this));
   }
 
-  public toJSON(): IMetadataConstantValue<any> {
+  public toJSON(): IMetadataSchema.IConstant.IValue<any> {
     return {
       value:
         typeof this.value === "bigint" ? this.value.toString() : this.value,

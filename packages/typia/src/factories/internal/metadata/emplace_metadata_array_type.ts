@@ -1,10 +1,8 @@
 import ts from "typescript";
 
-import { Metadata } from "../../../schemas/metadata/Metadata";
 import { MetadataArrayType } from "../../../schemas/metadata/MetadataArrayType";
-
+import { MetadataSchema } from "../../../schemas/metadata/MetadataSchema";
 import { ArrayUtil } from "../../../utils/ArrayUtil";
-
 import { IMetadataIteratorProps } from "./IMetadataIteratorProps";
 import { explore_metadata } from "./explore_metadata";
 
@@ -16,7 +14,7 @@ export const emplace_metadata_array_type = (
   props: IProps,
 ): MetadataArrayType => {
   // CHECK EXISTENCE
-  const [array, newbie, setValue] = props.collection.emplaceArray(
+  const [array, newbie, setValue] = props.components.emplaceArray(
     props.checker,
     props.type,
   );
@@ -24,7 +22,7 @@ export const emplace_metadata_array_type = (
   if (newbie === false) return array;
 
   // CONSTRUCT VALUE TYPE
-  const value: Metadata = explore_metadata({
+  const value: MetadataSchema = explore_metadata({
     ...props,
     type: props.array.getNumberIndexType()!,
     explore: {
