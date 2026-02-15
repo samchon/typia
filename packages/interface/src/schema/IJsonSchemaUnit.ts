@@ -1,4 +1,5 @@
-import { OpenApi, OpenApiV3 } from "@samchon/openapi";
+import { OpenApi } from "../openapi/OpenApi";
+import { OpenApiV3 } from "../openapi/OpenApiV3";
 
 /**
  * Single unit of JSON schema representation.

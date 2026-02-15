@@ -1,4 +1,4 @@
-import { OpenApi } from "../OpenApi";
+import { OpenApi } from "../openapi";
 
 /**
  * OpenAPI schema related error.
