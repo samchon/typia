@@ -4,6 +4,7 @@ import {
   ILlmSchema,
   IResult,
 } from "@typia/interface";
+import { LlmSchemaConverter } from "@typia/utils";
 
 import { MetadataSchema } from "../../schemas/metadata/MetadataSchema";
 import { TransformerError } from "../../transformers/TransformerError";
@@ -33,8 +34,8 @@ export namespace LlmSchemaProgrammer {
 
     const $defs: Record<string, ILlmSchema> = {};
     const result: IResult<ILlmSchema, IJsonSchemaTransformError> =
-      LlmSchemaComposer.schema({
-        config: LlmSchemaComposer.getConfig(props.config),
+      LlmSchemaConverter.schema({
+        config: LlmSchemaConverter.getConfig(props.config),
         components: collection.components,
         schema: collection.schemas[0]!,
         $defs,
@@ -61,7 +62,7 @@ export namespace LlmSchemaProgrammer {
     const output: string[] = [];
 
     // no additionalProperties in OpenAI strict mode
-    const config: ILlmSchema.IConfig = LlmSchemaComposer.getConfig(
+    const config: ILlmSchema.IConfig = LlmSchemaConverter.getConfig(
       props.config,
     );
     if (

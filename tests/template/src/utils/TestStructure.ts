@@ -1,4 +1,4 @@
-import { IRandomGenerator } from "typia/src/IRandomGenerator";
+import { IRandomGenerator } from "typia";
 
 import { Spoiler } from "./Spoiler";
 

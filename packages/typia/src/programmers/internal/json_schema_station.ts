@@ -1,4 +1,5 @@
 import { IJsonSchemaAttribute, OpenApi } from "@typia/interface";
+import { OpenApiExclusiveEmender } from "@typia/utils";
 
 import { MetadataAtomic } from "../../schemas/metadata/MetadataAtomic";
 import { MetadataNative } from "../../schemas/metadata/MetadataNative";

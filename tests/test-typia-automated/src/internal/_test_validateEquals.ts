@@ -1,6 +1,5 @@
 import { TestStructure } from "@typia/template";
-import typia from "typia";
-import { IValidation } from "typia/src/IValidation";
+import typia, { IValidation } from "typia";
 import { Escaper } from "typia/src/utils/Escaper";
 
 export const _test_validateEquals =

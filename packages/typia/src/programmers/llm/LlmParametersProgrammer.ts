@@ -5,6 +5,7 @@ import {
   IResult,
   OpenApi,
 } from "@typia/interface";
+import { LlmSchemaConverter, OpenApiTypeChecker } from "@typia/utils";
 
 import { MetadataFactory } from "../../factories/MetadataFactory";
 import { MetadataSchema } from "../../schemas/metadata/MetadataSchema";
@@ -34,8 +35,8 @@ export namespace LlmParametersProgrammer {
     })();
 
     const result: IResult<ILlmSchema.IParameters, IJsonSchemaTransformError> =
-      LlmSchemaComposer.parameters({
-        config: LlmSchemaComposer.getConfig(props.config),
+      LlmSchemaConverter.parameters({
+        config: LlmSchemaConverter.getConfig(props.config),
         components: collection.components,
         schema,
       });

@@ -1,4 +1,4 @@
-import { IMetadataSchema } from "@typia/interface/src/metadata/IMetadataSchema";
+import { IMetadataSchema } from "@typia/interface";
 
 import { ClassProperties } from "../../typings/ClassProperties";
 import { MetadataSchema } from "./MetadataSchema";
