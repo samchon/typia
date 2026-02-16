@@ -1,8 +1,7 @@
 import { IJsonSchemaTransformError, IResult, OpenApi } from "@typia/interface";
 
-import { AccessorUtil } from "../../utils/AccessorUtil";
-import { JsonDescriptionUtil } from "../../utils/JsonDescriptionUtil";
-import { MapUtil } from "../../utils/MapUtil";
+import { JsonDescriptor } from "./JsonDescriptor";
+import { MapUtil } from "./MapUtil";
 
 /** @internal */
 export namespace OpenApiTypeCheckerBase {
@@ -157,7 +156,7 @@ export namespace OpenApiTypeCheckerBase {
         reasons,
         visited: new Map(),
         accessor: props.accessor ?? "$input.schema",
-        refAccessor: props.refAccessor ?? AccessorUtil.reference(props.prefix),
+        refAccessor: props.refAccessor ?? getReference(props.prefix),
       }) || null;
     if (result === null)
       return {
@@ -184,7 +183,7 @@ export namespace OpenApiTypeCheckerBase {
   }): void => {
     const already: Set<string> = new Set();
     const refAccessor: string =
-      props.refAccessor ?? `$input.${AccessorUtil.reference(props.prefix)}`;
+      props.refAccessor ?? `$input.${getReference(props.prefix)}`;
     const next = (schema: OpenApi.IJsonSchema, accessor: string): void => {
       props.closure(schema, accessor);
       if (isReference(schema)) {
@@ -317,7 +316,7 @@ export namespace OpenApiTypeCheckerBase {
         return res
           ? {
               ...res,
-              description: JsonDescriptionUtil.cascade({
+              description: JsonDescriptor.cascade({
                 prefix: props.prefix,
                 components: props.components,
                 schema: props.schema,
@@ -335,7 +334,7 @@ export namespace OpenApiTypeCheckerBase {
         return res
           ? {
               ...res,
-              description: JsonDescriptionUtil.cascade({
+              description: JsonDescriptor.cascade({
                 prefix: props.prefix,
                 components: props.components,
                 schema: props.schema,
@@ -813,3 +812,9 @@ export namespace OpenApiTypeCheckerBase {
             Math.floor(y.multipleOf / x.multipleOf)),
     ].every((v) => v);
 }
+
+const getReference = (prefix: string): string =>
+  prefix
+    .split("/")
+    .filter((str, i) => !!str.length && !(i === 0 && str === "#"))
+    .join(".");

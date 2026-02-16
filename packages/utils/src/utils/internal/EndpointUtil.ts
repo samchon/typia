@@ -1,4 +1,5 @@
-import { NamingConvention } from "./NamingConvention";
+import { NamingConvention } from "../NamingConvention";
+import { VariablePredicator } from "../VariablePredicator";
 
 export namespace EndpointUtil {
   export const capitalize = (str: string): string =>
@@ -31,7 +32,7 @@ export namespace EndpointUtil {
   export const normalize = (str: string): string => {
     str = str.split(".").join("_").split("-").join("_").trim();
     if (str.length === 0) return str;
-    else if (RESERVED.has(str)) return `_${str}`;
+    else if (VariablePredicator.reserved(str)) return `_${str}`;
     else if (str.length !== 0 && "0" <= str[0]! && str[0]! <= "9")
       str = `_${str}`;
     return str;
@@ -42,47 +43,3 @@ export namespace EndpointUtil {
     (change: string): string =>
       keep.includes(change) ? escapeDuplicate(keep)(`_${change}`) : change;
 }
-
-const RESERVED: Set<string> = new Set([
-  "break",
-  "case",
-  "catch",
-  "class",
-  "const",
-  "continue",
-  "debugger",
-  "default",
-  "delete",
-  "do",
-  "else",
-  "enum",
-  "export",
-  "extends",
-  "false",
-  "finally",
-  "for",
-  "function",
-  "if",
-  "import",
-  "in",
-  "instanceof",
-  "module",
-  "new",
-  "null",
-  "package",
-  "public",
-  "private",
-  "protected",
-  "return",
-  "super",
-  "switch",
-  "this",
-  "throw",
-  "true",
-  "try",
-  "typeof",
-  "var",
-  "void",
-  "while",
-  "with",
-]);

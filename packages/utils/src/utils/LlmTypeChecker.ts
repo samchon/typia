@@ -1,6 +1,6 @@
 import { ILlmSchema } from "@typia/interface";
 
-import { MapUtil } from "../utils/MapUtil";
+import { MapUtil } from "./internal/MapUtil";
 import { OpenApiTypeCheckerBase } from "./internal/OpenApiTypeCheckerBase";
 
 /**

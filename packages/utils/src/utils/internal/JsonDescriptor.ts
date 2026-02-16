@@ -1,9 +1,9 @@
 import { OpenApi } from "@typia/interface";
 
-import { OpenApiTypeChecker } from "../predicate/OpenApiTypeChecker";
-import { VariablePredicator } from "../predicate/VariablePredicator";
+import { OpenApiTypeChecker } from "../OpenApiTypeChecker";
+import { VariablePredicator } from "../VariablePredicator";
 
-export namespace JsonDescriptionUtil {
+export namespace JsonDescriptor {
   export const cascade = (props: {
     prefix: string;
     components: OpenApi.IComponents;
