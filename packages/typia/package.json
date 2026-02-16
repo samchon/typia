@@ -4,12 +4,8 @@
   "description": "Superfast runtime validators with only one line",
   "main": "src/index.ts",
   "exports": {
-    ".": {
-      "types": "./lib/index.d.ts",
-      "import": "./lib/index.mjs",
-      "require": "./lib/index.js",
-      "default": "./lib/index.js"
-    },
+    ".": "./src/index.ts",
+    "./transform": "./src/transform/index.ts",
     "./package.json": "./package.json"
   },
   "bin": {
@@ -129,6 +125,21 @@
     "access": "public",
     "main": "lib/index.js",
     "typings": "lib/index.d.ts",
-    "module": "lib/index.mjs"
+    "module": "lib/index.mjs",
+    "exports": {
+      ".": {
+        "types": "./lib/index.d.ts",
+        "import": "./lib/index.mjs",
+        "require": "./lib/index.js",
+        "default": "./lib/index.js"
+      },
+      "transform": {
+        "types": "./lib/transform/index.d.ts",
+        "import": "./lib/transform/index.mjs",
+        "require": "./lib/transform/index.js",
+        "default": "./lib/transform/index.js"
+      },
+      "./package.json": "./package.json"
+    }
   }
 }
