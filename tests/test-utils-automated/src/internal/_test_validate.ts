@@ -1,6 +1,6 @@
-import { IValidation, OpenApi } from "@samchon/openapi";
-import { OpenApiValidator } from "@samchon/openapi/src/utils/OpenApiValidator";
+import { IValidation, OpenApi } from "@typia/interface";
 import { Spoiler } from "@typia/template";
+import { OpenApiValidator } from "@typia/utils";
 
 export const _test_validate = <T>(props: {
   schema: OpenApi.IJsonSchema;

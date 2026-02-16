@@ -1,8 +1,7 @@
 import { TestValidator } from "@nestia/e2e";
-import { IValidation, OpenApi } from "@samchon/openapi";
-import { NamingConvention } from "@samchon/openapi/src/utils/NamingConvention";
-import { OpenApiValidator } from "@samchon/openapi/src/utils/OpenApiValidator";
+import { IValidation, OpenApi } from "@typia/interface";
 import { Spoiler } from "@typia/template";
+import { NamingConvention, OpenApiValidator } from "@typia/utils";
 
 export const _test_validateEquals = <T>(props: {
   schema: OpenApi.IJsonSchema;

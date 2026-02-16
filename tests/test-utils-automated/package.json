@@ -32,8 +32,9 @@
   },
   "dependencies": {
     "@nestia/e2e": "catalog:utils",
-    "@samchon/openapi": "workspace:^",
+    "@typia/interface": "workspace:^",
     "@typia/template": "workspace:^",
+    "@typia/utils": "workspace:^",
     "tgrid": "catalog:utils",
     "typia": "workspace:^",
     "uuid": "catalog:utils"
