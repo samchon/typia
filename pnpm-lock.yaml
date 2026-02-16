@@ -451,6 +451,9 @@ importers:
 
   tests/test-error:
     dependencies:
+      '@typia/utils':
+        specifier: workspace:^
+        version: link:../../packages/utils
       typia:
         specifier: workspace:^
         version: link:../../packages/typia
