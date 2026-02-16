@@ -19,6 +19,8 @@ export * as protobuf from "./protobuf";
 export * as reflect from "./reflect";
 export * as tags from "./tags";
 
+export * from "./re-exports";
+
 /* -----------------------------------------------------------
     BASIC VALIDATORS
 ----------------------------------------------------------- */
