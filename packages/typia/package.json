@@ -133,7 +133,7 @@
         "require": "./lib/index.js",
         "default": "./lib/index.js"
       },
-      "transform": {
+      "lib/transform": {
         "types": "./lib/transform/index.d.ts",
         "import": "./lib/transform/index.mjs",
         "require": "./lib/transform/index.js",
