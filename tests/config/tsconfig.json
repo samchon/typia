@@ -102,7 +102,7 @@
     "skipLibCheck": true,                                /* Skip type checking all .d.ts files. */
     "plugins": [
       { 
-        "transform": "typia/lib/transform", 
+        "transform": "typia/src/transform.ts", 
         "functional": true, 
         "numeric": true, 
         "finite": true,
