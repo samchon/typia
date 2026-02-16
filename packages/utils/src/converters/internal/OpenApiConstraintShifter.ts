@@ -53,7 +53,7 @@ export namespace OpenApiConstraintShifter {
     | "multipleOf"
     | "default"
   > => {
-    Object.assign(OpenApiExclusiveEmender.emend(schema));
+    Object.assign(schema, OpenApiExclusiveEmender.emend(schema));
 
     const tags: string[] = [];
     if (schema.minimum !== undefined) {
