@@ -1,4 +1,5 @@
 import { ILlmApplication, IValidation } from "@typia/interface";
+import { LlmSchemaConverter } from "@typia/utils";
 
 export const _llmApplicationFinalize = (
   app: ILlmApplication,
@@ -9,13 +10,13 @@ export const _llmApplicationFinalize = (
   >,
 ): void => {
   app.config = {
-    ...LlmSchemaComposer.getConfig(),
+    ...LlmSchemaConverter.getConfig(),
     separate: config?.separate ?? null,
     validate: config?.validate ?? null,
   };
   if (app.config.separate !== null)
     for (const func of app.functions)
-      func.separated = LlmSchemaComposer.separate({
+      func.separated = LlmSchemaConverter.separate({
         parameters: func.parameters,
         predicate: app.config.separate,
         equals: config?.equals ?? false,

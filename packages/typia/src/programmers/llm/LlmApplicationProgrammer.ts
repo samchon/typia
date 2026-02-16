@@ -8,6 +8,7 @@ import {
   IValidation,
   OpenApi,
 } from "@typia/interface";
+import { LlmSchemaConverter, LlmTypeChecker } from "@typia/utils";
 import ts from "typescript";
 
 import { MetadataFactory } from "../../factories/MetadataFactory";
@@ -213,7 +214,7 @@ export namespace LlmApplicationProgrammer {
       );
     return {
       config: {
-        ...LlmSchemaComposer.getConfig(props.config),
+        ...LlmSchemaConverter.getConfig(props.config),
         separate: null,
         validate: null,
       },
@@ -237,7 +238,7 @@ export namespace LlmApplicationProgrammer {
         >
       | undefined;
   }): ILlmFunction | null => {
-    const config: ILlmSchema.IConfig = LlmSchemaComposer.getConfig(
+    const config: ILlmSchema.IConfig = LlmSchemaConverter.getConfig(
       props.config,
     );
     const parameters: ILlmSchema.IParameters | null = writeParameters({
@@ -310,7 +311,7 @@ export namespace LlmApplicationProgrammer {
         required: [],
       };
     const result: IResult<ILlmSchema.IParameters, IJsonSchemaTransformError> =
-      LlmSchemaComposer.parameters({
+      LlmSchemaConverter.parameters({
         config: props.config,
         components: props.components,
         schema: {
@@ -339,8 +340,8 @@ export namespace LlmApplicationProgrammer {
     accessor: string;
   }): ILlmSchema | null | undefined => {
     if (props.schema === null) return undefined;
-    const result: IResult<ILlmSchema, IOpenApiSchemaError> =
-      LlmSchemaComposer.schema({
+    const result: IResult<ILlmSchema, IJsonSchemaTransformError> =
+      LlmSchemaConverter.schema({
         config: props.config,
         components: props.components,
         schema: props.schema,

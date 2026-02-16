@@ -6,7 +6,7 @@ import { OpenApiV3_1Emender } from "./internal/OpenApiV3_1Emender";
 import { SwaggerV2Downgrader } from "./internal/SwaggerV2Downgrader";
 import { SwaggerV2Upgrader } from "./internal/SwaggerV2Upgrader";
 
-export namespace OpenApiTransformer {
+export namespace OpenApiConverter {
   export function upgrade(
     document: SwaggerV2.IDocument | OpenApiV3.IDocument | OpenApiV3_1.IDocument,
   ): OpenApi.IDocument {

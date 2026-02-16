@@ -50,6 +50,7 @@
   "dependencies": {
     "@standard-schema/spec": "^1.0.0",
     "@typia/interface": "workspace:^",
+    "@typia/utils": "workspace:^",
     "commander": "^10.0.0",
     "comment-json": "^4.2.3",
     "inquirer": "^8.2.5",

@@ -285,6 +285,9 @@ importers:
       '@typia/interface':
         specifier: workspace:^
         version: link:../interface
+      '@typia/utils':
+        specifier: workspace:^
+        version: link:../utils
       commander:
         specifier: ^10.0.0
         version: 10.0.1

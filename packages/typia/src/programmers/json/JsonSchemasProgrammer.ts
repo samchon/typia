@@ -1,5 +1,5 @@
-import { OpenApiV3Downgrader } from "@samchon/openapi";
 import { IJsonSchemaCollection, OpenApi } from "@typia/interface";
+import { OpenApiV3Downgrader } from "@typia/utils";
 
 import { MetadataSchema } from "../../schemas/metadata/MetadataSchema";
 import { TransformerError } from "../../transformers/TransformerError";

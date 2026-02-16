@@ -1,5 +1,5 @@
-import { OpenApiTypeChecker } from "@samchon/openapi";
 import { OpenApi } from "@typia/interface";
+import { OpenApiTypeChecker } from "@typia/utils";
 
 import { MetadataEscaped } from "../../schemas/metadata/MetadataEscaped";
 import { MetadataSchema } from "../../schemas/metadata/MetadataSchema";
