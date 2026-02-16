@@ -10,6 +10,13 @@ export {
   ILlmApplication,
   ILlmFunction,
   ILlmSchema,
+  // reflect
+  IMetadataSchema,
+  IMetadataSchemaCollection,
+  IMetadataSchemaUnit,
+  IMetadataComponents,
+  IMetadataTypeTag,
+  IJsDocTagInfo,
   // typings
   Primitive,
   Resolved,
