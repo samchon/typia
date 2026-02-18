@@ -1,6 +1,6 @@
 import { IJsonSchemaTransformError, IResult, OpenApi } from "@typia/interface";
 
-import { OpenApiTypeChecker } from "../../utils/OpenApiTypeChecker";
+import { OpenApiTypeChecker } from "../../validators/OpenApiTypeChecker";
 
 /** @internal */
 export namespace LlmParametersFinder {

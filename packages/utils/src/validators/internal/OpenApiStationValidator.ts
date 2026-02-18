@@ -1,6 +1,6 @@
 import { OpenApi } from "@typia/interface";
 
-import { OpenApiTypeChecker } from "../../utils/OpenApiTypeChecker";
+import { OpenApiTypeChecker } from "../OpenApiTypeChecker";
 import { IOpenApiValidatorContext } from "./IOpenApiValidatorContext";
 import { OpenApiArrayValidator } from "./OpenApiArrayValidator";
 import { OpenApiBooleanValidator } from "./OpenApiBooleanValidator";

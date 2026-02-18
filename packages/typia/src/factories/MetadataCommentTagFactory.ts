@@ -2,8 +2,8 @@ import { IMetadataTypeTag } from "@typia/interface";
 import ts from "typescript";
 
 import { MetadataSchema } from "../schemas/metadata/MetadataSchema";
-import { FormatCheatSheet } from "../tags/internal/FormatCheatSheet";
 import { Writable } from "../typings/Writable";
+import { FormatCheatSheet } from "./FormatCheatSheet";
 import { MetadataFactory } from "./MetadataFactory";
 import { MetadataTypeTagFactory } from "./MetadataTypeTagFactory";
 

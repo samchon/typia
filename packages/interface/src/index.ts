@@ -1,7 +1,8 @@
 export * from "./http/index";
 export * from "./schema/index";
 export * from "./openapi/index";
-export * from "./tags/index";
 export * from "./typings/index";
 export * from "./utils/index";
 export * from "./metadata/index";
+
+export * as tags from "./tags/index";

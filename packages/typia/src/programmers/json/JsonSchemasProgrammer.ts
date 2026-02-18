@@ -1,5 +1,5 @@
-import { IJsonSchemaCollection, OpenApi } from "@typia/interface";
-import { OpenApiV3Downgrader } from "@typia/utils";
+import { IJsonSchemaCollection, OpenApi, OpenApiV3 } from "@typia/interface";
+import { OpenApiConverter } from "@typia/utils";
 
 import { MetadataSchema } from "../../schemas/metadata/MetadataSchema";
 import { TransformerError } from "../../transformers/TransformerError";
@@ -48,12 +48,18 @@ export namespace JsonSchemasProgrammer {
     metadataList: Array<MetadataSchema>,
   ): IJsonSchemaCollection<"3.0"> => {
     const collection: IJsonSchemaCollection<"3.1"> = writeV3_1(metadataList);
-    const asset: OpenApiV3Downgrader.IComponentsCollection =
-      OpenApiV3Downgrader.downgradeComponents(collection.components);
-    const caster = OpenApiV3Downgrader.downgradeSchema(asset);
+    const downgraded: OpenApiV3.IComponents =
+      OpenApiConverter.downgradeComponents(collection.components, "3.0");
+    const caster = (schema: OpenApi.IJsonSchema): OpenApiV3.IJsonSchema =>
+      OpenApiConverter.downgradeSchema({
+        version: "3.0",
+        components: collection.components,
+        schema,
+        downgraded,
+      });
     return {
       version: "3.0",
-      components: asset.downgraded,
+      components: downgraded,
       schemas: collection.schemas.map(caster),
     };
   };

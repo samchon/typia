@@ -1,7 +1,7 @@
 import { OpenApi } from "@typia/interface";
 
-import { OpenApiTypeChecker } from "../OpenApiTypeChecker";
-import { VariablePredicator } from "../VariablePredicator";
+import { OpenApiTypeChecker } from "../../validators/OpenApiTypeChecker";
+import { NamingConvention } from "../NamingConvention";
 
 export namespace JsonDescriptor {
   export const cascade = (props: {
@@ -53,7 +53,7 @@ export namespace JsonDescriptor {
         )
         .map(
           ([key, value]) =>
-            `### Description of {@link ${VariablePredicator.is(key) ? key : JSON.stringify(key)}} property:\n\n` +
+            `### Description of {@link ${NamingConvention.variable(key) ? key : JSON.stringify(key)}} property:\n\n` +
             (value.description ?? "")
               .split("\n")
               .map((str) => `> ${str}`)

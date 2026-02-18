@@ -1,6 +1,6 @@
 import { OpenApi } from "@typia/interface";
 
-import { OpenApiTypeChecker } from "../../utils/OpenApiTypeChecker";
+import { OpenApiTypeChecker } from "../OpenApiTypeChecker";
 
 export namespace OpenApiSchemaNamingRule {
   export const getName = (

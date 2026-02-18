@@ -1,7 +1,0 @@
-{
-  "extends": "../../internals/config/tsconfig.json",
-  "compilerOptions": {
-    "outDir": "lib",
-  },
-  "include": ["src"],
-}

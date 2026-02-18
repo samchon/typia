@@ -1,6 +1,7 @@
 import { IJsonSchemaAttribute, OpenApi, SwaggerV2 } from "@typia/interface";
 
-import { OpenApiTypeChecker } from "../../utils/OpenApiTypeChecker";
+import { OpenApiTypeChecker } from "../../validators/OpenApiTypeChecker";
+import { SwaggerV2TypeChecker } from "../../validators/SwaggerV2TypeChecker";
 import { OpenApiExclusiveEmender } from "./OpenApiExclusiveEmender";
 
 export namespace SwaggerV2Upgrader {
@@ -72,7 +73,7 @@ export namespace SwaggerV2Upgrader {
           ? (
               [...(pathItem.parameters ?? []), ...(input.parameters ?? [])]
                 .map((p) =>
-                  TypeChecker.isReference(p)
+                  SwaggerV2TypeChecker.isReference(p)
                     ? doc.parameters?.[p.$ref.split("/").pop() ?? ""]!
                     : p,
                 )
@@ -88,7 +89,7 @@ export namespace SwaggerV2Upgrader {
       requestBody: (() => {
         const found: SwaggerV2.IOperation.IBodyParameter | undefined =
           input.parameters?.find((p) => {
-            if (TypeChecker.isReference(p))
+            if (SwaggerV2TypeChecker.isReference(p))
               p = doc.parameters?.[p.$ref.split("/").pop() ?? ""]!;
             return (
               (p as SwaggerV2.IOperation.IBodyParameter)?.schema !== undefined
@@ -141,7 +142,7 @@ export namespace SwaggerV2Upgrader {
         | SwaggerV2.IOperation.IResponse
         | SwaggerV2.IJsonSchema.IReference<`#/definitions/responses/${string}`>,
     ): OpenApi.IOperation.IResponse | undefined => {
-      if (TypeChecker.isReference(input)) {
+      if (SwaggerV2TypeChecker.isReference(input)) {
         const found: SwaggerV2.IOperation.IResponse | undefined =
           doc.responses?.[input.$ref.split("/").pop() ?? ""]!;
         if (found === undefined) return undefined;
@@ -179,7 +180,7 @@ export namespace SwaggerV2Upgrader {
   /* -----------------------------------------------------------
     DEFINITIONS
   ----------------------------------------------------------- */
-  const convertComponents = (
+  export const convertComponents = (
     input: SwaggerV2.IDocument,
   ): OpenApi.IComponents => ({
     schemas: Object.fromEntries(
@@ -303,17 +304,19 @@ export namespace SwaggerV2Upgrader {
         )
           nullable.value ||= true;
         // UNION TYPE CASE
-        if (TypeChecker.isAnyOf(schema)) schema["x-anyOf"].forEach(visit);
-        else if (TypeChecker.isOneOf(schema)) schema["x-oneOf"].forEach(visit);
-        else if (TypeChecker.isAllOf(schema))
+        if (SwaggerV2TypeChecker.isAnyOf(schema))
+          schema["x-anyOf"].forEach(visit);
+        else if (SwaggerV2TypeChecker.isOneOf(schema))
+          schema["x-oneOf"].forEach(visit);
+        else if (SwaggerV2TypeChecker.isAllOf(schema))
           if (schema.allOf.length === 1) visit(schema.allOf[0]!);
           else union.push(convertAllOfSchema(definitions)(schema));
         // ATOMIC TYPE CASE (CONSIDER ENUM VALUES)
         else if (
-          TypeChecker.isBoolean(schema) ||
-          TypeChecker.isInteger(schema) ||
-          TypeChecker.isNumber(schema) ||
-          TypeChecker.isString(schema)
+          SwaggerV2TypeChecker.isBoolean(schema) ||
+          SwaggerV2TypeChecker.isInteger(schema) ||
+          SwaggerV2TypeChecker.isNumber(schema) ||
+          SwaggerV2TypeChecker.isString(schema)
         )
           if (
             schema.enum?.length &&
@@ -325,8 +328,8 @@ export namespace SwaggerV2Upgrader {
                 .map((value) => ({ const: value })),
             );
           else if (
-            TypeChecker.isInteger(schema) ||
-            TypeChecker.isNumber(schema)
+            SwaggerV2TypeChecker.isInteger(schema) ||
+            SwaggerV2TypeChecker.isNumber(schema)
           )
             union.push(
               OpenApiExclusiveEmender.emend({
@@ -376,7 +379,7 @@ export namespace SwaggerV2Upgrader {
               ...{ enum: undefined },
             });
         // INSTANCE TYPE CASE
-        else if (TypeChecker.isArray(schema))
+        else if (SwaggerV2TypeChecker.isArray(schema))
           union.push({
             ...schema,
             items: convertSchema(definitions)(schema.items),
@@ -384,7 +387,7 @@ export namespace SwaggerV2Upgrader {
               ? Object.fromEntries(schema.examples.map((v, i) => [`v${i}`, v]))
               : undefined,
           });
-        else if (TypeChecker.isObject(schema))
+        else if (SwaggerV2TypeChecker.isObject(schema))
           union.push({
             ...schema,
             ...{
@@ -410,7 +413,7 @@ export namespace SwaggerV2Upgrader {
               : undefined,
             required: schema.required ?? [],
           });
-        else if (TypeChecker.isReference(schema))
+        else if (SwaggerV2TypeChecker.isReference(schema))
           union.push({
             ...schema,
             $ref: schema.$ref.replace(
@@ -503,65 +506,18 @@ export namespace SwaggerV2Upgrader {
       input: SwaggerV2.IJsonSchema,
       visited: Set<SwaggerV2.IJsonSchema> = new Set(),
     ): SwaggerV2.IJsonSchema.IObject | null => {
-      if (TypeChecker.isObject(input))
+      if (SwaggerV2TypeChecker.isObject(input))
         return input.properties !== undefined && !input.additionalProperties
           ? input
           : null;
       else if (visited.has(input)) return null;
       else visited.add(input);
 
-      if (TypeChecker.isReference(input))
+      if (SwaggerV2TypeChecker.isReference(input))
         return retrieveObject(definitions)(
           definitions?.[input.$ref.split("/").pop() ?? ""] ?? {},
           visited,
         );
       return null;
     };
-
-  namespace TypeChecker {
-    export const isBoolean = (
-      schema: SwaggerV2.IJsonSchema,
-    ): schema is SwaggerV2.IJsonSchema.IBoolean =>
-      (schema as SwaggerV2.IJsonSchema.IBoolean).type === "boolean";
-    export const isInteger = (
-      schema: SwaggerV2.IJsonSchema,
-    ): schema is SwaggerV2.IJsonSchema.IInteger =>
-      (schema as SwaggerV2.IJsonSchema.IInteger).type === "integer";
-    export const isNumber = (
-      schema: SwaggerV2.IJsonSchema,
-    ): schema is SwaggerV2.IJsonSchema.INumber =>
-      (schema as SwaggerV2.IJsonSchema.INumber).type === "number";
-    export const isString = (
-      schema: SwaggerV2.IJsonSchema,
-    ): schema is SwaggerV2.IJsonSchema.IString =>
-      (schema as SwaggerV2.IJsonSchema.IString).type === "string";
-    export const isArray = (
-      schema: SwaggerV2.IJsonSchema,
-    ): schema is SwaggerV2.IJsonSchema.IArray =>
-      (schema as SwaggerV2.IJsonSchema.IArray).type === "array";
-    export const isObject = (
-      schema: SwaggerV2.IJsonSchema,
-    ): schema is SwaggerV2.IJsonSchema.IObject =>
-      (schema as SwaggerV2.IJsonSchema.IObject).type === "object";
-    export const isReference = (
-      schema: SwaggerV2.IJsonSchema,
-    ): schema is SwaggerV2.IJsonSchema.IReference =>
-      (schema as SwaggerV2.IJsonSchema.IReference).$ref !== undefined;
-    export const isAllOf = (
-      schema: SwaggerV2.IJsonSchema,
-    ): schema is SwaggerV2.IJsonSchema.IAllOf =>
-      (schema as SwaggerV2.IJsonSchema.IAllOf).allOf !== undefined;
-    export const isOneOf = (
-      schema: SwaggerV2.IJsonSchema,
-    ): schema is SwaggerV2.IJsonSchema.IOneOf =>
-      (schema as SwaggerV2.IJsonSchema.IOneOf)["x-oneOf"] !== undefined;
-    export const isAnyOf = (
-      schema: SwaggerV2.IJsonSchema,
-    ): schema is SwaggerV2.IJsonSchema.IAnyOf =>
-      (schema as SwaggerV2.IJsonSchema.IAnyOf)["x-anyOf"] !== undefined;
-    export const isNullOnly = (
-      schema: SwaggerV2.IJsonSchema,
-    ): schema is SwaggerV2.IJsonSchema.INullOnly =>
-      (schema as SwaggerV2.IJsonSchema.INullOnly).type === "null";
-  }
 }

@@ -4,14 +4,14 @@ import { OpenApiStationValidator } from "./internal/OpenApiStationValidator";
 
 export namespace OpenApiValidator {
   export const create =
-    (prop: {
+    (props: {
       components: OpenApi.IComponents;
       schema: OpenApi.IJsonSchema;
       required: boolean;
       equals?: boolean;
     }) =>
     (value: unknown): IValidation<unknown> =>
-      validate({ ...prop, value });
+      validate({ ...props, value });
 
   export const validate = (props: {
     components: OpenApi.IComponents;

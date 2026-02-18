@@ -1,6 +1,6 @@
 import { OpenApi, SwaggerV2 } from "@typia/interface";
 
-import { OpenApiTypeChecker } from "../../utils/OpenApiTypeChecker";
+import { OpenApiTypeChecker } from "../../validators/OpenApiTypeChecker";
 
 export namespace SwaggerV2Downgrader {
   export interface IComponentsCollection {
@@ -293,10 +293,10 @@ export namespace SwaggerV2Downgrader {
             matched.enum ??= [];
             matched.enum.push(value);
           } else union.push({ type: typeof value as "number", enum: [value] });
+          if (OpenApiTypeChecker.isConstant(schema)) insert(schema.const);
+          else if (OpenApiTypeChecker.isOneOf(schema))
+            schema.oneOf.forEach(insert);
         };
-        if (OpenApiTypeChecker.isConstant(schema)) insert(schema.const);
-        else if (OpenApiTypeChecker.isOneOf(schema))
-          schema.oneOf.forEach(insert);
       };
 
       visit(input);

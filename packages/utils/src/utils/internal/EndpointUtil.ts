@@ -1,5 +1,4 @@
 import { NamingConvention } from "../NamingConvention";
-import { VariablePredicator } from "../VariablePredicator";
 
 export namespace EndpointUtil {
   export const capitalize = (str: string): string =>
@@ -32,7 +31,7 @@ export namespace EndpointUtil {
   export const normalize = (str: string): string => {
     str = str.split(".").join("_").split("-").join("_").trim();
     if (str.length === 0) return str;
-    else if (VariablePredicator.reserved(str)) return `_${str}`;
+    else if (NamingConvention.reserved(str)) return `_${str}`;
     else if (str.length !== 0 && "0" <= str[0]! && str[0]! <= "9")
       str = `_${str}`;
     return str;

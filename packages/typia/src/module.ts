@@ -13,7 +13,6 @@ export * as misc from "./misc";
 export * as notations from "./notations";
 export * as protobuf from "./protobuf";
 export * as reflect from "./reflect";
-export * as tags from "./tags";
 
 export * from "./typings";
 export * from "./TypeGuardError";
