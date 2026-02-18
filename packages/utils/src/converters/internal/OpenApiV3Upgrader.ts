@@ -1,6 +1,7 @@
 import { IJsonSchemaAttribute, OpenApi, OpenApiV3 } from "@typia/interface";
 
-import { OpenApiTypeChecker } from "../../utils";
+import { OpenApiTypeChecker } from "../../validators/OpenApiTypeChecker";
+import { OpenApiV3TypeChecker } from "../../validators/OpenApiV3TypeChecker";
 import { OpenApiExclusiveEmender } from "./OpenApiExclusiveEmender";
 
 export namespace OpenApiV3Upgrader {
@@ -62,7 +63,7 @@ export namespace OpenApiV3Upgrader {
         pathItem.parameters !== undefined || input.parameters !== undefined
           ? [...(pathItem.parameters ?? []), ...(input.parameters ?? [])]
               .map((p) => {
-                if (!TypeChecker.isReference(p))
+                if (!OpenApiV3TypeChecker.isReference(p))
                   return convertParameter(doc.components ?? {})(p);
                 const found:
                   | Omit<OpenApiV3.IOperation.IParameter, "in">
@@ -105,7 +106,7 @@ export namespace OpenApiV3Upgrader {
             Object.entries(input.examples)
               .map(([key, value]) => [
                 key,
-                TypeChecker.isReference(value)
+                OpenApiV3TypeChecker.isReference(value)
                   ? components.examples?.[value.$ref.split("/").pop() ?? ""]
                   : value,
               ])
@@ -121,7 +122,7 @@ export namespace OpenApiV3Upgrader {
         | OpenApiV3.IOperation.IRequestBody
         | OpenApiV3.IJsonSchema.IReference<`#/components/requestBodies/${string}`>,
     ): OpenApi.IOperation.IRequestBody | undefined => {
-      if (TypeChecker.isReference(input)) {
+      if (OpenApiV3TypeChecker.isReference(input)) {
         const found: OpenApiV3.IOperation.IRequestBody | undefined =
           doc.components?.requestBodies?.[input.$ref.split("/").pop() ?? ""];
         if (found === undefined) return undefined;
@@ -142,7 +143,7 @@ export namespace OpenApiV3Upgrader {
         | OpenApiV3.IOperation.IResponse
         | OpenApiV3.IJsonSchema.IReference<`#/components/responses/${string}`>,
     ): OpenApi.IOperation.IResponse | undefined => {
-      if (TypeChecker.isReference(input)) {
+      if (OpenApiV3TypeChecker.isReference(input)) {
         const found: OpenApiV3.IOperation.IResponse | undefined =
           doc.components?.responses?.[input.$ref.split("/").pop() ?? ""];
         if (found === undefined) return undefined;
@@ -162,7 +163,7 @@ export namespace OpenApiV3Upgrader {
                     [
                       key,
                       (() => {
-                        if (TypeChecker.isReference(value) === false)
+                        if (OpenApiV3TypeChecker.isReference(value) === false)
                           return convertParameter(doc.components ?? {})({
                             ...value,
                             in: "header",
@@ -213,7 +214,7 @@ export namespace OpenApiV3Upgrader {
                         Object.entries(value.examples)
                           .map(([key, value]) => [
                             key,
-                            TypeChecker.isReference(value)
+                            OpenApiV3TypeChecker.isReference(value)
                               ? components.examples?.[
                                   value.$ref.split("/").pop() ?? ""
                                 ]
@@ -281,17 +282,18 @@ export namespace OpenApiV3Upgrader {
         )
           nullable.value ||= true;
         // UNION TYPE CASE
-        if (TypeChecker.isAnyOf(schema)) schema.anyOf.forEach(visit);
-        else if (TypeChecker.isOneOf(schema)) schema.oneOf.forEach(visit);
-        else if (TypeChecker.isAllOf(schema))
+        if (OpenApiV3TypeChecker.isAnyOf(schema)) schema.anyOf.forEach(visit);
+        else if (OpenApiV3TypeChecker.isOneOf(schema))
+          schema.oneOf.forEach(visit);
+        else if (OpenApiV3TypeChecker.isAllOf(schema))
           if (schema.allOf.length === 1) visit(schema.allOf[0]!);
           else union.push(convertAllOfSchema(components)(schema));
         // ATOMIC TYPE CASE (CONSIDER ENUM VALUES)
         else if (
-          TypeChecker.isBoolean(schema) ||
-          TypeChecker.isInteger(schema) ||
-          TypeChecker.isNumber(schema) ||
-          TypeChecker.isString(schema)
+          OpenApiV3TypeChecker.isBoolean(schema) ||
+          OpenApiV3TypeChecker.isInteger(schema) ||
+          OpenApiV3TypeChecker.isNumber(schema) ||
+          OpenApiV3TypeChecker.isString(schema)
         )
           if (
             schema.enum?.length &&
@@ -303,8 +305,8 @@ export namespace OpenApiV3Upgrader {
                 .map((value) => ({ const: value })),
             );
           else if (
-            TypeChecker.isInteger(schema) ||
-            TypeChecker.isNumber(schema)
+            OpenApiV3TypeChecker.isInteger(schema) ||
+            OpenApiV3TypeChecker.isNumber(schema)
           )
             union.push(
               OpenApiExclusiveEmender.emend({
@@ -344,12 +346,12 @@ export namespace OpenApiV3Upgrader {
               ...{ enum: undefined },
             });
         // INSTANCE TYPE CASE
-        else if (TypeChecker.isArray(schema))
+        else if (OpenApiV3TypeChecker.isArray(schema))
           union.push({
             ...schema,
             items: convertSchema(components)(schema.items),
           });
-        else if (TypeChecker.isObject(schema))
+        else if (OpenApiV3TypeChecker.isObject(schema))
           union.push({
             ...schema,
             ...{
@@ -372,7 +374,7 @@ export namespace OpenApiV3Upgrader {
               required: schema.required ?? [],
             },
           });
-        else if (TypeChecker.isReference(schema)) union.push(schema);
+        else if (OpenApiV3TypeChecker.isReference(schema)) union.push(schema);
         else union.push(schema);
       };
 
@@ -449,65 +451,18 @@ export namespace OpenApiV3Upgrader {
       input: OpenApiV3.IJsonSchema,
       visited: Set<OpenApiV3.IJsonSchema> = new Set(),
     ): OpenApiV3.IJsonSchema.IObject | null => {
-      if (TypeChecker.isObject(input))
+      if (OpenApiV3TypeChecker.isObject(input))
         return input.properties !== undefined && !input.additionalProperties
           ? input
           : null;
       else if (visited.has(input)) return null;
       else visited.add(input);
 
-      if (TypeChecker.isReference(input))
+      if (OpenApiV3TypeChecker.isReference(input))
         return retrieveObject(components)(
           components.schemas?.[input.$ref.split("/").pop() ?? ""] ?? {},
           visited,
         );
       return null;
     };
-
-  export namespace TypeChecker {
-    export const isBoolean = (
-      schema: OpenApiV3.IJsonSchema,
-    ): schema is OpenApiV3.IJsonSchema.IBoolean =>
-      (schema as OpenApiV3.IJsonSchema.IBoolean).type === "boolean";
-    export const isInteger = (
-      schema: OpenApiV3.IJsonSchema,
-    ): schema is OpenApiV3.IJsonSchema.IInteger =>
-      (schema as OpenApiV3.IJsonSchema.IInteger).type === "integer";
-    export const isNumber = (
-      schema: OpenApiV3.IJsonSchema,
-    ): schema is OpenApiV3.IJsonSchema.INumber =>
-      (schema as OpenApiV3.IJsonSchema.INumber).type === "number";
-    export const isString = (
-      schema: OpenApiV3.IJsonSchema,
-    ): schema is OpenApiV3.IJsonSchema.IString =>
-      (schema as OpenApiV3.IJsonSchema.IString).type === "string";
-    export const isArray = (
-      schema: OpenApiV3.IJsonSchema,
-    ): schema is OpenApiV3.IJsonSchema.IArray =>
-      (schema as OpenApiV3.IJsonSchema.IArray).type === "array";
-    export const isObject = (
-      schema: OpenApiV3.IJsonSchema,
-    ): schema is OpenApiV3.IJsonSchema.IObject =>
-      (schema as OpenApiV3.IJsonSchema.IObject).type === "object";
-    export const isReference = (
-      schema: OpenApiV3.IJsonSchema,
-    ): schema is OpenApiV3.IJsonSchema.IReference =>
-      (schema as OpenApiV3.IJsonSchema.IReference).$ref !== undefined;
-    export const isAllOf = (
-      schema: OpenApiV3.IJsonSchema,
-    ): schema is OpenApiV3.IJsonSchema.IAllOf =>
-      (schema as OpenApiV3.IJsonSchema.IAllOf).allOf !== undefined;
-    export const isAnyOf = (
-      schema: OpenApiV3.IJsonSchema,
-    ): schema is OpenApiV3.IJsonSchema.IAnyOf =>
-      (schema as OpenApiV3.IJsonSchema.IAnyOf).anyOf !== undefined;
-    export const isOneOf = (
-      schema: OpenApiV3.IJsonSchema,
-    ): schema is OpenApiV3.IJsonSchema.IOneOf =>
-      (schema as OpenApiV3.IJsonSchema.IOneOf).oneOf !== undefined;
-    export const isNullOnly = (
-      schema: OpenApiV3.IJsonSchema,
-    ): schema is OpenApiV3.IJsonSchema.INullOnly =>
-      (schema as OpenApiV3.IJsonSchema.INullOnly).type === "null";
-  }
 }

@@ -1,6 +1,6 @@
 import { OpenApi, SwaggerV2 } from "@typia/interface";
 
-import { OpenApiTypeChecker } from "../../utils/OpenApiTypeChecker";
+import { OpenApiTypeChecker } from "../../validators/OpenApiTypeChecker";
 
 export namespace SwaggerV2Downgrader {
   export interface IComponentsCollection {

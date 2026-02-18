@@ -7,8 +7,10 @@ import {
   OpenApi,
 } from "@typia/interface";
 
-import { LlmTypeChecker, NamingConvention, OpenApiTypeChecker } from "../utils";
+import { NamingConvention } from "../utils/NamingConvention";
 import { JsonDescriptor } from "../utils/internal/JsonDescriptor";
+import { LlmTypeChecker } from "../validators/LlmTypeChecker";
+import { OpenApiTypeChecker } from "../validators/OpenApiTypeChecker";
 import { OpenApiValidator } from "../validators/OpenApiValidator";
 import { LlmDescriptionInverter } from "./internal/LlmDescriptionInverter";
 import { LlmParametersFinder } from "./internal/LlmParametersComposer";

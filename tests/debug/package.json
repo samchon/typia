@@ -33,6 +33,7 @@
   },
   "dependencies": {
     "@samchon/openapi": "workspace:^",
+    "@typia/utils": "workspace:^",
     "tstl": "catalog:utils",
     "typia": "workspace:^",
     "uuid": "catalog:utils"

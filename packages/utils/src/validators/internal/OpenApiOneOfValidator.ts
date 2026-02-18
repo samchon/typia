@@ -1,7 +1,7 @@
 import { OpenApi } from "@typia/interface";
 
-import { OpenApiTypeChecker } from "../../utils/OpenApiTypeChecker";
 import { MapUtil } from "../../utils/internal/MapUtil";
+import { OpenApiTypeChecker } from "../OpenApiTypeChecker";
 import { IOpenApiValidatorContext } from "./IOpenApiValidatorContext";
 import { OpenApiStationValidator } from "./OpenApiStationValidator";
 

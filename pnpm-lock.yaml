@@ -377,6 +377,9 @@ importers:
       '@samchon/openapi':
         specifier: workspace:^
         version: link:../../packages/openapi
+      '@typia/utils':
+        specifier: workspace:^
+        version: link:../../packages/utils
       tstl:
         specifier: catalog:utils
         version: 3.0.0

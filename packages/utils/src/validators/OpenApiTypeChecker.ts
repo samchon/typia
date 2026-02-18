@@ -1,6 +1,6 @@
 import { IJsonSchemaTransformError, IResult, OpenApi } from "@typia/interface";
 
-import { OpenApiTypeCheckerBase } from "./internal/OpenApiTypeCheckerBase";
+import { OpenApiTypeCheckerBase } from "../utils/internal/OpenApiTypeCheckerBase";
 
 /**
  * Type checker of OpenAPI type schema.

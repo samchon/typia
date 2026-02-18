@@ -2,17 +2,22 @@ import { OpenApi, OpenApiV3, OpenApiV3_1, SwaggerV2 } from "@typia/interface";
 
 import { OpenApiV3Downgrader } from "./internal/OpenApiV3Downgrader";
 import { OpenApiV3Upgrader } from "./internal/OpenApiV3Upgrader";
-import { OpenApiV3_1Emender } from "./internal/OpenApiV3_1Emender";
+import { OpenApiV3_1Upgrader } from "./internal/OpenApiV3_1Upgrader";
 import { SwaggerV2Downgrader } from "./internal/SwaggerV2Downgrader";
 import { SwaggerV2Upgrader } from "./internal/SwaggerV2Upgrader";
 
 export namespace OpenApiConverter {
   export function upgrade(
-    document: SwaggerV2.IDocument | OpenApiV3.IDocument | OpenApiV3_1.IDocument,
+    document:
+      | SwaggerV2.IDocument
+      | OpenApiV3.IDocument
+      | OpenApiV3_1.IDocument
+      | OpenApi.IDocument,
   ): OpenApi.IDocument {
-    if (isV2(document)) return SwaggerV2Upgrader.convert(document);
+    if (isUpgraded(document)) return document;
+    else if (isV3_1(document)) return OpenApiV3_1Upgrader.convert(document);
     else if (isV3(document)) return OpenApiV3Upgrader.convert(document);
-    else if (isV3_1(document)) return OpenApiV3_1Emender.convert(document);
+    else if (isV2(document)) return SwaggerV2Upgrader.convert(document);
     document satisfies never;
     throw new Error("Invalid OpenAPI document");
   }
@@ -58,3 +63,11 @@ const isV3_1 = (input: unknown): input is OpenApiV3_1.IDocument =>
   "openapi" in input &&
   typeof input.openapi === "string" &&
   input.openapi.startsWith("3.1");
+
+const isUpgraded = (input: unknown): input is OpenApi.IDocument =>
+  typeof input === "object" &&
+  input !== null &&
+  "openapi" in input &&
+  typeof input.openapi === "string" &&
+  input.openapi.startsWith("3.1") &&
+  (input as OpenApi.IDocument)["x-samchon-emended-v4"] === true;

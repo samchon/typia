@@ -1,3 +1,5 @@
-import typia from "typia";
+import * as utils from "@typia/utils";
+import * as typia from "typia";
 
-console.log(typia.misc.literals<"A" | "B" | "C">());
+typia;
+utils;

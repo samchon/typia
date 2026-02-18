@@ -23,4 +23,6 @@ export {
   CamelCase,
   PascalCase,
   SnakeCase,
+  // namespaces
+  tags,
 } from "@typia/interface";

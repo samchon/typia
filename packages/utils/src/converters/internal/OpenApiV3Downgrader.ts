@@ -1,6 +1,6 @@
 import { OpenApi, OpenApiV3 } from "@typia/interface";
 
-import { OpenApiTypeChecker } from "../../utils/OpenApiTypeChecker";
+import { OpenApiTypeChecker } from "../../validators/OpenApiTypeChecker";
 
 export namespace OpenApiV3Downgrader {
   export interface IComponentsCollection {

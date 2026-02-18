@@ -1,7 +1,7 @@
 import { ILlmSchema } from "@typia/interface";
 
-import { MapUtil } from "./internal/MapUtil";
-import { OpenApiTypeCheckerBase } from "./internal/OpenApiTypeCheckerBase";
+import { MapUtil } from "../utils/internal/MapUtil";
+import { OpenApiTypeCheckerBase } from "../utils/internal/OpenApiTypeCheckerBase";
 
 /**
  * Type checker for LLM function calling schema.
