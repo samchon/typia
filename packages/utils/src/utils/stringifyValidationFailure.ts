@@ -1,103 +1,44 @@
 import { IValidation } from "@typia/interface";
 
 import { NamingConvention } from "./NamingConvention";
+import { dedent } from "./dedent";
 
-export namespace StringUtil {
-  export function summarize(description: string): string {
-    const newLine: number = description.indexOf("\n");
-    const dot: number = description.indexOf(".");
-    const minimum: number = Math.min(
-      newLine === -1 ? Number.MAX_SAFE_INTEGER : newLine,
-      dot === -1 ? Number.MAX_SAFE_INTEGER : dot,
-      description.length,
-    );
-    return description.substring(0, minimum);
-  }
+export function stringifyValidationFailure(
+  failure: IValidation.IFailure,
+): string {
+  const usedErrors: Set<IValidation.IError> = new Set();
+  const jsonOutput = stringify({
+    value: failure.data,
+    errors: failure.errors,
+    path: "$input",
+    tab: 0,
+    inArray: false,
+    inToJson: false,
+    usedErrors,
+  });
 
-  export function trim(
-    strings: TemplateStringsArray,
-    ...values: Array<boolean | number | string>
-  ): string {
-    // 먼저 모든 template string 부분들을 합쳐서 전체 구조를 파악
-    let combined: string = strings[0]!;
-    for (let i = 0; i < values.length; i++) {
-      combined += `__PLACEHOLDER_${i}__` + strings[i + 1];
-    }
+  // Find errors that couldn't be embedded
+  const unmappableErrors: IValidation.IError[] = failure.errors.filter(
+    (e) => !usedErrors.has(e),
+  );
 
-    // 줄별로 나누기
-    const lines = combined.split("\n");
-
-    // 앞뒤 빈 줄 제거
-    while (lines.length > 0 && lines[0]!.trim() === "") {
-      lines.shift();
-    }
-    while (lines.length > 0 && lines[lines.length - 1]!.trim() === "") {
-      lines.pop();
-    }
-
-    if (lines.length === 0) return "";
-
-    // 비어있지 않은 줄들에서 최소 indentation 찾기
-    const nonEmptyLines = lines.filter((line) => line.trim() !== "");
-    const minIndent = Math.min(
-      ...nonEmptyLines.map((line) => {
-        const match = line.match(/^[ \t]*/);
-        return match ? match[0].length : 0;
-      }),
-    );
-
-    // 모든 줄에서 최소 indentation 제거
-    const dedentedLines = lines.map((line) => {
-      if (line.trim() === "") return "";
-      return line.slice(minIndent);
-    });
-
-    // placeholder를 실제 값으로 교체
-    let result = dedentedLines.join("\n");
-    for (let i = 0; i < values.length; i++) {
-      result = result.replace(`__PLACEHOLDER_${i}__`, String(values[i]));
-    }
-
-    return result;
-  }
-
-  export function stringifyValidationFailure(
-    failure: IValidation.IFailure,
-  ): string {
-    const usedErrors: Set<IValidation.IError> = new Set();
-    const jsonOutput = stringify({
-      value: failure.data,
-      errors: failure.errors,
-      path: "$input",
-      tab: 0,
-      inArray: false,
-      inToJson: false,
-      usedErrors,
-    });
-
-    // Find errors that couldn't be embedded
-    const unmappableErrors: IValidation.IError[] = failure.errors.filter(
-      (e) => !usedErrors.has(e),
-    );
-
-    // If there are unmappable errors, append them as a separate block
-    if (unmappableErrors.length > 0)
-      return trim`
-        \`\`\`json
-        ${jsonOutput}
-        \`\`\`
-
-        **Unmappable validation errors:**
-        \`\`\`json
-        ${JSON.stringify(unmappableErrors, null, 2)}
-        \`\`\`
-      `;
-    return trim`
+  // If there are unmappable errors, append them as a separate block
+  if (unmappableErrors.length > 0)
+    return dedent`
       \`\`\`json
       ${jsonOutput}
       \`\`\`
+
+      **Unmappable validation errors:**
+      \`\`\`json
+      ${JSON.stringify(unmappableErrors, null, 2)}
+      \`\`\`
     `;
-  }
+  return dedent`
+    \`\`\`json
+    ${jsonOutput}
+    \`\`\`
+  `;
 }
 
 function stringify(props: {

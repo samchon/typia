@@ -10,7 +10,7 @@ import {
 } from "@typia/interface";
 
 import { LlmSchemaConverter } from "../../converters";
-import { OpenApiValidator } from "../../validators/OpenApiValidator";
+import { OpenApiValidator } from "../../validators/internal/OpenApiValidator";
 
 export namespace HttpLlmApplicationComposer {
   export const application = (props: {

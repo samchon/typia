@@ -1,5 +1,3 @@
-export * from "./OpenApiValidator";
-
 export * from "./LlmTypeChecker";
 export * from "./OpenApiTypeChecker";
 

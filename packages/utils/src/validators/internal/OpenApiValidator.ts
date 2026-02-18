@@ -1,6 +1,6 @@
 import { IValidation, OpenApi } from "@typia/interface";
 
-import { OpenApiStationValidator } from "./internal/OpenApiStationValidator";
+import { OpenApiStationValidator } from "./OpenApiStationValidator";
 
 export namespace OpenApiValidator {
   export const create =

@@ -1,2 +1,4 @@
 export * from "./NamingConvention";
-export * from "./StringUtil";
+
+export * from "./dedent";
+export * from "./stringifyValidationFailure";
