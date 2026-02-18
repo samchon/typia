@@ -178,10 +178,10 @@ export namespace OpenApiTypeChecker {
    * If the schema has a recursive reference, the recursive reference would be
    * repeated as much as the `props.recursive` depth. If you've configured the
    * `props.recursive` as `false` or `0`, it would be failed and return an
-   * {@link IOpenApiSchemaError}. Also, if there's a
+   * {@link IJsonSchemaTransformError}. Also, if there's a
    * {@link OpenApi.IJsonSchema.IReference} type which cannot find the matched
    * type in the {@link OpenApi.IComponents.schemas}, it would also be failed and
-   * return an {@link IOpenApiSchemaError} either.
+   * return an {@link IJsonSchemaTransformError} either.
    *
    * @param props Properties for escaping
    * @returns Escaped schema, or error with reason
@@ -210,7 +210,7 @@ export namespace OpenApiTypeChecker {
    * If there's a {@link OpenApi.IJsonSchema.IReference} type which cannot find
    * the matched type in the {@link OpenApi.IComponents.schemas}, and you've
    * called this `unreference()` function with the reference, it would also be
-   * failed and return an {@link IOpenApiSchemaError} value.
+   * failed and return an {@link IJsonSchemaTransformError} value.
    *
    * @param props Properties of unreference
    * @returns Unreferenced schema

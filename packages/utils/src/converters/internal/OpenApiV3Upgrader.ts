@@ -398,6 +398,8 @@ export namespace OpenApiV3Upgrader {
           "title",
           "description",
           "deprecated",
+          "readOnly",
+          "writeOnly",
           "example",
           "examples",
         ] as const)

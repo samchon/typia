@@ -293,10 +293,10 @@ export namespace SwaggerV2Downgrader {
             matched.enum ??= [];
             matched.enum.push(value);
           } else union.push({ type: typeof value as "number", enum: [value] });
+          if (OpenApiTypeChecker.isConstant(schema)) insert(schema.const);
+          else if (OpenApiTypeChecker.isOneOf(schema))
+            schema.oneOf.forEach(insert);
         };
-        if (OpenApiTypeChecker.isConstant(schema)) insert(schema.const);
-        else if (OpenApiTypeChecker.isOneOf(schema))
-          schema.oneOf.forEach(insert);
       };
 
       visit(input);

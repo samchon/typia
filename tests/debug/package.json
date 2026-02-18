@@ -32,7 +32,7 @@
     "typescript": "catalog:typescript"
   },
   "dependencies": {
-    "@samchon/openapi": "workspace:^",
+    "@typia/interface": "workspace:^",
     "@typia/utils": "workspace:^",
     "tstl": "catalog:utils",
     "typia": "workspace:^",

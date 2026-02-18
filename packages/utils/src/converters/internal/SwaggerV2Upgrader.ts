@@ -180,7 +180,7 @@ export namespace SwaggerV2Upgrader {
   /* -----------------------------------------------------------
     DEFINITIONS
   ----------------------------------------------------------- */
-  const convertComponents = (
+  export const convertComponents = (
     input: SwaggerV2.IDocument,
   ): OpenApi.IComponents => ({
     schemas: Object.fromEntries(

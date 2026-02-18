@@ -21,7 +21,9 @@ export namespace HttpMigration {
       | OpenApiV3.IDocument
       | OpenApiV3_1.IDocument,
   ): IHttpMigrateApplication =>
-    HttpMigrateApplicationComposer.compose(OpenApiConverter.upgrade(document));
+    HttpMigrateApplicationComposer.compose(
+      OpenApiConverter.upgradeDocument(document),
+    );
 
   export const execute = (props: IFetchProps): Promise<unknown> =>
     HttpMigrateRouteFetcher.execute(props);

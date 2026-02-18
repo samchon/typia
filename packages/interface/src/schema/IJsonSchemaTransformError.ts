@@ -3,13 +3,13 @@ import { OpenApi } from "../openapi";
 /**
  * OpenAPI schema related error.
  *
- * `IOpenApiSchemaError` is a type representing an error that occurred during
- * the iteration or transformation of the OpenAPI schema (JSON schema) of
+ * `IJsonSchemaTransformError` is a type representing an error that occurred
+ * during the iteration or transformation of the OpenAPI schema (JSON schema) of
  * {@link OpenApi.IJsonSchema} type.
  *
- * The most `IOpenApiSchemaError` is occurred by the transformation process from
- * {@link OpenApi.IJsonSchema} to {@link ILlmSchema} type. The transformation can
- * be failed by following reasons:
+ * The most `IJsonSchemaTransformError` is occurred by the transformation
+ * process from {@link OpenApi.IJsonSchema} to {@link ILlmSchema} type. The
+ * transformation can be failed by following reasons:
  *
  * - Unable to find the {@link OpenApi.IJsonSchema.IReference} directing.
  * - Non-supported type in LLM schema models

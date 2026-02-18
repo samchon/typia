@@ -1,5 +1,6 @@
 import { IJsonSchemaAttribute, OpenApi, OpenApiV3_1 } from "@typia/interface";
 
+import { OpenApiTypeChecker } from "../../validators/OpenApiTypeChecker";
 import { OpenApiV3_1TypeChecker } from "../../validators/OpenApiV3_1TypeChecker";
 import { OpenApiExclusiveEmender } from "./OpenApiExclusiveEmender";
 
@@ -582,6 +583,24 @@ export namespace OpenApiV3_1Upgrader {
           type: "null",
           default: nullable.default,
         });
+      if (
+        union.length === 2 &&
+        union.filter((x) => OpenApiTypeChecker.isNull(x)).length === 1
+      ) {
+        const type: OpenApi.IJsonSchema = union.filter(
+          (x) => OpenApiTypeChecker.isNull(x) === false,
+        )[0]!;
+        for (const key of [
+          "title",
+          "description",
+          "deprecated",
+          "readOnly",
+          "writeOnly",
+          "example",
+          "examples",
+        ] as const)
+          if (type[key] !== undefined) delete type[key];
+      }
       return {
         ...(union.length === 0
           ? {

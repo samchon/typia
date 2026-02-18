@@ -11,7 +11,7 @@ import { NamingConvention } from "../utils/NamingConvention";
 import { JsonDescriptor } from "../utils/internal/JsonDescriptor";
 import { LlmTypeChecker } from "../validators/LlmTypeChecker";
 import { OpenApiTypeChecker } from "../validators/OpenApiTypeChecker";
-import { OpenApiValidator } from "../validators/internal/OpenApiValidator";
+import { OpenApiValidator } from "../validators/OpenApiValidator";
 import { LlmDescriptionInverter } from "./internal/LlmDescriptionInverter";
 import { LlmParametersFinder } from "./internal/LlmParametersComposer";
 import { OpenApiConstraintShifter } from "./internal/OpenApiConstraintShifter";
@@ -40,7 +40,7 @@ export namespace LlmSchemaConverter {
       IJsonSchemaTransformError
     > = LlmParametersFinder.parameters({
       ...props,
-      method: "LlmSchemaComposer.parameters",
+      method: "LlmSchemaConverter.parameters",
     });
     if (entity.success === false) return entity;
 
@@ -151,7 +151,7 @@ export namespace LlmSchemaConverter {
       return {
         success: false,
         error: {
-          method: "LlmSchemaComposer.schema",
+          method: "LlmSchemaConverter.schema",
           message: "Failed to compose LLM schema",
           reasons,
         },
@@ -360,7 +360,7 @@ export namespace LlmSchemaConverter {
       return {
         success: false,
         error: {
-          method: "LlmSchemaComposer.schema",
+          method: "LlmSchemaConverter.schema",
           message: "Failed to compose LLM schema",
           reasons,
         },
