@@ -13,5 +13,5 @@ typia = "typia"
 [files]
 extend-exclude = [
   "internals/examples/bin",
-  "tests/test-openapi/examples"
+  "tests/test-utils/examples"
 ]
