@@ -66,7 +66,7 @@ export namespace NamingConvention {
   }
 
   export const capitalize = (str: string): string =>
-    str.length !== 0 ? str[0]!.toUpperCase() + str.slice(1).toLowerCase() : str;
+    str.length !== 0 ? str[0]!.toUpperCase() + str.slice(1) : str;
 
   export const localize = (str: string) => str[0]!.toLowerCase() + str.slice(1);
 

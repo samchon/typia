@@ -101,12 +101,7 @@
     // "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
     "skipLibCheck": true,                                /* Skip type checking all .d.ts files. */
     "plugins": [
-      { 
-        "transform": "typia/src/transform.ts", 
-        "functional": true, 
-        "numeric": true, 
-        "finite": true,
-      },
+      { "transform": "typia/src/transform.ts" },
     ],
   },
 }

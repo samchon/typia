@@ -3,7 +3,7 @@ import { NamingConvention, dedent } from "@typia/utils";
 export const write_protobuf_decode =
   (method: string) => (create: boolean) => (structure: string) =>
     dedent`
-      import { ${structure} } from "@typia/structures";
+      import { ${structure} } from "@typia/template";
       import typia from "typia";
 
       import { _test_protobuf_${getMethod(method)(

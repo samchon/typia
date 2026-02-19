@@ -5,8 +5,9 @@
   "description": "Automated test features of typia.",
   "scripts": {
     "build": "tsc",
+    "build:typia": "cd ../../packages/typia && pnpm run build",
     "prepare": "ts-patch install",
-    "start": "node -r ts-node/register --max-old-space-size=16000 src/index.ts"
+    "start": "pnpm run build:typia && ts-node src/index.ts"
   },
   "repository": {
     "type": "git",
