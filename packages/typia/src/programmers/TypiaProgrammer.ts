@@ -1,9 +1,9 @@
+import { ImportTransformer } from "@typia/transform";
 import fs from "fs";
 import path from "path";
 import ts from "typescript";
 
 import transform from "../transform";
-import { ImportTransformer } from "../transformers/ImportTransformer";
 
 export namespace TypiaProgrammer {
   export interface ILocation {

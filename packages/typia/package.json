@@ -42,6 +42,7 @@
     "@standard-schema/spec": "^1.0.0",
     "@typia/core": "workspace:^",
     "@typia/interface": "workspace:^",
+    "@typia/transform": "workspace:^",
     "@typia/utils": "workspace:^",
     "commander": "^10.0.0",
     "comment-json": "^4.2.3",
