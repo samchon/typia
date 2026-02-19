@@ -5,10 +5,10 @@ import { IProgrammerProps } from "../../context/IProgrammerProps";
 import { TransformerError } from "../../context/TransformerError";
 import { IdentifierFactory } from "../../factories/IdentifierFactory";
 import { MetadataFactory } from "../../factories/MetadataFactory";
-import { MetadataStorage } from "../../factories/MetadataStorage";
 import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
 import { MetadataSchema } from "../../schemas/metadata/MetadataSchema";
+import { MetadataStorage } from "../../schemas/metadata/MetadataStorage";
 import { AssertProgrammer } from "../AssertProgrammer";
 import { HttpMetadataUtil } from "../helpers/HttpMetadataUtil";
 

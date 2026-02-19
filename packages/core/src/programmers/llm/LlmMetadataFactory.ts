@@ -4,9 +4,9 @@ import ts from "typescript";
 import { ITypiaContext } from "../../context/ITypiaContext";
 import { TransformerError } from "../../context/TransformerError";
 import { MetadataFactory } from "../../factories/MetadataFactory";
-import { MetadataStorage } from "../../factories/MetadataStorage";
 import { MetadataObject } from "../../schemas/metadata/MetadataObject";
 import { MetadataSchema } from "../../schemas/metadata/MetadataSchema";
+import { MetadataStorage } from "../../schemas/metadata/MetadataStorage";
 import { ValidationPipe } from "../../typings/ValidationPipe";
 
 export namespace LlmMetadataFactory {

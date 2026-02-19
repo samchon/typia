@@ -3,10 +3,10 @@ import ts from "typescript";
 
 import { ITypiaContext } from "../../context/ITypiaContext";
 import { IdentifierFactory } from "../../factories/IdentifierFactory";
-import { MetadataStorage } from "../../factories/MetadataStorage";
 import { ProtobufFactory } from "../../factories/ProtobufFactory";
 import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
 import { MetadataSchema } from "../../schemas/metadata/MetadataSchema";
+import { MetadataStorage } from "../../schemas/metadata/MetadataStorage";
 import { IProtobufProperty } from "../../schemas/protobuf/IProtobufProperty";
 import { IProtobufPropertyType } from "../../schemas/protobuf/IProtobufPropertyType";
 import { IProtobufSchema } from "../../schemas/protobuf/IProtobufSchema";

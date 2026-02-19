@@ -6,13 +6,13 @@ import { ProtobufUtil } from "../programmers/helpers/ProtobufUtil";
 import { MetadataObjectType } from "../schemas/metadata/MetadataObjectType";
 import { MetadataProperty } from "../schemas/metadata/MetadataProperty";
 import { MetadataSchema } from "../schemas/metadata/MetadataSchema";
+import { MetadataStorage } from "../schemas/metadata/MetadataStorage";
 import { IProtobufProperty } from "../schemas/protobuf/IProtobufProperty";
 import { IProtobufPropertyType } from "../schemas/protobuf/IProtobufPropertyType";
 import { IProtobufSchema } from "../schemas/protobuf/IProtobufSchema";
 import { ProtobufAtomic } from "../typings/ProtobufAtomic";
 import { ValidationPipe } from "../typings/ValidationPipe";
 import { MetadataFactory } from "./MetadataFactory";
-import { MetadataStorage } from "./MetadataStorage";
 
 export namespace ProtobufFactory {
   export interface IProps {

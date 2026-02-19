@@ -1,8 +1,8 @@
 import ts from "typescript";
 
 import { MetadataSchema } from "../../../schemas/metadata/MetadataSchema";
+import { MetadataStorage } from "../../../schemas/metadata/MetadataStorage";
 import { MetadataFactory } from "../../MetadataFactory";
-import { MetadataStorage } from "../../MetadataStorage";
 
 export interface IMetadataIteratorProps<Type extends ts.Type = ts.Type> {
   options: MetadataFactory.IOptions;

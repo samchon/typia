@@ -18,6 +18,7 @@ export * from "./MetadataParameter";
 export * from "./MetadataProperty";
 export * from "./MetadataSchema";
 export * from "./MetadataSet";
+export * from "./MetadataStorage";
 export * from "./MetadataTemplate";
 export * from "./MetadataTuple";
 export * from "./MetadataTupleType";

@@ -1,4 +1,25 @@
 export namespace NamingConvention {
+  export function camel(str: string) {
+    return unsnake({
+      plain: (str) =>
+        str.length
+          ? str === str.toUpperCase()
+            ? str.toLocaleLowerCase()
+            : `${str[0]!.toLowerCase()}${str.substring(1)}`
+          : str,
+      snake: (str, i) =>
+        i === 0 ? str.toLowerCase() : capitalize(str.toLowerCase()),
+    })(str);
+  }
+
+  export function pascal(str: string) {
+    return unsnake({
+      plain: (str) =>
+        str.length ? `${str[0]!.toUpperCase()}${str.substring(1)}` : str,
+      snake: capitalize,
+    })(str);
+  }
+
   export function snake(str: string): string {
     if (str.length === 0) return str;
 
@@ -42,27 +63,6 @@ export namespace NamingConvention {
     }
     ret += str.substring(indexes[indexes.length - 1]!).toLowerCase();
     return out(ret);
-  }
-
-  export function camel(str: string) {
-    return unsnake({
-      plain: (str) =>
-        str.length
-          ? str === str.toUpperCase()
-            ? str.toLocaleLowerCase()
-            : `${str[0]!.toLowerCase()}${str.substring(1)}`
-          : str,
-      snake: (str, i) =>
-        i === 0 ? str.toLowerCase() : capitalize(str.toLowerCase()),
-    })(str);
-  }
-
-  export function pascal(str: string) {
-    return unsnake({
-      plain: (str) =>
-        str.length ? `${str[0]!.toUpperCase()}${str.substring(1)}` : str,
-      snake: capitalize,
-    })(str);
   }
 
   export const capitalize = (str: string): string =>

@@ -1,6 +1,6 @@
 import { MetadataObjectType } from "../../../schemas/metadata/MetadataObjectType";
 import { MetadataSchema } from "../../../schemas/metadata/MetadataSchema";
-import { MetadataStorage } from "../../MetadataStorage";
+import { MetadataStorage } from "../../../schemas/metadata/MetadataStorage";
 
 export const iterate_metadata_sort = (props: {
   collection: MetadataStorage;

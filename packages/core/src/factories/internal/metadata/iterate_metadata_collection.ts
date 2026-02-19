@@ -1,9 +1,9 @@
 import { MetadataArrayType } from "../../../schemas/metadata/MetadataArrayType";
 import { MetadataObjectType } from "../../../schemas/metadata/MetadataObjectType";
 import { MetadataSchema } from "../../../schemas/metadata/MetadataSchema";
+import { MetadataStorage } from "../../../schemas/metadata/MetadataStorage";
 import { MetadataTupleType } from "../../../schemas/metadata/MetadataTupleType";
 import { MetadataFactory } from "../../MetadataFactory";
-import { MetadataStorage } from "../../MetadataStorage";
 import { iterate_metadata_comment_tags } from "./iterate_metadata_comment_tags";
 
 export const iterate_metadata_collection = (props: {

@@ -2,8 +2,8 @@ import { IMetadataTypeTag } from "@typia/interface";
 
 import { MetadataObjectType } from "../../../schemas/metadata/MetadataObjectType";
 import { MetadataSchema } from "../../../schemas/metadata/MetadataSchema";
+import { MetadataStorage } from "../../../schemas/metadata/MetadataStorage";
 import { MetadataFactory } from "../../MetadataFactory";
-import { MetadataStorage } from "../../MetadataStorage";
 import { MetadataTypeTagFactory } from "../../MetadataTypeTagFactory";
 import { IMetadataIteratorProps } from "./IMetadataIteratorProps";
 import { explore_metadata } from "./explore_metadata";

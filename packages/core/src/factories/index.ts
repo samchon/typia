@@ -4,7 +4,6 @@ export * from "./FormatCheatSheet";
 export * from "./IdentifierFactory";
 export * from "./JsonMetadataFactory";
 export * from "./LiteralFactory";
-export * from "./MetadataStorage";
 export * from "./MetadataCommentTagFactory";
 export * from "./MetadataFactory";
 export * from "./MetadataTypeTagFactory";

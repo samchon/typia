@@ -5,8 +5,8 @@ import { ITypiaContext } from "../../context/ITypiaContext";
 import { TransformerError } from "../../context/TransformerError";
 import { ExpressionFactory } from "../../factories/ExpressionFactory";
 import { MetadataFactory } from "../../factories/MetadataFactory";
-import { MetadataStorage } from "../../factories/MetadataStorage";
 import { MetadataSchema } from "../../schemas/metadata/MetadataSchema";
+import { MetadataStorage } from "../../schemas/metadata/MetadataStorage";
 
 export namespace MiscLiteralsProgrammer {
   export interface IProps {

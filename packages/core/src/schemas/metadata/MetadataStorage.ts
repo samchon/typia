@@ -2,14 +2,14 @@ import { IMetadataComponents } from "@typia/interface";
 import { MapUtil } from "@typia/utils";
 import ts from "typescript";
 
-import { MetadataAliasType } from "../schemas/metadata/MetadataAliasType";
-import { MetadataArrayType } from "../schemas/metadata/MetadataArrayType";
-import { MetadataObjectType } from "../schemas/metadata/MetadataObjectType";
-import { MetadataSchema } from "../schemas/metadata/MetadataSchema";
-import { MetadataTupleType } from "../schemas/metadata/MetadataTupleType";
-import { Writable } from "../typings/Writable";
-import { CommentFactory } from "./CommentFactory";
-import { TypeFactory } from "./TypeFactory";
+import { CommentFactory } from "../../factories/CommentFactory";
+import { TypeFactory } from "../../factories/TypeFactory";
+import { Writable } from "../../typings/Writable";
+import { MetadataAliasType } from "./MetadataAliasType";
+import { MetadataArrayType } from "./MetadataArrayType";
+import { MetadataObjectType } from "./MetadataObjectType";
+import { MetadataSchema } from "./MetadataSchema";
+import { MetadataTupleType } from "./MetadataTupleType";
 
 export class MetadataStorage {
   private objects_: Map<ts.Type, MetadataObjectType>;

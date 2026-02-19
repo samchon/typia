@@ -2,13 +2,13 @@ import ts from "typescript";
 
 import { ITypiaContext } from "../../context/ITypiaContext";
 import { IdentifierFactory } from "../../factories/IdentifierFactory";
-import { MetadataStorage } from "../../factories/MetadataStorage";
 import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
 import { ValueFactory } from "../../factories/ValueFactory";
 import { MetadataArray } from "../../schemas/metadata/MetadataArray";
 import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
 import { MetadataSchema } from "../../schemas/metadata/MetadataSchema";
+import { MetadataStorage } from "../../schemas/metadata/MetadataStorage";
 import { FunctionProgrammer } from "../helpers/FunctionProgrammer";
 import { IExpressionEntry } from "../helpers/IExpressionEntry";
 import { UnionExplorer } from "../helpers/UnionExplorer";
