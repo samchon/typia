@@ -1,7 +1,7 @@
 import { IJsonSchemaTransformError, IResult, OpenApi } from "@typia/interface";
 
+import { MapUtil } from "../MapUtil";
 import { JsonDescriptor } from "./JsonDescriptor";
-import { MapUtil } from "./MapUtil";
 
 /** @internal */
 export namespace OpenApiTypeCheckerBase {
@@ -485,9 +485,11 @@ export namespace OpenApiTypeCheckerBase {
     if (cache !== undefined) return cache;
 
     // FOR RECURSIVE CASE
-    const nested: Map<OpenApi.IJsonSchema, boolean> = MapUtil.take(p.visited)(
+    const nested: Map<OpenApi.IJsonSchema, boolean> = MapUtil.take(
+      p.visited,
       p.x,
-    )(() => new Map());
+      () => new Map(),
+    );
     nested.set(p.y, true);
 
     // COMPUTE IT

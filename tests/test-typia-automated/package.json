@@ -33,6 +33,7 @@
   "dependencies": {
     "@nestia/e2e": "catalog:utils",
     "@standard-schema/spec": "^1.0.0",
+    "@typia/utils": "workspace:^",
     "@typia/template": "workspace:^",
     "protobufjs": "7.2.5",
     "randexp": "^0.5.3",

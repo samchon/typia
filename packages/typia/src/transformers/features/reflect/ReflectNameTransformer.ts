@@ -1,11 +1,13 @@
+import {
+  ITypiaContext,
+  MetadataFactory,
+  MetadataSchema,
+  MetadataStorage,
+} from "@typia/core";
+import { ValidationPipe } from "@typia/core";
 import ts from "typescript";
 
-import { MetadataComponents } from "../../../factories/MetadataComponents";
-import { MetadataFactory } from "../../../factories/MetadataFactory";
-import { MetadataSchema } from "../../../schemas/metadata/MetadataSchema";
-import { ValidationPipe } from "../../../typings/ValidationPipe";
 import { ITransformProps } from "../../ITransformProps";
-import { ITypiaContext } from "../../ITypiaContext";
 import { TransformerError } from "../../TransformerError";
 
 export namespace ReflectNameTransformer {
@@ -55,8 +57,8 @@ const getMetadata = (props: {
   const type: ts.Type = props.context.checker.getTypeFromTypeNode(
     props.node as ts.TypeNode,
   );
-  const collection: MetadataComponents = new MetadataComponents({
-    replace: MetadataComponents.replace,
+  const collection: MetadataStorage = new MetadataStorage({
+    replace: MetadataStorage.replace,
   });
   const result: ValidationPipe<MetadataSchema, MetadataFactory.IError> =
     MetadataFactory.analyze({

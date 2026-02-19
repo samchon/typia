@@ -1,6 +1,5 @@
-import { NotationIsGeneralProgrammer } from "../../../programmers/notations/NotationIsGeneralProgrammer";
-
-import { StringUtil } from "../../../utils/StringUtil";
+import { NotationIsGeneralProgrammer } from "@typia/core";
+import { NamingConvention } from "@typia/utils";
 
 import { ITransformProps } from "../../ITransformProps";
 import { GenericTransformer } from "../../internal/GenericTransformer";
@@ -10,7 +9,7 @@ export namespace NotationIsGeneralTransformer {
     (rename: (str: string) => string) => (props: ITransformProps) =>
       GenericTransformer.scalar({
         ...props,
-        method: `notations.is${StringUtil.capitalize(rename.name)}`,
+        method: `notations.is${NamingConvention.capitalize(rename.name)}`,
         write: (x) =>
           NotationIsGeneralProgrammer.write({
             ...x,

@@ -1,6 +1,5 @@
-import { NotationValidateGeneralProgrammer } from "../../../programmers/notations/NotationValidateGeneralProgrammer";
-
-import { StringUtil } from "../../../utils/StringUtil";
+import { NotationValidateGeneralProgrammer } from "@typia/core";
+import { NamingConvention } from "@typia/utils";
 
 import { ITransformProps } from "../../ITransformProps";
 import { GenericTransformer } from "../../internal/GenericTransformer";
@@ -10,7 +9,7 @@ export namespace NotationValidateGeneralTransformer {
     (rename: (str: string) => string) => (props: ITransformProps) =>
       GenericTransformer.scalar({
         ...props,
-        method: `notations.validate${StringUtil.capitalize(rename.name)}`,
+        method: `notations.validate${NamingConvention.capitalize(rename.name)}`,
         write: (x) =>
           NotationValidateGeneralProgrammer.write({
             ...x,

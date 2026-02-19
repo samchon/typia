@@ -1,6 +1,5 @@
-import { ProtobufWire } from "../programmers/helpers/ProtobufWire";
-
-import { Singleton } from "../utils/Singleton";
+import { ProtobufWire } from "@typia/interface";
+import { Singleton } from "@typia/utils";
 
 /// @reference https://github.com/piotr-oles/as-proto/blob/main/packages/as-proto/assembly/internal/FixedReader.ts
 export class _ProtobufReader {
@@ -185,4 +184,4 @@ export class _ProtobufReader {
   }
 }
 
-const utf8 = /** @__PURE__ */ new Singleton(() => new TextDecoder("utf-8"));
+const utf8 = new Singleton(() => new TextDecoder("utf-8"));

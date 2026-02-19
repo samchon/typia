@@ -40,6 +40,7 @@
   "homepage": "https://typia.io",
   "dependencies": {
     "@standard-schema/spec": "^1.0.0",
+    "@typia/core": "workspace:^",
     "@typia/interface": "workspace:^",
     "@typia/utils": "workspace:^",
     "commander": "^10.0.0",

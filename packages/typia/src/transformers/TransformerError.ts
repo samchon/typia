@@ -1,8 +1,5 @@
-import { MetadataFactory } from "../factories/MetadataFactory";
-
-import { MetadataObjectType } from "../schemas/metadata/MetadataObjectType";
-
-import { Escaper } from "../utils/Escaper";
+import { MetadataFactory, MetadataObjectType } from "@typia/core";
+import { NamingConvention } from "@typia/utils";
 
 export class TransformerError extends Error {
   public readonly code: string;
@@ -54,7 +51,7 @@ export namespace TransformerError {
     (object: MetadataObjectType) => (key: string | object | null) => {
       if (key === null) return object.name;
       else if (typeof key === "object") return `${object.name}[key]`;
-      else if (Escaper.variable(key)) return `${object.name}.${key}`;
+      else if (NamingConvention.variable(key)) return `${object.name}.${key}`;
       return `${object.name}[${JSON.stringify(key)}]`;
     };
 }

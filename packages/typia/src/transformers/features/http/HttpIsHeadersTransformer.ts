@@ -1,4 +1,4 @@
-import { HttpIsHeadersProgrammer } from "../../../programmers/http/HttpIsHeadersProgrammer";
+import { HttpIsHeadersProgrammer } from "@typia/core";
 
 import { ITransformProps } from "../../ITransformProps";
 import { GenericTransformer } from "../../internal/GenericTransformer";

@@ -1,6 +1,5 @@
-import { NotationAssertGeneralProgrammer } from "../../../programmers/notations/NotationAssertGeneralProgrammer";
-
-import { StringUtil } from "../../../utils/StringUtil";
+import { NotationAssertGeneralProgrammer } from "@typia/core";
+import { NamingConvention } from "@typia/utils";
 
 import { ITransformProps } from "../../ITransformProps";
 import { GenericTransformer } from "../../internal/GenericTransformer";
@@ -10,7 +9,7 @@ export namespace NotationCreateAssertGeneralTransformer {
     (rename: (str: string) => string) => (props: ITransformProps) =>
       GenericTransformer.factory({
         ...props,
-        method: `notations.createAssert${StringUtil.capitalize(rename.name)}`,
+        method: `notations.createAssert${NamingConvention.capitalize(rename.name)}`,
         write: (x) =>
           NotationAssertGeneralProgrammer.write({
             ...x,

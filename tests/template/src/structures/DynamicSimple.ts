@@ -1,5 +1,5 @@
+import { ArrayUtil } from "@nestia/e2e";
 import { IPointer } from "tstl";
-import { ArrayUtil } from "typia/src/utils/ArrayUtil";
 
 import { Spoiler } from "../utils/Spoiler";
 import { TestRandomGenerator } from "../utils/TestRandomGenerator";

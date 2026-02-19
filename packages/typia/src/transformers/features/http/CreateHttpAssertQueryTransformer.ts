@@ -1,4 +1,4 @@
-import { HttpAssertQueryProgrammer } from "../../../programmers/http/HttpAssertQueryProgrammer";
+import { HttpAssertQueryProgrammer } from "@typia/core";
 
 import { ITransformProps } from "../../ITransformProps";
 import { GenericTransformer } from "../../internal/GenericTransformer";

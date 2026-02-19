@@ -1,4 +1,4 @@
-import { ProtobufIsDecodeProgrammer } from "../../../programmers/protobuf/ProtobufIsDecodeProgrammer";
+import { ProtobufIsDecodeProgrammer } from "@typia/core";
 
 import { ITransformProps } from "../../ITransformProps";
 import { GenericTransformer } from "../../internal/GenericTransformer";

@@ -1,10 +1,7 @@
+import { ITypiaContext, ImportProgrammer } from "@typia/core";
+import { Singleton } from "@typia/utils";
 import ts from "typescript";
 
-import { ImportProgrammer } from "../programmers/ImportProgrammer";
-
-import { Singleton } from "../utils/Singleton";
-
-import { ITypiaContext } from "./ITypiaContext";
 import { NodeTransformer } from "./NodeTransformer";
 import { TransformerError } from "./TransformerError";
 

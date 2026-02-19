@@ -1,6 +1,6 @@
+import { ArrayUtil } from "@nestia/e2e";
 import { TestStructure } from "@typia/template";
 import { Resolved } from "typia";
-import { ArrayUtil } from "typia/src/utils/ArrayUtil";
 
 export const _test_random =
   (_name: string) =>

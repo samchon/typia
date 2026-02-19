@@ -1,4 +1,4 @@
-import { MiscAssertPruneProgrammer } from "../../../programmers/misc/MiscAssertPruneProgrammer";
+import { MiscAssertPruneProgrammer } from "@typia/core";
 
 import { ITransformProps } from "../../ITransformProps";
 import { GenericTransformer } from "../../internal/GenericTransformer";

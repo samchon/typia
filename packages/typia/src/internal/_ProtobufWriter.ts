@@ -1,4 +1,4 @@
-import { Singleton } from "../utils/Singleton";
+import { Singleton } from "@typia/utils";
 
 import { _IProtobufWriter } from "./_IProtobufWriter";
 import { _ProtobufSizer } from "./_ProtobufSizer";
@@ -132,4 +132,4 @@ export class _ProtobufWriter implements _IProtobufWriter {
       : this.sizer.varlen[this.varlenidx++]!;
   }
 }
-const utf8 = /** @__PURE__ */ new Singleton(() => new TextEncoder());
+const utf8 = new Singleton(() => new TextEncoder());

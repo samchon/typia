@@ -1,6 +1,6 @@
 import ts from "typescript";
 
-import { ProtobufMessageProgrammer } from "../../../programmers/protobuf/ProtobufMessageProgrammer";
+import { ProtobufMessageProgrammer } from "@typia/core";
 
 import { ITransformProps } from "../../ITransformProps";
 import { TransformerError } from "../../TransformerError";

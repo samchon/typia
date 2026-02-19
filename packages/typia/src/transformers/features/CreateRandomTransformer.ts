@@ -1,6 +1,6 @@
 import ts from "typescript";
 
-import { RandomProgrammer } from "../../programmers/RandomProgrammer";
+import { RandomProgrammer } from "@typia/core";
 
 import { ITransformProps } from "../ITransformProps";
 import { TransformerError } from "../TransformerError";

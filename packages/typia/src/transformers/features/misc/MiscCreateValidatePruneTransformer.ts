@@ -1,4 +1,4 @@
-import { MiscValidatePruneProgrammer } from "../../../programmers/misc/MiscValidatePruneProgrammer";
+import { MiscValidatePruneProgrammer } from "@typia/core";
 
 import { ITransformProps } from "../../ITransformProps";
 import { GenericTransformer } from "../../internal/GenericTransformer";

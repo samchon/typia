@@ -1,4 +1,4 @@
-import { NotationGeneralProgrammer } from "../../../programmers/notations/NotationGeneralProgrammer";
+import { NotationGeneralProgrammer } from "@typia/core";
 
 import { ITransformProps } from "../../ITransformProps";
 import { GenericTransformer } from "../../internal/GenericTransformer";

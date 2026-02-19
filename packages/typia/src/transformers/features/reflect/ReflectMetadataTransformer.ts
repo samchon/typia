@@ -1,10 +1,10 @@
+import { LiteralFactory } from "@typia/core";
+import { MetadataStorage } from "@typia/core";
+import { MetadataFactory } from "@typia/core";
+import { MetadataSchema } from "@typia/core";
 import { IMetadataSchemaCollection } from "@typia/interface";
 import ts from "typescript";
 
-import { LiteralFactory } from "../../../factories/LiteralFactory";
-import { MetadataComponents } from "../../../factories/MetadataComponents";
-import { MetadataFactory } from "../../../factories/MetadataFactory";
-import { MetadataSchema } from "../../../schemas/metadata/MetadataSchema";
 import { ITransformProps } from "../../ITransformProps";
 import { TransformerError } from "../../TransformerError";
 
@@ -35,7 +35,7 @@ export namespace ReflectMetadataTransformer {
       });
 
     // METADATA
-    const components: MetadataComponents = new MetadataComponents();
+    const components: MetadataStorage = new MetadataStorage();
     const schemas: Array<MetadataSchema> = types.map((type) => {
       const result = MetadataFactory.analyze({
         checker: props.context.checker,

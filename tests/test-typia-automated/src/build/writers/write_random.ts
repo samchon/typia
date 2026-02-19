@@ -1,7 +1,7 @@
-import { StringUtil } from "@typia/template";
+import { dedent } from "@typia/utils";
 
 export const write_random = (create: boolean) => (structure: string) =>
-  StringUtil.trim`
+  dedent`
     import { ${structure} } from "@typia/template";
     import typia from "typia";
 

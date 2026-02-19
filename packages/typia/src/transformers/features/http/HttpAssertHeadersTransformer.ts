@@ -1,4 +1,4 @@
-import { HttpAssertHeadersProgrammer } from "../../../programmers/http/HttpAssertHeadersProgrammer";
+import { HttpAssertHeadersProgrammer } from "@typia/core";
 
 import { ITransformProps } from "../../ITransformProps";
 import { GenericTransformer } from "../../internal/GenericTransformer";

@@ -1,6 +1,6 @@
 import { TestStructure } from "@typia/template";
+import { NamingConvention } from "@typia/utils";
 import typia, { AssertionGuard, TypeGuardError } from "typia";
-import { Escaper } from "typia/src/utils/Escaper";
 
 export const _test_assertGuardEquals =
   (ErrorClass: Function) =>
@@ -91,7 +91,7 @@ function trace_object(accessors: IAccessor[], path: string, obj: any): void {
   for (const [key, value] of Object.entries(obj))
     trace(
       accessors,
-      Escaper.variable(key)
+      NamingConvention.variable(key)
         ? `${path}.${key}`
         : `${path}[${JSON.stringify(key)}]`,
       value,

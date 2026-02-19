@@ -1,4 +1,4 @@
-import { HttpValidateQueryProgrammer } from "../../../programmers/http/HttpValidateQueryProgrammer";
+import { HttpValidateQueryProgrammer } from "@typia/core";
 
 import { ITransformProps } from "../../ITransformProps";
 import { GenericTransformer } from "../../internal/GenericTransformer";

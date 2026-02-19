@@ -1,8 +1,8 @@
-import { StringUtil } from "@typia/template";
+import { NamingConvention, dedent } from "@typia/utils";
 
 export const write_protobuf_encode =
   (method: string) => (create: boolean) => (structure: string) =>
-    StringUtil.trim`
+    dedent`
       import { ${structure} } from "@typia/template";
       import typia from "typia";
 
@@ -24,7 +24,7 @@ export const write_protobuf_encode =
 const getFile = (name: string) => (create: boolean) =>
   `test_protobuf_${getMethod(name)(create)}`;
 const getMethod = (name: string) => (create: boolean) =>
-  [create ? `create${StringUtil.capitalize(name)}` : name]
+  [create ? `create${NamingConvention.capitalize(name)}` : name]
     .filter((str) => !!str)
     .join(".");
 const getFunctor =

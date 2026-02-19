@@ -1,13 +1,13 @@
+import { LiteralFactory } from "@typia/core";
+import { MetadataStorage } from "@typia/core";
+import { MetadataFactory } from "@typia/core";
+import { JsonSchemaProgrammer } from "@typia/core";
+import { JsonSchemasProgrammer } from "@typia/core";
+import { MetadataSchema } from "@typia/core";
+import { ValidationPipe } from "@typia/core";
 import { IJsonSchemaUnit } from "@typia/interface";
 import ts from "typescript";
 
-import { LiteralFactory } from "../../../factories/LiteralFactory";
-import { MetadataComponents } from "../../../factories/MetadataComponents";
-import { MetadataFactory } from "../../../factories/MetadataFactory";
-import { JsonSchemaProgrammer } from "../../../programmers/json/JsonSchemaProgrammer";
-import { JsonSchemasProgrammer } from "../../../programmers/json/JsonSchemasProgrammer";
-import { MetadataSchema } from "../../../schemas/metadata/MetadataSchema";
-import { ValidationPipe } from "../../../typings/ValidationPipe";
 import { ITransformProps } from "../../ITransformProps";
 import { TransformerError } from "../../TransformerError";
 
@@ -62,8 +62,8 @@ export namespace JsonSchemaTransformer {
             validate:
               validate === true ? JsonSchemasProgrammer.validate : undefined,
           },
-          components: new MetadataComponents({
-            replace: MetadataComponents.replace,
+          components: new MetadataStorage({
+            replace: MetadataStorage.replace,
           }),
           type,
         });

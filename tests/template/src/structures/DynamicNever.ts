@@ -1,4 +1,4 @@
-import { ArrayUtil } from "typia/src/utils/ArrayUtil";
+import { ArrayUtil } from "@nestia/e2e";
 
 import { Spoiler } from "../utils/Spoiler";
 import { TestRandomGenerator } from "../utils/TestRandomGenerator";

@@ -229,6 +229,28 @@ importers:
         specifier: catalog:typescript
         version: 5.9.3
 
+  packages/core:
+    dependencies:
+      '@typia/interface':
+        specifier: workspace:^
+        version: link:../interface
+      '@typia/utils':
+        specifier: workspace:^
+        version: link:../utils
+    devDependencies:
+      '@types/node':
+        specifier: ^18.15.12
+        version: 18.19.130
+      '@types/ts-expose-internals':
+        specifier: catalog:typescript
+        version: ts-expose-internals@5.6.3
+      rimraf:
+        specifier: catalog:utils
+        version: 6.1.3
+      typescript:
+        specifier: catalog:typescript
+        version: 5.9.3
+
   packages/interface:
     devDependencies:
       rimraf:
@@ -243,6 +265,9 @@ importers:
       '@standard-schema/spec':
         specifier: ^1.0.0
         version: 1.1.0
+      '@typia/core':
+        specifier: workspace:^
+        version: link:../core
       '@typia/interface':
         specifier: workspace:^
         version: link:../interface
@@ -437,6 +462,9 @@ importers:
       '@typia/template':
         specifier: workspace:^
         version: link:../template
+      '@typia/utils':
+        specifier: workspace:^
+        version: link:../../packages/utils
       protobufjs:
         specifier: 7.2.5
         version: 7.2.5
@@ -4969,7 +4997,7 @@ snapshots:
 
   '@types/connect@3.4.38':
     dependencies:
-      '@types/node': 25.2.3
+      '@types/node': 18.19.130
 
   '@types/d3-array@3.2.2': {}
 
@@ -5096,7 +5124,7 @@ snapshots:
 
   '@types/express-serve-static-core@4.19.8':
     dependencies:
-      '@types/node': 25.2.3
+      '@types/node': 18.19.130
       '@types/qs': 6.14.0
       '@types/range-parser': 1.2.7
       '@types/send': 1.2.1
@@ -5148,16 +5176,16 @@ snapshots:
   '@types/send@0.17.6':
     dependencies:
       '@types/mime': 1.3.5
-      '@types/node': 25.2.3
+      '@types/node': 18.19.130
 
   '@types/send@1.2.1':
     dependencies:
-      '@types/node': 25.2.3
+      '@types/node': 18.19.130
 
   '@types/serve-static@1.15.10':
     dependencies:
       '@types/http-errors': 2.0.5
-      '@types/node': 25.2.3
+      '@types/node': 18.19.130
       '@types/send': 0.17.6
 
   '@types/through@0.0.33':
@@ -5176,7 +5204,7 @@ snapshots:
 
   '@types/websocket@1.0.10':
     dependencies:
-      '@types/node': 25.2.3
+      '@types/node': 18.19.130
 
   '@types/whatwg-url@8.2.2':
     dependencies:
@@ -5185,7 +5213,7 @@ snapshots:
 
   '@types/ws@7.4.7':
     dependencies:
-      '@types/node': 25.2.3
+      '@types/node': 18.19.130
 
   '@typescript-eslint/eslint-plugin@8.56.0(@typescript-eslint/parser@8.56.0(eslint@8.57.1)(typescript@5.9.3))(eslint@8.57.1)(typescript@5.9.3)':
     dependencies:
@@ -6924,7 +6952,7 @@ snapshots:
       '@protobufjs/path': 1.1.2
       '@protobufjs/pool': 1.1.0
       '@protobufjs/utf8': 1.1.0
-      '@types/node': 25.2.3
+      '@types/node': 18.19.130
       long: 5.3.2
 
   proxy-addr@2.0.7:

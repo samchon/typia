@@ -1,6 +1,6 @@
 import { OpenApi } from "@typia/interface";
 
-import { MapUtil } from "../../utils/internal/MapUtil";
+import { MapUtil } from "../../utils";
 import { OpenApiTypeChecker } from "../OpenApiTypeChecker";
 import { IOpenApiValidatorContext } from "./IOpenApiValidatorContext";
 import { OpenApiStationValidator } from "./OpenApiStationValidator";
@@ -212,7 +212,7 @@ export namespace OpenApiOneOfValidator {
     objectSchemas.forEach((obj, i) => {
       for (const [key, value] of Object.entries(obj.escaped.properties ?? {})) {
         if (!!obj.escaped.required?.includes(key) === false) continue;
-        MapUtil.take(matrix)(key)(() =>
+        MapUtil.take(matrix, key, () =>
           new Array(objectSchemas.length).fill(null),
         )[i] = value;
       }

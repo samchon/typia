@@ -1,7 +1,7 @@
+import { ITypiaContext } from "@typia/core";
 import ts from "typescript";
 
 import { CallExpressionTransformer } from "./CallExpressionTransformer";
-import { ITypiaContext } from "./ITypiaContext";
 
 export namespace NodeTransformer {
   export const transform = (props: {

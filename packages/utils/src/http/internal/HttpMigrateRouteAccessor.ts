@@ -1,8 +1,8 @@
 import { IHttpMigrateRoute } from "@typia/interface";
 
+import { MapUtil } from "../../utils/MapUtil";
 import { NamingConvention } from "../../utils/NamingConvention";
 import { EndpointUtil } from "../../utils/internal/EndpointUtil";
-import { MapUtil } from "../../utils/internal/MapUtil";
 
 export namespace HttpMigrateRouteAccessor {
   export const overwrite = (routes: IHttpMigrateRoute[]): void => {
@@ -68,7 +68,7 @@ export namespace HttpMigrateRouteAccessor {
       const dict: Map<string, IElement> = new Map();
       for (const r of routes) {
         const namespace: string[] = getter(r);
-        let last: IElement = MapUtil.take(dict)(namespace.join("."))(() => ({
+        let last: IElement = MapUtil.take(dict, namespace.join("."), () => ({
           namespace,
           children: new Set(),
           entries: [],
@@ -79,7 +79,9 @@ export namespace HttpMigrateRouteAccessor {
         });
         namespace.slice(0, -1).forEach((_i, i, array) => {
           const partial: string[] = namespace.slice(0, array.length - i);
-          const element: IElement = MapUtil.take(dict)(partial.join("."))(
+          const element: IElement = MapUtil.take(
+            dict,
+            partial.join("."),
             () => ({
               namespace: partial,
               children: new Set(),
@@ -88,7 +90,7 @@ export namespace HttpMigrateRouteAccessor {
           );
           element.children.add(last.namespace.at(-1)!);
         });
-        const top = MapUtil.take(dict)("")(() => ({
+        const top: IElement = MapUtil.take(dict, "", () => ({
           namespace: [],
           children: new Set(),
           entries: [],

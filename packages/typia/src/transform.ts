@@ -1,8 +1,8 @@
+import { ITypiaContext } from "@typia/core";
 import ts from "typescript";
 
 import { FileTransformer } from "./transformers/FileTransformer";
 import { ITransformOptions } from "./transformers/ITransformOptions";
-import { ITypiaContext } from "./transformers/ITypiaContext";
 
 export const transform = (
   program: ts.Program,

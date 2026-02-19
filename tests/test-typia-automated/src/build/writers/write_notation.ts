@@ -1,4 +1,4 @@
-import { StringUtil } from "@typia/template";
+import { NamingConvention, dedent } from "@typia/utils";
 
 interface IProps {
   method: string;
@@ -6,7 +6,7 @@ interface IProps {
 }
 export const write_notation =
   (p: IProps) => (create: boolean) => (structure: string) =>
-    StringUtil.trim`
+    dedent`
       import { ${structure} } from "../../structures/${structure}";
       import typia from "typia";
 
@@ -33,9 +33,10 @@ export const write_notation =
 const method = (p: IProps) => (create: boolean) =>
   [create ? "create" : null, p.mode, p.method]
     .filter((str) => !!str)
-    .map((str, i) => (i === 0 ? str : StringUtil.capitalize(str!)))
+    .map((str, i) => (i === 0 ? str : NamingConvention.capitalize(str!)))
     .join("");
-const type = (p: IProps) => `typia.${StringUtil.capitalize(p.method)}Case`;
+const type = (p: IProps) =>
+  `typia.${NamingConvention.capitalize(p.method)}Case`;
 const file = (p: IProps) => (create: boolean) =>
   ["test", "notation", method(p)(create)].join("_");
 const functor = (p: IProps) => (create: boolean) => (structure: string) =>
