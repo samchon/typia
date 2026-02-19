@@ -1,17 +1,19 @@
+import {
+  ExpressionFactory,
+  ITypiaContext,
+  LiteralFactory,
+  LlmApplicationProgrammer,
+  LlmMetadataFactory,
+  MetadataFactory,
+  MetadataSchema,
+  MetadataStorage,
+  StatementFactory,
+  ValidationPipe,
+} from "@typia/core";
 import { ILlmApplication, ILlmSchema } from "@typia/interface";
 import ts from "typescript";
 
-import { ExpressionFactory } from "../../../factories/ExpressionFactory";
-import { LiteralFactory } from "../../../factories/LiteralFactory";
-import { MetadataComponents } from "../../../factories/MetadataComponents";
-import { MetadataFactory } from "../../../factories/MetadataFactory";
-import { StatementFactory } from "../../../factories/StatementFactory";
-import { LlmApplicationProgrammer } from "../../../programmers/llm/LlmApplicationProgrammer";
-import { LlmMetadataFactory } from "../../../programmers/llm/LlmMetadataFactory";
-import { MetadataSchema } from "../../../schemas/metadata/MetadataSchema";
-import { ValidationPipe } from "../../../typings/ValidationPipe";
 import { ITransformProps } from "../../ITransformProps";
-import { ITypiaContext } from "../../ITypiaContext";
 import { TransformerError } from "../../TransformerError";
 
 export namespace LlmApplicationTransformer {
@@ -112,8 +114,8 @@ export namespace LlmApplicationTransformer {
                     })
                 : undefined,
           },
-          components: new MetadataComponents({
-            replace: MetadataComponents.replace,
+          components: new MetadataStorage({
+            replace: MetadataStorage.replace,
           }),
           type,
         });

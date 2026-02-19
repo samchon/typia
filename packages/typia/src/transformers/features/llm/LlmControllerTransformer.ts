@@ -1,8 +1,8 @@
 import ts from "typescript";
 
-import { ExpressionFactory } from "../../../factories/ExpressionFactory";
-import { LiteralFactory } from "../../../factories/LiteralFactory";
-import { StatementFactory } from "../../../factories/StatementFactory";
+import { ExpressionFactory } from "@typia/core";
+import { LiteralFactory } from "@typia/core";
+import { StatementFactory } from "@typia/core";
 
 import { ITransformProps } from "../../ITransformProps";
 import { TransformerError } from "../../TransformerError";

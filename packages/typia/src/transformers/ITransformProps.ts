@@ -1,6 +1,5 @@
+import { ITypiaContext } from "@typia/core";
 import ts from "typescript";
-
-import { ITypiaContext } from "./ITypiaContext";
 
 export interface ITransformProps {
   context: ITypiaContext;

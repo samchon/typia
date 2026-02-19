@@ -1,4 +1,4 @@
-import { IsProgrammer } from "../../programmers/IsProgrammer";
+import { IsProgrammer } from "@typia/core";
 
 import { ITransformProps } from "../ITransformProps";
 import { GenericTransformer } from "../internal/GenericTransformer";

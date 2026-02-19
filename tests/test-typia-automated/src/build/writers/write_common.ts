@@ -1,27 +1,27 @@
-import { StringUtil } from "@typia/template";
+import { NamingConvention, dedent } from "@typia/utils";
 
 export const write_common =
   (p: IProps) => (create: boolean) => (structure: string) =>
-    StringUtil.trim`
+    dedent`
       import { ${structure} } from "@typia/template";
       import typia from "typia";
 
       import { _${file({
         ...p,
         method: p.method.startsWith("create")
-          ? StringUtil.localize(p.method.replace("create", ""))
+          ? NamingConvention.localize(p.method.replace("create", ""))
           : p.method,
       })} } from "../../internal/_${file({
         ...p,
         method: p.method.startsWith("create")
-          ? StringUtil.localize(p.method.replace("create", ""))
+          ? NamingConvention.localize(p.method.replace("create", ""))
           : p.method,
       })}";
 
       export const ${file(p)}_${structure} = (): void => _${file({
         ...p,
         method: p.method.startsWith("create")
-          ? StringUtil.localize(p.method.replace("create", ""))
+          ? NamingConvention.localize(p.method.replace("create", ""))
           : p.method,
       })}(
           "${structure}",

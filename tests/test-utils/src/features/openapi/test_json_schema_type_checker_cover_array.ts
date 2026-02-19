@@ -6,7 +6,7 @@ import typia from "typia";
 export const test_json_schema_type_checker_cover_array = (): void => {
   const app: IJsonSchemaCollection =
     typia.json.schemas<[Plan2D, Plan3D, Box2D, Box3D]>();
-  const components: OpenApi.IComponents = app.components as any;
+  const components: OpenApi.IComponents = app.components;
 
   const plan2D: OpenApi.IJsonSchema = components.schemas!.Plan2D!;
   const plan3D: OpenApi.IJsonSchema = components.schemas!.Plan3D!;

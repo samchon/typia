@@ -1,4 +1,4 @@
-import { JsonAssertParseProgrammer } from "../../../programmers/json/JsonAssertParseProgrammer";
+import { JsonAssertParseProgrammer } from "@typia/core";
 
 import { ITransformProps } from "../../ITransformProps";
 import { GenericTransformer } from "../../internal/GenericTransformer";

@@ -1,4 +1,4 @@
-import { StringUtil } from "@typia/template";
+import { NamingConvention } from "@typia/utils";
 import fs from "fs";
 
 import { TestGlobal } from "../TestGlobal";
@@ -53,7 +53,7 @@ export namespace TestAutomationController {
     if (create === false) return;
 
     const method: string = create
-      ? `create${StringUtil.capitalize(template.method)}`
+      ? `create${NamingConvention.capitalize(template.method)}`
       : template.method;
     const path: string = [
       TestGlobal.ROOT,
@@ -155,9 +155,9 @@ export namespace TestAutomationController {
         ? content
             .substring(from, to)
             .replace(
-              create ? StringUtil.capitalize(feat.method) : feat.method,
+              create ? NamingConvention.capitalize(feat.method) : feat.method,
               create
-                ? `${StringUtil.capitalize(feat.method)}Custom`
+                ? `${NamingConvention.capitalize(feat.method)}Custom`
                 : `${feat.method}Custom`,
             )
         : content.substring(from, to),

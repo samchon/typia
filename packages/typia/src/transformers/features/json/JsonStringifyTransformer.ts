@@ -1,4 +1,4 @@
-import { JsonStringifyProgrammer } from "../../../programmers/json/JsonStringifyProgrammer";
+import { JsonStringifyProgrammer } from "@typia/core";
 
 import { ITransformProps } from "../../ITransformProps";
 import { GenericTransformer } from "../../internal/GenericTransformer";

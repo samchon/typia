@@ -1,6 +1,6 @@
 import { TestStructure } from "@typia/template";
+import { NamingConvention } from "@typia/utils";
 import typia, { IValidation } from "typia";
-import { Escaper } from "typia/src/utils/Escaper";
 
 export const _test_validateEquals =
   (name: string) =>
@@ -65,7 +65,7 @@ function spoil_object(accessors: string[], path: string, obj: any): void {
   for (const [key, value] of Object.entries(obj))
     spoil(
       accessors,
-      Escaper.variable(key)
+      NamingConvention.variable(key)
         ? `${path}.${key}`
         : `${path}[${JSON.stringify(key)}]`,
       value,

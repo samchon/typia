@@ -1,9 +1,8 @@
 import ts from "typescript";
 
-import { TypeFactory } from "../../../factories/TypeFactory";
+import { ITypiaContext, TypeFactory } from "@typia/core";
 
 import { ITransformProps } from "../../ITransformProps";
-import { ITypiaContext } from "../../ITypiaContext";
 import { TransformerError } from "../../TransformerError";
 
 export namespace FunctionalGenericTransformer {

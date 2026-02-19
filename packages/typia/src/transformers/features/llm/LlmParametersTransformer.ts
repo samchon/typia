@@ -1,13 +1,13 @@
+import { LiteralFactory } from "@typia/core";
+import { MetadataStorage } from "@typia/core";
+import { MetadataFactory } from "@typia/core";
+import { LlmMetadataFactory } from "@typia/core";
+import { LlmParametersProgrammer } from "@typia/core";
+import { MetadataSchema } from "@typia/core";
+import { ValidationPipe } from "@typia/core";
 import { ILlmSchema } from "@typia/interface";
 import ts from "typescript";
 
-import { LiteralFactory } from "../../../factories/LiteralFactory";
-import { MetadataComponents } from "../../../factories/MetadataComponents";
-import { MetadataFactory } from "../../../factories/MetadataFactory";
-import { LlmMetadataFactory } from "../../../programmers/llm/LlmMetadataFactory";
-import { LlmParametersProgrammer } from "../../../programmers/llm/LlmParametersProgrammer";
-import { MetadataSchema } from "../../../schemas/metadata/MetadataSchema";
-import { ValidationPipe } from "../../../typings/ValidationPipe";
 import { ITransformProps } from "../../ITransformProps";
 import { TransformerError } from "../../TransformerError";
 
@@ -54,8 +54,8 @@ export namespace LlmParametersTransformer {
                     })
                 : undefined,
           },
-          components: new MetadataComponents({
-            replace: MetadataComponents.replace,
+          components: new MetadataStorage({
+            replace: MetadataStorage.replace,
           }),
           type,
         });

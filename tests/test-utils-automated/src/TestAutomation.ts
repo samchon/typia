@@ -1,4 +1,4 @@
-import { StringUtil } from "@typia/template";
+import { dedent } from "@typia/utils";
 import fs from "fs";
 
 import { TestGlobal } from "./TestGlobal";
@@ -21,7 +21,7 @@ export namespace TestAutomation {
   };
 
   const generateValidate = async (key: string): Promise<void> => {
-    const content: string = StringUtil.trim`
+    const content: string = dedent`
       import { ${key} } from "@typia/template";
       import typia from "typia";
 
@@ -40,7 +40,7 @@ export namespace TestAutomation {
   };
 
   const generateValidateEquals = async (key: string): Promise<void> => {
-    const content: string = StringUtil.trim`
+    const content: string = dedent`
       import { ${key} } from "@typia/template";
       import typia from "typia";
 

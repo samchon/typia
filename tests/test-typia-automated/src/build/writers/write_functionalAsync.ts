@@ -1,10 +1,10 @@
-import { StringUtil } from "@typia/template";
+import { dedent } from "@typia/utils";
 
 export const write_functionalAsync =
   (method: string) =>
   (structure: string): string => {
     const prefix: string = `test_functional_${method}Async`;
-    return StringUtil.trim`
+    return dedent`
       import { ${structure} } from "@typia/template";
       import typia from "typia";
 

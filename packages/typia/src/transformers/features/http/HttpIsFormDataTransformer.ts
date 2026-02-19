@@ -1,4 +1,4 @@
-import { HttpIsFormDataProgrammer } from "../../../programmers/http/HttpIsFormDataProgrammer";
+import { HttpIsFormDataProgrammer } from "@typia/core";
 
 import { ITransformProps } from "../../ITransformProps";
 import { GenericTransformer } from "../../internal/GenericTransformer";

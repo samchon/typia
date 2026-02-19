@@ -1,6 +1,6 @@
 import ts from "typescript";
 
-import { MiscLiteralsProgrammer } from "../../../programmers/misc/MiscLiteralsProgrammer";
+import { MiscLiteralsProgrammer } from "@typia/core";
 
 import { ITransformProps } from "../../ITransformProps";
 import { TransformerError } from "../../TransformerError";

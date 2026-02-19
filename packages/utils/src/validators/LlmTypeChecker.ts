@@ -1,6 +1,6 @@
 import { ILlmSchema } from "@typia/interface";
 
-import { MapUtil } from "../utils/internal/MapUtil";
+import { MapUtil } from "../utils/MapUtil";
 import { OpenApiTypeCheckerBase } from "../utils/internal/OpenApiTypeCheckerBase";
 
 /**
@@ -197,7 +197,9 @@ export namespace LlmTypeChecker {
     if (cache !== undefined) return cache;
 
     // FOR RECURSIVE CASE
-    const nested: Map<ILlmSchema, boolean> = MapUtil.take(p.visited)(p.x)(
+    const nested: Map<ILlmSchema, boolean> = MapUtil.take(
+      p.visited,
+      p.x,
       () => new Map(),
     );
     nested.set(p.y, true);

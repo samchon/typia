@@ -1,5 +1,3 @@
-import * as utils from "@typia/utils";
-import * as typia from "typia";
+import typia from "typia";
 
-typia;
-utils;
+console.log(typia.createIs<number>().toString());
