@@ -17,7 +17,7 @@ export const enum ProtobufWire {
   /**
    * - String
    * - Bytes
-   * - Mebedded messages
+   * - Embedded messages
    * - Packed repeated fields
    */
   LEN = 2,
