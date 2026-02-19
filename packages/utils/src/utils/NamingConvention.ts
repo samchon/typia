@@ -1,5 +1,24 @@
 export namespace NamingConvention {
   export function snake(str: string): string {
+    if (str.length === 0) return str;
+
+    // PREFIX
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    let prefix: string = "";
+    for (let i: number = 0; i < str.length; i++) {
+      if (str[i] === "_") prefix += "_";
+      else break;
+    }
+    if (prefix.length !== 0) str = str.substring(prefix.length);
+
+    const out = (s: string) => `${prefix}${s}`;
+
+    // SNAKE CASE
+    const items: string[] = str.split("_");
+    if (items.length > 1)
+      return out(items.map((s) => s.toLowerCase()).join("_"));
+
+    // CAMEL OR PASCAL CASE
     const indexes: number[] = [];
     for (let i: number = 0; i < str.length; i++) {
       const code: number = str.charCodeAt(i);
@@ -22,67 +41,29 @@ export namespace NamingConvention {
       ret += "_";
     }
     ret += str.substring(indexes[indexes.length - 1]!).toLowerCase();
-    return ret;
+    return out(ret);
   }
 
-  export function camel(str: string): string {
-    return unsnake((str: string) => {
-      if (str.length === 0) return str;
-      else if (str[0] === str[0]!.toUpperCase())
-        return str[0]!.toLowerCase() + str.substring(1);
-      else return str;
+  export function camel(str: string) {
+    return unsnake({
+      plain: (str) =>
+        str.length
+          ? str === str.toUpperCase()
+            ? str.toLocaleLowerCase()
+            : `${str[0]!.toLowerCase()}${str.substring(1)}`
+          : str,
+      snake: (str, i) =>
+        i === 0 ? str.toLowerCase() : capitalize(str.toLowerCase()),
     })(str);
   }
 
-  export function pascal(str: string): string {
-    return unsnake((str: string) => {
-      if (str.length === 0) return str;
-      else if (str[0] === str[0]!.toLowerCase())
-        return str[0]!.toUpperCase() + str.substring(1);
-      else return str;
+  export function pascal(str: string) {
+    return unsnake({
+      plain: (str) =>
+        str.length ? `${str[0]!.toUpperCase()}${str.substring(1)}` : str,
+      snake: capitalize,
     })(str);
   }
-
-  const unsnake =
-    (escaper: (str: string) => string) =>
-    (str: string): string => {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      let prefix: string = "";
-      for (let i: number = 0; i < str.length; i++) {
-        if (str[i] === "_") prefix += "_";
-        else break;
-      }
-      if (prefix.length !== 0) str = str.substring(prefix.length);
-
-      const indexes: [number, number][] = [];
-      for (let i: number = 0; i < str.length; i++) {
-        const ch: string = str[i]!;
-        if (ch !== "_") continue;
-
-        const last = indexes[indexes.length - 1];
-        if (last === undefined || last[0] + last[1] !== i) indexes.push([i, 1]);
-        else ++last[1];
-      }
-      if (indexes.length === 0) return prefix + escaper(str);
-
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      let ret: string = "";
-      for (let i: number = 0; i < indexes.length; i++) {
-        const [first] = indexes[i]!;
-        if (i === 0)
-          if (first === 0) ret += "_";
-          else ret += str.substring(0, first);
-        else {
-          const [prevFirst, prevLength] = indexes[i - 1]!;
-          const piece: string = str.substring(prevFirst + prevLength, first);
-          if (piece.length) ret += capitalize(piece);
-        }
-      }
-      const last = indexes[indexes.length - 1]!;
-      const piece: string = str.substring(last[0] + last[1]);
-      if (last.length) ret += capitalize(piece);
-      return prefix + escaper(ret);
-    };
 
   export const capitalize = (str: string): string =>
     str.length !== 0 ? str[0]!.toUpperCase() + str.slice(1).toLowerCase() : str;
@@ -138,3 +119,28 @@ const RESERVED: Set<string> = new Set([
   "while",
   "with",
 ]);
+
+const unsnake =
+  (props: {
+    plain: (str: string) => string;
+    snake: (str: string, index: number) => string;
+  }) =>
+  (str: string): string => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    let prefix: string = "";
+    for (let i: number = 0; i < str.length; i++) {
+      if (str[i] === "_") prefix += "_";
+      else break;
+    }
+    if (prefix.length !== 0) str = str.substring(prefix.length);
+
+    const out = (s: string) => `${prefix}${s}`;
+    if (str.length === 0) return out("");
+
+    const items: string[] = str.split("_").filter((s) => s.length !== 0);
+    return items.length === 0
+      ? out("")
+      : items.length === 1
+        ? out(props.plain(items[0]!))
+        : out(items.map(props.snake).join(""));
+  };
