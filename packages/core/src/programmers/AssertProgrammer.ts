@@ -1,10 +1,10 @@
 import ts from "typescript";
 
-import { IProgrammerProps } from "./../context/IProgrammerProps";
-import { ITypiaContext } from "./../context/ITypiaContext";
-import { IdentifierFactory } from "./../factories/IdentifierFactory";
-import { StatementFactory } from "./../factories/StatementFactory";
-import { TypeFactory } from "./../factories/TypeFactory";
+import { IProgrammerProps } from "../context/IProgrammerProps";
+import { ITypiaContext } from "../context/ITypiaContext";
+import { IdentifierFactory } from "../factories/IdentifierFactory";
+import { StatementFactory } from "../factories/StatementFactory";
+import { TypeFactory } from "../factories/TypeFactory";
 import { IsProgrammer } from "./IsProgrammer";
 import { FunctionProgrammer } from "./helpers/FunctionProgrammer";
 import { IExpressionEntry } from "./helpers/IExpressionEntry";
