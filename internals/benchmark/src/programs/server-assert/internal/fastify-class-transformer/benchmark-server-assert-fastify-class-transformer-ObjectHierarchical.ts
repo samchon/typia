@@ -1,9 +1,9 @@
 import { instanceToPlain, plainToInstance } from "class-transformer";
 import { validateSync } from "class-validator";
 
+import { ObjectHierarchical } from "../../../../structures/pure/ObjectHierarchical";
 import { ClassValidatorCollection } from "../../../../structures/class-validator/ClassValidatorCollection";
 import { ClassValidatorObjectHierarchical } from "../../../../structures/class-validator/ClassValidatorObjectHierarchical";
-import { ObjectHierarchical } from "../../../../structures/pure/ObjectHierarchical";
 import { createFastifyCustomServerAssertBenchmarkProgram } from "../createFastifyCustomServerAssertBenchmarkProgram";
 
 const schema = ClassValidatorCollection(ClassValidatorObjectHierarchical);

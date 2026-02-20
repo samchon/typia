@@ -1,9 +1,9 @@
 import { instanceToPlain, plainToInstance } from "class-transformer";
 import { validateSync } from "class-validator";
 
-import { ClassValidatorArrayHierarchical } from "../../../../structures/class-validator/ClassValidatorArrayHierarchical";
-import { ClassValidatorCollection } from "../../../../structures/class-validator/ClassValidatorCollection";
 import { ArrayHierarchical } from "../../../../structures/pure/ArrayHierarchical";
+import { ClassValidatorCollection } from "../../../../structures/class-validator/ClassValidatorCollection";
+import { ClassValidatorArrayHierarchical } from "../../../../structures/class-validator/ClassValidatorArrayHierarchical";
 import { createExpressServerPerformanceBenchmarkProgram } from "../createExpressServerPerformanceBenchmarkProgram";
 
 const schema = ClassValidatorCollection(ClassValidatorArrayHierarchical);
