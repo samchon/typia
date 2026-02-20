@@ -29,6 +29,7 @@
     "typescript": "catalog:typescript"
   },
   "dependencies": {
+    "@typia/utils": "workspace:^",
     "openai": "catalog:utils",
     "typia": "workspace:^",
     "uuid": "catalog:utils"

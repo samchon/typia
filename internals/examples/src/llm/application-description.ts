@@ -1,5 +1,4 @@
-import { ILlmApplication, ILlmFunction } from "@samchon/openapi";
-import typia, { tags } from "typia";
+import typia, { ILlmApplication, ILlmFunction, tags } from "typia";
 
 const app: ILlmApplication = typia.llm.application<BbsArticleController>();
 const func: ILlmFunction | undefined = app.functions.find(

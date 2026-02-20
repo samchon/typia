@@ -1,5 +1,4 @@
-import { ILlmSchema } from "@samchon/openapi";
-import typia, { tags } from "typia";
+import typia, { ILlmSchema, tags } from "typia";
 
 export const $defs: Record<string, ILlmSchema> = {};
 export const schema: ILlmSchema = typia.llm.schema<IAccount>($defs);
