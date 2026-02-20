@@ -19,41 +19,23 @@ import { NoTransformConfigurationError } from "./transformers/NoTransformConfigu
     METADATA
 ----------------------------------------------------------- */
 /**
- * > You must configure the generic argument `Type`.
+ * Generates JSON schema for type `T`.
  *
- * JSON schema generator.
- *
- * Creates a JSON schema unit which contains a main JSON schema and its
- * components. Note that, all of the named types are stored in the
- * {@link IJsonSchemaUnit.components} property for the `$ref` referencing.
- *
- * Also, you can specify the OpenAPI version by configuring the second generic
- * argument `Version`. For reference, the default version is `"3.1"`, and key
- * different of `"3.0"` and `"3.1"` is whether supporting the tuple type or
- * not.
- *
- * @author Jeongho Nam - https://github.com/samchon
- * @template Type Target type
- * @template Version Version of OpenAPI specification. Default is 3.1
- * @returns JSON schema unit
+ * @danger You must configure the generic argument `Type`
  */
 export function schema(): never;
 
 /**
- * JSON schema generator.
+ * Generates JSON schema for type `T`.
  *
- * Creates a JSON schema unit which contains a main JSON schema and its
- * components. Note that, all of the named types are stored in the
- * {@link IJsonSchemaUnit.components} property for the `$ref` referencing.
+ * Creates {@link IJsonSchemaUnit} containing a main schema and shared
+ * components. Named types are stored in `components` for `$ref` referencing.
  *
- * Also, you can specify the OpenAPI version by configuring the second generic
- * argument `Version`. For reference, the default version is `"3.1"`, and key
- * different of `"3.0"` and `"3.1"` is whether supporting the tuple type or
- * not.
+ * Specify OpenAPI version via `Version` generic (`"3.0"` or `"3.1"`).
+ * Default is `"3.1"`. Key difference: `"3.1"` supports tuple types.
  *
- * @author Jeongho Nam - https://github.com/samchon
  * @template Type Target type
- * @template Version Version of OpenAPI specification. Default is 3.1
+ * @template Version OpenAPI version (`"3.0"` | `"3.1"`). Default `"3.1"`
  * @returns JSON schema unit
  */
 export function schema<
@@ -67,41 +49,23 @@ export function schema(): never {
 }
 
 /**
- * > You must configure the generic argument `Types`.
+ * Generates JSON schemas for multiple types.
  *
- * JSON Schemas Generator.
- *
- * Creates a JSON schema list which contains both main JSON schemas and
- * components. Note that, all of the named types are stored in the
- * {@link IJsonSchemaCollection.components} property for the `$ref` referencing.
- *
- * Also, you can specify the OpenAPI version by configuring the second generic
- * argument `Version`. For reference, the default version is `"3.1"`, and the
- * key difference between `"3.0"` and `"3.1"` is whether supporting the tuple
- * type or not.
- *
- * @author Jeongho Nam - https://github.com/samchon
- * @template Types Tuple of target types
- * @template Version Version of OpenAPI specification. Default is 3.1
- * @returns JSON schema collection
+ * @danger You must configure the generic argument `Types`
  */
 export function schemas(): never;
 
 /**
- * JSON Schemas Generator.
+ * Generates JSON schemas for multiple types.
  *
- * Creates a JSON schema list which contains both main JSON schemas and
- * components. Note that, all of the named types are stored in the
- * {@link IJsonSchemaCollection.components} property for the `$ref` referencing.
+ * Creates {@link IJsonSchemaCollection} containing schemas for all types in
+ * the tuple. Named types are stored in `components` for `$ref` referencing.
  *
- * Also, you can specify the OpenAPI version by configuring the second generic
- * argument `Version`. For reference, the default version is `"3.1"`, and the
- * key difference between `"3.0"` and `"3.1"` is whether supporting the tuple
- * type or not.
+ * Specify OpenAPI version via `Version` generic (`"3.0"` or `"3.1"`).
+ * Default is `"3.1"`. Key difference: `"3.1"` supports tuple types.
  *
- * @author Jeongho Nam - https://github.com/samchon
  * @template Types Tuple of target types
- * @template Version Version of OpenAPI specification. Default is 3.1
+ * @template Version OpenAPI version (`"3.0"` | `"3.1"`). Default `"3.1"`
  * @returns JSON schema collection
  */
 export function schemas<
@@ -115,89 +79,35 @@ export function schemas(): never {
 }
 
 /**
- * > You must configure the generic argument `Class`.
+ * Generates JSON function schema application.
  *
- * TypeScript class to JSON function schema application.
- *
- * Creates a JSON function schema application from a TypeScript class or
- * interface type containing the target functions. This is an intermediate-level
- * function designed for professional developers who want to build custom LLM
- * function calling schemas or need to transform class methods into structured
- * JSON schema representations.
- *
- * Unlike {@link schema} which creates a schema for a single type, this function
- * analyzes an entire class/interface and generates JSON schemas for all its
- * methods, their parameters, and return types. The returned
- * {@link IJsonSchemaApplication} contains:
- *
- * - {@link IJsonSchemaApplication.functions}: Array of function metadata with
- *   parameter and return type schemas
- * - {@link IJsonSchemaApplication.components}: Shared schema components for `$ref`
- *   referencing
- *
- * This function serves as the underlying implementation for
- * {@link llm.application}, and can be used when you need to:
- *
- * - Create your own custom LLM function calling schema format
- * - Transform class methods into structured JSON schema format
- * - Build API documentation or code generation tools
- * - Develop alternative LLM integrations beyond the built-in providers
- *
- * For direct LLM function calling implementations, consider using
- * {@link llm.application} instead, which provides provider-specific schemas for
- * ChatGPT, Claude, Gemini, and other LLM providers.
- *
- * Also, you can specify the OpenAPI version by configuring the second generic
- * argument `Version`. For reference, the default version is `"3.1"`, and the
- * key difference between `"3.0"` and `"3.1"` is whether supporting the tuple
- * type or not.
- *
- * @author Jeongho Nam - https://github.com/samchon
- * @template Class Target class or interface type containing the functions
- * @template Version Version of OpenAPI specification. Default is 3.1
- * @returns JSON function schema application
+ * @danger You must configure the generic argument `Class`
  */
 export function application(): never;
 
 /**
- * TypeScript class to JSON function schema application.
+ * Generates JSON function schema application from class/interface.
  *
- * Creates a JSON function schema application from a TypeScript class or
- * interface type containing the target functions. This is an intermediate-level
- * function designed for professional developers who want to build custom LLM
- * function calling schemas or need to transform class methods into structured
- * JSON schema representations.
+ * Creates {@link IJsonSchemaApplication} from a TypeScript class or interface,
+ * generating JSON schemas for all methods, parameters, and return types.
+ * Designed for building custom LLM function calling schemas.
  *
- * Unlike {@link schema} which creates a schema for a single type, this function
- * analyzes an entire class/interface and generates JSON schemas for all its
- * methods, their parameters, and return types. The returned
- * {@link IJsonSchemaApplication} contains:
+ * The returned object contains:
  *
- * - {@link IJsonSchemaApplication.functions}: Array of function metadata with
- *   parameter and return type schemas
- * - {@link IJsonSchemaApplication.components}: Shared schema components for `$ref`
- *   referencing
+ * - `functions`: Array of function metadata with parameter/return schemas
+ * - `components`: Shared schema components for `$ref` referencing
  *
- * This function serves as the underlying implementation for
- * {@link llm.application}, and can be used when you need to:
+ * Use cases:
  *
- * - Create your own custom LLM function calling schema format
- * - Transform class methods into structured JSON schema format
- * - Build API documentation or code generation tools
- * - Develop alternative LLM integrations beyond the built-in providers
+ * - Custom LLM function calling schema formats
+ * - API documentation or code generation tools
+ * - Alternative LLM integrations beyond built-in providers
  *
- * For direct LLM function calling implementations, consider using
- * {@link llm.application} instead, which provides provider-specific schemas for
- * ChatGPT, Claude, Gemini, and other LLM providers.
+ * For standard LLM function calling, use {@link llm.application} instead,
+ * which provides provider-specific schemas (ChatGPT, Claude, Gemini, etc.).
  *
- * Also, you can specify the OpenAPI version by configuring the second generic
- * argument `Version`. For reference, the default version is `"3.1"`, and the
- * key difference between `"3.0"` and `"3.1"` is whether supporting the tuple
- * type or not.
- *
- * @author Jeongho Nam - https://github.com/samchon
- * @template Class Target class or interface type containing the functions
- * @template Version Version of OpenAPI specification. Default is 3.1
+ * @template Class Target class or interface type
+ * @template Version OpenAPI version (`"3.0"` | `"3.1"`). Default `"3.1"`
  * @returns JSON function schema application
  */
 export function application<
@@ -214,24 +124,9 @@ export function application(): never {
     PARSE
 ----------------------------------------------------------- */
 /**
- * > You must configure the generic argument `T`.
+ * Parses JSON string with assertion.
  *
- * Safe `JSON.parse()` function with type assertion.
- *
- * `typia.json.assertParse()` is a combination function of `JSON.parse()` and
- * {@link assert}. Therefore, it converts a JSON (JavaScript Object Notation)
- * string to a `T` typed instance with type assertion.
- *
- * In such reason, when parsed JSON string value is not matched with the type
- * `T`, it throws {@link TypeGuardError} or custom error generated by
- * _errorFactory_. Otherwise, if there's no problem with the parsed value, the
- * parsed value will be returned.
- *
- * @author Jeongho Nam - https://github.com/samchon
- * @template T Expected type of parsed value
- * @param input JSON string
- * @param errorFactory Custom error factory. Default is `TypeGuardError`
- * @returns Parsed value
+ * @danger You must configure the generic argument `T`
  */
 export function assertParse(
   input: string,
@@ -239,22 +134,21 @@ export function assertParse(
 ): never;
 
 /**
- * Safe `JSON.parse()` function with type assertion.
+ * Parses JSON string with assertion.
  *
- * `typia.json.assertParse()` is a combination function of `JSON.parse()` and
- * {@link assert}. Therefore, it converts a JSON (JavaScript Object Notation)
- * string to a `T` typed instance with type assertion.
+ * Combines `JSON.parse()` with {@link assert}. Throws {@link TypeGuardError}
+ * when parsed value doesn't match type `T`.
  *
- * In such reason, when parsed JSON string value is not matched with the type
- * `T`, it throws {@link TypeGuardError} or custom error generated by
- * _errorFactory_. Otherwise, there's no problem on the parsed value, the parsed
- * value would be returned.
+ * Related functions:
  *
- * @author Jeongho Nam - https://github.com/samchon
- * @template T Expected type of parsed value
- * @param input JSON string
- * @param errorFactory Custom error factory. Default is `TypeGuardError`
- * @returns Parsed value
+ * - {@link isParse} — Returns `null` instead of throwing
+ * - {@link validateParse} — Returns detailed validation errors
+ *
+ * @template T Target type for parsed value
+ * @param input JSON string to parse
+ * @param errorFactory Custom error factory receiving {@link TypeGuardError.IProps}
+ * @returns Parsed value of type `T`
+ * @throws {TypeGuardError} When parsed value doesn't conform to type `T`
  */
 export function assertParse<T>(
   input: string,
@@ -267,40 +161,26 @@ export function assertParse<T>(): Primitive<T> {
 }
 
 /**
- * > You must configure the generic argument `T`.
+ * Parses JSON string with type checking.
  *
- * Safe `JSON.parse()` function with type checking.
- *
- * `typia.json.isParse()` is a combination function of `JSON.parse()` and
- * {@link is}. Therefore, it converts a JSON (JavaScript Object Notation) string
- * to a `T` typed instance with type checking.
- *
- * In such reason, when parsed JSON string value is not matched with the type
- * `T`, it returns `null` value. Otherwise, there's no problem on the parsed
- * value, the parsed value will be returned.
- *
- * @author Jeongho Nam - https://github.com/samchon
- * @template T Expected type of parsed value
- * @param input JSON string
- * @returns Parsed value when exact type, otherwise `null`
+ * @danger You must configure the generic argument `T`
  */
 export function isParse(input: string): never;
 
 /**
- * Safe `JSON.parse()` function with type checking.
+ * Parses JSON string with type checking.
  *
- * `typia.json.isParse()` is a combination function of `JSON.parse()` and
- * {@link is}. Therefore, it converts a JSON (JavaScript Object Notation) string
- * to a `T` typed instance with type checking.
+ * Combines `JSON.parse()` with {@link is}. Returns `null` when parsed value
+ * doesn't match type `T`.
  *
- * In such reason, when parsed JSON string value is not matched with the type
- * `T`, it returns `null` value. Otherwise, there's no problem on the parsed
- * value, the parsed value will be returned.
+ * Related functions:
  *
- * @author Jeongho Nam - https://github.com/samchon
- * @template T Expected type of parsed value
- * @param input JSON string
- * @returns Parsed value when exact type, otherwise `null`
+ * - {@link assertParse} — Throws instead of returning `null`
+ * - {@link validateParse} — Returns detailed validation errors
+ *
+ * @template T Target type for parsed value
+ * @param input JSON string to parse
+ * @returns Parsed value of type `T`, or `null` if invalid
  */
 export function isParse<T>(input: string): Primitive<T> | null;
 
@@ -310,44 +190,27 @@ export function isParse<T>(): Primitive<T> | null {
 }
 
 /**
- * > You must configure the generic argument `T`.
+ * Parses JSON string with validation.
  *
- * Safe `JSON.parse()` function with detailed type validation.
- *
- * `typia.json.validateParse()` is a combination function of `JSON.parse()` and
- * {@link validate}. Therefore, it converts a JSON (JavaScript Object Notation)
- * string to a `T` typed instance with detailed type validation.
- *
- * In such reason, when parsed JSON string value is not matched with the type
- * `T`, it returns {@link IValidation.IFailure} value with detailed error
- * reasons. Otherwise, there's no problem on the parsed value, the parsed value
- * will be stored in `data` property of the output {@link IValidation.ISuccess}
- * instance.
- *
- * @author Jeongho Nam - https://github.com/samchon
- * @template T Expected type of parsed value
- * @param input JSON string
- * @returns Validation result with JSON parsed value
+ * @danger You must configure the generic argument `T`
  */
 export function validateParse(input: string): never;
 
 /**
- * Safe `JSON.parse()` function with detailed type validation.
+ * Parses JSON string with validation.
  *
- * `typia.json.validateParse()` is a combination function of `JSON.parse()` and
- * {@link validate}. Therefore, it converts a JSON (JavaScript Object Notation)
- * string to a `T` typed instance with detailed type validation.
+ * Combines `JSON.parse()` with {@link validate}. Returns
+ * {@link IValidation.IFailure} with all errors on mismatch, or
+ * {@link IValidation.ISuccess} with parsed value.
  *
- * In such reason, when parsed JSON string value is not matched with the type
- * `T`, it returns {@link IValidation.IFailure} value with detailed error
- * reasons. Otherwise, there's no problem on the parsed value, the parsed value
- * will be stored in `data` property of the output {@link IValidation.ISuccess}
- * instance.
+ * Related functions:
  *
- * @author Jeongho Nam - https://github.com/samchon
- * @template T Expected type of parsed value
- * @param input JSON string
- * @returns Validation result with JSON parsed value
+ * - {@link assertParse} — Throws on first error
+ * - {@link isParse} — Returns `null` instead of error details
+ *
+ * @template T Target type for parsed value
+ * @param input JSON string to parse
+ * @returns Validation result containing parsed value or errors
  */
 export function validateParse<T>(input: string): IValidation<Primitive<T>>;
 
@@ -360,26 +223,20 @@ export function validateParse<T>(): IValidation<Primitive<T>> {
     STRINGIFY
 ----------------------------------------------------------- */
 /**
- * 8x faster `JSON.stringify()` function.
+ * Converts value to JSON string (8x faster).
  *
- * Converts an input value to a JSON (JavaScript Object Notation) string, about
- * 8x faster than the native `JSON.stringify()` function. The 5x faster
- * principle is because it writes an optimized JSON conversion plan, only for
- * the type `T`.
+ * Generates optimized JSON conversion code specific to type `T`, achieving
+ * ~8x faster performance than native `JSON.stringify()`.
  *
- * For reference, this `typia.json.stringify()` does not validate the input
- * value type. It just believes that the input value is following the type `T`.
- * Therefore, if you can't ensure the input value type, it will be better to
- * call one of below functions instead.
+ * Does not validate the input. For validation, use:
  *
- * - {@link assertStringify}
- * - {@link isStringify}
- * - {@link validateStringify}
+ * - {@link assertStringify} — Throws on type mismatch
+ * - {@link isStringify} — Returns `null` on type mismatch
+ * - {@link validateStringify} — Returns detailed validation errors
  *
- * @author Jeongho Nam - https://github.com/samchon
- * @template T Type of the input value
- * @param input A value to be converted
- * @returns JSON string value
+ * @template T Type of input value
+ * @param input Value to stringify
+ * @returns JSON string
  */
 export function stringify<T>(input: T): string;
 
@@ -389,26 +246,23 @@ export function stringify(): never {
 }
 
 /**
- * 5x faster `JSON.stringify()` function with type assertion.
+ * Converts value to JSON string with assertion (5x faster).
  *
- * `typia.json.assertStringify()` is a combination function of {@link assert} and
- * {@link stringify}. Therefore, it converts an input value to JSON (JavaScript
- * Object Notation) string, with type assertion.
+ * Combines {@link assert} with {@link stringify}. Throws
+ * {@link TypeGuardError} when input doesn't match type `T`. Achieves ~5x
+ * faster performance than native `JSON.stringify()`.
  *
- * In such reason, when `input` value is not matched with the type `T`, it
- * throws an {@link TypeGuardError} or custom error generated by _errorFactory_.
- * Otherwise, there's no problem on the `input` value, JSON string will be
- * returned.
+ * Related functions:
  *
- * For reference, with type assertion, it is even 5x times faster than the
- * native `JSON.stringify()` function. So, just enjoy the safe and fast JSON
- * conversion with confidence.
+ * - {@link stringify} — No validation
+ * - {@link isStringify} — Returns `null` instead of throwing
+ * - {@link validateStringify} — Returns detailed validation errors
  *
- * @author Jeongho Nam - https://github.com/samchon
- * @template T Type of the input value
- * @param input A value to be asserted and converted
- * @param errorFactory Custom error factory. Default is `TypeGuardError`
- * @returns JSON string value
+ * @template T Type of input value
+ * @param input Value to assert and stringify
+ * @param errorFactory Custom error factory receiving {@link TypeGuardError.IProps}
+ * @returns JSON string
+ * @throws {TypeGuardError} When input doesn't conform to type `T`
  */
 export function assertStringify<T>(
   input: T,
@@ -416,26 +270,23 @@ export function assertStringify<T>(
 ): string;
 
 /**
- * 5x faster `JSON.stringify()` function with type assertion.
+ * Converts value to JSON string with assertion (5x faster).
  *
- * `typia.json.assertStringify()` is a combination function of {@link assert} and
- * {@link stringify}. Therefore, it converts an input value to JSON (JavaScript
- * Object Notation) string, with type assertion.
+ * Combines {@link assert} with {@link stringify}. Throws
+ * {@link TypeGuardError} when input doesn't match type `T`. Achieves ~5x
+ * faster performance than native `JSON.stringify()`.
  *
- * In such reason, when `input` value is not matched with the type `T`, it
- * throws an {@link TypeGuardError} or custom error generated by _errorFactory_.
- * Otherwise, there's no problem on the `input` value, JSON string will be
- * returned.
+ * Related functions:
  *
- * For reference, with type assertion, it is even 5x times faster than the
- * native `JSON.stringify()` function. So, just enjoy the safe and fast JSON
- * conversion with confidence.
+ * - {@link stringify} — No validation
+ * - {@link isStringify} — Returns `null` instead of throwing
+ * - {@link validateStringify} — Returns detailed validation errors
  *
- * @author Jeongho Nam - https://github.com/samchon
- * @template T Type of the input value
- * @param input A value to be asserted and converted
- * @param errorFactory Custom error factory. Default is `TypeGuardError`
- * @returns JSON string value
+ * @template T Type of input value
+ * @param input Value to assert and stringify
+ * @param errorFactory Custom error factory receiving {@link TypeGuardError.IProps}
+ * @returns JSON string
+ * @throws {TypeGuardError} When input doesn't conform to type `T`
  */
 export function assertStringify<T>(
   input: T,
@@ -448,46 +299,40 @@ export function assertStringify(): string {
 }
 
 /**
- * 7x faster `JSON.stringify()` function with type checking.
+ * Converts value to JSON string with type checking (7x faster).
  *
- * `typia.json.stringify()` is a combination function of {@link is} and
- * {@link stringify}. Therefore, it converts an input value to JSON (JavaScript
- * Object Notation) string, with type checking.
+ * Combines {@link is} with {@link stringify}. Returns `null` when input
+ * doesn't match type `T`. Achieves ~7x faster performance than native
+ * `JSON.stringify()`.
  *
- * In such reason, when `input` value is not matched with the type `T`, it
- * returns `null` value. Otherwise, there's no problem on the `input` value,
- * JSON string will be returned.
+ * Related functions:
  *
- * For reference, with type checking, it is even 7x times faster than the native
- * `JSON.stringify()` function. So, just enjoy the safe and fast JSON conversion
- * with confidence.
+ * - {@link stringify} — No validation
+ * - {@link assertStringify} — Throws instead of returning `null`
+ * - {@link validateStringify} — Returns detailed validation errors
  *
- * @author Jeongho Nam - https://github.com/samchon
- * @template T Type of the input value
- * @param input A value to be checked and converted
- * @returns JSON string value when exact type, otherwise null
+ * @template T Type of input value
+ * @param input Value to check and stringify
+ * @returns JSON string, or `null` if type check fails
  */
 export function isStringify<T>(input: T): string | null;
 
 /**
- * 7x faster `JSON.stringify()` function with type checking.
+ * Converts value to JSON string with type checking (7x faster).
  *
- * `typia.json.isStringify()` is a combination function of {@link is} and
- * {@link stringify}. Therefore, it converts an input value to JSON (JavaScript
- * Object Notation) string, with type checking.
+ * Combines {@link is} with {@link stringify}. Returns `null` when input
+ * doesn't match type `T`. Achieves ~7x faster performance than native
+ * `JSON.stringify()`.
  *
- * In such reason, when `input` value is not matched with the type `T`, it
- * returns `null` value. Otherwise, there's no problem on the `input` value,
- * JSON string will be returned.
+ * Related functions:
  *
- * For reference, with type checking, it is even 7x times faster than the native
- * `JSON.stringify()` function. So, just enjoy the safe and fast JSON conversion
- * with confidence.
+ * - {@link stringify} — No validation
+ * - {@link assertStringify} — Throws instead of returning `null`
+ * - {@link validateStringify} — Returns detailed validation errors
  *
- * @author Jeongho Nam - https://github.com/samchon
- * @template T Type of the input value
- * @param input A value to be checked and converted
- * @returns JSON string value when exact type, otherwise null
+ * @template T Type of input value
+ * @param input Value to check and stringify
+ * @returns JSON string, or `null` if type check fails
  */
 export function isStringify<T>(input: unknown): string | null;
 
@@ -497,50 +342,42 @@ export function isStringify(): string | null {
 }
 
 /**
- * 5x faster `JSON.stringify()` function with detailed type validation.
+ * Converts value to JSON string with validation (5x faster).
  *
- * `typia.json.validateStringify()` is a combination function of {@link validate}
- * and {@link stringify}. Therefore, it converts an input value to JSON
- * (JavaScript Object Notation) string, with detailed type validation.
+ * Combines {@link validate} with {@link stringify}. Returns
+ * {@link IValidation.IFailure} with all errors on mismatch, or
+ * {@link IValidation.ISuccess} with JSON string. Achieves ~5x faster
+ * performance than native `JSON.stringify()`.
  *
- * In such reason, when `input` value is not matched with the type `T`, it
- * returns {@link IValidation.IFailure} value with detailed error reasons.
- * Otherwise, there's no problem on the `input` value, JSON string will be
- * stored in `data` property of the output {@link IValidation.ISuccess}
- * instance.
+ * Related functions:
  *
- * For reference, with detailed type validation, it is even 5x times faster than
- * the native `JSON.stringify()` function. So, just enjoy the safe and fast JSON
- * conversion with confidence.
+ * - {@link stringify} — No validation
+ * - {@link assertStringify} — Throws on first error
+ * - {@link isStringify} — Returns `null` instead of error details
  *
- * @author Jeongho Nam - https://github.com/samchon
- * @template T Type of the input value
- * @param input A value to be checked and converted
- * @returns Validation result with JSON string value
+ * @template T Type of input value
+ * @param input Value to validate and stringify
+ * @returns Validation result containing JSON string or errors
  */
 export function validateStringify<T>(input: T): IValidation<string>;
 
 /**
- * 5x faster `JSON.stringify()` function with detailed type validation.
+ * Converts value to JSON string with validation (5x faster).
  *
- * `typia.json.validateStringify()` is a combination function of {@link validate}
- * and {@link stringify}. Therefore, it converts an input value to JSON
- * (JavaScript Object Notation) string, with detailed type validation.
+ * Combines {@link validate} with {@link stringify}. Returns
+ * {@link IValidation.IFailure} with all errors on mismatch, or
+ * {@link IValidation.ISuccess} with JSON string. Achieves ~5x faster
+ * performance than native `JSON.stringify()`.
  *
- * In such reason, when `input` value is not matched with the type `T`, it
- * returns {@link IValidation.IFailure} value with detailed error reasons.
- * Otherwise, there's no problem on the `input` value, JSON string will be
- * stored in `data` property of the output {@link IValidation.ISuccess}
- * instance.
+ * Related functions:
  *
- * For reference, with detailed type validation, it is even 5x times faster than
- * the native `JSON.stringify()` function. So, just enjoy the safe and fast JSON
- * conversion with confidence.
+ * - {@link stringify} — No validation
+ * - {@link assertStringify} — Throws on first error
+ * - {@link isStringify} — Returns `null` instead of error details
  *
- * @author Jeongho Nam - https://github.com/samchon
- * @template T Type of the input value
- * @param input A value to be checked and converted
- * @returns Validation result with JSON string value
+ * @template T Type of input value
+ * @param input Value to validate and stringify
+ * @returns Validation result containing JSON string or errors
  */
 export function validateStringify<T>(input: unknown): IValidation<string>;
 
@@ -553,21 +390,17 @@ export function validateStringify(): IValidation<string> {
     FACTORY FUNCTIONS
 ----------------------------------------------------------- */
 /**
- * Creates a reusable {@link isParse} function.
+ * Creates reusable {@link isParse} function.
  *
- * @author Jeongho Nam - https://github.com/samchon
- * @returns Nothing until you configure the generic argument `T`
- * @throws Compile error
  * @danger You must configure the generic argument `T`
  */
 export function createIsParse(): never;
 
 /**
- * Creates a reusable {@link isParse} function.
+ * Creates reusable {@link isParse} function.
  *
- * @author Jeongho Nam - https://github.com/samchon
- * @template T Expected type of parsed value
- * @returns A reusable `isParse` function
+ * @template T Target type for parsed value
+ * @returns Reusable parser function
  */
 export function createIsParse<T>(): (input: string) => Primitive<T> | null;
 
@@ -577,12 +410,8 @@ export function createIsParse<T>(): (input: string) => Primitive<T> | null {
 }
 
 /**
- * Creates a reusable {@link assertParse} function.
+ * Creates reusable {@link assertParse} function.
  *
- * @author Jeongho Nam - https://github.com/samchon
- * @param errorFactory Custom error factory. Default is `TypeGuardError`
- * @returns Nothing until you configure the generic argument `T`
- * @throws Compile error
  * @danger You must configure the generic argument `T`
  */
 export function createAssertParse(
@@ -590,12 +419,11 @@ export function createAssertParse(
 ): never;
 
 /**
- * Creates a reusable {@link assertParse} function.
+ * Creates reusable {@link assertParse} function.
  *
- * @author Jeongho Nam - https://github.com/samchon
- * @template T Expected type of parsed value
- * @param errorFactory Custom error factory. Default is `TypeGuardError`
- * @returns A reusable `assertParse` function
+ * @template T Target type for parsed value
+ * @param errorFactory Custom error factory receiving {@link TypeGuardError.IProps}
+ * @returns Reusable parser function
  */
 export function createAssertParse<T>(
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
@@ -607,21 +435,17 @@ export function createAssertParse<T>(): (input: string) => Primitive<T> {
 }
 
 /**
- * Creates a reusable {@link validateParse} function.
+ * Creates reusable {@link validateParse} function.
  *
- * @author Jeongho Nam - https://github.com/samchon
- * @returns Nothing until you configure the generic argument `T`
- * @throws Compile error
  * @danger You must configure the generic argument `T`
  */
 export function createValidateParse(): never;
 
 /**
- * Creates a reusable {@link validateParse} function.
+ * Creates reusable {@link validateParse} function.
  *
- * @author Jeongho Nam - https://github.com/samchon
- * @template T Expected type of parsed value
- * @returns A reusable `validateParse` function
+ * @template T Target type for parsed value
+ * @returns Reusable parser function
  */
 export function createValidateParse<T>(): (
   input: string,
@@ -635,21 +459,17 @@ export function createValidateParse<T>(): (
 }
 
 /**
- * Creates a reusable {@link stringify} function.
+ * Creates reusable {@link stringify} function.
  *
- * @author Jeongho Nam - https://github.com/samchon
- * @returns Nothing until you configure the generic argument `T`
- * @throws Compile error
  * @danger You must configure the generic argument `T`
  */
 export function createStringify(): never;
 
 /**
- * Creates a reusable {@link stringify} function.
+ * Creates reusable {@link stringify} function.
  *
- * @author Jeongho Nam - https://github.com/samchon
- * @template T Type of the input value
- * @returns A reusable `stringify` function
+ * @template T Type of input value
+ * @returns Reusable stringify function
  */
 export function createStringify<T>(): (input: T) => string;
 
@@ -659,12 +479,8 @@ export function createStringify<T>(): (input: T) => string {
 }
 
 /**
- * Creates a reusable {@link assertStringify} function.
+ * Creates reusable {@link assertStringify} function.
  *
- * @author Jeongho Nam - https://github.com/samchon
- * @param errorFactory Custom error factory. Default is `TypeGuardError`
- * @returns Nothing until you configure the generic argument `T`
- * @throws Compile error
  * @danger You must configure the generic argument `T`
  */
 export function createAssertStringify(
@@ -672,12 +488,11 @@ export function createAssertStringify(
 ): never;
 
 /**
- * Creates a reusable {@link assertStringify} function.
+ * Creates reusable {@link assertStringify} function.
  *
- * @author Jeongho Nam - https://github.com/samchon
- * @template T Type of the input value
- * @param errorFactory Custom error factory. Default is `TypeGuardError`
- * @returns A reusable `assertStringify` function
+ * @template T Type of input value
+ * @param errorFactory Custom error factory receiving {@link TypeGuardError.IProps}
+ * @returns Reusable stringify function
  */
 export function createAssertStringify<T>(
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
@@ -689,21 +504,17 @@ export function createAssertStringify(): (input: unknown) => string {
 }
 
 /**
- * Creates a reusable {@link isStringify} function.
+ * Creates reusable {@link isStringify} function.
  *
- * @author Jeongho Nam - https://github.com/samchon
- * @returns Nothing until you configure the generic argument `T`
- * @throws Compile error
  * @danger You must configure the generic argument `T`
  */
 export function createIsStringify(): never;
 
 /**
- * Creates a reusable {@link isStringify} function.
+ * Creates reusable {@link isStringify} function.
  *
- * @author Jeongho Nam - https://github.com/samchon
- * @template T Type of the input value
- * @returns A reusable `isStringify` function
+ * @template T Type of input value
+ * @returns Reusable stringify function
  */
 export function createIsStringify<T>(): (input: unknown) => string | null;
 
@@ -713,21 +524,17 @@ export function createIsStringify(): (input: unknown) => string | null {
 }
 
 /**
- * Creates a reusable {@link validateStringify} function.
+ * Creates reusable {@link validateStringify} function.
  *
- * @author Jeongho Nam - https://github.com/samchon
- * @returns Nothing until you configure the generic argument `T`
- * @throws Compile error
  * @danger You must configure the generic argument `T`
  */
 export function createValidateStringify(): never;
 
 /**
- * Creates a reusable {@link validateStringify} function.
+ * Creates reusable {@link validateStringify} function.
  *
- * @author Jeongho Nam - https://github.com/samchon
- * @template T Type of the input value
- * @returns A reusable `validateStringify` function
+ * @template T Type of input value
+ * @returns Reusable stringify function
  */
 export function createValidateStringify<T>(): (
   input: unknown,
