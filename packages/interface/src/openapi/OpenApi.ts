@@ -90,12 +90,8 @@ export namespace OpenApi {
       /** Contact URL. */
       url?: string;
 
-      /**
-       * Contact email.
-       *
-       * @format email
-       */
-      email?: string;
+      /** Contact email. */
+      email?: string & tags.Format<"email">;
     }
 
     /** License information. */
