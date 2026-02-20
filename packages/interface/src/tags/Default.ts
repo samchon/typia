@@ -7,6 +7,7 @@ import { TagBase } from "./TagBase";
  * Supports boolean, bigint, number, and string literals.
  *
  * @template Value Default value literal
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export type Default<Value extends boolean | bigint | number | string> =
   TagBase<{

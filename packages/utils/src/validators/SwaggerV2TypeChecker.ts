@@ -1,5 +1,10 @@
 import { SwaggerV2 } from "@typia/interface";
 
+/**
+ * Type guard utilities for Swagger v2.0 JSON Schema.
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
 export namespace SwaggerV2TypeChecker {
   export const isBoolean = (
     schema: SwaggerV2.IJsonSchema,

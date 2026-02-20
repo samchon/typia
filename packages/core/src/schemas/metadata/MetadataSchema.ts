@@ -25,6 +25,8 @@ import { MetadataTuple } from "./MetadataTuple";
  *
  * Contains all type information extracted from TypeScript types
  * for runtime validation and code generation.
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export class MetadataSchema {
   public any: boolean;

@@ -6,6 +6,7 @@
  *
  * @template Instance Source object type
  * @template Target Target value type to match
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export type SpecialFields<Instance extends object, Target> = {
   [P in keyof Instance]: Instance[P] extends Target ? P : never;

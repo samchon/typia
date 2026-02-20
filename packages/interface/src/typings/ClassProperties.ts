@@ -8,6 +8,7 @@ import { OmitNever } from "./OmitNever";
  * should be excluded.
  *
  * @template T Target class type
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export type ClassProperties<T extends object> = OmitNever<{
   [K in keyof T]: T[K] extends Function ? never : T[K];

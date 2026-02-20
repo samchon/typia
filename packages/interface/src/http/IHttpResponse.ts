@@ -2,6 +2,8 @@
  * HTTP response structure.
  *
  * `IHttpResponse` contains {@link status} code, {@link headers}, and {@link body}.
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export interface IHttpResponse {
   /** Status code of the response. */

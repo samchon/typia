@@ -21,6 +21,8 @@ import { LlmDataMerger } from "./internal/LlmDataMerger";
  *
  * Composes LLM function calling applications from OpenAPI documents,
  * executes function calls, and merges human/LLM parameters.
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export namespace HttpLlm {
   /* -----------------------------------------------------------

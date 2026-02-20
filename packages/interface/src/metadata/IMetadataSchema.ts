@@ -20,6 +20,8 @@ import { IMetadataTypeTag } from "./IMetadataTypeTag";
  * - Aliases: {@link aliases} (type aliases)
  * - Natives: {@link natives} (built-in classes like Date, Uint8Array)
  * - Functions: {@link functions} (function types)
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export interface IMetadataSchema {
   /** Whether the type is `any`. */

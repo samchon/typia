@@ -10,6 +10,7 @@ import { OpenApiV3 } from "../openapi/OpenApiV3";
  *
  * @template Version OpenAPI version ("3.0" or "3.1")
  * @template App Source application type
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export interface IJsonSchemaApplication<
   Version extends "3.0" | "3.1" = "3.1",

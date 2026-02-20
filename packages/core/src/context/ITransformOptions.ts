@@ -2,6 +2,8 @@
  * Typia transformer configuration options.
  *
  * Controls validation behavior for numbers, functions, and undefined values.
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export interface ITransformOptions {
   /**

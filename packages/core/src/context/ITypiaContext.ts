@@ -8,6 +8,8 @@ import { ITransformOptions } from "./ITransformOptions";
  *
  * Provides TypeScript compiler APIs and typia-specific utilities
  * for code transformation.
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export interface ITypiaContext {
   /** TypeScript program instance. */

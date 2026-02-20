@@ -12,6 +12,7 @@ import { ValueOf } from "./internal/ValueOf";
  * are preserved unchanged.
  *
  * @template T Target type to resolve
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export type Resolved<T> =
   Equal<T, ResolvedMain<T>> extends true ? T : ResolvedMain<T>;

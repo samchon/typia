@@ -2,6 +2,14 @@ import { IValidation, OpenApi } from "@typia/interface";
 
 import { OpenApiStationValidator } from "./internal/OpenApiStationValidator";
 
+/**
+ * OpenAPI JSON Schema validator.
+ *
+ * `OpenApiValidator` validates data against OpenAPI JSON Schema definitions.
+ * Used internally for LLM function calling argument validation.
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
 export namespace OpenApiValidator {
   export const create =
     (props: {

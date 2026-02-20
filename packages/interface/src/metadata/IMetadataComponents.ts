@@ -6,6 +6,8 @@ import { IMetadataSchema } from "./IMetadataSchema";
  * `IMetadataComponents` stores reusable type definitions that can be
  * referenced from {@link IMetadataSchema} via {@link IMetadataSchema.IReference}.
  * This enables deduplication of complex types across multiple schemas.
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export interface IMetadataComponents {
   /** Object type definitions. */

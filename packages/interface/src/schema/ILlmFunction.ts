@@ -7,6 +7,8 @@ import { IValidation } from "./IValidation";
  * `ILlmFunction` describes a function for LLM function calling. Contains
  * the function {@link name}, {@link parameters} schema, {@link output} type,
  * and built-in {@link validate} function for argument validation.
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export interface ILlmFunction {
   /**

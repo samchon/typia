@@ -7,6 +7,7 @@ import { TagBase } from "./TagBase";
  * int32, uint32, int64, uint64, float, double.
  *
  * @template Value Numeric type representation
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export type Type<
   Value extends "int32" | "uint32" | "int64" | "uint64" | "float" | "double",

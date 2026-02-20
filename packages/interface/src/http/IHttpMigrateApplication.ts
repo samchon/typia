@@ -6,6 +6,8 @@ import { IHttpMigrateRoute } from "./IHttpMigrateRoute";
  *
  * `IHttpMigrateApplication` contains {@link IHttpMigrateRoute} list
  * converted from {@link OpenApi.IDocument} for RPC function generation.
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export interface IHttpMigrateApplication {
   /** Successfully migrated routes. */

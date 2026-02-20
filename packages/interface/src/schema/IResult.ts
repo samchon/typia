@@ -11,6 +11,7 @@
  *
  * @template T Type of the success value.
  * @template E Type of the error value.
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export type IResult<T, E> = IResult.ISuccess<T> | IResult.IFailure<E>;
 export namespace IResult {

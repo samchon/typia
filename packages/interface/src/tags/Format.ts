@@ -7,6 +7,7 @@ import type { TagBase } from "./TagBase";
  * url, date-time, etc.). Mutually exclusive with {@link Pattern}.
  *
  * @template Value Format identifier (see {@link Format.Value} for options)
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export type Format<Value extends Format.Value> = TagBase<{
   target: "string";

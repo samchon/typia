@@ -7,6 +7,7 @@ import { TagBase } from "./TagBase";
  * named examples, use {@link Examples} instead.
  *
  * @template Value Example value (primitive, object, array, or null)
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export type Example<
   Value extends

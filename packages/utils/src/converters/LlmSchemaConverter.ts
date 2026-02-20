@@ -21,6 +21,8 @@ import { OpenApiConstraintShifter } from "./internal/OpenApiConstraintShifter";
  *
  * Converts OpenAPI JSON schemas to LLM function calling schemas,
  * and provides utilities for schema inversion and parameter separation.
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export namespace LlmSchemaConverter {
   /**

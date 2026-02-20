@@ -10,6 +10,7 @@ import { ILlmApplication } from "./ILlmApplication";
  * For HTTP protocol, use `IHttpLlmController`. For MCP, use `IMcpLlmController`.
  *
  * @template Class Class type of the function executor
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export interface ILlmController<Class extends object = any> {
   /** Protocol discriminator. */

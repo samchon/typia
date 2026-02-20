@@ -16,6 +16,8 @@ import { MetadataTupleType } from "./MetadataTupleType";
  *
  * Caches analyzed types (objects, aliases, arrays, tuples)
  * to handle recursive types and avoid redundant analysis.
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export class MetadataStorage {
   private objects_: Map<ts.Type, MetadataObjectType>;

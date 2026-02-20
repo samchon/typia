@@ -1,5 +1,10 @@
 import { OpenApiV3 } from "@typia/interface";
 
+/**
+ * Type guard utilities for OpenAPI v3.0 JSON Schema.
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
 export namespace OpenApiV3TypeChecker {
   export const isBoolean = (
     schema: OpenApiV3.IJsonSchema,

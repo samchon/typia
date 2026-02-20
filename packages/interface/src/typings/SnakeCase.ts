@@ -10,6 +10,7 @@ import { ValueOf } from "./internal/ValueOf";
  * nested structures.
  *
  * @template T Target type to transform
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export type SnakeCase<T> =
   Equal<T, SnakageMain<T>> extends true ? T : SnakageMain<T>;

@@ -9,6 +9,7 @@ import { IValidation } from "./IValidation";
  * from a TypeScript class/interface by `typia.llm.application<App>()`.
  *
  * @template Class Source class/interface type
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export interface ILlmApplication<Class extends object = any> {
   /** Function schemas. */

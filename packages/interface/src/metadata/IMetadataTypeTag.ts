@@ -6,6 +6,8 @@ import type ts from "typescript";
  * Represents constraint tags like `@minimum`, `@format`, `@pattern` that are
  * applied to types via typia's tag system. Used for validation and JSON schema
  * generation.
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export interface IMetadataTypeTag {
   /** Target type this tag applies to. */

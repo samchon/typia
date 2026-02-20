@@ -6,6 +6,8 @@ import * as tags from "../tags";
  *
  * `OpenApi` is a refined OpenAPI v3.1 that removes ambiguous and duplicated
  * expressions for `typia` and `nestia` compatibility.
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export namespace OpenApi {
   /** HTTP method of the operation. */

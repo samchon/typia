@@ -6,6 +6,7 @@ import { TagBase } from "./TagBase";
  * `MultipleOf<N>` validates that a number/bigint is exactly divisible by N.
  *
  * @template Value Divisor value
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export type MultipleOf<Value extends number | bigint> = TagBase<{
   target: Value extends bigint ? "bigint" : "number";

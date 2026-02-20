@@ -7,6 +7,7 @@
  *
  * @template T Success data type
  * @template E Error type
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export type ValidationPipe<T, E> =
   | {

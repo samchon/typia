@@ -7,6 +7,8 @@ import { MetadataObjectType } from "../schemas/metadata/MetadataObjectType";
  * Error thrown during typia transformation.
  *
  * Indicates invalid usage or unsupported types in `typia.*<T>()` calls.
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export class TransformerError extends Error {
   /** Error code identifying the error type. */

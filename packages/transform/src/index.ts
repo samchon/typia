@@ -15,6 +15,7 @@ export * from "./ImportTransformer";
  * @param options Transformer options
  * @param extras Transformer context with diagnostic utilities
  * @returns Transformer factory for source file processing
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export const transform = (
   program: ts.Program,

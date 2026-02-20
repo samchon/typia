@@ -11,6 +11,7 @@ import { ValueOf } from "./internal/ValueOf";
  * nested structures.
  *
  * @template T Target type to transform
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export type CamelCase<T> =
   Equal<T, CamelizeMain<T>> extends true ? T : CamelizeMain<T>;

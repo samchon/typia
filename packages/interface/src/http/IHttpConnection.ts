@@ -5,6 +5,8 @@
  *
  * `IHttpConnection` represents connection settings for remote HTTP servers.
  * Configure {@link host}, optional {@link headers}, and {@link fetch} options.
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export interface IHttpConnection {
   /** Host address of the remote HTTP server. */

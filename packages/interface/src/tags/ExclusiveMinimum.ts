@@ -7,6 +7,7 @@ import { TagBase } from "./TagBase";
  * than N. Mutually exclusive with {@link Minimum}.
  *
  * @template Value Minimum bound (exclusive)
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export type ExclusiveMinimum<Value extends number | bigint> = TagBase<{
   target: Value extends bigint ? "bigint" : "number";

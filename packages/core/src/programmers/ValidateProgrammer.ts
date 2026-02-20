@@ -21,6 +21,8 @@ import { check_object } from "./iterate/check_object";
  * Generates runtime validation code returning `IValidation` result.
  * Collects all errors instead of failing on first error.
  * Used by `typia.validate<T>()` and `typia.validateEquals<T>()`.
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export namespace ValidateProgrammer {
   /** Validation configuration. */

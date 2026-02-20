@@ -7,6 +7,7 @@ import { TagBase } from "./TagBase";
  * For a single example, use {@link Example} instead.
  *
  * @template Value Record mapping example names to values
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export type Examples<
   Value extends Record<

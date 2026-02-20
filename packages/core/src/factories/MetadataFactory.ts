@@ -20,6 +20,8 @@ import { iterate_metadata_sort } from "./internal/metadata/iterate_metadata_sort
  *
  * Analyzes TypeScript types and extracts metadata for code generation.
  * Core component for typia's compile-time type analysis.
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export namespace MetadataFactory {
   /** Validation function type for metadata schemas. */

@@ -7,6 +7,7 @@ import { TagBase } from "./TagBase";
  * strict equality for primitives, deep comparison for objects.
  *
  * @template Value Enable/disable flag (defaults to true)
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export type UniqueItems<Value extends boolean = true> = TagBase<{
   target: "array";

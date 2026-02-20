@@ -10,6 +10,8 @@ import { SwaggerV2Upgrader } from "./internal/SwaggerV2Upgrader";
  * OpenAPI version converter.
  *
  * Converts between Swagger v2.0, OpenAPI v3.0, v3.1, and typia's emended format.
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export namespace OpenApiConverter {
   /* -----------------------------------------------------------

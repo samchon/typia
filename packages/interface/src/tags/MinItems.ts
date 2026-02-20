@@ -6,6 +6,7 @@ import { TagBase } from "./TagBase";
  * `MinItems<N>` validates that an array has at least N elements.
  *
  * @template Value Minimum number of items required
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export type MinItems<Value extends number> = TagBase<{
   target: "array";

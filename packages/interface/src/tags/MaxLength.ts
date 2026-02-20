@@ -6,6 +6,7 @@ import { TagBase } from "./TagBase";
  * `MaxLength<N>` validates that a string has at most N characters.
  *
  * @template Value Maximum character count
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export type MaxLength<Value extends number> = TagBase<{
   target: "string";

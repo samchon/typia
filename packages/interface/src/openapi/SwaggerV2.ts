@@ -4,6 +4,7 @@ import * as tags from "../tags";
 /**
  * Swagger v2.0 definition.
  *
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export namespace SwaggerV2 {
   /** HTTP method of the operation. */

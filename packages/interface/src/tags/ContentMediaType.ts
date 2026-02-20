@@ -7,6 +7,7 @@ import { TagBase } from "./TagBase";
  * interpreted. No validation performed, metadata only.
  *
  * @template Value MIME type (e.g., "application/json", "image/png")
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export type ContentMediaType<Value extends string> = TagBase<{
   target: "string";

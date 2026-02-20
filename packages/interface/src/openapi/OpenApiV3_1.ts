@@ -4,6 +4,7 @@ import * as tags from "../tags";
 /**
  * OpenAPI v3.1 definition.
  *
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export namespace OpenApiV3_1 {
   /** HTTP method of the operation. */

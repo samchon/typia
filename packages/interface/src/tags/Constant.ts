@@ -8,6 +8,7 @@ import { TagBase } from "./TagBase";
  *
  * @template Value Literal value (boolean, number, string, or bigint)
  * @template Content Metadata with optional title and description
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export type Constant<
   Value extends boolean | number | string | bigint,

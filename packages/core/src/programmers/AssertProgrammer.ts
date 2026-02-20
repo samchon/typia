@@ -18,6 +18,8 @@ import { check_object } from "./iterate/check_object";
  *
  * Generates runtime assertion code that throws `TypeGuardError` on failure.
  * Used by `typia.assert<T>()` and `typia.assertEquals<T>()`.
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export namespace AssertProgrammer {
   /** Assertion configuration. */

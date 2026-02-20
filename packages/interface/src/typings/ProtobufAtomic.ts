@@ -3,6 +3,8 @@
  *
  * Union of all primitive type identifiers used in Protocol Buffers
  * wire format encoding/decoding.
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export type ProtobufAtomic =
   | "bool"

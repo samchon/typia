@@ -8,6 +8,8 @@ import { IMetadataSchema } from "./IMetadataSchema";
  * TypeScript type via `typia.reflect.schema<T>()`. The main schema is in
  * {@link schema}, while shared type definitions (objects, aliases, arrays,
  * tuples) are stored in {@link components}.
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export interface IMetadataSchemaUnit {
   /** Metadata schema for the target type. */

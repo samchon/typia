@@ -5,6 +5,8 @@ import { OpenApi } from "../openapi/OpenApi";
  *
  * `IHttpMigrateRoute` represents an RPC function composed from
  * {@link OpenApi.IOperation}. Used by OpenAPI generator libraries.
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export interface IHttpMigrateRoute {
   /** HTTP method. Operations with other methods are ignored. */

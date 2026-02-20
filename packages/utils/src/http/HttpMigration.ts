@@ -17,6 +17,8 @@ import { HttpMigrateRouteFetcher } from "./internal/HttpMigrateRouteFetcher";
  * OpenAPI to HTTP migration utilities.
  *
  * Converts OpenAPI documents to callable HTTP routes and executes them.
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export namespace HttpMigration {
   /**

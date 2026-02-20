@@ -37,6 +37,8 @@ import { json_schema_string } from "./iterate/json_schema_string";
  *
  * Generates code that creates random values matching type constraints.
  * Used by `typia.random<T>()`.
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export namespace RandomProgrammer {
   /** Properties for random code generation. */

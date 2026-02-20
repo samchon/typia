@@ -7,6 +7,8 @@ import { IJsonSchemaAttribute } from "./IJsonSchemaAttribute";
  * `ILlmSchema` is a simplified JSON schema designed for LLM compatibility.
  * Based on OpenAPI v3.1 but omits unsupported features (tuples, const, mixed
  * types). Use {@link ILlmSchema.IConfig.strict} for OpenAI structured output.
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export type ILlmSchema =
   | ILlmSchema.IBoolean

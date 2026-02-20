@@ -1,5 +1,7 @@
 /**
  * Atomic (primitive) type utilities for typia's type system.
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export namespace Atomic {
   /** Union of JavaScript primitive value types. */

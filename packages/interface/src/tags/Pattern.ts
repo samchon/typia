@@ -7,6 +7,7 @@ import { TagBase } from "./TagBase";
  * Mutually exclusive with {@link Format}.
  *
  * @template Value Regular expression pattern string
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export type Pattern<Value extends string> = TagBase<{
   target: "string";

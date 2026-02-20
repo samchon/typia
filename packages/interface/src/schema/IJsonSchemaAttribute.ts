@@ -3,6 +3,8 @@
  *
  * `IJsonSchemaAttribute` provides base attributes shared by all JSON schema
  * types. Extendable via module augmentation.
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export interface IJsonSchemaAttribute {
   /** Title of the schema. */

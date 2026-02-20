@@ -9,6 +9,8 @@ import { IHttpMigrateRoute } from "./IHttpMigrateRoute";
  * `IHttpLlmFunction` converts {@link OpenApi.IOperation} to LLM function
  * calling format. Contains {@link name}, {@link parameters}, {@link output},
  * and built-in {@link validate} function for argument validation.
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export interface IHttpLlmFunction {
   /** HTTP method of the endpoint. */

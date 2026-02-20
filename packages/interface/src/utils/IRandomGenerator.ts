@@ -5,6 +5,8 @@ import { OpenApi } from "../openapi/OpenApi";
  *
  * `IRandomGenerator` defines methods for generating random values of
  * various types. Used by `typia.random<T>()` for mock data generation.
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export interface IRandomGenerator {
   /** Generates a random boolean. */

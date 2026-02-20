@@ -9,6 +9,8 @@ import { IHttpMigrateRoute } from "./IHttpMigrateRoute";
  * `IHttpLlmApplication` is a collection of {@link IHttpLlmFunction} schemas
  * converted from {@link OpenApi.IDocument}. Contains successful conversions
  * in {@link functions} and failed ones in {@link errors}.
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export interface IHttpLlmApplication {
   /** Successfully converted LLM function schemas. */

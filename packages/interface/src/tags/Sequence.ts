@@ -7,6 +7,7 @@ import { TagBase } from "./TagBase";
  * Field numbers 1-15 use one byte; 19000-19999 are reserved.
  *
  * @template N Field number (1 to 536,870,911, excluding 19000-19999)
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export type Sequence<N extends number> = TagBase<{
   target: "boolean" | "bigint" | "number" | "string" | "array" | "object";

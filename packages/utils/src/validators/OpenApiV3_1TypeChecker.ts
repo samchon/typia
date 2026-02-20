@@ -1,5 +1,10 @@
 import { OpenApiV3_1 } from "@typia/interface";
 
+/**
+ * Type guard utilities for OpenAPI v3.1 JSON Schema.
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
 export namespace OpenApiV3_1TypeChecker {
   export const isConstant = (
     schema: OpenApiV3_1.IJsonSchema,

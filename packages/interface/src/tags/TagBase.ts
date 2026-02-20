@@ -5,6 +5,7 @@
  * Processed by typia transformer to generate runtime validation code.
  *
  * @template Props Tag properties defining validation behavior
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export type TagBase<
   Props extends TagBase.IProps<any, any, any, any, any, any>,

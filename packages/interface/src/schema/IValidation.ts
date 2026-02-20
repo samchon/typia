@@ -6,6 +6,7 @@
  * failure with detailed error information.
  *
  * @template T Validated type
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export type IValidation<T = unknown> =
   | IValidation.ISuccess<T>

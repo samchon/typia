@@ -2,6 +2,8 @@
  * String naming convention converters.
  *
  * Converts between camelCase, PascalCase, and snake_case.
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export namespace NamingConvention {
   /**

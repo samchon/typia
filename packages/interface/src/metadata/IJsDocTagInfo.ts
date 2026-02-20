@@ -3,6 +3,8 @@
  *
  * Represents a single JSDoc tag like `@param`, `@returns`, `@deprecated`, etc.
  * Used throughout typia's metadata system to preserve documentation.
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export interface IJsDocTagInfo {
   /** Tag name without `@` prefix (e.g., `"param"`, `"returns"`). */

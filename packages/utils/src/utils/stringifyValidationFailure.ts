@@ -12,6 +12,7 @@ import { dedent } from "./dedent";
  *
  * @param failure Validation failure from typia
  * @returns Markdown code block with error-annotated JSON
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export function stringifyValidationFailure(
   failure: IValidation.IFailure,

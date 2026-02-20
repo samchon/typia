@@ -9,6 +9,7 @@ import { OpenApiV3 } from "../openapi/OpenApiV3";
  *
  * @template Version OpenAPI version ("3.0" or "3.1")
  * @template Types Original TypeScript types
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export type IJsonSchemaCollection<
   Version extends "3.0" | "3.1" = "3.1",

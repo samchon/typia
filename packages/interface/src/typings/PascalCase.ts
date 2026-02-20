@@ -11,6 +11,7 @@ import { ValueOf } from "./internal/ValueOf";
  * nested structures.
  *
  * @template T Target type to transform
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export type PascalCase<T> =
   Equal<T, PascalizeMain<T>> extends true ? T : PascalizeMain<T>;

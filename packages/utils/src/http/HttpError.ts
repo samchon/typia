@@ -2,6 +2,8 @@
  * Error thrown when HTTP request fails.
  *
  * Contains HTTP-specific information: method, path, status code, and headers.
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export class HttpError extends Error {
   /** HTTP method used for the request. */

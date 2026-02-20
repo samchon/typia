@@ -6,6 +6,8 @@ import ts from "typescript";
  *
  * Manages import declarations for generated code, handling
  * default imports, named imports, and namespace imports.
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export class ImportProgrammer {
   private readonly assets_: Map<string, IAsset> = new Map();
