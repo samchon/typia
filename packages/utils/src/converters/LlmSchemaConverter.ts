@@ -16,7 +16,19 @@ import { LlmDescriptionInverter } from "./internal/LlmDescriptionInverter";
 import { LlmParametersFinder } from "./internal/LlmParametersComposer";
 import { OpenApiConstraintShifter } from "./internal/OpenApiConstraintShifter";
 
+/**
+ * OpenAPI to LLM schema converter.
+ *
+ * Converts OpenAPI JSON schemas to LLM function calling schemas,
+ * and provides utilities for schema inversion and parameter separation.
+ */
 export namespace LlmSchemaConverter {
+  /**
+   * Get configuration with defaults applied.
+   *
+   * @param config Partial configuration
+   * @returns Full configuration with defaults
+   */
   export const getConfig = (
     config?: Partial<ILlmSchema.IConfig> | undefined,
   ): ILlmSchema.IConfig => ({
@@ -27,6 +39,16 @@ export namespace LlmSchemaConverter {
   /* -----------------------------------------------------------
     CONVERTERS
   ----------------------------------------------------------- */
+  /**
+   * Convert OpenAPI object schema to LLM parameters schema.
+   *
+   * @param props.config Conversion configuration
+   * @param props.components OpenAPI components for reference resolution
+   * @param props.schema Object or reference schema to convert
+   * @param props.accessor Error path accessor
+   * @param props.refAccessor Reference path accessor
+   * @returns Converted parameters or error
+   */
   export const parameters = (props: {
     config?: Partial<ILlmSchema.IConfig>;
     components: OpenApi.IComponents;
@@ -73,6 +95,17 @@ export namespace LlmSchemaConverter {
     };
   };
 
+  /**
+   * Convert OpenAPI schema to LLM schema.
+   *
+   * @param props.config Conversion configuration
+   * @param props.components OpenAPI components for reference resolution
+   * @param props.$defs Definition store (mutated with referenced types)
+   * @param props.schema Schema to convert
+   * @param props.accessor Error path accessor
+   * @param props.refAccessor Reference path accessor
+   * @returns Converted schema or error
+   */
   export const schema = (props: {
     config?: Partial<ILlmSchema.IConfig>;
     components: OpenApi.IComponents;
@@ -428,6 +461,17 @@ export namespace LlmSchemaConverter {
   /* -----------------------------------------------------------
     INVERTERS
   ----------------------------------------------------------- */
+  /**
+   * Convert LLM schema back to OpenAPI schema.
+   *
+   * Restores constraint information from description tags and
+   * converts `$defs` references to `#/components/schemas`.
+   *
+   * @param props.components Target components (mutated with definitions)
+   * @param props.schema LLM schema to invert
+   * @param props.$defs LLM schema definitions
+   * @returns OpenAPI JSON schema
+   */
   export const invert = (props: {
     components: OpenApi.IComponents;
     schema: ILlmSchema;
@@ -568,6 +612,18 @@ export namespace LlmSchemaConverter {
   /* -----------------------------------------------------------
     SEPARATORS
   ----------------------------------------------------------- */
+  /**
+   * Separate parameters into LLM and human parts.
+   *
+   * Splits parameters based on predicate (human-side if true).
+   * Creates separate schemas for LLM-fillable and human-required fields.
+   *
+   * @param props.parameters Parameters schema to separate
+   * @param props.predicate Returns true for human-side properties
+   * @param props.convention Key naming convention for separated types
+   * @param props.equals Whether to use strict equality validation
+   * @returns Separated LLM and human parameter schemas
+   */
   export const separate = (props: {
     parameters: ILlmSchema.IParameters;
     predicate: (schema: ILlmSchema) => boolean;

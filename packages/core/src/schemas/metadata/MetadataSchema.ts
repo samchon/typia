@@ -20,6 +20,12 @@ import { MetadataSet } from "./MetadataSet";
 import { MetadataTemplate } from "./MetadataTemplate";
 import { MetadataTuple } from "./MetadataTuple";
 
+/**
+ * TypeScript type metadata representation.
+ *
+ * Contains all type information extracted from TypeScript types
+ * for runtime validation and code generation.
+ */
 export class MetadataSchema {
   public any: boolean;
   public required: boolean;

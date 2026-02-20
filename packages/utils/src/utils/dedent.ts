@@ -1,3 +1,13 @@
+/**
+ * Remove common leading whitespace from template literal.
+ *
+ * Strips leading/trailing blank lines and removes the minimum
+ * indentation level from all lines.
+ *
+ * @param strings Template literal strings
+ * @param values Interpolated values
+ * @returns Dedented string
+ */
 export function dedent(
   strings: TemplateStringsArray,
   ...values: Array<boolean | number | string>

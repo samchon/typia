@@ -15,11 +15,24 @@ import { FeatureProgrammer } from "./internal/FeatureProgrammer";
 import { check_everything } from "./iterate/check_everything";
 import { check_object } from "./iterate/check_object";
 
+/**
+ * Validation code generator.
+ *
+ * Generates runtime validation code returning `IValidation` result.
+ * Collects all errors instead of failing on first error.
+ * Used by `typia.validate<T>()` and `typia.validateEquals<T>()`.
+ */
 export namespace ValidateProgrammer {
+  /** Validation configuration. */
   export interface IConfig {
+    /** Check for superfluous properties. */
     equals: boolean;
+
+    /** Use standard schema format. */
     standardSchema?: boolean;
   }
+
+  /** Properties for validation code generation. */
   export interface IProps extends IProgrammerProps {
     config: IConfig;
   }

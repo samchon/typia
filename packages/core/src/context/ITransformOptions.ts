@@ -1,68 +1,44 @@
+/**
+ * Typia transformer configuration options.
+ *
+ * Controls validation behavior for numbers, functions, and undefined values.
+ */
 export interface ITransformOptions {
   /**
-   * Whether to validate finite number or not.
+   * Validate that numbers are finite (not NaN/Infinity).
    *
-   * If configured true, number typed values would be validated by
-   * Number.isNaN().
-   *
-   * However, whatever you configure, it would be ignored when marshaling or
-   * parsing.
-   *
-   * - When marshaling, always be true
-   *
-   *   - AssertStringify()
-   *   - ValidateEncode()
-   * - When parsing, always be false
-   *
-   *   - AssertParse()
-   *   - IsDecode()
+   * When `true`, validates using `Number.isNaN()`.
+   * Ignored during marshaling (always true) and parsing (always false).
    *
    * @default false
    */
   finite?: undefined | boolean;
 
   /**
-   * Whether to validate finite number or not.
+   * Validate that numbers are numeric (not NaN).
    *
-   * If configured true, number typed values would be validated by
-   * Number.isFinite().
-   *
-   * However, whatever you configure, it can be ignored in below case.
-   *
-   * - When `finite` option is true, this option would be ignored
-   * - When marshaling, always be true
-   *
-   *   - AssertStringify()
-   *   - ValidateEncode()
-   * - When parsing, always be false
-   *
-   *   - AssertParse()
-   *   - IsDecode()
+   * When `true`, validates using `Number.isFinite()`.
+   * Ignored if `finite` is true, during marshaling (always true),
+   * or during parsing (always false).
    *
    * @default false
    */
   numeric?: undefined | boolean;
 
   /**
-   * Whether to validate functional type or not.
+   * Validate function types.
    *
-   * However, whatever you configure, it becomes false when marshaling or
-   * parsing.
+   * Always `false` during marshaling or parsing.
    *
    * @default false
    */
   functional?: undefined | boolean;
 
   /**
-   * Whether to check undefined value or not.
+   * Allow undefined values in superfluous properties.
    *
-   * JavaScript can assign `undefined` value to a specific property and it is an
-   * issue when validating without allowing superfluous properties. Should
-   * undefined value assigned superfluous property be allowed or not?
-   *
-   * Note that, this option only works on {@link equals} function. Other function
-   * like {@link assertEquals} or {@link validateEquals} would ignore this option
-   * value and always allow the `undefined` value.
+   * Only affects {@link equals}; other equality functions
+   * always allow undefined.
    *
    * @default true
    */

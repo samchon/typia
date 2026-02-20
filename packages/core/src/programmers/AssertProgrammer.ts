@@ -13,11 +13,23 @@ import { CheckerProgrammer } from "./internal/CheckerProgrammer";
 import { FeatureProgrammer } from "./internal/FeatureProgrammer";
 import { check_object } from "./iterate/check_object";
 
+/**
+ * Assertion code generator.
+ *
+ * Generates runtime assertion code that throws `TypeGuardError` on failure.
+ * Used by `typia.assert<T>()` and `typia.assertEquals<T>()`.
+ */
 export namespace AssertProgrammer {
+  /** Assertion configuration. */
   export interface IConfig {
+    /** Check for superfluous properties. */
     equals: boolean;
+
+    /** Use type guard return type. */
     guard: boolean;
   }
+
+  /** Properties for assertion code generation. */
   export interface IProps extends IProgrammerProps {
     config: IConfig;
   }

@@ -1,4 +1,15 @@
+/**
+ * String naming convention converters.
+ *
+ * Converts between camelCase, PascalCase, and snake_case.
+ */
 export namespace NamingConvention {
+  /**
+   * Convert to camelCase.
+   *
+   * @param str Input string
+   * @returns camelCase string
+   */
   export function camel(str: string) {
     return unsnake({
       plain: (str) =>
@@ -12,6 +23,12 @@ export namespace NamingConvention {
     })(str);
   }
 
+  /**
+   * Convert to PascalCase.
+   *
+   * @param str Input string
+   * @returns PascalCase string
+   */
   export function pascal(str: string) {
     return unsnake({
       plain: (str) =>
@@ -20,6 +37,12 @@ export namespace NamingConvention {
     })(str);
   }
 
+  /**
+   * Convert to snake_case.
+   *
+   * @param str Input string
+   * @returns snake_case string
+   */
   export function snake(str: string): string {
     if (str.length === 0) return str;
 
@@ -65,14 +88,38 @@ export namespace NamingConvention {
     return out(ret);
   }
 
+  /**
+   * Capitalize first character.
+   *
+   * @param str Input string
+   * @returns Capitalized string
+   */
   export const capitalize = (str: string): string =>
     str.length !== 0 ? str[0]!.toUpperCase() + str.slice(1) : str;
 
+  /**
+   * Lowercase first character.
+   *
+   * @param str Input string
+   * @returns Localized string
+   */
   export const localize = (str: string) => str[0]!.toLowerCase() + str.slice(1);
 
+  /**
+   * Check if string is valid JavaScript variable name.
+   *
+   * @param str String to check
+   * @returns true if valid variable name
+   */
   export const variable = (str: string): boolean =>
     reserved(str) === false && /^[a-zA-Z_$][a-zA-Z_$0-9]*$/g.test(str);
 
+  /**
+   * Check if string is JavaScript reserved word.
+   *
+   * @param str String to check
+   * @returns true if reserved word
+   */
   export const reserved = (str: string): boolean => RESERVED.has(str);
 }
 
