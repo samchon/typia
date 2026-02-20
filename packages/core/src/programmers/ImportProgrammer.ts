@@ -8,6 +8,7 @@ export class ImportProgrammer {
   public constructor(options?: Partial<ImportProgrammer.IOptions>) {
     this.options_ = {
       internalPrefix: options?.internalPrefix ?? "",
+      runtime: options?.runtime,
     };
   }
 
@@ -56,9 +57,10 @@ export class ImportProgrammer {
     if (name.startsWith("_") === false) name = `_${name}`;
     return ts.factory.createPropertyAccessExpression(
       this.namespace({
-        file: __filename.endsWith(".ts")
-          ? `typia/src/internal/${name}.ts`
-          : `typia/lib/internal/${name}.js`,
+        file:
+          __filename.endsWith(".ts") && this.options_.runtime !== "js"
+            ? `typia/src/internal/${name}.js`
+            : `typia/lib/internal/${name}.js`,
         name: this.alias(name),
       }),
       name,
@@ -69,8 +71,8 @@ export class ImportProgrammer {
   public getInternalText(name: string): string {
     if (name.startsWith("_") === false) name = `_${name}`;
     const asset: IAsset | undefined = this.take(
-      __filename.endsWith(".ts")
-        ? `typia/src/internal/${name}.ts`
+      __filename.endsWith(".ts") && this.options_.runtime !== "js"
+        ? `typia/src/internal/${name}.js`
         : `typia/lib/internal/${name}.js`,
     );
     if (!asset?.namespace) throw new Error(`Internal asset not found: ${name}`);
@@ -156,6 +158,7 @@ export class ImportProgrammer {
 export namespace ImportProgrammer {
   export interface IOptions {
     internalPrefix: string;
+    runtime?: "ts" | "js";
   }
 
   export interface IDefault {

@@ -14,6 +14,7 @@ export namespace FileTransformer {
 
       const importer: ImportProgrammer = new ImportProgrammer({
         internalPrefix: "typia_transform_",
+        runtime: environments.options.runtime,
       });
       const context: ITypiaContext = {
         ...environments,

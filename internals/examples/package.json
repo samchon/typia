@@ -1,6 +1,5 @@
 {
   "private": true,
-  "type": "module",
   "name": "@typia/examples",
   "version": "1.0.0",
   "description": "Example codes for typia website",
