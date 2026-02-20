@@ -1,0 +1,44 @@
+{
+  "private": true,
+  "name": "@typia/test-unplugin",
+  "version": "0.1.0",
+  "description": "E2E test for @typia/unplugin",
+  "type": "module",
+  "scripts": {
+    "build": "tsc --noEmit",
+    "build:unplugin": "cd ../../packages/unplugin && pnpm run build",
+    "test": "vitest run",
+    "test:vite": "vitest run --testNamePattern vite",
+    "test:esbuild": "vitest run --testNamePattern esbuild",
+    "start": "pnpm run build:unplugin && pnpm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/samchon/typia"
+  },
+  "keywords": [
+    "typia",
+    "unplugin",
+    "test"
+  ],
+  "author": "Jeongho Nam",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/samchon/typia/issues"
+  },
+  "homepage": "https://typia.io",
+  "devDependencies": {
+    "@types/node": "catalog:utils",
+    "typescript": "catalog:typescript"
+  },
+  "dependencies": {
+    "@nestia/e2e": "catalog:utils",
+    "@typia/unplugin": "workspace:^",
+    "esbuild": "catalog:unplugin",
+    "rollup": "catalog:rollup",
+    "rollup-plugin-esbuild": "catalog:unplugin",
+    "typia": "workspace:^",
+    "vite": "catalog:unplugin",
+    "vitest": "catalog:unplugin"
+  }
+}
