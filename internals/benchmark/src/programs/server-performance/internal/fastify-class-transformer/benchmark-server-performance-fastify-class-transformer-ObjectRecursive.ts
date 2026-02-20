@@ -1,9 +1,9 @@
 import { instanceToPlain, plainToInstance } from "class-transformer";
 import { validateSync } from "class-validator";
 
+import { ObjectRecursive } from "../../../../structures/pure/ObjectRecursive";
 import { ClassValidatorCollection } from "../../../../structures/class-validator/ClassValidatorCollection";
 import { ClassValidatorObjectRecursive } from "../../../../structures/class-validator/ClassValidatorObjectRecursive";
-import { ObjectRecursive } from "../../../../structures/pure/ObjectRecursive";
 import { createFastifyCustomServerPerformanceBenchmarkProgram } from "../createFastifyCustomServerPerformanceBenchmarkProgram";
 
 const schema = ClassValidatorCollection(ClassValidatorObjectRecursive);

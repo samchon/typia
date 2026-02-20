@@ -1,8 +1,8 @@
 import { instanceToPlain, plainToInstance } from "class-transformer";
 
-import { ClassValidatorArrayRecursiveUnionExplicit } from "../../../../structures/class-validator/ClassValidatorArrayRecursiveUnionExplicit";
-import { ClassValidatorCollection } from "../../../../structures/class-validator/ClassValidatorCollection";
 import { ArrayRecursiveUnionExplicit } from "../../../../structures/pure/ArrayRecursiveUnionExplicit";
+import { ClassValidatorCollection } from "../../../../structures/class-validator/ClassValidatorCollection";
+import { ClassValidatorArrayRecursiveUnionExplicit } from "../../../../structures/class-validator/ClassValidatorArrayRecursiveUnionExplicit";
 import { createExpressServerStringifyBenchmarkProgram } from "../createExpressServerStringifyBenchmarkProgram";
 
 const schema = ClassValidatorCollection(

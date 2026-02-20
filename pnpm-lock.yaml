@@ -79,6 +79,9 @@ importers:
 
   internals/benchmark:
     dependencies:
+      '@typia/interface':
+        specifier: workspace:^
+        version: link:../../packages/interface
       fp-ts:
         specifier: ^2.16.9
         version: 2.16.11
@@ -134,6 +137,9 @@ importers:
       '@types/physical-cpu-count':
         specifier: ^2.0.0
         version: 2.0.2
+      '@types/ts-expose-internals':
+        specifier: catalog:typescript
+        version: ts-expose-internals@5.6.3
       '@types/uuid':
         specifier: catalog:utils
         version: 11.0.0

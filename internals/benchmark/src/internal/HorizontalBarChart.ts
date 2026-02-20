@@ -1,5 +1,4 @@
 import * as d3 from "d3";
-import { ArrayUtil } from "@nestia/e2e";
 
 import { BenchmarkStream } from "./BenhmarkStream";
 

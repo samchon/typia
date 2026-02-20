@@ -1,4 +1,4 @@
-import { OpenApiV3 } from "@samchon/openapi";
+import { OpenApiV3 } from "@typia/interface";
 import Ajv, { Options } from "ajv";
 import { IJsonSchemaCollection } from "typia";
 

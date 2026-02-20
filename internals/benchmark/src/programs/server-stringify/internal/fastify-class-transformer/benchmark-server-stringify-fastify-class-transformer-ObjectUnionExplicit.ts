@@ -1,8 +1,8 @@
 import { instanceToPlain, plainToInstance } from "class-transformer";
 
+import { ObjectUnionExplicit } from "../../../../structures/pure/ObjectUnionExplicit";
 import { ClassValidatorCollection } from "../../../../structures/class-validator/ClassValidatorCollection";
 import { ClassValidatorObjectUnionExplicit } from "../../../../structures/class-validator/ClassValidatorObjectUnionExplicit";
-import { ObjectUnionExplicit } from "../../../../structures/pure/ObjectUnionExplicit";
 import { createFastifyCustomServerStringifyBenchmarkProgram } from "../createFastifyCustomServerStringifyBenchmarkProgram";
 
 const schema = ClassValidatorCollection(ClassValidatorObjectUnionExplicit);

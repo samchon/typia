@@ -38,6 +38,7 @@
     "@types/express": "^4.17.14",
     "@types/node": "catalog:utils",
     "@types/physical-cpu-count": "^2.0.0",
+    "@types/ts-expose-internals": "catalog:typescript",
     "@types/uuid": "catalog:utils",
     "ajv": "^8.12.0",
     "autocannon": "^7.10.0",
@@ -66,6 +67,7 @@
     "zod": "^3.19.1"
   },
   "dependencies": {
+    "@typia/interface": "workspace:^",
     "fp-ts": "^2.16.9",
     "randexp": "^0.5.3",
     "source-map-support": "^0.5.21",
