@@ -38,6 +38,24 @@
     "url": "https://github.com/samchon/typia/issues"
   },
   "homepage": "https://typia.io",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./lib/index.mjs",
+      "require": "./lib/index.js"
+    },
+    "./lib/transform.js": {
+      "types": "./lib/transform.d.ts",
+      "import": "./lib/transform.js",
+      "require": "./lib/transform.js"
+    },
+    "./lib/transform": {
+      "types": "./lib/transform.d.ts",
+      "import": "./lib/transform.js",
+      "require": "./lib/transform.js"
+    },
+    "./package.json": "./package.json"
+  },
   "dependencies": {
     "@standard-schema/spec": "^1.0.0",
     "@typia/core": "workspace:^",

@@ -25,3 +25,19 @@ catalogs:
     uuid: ^13.0.0
     tstl: ^3.0.0
     tgrid: ^1.2.1
+  unplugin:
+    '@rollup/pluginutils': ^5.1.4
+    consola: ^3.4.2
+    defu: ^6.1.4
+    diff-match-patch-es: ^1.0.1
+    find-cache-dir: ^5.0.0
+    magic-string: ^0.30.17
+    pathe: ^2.0.3
+    pkg-types: ^2.1.0
+    type-fest: ^4.37.0
+    unplugin: ^2.2.2
+    tsdown: ^0.12.7
+    vite: ^6.2.2
+    vitest: ^3.0.9
+    esbuild: ^0.25.5
+    rollup-plugin-esbuild: ^6.2.1

@@ -1,0 +1,26 @@
+{
+  "extends": "../../internals/config/tsconfig.json",
+  "compilerOptions": {
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "target": "ES2022",
+    "outDir": "lib",
+    "noEmit": true,
+    "declaration": false,
+    "isolatedModules": true,
+    "verbatimModuleSyntax": false,
+    "skipLibCheck": true,
+    "noImplicitAny": false,
+    "noImplicitReturns": false,
+    "noUncheckedIndexedAccess": false,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "types": ["node"],
+    "paths": {
+      "typia/lib/transform.js": ["../typia/src/transform.ts"],
+      "typia/lib/transform": ["../typia/src/transform.ts"]
+    }
+  },
+  "include": ["src"],
+  "exclude": ["tests", "lib", "node_modules"]
+}

@@ -1,0 +1,135 @@
+{
+  "name": "@typia/unplugin",
+  "version": "11.0.1",
+  "description": "Typia unplugin for Vite, Webpack, Rollup, esbuild, and more",
+  "type": "module",
+  "main": "src/index.ts",
+  "scripts": {
+    "build": "rimraf lib && tsdown",
+    "dev": "tsdown --watch",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/samchon/typia"
+  },
+  "author": "Jeongho Nam",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/samchon/typia/issues"
+  },
+  "homepage": "https://typia.io",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./lib/index.js"
+    },
+    "./api": {
+      "types": "./lib/api.d.ts",
+      "import": "./lib/api.js"
+    },
+    "./vite": {
+      "types": "./lib/vite.d.ts",
+      "import": "./lib/vite.js"
+    },
+    "./webpack": {
+      "types": "./lib/webpack.d.ts",
+      "import": "./lib/webpack.js"
+    },
+    "./rollup": {
+      "types": "./lib/rollup.d.ts",
+      "import": "./lib/rollup.js"
+    },
+    "./esbuild": {
+      "types": "./lib/esbuild.d.ts",
+      "import": "./lib/esbuild.js"
+    },
+    "./next": {
+      "types": "./lib/next.d.ts",
+      "import": "./lib/next.js"
+    },
+    "./bun": {
+      "types": "./lib/bun.d.ts",
+      "import": "./lib/bun.js"
+    },
+    "./rspack": {
+      "types": "./lib/rspack.d.ts",
+      "import": "./lib/rspack.js"
+    },
+    "./farm": {
+      "types": "./lib/farm.d.ts",
+      "import": "./lib/farm.js"
+    },
+    "./rolldown": {
+      "types": "./lib/rolldown.d.ts",
+      "import": "./lib/rolldown.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "dependencies": {
+    "@rollup/pluginutils": "catalog:unplugin",
+    "consola": "catalog:unplugin",
+    "defu": "catalog:unplugin",
+    "diff-match-patch-es": "catalog:unplugin",
+    "find-cache-dir": "catalog:unplugin",
+    "magic-string": "catalog:unplugin",
+    "pathe": "catalog:unplugin",
+    "pkg-types": "catalog:unplugin",
+    "type-fest": "catalog:unplugin",
+    "unplugin": "catalog:unplugin"
+  },
+  "peerDependencies": {
+    "typia": ">=11.0.0",
+    "typescript": ">=4.8.0 <5.10.0",
+    "svelte": "^5.0.0",
+    "vite": ">=3.0.0"
+  },
+  "peerDependenciesMeta": {
+    "svelte": {
+      "optional": true
+    },
+    "vite": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@types/node": "catalog:utils",
+    "esbuild": "catalog:unplugin",
+    "rimraf": "catalog:utils",
+    "rollup": "catalog:rollup",
+    "rollup-plugin-esbuild": "catalog:unplugin",
+    "tsdown": "catalog:unplugin",
+    "typia": "workspace:^",
+    "typescript": "catalog:typescript",
+    "vite": "catalog:unplugin",
+    "vitest": "catalog:unplugin"
+  },
+  "sideEffects": false,
+  "files": [
+    "LICENSE",
+    "README.md",
+    "package.json",
+    "lib",
+    "src"
+  ],
+  "keywords": [
+    "typia",
+    "unplugin",
+    "vite",
+    "webpack",
+    "rollup",
+    "esbuild",
+    "next",
+    "bun",
+    "transform",
+    "typescript",
+    "validation"
+  ],
+  "packageManager": "pnpm@10.6.4",
+  "publishConfig": {
+    "access": "public",
+    "main": "lib/index.js",
+    "typings": "lib/index.d.ts"
+  }
+}
