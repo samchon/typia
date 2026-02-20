@@ -1,10 +1,10 @@
+import { ValidationPipe } from "@typia/interface";
 import ts from "typescript";
 
 import { TransformerError } from "../context/TransformerError";
 import { AtomicPredicator } from "../programmers/helpers/AtomicPredicator";
 import { MetadataSchema } from "../schemas/metadata/MetadataSchema";
 import { MetadataStorage } from "../schemas/metadata/MetadataStorage";
-import { ValidationPipe } from "../typings/ValidationPipe";
 import { MetadataFactory } from "./MetadataFactory";
 
 export namespace JsonMetadataFactory {

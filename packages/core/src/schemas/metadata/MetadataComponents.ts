@@ -1,6 +1,5 @@
-import { IMetadataComponents } from "@typia/interface";
+import { ClassProperties, IMetadataComponents } from "@typia/interface";
 
-import { ClassProperties } from "../../typings/ClassProperties";
 import { Writable } from "../../typings/Writable";
 import { IMetadataDictionary } from "./IMetadataDictionary";
 import { MetadataAliasType } from "./MetadataAliasType";

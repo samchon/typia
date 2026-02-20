@@ -1,6 +1,5 @@
-import { IMetadataSchema } from "@typia/interface";
+import { ClassProperties, IMetadataSchema } from "@typia/interface";
 
-import { ClassProperties } from "../../typings/ClassProperties";
 import { MetadataConstantValue } from "./MetadataConstantValue";
 
 export class MetadataConstant {

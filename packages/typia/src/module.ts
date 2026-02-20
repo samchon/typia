@@ -1,9 +1,13 @@
 import { StandardSchemaV1 } from "@standard-schema/spec";
-import { IRandomGenerator, IValidation, Resolved } from "@typia/interface";
+import {
+  AssertionGuard,
+  IRandomGenerator,
+  IValidation,
+  Resolved,
+} from "@typia/interface";
 
 import { TypeGuardError } from "./TypeGuardError";
 import { NoTransformConfigurationError } from "./transformers/NoTransformConfigurationError";
-import { AssertionGuard } from "./typings";
 
 export * as functional from "./functional";
 export * as http from "./http";
@@ -14,7 +18,6 @@ export * as notations from "./notations";
 export * as protobuf from "./protobuf";
 export * as reflect from "./reflect";
 
-export * from "./typings";
 export * from "./TypeGuardError";
 
 export * from "./re-exports";

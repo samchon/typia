@@ -1,6 +1,9 @@
-import { IMetadataSchema, IMetadataTypeTag } from "@typia/interface";
+import {
+  ClassProperties,
+  IMetadataSchema,
+  IMetadataTypeTag,
+} from "@typia/interface";
 
-import { ClassProperties } from "../../typings/ClassProperties";
 import { MetadataObjectType } from "./MetadataObjectType";
 
 export class MetadataObject {
@@ -8,12 +11,12 @@ export class MetadataObject {
   public readonly tags: IMetadataTypeTag[][];
   private name_?: string;
 
-  /** @ignore */
   private constructor(props: ClassProperties<MetadataObject>) {
     this.type = props.type;
     this.tags = props.tags;
   }
 
+  /** @internal */
   public static create(props: ClassProperties<MetadataObject>): MetadataObject {
     return new MetadataObject(props);
   }

@@ -1,6 +1,9 @@
-import { IJsDocTagInfo, IMetadataSchema } from "@typia/interface";
+import {
+  ClassProperties,
+  IJsDocTagInfo,
+  IMetadataSchema,
+} from "@typia/interface";
 
-import { ClassProperties } from "../../typings/ClassProperties";
 import { IProtobufProperty } from "../protobuf/IProtobufProperty";
 import { IMetadataDictionary } from "./IMetadataDictionary";
 import { MetadataSchema } from "./MetadataSchema";
@@ -15,9 +18,8 @@ export class MetadataProperty {
   public of_protobuf_?: IProtobufProperty;
 
   /* -----------------------------------------------------------
-        CONSTRUCTORS
-    ----------------------------------------------------------- */
-  /** @ignore */
+    CONSTRUCTORS
+  ----------------------------------------------------------- */
   private constructor(props: ClassProperties<MetadataProperty>) {
     this.key = props.key;
     this.value = props.value;

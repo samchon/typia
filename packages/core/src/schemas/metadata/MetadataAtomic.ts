@@ -1,6 +1,8 @@
-import { IMetadataSchema, IMetadataTypeTag } from "@typia/interface";
-
-import { ClassProperties } from "../../typings/ClassProperties";
+import {
+  ClassProperties,
+  IMetadataSchema,
+  IMetadataTypeTag,
+} from "@typia/interface";
 
 export class MetadataAtomic {
   public readonly type: "boolean" | "bigint" | "number" | "string";
@@ -8,12 +10,12 @@ export class MetadataAtomic {
 
   private name_?: string;
 
-  /** @internal */
   private constructor(props: ClassProperties<MetadataAtomic>) {
     this.type = props.type;
     this.tags = props.tags;
   }
 
+  /** @internal */
   public static create(props: ClassProperties<MetadataAtomic>): MetadataAtomic {
     return new MetadataAtomic(props);
   }

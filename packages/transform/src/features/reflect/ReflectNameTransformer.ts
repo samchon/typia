@@ -4,7 +4,7 @@ import {
   MetadataSchema,
   MetadataStorage,
 } from "@typia/core";
-import { ValidationPipe } from "@typia/core";
+import { ValidationPipe } from "@typia/interface";
 import ts from "typescript";
 
 import { ITransformProps } from "../../ITransformProps";

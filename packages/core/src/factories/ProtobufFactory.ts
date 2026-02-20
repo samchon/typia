@@ -1,4 +1,8 @@
-import { IMetadataTypeTag } from "@typia/interface";
+import {
+  IMetadataTypeTag,
+  ProtobufAtomic,
+  ValidationPipe,
+} from "@typia/interface";
 import ts from "typescript";
 
 import { TransformerError } from "../context/TransformerError";
@@ -10,8 +14,6 @@ import { MetadataStorage } from "../schemas/metadata/MetadataStorage";
 import { IProtobufProperty } from "../schemas/protobuf/IProtobufProperty";
 import { IProtobufPropertyType } from "../schemas/protobuf/IProtobufPropertyType";
 import { IProtobufSchema } from "../schemas/protobuf/IProtobufSchema";
-import { ProtobufAtomic } from "../typings/ProtobufAtomic";
-import { ValidationPipe } from "../typings/ValidationPipe";
 import { MetadataFactory } from "./MetadataFactory";
 
 export namespace ProtobufFactory {

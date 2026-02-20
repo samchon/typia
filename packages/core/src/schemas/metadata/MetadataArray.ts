@@ -1,6 +1,9 @@
-import { IMetadataSchema, IMetadataTypeTag } from "@typia/interface";
+import {
+  ClassProperties,
+  IMetadataSchema,
+  IMetadataTypeTag,
+} from "@typia/interface";
 
-import { ClassProperties } from "../../typings/ClassProperties";
 import { MetadataArrayType } from "./MetadataArrayType";
 
 export class MetadataArray {
@@ -9,12 +12,12 @@ export class MetadataArray {
 
   private name_?: string;
 
-  /** @ignore */
   private constructor(props: ClassProperties<MetadataArray>) {
     this.type = props.type;
     this.tags = props.tags;
   }
 
+  /** @internal */
   public static create(props: ClassProperties<MetadataArray>): MetadataArray {
     return new MetadataArray(props);
   }

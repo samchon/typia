@@ -1,6 +1,9 @@
-import { IJsDocTagInfo, IMetadataSchema } from "@typia/interface";
+import {
+  ClassProperties,
+  IJsDocTagInfo,
+  IMetadataSchema,
+} from "@typia/interface";
 
-import { ClassProperties } from "../../typings/ClassProperties";
 import { MetadataProperty } from "./MetadataProperty";
 
 export class MetadataObjectType {
@@ -21,9 +24,8 @@ export class MetadataObjectType {
   private literal_?: boolean;
 
   /* -----------------------------------------------------------
-        CONSTRUCTORS
-    ----------------------------------------------------------- */
-  /** @ignore */
+    CONSTRUCTORS
+  ----------------------------------------------------------- */
   private constructor(
     props: Omit<ClassProperties<MetadataObjectType>, "tagged_">,
   ) {

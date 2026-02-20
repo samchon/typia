@@ -388,9 +388,15 @@ importers:
 
   tests/debug:
     dependencies:
+      '@typia/core':
+        specifier: workspace:^
+        version: link:../../packages/core
       '@typia/interface':
         specifier: workspace:^
         version: link:../../packages/interface
+      '@typia/transform':
+        specifier: workspace:^
+        version: link:../../packages/transform
       '@typia/utils':
         specifier: workspace:^
         version: link:../../packages/utils

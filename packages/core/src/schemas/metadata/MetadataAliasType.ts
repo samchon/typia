@@ -1,6 +1,9 @@
-import { IJsDocTagInfo, IMetadataSchema } from "@typia/interface";
+import {
+  ClassProperties,
+  IJsDocTagInfo,
+  IMetadataSchema,
+} from "@typia/interface";
 
-import { ClassProperties } from "../../typings/ClassProperties";
 import { MetadataSchema } from "./MetadataSchema";
 
 export class MetadataAliasType {
@@ -14,7 +17,6 @@ export class MetadataAliasType {
   /* -----------------------------------------------------------
         CONSTRUCTORS
     ----------------------------------------------------------- */
-  /** @ignore */
   private constructor(props: ClassProperties<MetadataAliasType>) {
     this.name = props.name;
     this.value = props.value;

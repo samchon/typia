@@ -1,10 +1,9 @@
 import {
+  ClassProperties,
   IJsDocTagInfo,
   IMetadataSchema,
   IMetadataTypeTag,
 } from "@typia/interface";
-
-import { ClassProperties } from "../../typings/ClassProperties";
 
 export class MetadataConstantValue {
   public readonly value: boolean | bigint | number | string;

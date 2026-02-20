@@ -1,8 +1,7 @@
-import { IMetadataTypeTag } from "@typia/interface";
+import { IMetadataTypeTag, ProtobufAtomic } from "@typia/interface";
 
 import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
 import { MetadataSchema } from "../../schemas/metadata/MetadataSchema";
-import { ProtobufAtomic } from "../../typings/ProtobufAtomic";
 
 export namespace ProtobufUtil {
   export const isStaticObject = (obj: MetadataObjectType): boolean =>

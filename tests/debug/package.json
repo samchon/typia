@@ -32,7 +32,9 @@
     "typescript": "catalog:typescript"
   },
   "dependencies": {
+    "@typia/core": "workspace:^",
     "@typia/interface": "workspace:^",
+    "@typia/transform": "workspace:^",
     "@typia/utils": "workspace:^",
     "tstl": "catalog:utils",
     "typia": "workspace:^",

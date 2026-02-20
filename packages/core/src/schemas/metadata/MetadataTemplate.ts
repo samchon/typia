@@ -1,6 +1,9 @@
-import { IMetadataSchema, IMetadataTypeTag } from "@typia/interface";
+import {
+  ClassProperties,
+  IMetadataSchema,
+  IMetadataTypeTag,
+} from "@typia/interface";
 
-import { ClassProperties } from "../../typings/ClassProperties";
 import { IMetadataDictionary } from "./IMetadataDictionary";
 import { MetadataSchema } from "./MetadataSchema";
 
@@ -15,6 +18,7 @@ export class MetadataTemplate {
     this.tags = props.tags;
   }
 
+  /** @internal */
   public static create(
     props: ClassProperties<MetadataTemplate>,
   ): MetadataTemplate {

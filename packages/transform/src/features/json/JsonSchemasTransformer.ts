@@ -3,8 +3,7 @@ import { MetadataStorage } from "@typia/core";
 import { MetadataFactory } from "@typia/core";
 import { JsonSchemasProgrammer } from "@typia/core";
 import { MetadataSchema } from "@typia/core";
-import { ValidationPipe } from "@typia/core";
-import { IJsonSchemaCollection } from "@typia/interface";
+import { IJsonSchemaCollection, ValidationPipe } from "@typia/interface";
 import ts from "typescript";
 
 import { ITransformProps } from "../../ITransformProps";

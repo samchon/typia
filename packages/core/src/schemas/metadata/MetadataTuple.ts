@@ -1,13 +1,15 @@
-import { IMetadataSchema, IMetadataTypeTag } from "@typia/interface";
+import {
+  ClassProperties,
+  IMetadataSchema,
+  IMetadataTypeTag,
+} from "@typia/interface";
 
-import { ClassProperties } from "../../typings/ClassProperties";
 import { MetadataTupleType } from "./MetadataTupleType";
 
 export class MetadataTuple {
   public readonly type: MetadataTupleType;
   public readonly tags: IMetadataTypeTag[][];
 
-  /** @ignore */
   private constructor(props: ClassProperties<MetadataTuple>) {
     this.type = props.type;
     this.tags = props.tags;

@@ -1,4 +1,4 @@
-import { ILlmSchema } from "@typia/interface";
+import { ILlmSchema, ValidationPipe } from "@typia/interface";
 import ts from "typescript";
 
 import { ITypiaContext } from "../../context/ITypiaContext";
@@ -7,7 +7,6 @@ import { MetadataFactory } from "../../factories/MetadataFactory";
 import { MetadataObject } from "../../schemas/metadata/MetadataObject";
 import { MetadataSchema } from "../../schemas/metadata/MetadataSchema";
 import { MetadataStorage } from "../../schemas/metadata/MetadataStorage";
-import { ValidationPipe } from "../../typings/ValidationPipe";
 
 export namespace LlmMetadataFactory {
   export const getConfig = (props: {

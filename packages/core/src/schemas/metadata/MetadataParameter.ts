@@ -1,7 +1,10 @@
-import { IJsDocTagInfo, IMetadataSchema } from "@typia/interface";
+import {
+  ClassProperties,
+  IJsDocTagInfo,
+  IMetadataSchema,
+} from "@typia/interface";
 import ts from "typescript";
 
-import { ClassProperties } from "../../typings/ClassProperties";
 import { IMetadataDictionary } from "./IMetadataDictionary";
 import { MetadataSchema } from "./MetadataSchema";
 

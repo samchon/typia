@@ -1,6 +1,5 @@
-import { IMetadataSchemaCollection } from "@typia/interface";
+import { ClassProperties, IMetadataSchemaCollection } from "@typia/interface";
 
-import { ClassProperties } from "../../typings/ClassProperties";
 import { MetadataComponents } from "./MetadataComponents";
 import { MetadataSchema } from "./MetadataSchema";
 
@@ -8,7 +7,6 @@ export class MetadataApplication {
   public readonly schemas: MetadataSchema[];
   public readonly components: MetadataComponents;
 
-  /** @ignore */
   private constructor(props: ClassProperties<MetadataApplication>) {
     this.schemas = props.schemas;
     this.components = props.components;
