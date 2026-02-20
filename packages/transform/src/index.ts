@@ -5,6 +5,17 @@ import { FileTransformer } from "./FileTransformer";
 
 export * from "./ImportTransformer";
 
+/**
+ * TypeScript transformer for typia.
+ *
+ * Converts `typia.*<T>()` function calls into optimized runtime code.
+ * Requires `strictNullChecks` or `strict` mode enabled.
+ *
+ * @param program TypeScript program instance
+ * @param options Transformer options
+ * @param extras Transformer context with diagnostic utilities
+ * @returns Transformer factory for source file processing
+ */
 export const transform = (
   program: ts.Program,
   options: ITransformOptions | undefined,

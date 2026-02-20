@@ -1,7 +1,13 @@
 import { MetadataFactory, MetadataObjectType } from "@typia/core";
 import { NamingConvention } from "@typia/utils";
 
+/**
+ * Error thrown during typia transformation.
+ *
+ * Indicates invalid usage or unsupported types in `typia.*<T>()` calls.
+ */
 export class TransformerError extends Error {
+  /** Error code identifying the error type. */
   public readonly code: string;
 
   public constructor(props: TransformerError.IProps) {
@@ -15,11 +21,20 @@ export class TransformerError extends Error {
   }
 }
 export namespace TransformerError {
+  /** Constructor properties for TransformerError. */
   export interface IProps {
+    /** Error code identifying the error type. */
     code: string;
+
+    /** Human-readable error message. */
     message: string;
   }
 
+  /**
+   * Create error from metadata factory errors.
+   *
+   * Formats multiple type errors into a single TransformerError.
+   */
   export const from = (props: {
     code: string;
     errors: MetadataFactory.IError[];

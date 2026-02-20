@@ -411,7 +411,7 @@ export namespace OpenApiV3_1 {
       exclusiveMaximum?: (number & tags.Type<"int64">) | boolean;
 
       /** Multiple of constraint. */
-      multipleOf?: number & tags.Type<"uint64"> & tags.ExclusiveMinimum<0>;
+      multipleOf?: number & tags.ExclusiveMinimum<0>;
     }
 
     /** Number (double) type. */
