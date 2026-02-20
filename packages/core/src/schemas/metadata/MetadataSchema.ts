@@ -1,7 +1,10 @@
-import { IMetadataSchema, IMetadataTypeTag } from "@typia/interface";
+import {
+  ClassProperties,
+  IMetadataSchema,
+  IMetadataTypeTag,
+} from "@typia/interface";
 import { ArrayUtil } from "@typia/utils";
 
-import { ClassProperties } from "../../typings/ClassProperties";
 import { IMetadataDictionary } from "./IMetadataDictionary";
 import { MetadataAlias } from "./MetadataAlias";
 import { MetadataArray } from "./MetadataArray";
@@ -49,7 +52,6 @@ export class MetadataSchema {
   /* -----------------------------------------------------------
     CONSTRUCTORS
   ----------------------------------------------------------- */
-  /** @ignore */
   private constructor(props: ClassProperties<MetadataSchema>) {
     this.any = props.any;
     this.required = props.required;

@@ -1,3 +1,4 @@
+import { ValidationPipe } from "@typia/interface";
 import ts from "typescript";
 
 import { MetadataAliasType } from "../schemas/metadata/MetadataAliasType";
@@ -9,7 +10,6 @@ import { MetadataObjectType } from "../schemas/metadata/MetadataObjectType";
 import { MetadataSchema } from "../schemas/metadata/MetadataSchema";
 import { MetadataStorage } from "../schemas/metadata/MetadataStorage";
 import { MetadataTupleType } from "../schemas/metadata/MetadataTupleType";
-import { ValidationPipe } from "../typings/ValidationPipe";
 import { ExpressionFactory } from "./ExpressionFactory";
 import { explore_metadata } from "./internal/metadata/explore_metadata";
 import { iterate_metadata_collection } from "./internal/metadata/iterate_metadata_collection";

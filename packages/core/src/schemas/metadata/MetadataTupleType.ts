@@ -1,6 +1,5 @@
-import { IMetadataSchema } from "@typia/interface";
+import { ClassProperties, IMetadataSchema } from "@typia/interface";
 
-import { ClassProperties } from "../../typings/ClassProperties";
 import { MetadataSchema } from "./MetadataSchema";
 
 export class MetadataTupleType {
@@ -14,7 +13,6 @@ export class MetadataTupleType {
   /** @internal */
   public of_map?: boolean;
 
-  /** @internal */
   private constructor(props: ClassProperties<MetadataTupleType>) {
     this.name = props.name;
     this.elements = props.elements;

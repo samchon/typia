@@ -1,6 +1,8 @@
-import { IMetadataSchema, IMetadataTypeTag } from "@typia/interface";
-
-import { ClassProperties } from "../../typings/ClassProperties";
+import {
+  ClassProperties,
+  IMetadataSchema,
+  IMetadataTypeTag,
+} from "@typia/interface";
 
 export class MetadataNative {
   public readonly name: string;

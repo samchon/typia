@@ -1,5 +1,6 @@
 export {
   // validate
+  AssertionGuard,
   IValidation,
   IRandomGenerator,
   // json

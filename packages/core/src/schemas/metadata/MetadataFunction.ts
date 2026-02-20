@@ -1,6 +1,5 @@
-import { IMetadataSchema } from "@typia/interface";
+import { ClassProperties, IMetadataSchema } from "@typia/interface";
 
-import { ClassProperties } from "../../typings/ClassProperties";
 import { IMetadataDictionary } from "./IMetadataDictionary";
 import { MetadataParameter } from "./MetadataParameter";
 import { MetadataSchema } from "./MetadataSchema";
@@ -10,7 +9,6 @@ export class MetadataFunction {
   public output: MetadataSchema;
   public async: boolean;
 
-  /** @ignore */
   private constructor(props: ClassProperties<MetadataFunction>) {
     this.parameters = props.parameters;
     this.output = props.output;

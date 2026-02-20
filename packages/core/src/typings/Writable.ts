@@ -1,4 +1,4 @@
-import { ClassProperties } from "./ClassProperties";
+import { ClassProperties } from "@typia/interface";
 
 export type Writable<T extends object> = {
   -readonly [P in keyof T]: T[P];

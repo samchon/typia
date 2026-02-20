@@ -1,6 +1,5 @@
-import { IMetadataSchema } from "@typia/interface";
+import { ClassProperties, IMetadataSchema } from "@typia/interface";
 
-import { ClassProperties } from "../../typings/ClassProperties";
 import { IMetadataDictionary } from "./IMetadataDictionary";
 import { MetadataSchema } from "./MetadataSchema";
 
@@ -8,7 +7,6 @@ export class MetadataEscaped {
   public readonly original: MetadataSchema;
   public readonly returns: MetadataSchema;
 
-  /** @ignore */
   private constructor(props: ClassProperties<MetadataEscaped>) {
     this.original = props.original;
     this.returns = props.returns;

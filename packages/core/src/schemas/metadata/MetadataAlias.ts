@@ -1,6 +1,9 @@
-import { IMetadataSchema, IMetadataTypeTag } from "@typia/interface";
+import {
+  ClassProperties,
+  IMetadataSchema,
+  IMetadataTypeTag,
+} from "@typia/interface";
 
-import { ClassProperties } from "../../typings/ClassProperties";
 import { MetadataAliasType } from "./MetadataAliasType";
 
 export class MetadataAlias {
@@ -14,6 +17,7 @@ export class MetadataAlias {
     this.type = props.type;
   }
 
+  /** @internal */
   public static create(props: ClassProperties<MetadataAlias>): MetadataAlias {
     return new MetadataAlias(props);
   }

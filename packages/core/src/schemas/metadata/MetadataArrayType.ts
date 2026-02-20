@@ -1,6 +1,5 @@
-import { IMetadataSchema } from "@typia/interface";
+import { ClassProperties, IMetadataSchema } from "@typia/interface";
 
-import { ClassProperties } from "../../typings/ClassProperties";
 import { MetadataSchema } from "./MetadataSchema";
 
 export class MetadataArrayType {
@@ -10,7 +9,6 @@ export class MetadataArrayType {
   public readonly recursive: boolean;
   public readonly index: number | null;
 
-  /** @ignore */
   private constructor(props: ClassProperties<MetadataArrayType>) {
     this.name = props.name;
     this.value = props.value;

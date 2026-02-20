@@ -1,3 +1,4 @@
+import { ProtobufAtomic } from "@typia/interface";
 import ts from "typescript";
 
 import { IProgrammerProps } from "../../context/IProgrammerProps";
@@ -15,7 +16,6 @@ import { MetadataStorage } from "../../schemas/metadata/MetadataStorage";
 import { IProtobufProperty } from "../../schemas/protobuf/IProtobufProperty";
 import { IProtobufPropertyType } from "../../schemas/protobuf/IProtobufPropertyType";
 import { IProtobufSchema } from "../../schemas/protobuf/IProtobufSchema";
-import { ProtobufAtomic } from "../../typings/ProtobufAtomic";
 import { IsProgrammer } from "../IsProgrammer";
 import { FunctionProgrammer } from "../helpers/FunctionProgrammer";
 import { ProtobufUtil } from "../helpers/ProtobufUtil";
