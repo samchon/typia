@@ -59,7 +59,7 @@ export class ImportProgrammer {
       this.namespace({
         file:
           __filename.endsWith(".ts") && this.options_.runtime !== "js"
-            ? `typia/src/internal/${name}.js`
+            ? `typia/src/internal/${name}.ts`
             : `typia/lib/internal/${name}.js`,
         name: this.alias(name),
       }),
@@ -72,7 +72,7 @@ export class ImportProgrammer {
     if (name.startsWith("_") === false) name = `_${name}`;
     const asset: IAsset | undefined = this.take(
       __filename.endsWith(".ts") && this.options_.runtime !== "js"
-        ? `typia/src/internal/${name}.js`
+        ? `typia/src/internal/${name}.ts`
         : `typia/lib/internal/${name}.js`,
     );
     if (!asset?.namespace) throw new Error(`Internal asset not found: ${name}`);
