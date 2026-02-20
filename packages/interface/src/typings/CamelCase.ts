@@ -4,14 +4,13 @@ import { NativeClass } from "./internal/NativeClass";
 import { ValueOf } from "./internal/ValueOf";
 
 /**
- * Camel case type.
+ * Converts all object keys to camelCase.
  *
- * `CamelCase` type is a type that all keys of an object are camelized.
+ * `CamelCase<T>` transforms object property names to camelCase format
+ * and erases methods like {@link Resolved}. Recursively processes
+ * nested structures.
  *
- * It also erases every method property like {@link Resolved} type.
- *
- * @author Jeongho Nam - https://github.com/samchon
- * @template T Target type to be camelized
+ * @template T Target type to transform
  */
 export type CamelCase<T> =
   Equal<T, CamelizeMain<T>> extends true ? T : CamelizeMain<T>;

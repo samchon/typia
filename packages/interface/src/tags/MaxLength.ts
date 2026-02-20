@@ -1,17 +1,11 @@
 import { TagBase } from "./TagBase";
 
 /**
- * String maximum length constraint tag.
+ * String maximum length constraint.
  *
- * Validates that a string's length is less than or equal to the specified
- * value. This tag enforces an upper limit on the number of characters in a
- * string.
+ * `MaxLength<N>` validates that a string has at most N characters.
  *
- * Examples: type ShortComment = string & MaxLength<200>; // Comment limited to
- * 200 characters type ZipCode = string & MaxLength<10>; // Zip code with max 10
- * characters
- *
- * @author Jeongho Nam - https://github.com/samchon
+ * @template Value Maximum character count
  */
 export type MaxLength<Value extends number> = TagBase<{
   target: "string";

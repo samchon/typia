@@ -1,32 +1,12 @@
 import type { TagBase } from "./TagBase";
 
 /**
- * String format constraint tag.
+ * String format validation constraint.
  *
- * Validates strings against predefined formats for common use cases. This tag
- * provides built-in validation for standard string formats without needing to
- * write custom regular expressions.
+ * `Format<Value>` validates strings against predefined formats (email, uuid,
+ * url, date-time, etc.). Mutually exclusive with {@link Pattern}.
  *
- * Examples:
- *
- * ```ts
- * Type Email = string & Format<"email">; // user@example.com
- * Type WebURL = string & Format<"url">; // https://example.com
- * Type DateTime = string & Format<"date-time">; // 2024-01-15T10:30:00Z
- * ```
- *
- * Supported formats include:
- *
- * - Network: email, url, hostname, ipv4, ipv6, uri
- * - Identifiers: uuid, byte, password
- * - Date/Time: date, time, date-time, duration
- * - Data: json-pointer, regex
- * - Internationalized: idn-email, idn-hostname, iri
- *
- * Note: This tag is mutually exclusive with the Pattern tag. You cannot use
- * both Format and Pattern on the same type.
- *
- * @author Jeongho Nam - https://github.com/samchon
+ * @template Value Format identifier (see {@link Format.Value} for options)
  */
 export type Format<Value extends Format.Value> = TagBase<{
   target: "string";

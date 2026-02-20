@@ -1,9 +1,9 @@
 import { IJsonSchemaAttribute } from "../schema/IJsonSchemaAttribute";
+import * as tags from "../tags";
 
 /**
  * Swagger v2.0 definition.
  *
- * @author Jeongho Nam - https://github.com/samchon
  */
 export namespace SwaggerV2 {
   export type Method =
@@ -21,39 +21,60 @@ export namespace SwaggerV2 {
   ----------------------------------------------------------- */
   export interface IDocument {
     swagger: "2.0" | `2.0.${number}`;
+
     info?: IDocument.IInfo;
+
     host?: string;
+
     basePath?: string;
+
     consumes?: string[];
+
     produces?: string[];
+
     definitions?: Record<string, IJsonSchema>;
+
     parameters?: Record<string, IOperation.IParameter>;
+
     responses?: Record<string, IOperation.IResponse>;
+
     securityDefinitions?: Record<string, ISecurityDefinition>;
+
     security?: Record<string, string[]>[];
+
     paths?: Record<string, IPath>;
+
     tags?: IDocument.ITag[];
   }
   export namespace IDocument {
     export interface IInfo {
       title: string;
+
       description?: string;
+
       termsOfService?: string;
+
       contact?: IContact;
+
       license?: ILicense;
+
       version: string;
     }
     export interface IContact {
       name?: string;
+
       url?: string;
+
       email?: string;
     }
     export interface ILicense {
       name: string;
+
       url?: string;
     }
     export interface ITag {
       name: string;
+
       description?: string;
     }
   }
@@ -71,19 +92,26 @@ export namespace SwaggerV2 {
 
   export interface IOperation {
     operationId?: string;
+
     parameters?: Array<
       | IOperation.IParameter
       | IJsonSchema.IReference<`#/definitions/parameters/${string}`>
     >;
+
     responses?: Record<
       string,
       | IOperation.IResponse
       | IJsonSchema.IReference<`#/definitions/responses/${string}`>
     >;
+
     summary?: string;
+
     description?: string;
+
     security?: Record<string, string[]>[];
+
     tags?: string[];
+
     deprecated?: boolean;
   }
   export namespace IOperation {
@@ -95,15 +123,22 @@ export namespace SwaggerV2 {
     };
     export interface IBodyParameter {
       schema: IJsonSchema;
+
       name: string;
+
       in: string;
+
       description?: string;
+
       required?: boolean;
     }
     export interface IResponse {
       description?: string;
+
       headers?: Record<string, IJsonSchema>;
+
       schema?: IJsonSchema;
+
       example?: any;
     }
   }
@@ -129,42 +164,53 @@ export namespace SwaggerV2 {
         Omit<IJsonSchemaAttribute.IBoolean, "examples">,
         __ISignificant<"boolean"> {
       default?: boolean | null;
+
       enum?: Array<boolean | null>;
     }
     export interface IInteger
       extends
         Omit<IJsonSchemaAttribute.IInteger, "examples">,
         __ISignificant<"integer"> {
-      /** @type int64 */ default?: number | null;
-      /** @type int64 */ enum?: Array<number | null>;
-      /** @type int64 */ minimum?: number;
-      /** @type int64 */ maximum?: number;
+      default?: (number & tags.Type<"int64">) | null;
+
+      enum?: Array<(number & tags.Type<"int64">) | null>;
+
+      minimum?: number & tags.Type<"int64">;
+
+      maximum?: number & tags.Type<"int64">;
+
       exclusiveMinimum?: number | boolean;
+
       exclusiveMaximum?: number | boolean;
-      /**
-       * @type uint64
-       * @exclusiveMinimum 0
-       */
-      multipleOf?: number;
+
+      multipleOf?: number & tags.Type<"uint64"> & tags.ExclusiveMinimum<0>;
     }
     export interface INumber
       extends
         Omit<IJsonSchemaAttribute.INumber, "examples">,
         __ISignificant<"number"> {
       default?: number | null;
+
       enum?: Array<number | null>;
+
       minimum?: number;
+
       maximum?: number;
+
       exclusiveMinimum?: number | boolean;
+
       exclusiveMaximum?: number | boolean;
-      /** @exclusiveMinimum 0 */ multipleOf?: number;
+
+      multipleOf?: number & tags.ExclusiveMinimum<0>;
     }
     export interface IString
       extends
         Omit<IJsonSchemaAttribute.IString, "examples">,
         __ISignificant<"string"> {
       default?: string | null;
+
       enum?: Array<string | null>;
+
       format?:
         | "binary"
         | "byte"
@@ -190,9 +236,12 @@ export namespace SwaggerV2 {
         | "json-pointer"
         | "relative-json-pointer"
         | (string & {});
+
       pattern?: string;
-      /** @type uint64 */ minLength?: number;
-      /** @type uint64 */ maxLength?: number;
+
+      minLength?: number & tags.Type<"uint64">;
+
+      maxLength?: number & tags.Type<"uint64">;
     }
 
     export interface IArray
@@ -200,18 +249,25 @@ export namespace SwaggerV2 {
         Omit<IJsonSchemaAttribute.IArray, "examples">,
         __ISignificant<"array"> {
       items: IJsonSchema;
+
       uniqueItems?: boolean;
-      /** @type uint64 */ minItems?: number;
-      /** @type uint64 */ maxItems?: number;
+
+      minItems?: number & tags.Type<"uint64">;
+
+      maxItems?: number & tags.Type<"uint64">;
     }
     export interface IObject
       extends
         Omit<IJsonSchemaAttribute.IObject, "examples">,
         __ISignificant<"object"> {
       properties?: Record<string, IJsonSchema>;
+
       required?: string[];
+
       additionalProperties?: boolean | IJsonSchema;
+
       maxProperties?: number;
+
       minProperties?: number;
     }
     export interface IReference<Key = string> extends __IAttribute {
@@ -230,6 +286,7 @@ export namespace SwaggerV2 {
 
     export interface INullOnly extends __IAttribute {
       type: "null";
+
       default?: null;
     }
     export interface IUnknown extends __IAttribute {
@@ -238,6 +295,7 @@ export namespace SwaggerV2 {
 
     export interface __ISignificant<Type extends string> extends __IAttribute {
       type: Type;
+
       "x-nullable"?: boolean;
     }
     export interface __IAttribute extends Omit<
@@ -258,43 +316,65 @@ export namespace SwaggerV2 {
   export namespace ISecurityDefinition {
     export interface IApiKey {
       type: "apiKey";
+
       in?: "header" | "query" | "cookie";
+
       name?: string;
+
       description?: string;
     }
     export interface IBasic {
       type: "basic";
+
       name?: string;
+
       description?: string;
     }
 
     export interface IOauth2Implicit {
       type: "oauth2";
+
       flow: "implicit";
+
       authorizationUrl?: string;
+
       scopes?: Record<string, string>;
+
       description?: string;
     }
     export interface IOauth2AccessCode {
       type: "oauth2";
+
       flow: "accessCode";
+
       authorizationUrl?: string;
+
       tokenUrl?: string;
+
       scopes?: Record<string, string>;
+
       description?: string;
     }
     export interface IOauth2Password {
       type: "oauth2";
+
       flow: "password";
+
       tokenUrl?: string;
+
       scopes?: Record<string, string>;
+
       description?: string;
     }
     export interface IOauth2Application {
       type: "oauth2";
+
       flow: "application";
+
       tokenUrl?: string;
+
       scopes?: Record<string, string>;
+
       description?: string;
     }
   }

@@ -9,7 +9,6 @@
  * {@link IResult.value}. Otherwise, if it's `false`, the error value is stored
  * in {@link IResult.error}.
  *
- * @author Jeongho Nam - https://github.com/samchon
  * @template T Type of the success value.
  * @template E Type of the error value.
  */

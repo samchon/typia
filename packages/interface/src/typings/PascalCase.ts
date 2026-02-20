@@ -4,14 +4,13 @@ import { NativeClass } from "./internal/NativeClass";
 import { ValueOf } from "./internal/ValueOf";
 
 /**
- * Pascal case type.
+ * Converts all object keys to PascalCase.
  *
- * `PascalCase` type is a type that all keys of an object are pascalized.
+ * `PascalCase<T>` transforms object property names to PascalCase format
+ * and erases methods like {@link Resolved}. Recursively processes
+ * nested structures.
  *
- * It also erases every method property like {@link Resolved} type.
- *
- * @author Jeongho Nam - https://github.com/samchon
- * @template T Target type to be pascalized
+ * @template T Target type to transform
  */
 export type PascalCase<T> =
   Equal<T, PascalizeMain<T>> extends true ? T : PascalizeMain<T>;

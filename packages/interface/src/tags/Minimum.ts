@@ -1,24 +1,12 @@
 import { TagBase } from "./TagBase";
 
 /**
- * Minimum value constraint tag.
+ * Minimum constraint (value >= min).
  *
- * Enforces that a numeric value must be greater than or equal to the specified
- * minimum. This constraint validates that the input value satisfies: input >=
- * minimum.
+ * `Minimum<N>` validates that a number/bigint is greater than or equal to N.
+ * Mutually exclusive with {@link ExclusiveMinimum}.
  *
- * Example usage:
- *
- * ```typescript
- * type Age = number & tags.Minimum<0>; // Age must be 0 or greater
- * type Balance = bigint & tags.Minimum<0n>; // BigInt balance must be non-negative
- * ```
- *
- * Note: This tag is mutually exclusive with ExclusiveMinimum. You cannot apply
- * both Minimum and ExclusiveMinimum constraints to the same property.
- *
- * @author Jeongho Nam - https://github.com/samchon
- * @template Value - The minimum value constraint (number or bigint literal)
+ * @template Value Minimum bound (inclusive)
  */
 export type Minimum<Value extends number | bigint> = TagBase<{
   target: Value extends bigint ? "bigint" : "number";

@@ -3,15 +3,13 @@ import { NativeClass } from "./internal/NativeClass";
 import { ValueOf } from "./internal/ValueOf";
 
 /**
- * Snake case type.
+ * Converts all object keys to snake_case.
  *
- * `SnakeCase` type is a type that all keys of an object are converted to snake
- * case.
+ * `SnakeCase<T>` transforms object property names to snake_case format
+ * and erases methods like {@link Resolved}. Recursively processes
+ * nested structures.
  *
- * It also erases every method property like {@link Resolved} type.
- *
- * @author Jeongho Nam - https://github.com/samchon
- * @template T Target type to be snake cased
+ * @template T Target type to transform
  */
 export type SnakeCase<T> =
   Equal<T, SnakageMain<T>> extends true ? T : SnakageMain<T>;

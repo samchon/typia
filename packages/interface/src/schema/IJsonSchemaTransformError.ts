@@ -19,7 +19,6 @@ import { OpenApi } from "../openapi";
  *   - ChatGPT and Gemini do not support
  *       {@link OpenApi.IJsonSchema.IObject.additionalProperties}
  *
- * @author Jeongho Nam - https://github.com/samchon
  */
 export interface IJsonSchemaTransformError {
   /** Method that caused the error. */

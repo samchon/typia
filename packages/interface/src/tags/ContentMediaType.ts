@@ -1,21 +1,12 @@
 import { TagBase } from "./TagBase";
 
 /**
- * String content media type constraint tag.
+ * String content MIME type metadata.
  *
- * Specifies the MIME type of string content for proper interpretation. This tag
- * serves as metadata to indicate how the string content should be interpreted,
- * but does not perform validation on the content itself.
+ * `ContentMediaType<Type>` specifies how string content should be
+ * interpreted. No validation performed, metadata only.
  *
- * Examples: type JsonData = string & ContentMediaType<"application/json">; //
- * JSON string type Base64Image = string & ContentMediaType<"image/png">; //
- * Base64 PNG type XmlContent = string & ContentMediaType<"application/xml">; //
- * XML data
- *
- * Common MIME types: application/json, text/html, image/jpeg, image/png,
- * application/pdf, text/plain, application/xml, and many more.
- *
- * @author Jeongho Nam - https://github.com/samchon
+ * @template Value MIME type (e.g., "application/json", "image/png")
  */
 export type ContentMediaType<Value extends string> = TagBase<{
   target: "string";

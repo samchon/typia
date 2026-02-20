@@ -1,12 +1,7 @@
 /**
- * Represents an HTTP response.
+ * HTTP response structure.
  *
- * The `IHttpResponse` interface represents an HTTP response.
- *
- * It contains the {@link status} code, {@link headers}, and {@link body} of the
- * response.
- *
- * @author Jeongho Nam - https://github.com/samchon
+ * `IHttpResponse` contains {@link status} code, {@link headers}, and {@link body}.
  */
 export interface IHttpResponse {
   /** Status code of the response. */

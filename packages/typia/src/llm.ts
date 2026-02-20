@@ -17,8 +17,12 @@ export function controller(
  * Creates LLM function calling controller from class/interface.
  *
  * Generates {@link ILlmController} from a TypeScript class or interface,
- * containing both function calling schemas ({@link application}) and an
+ * containing both function calling schemas ({@link ILlmFunction}) and an
  * executor ({@link ILlmController.execute}).
+ *
+ * Each {@link ILlmFunction} includes a built-in {@link ILlmFunction.validate}
+ * function that validates LLM-generated arguments before execution. Use
+ * `config.validate` to enable validation feedback for auto-correction.
  *
  * When passed to LLM providers (ChatGPT, Claude, Gemini, etc.), the LLM
  * automatically selects functions and fills arguments from conversation.
@@ -81,6 +85,10 @@ export function application(
  * Generates {@link ILlmApplication} from a TypeScript class or interface,
  * containing function calling schemas ({@link ILlmFunction}). Does not include
  * an executor—use {@link controller} if you need execution capability.
+ *
+ * Each {@link ILlmFunction} includes a built-in {@link ILlmFunction.validate}
+ * function that validates LLM-generated arguments before execution. Use
+ * `config.validate` to enable validation feedback for auto-correction.
  *
  * When passed to LLM providers (ChatGPT, Claude, Gemini, etc.), the LLM
  * automatically selects functions and fills arguments from conversation.

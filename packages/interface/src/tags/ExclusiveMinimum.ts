@@ -1,25 +1,12 @@
 import { TagBase } from "./TagBase";
 
 /**
- * Exclusive minimum value constraint tag.
+ * Exclusive minimum constraint (value > min).
  *
- * Enforces that a numeric value must be strictly greater than the specified
- * minimum (not equal). This constraint validates that the input value
- * satisfies: input > minimum.
+ * `ExclusiveMinimum<N>` validates that a number/bigint is strictly greater
+ * than N. Mutually exclusive with {@link Minimum}.
  *
- * Example usage:
- *
- * ```typescript
- * type PositiveNumber = number & tags.ExclusiveMinimum<0>; // Must be > 0
- * type LargeCount = bigint & tags.ExclusiveMinimum<999n>; // Must be > 999
- * ```
- *
- * Note: This tag is mutually exclusive with Minimum. You cannot apply both
- * ExclusiveMinimum and Minimum constraints to the same property.
- *
- * @author Jeongho Nam - https://github.com/samchon
- * @template Value - The exclusive minimum value constraint (number or bigint
- *   literal)
+ * @template Value Minimum bound (exclusive)
  */
 export type ExclusiveMinimum<Value extends number | bigint> = TagBase<{
   target: Value extends bigint ? "bigint" : "number";
