@@ -3,9 +3,9 @@ import { IMetadataSchema } from "./IMetadataSchema";
 /**
  * Shared type definitions for metadata schemas.
  *
- * `IMetadataComponents` stores reusable type definitions that can be
- * referenced from {@link IMetadataSchema} via {@link IMetadataSchema.IReference}.
- * This enables deduplication of complex types across multiple schemas.
+ * `IMetadataComponents` stores reusable type definitions that can be referenced
+ * from {@link IMetadataSchema} via {@link IMetadataSchema.IReference}. This
+ * enables deduplication of complex types across multiple schemas.
  *
  * @author Jeongho Nam - https://github.com/samchon
  */

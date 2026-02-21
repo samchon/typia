@@ -6,7 +6,10 @@ import { MetadataObjectType } from "../schemas/metadata/MetadataObjectType";
 /**
  * Error thrown during typia transformation.
  *
- * Indicates invalid usage or unsupported types in `typia.*<T>()` calls.
+ * Thrown when `typia.*<T>()` receives unsupported types (e.g., tuples for some
+ * LLM providers, recursive types without `$ref`, native class types). The error
+ * message lists specific type violations. Use {@link from} to create from
+ * multiple {@link MetadataFactory.IError} instances.
  *
  * @author Jeongho Nam - https://github.com/samchon
  */

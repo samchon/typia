@@ -64,8 +64,8 @@ export function clone(): never {
  * Deep clones value with assertion.
  *
  * Creates a deep copy with {@link assert} validation. Throws
- * {@link TypeGuardError} on type mismatch. Class instances with methods
- * are cloned as plain objects.
+ * {@link TypeGuardError} on type mismatch. Class instances with methods are
+ * cloned as plain objects.
  *
  * Related functions:
  *
@@ -75,7 +75,8 @@ export function clone(): never {
  *
  * @template T Type of input value
  * @param input Value to clone
- * @param errorFactory Custom error factory receiving {@link TypeGuardError.IProps}
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
  * @returns Deep cloned value
  * @throws {TypeGuardError} When input doesn't conform to type `T`
  */
@@ -126,8 +127,8 @@ export function isClone(): never {
  *
  * Creates a deep copy with {@link validate} validation. Returns
  * {@link IValidation.IFailure} with all errors on mismatch, or
- * {@link IValidation.ISuccess} with cloned value. Class instances with
- * methods are cloned as plain objects.
+ * {@link IValidation.ISuccess} with cloned value. Class instances with methods
+ * are cloned as plain objects.
  *
  * Related functions:
  *
@@ -155,8 +156,8 @@ export function validateClone(): never {
 /**
  * Removes superfluous properties from object.
  *
- * Deletes all properties not defined in type `T`, including in nested
- * objects. Mutates the input directly—removed properties cannot be recovered.
+ * Deletes all properties not defined in type `T`, including in nested objects.
+ * Mutates the input directly—removed properties cannot be recovered.
  *
  * Does not validate the input. For validation, use:
  *
@@ -177,9 +178,9 @@ export function prune(): never {
 /**
  * Removes superfluous properties with assertion.
  *
- * Combines {@link assert} with {@link prune}. Throws {@link TypeGuardError}
- * on type mismatch. Mutates the input directly—removed properties cannot
- * be recovered.
+ * Combines {@link assert} with {@link prune}. Throws {@link TypeGuardError} on
+ * type mismatch. Mutates the input directly—removed properties cannot be
+ * recovered.
  *
  * Related functions:
  *
@@ -189,7 +190,8 @@ export function prune(): never {
  *
  * @template T Type of input value
  * @param input Object to assert and prune
- * @param errorFactory Custom error factory receiving {@link TypeGuardError.IProps}
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
  * @returns The pruned input
  * @throws {TypeGuardError} When input doesn't conform to type `T`
  */
@@ -212,9 +214,9 @@ export function assertPrune(): unknown {
 /**
  * Removes superfluous properties with type checking.
  *
- * Combines {@link is} with {@link prune}. Returns `false` on type mismatch
- * (no pruning occurs). Returns `true` after successful pruning. Mutates the
- * input directly.
+ * Combines {@link is} with {@link prune}. Returns `false` on type mismatch (no
+ * pruning occurs). Returns `true` after successful pruning. Mutates the input
+ * directly.
  *
  * Related functions:
  *
@@ -240,9 +242,9 @@ export function isPrune(): never {
  * Removes superfluous properties with validation.
  *
  * Combines {@link validate} with {@link prune}. Returns
- * {@link IValidation.IFailure} with all errors on mismatch (no pruning
- * occurs), or {@link IValidation.ISuccess} after successful pruning.
- * Mutates the input directly.
+ * {@link IValidation.IFailure} with all errors on mismatch (no pruning occurs),
+ * or {@link IValidation.ISuccess} after successful pruning. Mutates the input
+ * directly.
  *
  * Related functions:
  *
@@ -300,7 +302,8 @@ export function createAssertClone(
  * Creates reusable {@link assertClone} function.
  *
  * @template T Type of input value
- * @param errorFactory Custom error factory receiving {@link TypeGuardError.IProps}
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
  * @returns Reusable clone function
  */
 export function createAssertClone<T>(
@@ -387,7 +390,8 @@ export function createAssertPrune(
  * Creates reusable {@link assertPrune} function.
  *
  * @template T Type of input value
- * @param errorFactory Custom error factory receiving {@link TypeGuardError.IProps}
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
  * @returns Reusable prune function
  */
 export function createAssertPrune<T extends object>(

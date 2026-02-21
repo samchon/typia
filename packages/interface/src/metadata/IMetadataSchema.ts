@@ -6,9 +6,9 @@ import { IMetadataTypeTag } from "./IMetadataTypeTag";
  * Metadata schema representing a TypeScript type's structure.
  *
  * `IMetadataSchema` is typia's internal type representation, capturing full
- * TypeScript type information including unions, optionality, nullability,
- * and type constraints. Used by `typia.reflect.schema<T>()` for runtime
- * type introspection.
+ * TypeScript type information including unions, optionality, nullability, and
+ * type constraints. Used by `typia.reflect.schema<T>()` for runtime type
+ * introspection.
  *
  * Type categories:
  *

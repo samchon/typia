@@ -6,9 +6,20 @@ import { IHttpMigrateRoute } from "./IHttpMigrateRoute";
 /**
  * LLM function calling schema from OpenAPI operation.
  *
- * `IHttpLlmFunction` converts {@link OpenApi.IOperation} to LLM function
- * calling format. Contains {@link name}, {@link parameters}, {@link output},
- * and built-in {@link validate} function for argument validation.
+ * `IHttpLlmFunction` represents a single HTTP endpoint converted to LLM function
+ * calling format. Generated from {@link OpenApi.IOperation} as part of
+ * {@link IHttpLlmApplication}.
+ *
+ * Key properties:
+ * - {@link name}: Function name (max 64 chars for OpenAI compatibility)
+ * - {@link parameters}: Input schema with path/query/body merged
+ * - {@link output}: Response schema (undefined if void)
+ * - {@link description}: Critical for LLM function selection
+ * - {@link validate}: Built-in argument validator for error feedback
+ *
+ * The {@link validate} function is essential: LLMs make frequent type errors
+ * (e.g., `"123"` instead of `123`). Validate and retry improves success rate
+ * from ~50% to 99%.
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
@@ -34,7 +45,10 @@ export interface IHttpLlmFunction {
    */
   parameters: ILlmSchema.IParameters;
 
-  /** Separated parameters when {@link IHttpLlmApplication.IConfig.separate} is set. */
+  /**
+   * Separated parameters when {@link IHttpLlmApplication.IConfig.separate} is
+   * set.
+   */
   separated?: IHttpLlmFunction.ISeparated;
 
   /** Return type schema. Undefined if void. */
@@ -52,8 +66,8 @@ export interface IHttpLlmFunction {
   /**
    * Validates LLM-composed arguments.
    *
-   * LLMs frequently make type errors. Use this to provide validation
-   * feedback and retry. Success rate improves from ~50% to 99% on retry.
+   * LLMs frequently make type errors. Use this to provide validation feedback
+   * and retry. Success rate improves from ~50% to 99% on retry.
    */
   validate: (args: unknown) => IValidation<unknown>;
 

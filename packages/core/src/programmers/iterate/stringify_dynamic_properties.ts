@@ -2,7 +2,6 @@ import ts from "typescript";
 
 import { IdentifierFactory } from "../../factories/IdentifierFactory";
 import { TemplateFactory } from "../../factories/TemplateFactory";
-
 import { IExpressionEntry } from "../helpers/IExpressionEntry";
 import { metadata_to_pattern } from "./metadata_to_pattern";
 

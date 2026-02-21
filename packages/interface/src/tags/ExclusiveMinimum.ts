@@ -3,8 +3,8 @@ import { TagBase } from "./TagBase";
 /**
  * Exclusive minimum constraint (value > min).
  *
- * `ExclusiveMinimum<N>` validates that a number/bigint is strictly greater
- * than N. Mutually exclusive with {@link Minimum}.
+ * `ExclusiveMinimum<N>` validates that a number/bigint is strictly greater than
+ * N. Mutually exclusive with {@link Minimum}.
  *
  * @template Value Minimum bound (exclusive)
  * @author Jeongho Nam - https://github.com/samchon

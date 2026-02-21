@@ -1,7 +1,14 @@
 /**
- * Error thrown when HTTP request fails.
+ * Error thrown when HTTP request fails with non-2xx status.
  *
- * Contains HTTP-specific information: method, path, status code, and headers.
+ * `HttpError` is thrown by {@link HttpLlm.execute} and
+ * {@link HttpMigration.execute} when the server returns a non-2xx status code.
+ * Contains the full HTTP context: method, path, status, headers, and response
+ * body.
+ *
+ * The response body is available via {@link message} (raw string) or
+ * {@link toJSON} (parsed JSON). For non-throwing behavior, use
+ * {@link HttpLlm.propagate} or {@link HttpMigration.propagate} instead.
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
@@ -50,8 +57,8 @@ export class HttpError extends Error {
   /**
    * Serialize to JSON-compatible object.
    *
-   * Lazily parses JSON message body on first call. If parsing fails,
-   * returns the original string.
+   * Lazily parses JSON message body on first call. If parsing fails, returns
+   * the original string.
    *
    * @template T Expected response body type
    * @returns Structured HTTP error information

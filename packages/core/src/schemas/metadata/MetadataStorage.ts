@@ -14,8 +14,8 @@ import { MetadataTupleType } from "./MetadataTupleType";
 /**
  * Storage for collected metadata during type analysis.
  *
- * Caches analyzed types (objects, aliases, arrays, tuples)
- * to handle recursive types and avoid redundant analysis.
+ * Caches analyzed types (objects, aliases, arrays, tuples) to handle recursive
+ * types and avoid redundant analysis.
  *
  * @author Jeongho Nam - https://github.com/samchon
  */

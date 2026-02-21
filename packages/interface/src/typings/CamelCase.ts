@@ -6,9 +6,9 @@ import { ValueOf } from "./internal/ValueOf";
 /**
  * Converts all object keys to camelCase.
  *
- * `CamelCase<T>` transforms object property names to camelCase format
- * and erases methods like {@link Resolved}. Recursively processes
- * nested structures.
+ * `CamelCase<T>` transforms object property names to camelCase format and
+ * erases methods like {@link Resolved}. Recursively processes nested
+ * structures.
  *
  * @template T Target type to transform
  * @author Jeongho Nam - https://github.com/samchon

@@ -2,10 +2,20 @@ import { OpenApi } from "../openapi/OpenApi";
 import { IHttpMigrateRoute } from "./IHttpMigrateRoute";
 
 /**
- * Migration application from OpenAPI document.
+ * Migrated application from OpenAPI document.
  *
- * `IHttpMigrateApplication` contains {@link IHttpMigrateRoute} list
- * converted from {@link OpenApi.IDocument} for RPC function generation.
+ * `IHttpMigrateApplication` converts OpenAPI operations into callable HTTP
+ * routes via `HttpMigration.application()`. Unlike {@link IHttpLlmApplication}
+ * which targets LLM function calling, this focuses on SDK/client code
+ * generation with full HTTP semantics.
+ *
+ * Each {@link IHttpMigrateRoute} represents a single API endpoint with:
+ * - Resolved path parameters (`:id` format)
+ * - Combined query/header schemas as objects
+ * - Request/response body with content type
+ * - Accessor path for RPC-style function naming
+ *
+ * Failed operations go to {@link errors} with detailed messages.
  *
  * @author Jeongho Nam - https://github.com/samchon
  */

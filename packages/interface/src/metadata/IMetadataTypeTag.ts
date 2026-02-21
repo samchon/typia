@@ -19,7 +19,10 @@ export interface IMetadataTypeTag {
   /** Tag kind identifier (e.g., `"minimum"`, `"format"`). */
   kind: string;
 
-  /** Exclusivity: `true` for unique tags, or array of mutually exclusive tag kinds. */
+  /**
+   * Exclusivity: `true` for unique tags, or array of mutually exclusive tag
+   * kinds.
+   */
   exclusive: boolean | string[];
 
   /** Tag value (e.g., `0` for `Minimum<0>`, `"email"` for `Format<"email">`). */

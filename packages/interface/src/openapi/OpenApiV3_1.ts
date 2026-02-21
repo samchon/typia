@@ -2,7 +2,21 @@ import { IJsonSchemaAttribute } from "../schema/IJsonSchemaAttribute";
 import * as tags from "../tags";
 
 /**
- * OpenAPI v3.1 definition.
+ * OpenAPI v3.1 specification types (raw, unemended).
+ *
+ * `OpenApiV3_1` contains TypeScript type definitions for raw OpenAPI v3.1
+ * documents as-is from the specification. Unlike {@link OpenApi}, this
+ * preserves the original structure including `$ref` references and `allOf`
+ * compositions without normalization.
+ *
+ * Key features in v3.1:
+ * - JSON Schema draft 2020-12 compatibility
+ * - `type` can be an array: `type: ["string", "null"]`
+ * - `const` keyword for constant values
+ * - `prefixItems` for tuple definitions
+ * - Webhooks support
+ *
+ * For a normalized format that simplifies schema processing, use {@link OpenApi}.
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
@@ -335,7 +349,8 @@ export namespace OpenApiV3_1 {
   export namespace IJsonSchema {
     /** Mixed type (multiple types in array). */
     export interface IMixed
-      extends IConstant,
+      extends
+        IConstant,
         Omit<IBoolean, "type" | "default" | "enum">,
         Omit<INumber, "type" | "default" | "enum">,
         Omit<IString, "type" | "default" | "enum">,
@@ -374,8 +389,7 @@ export namespace OpenApiV3_1 {
 
     /** Boolean type. */
     export interface IBoolean
-      extends Omit<IJsonSchemaAttribute.IBoolean, "examples">,
-        __IAttribute {
+      extends Omit<IJsonSchemaAttribute.IBoolean, "examples">, __IAttribute {
       /** Whether nullable. */
       nullable?: boolean;
 
@@ -388,8 +402,7 @@ export namespace OpenApiV3_1 {
 
     /** Integer type. */
     export interface IInteger
-      extends Omit<IJsonSchemaAttribute.IInteger, "examples">,
-        __IAttribute {
+      extends Omit<IJsonSchemaAttribute.IInteger, "examples">, __IAttribute {
       /** Whether nullable. */
       nullable?: boolean;
 
@@ -417,8 +430,7 @@ export namespace OpenApiV3_1 {
 
     /** Number (double) type. */
     export interface INumber
-      extends Omit<IJsonSchemaAttribute.INumber, "examples">,
-        __IAttribute {
+      extends Omit<IJsonSchemaAttribute.INumber, "examples">, __IAttribute {
       /** Whether nullable. */
       nullable?: boolean;
 
@@ -446,8 +458,7 @@ export namespace OpenApiV3_1 {
 
     /** String type. */
     export interface IString
-      extends Omit<IJsonSchemaAttribute.IString, "examples">,
-        __IAttribute {
+      extends Omit<IJsonSchemaAttribute.IString, "examples">, __IAttribute {
       /** Whether nullable. */
       nullable?: boolean;
 
@@ -499,8 +510,7 @@ export namespace OpenApiV3_1 {
 
     /** Object type. */
     export interface IObject
-      extends Omit<IJsonSchemaAttribute.IObject, "examples">,
-        __IAttribute {
+      extends Omit<IJsonSchemaAttribute.IObject, "examples">, __IAttribute {
       /** Whether nullable. */
       nullable?: boolean;
 
@@ -522,8 +532,7 @@ export namespace OpenApiV3_1 {
 
     /** Array type. */
     export interface IArray
-      extends Omit<IJsonSchemaAttribute.IArray, "examples">,
-        __IAttribute {
+      extends Omit<IJsonSchemaAttribute.IArray, "examples">, __IAttribute {
       /** Whether nullable. */
       nullable?: boolean;
 
@@ -591,16 +600,14 @@ export namespace OpenApiV3_1 {
 
     /** Null type. */
     export interface INull
-      extends Omit<IJsonSchemaAttribute.INull, "examples">,
-        __IAttribute {
+      extends Omit<IJsonSchemaAttribute.INull, "examples">, __IAttribute {
       /** Default value. */
       default?: null;
     }
 
     /** Unknown type. */
     export interface IUnknown
-      extends Omit<IJsonSchemaAttribute.IUnknown, "examples">,
-        __IAttribute {
+      extends Omit<IJsonSchemaAttribute.IUnknown, "examples">, __IAttribute {
       /** Type discriminator (undefined for unknown). */
       type?: undefined;
 
@@ -609,8 +616,10 @@ export namespace OpenApiV3_1 {
     }
 
     /** @internal Base attribute interface. */
-    export interface __IAttribute
-      extends Omit<IJsonSchemaAttribute, "examples"> {
+    export interface __IAttribute extends Omit<
+      IJsonSchemaAttribute,
+      "examples"
+    > {
       /** Example values. */
       examples?: any[] | Record<string, any>;
     }

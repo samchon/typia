@@ -23,8 +23,8 @@ export class TypeGuardError<T = any> extends Error {
   /**
    * Property path where assertion failed.
    *
-   * Uses dot notation for nested properties. `undefined` if error occurred
-   * at root level.
+   * Uses dot notation for nested properties. `undefined` if error occurred at
+   * root level.
    *
    * E.g., `"input.age"`, `"input.profile.email"`, `"input[0].name"`.
    */
@@ -33,8 +33,8 @@ export class TypeGuardError<T = any> extends Error {
   /**
    * String representation of expected type.
    *
-   * E.g., `"string"`, `"number & ExclusiveMinimum<19>"`,
-   * `"{ name: string; age: number }"`.
+   * E.g., `"string"`, `"number & ExclusiveMinimum<19>"`, `"{ name: string; age:
+   * number }"`.
    */
   public readonly expected: string;
 
@@ -57,8 +57,8 @@ export class TypeGuardError<T = any> extends Error {
   /**
    * Phantom property for TypeScript type safety.
    *
-   * Not used at runtime—exists only to preserve generic type `T` in the
-   * type system. Always `undefined`.
+   * Not used at runtime—exists only to preserve generic type `T` in the type
+   * system. Always `undefined`.
    *
    * @internal
    */
@@ -102,9 +102,7 @@ export class TypeGuardError<T = any> extends Error {
 }
 
 export namespace TypeGuardError {
-  /**
-   * Properties for constructing a TypeGuardError.
-   */
+  /** Properties for constructing a TypeGuardError. */
   export interface IProps {
     /**
      * Name of the typia method that threw the error.
@@ -127,9 +125,7 @@ export namespace TypeGuardError {
      */
     expected: string;
 
-    /**
-     * Actual value that failed assertion.
-     */
+    /** Actual value that failed assertion. */
     value: unknown;
 
     /**

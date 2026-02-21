@@ -3,6 +3,15 @@ import ts from "typescript";
 
 import { TypeFactory } from "./TypeFactory";
 
+/**
+ * Factory for creating TypeScript identifier and property access nodes.
+ *
+ * Creates identifiers, property access expressions, and parameter declarations.
+ * Handles both valid JavaScript identifiers and string literals for property
+ * names that contain special characters.
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
 export namespace IdentifierFactory {
   export const identifier = (name: string) =>
     NamingConvention.variable(name)

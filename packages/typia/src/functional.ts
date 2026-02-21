@@ -18,10 +18,12 @@ import { NoTransformConfigurationError } from "./transformers/NoTransformConfigu
  * return value after calling through {@link assert}. Throws on first mismatch.
  *
  * Error path format:
+ *
  * - Parameter errors: `$input.parameters[0].property`
  * - Return errors: `$input.return.property`
  *
  * Related functions:
+ *
  * - {@link assertParameters} — Validates parameters only
  * - {@link assertReturn} — Validates return value only
  * - {@link validateFunction} — Collects all errors instead of throwing
@@ -29,7 +31,8 @@ import { NoTransformConfigurationError } from "./transformers/NoTransformConfigu
  *
  * @template T Target function type
  * @param func Function to wrap
- * @param errorFactory Custom error factory receiving {@link TypeGuardError.IProps}
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
  * @returns Wrapped function with same signature
  * @throws {TypeGuardError} When parameter or return value type mismatch
  */
@@ -46,12 +49,13 @@ export function assertFunction(): never {
 /**
  * Wraps function to assert parameters only.
  *
- * Wraps the target function and validates all parameters before calling
- * through {@link assert}. Return value is not validated. Throws on first mismatch.
+ * Wraps the target function and validates all parameters before calling through
+ * {@link assert}. Return value is not validated. Throws on first mismatch.
  *
  * Error path format: `$input.parameters[0].property`
  *
  * Related functions:
+ *
  * - {@link assertFunction} — Also validates return value
  * - {@link assertReturn} — Validates return value only
  * - {@link validateParameters} — Collects all errors instead of throwing
@@ -59,7 +63,8 @@ export function assertFunction(): never {
  *
  * @template T Target function type
  * @param func Function to wrap
- * @param errorFactory Custom error factory receiving {@link TypeGuardError.IProps}
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
  * @returns Wrapped function with same signature
  * @throws {TypeGuardError} When parameter type mismatch
  */
@@ -76,12 +81,13 @@ export function assertParameters(): never {
 /**
  * Wraps function to assert return value only.
  *
- * Wraps the target function and validates return value after calling
- * through {@link assert}. Parameters are not validated. Throws on mismatch.
+ * Wraps the target function and validates return value after calling through
+ * {@link assert}. Parameters are not validated. Throws on mismatch.
  *
  * Error path format: `$input.return.property`
  *
  * Related functions:
+ *
  * - {@link assertFunction} — Also validates parameters
  * - {@link assertParameters} — Validates parameters only
  * - {@link validateReturn} — Collects all errors instead of throwing
@@ -89,7 +95,8 @@ export function assertParameters(): never {
  *
  * @template T Target function type
  * @param func Function to wrap
- * @param errorFactory Custom error factory receiving {@link TypeGuardError.IProps}
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
  * @returns Wrapped function with same signature
  * @throws {TypeGuardError} When return value type mismatch
  */
@@ -106,14 +113,16 @@ export function assertReturn(): never {
 /**
  * Wraps function to assert parameters and return value with strict equality.
  *
- * Wraps the target function and validates through {@link assertEquals}.
- * Also rejects extra properties not defined in type. Throws on first mismatch.
+ * Wraps the target function and validates through {@link assertEquals}. Also
+ * rejects extra properties not defined in type. Throws on first mismatch.
  *
  * Error path format:
+ *
  * - Parameter errors: `$input.parameters[0].property`
  * - Return errors: `$input.return.property`
  *
  * Related functions:
+ *
  * - {@link assertFunction} — Allows extra properties
  * - {@link assertEqualsParameters} — Validates parameters only
  * - {@link assertEqualsReturn} — Validates return value only
@@ -121,7 +130,8 @@ export function assertReturn(): never {
  *
  * @template T Target function type
  * @param func Function to wrap
- * @param errorFactory Custom error factory receiving {@link TypeGuardError.IProps}
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
  * @returns Wrapped function with same signature
  * @throws {TypeGuardError} When type mismatch or extra property detected
  */
@@ -138,19 +148,22 @@ export function assertEqualsFunction(): never {
 /**
  * Wraps function to assert parameters with strict equality.
  *
- * Wraps the target function and validates parameters through {@link assertEquals}.
- * Also rejects extra properties. Return value is not validated.
+ * Wraps the target function and validates parameters through
+ * {@link assertEquals}. Also rejects extra properties. Return value is not
+ * validated.
  *
  * Error path format: `$input.parameters[0].property`
  *
  * Related functions:
+ *
  * - {@link assertParameters} — Allows extra properties
  * - {@link assertEqualsFunction} — Also validates return value
  * - {@link validateEqualsParameters} — Collects all errors instead of throwing
  *
  * @template T Target function type
  * @param func Function to wrap
- * @param errorFactory Custom error factory receiving {@link TypeGuardError.IProps}
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
  * @returns Wrapped function with same signature
  * @throws {TypeGuardError} When type mismatch or extra property detected
  */
@@ -167,19 +180,22 @@ export function assertEqualsParameters(): never {
 /**
  * Wraps function to assert return value with strict equality.
  *
- * Wraps the target function and validates return value through {@link assertEquals}.
- * Also rejects extra properties. Parameters are not validated.
+ * Wraps the target function and validates return value through
+ * {@link assertEquals}. Also rejects extra properties. Parameters are not
+ * validated.
  *
  * Error path format: `$input.return.property`
  *
  * Related functions:
+ *
  * - {@link assertReturn} — Allows extra properties
  * - {@link assertEqualsFunction} — Also validates parameters
  * - {@link validateEqualsReturn} — Collects all errors instead of throwing
  *
  * @template T Target function type
  * @param func Function to wrap
- * @param errorFactory Custom error factory receiving {@link TypeGuardError.IProps}
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
  * @returns Wrapped function with same signature
  * @throws {TypeGuardError} When type mismatch or extra property detected
  */
@@ -199,10 +215,11 @@ export function assertEqualsReturn(): never {
 /**
  * Wraps function to test both parameters and return value.
  *
- * Wraps the target function and checks all parameters before calling and
- * return value after calling through {@link is}. Returns `null` on mismatch.
+ * Wraps the target function and checks all parameters before calling and return
+ * value after calling through {@link is}. Returns `null` on mismatch.
  *
  * Related functions:
+ *
  * - {@link isParameters} — Tests parameters only
  * - {@link isReturn} — Tests return value only
  * - {@link assertFunction} — Throws with error details on mismatch
@@ -229,10 +246,11 @@ export function isFunction(): never {
 /**
  * Wraps function to test parameters only.
  *
- * Wraps the target function and checks all parameters before calling
- * through {@link is}. Return value is not checked. Returns `null` on mismatch.
+ * Wraps the target function and checks all parameters before calling through
+ * {@link is}. Return value is not checked. Returns `null` on mismatch.
  *
  * Related functions:
+ *
  * - {@link isFunction} — Also tests return value
  * - {@link isReturn} — Tests return value only
  * - {@link assertParameters} — Throws with error details
@@ -259,10 +277,11 @@ export function isParameters(): never {
 /**
  * Wraps function to test return value only.
  *
- * Wraps the target function and checks return value after calling
- * through {@link is}. Parameters are not checked. Returns `null` on mismatch.
+ * Wraps the target function and checks return value after calling through
+ * {@link is}. Parameters are not checked. Returns `null` on mismatch.
  *
  * Related functions:
+ *
  * - {@link isFunction} — Also tests parameters
  * - {@link isParameters} — Tests parameters only
  * - {@link assertReturn} — Throws with error details
@@ -289,10 +308,11 @@ export function isReturn(): never {
 /**
  * Wraps function to test parameters and return value with strict equality.
  *
- * Wraps the target function and checks through {@link equals}.
- * Also rejects extra properties not defined in type. Returns `null` on mismatch.
+ * Wraps the target function and checks through {@link equals}. Also rejects
+ * extra properties not defined in type. Returns `null` on mismatch.
  *
  * Related functions:
+ *
  * - {@link isFunction} — Allows extra properties
  * - {@link equalsParameters} — Tests parameters only
  * - {@link equalsReturn} — Tests return value only
@@ -319,10 +339,11 @@ export function equalsFunction(): never {
 /**
  * Wraps function to test parameters with strict equality.
  *
- * Wraps the target function and checks parameters through {@link equals}.
- * Also rejects extra properties. Return value is not checked.
+ * Wraps the target function and checks parameters through {@link equals}. Also
+ * rejects extra properties. Return value is not checked.
  *
  * Related functions:
+ *
  * - {@link isParameters} — Allows extra properties
  * - {@link equalsFunction} — Also tests return value
  * - {@link equalsReturn} — Tests return value only
@@ -349,10 +370,11 @@ export function equalsParameters(): never {
 /**
  * Wraps function to test return value with strict equality.
  *
- * Wraps the target function and checks return value through {@link equals}.
- * Also rejects extra properties. Parameters are not checked.
+ * Wraps the target function and checks return value through {@link equals}. Also
+ * rejects extra properties. Parameters are not checked.
  *
  * Related functions:
+ *
  * - {@link isReturn} — Allows extra properties
  * - {@link equalsFunction} — Also tests parameters
  * - {@link equalsParameters} — Tests parameters only
@@ -386,10 +408,12 @@ export function equalsReturn(): never {
  * return value after calling through {@link validate}. Collects all errors.
  *
  * Error path format:
+ *
  * - Parameter errors: `$input.parameters[0].property`
  * - Return errors: `$input.return.property`
  *
  * Related functions:
+ *
  * - {@link validateParameters} — Validates parameters only
  * - {@link validateReturn} — Validates return value only
  * - {@link assertFunction} — Throws on first error
@@ -415,12 +439,13 @@ export function validateFunction(): never {
 /**
  * Wraps function to validate parameters only.
  *
- * Wraps the target function and validates all parameters before calling
- * through {@link validate}. Return value is not validated. Collects all errors.
+ * Wraps the target function and validates all parameters before calling through
+ * {@link validate}. Return value is not validated. Collects all errors.
  *
  * Error path format: `$input.parameters[0].property`
  *
  * Related functions:
+ *
  * - {@link validateFunction} — Also validates return value
  * - {@link validateReturn} — Validates return value only
  * - {@link assertParameters} — Throws on first error
@@ -446,12 +471,13 @@ export function validateParameters(): never {
 /**
  * Wraps function to validate return value only.
  *
- * Wraps the target function and validates return value after calling
- * through {@link validate}. Parameters are not validated. Collects all errors.
+ * Wraps the target function and validates return value after calling through
+ * {@link validate}. Parameters are not validated. Collects all errors.
  *
  * Error path format: `$input.return.property`
  *
  * Related functions:
+ *
  * - {@link validateFunction} — Also validates parameters
  * - {@link validateParameters} — Validates parameters only
  * - {@link assertReturn} — Throws on first error
@@ -477,14 +503,16 @@ export function validateReturn(): never {
 /**
  * Wraps function to validate parameters and return value with strict equality.
  *
- * Wraps the target function and validates through {@link validateEquals}.
- * Also rejects extra properties not defined in type. Collects all errors.
+ * Wraps the target function and validates through {@link validateEquals}. Also
+ * rejects extra properties not defined in type. Collects all errors.
  *
  * Error path format:
+ *
  * - Parameter errors: `$input.parameters[0].property`
  * - Return errors: `$input.return.property`
  *
  * Related functions:
+ *
  * - {@link validateFunction} — Allows extra properties
  * - {@link validateEqualsParameters} — Validates parameters only
  * - {@link validateEqualsReturn} — Validates return value only
@@ -510,12 +538,14 @@ export function validateEqualsFunction(): never {
 /**
  * Wraps function to validate parameters with strict equality.
  *
- * Wraps the target function and validates parameters through {@link validateEquals}.
- * Also rejects extra properties. Return value is not validated.
+ * Wraps the target function and validates parameters through
+ * {@link validateEquals}. Also rejects extra properties. Return value is not
+ * validated.
  *
  * Error path format: `$input.parameters[0].property`
  *
  * Related functions:
+ *
  * - {@link validateParameters} — Allows extra properties
  * - {@link validateEqualsFunction} — Also validates return value
  * - {@link assertEqualsParameters} — Throws on first error
@@ -540,12 +570,14 @@ export function validateEqualsParameters(): never {
 /**
  * Wraps function to validate return value with strict equality.
  *
- * Wraps the target function and validates return value through {@link validateEquals}.
- * Also rejects extra properties. Parameters are not validated.
+ * Wraps the target function and validates return value through
+ * {@link validateEquals}. Also rejects extra properties. Parameters are not
+ * validated.
  *
  * Error path format: `$input.return.property`
  *
  * Related functions:
+ *
  * - {@link validateReturn} — Allows extra properties
  * - {@link validateEqualsFunction} — Also validates parameters
  * - {@link assertEqualsReturn} — Throws on first error

@@ -3,8 +3,8 @@ import { TagBase } from "./TagBase";
 /**
  * Specifies a default value for properties.
  *
- * `Default<Value>` sets a fallback value in generated JSON Schema.
- * Supports boolean, bigint, number, and string literals.
+ * `Default<Value>` sets a fallback value in generated JSON Schema. Supports
+ * boolean, bigint, number, and string literals.
  *
  * @template Value Default value literal
  * @author Jeongho Nam - https://github.com/samchon

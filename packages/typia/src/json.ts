@@ -31,8 +31,8 @@ export function schema(): never;
  * Creates {@link IJsonSchemaUnit} containing a main schema and shared
  * components. Named types are stored in `components` for `$ref` referencing.
  *
- * Specify OpenAPI version via `Version` generic (`"3.0"` or `"3.1"`).
- * Default is `"3.1"`. Key difference: `"3.1"` supports tuple types.
+ * Specify OpenAPI version via `Version` generic (`"3.0"` or `"3.1"`). Default
+ * is `"3.1"`. Key difference: `"3.1"` supports tuple types.
  *
  * @template Type Target type
  * @template Version OpenAPI version (`"3.0"` | `"3.1"`). Default `"3.1"`
@@ -58,11 +58,11 @@ export function schemas(): never;
 /**
  * Generates JSON schemas for multiple types.
  *
- * Creates {@link IJsonSchemaCollection} containing schemas for all types in
- * the tuple. Named types are stored in `components` for `$ref` referencing.
+ * Creates {@link IJsonSchemaCollection} containing schemas for all types in the
+ * tuple. Named types are stored in `components` for `$ref` referencing.
  *
- * Specify OpenAPI version via `Version` generic (`"3.0"` or `"3.1"`).
- * Default is `"3.1"`. Key difference: `"3.1"` supports tuple types.
+ * Specify OpenAPI version via `Version` generic (`"3.0"` or `"3.1"`). Default
+ * is `"3.1"`. Key difference: `"3.1"` supports tuple types.
  *
  * @template Types Tuple of target types
  * @template Version OpenAPI version (`"3.0"` | `"3.1"`). Default `"3.1"`
@@ -103,8 +103,8 @@ export function application(): never;
  * - API documentation or code generation tools
  * - Alternative LLM integrations beyond built-in providers
  *
- * For standard LLM function calling, use {@link llm.application} instead,
- * which provides provider-specific schemas (ChatGPT, Claude, Gemini, etc.).
+ * For standard LLM function calling, use {@link llm.application} instead, which
+ * provides provider-specific schemas (ChatGPT, Claude, Gemini, etc.).
  *
  * @template Class Target class or interface type
  * @template Version OpenAPI version (`"3.0"` | `"3.1"`). Default `"3.1"`
@@ -136,8 +136,8 @@ export function assertParse(
 /**
  * Parses JSON string with assertion.
  *
- * Combines `JSON.parse()` with {@link assert}. Throws {@link TypeGuardError}
- * when parsed value doesn't match type `T`.
+ * Combines `JSON.parse()` with {@link assert}. Throws {@link TypeGuardError} when
+ * parsed value doesn't match type `T`.
  *
  * Related functions:
  *
@@ -146,7 +146,8 @@ export function assertParse(
  *
  * @template T Target type for parsed value
  * @param input JSON string to parse
- * @param errorFactory Custom error factory receiving {@link TypeGuardError.IProps}
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
  * @returns Parsed value of type `T`
  * @throws {TypeGuardError} When parsed value doesn't conform to type `T`
  */
@@ -225,8 +226,8 @@ export function validateParse<T>(): IValidation<Primitive<T>> {
 /**
  * Converts value to JSON string (8x faster).
  *
- * Generates optimized JSON conversion code specific to type `T`, achieving
- * ~8x faster performance than native `JSON.stringify()`.
+ * Generates optimized JSON conversion code specific to type `T`, achieving ~8x
+ * faster performance than native `JSON.stringify()`.
  *
  * Does not validate the input. For validation, use:
  *
@@ -248,9 +249,9 @@ export function stringify(): never {
 /**
  * Converts value to JSON string with assertion (5x faster).
  *
- * Combines {@link assert} with {@link stringify}. Throws
- * {@link TypeGuardError} when input doesn't match type `T`. Achieves ~5x
- * faster performance than native `JSON.stringify()`.
+ * Combines {@link assert} with {@link stringify}. Throws {@link TypeGuardError}
+ * when input doesn't match type `T`. Achieves ~5x faster performance than
+ * native `JSON.stringify()`.
  *
  * Related functions:
  *
@@ -260,7 +261,8 @@ export function stringify(): never {
  *
  * @template T Type of input value
  * @param input Value to assert and stringify
- * @param errorFactory Custom error factory receiving {@link TypeGuardError.IProps}
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
  * @returns JSON string
  * @throws {TypeGuardError} When input doesn't conform to type `T`
  */
@@ -272,9 +274,9 @@ export function assertStringify<T>(
 /**
  * Converts value to JSON string with assertion (5x faster).
  *
- * Combines {@link assert} with {@link stringify}. Throws
- * {@link TypeGuardError} when input doesn't match type `T`. Achieves ~5x
- * faster performance than native `JSON.stringify()`.
+ * Combines {@link assert} with {@link stringify}. Throws {@link TypeGuardError}
+ * when input doesn't match type `T`. Achieves ~5x faster performance than
+ * native `JSON.stringify()`.
  *
  * Related functions:
  *
@@ -284,7 +286,8 @@ export function assertStringify<T>(
  *
  * @template T Type of input value
  * @param input Value to assert and stringify
- * @param errorFactory Custom error factory receiving {@link TypeGuardError.IProps}
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
  * @returns JSON string
  * @throws {TypeGuardError} When input doesn't conform to type `T`
  */
@@ -301,8 +304,8 @@ export function assertStringify(): string {
 /**
  * Converts value to JSON string with type checking (7x faster).
  *
- * Combines {@link is} with {@link stringify}. Returns `null` when input
- * doesn't match type `T`. Achieves ~7x faster performance than native
+ * Combines {@link is} with {@link stringify}. Returns `null` when input doesn't
+ * match type `T`. Achieves ~7x faster performance than native
  * `JSON.stringify()`.
  *
  * Related functions:
@@ -320,8 +323,8 @@ export function isStringify<T>(input: T): string | null;
 /**
  * Converts value to JSON string with type checking (7x faster).
  *
- * Combines {@link is} with {@link stringify}. Returns `null` when input
- * doesn't match type `T`. Achieves ~7x faster performance than native
+ * Combines {@link is} with {@link stringify}. Returns `null` when input doesn't
+ * match type `T`. Achieves ~7x faster performance than native
  * `JSON.stringify()`.
  *
  * Related functions:
@@ -346,8 +349,8 @@ export function isStringify(): string | null {
  *
  * Combines {@link validate} with {@link stringify}. Returns
  * {@link IValidation.IFailure} with all errors on mismatch, or
- * {@link IValidation.ISuccess} with JSON string. Achieves ~5x faster
- * performance than native `JSON.stringify()`.
+ * {@link IValidation.ISuccess} with JSON string. Achieves ~5x faster performance
+ * than native `JSON.stringify()`.
  *
  * Related functions:
  *
@@ -366,8 +369,8 @@ export function validateStringify<T>(input: T): IValidation<string>;
  *
  * Combines {@link validate} with {@link stringify}. Returns
  * {@link IValidation.IFailure} with all errors on mismatch, or
- * {@link IValidation.ISuccess} with JSON string. Achieves ~5x faster
- * performance than native `JSON.stringify()`.
+ * {@link IValidation.ISuccess} with JSON string. Achieves ~5x faster performance
+ * than native `JSON.stringify()`.
  *
  * Related functions:
  *
@@ -422,7 +425,8 @@ export function createAssertParse(
  * Creates reusable {@link assertParse} function.
  *
  * @template T Target type for parsed value
- * @param errorFactory Custom error factory receiving {@link TypeGuardError.IProps}
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
  * @returns Reusable parser function
  */
 export function createAssertParse<T>(
@@ -491,7 +495,8 @@ export function createAssertStringify(
  * Creates reusable {@link assertStringify} function.
  *
  * @template T Type of input value
- * @param errorFactory Custom error factory receiving {@link TypeGuardError.IProps}
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
  * @returns Reusable stringify function
  */
 export function createAssertStringify<T>(

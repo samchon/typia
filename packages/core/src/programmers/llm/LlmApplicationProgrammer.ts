@@ -22,6 +22,15 @@ import { ValidateProgrammer } from "../ValidateProgrammer";
 import { JsonApplicationProgrammer } from "../json/JsonApplicationProgrammer";
 import { LlmSchemaProgrammer } from "./LlmSchemaProgrammer";
 
+/**
+ * Generates LLM function calling application from TypeScript class/interface.
+ *
+ * Converts TypeScript types to {@link ILlmApplication} with function schemas
+ * compatible with LLM function calling. Validates type constraints (single
+ * object parameter, no dynamic keys) and generates runtime validators.
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
 export namespace LlmApplicationProgrammer {
   export const validate = (props: {
     config?: Partial<ILlmSchema.IConfig>;

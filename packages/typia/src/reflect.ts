@@ -15,8 +15,8 @@ export function schemas(): never;
 /**
  * Generates metadata schemas for multiple types.
  *
- * Creates {@link IMetadataSchemaCollection} containing metadata for all types
- * in the tuple. Collection types (Array, Tuple, Object) are stored in
+ * Creates {@link IMetadataSchemaCollection} containing metadata for all types in
+ * the tuple. Collection types (Array, Tuple, Object) are stored in
  * `components`. Alias types are stored in `aliases`.
  *
  * @template Types Tuple of target types

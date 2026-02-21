@@ -5,6 +5,15 @@ import ts from "typescript";
 import { NodeTransformer } from "./NodeTransformer";
 import { TransformerError } from "./TransformerError";
 
+/**
+ * TypeScript source file transformer for typia.
+ *
+ * Entry point for typia's compile-time transformation. Traverses AST nodes,
+ * transforms `typia.*` function calls into optimized runtime code, and injects
+ * required imports. Skips declaration files.
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
 export namespace FileTransformer {
   export const transform =
     (environments: Omit<ITypiaContext, "transformer" | "importer">) =>

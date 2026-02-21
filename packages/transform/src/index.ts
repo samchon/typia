@@ -8,8 +8,8 @@ export * from "./ImportTransformer";
 /**
  * TypeScript transformer for typia.
  *
- * Converts `typia.*<T>()` function calls into optimized runtime code.
- * Requires `strictNullChecks` or `strict` mode enabled.
+ * Converts `typia.*<T>()` function calls into optimized runtime code. Requires
+ * `strictNullChecks` or `strict` mode enabled.
  *
  * @param program TypeScript program instance
  * @param options Transformer options

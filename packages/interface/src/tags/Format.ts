@@ -20,6 +20,22 @@ export type Format<Value extends Format.Value> = TagBase<{
   };
 }>;
 export namespace Format {
+  /**
+   * Supported format identifiers.
+   *
+   * Standard JSON Schema formats:
+   * - `email`, `idn-email`: Email addresses
+   * - `hostname`, `idn-hostname`: Hostnames
+   * - `uri`, `uri-reference`, `uri-template`, `url`: URLs
+   * - `iri`, `iri-reference`: Internationalized URLs
+   * - `uuid`: UUID strings
+   * - `ipv4`, `ipv6`: IP addresses
+   * - `date-time`, `date`, `time`, `duration`: Date/time formats
+   * - `json-pointer`, `relative-json-pointer`: JSON pointers
+   * - `regex`: Regular expression patterns
+   * - `byte`: Base64-encoded data
+   * - `password`: Password fields (for documentation only)
+   */
   export type Value =
     | "byte"
     | "password"

@@ -28,8 +28,8 @@ import { NoTransformConfigurationError } from "./transformers/NoTransformConfigu
  *
  * 1. Must be an object type
  * 2. No dynamic properties allowed
- * 3. Only `boolean`, `bigint`, `number`, `string`, `Blob`, `File` or their
- *    array types allowed
+ * 3. Only `boolean`, `bigint`, `number`, `string`, `Blob`, `File` or their array
+ *    types allowed
  * 4. No union types allowed
  *
  * Does not validate the decoded value. For validation, use:
@@ -53,15 +53,15 @@ export function formData(): never {
 /**
  * Decodes `FormData` into type `T` with assertion.
  *
- * Parses a `FormData` instance with automatic type casting, then validates
- * the result via {@link assert}. Throws {@link TypeGuardError} on mismatch.
+ * Parses a `FormData` instance with automatic type casting, then validates the
+ * result via {@link assert}. Throws {@link TypeGuardError} on mismatch.
  *
  * Type `T` constraints:
  *
  * 1. Must be an object type
  * 2. No dynamic properties allowed
- * 3. Only `boolean`, `bigint`, `number`, `string`, `Blob`, `File` or their
- *    array types allowed
+ * 3. Only `boolean`, `bigint`, `number`, `string`, `Blob`, `File` or their array
+ *    types allowed
  * 4. No union types allowed
  *
  * Related functions:
@@ -72,7 +72,8 @@ export function formData(): never {
  *
  * @template T Target object type
  * @param input FormData instance to decode
- * @param errorFactory Custom error factory receiving {@link TypeGuardError.IProps}
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
  * @returns Decoded object of type `T`
  * @throws {TypeGuardError} When decoded value doesn't conform to type `T`
  * @danger You must configure the generic argument `T`
@@ -90,15 +91,15 @@ export function assertFormData(): never {
 /**
  * Decodes `FormData` into type `T` with type checking.
  *
- * Parses a `FormData` instance with automatic type casting, then validates
- * the result via {@link is}. Returns `null` on type mismatch.
+ * Parses a `FormData` instance with automatic type casting, then validates the
+ * result via {@link is}. Returns `null` on type mismatch.
  *
  * Type `T` constraints:
  *
  * 1. Must be an object type
  * 2. No dynamic properties allowed
- * 3. Only `boolean`, `bigint`, `number`, `string`, `Blob`, `File` or their
- *    array types allowed
+ * 3. Only `boolean`, `bigint`, `number`, `string`, `Blob`, `File` or their array
+ *    types allowed
  * 4. No union types allowed
  *
  * Related functions:
@@ -124,16 +125,16 @@ export function isFormData(): never {
 /**
  * Decodes `FormData` into type `T` with validation.
  *
- * Parses a `FormData` instance with automatic type casting, then validates
- * the result via {@link validate}. Returns {@link IValidation.IFailure} with
- * all errors on mismatch, or {@link IValidation.ISuccess} with decoded value.
+ * Parses a `FormData` instance with automatic type casting, then validates the
+ * result via {@link validate}. Returns {@link IValidation.IFailure} with all
+ * errors on mismatch, or {@link IValidation.ISuccess} with decoded value.
  *
  * Type `T` constraints:
  *
  * 1. Must be an object type
  * 2. No dynamic properties allowed
- * 3. Only `boolean`, `bigint`, `number`, `string`, `Blob`, `File` or their
- *    array types allowed
+ * 3. Only `boolean`, `bigint`, `number`, `string`, `Blob`, `File` or their array
+ *    types allowed
  * 4. No union types allowed
  *
  * Related functions:
@@ -163,8 +164,8 @@ export function validateFormData(): never {
  * Decodes URL query string into type `T`.
  *
  * Parses a query string or `URLSearchParams` instance with automatic type
- * casting. Properties typed as `boolean` or `number` are cast to expected
- * types during decoding.
+ * casting. Properties typed as `boolean` or `number` are cast to expected types
+ * during decoding.
  *
  * Type `T` constraints:
  *
@@ -215,7 +216,8 @@ export function query(): never {
  *
  * @template T Target object type
  * @param input Query string or URLSearchParams instance
- * @param errorFactory Custom error factory receiving {@link TypeGuardError.IProps}
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
  * @returns Decoded object of type `T`
  * @throws {TypeGuardError} When decoded value doesn't conform to type `T`
  * @danger You must configure the generic argument `T`
@@ -321,8 +323,8 @@ export function validateQuery(): never {
  * 8. These properties cannot be array type: `age`, `authorization`,
  *    `content-length`, `content-type`, `etag`, `expires`, `from`, `host`,
  *    `if-modified-since`, `if-unmodified-since`, `last-modified`, `location`,
- *    `max-forwards`, `proxy-authorization`, `referer`, `retry-after`,
- *    `server`, `user-agent`
+ *    `max-forwards`, `proxy-authorization`, `referer`, `retry-after`, `server`,
+ *    `user-agent`
  *
  * Does not validate the decoded value. For validation, use:
  *
@@ -347,8 +349,8 @@ export function headers(): never {
 /**
  * Decodes HTTP headers into type `T` with assertion.
  *
- * Parses HTTP headers object with automatic type casting, then validates
- * the result via {@link assert}. Throws {@link TypeGuardError} on mismatch.
+ * Parses HTTP headers object with automatic type casting, then validates the
+ * result via {@link assert}. Throws {@link TypeGuardError} on mismatch.
  * Compatible with Express and Fastify request headers.
  *
  * Type `T` constraints:
@@ -363,8 +365,8 @@ export function headers(): never {
  * 8. These properties cannot be array type: `age`, `authorization`,
  *    `content-length`, `content-type`, `etag`, `expires`, `from`, `host`,
  *    `if-modified-since`, `if-unmodified-since`, `last-modified`, `location`,
- *    `max-forwards`, `proxy-authorization`, `referer`, `retry-after`,
- *    `server`, `user-agent`
+ *    `max-forwards`, `proxy-authorization`, `referer`, `retry-after`, `server`,
+ *    `user-agent`
  *
  * Related functions:
  *
@@ -374,7 +376,8 @@ export function headers(): never {
  *
  * @template T Target object type
  * @param input Headers object from HTTP request
- * @param errorFactory Custom error factory receiving {@link TypeGuardError.IProps}
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
  * @returns Decoded object of type `T`
  * @throws {TypeGuardError} When decoded value doesn't conform to type `T`
  * @danger You must configure the generic argument `T`
@@ -392,9 +395,9 @@ export function assertHeaders(): never {
 /**
  * Decodes HTTP headers into type `T` with type checking.
  *
- * Parses HTTP headers object with automatic type casting, then validates
- * the result via {@link is}. Returns `null` on type mismatch. Compatible
- * with Express and Fastify request headers.
+ * Parses HTTP headers object with automatic type casting, then validates the
+ * result via {@link is}. Returns `null` on type mismatch. Compatible with
+ * Express and Fastify request headers.
  *
  * Type `T` constraints:
  *
@@ -408,8 +411,8 @@ export function assertHeaders(): never {
  * 8. These properties cannot be array type: `age`, `authorization`,
  *    `content-length`, `content-type`, `etag`, `expires`, `from`, `host`,
  *    `if-modified-since`, `if-unmodified-since`, `last-modified`, `location`,
- *    `max-forwards`, `proxy-authorization`, `referer`, `retry-after`,
- *    `server`, `user-agent`
+ *    `max-forwards`, `proxy-authorization`, `referer`, `retry-after`, `server`,
+ *    `user-agent`
  *
  * Related functions:
  *
@@ -434,9 +437,9 @@ export function isHeaders(): never {
 /**
  * Decodes HTTP headers into type `T` with validation.
  *
- * Parses HTTP headers object with automatic type casting, then validates
- * the result via {@link validate}. Returns {@link IValidation.IFailure} with
- * all errors on mismatch, or {@link IValidation.ISuccess} with decoded value.
+ * Parses HTTP headers object with automatic type casting, then validates the
+ * result via {@link validate}. Returns {@link IValidation.IFailure} with all
+ * errors on mismatch, or {@link IValidation.ISuccess} with decoded value.
  * Compatible with Express and Fastify request headers.
  *
  * Type `T` constraints:
@@ -451,8 +454,8 @@ export function isHeaders(): never {
  * 8. These properties cannot be array type: `age`, `authorization`,
  *    `content-length`, `content-type`, `etag`, `expires`, `from`, `host`,
  *    `if-modified-since`, `if-unmodified-since`, `last-modified`, `location`,
- *    `max-forwards`, `proxy-authorization`, `referer`, `retry-after`,
- *    `server`, `user-agent`
+ *    `max-forwards`, `proxy-authorization`, `referer`, `retry-after`, `server`,
+ *    `user-agent`
  *
  * Related functions:
  *
@@ -482,10 +485,11 @@ export function validateHeaders(): never {
  *
  * Parses a path parameter string with automatic type casting. When type `T` is
  * `boolean` or `number`, casts the string value to the expected type. Also
- * performs type assertion via {@link assert}, throwing {@link TypeGuardError}
- * on mismatch.
+ * performs type assertion via {@link assert}, throwing {@link TypeGuardError} on
+ * mismatch.
  *
- * @template T Target atomic type (`boolean`, `bigint`, `number`, `string`, or `null`)
+ * @template T Target atomic type (`boolean`, `bigint`, `number`, `string`, or
+ *   `null`)
  * @param input Path parameter string
  * @returns Decoded value of type `T`
  * @throws {TypeGuardError} When decoded value doesn't conform to type `T`
@@ -528,7 +532,8 @@ export function createFormData<T>(): (input: FormData) => T {
  * Creates reusable {@link assertFormData} function.
  *
  * @template T Target object type
- * @param errorFactory Custom error factory receiving {@link TypeGuardError.IProps}
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
  * @danger You must configure the generic argument `T`
  */
 export function createAssertFormData(
@@ -539,7 +544,8 @@ export function createAssertFormData(
  * Creates reusable {@link assertFormData} function.
  *
  * @template T Target object type
- * @param errorFactory Custom error factory receiving {@link TypeGuardError.IProps}
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
  * @returns Reusable decoder function
  */
 export function createAssertFormData<T extends object>(
@@ -628,7 +634,8 @@ export function createQuery<T>(): (
  * Creates reusable {@link assertQuery} function.
  *
  * @template T Target object type
- * @param errorFactory Custom error factory receiving {@link TypeGuardError.IProps}
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
  * @danger You must configure the generic argument `T`
  */
 export function createAssertQuery(
@@ -639,7 +646,8 @@ export function createAssertQuery(
  * Creates reusable {@link assertQuery} function.
  *
  * @template T Target object type
- * @param errorFactory Custom error factory receiving {@link TypeGuardError.IProps}
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
  * @returns Reusable decoder function
  */
 export function createAssertQuery<T extends object>(
@@ -732,7 +740,8 @@ export function createHeaders<T>(): (
  * Creates reusable {@link assertHeaders} function.
  *
  * @template T Target object type
- * @param errorFactory Custom error factory receiving {@link TypeGuardError.IProps}
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
  * @danger You must configure the generic argument `T`
  */
 export function createAssertHeaders(
@@ -743,7 +752,8 @@ export function createAssertHeaders(
  * Creates reusable {@link assertHeaders} function.
  *
  * @template T Target object type
- * @param errorFactory Custom error factory receiving {@link TypeGuardError.IProps}
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
  * @returns Reusable decoder function
  */
 export function createAssertHeaders<T extends object>(

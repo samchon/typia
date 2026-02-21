@@ -9,8 +9,8 @@ export interface ITransformOptions {
   /**
    * Validate that numbers are finite (not NaN/Infinity).
    *
-   * When `true`, validates numbers using `Number.isNaN()`.
-   * Ignored during marshaling (always true) and parsing (always false).
+   * When `true`, validates numbers using `Number.isNaN()`. Ignored during
+   * marshaling (always true) and parsing (always false).
    *
    * @default false
    */
@@ -19,9 +19,9 @@ export interface ITransformOptions {
   /**
    * Validate that numbers are numeric (not NaN).
    *
-   * When `true`, validates numbers using `Number.isFinite()`.
-   * Ignored if `finite` is true, during marshaling (always true),
-   * or during parsing (always false).
+   * When `true`, validates numbers using `Number.isFinite()`. Ignored if
+   * `finite` is true, during marshaling (always true), or during parsing
+   * (always false).
    *
    * @default false
    */
@@ -40,9 +40,9 @@ export interface ITransformOptions {
   /**
    * Allow undefined values in superfluous properties.
    *
-   * Controls whether `undefined` assigned to extra properties is allowed
-   * during equality checks. Only affects {@link equals}; other functions
-   * like {@link assertEquals} always allow undefined.
+   * Controls whether `undefined` assigned to extra properties is allowed during
+   * equality checks. Only affects {@link equals}; other functions like
+   * {@link assertEquals} always allow undefined.
    *
    * @default true
    */

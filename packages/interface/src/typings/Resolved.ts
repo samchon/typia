@@ -8,8 +8,8 @@ import { ValueOf } from "./internal/ValueOf";
  *
  * `Resolved<T>` transforms classes to plain objects, extracts primitive values
  * from boxed types (Boolean→boolean, Number→number, String→string), and
- * recursively processes nested structures. Native classes (Date, Set, Map, etc.)
- * are preserved unchanged.
+ * recursively processes nested structures. Native classes (Date, Set, Map,
+ * etc.) are preserved unchanged.
  *
  * @template T Target type to resolve
  * @author Jeongho Nam - https://github.com/samchon

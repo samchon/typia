@@ -1,8 +1,8 @@
 /**
  * Checks if two types are exactly equal.
  *
- * `Equal<X, Y>` returns `true` if types X and Y are identical,
- * `false` otherwise. Works with any TypeScript types including unions.
+ * `Equal<X, Y>` returns `true` if types X and Y are identical, `false`
+ * otherwise. Works with any TypeScript types including unions.
  *
  * @template X First type to compare
  * @template Y Second type to compare

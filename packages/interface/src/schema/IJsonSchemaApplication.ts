@@ -29,7 +29,13 @@ export interface IJsonSchemaApplication<
     IJsonSchemaApplication.Schema<Version>
   >[];
 
-  /** @internal Original application type marker. */
+  /**
+   * Phantom property for TypeScript generic type preservation.
+   *
+   * This property exists only in the type system to preserve the `App`
+   * generic parameter. It is always `undefined` at runtime and should not
+   * be accessed or used in application code.
+   */
   __application?: App | undefined;
 }
 export namespace IJsonSchemaApplication {

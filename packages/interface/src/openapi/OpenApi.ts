@@ -4,8 +4,19 @@ import * as tags from "../tags";
 /**
  * Emended OpenAPI v3.1 specification.
  *
- * `OpenApi` is a refined OpenAPI v3.1 that removes ambiguous and duplicated
- * expressions for `typia` and `nestia` compatibility.
+ * `OpenApi` is a refined OpenAPI v3.1 specification that normalizes ambiguous
+ * and redundant expressions from various OpenAPI versions (Swagger 2.0,
+ * OpenAPI 3.0, 3.1). This unified format simplifies schema processing for
+ * `typia` and `@nestia/sdk`.
+ *
+ * Key simplifications:
+ * - All `$ref` references are dereferenced into inline schemas
+ * - `nullable` is converted to `{ oneOf: [schema, { type: "null" }] }`
+ * - `allOf` compositions are merged into single schemas
+ * - Schema attributes are normalized across all versions
+ *
+ * Use `HttpLlm.application()` from `@samchon/openapi` to convert
+ * `OpenApi.IDocument` into {@link IHttpLlmApplication} for LLM function calling.
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
@@ -243,8 +254,9 @@ export namespace OpenApi {
     }
 
     /** Content by media type. */
-    export interface IContent
-      extends Partial<Record<ContentType, IMediaType>> {}
+    export interface IContent extends Partial<
+      Record<ContentType, IMediaType>
+    > {}
 
     /** Media type definition. */
     export interface IMediaType {

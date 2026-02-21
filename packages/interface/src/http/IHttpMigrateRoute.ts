@@ -1,10 +1,13 @@
 import { OpenApi } from "../openapi/OpenApi";
 
 /**
- * Route information for OpenAPI migration.
+ * HTTP route converted from OpenAPI operation.
  *
- * `IHttpMigrateRoute` represents an RPC function composed from
- * {@link OpenApi.IOperation}. Used by OpenAPI generator libraries.
+ * `IHttpMigrateRoute` represents a single API endpoint with all
+ * request/response schemas resolved and ready for code generation. Contains
+ * {@link parameters} for URL path variables, {@link query} for query strings,
+ * {@link headers}, {@link body} for request payload, and
+ * {@link success}/{@link exceptions} for responses.
  *
  * @author Jeongho Nam - https://github.com/samchon
  */

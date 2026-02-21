@@ -34,7 +34,13 @@ export namespace IJsonSchemaUnit {
     /** Reusable schema components for `$ref` referencing. */
     components: OpenApiV3.IComponents;
 
-    /** @internal Type marker for compile-time tracking. */
+    /**
+     * Phantom property for TypeScript generic type preservation.
+     *
+     * This property exists only in the type system to preserve the `Type`
+     * generic parameter. It is always `undefined` at runtime and should not
+     * be accessed or used in application code.
+     */
     __type?: Type | undefined;
   }
 
@@ -53,7 +59,13 @@ export namespace IJsonSchemaUnit {
     /** Reusable schema components for `$ref` referencing. */
     components: OpenApi.IComponents;
 
-    /** @internal Type marker for compile-time tracking. */
+    /**
+     * Phantom property for TypeScript generic type preservation.
+     *
+     * This property exists only in the type system to preserve the `Type`
+     * generic parameter. It is always `undefined` at runtime and should not
+     * be accessed or used in application code.
+     */
     __type?: Type | undefined;
   }
 }

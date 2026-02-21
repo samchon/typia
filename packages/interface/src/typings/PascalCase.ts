@@ -6,9 +6,9 @@ import { ValueOf } from "./internal/ValueOf";
 /**
  * Converts all object keys to PascalCase.
  *
- * `PascalCase<T>` transforms object property names to PascalCase format
- * and erases methods like {@link Resolved}. Recursively processes
- * nested structures.
+ * `PascalCase<T>` transforms object property names to PascalCase format and
+ * erases methods like {@link Resolved}. Recursively processes nested
+ * structures.
  *
  * @template T Target type to transform
  * @author Jeongho Nam - https://github.com/samchon

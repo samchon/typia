@@ -4,7 +4,17 @@ import { NamingConvention } from "@typia/utils";
 /**
  * Error thrown during typia transformation.
  *
- * Indicates invalid usage or unsupported types in `typia.*<T>()` calls.
+ * `TransformerError` is thrown when `typia.*<T>()` receives unsupported types
+ * or invalid configurations at compile time. The error message details which
+ * types failed and why.
+ *
+ * Common causes:
+ * - Tuples in LLM schema (not supported by most LLMs)
+ * - Recursive types without `$ref` support
+ * - `any` types without explicit handling
+ * - Native classes not serializable to JSON
+ *
+ * Use {@link from} to create from {@link MetadataFactory.IError} instances.
  *
  * @author Jeongho Nam - https://github.com/samchon
  */

@@ -7,8 +7,19 @@ import { IHttpMigrateRoute } from "./IHttpMigrateRoute";
  * LLM function calling application from OpenAPI document.
  *
  * `IHttpLlmApplication` is a collection of {@link IHttpLlmFunction} schemas
- * converted from {@link OpenApi.IDocument}. Contains successful conversions
- * in {@link functions} and failed ones in {@link errors}.
+ * converted from {@link OpenApi.IDocument} by `HttpLlm.application()`. Each
+ * OpenAPI operation becomes an LLM-callable function.
+ *
+ * Successful conversions go to {@link functions}, failed ones to {@link errors}
+ * with detailed error messages. Common failure causes:
+ * - Unsupported schema features (tuples, `oneOf` with incompatible types)
+ * - Missing required fields in OpenAPI document
+ * - Operations marked with `x-samchon-human: true`
+ *
+ * Configure behavior via {@link IHttpLlmApplication.IConfig}:
+ * - {@link IHttpLlmApplication.IConfig.separate}: Split LLM vs human parameters
+ * - {@link IHttpLlmApplication.IConfig.maxLength}: Function name length limit
+ * - {@link ILlmSchema.IConfig.strict}: OpenAI structured output mode
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
@@ -28,8 +39,8 @@ export namespace IHttpLlmApplication {
     /**
      * Separates parameters into LLM and human parts.
      *
-     * Use for file uploads or sensitive data that LLM cannot handle.
-     * Return `true` for human-composed, `false` for LLM-composed.
+     * Use for file uploads or sensitive data that LLM cannot handle. Return
+     * `true` for human-composed, `false` for LLM-composed.
      *
      * @default null
      */

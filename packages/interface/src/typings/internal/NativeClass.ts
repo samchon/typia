@@ -1,10 +1,10 @@
 /**
  * Union of JavaScript built-in class types.
  *
- * `NativeClass` includes Date, collections (Set, Map, WeakSet, WeakMap),
- * typed arrays (Uint8Array, Int32Array, etc.), binary data types
- * (ArrayBuffer, DataView, Blob, File), and RegExp. These types receive
- * special handling in typia's serialization and validation.
+ * `NativeClass` includes Date, collections (Set, Map, WeakSet, WeakMap), typed
+ * arrays (Uint8Array, Int32Array, etc.), binary data types (ArrayBuffer,
+ * DataView, Blob, File), and RegExp. These types receive special handling in
+ * typia's serialization and validation.
  */
 export type NativeClass =
   | Date

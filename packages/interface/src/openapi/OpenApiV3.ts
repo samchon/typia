@@ -2,7 +2,16 @@ import { IJsonSchemaAttribute } from "../schema/IJsonSchemaAttribute";
 import * as tags from "../tags";
 
 /**
- * OpenAPI 3.0 definition.
+ * OpenAPI v3.0 specification types.
+ *
+ * `OpenApiV3` contains TypeScript type definitions for OpenAPI v3.0 documents.
+ * Used for parsing and generating OpenAPI v3.0 specifications. For a normalized
+ * format that unifies all OpenAPI versions, use {@link OpenApi} instead.
+ *
+ * Key differences from v3.1:
+ * - Uses `nullable: true` instead of `type: ["string", "null"]`
+ * - No `const` keyword support
+ * - No `prefixItems` for tuples
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
@@ -319,8 +328,7 @@ export namespace OpenApiV3 {
   export namespace IJsonSchema {
     /** Boolean type. */
     export interface IBoolean
-      extends Omit<IJsonSchemaAttribute.IBoolean, "examples">,
-        __IAttribute {
+      extends Omit<IJsonSchemaAttribute.IBoolean, "examples">, __IAttribute {
       /** Whether nullable. */
       nullable?: boolean;
 
@@ -333,8 +341,7 @@ export namespace OpenApiV3 {
 
     /** Integer type. */
     export interface IInteger
-      extends Omit<IJsonSchemaAttribute.IInteger, "examples">,
-        __IAttribute {
+      extends Omit<IJsonSchemaAttribute.IInteger, "examples">, __IAttribute {
       /** Whether nullable. */
       nullable?: boolean;
 
@@ -362,8 +369,7 @@ export namespace OpenApiV3 {
 
     /** Number (double) type. */
     export interface INumber
-      extends Omit<IJsonSchemaAttribute.INumber, "examples">,
-        __IAttribute {
+      extends Omit<IJsonSchemaAttribute.INumber, "examples">, __IAttribute {
       /** Whether nullable. */
       nullable?: boolean;
 
@@ -391,8 +397,7 @@ export namespace OpenApiV3 {
 
     /** String type. */
     export interface IString
-      extends Omit<IJsonSchemaAttribute.IString, "examples">,
-        __IAttribute {
+      extends Omit<IJsonSchemaAttribute.IString, "examples">, __IAttribute {
       /** Whether nullable. */
       nullable?: boolean;
 
@@ -441,8 +446,7 @@ export namespace OpenApiV3 {
 
     /** Array type. */
     export interface IArray
-      extends Omit<IJsonSchemaAttribute.IArray, "examples">,
-        __IAttribute {
+      extends Omit<IJsonSchemaAttribute.IArray, "examples">, __IAttribute {
       /** Whether nullable. */
       nullable?: boolean;
 
@@ -461,8 +465,7 @@ export namespace OpenApiV3 {
 
     /** Object type. */
     export interface IObject
-      extends Omit<IJsonSchemaAttribute.IObject, "examples">,
-        __IAttribute {
+      extends Omit<IJsonSchemaAttribute.IObject, "examples">, __IAttribute {
       /** Whether nullable. */
       nullable?: boolean;
 
@@ -521,23 +524,23 @@ export namespace OpenApiV3 {
 
     /** Null type. */
     export interface INullOnly
-      extends Omit<IJsonSchemaAttribute.INull, "examples">,
-        __IAttribute {
+      extends Omit<IJsonSchemaAttribute.INull, "examples">, __IAttribute {
       /** Default value. */
       default?: null;
     }
 
     /** Unknown type. */
     export interface IUnknown
-      extends Omit<IJsonSchemaAttribute.IUnknown, "examples">,
-        __IAttribute {
+      extends Omit<IJsonSchemaAttribute.IUnknown, "examples">, __IAttribute {
       /** Default value. */
       default?: any;
     }
 
     /** @internal Base attribute interface. */
-    export interface __IAttribute
-      extends Omit<IJsonSchemaAttribute, "examples"> {
+    export interface __IAttribute extends Omit<
+      IJsonSchemaAttribute,
+      "examples"
+    > {
       /** Example values. */
       examples?: any[] | Record<string, any>;
     }

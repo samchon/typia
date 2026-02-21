@@ -22,8 +22,8 @@ export function message(): never;
 /**
  * Generates Protocol Buffer message schema for type `T`.
  *
- * Creates a `.proto` message definition string from a TypeScript type.
- * Use for sharing schemas with other languages/frameworks.
+ * Creates a `.proto` message definition string from a TypeScript type. Use for
+ * sharing schemas with other languages/frameworks.
  *
  * Protocol Buffer has limited expressiveness compared to TypeScript.
  * Incompatible types cause compilation errors.
@@ -62,8 +62,8 @@ export function decode(input: Uint8Array): never;
  * - {@link isEncode} — Encodes with type checking
  * - {@link validateEncode} — Encodes with validation
  *
- * Note: Decoder validation ({@link assertDecode}, etc.) only checks custom
- * tags like `number & Minimum<7>`, not structural type safety.
+ * Note: Decoder validation ({@link assertDecode}, etc.) only checks custom tags
+ * like `number & Minimum<7>`, not structural type safety.
  *
  * @template T Target type
  * @param input Protocol Buffer binary data
@@ -89,12 +89,12 @@ export function assertDecode(
 /**
  * Decodes Protocol Buffer binary with assertion (partial safety).
  *
- * Combines {@link decode} with {@link assert}. Throws {@link TypeGuardError}
- * on validation failure.
+ * Combines {@link decode} with {@link assert}. Throws {@link TypeGuardError} on
+ * validation failure.
  *
- * Warning: Only validates custom tags (e.g., `number & Minimum<7>`,
- * `string & Format<"uuid">`), not structural type correctness. Ensure source
- * data was encoded with type-safe encoders.
+ * Warning: Only validates custom tags (e.g., `number & Minimum<7>`, `string &
+ * Format<"uuid">`), not structural type correctness. Ensure source data was
+ * encoded with type-safe encoders.
  *
  * Related functions:
  *
@@ -104,7 +104,8 @@ export function assertDecode(
  *
  * @template T Target type
  * @param input Protocol Buffer binary data
- * @param errorFactory Custom error factory receiving {@link TypeGuardError.IProps}
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
  * @returns Decoded value of type `T`
  * @throws {TypeGuardError} When custom tag validation fails
  */
@@ -128,12 +129,11 @@ export function isDecode(input: Uint8Array): never;
 /**
  * Decodes Protocol Buffer binary with type checking (partial safety).
  *
- * Combines {@link decode} with {@link is}. Returns `null` on validation
- * failure.
+ * Combines {@link decode} with {@link is}. Returns `null` on validation failure.
  *
- * Warning: Only validates custom tags (e.g., `number & Minimum<7>`,
- * `string & Format<"uuid">`), not structural type correctness. Ensure source
- * data was encoded with type-safe encoders.
+ * Warning: Only validates custom tags (e.g., `number & Minimum<7>`, `string &
+ * Format<"uuid">`), not structural type correctness. Ensure source data was
+ * encoded with type-safe encoders.
  *
  * Related functions:
  *
@@ -166,9 +166,9 @@ export function validateDecode(input: Uint8Array): never;
  * {@link IValidation.IFailure} with errors on mismatch, or
  * {@link IValidation.ISuccess} with decoded value.
  *
- * Warning: Only validates custom tags (e.g., `number & Minimum<7>`,
- * `string & Format<"uuid">`), not structural type correctness. Ensure source
- * data was encoded with type-safe encoders.
+ * Warning: Only validates custom tags (e.g., `number & Minimum<7>`, `string &
+ * Format<"uuid">`), not structural type correctness. Ensure source data was
+ * encoded with type-safe encoders.
  *
  * Related functions:
  *
@@ -219,8 +219,8 @@ export function encode(): never {
 /**
  * Encodes value to Protocol Buffer binary with assertion.
  *
- * Combines {@link assert} with {@link encode}. Throws {@link TypeGuardError}
- * on type mismatch.
+ * Combines {@link assert} with {@link encode}. Throws {@link TypeGuardError} on
+ * type mismatch.
  *
  * Related functions:
  *
@@ -233,7 +233,8 @@ export function encode(): never {
  *
  * @template T Type of input value
  * @param input Value to encode
- * @param errorFactory Custom error factory receiving {@link TypeGuardError.IProps}
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
  * @returns Protocol Buffer binary data
  * @throws {TypeGuardError} When input doesn't conform to type `T`
  * @see https://typia.io/docs/protobuf/message/#restrictions
@@ -370,7 +371,8 @@ export function createAssertDecode(
  * Creates reusable {@link assertDecode} function.
  *
  * @template T Target type
- * @param errorFactory Custom error factory receiving {@link TypeGuardError.IProps}
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
  * @returns Reusable decoder function
  */
 export function createAssertDecode<T>(
@@ -459,7 +461,8 @@ export function createAssertEncode(
  * Creates reusable {@link assertEncode} function.
  *
  * @template T Type of input value
- * @param errorFactory Custom error factory receiving {@link TypeGuardError.IProps}
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
  * @returns Reusable encoder function
  */
 export function createAssertEncode<T>(

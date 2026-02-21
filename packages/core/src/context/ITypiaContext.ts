@@ -6,8 +6,10 @@ import { ITransformOptions } from "./ITransformOptions";
 /**
  * Typia transformation context.
  *
- * Provides TypeScript compiler APIs and typia-specific utilities
- * for code transformation.
+ * Contains all dependencies needed during `typia.*<T>()` function call
+ * transformation: TypeScript compiler APIs ({@link checker}, {@link printer}),
+ * transformation context ({@link transformer}), import manager
+ * ({@link importer}), and diagnostic reporting ({@link extras}).
  *
  * @author Jeongho Nam - https://github.com/samchon
  */

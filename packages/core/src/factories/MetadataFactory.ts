@@ -16,10 +16,12 @@ import { iterate_metadata_collection } from "./internal/metadata/iterate_metadat
 import { iterate_metadata_sort } from "./internal/metadata/iterate_metadata_sort";
 
 /**
- * TypeScript type metadata analyzer.
+ * TypeScript type metadata extractor.
  *
- * Analyzes TypeScript types and extracts metadata for code generation.
- * Core component for typia's compile-time type analysis.
+ * Analyzes TypeScript types at compile-time and extracts {@link MetadataSchema}
+ * containing all type information needed for validation/serialization code
+ * generation. Handles unions, intersections, generics, type aliases, and
+ * collects reusable components into {@link MetadataStorage}.
  *
  * @author Jeongho Nam - https://github.com/samchon
  */

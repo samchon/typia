@@ -3,8 +3,8 @@ import { TagBase } from "./TagBase";
 /**
  * Exclusive maximum constraint (value < max).
  *
- * `ExclusiveMaximum<N>` validates that a number/bigint is strictly less
- * than N. Mutually exclusive with {@link Maximum}.
+ * `ExclusiveMaximum<N>` validates that a number/bigint is strictly less than N.
+ * Mutually exclusive with {@link Maximum}.
  *
  * @template Value Maximum bound (exclusive)
  * @author Jeongho Nam - https://github.com/samchon

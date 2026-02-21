@@ -3,8 +3,8 @@ import { TagBase } from "./TagBase";
 /**
  * Adds multiple named examples to JSON Schema.
  *
- * `Examples<Record>` provides labeled examples for documentation.
- * For a single example, use {@link Example} instead.
+ * `Examples<Record>` provides labeled examples for documentation. For a single
+ * example, use {@link Example} instead.
  *
  * @template Value Record mapping example names to values
  * @author Jeongho Nam - https://github.com/samchon

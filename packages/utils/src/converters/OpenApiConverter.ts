@@ -9,7 +9,21 @@ import { SwaggerV2Upgrader } from "./internal/SwaggerV2Upgrader";
 /**
  * OpenAPI version converter.
  *
- * Converts between Swagger v2.0, OpenAPI v3.0, v3.1, and typia's emended format.
+ * `OpenApiConverter` converts between different OpenAPI specification versions:
+ * Swagger v2.0, OpenAPI v3.0, OpenAPI v3.1, and typia's emended {@link OpenApi}
+ * format. Also converts individual components (schemas, operations, paths).
+ *
+ * Upgrade path (to emended v3.1):
+ * - Swagger v2.0 → emended v3.1
+ * - OpenAPI v3.0 → emended v3.1
+ * - OpenAPI v3.1 → emended v3.1
+ *
+ * Downgrade path (from emended v3.1):
+ * - emended v3.1 → Swagger v2.0
+ * - emended v3.1 → OpenAPI v3.0
+ *
+ * The emended format normalizes ambiguous expressions: dereferences `$ref`,
+ * merges `allOf`, converts `nullable` to union types, etc.
  *
  * @author Jeongho Nam - https://github.com/samchon
  */

@@ -4,9 +4,19 @@ import { IValidation } from "./IValidation";
 /**
  * LLM function calling metadata.
  *
- * `ILlmFunction` describes a function for LLM function calling. Contains
- * the function {@link name}, {@link parameters} schema, {@link output} type,
- * and built-in {@link validate} function for argument validation.
+ * `ILlmFunction` describes a single callable function for LLM agents. Generated
+ * as part of {@link ILlmApplication} by `typia.llm.application<App>()`.
+ *
+ * Contains the function {@link name} (max 64 chars for OpenAI), {@link parameters}
+ * schema for input types, optional {@link output} schema for return type, and
+ * {@link description} for LLM to understand the function's purpose.
+ *
+ * The built-in {@link validate} function checks LLM-generated arguments against
+ * the schema, enabling auto-correction when the LLM makes type errors (e.g.,
+ * returning `"123"` instead of `123`).
+ *
+ * Use {@link separated} when some parameters require human input (files,
+ * passwords) via {@link ILlmApplication.IConfig.separate}.
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
@@ -39,8 +49,8 @@ export interface ILlmFunction {
   /**
    * Validates LLM-generated arguments.
    *
-   * LLMs often make type errors (e.g., string instead of number).
-   * Use this to provide validation feedback for auto-correction.
+   * LLMs often make type errors (e.g., string instead of number). Use this to
+   * provide validation feedback for auto-correction.
    */
   validate: (args: unknown) => IValidation<unknown>;
 }

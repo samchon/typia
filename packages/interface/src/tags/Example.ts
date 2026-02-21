@@ -3,8 +3,8 @@ import { TagBase } from "./TagBase";
 /**
  * Adds a single example value to JSON Schema.
  *
- * `Example<Value>` provides documentation for API clients. For multiple
- * named examples, use {@link Examples} instead.
+ * `Example<Value>` provides documentation for API clients. For multiple named
+ * examples, use {@link Examples} instead.
  *
  * @template Value Example value (primitive, object, array, or null)
  * @author Jeongho Nam - https://github.com/samchon

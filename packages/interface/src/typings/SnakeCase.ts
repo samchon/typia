@@ -5,9 +5,9 @@ import { ValueOf } from "./internal/ValueOf";
 /**
  * Converts all object keys to snake_case.
  *
- * `SnakeCase<T>` transforms object property names to snake_case format
- * and erases methods like {@link Resolved}. Recursively processes
- * nested structures.
+ * `SnakeCase<T>` transforms object property names to snake_case format and
+ * erases methods like {@link Resolved}. Recursively processes nested
+ * structures.
  *
  * @template T Target type to transform
  * @author Jeongho Nam - https://github.com/samchon

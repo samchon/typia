@@ -91,12 +91,12 @@ export function application(
  * `config.validate` to enable validation feedback for auto-correction.
  *
  * When passed to LLM providers (ChatGPT, Claude, Gemini, etc.), the LLM
- * automatically selects functions and fills arguments from conversation.
- * You execute the function manually with the LLM-prepared arguments.
+ * automatically selects functions and fills arguments from conversation. You
+ * execute the function manually with the LLM-prepared arguments.
  *
- * Configure {@link ILlmApplication.IConfig.separate} to split parameters
- * between LLM-fillable and human-required (e.g., file uploads, passwords).
- * Merge them with {@link HttpLlm.mergeParameters} before execution.
+ * Configure {@link ILlmApplication.IConfig.separate} to split parameters between
+ * LLM-fillable and human-required (e.g., file uploads, passwords). Merge them
+ * with {@link HttpLlm.mergeParameters} before execution.
  *
  * Related functions:
  *
@@ -147,8 +147,8 @@ export function parameters(): never;
  * Creates LLM parameters schema from TypeScript object type.
  *
  * Generates {@link ILlmSchema.IParameters} for LLM function calling or
- * structured outputs. LLMs use keyworded arguments only, so the type must
- * be an object with static properties (no dynamic properties allowed).
+ * structured outputs. LLMs use keyworded arguments only, so the type must be an
+ * object with static properties (no dynamic properties allowed).
  *
  * Use cases:
  *

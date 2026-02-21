@@ -9,9 +9,9 @@ import { ValueOf } from "./internal/ValueOf";
  *
  * `Primitive<T>` transforms types for JSON serialization: boxed primitives
  * become primitives (Boolean→boolean), classes become plain objects with
- * methods removed, Date becomes `string & Format<"date-time">`, and types
- * with `toJSON()` use their return type. Native classes (except Date) and
- * bigint become `never` as they're not JSON-serializable.
+ * methods removed, Date becomes `string & Format<"date-time">`, and types with
+ * `toJSON()` use their return type. Native classes (except Date) and bigint
+ * become `never` as they're not JSON-serializable.
  *
  * @template T Target type to convert
  * @author Jeongho Nam - https://github.com/samchon

@@ -6,7 +6,15 @@ import { IValidation } from "./IValidation";
  * LLM function calling application.
  *
  * `ILlmApplication` is a collection of {@link ILlmFunction} schemas generated
- * from a TypeScript class/interface by `typia.llm.application<App>()`.
+ * from a TypeScript class or interface by `typia.llm.application<App>()`. Each
+ * public method becomes an {@link ILlmFunction} that LLM agents can invoke.
+ *
+ * Configure behavior via {@link ILlmApplication.IConfig}:
+ * - {@link ILlmApplication.IConfig.separate}: Split parameters into LLM-fillable
+ *   vs human-required (e.g., file uploads, passwords)
+ * - {@link ILlmApplication.IConfig.validate}: Custom validation per method
+ * - {@link ILlmSchema.IConfig.strict}: OpenAI structured output mode
+ * - {@link ILlmSchema.IConfig.reference}: Control `$ref` inlining behavior
  *
  * @template Class Source class/interface type
  * @author Jeongho Nam - https://github.com/samchon
@@ -18,7 +26,13 @@ export interface ILlmApplication<Class extends object = any> {
   /** Application configuration. */
   config: ILlmApplication.IConfig<Class>;
 
-  /** @internal Class type marker. */
+  /**
+   * Phantom property for TypeScript generic type preservation.
+   *
+   * This property exists only in the type system to preserve the `Class`
+   * generic parameter. It is always `undefined` at runtime and should not
+   * be accessed or used in application code.
+   */
   __class?: Class | undefined;
 }
 export namespace ILlmApplication {
@@ -28,8 +42,8 @@ export namespace ILlmApplication {
     /**
      * Parameter separator function.
      *
-     * Splits parameters into LLM-fillable and human-required
-     * (e.g., file uploads, passwords). Return `true` for human, `false` for LLM.
+     * Splits parameters into LLM-fillable and human-required (e.g., file
+     * uploads, passwords). Return `true` for human, `false` for LLM.
      *
      * @default null
      */

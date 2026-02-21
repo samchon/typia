@@ -1,7 +1,15 @@
 /**
  * String naming convention converters.
  *
- * Converts between camelCase, PascalCase, and snake_case.
+ * `NamingConvention` converts between common code naming conventions:
+ * camelCase, PascalCase, and snake_case. Handles edge cases like consecutive
+ * uppercase letters (e.g., `XMLParser` → `xml_parser`) and leading underscores.
+ *
+ * Functions:
+ * - {@link camel}: Convert to camelCase (`fooBar`)
+ * - {@link pascal}: Convert to PascalCase (`FooBar`)
+ * - {@link snake}: Convert to snake_case (`foo_bar`)
+ * - {@link variable}: Test if string is valid JavaScript variable name
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
@@ -10,7 +18,7 @@ export namespace NamingConvention {
    * Convert to camelCase.
    *
    * @param str Input string
-   * @returns camelCase string
+   * @returns CamelCase string
    */
   export function camel(str: string) {
     return unsnake({
@@ -43,7 +51,7 @@ export namespace NamingConvention {
    * Convert to snake_case.
    *
    * @param str Input string
-   * @returns snake_case string
+   * @returns Snake_case string
    */
   export function snake(str: string): string {
     if (str.length === 0) return str;
@@ -111,7 +119,7 @@ export namespace NamingConvention {
    * Check if string is valid JavaScript variable name.
    *
    * @param str String to check
-   * @returns true if valid variable name
+   * @returns True if valid variable name
    */
   export const variable = (str: string): boolean =>
     reserved(str) === false && /^[a-zA-Z_$][a-zA-Z_$0-9]*$/g.test(str);
@@ -120,7 +128,7 @@ export namespace NamingConvention {
    * Check if string is JavaScript reserved word.
    *
    * @param str String to check
-   * @returns true if reserved word
+   * @returns True if reserved word
    */
   export const reserved = (str: string): boolean => RESERVED.has(str);
 }

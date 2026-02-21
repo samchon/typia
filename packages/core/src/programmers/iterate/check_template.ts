@@ -1,7 +1,6 @@
 import ts from "typescript";
 
 import { MetadataTemplate } from "../../schemas/metadata/MetadataTemplate";
-
 import { ICheckEntry } from "../helpers/ICheckEntry";
 import { template_to_pattern } from "./template_to_pattern";
 

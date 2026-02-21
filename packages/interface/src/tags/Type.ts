@@ -3,8 +3,8 @@ import { TagBase } from "./TagBase";
 /**
  * Numeric bit-width type constraint.
  *
- * `Type<Value>` constrains numbers to specific bit-width formats:
- * int32, uint32, int64, uint64, float, double.
+ * `Type<Value>` constrains numbers to specific bit-width formats: int32,
+ * uint32, int64, uint64, float, double.
  *
  * @template Value Numeric type representation
  * @author Jeongho Nam - https://github.com/samchon

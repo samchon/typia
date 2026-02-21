@@ -54,7 +54,8 @@ export function camel(): never {
  *
  * @template T Type of input value
  * @param input Object to convert
- * @param errorFactory Custom error factory receiving {@link TypeGuardError.IProps}
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
  * @returns New object with camelCase property names
  * @throws {TypeGuardError} When input doesn't conform to type `T`
  */
@@ -77,8 +78,8 @@ export function assertCamel(): never {
 /**
  * Converts property names to camelCase with type checking.
  *
- * Transforms all property names to camelCase with {@link is} validation.
- * Returns `null` on type mismatch.
+ * Transforms all property names to camelCase with {@link is} validation. Returns
+ * `null` on type mismatch.
  *
  * Related functions:
  *
@@ -167,7 +168,8 @@ export function pascal(): never {
  *
  * @template T Type of input value
  * @param input Object to convert
- * @param errorFactory Custom error factory receiving {@link TypeGuardError.IProps}
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
  * @returns New object with PascalCase property names
  * @throws {TypeGuardError} When input doesn't conform to type `T`
  */
@@ -280,7 +282,8 @@ export function snake(): never {
  *
  * @template T Type of input value
  * @param input Object to convert
- * @param errorFactory Custom error factory receiving {@link TypeGuardError.IProps}
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
  * @returns New object with snake_case property names
  * @throws {TypeGuardError} When input doesn't conform to type `T`
  */
@@ -389,7 +392,8 @@ export function createAssertCamel(
  * Creates reusable {@link assertCamel} function.
  *
  * @template T Type of input value
- * @param errorFactory Custom error factory receiving {@link TypeGuardError.IProps}
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
  * @returns Reusable conversion function
  */
 export function createAssertCamel<T>(
@@ -476,7 +480,8 @@ export function createAssertPascal(
  * Creates reusable {@link assertPascal} function.
  *
  * @template T Type of input value
- * @param errorFactory Custom error factory receiving {@link TypeGuardError.IProps}
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
  * @returns Reusable conversion function
  */
 export function createAssertPascal<T>(
@@ -563,7 +568,8 @@ export function createAssertSnake(
  * Creates reusable {@link assertSnake} function.
  *
  * @template T Type of input value
- * @param errorFactory Custom error factory receiving {@link TypeGuardError.IProps}
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
  * @returns Reusable conversion function
  */
 export function createAssertSnake<T>(

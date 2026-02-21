@@ -2,10 +2,12 @@ import { MapUtil } from "@typia/utils";
 import ts from "typescript";
 
 /**
- * Import statement manager.
+ * Import statement manager for code generation.
  *
- * Manages import declarations for generated code, handling
- * default imports, named imports, and namespace imports.
+ * Collects and deduplicates import declarations needed by generated code.
+ * Tracks default imports ({@link default}), named imports ({@link instance}), and
+ * namespace imports ({@link namespace}). Call {@link toStatements} to emit the
+ * final import declaration AST nodes.
  *
  * @author Jeongho Nam - https://github.com/samchon
  */

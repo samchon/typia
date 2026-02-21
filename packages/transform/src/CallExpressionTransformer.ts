@@ -117,6 +117,15 @@ import { ProtobufValidateEncodeTransformer } from "./features/protobuf/ProtobufV
 import { ReflectMetadataTransformer } from "./features/reflect/ReflectMetadataTransformer";
 import { ReflectNameTransformer } from "./features/reflect/ReflectNameTransformer";
 
+/**
+ * Transforms `typia.*` function call expressions.
+ *
+ * Routes typia function calls (e.g., `typia.is<T>()`, `typia.assert<T>()`) to
+ * their corresponding transformers. Identifies calls by resolving the
+ * declaration signature and matching against registered functor map.
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
 export namespace CallExpressionTransformer {
   export const transform = (props: {
     context: ITypiaContext;

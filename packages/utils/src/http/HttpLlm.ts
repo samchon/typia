@@ -17,10 +17,23 @@ import { HttpLlmFunctionFetcher } from "./internal/HttpLlmFunctionFetcher";
 import { LlmDataMerger } from "./internal/LlmDataMerger";
 
 /**
- * LLM function calling from OpenAPI documents.
+ * LLM function calling utilities for OpenAPI documents.
  *
- * Composes LLM function calling applications from OpenAPI documents,
- * executes function calls, and merges human/LLM parameters.
+ * `HttpLlm` converts OpenAPI documents into LLM function calling applications
+ * and executes them. Supports all OpenAPI versions (Swagger 2.0, OpenAPI 3.0,
+ * 3.1) through automatic conversion to {@link OpenApi} format.
+ *
+ * Main functions:
+ * - {@link application}: Convert OpenAPI document to {@link IHttpLlmApplication}
+ * - {@link execute}: Call an LLM function and return the response body
+ * - {@link propagate}: Call an LLM function and return full HTTP response
+ * - {@link mergeParameters}: Merge LLM-filled and human-filled parameters
+ *
+ * Typical workflow:
+ * 1. Load OpenAPI document (JSON/YAML)
+ * 2. Call `HttpLlm.application()` to get function schemas
+ * 3. Send function schemas to LLM for function selection
+ * 4. Call `HttpLlm.execute()` with LLM's chosen function and arguments
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
@@ -90,8 +103,8 @@ export namespace HttpLlm {
   /**
    * Execute LLM function call.
    *
-   * Calls API endpoint and returns response body.
-   * Throws {@link HttpError} on non-2xx status.
+   * Calls API endpoint and returns response body. Throws {@link HttpError} on
+   * non-2xx status.
    *
    * @param props Function call properties
    * @returns Response body
@@ -103,8 +116,8 @@ export namespace HttpLlm {
   /**
    * Propagate LLM function call.
    *
-   * Calls API endpoint and returns full response including non-2xx.
-   * Use when you need to handle error responses yourself.
+   * Calls API endpoint and returns full response including non-2xx. Use when
+   * you need to handle error responses yourself.
    *
    * @param props Function call properties
    * @returns Full HTTP response
@@ -131,8 +144,8 @@ export namespace HttpLlm {
   /**
    * Merge separated parameters.
    *
-   * Combines human and LLM parameters when `separate` option was used.
-   * Throws error if `separate` was not configured.
+   * Combines human and LLM parameters when `separate` option was used. Throws
+   * error if `separate` was not configured.
    *
    * @param props Merge properties
    * @returns Merged parameters

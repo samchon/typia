@@ -2,7 +2,17 @@ import { IJsonSchemaAttribute } from "../schema/IJsonSchemaAttribute";
 import * as tags from "../tags";
 
 /**
- * Swagger v2.0 definition.
+ * Swagger v2.0 specification types.
+ *
+ * `SwaggerV2` contains TypeScript type definitions for Swagger v2.0 (OpenAPI
+ * v2) documents. Used for parsing legacy Swagger specifications. For a
+ * normalized format that unifies all OpenAPI versions, use {@link OpenApi}.
+ *
+ * Key differences from OpenAPI v3.x:
+ * - Uses `definitions` instead of `components.schemas`
+ * - Body parameters use `in: "body"` with `schema` property
+ * - No `requestBody`, `oneOf`, `anyOf`, or `nullable`
+ * - Uses `host` + `basePath` instead of `servers`
  *
  * @author Jeongho Nam - https://github.com/samchon
  */

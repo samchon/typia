@@ -6,9 +6,9 @@ import { dedent } from "./dedent";
 /**
  * Format validation failure for LLM feedback.
  *
- * When LLM generates invalid function call arguments, this produces
- * annotated JSON with inline `// ❌` error comments at each invalid value,
- * helping the LLM understand and correct its mistakes.
+ * When LLM generates invalid function call arguments, this produces annotated
+ * JSON with inline `// ❌` error comments at each invalid value, helping the LLM
+ * understand and correct its mistakes.
  *
  * @param failure Validation failure from typia
  * @returns Markdown code block with error-annotated JSON

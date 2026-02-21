@@ -43,14 +43,14 @@ export namespace TagBase {
     value: Value;
 
     /**
-     * Validation script using `$input` as variable name.
-     * Inserted into generated validation function.
+     * Validation script using `$input` as variable name. Inserted into
+     * generated validation function.
      */
     validate?: Validate;
 
     /**
-     * Exclusivity rule. `true` prevents duplicate same-kind tags.
-     * String array specifies incompatible tag kinds.
+     * Exclusivity rule. `true` prevents duplicate same-kind tags. String array
+     * specifies incompatible tag kinds.
      *
      * @default false
      */
