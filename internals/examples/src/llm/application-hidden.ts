@@ -1,5 +1,4 @@
-import { ILlmApplication } from "@samchon/openapi";
-import typia, { tags } from "typia";
+import typia, { ILlmApplication, tags } from "typia";
 
 import { IBbsArticle } from "./IBbsArticle";
 

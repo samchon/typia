@@ -67,4 +67,7 @@ export interface ITransformOptions {
    * @default true
    */
   undefined?: undefined | boolean;
+
+  /** @internal */
+  runtime?: "ts" | "js";
 }

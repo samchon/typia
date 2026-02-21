@@ -1,5 +1,5 @@
-import { ILlmApplication, ILlmSchema, LlmTypeChecker } from "@samchon/openapi";
-import typia from "typia";
+import { LlmTypeChecker } from "@typia/utils";
+import typia, { ILlmApplication, ILlmSchema } from "typia";
 
 import { BbsArticleService } from "./BbsArticleService";
 
