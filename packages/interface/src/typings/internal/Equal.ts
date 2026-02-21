@@ -4,6 +4,7 @@
  * `Equal<X, Y>` returns `true` if types X and Y are identical, `false`
  * otherwise. Works with any TypeScript types including unions.
  *
+ * @author Kyungsu Kang - https://github.com/kakasoo
  * @template X First type to compare
  * @template Y Second type to compare
  */

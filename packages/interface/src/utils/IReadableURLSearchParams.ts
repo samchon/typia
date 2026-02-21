@@ -17,7 +17,7 @@
  * work with both standard `URLSearchParams` and framework-specific
  * implementations.
  *
- * @author Jeongho Nam - https://github.com/samchon
+ * @author https://github.com/miyaji255
  */
 export type IReadableURLSearchParams = Pick<
   URLSearchParams,

@@ -14,6 +14,8 @@ import { ValueOf } from "./internal/ValueOf";
  * become `never` as they're not JSON-serializable.
  *
  * @author Jeongho Nam - https://github.com/samchon
+ * @author Kyungsu Kang - https://github.com/kakasoo
+ * @author Michael - https://github.com/8471919
  * @template T Target type to convert
  */
 export type Primitive<T> =

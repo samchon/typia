@@ -16,6 +16,7 @@
  * like `node-fetch` via the {@link fetch} property.
  *
  * @author Jeongho Nam - https://github.com/samchon
+ * @author Seungjun We - https://github.com/SeungjunWe
  */
 export interface IHttpConnection {
   /**
