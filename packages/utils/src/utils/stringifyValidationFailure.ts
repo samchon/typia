@@ -7,17 +7,18 @@ import { dedent } from "./dedent";
  * Format validation failure for LLM auto-correction feedback.
  *
  * When LLM generates invalid function call arguments, this produces annotated
- * JSON with inline `// ❌` error comments at each invalid value. Send this
- * formatted output back to the LLM so it can understand and correct its
- * mistakes in the next conversation turn.
+ * JSON with inline `// ❌` error comments at each invalid property. The output
+ * is wrapped in a markdown code block so that LLM can understand and correct
+ * its mistakes in the next turn.
  *
- * Use this with {@link ILlmFunction.validate} results:
+ * Below is an example of the output format:
  *
- * ```typescript
- * const result = func.validate(llmArgs);
- * if (!result.success) {
- *   const feedback = stringifyValidationFailure(result);
- *   // Send feedback to LLM for auto-correction
+ * ```json
+ * {
+ *   "name": "John",
+ *   "age": "twenty", // ❌ [{"path":"$input.age","expected":"number & Type<\"uint32\">"}]
+ *   "email": "not-an-email", // ❌ [{"path":"$input.email","expected":"string & Format<\"email\">"}]
+ *   "hobbies": "reading" // ❌ [{"path":"$input.hobbies","expected":"Array<string>"}]
  * }
  * ```
  *
