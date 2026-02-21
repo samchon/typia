@@ -6,7 +6,7 @@ import { SpecialFields } from "./SpecialFields";
  * `OmitNever<T>` removes all properties whose value type is `never`, producing
  * a cleaner type without impossible properties.
  *
- * @template T Target object type
  * @author Jeongho Nam - https://github.com/samchon
+ * @template T Target object type
  */
 export type OmitNever<T extends object> = Omit<T, SpecialFields<T, never>>;

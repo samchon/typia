@@ -6,8 +6,8 @@ import type { TagBase } from "./TagBase";
  * `Format<Value>` validates strings against predefined formats (email, uuid,
  * url, date-time, etc.). Mutually exclusive with {@link Pattern}.
  *
- * @template Value Format identifier (see {@link Format.Value} for options)
  * @author Jeongho Nam - https://github.com/samchon
+ * @template Value Format identifier (see {@link Format.Value} for options)
  */
 export type Format<Value extends Format.Value> = TagBase<{
   target: "string";
@@ -24,6 +24,7 @@ export namespace Format {
    * Supported format identifiers.
    *
    * Standard JSON Schema formats:
+   *
    * - `email`, `idn-email`: Email addresses
    * - `hostname`, `idn-hostname`: Hostnames
    * - `uri`, `uri-reference`, `uri-template`, `url`: URLs

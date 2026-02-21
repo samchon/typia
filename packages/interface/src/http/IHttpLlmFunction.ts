@@ -6,11 +6,12 @@ import { IHttpMigrateRoute } from "./IHttpMigrateRoute";
 /**
  * LLM function calling schema from OpenAPI operation.
  *
- * `IHttpLlmFunction` represents a single HTTP endpoint converted to LLM function
- * calling format. Generated from {@link OpenApi.IOperation} as part of
+ * `IHttpLlmFunction` represents a single HTTP endpoint converted to LLM
+ * function calling format. Generated from {@link OpenApi.IOperation} as part of
  * {@link IHttpLlmApplication}.
  *
  * Key properties:
+ *
  * - {@link name}: Function name (max 64 chars for OpenAI compatibility)
  * - {@link parameters}: Input schema with path/query/body merged
  * - {@link output}: Response schema (undefined if void)

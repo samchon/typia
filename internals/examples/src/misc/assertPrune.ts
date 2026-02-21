@@ -6,19 +6,13 @@ const pruned: IDepartment = typia.misc.assertPrune(department);
 console.log(pruned);
 
 interface IDepartment {
-  /**
-   * @format uuid
-   */
+  /** @format uuid */
   id: string;
 
-  /**
-   * @minLength 3
-   */
+  /** @minLength 3 */
   name: string;
 
-  /**
-   * @type int
-   */
+  /** @type int */
   limit: number;
 
   clerks: IClerk[];
@@ -34,8 +28,6 @@ interface IClerk {
 
   authority: number;
 
-  /**
-   * @format date
-   */
+  /** @format date */
   joined_at: string;
 }

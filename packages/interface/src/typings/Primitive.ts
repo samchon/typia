@@ -13,8 +13,8 @@ import { ValueOf } from "./internal/ValueOf";
  * `toJSON()` use their return type. Native classes (except Date) and bigint
  * become `never` as they're not JSON-serializable.
  *
- * @template T Target type to convert
  * @author Jeongho Nam - https://github.com/samchon
+ * @template T Target type to convert
  */
 export type Primitive<T> =
   Equal<T, PrimitiveMain<T>> extends true ? T : PrimitiveMain<T>;

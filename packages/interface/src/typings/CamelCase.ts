@@ -10,8 +10,8 @@ import { ValueOf } from "./internal/ValueOf";
  * erases methods like {@link Resolved}. Recursively processes nested
  * structures.
  *
- * @template T Target type to transform
  * @author Jeongho Nam - https://github.com/samchon
+ * @template T Target type to transform
  */
 export type CamelCase<T> =
   Equal<T, CamelizeMain<T>> extends true ? T : CamelizeMain<T>;

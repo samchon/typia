@@ -10,6 +10,7 @@ import { IHttpMigrateRoute } from "./IHttpMigrateRoute";
  * generation with full HTTP semantics.
  *
  * Each {@link IHttpMigrateRoute} represents a single API endpoint with:
+ *
  * - Resolved path parameters (`:id` format)
  * - Combined query/header schemas as objects
  * - Request/response body with content type

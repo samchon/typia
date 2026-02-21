@@ -4,9 +4,7 @@ const data: TypeTag = typia.random<TypeTag>();
 console.log(data);
 
 interface TypeTag {
-  /**
-   * @type int
-   */
+  /** @type int */
   type: number;
 
   /**
@@ -15,18 +13,12 @@ interface TypeTag {
    */
   number?: number;
 
-  /**
-   * @minLength 3
-   */
+  /** @minLength 3 */
   string: string;
 
-  /**
-   * @pattern ^[a-z]+$
-   */
+  /** @pattern ^[a-z]+$ */
   pattern: string;
 
-  /**
-   * @format date-time
-   */
+  /** @format date-time */
   format: string | null;
 }

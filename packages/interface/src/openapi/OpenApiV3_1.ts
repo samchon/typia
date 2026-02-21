@@ -5,18 +5,20 @@ import * as tags from "../tags";
  * OpenAPI v3.1 specification types (raw, unemended).
  *
  * `OpenApiV3_1` contains TypeScript type definitions for raw OpenAPI v3.1
- * documents as-is from the specification. Unlike {@link OpenApi}, this
- * preserves the original structure including `$ref` references and `allOf`
- * compositions without normalization.
+ * documents as-is from the specification. Unlike {@link OpenApi}, this preserves
+ * the original structure including `$ref` references and `allOf` compositions
+ * without normalization.
  *
  * Key features in v3.1:
+ *
  * - JSON Schema draft 2020-12 compatibility
  * - `type` can be an array: `type: ["string", "null"]`
  * - `const` keyword for constant values
  * - `prefixItems` for tuple definitions
  * - Webhooks support
  *
- * For a normalized format that simplifies schema processing, use {@link OpenApi}.
+ * For a normalized format that simplifies schema processing, use
+ * {@link OpenApi}.
  *
  * @author Jeongho Nam - https://github.com/samchon
  */

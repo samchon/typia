@@ -3,9 +3,11 @@
  *
  * `NamingConvention` converts between common code naming conventions:
  * camelCase, PascalCase, and snake_case. Handles edge cases like consecutive
- * uppercase letters (e.g., `XMLParser` → `xml_parser`) and leading underscores.
+ * uppercase letters (e.g., `XMLParser` → `xml_parser`) and leading
+ * underscores.
  *
  * Functions:
+ *
  * - {@link camel}: Convert to camelCase (`fooBar`)
  * - {@link pascal}: Convert to PascalCase (`FooBar`)
  * - {@link snake}: Convert to snake_case (`foo_bar`)

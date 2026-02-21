@@ -9,6 +9,7 @@ import { NamingConvention } from "@typia/utils";
  * types failed and why.
  *
  * Common causes:
+ *
  * - Tuples in LLM schema (not supported by most LLMs)
  * - Recursive types without `$ref` support
  * - `any` types without explicit handling

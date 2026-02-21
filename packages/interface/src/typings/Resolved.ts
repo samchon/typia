@@ -11,8 +11,8 @@ import { ValueOf } from "./internal/ValueOf";
  * recursively processes nested structures. Native classes (Date, Set, Map,
  * etc.) are preserved unchanged.
  *
- * @template T Target type to resolve
  * @author Jeongho Nam - https://github.com/samchon
+ * @template T Target type to resolve
  */
 export type Resolved<T> =
   Equal<T, ResolvedMain<T>> extends true ? T : ResolvedMain<T>;

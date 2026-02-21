@@ -1,13 +1,27 @@
 import { TagBase } from "./TagBase";
 
 /**
- * Exclusive maximum constraint (value < max).
+ * Exclusive maximum value constraint (value < max).
  *
- * `ExclusiveMaximum<N>` validates that a number/bigint is strictly less than N.
- * Mutually exclusive with {@link Maximum}.
+ * `ExclusiveMaximum<N>` is a type tag that validates numeric values are
+ * strictly less than the specified bound (not equal). Apply it to `number` or
+ * `bigint` properties using TypeScript intersection types.
  *
- * @template Value Maximum bound (exclusive)
+ * This constraint is **mutually exclusive** with {@link Maximum} - you cannot
+ * use both on the same property. Use `ExclusiveMaximum` for exclusive bounds
+ * (<) and `Maximum` for inclusive bounds (<=).
+ *
+ * The constraint is enforced at runtime by `typia.is()`, `typia.assert()`, and
+ * `typia.validate()`. It also generates `exclusiveMaximum` in JSON Schema.
+ *
  * @author Jeongho Nam - https://github.com/samchon
+ * @example
+ *   interface Temperature {
+ *     // Must be less than 100 (boiling point), not equal
+ *     celsius: number & ExclusiveMaximum<100>;
+ *   }
+ *
+ * @template Value The maximum bound (exclusive - value must be less)
  */
 export type ExclusiveMaximum<Value extends number | bigint> = TagBase<{
   target: Value extends bigint ? "bigint" : "number";

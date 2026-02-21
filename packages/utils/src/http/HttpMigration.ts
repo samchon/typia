@@ -24,7 +24,9 @@ import { HttpMigrateRouteFetcher } from "./internal/HttpMigrateRouteFetcher";
  * automatic conversion to normalized {@link OpenApi} format.
  *
  * Main functions:
- * - {@link application}: Convert OpenAPI document to {@link IHttpMigrateApplication}
+ *
+ * - {@link application}: Convert OpenAPI document to
+ *   {@link IHttpMigrateApplication}
  * - {@link execute}: Call a route and return response body
  * - {@link propagate}: Call a route and return full HTTP response (including
  *   non-2xx)

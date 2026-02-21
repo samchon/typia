@@ -1,13 +1,29 @@
 import { TagBase } from "./TagBase";
 
 /**
- * Minimum constraint (value >= min).
+ * Inclusive minimum value constraint (value >= min).
  *
- * `Minimum<N>` validates that a number/bigint is greater than or equal to N.
- * Mutually exclusive with {@link ExclusiveMinimum}.
+ * `Minimum<N>` is a type tag that validates numeric values are greater than or
+ * equal to the specified bound. Apply it to `number` or `bigint` properties
+ * using TypeScript intersection types.
  *
- * @template Value Minimum bound (inclusive)
+ * This constraint is **mutually exclusive** with {@link ExclusiveMinimum} - you
+ * cannot use both on the same property. Use `Minimum` for inclusive bounds (>=)
+ * and `ExclusiveMinimum` for exclusive bounds (>).
+ *
+ * The constraint is enforced at runtime by `typia.is()`, `typia.assert()`, and
+ * `typia.validate()`. It also generates `minimum` in JSON Schema output.
+ *
  * @author Jeongho Nam - https://github.com/samchon
+ * @example
+ *   interface Product {
+ *     // Price must be 0 or greater
+ *     price: number & Minimum<0>;
+ *     // Quantity must be at least 1
+ *     quantity: number & Minimum<1>;
+ *   }
+ *
+ * @template Value The minimum allowed value (inclusive)
  */
 export type Minimum<Value extends number | bigint> = TagBase<{
   target: Value extends bigint ? "bigint" : "number";

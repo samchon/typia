@@ -7,8 +7,8 @@ import { OmitNever } from "./OmitNever";
  * only data properties. Useful for serialization where methods should be
  * excluded.
  *
- * @template T Target class type
  * @author Jeongho Nam - https://github.com/samchon
+ * @template T Target class type
  */
 export type ClassProperties<T extends object> = OmitNever<{
   [K in keyof T]: T[K] extends Function ? never : T[K];

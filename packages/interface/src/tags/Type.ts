@@ -1,13 +1,37 @@
 import { TagBase } from "./TagBase";
 
 /**
- * Numeric bit-width type constraint.
+ * Numeric precision and bit-width type constraint.
  *
- * `Type<Value>` constrains numbers to specific bit-width formats: int32,
- * uint32, int64, uint64, float, double.
+ * `Type<Value>` is a type tag that constrains numeric values to specific
+ * bit-width representations. This is essential for Protocol Buffers
+ * serialization and ensures values fit within their specified ranges.
  *
- * @template Value Numeric type representation
+ * Available types:
+ *
+ * - `"int32"`: Signed 32-bit integer (-2,147,483,648 to 2,147,483,647)
+ * - `"uint32"`: Unsigned 32-bit integer (0 to 4,294,967,295)
+ * - `"int64"`: Signed 64-bit integer (for `number` or `bigint`)
+ * - `"uint64"`: Unsigned 64-bit integer (for `number` or `bigint`)
+ * - `"float"`: 32-bit floating point
+ * - `"double"`: 64-bit floating point (default JavaScript number)
+ *
+ * For Protocol Buffers, integer types also determine the wire encoding. The
+ * constraint is enforced at runtime by `typia.is()`, `typia.assert()`, and
+ * `typia.validate()`. It generates appropriate `type` in JSON Schema.
+ *
  * @author Jeongho Nam - https://github.com/samchon
+ * @example
+ *   interface Message {
+ *     // 32-bit unsigned integer
+ *     id: number & Type<"uint32">;
+ *     // 64-bit signed integer as bigint
+ *     timestamp: bigint & Type<"int64">;
+ *     // 32-bit float for memory efficiency
+ *     score: number & Type<"float">;
+ *   }
+ *
+ * @template Value Numeric type identifier
  */
 export type Type<
   Value extends "int32" | "uint32" | "int64" | "uint64" | "float" | "double",

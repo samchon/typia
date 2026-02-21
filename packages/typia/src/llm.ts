@@ -21,12 +21,16 @@ export function controller(
  * executor ({@link ILlmController.execute}).
  *
  * Each {@link ILlmFunction} includes a built-in {@link ILlmFunction.validate}
- * function that validates LLM-generated arguments before execution. Use
- * `config.validate` to enable validation feedback for auto-correction.
+ * function that validates LLM-generated arguments before execution. When
+ * validation fails, use `stringifyValidationFailure()` from `@typia/utils` to
+ * format errors for LLM feedback, enabling auto-correction.
  *
  * When passed to LLM providers (ChatGPT, Claude, Gemini, etc.), the LLM
  * automatically selects functions and fills arguments from conversation.
  * Execute the selected function via {@link ILlmController.execute}.
+ *
+ * Configure {@link ILlmApplication.IConfig.separate} to split parameters between
+ * LLM-fillable and human-required (e.g., file uploads, passwords).
  *
  * Related functions:
  *
@@ -38,7 +42,7 @@ export function controller(
  * @template Config LLM schema configuration
  * @param name Controller identifier name
  * @param execute Executor instance
- * @param config LLM application options (separate, validate)
+ * @param config LLM application options
  * @returns LLM function calling controller
  */
 export function controller<
@@ -87,8 +91,9 @@ export function application(
  * an executor—use {@link controller} if you need execution capability.
  *
  * Each {@link ILlmFunction} includes a built-in {@link ILlmFunction.validate}
- * function that validates LLM-generated arguments before execution. Use
- * `config.validate` to enable validation feedback for auto-correction.
+ * function that validates LLM-generated arguments before execution. When
+ * validation fails, use `stringifyValidationFailure()` from `@typia/utils` to
+ * format errors for LLM feedback, enabling auto-correction.
  *
  * When passed to LLM providers (ChatGPT, Claude, Gemini, etc.), the LLM
  * automatically selects functions and fills arguments from conversation. You
@@ -106,7 +111,7 @@ export function application(
  *
  * @template Class Target class or interface type
  * @template Config LLM schema configuration
- * @param config LLM application options (separate, validate)
+ * @param config LLM application options
  * @returns LLM function calling application
  */
 export function application<

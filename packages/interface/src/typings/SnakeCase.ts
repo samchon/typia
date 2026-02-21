@@ -9,8 +9,8 @@ import { ValueOf } from "./internal/ValueOf";
  * erases methods like {@link Resolved}. Recursively processes nested
  * structures.
  *
- * @template T Target type to transform
  * @author Jeongho Nam - https://github.com/samchon
+ * @template T Target type to transform
  */
 export type SnakeCase<T> =
   Equal<T, SnakageMain<T>> extends true ? T : SnakageMain<T>;

@@ -9,6 +9,7 @@ import * as tags from "../tags";
  * format that unifies all OpenAPI versions, use {@link OpenApi} instead.
  *
  * Key differences from v3.1:
+ *
  * - Uses `nullable: true` instead of `type: ["string", "null"]`
  * - No `const` keyword support
  * - No `prefixItems` for tuples

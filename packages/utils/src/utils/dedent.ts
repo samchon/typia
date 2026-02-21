@@ -4,10 +4,10 @@
  * Strips leading/trailing blank lines and removes the minimum indentation level
  * from all lines.
  *
+ * @author Jeongho Nam - https://github.com/samchon
  * @param strings Template literal strings
  * @param values Interpolated values
  * @returns Dedented string
- * @author Jeongho Nam - https://github.com/samchon
  */
 export function dedent(
   strings: TemplateStringsArray,

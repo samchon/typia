@@ -6,16 +6,39 @@ import { FileTransformer } from "./FileTransformer";
 export * from "./ImportTransformer";
 
 /**
- * TypeScript transformer for typia.
+ * TypeScript transformer for typia runtime code generation.
  *
- * Converts `typia.*<T>()` function calls into optimized runtime code. Requires
- * `strictNullChecks` or `strict` mode enabled.
+ * `transform` is the entry point for typia's compile-time transformation. It
+ * converts `typia.*<T>()` function calls (e.g., `typia.is<User>(data)`) into
+ * optimized runtime validation, serialization, or transformation code.
  *
- * @param program TypeScript program instance
- * @param options Transformer options
- * @param extras Transformer context with diagnostic utilities
- * @returns Transformer factory for source file processing
+ * The transformer analyzes the generic type parameter `T` at compile time and
+ * generates specialized code that performs type checking without runtime
+ * reflection. This approach provides both type safety and high performance.
+ *
+ * **Requirements:**
+ *
+ * - TypeScript's `strictNullChecks` or `strict` compiler option must be enabled
+ * - The transformer must be configured in `tsconfig.json` via ts-patch or
+ *   ttypescript
+ *
+ * **Configuration example (tsconfig.json):**
+ *
+ * ```json
+ * {
+ *   "compilerOptions": {
+ *     "strict": true,
+ *     "plugins": [{ "transform": "typia/lib/transform" }]
+ *   }
+ * }
+ * ```
+ *
  * @author Jeongho Nam - https://github.com/samchon
+ * @param program TypeScript program instance from the compiler
+ * @param options Optional transformer configuration (finite, numeric,
+ *   functional, undefined)
+ * @param extras Diagnostic utilities for error reporting during transformation
+ * @returns Transformer factory that processes source files
  */
 export const transform = (
   program: ts.Program,

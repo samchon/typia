@@ -14,13 +14,15 @@ import { SwaggerV2Upgrader } from "./internal/SwaggerV2Upgrader";
  * format. Also converts individual components (schemas, operations, paths).
  *
  * Upgrade path (to emended v3.1):
+ *
  * - Swagger v2.0 → emended v3.1
  * - OpenAPI v3.0 → emended v3.1
  * - OpenAPI v3.1 → emended v3.1
  *
  * Downgrade path (from emended v3.1):
- * - emended v3.1 → Swagger v2.0
- * - emended v3.1 → OpenAPI v3.0
+ *
+ * - Emended v3.1 → Swagger v2.0
+ * - Emended v3.1 → OpenAPI v3.0
  *
  * The emended format normalizes ambiguous expressions: dereferences `$ref`,
  * merges `allOf`, converts `nullable` to union types, etc.

@@ -12,11 +12,13 @@ import { IHttpMigrateRoute } from "./IHttpMigrateRoute";
  *
  * Successful conversions go to {@link functions}, failed ones to {@link errors}
  * with detailed error messages. Common failure causes:
+ *
  * - Unsupported schema features (tuples, `oneOf` with incompatible types)
  * - Missing required fields in OpenAPI document
  * - Operations marked with `x-samchon-human: true`
  *
  * Configure behavior via {@link IHttpLlmApplication.IConfig}:
+ *
  * - {@link IHttpLlmApplication.IConfig.separate}: Split LLM vs human parameters
  * - {@link IHttpLlmApplication.IConfig.maxLength}: Function name length limit
  * - {@link ILlmSchema.IConfig.strict}: OpenAI structured output mode

@@ -19,10 +19,10 @@ interface IMember {
     tags.Maximum<100>;
 
   /**
+   * The description property also can be filled by the comment tag
+   * `@description`. Instead, be careful about the indentation.
+   *
    * @title Email address of the member
-   * @description The description property also can be filled by
-   *              the comment tag `@description`. Instead, be
-   *              careful about the indentation.
    */
   email: string & tags.Format<"email">;
 }

@@ -32,7 +32,13 @@ export type ILlmSchema =
   | ILlmSchema.INull
   | ILlmSchema.IUnknown;
 export namespace ILlmSchema {
-  /** LLM schema configuration. */
+  /**
+   * Configuration options for LLM schema generation.
+   *
+   * Controls how TypeScript types are converted to LLM-compatible JSON schemas.
+   * These settings affect reference handling and OpenAI structured output
+   * compatibility.
+   */
   export interface IConfig {
     /**
      * Whether to allow `$ref` references everywhere.
@@ -55,81 +61,209 @@ export namespace ILlmSchema {
     strict: boolean;
   }
 
-  /** Function parameters schema (object type with `$defs`). */
+  /**
+   * Function parameters schema with shared type definitions.
+   *
+   * Extends the object schema to include a `$defs` map for named type
+   * definitions that can be referenced via `$ref`. This structure allows
+   * recursive types and reduces schema duplication.
+   *
+   * The `additionalProperties` is always `false` for parameters to ensure
+   * strict argument validation and prevent unexpected properties.
+   */
   export interface IParameters extends Omit<IObject, "additionalProperties"> {
-    /** Named type definitions for `$ref` referencing. */
+    /**
+     * Named schema definitions for reference.
+     *
+     * Contains type definitions that can be referenced throughout the schema
+     * using `$ref: "#/$defs/TypeName"`. Essential for recursive types and
+     * shared structures.
+     */
     $defs: Record<string, ILlmSchema>;
 
-    /** Always `false` for parameters. */
+    /**
+     * Whether additional properties are allowed.
+     *
+     * Always `false` for function parameters to ensure strict type checking.
+     * This prevents LLMs from hallucinating extra properties.
+     */
     additionalProperties: false;
   }
 
-  /** Boolean type. */
+  /**
+   * Boolean type schema.
+   *
+   * Represents a JSON Schema boolean type with optional enum constraints and
+   * default value. Used for true/false parameters and flags.
+   */
   export interface IBoolean extends IJsonSchemaAttribute.IBoolean {
-    /** Allowed values. */
+    /**
+     * Allowed boolean values.
+     *
+     * Restricts the value to specific boolean literals. Typically unused since
+     * booleans only have two possible values, but supported for consistency
+     * with other types.
+     */
     enum?: Array<boolean>;
 
-    /** Default value. */
+    /**
+     * Default value when not provided.
+     *
+     * The boolean value to use when the LLM omits this parameter.
+     */
     default?: boolean;
   }
 
-  /** Integer type. */
+  /**
+   * Integer type schema.
+   *
+   * Represents a JSON Schema integer type with numeric constraints. Maps to
+   * TypeScript `number` with integer validation. Supports range constraints,
+   * enum restrictions, and divisibility checks.
+   */
   export interface IInteger extends IJsonSchemaAttribute.IInteger {
-    /** Allowed values. */
+    /**
+     * Allowed integer values.
+     *
+     * Restricts the value to specific integer literals. Useful for representing
+     * enum-like integer codes or limited value sets.
+     */
     enum?: Array<number & tags.Type<"int64">>;
 
-    /** Default value. */
+    /**
+     * Default value when not provided.
+     *
+     * The integer value to use when the LLM omits this parameter.
+     */
     default?: number & tags.Type<"int64">;
 
-    /** Minimum value. */
+    /**
+     * Minimum value (inclusive).
+     *
+     * The value must be greater than or equal to this number.
+     */
     minimum?: number & tags.Type<"int64">;
 
-    /** Maximum value. */
+    /**
+     * Maximum value (inclusive).
+     *
+     * The value must be less than or equal to this number.
+     */
     maximum?: number & tags.Type<"int64">;
 
-    /** Exclusive minimum. */
+    /**
+     * Exclusive minimum value.
+     *
+     * The value must be strictly greater than this number.
+     */
     exclusiveMinimum?: number & tags.Type<"int64">;
 
-    /** Exclusive maximum. */
+    /**
+     * Exclusive maximum value.
+     *
+     * The value must be strictly less than this number.
+     */
     exclusiveMaximum?: number & tags.Type<"int64">;
 
-    /** Multiple of constraint. */
+    /**
+     * Value must be divisible by this number.
+     *
+     * Used for constraints like "must be even" (multipleOf: 2) or "must be a
+     * multiple of 100" (multipleOf: 100).
+     */
     multipleOf?: number & tags.Type<"uint64"> & tags.ExclusiveMinimum<0>;
   }
 
-  /** Number (double) type. */
+  /**
+   * Number (floating-point) type schema.
+   *
+   * Represents a JSON Schema number type for floating-point values. Maps to
+   * TypeScript `number` type. Supports range constraints, enum restrictions,
+   * and precision checks via multipleOf.
+   */
   export interface INumber extends IJsonSchemaAttribute.INumber {
-    /** Allowed values. */
+    /**
+     * Allowed numeric values.
+     *
+     * Restricts the value to specific number literals. Useful for representing
+     * specific valid values like percentages or rates.
+     */
     enum?: Array<number>;
 
-    /** Default value. */
+    /**
+     * Default value when not provided.
+     *
+     * The number to use when the LLM omits this parameter.
+     */
     default?: number;
 
-    /** Minimum value. */
+    /**
+     * Minimum value (inclusive).
+     *
+     * The value must be greater than or equal to this number.
+     */
     minimum?: number;
 
-    /** Maximum value. */
+    /**
+     * Maximum value (inclusive).
+     *
+     * The value must be less than or equal to this number.
+     */
     maximum?: number;
 
-    /** Exclusive minimum. */
+    /**
+     * Exclusive minimum value.
+     *
+     * The value must be strictly greater than this number.
+     */
     exclusiveMinimum?: number;
 
-    /** Exclusive maximum. */
+    /**
+     * Exclusive maximum value.
+     *
+     * The value must be strictly less than this number.
+     */
     exclusiveMaximum?: number;
 
-    /** Multiple of constraint. */
+    /**
+     * Value must be divisible by this number.
+     *
+     * Useful for decimal precision constraints like "two decimal places"
+     * (multipleOf: 0.01) or currency amounts (multipleOf: 0.01).
+     */
     multipleOf?: number & tags.ExclusiveMinimum<0>;
   }
 
-  /** String type. */
+  /**
+   * String type schema.
+   *
+   * Represents a JSON Schema string type with format validation, pattern
+   * matching, and length constraints. Maps to TypeScript `string` type with
+   * optional semantic format annotations.
+   */
   export interface IString extends IJsonSchemaAttribute.IString {
-    /** Allowed values. */
+    /**
+     * Allowed string values.
+     *
+     * Restricts the value to specific string literals. Maps directly to
+     * TypeScript string literal union types.
+     */
     enum?: Array<string>;
 
-    /** Default value. */
+    /**
+     * Default value when not provided.
+     *
+     * The string to use when the LLM omits this parameter.
+     */
     default?: string;
 
-    /** String format. */
+    /**
+     * Semantic format specifier.
+     *
+     * Indicates the string represents a specific format like email, UUID, or
+     * date-time. LLMs may use this to generate appropriate values. Common
+     * formats include "email", "uri", "uuid", "date-time".
+     */
     format?:
       | "binary"
       | "byte"
@@ -156,74 +290,195 @@ export namespace ILlmSchema {
       | "relative-json-pointer"
       | (string & {});
 
-    /** Regex pattern. */
+    /**
+     * Regular expression pattern for validation.
+     *
+     * The string must match this regex pattern. Note that LLMs may struggle
+     * with complex regex patterns; simple patterns work best.
+     */
     pattern?: string;
 
-    /** Content media type. */
+    /**
+     * MIME type of the string content.
+     *
+     * Indicates the content type when the string contains encoded binary data,
+     * such as "application/json" or "image/png".
+     */
     contentMediaType?: string;
 
-    /** Minimum length. */
+    /**
+     * Minimum string length.
+     *
+     * The string must have at least this many characters.
+     */
     minLength?: number & tags.Type<"uint64">;
 
-    /** Maximum length. */
+    /**
+     * Maximum string length.
+     *
+     * The string must have at most this many characters.
+     */
     maxLength?: number & tags.Type<"uint64">;
   }
 
-  /** Array type. */
+  /**
+   * Array type schema.
+   *
+   * Represents a JSON Schema array type with item type validation and size
+   * constraints. Maps to TypeScript `T[]` or `Array<T>` types. Note: Tuple
+   * types are not supported by LLM schemas.
+   */
   export interface IArray extends IJsonSchemaAttribute.IArray {
-    /** Element type schema. */
+    /**
+     * Schema for array elements.
+     *
+     * All elements in the array must conform to this schema. For heterogeneous
+     * arrays, use an `anyOf` schema.
+     */
     items: ILlmSchema;
 
-    /** Whether elements must be unique. */
+    /**
+     * Whether elements must be unique.
+     *
+     * When `true`, no two elements may be equal. Maps to TypeScript `Set<T>`
+     * semantics but represented as an array.
+     */
     uniqueItems?: boolean;
 
-    /** Minimum items. */
+    /**
+     * Minimum number of elements.
+     *
+     * The array must contain at least this many items.
+     */
     minItems?: number & tags.Type<"uint64">;
 
-    /** Maximum items. */
+    /**
+     * Maximum number of elements.
+     *
+     * The array must contain at most this many items.
+     */
     maxItems?: number & tags.Type<"uint64">;
   }
 
-  /** Object type. */
+  /**
+   * Object type schema.
+   *
+   * Represents a JSON Schema object type with named properties. Maps to
+   * TypeScript interface or object type. Supports required property
+   * declarations and dynamic additional properties.
+   */
   export interface IObject extends IJsonSchemaAttribute.IObject {
-    /** Property schemas. */
+    /**
+     * Property name to schema mapping.
+     *
+     * Defines the type of each named property on the object. All properties are
+     * defined here regardless of whether they are required or optional.
+     */
     properties: Record<string, ILlmSchema>;
 
-    /** Dynamic property schema, or `true` for any, `false` for none. */
+    /**
+     * Schema for dynamic/additional properties.
+     *
+     * - `false` (default): No additional properties allowed
+     * - `true`: Any additional properties allowed
+     * - Schema: Additional properties must match this schema
+     *
+     * Note: ChatGPT and Gemini do not support `additionalProperties`. Use
+     * {@link ILlmSchema.IConfig.strict} mode for OpenAI compatibility.
+     */
     additionalProperties?: ILlmSchema | boolean;
 
-    /** Required property keys. */
+    /**
+     * List of required property names.
+     *
+     * Properties in this array must be present in the object. In strict mode,
+     * all properties become required automatically.
+     */
     required: string[];
   }
 
-  /** Reference to a named schema in `$defs`. */
+  /**
+   * Reference to a named schema definition.
+   *
+   * Points to a schema defined in the `$defs` map using a JSON pointer. Used to
+   * avoid schema duplication and enable recursive type definitions. The
+   * reference path format is `#/$defs/TypeName`.
+   */
   export interface IReference extends IJsonSchemaAttribute {
-    /** Reference path (e.g., `#/$defs/TypeName`). */
+    /**
+     * JSON pointer to the referenced schema.
+     *
+     * Must be in the format `#/$defs/TypeName` where TypeName is a key in the
+     * parent schema's `$defs` map.
+     */
     $ref: string;
   }
 
-  /** Union type (`A | B | C`). */
+  /**
+   * Union type schema (A | B | C).
+   *
+   * Represents a TypeScript union type where the value can match any one of the
+   * member schemas. Note: Gemini does not support `anyOf`/`oneOf` schemas. Use
+   * discriminated unions with `x-discriminator` when possible for better LLM
+   * comprehension.
+   */
   export interface IAnyOf extends IJsonSchemaAttribute {
-    /** Union member schemas. */
+    /**
+     * Array of possible schemas.
+     *
+     * The value must match at least one of these schemas. Nested `anyOf`
+     * schemas are flattened to avoid deep nesting.
+     */
     anyOf: Exclude<ILlmSchema, ILlmSchema.IAnyOf>[];
 
-    /** Discriminator for tagged unions. */
+    /**
+     * Discriminator for tagged/discriminated unions.
+     *
+     * Helps LLMs understand which variant to select based on a discriminating
+     * property value. Improves type inference accuracy.
+     */
     "x-discriminator"?: IAnyOf.IDiscriminator;
   }
   export namespace IAnyOf {
-    /** Discriminator configuration. */
+    /**
+     * Discriminator configuration for tagged unions.
+     *
+     * Specifies which property distinguishes between union variants and maps
+     * discriminator values to their corresponding schemas.
+     */
     export interface IDiscriminator {
-      /** Discriminator property name. */
+      /**
+       * Name of the discriminating property.
+       *
+       * This property must exist on all union member object schemas and contain
+       * unique literal values that identify each variant.
+       */
       propertyName: string;
 
-      /** Value-to-schema mapping. */
+      /**
+       * Mapping from discriminator values to schema references.
+       *
+       * Keys are the literal values of the discriminator property, values are
+       * `$ref` paths to the corresponding schemas.
+       */
       mapping?: Record<string, string>;
     }
   }
 
-  /** Null type. */
+  /**
+   * Null type schema.
+   *
+   * Represents the JSON null value. In TypeScript union types like `T | null`,
+   * this schema appears in an `anyOf` alongside the T schema.
+   */
   export interface INull extends IJsonSchemaAttribute.INull {}
 
-  /** Unknown (`any`) type. */
+  /**
+   * Unknown/any type schema.
+   *
+   * Represents TypeScript `any` or `unknown` types where no specific type
+   * constraint is defined. Use sparingly as LLMs may generate unexpected values
+   * for unconstrained types.
+   */
   export interface IUnknown extends IJsonSchemaAttribute.IUnknown {}
 }

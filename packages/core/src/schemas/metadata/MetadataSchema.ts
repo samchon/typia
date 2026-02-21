@@ -28,6 +28,7 @@ import { MetadataTuple } from "./MetadataTuple";
  * transformer to analyze `typia.*<T>()` calls.
  *
  * Represents union types as arrays of type categories:
+ *
  * - Primitives: {@link atomics} (boolean, bigint, number, string)
  * - Literals: {@link constants} (e.g., `"hello"`, `42`)
  * - Templates: {@link templates} (template literal types)
@@ -37,6 +38,7 @@ import { MetadataTuple } from "./MetadataTuple";
  * - Natives: {@link natives} (Date, Uint8Array, etc.)
  *
  * Modifiers:
+ *
  * - {@link required}: Not `undefined`
  * - {@link optional}: Has `?` modifier
  * - {@link nullable}: Includes `null`

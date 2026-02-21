@@ -9,6 +9,7 @@ import * as tags from "../tags";
  * normalized format that unifies all OpenAPI versions, use {@link OpenApi}.
  *
  * Key differences from OpenAPI v3.x:
+ *
  * - Uses `definitions` instead of `components.schemas`
  * - Body parameters use `in: "body"` with `schema` property
  * - No `requestBody`, `oneOf`, `anyOf`, or `nullable`

@@ -24,7 +24,12 @@ import * as tags from "../tags";
  * @author Jeongho Nam - https://github.com/samchon
  */
 export namespace OpenApi {
-  /** HTTP method of the operation. */
+  /**
+   * HTTP method supported by OpenAPI operations.
+   *
+   * Standard HTTP methods used in REST APIs. Each path can have multiple
+   * operations, one per HTTP method.
+   */
   export type Method =
     | "get"
     | "post"
@@ -35,7 +40,13 @@ export namespace OpenApi {
     | "patch"
     | "trace";
 
-  /** OpenAPI document structure. */
+  /**
+   * Root document structure for emended OpenAPI v3.1.
+   *
+   * Contains all API metadata, paths, operations, and reusable components. The
+   * `x-samchon-emended-v4` marker indicates this document has been processed by
+   * `@samchon/openapi` to normalize schema formats.
+   */
   export interface IDocument {
     /** OpenAPI version. */
     openapi: `3.1.${number}`;
@@ -65,7 +76,12 @@ export namespace OpenApi {
     "x-samchon-emended-v4": true;
   }
   export namespace IDocument {
-    /** API metadata. */
+    /**
+     * API metadata and identification.
+     *
+     * Contains essential information about the API including title, version,
+     * contact information, and licensing details.
+     */
     export interface IInfo {
       /** API title. */
       title: string;
@@ -307,7 +323,19 @@ export namespace OpenApi {
     securitySchemes?: Record<string, ISecurityScheme>;
   }
 
-  /** JSON Schema type for OpenAPI. */
+  /**
+   * JSON Schema type for emended OpenAPI v3.1.
+   *
+   * Represents all possible JSON Schema types in the normalized OpenAPI format.
+   * This is a discriminated union - check the `type` property or use type
+   * guards to narrow to specific schema types.
+   *
+   * Unlike raw JSON Schema, this format:
+   *
+   * - Uses `oneOf` instead of `anyOf` for union types
+   * - Separates `IArray` (homogeneous) from `ITuple` (heterogeneous)
+   * - Normalizes nullable types to `oneOf` with null schema
+   */
   export type IJsonSchema =
     | IJsonSchema.IConstant
     | IJsonSchema.IBoolean

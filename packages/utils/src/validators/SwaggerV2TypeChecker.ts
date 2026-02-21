@@ -8,8 +8,8 @@ import { SwaggerV2 } from "@typia/interface";
  * {@link OpenApiTypeChecker} instead.
  *
  * Key limitations vs OpenAPI v3.x: No `oneOf`/`anyOf`, no `nullable`, uses
- * `definitions` instead of `components.schemas`, body parameters use
- * `in: "body"` with `schema` property.
+ * `definitions` instead of `components.schemas`, body parameters use `in:
+ * "body"` with `schema` property.
  *
  * @author Jeongho Nam - https://github.com/samchon
  */

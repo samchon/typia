@@ -24,12 +24,14 @@ import { LlmDataMerger } from "./internal/LlmDataMerger";
  * 3.1) through automatic conversion to {@link OpenApi} format.
  *
  * Main functions:
+ *
  * - {@link application}: Convert OpenAPI document to {@link IHttpLlmApplication}
  * - {@link execute}: Call an LLM function and return the response body
  * - {@link propagate}: Call an LLM function and return full HTTP response
  * - {@link mergeParameters}: Merge LLM-filled and human-filled parameters
  *
  * Typical workflow:
+ *
  * 1. Load OpenAPI document (JSON/YAML)
  * 2. Call `HttpLlm.application()` to get function schemas
  * 3. Send function schemas to LLM for function selection
