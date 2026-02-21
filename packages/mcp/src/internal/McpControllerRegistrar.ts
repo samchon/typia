@@ -14,6 +14,8 @@ import {
   IValidation,
 } from "@typia/interface";
 import { HttpLlm, stringifyValidationFailure } from "@typia/utils";
+import { ZodObject, ZodType } from "zod";
+import { zodToJsonSchema } from "zod-to-json-schema";
 
 export namespace McpControllerRegistrar {
   export const register = (props: {
@@ -55,12 +57,12 @@ export namespace McpControllerRegistrar {
       }
     }
 
-    // tools/list handler - includes both typia controllers and existing McpServer tools
+    // tools/list handler
     server.setRequestHandler(ListToolsRequestSchema, async () => {
       const existingTools: Record<string, any> = getExistingTools();
       return {
         tools: [
-          // Typia controller tools with proper JSON Schema
+          // Typia controller tools
           ...Array.from(registry.values()).map((entry: IToolEntry) => {
             return {
               name: entry.function.name,
@@ -74,7 +76,7 @@ export namespace McpControllerRegistrar {
               },
             } satisfies Tool;
           }),
-          // Existing McpServer tools (dynamically fetched)
+          // Existing McpServer tools
           ...Object.entries(existingTools)
             .filter(
               (pair: [string, any]) =>
@@ -84,9 +86,7 @@ export namespace McpControllerRegistrar {
               return {
                 name: pair[0],
                 description: pair[1].description,
-                inputSchema: pair[1].inputSchema
-                  ? convertZodToJsonSchema(pair[1].inputSchema)
-                  : { type: "object" as const, properties: {} },
+                inputSchema: convertZodToJsonSchema(pair[1].inputSchema),
               } satisfies Tool;
             }),
         ],
@@ -105,7 +105,7 @@ export namespace McpControllerRegistrar {
         return handleToolCall(entry, args);
       }
 
-      // Fall back to existing McpServer tools (fetched dynamically)
+      // Fall back to existing McpServer tools
       const existingTools: Record<string, any> = getExistingTools();
       const existingTool: any = existingTools[name];
       if (existingTool && existingTool.enabled) {
@@ -238,14 +238,20 @@ export namespace McpControllerRegistrar {
     }
   };
 
-  // Convert Zod schema to JSON Schema (simplified)
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const convertZodToJsonSchema = (zodSchema: any): Tool["inputSchema"] => {
-    // If it already looks like JSON Schema, return as-is
-    if (zodSchema.type && zodSchema.properties) {
-      return zodSchema;
+  const convertZodToJsonSchema = (
+    zodSchema: ZodType | ZodObject<any> | undefined,
+  ): Tool["inputSchema"] => {
+    if (zodSchema === undefined) {
+      return { type: "object", properties: {} };
     }
-    // Fallback for Zod schemas - MCP SDK would have converted them
+    const converted: object = zodToJsonSchema(zodSchema);
+    if (
+      typeof converted === "object" &&
+      "type" in converted &&
+      converted.type === "object"
+    ) {
+      return converted as Tool["inputSchema"];
+    }
     return { type: "object", properties: {} };
   };
 }

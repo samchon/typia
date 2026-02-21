@@ -277,6 +277,9 @@ importers:
       '@typia/utils':
         specifier: workspace:^
         version: link:../utils
+      zod-to-json-schema:
+        specifier: ^3.24.0 || ^3.25.0
+        version: 3.25.1(zod@3.25.76)
     devDependencies:
       '@modelcontextprotocol/sdk':
         specifier: ^1.12.0
@@ -287,6 +290,9 @@ importers:
       typescript:
         specifier: catalog:typescript
         version: 5.9.3
+      zod:
+        specifier: ^3.25.0
+        version: 3.25.76
 
   packages/transform:
     dependencies:

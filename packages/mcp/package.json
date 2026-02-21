@@ -19,7 +19,8 @@
   "homepage": "https://typia.io",
   "dependencies": {
     "@typia/interface": "workspace:^",
-    "@typia/utils": "workspace:^"
+    "@typia/utils": "workspace:^",
+    "zod-to-json-schema": ">=3.24.0"
   },
   "peerDependencies": {
     "@modelcontextprotocol/sdk": ">=1.0.0"
@@ -32,7 +33,8 @@
   "devDependencies": {
     "@modelcontextprotocol/sdk": "^1.12.0",
     "rimraf": "catalog:utils",
-    "typescript": "catalog:typescript"
+    "typescript": "catalog:typescript",
+    "zod": "^3.25.0"
   },
   "sideEffects": false,
   "files": [
