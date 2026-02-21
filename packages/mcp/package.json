@@ -1,0 +1,63 @@
+{
+  "name": "@typia/mcp",
+  "version": "11.0.1",
+  "description": "MCP (Model Context Protocol) integration for typia",
+  "main": "src/index.ts",
+  "scripts": {
+    "build": "rimraf lib && tsc",
+    "dev": "rimraf lib && tsc --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/samchon/typia"
+  },
+  "author": "Jeongho Nam",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/samchon/typia/issues"
+  },
+  "homepage": "https://typia.io",
+  "dependencies": {
+    "@typia/interface": "workspace:^",
+    "@typia/utils": "workspace:^",
+    "zod-to-json-schema": ">=3.24.0"
+  },
+  "peerDependencies": {
+    "@modelcontextprotocol/sdk": ">=1.0.0"
+  },
+  "devDependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.0",
+    "rimraf": "catalog:utils",
+    "typescript": "catalog:typescript",
+    "zod": "^3.25.0"
+  },
+  "sideEffects": false,
+  "files": [
+    "LICENSE",
+    "README.md",
+    "package.json",
+    "lib",
+    "src"
+  ],
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "typia",
+    "llm",
+    "llm-function-calling",
+    "ai",
+    "claude",
+    "openai",
+    "chatgpt",
+    "gemini",
+    "validation",
+    "json-schema",
+    "typescript"
+  ],
+  "packageManager": "pnpm@10.6.4",
+  "publishConfig": {
+    "access": "public",
+    "main": "lib/index.js",
+    "typings": "lib/index.d.ts"
+  }
+}
