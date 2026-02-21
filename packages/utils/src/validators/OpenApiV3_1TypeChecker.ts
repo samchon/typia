@@ -1,7 +1,14 @@
 import { OpenApiV3_1 } from "@typia/interface";
 
 /**
- * Type guard utilities for OpenAPI v3.1 JSON Schema.
+ * Type checker for raw OpenAPI v3.1 JSON schemas.
+ *
+ * `OpenApiV3_1TypeChecker` provides type guard functions for
+ * {@link OpenApiV3_1.IJsonSchema} (raw, unemended format). For typia's
+ * normalized format, use {@link OpenApiTypeChecker} instead.
+ *
+ * Key v3.1 features: `const` keyword, `type` arrays (`["string", "null"]`),
+ * `prefixItems` for tuples, JSON Schema draft 2020-12 compatibility.
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
