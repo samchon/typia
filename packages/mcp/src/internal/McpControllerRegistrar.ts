@@ -1,9 +1,10 @@
-import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { Server } from "@modelcontextprotocol/sdk/server";
+import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import {
   CallToolRequestSchema,
   CallToolResult,
   ListToolsRequestSchema,
+  Tool,
 } from "@modelcontextprotocol/sdk/types.js";
 import {
   IHttpLlmController,
@@ -13,11 +14,6 @@ import {
   IValidation,
 } from "@typia/interface";
 import { HttpLlm, stringifyValidationFailure } from "@typia/utils";
-
-interface IToolEntry {
-  func: ILlmFunction | IHttpLlmFunction;
-  call: (args: unknown) => Promise<unknown>;
-}
 
 export namespace McpControllerRegistrar {
   export const register = (props: {
@@ -31,7 +27,7 @@ export namespace McpControllerRegistrar {
         : (props.server as Server);
 
     // Build tool registry from controllers
-    const registry = new Map<string, IToolEntry>();
+    const registry: Map<string, IToolEntry> = new Map();
 
     for (const controller of props.controllers) {
       if (controller.protocol === "class") {
@@ -41,53 +37,77 @@ export namespace McpControllerRegistrar {
       }
     }
 
-    // Get existing tools from McpServer if available
-    const mcpServer =
+    // Get McpServer reference for coexistence with McpServer.registerTool()
+    const mcpServer: McpServer | null =
       "server" in props.server ? (props.server as McpServer) : null;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const existingTools: Record<string, any> = mcpServer
-      ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (mcpServer as any)._registeredTools ?? {}
-      : {};
+
+    // Helper to get existing tools dynamically (supports tools registered after this call)
+    const getExistingTools = (): Record<string, any> =>
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      mcpServer ? ((mcpServer as any)._registeredTools ?? {}) : {};
+
+    // Check for conflicts with existing McpServer tools at registration time
+    for (const pair of Object.entries(getExistingTools())) {
+      if (pair[1].enabled && registry.has(pair[0])) {
+        throw new Error(
+          `Duplicate function name "${pair[0]}" between McpServer.registerTool() and controller "${registry.get(pair[0])!.controller}"`,
+        );
+      }
+    }
 
     // tools/list handler - includes both typia controllers and existing McpServer tools
-    server.setRequestHandler(ListToolsRequestSchema, async () => ({
-      tools: [
-        // Typia controller tools with proper JSON Schema
-        ...Array.from(registry.values()).map(({ func }) => ({
-          name: func.name,
-          description: func.description,
-          inputSchema: {
-            type: "object" as const,
-            properties: func.parameters.properties,
-            required: func.parameters.required,
-          },
-        })),
-        // Existing McpServer tools (already converted to JSON Schema by MCP SDK)
-        ...Object.entries(existingTools)
-          .filter(([name, tool]) => !registry.has(name) && tool.enabled)
-          .map(([name, tool]) => ({
-            name,
-            description: tool.description,
-            inputSchema: tool.inputSchema
-              ? convertZodToJsonSchema(tool.inputSchema)
-              : { type: "object" as const, properties: {} },
-          })),
-      ],
-    }));
+    server.setRequestHandler(ListToolsRequestSchema, async () => {
+      const existingTools: Record<string, any> = getExistingTools();
+      return {
+        tools: [
+          // Typia controller tools with proper JSON Schema
+          ...Array.from(registry.values()).map((entry: IToolEntry) => {
+            return {
+              name: entry.function.name,
+              description: entry.function.description,
+              inputSchema: {
+                type: "object" as const,
+                properties: entry.function.parameters.properties,
+                required: entry.function.parameters.required,
+                additionalProperties: false,
+                $defs: entry.function.parameters.$defs,
+              },
+            } satisfies Tool;
+          }),
+          // Existing McpServer tools (dynamically fetched)
+          ...Object.entries(existingTools)
+            .filter(
+              (pair: [string, any]) =>
+                !registry.has(pair[0]) && pair[1].enabled,
+            )
+            .map((pair: [string, any]) => {
+              return {
+                name: pair[0],
+                description: pair[1].description,
+                inputSchema: pair[1].inputSchema
+                  ? convertZodToJsonSchema(pair[1].inputSchema)
+                  : { type: "object" as const, properties: {} },
+              } satisfies Tool;
+            }),
+        ],
+      };
+    });
 
     // tools/call handler
     server.setRequestHandler(CallToolRequestSchema, async (request, extra) => {
-      const { name, arguments: args } = request.params;
+      const name: string = request.params.name;
+      const args: Record<string, unknown> | undefined =
+        request.params.arguments;
 
       // Check typia registry first
-      const entry = registry.get(name);
+      const entry: IToolEntry | undefined = registry.get(name);
       if (entry !== undefined) {
         return handleToolCall(entry, args);
       }
 
-      // Fall back to existing McpServer tools
-      const existingTool = existingTools[name];
+      // Fall back to existing McpServer tools (fetched dynamically)
+      const existingTools: Record<string, any> = getExistingTools();
+      const existingTool: any = existingTools[name];
       if (existingTool && existingTool.enabled) {
         return existingTool.handler(args, extra);
       }
@@ -109,14 +129,16 @@ export namespace McpControllerRegistrar {
     registry: Map<string, IToolEntry>,
     controller: ILlmController,
   ): void => {
-    const execute = controller.execute;
-
+    const execute: Record<string, unknown> = controller.execute;
     for (const func of controller.application.functions) {
-      if (registry.has(func.name)) {
-        throw new Error(`Duplicate function name: "${func.name}"`);
+      const existing: IToolEntry | undefined = registry.get(func.name);
+      if (existing !== undefined) {
+        throw new Error(
+          `Duplicate function name "${func.name}" between controllers "${existing.controller}" and "${controller.name}"`,
+        );
       }
 
-      const method: unknown = (execute as Record<string, unknown>)[func.name];
+      const method: unknown = execute[func.name];
       if (typeof method !== "function") {
         throw new Error(
           `Method "${func.name}" not found on controller "${controller.name}"`,
@@ -124,8 +146,9 @@ export namespace McpControllerRegistrar {
       }
 
       registry.set(func.name, {
-        func,
-        call: async (args: unknown) => method.call(execute, args),
+        controller: controller.name,
+        function: func,
+        execute: async (args: unknown) => method.call(execute, args),
       });
     }
   };
@@ -134,15 +157,21 @@ export namespace McpControllerRegistrar {
     registry: Map<string, IToolEntry>,
     controller: IHttpLlmController,
   ): void => {
-    const { application, connection } = controller;
+    const application: IHttpLlmController["application"] =
+      controller.application;
+    const connection: IHttpLlmController["connection"] = controller.connection;
 
     for (const func of application.functions) {
-      if (registry.has(func.name)) {
-        throw new Error(`Duplicate function name: "${func.name}"`);
+      const existing: IToolEntry | undefined = registry.get(func.name);
+      if (existing !== undefined) {
+        throw new Error(
+          `Duplicate function name "${func.name}" between controllers "${existing.controller}" and "${controller.name}"`,
+        );
       }
       registry.set(func.name, {
-        func,
-        call: async (args: unknown) => {
+        controller: controller.name,
+        function: func,
+        execute: async (args: unknown) => {
           if (controller.execute !== undefined) {
             const response = await controller.execute({
               connection,
@@ -167,9 +196,7 @@ export namespace McpControllerRegistrar {
     entry: IToolEntry,
     args: unknown,
   ): Promise<CallToolResult> => {
-    const { func, call } = entry;
-
-    const validation: IValidation<unknown> = func.validate(args);
+    const validation: IValidation<unknown> = entry.function.validate(args);
     if (!validation.success) {
       return {
         isError: true,
@@ -183,13 +210,15 @@ export namespace McpControllerRegistrar {
     }
 
     try {
-      const result: unknown = await call(validation.data);
+      const result: unknown = await entry.execute(validation.data);
       return {
         content: [
           {
             type: "text" as const,
             text:
-              result === undefined ? "Success" : JSON.stringify(result, null, 2),
+              result === undefined
+                ? "Success"
+                : JSON.stringify(result, null, 2),
           },
         ],
       };
@@ -211,7 +240,7 @@ export namespace McpControllerRegistrar {
 
   // Convert Zod schema to JSON Schema (simplified)
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const convertZodToJsonSchema = (zodSchema: any): object => {
+  const convertZodToJsonSchema = (zodSchema: any): Tool["inputSchema"] => {
     // If it already looks like JSON Schema, return as-is
     if (zodSchema.type && zodSchema.properties) {
       return zodSchema;
@@ -219,4 +248,10 @@ export namespace McpControllerRegistrar {
     // Fallback for Zod schemas - MCP SDK would have converted them
     return { type: "object", properties: {} };
   };
+}
+
+interface IToolEntry {
+  controller: string;
+  function: ILlmFunction | IHttpLlmFunction;
+  execute: (args: unknown) => Promise<unknown>;
 }
