@@ -1,24 +1,29 @@
 import { TagBase } from "./TagBase";
 
 /**
- * Maximum value constraint tag.
+ * Inclusive maximum value constraint (value <= max).
  *
- * Enforces that a numeric value must be less than or equal to the specified
- * maximum. This constraint validates that the input value satisfies: input <=
- * maximum.
+ * `Maximum<N>` is a type tag that validates numeric values are less than or
+ * equal to the specified bound. Apply it to `number` or `bigint` properties
+ * using TypeScript intersection types.
  *
- * Example usage:
+ * This constraint is **mutually exclusive** with {@link ExclusiveMaximum} - you
+ * cannot use both on the same property. Use `Maximum` for inclusive bounds (<=)
+ * and `ExclusiveMaximum` for exclusive bounds (<).
  *
- * ```typescript
- * type Percentage = number & tags.Maximum<100>; // Must be <= 100
- * type SmallInt = bigint & tags.Maximum<255n>; // BigInt must be <= 255
- * ```
- *
- * Note: This tag is mutually exclusive with ExclusiveMaximum. You cannot apply
- * both Maximum and ExclusiveMaximum constraints to the same property.
+ * The constraint is enforced at runtime by `typia.is()`, `typia.assert()`, and
+ * `typia.validate()`. It also generates `maximum` in JSON Schema output.
  *
  * @author Jeongho Nam - https://github.com/samchon
- * @template Value - The maximum value constraint (number or bigint literal)
+ * @example
+ *   interface Rating {
+ *     // Score from 0-100
+ *     score: number & Minimum<0> & Maximum<100>;
+ *     // Percentage cannot exceed 1.0
+ *     ratio: number & Maximum<1.0>;
+ *   }
+ *
+ * @template Value The maximum allowed value (inclusive)
  */
 export type Maximum<Value extends number | bigint> = TagBase<{
   target: Value extends bigint ? "bigint" : "number";

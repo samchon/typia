@@ -5,36 +5,18 @@ import { NativeClass } from "./internal/NativeClass";
 import { ValueOf } from "./internal/ValueOf";
 
 /**
- * Primitive type of JSON.
+ * Converts a type to its JSON-serializable primitive form.
  *
- * `Primitive<T>` is a TMP (Type Meta Programming) type which converts its
- * argument as a primitive type within the framework JSON.
- *
- * If the target argument is a built-in class which returns its origin primitive
- * type through the `valueOf()` method like the `String` or `Number`, its return
- * type will be the `string` or `number`. Otherwise, if the built-in class does
- * not have the `valueOf()` method, the return type will be an empty object
- * (`{}`).
- *
- * Otherwise, if the target argument is a type of custom class, all of its
- * custom methods will be erased and its prototype will be changed to the
- * primitive `object`. Therefore, the return type of the TMP type will finally
- * be the primitive object.
- *
- * In addition, if the target argument is a type of custom class and it has a
- * special method `toJSON()`, the return type of this `Primitive` will be not
- * `Primitive<Instance>` but `Primitive<ReturnType<Instance.toJSON>>`.
- *
- * Before | After
- * ------------------------|---------------------------------------- `Boolean` |
- * `boolean` `Number` | `number` `String` | `string` `Class` | `object` `Class`
- * with `toJSON()` | `Primitive<ReturnType<Class.toJSON>>` Native Class | never
- * Others | No change
+ * `Primitive<T>` transforms types for JSON serialization: boxed primitives
+ * become primitives (Boolean→boolean), classes become plain objects with
+ * methods removed, Date becomes `string & Format<"date-time">`, and types with
+ * `toJSON()` use their return type. Native classes (except Date) and bigint
+ * become `never` as they're not JSON-serializable.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @author Kyungsu Kang - https://github.com/kakasoo
  * @author Michael - https://github.com/8471919
- * @template T Target argument type.
+ * @template T Target type to convert
  */
 export type Primitive<T> =
   Equal<T, PrimitiveMain<T>> extends true ? T : PrimitiveMain<T>;

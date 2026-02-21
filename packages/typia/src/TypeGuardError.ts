@@ -1,103 +1,64 @@
 /**
- * Custom error class thrown when runtime assertion fails in `typia.assert<T>()`
- * function.
+ * Error thrown when type assertion fails.
  *
- * This error is thrown by the `typia.assert<T>()` function when the input value
- * doesn't match the expected type.
+ * Thrown by {@link assert}, {@link assertGuard}, and other assert-family
+ * functions when input doesn't match expected type `T`. Contains detailed
+ * information about the first assertion failure:
  *
- * The error provides detailed information about the first assertion failure
- * encountered, including the access path where the error occurred, the expected
- * type, and the actual value.
+ * - `method`: Which typia function threw (e.g., `"typia.assert"`)
+ * - `path`: Property path where error occurred (e.g., `"input.user.age"`)
+ * - `expected`: Expected type string (e.g., `"number & ExclusiveMinimum<19>"`)
+ * - `value`: Actual value that failed validation
  *
- * @author Jeongho Nam - https://github.com/samchon
- * @example
- *   ```typescript
- *   interface IMember {
- *     name: string;
- *     age: number & ExclusiveMinimum<19>;
- *   }
- *
- *   try {
- *     typia.assert<IMember>({ name: "John", age: 18 });
- *   } catch (error) {
- *     if (error instanceof TypeGuardError) {
- *       console.log(error.method);   // "typia.assert"
- *       console.log(error.path);     // "input.age"
- *       console.log(error.expected); // "number & ExclusiveMinimum<19>"
- *       console.log(error.value);    // 18
- *     }
- *   }
- *   ```;
- *
- * @template T - The expected type (generic for type safety)
+ * @template T Expected type (for type safety)
  */
 export class TypeGuardError<T = any> extends Error {
   /**
-   * The name of the typia method that threw this error.
+   * Name of the typia method that threw this error.
    *
-   * @example
-   *   typia.assert;
+   * E.g., `"typia.assert"`, `"typia.assertEquals"`, `"typia.assertGuard"`.
    */
   public readonly method: string;
 
   /**
-   * The access path to the property where the assertion error occurred.
+   * Property path where assertion failed.
    *
-   * Uses dot notation to indicate the path for nested object properties. May be
-   * `undefined` if the error occurred at the root level.
+   * Uses dot notation for nested properties. `undefined` if error occurred at
+   * root level.
    *
-   * @example
-   *   - `"input.age"` - Error in the age property of the object
-   *   - `"input.profile.email"` - Error in the email property of a nested object
-   *   - `"input[0].name"` - Error in the name property of the first array element
-   *   - `undefined` - Error occurred at the root level
+   * E.g., `"input.age"`, `"input.profile.email"`, `"input[0].name"`.
    */
   public readonly path: string | undefined;
 
   /**
-   * String representation of the expected type at the error location.
+   * String representation of expected type.
    *
-   * Represents TypeScript types as strings, including detailed type information
-   * for complex types.
-   *
-   * @example
-   *   - `"string"` - Expected string type
-   *   - `"number & ExclusiveMinimum<19>"` - Expected number greater than 19
-   *   - `"undefined"` - Expected undefined (when superfluous property found in assertion)
-   *   - `"{ name: string; age: number }"` - Expected object type
+   * E.g., `"string"`, `"number & ExclusiveMinimum<19>"`, `"{ name: string; age:
+   * number }"`.
    */
   public readonly expected: string;
 
   /**
-   * The actual value that failed assertion.
+   * Actual value that failed assertion.
    *
-   * Stores the actual value at the error path as-is. Useful for debugging by
-   * comparing the expected type with the actual value.
-   *
-   * @example
-   *   - `18` - Numeric value
-   *   - `"invalid"` - String value
-   *   - `{ name: "John", age: 18, sex: 1 }` - Object value
+   * The raw value at the error path, useful for debugging.
    */
   public readonly value: unknown;
 
   /**
-   * Optional human-readable description of the type guard error
+   * Optional human-readable error description.
    *
-   * This field is rarely populated in standard typia type assertion and is
-   * primarily intended for specialized AI agent libraries or custom validation
-   * scenarios that require additional context beyond the technical type
-   * information. Most assertion errors rely solely on the path, expected, and
-   * value fields for comprehensive error reporting.
+   * Primarily for AI agent libraries or custom validation scenarios needing
+   * additional context. Standard assertions rely on `path`, `expected`, and
+   * `value` for error reporting.
    */
   public readonly description?: string | undefined;
 
   /**
-   * Phantom property for type safety purposes.
+   * Phantom property for TypeScript type safety.
    *
-   * This property is not actually used and exists only to maintain the generic
-   * type T in TypeScript's type system. Always has an `undefined` value at
-   * runtime.
+   * Not used at runtime—exists only to preserve generic type `T` in the type
+   * system. Always `undefined`.
    *
    * @internal
    */
@@ -106,17 +67,7 @@ export class TypeGuardError<T = any> extends Error {
   /**
    * Creates a new TypeGuardError instance.
    *
-   * @example
-   *   ```typescript
-   *   const error = new TypeGuardError({
-   *     method: "typia.assert",
-   *     path: "input.age",
-   *     expected: "number & ExclusiveMinimum<19>",
-   *     value: 18
-   *   });
-   *   ```;
-   *
-   * @param props - Object containing the properties needed to create the error
+   * @param props Error properties
    */
   public constructor(props: TypeGuardError.IProps) {
     // MESSAGE CONSTRUCTION
@@ -151,65 +102,43 @@ export class TypeGuardError<T = any> extends Error {
 }
 
 export namespace TypeGuardError {
-  /**
-   * Interface for properties passed to the TypeGuardError constructor.
-   *
-   * @example
-   *   ```typescript
-   *   const props: TypeGuardError.IProps = {
-   *     method: "typia.assertEquals",
-   *     path: "input.sex",
-   *     expected: "undefined",
-   *     value: 1,
-   *     message: "Custom error message" // optional
-   *   };
-   *   ```;
-   */
+  /** Properties for constructing a TypeGuardError. */
   export interface IProps {
     /**
-     * The name of the typia method that threw the error.
+     * Name of the typia method that threw the error.
      *
-     * @example
-     *   typia.assert, "typia.assertEquals";
+     * E.g., `"typia.assert"`, `"typia.assertEquals"`.
      */
     method: string;
 
     /**
-     * The access path to the property where the assertion error occurred
-     * (optional).
+     * Property path where assertion failed (optional).
      *
-     * @example
-     *   input.age, "input.profile.email";
+     * E.g., `"input.age"`, `"input.profile.email"`.
      */
     path?: undefined | string;
 
     /**
-     * String representation of the expected type at the error location.
+     * String representation of expected type.
      *
-     * @example
-     *   string, "number & ExclusiveMinimum<19>";
+     * E.g., `"string"`, `"number & ExclusiveMinimum<19>"`.
      */
     expected: string;
 
-    /** The actual value that failed assertion. */
+    /** Actual value that failed assertion. */
     value: unknown;
 
     /**
-     * Optional human-readable description of the type guard error
+     * Optional human-readable error description.
      *
-     * This field is rarely populated in standard typia type assertion and is
-     * primarily intended for specialized AI agent libraries or custom
-     * validation scenarios that require additional context beyond the technical
-     * type information. Most assertion errors rely solely on the path,
-     * expected, and value fields for comprehensive error reporting.
+     * For AI agent libraries or custom validation needing additional context.
      */
     description?: string;
 
     /**
      * Custom error message (optional).
      *
-     * If not provided, a default format message will be automatically
-     * generated.
+     * If not provided, a default message is generated from other properties.
      */
     message?: undefined | string;
   }

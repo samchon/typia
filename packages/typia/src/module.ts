@@ -26,30 +26,28 @@ export * from "./re-exports";
     BASIC VALIDATORS
 ----------------------------------------------------------- */
 /**
- * Asserts a value type.
+ * Asserts type `T`.
  *
- * Asserts a parametric value type and throws a {@link TypeGuardError} with a
- * detailed reason, if the parametric value is not following the type `T`.
- * Otherwise, if the value is following the type `T`, the input parameter will
- * be returned.
+ * Performs runtime type checking against compile-time type `T`. Stops at first
+ * mismatch and throws {@link TypeGuardError} containing:
  *
- * If what you want is not asserting but just knowing whether the parametric
- * value is following the type `T` or not, you can choose the {@link is} function
- * instead. Otherwise, if you want to know all the errors, {@link validate} is
- * the way to go. Also, if you want to automatically cast the parametric value
- * to the type `T` when there is no problem (perform the assertion guard of
- * type).
+ * - `path`: Property path where error occurred (e.g., `"input.user.age"`)
+ * - `expected`: Expected type string (e.g., `"number & ExclusiveMinimum<19>"`)
+ * - `value`: Actual value that failed validation
  *
- * On the other hand, if you don't want to allow any superfluous property that
- * is not enrolled to the type `T`, you can use {@link assertEquals} function
- * instead.
+ * Related functions:
  *
- * @author Jeongho Nam - https://github.com/samchon
- * @template T Type of the input value
- * @param input A value to be asserted
- * @param errorFactory Custom error factory. Default is `TypeGuardError`
- * @returns Parametric input value
- * @throws A {@link TypeGuardError} instance with a detailed reason
+ * - {@link is} — Returns `boolean` instead of throwing
+ * - {@link validate} — Collects all errors instead of stopping at first
+ * - {@link assertGuard} — Type guard with no return value (narrows type only)
+ * - {@link assertEquals} — Also rejects properties not defined in `T`
+ *
+ * @template T Target type to validate against
+ * @param input Value to assert
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
+ * @returns The input value typed as `T`
+ * @throws {TypeGuardError} When input doesn't conform to type `T`
  */
 export function assert<T>(
   input: T,
@@ -57,28 +55,28 @@ export function assert<T>(
 ): T;
 
 /**
- * Asserts a value type.
+ * Asserts type `T`.
  *
- * Asserts a parametric value type and throws a {@link TypeGuardError} with a
- * detailed reason, if the parametric value is not following the type `T`.
- * Otherwise, if the value is following the type `T`, the input parameter will
- * be returned.
+ * Performs runtime type checking against compile-time type `T`. Stops at first
+ * mismatch and throws {@link TypeGuardError} containing:
  *
- * If what you want is not asserting but just knowing whether the parametric
- * value is following the type `T` or not, you can choose the {@link is} function
- * instead. Otherwise, if you want to know all the errors, {@link validate} is
- * the way to go.
+ * - `path`: Property path where error occurred (e.g., `"input.user.age"`)
+ * - `expected`: Expected type string (e.g., `"number & ExclusiveMinimum<19>"`)
+ * - `value`: Actual value that failed validation
  *
- * On the other hand, if you don't want to allow any superfluous property that
- * is not enrolled to the type `T`, you can use {@link assertEquals} function
- * instead.
+ * Related functions:
  *
- * @author Jeongho Nam - https://github.com/samchon
- * @template T Type of the input value
- * @param input A value to be asserted
- * @param errorFactory Custom error factory. Default is `TypeGuardError`
- * @returns Parametric input value casted as `T`
- * @throws A {@link TypeGuardError} instance with a detailed reason
+ * - {@link is} — Returns `boolean` instead of throwing
+ * - {@link validate} — Collects all errors instead of stopping at first
+ * - {@link assertGuard} — Type guard with no return value (narrows type only)
+ * - {@link assertEquals} — Also rejects properties not defined in `T`
+ *
+ * @template T Target type to validate against
+ * @param input Value to assert
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
+ * @returns The input value typed as `T`
+ * @throws {TypeGuardError} When input doesn't conform to type `T`
  */
 export function assert<T>(
   input: unknown,
@@ -91,29 +89,28 @@ export function assert(): never {
 }
 
 /**
- * Assertion guard of a value type.
+ * Asserts type `T` as assertion guard.
  *
- * Asserts a parametric value type and throws a {@link TypeGuardError} with a
- * detailed reason, if the parametric value is not following the type `T`.
- * Otherwise, if the value is following the type `T`, nothing will be returned,
- * but the input value will be automatically casted to the type `T`. This is the
- * concept of "Assertion Guard" of a value type.
+ * Unlike {@link assert}, returns nothing (`asserts input is T`). After this
+ * call, TypeScript narrows `input` to type `T` in subsequent code. Useful when
+ * you need type narrowing with runtime validation but don't need the return
+ * value.
  *
- * If what you want is not asserting but just knowing whether the parametric
- * value is following the type `T` or not, you can choose the {@link is} function
- * instead. Otherwise, if you want to know all the errors, {@link validate} is
- * the way to go. Also, if you want to return the parametric value when there is
- * no problem, you can use {@link assert} function instead.
+ * Throws {@link TypeGuardError} on first mismatch with `path`, `expected`, and
+ * `value`.
  *
- * On the other hand, if you don't want to allow any superfluous property that
- * is not enrolled to the type `T`, you can use {@link assertGuardEquals}
- * function instead.
+ * Related functions:
  *
- * @author Jeongho Nam - https://github.com/samchon
- * @template T Type of the input value
- * @param input A value to be asserted
- * @param errorFactory Custom error factory. Default is `TypeGuardError`
- * @throws A {@link TypeGuardError} instance with a detailed reason
+ * - {@link assert} — Same validation but returns the input value
+ * - {@link is} — Returns `boolean` instead of throwing
+ * - {@link validate} — Collects all errors instead of throwing
+ * - {@link assertGuardEquals} — Also rejects properties not defined in `T`
+ *
+ * @template T Target type to validate against
+ * @param input Value to assert (narrowed to `T` after call)
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
+ * @throws {TypeGuardError} When input doesn't conform to type `T`
  */
 export function assertGuard<T>(
   input: T,
@@ -121,29 +118,28 @@ export function assertGuard<T>(
 ): asserts input is T;
 
 /**
- * Assertion guard of a value type.
+ * Asserts type `T` as assertion guard.
  *
- * Asserts a parametric value type and throws a {@link TypeGuardError} with a
- * detailed reason, if the parametric value is not following the type `T`.
- * Otherwise, if the value is following the type `T`, nothing will be returned,
- * but the input value will be automatically casted to the type `T`. This is the
- * concept of "Assertion Guard" of a value type.
+ * Unlike {@link assert}, returns nothing (`asserts input is T`). After this
+ * call, TypeScript narrows `input` to type `T` in subsequent code. Useful when
+ * you need type narrowing with runtime validation but don't need the return
+ * value.
  *
- * If what you want is not asserting but just knowing whether the parametric
- * value is following the type `T` or not, you can choose the {@link is} function
- * instead. Otherwise, if you want to know all the errors, {@link validate} is
- * the way to go. Also, if you want to return the parametric value when there is
- * no problem, you can use {@link assert} function instead.
+ * Throws {@link TypeGuardError} on first mismatch with `path`, `expected`, and
+ * `value`.
  *
- * On the other hand, if you don't want to allow any superfluous property that
- * is not enrolled to the type `T`, you can use {@link assertGuardEquals}
- * function instead.
+ * Related functions:
  *
- * @author Jeongho Nam - https://github.com/samchon
- * @template T Type of the input value
- * @param input A value to be asserted
- * @param errorFactory Custom error factory. Default is `TypeGuardError`
- * @throws A {@link TypeGuardError} instance with a detailed reason
+ * - {@link assert} — Same validation but returns the input value
+ * - {@link is} — Returns `boolean` instead of throwing
+ * - {@link validate} — Collects all errors instead of throwing
+ * - {@link assertGuardEquals} — Also rejects properties not defined in `T`
+ *
+ * @template T Target type to validate against
+ * @param input Value to assert (narrowed to `T` after call)
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
+ * @throws {TypeGuardError} When input doesn't conform to type `T`
  */
 export function assertGuard<T>(
   input: unknown,
@@ -156,51 +152,42 @@ export function assertGuard(): never {
 }
 
 /**
- * Tests a value type.
+ * Tests type `T`.
  *
- * Tests a parametric value type and returns whether it's following the type `T`
- * or not. If the parametric value is matched with the type `T`, `true` value
- * will be returned. Otherwise, if the parametric value is not following the
- * type `T`, `false` value will be returned.
+ * Performs runtime type checking without throwing exceptions. Acts as
+ * TypeScript type guard, narrowing the input type in conditional branches when
+ * result is `true`.
  *
- * If what you want is not just knowing whether the parametric value is
- * following the type `T` or not, but throwing an exception with a detailed
- * reason, you can choose {@link assert} function instead. Also, if you want to
- * know all the errors with detailed reasons, {@link validate} function will be
- * useful.
+ * Related functions:
  *
- * On the other hand, if you don't want to allow any superfluous property that
- * is not enrolled to the type `T`, you can use {@link equals} function instead.
+ * - {@link assert} — Throws {@link TypeGuardError} with detailed error info on
+ *   mismatch
+ * - {@link validate} — Returns all errors without throwing
+ * - {@link equals} — Also rejects properties not defined in `T`
  *
- * @author Jeongho Nam - https://github.com/samchon
- * @template T Type of the input value
- * @param input A value to be tested
- * @param errorFactory Custom error factory. Default is `TypeGuardError`
- * @returns Whether the parametric value is following the type `T` or not
+ * @template T Target type to check
+ * @param input Value to test
+ * @returns `true` if valid, `false` otherwise (type predicate `input is T`)
  */
 export function is<T>(input: T): input is T;
 
 /**
- * Tests a value type.
+ * Tests type `T`.
  *
- * Tests a parametric value type and returns whether it's following the type `T`
- * or not. If the parametric value is matched with the type `T`, `true` value
- * will be returned. Otherwise, if the parametric value is not following the
- * type `T`, `false` value will be returned.
+ * Performs runtime type checking without throwing exceptions. Acts as
+ * TypeScript type guard, narrowing the input type in conditional branches when
+ * result is `true`.
  *
- * If what you want is not just knowing whether the parametric value is
- * following the type `T` or not, but throwing an exception with a detailed
- * reason, you can choose {@link assert} function instead. Also, if you want to
- * know all the errors with detailed reasons, {@link validate} function will be
- * useful.
+ * Related functions:
  *
- * On the other hand, if you don't want to allow any superfluous property that
- * is not enrolled to the type `T`, you can use {@link equals} function instead.
+ * - {@link assert} — Throws {@link TypeGuardError} with detailed error info on
+ *   mismatch
+ * - {@link validate} — Returns all errors without throwing
+ * - {@link equals} — Also rejects properties not defined in `T`
  *
- * @author Jeongho Nam - https://github.com/samchon
- * @template T Type of the input value
- * @param input A value to be tested
- * @returns Whether the parametric value is following the type `T` or not
+ * @template T Target type to check
+ * @param input Value to test
+ * @returns `true` if valid, `false` otherwise (type predicate `input is T`)
  */
 export function is<T>(input: unknown): input is T;
 
@@ -210,52 +197,52 @@ export function is(): never {
 }
 
 /**
- * Validates a value type.
+ * Validates type `T`.
  *
- * Validates a parametric value type and archives all the type errors into an
- * {@link IValidation.errors} array, if the parametric value is not following the
- * type `T`. Of course, if the parametric value is following the type `T`, the
- * {@link IValidation.errors} array will be empty and {@link IValidation.success}
- * will have the `true` value.
+ * Unlike {@link assert} which throws on first error, this function continues
+ * checking and collects all type mismatches into {@link IValidation.errors}
+ * array. Never throws.
  *
- * If what you want is not finding all the errors, but asserting the parametric
- * value type with exception throwing, you can choose {@link assert} function
- * instead. Otherwise, if you just want to know whether the parametric value is
- * matched with the type `T`, {@link is} function is the way to go.
+ * Return structure:
  *
- * On the other hand, if you don't want to allow any superfluous property that
- * is not enrolled to the type `T`, you can use {@link validateEquals} function
- * instead.
+ * - `success: true` → `data` contains validated input as `T`
+ * - `success: false` → `errors` array of {@link IValidation.IError} with `path`,
+ *   `expected`, `value`
  *
- * @author Jeongho Nam - https://github.com/samchon
- * @template T Type of the input value
- * @param input A value to be validated
- * @returns Validation result
+ * Related functions:
+ *
+ * - {@link assert} — Throws on first error instead of collecting all
+ * - {@link is} — Simple boolean check
+ * - {@link validateEquals} — Also rejects properties not defined in `T`
+ *
+ * @template T Target type to validate against
+ * @param input Value to validate
+ * @returns {@link IValidation} <T> containing either `data` or `errors`
  */
 export function validate<T>(input: T): IValidation<T>;
 
 /**
- * Validates a value type.
+ * Validates type `T`.
  *
- * Validates a parametric value type and archives all the type errors into an
- * {@link IValidation.errors} array, if the parametric value is not following the
- * type `T`. Of course, if the parametric value is following the type `T`, the
- * {@link IValidation.errors} array will be empty and {@link IValidation.success}
- * will have the `true` value.
+ * Unlike {@link assert} which throws on first error, this function continues
+ * checking and collects all type mismatches into {@link IValidation.errors}
+ * array. Never throws.
  *
- * If what you want is not finding all the errors, but asserting the parametric
- * value type with exception throwing, you can choose {@link assert} function
- * instead. Otherwise, if you just want to know whether the parametric value is
- * matched with the type `T`, {@link is} function is the way to go.
+ * Return structure:
  *
- * On the other hand, if you don't want to allow any superfluous property that
- * is not enrolled to the type `T`, you can use {@link validateEquals} function
- * instead.
+ * - `success: true` → `data` contains validated input as `T`
+ * - `success: false` → `errors` array of {@link IValidation.IError} with `path`,
+ *   `expected`, `value`
  *
- * @author Jeongho Nam - https://github.com/samchon
- * @template T Type of the input value
- * @param input A value to be validated
- * @returns Validation result
+ * Related functions:
+ *
+ * - {@link assert} — Throws on first error instead of collecting all
+ * - {@link is} — Simple boolean check
+ * - {@link validateEquals} — Also rejects properties not defined in `T`
+ *
+ * @template T Target type to validate against
+ * @param input Value to validate
+ * @returns {@link IValidation} <T> containing either `data` or `errors`
  */
 export function validate<T>(input: unknown): IValidation<T>;
 
@@ -268,28 +255,25 @@ export function validate(): never {
     STRICT VALIDATORS
 ----------------------------------------------------------- */
 /**
- * Asserts equality between a value and its type.
+ * Asserts type `T` with strict equality.
  *
- * Asserts a parametric value type and throws a {@link TypeGuardError} with
- * detailed reason, if the parametric value is not following the type `T` or
- * some superfluous property that is not listed on the type `T` has been found.
- * Otherwise, the value is following the type `T` without any superfluous
- * property, just input parameter would be returned.
+ * Stricter than {@link assert}: also fails when input contains any property not
+ * defined in type `T`. For extra property errors, `expected` will be
+ * `"undefined"`.
  *
- * If what you want is not asserting but just knowing whether the parametric
- * value is following the type `T` or not, you can choose the {@link equals}
- * function instead. Otherwise, if you want to know all the errors,
- * {@link validateEquals} is the way to go.
+ * Related functions:
  *
- * On the other hand, if you want to allow superfluous property that is not
- * enrolled to the type `T`, you can use {@link assert} function instead.
+ * - {@link assert} — Allows extra properties
+ * - {@link equals} — Boolean result without throwing
+ * - {@link validateEquals} — Collects all errors without throwing
+ * - {@link assertGuardEquals} — Type guard version with no return value
  *
- * @author Jeongho Nam - https://github.com/samchon
- * @template T Type of the input value
- * @param input A value to be asserted
- * @param errorFactory Custom error factory. Default is `TypeGuardError`
- * @returns Parametric input value
- * @throws A {@link TypeGuardError} instance with a detailed reason
+ * @template T Target type for exact match
+ * @param input Value to validate
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
+ * @returns The input value typed as `T`
+ * @throws {TypeGuardError} When type mismatch or extra property detected
  */
 export function assertEquals<T>(
   input: T,
@@ -297,28 +281,25 @@ export function assertEquals<T>(
 ): T;
 
 /**
- * Asserts equality between a value and its type.
+ * Asserts type `T` with strict equality.
  *
- * Asserts a parametric value type and throws a {@link TypeGuardError} with
- * detailed reason, if the parametric value is not following the type `T` or
- * some superfluous property that is not listed on the type `T` has been found.
- * Otherwise, the value is following the type `T` without any superfluous
- * property, just input parameter would be returned.
+ * Stricter than {@link assert}: also fails when input contains any property not
+ * defined in type `T`. For extra property errors, `expected` will be
+ * `"undefined"`.
  *
- * If what you want is not asserting but just knowing whether the parametric
- * value is following the type `T` or not, you can choose the {@link equals}
- * function instead. Otherwise, if you want to know all the errors,
- * {@link validateEquals} is the way to go.
+ * Related functions:
  *
- * On the other hand, if you want to allow superfluous property that is not
- * enrolled to the type `T`, you can use {@link assert} function instead.
+ * - {@link assert} — Allows extra properties
+ * - {@link equals} — Boolean result without throwing
+ * - {@link validateEquals} — Collects all errors without throwing
+ * - {@link assertGuardEquals} — Type guard version with no return value
  *
- * @author Jeongho Nam - https://github.com/samchon
- * @template T Type of the input value
- * @param input A value to be asserted
- * @param errorFactory Custom error factory. Default is `TypeGuardError`
- * @returns Parametric input value casted as `T`
- * @throws A {@link TypeGuardError} instance with a detailed reason
+ * @template T Target type for exact match
+ * @param input Value to validate
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
+ * @returns The input value typed as `T`
+ * @throws {TypeGuardError} When type mismatch or extra property detected
  */
 export function assertEquals<T>(
   input: unknown,
@@ -331,33 +312,24 @@ export function assertEquals(): never {
 }
 
 /**
- * Assertion guard of a type with equality.
+ * Asserts type `T` with strict equality as assertion guard.
  *
- * Asserts a parametric value type and throws a {@link TypeGuardError} with
- * detailed reason, if the parametric value is not following the type `T` or
- * some superfluous property that is not listed on the type `T` has been found.
+ * Combines {@link assertGuard} with strict equality checking. Returns nothing
+ * but narrows input to type `T`. Also fails when input contains properties not
+ * in `T`.
  *
- * Otherwise, the value is following the type `T` without any superfluous
- * property, nothing will be returned, but the input value would be
- * automatically casted to the type `T`. This is the concept of "Assertion
- * Guard" of a value type.
+ * Related functions:
  *
- * If what you want is not asserting but just knowing whether the parametric
- * value is following the type `T` or not, you can choose the {@link equals}
- * function instead. Otherwise, if you want to know all the errors,
- * {@link validateEquals} is the way to go. Also, if you want to returns the
- * parametric value when no problem, you can use {@link assert} function
- * instead.
+ * - {@link assertGuard} — Allows extra properties
+ * - {@link assertEquals} — Returns value instead of type guard
+ * - {@link equals} — Boolean result without throwing
+ * - {@link validateEquals} — Collects all errors without throwing
  *
- * On the other hand, if you want to allow superfluous property that is not
- * enrolled to the type `T`, you can use {@link assertEquals} function instead.
- *
- * @author Jeongho Nam - https://github.com/samchon
- * @template T Type of the input value
- * @param input A value to be asserted
- * @param errorFactory Custom error factory. Default is `TypeGuardError`
- * @returns Parametric input value casted as `T`
- * @throws A {@link TypeGuardError} instance with a detailed reason
+ * @template T Target type for exact match
+ * @param input Value to assert (narrowed to `T` after call)
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
+ * @throws {TypeGuardError} When type mismatch or extra property detected
  */
 export function assertGuardEquals<T>(
   input: T,
@@ -365,33 +337,24 @@ export function assertGuardEquals<T>(
 ): asserts input is T;
 
 /**
- * Assertion guard of a type with equality.
+ * Asserts type `T` with strict equality as assertion guard.
  *
- * Asserts a parametric value type and throws a {@link TypeGuardError} with
- * detailed reason, if the parametric value is not following the type `T` or
- * some superfluous property that is not listed on the type `T` has been found.
+ * Combines {@link assertGuard} with strict equality checking. Returns nothing
+ * but narrows input to type `T`. Also fails when input contains properties not
+ * in `T`.
  *
- * Otherwise, the value is following the type `T` without any superfluous
- * property, nothing will be returned, but the input value would be
- * automatically casted to the type `T`. This is the concept of "Assertion
- * Guard" of a value type.
+ * Related functions:
  *
- * If what you want is not asserting but just knowing whether the parametric
- * value is following the type `T` or not, you can choose the {@link equals}
- * function instead. Otherwise, if you want to know all the errors,
- * {@link validateEquals} is the way to go. Also, if you want to returns the
- * parametric value when no problem, you can use {@link assertEquals} function
- * instead.
+ * - {@link assertGuard} — Allows extra properties
+ * - {@link assertEquals} — Returns value instead of type guard
+ * - {@link equals} — Boolean result without throwing
+ * - {@link validateEquals} — Collects all errors without throwing
  *
- * On the other hand, if you want to allow superfluous property that is not
- * enrolled to the type `T`, you can use {@link assertGuard} function instead.
- *
- * @author Jeongho Nam - https://github.com/samchon
- * @template T Type of the input value
- * @param input A value to be asserted
- * @param errorFactory Custom error factory. Default is `TypeGuardError`
- * @returns Parametric input value casted as `T`
- * @throws A {@link TypeGuardError} instance with a detailed reason
+ * @template T Target type for exact match
+ * @param input Value to assert (narrowed to `T` after call)
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
+ * @throws {TypeGuardError} When type mismatch or extra property detected
  */
 export function assertGuardEquals<T>(
   input: unknown,
@@ -404,54 +367,40 @@ export function assertGuardEquals(): never {
 }
 
 /**
- * Tests equality between a value and its type.
+ * Tests type `T` with strict equality.
  *
- * Tests a parametric value type and returns whether it's equivalent to the type
- * `T` or not. If the parametric value is matched with the type `T` and there's
- * not any superfluous property that is not listed on the type `T`, `true` value
- * will be returned. Otherwise, if the parametric value is not following the
- * type `T` or some superfluous property exists, `false` value will be
- * returned.
+ * Stricter than {@link is}: also returns `false` when input contains any
+ * property not defined in type `T`. Useful for detecting unexpected data or
+ * typos.
  *
- * If what you want is not just knowing whether the parametric value is
- * following the type `T` or not, but throwing an exception with a detailed
- * reason, you can choose {@link assertEquals} function instead. Also, if you
- * want to know all the errors with detailed reasons, {@link validateEquals}
- * function will be useful.
+ * Related functions:
  *
- * On the other hand, if you want to allow superfluous property that is not
- * enrolled to the type `T`, you can use {@link is} function instead.
+ * - {@link is} — Allows extra properties
+ * - {@link assertEquals} — Throws with detailed error info on mismatch
+ * - {@link validateEquals} — Returns all errors without throwing
  *
- * @author Jeongho Nam - https://github.com/samchon
- * @template T Type of the input value
- * @param input A value to be tested
- * @returns Whether the parametric value is equivalent to the type `T` or not
+ * @template T Target type for exact match
+ * @param input Value to test
+ * @returns `true` if valid, `false` otherwise (type predicate `input is T`)
  */
 export function equals<T>(input: T): input is T;
 
 /**
- * Tests equality between a value and its type.
+ * Tests type `T` with strict equality.
  *
- * Tests a parametric value type and returns whether it's equivalent to the type
- * `T` or not. If the parametric value is matched with the type `T` and there's
- * not any superfluous property that is not listed on the type `T`, `true` value
- * will be returned. Otherwise, if the parametric value is not following the
- * type `T` or some superfluous property exists, `false` value will be
- * returned.
+ * Stricter than {@link is}: also returns `false` when input contains any
+ * property not defined in type `T`. Useful for detecting unexpected data or
+ * typos.
  *
- * If what you want is not just knowing whether the parametric value is
- * following the type `T` or not, but throwing an exception with a detailed
- * reason, you can choose {@link assertEquals} function instead. Also, if you
- * want to know all the errors with detailed reasons, {@link validateEquals}
- * function will be useful.
+ * Related functions:
  *
- * On the other hand, if you want to allow superfluous property that is not
- * enrolled to the type `T`, you can use {@link is} function instead.
+ * - {@link is} — Allows extra properties
+ * - {@link assertEquals} — Throws with detailed error info on mismatch
+ * - {@link validateEquals} — Returns all errors without throwing
  *
- * @author Jeongho Nam - https://github.com/samchon
- * @template T Type of the input value
- * @param input A value to be tested
- * @returns Whether the parametric value is equivalent to the type `T` or not
+ * @template T Target type for exact match
+ * @param input Value to test
+ * @returns `true` if valid, `false` otherwise (type predicate `input is T`)
  */
 export function equals<T>(input: unknown): input is T;
 
@@ -461,54 +410,50 @@ export function equals(): never {
 }
 
 /**
- * Validates equality between a value and its type.
+ * Validates type `T` with strict equality.
  *
- * Validates a parametric value type and archives all the type errors into an
- * {@link IValidation.errors} array, if the parametric value is not following the
- * type `T` or some superfluous property that is not listed on the type `T` has
- * been found. Of course, if the parametric value is following the type `T` and
- * no superfluous property exists, the {@link IValidation.errors} array would be
- * empty and {@link IValidation.success} would have the `true` value.
+ * Combines {@link validate} with strict equality checking. Collects all errors
+ * including extra property violations into {@link IValidation.errors} array.
  *
- * If what you want is not finding all the error, but asserting the parametric
- * value type with exception throwing, you can choose {@link assert} function
- * instead. Otherwise, you just want to know whether the parametric value is
- * matched with the type `T`, {@link is} function is the way to go.
+ * Return structure:
  *
- * On the other hand, if you don't want to allow any superfluous property that
- * is not enrolled to the type `T`, you can use {@link validateEquals} function
- * instead.
+ * - `success: true` → `data` contains validated input as `T`
+ * - `success: false` → `errors` array with `path`, `expected`, `value` for each
+ *   mismatch
  *
- * @author Jeongho Nam - https://github.com/samchon
- * @template Type Of the input value
- * @param input A value to be validated
- * @returns Validation result
+ * Related functions:
+ *
+ * - {@link validate} — Allows extra properties
+ * - {@link assertEquals} — Throws on first error
+ * - {@link equals} — Simple boolean check
+ *
+ * @template T Target type for exact match
+ * @param input Value to validate
+ * @returns {@link IValidation} <T> containing either `data` or `errors`
  */
 export function validateEquals<T>(input: T): IValidation<T>;
 
 /**
- * Validates equality between a value and its type.
+ * Validates type `T` with strict equality.
  *
- * Validates a parametric value type and archives all the type errors into an
- * {@link IValidation.errors} array, if the parametric value is not following the
- * type `T` or some superfluous property that is not listed on the type `T` has
- * been found. Of course, if the parametric value is following the type `T` and
- * no superfluous property exists, the {@link IValidation.errors} array would be
- * empty and {@link IValidation.success} would have the `true` value.
+ * Combines {@link validate} with strict equality checking. Collects all errors
+ * including extra property violations into {@link IValidation.errors} array.
  *
- * If what you want is not finding all the error, but asserting the parametric
- * value type with exception throwing, you can choose {@link assert} function
- * instead. Otherwise, you just want to know whether the parametric value is
- * matched with the type `T`, {@link is} function is the way to go.
+ * Return structure:
  *
- * On the other hand, if you don't want to allow any superfluous property that
- * is not enrolled to the type `T`, you can use {@link validateEquals} function
- * instead.
+ * - `success: true` → `data` contains validated input as `T`
+ * - `success: false` → `errors` array with `path`, `expected`, `value` for each
+ *   mismatch
  *
- * @author Jeongho Nam - https://github.com/samchon
- * @template Type Of the input value
- * @param input A value to be validated
- * @returns Validation result
+ * Related functions:
+ *
+ * - {@link validate} — Allows extra properties
+ * - {@link assertEquals} — Throws on first error
+ * - {@link equals} — Simple boolean check
+ *
+ * @template T Target type for exact match
+ * @param input Value to validate
+ * @returns {@link IValidation} <T> containing either `data` or `errors`
  */
 export function validateEquals<T>(input: unknown): IValidation<T>;
 
@@ -521,38 +466,29 @@ export function validateEquals(): never {
     RANDOM
 ----------------------------------------------------------- */
 /**
- * > You must configure the generic argument `T`.
+ * Generates random data of type `T`.
  *
- * Generate random data.
+ * Creates random instance conforming to compile-time type `T`. Generates only
+ * primitive data; methods in `T` are ignored. If `T` has `toJSON()` method,
+ * generates its return type instead.
  *
- * Generates a random data following type the `T`.
- *
- * For reference, this `typia.random()` function generates only primitive type.
- * If there're some methods in the type `T` or its nested instances, those would
- * be ignored. Also, when the type `T` has a `toJSON()` method, its return type
- * will be generated instead.
- *
- * @author Jeongho Nam - https://github.com/samchon
  * @template T Type of data to generate
- * @param generator Random data generator
- * @returns Randomly generated data
+ * @param generator Custom random generator implementing {@link IRandomGenerator}
+ * @returns Randomly generated data as `Resolved<T>`
+ * @danger You must configure the generic argument `T`
  */
 export function random(generator?: Partial<IRandomGenerator>): never;
 
 /**
- * Generate random data.
+ * Generates random data of type `T`.
  *
- * Generates a random data following type the `T`.
+ * Creates random instance conforming to compile-time type `T`. Generates only
+ * primitive data; methods in `T` are ignored. If `T` has `toJSON()` method,
+ * generates its return type instead.
  *
- * For reference, this `typia.random()` function generates only primitive type.
- * If there're some methods in the type `T` or its nested instances, those would
- * be ignored. Also, when the type `T` has a `toJSON()` method, its return type
- * will be generated instead.
- *
- * @author Jeongho Nam - https://github.com/samchon
  * @template T Type of data to generate
- * @param generator Random data generator
- * @returns Randomly generated data
+ * @param generator Custom random generator implementing {@link IRandomGenerator}
+ * @returns Randomly generated data as `Resolved<T>`
  */
 export function random<T>(generator?: Partial<IRandomGenerator>): Resolved<T>;
 
@@ -565,12 +501,15 @@ export function random(): never {
     FACTORY FUNCTIONS
 ----------------------------------------------------------- */
 /**
- * Creates a reusable {@link assert} function.
+ * Creates reusable {@link assert} function.
  *
- * @author Jeongho Nam - https://github.com/samchon
- * @param errorFactory Custom error factory. Default is `TypeGuardError`
- * @returns Nothing until you configure the generic argument `T`
- * @throws Compile error
+ * Returns a function that can be called multiple times without recompilation.
+ * Useful when the same type validation is needed repeatedly.
+ *
+ * @template T Target type to validate against
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
+ * @returns Reusable assert function `(input: unknown) => T`
  * @danger You must configure the generic argument `T`
  */
 export function createAssert(
@@ -578,12 +517,15 @@ export function createAssert(
 ): never;
 
 /**
- * Creates a reusable {@link assert} function.
+ * Creates reusable {@link assert} function.
  *
- * @author Jeongho Nam - https://github.com/samchon
- * @template T Type of the input value
- * @param errorFactory Custom error factory. Default is `TypeGuardError`
- * @returns A reusable `assert` function
+ * Returns a function that can be called multiple times without recompilation.
+ * Useful when the same type validation is needed repeatedly.
+ *
+ * @template T Target type to validate against
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
+ * @returns Reusable assert function `(input: unknown) => T`
  */
 export function createAssert<T>(
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
@@ -595,27 +537,17 @@ export function createAssert<T>(): (input: unknown) => T {
 }
 
 /**
- * Creates a reusable {@link assertGuard} function.
+ * Creates reusable {@link assertGuard} function.
  *
- * Note that, you've to declare the variable type of the factory function caller
- * like below. If you don't declare the variable type, compilation error be
- * thrown. This is the special rule of the TypeScript compiler.
+ * Returns a reusable type guard assertion function.
  *
- * ```typescript
- * // MUST DECLARE THE VARIABLE TYPE
- * const func: typia.AssertionGuard<number> = typia.createAssertGuard<number>();
+ * TypeScript requirement: You must declare the variable type explicitly. `const
+ * fn: AssertionGuard<T> = createAssertGuard<T>()` — otherwise compile error.
  *
- * // IF NOT, COMPILATION ERROR BE OCCURRED
- * const func = typia.createAssertGuard<number>();
- * ```
- *
- * > _Assertions require every name in the call target to be declared with an_
- * > _explicit type annotation._
- *
- * @author Jeongho Nam - https://github.com/samchon
- * @param errorFactory Custom error factory. Default is `TypeGuardError`
- * @returns Nothing until you configure the generic argument `T`
- * @throws Compile error
+ * @template T Target type to validate against
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
+ * @returns Reusable assertion guard function
  * @danger You must configure the generic argument `T`
  */
 export function createAssertGuard(
@@ -623,27 +555,17 @@ export function createAssertGuard(
 ): never;
 
 /**
- * Creates a reusable {@link assertGuard} function.
+ * Creates reusable {@link assertGuard} function.
  *
- * Note that, you've to declare the variable type of the factory function caller
- * like below. If you don't declare the variable type, compilation error be
- * thrown. This is the special rule of the TypeScript compiler.
+ * Returns a reusable type guard assertion function.
  *
- * ```typescript
- * // MUST DECLARE THE VARIABLE TYPE
- * const func: typia.AssertionGuard<number> = typia.createAssertGuard<number>();
+ * TypeScript requirement: You must declare the variable type explicitly. `const
+ * fn: AssertionGuard<T> = createAssertGuard<T>()` — otherwise compile error.
  *
- * // IF NOT, COMPILATION ERROR BE OCCURRED
- * const func = typia.createAssertGuard<number>();
- * ```
- *
- * > _Assertions require every name in the call target to be declared with an_
- * > _explicit type annotation._
- *
- * @author Jeongho Nam - https://github.com/samchon
- * @param errorFactory Custom error factory. Default is `TypeGuardError`
- * @returns Nothing until you configure the generic argument `T`
- * @throws Compile error
+ * @template T Target type to validate against
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
+ * @returns Reusable assertion guard function
  */
 export function createAssertGuard<T>(
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
@@ -655,21 +577,25 @@ export function createAssertGuard<T>(): (input: unknown) => AssertionGuard<T> {
 }
 
 /**
- * Creates a reusable {@link is} function.
+ * Creates reusable {@link is} function.
  *
- * @author Jeongho Nam - https://github.com/samchon
- * @returns Nothing until you configure the generic argument `T`
- * @throws Compile error
+ * Returns a type guard function that can be called multiple times without
+ * recompilation.
+ *
+ * @template T Target type to check
+ * @returns Reusable type guard function `(input: unknown) => input is T`
  * @danger You must configure the generic argument `T`
  */
 export function createIs(): never;
 
 /**
- * Creates a reusable {@link is} function.
+ * Creates reusable {@link is} function.
  *
- * @author Jeongho Nam - https://github.com/samchon
- * @template T Type of the input value
- * @returns A reusable `is` function
+ * Returns a type guard function that can be called multiple times without
+ * recompilation.
+ *
+ * @template T Target type to check
+ * @returns Reusable type guard function `(input: unknown) => input is T`
  */
 export function createIs<T>(): (input: unknown) => input is T;
 
@@ -679,21 +605,27 @@ export function createIs<T>(): (input: unknown) => input is T {
 }
 
 /**
- * Creates a reusable {@link validate} function.
+ * Creates reusable {@link validate} function.
  *
- * @author Jeongho Nam - https://github.com/samchon
- * @returns Nothing until you configure the generic argument `T`
- * @throws Compile error
+ * Returns a validation function that can be called multiple times without
+ * recompilation. Also implements {@link StandardSchemaV1} interface for
+ * interoperability.
+ *
+ * @template T Target type to validate against
+ * @returns Reusable validate function `(input: unknown) => IValidation<T>`
  * @danger You must configure the generic argument `T`
  */
 export function createValidate(): never;
 
 /**
- * Creates a reusable {@link validate} function.
+ * Creates reusable {@link validate} function.
  *
- * @author Jeongho Nam - https://github.com/samchon
- * @template T Type of the input value
- * @returns A reusable `validate` function
+ * Returns a validation function that can be called multiple times without
+ * recompilation. Also implements {@link StandardSchemaV1} interface for
+ * interoperability.
+ *
+ * @template T Target type to validate against
+ * @returns Reusable validate function `(input: unknown) => IValidation<T>`
  */
 export function createValidate<T>(): ((input: unknown) => IValidation<T>) &
   StandardSchemaV1<T, T>;
@@ -705,12 +637,15 @@ export function createValidate(): ((input: unknown) => IValidation) &
 }
 
 /**
- * Creates a reusable {@link assertEquals} function.
+ * Creates reusable {@link assertEquals} function.
  *
- * @author Jeongho Nam - https://github.com/samchon
- * @param errorFactory Custom error factory. Default is `TypeGuardError`
- * @returns Nothing until you configure the generic argument `T`
- * @throws Compile error
+ * Returns a strict assertion function that rejects superfluous properties. Can
+ * be called multiple times without recompilation.
+ *
+ * @template T Target type for exact match
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
+ * @returns Reusable assertEquals function `(input: unknown) => T`
  * @danger You must configure the generic argument `T`
  */
 export function createAssertEquals(
@@ -718,12 +653,15 @@ export function createAssertEquals(
 ): never;
 
 /**
- * Creates a reusable {@link assertEquals} function.
+ * Creates reusable {@link assertEquals} function.
  *
- * @author Jeongho Nam - https://github.com/samchon
- * @template T Type of the input value
- * @param errorFactory Custom error factory. Default is `TypeGuardError`
- * @returns A reusable `assertEquals` function
+ * Returns a strict assertion function that rejects superfluous properties. Can
+ * be called multiple times without recompilation.
+ *
+ * @template T Target type for exact match
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
+ * @returns Reusable assertEquals function `(input: unknown) => T`
  */
 export function createAssertEquals<T>(
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
@@ -735,27 +673,18 @@ export function createAssertEquals<T>(): (input: unknown) => T {
 }
 
 /**
- * Creates a reusable {@link assertGuardEquals} function.
+ * Creates reusable {@link assertGuardEquals} function.
  *
- * Note that, you've to declare the variable type of the factory function caller
- * like below. If you don't declare the variable type, compilation error be
- * thrown. This is the special rule of the TypeScript compiler.
+ * Returns a strict assertion guard that rejects superfluous properties.
  *
- * ```typescript
- * // MUST DECLARE THE VARIABLE TYPE
- * const func: typia.AssertionGuard<number> = typia.createAssertGuardEquals<number>();
+ * TypeScript requirement: You must declare the variable type explicitly. `const
+ * fn: AssertionGuard<T> = createAssertGuardEquals<T>()` — otherwise compile
+ * error.
  *
- * // IF NOT, COMPILATION ERROR BE OCCURRED
- * const func = typia.createAssertGuardEquals<number>();
- * ```
- *
- * > _Assertions require every name in the call target to be declared with an_
- * > _explicit type annotation._
- *
- * @author Jeongho Nam - https://github.com/samchon
- * @param errorFactory Custom error factory. Default is `TypeGuardError`
- * @returns Nothing until you configure the generic argument `T`
- * @throws Compile error
+ * @template T Target type for exact match
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
+ * @returns Reusable assertion guard function
  * @danger You must configure the generic argument `T`
  */
 export function createAssertGuardEquals(
@@ -763,27 +692,18 @@ export function createAssertGuardEquals(
 ): never;
 
 /**
- * Creates a reusable {@link assertGuardEquals} function.
+ * Creates reusable {@link assertGuardEquals} function.
  *
- * Note that, you've to declare the variable type of the factory function caller
- * like below. If you don't declare the variable type, compilation error be
- * thrown. This is the special rule of the TypeScript compiler.
+ * Returns a strict assertion guard that rejects superfluous properties.
  *
- * ```typescript
- * // MUST DECLARE THE VARIABLE TYPE
- * const func: typia.AssertionGuard<number> = typia.createAssertGuardEquals<number>();
+ * TypeScript requirement: You must declare the variable type explicitly. `const
+ * fn: AssertionGuard<T> = createAssertGuardEquals<T>()` — otherwise compile
+ * error.
  *
- * // IF NOT, COMPILATION ERROR BE OCCURRED
- * const func = typia.createAssertGuardEquals<number>();
- * ```
- *
- * > _Assertions require every name in the call target to be declared with an_
- * > _explicit type annotation._
- *
- * @author Jeongho Nam - https://github.com/samchon
- * @param errorFactory Custom error factory. Default is `TypeGuardError`
- * @returns Nothing until you configure the generic argument `T`
- * @throws Compile error
+ * @template T Target type for exact match
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
+ * @returns Reusable assertion guard function
  */
 export function createAssertGuardEquals<T>(
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
@@ -797,21 +717,25 @@ export function createAssertGuardEquals<T>(): (
 }
 
 /**
- * Creates a reusable {@link equals} function.
+ * Creates reusable {@link equals} function.
  *
- * @author Jeongho Nam - https://github.com/samchon
- * @returns Nothing until you configure the generic argument `T`
- * @throws Compile error
+ * Returns a strict type guard that rejects superfluous properties. Can be
+ * called multiple times without recompilation.
+ *
+ * @template T Target type for exact match
+ * @returns Reusable type guard function `(input: unknown) => input is T`
  * @danger You must configure the generic argument `T`
  */
 export function createEquals(): never;
 
 /**
- * Creates a reusable {@link equals} function.
+ * Creates reusable {@link equals} function.
  *
- * @author Jeongho Nam - https://github.com/samchon
- * @template T Type of the input value
- * @returns A reusable `equals` function
+ * Returns a strict type guard that rejects superfluous properties. Can be
+ * called multiple times without recompilation.
+ *
+ * @template T Target type for exact match
+ * @returns Reusable type guard function `(input: unknown) => input is T`
  */
 export function createEquals<T>(): (input: unknown) => input is T;
 
@@ -821,21 +745,27 @@ export function createEquals<T>(): (input: unknown) => input is T {
 }
 
 /**
- * Creates a reusable {@link validateEquals} function.
+ * Creates reusable {@link validateEquals} function.
  *
- * @author Jeongho Nam - https://github.com/samchon
- * @returns Nothing until you configure the generic argument `T`
- * @throws Compile error
+ * Returns a strict validation function that rejects superfluous properties.
+ * Also implements {@link StandardSchemaV1} interface for interoperability.
+ *
+ * @template T Target type for exact match
+ * @returns Reusable validateEquals function `(input: unknown) =>
+ *   IValidation<T>`
  * @danger You must configure the generic argument `T`
  */
 export function createValidateEquals(): never;
 
 /**
- * Creates a reusable {@link validateEquals} function.
+ * Creates reusable {@link validateEquals} function.
  *
- * @author Jeongho Nam - https://github.com/samchon
- * @template T Type of the input value
- * @returns A reusable `validateEquals` function
+ * Returns a strict validation function that rejects superfluous properties.
+ * Also implements {@link StandardSchemaV1} interface for interoperability.
+ *
+ * @template T Target type for exact match
+ * @returns Reusable validateEquals function `(input: unknown) =>
+ *   IValidation<T>`
  */
 export function createValidateEquals<T>(): ((
   input: unknown,
@@ -849,23 +779,27 @@ export function createValidateEquals(): ((input: unknown) => IValidation) &
 }
 
 /**
- * Creates a reusable {@link random} function.
+ * Creates reusable {@link random} function.
  *
- * @author Jeongho Nam - https://github.com/samchon
- * @param generator Random data generator
- * @returns Nothing until you configure the generic argument `T`
- * @throws Compile error
+ * Returns a random data generator that can be called multiple times without
+ * recompilation.
+ *
+ * @template T Type of data to generate
+ * @param generator Custom random generator implementing {@link IRandomGenerator}
+ * @returns Reusable random function `() => Resolved<T>`
  * @danger You must configure the generic argument `T`
  */
 export function createRandom(generator?: Partial<IRandomGenerator>): never;
 
 /**
- * Creates a reusable {@link random} function.
+ * Creates reusable {@link random} function.
  *
- * @author Jeongho Nam - https://github.com/samchon
- * @template T Type of the input value
- * @param generator Random data generator
- * @returns A reusable `random` function
+ * Returns a random data generator that can be called multiple times without
+ * recompilation.
+ *
+ * @template T Type of data to generate
+ * @param generator Custom random generator implementing {@link IRandomGenerator}
+ * @returns Reusable random function `() => Resolved<T>`
  */
 export function createRandom<T>(
   generator?: Partial<IRandomGenerator>,

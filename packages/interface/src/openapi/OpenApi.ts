@@ -1,51 +1,35 @@
 import { IJsonSchemaAttribute } from "../schema/IJsonSchemaAttribute";
+import * as tags from "../tags";
 
 /**
- * Emended OpenAPI v3.1 definition used by `typia` and `nestia`.
+ * Emended OpenAPI v3.1 specification.
  *
- * `OpenApi` is a namespace containing functions and interfaces for emended
- * OpenAPI v3.1 specification. The keyword "emended" means that `OpenApi` is not
- * a direct OpenAPI v3.1 specification ({@link OpenApiV3_1}), but a little bit
- * shrunk to remove ambiguous and duplicated expressions of OpenAPI v3.1 for the
- * convenience of `typia` and `nestia`.
+ * `OpenApi` is a refined OpenAPI v3.1 specification that normalizes ambiguous
+ * and redundant expressions from various OpenAPI versions (Swagger 2.0, OpenAPI
+ * 3.0, 3.1). This unified format simplifies schema processing for `typia` and
+ * `@nestia/sdk`.
  *
- * For example, when representing nullable type, OpenAPI v3.1 supports three
- * ways. In that case, `OpenApi` remains only the third way, so that makes
- * `typia` and `nestia` (especially `@nestia/editor`) to be simple and easy to
- * implement.
+ * Key simplifications:
  *
- * 1. `{ type: ["string", "null"] }`
- * 2. `{ type: "string", nullable: true }`
- * 3. `{ oneOf: [{ type: "string" }, { type: "null" }] }`
+ * - Schema `$ref` references are unified to `#/components/schemas/{name}` format
+ * - Non-schema references (parameters, responses) are resolved inline
+ * - `nullable` is converted to `{ oneOf: [schema, { type: "null\" }] }`
+ * - `allOf` compositions are merged into single schemas
+ * - Schema attributes are normalized across all versions
  *
- * Here is the entire list of differences between OpenAPI v3.1 and emended
- * `OpenApi`.
- *
- * - Operation
- *
- *   - Merge {@link OpenApiV3_1.IPath.parameters} to
- *       {@link OpenApi.IOperation.parameters}
- *   - Resolve {@link OpenApi.IJsonSchema.IReference references} of
- *       {@link OpenApiV3_1.IOperation} members
- *   - Escape references of {@link OpenApiV3_1.IComponents.examples}
- * - JSON Schema
- *
- *   - Decompose mixed type: {@link OpenApiV3_1.IJsonSchema.IMixed}
- *   - Resolve nullable property:
- *       {@link OpenApiV3_1.IJsonSchema.__ISignificant.nullable}
- *   - Array type utilizes only single {@link OpenApi.IJsonSchema.IArray.items}
- *   - Tuple type utilizes only {@link OpenApi.IJsonSchema.ITuple.prefixItems}
- *   - Merge {@link OpenApiV3_1.IJsonSchema.IAllOf} to
- *       {@link OpenApi.IJsonSchema.IObject}
- *   - Merge {@link OpenApiV3_1.IJsonSchema.IAnyOf} to
- *       {@link OpenApi.IJsonSchema.IOneOf}
- *   - Merge {@link OpenApiV3_1.IJsonSchema.IRecursiveReference} to
- *       {@link OpenApi.IJsonSchema.IReference}
+ * Use `HttpLlm.application()` from `@typia/utils` to convert
+ * `OpenApi.IDocument` into {@link IHttpLlmApplication} for LLM function
+ * calling.
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
 export namespace OpenApi {
-  /** Method of the operation. */
+  /**
+   * HTTP method supported by OpenAPI operations.
+   *
+   * Standard HTTP methods used in REST APIs. Each path can have multiple
+   * operations, one per HTTP method.
+   */
   export type Method =
     | "get"
     | "post"
@@ -56,381 +40,256 @@ export namespace OpenApi {
     | "patch"
     | "trace";
 
-  /* -----------------------------------------------------------
-    PATH ITEMS
-  ----------------------------------------------------------- */
   /**
-   * OpenAPI document.
+   * Root document structure for emended OpenAPI v3.1.
    *
-   * `OpenApi.IDocument` represents an OpenAPI document of emended OpenAPI v3.1.
-   *
-   * In other words, `OpenApi.IDocument` is a structure of `swagger.json` file
-   * of OpenAPI v3.1 specification, but a little bit shrunk to remove ambiguous
-   * and duplicated expressions of OpenAPI v3.1 for the convenience and
-   * clarity.
+   * Contains all API metadata, paths, operations, and reusable components. The
+   * `x-samchon-emended-v4` marker indicates this document has been processed by
+   * `@samchon/openapi` to normalize schema formats.
    */
   export interface IDocument {
-    /** OpenAPI version number. */
+    /** OpenAPI version. */
     openapi: `3.1.${number}`;
 
-    /** List of servers that provide the API. */
+    /** List of servers providing the API. */
     servers?: IServer[];
 
-    /** Information about the API. */
+    /** API metadata. */
     info?: IDocument.IInfo;
 
-    /**
-     * An object to hold reusable data structures.
-     *
-     * It stores both DTO schemas and security schemes.
-     *
-     * For reference, `nestia` defines every object and alias types as reusable
-     * DTO schemas. The alias type means that defined by `type` keyword in
-     * TypeScript.
-     */
+    /** Reusable components (schemas, security schemes). */
     components: IComponents;
 
-    /**
-     * The available paths and operations for the API.
-     *
-     * The 1st key is the path, and the 2nd key is the HTTP method.
-     */
+    /** Available API paths and operations. */
     paths?: Record<string, IPath>;
 
-    /**
-     * An object to hold Webhooks.
-     *
-     * Its structure is the same as {@link paths}, so the first key is the path,
-     * and the second key is the HTTP method.
-     */
+    /** Webhook definitions. */
     webhooks?: Record<string, IPath>;
 
-    /**
-     * A declaration of which security mechanisms can be used across the API.
-     *
-     * When this property is configured, it will be overwritten in every API
-     * route.
-     *
-     * For reference, the key means the name of the security scheme and the
-     * value means the `scopes`. The `scopes` can be used only when the target
-     * security scheme is `oauth2` type, especially for
-     * {@link ISwaggerSecurityScheme.IOAuth2.IFlow.scopes} property.
-     */
+    /** Global security requirements. */
     security?: Record<string, string[]>[];
 
-    /**
-     * List of tag names with descriptions.
-     *
-     * It is possible to omit this property or skip some tag names even if the
-     * tag name is used in the API routes. In that case, the tag name will be
-     * displayed (in Swagger-UI) without description.
-     */
+    /** Tag definitions for grouping operations. */
     tags?: IDocument.ITag[];
 
-    /** Flag for indicating this document is emended by `@samchon/openapi` v4. */
+    /** Marker for emended document by `@samchon/openapi`. */
     "x-samchon-emended-v4": true;
   }
   export namespace IDocument {
-    /** Information about the API. */
+    /**
+     * API metadata and identification.
+     *
+     * Contains essential information about the API including title, version,
+     * contact information, and licensing details.
+     */
     export interface IInfo {
-      /** The title of the API. */
+      /** API title. */
       title: string;
 
-      /** A short summary of the API. */
+      /** Short summary. */
       summary?: string;
 
-      /** A full description of the API. */
+      /** Full description. */
       description?: string;
 
-      /** A URL to the Terms of Service for the API. */
+      /** Terms of service URL. */
       termsOfService?: string;
 
-      /** The contact information for the exposed API. */
+      /** Contact information. */
       contact?: IContact;
 
-      /** The license information for the exposed API. */
+      /** License information. */
       license?: ILicense;
 
-      /** Version of the API. */
+      /** API version. */
       version: string;
     }
 
-    /**
-     * OpenAPI tag information.
-     *
-     * It is possible to skip composing this structure, even if some tag names
-     * are registered in the API routes ({@link OpenApi.IOperation.tags}). In
-     * that case, the tag name will be displayed in Swagger-UI without
-     * description.
-     *
-     * However, if you want to describe the tag name, you can compose this
-     * structure and describe the tag name in the {@link description} property.
-     */
+    /** Tag for grouping operations. */
     export interface ITag {
-      /** The name of the tag. */
+      /** Tag name. */
       name: string;
 
-      /** An optional string describing the tag. */
+      /** Tag description. */
       description?: string;
     }
 
-    /** Contact information for the exposed API. */
+    /** Contact information. */
     export interface IContact {
-      /** The identifying name of the contact person/organization. */
+      /** Contact name. */
       name?: string;
 
-      /** The URL pointing to the contact information. */
+      /** Contact URL. */
       url?: string;
 
-      /**
-       * The email address of the contact person/organization.
-       *
-       * @format email
-       */
-      email?: string;
+      /** Contact email. */
+      email?: string & tags.Format<"email">;
     }
 
-    /** License information for the exposed API. */
+    /** License information. */
     export interface ILicense {
-      /** The license name used for the API. */
+      /** License name. */
       name: string;
 
-      /**
-       * Identifier for the license used for the API.
-       *
-       * Example: MIT
-       */
+      /** SPDX license identifier. */
       identifier?: string;
 
-      /** A URL to the license used for the API. */
+      /** License URL. */
       url?: string;
     }
   }
 
-  /** The remote server that provides the API. */
+  /** Server providing the API. */
   export interface IServer {
-    /** A URL to the target host. */
+    /** Server URL. */
     url: string;
 
-    /** An optional string describing the target server. */
+    /** Server description. */
     description?: string;
 
-    /**
-     * A map between a variable name and its value.
-     *
-     * When the server {@link url} is a template type, this property will be
-     * utilized to fill the template with actual values.
-     */
+    /** URL template variables. */
     variables?: Record<string, IServer.IVariable>;
   }
   export namespace IServer {
-    /** A variable for the server URL template. */
+    /** URL template variable. */
     export interface IVariable {
-      /** Default value to use for substitution. */
+      /** Default value. */
       default: string;
 
-      /** List of available values for the variable. */
+      /** Allowed values. */
       enum?: string[];
 
-      /** An optional description for the server variable. */
+      /** Variable description. */
       description?: string;
     }
   }
 
-  /* -----------------------------------------------------------
-    OPERATORS
-  ----------------------------------------------------------- */
-  /**
-   * Path item.
-   *
-   * `OpenApi.IPath` represents a path item of emended OpenAPI v3.1, collecting
-   * multiple method operations under a single path.
-   */
+  /** Path item containing operations by HTTP method. */
   export interface IPath extends Partial<Record<Method, IOperation>> {
-    /** Servers that provide the path operations. */
+    /** Path-level servers. */
     servers?: IServer[];
 
-    /** Summary of the path. */
+    /** Path summary. */
     summary?: string;
 
-    /** Description of the path. */
+    /** Path description. */
     description?: string;
   }
 
-  /**
-   * Remote operation information.
-   *
-   * `OpenApi.IOperation` represents a RESTful API operation provided by the
-   * remote server.
-   */
+  /** API operation metadata. */
   export interface IOperation {
-    /** Unique string used to identify the operation. */
+    /** Unique operation identifier. */
     operationId?: string;
 
-    /** List of parameters that are applicable for this operation. */
+    /** Operation parameters. */
     parameters?: IOperation.IParameter[];
 
-    /** The request body applicable for this operation. */
+    /** Request body. */
     requestBody?: IOperation.IRequestBody;
 
-    /**
-     * The list of possible responses as they are returned from executing this
-     * operation. Its key is the HTTP status code, and the value is the metadata
-     * of the response in the HTTP status code.
-     */
+    /** Response definitions by status code. */
     responses?: Record<string, IOperation.IResponse>;
 
-    /** A list of servers providing this API operation. */
+    /** Operation-level servers. */
     servers?: IServer[];
 
-    /** A short summary of what the operation does. */
+    /** Short summary. */
     summary?: string;
 
-    /** A verbose explanation of the operation behavior. */
+    /** Full description. */
     description?: string;
 
-    /**
-     * List of securities and their scopes that are required for execution.
-     *
-     * When this property is configured, the RESTful API operation requires the
-     * matching security value for execution. Its key means the security key
-     * matching {@link OpenApi.IDocument.security}.
-     *
-     * The value means scopes required for the security key when the security
-     * type is {@link OpenApi.ISecurityScheme.IOAuth2}. Otherwise, if the target
-     * security type is not {@link OpenApi.ISecurityScheme.IOAuth2}, the value
-     * will be an empty array.
-     */
+    /** Security requirements. */
     security?: Record<string, string[]>[];
 
-    /** Tags for API documentation control. */
+    /** Operation tags for grouping. */
     tags?: string[];
 
-    /** Flag for indicating this operation is deprecated. */
+    /** Whether deprecated. */
     deprecated?: boolean;
 
-    /**
-     * Flag for indicating this operation is human-only.
-     *
-     * If this property value is `true`, the {@link HttpLlm.application} function
-     * will not convert this operation schema into the LLM function calling
-     * schema that is represented by the {@link IHttpLlmFunction} interface.
-     */
+    /** Excludes from LLM function calling when `true`. */
     "x-samchon-human"?: boolean;
 
-    /**
-     * Accessor of the operation.
-     *
-     * If you configure this property, the assigned value will be used as
-     * {@link IHttpMigrateRoute.accessor}. Also, it can be used as the
-     * {@link IHttpLlmFunction.name} by joining with `.` character in the LLM
-     * function calling application.
-     *
-     * Note that the `x-samchon-accessor` value must be unique in the entire
-     * OpenAPI document operations. If there are duplicated `x-samchon-accessor`
-     * values, {@link IHttpMigrateRoute.accessor} will ignore all duplicated
-     * `x-samchon-accessor` values and generate the
-     * {@link IHttpMigrateRoute.accessor} by itself.
-     */
+    /** Custom accessor path for migration. */
     "x-samchon-accessor"?: string[];
 
-    /**
-     * Controller of the operation.
-     *
-     * If you configure this property, the assigned value will be utilized as
-     * the controller name in the OpenAPI generator library like
-     * [`@nestia/editor`](https://nestia.io/docs/editor/) and
-     * [`@nestia/migrate`](https://nestia.io/docs/migrate/).
-     *
-     * Also, if {@link x-samchon-accessor} has been configured, its last element
-     * will be used as the controller method (function) name. Of course, the
-     * OpenAPI document generator `@nestia/sdk` fills both of them.
-     */
+    /** Controller name for code generation. */
     "x-samchon-controller"?: string;
   }
   export namespace IOperation {
-    /** Parameter of the operation. */
+    /** Operation parameter. */
     export interface IParameter {
-      /**
-       * Representative name of the parameter.
-       *
-       * In most cases, the `name` is equivalent to the parameter variable name.
-       * Therefore, the `name` must be filled with the significant variable name
-       * of the parameter.
-       *
-       * Note: Only when the {@link in} property is `path`, the `name` can be
-       * omitted. In that case, the `name` is automatically deduced from the URL
-       * path's positional template argument analysis.
-       */
+      /** Parameter name. */
       name?: string;
 
-      /**
-       * Location of the parameter.
-       *
-       * The `in` property is a string that determines the location of the
-       * parameter.
-       *
-       * - `path`: parameter is part of the path of the URL.
-       * - `query`: parameter is part of the query string.
-       * - `header`: parameter is part of the header.
-       * - `cookie`: parameter is part of the cookie.
-       */
+      /** Parameter location. */
       in: "path" | "query" | "header" | "cookie";
 
-      /** Type info of the parameter. */
+      /** Parameter schema. */
       schema: IJsonSchema;
 
-      /**
-       * Whether the parameter is required for execution or not.
-       *
-       * If the parameter is required, the value must be filled. Otherwise, it
-       * is possible to skip the parameter when executing the API operation.
-       *
-       * For reference, the `required` property must always be `true` when the
-       * {@link in} property is `path`. Otherwise, the `required` property can be
-       * any of these values: `true`, `false`, or `undefined`.
-       */
+      /** Whether required. */
       required?: boolean;
 
-      /** Verbose explanation of the parameter. */
+      /** Parameter description. */
       description?: string;
 
-      /** Example value of the parameter. */
+      /** Example value. */
       example?: any;
 
-      /** Collection of example values of the parameter with keys. */
+      /** Named examples. */
       examples?: Record<string, IExample>;
     }
 
-    /** Request body of the operation. */
+    /** Request body. */
     export interface IRequestBody {
+      /** Body content by media type. */
       content?: IContent;
+
+      /** Body description. */
       description?: string;
+
+      /** Whether required. */
       required?: boolean;
+
+      /** Nestia encryption flag. */
       "x-nestia-encrypted"?: boolean;
     }
 
-    /** Response of the operation. */
+    /** Response definition. */
     export interface IResponse {
+      /** Response headers. */
       headers?: Record<string, IOperation.IParameter>;
+
+      /** Response content by media type. */
       content?: IContent;
+
+      /** Response description. */
       description?: string;
+
+      /** Nestia encryption flag. */
       "x-nestia-encrypted"?: boolean;
     }
 
-    /** List of content types supported in request/response body. */
+    /** Content by media type. */
     export interface IContent extends Partial<
       Record<ContentType, IMediaType>
     > {}
 
-    /** Media type of a request/response body. */
+    /** Media type definition. */
     export interface IMediaType {
+      /** Content schema. */
       schema?: IJsonSchema;
+
+      /** Example value. */
       example?: any;
+
+      /** Named examples. */
       examples?: Record<string, IExample>;
     }
 
-    /** List of supported content media types. */
+    /** Supported content types. */
     export type ContentType =
       | "text/plain"
       | "application/json"
@@ -440,60 +299,42 @@ export namespace OpenApi {
       | (string & {});
   }
 
-  /** Example of the operation parameter or response. */
+  /** Example value definition. */
   export interface IExample {
+    /** Example summary. */
     summary?: string;
+
+    /** Example description. */
     description?: string;
+
+    /** Example value. */
     value?: any;
+
+    /** External value URL. */
     externalValue?: string;
   }
 
-  /* -----------------------------------------------------------
-    SCHEMA DEFINITIONS
-  ----------------------------------------------------------- */
-  /**
-   * Reusable components in OpenAPI.
-   *
-   * A storage of reusable components in OpenAPI document.
-   *
-   * In other words, it is a storage of named DTO schemas and security schemes.
-   */
+  /** Reusable components storage. */
   export interface IComponents {
-    /**
-     * An object to hold reusable DTO schemas.
-     *
-     * In other words, a collection of named JSON schemas.
-     */
+    /** Named schemas. */
     schemas?: Record<string, IJsonSchema>;
 
-    /**
-     * An object to hold reusable security schemes.
-     *
-     * In other words, a collection of named security schemes.
-     */
+    /** Named security schemes. */
     securitySchemes?: Record<string, ISecurityScheme>;
   }
 
   /**
-   * Type schema information.
+   * JSON Schema type for emended OpenAPI v3.1.
    *
-   * `OpenApi.IJsonSchema` is a type schema info for OpenAPI.
+   * Represents all possible JSON Schema types in the normalized OpenAPI format.
+   * This is a discriminated union - check the `type` property or use type
+   * guards to narrow to specific schema types.
    *
-   * `OpenApi.IJsonSchema` basically follows the JSON schema definition of
-   * OpenAPI v3.1, but is refined to remove ambiguous and duplicated expressions
-   * of OpenAPI v3.1 for convenience and clarity.
+   * Unlike raw JSON Schema, this format:
    *
-   * - Decompose mixed type: {@link OpenApiV3_1.IJsonSchema.IMixed}
-   * - Resolve nullable property:
-   *   {@link OpenApiV3_1.IJsonSchema.__ISignificant.nullable}
-   * - Array type utilizes only single {@link OpenApi.IJsonSchema.IArray.items}
-   * - Tuple type utilizes only {@link OpenApi.IJsonSchema.ITuple.prefixItems}
-   * - Merge {@link OpenApiV3_1.IJsonSchema.IAllOf} to
-   *   {@link OpenApi.IJsonSchema.IObject}
-   * - Merge {@link OpenApiV3_1.IJsonSchema.IAnyOf} to
-   *   {@link OpenApi.IJsonSchema.IOneOf}
-   * - Merge {@link OpenApiV3_1.IJsonSchema.IRecursiveReference} to
-   *   {@link OpenApi.IJsonSchema.IReference}
+   * - Uses `oneOf` instead of `anyOf` for union types
+   * - Separates `IArray` (homogeneous) from `ITuple` (heterogeneous)
+   * - Normalizes nullable types to `oneOf` with null schema
    */
   export type IJsonSchema =
     | IJsonSchema.IConstant
@@ -511,85 +352,64 @@ export namespace OpenApi {
   export namespace IJsonSchema {
     /** Constant value type. */
     export interface IConstant extends IJsonSchemaAttribute {
-      /** The constant value. */
+      /** Constant value. */
       const: boolean | number | string;
     }
 
-    /** Boolean type info. */
+    /** Boolean type. */
     export interface IBoolean extends IJsonSchemaAttribute.IBoolean {
-      /** The default value of the boolean type. */
+      /** Default value. */
       default?: boolean;
     }
 
-    /** Integer type info. */
+    /** Integer type. */
     export interface IInteger extends IJsonSchemaAttribute.IInteger {
-      /**
-       * Default value of the integer type.
-       *
-       * @type int64
-       */
-      default?: number;
+      /** Default value. */
+      default?: number & tags.Type<"int64">;
 
-      /**
-       * Minimum value restriction.
-       *
-       * @type int64
-       */
-      minimum?: number;
+      /** Minimum value. */
+      minimum?: number & tags.Type<"int64">;
 
-      /**
-       * Maximum value restriction.
-       *
-       * @type int64
-       */
-      maximum?: number;
+      /** Maximum value. */
+      maximum?: number & tags.Type<"int64">;
 
-      /** Exclusive minimum value restriction. */
-      exclusiveMinimum?: number;
+      /** Exclusive minimum. */
+      exclusiveMinimum?: number & tags.Type<"int64">;
 
-      /** Exclusive maximum value restriction. */
-      exclusiveMaximum?: number;
+      /** Exclusive maximum. */
+      exclusiveMaximum?: number & tags.Type<"int64">;
 
-      /**
-       * Multiple of value restriction.
-       *
-       * @type uint64
-       * @exclusiveMinimum 0
-       */
-      multipleOf?: number;
+      /** Multiple of constraint. */
+      multipleOf?: number & tags.ExclusiveMinimum<0>;
     }
 
-    /** Number (double) type info. */
+    /** Number (double) type. */
     export interface INumber extends IJsonSchemaAttribute.INumber {
-      /** Default value of the number type. */
+      /** Default value. */
       default?: number;
 
-      /** Minimum value restriction. */
+      /** Minimum value. */
       minimum?: number;
 
-      /** Maximum value restriction. */
+      /** Maximum value. */
       maximum?: number;
 
-      /** Exclusive minimum value restriction. */
+      /** Exclusive minimum. */
       exclusiveMinimum?: number;
 
-      /** Exclusive maximum value restriction. */
+      /** Exclusive maximum. */
       exclusiveMaximum?: number;
 
-      /**
-       * Multiple of value restriction.
-       *
-       * @exclusiveMinimum 0
-       */
-      multipleOf?: number;
+      /** Multiple of constraint. */
+      multipleOf?: number & tags.ExclusiveMinimum<0>;
     }
 
-    /** String type info. */
+    /** String type. */
     export interface IString extends IJsonSchemaAttribute.IString {
-      /** Default value of the string type. */
+      /** Default value. */
       default?: string;
 
-      /** Format restriction. */
+      /** String format. */
       format?:
         | "binary"
         | "byte"
@@ -616,272 +436,106 @@ export namespace OpenApi {
         | "relative-json-pointer"
         | (string & {});
 
-      /** Pattern restriction. */
+      /** Regex pattern. */
       pattern?: string;
 
-      /** Content media type restriction. */
+      /** Content media type. */
       contentMediaType?: string;
 
-      /**
-       * Minimum length restriction.
-       *
-       * @type uint64
-       */
-      minLength?: number;
+      /** Minimum length. */
+      minLength?: number & tags.Type<"uint64">;
 
-      /**
-       * Maximum length restriction.
-       *
-       * @type uint64
-       */
-      maxLength?: number;
+      /** Maximum length. */
+      maxLength?: number & tags.Type<"uint64">;
     }
 
-    /** Array type info. */
+    /** Array type. */
     export interface IArray extends IJsonSchemaAttribute.IArray {
-      /**
-       * Items type info.
-       *
-       * The `items` means the type of the array elements. In other words, it is
-       * the type schema info of the `T` in the TypeScript array type
-       * `Array<T>`.
-       */
+      /** Element type. */
       items: IJsonSchema;
 
-      /**
-       * Unique items restriction.
-       *
-       * If this property value is `true`, target array must have unique items.
-       */
+      /** Whether elements must be unique. */
       uniqueItems?: boolean;
 
-      /**
-       * Minimum items restriction.
-       *
-       * Restriction of minimum number of items in the array.
-       *
-       * @type uint64
-       */
-      minItems?: number;
+      /** Minimum items. */
+      minItems?: number & tags.Type<"uint64">;
 
-      /**
-       * Maximum items restriction.
-       *
-       * Restriction of maximum number of items in the array.
-       *
-       * @type uint64
-       */
-      maxItems?: number;
+      /** Maximum items. */
+      maxItems?: number & tags.Type<"uint64">;
     }
 
-    /** Tuple type info. */
+    /** Tuple type. */
     export interface ITuple extends IJsonSchemaAttribute {
-      /**
-       * Discriminator value of the type.
-       *
-       * Note that, the tuple type cannot be distinguished with {@link IArray}
-       * type just by this `discriminator` property.
-       *
-       * To check whether the type is tuple or array, you have to check the
-       * existence of {@link IArray.items} or {@link ITuple.prefixItems}
-       * properties.
-       */
+      /** Type discriminator. */
       type: "array";
 
-      /**
-       * Prefix items.
-       *
-       * The `prefixItems` means the type schema info of the prefix items in the
-       * tuple type. In the TypeScript, it is expressed as `[T1, T2]`.
-       *
-       * If you want to express `[T1, T2, ...TO[]]` type, you can configure the
-       * `...TO[]` through the {@link additionalItems} property.
-       */
+      /** Tuple element types. */
       prefixItems: IJsonSchema[];
 
-      /**
-       * Additional items.
-       *
-       * The `additionalItems` means the type schema info of the additional
-       * items after the {@link prefixItems}. In the TypeScript, if there's a
-       * type `[T1, T2, ...TO[]]`, the `...TO[]` is represented by the
-       * `additionalItems`.
-       *
-       * By the way, if you configure the `additionalItems` as `true`, it means
-       * the additional items are not restricted. They can be any type, so that
-       * it is equivalent to the TypeScript type `[T1, T2, ...any[]]`.
-       *
-       * Otherwise configure the `additionalItems` as the {@link IJsonSchema}, it
-       * means the additional items must follow the type schema info. Therefore,
-       * it is equivalent to the TypeScript type `[T1, T2, ...TO[]]`.
-       */
+      /** Rest element type or `true` for any. */
       additionalItems?: boolean | IJsonSchema;
 
-      /**
-       * Unique items restriction.
-       *
-       * If this property value is `true`, target tuple must have unique items.
-       */
+      /** Whether elements must be unique. */
       uniqueItems?: boolean;
 
-      /**
-       * Minimum items restriction.
-       *
-       * Restriction of minimum number of items in the tuple.
-       *
-       * @type uint64
-       */
-      minItems?: number;
+      /** Minimum items. */
+      minItems?: number & tags.Type<"uint64">;
 
-      /**
-       * Maximum items restriction.
-       *
-       * Restriction of maximum number of items in the tuple.
-       *
-       * @type uint64
-       */
-      maxItems?: number;
+      /** Maximum items. */
+      maxItems?: number & tags.Type<"uint64">;
     }
 
-    /** Object type info. */
+    /** Object type. */
     export interface IObject extends IJsonSchemaAttribute.IObject {
-      /**
-       * Properties of the object.
-       *
-       * The `properties` means a list of key-value pairs of the object's
-       * regular properties. The key is the name of the regular property, and
-       * the value is the type schema info.
-       *
-       * If you need additional properties that is represented by dynamic key,
-       * you can use the {@link additionalProperties} instead.
-       */
+      /** Property schemas. */
       properties?: Record<string, IJsonSchema>;
 
-      /**
-       * Additional properties' info.
-       *
-       * The `additionalProperties` means the type schema info of the additional
-       * properties that are not listed in the {@link properties}.
-       *
-       * If the value is `true`, it means that the additional properties are not
-       * restricted. They can be any type. Otherwise, if the value is
-       * {@link IJsonSchema} type, it means that the additional properties must
-       * follow the type schema info.
-       *
-       * - `true`: `Record<string, any>`
-       * - `IJsonSchema`: `Record<string, T>`
-       */
+      /** Additional properties schema or `true` for any. */
       additionalProperties?: boolean | IJsonSchema;
 
-      /**
-       * List of key values of the required properties.
-       *
-       * The `required` means a list of the key values of the required
-       * {@link properties}. If some property key is not listed in the `required`
-       * list, it means that property is optional. Otherwise some property key
-       * exists in the `required` list, it means that the property must be
-       * filled.
-       *
-       * Below is an example of the {@link properties} and `required`.
-       *
-       * ```typescript
-       * interface SomeObject {
-       *   id: string;
-       *   email: string;
-       *   name?: string;
-       * }
-       * ```
-       *
-       * As you can see, `id` and `email` {@link properties} are {@link required},
-       * so that they are listed in the `required` list.
-       *
-       * ```json
-       * {
-       *   "type": "object",
-       *   "properties": {
-       *     "id": { "type": "string" },
-       *     "email": { "type": "string" },
-       *     "name": { "type": "string" }
-       *   },
-       *   "required": ["id", "email"]
-       * }
-       * ```
-       */
+      /** Required property names. */
       required?: string[];
     }
 
-    /** Reference type directing named schema. */
+    /** Reference to named schema. */
     export interface IReference<Key = string> extends IJsonSchemaAttribute {
-      /**
-       * Reference to the named schema.
-       *
-       * The `ref` is a reference to the named schema. Format of the `$ref` is
-       * following the JSON Pointer specification. In the OpenAPI, the `$ref`
-       * starts with `#/components/schemas/` which means the type is stored in
-       * the {@link OpenApi.IComponents.schemas} object.
-       *
-       * - `#/components/schemas/SomeObject`
-       * - `#/components/schemas/AnotherObject`
-       */
+      /** Reference path (e.g., `#/components/schemas/TypeName`). */
       $ref: Key;
     }
 
-    /**
-     * Union type.
-     *
-     * `IOneOf` represents an union type of the TypeScript (`A | B | C`).
-     *
-     * For reference, even though your Swagger (or OpenAPI) document has defined
-     * `anyOf` instead of the `oneOf`, {@link OpenApi} forcibly converts it to
-     * `oneOf` type.
-     */
+    /** Union type (`oneOf`). */
     export interface IOneOf extends IJsonSchemaAttribute {
-      /** List of the union types. */
+      /** Union member schemas. */
       oneOf: Exclude<IJsonSchema, IJsonSchema.IOneOf>[];
 
-      /** Discriminator info of the union type. */
+      /** Discriminator for tagged unions. */
       discriminator?: IOneOf.IDiscriminator;
     }
     export namespace IOneOf {
-      /** Discriminator info of the union type. */
+      /** Discriminator for tagged unions. */
       export interface IDiscriminator {
-        /** Property name for the discriminator. */
+        /** Discriminator property name. */
         propertyName: string;
 
-        /**
-         * Mapping of the discriminator value to the schema name.
-         *
-         * This property is valid only for {@link IReference} typed
-         * {@link IOneOf.oneof} elements. Therefore, `key` of `mapping` is the
-         * discriminator value, and `value` of `mapping` is the schema name like
-         * `#/components/schemas/SomeObject`.
-         */
+        /** Value to schema mapping. */
         mapping?: Record<string, string>;
       }
     }
 
     /** Null type. */
     export interface INull extends IJsonSchemaAttribute.INull {
-      /** Default value of the `null` type. */
+      /** Default value. */
       default?: null;
     }
 
-    /** Unknown, the `any` type. */
+    /** Unknown (`any`) type. */
     export interface IUnknown extends IJsonSchemaAttribute.IUnknown {
-      /** Default value of the `any` type. */
+      /** Default value. */
       default?: any;
     }
   }
 
-  /**
-   * Security scheme of Swagger Documents.
-   *
-   * `OpenApi.ISecurityScheme` is a data structure representing content of
-   * `securitySchemes` in `swagger.json` file. It is composed with 5 types of
-   * security schemes as an union type like below.
-   *
-   * @reference https://swagger.io/specification/#security-scheme-object
-   */
+  /** Security scheme types. */
   export type ISecurityScheme =
     | ISecurityScheme.IApiKey
     | ISecurityScheme.IHttpBasic
@@ -889,51 +543,99 @@ export namespace OpenApi {
     | ISecurityScheme.IOAuth2
     | ISecurityScheme.IOpenId;
   export namespace ISecurityScheme {
-    /** Normal API key type. */
+    /** API key authentication. */
     export interface IApiKey {
+      /** Scheme type. */
       type: "apiKey";
+
+      /** Key location. */
       in?: "header" | "query" | "cookie";
+
+      /** Key name. */
       name?: string;
+
+      /** Scheme description. */
       description?: string;
     }
 
-    /** HTTP basic authentication type. */
+    /** HTTP basic authentication. */
     export interface IHttpBasic {
+      /** Scheme type. */
       type: "http";
+
+      /** Authentication scheme. */
       scheme: "basic";
+
+      /** Scheme description. */
       description?: string;
     }
 
-    /** HTTP bearer authentication type. */
+    /** HTTP bearer authentication. */
     export interface IHttpBearer {
+      /** Scheme type. */
       type: "http";
+
+      /** Authentication scheme. */
       scheme: "bearer";
+
+      /** Bearer token format hint. */
       bearerFormat?: string;
+
+      /** Scheme description. */
       description?: string;
     }
 
-    /** OAuth2 authentication type. */
+    /** OAuth2 authentication. */
     export interface IOAuth2 {
+      /** Scheme type. */
       type: "oauth2";
+
+      /** OAuth2 flows. */
       flows: IOAuth2.IFlowSet;
+
+      /** Scheme description. */
       description?: string;
     }
+
+    /** OpenID Connect authentication. */
     export interface IOpenId {
+      /** Scheme type. */
       type: "openIdConnect";
+
+      /** OpenID Connect discovery URL. */
       openIdConnectUrl: string;
+
+      /** Scheme description. */
       description?: string;
     }
     export namespace IOAuth2 {
+      /** OAuth2 flow configurations. */
       export interface IFlowSet {
+        /** Authorization code flow. */
         authorizationCode?: IFlow;
+
+        /** Implicit flow. */
         implicit?: Omit<IFlow, "tokenUrl">;
+
+        /** Password flow. */
         password?: Omit<IFlow, "authorizationUrl">;
+
+        /** Client credentials flow. */
         clientCredentials?: Omit<IFlow, "authorizationUrl">;
       }
+
+      /** OAuth2 flow configuration. */
       export interface IFlow {
+        /** Authorization URL. */
         authorizationUrl?: string;
+
+        /** Token URL. */
         tokenUrl?: string;
+
+        /** Refresh URL. */
         refreshUrl?: string;
+
+        /** Available scopes. */
         scopes?: Record<string, string>;
       }
     }

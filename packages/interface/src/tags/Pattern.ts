@@ -1,22 +1,33 @@
 import { TagBase } from "./TagBase";
 
 /**
- * String pattern (regular expression) constraint tag.
+ * Regular expression pattern constraint for strings.
  *
- * Validates that a string matches a specified regular expression pattern. Use
- * this tag to enforce custom string formats through regex validation.
+ * `Pattern<Regex>` is a type tag that validates string values match the
+ * specified regular expression pattern. Apply it to `string` properties using
+ * TypeScript intersection types.
  *
- * Examples:
+ * This constraint is **mutually exclusive** with {@link Format} - you cannot use
+ * both on the same property. Use `Pattern` for custom regex validation, or
+ * `Format` for standard formats (email, uuid, etc.).
  *
- * ```ts
- * type PhoneNumber = string & Pattern<"^\d{3}-\d{3}-\d{4}$">; // 123-456-7890
- * type HexColor = string & Pattern<"^#[0-9A-Fa-f]{6}$">; // #FF5733
- * ```
+ * The pattern should be a valid JavaScript regular expression string without
+ * the surrounding slashes. The entire string must match (implicit `^` and `$`
+ * anchors).
  *
- * Note: This tag is mutually exclusive with the Format tag. You cannot use both
- * Pattern and Format on the same type.
+ * The constraint is enforced at runtime by `typia.is()`, `typia.assert()`, and
+ * `typia.validate()`. It generates `pattern` in JSON Schema output.
  *
  * @author Jeongho Nam - https://github.com/samchon
+ * @example
+ *   interface Product {
+ *     // SKU format: 3 letters, dash, 4 digits
+ *     sku: string & Pattern<"^[A-Z]{3}-[0-9]{4}$">;
+ *     // Phone number: digits and optional dashes
+ *     phone: string & Pattern<"^[0-9-]+$">;
+ *   }
+ *
+ * @template Value Regular expression pattern as a string literal
  */
 export type Pattern<Value extends string> = TagBase<{
   target: "string";
@@ -29,7 +40,6 @@ export type Pattern<Value extends string> = TagBase<{
   };
 }>;
 
-/// reference: https://github.com/type-challenges/type-challenges/issues/22394#issuecomment-1397158205
 type Serialize<T extends string, Output extends string = ""> = string extends T
   ? never
   : T extends ""

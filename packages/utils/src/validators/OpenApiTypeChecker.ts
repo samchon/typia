@@ -3,9 +3,29 @@ import { IJsonSchemaTransformError, IResult, OpenApi } from "@typia/interface";
 import { OpenApiTypeCheckerBase } from "../utils/internal/OpenApiTypeCheckerBase";
 
 /**
- * Type checker of OpenAPI type schema.
+ * Type checker for emended OpenAPI v3.1 JSON schemas.
  *
- * `OpenApiTypeChecker` is a type checker of {@link OpenApi.IJsonSchema}.
+ * `OpenApiTypeChecker` provides type guard functions for
+ * {@link OpenApi.IJsonSchema} (typia's normalized OpenAPI format). Use these to
+ * narrow schema types before accessing type-specific properties.
+ *
+ * Type checkers:
+ *
+ * - Primitives: {@link isNull}, {@link isBoolean}, {@link isInteger},
+ *   {@link isNumber}, {@link isString}
+ * - Constants: {@link isConstant}
+ * - Collections: {@link isArray}, {@link isTuple}, {@link isObject}
+ * - Composition: {@link isOneOf}, {@link isReference}
+ * - Special: {@link isUnknown}
+ *
+ * Also provides schema operations:
+ *
+ * - {@link visit}: Traverse and transform schemas recursively
+ * - {@link covers}: Check if one schema subsumes another
+ * - {@link escape}: Unwrap reference schemas
+ *
+ * For other OpenAPI versions, use {@link OpenApiV3TypeChecker},
+ * {@link OpenApiV3_1TypeChecker}, or {@link SwaggerV2TypeChecker}.
  *
  * @author Jeongho Nam - https://github.com/samchon
  */

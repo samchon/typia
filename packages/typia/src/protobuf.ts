@@ -13,45 +13,24 @@ import { NoTransformConfigurationError } from "./transformers/NoTransformConfigu
     SCHEMA
 ----------------------------------------------------------- */
 /**
- * > You must configure the generic argument `T`.
+ * Generates Protocol Buffer message schema.
  *
- * Protocol Buffer Message Schema.
- *
- * Creates a Protocol Buffer Message Schema from a TypeScript type. The message
- * schema would be returned as a string value, and it can be used to share with
- * other developers/languages/frameworks.
- *
- * For reference, Protocol Buffer has lots of restrictions, so that expression
- * power of Protocol Buffer is not enough strong to fully meet the TypeScript
- * type specs. In such reason, if you put a TypeScript type that is not
- * compatible with Protocol Buffer, this function would throw compilation
- * errors.
- *
- * - [Restrictions of Protocol
- *   Buffer](https://typia.io/docs/protobuf/message/#restrictions)
- *
- * @author Jeongho Nam - https://github.com/samchon
- * @template T Target type
- * @returns Protocol Buffer Message Schema.
+ * @danger You must configure the generic argument `T`
  */
 export function message(): never;
 
 /**
- * Protocol Buffer Message Schema.
+ * Generates Protocol Buffer message schema for type `T`.
  *
- * Creates a Protocol Buffer Message Schema from a TypeScript type. The message
- * schema would be returned as a string value, and it can be used to share with
- * other developers/languages/frameworks.
+ * Creates a `.proto` message definition string from a TypeScript type. Use for
+ * sharing schemas with other languages/frameworks.
  *
- * For reference, Protocol Buffer has lots of restrictions, so that expression
- * power of Protocol Buffer is not enough strong to fully meet the TypeScript
- * type specs. In such reason, if you put a TypeScript type that is not
- * compatible with Protocol Buffer, this function would throw compilation
- * errors.
+ * Protocol Buffer has limited expressiveness compared to TypeScript.
+ * Incompatible types cause compilation errors.
  *
- * @author Jeongho Nam - https://github.com/samchon
  * @template T Target type
- * @returns Protocol Buffer Message Schema.
+ * @returns Protocol Buffer message schema string
+ * @see https://typia.io/docs/protobuf/message/#restrictions
  */
 export function message<T>(): string;
 
@@ -64,64 +43,31 @@ export function message(): never {
     DECODE
 ----------------------------------------------------------- */
 /**
- * > You must configure the generic argument `T`.
+ * Decodes Protocol Buffer binary.
  *
- * Protocol Buffer Decoder.
- *
- * `typia.protobuf.decode()` is a function decoding a binary data of Protocol
- * Buffer format to a TypeScript instance.
- *
- * For reference, as Protocol Buffer handles binary data directly, there's no
- * way when `input` binary data was not encoded from the `T` typed value. In
- * that case, unexpected behavior or internal error would be occurred.
- * Therefore, I recommend you to encode binary data of Protocol Buffer from type
- * safe encode functions like below. Use {@link encode} function only when you
- * can ensure it.
- *
- * - {@link assertEncode}
- * - {@link isEncode}
- * - {@link validateEncode}
- *
- * Also, `typia` is providing type safe decoders like {@link assertDecode}, but
- * it is just for additional type validation like `number & Minimum<7>` or
- * `string & Format<"uuid">` cases, that are represented by [custom
- * tags](https://typia.io/docs/validators/tags). Thus, I repeat that, you've to
- * ensure the type safety when using decoder functions.
- *
- * @author Jeongho Nam - https://github.com/samchon
- * @template T Expected type of decoded value
- * @param input Protobuf Buffer binary data
- * @returns Decoded value
+ * @danger You must configure the generic argument `T`
  */
 export function decode(input: Uint8Array): never;
 
 /**
- * Protocol Buffer Decoder.
+ * Decodes Protocol Buffer binary to type `T`.
  *
- * `typia.protobuf.decode()` is a function decoding a binary data of Protocol
- * Buffer format to a TypeScript instance.
+ * Converts Protocol Buffer binary data to a TypeScript instance. Binary data
+ * must have been encoded from a `T`-typed value—invalid data causes undefined
+ * behavior or errors.
  *
- * For reference, as Protocol Buffer handles binary data directly, there's no
- * way when `input` binary data was not encoded from the `T` typed value. In
- * that case, unexpected behavior or internal error would be occurred.
- * Therefore, I recommend you to encode binary data of Protocol Buffer from type
- * safe encode functions like below. Use {@link encode} function only when you
- * can ensure it.
+ * For type safety, ensure data was encoded via:
  *
- * - {@link assertEncode}
- * - {@link isEncode}
- * - {@link validateEncode}
+ * - {@link assertEncode} — Encodes with type assertion
+ * - {@link isEncode} — Encodes with type checking
+ * - {@link validateEncode} — Encodes with validation
  *
- * Also, `typia` is providing type safe decoders like {@link assertDecode}, but
- * it is just for additional type validation like `number & Minimum<7>` or
- * `string & Format<"uuid">` cases, that are represented by [custom
- * tags](https://typia.io/docs/validators/tags). Thus, I repeat that, you've to
- * ensure the type safety when using decoder functions.
+ * Note: Decoder validation ({@link assertDecode}, etc.) only checks custom tags
+ * like `number & Minimum<7>`, not structural type safety.
  *
- * @author Jeongho Nam - https://github.com/samchon
- * @template T Expected type of decoded value
- * @param input Protobuf Buffer binary data
- * @returns Decoded value
+ * @template T Target type
+ * @param input Protocol Buffer binary data
+ * @returns Decoded value of type `T`
  */
 export function decode<T>(input: Uint8Array): Resolved<T>;
 
@@ -131,35 +77,9 @@ export function decode(): never {
 }
 
 /**
- * > You must configure the generic argument `T`.
+ * Decodes Protocol Buffer binary with assertion.
  *
- * Protocol Buffer Decoder wity type assertion, but not safe.
- *
- * `typia.protobuf.assertDecode()` is a combination function of {@link decode}
- * and {@link assert} function. Therefore, it decodes a binary data of Protocol
- * Buffer to a TypeScript instance, and performs type assertion process. If
- * decoded value is following the type `T`, it returns the decoded value.
- * Otherwise, it throws {@link TypeGuardError} instead.
- *
- * However, note that, this validation is not always safe. It just performs
- * additional type assertion like `number & Minimum<7>` or `string &
- * Format<"uuid">` cases, that are represented by [custom
- * tags](https://typia.io/docs/validators/tags). Therefore, when using
- * `typia.protobuf.assertDecode<T>()` function, you have to ensure the type
- * safety by yourself.
- *
- * In such type safety reason, I recommend you to use type safe encode
- * functions.
- *
- * - {@link assertEncode}
- * - {@link isEncode}
- * - {@link validateEncode}
- *
- * @author Jeongho Nam - https://github.com/samchon
- * @template T Expected type of decoded value
- * @param input Protobuf Buffer binary data
- * @param errorFactory Custom error factory. Default is `TypeGuardError`
- * @returns Decoded value
+ * @danger You must configure the generic argument `T`
  */
 export function assertDecode(
   input: Uint8Array,
@@ -167,33 +87,27 @@ export function assertDecode(
 ): never;
 
 /**
- * Protocol Buffer Decoder wity type assertion, but not safe.
+ * Decodes Protocol Buffer binary with assertion (partial safety).
  *
- * `typia.protobuf.assertDecode()` is a combination function of {@link decode}
- * and {@link assert} function. Therefore, it decodes a binary data of Protocol
- * Buffer to a TypeScript instance, and performs type assertion process. If
- * decoded value is following the type `T`, it returns the decoded value.
- * Otherwise, it throws {@link TypeGuardError} instead.
+ * Combines {@link decode} with {@link assert}. Throws {@link TypeGuardError} on
+ * validation failure.
  *
- * However, note that, this validation is not always safe. It just performs
- * additional type assertion like `number & Minimum<7>` or `string &
- * Format<"uuid">` cases, that are represented by [custom
- * tags](https://typia.io/docs/validators/tags). Therefore, when using
- * `typia.protobuf.assertDecode<T>()` function, you have to ensure the type
- * safety by yourself.
+ * Warning: Only validates custom tags (e.g., `number & Minimum<7>`, `string &
+ * Format<"uuid">`), not structural type correctness. Ensure source data was
+ * encoded with type-safe encoders.
  *
- * In such type safety reason, I recommend you to use type safe encode
- * functions.
+ * Related functions:
  *
- * - {@link assertEncode}
- * - {@link isEncode}
- * - {@link validateEncode}
+ * - {@link decode} — No validation
+ * - {@link isDecode} — Returns `null` instead of throwing
+ * - {@link validateDecode} — Returns detailed validation errors
  *
- * @author Jeongho Nam - https://github.com/samchon
- * @template T Expected type of decoded value
- * @param input Protobuf Buffer binary data
- * @param errorFactory Custom error factory. Default is `TypeGuardError`
- * @returns Decoded value
+ * @template T Target type
+ * @param input Protocol Buffer binary data
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
+ * @returns Decoded value of type `T`
+ * @throws {TypeGuardError} When custom tag validation fails
  */
 export function assertDecode<T>(
   input: Uint8Array,
@@ -206,64 +120,30 @@ export function assertDecode(): never {
 }
 
 /**
- * > You must configure the generic argument `T`.
+ * Decodes Protocol Buffer binary with type checking.
  *
- * Protocol Buffer Decoder wity type checking, but not safe.
- *
- * `typia.protobuf.isDecode()` is a combination function of {@link decode} and
- * {@link is} function. Therefore, it decodes a binary data of Protocol Buffer to
- * a TypeScript instance, and performs type checking process. If decoded value
- * is following the type `T`, it returns the decoded value. Otherwise, it
- * returns `null` value instead.
- *
- * However, note that, this validation is not always safe. It just performs
- * additional type checking like `number & Minimum<7>` or `string &
- * Format<"uuid">` cases, that are represented by [custom
- * tags](https://typia.io/docs/validators/tags). Therefore, when using
- * `typia.protobuf.isDecode<T>()` function, you have to ensure the type safety
- * by yourself.
- *
- * In such type safety reason, I recommend you to use type safe encode
- * functions.
- *
- * - {@link assertEncode}
- * - {@link isEncode}
- * - {@link validateEncode}
- *
- * @author Jeongho Nam - https://github.com/samchon
- * @template T Expected type of decoded value
- * @param input Protobuf Buffer binary data
- * @returns Decoded value
+ * @danger You must configure the generic argument `T`
  */
 export function isDecode(input: Uint8Array): never;
 
 /**
- * Protocol Buffer Decoder wity type checking, but not safe.
+ * Decodes Protocol Buffer binary with type checking (partial safety).
  *
- * `typia.protobuf.isDecode()` is a combination function of {@link decode} and
- * {@link is} function. Therefore, it decodes a binary data of Protocol Buffer to
- * a TypeScript instance, and performs type checking process. If decoded value
- * is following the type `T`, it returns the decoded value. Otherwise, it
- * returns `null` value instead.
+ * Combines {@link decode} with {@link is}. Returns `null` on validation failure.
  *
- * However, note that, this validation is not always safe. It just performs
- * additional type checking like `number & Minimum<7>` or `string &
- * Format<"uuid">` cases, that are represented by [custom
- * tags](https://typia.io/docs/validators/tags). Therefore, when using
- * `typia.protobuf.isDecode<T>()` function, you have to ensure the type safety
- * by yourself.
+ * Warning: Only validates custom tags (e.g., `number & Minimum<7>`, `string &
+ * Format<"uuid">`), not structural type correctness. Ensure source data was
+ * encoded with type-safe encoders.
  *
- * In such type safety reason, I recommend you to use type safe encode
- * functions.
+ * Related functions:
  *
- * - {@link assertEncode}
- * - {@link isEncode}
- * - {@link validateEncode}
+ * - {@link decode} — No validation
+ * - {@link assertDecode} — Throws instead of returning `null`
+ * - {@link validateDecode} — Returns detailed validation errors
  *
- * @author Jeongho Nam - https://github.com/samchon
- * @template T Expected type of decoded value
- * @param input Protobuf Buffer binary data
- * @returns Decoded value
+ * @template T Target type
+ * @param input Protocol Buffer binary data
+ * @returns Decoded value of type `T`, or `null` if invalid
  */
 export function isDecode<T>(input: Uint8Array): Resolved<T> | null;
 
@@ -273,66 +153,32 @@ export function isDecode(): never {
 }
 
 /**
- * > You must configure the generic argument `T`.
+ * Decodes Protocol Buffer binary with validation.
  *
- * Protocol Buffer Decoder wity type validation, but not safe.
- *
- * `typia.protobuf.validateDecode()` is a combination function of {@link decode}
- * and {@link validate} function. Therefore, it decodes a binary data of Protocol
- * Buffer to a TypeScript instance, and performs type validation process. If
- * decoded value is following the type `T`, it returns the decoded value with
- * {@link IValidation.ISuccess} typed instance. Otherwise, it returns
- * {@link IValidation.IFailure} value instead with detailed error reasons.
- *
- * However, note that, this validation is not always safe. It just performs
- * additional type validation like `number & Minimum<7>` or `string &
- * Format<"uuid">` cases, that are represented by [custom
- * tags](https://typia.io/docs/validators/tags). Therefore, when using
- * `typia.protobuf.validateDecode<T>()` function, you have to ensure the type
- * safety by yourself.
- *
- * In such type safety reason, I recommend you to use type safe encode
- * functions.
- *
- * - {@link assertEncode}
- * - {@link isEncode}
- * - {@link validateEncode}
- *
- * @author Jeongho Nam - https://github.com/samchon
- * @template T Expected type of decoded value
- * @param input Protobuf Buffer binary data
- * @returns Decoded value
+ * @danger You must configure the generic argument `T`
  */
 export function validateDecode(input: Uint8Array): never;
 
 /**
- * Protocol Buffer Decoder wity type validation, but not safe.
+ * Decodes Protocol Buffer binary with validation (partial safety).
  *
- * `typia.protobuf.validateDecode()` is a combination function of {@link decode}
- * and {@link validate} function. Therefore, it decodes a binary data of Protocol
- * Buffer to a TypeScript instance, and performs type validation process. If
- * decoded value is following the type `T`, it returns the decoded value with
- * {@link IValidation.ISuccess} typed instance. Otherwise, it returns
- * {@link IValidation.IFailure} value instead with detailed error reasons.
+ * Combines {@link decode} with {@link validate}. Returns
+ * {@link IValidation.IFailure} with errors on mismatch, or
+ * {@link IValidation.ISuccess} with decoded value.
  *
- * However, note that, this validation is not always safe. It just performs
- * additional type validation like `number & Minimum<7>` or `string &
- * Format<"uuid">` cases, that are represented by [custom
- * tags](https://typia.io/docs/validators/tags). Therefore, when using
- * `typia.protobuf.validateDecode<T>()` function, you have to ensure the type
- * safety by yourself.
+ * Warning: Only validates custom tags (e.g., `number & Minimum<7>`, `string &
+ * Format<"uuid">`), not structural type correctness. Ensure source data was
+ * encoded with type-safe encoders.
  *
- * In such type safety reason, I recommend you to use type safe encode
- * functions.
+ * Related functions:
  *
- * - {@link assertEncode}
- * - {@link isEncode}
- * - {@link validateEncode}
+ * - {@link decode} — No validation
+ * - {@link assertDecode} — Throws on first error
+ * - {@link isDecode} — Returns `null` instead of error details
  *
- * @author Jeongho Nam - https://github.com/samchon
- * @template T Expected type of decoded value
- * @param input Protobuf Buffer binary data
- * @returns Decoded value
+ * @template T Target type
+ * @param input Protocol Buffer binary data
+ * @returns Validation result containing decoded value or errors
  */
 export function validateDecode<T>(input: Uint8Array): IValidation<Resolved<T>>;
 
@@ -345,31 +191,23 @@ export function validateDecode(): never {
     ENCODE
 ----------------------------------------------------------- */
 /**
- * Protocol Buffer Encoder.
+ * Encodes value to Protocol Buffer binary.
  *
- * Converts an input value to a binary data of Protocol Buffer format.
+ * Converts a TypeScript value to Protocol Buffer binary format.
  *
- * For reference, this `typia.protobuf.encode()` does not validate the `input`
- * value. It just believes that the `input` value is valid and converts it to a
- * binary data directly. Therefore, if you can't ensure the `input` value type,
- * it would better to call one of below functions instead.
+ * Does not validate the input. For validation, use:
  *
- * - {@link assertEncode}
- * - {@link isEncode}
- * - {@link validateEncode}
+ * - {@link assertEncode} — Throws on type mismatch
+ * - {@link isEncode} — Returns `null` on type mismatch
+ * - {@link validateEncode} — Returns detailed validation errors
  *
- * By the way, you know what? Expression power of Protocol Buffer is not enough
- * strong to fully meet the TypeScript type specs. In such reason, if you put a
- * TypeScript type that is not compatible with Protocol Buffer, this function
- * would throw compilation errors.
+ * Protocol Buffer has limited expressiveness compared to TypeScript.
+ * Incompatible types cause compilation errors.
  *
- * - [Restrictions of Protocol
- *   Buffer](https://typia.io/docs/protobuf/message/#restrictions)
- *
- * @author Jeongho Nam - https://github.com/samchon
- * @template T Type of the value input
- * @param input A value to encode
- * @returns Encoded binary data
+ * @template T Type of input value
+ * @param input Value to encode
+ * @returns Protocol Buffer binary data
+ * @see https://typia.io/docs/protobuf/message/#restrictions
  */
 export function encode<T>(input: T): Uint8Array;
 
@@ -379,74 +217,34 @@ export function encode(): never {
 }
 
 /**
- * Protocol Buffer Encoder with type assertion.
+ * Encodes value to Protocol Buffer binary with assertion.
  *
- * `typia.protobuf.assertEncode()` is a combination function of {@link assert}
- * and {@link encode}.
+ * Combines {@link assert} with {@link encode}. Throws {@link TypeGuardError} on
+ * type mismatch.
  *
- * Therefore, it converts an `input` value to a binary data of Protocol Buffer,
- * with type assertion. If `input` value is not valid, it throws
- * {@link TypeGuardError}. Otherwise, there's no problem on the `input` value,
- * Protocol Buffer binary data would be returned.
+ * Related functions:
  *
- * If you can trust `input` value, or want to perform other type of validation,
- * use below functions instead.
+ * - {@link encode} — No validation
+ * - {@link isEncode} — Returns `null` instead of throwing
+ * - {@link validateEncode} — Returns detailed validation errors
  *
- * - {@link encode}
- * - {@link isEncode}
- * - {@link validateEncode}
+ * Protocol Buffer has limited expressiveness compared to TypeScript.
+ * Incompatible types cause compilation errors.
  *
- * By the way, you know what? Expression power of Protocol Buffer is not enough
- * strong to fully meet the TypeScript type specs. In such reason, if you put a
- * TypeScript type that is not compatible with Protocol Buffer, this function
- * would throw compilation errors.
- *
- * - [Restrictions of Protocol
- *   Buffer](https://typia.io/docs/protobuf/message/#restrictions)
- *
- * @author Jeongho Nam - https://github.com/samchon
- * @template T Type of the value input
- * @param input A value to encode
- * @param errorFactory Custom error factory. Default is `TypeGuardError`
- * @returns Encoded binary data
+ * @template T Type of input value
+ * @param input Value to encode
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
+ * @returns Protocol Buffer binary data
+ * @throws {TypeGuardError} When input doesn't conform to type `T`
+ * @see https://typia.io/docs/protobuf/message/#restrictions
  */
 export function assertEncode<T>(
   input: T,
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
 ): Uint8Array;
 
-/**
- * Protocol Buffer Encoder with type assertion.
- *
- * `typia.protobuf.assertEncode()` is a combination function of {@link assert}
- * and {@link encode}.
- *
- * Therefore, it converts an `input` value to a binary data of Protocol Buffer,
- * with type assertion. If `input` value is not valid, it throws
- * {@link TypeGuardError}. Otherwise, there's no problem on the `input` value,
- * Protocol Buffer binary data would be returned.
- *
- * If you can trust `input` value, or want to perform other type of validation,
- * use below functions instead.
- *
- * - {@link encode}
- * - {@link isEncode}
- * - {@link validateEncode}
- *
- * By the way, you know what? Expression power of Protocol Buffer is not enough
- * strong to fully meet the TypeScript type specs. In such reason, if you put a
- * TypeScript type that is not compatible with Protocol Buffer, this function
- * would throw compilation errors.
- *
- * - [Restrictions of Protocol
- *   Buffer](https://typia.io/docs/protobuf/message/#restrictions)
- *
- * @author Jeongho Nam - https://github.com/samchon
- * @template T Type of the value input
- * @param input A value to encode
- * @param errorFactory Custom error factory. Default is `TypeGuardError`
- * @returns Encoded binary data
- */
+/** @internal */
 export function assertEncode<T>(
   input: unknown,
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
@@ -458,69 +256,27 @@ export function assertEncode(): never {
 }
 
 /**
- * Protocol Buffer Encoder with type checking.
+ * Encodes value to Protocol Buffer binary with type checking.
  *
- * `typia.protobuf.isEncode()` is a combination function of {@link is} and
- * {@link encode}.
+ * Combines {@link is} with {@link encode}. Returns `null` on type mismatch.
  *
- * Therefore, it converts an `input` value to a binary data of Protocol Buffer,
- * with type checking. If `input` value is not valid, it returns `null` value.
- * Otherwise, there's no problem on the `input` value, Protocol Buffer binary
- * data would be returned.
+ * Related functions:
  *
- * If you can trust `input` value, or want to perform other type of validation,
- * use below functions instead.
+ * - {@link encode} — No validation
+ * - {@link assertEncode} — Throws instead of returning `null`
+ * - {@link validateEncode} — Returns detailed validation errors
  *
- * - {@link encode}
- * - {@link assertEncode}
- * - {@link validateEncode}
+ * Protocol Buffer has limited expressiveness compared to TypeScript.
+ * Incompatible types cause compilation errors.
  *
- * By the way, you know what? Expression power of Protocol Buffer is not enough
- * strong to fully meet the TypeScript type specs. In such reason, if you put a
- * TypeScript type that is not compatible with Protocol Buffer, this function
- * would throw compilation errors.
- *
- * - [Restrictions of Protocol
- *   Buffer](https://typia.io/docs/protobuf/message/#restrictions)
- *
- * @author Jeongho Nam - https://github.com/samchon
- * @template T Type of the value input
- * @param input A value to encode
- * @returns Encoded binary data
+ * @template T Type of input value
+ * @param input Value to encode
+ * @returns Protocol Buffer binary data, or `null` if invalid
+ * @see https://typia.io/docs/protobuf/message/#restrictions
  */
 export function isEncode<T>(input: T): Uint8Array | null;
 
-/**
- * Protocol Buffer Encoder with type checking.
- *
- * `typia.protobuf.isEncode()` is a combination function of {@link is} and
- * {@link encode}.
- *
- * Therefore, it converts an `input` value to a binary data of Protocol Buffer,
- * with type checking. If `input` value is not valid, it returns `null` value.
- * Otherwise, there's no problem on the `input` value, Protocol Buffer binary
- * data would be returned.
- *
- * If you can trust `input` value, or want to perform other type of validation,
- * use below functions instead.
- *
- * - {@link encode}
- * - {@link assertEncode}
- * - {@link validateEncode}
- *
- * By the way, you know what? Expression power of Protocol Buffer is not enough
- * strong to fully meet the TypeScript type specs. In such reason, if you put a
- * TypeScript type that is not compatible with Protocol Buffer, this function
- * would throw compilation errors.
- *
- * - [Restrictions of Protocol
- *   Buffer](https://typia.io/docs/protobuf/message/#restrictions)
- *
- * @author Jeongho Nam - https://github.com/samchon
- * @template T Type of the value input
- * @param input A value to encode
- * @returns Encoded binary data
- */
+/** @internal */
 export function isEncode<T>(input: unknown): Uint8Array | null;
 
 /** @internal */
@@ -529,73 +285,29 @@ export function isEncode(): never {
 }
 
 /**
- * Protocol Buffer Encoder with type validation.
+ * Encodes value to Protocol Buffer binary with validation.
  *
- * `typia.protobuf.validateEncode()` is a combination function of
- * {@link validation} and {@link encode}.
+ * Combines {@link validate} with {@link encode}. Returns
+ * {@link IValidation.IFailure} with all errors on mismatch, or
+ * {@link IValidation.ISuccess} with binary data.
  *
- * Therefore, it converts an `input` value to a binary data of Protocol Buffer,
- * with type validation. If `input` value is not valid, it returns
- * {@link IValidation.IFailure} value with detailed error reasons. Otherwise,
- * there's no problem on the `input` value, Protocol Buffer binary data would be
- * stored in `data` property of the output {@link IValidation.ISuccess}
- * instance.
+ * Related functions:
  *
- * If you can trust `input` value, or want to perform other type of validation,
- * use below functions instead.
+ * - {@link encode} — No validation
+ * - {@link assertEncode} — Throws on first error
+ * - {@link isEncode} — Returns `null` instead of error details
  *
- * - {@link encode}
- * - {@link assertEncode}
- * - {@link isEncode}
+ * Protocol Buffer has limited expressiveness compared to TypeScript.
+ * Incompatible types cause compilation errors.
  *
- * By the way, you know what? Expression power of Protocol Buffer is not enough
- * strong to fully meet the TypeScript type specs. In such reason, if you put a
- * TypeScript type that is not compatible with Protocol Buffer, this function
- * would throw compilation errors.
- *
- * - [Restrictions of Protocol
- *   Buffer](https://typia.io/docs/protobuf/message/#restrictions)
- *
- * @author Jeongho Nam - https://github.com/samchon
- * @template T Type of the value input
- * @param input A value to encode
- * @returns Encoded binary data
+ * @template T Type of input value
+ * @param input Value to encode
+ * @returns Validation result containing binary data or errors
+ * @see https://typia.io/docs/protobuf/message/#restrictions
  */
 export function validateEncode<T>(input: T): IValidation<Uint8Array>;
 
-/**
- * Protocol Buffer Encoder with type validation.
- *
- * `typia.protobuf.validateEncode()` is a combination function of
- * {@link validation} and {@link encode}.
- *
- * Therefore, it converts an `input` value to a binary data of Protocol Buffer,
- * with type validation. If `input` value is not valid, it returns
- * {@link IValidation.IFailure} value with detailed error reasons. Otherwise,
- * there's no problem on the `input` value, Protocol Buffer binary data would be
- * stored in `data` property of the output {@link IValidation.ISuccess}
- * instance.
- *
- * If you can trust `input` value, or want to perform other type of validation,
- * use below functions instead.
- *
- * - {@link encode}
- * - {@link assertEncode}
- * - {@link isEncode}
- *
- * By the way, you know what? Expression power of Protocol Buffer is not enough
- * strong to fully meet the TypeScript type specs. In such reason, if you put a
- * TypeScript type that is not compatible with Protocol Buffer, this function
- * would throw compilation errors.
- *
- * - [Restrictions of Protocol
- *   Buffer](https://typia.io/docs/protobuf/message/#restrictions)
- *
- * @author Jeongho Nam - https://github.com/samchon
- * @template T Type of the value input
- * @param input A value to encode
- * @returns Encoded binary data
- */
+/** @internal */
 export function validateEncode<T>(input: unknown): IValidation<Uint8Array>;
 
 /** @internal */
@@ -607,21 +319,17 @@ export function validateEncode(): never {
     FACTORY FUNCTIONS
 ----------------------------------------------------------- */
 /**
- * Creates a reusable {@link decode} function.
+ * Creates reusable {@link decode} function.
  *
- * @author Jeongho Nam - https://github.com/samchon
- * @returns Nothing until you configure the generic argument `T`
- * @throws Compile error
  * @danger You must configure the generic argument `T`
  */
 export function createDecode(): never;
 
 /**
- * Creates a reusable {@link decode} function.
+ * Creates reusable {@link decode} function.
  *
- * @author Jeongho Nam - https://github.com/samchon
  * @template T Target type
- * @returns A reusable `decode` function
+ * @returns Reusable decoder function
  */
 export function createDecode<T>(): (input: Uint8Array) => Resolved<T>;
 
@@ -631,21 +339,17 @@ export function createDecode<T>(): (input: Uint8Array) => Resolved<T> {
 }
 
 /**
- * Creates a reusable {@link isDecode} function.
+ * Creates reusable {@link isDecode} function.
  *
- * @author Jeongho Nam - https://github.com/samchon
- * @returns Nothing until you configure the generic argument `T`
- * @throws Compile error
  * @danger You must configure the generic argument `T`
  */
 export function createIsDecode(): never;
 
 /**
- * Creates a reusable {@link isDecode} function.
+ * Creates reusable {@link isDecode} function.
  *
- * @author Jeongho Nam - https://github.com/samchon
  * @template T Target type
- * @returns A reusable `isDecode` function
+ * @returns Reusable decoder function
  */
 export function createIsDecode<T>(): (input: Uint8Array) => Resolved<T> | null;
 
@@ -655,12 +359,8 @@ export function createIsDecode<T>(): (input: Uint8Array) => Resolved<T> | null {
 }
 
 /**
- * Creates a reusable {@link assertDecode} function.
+ * Creates reusable {@link assertDecode} function.
  *
- * @author Jeongho Nam - https://github.com/samchon
- * @param errorFactory Custom error factory. Default is `TypeGuardError`
- * @returns Nothing until you configure the generic argument `T`
- * @throws Compile error
  * @danger You must configure the generic argument `T`
  */
 export function createAssertDecode(
@@ -668,12 +368,12 @@ export function createAssertDecode(
 ): never;
 
 /**
- * Creates a reusable {@link assertDecode} function.
+ * Creates reusable {@link assertDecode} function.
  *
- * @author Jeongho Nam - https://github.com/samchon
  * @template T Target type
- * @param errorFactory Custom error factory. Default is `TypeGuardError`
- * @returns A reusable `assertDecode` function
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
+ * @returns Reusable decoder function
  */
 export function createAssertDecode<T>(
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
@@ -685,21 +385,17 @@ export function createAssertDecode<T>(): (input: Uint8Array) => Resolved<T> {
 }
 
 /**
- * Creates a reusable {@link validateDecode} function.
+ * Creates reusable {@link validateDecode} function.
  *
- * @author Jeongho Nam - https://github.com/samchon
- * @returns Nothing until you configure the generic argument `T`
- * @throws Compile error
  * @danger You must configure the generic argument `T`
  */
 export function createValidateDecode(): never;
 
 /**
- * Creates a reusable {@link validateDecode} function.
+ * Creates reusable {@link validateDecode} function.
  *
- * @author Jeongho Nam - https://github.com/samchon
  * @template T Target type
- * @returns A reusable `validateDecode` function
+ * @returns Reusable decoder function
  */
 export function createValidateDecode<T>(): (
   input: Uint8Array,
@@ -713,21 +409,17 @@ export function createValidateDecode<T>(): (
 }
 
 /**
- * Creates a reusable {@link encode} function.
+ * Creates reusable {@link encode} function.
  *
- * @author Jeongho Nam - https://github.com/samchon
- * @returns Nothing until you configure the generic argument `T`
- * @throws Compile error
  * @danger You must configure the generic argument `T`
  */
 export function createEncode(): never;
 
 /**
- * Creates a reusable {@link encode} function.
+ * Creates reusable {@link encode} function.
  *
- * @author Jeongho Nam - https://github.com/samchon
- * @template T Target type
- * @returns A reusable `encode` function
+ * @template T Type of input value
+ * @returns Reusable encoder function
  */
 export function createEncode<T>(): (input: T) => Uint8Array;
 
@@ -737,21 +429,17 @@ export function createEncode<T>(): (input: T) => Uint8Array {
 }
 
 /**
- * Creates a reusable {@link isEncode} function.
+ * Creates reusable {@link isEncode} function.
  *
- * @author Jeongho Nam - https://github.com/samchon
- * @returns Nothing until you configure the generic argument `T`
- * @throws Compile error
  * @danger You must configure the generic argument `T`
  */
 export function createIsEncode(): never;
 
 /**
- * Creates a reusable {@link isEncode} function.
+ * Creates reusable {@link isEncode} function.
  *
- * @author Jeongho Nam - https://github.com/samchon
- * @template T Target type
- * @returns A reusable `isEncode` function
+ * @template T Type of input value
+ * @returns Reusable encoder function
  */
 export function createIsEncode<T>(): (input: T) => Uint8Array | null;
 
@@ -761,12 +449,8 @@ export function createIsEncode<T>(): (input: T) => Uint8Array | null {
 }
 
 /**
- * Creates a reusable {@link assertEncode} function.
+ * Creates reusable {@link assertEncode} function.
  *
- * @author Jeongho Nam - https://github.com/samchon
- * @param errorFactory Custom error factory. Default is `TypeGuardError`
- * @returns Nothing until you configure the generic argument `T`
- * @throws Compile error
  * @danger You must configure the generic argument `T`
  */
 export function createAssertEncode(
@@ -774,12 +458,12 @@ export function createAssertEncode(
 ): never;
 
 /**
- * Creates a reusable {@link assertEncode} function.
+ * Creates reusable {@link assertEncode} function.
  *
- * @author Jeongho Nam - https://github.com/samchon
- * @template T Target type
- * @param errorFactory Custom error factory. Default is `TypeGuardError`
- * @returns A reusable `assertEncode` function
+ * @template T Type of input value
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
+ * @returns Reusable encoder function
  */
 export function createAssertEncode<T>(
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
@@ -791,21 +475,17 @@ export function createAssertEncode<T>(): (input: T) => Uint8Array {
 }
 
 /**
- * Creates a reusable {@link validateEncode} function.
+ * Creates reusable {@link validateEncode} function.
  *
- * @author Jeongho Nam - https://github.com/samchon
- * @returns Nothing until you configure the generic argument `T`
- * @throws Compile error
  * @danger You must configure the generic argument `T`
  */
 export function createValidateEncode(): never;
 
 /**
- * Creates a reusable {@link validateEncode} function.
+ * Creates reusable {@link validateEncode} function.
  *
- * @author Jeongho Nam - https://github.com/samchon
- * @template T Target type
- * @returns A reusable `validateEncode` function
+ * @template T Type of input value
+ * @returns Reusable encoder function
  */
 export function createValidateEncode<T>(): (
   input: T,

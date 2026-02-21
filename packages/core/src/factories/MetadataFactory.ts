@@ -15,41 +15,104 @@ import { explore_metadata } from "./internal/metadata/explore_metadata";
 import { iterate_metadata_collection } from "./internal/metadata/iterate_metadata_collection";
 import { iterate_metadata_sort } from "./internal/metadata/iterate_metadata_sort";
 
+/**
+ * TypeScript type metadata extractor.
+ *
+ * Analyzes TypeScript types at compile-time and extracts {@link MetadataSchema}
+ * containing all type information needed for validation/serialization code
+ * generation. Handles unions, intersections, generics, type aliases, and
+ * collects reusable components into {@link MetadataStorage}.
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
 export namespace MetadataFactory {
+  /** Validation function type for metadata schemas. */
   export type Validator = (meta: MetadataSchema, explore: IExplore) => string[];
 
+  /** Properties for metadata analysis. */
   export interface IProps {
+    /** TypeScript type checker. */
     checker: ts.TypeChecker;
+
+    /** TypeScript transformation context. */
     transformer: ts.TransformationContext | undefined;
+
+    /** Analysis options. */
     options: IOptions;
+
+    /** Storage for collected metadata components. */
     components: MetadataStorage;
+
+    /** Type to analyze. */
     type: ts.Type | null;
   }
+
+  /** Options for metadata analysis. */
   export interface IOptions {
+    /** Process escaped types. */
     escape: boolean;
+
+    /** Extract constant values. */
     constant: boolean;
+
+    /** Absorb union types. */
     absorb: boolean;
+
+    /** Include function types. */
     functional?: boolean;
+
+    /** Custom validation function. */
     validate?: Validator;
+
+    /** Error callback. */
     onError?: (node: ts.Node | undefined, message: string) => void;
   }
+
+  /** Type exploration context during analysis. */
   export interface IExplore {
+    /** Whether at top-level type. */
     top: boolean;
+
+    /** Current object type being explored. */
     object: MetadataObjectType | null;
+
+    /** Current property key. */
     property: string | object | null;
+
+    /** Nested type context. */
     nested: null | MetadataAliasType | MetadataArrayType | MetadataTupleType;
+
+    /** Function parameter name. */
     parameter: string | null;
+
+    /** Whether exploring return type. */
     output: boolean;
+
+    /** Whether in escaped type. */
     escaped: boolean;
+
+    /** Whether in aliased type. */
     aliased: boolean;
   }
 
+  /** Metadata analysis error. */
   export interface IError {
+    /** Type name where error occurred. */
     name: string;
+
+    /** Exploration context at error. */
     explore: IExplore;
+
+    /** Error messages. */
     messages: string[];
   }
 
+  /**
+   * Analyze TypeScript type and extract metadata.
+   *
+   * @param props Analysis properties
+   * @returns Metadata schema or validation errors
+   */
   export const analyze = (
     props: IProps,
   ): ValidationPipe<MetadataSchema, IError> => {
@@ -115,6 +178,12 @@ export namespace MetadataFactory {
     return meta;
   };
 
+  /**
+   * Validate metadata schema.
+   *
+   * @param props Validation properties
+   * @returns Array of validation errors
+   */
   export const validate = (props: {
     transformer?: ts.TransformationContext;
     options: IOptions;

@@ -1,10 +1,10 @@
 import typia, { tags } from "typia";
- 
+
 const member: IMember = typia.random<IMember>();
 const encoded: Uint8Array = typia.protobuf.encode<IMember>(member);
 const decoded: IMember = typia.protobuf.decode<IMember>(encoded);
 console.log(member, decoded);
- 
+
 interface IMember {
   id:
     | (string & tags.Sequence<11>)

@@ -3,6 +3,28 @@ import { IValidation } from "@typia/interface";
 import { NamingConvention } from "./NamingConvention";
 import { dedent } from "./dedent";
 
+/**
+ * Format validation failure for LLM auto-correction feedback.
+ *
+ * When LLM generates invalid function call arguments, this produces annotated
+ * JSON with inline `// ❌` error comments at each invalid value. Send this
+ * formatted output back to the LLM so it can understand and correct its
+ * mistakes in the next conversation turn.
+ *
+ * Use this with {@link ILlmFunction.validate} results:
+ *
+ * ```typescript
+ * const result = func.validate(llmArgs);
+ * if (!result.success) {
+ *   const feedback = stringifyValidationFailure(result);
+ *   // Send feedback to LLM for auto-correction
+ * }
+ * ```
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ * @param failure Validation failure from {@link ILlmFunction.validate}
+ * @returns Markdown code block with error-annotated JSON
+ */
 export function stringifyValidationFailure(
   failure: IValidation.IFailure,
 ): string {

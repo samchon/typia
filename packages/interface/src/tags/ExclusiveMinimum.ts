@@ -1,25 +1,27 @@
 import { TagBase } from "./TagBase";
 
 /**
- * Exclusive minimum value constraint tag.
+ * Exclusive minimum value constraint (value > min).
  *
- * Enforces that a numeric value must be strictly greater than the specified
- * minimum (not equal). This constraint validates that the input value
- * satisfies: input > minimum.
+ * `ExclusiveMinimum<N>` is a type tag that validates numeric values are
+ * strictly greater than the specified bound (not equal). Apply it to `number`
+ * or `bigint` properties using TypeScript intersection types.
  *
- * Example usage:
+ * This constraint is **mutually exclusive** with {@link Minimum} - you cannot
+ * use both on the same property. Use `ExclusiveMinimum` for exclusive bounds
+ * (>) and `Minimum` for inclusive bounds (>=).
  *
- * ```typescript
- * type PositiveNumber = number & tags.ExclusiveMinimum<0>; // Must be > 0
- * type LargeCount = bigint & tags.ExclusiveMinimum<999n>; // Must be > 999
- * ```
- *
- * Note: This tag is mutually exclusive with Minimum. You cannot apply both
- * ExclusiveMinimum and Minimum constraints to the same property.
+ * The constraint is enforced at runtime by `typia.is()`, `typia.assert()`, and
+ * `typia.validate()`. It also generates `exclusiveMinimum` in JSON Schema.
  *
  * @author Jeongho Nam - https://github.com/samchon
- * @template Value - The exclusive minimum value constraint (number or bigint
- *   literal)
+ * @example
+ *   interface PositiveNumber {
+ *     // Must be greater than 0, not equal to 0
+ *     value: number & ExclusiveMinimum<0>;
+ *   }
+ *
+ * @template Value The minimum bound (exclusive - value must be greater)
  */
 export type ExclusiveMinimum<Value extends number | bigint> = TagBase<{
   target: Value extends bigint ? "bigint" : "number";

@@ -1,6 +1,16 @@
 import { MapUtil } from "@typia/utils";
 import ts from "typescript";
 
+/**
+ * Import statement manager for code generation.
+ *
+ * Collects and deduplicates import declarations needed by generated code.
+ * Tracks default imports ({@link default}), named imports ({@link instance}), and
+ * namespace imports ({@link namespace}). Call {@link toStatements} to emit the
+ * final import declaration AST nodes.
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
 export class ImportProgrammer {
   private readonly assets_: Map<string, IAsset> = new Map();
   private readonly options_: Readonly<ImportProgrammer.IOptions>;

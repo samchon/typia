@@ -1,8 +1,21 @@
 /**
- * Interface for a readable URLSearchParams object.
+ * Minimal interface for reading URL query parameters.
  *
- * This interface is a subset of the {@link URLSearchParams} interface, designed
- * especially for the [Hono.JS](https://hono.dev/) library.
+ * `IReadableURLSearchParams` is a subset of the standard {@link URLSearchParams}
+ * interface, containing only the read operations needed for query parameter
+ * parsing. This interface was designed specifically for compatibility with the
+ * [Hono.js](https://hono.dev/) web framework, which provides its own query
+ * parameter implementation.
+ *
+ * The interface exposes:
+ *
+ * - {@link URLSearchParams.size | size}: Number of parameters
+ * - {@link URLSearchParams.get | get}: Retrieve first value for a key
+ * - {@link URLSearchParams.getAll | getAll}: Retrieve all values for a key
+ *
+ * Use this interface when implementing query parameter handling that needs to
+ * work with both standard `URLSearchParams` and framework-specific
+ * implementations.
  *
  * @author https://github.com/miyaji255
  */

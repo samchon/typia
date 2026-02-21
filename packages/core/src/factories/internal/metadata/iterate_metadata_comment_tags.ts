@@ -1,5 +1,4 @@
 import { MetadataObjectType } from "../../../schemas/metadata/MetadataObjectType";
-
 import { MetadataCommentTagFactory } from "../../MetadataCommentTagFactory";
 import { MetadataFactory } from "../../MetadataFactory";
 

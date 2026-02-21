@@ -11,6 +11,14 @@ import { MetadataObjectType } from "./MetadataObjectType";
 import { MetadataSchema } from "./MetadataSchema";
 import { MetadataTupleType } from "./MetadataTupleType";
 
+/**
+ * Storage for collected metadata during type analysis.
+ *
+ * Caches analyzed types (objects, aliases, arrays, tuples) to handle recursive
+ * types and avoid redundant analysis.
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
 export class MetadataStorage {
   private objects_: Map<ts.Type, MetadataObjectType>;
   private object_unions_: Map<string, MetadataObjectType[]>;

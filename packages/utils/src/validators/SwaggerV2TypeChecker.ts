@@ -1,5 +1,18 @@
 import { SwaggerV2 } from "@typia/interface";
 
+/**
+ * Type checker for Swagger v2.0 (OpenAPI v2) JSON schemas.
+ *
+ * `SwaggerV2TypeChecker` provides type guard functions for
+ * {@link SwaggerV2.IJsonSchema}. For typia's normalized format, use
+ * {@link OpenApiTypeChecker} instead.
+ *
+ * Key limitations vs OpenAPI v3.x: No `oneOf`/`anyOf`, no `nullable`, uses
+ * `definitions` instead of `components.schemas`, body parameters use `in:
+ * "body"` with `schema` property.
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
 export namespace SwaggerV2TypeChecker {
   export const isBoolean = (
     schema: SwaggerV2.IJsonSchema,

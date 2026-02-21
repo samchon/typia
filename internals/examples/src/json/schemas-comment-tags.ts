@@ -6,8 +6,8 @@ interface Special {
   /**
    * Deprecated tags are just used for marking.
    *
-   * @title Unsigned integer
    * @deprecated
+   * @title Unsigned integer
    */
   type: number & tags.Type<"int32">;
 
@@ -23,9 +23,10 @@ interface Special {
   /**
    * Hidden tagged property never be shown in JSON schema.
    *
-   * However, it would be shown in other `typia` functions like `stringify<T>()`.
+   * However, it would be shown in other `typia` functions like
+   * `stringify<T>()`.
    *
-   * @hidden
+   * @ignore
    */
   hidden: boolean;
 
@@ -62,8 +63,6 @@ interface Special {
    */
   format: string | null;
 
-  /**
-   * In the Array case, possible to restrict its elements.
-   */
+  /** In the Array case, possible to restrict its elements. */
   array: Array<string & tags.Format<"uuid">> & tags.MinItems<3>;
 }

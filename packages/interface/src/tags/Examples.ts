@@ -1,44 +1,38 @@
 import { TagBase } from "./TagBase";
 
 /**
- * Multiple examples tag that provides named example values for documentation.
+ * Multiple named examples for JSON Schema documentation.
  *
- * Unlike the Example tag which provides a single example, Examples allows you
- * to provide multiple labeled examples. This is particularly useful when you
- * want to show different scenarios or use cases for the same type.
+ * `Examples<Record>` is a type tag that adds multiple labeled example values to
+ * the generated JSON Schema. Each example has a name and a value, providing
+ * rich documentation for different use cases or scenarios.
  *
- * The examples are added to JSON Schema as an object where keys are descriptive
- * names and values are the example data. This helps in API documentation and
- * test case generation.
+ * This is useful when a property can have various valid values and you want to
+ * illustrate multiple possibilities, such as different user types, edge cases,
+ * or common configurations.
+ *
+ * The examples appear in the `examples` field of the JSON Schema and are
+ * displayed by API documentation tools. For a single unnamed example, use
+ * {@link Example} instead.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @example
- *   ```typescript
- *   interface PaymentRequest {
- *     amount: number & Examples<{
- *       small: 10.50,
- *       medium: 99.99,
- *       large: 1000.00
- *     }>;
+ *   interface Product {
+ *     price: number &
+ *       Examples<{
+ *         budget: 9.99;
+ *         premium: 99.99;
+ *         enterprise: 999.99;
+ *       }>;
+ *     status: string &
+ *       Examples<{
+ *         active: "active";
+ *         discontinued: "discontinued";
+ *         preorder: "preorder";
+ *       }>;
  *   }
- *   ```;
  *
- * @example
- *   ```typescript
- *   interface UserStatus {
- *     state: string & Examples<{
- *       active: "active",
- *       inactive: "inactive",
- *       suspended: "suspended"
- *     }>;
- *     profile: object & Examples<{
- *       basic: { name: "John", age: 25 },
- *       detailed: { name: "Jane", age: 30, bio: "Developer", verified: true }
- *     }>;
- *   }
- *   ```;
- *
- * @template Value A record object mapping example names to example values
+ * @template Value Record mapping example names to their values
  */
 export type Examples<
   Value extends Record<

@@ -1,5 +1,13 @@
 import ts from "typescript";
 
+/**
+ * Factory for extracting JSDoc comments from TypeScript symbols.
+ *
+ * Extracts documentation comments and JSDoc tags from TypeScript AST symbols.
+ * Handles both legacy (TS < 5.2) and modern TypeScript versions.
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
 export namespace CommentFactory {
   export const description = (
     symbol: ts.Symbol,

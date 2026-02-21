@@ -20,6 +20,32 @@ import { MetadataSet } from "./MetadataSet";
 import { MetadataTemplate } from "./MetadataTemplate";
 import { MetadataTuple } from "./MetadataTuple";
 
+/**
+ * TypeScript type metadata representation.
+ *
+ * `MetadataSchema` captures full TypeScript type information at compile-time
+ * for runtime validation and code generation. Used internally by typia
+ * transformer to analyze `typia.*<T>()` calls.
+ *
+ * Represents union types as arrays of type categories:
+ *
+ * - Primitives: {@link atomics} (boolean, bigint, number, string)
+ * - Literals: {@link constants} (e.g., `"hello"`, `42`)
+ * - Templates: {@link templates} (template literal types)
+ * - Collections: {@link arrays}, {@link tuples}, {@link sets}, {@link maps}
+ * - Objects: {@link objects} (named object types)
+ * - Aliases: {@link aliases} (type aliases)
+ * - Natives: {@link natives} (Date, Uint8Array, etc.)
+ *
+ * Modifiers:
+ *
+ * - {@link required}: Not `undefined`
+ * - {@link optional}: Has `?` modifier
+ * - {@link nullable}: Includes `null`
+ * - {@link any}: Is `any` type
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
 export class MetadataSchema {
   public any: boolean;
   public required: boolean;

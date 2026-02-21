@@ -1,7 +1,26 @@
 import { MetadataFactory, MetadataObjectType } from "@typia/core";
 import { NamingConvention } from "@typia/utils";
 
+/**
+ * Error thrown during typia transformation.
+ *
+ * `TransformerError` is thrown when `typia.*<T>()` receives unsupported types
+ * or invalid configurations at compile time. The error message details which
+ * types failed and why.
+ *
+ * Common causes:
+ *
+ * - Tuples in LLM schema (not supported by most LLMs)
+ * - Recursive types without `$ref` support
+ * - `any` types without explicit handling
+ * - Native classes not serializable to JSON
+ *
+ * Use {@link from} to create from {@link MetadataFactory.IError} instances.
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
 export class TransformerError extends Error {
+  /** Error code identifying the error type. */
   public readonly code: string;
 
   public constructor(props: TransformerError.IProps) {
@@ -15,11 +34,20 @@ export class TransformerError extends Error {
   }
 }
 export namespace TransformerError {
+  /** Constructor properties for TransformerError. */
   export interface IProps {
+    /** Error code identifying the error type. */
     code: string;
+
+    /** Human-readable error message. */
     message: string;
   }
 
+  /**
+   * Create error from metadata factory errors.
+   *
+   * Formats multiple type errors into a single TransformerError.
+   */
   export const from = (props: {
     code: string;
     errors: MetadataFactory.IError[];

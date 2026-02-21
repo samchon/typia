@@ -1,21 +1,34 @@
 import { TagBase } from "./TagBase";
 
 /**
- * String content media type constraint tag.
+ * MIME type metadata for string content.
  *
- * Specifies the MIME type of string content for proper interpretation. This tag
- * serves as metadata to indicate how the string content should be interpreted,
- * but does not perform validation on the content itself.
+ * `ContentMediaType<Type>` is a type tag that documents the media type of
+ * string content. This is metadata-only - no runtime validation is performed.
+ * The information appears in generated JSON Schema output.
  *
- * Examples: type JsonData = string & ContentMediaType<"application/json">; //
- * JSON string type Base64Image = string & ContentMediaType<"image/png">; //
- * Base64 PNG type XmlContent = string & ContentMediaType<"application/xml">; //
- * XML data
+ * This is useful when a string property contains encoded binary data or
+ * structured content that should be interpreted according to a specific media
+ * type, such as base64-encoded images or embedded JSON.
  *
- * Common MIME types: application/json, text/html, image/jpeg, image/png,
- * application/pdf, text/plain, application/xml, and many more.
+ * Common MIME types:
+ *
+ * - `"application/json"`: JSON data as string
+ * - `"application/xml"`: XML data as string
+ * - `"image/png"`: Base64-encoded PNG image
+ * - `"image/jpeg"`: Base64-encoded JPEG image
+ * - `"application/octet-stream"`: Generic binary data
  *
  * @author Jeongho Nam - https://github.com/samchon
+ * @example
+ *   interface Document {
+ *     // Base64-encoded PNG image
+ *     thumbnail: string & ContentMediaType<"image/png">;
+ *     // JSON stored as string
+ *     metadata: string & ContentMediaType<"application/json">;
+ *   }
+ *
+ * @template Value MIME type string literal
  */
 export type ContentMediaType<Value extends string> = TagBase<{
   target: "string";

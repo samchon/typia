@@ -18,16 +18,12 @@ interface CustomTag {
    */
   format: (string & (tags.Format<"ipv4"> | tags.Format<"ipv6">)) | null;
 
-  /**
-   * In the Array case, only type tag can restrict element type.
-   */
+  /** In the Array case, only type tag can restrict element type. */
   array: Array<string & tags.Format<"uuid">> &
     tags.MinItems<3> &
     tags.MaxItems<100>;
 
-  /**
-   * Also, only type tag can handle map type.
-   */
+  /** Also, only type tag can handle map type. */
   map: Map<
     number & tags.Type<"uint32">,
     Array<string & tags.Format<"uuid">> & tags.MinItems<1>
