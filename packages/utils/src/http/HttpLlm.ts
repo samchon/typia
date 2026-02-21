@@ -1,6 +1,7 @@
 import {
   IHttpConnection,
   IHttpLlmApplication,
+  IHttpLlmController,
   IHttpLlmFunction,
   IHttpMigrateApplication,
   IHttpResponse,
@@ -25,6 +26,7 @@ import { LlmDataMerger } from "./internal/LlmDataMerger";
  *
  * Main functions:
  *
+ * - {@link controller}: Create {@link IHttpLlmController} from OpenAPI document
  * - {@link application}: Convert OpenAPI document to {@link IHttpLlmApplication}
  * - {@link execute}: Call an LLM function and return the response body
  * - {@link propagate}: Call an LLM function and return full HTTP response
@@ -43,8 +45,20 @@ export namespace HttpLlm {
   /* -----------------------------------------------------------
     COMPOSERS
   ----------------------------------------------------------- */
-  /** Properties for application composition. */
-  export interface IApplicationProps {
+  /**
+   * Create HTTP LLM controller from OpenAPI document.
+   *
+   * Composes {@link IHttpLlmController} from OpenAPI document with connection
+   * info. The controller can be used with {@link registerMcpControllers} to
+   * register all API operations as MCP tools at once.
+   *
+   * @param props Controller properties
+   * @returns HTTP LLM controller
+   */
+  export const controller = (props: {
+    /** Identifier name of the controller. */
+    name: string;
+
     /** OpenAPI document to convert. */
     document:
       | OpenApi.IDocument
@@ -52,9 +66,28 @@ export namespace HttpLlm {
       | OpenApiV3.IDocument
       | OpenApiV3_1.IDocument;
 
+    /** Connection to the API server. */
+    connection: IHttpConnection;
+
     /** LLM schema conversion configuration. */
     config?: Partial<IHttpLlmApplication.IConfig>;
-  }
+
+    /**
+     * Custom executor of the API function.
+     *
+     * Default executor is {@link HttpLlm.execute} function.
+     */
+    execute?: IHttpLlmController["execute"];
+  }): IHttpLlmController => ({
+    protocol: "http",
+    name: props.name,
+    application: application({
+      document: props.document,
+      config: props.config,
+    }),
+    connection: props.connection,
+    execute: props.execute,
+  });
 
   /**
    * Convert OpenAPI document to LLM function calling application.
@@ -65,9 +98,17 @@ export namespace HttpLlm {
    * @param props Composition properties
    * @returns LLM function calling application
    */
-  export const application = (
-    props: IApplicationProps,
-  ): IHttpLlmApplication => {
+  export const application = (props: {
+    /** OpenAPI document to convert. */
+    document:
+      | OpenApi.IDocument
+      | SwaggerV2.IDocument
+      | OpenApiV3.IDocument
+      | OpenApiV3_1.IDocument;
+
+    /** LLM schema conversion configuration. */
+    config?: Partial<IHttpLlmApplication.IConfig>;
+  }): IHttpLlmApplication => {
     // MIGRATE
     const migrate: IHttpMigrateApplication = HttpMigration.application(
       props.document,
