@@ -21,6 +21,7 @@ export namespace McpControllerRegistrar {
   export const register = (props: {
     server: McpServer | Server;
     controllers: Array<ILlmController | IHttpLlmController>;
+    preserve?: boolean | undefined;
   }): void => {
     // McpServer wraps raw Server - we need raw Server for JSON Schema support
     const server: Server =
@@ -39,9 +40,72 @@ export namespace McpControllerRegistrar {
       }
     }
 
+    // Determine preserve mode (default: false)
+    const preserve: boolean = props.preserve ?? false;
+
+    if (preserve) {
+      // PRESERVE MODE: Coexist with McpServer.registerTool()
+      // Uses MCP SDK internal API (_registeredTools, _toolHandlersInitialized)
+      registerWithPreserve(server, registry, props.server);
+    } else {
+      // STANDALONE MODE: Typia tools only, no private API dependency
+      registerStandalone(server, registry);
+    }
+  };
+
+  /**
+   * Standalone registration without private API. Typia tools completely replace
+   * any existing tool handlers.
+   */
+  const registerStandalone = (
+    server: Server,
+    registry: Map<string, IToolEntry>,
+  ): void => {
+    // tools/list handler
+    server.setRequestHandler(ListToolsRequestSchema, async () => ({
+      tools: Array.from(registry.values()).map((entry: IToolEntry) => ({
+        name: entry.function.name,
+        description: entry.function.description,
+        inputSchema: {
+          type: "object" as const,
+          properties: entry.function.parameters.properties,
+          required: entry.function.parameters.required,
+          additionalProperties: false,
+          $defs: entry.function.parameters.$defs,
+        },
+      })),
+    }));
+
+    // tools/call handler
+    server.setRequestHandler(CallToolRequestSchema, async (request) => {
+      const name: string = request.params.name;
+      const args: Record<string, unknown> | undefined =
+        request.params.arguments;
+
+      const entry: IToolEntry | undefined = registry.get(name);
+      if (entry !== undefined) {
+        return handleToolCall(entry, args);
+      }
+
+      return {
+        isError: true,
+        content: [{ type: "text" as const, text: `Unknown tool: ${name}` }],
+      };
+    });
+  };
+
+  /**
+   * Preserve mode registration with private API. Coexists with tools registered
+   * via McpServer.registerTool().
+   */
+  const registerWithPreserve = (
+    server: Server,
+    registry: Map<string, IToolEntry>,
+    originalServer: McpServer | Server,
+  ): void => {
     // Get McpServer reference for coexistence with McpServer.registerTool()
     const mcpServer: McpServer | null =
-      "server" in props.server ? (props.server as McpServer) : null;
+      "server" in originalServer ? (originalServer as McpServer) : null;
 
     // Helper to get existing tools dynamically (supports tools registered after this call)
     const getExistingTools = (): Record<string, any> =>

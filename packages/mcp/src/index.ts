@@ -35,8 +35,8 @@ export function registerMcpControllers(props: {
   /**
    * Target MCP server to register tools.
    *
-   * Both {@link McpServer} and raw {@link Server} are supported. If you want to
-   * combine with `McpServer.registerTool()`, call it before this function.
+   * Both {@link McpServer} and raw {@link Server} are supported. To combine
+   * with `McpServer.registerTool()`, set `preserve: true`.
    */
   server: McpServer | Server;
 
@@ -49,6 +49,19 @@ export function registerMcpControllers(props: {
    *   operations from OpenAPI document as tools
    */
   controllers: Array<ILlmController | IHttpLlmController>;
+
+  /**
+   * Preserve existing tools registered via `McpServer.registerTool()`.
+   *
+   * If `true`, typia tools coexist with existing McpServer tools. This uses
+   * MCP SDK's internal (private) API which may break on SDK updates.
+   *
+   * If `false`, typia tools completely replace the tool handlers, ignoring
+   * any tools registered via `McpServer.registerTool()`.
+   *
+   * @default false
+   */
+  preserve?: boolean | undefined;
 }): void {
   return McpControllerRegistrar.register(props);
 }
