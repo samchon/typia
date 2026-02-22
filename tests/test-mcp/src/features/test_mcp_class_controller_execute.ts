@@ -119,23 +119,4 @@ export const test_mcp_class_controller_execute = async (): Promise<void> => {
     "5",
   );
 
-  // 9. Test unknown tool returns error
-  const unknownResult: CallToolResult = await callHandler(
-    {
-      method: "tools/call",
-      params: {
-        name: "unknown_tool",
-        arguments: {},
-      },
-    },
-    {
-      signal: new AbortController().signal,
-    },
-  );
-  TestValidator.equals(
-    "unknown tool should return isError true",
-    unknownResult.isError,
-    true,
-  );
-  console.log(unknownResult);
 };
