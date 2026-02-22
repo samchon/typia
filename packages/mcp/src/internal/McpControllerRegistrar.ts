@@ -1,4 +1,3 @@
-import { Server } from "@modelcontextprotocol/sdk/server";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import {
   CallToolRequestSchema,
@@ -18,6 +17,8 @@ import { ZodObject, ZodType } from "zod";
 import { zodToJsonSchema } from "zod-to-json-schema";
 
 export namespace McpControllerRegistrar {
+  type Server = McpServer["server"];
+
   export const register = (props: {
     server: McpServer | Server;
     controllers: Array<ILlmController | IHttpLlmController>;
@@ -308,7 +309,9 @@ export namespace McpControllerRegistrar {
     if (zodSchema === undefined) {
       return { type: "object", properties: {} };
     }
-    const converted: object = zodToJsonSchema(zodSchema);
+
+    // @todo: error TS2589: Type instantiation is excessively deep and possibly infinite.
+    const converted: object = (zodToJsonSchema as any)(zodSchema);
     if (
       typeof converted === "object" &&
       "type" in converted &&

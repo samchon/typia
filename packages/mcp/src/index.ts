@@ -1,4 +1,3 @@
-import { Server } from "@modelcontextprotocol/sdk/server";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { IHttpLlmController, ILlmController } from "@typia/interface";
 
@@ -24,10 +23,10 @@ import { McpControllerRegistrar } from "./internal/McpControllerRegistrar";
  * }
  * ```
  *
- * If you use `McpServer.registerTool()` instead, you have to define Zod
- * schema, function name, and description string manually for each tool.
- * Also, without typia's validation feedback, LLM cannot auto-correct its
- * mistakes, which significantly degrades tool calling performance.
+ * If you use `McpServer.registerTool()` instead, you have to define Zod schema,
+ * function name, and description string manually for each tool. Also, without
+ * typia's validation feedback, LLM cannot auto-correct its mistakes, which
+ * significantly degrades tool calling performance.
  *
  * @param props Registration properties
  */
@@ -35,10 +34,10 @@ export function registerMcpControllers(props: {
   /**
    * Target MCP server to register tools.
    *
-   * Both {@link McpServer} and raw {@link Server} are supported. To combine
-   * with `McpServer.registerTool()`, set `preserve: true`.
+   * Both {@link McpServer} and raw {@link Server} are supported. To combine with
+   * `McpServer.registerTool()`, set `preserve: true`.
    */
-  server: McpServer | Server;
+  server: McpServer | McpServer["server"];
 
   /**
    * List of controllers to register as MCP tools.
@@ -53,11 +52,11 @@ export function registerMcpControllers(props: {
   /**
    * Preserve existing tools registered via `McpServer.registerTool()`.
    *
-   * If `true`, typia tools coexist with existing McpServer tools. This uses
-   * MCP SDK's internal (private) API which may break on SDK updates.
+   * If `true`, typia tools coexist with existing McpServer tools. This uses MCP
+   * SDK's internal (private) API which may break on SDK updates.
    *
-   * If `false`, typia tools completely replace the tool handlers, ignoring
-   * any tools registered via `McpServer.registerTool()`.
+   * If `false`, typia tools completely replace the tool handlers, ignoring any
+   * tools registered via `McpServer.registerTool()`.
    *
    * @default false
    */
