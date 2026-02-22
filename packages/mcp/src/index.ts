@@ -1,3 +1,4 @@
+import { Server } from "@modelcontextprotocol/sdk/server/index.js";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { IHttpLlmController, ILlmController } from "@typia/interface";
 
@@ -37,7 +38,7 @@ export function registerMcpControllers(props: {
    * Both {@link McpServer} and raw {@link Server} are supported. To combine with
    * `McpServer.registerTool()`, set `preserve: true`.
    */
-  server: McpServer | McpServer["server"];
+  server: McpServer | Server;
 
   /**
    * List of controllers to register as MCP tools.

@@ -1,3 +1,4 @@
+import { Server } from "@modelcontextprotocol/sdk/server/index.js";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import {
   CallToolRequestSchema,
@@ -17,8 +18,6 @@ import { ZodObject, ZodType } from "zod";
 import { zodToJsonSchema } from "zod-to-json-schema";
 
 export namespace McpControllerRegistrar {
-  type Server = McpServer["server"];
-
   export const register = (props: {
     server: McpServer | Server;
     controllers: Array<ILlmController | IHttpLlmController>;
