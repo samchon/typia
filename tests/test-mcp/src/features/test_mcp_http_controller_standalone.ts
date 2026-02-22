@@ -8,7 +8,7 @@ import { HttpLlm } from "@typia/utils";
 
 import { TestGlobal } from "../TestGlobal";
 
-export const test_mcp_register_standalone = async (): Promise<void> => {
+export const test_mcp_http_controller_standalone = async (): Promise<void> => {
   // 1. Fetch swagger.json and create controller
   const swagger: OpenApi.IDocument = await TestGlobal.getSwagger();
   const controller: IHttpLlmController = HttpLlm.controller({
