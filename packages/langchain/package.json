@@ -1,7 +1,7 @@
 {
-  "name": "@typia/transform",
+  "name": "@typia/langchain",
   "version": "11.0.1",
-  "description": "Superfast runtime validators with only one line",
+  "description": "LangChain.js integration for typia",
   "main": "src/index.ts",
   "scripts": {
     "build": "rimraf lib && tsc",
@@ -18,13 +18,15 @@
   },
   "homepage": "https://typia.io",
   "dependencies": {
-    "@typia/core": "workspace:^",
     "@typia/interface": "workspace:^",
-    "@typia/utils": "workspace:^"
+    "@typia/utils": "workspace:^",
+    "zod": "^3.25.0"
+  },
+  "peerDependencies": {
+    "@langchain/core": ">=0.3.0"
   },
   "devDependencies": {
-    "@types/node": "catalog:utils",
-    "@types/ts-expose-internals": "catalog:typescript",
+    "@langchain/core": "^0.3.44",
     "rimraf": "catalog:utils",
     "typescript": "catalog:typescript"
   },
@@ -37,46 +39,23 @@
     "src"
   ],
   "keywords": [
-    "fast",
-    "json",
-    "stringify",
-    "typescript",
-    "transform",
-    "ajv",
-    "io-ts",
-    "zod",
-    "schema",
-    "json-schema",
-    "generator",
-    "assert",
-    "clone",
-    "is",
-    "validate",
-    "equal",
-    "runtime",
-    "type",
-    "typebox",
-    "checker",
-    "validator",
-    "safe",
-    "parse",
-    "prune",
-    "random",
-    "protobuf",
+    "langchain",
+    "typia",
     "llm",
     "llm-function-calling",
-    "structured-output",
+    "ai",
+    "claude",
     "openai",
     "chatgpt",
-    "claude",
     "gemini",
-    "llama"
+    "validation",
+    "json-schema",
+    "typescript"
   ],
   "packageManager": "pnpm@10.6.4",
   "publishConfig": {
     "access": "public",
     "main": "lib/index.js",
-    "typings": "lib/index.d.ts",
-    "module": "lib/index.mjs"
+    "typings": "lib/index.d.ts"
   }
 }
