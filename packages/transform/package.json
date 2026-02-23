@@ -23,7 +23,7 @@
     "@typia/utils": "workspace:^"
   },
   "devDependencies": {
-    "@types/node": "^18.15.12",
+    "@types/node": "catalog:utils",
     "@types/ts-expose-internals": "catalog:typescript",
     "rimraf": "catalog:utils",
     "typescript": "catalog:typescript"
