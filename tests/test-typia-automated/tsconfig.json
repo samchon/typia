@@ -1,0 +1,14 @@
+{
+  "extends": "../config/tsconfig.json",
+  "compilerOptions": {
+    "plugins": [
+      { 
+        "transform": "typia/lib/transform.js", 
+        "functional": true, 
+        "numeric": true, 
+        "finite": true,
+      },
+    ]
+  },
+  "include": ["src"],
+}

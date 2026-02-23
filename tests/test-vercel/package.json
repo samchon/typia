@@ -1,0 +1,33 @@
+{
+  "private": true,
+  "name": "@typia/test-vercel",
+  "version": "0.1.0",
+  "description": "Test suite for @typia/vercel package",
+  "scripts": {
+    "build": "tsc",
+    "prepare": "ts-patch install",
+    "start": "ts-node src/index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/samchon/typia"
+  },
+  "author": "Jeongho Nam",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "catalog:utils",
+    "@types/ts-expose-internals": "catalog:typescript",
+    "ts-node": "catalog:typescript",
+    "ts-patch": "catalog:typescript",
+    "typescript": "catalog:typescript"
+  },
+  "dependencies": {
+    "@nestia/e2e": "catalog:utils",
+    "@typia/interface": "workspace:^",
+    "@typia/utils": "workspace:^",
+    "@typia/vercel": "workspace:^",
+    "ai": "^4.3.16",
+    "chalk": "^4.1.2",
+    "typia": "workspace:^"
+  }
+}

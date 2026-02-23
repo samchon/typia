@@ -1,0 +1,64 @@
+{
+  "name": "@typia/vercel",
+  "version": "11.0.1",
+  "description": "Vercel AI SDK integration for typia",
+  "main": "src/index.ts",
+  "scripts": {
+    "build": "rimraf lib && tsc",
+    "dev": "rimraf lib && tsc --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/samchon/typia"
+  },
+  "author": "Jeongho Nam",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/samchon/typia/issues"
+  },
+  "homepage": "https://typia.io",
+  "dependencies": {
+    "@typia/interface": "workspace:^",
+    "@typia/utils": "workspace:^"
+  },
+  "peerDependencies": {
+    "ai": ">=4.0.0"
+  },
+  "devDependencies": {
+    "@types/json-schema": "^7.0.15",
+    "ai": "^4.3.16",
+    "rimraf": "catalog:utils",
+    "typescript": "catalog:typescript"
+  },
+  "sideEffects": false,
+  "files": [
+    "LICENSE",
+    "README.md",
+    "package.json",
+    "lib",
+    "src"
+  ],
+  "keywords": [
+    "vercel",
+    "ai-sdk",
+    "typia",
+    "llm",
+    "llm-function-calling",
+    "ai",
+    "tool-calling",
+    "openai",
+    "anthropic",
+    "claude",
+    "chatgpt",
+    "gemini",
+    "validation",
+    "json-schema",
+    "typescript"
+  ],
+  "packageManager": "pnpm@10.6.4",
+  "publishConfig": {
+    "access": "public",
+    "main": "lib/index.js",
+    "typings": "lib/index.d.ts"
+  }
+}

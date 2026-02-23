@@ -1,0 +1,61 @@
+{
+  "name": "@typia/langchain",
+  "version": "11.0.1",
+  "description": "LangChain.js integration for typia",
+  "main": "src/index.ts",
+  "scripts": {
+    "build": "rimraf lib && tsc",
+    "dev": "rimraf lib && tsc --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/samchon/typia"
+  },
+  "author": "Jeongho Nam",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/samchon/typia/issues"
+  },
+  "homepage": "https://typia.io",
+  "dependencies": {
+    "@typia/interface": "workspace:^",
+    "@typia/utils": "workspace:^",
+    "zod": "^3.25.0"
+  },
+  "peerDependencies": {
+    "@langchain/core": ">=0.3.0"
+  },
+  "devDependencies": {
+    "@langchain/core": "^0.3.44",
+    "rimraf": "catalog:utils",
+    "typescript": "catalog:typescript"
+  },
+  "sideEffects": false,
+  "files": [
+    "LICENSE",
+    "README.md",
+    "package.json",
+    "lib",
+    "src"
+  ],
+  "keywords": [
+    "langchain",
+    "typia",
+    "llm",
+    "llm-function-calling",
+    "ai",
+    "claude",
+    "openai",
+    "chatgpt",
+    "gemini",
+    "validation",
+    "json-schema",
+    "typescript"
+  ],
+  "packageManager": "pnpm@10.6.4",
+  "publishConfig": {
+    "access": "public",
+    "main": "lib/index.js",
+    "typings": "lib/index.d.ts"
+  }
+}

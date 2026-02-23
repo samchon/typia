@@ -1,0 +1,33 @@
+{
+  "private": true,
+  "name": "@typia/test-langchain",
+  "version": "0.1.0",
+  "description": "Test suite for @typia/langchain package",
+  "scripts": {
+    "build": "tsc",
+    "prepare": "ts-patch install",
+    "start": "ts-node src/index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/samchon/typia"
+  },
+  "author": "Jeongho Nam",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "catalog:utils",
+    "@types/ts-expose-internals": "catalog:typescript",
+    "ts-node": "catalog:typescript",
+    "ts-patch": "catalog:typescript",
+    "typescript": "catalog:typescript"
+  },
+  "dependencies": {
+    "@langchain/core": "^0.3.44",
+    "@nestia/e2e": "catalog:utils",
+    "@typia/interface": "workspace:^",
+    "@typia/langchain": "workspace:^",
+    "@typia/utils": "workspace:^",
+    "chalk": "^4.1.2",
+    "typia": "workspace:^"
+  }
+}

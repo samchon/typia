@@ -1,0 +1,466 @@
+{
+  "openapi": "3.1.0",
+  "servers": [
+    {
+      "url": "https://github.com/samchon/nestia",
+      "description": "insert your server url"
+    }
+  ],
+  "info": {
+    "version": "2.0.0-dev.20241111-3",
+    "title": "@samchon/openapi",
+    "description": "OpenAPI definitions and converters for 'typia' and 'nestia'.",
+    "license": {
+      "name": "MIT"
+    }
+  },
+  "paths": {
+    "/{index}/{level}/{optimal}/parameters": {
+      "get": {
+        "tags": [],
+        "parameters": [
+          {
+            "name": "index",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "uri",
+              "contentMediaType": "text/html"
+            },
+            "required": true
+          },
+          {
+            "name": "level",
+            "in": "path",
+            "schema": {
+              "type": "number"
+            },
+            "required": true
+          },
+          {
+            "name": "optimal",
+            "in": "path",
+            "schema": {
+              "type": "boolean"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{index}/{level}/{optimal}/query": {
+      "get": {
+        "tags": [],
+        "parameters": [
+          {
+            "name": "index",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "uri",
+              "contentMediaType": "text/html"
+            },
+            "required": true
+          },
+          {
+            "name": "level",
+            "in": "path",
+            "schema": {
+              "type": "number"
+            },
+            "required": true
+          },
+          {
+            "name": "optimal",
+            "in": "path",
+            "schema": {
+              "type": "boolean"
+            },
+            "required": true
+          },
+          {
+            "name": "summary",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "name": "thumbnail",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "uri",
+              "contentMediaType": "image/*"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{index}/{level}/{optimal}/body": {
+      "post": {
+        "tags": [
+          "body",
+          "post"
+        ],
+        "parameters": [
+          {
+            "name": "index",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "uri",
+              "contentMediaType": "text/html"
+            },
+            "required": true
+          },
+          {
+            "name": "level",
+            "in": "path",
+            "schema": {
+              "type": "number"
+            },
+            "required": true
+          },
+          {
+            "name": "optimal",
+            "in": "path",
+            "schema": {
+              "type": "boolean"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{index}/{level}/{optimal}/query/body": {
+      "post": {
+        "tags": [],
+        "parameters": [
+          {
+            "name": "index",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "uri",
+              "contentMediaType": "text/html"
+            },
+            "required": true
+          },
+          {
+            "name": "level",
+            "in": "path",
+            "schema": {
+              "type": "number"
+            },
+            "required": true
+          },
+          {
+            "name": "optimal",
+            "in": "path",
+            "schema": {
+              "type": "boolean"
+            },
+            "required": true
+          },
+          {
+            "name": "thumbnail",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "uri",
+              "contentMediaType": "image/*"
+            },
+            "required": true
+          },
+          {
+            "name": "summary",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "query": {
+                      "type": "object",
+                      "properties": {
+                        "summary": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "summary"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "query"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{index}/{level}/{optimal}/multipart": {
+      "post": {
+        "tags": [],
+        "parameters": [
+          {
+            "name": "index",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "uri",
+              "contentMediaType": "text/html"
+            },
+            "required": true
+          },
+          {
+            "name": "level",
+            "in": "path",
+            "schema": {
+              "type": "number"
+            },
+            "required": true
+          },
+          {
+            "name": "optimal",
+            "in": "path",
+            "schema": {
+              "type": "boolean"
+            },
+            "required": true
+          },
+          {
+            "name": "summary",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "name": "thumbnail",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "uri",
+              "contentMediaType": "image/*"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/IMultipart"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "file": {
+                          "type": "string"
+                        },
+                        "title": {
+                          "type": "string"
+                        },
+                        "body": {
+                          "type": "string"
+                        },
+                        "draft": {
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "file",
+                        "title",
+                        "body",
+                        "draft"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "body"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/nothing": {
+      "get": {
+        "deprecated": true,
+        "tags": [],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "IQuery": {
+        "type": "object",
+        "properties": {
+          "summary": {
+            "type": "string"
+          },
+          "thumbnail": {
+            "type": "string",
+            "format": "uri",
+            "contentMediaType": "image/*"
+          }
+        },
+        "required": [
+          "summary",
+          "thumbnail"
+        ]
+      },
+      "IBody": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "body": {
+            "type": "string"
+          },
+          "draft": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "title",
+          "body",
+          "draft"
+        ]
+      },
+      "IMultipart": {
+        "type": "object",
+        "properties": {
+          "file": {
+            "type": "string",
+            "format": "binary"
+          },
+          "title": {
+            "type": "string"
+          },
+          "body": {
+            "type": "string"
+          },
+          "draft": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "file",
+          "title",
+          "body",
+          "draft"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "body"
+    },
+    {
+      "name": "post"
+    }
+  ],
+  "x-samchon-emended": true
+}

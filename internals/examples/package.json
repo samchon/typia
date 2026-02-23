@@ -1,0 +1,36 @@
+{
+  "private": true,
+  "name": "@typia/examples",
+  "version": "1.0.0",
+  "description": "Example codes for typia website",
+  "scripts": {
+    "build": "rimraf bin && tsc && prettier --write bin/**/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/samchon/typia"
+  },
+  "keywords": [
+    "typia",
+    "examples"
+  ],
+  "author": "Jeongho Nam",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/samchon/typia/issues"
+  },
+  "homepage": "https://typia.io",
+  "devDependencies": {
+    "@types/node": "catalog:utils",
+    "@types/uuid": "catalog:utils",
+    "rimraf": "catalog:utils",
+    "ts-patch": "catalog:typescript",
+    "typescript": "catalog:typescript"
+  },
+  "dependencies": {
+    "@typia/utils": "workspace:^",
+    "openai": "catalog:utils",
+    "typia": "workspace:^",
+    "uuid": "catalog:utils"
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "private": true,
+  "name": "@typia/test-error",
+  "version": "0.1.0",
+  "description": "Test program of typia generated error",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "prepare": "ts-patch install",
+    "start": "node index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/samchon/typia"
+  },
+  "keywords": [
+    "typia",
+    "test",
+    "error"
+  ],
+  "author": "Jeongho Nam",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/samchon/typia/issues"
+  },
+  "homepage": "https://github.com/samchon/typia#readme",
+  "devDependencies": {
+    "ts-patch": "catalog:typescript",
+    "typescript": "catalog:typescript"
+  },
+  "dependencies": {
+    "typia": "workspace:^"
+  }
+}
