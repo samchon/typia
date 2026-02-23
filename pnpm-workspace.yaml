@@ -18,7 +18,7 @@ catalogs:
     '@rollup/plugin-typescript': ^12.3.0
   utils:
     '@nestia/e2e': ^10.0.2
-    '@types/node': ^25.0.10
+    '@types/node': ^25.3.0
     '@types/uuid': ^11.0.0
     openai: ^6.16.0
     rimraf: ^6.1.2
