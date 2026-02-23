@@ -1,11 +1,11 @@
-import { ImportTransformer } from "@typia/transform";
 import fs from "fs";
 import path from "path";
 import ts from "typescript";
 
-import transform from "../transform";
+import { ImportTransformer } from "./ImportTransformer";
+import { transform } from "./transform";
 
-export namespace TypiaProgrammer {
+export namespace TypiaGenerator {
   export interface ILocation {
     input: string;
     output: string;
@@ -13,7 +13,7 @@ export namespace TypiaProgrammer {
   }
 
   export const build = async (
-    location: TypiaProgrammer.ILocation,
+    location: TypiaGenerator.ILocation,
   ): Promise<void> => {
     location.input = path.resolve(location.input);
     location.output = path.resolve(location.output);
