@@ -13,6 +13,7 @@
 			"vitest/importMeta",
 			"vitest/globals"
 		],
+		"outDir": "lib",
 		"strict": true,
 		"strictNullChecks": true,
 		"declaration": true,
