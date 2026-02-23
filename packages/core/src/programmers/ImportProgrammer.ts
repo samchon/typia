@@ -1,6 +1,19 @@
 import { MapUtil } from "@typia/utils";
 import ts from "typescript";
 
+<<<<<<< HEAD
+=======
+/**
+ * Import statement manager for code generation.
+ *
+ * Collects and deduplicates import declarations needed by generated code.
+ * Tracks default imports ({@link default}), named imports ({@link instance}), and
+ * namespace imports ({@link namespace}). Call {@link toStatements} to emit the
+ * final import declaration AST nodes.
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
 export class ImportProgrammer {
   private readonly assets_: Map<string, IAsset> = new Map();
   private readonly options_: Readonly<ImportProgrammer.IOptions>;
@@ -8,6 +21,7 @@ export class ImportProgrammer {
   public constructor(options?: Partial<ImportProgrammer.IOptions>) {
     this.options_ = {
       internalPrefix: options?.internalPrefix ?? "",
+      runtime: options?.runtime,
     };
   }
 
@@ -56,9 +70,16 @@ export class ImportProgrammer {
     if (name.startsWith("_") === false) name = `_${name}`;
     return ts.factory.createPropertyAccessExpression(
       this.namespace({
+<<<<<<< HEAD
         file: __filename.endsWith(".ts")
           ? `typia/src/internal/${name}.ts`
           : `typia/lib/internal/${name}.js`,
+=======
+        file:
+          __filename.endsWith(".ts") && this.options_.runtime !== "js"
+            ? `typia/src/internal/${name}.ts`
+            : `typia/lib/internal/${name}.js`,
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
         name: this.alias(name),
       }),
       name,
@@ -69,7 +90,11 @@ export class ImportProgrammer {
   public getInternalText(name: string): string {
     if (name.startsWith("_") === false) name = `_${name}`;
     const asset: IAsset | undefined = this.take(
+<<<<<<< HEAD
       __filename.endsWith(".ts")
+=======
+      __filename.endsWith(".ts") && this.options_.runtime !== "js"
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
         ? `typia/src/internal/${name}.ts`
         : `typia/lib/internal/${name}.js`,
     );
@@ -156,6 +181,7 @@ export class ImportProgrammer {
 export namespace ImportProgrammer {
   export interface IOptions {
     internalPrefix: string;
+    runtime?: "ts" | "js";
   }
 
   export interface IDefault {

@@ -1,4 +1,5 @@
 /**
+<<<<<<< HEAD
  * Specialized error class for HTTP request failures
  *
  * `HttpError` is a custom error class that is thrown when an HTTP request fails
@@ -13,10 +14,23 @@
  * - Applications that require different handling based on HTTP status codes
  * - Logging and monitoring systems that need structured error data
  * - Debugging HTTP communication issues
+=======
+ * Error thrown when HTTP request fails with non-2xx status.
+ *
+ * `HttpError` is thrown by {@link HttpLlm.execute} and
+ * {@link HttpMigration.execute} when the server returns a non-2xx status code.
+ * Contains the full HTTP context: method, path, status, headers, and response
+ * body.
+ *
+ * The response body is available via {@link message} (raw string) or
+ * {@link toJSON} (parsed JSON). For non-throwing behavior, use
+ * {@link HttpLlm.propagate} or {@link HttpMigration.propagate} instead.
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
 export class HttpError extends Error {
+<<<<<<< HEAD
   /** The HTTP method that was used for the failed request */
   public readonly method: "GET" | "DELETE" | "POST" | "PUT" | "PATCH" | "HEAD";
 
@@ -27,12 +41,25 @@ export class HttpError extends Error {
   public readonly status: number;
 
   /** The HTTP response headers returned by the server as key-value pairs */
+=======
+  /** HTTP method used for the request. */
+  public readonly method: "GET" | "DELETE" | "POST" | "PUT" | "PATCH" | "HEAD";
+
+  /** Request path or URL. */
+  public readonly path: string;
+
+  /** HTTP status code from server. */
+  public readonly status: number;
+
+  /** Response headers from server. */
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
   public readonly headers: Record<string, string | string[]>;
 
   /** @internal */
   private body_: any = NOT_YET;
 
   /**
+<<<<<<< HEAD
    * Creates a new HttpError instance
    *
    * Initializes an HttpError with comprehensive information about the failed
@@ -63,6 +90,13 @@ export class HttpError extends Error {
    *   key-value pairs
    * @param message The error message from the server (typically the response
    *   body text)
+=======
+   * @param method HTTP method
+   * @param path Request path or URL
+   * @param status HTTP status code
+   * @param headers Response headers
+   * @param message Error message (response body)
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
    */
   public constructor(
     method: "GET" | "DELETE" | "POST" | "PUT" | "PATCH" | "HEAD",
@@ -84,6 +118,7 @@ export class HttpError extends Error {
   }
 
   /**
+<<<<<<< HEAD
    * Serializes the HttpError instance to a JSON-compatible object
    *
    * This method serves two primary purposes:
@@ -107,6 +142,15 @@ export class HttpError extends Error {
    * @returns A structured object containing all HTTP error information with the
    *   message field containing either the parsed JSON object or the original
    *   string
+=======
+   * Serialize to JSON-compatible object.
+   *
+   * Lazily parses JSON message body on first call. If parsing fails, returns
+   * the original string.
+   *
+   * @template T Expected response body type
+   * @returns Structured HTTP error information
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
    */
   public toJSON<T>(): HttpError.IProps<T> {
     if (this.body_ === NOT_YET)
@@ -126,6 +170,7 @@ export class HttpError extends Error {
 }
 export namespace HttpError {
   /**
+<<<<<<< HEAD
    * Return type definition for the {@link HttpError.toJSON} method
    *
    * This interface provides a structured representation of all HTTP error
@@ -168,6 +213,26 @@ export namespace HttpError {
     headers: Record<string, string | string[]>;
 
     /** The response body (either parsed JSON object or original string) */
+=======
+   * JSON representation of HttpError.
+   *
+   * @template T Response body type
+   */
+  export interface IProps<T> {
+    /** HTTP method. */
+    method: "GET" | "DELETE" | "POST" | "PUT" | "PATCH" | "HEAD";
+
+    /** Request path or URL. */
+    path: string;
+
+    /** HTTP status code. */
+    status: number;
+
+    /** Response headers. */
+    headers: Record<string, string | string[]>;
+
+    /** Response body (parsed JSON or original string). */
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
     message: T;
   }
 }

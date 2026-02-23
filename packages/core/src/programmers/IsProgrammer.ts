@@ -15,6 +15,14 @@ import { CheckerProgrammer } from "./internal/CheckerProgrammer";
 import { FeatureProgrammer } from "./internal/FeatureProgrammer";
 import { check_object } from "./iterate/check_object";
 
+/**
+ * Type guard code generator.
+ *
+ * Generates runtime type guard code returning boolean. Used by `typia.is<T>()`
+ * and `typia.equals<T>()`.
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
 export namespace IsProgrammer {
   export const configure = (props: {
     options?: Partial<CONFIG.IOptions>;

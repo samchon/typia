@@ -38,6 +38,7 @@
     "url": "https://github.com/samchon/typia/issues"
   },
   "homepage": "https://typia.io",
+<<<<<<< HEAD
   "exports": {
     ".": {
       "types": "./lib/index.d.ts",
@@ -56,6 +57,8 @@
     },
     "./package.json": "./package.json"
   },
+=======
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
   "dependencies": {
     "@standard-schema/spec": "^1.0.0",
     "@typia/core": "workspace:^",
@@ -76,7 +79,11 @@
     "@rollup/plugin-node-resolve": "catalog:rollup",
     "@rollup/plugin-typescript": "catalog:rollup",
     "@types/inquirer": "^8.2.5",
+<<<<<<< HEAD
     "@types/node": "^18.15.12",
+=======
+    "@types/node": "catalog:utils",
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
     "@types/ts-expose-internals": "catalog:typescript",
     "@typescript-eslint/eslint-plugin": "^8.1.0",
     "@typescript-eslint/parser": "^8.1.0",

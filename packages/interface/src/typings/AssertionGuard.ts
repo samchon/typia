@@ -1,4 +1,5 @@
 /**
+<<<<<<< HEAD
  * Type definition for assertion guard functions in `typia`.
  *
  * An assertion guard is a function that asserts an input value's type at
@@ -37,5 +38,16 @@
  *   T
  * @see {@link https://github.com/samchon/typia#assertguard-functions} Typia assertion guards documentation
  * @see {@link TypeGuardError} Error thrown when assertion fails
+=======
+ * Type for assertion guard functions that narrow input type.
+ *
+ * `AssertionGuard<T>` is a function type that validates input at runtime and
+ * asserts it as type `T`. Unlike regular assertions that return the value,
+ * assertion guards return void but narrow the input parameter's type.
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ * @template T Target type to assert
+ * @throws {TypeGuardError} When validation fails
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export type AssertionGuard<T> = (input: unknown) => asserts input is T;

@@ -9,7 +9,7 @@ export const _randomArray = <T>(
 ) => {
   const count: number = _randomInteger({
     type: "integer",
-    minimum: props.minItems ?? 0,
+    minimum: (props.minItems ?? 0) satisfies number as number,
     maximum: props.maxItems ?? (props.minItems ?? 0) + 5,
   });
   if (props.uniqueItems !== true)

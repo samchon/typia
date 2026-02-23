@@ -2,6 +2,7 @@ import { OpenApi } from "../openapi/OpenApi";
 import { OpenApiV3 } from "../openapi/OpenApiV3";
 
 /**
+<<<<<<< HEAD
  * Collection of JSON schemas with OpenAPI specification support.
  *
  * `IJsonSchemaCollection` represents a comprehensive collection of JSON schemas
@@ -42,6 +43,29 @@ import { OpenApiV3 } from "../openapi/OpenApiV3";
  * @template Types Array of original TypeScript types that were analyzed to
  *   generate the JSON schemas. This provides type safety and traceability back
  *   to the source TypeScript definitions.
+=======
+ * Collection of JSON schemas generated from multiple TypeScript types.
+ *
+ * `IJsonSchemaCollection` holds JSON schemas for multiple TypeScript types
+ * generated at compile time by `typia.json.schemas<[T1, T2, ...]>()`. The
+ * schemas share a common components pool to avoid duplication when types
+ * reference each other.
+ *
+ * This is useful when you need schemas for multiple related types and want to
+ * share component definitions between them. For single types, use
+ * {@link IJsonSchemaUnit} instead. For function schemas, see
+ * {@link IJsonSchemaApplication}.
+ *
+ * The collection contains:
+ *
+ * - {@link IV3_1.schemas | schemas}: Array of schemas, one per input type
+ * - {@link IV3_1.components | components}: Shared `$ref` definitions
+ * - {@link IV3_1.__types | __types}: Phantom property for type inference
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ * @template Version OpenAPI version ("3.0" or "3.1")
+ * @template Types Tuple of original TypeScript types
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export type IJsonSchemaCollection<
   Version extends "3.0" | "3.1" = "3.1",
@@ -52,6 +76,7 @@ export type IJsonSchemaCollection<
 
 export namespace IJsonSchemaCollection {
   /**
+<<<<<<< HEAD
    * JSON Schema collection formatted for OpenAPI v3.0 specification.
    *
    * This interface represents a collection of JSON schemas that comply with
@@ -76,10 +101,27 @@ export namespace IJsonSchemaCollection {
      *
      * Always set to "3.0" to indicate this collection uses OpenAPI v3.0 schema
      * format and constraints.
+=======
+   * JSON Schema collection for OpenAPI v3.0 specification.
+   *
+   * Uses OpenAPI v3.0 compatible JSON Schema format. In v3.0, nullable types
+   * are expressed with `nullable: true` rather than v3.1's `type` arrays.
+   *
+   * @template Types Tuple of original TypeScript types for phantom type
+   *   preservation
+   */
+  export interface IV3_0<Types = unknown[]> {
+    /**
+     * OpenAPI specification version.
+     *
+     * Always `"3.0"` for this variant. Use this discriminator to determine
+     * which schema format is in use.
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
      */
     version: "3.0";
 
     /**
+<<<<<<< HEAD
      * Array of generated JSON schemas.
      *
      * Contains the actual JSON schema definitions generated from the input
@@ -90,10 +132,17 @@ export namespace IJsonSchemaCollection {
      *
      * Schema references typically use the format: `{ "$ref":
      * "#/components/schemas/TypeName" }`
+=======
+     * Generated JSON schemas, one per input type.
+     *
+     * Array of schemas in the same order as the input type tuple. Each schema
+     * may reference definitions in {@link components}.
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
      */
     schemas: OpenApiV3.IJsonSchema[];
 
     /**
+<<<<<<< HEAD
      * Reusable schema components for OpenAPI v3.0.
      *
      * Contains reusable schema definitions, security schemes, and other
@@ -110,10 +159,17 @@ export namespace IJsonSchemaCollection {
      * - Responses: Reusable response definitions
      * - Headers: Reusable header definitions
      * - Examples: Reusable example definitions
+=======
+     * Shared schema definitions for `$ref` references.
+     *
+     * Contains named schemas used across multiple types in the collection.
+     * Reduces duplication when types share common structures.
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
      */
     components: OpenApiV3.IComponents;
 
     /**
+<<<<<<< HEAD
      * Type metadata for compile-time type tracking.
      *
      * This optional property stores the original TypeScript types that were
@@ -126,11 +182,19 @@ export namespace IJsonSchemaCollection {
      * - Compile-time type checking against the original types
      * - IDE intellisense and autocompletion
      * - Type-safe schema validation and usage
+=======
+     * Phantom property for TypeScript generic type preservation.
+     *
+     * This property exists only in the type system to preserve the `Types`
+     * generic parameter. It is always `undefined` at runtime and should not be
+     * accessed or used in application code.
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
      */
     __types?: Types | undefined;
   }
 
   /**
+<<<<<<< HEAD
    * JSON Schema collection formatted for OpenAPI v3.1 specification.
    *
    * This interface represents a collection of JSON schemas that comply with
@@ -156,10 +220,28 @@ export namespace IJsonSchemaCollection {
      *
      * Always set to "3.1" to indicate this collection uses OpenAPI v3.1 schema
      * format with enhanced JSON Schema compatibility.
+=======
+   * JSON Schema collection for OpenAPI v3.1 specification.
+   *
+   * Uses OpenAPI v3.1 compatible JSON Schema format. v3.1 aligns more closely
+   * with JSON Schema draft 2020-12, supporting features like `type` arrays for
+   * nullable types and `const` values.
+   *
+   * @template Types Tuple of original TypeScript types for phantom type
+   *   preservation
+   */
+  export interface IV3_1<Types = unknown[]> {
+    /**
+     * OpenAPI specification version.
+     *
+     * Always `"3.1"` for this variant. Use this discriminator to determine
+     * which schema format is in use.
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
      */
     version: "3.1";
 
     /**
+<<<<<<< HEAD
      * Reusable schema components for OpenAPI v3.1.
      *
      * Contains reusable schema definitions and other components following the
@@ -173,10 +255,17 @@ export namespace IJsonSchemaCollection {
      *
      * The emended OpenAPI v3.1 format used here removes ambiguous expressions
      * and standardizes certain patterns for better tooling compatibility.
+=======
+     * Shared schema definitions for `$ref` references.
+     *
+     * Contains named schemas used across multiple types in the collection.
+     * Reduces duplication when types share common structures.
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
      */
     components: OpenApi.IComponents;
 
     /**
+<<<<<<< HEAD
      * Array of generated JSON schemas with v3.1 enhancements.
      *
      * Contains JSON schema definitions that take advantage of OpenAPI v3.1's
@@ -190,10 +279,17 @@ export namespace IJsonSchemaCollection {
      *
      * Each schema corresponds to one of the input TypeScript types and may
      * reference components defined in the {@link components} property.
+=======
+     * Generated JSON schemas, one per input type.
+     *
+     * Array of schemas in the same order as the input type tuple. Each schema
+     * may reference definitions in {@link components}.
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
      */
     schemas: OpenApi.IJsonSchema[];
 
     /**
+<<<<<<< HEAD
      * Type metadata for compile-time type tracking.
      *
      * This optional property stores the original TypeScript types that were
@@ -207,6 +303,13 @@ export namespace IJsonSchemaCollection {
      * - Enhanced IDE support and autocompletion
      * - Compile-time validation of schema usage
      * - Type-safe integration with validation libraries
+=======
+     * Phantom property for TypeScript generic type preservation.
+     *
+     * This property exists only in the type system to preserve the `Types`
+     * generic parameter. It is always `undefined` at runtime and should not be
+     * accessed or used in application code.
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
      */
     __types?: Types | undefined;
   }

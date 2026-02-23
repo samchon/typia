@@ -6,10 +6,45 @@ import { OpenApiV3_1Upgrader } from "./internal/OpenApiV3_1Upgrader";
 import { SwaggerV2Downgrader } from "./internal/SwaggerV2Downgrader";
 import { SwaggerV2Upgrader } from "./internal/SwaggerV2Upgrader";
 
+<<<<<<< HEAD
+=======
+/**
+ * OpenAPI version converter.
+ *
+ * `OpenApiConverter` converts between different OpenAPI specification versions:
+ * Swagger v2.0, OpenAPI v3.0, OpenAPI v3.1, and typia's emended {@link OpenApi}
+ * format. Also converts individual components (schemas, operations, paths).
+ *
+ * Upgrade path (to emended v3.1):
+ *
+ * - Swagger v2.0 → emended v3.1
+ * - OpenAPI v3.0 → emended v3.1
+ * - OpenAPI v3.1 → emended v3.1
+ *
+ * Downgrade path (from emended v3.1):
+ *
+ * - Emended v3.1 → Swagger v2.0
+ * - Emended v3.1 → OpenAPI v3.0
+ *
+ * The emended format normalizes ambiguous expressions: dereferences `$ref`,
+ * merges `allOf`, converts `nullable` to union types, etc.
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
 export namespace OpenApiConverter {
   /* -----------------------------------------------------------
     DOCUMENTS
   ----------------------------------------------------------- */
+<<<<<<< HEAD
+=======
+  /**
+   * Upgrade document to typia's emended OpenAPI v3.1 format.
+   *
+   * @param document Source document (Swagger v2.0, OpenAPI v3.0/v3.1)
+   * @returns Emended OpenAPI v3.1 document
+   */
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
   export function upgradeDocument(
     document:
       | SwaggerV2.IDocument
@@ -25,11 +60,31 @@ export namespace OpenApiConverter {
     throw new Error("Invalid OpenAPI document");
   }
 
+<<<<<<< HEAD
+=======
+  /**
+   * Downgrade document to Swagger v2.0 format.
+   *
+   * @param document Source emended OpenAPI document
+   * @param version Target version "2.0"
+   * @returns Swagger v2.0 document
+   */
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
   export function downgradeDocument(
     document: OpenApi.IDocument,
     version: "2.0",
   ): SwaggerV2.IDocument;
 
+<<<<<<< HEAD
+=======
+  /**
+   * Downgrade document to OpenAPI v3.0 format.
+   *
+   * @param document Source emended OpenAPI document
+   * @param version Target version "3.0"
+   * @returns OpenAPI v3.0 document
+   */
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
   export function downgradeDocument(
     document: OpenApi.IDocument,
     version: "3.0",
@@ -49,6 +104,15 @@ export namespace OpenApiConverter {
   /* -----------------------------------------------------------
     COMPONENTS
   ----------------------------------------------------------- */
+<<<<<<< HEAD
+=======
+  /**
+   * Upgrade components to typia's emended format.
+   *
+   * @param input Source components (Swagger v2.0, OpenAPI v3.0/v3.1)
+   * @returns Emended OpenAPI components
+   */
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
   export function upgradeComponents(
     input:
       | OpenApiV3_1.IComponents
@@ -59,11 +123,31 @@ export namespace OpenApiConverter {
     return OpenApiV3_1Upgrader.convertComponents(input);
   }
 
+<<<<<<< HEAD
+=======
+  /**
+   * Downgrade components to Swagger v2.0 definitions.
+   *
+   * @param input Source emended components
+   * @param version Target version "2.0"
+   * @returns Swagger v2.0 definitions record
+   */
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
   export function downgradeComponents(
     input: OpenApi.IComponents,
     version: "2.0",
   ): Record<string, SwaggerV2.IJsonSchema>;
 
+<<<<<<< HEAD
+=======
+  /**
+   * Downgrade components to OpenAPI v3.0 format.
+   *
+   * @param input Source emended components
+   * @param version Target version "3.0"
+   * @returns OpenAPI v3.0 components
+   */
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
   export function downgradeComponents(
     input: OpenApi.IComponents,
     version: "3.0",
@@ -82,16 +166,46 @@ export namespace OpenApiConverter {
   /* -----------------------------------------------------------
     SCHEMAS
   ----------------------------------------------------------- */
+<<<<<<< HEAD
+=======
+  /**
+   * Upgrade Swagger v2.0 schema to emended format.
+   *
+   * @param props.definitions Swagger v2.0 definitions
+   * @param props.schema Schema to upgrade
+   * @returns Emended JSON schema
+   */
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
   export function upgradeSchema(props: {
     definitions: Record<string, SwaggerV2.IJsonSchema>;
     schema: SwaggerV2.IJsonSchema;
   }): OpenApi.IJsonSchema;
 
+<<<<<<< HEAD
+=======
+  /**
+   * Upgrade OpenAPI v3.0 schema to emended format.
+   *
+   * @param props.components OpenAPI v3.0 components
+   * @param props.schema Schema to upgrade
+   * @returns Emended JSON schema
+   */
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
   export function upgradeSchema(props: {
     components: OpenApiV3.IComponents;
     schema: OpenApiV3.IJsonSchema;
   }): OpenApi.IJsonSchema;
 
+<<<<<<< HEAD
+=======
+  /**
+   * Upgrade OpenAPI v3.1 schema to emended format.
+   *
+   * @param props.components OpenAPI v3.1 components
+   * @param props.schema Schema to upgrade
+   * @returns Emended JSON schema
+   */
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
   export function upgradeSchema(props: {
     components: OpenApiV3_1.IComponents;
     schema: OpenApiV3_1.IJsonSchema;
@@ -118,6 +232,18 @@ export namespace OpenApiConverter {
     return OpenApiV3_1Upgrader.convertSchema(props.components)(props.schema);
   }
 
+<<<<<<< HEAD
+=======
+  /**
+   * Downgrade schema to Swagger v2.0 format.
+   *
+   * @param props.components Source emended components
+   * @param props.schema Schema to downgrade
+   * @param props.version Target version "2.0"
+   * @param props.downgraded Target definitions record (mutated)
+   * @returns Swagger v2.0 schema
+   */
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
   export function downgradeSchema(props: {
     components: OpenApi.IComponents;
     schema: OpenApi.IJsonSchema;
@@ -125,6 +251,18 @@ export namespace OpenApiConverter {
     downgraded: Record<string, SwaggerV2.IJsonSchema>;
   }): SwaggerV2.IJsonSchema;
 
+<<<<<<< HEAD
+=======
+  /**
+   * Downgrade schema to OpenAPI v3.0 format.
+   *
+   * @param props.components Source emended components
+   * @param props.schema Schema to downgrade
+   * @param props.version Target version "3.0"
+   * @param props.downgraded Target components (mutated)
+   * @returns OpenAPI v3.0 schema
+   */
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
   export function downgradeSchema(props: {
     components: OpenApi.IComponents;
     schema: OpenApi.IJsonSchema;

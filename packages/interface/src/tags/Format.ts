@@ -1,32 +1,13 @@
 import type { TagBase } from "./TagBase";
 
 /**
- * String format constraint tag.
+ * String format validation constraint.
  *
- * Validates strings against predefined formats for common use cases. This tag
- * provides built-in validation for standard string formats without needing to
- * write custom regular expressions.
- *
- * Examples:
- *
- * ```ts
- * Type Email = string & Format<"email">; // user@example.com
- * Type WebURL = string & Format<"url">; // https://example.com
- * Type DateTime = string & Format<"date-time">; // 2024-01-15T10:30:00Z
- * ```
- *
- * Supported formats include:
- *
- * - Network: email, url, hostname, ipv4, ipv6, uri
- * - Identifiers: uuid, byte, password
- * - Date/Time: date, time, date-time, duration
- * - Data: json-pointer, regex
- * - Internationalized: idn-email, idn-hostname, iri
- *
- * Note: This tag is mutually exclusive with the Pattern tag. You cannot use
- * both Format and Pattern on the same type.
+ * `Format<Value>` validates strings against predefined formats (email, uuid,
+ * url, date-time, etc.). Mutually exclusive with {@link Pattern}.
  *
  * @author Jeongho Nam - https://github.com/samchon
+ * @template Value Format identifier (see {@link Format.Value} for options)
  */
 export type Format<Value extends Format.Value> = TagBase<{
   target: "string";
@@ -39,6 +20,23 @@ export type Format<Value extends Format.Value> = TagBase<{
   };
 }>;
 export namespace Format {
+  /**
+   * Supported format identifiers.
+   *
+   * Standard JSON Schema formats:
+   *
+   * - `email`, `idn-email`: Email addresses
+   * - `hostname`, `idn-hostname`: Hostnames
+   * - `uri`, `uri-reference`, `uri-template`, `url`: URLs
+   * - `iri`, `iri-reference`: Internationalized URLs
+   * - `uuid`: UUID strings
+   * - `ipv4`, `ipv6`: IP addresses
+   * - `date-time`, `date`, `time`, `duration`: Date/time formats
+   * - `json-pointer`, `relative-json-pointer`: JSON pointers
+   * - `regex`: Regular expression patterns
+   * - `byte`: Base64-encoded data
+   * - `password`: Password fields (for documentation only)
+   */
   export type Value =
     | "byte"
     | "password"

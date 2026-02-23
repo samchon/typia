@@ -3,28 +3,21 @@ import { tags } from "typia";
 /**
  * Article entity.
  *
- * `IBbsArticle` is an entity representing an article in the BBS (Bulletin Board System).
+ * `IBbsArticle` is an entity representing an article in the BBS (Bulletin Board
+ * System).
  */
 export interface IBbsArticle extends IBbsArticle.ICreate {
-  /**
-   * Primary Key.
-   */
+  /** Primary Key. */
   id: string & tags.Format<"uuid">;
 
-  /**
-   * Creation time of the article.
-   */
+  /** Creation time of the article. */
   created_at: string & tags.Format<"date-time">;
 
-  /**
-   * Last updated time of the article.
-   */
+  /** Last updated time of the article. */
   updated_at: string & tags.Format<"date-time">;
 }
 export namespace IBbsArticle {
-  /**
-   * Information of the article to create.
-   */
+  /** Information of the article to create. */
   export interface ICreate {
     /**
      * Title of the article.

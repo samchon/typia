@@ -3,6 +3,7 @@ import { ILlmApplication, ILlmController, ILlmSchema } from "@typia/interface";
 import { NoTransformConfigurationError } from "./transformers/NoTransformConfigurationError";
 
 /**
+<<<<<<< HEAD
  * > You must configure the generic argument `Class`.
  *
  * TypeScript functions to LLM function calling controller.
@@ -60,6 +61,11 @@ import { NoTransformConfigurationError } from "./transformers/NoTransformConfigu
  * @param config Options for the LLM application construction
  * @returns Controller of LLM function calling
  * @reference https://wrtnlabs.io/agentica/docs/core/controller/typescript/
+=======
+ * Creates LLM function calling controller.
+ *
+ * @danger You must configure the generic argument `Class`
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function controller(
   name: string,
@@ -68,6 +74,7 @@ export function controller(
 ): never;
 
 /**
+<<<<<<< HEAD
  * TypeScript functions to LLM function calling controller.
  *
  * Creates a controller of LLM (Large Language Model) function calling from a
@@ -123,6 +130,38 @@ export function controller(
  * @param config Options for the LLM application construction
  * @returns Controller of LLM function calling
  * @reference https://wrtnlabs.io/agentica/docs/core/controller/typescript/
+=======
+ * Creates LLM function calling controller from class/interface.
+ *
+ * Generates {@link ILlmController} from a TypeScript class or interface,
+ * containing both function calling schemas ({@link ILlmFunction}) and an
+ * executor ({@link ILlmController.execute}).
+ *
+ * Each {@link ILlmFunction} includes a built-in {@link ILlmFunction.validate}
+ * function that validates LLM-generated arguments before execution. When
+ * validation fails, use `stringifyValidationFailure()` from `@typia/utils` to
+ * format errors for LLM feedback, enabling auto-correction.
+ *
+ * When passed to LLM providers (ChatGPT, Claude, Gemini, etc.), the LLM
+ * automatically selects functions and fills arguments from conversation.
+ * Execute the selected function via {@link ILlmController.execute}.
+ *
+ * Configure {@link ILlmApplication.IConfig.separate} to split parameters between
+ * LLM-fillable and human-required (e.g., file uploads, passwords).
+ *
+ * Related functions:
+ *
+ * - {@link application} — Schemas only, without executor
+ * - {@link parameters} — Single parameters schema for structured output
+ * - {@link schema} — Single type schema
+ *
+ * @template Class Target class or interface type
+ * @template Config LLM schema configuration
+ * @param name Controller identifier name
+ * @param execute Executor instance
+ * @param config LLM application options
+ * @returns LLM function calling controller
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function controller<
   Class extends Record<string, any>,
@@ -154,6 +193,7 @@ export function controller(..._args: any[]): never {
 }
 
 /**
+<<<<<<< HEAD
  * > You must configure the generic argument `Class`.
  *
  * TypeScript functions to LLM function calling application.
@@ -195,12 +235,18 @@ export function controller(..._args: any[]): never {
  * @param config Options for the LLM application construction
  * @returns Application of LLM function calling schemas
  * @reference https://platform.openai.com/docs/guides/function-calling
+=======
+ * Creates LLM function calling application.
+ *
+ * @danger You must configure the generic argument `Class`
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function application(
   config?: Partial<Pick<ILlmApplication.IConfig<any>, "separate" | "validate">>,
 ): never;
 
 /**
+<<<<<<< HEAD
  * TypeScript functions to LLM function calling application.
  *
  * Creates an application of LLM (Large Language Model) function calling
@@ -240,6 +286,37 @@ export function application(
  * @param config Options for the LLM application construction
  * @returns Application of LLM function calling schemas
  * @reference https://platform.openai.com/docs/guides/function-calling
+=======
+ * Creates LLM function calling application from class/interface.
+ *
+ * Generates {@link ILlmApplication} from a TypeScript class or interface,
+ * containing function calling schemas ({@link ILlmFunction}). Does not include
+ * an executor—use {@link controller} if you need execution capability.
+ *
+ * Each {@link ILlmFunction} includes a built-in {@link ILlmFunction.validate}
+ * function that validates LLM-generated arguments before execution. When
+ * validation fails, use `stringifyValidationFailure()` from `@typia/utils` to
+ * format errors for LLM feedback, enabling auto-correction.
+ *
+ * When passed to LLM providers (ChatGPT, Claude, Gemini, etc.), the LLM
+ * automatically selects functions and fills arguments from conversation. You
+ * execute the function manually with the LLM-prepared arguments.
+ *
+ * Configure {@link ILlmApplication.IConfig.separate} to split parameters between
+ * LLM-fillable and human-required (e.g., file uploads, passwords). Merge them
+ * with {@link HttpLlm.mergeParameters} before execution.
+ *
+ * Related functions:
+ *
+ * - {@link controller} — Includes executor alongside schemas
+ * - {@link parameters} — Single parameters schema for structured output
+ * - {@link schema} — Single type schema
+ *
+ * @template Class Target class or interface type
+ * @template Config LLM schema configuration
+ * @param config LLM application options
+ * @returns LLM function calling application
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function application<
   Class extends Record<string, any>,
@@ -269,6 +346,7 @@ export function application(): never {
 }
 
 /**
+<<<<<<< HEAD
  * > You must configure the generic argument `Parameters`.
  *
  * TypeScript parameters to LLM parameters schema.
@@ -296,10 +374,16 @@ export function application(): never {
  * @returns LLM parameters schema
  * @reference https://platform.openai.com/docs/guides/function-calling
  * @reference https://platform.openai.com/docs/guides/structured-outputs
+=======
+ * Creates LLM parameters schema.
+ *
+ * @danger You must configure the generic argument `Parameters`
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function parameters(): never;
 
 /**
+<<<<<<< HEAD
  * TypeScript parameters to LLM parameters schema.
  *
  * Creates an LLM (Large Language Model) parameters schema, a type metadata that
@@ -325,6 +409,28 @@ export function parameters(): never;
  * @returns LLM parameters schema
  * @reference https://platform.openai.com/docs/guides/function-calling
  * @reference https://platform.openai.com/docs/guides/structured-outputs
+=======
+ * Creates LLM parameters schema from TypeScript object type.
+ *
+ * Generates {@link ILlmSchema.IParameters} for LLM function calling or
+ * structured outputs. LLMs use keyworded arguments only, so the type must be an
+ * object with static properties (no dynamic properties allowed).
+ *
+ * Use cases:
+ *
+ * - Function calling: LLM fills parameters from conversation
+ * - Structured outputs: LLM generates structured data, not plain text
+ *
+ * Related functions:
+ *
+ * - {@link application} — Multiple function schemas from class/interface
+ * - {@link controller} — Application with executor
+ * - {@link schema} — Single type schema (not parameters-specific)
+ *
+ * @template Parameters Target parameters type (object with static properties)
+ * @template Config LLM schema configuration
+ * @returns LLM parameters schema
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function parameters<
   Parameters extends Record<string, any>,
@@ -337,6 +443,7 @@ export function parameters(): never {
 }
 
 /**
+<<<<<<< HEAD
  * > You must configure the generic argument `T`.
  *
  * TypeScript type to LLM type schema.
@@ -373,10 +480,16 @@ export function parameters(): never {
  * @returns LLM schema
  * @reference https://platform.openai.com/docs/guides/function-calling
  * @reference https://platform.openai.com/docs/guides/structured-outputs
+=======
+ * Creates LLM type schema.
+ *
+ * @danger You must configure the generic argument `T`
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function schema(): never;
 
 /**
+<<<<<<< HEAD
  * TypeScript type to LLM type schema.
  *
  * Creates an LLM (Large Language Model) type schema, a type metadata that is
@@ -411,6 +524,31 @@ export function schema(): never;
  * @returns LLM schema
  * @reference https://platform.openai.com/docs/guides/function-calling
  * @reference https://platform.openai.com/docs/guides/structured-outputs
+=======
+ * Creates LLM type schema from TypeScript type.
+ *
+ * Generates {@link ILlmSchema} for use in LLM function calling. For actual
+ * function calling with TypeScript functions, use {@link application}. For
+ * structured output generation, use {@link parameters}.
+ *
+ * LLM function calling flow:
+ *
+ * 1. LLM selects function and fills arguments from conversation
+ * 2. You execute the function with LLM-prepared arguments
+ * 3. Return value is passed back to LLM via system prompt
+ * 4. LLM continues conversation based on return value
+ *
+ * Related functions:
+ *
+ * - {@link application} — Multiple function schemas from class/interface
+ * - {@link controller} — Application with executor
+ * - {@link parameters} — Parameters schema for structured output
+ *
+ * @template T Target type
+ * @template Config LLM schema configuration
+ * @param $defs Shared schema definitions for `$ref` referencing
+ * @returns LLM type schema
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function schema<T, Config extends Partial<ILlmSchema.IConfig> = {}>(
   $defs: Record<string, ILlmSchema>,

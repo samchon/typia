@@ -1,6 +1,5 @@
 {
   "private": true,
-  "type": "module",
   "name": "@typia/examples",
   "version": "1.0.0",
   "description": "Example codes for typia website",
@@ -29,6 +28,7 @@
     "typescript": "catalog:typescript"
   },
   "dependencies": {
+    "@typia/utils": "workspace:^",
     "openai": "catalog:utils",
     "typia": "workspace:^",
     "uuid": "catalog:utils"

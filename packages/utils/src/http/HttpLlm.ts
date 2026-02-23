@@ -1,6 +1,10 @@
 import {
   IHttpConnection,
   IHttpLlmApplication,
+<<<<<<< HEAD
+=======
+  IHttpLlmController,
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
   IHttpLlmFunction,
   IHttpMigrateApplication,
   IHttpResponse,
@@ -17,6 +21,7 @@ import { HttpLlmFunctionFetcher } from "./internal/HttpLlmFunctionFetcher";
 import { LlmDataMerger } from "./internal/LlmDataMerger";
 
 /**
+<<<<<<< HEAD
  * LLM function calling application composer from OpenAPI document.
  *
  * `HttpLlm` is a module for composing LLM (Large Language Model) function
@@ -35,6 +40,28 @@ import { LlmDataMerger } from "./internal/LlmDataMerger";
  * into human and LLM sides, you can merge these human and LLM sides' parameters
  * into one through {@link HttpLlm.mergeParameters HttpLlm.mergeParameters()}
  * before the actual LLM function call execution.
+=======
+ * LLM function calling utilities for OpenAPI documents.
+ *
+ * `HttpLlm` converts OpenAPI documents into LLM function calling applications
+ * and executes them. Supports all OpenAPI versions (Swagger 2.0, OpenAPI 3.0,
+ * 3.1) through automatic conversion to {@link OpenApi} format.
+ *
+ * Main functions:
+ *
+ * - {@link controller}: Create {@link IHttpLlmController} from OpenAPI document
+ * - {@link application}: Convert OpenAPI document to {@link IHttpLlmApplication}
+ * - {@link execute}: Call an LLM function and return the response body
+ * - {@link propagate}: Call an LLM function and return full HTTP response
+ * - {@link mergeParameters}: Merge LLM-filled and human-filled parameters
+ *
+ * Typical workflow:
+ *
+ * 1. Load OpenAPI document (JSON/YAML)
+ * 2. Call `HttpLlm.application()` to get function schemas
+ * 3. Send function schemas to LLM for function selection
+ * 4. Call `HttpLlm.execute()` with LLM's chosen function and arguments
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
@@ -42,8 +69,25 @@ export namespace HttpLlm {
   /* -----------------------------------------------------------
     COMPOSERS
   ----------------------------------------------------------- */
+<<<<<<< HEAD
   /** Properties for the LLM function calling application composer. */
   export interface IApplicationProps {
+=======
+  /**
+   * Create HTTP LLM controller from OpenAPI document.
+   *
+   * Composes {@link IHttpLlmController} from OpenAPI document with connection
+   * info. The controller can be used with {@link registerMcpControllers} to
+   * register all API operations as MCP tools at once.
+   *
+   * @param props Controller properties
+   * @returns HTTP LLM controller
+   */
+  export const controller = (props: {
+    /** Identifier name of the controller. */
+    name: string;
+
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
     /** OpenAPI document to convert. */
     document:
       | OpenApi.IDocument
@@ -51,13 +95,39 @@ export namespace HttpLlm {
       | OpenApiV3.IDocument
       | OpenApiV3_1.IDocument;
 
+<<<<<<< HEAD
     /** Configuration for the LLM function calling schema conversion. */
     config?: Partial<IHttpLlmApplication.IConfig>;
   }
+=======
+    /** Connection to the API server. */
+    connection: IHttpConnection;
+
+    /** LLM schema conversion configuration. */
+    config?: Partial<IHttpLlmApplication.IConfig>;
+
+    /**
+     * Custom executor of the API function.
+     *
+     * Default executor is {@link HttpLlm.execute} function.
+     */
+    execute?: IHttpLlmController["execute"];
+  }): IHttpLlmController => ({
+    protocol: "http",
+    name: props.name,
+    application: application({
+      document: props.document,
+      config: props.config,
+    }),
+    connection: props.connection,
+    execute: props.execute,
+  });
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
 
   /**
    * Convert OpenAPI document to LLM function calling application.
    *
+<<<<<<< HEAD
    * Converts {@link OpenApi.IDocument OpenAPI document} or
    * {@link IHttpMigrateApplication migrated application} to the
    * {@link IHttpLlmApplication LLM function calling application}. Every
@@ -77,6 +147,25 @@ export namespace HttpLlm {
   export const application = (
     props: IApplicationProps,
   ): IHttpLlmApplication => {
+=======
+   * Converts API operations to LLM-callable functions. Use
+   * {@link mergeParameters} if `separate` option is configured.
+   *
+   * @param props Composition properties
+   * @returns LLM function calling application
+   */
+  export const application = (props: {
+    /** OpenAPI document to convert. */
+    document:
+      | OpenApi.IDocument
+      | SwaggerV2.IDocument
+      | OpenApiV3.IDocument
+      | OpenApiV3_1.IDocument;
+
+    /** LLM schema conversion configuration. */
+    config?: Partial<IHttpLlmApplication.IConfig>;
+  }): IHttpLlmApplication => {
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
     // MIGRATE
     const migrate: IHttpMigrateApplication = HttpMigration.application(
       props.document,
@@ -96,6 +185,7 @@ export namespace HttpLlm {
   /* -----------------------------------------------------------
     FETCHERS
   ----------------------------------------------------------- */
+<<<<<<< HEAD
   /** Properties for the LLM function call. */
   export interface IFetchProps {
     /** Application of the LLM function calling. */
@@ -108,10 +198,25 @@ export namespace HttpLlm {
     connection: IHttpConnection;
 
     /** Input arguments for the function call. */
+=======
+  /** Properties for LLM function call. */
+  export interface IFetchProps {
+    /** LLM function calling application. */
+    application: IHttpLlmApplication;
+
+    /** Function to call. */
+    function: IHttpLlmFunction;
+
+    /** HTTP connection info. */
+    connection: IHttpConnection;
+
+    /** Function arguments. */
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
     input: object;
   }
 
   /**
+<<<<<<< HEAD
    * Execute the LLM function call.
    *
    * `HttmLlm.execute()` is a function executing the target
@@ -133,11 +238,22 @@ export namespace HttpLlm {
    * @param props Properties for the LLM function call
    * @returns Return value (response body) from the API endpoint
    * @throws HttpError when the API endpoint responds none 200/201 status
+=======
+   * Execute LLM function call.
+   *
+   * Calls API endpoint and returns response body. Throws {@link HttpError} on
+   * non-2xx status.
+   *
+   * @param props Function call properties
+   * @returns Response body
+   * @throws HttpError on non-2xx status
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
    */
   export const execute = (props: IFetchProps): Promise<unknown> =>
     HttpLlmFunctionFetcher.execute(props);
 
   /**
+<<<<<<< HEAD
    * Propagate the LLM function call.
    *
    * `HttmLlm.propagate()` is a function propagating the target
@@ -158,6 +274,16 @@ export namespace HttpLlm {
    * @param props Properties for the LLM function call
    * @returns Response from the API endpoint
    * @throws Error only when the connection is failed
+=======
+   * Propagate LLM function call.
+   *
+   * Calls API endpoint and returns full response including non-2xx. Use when
+   * you need to handle error responses yourself.
+   *
+   * @param props Function call properties
+   * @returns Full HTTP response
+   * @throws Error only on connection failure
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
    */
   export const propagate = (props: IFetchProps): Promise<IHttpResponse> =>
     HttpLlmFunctionFetcher.propagate(props);
@@ -165,6 +291,7 @@ export namespace HttpLlm {
   /* -----------------------------------------------------------
     MERGERS
   ----------------------------------------------------------- */
+<<<<<<< HEAD
   /** Properties for the parameters' merging. */
   export interface IMergeProps {
     /** Metadata of the target function. */
@@ -174,10 +301,22 @@ export namespace HttpLlm {
     llm: object | null;
 
     /** Arguments composed by the human. */
+=======
+  /** Properties for parameter merging. */
+  export interface IMergeProps {
+    /** Target function metadata. */
+    function: ILlmFunction;
+
+    /** LLM-provided arguments. */
+    llm: object | null;
+
+    /** Human-provided arguments. */
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
     human: object | null;
   }
 
   /**
+<<<<<<< HEAD
    * Merge the parameters.
    *
    * If you've configured the {@link IHttpLlmApplication.IConfig.separate}
@@ -192,6 +331,15 @@ export namespace HttpLlm {
    *
    * @param props Properties for the parameters' merging
    * @returns Merged parameter values
+=======
+   * Merge separated parameters.
+   *
+   * Combines human and LLM parameters when `separate` option was used. Throws
+   * error if `separate` was not configured.
+   *
+   * @param props Merge properties
+   * @returns Merged parameters
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
    */
   export const mergeParameters = (props: IMergeProps): object =>
     LlmDataMerger.parameters(props);
@@ -199,6 +347,7 @@ export namespace HttpLlm {
   /**
    * Merge two values.
    *
+<<<<<<< HEAD
    * If both values are objects, then combines them in the properties level.
    *
    * Otherwise, returns the latter value if it's not null, otherwise the former
@@ -208,6 +357,12 @@ export namespace HttpLlm {
    *
    * @param x Value X to merge
    * @param y Value Y to merge
+=======
+   * Objects are merged at property level. Primitives return `y ?? x`.
+   *
+   * @param x First value
+   * @param y Second value (preferred)
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
    * @returns Merged value
    */
   export const mergeValue = (x: unknown, y: unknown): unknown =>

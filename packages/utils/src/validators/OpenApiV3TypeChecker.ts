@@ -1,5 +1,20 @@
 import { OpenApiV3 } from "@typia/interface";
 
+<<<<<<< HEAD
+=======
+/**
+ * Type checker for raw OpenAPI v3.0 JSON schemas.
+ *
+ * `OpenApiV3TypeChecker` provides type guard functions for
+ * {@link OpenApiV3.IJsonSchema} (raw, unemended format). For typia's normalized
+ * format, use {@link OpenApiTypeChecker} instead.
+ *
+ * Key differences from v3.1: v3.0 uses `nullable: true` property instead of
+ * union types, and has no `const` or tuple support.
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
 export namespace OpenApiV3TypeChecker {
   export const isBoolean = (
     schema: OpenApiV3.IJsonSchema,

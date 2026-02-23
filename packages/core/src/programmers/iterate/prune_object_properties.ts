@@ -1,7 +1,6 @@
 import ts from "typescript";
 
 import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
-
 import { metadata_to_pattern } from "./metadata_to_pattern";
 
 /** @internal */

@@ -1,6 +1,7 @@
 import { TagBase } from "./TagBase";
 
 /**
+<<<<<<< HEAD
  * Multiple examples tag that provides named example values for documentation.
  *
  * Unlike the Example tag which provides a single example, Examples allows you
@@ -39,6 +40,40 @@ import { TagBase } from "./TagBase";
  *   ```;
  *
  * @template Value A record object mapping example names to example values
+=======
+ * Multiple named examples for JSON Schema documentation.
+ *
+ * `Examples<Record>` is a type tag that adds multiple labeled example values to
+ * the generated JSON Schema. Each example has a name and a value, providing
+ * rich documentation for different use cases or scenarios.
+ *
+ * This is useful when a property can have various valid values and you want to
+ * illustrate multiple possibilities, such as different user types, edge cases,
+ * or common configurations.
+ *
+ * The examples appear in the `examples` field of the JSON Schema and are
+ * displayed by API documentation tools. For a single unnamed example, use
+ * {@link Example} instead.
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ * @example
+ *   interface Product {
+ *     price: number &
+ *       Examples<{
+ *         budget: 9.99;
+ *         premium: 99.99;
+ *         enterprise: 999.99;
+ *       }>;
+ *     status: string &
+ *       Examples<{
+ *         active: "active";
+ *         discontinued: "discontinued";
+ *         preorder: "preorder";
+ *       }>;
+ *   }
+ *
+ * @template Value Record mapping example names to their values
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export type Examples<
   Value extends Record<

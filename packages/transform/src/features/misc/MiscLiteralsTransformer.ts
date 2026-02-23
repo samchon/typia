@@ -1,7 +1,11 @@
+import { MiscLiteralsProgrammer } from "@typia/core";
 import ts from "typescript";
 
+<<<<<<< HEAD
 import { MiscLiteralsProgrammer } from "@typia/core";
 
+=======
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
 import { ITransformProps } from "../../ITransformProps";
 import { TransformerError } from "../../TransformerError";
 

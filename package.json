@@ -6,6 +6,10 @@
   "scripts": {
     "build": "pnpm --filter=./packages/* -r build",
     "test": "pnpm --filter=./tests/test-* -r start",
+<<<<<<< HEAD
+=======
+    "format": "prettier --write packages/**/*.ts && prettier --write internals/**/*.ts && prettier --write tests/**/*.ts",
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
     "package:latest": "pnpm --filter=./packages/* -r publish --tag latest --access public",
     "package:next": "pnpm --filter=./packages/* -r publish --tag next --access public"
   },
@@ -56,7 +60,11 @@
     "llama"
   ],
   "packageManager": "pnpm@10.6.4",
+<<<<<<< HEAD
   "dependencies": {
+=======
+  "devDependencies": {
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
     "@trivago/prettier-plugin-sort-imports": "^6.0.2",
     "prettier": "^3.8.1",
     "prettier-plugin-jsdoc": "^1.8.0"

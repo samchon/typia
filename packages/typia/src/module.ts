@@ -26,6 +26,7 @@ export * from "./re-exports";
     BASIC VALIDATORS
 ----------------------------------------------------------- */
 /**
+<<<<<<< HEAD
  * Asserts a value type.
  *
  * Asserts a parametric value type and throws a {@link TypeGuardError} with a
@@ -50,6 +51,30 @@ export * from "./re-exports";
  * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Parametric input value
  * @throws A {@link TypeGuardError} instance with a detailed reason
+=======
+ * Asserts type `T`.
+ *
+ * Performs runtime type checking against compile-time type `T`. Stops at first
+ * mismatch and throws {@link TypeGuardError} containing:
+ *
+ * - `path`: Property path where error occurred (e.g., `"input.user.age"`)
+ * - `expected`: Expected type string (e.g., `"number & ExclusiveMinimum<19>"`)
+ * - `value`: Actual value that failed validation
+ *
+ * Related functions:
+ *
+ * - {@link is} — Returns `boolean` instead of throwing
+ * - {@link validate} — Collects all errors instead of stopping at first
+ * - {@link assertGuard} — Type guard with no return value (narrows type only)
+ * - {@link assertEquals} — Also rejects properties not defined in `T`
+ *
+ * @template T Target type to validate against
+ * @param input Value to assert
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
+ * @returns The input value typed as `T`
+ * @throws {TypeGuardError} When input doesn't conform to type `T`
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function assert<T>(
   input: T,
@@ -57,6 +82,7 @@ export function assert<T>(
 ): T;
 
 /**
+<<<<<<< HEAD
  * Asserts a value type.
  *
  * Asserts a parametric value type and throws a {@link TypeGuardError} with a
@@ -79,6 +105,30 @@ export function assert<T>(
  * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Parametric input value casted as `T`
  * @throws A {@link TypeGuardError} instance with a detailed reason
+=======
+ * Asserts type `T`.
+ *
+ * Performs runtime type checking against compile-time type `T`. Stops at first
+ * mismatch and throws {@link TypeGuardError} containing:
+ *
+ * - `path`: Property path where error occurred (e.g., `"input.user.age"`)
+ * - `expected`: Expected type string (e.g., `"number & ExclusiveMinimum<19>"`)
+ * - `value`: Actual value that failed validation
+ *
+ * Related functions:
+ *
+ * - {@link is} — Returns `boolean` instead of throwing
+ * - {@link validate} — Collects all errors instead of stopping at first
+ * - {@link assertGuard} — Type guard with no return value (narrows type only)
+ * - {@link assertEquals} — Also rejects properties not defined in `T`
+ *
+ * @template T Target type to validate against
+ * @param input Value to assert
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
+ * @returns The input value typed as `T`
+ * @throws {TypeGuardError} When input doesn't conform to type `T`
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function assert<T>(
   input: unknown,
@@ -91,6 +141,7 @@ export function assert(): never {
 }
 
 /**
+<<<<<<< HEAD
  * Assertion guard of a value type.
  *
  * Asserts a parametric value type and throws a {@link TypeGuardError} with a
@@ -114,6 +165,30 @@ export function assert(): never {
  * @param input A value to be asserted
  * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @throws A {@link TypeGuardError} instance with a detailed reason
+=======
+ * Asserts type `T` as assertion guard.
+ *
+ * Unlike {@link assert}, returns nothing (`asserts input is T`). After this
+ * call, TypeScript narrows `input` to type `T` in subsequent code. Useful when
+ * you need type narrowing with runtime validation but don't need the return
+ * value.
+ *
+ * Throws {@link TypeGuardError} on first mismatch with `path`, `expected`, and
+ * `value`.
+ *
+ * Related functions:
+ *
+ * - {@link assert} — Same validation but returns the input value
+ * - {@link is} — Returns `boolean` instead of throwing
+ * - {@link validate} — Collects all errors instead of throwing
+ * - {@link assertGuardEquals} — Also rejects properties not defined in `T`
+ *
+ * @template T Target type to validate against
+ * @param input Value to assert (narrowed to `T` after call)
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
+ * @throws {TypeGuardError} When input doesn't conform to type `T`
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function assertGuard<T>(
   input: T,
@@ -121,6 +196,7 @@ export function assertGuard<T>(
 ): asserts input is T;
 
 /**
+<<<<<<< HEAD
  * Assertion guard of a value type.
  *
  * Asserts a parametric value type and throws a {@link TypeGuardError} with a
@@ -144,6 +220,30 @@ export function assertGuard<T>(
  * @param input A value to be asserted
  * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @throws A {@link TypeGuardError} instance with a detailed reason
+=======
+ * Asserts type `T` as assertion guard.
+ *
+ * Unlike {@link assert}, returns nothing (`asserts input is T`). After this
+ * call, TypeScript narrows `input` to type `T` in subsequent code. Useful when
+ * you need type narrowing with runtime validation but don't need the return
+ * value.
+ *
+ * Throws {@link TypeGuardError} on first mismatch with `path`, `expected`, and
+ * `value`.
+ *
+ * Related functions:
+ *
+ * - {@link assert} — Same validation but returns the input value
+ * - {@link is} — Returns `boolean` instead of throwing
+ * - {@link validate} — Collects all errors instead of throwing
+ * - {@link assertGuardEquals} — Also rejects properties not defined in `T`
+ *
+ * @template T Target type to validate against
+ * @param input Value to assert (narrowed to `T` after call)
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
+ * @throws {TypeGuardError} When input doesn't conform to type `T`
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function assertGuard<T>(
   input: unknown,
@@ -156,6 +256,7 @@ export function assertGuard(): never {
 }
 
 /**
+<<<<<<< HEAD
  * Tests a value type.
  *
  * Tests a parametric value type and returns whether it's following the type `T`
@@ -177,10 +278,29 @@ export function assertGuard(): never {
  * @param input A value to be tested
  * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Whether the parametric value is following the type `T` or not
+=======
+ * Tests type `T`.
+ *
+ * Performs runtime type checking without throwing exceptions. Acts as
+ * TypeScript type guard, narrowing the input type in conditional branches when
+ * result is `true`.
+ *
+ * Related functions:
+ *
+ * - {@link assert} — Throws {@link TypeGuardError} with detailed error info on
+ *   mismatch
+ * - {@link validate} — Returns all errors without throwing
+ * - {@link equals} — Also rejects properties not defined in `T`
+ *
+ * @template T Target type to check
+ * @param input Value to test
+ * @returns `true` if valid, `false` otherwise (type predicate `input is T`)
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function is<T>(input: T): input is T;
 
 /**
+<<<<<<< HEAD
  * Tests a value type.
  *
  * Tests a parametric value type and returns whether it's following the type `T`
@@ -201,6 +321,24 @@ export function is<T>(input: T): input is T;
  * @template T Type of the input value
  * @param input A value to be tested
  * @returns Whether the parametric value is following the type `T` or not
+=======
+ * Tests type `T`.
+ *
+ * Performs runtime type checking without throwing exceptions. Acts as
+ * TypeScript type guard, narrowing the input type in conditional branches when
+ * result is `true`.
+ *
+ * Related functions:
+ *
+ * - {@link assert} — Throws {@link TypeGuardError} with detailed error info on
+ *   mismatch
+ * - {@link validate} — Returns all errors without throwing
+ * - {@link equals} — Also rejects properties not defined in `T`
+ *
+ * @template T Target type to check
+ * @param input Value to test
+ * @returns `true` if valid, `false` otherwise (type predicate `input is T`)
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function is<T>(input: unknown): input is T;
 
@@ -210,6 +348,7 @@ export function is(): never {
 }
 
 /**
+<<<<<<< HEAD
  * Validates a value type.
  *
  * Validates a parametric value type and archives all the type errors into an
@@ -231,10 +370,34 @@ export function is(): never {
  * @template T Type of the input value
  * @param input A value to be validated
  * @returns Validation result
+=======
+ * Validates type `T`.
+ *
+ * Unlike {@link assert} which throws on first error, this function continues
+ * checking and collects all type mismatches into {@link IValidation.errors}
+ * array. Never throws.
+ *
+ * Return structure:
+ *
+ * - `success: true` → `data` contains validated input as `T`
+ * - `success: false` → `errors` array of {@link IValidation.IError} with `path`,
+ *   `expected`, `value`
+ *
+ * Related functions:
+ *
+ * - {@link assert} — Throws on first error instead of collecting all
+ * - {@link is} — Simple boolean check
+ * - {@link validateEquals} — Also rejects properties not defined in `T`
+ *
+ * @template T Target type to validate against
+ * @param input Value to validate
+ * @returns {@link IValidation} <T> containing either `data` or `errors`
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function validate<T>(input: T): IValidation<T>;
 
 /**
+<<<<<<< HEAD
  * Validates a value type.
  *
  * Validates a parametric value type and archives all the type errors into an
@@ -256,6 +419,29 @@ export function validate<T>(input: T): IValidation<T>;
  * @template T Type of the input value
  * @param input A value to be validated
  * @returns Validation result
+=======
+ * Validates type `T`.
+ *
+ * Unlike {@link assert} which throws on first error, this function continues
+ * checking and collects all type mismatches into {@link IValidation.errors}
+ * array. Never throws.
+ *
+ * Return structure:
+ *
+ * - `success: true` → `data` contains validated input as `T`
+ * - `success: false` → `errors` array of {@link IValidation.IError} with `path`,
+ *   `expected`, `value`
+ *
+ * Related functions:
+ *
+ * - {@link assert} — Throws on first error instead of collecting all
+ * - {@link is} — Simple boolean check
+ * - {@link validateEquals} — Also rejects properties not defined in `T`
+ *
+ * @template T Target type to validate against
+ * @param input Value to validate
+ * @returns {@link IValidation} <T> containing either `data` or `errors`
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function validate<T>(input: unknown): IValidation<T>;
 
@@ -268,6 +454,7 @@ export function validate(): never {
     STRICT VALIDATORS
 ----------------------------------------------------------- */
 /**
+<<<<<<< HEAD
  * Asserts equality between a value and its type.
  *
  * Asserts a parametric value type and throws a {@link TypeGuardError} with
@@ -290,6 +477,27 @@ export function validate(): never {
  * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Parametric input value
  * @throws A {@link TypeGuardError} instance with a detailed reason
+=======
+ * Asserts type `T` with strict equality.
+ *
+ * Stricter than {@link assert}: also fails when input contains any property not
+ * defined in type `T`. For extra property errors, `expected` will be
+ * `"undefined"`.
+ *
+ * Related functions:
+ *
+ * - {@link assert} — Allows extra properties
+ * - {@link equals} — Boolean result without throwing
+ * - {@link validateEquals} — Collects all errors without throwing
+ * - {@link assertGuardEquals} — Type guard version with no return value
+ *
+ * @template T Target type for exact match
+ * @param input Value to validate
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
+ * @returns The input value typed as `T`
+ * @throws {TypeGuardError} When type mismatch or extra property detected
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function assertEquals<T>(
   input: T,
@@ -297,6 +505,7 @@ export function assertEquals<T>(
 ): T;
 
 /**
+<<<<<<< HEAD
  * Asserts equality between a value and its type.
  *
  * Asserts a parametric value type and throws a {@link TypeGuardError} with
@@ -319,6 +528,27 @@ export function assertEquals<T>(
  * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Parametric input value casted as `T`
  * @throws A {@link TypeGuardError} instance with a detailed reason
+=======
+ * Asserts type `T` with strict equality.
+ *
+ * Stricter than {@link assert}: also fails when input contains any property not
+ * defined in type `T`. For extra property errors, `expected` will be
+ * `"undefined"`.
+ *
+ * Related functions:
+ *
+ * - {@link assert} — Allows extra properties
+ * - {@link equals} — Boolean result without throwing
+ * - {@link validateEquals} — Collects all errors without throwing
+ * - {@link assertGuardEquals} — Type guard version with no return value
+ *
+ * @template T Target type for exact match
+ * @param input Value to validate
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
+ * @returns The input value typed as `T`
+ * @throws {TypeGuardError} When type mismatch or extra property detected
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function assertEquals<T>(
   input: unknown,
@@ -331,6 +561,7 @@ export function assertEquals(): never {
 }
 
 /**
+<<<<<<< HEAD
  * Assertion guard of a type with equality.
  *
  * Asserts a parametric value type and throws a {@link TypeGuardError} with
@@ -358,6 +589,26 @@ export function assertEquals(): never {
  * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Parametric input value casted as `T`
  * @throws A {@link TypeGuardError} instance with a detailed reason
+=======
+ * Asserts type `T` with strict equality as assertion guard.
+ *
+ * Combines {@link assertGuard} with strict equality checking. Returns nothing
+ * but narrows input to type `T`. Also fails when input contains properties not
+ * in `T`.
+ *
+ * Related functions:
+ *
+ * - {@link assertGuard} — Allows extra properties
+ * - {@link assertEquals} — Returns value instead of type guard
+ * - {@link equals} — Boolean result without throwing
+ * - {@link validateEquals} — Collects all errors without throwing
+ *
+ * @template T Target type for exact match
+ * @param input Value to assert (narrowed to `T` after call)
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
+ * @throws {TypeGuardError} When type mismatch or extra property detected
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function assertGuardEquals<T>(
   input: T,
@@ -365,6 +616,7 @@ export function assertGuardEquals<T>(
 ): asserts input is T;
 
 /**
+<<<<<<< HEAD
  * Assertion guard of a type with equality.
  *
  * Asserts a parametric value type and throws a {@link TypeGuardError} with
@@ -392,6 +644,26 @@ export function assertGuardEquals<T>(
  * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Parametric input value casted as `T`
  * @throws A {@link TypeGuardError} instance with a detailed reason
+=======
+ * Asserts type `T` with strict equality as assertion guard.
+ *
+ * Combines {@link assertGuard} with strict equality checking. Returns nothing
+ * but narrows input to type `T`. Also fails when input contains properties not
+ * in `T`.
+ *
+ * Related functions:
+ *
+ * - {@link assertGuard} — Allows extra properties
+ * - {@link assertEquals} — Returns value instead of type guard
+ * - {@link equals} — Boolean result without throwing
+ * - {@link validateEquals} — Collects all errors without throwing
+ *
+ * @template T Target type for exact match
+ * @param input Value to assert (narrowed to `T` after call)
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
+ * @throws {TypeGuardError} When type mismatch or extra property detected
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function assertGuardEquals<T>(
   input: unknown,
@@ -404,6 +676,7 @@ export function assertGuardEquals(): never {
 }
 
 /**
+<<<<<<< HEAD
  * Tests equality between a value and its type.
  *
  * Tests a parametric value type and returns whether it's equivalent to the type
@@ -426,10 +699,28 @@ export function assertGuardEquals(): never {
  * @template T Type of the input value
  * @param input A value to be tested
  * @returns Whether the parametric value is equivalent to the type `T` or not
+=======
+ * Tests type `T` with strict equality.
+ *
+ * Stricter than {@link is}: also returns `false` when input contains any
+ * property not defined in type `T`. Useful for detecting unexpected data or
+ * typos.
+ *
+ * Related functions:
+ *
+ * - {@link is} — Allows extra properties
+ * - {@link assertEquals} — Throws with detailed error info on mismatch
+ * - {@link validateEquals} — Returns all errors without throwing
+ *
+ * @template T Target type for exact match
+ * @param input Value to test
+ * @returns `true` if valid, `false` otherwise (type predicate `input is T`)
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function equals<T>(input: T): input is T;
 
 /**
+<<<<<<< HEAD
  * Tests equality between a value and its type.
  *
  * Tests a parametric value type and returns whether it's equivalent to the type
@@ -452,6 +743,23 @@ export function equals<T>(input: T): input is T;
  * @template T Type of the input value
  * @param input A value to be tested
  * @returns Whether the parametric value is equivalent to the type `T` or not
+=======
+ * Tests type `T` with strict equality.
+ *
+ * Stricter than {@link is}: also returns `false` when input contains any
+ * property not defined in type `T`. Useful for detecting unexpected data or
+ * typos.
+ *
+ * Related functions:
+ *
+ * - {@link is} — Allows extra properties
+ * - {@link assertEquals} — Throws with detailed error info on mismatch
+ * - {@link validateEquals} — Returns all errors without throwing
+ *
+ * @template T Target type for exact match
+ * @param input Value to test
+ * @returns `true` if valid, `false` otherwise (type predicate `input is T`)
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function equals<T>(input: unknown): input is T;
 
@@ -461,6 +769,7 @@ export function equals(): never {
 }
 
 /**
+<<<<<<< HEAD
  * Validates equality between a value and its type.
  *
  * Validates a parametric value type and archives all the type errors into an
@@ -483,10 +792,33 @@ export function equals(): never {
  * @template Type Of the input value
  * @param input A value to be validated
  * @returns Validation result
+=======
+ * Validates type `T` with strict equality.
+ *
+ * Combines {@link validate} with strict equality checking. Collects all errors
+ * including extra property violations into {@link IValidation.errors} array.
+ *
+ * Return structure:
+ *
+ * - `success: true` → `data` contains validated input as `T`
+ * - `success: false` → `errors` array with `path`, `expected`, `value` for each
+ *   mismatch
+ *
+ * Related functions:
+ *
+ * - {@link validate} — Allows extra properties
+ * - {@link assertEquals} — Throws on first error
+ * - {@link equals} — Simple boolean check
+ *
+ * @template T Target type for exact match
+ * @param input Value to validate
+ * @returns {@link IValidation} <T> containing either `data` or `errors`
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function validateEquals<T>(input: T): IValidation<T>;
 
 /**
+<<<<<<< HEAD
  * Validates equality between a value and its type.
  *
  * Validates a parametric value type and archives all the type errors into an
@@ -509,6 +841,28 @@ export function validateEquals<T>(input: T): IValidation<T>;
  * @template Type Of the input value
  * @param input A value to be validated
  * @returns Validation result
+=======
+ * Validates type `T` with strict equality.
+ *
+ * Combines {@link validate} with strict equality checking. Collects all errors
+ * including extra property violations into {@link IValidation.errors} array.
+ *
+ * Return structure:
+ *
+ * - `success: true` → `data` contains validated input as `T`
+ * - `success: false` → `errors` array with `path`, `expected`, `value` for each
+ *   mismatch
+ *
+ * Related functions:
+ *
+ * - {@link validate} — Allows extra properties
+ * - {@link assertEquals} — Throws on first error
+ * - {@link equals} — Simple boolean check
+ *
+ * @template T Target type for exact match
+ * @param input Value to validate
+ * @returns {@link IValidation} <T> containing either `data` or `errors`
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function validateEquals<T>(input: unknown): IValidation<T>;
 
@@ -521,6 +875,7 @@ export function validateEquals(): never {
     RANDOM
 ----------------------------------------------------------- */
 /**
+<<<<<<< HEAD
  * > You must configure the generic argument `T`.
  *
  * Generate random data.
@@ -536,10 +891,23 @@ export function validateEquals(): never {
  * @template T Type of data to generate
  * @param generator Random data generator
  * @returns Randomly generated data
+=======
+ * Generates random data of type `T`.
+ *
+ * Creates random instance conforming to compile-time type `T`. Generates only
+ * primitive data; methods in `T` are ignored. If `T` has `toJSON()` method,
+ * generates its return type instead.
+ *
+ * @template T Type of data to generate
+ * @param generator Custom random generator implementing {@link IRandomGenerator}
+ * @returns Randomly generated data as `Resolved<T>`
+ * @danger You must configure the generic argument `T`
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function random(generator?: Partial<IRandomGenerator>): never;
 
 /**
+<<<<<<< HEAD
  * Generate random data.
  *
  * Generates a random data following type the `T`.
@@ -553,6 +921,17 @@ export function random(generator?: Partial<IRandomGenerator>): never;
  * @template T Type of data to generate
  * @param generator Random data generator
  * @returns Randomly generated data
+=======
+ * Generates random data of type `T`.
+ *
+ * Creates random instance conforming to compile-time type `T`. Generates only
+ * primitive data; methods in `T` are ignored. If `T` has `toJSON()` method,
+ * generates its return type instead.
+ *
+ * @template T Type of data to generate
+ * @param generator Custom random generator implementing {@link IRandomGenerator}
+ * @returns Randomly generated data as `Resolved<T>`
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function random<T>(generator?: Partial<IRandomGenerator>): Resolved<T>;
 
@@ -565,12 +944,24 @@ export function random(): never {
     FACTORY FUNCTIONS
 ----------------------------------------------------------- */
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link assert} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Nothing until you configure the generic argument `T`
  * @throws Compile error
+=======
+ * Creates reusable {@link assert} function.
+ *
+ * Returns a function that can be called multiple times without recompilation.
+ * Useful when the same type validation is needed repeatedly.
+ *
+ * @template T Target type to validate against
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
+ * @returns Reusable assert function `(input: unknown) => T`
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  * @danger You must configure the generic argument `T`
  */
 export function createAssert(
@@ -578,12 +969,24 @@ export function createAssert(
 ): never;
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link assert} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @template T Type of the input value
  * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns A reusable `assert` function
+=======
+ * Creates reusable {@link assert} function.
+ *
+ * Returns a function that can be called multiple times without recompilation.
+ * Useful when the same type validation is needed repeatedly.
+ *
+ * @template T Target type to validate against
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
+ * @returns Reusable assert function `(input: unknown) => T`
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function createAssert<T>(
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
@@ -595,6 +998,7 @@ export function createAssert<T>(): (input: unknown) => T {
 }
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link assertGuard} function.
  *
  * Note that, you've to declare the variable type of the factory function caller
@@ -616,6 +1020,19 @@ export function createAssert<T>(): (input: unknown) => T {
  * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Nothing until you configure the generic argument `T`
  * @throws Compile error
+=======
+ * Creates reusable {@link assertGuard} function.
+ *
+ * Returns a reusable type guard assertion function.
+ *
+ * TypeScript requirement: You must declare the variable type explicitly. `const
+ * fn: AssertionGuard<T> = createAssertGuard<T>()` — otherwise compile error.
+ *
+ * @template T Target type to validate against
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
+ * @returns Reusable assertion guard function
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  * @danger You must configure the generic argument `T`
  */
 export function createAssertGuard(
@@ -623,6 +1040,7 @@ export function createAssertGuard(
 ): never;
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link assertGuard} function.
  *
  * Note that, you've to declare the variable type of the factory function caller
@@ -644,6 +1062,19 @@ export function createAssertGuard(
  * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Nothing until you configure the generic argument `T`
  * @throws Compile error
+=======
+ * Creates reusable {@link assertGuard} function.
+ *
+ * Returns a reusable type guard assertion function.
+ *
+ * TypeScript requirement: You must declare the variable type explicitly. `const
+ * fn: AssertionGuard<T> = createAssertGuard<T>()` — otherwise compile error.
+ *
+ * @template T Target type to validate against
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
+ * @returns Reusable assertion guard function
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function createAssertGuard<T>(
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
@@ -655,21 +1086,41 @@ export function createAssertGuard<T>(): (input: unknown) => AssertionGuard<T> {
 }
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link is} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @returns Nothing until you configure the generic argument `T`
  * @throws Compile error
+=======
+ * Creates reusable {@link is} function.
+ *
+ * Returns a type guard function that can be called multiple times without
+ * recompilation.
+ *
+ * @template T Target type to check
+ * @returns Reusable type guard function `(input: unknown) => input is T`
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  * @danger You must configure the generic argument `T`
  */
 export function createIs(): never;
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link is} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @template T Type of the input value
  * @returns A reusable `is` function
+=======
+ * Creates reusable {@link is} function.
+ *
+ * Returns a type guard function that can be called multiple times without
+ * recompilation.
+ *
+ * @template T Target type to check
+ * @returns Reusable type guard function `(input: unknown) => input is T`
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function createIs<T>(): (input: unknown) => input is T;
 
@@ -679,21 +1130,43 @@ export function createIs<T>(): (input: unknown) => input is T {
 }
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link validate} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @returns Nothing until you configure the generic argument `T`
  * @throws Compile error
+=======
+ * Creates reusable {@link validate} function.
+ *
+ * Returns a validation function that can be called multiple times without
+ * recompilation. Also implements {@link StandardSchemaV1} interface for
+ * interoperability.
+ *
+ * @template T Target type to validate against
+ * @returns Reusable validate function `(input: unknown) => IValidation<T>`
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  * @danger You must configure the generic argument `T`
  */
 export function createValidate(): never;
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link validate} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @template T Type of the input value
  * @returns A reusable `validate` function
+=======
+ * Creates reusable {@link validate} function.
+ *
+ * Returns a validation function that can be called multiple times without
+ * recompilation. Also implements {@link StandardSchemaV1} interface for
+ * interoperability.
+ *
+ * @template T Target type to validate against
+ * @returns Reusable validate function `(input: unknown) => IValidation<T>`
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function createValidate<T>(): ((input: unknown) => IValidation<T>) &
   StandardSchemaV1<T, T>;
@@ -705,12 +1178,24 @@ export function createValidate(): ((input: unknown) => IValidation) &
 }
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link assertEquals} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Nothing until you configure the generic argument `T`
  * @throws Compile error
+=======
+ * Creates reusable {@link assertEquals} function.
+ *
+ * Returns a strict assertion function that rejects superfluous properties. Can
+ * be called multiple times without recompilation.
+ *
+ * @template T Target type for exact match
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
+ * @returns Reusable assertEquals function `(input: unknown) => T`
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  * @danger You must configure the generic argument `T`
  */
 export function createAssertEquals(
@@ -718,12 +1203,24 @@ export function createAssertEquals(
 ): never;
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link assertEquals} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @template T Type of the input value
  * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns A reusable `assertEquals` function
+=======
+ * Creates reusable {@link assertEquals} function.
+ *
+ * Returns a strict assertion function that rejects superfluous properties. Can
+ * be called multiple times without recompilation.
+ *
+ * @template T Target type for exact match
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
+ * @returns Reusable assertEquals function `(input: unknown) => T`
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function createAssertEquals<T>(
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
@@ -735,6 +1232,7 @@ export function createAssertEquals<T>(): (input: unknown) => T {
 }
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link assertGuardEquals} function.
  *
  * Note that, you've to declare the variable type of the factory function caller
@@ -756,6 +1254,20 @@ export function createAssertEquals<T>(): (input: unknown) => T {
  * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Nothing until you configure the generic argument `T`
  * @throws Compile error
+=======
+ * Creates reusable {@link assertGuardEquals} function.
+ *
+ * Returns a strict assertion guard that rejects superfluous properties.
+ *
+ * TypeScript requirement: You must declare the variable type explicitly. `const
+ * fn: AssertionGuard<T> = createAssertGuardEquals<T>()` — otherwise compile
+ * error.
+ *
+ * @template T Target type for exact match
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
+ * @returns Reusable assertion guard function
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  * @danger You must configure the generic argument `T`
  */
 export function createAssertGuardEquals(
@@ -763,6 +1275,7 @@ export function createAssertGuardEquals(
 ): never;
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link assertGuardEquals} function.
  *
  * Note that, you've to declare the variable type of the factory function caller
@@ -784,6 +1297,20 @@ export function createAssertGuardEquals(
  * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Nothing until you configure the generic argument `T`
  * @throws Compile error
+=======
+ * Creates reusable {@link assertGuardEquals} function.
+ *
+ * Returns a strict assertion guard that rejects superfluous properties.
+ *
+ * TypeScript requirement: You must declare the variable type explicitly. `const
+ * fn: AssertionGuard<T> = createAssertGuardEquals<T>()` — otherwise compile
+ * error.
+ *
+ * @template T Target type for exact match
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
+ * @returns Reusable assertion guard function
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function createAssertGuardEquals<T>(
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
@@ -797,21 +1324,41 @@ export function createAssertGuardEquals<T>(): (
 }
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link equals} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @returns Nothing until you configure the generic argument `T`
  * @throws Compile error
+=======
+ * Creates reusable {@link equals} function.
+ *
+ * Returns a strict type guard that rejects superfluous properties. Can be
+ * called multiple times without recompilation.
+ *
+ * @template T Target type for exact match
+ * @returns Reusable type guard function `(input: unknown) => input is T`
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  * @danger You must configure the generic argument `T`
  */
 export function createEquals(): never;
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link equals} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @template T Type of the input value
  * @returns A reusable `equals` function
+=======
+ * Creates reusable {@link equals} function.
+ *
+ * Returns a strict type guard that rejects superfluous properties. Can be
+ * called multiple times without recompilation.
+ *
+ * @template T Target type for exact match
+ * @returns Reusable type guard function `(input: unknown) => input is T`
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function createEquals<T>(): (input: unknown) => input is T;
 
@@ -821,21 +1368,43 @@ export function createEquals<T>(): (input: unknown) => input is T {
 }
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link validateEquals} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @returns Nothing until you configure the generic argument `T`
  * @throws Compile error
+=======
+ * Creates reusable {@link validateEquals} function.
+ *
+ * Returns a strict validation function that rejects superfluous properties.
+ * Also implements {@link StandardSchemaV1} interface for interoperability.
+ *
+ * @template T Target type for exact match
+ * @returns Reusable validateEquals function `(input: unknown) =>
+ *   IValidation<T>`
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  * @danger You must configure the generic argument `T`
  */
 export function createValidateEquals(): never;
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link validateEquals} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @template T Type of the input value
  * @returns A reusable `validateEquals` function
+=======
+ * Creates reusable {@link validateEquals} function.
+ *
+ * Returns a strict validation function that rejects superfluous properties.
+ * Also implements {@link StandardSchemaV1} interface for interoperability.
+ *
+ * @template T Target type for exact match
+ * @returns Reusable validateEquals function `(input: unknown) =>
+ *   IValidation<T>`
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function createValidateEquals<T>(): ((
   input: unknown,
@@ -849,23 +1418,45 @@ export function createValidateEquals(): ((input: unknown) => IValidation) &
 }
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link random} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @param generator Random data generator
  * @returns Nothing until you configure the generic argument `T`
  * @throws Compile error
+=======
+ * Creates reusable {@link random} function.
+ *
+ * Returns a random data generator that can be called multiple times without
+ * recompilation.
+ *
+ * @template T Type of data to generate
+ * @param generator Custom random generator implementing {@link IRandomGenerator}
+ * @returns Reusable random function `() => Resolved<T>`
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  * @danger You must configure the generic argument `T`
  */
 export function createRandom(generator?: Partial<IRandomGenerator>): never;
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link random} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @template T Type of the input value
  * @param generator Random data generator
  * @returns A reusable `random` function
+=======
+ * Creates reusable {@link random} function.
+ *
+ * Returns a random data generator that can be called multiple times without
+ * recompilation.
+ *
+ * @template T Type of data to generate
+ * @param generator Custom random generator implementing {@link IRandomGenerator}
+ * @returns Reusable random function `() => Resolved<T>`
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function createRandom<T>(
   generator?: Partial<IRandomGenerator>,

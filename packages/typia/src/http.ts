@@ -19,6 +19,7 @@ import { NoTransformConfigurationError } from "./transformers/NoTransformConfigu
     FORM-DATA
 ----------------------------------------------------------- */
 /**
+<<<<<<< HEAD
  * Form data decoder.
  *
  * `typia.http.formData()` is a function decoding `FormData` instance, with
@@ -44,6 +45,31 @@ import { NoTransformConfigurationError } from "./transformers/NoTransformConfigu
  * @template T Expected type of decoded value
  * @param input FormData instance
  * @returns Decoded form FormData
+=======
+ * Decodes `FormData` into type `T`.
+ *
+ * Parses a `FormData` instance with automatic type casting. Properties typed as
+ * `boolean` or `Blob` are cast to expected types during decoding.
+ *
+ * Type `T` constraints:
+ *
+ * 1. Must be an object type
+ * 2. No dynamic properties allowed
+ * 3. Only `boolean`, `bigint`, `number`, `string`, `Blob`, `File` or their array
+ *    types allowed
+ * 4. No union types allowed
+ *
+ * Does not validate the decoded value. For validation, use:
+ *
+ * - {@link assertFormData} — Throws on type mismatch
+ * - {@link isFormData} — Returns `null` on type mismatch
+ * - {@link validateFormData} — Returns detailed validation errors
+ *
+ * @template T Target object type
+ * @param input FormData instance to decode
+ * @returns Decoded object of type `T`
+ * @danger You must configure the generic argument `T`
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function formData<T extends object>(input: FormData): Resolved<T>;
 
@@ -53,6 +79,7 @@ export function formData(): never {
 }
 
 /**
+<<<<<<< HEAD
  * Form data decoder with type assertion.
  *
  * `typia.http.assertFormData()` is a function decoding `FormData` instance,
@@ -81,6 +108,34 @@ export function formData(): never {
  * @param input FormData instance
  * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Decoded form FormData
+=======
+ * Decodes `FormData` into type `T` with assertion.
+ *
+ * Parses a `FormData` instance with automatic type casting, then validates the
+ * result via {@link assert}. Throws {@link TypeGuardError} on mismatch.
+ *
+ * Type `T` constraints:
+ *
+ * 1. Must be an object type
+ * 2. No dynamic properties allowed
+ * 3. Only `boolean`, `bigint`, `number`, `string`, `Blob`, `File` or their array
+ *    types allowed
+ * 4. No union types allowed
+ *
+ * Related functions:
+ *
+ * - {@link formData} — No validation
+ * - {@link isFormData} — Returns `null` instead of throwing
+ * - {@link validateFormData} — Returns detailed validation errors
+ *
+ * @template T Target object type
+ * @param input FormData instance to decode
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
+ * @returns Decoded object of type `T`
+ * @throws {TypeGuardError} When decoded value doesn't conform to type `T`
+ * @danger You must configure the generic argument `T`
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function assertFormData<T extends object>(
   input: FormData,
@@ -93,6 +148,7 @@ export function assertFormData(): never {
 }
 
 /**
+<<<<<<< HEAD
  * Form data decoder with type checking.
  *
  * `typia.http.isFormData()` is a function decoding `FormData` instance, with
@@ -118,6 +174,31 @@ export function assertFormData(): never {
  * @template T Expected type of decoded value
  * @param input FormData instance
  * @returns Decoded form FormData or `null` value
+=======
+ * Decodes `FormData` into type `T` with type checking.
+ *
+ * Parses a `FormData` instance with automatic type casting, then validates the
+ * result via {@link is}. Returns `null` on type mismatch.
+ *
+ * Type `T` constraints:
+ *
+ * 1. Must be an object type
+ * 2. No dynamic properties allowed
+ * 3. Only `boolean`, `bigint`, `number`, `string`, `Blob`, `File` or their array
+ *    types allowed
+ * 4. No union types allowed
+ *
+ * Related functions:
+ *
+ * - {@link formData} — No validation
+ * - {@link assertFormData} — Throws instead of returning `null`
+ * - {@link validateFormData} — Returns detailed validation errors
+ *
+ * @template T Target object type
+ * @param input FormData instance to decode
+ * @returns Decoded object of type `T`, or `null` if invalid
+ * @danger You must configure the generic argument `T`
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function isFormData<T extends object>(
   input: FormData,
@@ -129,6 +210,7 @@ export function isFormData(): never {
 }
 
 /**
+<<<<<<< HEAD
  * Form data decoder with type validation.
  *
  * `typia.http.validateFormData()` is a function decoding `FormData` instance,
@@ -157,6 +239,32 @@ export function isFormData(): never {
  * @template T Expected type of decoded value
  * @param input FormData instance
  * @returns Validation result with decoded form FormData
+=======
+ * Decodes `FormData` into type `T` with validation.
+ *
+ * Parses a `FormData` instance with automatic type casting, then validates the
+ * result via {@link validate}. Returns {@link IValidation.IFailure} with all
+ * errors on mismatch, or {@link IValidation.ISuccess} with decoded value.
+ *
+ * Type `T` constraints:
+ *
+ * 1. Must be an object type
+ * 2. No dynamic properties allowed
+ * 3. Only `boolean`, `bigint`, `number`, `string`, `Blob`, `File` or their array
+ *    types allowed
+ * 4. No union types allowed
+ *
+ * Related functions:
+ *
+ * - {@link formData} — No validation
+ * - {@link assertFormData} — Throws on first error
+ * - {@link isFormData} — Returns `null` instead of error details
+ *
+ * @template T Target object type
+ * @param input FormData instance to decode
+ * @returns Validation result containing decoded value or errors
+ * @danger You must configure the generic argument `T`
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function validateFormData<T extends object>(
   input: FormData,
@@ -171,6 +279,7 @@ export function validateFormData(): never {
     QUERY
 ----------------------------------------------------------- */
 /**
+<<<<<<< HEAD
  * URL query decoder.
  *
  * `typia.http.query()` is a function decoding a query string or an
@@ -199,6 +308,31 @@ export function validateFormData(): never {
  * @template T Expected type of decoded value
  * @param input Query string or URLSearchParams instance
  * @returns Decoded query object
+=======
+ * Decodes URL query string into type `T`.
+ *
+ * Parses a query string or `URLSearchParams` instance with automatic type
+ * casting. Properties typed as `boolean` or `number` are cast to expected types
+ * during decoding.
+ *
+ * Type `T` constraints:
+ *
+ * 1. Must be an object type
+ * 2. No dynamic properties allowed
+ * 3. Only `boolean`, `bigint`, `number`, `string` or their array types allowed
+ * 4. No union types allowed
+ *
+ * Does not validate the decoded value. For validation, use:
+ *
+ * - {@link assertQuery} — Throws on type mismatch
+ * - {@link isQuery} — Returns `null` on type mismatch
+ * - {@link validateQuery} — Returns detailed validation errors
+ *
+ * @template T Target object type
+ * @param input Query string or URLSearchParams instance
+ * @returns Decoded object of type `T`
+ * @danger You must configure the generic argument `T`
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function query<T extends object>(
   input: string | IReadableURLSearchParams,
@@ -210,6 +344,7 @@ export function query(): never {
 }
 
 /**
+<<<<<<< HEAD
  * URL query decoder with type assertion.
  *
  * `typia.http.assertQuery()` is a function decoding a query string or an
@@ -237,6 +372,34 @@ export function query(): never {
  * @param input Query string or URLSearchParams instance
  * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Decoded query object
+=======
+ * Decodes URL query string into type `T` with assertion.
+ *
+ * Parses a query string or `URLSearchParams` instance with automatic type
+ * casting, then validates the result via {@link assert}. Throws
+ * {@link TypeGuardError} on mismatch.
+ *
+ * Type `T` constraints:
+ *
+ * 1. Must be an object type
+ * 2. No dynamic properties allowed
+ * 3. Only `boolean`, `bigint`, `number`, `string` or their array types allowed
+ * 4. No union types allowed
+ *
+ * Related functions:
+ *
+ * - {@link query} — No validation
+ * - {@link isQuery} — Returns `null` instead of throwing
+ * - {@link validateQuery} — Returns detailed validation errors
+ *
+ * @template T Target object type
+ * @param input Query string or URLSearchParams instance
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
+ * @returns Decoded object of type `T`
+ * @throws {TypeGuardError} When decoded value doesn't conform to type `T`
+ * @danger You must configure the generic argument `T`
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function assertQuery<T extends object>(
   input: string | IReadableURLSearchParams,
@@ -249,6 +412,7 @@ export function assertQuery(): never {
 }
 
 /**
+<<<<<<< HEAD
  * URL query decoder with type checking.
  *
  * `typia.http.isQuery()` is a function decoding a query string or an
@@ -274,6 +438,31 @@ export function assertQuery(): never {
  * @template T Expected type of decoded value
  * @param input Query string or URLSearchParams instance
  * @returns Decoded query object or `null` value
+=======
+ * Decodes URL query string into type `T` with type checking.
+ *
+ * Parses a query string or `URLSearchParams` instance with automatic type
+ * casting, then validates the result via {@link is}. Returns `null` on type
+ * mismatch.
+ *
+ * Type `T` constraints:
+ *
+ * 1. Must be an object type
+ * 2. No dynamic properties allowed
+ * 3. Only `boolean`, `bigint`, `number`, `string` or their array types allowed
+ * 4. No union types allowed
+ *
+ * Related functions:
+ *
+ * - {@link query} — No validation
+ * - {@link assertQuery} — Throws instead of returning `null`
+ * - {@link validateQuery} — Returns detailed validation errors
+ *
+ * @template T Target object type
+ * @param input Query string or URLSearchParams instance
+ * @returns Decoded object of type `T`, or `null` if invalid
+ * @danger You must configure the generic argument `T`
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function isQuery<T extends object>(
   input: string | IReadableURLSearchParams,
@@ -285,6 +474,7 @@ export function isQuery(): never {
 }
 
 /**
+<<<<<<< HEAD
  * URL query decoder with type validation.
  *
  * `typia.http.validateQuery()` is a function decoding a query string or an
@@ -313,6 +503,32 @@ export function isQuery(): never {
  * @template T Expected type of decoded value
  * @param input Query string or URLSearchParams instance
  * @returns Validation result with decoded query object
+=======
+ * Decodes URL query string into type `T` with validation.
+ *
+ * Parses a query string or `URLSearchParams` instance with automatic type
+ * casting, then validates the result via {@link validate}. Returns
+ * {@link IValidation.IFailure} with all errors on mismatch, or
+ * {@link IValidation.ISuccess} with decoded value.
+ *
+ * Type `T` constraints:
+ *
+ * 1. Must be an object type
+ * 2. No dynamic properties allowed
+ * 3. Only `boolean`, `bigint`, `number`, `string` or their array types allowed
+ * 4. No union types allowed
+ *
+ * Related functions:
+ *
+ * - {@link query} — No validation
+ * - {@link assertQuery} — Throws on first error
+ * - {@link isQuery} — Returns `null` instead of error details
+ *
+ * @template T Target object type
+ * @param input Query string or URLSearchParams instance
+ * @returns Validation result containing decoded value or errors
+ * @danger You must configure the generic argument `T`
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function validateQuery<T extends object>(
   input: string | IReadableURLSearchParams,
@@ -327,6 +543,7 @@ export function validateQuery(): never {
     HEADERS
 ----------------------------------------------------------- */
 /**
+<<<<<<< HEAD
  * Headers decoder (for express and fastify).
  *
  * `typia.http.headers()` is a function decoding an header instance, with
@@ -379,6 +596,39 @@ export function validateQuery(): never {
  * @template T Expected type of decoded value
  * @param input Query string or URLSearchParams instance
  * @returns Decoded headers object
+=======
+ * Decodes HTTP headers into type `T`.
+ *
+ * Parses HTTP headers object with automatic type casting. Properties typed as
+ * `boolean` or `number` are cast to expected types during decoding. Compatible
+ * with Express and Fastify request headers.
+ *
+ * Type `T` constraints:
+ *
+ * 1. Must be an object type
+ * 2. No dynamic properties allowed
+ * 3. Property keys must be lowercase
+ * 4. Property values cannot be `null` (but `undefined` is allowed)
+ * 5. Only `boolean`, `bigint`, `number`, `string` or their array types allowed
+ * 6. No union types allowed
+ * 7. Property `set-cookie` must be array type
+ * 8. These properties cannot be array type: `age`, `authorization`,
+ *    `content-length`, `content-type`, `etag`, `expires`, `from`, `host`,
+ *    `if-modified-since`, `if-unmodified-since`, `last-modified`, `location`,
+ *    `max-forwards`, `proxy-authorization`, `referer`, `retry-after`, `server`,
+ *    `user-agent`
+ *
+ * Does not validate the decoded value. For validation, use:
+ *
+ * - {@link assertHeaders} — Throws on type mismatch
+ * - {@link isHeaders} — Returns `null` on type mismatch
+ * - {@link validateHeaders} — Returns detailed validation errors
+ *
+ * @template T Target object type
+ * @param input Headers object from HTTP request
+ * @returns Decoded object of type `T`
+ * @danger You must configure the generic argument `T`
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function headers<T extends object>(
   input: Record<string, string | string[] | undefined>,
@@ -390,6 +640,7 @@ export function headers(): never {
 }
 
 /**
+<<<<<<< HEAD
  * Headers decoder with type assertion (for express and fastify).
  *
  * `typia.http.assertHeaders()` is a function decoding an header instance, with
@@ -440,6 +691,42 @@ export function headers(): never {
  * @param input Query string or URLSearchParams instance
  * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Decoded headers object
+=======
+ * Decodes HTTP headers into type `T` with assertion.
+ *
+ * Parses HTTP headers object with automatic type casting, then validates the
+ * result via {@link assert}. Throws {@link TypeGuardError} on mismatch.
+ * Compatible with Express and Fastify request headers.
+ *
+ * Type `T` constraints:
+ *
+ * 1. Must be an object type
+ * 2. No dynamic properties allowed
+ * 3. Property keys must be lowercase
+ * 4. Property values cannot be `null` (but `undefined` is allowed)
+ * 5. Only `boolean`, `bigint`, `number`, `string` or their array types allowed
+ * 6. No union types allowed
+ * 7. Property `set-cookie` must be array type
+ * 8. These properties cannot be array type: `age`, `authorization`,
+ *    `content-length`, `content-type`, `etag`, `expires`, `from`, `host`,
+ *    `if-modified-since`, `if-unmodified-since`, `last-modified`, `location`,
+ *    `max-forwards`, `proxy-authorization`, `referer`, `retry-after`, `server`,
+ *    `user-agent`
+ *
+ * Related functions:
+ *
+ * - {@link headers} — No validation
+ * - {@link isHeaders} — Returns `null` instead of throwing
+ * - {@link validateHeaders} — Returns detailed validation errors
+ *
+ * @template T Target object type
+ * @param input Headers object from HTTP request
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
+ * @returns Decoded object of type `T`
+ * @throws {TypeGuardError} When decoded value doesn't conform to type `T`
+ * @danger You must configure the generic argument `T`
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function assertHeaders<T extends object>(
   input: Record<string, string | string[] | undefined>,
@@ -452,6 +739,7 @@ export function assertHeaders(): never {
 }
 
 /**
+<<<<<<< HEAD
  * > You must configure the generic argument `T`.
  *
  * Headers decoder with type checking (for express and fastify).
@@ -502,6 +790,39 @@ export function assertHeaders(): never {
  * @template T Expected type of decoded value
  * @param input Query string or URLSearchParams instance
  * @returns Decoded headers object or `null` value
+=======
+ * Decodes HTTP headers into type `T` with type checking.
+ *
+ * Parses HTTP headers object with automatic type casting, then validates the
+ * result via {@link is}. Returns `null` on type mismatch. Compatible with
+ * Express and Fastify request headers.
+ *
+ * Type `T` constraints:
+ *
+ * 1. Must be an object type
+ * 2. No dynamic properties allowed
+ * 3. Property keys must be lowercase
+ * 4. Property values cannot be `null` (but `undefined` is allowed)
+ * 5. Only `boolean`, `bigint`, `number`, `string` or their array types allowed
+ * 6. No union types allowed
+ * 7. Property `set-cookie` must be array type
+ * 8. These properties cannot be array type: `age`, `authorization`,
+ *    `content-length`, `content-type`, `etag`, `expires`, `from`, `host`,
+ *    `if-modified-since`, `if-unmodified-since`, `last-modified`, `location`,
+ *    `max-forwards`, `proxy-authorization`, `referer`, `retry-after`, `server`,
+ *    `user-agent`
+ *
+ * Related functions:
+ *
+ * - {@link headers} — No validation
+ * - {@link assertHeaders} — Throws instead of returning `null`
+ * - {@link validateHeaders} — Returns detailed validation errors
+ *
+ * @template T Target object type
+ * @param input Headers object from HTTP request
+ * @returns Decoded object of type `T`, or `null` if invalid
+ * @danger You must configure the generic argument `T`
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function isHeaders<T extends object>(
   input: Record<string, string | string[] | undefined>,
@@ -513,6 +834,7 @@ export function isHeaders(): never {
 }
 
 /**
+<<<<<<< HEAD
  * Headers decoder with type validation (for express and fastify).
  *
  * `typia.http.validateHeaders()` is a function decoding an header instance,
@@ -563,6 +885,40 @@ export function isHeaders(): never {
  * @template T Expected type of decoded value
  * @param input Query string or URLSearchParams instance
  * @returns Decoded headers object
+=======
+ * Decodes HTTP headers into type `T` with validation.
+ *
+ * Parses HTTP headers object with automatic type casting, then validates the
+ * result via {@link validate}. Returns {@link IValidation.IFailure} with all
+ * errors on mismatch, or {@link IValidation.ISuccess} with decoded value.
+ * Compatible with Express and Fastify request headers.
+ *
+ * Type `T` constraints:
+ *
+ * 1. Must be an object type
+ * 2. No dynamic properties allowed
+ * 3. Property keys must be lowercase
+ * 4. Property values cannot be `null` (but `undefined` is allowed)
+ * 5. Only `boolean`, `bigint`, `number`, `string` or their array types allowed
+ * 6. No union types allowed
+ * 7. Property `set-cookie` must be array type
+ * 8. These properties cannot be array type: `age`, `authorization`,
+ *    `content-length`, `content-type`, `etag`, `expires`, `from`, `host`,
+ *    `if-modified-since`, `if-unmodified-since`, `last-modified`, `location`,
+ *    `max-forwards`, `proxy-authorization`, `referer`, `retry-after`, `server`,
+ *    `user-agent`
+ *
+ * Related functions:
+ *
+ * - {@link headers} — No validation
+ * - {@link assertHeaders} — Throws on first error
+ * - {@link isHeaders} — Returns `null` instead of error details
+ *
+ * @template T Target object type
+ * @param input Headers object from HTTP request
+ * @returns Validation result containing decoded value or errors
+ * @danger You must configure the generic argument `T`
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function validateHeaders<T extends object>(
   input: Record<string, string | string[] | undefined>,
@@ -577,6 +933,7 @@ export function validateHeaders(): never {
     PARAMETER
 ----------------------------------------------------------- */
 /**
+<<<<<<< HEAD
  * URL path parameter decoder.
  *
  * `typia.http.parameter()` is a function decoding a path parameter, with
@@ -591,6 +948,21 @@ export function validateHeaders(): never {
  * @template T Expected type of decoded value
  * @param input Path parameter string
  * @returns Decoded path parameter value
+=======
+ * Decodes URL path parameter into type `T`.
+ *
+ * Parses a path parameter string with automatic type casting. When type `T` is
+ * `boolean` or `number`, casts the string value to the expected type. Also
+ * performs type assertion via {@link assert}, throwing {@link TypeGuardError} on
+ * mismatch.
+ *
+ * @template T Target atomic type (`boolean`, `bigint`, `number`, `string`, or
+ *   `null`)
+ * @param input Path parameter string
+ * @returns Decoded value of type `T`
+ * @throws {TypeGuardError} When decoded value doesn't conform to type `T`
+ * @danger You must configure the generic argument `T`
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function parameter<T extends Atomic.Type | null>(
   input: string,
@@ -605,21 +977,34 @@ export function parameter(): never {
     FACTORY FUNCTIONS
 ----------------------------------------------------------- */
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link formdata} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @template T The type of the formdata object
  * @throws Compile error
+=======
+ * Creates reusable {@link formData} function.
+ *
+ * @template T Target object type
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  * @danger You must configure the generic argument `T`
  */
 export function createFormData(): never;
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link formdata} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @template T The type of the formdata object
  * @returns A reusable `formdata` function
+=======
+ * Creates reusable {@link formData} function.
+ *
+ * @template T Target object type
+ * @returns Reusable decoder function
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function createFormData<T extends object>(): (input: FormData) => T;
 
@@ -629,12 +1014,20 @@ export function createFormData<T>(): (input: FormData) => T {
 }
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link assertFormData} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @template T The type of the formdata object
  * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @throws Compile error
+=======
+ * Creates reusable {@link assertFormData} function.
+ *
+ * @template T Target object type
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  * @danger You must configure the generic argument `T`
  */
 export function createAssertFormData(
@@ -642,12 +1035,21 @@ export function createAssertFormData(
 ): never;
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link assertFormData} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @template T The type of the formdata object
  * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns A reusable `assertFormData` function
+=======
+ * Creates reusable {@link assertFormData} function.
+ *
+ * @template T Target object type
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
+ * @returns Reusable decoder function
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function createAssertFormData<T extends object>(
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
@@ -659,21 +1061,34 @@ export function createAssertFormData<T>(): (input: FormData) => T {
 }
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link isFormData} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @template T The type of the formdata object
  * @throws Compile error
+=======
+ * Creates reusable {@link isFormData} function.
+ *
+ * @template T Target object type
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  * @danger You must configure the generic argument `T`
  */
 export function createIsFormData(): never;
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link isFormData} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @template T The type of the formdata object
  * @returns A reusable `isFormData` function
+=======
+ * Creates reusable {@link isFormData} function.
+ *
+ * @template T Target object type
+ * @returns Reusable decoder function
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function createIsFormData<T extends object>(): (
   input: FormData,
@@ -685,21 +1100,34 @@ export function createIsFormData<T>(): (input: FormData) => T | null {
 }
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link validateFormData} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @template T The type of the formdata object
  * @throws Compile error
+=======
+ * Creates reusable {@link validateFormData} function.
+ *
+ * @template T Target object type
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  * @danger You must configure the generic argument `T`
  */
 export function createValidateFormData(): never;
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link validateFormData} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @template T The type of the formdata object
  * @returns A reusable `validateFormData` function
+=======
+ * Creates reusable {@link validateFormData} function.
+ *
+ * @template T Target object type
+ * @returns Reusable decoder function
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function createValidateFormData<T extends object>(): (
   input: FormData,
@@ -713,21 +1141,34 @@ export function createValidateFormData<T>(): (
 }
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link query} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @template T The type of the query object
  * @throws Compile error
+=======
+ * Creates reusable {@link query} function.
+ *
+ * @template T Target object type
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  * @danger You must configure the generic argument `T`
  */
 export function createQuery(): never;
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link query} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @template T The type of the query object
  * @returns A reusable `query` function
+=======
+ * Creates reusable {@link query} function.
+ *
+ * @template T Target object type
+ * @returns Reusable decoder function
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function createQuery<T extends object>(): (
   input: string | IReadableURLSearchParams,
@@ -741,12 +1182,20 @@ export function createQuery<T>(): (
 }
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link assertQuery} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @template T The type of the query object
  * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @throws Compile error
+=======
+ * Creates reusable {@link assertQuery} function.
+ *
+ * @template T Target object type
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  * @danger You must configure the generic argument `T`
  */
 export function createAssertQuery(
@@ -754,12 +1203,21 @@ export function createAssertQuery(
 ): never;
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link assertQuery} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @template T The type of the query object
  * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns A reusable `assertQuery` function
+=======
+ * Creates reusable {@link assertQuery} function.
+ *
+ * @template T Target object type
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
+ * @returns Reusable decoder function
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function createAssertQuery<T extends object>(
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
@@ -773,21 +1231,34 @@ export function createAssertQuery<T>(): (
 }
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link isQuery} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @template T The type of the query object
  * @throws Compile error
+=======
+ * Creates reusable {@link isQuery} function.
+ *
+ * @template T Target object type
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  * @danger You must configure the generic argument `T`
  */
 export function createIsQuery(): never;
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link isQuery} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @template T The type of the query object
  * @returns A reusable `isQuery` function
+=======
+ * Creates reusable {@link isQuery} function.
+ *
+ * @template T Target object type
+ * @returns Reusable decoder function
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function createIsQuery<T extends object>(): (
   input: string | IReadableURLSearchParams,
@@ -801,21 +1272,34 @@ export function createIsQuery<T>(): (
 }
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link validateQuery} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @template T The type of the query object
  * @throws Compile error
+=======
+ * Creates reusable {@link validateQuery} function.
+ *
+ * @template T Target object type
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  * @danger You must configure the generic argument `T`
  */
 export function createValidateQuery(): never;
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link validateQuery} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @template T The type of the query object
  * @returns A reusable `validateQuery` function
+=======
+ * Creates reusable {@link validateQuery} function.
+ *
+ * @template T Target object type
+ * @returns Reusable decoder function
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function createValidateQuery<T extends object>(): (
   input: string | IReadableURLSearchParams,
@@ -829,21 +1313,34 @@ export function createValidateQuery<T>(): (
 }
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link headers} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @template T The type of the headers object
  * @throws Compile error
+=======
+ * Creates reusable {@link headers} function.
+ *
+ * @template T Target object type
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  * @danger You must configure the generic argument `T`
  */
 export function createHeaders(): never;
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link headers} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @template T The type of the headers object
  * @returns A reusable `headers` function
+=======
+ * Creates reusable {@link headers} function.
+ *
+ * @template T Target object type
+ * @returns Reusable decoder function
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function createHeaders<T extends object>(): (
   input: Record<string, string | string[] | undefined>,
@@ -857,12 +1354,20 @@ export function createHeaders<T>(): (
 }
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link assertHeaders} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @template T The type of the headers object
  * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @throws Compile error
+=======
+ * Creates reusable {@link assertHeaders} function.
+ *
+ * @template T Target object type
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  * @danger You must configure the generic argument `T`
  */
 export function createAssertHeaders(
@@ -870,12 +1375,21 @@ export function createAssertHeaders(
 ): never;
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link assertHeaders} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @template T The type of the headers object
  * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns A reusable `assertHeaders` function
+=======
+ * Creates reusable {@link assertHeaders} function.
+ *
+ * @template T Target object type
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
+ * @returns Reusable decoder function
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function createAssertHeaders<T extends object>(
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
@@ -889,21 +1403,34 @@ export function createAssertHeaders<T>(): (
 }
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link isHeaders} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @template T The type of the headers object
  * @throws Compile error
+=======
+ * Creates reusable {@link isHeaders} function.
+ *
+ * @template T Target object type
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  * @danger You must configure the generic argument `T`
  */
 export function createIsHeaders(): never;
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link isHeaders} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @template T The type of the headers object
  * @returns A reusable `isHeaders` function
+=======
+ * Creates reusable {@link isHeaders} function.
+ *
+ * @template T Target object type
+ * @returns Reusable decoder function
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function createIsHeaders<T extends object>(): (
   input: Record<string, string | string[] | undefined>,
@@ -917,21 +1444,34 @@ export function createIsHeaders<T>(): (
 }
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link validateHeaders} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @template T The type of the headers object
  * @throws Compile error
+=======
+ * Creates reusable {@link validateHeaders} function.
+ *
+ * @template T Target object type
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  * @danger You must configure the generic argument `T`
  */
 export function createValidateHeaders(): never;
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link validateHeaders} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @template T The type of the headers object
  * @returns A reusable `validateHeaders` function
+=======
+ * Creates reusable {@link validateHeaders} function.
+ *
+ * @template T Target object type
+ * @returns Reusable decoder function
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function createValidateHeaders<T extends object>(): (
   input: Record<string, string | string[] | undefined>,
@@ -945,21 +1485,34 @@ export function createValidateHeaders<T>(): (
 }
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link parameter} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @template T The type of the parameter value
  * @throws Compile error
+=======
+ * Creates reusable {@link parameter} function.
+ *
+ * @template T Target atomic type
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  * @danger You must configure the generic argument `T`
  */
 export function createParameter(): never;
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link parameter} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @template T The type of the parameter value
  * @returns A reusable `parameter` function
+=======
+ * Creates reusable {@link parameter} function.
+ *
+ * @template T Target atomic type
+ * @returns Reusable decoder function
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function createParameter<T extends Atomic.Type | null>(): (
   input: string,

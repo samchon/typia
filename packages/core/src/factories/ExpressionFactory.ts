@@ -2,6 +2,18 @@ import ts from "typescript";
 
 import { ImportProgrammer } from "../programmers/ImportProgrammer";
 
+<<<<<<< HEAD
+=======
+/**
+ * Factory for creating TypeScript expression nodes.
+ *
+ * Creates numeric literals, type checks, instanceof expressions, and more. Also
+ * provides {@link transpile} for converting string code to AST with `$input`
+ * placeholder substitution and import handling.
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
 export namespace ExpressionFactory {
   export const number = (value: number) =>
     value < 0

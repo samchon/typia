@@ -1,4 +1,24 @@
+<<<<<<< HEAD
 /** @internal */
+=======
+/**
+ * Protocol Buffers wire types.
+ *
+ * `ProtobufWire` defines the wire types used in Protocol Buffers binary
+ * encoding. Each type determines how the value is serialized on the wire.
+ *
+ * Wire types:
+ *
+ * - {@link VARIANT} (0): Varints (int32, int64, uint32, uint64, sint32, sint64,
+ *   bool, enum)
+ * - {@link I64} (1): 64-bit (fixed64, sfixed64, double)
+ * - {@link LEN} (2): Length-delimited (string, bytes, embedded messages, packed
+ *   repeated)
+ * - {@link I32} (5): 32-bit (fixed32, sfixed32, float)
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
 export const enum ProtobufWire {
   /**
    * - Integers

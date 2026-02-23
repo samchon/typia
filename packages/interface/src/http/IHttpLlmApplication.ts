@@ -4,6 +4,7 @@ import { IHttpLlmFunction } from "./IHttpLlmFunction";
 import { IHttpMigrateRoute } from "./IHttpMigrateRoute";
 
 /**
+<<<<<<< HEAD
  * Application of LLM function call from OpenAPI document.
  *
  * `IHttpLlmApplication` is a data structure representing a collection of
@@ -55,10 +56,31 @@ import { IHttpMigrateRoute } from "./IHttpMigrateRoute";
  * separated to Human and LLM sides, you can merge these human and LLM sides'
  * parameters into one through {@link HttpLlm.mergeParameters} before the actual
  * LLM function call execution.
+=======
+ * LLM function calling application from OpenAPI document.
+ *
+ * `IHttpLlmApplication` is a collection of {@link IHttpLlmFunction} schemas
+ * converted from {@link OpenApi.IDocument} by `HttpLlm.application()`. Each
+ * OpenAPI operation becomes an LLM-callable function.
+ *
+ * Successful conversions go to {@link functions}, failed ones to {@link errors}
+ * with detailed error messages. Common failure causes:
+ *
+ * - Unsupported schema features (tuples, `oneOf` with incompatible types)
+ * - Missing required fields in OpenAPI document
+ * - Operations marked with `x-samchon-human: true`
+ *
+ * Configure behavior via {@link IHttpLlmApplication.IConfig}:
+ *
+ * - {@link IHttpLlmApplication.IConfig.separate}: Split LLM vs human parameters
+ * - {@link IHttpLlmApplication.IConfig.maxLength}: Function name length limit
+ * - {@link ILlmSchema.IConfig.strict}: OpenAI structured output mode
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
 export interface IHttpLlmApplication {
+<<<<<<< HEAD
   /**
    * List of function metadata.
    *
@@ -105,29 +127,59 @@ export namespace IHttpLlmApplication {
      * @default null
      * @param schema Schema to be separated.
      * @returns Whether the schema value must be composed by human or not.
+=======
+  /** Successfully converted LLM function schemas. */
+  functions: IHttpLlmFunction[];
+
+  /** Operations that failed conversion. */
+  errors: IHttpLlmApplication.IError[];
+
+  /** Configuration used for composition. */
+  config: IHttpLlmApplication.IConfig;
+}
+export namespace IHttpLlmApplication {
+  /** Configuration for HTTP LLM application composition. */
+  export interface IConfig extends ILlmSchema.IConfig {
+    /**
+     * Separates parameters into LLM and human parts.
+     *
+     * Use for file uploads or sensitive data that LLM cannot handle. Return
+     * `true` for human-composed, `false` for LLM-composed.
+     *
+     * @default null
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
      */
     separate: null | ((schema: ILlmSchema) => boolean);
 
     /**
+<<<<<<< HEAD
      * Maximum length of function name.
      *
      * When a function name is longer than this value, it will be truncated.
      *
      * If not possible to truncate due to the duplication, the function name
      * would be modified to randomly generated (UUID v4).
+=======
+     * Maximum function name length. Truncated or UUID if exceeded.
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
      *
      * @default 64
      */
     maxLength: number;
 
     /**
+<<<<<<< HEAD
      * Whether to disallow superfluous properties or not.
+=======
+     * Whether to disallow superfluous properties.
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
      *
      * @default false
      */
     equals: boolean;
   }
 
+<<<<<<< HEAD
   /** Error occurred in the composition. */
   export interface IError {
     /** HTTP method of the endpoint. */
@@ -156,6 +208,23 @@ export namespace IHttpLlmApplication {
      *
      * @returns Migration route metadata.
      */
+=======
+  /** Composition error for an operation. */
+  export interface IError {
+    /** HTTP method of the failed operation. */
+    method: "get" | "post" | "put" | "patch" | "delete" | "head";
+
+    /** Path of the failed operation. */
+    path: string;
+
+    /** Error messages describing the failure. */
+    messages: string[];
+
+    /** Returns source {@link OpenApi.IOperation}. */
+    operation: () => OpenApi.IOperation;
+
+    /** Returns source route. Undefined if error occurred at migration level. */
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
     route: () => IHttpMigrateRoute | undefined;
   }
 }

@@ -16,7 +16,39 @@ import { LlmDescriptionInverter } from "./internal/LlmDescriptionInverter";
 import { LlmParametersFinder } from "./internal/LlmParametersComposer";
 import { OpenApiConstraintShifter } from "./internal/OpenApiConstraintShifter";
 
+<<<<<<< HEAD
 export namespace LlmSchemaConverter {
+=======
+/**
+ * OpenAPI to LLM schema converter.
+ *
+ * `LlmSchemaConverter` converts OpenAPI JSON schemas to LLM-compatible
+ * {@link ILlmSchema} format. LLMs don't fully support JSON Schema, so this
+ * simplifies schemas by removing unsupported features (tuples, `const`, mixed
+ * unions).
+ *
+ * Main functions:
+ *
+ * - {@link parameters}: Convert object schema to {@link ILlmSchema.IParameters}
+ * - {@link schema}: Convert any schema to {@link ILlmSchema}
+ * - {@link separate}: Split parameters into LLM-fillable vs human-required
+ * - {@link invert}: Extract constraints from description back to schema
+ *
+ * Configuration options ({@link ILlmSchema.IConfig}):
+ *
+ * - `reference`: Allow `$ref` references (reduces tokens but may confuse LLM)
+ * - `strict`: OpenAI structured output mode (all properties required)
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export namespace LlmSchemaConverter {
+  /**
+   * Get configuration with defaults applied.
+   *
+   * @param config Partial configuration
+   * @returns Full configuration with defaults
+   */
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
   export const getConfig = (
     config?: Partial<ILlmSchema.IConfig> | undefined,
   ): ILlmSchema.IConfig => ({
@@ -27,6 +59,19 @@ export namespace LlmSchemaConverter {
   /* -----------------------------------------------------------
     CONVERTERS
   ----------------------------------------------------------- */
+<<<<<<< HEAD
+=======
+  /**
+   * Convert OpenAPI object schema to LLM parameters schema.
+   *
+   * @param props.config Conversion configuration
+   * @param props.components OpenAPI components for reference resolution
+   * @param props.schema Object or reference schema to convert
+   * @param props.accessor Error path accessor
+   * @param props.refAccessor Reference path accessor
+   * @returns Converted parameters or error
+   */
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
   export const parameters = (props: {
     config?: Partial<ILlmSchema.IConfig>;
     components: OpenApi.IComponents;
@@ -73,6 +118,20 @@ export namespace LlmSchemaConverter {
     };
   };
 
+<<<<<<< HEAD
+=======
+  /**
+   * Convert OpenAPI schema to LLM schema.
+   *
+   * @param props.config Conversion configuration
+   * @param props.components OpenAPI components for reference resolution
+   * @param props.$defs Definition store (mutated with referenced types)
+   * @param props.schema Schema to convert
+   * @param props.accessor Error path accessor
+   * @param props.refAccessor Reference path accessor
+   * @returns Converted schema or error
+   */
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
   export const schema = (props: {
     config?: Partial<ILlmSchema.IConfig>;
     components: OpenApi.IComponents;
@@ -428,6 +487,20 @@ export namespace LlmSchemaConverter {
   /* -----------------------------------------------------------
     INVERTERS
   ----------------------------------------------------------- */
+<<<<<<< HEAD
+=======
+  /**
+   * Convert LLM schema back to OpenAPI schema.
+   *
+   * Restores constraint information from description tags and converts `$defs`
+   * references to `#/components/schemas`.
+   *
+   * @param props.components Target components (mutated with definitions)
+   * @param props.schema LLM schema to invert
+   * @param props.$defs LLM schema definitions
+   * @returns OpenAPI JSON schema
+   */
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
   export const invert = (props: {
     components: OpenApi.IComponents;
     schema: ILlmSchema;
@@ -568,6 +641,21 @@ export namespace LlmSchemaConverter {
   /* -----------------------------------------------------------
     SEPARATORS
   ----------------------------------------------------------- */
+<<<<<<< HEAD
+=======
+  /**
+   * Separate parameters into LLM and human parts.
+   *
+   * Splits parameters based on predicate (human-side if true). Creates separate
+   * schemas for LLM-fillable and human-required fields.
+   *
+   * @param props.parameters Parameters schema to separate
+   * @param props.predicate Returns true for human-side properties
+   * @param props.convention Key naming convention for separated types
+   * @param props.equals Whether to use strict equality validation
+   * @returns Separated LLM and human parameter schemas
+   */
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
   export const separate = (props: {
     parameters: ILlmSchema.IParameters;
     predicate: (schema: ILlmSchema) => boolean;

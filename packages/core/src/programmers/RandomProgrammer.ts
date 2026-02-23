@@ -32,7 +32,16 @@ import { json_schema_boolean } from "./iterate/json_schema_boolean";
 import { json_schema_number } from "./iterate/json_schema_number";
 import { json_schema_string } from "./iterate/json_schema_string";
 
+/**
+ * Random data generator code generator.
+ *
+ * Generates code that creates random values matching type constraints. Used by
+ * `typia.random<T>()`.
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
 export namespace RandomProgrammer {
+  /** Properties for random code generation. */
   export interface IProps {
     context: ITypiaContext;
     modulo: ts.LeftHandSideExpression;

@@ -3,6 +3,32 @@ import { IValidation } from "@typia/interface";
 import { NamingConvention } from "./NamingConvention";
 import { dedent } from "./dedent";
 
+<<<<<<< HEAD
+=======
+/**
+ * Format validation failure for LLM auto-correction feedback.
+ *
+ * When LLM generates invalid function call arguments, this produces annotated
+ * JSON with inline `// ❌` error comments at each invalid property. The output
+ * is wrapped in a markdown code block so that LLM can understand and correct
+ * its mistakes in the next turn.
+ *
+ * Below is an example of the output format:
+ *
+ * ```json
+ * {
+ *   "name": "John",
+ *   "age": "twenty", // ❌ [{"path":"$input.age","expected":"number & Type<\"uint32\">"}]
+ *   "email": "not-an-email", // ❌ [{"path":"$input.email","expected":"string & Format<\"email\">"}]
+ *   "hobbies": "reading" // ❌ [{"path":"$input.hobbies","expected":"Array<string>"}]
+ * }
+ * ```
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ * @param failure Validation failure from {@link ILlmFunction.validate}
+ * @returns Markdown code block with error-annotated JSON
+ */
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
 export function stringifyValidationFailure(
   failure: IValidation.IFailure,
 ): string {

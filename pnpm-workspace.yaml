@@ -18,12 +18,17 @@ catalogs:
     '@rollup/plugin-typescript': ^12.3.0
   utils:
     '@nestia/e2e': ^10.0.2
+<<<<<<< HEAD
     '@types/node': ^25.0.10
+=======
+    '@types/node': ^25.3.0
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
     '@types/uuid': ^11.0.0
     openai: ^6.16.0
     rimraf: ^6.1.2
     uuid: ^13.0.0
     tstl: ^3.0.0
+<<<<<<< HEAD
     tgrid: ^1.2.1
   unplugin:
     '@rollup/pluginutils': ^5.1.4
@@ -41,3 +46,6 @@ catalogs:
     vitest: ^3.0.9
     esbuild: ^0.25.5
     rollup-plugin-esbuild: ^6.2.1
+=======
+    tgrid: ^1.2.1
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713

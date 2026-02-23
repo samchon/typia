@@ -1,7 +1,6 @@
 import fs from "fs";
 
 import { TypiaProgrammer } from "../programmers/TypiaProgrammer";
-
 import { ArgumentParser } from "./setup/ArgumentParser";
 import { PackageManager } from "./setup/PackageManager";
 

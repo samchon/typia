@@ -18,6 +18,7 @@ import { NoTransformConfigurationError } from "./transformers/NoTransformConfigu
     CAMEL CASE
 ----------------------------------------------------------- */
 /**
+<<<<<<< HEAD
  * Convert to camel case.
  *
  * Convert every property names of nested objects to follow the camel case
@@ -36,6 +37,22 @@ import { NoTransformConfigurationError } from "./transformers/NoTransformConfigu
  * @template T Type of the input value
  * @param input Target object
  * @returns Camel case object
+=======
+ * Converts property names to camelCase.
+ *
+ * Transforms all property names in the object (including nested) to camelCase
+ * convention. Creates a new object with renamed properties.
+ *
+ * Does not validate the input. For validation, use:
+ *
+ * - {@link assertCamel} — Throws on type mismatch
+ * - {@link isCamel} — Returns `null` on type mismatch
+ * - {@link validateCamel} — Returns detailed validation errors
+ *
+ * @template T Type of input value
+ * @param input Object to convert
+ * @returns New object with camelCase property names
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function camel<T>(input: T): CamelCase<T>;
 
@@ -45,6 +62,7 @@ export function camel(): never {
 }
 
 /**
+<<<<<<< HEAD
  * Converts to camel case with type assertion.
  *
  * Convert every property names of nested objects to follow the camel case
@@ -56,12 +74,32 @@ export function camel(): never {
  * @param input Target object
  * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Camel case object
+=======
+ * Converts property names to camelCase with assertion.
+ *
+ * Transforms all property names to camelCase with {@link assert} validation.
+ * Throws {@link TypeGuardError} on type mismatch.
+ *
+ * Related functions:
+ *
+ * - {@link camel} — No validation
+ * - {@link isCamel} — Returns `null` instead of throwing
+ * - {@link validateCamel} — Returns detailed validation errors
+ *
+ * @template T Type of input value
+ * @param input Object to convert
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
+ * @returns New object with camelCase property names
+ * @throws {TypeGuardError} When input doesn't conform to type `T`
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function assertCamel<T>(
   input: T,
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
 ): CamelCase<T>;
 
+<<<<<<< HEAD
 /**
  * Converts to camel case with type assertion.
  *
@@ -75,6 +113,9 @@ export function assertCamel<T>(
  * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Camel case object
  */
+=======
+/** @internal */
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
 export function assertCamel<T>(
   input: unknown,
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
@@ -86,6 +127,7 @@ export function assertCamel(): never {
 }
 
 /**
+<<<<<<< HEAD
  * Converts to camel case with type checking.
  *
  * Convert every property names of nested objects to follow the camel case
@@ -111,6 +153,26 @@ export function isCamel<T>(input: T): CamelCase<T> | null;
  * @param input Target object
  * @returns Camel case object when exact type, otherwise null
  */
+=======
+ * Converts property names to camelCase with type checking.
+ *
+ * Transforms all property names to camelCase with {@link is} validation. Returns
+ * `null` on type mismatch.
+ *
+ * Related functions:
+ *
+ * - {@link camel} — No validation
+ * - {@link assertCamel} — Throws instead of returning `null`
+ * - {@link validateCamel} — Returns detailed validation errors
+ *
+ * @template T Type of input value
+ * @param input Object to convert
+ * @returns New object with camelCase property names, or `null` if invalid
+ */
+export function isCamel<T>(input: T): CamelCase<T> | null;
+
+/** @internal */
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
 export function isCamel<T>(input: unknown): CamelCase<T> | null;
 
 /** @internal */
@@ -119,6 +181,7 @@ export function isCamel(): never {
 }
 
 /**
+<<<<<<< HEAD
  * Converts to camel case with type validation.
  *
  * Convert every property names of nested objects to follow the camel case
@@ -148,6 +211,27 @@ export function validateCamel<T>(input: T): IValidation<CamelCase<T>>;
  * @param input Target object
  * @returns Validation result with camel case object
  */
+=======
+ * Converts property names to camelCase with validation.
+ *
+ * Transforms all property names to camelCase with {@link validate} validation.
+ * Returns {@link IValidation.IFailure} with all errors on mismatch, or
+ * {@link IValidation.ISuccess} with converted object.
+ *
+ * Related functions:
+ *
+ * - {@link camel} — No validation
+ * - {@link assertCamel} — Throws on first error
+ * - {@link isCamel} — Returns `null` instead of error details
+ *
+ * @template T Type of input value
+ * @param input Object to convert
+ * @returns Validation result containing converted object or errors
+ */
+export function validateCamel<T>(input: T): IValidation<CamelCase<T>>;
+
+/** @internal */
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
 export function validateCamel<T>(input: unknown): IValidation<CamelCase<T>>;
 
 /** @internal */
@@ -159,6 +243,7 @@ export function validateCamel(): never {
     PASCAL CASE
 ----------------------------------------------------------- */
 /**
+<<<<<<< HEAD
  * Convert to pascal case.
  *
  * Convert every property names of nested objects to follow the pascal case
@@ -177,6 +262,22 @@ export function validateCamel(): never {
  * @template T Type of the input value
  * @param input Target object
  * @returns Pascal case object
+=======
+ * Converts property names to PascalCase.
+ *
+ * Transforms all property names in the object (including nested) to PascalCase
+ * convention. Creates a new object with renamed properties.
+ *
+ * Does not validate the input. For validation, use:
+ *
+ * - {@link assertPascal} — Throws on type mismatch
+ * - {@link isPascal} — Returns `null` on type mismatch
+ * - {@link validatePascal} — Returns detailed validation errors
+ *
+ * @template T Type of input value
+ * @param input Object to convert
+ * @returns New object with PascalCase property names
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function pascal<T>(input: T): PascalCase<T>;
 
@@ -186,6 +287,7 @@ export function pascal(): never {
 }
 
 /**
+<<<<<<< HEAD
  * Converts to pascal case with type assertion.
  *
  * Convert every property names of nested objects to follow the pascal case
@@ -197,12 +299,32 @@ export function pascal(): never {
  * @param input Target object
  * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Pascal case object
+=======
+ * Converts property names to PascalCase with assertion.
+ *
+ * Transforms all property names to PascalCase with {@link assert} validation.
+ * Throws {@link TypeGuardError} on type mismatch.
+ *
+ * Related functions:
+ *
+ * - {@link pascal} — No validation
+ * - {@link isPascal} — Returns `null` instead of throwing
+ * - {@link validatePascal} — Returns detailed validation errors
+ *
+ * @template T Type of input value
+ * @param input Object to convert
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
+ * @returns New object with PascalCase property names
+ * @throws {TypeGuardError} When input doesn't conform to type `T`
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function assertPascal<T>(
   input: T,
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
 ): PascalCase<T>;
 
+<<<<<<< HEAD
 /**
  * Converts to pascal case with type assertion.
  *
@@ -216,6 +338,9 @@ export function assertPascal<T>(
  * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Pascal case object
  */
+=======
+/** @internal */
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
 export function assertPascal<T>(
   input: unknown,
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
@@ -227,6 +352,7 @@ export function assertPascal(): never {
 }
 
 /**
+<<<<<<< HEAD
  * Converts to pascal case with type checking.
  *
  * Convert every property names of nested objects to follow the pascal case
@@ -252,6 +378,26 @@ export function isPascal<T>(input: T): PascalCase<T> | null;
  * @param input Target object
  * @returns Pascal case object when exact type, otherwise null
  */
+=======
+ * Converts property names to PascalCase with type checking.
+ *
+ * Transforms all property names to PascalCase with {@link is} validation.
+ * Returns `null` on type mismatch.
+ *
+ * Related functions:
+ *
+ * - {@link pascal} — No validation
+ * - {@link assertPascal} — Throws instead of returning `null`
+ * - {@link validatePascal} — Returns detailed validation errors
+ *
+ * @template T Type of input value
+ * @param input Object to convert
+ * @returns New object with PascalCase property names, or `null` if invalid
+ */
+export function isPascal<T>(input: T): PascalCase<T> | null;
+
+/** @internal */
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
 export function isPascal<T>(input: unknown): PascalCase<T> | null;
 
 /** @internal */
@@ -260,6 +406,7 @@ export function isPascal(): never {
 }
 
 /**
+<<<<<<< HEAD
  * Converts to pascal case with type validation.
  *
  * Convert every property names of nested objects to follow the pascal case
@@ -289,6 +436,27 @@ export function validatePascal<T>(input: T): IValidation<PascalCase<T>>;
  * @param input Target object
  * @returns Validation result with pascal case object
  */
+=======
+ * Converts property names to PascalCase with validation.
+ *
+ * Transforms all property names to PascalCase with {@link validate} validation.
+ * Returns {@link IValidation.IFailure} with all errors on mismatch, or
+ * {@link IValidation.ISuccess} with converted object.
+ *
+ * Related functions:
+ *
+ * - {@link pascal} — No validation
+ * - {@link assertPascal} — Throws on first error
+ * - {@link isPascal} — Returns `null` instead of error details
+ *
+ * @template T Type of input value
+ * @param input Object to convert
+ * @returns Validation result containing converted object or errors
+ */
+export function validatePascal<T>(input: T): IValidation<PascalCase<T>>;
+
+/** @internal */
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
 export function validatePascal<T>(input: unknown): IValidation<PascalCase<T>>;
 
 /** @internal */
@@ -300,6 +468,7 @@ export function validatePascal(): never {
     SNAKE CASE
 ----------------------------------------------------------- */
 /**
+<<<<<<< HEAD
  * Convert to snake case.
  *
  * Convert every property names of nested objects to follow the snake case
@@ -318,6 +487,22 @@ export function validatePascal(): never {
  * @template T Type of the input value
  * @param input Target object
  * @returns Snake case object
+=======
+ * Converts property names to snake_case.
+ *
+ * Transforms all property names in the object (including nested) to snake_case
+ * convention. Creates a new object with renamed properties.
+ *
+ * Does not validate the input. For validation, use:
+ *
+ * - {@link assertSnake} — Throws on type mismatch
+ * - {@link isSnake} — Returns `null` on type mismatch
+ * - {@link validateSnake} — Returns detailed validation errors
+ *
+ * @template T Type of input value
+ * @param input Object to convert
+ * @returns New object with snake_case property names
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function snake<T>(input: T): SnakeCase<T>;
 
@@ -327,6 +512,7 @@ export function snake(): never {
 }
 
 /**
+<<<<<<< HEAD
  * Converts to snake case with type assertion.
  *
  * Convert every property names of nested objects to follow the snake case
@@ -338,12 +524,32 @@ export function snake(): never {
  * @param input Target object
  * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Snake case object
+=======
+ * Converts property names to snake_case with assertion.
+ *
+ * Transforms all property names to snake_case with {@link assert} validation.
+ * Throws {@link TypeGuardError} on type mismatch.
+ *
+ * Related functions:
+ *
+ * - {@link snake} — No validation
+ * - {@link isSnake} — Returns `null` instead of throwing
+ * - {@link validateSnake} — Returns detailed validation errors
+ *
+ * @template T Type of input value
+ * @param input Object to convert
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
+ * @returns New object with snake_case property names
+ * @throws {TypeGuardError} When input doesn't conform to type `T`
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function assertSnake<T>(
   input: T,
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
 ): SnakeCase<T>;
 
+<<<<<<< HEAD
 /**
  * Converts to snake case with type assertion.
  *
@@ -357,6 +563,9 @@ export function assertSnake<T>(
  * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Snake case object
  */
+=======
+/** @internal */
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
 export function assertSnake<T>(
   input: unknown,
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
@@ -368,6 +577,7 @@ export function assertSnake(): never {
 }
 
 /**
+<<<<<<< HEAD
  * Converts to snake case with type checking.
  *
  * Convert every property names of nested objects to follow the snake case
@@ -393,6 +603,26 @@ export function isSnake<T>(input: T): SnakeCase<T> | null;
  * @param input Target object
  * @returns Snake case object when exact type, otherwise null
  */
+=======
+ * Converts property names to snake_case with type checking.
+ *
+ * Transforms all property names to snake_case with {@link is} validation.
+ * Returns `null` on type mismatch.
+ *
+ * Related functions:
+ *
+ * - {@link snake} — No validation
+ * - {@link assertSnake} — Throws instead of returning `null`
+ * - {@link validateSnake} — Returns detailed validation errors
+ *
+ * @template T Type of input value
+ * @param input Object to convert
+ * @returns New object with snake_case property names, or `null` if invalid
+ */
+export function isSnake<T>(input: T): SnakeCase<T> | null;
+
+/** @internal */
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
 export function isSnake<T>(input: unknown): SnakeCase<T> | null;
 
 /** @internal */
@@ -401,6 +631,7 @@ export function isSnake(): never {
 }
 
 /**
+<<<<<<< HEAD
  * Converts to snake case with type validation.
  *
  * Convert every property names of nested objects to follow the snake case
@@ -430,6 +661,27 @@ export function validateSnake<T>(input: T): IValidation<SnakeCase<T>>;
  * @param input Target object
  * @returns Validation result with snake case object
  */
+=======
+ * Converts property names to snake_case with validation.
+ *
+ * Transforms all property names to snake_case with {@link validate} validation.
+ * Returns {@link IValidation.IFailure} with all errors on mismatch, or
+ * {@link IValidation.ISuccess} with converted object.
+ *
+ * Related functions:
+ *
+ * - {@link snake} — No validation
+ * - {@link assertSnake} — Throws on first error
+ * - {@link isSnake} — Returns `null` instead of error details
+ *
+ * @template T Type of input value
+ * @param input Object to convert
+ * @returns Validation result containing converted object or errors
+ */
+export function validateSnake<T>(input: T): IValidation<SnakeCase<T>>;
+
+/** @internal */
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
 export function validateSnake<T>(input: unknown): IValidation<SnakeCase<T>>;
 
 /** @internal */
@@ -441,21 +693,33 @@ export function validateSnake(): never {
     FACTORY FUNCTIONS
 ----------------------------------------------------------- */
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link camel} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @returns Nothing until be configure the generic argument `T`
  * @throws Compile error
+=======
+ * Creates reusable {@link camel} function.
+ *
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  * @danger You must configure the generic argument `T`
  */
 export function createCamel(): never;
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link camel} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @template T Type of the input value
  * @returns A reusable `camel` function
+=======
+ * Creates reusable {@link camel} function.
+ *
+ * @template T Type of input value
+ * @returns Reusable conversion function
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function createCamel<T>(): (input: T) => CamelCase<T>;
 
@@ -465,12 +729,17 @@ export function createCamel(): never {
 }
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link assertCamel} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Nothing until be configure the generic argument `T`
  * @throws Compile error
+=======
+ * Creates reusable {@link assertCamel} function.
+ *
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  * @danger You must configure the generic argument `T`
  */
 export function createAssertCamel(
@@ -478,12 +747,21 @@ export function createAssertCamel(
 ): never;
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link assertCamel} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @template T Type of the input value
  * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns A reusable `assertCamel` function
+=======
+ * Creates reusable {@link assertCamel} function.
+ *
+ * @template T Type of input value
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
+ * @returns Reusable conversion function
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function createAssertCamel<T>(
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
@@ -495,21 +773,33 @@ export function createAssertCamel(): never {
 }
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link isCamel} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @returns Nothing until be configure the generic argument `T`
  * @throws Compile error
+=======
+ * Creates reusable {@link isCamel} function.
+ *
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  * @danger You must configure the generic argument `T`
  */
 export function createIsCamel(): never;
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link isCamel} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @template T Type of the input value
  * @returns A reusable `isCamel` function
+=======
+ * Creates reusable {@link isCamel} function.
+ *
+ * @template T Type of input value
+ * @returns Reusable conversion function
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function createIsCamel<T>(): (input: T) => CamelCase<T> | null;
 
@@ -519,21 +809,33 @@ export function createIsCamel(): never {
 }
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link validateCamel} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @returns Nothing until be configure the generic argument `T`
  * @throws Compile error
+=======
+ * Creates reusable {@link validateCamel} function.
+ *
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  * @danger You must configure the generic argument `T`
  */
 export function createValidateCamel(): never;
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link validateCamel} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @template T Type of the input value
  * @returns A reusable `validateCamel` function
+=======
+ * Creates reusable {@link validateCamel} function.
+ *
+ * @template T Type of input value
+ * @returns Reusable conversion function
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function createValidateCamel<T>(): (
   input: T,
@@ -545,21 +847,33 @@ export function createValidateCamel(): never {
 }
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link pascal} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @returns Nothing until be configure the generic argument `T`
  * @throws Compile error
+=======
+ * Creates reusable {@link pascal} function.
+ *
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  * @danger You must configure the generic argument `T`
  */
 export function createPascal(): never;
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link pascal} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @template T Type of the input value
  * @returns A reusable `pascal` function
+=======
+ * Creates reusable {@link pascal} function.
+ *
+ * @template T Type of input value
+ * @returns Reusable conversion function
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function createPascal<T>(): (input: T) => PascalCase<T>;
 
@@ -569,12 +883,17 @@ export function createPascal(): never {
 }
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link assertPascal} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Nothing until be configure the generic argument `T`
  * @throws Compile error
+=======
+ * Creates reusable {@link assertPascal} function.
+ *
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  * @danger You must configure the generic argument `T`
  */
 export function createAssertPascal(
@@ -582,12 +901,21 @@ export function createAssertPascal(
 ): never;
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link assertPascal} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @template T Type of the input value
  * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns A reusable `assertPascal` function
+=======
+ * Creates reusable {@link assertPascal} function.
+ *
+ * @template T Type of input value
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
+ * @returns Reusable conversion function
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function createAssertPascal<T>(
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
@@ -599,21 +927,33 @@ export function createAssertPascal(): never {
 }
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link isPascal} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @returns Nothing until be configure the generic argument `T`
  * @throws Compile error
+=======
+ * Creates reusable {@link isPascal} function.
+ *
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  * @danger You must configure the generic argument `T`
  */
 export function createIsPascal(): never;
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link isPascal} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @template T Type of the input value
  * @returns A reusable `isPascal` function
+=======
+ * Creates reusable {@link isPascal} function.
+ *
+ * @template T Type of input value
+ * @returns Reusable conversion function
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function createIsPascal<T>(): (input: T) => PascalCase<T> | null;
 
@@ -623,21 +963,33 @@ export function createIsPascal(): never {
 }
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link validatePascal} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @returns Nothing until be configure the generic argument `T`
  * @throws Compile error
+=======
+ * Creates reusable {@link validatePascal} function.
+ *
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  * @danger You must configure the generic argument `T`
  */
 export function createValidatePascal(): never;
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link validatePascal} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @template T Type of the input value
  * @returns A reusable `validatePascal` function
+=======
+ * Creates reusable {@link validatePascal} function.
+ *
+ * @template T Type of input value
+ * @returns Reusable conversion function
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function createValidatePascal<T>(): (
   input: T,
@@ -649,21 +1001,33 @@ export function createValidatePascal(): never {
 }
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link snake} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @returns Nothing until be configure the generic argument `T`
  * @throws Compile error
+=======
+ * Creates reusable {@link snake} function.
+ *
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  * @danger You must configure the generic argument `T`
  */
 export function createSnake(): never;
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link snake} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @template T Type of the input value
  * @returns A reusable `snake` function
+=======
+ * Creates reusable {@link snake} function.
+ *
+ * @template T Type of input value
+ * @returns Reusable conversion function
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function createSnake<T>(): (input: T) => SnakeCase<T>;
 
@@ -673,12 +1037,17 @@ export function createSnake(): never {
 }
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link assertSnake} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Nothing until be configure the generic argument `T`
  * @throws Compile error
+=======
+ * Creates reusable {@link assertSnake} function.
+ *
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  * @danger You must configure the generic argument `T`
  */
 export function createAssertSnake(
@@ -686,12 +1055,21 @@ export function createAssertSnake(
 ): never;
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link assertSnake} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @template T Type of the input value
  * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns A reusable `assertSnake` function
+=======
+ * Creates reusable {@link assertSnake} function.
+ *
+ * @template T Type of input value
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
+ * @returns Reusable conversion function
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function createAssertSnake<T>(
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
@@ -703,21 +1081,33 @@ export function createAssertSnake(): never {
 }
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link isSnake} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @returns Nothing until be configure the generic argument `T`
  * @throws Compile error
+=======
+ * Creates reusable {@link isSnake} function.
+ *
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  * @danger You must configure the generic argument `T`
  */
 export function createIsSnake(): never;
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link isSnake} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @template T Type of the input value
  * @returns A reusable `isSnake` function
+=======
+ * Creates reusable {@link isSnake} function.
+ *
+ * @template T Type of input value
+ * @returns Reusable conversion function
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function createIsSnake<T>(): (input: T) => SnakeCase<T> | null;
 
@@ -727,21 +1117,33 @@ export function createIsSnake(): never {
 }
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link validateSnake} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @returns Nothing until be configure the generic argument `T`
  * @throws Compile error
+=======
+ * Creates reusable {@link validateSnake} function.
+ *
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  * @danger You must configure the generic argument `T`
  */
 export function createValidateSnake(): never;
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link validateSnake} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @template T Type of the input value
  * @returns A reusable `validateSnake` function
+=======
+ * Creates reusable {@link validateSnake} function.
+ *
+ * @template T Type of input value
+ * @returns Reusable conversion function
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function createValidateSnake<T>(): (
   input: T,

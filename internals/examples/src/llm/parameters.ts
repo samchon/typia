@@ -1,5 +1,4 @@
-import { ILlmSchema } from "@samchon/openapi";
-import typia, { tags } from "typia";
+import typia, { ILlmSchema, tags } from "typia";
 
 const parameters: ILlmSchema.IParameters = typia.llm.parameters<IMember>();
 console.log(parameters);

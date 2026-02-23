@@ -13,6 +13,7 @@ import { TypeGuardError } from "./TypeGuardError";
 import { NoTransformConfigurationError } from "./transformers/NoTransformConfigurationError";
 
 /**
+<<<<<<< HEAD
  * > You must configure the generic argument `T`.
  *
  * Union literal type to array.
@@ -26,10 +27,16 @@ import { NoTransformConfigurationError } from "./transformers/NoTransformConfigu
  * @author Jeongho Nam - https://github.com/samchon
  * @template T Union literal type
  * @returns Array of union literal type's members
+=======
+ * Converts union literal type to array.
+ *
+ * @danger You must configure the generic argument `T`
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function literals(): never;
 
 /**
+<<<<<<< HEAD
  * Union literal type to array.
  *
  * Converts a union literal type to an array of its members.
@@ -41,6 +48,14 @@ export function literals(): never;
  * @author Jeongho Nam - https://github.com/samchon
  * @template T Union literal type
  * @returns Array of union literal type's members
+=======
+ * Converts union literal type to array.
+ *
+ * Extracts all members of a union literal type `T` into an array at runtime.
+ *
+ * @template T Union literal type (e.g., `"A" | "B" | 1`)
+ * @returns Array containing all union members
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function literals<T extends Atomic.Type | null>(): T[];
 
@@ -53,6 +68,7 @@ export function literals(): never {
     CLONE
 ----------------------------------------------------------- */
 /**
+<<<<<<< HEAD
  * Clone data.
  *
  * Clones an instance following type `T`. If the target _input_ value or its
@@ -68,6 +84,22 @@ export function literals(): never {
  * @template T Type of the input value
  * @param input A value to be cloned
  * @returns Cloned data
+=======
+ * Deep clones value of type `T`.
+ *
+ * Creates a deep copy of the input value. Class instances with methods are
+ * cloned as plain objects (methods are not copied).
+ *
+ * Does not validate the input. For validation, use:
+ *
+ * - {@link assertClone} — Throws on type mismatch
+ * - {@link isClone} — Returns `null` on type mismatch
+ * - {@link validateClone} — Returns detailed validation errors
+ *
+ * @template T Type of input value
+ * @param input Value to clone
+ * @returns Deep cloned value
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function clone<T>(input: T): Resolved<T>;
 
@@ -77,6 +109,7 @@ export function clone(): never {
 }
 
 /**
+<<<<<<< HEAD
  * Clone data with type assertion.
  *
  * Clones an instance following type `T`, with type assertion. If the target
@@ -93,12 +126,33 @@ export function clone(): never {
  * @param input A value to be cloned
  * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Cloned data
+=======
+ * Deep clones value with assertion.
+ *
+ * Creates a deep copy with {@link assert} validation. Throws
+ * {@link TypeGuardError} on type mismatch. Class instances with methods are
+ * cloned as plain objects.
+ *
+ * Related functions:
+ *
+ * - {@link clone} — No validation
+ * - {@link isClone} — Returns `null` instead of throwing
+ * - {@link validateClone} — Returns detailed validation errors
+ *
+ * @template T Type of input value
+ * @param input Value to clone
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
+ * @returns Deep cloned value
+ * @throws {TypeGuardError} When input doesn't conform to type `T`
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function assertClone<T>(
   input: T,
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
 ): Resolved<T>;
 
+<<<<<<< HEAD
 /**
  * Clone data with type assertion.
  *
@@ -117,6 +171,9 @@ export function assertClone<T>(
  * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Cloned data
  */
+=======
+/** @internal */
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
 export function assertClone<T>(
   input: unknown,
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
@@ -128,6 +185,7 @@ export function assertClone(): never {
 }
 
 /**
+<<<<<<< HEAD
  * Clone data with type checking.
  *
  * Clones an instance following type `T`, with type checking. If the target
@@ -161,6 +219,26 @@ export function isClone<T>(input: T): Resolved<T> | null;
  * @param input A value to be cloned
  * @returns Cloned data when exact type, otherwise null
  */
+=======
+ * Deep clones value with type checking.
+ *
+ * Creates a deep copy with {@link is} validation. Returns `null` on type
+ * mismatch. Class instances with methods are cloned as plain objects.
+ *
+ * Related functions:
+ *
+ * - {@link clone} — No validation
+ * - {@link assertClone} — Throws instead of returning `null`
+ * - {@link validateClone} — Returns detailed validation errors
+ *
+ * @template T Type of input value
+ * @param input Value to clone
+ * @returns Deep cloned value, or `null` if invalid
+ */
+export function isClone<T>(input: T): Resolved<T> | null;
+
+/** @internal */
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
 export function isClone<T>(input: unknown): Resolved<T> | null;
 
 /** @internal */
@@ -169,6 +247,7 @@ export function isClone(): never {
 }
 
 /**
+<<<<<<< HEAD
  * Clone data with detailed type validation.
  *
  * Clones an instance following type `T`, with detailed type validation. If the
@@ -202,6 +281,28 @@ export function validateClone<T>(input: T): IValidation<Resolved<T>>;
  * @param input A value to be cloned
  * @returns Validation result with cloned value
  */
+=======
+ * Deep clones value with validation.
+ *
+ * Creates a deep copy with {@link validate} validation. Returns
+ * {@link IValidation.IFailure} with all errors on mismatch, or
+ * {@link IValidation.ISuccess} with cloned value. Class instances with methods
+ * are cloned as plain objects.
+ *
+ * Related functions:
+ *
+ * - {@link clone} — No validation
+ * - {@link assertClone} — Throws on first error
+ * - {@link isClone} — Returns `null` instead of error details
+ *
+ * @template T Type of input value
+ * @param input Value to clone
+ * @returns Validation result containing cloned value or errors
+ */
+export function validateClone<T>(input: T): IValidation<Resolved<T>>;
+
+/** @internal */
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
 export function validateClone<T>(input: unknown): IValidation<Resolved<T>>;
 
 /** @internal */
@@ -213,6 +314,7 @@ export function validateClone(): never {
     PRUNE
 ----------------------------------------------------------- */
 /**
+<<<<<<< HEAD
  * Prune, erase superfluous properties.
  *
  * Remove all superfluous properties from the `input` object, even including
@@ -232,6 +334,21 @@ export function validateClone(): never {
  * @author Jeongho Nam - https://github.com/samchon
  * @template T Type of the input value
  * @param input Target instance to prune
+=======
+ * Removes superfluous properties from object.
+ *
+ * Deletes all properties not defined in type `T`, including in nested objects.
+ * Mutates the input directly—removed properties cannot be recovered.
+ *
+ * Does not validate the input. For validation, use:
+ *
+ * - {@link assertPrune} — Throws on type mismatch
+ * - {@link isPrune} — Returns `false` on type mismatch
+ * - {@link validatePrune} — Returns detailed validation errors
+ *
+ * @template T Type of input value
+ * @param input Object to prune
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function prune<T extends object>(input: T): void;
 
@@ -241,6 +358,7 @@ export function prune(): never {
 }
 
 /**
+<<<<<<< HEAD
  * Prune, erase superfluous properties, with type assertion.
  *
  * `typia.misc.assertPrune()` is a combination function of {@link assert} and
@@ -256,12 +374,33 @@ export function prune(): never {
  * @template T Type of the input value
  * @param input Target instance to assert and prune
  * @param errorFactory Custom error factory. Default is `TypeGuardError`
+=======
+ * Removes superfluous properties with assertion.
+ *
+ * Combines {@link assert} with {@link prune}. Throws {@link TypeGuardError} on
+ * type mismatch. Mutates the input directly—removed properties cannot be
+ * recovered.
+ *
+ * Related functions:
+ *
+ * - {@link prune} — No validation
+ * - {@link isPrune} — Returns `false` instead of throwing
+ * - {@link validatePrune} — Returns detailed validation errors
+ *
+ * @template T Type of input value
+ * @param input Object to assert and prune
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
+ * @returns The pruned input
+ * @throws {TypeGuardError} When input doesn't conform to type `T`
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function assertPrune<T>(
   input: T,
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
 ): T;
 
+<<<<<<< HEAD
 /**
  * Prune, erase superfluous properties, with type assertion.
  *
@@ -279,6 +418,9 @@ export function assertPrune<T>(
  * @param input Target instance to assert and prune
  * @param errorFactory Custom error factory. Default is `TypeGuardError`
  */
+=======
+/** @internal */
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
 export function assertPrune<T>(
   input: unknown,
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
@@ -290,6 +432,7 @@ export function assertPrune(): unknown {
 }
 
 /**
+<<<<<<< HEAD
  * Prune, erase superfluous properties, with type checking.
  *
  * `typia.misc.isPrune()` is a combination function of {@link is} and
@@ -325,6 +468,27 @@ export function isPrune<T>(input: T): input is T;
  * @param input Target instance to check and prune
  * @returns Whether the parametric value is following the type `T` or not
  */
+=======
+ * Removes superfluous properties with type checking.
+ *
+ * Combines {@link is} with {@link prune}. Returns `false` on type mismatch (no
+ * pruning occurs). Returns `true` after successful pruning. Mutates the input
+ * directly.
+ *
+ * Related functions:
+ *
+ * - {@link prune} — No validation
+ * - {@link assertPrune} — Throws instead of returning `false`
+ * - {@link validatePrune} — Returns detailed validation errors
+ *
+ * @template T Type of input value
+ * @param input Object to check and prune
+ * @returns `true` if valid and pruned, `false` if type mismatch
+ */
+export function isPrune<T>(input: T): input is T;
+
+/** @internal */
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
 export function isPrune<T>(input: unknown): input is T;
 
 /** @internal */
@@ -333,6 +497,7 @@ export function isPrune(): never {
 }
 
 /**
+<<<<<<< HEAD
  * Prune, erase superfluous properties, with type validation.
  *
  * `typia.misc.validatePrune()` is a combination function of {@link validate} and
@@ -348,10 +513,28 @@ export function isPrune(): never {
  * @author Jeongho Nam - https://github.com/samchon
  * @template T Type of the input value
  * @param input Target instance to validate and prune
+=======
+ * Removes superfluous properties with validation.
+ *
+ * Combines {@link validate} with {@link prune}. Returns
+ * {@link IValidation.IFailure} with all errors on mismatch (no pruning occurs),
+ * or {@link IValidation.ISuccess} after successful pruning. Mutates the input
+ * directly.
+ *
+ * Related functions:
+ *
+ * - {@link prune} — No validation
+ * - {@link assertPrune} — Throws on first error
+ * - {@link isPrune} — Returns `false` instead of error details
+ *
+ * @template T Type of input value
+ * @param input Object to validate and prune
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  * @returns Validation result
  */
 export function validatePrune<T>(input: T): IValidation<T>;
 
+<<<<<<< HEAD
 /**
  * Prune, erase superfluous properties, with type validation.
  *
@@ -370,6 +553,9 @@ export function validatePrune<T>(input: T): IValidation<T>;
  * @param input Target instance to validate and prune
  * @returns Validation result
  */
+=======
+/** @internal */
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
 export function validatePrune<T>(input: unknown): IValidation<T>;
 
 /** @internal */
@@ -381,21 +567,33 @@ export function validatePrune<T>(): IValidation<T> {
     FACTORY FUNCTIONS
 ----------------------------------------------------------- */
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link clone} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @returns Nothing until you configure the generic argument `T`
  * @throws Compile error
+=======
+ * Creates reusable {@link clone} function.
+ *
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  * @danger You must configure the generic argument `T`
  */
 export function createClone(): never;
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link clone} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @template T Type of the input value
  * @returns A reusable `clone` function
+=======
+ * Creates reusable {@link clone} function.
+ *
+ * @template T Type of input value
+ * @returns Reusable clone function
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function createClone<T>(): (input: T) => Resolved<T>;
 
@@ -405,12 +603,17 @@ export function createClone(): never {
 }
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link assertClone} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Nothing until you configure the generic argument `T`
  * @throws Compile error
+=======
+ * Creates reusable {@link assertClone} function.
+ *
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  * @danger You must configure the generic argument `T`
  */
 export function createAssertClone(
@@ -418,12 +621,21 @@ export function createAssertClone(
 ): never;
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link assertClone} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @template T Type of the input value
  * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns A reusable `clone` function
+=======
+ * Creates reusable {@link assertClone} function.
+ *
+ * @template T Type of input value
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
+ * @returns Reusable clone function
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function createAssertClone<T>(
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
@@ -435,21 +647,33 @@ export function createAssertClone(): never {
 }
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link isClone} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @returns Nothing until you configure the generic argument `T`
  * @throws Compile error
+=======
+ * Creates reusable {@link isClone} function.
+ *
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  * @danger You must configure the generic argument `T`
  */
 export function createIsClone(): never;
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link isClone} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @template T Type of the input value
  * @returns A reusable `clone` function
+=======
+ * Creates reusable {@link isClone} function.
+ *
+ * @template T Type of input value
+ * @returns Reusable clone function
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function createIsClone<T>(): (input: unknown) => Resolved<T> | null;
 
@@ -459,21 +683,33 @@ export function createIsClone(): never {
 }
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link validateClone} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @returns Nothing until you configure the generic argument `T`
  * @throws Compile error
+=======
+ * Creates reusable {@link validateClone} function.
+ *
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  * @danger You must configure the generic argument `T`
  */
 export function createValidateClone(): never;
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link validateClone} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @template T Type of the input value
  * @returns A reusable `clone` function
+=======
+ * Creates reusable {@link validateClone} function.
+ *
+ * @template T Type of input value
+ * @returns Reusable clone function
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function createValidateClone<T>(): (
   input: unknown,
@@ -485,21 +721,33 @@ export function createValidateClone(): never {
 }
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link prune} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @returns Nothing until you configure the generic argument `T`
  * @throws Compile error
+=======
+ * Creates reusable {@link prune} function.
+ *
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  * @danger You must configure the generic argument `T`
  */
 export function createPrune(): never;
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link prune} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @template T Type of the input value
  * @returns A reusable `prune` function
+=======
+ * Creates reusable {@link prune} function.
+ *
+ * @template T Type of input value
+ * @returns Reusable prune function
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function createPrune<T extends object>(): (input: T) => void;
 
@@ -509,12 +757,17 @@ export function createPrune(): never {
 }
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link assertPrune} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Nothing until you configure the generic argument `T`
  * @throws Compile error
+=======
+ * Creates reusable {@link assertPrune} function.
+ *
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  * @danger You must configure the generic argument `T`
  */
 export function createAssertPrune(
@@ -522,12 +775,21 @@ export function createAssertPrune(
 ): never;
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link assertPrune} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @template T Type of the input value
  * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns A reusable `isPrune` function
+=======
+ * Creates reusable {@link assertPrune} function.
+ *
+ * @template T Type of input value
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
+ * @returns Reusable prune function
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function createAssertPrune<T extends object>(
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
@@ -539,21 +801,33 @@ export function createAssertPrune(): never {
 }
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link isPrune} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @returns Nothing until you configure the generic argument `T`
  * @throws Compile error
+=======
+ * Creates reusable {@link isPrune} function.
+ *
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  * @danger You must configure the generic argument `T`
  */
 export function createIsPrune(): never;
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link isPrune} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @template T Type of the input value
  * @returns A reusable `isPrune` function
+=======
+ * Creates reusable {@link isPrune} function.
+ *
+ * @template T Type of input value
+ * @returns Reusable prune function
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function createIsPrune<T extends object>(): (
   input: unknown,
@@ -565,21 +839,33 @@ export function createIsPrune(): never {
 }
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link validatePrune} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @returns Nothing until you configure the generic argument `T`
  * @throws Compile error
+=======
+ * Creates reusable {@link validatePrune} function.
+ *
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  * @danger You must configure the generic argument `T`
  */
 export function createValidatePrune(): never;
 
 /**
+<<<<<<< HEAD
  * Creates a reusable {@link validatePrune} function.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @template T Type of the input value
  * @returns A reusable `validatePrune` function
+=======
+ * Creates reusable {@link validatePrune} function.
+ *
+ * @template T Type of input value
+ * @returns Reusable prune function
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  */
 export function createValidatePrune<T extends object>(): (
   input: unknown,

@@ -4,8 +4,9 @@ import { NativeClass } from "./internal/NativeClass";
 import { ValueOf } from "./internal/ValueOf";
 
 /**
- * Resolved type that erases every method.
+ * Converts a type to its resolved form by erasing all methods.
  *
+<<<<<<< HEAD
  * `Resolved` is a TMP (Type Meta Programming) type which converts its argument
  * as a resolved type that erases every method property.
  *
@@ -26,10 +27,16 @@ import { ValueOf } from "./internal/ValueOf";
  * `Class`
  *
  * | `interface` Native Class or Others | No change
+=======
+ * `Resolved<T>` transforms classes to plain objects, extracts primitive values
+ * from boxed types (Boolean→boolean, Number→number, String→string), and
+ * recursively processes nested structures. Native classes (Date, Set, Map,
+ * etc.) are preserved unchanged.
+>>>>>>> a7cbc4f1aec621fbd409afc8da295570e4fa2713
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @author Kyungsu Kang - https://github.com/kakasoo
- * @template T Target argument type.
+ * @template T Target type to resolve
  */
 export type Resolved<T> =
   Equal<T, ResolvedMain<T>> extends true ? T : ResolvedMain<T>;
