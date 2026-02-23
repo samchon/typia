@@ -1,6 +1,6 @@
+import { TypiaGenerator } from "@typia/transform";
 import fs from "fs";
 
-import { TypiaProgrammer } from "../programmers/TypiaProgrammer";
 import { ArgumentParser } from "./setup/ArgumentParser";
 import { PackageManager } from "./setup/PackageManager";
 
@@ -13,7 +13,7 @@ export namespace TypiaGenerateWizard {
     // LOAD PACKAGE.JSON INFO
     const pack: PackageManager = await PackageManager.mount();
     const options: IArguments = await ArgumentParser.parse(pack, inquiry);
-    await TypiaProgrammer.build(options);
+    await TypiaGenerator.build(options);
   }
 
   const inquiry: ArgumentParser.Inquiry<IArguments> = async (
