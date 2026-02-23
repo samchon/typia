@@ -1,0 +1,30 @@
+{
+	"compilerOptions": {
+		"target": "ESNext",
+		"lib": [
+			"esnext",
+			"esnext.asynciterable",
+			"DOM"
+		],
+		"module": "NodeNext",
+		"moduleResolution": "NodeNext",
+		"resolveJsonModule": true,
+		"types": [
+			"vitest/importMeta",
+			"vitest/globals"
+		],
+		"strict": true,
+		"strictNullChecks": true,
+		"declaration": true,
+		"esModuleInterop": true,
+		"isolatedDeclarations": true,
+		"verbatimModuleSyntax": true,
+		"erasableSyntaxOnly": true,
+		"skipLibCheck": true
+	},
+	"exclude": [
+		"dist",
+		"eslint.config.js",
+		"tests/fixtures"
+	]
+}
