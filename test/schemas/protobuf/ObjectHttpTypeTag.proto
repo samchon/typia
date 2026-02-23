@@ -1,9 +1,0 @@
-syntax = "proto3";
-
-message ObjectHttpTypeTag {
-  required int32 int32 = 1;
-  required uint64 uint64 = 2;
-  required string uuid = 3;
-  repeated double range = 4;
-  repeated string length = 5;
-}

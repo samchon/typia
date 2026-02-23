@@ -1,9 +1,0 @@
-syntax = "proto3";
-
-message ObjectHttpConstant {
-  required bool boolean = 1;
-  required uint64 bigint = 2;
-  required int32 number = 3;
-  required string string = 4;
-  required string template = 5;
-}

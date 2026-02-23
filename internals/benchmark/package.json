@@ -1,0 +1,79 @@
+{
+  "private": true,
+  "name": "@typia/benchmark",
+  "version": "0.1.0",
+  "description": "Benchmark program of typia performance",
+  "main": "bin/index.js",
+  "scripts": {
+    "build": "rimraf bin && tsc",
+    "prepare": "ts-patch install",
+    "prettier": "prettier ./src/**/*.ts --write",
+    "start": "node bin",
+    "start:bun": "bun bin/bun.js",
+    "template": "ts-node src/template && npm run prettier && npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/samchon/typia"
+  },
+  "keywords": [
+    "typia",
+    "test"
+  ],
+  "author": "Jeongho Nam",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/samchon/typia/issues"
+  },
+  "homepage": "https://github.com/samchon/typia#readme",
+  "devDependencies": {
+    "@fastify/type-provider-typebox": "^3.5.0",
+    "@sinclair/typebox": "^0.31.17",
+    "@trivago/prettier-plugin-sort-imports": "^3.3.0",
+    "@typegoose/typegoose": "^10.1.1",
+    "@types/autocannon": "^7.9.0",
+    "@types/benchmark": "^2.1.2",
+    "@types/body-parser": "^1.19.5",
+    "@types/d3": "^7.4.0",
+    "@types/express": "^4.17.14",
+    "@types/node": "catalog:utils",
+    "@types/physical-cpu-count": "^2.0.0",
+    "@types/ts-expose-internals": "catalog:typescript",
+    "@types/uuid": "catalog:utils",
+    "ajv": "^8.12.0",
+    "autocannon": "^7.10.0",
+    "benchmark": "^2.1.4",
+    "body-parser": "^1.20.3",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.0",
+    "d3": "^5.16.0",
+    "express": "^4.18.2",
+    "fast-json-stringify": "^5.8.0",
+    "fastify": "^4.9.2",
+    "io-ts": "^2.2.19",
+    "jsdom": "^26.1.0",
+    "physical-cpu-count": "^2.0.0",
+    "prettier": "^2.6.2",
+    "reflect-metadata": "^0.1.13",
+    "rimraf": "^3.0.2",
+    "source-map-support": "^0.5.21",
+    "suppress-warnings": "^1.0.2",
+    "tgrid": "^0.10.0",
+    "ts-node": "^10.9.1",
+    "ts-patch": "^3.3.0",
+    "tstl": "^3.0.0",
+    "typescript": "catalog:typescript",
+    "uuid": "catalog:utils",
+    "zod": "^3.19.1"
+  },
+  "dependencies": {
+    "@typia/interface": "workspace:^",
+    "fp-ts": "^2.16.9",
+    "randexp": "^0.5.3",
+    "source-map-support": "^0.5.21",
+    "suppress-warnings": "^1.0.2",
+    "tstl": "^3.0.0",
+    "typia": "workspace:^",
+    "uuid": "catalog:utils"
+  }
+}

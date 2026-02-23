@@ -1,0 +1,127 @@
+{
+  "name": "typia",
+  "version": "11.0.1",
+  "description": "Superfast runtime validators with only one line",
+  "main": "src/index.ts",
+  "bin": {
+    "typia": "./lib/executable/typia.js"
+  },
+  "tsp": {
+    "tscOptions": {
+      "parseAllJsDoc": true
+    }
+  },
+  "scripts": {
+    "test": "ts-node deploy --tag test",
+    "test:template": "npm run --tag test --template",
+    "-------------------------------------------------": "",
+    "build": "rimraf lib && tsc && rollup -c",
+    "dev": "rimraf lib && tsc --watch",
+    "dev:errors": "tsc --project tsconfig.errors.json --watch",
+    "eslint": "eslint",
+    "eslint:fix": "eslint --fix",
+    "prettier": "prettier src --check",
+    "prettier:fix": "prettier src --write",
+    "------------------------------------------------": "",
+    "package:latest": "ts-node deploy --tag latest",
+    "package:next": "ts-node deploy --tag next",
+    "package:patch": "ts-node deploy --tag patch",
+    "package:tgz": "ts-node deploy/tgz.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/samchon/typia"
+  },
+  "author": "Jeongho Nam",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/samchon/typia/issues"
+  },
+  "homepage": "https://typia.io",
+  "dependencies": {
+    "@standard-schema/spec": "^1.0.0",
+    "@typia/core": "workspace:^",
+    "@typia/interface": "workspace:^",
+    "@typia/transform": "workspace:^",
+    "@typia/utils": "workspace:^",
+    "commander": "^10.0.0",
+    "comment-json": "^4.2.3",
+    "inquirer": "^8.2.5",
+    "package-manager-detector": "^0.2.0",
+    "randexp": "^0.5.3"
+  },
+  "peerDependencies": {
+    "typescript": ">=4.8.0 <5.10.0"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "catalog:rollup",
+    "@rollup/plugin-node-resolve": "catalog:rollup",
+    "@rollup/plugin-typescript": "catalog:rollup",
+    "@types/inquirer": "^8.2.5",
+    "@types/node": "catalog:utils",
+    "@types/ts-expose-internals": "catalog:typescript",
+    "@typescript-eslint/eslint-plugin": "^8.1.0",
+    "@typescript-eslint/parser": "^8.1.0",
+    "chalk": "^4.0.0",
+    "eslint-plugin-deprecation": "^3.0.0",
+    "rimraf": "catalog:utils",
+    "rollup": "catalog:rollup",
+    "rollup-plugin-auto-external": "catalog:rollup",
+    "rollup-plugin-node-externals": "catalog:rollup",
+    "suppress-warnings": "^1.0.2",
+    "tinyglobby": "^0.2.12",
+    "ts-node": "catalog:typescript",
+    "typescript": "catalog:typescript"
+  },
+  "sideEffects": false,
+  "files": [
+    "LICENSE",
+    "README.md",
+    "package.json",
+    "lib",
+    "src"
+  ],
+  "keywords": [
+    "fast",
+    "json",
+    "stringify",
+    "typescript",
+    "transform",
+    "ajv",
+    "io-ts",
+    "zod",
+    "schema",
+    "json-schema",
+    "generator",
+    "assert",
+    "clone",
+    "is",
+    "validate",
+    "equal",
+    "runtime",
+    "type",
+    "typebox",
+    "checker",
+    "validator",
+    "safe",
+    "parse",
+    "prune",
+    "random",
+    "protobuf",
+    "llm",
+    "llm-function-calling",
+    "structured-output",
+    "openai",
+    "chatgpt",
+    "claude",
+    "gemini",
+    "llama"
+  ],
+  "packageManager": "pnpm@10.6.4",
+  "publishConfig": {
+    "access": "public",
+    "main": "lib/index.js",
+    "typings": "lib/index.d.ts",
+    "module": "lib/index.mjs"
+  }
+}
