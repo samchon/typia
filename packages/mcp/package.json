@@ -26,7 +26,7 @@
     "@modelcontextprotocol/sdk": ">=1.0.0"
   },
   "devDependencies": {
-    "@modelcontextprotocol/sdk": "^1.12.0",
+    "@modelcontextprotocol/sdk": "^1.26.0",
     "rimraf": "catalog:utils",
     "typescript": "catalog:typescript",
     "zod": "^3.25.0"

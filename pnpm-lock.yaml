@@ -282,7 +282,7 @@ importers:
         version: 3.25.1(zod@3.25.76)
     devDependencies:
       '@modelcontextprotocol/sdk':
-        specifier: ^1.12.0
+        specifier: ^1.26.0
         version: 1.26.0(zod@3.25.76)
       rimraf:
         specifier: catalog:utils
@@ -512,6 +512,49 @@ importers:
         specifier: workspace:^
         version: link:../../packages/typia
     devDependencies:
+      ts-patch:
+        specifier: catalog:typescript
+        version: 3.3.0
+      typescript:
+        specifier: catalog:typescript
+        version: 5.9.3
+
+  tests/test-mcp:
+    dependencies:
+      '@modelcontextprotocol/sdk':
+        specifier: ^1.26.0
+        version: 1.26.0(zod@3.25.76)
+      '@nestia/e2e':
+        specifier: catalog:utils
+        version: 10.0.2
+      '@typia/interface':
+        specifier: workspace:^
+        version: link:../../packages/interface
+      '@typia/mcp':
+        specifier: workspace:^
+        version: link:../../packages/mcp
+      '@typia/utils':
+        specifier: workspace:^
+        version: link:../../packages/utils
+      chalk:
+        specifier: ^4.1.2
+        version: 4.1.2
+      typia:
+        specifier: workspace:^
+        version: link:../../packages/typia
+      zod:
+        specifier: ^3.25.0
+        version: 3.25.76
+    devDependencies:
+      '@types/node':
+        specifier: catalog:utils
+        version: 25.2.3
+      '@types/ts-expose-internals':
+        specifier: catalog:typescript
+        version: ts-expose-internals@5.6.3
+      ts-node:
+        specifier: catalog:typescript
+        version: 10.9.2(@types/node@25.2.3)(typescript@5.9.3)
       ts-patch:
         specifier: catalog:typescript
         version: 3.3.0
