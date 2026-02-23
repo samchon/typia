@@ -36,6 +36,9 @@ export class Calculator {
    * @returns The quotient of a and b
    */
   divide(p: Calculator.IProps): number {
+    if (p.y === 0) {
+      throw new Error("Division by zero is not allowed");
+    }
     return p.x / p.y;
   }
 }
