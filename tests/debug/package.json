@@ -4,7 +4,6 @@
   "version": "0.1.0",
   "description": "Convenient debug program for typia",
   "scripts": {
-    "build": "rimraf bin && tsc",
     "prepare": "ts-patch install",
     "start": "ts-node src/index.ts"
   },

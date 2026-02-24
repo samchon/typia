@@ -5,7 +5,6 @@
   "description": "Test program of typia generated error",
   "main": "index.js",
   "scripts": {
-    "build": "tsc",
     "prepare": "ts-patch install",
     "start": "node index.js"
   },
