@@ -7,7 +7,7 @@
   "scripts": {
     "build": "tsc",
     "prepare": "ts-patch install",
-    "start": "node index"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",

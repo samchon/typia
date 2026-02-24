@@ -5,7 +5,8 @@
   "main": "src/index.ts",
   "exports": {
     ".": "./src/index.ts",
-    "./src/transform": "./src/transform/index.ts",
+    "./lib/transform": "./src/transform.ts",
+    "./lib/internal/*.js": "./src/internal/*.ts",
     "./package.json": "./package.json"
   },
   "bin": {
@@ -130,9 +131,19 @@
     "module": "lib/index.mjs",
     "exports": {
       ".": {
+        "types": "./lib/index.d.ts",
         "import": "./lib/index.mjs",
-        "require": "./lib/index.js",
-        "types": "./lib/index.d.ts"
+        "require": "./lib/index.js"
+      },
+      "./lib/transform": {
+        "types": "./lib/transform.d.ts",
+        "import": "./lib/transform.mjs",
+        "require": "./lib/transform.js"
+      },
+      "./lib/internal/*.js": {
+        "types": "./lib/internal/*.d.ts",
+        "import": "./lib/internal/*.mjs",
+        "require": "./lib/internal/*.js"
       },
       "./package.json": "./package.json"
     }
