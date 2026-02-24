@@ -3,6 +3,11 @@
   "version": "11.0.1",
   "description": "Superfast runtime validators with only one line",
   "main": "src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./src/transform": "./src/transform/index.ts",
+    "./package.json": "./package.json"
+  },
   "bin": {
     "typia": "./lib/executable/typia.js"
   },
@@ -122,6 +127,14 @@
     "access": "public",
     "main": "lib/index.js",
     "typings": "lib/index.d.ts",
-    "module": "lib/index.mjs"
+    "module": "lib/index.mjs",
+    "exports": {
+      ".": {
+        "import": "./lib/index.mjs",
+        "require": "./lib/index.js",
+        "types": "./lib/index.d.ts"
+      },
+      "./package.json": "./package.json"
+    }
   }
 }
