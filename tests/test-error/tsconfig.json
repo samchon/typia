@@ -5,4 +5,11 @@
     "outDir": "bin",
   },
   "include": ["src"],
+  "ts-node": {
+    "transpileOnly": true,
+    "compilerOptions": {
+      "module": "commonjs",
+      "plugins": []
+    }
+  },
 }
