@@ -4,7 +4,6 @@
     "noEmit": false,
     "outDir": "bin",
   },
-  "include": ["src"],
   "ts-node": {
     "transpileOnly": true,
     "compilerOptions": {
@@ -12,4 +11,5 @@
       "plugins": []
     }
   },
+  "include": ["src"],
 }
