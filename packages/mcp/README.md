@@ -19,15 +19,18 @@ npm install @typia/mcp @modelcontextprotocol/sdk
 ### From TypeScript class
 
 ```typescript
-import typia from "typia";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { registerMcpControllers } from "@typia/mcp";
+import typia from "typia";
 
-const server = new McpServer({ name: "my-server", version: "1.0.0" });
+const server: McpServer = new McpServer({
+  name: "my-server",
+  version: "1.0.0",
+});
 registerMcpControllers({
   server,
   controllers: [
-    typia.llm.controller<YourClass>("YourClass", new YourClass()),
+    typia.llm.controller<Calculator>("Calculator", new Calculator()),
   ],
 });
 ```
@@ -35,8 +38,8 @@ registerMcpControllers({
 ### From OpenAPI document
 
 ```typescript
-import { HttpLlm } from "@typia/utils";
 import { registerMcpControllers } from "@typia/mcp";
+import { HttpLlm } from "@typia/utils";
 
 registerMcpControllers({
   server,

@@ -19,23 +19,32 @@ npm install @typia/vercel ai
 ### From TypeScript class
 
 ```typescript
-import typia from "typia";
+import { openai } from "@ai-sdk/openai";
 import { toVercelTools } from "@typia/vercel";
+import { generateText, GenerateTextResult, Tool } from "ai";
+import typia from "typia";
 
-const tools = toVercelTools({
+const tools: Record<string, Tool> = toVercelTools({
   controllers: [
-    typia.llm.controller<YourClass>("YourClass", new YourClass()),
+    typia.llm.controller<Calculator>("Calculator", new Calculator()),
   ],
+});
+
+const result: GenerateTextResult = await generateText({
+  model: openai("gpt-4o"),
+  prompt: "What is 10 + 5?",
+  tools,
 });
 ```
 
 ### From OpenAPI document
 
 ```typescript
-import { HttpLlm } from "@typia/utils";
 import { toVercelTools } from "@typia/vercel";
+import { HttpLlm } from "@typia/utils";
+import { Tool } from "ai";
 
-const tools = toVercelTools({
+const tools: Record<string, Tool> = toVercelTools({
   controllers: [
     HttpLlm.controller({
       name: "petStore",

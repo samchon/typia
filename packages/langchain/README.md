@@ -19,23 +19,41 @@ npm install @typia/langchain @langchain/core
 ### From TypeScript class
 
 ```typescript
-import typia from "typia";
+import { ChainValues, Runnable } from "@langchain/core";
+import { ChatPromptTemplate } from "@langchain/core/prompts";
+import { DynamicStructuredTool } from "@langchain/core/tools";
+import { ChatOpenAI } from "@langchain/openai";
 import { toLangChainTools } from "@typia/langchain";
+import { AgentExecutor, createToolCallingAgent } from "langchain/agents";
+import typia from "typia";
 
-const tools = toLangChainTools({
+const tools: DynamicStructuredTool[] = toLangChainTools({
   controllers: [
-    typia.llm.controller<YourClass>("YourClass", new YourClass()),
+    typia.llm.controller<Calculator>("Calculator", new Calculator()),
   ],
 });
+
+const agent: Runnable = createToolCallingAgent({
+  llm: new ChatOpenAI({ model: "gpt-4o" }),
+  tools,
+  prompt: ChatPromptTemplate.fromMessages([
+    ["system", "You are a helpful assistant."],
+    ["human", "{input}"],
+    ["placeholder", "{agent_scratchpad}"],
+  ]),
+});
+const executor: AgentExecutor = new AgentExecutor({ agent, tools });
+const result: ChainValues = await executor.invoke({ input: "What is 10 + 5?" });
 ```
 
 ### From OpenAPI document
 
 ```typescript
-import { HttpLlm } from "@typia/utils";
+import { DynamicStructuredTool } from "@langchain/core/tools";
 import { toLangChainTools } from "@typia/langchain";
+import { HttpLlm } from "@typia/utils";
 
-const tools = toLangChainTools({
+const tools: DynamicStructuredTool[] = toLangChainTools({
   controllers: [
     HttpLlm.controller({
       name: "petStore",
