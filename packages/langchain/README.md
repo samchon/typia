@@ -66,6 +66,42 @@ const tools: DynamicStructuredTool[] = toLangChainTools({
 });
 ```
 
+### Structured Output
+
+Use `typia.llm.parameters<T>()` with LangChain's `withStructuredOutput()` to generate structured output with validation:
+
+```typescript
+import { ChatOpenAI } from "@langchain/openai";
+import { dedent, stringifyValidationFailure } from "@typia/utils";
+import typia, { tags } from "typia";
+
+interface IMember {
+  email: string & tags.Format<"email">;
+  name: string;
+  age: number & tags.Minimum<0> & tags.Maximum<100>;
+  hobbies: string[];
+  joined_at: string & tags.Format<"date">;
+}
+
+const model = new ChatOpenAI({ model: "gpt-4o" }).withStructuredOutput(
+  typia.llm.parameters<IMember>(),
+);
+
+const member: IMember = await model.invoke(dedent`
+  I am a new member of the community.
+
+  My name is John Doe, and I am 25 years old.
+  I like playing basketball and reading books,
+  and joined to this community at 2022-01-01.
+`);
+
+// Validate the result
+const result = typia.validate<IMember>(member);
+if (!result.success) {
+  console.error(stringifyValidationFailure(result));
+}
+```
+
 ## Features
 
 - No manual schema definition — generates everything from TypeScript types or OpenAPI

@@ -57,6 +57,46 @@ const tools: Record<string, Tool> = toVercelTools({
 });
 ```
 
+### Structured Output
+
+Use `typia.llm.parameters<T>()` with Vercel's `jsonSchema()` to generate structured output with validation:
+
+```typescript
+import { openai } from "@ai-sdk/openai";
+import { generateObject, jsonSchema } from "ai";
+import { dedent, stringifyValidationFailure } from "@typia/utils";
+import typia, { tags } from "typia";
+
+interface IMember {
+  email: string & tags.Format<"email">;
+  name: string;
+  age: number & tags.Minimum<0> & tags.Maximum<100>;
+  hobbies: string[];
+  joined_at: string & tags.Format<"date">;
+}
+
+const { object } = await generateObject({
+  model: openai("gpt-4o"),
+  schema: jsonSchema<IMember>(typia.llm.parameters<IMember>(), {
+    validate: (value) => {
+      const result = typia.validate<IMember>(value);
+      if (result.success) return { success: true, value: result.data };
+      return {
+        success: false,
+        error: new Error(stringifyValidationFailure(result)),
+      };
+    },
+  }),
+  prompt: dedent`
+    I am a new member of the community.
+
+    My name is John Doe, and I am 25 years old.
+    I like playing basketball and reading books,
+    and joined to this community at 2022-01-01.
+  `,
+});
+```
+
 ## Features
 
 - No manual schema definition — generates everything from TypeScript types or OpenAPI
