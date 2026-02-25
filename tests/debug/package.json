@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@typia/debug",
-  "version": "0.1.0",
+  "version": "12.0.0-dev.20260225",
   "description": "Convenient debug program for typia",
   "scripts": {
     "prepare": "ts-patch install",
