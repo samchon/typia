@@ -9,7 +9,8 @@
   },
   "scripts": {
     "build": "rimraf lib && tsc && rollup -c",
-    "dev": "rimraf lib && tsc --watch"
+    "dev": "rimraf lib && tsc --watch",
+    "prepack": "pnpm run build"
   },
   "repository": {
     "type": "git",

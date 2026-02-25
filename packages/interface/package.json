@@ -9,7 +9,8 @@
   },
   "scripts": {
     "build": "rimraf lib && tsc",
-    "dev": "rimraf lib && tsc --watch"
+    "dev": "rimraf lib && tsc --watch",
+    "prepack": "pnpm run build"
   },
   "repository": {
     "type": "git",

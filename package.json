@@ -59,6 +59,7 @@
   "packageManager": "pnpm@10.6.4",
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^6.0.2",
+    "bumpp": "^10.4.1",
     "prettier": "^3.8.1",
     "prettier-plugin-jsdoc": "^1.8.0"
   }
