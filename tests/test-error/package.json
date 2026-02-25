@@ -5,9 +5,9 @@
   "description": "Test program of typia generated error",
   "main": "index.js",
   "scripts": {
-    "build": "tsc",
+    "build": "cross-env NODE_OPTIONS=\"--no-experimental-strip-types -r ts-node/register\" tsc",
     "prepare": "ts-patch install",
-    "start": "node index"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -25,6 +25,8 @@
   },
   "homepage": "https://github.com/samchon/typia#readme",
   "devDependencies": {
+    "cross-env": "^7.0.3",
+    "ts-node": "catalog:typescript",
     "ts-patch": "catalog:typescript",
     "typescript": "catalog:typescript"
   },

@@ -2,7 +2,14 @@
   "extends": "../config/tsconfig.json",
   "compilerOptions": {
     "noEmit": false,
-    "outDir": "bin"
+    "outDir": "bin",
+  },
+  "ts-node": {
+    "transpileOnly": true,
+    "compilerOptions": {
+      "module": "commonjs",
+      "plugins": []
+    }
   },
   "include": ["src"],
 }

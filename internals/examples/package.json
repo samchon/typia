@@ -4,7 +4,8 @@
   "version": "1.0.0",
   "description": "Example codes for typia website",
   "scripts": {
-    "build": "rimraf bin && tsc && prettier --write bin/**/*.js"
+    "prepare": "ts-patch install",
+    "build": "rimraf bin && cross-env NODE_OPTIONS=\"--no-experimental-strip-types -r ts-node/register\" tsc && prettier --write bin/**/*.js"
   },
   "repository": {
     "type": "git",
@@ -23,7 +24,9 @@
   "devDependencies": {
     "@types/node": "catalog:utils",
     "@types/uuid": "catalog:utils",
+    "cross-env": "^7.0.3",
     "rimraf": "catalog:utils",
+    "ts-node": "catalog:typescript",
     "ts-patch": "catalog:typescript",
     "typescript": "catalog:typescript"
   },
