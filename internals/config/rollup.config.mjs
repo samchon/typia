@@ -7,6 +7,7 @@ import { globSync } from "tinyglobby";
 
 export default {
   input: globSync("./src/**/*.ts"),
+  external: (id) => /node_modules/.test(id),
   output: {
     dir: "./lib",
     format: "esm",
@@ -21,9 +22,9 @@ export default {
     preserveModulesRoot: "src",
   },
   plugins: [
-    nodeResolve(),
-    autoExternal(),
     nodeExternals(),
+    autoExternal(),
+    nodeResolve(),
     commonjs(),
     typescript({
       tsconfig: "tsconfig.json",
