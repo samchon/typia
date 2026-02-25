@@ -127,24 +127,24 @@
   "packageManager": "pnpm@10.6.4",
   "publishConfig": {
     "access": "public",
-    "main": "lib/index.js",
     "typings": "lib/index.d.ts",
+    "main": "lib/index.js",
     "module": "lib/index.mjs",
     "exports": {
       ".": {
         "types": "./lib/index.d.ts",
         "import": "./lib/index.mjs",
-        "require": "./lib/index.js"
+        "default": "./lib/index.js"
       },
       "./lib/transform": {
         "types": "./lib/transform.d.ts",
         "import": "./lib/transform.mjs",
-        "require": "./lib/transform.js"
+        "default": "./lib/transform.js"
       },
       "./lib/internal/*.js": {
         "types": "./lib/internal/*.d.ts",
         "import": "./lib/internal/*.mjs",
-        "require": "./lib/internal/*.js"
+        "default": "./lib/internal/*.js"
       },
       "./package.json": "./package.json"
     }
