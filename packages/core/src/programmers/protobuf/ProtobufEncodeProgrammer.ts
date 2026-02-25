@@ -154,7 +154,7 @@ export namespace ProtobufEncodeProgrammer {
           undefined,
           "Writer",
           props.context.importer.type({
-            file: "typia/src/internal/_IProtobufWriter.js",
+            file: "typia/lib/internal/_IProtobufWriter.js",
             name: "_IProtobufWriter",
           }),
         ),

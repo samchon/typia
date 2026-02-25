@@ -102,10 +102,16 @@
     "skipLibCheck": true,                                /* Skip type checking all .d.ts files. */
     "plugins": [
       {
-        "transform": "typia/src/transform.ts",
-        "runtime": "js",
+        "transform": "typia/lib/transform"
       },
     ],
   },
-  "include": ["./src"],
+  "ts-node": {
+    "transpileOnly": true,
+    "compilerOptions": {
+      "module": "commonjs",
+      "plugins": []
+    }
+  },
+  "include": ["./src"]
 }

@@ -4,7 +4,6 @@
   "version": "0.1.0",
   "description": "Automated test features of openapi.",
   "scripts": {
-    "build": "tsc",
     "prepare": "ts-patch install",
     "start": "node -r ts-node/register src/index.ts"
   },

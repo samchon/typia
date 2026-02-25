@@ -4,7 +4,6 @@
   "version": "0.1.0",
   "description": "Automated test features of typia.",
   "scripts": {
-    "build": "tsc",
     "dev": "tsc --watch",
     "prepare": "ts-patch install",
     "start": "ts-node src/index.ts"

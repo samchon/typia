@@ -3,7 +3,7 @@
   "compilerOptions": {
     "plugins": [
       { 
-        "transform": "typia/lib/transform.js", 
+        "transform": "typia/lib/transform", 
         "functional": true, 
         "numeric": true, 
         "finite": true,

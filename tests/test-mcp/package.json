@@ -4,7 +4,6 @@
   "version": "0.1.0",
   "description": "Test suite for @typia/mcp package",
   "scripts": {
-    "build": "tsc",
     "prepare": "ts-patch install",
     "start": "ts-node src/index.ts"
   },
