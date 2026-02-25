@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@typia/benchmark",
-  "version": "0.1.0",
+  "version": "12.0.0-dev.20260225",
   "description": "Benchmark program of typia performance",
   "main": "bin/index.js",
   "scripts": {

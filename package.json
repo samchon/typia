@@ -1,14 +1,14 @@
 {
   "private": true,
   "name": "@typia/station",
-  "version": "11.0.3",
+  "version": "12.0.0-dev.20260225",
   "description": "Typia Station",
   "scripts": {
     "build": "pnpm --filter=./packages/* -r build",
     "test": "pnpm --filter=./tests/test-* -r start",
     "format": "prettier --write packages/**/*.ts && prettier --write internals/**/*.ts && prettier --write tests/**/*.ts",
     "package:latest": "pnpm --filter=./packages/* -r publish --tag latest --access public",
-    "package:next": "pnpm --filter=./packages/* -r publish --tag next --access public"
+    "package:next": "bash next.bash"
   },
   "repository": {
     "type": "git",

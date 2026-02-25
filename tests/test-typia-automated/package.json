@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@typia/test-typia-automated",
-  "version": "0.1.0",
+  "version": "12.0.0-dev.20260225",
   "description": "Automated test features of typia.",
   "scripts": {
     "prepare": "ts-patch install",
