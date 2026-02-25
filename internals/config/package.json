@@ -1,0 +1,16 @@
+{
+  "private": true,
+  "name": "@typia/config",
+  "version": "0.1.0",
+  "description": "Shared build configuration for typia packages",
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "catalog:rollup",
+    "@rollup/plugin-node-resolve": "catalog:rollup",
+    "@rollup/plugin-typescript": "catalog:rollup",
+    "rollup": "catalog:rollup",
+    "rollup-plugin-auto-external": "catalog:rollup",
+    "rollup-plugin-node-externals": "catalog:rollup",
+    "tinyglobby": "^0.2.12",
+    "typescript": "catalog:typescript"
+  }
+}

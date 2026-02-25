@@ -3,6 +3,13 @@
   "version": "11.0.1",
   "description": "Superfast runtime validators with only one line",
   "main": "src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./lib/transform": "./src/transform.ts",
+    "./lib/internal/*.js": "./src/internal/*.ts",
+    "./src/internal/*": "./src/internal/*.ts",
+    "./package.json": "./package.json"
+  },
   "bin": {
     "typia": "./lib/executable/typia.js"
   },
@@ -120,8 +127,26 @@
   "packageManager": "pnpm@10.6.4",
   "publishConfig": {
     "access": "public",
+    "types": "lib/index.d.ts",
     "main": "lib/index.js",
-    "typings": "lib/index.d.ts",
-    "module": "lib/index.mjs"
+    "module": "lib/index.mjs",
+    "exports": {
+      ".": {
+        "types": "./lib/index.d.ts",
+        "import": "./lib/index.mjs",
+        "default": "./lib/index.js"
+      },
+      "./lib/transform": {
+        "types": "./lib/transform.d.ts",
+        "import": "./lib/transform.mjs",
+        "default": "./lib/transform.js"
+      },
+      "./lib/internal/*.js": {
+        "types": "./lib/internal/*.d.ts",
+        "import": "./lib/internal/*.mjs",
+        "default": "./lib/internal/*.js"
+      },
+      "./package.json": "./package.json"
+    }
   }
 }
