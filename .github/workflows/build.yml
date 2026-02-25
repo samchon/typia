@@ -3,11 +3,13 @@ on:
   pull_request:
     paths:
       - '.github/workflows/build.yml'
+      - 'internals/config/**'
       - 'packages/*/src/**'
       - 'packages/*/package.json'
-      - 'package.json'
+      - 'packages/*/rollup.config.mjs'
       - 'pnpm-lock.yaml'
       - 'pnpm-workspace.yaml'
+      - 'package.json'
 jobs:
   Ubuntu:
     runs-on: ubuntu-latest
