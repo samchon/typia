@@ -8,7 +8,7 @@
     "./package.json": "./package.json"
   },
   "scripts": {
-    "build": "rimraf lib && tsc",
+    "build": "rimraf lib && tsc && rollup -c",
     "dev": "rimraf lib && tsc --watch"
   },
   "repository": {
@@ -31,7 +31,14 @@
   },
   "devDependencies": {
     "@modelcontextprotocol/sdk": "^1.26.0",
+    "@rollup/plugin-commonjs": "catalog:rollup",
+    "@rollup/plugin-node-resolve": "catalog:rollup",
+    "@rollup/plugin-typescript": "catalog:rollup",
     "rimraf": "catalog:utils",
+    "rollup": "catalog:rollup",
+    "rollup-plugin-auto-external": "catalog:rollup",
+    "rollup-plugin-node-externals": "catalog:rollup",
+    "tinyglobby": "^0.2.12",
     "typescript": "catalog:typescript",
     "zod": "^3.25.0"
   },
@@ -62,10 +69,12 @@
   "publishConfig": {
     "access": "public",
     "main": "lib/index.js",
-    "typings": "lib/index.d.ts",
+    "module": "lib/index.mjs",
+    "types": "lib/index.d.ts",
     "exports": {
       ".": {
         "types": "./lib/index.d.ts",
+        "import": "./lib/index.mjs",
         "default": "./lib/index.js"
       },
       "./package.json": "./package.json"
