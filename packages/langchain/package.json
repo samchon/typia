@@ -44,7 +44,6 @@
   },
   "sideEffects": false,
   "files": [
-    "LICENSE",
     "README.md",
     "package.json",
     "lib",

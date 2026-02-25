@@ -11,7 +11,7 @@
     "./package.json": "./package.json"
   },
   "bin": {
-    "typia": "./lib/executable/typia.js"
+    "typia": "./src/executable/typia.ts"
   },
   "tsp": {
     "tscOptions": {
@@ -70,7 +70,6 @@
   },
   "sideEffects": false,
   "files": [
-    "LICENSE",
     "README.md",
     "package.json",
     "lib",
@@ -118,6 +117,9 @@
     "types": "lib/index.d.ts",
     "main": "lib/index.js",
     "module": "lib/index.mjs",
+    "bin": {
+      "typia": "./lib/executable/typia.js"
+    },
     "exports": {
       ".": {
         "types": "./lib/index.d.ts",
