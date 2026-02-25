@@ -12,6 +12,8 @@ Converts typia controllers to LangChain `DynamicStructuredTool[]` with automatic
 
 ```bash
 npm install @typia/langchain @langchain/core
+npm install typia
+npx typia setup
 ```
 
 ## Usage
