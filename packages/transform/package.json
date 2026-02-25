@@ -1,6 +1,6 @@
 {
   "name": "@typia/transform",
-  "version": "12.0.0",
+  "version": "11.0.3",
   "description": "Superfast runtime validators with only one line",
   "main": "src/index.ts",
   "exports": {
