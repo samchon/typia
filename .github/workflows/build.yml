@@ -6,6 +6,7 @@ on:
       - 'internals/config/**'
       - 'packages/*/src/**'
       - 'packages/*/package.json'
+      - 'packages/*/rollup.config.mjs'
       - 'pnpm-lock.yaml'
       - 'pnpm-workspace.yaml'
       - 'package.json'
