@@ -27,6 +27,8 @@ jobs:
       - uses: pnpm/action-setup@v2
         with:
           version: 8
+      - name: Root
+        run: pnpm install
       - name: Build
         working-directory: website
         run: |
