@@ -1,6 +1,6 @@
 import RandExp from "randexp";
 import { back_inserter, ranges } from "tstl";
-import { _randomFormatDuration } from "typia/lib/internal/_randomFormatDuration";
+import { _randomFormatDuration } from "typia/lib/internal/_randomFormatDuration.js";
 
 export namespace TestRandomGenerator {
   const ALPHABETS = "abcdefghijklmnopqrstuvwxyz";
