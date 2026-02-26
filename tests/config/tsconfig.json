@@ -30,10 +30,9 @@
     "module": "commonjs",                                /* Specify what module code is generated. */
     // "rootDir": "./",                                  /* Specify the root folder within your source files. */
     "moduleResolution": "node",                       /* Specify how TypeScript looks up a file from a given module specifier. */
-    "baseUrl": "..",
+    // "baseUrl": "./",
     "paths": {
-      "typia/lib/transform": ["typia/src/transform.ts"],
-      "typia/lib/internal/*": ["typia/src/internal/*"]
+      "typia/lib/internal/*": ["../../packages/typia/src/internal/*"]
     },
     // "rootDirs": [],                                   /* Allow multiple folders to be treated as one when resolving modules. */
     // "typeRoots": [],                                  /* Specify multiple folders that act like `./node_modules/@types`. */
