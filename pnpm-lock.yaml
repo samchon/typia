@@ -201,7 +201,7 @@ importers:
         specifier: ^10.9.1
         version: 10.9.2(@types/node@25.3.1)(typescript@5.9.3)
       ts-patch:
-        specifier: ^3.3.0
+        specifier: catalog:typescript
         version: 3.3.0
       typescript:
         specifier: catalog:typescript
