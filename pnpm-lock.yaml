@@ -79,6 +79,12 @@ importers:
       prettier-plugin-jsdoc:
         specifier: ^1.8.0
         version: 1.8.0(prettier@3.8.1)
+      ts-patch:
+        specifier: catalog:typescript
+        version: 3.3.0
+      typescript:
+        specifier: catalog:typescript
+        version: 5.9.3
 
   internals/benchmark:
     dependencies:
@@ -267,9 +273,6 @@ importers:
       ts-node:
         specifier: catalog:typescript
         version: 10.9.2(@types/node@25.3.1)(typescript@5.9.3)
-      ts-patch:
-        specifier: catalog:typescript
-        version: 3.3.0
       typescript:
         specifier: catalog:typescript
         version: 5.9.3
@@ -665,9 +668,6 @@ importers:
       ts-node:
         specifier: catalog:typescript
         version: 10.9.2(@types/node@25.3.1)(typescript@5.9.3)
-      ts-patch:
-        specifier: catalog:typescript
-        version: 3.3.0
       typescript:
         specifier: catalog:typescript
         version: 5.9.3
@@ -705,9 +705,6 @@ importers:
       ts-node:
         specifier: catalog:typescript
         version: 10.9.2(@types/node@25.3.1)(typescript@5.9.3)
-      ts-patch:
-        specifier: catalog:typescript
-        version: 3.3.0
       typescript:
         specifier: catalog:typescript
         version: 5.9.3
@@ -724,9 +721,6 @@ importers:
       ts-node:
         specifier: catalog:typescript
         version: 10.9.2(@types/node@25.3.1)(typescript@5.9.3)
-      ts-patch:
-        specifier: catalog:typescript
-        version: 3.3.0
       typescript:
         specifier: catalog:typescript
         version: 5.9.3
@@ -764,9 +758,6 @@ importers:
       ts-node:
         specifier: catalog:typescript
         version: 10.9.2(@types/node@25.3.1)(typescript@5.9.3)
-      ts-patch:
-        specifier: catalog:typescript
-        version: 3.3.0
       typescript:
         specifier: catalog:typescript
         version: 5.9.3
@@ -807,9 +798,6 @@ importers:
       ts-node:
         specifier: catalog:typescript
         version: 10.9.2(@types/node@25.3.1)(typescript@5.9.3)
-      ts-patch:
-        specifier: catalog:typescript
-        version: 3.3.0
       typescript:
         specifier: catalog:typescript
         version: 5.9.3
@@ -859,9 +847,6 @@ importers:
       ts-node:
         specifier: catalog:typescript
         version: 10.9.2(@types/node@25.3.1)(typescript@5.9.3)
-      ts-patch:
-        specifier: catalog:typescript
-        version: 3.3.0
       typescript:
         specifier: catalog:typescript
         version: 5.9.3
@@ -905,9 +890,6 @@ importers:
       ts-node:
         specifier: catalog:typescript
         version: 10.9.2(@types/node@25.3.1)(typescript@5.9.3)
-      ts-patch:
-        specifier: catalog:typescript
-        version: 3.3.0
       typescript:
         specifier: catalog:typescript
         version: 5.9.3
@@ -948,9 +930,6 @@ importers:
       ts-node:
         specifier: catalog:typescript
         version: 10.9.2(@types/node@25.3.1)(typescript@5.9.3)
-      ts-patch:
-        specifier: catalog:typescript
-        version: 3.3.0
       typescript:
         specifier: catalog:typescript
         version: 5.9.3
@@ -988,9 +967,6 @@ importers:
       ts-node:
         specifier: catalog:typescript
         version: 10.9.2(@types/node@25.3.1)(typescript@5.9.3)
-      ts-patch:
-        specifier: catalog:typescript
-        version: 3.3.0
       typescript:
         specifier: catalog:typescript
         version: 5.9.3

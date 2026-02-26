@@ -4,9 +4,6 @@
   "version": "12.0.0-dev.20260225",
   "description": "Template structures for typia testing.",
   "main": "src/index.ts",
-  "scripts": {
-    "prepare": "ts-patch install"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/samchon/typia"
@@ -26,7 +23,6 @@
     "@types/node": "catalog:utils",
     "@types/uuid": "catalog:utils",
     "ts-node": "catalog:typescript",
-    "ts-patch": "catalog:typescript",
     "typescript": "catalog:typescript"
   },
   "dependencies": {
