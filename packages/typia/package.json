@@ -133,7 +133,6 @@
       },
       "./lib/internal/*.js": {
         "types": "./lib/internal/*.d.ts",
-        "import": "./lib/internal/*.mjs",
         "default": "./lib/internal/*.js"
       },
       "./lib/internal/*": {
