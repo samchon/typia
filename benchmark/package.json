@@ -60,7 +60,7 @@
     "suppress-warnings": "^1.0.2",
     "tgrid": "^0.10.0",
     "ts-node": "^10.9.1",
-    "ts-patch": "^3.3.0",
+    "ts-patch": "catalog:typescript",
     "tstl": "^3.0.0",
     "typescript": "catalog:typescript",
     "uuid": "catalog:utils",

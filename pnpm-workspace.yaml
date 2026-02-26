@@ -1,5 +1,7 @@
 packages:
-  - 'internals/*'
+  - 'benchmark'
+  - 'config'
+  - 'examples'
   - 'packages/*'
   - 'tests/*'
 catalogs:

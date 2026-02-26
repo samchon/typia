@@ -5,10 +5,12 @@
   "description": "Typia Station",
   "scripts": {
     "build": "pnpm --filter=./packages/* -r build",
-    "test": "pnpm --filter=./tests/test-* -r start",
     "format": "prettier --write packages/**/*.ts && prettier --write internals/**/*.ts && prettier --write tests/**/*.ts",
+    "test": "pnpm --filter=./tests/test-* -r start",
     "package:latest": "pnpm --filter=./packages/* -r publish --tag latest --access public",
-    "package:next": "bash next.bash"
+    "package:next": "bash next.bash",
+    "package:tgz": "node website/build/tgz",
+    "prepare": "ts-patch install"
   },
   "repository": {
     "type": "git",
@@ -61,6 +63,8 @@
     "@trivago/prettier-plugin-sort-imports": "^6.0.2",
     "bumpp": "^10.4.1",
     "prettier": "^3.8.1",
-    "prettier-plugin-jsdoc": "^1.8.0"
+    "prettier-plugin-jsdoc": "^1.8.0",
+    "ts-patch": "catalog:typescript",
+    "typescript": "catalog:typescript"
   }
 }

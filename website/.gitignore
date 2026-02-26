@@ -2,6 +2,7 @@
 _pagefind/
 node_modules/
 out/
+packages/
 public/api/
 public/compiler/
 public/robots.txt

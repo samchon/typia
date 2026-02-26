@@ -13,7 +13,12 @@
   },
   "homepage": "https://typia.io",
   "devDependencies": {
-    "typia": "../../typia.tgz",
-    "@autobe/interface": "latest"
+    "@autobe/interface": "latest",
+    "@typia/interface": "../packages/interface.tgz",
+    "@typia/utils": "../packages/utils.tgz",
+    "@typia/mcp": "../packages/mcp.tgz",
+    "@typia/vercel": "../packages/vercel.tgz",
+    "@typia/langchain": "../packages/langchain.tgz",
+    "typia": "../packages/typia.tgz"
   }
 }

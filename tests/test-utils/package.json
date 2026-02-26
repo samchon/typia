@@ -5,7 +5,6 @@
   "description": "Automated test features of typia.",
   "scripts": {
     "dev": "tsc --watch",
-    "prepare": "ts-patch install",
     "start": "ts-node src/index.ts"
   },
   "repository": {
@@ -27,7 +26,6 @@
     "@types/ts-expose-internals": "catalog:typescript",
     "@types/uuid": "catalog:utils",
     "ts-node": "catalog:typescript",
-    "ts-patch": "catalog:typescript",
     "typescript": "catalog:typescript"
   },
   "dependencies": {

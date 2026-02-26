@@ -1,7 +1,12 @@
 {
-  "tsconfig": "../tsconfig.json",
+  "entryPointStrategy": "packages",
   "entryPoints": [
-    "../src/index.ts",
+    "../packages/typia",
+    "../packages/interface",
+    "../packages/utils",
+    "../packages/mcp",
+    "../packages/langchain",
+    "../packages/vercel",
   ],
   "out": "./public/api"
 }

@@ -10,7 +10,7 @@ import {
   Typography,
   Box,
 } from "@mui/material";
-import { ITransformOptions } from "typia/lib/transformers/ITransformOptions";
+import { ITransformOptions } from "@typia/core";
 
 interface OptionsModalProps {
   open: boolean;
@@ -25,20 +25,21 @@ const OptionsModal: React.FC<OptionsModalProps> = ({
   onClose,
   onSave,
 }) => {
-  const [localOptions, setLocalOptions] = React.useState<ITransformOptions>(options);
+  const [localOptions, setLocalOptions] =
+    React.useState<ITransformOptions>(options);
 
   React.useEffect(() => {
     setLocalOptions(options);
   }, [options]);
 
-  const handleChange = (key: keyof ITransformOptions) => (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setLocalOptions({
-      ...localOptions,
-      [key]: event.target.checked,
-    });
-  };
+  const handleChange =
+    (key: keyof ITransformOptions) =>
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      setLocalOptions({
+        ...localOptions,
+        [key]: event.target.checked,
+      });
+    };
 
   const handleSave = () => {
     onSave(localOptions);
@@ -66,7 +67,7 @@ const OptionsModal: React.FC<OptionsModalProps> = ({
               </Box>
             }
           />
-          
+
           <FormControlLabel
             control={
               <Switch
@@ -79,12 +80,13 @@ const OptionsModal: React.FC<OptionsModalProps> = ({
               <Box>
                 <Typography variant="body1">Numeric</Typography>
                 <Typography variant="caption" color="text.secondary">
-                  Validate numeric values using Number.isNaN() (ignored when finite is true)
+                  Validate numeric values using Number.isNaN() (ignored when
+                  finite is true)
                 </Typography>
               </Box>
             }
           />
-          
+
           <FormControlLabel
             control={
               <Switch
@@ -96,12 +98,13 @@ const OptionsModal: React.FC<OptionsModalProps> = ({
               <Box>
                 <Typography variant="body1">Functional</Typography>
                 <Typography variant="caption" color="text.secondary">
-                  Validate functional types (becomes false when marshaling/parsing)
+                  Validate functional types (becomes false when
+                  marshaling/parsing)
                 </Typography>
               </Box>
             }
           />
-          
+
           <FormControlLabel
             control={
               <Switch
@@ -113,7 +116,8 @@ const OptionsModal: React.FC<OptionsModalProps> = ({
               <Box>
                 <Typography variant="body1">Undefined</Typography>
                 <Typography variant="caption" color="text.secondary">
-                  Allow undefined values in superfluous properties (only affects equals function)
+                  Allow undefined values in superfluous properties (only affects
+                  equals function)
                 </Typography>
               </Box>
             }

@@ -4,7 +4,6 @@ title: Guide Documents > Large Language Model > application() function
 import { Callout, Tabs } from "nextra/components";
 
 import LocalSource from "../../../components/LocalSource";
-import RemoteSource from "../../../components/RemoteSource";
 import ValidationFeedbackExampleSnippet from "../../../snippets/ValidationFeedbackExampleSnippet.mdx";
 import ValidatorSupportMatrixSnippet from "../../../snippets/ValidatorSupportMatrixSnippet.mdx";
 
@@ -44,21 +43,21 @@ export namespace llm {
 ```
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/openapi/refs/heads/master/src/structures/ILlmApplication.ts"
-      filename="@samchon/openapi"
+    <LocalSource 
+      path="packages/interface/src/schema/ILlmApplication.ts"
+      filename="@typia/interface"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/openapi/refs/heads/master/src/structures/ILlmFunction.ts"
-      filename="@samchon/openapi"
+    <LocalSource 
+      path="packages/interface/src/schema/ILlmFunction.ts"
+      filename="@typia/interface"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/openapi/refs/heads/master/src/structures/ILlmSchema.ts"
-      filename="@samchon/openapi"
+    <LocalSource 
+      path="packages/interface/src/schema/ILlmSchema.ts"
+      filename="@typia/interface"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>
