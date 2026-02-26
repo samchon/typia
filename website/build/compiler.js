@@ -6,7 +6,7 @@ const path = require("path");
 console.log(" Making PlaygourndExampleStorage");
 //-------------------------------------------------------
 const load = (location) =>
-  fs.readFileSync(`${__dirname}/../../internals/examples/${location}`, "utf-8");
+  fs.readFileSync(`${__dirname}/../../examples/${location}`, "utf-8");
 
 fs.writeFileSync(
   `${__dirname}/../src/compiler/PlaygroundExampleStorage.ts`,

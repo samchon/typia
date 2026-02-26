@@ -86,11 +86,11 @@ importers:
         specifier: catalog:typescript
         version: 5.9.3
 
-  internals/benchmark:
+  benchmark:
     dependencies:
       '@typia/interface':
         specifier: workspace:^
-        version: link:../../packages/interface
+        version: link:../packages/interface
       fp-ts:
         specifier: ^2.16.9
         version: 2.16.11
@@ -108,7 +108,7 @@ importers:
         version: 3.0.0
       typia:
         specifier: workspace:^
-        version: link:../../packages/typia
+        version: link:../packages/typia
       uuid:
         specifier: catalog:utils
         version: 13.0.0
@@ -216,7 +216,7 @@ importers:
         specifier: ^3.19.1
         version: 3.25.76
 
-  internals/config:
+  config:
     devDependencies:
       '@rollup/plugin-commonjs':
         specifier: catalog:rollup
@@ -243,17 +243,17 @@ importers:
         specifier: catalog:typescript
         version: 5.9.3
 
-  internals/examples:
+  examples:
     dependencies:
       '@typia/utils':
         specifier: workspace:^
-        version: link:../../packages/utils
+        version: link:../packages/utils
       openai:
         specifier: catalog:utils
         version: 6.25.0(ws@8.19.0)(zod@3.25.76)
       typia:
         specifier: workspace:^
-        version: link:../../packages/typia
+        version: link:../packages/typia
       uuid:
         specifier: catalog:utils
         version: 13.0.0
