@@ -4,7 +4,6 @@
   "version": "12.0.0-dev.20260225",
   "description": "Automated test features of openapi.",
   "scripts": {
-    "prepare": "ts-patch install",
     "start": "node -r ts-node/register src/index.ts"
   },
   "repository": {
@@ -26,7 +25,6 @@
     "@types/ts-expose-internals": "catalog:typescript",
     "@types/uuid": "catalog:utils",
     "ts-node": "catalog:typescript",
-    "ts-patch": "catalog:typescript",
     "typescript": "catalog:typescript"
   },
   "dependencies": {

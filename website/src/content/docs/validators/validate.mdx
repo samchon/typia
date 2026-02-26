@@ -6,7 +6,6 @@ import AlertTitle from "@mui/material/AlertTitle";
 import { Tabs } from "nextra/components";
 
 import LocalSource from "../../../components/LocalSource";
-import RemoteSource from "../../../components/RemoteSource";
 
 ## `validate()` function
 
@@ -21,9 +20,9 @@ export function validate<T>(input: unknown): IValidation<T>;
 ```
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/openapi/refs/heads/master/src/structures/IValidation.ts"
-      filename="@samchon/openapi"
+    <LocalSource
+      path="packages/interface/src/schema/IValidation.ts"
+      filename="@typia/interface"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>
@@ -86,9 +85,9 @@ export function validateEquals<T>(input: unknown): IValidation<T>;
 ```
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/openapi/refs/heads/master/src/structures/IValidation.ts"
-      filename="@samchon/openapi"
+    <LocalSource
+      path="packages/interface/src/schema/IValidation.ts"
+      filename="@typia/interface"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>
@@ -136,9 +135,9 @@ export function createValidateEquals<T> = (input: unknown) => IValidation<T> & S
 ```
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/openapi/refs/heads/master/src/structures/IValidation.ts"
-      filename="@samchon/openapi"
+    <LocalSource 
+      path="packages/interface/src/schema/IValidation.ts"
+      filename="@typia/interface"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>
@@ -248,9 +247,9 @@ export function createValidate<T>(): (input: unknown) => IValidation<T>;
 ```
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/openapi/refs/heads/master/src/structures/IValidation.ts"
-      filename="@samchon/openapi"
+    <LocalSource 
+      path="packages/interface/src/schema/IValidation.ts"
+      filename="@typia/interface"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>

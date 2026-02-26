@@ -16,12 +16,14 @@ jobs:
           node-version: 24.x
           registry-url: https://registry.npmjs.org/
       - uses: pnpm/action-setup@v4
+
       - name: Install dependencies
         run: pnpm install
       - name: Publish to npm
-        run: pnpm run package:latest
-      - name: Root
-        run: pnpm run package:tgz
+        run: |
+          pnpm run package:latest
+          pnpm run package:tgz
+      
       - name: Website Setup
         working-directory: website
         run: |

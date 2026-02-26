@@ -1,1 +1,1 @@
-export { default } from "../../internals/config/rollup.config.mjs";
+export { default } from "../../config/rollup.config.mjs";

@@ -26,7 +26,7 @@ import { WorkerConnector } from "tgrid";
 import { COMPILER_OPTIONS } from "../compiler/COMPILER_OPTIONS";
 import { PLAYGROUND_DEFAULT_SCRIPT } from "../components/playground/PLAYGROUND_DEFAULT_SCRIPT";
 import external from "../raw/external.json";
-import { ITransformOptions } from "typia/lib/transformers/ITransformOptions";
+import { ITransformOptions } from "@typia/core";
 import { PlaygroundExampleStorage } from "../compiler/PlaygroundExampleStorage";
 
 const PlaygroundMovie = () => {

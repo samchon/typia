@@ -6,8 +6,7 @@
   "exports": {
     ".": "./src/index.ts",
     "./lib/transform": "./src/transform.ts",
-    "./lib/internal/*.js": "./src/internal/*.ts",
-    "./src/internal/*": "./src/internal/*.ts",
+    "./lib/internal/*": "./src/internal/*.ts",
     "./package.json": "./package.json"
   },
   "bin": {
@@ -132,6 +131,10 @@
         "default": "./lib/transform.js"
       },
       "./lib/internal/*.js": {
+        "types": "./lib/internal/*.d.ts",
+        "default": "./lib/internal/*.js"
+      },
+      "./lib/internal/*": {
         "types": "./lib/internal/*.d.ts",
         "import": "./lib/internal/*.mjs",
         "default": "./lib/internal/*.js"

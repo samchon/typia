@@ -1,5 +1,5 @@
 {
-  "extends": "../../internals/config/tsconfig.json",
+  "extends": "../../config/tsconfig.json",
   "compilerOptions": {
     "outDir": "lib",
   },
