@@ -1,7 +1,7 @@
 import crypto from "crypto";
 import { tags } from "typia";
-import { _randomFormatIpv4 } from "typia/lib/internal/_randomFormatIpv4.js";
-import { _randomFormatIpv6 } from "typia/lib/internal/_randomFormatIpv6.js";
+import { _randomFormatIpv4 } from "typia/lib/internal/_randomFormatIpv4";
+import { _randomFormatIpv6 } from "typia/lib/internal/_randomFormatIpv6";
 import { v4 } from "uuid";
 
 import { Spoiler } from "../utils/Spoiler";

@@ -6,7 +6,6 @@
   "exports": {
     ".": "./src/index.ts",
     "./lib/transform": "./src/transform.ts",
-    "./lib/internal/*.js": "./src/internal/*.ts",
     "./lib/internal/*": "./src/internal/*.ts",
     "./package.json": "./package.json"
   },

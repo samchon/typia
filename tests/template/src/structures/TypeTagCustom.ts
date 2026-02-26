@@ -1,6 +1,6 @@
 import typia, { IRandomGenerator } from "typia";
-import { _randomNumber } from "typia/lib/internal/_randomNumber.js";
-import { _randomString } from "typia/lib/internal/_randomString.js";
+import { _randomNumber } from "typia/lib/internal/_randomNumber";
+import { _randomString } from "typia/lib/internal/_randomString";
 import { v4 } from "uuid";
 
 import { Spoiler } from "../utils/Spoiler";
