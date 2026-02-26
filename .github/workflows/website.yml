@@ -25,8 +25,7 @@ jobs:
         with:
           node-version: 24.x
       - uses: pnpm/action-setup@v2
-        with:
-          version: 10
+
       - name: Root
         run: pnpm install
       - name: Build
