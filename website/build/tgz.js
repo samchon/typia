@@ -3,9 +3,12 @@ const fs = require("fs");
 
 const build = (name) => {
   // clear tgz files
-  fs.rmSync(`${__dirname}/../../packages/${name}/*.tgz`, {
-    force: true,
-  });
+  const packageDir = `${__dirname}/../../packages/${name}`;
+  for (const entry of fs.readdirSync(packageDir)) {
+    if (entry.endsWith(".tgz")) {
+      fs.rmSync(`${packageDir}/${entry}`, { force: true });
+    }
+  }
 
   console.log("Building package (tgz):", name);
   cp.execSync("pnpm pack", {
