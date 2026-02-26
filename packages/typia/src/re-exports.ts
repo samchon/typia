@@ -4,6 +4,7 @@ export {
   IValidation,
   IRandomGenerator,
   // json
+  OpenApi,
   IJsonSchemaCollection,
   IJsonSchemaUnit,
   // llm
