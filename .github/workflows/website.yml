@@ -27,12 +27,16 @@ jobs:
       - uses: pnpm/action-setup@v2
 
       - name: Root
-        run: pnpm install
+        run: |
+          pnpm install
+          pnpm run package:tgz
+
       - name: Build
         working-directory: website
         run: |
           npm install --force
           npm run build
+
       - name: Deploy
         if: github.event_name == 'push' && github.ref == 'refs/heads/master'
         uses: JamesIves/github-pages-deploy-action@v4
