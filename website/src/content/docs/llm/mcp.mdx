@@ -1,0 +1,216 @@
+---
+title: Guide Documents > Large Language Model > MCP (Model Context Protocol)
+---
+import { Tabs } from "nextra/components";
+
+import LocalSource from "../../../components/LocalSource";
+import ValidationFeedbackExampleSnippet from "../../../snippets/ValidationFeedbackExampleSnippet.mdx";
+import ValidatorSupportMatrixSnippet from "../../../snippets/ValidatorSupportMatrixSnippet.mdx";
+
+## `registerMcpControllers()` function
+
+<Tabs items={[
+    <code>@typia/mcp</code>,
+    <code>ILlmController</code>,
+    <code>IHttpLlmController</code>,
+    <code>HttpLlm.controller</code>,
+  ]}>
+  <Tabs.Tab>
+```typescript filename="@typia/mcp" showLineNumbers
+export function registerMcpControllers(props: {
+  server: McpServer | Server;
+  controllers: Array<ILlmController | IHttpLlmController>;
+  preserve?: boolean | undefined;
+}): void;
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource
+      path="packages/interface/src/schema/ILlmController.ts"
+      filename="@typia/interface"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource
+      path="packages/interface/src/http/IHttpLlmController.ts"
+      filename="@typia/interface"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource
+      path="packages/utils/src/http/HttpLlm.ts"
+      filename="@typia/utils"
+      showLineNumbers />
+  </Tabs.Tab>
+</Tabs>
+
+[MCP (Model Context Protocol)](https://modelcontextprotocol.io) integration for [`typia`](https://github.com/samchon/typia).
+
+`registerMcpControllers()` converts TypeScript classes or OpenAPI documents into MCP tools at once.
+
+Every class method becomes a tool, JSDoc comments become tool descriptions, and TypeScript types become JSON schemas — all at compile time. For OpenAPI documents, every API endpoint is converted to an MCP tool with schemas from the specification.
+
+Validation feedback is embedded automatically.
+
+## Setup
+
+```bash filename="Terminal"
+npm install @typia/mcp @modelcontextprotocol/sdk
+npm install typia
+npx typia setup
+```
+
+## From TypeScript Class
+
+<Tabs items={[
+    "MCP Server",
+    <code>Calculator</code>,
+    <code>BbsArticleService</code>,
+    <code>IBbsArticle</code>,
+  ]}>
+  <Tabs.Tab>
+```typescript filename="src/main.ts" showLineNumbers {1-2, 9-16}
+import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { registerMcpControllers } from "@typia/mcp";
+import typia from "typia";
+
+import { BbsArticleService } from "./BbsArticleService";
+import { Calculator } from "./Calculator";
+
+const server: McpServer = new McpServer({
+  name: "my-server",
+  version: "1.0.0",
+});
+registerMcpControllers({
+  server,
+  controllers: [
+    typia.llm.controller<Calculator>("calculator", new Calculator()),
+    typia.llm.controller<BbsArticleService>(
+      "bbs",
+      new BbsArticleService(),
+    ),
+  ],
+});
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource
+      path="tests/test-mcp/src/structures/Calculator.ts"
+      filename="Calculator.ts"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource
+      path="examples/src/llm/BbsArticleService.ts"
+      filename="BbsArticleService.ts"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource
+      path="examples/src/llm/IBbsArticle.ts"
+      filename="IBbsArticle.ts"
+      showLineNumbers />
+  </Tabs.Tab>
+</Tabs>
+
+Create controllers from TypeScript classes with `typia.llm.controller<Class>()`, and pass them to `registerMcpControllers()`.
+
+  - `server`: Target MCP server instance (`McpServer` or raw `Server` from `@modelcontextprotocol/sdk`)
+  - `controllers`: Array of controllers created via `typia.llm.controller<Class>()` or `HttpLlm.controller()`
+  - `preserve`: When `true`, typia tools coexist with existing `McpServer.registerTool()` tools. Default is `false`
+
+## From OpenAPI Document
+
+```typescript filename="src/main.ts" showLineNumbers {1-3, 5-18}
+import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { registerMcpControllers } from "@typia/mcp";
+import { HttpLlm } from "@typia/utils";
+
+const server: McpServer = new McpServer({
+  name: "my-server",
+  version: "1.0.0",
+});
+registerMcpControllers({
+  server,
+  controllers: [
+    HttpLlm.controller({
+      name: "shopping",
+      document: await fetch(
+        "https://shopping-be.wrtn.ai/editor/swagger.json",
+      ).then((r) => r.json()),
+      connection: {
+        host: "https://shopping-be.wrtn.ai",
+        headers: { Authorization: "Bearer ********" },
+      },
+    }),
+  ],
+});
+```
+
+Create controllers from OpenAPI documents with `HttpLlm.controller()`, and pass them to `registerMcpControllers()`.
+
+  - `name`: Controller name used as prefix for tool names
+  - `document`: Swagger/OpenAPI document (v2.0, v3.0, or v3.1)
+  - `connection`: HTTP connection info including `host` and optional `headers`
+
+## Validation Feedback
+
+<Tabs items={[
+    "Validation Test",
+    <code>Calculator</code>,
+  ]}>
+  <Tabs.Tab>
+    <LocalSource
+      path="tests/test-mcp/src/features/test_mcp_class_controller_validation.ts"
+      filename="test_mcp_class_controller_validation.ts"
+      showLineNumbers
+      highlight="43-56, 57-64" />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource
+      path="tests/test-mcp/src/structures/Calculator.ts"
+      filename="Calculator.ts"
+      showLineNumbers />
+  </Tabs.Tab>
+</Tabs>
+
+<ValidationFeedbackExampleSnippet />
+
+When LLM sends `{ x: "not a number", y: 5 }`, the validation failure is returned as text content via `stringifyValidationFailure()`, including the exact path, expected type, and actual value. The LLM reads this and self-corrects on the next turn.
+
+In my experience, OpenAI `gpt-4o-mini` makes type-level mistakes about 70% of the time on complex schemas (Shopping Mall service). With validation feedback, the success rate jumps from 30% to 99% on the second attempt. Third attempt has never failed.
+
+The embedded [`typia.validate<T>()`](/docs/validators/validate) creates validation logic by analyzing TypeScript source codes and types at the compilation level — more accurate and detailed than any runtime validator.
+
+<ValidatorSupportMatrixSnippet />
+
+This validation feedback strategy also covers restriction properties:
+
+  - `string`: `minLength`, `maxLength`, `pattern`, `format`, `contentMediaType`
+  - `number`: `minimum`, `maximum`, `exclusiveMinimum`, `exclusiveMaximum`, `multipleOf`
+  - `array`: `minItems`, `maxItems`, `uniqueItems`, `items`
+
+## Preserve Mode
+
+<Tabs items={[
+    "Preserve Test",
+    <code>Calculator</code>,
+  ]}>
+  <Tabs.Tab>
+    <LocalSource
+      path="tests/test-mcp/src/features/test_mcp_class_controller_preserve.ts"
+      filename="test_mcp_class_controller_preserve.ts"
+      showLineNumbers
+      highlight="33-52, 55-57, 73-86" />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource
+      path="tests/test-mcp/src/structures/Calculator.ts"
+      filename="Calculator.ts"
+      showLineNumbers />
+  </Tabs.Tab>
+</Tabs>
+
+By default, `registerMcpControllers()` replaces the MCP server's tool handlers (standalone mode). Set `preserve: true` to coexist with `McpServer.registerTool()`.
+
+In the above test, the `"echo"` tool registered via `McpServer.registerTool()` and the calculator tools registered via `registerMcpControllers()` work together — 5 tools total. If duplicate names are detected, it throws at registration time.

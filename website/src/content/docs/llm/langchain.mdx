@@ -1,0 +1,245 @@
+---
+title: Guide Documents > Large Language Model > LangChain
+---
+import { Callout, Tabs } from "nextra/components";
+
+import LocalSource from "../../../components/LocalSource";
+import ValidationFeedbackExampleSnippet from "../../../snippets/ValidationFeedbackExampleSnippet.mdx";
+import ValidatorSupportMatrixSnippet from "../../../snippets/ValidatorSupportMatrixSnippet.mdx";
+
+## `toLangChainTools()` function
+
+<Tabs items={[
+    <code>@typia/langchain</code>,
+    <code>ILlmController</code>,
+    <code>IHttpLlmController</code>,
+    <code>HttpLlm.controller</code>,
+  ]}>
+  <Tabs.Tab>
+```typescript filename="@typia/langchain" showLineNumbers
+export function toLangChainTools(props: {
+  controllers: Array<ILlmController | IHttpLlmController>;
+  prefix?: boolean | undefined;
+}): DynamicStructuredTool[];
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource
+      path="packages/interface/src/schema/ILlmController.ts"
+      filename="@typia/interface"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource
+      path="packages/interface/src/http/IHttpLlmController.ts"
+      filename="@typia/interface"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource
+      path="packages/utils/src/http/HttpLlm.ts"
+      filename="@typia/utils"
+      showLineNumbers />
+  </Tabs.Tab>
+</Tabs>
+
+[LangChain.js](https://github.com/langchain-ai/langchainjs) integration for [`typia`](https://github.com/samchon/typia).
+
+`toLangChainTools()` converts TypeScript classes or OpenAPI documents into LangChain `DynamicStructuredTool[]` at once.
+
+Every class method becomes a tool, JSDoc comments become tool descriptions, and TypeScript types become JSON schemas — all at compile time. For OpenAPI documents, every API endpoint is converted to a `DynamicStructuredTool` with schemas from the specification.
+
+Validation feedback is embedded automatically.
+
+## Setup
+
+```bash filename="Terminal"
+npm install @typia/langchain @langchain/core
+npm install typia
+npx typia setup
+```
+
+## From TypeScript Class
+
+<Tabs items={[
+    "LangChain Agent",
+    <code>Calculator</code>,
+    <code>BbsArticleService</code>,
+    <code>IBbsArticle</code>,
+  ]}>
+  <Tabs.Tab>
+```typescript filename="src/main.ts" showLineNumbers {1-6, 10-15, 17-27}
+import { ChainValues, Runnable } from "@langchain/core";
+import { ChatPromptTemplate } from "@langchain/core/prompts";
+import { DynamicStructuredTool } from "@langchain/core/tools";
+import { ChatOpenAI } from "@langchain/openai";
+import { toLangChainTools } from "@typia/langchain";
+import { AgentExecutor, createToolCallingAgent } from "langchain/agents";
+import typia from "typia";
+
+import { Calculator } from "./Calculator";
+
+const tools: DynamicStructuredTool[] = toLangChainTools({
+  controllers: [
+    typia.llm.controller<Calculator>("calculator", new Calculator()),
+  ],
+});
+
+const agent: Runnable = createToolCallingAgent({
+  llm: new ChatOpenAI({ model: "gpt-4o" }),
+  tools,
+  prompt: ChatPromptTemplate.fromMessages([
+    ["system", "You are a helpful assistant."],
+    ["human", "{input}"],
+    ["placeholder", "{agent_scratchpad}"],
+  ]),
+});
+const executor: AgentExecutor = new AgentExecutor({ agent, tools });
+const result: ChainValues = await executor.invoke({
+  input: "What is 10 + 5?",
+});
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource
+      path="tests/test-langchain/src/structures/Calculator.ts"
+      filename="Calculator.ts"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource
+      path="examples/src/llm/BbsArticleService.ts"
+      filename="BbsArticleService.ts"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource
+      path="examples/src/llm/IBbsArticle.ts"
+      filename="IBbsArticle.ts"
+      showLineNumbers />
+  </Tabs.Tab>
+</Tabs>
+
+Create controllers from TypeScript classes with `typia.llm.controller<Class>()`, and pass them to `toLangChainTools()`.
+
+  - `controllers`: Array of controllers created via `typia.llm.controller<Class>()` or `HttpLlm.controller()`
+  - `prefix`: When `true` (default), tool names are formatted as `{controllerName}_{methodName}`. Set to `false` to use bare method names
+
+## From OpenAPI Document
+
+```typescript filename="src/main.ts" showLineNumbers {1-3, 5-18}
+import { DynamicStructuredTool } from "@langchain/core/tools";
+import { toLangChainTools } from "@typia/langchain";
+import { HttpLlm } from "@typia/utils";
+
+const tools: DynamicStructuredTool[] = toLangChainTools({
+  controllers: [
+    HttpLlm.controller({
+      name: "shopping",
+      document: await fetch(
+        "https://shopping-be.wrtn.ai/editor/swagger.json",
+      ).then((r) => r.json()),
+      connection: {
+        host: "https://shopping-be.wrtn.ai",
+        headers: { Authorization: "Bearer ********" },
+      },
+    }),
+  ],
+});
+```
+
+Create controllers from OpenAPI documents with `HttpLlm.controller()`, and pass them to `toLangChainTools()`.
+
+  - `name`: Controller name used as prefix for tool names
+  - `document`: Swagger/OpenAPI document (v2.0, v3.0, or v3.1)
+  - `connection`: HTTP connection info including `host` and optional `headers`
+
+## Validation Feedback
+
+<Tabs items={[
+    "Validation Test",
+    <code>Calculator</code>,
+  ]}>
+  <Tabs.Tab>
+    <LocalSource
+      path="tests/test-langchain/src/features/test_langchain_class_controller_validation.ts"
+      filename="test_langchain_class_controller_validation.ts"
+      showLineNumbers
+      highlight="29, 32-35, 40-44, 48-49" />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource
+      path="tests/test-langchain/src/structures/Calculator.ts"
+      filename="Calculator.ts"
+      showLineNumbers />
+  </Tabs.Tab>
+</Tabs>
+
+<ValidationFeedbackExampleSnippet />
+
+When LLM sends `{ x: "not a number", y: 5 }`, the validation failure message from `stringifyValidationFailure()` is returned directly as the tool result string. The LLM reads this and self-corrects. When valid arguments are provided like `{ x: 10, y: 5 }`, the result is `"15"`.
+
+In my experience, OpenAI `gpt-4o-mini` makes type-level mistakes about 70% of the time on complex schemas (Shopping Mall service). With validation feedback, the success rate jumps from 30% to 99% on the second attempt. Third attempt has never failed.
+
+<Callout type="warning">
+**Bypassing LangChain's Built-in Validation**
+
+LangChain internally uses `@cfworker/json-schema` to validate tool arguments, which throws `ToolInputParsingException` before custom validation can run. `@typia/langchain` solves this by using a passthrough Zod schema (`z.record(z.unknown())`), allowing `typia`'s much more detailed and accurate validator to handle all argument validation instead.
+</Callout>
+
+The embedded [`typia.validate<T>()`](/docs/validators/validate) creates validation logic by analyzing TypeScript source codes and types at the compilation level — more accurate and detailed than any runtime validator.
+
+<ValidatorSupportMatrixSnippet />
+
+This validation feedback strategy also covers restriction properties:
+
+  - `string`: `minLength`, `maxLength`, `pattern`, `format`, `contentMediaType`
+  - `number`: `minimum`, `maximum`, `exclusiveMinimum`, `exclusiveMaximum`, `multipleOf`
+  - `array`: `minItems`, `maxItems`, `uniqueItems`, `items`
+
+## Structured Output
+
+Use `typia.llm.parameters<T>()` with LangChain's `withStructuredOutput()`:
+
+```typescript filename="src/main.ts" copy showLineNumbers {1-3, 5-11, 13-14, 16-22, 25-28}
+import { ChatOpenAI } from "@langchain/openai";
+import { dedent, stringifyValidationFailure } from "@typia/utils";
+import typia, { tags } from "typia";
+
+interface IMember {
+  email: string & tags.Format<"email">;
+  name: string;
+  age: number & tags.Minimum<0> & tags.Maximum<100>;
+  hobbies: string[];
+  joined_at: string & tags.Format<"date">;
+}
+
+const model = new ChatOpenAI({ model: "gpt-4o" })
+  .withStructuredOutput(typia.llm.parameters<IMember>());
+
+const member: IMember = await model.invoke(dedent`
+  I am a new member of the community.
+
+  My name is John Doe, and I am 25 years old.
+  I like playing basketball and reading books,
+  and joined to this community at 2022-01-01.
+`);
+
+// Validate the result
+const result = typia.validate<IMember>(member);
+if (!result.success) {
+  console.error(stringifyValidationFailure(result));
+}
+```
+
+> ```bash filename="Terminal"
+> {
+>   email: 'john.doe@example.com',
+>   name: 'John Doe',
+>   age: 25,
+>   hobbies: [ 'playing basketball', 'reading books' ],
+>   joined_at: '2022-01-01'
+> }
+> ```
+
+The `IMember` interface is the single source of truth. `typia.llm.parameters<IMember>()` generates the JSON schema, and `typia.validate<IMember>()` validates the output — all from the same type. If validation fails, feed the error back to the LLM for correction.
