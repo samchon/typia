@@ -13,7 +13,7 @@
     "build:tgz": "node build/tgz",
     "build:typedoc": "node build/typedoc",
     "deploy": "node build/deploy",
-    "dev": "next dev"
+    "dev": "npm run build:compiler && next dev"
   },
   "repository": {
     "type": "git",
