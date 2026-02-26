@@ -1,7 +1,7 @@
 {
-  "tsconfig": "../tsconfig.json",
+  "tsconfig": "../packages/typia/tsconfig.json",
   "entryPoints": [
-    "../src/index.ts",
+    "../packages/typia/src/index.ts",
   ],
   "out": "./public/api"
 }
