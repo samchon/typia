@@ -11,6 +11,7 @@
     "build:typedoc": "node build/typedoc",
     "build:pagefind": "pagefind --site .next/server/app --output-path out/_pagefind",
     "build:sitemap": "node build/sitemap",
+    "preinstall": "node build/tgz",
     "deploy": "node build/deploy",
     "dev": "next dev"
   },
@@ -42,7 +43,10 @@
     "react-dom": "^18.2.0",
     "tgrid": "^1.0.3",
     "tstl": "^3.0.0",
-    "typia": "../typia.tgz"
+    "@typia/interface": "./packages/interface.tgz",
+    "@typia/core": "./packages/core.tgz",
+    "@typia/transform": "./packages/transform.tgz",
+    "typia": "./packages/typia.tgz"
   },
   "devDependencies": {
     "@rspack/cli": "^1.0.0",
