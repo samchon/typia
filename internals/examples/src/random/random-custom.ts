@@ -1,6 +1,6 @@
 import typia from "typia";
-import { _randomNumber } from "typia/src/internal/_randomNumber.js";
-import { _randomString } from "typia/src/internal/_randomString.js";
+import { _randomNumber } from "typia/lib/internal/_randomNumber.js";
+import { _randomString } from "typia/lib/internal/_randomString.js";
 
 const data: TagCustom = typia.random<TagCustom>({
   string: (schema) => {
