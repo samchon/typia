@@ -4,7 +4,6 @@ title: Guide Documents > Large Language Model > parameters() function
 import { Callout, Tabs } from "nextra/components";
 
 import LocalSource from "../../../components/LocalSource";
-import ValidatorSupportMatrixSnippet from "../../../snippets/ValidatorSupportMatrixSnippet.mdx";
 
 ## `parameters()` function
 
@@ -160,111 +159,52 @@ Just configure output mode as JSON schema, and deliver the `typia.llm.parameters
 
 ## Validation Feedback
 
-```typescript filename="src/examples/llm.parameters.ts" copy showLineNumbers {4-10, 13, 32-49, 55, 60}
-import OpenAI from "openai";
-import typia, { IValidation, tags } from "typia";
+Use [`typia.validate<T>()`](/docs/validators/validate) for validation feedback on structured output. When validation fails, the error can be formatted with inline `// ❌` comments at each invalid property:
 
-interface IMember {
-  email: string & tags.Format<"email">;
-  name: string;
-  age: number;
-  hobbies: string[];
-  joined_at: string & tags.Format<"date">;
+```json
+{
+  "name": "John",
+  "age": "twenty", // ❌ [{"path":"$input.age","expected":"number"}]
+  "email": "not-an-email", // ❌ [{"path":"$input.email","expected":"string & Format<\"email\">"}]
+  "hobbies": "reading" // ❌ [{"path":"$input.hobbies","expected":"Array<string>"}]
 }
-
-const step = async (
-  failure?: IValidation.IFailure | undefined,
-): Promise<IValidation<IMember>> => {
-  const client: OpenAI = new OpenAI({
-    apiKey: "<YOUR_OPENAI_API_KEY>",
-  });
-  const completion: OpenAI.ChatCompletion =
-    await client.chat.completions.create({
-      model: "gpt-4o",
-      messages: [
-        {
-          role: "user",
-          content: [
-            "I am a new member of the community.",
-            "",
-            "My name is John Doe, and I am 25 years old.",
-            "I like playing basketball and reading books,",
-            "and joined to this community at 2022-01-01.",
-          ].join("\n"),
-        },
-        ...(failure
-          ? [
-              {
-                role: "system",
-                content: [
-                  "You A.I. agent had taken a mistak that",
-                  "returning wrong typed structured data.",
-                  "",
-                  "Here is the detailed list of type errors.",
-                  "Review and correct them at the next step.",
-                  "",
-                  "```json",
-                  JSON.stringify(failure.errors, null, 2),
-                  "```",
-                ].join("\n"),
-              } satisfies OpenAI.ChatCompletionSystemMessageParam,
-            ]
-          : []),
-      ],
-      response_format: {
-        type: "json_schema",
-        json_schema: {
-          name: "member",
-          schema: typia.llm.parameters<IMember>() as any,
-        },
-      },
-    });
-  const member: IMember = JSON.parse(completion.choices[0].message.content!);
-  return typia.validate(member);
-};
-
-const main = async (): Promise<void> => {
-  let result: IValidation<IMember> | undefined = undefined;
-  for (let i: number = 0; i < 2; ++i) {
-    if (result && result.success === true) break;
-    result = await step(result);
-  }
-  console.log(result);
-};
-
-main().catch(console.error);
 ```
 
-> ```bash filename="Terminal"
-> {
->   email: 'john.doe@example.com',
->   name: 'John Doe',
->   age: 25,
->   hobbies: [ 'playing basketball', 'reading books' ],
->   joined_at: '2022-01-01'
-> }
-> ```
+The LLM reads this feedback and self-corrects on the next turn.
 
-Is LLM Structured Output perfect? No, absolutely not.
+In the [AutoBe](https://github.com/wrtnlabs/autobe) project (AI-powered backend code generator), `qwen3-coder-next` showed only 6.75% raw function calling success rate on compiler AST types. However, with validation feedback, it reached 100%.
 
-LLM (Large Language Model) service vendor like OpenAI takes a lot of type level mistakes when composing the arguments of function calling or structured output. Even though target schema is super simple like `Array<string>` type, LLM often fills it just by a `string` typed value.
+Working on compiler AST means working on any type and any use case.
 
-In my experience, OpenAI `gpt-4o-mini` (`8b` parameters) is taking about 70% of type level mistakes when filling the arguments of structured output to Shopping Mall service. To overcome the imperfection of such structured output, you have to utilize the validation feedback strategy with [`typia.validate<T>()`](/docs/validators/validate) function.
+  - [AutoBeDatabase](https://github.com/wrtnlabs/autobe/blob/main/packages/interface/src/database/AutoBeDatabase.ts)
+  - [AutoBeOpenApi](https://github.com/wrtnlabs/autobe/blob/main/packages/interface/src/openapi/AutoBeOpenApi.ts)
+  - [AutoBeTest](https://github.com/wrtnlabs/autobe/blob/main/packages/interface/src/test/AutoBeTest.ts)
 
-The key concept of validation feedback strategy is, let LLM structured output to construct invalid typed arguments first, and informing detailed type errors to the LLM, so that induce LLM to emend the wrong typed arguments at the next turn. In this way, I could uprise the success rate of structured output from 30% to 99% just by one step validation feedback. Even though the LLM is still occurs type error, it always has been caught at the next turn.
-
-For reference, the [`typia.validate<T>()`](/docs/validators/validate) function creates validation logic by analyzing TypeScript source codes and types in the compilation level. Therefore, it is accurate and detailed than any other validator libraries. This is exactly what is needed for function calling, and I can confidentelly say that `typia` is the best library for LLM structured output.
-
-<ValidatorSupportMatrixSnippet />
-
-Additionally, this validation feedback strategy is useful for some LLM providers do not supporting restriction properties of JSON schema. For example, some LLM providers do not support `format` property of JSON schema, so that cannot understand the `UUID` like type. Even though `typia.llm.application<App>()` function is writing the restriction information to the `description` property of JSON schema, but LLM provider does not reflect it perfectly.
-
-In that case, if you give validation feedback from `ILlmFunction.validate()` function to the LLM agent, the LLM agent will be able to understand the restriction information exactly and fill the arguments properly.
-
-  - Restriction properties of JSON schema
-    - `string`: `minLength`, `maxLength`, `pattern`, `format`, `contentMediaType`
-    - `number`: `minimum`, `maximum`, `exclusiveMinimum`, `exclusiveMaximum`, `multipleOf`
-    - `array`: `minItems`, `maxItems`, `uniqueItems`, `items`
+```typescript filename="AutoBeTest.IExpression" showLineNumbers
+// Compiler AST may be the hardest type structure possible
+//
+// Unlimited union types + unlimited depth + recursive references
+export type IExpression =
+  | IBooleanLiteral
+  | INumericLiteral
+  | IStringLiteral
+  | IArrayLiteralExpression   // <- recursive (contains IExpression[])
+  | IObjectLiteralExpression  // <- recursive (contains IExpression)
+  | INullLiteral
+  | IUndefinedKeyword
+  | IIdentifier
+  | IPropertyAccessExpression // <- recursive
+  | IElementAccessExpression  // <- recursive
+  | ITypeOfExpression         // <- recursive
+  | IPrefixUnaryExpression    // <- recursive
+  | IPostfixUnaryExpression   // <- recursive
+  | IBinaryExpression         // <- recursive (left & right)
+  | IArrowFunction            // <- recursive (body is IExpression)
+  | ICallExpression           // <- recursive (args are IExpression[])
+  | INewExpression            // <- recursive
+  | IConditionalPredicate     // <- recursive (then & else branches)
+  | ... // 30+ expression types total
+```
 
 ## Restrictions
 
