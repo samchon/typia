@@ -4,8 +4,6 @@ title: Guide Documents > Large Language Model > Vercel AI SDK
 import { Tabs } from "nextra/components";
 
 import LocalSource from "../../../components/LocalSource";
-import ValidationFeedbackExampleSnippet from "../../../snippets/ValidationFeedbackExampleSnippet.mdx";
-import ValidatorSupportMatrixSnippet from "../../../snippets/ValidatorSupportMatrixSnippet.mdx";
 
 ## `toVercelTools()` function
 
@@ -145,40 +143,52 @@ Create controllers from OpenAPI documents with `HttpLlm.controller()`, and pass 
 
 ## Validation Feedback
 
-<Tabs items={[
-    "Validation Test",
-    <code>Calculator</code>,
-  ]}>
-  <Tabs.Tab>
-    <LocalSource
-      path="tests/test-vercel/src/features/test_vercel_class_controller_validation.ts"
-      filename="test_vercel_class_controller_validation.ts"
-      showLineNumbers
-      highlight="22-26, 29-33, 36, 38-46" />
-  </Tabs.Tab>
-  <Tabs.Tab>
-    <LocalSource
-      path="tests/test-vercel/src/structures/Calculator.ts"
-      filename="Calculator.ts"
-      showLineNumbers />
-  </Tabs.Tab>
-</Tabs>
+`toVercelTools()` embeds [`typia.validate<T>()`](/docs/validators/validate) in every tool for automatic argument validation. When validation fails, the error is returned as text content with inline `// ❌` comments at each invalid property:
 
-<ValidationFeedbackExampleSnippet />
+```json
+{
+  "name": "John",
+  "age": "twenty", // ❌ [{"path":"$input.age","expected":"number"}]
+  "email": "not-an-email", // ❌ [{"path":"$input.email","expected":"string & Format<\"email\">"}]
+  "hobbies": "reading" // ❌ [{"path":"$input.hobbies","expected":"Array<string>"}]
+}
+```
 
-When LLM sends `{ x: "not a number", y: 5 }`, the result is returned as `{ error: true, message: "..." }` with detailed validation errors from `stringifyValidationFailure()`. The LLM reads this and self-corrects on the next turn.
+The LLM reads this feedback and self-corrects on the next turn.
 
-In my experience, OpenAI `gpt-4o-mini` makes type-level mistakes about 70% of the time on complex schemas (Shopping Mall service). With validation feedback, the success rate jumps from 30% to 99% on the second attempt. Third attempt has never failed.
+In the [AutoBe](https://github.com/wrtnlabs/autobe) project (AI-powered backend code generator), `qwen3-coder-next` showed only 6.75% raw function calling success rate on compiler AST types. However, with validation feedback, it reached 100%.
 
-The embedded [`typia.validate<T>()`](/docs/validators/validate) creates validation logic by analyzing TypeScript source codes and types at the compilation level — more accurate and detailed than any runtime validator.
+Working on compiler AST means working on any type and any use case.
 
-<ValidatorSupportMatrixSnippet />
+  - [AutoBeDatabase](https://github.com/wrtnlabs/autobe/blob/main/packages/interface/src/database/AutoBeDatabase.ts)
+  - [AutoBeOpenApi](https://github.com/wrtnlabs/autobe/blob/main/packages/interface/src/openapi/AutoBeOpenApi.ts)
+  - [AutoBeTest](https://github.com/wrtnlabs/autobe/blob/main/packages/interface/src/test/AutoBeTest.ts)
 
-This validation feedback strategy also covers restriction properties:
-
-  - `string`: `minLength`, `maxLength`, `pattern`, `format`, `contentMediaType`
-  - `number`: `minimum`, `maximum`, `exclusiveMinimum`, `exclusiveMaximum`, `multipleOf`
-  - `array`: `minItems`, `maxItems`, `uniqueItems`, `items`
+```typescript filename="AutoBeTest.IExpression" showLineNumbers
+// Compiler AST may be the hardest type structure possible
+//
+// Unlimited union types + unlimited depth + recursive references
+export type IExpression =
+  | IBooleanLiteral
+  | INumericLiteral
+  | IStringLiteral
+  | IArrayLiteralExpression   // <- recursive (contains IExpression[])
+  | IObjectLiteralExpression  // <- recursive (contains IExpression)
+  | INullLiteral
+  | IUndefinedKeyword
+  | IIdentifier
+  | IPropertyAccessExpression // <- recursive
+  | IElementAccessExpression  // <- recursive
+  | ITypeOfExpression         // <- recursive
+  | IPrefixUnaryExpression    // <- recursive
+  | IPostfixUnaryExpression   // <- recursive
+  | IBinaryExpression         // <- recursive (left & right)
+  | IArrowFunction            // <- recursive (body is IExpression)
+  | ICallExpression           // <- recursive (args are IExpression[])
+  | INewExpression            // <- recursive
+  | IConditionalPredicate     // <- recursive (then & else branches)
+  | ... // 30+ expression types total
+```
 
 ## Structured Output
 
