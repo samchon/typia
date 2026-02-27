@@ -2,2486 +2,2486 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 	<url>
 		<loc>https://typia.io/api/index.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/hierarchy.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_typia_interface.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_typia_interface.Atomic.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_typia_interface.Atomic.Literal.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_typia_interface.Atomic.Mapper.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_typia_interface.Atomic.Type.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_typia_interface.IHttpConnection.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.IHttpConnection.IOptions.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_typia_interface.IHttpConnection.HeaderValue.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_typia_interface.IHttpLlmApplication.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.IHttpLlmApplication.IConfig.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.IHttpLlmApplication.IError.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_typia_interface.IHttpLlmFunction.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.IHttpLlmFunction.ISeparated.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_typia_interface.IHttpMigrateApplication.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.IHttpMigrateApplication.IError.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_typia_interface.IHttpMigrateRoute.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.IHttpMigrateRoute.IBody.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.IHttpMigrateRoute.IException.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.IHttpMigrateRoute.IHeaders.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.IHttpMigrateRoute.IParameter.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.IHttpMigrateRoute.IQuery.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.IHttpMigrateRoute.ISuccess.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_typia_interface.IJsDocTagInfo.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.IJsDocTagInfo.IText.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_typia_interface.IJsonSchemaApplication.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.IJsonSchemaApplication.IComponents.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.IJsonSchemaApplication.IFunction.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.IJsonSchemaApplication.IOutput.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.IJsonSchemaApplication.IParameter.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_typia_interface.IJsonSchemaApplication.Schema.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_typia_interface.IJsonSchemaAttribute.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.IJsonSchemaAttribute.IArray.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.IJsonSchemaAttribute.IBoolean.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.IJsonSchemaAttribute.IInteger.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.IJsonSchemaAttribute.INull.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.IJsonSchemaAttribute.INumber.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.IJsonSchemaAttribute.IObject.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.IJsonSchemaAttribute.IString.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.IJsonSchemaAttribute.IUnknown.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_typia_interface.IJsonSchemaCollection.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.IJsonSchemaCollection.IV3_0.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.IJsonSchemaCollection.IV3_1.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_typia_interface.IJsonSchemaTransformError.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.IJsonSchemaTransformError.IReason.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_typia_interface.IJsonSchemaUnit.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.IJsonSchemaUnit.IV3_0.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.IJsonSchemaUnit.IV3_1.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_typia_interface.ILlmApplication.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.ILlmApplication.IConfig.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_typia_interface.ILlmApplication.IValidationHook.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_typia_interface.ILlmFunction.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.ILlmFunction.ISeparated.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_typia_interface.ILlmSchema.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_typia_interface.ILlmSchema.IAnyOf.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.ILlmSchema.IAnyOf.IDiscriminator.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.ILlmSchema.IAnyOf.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.ILlmSchema.IArray.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.ILlmSchema.IBoolean.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.ILlmSchema.IConfig.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.ILlmSchema.IInteger.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.ILlmSchema.INull.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.ILlmSchema.INumber.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.ILlmSchema.IObject.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.ILlmSchema.IParameters.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.ILlmSchema.IReference.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.ILlmSchema.IString.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.ILlmSchema.IUnknown.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_typia_interface.IMetadataSchema.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_typia_interface.IMetadataSchema.IConstant.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.IMetadataSchema.IConstant.IBase.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.IMetadataSchema.IConstant.IValue.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.IMetadataSchema.IAliasType.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.IMetadataSchema.IArrayType.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.IMetadataSchema.IAtomic.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.IMetadataSchema.IEscaped.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.IMetadataSchema.IFunction.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.IMetadataSchema.IMap.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.IMetadataSchema.IObjectType.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.IMetadataSchema.IParameter.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.IMetadataSchema.IProperty.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.IMetadataSchema.IReference.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.IMetadataSchema.ISet.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.IMetadataSchema.ITemplate.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.IMetadataSchema.ITupleType.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_typia_interface.IMetadataSchema.IConstant.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_typia_interface.IRandomGenerator.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.IRandomGenerator.CustomMap.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_typia_interface.IResult.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.IResult.IFailure.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.IResult.ISuccess.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_typia_interface.IValidation.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.IValidation.IError.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.IValidation.IFailure.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.IValidation.ISuccess.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_typia_interface.OpenApi.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_typia_interface.OpenApi.IDocument.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApi.IDocument.IContact.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApi.IDocument.IInfo.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApi.IDocument.ILicense.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApi.IDocument.ITag.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_typia_interface.OpenApi.IJsonSchema.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_typia_interface.OpenApi.IJsonSchema.IOneOf.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApi.IJsonSchema.IOneOf.IDiscriminator.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApi.IJsonSchema.IArray.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApi.IJsonSchema.IBoolean.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApi.IJsonSchema.IConstant.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApi.IJsonSchema.IInteger.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApi.IJsonSchema.INull.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApi.IJsonSchema.INumber.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApi.IJsonSchema.IObject.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApi.IJsonSchema.IOneOf.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApi.IJsonSchema.IReference.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApi.IJsonSchema.IString.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApi.IJsonSchema.ITuple.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApi.IJsonSchema.IUnknown.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_typia_interface.OpenApi.IOperation.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApi.IOperation.IContent.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApi.IOperation.IMediaType.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApi.IOperation.IParameter.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApi.IOperation.IRequestBody.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApi.IOperation.IResponse.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_typia_interface.OpenApi.IOperation.ContentType.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_typia_interface.OpenApi.ISecurityScheme.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_typia_interface.OpenApi.ISecurityScheme.IOAuth2.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApi.ISecurityScheme.IOAuth2.IFlow.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApi.ISecurityScheme.IOAuth2.IFlowSet.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApi.ISecurityScheme.IApiKey.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApi.ISecurityScheme.IHttpBasic.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApi.ISecurityScheme.IHttpBearer.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApi.ISecurityScheme.IOAuth2.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApi.ISecurityScheme.IOpenId.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_typia_interface.OpenApi.IServer.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApi.IServer.IVariable.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApi.IComponents.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApi.IDocument.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApi.IExample.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApi.IOperation.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApi.IPath.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApi.IServer.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_typia_interface.OpenApi.IJsonSchema.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_typia_interface.OpenApi.ISecurityScheme.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_typia_interface.OpenApi.Method.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_typia_interface.OpenApiV3.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_typia_interface.OpenApiV3.IDocument.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApiV3.IDocument.IContact.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApiV3.IDocument.IInfo.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApiV3.IDocument.ILicense.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApiV3.IDocument.ITag.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_typia_interface.OpenApiV3.IJsonSchema.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_typia_interface.OpenApiV3.IJsonSchema.IOneOf.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApiV3.IJsonSchema.IOneOf.IDiscriminator.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApiV3.IJsonSchema.IAllOf.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApiV3.IJsonSchema.IAnyOf.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApiV3.IJsonSchema.IArray.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApiV3.IJsonSchema.IBoolean.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApiV3.IJsonSchema.IInteger.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApiV3.IJsonSchema.INullOnly.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApiV3.IJsonSchema.INumber.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApiV3.IJsonSchema.IObject.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApiV3.IJsonSchema.IOneOf.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApiV3.IJsonSchema.IReference.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApiV3.IJsonSchema.IString.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApiV3.IJsonSchema.IUnknown.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_typia_interface.OpenApiV3.IOperation.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApiV3.IOperation.IMediaType.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApiV3.IOperation.IParameter.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApiV3.IOperation.IRequestBody.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApiV3.IOperation.IResponse.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_typia_interface.OpenApiV3.ISecurityScheme.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_typia_interface.OpenApiV3.ISecurityScheme.IOAuth2.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApiV3.ISecurityScheme.IOAuth2.IFlow.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApiV3.ISecurityScheme.IOAuth2.IFlowSet.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApiV3.ISecurityScheme.IApiKey.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApiV3.ISecurityScheme.IHttpBasic.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApiV3.ISecurityScheme.IHttpBearer.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApiV3.ISecurityScheme.IOAuth2.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApiV3.ISecurityScheme.IOpenId.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_typia_interface.OpenApiV3.IServer.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApiV3.IServer.IVariable.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApiV3.IComponents.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApiV3.IDocument.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApiV3.IExample.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApiV3.IOperation.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApiV3.IPath.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApiV3.IServer.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_typia_interface.OpenApiV3.IJsonSchema.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_typia_interface.OpenApiV3.ISecurityScheme.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_typia_interface.OpenApiV3.Method.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_typia_interface.OpenApiV3_1.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_typia_interface.OpenApiV3_1.IDocument.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApiV3_1.IDocument.IContact.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApiV3_1.IDocument.IInfo.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApiV3_1.IDocument.ILicense.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApiV3_1.IDocument.ITag.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_typia_interface.OpenApiV3_1.IJsonSchema.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_typia_interface.OpenApiV3_1.IJsonSchema.IOneOf.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApiV3_1.IJsonSchema.IOneOf.IDiscriminator.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApiV3_1.IJsonSchema.IAllOf.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApiV3_1.IJsonSchema.IAnyOf.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApiV3_1.IJsonSchema.IArray.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApiV3_1.IJsonSchema.IBoolean.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApiV3_1.IJsonSchema.IConstant.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApiV3_1.IJsonSchema.IInteger.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApiV3_1.IJsonSchema.IMixed.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApiV3_1.IJsonSchema.INull.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApiV3_1.IJsonSchema.INumber.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApiV3_1.IJsonSchema.IObject.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApiV3_1.IJsonSchema.IOneOf.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApiV3_1.IJsonSchema.IRecursiveReference.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApiV3_1.IJsonSchema.IReference.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApiV3_1.IJsonSchema.IString.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApiV3_1.IJsonSchema.IUnknown.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_typia_interface.OpenApiV3_1.IOperation.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApiV3_1.IOperation.IMediaType.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApiV3_1.IOperation.IParameter.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApiV3_1.IOperation.IRequestBody.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApiV3_1.IOperation.IResponse.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_typia_interface.OpenApiV3_1.ISecurityScheme.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_typia_interface.OpenApiV3_1.ISecurityScheme.IOAuth2.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApiV3_1.ISecurityScheme.IOAuth2.IFlow.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApiV3_1.ISecurityScheme.IOAuth2.IFlowSet.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApiV3_1.ISecurityScheme.IApiKey.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApiV3_1.ISecurityScheme.IHttpBasic.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApiV3_1.ISecurityScheme.IHttpBearer.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApiV3_1.ISecurityScheme.IOAuth2.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApiV3_1.ISecurityScheme.IOpenId.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_typia_interface.OpenApiV3_1.IServer.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApiV3_1.IServer.IVariable.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApiV3_1.IComponents.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApiV3_1.IDocument.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApiV3_1.IExample.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApiV3_1.IOperation.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApiV3_1.IPath.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.OpenApiV3_1.IServer.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_typia_interface.OpenApiV3_1.IJsonSchema.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_typia_interface.OpenApiV3_1.ISecurityScheme.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_typia_interface.OpenApiV3_1.Method.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_typia_interface.ProtobufAtomic.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_typia_interface.ProtobufAtomic.BigNumeric.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_typia_interface.ProtobufAtomic.Numeric.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_typia_interface.SwaggerV2.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_typia_interface.SwaggerV2.IDocument.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.SwaggerV2.IDocument.IContact.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.SwaggerV2.IDocument.IInfo.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.SwaggerV2.IDocument.ILicense.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.SwaggerV2.IDocument.ITag.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_typia_interface.SwaggerV2.IJsonSchema.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.SwaggerV2.IJsonSchema.IAllOf.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.SwaggerV2.IJsonSchema.IAnyOf.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.SwaggerV2.IJsonSchema.IArray.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.SwaggerV2.IJsonSchema.IBoolean.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.SwaggerV2.IJsonSchema.IInteger.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.SwaggerV2.IJsonSchema.INullOnly.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.SwaggerV2.IJsonSchema.INumber.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.SwaggerV2.IJsonSchema.IObject.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.SwaggerV2.IJsonSchema.IOneOf.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.SwaggerV2.IJsonSchema.IReference.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.SwaggerV2.IJsonSchema.IString.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.SwaggerV2.IJsonSchema.IUnknown.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_typia_interface.SwaggerV2.IOperation.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.SwaggerV2.IOperation.IBodyParameter.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.SwaggerV2.IOperation.IResponse.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_typia_interface.SwaggerV2.IOperation.IGeneralParameter.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_typia_interface.SwaggerV2.IOperation.IParameter.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_typia_interface.SwaggerV2.ISecurityDefinition.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.SwaggerV2.ISecurityDefinition.IApiKey.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.SwaggerV2.ISecurityDefinition.IBasic.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.SwaggerV2.ISecurityDefinition.IOauth2AccessCode.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.SwaggerV2.ISecurityDefinition.IOauth2Application.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.SwaggerV2.ISecurityDefinition.IOauth2Implicit.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.SwaggerV2.ISecurityDefinition.IOauth2Password.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.SwaggerV2.IDocument.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.SwaggerV2.IOperation.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.SwaggerV2.IPath.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_typia_interface.SwaggerV2.IJsonSchema.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_typia_interface.SwaggerV2.ISecurityDefinition.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_typia_interface.SwaggerV2.Method.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_typia_interface.tags.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_typia_interface.tags.Format.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_typia_interface.tags.Format.Value.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_typia_interface.tags.TagBase.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.tags.TagBase.IProps.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_typia_interface.tags.Constant.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_typia_interface.tags.ContentMediaType.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_typia_interface.tags.Default.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_typia_interface.tags.Example.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_typia_interface.tags.Examples.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_typia_interface.tags.ExclusiveMaximum.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_typia_interface.tags.ExclusiveMinimum.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_typia_interface.tags.Format.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_typia_interface.tags.JsonSchemaPlugin.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_typia_interface.tags.Maximum.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_typia_interface.tags.MaxItems.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_typia_interface.tags.MaxLength.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_typia_interface.tags.Minimum.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_typia_interface.tags.MinItems.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_typia_interface.tags.MinLength.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_typia_interface.tags.MultipleOf.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_typia_interface.tags.Pattern.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_typia_interface.tags.Sequence.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_typia_interface.tags.TagBase.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_typia_interface.tags.Type.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_typia_interface.tags.UniqueItems.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/enums/_typia_interface.ProtobufWire.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.IHttpConnection.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.IHttpLlmApplication.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.IHttpLlmController.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.IHttpLlmFunction.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.IHttpMigrateApplication.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.IHttpMigrateRoute.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.IHttpResponse.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.IJsDocTagInfo.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.IJsonSchemaApplication.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.IJsonSchemaAttribute.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.IJsonSchemaTransformError.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.ILlmApplication.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.ILlmController.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.ILlmFunction.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.IMetadataComponents.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.IMetadataSchema.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.IMetadataSchemaCollection.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.IMetadataSchemaUnit.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.IMetadataTypeTag.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_interface.IRandomGenerator.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_typia_interface.AssertionGuard.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_typia_interface.CamelCase.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_typia_interface.ClassProperties.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_typia_interface.IJsonSchemaCollection.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_typia_interface.IJsonSchemaUnit.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_typia_interface.ILlmSchema.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_typia_interface.IReadableURLSearchParams.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_typia_interface.IResult.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_typia_interface.IValidation.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_typia_interface.OmitNever.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_typia_interface.PascalCase.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_typia_interface.Primitive.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_typia_interface.ProtobufAtomic.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_typia_interface.Resolved.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_typia_interface.SnakeCase.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_typia_interface.SpecialFields.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_typia_interface.ValidationPipe.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_typia_langchain.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_langchain.toLangChainTools.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_typia_mcp.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_mcp.registerMcpControllers.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_typia_utils.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_typia_utils.HttpError.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_utils.HttpError.IProps.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_typia_utils.HttpLlm.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_utils.HttpLlm.IFetchProps.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_utils.HttpLlm.IMergeProps.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.HttpLlm.application.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.HttpLlm.controller.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.HttpLlm.execute.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.HttpLlm.mergeParameters.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.HttpLlm.mergeValue.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.HttpLlm.propagate.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_typia_utils.HttpMigration.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_typia_utils.HttpMigration.IFetchProps.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.HttpMigration.application.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.HttpMigration.execute.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.HttpMigration.propagate.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_typia_utils.LlmSchemaConverter.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.LlmSchemaConverter.getConfig.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.LlmSchemaConverter.invert.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.LlmSchemaConverter.parameters.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.LlmSchemaConverter.schema.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.LlmSchemaConverter.separate.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_typia_utils.LlmTypeChecker.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.LlmTypeChecker.covers.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.LlmTypeChecker.isAnyOf.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.LlmTypeChecker.isArray.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.LlmTypeChecker.isBoolean.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.LlmTypeChecker.isInteger.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.LlmTypeChecker.isNull.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.LlmTypeChecker.isNumber.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.LlmTypeChecker.isObject.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.LlmTypeChecker.isReference.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.LlmTypeChecker.isString.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.LlmTypeChecker.isUnknown.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.LlmTypeChecker.visit.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_typia_utils.NamingConvention.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.NamingConvention.camel.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.NamingConvention.capitalize.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.NamingConvention.localize.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.NamingConvention.pascal.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.NamingConvention.reserved.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.NamingConvention.snake.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.NamingConvention.variable.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_typia_utils.OpenApiConverter.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.OpenApiConverter.upgradeComponents.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.OpenApiConverter.upgradeDocument.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_typia_utils.OpenApiExclusiveEmender.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.OpenApiExclusiveEmender.emend.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_typia_utils.OpenApiTypeChecker.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.OpenApiTypeChecker.covers.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.OpenApiTypeChecker.escape.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.OpenApiTypeChecker.isArray.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.OpenApiTypeChecker.isBoolean.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.OpenApiTypeChecker.isConstant.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.OpenApiTypeChecker.isInteger.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.OpenApiTypeChecker.isNull.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.OpenApiTypeChecker.isNumber.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.OpenApiTypeChecker.isObject.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.OpenApiTypeChecker.isOneOf.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.OpenApiTypeChecker.isRecursiveReference.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.OpenApiTypeChecker.isReference.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.OpenApiTypeChecker.isString.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.OpenApiTypeChecker.isTuple.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.OpenApiTypeChecker.isUnknown.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.OpenApiTypeChecker.unreference.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.OpenApiTypeChecker.visit.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_typia_utils.OpenApiV3_1TypeChecker.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.OpenApiV3_1TypeChecker.isAllOf.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.OpenApiV3_1TypeChecker.isAnyOf.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.OpenApiV3_1TypeChecker.isArray.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.OpenApiV3_1TypeChecker.isBoolean.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.OpenApiV3_1TypeChecker.isConstant.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.OpenApiV3_1TypeChecker.isInteger.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.OpenApiV3_1TypeChecker.isMixed.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.OpenApiV3_1TypeChecker.isNullOnly.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.OpenApiV3_1TypeChecker.isNumber.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.OpenApiV3_1TypeChecker.isObject.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.OpenApiV3_1TypeChecker.isOneOf.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.OpenApiV3_1TypeChecker.isRecursiveReference.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.OpenApiV3_1TypeChecker.isReference.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.OpenApiV3_1TypeChecker.isString.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_typia_utils.OpenApiV3TypeChecker.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.OpenApiV3TypeChecker.isAllOf.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.OpenApiV3TypeChecker.isAnyOf.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.OpenApiV3TypeChecker.isArray.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.OpenApiV3TypeChecker.isBoolean.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.OpenApiV3TypeChecker.isInteger.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.OpenApiV3TypeChecker.isNullOnly.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.OpenApiV3TypeChecker.isNumber.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.OpenApiV3TypeChecker.isObject.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.OpenApiV3TypeChecker.isOneOf.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.OpenApiV3TypeChecker.isReference.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.OpenApiV3TypeChecker.isString.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_typia_utils.OpenApiValidator.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.OpenApiValidator.create.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.OpenApiValidator.validate.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_typia_utils.SwaggerV2TypeChecker.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.SwaggerV2TypeChecker.isAllOf.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.SwaggerV2TypeChecker.isAnyOf.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.SwaggerV2TypeChecker.isArray.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.SwaggerV2TypeChecker.isBoolean.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.SwaggerV2TypeChecker.isInteger.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.SwaggerV2TypeChecker.isNullOnly.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.SwaggerV2TypeChecker.isNumber.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.SwaggerV2TypeChecker.isObject.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.SwaggerV2TypeChecker.isOneOf.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.SwaggerV2TypeChecker.isReference.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.SwaggerV2TypeChecker.isString.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/classes/_typia_utils.HttpError.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.dedent.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_utils.stringifyValidationFailure.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_typia_vercel.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_typia_vercel.toVercelTools.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/typia.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/typia.default.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/typia.functional.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/typia.http.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/typia.IJsDocTagInfo.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.IJsDocTagInfo.IText.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/typia.IJsonSchemaCollection.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.IJsonSchemaCollection.IV3_0.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.IJsonSchemaCollection.IV3_1.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/typia.IJsonSchemaUnit.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.IJsonSchemaUnit.IV3_0.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.IJsonSchemaUnit.IV3_1.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/typia.ILlmApplication.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.ILlmApplication.IConfig.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/typia.ILlmApplication.IValidationHook.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/typia.ILlmFunction.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.ILlmFunction.ISeparated.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/typia.ILlmSchema.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/typia.ILlmSchema.IAnyOf.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.ILlmSchema.IAnyOf.IDiscriminator.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.ILlmSchema.IAnyOf.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.ILlmSchema.IArray.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.ILlmSchema.IBoolean.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.ILlmSchema.IConfig.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.ILlmSchema.IInteger.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.ILlmSchema.INull.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.ILlmSchema.INumber.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.ILlmSchema.IObject.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.ILlmSchema.IParameters.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.ILlmSchema.IReference.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.ILlmSchema.IString.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.ILlmSchema.IUnknown.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/typia.IMetadataSchema.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/typia.IMetadataSchema.IConstant.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.IMetadataSchema.IConstant.IBase.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.IMetadataSchema.IConstant.IValue.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.IMetadataSchema.IAliasType.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.IMetadataSchema.IArrayType.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.IMetadataSchema.IAtomic.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.IMetadataSchema.IEscaped.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.IMetadataSchema.IFunction.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.IMetadataSchema.IMap.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.IMetadataSchema.IObjectType.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.IMetadataSchema.IParameter.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.IMetadataSchema.IProperty.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.IMetadataSchema.IReference.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.IMetadataSchema.ISet.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.IMetadataSchema.ITemplate.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.IMetadataSchema.ITupleType.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/typia.IMetadataSchema.IConstant.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/typia.IRandomGenerator.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.IRandomGenerator.CustomMap.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/typia.IValidation.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.IValidation.IError.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.IValidation.IFailure.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.IValidation.ISuccess.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/typia.json.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/typia.llm.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/typia.misc.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/typia.notations.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/typia.OpenApi.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/typia.OpenApi.IDocument.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.OpenApi.IDocument.IContact.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.OpenApi.IDocument.IInfo.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.OpenApi.IDocument.ILicense.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.OpenApi.IDocument.ITag.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/typia.OpenApi.IJsonSchema.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/typia.OpenApi.IJsonSchema.IOneOf.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.OpenApi.IJsonSchema.IOneOf.IDiscriminator.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.OpenApi.IJsonSchema.IArray.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.OpenApi.IJsonSchema.IBoolean.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.OpenApi.IJsonSchema.IConstant.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.OpenApi.IJsonSchema.IInteger.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.OpenApi.IJsonSchema.INull.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.OpenApi.IJsonSchema.INumber.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.OpenApi.IJsonSchema.IObject.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.OpenApi.IJsonSchema.IOneOf.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.OpenApi.IJsonSchema.IReference.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.OpenApi.IJsonSchema.IString.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.OpenApi.IJsonSchema.ITuple.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.OpenApi.IJsonSchema.IUnknown.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/typia.OpenApi.IOperation.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.OpenApi.IOperation.IContent.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.OpenApi.IOperation.IMediaType.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.OpenApi.IOperation.IParameter.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.OpenApi.IOperation.IRequestBody.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.OpenApi.IOperation.IResponse.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/typia.OpenApi.IOperation.ContentType.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/typia.OpenApi.ISecurityScheme.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/typia.OpenApi.ISecurityScheme.IOAuth2.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.OpenApi.ISecurityScheme.IOAuth2.IFlow.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.OpenApi.ISecurityScheme.IOAuth2.IFlowSet.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.OpenApi.ISecurityScheme.IApiKey.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.OpenApi.ISecurityScheme.IHttpBasic.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.OpenApi.ISecurityScheme.IHttpBearer.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.OpenApi.ISecurityScheme.IOAuth2.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.OpenApi.ISecurityScheme.IOpenId.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/typia.OpenApi.IServer.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.OpenApi.IServer.IVariable.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.OpenApi.IComponents.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.OpenApi.IDocument.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.OpenApi.IExample.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.OpenApi.IOperation.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.OpenApi.IPath.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.OpenApi.IServer.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/typia.OpenApi.IJsonSchema.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/typia.OpenApi.ISecurityScheme.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/typia.OpenApi.Method.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/typia.protobuf.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/typia.reflect.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/typia.tags.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/typia.tags.Format.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/typia.tags.Format.Value.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/typia.tags.TagBase.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.tags.TagBase.IProps.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/typia.tags.Constant.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/typia.tags.ContentMediaType.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/typia.tags.Default.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/typia.tags.Example.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/typia.tags.Examples.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/typia.tags.ExclusiveMaximum.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/typia.tags.ExclusiveMinimum.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/typia.tags.Format.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/typia.tags.JsonSchemaPlugin.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/typia.tags.Maximum.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/typia.tags.MaxItems.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/typia.tags.MaxLength.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/typia.tags.Minimum.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/typia.tags.MinItems.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/typia.tags.MinLength.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/typia.tags.MultipleOf.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/typia.tags.Pattern.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/typia.tags.Sequence.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/typia.tags.TagBase.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/typia.tags.Type.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/typia.tags.UniqueItems.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/typia.TypeGuardError.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.TypeGuardError.IProps.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/classes/typia.TypeGuardError.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.IJsDocTagInfo.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.ILlmApplication.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.ILlmController.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.ILlmFunction.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.IMetadataComponents.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.IMetadataSchema.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.IMetadataSchemaCollection.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.IMetadataSchemaUnit.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.IMetadataTypeTag.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.IRandomGenerator.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/typia.AssertionGuard.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/typia.CamelCase.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/typia.IJsonSchemaCollection.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/typia.IJsonSchemaUnit.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/typia.ILlmSchema.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/typia.IValidation.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/typia.PascalCase.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/typia.Primitive.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/typia.Resolved.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/typia.SnakeCase.html</loc>
-		<lastmod>2026-02-26T10:55:22.217Z</lastmod>
+		<lastmod>2026-02-27T14:51:58.945Z</lastmod>
 	</url>
 </urlset>
