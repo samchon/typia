@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@typia/test-openapiautomated",
-  "version": "12.0.0-dev.20260225",
+  "version": "12.0.0-dev.20260227",
   "description": "Automated test features of openapi.",
   "scripts": {
     "start": "node -r ts-node/register src/index.ts"
