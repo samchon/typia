@@ -116,6 +116,8 @@ import { ProtobufValidateDecodeTransformer } from "./features/protobuf/ProtobufV
 import { ProtobufValidateEncodeTransformer } from "./features/protobuf/ProtobufValidateEncodeTransformer";
 import { ReflectMetadataTransformer } from "./features/reflect/ReflectMetadataTransformer";
 import { ReflectNameTransformer } from "./features/reflect/ReflectNameTransformer";
+import { ReflectSchemaTransformer } from "./features/reflect/ReflectSchemaTransformer";
+import { ReflectSchemasTransformer } from "./features/reflect/ReflectSchemasTransformer";
 
 /**
  * Transforms `typia.*` function call expressions.
@@ -478,6 +480,8 @@ const FUNCTORS: Record<string, Record<string, () => Task>> = {
   reflect: {
     metadata: () => ReflectMetadataTransformer.transform,
     name: () => ReflectNameTransformer.transform,
+    schema: () => ReflectSchemaTransformer.transform,
+    schemas: () => ReflectSchemasTransformer.transform,
   },
   misc: {
     literals: () => MiscLiteralsTransformer.transform,
