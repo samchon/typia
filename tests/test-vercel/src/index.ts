@@ -45,5 +45,7 @@ const main = async (): Promise<void> => {
 
   if (exceptions.length) process.exit(-1);
 };
-
-main().catch(console.error);
+main().catch((error) => {
+  console.error(error);
+  process.exit(-1);
+});
