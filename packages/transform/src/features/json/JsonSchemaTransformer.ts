@@ -2,9 +2,9 @@ import {
   JsonSchemaProgrammer,
   JsonSchemasProgrammer,
   LiteralFactory,
+  MetadataCollection,
   MetadataFactory,
   MetadataSchema,
-  MetadataStorage,
 } from "@typia/core";
 import { IJsonSchemaUnit, ValidationPipe } from "@typia/interface";
 import ts from "typescript";
@@ -63,8 +63,8 @@ export namespace JsonSchemaTransformer {
             validate:
               validate === true ? JsonSchemasProgrammer.validate : undefined,
           },
-          components: new MetadataStorage({
-            replace: MetadataStorage.replace,
+          components: new MetadataCollection({
+            replace: MetadataCollection.replace,
           }),
           type,
         });
