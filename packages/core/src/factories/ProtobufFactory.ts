@@ -7,10 +7,10 @@ import ts from "typescript";
 
 import { TransformerError } from "../context/TransformerError";
 import { ProtobufUtil } from "../programmers/helpers/ProtobufUtil";
+import { MetadataCollection } from "../schemas/metadata/MetadataCollection";
 import { MetadataObjectType } from "../schemas/metadata/MetadataObjectType";
 import { MetadataProperty } from "../schemas/metadata/MetadataProperty";
 import { MetadataSchema } from "../schemas/metadata/MetadataSchema";
-import { MetadataStorage } from "../schemas/metadata/MetadataStorage";
 import { IProtobufProperty } from "../schemas/protobuf/IProtobufProperty";
 import { IProtobufPropertyType } from "../schemas/protobuf/IProtobufPropertyType";
 import { IProtobufSchema } from "../schemas/protobuf/IProtobufSchema";
@@ -21,7 +21,7 @@ export namespace ProtobufFactory {
     method: string;
     checker: ts.TypeChecker;
     transformer?: ts.TransformationContext;
-    components: MetadataStorage;
+    components: MetadataCollection;
     type: ts.Type;
   }
 

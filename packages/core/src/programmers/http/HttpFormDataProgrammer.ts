@@ -10,10 +10,10 @@ import { MetadataFactory } from "../../factories/MetadataFactory";
 import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
 import { MetadataArrayType } from "../../schemas/metadata/MetadataArrayType";
+import { MetadataCollection } from "../../schemas/metadata/MetadataCollection";
 import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
 import { MetadataProperty } from "../../schemas/metadata/MetadataProperty";
 import { MetadataSchema } from "../../schemas/metadata/MetadataSchema";
-import { MetadataStorage } from "../../schemas/metadata/MetadataStorage";
 import { FunctionProgrammer } from "../helpers/FunctionProgrammer";
 import { HttpMetadataUtil } from "../helpers/HttpMetadataUtil";
 import { FeatureProgrammer } from "../internal/FeatureProgrammer";
@@ -26,7 +26,7 @@ export namespace HttpFormDataProgrammer {
     name: string | undefined;
   }): FeatureProgrammer.IDecomposed => {
     // ANALYZE TYPE
-    const collection: MetadataStorage = new MetadataStorage();
+    const collection: MetadataCollection = new MetadataCollection();
     const result = MetadataFactory.analyze({
       checker: props.context.checker,
       transformer: props.context.transformer,

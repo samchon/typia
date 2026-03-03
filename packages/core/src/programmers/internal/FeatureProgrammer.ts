@@ -6,9 +6,9 @@ import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
 import { ValueFactory } from "../../factories/ValueFactory";
 import { MetadataArray } from "../../schemas/metadata/MetadataArray";
+import { MetadataCollection } from "../../schemas/metadata/MetadataCollection";
 import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
 import { MetadataSchema } from "../../schemas/metadata/MetadataSchema";
-import { MetadataStorage } from "../../schemas/metadata/MetadataStorage";
 import { FunctionProgrammer } from "../helpers/FunctionProgrammer";
 import { IExpressionEntry } from "../helpers/IExpressionEntry";
 import { UnionExplorer } from "../helpers/UnionExplorer";
@@ -31,7 +31,7 @@ export namespace FeatureProgrammer {
     /** Whether to trace exception or not. */
     trace: boolean;
 
-    addition?: undefined | ((collection: MetadataStorage) => ts.Statement[]);
+    addition?: undefined | ((collection: MetadataCollection) => ts.Statement[]);
 
     /** Initializer of metadata. */
     initializer: (props: {
@@ -39,7 +39,7 @@ export namespace FeatureProgrammer {
       functor: FunctionProgrammer;
       type: ts.Type;
     }) => {
-      collection: MetadataStorage;
+      collection: MetadataCollection;
       metadata: MetadataSchema;
     };
 
@@ -165,12 +165,12 @@ export namespace FeatureProgrammer {
     export interface IGenerator {
       objects?:
         | undefined
-        | ((collection: MetadataStorage) => ts.VariableStatement[]);
+        | ((collection: MetadataCollection) => ts.VariableStatement[]);
       unions?:
         | undefined
-        | ((collection: MetadataStorage) => ts.VariableStatement[]);
-      arrays: (collection: MetadataStorage) => ts.VariableStatement[];
-      tuples: (collection: MetadataStorage) => ts.VariableStatement[];
+        | ((collection: MetadataCollection) => ts.VariableStatement[]);
+      arrays: (collection: MetadataCollection) => ts.VariableStatement[];
+      tuples: (collection: MetadataCollection) => ts.VariableStatement[];
     }
   }
 
@@ -377,7 +377,7 @@ export namespace FeatureProgrammer {
   export const write_object_functions = (props: {
     config: IConfig;
     context: ITypiaContext;
-    collection: MetadataStorage;
+    collection: MetadataCollection;
   }) =>
     props.collection.objects().map((object) =>
       StatementFactory.constant({
@@ -408,7 +408,7 @@ export namespace FeatureProgrammer {
 
   export const write_union_functions = (props: {
     config: IConfig;
-    collection: MetadataStorage;
+    collection: MetadataCollection;
   }) =>
     props.collection.unions().map((union, i) =>
       StatementFactory.constant({

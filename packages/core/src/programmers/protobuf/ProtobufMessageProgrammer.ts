@@ -4,9 +4,9 @@ import ts from "typescript";
 import { ITypiaContext } from "../../context/ITypiaContext";
 import { IdentifierFactory } from "../../factories/IdentifierFactory";
 import { ProtobufFactory } from "../../factories/ProtobufFactory";
+import { MetadataCollection } from "../../schemas/metadata/MetadataCollection";
 import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
 import { MetadataSchema } from "../../schemas/metadata/MetadataSchema";
-import { MetadataStorage } from "../../schemas/metadata/MetadataStorage";
 import { IProtobufProperty } from "../../schemas/protobuf/IProtobufProperty";
 import { IProtobufPropertyType } from "../../schemas/protobuf/IProtobufPropertyType";
 import { IProtobufSchema } from "../../schemas/protobuf/IProtobufSchema";
@@ -19,7 +19,7 @@ export namespace ProtobufMessageProgrammer {
   }
   export const write = (props: IProps) => {
     // PARSE TARGET TYPE
-    const collection: MetadataStorage = new MetadataStorage();
+    const collection: MetadataCollection = new MetadataCollection();
     ProtobufFactory.metadata({
       method: "message",
       checker: props.context.checker,

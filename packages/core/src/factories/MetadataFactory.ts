@@ -3,12 +3,12 @@ import ts from "typescript";
 
 import { MetadataAliasType } from "../schemas/metadata/MetadataAliasType";
 import { MetadataArrayType } from "../schemas/metadata/MetadataArrayType";
+import { MetadataCollection } from "../schemas/metadata/MetadataCollection";
 import { MetadataConstant } from "../schemas/metadata/MetadataConstant";
 import { MetadataFunction } from "../schemas/metadata/MetadataFunction";
 import { MetadataObject } from "../schemas/metadata/MetadataObject";
 import { MetadataObjectType } from "../schemas/metadata/MetadataObjectType";
 import { MetadataSchema } from "../schemas/metadata/MetadataSchema";
-import { MetadataStorage } from "../schemas/metadata/MetadataStorage";
 import { MetadataTupleType } from "../schemas/metadata/MetadataTupleType";
 import { ExpressionFactory } from "./ExpressionFactory";
 import { explore_metadata } from "./internal/metadata/explore_metadata";
@@ -21,7 +21,7 @@ import { iterate_metadata_sort } from "./internal/metadata/iterate_metadata_sort
  * Analyzes TypeScript types at compile-time and extracts {@link MetadataSchema}
  * containing all type information needed for validation/serialization code
  * generation. Handles unions, intersections, generics, type aliases, and
- * collects reusable components into {@link MetadataStorage}.
+ * collects reusable components into {@link MetadataCollection}.
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
@@ -41,7 +41,7 @@ export namespace MetadataFactory {
     options: IOptions;
 
     /** Storage for collected metadata components. */
-    components: MetadataStorage;
+    components: MetadataCollection;
 
     /** Type to analyze. */
     type: ts.Type | null;

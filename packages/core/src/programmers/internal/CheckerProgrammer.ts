@@ -9,12 +9,12 @@ import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
 import { ValueFactory } from "../../factories/ValueFactory";
 import { MetadataArray } from "../../schemas/metadata/MetadataArray";
+import { MetadataCollection } from "../../schemas/metadata/MetadataCollection";
 import { MetadataConstant } from "../../schemas/metadata/MetadataConstant";
 import { MetadataMap } from "../../schemas/metadata/MetadataMap";
 import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
 import { MetadataSchema } from "../../schemas/metadata/MetadataSchema";
 import { MetadataSet } from "../../schemas/metadata/MetadataSet";
-import { MetadataStorage } from "../../schemas/metadata/MetadataStorage";
 import { MetadataTuple } from "../../schemas/metadata/MetadataTuple";
 import { MetadataTupleType } from "../../schemas/metadata/MetadataTupleType";
 import { IsProgrammer } from "../IsProgrammer";
@@ -136,7 +136,7 @@ export namespace CheckerProgrammer {
     context: ITypiaContext;
     config: IConfig;
     functor: FunctionProgrammer;
-    collection: MetadataStorage;
+    collection: MetadataCollection;
   }): ts.VariableStatement[] =>
     FeatureProgrammer.write_object_functions({
       config: configure(props),
@@ -148,7 +148,7 @@ export namespace CheckerProgrammer {
     context: ITypiaContext;
     config: IConfig;
     functor: FunctionProgrammer;
-    collection: MetadataStorage;
+    collection: MetadataCollection;
   }): ts.VariableStatement[] =>
     FeatureProgrammer.write_union_functions({
       config: configure({
@@ -166,7 +166,7 @@ export namespace CheckerProgrammer {
     context: ITypiaContext;
     config: IConfig;
     functor: FunctionProgrammer;
-    collection: MetadataStorage;
+    collection: MetadataCollection;
   }): ts.VariableStatement[] =>
     props.collection
       .arrays()
@@ -206,7 +206,7 @@ export namespace CheckerProgrammer {
     context: ITypiaContext;
     config: IConfig;
     functor: FunctionProgrammer;
-    collection: MetadataStorage;
+    collection: MetadataCollection;
   }): ts.VariableStatement[] =>
     props.collection
       .tuples()
@@ -262,7 +262,7 @@ export namespace CheckerProgrammer {
     path: props.config.path,
     prefix: props.config.prefix,
     initializer: (next) => {
-      const collection: MetadataStorage = new MetadataStorage();
+      const collection: MetadataCollection = new MetadataCollection();
       const result = MetadataFactory.analyze({
         checker: next.context.checker,
         transformer: next.context.transformer,

@@ -5,9 +5,9 @@ import { ITypiaContext } from "../context/ITypiaContext";
 import { ExpressionFactory } from "../factories/ExpressionFactory";
 import { IdentifierFactory } from "../factories/IdentifierFactory";
 import { ValueFactory } from "../factories/ValueFactory";
+import { MetadataCollection } from "../schemas/metadata/MetadataCollection";
 import { MetadataObjectType } from "../schemas/metadata/MetadataObjectType";
 import { MetadataSchema } from "../schemas/metadata/MetadataSchema";
-import { MetadataStorage } from "../schemas/metadata/MetadataStorage";
 import { FunctionProgrammer } from "./helpers/FunctionProgrammer";
 import { IExpressionEntry } from "./helpers/IExpressionEntry";
 import { OptionPredicator } from "./helpers/OptionPredicator";
@@ -188,7 +188,7 @@ export namespace IsProgrammer {
   export const write_function_statements = (props: {
     context: ITypiaContext;
     functor: FunctionProgrammer;
-    collection: MetadataStorage;
+    collection: MetadataCollection;
   }) => {
     const config: CheckerProgrammer.IConfig = configure(props);
     const next = {

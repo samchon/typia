@@ -1,8 +1,8 @@
 import {
   LiteralFactory,
+  MetadataCollection,
   MetadataFactory,
   MetadataSchema,
-  MetadataStorage,
 } from "@typia/core";
 import { IMetadataSchemaUnit } from "@typia/interface";
 import ts from "typescript";
@@ -34,7 +34,7 @@ export namespace ReflectSchemaTransformer {
       });
 
     // METADATA
-    const components: MetadataStorage = new MetadataStorage();
+    const components: MetadataCollection = new MetadataCollection();
     const result = MetadataFactory.analyze({
       checker: props.context.checker,
       transformer: props.context.transformer,

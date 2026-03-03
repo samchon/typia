@@ -24,7 +24,6 @@ export class MetadataComponents {
     this.dictionary = props.dictionary;
   }
 
-  /** @internal */
   public static from(json: IMetadataComponents): MetadataComponents {
     // INITIALIZE COMPONENTS
     const dictionary: IMetadataDictionary = {

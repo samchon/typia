@@ -1,14 +1,14 @@
 import { MetadataArrayType } from "../../../schemas/metadata/MetadataArrayType";
+import { MetadataCollection } from "../../../schemas/metadata/MetadataCollection";
 import { MetadataObjectType } from "../../../schemas/metadata/MetadataObjectType";
 import { MetadataSchema } from "../../../schemas/metadata/MetadataSchema";
-import { MetadataStorage } from "../../../schemas/metadata/MetadataStorage";
 import { MetadataTupleType } from "../../../schemas/metadata/MetadataTupleType";
 import { MetadataFactory } from "../../MetadataFactory";
 import { iterate_metadata_comment_tags } from "./iterate_metadata_comment_tags";
 
 export const iterate_metadata_collection = (props: {
   errors: MetadataFactory.IError[];
-  collection: MetadataStorage;
+  collection: MetadataCollection;
 }): void => {
   for (const array of props.collection.arrays())
     if (array.recursive === null)

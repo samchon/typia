@@ -1,8 +1,8 @@
 import { IMetadataTypeTag } from "@typia/interface";
 
+import { MetadataCollection } from "../../../schemas/metadata/MetadataCollection";
 import { MetadataObjectType } from "../../../schemas/metadata/MetadataObjectType";
 import { MetadataSchema } from "../../../schemas/metadata/MetadataSchema";
-import { MetadataStorage } from "../../../schemas/metadata/MetadataStorage";
 import { MetadataFactory } from "../../MetadataFactory";
 import { MetadataTypeTagFactory } from "../../MetadataTypeTagFactory";
 import { IMetadataIteratorProps } from "./IMetadataIteratorProps";
@@ -16,7 +16,7 @@ export const iterate_metadata_intersection = (
   else if (props.type.isIntersection() === false) return false;
 
   // CONSTRUCT FAKE METADATA LIST
-  const commit: MetadataStorage = props.components.clone();
+  const commit: MetadataCollection = props.components.clone();
   props.components["options"] = undefined;
 
   const fakeErrors: MetadataFactory.IError[] = [];

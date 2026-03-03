@@ -11,9 +11,9 @@ import { TypeFactory } from "../../factories/TypeFactory";
 import { ValueFactory } from "../../factories/ValueFactory";
 import { MetadataArray } from "../../schemas/metadata/MetadataArray";
 import { MetadataAtomic } from "../../schemas/metadata/MetadataAtomic";
+import { MetadataCollection } from "../../schemas/metadata/MetadataCollection";
 import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
 import { MetadataSchema } from "../../schemas/metadata/MetadataSchema";
-import { MetadataStorage } from "../../schemas/metadata/MetadataStorage";
 import { MetadataTuple } from "../../schemas/metadata/MetadataTuple";
 import { MetadataTupleType } from "../../schemas/metadata/MetadataTupleType";
 import { IsProgrammer } from "../IsProgrammer";
@@ -85,7 +85,7 @@ export namespace JsonStringifyProgrammer {
   const write_array_functions = (props: {
     config: FeatureProgrammer.IConfig;
     functor: FunctionProgrammer;
-    collection: MetadataStorage;
+    collection: MetadataCollection;
   }): ts.VariableStatement[] =>
     props.collection
       .arrays()
@@ -126,7 +126,7 @@ export namespace JsonStringifyProgrammer {
     context: ITypiaContext;
     config: FeatureProgrammer.IConfig;
     functor: FunctionProgrammer;
-    collection: MetadataStorage;
+    collection: MetadataCollection;
   }): ts.VariableStatement[] =>
     props.collection
       .tuples()

@@ -7,8 +7,8 @@ import { IdentifierFactory } from "../../factories/IdentifierFactory";
 import { MetadataFactory } from "../../factories/MetadataFactory";
 import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
+import { MetadataCollection } from "../../schemas/metadata/MetadataCollection";
 import { MetadataSchema } from "../../schemas/metadata/MetadataSchema";
-import { MetadataStorage } from "../../schemas/metadata/MetadataStorage";
 import { AssertProgrammer } from "../AssertProgrammer";
 import { HttpMetadataUtil } from "../helpers/HttpMetadataUtil";
 
@@ -23,7 +23,7 @@ export namespace HttpParameterProgrammer {
         absorb: true,
         validate,
       },
-      components: new MetadataStorage(),
+      components: new MetadataCollection(),
       type: props.type,
     });
     if (result.success === false)

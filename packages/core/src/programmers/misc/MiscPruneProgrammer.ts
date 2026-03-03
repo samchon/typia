@@ -9,9 +9,9 @@ import { MetadataFactory } from "../../factories/MetadataFactory";
 import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
 import { MetadataArray } from "../../schemas/metadata/MetadataArray";
+import { MetadataCollection } from "../../schemas/metadata/MetadataCollection";
 import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
 import { MetadataSchema } from "../../schemas/metadata/MetadataSchema";
-import { MetadataStorage } from "../../schemas/metadata/MetadataStorage";
 import { MetadataTuple } from "../../schemas/metadata/MetadataTuple";
 import { MetadataTupleType } from "../../schemas/metadata/MetadataTupleType";
 import { IsProgrammer } from "../IsProgrammer";
@@ -76,7 +76,7 @@ export namespace MiscPruneProgrammer {
   const write_array_functions = (props: {
     config: FeatureProgrammer.IConfig;
     functor: FunctionProgrammer;
-    collection: MetadataStorage;
+    collection: MetadataCollection;
   }): ts.VariableStatement[] =>
     props.collection
       .arrays()
@@ -117,7 +117,7 @@ export namespace MiscPruneProgrammer {
     context: ITypiaContext;
     config: FeatureProgrammer.IConfig;
     functor: FunctionProgrammer;
-    collection: MetadataStorage;
+    collection: MetadataCollection;
   }): ts.VariableStatement[] =>
     props.collection
       .tuples()
@@ -671,7 +671,7 @@ export namespace MiscPruneProgrammer {
   };
 
   const initializer: FeatureProgrammer.IConfig["initializer"] = (props) => {
-    const collection = new MetadataStorage();
+    const collection = new MetadataCollection();
     const result = MetadataFactory.analyze({
       checker: props.context.checker,
       transformer: props.context.transformer,

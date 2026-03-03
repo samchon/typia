@@ -1,9 +1,9 @@
+import { MetadataCollection } from "../../../schemas/metadata/MetadataCollection";
 import { MetadataObjectType } from "../../../schemas/metadata/MetadataObjectType";
 import { MetadataSchema } from "../../../schemas/metadata/MetadataSchema";
-import { MetadataStorage } from "../../../schemas/metadata/MetadataStorage";
 
 export const iterate_metadata_sort = (props: {
-  collection: MetadataStorage;
+  collection: MetadataCollection;
   metadata: MetadataSchema;
 }) => {
   const visited: Set<MetadataSchema> = new Set();
@@ -23,7 +23,7 @@ export const iterate_metadata_sort = (props: {
 
 const iterate = (props: {
   visited: Set<MetadataSchema>;
-  collection: MetadataStorage;
+  collection: MetadataCollection;
   metadata: MetadataSchema;
 }) => {
   if (props.visited.has(props.metadata)) return;
