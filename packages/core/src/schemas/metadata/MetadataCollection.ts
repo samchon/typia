@@ -19,7 +19,7 @@ import { MetadataTupleType } from "./MetadataTupleType";
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export class MetadataStorage {
+export class MetadataCollection {
   private objects_: Map<ts.Type, MetadataObjectType>;
   private object_unions_: Map<string, MetadataObjectType[]>;
   private aliases_: Map<ts.Type, MetadataAliasType>;
@@ -31,7 +31,7 @@ export class MetadataStorage {
   private recursive_array_index_: number;
   private recursive_tuple_index_: number;
 
-  public constructor(private options?: Partial<MetadataStorage.IOptions>) {
+  public constructor(private options?: Partial<MetadataCollection.IOptions>) {
     this.objects_ = new Map();
     this.object_unions_ = new Map();
     this.aliases_ = new Map();
@@ -44,8 +44,8 @@ export class MetadataStorage {
     this.recursive_tuple_index_ = 0;
   }
 
-  public clone(): MetadataStorage {
-    const output: MetadataStorage = new MetadataStorage(this.options);
+  public clone(): MetadataCollection {
+    const output: MetadataCollection = new MetadataCollection(this.options);
     output.objects_ = new Map(this.objects_);
     output.object_unions_ = new Map(this.object_unions_);
     output.aliases_ = new Map(this.aliases_);
@@ -232,7 +232,7 @@ export class MetadataStorage {
     };
   }
 }
-export namespace MetadataStorage {
+export namespace MetadataCollection {
   export interface IOptions {
     replace?(str: string): string;
   }

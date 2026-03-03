@@ -5,8 +5,8 @@ import { ITypiaContext } from "../../context/ITypiaContext";
 import { TransformerError } from "../../context/TransformerError";
 import { ExpressionFactory } from "../../factories/ExpressionFactory";
 import { MetadataFactory } from "../../factories/MetadataFactory";
+import { MetadataCollection } from "../../schemas/metadata/MetadataCollection";
 import { MetadataSchema } from "../../schemas/metadata/MetadataSchema";
-import { MetadataStorage } from "../../schemas/metadata/MetadataStorage";
 
 export namespace MiscLiteralsProgrammer {
   export interface IProps {
@@ -32,7 +32,7 @@ export namespace MiscLiteralsProgrammer {
           return [];
         },
       },
-      components: new MetadataStorage(),
+      components: new MetadataCollection(),
       type: props.type,
     });
     if (result.success === false)
