@@ -15,11 +15,11 @@ import { TypeFactory } from "../factories/TypeFactory";
 import { MetadataArray } from "../schemas/metadata/MetadataArray";
 import { MetadataArrayType } from "../schemas/metadata/MetadataArrayType";
 import { MetadataAtomic } from "../schemas/metadata/MetadataAtomic";
+import { MetadataCollection } from "../schemas/metadata/MetadataCollection";
 import { MetadataMap } from "../schemas/metadata/MetadataMap";
 import { MetadataObjectType } from "../schemas/metadata/MetadataObjectType";
 import { MetadataSchema } from "../schemas/metadata/MetadataSchema";
 import { MetadataSet } from "../schemas/metadata/MetadataSet";
-import { MetadataStorage } from "../schemas/metadata/MetadataStorage";
 import { MetadataTemplate } from "../schemas/metadata/MetadataTemplate";
 import { MetadataTuple } from "../schemas/metadata/MetadataTuple";
 import { MetadataTupleType } from "../schemas/metadata/MetadataTupleType";
@@ -60,7 +60,7 @@ export namespace RandomProgrammer {
   export const decompose = (
     props: IDecomposeProps,
   ): FeatureProgrammer.IDecomposed => {
-    const collection: MetadataStorage = new MetadataStorage();
+    const collection: MetadataCollection = new MetadataCollection();
     const result = MetadataFactory.analyze({
       checker: props.context.checker,
       transformer: props.context.transformer,
@@ -195,7 +195,7 @@ export namespace RandomProgrammer {
   const write_object_functions = (props: {
     context: ITypiaContext;
     functor: FunctionProgrammer;
-    collection: MetadataStorage;
+    collection: MetadataCollection;
   }): ts.VariableStatement[] =>
     props.collection.objects().map((obj, i) =>
       StatementFactory.constant({
@@ -237,7 +237,7 @@ export namespace RandomProgrammer {
   const write_array_functions = (props: {
     context: ITypiaContext;
     functor: FunctionProgrammer;
-    collection: MetadataStorage;
+    collection: MetadataCollection;
   }): ts.VariableStatement[] =>
     props.collection
       .arrays()
@@ -293,7 +293,7 @@ export namespace RandomProgrammer {
   const write_tuple_functions = (props: {
     context: ITypiaContext;
     functor: FunctionProgrammer;
-    collection: MetadataStorage;
+    collection: MetadataCollection;
   }): ts.VariableStatement[] =>
     props.collection
       .tuples()

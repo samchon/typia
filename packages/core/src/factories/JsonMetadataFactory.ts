@@ -3,8 +3,8 @@ import ts from "typescript";
 
 import { TransformerError } from "../context/TransformerError";
 import { AtomicPredicator } from "../programmers/helpers/AtomicPredicator";
+import { MetadataCollection } from "../schemas/metadata/MetadataCollection";
 import { MetadataSchema } from "../schemas/metadata/MetadataSchema";
-import { MetadataStorage } from "../schemas/metadata/MetadataStorage";
 import { MetadataFactory } from "./MetadataFactory";
 
 export namespace JsonMetadataFactory {
@@ -16,12 +16,12 @@ export namespace JsonMetadataFactory {
     validate?: MetadataFactory.Validator;
   }
   export interface IOutput {
-    collection: MetadataStorage;
+    collection: MetadataCollection;
     metadata: MetadataSchema;
   }
 
   export const analyze = (props: IProps): IOutput => {
-    const collection: MetadataStorage = new MetadataStorage();
+    const collection: MetadataCollection = new MetadataCollection();
     const result: ValidationPipe<MetadataSchema, MetadataFactory.IError> =
       MetadataFactory.analyze({
         checker: props.checker,

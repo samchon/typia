@@ -8,10 +8,10 @@ import { MetadataFactory } from "../../factories/MetadataFactory";
 import { ProtobufFactory } from "../../factories/ProtobufFactory";
 import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
+import { MetadataCollection } from "../../schemas/metadata/MetadataCollection";
 import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
 import { MetadataProperty } from "../../schemas/metadata/MetadataProperty";
 import { MetadataSchema } from "../../schemas/metadata/MetadataSchema";
-import { MetadataStorage } from "../../schemas/metadata/MetadataStorage";
 import { IProtobufProperty } from "../../schemas/protobuf/IProtobufProperty";
 import { IProtobufPropertyType } from "../../schemas/protobuf/IProtobufPropertyType";
 import { IProtobufSchema } from "../../schemas/protobuf/IProtobufSchema";
@@ -27,7 +27,7 @@ export namespace ProtobufDecodeProgrammer {
     type: ts.Type;
     name: string | undefined;
   }): FeatureProgrammer.IDecomposed => {
-    const collection: MetadataStorage = new MetadataStorage();
+    const collection: MetadataCollection = new MetadataCollection();
     const meta: MetadataSchema = ProtobufFactory.metadata({
       method: props.modulo.getText(),
       checker: props.context.checker,
