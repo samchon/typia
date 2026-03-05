@@ -9,3 +9,5 @@ public/robots.txt
 public/sitemap*.xml
 src/raw/
 typedoc-json/
+
+src/compiler/PlaygroundExampleStorage.ts
