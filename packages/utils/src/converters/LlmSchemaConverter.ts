@@ -25,7 +25,6 @@ import { OpenApiConstraintShifter } from "./internal/OpenApiConstraintShifter";
  *
  * - {@link parameters}: Convert object schema to {@link ILlmSchema.IParameters}
  * - {@link schema}: Convert any schema to {@link ILlmSchema}
- * - {@link separate}: Split parameters into LLM-fillable vs human-required
  * - {@link invert}: Extract constraints from description back to schema
  *
  * Configuration options ({@link ILlmSchema.IConfig}):

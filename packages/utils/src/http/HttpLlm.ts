@@ -90,8 +90,7 @@ export namespace HttpLlm {
   /**
    * Convert OpenAPI document to LLM function calling application.
    *
-   * Converts API operations to LLM-callable functions. Use
-   * {@link mergeParameters} if `separate` option is configured.
+   * Converts API operations to LLM-callable functions.
    *
    * @param props Composition properties
    * @returns LLM function calling application
