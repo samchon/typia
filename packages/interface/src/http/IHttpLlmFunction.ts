@@ -52,8 +52,14 @@ export interface IHttpLlmFunction {
    */
   separated?: IHttpLlmFunction.ISeparated;
 
-  /** Return type schema. Undefined if void. */
-  output?: ILlmSchema | undefined;
+  /**
+   * Return type as an object parameters schema.
+   *
+   * Wraps the return type in an {@link ILlmSchema.IParameters} object with
+   * `$defs` for shared type definitions and `properties` for the structured
+   * output. `undefined` if the endpoint returns void.
+   */
+  output?: ILlmSchema.IParameters | undefined;
 
   /** Function description for LLM context. Critical for function selection. */
   description?: string | undefined;

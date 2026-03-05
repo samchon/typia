@@ -1,8 +1,8 @@
-import { generateText } from "ai";
-import { MockLanguageModelV1 } from "ai/test";
 import { TestValidator } from "@nestia/e2e";
 import { ILlmController } from "@typia/interface";
 import { toVercelTools } from "@typia/vercel";
+import { generateText } from "ai";
+import { MockLanguageModelV1 } from "ai/test";
 import typia from "typia";
 
 import { Calculator } from "../structures/Calculator";
@@ -55,7 +55,11 @@ export const test_vercel_generate_text_multiple_tools =
     });
 
     // 5. Verify all tool calls were made
-    TestValidator.equals("should have 3 tool calls", result.toolCalls.length, 3);
+    TestValidator.equals(
+      "should have 3 tool calls",
+      result.toolCalls.length,
+      3,
+    );
 
     // 6. Verify tool results (cast to any[] due to Record<string, Tool> type inference)
     const toolResults = result.toolResults as Array<{
@@ -70,15 +74,15 @@ export const test_vercel_generate_text_multiple_tools =
     const multiplyResult = toolResults.find((r) => r.toolCallId === "call-2")!;
     const subtractResult = toolResults.find((r) => r.toolCallId === "call-3")!;
 
-    TestValidator.equals("add(10, 5) should be 15", addResult.result, 15);
-    TestValidator.equals(
-      "multiply(3, 7) should be 21",
-      multiplyResult.result,
-      21,
-    );
+    TestValidator.equals("add(10, 5) should be 15", addResult.result, {
+      value: 15,
+    });
+    TestValidator.equals("multiply(3, 7) should be 21", multiplyResult.result, {
+      value: 21,
+    });
     TestValidator.equals(
       "subtract(100, 42) should be 58",
       subtractResult.result,
-      58,
+      { value: 58 },
     );
   };

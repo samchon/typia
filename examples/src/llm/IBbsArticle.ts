@@ -51,4 +51,10 @@ export namespace IBbsArticle {
    * Only the filled properties will be updated.
    */
   export type IUpdate = Partial<ICreate>;
+
+  /** Page of articles. */
+  export interface IPage {
+    /** List of articles. */
+    articles: IBbsArticle[];
+  }
 }

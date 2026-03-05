@@ -32,17 +32,23 @@ export const test_langchain_class_controller_execute =
 
     // 5. Test add function via tool.invoke
     const addResult = await addTool.invoke({ x: 10, y: 5 });
-    TestValidator.equals("add(10, 5)", addResult, "15");
+    TestValidator.equals("add(10, 5)", JSON.parse(addResult), { value: 15 });
 
     // 6. Test subtract function
     const subtractResult = await subtractTool.invoke({ x: 10, y: 3 });
-    TestValidator.equals("subtract(10, 3)", subtractResult, "7");
+    TestValidator.equals("subtract(10, 3)", JSON.parse(subtractResult), {
+      value: 7,
+    });
 
     // 7. Test multiply function
     const multiplyResult = await multiplyTool.invoke({ x: 4, y: 7 });
-    TestValidator.equals("multiply(4, 7)", multiplyResult, "28");
+    TestValidator.equals("multiply(4, 7)", JSON.parse(multiplyResult), {
+      value: 28,
+    });
 
     // 8. Test divide function
     const divideResult = await divideTool.invoke({ x: 20, y: 4 });
-    TestValidator.equals("divide(20, 4)", divideResult, "5");
+    TestValidator.equals("divide(20, 4)", JSON.parse(divideResult), {
+      value: 5,
+    });
   };

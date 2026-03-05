@@ -12,12 +12,26 @@ import {
 import { LlmSchemaConverter } from "../../converters";
 import { OpenApiValidator } from "../../validators/OpenApiValidator";
 
+/**
+ * Composes {@link IHttpLlmApplication} from an {@link IHttpMigrateApplication}.
+ *
+ * Converts OpenAPI-migrated HTTP routes into LLM function calling schemas,
+ * filtering out unsupported methods (HEAD) and content types
+ * (multipart/form-data), and shortening function names to fit the configured
+ * maximum length.
+ */
 export namespace HttpLlmApplicationComposer {
+  /**
+   * Builds an {@link IHttpLlmApplication} from migrated HTTP routes.
+   *
+   * Iterates all routes, converts each to an {@link IHttpLlmFunction}, and
+   * collects conversion errors. Applies function name shortening at the end.
+   */
   export const application = (props: {
     migrate: IHttpMigrateApplication;
     config?: Partial<IHttpLlmApplication.IConfig>;
   }): IHttpLlmApplication => {
-    // COMPOSE FUNCTIONS
+    // fill in config defaults
     const config: IHttpLlmApplication.IConfig = {
       separate: props.config?.separate ?? null,
       maxLength: props.config?.maxLength ?? 64,
@@ -25,6 +39,7 @@ export namespace HttpLlmApplicationComposer {
       reference: props.config?.reference ?? true,
       strict: props.config?.strict ?? false,
     };
+    // seed with pre-existing migration errors, excluding human-only endpoints
     const errors: IHttpLlmApplication.IError[] = props.migrate.errors
       .filter((e) => e.operation()["x-samchon-human"] !== true)
       .map((e) => ({
@@ -34,9 +49,11 @@ export namespace HttpLlmApplicationComposer {
         operation: () => e.operation(),
         route: () => undefined,
       }));
+    // convert each route to an LLM function, rejecting unsupported ones
     const functions: IHttpLlmFunction[] = props.migrate.routes
       .filter((e) => e.operation()["x-samchon-human"] !== true)
       .map((route, i) => {
+        // reject HEAD — LLMs cannot interpret header-only responses
         if (route.method === "head") {
           errors.push({
             method: route.method,
@@ -46,6 +63,7 @@ export namespace HttpLlmApplicationComposer {
             route: () => route as any as IHttpMigrateRoute,
           });
           return null;
+          // reject multipart/form-data — binary uploads not expressible in JSON Schema
         } else if (
           route.body?.type === "multipart/form-data" ||
           route.success?.type === "multipart/form-data"
@@ -90,6 +108,11 @@ export namespace HttpLlmApplicationComposer {
     return app;
   };
 
+  /**
+   * Converts a single {@link IHttpMigrateRoute} into an {@link IHttpLlmFunction}
+   * by composing parameter/output schemas and validating function name
+   * constraints.
+   */
   const composeFunction = (props: {
     components: OpenApi.IComponents;
     route: IHttpMigrateRoute;
@@ -97,30 +120,20 @@ export namespace HttpLlmApplicationComposer {
     errors: string[];
     index: number;
   }): IHttpLlmFunction | null => {
-    // METADATA
+    // accessor prefix for error messages (mirrors OpenAPI document structure)
     const endpoint: string = `$input.paths[${JSON.stringify(props.route.path)}][${JSON.stringify(props.route.method)}]`;
     const operation: OpenApi.IOperation = props.route.operation();
-    const description: [string | undefined, number] = (() => {
-      if (!operation.summary?.length || !operation.description?.length)
-        return [
-          operation.summary || operation.description,
-          operation.summary?.length ?? operation.description?.length ?? 0,
-        ];
-      const summary: string = operation.summary.endsWith(".")
-        ? operation.summary.slice(0, -1)
-        : operation.summary;
-      const final: string = operation.description.startsWith(summary)
-        ? operation.description
-        : summary + ".\n\n" + operation.description;
-      return [final, final.length];
-    })();
-    if (description[1] > 1_024) {
+    const description: string | undefined = concatDescription({
+      summary: operation.summary,
+      description: operation.description,
+    });
+    if ((description?.length ?? 0) > 1_024) {
       props.errors.push(
-        `The description of the function is too long (must be equal or less than 1,024 characters, but ${description[1].toLocaleString()} length).`,
+        `The description of the function is too long (must be equal or less than 1,024 characters, but ${description!.length.toLocaleString()} length).`,
       );
     }
 
-    // FUNCTION NAME
+    // build function name from route accessor, replacing forbidden chars
     const name: string = emend(props.route.accessor.join("_"));
     const isNameVariable: boolean = /^[a-zA-Z0-9_-]+$/.test(name);
     const isNameStartsWithNumber: boolean = /^[0-9]/.test(name[0] ?? "");
@@ -128,14 +141,17 @@ export namespace HttpLlmApplicationComposer {
       props.errors.push(
         `Elements of path (separated by '/') must be composed with alphabets, numbers, underscores, and hyphens`,
       );
+    if (isNameStartsWithNumber === true)
+      props.errors.push(`Function name cannot start with a number.`);
 
     //----
     // CONSTRUCT SCHEMAS
     //----
-    // PARAMETERS
+    // merge path parameters, query, and body into a single object schema
     const parameters: OpenApi.IJsonSchema.IObject = {
       type: "object",
       properties: Object.fromEntries([
+        // path parameters (e.g., /users/:id)
         ...props.route.parameters.map(
           (s) =>
             [
@@ -146,6 +162,7 @@ export namespace HttpLlmApplicationComposer {
               },
             ] as const,
         ),
+        // query parameters
         ...(props.route.query
           ? [
               [
@@ -161,6 +178,7 @@ export namespace HttpLlmApplicationComposer {
               ] as const,
             ]
           : []),
+        // request body
         ...(props.route.body
           ? [
               [
@@ -178,6 +196,7 @@ export namespace HttpLlmApplicationComposer {
     };
     parameters.required = Object.keys(parameters.properties ?? {});
 
+    // convert merged object schema to LLM parameters
     const llmParameters: IResult<
       ILlmSchema.IParameters,
       IJsonSchemaTransformError
@@ -188,27 +207,30 @@ export namespace HttpLlmApplicationComposer {
       accessor: `${endpoint}.parameters`,
     });
 
-    // RETURN VALUE
-    const output: IResult<ILlmSchema, IJsonSchemaTransformError> | undefined =
-      props.route.success
-        ? LlmSchemaConverter.schema({
-            config: props.config,
-            components: props.components,
-            schema: props.route.success.schema,
-            accessor: `${endpoint}.responses[${JSON.stringify(props.route.success.status)}][${JSON.stringify(props.route.success.type)}].schema`,
-            $defs: llmParameters.success ? llmParameters.value.$defs : {},
-          })
-        : undefined;
+    // convert response schema to LLM output parameters
+    const output:
+      | IResult<ILlmSchema.IParameters, IJsonSchemaTransformError>
+      | undefined = props.route.success
+      ? LlmSchemaConverter.parameters({
+          config: props.config,
+          components: props.components,
+          schema: props.route.success.schema as
+            | OpenApi.IJsonSchema.IObject
+            | OpenApi.IJsonSchema.IReference,
+          accessor: `${endpoint}.responses[${JSON.stringify(props.route.success.status)}][${JSON.stringify(props.route.success.type)}].schema`,
+        })
+      : undefined;
 
     //----
     // CONVERSION
     //----
+    // bail out if any validation or conversion failed
     if (
       output?.success === false ||
       llmParameters.success === false ||
       isNameVariable === false ||
       isNameStartsWithNumber === true ||
-      description[1] > 1_024
+      (description?.length ?? 0) > 1_024
     ) {
       if (output?.success === false)
         props.errors.push(
@@ -216,6 +238,7 @@ export namespace HttpLlmApplicationComposer {
         );
       if (llmParameters.success === false)
         props.errors.push(
+          // rewrite internal accessor to match OpenAPI requestBody path
           ...llmParameters.error.reasons.map((r) => {
             const accessor: string = r.accessor.replace(
               `parameters.properties["body"]`,
@@ -226,6 +249,8 @@ export namespace HttpLlmApplicationComposer {
         );
       return null;
     }
+
+    // assemble the LLM function
     return {
       method: props.route.method as "get",
       path: props.route.path,
@@ -239,7 +264,7 @@ export namespace HttpLlmApplicationComposer {
           })
         : undefined,
       output: output?.value,
-      description: description[0],
+      description,
       deprecated: operation.deprecated,
       tags: operation.tags,
       validate: OpenApiValidator.create({
@@ -253,10 +278,17 @@ export namespace HttpLlmApplicationComposer {
     };
   };
 
+  /**
+   * Shortens function names exceeding the character limit.
+   *
+   * Tries progressively shorter accessor suffixes first, then falls back to
+   * index-prefixed names, and finally UUID as a last resort.
+   */
   export const shorten = (
     app: IHttpLlmApplication,
     limit: number = 64,
   ): void => {
+    // collect all names for uniqueness checks
     const dictionary: Set<string> = new Set();
     const longFunctions: IHttpLlmFunction[] = [];
     for (const func of app.functions) {
@@ -270,17 +302,21 @@ export namespace HttpLlmApplicationComposer {
     let index: number = 0;
     for (const func of longFunctions) {
       let success: boolean = false;
-      let rename = (str: string) => {
+      const rename = (str: string) => {
         dictionary.delete(func.name);
         dictionary.add(str);
         func.name = str;
         success = true;
       };
+      // try dropping leading accessor segments to shorten the name
+      // (e.g., "api_users_getById" → "users_getById" → "getById")
       for (let i: number = 1; i < func.route().accessor.length; ++i) {
         const shortName: string = func.route().accessor.slice(i).join("_");
-        if (shortName.length > limit - 8) continue;
+        if (shortName.length > limit - 8)
+          continue; // reserve room for "_N_" prefix
         else if (dictionary.has(shortName) === false) rename(shortName);
         else {
+          // name collision — prefix with a counter to disambiguate
           const newName: string = `_${index}_${shortName}`;
           if (dictionary.has(newName) === true) continue;
           rename(newName);
@@ -288,6 +324,7 @@ export namespace HttpLlmApplicationComposer {
         }
         break;
       }
+      // last resort — all suffix attempts failed or collided
       if (success === false) rename(randomFormatUuid());
     }
   };
@@ -300,9 +337,30 @@ const randomFormatUuid = (): string =>
     return v.toString(16);
   });
 
+/** Replaces forbidden characters (`$`, `%`, `.`) with underscores. */
 const emend = (str: string): string => {
   for (const ch of FORBIDDEN) str = str.split(ch).join("_");
   return str;
 };
 
 const FORBIDDEN = ["$", "%", "."];
+
+/**
+ * Concatenates summary and description into a single string.
+ *
+ * If both are present, joins them with a period and double newline, avoiding
+ * duplication when the description already starts with the summary.
+ */
+const concatDescription = (p: {
+  summary?: string | undefined;
+  description?: string | undefined;
+}): string | undefined => {
+  if (!p.summary?.length || !p.description?.length)
+    return p.summary || p.description;
+  const summary: string = p.summary.endsWith(".")
+    ? p.summary.slice(0, -1)
+    : p.summary;
+  return p.description.startsWith(summary)
+    ? p.description
+    : summary + ".\n\n" + p.description;
+};
