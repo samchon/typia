@@ -10,7 +10,8 @@
     "package:latest": "pnpm --filter=./packages/* -r publish --tag latest --access public",
     "package:next": "bash next.bash",
     "package:tgz": "node website/build/tgz",
-    "prepare": "ts-patch install"
+    "prepare": "ts-patch install",
+    "release": "bumpp -r"
   },
   "repository": {
     "type": "git",
