@@ -6,7 +6,6 @@ import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 
 import LocalSource from '../../components/LocalSource';
-import RemoteSource from "../../components/RemoteSource";
 
 ## `misc` module
 
@@ -37,20 +36,20 @@ export namespace misc {
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource 
-      path="src/TypeGuardError.ts"
+      path="packages/typia/src/TypeGuardError.ts"
       filename="typia/TypeGuardError.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/openapi/refs/heads/master/src/structures/IValidation.ts"
-      filename="@samchon/openapi"
+    <LocalSource 
+      path="packages/interface/src/schema/IValidation.ts"
+      filename="@typia/interface"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource 
-      path="src/Resolved.ts"
-      filename="typia/Resolved.ts"
+      path="packages/interface/src/typings/Resolved.ts"
+      filename="@typia/interface"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>
@@ -100,14 +99,14 @@ export function createValidatePrune<T>(): (input: T | unknown) => IValidation<T>
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource 
-      path="src/TypeGuardError.ts"
+      path="packages/typia/src/TypeGuardError.ts"
       filename="typia/TypeGuardError.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/openapi/refs/heads/master/src/structures/IValidation.ts"
-      filename="@samchon/openapi"
+    <LocalSource 
+      path="packages/interface/src/schema/IValidation.ts"
+      filename="@typia/interface/IValidation.ts"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>
@@ -196,19 +195,19 @@ export namespace notations {
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource 
-      path="src/TypeGuardError.ts"
+      path="packages/typia/src/TypeGuardError.ts"
       filename="typia/TypeGuardError.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/openapi/refs/heads/master/src/structures/IValidation.ts"
-      filename="@samchon/openapi"
+    <LocalSource 
+      path="packages/interface/src/schema/IValidation.ts"
+      filename="@typia/interface/IValidation.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource 
-      path="src/CamelCase.ts"
+      path="packages/interface/src/typings/CamelCase.ts"
       filename="typia/CamelCase.ts"
       showLineNumbers />
   </Tabs.Tab>
@@ -272,20 +271,21 @@ export namespace notations {
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource 
-      path="src/TypeGuardError.ts"
+      path="packages/typia/src/TypeGuardError.ts"
       filename="typia/TypeGuardError.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/openapi/refs/heads/master/src/structures/IValidation.ts"
-      filename="@samchon/openapi"
+    <LocalSource 
+      path="packages/interface/src/schema/IValidation.ts"
+      filename="@typia/interface/IValidation.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource 
-      path="src/PascalCase.ts"
-      filename="typia/PascalCase.ts"
+
+      path="packages/interface/src/typings/PascalCase.ts"
+      filename="@typia/interface"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>
@@ -346,20 +346,20 @@ export namespace notations {
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource 
-      path="src/TypeGuardError.ts"
+      path="packages/typia/src/TypeGuardError.ts"
       filename="typia/TypeGuardError.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/openapi/refs/heads/master/src/structures/IValidation.ts"
-      filename="@samchon/openapi"
+    <LocalSource 
+      path="packages/interface/src/schema/IValidation.ts"
+      filename="@typia/interface/IValidation.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource 
-      path="src/SnakeCase.ts"
-      filename="typia/SnakeCase.ts"
+      path="packages/interface/src/typings/SnakeCase.ts"
+      filename="@typia/interface"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>
@@ -441,20 +441,20 @@ type Query = string | URLSearchParams;
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource 
-      path="src/TypeGuardError.ts"
+      path="packages/typia/src/TypeGuardError.ts"
       filename="typia/TypeGuardError.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/openapi/refs/heads/master/src/structures/IValidation.ts"
-      filename="@samchon/openapi"
+    <LocalSource 
+      path="packages/interface/src/schema/IValidation.ts"
+      filename="@typia/interface"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource 
-      path="src/Resolved.ts"
-      filename="typia/Resolved.ts"
+      path="packages/interface/src/typings/Resolved.ts"
+      filename="@typia/interface"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>
@@ -529,20 +529,20 @@ type Headers = Record<string, string | string[] | undefined>;
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource 
-      path="src/TypeGuardError.ts"
+      path="packages/typia/src/TypeGuardError.ts"
       filename="typia/TypeGuardError.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/openapi/refs/heads/master/src/structures/IValidation.ts"
-      filename="@samchon/openapi"
+    <LocalSource 
+      path="packages/interface/src/schema/IValidation.ts"
+      filename="@typia/interface"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource 
-      path="src/Resolved.ts"
-      filename="typia/Resolved.ts"
+      path="packages/interface/src/typings/Resolved.ts"
+      filename="@typia/interface"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>
@@ -619,7 +619,7 @@ export namespace http {
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource 
-      path="src/TypeGuardError.ts"
+      path="packages/typia/src/TypeGuardError.ts"
       filename="typia/TypeGuardError.ts"
       showLineNumbers />
   </Tabs.Tab>

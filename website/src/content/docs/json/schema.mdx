@@ -4,7 +4,6 @@ title: Guide Documents > JSON > Schema
 import { Tabs } from "nextra/components";
 
 import LocalSource from "../../../components/LocalSource";
-import RemoteSource from "../../../components/RemoteSource";
 
 ## `schemas()` function
 
@@ -31,15 +30,15 @@ export namespace json {
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/openapi/refs/heads/master/src/OpenApi.ts"
-      filename="@samchon/openapi"
+    <LocalSource
+      path="packages/interface/src/openapi/OpenApi.ts"
+      filename="@typia/interface"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/openapi/refs/heads/master/src/OpenApiV3.ts"
-      filename="@samchon/openapi"
+    <LocalSource 
+      path="packages/interface/src/openapi/OpenApiV3.ts"
+      filename="@typia/interface"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>

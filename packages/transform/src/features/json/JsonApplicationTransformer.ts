@@ -1,9 +1,9 @@
 import {
   JsonApplicationProgrammer,
   LiteralFactory,
+  MetadataCollection,
   MetadataFactory,
   MetadataSchema,
-  MetadataStorage,
 } from "@typia/core";
 import { IJsonSchemaApplication, ValidationPipe } from "@typia/interface";
 import ts from "typescript";
@@ -33,8 +33,8 @@ export namespace JsonApplicationTransformer {
 
     // GET TYPE
     const type: ts.Type = props.context.checker.getTypeFromTypeNode(top);
-    const collection: MetadataStorage = new MetadataStorage({
-      replace: MetadataStorage.replace,
+    const collection: MetadataCollection = new MetadataCollection({
+      replace: MetadataCollection.replace,
     });
     const result: ValidationPipe<MetadataSchema, MetadataFactory.IError> =
       MetadataFactory.analyze({

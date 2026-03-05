@@ -9,8 +9,7 @@ import LocalSource from "../../components/LocalSource";
 
 <Tabs items={[
   <code>typia</code>, 
-  <code>IRandomGenerator.ts</code>, 
-  <code>Customizable.ts</code>,
+  <code>IRandomGenerator.ts</code>,
   <code>Resolved.ts</code>
 ]}>
   <Tabs.Tab>
@@ -20,20 +19,14 @@ export function random<T>(g?: IRandomGenerator): Resolved<T>;
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource 
-      path="src/IRandomGenerator.ts" 
-      filename="typia/IRandomGenerator.ts" 
+      path="packages/interface/src/utils/IRandomGenerator.ts" 
+      filename="@typia/interface"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource 
-      path="src/typings/Customizable.ts" 
-      filename="typia/Customizable.ts"
-      showLineNumbers />
-  </Tabs.Tab>
-  <Tabs.Tab>
-    <LocalSource 
-      path="src/Resolved.ts" 
-      filename="typia/Resolved.ts"
+      path="packages/interface/src/typings/Resolved.ts" 
+      filename="@typia/interface"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>
@@ -84,8 +77,8 @@ export function createRandom<T>(): (g?: IRandomGenerator) => Resolved<T>;
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource 
-      path="src/Resolved.ts" 
-      filename="typia/Resolved.ts"
+      path="packages/interface/src/typings/Resolved.ts" 
+      filename="@typia/interface"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>
@@ -148,8 +141,8 @@ export function random<T>(g?: IRandomGenerator): Resolved<T>;
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource 
-      path="src/Resolved.ts" 
-      filename="typia/Resolved.ts"
+      path="packages/interface/src/typings/Resolved.ts" 
+      filename="@typia/interface"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>

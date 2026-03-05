@@ -67,7 +67,7 @@ export class ImportProgrammer {
     if (name.startsWith("_") === false) name = `_${name}`;
     return ts.factory.createPropertyAccessExpression(
       this.namespace({
-        file: `typia/lib/internal/${name}.js`,
+        file: `typia/lib/internal/${name}`,
         name: this.alias(name),
       }),
       name,
@@ -77,9 +77,7 @@ export class ImportProgrammer {
   /** @internal */
   public getInternalText(name: string): string {
     if (name.startsWith("_") === false) name = `_${name}`;
-    const asset: IAsset | undefined = this.take(
-      `typia/lib/internal/${name}.js`,
-    );
+    const asset: IAsset | undefined = this.take(`typia/lib/internal/${name}`);
     if (!asset?.namespace) throw new Error(`Internal asset not found: ${name}`);
     return `${asset.namespace.name}.${name}`;
   }

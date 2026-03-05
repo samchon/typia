@@ -4,9 +4,9 @@ import ts from "typescript";
 import { ITypiaContext } from "../../context/ITypiaContext";
 import { TransformerError } from "../../context/TransformerError";
 import { MetadataFactory } from "../../factories/MetadataFactory";
+import { MetadataCollection } from "../../schemas/metadata/MetadataCollection";
 import { MetadataObject } from "../../schemas/metadata/MetadataObject";
 import { MetadataSchema } from "../../schemas/metadata/MetadataSchema";
-import { MetadataStorage } from "../../schemas/metadata/MetadataStorage";
 
 export namespace LlmMetadataFactory {
   export const getConfig = (props: {
@@ -23,7 +23,7 @@ export namespace LlmMetadataFactory {
     if (props.node === undefined) return undefined;
 
     const type: ts.Type = props.context.checker.getTypeFromTypeNode(props.node);
-    const collection: MetadataStorage = new MetadataStorage();
+    const collection: MetadataCollection = new MetadataCollection();
     const result: ValidationPipe<MetadataSchema, MetadataFactory.IError> =
       MetadataFactory.analyze({
         checker: props.context.checker,

@@ -1,3 +1,5 @@
+export * from "./helpers/FunctionProgrammer";
+
 export * from "./AssertProgrammer";
 export * from "./ImportProgrammer";
 export * from "./IsProgrammer";

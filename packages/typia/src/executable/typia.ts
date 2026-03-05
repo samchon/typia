@@ -32,10 +32,10 @@ const main = async (): Promise<void> => {
 
   const type: string | undefined = process.argv[2];
   if (type === "setup") {
-    const { TypiaSetupWizard } = await import("./TypiaSetupWizard");
+    const { TypiaSetupWizard } = await import("./TypiaSetupWizard.js");
     await TypiaSetupWizard.setup();
   } else if (type === "patch") {
-    const { TypiaPatchWizard } = await import("./TypiaPatchWizard");
+    const { TypiaPatchWizard } = await import("./TypiaPatchWizard.js");
     await TypiaPatchWizard.main();
   } else if (type === "generate") {
     try {
@@ -45,7 +45,7 @@ const main = async (): Promise<void> => {
         `typescript has not been installed. Run "npm i -D typescript" before.`,
       );
     }
-    const { TypiaGenerateWizard } = await import("./TypiaGenerateWizard");
+    const { TypiaGenerateWizard } = await import("./TypiaGenerateWizard.js");
     await TypiaGenerateWizard.generate();
   } else halt(USAGE);
 };

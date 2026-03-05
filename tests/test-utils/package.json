@@ -1,11 +1,10 @@
 {
   "private": true,
   "name": "@typia/test-utils",
-  "version": "0.1.0",
+  "version": "12.0.0-dev.20260305",
   "description": "Automated test features of typia.",
   "scripts": {
     "dev": "tsc --watch",
-    "prepare": "ts-patch install",
     "start": "ts-node src/index.ts"
   },
   "repository": {
@@ -27,7 +26,6 @@
     "@types/ts-expose-internals": "catalog:typescript",
     "@types/uuid": "catalog:utils",
     "ts-node": "catalog:typescript",
-    "ts-patch": "catalog:typescript",
     "typescript": "catalog:typescript"
   },
   "dependencies": {

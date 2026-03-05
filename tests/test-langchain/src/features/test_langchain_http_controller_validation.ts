@@ -42,8 +42,12 @@ export const test_langchain_http_controller_validation =
                 content: {
                   "application/json": {
                     schema: {
-                      type: "number",
-                    } satisfies OpenApi.IJsonSchema.INumber,
+                      type: "object",
+                      properties: {
+                        value: { type: "number" },
+                      },
+                      required: ["value"],
+                    } satisfies OpenApi.IJsonSchema.IObject,
                   },
                 },
               },

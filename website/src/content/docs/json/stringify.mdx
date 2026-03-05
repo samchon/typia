@@ -6,7 +6,6 @@ import AlertTitle from "@mui/material/AlertTitle";
 import { Tabs } from "nextra/components";
 
 import LocalSource from "../../../components/LocalSource";
-import RemoteSource from "../../../components/RemoteSource";
 
 ## `stringify()` functions
 
@@ -27,14 +26,14 @@ export namespace json {
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource 
-      path="src/TypeGuardError.ts"
+      path="packages/typia/src/TypeGuardError.ts"
       filename="typia/TypeGuardError.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/openapi/refs/heads/master/src/structures/IValidation.ts"
-      filename="@samchon/openapi"
+    <LocalSource 
+      path="packages/interface/src/schema/IValidation.ts"
+      filename="@typia/interface/IValidation.ts"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>
@@ -95,14 +94,14 @@ export namespace json {
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource 
-      path="src/TypeGuardError.ts"
+      path="packages/typia/src/TypeGuardError.ts"
       filename="typia/TypeGuardError.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/openapi/refs/heads/master/src/structures/IValidation.ts"
-      filename="@samchon/openapi"
+    <LocalSource 
+      path="packages/interface/src/schema/IValidation.ts"
+      filename="@typia/interface/IValidation.ts"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>

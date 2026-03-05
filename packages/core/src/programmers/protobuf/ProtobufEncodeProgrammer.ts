@@ -9,10 +9,10 @@ import { NumericRangeFactory } from "../../factories/NumericRangeFactory";
 import { ProtobufFactory } from "../../factories/ProtobufFactory";
 import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
+import { MetadataCollection } from "../../schemas/metadata/MetadataCollection";
 import { MetadataMap } from "../../schemas/metadata/MetadataMap";
 import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
 import { MetadataSchema } from "../../schemas/metadata/MetadataSchema";
-import { MetadataStorage } from "../../schemas/metadata/MetadataStorage";
 import { IProtobufProperty } from "../../schemas/protobuf/IProtobufProperty";
 import { IProtobufPropertyType } from "../../schemas/protobuf/IProtobufPropertyType";
 import { IProtobufSchema } from "../../schemas/protobuf/IProtobufSchema";
@@ -32,7 +32,7 @@ export namespace ProtobufEncodeProgrammer {
     type: ts.Type;
     name: string | undefined;
   }): FeatureProgrammer.IDecomposed => {
-    const collection: MetadataStorage = new MetadataStorage();
+    const collection: MetadataCollection = new MetadataCollection();
     const metadata: MetadataSchema = ProtobufFactory.metadata({
       method: props.modulo.getText(),
       checker: props.context.checker,
@@ -124,7 +124,7 @@ export namespace ProtobufEncodeProgrammer {
   const write_encoder = (props: {
     context: ITypiaContext;
     functor: FunctionProgrammer;
-    collection: MetadataStorage;
+    collection: MetadataCollection;
     metadata: MetadataSchema;
   }): ts.ArrowFunction => {
     const functors = props.collection
@@ -154,7 +154,7 @@ export namespace ProtobufEncodeProgrammer {
           undefined,
           "Writer",
           props.context.importer.type({
-            file: "typia/lib/internal/_IProtobufWriter.js",
+            file: "typia/lib/internal/_IProtobufWriter",
             name: "_IProtobufWriter",
           }),
         ),

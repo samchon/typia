@@ -4,9 +4,9 @@ import {
   LiteralFactory,
   LlmApplicationProgrammer,
   LlmMetadataFactory,
+  MetadataCollection,
   MetadataFactory,
   MetadataSchema,
-  MetadataStorage,
   StatementFactory,
 } from "@typia/core";
 import { ILlmApplication, ILlmSchema, ValidationPipe } from "@typia/interface";
@@ -113,8 +113,8 @@ export namespace LlmApplicationTransformer {
                     })
                 : undefined,
           },
-          components: new MetadataStorage({
-            replace: MetadataStorage.replace,
+          components: new MetadataCollection({
+            replace: MetadataCollection.replace,
           }),
           type,
         });

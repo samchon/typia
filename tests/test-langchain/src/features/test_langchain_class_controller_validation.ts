@@ -46,5 +46,7 @@ export const test_langchain_class_controller_validation =
 
     // 5. Test with valid arguments - should succeed
     const validResult = await addTool.invoke({ x: 10, y: 5 });
-    TestValidator.equals("valid args should work", validResult, "15");
+    TestValidator.equals("valid args should work", JSON.parse(validResult), {
+      value: 15,
+    });
   };

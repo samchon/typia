@@ -1,17 +1,16 @@
 {
   "name": "typia",
-  "version": "11.0.1",
+  "version": "12.0.0-dev.20260305",
   "description": "Superfast runtime validators with only one line",
   "main": "src/index.ts",
   "exports": {
     ".": "./src/index.ts",
     "./lib/transform": "./src/transform.ts",
-    "./lib/internal/*.js": "./src/internal/*.ts",
-    "./src/internal/*": "./src/internal/*.ts",
+    "./lib/internal/*": "./src/internal/*.ts",
     "./package.json": "./package.json"
   },
   "bin": {
-    "typia": "./lib/executable/typia.js"
+    "typia": "./src/executable/typia.ts"
   },
   "tsp": {
     "tscOptions": {
@@ -19,21 +18,9 @@
     }
   },
   "scripts": {
-    "test": "ts-node deploy --tag test",
-    "test:template": "npm run --tag test --template",
-    "-------------------------------------------------": "",
-    "build": "rimraf lib && tsc && rollup -c",
+    "build": "rimraf lib && tsc && rollup -c && cp ../../README.md README.md",
     "dev": "rimraf lib && tsc --watch",
-    "dev:errors": "tsc --project tsconfig.errors.json --watch",
-    "eslint": "eslint",
-    "eslint:fix": "eslint --fix",
-    "prettier": "prettier src --check",
-    "prettier:fix": "prettier src --write",
-    "------------------------------------------------": "",
-    "package:latest": "ts-node deploy --tag latest",
-    "package:next": "ts-node deploy --tag next",
-    "package:patch": "ts-node deploy --tag patch",
-    "package:tgz": "ts-node deploy/tgz.ts"
+    "prepack": "pnpm run build"
   },
   "repository": {
     "type": "git",
@@ -82,7 +69,6 @@
   },
   "sideEffects": false,
   "files": [
-    "LICENSE",
     "README.md",
     "package.json",
     "lib",
@@ -130,6 +116,9 @@
     "types": "lib/index.d.ts",
     "main": "lib/index.js",
     "module": "lib/index.mjs",
+    "bin": {
+      "typia": "./lib/executable/typia.js"
+    },
     "exports": {
       ".": {
         "types": "./lib/index.d.ts",
@@ -142,6 +131,10 @@
         "default": "./lib/transform.js"
       },
       "./lib/internal/*.js": {
+        "types": "./lib/internal/*.d.ts",
+        "default": "./lib/internal/*.js"
+      },
+      "./lib/internal/*": {
         "types": "./lib/internal/*.d.ts",
         "import": "./lib/internal/*.mjs",
         "default": "./lib/internal/*.js"

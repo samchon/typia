@@ -1,8 +1,8 @@
 import {
   ITypiaContext,
+  MetadataCollection,
   MetadataFactory,
   MetadataSchema,
-  MetadataStorage,
 } from "@typia/core";
 import { ValidationPipe } from "@typia/interface";
 import ts from "typescript";
@@ -57,8 +57,8 @@ const getMetadata = (props: {
   const type: ts.Type = props.context.checker.getTypeFromTypeNode(
     props.node as ts.TypeNode,
   );
-  const collection: MetadataStorage = new MetadataStorage({
-    replace: MetadataStorage.replace,
+  const collection: MetadataCollection = new MetadataCollection({
+    replace: MetadataCollection.replace,
   });
   const result: ValidationPipe<MetadataSchema, MetadataFactory.IError> =
     MetadataFactory.analyze({

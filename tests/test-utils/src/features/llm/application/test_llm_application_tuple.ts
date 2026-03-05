@@ -90,8 +90,8 @@ export const test_llm_application_tuple = (): void => {
     [
       [
         '$input.components.schemas["IApiPlus.PostBody"]',
-        '$input.components.schemas["IApiPlus.PostResponse"]',
         '$input.components.schemas["IApiPlus.PostQuery"].properties["values"]',
+        '$input.paths["/plus"]["post"].responses["201"]["application/json"].schema',
       ].sort(),
       [
         '$input.components.schemas["IApiMinus.PostBody"].properties["x"]',

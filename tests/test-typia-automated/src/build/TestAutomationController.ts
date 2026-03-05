@@ -23,6 +23,10 @@ export namespace TestAutomationController {
         await generateFeatureSet(visit, tpl, metadata, false);
         if (tpl.creatable) await generateFeatureSet(visit, tpl, metadata, true);
       }
+
+    // Run composite function tests (ObjectSimple only)
+    const compositeLocation: string = `${TestGlobal.ROOT}/src/composite`;
+    if (fs.existsSync(compositeLocation)) await visit(compositeLocation);
   };
 
   async function loadMetadata(): Promise<TestAutomationMetadata<any>[]> {
