@@ -170,7 +170,7 @@ export type IExpression =
 
 About the function parameters type, it follows the restriction of both [`typia.llm.parameters<Params>()`](../parameters) and [`typia.llm.schema<T>()`](../schema) functions. Therefore, the parameters must be a keyworded object type with static keys without any dynamic keys. Also, the object type must not be nullable or optional.
 
-About the return value type, it follows the restriction of [`typia.llm.schema<T>()`](../schema) function. By the way, if the return type is union type with `undefined`, it would be compilation error, due to OpenAPI (JSON schema) specification does not support the undefindable union type.
+About the return value type, it also follows the restriction of [`typia.llm.parameters<Params>()`](../parameters) function. Therefore, the return type must be a keyworded object type with static keys, or `void`. Primitive types (like `number`, `string`, `boolean`), array types, and union types with `undefined` are not allowed as return types. If you need to return a primitive or array value, wrap it in an object type (e.g., `{ value: number }` or `{ items: T[] }`).
 
   - [`typia.llm.parameters<Params>()`](../parameters)
   - [`typia.llm.schema<T>()`](../schema)
@@ -201,6 +201,14 @@ interface BbsArticleController {
     input: IBbsArticle.ICreate;
   }): Promise<IBbsArticle | undefined>;
 
+  /**
+   * Add two numbers.
+   *
+   * @param props Properties of add function
+   * @returns The sum value
+   */
+  add(props: { x: number; y: number }): number;
+
   erase(id: string & tags.Format<"uuid">): Promise<void>;
 }
 ```
@@ -211,6 +219,9 @@ src/examples/llm.application.violation.ts:4:29 - error TS(typia.llm.application)
 
 - BbsArticleController.create: unknown
   - LLM application's function ("create")'s return type must not be union type with undefined.
+
+- BbsArticleController.add: unknown
+  - LLM application's function ("add")'s return type must be an object type.
 
 - BbsArticleController.erase: unknown
   - LLM application's function ("erase")'s parameter must be an object type.

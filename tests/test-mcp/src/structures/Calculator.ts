@@ -5,8 +5,8 @@ export class Calculator {
    * @param p The input containing two numbers to add
    * @returns The sum of a and b
    */
-  add(p: Calculator.IProps): number {
-    return p.x + p.y;
+  add(p: Calculator.IProps): Calculator.IResult {
+    return { value: p.x + p.y };
   }
 
   /**
@@ -15,8 +15,8 @@ export class Calculator {
    * @param p The input containing two numbers to subtract
    * @returns The difference of a and b
    */
-  subtract(p: Calculator.IProps): number {
-    return p.x - p.y;
+  subtract(p: Calculator.IProps): Calculator.IResult {
+    return { value: p.x - p.y };
   }
 
   /**
@@ -25,8 +25,8 @@ export class Calculator {
    * @param p The input containing two numbers to multiply
    * @returns The product of a and b
    */
-  multiply(p: Calculator.IProps): number {
-    return p.x * p.y;
+  multiply(p: Calculator.IProps): Calculator.IResult {
+    return { value: p.x * p.y };
   }
 
   /**
@@ -35,11 +35,11 @@ export class Calculator {
    * @param p The input containing two numbers to divide
    * @returns The quotient of a and b
    */
-  divide(p: Calculator.IProps): number {
+  divide(p: Calculator.IProps): Calculator.IResult {
     if (p.y === 0) {
       throw new Error("Division by zero is not allowed");
     }
-    return p.x / p.y;
+    return { value: p.x / p.y };
   }
 }
 export namespace Calculator {
@@ -49,5 +49,11 @@ export namespace Calculator {
 
     /** Second operand */
     y: number;
+  }
+
+  /** Result of a calculation. */
+  export interface IResult {
+    /** Calculated value */
+    value: number;
   }
 }

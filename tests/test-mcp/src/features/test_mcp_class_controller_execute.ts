@@ -56,7 +56,7 @@ export const test_mcp_class_controller_execute = async (): Promise<void> => {
   TestValidator.equals(
     "add(10, 5) should return 15",
     (addResult.content[0] as { text: string }).text,
-    "15",
+    JSON.stringify({ value: 15 }, null, 2),
   );
 
   // 6. Test subtract function
@@ -76,7 +76,7 @@ export const test_mcp_class_controller_execute = async (): Promise<void> => {
   TestValidator.equals(
     "subtract(10, 3) should return 7",
     (subtractResult.content[0] as { text: string }).text,
-    "7",
+    JSON.stringify({ value: 7 }, null, 2),
   );
 
   // 7. Test multiply function
@@ -96,7 +96,7 @@ export const test_mcp_class_controller_execute = async (): Promise<void> => {
   TestValidator.equals(
     "multiply(4, 7) should return 28",
     (multiplyResult.content[0] as { text: string }).text,
-    "28",
+    JSON.stringify({ value: 28 }, null, 2),
   );
 
   // 8. Test divide function
@@ -116,7 +116,7 @@ export const test_mcp_class_controller_execute = async (): Promise<void> => {
   TestValidator.equals(
     "divide(20, 4) should return 5",
     (divideResult.content[0] as { text: string }).text,
-    "5",
+    JSON.stringify({ value: 5 }, null, 2),
   );
 
 };

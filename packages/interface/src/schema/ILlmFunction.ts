@@ -53,10 +53,14 @@ export interface ILlmFunction {
   /**
    * Schema for the return type.
    *
-   * Defines the expected output type as a JSON Schema. `undefined` when the
-   * function returns `void` or has no meaningful return value.
+   * Defines the expected output type as an object parameters schema, wrapping
+   * the return type in an {@link ILlmSchema.IParameters} object with `$defs`
+   * for shared type definitions and `properties` for the structured output.
+   *
+   * `undefined` when the function returns `void` or has no meaningful return
+   * value.
    */
-  output?: ILlmSchema | undefined;
+  output?: ILlmSchema.IParameters | undefined;
 
   /**
    * Human-readable function description.
