@@ -6,8 +6,8 @@ import { Calculator } from "../structures/Calculator";
 
 class AnotherCalculator {
   /** Another add function that will conflict. */
-  add(p: { a: number; b: number }): number {
-    return p.a + p.b;
+  add(p: { a: number; b: number }): { value: number } {
+    return { value: p.a + p.b };
   }
 }
 
