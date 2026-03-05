@@ -66,6 +66,7 @@
   "devDependencies": {
     "@types/bun": "^1.2.15",
     "@types/node": "^20.17.57",
+    "@types/ts-expose-internals": "catalog:typescript",
     "@typia/core": "workspace:^",
     "@typia/transform": "workspace:^",
     "fs-fixture": "^2.7.1",

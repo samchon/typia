@@ -597,6 +597,9 @@ importers:
       '@types/node':
         specifier: ^20.17.57
         version: 20.19.34
+      '@types/ts-expose-internals':
+        specifier: catalog:typescript
+        version: ts-expose-internals@5.6.3
       '@typia/core':
         specifier: workspace:^
         version: link:../core
