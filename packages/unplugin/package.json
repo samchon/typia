@@ -12,22 +12,20 @@
   },
   "sideEffects": false,
   "exports": {
-    ".": "./dist/index.js",
-    "./api": "./dist/api.js",
-    "./bun": "./dist/bun.js",
-    "./esbuild": "./dist/esbuild.js",
-    "./farm": "./dist/farm.js",
-    "./next": "./dist/next.js",
-    "./rolldown": "./dist/rolldown.js",
-    "./rollup": "./dist/rollup.js",
-    "./rspack": "./dist/rspack.js",
-    "./vite": "./dist/vite.js",
-    "./webpack": "./dist/webpack.js",
+    ".": "./src/index.ts",
+    "./api": "./src/api.ts",
+    "./bun": "./src/bun.ts",
+    "./esbuild": "./src/esbuild.ts",
+    "./farm": "./src/farm.ts",
+    "./next": "./src/next.ts",
+    "./rolldown": "./src/rolldown.ts",
+    "./rollup": "./src/rollup.ts",
+    "./rspack": "./src/rspack.ts",
+    "./vite": "./src/vite.ts",
+    "./webpack": "./src/webpack.ts",
     "./package.json": "./package.json"
   },
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "./src/index.ts",
   "files": [
     "LICENSE",
     "README.md",
@@ -99,5 +97,24 @@
     "vite": "^6.2.2",
     "vitest": "^3.0.9"
   },
-  "access": "public"
+  "publishConfig": {
+    "access": "public",
+    "main": "./dist/index.js",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+      ".": "./dist/index.js",
+      "./api": "./dist/api.js",
+      "./bun": "./dist/bun.js",
+      "./esbuild": "./dist/esbuild.js",
+      "./farm": "./dist/farm.js",
+      "./next": "./dist/next.js",
+      "./rolldown": "./dist/rolldown.js",
+      "./rollup": "./dist/rollup.js",
+      "./rspack": "./dist/rspack.js",
+      "./vite": "./dist/vite.js",
+      "./webpack": "./dist/webpack.js",
+      "./package.json": "./package.json"
+    }
+  }
 }

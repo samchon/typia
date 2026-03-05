@@ -1,4 +1,3 @@
-import "typia";
 const _isFormatEmail = (str) => PATTERN$1.test(str);
 const PATTERN$1 = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i;
 const _isFormatUuid = (str) => PATTERN.test(str);

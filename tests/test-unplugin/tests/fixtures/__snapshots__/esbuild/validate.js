@@ -3,7 +3,6 @@ import * as __typia_transform__isFormatUuid from "typia/lib/internal/_isFormatUu
 import * as __typia_transform__isTypeUint32 from "typia/lib/internal/_isTypeUint32";
 import * as __typia_transform__validateReport from "typia/lib/internal/_validateReport";
 import * as __typia_transform__createStandardSchema from "typia/lib/internal/_createStandardSchema";
-import typia from "typia";
 const validate = (() => {
   const _io0 = (input) => "string" === typeof input.email && __typia_transform__isFormatEmail._isFormatEmail(input.email) && ("string" === typeof input.id && __typia_transform__isFormatUuid._isFormatUuid(input.id)) && ("number" === typeof input.age && (__typia_transform__isTypeUint32._isTypeUint32(input.age) && 19 < input.age && input.age <= 100));
   const _vo0 = (input, _path, _exceptionable = true) => ["string" === typeof input.email && (__typia_transform__isFormatEmail._isFormatEmail(input.email) || _report(_exceptionable, {

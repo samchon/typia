@@ -1,6 +1,5 @@
 import * as __typia_transform__validateReport from "typia/lib/internal/_validateReport";
 import * as __typia_transform__createStandardSchema from "typia/lib/internal/_createStandardSchema";
-import typia from "typia";
 const is = /* @__PURE__ */ (() => {
   return (input) => true;
 })();
