@@ -3,24 +3,23 @@
  *
  * @module
  */
-
-import unplugin from './core/index.js';
+import unplugin from "./core/index.js";
 
 /**
- * esbuild plugin
+ * Esbuild plugin
  *
  * @example
- * ```ts
- * // esbuild.config.js
- * import { build } from 'esbuild'
- * import UnpluginTypia from '@ryoppippi/unplugin-typia/esbuild';
+ *   ```ts
+ *   // esbuild.config.js
+ *   import { build } from 'esbuild'
+ *   import UnpluginTypia from '@ryoppippi/unplugin-typia/esbuild';
  *
- * build({
- *   plugins: [
- *     UnpluginTypia({}),
- *   ],
- * })
- * ```
+ *   build({
+ *     plugins: [
+ *       UnpluginTypia({}),
+ *     ],
+ *   })
+ *   ```;
  */
 const esbuild: typeof unplugin.esbuild = unplugin.esbuild;
 export default esbuild;
