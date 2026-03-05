@@ -9,15 +9,18 @@
 		"module": "NodeNext",
 		"moduleResolution": "NodeNext",
 		"resolveJsonModule": true,
+		"types": [
+			"vitest/importMeta",
+			"vitest/globals"
+		],
 		"outDir": "lib",
 		"strict": true,
 		"strictNullChecks": true,
 		"declaration": true,
 		"esModuleInterop": true,
-		"isolatedDeclarations": true,
 		"verbatimModuleSyntax": true,
 		"erasableSyntaxOnly": true,
 		"skipLibCheck": true
 	},
-	"include": ["src"],
+	"include": ["src"]
 }

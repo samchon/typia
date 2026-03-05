@@ -12,20 +12,20 @@
   },
   "sideEffects": false,
   "exports": {
-    ".": "./src/index.ts",
-    "./api": "./src/api.ts",
-    "./bun": "./src/bun.ts",
-    "./esbuild": "./src/esbuild.ts",
-    "./farm": "./src/farm.ts",
-    "./next": "./src/next.ts",
-    "./rolldown": "./src/rolldown.ts",
-    "./rollup": "./src/rollup.ts",
-    "./rspack": "./src/rspack.ts",
-    "./vite": "./src/vite.ts",
-    "./webpack": "./src/webpack.ts",
+    ".": "./dist/index.js",
+    "./api": "./dist/api.js",
+    "./bun": "./dist/bun.js",
+    "./esbuild": "./dist/esbuild.js",
+    "./farm": "./dist/farm.js",
+    "./next": "./dist/next.js",
+    "./rolldown": "./dist/rolldown.js",
+    "./rollup": "./dist/rollup.js",
+    "./rspack": "./dist/rspack.js",
+    "./vite": "./dist/vite.js",
+    "./webpack": "./dist/webpack.js",
     "./package.json": "./package.json"
   },
-  "main": "./src/index.ts",
+  "main": "./dist/index.js",
   "files": [
     "LICENSE",
     "README.md",
@@ -74,7 +74,8 @@
     "tsdown": "^0.12.7",
     "typescript": "catalog:typescript",
     "typia": "workspace:^",
-    "vite": "^6.2.2"
+    "vite": "^6.2.2",
+    "vitest": "^3.0.9"
   },
   "publishConfig": {
     "access": "public",
@@ -95,5 +96,6 @@
       "./webpack": "./dist/webpack.js",
       "./package.json": "./package.json"
     }
-  }
+  },
+  "module": "./dist/index.js"
 }
