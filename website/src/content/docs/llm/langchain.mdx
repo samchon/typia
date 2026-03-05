@@ -123,6 +123,12 @@ Create controllers from TypeScript classes with `typia.llm.controller<Class>()`,
   - `controllers`: Array of controllers created via `typia.llm.controller<Class>()` or `HttpLlm.controller()`
   - `prefix`: When `true` (default), tool names are formatted as `{controllerName}_{methodName}`. Set to `false` to use bare method names
 
+<Callout type="warning">
+**Type Restrictions**
+
+Every method's parameter type must be a keyworded object type with static keys — not a primitive, array, or union. The return type must also be an object type or `void`. Primitive return types like `number` or `string` are not allowed; wrap them in an object (e.g., `{ value: number }`). See [`typia.llm.application()` Restrictions](../application#restrictions) for details.
+</Callout>
+
 ## From OpenAPI Document
 
 ```typescript filename="src/main.ts" showLineNumbers {1-3, 5-18}

@@ -417,16 +417,12 @@ export namespace HttpMigrateRouteComposer {
       );
       if (json) {
         const { schema } = json[1];
-        return schema || from === "response"
+        return schema
           ? {
               type: "application/json",
               name: "body",
               key: "body",
-              schema: schema
-                ? isNotObjectLiteral(schema)
-                  ? schema
-                  : emplacer(schema)
-                : {},
+              schema: isNotObjectLiteral(schema) ? schema : emplacer(schema),
               description: () => meta.description,
               media: () => json[1],
               "x-nestia-encrypted": meta["x-nestia-encrypted"],
@@ -439,16 +435,12 @@ export namespace HttpMigrateRouteComposer {
       );
       if (query) {
         const { schema } = query[1];
-        return schema || from === "response"
+        return schema
           ? {
               type: "application/x-www-form-urlencoded",
               name: "body",
               key: "body",
-              schema: schema
-                ? isNotObjectLiteral(schema)
-                  ? schema
-                  : emplacer(schema)
-                : {},
+              schema: isNotObjectLiteral(schema) ? schema : emplacer(schema),
               description: () => meta.description,
               media: () => query[1],
             }

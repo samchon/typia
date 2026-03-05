@@ -1,8 +1,8 @@
-import { generateText } from "ai";
-import { MockLanguageModelV1 } from "ai/test";
 import { TestValidator } from "@nestia/e2e";
 import { ILlmController } from "@typia/interface";
 import { toVercelTools } from "@typia/vercel";
+import { generateText } from "ai";
+import { MockLanguageModelV1 } from "ai/test";
 import typia from "typia";
 
 import { Calculator } from "../structures/Calculator";
@@ -61,5 +61,7 @@ export const test_vercel_generate_text_with_tool_call =
     // 6. Verify tool result
     const toolResults = result.toolResults as Array<{ result: unknown }>;
     TestValidator.equals("should have 1 tool result", toolResults.length, 1);
-    TestValidator.equals("tool result should be 15", toolResults[0]!.result, 15);
+    TestValidator.equals("tool result should be 15", toolResults[0]!.result, {
+      value: 15,
+    });
   };

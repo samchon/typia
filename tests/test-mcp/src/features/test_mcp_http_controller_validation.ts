@@ -43,8 +43,12 @@ export const test_mcp_http_controller_validation = async (): Promise<void> => {
               content: {
                 "application/json": {
                   schema: {
-                    type: "number",
-                  } satisfies OpenApi.IJsonSchema.INumber,
+                    type: "object",
+                    properties: {
+                      value: { type: "number" },
+                    },
+                    required: ["value"],
+                  } satisfies OpenApi.IJsonSchema.IObject,
                 },
               },
             },

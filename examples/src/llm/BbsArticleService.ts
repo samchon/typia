@@ -10,7 +10,7 @@ export declare class BbsArticleService {
    *
    * @returns List of every articles
    */
-  public index(): IBbsArticle[];
+  public index(): IBbsArticle.IPage;
 
   /**
    * Create a new article.
