@@ -242,11 +242,6 @@ export namespace LlmApplicationProgrammer {
           parameter: functionParameters[func.name] ?? null,
         }),
     );
-    if (functions.some((func) => func === null))
-      throw new Error(
-        "Failed to write LLM application:\n\n" +
-          errorMessages.map((str) => `  - ${str}`).join("\n"),
-      );
     return {
       config: {
         ...LlmSchemaConverter.getConfig(props.config),
