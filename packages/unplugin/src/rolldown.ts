@@ -11,7 +11,7 @@ import unplugin from "./core/index.js";
  * @example
  *   ```ts
  *   // rollup.config.js
- *   import UnpluginTypia from '@ryoppippi/unplugin-typia/rolldown'
+ *   import UnpluginTypia from '@typia/unplugin/rolldown'
  *
  *   export default {
  *     plugins: [UnpluginTypia()],

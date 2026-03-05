@@ -12,7 +12,7 @@ import unplugin from "./core/index.js";
  *   ```ts
  *   // esbuild.config.js
  *   import { build } from 'esbuild'
- *   import UnpluginTypia from '@ryoppippi/unplugin-typia/esbuild';
+ *   import UnpluginTypia from '@typia/unplugin/esbuild';
  *
  *   build({
  *     plugins: [
