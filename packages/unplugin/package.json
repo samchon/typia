@@ -34,15 +34,8 @@
     "src"
   ],
   "scripts": {
-    "build": "echo 1",
-    "format": "eslint --cache --fix .",
-    "lint": "run-p lint:*",
-    "lint:eslint": "eslint --cache .",
-    "lint:ts": "tsc --noEmit",
-    "prepack": "bun run build && nlx clean-pkg-json",
-    "prerelease": "run-s lint build 'test run'",
-    "release": "bumpp",
-    "test": "vitest"
+    "build": "tsdown",
+    "prepack": "pnpm run build"
   },
   "peerDependencies": {
     "svelte": "^5.28.2",

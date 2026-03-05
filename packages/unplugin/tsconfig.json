@@ -9,10 +9,6 @@
 		"module": "NodeNext",
 		"moduleResolution": "NodeNext",
 		"resolveJsonModule": true,
-		"types": [
-			"vitest/importMeta",
-			"vitest/globals"
-		],
 		"outDir": "lib",
 		"strict": true,
 		"strictNullChecks": true,
@@ -23,9 +19,5 @@
 		"erasableSyntaxOnly": true,
 		"skipLibCheck": true
 	},
-	"exclude": [
-		"dist",
-		"eslint.config.js",
-		"tests/fixtures"
-	]
+	"include": ["src"],
 }
