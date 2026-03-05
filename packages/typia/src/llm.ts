@@ -10,7 +10,7 @@ import { NoTransformConfigurationError } from "./transformers/NoTransformConfigu
 export function controller(
   name: string,
   execute: object,
-  config?: Partial<Pick<ILlmApplication.IConfig<any>, "separate" | "validate">>,
+  config?: Partial<Pick<ILlmApplication.IConfig<any>, "validate">>,
 ): never;
 
 /**
@@ -28,9 +28,6 @@ export function controller(
  * When passed to LLM providers (ChatGPT, Claude, Gemini, etc.), the LLM
  * automatically selects functions and fills arguments from conversation.
  * Execute the selected function via {@link ILlmController.execute}.
- *
- * Configure {@link ILlmApplication.IConfig.separate} to split parameters between
- * LLM-fillable and human-required (e.g., file uploads, passwords).
  *
  * Related functions:
  *
@@ -64,9 +61,7 @@ export function controller<
 >(
   name: string,
   execute: Class,
-  config?: Partial<
-    Pick<ILlmApplication.IConfig<Class>, "separate" | "validate">
-  >,
+  config?: Partial<Pick<ILlmApplication.IConfig<Class>, "validate">>,
 ): ILlmController<Class>;
 
 /** @internal */
@@ -80,7 +75,7 @@ export function controller(..._args: any[]): never {
  * @danger You must configure the generic argument `Class`
  */
 export function application(
-  config?: Partial<Pick<ILlmApplication.IConfig<any>, "separate" | "validate">>,
+  config?: Partial<Pick<ILlmApplication.IConfig<any>, "validate">>,
 ): never;
 
 /**
@@ -98,10 +93,6 @@ export function application(
  * When passed to LLM providers (ChatGPT, Claude, Gemini, etc.), the LLM
  * automatically selects functions and fills arguments from conversation. You
  * execute the function manually with the LLM-prepared arguments.
- *
- * Configure {@link ILlmApplication.IConfig.separate} to split parameters between
- * LLM-fillable and human-required (e.g., file uploads, passwords). Merge them
- * with {@link HttpLlm.mergeParameters} before execution.
  *
  * Related functions:
  *
@@ -131,9 +122,7 @@ export function application<
     }
   > = {},
 >(
-  config?: Partial<
-    Pick<ILlmApplication.IConfig<Class>, "separate" | "validate">
-  >,
+  config?: Partial<Pick<ILlmApplication.IConfig<Class>, "validate">>,
 ): ILlmApplication<Class>;
 
 /** @internal */

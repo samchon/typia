@@ -33,7 +33,6 @@ export namespace HttpLlmApplicationComposer {
   }): IHttpLlmApplication => {
     // fill in config defaults
     const config: IHttpLlmApplication.IConfig = {
-      separate: props.config?.separate ?? null,
       maxLength: props.config?.maxLength ?? 64,
       equals: props.config?.equals ?? false,
       reference: props.config?.reference ?? true,
@@ -256,13 +255,6 @@ export namespace HttpLlmApplicationComposer {
       path: props.route.path,
       name,
       parameters: llmParameters.value,
-      separated: props.config.separate
-        ? LlmSchemaConverter.separate({
-            predicate: props.config.separate,
-            parameters: llmParameters.value,
-            equals: props.config.equals ?? false,
-          })
-        : undefined,
       output: output?.value,
       description,
       deprecated: operation.deprecated,
