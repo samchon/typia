@@ -63,7 +63,7 @@ export namespace HttpLlmApplicationComposer {
             route: () => route as any as IHttpMigrateRoute,
           });
           return null;
-        // reject multipart/form-data — binary uploads not expressible in JSON Schema
+          // reject multipart/form-data — binary uploads not expressible in JSON Schema
         } else if (
           route.body?.type === "multipart/form-data" ||
           route.success?.type === "multipart/form-data"
@@ -109,9 +109,9 @@ export namespace HttpLlmApplicationComposer {
   };
 
   /**
-   * Converts a single {@link IHttpMigrateRoute} into an
-   * {@link IHttpLlmFunction} by composing parameter/output schemas and
-   * validating function name constraints.
+   * Converts a single {@link IHttpMigrateRoute} into an {@link IHttpLlmFunction}
+   * by composing parameter/output schemas and validating function name
+   * constraints.
    */
   const composeFunction = (props: {
     components: OpenApi.IComponents;
@@ -312,7 +312,8 @@ export namespace HttpLlmApplicationComposer {
       // (e.g., "api_users_getById" → "users_getById" → "getById")
       for (let i: number = 1; i < func.route().accessor.length; ++i) {
         const shortName: string = func.route().accessor.slice(i).join("_");
-        if (shortName.length > limit - 8) continue; // reserve room for "_N_" prefix
+        if (shortName.length > limit - 8)
+          continue; // reserve room for "_N_" prefix
         else if (dictionary.has(shortName) === false) rename(shortName);
         else {
           // name collision — prefix with a counter to disambiguate
@@ -347,8 +348,8 @@ const FORBIDDEN = ["$", "%", "."];
 /**
  * Concatenates summary and description into a single string.
  *
- * If both are present, joins them with a period and double newline,
- * avoiding duplication when the description already starts with the summary.
+ * If both are present, joins them with a period and double newline, avoiding
+ * duplication when the description already starts with the summary.
  */
 const concatDescription = (p: {
   summary?: string | undefined;
