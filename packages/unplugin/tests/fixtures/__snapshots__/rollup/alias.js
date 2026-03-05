@@ -1,5 +1,5 @@
 // alias.js
-import * as __typia_transform__createStandardSchema from 'typia/lib/internal/_createStandardSchema.js';
+import * as __typia_transform__createStandardSchema from 'typia/lib/internal/_createStandardSchema';
 
 const random = /* @__PURE__ */ (() => {
   let _generator;

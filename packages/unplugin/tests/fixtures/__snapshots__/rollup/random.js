@@ -1,7 +1,7 @@
 // random.js
-import * as __typia_transform__randomFormatEmail from 'typia/lib/internal/_randomFormatEmail.js';
-import * as __typia_transform__randomFormatUuid from 'typia/lib/internal/_randomFormatUuid.js';
-import * as __typia_transform__randomInteger from 'typia/lib/internal/_randomInteger.js';
+import * as __typia_transform__randomFormatEmail from 'typia/lib/internal/_randomFormatEmail';
+import * as __typia_transform__randomFormatUuid from 'typia/lib/internal/_randomFormatUuid';
+import * as __typia_transform__randomInteger from 'typia/lib/internal/_randomInteger';
 
 const random = /* @__PURE__ */ (() => {
   const _ro0 = (_recursive = false, _depth = 0) => ({
