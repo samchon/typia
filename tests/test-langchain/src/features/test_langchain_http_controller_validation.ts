@@ -2,11 +2,7 @@ import { DynamicStructuredTool } from "@langchain/core/tools";
 import { TestValidator } from "@nestia/e2e";
 import { IHttpLlmController, IValidation, OpenApi } from "@typia/interface";
 import { toLangChainTools } from "@typia/langchain";
-import {
-  HttpLlm,
-  OpenApiValidator,
-  stringifyValidationFailure,
-} from "@typia/utils";
+import { HttpLlm, LlmJson, OpenApiValidator } from "@typia/utils";
 
 export const test_langchain_http_controller_validation =
   async (): Promise<void> => {
@@ -85,7 +81,7 @@ export const test_langchain_http_controller_validation =
 
     const result = await addTool.invoke(invalidArgs);
 
-    // 6. Verify validation matches stringifyValidationFailure output
+    // 6. Verify validation matches LlmJson.stringify output
     const parameterSchema: OpenApi.IJsonSchema.IObject = {
       type: "object",
       properties: {
@@ -106,7 +102,7 @@ export const test_langchain_http_controller_validation =
       throw new Error("Expected validation to fail, but it succeeded.");
     }
 
-    const expectedMessage: string = stringifyValidationFailure(expected);
+    const expectedMessage: string = LlmJson.stringify(expected);
     TestValidator.equals(
       "Validation failure message should match",
       result,

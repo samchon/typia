@@ -13,7 +13,7 @@ import {
   ILlmFunction,
   IValidation,
 } from "@typia/interface";
-import { HttpLlm, stringifyValidationFailure } from "@typia/utils";
+import { HttpLlm, LlmJson } from "@typia/utils";
 import { ZodObject, ZodType } from "zod";
 import { zodToJsonSchema } from "zod-to-json-schema";
 
@@ -267,7 +267,7 @@ export namespace McpControllerRegistrar {
         content: [
           {
             type: "text" as const,
-            text: stringifyValidationFailure(validation),
+            text: LlmJson.stringify(validation),
           },
         ],
       };
