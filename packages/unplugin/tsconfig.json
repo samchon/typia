@@ -1,0 +1,27 @@
+{
+	"compilerOptions": {
+		"target": "ESNext",
+		"lib": [
+			"esnext",
+			"esnext.asynciterable",
+			"DOM"
+		],
+		"module": "NodeNext",
+		"moduleResolution": "NodeNext",
+		"resolveJsonModule": true,
+		"types": [
+			"vitest/importMeta",
+			"vitest/globals",
+			"ts-expose-internals"
+		],
+		"outDir": "lib",
+		"strict": true,
+		"strictNullChecks": true,
+		"declaration": true,
+		"esModuleInterop": true,
+		"verbatimModuleSyntax": false,
+		"erasableSyntaxOnly": false,
+		"skipLibCheck": true
+	},
+	"include": ["src"]
+}
