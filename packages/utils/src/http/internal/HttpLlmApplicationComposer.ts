@@ -260,7 +260,7 @@ export namespace HttpLlmApplicationComposer {
       deprecated: operation.deprecated,
       tags: operation.tags,
       parse: (input: string) => LlmJson.parse(input, llmParameters.value),
-      validate: LlmJson.validate(llmParameters.value),
+      validate: LlmJson.validate(llmParameters.value, props.config.equals),
       route: () => props.route as any,
       operation: () => props.route.operation(),
     };

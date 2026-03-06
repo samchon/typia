@@ -134,9 +134,14 @@ export namespace LlmJson {
    * auto-correction feedback.
    *
    * @param parameters LLM function parameters schema
+   * @param equals If `true`, reject extraneous properties not defined in the
+   *   schema. Otherwise, extra properties are ignored.
    * @returns Validator function that checks data against the schema
    */
-  export function validate(parameters: ILlmSchema.IParameters) {
+  export function validate(
+    parameters: ILlmSchema.IParameters,
+    equals?: boolean | undefined,
+  ) {
     const components: OpenApi.IComponents = {
       schemas: {},
     };
@@ -149,6 +154,7 @@ export namespace LlmJson {
       components,
       schema,
       required: true,
+      equals,
     });
   }
 }
