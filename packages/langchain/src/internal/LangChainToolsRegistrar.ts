@@ -6,7 +6,7 @@ import {
   ILlmFunction,
   IValidation,
 } from "@typia/interface";
-import { HttpLlm, stringifyValidationFailure } from "@typia/utils";
+import { HttpLlm, LlmJson } from "@typia/utils";
 import { z } from "zod";
 
 export namespace LangChainToolsRegistrar {
@@ -116,7 +116,7 @@ export namespace LangChainToolsRegistrar {
         const validation: IValidation<unknown> =
           entry.function.validate(args);
         if (!validation.success) {
-          return stringifyValidationFailure(validation);
+          return LlmJson.stringify(validation);
         }
 
         try {

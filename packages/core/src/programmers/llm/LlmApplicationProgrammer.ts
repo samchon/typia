@@ -189,7 +189,7 @@ export namespace LlmApplicationProgrammer {
       }
     >;
     name?: string;
-  }): ILlmApplication => {
+  }): ILlmApplication.__IPrimitive => {
     const metadata: MetadataSchema = MetadataSchema.unalias(props.metadata);
 
     // collect the first parameter's MetadataParameter for each valid function,
@@ -229,8 +229,8 @@ export namespace LlmApplicationProgrammer {
           p.jsDocTags.some((tag) => tag.name === "human") === false,
       });
     // convert each JSON Schema function to an LLM function
-    const functions: Array<ILlmFunction | null> = application.functions.map(
-      (func) =>
+    const functions: Array<Omit<ILlmFunction, "parse"> | null> =
+      application.functions.map((func) =>
         writeFunction({
           context: props.context,
           modulo: props.modulo,
@@ -241,12 +241,8 @@ export namespace LlmApplicationProgrammer {
           errors: errorMessages,
           parameter: functionParameters[func.name] ?? null,
         }),
-    );
+      );
     return {
-      config: {
-        ...LlmSchemaConverter.getConfig(props.config),
-        validate: null,
-      },
       functions: functions.filter((f) => f !== null),
     };
   };
@@ -266,7 +262,7 @@ export namespace LlmApplicationProgrammer {
           }
         >
       | undefined;
-  }): ILlmFunction | null => {
+  }): Omit<ILlmFunction, "parse"> | null => {
     const config: ILlmSchema.IConfig = LlmSchemaConverter.getConfig(
       props.config,
     );

@@ -9,8 +9,8 @@ import {
   OpenApi,
 } from "@typia/interface";
 
-import { LlmSchemaConverter } from "../../converters";
-import { OpenApiValidator } from "../../validators/OpenApiValidator";
+import { LlmSchemaConverter } from "../../converters/LlmSchemaConverter";
+import { LlmJson } from "../../utils";
 
 /**
  * Composes {@link IHttpLlmApplication} from an {@link IHttpMigrateApplication}.
@@ -259,12 +259,8 @@ export namespace HttpLlmApplicationComposer {
       description,
       deprecated: operation.deprecated,
       tags: operation.tags,
-      validate: OpenApiValidator.create({
-        components: props.components,
-        schema: parameters,
-        required: true,
-        equals: props.config.equals ?? false,
-      }),
+      parse: (input: string) => LlmJson.parse(input, llmParameters.value),
+      validate: LlmJson.validate(llmParameters.value, props.config.equals),
       route: () => props.route as any,
       operation: () => props.route.operation(),
     };

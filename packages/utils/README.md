@@ -25,19 +25,19 @@ Automatically installed as a dependency of `typia`.
 | `OpenApiConverter` | Convert between OpenAPI versions |
 | `LlmTypeChecker` | Type checker for LLM schemas |
 | `OpenApiTypeChecker` | Type checker for OpenAPI documents |
-| `stringifyValidationFailure` | Format validation errors for LLM-friendly feedback |
+| `LlmJson` | Parse lenient JSON and format validation errors for LLM-friendly feedback |
 
-## `stringifyValidationFailure`
+## `LlmJson`
 
-Formats validation errors as annotated JSON for LLM-friendly feedback:
+Parse lenient JSON and format validation errors for LLM-friendly feedback:
 
 ```typescript
 import { IValidation } from "@typia/interface";
-import { stringifyValidationFailure } from "@typia/utils";
+import { LlmJson } from "@typia/utils";
 
 const validation: IValidation<unknown> = func.validate(llmArguments);
 if (validation.success === false) {
-  console.log(stringifyValidationFailure(validation));
+  console.log(LlmJson.stringify(validation));
 }
 ```
 

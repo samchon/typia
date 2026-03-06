@@ -1,0 +1,353 @@
+import { IValidation } from "@typia/interface";
+
+/**
+ * Parse lenient JSON that may be incomplete or malformed.
+ *
+ * Handles:
+ *
+ * - Unclosed brackets `{`, `[` - parses as much as possible
+ * - Trailing commas `[1, 2, ]` - ignores them
+ * - Unclosed strings `"hello` - returns partial string
+ *
+ * @param input Raw JSON string (potentially incomplete)
+ * @returns Validation result with parsed data or syntax errors
+ * @internal
+ */
+export function parseLenientJson<T>(input: string): IValidation<T> {
+  // Try native JSON.parse first (faster for valid JSON)
+  try {
+    return {
+      success: true,
+      data: JSON.parse(input) as T,
+    };
+  } catch {
+    // Fall back to lenient parser
+  }
+
+  const errors: IValidation.IError[] = [];
+  const parser: LenientJsonParser = new LenientJsonParser(input, errors);
+  const data: unknown = parser.parse();
+
+  if (errors.length > 0) {
+    return {
+      success: false,
+      data,
+      errors,
+    };
+  }
+  return {
+    success: true,
+    data: data as T,
+  };
+}
+
+/**
+ * Lenient JSON parser that handles incomplete JSON.
+ *
+ * @internal
+ */
+class LenientJsonParser {
+  private pos: number = 0;
+  private readonly input: string;
+  private readonly errors: IValidation.IError[];
+
+  constructor(input: string, errors: IValidation.IError[]) {
+    this.input = input;
+    this.errors = errors;
+  }
+
+  parse(): unknown {
+    this.skipWhitespace();
+    if (this.pos >= this.input.length) {
+      return undefined;
+    }
+    return this.parseValue("$input");
+  }
+
+  private parseValue(path: string): unknown {
+    this.skipWhitespace();
+
+    if (this.pos >= this.input.length) {
+      return undefined;
+    }
+
+    const char: string = this.input[this.pos]!;
+
+    if (char === "{") return this.parseObject(path);
+    if (char === "[") return this.parseArray(path);
+    if (char === '"') return this.parseString();
+    if (char === "-" || (char >= "0" && char <= "9")) return this.parseNumber();
+    if (this.input.startsWith("true", this.pos)) {
+      this.pos += 4;
+      return true;
+    }
+    if (this.input.startsWith("false", this.pos)) {
+      this.pos += 5;
+      return false;
+    }
+    if (this.input.startsWith("null", this.pos)) {
+      this.pos += 4;
+      return null;
+    }
+
+    this.errors.push({
+      path,
+      expected: "JSON value",
+      value: char,
+    });
+    // Skip the problematic character and try to continue
+    this.pos++;
+    return undefined;
+  }
+
+  private parseObject(path: string): Record<string, unknown> {
+    const result: Record<string, unknown> = {};
+    this.pos++; // skip '{'
+    this.skipWhitespace();
+
+    while (this.pos < this.input.length) {
+      this.skipWhitespace();
+
+      // Handle end of object or end of input
+      if (this.pos >= this.input.length || this.input[this.pos] === "}") {
+        if (this.pos < this.input.length) this.pos++; // skip '}'
+        return result;
+      }
+
+      // Skip trailing comma
+      if (this.input[this.pos] === ",") {
+        this.pos++;
+        this.skipWhitespace();
+        continue;
+      }
+
+      // Parse key
+      if (this.input[this.pos] !== '"') {
+        this.errors.push({
+          path,
+          expected: "string key",
+          value: this.input[this.pos],
+        });
+        // Try to recover by skipping to next meaningful character
+        return result;
+      }
+
+      const key: string = this.parseString();
+      if (typeof key !== "string") {
+        return result;
+      }
+
+      this.skipWhitespace();
+
+      // Expect colon - but if we're at end of input, it's just incomplete (not an error)
+      if (this.pos >= this.input.length) {
+        return result;
+      }
+      if (this.input[this.pos] !== ":") {
+        this.errors.push({
+          path: `${path}.${key}`,
+          expected: "':'",
+          value: this.input[this.pos],
+        });
+        return result;
+      }
+      this.pos++; // skip ':'
+
+      this.skipWhitespace();
+
+      // Parse value
+      if (this.pos >= this.input.length) {
+        // No value - incomplete but not an error for lenient parsing
+        return result;
+      }
+
+      const value: unknown = this.parseValue(`${path}.${key}`);
+      result[key] = value;
+
+      this.skipWhitespace();
+
+      // Handle comma or end
+      if (this.pos < this.input.length && this.input[this.pos] === ",") {
+        this.pos++;
+      }
+    }
+
+    return result;
+  }
+
+  private parseArray(path: string): unknown[] {
+    const result: unknown[] = [];
+    this.pos++; // skip '['
+    this.skipWhitespace();
+
+    let index: number = 0;
+    while (this.pos < this.input.length) {
+      this.skipWhitespace();
+
+      // Handle end of array or end of input
+      if (this.pos >= this.input.length || this.input[this.pos] === "]") {
+        if (this.pos < this.input.length) this.pos++; // skip ']'
+        return result;
+      }
+
+      // Skip trailing comma
+      if (this.input[this.pos] === ",") {
+        this.pos++;
+        this.skipWhitespace();
+        continue;
+      }
+
+      // Parse value
+      const value: unknown = this.parseValue(`${path}[${index}]`);
+      result.push(value);
+      index++;
+
+      this.skipWhitespace();
+
+      // Handle comma or end
+      if (this.pos < this.input.length && this.input[this.pos] === ",") {
+        this.pos++;
+      }
+    }
+
+    return result;
+  }
+
+  private parseString(): string {
+    this.pos++; // skip opening '"'
+    let result: string = "";
+    let escaped: boolean = false;
+
+    while (this.pos < this.input.length) {
+      const char: string = this.input[this.pos]!;
+
+      if (escaped) {
+        switch (char) {
+          case '"':
+            result += '"';
+            break;
+          case "\\":
+            result += "\\";
+            break;
+          case "/":
+            result += "/";
+            break;
+          case "b":
+            result += "\b";
+            break;
+          case "f":
+            result += "\f";
+            break;
+          case "n":
+            result += "\n";
+            break;
+          case "r":
+            result += "\r";
+            break;
+          case "t":
+            result += "\t";
+            break;
+          case "u":
+            // Parse unicode escape
+            if (this.pos + 4 < this.input.length) {
+              const hex: string = this.input.slice(this.pos + 1, this.pos + 5);
+              const code: number = parseInt(hex, 16);
+              if (!Number.isNaN(code)) {
+                result += String.fromCharCode(code);
+                this.pos += 4;
+              } else {
+                result += char;
+              }
+            } else {
+              // Incomplete unicode escape - just add what we have
+              result += "\\u";
+            }
+            break;
+          default:
+            result += char;
+        }
+        escaped = false;
+        this.pos++;
+        continue;
+      }
+
+      if (char === "\\") {
+        escaped = true;
+        this.pos++;
+        continue;
+      }
+
+      if (char === '"') {
+        this.pos++; // skip closing '"'
+        return result;
+      }
+
+      result += char;
+      this.pos++;
+    }
+
+    // Unclosed string - return what we have (lenient)
+    return result;
+  }
+
+  private parseNumber(): number {
+    const start: number = this.pos;
+
+    // Handle negative sign
+    if (this.input[this.pos] === "-") {
+      this.pos++;
+    }
+
+    // Parse integer part
+    while (
+      this.pos < this.input.length &&
+      this.input[this.pos]! >= "0" &&
+      this.input[this.pos]! <= "9"
+    ) {
+      this.pos++;
+    }
+
+    // Parse decimal part
+    if (this.pos < this.input.length && this.input[this.pos] === ".") {
+      this.pos++;
+      while (
+        this.pos < this.input.length &&
+        this.input[this.pos]! >= "0" &&
+        this.input[this.pos]! <= "9"
+      ) {
+        this.pos++;
+      }
+    }
+
+    // Parse exponent
+    if (
+      this.pos < this.input.length &&
+      (this.input[this.pos] === "e" || this.input[this.pos] === "E")
+    ) {
+      this.pos++;
+      if (
+        this.pos < this.input.length &&
+        (this.input[this.pos] === "+" || this.input[this.pos] === "-")
+      ) {
+        this.pos++;
+      }
+      while (
+        this.pos < this.input.length &&
+        this.input[this.pos]! >= "0" &&
+        this.input[this.pos]! <= "9"
+      ) {
+        this.pos++;
+      }
+    }
+
+    const numStr: string = this.input.slice(start, this.pos);
+    const num: number = Number(numStr);
+    return Number.isNaN(num) ? 0 : num;
+  }
+
+  private skipWhitespace(): void {
+    while (this.pos < this.input.length && /\s/.test(this.input[this.pos]!)) {
+      this.pos++;
+    }
+  }
+}
