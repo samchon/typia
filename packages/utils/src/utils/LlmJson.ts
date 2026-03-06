@@ -13,7 +13,6 @@ import { stringifyValidationFailure } from "./internal/stringifyValidationFailur
  *
  * - Unclosed brackets `{`, `[` - parses as much as possible
  * - Trailing commas `[1, 2, ]` - ignores trailing commas
- * - Partial keywords `tru`, `fals`, `nul` - completes them
  * - Schema-based coercion when parameters provided:
  *
  *   - Double-stringified JSON: `"{\"name\": \"John\"}"` → `{name: "John"}`
@@ -39,6 +38,39 @@ export namespace LlmJson {
    *
    * Type validation is NOT performed here - use {@link ILlmFunction.validate}
    * for that.
+   *
+   * ## 1. Lenient parsing (without `parameters`)
+   *
+   * ```typescript
+   * // Unclosed brackets
+   * LlmJson.parse('{"name": "John", "age": 30');  // → { name: "John", age: 30 }
+   * LlmJson.parse('[1, 2, 3');                     // → [1, 2, 3]
+   *
+   * // Trailing commas
+   * LlmJson.parse('[1, 2, ]');                     // → [1, 2]
+   * LlmJson.parse('{"a": 1, "b": 2, }');           // → { a: 1, b: 2 }
+   *
+   * // Unclosed strings
+   * LlmJson.parse('{"name": "John');               // → { name: "John" }
+   * ```
+   *
+   * ## 2. Schema-based coercion (with `parameters`)
+   *
+   * When `parameters` is provided, string values are coerced to the
+   * schema-expected type by re-parsing them through the lenient parser.
+   * This fixes "double-stringified" values that LLMs sometimes produce.
+   *
+   * ```typescript
+   * // schema expects: { member: object, age: integer, active: boolean, tags: array }
+   *
+   * '{"member": "{\\"name\\": \\"John\\"}"}' // → { member: { name: "John" } }
+   * '{"age": "42"}'                           // → { age: 42 }
+   * '{"active": "true"}'                      // → { active: true }
+   * '{"tags": "[1, 2, 3]"}'                   // → { tags: [1, 2, 3] }
+   *
+   * // Recursive: "30" inside stringified object is also coerced to number
+   * '{"member": "{\\"age\\": \\"30\\"}"}'     // → { member: { age: 30 } }
+   * ```
    *
    * @param input Raw JSON string (potentially incomplete)
    * @param parameters Optional LLM parameters schema for coercion
