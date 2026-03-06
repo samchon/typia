@@ -856,18 +856,6 @@ importers:
 
   tests/test-typia-generate:
     dependencies:
-      '@typia/core':
-        specifier: workspace:^
-        version: link:../../packages/core
-      '@typia/interface':
-        specifier: workspace:^
-        version: link:../../packages/interface
-      '@typia/transform':
-        specifier: workspace:^
-        version: link:../../packages/transform
-      '@typia/utils':
-        specifier: workspace:^
-        version: link:../../packages/utils
       typia:
         specifier: workspace:^
         version: link:../../packages/typia

@@ -25,14 +25,9 @@
   "devDependencies": {
     "cross-env": "^7.0.3",
     "ts-node": "catalog:typescript",
-    "ts-patch": "catalog:typescript",
     "typescript": "catalog:typescript"
   },
   "dependencies": {
-    "@typia/core": "workspace:^",
-    "@typia/interface": "workspace:^",
-    "@typia/transform": "workspace:^",
-    "@typia/utils": "workspace:^",
     "typia": "workspace:^"
   }
 }
