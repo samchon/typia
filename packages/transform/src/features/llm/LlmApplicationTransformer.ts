@@ -19,17 +19,13 @@ export namespace LlmApplicationTransformer {
     if (dec === null) return props.expression;
     return ts.factory.createCallExpression(
       props.context.importer.internal("llmApplicationFinalize"),
-      undefined,
+      [dec.node],
       [
         ts.factory.createSatisfiesExpression(
           LiteralFactory.write(dec.application),
           props.context.importer.type({
             file: "typia",
-            name: ts.factory
-              .createTypeReferenceNode("ILlmApplication.__IPrimitive", [
-                dec.node,
-              ])
-              .getText(),
+            name: "ILlmApplication.__IPrimitive",
             arguments: [dec.node],
           }),
         ),

@@ -20,52 +20,57 @@ export namespace LlmControllerTransformer {
         message: `no executor.`,
       });
 
-    return ts.factory.createObjectLiteralExpression(
-      [
-        ts.factory.createPropertyAssignment(
-          "protocol",
-          ts.factory.createStringLiteral("class"),
-        ),
-        ts.factory.createPropertyAssignment(
-          "name",
-          props.expression.arguments[0],
-        ),
-        ts.factory.createPropertyAssignment(
-          "execute",
-          props.expression.arguments[1],
-        ),
-        ts.factory.createPropertyAssignment(
-          "application",
-          ts.factory.createCallExpression(
-            props.context.importer.internal("llmApplicationFinalize"),
-            undefined,
-            [
-              ts.factory.createSatisfiesExpression(
-                LiteralFactory.write(dec.application),
-                props.context.importer.type({
-                  file: "typia",
-                  name: ts.factory
-                    .createTypeReferenceNode("ILlmApplication.__IPrimitive", [
-                      dec.node,
-                    ])
-                    .getText(),
-                  arguments: [dec.node],
-                }),
-              ),
-              ...(props.expression.arguments?.[2] !== undefined
-                ? [
-                    LlmApplicationTransformer.getConfigArgument({
-                      context: props.context,
-                      argument: props.expression.arguments[2],
-                      equals: dec.config?.equals,
-                    }),
-                  ]
-                : []),
-            ],
+    const value: ts.ObjectLiteralExpression =
+      ts.factory.createObjectLiteralExpression(
+        [
+          ts.factory.createPropertyAssignment(
+            "protocol",
+            ts.factory.createStringLiteral("class"),
           ),
-        ),
-      ],
-      true,
+          ts.factory.createPropertyAssignment(
+            "name",
+            props.expression.arguments[0],
+          ),
+          ts.factory.createPropertyAssignment(
+            "execute",
+            props.expression.arguments[1],
+          ),
+          ts.factory.createPropertyAssignment(
+            "application",
+            ts.factory.createCallExpression(
+              props.context.importer.internal("llmApplicationFinalize"),
+              undefined,
+              [
+                ts.factory.createSatisfiesExpression(
+                  LiteralFactory.write(dec.application),
+                  props.context.importer.type({
+                    file: "typia",
+                    name: "ILlmApplication.__IPrimitive",
+                    arguments: [dec.node],
+                  }),
+                ),
+                ...(props.expression.arguments?.[2] !== undefined
+                  ? [
+                      LlmApplicationTransformer.getConfigArgument({
+                        context: props.context,
+                        argument: props.expression.arguments[2],
+                        equals: dec.config?.equals,
+                      }),
+                    ]
+                  : []),
+              ],
+            ),
+          ),
+        ],
+        true,
+      );
+    return ts.factory.createSatisfiesExpression(
+      value,
+      props.context.importer.type({
+        file: "typia",
+        name: "ILlmController",
+        arguments: [dec.node],
+      }),
     );
   };
 }

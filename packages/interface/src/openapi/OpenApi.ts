@@ -45,7 +45,7 @@ export namespace OpenApi {
    *
    * Contains all API metadata, paths, operations, and reusable components. The
    * `x-samchon-emended-v4` marker indicates this document has been processed by
-   * `@samchon/openapi` to normalize schema formats.
+   * `samchon/typia` to normalize schema formats.
    */
   export interface IDocument {
     /** OpenAPI version. */

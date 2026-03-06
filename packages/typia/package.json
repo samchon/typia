@@ -5,8 +5,9 @@
   "main": "src/index.ts",
   "exports": {
     ".": "./src/index.ts",
-    "./lib/transform": "./src/transform.ts",
     "./lib/internal/*": "./src/internal/*.ts",
+    "./lib/transform": "./src/transform.ts",
+    "./src/transform.ts": "./src/transform.ts",
     "./package.json": "./package.json"
   },
   "bin": {
