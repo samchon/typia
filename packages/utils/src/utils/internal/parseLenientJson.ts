@@ -4,9 +4,10 @@ import { IValidation } from "@typia/interface";
  * Parse lenient JSON that may be incomplete or malformed.
  *
  * Handles:
+ *
  * - Unclosed brackets `{`, `[` - parses as much as possible
  * - Trailing commas `[1, 2, ]` - ignores them
- * - Partial keywords `tru`, `fals`, `nul` - completes them
+ * - Unclosed strings `"hello` - returns partial string
  *
  * @param input Raw JSON string (potentially incomplete)
  * @returns Validation result with parsed data or syntax errors
@@ -89,11 +90,6 @@ class LenientJsonParser {
       return null;
     }
 
-    // Partial keywords
-    if (this.isPartialKeyword("true")) return true;
-    if (this.isPartialKeyword("false")) return false;
-    if (this.isPartialKeyword("null")) return null;
-
     this.errors.push({
       path,
       expected: "JSON value",
@@ -102,18 +98,6 @@ class LenientJsonParser {
     // Skip the problematic character and try to continue
     this.pos++;
     return undefined;
-  }
-
-  private isPartialKeyword(keyword: string): boolean {
-    const remaining: number = this.input.length - this.pos;
-    if (remaining > 0 && remaining < keyword.length) {
-      const partial: string = this.input.slice(this.pos);
-      if (keyword.startsWith(partial)) {
-        this.pos = this.input.length;
-        return true;
-      }
-    }
-    return false;
   }
 
   private parseObject(path: string): Record<string, unknown> {
