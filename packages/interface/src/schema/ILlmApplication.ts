@@ -11,8 +11,6 @@ import { IValidation } from "./IValidation";
  *
  * Configure behavior via {@link ILlmApplication.IConfig}:
  *
- * - {@link ILlmApplication.IConfig.separate}: Split parameters into LLM-fillable
- *   vs human-required (e.g., file uploads, passwords)
  * - {@link ILlmApplication.IConfig.validate}: Custom validation per method
  * - {@link ILlmSchema.IConfig.strict}: OpenAI structured output mode
  * - {@link ILlmSchema.IConfig.reference}: Control `$ref` inlining behavior
@@ -55,25 +53,11 @@ export namespace ILlmApplication {
    * Configuration for LLM application generation.
    *
    * Extends {@link ILlmSchema.IConfig} with application-specific options for
-   * parameter separation and custom validation. These settings control how the
-   * application schema is generated from the source class.
+   * custom validation. These settings control how the application schema is
+   * generated from the source class.
    */
   export interface IConfig<Class extends object = any>
     extends ILlmSchema.IConfig {
-    /**
-     * Function to separate LLM-fillable from human-required parameters.
-     *
-     * When provided, this function is called for each parameter schema to
-     * determine if it should be filled by the LLM (`false`) or require human
-     * input (`true`). Use this for sensitive data like passwords, file uploads,
-     * or data the LLM cannot generate.
-     *
-     * @default null (no separation)
-     * @param schema - The parameter schema to evaluate
-     * @returns `true` if human input required, `false` if LLM can fill
-     */
-    separate: null | ((schema: ILlmSchema) => boolean);
-
     /**
      * Custom validation functions per method name.
      *

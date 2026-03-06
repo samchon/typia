@@ -245,7 +245,6 @@ export namespace LlmApplicationProgrammer {
     return {
       config: {
         ...LlmSchemaConverter.getConfig(props.config),
-        separate: null,
         validate: null,
       },
       functions: functions.filter((f) => f !== null),

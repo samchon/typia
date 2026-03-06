@@ -5,7 +5,6 @@ import {
   IHttpLlmFunction,
   IHttpMigrateApplication,
   IHttpResponse,
-  ILlmFunction,
   OpenApi,
   OpenApiV3,
   OpenApiV3_1,
@@ -15,7 +14,6 @@ import {
 import { HttpMigration } from "./HttpMigration";
 import { HttpLlmApplicationComposer } from "./internal/HttpLlmApplicationComposer";
 import { HttpLlmFunctionFetcher } from "./internal/HttpLlmFunctionFetcher";
-import { LlmDataMerger } from "./internal/LlmDataMerger";
 
 /**
  * LLM function calling utilities for OpenAPI documents.
@@ -92,8 +90,7 @@ export namespace HttpLlm {
   /**
    * Convert OpenAPI document to LLM function calling application.
    *
-   * Converts API operations to LLM-callable functions. Use
-   * {@link mergeParameters} if `separate` option is configured.
+   * Converts API operations to LLM-callable functions.
    *
    * @param props Composition properties
    * @returns LLM function calling application
@@ -118,7 +115,6 @@ export namespace HttpLlm {
       config: {
         reference: props.config?.reference ?? true,
         strict: props.config?.strict ?? false,
-        separate: props.config?.separate ?? null,
         maxLength: props.config?.maxLength ?? 64,
         equals: props.config?.equals ?? false,
       },
@@ -168,43 +164,4 @@ export namespace HttpLlm {
    */
   export const propagate = (props: IFetchProps): Promise<IHttpResponse> =>
     HttpLlmFunctionFetcher.propagate(props);
-
-  /* -----------------------------------------------------------
-    MERGERS
-  ----------------------------------------------------------- */
-  /** Properties for parameter merging. */
-  export interface IMergeProps {
-    /** Target function metadata. */
-    function: ILlmFunction;
-
-    /** LLM-provided arguments. */
-    llm: object | null;
-
-    /** Human-provided arguments. */
-    human: object | null;
-  }
-
-  /**
-   * Merge separated parameters.
-   *
-   * Combines human and LLM parameters when `separate` option was used. Throws
-   * error if `separate` was not configured.
-   *
-   * @param props Merge properties
-   * @returns Merged parameters
-   */
-  export const mergeParameters = (props: IMergeProps): object =>
-    LlmDataMerger.parameters(props);
-
-  /**
-   * Merge two values.
-   *
-   * Objects are merged at property level. Primitives return `y ?? x`.
-   *
-   * @param x First value
-   * @param y Second value (preferred)
-   * @returns Merged value
-   */
-  export const mergeValue = (x: unknown, y: unknown): unknown =>
-    LlmDataMerger.value(x, y);
 }

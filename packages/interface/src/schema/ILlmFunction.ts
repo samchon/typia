@@ -16,9 +16,6 @@ import { IValidation } from "./IValidation";
  * the schema, enabling auto-correction when the LLM makes type errors (e.g.,
  * returning `"123"` instead of `123`).
  *
- * Use {@link separated} when some parameters require human input (files,
- * passwords) via {@link ILlmApplication.IConfig.separate}.
- *
  * @author Jeongho Nam - https://github.com/samchon
  */
 export interface ILlmFunction {
@@ -42,20 +39,11 @@ export interface ILlmFunction {
   parameters: ILlmSchema.IParameters;
 
   /**
-   * Parameters split between LLM and human input.
-   *
-   * Present when {@link ILlmApplication.IConfig.separate} is configured. Allows
-   * separating parameters that the LLM can fill from those requiring human
-   * input (e.g., file uploads, passwords).
-   */
-  separated?: ILlmFunction.ISeparated;
-
-  /**
    * Schema for the return type.
    *
    * Defines the expected output type as an object parameters schema, wrapping
-   * the return type in an {@link ILlmSchema.IParameters} object with `$defs`
-   * for shared type definitions and `properties` for the structured output.
+   * the return type in an {@link ILlmSchema.IParameters} object with `$defs` for
+   * shared type definitions and `properties` for the structured output.
    *
    * `undefined` when the function returns `void` or has no meaningful return
    * value.
@@ -105,44 +93,4 @@ export interface ILlmFunction {
    * @see stringifyValidationFailure Format errors for LLM auto-correction
    */
   validate: (args: unknown) => IValidation<unknown>;
-}
-export namespace ILlmFunction {
-  /**
-   * Separated parameter schemas for hybrid LLM/human input.
-   *
-   * When a function has parameters that cannot or should not be filled by the
-   * LLM (e.g., file uploads, passwords, sensitive data), the parameters are
-   * split into two schemas.
-   */
-  export interface ISeparated {
-    /**
-     * Parameters the LLM should fill.
-     *
-     * Contains only the parameters that are safe and appropriate for the LLM to
-     * generate values for.
-     */
-    llm: ILlmSchema.IParameters;
-
-    /**
-     * Parameters requiring human input.
-     *
-     * Contains parameters that must be provided by the user directly, such as
-     * file uploads, passwords, or other sensitive data. `null` when all
-     * parameters can be filled by the LLM.
-     */
-    human: ILlmSchema.IParameters | null;
-
-    /**
-     * Validates the LLM portion of separated parameters.
-     *
-     * Validates only the LLM-fillable portion, allowing human parameters to be
-     * validated separately with appropriate handling.
-     *
-     * When validation fails, use `stringifyValidationFailure()` from
-     * `@typia/utils` to format the error for LLM feedback.
-     *
-     * @see stringifyValidationFailure Format errors for LLM auto-correction
-     */
-    validate?: ((args: unknown) => IValidation<unknown>) | undefined;
-  }
 }

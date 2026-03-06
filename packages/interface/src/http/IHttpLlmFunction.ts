@@ -47,12 +47,6 @@ export interface IHttpLlmFunction {
   parameters: ILlmSchema.IParameters;
 
   /**
-   * Separated parameters when {@link IHttpLlmApplication.IConfig.separate} is
-   * set.
-   */
-  separated?: IHttpLlmFunction.ISeparated;
-
-  /**
    * Return type as an object parameters schema.
    *
    * Wraps the return type in an {@link ILlmSchema.IParameters} object with
@@ -83,17 +77,4 @@ export interface IHttpLlmFunction {
 
   /** Returns the source {@link IHttpMigrateRoute}. */
   route: () => IHttpMigrateRoute;
-}
-export namespace IHttpLlmFunction {
-  /** Collection of separated parameters. */
-  export interface ISeparated {
-    /** Parameters for LLM composition. Always at least empty object. */
-    llm: ILlmSchema.IParameters;
-
-    /** Parameters for human composition. */
-    human: ILlmSchema.IParameters | null;
-
-    /** Validates separated LLM arguments. */
-    validate?: ((args: unknown) => IValidation<unknown>) | undefined;
-  }
 }

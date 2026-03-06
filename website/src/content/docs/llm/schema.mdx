@@ -21,7 +21,7 @@ export namespace llm {
     App extends Record<string, any>,
     Config extends Partial<ILlmSchema.IConfig> = {},
   >(
-    config?: Partial<Pick<ILlmApplication.IConfig, "separate">>,
+    config?: Partial<Pick<ILlmApplication.IConfig, "validate">>,
   ): ILlmApplication;
 
   // STRUCTURED OUTPUT

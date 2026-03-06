@@ -168,9 +168,6 @@ export namespace LlmApplicationTransformer {
             ),
             ts.factory.createUnionTypeNode([
               ts.factory.createLiteralTypeNode(
-                ts.factory.createStringLiteral("separate"),
-              ),
-              ts.factory.createLiteralTypeNode(
                 ts.factory.createStringLiteral("validate"),
               ),
             ]),
