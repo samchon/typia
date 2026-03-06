@@ -19,7 +19,6 @@ import { IHttpMigrateRoute } from "./IHttpMigrateRoute";
  *
  * Configure behavior via {@link IHttpLlmApplication.IConfig}:
  *
- * - {@link IHttpLlmApplication.IConfig.separate}: Split LLM vs human parameters
  * - {@link IHttpLlmApplication.IConfig.maxLength}: Function name length limit
  * - {@link ILlmSchema.IConfig.strict}: OpenAI structured output mode
  *
@@ -38,16 +37,6 @@ export interface IHttpLlmApplication {
 export namespace IHttpLlmApplication {
   /** Configuration for HTTP LLM application composition. */
   export interface IConfig extends ILlmSchema.IConfig {
-    /**
-     * Separates parameters into LLM and human parts.
-     *
-     * Use for file uploads or sensitive data that LLM cannot handle. Return
-     * `true` for human-composed, `false` for LLM-composed.
-     *
-     * @default null
-     */
-    separate: null | ((schema: ILlmSchema) => boolean);
-
     /**
      * Maximum function name length. Truncated or UUID if exceeded.
      *
