@@ -25,6 +25,8 @@ export {
   CamelCase,
   PascalCase,
   SnakeCase,
+  // http
+  IReadableURLSearchParams,
   // namespaces
   tags,
 } from "@typia/interface";

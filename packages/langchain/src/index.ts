@@ -10,7 +10,7 @@ import { LangChainToolsRegistrar } from "./internal/LangChainToolsRegistrar";
  * OpenAPI operations via `HttpLlm.controller()` to LangChain tools.
  *
  * Every tool call is validated by typia. If LLM provides invalid arguments,
- * returns validation error formatted by {@link stringifyValidationFailure}
+ * returns validation error formatted by {@link LlmJson.stringify}
  * so that LLM can correct them automatically.
  *
  * @param props Conversion properties

@@ -178,8 +178,7 @@ About the return value type, it also follows the restriction of [`typia.llm.para
 <Tabs items={["TypeScript Source Code", "Console Output"]}>
   <Tabs.Tab>
 ```typescript filename="example/src/llm/application.violation.ts" showLineNumbers
-import { ILlmApplication } from "@samchon/openapi";
-import typia, { tags } from "typia";
+import typia, { ILlmApplication, tags } from "typia";
 
 const app: ILlmApplication = typia.llm.application<BbsArticleController>();
 

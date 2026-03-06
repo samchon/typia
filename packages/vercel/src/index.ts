@@ -11,7 +11,7 @@ import { VercelToolsRegistrar } from "./internal/VercelToolsRegistrar";
  * can be used with any LLM provider (OpenAI, Anthropic, Google, etc.).
  *
  * Every tool call is validated by typia. If the LLM provides invalid arguments,
- * returns a validation error formatted by {@link stringifyValidationFailure}
+ * returns a validation error formatted by {@link LlmJson.stringify}
  * so the LLM can auto-correct in the next turn.
  *
  * ## Example with OpenAI

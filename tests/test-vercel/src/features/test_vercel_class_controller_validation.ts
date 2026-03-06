@@ -1,7 +1,7 @@
 import type { Tool } from "ai";
 import { TestValidator } from "@nestia/e2e";
 import { ILlmController, IValidation } from "@typia/interface";
-import { stringifyValidationFailure } from "@typia/utils";
+import { LlmJson } from "@typia/utils";
 import { toVercelTools } from "@typia/vercel";
 import typia from "typia";
 
@@ -33,7 +33,7 @@ export const test_vercel_class_controller_validation =
     if (expected.success === true)
       throw new Error("Expected validation to fail, but it succeeded.");
 
-    const expectedMessage: string = stringifyValidationFailure(expected);
+    const expectedMessage: string = LlmJson.stringify(expected);
 
     TestValidator.predicate("result should be an error object", () => {
       const res = result as { error?: boolean; message?: string };

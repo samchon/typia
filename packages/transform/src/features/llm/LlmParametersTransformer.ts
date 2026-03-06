@@ -74,10 +74,10 @@ export namespace LlmParametersTransformer {
       metadata: analyze(false),
       config,
     });
-    return ts.factory.createAsExpression(
+    return ts.factory.createSatisfiesExpression(
       LiteralFactory.write(out),
       props.context.importer.type({
-        file: "@samchon/openapi",
+        file: "typia",
         name: ts.factory.createQualifiedName(
           ts.factory.createIdentifier("ILlmSchema"),
           ts.factory.createIdentifier("IParameters"),

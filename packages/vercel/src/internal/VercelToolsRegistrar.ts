@@ -9,7 +9,7 @@ import {
   ILlmSchema,
   IValidation,
 } from "@typia/interface";
-import { HttpLlm, stringifyValidationFailure } from "@typia/utils";
+import { HttpLlm, LlmJson } from "@typia/utils";
 
 export namespace VercelToolsRegistrar {
   /**
@@ -141,7 +141,7 @@ export namespace VercelToolsRegistrar {
           // Return validation error in LLM-friendly format
           return {
             error: true,
-            message: stringifyValidationFailure(validation),
+            message: LlmJson.stringify(validation),
           };
         }
 

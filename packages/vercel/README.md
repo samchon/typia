@@ -70,7 +70,7 @@ Use `typia.llm.parameters<T>()` with Vercel's `jsonSchema()` to generate structu
 ```typescript
 import { openai } from "@ai-sdk/openai";
 import { generateObject, jsonSchema } from "ai";
-import { dedent, stringifyValidationFailure } from "@typia/utils";
+import { dedent, LlmJson } from "@typia/utils";
 import typia, { tags } from "typia";
 
 interface IMember {
@@ -89,7 +89,7 @@ const { object } = await generateObject({
       if (result.success) return { success: true, value: result.data };
       return {
         success: false,
-        error: new Error(stringifyValidationFailure(result)),
+        error: new Error(LlmJson.stringify(result)),
       };
     },
   }),

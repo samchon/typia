@@ -854,6 +854,22 @@ importers:
         specifier: catalog:typescript
         version: 5.9.3
 
+  tests/test-typia-generate:
+    dependencies:
+      typia:
+        specifier: workspace:^
+        version: link:../../packages/typia
+    devDependencies:
+      cross-env:
+        specifier: ^7.0.3
+        version: 7.0.3
+      ts-node:
+        specifier: catalog:typescript
+        version: 10.9.2(@types/node@25.3.1)(typescript@5.9.3)
+      typescript:
+        specifier: catalog:typescript
+        version: 5.9.3
+
   tests/test-typia-schema:
     dependencies:
       '@nestia/e2e':

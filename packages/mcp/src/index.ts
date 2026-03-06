@@ -12,7 +12,7 @@ import { McpControllerRegistrar } from "./internal/McpControllerRegistrar";
  *
  * Every tool call is validated by typia. If LLM provides invalid arguments,
  * returns {@link IValidation.IFailure} formatted by
- * {@link stringifyValidationFailure} so that LLM can correct them automatically.
+ * {@link LlmJson.stringify} so that LLM can correct them automatically.
  * Below is an example of the validation error format:
  *
  * ```json

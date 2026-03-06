@@ -78,7 +78,7 @@ Use `typia.llm.parameters<T>()` with LangChain's `withStructuredOutput()` to gen
 
 ```typescript
 import { ChatOpenAI } from "@langchain/openai";
-import { dedent, stringifyValidationFailure } from "@typia/utils";
+import { dedent, LlmJson } from "@typia/utils";
 import typia, { tags } from "typia";
 
 interface IMember {
@@ -104,7 +104,7 @@ const member: IMember = await model.invoke(dedent`
 // Validate the result
 const result = typia.validate<IMember>(member);
 if (!result.success) {
-  console.error(stringifyValidationFailure(result));
+  console.error(LlmJson.stringify(result));
 }
 ```
 

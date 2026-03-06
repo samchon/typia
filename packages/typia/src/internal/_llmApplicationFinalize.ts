@@ -1,24 +1,23 @@
 import { ILlmApplication, IValidation } from "@typia/interface";
-import { LlmSchemaConverter } from "@typia/utils";
+import { LlmJson, LlmSchemaConverter } from "@typia/utils";
 
-export const _llmApplicationFinalize = (
-  app: ILlmApplication,
+export const _llmApplicationFinalize = <Class extends object = any>(
+  app: ILlmApplication.__IPrimitive<Class>,
   config?: Partial<
     Pick<ILlmApplication.IConfig, "validate"> & {
       equals?: boolean;
     }
   >,
-): void => {
-  app.config = {
+): ILlmApplication<Class> => ({
+  ...app,
+  config: {
     ...LlmSchemaConverter.getConfig(),
     validate: config?.validate ?? null,
-  };
-  if (app.config.validate !== null)
-    for (const func of app.functions)
-      if (typeof app.config.validate?.[func.name] === "function")
-        func.validate = app.config.validate[
-          func.name
-        ]! satisfies Validator as Validator;
-};
-
-type Validator = (input: unknown) => IValidation<unknown>;
+  },
+  functions: app.functions.map((func) => ({
+    ...func,
+    parse: (input: string): IValidation<unknown> =>
+      LlmJson.parse(input, func.parameters),
+    validate: config?.validate?.[func.name] ?? func.validate,
+  })),
+});

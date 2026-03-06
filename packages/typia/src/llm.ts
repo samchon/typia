@@ -22,8 +22,8 @@ export function controller(
  *
  * Each {@link ILlmFunction} includes a built-in {@link ILlmFunction.validate}
  * function that validates LLM-generated arguments before execution. When
- * validation fails, use `stringifyValidationFailure()` from `@typia/utils` to
- * format errors for LLM feedback, enabling auto-correction.
+ * validation fails, use `LlmJson.stringify()` from `@typia/utils` to format
+ * errors for LLM feedback, enabling auto-correction.
  *
  * When passed to LLM providers (ChatGPT, Claude, Gemini, etc.), the LLM
  * automatically selects functions and fills arguments from conversation.
@@ -87,8 +87,8 @@ export function application(
  *
  * Each {@link ILlmFunction} includes a built-in {@link ILlmFunction.validate}
  * function that validates LLM-generated arguments before execution. When
- * validation fails, use `stringifyValidationFailure()` from `@typia/utils` to
- * format errors for LLM feedback, enabling auto-correction.
+ * validation fails, use `LlmJson.stringify()` from `@typia/utils` to format
+ * errors for LLM feedback, enabling auto-correction.
  *
  * When passed to LLM providers (ChatGPT, Claude, Gemini, etc.), the LLM
  * automatically selects functions and fills arguments from conversation. You

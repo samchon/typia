@@ -1,5 +1,4 @@
 import {
-  ExpressionFactory,
   ITypiaContext,
   LiteralFactory,
   LlmApplicationProgrammer,
@@ -7,7 +6,6 @@ import {
   MetadataCollection,
   MetadataFactory,
   MetadataSchema,
-  StatementFactory,
 } from "@typia/core";
 import { ILlmApplication, ILlmSchema, ValidationPipe } from "@typia/interface";
 import ts from "typescript";
@@ -19,37 +17,28 @@ export namespace LlmApplicationTransformer {
   export const transform = (props: ITransformProps): ts.Expression => {
     const dec = decompose("application", props);
     if (dec === null) return props.expression;
-
-    const literal: ts.Expression = ts.factory.createAsExpression(
-      LiteralFactory.write(dec.application),
-      props.context.importer.type({
-        file: "@samchon/openapi",
-        name: "ILlmApplication",
-        arguments: [dec.node],
-      }),
-    );
-    if (props.expression.arguments?.[0] === undefined) return literal;
-    return ExpressionFactory.selfCall(
-      ts.factory.createBlock(
-        [
-          StatementFactory.constant({
-            name: "application",
-            value: literal,
+    return ts.factory.createCallExpression(
+      props.context.importer.internal("llmApplicationFinalize"),
+      [dec.node],
+      [
+        ts.factory.createSatisfiesExpression(
+          LiteralFactory.write(dec.application),
+          props.context.importer.type({
+            file: "typia",
+            name: "ILlmApplication.__IPrimitive",
+            arguments: [dec.node],
           }),
-          ts.factory.createExpressionStatement(
-            finalize({
-              context: props.context,
-              value: ts.factory.createIdentifier("application"),
-              argument: props.expression.arguments[0]!,
-              equals: dec.config?.equals,
-            }),
-          ),
-          ts.factory.createReturnStatement(
-            ts.factory.createIdentifier("application"),
-          ),
-        ],
-        true,
-      ),
+        ),
+        ...(props.expression.arguments?.[0] !== undefined
+          ? [
+              getConfigArgument({
+                context: props.context,
+                argument: props.expression.arguments[0],
+                equals: dec.config?.equals,
+              }),
+            ]
+          : []),
+      ],
     );
   };
 
@@ -58,7 +47,7 @@ export namespace LlmApplicationTransformer {
     method: string,
     props: ITransformProps,
   ): {
-    application: ILlmApplication;
+    application: ILlmApplication.__IPrimitive;
     type: ts.Type;
     node: ts.TypeNode;
     config:
@@ -142,11 +131,10 @@ export namespace LlmApplicationTransformer {
     };
   };
 
-  export const finalize = (props: {
+  export const getConfigArgument = (props: {
     context: ITypiaContext;
-    value: ts.Expression;
     argument: ts.Expression;
-    equals?: boolean;
+    equals?: boolean | undefined;
   }) => {
     const satisfiesTypeNode: ts.TypeNode = ts.factory.createTypeReferenceNode(
       ts.factory.createIdentifier("Partial"),
@@ -156,7 +144,7 @@ export namespace LlmApplicationTransformer {
           [
             ts.factory.createImportTypeNode(
               ts.factory.createLiteralTypeNode(
-                ts.factory.createStringLiteral("@samchon/openapi"),
+                ts.factory.createStringLiteral("typia"),
               ),
               undefined,
               ts.factory.createQualifiedName(
@@ -175,29 +163,22 @@ export namespace LlmApplicationTransformer {
         ),
       ],
     );
-    return ts.factory.createCallExpression(
-      props.context.importer.internal("llmApplicationFinalize"),
-      undefined,
+    return ts.factory.createObjectLiteralExpression(
       [
-        props.value,
-        ts.factory.createObjectLiteralExpression(
-          [
-            ts.factory.createSpreadAssignment(
-              ts.factory.createSatisfiesExpression(
-                props.argument,
-                satisfiesTypeNode,
-              ),
-            ),
-            ts.factory.createPropertyAssignment(
-              "equals",
-              props.equals === true
-                ? ts.factory.createTrue()
-                : ts.factory.createFalse(),
-            ),
-          ],
-          true,
+        ts.factory.createSpreadAssignment(
+          ts.factory.createSatisfiesExpression(
+            props.argument,
+            satisfiesTypeNode,
+          ),
+        ),
+        ts.factory.createPropertyAssignment(
+          "equals",
+          props.equals === true
+            ? ts.factory.createTrue()
+            : ts.factory.createFalse(),
         ),
       ],
+      true,
     );
   };
 }
