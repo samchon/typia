@@ -37,7 +37,7 @@ bun typia setup --manager bun
 
 Just run `npx typia setup` command if you're using `tsc`. The setup wizard will do everything. 
 
-By the way, if you use `typia` with bundlers(`vite`, `rollup`, `webpack`, etc), the third party library [`unplugin-typia`](#unplugin-typia) is recommended.
+By the way, if you use `typia` with bundlers(`vite`, `rollup`, `webpack`, etc), [`@typia/unplugin`](#typiaunplugin) is recommended.
 
 Otherwise non-standard compiler case, only the [generation](#generation) mode is available.
 
@@ -45,7 +45,7 @@ Otherwise non-standard compiler case, only the [generation](#generation) mode is
     - [Microsoft/TypeScript](https://github.com/microsoft/typescript) (`tsc`)
   - Non-standard Compilers
     - [babel](https://babeljs.io/)
-    - [esbuild](https://esbuild.github.io/) -> covered by [`unplugin-typia`](#unplugin-typia)
+    - [esbuild](https://esbuild.github.io/) -> covered by [`@typia/unplugin`](#typiaunplugin)
     - [SWC](https://swc.rs)
 
 ## Transformation
@@ -205,69 +205,74 @@ For reference, [`ts-patch`](https://github.com/nonara/ts-patch) is an helper lib
 
 ## Bundlers
 
-### `unplugin-typia`
+### `@typia/unplugin`
 
-[`unplugin-typia`](https://github.com/ryoppippi/unplugin-typia/) is a plugin to integrate `typia` into your bundlers seamlessly.
+[`@typia/unplugin`](https://github.com/samchon/typia/tree/master/packages/unplugin) is a plugin to integrate `typia` into your bundlers seamlessly.
 
-Currently, `unplugin-typia` supports the following bundlers:
-  - [Bun](https://github.com/ryoppippi/unplugin-typia/blob/main/packages/unplugin-typia/src/bun.ts)
-  - [Esbuild](https://github.com/ryoppippi/unplugin-typia/blob/main/packages/unplugin-typia/src/esbuild.ts)
-  - [Farm](https://github.com/ryoppippi/unplugin-typia/blob/main/packages/unplugin-typia/src/farm.ts)
-  - [Next.js](https://github.com/ryoppippi/unplugin-typia/blob/main/packages/unplugin-typia/src/next.ts)
-  - [Rolldown](https://github.com/ryoppippi/unplugin-typia/blob/main/packages/unplugin-typia/src/rolldown.ts)
-  - [Rollup](https://github.com/ryoppippi/unplugin-typia/blob/main/packages/unplugin-typia/src/rollup.ts)
-  - [Rspack](https://github.com/ryoppippi/unplugin-typia/blob/main/packages/unplugin-typia/src/rspack.ts)
-  - [Vite](https://github.com/ryoppippi/unplugin-typia/blob/main/packages/unplugin-typia/src/vite.ts)
+Currently, `@typia/unplugin` supports the following bundlers:
+  - [Bun](https://github.com/samchon/typia/blob/master/packages/unplugin/src/bun.ts)
+  - [Esbuild](https://github.com/samchon/typia/blob/master/packages/unplugin/src/esbuild.ts)
+  - [Farm](https://github.com/samchon/typia/blob/master/packages/unplugin/src/farm.ts)
+  - [Next.js](https://github.com/samchon/typia/blob/master/packages/unplugin/src/next.ts)
+  - [Rolldown](https://github.com/samchon/typia/blob/master/packages/unplugin/src/rolldown.ts)
+  - [Rollup](https://github.com/samchon/typia/blob/master/packages/unplugin/src/rollup.ts)
+  - [Rspack](https://github.com/samchon/typia/blob/master/packages/unplugin/src/rspack.ts)
+  - [Vite](https://github.com/samchon/typia/blob/master/packages/unplugin/src/vite.ts)
   - [Webpack](https://webpack.js.org/)
 
 <Tabs items={['npm', 'pnpm', 'yarn', 'bun']}>
   <Tabs.Tab>
 ```bash filename="Terminal" showLineNumbers copy
-npm install -D @ryoppippi/unplugin-typia
-
 npm install --save typia
 npx typia setup
+
+npm install -D @typia/unplugin
 ```
  </Tabs.Tab>
   <Tabs.Tab>
 ```bash filename="Terminal" showLineNumbers copy
-pnpm install -D @ryoppippi/unplugin-typia
 pnpm install typia
 pnpm typia setup --manager pnpm
+
+pnpm install -D @typia/unplugin
 ```
   </Tabs.Tab>
   <Tabs.Tab>
 ```bash filename="Terminal" showLineNumbers copy
 # YARN BERRY IS NOT SUPPORTED
-yarn add -D @ryoppippi/unplugin-typia
 yarn add typia
 yarn typia setup --manager yarn
+
+yarn add -D @typia/unplugin
 ```
   </Tabs.Tab>
   <Tabs.Tab>
 ```bash filename="Terminal" showLineNumbers copy
-bun add -D @ryoppippi/unplugin-typia
 bun add typia
 bun typia setup
+
+bun add -D @typia/unplugin
 ```
   </Tabs.Tab>
 </Tabs>
 
-At first, install both `unplugin-typia` and `typia`, with `npx typia setup` command.
+At first, install both `@typia/unplugin` and `typia`, with `npx typia setup` command.
 
-After that, follow the next section steps to integrate `unplugin-typia` into your bundlers.
+After that, follow the next section steps to integrate `@typia/unplugin` into your bundlers.
 
-For reference, there are a couple of ways to integrate `unplugin-typia` into your bundlers. For the full integration guide, please refer to the [`unplugin-typia` documentation](https://github.com/ryoppippi/unplugin-typia).  
+For reference, there are a couple of ways to integrate `@typia/unplugin` into your bundlers. For the full integration guide, please refer to the [`@typia/unplugin` documentation](https://github.com/samchon/typia/tree/master/packages/unplugin).  
 
 <Tabs items={['Vite', 'Next.js', 'esbuild', 'Bun.runtime', 'Bun.build']}>
   <Tabs.Tab>
-  <Callout type="info">
-  You can use any plugins with [`unplugin-typia`](#unplugin-typia) in Vite (including [`@vitejs/plugin-react-swc`](https://github.com/vitejs/vite-plugin-react-swc)).
-  `unplugin-typia` processes the TypeScript code before transforming it to JavaScript, so it can be used with any plugins.
-  </Callout>
+<Callout type="info">
+You can use any plugins with [`@typia/unplugin`](#typiaunplugin) in Vite (including [`@vitejs/plugin-react-swc`](https://github.com/vitejs/vite-plugin-react-swc)).
+
+`@typia/unplugin` processes the TypeScript code before transforming it to JavaScript, so it can be used with any plugins.
+</Callout>
+
 ```typescript filename="vite.config.ts" copy showLineNumbers
-import UnpluginTypia from '@ryoppippi/unplugin-typia/vite'
- 
+import UnpluginTypia from '@typia/unplugin/vite'
+
 export default defineConfig({
   plugins: [
     UnpluginTypia({ /* options */ })
@@ -277,23 +282,23 @@ export default defineConfig({
   </Tabs.Tab>
   <Tabs.Tab>
 ```javascript filename="next.config.mjs" copy showLineNumbers
-import unTypiaNext from "@ryoppippi/unplugin-typia/next";
- 
+import unTypiaNext from "@typia/unplugin/next";
+
 /** @type {import('next').NextConfig} */
 const config = {
   // your next.js config
 };
 export default unTypiaNext(
   config,
-  {} // options of unplugin-typia
+  {} // options of @typia/unplugin
 );
 ```
   </Tabs.Tab>
   <Tabs.Tab>
 ```javascript filename="esbuild.config.js" copy showLineNumbers
 import { build } from 'esbuild'
-import UnpluginTypia from '@ryoppippi/unplugin-typia/esbuild';
- 
+import UnpluginTypia from '@typia/unplugin/esbuild';
+
 build({
   plugins: [
     UnpluginTypia({ /* options */ }),
@@ -306,10 +311,11 @@ First, create a `preload.ts` file and add the following code.
 
 ```typescript filename="preload.ts" copy showLineNumbers
 import { plugin } from 'bun';
-import UnpluginTypia from '@ryoppippi/unplugin-typia/bun'
+import UnpluginTypia from '@typia/unplugin/bun'
 
 plugin(UnpluginTypia({ /* options */ }))
 ```
+
 Then, add the `preload` option to your `bunfig.toml` file.
 
 ```typescript filename="bunfig.toml" copy showLineNumbers {1, 4}
@@ -318,18 +324,20 @@ preload = ["./preload.ts"]
 [test]
 preload = ["./preload.ts"]
 ```
+
 And, run the `bun run` command.
 
 
 ```bash filename="Terminal" showLineNumbers copy
 bun run index.ts
 ```
-For more details, please refer to the [`unplugin-typia` documentation](https://github.com/ryoppippi/unplugin-typia).
+
+For more details, please refer to the [`@typia/unplugin` documentation](https://github.com/samchon/typia/tree/master/packages/unplugin).
   </Tabs.Tab>
   <Tabs.Tab>
 
 ```typescript filename="Build.ts" copy showLineNumbers
-import UnpluginTypia from '@ryoppippi/unplugin-typia/bun'
+import UnpluginTypia from '@typia/unplugin/bun'
 
 await Bun.build({
 	entrypoints: ["./index.ts"],
@@ -338,14 +346,14 @@ await Bun.build({
 });
 ```
 
-For more details, please refer to the [`unplugin-typia` documentation](https://github.com/ryoppippi/unplugin-typia).
+For more details, please refer to the [`@typia/unplugin` documentation](https://github.com/samchon/typia/tree/master/packages/unplugin).
   </Tabs.Tab>
 </Tabs>
 
 ### Webpack
 
 <Callout type="info">
-[`unplugin-typia`](#unplugin-typia) also supports `webpack` as well.
+  [`@typia/unplugin`](#typiaunplugin) also supports `webpack` as well.
 </Callout>
 
 <Tabs items={['npm', 'pnpm', 'yarn', 'bun']}>
@@ -604,8 +612,8 @@ If you are using a non-standard TypeScript compiler such as the following, you w
 
   - Non-standard TypeScript compilers:
     - [Babel](https://babeljs.io/) in Create-React-App
-    - [esbuild](https://esbuild.github.io/) in Vite -> covered by [`unplugin-typia`](#unplugin-typia)
-    - [SWC](https://swc.rs/) -> use [`unplugin-typia`](#unplugin-typia) with your bundlers ( including `next.js`, `vite`, `webpack`, `rollup`, etc )
+    - [esbuild](https://esbuild.github.io/) in Vite -> covered by [`@typia/unplugin`](#typiaunplugin)
+    - [SWC](https://swc.rs/) -> use [`@typia/unplugin`](#typiaunplugin) with your bundlers ( including `next.js`, `vite`, `webpack`, `rollup`, etc )
 
 Instead you should utilize the generation mode. 
 
