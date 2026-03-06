@@ -84,4 +84,16 @@ export namespace ILlmApplication {
       ? (input: unknown) => IValidation<Argument>
       : never;
   };
+
+  /**
+   * Internal type for typia transformer.
+   *
+   * @ignore
+   */
+  export interface __IPrimitive<Class extends object = any> extends Omit<
+    ILlmApplication<Class>,
+    "config" | "functions"
+  > {
+    functions: Omit<ILlmFunction, "parse">[];
+  }
 }

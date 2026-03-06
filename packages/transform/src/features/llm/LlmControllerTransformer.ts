@@ -1,8 +1,4 @@
-import {
-  ExpressionFactory,
-  LiteralFactory,
-  StatementFactory,
-} from "@typia/core";
+import { LiteralFactory } from "@typia/core";
 import ts from "typescript";
 
 import { ITransformProps } from "../../ITransformProps";
@@ -24,14 +20,7 @@ export namespace LlmControllerTransformer {
         message: `no executor.`,
       });
 
-    const property: ts.Expression = ts.factory.createAsExpression(
-      LiteralFactory.write(dec.application),
-      props.context.importer.type({
-        file: "@samchon/openapi",
-        name: "ILlmApplication",
-      }),
-    );
-    const value: ts.Expression = ts.factory.createObjectLiteralExpression(
+    return ts.factory.createObjectLiteralExpression(
       [
         ts.factory.createPropertyAssignment(
           "protocol",
@@ -45,38 +34,38 @@ export namespace LlmControllerTransformer {
           "execute",
           props.expression.arguments[1],
         ),
-        ts.factory.createShorthandPropertyAssignment("application"),
+        ts.factory.createPropertyAssignment(
+          "application",
+          ts.factory.createCallExpression(
+            props.context.importer.internal("llmApplicationFinalize"),
+            undefined,
+            [
+              ts.factory.createSatisfiesExpression(
+                LiteralFactory.write(dec.application),
+                props.context.importer.type({
+                  file: "typia",
+                  name: ts.factory
+                    .createTypeReferenceNode("ILlmApplication.__IPrimitive", [
+                      dec.node,
+                    ])
+                    .getText(),
+                  arguments: [dec.node],
+                }),
+              ),
+              ...(props.expression.arguments?.[2] !== undefined
+                ? [
+                    LlmApplicationTransformer.getConfigArgument({
+                      context: props.context,
+                      argument: props.expression.arguments[2],
+                      equals: dec.config?.equals,
+                    }),
+                  ]
+                : []),
+            ],
+          ),
+        ),
       ],
       true,
-    );
-    return ExpressionFactory.selfCall(
-      ts.factory.createBlock(
-        [
-          StatementFactory.constant({
-            name: "application",
-            value: property,
-          }),
-          ...(props.expression.arguments?.[2] !== undefined
-            ? [
-                ts.factory.createExpressionStatement(
-                  LlmApplicationTransformer.finalize({
-                    context: props.context,
-                    value: ts.factory.createIdentifier("application"),
-                    argument: props.expression.arguments[2]!,
-                    equals: dec.config?.equals,
-                  }),
-                ),
-              ]
-            : []),
-          ts.factory.createReturnStatement(value),
-        ],
-        true,
-      ),
-      props.context.importer.type({
-        file: "@samchon/openapi",
-        name: "ILlmController",
-        arguments: [dec.node],
-      }),
     );
   };
 }

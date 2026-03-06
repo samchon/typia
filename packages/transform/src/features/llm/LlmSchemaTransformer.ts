@@ -75,10 +75,10 @@ export namespace LlmSchemaTransformer {
       config,
     });
     const schemaTypeNode = props.context.importer.type({
-      file: "@samchon/openapi",
+      file: "typia",
       name: "ILlmSchema",
     });
-    const literal = ts.factory.createAsExpression(
+    const literal = ts.factory.createSatisfiesExpression(
       LiteralFactory.write(out.schema),
       schemaTypeNode,
     );
