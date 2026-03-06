@@ -105,11 +105,4 @@
       { "transform": "typia/lib/transform" },
     ],
   },
-  "ts-node": {
-    "transpileOnly": true,
-    "compilerOptions": {
-      "module": "commonjs",
-      "plugins": []
-    }
-  },
 }

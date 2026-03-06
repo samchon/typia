@@ -4,5 +4,12 @@
     "noUnusedLocals": false,
     "noUnusedParameters": false,
   },
-  "include": ["src"]
+  "include": ["src"],
+  "ts-node": {
+    "transpileOnly": true,
+    "compilerOptions": {
+      "module": "commonjs",
+      "plugins": []
+    }
+  },
 }

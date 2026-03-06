@@ -4,5 +4,12 @@
     "noEmit": false,
     "outDir": "bin",
   },
+  "ts-node": {
+    "transpileOnly": true,
+    "compilerOptions": {
+      "module": "commonjs",
+      "plugins": []
+    }
+  },
   "include": ["src"],
 }
