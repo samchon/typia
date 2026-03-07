@@ -25,6 +25,27 @@ export const controller = typia.llm.controller<IApplication>("company", {
     props.entity.id,
 });
 
+// llm.parse and llm.coerce
+interface ISimpleParams {
+  name: string;
+  age: number;
+  alive: boolean;
+}
+
+export const parse = typia.llm.parse<ISimpleParams>(
+  JSON.stringify({ name: "John", age: "30", alive: "true" }),
+);
+
+export const createParse = typia.llm.createParse<ISimpleParams>();
+
+export const coerce = typia.llm.coerce<ISimpleParams>({
+  name: "John",
+  age: "30" as unknown as number,
+  alive: "true" as unknown as boolean,
+});
+
+export const createCoerce = typia.llm.createCoerce<ISimpleParams>();
+
 export interface IApplication {
   establishCompany(props: { company: ICompany }): ICompany;
   createDepartment(props: {

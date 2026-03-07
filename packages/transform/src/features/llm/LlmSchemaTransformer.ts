@@ -78,8 +78,11 @@ export namespace LlmSchemaTransformer {
       file: "typia",
       name: "ILlmSchema",
     });
-    const literal = ts.factory.createSatisfiesExpression(
-      LiteralFactory.write(out.schema),
+    const literal = ts.factory.createAsExpression(
+      ts.factory.createSatisfiesExpression(
+        LiteralFactory.write(out.schema),
+        schemaTypeNode,
+      ),
       schemaTypeNode,
     );
     if (Object.keys(out.$defs).length === 0) return literal;

@@ -33,15 +33,15 @@ export namespace LlmJson {
    * - `"{...}"` → `{...}` (when schema expects object)
    * - `"[...]"` → `[...]` (when schema expects array)
    *
-   * Use this when SDK provides already-parsed objects but values may have
-   * wrong types. For raw JSON strings, use {@link parse} instead.
+   * Use this when SDK provides already-parsed objects but values may have wrong
+   * types. For raw JSON strings, use {@link parse} instead.
    *
    * @param input Parsed arguments object from LLM
    * @param parameters LLM function parameters schema for type coercion
    * @returns Coerced arguments with corrected types
    */
   export function coerce<T = unknown>(
-    input: T,
+    input: unknown,
     parameters: ILlmSchema.IParameters,
   ): T {
     return coerceLlmArguments(input, parameters);
