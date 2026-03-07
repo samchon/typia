@@ -11,3 +11,4 @@ export * from "./ILlmController";
 export * from "./ILlmApplication";
 export * from "./ILlmFunction";
 export * from "./ILlmSchema";
+export * from "./IJsonParseResult";
