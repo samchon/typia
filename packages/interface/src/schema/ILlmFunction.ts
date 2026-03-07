@@ -89,6 +89,10 @@ export interface ILlmFunction {
    *
    * Type validation is NOT performed — use {@link validate} after parsing.
    *
+   * If the SDK (e.g., LangChain, Vercel AI, MCP) already parses JSON internally
+   * and provides a pre-parsed object, use `LlmJson.coerce()` from `@typia/utils`
+   * instead to apply schema-based type coercion without re-parsing.
+   *
    * @param str Raw JSON string from LLM output
    * @returns Parse result with data on success, or partial data with errors
    */

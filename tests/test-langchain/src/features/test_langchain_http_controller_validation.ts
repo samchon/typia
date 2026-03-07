@@ -82,6 +82,11 @@ export const test_langchain_http_controller_validation =
     const result = await addTool.invoke(invalidArgs);
 
     // 6. Verify validation matches LlmJson.stringify output
+    const func = controller.application.functions.find(
+      (f) => f.name === "calculate_add_post",
+    )!;
+    const coerced: unknown = LlmJson.coerce(invalidArgs, func.parameters);
+
     const parameterSchema: OpenApi.IJsonSchema.IObject = {
       type: "object",
       properties: {
@@ -93,7 +98,7 @@ export const test_langchain_http_controller_validation =
     const expected: IValidation = OpenApiValidator.validate({
       components: {},
       schema: parameterSchema,
-      value: invalidArgs,
+      value: coerced,
       required: true,
       equals: false,
     });

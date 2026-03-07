@@ -113,8 +113,9 @@ export namespace LangChainToolsRegistrar {
       description: entry.function.description ?? "",
       schema: passthroughSchema,
       func: async (args: unknown): Promise<string> => {
+        const coerced: unknown = LlmJson.coerce(args, entry.function.parameters);
         const validation: IValidation<unknown> =
-          entry.function.validate(args);
+          entry.function.validate(coerced);
         if (!validation.success) {
           return LlmJson.stringify(validation);
         }

@@ -26,10 +26,11 @@ export const test_vercel_class_controller_validation =
     );
 
     // 4. Verify the result contains validation error
-    const expected: IValidation = typia.validate<Calculator.IProps>({
-      x: "not a number",
-      y: 5,
-    });
+    const coerced: unknown = LlmJson.coerce(
+      { x: "not a number", y: 5 },
+      controller.application.functions.find((f) => f.name === "add")!.parameters,
+    );
+    const expected: IValidation = typia.validate<Calculator.IProps>(coerced);
     if (expected.success === true)
       throw new Error("Expected validation to fail, but it succeeded.");
 

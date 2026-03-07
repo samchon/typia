@@ -135,8 +135,9 @@ export namespace VercelToolsRegistrar {
       ),
 
       execute: async (args: object) => {
-        // Validate using typia's built-in validator
-        const validation: IValidation<unknown> = func.validate(args);
+        // Coerce and validate using typia's built-in functions
+        const coerced: unknown = LlmJson.coerce(args, func.parameters);
+        const validation: IValidation<unknown> = func.validate(coerced);
         if (!validation.success) {
           // Return validation error in LLM-friendly format
           return {

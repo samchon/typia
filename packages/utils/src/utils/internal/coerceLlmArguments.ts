@@ -17,11 +17,11 @@ import { parseLenientJson } from "./parseLenientJson";
  * @returns Coerced value with double-stringified JSON parsed
  * @internal
  */
-export function coerceLlmArguments(
-  value: unknown,
+export function coerceLlmArguments<T = unknown>(
+  value: T,
   parameters: ILlmSchema.IParameters,
-): unknown {
-  return coerceValue(value, parameters, parameters.$defs);
+): T {
+  return coerceValue(value, parameters, parameters.$defs) as T;
 }
 
 function coerceValue(

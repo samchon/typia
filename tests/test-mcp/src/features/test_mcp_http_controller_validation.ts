@@ -107,6 +107,11 @@ export const test_mcp_http_controller_validation = async (): Promise<void> => {
   );
 
   // 7. Verify validation matches LlmJson.stringify output
+  const func = controller.application.functions.find(
+    (f) => f.name === "calculate_add_post",
+  )!;
+  const coerced: unknown = LlmJson.coerce(invalidArgs, func.parameters);
+
   const parameterSchema: OpenApi.IJsonSchema.IObject = {
     type: "object",
     properties: {
@@ -118,7 +123,7 @@ export const test_mcp_http_controller_validation = async (): Promise<void> => {
   const expected: IValidation = OpenApiValidator.validate({
     components: {},
     schema: parameterSchema,
-    value: invalidArgs,
+    value: coerced,
     required: true,
     equals: false,
   });
