@@ -18,7 +18,7 @@ import { parseLenientJson } from "./parseLenientJson";
  * @internal
  */
 export function coerceLlmArguments<T = unknown>(
-  value: T,
+  value: unknown,
   parameters: ILlmSchema.IParameters,
 ): T {
   return coerceValue(value, parameters, parameters.$defs) as T;

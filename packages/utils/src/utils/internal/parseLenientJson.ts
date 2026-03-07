@@ -1,6 +1,96 @@
 import { DeepPartial, IJsonParseResult } from "@typia/interface";
 
 /**
+ * Parse lenient JSON that may be incomplete or malformed.
+ *
+ * Handles:
+ *
+ * - Unclosed brackets `{`, `[` - parses as much as possible
+ * - Trailing commas `[1, 2, ]` - ignores them
+ * - Unclosed strings `"hello` - returns partial string
+ * - Junk text before JSON (LLM often adds explanatory text)
+ * - Markdown code blocks (extracts content from `json ... `)
+ * - Incomplete keywords like `tru`, `fal`, `nul`
+ * - Unicode escape sequences including surrogate pairs (emoji)
+ * - JavaScript-style comments (single-line and multi-line)
+ * - Unquoted object keys (JavaScript identifier style)
+ *
+ * @param input Raw JSON string (potentially incomplete)
+ * @returns Parse result with data, original input, and any errors
+ * @internal
+ */
+export function parseLenientJson<T>(input: string): IJsonParseResult<T> {
+  // Try native JSON.parse first (faster for valid JSON)
+  try {
+    return {
+      success: true,
+      data: JSON.parse(input) as T,
+    };
+  } catch {
+    // Fall back to lenient parser
+  }
+
+  // Extract markdown code block if present
+  const codeBlockContent: string | null = extractMarkdownCodeBlock(input);
+  const jsonSource: string =
+    codeBlockContent !== null ? codeBlockContent : input;
+
+  // Check if input is empty or whitespace-only
+  const trimmed: string = jsonSource.trim();
+  if (trimmed.length === 0) {
+    const errors: IJsonParseResult.IError[] = [];
+    const parser: LenientJsonParser = new LenientJsonParser(jsonSource, errors);
+    const data: unknown = parser.parse();
+    if (errors.length > 0) {
+      return { success: false, data: data as DeepPartial<T>, input, errors };
+    }
+    return { success: true, data: data as T };
+  }
+
+  // Check if input starts with a primitive value (no junk prefix skipping needed)
+  if (startsWithPrimitive(trimmed)) {
+    const errors: IJsonParseResult.IError[] = [];
+    const parser: LenientJsonParser = new LenientJsonParser(jsonSource, errors);
+    const data: unknown = parser.parse();
+    if (errors.length > 0) {
+      return { success: false, data: data as DeepPartial<T>, input, errors };
+    }
+    return { success: true, data: data as T };
+  }
+
+  // Find JSON start position (skip junk prefix from LLM)
+  const jsonStart: number = findJsonStart(jsonSource);
+  if (jsonStart === -1) {
+    // No JSON found - return empty object for lenient behavior
+    return {
+      success: true,
+      data: {} as T,
+    };
+  }
+
+  // Extract JSON portion (skip junk prefix)
+  const jsonInput: string =
+    jsonStart > 0 ? jsonSource.slice(jsonStart) : jsonSource;
+
+  const errors: IJsonParseResult.IError[] = [];
+  const parser: LenientJsonParser = new LenientJsonParser(jsonInput, errors);
+  const data: unknown = parser.parse();
+
+  if (errors.length > 0) {
+    return {
+      success: false,
+      data: data as DeepPartial<T>,
+      input,
+      errors,
+    };
+  }
+  return {
+    success: true,
+    data: data as T,
+  };
+}
+
+/**
  * Maximum nesting depth to prevent stack overflow attacks.
  *
  * @internal
@@ -134,96 +224,6 @@ function startsWithPrimitive(input: string): boolean {
   )
     return true;
   return false;
-}
-
-/**
- * Parse lenient JSON that may be incomplete or malformed.
- *
- * Handles:
- *
- * - Unclosed brackets `{`, `[` - parses as much as possible
- * - Trailing commas `[1, 2, ]` - ignores them
- * - Unclosed strings `"hello` - returns partial string
- * - Junk text before JSON (LLM often adds explanatory text)
- * - Markdown code blocks (extracts content from `json ... `)
- * - Incomplete keywords like `tru`, `fal`, `nul`
- * - Unicode escape sequences including surrogate pairs (emoji)
- * - JavaScript-style comments (single-line and multi-line)
- * - Unquoted object keys (JavaScript identifier style)
- *
- * @param input Raw JSON string (potentially incomplete)
- * @returns Parse result with data, original input, and any errors
- * @internal
- */
-export function parseLenientJson<T>(input: string): IJsonParseResult<T> {
-  // Try native JSON.parse first (faster for valid JSON)
-  try {
-    return {
-      success: true,
-      data: JSON.parse(input) as T,
-    };
-  } catch {
-    // Fall back to lenient parser
-  }
-
-  // Extract markdown code block if present
-  const codeBlockContent: string | null = extractMarkdownCodeBlock(input);
-  const jsonSource: string =
-    codeBlockContent !== null ? codeBlockContent : input;
-
-  // Check if input is empty or whitespace-only
-  const trimmed: string = jsonSource.trim();
-  if (trimmed.length === 0) {
-    const errors: IJsonParseResult.IError[] = [];
-    const parser: LenientJsonParser = new LenientJsonParser(jsonSource, errors);
-    const data: unknown = parser.parse();
-    if (errors.length > 0) {
-      return { success: false, data: data as DeepPartial<T>, input, errors };
-    }
-    return { success: true, data: data as T };
-  }
-
-  // Check if input starts with a primitive value (no junk prefix skipping needed)
-  if (startsWithPrimitive(trimmed)) {
-    const errors: IJsonParseResult.IError[] = [];
-    const parser: LenientJsonParser = new LenientJsonParser(jsonSource, errors);
-    const data: unknown = parser.parse();
-    if (errors.length > 0) {
-      return { success: false, data: data as DeepPartial<T>, input, errors };
-    }
-    return { success: true, data: data as T };
-  }
-
-  // Find JSON start position (skip junk prefix from LLM)
-  const jsonStart: number = findJsonStart(jsonSource);
-  if (jsonStart === -1) {
-    // No JSON found - return empty object for lenient behavior
-    return {
-      success: true,
-      data: {} as T,
-    };
-  }
-
-  // Extract JSON portion (skip junk prefix)
-  const jsonInput: string =
-    jsonStart > 0 ? jsonSource.slice(jsonStart) : jsonSource;
-
-  const errors: IJsonParseResult.IError[] = [];
-  const parser: LenientJsonParser = new LenientJsonParser(jsonInput, errors);
-  const data: unknown = parser.parse();
-
-  if (errors.length > 0) {
-    return {
-      success: false,
-      data: data as DeepPartial<T>,
-      input,
-      errors,
-    };
-  }
-  return {
-    success: true,
-    data: data as T,
-  };
 }
 
 /**
