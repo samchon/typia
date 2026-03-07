@@ -1,4 +1,4 @@
-import { ILlmSchema, IValidation } from "@typia/interface";
+import { IJsonParseResult, ILlmSchema } from "@typia/interface";
 
 import { LlmTypeChecker } from "../../validators/LlmTypeChecker";
 import { parseLenientJson } from "./parseLenientJson";
@@ -44,41 +44,51 @@ function coerceValue(
     // Value is string
     if (typeof value === "string") {
       // If string is in union, don't parse - it's valid as-is
-      const hasString: boolean = schema.anyOf.some(
-        (s: ILlmSchema): boolean =>
-          LlmTypeChecker.isString(resolveSchema(s, $defs)),
+      const hasString: boolean = schema.anyOf.some((s: ILlmSchema): boolean =>
+        LlmTypeChecker.isString(resolveSchema(s, $defs)),
       );
       if (hasString) {
         return value;
       }
       // String value but no string in union - try to parse
-      const parsed: IValidation<unknown> = parseLenientJson(value);
+      const parsed: IJsonParseResult<unknown> = parseLenientJson(value);
       if (parsed.success) {
-        // Recursively coerce the parsed value with matching schema
-        for (const subSchema of schema.anyOf) {
-          if (matchesSchemaType(parsed.data, subSchema, $defs)) {
-            return coerceValue(parsed.data, subSchema, $defs);
-          }
+        // Find uniquely matching schema via type + x-discriminator
+        const matched: ILlmSchema | undefined = findMatchingAnyOfSchema(
+          parsed.data,
+          schema,
+          $defs,
+        );
+        if (matched !== undefined) {
+          return coerceValue(parsed.data, matched, $defs);
         }
         return parsed.data;
       }
       return value;
     }
-    // Value is object - find matching object schema and recurse
+    // Value is object - find matching schema via discriminated union
     if (typeof value === "object" && value !== null && !Array.isArray(value)) {
-      for (const subSchema of schema.anyOf) {
-        if (LlmTypeChecker.isObject(resolveSchema(subSchema, $defs))) {
-          return coerceValue(value, subSchema, $defs);
-        }
+      const matched: ILlmSchema | undefined = findMatchingObjectInAnyOf(
+        value as Record<string, unknown>,
+        schema,
+        $defs,
+      );
+      if (matched !== undefined) {
+        return coerceValue(value, matched, $defs);
       }
+      return value;
     }
-    // Value is array - find matching array schema and recurse
+    // Value is array - find matching array schema (only if unambiguous)
     if (Array.isArray(value)) {
-      for (const subSchema of schema.anyOf) {
-        if (LlmTypeChecker.isArray(resolveSchema(subSchema, $defs))) {
-          return coerceValue(value, subSchema, $defs);
-        }
+      const arraySchemas: ILlmSchema[] = schema.anyOf.filter(
+        (s: ILlmSchema): boolean =>
+          LlmTypeChecker.isArray(resolveSchema(s, $defs)),
+      );
+      if (arraySchemas.length === 1) {
+        return coerceValue(value, arraySchemas[0]!, $defs);
       }
+      // Multiple or no array schemas - skip coercion
+      return value;
     }
     // Non-string primitive or no matching schema - return as-is
     return value;
@@ -96,7 +106,7 @@ function coerceValue(
 
   // Value is string but schema is non-string - try to parse
   if (typeof value === "string") {
-    const parsed: IValidation<unknown> = parseLenientJson(value);
+    const parsed: IJsonParseResult<unknown> = parseLenientJson(value);
     if (parsed.success) {
       // Continue coercion on the parsed value (for nested stringified values)
       return coerceValue(parsed.data, schema, $defs);
@@ -140,19 +150,17 @@ function coerceObject(
     }
   }
 
-  // Handle additional properties
-  if (schema.additionalProperties !== false) {
-    const additionalSchema: ILlmSchema | undefined =
-      typeof schema.additionalProperties === "object"
-        ? schema.additionalProperties
-        : undefined;
+  // Preserve additional properties - let validation handle rejection
+  const additionalSchema: ILlmSchema | undefined =
+    typeof schema.additionalProperties === "object"
+      ? schema.additionalProperties
+      : undefined;
 
-    for (const key of Object.keys(value)) {
-      if (!(key in schema.properties)) {
-        result[key] = additionalSchema
-          ? coerceValue(value[key], additionalSchema, $defs)
-          : value[key];
-      }
+  for (const key of Object.keys(value)) {
+    if (!(key in schema.properties)) {
+      result[key] = additionalSchema
+        ? coerceValue(value[key], additionalSchema, $defs)
+        : value[key];
     }
   }
 
@@ -201,4 +209,89 @@ function matchesSchemaType(
   if (LlmTypeChecker.isAnyOf(schema))
     return schema.anyOf.some((s) => matchesSchemaType(value, s, $defs));
   return false;
+}
+
+/**
+ * Find the uniquely matching schema for a value among anyOf alternatives. Uses
+ * `x-discriminator` for object disambiguation. Returns undefined if no unique
+ * match can be determined.
+ */
+function findMatchingAnyOfSchema(
+  value: unknown,
+  schema: ILlmSchema.IAnyOf,
+  $defs: Record<string, ILlmSchema> | undefined,
+): ILlmSchema | undefined {
+  const matching: ILlmSchema[] = schema.anyOf.filter((s: ILlmSchema): boolean =>
+    matchesSchemaType(value, s, $defs),
+  );
+  if (matching.length === 1) return matching[0];
+  if (matching.length === 0) return undefined;
+  // Multiple type matches - try x-discriminator for objects
+  if (typeof value === "object" && value !== null && !Array.isArray(value)) {
+    return findMatchingObjectInAnyOf(
+      value as Record<string, unknown>,
+      schema,
+      $defs,
+    );
+  }
+  return undefined;
+}
+
+/**
+ * Find the matching object schema among anyOf using `x-discriminator`. If only
+ * one object schema exists, returns it directly. If multiple exist but no
+ * x-discriminator, gives up.
+ */
+function findMatchingObjectInAnyOf(
+  value: Record<string, unknown>,
+  schema: ILlmSchema.IAnyOf,
+  $defs: Record<string, ILlmSchema> | undefined,
+): ILlmSchema | undefined {
+  const objectSchemas: ILlmSchema[] = schema.anyOf.filter(
+    (s: ILlmSchema): boolean =>
+      LlmTypeChecker.isObject(resolveSchema(s, $defs)),
+  );
+  if (objectSchemas.length === 0) return undefined;
+  if (objectSchemas.length === 1) return objectSchemas[0];
+
+  // Multiple object schemas - require x-discriminator
+  const discriminator: ILlmSchema.IAnyOf.IDiscriminator | undefined =
+    schema["x-discriminator"];
+  if (discriminator === undefined) return undefined;
+
+  const key: string = discriminator.propertyName;
+  const discriminatorValue: unknown = value[key];
+
+  // Use mapping for direct $ref lookup
+  if (
+    discriminator.mapping !== undefined &&
+    typeof discriminatorValue === "string"
+  ) {
+    const ref: string | undefined = discriminator.mapping[discriminatorValue];
+    if (ref !== undefined) {
+      for (const s of schema.anyOf) {
+        if (LlmTypeChecker.isReference(s) && s.$ref === ref) {
+          return s;
+        }
+      }
+    }
+    return undefined;
+  }
+
+  // No mapping - match by enum values on the discriminator property
+  for (const s of objectSchemas) {
+    const resolved: ILlmSchema = resolveSchema(s, $defs);
+    if (!LlmTypeChecker.isObject(resolved)) continue;
+    const propSchema: ILlmSchema | undefined = resolved.properties?.[key];
+    if (propSchema === undefined) continue;
+    const resolvedProp: ILlmSchema = resolveSchema(propSchema, $defs);
+    if (
+      LlmTypeChecker.isString(resolvedProp) &&
+      resolvedProp.enum?.includes(discriminatorValue as string)
+    ) {
+      return s;
+    }
+  }
+
+  return undefined;
 }

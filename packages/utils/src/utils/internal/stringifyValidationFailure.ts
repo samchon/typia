@@ -7,9 +7,16 @@ export function stringifyValidationFailure(
   failure: IValidation.IFailure,
 ): string {
   const usedErrors: Set<IValidation.IError> = new Set();
+  // Pre-index errors by path for O(1) lookup
+  const errorsByPath: Map<string, IValidation.IError[]> = new Map();
+  for (const e of failure.errors) {
+    const arr: IValidation.IError[] | undefined = errorsByPath.get(e.path);
+    if (arr !== undefined) arr.push(e);
+    else errorsByPath.set(e.path, [e]);
+  }
   const jsonOutput = stringify({
     value: failure.data,
-    errors: failure.errors,
+    errorsByPath,
     path: "$input",
     tab: 0,
     inArray: false,
@@ -43,16 +50,17 @@ export function stringifyValidationFailure(
 
 function stringify(props: {
   value: unknown;
-  errors: IValidation.IError[];
+  errorsByPath: Map<string, IValidation.IError[]>;
   path: string;
   tab: number;
   inArray: boolean;
   inToJson: boolean;
   usedErrors: Set<IValidation.IError>;
 }): string {
-  const { value, errors, path, tab, inArray, inToJson, usedErrors } = props;
+  const { value, errorsByPath, path, tab, inArray, inToJson, usedErrors } =
+    props;
   const indent: string = "  ".repeat(tab);
-  const errorComment: string = getErrorComment(path, errors, usedErrors);
+  const errorComment: string = getErrorComment(path, errorsByPath, usedErrors);
 
   // Handle undefined in arrays
   if (inArray && value === undefined) {
@@ -64,7 +72,7 @@ function stringify(props: {
     // Check for missing array element errors (path[])
     const missingElementErrors = getMissingArrayElementErrors(
       path,
-      errors,
+      errorsByPath,
       usedErrors,
     );
     const hasMissingElements = missingElementErrors.length > 0;
@@ -97,7 +105,7 @@ function stringify(props: {
 
       let itemStr: string = stringify({
         value: item,
-        errors,
+        errorsByPath,
         path: itemPath,
         tab: tab + 1,
         inArray: true,
@@ -106,18 +114,7 @@ function stringify(props: {
       });
       // Add comma before the error comment if not the last element
       if (needsComma) {
-        const itemLines: string[] = itemStr.split("\n");
-        const lastLine: string = itemLines[itemLines.length - 1]!;
-        const commentIndex: number = lastLine.indexOf(" //");
-        if (commentIndex !== -1) {
-          itemLines[itemLines.length - 1] = `${lastLine.slice(
-            0,
-            commentIndex,
-          )},${lastLine.slice(commentIndex)}`;
-        } else {
-          itemLines[itemLines.length - 1] += ",";
-        }
-        itemStr = itemLines.join("\n");
+        itemStr = insertCommaBeforeComment(itemStr);
       }
       lines.push(itemStr);
     });
@@ -145,7 +142,7 @@ function stringify(props: {
       const jsonValue: unknown = (value as any).toJSON();
       return stringify({
         value: jsonValue,
-        errors,
+        errorsByPath,
         path,
         tab,
         inArray,
@@ -166,7 +163,11 @@ function stringify(props: {
     );
 
     // Find missing properties that have validation errors (not in object at all)
-    const missingKeys: string[] = getMissingProperties(path, value, errors);
+    const missingKeys: string[] = getMissingProperties(
+      path,
+      value,
+      errorsByPath,
+    );
 
     // Combine: defined entries + undefined entries with errors + missing properties
     const undefinedKeysWithErrors: string[] = Array.from(
@@ -175,7 +176,7 @@ function stringify(props: {
       const propPath = NamingConvention.variable(key)
         ? `${path}.${key}`
         : `${path}[${JSON.stringify(key)}]`;
-      return errors.some((e) => e.path.startsWith(propPath));
+      return hasErrorsAtOrUnder(propPath, errorsByPath);
     });
 
     const allKeys: string[] = [
@@ -214,7 +215,7 @@ function stringify(props: {
       ) {
         const propErrorComment: string = getErrorComment(
           propPath,
-          errors,
+          errorsByPath,
           usedErrors,
         );
         const keyStr: string = JSON.stringify(key);
@@ -232,7 +233,7 @@ function stringify(props: {
         const keyLine: string = `${propIndent}${JSON.stringify(key)}: `;
         let valStr: string = stringify({
           value: val,
-          errors,
+          errorsByPath,
           path: propPath,
           tab: tab + 1,
           inArray: false,
@@ -242,18 +243,7 @@ function stringify(props: {
         const valStrWithoutIndent: string = valStr.trimStart();
         // Add comma before the error comment if not the last property
         if (index < array.length - 1) {
-          const valLines: string[] = valStrWithoutIndent.split("\n");
-          const lastLine: string = valLines[valLines.length - 1]!;
-          const commentIndex: number = lastLine.indexOf(" //");
-          if (commentIndex !== -1) {
-            valLines[valLines.length - 1] = `${lastLine.slice(
-              0,
-              commentIndex,
-            )},${lastLine.slice(commentIndex)}`;
-          } else {
-            valLines[valLines.length - 1] += ",";
-          }
-          valStr = valLines.join("\n");
+          valStr = insertCommaBeforeComment(valStrWithoutIndent);
         } else {
           valStr = valStrWithoutIndent;
         }
@@ -274,16 +264,31 @@ function stringify(props: {
   return `${indent}${valStr}${errorComment}`;
 }
 
+/** Insert comma before inline error comment on the last line */
+function insertCommaBeforeComment(str: string): string {
+  const lines: string[] = str.split("\n");
+  const lastLine: string = lines[lines.length - 1]!;
+  // Use specific error marker to avoid false positives with values containing " //"
+  const commentIndex: number = lastLine.indexOf(" // ❌");
+  if (commentIndex !== -1) {
+    lines[lines.length - 1] = `${lastLine.slice(
+      0,
+      commentIndex,
+    )},${lastLine.slice(commentIndex)}`;
+  } else {
+    lines[lines.length - 1] += ",";
+  }
+  return lines.join("\n");
+}
+
 /** Get error comment for a given path */
 function getErrorComment(
   path: string,
-  errors: IValidation.IError[],
+  errorsByPath: Map<string, IValidation.IError[]>,
   usedErrors: Set<IValidation.IError>,
 ): string {
-  const pathErrors: IValidation.IError[] = errors.filter(
-    (e: IValidation.IError) => e.path === path,
-  );
-  if (pathErrors.length === 0) {
+  const pathErrors: IValidation.IError[] | undefined = errorsByPath.get(path);
+  if (pathErrors === undefined || pathErrors.length === 0) {
     return "";
   }
 
@@ -305,16 +310,30 @@ function getErrorComment(
  */
 function getMissingArrayElementErrors(
   path: string,
-  errors: IValidation.IError[],
+  errorsByPath: Map<string, IValidation.IError[]>,
   usedErrors: Set<IValidation.IError>,
 ): IValidation.IError[] {
   const wildcardPath = `${path}[]`;
-  const missingErrors = errors.filter((e) => e.path === wildcardPath);
+  const missingErrors: IValidation.IError[] =
+    errorsByPath.get(wildcardPath) ?? [];
 
   // Mark these errors as used
   missingErrors.forEach((e) => usedErrors.add(e));
 
   return missingErrors;
+}
+
+/** Check if any errors exist at or under the given path prefix */
+function hasErrorsAtOrUnder(
+  pathPrefix: string,
+  errorsByPath: Map<string, IValidation.IError[]>,
+): boolean {
+  for (const errorPath of errorsByPath.keys()) {
+    if (errorPath.startsWith(pathPrefix)) {
+      return true;
+    }
+  }
+  return false;
 }
 
 /**
@@ -324,13 +343,13 @@ function getMissingArrayElementErrors(
 function getMissingProperties(
   path: string,
   value: object,
-  errors: IValidation.IError[],
+  errorsByPath: Map<string, IValidation.IError[]>,
 ): string[] {
   const missingKeys: Set<string> = new Set();
 
-  for (const e of errors) {
+  for (const errorPath of errorsByPath.keys()) {
     // Check if error.path is a direct child of current path
-    const childKey = extractDirectChildKey(path, e.path);
+    const childKey = extractDirectChildKey(path, errorPath);
     if (childKey !== null) {
       // Check if this property actually exists in the value
       if (!(childKey in value)) {

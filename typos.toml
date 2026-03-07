@@ -9,6 +9,7 @@ extend-ignore-re = [
 Jeongho = "Jeongho"
 Nam = "Nam"
 typia = "typia"
+tru = "tru"
 
 [files]
 extend-exclude = [
