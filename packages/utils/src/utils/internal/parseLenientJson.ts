@@ -346,7 +346,9 @@ class LenientJsonParser {
   }
 
   private skipWhitespace(): void {
-    while (this.pos < this.input.length && /\s/.test(this.input[this.pos]!)) {
+    while (this.pos < this.input.length) {
+      const ch: string = this.input[this.pos]!;
+      if (ch !== " " && ch !== "\t" && ch !== "\n" && ch !== "\r") break;
       this.pos++;
     }
   }
