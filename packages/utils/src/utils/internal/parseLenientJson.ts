@@ -79,6 +79,8 @@ function startsWithPrimitive(input: string): boolean {
  * - Junk text before JSON (LLM often adds explanatory text)
  * - Incomplete keywords like `tru`, `fal`, `nul`
  * - Unicode escape sequences including surrogate pairs (emoji)
+ * - JavaScript-style comments (single-line and multi-line)
+ * - Unquoted object keys (JavaScript identifier style)
  *
  * @param input Raw JSON string (potentially incomplete)
  * @returns Validation result with parsed data or syntax errors
@@ -212,34 +214,33 @@ class LenientJsonParser {
   }
 
   private parseKeyword(path: string): boolean | null | undefined {
-    const remaining: string = this.input.slice(this.pos);
+    // Extract the token (sequence of identifier characters)
+    const start: number = this.pos;
+    while (
+      this.pos < this.input.length &&
+      this.isIdentifierChar(this.input[this.pos]!)
+    ) {
+      this.pos++;
+    }
+    const token: string = this.input.slice(start, this.pos);
 
     // Check for complete or partial keyword matches
-    const keywords: Array<[string, boolean | null]> = [
-      ["true", true],
-      ["false", false],
-      ["null", null],
-    ];
+    if (token === "true") return true;
+    if (token === "false") return false;
+    if (token === "null") return null;
 
-    for (const [keyword, value] of keywords) {
-      if (remaining.startsWith(keyword)) {
-        this.pos += keyword.length;
-        return value;
-      }
-      // Partial match for lenient parsing (e.g., "tru" -> true)
-      if (keyword.startsWith(remaining) && remaining.length > 0) {
-        this.pos = this.input.length;
-        return value;
-      }
-    }
+    // Partial match for lenient parsing (e.g., "tru" -> true, "fal" -> false)
+    if ("true".startsWith(token) && token.length > 0) return true;
+    if ("false".startsWith(token) && token.length > 0) return false;
+    if ("null".startsWith(token) && token.length > 0) return null;
 
-    // Invalid keyword
+    // Invalid keyword - reset position and report error
+    this.pos = start + 1;
     this.errors.push({
       path,
       expected: "true, false, or null",
-      value: remaining.slice(0, 10),
+      value: token.slice(0, 10),
     });
-    this.pos++;
     return undefined;
   }
 
@@ -266,8 +267,13 @@ class LenientJsonParser {
         continue;
       }
 
-      // Parse key
-      if (this.input[this.pos] !== '"') {
+      // Parse key (quoted string or unquoted identifier)
+      let key: string;
+      if (this.input[this.pos] === '"') {
+        key = this.parseString();
+      } else if (this.isIdentifierStart(this.input[this.pos]!)) {
+        key = this.parseIdentifier();
+      } else {
         this.errors.push({
           path,
           expected: "string key",
@@ -277,8 +283,6 @@ class LenientJsonParser {
         this.depth--;
         return result;
       }
-
-      const key: string = this.parseString();
       if (typeof key !== "string") {
         this.depth--;
         return result;
@@ -293,7 +297,7 @@ class LenientJsonParser {
       }
       if (this.input[this.pos] !== ":") {
         this.errors.push({
-          path: `${path}.${key}`,
+          path: path + "." + key,
           expected: "':'",
           value: this.input[this.pos],
         });
@@ -311,7 +315,7 @@ class LenientJsonParser {
         return result;
       }
 
-      const value: unknown = this.parseValue(`${path}.${key}`);
+      const value: unknown = this.parseValue(path + "." + key);
       result[key] = value;
 
       this.skipWhitespace();
@@ -351,7 +355,7 @@ class LenientJsonParser {
       }
 
       // Parse value
-      const value: unknown = this.parseValue(`${path}[${index}]`);
+      const value: unknown = this.parseValue(path + "[" + index + "]");
       result.push(value);
       index++;
 
@@ -525,11 +529,89 @@ class LenientJsonParser {
     return Number.isNaN(num) ? 0 : num;
   }
 
+  private isIdentifierStart(ch: string): boolean {
+    return (
+      (ch >= "a" && ch <= "z") ||
+      (ch >= "A" && ch <= "Z") ||
+      ch === "_" ||
+      ch === "$"
+    );
+  }
+
+  private isIdentifierChar(ch: string): boolean {
+    return (
+      (ch >= "a" && ch <= "z") ||
+      (ch >= "A" && ch <= "Z") ||
+      (ch >= "0" && ch <= "9") ||
+      ch === "_" ||
+      ch === "$"
+    );
+  }
+
+  private parseIdentifier(): string {
+    const start: number = this.pos;
+    while (
+      this.pos < this.input.length &&
+      this.isIdentifierChar(this.input[this.pos]!)
+    ) {
+      this.pos++;
+    }
+    return this.input.slice(start, this.pos);
+  }
+
   private skipWhitespace(): void {
     while (this.pos < this.input.length) {
       const ch: string = this.input[this.pos]!;
-      if (ch !== " " && ch !== "\t" && ch !== "\n" && ch !== "\r") break;
-      this.pos++;
+
+      // Skip standard whitespace
+      if (ch === " " || ch === "\t" || ch === "\n" || ch === "\r") {
+        this.pos++;
+        continue;
+      }
+
+      // Skip single-line comment: // ...
+      if (
+        ch === "/" &&
+        this.pos + 1 < this.input.length &&
+        this.input[this.pos + 1] === "/"
+      ) {
+        this.pos += 2;
+        while (
+          this.pos < this.input.length &&
+          this.input[this.pos] !== "\n" &&
+          this.input[this.pos] !== "\r"
+        ) {
+          this.pos++;
+        }
+        continue;
+      }
+
+      // Skip multi-line comment: /* ... */
+      if (
+        ch === "/" &&
+        this.pos + 1 < this.input.length &&
+        this.input[this.pos + 1] === "*"
+      ) {
+        this.pos += 2;
+        while (this.pos + 1 < this.input.length) {
+          if (
+            this.input[this.pos] === "*" &&
+            this.input[this.pos + 1] === "/"
+          ) {
+            this.pos += 2;
+            break;
+          }
+          this.pos++;
+        }
+        // Handle unclosed comment - move to end
+        if (this.pos + 1 >= this.input.length) {
+          this.pos = this.input.length;
+        }
+        continue;
+      }
+
+      // Not whitespace or comment
+      break;
     }
   }
 }
