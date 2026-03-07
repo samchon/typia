@@ -1,4 +1,4 @@
-import { ILlmJsonParseResult } from "./ILlmJsonParseResult";
+import { IJsonParseResult } from "./IJsonParseResult";
 import { ILlmSchema } from "./ILlmSchema";
 import { IValidation } from "./IValidation";
 
@@ -92,7 +92,7 @@ export interface ILlmFunction {
    * @param str Raw JSON string from LLM output
    * @returns Parse result with data on success, or partial data with errors
    */
-  parse: (str: string) => ILlmJsonParseResult<unknown>;
+  parse: (str: string) => IJsonParseResult<unknown>;
 
   /**
    * Validates LLM-generated arguments against the schema.

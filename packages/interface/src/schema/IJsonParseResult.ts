@@ -1,34 +1,31 @@
 import { DeepPartial } from "../typings/DeepPartial";
 
 /**
- * Result of lenient JSON parsing for LLM outputs.
+ * Result of lenient JSON parsing.
  *
- * `ILlmJsonParseResult<T>` represents the result of parsing JSON that may be
- * incomplete, malformed, or contain non-standard syntax commonly produced by
- * LLMs (Large Language Models).
+ * `IJsonParseResult<T>` represents the result of parsing JSON that may be
+ * incomplete, malformed, or contain non-standard syntax (e.g., unquoted keys,
+ * trailing commas, missing quotes).
  *
  * Unlike standard JSON parsing which fails on any syntax error, lenient parsing
  * attempts to recover as much data as possible while reporting issues.
  *
- * Check the {@link ILlmJsonParseResult.success | success} discriminator:
+ * Check the {@link IJsonParseResult.success} discriminator:
  *
- * - `true` → {@link ILlmJsonParseResult.ISuccess} with parsed
- *   {@link ILlmJsonParseResult.ISuccess.data | data}
- * - `false` → {@link ILlmJsonParseResult.IFailure} with partial
- *   {@link ILlmJsonParseResult.IFailure.data | data} and
- *   {@link ILlmJsonParseResult.IFailure.errors | errors}
- *
- * Both success and failure include the original input string, enabling AI
- * systems to understand and fix issues in the source.
+ * - `true` → {@link IJsonParseResult.ISuccess} with parsed
+ *   {@link IJsonParseResult.ISuccess.data}
+ * - `false` → {@link IJsonParseResult.IFailure} with partial
+ *   {@link IJsonParseResult.IFailure.data} and
+ *   {@link IJsonParseResult.IFailure.errors}
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @template T The expected type after successful parsing
  */
-export type ILlmJsonParseResult<T = unknown> =
-  | ILlmJsonParseResult.ISuccess<T>
-  | ILlmJsonParseResult.IFailure<T>;
+export type IJsonParseResult<T = unknown> =
+  | IJsonParseResult.ISuccess<T>
+  | IJsonParseResult.IFailure<T>;
 
-export namespace ILlmJsonParseResult {
+export namespace IJsonParseResult {
   /**
    * Successful parsing result.
    *
@@ -78,7 +75,7 @@ export namespace ILlmJsonParseResult {
     /**
      * The original input string that was parsed.
      *
-     * Preserved so AI systems can see the source and fix issues.
+     * Preserved for debugging or error correction purposes.
      */
     input: string;
 
@@ -93,8 +90,6 @@ export namespace ILlmJsonParseResult {
 
   /**
    * Detailed information about a parsing error.
-   *
-   * Designed to be readable by AI systems for automatic JSON correction.
    */
   export interface IError {
     /**

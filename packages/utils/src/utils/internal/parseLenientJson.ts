@@ -1,4 +1,4 @@
-import { DeepPartial, ILlmJsonParseResult } from "@typia/interface";
+import { DeepPartial, IJsonParseResult } from "@typia/interface";
 
 /**
  * Maximum nesting depth to prevent stack overflow attacks.
@@ -38,9 +38,9 @@ function isHexString(s: string): boolean {
  *
  * This function extracts the content between the backticks.
  *
- * IMPORTANT: Only extracts if the input doesn't already start with JSON.
- * If input (after trim) starts with `{`, `[`, or `"`, it's already JSON
- * and any markdown inside is part of a string value.
+ * IMPORTANT: Only extracts if the input doesn't already start with JSON. If
+ * input (after trim) starts with `{`, `[`, or `"`, it's already JSON and any
+ * markdown inside is part of a string value.
  *
  * @param input Text that may contain markdown code block
  * @returns Extracted content or null if no code block found
@@ -155,7 +155,7 @@ function startsWithPrimitive(input: string): boolean {
  * @returns Parse result with data, original input, and any errors
  * @internal
  */
-export function parseLenientJson<T>(input: string): ILlmJsonParseResult<T> {
+export function parseLenientJson<T>(input: string): IJsonParseResult<T> {
   // Try native JSON.parse first (faster for valid JSON)
   try {
     return {
@@ -174,7 +174,7 @@ export function parseLenientJson<T>(input: string): ILlmJsonParseResult<T> {
   // Check if input is empty or whitespace-only
   const trimmed: string = jsonSource.trim();
   if (trimmed.length === 0) {
-    const errors: ILlmJsonParseResult.IError[] = [];
+    const errors: IJsonParseResult.IError[] = [];
     const parser: LenientJsonParser = new LenientJsonParser(jsonSource, errors);
     const data: unknown = parser.parse();
     if (errors.length > 0) {
@@ -185,7 +185,7 @@ export function parseLenientJson<T>(input: string): ILlmJsonParseResult<T> {
 
   // Check if input starts with a primitive value (no junk prefix skipping needed)
   if (startsWithPrimitive(trimmed)) {
-    const errors: ILlmJsonParseResult.IError[] = [];
+    const errors: IJsonParseResult.IError[] = [];
     const parser: LenientJsonParser = new LenientJsonParser(jsonSource, errors);
     const data: unknown = parser.parse();
     if (errors.length > 0) {
@@ -208,7 +208,7 @@ export function parseLenientJson<T>(input: string): ILlmJsonParseResult<T> {
   const jsonInput: string =
     jsonStart > 0 ? jsonSource.slice(jsonStart) : jsonSource;
 
-  const errors: ILlmJsonParseResult.IError[] = [];
+  const errors: IJsonParseResult.IError[] = [];
   const parser: LenientJsonParser = new LenientJsonParser(jsonInput, errors);
   const data: unknown = parser.parse();
 
@@ -235,9 +235,9 @@ class LenientJsonParser {
   private pos: number = 0;
   private depth: number = 0;
   private readonly input: string;
-  private readonly errors: ILlmJsonParseResult.IError[];
+  private readonly errors: IJsonParseResult.IError[];
 
-  constructor(input: string, errors: ILlmJsonParseResult.IError[]) {
+  constructor(input: string, errors: IJsonParseResult.IError[]) {
     this.input = input;
     this.errors = errors;
   }

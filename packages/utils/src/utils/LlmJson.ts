@@ -1,5 +1,5 @@
 import {
-  ILlmJsonParseResult,
+  IJsonParseResult,
   ILlmSchema,
   IValidation,
   OpenApi,
@@ -44,8 +44,8 @@ export namespace LlmJson {
   export function parse<T = unknown>(
     input: string,
     parameters?: ILlmSchema.IParameters,
-  ): ILlmJsonParseResult<T> {
-    const result: ILlmJsonParseResult<T> = parseLenientJson<T>(input);
+  ): IJsonParseResult<T> {
+    const result: IJsonParseResult<T> = parseLenientJson<T>(input);
 
     // Apply schema-based coercion if parameters provided and parsing succeeded
     if (parameters !== undefined && result.success) {

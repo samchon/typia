@@ -1,4 +1,4 @@
-import { ILlmJsonParseResult, ILlmSchema } from "@typia/interface";
+import { IJsonParseResult, ILlmSchema } from "@typia/interface";
 
 import { LlmTypeChecker } from "../../validators/LlmTypeChecker";
 import { parseLenientJson } from "./parseLenientJson";
@@ -44,15 +44,14 @@ function coerceValue(
     // Value is string
     if (typeof value === "string") {
       // If string is in union, don't parse - it's valid as-is
-      const hasString: boolean = schema.anyOf.some(
-        (s: ILlmSchema): boolean =>
-          LlmTypeChecker.isString(resolveSchema(s, $defs)),
+      const hasString: boolean = schema.anyOf.some((s: ILlmSchema): boolean =>
+        LlmTypeChecker.isString(resolveSchema(s, $defs)),
       );
       if (hasString) {
         return value;
       }
       // String value but no string in union - try to parse
-      const parsed: ILlmJsonParseResult<unknown> = parseLenientJson(value);
+      const parsed: IJsonParseResult<unknown> = parseLenientJson(value);
       if (parsed.success) {
         // Find uniquely matching schema via type + x-discriminator
         const matched: ILlmSchema | undefined = findMatchingAnyOfSchema(
@@ -107,7 +106,7 @@ function coerceValue(
 
   // Value is string but schema is non-string - try to parse
   if (typeof value === "string") {
-    const parsed: ILlmJsonParseResult<unknown> = parseLenientJson(value);
+    const parsed: IJsonParseResult<unknown> = parseLenientJson(value);
     if (parsed.success) {
       // Continue coercion on the parsed value (for nested stringified values)
       return coerceValue(parsed.data, schema, $defs);
@@ -213,17 +212,17 @@ function matchesSchemaType(
 }
 
 /**
- * Find the uniquely matching schema for a value among anyOf alternatives.
- * Uses `x-discriminator` for object disambiguation.
- * Returns undefined if no unique match can be determined.
+ * Find the uniquely matching schema for a value among anyOf alternatives. Uses
+ * `x-discriminator` for object disambiguation. Returns undefined if no unique
+ * match can be determined.
  */
 function findMatchingAnyOfSchema(
   value: unknown,
   schema: ILlmSchema.IAnyOf,
   $defs: Record<string, ILlmSchema> | undefined,
 ): ILlmSchema | undefined {
-  const matching: ILlmSchema[] = schema.anyOf.filter(
-    (s: ILlmSchema): boolean => matchesSchemaType(value, s, $defs),
+  const matching: ILlmSchema[] = schema.anyOf.filter((s: ILlmSchema): boolean =>
+    matchesSchemaType(value, s, $defs),
   );
   if (matching.length === 1) return matching[0];
   if (matching.length === 0) return undefined;
@@ -239,9 +238,9 @@ function findMatchingAnyOfSchema(
 }
 
 /**
- * Find the matching object schema among anyOf using `x-discriminator`.
- * If only one object schema exists, returns it directly.
- * If multiple exist but no x-discriminator, gives up.
+ * Find the matching object schema among anyOf using `x-discriminator`. If only
+ * one object schema exists, returns it directly. If multiple exist but no
+ * x-discriminator, gives up.
  */
 function findMatchingObjectInAnyOf(
   value: Record<string, unknown>,
@@ -283,8 +282,7 @@ function findMatchingObjectInAnyOf(
   for (const s of objectSchemas) {
     const resolved: ILlmSchema = resolveSchema(s, $defs);
     if (!LlmTypeChecker.isObject(resolved)) continue;
-    const propSchema: ILlmSchema | undefined =
-      resolved.properties?.[key];
+    const propSchema: ILlmSchema | undefined = resolved.properties?.[key];
     if (propSchema === undefined) continue;
     const resolvedProp: ILlmSchema = resolveSchema(propSchema, $defs);
     if (

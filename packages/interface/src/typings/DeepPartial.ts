@@ -6,7 +6,7 @@
  * the top level, this utility recursively applies optionality to nested objects
  * and arrays.
  *
- * Used primarily in {@link ILlmJsonParseResult.IFailure} to represent partially
+ * Used primarily in {@link IJsonParseResult.IFailure} to represent partially
  * recovered data from malformed JSON, where some properties may be missing due
  * to parsing errors.
  *
