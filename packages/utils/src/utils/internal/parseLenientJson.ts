@@ -1,13 +1,15 @@
-import { IValidation } from "@typia/interface";
+import { DeepPartial, ILlmJsonParseResult } from "@typia/interface";
 
 /**
  * Maximum nesting depth to prevent stack overflow attacks.
+ *
  * @internal
  */
 const MAX_DEPTH: number = 512;
 
 /**
  * Check if a string is a valid 4-character hexadecimal string.
+ *
  * @internal
  */
 function isHexString(s: string): boolean {
@@ -24,14 +26,70 @@ function isHexString(s: string): boolean {
 }
 
 /**
- * Find the start position of JSON object/array content in text that may have junk prefix.
+ * Extract JSON content from markdown code block if present.
+ *
+ * LLM outputs often wrap JSON in markdown code blocks like:
+ *
+ *     Here is your result:
+ *
+ *     ```json
+ *     { "name": "test" }
+ *     ```
+ *
+ * This function extracts the content between the backticks.
+ *
+ * IMPORTANT: Only extracts if the input doesn't already start with JSON.
+ * If input (after trim) starts with `{`, `[`, or `"`, it's already JSON
+ * and any markdown inside is part of a string value.
+ *
+ * @param input Text that may contain markdown code block
+ * @returns Extracted content or null if no code block found
+ * @internal
+ */
+function extractMarkdownCodeBlock(input: string): string | null {
+  // Must be ```json specifically, not just ```
+  const codeBlockStart: number = input.indexOf("```json");
+  if (codeBlockStart === -1) return null;
+
+  // Check if input already starts with JSON (after trimming whitespace)
+  // If so, don't extract - the markdown is inside a JSON string value
+  const trimmed: string = input.trimStart();
+  if (trimmed.length > 0) {
+    const firstChar: string = trimmed[0]!;
+    if (firstChar === "{" || firstChar === "[" || firstChar === '"') {
+      return null;
+    }
+  }
+
+  // Find the end of the opening line (after ```json)
+  let contentStart: number = codeBlockStart + 7; // length of "```json"
+  while (contentStart < input.length && input[contentStart] !== "\n") {
+    contentStart++;
+  }
+  if (contentStart >= input.length) return null;
+  contentStart++; // skip the newline
+
+  // Find the closing ```
+  const codeBlockEnd: number = input.indexOf("```", contentStart);
+  if (codeBlockEnd === -1) {
+    // No closing ``` - return everything after opening
+    return input.slice(contentStart);
+  }
+
+  return input.slice(contentStart, codeBlockEnd);
+}
+
+/**
+ * Find the start position of JSON object/array content in text that may have
+ * junk prefix.
  *
  * LLM outputs often contain text before JSON like:
+ *
  * - "Here is your JSON: {"name": "test"}"
  * - "Sure! [1, 2, 3]"
  *
- * This function only looks for `{` or `[` to skip junk prefix.
- * Primitive values (strings, numbers, booleans) are handled directly by the parser.
+ * This function only looks for `{` or `[` to skip junk prefix. Primitive values
+ * (strings, numbers, booleans) are handled directly by the parser.
  *
  * @param input Text that may contain JSON with junk prefix
  * @returns Index of first `{` or `[`, or -1 if not found
@@ -62,9 +120,19 @@ function startsWithPrimitive(input: string): boolean {
   // Number (digit or minus)
   if ((ch >= "0" && ch <= "9") || ch === "-") return true;
   // Keywords
-  if (input.startsWith("true") || input.startsWith("false") || input.startsWith("null")) return true;
+  if (
+    input.startsWith("true") ||
+    input.startsWith("false") ||
+    input.startsWith("null")
+  )
+    return true;
   // Partial keywords
-  if ("true".startsWith(input) || "false".startsWith(input) || "null".startsWith(input)) return true;
+  if (
+    "true".startsWith(input) ||
+    "false".startsWith(input) ||
+    "null".startsWith(input)
+  )
+    return true;
   return false;
 }
 
@@ -77,16 +145,17 @@ function startsWithPrimitive(input: string): boolean {
  * - Trailing commas `[1, 2, ]` - ignores them
  * - Unclosed strings `"hello` - returns partial string
  * - Junk text before JSON (LLM often adds explanatory text)
+ * - Markdown code blocks (extracts content from `json ... `)
  * - Incomplete keywords like `tru`, `fal`, `nul`
  * - Unicode escape sequences including surrogate pairs (emoji)
  * - JavaScript-style comments (single-line and multi-line)
  * - Unquoted object keys (JavaScript identifier style)
  *
  * @param input Raw JSON string (potentially incomplete)
- * @returns Validation result with parsed data or syntax errors
+ * @returns Parse result with data, original input, and any errors
  * @internal
  */
-export function parseLenientJson<T>(input: string): IValidation<T> {
+export function parseLenientJson<T>(input: string): ILlmJsonParseResult<T> {
   // Try native JSON.parse first (faster for valid JSON)
   try {
     return {
@@ -97,31 +166,36 @@ export function parseLenientJson<T>(input: string): IValidation<T> {
     // Fall back to lenient parser
   }
 
+  // Extract markdown code block if present
+  const codeBlockContent: string | null = extractMarkdownCodeBlock(input);
+  const jsonSource: string =
+    codeBlockContent !== null ? codeBlockContent : input;
+
   // Check if input is empty or whitespace-only
-  const trimmed: string = input.trim();
+  const trimmed: string = jsonSource.trim();
   if (trimmed.length === 0) {
-    const errors: IValidation.IError[] = [];
-    const parser: LenientJsonParser = new LenientJsonParser(input, errors);
+    const errors: ILlmJsonParseResult.IError[] = [];
+    const parser: LenientJsonParser = new LenientJsonParser(jsonSource, errors);
     const data: unknown = parser.parse();
     if (errors.length > 0) {
-      return { success: false, data, errors };
+      return { success: false, data: data as DeepPartial<T>, input, errors };
     }
     return { success: true, data: data as T };
   }
 
   // Check if input starts with a primitive value (no junk prefix skipping needed)
   if (startsWithPrimitive(trimmed)) {
-    const errors: IValidation.IError[] = [];
-    const parser: LenientJsonParser = new LenientJsonParser(input, errors);
+    const errors: ILlmJsonParseResult.IError[] = [];
+    const parser: LenientJsonParser = new LenientJsonParser(jsonSource, errors);
     const data: unknown = parser.parse();
     if (errors.length > 0) {
-      return { success: false, data, errors };
+      return { success: false, data: data as DeepPartial<T>, input, errors };
     }
     return { success: true, data: data as T };
   }
 
   // Find JSON start position (skip junk prefix from LLM)
-  const jsonStart: number = findJsonStart(input);
+  const jsonStart: number = findJsonStart(jsonSource);
   if (jsonStart === -1) {
     // No JSON found - return empty object for lenient behavior
     return {
@@ -131,16 +205,18 @@ export function parseLenientJson<T>(input: string): IValidation<T> {
   }
 
   // Extract JSON portion (skip junk prefix)
-  const jsonInput: string = jsonStart > 0 ? input.slice(jsonStart) : input;
+  const jsonInput: string =
+    jsonStart > 0 ? jsonSource.slice(jsonStart) : jsonSource;
 
-  const errors: IValidation.IError[] = [];
+  const errors: ILlmJsonParseResult.IError[] = [];
   const parser: LenientJsonParser = new LenientJsonParser(jsonInput, errors);
   const data: unknown = parser.parse();
 
   if (errors.length > 0) {
     return {
       success: false,
-      data,
+      data: data as DeepPartial<T>,
+      input,
       errors,
     };
   }
@@ -159,9 +235,9 @@ class LenientJsonParser {
   private pos: number = 0;
   private depth: number = 0;
   private readonly input: string;
-  private readonly errors: IValidation.IError[];
+  private readonly errors: ILlmJsonParseResult.IError[];
 
-  constructor(input: string, errors: IValidation.IError[]) {
+  constructor(input: string, errors: ILlmJsonParseResult.IError[]) {
     this.input = input;
     this.errors = errors;
   }
@@ -198,22 +274,37 @@ class LenientJsonParser {
     if (char === '"') return this.parseString();
     if (char === "-" || (char >= "0" && char <= "9")) return this.parseNumber();
 
-    // Handle keywords (true, false, null) including incomplete ones
-    if (char === "t" || char === "f" || char === "n") {
-      return this.parseKeyword(path);
+    // Handle keywords (true, false, null) or invalid identifiers
+    if (this.isIdentifierStart(char)) {
+      return this.parseKeywordOrIdentifier(path);
     }
 
     this.errors.push({
       path,
       expected: "JSON value",
-      value: char,
+      value: this.getErrorContext(),
     });
     // Skip the problematic character and try to continue
     this.pos++;
     return undefined;
   }
 
-  private parseKeyword(path: string): boolean | null | undefined {
+  private getErrorContext(): string {
+    // Get surrounding context for better error messages
+    const start: number = Math.max(0, this.pos - 10);
+    const end: number = Math.min(this.input.length, this.pos + 20);
+    const before: string = this.input.slice(start, this.pos);
+    const after: string = this.input.slice(this.pos, end);
+    return (
+      (start > 0 ? "..." : "") +
+      before +
+      "→" +
+      after +
+      (end < this.input.length ? "..." : "")
+    );
+  }
+
+  private parseKeywordOrIdentifier(path: string): unknown {
     // Extract the token (sequence of identifier characters)
     const start: number = this.pos;
     while (
@@ -234,14 +325,37 @@ class LenientJsonParser {
     if ("false".startsWith(token) && token.length > 0) return false;
     if ("null".startsWith(token) && token.length > 0) return null;
 
-    // Invalid keyword - reset position and report error
-    this.pos = start + 1;
+    // Check if this looks like a string with missing opening quote (e.g., abcdefg")
+    if (this.pos < this.input.length && this.input[this.pos] === '"') {
+      // Treat as unquoted string value - skip the errant closing quote and return as string
+      this.pos++; // skip the closing quote
+      this.errors.push({
+        path,
+        expected: "quoted string",
+        value: "missing opening quote for '" + token + "'",
+      });
+      return token;
+    }
+
+    // Invalid identifier as value - provide helpful error message
     this.errors.push({
       path,
-      expected: "true, false, or null",
-      value: token.slice(0, 10),
+      expected: "JSON value (string, number, boolean, null, object, or array)",
+      value: "unquoted string '" + token + "' - did you forget quotes?",
     });
+    // Skip to next comma, closing brace/bracket for recovery
+    this.skipToRecoveryPoint();
     return undefined;
+  }
+
+  private skipToRecoveryPoint(): void {
+    while (this.pos < this.input.length) {
+      const ch: string = this.input[this.pos]!;
+      if (ch === "," || ch === "}" || ch === "]") {
+        return;
+      }
+      this.pos++;
+    }
   }
 
   private parseObject(path: string): Record<string, unknown> {

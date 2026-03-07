@@ -1,4 +1,9 @@
-import { ILlmSchema, IValidation, OpenApi } from "@typia/interface";
+import {
+  ILlmJsonParseResult,
+  ILlmSchema,
+  IValidation,
+  OpenApi,
+} from "@typia/interface";
 
 import { LlmSchemaConverter } from "../converters";
 import { OpenApiValidator } from "../validators";
@@ -9,29 +14,9 @@ import { stringifyValidationFailure } from "./internal/stringifyValidationFailur
 /**
  * JSON utilities for LLM function calling.
  *
- * `LlmJson` provides three main utilities:
- *
- * ## {@link LlmJson.parse}
- *
- * Lenient JSON parser for incomplete/malformed JSON:
- *
- * - Unclosed brackets `{`, `[` - parses as much as possible
- * - Trailing commas `[1, 2, ]` - ignores trailing commas
- * - Schema-based coercion when parameters provided:
- *
- *   - Double-stringified JSON: `"{\"name\": \"John\"}"` → `{name: "John"}`
- *
- * ## {@link LlmJson.stringify}
- *
- * Format validation errors for LLM feedback:
- *
- * - Annotates invalid properties with inline `// ❌` comments
- * - Wraps output in markdown code block for LLM understanding
- * - Enables LLM auto-correction in the next turn
- *
- * ## {@link LlmJson.validate}
- *
- * Create a reusable validator from LLM parameters schema
+ * - {@link LlmJson.parse}: Lenient JSON parser for incomplete/malformed JSON
+ * - {@link LlmJson.stringify}: Format validation errors for LLM feedback
+ * - {@link LlmJson.validate}: Create a reusable validator from schema
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
@@ -39,58 +24,28 @@ export namespace LlmJson {
   /**
    * Parse lenient JSON with optional schema-based coercion.
    *
-   * This function parses JSON that may be incomplete (unclosed brackets,
-   * partial keywords) or have trailing commas.
+   * Handles incomplete/malformed JSON commonly produced by LLMs:
    *
-   * When `parameters` schema is provided, also fixes double-stringified JSON by
-   * recursively parsing string values where the schema expects non-string
-   * types. Uses the same lenient parser internally.
+   * - Unclosed brackets, strings, trailing commas
+   * - JavaScript-style comments (`//` and multi-line)
+   * - Unquoted object keys, incomplete keywords (`tru`, `fal`, `nul`)
+   * - Markdown code block extraction, junk prefix skipping
    *
-   * Type validation is NOT performed here - use {@link ILlmFunction.validate}
-   * for that.
+   * When `parameters` schema is provided, also coerces double-stringified
+   * values: `"42"` → `42`, `"true"` → `true`, `"{...}"` → `{...}` based on
+   * expected types.
    *
-   * ## 1. Lenient parsing (without `parameters`)
+   * Type validation is NOT performed - use {@link ILlmFunction.validate}.
    *
-   * ```typescript
-   * // Unclosed brackets
-   * LlmJson.parse('{"name": "John", "age": 30'); // → { name: "John", age: 30 }
-   * LlmJson.parse("[1, 2, 3"); // → [1, 2, 3]
-   *
-   * // Trailing commas
-   * LlmJson.parse("[1, 2, ]"); // → [1, 2]
-   * LlmJson.parse('{"a": 1, "b": 2, }'); // → { a: 1, b: 2 }
-   *
-   * // Unclosed strings
-   * LlmJson.parse('{"name": "John'); // → { name: "John" }
-   * ```
-   *
-   * ## 2. Schema-based coercion (with `parameters`)
-   *
-   * When `parameters` is provided, string values are coerced to the
-   * schema-expected type by re-parsing them through the lenient parser. This
-   * fixes "double-stringified" values that LLMs sometimes produce.
-   *
-   * ```typescript
-   * // schema expects: { member: object, age: integer, active: boolean, tags: array }
-   *
-   * '{"member": "{\\"name\\": \\"John\\"}"}'; // → { member: { name: "John" } }
-   * '{"age": "42"}'; // → { age: 42 }
-   * '{"active": "true"}'; // → { active: true }
-   * '{"tags": "[1, 2, 3]"}'; // → { tags: [1, 2, 3] }
-   *
-   * // Recursive: "30" inside stringified object is also coerced to number
-   * '{"member": "{\\"age\\": \\"30\\"}"}'; // → { member: { age: 30 } }
-   * ```
-   *
-   * @param input Raw JSON string (potentially incomplete)
-   * @param parameters Optional LLM parameters schema for coercion
-   * @returns Validation result with parsed data or syntax errors
+   * @param input Raw JSON string (potentially incomplete or malformed)
+   * @param parameters Optional LLM parameters schema for type coercion
+   * @returns Parse result with data on success, or partial data with errors
    */
   export function parse<T = unknown>(
     input: string,
     parameters?: ILlmSchema.IParameters,
-  ): IValidation<T> {
-    const result: IValidation<T> = parseLenientJson<T>(input);
+  ): ILlmJsonParseResult<T> {
+    const result: ILlmJsonParseResult<T> = parseLenientJson<T>(input);
 
     // Apply schema-based coercion if parameters provided and parsing succeeded
     if (parameters !== undefined && result.success) {

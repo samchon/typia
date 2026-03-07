@@ -1,3 +1,4 @@
+import { ILlmJsonParseResult } from "./ILlmJsonParseResult";
 import { ILlmSchema } from "./ILlmSchema";
 import { IValidation } from "./IValidation";
 
@@ -83,13 +84,13 @@ export interface ILlmFunction {
    * unclosed strings) and coerces double-stringified values using the
    * function's own {@link parameters} schema.
    *
-   * This does NOT perform type validation — use {@link validate} after
-   * parsing to check the result.
+   * This does NOT perform type validation — use {@link validate} after parsing
+   * to check the result.
    *
    * @param str Raw JSON string from LLM output
    * @returns Validation result with parsed data or syntax errors
    */
-  parse: (str: string) => IValidation<unknown>;
+  parse: (str: string) => ILlmJsonParseResult<unknown>;
 
   /**
    * Validates LLM-generated arguments against the schema.
