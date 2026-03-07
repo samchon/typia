@@ -20,6 +20,16 @@ export namespace LlmControllerTransformer {
         message: `no executor.`,
       });
 
+    const typeNode: ts.ImportTypeNode = props.context.importer.type({
+      file: "typia",
+      name: "ILlmController",
+      arguments: [dec.node],
+    });
+    const primitiveTypeNode: ts.ImportTypeNode = props.context.importer.type({
+      file: "typia",
+      name: "ILlmApplication.__IPrimitive",
+      arguments: [dec.node],
+    });
     const value: ts.ObjectLiteralExpression =
       ts.factory.createObjectLiteralExpression(
         [
@@ -41,13 +51,12 @@ export namespace LlmControllerTransformer {
               props.context.importer.internal("llmApplicationFinalize"),
               undefined,
               [
-                ts.factory.createSatisfiesExpression(
-                  LiteralFactory.write(dec.application),
-                  props.context.importer.type({
-                    file: "typia",
-                    name: "ILlmApplication.__IPrimitive",
-                    arguments: [dec.node],
-                  }),
+                ts.factory.createAsExpression(
+                  ts.factory.createSatisfiesExpression(
+                    LiteralFactory.write(dec.application),
+                    primitiveTypeNode,
+                  ),
+                  primitiveTypeNode,
                 ),
                 ...(props.expression.arguments?.[2] !== undefined
                   ? [
@@ -64,13 +73,9 @@ export namespace LlmControllerTransformer {
         ],
         true,
       );
-    return ts.factory.createSatisfiesExpression(
-      value,
-      props.context.importer.type({
-        file: "typia",
-        name: "ILlmController",
-        arguments: [dec.node],
-      }),
+    return ts.factory.createAsExpression(
+      ts.factory.createSatisfiesExpression(value, typeNode),
+      typeNode,
     );
   };
 }

@@ -69,20 +69,25 @@ export namespace LlmParametersTransformer {
     };
     analyze(true);
 
-    // GENERATE LLM SCHEMA
-    const out: ILlmSchema.IParameters = LlmParametersProgrammer.write({
-      metadata: analyze(false),
-      config,
+    // GENERATE LLM PARAMETERS SCHEMA
+    const typeNode: ts.ImportTypeNode = props.context.importer.type({
+      file: "typia",
+      name: ts.factory.createQualifiedName(
+        ts.factory.createIdentifier("ILlmSchema"),
+        ts.factory.createIdentifier("IParameters"),
+      ),
     });
-    return ts.factory.createSatisfiesExpression(
-      LiteralFactory.write(out),
-      props.context.importer.type({
-        file: "typia",
-        name: ts.factory.createQualifiedName(
-          ts.factory.createIdentifier("ILlmSchema"),
-          ts.factory.createIdentifier("IParameters"),
+    return ts.factory.createAsExpression(
+      ts.factory.createSatisfiesExpression(
+        LiteralFactory.write(
+          LlmParametersProgrammer.write({
+            metadata: analyze(false),
+            config,
+          }),
         ),
-      }),
+        typeNode,
+      ),
+      typeNode,
     );
   };
 }
