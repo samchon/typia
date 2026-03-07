@@ -17,17 +17,22 @@ export namespace LlmApplicationTransformer {
   export const transform = (props: ITransformProps): ts.Expression => {
     const dec = decompose("application", props);
     if (dec === null) return props.expression;
+
+    const typeNode: ts.ImportTypeNode = props.context.importer.type({
+      file: "typia",
+      name: "ILlmApplication.__IPrimitive",
+      arguments: [dec.node],
+    });
     return ts.factory.createCallExpression(
       props.context.importer.internal("llmApplicationFinalize"),
       [dec.node],
       [
-        ts.factory.createSatisfiesExpression(
-          LiteralFactory.write(dec.application),
-          props.context.importer.type({
-            file: "typia",
-            name: "ILlmApplication.__IPrimitive",
-            arguments: [dec.node],
-          }),
+        ts.factory.createAsExpression(
+          ts.factory.createSatisfiesExpression(
+            LiteralFactory.write(dec.application),
+            typeNode,
+          ),
+          typeNode,
         ),
         ...(props.expression.arguments?.[0] !== undefined
           ? [
