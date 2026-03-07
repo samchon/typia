@@ -1,6 +1,74 @@
 import { IValidation } from "@typia/interface";
 
 /**
+ * Maximum nesting depth to prevent stack overflow attacks.
+ * @internal
+ */
+const MAX_DEPTH: number = 512;
+
+/**
+ * Check if a string is a valid 4-character hexadecimal string.
+ * @internal
+ */
+function isHexString(s: string): boolean {
+  if (s.length !== 4) return false;
+  for (let i = 0; i < 4; i++) {
+    const c: number = s.charCodeAt(i);
+    if (
+      !((c >= 48 && c <= 57) || (c >= 65 && c <= 70) || (c >= 97 && c <= 102))
+    ) {
+      return false;
+    }
+  }
+  return true;
+}
+
+/**
+ * Find the start position of JSON object/array content in text that may have junk prefix.
+ *
+ * LLM outputs often contain text before JSON like:
+ * - "Here is your JSON: {"name": "test"}"
+ * - "Sure! [1, 2, 3]"
+ *
+ * This function only looks for `{` or `[` to skip junk prefix.
+ * Primitive values (strings, numbers, booleans) are handled directly by the parser.
+ *
+ * @param input Text that may contain JSON with junk prefix
+ * @returns Index of first `{` or `[`, or -1 if not found
+ * @internal
+ */
+function findJsonStart(input: string): number {
+  const objStart: number = input.indexOf("{");
+  const arrStart: number = input.indexOf("[");
+
+  if (objStart === -1 && arrStart === -1) return -1;
+  if (objStart === -1) return arrStart;
+  if (arrStart === -1) return objStart;
+  return Math.min(objStart, arrStart);
+}
+
+/**
+ * Check if input starts with a valid JSON primitive token.
+ *
+ * @param input Trimmed input string
+ * @returns True if input starts with a primitive value
+ * @internal
+ */
+function startsWithPrimitive(input: string): boolean {
+  if (input.length === 0) return false;
+  const ch: string = input[0]!;
+  // String
+  if (ch === '"') return true;
+  // Number (digit or minus)
+  if ((ch >= "0" && ch <= "9") || ch === "-") return true;
+  // Keywords
+  if (input.startsWith("true") || input.startsWith("false") || input.startsWith("null")) return true;
+  // Partial keywords
+  if ("true".startsWith(input) || "false".startsWith(input) || "null".startsWith(input)) return true;
+  return false;
+}
+
+/**
  * Parse lenient JSON that may be incomplete or malformed.
  *
  * Handles:
@@ -8,6 +76,9 @@ import { IValidation } from "@typia/interface";
  * - Unclosed brackets `{`, `[` - parses as much as possible
  * - Trailing commas `[1, 2, ]` - ignores them
  * - Unclosed strings `"hello` - returns partial string
+ * - Junk text before JSON (LLM often adds explanatory text)
+ * - Incomplete keywords like `tru`, `fal`, `nul`
+ * - Unicode escape sequences including surrogate pairs (emoji)
  *
  * @param input Raw JSON string (potentially incomplete)
  * @returns Validation result with parsed data or syntax errors
@@ -24,8 +95,44 @@ export function parseLenientJson<T>(input: string): IValidation<T> {
     // Fall back to lenient parser
   }
 
+  // Check if input is empty or whitespace-only
+  const trimmed: string = input.trim();
+  if (trimmed.length === 0) {
+    const errors: IValidation.IError[] = [];
+    const parser: LenientJsonParser = new LenientJsonParser(input, errors);
+    const data: unknown = parser.parse();
+    if (errors.length > 0) {
+      return { success: false, data, errors };
+    }
+    return { success: true, data: data as T };
+  }
+
+  // Check if input starts with a primitive value (no junk prefix skipping needed)
+  if (startsWithPrimitive(trimmed)) {
+    const errors: IValidation.IError[] = [];
+    const parser: LenientJsonParser = new LenientJsonParser(input, errors);
+    const data: unknown = parser.parse();
+    if (errors.length > 0) {
+      return { success: false, data, errors };
+    }
+    return { success: true, data: data as T };
+  }
+
+  // Find JSON start position (skip junk prefix from LLM)
+  const jsonStart: number = findJsonStart(input);
+  if (jsonStart === -1) {
+    // No JSON found - return empty object for lenient behavior
+    return {
+      success: true,
+      data: {} as T,
+    };
+  }
+
+  // Extract JSON portion (skip junk prefix)
+  const jsonInput: string = jsonStart > 0 ? input.slice(jsonStart) : input;
+
   const errors: IValidation.IError[] = [];
-  const parser: LenientJsonParser = new LenientJsonParser(input, errors);
+  const parser: LenientJsonParser = new LenientJsonParser(jsonInput, errors);
   const data: unknown = parser.parse();
 
   if (errors.length > 0) {
@@ -48,6 +155,7 @@ export function parseLenientJson<T>(input: string): IValidation<T> {
  */
 class LenientJsonParser {
   private pos: number = 0;
+  private depth: number = 0;
   private readonly input: string;
   private readonly errors: IValidation.IError[];
 
@@ -71,23 +179,26 @@ class LenientJsonParser {
       return undefined;
     }
 
+    // Check for maximum depth to prevent stack overflow
+    if (this.depth >= MAX_DEPTH) {
+      this.errors.push({
+        path,
+        expected: "value (max depth exceeded)",
+        value: undefined,
+      });
+      return undefined;
+    }
+
     const char: string = this.input[this.pos]!;
 
     if (char === "{") return this.parseObject(path);
     if (char === "[") return this.parseArray(path);
     if (char === '"') return this.parseString();
     if (char === "-" || (char >= "0" && char <= "9")) return this.parseNumber();
-    if (this.input.startsWith("true", this.pos)) {
-      this.pos += 4;
-      return true;
-    }
-    if (this.input.startsWith("false", this.pos)) {
-      this.pos += 5;
-      return false;
-    }
-    if (this.input.startsWith("null", this.pos)) {
-      this.pos += 4;
-      return null;
+
+    // Handle keywords (true, false, null) including incomplete ones
+    if (char === "t" || char === "f" || char === "n") {
+      return this.parseKeyword(path);
     }
 
     this.errors.push({
@@ -100,9 +211,42 @@ class LenientJsonParser {
     return undefined;
   }
 
+  private parseKeyword(path: string): boolean | null | undefined {
+    const remaining: string = this.input.slice(this.pos);
+
+    // Check for complete or partial keyword matches
+    const keywords: Array<[string, boolean | null]> = [
+      ["true", true],
+      ["false", false],
+      ["null", null],
+    ];
+
+    for (const [keyword, value] of keywords) {
+      if (remaining.startsWith(keyword)) {
+        this.pos += keyword.length;
+        return value;
+      }
+      // Partial match for lenient parsing (e.g., "tru" -> true)
+      if (keyword.startsWith(remaining) && remaining.length > 0) {
+        this.pos = this.input.length;
+        return value;
+      }
+    }
+
+    // Invalid keyword
+    this.errors.push({
+      path,
+      expected: "true, false, or null",
+      value: remaining.slice(0, 10),
+    });
+    this.pos++;
+    return undefined;
+  }
+
   private parseObject(path: string): Record<string, unknown> {
     const result: Record<string, unknown> = {};
     this.pos++; // skip '{'
+    this.depth++;
     this.skipWhitespace();
 
     while (this.pos < this.input.length) {
@@ -111,6 +255,7 @@ class LenientJsonParser {
       // Handle end of object or end of input
       if (this.pos >= this.input.length || this.input[this.pos] === "}") {
         if (this.pos < this.input.length) this.pos++; // skip '}'
+        this.depth--;
         return result;
       }
 
@@ -129,11 +274,13 @@ class LenientJsonParser {
           value: this.input[this.pos],
         });
         // Try to recover by skipping to next meaningful character
+        this.depth--;
         return result;
       }
 
       const key: string = this.parseString();
       if (typeof key !== "string") {
+        this.depth--;
         return result;
       }
 
@@ -141,6 +288,7 @@ class LenientJsonParser {
 
       // Expect colon - but if we're at end of input, it's just incomplete (not an error)
       if (this.pos >= this.input.length) {
+        this.depth--;
         return result;
       }
       if (this.input[this.pos] !== ":") {
@@ -149,6 +297,7 @@ class LenientJsonParser {
           expected: "':'",
           value: this.input[this.pos],
         });
+        this.depth--;
         return result;
       }
       this.pos++; // skip ':'
@@ -158,6 +307,7 @@ class LenientJsonParser {
       // Parse value
       if (this.pos >= this.input.length) {
         // No value - incomplete but not an error for lenient parsing
+        this.depth--;
         return result;
       }
 
@@ -172,12 +322,14 @@ class LenientJsonParser {
       }
     }
 
+    this.depth--;
     return result;
   }
 
   private parseArray(path: string): unknown[] {
     const result: unknown[] = [];
     this.pos++; // skip '['
+    this.depth++;
     this.skipWhitespace();
 
     let index: number = 0;
@@ -187,6 +339,7 @@ class LenientJsonParser {
       // Handle end of array or end of input
       if (this.pos >= this.input.length || this.input[this.pos] === "]") {
         if (this.pos < this.input.length) this.pos++; // skip ']'
+        this.depth--;
         return result;
       }
 
@@ -210,6 +363,7 @@ class LenientJsonParser {
       }
     }
 
+    this.depth--;
     return result;
   }
 
@@ -249,18 +403,44 @@ class LenientJsonParser {
             break;
           case "u":
             // Parse unicode escape
-            if (this.pos + 4 < this.input.length) {
+            if (this.pos + 4 <= this.input.length) {
               const hex: string = this.input.slice(this.pos + 1, this.pos + 5);
-              const code: number = parseInt(hex, 16);
-              if (!Number.isNaN(code)) {
-                result += String.fromCharCode(code);
+              if (isHexString(hex)) {
+                const highCode: number = parseInt(hex, 16);
                 this.pos += 4;
+
+                // Check for surrogate pair (emoji and characters > U+FFFF)
+                if (
+                  highCode >= 0xd800 &&
+                  highCode <= 0xdbff &&
+                  this.pos + 6 <= this.input.length &&
+                  this.input[this.pos + 1] === "\\" &&
+                  this.input[this.pos + 2] === "u"
+                ) {
+                  const lowHex: string = this.input.slice(
+                    this.pos + 3,
+                    this.pos + 7,
+                  );
+                  if (isHexString(lowHex)) {
+                    const lowCode: number = parseInt(lowHex, 16);
+                    if (lowCode >= 0xdc00 && lowCode <= 0xdfff) {
+                      result += String.fromCharCode(highCode, lowCode);
+                      this.pos += 6;
+                      break;
+                    }
+                  }
+                }
+                result += String.fromCharCode(highCode);
               } else {
-                result += char;
+                // Invalid hex - preserve escape sequence literally
+                result += "\\u" + hex;
+                this.pos += 4;
               }
             } else {
-              // Incomplete unicode escape - just add what we have
-              result += "\\u";
+              // Incomplete unicode escape - add partial sequence
+              const partial: string = this.input.slice(this.pos + 1);
+              result += "\\u" + partial;
+              this.pos = this.input.length - 1;
             }
             break;
           default:
