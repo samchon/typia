@@ -1,4 +1,4 @@
-import { ILlmSchema, IValidation } from "@typia/interface";
+import { ILlmJsonParseResult, ILlmSchema } from "@typia/interface";
 
 import { LlmTypeChecker } from "../../validators/LlmTypeChecker";
 import { parseLenientJson } from "./parseLenientJson";
@@ -52,7 +52,7 @@ function coerceValue(
         return value;
       }
       // String value but no string in union - try to parse
-      const parsed: IValidation<unknown> = parseLenientJson(value);
+      const parsed: ILlmJsonParseResult<unknown> = parseLenientJson(value);
       if (parsed.success) {
         // Find uniquely matching schema via type + x-discriminator
         const matched: ILlmSchema | undefined = findMatchingAnyOfSchema(
@@ -107,7 +107,7 @@ function coerceValue(
 
   // Value is string but schema is non-string - try to parse
   if (typeof value === "string") {
-    const parsed: IValidation<unknown> = parseLenientJson(value);
+    const parsed: ILlmJsonParseResult<unknown> = parseLenientJson(value);
     if (parsed.success) {
       // Continue coercion on the parsed value (for nested stringified values)
       return coerceValue(parsed.data, schema, $defs);
