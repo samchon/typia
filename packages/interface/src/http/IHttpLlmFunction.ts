@@ -1,5 +1,5 @@
 import { OpenApi } from "../openapi/OpenApi";
-import { ILlmFunction } from "../schema";
+import { ILlmFunction } from "../schema/ILlmFunction";
 import { IHttpMigrateRoute } from "./IHttpMigrateRoute";
 
 /**
