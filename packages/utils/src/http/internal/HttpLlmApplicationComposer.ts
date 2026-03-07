@@ -11,6 +11,7 @@ import {
 
 import { LlmSchemaConverter } from "../../converters/LlmSchemaConverter";
 import { LlmJson } from "../../utils";
+import { OpenApiValidator } from "../../validators/OpenApiValidator";
 
 /**
  * Composes {@link IHttpLlmApplication} from an {@link IHttpMigrateApplication}.
@@ -260,7 +261,12 @@ export namespace HttpLlmApplicationComposer {
       deprecated: operation.deprecated,
       tags: operation.tags,
       parse: (input: string) => LlmJson.parse(input, llmParameters.value),
-      validate: LlmJson.validate(llmParameters.value, props.config.equals),
+      validate: OpenApiValidator.create({
+        components: props.components,
+        schema: parameters,
+        required: true,
+        equals: props.config.equals ?? false,
+      }),
       route: () => props.route as any,
       operation: () => props.route.operation(),
     };
