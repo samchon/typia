@@ -29,10 +29,11 @@ export const test_langchain_class_controller_validation =
     const invalidResult = await addTool.invoke({ x: "not a number", y: 5 });
 
     // Generate expected validation error message using typia
-    const expected: IValidation = typia.validate<Calculator.IProps>({
-      x: "not a number",
-      y: 5,
-    });
+    const coerced: unknown = LlmJson.coerce(
+      { x: "not a number", y: 5 },
+      controller.application.functions.find((f) => f.name === "add")!.parameters,
+    );
+    const expected: IValidation = typia.validate<Calculator.IProps>(coerced);
     if (expected.success === true) {
       throw new Error("Expected validation to fail, but it succeeded.");
     }

@@ -260,7 +260,8 @@ export namespace McpControllerRegistrar {
     entry: IToolEntry,
     args: unknown,
   ): Promise<CallToolResult> => {
-    const validation: IValidation<unknown> = entry.function.validate(args);
+    const coerced: unknown = LlmJson.coerce(args, entry.function.parameters);
+    const validation: IValidation<unknown> = entry.function.validate(coerced);
     if (!validation.success) {
       return {
         isError: true,

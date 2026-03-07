@@ -22,6 +22,32 @@ import { stringifyValidationFailure } from "./internal/stringifyValidationFailur
  */
 export namespace LlmJson {
   /**
+   * Coerce LLM arguments to match expected schema types.
+   *
+   * LLMs often return values with incorrect types (e.g., numbers as strings).
+   * This function recursively coerces values based on the schema:
+   *
+   * - `"42"` → `42` (when schema expects number)
+   * - `"true"` → `true` (when schema expects boolean)
+   * - `"null"` → `null` (when schema expects null)
+   * - `"{...}"` → `{...}` (when schema expects object)
+   * - `"[...]"` → `[...]` (when schema expects array)
+   *
+   * Use this when SDK provides already-parsed objects but values may have
+   * wrong types. For raw JSON strings, use {@link parse} instead.
+   *
+   * @param input Parsed arguments object from LLM
+   * @param parameters LLM function parameters schema for type coercion
+   * @returns Coerced arguments with corrected types
+   */
+  export function coerce<T = unknown>(
+    input: T,
+    parameters: ILlmSchema.IParameters,
+  ): T {
+    return coerceLlmArguments(input, parameters);
+  }
+
+  /**
    * Parse lenient JSON with optional schema-based coercion.
    *
    * Handles incomplete/malformed JSON commonly produced by LLMs:
