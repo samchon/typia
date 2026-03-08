@@ -73,9 +73,7 @@ export namespace LlmApplicationProgrammer {
 
     return ts.factory.createCallExpression(
       props.context.importer.internal("llmApplicationFinalize"),
-      props.name
-        ? [ts.factory.createTypeReferenceNode(props.name)]
-        : undefined,
+      props.name ? [ts.factory.createTypeReferenceNode(props.name)] : undefined,
       [
         ts.factory.createAsExpression(
           ts.factory.createSatisfiesExpression(
@@ -308,7 +306,7 @@ export namespace LlmApplicationProgrammer {
           p.jsDocTags.some((tag) => tag.name === "human") === false,
       });
     // convert each JSON Schema function to an LLM function
-    const functions: Array<Omit<ILlmFunction, "parse"> | null> =
+    const functions: Array<Omit<ILlmFunction, "parse" | "coerce"> | null> =
       application.functions.map((func) =>
         writeFunction({
           context: props.context,
@@ -341,7 +339,7 @@ export namespace LlmApplicationProgrammer {
           }
         >
       | undefined;
-  }): Omit<ILlmFunction, "parse"> | null => {
+  }): Omit<ILlmFunction, "parse" | "coerce"> | null => {
     const config: ILlmSchema.IConfig = LlmSchemaConverter.getConfig(
       props.config,
     );

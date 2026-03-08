@@ -261,6 +261,7 @@ export namespace HttpLlmApplicationComposer {
       deprecated: operation.deprecated,
       tags: operation.tags,
       parse: (input: string) => LlmJson.parse(input, llmParameters.value),
+      coerce: (input: unknown) => LlmJson.coerce(input, llmParameters.value),
       validate: OpenApiValidator.create({
         components: props.components,
         schema: parameters,
