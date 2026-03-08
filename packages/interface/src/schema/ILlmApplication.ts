@@ -94,6 +94,6 @@ export namespace ILlmApplication {
     ILlmApplication<Class>,
     "config" | "functions"
   > {
-    functions: Omit<ILlmFunction, "parse">[];
+    functions: Omit<ILlmFunction, "parse" | "coerce">[];
   }
 }
