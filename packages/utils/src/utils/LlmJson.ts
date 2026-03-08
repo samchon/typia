@@ -41,10 +41,10 @@ export namespace LlmJson {
    * @returns Coerced arguments with corrected types
    */
   export function coerce<T = unknown>(
-    input: unknown,
     parameters: ILlmSchema.IParameters,
+    input: unknown,
   ): T {
-    return coerceLlmArguments(input, parameters);
+    return coerceLlmArguments(parameters, input);
   }
 
   /**
@@ -77,7 +77,7 @@ export namespace LlmJson {
     if (parameters !== undefined && result.success) {
       return {
         success: true,
-        data: coerceLlmArguments(result.data, parameters) as T,
+        data: coerceLlmArguments(parameters, result.data) as T,
       };
     }
     return result;

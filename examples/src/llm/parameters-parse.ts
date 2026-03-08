@@ -1,8 +1,8 @@
+import { LlmJson } from "@typia/utils";
 import { dedent } from "@typia/utils";
-import typia, { ILlmApplication, ILlmFunction, tags } from "typia";
+import typia, { ILlmSchema, tags } from "typia";
 
-const app: ILlmApplication = typia.llm.application<OrderService>();
-const func: ILlmFunction = app.functions[0];
+const params: ILlmSchema.IParameters = typia.llm.parameters<IProps>();
 
 // LLM sometimes returns malformed JSON with wrong types
 const llmOutput = dedent`
@@ -27,8 +27,12 @@ const llmOutput = dedent`
   \`\`\`
 `;
 
-const result = func.parse(llmOutput);
-if (result.success) console.log(result);
+const result = LlmJson.parse(llmOutput, params);
+if (result.success) console.log(result.data);
+
+interface IProps {
+  order: IOrder;
+}
 
 interface IOrder {
   payment: IPayment;
@@ -47,12 +51,3 @@ interface IOrder {
 type IPayment =
   | { type: "card"; cardNumber: string }
   | { type: "bank"; accountNumber: string };
-
-declare class OrderService {
-  /**
-   * Create a new order.
-   *
-   * @param props Order properties
-   */
-  createOrder(props: { order: IOrder }): { id: string };
-}

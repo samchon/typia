@@ -157,16 +157,85 @@ You can utilize the `typia.llm.parameters<Parameters>()` function to generate st
 
 Just configure output mode as JSON schema, and deliver the `typia.llm.parameters<Parameters>()` function returned value to the LLM provider like OpenAI (ChatGPT). Then, the LLM provider will automatically transform the output conversation into a structured data format of the `Parameters` type.
 
+## Lenient JSON Parsing
+
+<Tabs items={[
+    "Parsing Example",
+    "Coercing Example",
+    <code>ILlmSchema.IParameters</code>,
+  ]}>
+  <Tabs.Tab>
+    <LocalSource
+      path="examples/src/llm/parameters-parse.ts"
+      filename="examples/src/llm/parameters-parse.ts"
+      showLineNumbers
+      highlight="30-31" />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource
+      path="examples/src/llm/parameters-coerce.ts"
+      filename="examples/src/llm/parameters-coerce.ts"
+      showLineNumbers
+      highlight="17-18" />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource
+      path="packages/interface/src/schema/ILlmSchema.ts"
+      filename="@typia/interface"
+      showLineNumbers
+      highlight="43-68" />
+  </Tabs.Tab>
+</Tabs>
+
+Use `LlmJson.parse()` from `@typia/utils` to handle LLM JSON outputs with the parameter schema from `typia.llm.parameters<T>()`. This parser is specifically designed for the messy reality of LLM responses:
+
+**Lenient JSON Features:**
+- Unclosed brackets `{`, `[` and strings
+- Trailing commas `[1, 2, 3, ]`
+- JavaScript-style comments (`//` and `/* */`)
+- Unquoted object keys (JavaScript identifier style)
+- Incomplete keywords (`tru`, `fal`, `nul`)
+- Markdown code block extraction (` ```json ... ``` `)
+- Junk text prefix skipping (explanatory text LLMs often add)
+
+**Type Coercion:**
+
+LLMs frequently return wrong types — numbers as strings, booleans as strings, or even double-stringified JSON objects. `LlmJson.parse()` automatically coerces these based on the parameter schema.
+
+<Callout type="warning">
+**0% → 100% Success Rate on Union Types**
+
+`Qwen3.5` model shows 0% success rate when handling union types with double-stringified JSON objects. With `LlmJson.parse()` type coercion, the success rate jumps to 100%.
+</Callout>
+
+<Callout type="info">
+**For Pre-parsed Objects, Use `LlmJson.coerce()`**
+
+Some LLM SDKs (Anthropic, Vercel AI, LangChain, MCP) parse JSON internally and return JavaScript objects directly. In these cases, use `LlmJson.coerce()` instead of `LlmJson.parse()` to fix types without re-parsing.
+
+For more details, see [JSON Utilities](./json).
+</Callout>
+
 ## Validation Feedback
 
-Use [`typia.validate<T>()`](/docs/validators/validate) for validation feedback on structured output. When validation fails, the error can be formatted with inline `// ❌` comments at each invalid property:
+<LocalSource
+  path="examples/src/llm/parameters-validate.ts"
+  filename="examples/src/llm/parameters-validate.ts"
+  showLineNumbers />
+
+Use [`typia.validate<T>()`](/docs/validators/validate) for validation feedback on structured output. When validation fails, use `LlmJson.stringify()` from `@typia/utils` to format errors with inline `// ❌` comments:
 
 ```json
 {
-  "name": "John",
-  "age": "twenty", // ❌ [{"path":"$input.age","expected":"number"}]
-  "email": "not-an-email", // ❌ [{"path":"$input.email","expected":"string & Format<\"email\">"}]
-  "hobbies": "reading" // ❌ [{"path":"$input.hobbies","expected":"Array<string>"}]
+  "name": "John Doe",
+  "age": -5, // ❌ [{"path":"$input.age","expected":"number & Minimum<0>"}]
+  "email": "invalid-email", // ❌ [{"path":"$input.email","expected":"string & Format<\"email\">"}]
+  "hobbies": "reading", // ❌ [{"path":"$input.hobbies","expected":"Array<string>"}]
+  "joined_at": "not-a-date", // ❌ [{"path":"$input.joined_at","expected":"string & Format<\"date\">"}]
+  "metadata": {
+    "level": "platinum", // ❌ [{"path":"$input.metadata","expected":"(IMetadata & { level: \"gold\"; }) | (IMetadata & { level: \"silver\"; })"}]
+    "points": 1500
+  }
 }
 ```
 

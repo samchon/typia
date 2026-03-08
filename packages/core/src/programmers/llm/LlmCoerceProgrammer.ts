@@ -63,8 +63,8 @@ export namespace LlmCoerceProgrammer {
           props.context.importer.internal("coerceLlmArguments"),
           undefined,
           [
-            ts.factory.createIdentifier("input"),
             ts.factory.createIdentifier("__schema"),
+            ts.factory.createIdentifier("input"),
           ],
         ),
       ),

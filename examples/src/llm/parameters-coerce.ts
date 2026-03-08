@@ -1,7 +1,7 @@
-import typia, { ILlmApplication, ILlmFunction, tags } from "typia";
+import { LlmJson } from "@typia/utils";
+import typia, { ILlmSchema, tags } from "typia";
 
-const app: ILlmApplication = typia.llm.application<OrderService>();
-const func: ILlmFunction = app.functions[0];
+const params: ILlmSchema.IParameters = typia.llm.parameters<IProps>();
 
 // Anthropic, Vercel AI, LangChain, MCP already parse JSON internally.
 // However, types are often wrong:
@@ -21,8 +21,12 @@ const fromSdk = {
   },
 };
 
-const result = func.coerce(fromSdk);
+const result = LlmJson.coerce(params, fromSdk);
 console.log(result);
+
+interface IProps {
+  order: IOrder;
+}
 
 interface IOrder {
   payment: IPayment;
@@ -41,12 +45,3 @@ interface IOrder {
 type IPayment =
   | { type: "card"; cardNumber: string }
   | { type: "bank"; accountNumber: string };
-
-declare class OrderService {
-  /**
-   * Create a new order.
-   *
-   * @param props Order properties
-   */
-  createOrder(props: { order: IOrder }): { id: string };
-}

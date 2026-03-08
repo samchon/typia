@@ -117,10 +117,33 @@ Structured output is another feature of LLM. The "structured output" means that 
 
 ## Lenient JSON Parsing
 
-<LocalSource
-  path="examples/src/llm/application-parse.ts"
-  filename="examples/src/llm/application-parse.ts"
-  showLineNumbers />
+<Tabs items={[
+    "Paring Example",
+    "Coercing Example",
+    <code>ILlmFunction</code>,
+  ]}>
+  <Tabs.Tab>
+    <LocalSource
+      path="examples/src/llm/application-parse.ts"
+      filename="examples/src/llm/application-parse.ts"
+      showLineNumbers
+      highlight="27-28" />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource
+      path="examples/src/llm/application-coerce.ts"
+      filename="examples/src/llm/application-coerce.ts"
+      showLineNumbers
+      highlight="24-25" />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource
+      path="packages/interface/src/schema/ILlmFunction.ts"
+      filename="@typia/interface"
+      showLineNumbers
+      highlight="78-126" />
+  </Tabs.Tab>
+</Tabs>
 
 Each `ILlmFunction` includes a `parse()` method for handling LLM JSON outputs. This parser is specifically designed for the messy reality of LLM responses:
 
@@ -135,18 +158,18 @@ Each `ILlmFunction` includes a `parse()` method for handling LLM JSON outputs. T
 
 **Type Coercion:**
 
-LLMs frequently return wrong types — numbers as strings, booleans as strings, or even double-stringified JSON objects. `func.parse()` automatically coerces these based on the function's parameter schema.
+LLMs frequently return wrong types — numbers as strings, booleans as strings, or even double-stringified JSON objects. `ILlmFunction.parse()` automatically coerces these based on the function's parameter schema.
 
 <Callout type="warning">
 **0% → 100% Success Rate on Union Types**
 
-`Qwen3.5` model shows 0% success rate when handling union types with double-stringified JSON objects. With `func.parse()` type coercion, the success rate jumps to 100%.
+`Qwen3.5` model shows 0% success rate when handling union types with double-stringified JSON objects. With `ILlmFunction.parse()` type coercion, the success rate jumps to 100%.
 </Callout>
 
 <Callout type="info">
-**For Pre-parsed Objects, Use `func.coerce()`**
+**For Pre-parsed Objects, Use `ILlmFunction.coerce()`**
 
-Some LLM SDKs (Anthropic, Vercel AI, LangChain, MCP) parse JSON internally and return JavaScript objects directly. In these cases, use `func.coerce()` instead of `func.parse()` to fix types without re-parsing.
+Some LLM SDKs (Anthropic, Vercel AI, LangChain, MCP) parse JSON internally and return JavaScript objects directly. In these cases, use `ILlmFunction.coerce()` instead of `ILlmFunction.parse()` to fix types without re-parsing.
 
 For more details, see [JSON Utilities](./json).
 </Callout>
