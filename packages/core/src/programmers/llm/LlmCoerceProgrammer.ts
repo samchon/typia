@@ -25,10 +25,11 @@ export namespace LlmCoerceProgrammer {
     name: string | undefined;
   }): FeatureProgrammer.IDecomposed => {
     // Generate LLM schema from metadata
-    const schema: ILlmSchema.IParameters = LlmParametersProgrammer.writeSchema({
-      metadata: props.metadata,
-      config: props.config,
-    });
+    const schema: ILlmSchema.IParameters =
+      LlmParametersProgrammer.writeParameters({
+        metadata: props.metadata,
+        config: props.config,
+      });
 
     const typeName = props.name ?? "unknown";
 

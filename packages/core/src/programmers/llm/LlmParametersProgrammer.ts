@@ -28,7 +28,7 @@ export namespace LlmParametersProgrammer {
   }
 
   export const write = (props: IWriteProps): ts.Expression => {
-    const schema: ILlmSchema.IParameters = writeSchema({
+    const schema: ILlmSchema.IParameters = writeParameters({
       metadata: props.metadata,
       config: props.config,
     });
@@ -50,12 +50,12 @@ export namespace LlmParametersProgrammer {
     );
   };
 
-  export const writeSchema = (props: {
+  export const writeParameters = (props: {
     metadata: MetadataSchema;
     config?: Partial<ILlmSchema.IConfig>;
   }): ILlmSchema.IParameters => {
     const collection: IJsonSchemaCollection<"3.1"> =
-      JsonSchemasProgrammer.write({
+      JsonSchemasProgrammer.writeSchemas({
         version: "3.1",
         metadatas: [props.metadata],
       });
@@ -115,5 +115,4 @@ export namespace LlmParametersProgrammer {
     output.push(...LlmSchemaProgrammer.validate(props));
     return output;
   };
-
 }

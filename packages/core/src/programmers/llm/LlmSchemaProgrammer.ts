@@ -108,7 +108,7 @@ export namespace LlmSchemaProgrammer {
     config?: Partial<ILlmSchema.IConfig>;
   }): IOutput => {
     const collection: IJsonSchemaCollection<"3.1"> =
-      JsonSchemasProgrammer.write({
+      JsonSchemasProgrammer.writeSchemas({
         version: "3.1",
         metadatas: [props.metadata],
       });

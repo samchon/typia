@@ -301,7 +301,7 @@ export namespace LlmApplicationProgrammer {
     // build JSON Schema application, filtering out @human-tagged parameters
     const errorMessages: string[] = [];
     const application: IJsonSchemaApplication<"3.1"> =
-      JsonApplicationProgrammer.write({
+      JsonApplicationProgrammer.writeApplication({
         version: "3.1",
         metadata,
         filter: (p) =>
