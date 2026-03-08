@@ -1,12 +1,11 @@
 import {
   JsonSchemaProgrammer,
   JsonSchemasProgrammer,
-  LiteralFactory,
   MetadataCollection,
   MetadataFactory,
   MetadataSchema,
 } from "@typia/core";
-import { IJsonSchemaUnit, ValidationPipe } from "@typia/interface";
+import { ValidationPipe } from "@typia/interface";
 import ts from "typescript";
 
 import { ITransformProps } from "../../ITransformProps";
@@ -78,22 +77,11 @@ export namespace JsonSchemaTransformer {
     analyze(true);
 
     // APPLICATION
-    const app: IJsonSchemaUnit<any> = JsonSchemaProgrammer.write({
+    return JsonSchemaProgrammer.write({
+      context: props.context,
       version,
       metadata: analyze(false),
     });
-    return ts.factory.createAsExpression(
-      LiteralFactory.write(app),
-      props.context.importer.type({
-        file: "typia",
-        name: "IJsonSchemaUnit",
-        arguments: [
-          ts.factory.createLiteralTypeNode(
-            ts.factory.createStringLiteral(version),
-          ),
-        ],
-      }),
-    );
   };
 
   const getParameter =

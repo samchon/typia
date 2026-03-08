@@ -1,7 +1,10 @@
 import { IJsonSchemaCollection, OpenApi, OpenApiV3 } from "@typia/interface";
 import { OpenApiConverter } from "@typia/utils";
+import ts from "typescript";
 
+import { ITypiaContext } from "../../context/ITypiaContext";
 import { TransformerError } from "../../context/TransformerError";
+import { LiteralFactory } from "../../factories/LiteralFactory";
 import { MetadataSchema } from "../../schemas/metadata/MetadataSchema";
 import { AtomicPredicator } from "../helpers/AtomicPredicator";
 import { json_schema_station } from "../iterate/json_schema_station";
@@ -36,7 +39,35 @@ export namespace JsonSchemasProgrammer {
     return output;
   };
 
-  export const write = <Version extends "3.0" | "3.1">(props: {
+  export interface IWriteProps<Version extends "3.0" | "3.1"> {
+    context: ITypiaContext;
+    version: Version;
+    metadatas: Array<MetadataSchema>;
+  }
+
+  export const write = <Version extends "3.0" | "3.1">(
+    props: IWriteProps<Version>,
+  ): ts.Expression => {
+    const collection: IJsonSchemaCollection<Version> = writeSchemas({
+      version: props.version,
+      metadatas: props.metadatas,
+    });
+
+    return ts.factory.createAsExpression(
+      LiteralFactory.write(collection),
+      props.context.importer.type({
+        file: "typia",
+        name: "IJsonSchemaCollection",
+        arguments: [
+          ts.factory.createLiteralTypeNode(
+            ts.factory.createStringLiteral(props.version),
+          ),
+        ],
+      }),
+    );
+  };
+
+  export const writeSchemas = <Version extends "3.0" | "3.1">(props: {
     version: Version;
     metadatas: Array<MetadataSchema>;
   }): IJsonSchemaCollection<Version> =>

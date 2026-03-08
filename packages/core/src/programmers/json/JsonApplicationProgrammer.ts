@@ -1,5 +1,8 @@
 import { IJsDocTagInfo, IJsonSchemaApplication } from "@typia/interface";
+import ts from "typescript";
 
+import { ITypiaContext } from "../../context/ITypiaContext";
+import { LiteralFactory } from "../../factories/LiteralFactory";
 import { MetadataFactory } from "../../factories/MetadataFactory";
 import { MetadataFunction } from "../../schemas/metadata/MetadataFunction";
 import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
@@ -56,7 +59,26 @@ export namespace JsonApplicationProgrammer {
     return output;
   };
 
-  export const write = <Version extends "3.0" | "3.1">(props: {
+  export interface IWriteProps<Version extends "3.0" | "3.1"> {
+    context: ITypiaContext;
+    version: Version;
+    metadata: MetadataSchema;
+    filter?: (prop: MetadataProperty) => boolean;
+  }
+
+  export const write = <Version extends "3.0" | "3.1">(
+    props: IWriteProps<Version>,
+  ): ts.Expression => {
+    const app: IJsonSchemaApplication<Version> = writeApplication({
+      version: props.version,
+      metadata: props.metadata,
+      filter: props.filter,
+    });
+
+    return LiteralFactory.write(app);
+  };
+
+  export const writeApplication = <Version extends "3.0" | "3.1">(props: {
     version: Version;
     metadata: MetadataSchema;
     filter?: (prop: MetadataProperty) => boolean;
@@ -105,7 +127,7 @@ export namespace JsonApplicationProgrammer {
           collect,
         }),
       );
-    const { components, schemas } = JsonSchemasProgrammer.write({
+    const { components, schemas } = JsonSchemasProgrammer.writeSchemas({
       version: props.version,
       metadatas: definitions,
     });

@@ -6,20 +6,56 @@ import {
   OpenApi,
 } from "@typia/interface";
 import { LlmSchemaConverter, OpenApiTypeChecker } from "@typia/utils";
+import ts from "typescript";
 
+import { IProgrammerProps } from "../../context/IProgrammerProps";
 import { TransformerError } from "../../context/TransformerError";
+import { LiteralFactory } from "../../factories/LiteralFactory";
 import { MetadataFactory } from "../../factories/MetadataFactory";
 import { MetadataSchema } from "../../schemas/metadata/MetadataSchema";
 import { JsonSchemasProgrammer } from "../json/JsonSchemasProgrammer";
 import { LlmSchemaProgrammer } from "./LlmSchemaProgrammer";
 
 export namespace LlmParametersProgrammer {
-  export const write = (props: {
+  export interface IProps extends IProgrammerProps {
+    config?: Partial<ILlmSchema.IConfig>;
+  }
+
+  export interface IWriteProps {
+    context: IProps["context"];
+    metadata: MetadataSchema;
+    config?: Partial<ILlmSchema.IConfig>;
+  }
+
+  export const write = (props: IWriteProps): ts.Expression => {
+    const schema: ILlmSchema.IParameters = writeParameters({
+      metadata: props.metadata,
+      config: props.config,
+    });
+
+    const typeNode: ts.ImportTypeNode = props.context.importer.type({
+      file: "typia",
+      name: ts.factory.createQualifiedName(
+        ts.factory.createIdentifier("ILlmSchema"),
+        ts.factory.createIdentifier("IParameters"),
+      ),
+    });
+
+    return ts.factory.createAsExpression(
+      ts.factory.createSatisfiesExpression(
+        LiteralFactory.write(schema),
+        typeNode,
+      ),
+      typeNode,
+    );
+  };
+
+  export const writeParameters = (props: {
     metadata: MetadataSchema;
     config?: Partial<ILlmSchema.IConfig>;
   }): ILlmSchema.IParameters => {
     const collection: IJsonSchemaCollection<"3.1"> =
-      JsonSchemasProgrammer.write({
+      JsonSchemasProgrammer.writeSchemas({
         version: "3.1",
         metadatas: [props.metadata],
       });
