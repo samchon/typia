@@ -11,7 +11,9 @@ import {
 import { LlmSchemaConverter } from "@typia/utils";
 import ts from "typescript";
 
+import { IProgrammerProps } from "../../context/IProgrammerProps";
 import { ITypiaContext } from "../../context/ITypiaContext";
+import { LiteralFactory } from "../../factories/LiteralFactory";
 import { MetadataFactory } from "../../factories/MetadataFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
 import { MetadataFunction } from "../../schemas/metadata/MetadataFunction";
@@ -32,6 +34,71 @@ import { LlmSchemaProgrammer } from "./LlmSchemaProgrammer";
  * @author Jeongho Nam - https://github.com/samchon
  */
 export namespace LlmApplicationProgrammer {
+  export interface IProps extends IProgrammerProps {
+    config?: Partial<
+      ILlmSchema.IConfig & {
+        equals: boolean;
+      }
+    >;
+  }
+
+  export interface IWriteProps {
+    context: ITypiaContext;
+    modulo: ts.LeftHandSideExpression;
+    metadata: MetadataSchema;
+    config?: Partial<
+      ILlmSchema.IConfig & {
+        equals: boolean;
+      }
+    >;
+    name?: string;
+  }
+
+  export const write = (props: IWriteProps): ts.CallExpression => {
+    const application: ILlmApplication.__IPrimitive = writeApplication({
+      context: props.context,
+      modulo: props.modulo,
+      config: props.config,
+      metadata: props.metadata,
+      name: props.name,
+    });
+
+    const typeNode: ts.ImportTypeNode = props.context.importer.type({
+      file: "typia",
+      name: "ILlmApplication.__IPrimitive",
+      arguments: props.name
+        ? [ts.factory.createTypeReferenceNode(props.name)]
+        : undefined,
+    });
+
+    return ts.factory.createCallExpression(
+      props.context.importer.internal("llmApplicationFinalize"),
+      props.name
+        ? [ts.factory.createTypeReferenceNode(props.name)]
+        : undefined,
+      [
+        ts.factory.createAsExpression(
+          ts.factory.createSatisfiesExpression(
+            LiteralFactory.write(application),
+            typeNode,
+          ),
+          typeNode,
+        ),
+        ts.factory.createObjectLiteralExpression(
+          [
+            ts.factory.createPropertyAssignment(
+              "equals",
+              props.config?.equals === true
+                ? ts.factory.createTrue()
+                : ts.factory.createFalse(),
+            ),
+          ],
+          false,
+        ),
+      ],
+    );
+  };
+
   export const validate = (props: {
     config?: Partial<ILlmSchema.IConfig>;
     metadata: MetadataSchema;
@@ -75,7 +142,8 @@ export namespace LlmApplicationProgrammer {
         );
       let least: boolean = false; // tracks whether at least one function exists
       for (const p of object.properties) {
-        const name: string = JSON.stringify(p.key.getSoleLiteral()!);
+        const rawName: string = p.key.getSoleLiteral()!;
+        const name: string = JSON.stringify(rawName);
         const value: MetadataSchema = p.value;
         if (value.functions.length) {
           least ||= true;
@@ -93,6 +161,17 @@ export namespace LlmApplicationProgrammer {
                 `LLM application's function (${name}) type must not be nullable.`,
               );
           }
+
+          // validate function name length and pattern
+          const prefix: string = `LLM application's function (${name})`;
+          if (/^[0-9]/.test(rawName[0] ?? "") === true)
+            output.push(`${prefix} name cannot start with a number.`);
+          if (/^[a-zA-Z0-9_-]+$/.test(rawName) === false)
+            output.push(
+              `${prefix} name must contain only alphanumeric characters, underscores, or hyphens.`,
+            );
+          if (rawName.length > 64)
+            output.push(`${prefix} name cannot exceed 64 characters.`);
 
           const description: string | undefined = concatDescription(
             JsonApplicationProgrammer.writeDescription({
@@ -179,7 +258,7 @@ export namespace LlmApplicationProgrammer {
     return messages;
   };
 
-  export const write = (props: {
+  export const writeApplication = (props: {
     context: ITypiaContext;
     modulo: ts.LeftHandSideExpression;
     metadata: MetadataSchema;
@@ -222,7 +301,7 @@ export namespace LlmApplicationProgrammer {
     // build JSON Schema application, filtering out @human-tagged parameters
     const errorMessages: string[] = [];
     const application: IJsonSchemaApplication<"3.1"> =
-      JsonApplicationProgrammer.write({
+      JsonApplicationProgrammer.writeApplication({
         version: "3.1",
         metadata,
         filter: (p) =>

@@ -1,5 +1,4 @@
 import {
-  LiteralFactory,
   LlmMetadataFactory,
   LlmParametersProgrammer,
   MetadataCollection,
@@ -13,9 +12,7 @@ import { ITransformProps } from "../../ITransformProps";
 import { TransformerError } from "../../TransformerError";
 
 export namespace LlmParametersTransformer {
-  export const transform = (
-    props: Omit<ITransformProps, "modulo">,
-  ): ts.Expression => {
+  export const transform = (props: ITransformProps): ts.Expression => {
     // GET GENERIC ARGUMENT
     if (!props.expression.typeArguments?.length)
       throw new TransformerError({
@@ -70,24 +67,10 @@ export namespace LlmParametersTransformer {
     analyze(true);
 
     // GENERATE LLM PARAMETERS SCHEMA
-    const typeNode: ts.ImportTypeNode = props.context.importer.type({
-      file: "typia",
-      name: ts.factory.createQualifiedName(
-        ts.factory.createIdentifier("ILlmSchema"),
-        ts.factory.createIdentifier("IParameters"),
-      ),
+    return LlmParametersProgrammer.write({
+      context: props.context,
+      metadata: analyze(false),
+      config,
     });
-    return ts.factory.createAsExpression(
-      ts.factory.createSatisfiesExpression(
-        LiteralFactory.write(
-          LlmParametersProgrammer.write({
-            metadata: analyze(false),
-            config,
-          }),
-        ),
-        typeNode,
-      ),
-      typeNode,
-    );
   };
 }
