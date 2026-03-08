@@ -19,7 +19,10 @@ export const test_llm_coerce_boolean_string_no = (): void => {
   const result2 = LlmJson.coerce<IBool>(parameters, NO);
   TestValidator.equals("NO -> false", result2.flag, false);
 
-  // Note: "n" is NOT tested because lenient parser treats it as incomplete "null"
+  // Test "n" -> false (coerce handles this separately from lenient parser)
+  const n = { flag: "n" as unknown };
+  const result3 = LlmJson.coerce<IBool>(parameters, n);
+  TestValidator.equals("n -> false", result3.flag, false);
 
   // Test "off" -> false
   const off = { flag: "off" as unknown };
