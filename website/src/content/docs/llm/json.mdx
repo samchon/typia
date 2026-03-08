@@ -63,7 +63,7 @@ JSON utilities for LLM function calling.
 When using `typia.llm.application<Class>()`, the generated `ILlmFunction` objects already include `parse()`, `coerce()`, and `validate()` methods bound to their respective parameter schemas. You can use these methods directly without importing `LlmJson`.
 
 ```typescript
-const app: ILlmAplication<MyClass> = typia.llm.application<MyClass>();
+const app: ILlmApplication<MyClass> = typia.llm.application<MyClass>();
 const func: ILlmFunction = app.functions[0];
 
 // Use methods directly from ILlmFunction
