@@ -6,8 +6,6 @@ import { IdentifierFactory } from "../../factories/IdentifierFactory";
 import { LiteralFactory } from "../../factories/LiteralFactory";
 import { MetadataFactory } from "../../factories/MetadataFactory";
 import { StatementFactory } from "../../factories/StatementFactory";
-import { TypeFactory } from "../../factories/TypeFactory";
-import { MetadataCollection } from "../../schemas/metadata/MetadataCollection";
 import { MetadataSchema } from "../../schemas/metadata/MetadataSchema";
 import { FunctionProgrammer } from "../helpers/FunctionProgrammer";
 import { FeatureProgrammer } from "../internal/FeatureProgrammer";
@@ -23,22 +21,17 @@ export namespace LlmCoerceProgrammer {
     config?: Partial<ILlmSchema.IConfig>;
     modulo: ts.LeftHandSideExpression;
     functor: FunctionProgrammer;
-    type: ts.Type;
+    metadata: MetadataSchema;
     name: string | undefined;
   }): FeatureProgrammer.IDecomposed => {
-    // Generate LLM schema from type
-    const schema: ILlmSchema.IParameters = writeSchema({
-      context: props.context,
-      config: props.config,
-      type: props.type,
-    });
-
-    const typeName =
-      props.name ??
-      TypeFactory.getFullName({
-        checker: props.context.checker,
-        type: props.type,
+    // Generate LLM schema from metadata
+    const schema: ILlmSchema.IParameters =
+      LlmParametersProgrammer.writeParameters({
+        metadata: props.metadata,
+        config: props.config,
       });
+
+    const typeName = props.name ?? "unknown";
 
     return {
       functions: {},
@@ -78,7 +71,15 @@ export namespace LlmCoerceProgrammer {
     };
   };
 
-  export const write = (props: IProps): ts.CallExpression => {
+  export interface IWriteProps {
+    context: IProps["context"];
+    modulo: ts.LeftHandSideExpression;
+    metadata: MetadataSchema;
+    config?: Partial<ILlmSchema.IConfig>;
+    name?: string;
+  }
+
+  export const write = (props: IWriteProps): ts.CallExpression => {
     const functor: FunctionProgrammer = new FunctionProgrammer(
       props.modulo.getText(),
     );
@@ -87,7 +88,7 @@ export namespace LlmCoerceProgrammer {
       config: props.config,
       modulo: props.modulo,
       functor,
-      type: props.type,
+      metadata: props.metadata,
       name: props.name,
     });
     return FeatureProgrammer.writeDecomposed({
@@ -102,30 +103,4 @@ export namespace LlmCoerceProgrammer {
     metadata: MetadataSchema;
     explore: MetadataFactory.IExplore;
   }): string[] => LlmParametersProgrammer.validate(props);
-
-  const writeSchema = (props: {
-    context: IProps["context"];
-    config?: Partial<ILlmSchema.IConfig>;
-    type: ts.Type;
-  }): ILlmSchema.IParameters => {
-    const result = MetadataFactory.analyze({
-      checker: props.context.checker,
-      transformer: props.context.transformer,
-      options: {
-        absorb: false,
-        escape: true,
-        constant: true,
-      },
-      components: new MetadataCollection({
-        replace: MetadataCollection.replace,
-      }),
-      type: props.type,
-    });
-    if (result.success === false)
-      throw new Error("Failed to analyze type for LLM coerce.");
-    return LlmParametersProgrammer.write({
-      metadata: result.data,
-      config: props.config,
-    });
-  };
 }

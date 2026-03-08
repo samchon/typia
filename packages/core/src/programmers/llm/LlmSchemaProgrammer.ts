@@ -5,8 +5,12 @@ import {
   IResult,
 } from "@typia/interface";
 import { LlmSchemaConverter } from "@typia/utils";
+import ts from "typescript";
 
+import { IProgrammerProps } from "../../context/IProgrammerProps";
 import { TransformerError } from "../../context/TransformerError";
+import { IdentifierFactory } from "../../factories/IdentifierFactory";
+import { LiteralFactory } from "../../factories/LiteralFactory";
 import { MetadataSchema } from "../../schemas/metadata/MetadataSchema";
 import { AtomicPredicator } from "../helpers/AtomicPredicator";
 import { json_schema_bigint } from "../iterate/json_schema_bigint";
@@ -17,17 +21,94 @@ import { json_schema_string } from "../iterate/json_schema_string";
 import { JsonSchemasProgrammer } from "../json/JsonSchemasProgrammer";
 
 export namespace LlmSchemaProgrammer {
+  export interface IProps extends IProgrammerProps {
+    config?: Partial<ILlmSchema.IConfig>;
+  }
+
   export interface IOutput {
     schema: ILlmSchema;
     $defs: Record<string, ILlmSchema>;
   }
 
-  export const write = (props: {
+  export interface IWriteProps {
+    context: IProps["context"];
+    metadata: MetadataSchema;
+    config?: Partial<ILlmSchema.IConfig>;
+  }
+
+  export const write = (props: IWriteProps): ts.Expression => {
+    const output: IOutput = writeSchema({
+      metadata: props.metadata,
+      config: props.config,
+    });
+
+    const schemaTypeNode: ts.ImportTypeNode = props.context.importer.type({
+      file: "typia",
+      name: "ILlmSchema",
+    });
+
+    const schemaLiteral: ts.Expression = ts.factory.createAsExpression(
+      ts.factory.createSatisfiesExpression(
+        LiteralFactory.write(output.schema),
+        schemaTypeNode,
+      ),
+      schemaTypeNode,
+    );
+
+    // If no $defs, just return the schema literal
+    if (Object.keys(output.$defs).length === 0) {
+      return schemaLiteral;
+    }
+
+    // Has $defs - need to create a function that takes $defs parameter
+    return ts.factory.createArrowFunction(
+      undefined,
+      undefined,
+      [
+        IdentifierFactory.parameter(
+          "$defs",
+          ts.factory.createTypeReferenceNode("Record", [
+            ts.factory.createKeywordTypeNode(ts.SyntaxKind.StringKeyword),
+            schemaTypeNode,
+          ]),
+          undefined,
+        ),
+      ],
+      schemaTypeNode,
+      undefined,
+      ts.factory.createBlock(
+        [
+          ts.factory.createExpressionStatement(
+            ts.factory.createCallExpression(
+              ts.factory.createIdentifier("Object.assign"),
+              undefined,
+              [
+                ts.factory.createIdentifier("$defs"),
+                ts.factory.createAsExpression(
+                  LiteralFactory.write(output.$defs),
+                  ts.factory.createTypeReferenceNode("Record", [
+                    ts.factory.createKeywordTypeNode(
+                      ts.SyntaxKind.StringKeyword,
+                    ),
+                    schemaTypeNode,
+                  ]),
+                ),
+              ],
+            ),
+          ),
+          ts.factory.createReturnStatement(schemaLiteral),
+        ],
+        true,
+      ),
+    );
+  };
+
+  export const writeSchema = (props: {
     metadata: MetadataSchema;
     config?: Partial<ILlmSchema.IConfig>;
   }): IOutput => {
     const collection: IJsonSchemaCollection<"3.1"> =
-      JsonSchemasProgrammer.write({
+      JsonSchemasProgrammer.writeSchemas({
         version: "3.1",
         metadatas: [props.metadata],
       });
@@ -108,6 +189,7 @@ export namespace LlmSchemaProgrammer {
         output.push(`LLM schema does not support ${native.name} type.`);
     return output;
   };
+
 }
 
 const size = (metadata: MetadataSchema): number =>

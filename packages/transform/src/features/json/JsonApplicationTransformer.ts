@@ -1,11 +1,10 @@
 import {
   JsonApplicationProgrammer,
-  LiteralFactory,
   MetadataCollection,
   MetadataFactory,
   MetadataSchema,
 } from "@typia/core";
-import { IJsonSchemaApplication, ValidationPipe } from "@typia/interface";
+import { ValidationPipe } from "@typia/interface";
 import ts from "typescript";
 
 import { ITransformProps } from "../../ITransformProps";
@@ -56,14 +55,12 @@ export namespace JsonApplicationTransformer {
         errors: result.errors,
       });
 
-    // GENERATE LLM APPLICATION
-    const app: IJsonSchemaApplication<"3.0" | "3.1"> =
-      JsonApplicationProgrammer.write({
-        version,
-        metadata: result.data,
-      });
-    const literal: ts.Expression = LiteralFactory.write(app);
-    return literal;
+    // GENERATE JSON APPLICATION
+    return JsonApplicationProgrammer.write({
+      context: props.context,
+      version,
+      metadata: result.data,
+    });
   };
 
   const get_parameter =

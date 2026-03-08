@@ -39,37 +39,44 @@ export namespace LlmCreateParseTransformer {
       });
 
     // VALIDATE TYPE
-    const result: ValidationPipe<MetadataSchema, MetadataFactory.IError> =
-      MetadataFactory.analyze({
-        checker: props.context.checker,
-        transformer: props.context.transformer,
-        options: {
-          absorb: true,
-          escape: true,
-          constant: true,
-          validate: (metadata, explore) =>
-            LlmParseProgrammer.validate({
-              config,
-              metadata,
-              explore,
-            }),
-        },
-        components: new MetadataCollection({
-          replace: MetadataCollection.replace,
-        }),
-        type,
-      });
-    if (result.success === false)
-      throw TransformerError.from({
-        code: "typia.llm.createParse",
-        errors: result.errors,
-      });
+    const analyze = (validate: boolean): MetadataSchema => {
+      const result: ValidationPipe<MetadataSchema, MetadataFactory.IError> =
+        MetadataFactory.analyze({
+          checker: props.context.checker,
+          transformer: props.context.transformer,
+          options: {
+            absorb: validate,
+            escape: true,
+            constant: true,
+            validate:
+              validate === true
+                ? (metadata, explore) =>
+                    LlmParseProgrammer.validate({
+                      config,
+                      metadata,
+                      explore,
+                    })
+                : undefined,
+          },
+          components: new MetadataCollection({
+            replace: MetadataCollection.replace,
+          }),
+          type,
+        });
+      if (result.success === false)
+        throw TransformerError.from({
+          code: "typia.llm.createParse",
+          errors: result.errors,
+        });
+      return result.data;
+    };
+    analyze(true);
 
     // GENERATE CODE (factory returns the function directly)
     return LlmParseProgrammer.write({
       context: props.context,
       modulo: props.modulo,
-      type,
+      metadata: analyze(false),
       name: (top as ts.TypeNode).getFullText().trim(),
       config,
     });
