@@ -90,13 +90,40 @@ export interface ILlmFunction {
    * Type validation is NOT performed — use {@link validate} after parsing.
    *
    * If the SDK (e.g., LangChain, Vercel AI, MCP) already parses JSON internally
-   * and provides a pre-parsed object, use `LlmJson.coerce()` from `@typia/utils`
-   * instead to apply schema-based type coercion without re-parsing.
+   * and provides a pre-parsed object, use `LlmJson.coerce()` from
+   * `@typia/utils` instead to apply schema-based type coercion without
+   * re-parsing.
    *
    * @param str Raw JSON string from LLM output
    * @returns Parse result with data on success, or partial data with errors
    */
   parse: (str: string) => IJsonParseResult<unknown>;
+
+  /**
+   * Coerce pre-parsed arguments to match expected schema types.
+   *
+   * **Use this only when the SDK (e.g., LangChain, Vercel AI, MCP) already
+   * parses JSON internally.** For raw JSON strings from LLM output, use
+   * {@link parse} instead — it handles both lenient parsing and type coercion
+   * in one step.
+   *
+   * LLMs often return values with incorrect types even after parsing:
+   *
+   * - `"42"` → `42` (when schema expects number)
+   * - `"true"` → `true` (when schema expects boolean)
+   * - `"null"` → `null` (when schema expects null)
+   * - `"{...}"` → `{...}` (when schema expects object)
+   * - `"[...]"` → `[...]` (when schema expects array)
+   *
+   * This function recursively coerces these double-stringified values based on
+   * the {@link parameters} schema.
+   *
+   * Type validation is NOT performed — use {@link validate} after coercion.
+   *
+   * @param data Pre-parsed arguments object from SDK
+   * @returns Coerced arguments with corrected types
+   */
+  coerce: (data: unknown) => unknown;
 
   /**
    * Validates LLM-generated arguments against the schema.
