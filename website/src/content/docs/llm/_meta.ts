@@ -4,6 +4,7 @@ export default {
   application: "application() functions",
   parameters: "parameters() function",
   schema: "schema() function",
+  json: "LlmJson module",
   mcp: "Model Context Protocol",
   vercel: "Vercel AI SDK",
   langchain: "LangChain",
