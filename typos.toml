@@ -10,6 +10,7 @@ Jeongho = "Jeongho"
 Nam = "Nam"
 typia = "typia"
 tru = "tru"
+fals = "fals"
 
 [files]
 extend-exclude = [

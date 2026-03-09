@@ -7,16 +7,16 @@ import { LlmJson } from "@typia/utils";
  * The existing `escape_sequences.ts` test uses valid JSON inputs that pass
  * JSON.parse successfully, meaning the lenient parser's escape switch
  * (parseString lines 659-728) is NEVER exercised. If someone removes or
- * modifies the \t, \b, \f, \r, \n, or \/ cases in the lenient parser,
- * no existing test would catch it.
+ * modifies the \t, \b, \f, \r, \n, or / cases in the lenient parser, no
+ * existing test would catch it.
  *
  * This test forces the lenient parser by using UNCLOSED strings (JSON.parse
  * fails on unclosed strings). The escape sequences in the string are then
  * processed by the lenient parser's own escape switch, not JSON.parse.
  *
  * Note: In TypeScript source, `\\n` produces the two-character sequence
- * backslash + n at runtime, which the parser sees as an escape sequence.
- * This is different from `\n` which is an actual newline character.
+ * backslash + n at runtime, which the parser sees as an escape sequence. This
+ * is different from `\n` which is an actual newline character.
  */
 export const test_llm_json_parse_lenient_escape_in_lenient_path = (): void => {
   // =========================================================================
@@ -74,10 +74,12 @@ export const test_llm_json_parse_lenient_escape_in_lenient_path = (): void => {
   // =========================================================================
 
   // \t in value with unquoted key
-  const ot = LlmJson.parse('{key: "col1\\tcol2"}');
-  TestValidator.equals("obj-esc-t-success", ot.success, true);
-  if (ot.success)
-    TestValidator.equals("obj-esc-t-data", ot.data, { key: "col1\tcol2" });
+  const unquotedKey = LlmJson.parse('{key: "col1\\tcol2"}');
+  TestValidator.equals("obj-esc-t-success", unquotedKey.success, true);
+  if (unquotedKey.success)
+    TestValidator.equals("obj-esc-t-data", unquotedKey.data, {
+      key: "col1\tcol2",
+    });
 
   // \r\n in value with unquoted key
   const orn = LlmJson.parse('{key: "line1\\r\\nline2"}');
