@@ -1,34 +1,47 @@
 import { LlmJson, dedent } from "@typia/utils";
 import typia, { tags } from "typia";
 
-interface IMember {
-  id: string & tags.Format<"uuid">;
-  email: string & tags.Format<"email">;
-  active: boolean;
-  information: IMemberInformation;
-  etc: Record<string, string>;
-}
-interface IMemberInformation {
-  name: string;
-  age: number & tags.Type<"uint32">;
-  hobbies: string[];
+interface IOrder {
+  payment: IPayment;
+  product: {
+    name: string;
+    price: number & tags.Minimum<0>;
+    quantity: number & tags.Type<"uint32">;
+  };
+  customer: {
+    name: string;
+    email: string & tags.Format<"email">;
+    vip: boolean;
+  };
 }
 
+type IPayment =
+  | { type: "card"; cardNumber: string }
+  | { type: "bank"; accountNumber: string };
+
 const str = dedent`
-  Here is the result of function calling:
+  > LLM sometimes returns some prefix text with markdown JSON code block.
+
+  I'd be happy to help you with your order! 😊
 
   \`\`\`json
   {
-    /**
-     * Thinking... who is the person currently I am talking to?
-     */
-    "active": tru,
-    email: "someone@gmail.com", // primary email address
-    etc: ${JSON.stringify({ note: "newbie", level: "beginner" })},
-    "information": {
-      "name": "John Doe", // name of the user
-      "age": "30", // age in years
-      hobbies: ["soccer", "cooking", , , , "traveling
+    "order": {
+      "payment": "{\"type\":\"card\",\"cardNumber\":\"1234-5678", // unclosed string & bracket
+      "product": {
+        name: "Laptop", // unquoted key
+        price: "1299.99", // wrong type (string instead of number)
+        quantity: 2, // trailing comma
+      },
+      "customer": {
+        // incomplete keyword + unclosed brackets
+        "name": "John Doe",
+        "email": "john@example.com",
+        vip: tru
+  \`\`\`
 `;
-const result = LlmJson.parse(str, typia.llm.parameters<IMember>());
+
+let result = LlmJson.parse(str, typia.llm.parameters<IOrder>());
+result = typia.llm.parse<IOrder>(str);
+
 console.log(JSON.stringify(result, null, 2));

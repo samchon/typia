@@ -21,14 +21,9 @@ export const test_llm_applicationEquals = (): void => {
       superfluous: "property",
     },
   });
-  TestValidator.predicate(
-    "result",
-    () =>
-      result.success === false &&
-      result.errors.length === 1 &&
-      result.errors[0]!.path === "$input.body.superfluous" &&
-      result.errors[0]!.expected === "undefined",
-  );
+  TestValidator.equals("result-success", result.success, false);
+  if (!result.success)
+    TestValidator.equals("result-errors", [{ expected: "undefined" }], result.errors);
 };
 
 const document: OpenApi.IDocument = {

@@ -624,7 +624,15 @@ class LenientJsonParser {
       }
 
       // Parse value
+      const prevPos: number = this.pos;
       const value: unknown = this.parseValue(path + "[" + index + "]");
+
+      // Guard: if parseValue didn't advance, skip unexpected char to prevent infinite loop
+      if (this.pos === prevPos && this.pos < this.input.length) {
+        this.pos++;
+        continue;
+      }
+
       result.push(value);
       index++;
 
