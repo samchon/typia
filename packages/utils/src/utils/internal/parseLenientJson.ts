@@ -216,11 +216,11 @@ function startsWithPrimitive(input: string): boolean {
     input.startsWith("null")
   )
     return true;
-  // Partial keywords
+  // Partial keywords (note: "null" requires at least 2 chars to match parseKeywordOrIdentifier logic)
   if (
     "true".startsWith(input) ||
     "false".startsWith(input) ||
-    "null".startsWith(input)
+    ("null".startsWith(input) && input.length >= 2)
   )
     return true;
   // Boolean string variants (note: "n" is intentionally excluded)
