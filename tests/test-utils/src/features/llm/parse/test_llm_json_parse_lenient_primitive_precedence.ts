@@ -91,4 +91,38 @@ export const test_llm_json_parse_lenient_primitive_precedence = (): void => {
   const r14 = LlmJson.parse("-[1,2]");
   TestValidator.equals("minus-bracket-success", r14.success, true);
   if (r14.success) TestValidator.equals("minus-bracket-data", r14.data, 0);
+
+  // =========================================================================
+  // startsWithPrimitive passes but parsing fails (lines 60-61)
+  // "trueish".startsWith("true") → true, but parseKeywordOrIdentifier
+  // extracts "trueish" which is an invalid identifier → error
+  // =========================================================================
+
+  // "trueish" at root level
+  const r15 = LlmJson.parse("trueish");
+  TestValidator.equals("trueish-root-success", r15.success, false);
+  if (!r15.success)
+    TestValidator.equals("trueish-root-errors", r15.errors.length > 0, true);
+
+  // "falsetto" at root level
+  const r16 = LlmJson.parse("falsetto");
+  TestValidator.equals("falsetto-root-success", r16.success, false);
+
+  // "nullable" at root level
+  const r17 = LlmJson.parse("nullable");
+  TestValidator.equals("nullable-root-success", r17.success, false);
+
+  // =========================================================================
+  // Same pattern after comment stripping (lines 78-79)
+  // findJsonStart returns -1, skipCommentsAndWhitespace strips to "trueish",
+  // startsWithPrimitive("trueish") → true, parser runs on original → fails
+  // =========================================================================
+
+  // "trueish" after line comment
+  const r18 = LlmJson.parse("// comment\ntrueish");
+  TestValidator.equals("comment-trueish-success", r18.success, false);
+
+  // "falsetto" after block comment
+  const r19 = LlmJson.parse("/* block */falsetto");
+  TestValidator.equals("comment-falsetto-success", r19.success, false);
 };
