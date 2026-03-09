@@ -1,6 +1,3 @@
-import { jsonSchema, tool } from "ai";
-import type { Tool } from "ai";
-import type { JSONSchema7 } from "json-schema";
 import {
   IHttpLlmController,
   IHttpLlmFunction,
@@ -10,6 +7,9 @@ import {
   IValidation,
 } from "@typia/interface";
 import { HttpLlm, LlmJson } from "@typia/utils";
+import { jsonSchema, tool } from "ai";
+import type { Tool } from "ai";
+import type { JSONSchema7 } from "json-schema";
 
 export namespace VercelToolsRegistrar {
   /**
@@ -136,7 +136,7 @@ export namespace VercelToolsRegistrar {
 
       execute: async (args: object) => {
         // Coerce and validate using typia's built-in functions
-        const coerced: unknown = LlmJson.coerce(args, func.parameters);
+        const coerced: unknown = LlmJson.coerce(func.parameters, args);
         const validation: IValidation<unknown> = func.validate(coerced);
         if (!validation.success) {
           // Return validation error in LLM-friendly format
