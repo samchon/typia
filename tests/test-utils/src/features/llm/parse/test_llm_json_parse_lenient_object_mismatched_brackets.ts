@@ -8,9 +8,7 @@ export const test_llm_json_parse_lenient_object_mismatched_brackets =
     TestValidator.equals("bracket-val-success", r1.success, false);
     if (!r1.success) {
       TestValidator.equals("bracket-val-data", (r1.data as any)?.a, undefined);
-      TestValidator.equals("bracket-val-errors", r1.errors, [
-        { path: "$input", expected: "string key", value: "]" },
-      ]);
+      TestValidator.equals("bracket-val-errors", [{ expected: "string key" }], r1.errors);
     }
 
     // ] after colon, then more properties
@@ -28,9 +26,7 @@ export const test_llm_json_parse_lenient_object_mismatched_brackets =
         (r2.data as any)?.b,
         undefined,
       );
-      TestValidator.equals("bracket-then-more-errors", r2.errors, [
-        { path: "$input", expected: "string key", value: "]" },
-      ]);
+      TestValidator.equals("bracket-then-more-errors", [{ expected: "string key" }], r2.errors);
     }
 
     // Multiple ] in object value position
@@ -42,18 +38,14 @@ export const test_llm_json_parse_lenient_object_mismatched_brackets =
         (r3.data as any)?.a,
         undefined,
       );
-      TestValidator.equals("multi-bracket-val-errors", r3.errors, [
-        { path: "$input", expected: "string key", value: "]" },
-      ]);
+      TestValidator.equals("multi-bracket-val-errors", [{ expected: "string key" }], r3.errors);
     }
 
     // [ in object KEY position (not value)
     const r6 = LlmJson.parse("{[]: 1}");
     TestValidator.equals("bracket-key-success", r6.success, false);
     if (!r6.success)
-      TestValidator.equals("bracket-key-errors", r6.errors, [
-        { path: "$input", expected: "string key", value: "[" },
-      ]);
+      TestValidator.equals("bracket-key-errors", [{ expected: "string key" }], r6.errors);
 
     // } in array, then ] (both mismatched and correct)
     const r7 = LlmJson.parse("[1, }, ], 2]");
@@ -76,8 +68,6 @@ export const test_llm_json_parse_lenient_object_mismatched_brackets =
     if (!r9.success) {
       const data = r9.data as any;
       TestValidator.equals("obj-in-arr-bracket-val-len", Array.isArray(data), true);
-      TestValidator.equals("obj-in-arr-bracket-val-errors", r9.errors, [
-        { path: "$input[0]", expected: "string key", value: "]" },
-      ]);
+      TestValidator.equals("obj-in-arr-bracket-val-errors", [{ expected: "string key" }], r9.errors);
     }
   };

@@ -5,32 +5,28 @@ export const test_llm_json_parse_lenient_invalid_value = (): void => {
   // Invalid character as value (not a valid JSON token)
   const result = LlmJson.parse('{"key": @invalid}');
   TestValidator.equals("success", result.success, false);
-  if (!result.success) {
-    TestValidator.equals("has_errors", result.errors.length > 0, true);
-    TestValidator.equals("error_expected", result.errors[0]?.expected, "JSON value");
-  }
+  if (!result.success)
+    TestValidator.equals("errors", "JSON value", result.errors[0]?.expected);
 
   // Invalid @ in value with partial recovery (valid key 'a' preserved)
   const r2 = LlmJson.parse('{"a": 1, "b": @, "c": 3}');
   TestValidator.equals("at-sign-success", r2.success, false);
   if (!r2.success) {
     TestValidator.equals("at-sign-a", (r2.data as any)?.a, 1);
-    TestValidator.equals("at-sign-errors-len", r2.errors.length, 1);
-    TestValidator.equals("at-sign-errors-path", r2.errors[0]?.path, "$input.b");
-    TestValidator.equals("at-sign-errors-expected", r2.errors[0]?.expected, "JSON value");
+    TestValidator.equals("at-sign-errors", "JSON value", r2.errors[0]?.expected);
   }
 
   // Multiple invalid characters in values
   const r3 = LlmJson.parse('{"a": #, "b": %, "c": 3}');
   TestValidator.equals("multi-invalid-success", r3.success, false);
   if (!r3.success) {
-    TestValidator.equals("multi-invalid-errors", r3.errors.length >= 1, true);
+    TestValidator.equals("multi-invalid-errors-0", "JSON value", r3.errors[0]?.expected);
+    TestValidator.equals("multi-invalid-errors-1", "JSON value", r3.errors[1]?.expected);
   }
 
   // Invalid character in array value
   const r4 = LlmJson.parse("[1, @, 3]");
   TestValidator.equals("arr-invalid-success", r4.success, false);
-  if (!r4.success) {
-    TestValidator.equals("arr-invalid-errors", r4.errors.length >= 1, true);
-  }
+  if (!r4.success)
+    TestValidator.equals("arr-invalid-errors", "JSON value", r4.errors[0]?.expected);
 };

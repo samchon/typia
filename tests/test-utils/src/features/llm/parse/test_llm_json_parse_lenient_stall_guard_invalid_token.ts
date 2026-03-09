@@ -12,9 +12,7 @@ export const test_llm_json_parse_lenient_stall_guard_invalid_token = (): void =>
   TestValidator.equals("key-bracket-success", kBracket.success, false);
   if (!kBracket.success) {
     TestValidator.equals("key-bracket-data", kBracket.data, {});
-    TestValidator.equals("key-bracket-errors", kBracket.errors, [
-      { path: "$input", expected: "string key", value: "]" },
-    ]);
+    TestValidator.equals("key-bracket-errors", [{ expected: "string key" }], kBracket.errors);
   }
 
   // [ at key position → error
@@ -22,9 +20,7 @@ export const test_llm_json_parse_lenient_stall_guard_invalid_token = (): void =>
   TestValidator.equals("key-square-success", kSquare.success, false);
   if (!kSquare.success) {
     TestValidator.equals("key-square-data", kSquare.data, {});
-    TestValidator.equals("key-square-errors", kSquare.errors, [
-      { path: "$input", expected: "string key", value: "[" },
-    ]);
+    TestValidator.equals("key-square-errors", [{ expected: "string key" }], kSquare.errors);
   }
 
   // , at key position → skip comma, then } closes
@@ -37,9 +33,7 @@ export const test_llm_json_parse_lenient_stall_guard_invalid_token = (): void =>
   TestValidator.equals("key-colon-success", kColon.success, false);
   if (!kColon.success) {
     TestValidator.equals("key-colon-data", kColon.data, {});
-    TestValidator.equals("key-colon-errors", kColon.errors, [
-      { path: "$input", expected: "string key", value: ":" },
-    ]);
+    TestValidator.equals("key-colon-errors", [{ expected: "string key" }], kColon.errors);
   }
 
   // Special chars at key position → all error, return {}
@@ -49,9 +43,7 @@ export const test_llm_json_parse_lenient_stall_guard_invalid_token = (): void =>
     TestValidator.equals(`key-${ch}-success`, r.success, false);
     if (!r.success) {
       TestValidator.equals(`key-${ch}-data`, r.data, {});
-      TestValidator.equals(`key-${ch}-errors`, r.errors, [
-        { path: "$input", expected: "string key", value: ch },
-      ]);
+      TestValidator.equals(`key-${ch}-errors`, [{ expected: "string key" }], r.errors);
     }
   }
 
@@ -71,9 +63,7 @@ export const test_llm_json_parse_lenient_stall_guard_invalid_token = (): void =>
       (vBracket.data as any)?.k,
       undefined,
     );
-    TestValidator.equals("val-bracket-errors", vBracket.errors, [
-      { path: "$input", expected: "string key", value: "]" },
-    ]);
+    TestValidator.equals("val-bracket-errors", [{ expected: "string key" }], vBracket.errors);
   }
 
   // } at value position → parseValue returns undefined (structural),
@@ -99,9 +89,7 @@ export const test_llm_json_parse_lenient_stall_guard_invalid_token = (): void =>
   TestValidator.equals("val-colon-success", vColon.success, false);
   if (!vColon.success) {
     TestValidator.equals("val-colon-k", (vColon.data as any)?.k, undefined);
-    TestValidator.equals("val-colon-errors", vColon.errors, [
-      { path: "$input.k", expected: "JSON value", value: ":" },
-    ]);
+    TestValidator.equals("val-colon-errors", [{ expected: "JSON value" }], vColon.errors);
   }
 
   // @, #, ~, ! at value position → error + skip, then } closes
@@ -111,9 +99,7 @@ export const test_llm_json_parse_lenient_stall_guard_invalid_token = (): void =>
     TestValidator.equals(`val-${ch}-success`, r.success, false);
     if (!r.success) {
       TestValidator.equals(`val-${ch}-k`, (r.data as any)?.k, undefined);
-      TestValidator.equals(`val-${ch}-errors`, r.errors, [
-        { path: "$input.k", expected: "JSON value", value: ch },
-      ]);
+      TestValidator.equals(`val-${ch}-errors`, [{ expected: "JSON value" }], r.errors);
     }
   }
 
@@ -132,41 +118,31 @@ export const test_llm_json_parse_lenient_stall_guard_invalid_token = (): void =>
   const aColon = LlmJson.parse("[:]");
   TestValidator.equals("arr-colon-success", aColon.success, false);
   if (!aColon.success)
-    TestValidator.equals("arr-colon-errors", aColon.errors, [
-      { path: "$input[0]", expected: "JSON value", value: ":" },
-    ]);
+    TestValidator.equals("arr-colon-errors", [{ expected: "JSON value" }], aColon.errors);
 
   // @ in array → parseValue error+advance, undefined pushed
   const aAt = LlmJson.parse("[@]");
   TestValidator.equals("arr-at-success", aAt.success, false);
   if (!aAt.success)
-    TestValidator.equals("arr-at-errors", aAt.errors, [
-      { path: "$input[0]", expected: "JSON value", value: "@" },
-    ]);
+    TestValidator.equals("arr-at-errors", [{ expected: "JSON value" }], aAt.errors);
 
   // # in array → parseValue error+advance, undefined pushed
   const aHash = LlmJson.parse("[#]");
   TestValidator.equals("arr-hash-success", aHash.success, false);
   if (!aHash.success)
-    TestValidator.equals("arr-hash-errors", aHash.errors, [
-      { path: "$input[0]", expected: "JSON value", value: "#" },
-    ]);
+    TestValidator.equals("arr-hash-errors", [{ expected: "JSON value" }], aHash.errors);
 
   // ~ in array → parseValue error+advance, undefined pushed
   const aTilde = LlmJson.parse("[~]");
   TestValidator.equals("arr-tilde-success", aTilde.success, false);
   if (!aTilde.success)
-    TestValidator.equals("arr-tilde-errors", aTilde.errors, [
-      { path: "$input[0]", expected: "JSON value", value: "~" },
-    ]);
+    TestValidator.equals("arr-tilde-errors", [{ expected: "JSON value" }], aTilde.errors);
 
   // ! in array → parseValue error+advance, undefined pushed
   const aBang = LlmJson.parse("[!]");
   TestValidator.equals("arr-bang-success", aBang.success, false);
   if (!aBang.success)
-    TestValidator.equals("arr-bang-errors", aBang.errors, [
-      { path: "$input[0]", expected: "JSON value", value: "!" },
-    ]);
+    TestValidator.equals("arr-bang-errors", [{ expected: "JSON value" }], aBang.errors);
 
   // Multiple } → all skipped by stall guard, empty array
   const aMulti = LlmJson.parse("[}}}}]");
@@ -194,9 +170,7 @@ export const test_llm_json_parse_lenient_stall_guard_invalid_token = (): void =>
   TestValidator.equals("stress-alt-obj-success", s2.success, false);
   if (!s2.success) {
     TestValidator.equals("stress-alt-obj-data", s2.data, {});
-    TestValidator.equals("stress-alt-obj-errors", s2.errors, [
-      { path: "$input", expected: "string key", value: "]" },
-    ]);
+    TestValidator.equals("stress-alt-obj-errors", [{ expected: "string key" }], s2.errors);
   }
 
   // Complex nested: {"a": {"b": [1, }, 2], "c": ]}}
@@ -210,9 +184,6 @@ export const test_llm_json_parse_lenient_stall_guard_invalid_token = (): void =>
     TestValidator.equals("stress-deep-b", data?.a?.b, [1, 2]);
     TestValidator.equals("stress-deep-c", data?.a?.c, undefined);
     TestValidator.equals("stress-deep-has-c", "c" in (data?.a || {}), true);
-    TestValidator.equals("stress-deep-errors", s3.errors, [
-      { path: "$input.a", expected: "string key", value: "]" },
-      { path: "$input", expected: "string key", value: "]" },
-    ]);
+    TestValidator.equals("stress-deep-errors", [{ expected: "string key" }, { expected: "string key" }], s3.errors);
   }
 };

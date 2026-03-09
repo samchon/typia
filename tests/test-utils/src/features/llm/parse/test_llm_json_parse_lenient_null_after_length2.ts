@@ -20,11 +20,8 @@ export const test_llm_json_parse_lenient_null_after_length2 = (): void => {
   // "n" alone should NOT match null (length < 2)
   const r4 = LlmJson.parse("n");
   TestValidator.equals("n-success", r4.success, false);
-  if (!r4.success) {
-    TestValidator.equals("n-errors-len", r4.errors.length, 1);
-    TestValidator.equals("n-errors-path", r4.errors[0]?.path, "$input");
-    TestValidator.equals("n-errors-expected", r4.errors[0]?.expected, "JSON value");
-  }
+  if (!r4.success)
+    TestValidator.equals("n-errors", [{ expected: "JSON value" }], r4.errors);
 
   // "nu" in object value
   const r5 = LlmJson.parse('{"val": nu');

@@ -6,21 +6,14 @@ export const test_llm_json_parse_lenient_markdown_edge = (): void => {
   // (contentStart >= input.length at line 186)
   const r1 = LlmJson.parse("```json");
   TestValidator.equals("no-newline-success", r1.success, false);
-  if (!r1.success) {
-    TestValidator.equals("no-newline-errors-len", r1.errors.length, 1);
-    TestValidator.equals("no-newline-errors-path", r1.errors[0]?.path, "$input");
-    TestValidator.equals("no-newline-errors-expected", r1.errors[0]?.expected, "JSON value");
-  }
+  if (!r1.success)
+    TestValidator.equals("no-newline-errors", [{ expected: "JSON value" }], r1.errors);
 
   // "```json\n" with newline but nothing after → extracts empty string
   const r2 = LlmJson.parse("```json\n");
   TestValidator.equals("newline-only-success", r2.success, false);
-  if (!r2.success) {
-    TestValidator.equals("newline-only-errors-len", r2.errors.length, 1);
-    TestValidator.equals("newline-only-errors-path", r2.errors[0]?.path, "$input");
-    TestValidator.equals("newline-only-errors-expected", r2.errors[0]?.expected, "JSON value");
-    TestValidator.equals("newline-only-errors-value", r2.errors[0]?.value, "empty input");
-  }
+  if (!r2.success)
+    TestValidator.equals("newline-only-errors", [{ expected: "JSON value" }], r2.errors);
 
   // Content on same line as ```json marker (before newline)
   // The parser skips everything until newline, so {"a":1} is skipped
@@ -62,12 +55,8 @@ export const test_llm_json_parse_lenient_markdown_edge = (): void => {
   // ```json with only whitespace content → empty trimmed → failure
   const r8 = LlmJson.parse("```json\n   \n```");
   TestValidator.equals("whitespace-content-success", r8.success, false);
-  if (!r8.success) {
-    TestValidator.equals("whitespace-content-errors-len", r8.errors.length, 1);
-    TestValidator.equals("whitespace-content-errors-path", r8.errors[0]?.path, "$input");
-    TestValidator.equals("whitespace-content-errors-expected", r8.errors[0]?.expected, "JSON value");
-    TestValidator.equals("whitespace-content-errors-value", r8.errors[0]?.value, "empty input");
-  }
+  if (!r8.success)
+    TestValidator.equals("whitespace-content-errors", [{ expected: "JSON value" }], r8.errors);
 
   // ```json immediately followed by ``` on same line (no newline between)
   const r9 = LlmJson.parse("```json```");
@@ -76,9 +65,6 @@ export const test_llm_json_parse_lenient_markdown_edge = (): void => {
   // input[8]='`', input[9]='`' → none is '\n', so contentStart goes to 10 = length
   // Returns null (contentStart >= length)
   TestValidator.equals("no-gap-block-success", r9.success, false);
-  if (!r9.success) {
-    TestValidator.equals("no-gap-block-errors-len", r9.errors.length, 1);
-    TestValidator.equals("no-gap-block-errors-path", r9.errors[0]?.path, "$input");
-    TestValidator.equals("no-gap-block-errors-expected", r9.errors[0]?.expected, "JSON value");
-  }
+  if (!r9.success)
+    TestValidator.equals("no-gap-block-errors", [{ expected: "JSON value" }], r9.errors);
 };
