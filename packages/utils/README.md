@@ -21,10 +21,10 @@ Automatically installed as a dependency of `typia`.
 | `HttpLlm` | Create LLM controllers from OpenAPI documents and execute function calls |
 | `HttpMigration` | HTTP migration utilities |
 | `HttpError` | HTTP error type |
-| `LlmSchemaConverter` | Convert JSON Schema to LLM schema |
 | `OpenApiConverter` | Convert between OpenAPI versions |
-| `LlmTypeChecker` | Type checker for LLM schemas |
 | `OpenApiTypeChecker` | Type checker for OpenAPI documents |
+| `LlmSchemaConverter` | Convert JSON Schema to LLM schema |
+| `LlmTypeChecker` | Type checker for LLM schemas |
 | `LlmJson` | Parse lenient JSON and format validation errors for LLM-friendly feedback |
 
 ## `LlmJson`

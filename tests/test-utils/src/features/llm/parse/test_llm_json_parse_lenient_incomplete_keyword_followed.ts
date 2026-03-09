@@ -58,12 +58,7 @@ export const test_llm_json_parse_lenient_incomplete_keyword_followed = (): void 
     TestValidator.equals("f-comma-data", r8.data, { a: false, b: 2 });
   }
 
-  // Single letter "n" followed by comma
-  const r9 = LlmJson.parse('{"a": n, "b": 3}');
-  TestValidator.equals("n-comma-success", r9.success, true);
-  if (r9.success) {
-    TestValidator.equals("n-comma-data", r9.data, { a: null, b: 3 });
-  }
+  // "n" is NOT handled (neither null nor false) - intentionally excluded
 
   // Multiple incomplete keywords in one object
   const r10 = LlmJson.parse('{"x": tru, "y": fal, "z": nul}');

@@ -223,6 +223,16 @@ function startsWithPrimitive(input: string): boolean {
     "null".startsWith(input)
   )
     return true;
+  // Boolean string variants (note: "n" is intentionally excluded)
+  const lower: string = input.toLowerCase();
+  if (
+    lower === "yes" ||
+    lower === "y" ||
+    lower === "on" ||
+    lower === "no" ||
+    lower === "off"
+  )
+    return true;
   return false;
 }
 
@@ -320,10 +330,16 @@ class LenientJsonParser {
     if (token === "false") return false;
     if (token === "null") return null;
 
+    // Boolean string coercion: "yes", "y", "on" -> true, "no", "off" -> false
+    // Note: "n" is intentionally NOT handled (neither null nor false)
+    const lower: string = token.toLowerCase();
+    if (lower === "yes" || lower === "y" || lower === "on") return true;
+    if (lower === "no" || lower === "off") return false;
+
     // Partial match for lenient parsing (e.g., "tru" -> true, "fal" -> false)
     if ("true".startsWith(token) && token.length > 0) return true;
     if ("false".startsWith(token) && token.length > 0) return false;
-    if ("null".startsWith(token) && token.length > 0) return null;
+    if ("null".startsWith(token) && token.length >= 2) return null;
 
     // Check if this looks like a string with missing opening quote (e.g., abcdefg")
     if (this.pos < this.input.length && this.input[this.pos] === '"') {
