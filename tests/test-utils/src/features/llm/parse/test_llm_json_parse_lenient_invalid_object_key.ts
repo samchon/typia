@@ -21,4 +21,10 @@ export const test_llm_json_parse_lenient_invalid_object_key = (): void => {
   // Pure number as key (0: "value")
   const result3 = LlmJson.parse("{0: \"value\"}");
   TestValidator.equals("num-key-success", result3.success, false);
+  if (!result3.success) {
+    TestValidator.equals("num-key-errors-len", result3.errors.length, 1);
+    TestValidator.equals("num-key-errors-path", result3.errors[0]?.path, "$input");
+    TestValidator.equals("num-key-errors-expected", result3.errors[0]?.expected, "string key");
+    TestValidator.equals("num-key-errors-value", result3.errors[0]?.value, "0");
+  }
 };

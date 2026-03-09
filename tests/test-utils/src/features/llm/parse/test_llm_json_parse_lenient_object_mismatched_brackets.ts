@@ -6,8 +6,13 @@ export const test_llm_json_parse_lenient_object_mismatched_brackets =
     // ] in object value position: parseValue returns undefined, then ] fails as key
     const r1 = LlmJson.parse('{"a": ]}');
     TestValidator.equals("bracket-val-success", r1.success, false);
-    if (!r1.success)
+    if (!r1.success) {
       TestValidator.equals("bracket-val-data", (r1.data as any)?.a, undefined);
+      TestValidator.equals("bracket-val-errors-len", r1.errors.length, 1);
+      TestValidator.equals("bracket-val-errors-path", r1.errors[0]?.path, "$input");
+      TestValidator.equals("bracket-val-errors-expected", r1.errors[0]?.expected, "string key");
+      TestValidator.equals("bracket-val-errors-value", r1.errors[0]?.value, "]");
+    }
 
     // ] after colon, then more properties
     const r2 = LlmJson.parse('{"a": ], "b": 1}');
@@ -24,21 +29,36 @@ export const test_llm_json_parse_lenient_object_mismatched_brackets =
         (r2.data as any)?.b,
         undefined,
       );
+      TestValidator.equals("bracket-then-more-errors-len", r2.errors.length, 1);
+      TestValidator.equals("bracket-then-more-errors-path", r2.errors[0]?.path, "$input");
+      TestValidator.equals("bracket-then-more-errors-expected", r2.errors[0]?.expected, "string key");
+      TestValidator.equals("bracket-then-more-errors-value", r2.errors[0]?.value, "]");
     }
 
     // Multiple ] in object value position
     const r3 = LlmJson.parse('{"a": ]]]}}');
     TestValidator.equals("multi-bracket-val-success", r3.success, false);
-    if (!r3.success)
+    if (!r3.success) {
       TestValidator.equals(
         "multi-bracket-val-data",
         (r3.data as any)?.a,
         undefined,
       );
+      TestValidator.equals("multi-bracket-val-errors-len", r3.errors.length, 1);
+      TestValidator.equals("multi-bracket-val-errors-path", r3.errors[0]?.path, "$input");
+      TestValidator.equals("multi-bracket-val-errors-expected", r3.errors[0]?.expected, "string key");
+      TestValidator.equals("multi-bracket-val-errors-value", r3.errors[0]?.value, "]");
+    }
 
     // [ in object KEY position (not value)
     const r6 = LlmJson.parse("{[]: 1}");
     TestValidator.equals("bracket-key-success", r6.success, false);
+    if (!r6.success) {
+      TestValidator.equals("bracket-key-errors-len", r6.errors.length, 1);
+      TestValidator.equals("bracket-key-errors-path", r6.errors[0]?.path, "$input");
+      TestValidator.equals("bracket-key-errors-expected", r6.errors[0]?.expected, "string key");
+      TestValidator.equals("bracket-key-errors-value", r6.errors[0]?.value, "[");
+    }
 
     // } in array, then ] (both mismatched and correct)
     const r7 = LlmJson.parse("[1, }, ], 2]");
@@ -61,5 +81,9 @@ export const test_llm_json_parse_lenient_object_mismatched_brackets =
     if (!r9.success) {
       const data = r9.data as any;
       TestValidator.equals("obj-in-arr-bracket-val-len", Array.isArray(data), true);
+      TestValidator.equals("obj-in-arr-bracket-val-errors-len", r9.errors.length, 1);
+      TestValidator.equals("obj-in-arr-bracket-val-errors-path", r9.errors[0]?.path, "$input[0]");
+      TestValidator.equals("obj-in-arr-bracket-val-errors-expected", r9.errors[0]?.expected, "string key");
+      TestValidator.equals("obj-in-arr-bracket-val-errors-value", r9.errors[0]?.value, "]");
     }
   };

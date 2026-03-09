@@ -15,6 +15,9 @@ export const test_llm_json_parse_lenient_invalid_value = (): void => {
   TestValidator.equals("at-sign-success", r2.success, false);
   if (!r2.success) {
     TestValidator.equals("at-sign-a", (r2.data as any)?.a, 1);
+    TestValidator.equals("at-sign-errors-len", r2.errors.length, 1);
+    TestValidator.equals("at-sign-errors-path", r2.errors[0]?.path, "$input.b");
+    TestValidator.equals("at-sign-errors-expected", r2.errors[0]?.expected, "JSON value");
   }
 
   // Multiple invalid characters in values

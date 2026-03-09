@@ -55,6 +55,11 @@ export const test_llm_json_parse_lenient_findJsonStart_comment_skip =
     // Single-line comment with { at end of line (no newline after)
     const r7 = LlmJson.parse("// {comment");
     TestValidator.equals("sl-no-newline-success", r7.success, false);
+    if (!r7.success) {
+      TestValidator.equals("sl-no-newline-errors-len", r7.errors.length, 1);
+      TestValidator.equals("sl-no-newline-errors-path", r7.errors[0]?.path, "$input");
+      TestValidator.equals("sl-no-newline-errors-expected", r7.errors[0]?.expected, "JSON value");
+    }
 
     // Comment in junk, then JSON with comment inside
     const r8 = LlmJson.parse(

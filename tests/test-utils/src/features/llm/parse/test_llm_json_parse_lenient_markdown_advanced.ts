@@ -22,10 +22,22 @@ export const test_llm_json_parse_lenient_markdown_advanced = (): void => {
   // Markdown block with empty content
   const r4 = LlmJson.parse("```json\n\n```");
   TestValidator.equals("empty-block-success", r4.success, false);
+  if (!r4.success) {
+    TestValidator.equals("empty-block-errors-len", r4.errors.length, 1);
+    TestValidator.equals("empty-block-errors-path", r4.errors[0]?.path, "$input");
+    TestValidator.equals("empty-block-errors-expected", r4.errors[0]?.expected, "JSON value");
+    TestValidator.equals("empty-block-errors-value", r4.errors[0]?.value, "empty input");
+  }
 
   // Markdown block with only whitespace content
   const r5 = LlmJson.parse("```json\n   \n```");
   TestValidator.equals("ws-block-success", r5.success, false);
+  if (!r5.success) {
+    TestValidator.equals("ws-block-errors-len", r5.errors.length, 1);
+    TestValidator.equals("ws-block-errors-path", r5.errors[0]?.path, "$input");
+    TestValidator.equals("ws-block-errors-expected", r5.errors[0]?.expected, "JSON value");
+    TestValidator.equals("ws-block-errors-value", r5.errors[0]?.value, "empty input");
+  }
 
   // Markdown block containing incomplete JSON
   const r6 = LlmJson.parse(

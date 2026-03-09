@@ -107,10 +107,20 @@ export const test_llm_json_parse_lenient_primitive_precedence = (): void => {
   // "falsetto" at root level
   const r16 = LlmJson.parse("falsetto");
   TestValidator.equals("falsetto-root-success", r16.success, false);
+  if (!r16.success) {
+    TestValidator.equals("falsetto-root-errors-len", r16.errors.length, 1);
+    TestValidator.equals("falsetto-root-errors-path", r16.errors[0]?.path, "$input");
+    TestValidator.equals("falsetto-root-errors-expected", r16.errors[0]?.expected, "JSON value (string, number, boolean, null, object, or array)");
+  }
 
   // "nullable" at root level
   const r17 = LlmJson.parse("nullable");
   TestValidator.equals("nullable-root-success", r17.success, false);
+  if (!r17.success) {
+    TestValidator.equals("nullable-root-errors-len", r17.errors.length, 1);
+    TestValidator.equals("nullable-root-errors-path", r17.errors[0]?.path, "$input");
+    TestValidator.equals("nullable-root-errors-expected", r17.errors[0]?.expected, "JSON value (string, number, boolean, null, object, or array)");
+  }
 
   // =========================================================================
   // Same pattern after comment stripping (lines 78-79)
@@ -121,8 +131,18 @@ export const test_llm_json_parse_lenient_primitive_precedence = (): void => {
   // "trueish" after line comment
   const r18 = LlmJson.parse("// comment\ntrueish");
   TestValidator.equals("comment-trueish-success", r18.success, false);
+  if (!r18.success) {
+    TestValidator.equals("comment-trueish-errors-len", r18.errors.length, 1);
+    TestValidator.equals("comment-trueish-errors-path", r18.errors[0]?.path, "$input");
+    TestValidator.equals("comment-trueish-errors-expected", r18.errors[0]?.expected, "JSON value (string, number, boolean, null, object, or array)");
+  }
 
   // "falsetto" after block comment
   const r19 = LlmJson.parse("/* block */falsetto");
   TestValidator.equals("comment-falsetto-success", r19.success, false);
+  if (!r19.success) {
+    TestValidator.equals("comment-falsetto-errors-len", r19.errors.length, 1);
+    TestValidator.equals("comment-falsetto-errors-path", r19.errors[0]?.path, "$input");
+    TestValidator.equals("comment-falsetto-errors-expected", r19.errors[0]?.expected, "JSON value (string, number, boolean, null, object, or array)");
+  }
 };
