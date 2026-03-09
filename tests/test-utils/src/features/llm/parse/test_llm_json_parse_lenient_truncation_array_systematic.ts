@@ -27,21 +27,19 @@ export const test_llm_json_parse_lenient_truncation_array_systematic =
     if (r4.success) TestValidator.equals("t4-data", r4.data, [1, ""]);
 
     // 5. Partial string
-    const r5 = LlmJson.parse('[1, "hel');
+    const r5 = LlmJson.parse('[1, "hell');
     TestValidator.equals("t5-success", r5.success, true);
-    if (r5.success) TestValidator.equals("t5-data", r5.data, [1, "hel"]);
+    if (r5.success) TestValidator.equals("t5-data", r5.data, [1, "hell"]);
 
     // 6. Complete string (no closing bracket)
     const r6 = LlmJson.parse('[1, "hello"');
     TestValidator.equals("t6-success", r6.success, true);
-    if (r6.success)
-      TestValidator.equals("t6-data", r6.data, [1, "hello"]);
+    if (r6.success) TestValidator.equals("t6-data", r6.data, [1, "hello"]);
 
     // 7. After second comma
     const r7 = LlmJson.parse('[1, "hello",');
     TestValidator.equals("t7-success", r7.success, true);
-    if (r7.success)
-      TestValidator.equals("t7-data", r7.data, [1, "hello"]);
+    if (r7.success) TestValidator.equals("t7-data", r7.data, [1, "hello"]);
 
     // 8. Partial keyword true
     const r8 = LlmJson.parse('[1, "hello", tr');
@@ -59,41 +57,22 @@ export const test_llm_json_parse_lenient_truncation_array_systematic =
     const r10 = LlmJson.parse('[1, "hello", true, nu');
     TestValidator.equals("t10-success", r10.success, true);
     if (r10.success)
-      TestValidator.equals("t10-data", r10.data, [
-        1,
-        "hello",
-        true,
-        null,
-      ]);
+      TestValidator.equals("t10-data", r10.data, [1, "hello", true, null]);
 
     // 11. Nested object starting
     const r11 = LlmJson.parse('[1, "hello", true, null, {');
     TestValidator.equals("t11-success", r11.success, true);
     if (r11.success)
-      TestValidator.equals("t11-data", r11.data, [
-        1,
-        "hello",
-        true,
-        null,
-        {},
-      ]);
+      TestValidator.equals("t11-data", r11.data, [1, "hello", true, null, {}]);
 
     // 12. Nested object with key
     const r12 = LlmJson.parse('[1, "hello", true, null, {"key"');
     TestValidator.equals("t12-success", r12.success, true);
     if (r12.success)
-      TestValidator.equals("t12-data", r12.data, [
-        1,
-        "hello",
-        true,
-        null,
-        {},
-      ]);
+      TestValidator.equals("t12-data", r12.data, [1, "hello", true, null, {}]);
 
     // 13. Nested object with key+colon+value
-    const r13 = LlmJson.parse(
-      '[1, "hello", true, null, {"key": "val"',
-    );
+    const r13 = LlmJson.parse('[1, "hello", true, null, {"key": "val"');
     TestValidator.equals("t13-success", r13.success, true);
     if (r13.success)
       TestValidator.equals("t13-data", r13.data, [
@@ -105,9 +84,7 @@ export const test_llm_json_parse_lenient_truncation_array_systematic =
       ]);
 
     // 14. Nested object closed, then nested array
-    const r14 = LlmJson.parse(
-      '[1, "hello", true, null, {"key": "val"}, [',
-    );
+    const r14 = LlmJson.parse('[1, "hello", true, null, {"key": "val"}, [');
     TestValidator.equals("t14-success", r14.success, true);
     if (r14.success)
       TestValidator.equals("t14-data", r14.data, [
@@ -120,9 +97,7 @@ export const test_llm_json_parse_lenient_truncation_array_systematic =
       ]);
 
     // 15. Nested array with elements
-    const r15 = LlmJson.parse(
-      '[1, "hello", true, null, {"key": "val"}, [2, 3',
-    );
+    const r15 = LlmJson.parse('[1, "hello", true, null, {"key": "val"}, [2, 3');
     TestValidator.equals("t15-success", r15.success, true);
     if (r15.success)
       TestValidator.equals("t15-data", r15.data, [

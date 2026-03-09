@@ -5,12 +5,10 @@ export const test_llm_json_parse_lenient_whitespace_variations = (): void => {
   // Whitespace only (various types)
   const r1 = LlmJson.parse("   \t\n\r  ");
   TestValidator.equals("ws-only-success", r1.success, false);
-  if (!r1.success) {
-    TestValidator.equals("ws-only-errors-len", r1.errors.length, 1);
-    TestValidator.equals("ws-only-errors-path", r1.errors[0]?.path, "$input");
-    TestValidator.equals("ws-only-errors-expected", r1.errors[0]?.expected, "JSON value");
-    TestValidator.equals("ws-only-errors-value", r1.errors[0]?.value, "empty input");
-  }
+  if (!r1.success)
+    TestValidator.equals("ws-only-errors", r1.errors, [
+      { path: "$input", expected: "JSON value", value: "empty input" },
+    ]);
 
   // JSON with excessive whitespace
   const r2 = LlmJson.parse(
