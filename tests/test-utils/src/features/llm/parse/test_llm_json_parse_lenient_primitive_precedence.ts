@@ -102,7 +102,7 @@ export const test_llm_json_parse_lenient_primitive_precedence = (): void => {
   const r15 = LlmJson.parse("trueish");
   TestValidator.equals("trueish-root-success", r15.success, false);
   if (!r15.success)
-    TestValidator.equals("trueish-root-errors", r15.errors.length > 0, true);
+    TestValidator.equals("trueish-root-errors", [{ expected: "JSON value (string, number, boolean, null, object, or array)" }], r15.errors);
 
   // "falsetto" at root level
   const r16 = LlmJson.parse("falsetto");
