@@ -75,10 +75,18 @@ export function parseLenientJson<T>(input: string): IJsonParseResult<T> {
       }
       return { success: true, data: data as T };
     }
-    // No valid JSON found - return empty object for lenient behavior
+    // No valid JSON found - return failure
     return {
-      success: true,
-      data: {} as T,
+      success: false,
+      data: undefined as DeepPartial<T>,
+      input,
+      errors: [
+        {
+          path: "$input",
+          expected: "JSON value",
+          value: jsonSource,
+        },
+      ],
     };
   }
 
@@ -193,10 +201,12 @@ function extractMarkdownCodeBlock(input: string): string | null {
  * - "Sure! [1, 2, 3]"
  *
  * This function skips over comments and strings to find the real JSON start.
- * Primitive values (strings, numbers, booleans) are handled directly by the parser.
+ * Primitive values (strings, numbers, booleans) are handled directly by the
+ * parser.
  *
  * @param input Text that may contain JSON with junk prefix
- * @returns Index of first `{` or `[` outside comments/strings, or -1 if not found
+ * @returns Index of first `{` or `[` outside comments/strings, or -1 if not
+ *   found
  * @internal
  */
 function findJsonStart(input: string): number {
