@@ -81,4 +81,14 @@ export const test_llm_json_parse_lenient_primitive_precedence = (): void => {
   const r12 = LlmJson.parse('0 {"key": 1}');
   TestValidator.equals("zero-obj-success", r12.success, true);
   if (r12.success) TestValidator.equals("zero-obj-data", r12.data, 0);
+
+  // minus before brace: startsWithPrimitive sees '-', parseNumber reads
+  // just '-' (NaN→0), object/array is ignored
+  const r13 = LlmJson.parse('-{"key":1}');
+  TestValidator.equals("minus-brace-success", r13.success, true);
+  if (r13.success) TestValidator.equals("minus-brace-data", r13.data, 0);
+
+  const r14 = LlmJson.parse("-[1,2]");
+  TestValidator.equals("minus-bracket-success", r14.success, true);
+  if (r14.success) TestValidator.equals("minus-bracket-data", r14.data, 0);
 };

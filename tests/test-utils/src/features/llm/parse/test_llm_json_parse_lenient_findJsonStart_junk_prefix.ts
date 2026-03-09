@@ -1,7 +1,7 @@
 import { TestValidator } from "@nestia/e2e";
 import { LlmJson } from "@typia/utils";
 
-export const test_llm_json_parse_lenient_junk_complex = (): void => {
+export const test_llm_json_parse_lenient_findJsonStart_junk_prefix = (): void => {
   // Junk with parentheses before JSON
   const r1 = LlmJson.parse(
     'The result (as requested) is: {"value": 42}',
@@ -66,4 +66,42 @@ export const test_llm_json_parse_lenient_junk_complex = (): void => {
   TestValidator.equals("indented-junk-success", r9.success, true);
   if (r9.success)
     TestValidator.equals("indented-junk-data", r9.data, { indented: true });
+
+  // Simple explanatory text before object
+  const r10 = LlmJson.parse(
+    'Here is the JSON you requested: {"name": "John"}',
+  );
+  TestValidator.equals("simple-obj-prefix-success", r10.success, true);
+  if (r10.success)
+    TestValidator.equals("simple-obj-prefix-data", r10.data, { name: "John" });
+
+  // Explanatory text before array
+  const r11 = LlmJson.parse("Sure! Here's the list: [1, 2, 3]");
+  TestValidator.equals("simple-arr-prefix-success", r11.success, true);
+  if (r11.success)
+    TestValidator.equals("simple-arr-prefix-data", r11.data, [1, 2, 3]);
+
+  // Decorative separators before JSON
+  const r12 = LlmJson.parse('\n\n***\n{"key": "value"}');
+  TestValidator.equals("decorative-prefix-success", r12.success, true);
+  if (r12.success)
+    TestValidator.equals("decorative-prefix-data", r12.data, { key: "value" });
+
+  // Japanese text as junk prefix
+  const r13 = LlmJson.parse('日本語テキスト {"msg": "hello"}');
+  TestValidator.equals("jp-prefix-success", r13.success, true);
+  if (r13.success)
+    TestValidator.equals("jp-prefix-data", r13.data, { msg: "hello" });
+
+  // Korean text as junk prefix
+  const r14 = LlmJson.parse('한국어 텍스트입니다 {"msg": "hello"}');
+  TestValidator.equals("kr-prefix-success", r14.success, true);
+  if (r14.success)
+    TestValidator.equals("kr-prefix-data", r14.data, { msg: "hello" });
+
+  // Chinese text as junk prefix
+  const r15 = LlmJson.parse('中文文本 {"msg": "hello"}');
+  TestValidator.equals("cn-prefix-success", r15.success, true);
+  if (r15.success)
+    TestValidator.equals("cn-prefix-data", r15.data, { msg: "hello" });
 };

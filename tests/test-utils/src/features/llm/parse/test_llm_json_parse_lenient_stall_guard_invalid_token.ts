@@ -1,7 +1,7 @@
 import { TestValidator } from "@nestia/e2e";
 import { LlmJson } from "@typia/utils";
 
-export const test_llm_json_parse_lenient_parseObject_no_stall = (): void => {
+export const test_llm_json_parse_lenient_stall_guard_invalid_token = (): void => {
   // =========================================================================
   // KEY POSITION: non-key chars at key position in object
   // All should return {} - either via error→return or comma-skip→close

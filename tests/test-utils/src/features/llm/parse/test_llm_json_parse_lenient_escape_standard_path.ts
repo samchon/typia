@@ -1,7 +1,7 @@
 import { TestValidator } from "@nestia/e2e";
 import { LlmJson } from "@typia/utils";
 
-export const test_llm_json_parse_lenient_escape_sequences = (): void => {
+export const test_llm_json_parse_lenient_escape_standard_path = (): void => {
   // Test all standard escape sequences
   const result = LlmJson.parse('{"quote": "\\"", "backslash": "\\\\", "slash": "\\/", "backspace": "\\b", "formfeed": "\\f", "newline": "\\n", "return": "\\r", "tab": "\\t"}');
   TestValidator.equals("success", result.success, true);

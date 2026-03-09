@@ -95,4 +95,28 @@ export const test_llm_json_parse_lenient_single_char_inputs = (): void => {
   // ! → failure
   const r20 = LlmJson.parse("!");
   TestValidator.equals("excl-success", r20.success, false);
+
+  // . → failure (not recognized as number start)
+  const r21 = LlmJson.parse(".");
+  TestValidator.equals("dot-success", r21.success, false);
+
+  // + → failure (not recognized as number start)
+  const r22 = LlmJson.parse("+");
+  TestValidator.equals("plus-success", r22.success, false);
+
+  // .5 → failure (dot doesn't start numbers)
+  const r23 = LlmJson.parse(".5");
+  TestValidator.equals("dot-five-success", r23.success, false);
+
+  // +5 → failure (plus doesn't start numbers)
+  const r24 = LlmJson.parse("+5");
+  TestValidator.equals("plus-five-success", r24.success, false);
+
+  // Empty string → failure
+  const r25 = LlmJson.parse("");
+  TestValidator.equals("empty-success", r25.success, false);
+
+  // Plain text without JSON → failure
+  const r26 = LlmJson.parse("just plain text without any JSON");
+  TestValidator.equals("no-json-success", r26.success, false);
 };

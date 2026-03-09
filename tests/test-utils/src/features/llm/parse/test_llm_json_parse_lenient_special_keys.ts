@@ -65,4 +65,10 @@ export const test_llm_json_parse_lenient_special_keys = (): void => {
   TestValidator.equals("tab-key-success", r9.success, true);
   if (r9.success)
     TestValidator.equals("tab-key-data", r9.data, { "col1\tcol2": "tabbed" });
+
+  // Key that is only whitespace
+  const r10 = LlmJson.parse('{" ": "space key"}');
+  TestValidator.equals("ws-key-success", r10.success, true);
+  if (r10.success)
+    TestValidator.equals("ws-key-data", r10.data, { " ": "space key" });
 };

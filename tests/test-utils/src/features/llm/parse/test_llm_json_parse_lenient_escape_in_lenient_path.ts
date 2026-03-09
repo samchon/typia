@@ -86,4 +86,10 @@ export const test_llm_json_parse_lenient_escape_in_lenient_path = (): void => {
     TestValidator.equals("obj-esc-rn-data", orn.data, {
       key: "line1\r\nline2",
     });
+
+  // Unknown escape sequence: \q is stripped to just 'q'
+  const unk = LlmJson.parse('{"text": "hello\\qworld');
+  TestValidator.equals("esc-unknown-success", unk.success, true);
+  if (unk.success)
+    TestValidator.equals("esc-unknown-data", unk.data, { text: "helloqworld" });
 };

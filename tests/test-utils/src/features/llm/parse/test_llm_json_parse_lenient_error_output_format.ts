@@ -1,7 +1,7 @@
 import { TestValidator } from "@nestia/e2e";
 import { LlmJson } from "@typia/utils";
 
-export const test_llm_json_parse_lenient_failure_input = (): void => {
+export const test_llm_json_parse_lenient_error_output_format = (): void => {
   // Failure should include original input (not extracted)
   const r1 = LlmJson.parse('{"name": invalid_token}');
   TestValidator.equals("simple-failure-success", r1.success, false);

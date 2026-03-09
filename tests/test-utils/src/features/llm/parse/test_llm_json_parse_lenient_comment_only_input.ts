@@ -67,4 +67,14 @@ export const test_llm_json_parse_lenient_comment_only_input = (): void => {
   TestValidator.equals("crlf-comment-success", r12.success, true);
   if (r12.success)
     TestValidator.equals("crlf-comment-data", r12.data, { key: 1 });
+
+  // Unclosed multi-line comment in junk prefix absorbs everything
+  const r13 = LlmJson.parse('/* unclosed {"key": 1}');
+  TestValidator.equals("unclosed-junk-comment-success", r13.success, false);
+
+  const r14 = LlmJson.parse("/* unclosed [1, 2]");
+  TestValidator.equals("unclosed-junk-comment-arr-success", r14.success, false);
+
+  const r15 = LlmJson.parse("/* just a comment");
+  TestValidator.equals("unclosed-comment-just-success", r15.success, false);
 };

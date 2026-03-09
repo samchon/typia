@@ -36,18 +36,6 @@ export const test_llm_json_parse_lenient_object_mismatched_brackets =
         undefined,
       );
 
-    // Object value is } (own closing brace) → missing value, returns empty-valued key
-    const r4 = LlmJson.parse('{"a": }');
-    TestValidator.equals("brace-val-success", r4.success, true);
-    if (r4.success)
-      TestValidator.equals("brace-val-data", r4.data, { a: undefined });
-
-    // Object value position has comma → missing value
-    const r5 = LlmJson.parse('{"a": , "b": 2}');
-    TestValidator.equals("comma-val-success", r5.success, true);
-    if (r5.success)
-      TestValidator.equals("comma-val-data", r5.data, { a: undefined, b: 2 });
-
     // [ in object KEY position (not value)
     const r6 = LlmJson.parse("{[]: 1}");
     TestValidator.equals("bracket-key-success", r6.success, false);

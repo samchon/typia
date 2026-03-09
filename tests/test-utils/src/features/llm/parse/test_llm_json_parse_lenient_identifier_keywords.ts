@@ -97,4 +97,32 @@ export const test_llm_json_parse_lenient_identifier_keywords = (): void => {
       "abc",
     );
   }
+
+  // Invalid identifier in unclosed array → skipToRecoveryPoint reaches EOF
+  const r19 = LlmJson.parse("[abc");
+  TestValidator.equals("recovery-eof-arr-success", r19.success, false);
+  if (!r19.success) {
+    const data19 = r19.data as any;
+    TestValidator.equals("recovery-eof-arr-is-array", Array.isArray(data19), true);
+    TestValidator.equals("recovery-eof-arr-length", (data19 as any[]).length, 1);
+  }
+
+  // Invalid identifier in unclosed object → recovery to EOF
+  const r20 = LlmJson.parse('{"k": abc');
+  TestValidator.equals("recovery-eof-obj-success", r20.success, false);
+  if (!r20.success) {
+    TestValidator.equals("recovery-eof-obj-has-k", "k" in (r20.data as any), true);
+    TestValidator.equals("recovery-eof-obj-k", (r20.data as any)?.k, undefined);
+  }
+
+  // Multiple invalid identifiers in unclosed array
+  const r21 = LlmJson.parse("[abc def");
+  TestValidator.equals("recovery-eof-multi-success", r21.success, false);
+
+  // Invalid keyword starting with valid letter
+  const r22 = LlmJson.parse('{"value": tralse}');
+  TestValidator.equals("tralse-success", r22.success, false);
+  if (!r22.success) {
+    TestValidator.equals("tralse-has-errors", r22.errors.length > 0, true);
+  }
 };

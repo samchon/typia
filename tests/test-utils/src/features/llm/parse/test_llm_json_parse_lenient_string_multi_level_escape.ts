@@ -1,7 +1,7 @@
 import { TestValidator } from "@nestia/e2e";
 import { LlmJson } from "@typia/utils";
 
-export const test_llm_json_parse_lenient_deeply_escaped_strings = (): void => {
+export const test_llm_json_parse_lenient_string_multi_level_escape = (): void => {
   // Double-stringified JSON (common in LLM tool outputs)
   // Original: {"key": "value"}
   // Stringified once: "{\"key\": \"value\"}"

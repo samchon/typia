@@ -147,4 +147,10 @@ export const test_llm_json_parse_lenient_unicode_truncation_systematic =
     // Actually I think the real issue is: when hex includes the closing quote,
     // the parser consumes past the closing quote. This is a data integrity concern.
     // But I'll write the test and see what actually happens.
+
+    // Incomplete unicode escape in unclosed string
+    const r15 = LlmJson.parse('{"text": "hello\\u00');
+    TestValidator.equals("incomplete-u-success", r15.success, true);
+    if (r15.success)
+      TestValidator.equals("incomplete-u-data", r15.data, { text: "hello\\u00" });
   };

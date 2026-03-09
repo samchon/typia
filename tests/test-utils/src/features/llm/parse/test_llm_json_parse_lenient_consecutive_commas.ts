@@ -36,4 +36,33 @@ export const test_llm_json_parse_lenient_consecutive_commas = (): void => {
   TestValidator.equals("mixed-commas-whitespace-success", r6.success, true);
   if (r6.success)
     TestValidator.equals("mixed-commas-whitespace-data", r6.data, [1, 2]);
+
+  // Multiple consecutive commas in object (all skipped → empty object)
+  const r7 = LlmJson.parse("{,,,,}");
+  TestValidator.equals("multi-comma-obj-success", r7.success, true);
+  if (r7.success) TestValidator.equals("multi-comma-obj-data", r7.data, {});
+
+  // Commas around a key-value pair
+  const r8 = LlmJson.parse("{,,,a:1,,,}");
+  TestValidator.equals("comma-around-key-success", r8.success, true);
+  if (r8.success)
+    TestValidator.equals("comma-around-key-data", r8.data, { a: 1 });
+
+  // Trailing comma in array
+  const r9 = LlmJson.parse("[1, 2, 3,]");
+  TestValidator.equals("trailing-arr-success", r9.success, true);
+  if (r9.success)
+    TestValidator.equals("trailing-arr-data", r9.data, [1, 2, 3]);
+
+  // Multiple trailing commas in array
+  const r10 = LlmJson.parse("[1, 2,,]");
+  TestValidator.equals("multi-trailing-arr-success", r10.success, true);
+  if (r10.success)
+    TestValidator.equals("multi-trailing-arr-data", r10.data, [1, 2]);
+
+  // Trailing comma in object
+  const r11 = LlmJson.parse('{"a": 1, "b": 2,}');
+  TestValidator.equals("trailing-obj-success", r11.success, true);
+  if (r11.success)
+    TestValidator.equals("trailing-obj-data", r11.data, { a: 1, b: 2 });
 };

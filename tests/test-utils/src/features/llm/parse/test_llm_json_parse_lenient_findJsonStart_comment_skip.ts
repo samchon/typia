@@ -8,7 +8,7 @@ import { LlmJson } from "@typia/utils";
  * Without comment-skipping, findJsonStart would match the `{` or `[`
  * inside the comment, leading to incorrect parsing.
  */
-export const test_llm_json_parse_lenient_junk_comment_with_braces =
+export const test_llm_json_parse_lenient_findJsonStart_comment_skip =
   (): void => {
     // Single-line comment with { in junk prefix
     const r1 = LlmJson.parse('// see {here}\n{"key": 1}');

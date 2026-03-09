@@ -53,4 +53,16 @@ export const test_llm_json_parse_lenient_unquoted_keys_edge = (): void => {
     TestValidator.equals("num-suffix-key-data", r8.data, {
       level2Boss: "dragon",
     });
+
+  // Boolean keyword as unquoted key
+  const r9 = LlmJson.parse("{true: 1}");
+  TestValidator.equals("bool-key-success", r9.success, true);
+  if (r9.success)
+    TestValidator.equals("bool-key-data", r9.data, { true: 1 });
+
+  // Null keyword as unquoted key
+  const r10 = LlmJson.parse("{null: 1}");
+  TestValidator.equals("null-key-success", r10.success, true);
+  if (r10.success)
+    TestValidator.equals("null-key-data", r10.data, { null: 1 });
 };
