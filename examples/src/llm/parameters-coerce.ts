@@ -21,7 +21,7 @@ const fromSdk = {
   },
 };
 
-const result = LlmJson.coerce(params, fromSdk);
+const result = LlmJson.coerce(fromSdk, params);
 console.log(result);
 
 interface IProps {

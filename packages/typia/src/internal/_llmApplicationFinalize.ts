@@ -18,7 +18,7 @@ export const _llmApplicationFinalize = <Class extends object = any>(
     ...func,
     parse: (input: string): IJsonParseResult<unknown> =>
       LlmJson.parse(input, func.parameters),
-    coerce: (input: unknown): unknown => LlmJson.coerce(func.parameters, input),
+    coerce: (input: unknown): unknown => LlmJson.coerce(input, func.parameters),
     validate: config?.validate?.[func.name] ?? func.validate,
   })),
 });
