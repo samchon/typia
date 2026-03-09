@@ -38,13 +38,18 @@ export function parseLenientJson<T>(input: string): IJsonParseResult<T> {
   // Check if input is empty or whitespace-only
   const trimmed: string = jsonSource.trim();
   if (trimmed.length === 0) {
-    const errors: IJsonParseResult.IError[] = [];
-    const parser: LenientJsonParser = new LenientJsonParser(jsonSource, errors);
-    const data: unknown = parser.parse();
-    if (errors.length > 0) {
-      return { success: false, data: data as DeepPartial<T>, input, errors };
-    }
-    return { success: true, data: data as T };
+    return {
+      success: false,
+      data: undefined as DeepPartial<T>,
+      input,
+      errors: [
+        {
+          path: "$input",
+          expected: "JSON value",
+          value: "empty input",
+        },
+      ],
+    };
   }
 
   // Check if input starts with a primitive value (no junk prefix skipping needed)
@@ -61,10 +66,32 @@ export function parseLenientJson<T>(input: string): IJsonParseResult<T> {
   // Find JSON start position (skip junk prefix from LLM)
   const jsonStart: number = findJsonStart(jsonSource);
   if (jsonStart === -1) {
-    // No JSON found - return empty object for lenient behavior
+    // No object/array found - check if there's a primitive after skipping comments
+    const skipped: string = skipCommentsAndWhitespace(jsonSource);
+    if (skipped.length > 0 && startsWithPrimitive(skipped)) {
+      const errors: IJsonParseResult.IError[] = [];
+      const parser: LenientJsonParser = new LenientJsonParser(
+        jsonSource,
+        errors,
+      );
+      const data: unknown = parser.parse();
+      if (errors.length > 0) {
+        return { success: false, data: data as DeepPartial<T>, input, errors };
+      }
+      return { success: true, data: data as T };
+    }
+    // No valid JSON found - return failure
     return {
-      success: true,
-      data: {} as T,
+      success: false,
+      data: undefined as DeepPartial<T>,
+      input,
+      errors: [
+        {
+          path: "$input",
+          expected: "JSON value",
+          value: jsonSource,
+        },
+      ],
     };
   }
 
@@ -178,21 +205,126 @@ function extractMarkdownCodeBlock(input: string): string | null {
  * - "Here is your JSON: {"name": "test"}"
  * - "Sure! [1, 2, 3]"
  *
- * This function only looks for `{` or `[` to skip junk prefix. Primitive values
- * (strings, numbers, booleans) are handled directly by the parser.
+ * This function skips over comments and strings to find the real JSON start.
+ * Primitive values (strings, numbers, booleans) are handled directly by the
+ * parser.
  *
  * @param input Text that may contain JSON with junk prefix
- * @returns Index of first `{` or `[`, or -1 if not found
+ * @returns Index of first `{` or `[` outside comments/strings, or -1 if not
+ *   found
  * @internal
  */
 function findJsonStart(input: string): number {
-  const objStart: number = input.indexOf("{");
-  const arrStart: number = input.indexOf("[");
+  let pos: number = 0;
+  const len: number = input.length;
 
-  if (objStart === -1 && arrStart === -1) return -1;
-  if (objStart === -1) return arrStart;
-  if (arrStart === -1) return objStart;
-  return Math.min(objStart, arrStart);
+  while (pos < len) {
+    const ch: string = input[pos]!;
+
+    // Found JSON start
+    if (ch === "{" || ch === "[") {
+      return pos;
+    }
+
+    // Skip single-line comment
+    if (ch === "/" && pos + 1 < len && input[pos + 1] === "/") {
+      pos += 2;
+      while (pos < len && input[pos] !== "\n" && input[pos] !== "\r") {
+        pos++;
+      }
+      continue;
+    }
+
+    // Skip multi-line comment
+    if (ch === "/" && pos + 1 < len && input[pos + 1] === "*") {
+      pos += 2;
+      while (pos + 1 < len) {
+        if (input[pos] === "*" && input[pos + 1] === "/") {
+          pos += 2;
+          break;
+        }
+        pos++;
+      }
+      // If unclosed comment, move to end
+      if (pos + 1 >= len) {
+        pos = len;
+      }
+      continue;
+    }
+
+    // Skip string literal (to avoid matching { or [ inside strings)
+    if (ch === '"') {
+      pos++;
+      while (pos < len) {
+        if (input[pos] === "\\") {
+          pos += 2; // skip escape sequence
+          continue;
+        }
+        if (input[pos] === '"') {
+          pos++;
+          break;
+        }
+        pos++;
+      }
+      continue;
+    }
+
+    pos++;
+  }
+
+  return -1;
+}
+
+/**
+ * Skip leading comments and whitespace from input.
+ *
+ * @param input Text that may start with comments or whitespace
+ * @returns Input with leading comments and whitespace removed
+ * @internal
+ */
+function skipCommentsAndWhitespace(input: string): string {
+  let pos: number = 0;
+  const len: number = input.length;
+
+  while (pos < len) {
+    const ch: string = input[pos]!;
+
+    // Skip whitespace
+    if (ch === " " || ch === "\t" || ch === "\n" || ch === "\r") {
+      pos++;
+      continue;
+    }
+
+    // Skip single-line comment
+    if (ch === "/" && pos + 1 < len && input[pos + 1] === "/") {
+      pos += 2;
+      while (pos < len && input[pos] !== "\n" && input[pos] !== "\r") {
+        pos++;
+      }
+      continue;
+    }
+
+    // Skip multi-line comment
+    if (ch === "/" && pos + 1 < len && input[pos + 1] === "*") {
+      pos += 2;
+      while (pos + 1 < len) {
+        if (input[pos] === "*" && input[pos + 1] === "/") {
+          pos += 2;
+          break;
+        }
+        pos++;
+      }
+      if (pos + 1 >= len) {
+        pos = len;
+      }
+      continue;
+    }
+
+    // Not whitespace or comment
+    break;
+  }
+
+  return input.slice(pos);
 }
 
 /**
@@ -216,11 +348,11 @@ function startsWithPrimitive(input: string): boolean {
     input.startsWith("null")
   )
     return true;
-  // Partial keywords
+  // Partial keywords (note: "null" requires at least 2 chars to match parseKeywordOrIdentifier logic)
   if (
     "true".startsWith(input) ||
     "false".startsWith(input) ||
-    "null".startsWith(input)
+    ("null".startsWith(input) && input.length >= 2)
   )
     return true;
   // Boolean string variants (note: "n" is intentionally excluded)
@@ -287,6 +419,13 @@ class LenientJsonParser {
     // Handle keywords (true, false, null) or invalid identifiers
     if (this.isIdentifierStart(char)) {
       return this.parseKeywordOrIdentifier(path);
+    }
+
+    // Don't skip structural characters - let the caller handle them
+    const ch: string = this.input[this.pos]!;
+    if (ch === "}" || ch === "]" || ch === ",") {
+      // Not an error - just no value here (e.g., {"a":} or [,])
+      return undefined;
     }
 
     this.errors.push({
