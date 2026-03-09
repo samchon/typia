@@ -1,5 +1,8 @@
 import { LlmJson } from "@typia/utils";
-import typia, { IValidation, tags } from "typia";
+import typia, { ILlmApplication, ILlmFunction, IValidation, tags } from "typia";
+
+const app: ILlmApplication = typia.llm.application<OrderService>();
+const func: ILlmFunction = app.functions[0];
 
 // LLM generated invalid data
 const input = {
@@ -19,14 +22,10 @@ const input = {
 };
 
 // Validate and format errors for LLM feedback
-const result: IValidation<IProps> = typia.validate<IProps>(input);
+const result: IValidation = func.validate(input);
 if (result.success === false) {
   const feedback: string = LlmJson.stringify(result);
   console.log(feedback);
-}
-
-interface IProps {
-  order: IOrder;
 }
 
 interface IOrder {
@@ -46,3 +45,12 @@ interface IOrder {
 type IPayment =
   | { type: "card"; cardNumber: string }
   | { type: "bank"; accountNumber: string };
+
+declare class OrderService {
+  /**
+   * Create a new order.
+   *
+   * @param props Order properties
+   */
+  createOrder(props: { order: IOrder }): { id: string };
+}

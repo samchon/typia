@@ -64,7 +64,19 @@ function coerceValue(
         }
         return parsed.data;
       }
-      return value;
+      // JSON parse failed - try "n" -> false or null
+      if (value.length === 1 && value.toLowerCase() === "n") {
+        const hasBoolean: boolean = schema.anyOf.some(
+          (s: ILlmSchema): boolean =>
+            LlmTypeChecker.isBoolean(resolveSchema(s, $defs)),
+        );
+        const hasNull: boolean = schema.anyOf.some((s: ILlmSchema): boolean =>
+          LlmTypeChecker.isNull(resolveSchema(s, $defs)),
+        );
+        if (hasBoolean && !hasNull) return false;
+        else if (hasNull && !hasBoolean) return null;
+        return value;
+      }
     }
     // Value is object - find matching schema via discriminated union
     if (typeof value === "object" && value !== null && !Array.isArray(value)) {
@@ -110,6 +122,11 @@ function coerceValue(
     if (parsed.success) {
       // Continue coercion on the parsed value (for nested stringified values)
       return coerceValue(parsed.data, schema, $defs);
+    }
+    // JSON parse failed - try "n" -> false for boolean schema
+    if (value.length === 1 && value.toLowerCase() === "n") {
+      if (LlmTypeChecker.isNull(schema)) return null;
+      if (LlmTypeChecker.isBoolean(schema)) return false;
     }
     // Parse failed, return original - validate will catch type error
     return value;

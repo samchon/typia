@@ -1,0 +1,364 @@
+---
+title: Guide Documents > Large Language Model > JSON Utilities
+---
+import { Callout, Tabs } from "nextra/components";
+
+import LocalSource from "../../../components/LocalSource";
+
+## JSON Utilities
+
+<Tabs items={[
+    <code>LlmJson</code>,
+    <code>IJsonParseResult</code>,
+  ]}>
+  <Tabs.Tab>
+```typescript filename="@typia/utils" showLineNumbers
+export namespace LlmJson {
+  // STRINGIFY
+  // Format validation errors for LLM auto-correction
+  export function stringify(failure: IValidation.IFailure): string;
+
+  // PARSE
+  // Lenient JSON parser with optional type coercion
+  export function parse<T>(
+    input: string,
+    parameters?: ILlmSchema.IParameters,
+  ): IJsonParseResult<T>;
+
+  // COERCE
+  // Type coercion for already-parsed objects
+  export function coerce<T>(
+    input: unknown,
+    parameters: ILlmSchema.IParameters,
+  ): T;
+
+  // VALIDATE
+  // Create validator from LLM parameters schema
+  export function validate(
+    parameters: ILlmSchema.IParameters,
+    equals?: boolean,
+  ): (value: unknown) => IValidation<unknown>;
+}
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource
+      path="packages/interface/src/schema/IJsonParseResult.ts"
+      filename="@typia/interface"
+      showLineNumbers />
+  </Tabs.Tab>
+</Tabs>
+
+JSON utilities for LLM function calling.
+
+`LlmJson` is a utility module from `@typia/utils` package, specifically designed for LLM (Large Language Model) function calling scenarios. It handles the common issues that arise when working with LLM responses:
+
+1. **Validation Feedback**: Format validation errors for LLM auto-correction
+2. **Lenient JSON Parsing**: LLMs often produce incomplete, malformed, or non-standard JSON
+3. **Type Coercion**: LLMs frequently return wrong types (e.g., numbers as strings `"42"`)
+
+<Callout type="info">
+**Available from `ILlmFunction`**
+
+When using `typia.llm.application<Class>()`, the generated `ILlmFunction` objects already include `parse()`, `coerce()`, and `validate()` methods bound to their respective parameter schemas. You can use these methods directly without importing `LlmJson`.
+
+```typescript
+const app: ILlmApplication<MyClass> = typia.llm.application<MyClass>();
+const func: ILlmFunction = app.functions[0];
+
+// Use methods directly from ILlmFunction
+const parsed = func.parse(jsonString);      // LlmJson.parse with func.parameters
+const coerced = func.coerce(parsedObject);  // LlmJson.coerce with func.parameters
+const validated = func.validate(args);      // LlmJson.validate with func.parameters
+```
+
+The only function exclusive to `LlmJson` is `stringify()`, which formats validation errors for LLM feedback.
+</Callout>
+
+## `LlmJson.stringify()`
+
+<LocalSource
+  path="examples/src/llm/application-validate.ts"
+  filename="examples/src/llm/application-validate.ts"
+  showLineNumbers />
+
+When LLM generates invalid arguments, `LlmJson.stringify()` formats the validation failure as annotated JSON with inline `// ❌` error comments. This output is wrapped in a markdown code block for optimal LLM comprehension:
+
+```json
+{
+  "order": {
+    "payment": {
+      "type": "card",
+      "cardNumber": 12345678 // ❌ [{"path":"$input.order.payment.cardNumber","expected":"string"}]
+    },
+    "product": {
+      "name": "Laptop",
+      "price": -100, // ❌ [{"path":"$input.order.product.price","expected":"number & Minimum<0>"}]
+      "quantity": 2.5 // ❌ [{"path":"$input.order.product.quantity","expected":"number & Type<\"uint32\">"}]
+    },
+    "customer": {
+      "name": "John Doe",
+      "email": "invalid-email", // ❌ [{"path":"$input.order.customer.email","expected":"string & Format<\"email\">"}]
+      "vip": "yes" // ❌ [{"path":"$input.order.customer.vip","expected":"boolean"}]
+    }
+  }
+}
+```
+
+This format is designed for LLM auto-correction. The LLM reads this feedback and self-corrects on the next turn. Key features:
+
+- **Inline error comments**: Each error is placed directly next to the problematic value with `// ❌` marker
+- **Path information**: Shows exact location like `$input.order.product.price`
+- **Expected type**: Describes what type was expected including constraints
+- **Missing properties**: Shows `undefined` for required properties that are missing
+- **Nested structures**: Properly formats nested objects and arrays with errors at any depth
+- **Unmappable errors**: If an error cannot be placed inline (e.g., root-level type mismatch), it's appended as a separate block
+
+## `LlmJson.parse()`
+
+<LocalSource
+  path="examples/src/llm/application-parse.ts"
+  filename="examples/src/llm/application-parse.ts"
+  showLineNumbers />
+
+`LlmJson.parse()` is a lenient JSON parser specifically designed for LLM outputs. It combines two capabilities:
+
+1. **Lenient JSON parsing**: Handles malformed/incomplete JSON that would fail with `JSON.parse()`
+2. **Type coercion**: Fixes double-stringified values based on the expected schema
+
+### Lenient JSON Features
+
+LLMs frequently produce non-standard JSON. This parser handles:
+
+| Issue | Example | Recovery |
+|-------|---------|----------|
+| Unclosed brackets | `{"name": "John"` | Parses available content |
+| Unclosed strings | `{"name": "John` | Returns partial string |
+| Trailing commas | `[1, 2, 3, ]` | Ignores trailing comma |
+| JavaScript comments | `{"a": 1 /* comment */}` | Strips comments |
+| Unquoted keys | `{name: "John"}` | Accepts identifier-style keys |
+| Incomplete keywords | `{"done": tru` | Completes to `true` |
+| Junk prefix | `Here is your JSON: {"a": 1}` | Skips to first `{` or `[` |
+| Markdown blocks | ` ```json\n{"a": 1}\n``` ` | Extracts content |
+| Unicode escapes | `"\uD83D\uDE00"` | Handles surrogate pairs (emoji) |
+
+### Type Coercion
+
+When `parameters` schema is provided, the parser coerces double-stringified values:
+
+```typescript
+// LLM returns:     { "count": "42", "active": "true", "data": "{\"x\": 1}" }
+// After coercion: { "count": 42,   "active": true,   "data": { x: 1 } }
+```
+
+Coercion rules:
+- `"42"` → `42` when schema expects `number` or `integer`
+- `"true"` / `"false"` → `true` / `false` when schema expects `boolean`
+- `"null"` → `null` when schema expects `null`
+- `"{...}"` → parsed object when schema expects `object`
+- `"[...]"` → parsed array when schema expects `array`
+- Nested coercion: Works recursively for deeply nested structures
+
+### Discriminated Union Support
+
+For `anyOf` schemas with discriminators, coercion intelligently selects the correct schema variant:
+
+```typescript
+// Schema: anyOf [{ type: "dog", bark: boolean }, { type: "cat", meow: boolean }]
+// x-discriminator: { propertyName: "type" }
+
+// Input: { type: "dog", bark: "true" }
+// Result: { type: "dog", bark: true }  // Correctly coerced using dog schema
+```
+
+<Callout type="info">
+**Type Coercion is Optional**
+
+If you omit the `parameters` argument, `LlmJson.parse()` still performs lenient JSON parsing but skips type coercion. This is useful when you only need to handle malformed JSON without schema-based type correction.
+</Callout>
+
+<Callout type="warning">
+**Parse ≠ Validate**
+
+`LlmJson.parse()` does NOT validate the data against the schema. It only coerces types. After parsing, use `typia.validate()` or `func.validate()` to check if the data actually matches the expected type constraints.
+</Callout>
+
+## `LlmJson.coerce()`
+
+<LocalSource
+  path="examples/src/llm/application-coerce.ts"
+  filename="examples/src/llm/application-coerce.ts"
+  showLineNumbers />
+
+`LlmJson.coerce()` performs type coercion on already-parsed objects. This is the coercion logic from `parse()` extracted for use when you already have a JavaScript object (not a JSON string).
+
+### When to Use `coerce()` vs `parse()`
+
+| Scenario | Use |
+|----------|-----|
+| Raw JSON string from LLM | `LlmJson.parse()` |
+| SDK returns parsed object (Anthropic, Vercel AI, LangChain, MCP) | `LlmJson.coerce()` |
+| Streaming response building object incrementally | `LlmJson.coerce()` |
+| WebSocket message already parsed | `LlmJson.coerce()` |
+
+### Coercion Behavior
+
+The coercion algorithm:
+
+1. **Reference resolution**: Follows `$ref` to resolve schema references
+2. **anyOf handling**: Uses `x-discriminator` to select correct variant for discriminated unions
+3. **String-to-type parsing**: When value is string but schema expects non-string, attempts lenient JSON parse
+4. **Recursive descent**: Coerces nested objects and arrays based on `properties` and `items` schemas
+5. **Additional properties**: Preserves extra properties not in schema (validation handles rejection)
+
+## `LlmJson.validate()`
+
+```typescript filename="@typia/utils - LlmJson.validate" showLineNumbers {10-17}
+import typia, { IValidation } from "typia";
+import { LlmJson } from "@typia/utils";
+
+interface IMember {
+  name: string;
+  age: number;
+}
+
+const parameters = typia.llm.parameters<IMember>();
+
+// Create reusable validator from schema
+const validate = LlmJson.validate(parameters);
+
+// Validate data
+const result: IValidation = validate({ name: "John", age: "thirty" });
+if (result.success === false) {
+  console.log(LlmJson.stringify(result));
+}
+```
+
+`LlmJson.validate()` creates a reusable validator function from an LLM parameters schema. This converts the `ILlmSchema` to OpenAPI JSON Schema internally and uses runtime validation.
+
+### When to Use
+
+- **Dynamic schemas**: When schema is received from external sources at runtime
+- **Generic tooling**: Building libraries that work with arbitrary LLM schemas
+- **Schema-first approach**: When you have schema but not TypeScript types
+
+### Strict Mode
+
+The optional `equals` parameter enables strict validation:
+
+```typescript
+// Lenient mode (default): allows extra properties
+const lenient = LlmJson.validate(parameters);
+lenient({ name: "John", age: 25, extra: "ignored" }); // success: true
+
+// Strict mode: rejects extra properties
+const strict = LlmJson.validate(parameters, true);
+strict({ name: "John", age: 25, extra: "ignored" }); // success: false
+```
+
+<Callout type="info">
+**Prefer `typia.validate()` When Possible**
+
+If you have TypeScript types available at compile time, prefer using `typia.validate<T>()` directly. It's faster (AOT-compiled) and provides better error messages. Use `LlmJson.validate()` only when you need runtime schema-based validation.
+</Callout>
+
+## Validation Feedback Loop
+
+The real power of these utilities is enabling automatic error correction by LLMs:
+
+```typescript filename="validation-feedback-loop.ts" showLineNumbers {20-21, 47, 57-58}
+import OpenAI from "openai";
+import typia, { ILlmApplication, IValidation, tags } from "typia";
+import { LlmJson } from "@typia/utils";
+
+interface IMember {
+  email: string & tags.Format<"email">;
+  name: string;
+  age: number;
+  hobbies: string[];
+  joined_at: string & tags.Format<"date">;
+}
+
+class MemberService {
+  /** Register a new member to the community. */
+  register(member: IMember): void {
+    console.log("Registered:", member);
+  }
+}
+
+const app: ILlmApplication = typia.llm.application<MemberService>();
+const func = app.functions[0]; // register function
+
+const step = async (
+  client: OpenAI,
+  failure?: IValidation.IFailure,
+): Promise<IValidation<IMember>> => {
+  const completion = await client.chat.completions.create({
+    model: "gpt-4o",
+    messages: [
+      {
+        role: "user",
+        content: [
+          "I am a new member of the community.",
+          "My name is John Doe, and I am 25 years old.",
+          "I like playing basketball and reading books,",
+          "and joined to this community at 2022-01-01.",
+        ].join("\n"),
+      },
+      // Send validation feedback for auto-correction
+      ...(failure
+        ? [
+            {
+              role: "system" as const,
+              content: [
+                "You A.I. agent had made a mistake that",
+                "returned wrong typed structured data.",
+                "",
+                "Here is the detailed list of type errors.",
+                "Review and correct them at the next step.",
+                "",
+                LlmJson.stringify(failure), // Only stringify needs LlmJson import
+              ].join("\n"),
+            },
+          ]
+        : []),
+    ],
+    response_format: {
+      type: "json_schema",
+      json_schema: {
+        name: "member",
+        schema: func.parameters as any,
+      },
+    },
+  });
+
+  // Use ILlmFunction methods directly
+  const parsed = func.parse(completion.choices[0].message.content!);
+  if (parsed.success === false) {
+    return { success: false, data: parsed.data, errors: [] };
+  }
+  return func.validate(parsed.data);
+};
+
+const main = async (): Promise<void> => {
+  const client = new OpenAI({ apiKey: "<YOUR_API_KEY>" });
+
+  let result: IValidation<IMember> | undefined;
+  for (let i = 0; i < 3; ++i) {
+    result = await step(
+      client,
+      result?.success === false ? result : undefined,
+    );
+    if (result.success) break;
+  }
+  console.log(result);
+};
+```
+
+This pattern enables LLMs to automatically correct their mistakes by:
+
+1. Parse LLM response with `func.parse()` (handles malformed JSON + type coercion)
+2. Validate with `func.validate()`
+3. If validation fails, format errors with `LlmJson.stringify()`
+4. Send feedback to LLM for auto-correction
+5. Repeat until validation passes
