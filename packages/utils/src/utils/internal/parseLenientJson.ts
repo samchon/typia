@@ -38,13 +38,18 @@ export function parseLenientJson<T>(input: string): IJsonParseResult<T> {
   // Check if input is empty or whitespace-only
   const trimmed: string = jsonSource.trim();
   if (trimmed.length === 0) {
-    const errors: IJsonParseResult.IError[] = [];
-    const parser: LenientJsonParser = new LenientJsonParser(jsonSource, errors);
-    const data: unknown = parser.parse();
-    if (errors.length > 0) {
-      return { success: false, data: data as DeepPartial<T>, input, errors };
-    }
-    return { success: true, data: data as T };
+    return {
+      success: false,
+      data: undefined as DeepPartial<T>,
+      input,
+      errors: [
+        {
+          path: "$input",
+          expected: "JSON value",
+          value: "empty input",
+        },
+      ],
+    };
   }
 
   // Check if input starts with a primitive value (no junk prefix skipping needed)
