@@ -56,7 +56,7 @@ async function taggedTransform(
  *   ```ts
  *   // build.ts
  *
- *   import UnpluginTypia from '@ryoppippi/unplugin-typia/bun'
+ *   import UnpluginTypia from '@typia/unplugin/bun'
  *
  *   Bun.build({
  *     entrypoints: ['./index.ts'],
@@ -73,7 +73,7 @@ async function taggedTransform(
  *   ```ts
  *   // preload.ts
  *   import { plugin } from 'bun';
- *   import UnpluginTypia from '@ryoppippi/unplugin-typia/bun'
+ *   import UnpluginTypia from '@typia/unplugin/bun'
  *
  *   plugin(UnpluginTypia({ /* your options *\/}))
  *   ```
