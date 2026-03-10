@@ -40,7 +40,7 @@ export type Options = {
   typia?: ITransformOptions;
 
   /**
-   * The optiosn for cache. The cache-dir-searching feature is powered by
+   * The options for cache. The cache-dir-searching feature is powered by
    * [find-cache-dir](https://github.com/sindresorhus/find-cache-dir). If you
    * want to change cache dir, set an environment variable `CACHE_DIR`. if
    * `true`, it will enable cache with and will use

@@ -157,7 +157,7 @@ async function getProgramAndSource(
           return module;
         }
 
-        /* when alais is found and there is unresolved module, resolve it */
+        /* when alias is found and there is unresolved module, resolve it */
         return ts.resolveModuleName(
           resolve(lit.text.replace(alias.find, alias.replacement)),
           containingFile,
