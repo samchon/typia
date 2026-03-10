@@ -36,7 +36,6 @@ export namespace HttpLlmApplicationComposer {
     const config: IHttpLlmApplication.IConfig = {
       maxLength: props.config?.maxLength ?? 64,
       equals: props.config?.equals ?? false,
-      reference: props.config?.reference ?? true,
       strict: props.config?.strict ?? false,
     };
     // seed with pre-existing migration errors, excluding human-only endpoints

@@ -113,7 +113,6 @@ export namespace HttpLlm {
     return HttpLlmApplicationComposer.application({
       migrate,
       config: {
-        reference: props.config?.reference ?? true,
         strict: props.config?.strict ?? false,
         maxLength: props.config?.maxLength ?? 64,
         equals: props.config?.equals ?? false,
