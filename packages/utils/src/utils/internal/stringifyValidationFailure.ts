@@ -256,13 +256,11 @@ function stringify(props: {
     return lines.join("\n");
   }
 
-  // Primitive types (null, boolean, number, string, undefined, bigint, etc.)
+  // Primitive types (null, boolean, number, string, undefined, etc.)
   const valStr: string =
     value === undefined
       ? "undefined"
-      : typeof value === "bigint"
-        ? `${value}n`
-        : (JSON.stringify(value) ?? String(value));
+      : (JSON.stringify(value) ?? String(value));
   return `${indent}${valStr}${errorComment}`;
 }
 
