@@ -13,7 +13,6 @@ import { IValidation } from "./IValidation";
  *
  * - {@link ILlmApplication.IConfig.validate}: Custom validation per method
  * - {@link ILlmSchema.IConfig.strict}: OpenAI structured output mode
- * - {@link ILlmSchema.IConfig.reference}: Control `$ref` inlining behavior
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @template Class Source class/interface type
@@ -32,7 +31,7 @@ export interface ILlmApplication<Class extends object = any> {
    * Configuration used to generate this application.
    *
    * Contains the settings that were applied during schema generation, including
-   * reference handling, strict mode, and parameter separation.
+   * strict mode and any custom validation hooks.
    */
   config: ILlmApplication.IConfig<Class>;
 

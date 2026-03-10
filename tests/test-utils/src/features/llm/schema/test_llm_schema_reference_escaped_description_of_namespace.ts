@@ -16,16 +16,8 @@ export const test_llm_schema_reference_escaped_description_of_namespace =
     >();
     const schema: ILlmSchema.IParameters = composeSchema(collection);
     const deep: ILlmSchema = schema.properties.deep as ILlmSchema;
-    TestValidator.predicate("description", () => {
-      const description: string | undefined = (
-        deep as OpenApi.IJsonSchema.IObject
-      ).description;
-      return (
-        !!description &&
-        description.includes("Something interface") &&
-        description.includes("Something nested interface") &&
-        description.includes("Something nested and deep interface")
-      );
+    TestValidator.predicate("$ref", () => {
+      return !!(deep as ILlmSchema.IReference).$ref;
     });
   };
 
@@ -55,9 +47,6 @@ const composeSchema = (
       schema: typia.assert<
         OpenApi.IJsonSchema.IObject | OpenApi.IJsonSchema.IReference
       >(collection.schemas[0]),
-      config: {
-        reference: false,
-      },
     });
   if (result.success === false) throw new Error("Invalid schema");
   return result.value;

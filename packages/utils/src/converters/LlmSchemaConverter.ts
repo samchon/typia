@@ -29,7 +29,6 @@ import { OpenApiConstraintShifter } from "./internal/OpenApiConstraintShifter";
  *
  * Configuration options ({@link ILlmSchema.IConfig}):
  *
- * - `reference`: Allow `$ref` references (reduces tokens but may confuse LLM)
  * - `strict`: OpenAI structured output mode (all properties required)
  *
  * @author Jeongho Nam - https://github.com/samchon
@@ -44,7 +43,6 @@ export namespace LlmSchemaConverter {
   export const getConfig = (
     config?: Partial<ILlmSchema.IConfig> | undefined,
   ): ILlmSchema.IConfig => ({
-    reference: config?.reference ?? true,
     strict: config?.strict ?? false,
   });
 
@@ -238,14 +236,8 @@ export namespace LlmSchemaConverter {
         const target: OpenApi.IJsonSchema | undefined =
           props.components.schemas?.[key];
         if (target === undefined) return;
-        else if (
+        else {
           // KEEP THE REFERENCE TYPE
-          props.config.reference === true ||
-          OpenApiTypeChecker.isRecursiveReference({
-            components: props.components,
-            schema: input,
-          })
-        ) {
           const out = () => {
             union.push({
               ...input,
@@ -267,28 +259,6 @@ export namespace LlmSchemaConverter {
           if (converted.success === false) return; // UNREACHABLE
           props.$defs[key] = converted.value;
           return out();
-        } else {
-          // DISCARD THE REFERENCE TYPE
-          const length: number = union.length;
-          visit(target, accessor);
-          visitConstant(target);
-          if (length === union.length - 1)
-            union[union.length - 1] = {
-              ...union[union.length - 1]!,
-              description: JsonDescriptor.cascade({
-                prefix: "#/components/schemas/",
-                components: props.components,
-                schema: input,
-                escape: true,
-              }),
-            };
-          else
-            attribute.description = JsonDescriptor.cascade({
-              prefix: "#/components/schemas/",
-              components: props.components,
-              schema: input,
-              escape: true,
-            });
         }
       } else if (OpenApiTypeChecker.isObject(input)) {
         // OBJECT TYPE
