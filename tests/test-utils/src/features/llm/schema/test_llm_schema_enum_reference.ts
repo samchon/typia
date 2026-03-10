@@ -29,14 +29,12 @@ export const test_llm_schema_enum_reference = (): void => {
     ],
   };
 
+  const $defs: Record<string, ILlmSchema> = {};
   const result: IResult<ILlmSchema, IJsonSchemaTransformError> =
     LlmSchemaConverter.schema({
       components,
       schema,
-      $defs: {},
-      config: {
-        reference: false,
-      },
+      $defs,
     });
   TestValidator.equals(
     "success",
@@ -44,13 +42,16 @@ export const test_llm_schema_enum_reference = (): void => {
     true,
     (key) => key === "description",
   );
+  // const 3 is inlined as { type: "number", enum: [3] },
+  // while $ref to "named" stays as a reference
+  TestValidator.predicate("anyOf", () => {
+    if (result.success === false) return false;
+    const anyOf = (result.value as any).anyOf;
+    return Array.isArray(anyOf) && anyOf.length === 2;
+  });
   TestValidator.equals(
-    "union",
-    result.success ? result.value : {},
-    {
-      type: "number",
-      enum: [3, 4, 5],
-    },
-    (key) => key === "description",
+    "named $defs",
+    ($defs.named as any)?.enum,
+    [4, 5],
   );
 };

@@ -15,11 +15,10 @@ export const test_llm_schema_reference_escaped_description_of_name =
       ]
     >();
     const schema: ILlmSchema.IParameters = composeSchema(collection);
-    const deep: ILlmSchema.IObject = schema.properties
-      .deep as ILlmSchema.IObject;
+    const deep: ILlmSchema = schema.properties.deep as ILlmSchema;
     TestValidator.predicate(
-      "description",
-      () => !!deep.description?.includes("Something.INested.IDeep"),
+      "$ref",
+      () => !!(deep as ILlmSchema.IReference).$ref,
     );
   };
 
@@ -46,9 +45,6 @@ const composeSchema = (
       schema: typia.assert<
         OpenApi.IJsonSchema.IObject | OpenApi.IJsonSchema.IReference
       >(collection.schemas[0]),
-      config: {
-        reference: false,
-      },
     });
   if (result.success === false) throw new Error("Invalid schema");
   return result.value;

@@ -13,17 +13,22 @@ export const test_llm_schema_oneof = (): void => {
       $defs,
       components: collection.components,
       schema: collection.schemas[0]!,
-      config: {
-        reference: false,
-      },
     });
   TestValidator.predicate("success", result.success);
+  TestValidator.predicate("anyOf length", () => {
+    const anyOf = (result as any)?.value?.anyOf;
+    return Array.isArray(anyOf) && anyOf.length === 4;
+  });
   TestValidator.equals(
-    "anyOf",
+    "types",
     ["point", "line", "triangle", "rectangle"],
-    (result as any)?.value?.anyOf?.map(
-      (e: any) => e.properties?.type?.enum?.[0],
-    ),
+    Object.values($defs)
+      .map((def: any) => def.properties?.type?.enum?.[0])
+      .filter(Boolean)
+      .sort((a: string, b: string) => {
+        const order = ["point", "line", "triangle", "rectangle"];
+        return order.indexOf(a) - order.indexOf(b);
+      }),
   );
 };
 

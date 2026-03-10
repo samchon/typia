@@ -36,20 +36,9 @@ export namespace ILlmSchema {
    * Configuration options for LLM schema generation.
    *
    * Controls how TypeScript types are converted to LLM-compatible JSON schemas.
-   * These settings affect reference handling and OpenAI structured output
-   * compatibility.
+   * These settings affect OpenAI structured output compatibility.
    */
   export interface IConfig {
-    /**
-     * Whether to allow `$ref` references everywhere.
-     *
-     * When `false`, references are inlined except for recursive types.
-     * References reduce token cost but may cause hallucination.
-     *
-     * @default true
-     */
-    reference: boolean;
-
     /**
      * Whether to enable strict mode (OpenAI structured output).
      *

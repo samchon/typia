@@ -1,10 +1,7 @@
 import typia, { ILlmSchema, tags } from "typia";
 
 export const $defs: Record<string, ILlmSchema> = {};
-export const schema: ILlmSchema = typia.llm.schema<
-  IBbsArticle,
-  { reference: true }
->($defs);
+export const schema: ILlmSchema = typia.llm.schema<IBbsArticle>($defs);
 
 /**
  * Article entity.
