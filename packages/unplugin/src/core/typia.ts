@@ -2,7 +2,7 @@ import { consola } from "consola";
 import { dirname, resolve } from "pathe";
 import { resolveTSConfig } from "pkg-types";
 import ts from "typescript";
-import { transform as typiaTransform } from "typia/lib/transform.js";
+import { transform as typiaTransform } from "typia/lib/transform";
 import type { Alias } from "vite";
 
 import type { ResolvedOptions } from "./options.js";

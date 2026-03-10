@@ -1,7 +1,7 @@
 import type { FilterPattern } from "@rollup/pluginutils";
+import type { ITransformOptions } from "@typia/core";
 import { createDefu } from "defu";
 import type { OverrideProperties, RequiredDeep } from "type-fest";
-import type { ITransformOptions } from "typia/lib/transformers/ITransformOptions.js";
 
 /** Represents the options for the plugin. */
 export type Options = {

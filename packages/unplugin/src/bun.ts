@@ -26,9 +26,9 @@ async function taggedTransform(
     throw new Error("transform is not defined");
   }
 
-  // @ts-expect-error type of this function is not correct
+  // type of this function is not correct
   const _transform = async (source: Source, id: ID) =>
-    transform(source, id) as Promise<string | { code: string }>;
+    (transform as any)(source, id) as Promise<string | { code: string }>;
 
   const result = await _transform(source, id);
 
