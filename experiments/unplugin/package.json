@@ -10,6 +10,8 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "@typia/core": "../tarballs/core.tgz",
+    "@typia/transform": "../tarballs/transform.tgz",
     "@typia/unplugin": "../tarballs/unplugin.tgz",
     "typia": "../tarballs/typia.tgz"
   },
