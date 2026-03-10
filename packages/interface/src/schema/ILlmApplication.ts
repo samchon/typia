@@ -31,7 +31,7 @@ export interface ILlmApplication<Class extends object = any> {
    * Configuration used to generate this application.
    *
    * Contains the settings that were applied during schema generation, including
-   * strict mode, and parameter separation.
+   * strict mode and any custom validation hooks.
    */
   config: ILlmApplication.IConfig<Class>;
 
