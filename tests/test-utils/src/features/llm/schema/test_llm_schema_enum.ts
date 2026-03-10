@@ -11,7 +11,6 @@ export const test_llm_schema_enum = (): void => {
       schema: collection.schemas[0] as
         | OpenApi.IJsonSchema.IObject
         | OpenApi.IJsonSchema.IReference,
-      config: {},
     });
   TestValidator.equals("success", result.success, true);
   if (result.success === false) return;
@@ -22,10 +21,7 @@ export const test_llm_schema_enum = (): void => {
 };
 
 interface IBbsArticle {
-  format: IBbsArticle.Format;
+  format: "html" | "md" | "txt";
   // title: string;
   // body: string;
-}
-namespace IBbsArticle {
-  export type Format = "html" | "md" | "txt";
 }
