@@ -88,9 +88,7 @@ export namespace IJsonParseResult {
     errors: IError[];
   }
 
-  /**
-   * Detailed information about a parsing error.
-   */
+  /** Detailed information about a parsing error. */
   export interface IError {
     /**
      * Property path to the error location.

@@ -1,5 +1,5 @@
-import type { Tool } from "ai";
 import { IHttpLlmController, ILlmController } from "@typia/interface";
+import type { Tool } from "ai";
 
 import { VercelToolsRegistrar } from "./internal/VercelToolsRegistrar";
 
@@ -11,8 +11,8 @@ import { VercelToolsRegistrar } from "./internal/VercelToolsRegistrar";
  * can be used with any LLM provider (OpenAI, Anthropic, Google, etc.).
  *
  * Every tool call is validated by typia. If the LLM provides invalid arguments,
- * returns a validation error formatted by {@link LlmJson.stringify}
- * so the LLM can auto-correct in the next turn.
+ * returns a validation error formatted by {@link LlmJson.stringify} so the LLM
+ * can auto-correct in the next turn.
  *
  * ## Example with OpenAI
  *
@@ -42,9 +42,9 @@ import { VercelToolsRegistrar } from "./internal/VercelToolsRegistrar";
  * ## Example with Anthropic
  *
  * ```typescript
- * import { generateText } from "ai";
  * import { anthropic } from "@ai-sdk/anthropic";
  * import { toVercelTools } from "@typia/vercel";
+ * import { generateText } from "ai";
  *
  * const result = await generateText({
  *   model: anthropic("claude-sonnet-4-20250514"),
@@ -56,14 +56,16 @@ import { VercelToolsRegistrar } from "./internal/VercelToolsRegistrar";
  * ## Example with HTTP Controller (OpenAPI)
  *
  * ```typescript
- * import { generateText } from "ai";
  * import { openai } from "@ai-sdk/openai";
  * import { HttpLlm } from "@typia/utils";
  * import { toVercelTools } from "@typia/vercel";
+ * import { generateText } from "ai";
  *
  * const controller = HttpLlm.controller({
  *   name: "shopping",
- *   document: await fetch("https://api.example.com/swagger.json").then(r => r.json()),
+ *   document: await fetch("https://api.example.com/swagger.json").then(
+ *     (r) => r.json(),
+ *   ),
  *   connection: { host: "https://api.example.com" },
  * });
  *
@@ -74,9 +76,9 @@ import { VercelToolsRegistrar } from "./internal/VercelToolsRegistrar";
  * });
  * ```
  *
+ * @author Jeongho Nam - https://github.com/samchon
  * @param props Conversion properties
  * @returns Record of Vercel AI SDK Tools keyed by tool name
- * @author Jeongho Nam - https://github.com/samchon
  */
 export function toVercelTools(props: {
   /**
@@ -92,8 +94,8 @@ export function toVercelTools(props: {
   /**
    * Whether to prefix tool names with controller name.
    *
-   * If `true`, tool names are formatted as `{controller}_{function}`.
-   * If `false`, only the function name is used (may cause conflicts).
+   * If `true`, tool names are formatted as `{controller}_{function}`. If
+   * `false`, only the function name is used (may cause conflicts).
    *
    * @default true
    */

@@ -76,14 +76,12 @@ const unpluginFactory: UnpluginFactory<Options | undefined, false> = (
         /* offset is increased  */
         offset += textLength;
       } else if (type === 1) {
-
-      /** Add text */
+        /** Add text */
         s.prependLeft(offset, text);
 
         /* offset is not increased because text is prepended */
       } else if (type === -1) {
-
-      /** Remove text */
+        /** Remove text */
         const next = diff.at(index + 1);
 
         /** If next is equal to 1, then overwrite */
