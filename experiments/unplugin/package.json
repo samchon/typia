@@ -1,0 +1,21 @@
+{
+  "name": "@typia/experiment-unplugin",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "prepare": "ts-patch install",
+    "start": "vitest"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@typia/unplugin": "../tarballs/unplugin.tgz",
+    "typia": "../tarballs/typia.tgz"
+  },
+  "devDependencies": {
+    "ts-patch": "^3.3.0",
+    "typescript": "^5.9.3",
+    "vitest": "^3.0.9"
+  }
+}

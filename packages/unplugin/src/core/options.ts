@@ -1,7 +1,7 @@
 import type { FilterPattern } from "@rollup/pluginutils";
-import type { ITransformOptions } from "@typia/core";
 import { createDefu } from "defu";
 import type { OverrideProperties, RequiredDeep } from "type-fest";
+import type { ITransformOptions } from "typia/lib/transformers/ITransformOptions.js";
 
 /** Represents the options for the plugin. */
 export type Options = {
@@ -40,7 +40,7 @@ export type Options = {
   typia?: ITransformOptions;
 
   /**
-   * The options for cache. The cache-dir-searching feature is powered by
+   * The optiosn for cache. The cache-dir-searching feature is powered by
    * [find-cache-dir](https://github.com/sindresorhus/find-cache-dir). If you
    * want to change cache dir, set an environment variable `CACHE_DIR`. if
    * `true`, it will enable cache with and will use

@@ -26,8 +26,9 @@ async function taggedTransform(
     throw new Error("transform is not defined");
   }
 
+  // @ts-expect-error type of this function is not correct
   const _transform = async (source: Source, id: ID) =>
-    (transform as any)(source, id) as Promise<string | { code: string }>;
+    transform(source, id) as Promise<string | { code: string }>;
 
   const result = await _transform(source, id);
 
@@ -55,7 +56,7 @@ async function taggedTransform(
  *   ```ts
  *   // build.ts
  *
- *   import UnpluginTypia from '@typia/unplugin/bun'
+ *   import UnpluginTypia from '@ryoppippi/unplugin-typia/bun'
  *
  *   Bun.build({
  *     entrypoints: ['./index.ts'],
@@ -72,7 +73,7 @@ async function taggedTransform(
  *   ```ts
  *   // preload.ts
  *   import { plugin } from 'bun';
- *   import UnpluginTypia from '@typia/unplugin/bun'
+ *   import UnpluginTypia from '@ryoppippi/unplugin-typia/bun'
  *
  *   plugin(UnpluginTypia({ /* your options *\/}))
  *   ```

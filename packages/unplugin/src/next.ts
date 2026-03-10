@@ -15,7 +15,7 @@ import webpack from "./webpack.js";
  * @example
  *   ```js
  *   // next.config.mjs
- *   import unTypiaNext from "@typia/unplugin/next";
+ *   import unTypiaNext from "@ryoppippi/unplugin-typia/next";
  *
  *   /** @type {import("next").NextConfig} *\/
  *   const nextConfig = { /* your next.js config *\/ };

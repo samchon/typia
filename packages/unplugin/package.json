@@ -39,7 +39,7 @@
   },
   "peerDependencies": {
     "svelte": "^5.28.2",
-    "typia": ">=12.0.0",
+    "typia": "workspace:^",
     "vite": ">=3.0.0"
   },
   "peerDependenciesMeta": {

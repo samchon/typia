@@ -12,7 +12,7 @@ import unplugin from "./core/index.js";
  *   ```js
  *   // webpack.config.js
  *
- *   const { default: UnpluginTypia } = require("@typia/unplugin/webpack");
+ *   const { default: UnpluginTypia } = require("@ryoppippi/unplugin-typia/webpack");
  *
  *   module.exports = {
  *    plugins: [UnpluginTypia({ /* your config *\/ })],

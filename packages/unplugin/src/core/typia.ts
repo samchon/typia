@@ -2,7 +2,7 @@ import { consola } from "consola";
 import { dirname, resolve } from "pathe";
 import { resolveTSConfig } from "pkg-types";
 import ts from "typescript";
-import { transform as typiaTransform } from "typia/lib/transform";
+import { transform as typiaTransform } from "typia/lib/transform.js";
 import type { Alias } from "vite";
 
 import type { ResolvedOptions } from "./options.js";
@@ -157,7 +157,7 @@ async function getProgramAndSource(
           return module;
         }
 
-        /* when alias is found and there is unresolved module, resolve it */
+        /* when alais is found and there is unresolved module, resolve it */
         return ts.resolveModuleName(
           resolve(lit.text.replace(alias.find, alias.replacement)),
           containingFile,

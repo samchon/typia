@@ -11,7 +11,7 @@ import unplugin from "./core/index.js";
  * @example
  *   ```ts
  *   // farm.config.ts
- *   import UnpluginTypia from '@typia/unplugin/farm'
+ *   import UnpluginTypia from '@ryoppippi/unplugin-typia/farm'
  *
  *   export default defineConfig({
  *     plugins: [UnpluginTypia()],
