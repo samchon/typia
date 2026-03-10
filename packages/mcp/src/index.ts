@@ -11,9 +11,9 @@ import { McpControllerRegistrar } from "./internal/McpControllerRegistrar";
  * OpenAPI operations via `HttpLlm.controller()` as MCP tools.
  *
  * Every tool call is validated by typia. If LLM provides invalid arguments,
- * returns {@link IValidation.IFailure} formatted by
- * {@link LlmJson.stringify} so that LLM can correct them automatically.
- * Below is an example of the validation error format:
+ * returns {@link IValidation.IFailure} formatted by {@link LlmJson.stringify} so
+ * that LLM can correct them automatically. Below is an example of the
+ * validation error format:
  *
  * ```json
  * {

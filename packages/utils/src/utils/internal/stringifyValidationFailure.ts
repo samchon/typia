@@ -256,11 +256,13 @@ function stringify(props: {
     return lines.join("\n");
   }
 
-  // Primitive types (null, boolean, number, string, undefined, etc.)
+  // Primitive types (null, boolean, number, string, undefined, bigint, etc.)
   const valStr: string =
     value === undefined
       ? "undefined"
-      : (JSON.stringify(value) ?? String(value));
+      : typeof value === "bigint"
+        ? `${value}n`
+        : (JSON.stringify(value) ?? String(value));
   return `${indent}${valStr}${errorComment}`;
 }
 
@@ -269,7 +271,7 @@ function insertCommaBeforeComment(str: string): string {
   const lines: string[] = str.split("\n");
   const lastLine: string = lines[lines.length - 1]!;
   // Use specific error marker to avoid false positives with values containing " //"
-  const commentIndex: number = lastLine.indexOf(" // ❌");
+  const commentIndex: number = lastLine.lastIndexOf(" // ❌");
   if (commentIndex !== -1) {
     lines[lines.length - 1] = `${lastLine.slice(
       0,
@@ -329,7 +331,11 @@ function hasErrorsAtOrUnder(
   errorsByPath: Map<string, IValidation.IError[]>,
 ): boolean {
   for (const errorPath of errorsByPath.keys()) {
-    if (errorPath.startsWith(pathPrefix)) {
+    if (
+      errorPath === pathPrefix ||
+      errorPath.startsWith(pathPrefix + ".") ||
+      errorPath.startsWith(pathPrefix + "[")
+    ) {
       return true;
     }
   }

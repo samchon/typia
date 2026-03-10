@@ -13,8 +13,8 @@ import { ILlmApplication } from "./ILlmApplication";
  *
  * ```typescript
  * import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
- * import typia from "typia";
  * import { registerMcpControllers } from "@typia/mcp";
+ * import typia from "typia";
  *
  * class Calculator {
  *   add(input: { a: number; b: number }): number {
@@ -29,10 +29,7 @@ import { ILlmApplication } from "./ILlmApplication";
  * registerMcpControllers({
  *   server,
  *   controllers: [
- *     typia.llm.controller<Calculator>(
- *       "calculator",
- *       new Calculator(),
- *     ),
+ *     typia.llm.controller<Calculator>("calculator", new Calculator()),
  *   ],
  * });
  * ```

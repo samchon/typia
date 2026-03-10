@@ -189,7 +189,6 @@ export namespace LlmSchemaProgrammer {
         output.push(`LLM schema does not support ${native.name} type.`);
     return output;
   };
-
 }
 
 const size = (metadata: MetadataSchema): number =>

@@ -8,16 +8,16 @@ import { IHttpResponse } from "./IHttpResponse";
  *
  * `IHttpLlmController` is a controller for registering OpenAPI operations as
  * LLM function calling tools. It contains {@link IHttpLlmApplication} with
- * {@link IHttpLlmFunction function calling schemas}, {@link name identifier},
- * and {@link connection} to the API server.
+ * {@link IHttpLlmFunction function calling schemas}, {@link name identifier}, and
+ * {@link connection} to the API server.
  *
- * You can create this controller with {@link HttpLlm.controller} function,
- * and register it to MCP server with {@link registerMcpControllers}:
+ * You can create this controller with {@link HttpLlm.controller} function, and
+ * register it to MCP server with {@link registerMcpControllers}:
  *
  * ```typescript
  * import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
- * import { HttpLlm } from "@typia/utils";
  * import { registerMcpControllers } from "@typia/mcp";
+ * import { HttpLlm } from "@typia/utils";
  *
  * const server = new McpServer({ name: "my-server", version: "1.0.0" });
  * registerMcpControllers({
