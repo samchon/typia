@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@typia/test-unplugin",
-  "version": "12.0.0-dev.20260309",
+  "version": "12.0.0-dev.20260310",
   "type": "module",
   "description": "Test for @typia/unplugin package",
   "scripts": {
