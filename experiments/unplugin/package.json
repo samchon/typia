@@ -1,22 +1,23 @@
 {
+  "private": true,
   "name": "@typia/experiment-unplugin",
   "version": "0.0.0",
-  "description": "",
-  "main": "index.js",
+  "type": "module",
+  "description": "Experiment for @typia/unplugin package with tgz installation",
   "scripts": {
-    "prepare": "ts-patch install",
     "start": "vitest run"
   },
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/samchon/typia"
+  },
+  "author": "Jeongho Nam",
   "license": "MIT",
   "dependencies": {
-    "@typia/core": "../tarballs/core.tgz",
-    "@typia/transform": "../tarballs/transform.tgz",
     "@typia/unplugin": "../tarballs/unplugin.tgz",
     "typia": "../tarballs/typia.tgz"
   },
   "devDependencies": {
-    "ts-patch": "^3.3.0",
     "typescript": "^5.9.3",
     "vitest": "^3.0.9"
   }
