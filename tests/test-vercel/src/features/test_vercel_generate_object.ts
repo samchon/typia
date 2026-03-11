@@ -1,7 +1,7 @@
 import { TestValidator } from "@nestia/e2e";
 import { toVercelSchema } from "@typia/vercel";
 import { generateObject } from "ai";
-import { MockLanguageModelV1 } from "ai/test";
+import { MockLanguageModelV3 } from "ai/test";
 import typia from "typia";
 
 export const test_vercel_generate_object = async (): Promise<void> => {
@@ -14,13 +14,20 @@ export const test_vercel_generate_object = async (): Promise<void> => {
   const schema = toVercelSchema(output.parameters);
 
   // Mock model returns JSON with stringified number
-  const mockModel = new MockLanguageModelV1({
-    defaultObjectGenerationMode: "json",
+  const mockModel = new MockLanguageModelV3({
     doGenerate: async () => ({
-      rawCall: { rawPrompt: null, rawSettings: {} },
-      finishReason: "stop" as const,
-      usage: { promptTokens: 10, completionTokens: 5 },
-      text: JSON.stringify({ name: "John", age: "30" }),
+      content: [
+        {
+          type: "text" as const,
+          text: JSON.stringify({ name: "John", age: "30" }),
+        },
+      ],
+      finishReason: { unified: "stop" as const, raw: "stop" },
+      usage: {
+        inputTokens: { total: 10, noCache: 10, cacheRead: 0, cacheWrite: 0 },
+        outputTokens: { total: 5, text: 5, reasoning: 0 },
+      },
+      warnings: [],
     }),
   });
 
