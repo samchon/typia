@@ -28,11 +28,13 @@ export namespace OpenApiV3Upgrader {
     (doc: OpenApiV3.IDocument) =>
     (pathItem: OpenApiV3.IPath): OpenApi.IPath => {
       // Convert x-additionalOperations to additionalOperations
+      // Promote "query" to standard method (it's a v3.2 standard method)
       const xAdditional = pathItem["x-additionalOperations"];
+      const queryOp = xAdditional?.["query"];
       const additionalOperations = xAdditional
         ? Object.fromEntries(
             Object.entries(xAdditional)
-              .filter(([_, v]) => v !== undefined)
+              .filter(([key, v]) => key !== "query" && v !== undefined)
               .map(([key, value]) => [
                 key,
                 convertOperation(doc)(pathItem)(value),
@@ -65,6 +67,9 @@ export namespace OpenApiV3Upgrader {
           : undefined),
         ...(pathItem.trace
           ? { trace: convertOperation(doc)(pathItem)(pathItem.trace) }
+          : undefined),
+        ...(queryOp
+          ? { query: convertOperation(doc)(pathItem)(queryOp) }
           : undefined),
         ...(additionalOperations && Object.keys(additionalOperations).length > 0
           ? { additionalOperations }

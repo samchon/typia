@@ -7,7 +7,7 @@ import { OpenApiTypeChecker } from "../../validators/OpenApiTypeChecker";
 export namespace HttpMigrateRouteComposer {
   export interface IProps {
     document: OpenApi.IDocument;
-    method: "head" | "get" | "post" | "put" | "patch" | "delete";
+    method: "head" | "get" | "post" | "put" | "patch" | "delete" | "query";
     path: string;
     emendedPath: string;
     operation: OpenApi.IOperation;

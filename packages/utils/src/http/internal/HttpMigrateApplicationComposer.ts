@@ -18,7 +18,7 @@ export namespace HttpMigrateApplicationComposer {
       ...(document.webhooks ?? {}),
     })
       .map(([path, collection]) =>
-        (["head", "get", "post", "put", "patch", "delete"] as const)
+        (["head", "get", "post", "put", "patch", "delete", "query"] as const)
           .filter((method) => collection[method] !== undefined)
           .map((method) => {
             const operation: OpenApi.IOperation = collection[method]!;
