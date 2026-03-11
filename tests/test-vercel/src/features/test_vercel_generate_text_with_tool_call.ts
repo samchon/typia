@@ -28,7 +28,7 @@ export const test_vercel_generate_text_with_tool_call =
           {
             toolCallType: "function",
             toolCallId: "call-1",
-            toolName: "calculator_add",
+            toolName: "add",
             args: JSON.stringify({ x: 10, y: 5 }),
           },
         ],
@@ -49,9 +49,9 @@ export const test_vercel_generate_text_with_tool_call =
     }>;
     TestValidator.equals("should have 1 tool call", toolCalls.length, 1);
     TestValidator.equals(
-      "tool name should be calculator_add",
+      "tool name should be add",
       toolCalls[0]!.toolName,
-      "calculator_add",
+      "add",
     );
     TestValidator.equals("tool args should match", toolCalls[0]!.args, {
       x: 10,

@@ -1,4 +1,4 @@
-import { DynamicStructuredTool } from "@langchain/core/tools";
+import { DynamicStructuredTool, ToolInputParsingException } from "@langchain/core/tools";
 import { TestValidator } from "@nestia/e2e";
 import { IHttpLlmController, IValidation, OpenApi } from "@typia/interface";
 import { toLangChainTools } from "@typia/langchain";
@@ -66,9 +66,9 @@ export const test_langchain_http_controller_validation =
     });
 
     // 4. Find the add tool
-    const addTool = tools.find((t) => t.name === "calculator_calculate_add_post");
+    const addTool = tools.find((t) => t.name === "calculate_add_post");
     if (!addTool) {
-      throw new Error("Missing calculator_calculate_add_post tool");
+      throw new Error("Missing calculate_add_post tool");
     }
 
     // 5. Test validation failure: wrong type (string instead of number)
@@ -79,9 +79,6 @@ export const test_langchain_http_controller_validation =
       },
     };
 
-    const result = await addTool.invoke(invalidArgs);
-
-    // 6. Verify validation matches LlmJson.stringify output
     const func = controller.application.functions.find(
       (f) => f.name === "calculate_add_post",
     )!;
@@ -108,9 +105,19 @@ export const test_langchain_http_controller_validation =
     }
 
     const expectedMessage: string = LlmJson.stringify(expected);
-    TestValidator.equals(
-      "Validation failure message should match",
-      result,
-      expectedMessage,
-    );
+
+    try {
+      await addTool.invoke(invalidArgs);
+      throw new Error("Expected ToolInputParsingException to be thrown.");
+    } catch (error) {
+      TestValidator.predicate(
+        "should throw ToolInputParsingException",
+        () => error instanceof ToolInputParsingException,
+      );
+      TestValidator.equals(
+        "error output should match typia validation",
+        (error as ToolInputParsingException).output,
+        expectedMessage,
+      );
+    }
   };

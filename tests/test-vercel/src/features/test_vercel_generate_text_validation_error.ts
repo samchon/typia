@@ -28,7 +28,7 @@ export const test_vercel_generate_text_validation_error =
           {
             toolCallType: "function",
             toolCallId: "call-1",
-            toolName: "calculator_add",
+            toolName: "add",
             // Invalid: x should be number, not string
             args: JSON.stringify({ x: "not a number", y: 5 }),
           },

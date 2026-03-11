@@ -28,12 +28,11 @@ export const test_langchain_http_controller_standalone =
       controller.application.functions.length,
     );
 
-    // 4. Verify each tool has correct name prefix
+    // 4. Verify each tool has correct name (no prefix by default)
     for (const func of controller.application.functions) {
-      const expectedName = `shopping_${func.name}`;
-      const tool = tools.find((t) => t.name === expectedName);
+      const tool = tools.find((t) => t.name === func.name);
       TestValidator.predicate(
-        `tool ${expectedName} should exist`,
+        `tool ${func.name} should exist`,
         () => tool !== undefined,
       );
     }

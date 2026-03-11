@@ -27,7 +27,7 @@ import { IValidation } from "./IValidation";
  * @author Jeongho Nam - https://github.com/samchon
  * @template T The expected output type
  */
-export interface ILlmStructuredOutput<T> {
+export interface ILlmStructuredOutput<T = unknown> {
   /**
    * JSON schema for the structured output.
    *

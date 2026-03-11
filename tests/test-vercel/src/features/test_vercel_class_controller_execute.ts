@@ -19,7 +19,7 @@ export const test_vercel_class_controller_execute = async (): Promise<void> => {
   });
 
   // 3. Test add function
-  const addTool: Tool = tools["calculator_add"]!;
+  const addTool: Tool = tools["add"]!;
   const addResult: unknown = await addTool.execute!(
     { x: 10, y: 5 },
     { toolCallId: "test-1", messages: [], abortSignal: undefined as any },
@@ -29,7 +29,7 @@ export const test_vercel_class_controller_execute = async (): Promise<void> => {
   });
 
   // 4. Test subtract function
-  const subtractTool: Tool = tools["calculator_subtract"]!;
+  const subtractTool: Tool = tools["subtract"]!;
   const subtractResult: unknown = await subtractTool.execute!(
     { x: 10, y: 3 },
     { toolCallId: "test-2", messages: [], abortSignal: undefined as any },
@@ -39,7 +39,7 @@ export const test_vercel_class_controller_execute = async (): Promise<void> => {
   });
 
   // 5. Test multiply function
-  const multiplyTool: Tool = tools["calculator_multiply"]!;
+  const multiplyTool: Tool = tools["multiply"]!;
   const multiplyResult: unknown = await multiplyTool.execute!(
     { x: 4, y: 7 },
     { toolCallId: "test-3", messages: [], abortSignal: undefined as any },
@@ -49,7 +49,7 @@ export const test_vercel_class_controller_execute = async (): Promise<void> => {
   });
 
   // 6. Test divide function
-  const divideTool: Tool = tools["calculator_divide"]!;
+  const divideTool: Tool = tools["divide"]!;
   const divideResult: unknown = await divideTool.execute!(
     { x: 20, y: 4 },
     { toolCallId: "test-4", messages: [], abortSignal: undefined as any },

@@ -28,7 +28,7 @@ export const test_vercel_generate_text_runtime_error =
           {
             toolCallType: "function",
             toolCallId: "call-1",
-            toolName: "calculator_divide",
+            toolName: "divide",
             args: JSON.stringify({ x: 10, y: 0 }), // Division by zero!
           },
         ],

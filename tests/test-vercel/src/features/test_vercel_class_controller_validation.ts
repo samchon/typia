@@ -19,7 +19,7 @@ export const test_vercel_class_controller_validation =
     });
 
     // 3. Test validation failure: wrong type (string instead of number)
-    const addTool: Tool = tools["calculator_add"]!;
+    const addTool: Tool = tools["add"]!;
     const result: unknown = await addTool.execute!(
       { x: "not a number", y: 5 },
       { toolCallId: "test-1", messages: [], abortSignal: undefined as any },

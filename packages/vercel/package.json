@@ -27,14 +27,14 @@
     "@typia/utils": "workspace:^"
   },
   "peerDependencies": {
-    "ai": ">=4.0.0"
+    "ai": ">=6.0.0"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "catalog:rollup",
     "@rollup/plugin-node-resolve": "catalog:rollup",
     "@rollup/plugin-typescript": "catalog:rollup",
     "@types/json-schema": "^7.0.15",
-    "ai": "^4.3.16",
+    "ai": "^6.0.116",
     "rimraf": "catalog:utils",
     "rollup": "catalog:rollup",
     "rollup-plugin-auto-external": "catalog:rollup",

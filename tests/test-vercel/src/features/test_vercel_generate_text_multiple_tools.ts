@@ -28,19 +28,19 @@ export const test_vercel_generate_text_multiple_tools =
           {
             toolCallType: "function",
             toolCallId: "call-1",
-            toolName: "calculator_add",
+            toolName: "add",
             args: JSON.stringify({ x: 10, y: 5 }),
           },
           {
             toolCallType: "function",
             toolCallId: "call-2",
-            toolName: "calculator_multiply",
+            toolName: "multiply",
             args: JSON.stringify({ x: 3, y: 7 }),
           },
           {
             toolCallType: "function",
             toolCallId: "call-3",
-            toolName: "calculator_subtract",
+            toolName: "subtract",
             args: JSON.stringify({ x: 100, y: 42 }),
           },
         ],

@@ -3,13 +3,12 @@ import {
   IHttpLlmFunction,
   ILlmController,
   ILlmFunction,
-  ILlmSchema,
   IValidation,
 } from "@typia/interface";
 import { HttpLlm, LlmJson } from "@typia/utils";
-import { jsonSchema, tool } from "ai";
-import type { Tool } from "ai";
-import type { JSONSchema7 } from "json-schema";
+import { Tool, tool } from "ai";
+
+import { VercelParameterConverter } from "./VercelParameterConverter";
 
 export namespace VercelToolsRegistrar {
   /**
@@ -23,7 +22,7 @@ export namespace VercelToolsRegistrar {
     prefix?: boolean | undefined;
   }): Record<string, Tool> => {
     const tools: Record<string, Tool> = {};
-    const prefix: boolean = props.prefix ?? true;
+    const prefix: boolean = props.prefix ?? false;
 
     for (const controller of props.controllers) {
       if (controller.protocol === "class") {
@@ -129,10 +128,7 @@ export namespace VercelToolsRegistrar {
     return tool({
       description: func.description,
 
-      // Convert ILlmSchema.IParameters to Vercel jsonSchema
-      parameters: jsonSchema<object>(
-        convertParameters(func.parameters) as JSONSchema7,
-      ),
+      parameters: VercelParameterConverter.convert(func.parameters),
 
       execute: async (args: object) => {
         // Coerce and validate using typia's built-in functions
@@ -160,21 +156,5 @@ export namespace VercelToolsRegistrar {
         }
       },
     });
-  };
-
-  const convertParameters = (params: ILlmSchema.IParameters): JSONSchema7 => {
-    const schema: JSONSchema7 = {
-      type: "object",
-      properties: params.properties as JSONSchema7["properties"],
-      required: params.required,
-      additionalProperties: params.additionalProperties,
-    };
-
-    // Add $defs if present
-    if (Object.keys(params.$defs).length > 0) {
-      schema.$defs = params.$defs as JSONSchema7["$defs"];
-    }
-
-    return schema;
   };
 }

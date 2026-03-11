@@ -21,10 +21,10 @@ export const test_langchain_class_controller_execute =
     TestValidator.equals("number of tools", tools.length, 4);
 
     // 4. Find specific tools
-    const addTool = tools.find((t) => t.name === "calculator_add");
-    const subtractTool = tools.find((t) => t.name === "calculator_subtract");
-    const multiplyTool = tools.find((t) => t.name === "calculator_multiply");
-    const divideTool = tools.find((t) => t.name === "calculator_divide");
+    const addTool = tools.find((t) => t.name === "add");
+    const subtractTool = tools.find((t) => t.name === "subtract");
+    const multiplyTool = tools.find((t) => t.name === "multiply");
+    const divideTool = tools.find((t) => t.name === "divide");
 
     if (!addTool || !subtractTool || !multiplyTool || !divideTool) {
       throw new Error("Missing expected tools");

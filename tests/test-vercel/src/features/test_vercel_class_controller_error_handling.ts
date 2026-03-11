@@ -18,7 +18,7 @@ export const test_vercel_class_controller_error_handling =
     });
 
     // 3. Test divide by zero (throws an error)
-    const divideTool: Tool = tools["calculator_divide"]!;
+    const divideTool: Tool = tools["divide"]!;
     const result: unknown = await divideTool.execute!(
       { x: 10, y: 0 },
       { toolCallId: "test-1", messages: [], abortSignal: undefined as any },

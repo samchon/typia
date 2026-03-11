@@ -1,4 +1,4 @@
-import { DynamicStructuredTool } from "@langchain/core/tools";
+import { DynamicStructuredTool, ToolInputParsingException } from "@langchain/core/tools";
 import { TestValidator } from "@nestia/e2e";
 import { ILlmController, IValidation } from "@typia/interface";
 import { toLangChainTools } from "@typia/langchain";
@@ -19,19 +19,16 @@ export const test_langchain_class_controller_validation =
     });
 
     // 3. Find add tool
-    const addTool = tools.find((t) => t.name === "calculator_add");
+    const addTool = tools.find((t) => t.name === "add");
     if (!addTool) {
       throw new Error("Missing add tool");
     }
 
-    // 4. Test with invalid arguments - string instead of number
-    // typia validates and returns LlmJson.stringify format
-    const invalidResult = await addTool.invoke({ x: "not a number", y: 5 });
-
-    // Generate expected validation error message using typia
+    // 4. Test with invalid arguments - should throw ToolInputParsingException
     const coerced: unknown = LlmJson.coerce(
       { x: "not a number", y: 5 },
-      controller.application.functions.find((f) => f.name === "add")!.parameters,
+      controller.application.functions.find((f) => f.name === "add")!
+        .parameters,
     );
     const expected: IValidation = typia.validate<Calculator.IProps>(coerced);
     if (expected.success === true) {
@@ -39,11 +36,21 @@ export const test_langchain_class_controller_validation =
     }
 
     const expectedMessage: string = LlmJson.stringify(expected);
-    TestValidator.equals(
-      "Validation failure message should match",
-      invalidResult,
-      expectedMessage,
-    );
+
+    try {
+      await addTool.invoke({ x: "not a number", y: 5 });
+      throw new Error("Expected ToolInputParsingException to be thrown.");
+    } catch (error) {
+      TestValidator.predicate(
+        "should throw ToolInputParsingException",
+        () => error instanceof ToolInputParsingException,
+      );
+      TestValidator.equals(
+        "error output should match typia validation",
+        (error as ToolInputParsingException).output,
+        expectedMessage,
+      );
+    }
 
     // 5. Test with valid arguments - should succeed
     const validResult = await addTool.invoke({ x: 10, y: 5 });

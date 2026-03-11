@@ -18,24 +18,24 @@ export const test_vercel_class_controller_register = async (): Promise<void> => 
     controllers: [controller],
   });
 
-  // 3. Verify all tools are registered with prefix
+  // 3. Verify all tools are registered without prefix (default)
   const toolNames: string[] = Object.keys(tools).sort();
   TestValidator.equals("should have 4 tools", toolNames.length, 4);
-  TestValidator.predicate("should have calculator_add", () =>
-    toolNames.includes("calculator_add"),
+  TestValidator.predicate("should have add", () =>
+    toolNames.includes("add"),
   );
-  TestValidator.predicate("should have calculator_subtract", () =>
-    toolNames.includes("calculator_subtract"),
+  TestValidator.predicate("should have subtract", () =>
+    toolNames.includes("subtract"),
   );
-  TestValidator.predicate("should have calculator_multiply", () =>
-    toolNames.includes("calculator_multiply"),
+  TestValidator.predicate("should have multiply", () =>
+    toolNames.includes("multiply"),
   );
-  TestValidator.predicate("should have calculator_divide", () =>
-    toolNames.includes("calculator_divide"),
+  TestValidator.predicate("should have divide", () =>
+    toolNames.includes("divide"),
   );
 
   // 4. Verify tool structure
-  const addTool: Tool = tools["calculator_add"]!;
+  const addTool: Tool = tools["add"]!;
   TestValidator.predicate(
     "tool should have description",
     () => addTool.description !== undefined,
