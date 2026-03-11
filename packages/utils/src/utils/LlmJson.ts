@@ -1,6 +1,7 @@
 import {
   IJsonParseResult,
   ILlmSchema,
+  ILlmStructuredOutput,
   IValidation,
   OpenApi,
 } from "@typia/interface";
@@ -137,5 +138,36 @@ export namespace LlmJson {
       required: true,
       equals,
     });
+  }
+
+  /**
+   * Convert LLM parameters schema to structured output interface.
+   *
+   * Creates an {@link ILlmStructuredOutput} containing everything needed for
+   * handling LLM structured outputs: the parameters schema for prompting, and
+   * functions for parsing, coercing, and validating responses.
+   *
+   * This is useful when you have a parameters schema (e.g., from
+   * `typia.llm.parameters()`) and need the full structured output interface
+   * with all utility functions.
+   *
+   * @template T The expected output type
+   * @param parameters LLM parameters schema
+   * @param equals If `true`, reject extraneous properties not defined in the
+   *   schema during validation. Otherwise, extra properties are ignored.
+   * @returns Structured output interface with parse, coerce, and validate
+   */
+  export function structuredOutput<T>(
+    parameters: ILlmSchema.IParameters,
+    equals?: boolean | undefined,
+  ): ILlmStructuredOutput<T> {
+    const validator = validate(parameters, equals);
+    return {
+      parameters,
+      parse: (str: string): IJsonParseResult<T> => parse(str, parameters),
+      coerce: (input: unknown): T => coerce(input, parameters),
+      validate: (input: unknown): IValidation<T> =>
+        validator(input) as IValidation<T>,
+    };
   }
 }
