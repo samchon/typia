@@ -1,8 +1,8 @@
-import { DynamicStructuredTool } from "@langchain/core/tools";
+import { DynamicStructuredTool, ToolInputParsingException } from "@langchain/core/tools";
 import { TestValidator } from "@nestia/e2e";
-import { IHttpLlmController, IValidation, OpenApi } from "@typia/interface";
+import { IHttpLlmController, OpenApi } from "@typia/interface";
 import { toLangChainTools } from "@typia/langchain";
-import { HttpLlm, LlmJson, OpenApiValidator } from "@typia/utils";
+import { HttpLlm } from "@typia/utils";
 
 export const test_langchain_http_controller_validation =
   async (): Promise<void> => {
@@ -66,51 +66,25 @@ export const test_langchain_http_controller_validation =
     });
 
     // 4. Find the add tool
-    const addTool = tools.find((t) => t.name === "calculator_calculate_add_post");
+    const addTool = tools.find((t) => t.name === "calculate_add_post");
     if (!addTool) {
-      throw new Error("Missing calculator_calculate_add_post tool");
+      throw new Error("Missing calculate_add_post tool");
     }
 
     // 5. Test validation failure: wrong type (string instead of number)
-    const invalidArgs: Record<string, unknown> = {
-      body: {
-        x: "not a number",
-        y: 5,
-      },
-    };
-
-    const result = await addTool.invoke(invalidArgs);
-
-    // 6. Verify validation matches LlmJson.stringify output
-    const func = controller.application.functions.find(
-      (f) => f.name === "calculate_add_post",
-    )!;
-    const coerced: unknown = LlmJson.coerce(invalidArgs, func.parameters);
-
-    const parameterSchema: OpenApi.IJsonSchema.IObject = {
-      type: "object",
-      properties: {
-        body: bodySchema,
-      },
-      required: ["body"],
-    };
-
-    const expected: IValidation = OpenApiValidator.validate({
-      components: {},
-      schema: parameterSchema,
-      value: coerced,
-      required: true,
-      equals: false,
-    });
-
-    if (expected.success === true) {
-      throw new Error("Expected validation to fail, but it succeeded.");
+    //    (may be thrown by LangChain's JSON Schema validation or typia's validation)
+    try {
+      await addTool.invoke({
+        body: {
+          x: "not a number",
+          y: 5,
+        },
+      });
+      throw new Error("Expected ToolInputParsingException to be thrown.");
+    } catch (error) {
+      TestValidator.predicate(
+        "should throw ToolInputParsingException",
+        () => error instanceof ToolInputParsingException,
+      );
     }
-
-    const expectedMessage: string = LlmJson.stringify(expected);
-    TestValidator.equals(
-      "Validation failure message should match",
-      result,
-      expectedMessage,
-    );
   };

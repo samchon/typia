@@ -24,14 +24,13 @@
   "homepage": "https://typia.io",
   "dependencies": {
     "@typia/interface": "workspace:^",
-    "@typia/utils": "workspace:^",
-    "zod": "^3.25.0"
+    "@typia/utils": "workspace:^"
   },
   "peerDependencies": {
-    "@langchain/core": ">=0.3.0"
+    "@langchain/core": ">=1.0.0"
   },
   "devDependencies": {
-    "@langchain/core": "^0.3.44",
+    "@langchain/core": "^1.1.31",
     "@rollup/plugin-commonjs": "catalog:rollup",
     "@rollup/plugin-node-resolve": "catalog:rollup",
     "@rollup/plugin-typescript": "catalog:rollup",

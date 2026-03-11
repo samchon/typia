@@ -12,6 +12,7 @@ export {
   ILlmController,
   ILlmApplication,
   ILlmFunction,
+  ILlmStructuredOutput,
   ILlmSchema,
   // reflect
   IMetadataSchema,

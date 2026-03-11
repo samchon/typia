@@ -2,7 +2,7 @@ import { TestValidator } from "@nestia/e2e";
 import { ILlmController } from "@typia/interface";
 import { toVercelTools } from "@typia/vercel";
 import { generateText } from "ai";
-import { MockLanguageModelV1 } from "ai/test";
+import { MockLanguageModelV3 } from "ai/test";
 import typia from "typia";
 
 import { Calculator } from "../structures/Calculator";
@@ -19,19 +19,22 @@ export const test_vercel_generate_text_with_tool_call =
     });
 
     // 3. Create a mock model that returns a tool call
-    const mockModel = new MockLanguageModelV1({
+    const mockModel = new MockLanguageModelV3({
       doGenerate: async () => ({
-        rawCall: { rawPrompt: null, rawSettings: {} },
-        finishReason: "tool-calls",
-        usage: { promptTokens: 10, completionTokens: 5 },
-        toolCalls: [
+        content: [
           {
-            toolCallType: "function",
+            type: "tool-call" as const,
             toolCallId: "call-1",
-            toolName: "calculator_add",
-            args: JSON.stringify({ x: 10, y: 5 }),
+            toolName: "add",
+            input: JSON.stringify({ x: 10, y: 5 }),
           },
         ],
+        finishReason: { unified: "tool-calls" as const, raw: "tool_calls" },
+        usage: {
+          inputTokens: { total: 10, noCache: 10, cacheRead: 0, cacheWrite: 0 },
+          outputTokens: { total: 5, text: 5, reasoning: 0 },
+        },
+        warnings: [],
       }),
     });
 
@@ -45,23 +48,24 @@ export const test_vercel_generate_text_with_tool_call =
     // 5. Verify the tool was called and returned correct result
     const toolCalls = result.toolCalls as Array<{
       toolName: string;
-      args: unknown;
+      input: unknown;
     }>;
     TestValidator.equals("should have 1 tool call", toolCalls.length, 1);
     TestValidator.equals(
-      "tool name should be calculator_add",
+      "tool name should be add",
       toolCalls[0]!.toolName,
-      "calculator_add",
+      "add",
     );
-    TestValidator.equals("tool args should match", toolCalls[0]!.args, {
+    TestValidator.equals("tool args should match", toolCalls[0]!.input, {
       x: 10,
       y: 5,
     });
 
     // 6. Verify tool result
-    const toolResults = result.toolResults as Array<{ result: unknown }>;
+    const toolResults = result.toolResults as Array<{ output: unknown }>;
     TestValidator.equals("should have 1 tool result", toolResults.length, 1);
-    TestValidator.equals("tool result should be 15", toolResults[0]!.result, {
-      value: 15,
+    TestValidator.equals("tool result should be 15", toolResults[0]!.output, {
+      success: true,
+      data: { value: 15 },
     });
   };

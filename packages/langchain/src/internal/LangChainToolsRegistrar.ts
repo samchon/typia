@@ -1,4 +1,7 @@
-import { DynamicStructuredTool } from "@langchain/core/tools";
+import {
+  DynamicStructuredTool,
+  ToolInputParsingException,
+} from "@langchain/core/tools";
 import {
   IHttpLlmController,
   IHttpLlmFunction,
@@ -7,16 +10,36 @@ import {
   IValidation,
 } from "@typia/interface";
 import { HttpLlm, LlmJson } from "@typia/utils";
-import { z } from "zod";
 
 export namespace LangChainToolsRegistrar {
   export const convert = (props: {
     controllers: Array<ILlmController | IHttpLlmController>;
     prefix?: boolean | undefined;
   }): DynamicStructuredTool[] => {
-    const prefix: boolean = props.prefix ?? true;
+    const prefix: boolean = props.prefix ?? false;
     const tools: DynamicStructuredTool[] = [];
 
+    // check duplicate tool names
+    if (prefix === false && props.controllers.length >= 2) {
+      const names: Map<string, string> = new Map();
+      const duplicates: string[] = [];
+      for (const controller of props.controllers) {
+        for (const func of controller.application.functions) {
+          const existing: string | undefined = names.get(func.name);
+          if (existing !== undefined)
+            duplicates.push(
+              `"${func.name}" in "${controller.name}" (conflicts with "${existing}")`,
+            );
+          else names.set(func.name, controller.name);
+        }
+      }
+      if (duplicates.length > 0)
+        throw new Error(
+          `Duplicate tool names found:\n  - ${duplicates.join("\n  - ")}`,
+        );
+    }
+
+    // convert controllers to tools
     for (const controller of props.controllers) {
       if (controller.protocol === "class") {
         convertClassController(tools, controller, prefix);
@@ -36,16 +59,16 @@ export namespace LangChainToolsRegistrar {
     const execute: Record<string, unknown> = controller.execute;
 
     for (const func of controller.application.functions) {
+      const toolName: string = prefix
+        ? `${controller.name}_${func.name}`
+        : func.name;
+
       const method: unknown = execute[func.name];
       if (typeof method !== "function") {
         throw new Error(
           `Method "${func.name}" not found on controller "${controller.name}"`,
         );
       }
-
-      const toolName: string = prefix
-        ? `${controller.name}_${func.name}`
-        : func.name;
 
       tools.push(
         createTool({
@@ -96,44 +119,31 @@ export namespace LangChainToolsRegistrar {
     }
   };
 
-  // Schema that accepts any object - bypasses LangChain's validation
-  // so typia can handle all validation with proper error messages.
-  // LangChain validates JSON Schema using @cfworker/json-schema which
-  // throws ToolInputParsingException before reaching our func.
-  const passthroughSchema = z.record(z.unknown());
-
   const createTool = (entry: {
     name: string;
     function: ILlmFunction | IHttpLlmFunction;
     execute: (args: unknown) => Promise<unknown>;
-  }): DynamicStructuredTool => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return new DynamicStructuredTool<any>({
+  }): DynamicStructuredTool =>
+    new DynamicStructuredTool<any>({
       name: entry.name,
       description: entry.function.description ?? "",
-      schema: passthroughSchema,
-      func: async (args: unknown): Promise<string> => {
+      schema: entry.function.parameters,
+      func: async (args: unknown): Promise<unknown> => {
         const coerced: unknown = LlmJson.coerce(
           args,
           entry.function.parameters,
         );
-        const validation: IValidation<unknown> =
-          entry.function.validate(coerced);
-        if (!validation.success) {
-          return LlmJson.stringify(validation);
-        }
-
-        try {
-          const result: unknown = await entry.execute(validation.data);
-          return result === undefined
-            ? "Success"
-            : JSON.stringify(result, null, 2);
-        } catch (error) {
-          return error instanceof Error
-            ? `${error.name}: ${error.message}`
-            : String(error);
-        }
+        const valid: IValidation<unknown> = entry.function.validate(coerced);
+        if (valid.success === false)
+          throw new ToolInputParsingException(
+            `Type errors in "${entry.name}" arguments:\n\n` +
+              `\`\`\`json\n${LlmJson.stringify(valid)}\n\`\`\``,
+            JSON.stringify(coerced),
+          );
+        const result: unknown = await entry.execute(valid.data);
+        return result === undefined
+          ? { success: true }
+          : { success: true, data: result };
       },
     });
-  };
 }

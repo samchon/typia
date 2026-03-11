@@ -1,7 +1,6 @@
 import type { Tool } from "ai";
 import { TestValidator } from "@nestia/e2e";
-import { ILlmController, IValidation } from "@typia/interface";
-import { LlmJson } from "@typia/utils";
+import { ILlmController } from "@typia/interface";
 import { toVercelTools } from "@typia/vercel";
 import typia from "typia";
 
@@ -19,30 +18,24 @@ export const test_vercel_class_controller_validation =
     });
 
     // 3. Test validation failure: wrong type (string instead of number)
-    const addTool: Tool = tools["calculator_add"]!;
+    const addTool: Tool = tools["add"]!;
     const result: unknown = await addTool.execute!(
       { x: "not a number", y: 5 },
       { toolCallId: "test-1", messages: [], abortSignal: undefined as any },
     );
 
     // 4. Verify the result contains validation error
-    const coerced: unknown = LlmJson.coerce(
-      { x: "not a number", y: 5 },
-      controller.application.functions.find((f) => f.name === "add")!.parameters,
+    const res = result as { success?: boolean; error?: string };
+    TestValidator.predicate(
+      "result should be a failure object",
+      () => res.success === false && typeof res.error === "string",
     );
-    const expected: IValidation = typia.validate<Calculator.IProps>(coerced);
-    if (expected.success === true)
-      throw new Error("Expected validation to fail, but it succeeded.");
-
-    const expectedMessage: string = LlmJson.stringify(expected);
-
-    TestValidator.predicate("result should be an error object", () => {
-      const res = result as { error?: boolean; message?: string };
-      return res.error === true && typeof res.message === "string";
-    });
-
-    TestValidator.predicate("error message should contain validation info", () => {
-      const res = result as { error: boolean; message: string };
-      return res.message === expectedMessage;
-    });
+    TestValidator.predicate(
+      "error should contain title",
+      () => res.error!.includes('Type errors in "add" arguments'),
+    );
+    TestValidator.predicate(
+      "error should contain json code block",
+      () => res.error!.includes("```json"),
+    );
   };

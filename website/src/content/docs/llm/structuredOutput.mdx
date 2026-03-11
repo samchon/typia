@@ -1,0 +1,271 @@
+---
+title: Guide Documents > Large Language Model > structuredOutput() function
+---
+import { Callout, Tabs } from "nextra/components";
+
+import LocalSource from "../../../components/LocalSource";
+
+## `structuredOutput()` function
+
+<Tabs items={[
+    <code>typia</code>,
+    <code>ILlmStructuredOutput</code>,
+    <code>ILlmSchema</code>,
+  ]}>
+  <Tabs.Tab>
+```typescript filename="typia" showLineNumbers {3-10}
+export namespace llm {
+  // STRUCTURED OUTPUT
+  export function structuredOutput<
+    T extends Record<string, any>,
+    Config extends Partial<ILlmSchema.IConfig & { equals: boolean }> = {},
+  >(): ILlmStructuredOutput<T>;
+
+  // SCHEMA ONLY (use structuredOutput() for full interface)
+  export function parameters<
+    Parameters extends Record<string, any>,
+    Config extends Partial<ILlmSchema.IConfig> = {},
+  >(): ILlmSchema.IParameters;
+}
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource
+      path="packages/interface/src/schema/ILlmStructuredOutput.ts"
+      filename="@typia/interface"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource
+      path="packages/interface/src/schema/ILlmSchema.ts"
+      filename="@typia/interface"
+      showLineNumbers />
+  </Tabs.Tab>
+</Tabs>
+
+All-in-one interface for LLM structured output.
+
+`typia.llm.structuredOutput<T>()` is a function generating `ILlmStructuredOutput<T>` containing everything needed for handling LLM structured outputs: the JSON schema for prompting, and functions for parsing, coercing, and validating responses.
+
+- **`parameters`**: JSON schema to pass to LLM providers
+- **`parse`**: Lenient JSON parser with type coercion
+- **`coerce`**: Type coercion for pre-parsed objects
+- **`validate`**: Schema validation with error details
+
+<Callout type="info">
+**LLM Function Calling** and **Structured Output**
+
+LLM selects proper function and fill arguments.
+
+In nowadays, most LLM (Large Language Model) like OpenAI are supporting "function calling" feature. The "LLM function calling" means that LLM automatically selects a proper function and fills parameter values from conversation with the user (may by chatting text).
+
+Structured output is another feature of LLM. The "structured output" means that LLM automatically transforms the output conversation into a structured data format like JSON.
+
+- https://platform.openai.com/docs/guides/function-calling
+- https://platform.openai.com/docs/guides/structured-outputs
+</Callout>
+
+<Callout type="info">
+**When to use `structuredOutput()` vs `parameters()`**
+
+- Use `structuredOutput()` when you need parsing, coercion, and validation together
+- Use `parameters()` when you only need the schema (e.g., passing to `response_format`)
+
+`structuredOutput()` is essentially `parameters()` + `parse()` + `coerce()` + `validate()` bundled together.
+</Callout>
+
+<Tabs items={["TypeScript Source Code", "Compiled JavaScript"]}>
+  <Tabs.Tab>
+    <LocalSource
+      path="examples/src/llm/structuredOutput.ts"
+      filename="example/src/llm/structuredOutput.ts"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource
+      path="examples/bin/llm/structuredOutput.js"
+      filename="example/bin/llm/structuredOutput.js"
+      showLineNumbers />
+  </Tabs.Tab>
+</Tabs>
+
+## Parse & Coerce
+
+<Tabs items={[
+    "Parsing Example",
+    "Coercing Example",
+    <code>ILlmStructuredOutput</code>,
+  ]}>
+  <Tabs.Tab>
+```typescript filename="Using parse() for raw JSON strings" showLineNumbers
+const output = typia.llm.structuredOutput<IMember>();
+
+// LLM returns raw JSON string
+const jsonString = '{"name": "John", "age": "25"}';
+
+// parse() handles lenient JSON + type coercion
+const result = output.parse(jsonString);
+if (result.success) {
+  console.log(result.data.age); // 25 (number, not string)
+}
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```typescript filename="Using coerce() for pre-parsed objects" showLineNumbers
+const output = typia.llm.structuredOutput<IMember>();
+
+// SDK already parsed JSON (Vercel AI, LangChain, MCP, etc.)
+const preParsedObject = { name: "John", age: "25" };
+
+// coerce() fixes types without re-parsing
+const coerced = output.coerce(preParsedObject);
+console.log(coerced.age); // 25 (number, not string)
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource
+      path="packages/interface/src/schema/ILlmStructuredOutput.ts"
+      filename="@typia/interface"
+      showLineNumbers
+      highlight="43-94" />
+  </Tabs.Tab>
+</Tabs>
+
+**Type Coercion:**
+
+LLMs frequently return wrong types. Both `parse()` and `coerce()` automatically fix these based on the schema:
+
+- `"42"` → `42` (when schema expects number)
+- `"true"` → `true` (when schema expects boolean)
+- `"null"` → `null` (when schema expects null)
+- `"{...}"` → `{...}` (double-stringified objects)
+- `"[...]"` → `[...]` (double-stringified arrays)
+
+<Callout type="warning">
+**0% → 100% Success Rate on Union Types**
+
+`Qwen3.5` model shows 0% success rate when handling union types with double-stringified JSON objects. With type coercion, the success rate jumps to 100%.
+</Callout>
+
+<Callout type="info">
+**For Pre-parsed Objects, Use `coerce()`**
+
+Some LLM SDKs (Anthropic, Vercel AI, LangChain, MCP) parse JSON internally and return JavaScript objects directly. In these cases, use `coerce()` instead of `parse()` to fix types without re-parsing.
+
+For more details, see [JSON Utilities](./json).
+</Callout>
+
+## Validation Feedback
+
+```typescript filename="Validation with LLM feedback" showLineNumbers
+import { LlmJson } from "@typia/utils";
+
+const output = typia.llm.structuredOutput<IMember>();
+const parsed = output.parse(llmResponse);
+
+if (parsed.success) {
+  const validated = output.validate(parsed.data);
+
+  if (!validated.success) {
+    // Format errors for LLM to understand and self-correct
+    const feedback = LlmJson.stringify(validated);
+    console.log(feedback);
+    // Send feedback back to LLM for retry
+  }
+}
+```
+
+**Formatted Error Output:**
+
+```json
+{
+  "name": "John",
+  "age": -5, // ❌ [{"path":"$input.age","expected":"number & Minimum<0>"}]
+  "email": "invalid", // ❌ [{"path":"$input.email","expected":"string & Format<\"email\">"}]
+}
+```
+
+The LLM reads this feedback and self-corrects on the next turn.
+
+In the [AutoBe](https://github.com/wrtnlabs/autobe) project (AI-powered backend code generator), `qwen3-coder-next` showed only 6.75% raw function calling success rate on compiler AST types. However, with validation feedback, it reached 100%.
+
+## Config Options
+
+```typescript showLineNumbers
+// Use validateEquals (strict mode - reject extra properties)
+const strictOutput = typia.llm.structuredOutput<
+  IMember,
+  { equals: true }
+>();
+
+// Strict validation rejects objects with extra properties
+const result = strictOutput.validate({
+  name: "John",
+  age: 25,
+  email: "john@example.com",
+  hobbies: ["reading"],
+  extraField: "not allowed", // ❌ rejected
+});
+```
+
+## Comparison
+
+| Feature | `parameters()` | `structuredOutput()` |
+|---------|---------------|---------------------|
+| Schema generation | ✅ | ✅ |
+| `parse()` function | ❌ | ✅ |
+| `coerce()` function | ❌ | ✅ |
+| `validate()` function | ❌ | ✅ |
+| Use case | Schema only | Full workflow |
+
+For schema-only needs, use [`parameters()`](./parameters). For the complete structured output workflow, use `structuredOutput()`.
+
+## Restrictions
+
+`typia.llm.structuredOutput<T>()` follows the same restrictions as [`typia.llm.parameters<T>()`](./parameters) and [`typia.llm.schema<T>()`](./schema) functions.
+
+The type `T` must be a keyworded object type with static keys without any dynamic keys. Also, the object type must not be nullable or optional.
+
+If you don't follow the LLM's keyworded arguments rule, `typia.llm.structuredOutput<T>()` will throw a compilation error.
+
+<Tabs items={["TypeScript Source Code", "Console Output"]}>
+  <Tabs.Tab>
+```typescript filename="src/examples/llm.structuredOutput.violation.ts" showLineNumbers
+import typia from "typia";
+
+typia.llm.structuredOutput<string>();
+typia.llm.structuredOutput<Record<string, boolean>>();
+typia.llm.structuredOutput<Array<number>>();
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```bash filename="Terminal"
+src/examples/llm.structuredOutput.violation.ts:3:1 - error TS(typia.llm.structuredOutput): unsupported type detected
+
+- string
+  - LLM parameters must be an object type.
+
+3 typia.llm.structuredOutput<string>();
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+src/examples/llm.structuredOutput.violation.ts:4:1 - error TS(typia.llm.structuredOutput): unsupported type detected
+
+- Recordstringboolean
+  - LLM parameters must be an object type.
+
+- Recordstringboolean
+  - LLM parameters must not have dynamic keys.
+
+4 typia.llm.structuredOutput<Record<string, boolean>>();
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+src/examples/llm.structuredOutput.violation.ts:5:1 - error TS(typia.llm.structuredOutput): unsupported type detected
+
+- Arraynumber
+  - LLM parameters must be an object type.
+
+5 typia.llm.structuredOutput<Array<number>>();
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+```
+  </Tabs.Tab>
+</Tabs>

@@ -1,7 +1,12 @@
 import { OpenApi, OpenApiV3_1 } from "@typia/interface";
 import { OpenApiConverter, Singleton } from "@typia/utils";
+import dotenv from "dotenv";
+import dotenvExpand from "dotenv-expand";
+import typia from "typia";
 
 export namespace TestGlobal {
+  export const getEnvironments = (): IEnvironments => environments.get();
+
   export const getSwagger = (): Promise<OpenApi.IDocument> => swagger.get();
 
   export const getArguments = (key: string): string[] => {
@@ -22,4 +27,14 @@ const swagger = new Singleton(async () => {
   );
   const document: OpenApiV3_1.IDocument = await response.json();
   return OpenApiConverter.upgradeDocument(document);
+});
+
+interface IEnvironments {
+  OPENROUTER_API_KEY?: string;
+}
+
+const environments = new Singleton(() => {
+  const env = dotenv.config();
+  dotenvExpand.expand(env);
+  return typia.assert<IEnvironments>(process.env);
 });

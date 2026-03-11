@@ -1,6 +1,11 @@
-import { IHttpLlmController, ILlmController } from "@typia/interface";
-import type { Tool } from "ai";
+import {
+  IHttpLlmController,
+  ILlmController,
+  ILlmSchema,
+} from "@typia/interface";
+import type { Schema, Tool } from "ai";
 
+import { VercelParameterConverter } from "./internal/VercelParameterConverter";
 import { VercelToolsRegistrar } from "./internal/VercelToolsRegistrar";
 
 /**
@@ -24,8 +29,8 @@ import { VercelToolsRegistrar } from "./internal/VercelToolsRegistrar";
  *
  * class Calculator {
  *   /&#42;&#42; Add two numbers together. &#42;/
- *   add(props: { a: number; b: number }): number {
- *     return props.a + props.b;
+ *   add(props: { a: number; b: number }): { value: number } {
+ *     return { value: props.a + props.b };
  *   }
  * }
  *
@@ -97,9 +102,54 @@ export function toVercelTools(props: {
    * If `true`, tool names are formatted as `{controller}_{function}`. If
    * `false`, only the function name is used (may cause conflicts).
    *
-   * @default true
+   * @default false
    */
   prefix?: boolean | undefined;
 }): Record<string, Tool> {
   return VercelToolsRegistrar.convert(props);
+}
+
+/**
+ * Convert LLM parameters schema to Vercel AI SDK schema format.
+ *
+ * Transforms {@link ILlmSchema.IParameters} into Vercel AI SDK's `Schema` type
+ * for use with `generateObject()`. Use with `typia.llm.structuredOutput<T>()`
+ * or `typia.llm.parameters<T>()`.
+ *
+ * ## Example
+ *
+ * ```typescript
+ * import { openai } from "@ai-sdk/openai";
+ * import { toVercelSchema } from "@typia/vercel";
+ * import { generateObject } from "ai";
+ * import typia from "typia";
+ *
+ * interface IMember {
+ *   name: string;
+ *   age: number;
+ * }
+ *
+ * const output = typia.llm.structuredOutput<IMember>();
+ * const schema = toVercelSchema(output.parameters);
+ *
+ * const { object } = await generateObject({
+ *   model: openai("gpt-4o"),
+ *   schema,
+ *   prompt: "Generate a member named John who is 30 years old",
+ * });
+ *
+ * const coerced = output.coerce(object);
+ * const result = output.validate(coerced);
+ * ```
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ * @param parameters LLM parameters schema from
+ *   `typia.llm.structuredOutput<T>().parameters` or
+ *   `typia.llm.parameters<T>()`
+ * @returns Vercel AI SDK Schema for `generateObject()`
+ */
+export function toVercelSchema(
+  parameters: ILlmSchema.IParameters,
+): Schema<object> {
+  return VercelParameterConverter.convert(parameters);
 }

@@ -4,3 +4,4 @@ export * from "./LlmMetadataFactory";
 export * from "./LlmParametersProgrammer";
 export * from "./LlmParseProgrammer";
 export * from "./LlmSchemaProgrammer";
+export * from "./LlmStructuredOutputProgrammer";

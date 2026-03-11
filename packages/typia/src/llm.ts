@@ -3,10 +3,14 @@ import {
   ILlmApplication,
   ILlmController,
   ILlmSchema,
+  ILlmStructuredOutput,
 } from "@typia/interface";
 
 import { NoTransformConfigurationError } from "./transformers/NoTransformConfigurationError";
 
+/* -----------------------------------------------------------
+  FUNCTION CALLING
+----------------------------------------------------------- */
 /**
  * Creates LLM function calling controller.
  *
@@ -136,6 +140,71 @@ export function application(): never {
 }
 
 /**
+ * Creates LLM structured output interface.
+ *
+ * @danger You must configure the generic argument `T`
+ */
+export function structuredOutput(): never;
+
+/**
+ * Creates LLM structured output interface from TypeScript object type.
+ *
+ * Generates {@link ILlmStructuredOutput} containing everything needed for
+ * handling LLM structured outputs: the JSON schema for prompting, and functions
+ * for parsing, coercing, and validating responses.
+ *
+ * Structured outputs allow LLMs to generate data conforming to a predefined
+ * schema instead of free-form text. This is useful for:
+ *
+ * - Extracting structured data from conversations
+ * - Generating typed responses for downstream processing
+ * - Ensuring consistent output formats across LLM calls
+ *
+ * Workflow:
+ *
+ * 1. Pass {@link ILlmStructuredOutput.parameters} schema to LLM provider
+ * 2. Receive LLM response (JSON string or pre-parsed object)
+ * 3. Use {@link ILlmStructuredOutput.parse} for raw strings or
+ *    {@link ILlmStructuredOutput.coerce} for pre-parsed objects
+ * 4. Use {@link ILlmStructuredOutput.validate} to check the result
+ *
+ * Related functions:
+ *
+ * - {@link parameters} — Schema only, without parse/coerce/validate
+ * - {@link application} — Multiple function schemas from class/interface
+ * - {@link controller} — Application with executor
+ *
+ * @template T Target output type (object with static properties)
+ * @template Config LLM schema configuration
+ * @returns LLM structured output interface
+ */
+export function structuredOutput<
+  T extends Record<string, any>,
+  Config extends Partial<
+    ILlmSchema.IConfig & {
+      /**
+       * Whether to disallow superfluous properties or not.
+       *
+       * If configure as `true`, {@link validateEquals} function would be used
+       * for validation feedback, which is more strict than {@link validate}
+       * function.
+       *
+       * @default false
+       */
+      equals: boolean;
+    }
+  > = {},
+>(): ILlmStructuredOutput<T>;
+
+/** @internal */
+export function structuredOutput(): never {
+  NoTransformConfigurationError("llm.structuredOutput");
+}
+
+/* -----------------------------------------------------------
+  RAW SCHEMAS
+----------------------------------------------------------- */
+/**
  * Creates LLM parameters schema.
  *
  * @danger You must configure the generic argument `Parameters`
@@ -215,6 +284,9 @@ export function schema(): never {
   NoTransformConfigurationError("llm.schema");
 }
 
+/* -----------------------------------------------------------
+  UTILITY FUNCTIONS
+----------------------------------------------------------- */
 /**
  * Parse LLM response JSON with type coercion.
  *

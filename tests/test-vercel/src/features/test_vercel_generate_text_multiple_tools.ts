@@ -2,7 +2,7 @@ import { TestValidator } from "@nestia/e2e";
 import { ILlmController } from "@typia/interface";
 import { toVercelTools } from "@typia/vercel";
 import { generateText } from "ai";
-import { MockLanguageModelV1 } from "ai/test";
+import { MockLanguageModelV3 } from "ai/test";
 import typia from "typia";
 
 import { Calculator } from "../structures/Calculator";
@@ -19,31 +19,34 @@ export const test_vercel_generate_text_multiple_tools =
     });
 
     // 3. Create a mock model that returns multiple tool calls
-    const mockModel = new MockLanguageModelV1({
+    const mockModel = new MockLanguageModelV3({
       doGenerate: async () => ({
-        rawCall: { rawPrompt: null, rawSettings: {} },
-        finishReason: "tool-calls",
-        usage: { promptTokens: 10, completionTokens: 5 },
-        toolCalls: [
+        content: [
           {
-            toolCallType: "function",
+            type: "tool-call" as const,
             toolCallId: "call-1",
-            toolName: "calculator_add",
-            args: JSON.stringify({ x: 10, y: 5 }),
+            toolName: "add",
+            input: JSON.stringify({ x: 10, y: 5 }),
           },
           {
-            toolCallType: "function",
+            type: "tool-call" as const,
             toolCallId: "call-2",
-            toolName: "calculator_multiply",
-            args: JSON.stringify({ x: 3, y: 7 }),
+            toolName: "multiply",
+            input: JSON.stringify({ x: 3, y: 7 }),
           },
           {
-            toolCallType: "function",
+            type: "tool-call" as const,
             toolCallId: "call-3",
-            toolName: "calculator_subtract",
-            args: JSON.stringify({ x: 100, y: 42 }),
+            toolName: "subtract",
+            input: JSON.stringify({ x: 100, y: 42 }),
           },
         ],
+        finishReason: { unified: "tool-calls" as const, raw: "tool_calls" },
+        usage: {
+          inputTokens: { total: 10, noCache: 10, cacheRead: 0, cacheWrite: 0 },
+          outputTokens: { total: 5, text: 5, reasoning: 0 },
+        },
+        warnings: [],
       }),
     });
 
@@ -65,7 +68,7 @@ export const test_vercel_generate_text_multiple_tools =
     const toolResults = result.toolResults as Array<{
       toolCallId: string;
       toolName: string;
-      result: unknown;
+      output: unknown;
     }>;
     TestValidator.equals("should have 3 tool results", toolResults.length, 3);
 
@@ -74,15 +77,17 @@ export const test_vercel_generate_text_multiple_tools =
     const multiplyResult = toolResults.find((r) => r.toolCallId === "call-2")!;
     const subtractResult = toolResults.find((r) => r.toolCallId === "call-3")!;
 
-    TestValidator.equals("add(10, 5) should be 15", addResult.result, {
-      value: 15,
+    TestValidator.equals("add(10, 5) should be 15", addResult.output, {
+      success: true,
+      data: { value: 15 },
     });
-    TestValidator.equals("multiply(3, 7) should be 21", multiplyResult.result, {
-      value: 21,
+    TestValidator.equals("multiply(3, 7) should be 21", multiplyResult.output, {
+      success: true,
+      data: { value: 21 },
     });
     TestValidator.equals(
       "subtract(100, 42) should be 58",
-      subtractResult.result,
-      { value: 58 },
+      subtractResult.output,
+      { success: true, data: { value: 58 } },
     );
   };

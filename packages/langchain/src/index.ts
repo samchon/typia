@@ -15,14 +15,13 @@ import { LangChainToolsRegistrar } from "./internal/LangChainToolsRegistrar";
  *
  * @example
  *   ```typescript
- *   import { ChatOpenAI } from "@langchain/openai";
- *   import { AgentExecutor, createToolCallingAgent } from "langchain/agents";
+ *   import { initChatModel } from "langchain/chat_models/universal";
  *   import typia from "typia";
  *   import { toLangChainTools } from "@typia/langchain";
  *
  *   class Calculator {
- *     add(input: { a: number; b: number }): number {
- *       return input.a + input.b;
+ *     add(input: { a: number; b: number }): { value: number } {
+ *       return { value: input.a + input.b };
  *     }
  *   }
  *
@@ -32,10 +31,9 @@ import { LangChainToolsRegistrar } from "./internal/LangChainToolsRegistrar";
  *     ],
  *   });
  *
- *   const llm = new ChatOpenAI({ model: "gpt-4" });
- *   const agent = createToolCallingAgent({ llm, tools, prompt });
- *   const executor = new AgentExecutor({ agent, tools });
- *   await executor.invoke({ input: "What is 10 + 5?" });
+ *   const llm = await initChatModel();
+ *   const modelWithTools = llm.bindTools(tools);
+ *   const result = await modelWithTools.invoke("What is 10 + 5?");
  *   ```;
  *
  * @param props Conversion properties
@@ -58,7 +56,7 @@ export function toLangChainTools(props: {
    * If `true`, tool names become `{controllerName}_{methodName}`. If `false`,
    * tool names are just `{methodName}`.
    *
-   * @default true
+   * @default false
    */
   prefix?: boolean | undefined;
 }): DynamicStructuredTool[] {

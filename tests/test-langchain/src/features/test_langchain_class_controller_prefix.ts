@@ -12,7 +12,7 @@ export const test_langchain_class_controller_prefix =
     const controller: ILlmController<Calculator> =
       typia.llm.controller<Calculator>("calculator", new Calculator());
 
-    // 2. Test with prefix: true (default)
+    // 2. Test with prefix: true
     const toolsWithPrefix: DynamicStructuredTool[] = toLangChainTools({
       controllers: [controller],
       prefix: true,

@@ -1,8 +1,8 @@
-import type { Tool } from "ai";
 import { TestValidator } from "@nestia/e2e";
 import { IHttpLlmController, OpenApi } from "@typia/interface";
 import { HttpLlm } from "@typia/utils";
 import { toVercelTools } from "@typia/vercel";
+import type { Tool } from "ai";
 
 import { TestGlobal } from "../TestGlobal";
 
@@ -28,22 +28,28 @@ export const test_vercel_http_controller_register = async (): Promise<void> => {
     controller.application.functions.length,
   );
 
-  // 4. Verify all tool names start with controller prefix
-  TestValidator.predicate("all tools should have shopping_ prefix", () =>
-    toolNames.every((name) => name.startsWith("shopping_")),
+  // 4. Verify tool names match function names (no prefix by default)
+  const funcNames = controller.application.functions.map((f) => f.name).sort();
+  TestValidator.equals(
+    "tool names should match function names",
+    toolNames.sort(),
+    funcNames,
   );
 
   // 5. Verify each tool has required properties
   for (const name of toolNames) {
     const tool: Tool = tools[name]!;
-    TestValidator.predicate(`${name} should have description`, () =>
-      tool.description !== undefined,
+    TestValidator.predicate(
+      `${name} should have description`,
+      () => tool.description !== undefined,
     );
-    TestValidator.predicate(`${name} should have parameters`, () =>
-      tool.parameters !== undefined,
+    TestValidator.predicate(
+      `${name} should have inputSchema`,
+      () => tool.inputSchema !== undefined,
     );
-    TestValidator.predicate(`${name} should have execute`, () =>
-      typeof tool.execute === "function",
+    TestValidator.predicate(
+      `${name} should have execute`,
+      () => typeof tool.execute === "function",
     );
   }
 };

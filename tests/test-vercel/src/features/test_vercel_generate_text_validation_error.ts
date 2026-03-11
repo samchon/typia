@@ -1,5 +1,5 @@
 import { generateText } from "ai";
-import { MockLanguageModelV1 } from "ai/test";
+import { MockLanguageModelV3 } from "ai/test";
 import { TestValidator } from "@nestia/e2e";
 import { ILlmController } from "@typia/interface";
 import { toVercelTools } from "@typia/vercel";
@@ -19,20 +19,23 @@ export const test_vercel_generate_text_validation_error =
     });
 
     // 3. Create a mock model that returns invalid tool call arguments
-    const mockModel = new MockLanguageModelV1({
+    const mockModel = new MockLanguageModelV3({
       doGenerate: async () => ({
-        rawCall: { rawPrompt: null, rawSettings: {} },
-        finishReason: "tool-calls",
-        usage: { promptTokens: 10, completionTokens: 5 },
-        toolCalls: [
+        content: [
           {
-            toolCallType: "function",
+            type: "tool-call" as const,
             toolCallId: "call-1",
-            toolName: "calculator_add",
+            toolName: "add",
             // Invalid: x should be number, not string
-            args: JSON.stringify({ x: "not a number", y: 5 }),
+            input: JSON.stringify({ x: "not a number", y: 5 }),
           },
         ],
+        finishReason: { unified: "tool-calls" as const, raw: "tool_calls" },
+        usage: {
+          inputTokens: { total: 10, noCache: 10, cacheRead: 0, cacheWrite: 0 },
+          outputTokens: { total: 5, text: 5, reasoning: 0 },
+        },
+        warnings: [],
       }),
     });
 
@@ -48,20 +51,20 @@ export const test_vercel_generate_text_validation_error =
     TestValidator.equals("should have 1 tool call", toolCalls.length, 1);
 
     // 6. Verify tool result contains validation error
-    const toolResults = result.toolResults as Array<{ result: unknown }>;
+    const toolResults = result.toolResults as Array<{ output: unknown }>;
     TestValidator.equals("should have 1 tool result", toolResults.length, 1);
 
-    const toolResult = toolResults[0]!.result as {
-      error: boolean;
-      message: string;
+    const toolResult = toolResults[0]!.output as {
+      success: boolean;
+      error: string;
     };
-    TestValidator.equals("result should be error", toolResult.error, true);
+    TestValidator.equals("result should be failure", toolResult.success, false);
     TestValidator.predicate(
-      "error message should contain validation failure",
-      () => toolResult.message.includes("```json"),
+      "error should contain validation failure",
+      () => toolResult.error.includes("```json"),
     );
     TestValidator.predicate(
-      "error message should indicate type error",
-      () => toolResult.message.includes("number"),
+      "error should indicate type error",
+      () => toolResult.error.includes("number"),
     );
   };

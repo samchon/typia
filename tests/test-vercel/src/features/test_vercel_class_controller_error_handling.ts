@@ -18,20 +18,20 @@ export const test_vercel_class_controller_error_handling =
     });
 
     // 3. Test divide by zero (throws an error)
-    const divideTool: Tool = tools["calculator_divide"]!;
+    const divideTool: Tool = tools["divide"]!;
     const result: unknown = await divideTool.execute!(
       { x: 10, y: 0 },
       { toolCallId: "test-1", messages: [], abortSignal: undefined as any },
     );
 
     // 4. Verify the result contains error
-    TestValidator.predicate("result should be an error object", () => {
-      const res = result as { error?: boolean; message?: string };
-      return res.error === true && typeof res.message === "string";
+    TestValidator.predicate("result should be a failure object", () => {
+      const res = result as { success?: boolean; error?: string };
+      return res.success === false && typeof res.error === "string";
     });
 
-    TestValidator.predicate("error message should contain division by zero", () => {
-      const res = result as { error: boolean; message: string };
-      return res.message.includes("Division by zero");
+    TestValidator.predicate("error should contain division by zero", () => {
+      const res = result as { success: boolean; error: string };
+      return res.error.includes("Division by zero");
     });
   };
