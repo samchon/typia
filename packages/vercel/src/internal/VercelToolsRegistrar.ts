@@ -21,22 +21,35 @@ export namespace VercelToolsRegistrar {
     controllers: Array<ILlmController | IHttpLlmController>;
     prefix?: boolean | undefined;
   }): Record<string, Tool> => {
-    const tools: Record<string, Tool> = {};
     const prefix: boolean = props.prefix ?? false;
+    const tools: Record<string, Tool> = {};
 
+    // check duplicate tool names
+    if (prefix === false && props.controllers.length >= 2) {
+      const names: Map<string, string> = new Map();
+      const duplicates: string[] = [];
+      for (const controller of props.controllers) {
+        for (const func of controller.application.functions) {
+          const existing: string | undefined = names.get(func.name);
+          if (existing !== undefined)
+            duplicates.push(
+              `"${func.name}" in "${controller.name}" (conflicts with "${existing}")`,
+            );
+          else names.set(func.name, controller.name);
+        }
+      }
+      if (duplicates.length > 0)
+        throw new Error(
+          `Duplicate tool names found:\n  - ${duplicates.join("\n  - ")}`,
+        );
+    }
+
+    // convert controllers to tools
     for (const controller of props.controllers) {
       if (controller.protocol === "class") {
-        registerClassController({
-          tools,
-          controller,
-          prefix,
-        });
+        registerClassController({ tools, controller, prefix });
       } else {
-        registerHttpController({
-          tools,
-          controller,
-          prefix,
-        });
+        registerHttpController({ tools, controller, prefix });
       }
     }
 
@@ -56,12 +69,6 @@ export namespace VercelToolsRegistrar {
         ? `${controller.name}_${func.name}`
         : func.name;
 
-      if (tools[toolName] !== undefined) {
-        throw new Error(
-          `Duplicate tool name "${toolName}" from controller "${controller.name}"`,
-        );
-      }
-
       const method: unknown = execute[func.name];
       if (typeof method !== "function") {
         throw new Error(
@@ -70,6 +77,7 @@ export namespace VercelToolsRegistrar {
       }
 
       tools[toolName] = createTool({
+        name: toolName,
         func,
         execute: async (args: unknown) => method.call(execute, args),
       });
@@ -90,13 +98,8 @@ export namespace VercelToolsRegistrar {
         ? `${controller.name}_${func.name}`
         : func.name;
 
-      if (tools[toolName] !== undefined) {
-        throw new Error(
-          `Duplicate tool name "${toolName}" from controller "${controller.name}"`,
-        );
-      }
-
       tools[toolName] = createTool({
+        name: toolName,
         func,
         execute: async (args: unknown) => {
           if (controller.execute !== undefined) {
@@ -120,28 +123,27 @@ export namespace VercelToolsRegistrar {
   };
 
   const createTool = (props: {
+    name: string;
     func: ILlmFunction | IHttpLlmFunction;
     execute: (args: unknown) => Promise<unknown>;
   }): Tool => {
-    const { func, execute } = props;
+    const { name, func, execute } = props;
 
     return tool({
-      description: func.description,
+      description: func.description ?? "",
 
       parameters: VercelParameterConverter.convert(func.parameters),
 
       execute: async (args: object) => {
-        // Coerce and validate using typia's built-in functions
         const coerced: unknown = LlmJson.coerce(args, func.parameters);
         const validation: IValidation<unknown> = func.validate(coerced);
-        if (!validation.success) {
-          // Return validation error in LLM-friendly format
+        if (!validation.success)
           return {
             error: true,
-            message: LlmJson.stringify(validation),
+            message:
+              `Type errors in "${name}" arguments:\n\n` +
+              `\`\`\`json\n${LlmJson.stringify(validation)}\n\`\`\``,
           };
-        }
-
         try {
           const result: unknown = await execute(validation.data);
           return result === undefined ? { success: true } : result;

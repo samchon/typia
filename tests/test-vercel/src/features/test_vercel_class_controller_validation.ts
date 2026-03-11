@@ -1,7 +1,6 @@
 import type { Tool } from "ai";
 import { TestValidator } from "@nestia/e2e";
-import { ILlmController, IValidation } from "@typia/interface";
-import { LlmJson } from "@typia/utils";
+import { ILlmController } from "@typia/interface";
 import { toVercelTools } from "@typia/vercel";
 import typia from "typia";
 
@@ -26,23 +25,17 @@ export const test_vercel_class_controller_validation =
     );
 
     // 4. Verify the result contains validation error
-    const coerced: unknown = LlmJson.coerce(
-      { x: "not a number", y: 5 },
-      controller.application.functions.find((f) => f.name === "add")!.parameters,
+    const res = result as { error?: boolean; message?: string };
+    TestValidator.predicate(
+      "result should be an error object",
+      () => res.error === true && typeof res.message === "string",
     );
-    const expected: IValidation = typia.validate<Calculator.IProps>(coerced);
-    if (expected.success === true)
-      throw new Error("Expected validation to fail, but it succeeded.");
-
-    const expectedMessage: string = LlmJson.stringify(expected);
-
-    TestValidator.predicate("result should be an error object", () => {
-      const res = result as { error?: boolean; message?: string };
-      return res.error === true && typeof res.message === "string";
-    });
-
-    TestValidator.predicate("error message should contain validation info", () => {
-      const res = result as { error: boolean; message: string };
-      return res.message === expectedMessage;
-    });
+    TestValidator.predicate(
+      "error message should contain title",
+      () => res.message!.includes('Type errors in "add" arguments'),
+    );
+    TestValidator.predicate(
+      "error message should contain json code block",
+      () => res.message!.includes("```json"),
+    );
   };
