@@ -12,10 +12,10 @@ export const test_llm_structuredOutput_basic = (): void => {
     typia.llm.structuredOutput<IMember>();
 
   // Check all members exist
-  TestValidator.predicate("parameters", () => output.parameters !== undefined);
-  TestValidator.predicate("parse", () => typeof output.parse === "function");
-  TestValidator.predicate("coerce", () => typeof output.coerce === "function");
-  TestValidator.predicate("validate", () => typeof output.validate === "function");
+  TestValidator.equals("typeof parameters", typeof output.parameters, "object");
+  TestValidator.equals("typeof parse", typeof output.parse, "function");
+  TestValidator.equals("typeof coerce", typeof output.coerce, "function");
+  TestValidator.equals("typeof validate", typeof output.validate, "function");
 
   // Minimal functionality check
   const parsed = output.parse('{"name":"John","age":"30"}');

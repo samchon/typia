@@ -78,86 +78,82 @@ export namespace LlmStructuredOutputProgrammer {
           value: validateDecomposed.arrow,
         }),
       ],
-      arrow: ts.factory.createArrowFunction(
-        undefined,
-        undefined,
-        [],
+      // Return object literal directly, not a function
+      // Cast to ArrowFunction to satisfy FeatureProgrammer.IDecomposed type
+      arrow: ts.factory.createAsExpression(
+        ts.factory.createObjectLiteralExpression(
+          [
+            // parameters
+            ts.factory.createPropertyAssignment(
+              "parameters",
+              ts.factory.createIdentifier("__parameters"),
+            ),
+            // parse
+            ts.factory.createPropertyAssignment(
+              "parse",
+              ts.factory.createArrowFunction(
+                undefined,
+                undefined,
+                [
+                  IdentifierFactory.parameter(
+                    "input",
+                    TypeFactory.keyword("string"),
+                  ),
+                ],
+                props.context.importer.type({
+                  file: "typia",
+                  name: "IJsonParseResult",
+                  arguments: [ts.factory.createTypeReferenceNode(typeName)],
+                }),
+                undefined,
+                ts.factory.createCallExpression(
+                  props.context.importer.internal("parseLlmArguments"),
+                  undefined,
+                  [
+                    ts.factory.createIdentifier("input"),
+                    ts.factory.createIdentifier("__parameters"),
+                  ],
+                ),
+              ),
+            ),
+            // coerce
+            ts.factory.createPropertyAssignment(
+              "coerce",
+              ts.factory.createArrowFunction(
+                undefined,
+                undefined,
+                [
+                  IdentifierFactory.parameter(
+                    "input",
+                    ts.factory.createTypeReferenceNode(typeName),
+                  ),
+                ],
+                ts.factory.createTypeReferenceNode(typeName),
+                undefined,
+                ts.factory.createCallExpression(
+                  props.context.importer.internal("coerceLlmArguments"),
+                  undefined,
+                  [
+                    ts.factory.createIdentifier("input"),
+                    ts.factory.createIdentifier("__parameters"),
+                  ],
+                ),
+              ),
+            ),
+            // validate
+            ts.factory.createPropertyAssignment(
+              "validate",
+              ts.factory.createIdentifier("__validate"),
+            ),
+          ],
+          true,
+        ),
         props.context.importer.type({
           file: "typia",
           name: "ILlmStructuredOutput",
           arguments: [ts.factory.createTypeReferenceNode(typeName)],
         }),
-        undefined,
-        ts.factory.createParenthesizedExpression(
-          ts.factory.createObjectLiteralExpression(
-            [
-              // parameters
-              ts.factory.createPropertyAssignment(
-                "parameters",
-                ts.factory.createIdentifier("__parameters"),
-              ),
-              // parse
-              ts.factory.createPropertyAssignment(
-                "parse",
-                ts.factory.createArrowFunction(
-                  undefined,
-                  undefined,
-                  [
-                    IdentifierFactory.parameter(
-                      "input",
-                      TypeFactory.keyword("string"),
-                    ),
-                  ],
-                  props.context.importer.type({
-                    file: "typia",
-                    name: "IJsonParseResult",
-                    arguments: [ts.factory.createTypeReferenceNode(typeName)],
-                  }),
-                  undefined,
-                  ts.factory.createCallExpression(
-                    props.context.importer.internal("parseLlmArguments"),
-                    undefined,
-                    [
-                      ts.factory.createIdentifier("input"),
-                      ts.factory.createIdentifier("__parameters"),
-                    ],
-                  ),
-                ),
-              ),
-              // coerce
-              ts.factory.createPropertyAssignment(
-                "coerce",
-                ts.factory.createArrowFunction(
-                  undefined,
-                  undefined,
-                  [
-                    IdentifierFactory.parameter(
-                      "input",
-                      ts.factory.createTypeReferenceNode(typeName),
-                    ),
-                  ],
-                  ts.factory.createTypeReferenceNode(typeName),
-                  undefined,
-                  ts.factory.createCallExpression(
-                    props.context.importer.internal("coerceLlmArguments"),
-                    undefined,
-                    [
-                      ts.factory.createIdentifier("input"),
-                      ts.factory.createIdentifier("__parameters"),
-                    ],
-                  ),
-                ),
-              ),
-              // validate
-              ts.factory.createPropertyAssignment(
-                "validate",
-                ts.factory.createIdentifier("__validate"),
-              ),
-            ],
-            true,
-          ),
-        ),
-      ),
+      ) as any as ts.ArrowFunction,
     };
 
     return FeatureProgrammer.writeDecomposed({
