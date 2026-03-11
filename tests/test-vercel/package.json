@@ -4,7 +4,9 @@
   "version": "12.0.0-dev.20260311",
   "description": "Test suite for @typia/vercel package",
   "scripts": {
-    "start": "ts-node src/index.ts"
+    "start": "ts-node src/index.ts",
+    "tool-calling": "ts-node src/experimental/tool-calling.ts",
+    "structured-output": "ts-node src/experimental/structured-output.ts"
   },
   "repository": {
     "type": "git",
@@ -19,12 +21,15 @@
     "typescript": "catalog:typescript"
   },
   "dependencies": {
+    "@ai-sdk/openai-compatible": "^2.0.35",
     "@nestia/e2e": "catalog:utils",
     "@typia/interface": "workspace:^",
     "@typia/utils": "workspace:^",
     "@typia/vercel": "workspace:^",
     "ai": "^6.0.116",
     "chalk": "^4.1.2",
+    "dotenv": "^16.4.5",
+    "dotenv-expand": "^11.0.6",
     "typia": "workspace:^"
   }
 }
