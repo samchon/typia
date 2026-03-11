@@ -2,12 +2,12 @@ import { IJsonSchemaAttribute } from "../schema/IJsonSchemaAttribute";
 import * as tags from "../tags";
 
 /**
- * Emended OpenAPI v3.1 specification.
+ * Emended OpenAPI v3.2 specification.
  *
- * `OpenApi` is a refined OpenAPI v3.1 specification that normalizes ambiguous
+ * `OpenApi` is a refined OpenAPI v3.2 specification that normalizes ambiguous
  * and redundant expressions from various OpenAPI versions (Swagger 2.0, OpenAPI
- * 3.0, 3.1). This unified format simplifies schema processing for `typia` and
- * `@nestia/sdk`.
+ * 3.0, 3.1, 3.2). This unified format simplifies schema processing for `typia`
+ * and `@nestia/sdk`.
  *
  * Key simplifications:
  *
@@ -38,10 +38,11 @@ export namespace OpenApi {
     | "options"
     | "head"
     | "patch"
-    | "trace";
+    | "trace"
+    | "query";
 
   /**
-   * Root document structure for emended OpenAPI v3.1.
+   * Root document structure for emended OpenAPI v3.2.
    *
    * Contains all API metadata, paths, operations, and reusable components. The
    * `x-samchon-emended-v4` marker indicates this document has been processed by
@@ -49,7 +50,7 @@ export namespace OpenApi {
    */
   export interface IDocument {
     /** OpenAPI version. */
-    openapi: `3.1.${number}`;
+    openapi: `3.2.${number}`;
 
     /** List of servers providing the API. */
     servers?: IServer[];
@@ -72,8 +73,8 @@ export namespace OpenApi {
     /** Tag definitions for grouping operations. */
     tags?: IDocument.ITag[];
 
-    /** Marker for emended document by `@samchon/openapi`. */
-    "x-samchon-emended-v4": true;
+    /** Marker for emended document by `typia` */
+    "x-typia-emended-v12": true;
   }
   export namespace IDocument {
     /**
@@ -110,8 +111,17 @@ export namespace OpenApi {
       /** Tag name. */
       name: string;
 
+      /** Short summary for display in tag lists. */
+      summary?: string;
+
       /** Tag description. */
       description?: string;
+
+      /** Parent tag name for hierarchical organization. */
+      parent?: string;
+
+      /** Tag classification (e.g., "nav", "badge"). */
+      kind?: string;
     }
 
     /** Contact information. */
@@ -174,6 +184,12 @@ export namespace OpenApi {
 
     /** Path description. */
     description?: string;
+
+    /**
+     * Additional non-standard HTTP method operations (e.g., LINK, UNLINK,
+     * PURGE).
+     */
+    additionalOperations?: Record<string, IOperation>;
   }
 
   /** API operation metadata. */
@@ -224,7 +240,7 @@ export namespace OpenApi {
       name?: string;
 
       /** Parameter location. */
-      in: "path" | "query" | "header" | "cookie";
+      in: "path" | "query" | "querystring" | "header" | "cookie";
 
       /** Parameter schema. */
       schema: IJsonSchema;
@@ -281,6 +297,9 @@ export namespace OpenApi {
     export interface IMediaType {
       /** Content schema. */
       schema?: IJsonSchema;
+
+      /** Schema for streaming items (SSE, JSON Lines, etc.). */
+      itemSchema?: IJsonSchema;
 
       /** Example value. */
       example?: any;
@@ -593,6 +612,9 @@ export namespace OpenApi {
       /** OAuth2 flows. */
       flows: IOAuth2.IFlowSet;
 
+      /** OAuth2 metadata discovery URL. */
+      oauth2MetadataUrl?: string;
+
       /** Scheme description. */
       description?: string;
     }
@@ -622,6 +644,9 @@ export namespace OpenApi {
 
         /** Client credentials flow. */
         clientCredentials?: Omit<IFlow, "authorizationUrl">;
+
+        /** Device authorization flow. */
+        deviceAuthorization?: IDeviceFlow;
       }
 
       /** OAuth2 flow configuration. */
@@ -631,6 +656,21 @@ export namespace OpenApi {
 
         /** Token URL. */
         tokenUrl?: string;
+
+        /** Refresh URL. */
+        refreshUrl?: string;
+
+        /** Available scopes. */
+        scopes?: Record<string, string>;
+      }
+
+      /** OAuth2 device authorization flow. */
+      export interface IDeviceFlow {
+        /** Device authorization URL. */
+        deviceAuthorizationUrl: string;
+
+        /** Token URL. */
+        tokenUrl: string;
 
         /** Refresh URL. */
         refreshUrl?: string;

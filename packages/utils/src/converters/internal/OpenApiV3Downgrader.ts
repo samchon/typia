@@ -93,6 +93,7 @@ export namespace OpenApiV3Downgrader {
       input: OpenApi.IOperation.IParameter,
     ): OpenApiV3.IOperation.IParameter => ({
       ...input,
+      in: input.in === "querystring" ? "query" : input.in,
       schema: downgradeSchema(collection)(input.schema),
     });
 

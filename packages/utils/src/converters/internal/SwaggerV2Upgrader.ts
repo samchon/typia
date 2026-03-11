@@ -6,7 +6,7 @@ import { OpenApiExclusiveEmender } from "./OpenApiExclusiveEmender";
 
 export namespace SwaggerV2Upgrader {
   export const convert = (input: SwaggerV2.IDocument): OpenApi.IDocument => ({
-    openapi: "3.1.0",
+    openapi: "3.2.0",
     info: input.info,
     components: convertComponents(input),
     paths: input.paths
@@ -27,7 +27,7 @@ export namespace SwaggerV2Upgrader {
       : undefined,
     security: input.security,
     tags: input.tags,
-    "x-samchon-emended-v4": true,
+    "x-typia-emended-v12": true,
   });
 
   /* -----------------------------------------------------------

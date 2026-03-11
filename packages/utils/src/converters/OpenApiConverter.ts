@@ -1,8 +1,15 @@
-import { OpenApi, OpenApiV3, OpenApiV3_1, SwaggerV2 } from "@typia/interface";
+import {
+  OpenApi,
+  OpenApiV3,
+  OpenApiV3_1,
+  OpenApiV3_2,
+  SwaggerV2,
+} from "@typia/interface";
 
 import { OpenApiV3Downgrader } from "./internal/OpenApiV3Downgrader";
 import { OpenApiV3Upgrader } from "./internal/OpenApiV3Upgrader";
 import { OpenApiV3_1Upgrader } from "./internal/OpenApiV3_1Upgrader";
+import { OpenApiV3_2Upgrader } from "./internal/OpenApiV3_2Upgrader";
 import { SwaggerV2Downgrader } from "./internal/SwaggerV2Downgrader";
 import { SwaggerV2Upgrader } from "./internal/SwaggerV2Upgrader";
 
@@ -10,19 +17,21 @@ import { SwaggerV2Upgrader } from "./internal/SwaggerV2Upgrader";
  * OpenAPI version converter.
  *
  * `OpenApiConverter` converts between different OpenAPI specification versions:
- * Swagger v2.0, OpenAPI v3.0, OpenAPI v3.1, and typia's emended {@link OpenApi}
- * format. Also converts individual components (schemas, operations, paths).
+ * Swagger v2.0, OpenAPI v3.0, OpenAPI v3.1, OpenAPI v3.2, and typia's emended
+ * {@link OpenApi} format. Also converts individual components (schemas,
+ * operations, paths).
  *
- * Upgrade path (to emended v3.1):
+ * Upgrade path (to emended v3.2):
  *
- * - Swagger v2.0 → emended v3.1
- * - OpenAPI v3.0 → emended v3.1
- * - OpenAPI v3.1 → emended v3.1
+ * - Swagger v2.0 → emended v3.2
+ * - OpenAPI v3.0 → emended v3.2
+ * - OpenAPI v3.1 → emended v3.2
+ * - OpenAPI v3.2 → emended v3.2
  *
- * Downgrade path (from emended v3.1):
+ * Downgrade path (from emended v3.2):
  *
- * - Emended v3.1 → Swagger v2.0
- * - Emended v3.1 → OpenAPI v3.0
+ * - Emended v3.2 → Swagger v2.0
+ * - Emended v3.2 → OpenAPI v3.0
  *
  * The emended format normalizes ambiguous expressions: dereferences `$ref`,
  * merges `allOf`, converts `nullable` to union types, etc.
@@ -34,19 +43,21 @@ export namespace OpenApiConverter {
     DOCUMENTS
   ----------------------------------------------------------- */
   /**
-   * Upgrade document to typia's emended OpenAPI v3.1 format.
+   * Upgrade document to typia's emended OpenAPI v3.2 format.
    *
-   * @param document Source document (Swagger v2.0, OpenAPI v3.0/v3.1)
-   * @returns Emended OpenAPI v3.1 document
+   * @param document Source document (Swagger v2.0, OpenAPI v3.0/v3.1/v3.2)
+   * @returns Emended OpenAPI v3.2 document
    */
   export function upgradeDocument(
     document:
       | SwaggerV2.IDocument
       | OpenApiV3.IDocument
       | OpenApiV3_1.IDocument
+      | OpenApiV3_2.IDocument
       | OpenApi.IDocument,
   ): OpenApi.IDocument {
     if (isUpgraded(document)) return document;
+    else if (is_v32(document)) return OpenApiV3_2Upgrader.convert(document);
     else if (is_v31(document)) return OpenApiV3_1Upgrader.convert(document);
     else if (is_v30(document)) return OpenApiV3Upgrader.convert(document);
     else if (is_v20(document)) return SwaggerV2Upgrader.convert(document);
@@ -95,17 +106,18 @@ export namespace OpenApiConverter {
   /**
    * Upgrade components to typia's emended format.
    *
-   * @param input Source components (Swagger v2.0, OpenAPI v3.0/v3.1)
+   * @param input Source components (Swagger v2.0, OpenAPI v3.0/v3.1/v3.2)
    * @returns Emended OpenAPI components
    */
   export function upgradeComponents(
     input:
+      | OpenApiV3_2.IComponents
       | OpenApiV3_1.IComponents
       | OpenApiV3.IComponents
       | SwaggerV2.IDocument,
   ): OpenApi.IComponents {
     if (is_v20(input)) return SwaggerV2Upgrader.convertComponents(input);
-    return OpenApiV3_1Upgrader.convertComponents(input);
+    return OpenApiV3_1Upgrader.convertComponents(input as any);
   }
 
   /**
@@ -181,6 +193,18 @@ export namespace OpenApiConverter {
     schema: OpenApiV3_1.IJsonSchema;
   }): OpenApi.IJsonSchema;
 
+  /**
+   * Upgrade OpenAPI v3.2 schema to emended format.
+   *
+   * @param props.components OpenAPI v3.2 components
+   * @param props.schema Schema to upgrade
+   * @returns Emended JSON schema
+   */
+  export function upgradeSchema(props: {
+    components: OpenApiV3_2.IComponents;
+    schema: OpenApiV3_2.IJsonSchema;
+  }): OpenApi.IJsonSchema;
+
   /** @internal */
   export function upgradeSchema(
     props:
@@ -195,11 +219,17 @@ export namespace OpenApiConverter {
       | {
           components: OpenApiV3_1.IComponents;
           schema: OpenApiV3_1.IJsonSchema;
+        }
+      | {
+          components: OpenApiV3_2.IComponents;
+          schema: OpenApiV3_2.IJsonSchema;
         },
   ): OpenApi.IJsonSchema {
     if ("definitions" in props)
       return SwaggerV2Upgrader.convertSchema(props.definitions)(props.schema);
-    return OpenApiV3_1Upgrader.convertSchema(props.components)(props.schema);
+    return OpenApiV3_1Upgrader.convertSchema(props.components as any)(
+      props.schema as any,
+    );
   }
 
   /**
@@ -276,10 +306,17 @@ const is_v31 = (input: unknown): input is OpenApiV3_1.IDocument =>
   typeof input.openapi === "string" &&
   input.openapi.startsWith("3.1");
 
+const is_v32 = (input: unknown): input is OpenApiV3_2.IDocument =>
+  typeof input === "object" &&
+  input !== null &&
+  "openapi" in input &&
+  typeof input.openapi === "string" &&
+  input.openapi.startsWith("3.2");
+
 const isUpgraded = (input: unknown): input is OpenApi.IDocument =>
   typeof input === "object" &&
   input !== null &&
   "openapi" in input &&
   typeof input.openapi === "string" &&
-  input.openapi.startsWith("3.1") &&
-  (input as OpenApi.IDocument)["x-samchon-emended-v4"] === true;
+  input.openapi.startsWith("3.2") &&
+  (input as OpenApi.IDocument)["x-typia-emended-v12"] === true;
