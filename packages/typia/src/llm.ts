@@ -8,6 +8,9 @@ import {
 
 import { NoTransformConfigurationError } from "./transformers/NoTransformConfigurationError";
 
+/* -----------------------------------------------------------
+  FUNCTION CALLING
+----------------------------------------------------------- */
 /**
  * Creates LLM function calling controller.
  *
@@ -198,6 +201,9 @@ export function structuredOutput(): never {
   NoTransformConfigurationError("llm.structuredOutput");
 }
 
+/* -----------------------------------------------------------
+  RAW SCHEMAS
+----------------------------------------------------------- */
 /**
  * Creates LLM parameters schema.
  *
@@ -278,6 +284,9 @@ export function schema(): never {
   NoTransformConfigurationError("llm.schema");
 }
 
+/* -----------------------------------------------------------
+  UTILITY FUNCTIONS
+----------------------------------------------------------- */
 /**
  * Parse LLM response JSON with type coercion.
  *
