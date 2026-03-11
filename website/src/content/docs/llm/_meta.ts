@@ -2,6 +2,7 @@ import { MetaRecord } from "nextra";
 
 export default {
   application: "application() functions",
+  structuredOutput: "structuredOutput() function",
   parameters: "parameters() function",
   schema: "schema() function",
   json: "LlmJson module",

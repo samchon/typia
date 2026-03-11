@@ -17,7 +17,7 @@ export const test_langchain_tool_description = async (): Promise<void> => {
   });
 
   // 3. Find add tool and verify description
-  const addTool = tools.find((t) => t.name === "calculator_add");
+  const addTool = tools.find((t) => t.name === "add");
   if (!addTool) {
     throw new Error("Missing add tool");
   }

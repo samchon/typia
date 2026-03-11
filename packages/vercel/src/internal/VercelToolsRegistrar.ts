@@ -3,13 +3,12 @@ import {
   IHttpLlmFunction,
   ILlmController,
   ILlmFunction,
-  ILlmSchema,
   IValidation,
 } from "@typia/interface";
 import { HttpLlm, LlmJson } from "@typia/utils";
-import { jsonSchema, tool } from "ai";
-import type { Tool } from "ai";
-import type { JSONSchema7 } from "json-schema";
+import { Tool, tool } from "ai";
+
+import { VercelParameterConverter } from "./VercelParameterConverter";
 
 export namespace VercelToolsRegistrar {
   /**
@@ -22,22 +21,35 @@ export namespace VercelToolsRegistrar {
     controllers: Array<ILlmController | IHttpLlmController>;
     prefix?: boolean | undefined;
   }): Record<string, Tool> => {
+    const prefix: boolean = props.prefix ?? false;
     const tools: Record<string, Tool> = {};
-    const prefix: boolean = props.prefix ?? true;
 
+    // check duplicate tool names
+    if (prefix === false && props.controllers.length >= 2) {
+      const names: Map<string, string> = new Map();
+      const duplicates: string[] = [];
+      for (const controller of props.controllers) {
+        for (const func of controller.application.functions) {
+          const existing: string | undefined = names.get(func.name);
+          if (existing !== undefined)
+            duplicates.push(
+              `"${func.name}" in "${controller.name}" (conflicts with "${existing}")`,
+            );
+          else names.set(func.name, controller.name);
+        }
+      }
+      if (duplicates.length > 0)
+        throw new Error(
+          `Duplicate tool names found:\n  - ${duplicates.join("\n  - ")}`,
+        );
+    }
+
+    // convert controllers to tools
     for (const controller of props.controllers) {
       if (controller.protocol === "class") {
-        registerClassController({
-          tools,
-          controller,
-          prefix,
-        });
+        registerClassController({ tools, controller, prefix });
       } else {
-        registerHttpController({
-          tools,
-          controller,
-          prefix,
-        });
+        registerHttpController({ tools, controller, prefix });
       }
     }
 
@@ -57,12 +69,6 @@ export namespace VercelToolsRegistrar {
         ? `${controller.name}_${func.name}`
         : func.name;
 
-      if (tools[toolName] !== undefined) {
-        throw new Error(
-          `Duplicate tool name "${toolName}" from controller "${controller.name}"`,
-        );
-      }
-
       const method: unknown = execute[func.name];
       if (typeof method !== "function") {
         throw new Error(
@@ -71,6 +77,7 @@ export namespace VercelToolsRegistrar {
       }
 
       tools[toolName] = createTool({
+        name: toolName,
         func,
         execute: async (args: unknown) => method.call(execute, args),
       });
@@ -91,13 +98,8 @@ export namespace VercelToolsRegistrar {
         ? `${controller.name}_${func.name}`
         : func.name;
 
-      if (tools[toolName] !== undefined) {
-        throw new Error(
-          `Duplicate tool name "${toolName}" from controller "${controller.name}"`,
-        );
-      }
-
       tools[toolName] = createTool({
+        name: toolName,
         func,
         execute: async (args: unknown) => {
           if (controller.execute !== undefined) {
@@ -121,60 +123,44 @@ export namespace VercelToolsRegistrar {
   };
 
   const createTool = (props: {
+    name: string;
     func: ILlmFunction | IHttpLlmFunction;
     execute: (args: unknown) => Promise<unknown>;
   }): Tool => {
-    const { func, execute } = props;
+    const { name, func, execute } = props;
 
     return tool({
-      description: func.description,
-
-      // Convert ILlmSchema.IParameters to Vercel jsonSchema
-      parameters: jsonSchema<object>(
-        convertParameters(func.parameters) as JSONSchema7,
-      ),
-
-      execute: async (args: object) => {
-        // Coerce and validate using typia's built-in functions
+      description: func.description ?? "",
+      inputSchema: VercelParameterConverter.convert(func.parameters),
+      execute: async (args: unknown): Promise<ITryResult> => {
         const coerced: unknown = LlmJson.coerce(args, func.parameters);
         const validation: IValidation<unknown> = func.validate(coerced);
-        if (!validation.success) {
-          // Return validation error in LLM-friendly format
+        if (!validation.success)
           return {
-            error: true,
-            message: LlmJson.stringify(validation),
-          };
-        }
-
+            success: false,
+            error:
+              `Type errors in "${name}" arguments:\n\n` +
+              `\`\`\`json\n${LlmJson.stringify(validation)}\n\`\`\``,
+          } satisfies ITryResult;
         try {
           const result: unknown = await execute(validation.data);
-          return result === undefined ? { success: true } : result;
+          return result === undefined
+            ? ({ success: true } satisfies ITryResult)
+            : ({ success: true, data: result } satisfies ITryResult);
         } catch (error) {
           return {
-            error: true,
-            message:
+            success: false,
+            error:
               error instanceof Error
                 ? `${error.name}: ${error.message}`
                 : String(error),
-          };
+          } satisfies ITryResult;
         }
       },
     });
   };
-
-  const convertParameters = (params: ILlmSchema.IParameters): JSONSchema7 => {
-    const schema: JSONSchema7 = {
-      type: "object",
-      properties: params.properties as JSONSchema7["properties"],
-      required: params.required,
-      additionalProperties: params.additionalProperties,
-    };
-
-    // Add $defs if present
-    if (Object.keys(params.$defs).length > 0) {
-      schema.$defs = params.$defs as JSONSchema7["$defs"];
-    }
-
-    return schema;
-  };
 }
+
+type ITryResult =
+  | { success: true; data?: unknown | undefined }
+  | { success: false; error: string };

@@ -76,6 +76,7 @@ import { LlmCreateParseTransformer } from "./features/llm/LlmCreateParseTransfor
 import { LlmParametersTransformer } from "./features/llm/LlmParametersTransformer";
 import { LlmParseTransformer } from "./features/llm/LlmParseTransformer";
 import { LlmSchemaTransformer } from "./features/llm/LlmSchemaTransformer";
+import { LlmStructuredOutputTransformer } from "./features/llm/LlmStructuredOutputTransformer";
 import { MiscAssertCloneTransformer } from "./features/misc/MiscAssertCloneTransformer";
 import { MiscAssertPruneTransformer } from "./features/misc/MiscAssertPruneTransformer";
 import { MiscCloneTransformer } from "./features/misc/MiscCloneTransformer";
@@ -423,6 +424,7 @@ const FUNCTORS: Record<string, Record<string, () => Task>> = {
     controller: () => LlmControllerTransformer.transform,
     applicationOfValidate: () => LlmApplicationTransformer.transform,
     application: () => LlmApplicationTransformer.transform,
+    structuredOutput: () => LlmStructuredOutputTransformer.transform,
     parameters: () => LlmParametersTransformer.transform,
     schema: () => LlmSchemaTransformer.transform,
     parse: () => LlmParseTransformer.transform,
