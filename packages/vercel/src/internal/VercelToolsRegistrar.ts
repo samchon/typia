@@ -131,10 +131,8 @@ export namespace VercelToolsRegistrar {
 
     return tool({
       description: func.description ?? "",
-
-      parameters: VercelParameterConverter.convert(func.parameters),
-
-      execute: async (args: object) => {
+      inputSchema: VercelParameterConverter.convert(func.parameters),
+      execute: async (args: unknown): Promise<ITryResult> => {
         const coerced: unknown = LlmJson.coerce(args, func.parameters);
         const validation: IValidation<unknown> = func.validate(coerced);
         if (!validation.success)
@@ -143,12 +141,12 @@ export namespace VercelToolsRegistrar {
             error:
               `Type errors in "${name}" arguments:\n\n` +
               `\`\`\`json\n${LlmJson.stringify(validation)}\n\`\`\``,
-          };
+          } satisfies ITryResult;
         try {
           const result: unknown = await execute(validation.data);
           return result === undefined
-            ? { success: true }
-            : { success: true, data: result };
+            ? ({ success: true } satisfies ITryResult)
+            : ({ success: true, data: result } satisfies ITryResult);
         } catch (error) {
           return {
             success: false,
@@ -156,9 +154,13 @@ export namespace VercelToolsRegistrar {
               error instanceof Error
                 ? `${error.name}: ${error.message}`
                 : String(error),
-          };
+          } satisfies ITryResult;
         }
       },
     });
   };
 }
+
+type ITryResult =
+  | { success: true; data?: unknown | undefined }
+  | { success: false; error: string };
