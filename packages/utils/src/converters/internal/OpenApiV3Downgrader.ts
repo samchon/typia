@@ -37,33 +37,58 @@ export namespace OpenApiV3Downgrader {
   ----------------------------------------------------------- */
   const downgradePathItem =
     (collection: IComponentsCollection) =>
-    (pathItem: OpenApi.IPath): OpenApiV3.IPath => ({
-      ...(pathItem as any),
-      ...(pathItem.get
-        ? { get: downgradeOperation(collection)(pathItem.get) }
-        : undefined),
-      ...(pathItem.put
-        ? { put: downgradeOperation(collection)(pathItem.put) }
-        : undefined),
-      ...(pathItem.post
-        ? { post: downgradeOperation(collection)(pathItem.post) }
-        : undefined),
-      ...(pathItem.delete
-        ? { delete: downgradeOperation(collection)(pathItem.delete) }
-        : undefined),
-      ...(pathItem.options
-        ? { options: downgradeOperation(collection)(pathItem.options) }
-        : undefined),
-      ...(pathItem.head
-        ? { head: downgradeOperation(collection)(pathItem.head) }
-        : undefined),
-      ...(pathItem.patch
-        ? { patch: downgradeOperation(collection)(pathItem.patch) }
-        : undefined),
-      ...(pathItem.trace
-        ? { trace: downgradeOperation(collection)(pathItem.trace) }
-        : undefined),
-    });
+    (pathItem: OpenApi.IPath): OpenApiV3.IPath => {
+      // Collect non-standard operations for x-additionalOperations
+      const xAdditionalOperations: Record<string, OpenApiV3.IOperation> = {};
+
+      // query method goes to x-additionalOperations
+      if (pathItem.query) {
+        xAdditionalOperations["query"] = downgradeOperation(collection)(pathItem.query);
+      }
+
+      // additionalOperations also go to x-additionalOperations
+      if (pathItem.additionalOperations) {
+        for (const [key, value] of Object.entries(pathItem.additionalOperations)) {
+          if (value !== undefined) {
+            xAdditionalOperations[key] = downgradeOperation(collection)(value);
+          }
+        }
+      }
+
+      return {
+        ...(pathItem as any),
+        ...(pathItem.get
+          ? { get: downgradeOperation(collection)(pathItem.get) }
+          : undefined),
+        ...(pathItem.put
+          ? { put: downgradeOperation(collection)(pathItem.put) }
+          : undefined),
+        ...(pathItem.post
+          ? { post: downgradeOperation(collection)(pathItem.post) }
+          : undefined),
+        ...(pathItem.delete
+          ? { delete: downgradeOperation(collection)(pathItem.delete) }
+          : undefined),
+        ...(pathItem.options
+          ? { options: downgradeOperation(collection)(pathItem.options) }
+          : undefined),
+        ...(pathItem.head
+          ? { head: downgradeOperation(collection)(pathItem.head) }
+          : undefined),
+        ...(pathItem.patch
+          ? { patch: downgradeOperation(collection)(pathItem.patch) }
+          : undefined),
+        ...(pathItem.trace
+          ? { trace: downgradeOperation(collection)(pathItem.trace) }
+          : undefined),
+        ...(Object.keys(xAdditionalOperations).length > 0
+          ? { "x-additionalOperations": xAdditionalOperations }
+          : undefined),
+        // Remove v3.2-only properties from spread
+        query: undefined,
+        additionalOperations: undefined,
+      };
+    };
 
   const downgradeOperation =
     (collection: IComponentsCollection) =>

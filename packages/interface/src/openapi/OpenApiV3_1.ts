@@ -170,6 +170,14 @@ export namespace OpenApiV3_1 {
 
     /** Path description. */
     description?: string;
+
+    /**
+     * Non-standard HTTP method operations (extension).
+     *
+     * Used when downgrading from OpenAPI v3.2 to preserve
+     * non-standard methods like `query` or custom methods.
+     */
+    "x-additionalOperations"?: Record<string, IOperation>;
   }
 
   /** API operation metadata. */
