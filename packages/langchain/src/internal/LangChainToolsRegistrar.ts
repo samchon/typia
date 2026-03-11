@@ -5,12 +5,11 @@ import {
 import {
   IHttpLlmController,
   IHttpLlmFunction,
-  IJsonParseResult,
   ILlmController,
   ILlmFunction,
   IValidation,
 } from "@typia/interface";
-import { HttpLlm, LlmJson, dedent } from "@typia/utils";
+import { HttpLlm, LlmJson } from "@typia/utils";
 
 export namespace LangChainToolsRegistrar {
   export const convert = (props: {
@@ -124,70 +123,25 @@ export namespace LangChainToolsRegistrar {
     name: string;
     function: ILlmFunction | IHttpLlmFunction;
     execute: (args: unknown) => Promise<unknown>;
-  }): DynamicStructuredTool => {
-    // executor function with diagnoses
-    const process = async (args: unknown): Promise<string> => {
-      const coerced: unknown = LlmJson.coerce(args, entry.function.parameters);
-      const valid: IValidation<unknown> = entry.function.validate(coerced);
-      if (valid.success === false) {
-        throw new ToolInputParsingException(
-          "Received tool input did not match expected schema",
-          LlmJson.stringify(valid),
-        );
-      }
-      try {
-        const result: unknown = await entry.execute(valid.data);
-        return result === undefined
-          ? "Success"
-          : JSON.stringify(result, null, 2);
-      } catch (error) {
-        return error instanceof Error
-          ? `${error.name}: ${error.message}`
-          : String(error);
-      }
-    };
-
-    // make tool definition and its executor function
-    const tool = new DynamicStructuredTool<any>({
+  }): DynamicStructuredTool =>
+    new DynamicStructuredTool<any>({
       name: entry.name,
       description: entry.function.description ?? "",
       schema: entry.function.parameters,
-      func: process,
+      func: async (args: unknown): Promise<unknown> => {
+        const coerced: unknown = LlmJson.coerce(
+          args,
+          entry.function.parameters,
+        );
+        const valid: IValidation<unknown> = entry.function.validate(coerced);
+        if (valid.success === false)
+          throw new ToolInputParsingException(
+            `Type errors in "${entry.name}" arguments:\n\n` +
+              `\`\`\`json\n${LlmJson.stringify(valid)}\n\`\`\``,
+            JSON.stringify(coerced),
+          );
+        const result: unknown = await entry.execute(valid.data);
+        return result === undefined ? { success: true } : result;
+      },
     });
-
-    // hook invoke function
-    const originalInvoke = tool.invoke.bind(tool);
-    tool.invoke = async (...args: Parameters<typeof tool.invoke>) => {
-      try {
-        return await originalInvoke(...args);
-      } catch (error) {
-        if (error instanceof ToolInputParsingException) {
-          let input: unknown;
-          if (typeof args[0] === "string") {
-            // fix json parsing error
-            const parsed: IJsonParseResult = entry.function.parse(args[0]);
-            if (parsed.success === false)
-              throw new ToolInputParsingException(
-                dedent`
-                  Failed to parse JSON input:
-
-                  \`\`\`json
-                  ${JSON.stringify(parsed.errors)}
-                  \`\`\`
-                `,
-                parsed.input,
-              );
-            input = parsed.data;
-          } else {
-            input = args[0];
-          }
-          // just go on original process
-          return process(input);
-        }
-        throw error;
-      }
-    };
-
-    return tool;
-  };
 }

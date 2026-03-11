@@ -1,8 +1,8 @@
 import { DynamicStructuredTool, ToolInputParsingException } from "@langchain/core/tools";
 import { TestValidator } from "@nestia/e2e";
-import { IHttpLlmController, IValidation, OpenApi } from "@typia/interface";
+import { IHttpLlmController, OpenApi } from "@typia/interface";
 import { toLangChainTools } from "@typia/langchain";
-import { HttpLlm, LlmJson, OpenApiValidator } from "@typia/utils";
+import { HttpLlm } from "@typia/utils";
 
 export const test_langchain_http_controller_validation =
   async (): Promise<void> => {
@@ -72,52 +72,19 @@ export const test_langchain_http_controller_validation =
     }
 
     // 5. Test validation failure: wrong type (string instead of number)
-    const invalidArgs: Record<string, unknown> = {
-      body: {
-        x: "not a number",
-        y: 5,
-      },
-    };
-
-    const func = controller.application.functions.find(
-      (f) => f.name === "calculate_add_post",
-    )!;
-    const coerced: unknown = LlmJson.coerce(invalidArgs, func.parameters);
-
-    const parameterSchema: OpenApi.IJsonSchema.IObject = {
-      type: "object",
-      properties: {
-        body: bodySchema,
-      },
-      required: ["body"],
-    };
-
-    const expected: IValidation = OpenApiValidator.validate({
-      components: {},
-      schema: parameterSchema,
-      value: coerced,
-      required: true,
-      equals: false,
-    });
-
-    if (expected.success === true) {
-      throw new Error("Expected validation to fail, but it succeeded.");
-    }
-
-    const expectedMessage: string = LlmJson.stringify(expected);
-
+    //    (may be thrown by LangChain's JSON Schema validation or typia's validation)
     try {
-      await addTool.invoke(invalidArgs);
+      await addTool.invoke({
+        body: {
+          x: "not a number",
+          y: 5,
+        },
+      });
       throw new Error("Expected ToolInputParsingException to be thrown.");
     } catch (error) {
       TestValidator.predicate(
         "should throw ToolInputParsingException",
         () => error instanceof ToolInputParsingException,
-      );
-      TestValidator.equals(
-        "error output should match typia validation",
-        (error as ToolInputParsingException).output,
-        expectedMessage,
       );
     }
   };

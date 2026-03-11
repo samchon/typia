@@ -1,8 +1,7 @@
 import { DynamicStructuredTool, ToolInputParsingException } from "@langchain/core/tools";
 import { TestValidator } from "@nestia/e2e";
-import { ILlmController, IValidation } from "@typia/interface";
+import { ILlmController } from "@typia/interface";
 import { toLangChainTools } from "@typia/langchain";
-import { LlmJson } from "@typia/utils";
 import typia from "typia";
 
 import { Calculator } from "../structures/Calculator";
@@ -25,18 +24,7 @@ export const test_langchain_class_controller_validation =
     }
 
     // 4. Test with invalid arguments - should throw ToolInputParsingException
-    const coerced: unknown = LlmJson.coerce(
-      { x: "not a number", y: 5 },
-      controller.application.functions.find((f) => f.name === "add")!
-        .parameters,
-    );
-    const expected: IValidation = typia.validate<Calculator.IProps>(coerced);
-    if (expected.success === true) {
-      throw new Error("Expected validation to fail, but it succeeded.");
-    }
-
-    const expectedMessage: string = LlmJson.stringify(expected);
-
+    //    (may be thrown by LangChain's JSON Schema validation or typia's validation)
     try {
       await addTool.invoke({ x: "not a number", y: 5 });
       throw new Error("Expected ToolInputParsingException to be thrown.");
@@ -45,16 +33,11 @@ export const test_langchain_class_controller_validation =
         "should throw ToolInputParsingException",
         () => error instanceof ToolInputParsingException,
       );
-      TestValidator.equals(
-        "error output should match typia validation",
-        (error as ToolInputParsingException).output,
-        expectedMessage,
-      );
     }
 
     // 5. Test with valid arguments - should succeed
     const validResult = await addTool.invoke({ x: 10, y: 5 });
-    TestValidator.equals("valid args should work", JSON.parse(validResult), {
+    TestValidator.equals("valid args should work", validResult, {
       value: 15,
     });
   };
