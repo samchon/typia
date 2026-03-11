@@ -7,6 +7,7 @@ const config: ReturnType<typeof defineConfig> = defineConfig({
   },
   clean: true,
   format: ["esm"],
+  external: ["typescript", /^typia/],
   shims: true,
   target: "es2023",
   dts: true,

@@ -26,6 +26,7 @@ async function taggedTransform(
     throw new Error("transform is not defined");
   }
 
+  // type of this function is not correct
   const _transform = async (source: Source, id: ID) =>
     (transform as any)(source, id) as Promise<string | { code: string }>;
 

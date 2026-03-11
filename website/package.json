@@ -43,10 +43,10 @@
     "react-dom": "^18.2.0",
     "tgrid": "^1.0.3",
     "tstl": "^3.0.0",
-    "@typia/interface": "./packages/interface.tgz",
-    "@typia/core": "./packages/core.tgz",
-    "@typia/transform": "./packages/transform.tgz",
-    "typia": "./packages/typia.tgz"
+    "@typia/interface": "../experiments/tarballs/interface.tgz",
+    "@typia/core": "../experiments/tarballs/core.tgz",
+    "@typia/transform": "../experiments/tarballs/transform.tgz",
+    "typia": "../experiments/tarballs/typia.tgz"
   },
   "devDependencies": {
     "@rspack/cli": "^1.0.0",
