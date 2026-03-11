@@ -141,7 +141,9 @@ export namespace LangChainToolsRegistrar {
             JSON.stringify(coerced),
           );
         const result: unknown = await entry.execute(valid.data);
-        return result === undefined ? { success: true } : result;
+        return result === undefined
+          ? { success: true }
+          : { success: true, data: result };
       },
     });
 }

@@ -139,18 +139,20 @@ export namespace VercelToolsRegistrar {
         const validation: IValidation<unknown> = func.validate(coerced);
         if (!validation.success)
           return {
-            error: true,
-            message:
+            success: false,
+            error:
               `Type errors in "${name}" arguments:\n\n` +
               `\`\`\`json\n${LlmJson.stringify(validation)}\n\`\`\``,
           };
         try {
           const result: unknown = await execute(validation.data);
-          return result === undefined ? { success: true } : result;
+          return result === undefined
+            ? { success: true }
+            : { success: true, data: result };
         } catch (error) {
           return {
-            error: true,
-            message:
+            success: false,
+            error:
               error instanceof Error
                 ? `${error.name}: ${error.message}`
                 : String(error),

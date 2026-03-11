@@ -25,13 +25,13 @@ export const test_vercel_class_controller_error_handling =
     );
 
     // 4. Verify the result contains error
-    TestValidator.predicate("result should be an error object", () => {
-      const res = result as { error?: boolean; message?: string };
-      return res.error === true && typeof res.message === "string";
+    TestValidator.predicate("result should be a failure object", () => {
+      const res = result as { success?: boolean; error?: string };
+      return res.success === false && typeof res.error === "string";
     });
 
-    TestValidator.predicate("error message should contain division by zero", () => {
-      const res = result as { error: boolean; message: string };
-      return res.message.includes("Division by zero");
+    TestValidator.predicate("error should contain division by zero", () => {
+      const res = result as { success: boolean; error: string };
+      return res.error.includes("Division by zero");
     });
   };

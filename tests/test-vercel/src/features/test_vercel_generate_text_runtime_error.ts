@@ -51,12 +51,12 @@ export const test_vercel_generate_text_runtime_error =
     TestValidator.equals("should have 1 tool result", toolResults.length, 1);
 
     const toolResult = toolResults[0]!.result as {
-      error: boolean;
-      message: string;
+      success: boolean;
+      error: string;
     };
-    TestValidator.equals("result should be error", toolResult.error, true);
+    TestValidator.equals("result should be failure", toolResult.success, false);
     TestValidator.predicate(
-      "error message should contain division by zero",
-      () => toolResult.message.includes("Division by zero"),
+      "error should contain division by zero",
+      () => toolResult.error.includes("Division by zero"),
     );
   };

@@ -25,7 +25,8 @@ export const test_vercel_class_controller_execute = async (): Promise<void> => {
     { toolCallId: "test-1", messages: [], abortSignal: undefined as any },
   );
   TestValidator.equals("add(10, 5) should return 15", addResult, {
-    value: 15,
+    success: true,
+    data: { value: 15 },
   });
 
   // 4. Test subtract function
@@ -35,7 +36,8 @@ export const test_vercel_class_controller_execute = async (): Promise<void> => {
     { toolCallId: "test-2", messages: [], abortSignal: undefined as any },
   );
   TestValidator.equals("subtract(10, 3) should return 7", subtractResult, {
-    value: 7,
+    success: true,
+    data: { value: 7 },
   });
 
   // 5. Test multiply function
@@ -45,7 +47,8 @@ export const test_vercel_class_controller_execute = async (): Promise<void> => {
     { toolCallId: "test-3", messages: [], abortSignal: undefined as any },
   );
   TestValidator.equals("multiply(4, 7) should return 28", multiplyResult, {
-    value: 28,
+    success: true,
+    data: { value: 28 },
   });
 
   // 6. Test divide function
@@ -55,6 +58,7 @@ export const test_vercel_class_controller_execute = async (): Promise<void> => {
     { toolCallId: "test-4", messages: [], abortSignal: undefined as any },
   );
   TestValidator.equals("divide(20, 4) should return 5", divideResult, {
-    value: 5,
+    success: true,
+    data: { value: 5 },
   });
 };

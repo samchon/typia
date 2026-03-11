@@ -52,16 +52,16 @@ export const test_vercel_generate_text_validation_error =
     TestValidator.equals("should have 1 tool result", toolResults.length, 1);
 
     const toolResult = toolResults[0]!.result as {
-      error: boolean;
-      message: string;
+      success: boolean;
+      error: string;
     };
-    TestValidator.equals("result should be error", toolResult.error, true);
+    TestValidator.equals("result should be failure", toolResult.success, false);
     TestValidator.predicate(
-      "error message should contain validation failure",
-      () => toolResult.message.includes("```json"),
+      "error should contain validation failure",
+      () => toolResult.error.includes("```json"),
     );
     TestValidator.predicate(
-      "error message should indicate type error",
-      () => toolResult.message.includes("number"),
+      "error should indicate type error",
+      () => toolResult.error.includes("number"),
     );
   };

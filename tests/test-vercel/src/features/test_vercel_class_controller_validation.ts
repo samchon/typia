@@ -25,17 +25,17 @@ export const test_vercel_class_controller_validation =
     );
 
     // 4. Verify the result contains validation error
-    const res = result as { error?: boolean; message?: string };
+    const res = result as { success?: boolean; error?: string };
     TestValidator.predicate(
-      "result should be an error object",
-      () => res.error === true && typeof res.message === "string",
+      "result should be a failure object",
+      () => res.success === false && typeof res.error === "string",
     );
     TestValidator.predicate(
-      "error message should contain title",
-      () => res.message!.includes('Type errors in "add" arguments'),
+      "error should contain title",
+      () => res.error!.includes('Type errors in "add" arguments'),
     );
     TestValidator.predicate(
-      "error message should contain json code block",
-      () => res.message!.includes("```json"),
+      "error should contain json code block",
+      () => res.error!.includes("```json"),
     );
   };
