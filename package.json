@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@typia/station",
-  "version": "12.0.0-dev.20260310",
+  "version": "12.0.0-dev.20260311",
   "description": "Typia Station",
   "scripts": {
     "build": "pnpm --filter=./packages/* -r build",
@@ -9,7 +9,7 @@
     "test": "pnpm --filter=./tests/test-* -r start",
     "package:latest": "pnpm --filter=./packages/* -r publish --tag latest --access public",
     "package:next": "bash next.bash",
-    "package:tgz": "node website/build/tgz",
+    "package:tgz": "node experiments/tarballs",
     "prepare": "ts-patch install",
     "release": "bumpp -r"
   },

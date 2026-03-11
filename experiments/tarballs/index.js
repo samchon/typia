@@ -22,17 +22,9 @@ const build = (name) => {
     .find((f) => f.endsWith(".tgz"));
   fs.copyFileSync(
     `${__dirname}/../../packages/${name}/${file}`,
-    `${__dirname}/../packages/${name}.tgz`,
+    `${__dirname}/${name}.tgz`,
   );
 };
-
-// make directory
-if (fs.existsSync(`${__dirname}/../packages`))
-  fs.rmSync(`${__dirname}/../packages`, {
-    force: true,
-    recursive: true,
-  });
-fs.mkdirSync(`${__dirname}/../packages`);
 
 // build packages
 for (const package of fs.readdirSync(`${__dirname}/../../packages`)) {
