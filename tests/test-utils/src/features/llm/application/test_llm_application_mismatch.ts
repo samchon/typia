@@ -11,7 +11,7 @@ export const test_llm_application_mismatch = (): void => {
   collection.schemas[2] = { $ref: "#/components/schemas/IRectangle1" };
 
   const document: OpenApi.IDocument = {
-    openapi: "3.1.0",
+    openapi: "3.2.0",
     components: collection.components,
     paths: {
       "/point": {
@@ -48,7 +48,7 @@ export const test_llm_application_mismatch = (): void => {
         },
       },
     },
-    "x-samchon-emended-v4": true,
+    "x-typia-emended-v12": true,
   };
 
   const app: IHttpLlmApplication = HttpLlm.application({

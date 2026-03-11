@@ -27,8 +27,8 @@ export const test_llm_applicationEquals = (): void => {
 };
 
 const document: OpenApi.IDocument = {
-  openapi: "3.1.0",
-  "x-samchon-emended-v4": true,
+  openapi: "3.2.0",
+  "x-typia-emended-v12": true,
   components: {},
   paths: {
     "/validateEquals": {
