@@ -14,7 +14,14 @@
  */
 export class HttpError extends Error {
   /** HTTP method used for the request. */
-  public readonly method: "GET" | "DELETE" | "POST" | "PUT" | "PATCH" | "HEAD";
+  public readonly method:
+    | "GET"
+    | "QUERY"
+    | "DELETE"
+    | "POST"
+    | "PUT"
+    | "PATCH"
+    | "HEAD";
 
   /** Request path or URL. */
   public readonly path: string;
@@ -36,7 +43,7 @@ export class HttpError extends Error {
    * @param message Error message (response body)
    */
   public constructor(
-    method: "GET" | "DELETE" | "POST" | "PUT" | "PATCH" | "HEAD",
+    method: "GET" | "QUERY" | "DELETE" | "POST" | "PUT" | "PATCH" | "HEAD",
     path: string,
     status: number,
     headers: Record<string, string | string[]>,
@@ -87,7 +94,7 @@ export namespace HttpError {
    */
   export interface IProps<T> {
     /** HTTP method. */
-    method: "GET" | "DELETE" | "POST" | "PUT" | "PATCH" | "HEAD";
+    method: "GET" | "QUERY" | "DELETE" | "POST" | "PUT" | "PATCH" | "HEAD";
 
     /** Request path or URL. */
     path: string;

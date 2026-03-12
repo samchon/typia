@@ -20,16 +20,41 @@ import { DeepPartial, IJsonParseResult } from "@typia/interface";
  * @internal
  */
 export function parseLenientJson<T>(input: string): IJsonParseResult<T> {
+  // For safe guard
+  if (typeof input !== "string") input = String(input);
+
   // Try native JSON.parse first (faster for valid JSON)
+  let error: Error | null = null;
   try {
     return {
       success: true,
       data: JSON.parse(input) as T,
     };
-  } catch {
+  } catch (e) {
     // Fall back to lenient parser
+    error = e instanceof Error ? e : new Error(String(e));
   }
 
+  try {
+    return iterate(input);
+  } catch {
+    // actually unreachable, maybe?
+    return {
+      success: false,
+      data: undefined as DeepPartial<T>,
+      input,
+      errors: [
+        {
+          path: "$input",
+          expected: "valid JSON",
+          description: error.message,
+        },
+      ],
+    };
+  }
+}
+
+function iterate<T>(input: string): IJsonParseResult<T> {
   // Extract markdown code block if present
   const codeBlockContent: string | null = extractMarkdownCodeBlock(input);
   const jsonSource: string =
@@ -46,7 +71,7 @@ export function parseLenientJson<T>(input: string): IJsonParseResult<T> {
         {
           path: "$input",
           expected: "JSON value",
-          value: "empty input",
+          description: "empty input",
         },
       ],
     };
@@ -89,7 +114,7 @@ export function parseLenientJson<T>(input: string): IJsonParseResult<T> {
         {
           path: "$input",
           expected: "JSON value",
-          value: jsonSource,
+          description: jsonSource,
         },
       ],
     };
@@ -116,13 +141,6 @@ export function parseLenientJson<T>(input: string): IJsonParseResult<T> {
     data: data as T,
   };
 }
-
-/**
- * Maximum nesting depth to prevent stack overflow attacks.
- *
- * @internal
- */
-const MAX_DEPTH: number = 512;
 
 /**
  * Check if a string is a valid 4-character hexadecimal string.
@@ -404,7 +422,7 @@ class LenientJsonParser {
       this.errors.push({
         path,
         expected: "value (max depth exceeded)",
-        value: undefined,
+        description: undefined,
       });
       return undefined;
     }
@@ -431,7 +449,7 @@ class LenientJsonParser {
     this.errors.push({
       path,
       expected: "JSON value",
-      value: this.getErrorContext(),
+      description: this.getErrorContext(),
     });
     // Skip the problematic character and try to continue
     this.pos++;
@@ -487,7 +505,7 @@ class LenientJsonParser {
       this.errors.push({
         path,
         expected: "quoted string",
-        value: "missing opening quote for '" + token + "'",
+        description: "missing opening quote for '" + token + "'",
       });
       return token;
     }
@@ -496,7 +514,7 @@ class LenientJsonParser {
     this.errors.push({
       path,
       expected: "JSON value (string, number, boolean, null, object, or array)",
-      value: "unquoted string '" + token + "' - did you forget quotes?",
+      description: "unquoted string '" + token + "' - did you forget quotes?",
     });
     // Skip to next comma, closing brace/bracket for recovery
     this.skipToRecoveryPoint();
@@ -546,7 +564,7 @@ class LenientJsonParser {
         this.errors.push({
           path,
           expected: "string key",
-          value: this.input[this.pos],
+          description: this.input[this.pos],
         });
         // Try to recover by skipping to next meaningful character
         this.depth--;
@@ -568,7 +586,7 @@ class LenientJsonParser {
         this.errors.push({
           path: path + "." + key,
           expected: "':'",
-          value: this.input[this.pos],
+          description: this.input[this.pos],
         });
         this.depth--;
         return result;
@@ -892,3 +910,10 @@ class LenientJsonParser {
     }
   }
 }
+
+/**
+ * Maximum nesting depth to prevent stack overflow attacks.
+ *
+ * @internal
+ */
+const MAX_DEPTH: number = 512;
