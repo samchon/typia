@@ -703,9 +703,9 @@ export namespace JsonStringifyProgrammer {
     return props.explore.from !== "top"
       ? props.input
       : ts.factory.createCallExpression(
-          IdentifierFactory.access(props.input, "toString"),
+          ts.factory.createIdentifier("String"),
           undefined,
-          undefined,
+          [props.input],
         );
   };
 
