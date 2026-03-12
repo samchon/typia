@@ -25,18 +25,10 @@ export namespace json {
 
 // AI FUNCTION CALLING SCHEMA
 export namespace llm {
-  // collection of function calling schemas
+  // collection of function calling schemas + validators/parsers
   export function application<Class>(): ILlmApplication<Class>;
-  export function controller<Class>(
-    name: string,
-    execute: Class,
-  ): ILlmController; // +executor
   export function structuredOutput<P>(): ILlmStructuredOutput;
-  export function parameters<T>(): ILlmSchema.IParameters;
-  export function schema<T>(
-    $defs: Record<string, ILlmSchema>,
-  ): ILlmSchema; // type schema
-  // lenient json parsing + type coercion
+  // lenient json parser + type corecion
   export function parse<T>(str: string): T;
 }
 
@@ -134,10 +126,11 @@ Check out the document in the [website](https://typia.io/docs/):
   - [`parse()` functions](https://typia.io/docs/json/parse/)
 - LLM Function Calling
   - [`application()` function](https://typia.io/docs/llm/application/)
-  - [`parameters()` function](https://typia.io/docs/llm/parameters/)
-  - [`schema()` function](https://typia.io/docs/llm/schema/)
-  - [AI Chatbot Development](https://typia.io/docs/llm/chat/)
-  - [Documentation Strategy](https://typia.io/docs/llm/strategy/)
+  - [`structuredOutput()` function](https://typia.io/docs/llm/structuredOutput/)
+  - [`LlmJson` module](https://typia.io/docs/llm/json/)
+  - [MCP (Model Context Protocol)](https://typia.io/docs/llm/mcp/)
+  - [Vercel AI SDK](https://typia.io/docs/llm/vercel/)
+  - [LangChain](https://typia.io/docs/llm/langchain/)
 - Protocol Buffer
   - [Message Schema](https://typia.io/docs/protobuf/message)
   - [`decode()` functions](https://typia.io/docs/protobuf/decode/)
