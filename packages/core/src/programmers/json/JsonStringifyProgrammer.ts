@@ -685,7 +685,8 @@ export namespace JsonStringifyProgrammer {
         ...props,
         input: ts.factory.createCallExpression(
           props.context.importer.internal(
-            OptionPredicator.numeric(props.context.options)
+            OptionPredicator.finite(props.context.options) ||
+              OptionPredicator.numeric(props.context.options)
               ? "jsonStringifyNumber"
               : "jsonStringifyNumberNull",
           ),
