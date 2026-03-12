@@ -8,6 +8,7 @@ import {
   OpenApi,
   OpenApiV3,
   OpenApiV3_1,
+  OpenApiV3_2,
   SwaggerV2,
 } from "@typia/interface";
 
@@ -62,7 +63,8 @@ export namespace HttpLlm {
       | OpenApi.IDocument
       | SwaggerV2.IDocument
       | OpenApiV3.IDocument
-      | OpenApiV3_1.IDocument;
+      | OpenApiV3_1.IDocument
+      | OpenApiV3_2.IDocument;
 
     /** Connection to the API server. */
     connection: IHttpConnection;
@@ -101,7 +103,8 @@ export namespace HttpLlm {
       | OpenApi.IDocument
       | SwaggerV2.IDocument
       | OpenApiV3.IDocument
-      | OpenApiV3_1.IDocument;
+      | OpenApiV3_1.IDocument
+      | OpenApiV3_2.IDocument;
 
     /** LLM schema conversion configuration. */
     config?: Partial<IHttpLlmApplication.IConfig>;
