@@ -127,6 +127,7 @@ export namespace JsonStringifyProgrammer {
     config: FeatureProgrammer.IConfig;
     functor: FunctionProgrammer;
     collection: MetadataCollection;
+    validated: boolean;
   }): ts.VariableStatement[] =>
     props.collection
       .tuples()
@@ -156,6 +157,7 @@ export namespace JsonStringifyProgrammer {
                 from: "array",
                 postfix: "",
               },
+              validated: props.validated,
             }),
           ),
         }),
@@ -171,6 +173,7 @@ export namespace JsonStringifyProgrammer {
     input: ts.Expression;
     metadata: MetadataSchema;
     explore: FeatureProgrammer.IExplore;
+    validated: boolean;
   }): ts.Expression => {
     // ANY TYPE
     if (props.metadata.any === true)
@@ -591,6 +594,7 @@ export namespace JsonStringifyProgrammer {
     input: ts.Expression;
     tuple: MetadataTuple;
     explore: FeatureProgrammer.IExplore;
+    validated: boolean;
   }): ts.Expression =>
     props.tuple.type.recursive
       ? ts.factory.createCallExpression(
@@ -621,6 +625,7 @@ export namespace JsonStringifyProgrammer {
     input: ts.Expression;
     tuple: MetadataTupleType;
     explore: FeatureProgrammer.IExplore;
+    validated: boolean;
   }): ts.Expression => {
     const elements: ts.Expression[] = props.tuple.elements
       .filter((elem) => elem.rest === null)
@@ -673,6 +678,7 @@ export namespace JsonStringifyProgrammer {
     input: ts.Expression;
     type: string;
     explore: FeatureProgrammer.IExplore;
+    validated: boolean;
   }): ts.Expression => {
     if (props.type === "string")
       return ts.factory.createCallExpression(
@@ -685,8 +691,7 @@ export namespace JsonStringifyProgrammer {
         ...props,
         input: ts.factory.createCallExpression(
           props.context.importer.internal(
-            OptionPredicator.finite(props.context.options) ||
-              OptionPredicator.numeric(props.context.options)
+            props.validated && OptionPredicator.finite(props.context.options)
               ? "jsonStringifyNumber"
               : "jsonStringifyNumberNull",
           ),
@@ -710,6 +715,7 @@ export namespace JsonStringifyProgrammer {
     input: ts.Expression;
     values: string[];
     explore: FeatureProgrammer.IExplore;
+    validated: boolean;
   }): ts.Expression => {
     if (props.values.every((v) => !StringifyPredicator.require_escape(v)))
       return [
@@ -730,6 +736,7 @@ export namespace JsonStringifyProgrammer {
     input: ts.Expression;
     metadata: MetadataSchema;
     explore: FeatureProgrammer.IExplore;
+    validated: boolean;
   }): ts.Expression => {
     return decode({
       ...props,
@@ -977,6 +984,7 @@ export namespace JsonStringifyProgrammer {
   const configure = (props: {
     context: ITypiaContext;
     functor: FunctionProgrammer;
+    validated: boolean;
   }): FeatureProgrammer.IConfig => {
     const config: FeatureProgrammer.IConfig<ts.Expression> = {
       types: {
@@ -999,6 +1007,7 @@ export namespace JsonStringifyProgrammer {
           metadata: next.metadata,
           input: next.input,
           explore: next.explore,
+          validated: props.validated,
         }),
       objector: {
         checker: (next) =>
@@ -1071,6 +1080,7 @@ export namespace JsonStringifyProgrammer {
             context: props.context,
             functor: props.functor,
             collection,
+            validated: props.validated,
           }),
       },
     };
