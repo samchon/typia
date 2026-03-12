@@ -1,3 +1,2 @@
-export const _jsonStringifyNumberNull = (
-  value: number,
-): null | number => (isFinite(value) ? value : null);
+export const _jsonStringifyNumberNull = (value: number): string =>
+  isFinite(value) ? String(value) : "null";
