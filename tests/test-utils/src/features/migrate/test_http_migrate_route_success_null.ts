@@ -8,7 +8,7 @@ import { HttpMigration } from "@typia/utils";
 
 export const test_http_migrate_route_success_null = (): void => {
   const document: OpenApi.IDocument = {
-    openapi: "3.1.0",
+    openapi: "3.2.0",
     components: {},
     paths: {
       "/nothing": {
@@ -24,7 +24,7 @@ export const test_http_migrate_route_success_null = (): void => {
         },
       },
     },
-    "x-samchon-emended-v4": true,
+    "x-typia-emended-v12": true,
   };
   const app: IHttpMigrateApplication = HttpMigration.application(document);
   const route: IHttpMigrateRoute = app.routes[0]!;

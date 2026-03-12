@@ -2,34 +2,29 @@ import { IJsonSchemaAttribute } from "../schema/IJsonSchemaAttribute";
 import * as tags from "../tags";
 
 /**
- * Emended OpenAPI v3.2 specification.
+ * OpenAPI v3.2 specification types (raw, unemended).
  *
- * `OpenApi` is a refined OpenAPI v3.2 specification that normalizes ambiguous
- * and redundant expressions from various OpenAPI versions (Swagger 2.0, OpenAPI
- * 3.0, 3.1, 3.2). This unified format simplifies schema processing for `typia`
- * and `@nestia/sdk`.
+ * `OpenApiV3_2` contains TypeScript type definitions for raw OpenAPI v3.2
+ * documents as-is from the specification. Unlike {@link OpenApi}, this preserves
+ * the original structure including `$ref` references and `allOf` compositions
+ * without normalization.
  *
- * Key simplifications:
+ * Key features in v3.2:
  *
- * - Schema `$ref` references are unified to `#/components/schemas/{name}` format
- * - Non-schema references (parameters, responses) are resolved inline
- * - `nullable` is converted to `{ oneOf: [schema, { type: "null\" }] }`
- * - `allOf` compositions are merged into single schemas
- * - Schema attributes are normalized across all versions
+ * - `query` HTTP method for safe read operations with request body
+ * - `additionalOperations` for non-standard HTTP methods (LINK, UNLINK, etc.)
+ * - `in: "querystring"` parameter location for full query schema
+ * - Enhanced Tag structure with `summary`, `parent`, `kind`
+ * - `itemSchema` for streaming (SSE, JSON Lines, etc.)
+ * - OAuth2 Device Authorization Flow
  *
- * Use `HttpLlm.application()` from `@typia/utils` to convert
- * `OpenApi.IDocument` into {@link IHttpLlmApplication} for LLM function
- * calling.
+ * For a normalized format that simplifies schema processing, use
+ * {@link OpenApi}.
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export namespace OpenApi {
-  /**
-   * HTTP method supported by OpenAPI operations.
-   *
-   * Standard HTTP methods used in REST APIs. Each path can have multiple
-   * operations, one per HTTP method.
-   */
+export namespace OpenApiV3_2 {
+  /** HTTP method of the operation. */
   export type Method =
     | "get"
     | "post"
@@ -41,48 +36,40 @@ export namespace OpenApi {
     | "trace"
     | "query";
 
-  /**
-   * Root document structure for emended OpenAPI v3.2.
-   *
-   * Contains all API metadata, paths, operations, and reusable components. The
-   * `x-samchon-emended-v4` marker indicates this document has been processed by
-   * `samchon/typia` to normalize schema formats.
-   */
+  /* -----------------------------------------------------------
+    DOCUMENTS
+  ----------------------------------------------------------- */
+  /** OpenAPI document structure. */
   export interface IDocument {
     /** OpenAPI version. */
     openapi: `3.2.${number}`;
 
-    /** List of servers providing the API. */
+    /** List of servers. */
     servers?: IServer[];
 
     /** API metadata. */
     info?: IDocument.IInfo;
 
-    /** Reusable components (schemas, security schemes). */
-    components: IComponents;
+    /** Reusable components. */
+    components?: IComponents;
 
-    /** Available API paths and operations. */
+    /** API paths and operations. */
     paths?: Record<string, IPath>;
 
     /** Webhook definitions. */
-    webhooks?: Record<string, IPath>;
+    webhooks?: Record<
+      string,
+      IJsonSchema.IReference<`#/components/pathItems/${string}`> | IPath
+    >;
 
     /** Global security requirements. */
     security?: Record<string, string[]>[];
 
-    /** Tag definitions for grouping operations. */
+    /** Tag definitions. */
     tags?: IDocument.ITag[];
-
-    /** Marker for emended document by `typia` */
-    "x-typia-emended-v12": true;
   }
   export namespace IDocument {
-    /**
-     * API metadata and identification.
-     *
-     * Contains essential information about the API including title, version,
-     * contact information, and licensing details.
-     */
+    /** API metadata. */
     export interface IInfo {
       /** API title. */
       title: string;
@@ -166,7 +153,7 @@ export namespace OpenApi {
       /** Default value. */
       default: string;
 
-      /** Allowed values. */
+      /** Allowed values. @minItems 1 */
       enum?: string[];
 
       /** Variable description. */
@@ -174,8 +161,18 @@ export namespace OpenApi {
     }
   }
 
+  /* -----------------------------------------------------------
+    OPERATORS
+  ----------------------------------------------------------- */
   /** Path item containing operations by HTTP method. */
   export interface IPath extends Partial<Record<Method, IOperation>> {
+    /** Path-level parameters. */
+    parameters?: Array<
+      | IOperation.IParameter
+      | IJsonSchema.IReference<`#/components/headers/${string}`>
+      | IJsonSchema.IReference<`#/components/parameters/${string}`>
+    >;
+
     /** Path-level servers. */
     servers?: IServer[];
 
@@ -195,13 +192,23 @@ export namespace OpenApi {
     operationId?: string;
 
     /** Operation parameters. */
-    parameters?: IOperation.IParameter[];
+    parameters?: Array<
+      | IOperation.IParameter
+      | IJsonSchema.IReference<`#/components/headers/${string}`>
+      | IJsonSchema.IReference<`#/components/parameters/${string}`>
+    >;
 
     /** Request body. */
-    requestBody?: IOperation.IRequestBody;
+    requestBody?:
+      | IOperation.IRequestBody
+      | IJsonSchema.IReference<`#/components/requestBodies/${string}`>;
 
     /** Response definitions by status code. */
-    responses?: Record<string, IOperation.IResponse>;
+    responses?: Record<
+      string,
+      | IOperation.IResponse
+      | IJsonSchema.IReference<`#/components/responses/${string}`>
+    >;
 
     /** Operation-level servers. */
     servers?: IServer[];
@@ -215,20 +222,11 @@ export namespace OpenApi {
     /** Security requirements. */
     security?: Record<string, string[]>[];
 
-    /** Operation tags for grouping. */
+    /** Operation tags. */
     tags?: string[];
 
     /** Whether deprecated. */
     deprecated?: boolean;
-
-    /** Excludes from LLM function calling when `true`. */
-    "x-samchon-human"?: boolean;
-
-    /** Custom accessor path for migration. */
-    "x-samchon-accessor"?: string[];
-
-    /** Controller name for code generation. */
-    "x-samchon-controller"?: string;
   }
   export namespace IOperation {
     /** Operation parameter. */
@@ -252,43 +250,39 @@ export namespace OpenApi {
       example?: any;
 
       /** Named examples. */
-      examples?: Record<string, IExample>;
+      examples?: Record<
+        string,
+        IExample | IJsonSchema.IReference<`#/components/examples/${string}`>
+      >;
     }
 
     /** Request body. */
     export interface IRequestBody {
-      /** Body content by media type. */
-      content?: IContent;
-
       /** Body description. */
       description?: string;
 
       /** Whether required. */
       required?: boolean;
 
-      /** Nestia encryption flag. */
-      "x-nestia-encrypted"?: boolean;
+      /** Body content by media type. */
+      content?: Record<string, IMediaType>;
     }
 
     /** Response definition. */
     export interface IResponse {
-      /** Response headers. */
-      headers?: Record<string, IOperation.IParameter>;
-
       /** Response content by media type. */
-      content?: IContent;
+      content?: Record<string, IMediaType>;
+
+      /** Response headers. */
+      headers?: Record<
+        string,
+        | Omit<IOperation.IParameter, "in">
+        | IJsonSchema.IReference<`#/components/headers/${string}`>
+      >;
 
       /** Response description. */
       description?: string;
-
-      /** Nestia encryption flag. */
-      "x-nestia-encrypted"?: boolean;
     }
-
-    /** Content by media type. */
-    export interface IContent extends Partial<
-      Record<ContentType, IMediaType>
-    > {}
 
     /** Media type definition. */
     export interface IMediaType {
@@ -302,17 +296,11 @@ export namespace OpenApi {
       example?: any;
 
       /** Named examples. */
-      examples?: Record<string, IExample>;
+      examples?: Record<
+        string,
+        IExample | IJsonSchema.IReference<`#/components/examples/${string}`>
+      >;
     }
-
-    /** Supported content types. */
-    export type ContentType =
-      | "text/plain"
-      | "application/json"
-      | "application/x-www-form-url-encoded"
-      | "multipart/form-data"
-      | "*/*"
-      | (string & {});
   }
 
   /** Example value definition. */
@@ -330,58 +318,118 @@ export namespace OpenApi {
     externalValue?: string;
   }
 
+  /* -----------------------------------------------------------
+    SCHEMA DEFINITIONS
+  ----------------------------------------------------------- */
   /** Reusable components storage. */
   export interface IComponents {
     /** Named schemas. */
     schemas?: Record<string, IJsonSchema>;
 
+    /** Named path items. */
+    pathItems?: Record<string, IPath>;
+
+    /** Named responses. */
+    responses?: Record<string, IOperation.IResponse>;
+
+    /** Named parameters. */
+    parameters?: Record<string, IOperation.IParameter>;
+
+    /** Named request bodies. */
+    requestBodies?: Record<string, IOperation.IRequestBody>;
+
     /** Named security schemes. */
     securitySchemes?: Record<string, ISecurityScheme>;
+
+    /** Named headers. */
+    headers?: Record<string, Omit<IOperation.IParameter, "in">>;
+
+    /** Named examples. */
+    examples?: Record<string, IExample>;
   }
 
-  /**
-   * JSON Schema type for emended OpenAPI v3.1.
-   *
-   * Represents all possible JSON Schema types in the normalized OpenAPI format.
-   * This is a discriminated union - check the `type` property or use type
-   * guards to narrow to specific schema types.
-   *
-   * Unlike raw JSON Schema, this format:
-   *
-   * - Uses `oneOf` instead of `anyOf` for union types
-   * - Separates `IArray` (homogeneous) from `ITuple` (heterogeneous)
-   * - Normalizes nullable types to `oneOf` with null schema
-   */
+  /** JSON Schema type for OpenAPI v3.1. */
   export type IJsonSchema =
+    | IJsonSchema.IMixed
     | IJsonSchema.IConstant
     | IJsonSchema.IBoolean
     | IJsonSchema.IInteger
     | IJsonSchema.INumber
     | IJsonSchema.IString
     | IJsonSchema.IArray
-    | IJsonSchema.ITuple
     | IJsonSchema.IObject
     | IJsonSchema.IReference
+    | IJsonSchema.IRecursiveReference
+    | IJsonSchema.IAllOf
+    | IJsonSchema.IAnyOf
     | IJsonSchema.IOneOf
     | IJsonSchema.INull
     | IJsonSchema.IUnknown;
   export namespace IJsonSchema {
+    /** Mixed type (multiple types in array). */
+    export interface IMixed
+      extends
+        IConstant,
+        Omit<IBoolean, "type" | "default" | "enum">,
+        Omit<INumber, "type" | "default" | "enum">,
+        Omit<IString, "type" | "default" | "enum">,
+        Omit<IArray, "type">,
+        Omit<IObject, "type">,
+        IOneOf,
+        IAnyOf,
+        IAllOf,
+        IReference {
+      /** Array of type discriminators. */
+      type: Array<
+        | "boolean"
+        | "integer"
+        | "number"
+        | "string"
+        | "array"
+        | "object"
+        | "null"
+      >;
+
+      /** Default value. */
+      default?: any[] | null;
+
+      /** Allowed values. */
+      enum?: any[];
+    }
+
     /** Constant value type. */
-    export interface IConstant extends IJsonSchemaAttribute {
+    export interface IConstant extends __IAttribute {
       /** Constant value. */
       const: boolean | number | string;
+
+      /** Whether nullable. */
+      nullable?: boolean;
     }
 
     /** Boolean type. */
-    export interface IBoolean extends IJsonSchemaAttribute.IBoolean {
+    export interface IBoolean
+      extends Omit<IJsonSchemaAttribute.IBoolean, "examples">, __IAttribute {
+      /** Whether nullable. */
+      nullable?: boolean;
+
       /** Default value. */
-      default?: boolean;
+      default?: boolean | null;
+
+      /** Allowed values. */
+      enum?: Array<boolean | null>;
     }
 
     /** Integer type. */
-    export interface IInteger extends IJsonSchemaAttribute.IInteger {
+    export interface IInteger
+      extends Omit<IJsonSchemaAttribute.IInteger, "examples">, __IAttribute {
+      /** Whether nullable. */
+      nullable?: boolean;
+
       /** Default value. */
-      default?: number & tags.Type<"int64">;
+      default?: (number & tags.Type<"int64">) | null;
+
+      /** Allowed values. */
+      enum?: Array<(number & tags.Type<"int64">) | null>;
 
       /** Minimum value. */
       minimum?: number & tags.Type<"int64">;
@@ -390,19 +438,26 @@ export namespace OpenApi {
       maximum?: number & tags.Type<"int64">;
 
       /** Exclusive minimum. */
-      exclusiveMinimum?: number & tags.Type<"int64">;
+      exclusiveMinimum?: (number & tags.Type<"int64">) | boolean;
 
       /** Exclusive maximum. */
-      exclusiveMaximum?: number & tags.Type<"int64">;
+      exclusiveMaximum?: (number & tags.Type<"int64">) | boolean;
 
       /** Multiple of constraint. */
       multipleOf?: number & tags.ExclusiveMinimum<0>;
     }
 
     /** Number (double) type. */
-    export interface INumber extends IJsonSchemaAttribute.INumber {
+    export interface INumber
+      extends Omit<IJsonSchemaAttribute.INumber, "examples">, __IAttribute {
+      /** Whether nullable. */
+      nullable?: boolean;
+
       /** Default value. */
-      default?: number;
+      default?: number | null;
+
+      /** Allowed values. */
+      enum?: Array<number | null>;
 
       /** Minimum value. */
       minimum?: number;
@@ -411,19 +466,26 @@ export namespace OpenApi {
       maximum?: number;
 
       /** Exclusive minimum. */
-      exclusiveMinimum?: number;
+      exclusiveMinimum?: number | boolean;
 
       /** Exclusive maximum. */
-      exclusiveMaximum?: number;
+      exclusiveMaximum?: number | boolean;
 
       /** Multiple of constraint. */
       multipleOf?: number & tags.ExclusiveMinimum<0>;
     }
 
     /** String type. */
-    export interface IString extends IJsonSchemaAttribute.IString {
+    export interface IString
+      extends Omit<IJsonSchemaAttribute.IString, "examples">, __IAttribute {
+      /** Whether nullable. */
+      nullable?: boolean;
+
       /** Default value. */
-      default?: string;
+      default?: string | null;
+
+      /** Allowed values. */
+      enum?: Array<string | null>;
 
       /** String format. */
       format?:
@@ -465,64 +527,81 @@ export namespace OpenApi {
       maxLength?: number & tags.Type<"uint64">;
     }
 
-    /** Array type. */
-    export interface IArray extends IJsonSchemaAttribute.IArray {
-      /** Element type. */
-      items: IJsonSchema;
-
-      /** Whether elements must be unique. */
-      uniqueItems?: boolean;
-
-      /** Minimum items. */
-      minItems?: number & tags.Type<"uint64">;
-
-      /** Maximum items. */
-      maxItems?: number & tags.Type<"uint64">;
-    }
-
-    /** Tuple type. */
-    export interface ITuple extends IJsonSchemaAttribute {
-      /** Type discriminator. */
-      type: "array";
-
-      /** Tuple element types. */
-      prefixItems: IJsonSchema[];
-
-      /** Rest element type or `true` for any. */
-      additionalItems?: boolean | IJsonSchema;
-
-      /** Whether elements must be unique. */
-      uniqueItems?: boolean;
-
-      /** Minimum items. */
-      minItems?: number & tags.Type<"uint64">;
-
-      /** Maximum items. */
-      maxItems?: number & tags.Type<"uint64">;
-    }
-
     /** Object type. */
-    export interface IObject extends IJsonSchemaAttribute.IObject {
+    export interface IObject
+      extends Omit<IJsonSchemaAttribute.IObject, "examples">, __IAttribute {
+      /** Whether nullable. */
+      nullable?: boolean;
+
       /** Property schemas. */
       properties?: Record<string, IJsonSchema>;
 
-      /** Additional properties schema or `true` for any. */
-      additionalProperties?: boolean | IJsonSchema;
-
       /** Required property names. */
       required?: string[];
+
+      /** Additional properties schema. */
+      additionalProperties?: boolean | IJsonSchema;
+
+      /** Maximum properties. */
+      maxProperties?: number;
+
+      /** Minimum properties. */
+      minProperties?: number;
     }
 
-    /** Reference to named schema. */
-    export interface IReference<Key = string> extends IJsonSchemaAttribute {
-      /** Reference path (e.g., `#/components/schemas/TypeName`). */
+    /** Array type. */
+    export interface IArray
+      extends Omit<IJsonSchemaAttribute.IArray, "examples">, __IAttribute {
+      /** Whether nullable. */
+      nullable?: boolean;
+
+      /** Element type (or tuple types). */
+      items?: IJsonSchema | IJsonSchema[];
+
+      /** Tuple prefix items. */
+      prefixItems?: IJsonSchema[];
+
+      /** Whether elements must be unique. */
+      uniqueItems?: boolean;
+
+      /** Additional items schema. */
+      additionalItems?: boolean | IJsonSchema;
+
+      /** Minimum items. */
+      minItems?: number & tags.Type<"uint64">;
+
+      /** Maximum items. */
+      maxItems?: number & tags.Type<"uint64">;
+    }
+
+    /** Reference to a named schema. */
+    export interface IReference<Key = string> extends __IAttribute {
+      /** Reference path. */
       $ref: Key;
     }
 
-    /** Union type (`oneOf`). */
-    export interface IOneOf extends IJsonSchemaAttribute {
+    /** Recursive reference. */
+    export interface IRecursiveReference extends __IAttribute {
+      /** Recursive reference path. */
+      $recursiveRef: string;
+    }
+
+    /** All-of combination. */
+    export interface IAllOf extends __IAttribute {
+      /** Schemas to combine. */
+      allOf: IJsonSchema[];
+    }
+
+    /** Any-of union. */
+    export interface IAnyOf extends __IAttribute {
       /** Union member schemas. */
-      oneOf: Exclude<IJsonSchema, IJsonSchema.IOneOf>[];
+      anyOf: IJsonSchema[];
+    }
+
+    /** One-of union. */
+    export interface IOneOf extends __IAttribute {
+      /** Union member schemas. */
+      oneOf: IJsonSchema[];
 
       /** Discriminator for tagged unions. */
       discriminator?: IOneOf.IDiscriminator;
@@ -539,15 +618,29 @@ export namespace OpenApi {
     }
 
     /** Null type. */
-    export interface INull extends IJsonSchemaAttribute.INull {
+    export interface INull
+      extends Omit<IJsonSchemaAttribute.INull, "examples">, __IAttribute {
       /** Default value. */
       default?: null;
     }
 
-    /** Unknown (`any`) type. */
-    export interface IUnknown extends IJsonSchemaAttribute.IUnknown {
+    /** Unknown type. */
+    export interface IUnknown
+      extends Omit<IJsonSchemaAttribute.IUnknown, "examples">, __IAttribute {
+      /** Type discriminator (undefined for unknown). */
+      type?: undefined;
+
       /** Default value. */
       default?: any;
+    }
+
+    /** @internal Base attribute interface. */
+    export interface __IAttribute extends Omit<
+      IJsonSchemaAttribute,
+      "examples"
+    > {
+      /** Example values. */
+      examples?: any[] | Record<string, any>;
     }
   }
 

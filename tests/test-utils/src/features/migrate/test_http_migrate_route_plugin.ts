@@ -8,8 +8,8 @@ import { HttpMigration } from "@typia/utils";
 
 export const test_http_migrate_route_plugin = async (): Promise<void> => {
   const document: OpenApi.IDocument = {
-    openapi: "3.1.0",
-    "x-samchon-emended-v4": true,
+    openapi: "3.2.0",
+    "x-typia-emended-v12": true,
     paths: {
       "/items": {
         get: {

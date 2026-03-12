@@ -12,8 +12,8 @@ import { OpenApi } from "../openapi/OpenApi";
  * @author Jeongho Nam - https://github.com/samchon
  */
 export interface IHttpMigrateRoute {
-  /** HTTP method. Operations with other methods are ignored. */
-  method: "head" | "get" | "post" | "put" | "patch" | "delete";
+  /** HTTP method. */
+  method: "head" | "get" | "post" | "put" | "patch" | "delete" | "query";
 
   /** Original path from OpenAPI document. */
   path: string;

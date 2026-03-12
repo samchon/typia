@@ -55,7 +55,7 @@ export namespace IHttpLlmApplication {
   /** Composition error for an operation. */
   export interface IError {
     /** HTTP method of the failed operation. */
-    method: "get" | "post" | "put" | "patch" | "delete" | "head";
+    method: "head" | "get" | "post" | "put" | "patch" | "delete" | "query";
 
     /** Path of the failed operation. */
     path: string;
