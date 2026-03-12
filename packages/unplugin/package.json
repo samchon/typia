@@ -1,8 +1,7 @@
 {
   "name": "@typia/unplugin",
   "type": "module",
-  "version": "12.0.0-dev.20260312-2",
-  "private": true,
+  "version": "12.0.0-dev.20260312-3",
   "description": "unplugin for typia",
   "author": "ryoppippi",
   "license": "MIT",
@@ -11,21 +10,21 @@
     "url": "https://github.com/samchon/typia"
   },
   "sideEffects": false,
+  "main": "./src/index.ts",
   "exports": {
-    ".": "./dist/index.js",
-    "./api": "./dist/api.js",
-    "./bun": "./dist/bun.js",
-    "./esbuild": "./dist/esbuild.js",
-    "./farm": "./dist/farm.js",
-    "./next": "./dist/next.js",
-    "./rolldown": "./dist/rolldown.js",
-    "./rollup": "./dist/rollup.js",
-    "./rspack": "./dist/rspack.js",
-    "./vite": "./dist/vite.js",
-    "./webpack": "./dist/webpack.js",
+    ".": "./src/index.ts",
+    "./api": "./src/api.ts",
+    "./bun": "./src/bun.ts",
+    "./esbuild": "./src/esbuild.ts",
+    "./farm": "./src/farm.ts",
+    "./next": "./src/next.ts",
+    "./rolldown": "./src/rolldown.ts",
+    "./rollup": "./src/rollup.ts",
+    "./rspack": "./src/rspack.ts",
+    "./vite": "./src/vite.ts",
+    "./webpack": "./src/webpack.ts",
     "./package.json": "./package.json"
   },
-  "main": "./dist/index.js",
   "files": [
     "LICENSE",
     "README.md",
@@ -97,6 +96,5 @@
       "./webpack": "./dist/webpack.js",
       "./package.json": "./package.json"
     }
-  },
-  "module": "./dist/index.js"
+  }
 }

@@ -17,7 +17,6 @@ const config: ReturnType<typeof defineConfig> = defineConfig({
     level: "error",
   },
   publint: true,
-  exports: true,
 });
 
 export default config;
