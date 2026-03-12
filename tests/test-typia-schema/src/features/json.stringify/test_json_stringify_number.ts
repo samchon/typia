@@ -7,33 +7,63 @@ interface IValue {
 
 export const test_json_stringify_number = (): void => {
   // top-level number
-  const parseNumber = (v: number) =>
-    JSON.parse(typia.json.stringify<number>(v));
-  TestValidator.equals("top-level finite number", parseNumber(42), 42);
-  TestValidator.equals("top-level Infinity", parseNumber(Infinity), null);
-  TestValidator.equals("top-level -Infinity", parseNumber(-Infinity), null);
-  TestValidator.equals("top-level NaN", parseNumber(NaN), null);
+  TestValidator.equals(
+    "top-level finite",
+    typia.json.stringify<number>(42),
+    "42",
+  );
+  TestValidator.equals(
+    "top-level Infinity",
+    typia.json.stringify<number>(Infinity),
+    "null",
+  );
+  TestValidator.equals(
+    "top-level -Infinity",
+    typia.json.stringify<number>(-Infinity),
+    "null",
+  );
+  TestValidator.equals(
+    "top-level NaN",
+    typia.json.stringify<number>(NaN),
+    "null",
+  );
 
   // object property
-  const parseObject = (v: number) =>
-    (JSON.parse(typia.json.stringify<IValue>({ value: v })) as IValue).value;
-  TestValidator.equals("finite number", parseObject(42), 42);
-  TestValidator.equals("Infinity", parseObject(Infinity), null);
-  TestValidator.equals("-Infinity", parseObject(-Infinity), null);
-  TestValidator.equals("NaN", parseObject(NaN), null);
+  TestValidator.equals(
+    "finite number",
+    typia.json.stringify<IValue>({ value: 42 }),
+    '{"value":42}',
+  );
+  TestValidator.equals(
+    "Infinity",
+    typia.json.stringify<IValue>({ value: Infinity }),
+    '{"value":null}',
+  );
+  TestValidator.equals(
+    "-Infinity",
+    typia.json.stringify<IValue>({ value: -Infinity }),
+    '{"value":null}',
+  );
+  TestValidator.equals(
+    "NaN",
+    typia.json.stringify<IValue>({ value: NaN }),
+    '{"value":null}',
+  );
 
   // array — uses .map().join() so null must become the string "null", not ""
-  const parseArray = (v: number[]) =>
-    JSON.parse(typia.json.stringify<number[]>(v)) as unknown[];
   TestValidator.equals(
     "array finite numbers",
-    parseArray([1, 2, 3]),
-    [1, 2, 3],
+    typia.json.stringify<number[]>([1, 2, 3]),
+    "[1,2,3]",
   );
-  TestValidator.equals("array Infinity", parseArray([Infinity]), [null]);
+  TestValidator.equals(
+    "array Infinity",
+    typia.json.stringify<number[]>([Infinity]),
+    "[null]",
+  );
   TestValidator.equals(
     "array mixed non-finite",
-    parseArray([NaN, Infinity, -Infinity]),
-    [null, null, null],
+    typia.json.stringify<number[]>([NaN, Infinity, -Infinity]),
+    "[null,null,null]",
   );
 };
