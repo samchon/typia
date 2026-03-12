@@ -31,11 +31,13 @@ export namespace llm {
     name: string,
     execute: Class,
   ): ILlmController; // +executor
-  // structured output
-  export function parameters<P>(): ILlmSchema.IParameters;
+  export function structuredOutput<P>(): ILlmStructuredOutput;
+  export function parameters<T>(): ILlmSchema.IParameters;
   export function schema<T>(
     $defs: Record<string, ILlmSchema>,
   ): ILlmSchema; // type schema
+  // lenient json parsing + type coercion
+  export function parse<T>(str: string): T;
 }
 
 // PROTOCOL BUFFER
