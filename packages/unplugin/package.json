@@ -96,6 +96,5 @@
       "./webpack": "./dist/webpack.js",
       "./package.json": "./package.json"
     }
-  },
-  "module": "./dist/index.js"
+  }
 }
