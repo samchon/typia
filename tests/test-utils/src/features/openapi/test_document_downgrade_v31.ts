@@ -1,4 +1,10 @@
-import { OpenApi, OpenApiV3, OpenApiV3_1, SwaggerV2 } from "@typia/interface";
+import {
+  OpenApi,
+  OpenApiV3,
+  OpenApiV3_1,
+  OpenApiV3_2,
+  SwaggerV2,
+} from "@typia/interface";
 import { OpenApiConverter } from "@typia/utils";
 import fs from "fs";
 import typia from "typia";
@@ -15,8 +21,12 @@ export const test_document_downgrade_v31 = async (): Promise<void> => {
       const swagger:
         | SwaggerV2.IDocument
         | OpenApiV3.IDocument
-        | OpenApiV3_1.IDocument = typia.assert<
-        SwaggerV2.IDocument | OpenApiV3.IDocument | OpenApiV3_1.IDocument
+        | OpenApiV3_1.IDocument
+        | OpenApiV3_2.IDocument = typia.assert<
+        | SwaggerV2.IDocument
+        | OpenApiV3.IDocument
+        | OpenApiV3_1.IDocument
+        | OpenApiV3_2.IDocument
       >(
         JSON.parse(
           await fs.promises.readFile(`${path}/${directory}/${file}`, "utf8"),
