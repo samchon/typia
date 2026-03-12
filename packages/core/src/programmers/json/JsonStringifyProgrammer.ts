@@ -689,15 +689,14 @@ export namespace JsonStringifyProgrammer {
     else if (props.type === "number")
       props = {
         ...props,
-        input: ts.factory.createCallExpression(
-          props.context.importer.internal(
-            props.validated && OptionPredicator.finite(props.context.options)
-              ? "jsonStringifyNumber"
-              : "jsonStringifyNumberNull",
-          ),
-          undefined,
-          [props.input],
-        ),
+        input:
+          props.validated && OptionPredicator.finite(props.context.options)
+            ? props.input
+            : ts.factory.createCallExpression(
+                props.context.importer.internal("jsonStringifyNumberNull"),
+                undefined,
+                [props.input],
+              ),
       };
 
     return ts.factory.createCallExpression(
