@@ -37,7 +37,7 @@ export namespace IHttpMigrateApplication {
     operation: () => OpenApi.IOperation;
 
     /** HTTP method. */
-    method: "head" | "get" | "post" | "put" | "patch" | "delete";
+    method: "head" | "get" | "post" | "put" | "patch" | "delete" | "query";
 
     /** Operation path. */
     path: string;

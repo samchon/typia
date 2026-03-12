@@ -21,7 +21,7 @@ export const test_llm_application_tuple = (): void => {
     ]
   >();
   const document: OpenApi.IDocument = {
-    openapi: "3.1.0",
+    openapi: "3.2.0",
     components: collection.components,
     paths: {
       "/plus": {
@@ -74,7 +74,7 @@ export const test_llm_application_tuple = (): void => {
         },
       },
     },
-    "x-samchon-emended-v4": true,
+    "x-typia-emended-v12": true,
   };
   const app: IHttpLlmApplication = HttpLlm.application({
     document,

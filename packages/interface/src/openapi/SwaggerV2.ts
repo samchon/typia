@@ -137,6 +137,14 @@ export namespace SwaggerV2 {
     parameters?: Array<
       IOperation.IParameter | IJsonSchema.IReference<`#/parameters/${string}`>
     >;
+
+    /**
+     * Non-standard HTTP method operations (extension).
+     *
+     * Used when downgrading from OpenAPI v3.2 to preserve
+     * non-standard methods like `query` or custom methods.
+     */
+    "x-additionalOperations"?: Record<string, IOperation>;
   }
 
   /** API operation metadata. */

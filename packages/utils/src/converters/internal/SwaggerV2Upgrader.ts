@@ -6,7 +6,7 @@ import { OpenApiExclusiveEmender } from "./OpenApiExclusiveEmender";
 
 export namespace SwaggerV2Upgrader {
   export const convert = (input: SwaggerV2.IDocument): OpenApi.IDocument => ({
-    openapi: "3.1.0",
+    openapi: "3.2.0",
     info: input.info,
     components: convertComponents(input),
     paths: input.paths
@@ -27,7 +27,7 @@ export namespace SwaggerV2Upgrader {
       : undefined,
     security: input.security,
     tags: input.tags,
-    "x-samchon-emended-v4": true,
+    "x-typia-emended-v12": true,
   });
 
   /* -----------------------------------------------------------
@@ -35,33 +35,57 @@ export namespace SwaggerV2Upgrader {
   ----------------------------------------------------------- */
   const convertPathItem =
     (doc: SwaggerV2.IDocument) =>
-    (pathItem: SwaggerV2.IPath): OpenApi.IPath => ({
-      ...(pathItem as any),
-      ...(pathItem.get
-        ? { get: convertOperation(doc)(pathItem)(pathItem.get) }
-        : undefined),
-      ...(pathItem.put
-        ? { put: convertOperation(doc)(pathItem)(pathItem.put) }
-        : undefined),
-      ...(pathItem.post
-        ? { post: convertOperation(doc)(pathItem)(pathItem.post) }
-        : undefined),
-      ...(pathItem.delete
-        ? { delete: convertOperation(doc)(pathItem)(pathItem.delete) }
-        : undefined),
-      ...(pathItem.options
-        ? { options: convertOperation(doc)(pathItem)(pathItem.options) }
-        : undefined),
-      ...(pathItem.head
-        ? { head: convertOperation(doc)(pathItem)(pathItem.head) }
-        : undefined),
-      ...(pathItem.patch
-        ? { patch: convertOperation(doc)(pathItem)(pathItem.patch) }
-        : undefined),
-      ...(pathItem.trace
-        ? { trace: convertOperation(doc)(pathItem)(pathItem.trace) }
-        : undefined),
-    });
+    (pathItem: SwaggerV2.IPath): OpenApi.IPath => {
+      // Convert x-additionalOperations to additionalOperations
+      // Promote "query" to standard method (it's a v3.2 standard method)
+      const xAdditional = pathItem["x-additionalOperations"];
+      const queryOp = xAdditional?.["query"];
+      const additionalOperations = xAdditional
+        ? Object.fromEntries(
+            Object.entries(xAdditional)
+              .filter(([key, v]) => key !== "query" && v !== undefined)
+              .map(([key, value]) => [
+                key,
+                convertOperation(doc)(pathItem)(value),
+              ]),
+          )
+        : undefined;
+
+      return {
+        ...(pathItem as any),
+        ...(pathItem.get
+          ? { get: convertOperation(doc)(pathItem)(pathItem.get) }
+          : undefined),
+        ...(pathItem.put
+          ? { put: convertOperation(doc)(pathItem)(pathItem.put) }
+          : undefined),
+        ...(pathItem.post
+          ? { post: convertOperation(doc)(pathItem)(pathItem.post) }
+          : undefined),
+        ...(pathItem.delete
+          ? { delete: convertOperation(doc)(pathItem)(pathItem.delete) }
+          : undefined),
+        ...(pathItem.options
+          ? { options: convertOperation(doc)(pathItem)(pathItem.options) }
+          : undefined),
+        ...(pathItem.head
+          ? { head: convertOperation(doc)(pathItem)(pathItem.head) }
+          : undefined),
+        ...(pathItem.patch
+          ? { patch: convertOperation(doc)(pathItem)(pathItem.patch) }
+          : undefined),
+        ...(pathItem.trace
+          ? { trace: convertOperation(doc)(pathItem)(pathItem.trace) }
+          : undefined),
+        ...(queryOp
+          ? { query: convertOperation(doc)(pathItem)(queryOp) }
+          : undefined),
+        ...(additionalOperations && Object.keys(additionalOperations).length > 0
+          ? { additionalOperations }
+          : undefined),
+        "x-additionalOperations": undefined,
+      };
+    };
 
   const convertOperation =
     (doc: SwaggerV2.IDocument) =>

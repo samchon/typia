@@ -17,8 +17,8 @@ export const test_mcp_http_controller_validation = async (): Promise<void> => {
     required: ["x", "y"],
   } satisfies OpenApi.IJsonSchema.IObject;
   const document: OpenApi.IDocument = {
-    openapi: "3.1.0",
-    "x-samchon-emended-v4": true,
+    openapi: "3.2.0",
+    "x-typia-emended-v12": true,
     components: {},
     paths: {
       "/calculate/add": {
