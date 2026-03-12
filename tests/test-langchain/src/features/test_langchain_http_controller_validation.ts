@@ -1,4 +1,7 @@
-import { DynamicStructuredTool, ToolInputParsingException } from "@langchain/core/tools";
+import {
+  DynamicStructuredTool,
+  ToolInputParsingException,
+} from "@langchain/core/tools";
 import { TestValidator } from "@nestia/e2e";
 import { IHttpLlmController, OpenApi } from "@typia/interface";
 import { toLangChainTools } from "@typia/langchain";
@@ -16,8 +19,8 @@ export const test_langchain_http_controller_validation =
       required: ["x", "y"],
     } satisfies OpenApi.IJsonSchema.IObject;
     const document: OpenApi.IDocument = {
-      openapi: "3.1.0",
-      "x-samchon-emended-v4": true,
+      openapi: "3.2.0",
+      "x-typia-emended-v12": true,
       components: {},
       paths: {
         "/calculate/add": {
