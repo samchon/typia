@@ -10,6 +10,7 @@
     "url": "https://github.com/samchon/typia"
   },
   "sideEffects": false,
+  "main": "./src/index.ts",
   "exports": {
     ".": "./src/index.ts",
     "./api": "./src/api.ts",
@@ -24,7 +25,6 @@
     "./webpack": "./src/webpack.ts",
     "./package.json": "./package.json"
   },
-  "main": "./src/index.ts",
   "files": [
     "LICENSE",
     "README.md",
