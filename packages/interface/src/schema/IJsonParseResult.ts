@@ -70,7 +70,7 @@ export namespace IJsonParseResult {
      * Contains whatever could be recovered from the malformed JSON. May be
      * incomplete or have missing properties.
      */
-    data: DeepPartial<T>;
+    data: DeepPartial<T> | undefined;
 
     /**
      * The original input string that was parsed.
@@ -129,6 +129,6 @@ export namespace IJsonParseResult {
      * @example
      *   missing opening quote for 'hello'
      */
-    value: unknown;
+    description: unknown;
   }
 }
