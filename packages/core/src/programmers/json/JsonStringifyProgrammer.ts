@@ -700,13 +700,11 @@ export namespace JsonStringifyProgrammer {
         ),
       };
 
-    return props.explore.from !== "top"
-      ? props.input
-      : ts.factory.createCallExpression(
-          ts.factory.createIdentifier("String"),
-          undefined,
-          [props.input],
-        );
+    return ts.factory.createCallExpression(
+      ts.factory.createIdentifier("String"),
+      undefined,
+      [props.input],
+    );
   };
 
   const decode_constant_string = (props: {
