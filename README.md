@@ -127,10 +127,8 @@ Check out the document in the [website](https://typia.io/docs/):
 - LLM Function Calling
   - [`application()` function](https://typia.io/docs/llm/application/)
   - [`structuredOutput()` function](https://typia.io/docs/llm/structuredOutput/)
+  - [`HttpLlm` module](https://typia.io/docs/llm/http/)
   - [`LlmJson` module](https://typia.io/docs/llm/json/)
-  - [MCP (Model Context Protocol)](https://typia.io/docs/llm/mcp/)
-  - [Vercel AI SDK](https://typia.io/docs/llm/vercel/)
-  - [LangChain](https://typia.io/docs/llm/langchain/)
 - Protocol Buffer
   - [Message Schema](https://typia.io/docs/protobuf/message)
   - [`decode()` functions](https://typia.io/docs/protobuf/decode/)
