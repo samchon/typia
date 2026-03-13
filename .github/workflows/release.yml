@@ -17,25 +17,10 @@ jobs:
           node-version: 24.x
           registry-url: https://registry.npmjs.org/
       - uses: pnpm/action-setup@v4
-
       - name: Install dependencies
         run: pnpm install
       - name: Publish to npm
-        run: |
-          pnpm run package:latest --no-git-checks --provenance
-          pnpm run package:tgz
-      
-      - name: Website Setup
-        working-directory: website
-        run: |
-          npm cache clean --force
-          npm install
-          npm run build
-      - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@4.1.3
-        with:
-          branch: gh-pages
-          folder: ./website/out
+        run: pnpm run package:latest --no-git-checks --provenance
   release:
     runs-on: ubuntu-latest
     needs: publish
@@ -49,3 +34,28 @@ jobs:
       - run: pnpm dlx changelogithub
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+  website:
+    runs-on: ubuntu-latest
+    needs: release
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24.x
+          registry-url: https://registry.npmjs.org/
+      - uses: pnpm/action-setup@v4
+      - name: Build Packages
+        run: pnpm install && pnpm run package:tgz
+      - name: Website Setup
+        working-directory: website
+        run: |
+          npm cache clean --force
+          npm install
+          npm run build
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@4.1.3
+        with:
+          branch: gh-pages
+          folder: ./website/out
