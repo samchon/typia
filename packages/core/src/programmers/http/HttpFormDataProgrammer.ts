@@ -97,57 +97,61 @@ export namespace HttpFormDataProgrammer {
     });
   };
 
-  export const validate = (
-    meta: MetadataSchema,
-    explore: MetadataFactory.IExplore,
-  ): string[] => {
+  export const validate = (props: {
+    metadata: MetadataSchema;
+    explore: MetadataFactory.IExplore;
+  }): string[] => {
     const errors: string[] = [];
     const insert = (msg: string) => errors.push(msg);
 
-    if (explore.top === true) {
+    if (props.explore.top === true) {
       // TOP MUST BE ONLY OBJECT
-      if (meta.objects.length !== 1 || meta.bucket() !== 1)
+      if (props.metadata.objects.length !== 1 || props.metadata.bucket() !== 1)
         insert("only one object type is allowed.");
-      if (meta.nullable === true) insert("formdata parameters cannot be null.");
-      if (meta.isRequired() === false)
+      if (props.metadata.nullable === true)
+        insert("formdata parameters cannot be null.");
+      if (props.metadata.isRequired() === false)
         insert("formdata parameters cannot be undefined.");
     } else if (
-      explore.nested !== null &&
-      explore.nested instanceof MetadataArrayType
+      props.explore.nested !== null &&
+      props.explore.nested instanceof MetadataArrayType
     ) {
       //----
       // ARRAY
       //----
-      const atomics = HttpMetadataUtil.atomics(meta);
+      const atomics = HttpMetadataUtil.atomics(props.metadata);
       const expected: number =
-        meta.atomics.length +
-        meta.templates.length +
-        meta.constants.map((c) => c.values.length).reduce((a, b) => a + b, 0) +
-        meta.natives.filter(
+        props.metadata.atomics.length +
+        props.metadata.templates.length +
+        props.metadata.constants
+          .map((c) => c.values.length)
+          .reduce((a, b) => a + b, 0) +
+        props.metadata.natives.filter(
           (native) => native.name === "Blob" || native.name === "File",
         ).length;
       if (atomics.size > 1) insert("union type is not allowed in array.");
-      if (meta.size() !== expected)
+      if (props.metadata.size() !== expected)
         insert(
           "only atomic, constant or blob (file) types are allowed in array.",
         );
-    } else if (explore.object && explore.property !== null) {
+    } else if (props.explore.object && props.explore.property !== null) {
       //----
       // COMMON
       //----
       // PROPERTY MUST BE SOLE
-      if (typeof explore.property === "object")
+      if (typeof props.explore.property === "object")
         insert("dynamic property is not allowed.");
       // DO NOT ALLOW TUPLE TYPE
-      if (meta.tuples.length) insert("tuple type is not allowed.");
+      if (props.metadata.tuples.length) insert("tuple type is not allowed.");
       // DO NOT ALLOW UNION TYPE
-      if (HttpMetadataUtil.isUnion(meta)) insert("union type is not allowed.");
+      if (HttpMetadataUtil.isUnion(props.metadata))
+        insert("union type is not allowed.");
       // DO NOT ALLOW NESTED OBJECT
       if (
-        meta.objects.length ||
-        meta.sets.length ||
-        meta.maps.length ||
-        meta.natives.filter(
+        props.metadata.objects.length ||
+        props.metadata.sets.length ||
+        props.metadata.maps.length ||
+        props.metadata.natives.filter(
           (native) => native.name !== "Blob" && native.name !== "File",
         ).length
       )

@@ -100,85 +100,87 @@ export namespace HttpHeadersProgrammer {
     });
   };
 
-  export const validate = (
-    metadata: MetadataSchema,
-    explore: MetadataFactory.IExplore,
-  ): string[] => {
+  export const validate = (props: {
+    metadata: MetadataSchema;
+    explore: MetadataFactory.IExplore;
+  }): string[] => {
     const errors: string[] = [];
     const insert = (msg: string) => errors.push(msg);
 
-    if (explore.top === true) {
+    if (props.explore.top === true) {
       // TOP MUST BE ONLY OBJECT
-      if (metadata.objects.length !== 1 || metadata.bucket() !== 1)
+      if (props.metadata.objects.length !== 1 || props.metadata.bucket() !== 1)
         insert("only one object type is allowed.");
-      if (metadata.nullable === true) insert("headers cannot be null.");
-      if (metadata.isRequired() === false) insert("headers cannot be null.");
+      if (props.metadata.nullable === true) insert("headers cannot be null.");
+      if (props.metadata.isRequired() === false)
+        insert("headers cannot be null.");
     } else if (
-      explore.nested !== null &&
-      explore.nested instanceof MetadataArrayType
+      props.explore.nested !== null &&
+      props.explore.nested instanceof MetadataArrayType
     ) {
       //----
       // ARRAY
       //----
-      const atomics = HttpMetadataUtil.atomics(metadata);
+      const atomics = HttpMetadataUtil.atomics(props.metadata);
       const expected: number =
-        metadata.atomics.length +
-        metadata.templates.length +
-        metadata.constants
+        props.metadata.atomics.length +
+        props.metadata.templates.length +
+        props.metadata.constants
           .map((c) => c.values.length)
           .reduce((a, b) => a + b, 0);
       if (atomics.size > 1) insert("union type is not allowed in array.");
-      if (metadata.size() !== expected)
+      if (props.metadata.size() !== expected)
         insert("only atomic or constant types are allowed in array.");
-      if (metadata.nullable === true)
+      if (props.metadata.nullable === true)
         insert("nullable type is not allowed in array.");
-      if (metadata.isRequired() === false)
+      if (props.metadata.isRequired() === false)
         insert("optional type is not allowed in array.");
-    } else if (explore.object && explore.property !== null) {
+    } else if (props.explore.object && props.explore.property !== null) {
       //----
       // COMMON
       //----
       // PROPERTY MUST BE SOLE
-      if (typeof explore.property === "object")
+      if (typeof props.explore.property === "object")
         insert("dynamic property is not allowed.");
       // DO NOT ALLOW TUPLE TYPE
-      if (metadata.tuples.length) insert("tuple type is not allowed.");
+      if (props.metadata.tuples.length) insert("tuple type is not allowed.");
       // DO NOT ALLOW UNION TYPE
-      if (HttpMetadataUtil.isUnion(metadata))
+      if (HttpMetadataUtil.isUnion(props.metadata))
         insert("union type is not allowed.");
       // DO NOT ALLOW NESTED OBJECT
       if (
-        metadata.objects.length ||
-        metadata.sets.length ||
-        metadata.maps.length ||
-        metadata.natives.length
+        props.metadata.objects.length ||
+        props.metadata.sets.length ||
+        props.metadata.maps.length ||
+        props.metadata.natives.length
       )
         insert("nested object type is not allowed.");
       // DO NOT ALLOW NULLABLE
-      if (metadata.nullable === true) insert("nullable type is not allowed.");
+      if (props.metadata.nullable === true)
+        insert("nullable type is not allowed.");
 
       //----
       // SPECIAL KEY NAMES
       //----
       const isArray: boolean =
-        metadata.arrays.length >= 1 || metadata.tuples.length >= 1;
+        props.metadata.arrays.length >= 1 || props.metadata.tuples.length >= 1;
       // SET-COOKIE MUST BE ARRAY
       if (
-        typeof explore.property === "string" &&
-        explore.property.toLowerCase() === "set-cookie" &&
+        typeof props.explore.property === "string" &&
+        props.explore.property.toLowerCase() === "set-cookie" &&
         isArray === false
       )
-        insert(`${explore.property} property must be array.`);
+        insert(`${props.explore.property} property must be array.`);
       // MUST BE SINGULAR CASE
       if (
-        typeof explore.property === "string" &&
-        SINGULAR.has(explore.property.toLowerCase()) &&
+        typeof props.explore.property === "string" &&
+        SINGULAR.has(props.explore.property.toLowerCase()) &&
         isArray === true
       )
         insert("property cannot be array.");
-    } else if (explore.object && explore.property === null) {
+    } else if (props.explore.object && props.explore.property === null) {
       const counter: Map<string, Set<string>> = new Map();
-      for (const prop of explore.object.properties) {
+      for (const prop of props.explore.object.properties) {
         const key: string | null = prop.key.getSoleLiteral();
         if (key === null) continue;
 

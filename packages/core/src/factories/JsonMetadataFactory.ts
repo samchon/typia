@@ -31,12 +31,12 @@ export namespace JsonMetadataFactory {
           escape: true,
           constant: true,
           validate: props.validate
-            ? (meta, explore, top) => {
-                const errors: string[] = validate(meta);
-                errors.push(...props.validate!(meta, explore, top));
+            ? (next) => {
+                const errors: string[] = validate(next.metadata);
+                errors.push(...props.validate!(next));
                 return errors;
               }
-            : validate,
+            : (next) => validate(next.metadata),
         },
         components: collection,
         type: props.type,

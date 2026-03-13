@@ -11,24 +11,26 @@ import { MetadataSchema } from "../../schemas/metadata/MetadataSchema";
 import { JsonSchemasProgrammer } from "./JsonSchemasProgrammer";
 
 export namespace JsonApplicationProgrammer {
-  export const validate = (
-    metadata: MetadataSchema,
-    explore: MetadataFactory.IExplore,
-  ): string[] => {
-    if (explore.top === false) return JsonSchemasProgrammer.validate(metadata);
+  export const validate = (props: {
+    metadata: MetadataSchema;
+    explore: MetadataFactory.IExplore;
+  }): string[] => {
+    if (props.explore.top === false)
+      return JsonSchemasProgrammer.validate(props.metadata);
 
     const output: string[] = [];
     const valid: boolean =
-      metadata.size() === 1 &&
-      metadata.objects.length === 1 &&
-      metadata.isRequired() === true &&
-      metadata.nullable === false;
+      props.metadata.size() === 1 &&
+      props.metadata.objects.length === 1 &&
+      props.metadata.isRequired() === true &&
+      props.metadata.nullable === false;
     if (valid === false)
       output.push(
         "JSON application's generic argument must be a class/interface type.",
       );
 
-    const object: MetadataObjectType | undefined = metadata.objects[0]?.type;
+    const object: MetadataObjectType | undefined =
+      props.metadata.objects[0]?.type;
     if (object !== undefined) {
       if (object.properties.some((p) => p.key.isSoleLiteral() === false))
         output.push("JSON application does not allow dynamic keys.");
