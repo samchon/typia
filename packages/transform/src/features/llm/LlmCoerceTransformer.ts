@@ -57,11 +57,11 @@ export namespace LlmCoerceTransformer {
             constant: true,
             validate:
               validate === true
-                ? (metadata, explore) =>
+                ? (next) =>
                     LlmCoerceProgrammer.validate({
                       config,
-                      metadata,
-                      explore,
+                      metadata: next.metadata,
+                      explore: next.explore,
                     })
                 : undefined,
           },

@@ -44,10 +44,11 @@ export namespace LlmSchemaTransformer {
             escape: true,
             validate:
               validate === true
-                ? (metadata: MetadataSchema) =>
+                ? (next) =>
                     LlmSchemaProgrammer.validate({
                       config,
-                      metadata,
+                      metadata: next.metadata,
+                      explore: next.explore,
                     })
                 : undefined,
           },

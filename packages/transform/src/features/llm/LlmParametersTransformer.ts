@@ -44,11 +44,11 @@ export namespace LlmParametersTransformer {
             constant: true,
             validate:
               validate === true
-                ? (metadata, explore) =>
+                ? (next) =>
                     LlmParametersProgrammer.validate({
                       config,
-                      metadata,
-                      explore,
+                      metadata: next.metadata,
+                      explore: next.explore,
                     })
                 : undefined,
           },

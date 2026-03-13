@@ -966,7 +966,7 @@ export namespace MiscCloneProgrammer {
         escape: false,
         constant: true,
         absorb: true,
-        validate: (metadata) => {
+        validate: ({ metadata }) => {
           const output: string[] = [];
           if (metadata.natives.some((native) => native.name === "WeakSet"))
             output.push("unable to clone WeakSet");

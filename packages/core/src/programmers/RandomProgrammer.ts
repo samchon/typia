@@ -68,11 +68,11 @@ export namespace RandomProgrammer {
         escape: false,
         constant: true,
         absorb: true,
-        validate: (meta) => {
+        validate: ({ metadata }) => {
           const output: string[] = [];
-          if (meta.natives.some((native) => native.name === "WeakSet"))
+          if (metadata.natives.some((native) => native.name === "WeakSet"))
             output.push(`WeakSet is not supported.`);
-          else if (meta.natives.some((native) => native.name === "WeakMap"))
+          else if (metadata.natives.some((native) => native.name === "WeakMap"))
             output.push(`WeakMap is not supported.`);
           return output;
         },

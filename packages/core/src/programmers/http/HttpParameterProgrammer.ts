@@ -90,19 +90,25 @@ export namespace HttpParameterProgrammer {
     );
   };
 
-  export const validate = (meta: MetadataSchema): string[] => {
+  export const validate = (props: {
+    metadata: MetadataSchema;
+    explore: MetadataFactory.IExplore;
+  }): string[] => {
     const errors: string[] = [];
     const insert = (msg: string) => errors.push(msg);
 
-    if (meta.any) insert("do not allow any type");
-    if (meta.isRequired() === false) insert("do not allow undefindable type");
+    if (props.metadata.any) insert("do not allow any type");
+    if (props.metadata.isRequired() === false)
+      insert("do not allow undefindable type");
 
-    const atomics = HttpMetadataUtil.atomics(meta);
+    const atomics = HttpMetadataUtil.atomics(props.metadata);
     const expected: number =
-      meta.atomics.length +
-      meta.templates.length +
-      meta.constants.map((c) => c.values.length).reduce((a, b) => a + b, 0);
-    if (meta.size() !== expected || atomics.size === 0)
+      props.metadata.atomics.length +
+      props.metadata.templates.length +
+      props.metadata.constants
+        .map((c) => c.values.length)
+        .reduce((a, b) => a + b, 0);
+    if (props.metadata.size() !== expected || atomics.size === 0)
       insert("only atomic or constant types are allowed");
     if (atomics.size > 1) insert("do not allow union type");
 

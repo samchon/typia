@@ -2,13 +2,16 @@ import { IJsonSchemaUnit, OpenApi } from "@typia/interface";
 import ts from "typescript";
 
 import { ITypiaContext } from "../../context/ITypiaContext";
+import { MetadataFactory } from "../../factories";
 import { LiteralFactory } from "../../factories/LiteralFactory";
 import { MetadataSchema } from "../../schemas/metadata/MetadataSchema";
 import { JsonSchemasProgrammer } from "./JsonSchemasProgrammer";
 
 export namespace JsonSchemaProgrammer {
-  export const validate = (metadata: MetadataSchema): string[] =>
-    JsonSchemasProgrammer.validate(metadata);
+  export const validate = (props: {
+    metadata: MetadataSchema;
+    explore: MetadataFactory.IExplore;
+  }): string[] => JsonSchemasProgrammer.validate(props);
 
   export interface IWriteProps<Version extends "3.0" | "3.1"> {
     context: ITypiaContext;
