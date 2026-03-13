@@ -27,7 +27,11 @@ import { iterate_metadata_sort } from "./internal/metadata/iterate_metadata_sort
  */
 export namespace MetadataFactory {
   /** Validation function type for metadata schemas. */
-  export type Validator = (meta: MetadataSchema, explore: IExplore) => string[];
+  export type Validator = (
+    meta: MetadataSchema,
+    explore: IExplore,
+    top: MetadataSchema,
+  ) => string[];
 
   /** Properties for metadata analysis. */
   export interface IProps {
@@ -212,6 +216,7 @@ export namespace MetadataFactory {
         escaped: false,
         output: false,
       },
+      top: props.metadata,
     });
     return visitor.errors;
   };
@@ -220,6 +225,7 @@ export namespace MetadataFactory {
     options: IOptions;
     visitor: IValidationVisitor;
     metadata: MetadataSchema;
+    top: MetadataSchema;
     explore: IExplore;
   }) => {
     const result: string[] = [];
@@ -240,7 +246,9 @@ export namespace MetadataFactory {
             );
             tag.predicate = () => ts.factory.createTrue();
           }
-    result.push(...props.visitor.functor(props.metadata, props.explore));
+    result.push(
+      ...props.visitor.functor(props.metadata, props.explore, props.top),
+    );
     if (result.length)
       props.visitor.errors.push({
         name: props.metadata.getName(),
@@ -306,6 +314,7 @@ export namespace MetadataFactory {
     visitor: IValidationVisitor;
     alias: MetadataAliasType;
     explore: IExplore;
+    top: MetadataSchema;
   }) => {
     if (props.visitor.aliases.has(props.alias)) return;
     props.visitor.aliases.add(props.alias);
@@ -327,6 +336,7 @@ export namespace MetadataFactory {
     visitor: IValidationVisitor;
     array: MetadataArrayType;
     explore: IExplore;
+    top: MetadataSchema;
   }) => {
     if (props.visitor.arrays.has(props.array)) return;
     props.visitor.arrays.add(props.array);
@@ -348,6 +358,7 @@ export namespace MetadataFactory {
     visitor: IValidationVisitor;
     tuple: MetadataTupleType;
     explore: IExplore;
+    top: MetadataSchema;
   }) => {
     if (props.visitor.tuples.has(props.tuple)) return;
     props.visitor.tuples.add(props.tuple);
@@ -369,6 +380,7 @@ export namespace MetadataFactory {
     options: IOptions;
     visitor: IValidationVisitor;
     object: MetadataObjectType;
+    top: MetadataSchema;
   }) => {
     if (props.visitor.objects.has(props.object)) return;
     props.visitor.objects.add(props.object);
@@ -395,6 +407,7 @@ export namespace MetadataFactory {
           ],
         }),
         explore,
+        props.top,
       );
       if (errors.length)
         props.visitor.errors.push({
@@ -420,6 +433,7 @@ export namespace MetadataFactory {
           escaped: false,
           output: false,
         },
+        top: props.top,
       });
   };
 
@@ -429,6 +443,7 @@ export namespace MetadataFactory {
     visitor: IValidationVisitor;
     function: MetadataFunction;
     explore: IExplore;
+    top: MetadataSchema;
   }) => {
     if (props.visitor.functions.has(props.function)) return;
     props.visitor.functions.add(props.function);
@@ -444,6 +459,7 @@ export namespace MetadataFactory {
           top: false,
           output: false,
         },
+        top: props.top,
       });
     if (props.function.output)
       validateMeta({

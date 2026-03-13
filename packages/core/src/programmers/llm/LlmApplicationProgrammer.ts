@@ -101,11 +101,12 @@ export namespace LlmApplicationProgrammer {
     config?: Partial<ILlmSchema.IConfig>;
     metadata: MetadataSchema;
     explore: MetadataFactory.IExplore;
+    top: MetadataSchema;
   }): string[] => {
     // the class
     if (props.explore.top === false)
       if (
-        props.explore.object === props.metadata?.objects[0]?.type &&
+        props.explore.object === props.top?.objects[0]?.type &&
         typeof props.explore.property === "string" &&
         props.metadata.size() === 1 &&
         props.metadata.nullable === false &&
