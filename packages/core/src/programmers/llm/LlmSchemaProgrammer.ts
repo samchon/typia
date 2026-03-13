@@ -142,7 +142,6 @@ export namespace LlmSchemaProgrammer {
     metadata: MetadataSchema;
     explore: MetadataFactory.IExplore;
   }): string[] => {
-    // @todo block array nested undefined
     const output: string[] = [];
 
     // no additionalProperties in OpenAI strict mode

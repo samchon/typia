@@ -15,7 +15,6 @@ export namespace JsonSchemasProgrammer {
     metadata: MetadataSchema;
     explore: MetadataFactory.IExplore;
   }): string[] => {
-    // @todo block array nested undefined
     const output: string[] = [];
     if (
       props.metadata.atomics.some((a) => a.type === "bigint") ||
