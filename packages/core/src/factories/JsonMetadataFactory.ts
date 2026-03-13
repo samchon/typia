@@ -31,9 +31,9 @@ export namespace JsonMetadataFactory {
           escape: true,
           constant: true,
           validate: props.validate
-            ? (meta, explore) => {
+            ? (meta, explore, top) => {
                 const errors: string[] = validate(meta);
-                errors.push(...props.validate!(meta, explore));
+                errors.push(...props.validate!(meta, explore, top));
                 return errors;
               }
             : validate,
