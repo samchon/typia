@@ -11,6 +11,7 @@ import { IProgrammerProps } from "../../context/IProgrammerProps";
 import { TransformerError } from "../../context/TransformerError";
 import { IdentifierFactory } from "../../factories/IdentifierFactory";
 import { LiteralFactory } from "../../factories/LiteralFactory";
+import { MetadataFactory } from "../../factories/MetadataFactory";
 import { MetadataSchema } from "../../schemas/metadata/MetadataSchema";
 import { AtomicPredicator } from "../helpers/AtomicPredicator";
 import { json_schema_bigint } from "../iterate/json_schema_bigint";
@@ -139,7 +140,9 @@ export namespace LlmSchemaProgrammer {
   export const validate = (props: {
     config?: Partial<ILlmSchema.IConfig>;
     metadata: MetadataSchema;
+    explore: MetadataFactory.IExplore;
   }): string[] => {
+    // @todo block array nested undefined
     const output: string[] = [];
 
     // no additionalProperties in OpenAI strict mode

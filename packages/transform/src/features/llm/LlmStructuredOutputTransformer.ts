@@ -51,11 +51,11 @@ export namespace LlmStructuredOutputTransformer {
             constant: true,
             validate:
               validate === true
-                ? (metadata, explore) =>
+                ? (next) =>
                     LlmStructuredOutputProgrammer.validate({
                       config,
-                      metadata,
-                      explore,
+                      metadata: next.metadata,
+                      explore: next.explore,
                     })
                 : undefined,
           },

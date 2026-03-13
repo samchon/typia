@@ -5,30 +5,35 @@ import ts from "typescript";
 import { ITypiaContext } from "../../context/ITypiaContext";
 import { TransformerError } from "../../context/TransformerError";
 import { LiteralFactory } from "../../factories/LiteralFactory";
+import { MetadataFactory } from "../../factories/MetadataFactory";
 import { MetadataSchema } from "../../schemas/metadata/MetadataSchema";
 import { AtomicPredicator } from "../helpers/AtomicPredicator";
 import { json_schema_station } from "../iterate/json_schema_station";
 
 export namespace JsonSchemasProgrammer {
-  export const validate = (metadata: MetadataSchema): string[] => {
+  export const validate = (props: {
+    metadata: MetadataSchema;
+    explore: MetadataFactory.IExplore;
+  }): string[] => {
+    // @todo block array nested undefined
     const output: string[] = [];
     if (
-      metadata.atomics.some((a) => a.type === "bigint") ||
-      metadata.constants.some((c) => c.type === "bigint")
+      props.metadata.atomics.some((a) => a.type === "bigint") ||
+      props.metadata.constants.some((c) => c.type === "bigint")
     )
       output.push("JSON schema does not support bigint type.");
     if (
-      metadata.tuples.some((t) =>
+      props.metadata.tuples.some((t) =>
         t.type.elements.some((e) => e.isRequired() === false),
       ) ||
-      metadata.arrays.some((a) => a.type.value.isRequired() === false)
+      props.metadata.arrays.some((a) => a.type.value.isRequired() === false)
     )
       output.push("JSON schema does not support undefined type in array.");
-    if (metadata.maps.length)
+    if (props.metadata.maps.length)
       output.push("JSON schema does not support Map type.");
-    if (metadata.sets.length)
+    if (props.metadata.sets.length)
       output.push("JSON schema does not support Set type.");
-    for (const native of metadata.natives)
+    for (const native of props.metadata.natives)
       if (
         AtomicPredicator.native(native.name) === false &&
         native.name !== "Date" &&

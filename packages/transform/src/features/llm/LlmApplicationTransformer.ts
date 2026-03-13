@@ -50,12 +50,12 @@ export namespace LlmApplicationTransformer {
             functional: true,
             validate:
               validate === true
-                ? (metadata, explore, top) =>
+                ? (next) =>
                     LlmApplicationProgrammer.validate({
                       config,
-                      metadata,
-                      explore,
-                      top,
+                      metadata: next.metadata,
+                      explore: next.explore,
+                      top: next.top,
                     })
                 : undefined,
           },
@@ -135,12 +135,12 @@ export namespace LlmApplicationTransformer {
             functional: true,
             validate:
               validate === true
-                ? (metadata, explore, top) =>
+                ? (next) =>
                     LlmApplicationProgrammer.validate({
                       config,
-                      metadata,
-                      explore,
-                      top,
+                      metadata: next.metadata,
+                      explore: next.explore,
+                      top: next.top,
                     })
                 : undefined,
           },

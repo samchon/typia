@@ -16,7 +16,7 @@ export namespace JsonApplicationProgrammer {
     explore: MetadataFactory.IExplore;
   }): string[] => {
     if (props.explore.top === false)
-      return JsonSchemasProgrammer.validate(props.metadata);
+      return JsonSchemasProgrammer.validate(props);
 
     const output: string[] = [];
     const valid: boolean =
