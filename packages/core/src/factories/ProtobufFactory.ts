@@ -341,26 +341,26 @@ export namespace ProtobufFactory {
   ----------------------------------------------------------- */
   const validate = () => {
     const visited: WeakSet<MetadataObjectType> = new WeakSet();
-    return (
-      meta: MetadataSchema,
-      explore: MetadataFactory.IExplore,
-    ): string[] => {
+    return (props: {
+      metadata: MetadataSchema;
+      explore: MetadataFactory.IExplore;
+    }): string[] => {
       const errors: string[] = [];
       const insert = (msg: string) => errors.push(msg);
 
-      if (explore.top === true) {
+      if (props.explore.top === true) {
         const onlyObject: boolean =
-          meta.size() === 1 &&
-          meta.objects.length === 1 &&
-          meta.objects[0]!.type.properties.every((p) =>
+          props.metadata.size() === 1 &&
+          props.metadata.objects.length === 1 &&
+          props.metadata.objects[0]!.type.properties.every((p) =>
             p.key.isSoleLiteral(),
           ) &&
-          meta.isRequired() === true &&
-          meta.nullable === false;
+          props.metadata.isRequired() === true &&
+          props.metadata.nullable === false;
         if (onlyObject === false)
           insert("target type must be a sole and static object type");
       }
-      for (const obj of meta.objects) {
+      for (const obj of props.metadata.objects) {
         if (visited.has(obj.type)) continue;
         visited.add(obj.type);
         validateObject({
@@ -378,16 +378,16 @@ export namespace ProtobufFactory {
       const noSupport = (msg: string) => insert(`does not support ${msg}`);
 
       // PROHIBIT ANY TYPE
-      if (meta.any) noSupport("any type");
+      if (props.metadata.any) noSupport("any type");
       // PROHIBIT FUNCTIONAL TYPE
-      if (meta.functions.length) noSupport("functional type");
+      if (props.metadata.functions.length) noSupport("functional type");
       // PROHIBIT TUPLE TYPE
-      if (meta.tuples.length) noSupport("tuple type");
+      if (props.metadata.tuples.length) noSupport("tuple type");
       // PROHIBIT SET TYPE
-      if (meta.sets.length) noSupport("Set type");
+      if (props.metadata.sets.length) noSupport("Set type");
       // NATIVE TYPE, BUT NOT Uint8Array
-      if (meta.natives.length)
-        for (const native of meta.natives) {
+      if (props.metadata.natives.length)
+        for (const native of props.metadata.natives) {
           if (native.name === "Uint8Array") continue;
 
           const instead = BANNED_NATIVE_TYPES.get(native.name);
@@ -397,9 +397,9 @@ export namespace ProtobufFactory {
       //----
       // ATOMIC CASES
       //----
-      if (meta.atomics.length) {
-        const numbers = ProtobufUtil.getNumbers(meta);
-        const bigints = ProtobufUtil.getBigints(meta);
+      if (props.metadata.atomics.length) {
+        const numbers = ProtobufUtil.getNumbers(props.metadata);
+        const bigints = ProtobufUtil.getBigints(props.metadata);
 
         for (const type of ["int64", "uint64"])
           if (numbers.has(type) && bigints.has(type))
@@ -412,14 +412,14 @@ export namespace ProtobufFactory {
       //----
       // DO NOT ALLOW MULTI-DIMENSIONAL ARRAY
       if (
-        meta.arrays.length &&
-        meta.arrays.some((array) => !!array.type.value.arrays.length)
+        props.metadata.arrays.length &&
+        props.metadata.arrays.some((array) => !!array.type.value.arrays.length)
       )
         noSupport("over two dimensional array type");
       // CHILD OF ARRAY TYPE MUST BE REQUIRED
       if (
-        meta.arrays.length &&
-        meta.arrays.some(
+        props.metadata.arrays.length &&
+        props.metadata.arrays.some(
           (array) =>
             array.type.value.isRequired() === false ||
             array.type.value.nullable === true,
@@ -428,8 +428,8 @@ export namespace ProtobufFactory {
         noSupport("optional type in array");
       // UNION IN ARRAY
       if (
-        meta.arrays.length &&
-        meta.arrays.some(
+        props.metadata.arrays.length &&
+        props.metadata.arrays.some(
           (a) =>
             a.type.value.size() > 1 &&
             a.type.value.constants.length !== 1 &&
@@ -439,8 +439,8 @@ export namespace ProtobufFactory {
         noSupport("union type in array");
       // DO DYNAMIC OBJECT IN ARRAY
       if (
-        meta.arrays.length &&
-        meta.arrays.some(
+        props.metadata.arrays.length &&
+        props.metadata.arrays.some(
           (a) =>
             a.type.value.maps.length ||
             (a.type.value.objects.length &&
@@ -451,21 +451,21 @@ export namespace ProtobufFactory {
       )
         noSupport("dynamic object in array");
       // UNION WITH ARRAY
-      if (meta.size() > 1 && meta.arrays.length)
+      if (props.metadata.size() > 1 && props.metadata.arrays.length)
         noSupport("union type with array type");
       //----
       // OBJECT CASES
       //----
       // EMPTY PROPERTY
       if (
-        meta.objects.length &&
-        meta.objects.some((obj) => obj.type.properties.length === 0)
+        props.metadata.objects.length &&
+        props.metadata.objects.some((obj) => obj.type.properties.length === 0)
       )
         noSupport("empty object type");
       // MULTIPLE DYNAMIC KEY TYPED PROPERTIES
       if (
-        meta.objects.length &&
-        meta.objects.some(
+        props.metadata.objects.length &&
+        props.metadata.objects.some(
           (obj) =>
             obj.type.properties.filter((p) => !p.key.isSoleLiteral()).length >
             1,
@@ -476,8 +476,8 @@ export namespace ProtobufFactory {
         );
       // STATIC AND DYNAMIC PROPERTIES ARE COMPATIBLE
       if (
-        meta.objects.length &&
-        meta.objects.some(
+        props.metadata.objects.length &&
+        props.metadata.objects.some(
           (obj) =>
             obj.type.properties.some((p) => p.key.isSoleLiteral()) &&
             obj.type.properties.some((p) => !p.key.isSoleLiteral()),
@@ -488,22 +488,24 @@ export namespace ProtobufFactory {
         );
       // DYNAMIC OBJECT, BUT PROPERTY VALUE TYPE IS ARRAY
       if (
-        meta.objects.length &&
-        isDynamicObject(meta.objects[0]!.type) &&
-        meta.objects[0]!.type.properties.some((p) => !!p.value.arrays.length)
+        props.metadata.objects.length &&
+        isDynamicObject(props.metadata.objects[0]!.type) &&
+        props.metadata.objects[0]!.type.properties.some(
+          (p) => !!p.value.arrays.length,
+        )
       )
         noSupport("dynamic object with array value type");
       // UNION WITH DYNAMIC OBJECTTa
       if (
-        meta.size() > 1 &&
-        meta.objects.length &&
-        isDynamicObject(meta.objects[0]!.type)
+        props.metadata.size() > 1 &&
+        props.metadata.objects.length &&
+        isDynamicObject(props.metadata.objects[0]!.type)
       )
         noSupport("union type with dynamic object type");
       // UNION IN DYNAMIC PROPERTY VALUE
       if (
-        meta.objects.length &&
-        meta.objects.some(
+        props.metadata.objects.length &&
+        props.metadata.objects.some(
           (obj) =>
             isDynamicObject(obj.type) &&
             obj.type.properties.some((p) => ProtobufUtil.isUnion(p.value)),
@@ -515,32 +517,39 @@ export namespace ProtobufFactory {
       //----
       // KEY TYPE IS UNION
       if (
-        meta.maps.length &&
-        meta.maps.some((m) => ProtobufUtil.isUnion(m.key))
+        props.metadata.maps.length &&
+        props.metadata.maps.some((m) => ProtobufUtil.isUnion(m.key))
       )
         noSupport("union key typed map");
       // KEY TYPE IS NOT ATOMIC
       if (
-        meta.maps.length &&
-        meta.maps.some((m) => ProtobufUtil.getAtomics(m.key).size !== 1)
+        props.metadata.maps.length &&
+        props.metadata.maps.some(
+          (m) => ProtobufUtil.getAtomics(m.key).size !== 1,
+        )
       )
         noSupport("non-atomic key typed map");
       // MAP TYPE, BUT PROPERTY KEY TYPE IS OPTIONAL
       if (
-        meta.maps.length &&
-        meta.maps.some((m) => m.key.isRequired() === false || m.key.nullable)
+        props.metadata.maps.length &&
+        props.metadata.maps.some(
+          (m) => m.key.isRequired() === false || m.key.nullable,
+        )
       )
         noSupport("optional key typed map");
       // MAP TYPE, BUT VALUE TYPE IS ARRAY
-      if (meta.maps.length && meta.maps.some((m) => !!m.value.arrays.length))
+      if (
+        props.metadata.maps.length &&
+        props.metadata.maps.some((m) => !!m.value.arrays.length)
+      )
         noSupport("map type with array value type");
       // UNION WITH MAP
-      if (meta.size() > 1 && meta.maps.length)
+      if (props.metadata.size() > 1 && props.metadata.maps.length)
         noSupport("union type with map type");
       // UNION IN MAP
       if (
-        meta.maps.length &&
-        meta.maps.some((m) => ProtobufUtil.isUnion(m.value))
+        props.metadata.maps.length &&
+        props.metadata.maps.some((m) => ProtobufUtil.isUnion(m.value))
       )
         noSupport("union type in map value type");
       return errors;

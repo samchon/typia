@@ -21,14 +21,14 @@ export namespace MiscLiteralsProgrammer {
         escape: true,
         constant: true,
         absorb: true,
-        validate: (meta) => {
+        validate: ({ metadata }) => {
           const length: number =
-            meta.constants
+            metadata.constants
               .map((c) => c.values.length)
               .reduce((a, b) => a + b, 0) +
-            meta.atomics.filter((a) => a.type === "boolean").length;
+            metadata.atomics.filter((a) => a.type === "boolean").length;
           if (0 === length) return [ErrorMessages.NO];
-          else if (meta.size() !== length) return [ErrorMessages.ONLY];
+          else if (metadata.size() !== length) return [ErrorMessages.ONLY];
           return [];
         },
       },

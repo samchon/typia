@@ -27,11 +27,11 @@ import { iterate_metadata_sort } from "./internal/metadata/iterate_metadata_sort
  */
 export namespace MetadataFactory {
   /** Validation function type for metadata schemas. */
-  export type Validator = (
-    meta: MetadataSchema,
-    explore: IExplore,
-    top: MetadataSchema,
-  ) => string[];
+  export type Validator = (props: {
+    metadata: MetadataSchema;
+    explore: IExplore;
+    top: MetadataSchema;
+  }) => string[];
 
   /** Properties for metadata analysis. */
   export interface IProps {
@@ -247,7 +247,11 @@ export namespace MetadataFactory {
             tag.predicate = () => ts.factory.createTrue();
           }
     result.push(
-      ...props.visitor.functor(props.metadata, props.explore, props.top),
+      ...props.visitor.functor({
+        metadata: props.metadata,
+        explore: props.explore,
+        top: props.top,
+      }),
     );
     if (result.length)
       props.visitor.errors.push({
@@ -396,8 +400,8 @@ export namespace MetadataFactory {
         escaped: false,
         output: false,
       };
-      const errors: string[] = props.options.validate(
-        MetadataSchema.create({
+      const errors: string[] = props.options.validate({
+        metadata: MetadataSchema.create({
           ...MetadataSchema.initialize(),
           objects: [
             MetadataObject.create({
@@ -406,9 +410,9 @@ export namespace MetadataFactory {
             }),
           ],
         }),
+        top: props.top,
         explore,
-        props.top,
-      );
+      });
       if (errors.length)
         props.visitor.errors.push({
           name: props.object.name,

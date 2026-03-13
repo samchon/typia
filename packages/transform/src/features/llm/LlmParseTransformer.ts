@@ -57,11 +57,11 @@ export namespace LlmParseTransformer {
             constant: true,
             validate:
               validate === true
-                ? (metadata, explore) =>
+                ? (next) =>
                     LlmParseProgrammer.validate({
                       config,
-                      metadata,
-                      explore,
+                      metadata: next.metadata,
+                      explore: next.explore,
                     })
                 : undefined,
           },

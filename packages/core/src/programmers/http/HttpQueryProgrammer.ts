@@ -39,8 +39,12 @@ export namespace HttpQueryProgrammer {
         escape: false,
         constant: true,
         absorb: true,
-        validate: (meta, explore) =>
-          validate(meta, explore, props.allowOptional),
+        validate: (next) =>
+          validate({
+            metadata: next.metadata,
+            explore: next.explore,
+            allowOptional: props.allowOptional,
+          }),
       },
       components: collection,
       type: props.type,
@@ -110,25 +114,26 @@ export namespace HttpQueryProgrammer {
     });
   };
 
-  export const validate = (
-    meta: MetadataSchema,
-    explore: MetadataFactory.IExplore,
-    allowOptional: boolean = false,
-  ): string[] => {
+  export const validate = (props: {
+    metadata: MetadataSchema;
+    explore: MetadataFactory.IExplore;
+    allowOptional?: boolean | undefined;
+  }): string[] => {
     const errors: string[] = [];
     const insert = (msg: string) => errors.push(msg);
 
-    if (explore.top === true) {
+    if (props.explore.top === true) {
       // TOP MUST BE ONLY OBJECT
-      if (meta.objects.length !== 1 || meta.bucket() !== 1)
+      if (props.metadata.objects.length !== 1 || props.metadata.bucket() !== 1)
         insert("only one object type is allowed.");
-      if (meta.nullable === true) insert("query parameters cannot be null.");
-      if (meta.isRequired() === false) {
-        if (allowOptional === true) {
+      if (props.metadata.nullable === true)
+        insert("query parameters cannot be null.");
+      if (props.metadata.isRequired() === false) {
+        if (props.allowOptional === true) {
           const everyPropertiesAreOptional: boolean =
-            meta.size() === 1 &&
-            meta.objects.length === 1 &&
-            meta.objects[0]!.type.properties.every(
+            props.metadata.size() === 1 &&
+            props.metadata.objects.length === 1 &&
+            props.metadata.objects[0]!.type.properties.every(
               (p) => p.value.isRequired() === false,
             );
           if (everyPropertiesAreOptional === false)
@@ -138,37 +143,40 @@ export namespace HttpQueryProgrammer {
         } else insert("query parameters cannot be undefined.");
       }
     } else if (
-      explore.nested !== null &&
-      explore.nested instanceof MetadataArrayType
+      props.explore.nested !== null &&
+      props.explore.nested instanceof MetadataArrayType
     ) {
       //----
       // ARRAY
       //----
-      const atomics = HttpMetadataUtil.atomics(meta);
+      const atomics = HttpMetadataUtil.atomics(props.metadata);
       const expected: number =
-        meta.atomics.length +
-        meta.templates.length +
-        meta.constants.map((c) => c.values.length).reduce((a, b) => a + b, 0);
+        props.metadata.atomics.length +
+        props.metadata.templates.length +
+        props.metadata.constants
+          .map((c) => c.values.length)
+          .reduce((a, b) => a + b, 0);
       if (atomics.size > 1) insert("union type is not allowed in array.");
-      if (meta.size() !== expected)
+      if (props.metadata.size() !== expected)
         insert("only atomic or constant types are allowed in array.");
-    } else if (explore.object && explore.property !== null) {
+    } else if (props.explore.object && props.explore.property !== null) {
       //----
       // COMMON
       //----
       // PROPERTY MUST BE SOLE
-      if (typeof explore.property === "object")
+      if (typeof props.explore.property === "object")
         insert("dynamic property is not allowed.");
       // DO NOT ALLOW TUPLE TYPE
-      if (meta.tuples.length) insert("tuple type is not allowed.");
+      if (props.metadata.tuples.length) insert("tuple type is not allowed.");
       // DO NOT ALLOW UNION TYPE
-      if (HttpMetadataUtil.isUnion(meta)) insert("union type is not allowed.");
+      if (HttpMetadataUtil.isUnion(props.metadata))
+        insert("union type is not allowed.");
       // DO NOT ALLOW NESTED OBJECT
       if (
-        meta.objects.length ||
-        meta.sets.length ||
-        meta.maps.length ||
-        meta.natives.length
+        props.metadata.objects.length ||
+        props.metadata.sets.length ||
+        props.metadata.maps.length ||
+        props.metadata.natives.length
       )
         insert("nested object type is not allowed.");
     }
