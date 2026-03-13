@@ -21,8 +21,11 @@ export const controller = typia.llm.controller<IApplication>("company", {
     department: IDepartment;
     employee: IEmployee;
   }) => props.employee,
-  erase: async (props: { entity: ICompany | IDepartment | IEmployee }) =>
-    props.entity.id,
+  erase: async (props: {
+    entity: ICompany | IDepartment | IEmployee;
+  }): Promise<void> => {
+    props;
+  },
 });
 
 // llm.parse and llm.coerce
@@ -57,9 +60,7 @@ export interface IApplication {
     department: IDepartment;
     employee: IEmployee;
   }): Promise<IEmployee>;
-  erase(props: {
-    entity: ICompany | IDepartment | IEmployee;
-  }): Promise<string & tags.Format<"uuid">>;
+  erase(props: { entity: ICompany | IDepartment | IEmployee }): Promise<void>;
 }
 
 export interface ICompany {
