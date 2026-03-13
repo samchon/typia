@@ -5,14 +5,11 @@ export default {
   structuredOutput: "structuredOutput() function",
   parameters: "parameters() function",
   schema: "schema() function",
+  http: "HttpLlm module",
   json: "LlmJson module",
-  mcp: "Model Context Protocol",
-  vercel: "Vercel AI SDK",
-  langchain: "LangChain",
-  chat: {
-    display: "hidden",
-  },
-  strategy: {
-    display: "hidden",
-  },
+  mcp: { display: "hidden" },
+  vercel: { display: "hidden" },
+  langchain: { display: "hidden" },
+  chat: { display: "hidden" },
+  strategy: { display: "hidden" },
 } satisfies MetaRecord;

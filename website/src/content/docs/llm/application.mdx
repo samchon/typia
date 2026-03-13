@@ -115,6 +115,98 @@ Structured output is another feature of LLM. The "structured output" means that 
 
 > [💻 Playground Link](/playground/?script=JYWwDg9gTgLgBAbzgSQDIBsQEExncAYwEMZgIA7OAXzgDMoIQ4AiAAQGciQCALCgeghgApuSJhgzANwAoUJFhwYATwlE6DJsxVrpMuHPDR4SAEIAjdlliF0wgMrCoAN0LDqGxiwB0-C1ZsCO0cXNz0DAgp2eHEwAC4UDGxcfGJSCjgAXiVVYCJvdExvWNSSMnIAHn9rUiCHJ1cCYQA+AAoASllI8nYIOwKIAHNW2M6gA)
 
+## Integrations
+
+`typia.llm.controller<Class>()` wraps a TypeScript class into an `ILlmController` that can be plugged into any supported framework. Every class method becomes a tool — JSDoc comments become descriptions, TypeScript types become JSON schemas, and validation feedback is embedded automatically.
+
+<Tabs items={["Vercel AI SDK", "LangChain", "Model Context Protocol"]}>
+  <Tabs.Tab>
+```typescript filename="src/main.ts"
+import { openai } from "@ai-sdk/openai";
+import { toVercelTools } from "@typia/vercel";
+import { generateText, Tool } from "ai";
+import typia from "typia";
+
+import { BbsArticleService } from "./BbsArticleService";
+
+const tools: Record<string, Tool> = toVercelTools({
+  controllers: [
+    typia.llm.controller<BbsArticleService>(
+      "bbs",
+      new BbsArticleService(),
+    ),
+  ],
+});
+
+const result = await generateText({
+  model: openai("gpt-4o"),
+  tools,
+  prompt: "I want to create a new article about TypeScript",
+});
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```typescript filename="src/main.ts"
+import { ChainValues, Runnable } from "@langchain/core";
+import { ChatPromptTemplate } from "@langchain/core/prompts";
+import { DynamicStructuredTool } from "@langchain/core/tools";
+import { ChatOpenAI } from "@langchain/openai";
+import { toLangChainTools } from "@typia/langchain";
+import { AgentExecutor, createToolCallingAgent } from "langchain/agents";
+import typia from "typia";
+
+import { BbsArticleService } from "./BbsArticleService";
+
+const tools: DynamicStructuredTool[] = toLangChainTools({
+  controllers: [
+    typia.llm.controller<BbsArticleService>(
+      "bbs",
+      new BbsArticleService(),
+    ),
+  ],
+});
+
+const agent: Runnable = createToolCallingAgent({
+  llm: new ChatOpenAI({ model: "gpt-4o" }),
+  tools,
+  prompt: ChatPromptTemplate.fromMessages([
+    ["system", "You are a helpful assistant."],
+    ["human", "{input}"],
+    ["placeholder", "{agent_scratchpad}"],
+  ]),
+});
+const executor: AgentExecutor = new AgentExecutor({ agent, tools });
+const result: ChainValues = await executor.invoke({
+  input: "I want to create a new article about TypeScript",
+});
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```typescript filename="src/main.ts"
+import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { registerMcpControllers } from "@typia/mcp";
+import typia from "typia";
+
+import { BbsArticleService } from "./BbsArticleService";
+
+const server: McpServer = new McpServer({
+  name: "my-server",
+  version: "1.0.0",
+});
+
+registerMcpControllers({
+  server,
+  controllers: [
+    typia.llm.controller<BbsArticleService>(
+      "bbs",
+      new BbsArticleService(),
+    ),
+  ],
+});
+```
+  </Tabs.Tab>
+</Tabs>
+
 ## Lenient JSON Parsing
 
 <Tabs items={[
