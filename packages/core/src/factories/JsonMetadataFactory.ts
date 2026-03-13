@@ -32,11 +32,11 @@ export namespace JsonMetadataFactory {
           constant: true,
           validate: props.validate
             ? (next) => {
-                const errors: string[] = validate(next.metadata);
+                const errors: string[] = validate(next);
                 errors.push(...props.validate!(next));
                 return errors;
               }
-            : (next) => validate(next.metadata),
+            : (next) => validate(next),
         },
         components: collection,
         type: props.type,
@@ -52,23 +52,28 @@ export namespace JsonMetadataFactory {
     };
   };
 
-  export const validate = (meta: MetadataSchema) => {
+  export const validate = (props: {
+    metadata: MetadataSchema;
+    explore: MetadataFactory.IExplore;
+  }): string[] => {
     const output: string[] = [];
     if (
-      meta.atomics.some((a) => a.type === "bigint") ||
-      meta.constants.some((c) => c.type === "bigint")
+      props.metadata.atomics.some((a) => a.type === "bigint") ||
+      props.metadata.constants.some((c) => c.type === "bigint")
     )
       output.push("JSON does not support bigint type.");
     if (
-      meta.tuples.some((t) =>
+      props.metadata.tuples.some((t) =>
         t.type.elements.some((e) => e.isRequired() === false),
       ) ||
-      meta.arrays.some((a) => a.type.value.isRequired() === false)
+      props.metadata.arrays.some((a) => a.type.value.isRequired() === false)
     )
       output.push("JSON does not support undefined type in array.");
-    if (meta.maps.length) output.push("JSON does not support Map type.");
-    if (meta.sets.length) output.push("JSON does not support Set type.");
-    for (const native of meta.natives)
+    if (props.metadata.maps.length)
+      output.push("JSON does not support Map type.");
+    if (props.metadata.sets.length)
+      output.push("JSON does not support Set type.");
+    for (const native of props.metadata.natives)
       if (
         AtomicPredicator.native(native.name) === false &&
         native.name !== "Date"
