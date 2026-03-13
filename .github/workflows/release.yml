@@ -1,8 +1,9 @@
 # author: elliot-huffman
 name: release
 on:
-  release:
-    types: [created]
+  push:
+    tags:
+      - "*"
 permissions:
   id-token: write
   contents: write
@@ -35,3 +36,16 @@ jobs:
         with:
           branch: gh-pages
           folder: ./website/out
+  release:
+    runs-on: ubuntu-latest
+    needs: publish
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: pnpm/action-setup@v4
+      - run: pnpm dlx changelogithub
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
