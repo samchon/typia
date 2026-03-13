@@ -29,5 +29,5 @@ typia.llm.application<{
 }>();
 
 typia.llm.application<{
-  multpke(x: { x: number }, y: { y: number }): void;
+  multiple(x: { x: number }, y: { y: number }): void;
 }>();
