@@ -67,28 +67,25 @@ const sections: HomeStrengthSectionMovie.Props[] = [
       <HomeCodeBlock
         namespace="llm"
         method="application"
-        template="App"
+        template="Class"
         color="rgb(191, 64, 191)"
         argument={false}
       />
     ),
     description: (
       <React.Fragment>
-        <p>LLM Function Calling Schema Composer</p>
+        <p>Function calling schemas from TS types.</p>
         <br />
         <p>
-          Creates LLM function call schemas from a native TypeScript class or
-          interface type.
+          Validation feedback and type coercion boost success rate from{" "}
+          <b>6.75%</b> to <b>100%</b>.
         </p>
         <br />
-        <p>
-          LLM will select proper function to call and fill arguments in the
-          conversations with human.
-        </p>
+        <p>Lenient JSON parsing recovers from every malformed LLM output.</p>
       </React.Fragment>
     ),
     image: "/images/home/openai.svg",
-    href: "/docs/llm/chat",
+    href: "/docs/llm/application",
   },
   {
     title: "Easy Protocol Buffer",
