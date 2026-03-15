@@ -1,156 +1,171 @@
-import { Box, Container, Grid } from "@mui/material";
-import React from "react";
+"use client";
 
+import { Box, Card, CardActionArea, CardContent, Container, Grid, Typography } from "@mui/material";
 import HomeCodeBlock from "../components/home/HomeCodeBlock";
-import HomeStrengthSectionMovie from "./HomeStrengthSectionMovie";
 
-const sections: HomeStrengthSectionMovie.Props[] = [
+interface FeatureCardProps {
+  icon: string;
+  title: string;
+  code: HomeCodeBlock.IProps;
+  metric?: string;
+  metricNote?: string;
+  description: string;
+  href: string;
+}
+
+const features: FeatureCardProps[] = [
   {
-    title: "Super-fast Runtime Validator",
-    subTitle: (
-      <HomeCodeBlock
-        method="assert"
-        color="rgb(191, 64, 191)"
-        argument={true}
-      />
-    ),
-    description: (
-      <React.Fragment>
-        <p>
-          <b>20,000x faster</b> than <i>class-validator</i>.
-        </p>
-        <br />
-        <p>
-          Stable than any others, and only one supporting complicate union type.
-        </p>
-        <br />
-        <p>
-          In the backend server side, it boosts up performance about{" "}
-          <b>10x up</b>.
-        </p>
-      </React.Fragment>
-    ),
-    image: "/favicon/android-chrome-512x512.png",
-    href: "/docs/validators/assert",
-    width: 125,
+    icon: "⚡",
+    title: "Super-fast Validation",
+    code: { method: "validate", argument: true },
+    metric: "20,000x faster",
+    metricNote: "than class-validator",
+    description:
+      "AOT-compiled runtime validators outperform class-validator by 20,000x. Supports complex union types, recursive structures, and the most detailed error reporting.",
+    href: "/docs/validators/validate",
   },
   {
-    title: "Fast JSON Serialization",
-    subTitle: (
-      <HomeCodeBlock
-        namespace="json"
-        method="stringify"
-        color="rgb(191, 64, 191)"
-        argument={true}
-      />
-    ),
-    description: (
-      <React.Fragment>
-        <p>
-          <b>200x faster</b> than <i>class-transformer</i>.
-        </p>
-        <br />
-        <p>Also supports type safe JSON parser, and JSON schema generator.</p>
-        <br />
-        <p>
-          In the backend server side, it boosts up performance about{" "}
-          <b>10x up</b>.
-        </p>
-      </React.Fragment>
-    ),
-    image: "/images/home/json.png",
+    icon: "🔄",
+    title: "JSON Serialization",
+    code: { namespace: "json", method: "stringify", argument: true },
+    metric: "200x faster",
+    metricNote: "than class-transformer",
+    description:
+      "Type-safe JSON stringify 200x faster than class-transformer. JSON schema generation for OpenAPI is also supported.",
     href: "/docs/json/stringify",
   },
   {
+    icon: "🤖",
     title: "LLM Function Calling",
-    subTitle: (
-      <HomeCodeBlock
-        namespace="llm"
-        method="application"
-        template="Class"
-        color="rgb(191, 64, 191)"
-        argument={false}
-      />
-    ),
-    description: (
-      <React.Fragment>
-        <p>Function calling schemas from TS types.</p>
-        <br />
-        <p>
-          Validation feedback and type coercion boost success rate from{" "}
-          <b>6.75%</b> to <b>100%</b>.
-        </p>
-        <br />
-        <p>Lenient JSON parsing recovers from every malformed LLM output.</p>
-      </React.Fragment>
-    ),
-    image: "/images/home/openai.svg",
+    code: { namespace: "llm", method: "application", template: "App", argument: false },
+    metric: "6.75% → 100%",
+    metricNote: "qwen3-coder-next",
+    description:
+      "Generate function calling schemas from TypeScript types. Validation feedback, lenient JSON parsing, and type coercion boost LLM success rates.",
     href: "/docs/llm/application",
   },
   {
-    title: "Easy Protocol Buffer",
-    subTitle: (
-      <HomeCodeBlock
-        namespace="protobuf"
-        method="encode"
-        color="rgb(191, 64, 191)"
-        argument={true}
-      />
-    ),
-    description: (
-      <React.Fragment>
-        <p>
-          <b>Full spec</b> of protobuf.
-        </p>
-        <br />
-        <p>
-          Only one supporting full spec of <i>protobuf</i> in the{" "}
-          <i>TypeScript</i> ecosystem.
-        </p>
-        <br />
-        <p>
-          No need extra <i>*.proto</i> schema file. Just fine with native
-          TypeScript type.
-        </p>
-      </React.Fragment>
-    ),
-    image: "/images/home/protobuf.png",
+    icon: "📦",
+    title: "Protocol Buffers",
+    code: { namespace: "protobuf", method: "encode", argument: true },
+    metric: "Full Spec",
+    metricNote: "only one in TypeScript",
+    description:
+      "The only TypeScript library supporting the full Protocol Buffer spec. No .proto files needed — just use your TypeScript types.",
     href: "/docs/protobuf/encode",
   },
   {
-    title: "Random Data Generator",
-    subTitle: (
-      <HomeCodeBlock
-        method="random"
-        color="rgb(191, 64, 191)"
-        argument={false}
-      />
-    ),
-    description: (
-      <React.Fragment>
-        <p>Universal random generator.</p>
-        <br />
-        <p>The best mock-up data generator with native TypeScript type.</p>
-        <br />
-        <p>In the backend side, it boosts up productivity dramatically.</p>
-      </React.Fragment>
-    ),
-    image: "/images/home/random.png",
+    icon: "🎲",
+    title: "Random Generator",
+    code: { method: "random", argument: false },
+    metric: "Universal",
+    metricNote: "with constraint tags",
+    description:
+      "Generate mock data that perfectly conforms to your TypeScript types. Respects constraints, formats, and custom tags.",
     href: "/docs/random",
   },
 ];
 
-const HomeStrengthMovie = () => (
-  <Box sx={{ display: "flex" }}>
-    <Container
+const FeatureCard = (props: FeatureCardProps) => (
+  <Grid item xs={12} sm={6} md={4}>
+    <Card
+      variant="outlined"
       sx={{
-        mt: 3,
-        display: "flex",
-        position: "relative",
+        height: "100%",
+        backgroundColor: "rgba(255,255,255,0.02)",
+        borderColor: "rgba(255,255,255,0.08)",
+        transition: "all 0.2s ease",
+        "&:hover": {
+          borderColor: "rgba(0,150,255,0.4)",
+          backgroundColor: "rgba(0,150,255,0.03)",
+        },
       }}
     >
+      <CardActionArea
+        href={props.href}
+        sx={{ height: "100%", display: "flex", flexDirection: "column", alignItems: "flex-start", p: 0 }}
+      >
+        <CardContent sx={{ p: 3, width: "100%" }}>
+          <Typography sx={{ fontSize: "2rem", mb: 1.5 }}>{props.icon}</Typography>
+          <Typography
+            variant="h6"
+            sx={{ fontWeight: 700, fontSize: "1.05rem", mb: 0.5, color: "rgba(255,255,255,0.95)" }}
+          >
+            {props.title}
+          </Typography>
+          <Typography
+            sx={{
+              fontFamily: "'Fira Code', 'JetBrains Mono', monospace",
+              fontSize: "0.82rem",
+              mb: 1,
+            }}
+          >
+            <HomeCodeBlock {...props.code} />
+          </Typography>
+          {props.metric && (
+            <Typography
+              sx={{
+                fontSize: "0.85rem",
+                mb: 1.5,
+              }}
+            >
+              <span style={{ color: "rgb(0,180,255)", fontWeight: 600 }}>
+                {props.metric}
+              </span>
+              {props.metricNote && (
+                <span style={{ color: "rgba(255,255,255,0.45)", fontWeight: 400 }}>
+                  {" "}({props.metricNote})
+                </span>
+              )}
+            </Typography>
+          )}
+          <Typography
+            variant="body2"
+            sx={{
+              color: "rgba(255,255,255,0.55)",
+              lineHeight: 1.65,
+              fontSize: "0.88rem",
+            }}
+          >
+            {props.description}
+          </Typography>
+        </CardContent>
+      </CardActionArea>
+    </Card>
+  </Grid>
+);
+
+const HomeStrengthMovie = () => (
+  <Box sx={{ py: { xs: 6, md: 10 } }}>
+    <Container maxWidth="lg">
+      <Box sx={{ textAlign: "center", mb: 6 }}>
+        <Typography
+          variant="h3"
+          sx={{
+            fontWeight: 700,
+            fontSize: { xs: "1.6rem", md: "2.2rem" },
+            mb: 2,
+            color: "rgba(255,255,255,0.95)",
+          }}
+        >
+          Key Features
+        </Typography>
+        <Typography
+          variant="body1"
+          sx={{
+            color: "rgba(255,255,255,0.55)",
+            fontSize: "1.05rem",
+            maxWidth: 600,
+            mx: "auto",
+          }}
+        >
+          One library. Pure TypeScript types. Every runtime feature you need.
+        </Typography>
+      </Box>
       <Grid container spacing={3}>
-        {sections.map(HomeStrengthSectionMovie)}
+        {features.map((f) => (
+          <FeatureCard key={f.title} {...f} />
+        ))}
       </Grid>
     </Container>
   </Box>

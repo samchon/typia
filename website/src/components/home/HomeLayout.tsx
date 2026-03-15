@@ -7,5 +7,8 @@ const HomeLayout = styled("div")(({ theme }) => ({
     marginLeft: "-15rem",
     marginRight: "-15rem",
   },
+  "& > *": {
+    maxWidth: "100%",
+  },
 }));
 export default HomeLayout;
