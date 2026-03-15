@@ -87,10 +87,7 @@ Thanks for your support.
 
 Your donation encourages `typia` development.
 
-Also, `typia` is re-distributing half of donations to core contributors of `typia`.
-
-  - [`nonara/ts-patch`](https://github.com/nonara/ts-patch)
-  - [`ryoppippi/unplugin-typia`](https://github.com/ryoppippi/unplugin-typia)
+Also, `typia` is re-distributing quarter of donations to [`nonara/ts-patch`](https://github.com/nonara/ts-patch).
 
 [![Sponsors](https://opencollective.com/typia/badge.svg?avatarHeight=75&width=600)](https://opencollective.com/typia)
 
