@@ -1,4 +1,4 @@
-import typia, { tags } from "typia";
+import typia, { IValidation, tags } from "typia";
 
 export const schema = typia.llm.schema<ICompany>({});
 
@@ -8,9 +8,21 @@ export const parameters = typia.llm.parameters<{
   employee: IEmployee;
 }>();
 
-export const application = typia.llm.application<IApplication>();
-
-typia.llm.application<IApplication>();
+export const application = typia.llm.application<IApplication>({
+  validate: {
+    hire: (
+      input: unknown,
+    ): IValidation<{
+      company: ICompany;
+      department: IDepartment;
+      employee: IEmployee;
+    }> => ({
+      success: false,
+      data: input,
+      errors: [],
+    }),
+  },
+});
 
 export const controller = typia.llm.controller<IApplication>("company", {
   establishCompany: (props: { company: ICompany }) => props.company,
