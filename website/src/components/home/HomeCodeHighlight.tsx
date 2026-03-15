@@ -105,7 +105,7 @@ function tokenize(code: string): Token[] {
     }
 
     // Numbers
-    if (/[0-9]/.test(code[i]) && (i === 0 || /[\s,;:(=<>!+\-*/&|^~[\]{]/.test(code[i - 1]))) {
+    if (/[0-9]/.test(code[i]) && (i === 0 || /[\s,;:(=<>!+\-*/&|^~\[\]\{]/.test(code[i - 1]))) {
       let end = i;
       while (end < code.length && /[0-9._eExXa-fA-F]/.test(code[end])) end++;
       tokens.push({ type: "number", value: code.slice(i, end) });
