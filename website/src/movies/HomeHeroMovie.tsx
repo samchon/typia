@@ -1,131 +1,132 @@
+"use client";
+
 import ComputerIcon from "@mui/icons-material/Computer";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
-import { Button, Grid, Typography } from "@mui/material";
+import { Box, Button, Container, Grid, Typography } from "@mui/material";
 import { ReactNode } from "react";
 
-import HomeCodeBlock from "../components/home/HomeCodeBlock";
-import ProductHeroLayout from "../components/home/ProductHeroLayout";
-import { randint } from "tstl";
-
-const pickRandom = <T extends any>(array: T[]): T =>
-  array[randint(0, array.length - 1)];
-
-const QuickButton = (props: {
+const HeroButton = (props: {
   title: string;
   href: string;
   icon: ReactNode;
-  color: "info" | "warning" | "success";
+  variant: "contained" | "outlined";
 }) => (
-  <Grid item xs={12} md={4}>
-    <Button
-      color={props.color}
-      variant="outlined"
-      size="large"
-      component="a"
-      href={props.href}
-      startIcon={props.icon}
-      fullWidth
-      style={{ fontFamily: "unset", fontWeight: "bold" }}
-    >
-      {props.title}
-    </Button>
-  </Grid>
+  <Button
+    variant={props.variant}
+    size="large"
+    component="a"
+    href={props.href}
+    startIcon={props.icon}
+    sx={{
+      fontWeight: 700,
+      fontSize: "0.95rem",
+      px: 3,
+      py: 1.2,
+      borderRadius: 2,
+      textTransform: "none",
+      borderColor: props.variant === "outlined" ? "rgba(255,255,255,0.3)" : undefined,
+      color: props.variant === "outlined" ? "rgba(255,255,255,0.9)" : undefined,
+      "&:hover": {
+        borderColor: props.variant === "outlined" ? "rgba(255,255,255,0.6)" : undefined,
+        backgroundColor:
+          props.variant === "outlined" ? "rgba(255,255,255,0.05)" : undefined,
+      },
+    }}
+  >
+    {props.title}
+  </Button>
 );
 
 const HomeHeroMovie = () => {
-  const props: HomeCodeBlock.IProps = pickRandom([
-    {
-      method: "assert",
-      inputColor: "#CFCFCF",
-      argument: true,
-    },
-    {
-      namespace: "json",
-      method: "stringify",
-      inputColor: "#CFCFCF",
-      argument: true,
-    },
-    {
-      namespace: "llm",
-      method: "application",
-      template: "App",
-      argument: false,
-    },
-    {
-      namespace: "protobuf",
-      method: "encode",
-      inputColor: "#CFCFCF",
-      argument: true,
-    },
-    {
-      method: "random",
-      argument: false,
-    },
-  ] satisfies HomeCodeBlock.IProps[]);
   return (
-    <ProductHeroLayout
-      sxBackground={{
-        background: `url(/images/home/background.jpg) no-repeat center top`,
-        backgroundColor: "black",
-        backgroundPosition: "center",
+    <Box
+      sx={{
+        position: "relative",
+        py: { xs: 8, md: 12 },
+        textAlign: "center",
+        overflow: "hidden",
       }}
     >
-      <Typography
-        color="inherit"
-        align="center"
-        variant="h2"
-        fontFamily="fantasy"
-      >
-        Only one line
-      </Typography>
-      <Typography
-        color="inherit"
-        align="center"
-        variant="h5"
-        fontFamily="cursive"
-        sx={{ mb: 4, mt: { xs: 4, sm: 10 } }}
-      >
-        No extra schema required
-        <br />
-        <br />
-        Just fine with pure TypeScript type
-      </Typography>
-      <br />
-      <br />
-      <Typography
-        align="center"
-        variant="h5"
-        fontFamily="monospace"
-        sx={{ fontWeight: "bold" }}
-      >
-        <HomeCodeBlock {...props} />
-      </Typography>
-      <br />
-      <br />
-      <br />
-      <br />
-      <Grid container spacing={2}>
-        <QuickButton
-          title="Guide Documents"
-          icon={<MenuBookIcon />}
-          href="/docs"
-          color="info"
+      {/* Gradient background */}
+      <Box
+        sx={{
+          position: "absolute",
+          inset: 0,
+          background:
+            "radial-gradient(ellipse 80% 60% at 50% 0%, rgba(0,150,255,0.12) 0%, transparent 70%)",
+          pointerEvents: "none",
+        }}
+      />
+      <Container maxWidth="md" sx={{ position: "relative", zIndex: 1 }}>
+        <Box
+          component="img"
+          src="/logo.png"
+          alt="Typia"
+          sx={{
+            display: "block",
+            mx: "auto",
+            mb: 3,
+          }}
         />
-        <QuickButton
-          title="Playground (Online IDE)"
-          icon={<ComputerIcon />}
-          href="/playground"
-          color="warning"
-        />
-        <QuickButton
-          title="Github Repository"
-          icon={<GitHubIcon />}
-          href="https://github.com/samchon/typia"
-          color="success"
-        />
-      </Grid>
-    </ProductHeroLayout>
+        <Typography
+          variant="h5"
+          sx={{
+            color: "rgba(255,255,255,0.7)",
+            fontWeight: 400,
+            fontSize: { xs: "1rem", sm: "1.15rem", md: "1.3rem" },
+            lineHeight: 1.7,
+            maxWidth: 700,
+            mx: "auto",
+            mb: 2,
+          }}
+        >
+          Transform pure TypeScript types into
+          <br />
+          <strong style={{ color: "rgba(255,255,255,0.95)" }}>
+            20,000x faster
+          </strong>{" "}
+          runtime validators, JSON serializers, and LLM schemas
+        </Typography>
+        <Typography
+          variant="body1"
+          sx={{
+            color: "rgba(255,255,255,0.45)",
+            fontSize: "1rem",
+            mb: 5,
+          }}
+        >
+          Zero schema. Zero overhead. Just TypeScript.
+        </Typography>
+        <Box
+          sx={{
+            display: "flex",
+            gap: 2,
+            justifyContent: "center",
+            flexWrap: "wrap",
+          }}
+        >
+          <HeroButton
+            title="Guide Documents"
+            icon={<MenuBookIcon />}
+            href="/docs"
+            variant="contained"
+          />
+          <HeroButton
+            title="Playground"
+            icon={<ComputerIcon />}
+            href="/playground"
+            variant="outlined"
+          />
+          <HeroButton
+            title="GitHub"
+            icon={<GitHubIcon />}
+            href="https://github.com/samchon/typia"
+            variant="outlined"
+          />
+        </Box>
+      </Container>
+    </Box>
   );
 };
 export default HomeHeroMovie;
