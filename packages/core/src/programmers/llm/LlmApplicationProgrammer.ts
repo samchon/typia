@@ -52,6 +52,7 @@ export namespace LlmApplicationProgrammer {
       }
     >;
     name?: string;
+    configArgument?: ts.Expression;
   }
 
   export const write = (props: IWriteProps): ts.CallExpression => {
@@ -82,17 +83,7 @@ export namespace LlmApplicationProgrammer {
           ),
           typeNode,
         ),
-        ts.factory.createObjectLiteralExpression(
-          [
-            ts.factory.createPropertyAssignment(
-              "equals",
-              props.config?.equals === true
-                ? ts.factory.createTrue()
-                : ts.factory.createFalse(),
-            ),
-          ],
-          false,
-        ),
+        ...(props.configArgument ? [props.configArgument] : []),
       ],
     );
   };

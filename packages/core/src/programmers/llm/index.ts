@@ -1,4 +1,5 @@
 export * from "./LlmApplicationProgrammer";
+export * from "./LlmControllerProgrammer";
 export * from "./LlmCoerceProgrammer";
 export * from "./LlmMetadataFactory";
 export * from "./LlmParametersProgrammer";
