@@ -1,5 +1,4 @@
 import {
-  ITypiaContext,
   LlmApplicationProgrammer,
   LlmMetadataFactory,
   MetadataCollection,
@@ -80,6 +79,10 @@ export namespace LlmApplicationTransformer {
       metadata: analyze(false),
       name: top.getFullText().trim(),
       config,
+      configArgument:
+        props.expression.arguments?.[0] !== undefined
+          ? props.expression.arguments[0]
+          : undefined,
     });
   };
 
@@ -171,56 +174,5 @@ export namespace LlmApplicationTransformer {
       type,
       config,
     };
-  };
-
-  export const getConfigArgument = (props: {
-    context: ITypiaContext;
-    argument: ts.Expression;
-    equals?: boolean | undefined;
-  }) => {
-    const satisfiesTypeNode: ts.TypeNode = ts.factory.createTypeReferenceNode(
-      ts.factory.createIdentifier("Partial"),
-      [
-        ts.factory.createTypeReferenceNode(
-          ts.factory.createIdentifier("Pick"),
-          [
-            ts.factory.createImportTypeNode(
-              ts.factory.createLiteralTypeNode(
-                ts.factory.createStringLiteral("typia"),
-              ),
-              undefined,
-              ts.factory.createQualifiedName(
-                ts.factory.createIdentifier("ILlmApplication"),
-                ts.factory.createIdentifier("IConfig"),
-              ),
-              undefined,
-              false,
-            ),
-            ts.factory.createUnionTypeNode([
-              ts.factory.createLiteralTypeNode(
-                ts.factory.createStringLiteral("validate"),
-              ),
-            ]),
-          ],
-        ),
-      ],
-    );
-    return ts.factory.createObjectLiteralExpression(
-      [
-        ts.factory.createSpreadAssignment(
-          ts.factory.createSatisfiesExpression(
-            props.argument,
-            satisfiesTypeNode,
-          ),
-        ),
-        ts.factory.createPropertyAssignment(
-          "equals",
-          props.equals === true
-            ? ts.factory.createTrue()
-            : ts.factory.createFalse(),
-        ),
-      ],
-      true,
-    );
   };
 }

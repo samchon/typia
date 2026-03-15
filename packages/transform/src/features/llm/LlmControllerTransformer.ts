@@ -59,13 +59,7 @@ export namespace LlmControllerTransformer {
                   primitiveTypeNode,
                 ),
                 ...(props.expression.arguments?.[2] !== undefined
-                  ? [
-                      LlmApplicationTransformer.getConfigArgument({
-                        context: props.context,
-                        argument: props.expression.arguments[2],
-                        equals: dec.config?.equals,
-                      }),
-                    ]
+                  ? [props.expression.arguments?.[2]]
                   : []),
               ],
             ),
