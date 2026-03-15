@@ -3,11 +3,7 @@ import { LlmJson, LlmSchemaConverter } from "@typia/utils";
 
 export const _llmApplicationFinalize = <Class extends object = any>(
   app: ILlmApplication.__IPrimitive<Class>,
-  config?: Partial<
-    Pick<ILlmApplication.IConfig, "validate"> & {
-      equals?: boolean;
-    }
-  >,
+  config?: Partial<Pick<ILlmApplication.IConfig, "validate">>,
 ): ILlmApplication<Class> => ({
   ...app,
   config: {
