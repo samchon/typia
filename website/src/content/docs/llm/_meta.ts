@@ -1,7 +1,7 @@
 import { MetaRecord } from "nextra";
 
 export default {
-  application: "application() functions",
+  application: "application() function",
   structuredOutput: "structuredOutput() function",
   parameters: "parameters() function",
   schema: "schema() function",
