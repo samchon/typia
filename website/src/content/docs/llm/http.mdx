@@ -217,7 +217,7 @@ registerMcpControllers({
 
 ## Validation Feedback
 
-When used through [MCP](../mcp), [Vercel AI SDK](../vercel), or [Agentica](../chat), `HttpLlm.controller()` embeds [`typia.validate<T>()`](/docs/validators/validate) in every tool for automatic argument validation. When validation fails, the error is returned as text content with inline `// ❌` comments at each invalid property:
+When used through [MCP](/docs/llm/mcp), [Vercel AI SDK](/docs/llm/vercel), or [Agentica](/docs/llm/chat), `HttpLlm.controller()` embeds [`typia.validate<T>()`](/docs/validators/validate) in every tool for automatic argument validation. When validation fails, the error is returned as text content with inline `// ❌` comments at each invalid property:
 
 ```json
 {
@@ -325,6 +325,6 @@ LLMs frequently return wrong types — numbers as strings, booleans as strings, 
 
 Some LLM SDKs (Anthropic, Vercel AI, LangChain, MCP) parse JSON internally and return JavaScript objects directly. In these cases, use `IHttpLlmFunction.coerce()` instead of `IHttpLlmFunction.parse()` to fix types without re-parsing.
 
-For more details, see [JSON Utilities](../json).
+For more details, see [JSON Utilities](/docs/llm/json).
 </Callout>
 

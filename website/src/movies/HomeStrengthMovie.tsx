@@ -15,7 +15,7 @@ interface FeatureCardProps {
 
 const features: FeatureCardProps[] = [
   {
-    icon: "⚡",
+    icon: "/favicon/android-chrome-512x512.png",
     title: "Super-fast Validation",
     code: { method: "validate", argument: true },
     metric: "20,000x faster",
@@ -25,7 +25,7 @@ const features: FeatureCardProps[] = [
     href: "/docs/validators/validate",
   },
   {
-    icon: "🔄",
+    icon: "/images/home/json.png",
     title: "JSON Serialization",
     code: { namespace: "json", method: "stringify", argument: true },
     metric: "200x faster",
@@ -35,7 +35,7 @@ const features: FeatureCardProps[] = [
     href: "/docs/json/stringify",
   },
   {
-    icon: "🤖",
+    icon: "/images/home/openai.svg",
     title: "LLM Function Calling",
     code: { namespace: "llm", method: "application", template: "App", argument: false },
     metric: "6.75% → 100%",
@@ -45,7 +45,7 @@ const features: FeatureCardProps[] = [
     href: "/docs/llm/application",
   },
   {
-    icon: "📦",
+    icon: "/images/home/protobuf.png",
     title: "Protocol Buffers",
     code: { namespace: "protobuf", method: "encode", argument: true },
     metric: "Full Spec",
@@ -55,7 +55,7 @@ const features: FeatureCardProps[] = [
     href: "/docs/protobuf/encode",
   },
   {
-    icon: "🎲",
+    icon: "/images/home/random.png",
     title: "Random Generator",
     code: { method: "random", argument: false },
     metric: "Universal",
@@ -86,7 +86,12 @@ const FeatureCard = (props: FeatureCardProps) => (
         sx={{ height: "100%", display: "flex", flexDirection: "column", alignItems: "flex-start", p: 0 }}
       >
         <CardContent sx={{ p: 3, width: "100%" }}>
-          <Typography sx={{ fontSize: "2rem", mb: 1.5 }}>{props.icon}</Typography>
+          <Box
+            component="img"
+            src={props.icon}
+            alt={props.title}
+            sx={{ height: 72, width: 72, objectFit: "contain", mb: 2 }}
+          />
           <Typography
             variant="h6"
             sx={{ fontWeight: 700, fontSize: "1.05rem", mb: 0.5, color: "rgba(255,255,255,0.95)" }}
