@@ -1,4 +1,4 @@
-﻿---
+---
 title: Guide Documents > Utilization Cases > MCP (Model Context Protocol)
 ---
 import { Callout, Tabs } from "nextra/components";
@@ -229,6 +229,6 @@ export type IExpression =
 
 By default, `registerMcpControllers()` replaces the MCP server's tool handlers (standalone mode). Set `preserve: true` to coexist with `McpServer.registerTool()`.
 
-In the above test, the `"echo"` tool registered via `McpServer.registerTool()` and the calculator tools registered via `registerMcpControllers()` work together ??5 tools total. If duplicate names are detected, it throws at registration time.
+In the above test, the `"echo"` tool registered via `McpServer.registerTool()` and the calculator tools registered via `registerMcpControllers()` work together — 5 tools total. If duplicate names are detected, it throws at registration time.
 
 

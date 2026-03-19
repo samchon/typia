@@ -1,4 +1,4 @@
-﻿---
+---
 title: Guide Documents > Utilization Cases > Vercel AI SDK
 ---
 import { Callout, Tabs } from "nextra/components";
@@ -115,7 +115,7 @@ Create controllers from TypeScript classes with `typia.llm.controller<Class>()`,
 <Callout type="warning">
 **Type Restrictions**
 
-Every method's parameter type must be a keyworded object type with static keys ??not a primitive, array, or union. The return type must also be an object type or `void`. Primitive return types like `number` or `string` are not allowed; wrap them in an object (e.g., `{ value: number }`). See [`typia.llm.application()` Restrictions](../llm/application#restrictions) for details.
+Every method's parameter type must be a keyworded object type with static keys — not a primitive, array, or union. The return type must also be an object type or `void`. Primitive return types like `number` or `string` are not allowed; wrap them in an object (e.g., `{ value: number }`). See [`typia.llm.application()` Restrictions](../llm/application#restrictions) for details.
 </Callout>
 
 ## From OpenAPI Document
@@ -246,7 +246,7 @@ const { object } = await generateObject({
 > }
 > ```
 
-The `IMember` interface is the single source of truth. `typia.llm.parameters<IMember>()` generates the JSON schema, and `typia.validate<IMember>()` validates the output ??all from the same type.
+The `IMember` interface is the single source of truth. `typia.llm.parameters<IMember>()` generates the JSON schema, and `typia.validate<IMember>()` validates the output — all from the same type.
 
 ## Error Handling
 
@@ -269,6 +269,6 @@ The `IMember` interface is the single source of truth. `typia.llm.parameters<IMe
   </Tabs.Tab>
 </Tabs>
 
-When a tool execution throws a runtime error (e.g., division by zero), `@typia/vercel` catches the exception and returns `{ error: true, message: "Error: Division by zero is not allowed" }`. This is different from validation errors ??validation errors indicate wrong argument types, while runtime errors indicate the function itself failed.
+When a tool execution throws a runtime error (e.g., division by zero), `@typia/vercel` catches the exception and returns `{ error: true, message: "Error: Division by zero is not allowed" }`. This is different from validation errors — validation errors indicate wrong argument types, while runtime errors indicate the function itself failed.
 
 

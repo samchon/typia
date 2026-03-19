@@ -1,4 +1,4 @@
-﻿---
+---
 title: Guide Documents > Utilization Cases > LangChain
 ---
 import { Callout, Tabs } from "nextra/components";
@@ -45,7 +45,7 @@ export function toLangChainTools(props: {
 
 `toLangChainTools()` converts TypeScript classes or OpenAPI documents into LangChain `DynamicStructuredTool[]` at once.
 
-Every class method becomes a tool, JSDoc comments become tool descriptions, and TypeScript types become JSON schemas ??all at compile time. For OpenAPI documents, every API endpoint is converted to a `DynamicStructuredTool` with schemas from the specification.
+Every class method becomes a tool, JSDoc comments become tool descriptions, and TypeScript types become JSON schemas — all at compile time. For OpenAPI documents, every API endpoint is converted to a `DynamicStructuredTool` with schemas from the specification.
 
 Validation feedback is embedded automatically.
 
@@ -126,7 +126,7 @@ Create controllers from TypeScript classes with `typia.llm.controller<Class>()`,
 <Callout type="warning">
 **Type Restrictions**
 
-Every method's parameter type must be a keyworded object type with static keys ??not a primitive, array, or union. The return type must also be an object type or `void`. Primitive return types like `number` or `string` are not allowed; wrap them in an object (e.g., `{ value: number }`). See [`typia.llm.application()` Restrictions](../llm/application#restrictions) for details.
+Every method's parameter type must be a keyworded object type with static keys — not a primitive, array, or union. The return type must also be an object type or `void`. Primitive return types like `number` or `string` are not allowed; wrap them in an object (e.g., `{ value: number }`). See [`typia.llm.application()` Restrictions](../llm/application#restrictions) for details.
 </Callout>
 
 ## From OpenAPI Document
@@ -160,14 +160,14 @@ Create controllers from OpenAPI documents with `HttpLlm.controller()`, and pass 
 
 ## Validation Feedback
 
-`toLangChainTools()` embeds [`typia.validate<T>()`](/docs/validators/validate) in every tool for automatic argument validation. When validation fails, the error is returned as text content with inline `// ?? comments at each invalid property:
+`toLangChainTools()` embeds [`typia.validate<T>()`](/docs/validators/validate) in every tool for automatic argument validation. When validation fails, the error is returned as text content with inline `// ❌` comments at each invalid property:
 
 ```json
 {
   "name": "John",
-  "age": "twenty", // ??[{"path":"$input.age","expected":"number"}]
-  "email": "not-an-email", // ??[{"path":"$input.email","expected":"string & Format<\"email\">"}]
-  "hobbies": "reading" // ??[{"path":"$input.hobbies","expected":"Array<string>"}]
+  "age": "twenty", // ❌[{"path":"$input.age","expected":"number"}]
+  "email": "not-an-email", // ❌[{"path":"$input.email","expected":"string & Format<\"email\">"}]
+  "hobbies": "reading" // ❌[{"path":"$input.hobbies","expected":"Array<string>"}]
 }
 ```
 
@@ -258,6 +258,6 @@ if (!result.success) {
 > }
 > ```
 
-The `IMember` interface is the single source of truth. `typia.llm.parameters<IMember>()` generates the JSON schema, and `typia.validate<IMember>()` validates the output ??all from the same type. If validation fails, feed the error back to the LLM for correction.
+The `IMember` interface is the single source of truth. `typia.llm.parameters<IMember>()` generates the JSON schema, and `typia.validate<IMember>()` validates the output — all from the same type. If validation fails, feed the error back to the LLM for correction.
 
 
