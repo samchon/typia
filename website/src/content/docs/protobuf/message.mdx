@@ -86,11 +86,9 @@ Also, those comment tags are not type safe. If you take a mistake when writing a
     **Why supports comment tags?**
   </AlertTitle>
 
-Despite these disadvantages, the reason for maintaining comment tags is as follows. 
+Despite these disadvantages, comment tags are still maintained for compatibility with legacy JSDoc-style projects.
 
-First, it is to support the legacy JSDoc style that had been used in the JS camp for a long time. If you had developed a legacy project and JSDoc being used, you can use it as is. 
-
-Second, to support [Prisma](../utilization/prisma). If a comment is created in the Prisma Schema through the `///` statement as shown below and a type is created, it is converted to a TS comment as it is. And since there is no way that union types, numeric `Array`s or `Map`s are used in Prisma (database) schema, these comment tags are surprisingly compatible with Prisma.
+If your codebase already describes numeric constraints in comments, you can keep that style and migrate incrementally instead of rewriting everything to type tags at once.
 
 </Alert>
 
