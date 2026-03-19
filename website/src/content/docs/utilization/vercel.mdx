@@ -1,0 +1,274 @@
+﻿---
+title: Guide Documents > Utilization Cases > Vercel AI SDK
+---
+import { Callout, Tabs } from "nextra/components";
+
+import LocalSource from "../../../components/LocalSource";
+
+## `toVercelTools()` function
+
+<Tabs items={[
+    <code>@typia/vercel</code>,
+    <code>ILlmController</code>,
+    <code>IHttpLlmController</code>,
+    <code>HttpLlm.controller</code>,
+  ]}>
+  <Tabs.Tab>
+```typescript filename="@typia/vercel" showLineNumbers
+export function toVercelTools(props: {
+  controllers: Array<ILlmController | IHttpLlmController>;
+  prefix?: boolean | undefined;
+}): Record<string, Tool>;
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource
+      path="packages/interface/src/schema/ILlmController.ts"
+      filename="@typia/interface"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource
+      path="packages/interface/src/http/IHttpLlmController.ts"
+      filename="@typia/interface"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource
+      path="packages/utils/src/http/HttpLlm.ts"
+      filename="@typia/utils"
+      showLineNumbers />
+  </Tabs.Tab>
+</Tabs>
+
+[Vercel AI SDK](https://github.com/vercel/ai) integration for [`typia`](https://github.com/samchon/typia).
+
+`toVercelTools()` converts TypeScript classes or OpenAPI documents into Vercel AI SDK `Record<string, Tool>` at once.
+
+Every class method becomes a tool, JSDoc comments become tool descriptions, and TypeScript types become JSON schemas ??all at compile time. For OpenAPI documents, every API endpoint is converted to a Vercel tool with schemas from the specification.
+
+Validation feedback is embedded automatically.
+
+## Setup
+
+```bash filename="Terminal"
+npm install @typia/vercel ai
+npm install typia
+npx typia setup
+```
+
+## From TypeScript Class
+
+<Tabs items={[
+    "Vercel AI Tools",
+    <code>Calculator</code>,
+    <code>BbsArticleService</code>,
+    <code>IBbsArticle</code>,
+  ]}>
+  <Tabs.Tab>
+```typescript filename="src/main.ts" showLineNumbers {1-3, 7-14, 16-20}
+import { openai } from "@ai-sdk/openai";
+import { toVercelTools } from "@typia/vercel";
+import { generateText, GenerateTextResult, Tool } from "ai";
+import typia from "typia";
+
+import { Calculator } from "./Calculator";
+
+const tools: Record<string, Tool> = toVercelTools({
+  controllers: [
+    typia.llm.controller<Calculator>("calculator", new Calculator()),
+  ],
+});
+
+const result: GenerateTextResult = await generateText({
+  model: openai("gpt-4o"),
+  prompt: "What is 10 + 5?",
+  tools,
+});
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource
+      path="tests/test-vercel/src/structures/Calculator.ts"
+      filename="Calculator.ts"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource
+      path="examples/src/llm/BbsArticleService.ts"
+      filename="BbsArticleService.ts"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource
+      path="examples/src/llm/IBbsArticle.ts"
+      filename="IBbsArticle.ts"
+      showLineNumbers />
+  </Tabs.Tab>
+</Tabs>
+
+Create controllers from TypeScript classes with `typia.llm.controller<Class>()`, and pass them to `toVercelTools()`.
+
+  - `controllers`: Array of controllers created via `typia.llm.controller<Class>()` or `HttpLlm.controller()`
+  - `prefix`: When `true` (default), tool names are formatted as `{controllerName}_{methodName}`. Set to `false` to use bare method names
+
+<Callout type="warning">
+**Type Restrictions**
+
+Every method's parameter type must be a keyworded object type with static keys ??not a primitive, array, or union. The return type must also be an object type or `void`. Primitive return types like `number` or `string` are not allowed; wrap them in an object (e.g., `{ value: number }`). See [`typia.llm.application()` Restrictions](../llm/application#restrictions) for details.
+</Callout>
+
+## From OpenAPI Document
+
+```typescript filename="src/main.ts" showLineNumbers {1-3, 5-18}
+import { toVercelTools } from "@typia/vercel";
+import { HttpLlm } from "@typia/utils";
+import { Tool } from "ai";
+
+const tools: Record<string, Tool> = toVercelTools({
+  controllers: [
+    HttpLlm.controller({
+      name: "shopping",
+      document: await fetch(
+        "https://shopping-be.wrtn.ai/editor/swagger.json",
+      ).then((r) => r.json()),
+      connection: {
+        host: "https://shopping-be.wrtn.ai",
+        headers: { Authorization: "Bearer ********" },
+      },
+    }),
+  ],
+});
+```
+
+Create controllers from OpenAPI documents with `HttpLlm.controller()`, and pass them to `toVercelTools()`.
+
+  - `name`: Controller name used as prefix for tool names
+  - `document`: Swagger/OpenAPI document (v2.0, v3.0, or v3.1)
+  - `connection`: HTTP connection info including `host` and optional `headers`
+
+## Validation Feedback
+
+`toVercelTools()` embeds [`typia.validate<T>()`](/docs/validators/validate) in every tool for automatic argument validation. When validation fails, the error is returned as text content with inline `// ?? comments at each invalid property:
+
+```json
+{
+  "name": "John",
+  "age": "twenty", // ??[{"path":"$input.age","expected":"number"}]
+  "email": "not-an-email", // ??[{"path":"$input.email","expected":"string & Format<\"email\">"}]
+  "hobbies": "reading" // ??[{"path":"$input.hobbies","expected":"Array<string>"}]
+}
+```
+
+The LLM reads this feedback and self-corrects on the next turn.
+
+In the [AutoBe](https://github.com/wrtnlabs/autobe) project (AI-powered backend code generator), `qwen3-coder-next` showed only 6.75% raw function calling success rate on compiler AST types. However, with validation feedback, it reached 100%.
+
+Working on compiler AST means working on any type and any use case.
+
+  - [AutoBeDatabase](https://github.com/wrtnlabs/autobe/blob/main/packages/interface/src/database/AutoBeDatabase.ts)
+  - [AutoBeOpenApi](https://github.com/wrtnlabs/autobe/blob/main/packages/interface/src/openapi/AutoBeOpenApi.ts)
+  - [AutoBeTest](https://github.com/wrtnlabs/autobe/blob/main/packages/interface/src/test/AutoBeTest.ts)
+
+```typescript filename="AutoBeTest.IExpression" showLineNumbers
+// Compiler AST may be the hardest type structure possible
+//
+// Unlimited union types + unlimited depth + recursive references
+export type IExpression =
+  | IBooleanLiteral
+  | INumericLiteral
+  | IStringLiteral
+  | IArrayLiteralExpression   // <- recursive (contains IExpression[])
+  | IObjectLiteralExpression  // <- recursive (contains IExpression)
+  | INullLiteral
+  | IUndefinedKeyword
+  | IIdentifier
+  | IPropertyAccessExpression // <- recursive
+  | IElementAccessExpression  // <- recursive
+  | ITypeOfExpression         // <- recursive
+  | IPrefixUnaryExpression    // <- recursive
+  | IPostfixUnaryExpression   // <- recursive
+  | IBinaryExpression         // <- recursive (left & right)
+  | IArrowFunction            // <- recursive (body is IExpression)
+  | ICallExpression           // <- recursive (args are IExpression[])
+  | INewExpression            // <- recursive
+  | IConditionalPredicate     // <- recursive (then & else branches)
+  | ... // 30+ expression types total
+```
+
+## Structured Output
+
+Use `typia.llm.parameters<T>()` with Vercel's `jsonSchema()` to generate structured output with validation:
+
+```typescript filename="src/main.ts" copy showLineNumbers {1, 3-4, 6-12, 14-30}
+import { openai } from "@ai-sdk/openai";
+import { dedent, LlmJson } from "@typia/utils";
+import { generateObject, jsonSchema } from "ai";
+import typia, { tags } from "typia";
+
+interface IMember {
+  email: string & tags.Format<"email">;
+  name: string;
+  age: number & tags.Minimum<0> & tags.Maximum<100>;
+  hobbies: string[];
+  joined_at: string & tags.Format<"date">;
+}
+
+const { object } = await generateObject({
+  model: openai("gpt-4o"),
+  schema: jsonSchema<IMember>(typia.llm.parameters<IMember>(), {
+    validate: (value) => {
+      const result = typia.validate<IMember>(value);
+      if (result.success) return { success: true, value: result.data };
+      return {
+        success: false,
+        error: new Error(LlmJson.stringify(result)),
+      };
+    },
+  }),
+  prompt: dedent`
+    I am a new member of the community.
+
+    My name is John Doe, and I am 25 years old.
+    I like playing basketball and reading books,
+    and joined to this community at 2022-01-01.
+  `,
+});
+```
+
+> ```bash filename="Terminal"
+> {
+>   email: 'john.doe@example.com',
+>   name: 'John Doe',
+>   age: 25,
+>   hobbies: [ 'playing basketball', 'reading books' ],
+>   joined_at: '2022-01-01'
+> }
+> ```
+
+The `IMember` interface is the single source of truth. `typia.llm.parameters<IMember>()` generates the JSON schema, and `typia.validate<IMember>()` validates the output ??all from the same type.
+
+## Error Handling
+
+<Tabs items={[
+    "Error Handling Test",
+    <code>Calculator</code>,
+  ]}>
+  <Tabs.Tab>
+    <LocalSource
+      path="tests/test-vercel/src/features/test_vercel_class_controller_error_handling.ts"
+      filename="test_vercel_class_controller_error_handling.ts"
+      showLineNumbers
+      highlight="22-26, 29-36" />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource
+      path="tests/test-vercel/src/structures/Calculator.ts"
+      filename="Calculator.ts"
+      showLineNumbers />
+  </Tabs.Tab>
+</Tabs>
+
+When a tool execution throws a runtime error (e.g., division by zero), `@typia/vercel` catches the exception and returns `{ error: true, message: "Error: Division by zero is not allowed" }`. This is different from validation errors ??validation errors indicate wrong argument types, while runtime errors indicate the function itself failed.
+
+
