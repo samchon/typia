@@ -46,7 +46,7 @@ export function registerMcpControllers(props: {
 
 `registerMcpControllers()` converts TypeScript classes or OpenAPI documents into MCP tools at once.
 
-Every class method becomes a tool, JSDoc comments become tool descriptions, and TypeScript types become JSON schemas—all at compile time. For OpenAPI documents, every API endpoint is converted to an MCP tool with schemas from the specification.
+Every class method becomes a tool, JSDoc comments become tool descriptions, and TypeScript types become JSON schemas — all at compile time. For OpenAPI documents, every API endpoint is converted to an MCP tool with schemas from the specification.
 
 Validation feedback is embedded automatically.
 
@@ -164,9 +164,9 @@ Create controllers from OpenAPI documents with `HttpLlm.controller()`, and pass 
 ```json
 {
   "name": "John",
-  "age": "twenty", // ❌[{"path":"$input.age","expected":"number"}]
-  "email": "not-an-email", // ❌[{"path":"$input.email","expected":"string & Format<\"email\">"}]
-  "hobbies": "reading" // ❌[{"path":"$input.hobbies","expected":"Array<string>"}]
+  "age": "twenty", // ❌ [{"path":"$input.age","expected":"number"}]
+  "email": "not-an-email", // ❌ [{"path":"$input.email","expected":"string & Format<\"email\">"}]
+  "hobbies": "reading" // ❌ [{"path":"$input.hobbies","expected":"Array<string>"}]
 }
 ```
 
