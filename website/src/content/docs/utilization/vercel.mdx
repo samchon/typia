@@ -246,7 +246,7 @@ const { object } = await generateObject({
 > }
 > ```
 
-The `IMember` interface is the single source of truth. `typia.llm.parameters<IMember>()` generates the JSON schema, and `typia.validate<IMember>()` validates the output ??all from the same type.
+The `IMember` interface is the single source of truth. `typia.llm.parameters<IMember>()` generates the JSON schema, and `typia.validate<IMember>()` validates the output — all from the same type.
 
 ## Error Handling
 
@@ -269,6 +269,6 @@ The `IMember` interface is the single source of truth. `typia.llm.parameters<IMe
   </Tabs.Tab>
 </Tabs>
 
-When a tool execution throws a runtime error (e.g., division by zero), `@typia/vercel` catches the exception and returns `{ error: true, message: "Error: Division by zero is not allowed" }`. This is different from validation errors ??validation errors indicate wrong argument types, while runtime errors indicate the function itself failed.
+When a tool execution throws a runtime error (e.g., division by zero), `@typia/vercel` catches the exception and returns `{ error: true, message: "Error: Division by zero is not allowed" }`. This is different from validation errors — validation errors indicate wrong argument types, while runtime errors indicate the function itself failed.
 
 
