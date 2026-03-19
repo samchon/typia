@@ -159,14 +159,14 @@ Create controllers from OpenAPI documents with `HttpLlm.controller()`, and pass 
 
 ## Validation Feedback
 
-`registerMcpControllers()` embeds [`typia.validate<T>()`](/docs/validators/validate) in every tool for automatic argument validation. When validation fails, the error is returned as text content with inline `// ?? comments at each invalid property:
+`registerMcpControllers()` embeds [`typia.validate<T>()`](/docs/validators/validate) in every tool for automatic argument validation. When validation fails, the error is returned as text content with inline `// ❌` comments at each invalid property:
 
 ```json
 {
   "name": "John",
-  "age": "twenty", // ??[{"path":"$input.age","expected":"number"}]
-  "email": "not-an-email", // ??[{"path":"$input.email","expected":"string & Format<\"email\">"}]
-  "hobbies": "reading" // ??[{"path":"$input.hobbies","expected":"Array<string>"}]
+  "age": "twenty", // ❌[{"path":"$input.age","expected":"number"}]
+  "email": "not-an-email", // ❌[{"path":"$input.email","expected":"string & Format<\"email\">"}]
+  "hobbies": "reading" // ❌[{"path":"$input.hobbies","expected":"Array<string>"}]
 }
 ```
 
