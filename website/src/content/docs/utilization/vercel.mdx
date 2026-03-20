@@ -149,7 +149,7 @@ Create controllers from OpenAPI documents with `HttpLlm.controller()`, and pass 
 
 ## The Function Calling Harness
 
-`toVercelTools()` embeds the complete **function calling harness** in every tool — lenient JSON parsing, type coercion, and validation feedback all work automatically. When validation fails, the error is returned as text content with inline `// ❌` comments at each invalid property:
+`toVercelTools()` embeds lenient JSON parsing, type coercion, and validation feedback in every tool — all automatically. When validation fails, the error is returned as text content with inline `// ❌` comments at each invalid property:
 
 ```json
 {
@@ -162,7 +162,7 @@ Create controllers from OpenAPI documents with `HttpLlm.controller()`, and pass 
 
 The LLM reads this feedback and self-corrects on the next turn.
 
-In the [AutoBe](https://github.com/wrtnlabs/autobe) project (AI-powered backend code generator by [Wrtn Technologies](https://wrtn.io)), `qwen3-coder-next` showed only **6.75%** raw function calling success rate on compiler AST types. However, with the complete **function calling harness** (lenient parsing + type coercion + validation feedback), it reached **100%** — across all four tested Qwen models.
+In the [AutoBe](https://github.com/wrtnlabs/autobe) project (AI-powered backend code generator by [Wrtn Technologies](https://wrtn.io)), `qwen3-coder-next` showed only **6.75%** raw function calling success rate on compiler AST types. However, with the complete harness, it reached **100%** — across all four tested Qwen models.
 
 Working on compiler AST means working on any type and any use case.
 
