@@ -62,7 +62,7 @@ export namespace llm {
 
 LLM function calling application schema from a native TypeScript class or interface type.
 
-`typia.llm.application<App>()` is a function composing LLM (Large Language Model) calling application schema from a native TypeScript class or interface type. The function returns an `ILlmApplication` instance, which is a data structure representing a collection of LLM function calling schemas.
+`typia.llm.application<App>()` is a function composing LLM (Large Language Model) calling application schema from a native TypeScript class or interface type. The function returns an `ILlmApplication` instance, which is a data structure representing a collection of LLM function calling schemas — each with built-in `parse()`, `coerce()`, and `validate()` methods.
 
 If you put LLM function schema instances registered in the `ILlmApplication.functions` to the LLM provider like `OpenAI ChatGPT`, the LLM will select a proper function to call with parameter values of the target function in the conversations with the user. This is the "LLM Function Calling".
 
@@ -207,7 +207,17 @@ registerMcpControllers({
   </Tabs.Tab>
 </Tabs>
 
-## Lenient JSON Parsing
+## The Function Calling Harness
+
+The **function calling harness** is typia's three-layer pipeline that turns unreliable LLM output into 100% correct structured data:
+
+1. **Lenient JSON Parsing** — recovers broken JSON (unclosed brackets, trailing commas, markdown wrapping, etc.)
+2. **Type Coercion** — fixes wrong types (`"42"` → `42`, double-stringified objects → objects, etc.)
+3. **Validation Feedback** — pinpoints remaining value errors with inline `// ❌` annotations so the LLM can self-correct and retry
+
+Each layer catches what the previous one didn't. Together they form a deterministic correction loop around the probabilistic LLM.
+
+### Lenient JSON Parsing & Type Coercion
 
 <Tabs items={[
     "Parsing Example",
@@ -266,7 +276,7 @@ Some LLM SDKs (Anthropic, Vercel AI, LangChain, MCP) parse JSON internally and r
 For more details, see [JSON Utilities](./json).
 </Callout>
 
-## Validation Feedback
+### Validation Feedback
 
 <LocalSource
   path="examples/src/llm/application-validate.ts"
@@ -296,15 +306,21 @@ For more details, see [JSON Utilities](./json).
 }
 ```
 
-The LLM reads this feedback and self-corrects on the next turn.
+The LLM reads this feedback and self-corrects on the next turn. Together with lenient parsing and type coercion above, this parse → coerce → validate → feedback → retry cycle completes the harness.
 
-In the [AutoBe](https://github.com/wrtnlabs/autobe) project (AI-powered backend code generator), `qwen3-coder-next` showed only 6.75% raw function calling success rate on compiler AST types. However, with validation feedback, it reached 100%.
+<Callout type="info">
+**In Production**
+
+In the [AutoBe](https://github.com/wrtnlabs/autobe) project (AI-powered backend code generator by [Wrtn Technologies](https://wrtn.io)), `qwen3-coder-next` showed only **6.75%** raw function calling success rate on compiler AST types. With the complete harness, it reached **100%** — across all four tested Qwen models.
+
+AutoBe once shipped a build with the system prompt completely missing. Nobody noticed — output quality was identical. The types were the best prompt; the harness was the best orchestration.
 
 Working on compiler AST means working on any type and any use case.
 
   - [AutoBeDatabase](https://github.com/wrtnlabs/autobe/blob/main/packages/interface/src/database/AutoBeDatabase.ts)
   - [AutoBeOpenApi](https://github.com/wrtnlabs/autobe/blob/main/packages/interface/src/openapi/AutoBeOpenApi.ts)
   - [AutoBeTest](https://github.com/wrtnlabs/autobe/blob/main/packages/interface/src/test/AutoBeTest.ts)
+</Callout>
 
 ```typescript filename="AutoBeTest.IExpression" showLineNumbers
 // Compiler AST may be the hardest type structure possible

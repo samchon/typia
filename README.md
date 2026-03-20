@@ -23,12 +23,12 @@ export namespace json {
   export function assertStringify<T>(input: T): string; // safe and faster
 }
 
-// AI FUNCTION CALLING SCHEMA
+// AI FUNCTION CALLING HARNESS
 export namespace llm {
   // collection of function calling schemas + validators/parsers
   export function application<Class>(): ILlmApplication<Class>;
   export function structuredOutput<P>(): ILlmStructuredOutput;
-  // lenient json parser + type corecion
+  // lenient json parser + type coercion
   export function parse<T>(str: string): T;
 }
 
@@ -47,7 +47,7 @@ export function random<T>(g?: Partial<IRandomGenerator>): T;
 
   - Super-fast Runtime Validators
   - Enhanced JSON schema and serde functions
-  - LLM function calling schema and structured output
+  - LLM function calling harness
   - Protocol Buffer encoder and decoder
   - Random data generator
 
@@ -56,6 +56,7 @@ export function random<T>(g?: Partial<IRandomGenerator>): T;
 > - **Only one line** required, with pure TypeScript type
 > - Runtime validator is **20,000x faster** than `class-validator`
 > - JSON serialization is **200x faster** than `class-transformer`
+> - LLM function calling harness turns **6.75% → 100%** accuracy
 
 ## Transformation
 If you call `typia` function, it would be compiled like below.
@@ -121,7 +122,7 @@ Check out the document in the [website](https://typia.io/docs/):
   - [JSON Schema](https://typia.io/docs/json/schema/)
   - [`stringify()` functions](https://typia.io/docs/json/stringify/)
   - [`parse()` functions](https://typia.io/docs/json/parse/)
-- LLM Function Calling
+- LLM Function Calling Harness
   - [`application()` function](https://typia.io/docs/llm/application/)
   - [`structuredOutput()` function](https://typia.io/docs/llm/structuredOutput/)
   - [`HttpLlm` module](https://typia.io/docs/llm/http/)
@@ -136,6 +137,9 @@ Check out the document in the [website](https://typia.io/docs/):
 ### 🔗 Appendix
 - [API Documents](https://typia.io/api)
 - Utilization Cases
+  - [MCP](https://typia.io/docs/utilization/mcp/)
+  - [Vercel AI SDK](https://typia.io/docs/utilization/vercel/)
+  - [LangChain](https://typia.io/docs/utilization/langchain/)
   - [NestJS](https://typia.io/docs/utilization/nestjs/)
   - [tRPC](https://typia.io/docs/utilization/trpc/)
 - [⇲ Benchmark Result](https://github.com/samchon/typia/tree/master/benchmark/results/11th%20Gen%20Intel(R)%20Core(TM)%20i5-1135G7%20%40%202.40GHz)

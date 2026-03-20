@@ -57,7 +57,7 @@ const HomeLlmMovie = () => (
             color: "rgba(255,255,255,0.95)",
           }}
         >
-          LLM Function Calling
+          LLM Function Calling Harness
         </Typography>
         <Typography
           variant="body1"
@@ -68,9 +68,9 @@ const HomeLlmMovie = () => (
             mx: "auto",
           }}
         >
-          Generate function calling schemas directly from TypeScript types.
+          Schema generation + lenient parsing + type coercion + validation feedback.
           <br />
-          Validation feedback boosts up LLM function calling success rates.
+          The deterministic harness that turns 6.75% LLM accuracy into 100%.
         </Typography>
       </Box>
       <Grid container spacing={4} alignItems="stretch">

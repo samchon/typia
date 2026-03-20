@@ -1,0 +1,882 @@
+---
+title: "Function Calling Harness: How TypeScript Types Turn 6.75% LLM Accuracy Into 100%"
+published: true
+description: "LLMs fail 93% of the time on complex function calls. The fix isn't a better model or a smarter prompt — it's a harness. Type schema + lenient parsing + type coercion + validation feedback = deterministic convergence. Here's how typia builds it from a single TypeScript type."
+tags: typescript, ai, llm, webdev
+cover_image: https://typia.io/logo.png
+canonical_url: https://typia.io/docs/llm/application/
+---
+
+# Function Calling Harness: How TypeScript Types Turn 6.75% LLM Accuracy Into 100%
+
+6.75%.
+
+That's the probability that an LLM produces a valid result on its first attempt when filling complex, recursive union types through function calling. 93 out of 100 fail.
+
+With a **function calling harness**, that number becomes 100%. Not 99%. Not 99.9%. **100%.**
+
+The difference isn't a better model. It isn't a smarter prompt. It's infrastructure.
+
+A climbing harness doesn't make you stronger — it makes your strength safe. A test harness doesn't make code correct — it makes bugs visible. A **function calling harness** doesn't make the LLM smarter — it makes the LLM's mistakes correctable.
+
+Type schema constrains the output. Lenient parsing recovers broken JSON. Type coercion fixes wrong types. Validation pinpoints errors. Structured feedback tells the LLM exactly what to fix. The LLM corrects and retries. This deterministic loop around a probabilistic model **is** the harness.
+
+**It matters more than the model inside it.**
+
+This article shows how [**typia**](https://github.com/samchon/typia) — a TypeScript compiler library — builds this entire harness from a single type definition.
+
+---
+
+## TL;DR
+
+1. **The Problem** — LLMs fail constantly on complex function calls. Union types, recursive structures, deeply nested schemas — raw accuracy can be as low as 0%.
+2. **The Harness** — A four-layer pipeline that turns failures into successes:
+   - Schema generation from TypeScript types
+   - Lenient JSON parsing (broken syntax recovery)
+   - Schema-based type coercion (wrong types → correct types)
+   - Validation feedback (`// ❌` inline error annotations)
+3. **One Type Does Everything** — Define a TypeScript type. Typia generates the schema, the parser, the coercer, the validator, and the feedback formatter. All from that one type.
+4. **Production Proof** — [AutoBe](https://github.com/wrtnlabs/autobe), an AI backend code generator, achieves 100% compilation success across multiple LLM models using this exact harness. Including models that start at 6.75%. Including models that start at 0%.
+5. **Why Harness > Prompt** — Types eliminate ambiguity. Schemas constrain through absence, not prohibition. The harness is model-neutral, mechanically verifiable, and deterministically convergent.
+
+---
+
+## Table of Contents
+
+1. [Why LLMs Fail at Function Calling](#1-why-llms-fail-at-function-calling)
+2. [The Four Layers of the Harness](#2-the-four-layers-of-the-harness)
+3. [Layer 1: Schema Generation from Types](#3-layer-1-schema-generation-from-types)
+4. [Layer 2: Lenient JSON Parsing](#4-layer-2-lenient-json-parsing)
+5. [Layer 3: Schema-Based Type Coercion](#5-layer-3-schema-based-type-coercion)
+6. [Layer 4: Validation Feedback](#6-layer-4-validation-feedback)
+7. [The Complete Harness Loop](#7-the-complete-harness-loop)
+8. [One Type Does It All](#8-one-type-does-it-all)
+9. [Integrations: Vercel AI · LangChain · MCP](#9-integrations-vercel-ai--langchain--mcp)
+10. [Production Proof: AutoBe](#10-production-proof-autobe)
+11. [Why Harness, Not Prompt](#11-why-harness-not-prompt)
+12. [Why Not Zod?](#12-why-not-zod)
+13. [Beyond the Token Limit: Incremental Structured Output](#13-beyond-the-token-limit-incremental-structured-output)
+14. [Closing: Don't Build a Better Prompt](#14-closing-dont-build-a-better-prompt)
+
+---
+
+## 1. Why LLMs Fail at Function Calling
+
+LLM function calling looks simple on the surface. You give the LLM a JSON Schema, it returns structured data matching that schema. OpenAI, Anthropic, Google, Meta — every major provider supports it.
+
+The problem is that **LLMs are language models, not JSON generators**. They predict the next token based on probability. They don't understand schemas — they approximate them. And approximation breaks down on complexity.
+
+### Simple types work fine
+
+```typescript
+interface IGreeting {
+  name: string;
+  message: string;
+}
+```
+
+Any LLM handles this. Two string fields. Near-100% accuracy.
+
+### Complex types break everything
+
+Real applications don't have two string fields. They have this:
+
+```typescript
+// 10 variants, recursively nested
+type IJsonSchema =
+  | IJsonSchema.IConstant
+  | IJsonSchema.IBoolean
+  | IJsonSchema.IInteger
+  | IJsonSchema.INumber
+  | IJsonSchema.IString
+  | IJsonSchema.IArray      // items: IJsonSchema ← recursive
+  | IJsonSchema.IObject     // properties: Record<string, IJsonSchema> ← recursive
+  | IJsonSchema.IReference
+  | IJsonSchema.IOneOf      // oneOf: IJsonSchema[] ← recursive
+  | IJsonSchema.INull;
+```
+
+Or this:
+
+```typescript
+// 30+ variants, recursively nested — a full expression AST
+type IExpression =
+  | IBooleanLiteral
+  | INumericLiteral
+  | IStringLiteral
+  | IArrayLiteralExpression   // <- recursive (contains IExpression[])
+  | IObjectLiteralExpression  // <- recursive (contains IExpression)
+  | INullLiteral
+  | IUndefinedKeyword
+  | IIdentifier
+  | IPropertyAccessExpression // <- recursive
+  | IElementAccessExpression  // <- recursive
+  | IBinaryExpression         // <- recursive (left & right)
+  | IArrowFunction            // <- recursive (body is IExpression)
+  | ICallExpression           // <- recursive (args are IExpression[])
+  | IConditionalPredicate     // <- recursive (then & else branches)
+  | ... // 30+ expression types total
+```
+
+Union types. Recursive nesting. Unlimited depth. This is where the 6.75% comes from — the raw function calling success rate for complex types like these.
+
+### The failure modes are diverse
+
+LLMs don't fail in one way. They fail in every way simultaneously:
+
+- **Wrong types**: `"42"` (string) instead of `42` (number)
+- **Double-stringified objects**: `"{\"type\":\"card\"}"` instead of `{"type":"card"}`
+- **Broken JSON**: unclosed brackets, trailing commas, unquoted keys
+- **Markdown wrapping**: `` ```json ... ``` `` around the output
+- **Explanation prefix**: `"Here's your result: {..."` before the JSON
+- **Incomplete keywords**: `tru` instead of `true`
+- **Wrong values**: negative prices, invalid emails, decimal quantities
+- **Missing fields**: required properties silently omitted
+
+A single LLM output can contain **all of these problems at once**. And `JSON.parse()` rejects every one of them.
+
+This is not a model problem. It's not a prompt problem. **It's an infrastructure problem.**
+
+---
+
+## 2. The Four Layers of the Harness
+
+The function calling harness is a four-layer pipeline. Each layer handles a different class of failure:
+
+```
+TypeScript Type
+     │
+     ▼
+┌─────────────────────────────────────────┐
+│  Layer 1: Schema Generation             │
+│  TypeScript type → JSON Schema          │
+│  (compile-time, zero runtime cost)      │
+└────────────────────┬────────────────────┘
+                     │
+              LLM receives schema,
+              returns raw output
+                     │
+                     ▼
+┌─────────────────────────────────────────┐
+│  Layer 2: Lenient JSON Parsing          │
+│  Broken JSON → valid JavaScript object  │
+│  (handles 7+ syntax issues at once)     │
+└────────────────────┬────────────────────┘
+                     │
+                     ▼
+┌─────────────────────────────────────────┐
+│  Layer 3: Type Coercion                 │
+│  Wrong types → correct types            │
+│  (schema-driven, recursive)             │
+└────────────────────┬────────────────────┘
+                     │
+                     ▼
+┌─────────────────────────────────────────┐
+│  Layer 4: Validation Feedback           │
+│  Invalid values → precise error report  │
+│  (// ❌ inline annotations)             │
+│  → LLM reads, corrects, retries        │
+└─────────────────────────────────────────┘
+```
+
+Each layer catches what the previous one didn't. Together, they form a **deterministic correction loop** around a probabilistic model.
+
+Let's look at each layer in detail.
+
+---
+
+## 3. Layer 1: Schema Generation from Types
+
+Function calling requires a JSON Schema that tells the LLM "give me data in this structure." Normally, developers write these schemas by hand — define the type, write a matching schema separately, keep the two in sync forever.
+
+[**Typia**](https://github.com/samchon/typia) automates this. Define a TypeScript type, and typia **automatically generates** its JSON Schema **at compile time**:
+
+```typescript
+import typia, { tags } from "typia";
+
+interface IMember {
+  /**
+   * The member's age.
+   *
+   * Only adults aged 19 or older can register.
+   */
+  age: number & tags.Type<"uint32"> & tags.ExclusiveMinimum<18>;
+  email: string & tags.Format<"email">;
+  name: string & tags.MinLength<1> & tags.MaxLength<100>;
+}
+
+const schema = typia.llm.parameters<IMember>();
+// {
+//   type: "object",
+//   properties: {
+//     age: {
+//       type: "integer",
+//       description: "The member's age.\n\nOnly adults aged 19 or older...",
+//       exclusiveMinimum: 18
+//     },
+//     email: { type: "string", format: "email" },
+//     name: { type: "string", minLength: 1, maxLength: 100 }
+//   },
+//   required: ["age", "email", "name"]
+// }
+```
+
+Two things make this powerful for the harness.
+
+**First, JSDoc comments become `description` fields.** The LLM reads these descriptions to decide what values to generate. "Only adults aged 19 or older can register" is automatically included in the schema — the type informs the model.
+
+**Second, type constraints become validation rules.** `ExclusiveMinimum<18>` becomes a "> 18" rule; `Format<"email">` becomes an email format check. One type definition produces both LLM guidance and validation rules simultaneously.
+
+Hand-written schemas inevitably drift from types over time. Typia eliminates this:
+
+> **The type is the schema. The constraints the LLM sees and the constraints the validator enforces are always identical, because they come from the same source.**
+
+This is the harness's first guarantee.
+
+At the class level, `typia.llm.application<Class>()` scales this to entire APIs — every public method becomes a function calling schema with `parse()`, `coerce()`, and `validate()` built in:
+
+```typescript
+import typia from "typia";
+
+class BbsArticleService {
+  /**
+   * Create a new article.
+   *
+   * Writes a new article and archives it into the DB.
+   */
+  create(props: {
+    /** Information of the article to create */
+    input: IBbsArticle.ICreate;
+  }): Promise<IBbsArticle> { /* ... */ }
+
+  /** Erase an article by its ID. */
+  erase(props: {
+    id: string & tags.Format<"uuid">;
+  }): Promise<void> { /* ... */ }
+}
+
+const app = typia.llm.application<BbsArticleService>();
+// app.functions[0].name === "create"
+// app.functions[0].parameters === { ... JSON Schema ... }
+// app.functions[0].parse()    — lenient parser
+// app.functions[0].coerce()   — type coercer
+// app.functions[0].validate() — schema validator
+```
+
+---
+
+## 4. Layer 2: Lenient JSON Parsing
+
+LLMs don't produce perfect JSON. They're language models that generate text token by token — not JSON generators. They forget to close brackets, misplace commas, prepend "Here is your answer:" before the JSON, and wrap everything in Markdown code blocks.
+
+`JSON.parse()` rejects all of these. Typia's `ILlmFunction.parse()` handles every case:
+
+| Problem | Example | Resolution |
+|---------|---------|-----------|
+| Unclosed bracket | `{"name": "John"` | Auto-close |
+| Trailing comma | `[1, 2, 3, ]` | Ignore |
+| JavaScript comments | `{"a": 1 /* comment */}` | Strip |
+| Unquoted keys | `{name: "John"}` | Allow |
+| Incomplete keywords | `{"done": tru` | Complete to `true` |
+| Explanation prefix | `Here is your JSON: {"a": 1}` | Skip |
+| Markdown code block | `` ```json\n{"a": 1}\n``` `` | Extract inner |
+
+In real LLM outputs, these problems occur **simultaneously**:
+
+```typescript
+const llmOutput = `
+  > I'd be happy to help you with your order!
+  \`\`\`json
+  {
+    "order": {
+      "payment": "{\\"type\\":\\"card\\",\\"cardNumber\\":\\"1234-5678",
+      "product": {
+        name: "Laptop",
+        price: "1299.99",
+        quantity: 2,
+      },
+      "customer": {
+        "name": "John Doe",
+        "email": "john@example.com",
+        vip: tru
+  \`\`\` `;
+
+const result = func.parse(llmOutput);
+// Markdown code block ✓  explanation prefix ✓  unquoted keys ✓
+// trailing comma ✓  double-stringify ✓  string→number ✓
+// incomplete keyword ✓  unclosed brackets ✓
+// 8 problems at once, all handled by a single parse() call.
+```
+
+### Why existing JSON repair tools aren't enough
+
+Most JSON repair tools (jsonrepair, dirty-json, LangChain's `parse_partial_json`) work at the **string level** — fix trailing commas, close brackets, strip Markdown, then pass to `JSON.parse()`.
+
+But a double-stringified value like `"{\\"type\\":\\"card\\"}"` passes through unscathed — it's already valid JSON (it's a string). Without knowing the schema, there's no way to know it should be an object.
+
+Typia's `parse()` works differently. It parses greedily while **consulting the schema**. When it encounters a string where the schema expects an object, it re-enters `parse()` on that string, applying the same lenient recovery. Parsing and coercion call each other recursively, unwinding layers of stringify naturally — double, triple, however deep.
+
+**This is the harness's second layer: it doesn't just validate correct output — it recovers broken output.**
+
+---
+
+## 5. Layer 3: Schema-Based Type Coercion
+
+LLMs frequently get types wrong. `"42"` (a string) where `42` (a number) is expected. `"true"` (a string) where `true` (a boolean) is expected. A human would see these as equivalent; to a program they're completely different types.
+
+Naive casting can't solve this. Whether `"42"` should be a number or remain a string depends entirely on the schema for that field.
+
+Typia's `ILlmFunction.coerce()` consults the JSON Schema and converts values accordingly:
+
+| LLM output | Expected type | Result |
+|-----------|--------------|--------|
+| `"42"` | `number` or `integer` | `42` |
+| `"true"` / `"false"` | `boolean` | `true` / `false` |
+| `"null"` | `null` | `null` |
+| `"{\"x\": 1}"` | `object` | `{ x: 1 }` (recursive parsing) |
+| `"[1, 2, 3]"` | `array` | `[1, 2, 3]` (recursive parsing) |
+
+In practice:
+
+```typescript
+const fromLlm = {
+  order: {
+    payment: '{"type":"card","cardNumber":"1234-5678"}',  // double-stringify
+    product: {
+      name: "Laptop",
+      price: "1299.99",     // string → number
+      quantity: "2",         // string → integer
+    },
+    customer: {
+      name: "John Doe",
+      vip: "true",           // string → boolean
+    },
+  },
+};
+
+const result = func.coerce(fromLlm);
+// result.order.product.price === 1299.99      (number)
+// result.order.product.quantity === 2          (integer)
+// result.order.customer.vip === true           (boolean)
+// result.order.payment === { type: "card", cardNumber: "1234-5678" }  (object)
+```
+
+### The 0% → 100% case
+
+The `Qwen3.5` model shows **0% success rate** when handling union types with double-stringified JSON objects. Every `anyOf` field, every time — the object is returned as a string containing JSON instead of as an object.
+
+This isn't Qwen-specific. Anthropic's Claude does the same with `oneOf`. Every model family has its union-type blind spot.
+
+With `ILlmFunction.parse()` type coercion, the success rate jumps to **100%**. No changes to the model. No prompt tuning. The harness absorbed it.
+
+### When to use `coerce()` vs `parse()`
+
+| Scenario | Use |
+|----------|-----|
+| Raw JSON string from LLM | `func.parse()` |
+| SDK returns parsed object (Anthropic, Vercel AI, LangChain, MCP) | `func.coerce()` |
+
+Some LLM SDKs parse JSON internally and return JavaScript objects. Use `coerce()` to fix types without re-parsing.
+
+---
+
+## 6. Layer 4: Validation Feedback
+
+Even after parsing and coercion, the **values** themselves can be wrong. A negative price, a non-email string in an email field, a decimal where an integer is required.
+
+Typia's `ILlmFunction.validate()` detects these schema violations and pinpoints **exactly where and why**:
+
+```typescript
+const result = func.validate(input);
+// Error example:
+// {
+//   path: "$input.order.product.price",
+//   expected: "number & Minimum<0>",
+//   value: -100
+// }
+```
+
+"The price inside product inside order must be >= 0, but you gave -100."
+
+### The feedback format
+
+`LlmJson.stringify()` renders these errors as `// ❌` inline annotations directly onto the LLM's original JSON:
+
+```json
+{
+  "order": {
+    "payment": {
+      "type": "card",
+      "cardNumber": 12345678 // ❌ [{"path":"$input.order.payment.cardNumber","expected":"string"}]
+    },
+    "product": {
+      "name": "Laptop",
+      "price": -100, // ❌ [{"path":"$input.order.product.price","expected":"number & Minimum<0>"}]
+      "quantity": 2.5 // ❌ [{"path":"$input.order.product.quantity","expected":"number & Type<\"uint32\">"}]
+    },
+    "customer": {
+      "name": "John Doe",
+      "email": "invalid-email", // ❌ [{"path":"$input.order.customer.email","expected":"string & Format<\"email\">"}]
+      "vip": "yes" // ❌ [{"path":"$input.order.customer.vip","expected":"boolean"}]
+    }
+  }
+}
+```
+
+The LLM sees exactly where it went wrong, right on top of its own JSON. No need to rewrite everything — correct the five flagged fields and retry.
+
+**This is the harness's feedback channel: precise, structured, actionable.**
+
+### Why precision matters
+
+Generic error messages like "invalid input" or "doesn't match schema" give the LLM nothing to work with. The LLM has to guess what's wrong and often makes new mistakes while fixing old ones.
+
+Typia's per-field, per-path feedback lets the LLM **surgically correct** only the broken parts. This is why convergence is fast — typically 1–2 retries, rarely more than 3.
+
+### Union type precision
+
+On union types, most validators fail catastrophically. A 10-variant union produces errors for all variants, flooding the LLM with noise. Or worse — the wrong variant's errors, sending the LLM down the wrong correction path.
+
+Typia **structurally identifies the intended variant** by analyzing the data's shape, then generates precise per-field errors against that variant's schema. Not "doesn't match any of 10 variants," but "card variant's `cardNumber` should be string, but you gave number."
+
+---
+
+## 7. The Complete Harness Loop
+
+Combining everything into a single loop:
+
+```typescript
+import { LlmJson } from "@typia/utils";
+
+async function callWithHarness(
+  llm: LLM,
+  func: ILlmFunction,
+  prompt: string,
+  maxRetries: number = 10,
+): Promise<unknown> {
+  let feedback: string | null = null;
+
+  for (let i = 0; i < maxRetries; i++) {
+    // 1. Request function call from LLM (with previous feedback if any)
+    const rawOutput = await llm.call(prompt, feedback);
+
+    // 2. Lenient JSON parsing + type coercion (Layer 2 + 3)
+    const parsed = func.parse(rawOutput);
+    if (!parsed.success) {
+      feedback = `JSON parsing failed: ${JSON.stringify(parsed.errors)}`;
+      continue;
+    }
+
+    // 3. Schema validation (Layer 4)
+    const validated = func.validate(parsed.data);
+    if (!validated.success) {
+      // 4. Generate structured feedback (// ❌ inline annotations)
+      feedback = LlmJson.stringify(validated);
+      continue;
+    }
+
+    // 5. Success — validated data is ready to use
+    return validated.data;
+  }
+  throw new Error("Max retries exceeded");
+}
+```
+
+`parse()` rescues broken JSON and performs first-pass type correction. `validate()` catches schema violations. `LlmJson.stringify()` renders errors in a format the LLM can read. The LLM corrects itself and retries.
+
+**This is the complete function calling harness. The engine that turns 6.75% into 100%.**
+
+---
+
+## 8. One Type Does It All
+
+Define a single TypeScript type, and typia handles the rest:
+
+```typescript
+import typia, { tags } from "typia";
+import { LlmJson } from "@typia/utils";
+
+interface IOrder {
+  payment: IPayment;
+  product: {
+    name: string;
+    price: number & tags.Minimum<0>;
+    quantity: number & tags.Type<"uint32">;
+  };
+  customer: {
+    name: string;
+    email: string & tags.Format<"email">;
+    vip: boolean;
+  };
+}
+type IPayment =
+  | { type: "card"; cardNumber: string }
+  | { type: "bank"; accountNumber: string };
+
+// From this ONE type definition, typia generates:
+const app = typia.llm.application<OrderService>();
+const func = app.functions[0];
+
+func.parameters;  // 1. JSON Schema (for LLM)
+func.parse();     // 2. Lenient parser + type coercion
+func.coerce();    // 3. Type coercion for pre-parsed objects
+func.validate();  // 4. Schema validation
+LlmJson.stringify(); // 5. LLM-readable error feedback
+```
+
+**The type is the schema, the validator, and the prompt. The harness is everything around it.**
+
+No other tool provides this complete pipeline. Individual pieces exist elsewhere — JSON repair libraries handle broken syntax, Pydantic offers validation, some frameworks have retry loops. But the schema-driven recursive cycle of `parse()` ↔ `coerce()`, combined with structural variant identification and inline error feedback, exists only in typia.
+
+---
+
+## 9. Integrations: Vercel AI · LangChain · MCP
+
+The harness isn't just a concept — it's embedded in every typia integration. Validation feedback, lenient parsing, and type coercion work automatically in all supported frameworks.
+
+### Vercel AI SDK
+
+```typescript
+import { openai } from "@ai-sdk/openai";
+import { toVercelTools } from "@typia/vercel";
+import { generateText, Tool } from "ai";
+import typia from "typia";
+
+import { BbsArticleService } from "./BbsArticleService";
+
+const tools: Record<string, Tool> = toVercelTools({
+  controllers: [
+    typia.llm.controller<BbsArticleService>(
+      "bbs",
+      new BbsArticleService(),
+    ),
+  ],
+});
+
+const result = await generateText({
+  model: openai("gpt-4o"),
+  tools,
+  prompt: "I want to create a new article about TypeScript",
+});
+// Harness is automatic: parse → coerce → validate → feedback → retry
+```
+
+### LangChain
+
+```typescript
+import { DynamicStructuredTool } from "@langchain/core/tools";
+import { toLangChainTools } from "@typia/langchain";
+import typia from "typia";
+
+const tools: DynamicStructuredTool[] = toLangChainTools({
+  controllers: [
+    typia.llm.controller<BbsArticleService>(
+      "bbs",
+      new BbsArticleService(),
+    ),
+  ],
+});
+// Every tool has the harness built in
+```
+
+### MCP (Model Context Protocol)
+
+```typescript
+import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { registerMcpControllers } from "@typia/mcp";
+import typia from "typia";
+
+const server: McpServer = new McpServer({
+  name: "my-server",
+  version: "1.0.0",
+});
+
+registerMcpControllers({
+  server,
+  controllers: [
+    typia.llm.controller<BbsArticleService>(
+      "bbs",
+      new BbsArticleService(),
+    ),
+  ],
+});
+// MCP tools with full harness: validation feedback, type coercion, everything
+```
+
+### From OpenAPI Documents
+
+The harness also works with REST APIs via OpenAPI/Swagger documents:
+
+```typescript
+import { HttpLlm } from "@typia/utils";
+
+const controller = HttpLlm.controller({
+  name: "shopping",
+  document: await fetch(
+    "https://shopping-be.wrtn.ai/editor/swagger.json",
+  ).then((r) => r.json()),
+  connection: {
+    host: "https://shopping-be.wrtn.ai",
+    headers: { Authorization: "Bearer ********" },
+  },
+});
+// Every API endpoint becomes a harnessed tool
+```
+
+Plug this controller into Vercel AI, LangChain, or MCP — the same harness applies.
+
+---
+
+## 10. Production Proof: AutoBe
+
+Theory is nice. Production numbers are better.
+
+[**AutoBe**](https://github.com/wrtnlabs/autobe) is an open-source AI agent that generates production-ready backends from natural language. Developed by [Wrtn Technologies](https://wrtn.io), it generates requirements analysis, database schemas, API specifications, E2E test code, and complete implementation code — all from a single conversation.
+
+**The LLM never writes code.** It fills typed structures through function calling. A compiler converts those structures into actual code. The entire pipeline is typia's function calling harness.
+
+### The types are brutally complex
+
+The structures the LLM must fill include:
+
+- [**AutoBeDatabase**](https://github.com/wrtnlabs/autobe/blob/main/packages/interface/src/database/AutoBeDatabase.ts) — Prisma schema structure
+- [**AutoBeOpenApi**](https://github.com/wrtnlabs/autobe/blob/main/packages/interface/src/openapi/AutoBeOpenApi.ts) — OpenAPI spec with recursive `IJsonSchema` (10 variants)
+- [**AutoBeTest**](https://github.com/wrtnlabs/autobe/blob/main/packages/interface/src/test/AutoBeTest.ts) — Full expression AST with `IExpression` (30+ variants)
+
+These are compiler-level AST types. Unlimited union types, unlimited depth, recursive references. This is where 6.75% comes from.
+
+### The results
+
+| Model | Active params | Raw accuracy | With harness |
+|-------|--------------|-------------|-------------|
+| `qwen3-coder-next` | 3B / 80B | 6.75% | **100%** |
+| `qwen3.5-397b-a17b` | 17B / 397B | Higher | **100%** |
+| `qwen3.5-122b-a10b` | 10B / 122B | Higher | **100%** |
+| `qwen3.5-35b-a3b` | 3B / 35B | Higher | **100%** |
+
+From 397B parameters down to 35B. Even a compact model with 3B active parameters can generate a complete shopping mall backend. Same harness, same schemas, same result.
+
+### The harness ran without prompts
+
+Here's an anecdote from AutoBe's development:
+
+> Once, we shipped a build where the system prompt was completely missing. The agent ran on nothing but function calling schemas and validation logic. No natural language instructions whatsoever.
+>
+> **Nobody noticed.** Output quality was identical.
+>
+> This wasn't a one-time fluke. It happened multiple times, same result every time.
+
+The implication is stark. The thing that mattered wasn't what they told the LLM in English. It was the type schemas that constrained its output, and the validation loop that corrected its mistakes.
+
+**The types were the best prompt. The harness was the best orchestration.**
+
+---
+
+## 11. Why Harness, Not Prompt
+
+Prompt engineering tinkers with the inside of the model. The harness makes the outside rock-solid.
+
+### Natural language vs. types
+
+Expressing constraints via prompt:
+
+> "The age field must be a positive integer greater than 18. Don't use string types for numeric fields. All required fields must be present..."
+
+Does "greater than 18" mean >18 or >=18? No way to verify without inspecting the output. As the schema grows, rules multiply endlessly.
+
+Expressing constraints via types:
+
+```typescript
+interface IMember {
+  /** Only adults aged 19 or older can register */
+  age: number & tags.Type<"uint32"> & tags.ExclusiveMinimum<18>;
+}
+```
+
+`ExclusiveMinimum<18>` means >18. It's an integer. It's required. **Unambiguous and mechanically verifiable.**
+
+### The Pink Elephant Problem
+
+"Don't think of a pink elephant." A pink elephant is the first thing that comes to mind.
+
+When you tell an LLM "don't do X," X is placed at the center of its attention. To avoid a forbidden pattern, the model must first recall that pattern — which paradoxically increases the probability of generating it.
+
+Prompt engineering relies on prohibition:
+- "Do not create utility functions"
+- "Do not use the `any` type"
+- "Do not create circular dependencies"
+
+**In schemas, this problem vanishes.**
+
+If `any` isn't in the schema, the LLM physically can't produce it. If there's no slot for utility functions, that's the end of it. If the field type is limited to `"boolean" | "int" | "double" | "string"` — four options — there's no path for the LLM to write `"varchar"`.
+
+Not prohibition, but **absence**. Prompts forbid what you don't want. Schemas permit only what you do.
+
+### Model neutrality
+
+Prompt engineering is inherently model-dependent. A prompt optimized for GPT behaves differently on Claude, and differently again on Qwen.
+
+The harness is model-neutral. JSON Schema means the same thing regardless of which model reads it. The validation feedback loop absorbs performance differences: a strong model converges in 1–2 attempts; a weaker model takes 3–4; both reach 100%.
+
+AutoBe running Qwen, GLM, DeepSeek, and OpenAI models on **the same schemas, the same pipeline**, achieving 100% compilation across the board, is proof of this neutrality.
+
+Model selection becomes a **cost optimization problem** — `average retries × tokens per attempt × price per token` — not a capability question.
+
+### The core: verifiability
+
+The harness's fundamental advantage is that **it brings LLM output into the domain of software engineering**.
+
+Freeform text output makes correctness an AI problem. Parsing is fuzzy. Validation is fuzzy. Correction is fuzzy.
+
+Structured output makes correctness an engineering problem:
+
+1. **Verification is deterministic** — JSON Schema validation yields a clear pass/fail
+2. **Feedback is precise** — "field X should be type Y, but you gave Z"
+3. **Correction converges** — precise feedback enables the model to fix only the affected parts
+
+> **Type Schema + Deterministic Validator + Structured Feedback = Harness**
+
+Prompt engineering tries to make the probabilistic part reliable. The harness makes the deterministic part airtight.
+
+---
+
+## 12. Why Not Zod?
+
+Zod is the most popular runtime validation library in TypeScript. "Why not Zod?" is a question we hear often.
+
+### Problem 1: Dual definitions
+
+Zod's documentation states explicitly: recursive schemas require separate TypeScript type definitions because `z.infer` doesn't work with `z.lazy()`:
+
+```typescript
+// 1. Define the TypeScript type
+type IExpression =
+  | { type: "boolean"; value: boolean }
+  | { type: "call"; expression: IExpression; arguments: IExpression[] }
+  // ... 28 more
+
+// 2. Define the Zod schema separately
+const ExpressionSchema: z.ZodType<IExpression> = z.lazy(() =>
+  z.discriminatedUnion("type", [
+    z.object({ type: z.literal("boolean"), value: z.boolean() }),
+    z.object({
+      type: z.literal("call"),
+      expression: ExpressionSchema,
+      arguments: z.array(ExpressionSchema),
+    }),
+    // ... 28 more
+  ])
+);
+```
+
+For a 30+ variant recursive union, this dual definition runs to hundreds of lines. Over time the two drift apart, and nothing catches the mismatch.
+
+### Problem 2: Compilation failure
+
+As recursive union depth increases, you hit TypeScript's generic instantiation limit:
+
+> `TS2589: Type instantiation is excessively deep and possibly infinite.`
+
+With native TypeScript types, recursive references are name lookups — **O(N) linear**. In Zod, `z.discriminatedUnion` is a deeply nested generic that TypeScript must structurally expand — **O((N·K)^d) exponential**. For N=30 variants, this crashes the type checker. The IDE freezes. The project becomes unworkable.
+
+This is the most recurrently reported error in Zod's tracker: [#577](https://github.com/colinhacks/zod/issues/577), [#5064](https://github.com/colinhacks/zod/issues/5064), [#5256](https://github.com/colinhacks/zod/issues/5256).
+
+### Problem 3: No precise feedback for unions
+
+**This is the critical problem for the harness.**
+
+When validation fails on a union type, Zod can't determine "which variant was intended." Errors flood out for all variants, or — on discriminator mismatch — other field errors are silently hidden. In Zod v4, discriminator mismatch returns an empty error array and "No matching discriminator."
+
+From the LLM's perspective: if it intended a `callExpression` variant but got the `arguments` field's type wrong, it needs "arguments should be an IExpression array, but you gave a string." Zod says "doesn't match any of 10 variants."
+
+**Feedback that doesn't tell you what to fix isn't feedback. Without precise feedback, the harness loop can't converge.**
+
+### With typia: one line
+
+```typescript
+const result = typia.validate<IExpression>(llmOutput);
+```
+
+It operates at the compiler level. No separate schemas, no generic depth limits, no incomplete errors. The harness simply cannot be built on Zod.
+
+---
+
+## 13. Beyond the Token Limit: Incremental Structured Output
+
+Function calling has an unspoken constraint: **the entire JSON must fit in a single response.** If the model's max output is 32K tokens and the target JSON is 100K tokens, the output gets truncated mid-JSON. With `JSON.parse()`, truncated JSON is failed JSON.
+
+Typia's schema-driven lenient parsing changes this equation. Because `parse()` auto-closes unclosed brackets, completes incomplete values, and applies type coercion recursively — a truncated JSON isn't a failure. It's a `DeepPartial<T>`: a typed object where completed fields are valid and missing fields are identifiable by the schema.
+
+```
+Turn 1: LLM generates 32K tokens → truncated mid-JSON
+         → typia parse() → DeepPartial<T>
+         → Schema diff: "these fields are still missing"
+
+Turn 2: "Fill in the remaining fields" + previous DeepPartial<T>
+         → LLM generates next chunk → typia parse()
+         → DeepPartial<T> updated, validate() on completed subtrees
+
+Turn N: → All fields present → validate() passes → T
+```
+
+At each turn, `parse()` recovers the truncated output, `coerce()` ensures correct types on what exists, and `validate()` can run on completed subtrees before the whole object is finished.
+
+**Function calling's output size is no longer bounded by `max_output_tokens`.** A 200K-token JSON can be built incrementally across multiple turns, with type safety maintained at every step.
+
+The harness doesn't just validate. It enables.
+
+---
+
+## 14. Closing: Don't Build a Better Prompt
+
+The harness is three things:
+1. **Type schemas** that constrain the output
+2. **Parsers and coercers** that recover from mistakes
+3. **Validators and feedback** that correct what remains
+
+Together they form a deterministic loop around a probabilistic model. This pattern isn't limited to code generation — any domain with deterministic validators can build the same harness.
+
+When you communicate in types, there's no misunderstanding. When you constrain with schemas, there's no pink elephant. When you have a deterministic harness, even 6.75% becomes 100%.
+
+**Don't build a better prompt. Build a better harness.**
+
+**The LLM doesn't need to be accurate. It just needs to be harnessed.**
+
+---
+
+## Getting Started
+
+```bash
+npm install typia @typia/utils
+npx typia setup
+```
+
+```typescript
+import typia, { tags } from "typia";
+import { LlmJson } from "@typia/utils";
+
+// Define your type — this IS the harness
+interface IMyData {
+  /** User's email address */
+  email: string & tags.Format<"email">;
+  /** Age (must be 18+) */
+  age: number & tags.ExclusiveMinimum<17>;
+}
+
+// Generate everything from one type
+const app = typia.llm.application<MyService>();
+
+// Or use with frameworks directly
+import { toVercelTools } from "@typia/vercel";
+import { toLangChainTools } from "@typia/langchain";
+import { registerMcpControllers } from "@typia/mcp";
+```
+
+- [typia documentation](https://typia.io/docs/llm/application/)
+- [GitHub repository](https://github.com/samchon/typia)
+- [AutoBe — the harness in production](https://github.com/wrtnlabs/autobe)
+- [Qwen Korea Meetup presentation](https://github.com/wrtnlabs/autobe) (AutoBe's perspective on the harness)
+
+---
+
+*The harness concept was battle-tested in the [AutoBe](https://github.com/wrtnlabs/autobe) project by [Wrtn Technologies](https://wrtn.io), an AI-powered backend code generator that achieves 100% compilation success across all tested LLM models. The infrastructure is built on [typia](https://github.com/samchon/typia).*
