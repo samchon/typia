@@ -47,7 +47,7 @@ export function toLangChainTools(props: {
 
 Every class method becomes a tool, JSDoc comments become tool descriptions, and TypeScript types become JSON schemas — all at compile time. For OpenAPI documents, every API endpoint is converted to a `DynamicStructuredTool` with schemas from the specification.
 
-Validation feedback is embedded automatically.
+Lenient JSON parsing, type coercion, and validation feedback are all embedded automatically — the complete **function calling harness** that turns unreliable LLM output into 100% correct structured data.
 
 ## Setup
 
@@ -158,9 +158,9 @@ Create controllers from OpenAPI documents with `HttpLlm.controller()`, and pass 
   - `document`: Swagger/OpenAPI document (v2.0, v3.0, or v3.1)
   - `connection`: HTTP connection info including `host` and optional `headers`
 
-## Validation Feedback
+## The Function Calling Harness
 
-`toLangChainTools()` embeds [`typia.validate<T>()`](/docs/validators/validate) in every tool for automatic argument validation. When validation fails, the error is returned as text content with inline `// ❌` comments at each invalid property:
+`toLangChainTools()` embeds the complete **function calling harness** in every tool — lenient JSON parsing, type coercion, and validation feedback all work automatically. When validation fails, the error is returned as text content with inline `// ❌` comments at each invalid property:
 
 ```json
 {
@@ -179,7 +179,7 @@ The LLM reads this feedback and self-corrects on the next turn.
 LangChain internally uses `@cfworker/json-schema` to validate tool arguments, which throws `ToolInputParsingException` before custom validation can run. `@typia/langchain` solves this by using a passthrough Zod schema (`z.record(z.unknown())`), allowing `typia`'s much more detailed and accurate validator to handle all argument validation instead.
 </Callout>
 
-In the [AutoBe](https://github.com/wrtnlabs/autobe) project (AI-powered backend code generator), `qwen3-coder-next` showed only 6.75% raw function calling success rate on compiler AST types. However, with validation feedback, it reached 100%.
+In the [AutoBe](https://github.com/wrtnlabs/autobe) project (AI-powered backend code generator by [Wrtn Technologies](https://wrtn.io)), `qwen3-coder-next` showed only **6.75%** raw function calling success rate on compiler AST types. However, with the complete **function calling harness** (lenient parsing + type coercion + validation feedback), it reached **100%** — across all four tested Qwen models.
 
 Working on compiler AST means working on any type and any use case.
 

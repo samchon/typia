@@ -66,12 +66,12 @@ export namespace json {
   export function assertStringify<T>(input: T): string; // safe and faster
 }
 
-// AI FUNCTION CALLING SCHEMA
+// AI FUNCTION CALLING HARNESS
 export namespace llm {
   // collection of function calling schemas + validators/parsers
   export function application<Class>(): ILlmApplication<Class>;
   export function structuredOutput<P>(): ILlmStructuredOutput;
-  // lenient json parser + type corecion
+  // lenient json parser + type coercion
   export function parse<T>(str: string): T;
 }
 
@@ -90,7 +90,7 @@ export function random<T>(g?: Partial<IRandomGenerator>): T;
 
   - Super-fast Runtime Validators
   - Enhanced JSON functions
-  - LLM function calling schema and structured output
+  - LLM function calling harness
   - Protocol Buffer encoder and decoder
   - Random data generator
 
@@ -104,6 +104,9 @@ export function random<T>(g?: Partial<IRandomGenerator>): T;
   </Alert>
   <Alert severity="info">
     JSON serialization is **200x faster** than `class-transformer`
+  </Alert>
+  <Alert severity="success">
+    LLM function calling harness turns **6.75% → 100%** accuracy
   </Alert>
 </Stack>
 

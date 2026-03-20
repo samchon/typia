@@ -89,7 +89,17 @@ Structured output is another feature of LLM. The "structured output" means that 
   </Tabs.Tab>
 </Tabs>
 
-## Parse & Coerce
+## The Function Calling Harness
+
+The **function calling harness** is typia's three-layer pipeline that turns unreliable LLM output into 100% correct structured data:
+
+1. **Lenient JSON Parsing** — recovers broken JSON (unclosed brackets, trailing commas, markdown wrapping, etc.)
+2. **Type Coercion** — fixes wrong types (`"42"` → `42`, double-stringified objects → objects, etc.)
+3. **Validation Feedback** — pinpoints remaining value errors with inline `// ❌` annotations so the LLM can self-correct and retry
+
+Each layer catches what the previous one didn't. Together they form a deterministic correction loop around the probabilistic LLM.
+
+### Parse & Coerce
 
 <Tabs items={[
     "Parsing Example",
@@ -155,7 +165,7 @@ Some LLM SDKs (Anthropic, Vercel AI, LangChain, MCP) parse JSON internally and r
 For more details, see [JSON Utilities](./json).
 </Callout>
 
-## Validation Feedback
+### Validation Feedback
 
 ```typescript filename="Validation with LLM feedback" showLineNumbers
 import { LlmJson } from "@typia/utils";
@@ -187,7 +197,7 @@ if (parsed.success) {
 
 The LLM reads this feedback and self-corrects on the next turn.
 
-In the [AutoBe](https://github.com/wrtnlabs/autobe) project (AI-powered backend code generator), `qwen3-coder-next` showed only 6.75% raw function calling success rate on compiler AST types. However, with validation feedback, it reached 100%.
+In the [AutoBe](https://github.com/wrtnlabs/autobe) project (AI-powered backend code generator by [Wrtn Technologies](https://wrtn.io)), `qwen3-coder-next` showed only **6.75%** raw function calling success rate on compiler AST types. However, with the complete **function calling harness** (lenient parsing + type coercion + validation feedback), it reached **100%** — across all four tested Qwen models.
 
 ## Config Options
 

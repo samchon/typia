@@ -51,7 +51,7 @@ export namespace LlmJson {
 
 JSON utilities for LLM function calling.
 
-`LlmJson` is a utility module from `@typia/utils` package, specifically designed for LLM (Large Language Model) function calling scenarios. It handles the common issues that arise when working with LLM responses:
+`LlmJson` is a utility module from `@typia/utils` package, specifically designed for LLM (Large Language Model) function calling scenarios. Together, these utilities form the **function calling harness** — handling every common failure mode of LLM responses:
 
 1. **Validation Feedback**: Format validation errors for LLM auto-correction
 2. **Lenient JSON Parsing**: LLMs often produce incomplete, malformed, or non-standard JSON
@@ -121,7 +121,7 @@ This format is designed for LLM auto-correction. The LLM reads this feedback and
   filename="examples/src/llm/application-parse.ts"
   showLineNumbers />
 
-`LlmJson.parse()` is a lenient JSON parser specifically designed for LLM outputs. It combines two capabilities:
+`LlmJson.parse()` is a lenient JSON parser specifically designed for LLM outputs. It combines two capabilities in a single call:
 
 1. **Lenient JSON parsing**: Handles malformed/incomplete JSON that would fail with `JSON.parse()`
 2. **Type coercion**: Fixes double-stringified values based on the expected schema
@@ -190,7 +190,7 @@ If you omit the `parameters` argument, `LlmJson.parse()` still performs lenient 
   filename="examples/src/llm/application-coerce.ts"
   showLineNumbers />
 
-`LlmJson.coerce()` performs type coercion on already-parsed objects. This is the coercion logic from `parse()` extracted for use when you already have a JavaScript object (not a JSON string).
+`LlmJson.coerce()` performs type coercion on already-parsed objects. Use it when an SDK has already parsed the JSON — this is the coercion logic from `parse()` extracted for use when you already have a JavaScript object (not a JSON string).
 
 ### When to Use `coerce()` vs `parse()`
 
@@ -262,7 +262,7 @@ strict({ name: "John", age: 25, extra: "ignored" }); // success: false
 If you have TypeScript types available at compile time, prefer using `typia.validate<T>()` directly. It's faster (AOT-compiled) and provides better error messages. Use `LlmJson.validate()` only when you need runtime schema-based validation.
 </Callout>
 
-## Validation Feedback Loop
+## Validation Feedback Loop (The Complete Harness)
 
 The real power of these utilities is enabling automatic error correction by LLMs:
 
@@ -355,7 +355,7 @@ const main = async (): Promise<void> => {
 };
 ```
 
-This pattern enables LLMs to automatically correct their mistakes by:
+This is the **function calling harness** in action — the same pattern that powers [AutoBe](https://github.com/wrtnlabs/autobe)'s 100% compilation success across all tested LLM models. It enables LLMs to automatically correct their mistakes:
 
 1. Parse LLM response with `func.parse()` (handles malformed JSON + type coercion)
 2. Validate with `func.validate()`

@@ -1,6 +1,14 @@
 "use client";
 
-import { Box, Card, CardActionArea, CardContent, Container, Grid, Typography } from "@mui/material";
+import {
+  Box,
+  Card,
+  CardActionArea,
+  CardContent,
+  Container,
+  Grid,
+  Typography,
+} from "@mui/material";
 import HomeCodeBlock from "../components/home/HomeCodeBlock";
 
 interface FeatureCardProps {
@@ -36,12 +44,17 @@ const features: FeatureCardProps[] = [
   },
   {
     icon: "/images/home/openai.svg",
-    title: "LLM Function Calling",
-    code: { namespace: "llm", method: "application", template: "App", argument: false },
+    title: "AI Function Calling Harness",
+    code: {
+      namespace: "llm",
+      method: "application",
+      template: "App",
+      argument: false,
+    },
     metric: "6.75% → 100%",
-    metricNote: "qwen3-coder-next",
+    metricNote: "in qwen3-coder-next",
     description:
-      "Generate function calling schemas from TypeScript types. Validation feedback, lenient JSON parsing, and type coercion boost LLM success rates.",
+      "The complete function calling harness: schema generation, lenient JSON parsing, type coercion, and validation feedback. One TypeScript type drives everything.",
     href: "/docs/llm/application",
   },
   {
@@ -83,7 +96,13 @@ const FeatureCard = (props: FeatureCardProps) => (
     >
       <CardActionArea
         href={props.href}
-        sx={{ height: "100%", display: "flex", flexDirection: "column", alignItems: "flex-start", p: 0 }}
+        sx={{
+          height: "100%",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "flex-start",
+          p: 0,
+        }}
       >
         <CardContent sx={{ p: 3, width: "100%" }}>
           <Box
@@ -94,7 +113,12 @@ const FeatureCard = (props: FeatureCardProps) => (
           />
           <Typography
             variant="h6"
-            sx={{ fontWeight: 700, fontSize: "1.05rem", mb: 0.5, color: "rgba(255,255,255,0.95)" }}
+            sx={{
+              fontWeight: 700,
+              fontSize: "1.05rem",
+              mb: 0.5,
+              color: "rgba(255,255,255,0.95)",
+            }}
           >
             {props.title}
           </Typography>
@@ -118,8 +142,11 @@ const FeatureCard = (props: FeatureCardProps) => (
                 {props.metric}
               </span>
               {props.metricNote && (
-                <span style={{ color: "rgba(255,255,255,0.45)", fontWeight: 400 }}>
-                  {" "}({props.metricNote})
+                <span
+                  style={{ color: "rgba(255,255,255,0.45)", fontWeight: 400 }}
+                >
+                  {" "}
+                  ({props.metricNote})
                 </span>
               )}
             </Typography>
