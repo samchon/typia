@@ -852,7 +852,7 @@ npx typia setup
 ```
 
 ```typescript
-import typia from "typia";
+import typia, { tags } from "typia";
 import { LlmJson } from "@typia/utils";
 
 // Define your type — this IS the harness
