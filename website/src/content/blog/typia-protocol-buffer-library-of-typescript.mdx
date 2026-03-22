@@ -1,0 +1,424 @@
+---
+title: "[Typia] I made Protocol Buffer library of TypeScript, easiest in the world"
+description: "Outline      import typia, { tags } from \"typia\";  interface IMember {     id: string &amp;..."
+date: "2023-09-18"
+author: "Jeongho Nam"
+ogImage: "https://media2.dev.to/dynamic/image/width=1000,height=500,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fu6ulot5d1jdswskmtwsv.png"
+devtoUrl: "https://dev.to/samchon/typia-i-made-protocol-buffer-library-of-typescript-easiest-in-the-world-20lc"
+tags:
+  - typescript
+  - protobuf
+  - programming
+  - opensource
+---
+## Outline
+```typescript
+import typia, { tags } from "typia";
+
+interface IMember {
+    id: string & tags.Format<"uuid">;
+    email: string & tags.Format<"email">;
+    age: number &
+        tags.Type<"uint32"> &
+        tags.Minimum<20> &
+        tags.ExclusiveMaximum<100>;
+    parent: IMember | null;
+    children: IMember[];
+}
+
+const member: IMember = { ... };
+const encoded: Uint8Array = typia.protobuf.assertEncode(member);
+const decoded: IMember = typia.protobuf.decode<IMember>(encoded);
+```
+
+[`typia`](https://github.com/samchon/typia) has started supporting Protocol Buffer functions.
+
+You can easily use those `protobuf` features with only one line, with pure TypeScript type. You no more need to define extra schema even including `*.proto` file. [`typia`](https://github.com/samchon/typia) will do everything like above example code.
+
+For reference, as [`typia`](https://github.com/samchon/typia) had been developed to support runtime validation (+JSON serialization), I had no plan to support such `protobuf` functions. However, as many users of [`typia`](https://github.com/samchon/typia) had desired that features, I've developed it for two months and introduce you.
+
+  - [Github Repository](https://github.com/samchon/typia)
+  - [Playground website](https://typia.io/playground/)
+  - Guide Documents
+    - [`typia.protobuf.message()` function](https://typia.io/docs/protobuf/message/)
+    - [`typia.protobuf.decode()` functions](https://typia.io/docs/protobuf/decode/)
+    - [`typia.protobuf.encode()` functions](https://typia.io/docs/protobuf/encode/)
+
+
+
+
+## Desires to Protobuf
+```typescript
+// RUNTIME VALIDATORS
+export function is<T>(input: unknown): input is T; // returns boolean
+export function assert<T>(input: unknown): T; // throws TypeGuardError
+export function validate<T>(input: unknown): IValidation<T>; // detailed
+
+// JSON FUNCTIONS
+export namespace json {
+    export function application<T>(): IJsonApplication; // JSON schema
+    export function assertParse<T>(input: string): T; // type safe parser
+    export function assertStringify<T>(input: T): string; // safe and faster
+}
+
+// PROTOCOL BUFFER
+export namespace protobuf {
+    export function message<T>(): string; // Protocol Buffer message
+    export function assertDecode<T>(buffer: Uint8Array): T; // safe decoder
+    export function assertEncode<T>(input: T): Uint8Array; // safe encoder
+}
+
+// RANDOM GENERATOR
+export function random<T>(g?: Partial<IRandomGenerator>): T;
+```
+
+My library [`typia`](https://github.com/samchon/typia) had been developed to support runtime validation, JSON serialization. Especially, I'd emphasized that [`typia`](https://github.com/samchon/typia) can enhance both productivity and performance at the same time. It does not require any extra schema definition like `class-validator` or `zod`, but performance is much faster them.
+
+Also, I'd introduced my another library [`nestia`](https://github.com/samchon/nestia), which utilizes `typia` in the NestJS framework, so that boosts up backend server performance 30x up. And since typia analyzes the NestJS backend source code at the compiler level, I also provided convenient generators such as [SDK](https://nestia.io/docs/sdk/sdk/) and [Mockup Simulator](https://nestia.io/docs/sdk/simulator/).
+
+  - [Only one line required, with pure TypeScript type](https://typia.io/docs/pure/)
+  - Runtime validation is 20,000x faster than `class-validator`
+  - JSON serialization is 200x faster than `class-transformer`
+  - In the backend server, performance be boosted up 30x faster
+
+![Assert Benchmark](https://raw.githubusercontent.com/samchon/typia/master/benchmark/results/12th%20Gen%20Intel(R)%20Core(TM)%20i5-1235U/images/assert.svg)
+
+> [Benchmark on Surface Pro 9, i5-1235u](https://github.com/samchon/typia/tree/master/benchmark/results/12th%20Gen%20Intel(R)%20Core(TM)%20i5-1235U#assert)
+
+By the way, I've got a same request from many users that they want to use Protocol Buffer in the same way, using pure TypeScript type without extra schema definition. I'd rejected the feature request for a long time because I thought the Protocol Buffer feature is not suitable for the main purpose of [`typia`](https://github.com/samchon/typia).
+
+However, such feature request about `protobuf` had repeated repeatedly through issues of repository, and personal email sendings. Users's desire to use Protobuf easily and conveniently was so strong that I could not ignore it anymore. So, I decided to implement the Protocol Buffer feature in [`typia`](https://github.com/samchon/typia).
+
+Therefore, I've implemented the Protocol Buffer features for two months, and introduce you. From now on, you can easily use Protocol Buffer features in [`typia`](https://github.com/samchon/typia), with pure TypeScript type. You no more need to define extra schema even including `*.proto` file. [`typia`](https://github.com/samchon/typia) will do everything for you. It will analyze your TypeScript type, and generate Protocol Buffer schema and de/serializers automatically.
+
+
+
+
+## How to use
+Only one line required.
+
+Just call some of `typia.protobuf` functions with pure TypeScript type, That's all. Then, `typia` will analyze your TypeScript type, and convert the TypeScript type to `protobuf` message schema, so that write optimal protobuf encode (or decode) function automatically.
+
+As you can see from below example code, when TypeScript being compiled to JavaScript, only one line code `typia.protobuf.encode<IMember>()` function be changed to dozens of encoding code. This concept is called AoT (Ahead of Time) compilation, and it is secret of `typia`'s super-fast/easy performance.
+
+  - [Playground link](https://typia.io/playground/?script=JYWwDg9gTgLgBDAnmYBDANHA3g1BzAZzgF84AzKCEOAIiRVRoG4AoF4AOxgFMozUAxtzgBJALLcQAI17YWcBXGAATAFxwCMKJzxwAZLkIA6AGLQQqGAB4aAV1sqaAPlaK4k1MAA26zdo66BjD4BKbmljYe3s6uivjc6hy20rJ68m6KwcYAKsjcNg5cAMwATM766RmGoWKcoMlWJQAMThVVClmhAKIAHgJetgTAAG7cYqg99SBWAIxNLbEKYKhQ3Fzq4pIyUHAAPnBJXl6LcAIAFt7KqxwbEilQANoAuqzEbAIQHJpwIFu8t38dgBebCkVBEVAcRCsD5feBrD7KbhqOAAVU4MAAHABBKBQVCIOAg+hoIxgSgwCBSWxkIwIiBIgAUv3uAEomEA)
+  - [[Typia] Hidden Class Optimization](https://dev.to/samchon/secret-of-typia-how-it-could-be-20000x-faster-validator-hidden-class-optimization-in-v8-engine-1mfb)
+
+```typescript
+import typia, { tags } from "typia";
+
+interface IMember {
+    id: string & tags.Format<"uuid">;
+    email: string & tags.Format<"email">;
+    age: number &
+        tags.Type<"uint32"> &
+        tags.Minimum<20> &
+        tags.ExclusiveMaximum<100>;
+    parent: IMember | null;
+    children: IMember[];
+}
+
+const member: IMember = {} as any;
+const encoded: Uint8Array = typia.protobuf.encode(member);
+```
+
+> ```javascript
+> "use strict";
+> var __importDefault =
+>     (this && this.__importDefault) ||
+>     function (mod) {
+>         return mod && mod.__esModule ? mod : { default: mod };
+>     };
+> Object.defineProperty(exports, "__esModule", { value: true });
+> const typia_1 = __importDefault(require("typia"));
+> const member = {};
+> const encoded = ((input) => {
+>     const $Sizer = typia_1.default.protobuf.encode.Sizer;
+>     const $Writer = typia_1.default.protobuf.encode.Writer;
+>     const encoder = (writer) => {
+>         const $peo0 = (input) => {
+>             // property "id";
+>             writer.uint32(10);
+>             writer.string(input.id);
+>             // property "email";
+>             writer.uint32(18);
+>             writer.string(input.email);
+>             // property "age";
+>             writer.uint32(24);
+>             writer.uint32(input.age);
+>             // property "parent";
+>             if (null !== input.parent) {
+>                 // 4 -> IMember;
+>                 writer.uint32(34);
+>                 writer.fork();
+>                 $peo0(input.parent);
+>                 writer.ldelim();
+>             }
+>             // property "children";
+>             if (0 !== input.children.length) {
+>                 for (const elem of input.children) {
+>                     // 5 -> IMember;
+>                     writer.uint32(42);
+>                     writer.fork();
+>                     $peo0(elem);
+>                     writer.ldelim();
+>                 }
+>             }
+>         };
+>         const $io0 = (input) =>
+>             "string" === typeof input.id &&
+>             /^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|> 00000000-0000-0000-0000-000000000000)$/i.test(
+>                 input.id,
+>             ) &&
+>             "string" === typeof input.email &&
+>             /^(([^<>()[].,;:s@"]+(.[^<>()[].,;:s@"]+)*)|(".+"))@(([^<>()[].,;:s@"]+.)+[^<>()> [].,;:s@"]{2,})$/i.test(
+>                 input.email,
+>             ) &&
+>             "number" === typeof input.age &&
+>             Math.floor(input.age) === input.age &&
+>             0 <= input.age &&
+>             input.age <= 4294967295 &&
+>             20 <= input.age &&
+>             input.age < 100 &&
+>             (null === input.parent ||
+>                 ("object" === typeof input.parent &&
+>                     null !== input.parent &&
+>                     $io0(input.parent))) &&
+>             Array.isArray(input.children) &&
+>             input.children.every(
+>                 (elem) =>
+>                     "object" === typeof elem && null !== elem && $io0(elem),
+>             );
+>         //IMember;
+>         $peo0(input);
+>         return writer;
+>     };
+>     const sizer = encoder(new $Sizer());
+>     const writer = encoder(new $Writer(sizer));
+>     return writer.buffer();
+> })(member);
+> ```
+
+
+
+
+
+## Restrictions
+You know what? Expression power of Protocol Buffer is extremely narrower than type system of TypeScript. For example, Protocol Buffer can't express complicate union type containing array. Also, Protocol Buffer can't express multi dimensional array type, either.
+
+In such reason, when converting TypeScript type to Protocol buffer message schema, lots of restrictions are exist. Let's study which types of TypeScript are not supported in Protocol Buffer. For reference, if you try to call `typia.protobuf.message<T>()` function with unsupported type, [`typia`](https://github.com/samchon/typia) will generate compile errors like below example cases.
+
+At first, top level type must be a sole and static object. 
+
+If you try to use `number` or `Array<T>` type as a top level type, [`typia`](https://github.com/samchon/typia) will generate compile error like below. Dynamic object types like `Record<string, T>`, or `Map<string, T>` types are not allowed either. For reference, the sole object means that, union of object types is not allowed, either.
+
+```typescript
+import typia from "typia";
+
+interface Cat {
+    type: "cat";
+    name: string;
+    ribbon: boolean;
+}
+interface Dog {
+    type: "dog";
+    name: string;
+    hunt: boolean;
+}
+
+typia.protobuf.message<bigint>();
+typia.protobuf.createDecode<Record<string, number>>();
+typia.protobuf.createDecode<Map<number & typia.tags.Type<"float">, Dog>>();
+typia.protobuf.createEncode<boolean[]>();
+typia.protobuf.createEncode<Cat | Dog>();
+```
+
+> ```bash
+> main.ts:14:1 - error TS(typia.protobuf.message): unsupported type detected
+> 
+> - bigint
+>   - target type must be a sole and static object type
+> 
+> main.ts:15:1 - error TS(typia.protobuf.typia.protobuf.createDecode): unsupported type detected
+> 
+> - Record<string, number>
+>   - target type must be a sole and static object type
+> 
+> main.ts:16:1 - error TS(typia.protobuf.typia.protobuf.createDecode): unsupported type detected
+> 
+> - Map<(number & Type<"float">), Dog>
+>   - target type must be a sole and static object type
+> 
+> - (number & Type<"float">)
+>   - target type must be a sole and static object type
+> 
+> main.ts:17:1 - error TS(typia.protobuf.typia.protobuf.createEncode): unsupported type detected
+> 
+> - Array<boolean>
+>   - target type must be a sole and static object type
+> 
+> main.ts:18:1 - error TS(typia.protobuf.typia.protobuf.createEncode): unsupported type detected
+> 
+> - (Cat | Dog)
+>   - target type must be a sole and static object type
+> ```
+
+At next, in Protocol Buffer, those types are categorized as container types.
+
+  - `Array<T>`
+  - `Map<Key, T>`
+  - `Record<string, T>` (dynamic object)
+
+Also, those container types does not allow over two-dimensional stacking. Therefore, it is not possible to declaring two dimensional array like `number[][]`, or `Array` type in `Map` like `Map<string, number[]>`. Besides, value type of those container also do not support union type either.
+
+Additionally, about `Map<Key, T>` type, key type must be an atomic type. It means that, only `boolean`, `number`, `bigint` and `string` types are allowed. Also, key type cannot be union type, either.
+
+```typescript
+import typia from "typia";
+
+interface IPointer<T> {
+    value: T;
+}
+interface Cat {
+    type: "cat";
+    name: string;
+    ribbon: boolean;
+}
+interface Dog {
+    type: "dog";
+    name: string;
+    hunt: boolean;
+}
+
+typia.protobuf.message<IPointer<number[][]>>();
+typia.protobuf.createEncode<IPointer<Record<string, string[]>>>();
+typia.protobuf.createDecode<IPointer<Map<string, Cat|Dog>>>();
+
+typia.protobuf.message<IPointer<Map<Cat, string>>>();
+typia.protobuf.message<IPointer<Map<number|string, Dog>>>();
+```
+
+> ```bash
+> main.ts:17:1 - error TS(typia.protobuf.message): unsupported type detected
+> 
+> - IPointer<Array<Array<number>>>[key]: Array<Array<number>>
+>   - does not support over two dimensional array type
+> 
+> main.ts:18:1 - error TS(typia.protobuf.typia.protobuf.createEncode): unsupported type detected
+> 
+> - IPointer<Record<string, Array<string>>>[key]: Record<string, Array<string>>
+>   - does not support dynamic object with array value type
+> 
+> main.ts:19:1 - error TS(typia.protobuf.typia.protobuf.createDecode): unsupported type detected
+> 
+> - IPointer<Map<string, Cat | Dog>>[key]: Map<string, (Cat | Dog)>
+>   - does not support union type in map value type
+> 
+> main.ts:21:1 - error TS(typia.protobuf.message): unsupported type detected
+> 
+> - IPointer<Map<Cat, string>>[key]: Map<Cat, string>
+>   - does not support non-atomic key typed map
+> 
+> main.ts:22:1 - error TS(typia.protobuf.message): unsupported type detected
+> 
+> - IPointer<Map<string | number, Dog>>[key]: Map<(number | string), Dog>
+>   - does not support union key typed map
+>   - does not support non-atomic key typed map
+> ```
+
+At last, those types are all not allowed.
+
+  - `any`
+  - `functional type`
+  - `Set<T>`, `WeakSet<T>` and `WeakMap<T>`
+  - `Date`, `Boolean`, `BigInt`, `Number`, `String`
+  - Binary classes except `Uint8Array`
+    - `Uint8ClampedArray`, `Uint16Array`, `Uint32Array`, `BigUint64Array`
+    - `Int8Array`, `Int16Array`, `Int32Array`, `BigInt64Array`
+    - `ArrayBuffer`, `SharedArrayBuffer` and `DataView`
+
+```typescript
+import typia from "typia";
+
+interface Something {
+    any: any;
+    unknown: unknown;
+    closure: () => void;
+    dict: Set<string> | WeakSet<Something> | WeakMap<Something, string>;
+    date: Date;
+    classic: String;
+    buffer: ArrayBuffer;
+}
+
+typia.protobuf.message<Something>();
+```
+
+> ```bash
+> main.ts:13:1 - error TS(typia.protobuf.message): unsupported type detected
+> 
+> - Something.any: any
+>   - does not support any type
+> 
+> - Something.unknown: any
+>   - does not support any type
+> 
+> - Something.closure: unknown
+>   - does not support functional type
+> 
+> - Something.dict: (Set<string> | WeakMap | WeakSet)
+>   - does not support Set type
+>   - does not support WeakSet type. Use Array type instead.
+>   - does not support WeakMap type. Use Map type instead.
+> 
+> - Something.date: Date
+>   - does not support Date type. Use string type instead.
+> 
+> - Something.classic: String
+>   - does not support String type. Use string type instead.
+> 
+> - Something.buffer: ArrayBuffer
+>   - does not support ArrayBuffer type. Use Uint8Array type instead.
+> ```
+
+
+
+
+## Why users wanted to `typia`?
+The first time when an user of [`typia`](https://github.com/samchon/typia) had requested me to support `protobuf` functions, I could not understand the reason why. In the JavaScript world, there already had been many libraries supporting `protobuf` function like `protobufjs` or `ts-proto`.
+
+However, before developing the `protobuf` features in [`typia`](https://github.com/samchon/typia), I'd studied how other `protobuf` libraries are working. During the study, I could understand the reason why. `protobufjs` and `ts-proto` requires `protobuf` schema file `*.proto`, and generates TypeScript type from the `protobuf` schema file.
+
+By the way, as they start from the `protobuf` schema file, it is not possible to express union type, one of the strongest feature of TypeScript type. Also, it is not possible to declare `Map<K, T>` type too, because they make only `Object<string, T>` type.
+
+```protobuf
+message MadeByProtoTs {
+    oneof value {
+        int32 v1 = 1;
+        string v2 = 2;
+        Something v3 = 3;
+    }
+    map<string, double> dict = 4;
+}
+```
+
+> ```typescript
+> // INTENDED
+> export interface MadeByProtoTs {
+>     value: number | string | Something;
+>     dict: Map<string, Something>;  
+> }
+>
+> // GENERATED BY TS-PROTO AND PROTOBUFJS
+> export interface MadeByProtoTs {
+>     v1: number;
+>     v2: string;
+>     v3: Something;
+>     dict: Record<string, Something>;
+> }
+> ```
+
+Also, as `protobufjs` and `ts-proto` requires `*.proto` schema files, and generates TS type from them, it was tolerable for me. Comparing with a way to handle pure TypeScript type directly, running generation command of `ts-proto` repeatedly and updating them little bit to make them suitable for my use-case was very annoything job.
+
+In such reasons, I understood the reason why users requested me to support `protobuf` functions in [`typia`](https://github.com/samchon/typia), and I did it now. From now on, let's enjoy the `protobuf` features very easily with pure TypeScript type. Only one line is required. 
+
+It's the easiest way to use `protobuf` in the world.

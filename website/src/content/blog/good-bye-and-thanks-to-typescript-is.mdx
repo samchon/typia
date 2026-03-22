@@ -1,0 +1,300 @@
+---
+title: "Good bye and thanks to \"typescript-is\" (ancestor of \"typia\")"
+description: "Summary   This story is about a precursor library typescript-is:   There had been an ancesor..."
+date: "2023-07-21"
+author: "Jeongho Nam"
+ogImage: "https://media2.dev.to/dynamic/image/width=1000,height=500,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fuvyinnyryddboaft4tig.jpg"
+devtoUrl: "https://dev.to/samchon/good-bye-typescript-is-ancestor-of-typia-20000x-faster-validator-49fi"
+tags:
+  - javascript
+  - programming
+  - typescript
+  - opensource
+---
+## Summary
+This story is about a precursor library `typescript-is`:
+
+  - There had been an ancesor library of `typia` named `typescript-is`
+    - Only one line required
+    - AoT (Ahead of Time) compilation through TypeScript Compiler API
+    - Much convenient than any other validator libraries like `zod` and `class-validator`
+  - I had another library `typescript-json`
+    - Boost up JSON serialization speed
+    - JSON schema generation
+    - Performs AOT compilation like `typescript-is`
+  - I had developed `nestia` by combining both of them
+    - `NestJS` helper library
+    - Validators by `typescript-is`
+    - JSON booster and Swagger generation by `typescript-json`
+  - `typescript-is` has stopped maintenance since two years ago
+  - I've changed `typescript-json` to cover `typescript-is` features
+    - Added validator features like `typescript-is`
+    - Enhanced by 1M LOC test codes
+    - Renamed to `typia`
+  - Today, I requested `typescript-is` author to uphold `typia`
+    - Author of `typescript-is` agreed
+    - From now on, `typescript-is` is unified with `typia`, formally
+  - Thanks for pioneering challenge of `typescript-is`, and say good bye
+
+Related Repositories:
+
+  - typescript-is: https://github.com/woutervh-/typescript-is
+  - typia: https://github.com/samchon/typia
+  - nestia: https://github.com/samchon/nestia
+  - Good bye issue: https://github.com/woutervh-/typescript-is/issues/137
+
+
+
+
+## `typescript-is`
+#### Features
+```typescript
+export function is<T>(input: unknown): input is T;
+export function assertType<T>(input: unknown): T;
+export function validate<T>(input: unknown): ValidationResult<T>;
+```
+
+#### TypeScript Source File
+```typescript
+import { is } from "typescript-is";
+
+is<number>(3);
+```
+
+#### Compiled JavaScript File
+```javascript
+import { is } from "typescript-is";
+
+((input) => {
+    if (typeof input !== "number")
+        return false;
+    return true;
+})(3);
+```
+
+> This is the AoT compilation. `typescript-is` analyzes the TypeScript source codes, and transforms to optimal JavaScript codes, for the target type `T` (`number`).
+
+https://github.com/woutervh-/typescript-is
+
+Long time ago, there had been a great validator library named `typescript-is`. 
+
+It had performed AoT (Ahead of Time) compilation through TypeScript Compiler API. As it requires only one line with pure TypeScript type like above, it was much convenient than any other validator libraries like `zod` or `class-validator`.
+
+In my case, I'd developed backend server through `NestJS` framework. By the way, the `NestJS` developer recommends to using `class-validator`, one of the most horrible library than what I've ever experienced. It enforces user to define quadruple duplicated structure, and extremely slow validation speed is extremely slow (6MB/s). It even has enormous bugs that saying "there's no problem" for wrong data, and maintainer seems to be not interested in fixing those bugs.
+
+
+```typescript
+// CLASS-VALIDATOR REQUIRES DUPLICATED DEFINITIONS
+export class BbsArticle {
+    @ApiProperty({
+        type: () => AttachmentFile,
+        nullable: true,
+        isArray: true,
+        description: "List of attached files.",
+    })
+    @Type(() => AttachmentFile)
+    @IsArray()
+    @IsOptional()
+    @IsObject({ each: true })
+    @ValidateNested({ each: true })
+    files!: AttachmentFile[] | null;
+}
+
+// TYPESCRIPT-IS OKAY WITH PURE TYPESCRIPT TYPE
+export interface IBbsArticle {
+    /**
+     * List of attached files.
+     */
+    files: IAttachmentFile[] | null;
+}
+```
+
+  - `class-validator` tests only 16 cases
+  - `typescript-is` tests about 100 cases
+  - `typia` tests 10K cases with 1M LOC codes
+
+Instead, I'd loved to using `typescript-is` in `NestJS` projects. It was much convenient and safer than `class-validator`. Only one line was required, and need not to be suffered from enormous bugs (`typescript-is` also could not validate union or complicate types either, but not as serious as `class-validator`). 
+
+Using `typescript-is` for the `NestJS` backend projects, I'd admired the genius idea of `typescript-is` author, and always thankful that it frees me from the nightmare of `class-validator`.
+
+> If you feel like you've heard this story somewhere, you're right. `typescript-is` is an ancestor library of `typia`, and is a project that implemented a validator based on AOT compilation before `typia`. 
+>
+> However, maintenance had been stopped and broken since 2 years ago.
+
+In recent years, cataclysms came to the TypeScript language several times, and `typescript-is`, which had been built on the TypeScript Compiler API, broke frequently. However, its author could not maintain the project due to being busy, so `typescript-is` had effectively been broken for about two years while I waited for his return.
+
+
+
+
+## `typescript-json`
+```typescript
+// JSON SCHEMA GENERATOR
+export function application<
+    Types extends unknown[], 
+    Purpose extends "swagger"|"ajv"
+>(): IJsonSchema;
+
+// JSON SERIALIZATION BOOSTER
+export function stringify<T>(input: T): string;
+```
+
+Around the same time, I had made another library named `typescript-json`. 
+
+It performs AoT (Ahead of Time) compilation like `typescript-is`, but it was not for runtime validation, but for JSON schema generation. About JSON serialization boosting, `typescript-json` had utilized `fast-json-stringify` by automatically generated JSON schema.
+
+For reference, purpose of `typescript-json` was to accomplish below `nestia`, generating Swagger Documents with pure TypeScript type.
+
+
+
+
+## `nestia`
+![Nestia Logo](https://nestia.io/logo.png)
+
+https://github.com/samchon/typia
+
+Using `typescript-is` in `NestJS` made backend developments were much easier and convenient.
+
+However, in that case, it was not possible to generate Swagger Documents. It's because swagger generator of `NestJS` could not analyze TypeScript source code in the compilation level. Instead, it required quadruple duplicated definitions through decorator function calls.
+
+At that time, I'd thought it would better to make an alternative swagger generator for `NestJS` project. Although it needs complicated logics like analyzing `NestJS` utilization TypeScript source codes in the compilation level, I thought that it is much worthy work instead of rolling back to the terrible `class-validator`. I wanted to progress rather than regress.
+
+Therefore, I'd made a new library named `nestia`. It had performed validation through `typescript-is`, and had generated Swagger Documents through `typescript-json`. Also, after succeeded to anayzing `NestJS` source codes, I made more features like SDK (Software Development Kit) library generator like below.
+
+My team members (especially frontend developers) were very happy with it, and looking at them, I'd thought that "I did a right decision". As a result of avoiding `class-validator`, which I really don't want to use, and pursuing beautiful `typescript-is`, efficiency has more than doubled even including frontend developers.
+
+![SDK](https://user-images.githubusercontent.com/13158709/215004990-368c589d-7101-404e-b81b-fbc936382f05.gif)
+
+> Left is `NestJS` server code, and right is client (frontend) code utilizing SDK.
+>
+> In nowadays, `nestia` can generate Mock Simulator, and even possible to build those SDK library and Mockup Simulator through a `swagger.json` file. It means that, you can build SDK library and Mockup Simulator from every languages and frameworks.
+>
+> - SDK: a collection of `fetch` functions with type definitions
+> - Mockup simulator: embedded backend simulator in SDK
+
+
+
+## Death of `typescript-is`
+`typescript-is` author has stopped maintenance, and it was a critical problem for `nestia`.
+
+The moment when cheered for the right choice and had fun with my teammates, `typescript-is` has been died suddenly. In actually, `typescript-is` was already out of maintenance even before starting `nestia` development. Unfortunately, at that moment, `TypeScript` had been break changed a lot in compiler API for several times, and `typescript-is` had been broken since 2 years ago.
+
+It was very embarrassing that `typescript-is` suddenly died not long after making `nestia` and tasting its fruits. At that time, I thought for a while that should I turn back to the terrible and hopeless `class-validator` or not. Developing `nestia`, I had consumed about an year, and the one year is not a short time. Therefore, I considered it for a while.
+
+However, my final decision was still same with before: "Let's make one thing more, and one year more. Rather than using that horrible `class-validator` again, it makes sense to spend another year again, and it would be a great opportunity for studying to me."
+
+
+
+
+## `typia`
+```typescript
+// RUNTIME VALIDATORS
+export function is<T>(input: unknown): input is T; // returns boolean
+export function assert<T>(input: unknown): T; // throws TypeGuardError
+export function validate<T>(input: unknown): IValidation<T>; // detailed
+export const customValidators: CustomValidatorMap; // for customization
+
+// JSON FUNCTIONS
+export namespace json {
+    export function application<T>(): IJsonApplication; // JSON schema
+    export function assertParse<T>(input: string): T; // type safe parser
+    export function assertStringify<T>(input: T): string; // safe and faster
+}
+
+// PROTOCOL BUFFER (NOT YET, BUT SOON)
+export namespace protobuf {
+    export function message<T>(): string; // Protocol Buffer message
+    export function assertDecode<T>(buffer: Buffer): T; // safe decoder
+    export function assertEncode<T>(input: T): Uint8Array; // safe encoder
+}
+
+// RANDOM GENERATOR
+export function random<T>(g?: Partial<IRandomGenerator>): T;
+```
+
+https://github.com/samchon/typia
+
+Evolved `typescript-json` to cover `typescript-is` features, and renamed to `typia`.
+
+As `typescript-is` had stopped maintenance and broken by update of TypeScript compiler, and it was a critical problem for my project `nestia`, I'd decided to enhance `typescript-json` to cover `typescript-is` features. Also, I'd renamed `typescript-json` to `typia`, because that library is no more designed only for JSON related functions.
+
+Also, as `typescript-json` had designed to generate JSON schema from TypeScript types, it must have well-designed metadata definition for TypeScript types. Besides, `typescript-is` had not designed metadata structure, and just wrote a lot of hard coded `if` statements for TypeScript types. Such different made `typia` to have much more LOC (Line of Codes) than `typescript-is`, but `typia` could be much stable than before `typescript-is`.
+
+Furthermore, I've enhanced `typia` through 1,000,000 LOC test codes. Considering characteristics of `typia` using pure TypeScript type, `typia` must support every TypeScript type cases. Also, expression power of TypeScript about type is the much more powerful and wider than any other languages. Therefore, to support every TypeScript types safely, I had to write enormous test codes about one million LOC. It was a hard work for me during one year, but such endurance evolved `typia` to be only one validator library which supports every TypeScript types.
+
+  - `typia` tests 10K cases with 1M LOC codes
+  - `typescript-is` tests about 100 cases
+  - `class-validator` tests only 16 cases
+
+Components               | `typia` | `ts-is` | `typebox` | `ajv` | `io-ts` | `zod` | `c.v.`
+-------------------|--------|-----|--------|-------|---------|-------|------------------
+**Easy to use**          | ✅ | ✅| ❌ | ❌ | ❌ | ❌ | ❌ 
+[Object (simple)](https://github.com/samchon/typia/blob/master/test/structures/ObjectSimple.ts)          | ✔ | ✔| ✔ | ✔ | ✔ | ✔ | ✔
+[Object (hierarchical)](https://github.com/samchon/typia/blob/master/test/structures/ObjectHierarchical.ts)    | ✔ | ✔ | ✔ | ✔ | ✔ | ✔ | ✔
+[Object (recursive)](https://github.com/samchon/typia/blob/master/test/structures/ObjectRecursive.ts)       | ✔ | ✔| ❌ | ✔ | ✔ | ✔ | ✔ | ✔
+[Object (union, implicit)](https://github.com/samchon/typia/blob/master/test/structures/ObjectUnionImplicit.ts) | ✅ | ❌| ❌ | ❌ | ❌ | ❌ | ❌
+[Object (union, explicit)](https://github.com/samchon/typia/blob/master/test/structures/ObjectUnionExplicit.ts) | ✔ | ❌| ✔ | ✔ | ✔ | ✔ | ❌
+[Object (additional tags)](https://github.com/samchon/typia/#comment-tags)        | ✔ | ❌| ✔ | ✔ | ✔ | ✔ | ✔
+[Object (template literal types)](https://github.com/samchon/typia/blob/master/test/structures/TemplateUnion.ts) | ✔ | ❌ | ✔ | ✔ | ❌ | ❌ | ❌
+[Object (dynamic properties)](https://github.com/samchon/typia/blob/master/test/structures/DynamicTemplate.ts) | ✔ | ✔ | ✔ | ✔ | ❌ | ❌ | ❌
+[Array (rest tuple)](https://github.com/samchon/typia/blob/master/test/structures/TupleRestAtomic.ts) | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
+[Array (hierarchical)](https://github.com/samchon/typia/blob/master/test/structures/ArrayHierarchical.ts)     | ✔ | ✔ | ✔ | ✔ | ✔ | ✔ | ✔
+[Array (recursive)](https://github.com/samchon/typia/blob/master/test/structures/ArrayRecursive.ts)        | ✔ | ✔ | ✔ | ✔ | ✔ | ✔ | ❌
+[Array (recursive, union)](https://github.com/samchon/typia/blob/master/test/structures/ArrayRecursiveUnionExplicit.ts) | ✔ | ✔ | ✔ | ❌ | ✔ | ✔ | ❌
+[Array (R+U, implicit)](https://github.com/samchon/typia/blob/master/test/structures/ArrayRecursiveUnionImplicit.ts)    | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
+[Array (repeated)](https://github.com/samchon/typia/blob/master/test/structures/ArrayRepeatedNullable.ts)    | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
+[Array (repeated, union)](https://github.com/samchon/typia/blob/master/test/structures/ArrayRepeatedUnionWithTuple.ts)    | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
+[**Ultimate Union Type**](https://github.com/samchon/typia/blob/master/src/schemas/IJsonSchema.ts)  | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
+
+> Data structure of `typia` for TypeScript types:
+>
+>  - https://github.com/samchon/typia/tree/master/src/metadata
+>
+> For reference, as `typescript-is` doesn't have such well-structured metadata definition, and it is the reason why `typescript-is` cannot validate complicate type. However, to make an excuse for `typescript-is`, it was the most stable of the validator libraries at that time, and even still much more stable than the terrible `class-validato`r.
+> 
+> - `ts-is` means `typescript-is`
+> - `c.v.` means `class-validator`
+
+Also, as `typia` performs AoT (Ahead of Time) compilation skill, and `nestia` is utilizing such `typia` features, I could enhance `NestJS` performance enormously. Current `nestia` can enhance `NestJS` server performance like below:
+
+![`is()` function benchmark](https://raw.githubusercontent.com/samchon/typia/master/benchmark/results/11th%20Gen%20Intel(R)%20Core(TM)%20i5-1135G7%20%40%202.40GHz/images/assert.svg)
+
+  - 20,000x faster validation speed than `class-validator`
+  - 200x faster JSON serialization speed than `class-transformer`
+  - Composite `NestJS` server performance be 30x up
+  - Benchmark Results
+    - `typia` benchmark: https://github.com/samchon/typia/tree/master/benchmark/results/11th%20Gen%20Intel(R)%20Core(TM)%20i5-1135G7%20%40%202.40GHz
+    - `nestia` server benchmark: https://github.com/samchon/nestia/tree/master/benchmark/results/11th%20Gen%20Intel(R)%20Core(TM)%20i5-1135G7%20%40%202.40GHz
+
+
+
+
+## Good bye `typescript-is`
+https://github.com/woutervh-/typescript-is/issues/137
+
+A year has passed since the successful development of `typia`. And in the meantime, `typescript-is` is still out of maintenance. Therefore, I've written an issue to `typescript-is` repo requesting deprecate `typescript-is` and uphold `typia` instead.
+
+While writing the issue, I also left a message of appreciation for `typescript-is`'s pioneering ideas, and past dedications that helped me to escape from terrible `class-validator`. Thanks for his great idea, and I could learn lots of things by motivated from his project.
+
+At past week, `typescript-is` author accepted my suggestion and `typescript-is` has started upholding `typia`. From now on, `typescript-is` is unified with `typia`, formally. Thanks for pioneering challenge of `typescript-is`, and say good bye.
+
+
+
+
+## Next Story
+### Theoretical Explanation
+Recently, I've written some articles about AoT compilation. 
+
+By the way, I've only told you that AoT compilation is much faster than dynamic key accessing logics, but have not explained from a theoretical point of view. The next article would be about that.
+
+Let's study the reason why AoT compilation makes your code faster.
+
+### Behind Story of Nestia
+I dislike `class-validator` due to bad experience. 
+
+When developing a `NestJS` backend server about insurance service, I'd used `class-validator`, but suffered from its extremely slow performance. `class-validator` can validate only 6MB data per a second, and unfortunately, each contract of insurance easily exceeds 3MB. At that time, my backend server can get only 4 connections per a second, and it was a critical problem for business.
+
+It was the reason why I abandoned `class-validator` and used `typescript-is` instead. And as you could see from here article, such bad experience made me to develop `typia` and `nestia`. The next article would be about this story.
+
+If you can read Korean language, you can read the story from here right, now. If not, wait my next article please.
+
+https://docs.google.com/presentation/d/1zOsUwSVinhi2FIyPH8yj0AMDlZgJbBRn/edit?usp=sharing&ouid=103963163922171200617&rtpof=true&sd=true

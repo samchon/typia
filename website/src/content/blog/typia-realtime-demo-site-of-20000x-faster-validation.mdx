@@ -1,0 +1,206 @@
+---
+title: "[Typia] I made realtime demo site of 20,000x faster validation (+200x faster JSON stringify)"
+description: "Preface   https://typia.io/playground  I've made a playground website to help you understand..."
+date: "2023-06-25"
+author: "Jeongho Nam"
+ogImage: "https://media2.dev.to/dynamic/image/width=1000,height=500,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2F3igp5x7xyc5mh67dbh3d.png"
+devtoUrl: "https://dev.to/samchon/typia-i-made-realtime-demo-site-of-20000x-faster-validation-200x-faster-json-stringify-59p9"
+tags:
+  - programming
+  - typescript
+  - javascript
+  - opensource
+---
+## Preface
+https://typia.io/playground
+
+I've made a playground website to help you understand how `typia` works with AoT compilation.
+
+In here [dev.to](https://dev.to) community, I've written many articles introducing my library `typia`. In the previous articles, I had often explained that `typia` boosts up validation speed through AoT (Ahead of Time) compilation skill.
+
+  - `typia` analyzes your TypeScript type `T`
+  - `typia` writes optimal validation code only for that type `T`
+  -  Such skill is called AoT compilation.
+
+```typescript
+// TYPESCRIPT SOURCE CODE
+typia.is<number>(3);
+typia.createIs<Date>();
+
+// COMPILED JAVASCRIPT CODE
+((input) => "number" === typeof input)(3);
+(input) => input instanceof Date;
+```
+
+By the way, some `typia` user gave me such feedback:
+
+> Reading your articles, I could understand your `typia` is much faster than others, and it needs only pure TypeScript type. As I'd used `ajv` and `class-validator` for a long time, I especially like the word "only one line with pure TypeScript type".
+>
+> However, the concept AoT compilation was hard for me to understand. I was able to understand it only after installing `typia` and compiling my project. Setting it up, I though that such little time even could become a barrier to someone who would hesitate to introduce `typia`. If `typia` provides a playground site, this could be solved. 
+>
+> Hope `typia` thrives, and appreciate for developing such wonderful project.
+
+Reading above feedback, I've decided develop a playground website sympathizing with the need of it. Developing the playground website, I think the above feedback was really good for `typia`, and early experienced playground users are satisfying. I especially thanks for such adviding. 
+
+Anyway, let's [play `typia`](https://typia.io/playground) and understand how it works with AoT compilation.
+
+  - Playground website: https://typia.io/playground
+  - Github Repository: https://github.com/samchon
+  - Guide Documents: https://typia.io
+
+![Playground Screenshot](https://github.com/samchon/typia/assets/13158709/14025332-b96d-4aaf-96ce-80942cbd77fa)
+
+
+
+
+## What `typia` is
+### Introduction
+```typescript
+// RUNTIME VALIDATORS
+export function is<T>(input: unknown | T): input is T; // returns boolean
+export function assert<T>(input: unknown | T): T; // throws TypeGuardError
+export function validate<T>(input: unknown | T): IValidation<T>; // detailed
+export const customValidators: CustomValidatorMap; // customizable
+ 
+// ENHANCED JSON
+export function application<...Args>(): IJsonApplication; // JSON schema
+export function assertParse<T>(input: string): T; // type safe parser
+export function assertStringify<T>(input: T): string; // safe and faster
+    // +) isParse, validateParse 
+    // +) stringify, isStringify, validateStringify
+ 
+// RANDOM DATA GENERATOR
+export function random<T>(g?: Partial<IRandomGenerator>): Primitive<T>;
+```
+
+Someone people do not know `typia`, I'll introduce it shortly. 
+
+`typia` is a transformer library supporting below features. 
+
+  - Super-fast Runtime Validators
+  - Safe JSON parse and fast stringify functions
+  - JSON schema generator
+  - Random data generator
+
+### Pure TypeScript Type
+At first, as `typia` performs AoT (Ahead of Time) compilation, all of supported features in `typia` require only one line. Besides, other libraries like `ajv` or `class-validator` require extra schema definition like JSON schema or triple-duplicated type definition with decorator function calls.
+
+```typescript
+//----
+// TYPIA SCHEMA
+//----
+// TYPIA NEEDS ONLY PURE TYPESCRIPT TYPE
+export interface IBbsArticle {
+    files: IAttachmentFile[];
+}
+typia.assert<IBbsArticle>(input);
+
+//----
+// CLASS-TARNSFORMER
+//----
+// BESIDES, OTHERS NEED EXTRA-SCHEMA DEFINITION
+export class BbsArticle {
+    @ApiProperty({
+        type: () => AttachmentFile,
+        nullable: true,
+        isArray: true,
+        minItems: 1,
+        description: "List of attached files.",
+    })
+    @Type(() => AttachmentFile)
+    @IsArray()
+    @IsObject({ each: true })
+    @ValidateNested({ each: true })
+    public files: AttachmentFile[];
+}
+validateSync(plainToObject(BbsArticle, input));
+```
+
+### Stability
+About functionality and stability, `typia` supports every TypeScript types, and ensure safety through over 900,000 LoC (Line of Codes) test programs. It actually validates every TypeScript type cases, with strong and wide test cases. Below table is the result of such strong testing.
+
+Besides, other libraries are not intending to safety like `typia`. For an example, `class-validator` is composed with only 16 test functions, and missing most type cases. I think the reason why `class-validator` fails in the most type case is that, it does not have enough test cases.
+
+Components               | `typia` | `TypeBox` | `ajv` | `io-ts` | `zod` | `C.V.`
+-------------------|--------|-----------|-------|---------|-------|------------------
+**Easy to use**          | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ 
+[Object (simple)](https://github.com/samchon/typia/blob/master/test/structures/ObjectSimple.ts)          | ✔ | ✔ | ✔ | ✔ | ✔ | ✔
+[Object (hierarchical)](https://github.com/samchon/typia/blob/master/test/structures/ObjectHierarchical.ts)    | ✔ | ✔ | ✔ | ✔ | ✔ | ✔
+[Object (recursive)](https://github.com/samchon/typia/blob/master/test/structures/ObjectRecursive.ts)       | ✔ | ❌ | ✔ | ✔ | ✔ | ✔ | ✔
+[Object (union, implicit)](https://github.com/samchon/typia/blob/master/test/structures/ObjectUnionImplicit.ts) | ✅ | ❌ | ❌ | ❌ | ❌ | ❌
+[Object (union, explicit)](https://github.com/samchon/typia/blob/master/test/structures/ObjectUnionExplicit.ts) | ✔ | ✔ | ✔ | ✔ | ✔ | ❌
+[Object (additional tags)](https://github.com/samchon/typia/#comment-tags)        | ✔ | ✔ | ✔ | ✔ | ✔ | ✔
+[Object (template literal types)](https://github.com/samchon/typia/blob/master/test/structures/TemplateUnion.ts) | ✔ | ✔ | ✔ | ❌ | ❌ | ❌
+[Object (dynamic properties)](https://github.com/samchon/typia/blob/master/test/structures/DynamicTemplate.ts) | ✔ | ✔ | ✔ | ❌ | ❌ | ❌
+[Array (rest tuple)](https://github.com/samchon/typia/blob/master/test/structures/TupleRestAtomic.ts) | ✅ | ❌ | ❌ | ❌ | ❌ | ❌
+[Array (hierarchical)](https://github.com/samchon/typia/blob/master/test/structures/ArrayHierarchical.ts)     | ✔ | ✔ | ✔ | ✔ | ✔ | ✔
+[Array (recursive)](https://github.com/samchon/typia/blob/master/test/structures/ArrayRecursive.ts)        | ✔ | ✔ | ✔ | ✔ | ✔ | ❌
+[Array (recursive, union)](https://github.com/samchon/typia/blob/master/test/structures/ArrayRecursiveUnionExplicit.ts) | ✔ | ✔ | ❌ | ✔ | ✔ | ❌
+[Array (R+U, implicit)](https://github.com/samchon/typia/blob/master/test/structures/ArrayRecursiveUnionImplicit.ts)    | ✅ | ❌ | ❌ | ❌ | ❌ | ❌
+[Array (repeated)](https://github.com/samchon/typia/blob/master/test/structures/ArrayRepeatedNullable.ts)    | ✅ | ❌ | ❌ | ❌ | ❌ | ❌
+[Array (repeated, union)](https://github.com/samchon/typia/blob/master/test/structures/ArrayRepeatedUnionWithTuple.ts)    | ✅ | ❌ | ❌ | ❌ | ❌ | ❌
+[**Ultimate Union Type**](https://github.com/samchon/typia/blob/master/src/schemas/IJsonSchema.ts)  | ✅ | ❌ | ❌ | ❌ | ❌ | ❌
+
+> `C.V.` means `class-validator`
+
+### Performance
+About performance, `typia` is the fastest library in the world. 
+
+As you know, `typia` generates dedicated validation codes for each types. And those codes are optimized considering characteristics of v8 engine (especially about hidden class). Below graphes are the result of such optimization.
+
+![assert](https://raw.githubusercontent.com/samchon/typia/master/benchmark/results/11th%20Gen%20Intel(R)%20Core(TM)%20i5-1135G7%20%40%202.40GHz/images/assert.svg)
+
+> Validation is 20,000x faster than `class-validator`
+
+![stringify](https://raw.githubusercontent.com/samchon/typia/master/benchmark/results/11th%20Gen%20Intel(R)%20Core(TM)%20i5-1135G7%20%40%202.40GHz/images/stringify.svg)
+
+> JSON serialization is 200x faster than `class-transformer`
+
+![server performance](https://raw.githubusercontent.com/samchon/typia/master/benchmark/results/11th%20Gen%20Intel(R)%20Core(TM)%20i5-1135G7%20%40%202.40GHz/images/server-performance.svg)
+
+> Such performance even affects to the server side -> 30x up
+
+
+
+
+## Monaco Editor
+https://microsoft.github.io/monaco-editor/
+
+I think there would be someone who are interested in the way to build the playground website. For such people, I'll introduce how I did it shortly.
+
+At first, I've made [`typia` playground website](https://typia.io/playground) through `monaco` editor. It is a web-based single-file editor, and supports TypeScript language with external `node_modules`. As you can see in [`typia` playground website](https://typia.io/playground), it even supports auto-completion with type-hints like `VsCode`.
+
+As you know, `typia` performs AoT (Ahead of Time) compilation and generates dedicated validation codes for each TypeScript types. Therefore, I combined above monaco editor with bundled `typia` and `typescript` modules. Also, for auto-completion with type hints, I've hard copied `d.ts` (definition) files of `typia` into the `monaco` editor like below.
+
+Reading `monaco` manual and referencing my key source files, you may enoughly possible to build your own playground website. Good luck!
+
+  - Key source files
+    - [website/pages/playground/index.tsx](https://github.com/samchon/typia/blob/master/website/pages/playground/index.tsx)
+    - [website/components/SourceEditor.tsx](https://github.com/samchon/typia/blob/master/website/components/SourceEditor.tsx)
+    - [website/compilers/Compiler.ts](https://github.com/samchon/typia/blob/master/website/compilers/Compiler.ts)
+    - [Hard copier of typings from `node_modules`](https://github.com/samchon/typia/blob/master/website/build/raw.js)
+
+```typescript
+export const RAW: [file: string, content: string][] = [
+  ["file:///node_modules/typia/package.json", typia_packageJson],
+  ["file:///node_modules/typia/index.d.ts", typia_index],
+  ["file:///node_modules/typia/lib/CustomValidatorMap.d.ts", typia_lib_CustomValidatorMap],
+  ["file:///node_modules/typia/lib/executable/setup/ArgumentParser.d.ts", typia_lib_executable_setup_ArgumentParser],
+  ["file:///node_modules/typia/lib/executable/setup/CommandExecutor.d.ts", typia_lib_executable_setup_CommandExecutor],
+  ["file:///node_modules/typia/lib/executable/setup/FileRetriever.d.ts", typia_lib_executable_setup_FileRetriever],
+  ["file:///node_modules/typia/lib/executable/setup/PackageManager.d.ts", typia_lib_executable_setup_PackageManager],
+  ["file:///node_modules/typia/lib/executable/setup/PluginConfigurator.d.ts", typia_lib_executable_setup_PluginConfigurator],
+  ["file:///node_modules/typia/lib/executable/typia.d.ts", typia_lib_executable_typia],
+  ["file:///node_modules/typia/lib/executable/TypiaGenerateWizard.d.ts", typia_lib_executable_TypiaGenerateWizard],
+  ["file:///node_modules/typia/lib/executable/TypiaSetupWizard.d.ts", typia_lib_executable_TypiaSetupWizard],
+  ["file:///node_modules/typia/lib/factories/CommentFactory.d.ts", typia_lib_factories_CommentFactory],
+  ["file:///node_modules/typia/lib/factories/ExpressionFactory.d.ts", typia_lib_factories_ExpressionFactory],
+  ["file:///node_modules/typia/lib/factories/IdentifierFactory.d.ts", typia_lib_factories_IdentifierFactory],
+  ...
+];
+for (const [file, content] of RAW)
+    monaco.languages.typescript.typescriptDefaults.addExtraLib(
+        content, 
+        file
+    );
+```
