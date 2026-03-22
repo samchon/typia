@@ -12,3 +12,4 @@ src/raw/
 typedoc-json/
 
 src/compiler/PlaygroundExampleStorage.ts
+!.env

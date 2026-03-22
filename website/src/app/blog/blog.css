@@ -118,3 +118,9 @@
 .dark .typia-blog-meta {
   color: rgb(160 160 160);
 }
+
+.typia-blog-comments {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(127, 127, 127, 0.18);
+}
