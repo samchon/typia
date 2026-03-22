@@ -4,6 +4,7 @@ node_modules/
 out/
 packages/
 public/api/
+public/blog/rss.xml
 public/compiler/
 public/robots.txt
 public/sitemap*.xml

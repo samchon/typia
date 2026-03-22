@@ -1,0 +1,120 @@
+.x\:container.x\:prose {
+  max-width: min(1200px, calc(100vw - 2rem));
+}
+
+.x\:prose {
+  max-width: none;
+}
+
+.typia-blog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.typia-blog-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid rgba(127, 127, 127, 0.2);
+  border-radius: 1.25rem;
+  background: color-mix(in srgb, rgb(var(--nextra-bg)) 92%, white 8%);
+  text-decoration: none;
+  color: inherit;
+}
+
+.dark .typia-blog-card {
+  background: color-mix(in srgb, rgb(var(--nextra-bg)) 94%, white 6%);
+}
+
+.typia-blog-card:hover {
+  transform: translateY(-2px);
+  transition: transform 0.18s ease;
+}
+
+.typia-blog-card-image {
+  width: 100%;
+  aspect-ratio: 1.91 / 1;
+  object-fit: cover;
+  background: rgba(127, 127, 127, 0.08);
+}
+
+.typia-blog-card-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.85rem;
+  padding: 1.1rem 1.1rem 1.2rem;
+}
+
+.typia-blog-card-title {
+  margin: 0;
+  font-size: 1.15rem;
+  line-height: 1.35;
+}
+
+.typia-blog-card-description {
+  margin: 0;
+  color: rgb(95 95 95);
+  line-height: 1.6;
+}
+
+.dark .typia-blog-card-description {
+  color: rgb(170 170 170);
+}
+
+.typia-blog-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-top: auto;
+  font-size: 0.9rem;
+  color: rgb(110 110 110);
+}
+
+.dark .typia-blog-card-meta {
+  color: rgb(155 155 155);
+}
+
+.typia-blog-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.typia-blog-card-tags span,
+.typia-blog-tags span {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.24rem 0.6rem;
+  border-radius: 999px;
+  background: rgba(127, 127, 127, 0.12);
+  font-size: 0.84rem;
+}
+
+.typia-blog-hero {
+  width: 100%;
+  max-height: 30rem;
+  object-fit: cover;
+  border-radius: 1.5rem;
+  margin: 0 0 1.5rem;
+  background: rgba(127, 127, 127, 0.08);
+}
+
+.typia-blog-meta,
+.typia-blog-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 0 0 1rem;
+}
+
+.typia-blog-meta {
+  color: rgb(110 110 110);
+  font-size: 0.95rem;
+}
+
+.dark .typia-blog-meta {
+  color: rgb(160 160 160);
+}

@@ -1,0 +1,125 @@
+---
+title: "Bun is up to 20x slower than NodeJS in logic operations"
+description: "Preface     typia is a transformer library supporting superfast runtime validation, and JSON..."
+date: "2025-02-01"
+author: "Jeongho Nam"
+ogImage: "https://media2.dev.to/dynamic/image/width=1000,height=500,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fy2if9hqshu9in7i8norf.png"
+devtoUrl: "https://dev.to/samchon/bun-is-up-to-20x-slower-than-nodejs-in-logic-operations-305d"
+tags:
+  - typescript
+  - bunjs
+  - node
+  - performance
+---
+## Preface
+![NodeJS vs Bun: typia.is T function benchmark](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/6wrddx7jan7gpn05tmf0.png)
+
+[`typia`](https://github.com/samchon/typia) is a transformer library supporting superfast runtime validation, and JSON serialization function boosting up performance by AoT (Ahead of Time) optimization skill. For example, its validation speed is 20,000x faster than `class-validator`, and JSON serialization is 20x faster than `class-transformer`.
+
+By the way, after the Bun has come to JS world, there had been many reports that `typia` is not fast in the Bun runtime. There even had been a report that `typia`'s JSON serialization is slower than the native `JSON.stringify()` function in the Bun environment.
+
+However, as I was busy in due to supporting the [A.I. chatbot development feature](https://typia.io/docs/llm/chat), I could not respond to such Bun performance issues for a long time. Since all of `typia`'s functions are working properly in Bun, I thought that I could put aside performance issues as a priority, but six months passed by in the blink of an eye.
+
+Fortunately, I could finish the A.I. chatbot feature development in recent, so that I could develop the Bun performance benchmark program at now. And as Bun has always emphasized its lightweight and fast performance, the extreme slowness in `typia` validation and JSON serialization logics surprised me a lot. 
+
+Oh my god, Bun is maximum 20x slower than NodeJS in the `typia.is<T>()` function.
+
+  - [Benchmark result on NodeJS](https://github.com/samchon/typia/tree/master/benchmark/results/AMD%20Ryzen%209%207940HS%20w%20Radeon%20780M%20Graphics)
+  - [Benchmark result on Bun](https://github.com/samchon/typia/tree/master/benchmark/results/AMD%20Ryzen%209%207940HS%20w%20Radeon%20780M%20Graphics/bun)
+
+
+
+
+## `typia.is<T>()` function benchmark
+```typescript
+//----
+// TypeScript Source Code
+//----
+import typia from "typia";
+
+typia.is<string>("Hello World");
+
+//----
+// Compiled JavaScript Code
+//----
+(() => {
+  return (input) => "string" === typeof input;
+})()("Hello World");
+```
+
+`typia.is<T>()` is a transformer function that generating type checking code whether the parameteric `input` value is following the type `T` or not. If the `input` value is following the type `T`, it returns `true`. Otherwise input is different with the type T, it returns `false`.
+
+Because `typia.is<T>()` generates dedicated type checking code only for the type `T`, its validation speed is stable and faster than any other libraries. Such compilation level dedicated optimization skill is called AoT (Ahead of Time) compilation. When AoT compilation stategy is used, NodeJS v8 engine performs hidden class optimization for maximize the performance.
+
+![is() function benchmark on NodeJS](https://raw.githubusercontent.com/samchon/typia/master/benchmark/results/AMD%20Ryzen%209%207940HS%20w%20Radeon%20780M%20Graphics/images/is.svg)
+
+> [`typia.is<T>()` function benchmark on NodeJS](https://github.com/samchon/typia/tree/master/benchmark/results/AMD%20Ryzen%209%207940HS%20w%20Radeon%20780M%20Graphics#is)
+
+It is the secret of the `typia`'s superfast validation speed. In the NodeJS environment, `typia`'s validation speed (in NodeJS) is maxmum 20,000x faster than `class-validator` which does not have any optimization strategy. Besides, `typebox` performs the JIT (Just in Time) compilation strategy, and as it can take advantage of the v8 engine's hidden class optimization, it can compete speed with `typia`.
+
+However, in the Bun, such AoT (Ahead of Time) or JIT (Just in Time) compilation strategy seems not working at all. I guess that Bun does not perform hidden class optimization skill, or there is a critical problem on the Bun's hidden class optimization like algorithm, and it is the reason why Bun is maximum 20x slower than NodeJS in the `typia.is<T>()` function.
+
+> Reference: [`typia`'s hidden optimization of v8 engine](https://dev.to/samchon/secret-of-typia-how-it-could-be-20000x-faster-validator-hidden-class-optimization-in-v8-engine-1mfb)
+
+![NodeJS vs Bun: typia.is T function benchmark](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/6wrddx7jan7gpn05tmf0.png)
+
+
+
+
+## `typia.json.stringify<T>()` function benchmark
+```typescript
+//----
+// TypeScript Source Code
+//----
+import typia from "typia";
+
+interface Member {
+  name: string;
+  age: number;
+}
+typia.json.stringify<Member>({
+  email: "John Doe",
+  age: 24,
+});
+
+//----
+// Compiler JavaScript Code
+//----
+import * as __typia_transform__jsonStringifyString from "typia/lib/internal/_jsonStringifyString.js";
+(() => {
+  const _so0 = (input) =>
+    `{"name":${__typia_transform__jsonStringifyString._jsonStringifyString(input.name)},"age":${input.age}}`;
+  return (input) => _so0(input);
+})()({
+  email: "John Doe",
+  age: 24,
+});
+```
+
+`typia.json.stringify<T>()` is a transformer function that is similar with `JSON.stringify()` function, but working only for the type `T`. As the `typia.json.stringify<T>()` function aims only for the type `T` with the AoT (Ahead of Time) compilation skill, its JSON serialization is faster than the native `JSON.stringify()` function.
+
+Because of the AoT compilation of `typia` and NodeJS v8 engine's hidden class optimization skills, `typia.json.stringify<T>()` is maximum 20x faster than `class-transformer` in the NodeJS environment, and maximum 16x faster than the native `JSON.stringify()` function.
+
+![typia.json.stringify T function benchmark in NodeJS](https://raw.githubusercontent.com/samchon/typia/master/benchmark/results/AMD%20Ryzen%209%207940HS%20w%20Radeon%20780M%20Graphics/images/stringify.svg)
+
+> [`typia.json.stringify<T>()` function benchmark in NodeJS](https://github.com/samchon/typia/tree/master/benchmark/results/AMD%20Ryzen%209%207940HS%20w%20Radeon%20780M%20Graphics#stringify)
+
+However, in the Bun environment, `typia.json.stringify<T>()` function's JSON serialization speed becomes slower, even sometimes worse than the native `JSON.stringify()` function. This is the reason why I suspect that AoT compilation skill doesn't work at all on the Bun environment.
+
+If the AoT compilation and v8 hidden class optimization skill worked, `typia.json.stringify<T>()` function cannot be slower than the native `JSON.stringify()` function in the theoretical level. How dedicated code only for the type `T` can be slower than the general `JSON.stringify()` function accessing to the properties dynamically?
+
+I think that Bun does not perform hidden class optimization skill, or there is a critical problem on the Bun's hidden class optimization like algorithm.
+
+![typia.json.stringify T function benchmark in Bun](https://raw.githubusercontent.com/samchon/typia/master/benchmark/results/AMD%20Ryzen%209%207940HS%20w%20Radeon%20780M%20Graphics/bun/images/stringify.svg)
+
+> [`typia.json.stringify<T>()` function benchmark in Bun](https://github.com/samchon/typia/tree/master/benchmark/results/AMD%20Ryzen%209%207940HS%20w%20Radeon%20780M%20Graphics/bun/#stringify)
+>
+> Skyblue is `JSON.stringify()` function, and it can be faster than AoT compiled logic in the Bun
+
+
+
+
+## Benchmark on Linux
+Some may suspect that Bun is based on the Safari browser's engine (JavaScriptCore), so it is poorly optimized for Windows, but shows normal performance on other operating systems such as Linux.
+
+So I benchmarked it on Linux, but the results were the same. Bun is still much slower than NodeJS in the logic operations.
