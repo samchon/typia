@@ -1,0 +1,119 @@
+---
+title: "I made 10x faster JSON.stringify() functions, even type safe"
+description: "// FASTER STRINGIFY FUNCTIONS export function stringify&lt;T&gt;(input: T): string; // unsafe but..."
+date: "2022-10-25"
+author: "Jeongho Nam"
+ogImage: "https://media2.dev.to/dynamic/image/width=1000,height=500,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fxwc77z600hjqvzt560fc.png"
+devtoUrl: "https://dev.to/samchon/i-made-10x-faster-jsonstringify-functions-even-type-safe-2eme"
+tags:
+  - javascript
+  - programming
+  - typescript
+  - opensource
+---
+```typescript
+// FASTER STRINGIFY FUNCTIONS
+export function stringify<T>(input: T): string; // unsafe but fatest
+export function assertStringify<T>(input: T): string; // throws TypeGuardError
+export function isStringify<T>(input: T): string | null; // wrong type be null
+
+// RUNTIME VALIDATORS ALLOWING SUPERFLUOUS PROPERTIES
+export function is<T>(input: unknown): input is T; // returns boolean
+export function assertType<T>(input: unknown): T; // throws TypeGuardError
+export function validate<T>(input: unknown): IValidation; // detailed reasons
+
+// DO NOT ALLOW SUPERFLUOUS PROPERTIES
+export function equals<T>(input: unknown): input is T;
+export function assertType<T>(input: unknown): T;
+export function validate<T>(input: unknown): IValidation;
+```
+
+Hello, I'm a developer of [typescript-json](https://github.com/samchon/typescript-json), which can validate instance type by only one line, what I'd introduced as "1,000x faster runtime validator library" in here [dev.to](https://dev.to/samchon/typescript-json-is-10-1000x-times-faster-than-zod-and-io-ts-8n6). In today, I came back with powerful JSON string conversion functions.
+
+As you can see from the above code, the new JSON string conversion functions throw `TypedGuardError` or return `null` value when `input` value is different with target type `T`. One thing amazing is, those JSON string conversion functions are much faster than the native `JSON.stringify()` function despite of type validation process.
+
+![JSON string conversion speed](https://user-images.githubusercontent.com/13158709/197731958-f20157b2-2e31-4e24-a27f-3ae9a8e565bb.png)
+
+> Of course, as this benchmark measured by myself, someone can doubt its objectivity. 
+>
+> Therefore, to ensure the objectivity, I diclose all code used in the benchmark. Below codes are being used in the benchmark. You also can run the benchmark program by running `npm install` and `npm run benchmark` commands after cloning [typescript-json](https://github.com/samchon/typescript-json) repository.
+>
+>
+> - [`stringify()` functions](https://github.com/samchon/typescript-json/blob/master/benchmark/features/benchmark_stringify.ts) 
+> - [`is()` functions](https://github.com/samchon/typescript-json/blob/master/benchmark/features/benchmark_is.ts)
+> - [`assertType()` functions](https://github.com/samchon/typescript-json/blob/master/benchmark/features/benchmark_assert.ts)
+> - [`validate()` functions](https://github.com/samchon/typescript-json/blob/master/benchmark/features/benchmark_validate.ts)
+
+
+
+
+## How to use
+
+If you want to utilize those type safe JSON functions, just install and import [typescript-json](https://github.com/samchon/typescript-json). After that, call those functions like below. You don't need to define any extra dedication like [fast-json-stringify](https://github.com/fastify/fast-json-stringify) which requires JSON schema definition. Only you need is only one line with pure TypeScript type.
+
+Note that, `TSON.assertStringify()` function throws `TypeGuardError` exception and `TSON.isStringify()` function returns `boolean` value when parametric `input` value is different with the target type `T`. Of course, if `input` value is matched with the type `T`, just JSON string would be returned. Anyway, choose one of them depending on your purpose.
+
+```typescript
+import TSON from "typescript-json";
+
+interface IMember {
+    name: string;
+    age: number;
+}
+
+// NO PROBLEM
+const exact: IMember = { name: "someone", age: 0 };
+TSON.assertStringify(exact);
+TSON.isStringify(exact);
+
+// WRONG TYPE
+const wrong: IMember = { name: "someone", age: false as any };
+TSON.assertStringify(wrong); // throws TypeGuardError
+TSON.isStringify(wrong); // returns null
+```
+
+
+
+
+## How can be such faster
+
+AOT (Ahead of Time) compilation.
+
+[typescript-json](https://github.com/samchon/typescript-json) analyzes your code (type `T`) in the compilation level and generates optimized runtime code for JSON string conversion. Such optimized runtime code generation by analzying source code is called AOT (Ahead of Time) compilation and it is the reason why [typescript-json](https://github.com/samchon/typescript-json)'s JSON string conversion functions are much faster than the native `JSON.stringify()` function despite of type validation process. 
+
+In the same reason, validation functions of [typescript-json](https://github.com/samchon/typescript-json) are much faster than other validation libraries. Only [TypeBox](https://github.com/sinclairzx81/typebox) can be competitive and [TypeBox](https://github.com/sinclairzx81/typebox) utilizes JIT (Just-in-time) compilation. Other libraries without special skills are extremely slow, and the gap can widen by thousands of times.
+
+> Someone may have question, "Why are you comparing with other validator libraries? Where's the other JSON string converter library?" Unfortunately, there's not any other library that can convert JSON string safely like [typescript-json](https://github.com/samchon/typescript-json). Therefore, I had to compare with validator libraries. Please understand me and such circumstance.
+
+![is() function benchmark](https://user-images.githubusercontent.com/13158709/197366076-1d5592e7-b717-4ea3-b9d7-949e7fa4fc76.png)
+
+![assertType() function benchmark](https://user-images.githubusercontent.com/13158709/197366105-2b784668-70dd-44bf-b73d-2e601e54c48f.png)
+
+
+
+
+## Full Spec of TypeScript Type
+
+[typescript-json](https://github.com/samchon/typescript-json) supports full spec of TypeScript type. 
+
+Therefore, use `TSON.assertStringify()` and `TSON.isStringify()` functions enhance your program's type safety with confidence. I hope those functions to be really useful for network systems using JSON data, especially for enhancing type safety.
+
+Components               | `TSON` | `TypeBox` | `ajv` | `io-ts` | `zod` | `C.V.`
+-------------------|--------|-----------|-------|---------|-------|------------------
+**Easy to use**          | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ 
+[Object (simple)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectSimple.ts)          | ✔ | ✔ | ✔ | ✔ | ✔ | ✔
+[Object (hierarchical)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectHierarchical.ts)    | ✔ | ✔ | ❌ | ✔ | ✔ | ✔
+[Object (recursive)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectRecursive.ts)       | ✔ | ✔ | ✔ | ✔ | ✔ | ✔ | ✔
+[Object (union, implicit)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectUnionImplicit.ts) | ✅ | ❌ | ❌ | ❌ | ❌ | ❌
+[Object (union, explicit)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectUnionExplicit.ts) | ✔ | ✔ | ✔ | ✔ | ✔ | ❌
+[Object (additional tags)](https://github.com/samchon/typescript-json/#comment-tags)        | ✔ | ✔ | ✔ | ✔ | ✔ | ✔
+[Object (template literal types)](https://github.com/samchon/typescript-json/blob/master/test/structures/TemplateUnion.ts) | ✔ | ✔ | ✔ | ❌ | ❌ | ❌
+[Object (dynamic properties)](https://github.com/samchon/typescript-json/blob/master/test/structures/DynamicTemplate.ts) | ✔ | ✔ | ✔ | ❌ | ❌ | ❌
+[Array (hierarchical)](https://github.com/samchon/typescript-json/blob/master/test/structures/ArrayHierarchical.ts)     | ✔ | ✔ | ✔ | ✔ | ✔ | ✔
+[Array (recursive)](https://github.com/samchon/typescript-json/blob/master/test/structures/ArrayRecursive.ts)        | ✔ | ✔ | ✔ | ✔ | ✔ | ❌
+[Array (recursive, union)](https://github.com/samchon/typescript-json/blob/master/test/structures/ArrayRecursiveUnionExplicit.ts) | ✔ | ✔ | ❌ | ✔ | ✔ | ❌
+[Array (R+U, implicit)](https://github.com/samchon/typescript-json/blob/master/test/structures/ArrayRecursiveUnionImplicit.ts)    | ✅ | ❌ | ❌ | ❌ | ❌ | ❌
+[**Ultimate Union Type**](https://github.com/samchon/typescript-json/blob/master/src/schemas/IJsonSchema.ts)  | ✅ | ❌ | ❌ | ❌ | ❌ | ❌
+
+> - TSON: `typescript-json`
+> - C.V.: `class-validator`
