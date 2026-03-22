@@ -23,4 +23,8 @@ export default {
       footer: false,
     },
   },
+  blog: {
+    title: "📝 Blog Articles",
+    type: "page",
+  },
 } satisfies MetaRecord;

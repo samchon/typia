@@ -1,0 +1,196 @@
+---
+title: "[Typia] Hidden Class Optimization of v8 Engine"
+description: "Preface      // RUNTIME VALIDATORS export function is&lt;T&gt;(input: unknown | T): input is..."
+date: "2023-07-29"
+author: "Jeongho Nam"
+ogImage: "https://media2.dev.to/dynamic/image/width=1000,height=500,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fzgfggvrkoj4osgtejojc.jpg"
+devtoUrl: "https://dev.to/samchon/secret-of-typia-how-it-could-be-20000x-faster-validator-hidden-class-optimization-in-v8-engine-1mfb"
+tags:
+  - typescript
+  - javascript
+  - opensource
+  - computerscience
+---
+## Preface
+```typescript
+// RUNTIME VALIDATORS
+export function is<T>(input: unknown | T): input is T; // returns boolean
+export function assert<T>(input: unknown | T): T; // throws TypeGuardError
+export function validate<T>(input: unknown | T): IValidation<T>; // detailed
+export const customValidators: CustomValidatorMap; // customizable
+ 
+// ENHANCED JSON
+export function application<...Args>(): IJsonApplication; // JSON schema
+export function assertParse<T>(input: string): T; // type safe parser
+export function assertStringify<T>(input: T): string; // safe and faster
+    // +) isParse, validateParse 
+    // +) stringify, isStringify, validateStringify
+ 
+// RANDOM DATA GENERATOR
+export function random<T>(g?: Partial<IRandomGenerator>): Primitive<T>;
+```
+
+Let's study why `typia` is much faster than `class-validator`.
+
+  - Github Repository: https://github.com/samchon/typia
+  - Guide Documents: https://typia.io/docs
+
+I've written some articles introducing my TypeScript runtime validator library [typia](https://github.com/samchon/typia) in here `dev.to` community. In these previous articles, I had often explained that `typia` boosts up validation speed through AoT (Ahead of Time) compilation, and it is maximum 20,000x faster than `class-validator`. 
+
+By the way, describing the AoT compilation, I'd just told that `typia` generates static validation code for target `T` type, and such static code makes program faster. I never had not explained the reason why such static validation codes are much faster than dynamic validation codes of `class-validator`.
+
+In today, I'll describe the reason why.
+
+```typescript
+// TYPESCRIPT SOURCE CODE
+typia.is<number>(3);
+typia.createIs<Date>();
+
+// COMPILED JAVASCRIPT CODE
+((input) => "number" === typeof input)(3);
+(input) => input instanceof Date;
+```
+
+![`assert()` function benchmark](https://raw.githubusercontent.com/samchon/typia/master/benchmark/results/11th%20Gen%20Intel(R)%20Core(TM)%20i5-1135G7%20%40%202.40GHz/images/assert.svg)
+
+> [Measured on Surface Pro 8](https://github.com/samchon/typia/tree/master/benchmark/results/11th%20Gen%20Intel(R)%20Core(TM)%20i5-1135G7%20%40%202.40GHz)
+
+
+
+
+## Every objects are `HashMap`
+> To aid your understanding, I will use many figurative expressions and pseudo codes. However, these figurative expressions and pseudo codes may be somewhat different from actual computer engineering theories. Please read this article considering such aspects.
+
+Have you heard that every objects in dynamic languages are `HashMap`? 
+
+To know how `typia` optimizes the performance, you've to understand this concept. Why dynamic languages are using `HashMap`, and how the `HashMap` makes program slower.
+
+```javascript
+// in dynamic language like JavaScript,
+const obj = {};
+
+// you can any properties at any time
+obj.a = "A";
+obj.wafdfaf = 3;
+obj[RandomGenerator.string()] = true;
+
+// removing properties are also same
+delete obj.a;
+delete obj.wafdfaf;
+```
+
+At first, JavaScript is a dynamic language. 
+
+So, it is possible to assign any type of value to a variable. In the object case, it is even possible to add or delete properties at any time. 
+To support dynamic properties' insertions and deletions, the object must be implemented as a `HashMap` type.
+
+It's the reason why dynamic languages are using `HashMap` for objects, and there's no any exception case in the dynamic languages. Python, Ruby, PHP, and so on, all of them are using `HashMap` for objects.
+
+
+
+
+## `HashMap` class
+```typescript
+export class HashMap<Key, T> {
+    private hasher_: (key: Key) => number;
+    private equal_: (x: Key, y: Key) => number;
+
+    // HashMap stores its key-value pairs into a Linked List
+    private data_: List<Entry<Key, T>>;
+
+    // Instead, have bucket array of linked list nodes, for fast key finding
+    private buckets_: List.Node<Entry<Key, T>>[][];
+
+    private find(key: Key): List.Node<Entry<Key, T>> {
+        const hash: number = this.hasher_(key);
+        const index: number = hash % this.buckets_.length;
+        const bucket: List.Node<Entry<Key, T>>[] = this.buckets_[index] ?? [];
+        
+        return bucket.find(
+            (node) => this.equal_(node.value.key, key)
+        ) ?? this.data_.end();
+    }
+
+    // Therefore, single key access could be faster
+    public has(key: Key): boolean {
+        this.find(key) !== this.data_.end();
+    }
+
+    public get(key: Key): T | undefined {
+        const it: List.Node<Entry<Key, T>> = this.find(key);
+        return it !== this.data_.end() 
+            ? it.value.value 
+            : undefined;
+    }
+
+    // However, full iteration is slower as well as linked list
+    public entries(callback: (value: [Key, T]) => void): void {
+        let it: List.Node<Entry<Key, T>> = this.data_.begin();
+        while (it !== this.data_.end()) {
+            callback([it.value.key, it.value.value]);
+            it = it.next();
+        }
+    }
+
+    public size(): number { return this.data_.size(); }
+}
+
+export class List<T> {
+    private begin_: List<T>; 
+    private end_: List<T>;
+    private size_: number;
+
+    public size(): number;
+    public begin(): List.Node<T>;
+    public end(): List.Node<T>;
+}
+export namespace List {
+    export class Node<T> {
+        public next: Node<T> | null;
+        public prev: Node<T> | null;
+        public value: T;
+    }
+}
+```
+
+- Actual codes:
+    - `HashMap`: https://github.com/samchon/tstl/blob/master/src/container/HashMap.ts
+    - `HashBuckets`: https://github.com/samchon/tstl/blob/master/src/internal/hash/HashBuckets.ts
+
+By the way, you know how to implement the `HashMap`? `HashMap` stores its key-value pairs into a `Linked List` (doubly-linked-list in C++ STL case). Also, for the fast key finding, it stores nodes of `Linked List` into an `Bucket` array.
+
+This is the reason why `HashMap` makes dynamic languages slower. As you know, static languages are containing object properties into a fixed and sequenced memory space like an `Array`. Comparing iteration speed of `Linked List` versus `Array`, which one is faster? Of course, `Array` is much faster. This is the one of principle reason why dynamic languages are slower than static languages.
+
+  - Dynamic languages store properties into `Linked List`
+  - Static languages store properties into `Array` (sequenced memory space)
+
+> If my explanation is not easy to understand, read above pseudo codes. It's not the actual implementation of `HashMap` and `Linked List`, but would be helpful to understand the concept.
+
+
+
+
+## Hidden Class Optimization
+![Hidden Class Optimization](https://user-images.githubusercontent.com/13158709/256974293-e10f26af-e861-48fa-8e49-df025e56fc1f.png)
+
+Now, we've learned that dynamic languages are utilizing `HashMap` for dynamic key composition, but it makes program slower because of its storage `Linked List`. By the way, v8 engine has a special optimization technique for this problem. 
+
+When v8 engine detects an object type that has fixed properties' composition, it makes a hidden class definition for the object type. And, the hidden class definition is not using `HashMap`, but arrange properties into a fixed and sequenced memory space like static languages.
+
+This is called "Hidden Class Optimization". If you've heard that Google Chrome or NodeJS are much faster than other dynamic or some static languages like Java, it's OK to assume that the hidden class optimization is one of the main reason.
+
+
+
+
+## Conclusion
+Let's summarize up what we've learned in here article:
+
+  1. Dynamic languages are using `HashMap` to support dynamic properties' insertions and deletions.
+  2. `HashMap` stores its key-value pairs into a `Linked List` container, and it makes rpgoram slower
+  3. Besides, static languages are storing properties into a fixed and sequenced memory space like an `Array`, and it makes program faster
+  4. In the v8 engine case, it has a special optimization technique called "Hidden Class Optimization", to escape from the `HashMap` and store properties into a fixed and sequenced memory space like static languages
+
+The reason why `typia` is faster than `class-validator` is also not much different from the theoretical content summarized above. I've designed `typia` to generate code that favors the v8 engine, and in actually, code generated by `typia` benefits from the hidden class optimization. 
+
+Besides, `class-validator` and `class-transform` are always composing its serialization and validation logics through dynamic properties' assessments, especially represented by `Reflect`. Therefore, `class-validator` and `class-transform` never can get benefit from the hidden class optimization, and always iterating the slow `Linked List` nodes. 
+
+The 20,000x speed gap also came from such difference. Typically, the traversal speed of an array and a linked list differs by about a factor of 10. As `class-validator` and `class-transformer` have dual to quadruple nested iterations about dynamic key accessing, the 10x gap be powered to maximum (10<sup>4</sup> = 10,000)x in theoretically.

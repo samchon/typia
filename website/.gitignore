@@ -4,6 +4,7 @@ node_modules/
 out/
 packages/
 public/api/
+public/blog/rss.xml
 public/compiler/
 public/robots.txt
 public/sitemap*.xml
@@ -11,3 +12,4 @@ src/raw/
 typedoc-json/
 
 src/compiler/PlaygroundExampleStorage.ts
+!.env

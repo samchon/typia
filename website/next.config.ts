@@ -9,6 +9,9 @@ export default withNextra({
   // ... Other Next.js config options
   output: "export",
   trailingSlash: true,
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   images: {
     unoptimized: true,
   },

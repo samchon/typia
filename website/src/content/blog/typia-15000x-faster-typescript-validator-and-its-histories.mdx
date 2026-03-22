@@ -1,0 +1,684 @@
+---
+title: "[Typia] 15,000x faster TypeScript Validator and its histories"
+description: "Renamed to Typia   https://github.com/samchon/typia  Hello, I'm developer of typescript-json..."
+date: "2022-12-18"
+author: "Jeongho Nam"
+ogImage: "https://media2.dev.to/dynamic/image/width=1000,height=500,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Frvtijd06cf7v87v30iqv.png"
+devtoUrl: "https://dev.to/samchon/typia-15000x-faster-validator-and-its-histories-1fmg"
+tags:
+  - typescript
+  - javascript
+  - opensource
+  - programming
+---
+## Renamed to Typia
+https://github.com/samchon/typia
+
+Hello, I'm developer of ~~`typescript-json`~~ `typia`. 
+
+In nowadays, I've renamed `typescript-json` library to [typia](https://github.com/samchon/typia), because the word "JSON" no more can represent it. Key feature of `typia` had been changed from faster JSON stringify function to superfast validation function. Furthermore, `typia` has started supporting Protocol Buffer (in alpha version, not regular feature yet).
+
+Introducing such package renaming from `typescript-json` to `typia`, I will tell you which changes had been occurred during six months. Lots of interesting features and improvements have been happened.
+
+> ### What `typia` is:
+> 
+> ```typescript
+> // RUNTIME VALIDATORS
+> export function is<T>(input: unknown | T): input is T; // returns boolean
+> export function assert<T>(input: unknown | T): T; // throws TypeGuardError
+> export function validate<T>(input: unknown | T): IValidation<T>; // detailed
+> 
+> // STRICT VALIDATORS
+> export function equals<T>(input: unknown | T): input is T;
+> export function assertEquals<T>(input: unknown | T): T;
+> export function validateEquals<T>(input: unknown | T): IValidation<T>;
+> 
+> // JSON
+> export function application<T>(): IJsonApplication; // JSON schema
+> export function assertParse<T>(input: string): T; // type safe parser
+> export function assertStringify<T>(input: T): string; // safe and faster
+>     // +) isParse, validateParse 
+>     // +) stringify, isStringify, validateStringify
+> ```
+> 
+> [typia](https://github.com/samchon/typia) is a transformer library of TypeScript, supporting below features:
+> 
+>   - Super-fast Runtime Validators
+>   - Safe JSON parse and fast stringify functions
+>   - JSON schema generator
+>
+> All functions in `typia` require **only one line**. You don't need any extra dedication like JSON schema definitions or decorator function calls. Just call `typia` function with only one line like `typia.assert<T>(input)`.
+>
+> Also, as `typia` performs AOT (Ahead of Time) compilation skill, its performance is much faster than other competitive libraries. For an example, when comparing validate function `is()` with other competitive libraries, `typia` is maximum **15,000x times faster** than `class-validator`.
+
+
+
+
+## Became 15,000x faster runtime validator library
+```typescript
+// TypeBox was faster than Typia in here `ObjectSimple` case
+export type ObjectSimple = ObjectSimple.IBox3D;
+export namespace ObjectSimple {
+    export interface IBox3D {
+        scale: IPoint3D;
+        position: IPoint3D;
+        rotate: IPoint3D;
+        pivot: IPoint3D;
+    }
+    export interface IPoint3D {
+        x: number;
+        y: number;
+        z: number;
+    }
+}
+```
+
+Do you remember? About a month ago, I wrote an article about [TypeBox](https://dev.to/samchon/i-found-10000x-faster-typescript-validator-library-36mj) and said "I found faster vlidator library than me (in some cases)". During a month, I'd tried to understand and study the reason why. 
+
+During the studies, I found the reason why. The secret was on inlining. 
+
+When validating an instance type, `typia` generates functions per object type. Therefore, when a type is related with 8 object types, 8 internal functions would be generated. 
+However, `typebox` let user to decide whether to make validate function for an object type or not (by `$recursiveRef` flag). 
+
+> Benchmark code about `typebox` was written by `typebox` author himself.
+
+Looking at below code, you may understand what the inlining means and how `typia` and `typebox` are different. `typia` is generating functions per object type (`Box3D` and `Point3d`), but `typebox` does not make any internal function but inline all of them.
+
+```typescript
+// COMPILED VALIDATION CODE OF TYPIA
+const is = (input) => {
+    const $io0 = (input) =>
+        "object" === typeof input.scale && null !== input.scale && $io1(input.scale) &&
+        "object" === typeof input.position && null !== input.position && $io1(input.position) &&
+        "object" === typeof input.rotate && null !== input.rotate && $io1(input.rotate) &&
+        "object" === typeof input.pivot && null !== input.pivot && $io1(input.pivot);
+    const $io1 = (input) =>
+        "number" === typeof input.x && !isNaN(input.x) && isFinite(input.x) &&
+        "number" === typeof input.y && !isNaN(input.y) && isFinite(input.y) &&
+        "number" === typeof input.z && !isNaN(input.z) && isFinite(input.z);
+    return "object" === typeof input && null !== input && $io0(input);
+};
+
+// COMPILED VALIDATION CODE OF TYPEBOX
+function Check(value) {
+    return (
+      (typeof value === 'object' && value !== null && !Array.isArray(value)) &&
+      (typeof value.scale === 'object' && value.scale !== null && !Array.isArray(value.scale)) &&
+      (typeof value.scale.x === 'number' && !isNaN(value.scale.x)) &&
+      (typeof value.scale.y === 'number' && !isNaN(value.scale.y)) &&
+      (typeof value.scale.z === 'number' && !isNaN(value.scale.z)) &&
+      (typeof value.position === 'object' && value.position !== null && !Array.isArray(value.position)) &&
+      (typeof value.position.x === 'number' && !isNaN(value.position.x)) &&
+      (typeof value.position.y === 'number' && !isNaN(value.position.y)) &&
+      (typeof value.position.z === 'number' && !isNaN(value.position.z)) &&
+      (typeof value.rotate === 'object' && value.rotate !== null && !Array.isArray(value.rotate)) &&
+      (typeof value.rotate.x === 'number' && !isNaN(value.rotate.x)) &&
+      (typeof value.rotate.y === 'number' && !isNaN(value.rotate.y)) &&
+      (typeof value.rotate.z === 'number' && !isNaN(value.rotate.z)) &&
+      (typeof value.pivot === 'object' && value.pivot !== null && !Array.isArray(value.pivot)) &&
+      (typeof value.pivot.x === 'number' && !isNaN(value.pivot.x)) &&
+      (typeof value.pivot.y === 'number' && !isNaN(value.pivot.y)) &&
+      (typeof value.pivot.z === 'number' && !isNaN(value.pivot.z))
+   )
+}
+```
+
+As you know, function calls have their own cost. Therefore, inlining may be faster than function call. However, inlining is not always faster then function call, and there is a section where performance is reversed between function calls and inlining.
+
+`typebox` let users to determine by themselves through JSON schema definition, but `typia` can't do it, because `typia` generates runtime validator function automatically by only one line statement; `typia.assert<T>(input)`.
+
+```typescript
+// CODE OF TYPIA
+import typia from "typia";
+typia.is<ObjectSimple>(input);
+
+// CODE OF TYPEBOX
+import { Type } from "@sinclair/typebox";
+import { TypeCompiler } from "@sinclair/typebox/compiler";
+
+const Point3D = Type.Object({
+    x: Type.Number(),
+    y: Type.Number(),
+    z: Type.Number(),
+});
+
+const Box3D = Type.Object({
+    scale: Point3D,
+    position: Point3D,
+    rotate: Point3D,
+    pivot: Point3D,
+});
+
+TypeBoxObjectSimple = TypeCompiler.Compile(Box3D);
+TypeBoxObjectSimple.Check(input);
+```
+
+Therefore, it is necessary for me to compare the pros and cons of function call and inlining, and to select an algorithm at an appropriate level. I'd changed `typia` code to use such inlining skill in special cases and the result was `typia` became 15,000x faster validator than `class-validator`.
+
+From now on, `typia` is the fastest runtime validator library.
+
+![Is Function Benchmark](https://github.com/samchon/typia/raw/master/benchmark/results/11th%20Gen%20Intel(R)%20Core(TM)%20i5-1135G7%20%40%202.40GHz/images/is.svg)
+
+> Measured on [Intel i5-1135g7, Surface Pro 8](https://github.com/samchon/typia/tree/master/benchmark/results/11th%20Gen%20Intel(R)%20Core(TM)%20i5-1135G7%20%40%202.40GHz#is)
+
+
+
+
+## New Features
+### More Types
+```typescript
+// REST ARRAY TYPE IN TUPLE TYPE
+type RestArrayInTuple = [boolean, number, ...string[]];
+
+// BUILT-IN CLASS TYPES
+type BuildInClassTypes = Date | Uint8Array | {...} | Buffer | DataView;
+
+// TEMPLATE TYPES
+interface Templates {
+    prefix: `prefix_${string | number | boolean}`;
+    postfix: `${string | number | boolean}_postfix`;
+    middle: `the_${number | boolean}_value`;
+    mixed:
+        | `the_${number | "A" | "B"}_value`
+        | boolean
+        | number;
+    ipv4: `${number}.${number}.${number}.${number}`;
+    email: `${string}@${string}.${string}`;
+}
+
+//----
+// JUST CRAZY TYPE
+//----
+type Join<K, P> = K extends string | number
+    ? P extends string | number
+        ? `${K}${"" extends P ? "" : "."}${P}`
+        : never
+    : never;
+
+type Prev = [never, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+type StringPathLeavesOf<O, F = "^%#&$!@", D extends number = 4> = [D] extends [
+    never,
+]
+    ? never
+    : O extends object
+    ? {
+          [K in keyof O]-?: O[K] extends F
+              ? never
+              : Join<K, StringPathLeavesOf<O[K], F, Prev[D]>>;
+      }[keyof O]
+    : "";
+
+type TypeOfPath<
+    Schema extends { [k: string]: any },
+    S extends string,
+    D extends number = 4,
+> = [D] extends [never]
+    ? never
+    : S extends `${infer T}.${infer U}`
+    ? TypeOfPath<Schema[T], U, Prev[D]>
+    : Schema[S];
+
+const FILTER_OPERATION_MAPPING_STRING_TO_STRING = {
+    like: 2,
+    notLike: 3,
+    substring: 4,
+    startsWith: 5,
+    endsWith: 6,
+};
+const FILTER_CONDITION_MAPPING = {
+    or: 2,
+    and: 3,
+    not: 4,
+};
+
+type ValueType =
+    | "stringToString"
+    | "stringToNumber"
+    | "stringOrNumber"
+    | "numberArray"
+    | "array";
+type PathType<
+    TableSchema extends { [k: string]: any } | undefined,
+    Type extends ValueType,
+    Columns extends
+        | Array<
+              TableSchema extends undefined
+                  ? string
+                  : StringPathLeavesOf<TableSchema>
+          >
+        | undefined = undefined,
+    ColumnsExclude extends
+        | Array<
+              TableSchema extends undefined
+                  ? string
+                  : StringPathLeavesOf<TableSchema>
+          >
+        | undefined = undefined,
+> = Exclude<
+    Columns extends any[]
+        ? Columns extends Array<infer T>
+            ? T
+            : never
+        : Type extends "stringToString"
+        ? StringPathLeavesOf<TableSchema, number | boolean>
+        : Type extends "stringToNumber"
+        ? StringPathLeavesOf<TableSchema, string | boolean>
+        : StringPathLeavesOf<TableSchema>,
+    ColumnsExclude extends Array<infer T> ? T : undefined
+>;
+
+type FilterBy<
+    Operations extends { [k: string]: any },
+    Type extends ValueType,
+    TableSchema extends { [k: string]: any } | undefined = undefined,
+    Columns extends
+        | Array<
+              TableSchema extends undefined
+                  ? string
+                  : StringPathLeavesOf<TableSchema>
+          >
+        | undefined = undefined,
+    ColumnsExclude extends
+        | Array<
+              TableSchema extends undefined
+                  ? string
+                  : StringPathLeavesOf<TableSchema>
+          >
+        | undefined = undefined,
+    Path extends PathType<
+        TableSchema,
+        Type,
+        Columns,
+        ColumnsExclude
+    > = PathType<TableSchema, Type, Columns, ColumnsExclude>,
+> = TableSchema extends undefined
+    ? {
+          operation: keyof Operations;
+          column: Columns extends any[]
+              ? Columns extends Array<infer T>
+                  ? T
+                  : never
+              : string;
+          value: Type extends "numberArray"
+              ? [string | number, string | number]
+              : Type extends "array"
+              ? Array<string | number>
+              : Type extends "stringToString"
+              ? string
+              : Type extends "stringToNumber"
+              ? string
+              : string | number;
+      }
+    : {
+          [key in Path]: {
+              operation: keyof Operations;
+              column: Columns extends any[]
+                  ? Columns extends Array<infer T>
+                      ? T
+                      : never
+                  : key;
+              value: Type extends "numberArray"
+                  ? [
+                        TypeOfPath<Exclude<TableSchema, undefined>, key>,
+                        TypeOfPath<Exclude<TableSchema, undefined>, key>,
+                    ]
+                  : Type extends "stringToString"
+                  ? string
+                  : Type extends "stringToNumber"
+                  ? string
+                  : Type extends "array"
+                  ? Array<TypeOfPath<Exclude<TableSchema, undefined>, key>>
+                  : TypeOfPath<Exclude<TableSchema, undefined>, key>;
+          };
+      }[Path];
+
+type Filter<
+    TableSchema extends { [k: string]: any } | undefined = undefined,
+    Columns extends
+        | Array<
+              TableSchema extends undefined
+                  ? string
+                  : StringPathLeavesOf<TableSchema>
+          >
+        | undefined = undefined,
+    ColumnsExclude extends
+        | Array<
+              TableSchema extends undefined
+                  ? string
+                  : StringPathLeavesOf<TableSchema>
+          >
+        | undefined = undefined,
+    D extends number = 4,
+> = [D] extends [never]
+    ? never
+    :
+          | FilterBy<
+                typeof FILTER_OPERATION_MAPPING_STRING_TO_STRING,
+                "stringToString",
+                TableSchema,
+                Columns,
+                ColumnsExclude
+            >
+          | {
+                [k in keyof typeof FILTER_CONDITION_MAPPING]?: Filter<
+                    TableSchema,
+                    Columns,
+                    ColumnsExclude,
+                    Prev[D]
+                >;
+            };
+
+type Test555 = Filter<{
+    aa: number;
+    bb: { xx: number; yy: string };
+    cc: string;
+}>;
+```
+    
+
+After introducing `typia` (`typescript-json` at that time), many `dev.to` users (maybe?) started using it and wrote lots issues for bug reportings or new feature suggestions, too. Resolving issues for six months, `typia` became much stronger for TypeScript types.
+
+For six months of improvements, `typia` could support template literal types and built-in class types like `Uint8Array`. Sometimes, bug from horrible types like "Array rest parametrized tuple type" or "endless recursive and conditional types" had been reported.
+
+Anyway, I'd enhanced and resolved all of those issues, and now I say that "`typia` supports every TypeScript type, with confidence. Of course, the word "every TypeScript type" could be broken in any time, but it is not now (maybe).
+
+### Comment Tags
+Some users requested `typia` to support much more types even TypeScript does not support.
+
+To response to their inspirations, I'd studied solution for a while and found a good way at the right time. It is extending `typia`'s spec through comment tags. For an example, JavaScript does not support integer type, but `typia` can validate the integer type through `@type int` comment tag.
+
+Below is an example using such comment tags. Although those comment tags are written as a comment, but they're compile time safe. If wrong grammered comment tags being used, `typia` will generate compilation error, therefore no need to worry about runtime error by mistakes.
+
+```typescript
+export interface TagExample {
+    /* -----------------------------------------------------------
+        ARRAYS
+    ----------------------------------------------------------- */
+    /**
+     * You can limit array length like below.
+     * 
+     * @minItems 3
+     * @maxItems 10
+     * 
+     * Also, you can use `@items` tag instead.
+     * 
+     * @items (5, 10] --> 5 < length <= 10
+     * @items [7      --> 7 <= length
+     * @items 12)     --> length < 12
+     * 
+     * Furthermore, you can use additional tags for each item.
+     * 
+     * @type uint
+     * @format uuid
+     */
+    array: Array<string|number>;
+
+    /**
+     * If two-dimensional array comes, length limit would work for 
+     * both 1st and 2nd level arrays. Also using additional tags 
+     * for each item (string) would still work.
+     * 
+     * @items (5, 10)
+     * @format url
+     */
+    matrix: string[][];
+
+    /* -----------------------------------------------------------
+        NUMBERS
+    ----------------------------------------------------------- */
+    /**
+     * Type of number.
+     * 
+     * It must be one of integer or unsigned integer.
+     * 
+     * @type int
+     * @type uint
+     */
+    type: number;
+
+    /**
+     * You can limit range of numeric value like below.
+     * 
+     * @minimum 5
+     * @maximum 10
+     * 
+     * Also, you can use `@range` tag instead.
+     * 
+     * @range (5, 10] --> 5 < x <= 10
+     * @range [7      --> 7 <= x
+     * @range 12)     --> x < 12
+     */
+    range: number;
+
+    /**
+     * Step tag requires minimum or exclusiveMinimum tag.
+     * 
+     * 3, 13, 23, 33, ...
+     * 
+     * @step 10
+     * @exclusiveMinimum 3
+     * @range [3
+     */
+    step: number;
+
+    /**
+     * Value must be multiple of the given number.
+     * 
+     * -5, 0, 5, 10, 15, ...
+     * 
+     * @multipleOf 5
+     */
+    multipleOf: number;
+
+    /* -----------------------------------------------------------
+        STRINGS
+    ----------------------------------------------------------- */
+    /**
+     * You can limit string length like below.
+     * 
+     * @minLength 3
+     * @maxLength 10
+     * 
+     * Also, you can use `@length` tag instead.
+     * 
+     * @length 10      --> length = 10
+     * @length [3, 7]  --> 3 <= length && length <= 7
+     * @length (5, 10) --> 5 < length && length < 10
+     * @length [4      --> 4 < length
+     * @length 7)      --> length < 7
+     */
+    length: string;
+
+    /**
+     * Mobile number composed by only numbers.
+     * 
+     * Note that, `typia` does not support flag of regex,
+     * because JSON schema definition does not support it either.
+     * Therefore, write regex pattern without `/` characters and flag.
+     * 
+     * @pattern ^0[0-9]{7,16} 
+     *     -> RegExp(/[0-9]{7,16}/).test("01012345678")
+     */
+    mobile: string;
+
+    /**
+     * E-mail address.
+     * 
+     * @format email
+     */
+    email: string;
+
+    /**
+     * UUID value.
+     * 
+     * @format uuid
+     */
+    uuid: string;
+
+    /**
+     * URL address.
+     * 
+     * @format url
+     */
+    url: string;
+
+    /**
+     * IPv4 address.
+     * 
+     * @format ipv4
+     */
+    ipv4: string;
+
+    /**
+     * IPv6 address.
+     * 
+     * @format ipv6
+     */
+    ipv6: string;
+}
+```
+
+### Preparing Protocol Buffer
+```typescript
+// Protocol Buffer message structure, content of *.proto file
+export function message<T>(): string;
+
+// Binary data to JavaScript instance
+export function decode<T>(buffer: Uint8Array): T;
+export function isDecode<T>(buffer: Uint8Array): T | null;
+export function assertDecode<T>(buffer: Uint8Array): T;
+export function validateDecode<T>(buffer: Uint8Array): IValidation<T>;
+
+// JavaScript instance to Binary data of Protobuf
+export function encode<T>(input: T): Uint8Array;
+export function isEncode<T>(input: T): Uint8Array | null;
+export function assertEncode<T>(input: T): Uint8Array;
+export function validateEncode<T>(input: T): IValidation<Uint8Array>;
+```
+
+In nowadays, I am developing Protocol Buffer features. 
+
+ThoseT features are not published as stable version yet, but you can experience them through dev version. Also, you can read detailed manual about those Protocol Buffer features in [Guide Documents - Protocol Buffer](https://github.com/samchon/typia/wiki/Protocol-Buffer) of `typia`.
+
+```typescript
+console.log(typia.message<ObjectSimple>());
+```
+
+> ```protobuf
+> syntax = "proto3";
+> message ObjectSimple {
+>     message IBox3D {
+>         ObjectSimple.IPoint3D scale = 1;
+>         ObjectSimple.IPoint3D position = 2;
+>         ObjectSimple.IPoint3D rotate = 3;
+>         ObjectSimple.IPoint3D pivot = 4;
+>     }
+>     message IPoint3D {
+>         double x = 1;
+>         double y = 2;
+>         double z = 3;
+>     }
+> }
+> ```
+
+Those features are suggested by my neighbor TypeScript backend developer who is suffering from Protocol Buffer development. Although there're some libraries supporting Protocol Buffer in TypeScript, but they're not so convenient. 
+
+Therefore, he suggested them hoping to implement Protocol Buffer features very easily like other `typia` functions can be done with **only one line**. Listening his opinion and sympathizing with necessity, and it seems to make `typia` more famous, I've accepted his suggestion.
+
+Just wait a month, then you TypeScript developers can implement Protocol Buffer data very easily, than any other language. Also, let's make `typia` more famous!
+
+
+
+
+## Nestia - boosted up validation decorator
+> [Nestia](https://github.com/samchon/nestia) is a helper library set for `NestJS`, supporting below features:
+> 
+>   - [`@nestia/core`](https://github.com/samchon/nestia#nestiacore): **15,000x times faster** validation decorator using `typia`
+>   - [`@nestia/sdk`](https://github.com/samchon/nestia#nestiasdk): evolved **SDK** and **Swagger** generator for `@nestia/core`
+>   - `nestia`: just CLI (command line interface) tool
+
+Developing `typia` and measuring performance benchmark with other competitive validator libraries, I've known that `class-validator` is the slowest one and its validation speed is maximum 15,000x times slower than mine, `typia`.
+
+However, `NestJS`, the most famous backend framework in TypeScript, is using the slowest `class-validator`. Therefore, some TypeScript developers have identified that they're using such slowest validator on their backend system (by my previous `dev.to` article), and requested me to support new validation decorator for `NestJS`.
+
+In response to their desire, I've made a new library `@nestia/core`. It provides 15,000x faster validation decorator than ordinary NestJS validator decorator using `class-validator`. 
+
+```typescript
+import { Controller } from "@nestjs/common";
+import { TypedBody, TypedRoute } from "@nestia/core";
+
+import { IBbsArticle } from "@bbs-api/structures/IBbsArticle";
+
+@Controller("bbs/articles")
+export class BbsArticlesController {
+    /** 
+     * Store a new content.
+     * 
+     * @param inupt Content to store
+     * @returns Newly archived article
+     */
+    @TypedRoute.Post() // 10x faster and safer JSON.stringify()
+    public async store(
+        @TypedBody() input: IBbsArticle.IStore // supoer-fast validator
+    ): Promise<IBbsArticle>;
+}
+```
+
+However, as `NestJS` can generate swagger documents only when using the slowest `class-validator` decorator, I had to make a new program `@nestia/sdk`, which can generate swagger documents from `@nestia/core` decorator. 
+
+For reference, `@nestia/sdk` also can generate SDK (Software Development Kit) library for client developers, by analyzing backend server codes in the compilation level. If I write next article in here `dev.to`, subject of the new article would be this `nestia` and SDK library.
+
+> In fact, I had developed [nestia](https://github.com/samchon/nestia) for a long time. However, previous `nestia` had focused only on SDK library generation. Before `typia`, there had not been any consideration about developing faster validation decorator.
+>
+> Therefore, only `@nestia/core` is the new library made by requirements from TypeScript backend developers. `@nestia/sdk` is just a little bit evolved version of previous `nestia`, to support `@nestia/core`.
+
+### SDK library generated by `@nestia/sdk`
+```typescript
+import { Fetcher, IConnection } from "@nestia/fetcher";
+import { IBbsArticle } from "../../../structures/IBbsArticle";
+
+/**
+ * Store a new content.
+ * 
+ * @param input Content to store
+ * @returns Newly archived article
+ */
+export function store(
+    connection: api.IConnection, 
+    input: IBbsArticle.IStore
+): Promise<IBbsArticle> {
+    return Fetcher.fetch(
+        connection,
+        store.ENCRYPTED,
+        store.METHOD,
+        store.path(),
+        input
+    );
+}
+export namespace store {
+    export const METHOD = "POST" as const;
+    export function path(): string {
+        return "/bbs/articles";
+    }
+}
+```
+
+### Client developers can utilize it
+```typescript
+import api from "@bbs-api";
+import typia from "typia";
+
+export async function test_bbs_article_store(connection: api.IConnection) {
+    const article: IBbsArticle = await api.functional.bbs.articles.store(
+        connection,
+        {
+            name: "John Doe",
+            title: "some title",
+            content: "some content",
+        }
+    );
+    typia.assert(article);
+    console.log(article);
+}
+```

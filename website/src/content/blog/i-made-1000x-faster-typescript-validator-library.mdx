@@ -1,0 +1,108 @@
+---
+title: "I made 1,000x faster TypeScript Validator Library"
+description: "Hello, I'm developer of typescript-json and have measure a benchmark comparing performance with other..."
+date: "2022-10-08"
+author: "Jeongho Nam"
+ogImage: "https://media2.dev.to/dynamic/image/width=1000,height=500,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fpb3e1evl8zhuvvwx2lbj.png"
+devtoUrl: "https://dev.to/samchon/typescript-json-is-10-1000x-times-faster-than-zod-and-io-ts-8n6"
+tags:
+  - javascript
+  - typescript
+  - opensource
+  - benchmark
+---
+Hello, I'm developer of [typescript-json](https://github.com/samchon/typescript-json) and have measure a benchmark comparing performance with other competitive libraries. By the benchmark, my library [typescript-json](https://github.com/samchon/typescript-json) has been turned out that maximum 1,000x times faster than [zod](https://github.com/colinhacks/zod).
+
+Being proud of such performance enhancement, I hope many TypeScript developers to adapt my library. Advantage of [typescript-json](https://github.com/samchon/typescript-json) is not only better performance, but also easy usage exists. [typescript-json](https://github.com/samchon/typescript-json) does not require any extra schema definition and just requires only one line with pure TypeScript Type. Thus, what about using my library [typescript-json](https://github.com/samchon/typescript-json) instead of [io-ts](https://github.com/gcanti/io-ts) or [zod](https://github.com/colinhacks/zod)?
+
+```typescript
+// ALLOW SUPERFLUOUS PROPERTIES
+export function is<T>(input: T): boolean; // true or false
+export function assertType<T>(input: T): T; // throws `TypeGuardError`
+export function validate<T>(input: T): IValidation; // detailed reasons
+
+// DO NOT ALLOW SUPERFLUOUS PROPERTIES
+export function equals<T>(input: T): boolean;
+export function assertEquals<T>(input: T): T;
+export function validateEquals<T>(input: T): IValidation;
+```
+
+p.s) Of course, as this benchmark is being measured by me, someone can doubt objectivity. Therefore, to ensure objectivity, I diclose all code used in the benchmark. Below codes are being used in the benchmark. You also can run the benchmark program by running `npm run benchmark` command after downloading this [typescript-json](https://github.com/samchon/typescript-json).
+
+  - Schemas
+    - [Pure interface types used by TypeScript-JSON](https://github.com/samchon/typescript-json/tree/master/test/structures)
+    - [IO-TS Schemas](https://github.com/samchon/typescript-json/tree/master/benchmark/structures/io-ts)
+    - [Zod Schemas](https://github.com/samchon/typescript-json/tree/master/benchmark/structures/zod)
+  - Benchmark Program
+    - [`is()` function](https://github.com/samchon/typescript-json/blob/master/benchmark/features/benchmark_is.ts)
+    - [`validate()` function](https://github.com/samchon/typescript-json/blob/master/benchmark/features/benchmark_validate.ts)
+
+
+
+## `is()` function
+```typescript
+export function is<T>(input: T): boolean;
+```
+
+![Is Function Benchmark](https://user-images.githubusercontent.com/13158709/194713658-62fb0716-c24e-41f9-be0d-01edeabb1dd6.png)
+
+> Measured on Intel i5-1135g7, Surface Pro 8
+
+I hadn't known that [zod](https://github.com/colinhacks/zod) is extremely slow until running on this benchmark program. [io-ts](https://github.com/gcanti/io-ts) is also slower than [typescript-json](https://github.com/samchon/typescript-json) and [ajv](https://ajv.js.org) about 8x times, but its slow performance looks like nothing comparing with [zod](https://github.com/colinhacks/zod).
+
+More amazing thing is, [ajv](https://ajv.js.org) requires JSON schema definition for validating, but it can't validate the JSON schema type itself. Although other libraries [io-ts](https://github.com/gcanti/io-ts) and [zod](https://github.com/colinhacks/zod) also failed to validating the JSON schema definition, isn't [ajv](https://ajv.js.org) different with them? Furthermore, when complicate type comes, [ajv](https://ajv.js.org) dies with runtime error in the most case.
+
+
+
+## `validate()` function
+```typescript
+export function validate<T>(input): IValidation;
+
+export interface IValidation {
+    success: boolean;
+    errors: IValidation.IError[];
+}
+export namespace IValidation {
+    export interface IError {
+        path: string;
+        expected: string;
+        value: any;
+    }
+}
+```
+
+![Super-fast runtime validator](https://user-images.githubusercontent.com/13158709/194713627-59c12e51-06e8-44ba-9df5-cfd69aaf971a.png)
+
+> Measured on Intel i5-1135g7, Surface Pro 8
+
+Unfortunately, unable to measure [ajv](https://ajv.js.org)'s performance because it does not support the validate function describing detailed error reasons.
+
+Anyway, although [zod](https://github.com/colinhacks/zod) is the slowest library even in the `validate()` function, performance gap with other libraries are dramatically(?) reduced. Also, performance gap ratio with [typescript-json](https://github.com/samchon/typescript-json) with [io-ts](https://github.com/gcanti/io-ts) are sometimes increased and sometimes reduced.
+
+By the way, when measuring of [zod](https://github.com/colinhacks/zod), I sometimes doubted myself, "Have I taken a mistake?". But there was not any mistake and I wondered why [zod](https://github.com/colinhacks/zod) is such slow. To analyze the reason why, I'd read source code of [zod](https://github.com/colinhacks/zod) and this is my conclusion.
+
+> Although [zod](https://github.com/colinhacks/zod) is the slowest validator, error reasons are more detailed and exact than [io-ts](https://github.com/gcanti/io-ts). Therefore, its slow performance on `validate()` function is understandable.
+>
+> Also, [zod](https://github.com/colinhacks/zod) hasn't implemented special logic for `is()` function and let user to re-use the `validate()` function. Therefore, when [zod](https://github.com/colinhacks/zod) implements the independent `is()` function algorithm, I think its performance can overcome [io-ts](https://github.com/gcanti/io-ts).
+
+
+
+## Full Spec of TypeScript Type
+[typescript-json](https://github.com/samchon/typescript-json) is much faster and much easier to use than [io-ts](https://github.com/gcanti/io-ts) and [zod](https://github.com/colinhacks/zod). But it's not all the thing. [typescript-json](https://github.com/samchon/typescript-json) can validate full TypeScript Type spec. Below table is a list of supported spec sheet about competitive runtime validator libraries. As you can see from the below table, only [typescript-json](https://github.com/samchon/typescript-json) can validate complicate union types.
+
+Components               | `TSON` | `ajv` | `io-ts` | `zod` | `C.V.`
+-------------------|-------------------|-----------------|-------|---------|------------------
+**Easy to use**          | ✅ | ❌ | ❌ | ❌ | ❌ 
+[Object (simple)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectSimple.ts)          | ✔ | ✔ | ✔ | ✔ | ✔
+[Object (hierarchical)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectHierarchical.ts)    | ✔ | ❌ | ✔ | ✔ | ✔
+[Object (recursive)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectRecursive.ts)       | ✔ | ❌ | ✔ | ✔ | ✔ | ✔
+[Object (union, implicit)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectUnionImplicit.ts) | ✅ | ❌ | ❌ | ❌ | ❌
+[Object (union, explicit)](https://github.com/samchon/typescript-json/blob/master/test/structures/ObjectUnionExplicit.ts) | ✔ | ✔ | ✔ | ✔ | ❌
+[Object (additional tags)](https://github.com/samchon/typescript-json/#comment-tags)        | ✔ | ✔ | ✔ | ✔ | ✔
+[Object (template literal types)](https://github.com/samchon/typescript-json/blob/master/test/structures/TemplateUnion.ts) | ✔ | ✔ | ❌ | ❌ | ❌
+[Object (dynamic properties)](https://github.com/samchon/typescript-json/blob/master/test/structures/DynamicTemplate.ts) | ✔ | ✔ | ❌ | ❌ | ❌
+[Array (hierarchical)](https://github.com/samchon/typescript-json/blob/master/test/structures/ArrayHierarchical.ts)     | ✔ | ✔ | ✔ | ✔ | ✔
+[Array (recursive)](https://github.com/samchon/typescript-json/blob/master/test/structures/ArrayRecursive.ts)        | ✔ | ❌ | ✔ | ✔ | ✔
+[Array (recursive, union)](https://github.com/samchon/typescript-json/blob/master/test/structures/ArrayRecursiveUnionExplicit.ts) | ✔ | ❌ | ✔ | ✔ | ❌
+[Array (R+U, implicit)](https://github.com/samchon/typescript-json/blob/master/test/structures/ArrayRecursiveUnionImplicit.ts)    | ✅ | ❌ | ❌ | ❌ | ❌
+[**Ultimate Union Type**](https://github.com/samchon/typescript-json/blob/master/src/schemas/IJsonSchema.ts)  | ✅ | ❌ | ❌ | ❌ | ❌
