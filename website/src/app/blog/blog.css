@@ -124,3 +124,91 @@
   padding-top: 2rem;
   border-top: 1px solid rgba(127, 127, 127, 0.18);
 }
+
+.typia-blog-post-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 260px;
+  gap: 2.5rem;
+  align-items: start;
+}
+
+.typia-blog-post-main {
+  min-width: 0;
+}
+
+.typia-blog-toc {
+  position: sticky;
+  top: 5.5rem;
+  align-self: start;
+  max-height: calc(100vh - 7rem);
+  overflow: auto;
+}
+
+.typia-blog-toc-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding-left: 1rem;
+  border-left: 1px solid rgba(127, 127, 127, 0.18);
+}
+
+.typia-blog-toc-title {
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgb(115 115 115);
+}
+
+.dark .typia-blog-toc-title {
+  color: rgb(165 165 165);
+}
+
+.typia-blog-toc-link {
+  display: block;
+  color: rgb(90 90 90);
+  text-decoration: none;
+  line-height: 1.45;
+  font-size: 0.95rem;
+}
+
+.dark .typia-blog-toc-link {
+  color: rgb(175 175 175);
+}
+
+.typia-blog-toc-link:hover {
+  color: inherit;
+}
+
+.typia-blog-toc-depth-3 {
+  padding-left: 0.85rem;
+  font-size: 0.9rem;
+}
+
+.typia-blog-toc-depth-4,
+.typia-blog-toc-depth-5,
+.typia-blog-toc-depth-6 {
+  padding-left: 1.5rem;
+  font-size: 0.86rem;
+}
+
+@media (max-width: 1024px) {
+  .typia-blog-post-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .typia-blog-toc {
+    position: static;
+    top: auto;
+    max-height: none;
+    overflow: visible;
+  }
+
+  .typia-blog-toc-inner {
+    position: static;
+    margin-top: 1rem;
+    padding: 1rem 0 0;
+    border-left: 0;
+    border-top: 1px solid rgba(127, 127, 127, 0.18);
+  }
+}
