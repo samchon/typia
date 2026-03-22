@@ -13,7 +13,7 @@ tags:
 ---
 ```typescript
 // FASTER STRINGIFY FUNCTIONS
-export function stringify<T>(input: T): string; // unsafe but fatest
+export function stringify<T>(input: T): string; // unsafe but fastest
 export function assertStringify<T>(input: T): string; // throws TypeGuardError
 export function isStringify<T>(input: T): string | null; // wrong type be null
 
@@ -79,7 +79,7 @@ TSON.isStringify(wrong); // returns null
 
 AOT (Ahead of Time) compilation.
 
-[typescript-json](https://github.com/samchon/typescript-json) analyzes your code (type `T`) in the compilation level and generates optimized runtime code for JSON string conversion. Such optimized runtime code generation by analzying source code is called AOT (Ahead of Time) compilation and it is the reason why [typescript-json](https://github.com/samchon/typescript-json)'s JSON string conversion functions are much faster than the native `JSON.stringify()` function despite of type validation process. 
+[typescript-json](https://github.com/samchon/typescript-json) analyzes your code (type `T`) in the compilation level and generates optimized runtime code for JSON string conversion. Such optimized runtime code generation by analyzing source code is called AOT (Ahead of Time) compilation and it is the reason why [typescript-json](https://github.com/samchon/typescript-json)'s JSON string conversion functions are much faster than the native `JSON.stringify()` function despite of type validation process. 
 
 In the same reason, validation functions of [typescript-json](https://github.com/samchon/typescript-json) are much faster than other validation libraries. Only [TypeBox](https://github.com/sinclairzx81/typebox) can be competitive and [TypeBox](https://github.com/sinclairzx81/typebox) utilizes JIT (Just-in-time) compilation. Other libraries without special skills are extremely slow, and the gap can widen by thousands of times.
 

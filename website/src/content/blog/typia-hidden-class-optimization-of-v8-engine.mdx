@@ -35,7 +35,7 @@ Let's study why `typia` is much faster than `class-validator`.
   - Github Repository: https://github.com/samchon/typia
   - Guide Documents: https://typia.io/docs
 
-I've written some articles introducing my TypeScript runtime validator library [typia](https://github.com/samchon/typia) in here `dev.to` community. In these previous articles, I had often explained that `typia` boosts up validation spped through AoT (Ahead of Time) compliation, and it is maximum 20,000x faster than `class-validator`. 
+I've written some articles introducing my TypeScript runtime validator library [typia](https://github.com/samchon/typia) in here `dev.to` community. In these previous articles, I had often explained that `typia` boosts up validation speed through AoT (Ahead of Time) compilation, and it is maximum 20,000x faster than `class-validator`. 
 
 By the way, describing the AoT compilation, I'd just told that `typia` generates static validation code for target `T` type, and such static code makes program faster. I never had not explained the reason why such static validation codes are much faster than dynamic validation codes of `class-validator`.
 
@@ -193,4 +193,4 @@ The reason why `typia` is faster than `class-validator` is also not much differe
 
 Besides, `class-validator` and `class-transform` are always composing its serialization and validation logics through dynamic properties' accessments, especially represented by `Reflect`. Therefore, `class-validator` and `class-transform` never can get benefit from the hidden class optimization, and always iterating the slow `Linked List` nodes. 
 
-The 20,000x speed gap also came from such difference. Typically, the traversal speed of an array and a linked list differs by about a factor of 10. As `class-validator` and `class-transformer` have dual to quadruple nested iterations about dynamic key accessing, the 10x gap be powered to maximum (10<sup>4</sup> = 10,000)x in theorically.
+The 20,000x speed gap also came from such difference. Typically, the traversal speed of an array and a linked list differs by about a factor of 10. As `class-validator` and `class-transformer` have dual to quadruple nested iterations about dynamic key accessing, the 10x gap be powered to maximum (10<sup>4</sup> = 10,000)x in theoretically.

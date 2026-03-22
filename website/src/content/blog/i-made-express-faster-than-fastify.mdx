@@ -254,7 +254,7 @@ Also, with the [nestia](https://github.com/samchon/nestia), you can build evolve
 
 ## `fastify` is still fast
 
-Looking back above benchmark result, `fastify` is faster than combination of `express` and `typia`, when response data is small. If making the reponse data much smaller, `fastify` becomes always faster than `express` + `typia`.
+Looking back above benchmark result, `fastify` is faster than combination of `express` and `typia`, when response data is small. If making the response data much smaller, `fastify` becomes always faster than `express` + `typia`.
 
 I just assume that `fastify` has special optimized logic for header parsing, and reducing waiting time for each API call, but I don't know the exactly reason why. I need to study `fastify` more, and also need to study `express`, too.
 

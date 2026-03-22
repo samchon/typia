@@ -18,7 +18,7 @@ Hello, I'm developer of ~~`typescript-json`~~ `typia`.
 
 In nowadays, I've renamed `typescript-json` library to [typia](https://github.com/samchon/typia), because the word "JSON" no more can represent it. Key feature of `typia` had been changed from faster JSON stringify function to superfast validation function. Furthermore, `typia` has started supporting Protocol Buffer (in alpha version, not regular feature yet).
 
-Introducing such package renaming from `typescript-json` to `typia`, I will tell you which changes had been occured during six months. Lots of interesting features and improvements have been happened.
+Introducing such package renaming from `typescript-json` to `typia`, I will tell you which changes had been occurred during six months. Lots of interesting features and improvements have been happened.
 
 > ### What `typia` is:
 > 
@@ -49,7 +49,7 @@ Introducing such package renaming from `typescript-json` to `typia`, I will tell
 >
 > All functions in `typia` require **only one line**. You don't need any extra dedication like JSON schema definitions or decorator function calls. Just call `typia` function with only one line like `typia.assert<T>(input)`.
 >
-> Also, as `typia` performs AOT (Ahead of Time) compilation skill, its performance is much faster than other competitive libaries. For an example, when comparing validate function `is()` with other competitive libraries, `typia` is maximum **15,000x times faster** than `class-validator`.
+> Also, as `typia` performs AOT (Ahead of Time) compilation skill, its performance is much faster than other competitive libraries. For an example, when comparing validate function `is()` with other competitive libraries, `typia` is maximum **15,000x times faster** than `class-validator`.
 
 
 
@@ -627,7 +627,7 @@ export class BbsArticlesController {
 
 However, as `NestJS` can generate swagger documents only when using the slowest `class-validator` decorator, I had to make a new program `@nestia/sdk`, which can generate swagger documents from `@nestia/core` decorator. 
 
-For reference, `@nestia/sdk` also can generate SDK (Software Development Kit) library for client developers, by analyzing backend server codes in the compliation level. If I write next article in here `dev.to`, subject of the new article would be this `nestia` and SDK library.
+For reference, `@nestia/sdk` also can generate SDK (Software Development Kit) library for client developers, by analyzing backend server codes in the compilation level. If I write next article in here `dev.to`, subject of the new article would be this `nestia` and SDK library.
 
 > In fact, I had developed [nestia](https://github.com/samchon/nestia) for a long time. However, previous `nestia` had focused only on SDK library generation. Before `typia`, there had not been any consideration about developing faster validation decorator.
 >
