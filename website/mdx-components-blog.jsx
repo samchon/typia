@@ -1,4 +1,5 @@
 import { useMDXComponents as getBlogMDXComponents } from "nextra-theme-blog";
+import GiscusComments from "./src/app/blog/GiscusComments";
 
 function formatDate(value) {
   const date = value ? new Date(value) : null;
@@ -41,6 +42,7 @@ export function useMDXComponents(components) {
             </div>
           ) : null}
           {children}
+          <GiscusComments />
         </>
       );
     },
