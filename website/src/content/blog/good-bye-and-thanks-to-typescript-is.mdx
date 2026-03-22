@@ -26,7 +26,7 @@ This story is about a precursor library `typescript-is`:
     - `NestJS` helper library
     - Validators by `typescript-is`
     - JSON booster and Swagger generation by `typescript-json`
-  - `typescript-is` has stopped maintanence since two years ago
+  - `typescript-is` has stopped maintenance since two years ago
   - I've changed `typescript-json` to cover `typescript-is` features
     - Added validator features like `typescript-is`
     - Enhanced by 1M LOC test codes
@@ -84,7 +84,7 @@ In my case, I'd developed backend server through `NestJS` framework. By the way,
 
 
 ```typescript
-// CLASS-VALIDATOR REQUIES DUPLCIATED DEFINITIONS
+// CLASS-VALIDATOR REQUIRES DUPLICATED DEFINITIONS
 export class BbsArticle {
     @ApiProperty({
         type: () => AttachmentFile,
@@ -113,7 +113,7 @@ export interface IBbsArticle {
   - `typescript-is` tests about 100 cases
   - `typia` tests 10K cases with 1M LOC codes
 
-Instead, I'd loved to using `typescript-is` in `NestJS` projects. It was much convenient and safer than `class-validator`. Only one line was required, and need not to be suffered from enourmous bugs (`typescript-is` also could not validate union or complicate types either, but not as serious as `class-validator`). 
+Instead, I'd loved to using `typescript-is` in `NestJS` projects. It was much convenient and safer than `class-validator`. Only one line was required, and need not to be suffered from enormous bugs (`typescript-is` also could not validate union or complicate types either, but not as serious as `class-validator`). 
 
 Using `typescript-is` for the `NestJS` backend projects, I'd admired the genius idea of `typescript-is` author, and always thankful that it frees me from the nightmare of `class-validator`.
 
@@ -140,7 +140,7 @@ export function stringify<T>(input: T): string;
 
 Around the same time, I had made another library named `typescript-json`. 
 
-It performs AoT (Ahead of Time) compliation like `typescript-is`, but it was not for runtime validation, but for JSON schema generation. About JSON serialization boosting, `typescript-json` had utilized `fast-json-stringify` by automatically generated JSON schema.
+It performs AoT (Ahead of Time) compilation like `typescript-is`, but it was not for runtime validation, but for JSON schema generation. About JSON serialization boosting, `typescript-json` had utilized `fast-json-stringify` by automatically generated JSON schema.
 
 For reference, purpose of `typescript-json` was to accomplish below `nestia`, generating Swagger Documents with pure TypeScript type.
 
@@ -219,7 +219,7 @@ As `typescript-is` had stopped maintenance and broken by update of TypeScript co
 
 Also, as `typescript-json` had designed to generate JSON schema from TypeScript types, it must have well-designed metadata definition for TypeScript types. Besides, `typescript-is` had not designed metadata structure, and just wrote a lot of hard coded `if` statements for TypeScript types. Such different made `typia` to have much more LOC (Line of Codes) than `typescript-is`, but `typia` could be much stable than before `typescript-is`.
 
-Furthermore, I've enhanced `typia` through 1,000,000 LOC test codes. Considering characteristics of `typia` using pure TypeScript type, `typia` must support every TypeScript type cases. Also, expression power of TypeScript about type is the much more powerful and wider than any other languages. Therefore, to support every TypeScript types safely, I had to write enormous test codes about one million LOC. It was a hard work for me during one year, but such endurance evolved `typia` to be only one validator libary which supports every TypeScript types.
+Furthermore, I've enhanced `typia` through 1,000,000 LOC test codes. Considering characteristics of `typia` using pure TypeScript type, `typia` must support every TypeScript type cases. Also, expression power of TypeScript about type is the much more powerful and wider than any other languages. Therefore, to support every TypeScript types safely, I had to write enormous test codes about one million LOC. It was a hard work for me during one year, but such endurance evolved `typia` to be only one validator library which supports every TypeScript types.
 
   - `typia` tests 10K cases with 1M LOC codes
   - `typescript-is` tests about 100 cases
@@ -271,7 +271,7 @@ Also, as `typia` performs AoT (Ahead of Time) compilation skill, and `nestia` is
 ## Good bye `typescript-is`
 https://github.com/woutervh-/typescript-is/issues/137
 
-A year has passed since the successful development of `typia`. And in the meantime, `typescript-is` is still out of maintenance. Therefore, I've written an issue to `typescript-is` repo requesting derepcate `typescript-is` and uphold `typia` instead.
+A year has passed since the successful development of `typia`. And in the meantime, `typescript-is` is still out of maintenance. Therefore, I've written an issue to `typescript-is` repo requesting deprecate `typescript-is` and uphold `typia` instead.
 
 While writing the issue, I also left a message of appreciation for `typescript-is`'s pioneering ideas, and past dedications that helped me to escape from terrible `class-validator`. Thanks for his great idea, and I could learn lots of things by motivated from his project.
 

@@ -40,7 +40,7 @@ By the way, some `typia` user gave me such feedback:
 >
 > Hope `typia` thrives, and appreciate for developing such wonderful project.
 
-Reading above feedback, I've decided develop a playground website sympathizing with the need of it. Developing the playground website, I think the above feedback was really good for `typia`, and earily experienced playground users are satisfying. I especailly thanks for such adviding. 
+Reading above feedback, I've decided develop a playground website sympathizing with the need of it. Developing the playground website, I think the above feedback was really good for `typia`, and early experienced playground users are satisfying. I especially thanks for such adviding. 
 
 Anyway, let's [play `typia`](https://typia.io/playground) and understand how it works with AoT compilation.
 
@@ -168,7 +168,7 @@ https://microsoft.github.io/monaco-editor/
 
 I think there would be someone who are interested in the way to build the playground website. For such people, I'll introduce how I did it shortly.
 
-At first, I've made [`typia` playground website](https://typia.io/playground) through `monaco` editor. It is a web-based single-file editor, and supports TypeScript laugnage with external `node_modules`. As you can see in [`typia` playground website](https://typia.io/playground), it even supports auto-completion with type-hints like `VsCode`.
+At first, I've made [`typia` playground website](https://typia.io/playground) through `monaco` editor. It is a web-based single-file editor, and supports TypeScript language with external `node_modules`. As you can see in [`typia` playground website](https://typia.io/playground), it even supports auto-completion with type-hints like `VsCode`.
 
 As you know, `typia` performs AoT (Ahead of Time) compilation and generates dedicated validation codes for each TypeScript types. Therefore, I combined above monaco editor with bundled `typia` and `typescript` modules. Also, for auto-completion with type hints, I've hard copied `d.ts` (definition) files of `typia` into the `monaco` editor like below.
 

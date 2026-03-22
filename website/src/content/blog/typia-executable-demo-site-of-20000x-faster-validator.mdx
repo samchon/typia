@@ -63,7 +63,7 @@ export function random<T>(g?: Partial<IRandomGenerator>): T;
 
 Also, `typia` does not require any extra schema definition like `ajv` or `class-validator`, but needs only the **pure TypeScript type**. Furthermore, its runtime validation is maximum **20,000x faster** than `class-validator`, and JSON serialization is **200x** faster than `class-transformer`.
 
-All the secrets of `typia` (ability to understand the pure TypeScript type, and super-fast performance) are based on the AoT (Ahead of Time) compilation. `typia` analyzes your TypeScript codes and types in the compliation level, and writes optimal validation and serialization code for each type.
+All the secrets of `typia` (ability to understand the pure TypeScript type, and super-fast performance) are based on the AoT (Ahead of Time) compilation. `typia` analyzes your TypeScript codes and types in the compilation level, and writes optimal validation and serialization code for each type.
 
 [![Benchmark](https://raw.githubusercontent.com/samchon/typia/master/benchmark/results/11th%20Gen%20Intel(R)%20Core(TM)%20i5-1135G7%20%40%202.40GHz/images/is.svg)](https://github.com/samchon/typia/tree/master/benchmark/results/11th%20Gen%20Intel(R)%20Core(TM)%20i5-1135G7%20%40%202.40GHz)
 
@@ -79,7 +79,7 @@ By the way, is my above explanation easy to understand?
 
 I'd written some articles introducing `typia` on here `dev.to`, but more than half of the readers only understood that as "Wow, `typia` is super fast." I'd hoped to emphasize the "AoT compilation" concept and "easiness" as well as "super-fast", but I'd failed to appeal them cleary.
 
-This is the reason why I've published the playground website, even including the TypeScript compiler, bundler and exector which can run on the web browser.
+This is the reason why I've published the playground website, even including the TypeScript compiler, bundler and executor which can run on the web browser.
 
 Visit the https://typia.io/playground/ website, and write any TpeScript source code what you want. Then, you may understand how `typia` generates optimal validation and serialization code for your pure TypeScript type through the AoT compilation.
 

@@ -47,15 +47,15 @@ typia.is<string>("Hello World");
 })()("Hello World");
 ```
 
-`typia.is<T>()` is a transformer function that generating type checking code whether the parameteric `input` value is following the type `T` or not. If the `input` value is following the type `T`, it returns `true`. Otherwise input is different with the type T, it returns `false`.
+`typia.is<T>()` is a transformer function that generating type checking code whether the parametric `input` value is following the type `T` or not. If the `input` value is following the type `T`, it returns `true`. Otherwise input is different with the type T, it returns `false`.
 
-Because `typia.is<T>()` generates dedicated type checking code only for the type `T`, its validation speed is stable and faster than any other libraries. Such compilation level dedicated optimization skill is called AoT (Ahead of Time) compilation. When AoT compilation stategy is used, NodeJS v8 engine performs hidden class optimization for maximize the performance.
+Because `typia.is<T>()` generates dedicated type checking code only for the type `T`, its validation speed is stable and faster than any other libraries. Such compilation level dedicated optimization skill is called AoT (Ahead of Time) compilation. When AoT compilation strategy is used, NodeJS v8 engine performs hidden class optimization for maximize the performance.
 
 ![is() function benchmark on NodeJS](https://raw.githubusercontent.com/samchon/typia/master/benchmark/results/AMD%20Ryzen%209%207940HS%20w%20Radeon%20780M%20Graphics/images/is.svg)
 
 > [`typia.is<T>()` function benchmark on NodeJS](https://github.com/samchon/typia/tree/master/benchmark/results/AMD%20Ryzen%209%207940HS%20w%20Radeon%20780M%20Graphics#is)
 
-It is the secret of the `typia`'s superfast validation speed. In the NodeJS environment, `typia`'s validation speed (in NodeJS) is maxmum 20,000x faster than `class-validator` which does not have any optimization strategy. Besides, `typebox` performs the JIT (Just in Time) compilation strategy, and as it can take advantage of the v8 engine's hidden class optimization, it can compete speed with `typia`.
+It is the secret of the `typia`'s superfast validation speed. In the NodeJS environment, `typia`'s validation speed (in NodeJS) is maximum 20,000x faster than `class-validator` which does not have any optimization strategy. Besides, `typebox` performs the JIT (Just in Time) compilation strategy, and as it can take advantage of the v8 engine's hidden class optimization, it can compete speed with `typia`.
 
 However, in the Bun, such AoT (Ahead of Time) or JIT (Just in Time) compilation strategy seems not working at all. I guess that Bun does not perform hidden class optimization skill, or there is a critical problem on the Bun's hidden class optimization like algorithm, and it is the reason why Bun is maximum 20x slower than NodeJS in the `typia.is<T>()` function.
 
