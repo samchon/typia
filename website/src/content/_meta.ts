@@ -23,4 +23,13 @@ export default {
       footer: false,
     },
   },
+  blog: {
+    title: "📝 Blog",
+    type: "page",
+    theme: {
+      sidebar: false,
+      typesetting: "article",
+      toc: true,
+    },
+  },
 } satisfies MetaRecord;
