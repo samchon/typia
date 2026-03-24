@@ -45,7 +45,7 @@
     "randexp": "^0.5.3"
   },
   "peerDependencies": {
-    "typescript": ">=4.8.0 <5.10.0"
+    "typescript": ">=4.8.0 <7.0.0"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "catalog:rollup",
