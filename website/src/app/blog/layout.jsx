@@ -1,7 +1,7 @@
 import "nextra-theme-blog/style.css";
 import "./blog.css";
 import { getPageMap } from "nextra/page-map";
-import { Footer, Layout, Navbar, ThemeSwitch } from "nextra-theme-blog";
+import { Footer, Layout, Navbar } from "nextra-theme-blog";
 
 export const metadata = {
   title: "Blog",
@@ -28,7 +28,6 @@ export default async function BlogLayout(props) {
         <NavLink href="/docs/">Docs</NavLink>
         <NavLink href="/blog/">Blog</NavLink>
         <NavLink href="/blog/rss.xml">RSS</NavLink>
-        <ThemeSwitch />
       </Navbar>
       {props.children}
       <Footer>
