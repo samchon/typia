@@ -5,10 +5,11 @@
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
     "resolveJsonModule": true,
-    "types": ["vitest/importMeta", "vitest/globals"],
+    "types": ["*", "vitest/importMeta", "vitest/globals"],
+    "rootDir": "src",
     "strict": true,
     "esModuleInterop": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
   },
   "include": ["tests"],
   "exclude": ["tests/fixtures"]
