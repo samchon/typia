@@ -102,7 +102,13 @@ export const emplace_metadata_object = (
         | undefined;
       const type: ts.Type | undefined = node
         ? props.checker.getTypeOfSymbolAtLocation(symbol, node)
-        : props.checker.getTypeOfPropertyOfType(props.type, symbol.name);
+        : (() => {
+            const prop: ts.Symbol | undefined = props.checker.getPropertyOfType(
+              props.type,
+              symbol.name,
+            );
+            return prop ? props.checker.getTypeOfSymbol(prop) : undefined;
+          })();
       return [node, type];
     })();
     if ((node && pred(node) === false) || type === undefined) continue;
