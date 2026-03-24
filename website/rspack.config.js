@@ -19,9 +19,14 @@ module.exports = {
       {
         test: /\.ts$/,
         exclude: /node_modules/,
-        loader: "ts-loader",
+        loader: "builtin:swc-loader",
         options: {
-          configFile: "tsconfig.rspack.json",
+          jsc: {
+            parser: {
+              syntax: "typescript",
+            },
+            target: "es5",
+          },
         },
       },
     ],
