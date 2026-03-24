@@ -213,13 +213,13 @@ export namespace ExpressionFactory {
             });
           }
         return ts.visitEachChild(
-          node,
+          ts.factory.cloneNode(node),
           visitor,
           props.transformer,
         );
       };
       return visitor(
-        statement.expression,
+        ts.factory.cloneNode(statement.expression),
       ) as ts.Expression;
     };
   };

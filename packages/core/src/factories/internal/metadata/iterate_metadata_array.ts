@@ -45,7 +45,7 @@ const find_array_extended = (props: {
   props.memory.set(props.type, null);
   const res: ts.Type | null = (() => {
     if (props.type.isClassOrInterface() === false) return null;
-    for (const t of props.type.getBaseTypes() ?? [])
+    for (const t of props.type.resolvedBaseTypes ?? [])
       if (props.checker.isArrayType(t)) return t;
       else {
         const res: ts.Type | null = find_array_extended({
