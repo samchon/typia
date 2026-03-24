@@ -2,7 +2,6 @@
   "extends": "../config/tsconfig.json",
   "compilerOptions": {
     "noEmit": false,
-    "rootDir": "src",
     "outDir": "bin",
   },
   "ts-node": {
