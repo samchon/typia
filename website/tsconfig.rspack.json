@@ -19,7 +19,6 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "downlevelIteration": true,
-    "root": "src/compiler",
     "ignoreDeprecations": "6.0",
   },
   "include": ["src/compiler"],

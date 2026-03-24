@@ -14,6 +14,10 @@ export default {
     title: "📖 Guide Documents",
     type: "page",
   },
+  blog: {
+    title: "📝 Blog Articles",
+    type: "page",
+  },
   playground: {
     title: "💻 Playground",
     type: "page",
@@ -22,9 +26,5 @@ export default {
       layout: "full",
       footer: false,
     },
-  },
-  blog: {
-    title: "📝 Blog Articles",
-    type: "page",
   },
 } satisfies MetaRecord;
