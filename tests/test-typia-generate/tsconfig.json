@@ -1,9 +1,12 @@
 {
   "extends": "../config/tsconfig.json",
   "compilerOptions": {
-    "rootDir": "src",
+    "rootDir": "../../",
     "noUnusedLocals": false,
     "noUnusedParameters": false,
+    "paths": {
+      "typia/lib/internal/*": ["../../packages/typia/src/internal/*"]
+    },
   },
   "include": ["src"],
   "ts-node": {
