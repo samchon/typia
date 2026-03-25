@@ -64,8 +64,8 @@
     "rimraf": "^5.0.0",
     "ts-loader": "^9.5.1",
     "ts-node": "^10.9.1",
-    "typedoc": "^0.28.9",
-    "typescript": "~5.9.2",
+    "typedoc": "^0.28.18",
+    "typescript": "~6.0.2",
     "write-file-webpack-plugin": "^4.5.1"
   }
 }

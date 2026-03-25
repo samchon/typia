@@ -5,7 +5,6 @@ export const COMPILER_OPTIONS: ts.CompilerOptions = {
   module: ts.ModuleKind.ESNext,
   // lib: ["DOM", "ES2015"],
   esModuleInterop: true,
-  downlevelIteration: true,
   forceConsistentCasingInFileNames: true,
   moduleResolution: ts.ModuleResolutionKind.Bundler,
   strict: true,
