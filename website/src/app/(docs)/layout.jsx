@@ -37,9 +37,6 @@ export default async function DocsLayout(props) {
           </>}
           projectLink="https://github.com/samchon/typia"
         >
-          <a href="/blog/" style={{ fontWeight: 600 }}>
-            Blog
-          </a>
         </Navbar>
       }
       pageMap={await getPageMap()}
