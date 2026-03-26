@@ -123,7 +123,7 @@ export namespace LlmJson {
   export function validate(
     parameters: ILlmSchema.IParameters,
     equals?: boolean | undefined,
-  ) {
+  ): (input: unknown) => IValidation<unknown> {
     const components: OpenApi.IComponents = {
       schemas: {},
     };
