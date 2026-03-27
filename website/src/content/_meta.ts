@@ -24,8 +24,11 @@ export default {
     },
   },
   blog: {
-    title: "📝 Blog Articles",
+    display: "hidden",
+  },
+  "blog-articles": {
     type: "page",
+    title: "📝 Blog Articles",
     href: "/blog",
   },
 } satisfies MetaRecord;
