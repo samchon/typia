@@ -26,5 +26,6 @@ export default {
   blog: {
     title: "📝 Blog Articles",
     type: "page",
+    href: "/blog",
   },
 } satisfies MetaRecord;
