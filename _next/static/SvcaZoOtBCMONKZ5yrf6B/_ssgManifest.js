@@ -1,1 +1,0 @@
-self.__SSG_MANIFEST=new Set(["\u002F[[...mdxPath]]","\u002Fblog\u002F[slug]","\u002Fblog\u002Ftags\u002F[id]"]);self.__SSG_MANIFEST_CB&&self.__SSG_MANIFEST_CB()

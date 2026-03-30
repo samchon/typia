@@ -6,11 +6,11 @@
     <description>Engineering notes, releases, and deep dives from Typia.</description>
     <language>en</language>
     <item>
-      <title>Function Calling Harness: How TypeScript Types Turn 6.75% LLM Accuracy Into 100%</title>
-      <link>https://typia.io/blog/function-calling-harness/</link>
-      <guid>https://typia.io/blog/function-calling-harness/</guid>
-      <pubDate>Fri, 20 Mar 2026 00:00:00 GMT</pubDate>
-      <description>LLMs fail 93% of the time on complex function calls. The fix is not a better model or a smarter prompt, but a harness around type schema, lenient parsing, coercion, and validation feedback.</description>
+      <title>Function Calling Harness: From 6.75% to 100%</title>
+      <link>https://typia.io/blog/function-calling-harness-qwen-meetup-korea/</link>
+      <guid>https://typia.io/blog/function-calling-harness-qwen-meetup-korea/</guid>
+      <pubDate>Thu, 26 Mar 2026 00:00:00 GMT</pubDate>
+      <description>6.75% first-try function calling success becomes 100% compilation via type schemas, compilers, and structured feedback. Dissecting the harness engineering behind AutoBe and Typia.</description>
     </item>
     <item>
       <title>Bun is up to 20x slower than NodeJS in logic operations</title>
