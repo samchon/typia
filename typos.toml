@@ -11,6 +11,8 @@ Nam = "Nam"
 typia = "typia"
 tru = "tru"
 fals = "fals"
+INPU = "INPU"
+INOT = "INOT"
 
 [files]
 extend-exclude = [
