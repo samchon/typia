@@ -141,8 +141,8 @@ export namespace SwaggerV2 {
     /**
      * Non-standard HTTP method operations (extension).
      *
-     * Used when downgrading from OpenAPI v3.2 to preserve
-     * non-standard methods like `query` or custom methods.
+     * Used when downgrading from OpenAPI v3.2 to preserve non-standard methods
+     * like `query` or custom methods.
      */
     "x-additionalOperations"?: Record<string, IOperation>;
   }
@@ -434,7 +434,7 @@ export namespace SwaggerV2 {
       type?: undefined;
     }
 
-    /** @internal Base interface with type discriminator. */
+    /** @ignore Base Interface with type discriminator. */
     export interface __ISignificant<Type extends string> extends __IAttribute {
       /** Type discriminator. */
       type: Type;
@@ -443,7 +443,7 @@ export namespace SwaggerV2 {
       "x-nullable"?: boolean;
     }
 
-    /** @internal Base attribute interface. */
+    /** @ignore Base Attribute interface. */
     export interface __IAttribute extends Omit<
       IJsonSchemaAttribute,
       "examples" | "writeOnly"

@@ -174,8 +174,8 @@ export namespace OpenApiV3_1 {
     /**
      * Non-standard HTTP method operations (extension).
      *
-     * Used when downgrading from OpenAPI v3.2 to preserve
-     * non-standard methods like `query` or custom methods.
+     * Used when downgrading from OpenAPI v3.2 to preserve non-standard methods
+     * like `query` or custom methods.
      */
     "x-additionalOperations"?: Record<string, IOperation>;
   }
@@ -625,7 +625,7 @@ export namespace OpenApiV3_1 {
       default?: any;
     }
 
-    /** @internal Base attribute interface. */
+    /** @ignore Base Attribute interface. */
     export interface __IAttribute extends Omit<
       IJsonSchemaAttribute,
       "examples"

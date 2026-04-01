@@ -182,7 +182,10 @@ export namespace OpenApiV3_2 {
     /** Path description. */
     description?: string;
 
-    /** Additional non-standard HTTP method operations (e.g., LINK, UNLINK, PURGE). */
+    /**
+     * Additional non-standard HTTP method operations (e.g., LINK, UNLINK,
+     * PURGE).
+     */
     additionalOperations?: Record<string, IOperation>;
   }
 
@@ -634,7 +637,7 @@ export namespace OpenApiV3_2 {
       default?: any;
     }
 
-    /** @internal Base attribute interface. */
+    /** @ignore Base Attribute interface. */
     export interface __IAttribute extends Omit<
       IJsonSchemaAttribute,
       "examples"
