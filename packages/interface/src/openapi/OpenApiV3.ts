@@ -546,7 +546,10 @@ export namespace OpenApiV3 {
     }
 
     /** @ignore Base Attribute interface. */
-    interface __IAttribute extends Omit<IJsonSchemaAttribute, "examples"> {
+    export interface __IAttribute extends Omit<
+      IJsonSchemaAttribute,
+      "examples"
+    > {
       /** Example values. */
       examples?: any[] | Record<string, any>;
     }
