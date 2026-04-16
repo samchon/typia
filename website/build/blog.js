@@ -1,7 +1,8 @@
 const fs = require("fs");
 const path = require("path");
 
-const CONTENT_DIR = path.join(__dirname, "..", "src", "content", "blog");
+const { readBlogPosts } = require("./blog-metadata");
+
 const OUTPUT_DIR = path.join(__dirname, "..", "public", "blog");
 const SITE_URL = "https://typia.io";
 
@@ -13,52 +14,12 @@ const escapeXml = (value) =>
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&apos;");
 
-const parseFrontmatter = (content) => {
-  const match = content.match(/^---\r?\n([\s\S]*?)\r?\n---/);
-  if (!match) return {};
-
-  const metadata = {};
-  let currentKey = null;
-  for (const rawLine of match[1].split(/\r?\n/)) {
-    if (!rawLine.trim()) continue;
-
-    const listMatch = rawLine.match(/^\s*-\s+(.*)$/);
-    if (listMatch && currentKey) {
-      metadata[currentKey].push(listMatch[1].trim().replace(/^"|"$/g, ""));
-      continue;
-    }
-
-    const keyValueMatch = rawLine.match(/^\s*([A-Za-z0-9_]+):\s*(.*)$/);
-    if (!keyValueMatch) continue;
-
-    const [, key, value] = keyValueMatch;
-    if (value === "") {
-      metadata[key] = [];
-      currentKey = key;
-    } else {
-      metadata[key] = value.trim().replace(/^"|"$/g, "");
-      currentKey = key;
-    }
-  }
-  return metadata;
-};
-
-const posts = fs
-  .readdirSync(CONTENT_DIR)
-  .filter((file) => file.endsWith(".md") || file.endsWith(".mdx"))
-  .map((file) => {
-    const fullPath = path.join(CONTENT_DIR, file);
-    const source = fs.readFileSync(fullPath, "utf8");
-    const metadata = parseFrontmatter(source);
-    const slug = file.replace(/\.mdx?$/, "");
-    return {
-      title: metadata.title ?? slug,
-      description: metadata.description ?? "",
-      date: metadata.date ?? new Date().toISOString().slice(0, 10),
-      slug,
-    };
-  })
-  .sort((a, b) => new Date(b.date) - new Date(a.date));
+const posts = readBlogPosts().map((post) => ({
+  title: post.frontMatter.title ?? post.slug,
+  description: post.frontMatter.description ?? "",
+  date: post.frontMatter.date ?? new Date().toISOString().slice(0, 10),
+  slug: post.slug,
+}));
 
 const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0">

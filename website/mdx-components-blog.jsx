@@ -37,7 +37,7 @@ export function useMDXComponents(components) {
       }
 
       return (
-        <div className={hasToc ? "typia-blog-post-layout" : undefined}>
+        <div className={hasToc ? "typia-blog-post-page typia-blog-post-layout" : "typia-blog-post-page"}>
           <div className="typia-blog-post-main">
             {metadata?.ogImage ? (
               <img
