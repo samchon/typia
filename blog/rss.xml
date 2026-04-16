@@ -17,63 +17,63 @@
       <link>https://typia.io/blog/bun-is-up-to-20x-slower-than-nodejs-in-logic-operations/</link>
       <guid>https://typia.io/blog/bun-is-up-to-20x-slower-than-nodejs-in-logic-operations/</guid>
       <pubDate>Sat, 01 Feb 2025 00:00:00 GMT</pubDate>
-      <description>Preface     typia is a transformer library supporting superfast runtime validation, and JSON...</description>
+      <description>typia is a transformer library supporting superfast runtime validation, and JSON serialization function boosting up performance by AoT (Ahead of Time) optimization skill.</description>
     </item>
     <item>
       <title>[Typia] executable demo site of 20,000x faster validator (serializer)</title>
       <link>https://typia.io/blog/typia-executable-demo-site-of-20000x-faster-validator/</link>
       <guid>https://typia.io/blog/typia-executable-demo-site-of-20000x-faster-validator/</guid>
       <pubDate>Mon, 18 Mar 2024 00:00:00 GMT</pubDate>
-      <description>Outline    https://typia.io/playground   I&apos;ve published an executable playground website of...</description>
+      <description>I&apos;ve published an executable playground website of typia to demonstrate how typia is easier than other runtime validation (serialization) libraries, and describe what the AoT...</description>
     </item>
     <item>
       <title>[Typia] I made Protocol Buffer library of TypeScript, easiest in the world</title>
       <link>https://typia.io/blog/typia-protocol-buffer-library-of-typescript/</link>
       <guid>https://typia.io/blog/typia-protocol-buffer-library-of-typescript/</guid>
       <pubDate>Mon, 18 Sep 2023 00:00:00 GMT</pubDate>
-      <description>Outline      import typia, { tags } from \&quot;typia\&quot;;  interface IMember {     id: string &amp;amp;...</description>
+      <description>typia has started supporting Protocol Buffer functions.</description>
     </item>
     <item>
       <title>[Typia] Hidden Class Optimization of v8 Engine</title>
       <link>https://typia.io/blog/typia-hidden-class-optimization-of-v8-engine/</link>
       <guid>https://typia.io/blog/typia-hidden-class-optimization-of-v8-engine/</guid>
       <pubDate>Sat, 29 Jul 2023 00:00:00 GMT</pubDate>
-      <description>Preface      // RUNTIME VALIDATORS export function is&amp;lt;T&amp;gt;(input: unknown | T): input is...</description>
+      <description>Let&apos;s study why typia is much faster than class-validator.</description>
     </item>
     <item>
       <title>Good bye and thanks to \&quot;typescript-is\&quot; (ancestor of \&quot;typia\&quot;)</title>
       <link>https://typia.io/blog/good-bye-and-thanks-to-typescript-is/</link>
       <guid>https://typia.io/blog/good-bye-and-thanks-to-typescript-is/</guid>
       <pubDate>Fri, 21 Jul 2023 00:00:00 GMT</pubDate>
-      <description>Summary   This story is about a precursor library typescript-is:   There had been an ancesor...</description>
+      <description>Long time ago, there had been a great validator library named typescript-is.</description>
     </item>
     <item>
       <title>[Typia] I made realtime demo site of 20,000x faster validation (+200x faster JSON stringify)</title>
       <link>https://typia.io/blog/typia-realtime-demo-site-of-20000x-faster-validation/</link>
       <guid>https://typia.io/blog/typia-realtime-demo-site-of-20000x-faster-validation/</guid>
       <pubDate>Sun, 25 Jun 2023 00:00:00 GMT</pubDate>
-      <description>Preface   https://typia.io/playground  I&apos;ve made a playground website to help you understand...</description>
+      <description>I&apos;ve made a playground website to help you understand how typia works with AoT compilation.</description>
     </item>
     <item>
       <title>I made Express faster than Fastify (100x faster JSON, also NestJS)</title>
       <link>https://typia.io/blog/i-made-express-faster-than-fastify/</link>
       <guid>https://typia.io/blog/i-made-express-faster-than-fastify/</guid>
       <pubDate>Mon, 03 Apr 2023 00:00:00 GMT</pubDate>
-      <description>Outline   Hello, I am developer of typia, and studying fastify in nowadays.   During the...</description>
+      <description>During the study, I could understand why fastify is faster than express. Also, I did an experiment imitating the secret of the fastify in express with typia&apos;s faster JSON...</description>
     </item>
     <item>
       <title>[Typia] 15,000x faster TypeScript Validator and its histories</title>
       <link>https://typia.io/blog/typia-15000x-faster-typescript-validator-and-its-histories/</link>
       <guid>https://typia.io/blog/typia-15000x-faster-typescript-validator-and-its-histories/</guid>
       <pubDate>Sun, 18 Dec 2022 00:00:00 GMT</pubDate>
-      <description>Renamed to Typia   https://github.com/samchon/typia  Hello, I&apos;m developer of typescript-json...</description>
+      <description>Hello, I&apos;m developer of typescript-json typia.</description>
     </item>
     <item>
       <title>I made 10x faster JSON.stringify() functions, even type safe</title>
       <link>https://typia.io/blog/i-made-10x-faster-json-stringify-functions-even-type-safe/</link>
       <guid>https://typia.io/blog/i-made-10x-faster-json-stringify-functions-even-type-safe/</guid>
       <pubDate>Tue, 25 Oct 2022 00:00:00 GMT</pubDate>
-      <description>// FASTER STRINGIFY FUNCTIONS export function stringify&amp;lt;T&amp;gt;(input: T): string; // unsafe but...</description>
+      <description>Hello, I&apos;m a developer of typescript-json, which can validate instance type by only one line, what I&apos;d introduced as &quot;1,000x faster runtime validator library&quot; in here dev.to.</description>
     </item>
     <item>
       <title>I made 1,000x faster TypeScript Validator Library</title>
