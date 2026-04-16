@@ -1,7 +1,7 @@
 import { importPage } from "nextra/pages";
 
 import { useMDXComponents as getMDXComponents } from "../../../../mdx-components-blog";
-import { getPosts } from "../get-posts";
+import { getPostBySlug, getPosts } from "../get-posts";
 
 const Wrapper = getMDXComponents().wrapper;
 
@@ -15,10 +15,14 @@ export async function generateStaticParams() {
 export async function generateMetadata(props) {
   const params = await props.params;
   const { metadata } = await importPage(["blog", params.slug]);
-  const title = metadata.title ?? "Typia Blog";
+  const post = await getPostBySlug(params.slug);
+  const frontMatter = post?.frontMatter ?? {};
+  const title = frontMatter.title ?? metadata.title ?? "Typia Blog";
   const description =
-    metadata.description ?? "Engineering notes, releases, and deep dives from Typia.";
-  const image = metadata.ogImage ?? "https://typia.io/og.jpg";
+    frontMatter.description ??
+    metadata.description ??
+    "Engineering notes, releases, and deep dives from Typia.";
+  const image = frontMatter.ogImage ?? metadata.ogImage ?? "https://typia.io/og.jpg";
   const url = `https://typia.io/blog/${params.slug}/`;
 
   return {

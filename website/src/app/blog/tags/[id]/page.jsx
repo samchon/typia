@@ -26,7 +26,7 @@ export default async function BlogTagPage(props) {
   if (!posts.length) notFound();
 
   return (
-    <>
+    <section className="typia-blog-list-page">
       <p>
         <Link href="/blog">Back to all posts</Link>
       </p>
@@ -37,6 +37,6 @@ export default async function BlogTagPage(props) {
           <BlogPostCard key={post.route} post={post} />
         ))}
       </div>
-    </>
+    </section>
   );
 }

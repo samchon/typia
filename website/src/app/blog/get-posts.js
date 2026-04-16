@@ -1,18 +1,9 @@
-import { normalizePages } from "nextra/normalize-pages";
-import { getPageMap } from "nextra/page-map";
+import blogMetadata from "../../../build/blog-metadata";
+
+const { readBlogPost, readBlogPosts } = blogMetadata;
 
 export async function getPosts() {
-  const { directories } = normalizePages({
-    list: await getPageMap("/blog"),
-    route: "/blog",
-  });
-  return directories
-    .filter((post) => post.route !== "/blog" && post.frontMatter?.title)
-    .sort(
-      (a, b) =>
-        new Date(b.frontMatter.date ?? 0).getTime() -
-        new Date(a.frontMatter.date ?? 0).getTime(),
-    );
+  return readBlogPosts();
 }
 
 export async function getTagCounts() {
@@ -29,4 +20,8 @@ export async function getTagCounts() {
 
 export async function getPostsByTag(tag) {
   return (await getPosts()).filter((post) => (post.frontMatter.tags ?? []).includes(tag));
+}
+
+export async function getPostBySlug(slug) {
+  return readBlogPost(slug);
 }
