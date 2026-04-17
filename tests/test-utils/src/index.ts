@@ -40,9 +40,9 @@ const main = async (): Promise<void> => {
     console.log("Failed");
     console.log("Elapsed time", report.time.toLocaleString(), `ms`);
   }
-  if (exceptions.length) process.exit(-1);
+  if (exceptions.length) process.exit(1);
 };
 main().catch((error) => {
   console.error(error);
-  process.exit(-1);
+  process.exit(1);
 });
