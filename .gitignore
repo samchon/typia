@@ -1,10 +1,11 @@
+.claude/
+.codex/
 bin/
 !/bin
 lib/
 node_modules/
+wiki/memo/
 
-bun.lockb
-bun.lock
 package-lock.json
 
 *.env
