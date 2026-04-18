@@ -90,3 +90,5 @@ for controller in controllers:
 ## 핵심 통찰
 
 세 어댑터의 패턴이 거의 동일하므로 **커뮤니티 contribution 받기 가장 쉬운 영역**(BAML / Mastra / Genkit / Anthropic Agent SDK / OpenAI Agents SDK 등). 단, MCP Preserve 모드는 SDK private API 의존이라 typia가 떠안은 가장 큰 호환성 리스크 — `private API not available` 시 fallback이 명확해야 한다.
+
+→ 다음 [06-website.md](06-website.md)

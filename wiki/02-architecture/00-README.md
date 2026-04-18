@@ -1,8 +1,8 @@
 # 02. 아키텍처 (Architecture)
 
-> ⚠️ **이 폴더의 성격**: typia v12 (2026-04 현재)의 **현재 구현** 아키텍처를 기술한다. **2027~2029 사이 Go 포팅**으로 많은 부분이 바뀐다 — 그 미래 아키텍처는 [08-tsgo-master-plan/](../08-tsgo-master-plan/) 참조.
+> ⚠️ **성격**: typia v12 (2026-04)의 **현재 구현** 기술. 2027~2029 Go 포팅으로 많은 부분이 바뀐다 — 미래 아키텍처는 [08-tsgo-master-plan/](../08-tsgo-master-plan/).
 >
-> 또한 typia는 혼자가 아니라 nestia·agentica·autobe와 **4층 피라미드 세트**로 존재한다. [10-ecosystem/04-philosophy-pyramid.md](../10-ecosystem/04-philosophy-pyramid.md) 참조.
+> typia는 nestia·agentica·autobe와 **4층 피라미드 세트**로 존재. [10-ecosystem/04-philosophy-pyramid.md](../10-ecosystem/04-philosophy-pyramid.md) 참조.
 
 ## 읽기 순서
 

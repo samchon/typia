@@ -213,3 +213,5 @@ tsgonest가 `tsgonest migrate --apply`로 nestia 자동 흡수 시도. nestia의
 ## 한 줄 결론
 
 > **nestia의 핵심(@nestia/core transformer 8 + programmer 22)은 Go 포팅해 ttsc에 흡수. @nestia/sdk·migrate·editor는 TS 유지하되 ttsc IPC API를 소비하는 모델로 재구성. 2029 Q2 nestia v14 = Go native, typia v14와 동시 출시.**
+
+→ 다음 [02-agentica.md](02-agentica.md)

@@ -210,4 +210,4 @@ AutoBE (Orchestration)
 
 ## 최종 결론
 
-> **AutoBE는 typia의 최대 실증이자 상업 기반. tsgo 전환으로 typia가 Go native가 되면 AutoBE 성능이 10~100× 향상되며, 이것은 typia 브랜딩과 재정 조달의 핵심 동력. AutoBE 사용 경험에서 나온 typia 개선 피드백 3개(discriminator, 동적 스키마, 조건부 tag)는 v13/v14 우선순위에 반드시 반영.**
+> **AutoBE는 typia의 최대 실증이자 상업 기반. tsgo 전환 후 Go native가 되면 AutoBE 성능 10~100× 향상 — typia 브랜딩·재정 조달의 핵심 동력. AutoBE에서 나온 피드백 3개(discriminator·동적 스키마·조건부 tag)는 v13/v14 우선순위에 반드시 반영.**

@@ -93,9 +93,9 @@ if ("string" !== typeof input.user.address[0].zipCode)
 
 브랜드 타입으로 검증 메타데이터를 임베드. `packages/interface/src/tags/`.
 
-### 대표 태그 (실측 ~21개 export — 아래는 주요 11개만 요약)
+### 대표 태그 (실측 ~21개 export, 자주 쓰는 11개만)
 
-> 정정: 이전 서술의 "11개 표준 태그"는 wiki 초안이 축약한 것. **실제 `@typia/interface/src/tags/index.ts` export 수는 ~21개** (Constant, ContentMediaType, Default, Example, Examples, ExclusiveMinimum, ExclusiveMaximum, Format, JsonSchemaPlugin, Maximum, MaxItems, MaxLength, Minimum, MinItems, MinLength, MultipleOf, Pattern, Sequence, Type, UniqueItems, TagBase). 아래 11개는 **가장 자주 쓰이는** 것들:
+> 실제 `@typia/interface/src/tags/index.ts` export 수는 ~21개 (Constant, ContentMediaType, Default, Example, Examples, ExclusiveMin/Max, Format, JsonSchemaPlugin, Maximum, MaxItems, MaxLength, Minimum, MinItems, MinLength, MultipleOf, Pattern, Sequence, Type, UniqueItems, TagBase). 아래는 자주 쓰는 11개:
 
 | 태그 | 예 | 적용 가능 타입 |
 |---|---|---|

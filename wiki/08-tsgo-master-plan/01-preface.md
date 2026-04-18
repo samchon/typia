@@ -81,11 +81,11 @@ typia.llm.application<MyClass>();
 - typia core TS LOC: `find packages/core/src -name "*.ts" | wc -l` → 217 파일 / `cat ... | wc -l` → 30,307 LOC
 - typia transform LOC: 117 파일 / 4,306 LOC
 - **합계: 334 파일 / 34,613 TS LOC**
-- tsgolint `go:linkname` 개수: `grep -rn "go:linkname" shim/ | wc -l` → 896+
+- tsgolint `go:linkname` 개수: `grep -rn "go:linkname" shim/ | wc -l` → **~910** (Audit 6 재실측)
 
 ### 저장소 측정 (확실)
 - tsgonest Go LOC: ~72,200 (typescript-go 제외)
-- Effect-tsgo 24 patch 파일 수: `ls _patches/*.patch | wc -l` 결과
+- Effect-tsgo patch 파일 수: `ls _patches/*.patch | wc -l` → **23** (001~023; Audit 6 재실측)
 
 ### 웹 리서치 (신뢰도 중간)
 - Microsoft DevBlog 발표 (TS 7 GA 2026 mid/late)

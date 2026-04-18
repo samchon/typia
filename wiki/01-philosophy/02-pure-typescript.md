@@ -41,7 +41,7 @@ typia는 정확히 그 반대다. **타입에서 모든 것이 나온다**. JSDo
 
 ### 2. 컴파일러가 곧 진실 검사관
 
-별도 스키마 정의는 TS 컴파일러가 검증할 수 없다. `z.string().email()`이 진짜 email 검증인지 컴파일러가 알 수 없다 — 그건 라이브러리 내부 약속일 뿐이다. 다른 사용자가 `z.string()` 으로 "email인 것을 잊고" 정의해도 컴파일러는 침묵한다.
+별도 스키마 정의는 TS 컴파일러가 검증할 수 없다. `z.string().email()`이 진짜 email 검증인지는 컴파일러가 모른다 — 라이브러리 내부 약속일 뿐. 다른 사용자가 `z.string()`으로 "email임을 잊고" 정의해도 컴파일러는 침묵한다.
 
 typia에서는 그런 일이 불가능하다. `string & tags.Format<"email">` 자체가 타입이고, 사용자가 잘못 쓰면 다른 타입이 되어 컴파일러가 잡는다. **"타입에 거짓말을 할 수 없다"** 가 핵심.
 
@@ -67,7 +67,7 @@ typia는:
 
 ### 4. 메타데이터 IR을 가진 컴파일러
 
-세 번째 차원에서 한 발 더 나간다. typia는 단순히 "타입에서 코드를 emit"하는 게 아니라, 그 사이에 **자체 IR(intermediate representation)** 을 가진다 — `MetadataSchema` (`packages/core/src/schemas/metadata/MetadataSchema.ts:49-135`).
+typia는 단순히 "타입에서 코드를 emit"하는 게 아니라, 그 사이에 **자체 IR** 을 가진다 — `MetadataSchema` (`packages/core/src/schemas/metadata/MetadataSchema.ts:49-135`).
 
 ```
 TypeScript Type
@@ -97,11 +97,11 @@ MetadataSchema  ← typia의 자체 IR
 
 "Pure TypeScript"는 강력하지만 모든 문제를 풀지 않는다.
 
-1. **외부 데이터 모델 표현**: OpenAPI YAML 파일이 이미 있는 경우, "타입에서 시작"의 출발점이 없다. typia는 `@typia/utils`의 `OpenApiConverter`로 역방향(OpenAPI → 타입)을 지원하지만, 이건 사상의 보조 회로다.
+1. **외부 데이터 모델 표현**: OpenAPI YAML이 이미 있는 경우 "타입에서 시작"의 출발점이 없다. `@typia/utils`의 `OpenApiConverter`로 역방향(OpenAPI → 타입)은 되나 사상의 보조 회로.
 
-2. **공유 스키마 마이그레이션**: 여러 서비스/언어가 한 스키마를 공유할 때, "TS 타입이 진실"은 다른 언어 입장에서는 진실이 아니다. typia는 Protobuf .proto 생성으로 일부 해결하지만, 진짜 다언어 환경(BAML, Pydantic)에는 약한 면이 있다.
+2. **공유 스키마 마이그레이션**: 여러 서비스·언어가 한 스키마를 공유할 때, "TS 타입이 진실"은 타 언어엔 진실이 아니다. Protobuf .proto 생성으로 일부 해결하지만, BAML·Pydantic 같은 다언어 환경엔 약하다.
 
-3. **런타임 동적 스키마**: 사용자가 만든 동적 타입(폼 빌더 등)에 typia는 적용 불가. **컴파일 타임에 타입이 알려져 있어야 한다**는 전제가 깨지기 때문.
+3. **런타임 동적 스키마**: 동적 타입(폼 빌더 등)에는 적용 불가. **컴파일 타임에 타입이 알려져 있어야** 한다는 전제가 깨진다.
 
 이 세 가지가 zod/valibot이 typia를 완전히 대체할 수 없는 이유이고, 동시에 두 라이브러리가 공존할 수 있는 이유다.
 
@@ -113,6 +113,6 @@ MetadataSchema  ← typia의 자체 IR
 3. 컴파일 시점 = 검증 코드 생성 시점
 4. 자체 IR (MetadataSchema)을 가진 컴파일러
 
-이 4가지가 모두 합쳐져야 typia다. 어느 하나만 빠져도 "그냥 빠른 검증기"가 된다. typia는 이 4가지를 동시에 지키는 거의 유일한 라이브러리다 (ts-runtime-checks가 1·2·3은 만족하지만 4가 없어 확장이 약하고, Deepkit이 4를 가지지만 1·3을 약화시켜 reflection 모델로 갔다).
+이 4가지가 모두 합쳐져야 typia다. 하나라도 빠지면 "그냥 빠른 검증기". typia는 이 4를 동시에 지키는 거의 유일한 라이브러리 (ts-runtime-checks는 1·2·3뿐 4가 없어 확장 약함; Deepkit은 4를 가졌지만 1·3을 약화해 reflection으로).
 
 → [03. 설계 원칙](03-design-principles.md) 으로 이어진다.

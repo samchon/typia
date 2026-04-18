@@ -40,15 +40,15 @@ D축은 약점이다. 그러나 typia는 "마찰 0"을 위해 사상 1·2·3을 
 
 ## "가장 빠르다"는 진짜 무엇인가
 
-벤치마크 숫자(20,000×, 200×, 287K MB/s, ...)는 인상적이지만, 이 숫자보다 더 중요한 것은 **속도가 사상의 따름정리**라는 점이다.
+벤치마크 숫자(20,000×, 200×, 287K MB/s, ...)보다 더 중요한 것은 **속도가 사상의 따름정리**라는 점.
 
 순서가 거꾸로다:
 - 보통: "빠르려면 컴파일 시점에 emit한다"
-- typia: "Pure TypeScript의 자연스러운 결과로 컴파일 emit이고, 그 부산물이 속도다"
+- typia: "Pure TypeScript의 자연스러운 결과가 컴파일 emit이고, 그 부산물이 속도"
 
-이 차이는 마케팅 용어가 아니라 진짜 의미가 있다. 만약 누군가 "런타임에 같은 속도가 나오는 라이브러리"를 만들어도 typia의 가치 명제는 무너지지 않는다 — typia의 핵심은 **타입 단일성**이지 속도 자체가 아니다. 속도는 결과일 뿐.
+누가 "런타임에 같은 속도"를 내놓아도 typia의 가치 명제는 무너지지 않는다 — 핵심은 **타입 단일성**이지 속도 자체가 아니다. 속도는 결과.
 
-이 정렬이 잘 되어 있어 typia 마케팅에는 일관성이 있다. "빠르다"만 강조하지 않고 "Pure TypeScript"를 함께 강조하는 이유다.
+이 정렬 덕에 typia 마케팅에는 일관성이 있다. "빠르다"만 강조하지 않고 "Pure TypeScript"를 함께 강조하는 이유.
 
 ## LLM 시대의 새로운 좌표 — type-first vs schema-first
 
@@ -73,7 +73,7 @@ typia가 type-first 진영의 가장 우수한 표현이고, AutoBE/Agentica가 
 
 ## typia의 딜레마 — Standard Schema 표준화
 
-2025~2026의 가장 큰 외부 변동은 **Standard Schema 1.0** 의 표면화다. Zod·Valibot·ArkType·Effect Schema·TypeBox가 모두 `~standard` 인터페이스를 구현하고, MCP TS SDK·Next.js Server Actions·Hono·Drizzle이 이걸 수용한다.
+2025~2026의 가장 큰 외부 변동은 **Standard Schema 1.0** 표면화. Zod·Valibot·ArkType·Effect Schema·TypeBox가 모두 `~standard` 인터페이스를 구현하고, MCP TS SDK·Next.js Server Actions·Hono·Drizzle이 수용.
 
 이는 typia에게 두 가지를 동시에 의미한다:
 

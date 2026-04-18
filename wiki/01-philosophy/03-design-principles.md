@@ -1,14 +1,14 @@
 # 03. 설계 원칙 — 8가지 코드 패턴 (wiki의 귀납)
 
-> ⚠️ **이 문서의 성격**: 아래 P1~P8은 **이 wiki 저자(AI)가 typia 코드베이스를 관찰해 귀납한 패턴**이다. samchon이 명시한 공식 원칙이 아니며, "typia 개발 규칙서"도 아니다. "이 코드가 왜 이렇게 생겼는가"를 외부 관점에서 재구성한 post-hoc 서술이며, samchon의 의도와 다를 수 있다.
+> ⚠️ **성격**: 아래 P1~P8은 **AI가 typia 코드를 관찰해 귀납한 패턴**이다. samchon의 공식 원칙이 아니며 "개발 규칙서"도 아니다. 외부 관점의 post-hoc 서술이고 저자 의도와 다를 수 있다.
 >
-> **참고 가치**: 새 기능을 추가할 때 기존 코드 스타일과 충돌을 피하는 체크리스트, 또는 외부 기여자가 typia 설계 철학을 빠르게 파악하는 도구. **공식 문서 대체 아님**.
+> **쓰임**: 새 기능 추가 시 기존 스타일과 충돌을 피하는 체크리스트, 또는 기여자가 설계 철학을 빠르게 파악하는 도구. **공식 문서 대체 아님**.
 
 [02-pure-typescript.md](02-pure-typescript.md)의 4중 해석은 코드 차원에서 다음 8가지 패턴으로 귀납된다고 이 wiki는 본다.
 
 ## P1. 메타데이터 IR을 모든 기능의 입력으로 삼는다
 
-`packages/core/src/schemas/metadata/MetadataSchema.ts` (전체 701 LOC; IR 프로퍼티 선언은 `:50-69`, 전체 클래스 `:49-901`)가 typia의 진짜 표준이다. 모든 Programmer는 `MetadataSchema`를 입력으로 받는다.
+`packages/core/src/schemas/metadata/MetadataSchema.ts` (IR 프로퍼티 `:50-69`)가 typia의 진짜 표준이다. 모든 Programmer는 `MetadataSchema`를 입력으로 받는다.
 
 ```
 Type → MetadataFactory → MetadataSchema → { Is, Assert, Validate, JsonStringify, ..., LlmSchema }
@@ -36,9 +36,9 @@ namespace XxxProgrammer {
 
 ## P3. AST 생성은 ts.factory만 사용
 
-`packages/core` 전체에서 `ts.factory.createIdentifier`, `ts.factory.createCallExpression`, `ts.factory.createIfStatement` 등 public factory만 사용한다. 직접 `{ kind: ts.SyntaxKind.Identifier, ... }` 형태로 노드를 만들지 않는다.
+`packages/core` 전체에서 `ts.factory.createIdentifier`·`createCallExpression`·`createIfStatement` 등 public factory만 사용. 직접 `{ kind: ts.SyntaxKind.Identifier, ... }` 로 노드를 만들지 않는다.
 
-`ts-expose-internals`를 devDependency로 선언해 두지만 실제 사용은 거의 없다 — 대부분 type용. 이는 **TypeScript 호환성 표면을 최소화**하는 가장 중요한 자산이다 (→ tsgo 대응 시 결정적).
+`ts-expose-internals`를 devDependency로 선언해 두지만 실사용은 거의 없다 (대부분 type 용도). 이는 **TS 호환성 표면 최소화**의 가장 중요한 자산 — tsgo 대응 시 결정적.
 
 ## P4. 모듈 식별은 import 경로로
 

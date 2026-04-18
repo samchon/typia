@@ -134,4 +134,6 @@ Is vs Assert (`IsProgrammer.ts:31-94`, `AssertProgrammer.ts:56-84`): combiner는
 
 ## 핵심 통찰
 
-core는 **메타데이터 한 자료구조에 모든 타입 정보를 모은 후, 그 위에서 여러 코드 생성기가 변주**하는 구조다 — 사실상 typia만의 작은 IR(intermediate representation)을 가지고 있다. 이는 새 기능 추가 비용을 낮추는 강력한 설계지만, IR 자체의 변경이 모든 programmer에 영향을 주는 대신 안정성을 강제한다. **MetadataSchema는 typia의 진짜 표준**이며, 향후 tsgo 대응에서 'TypeChecker만 다시 구현하면 나머지는 그대로'라는 분리가 잘 된 자산이다.
+core는 **모든 타입 정보를 한 자료구조(MetadataSchema)에 모은 뒤, 그 위에서 여러 코드 생성기가 변주**하는 구조다 — typia 내부의 작은 IR. 신규 기능 추가 비용은 낮지만, IR 변경은 모든 Programmer에 파급된다는 대가로 안정성이 강제된다. tsgo 대응 시 'TypeChecker만 다시 구현하면 나머지는 그대로' 라는 분리가 잘 된 자산.
+
+→ 다음 [03-transform.md](03-transform.md)

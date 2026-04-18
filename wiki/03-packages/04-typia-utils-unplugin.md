@@ -119,3 +119,5 @@ npx typia generate --input <dir> --output <dir>
 - `core/typia.ts` — TS Compiler API로 변환
 - `core/options.ts` — 옵션 정의/해석
 - `vite.ts, webpack.ts, ...` — 번들러별 thin wrapper
+
+→ 다음 [05-llm-integrations.md](05-llm-integrations.md)
