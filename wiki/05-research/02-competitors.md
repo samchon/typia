@@ -1,17 +1,19 @@
 # 경쟁/대안 라이브러리 동향 (2025~2026)
 
 > [사실] = 공개 수치/문서, [추정] = 해석. 기준 시점 2026-04.
+>
+> ⚠️ [09-audit/02-cycle2-features-research.md](../09-audit/02-cycle2-features-research.md) 감수 반영: Zod 다운로드·Valibot 번들·BAML·ArkType 수치 등 일부 정정. 개별 수치에 재확인 주석 추가.
 
 ## 1. 런타임 검증 (스키마 빌더 기반)
 
 ### Zod (v4)
-- **별 42.4k**, 주간 다운로드 ~31M (v4 기준)·일부 집계 139M [사실].
+- **별 42.4k**, 주간 다운로드 2026-04 기준 **101~144M** (Snyk 144.6M / Socket 101.9M / npm-trends ~102M). 이전 "31M"은 v4 런칭 시점 추가분으로 오해된 수치.
 - v4 변화: 타입 인스턴스화 25,000→175, 문자열 14×/배열 7×/객체 6.5× 빠름, 코어 번들 -57%, **Zod Mini** 함수형 API, `.toJSONSchema()` 양방향, `z.email/uuid/url` 승격.
 - 사실상 **AI SDK / LangChain / MCP TS SDK / Drizzle / Hono의 디팩토 표준**.
 - typia 대비: 생태계 우위, 속도/번들 열세.
 
 ### Valibot (v1)
-- 별 8.6k. **번들 1위** — 로그인 폼 1.37 kB vs Zod 17.7 kB.
+- 별 8.6k. **번들 최소화 시나리오 1위** — "완전 tree-shake된 로그인 폼" 기준 1.37 kB vs Zod 17.7 kB (Zod Mini는 ~3-6 kB). 일반 시나리오 차이는 이보다 작다.
 - 함수형 pipe, validator 독립 export → tree-shake 극대화.
 - 속도: Zod v3의 2× 정도, Zod v4 유사, **typia/TypeBox보다 한참 느림**.
 - typia 대비: Edge 유리, 속도 열세.

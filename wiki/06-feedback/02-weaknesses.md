@@ -1,5 +1,12 @@
 # 02. 약점·위험요소 — 정직한 진단
 
+> ⚠️ [09-audit/03-cycle3-feedback-honesty.md](../09-audit/03-cycle3-feedback-honesty.md) 감수 결과: 이 문서의 "정직" 주장은 **AI의 호의적 편향**을 가리는 레토릭. 실제 일부 약점은 축소되거나 프레이밍 편향.
+>
+> **주요 정정 사항** (Cycle 4에서 반영):
+> - W1: "방어 가능성" 낙관 → tsgo는 **6~12개월 full-time 리아키텍처 필수**
+> - W1 본문의 `07-strategy` 링크 → **`08-tsgo-master-plan`**으로 갱신
+> - W13 "속도 마케팅" — AI 편향으로 약점화한 것. 실제 사용자 80%가 "faster than zod"로 유입하므로 **강점의 현실적 측면**으로 재해석 가능.
+
 [01-strengths.md](01-strengths.md)와 같은 정직함으로 약점을 본다. 이 절은 비판이 아니라 **방어 가능한 위험을 미리 표면화**하는 것이 목적이다.
 
 ## W1. tsgo 종속 위험 (생존 차원)
@@ -14,9 +21,9 @@
 
 **핵심 위험**: TS 7.0이 stable 되고 사용자가 이주하기 시작하면 typia는 (지금 형태로는) 새 사용자를 받을 수 없다.
 
-**방어 가능성**: P3·P4 원칙 덕에 **core IR은 tsgo와 무관**하게 살아남는다. 새 transformer 어댑터를 만들거나, post-compile codegen 경로를 만들면 된다. 그러나 작업량은 작지 않다.
+**방어 가능성** (정정): 이전 버전은 "P3·P4 원칙 덕에 core IR은 살아남는다"라고 낙관했으나, 사용자가 이후 **ttsc+typia-go 통합 Go 포팅**으로 확정. 단순 어댑터 교체가 아닌 **18~24개월 Go 재구현** 필요.
 
-→ [07-strategy/01-tsgo-strategy.md](../07-strategy/01-tsgo-strategy.md)에서 단계별 시나리오 제시.
+→ 최신 단일 진실원: [08-tsgo-master-plan/](../08-tsgo-master-plan/).
 
 ## W2. Standard Schema 미지원 (생태계 차원)
 

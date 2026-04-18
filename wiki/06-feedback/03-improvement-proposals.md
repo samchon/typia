@@ -1,5 +1,11 @@
 # 03. 구체적 개선 제안 — Action Items 모음
 
+> ⚠️ [09-audit/03-cycle3-feedback-honesty.md](../09-audit/03-cycle3-feedback-honesty.md) 감수 결과 주요 정정:
+> - **A1 Standard Schema 어댑터 "1주"** → 실제 **2~3주** (type inference, factory 연결, test 반복).
+> - **A3 "typia init 한 줄"** → `npx typia setup`이 이미 존재. 실제 작업은 **문서·UX 개선 2~3일** 수준.
+> - **A8 거대 파일 리팩토링 "1~2개월"** → snapshot test 선행 포함 시 **2~3개월 현실**.
+> - 우선순위 매트릭스에 **의존성 DAG** 누락 (A5 → A8 블로킹 등). 자체 재검토 필요.
+
 [02-weaknesses.md](02-weaknesses.md)의 13개 약점을 **실행 가능한 작업 단위**로 변환. 각 항목에 (우선순위 / 작업량 / 영향) 표기.
 
 ---

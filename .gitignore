@@ -4,6 +4,7 @@ bin/
 !/bin
 lib/
 node_modules/
+wiki/memo/
 
 package-lock.json
 

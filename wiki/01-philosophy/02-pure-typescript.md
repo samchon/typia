@@ -1,8 +1,10 @@
 # 02. Pure TypeScript — 사상의 기술적 의미
 
-## "Pure TypeScript"의 4가지 차원
+> ⚠️ **이 문서의 성격**: typia 공식 문서(`website/src/content/docs/pure.mdx`)의 원문은 "Only one line required, with pure TypeScript type" 한 문장을 강조한다. **아래 "4가지 차원" 분해는 이 wiki 저자(AI)가 코드·문서를 관찰해 재구성한 해석**이지 samchon의 공식 분류는 아니다. 원문 인용은 § "Pure TypeScript 4가지 차원" 끝에 있는 pure.mdx 인용문만 공식이다.
 
-이 슬로건은 한 단어처럼 들리지만 사실 4개의 독립적 주장이 겹쳐 있다. 각각이 별개의 결정을 강제한다.
+## "Pure TypeScript"의 4가지 차원 (이 wiki의 해석)
+
+이 슬로건은 한 단어처럼 들리지만, 이 wiki는 **4개의 독립적 주장이 겹쳐 있다**고 해석한다. 각각이 별개의 결정을 강제한다.
 
 ### 1. 표현의 단일성 — "한 번만 쓴다"
 
@@ -105,7 +107,7 @@ MetadataSchema  ← typia의 자체 IR
 
 ## 정리
 
-"Pure TypeScript"는 4중 의미다:
+이 wiki는 "Pure TypeScript"를 4가지 차원으로 해석한다 (**재확인**: AI 재구성, 공식 아님):
 1. 표현 단일성 (스키마 객체 없음)
 2. TS 컴파일러가 진실 검사관
 3. 컴파일 시점 = 검증 코드 생성 시점
