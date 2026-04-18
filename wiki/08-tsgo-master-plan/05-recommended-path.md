@@ -55,7 +55,7 @@ START (2026 Q2)
 |---|---|---|---|
 | 1 | **공식 입장문** 발표 | 1~2주 | 사용자 안심·생태계 신호 |
 | 2 | **Standard Schema 어댑터** 출시 | 2~3주 | MCP/AI SDK/Hono/Drizzle 생태계 진입 |
-| 3 | **ttsc Phase 0 spike** | 4주 | 기술 검증·IPC 비용 실측 |
+| 3 | **ttsc Phase 0 spike** | **6주 (v5 개정)** | 기술 검증 · 빌드 속도 배수 실측 · 두 경로 프로토타입 · sourcemap · Setup v2. 상세: [17-phase0-kickoff.md](17-phase0-kickoff.md) |
 | 4 | **Edge runtime 홍보** | 며칠 | 새 차별점 마케팅 |
 | 5 | **AI-native DX 템플릿** (llms.txt, Cursor rules, MCP) | 1~2주 | 개발자 유입 |
 

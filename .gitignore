@@ -11,3 +11,4 @@ package-lock.json
 *.env
 *.log
 *.tgz
+third_party/

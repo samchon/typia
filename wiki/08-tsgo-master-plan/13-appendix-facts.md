@@ -2,7 +2,7 @@
 
 > 모든 숫자의 출처. 측정(확실) vs 추정(AI) vs 공개자료(제3자) 구분.
 
-## typia 자체 측정 (2026-04-18 기준)
+## typia 자체 측정 (2026-04-18 기준, v2 추가 실측)
 
 | 지표 | 값 | 출처 |
 |---|---|---|
@@ -11,10 +11,21 @@
 | interface/src TS LOC | 8,508 | 동일 |
 | typia/src TS LOC | 7,544 | 동일 |
 | **합계 (4 주요 패키지)** | **50,665** | — |
+| utils/src TS LOC | **11,715** | v2 실측 |
+| unplugin/src TS LOC | **1,359** | v2 실측 |
+| mcp/src TS LOC | **397** | v2 실측 (index 67 + Registrar 330) |
+| langchain/src TS LOC | **213** | v2 실측 |
+| vercel/src TS LOC | **329** | v2 실측 |
+| **전체 합계 (9 패키지)** | **~64,678** | v2 — 4-패키지 50,665 + 5-패키지 14,013 |
 | CheckerProgrammer.ts LOC | 1,614 | `wc -l` |
 | RandomProgrammer.ts LOC | 1,200 | 동일 |
 | JsonStringifyProgrammer.ts LOC | 1,129 | 동일 |
-| Tag export 수 | ~21 | `packages/interface/src/tags/index.ts` |
+| Tag export 수 | **정확 21** | `packages/interface/src/tags/index.ts` — 20 tag types + TagBase |
+| FUNCTORS entry 수 | **147** | `packages/transform/src/CallExpressionTransformer.ts` (module 25 + functional 18 + http 22 + llm 10 + json 18 + protobuf 17 + reflect 4 + misc 17 + notations 16) |
+| `ts.factory.*` 호출 수 | **2,111** | `grep -c "ts\.factory\." packages` 전체 |
+| 호출 분포 파일 수 | 106 | 동일 |
+| `ts-expose-internals` 실제 import | **0** | devDep 선언만, 실제 코드 사용 없음 (public API 100%) |
+| Standard Schema 구현 | **부분 구현됨** | `packages/typia/src/internal/_createStandardSchema.ts` 134 LOC + `@standard-schema/spec` dep — `createValidate<T>()` / `createValidateEquals<T>()` 자동 `~standard` 주입 |
 | 컨트리뷰터 | 104명 | GitHub |
 | 버전 | 12.0.2 | package.json |
 | Stars | 5.7k (+- 변동) | GitHub (작성 시점) |
@@ -135,7 +146,11 @@
 | tsgolint `go:linkname` | 896 | 910 | +1.6% |
 | tsgolint shim | 15 | 12 | -20% |
 | Effect `_patches` | 24 | 23 | -4% |
-| typia 전체 LOC | 34,613 | 50,665 | +46% |
-| Tag 수 | 11 | ~21 | +90% |
+| typia 전체 LOC | 34,613 | 50,665 (4 패키지) | +46% |
+| **typia 전체 LOC (9 패키지)** | 50,665 | **64,678** | **+28%** (v2 재실측) |
+| Tag 수 | 11 | 정확 **21** | +90% |
+| tsgonest patches | "최소" | **실측 3** (tsconfig / ordered map / VFS perf) | 구체화 |
+| **Standard Schema 구현** | **미구현** (06-feedback W2) | **부분 구현됨** (_createStandardSchema.ts) | **반대 사실** |
+| tsgo GA 날짜 | "2026 mid/late" | 공식 미정 (DevBlog Dec 2025) | 추정 |
 
 → 다음 [14. 용어집](14-appendix-glossary.md)

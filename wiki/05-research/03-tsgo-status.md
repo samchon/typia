@@ -7,7 +7,7 @@
 [사실]
 - 2025-03 Anders Hejlsberg가 "Corsa" 발표 (TypeScript의 Go 포팅). 빌드 7~10×, 메모리 -50%, 에디터 시작 8× 목표.
 - 2026-03-23 **TypeScript 6.0** 정식 — "마지막 JS 기반 버전".
-- TypeScript 7.0 (Corsa) GA: **2026 mid/late (여름경)** — Microsoft 일정 조정 (InfoWorld).
+- **TypeScript 7.0 (Corsa) GA: 공식 미정** — Microsoft DevBlog (2025-12 Progress report)는 날짜 명시 없음. InfoWorld 등 3rd-party 추정 "2026 mid/late", 일부는 "2026-01-15 GA" 주장하나 **공식 확인 불가**. 안전 범위 **2026 H2 ~ 2027 H1** (v2 재조사).
 - Preview npm 패키지: `@typescript/native-preview` (nightly).
 - 2025-12 DevBlog "Progress on TypeScript 7":
   - Parser/Binder/Checker: 거의 완성 (20,000 테스트 중 74건 미스매치)

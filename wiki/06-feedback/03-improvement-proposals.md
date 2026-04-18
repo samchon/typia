@@ -10,12 +10,23 @@
 
 ---
 
-## A1. Standard Schema 어댑터 출시 — **최우선**
+## A1. Standard Schema ~~어댑터 출시~~ 문서화·확장 — **최우선**
 
-**우선 / 1주 / 영향 매우 큼**
+> ⚠️ **v2 재실측 정정 (2026-04-18 Cycle 2)**: `createValidate` / `createValidateEquals`는 **이미 `~standard` 주입 구현 완료**. 신규 개발이 아니라 **(1) 공식 문서화, (2) 다른 factory로 확장, (3) MCP/AI SDK 통합 예제 작성**이 실제 작업.
+
+**우선 / 1주 문서화 + 2-3주 확장 / 영향 매우 큼**
 
 ### 무엇을
-`typia.createValidate<T>()`, `typia.createIs<T>()` 등이 반환하는 객체에 `~standard` 프로퍼티를 노출.
+이미 구현된 Standard Schema 지원을 공식 노출하고, 다른 factory 함수까지 확장.
+
+**이미 구현된 것** (`packages/typia/src/internal/_createStandardSchema.ts`):
+- `typia.createValidate<T>()` → `~standard` 자동 주입
+- `typia.createValidateEquals<T>()` → 동일
+- path 파서 (`typiaPathToStandardSchemaPath`) 내장
+
+**확장할 것**:
+- `typia.createIs<T>()` — Standard Schema는 validate 함수가 필수이므로 createIs 위에 createValidate 논리를 wrapping
+- `typia.createAssert<T>()` 마찬가지
 
 ### 왜
 - Zod·Valibot·ArkType·Effect Schema·TypeBox가 모두 구현

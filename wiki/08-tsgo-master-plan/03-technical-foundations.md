@@ -94,9 +94,11 @@
 - Go LOC: **72,190** (typescript-go 제외)
 - 파일 수: 140
 - Shim 패키지: 11
+- **Patches: 실측 3개** (0001 tsconfig error, 0002 ordered map public JSON, 0003 cachedvfs readfile perf — v2 cycle 2 재확인. 모두 minor)
 - 기능 범위: validation + JSON serialize + OpenAPI 3.2 + SDK (4 namespace, typia 13 중 4)
 - Release: v0.13.5, 49 releases
 - Migration tool: `tsgonest migrate --apply`
+- **핵심 관찰**: shim 11 + patches 3 = 모델 D (Hybrid) 살아있는 레퍼런스. patch가 거의 필요 없음을 실증
 
 ### 장점
 - IPC 없음 → tsgo 네이티브 속도

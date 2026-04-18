@@ -5,6 +5,8 @@
 > ⚠️ **중요**: 이 문서의 "기존 typia Node transformer를 Node bridge로 재사용" 관점은 **초기 v2 설계**다. 사용자가 이후 "ttsc와 typia-go를 하나의 Go 바이너리로 통합" 으로 확정 → **Node bridge가 사라짐**. 최신 통합 아키텍처는 **[04-strategic-options.md](04-strategic-options.md) § "유일한 길: ttsc + typia-go 동시 구축"** 와 **[16-package-port-boundary.md](16-package-port-boundary.md)** 참조.
 >
 > 이 문서(06)는 **ttsc의 driver 부분만을 상세히 논의**하는 것으로 읽으면 된다 (Node bridge 섹션은 구식).
+>
+> **v5 IPC 용어 정리**: 아래 "MessagePack stdio IPC", "Node child IPC" 등의 표현은 구식. 현재 통합 아키텍처에서는 (a) ttsc 바이너리 spawn 외 IPC 없음, (b) tsgo 공식 IPC(PR #711)는 사용 안 함 — shim 기반. 자세한 v2 용어 분리: [17-phase0-kickoff.md § IPC 용어 정의](17-phase0-kickoff.md).
 
 ## 정의 (업데이트)
 

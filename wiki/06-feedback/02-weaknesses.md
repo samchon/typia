@@ -25,19 +25,26 @@
 
 → 최신 단일 진실원: [08-tsgo-master-plan/](../08-tsgo-master-plan/).
 
-## W2. Standard Schema 미지원 (생태계 차원)
+## W2. Standard Schema ~~미지원~~ 부분 구현 / 미홍보 (생태계 차원)
+
+> ⚠️ **v2 재실측 정정 (2026-04-18 Cycle 2)**: wiki 초기 "미구현" 주장은 **틀렸음**. 실제로는 **이미 부분 구현**되어 있다.
+> - `packages/typia/src/internal/_createStandardSchema.ts` (134 LOC) 존재
+> - `@standard-schema/spec` 실제 dep
+> - `typia.createValidate<T>()` / `createValidateEquals<T>()`가 이미 `~standard` 프로퍼티 자동 주입
+> - `CallExpressionTransformer`에 `standardSchema: true` 플래그 이미 라우팅
+> - `ValidateProgrammer.IConfig.standardSchema?: boolean` 이미 존재
 
 **시급**. [05-research/02-competitors.md](../05-research/02-competitors.md):
 - Zod, Valibot, ArkType, Effect Schema, TypeBox 모두 `~standard` 인터페이스 구현
 - MCP TS SDK 2025-11-25부터 Standard Schema 수용
 - Next.js Server Actions, Hono, Drizzle 모두 수용
 
-typia는 아직 미공식. 이는:
-- MCP/AI SDK/LangChain 통합에서 자기 어댑터(@typia/mcp 등)를 계속 직접 만들어야 함
-- "Zod를 받는 곳"에 typia를 끼워 넣을 수 없음
-- **사상상 typia가 "고립된 섬"이 됨**
+typia는 **이미 부분 구현 완료**이나:
+- 공식 문서/마케팅 부재 — 외부에는 "typia는 Standard Schema 미지원" 인식 강함
+- `createValidate` / `createValidateEquals`만 지원 — `createIs` / `createAssert` 등 다른 factory는 확장 여지
+- MCP / AI SDK / LangChain / Hono 통합 예제 부족
 
-→ 1주일 작업으로 해결 가능. **가장 우선순위 높은 quick win**.
+→ **1주 이내 문서화·홍보 + 2~3주 전면 확장**. 신규 개발이 아니라 노출 작업이 핵심.
 
 ## W3. Setup 마찰 (신규 사용자 차원)
 
@@ -154,7 +161,7 @@ Next.js Server Actions, RSC, Tanstack Start 등이 빠르게 자리 잡는 중. 
 
 | # | 우선순위 | 영향 | 비용 |
 |---|---|---|---|
-| W2 Standard Schema | **최고** | 생태계 진입 | 1주 |
+| W2 Standard Schema 문서화·확장 | **최고** | 생태계 진입 | ~~1주~~ → **문서 1주 + 확장 2-3주** (부분 구현됨) |
 | W1 tsgo 대응 | **최고** | 생존 | 6개월~1년 |
 | W3 setup 마찰 | 높 | 신규 채택 | 1~2주 (자동화 + 문서) |
 | W10 마이그레이션 가이드 | 높 | 채택 | 2주 (3개 가이드) |

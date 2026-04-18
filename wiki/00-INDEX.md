@@ -59,10 +59,11 @@
   10-success-criteria         KPI / Red flag
   11-communication-plan       공식 입장·컨퍼런스
   12-governance               의사결정 체계
-  13-appendix-facts           모든 수치 출처
+  13-appendix-facts           모든 수치 출처 (v2 재실측 반영)
   14-appendix-glossary        용어집
   15-executive-summary        ★ 1 페이지
   16-package-port-boundary    ⭐ 9 패키지 Go/TS 결정
+  17-phase0-kickoff           ⭐ v2 신규: 첫 4주 실행 가이드 + cycle 2 재실측
 
 10-ecosystem/                 ⭐ typia + nestia + agentica + autobe 세트
   00-README
@@ -157,7 +158,9 @@ typia (v14) + nestia (v12, Go transformer) + agentica (next) + autobe (next) **2
 | v1 (초기) | 4 옵션 비교 + "Hybrid B→C" 권장 |
 | v2 | "옵션 비교" 폐기, ttsc+typia-go 통합 |
 | v3 | 09-audit 7편 반영 |
-| **v4 (현재)** | 10-ecosystem 세트 전환 추가, 07 역사화, memo 사이클 반영 |
+| v4 | 10-ecosystem 세트 전환 추가, 07 역사화, memo 사이클 반영 |
+| v5 (cycle 2) | 재실측: 9 패키지 64,678 LOC, Standard Schema 부분 구현 발견, tsgonest patches 3, FUNCTORS 147, Phase 0 Kickoff 신설 |
+| **v5.1 (현재, cycle 3)** | **Phase 0 비판 리뷰 후 17번 재작성**: (1) 4주→**6주 스파이크** + Week 0 사전 준비, (2) **자기 빌드 전략** 명시, (3) **pnpm workspace + Go binary** 통합 설계, (4) **sourcemap 결정 포인트**, (5) **Setup wizard v2 스펙**, (6) **Week-level abort gate**, (7) IPC 용어 분리 (spawn latency vs 공식 IPC), (8) `bin/ttsc.js` 템플릿, (9) shim 타겟 API 목록, (10) 측정 가능한 Success 기준. 09/09 audit 참조 |
 
 ---
 

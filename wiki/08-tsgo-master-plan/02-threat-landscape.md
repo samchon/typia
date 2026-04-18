@@ -6,7 +6,7 @@
 
 ### 사실 [모두 출처 있음]
 - 2026-03-23: TypeScript 6.0 정식 — "마지막 JavaScript 기반 버전" (Visual Studio Magazine)
-- TypeScript 7.0 (Corsa) GA 목표: **2026 mid/late** (InfoWorld, Microsoft DevBlog)
+- TypeScript 7.0 (Corsa) GA **공식 미정** — Microsoft DevBlog 2025-12 Progress report에는 날짜 없음. 3rd-party 추정은 "2026 mid/late" ~ "2026-01-15" 폭. 본 plan은 **2026 H2 ~ 2027 H1 추정** 채택 (v2 cycle 2 재확인).
 - **Strada API (현행 JS) 미지원** (Microsoft DevBlog 공식)
 - **in-process plugin 불가** — Go 런타임 다중 로드 불가 (jakebailey, Discussion #455)
 - **공식 transformer API 없음** — Issue #516 "Post-7.0" milestone, dormant 2025-03~

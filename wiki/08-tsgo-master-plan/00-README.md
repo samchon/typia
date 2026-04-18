@@ -31,6 +31,7 @@
 | 14 | [부록 — 용어집](14-appendix-glossary.md) | 용어 통일 |
 | 15 | [**Executive Summary v2**](15-executive-summary.md) | **1 페이지 요약** ★ |
 | 16 | [**Package Port Boundary**](16-package-port-boundary.md) ⭐ **신규** | **9 패키지의 Go/TS 결정** |
+| 17 | [**Phase 0 Kickoff**](17-phase0-kickoff.md) ⭐ **v2 신규** | **첫 4주 실행 가이드 + cycle 2 재실측 반영** |
 
 ## 이 plan의 3가지 핵심 약속 (v2)
 

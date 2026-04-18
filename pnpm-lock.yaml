@@ -461,6 +461,18 @@ importers:
         specifier: catalog:typescript
         version: 5.9.3
 
+  packages/ttsc:
+    devDependencies:
+      '@types/node':
+        specifier: catalog:utils
+        version: 25.3.1
+      rimraf:
+        specifier: catalog:utils
+        version: 6.1.3
+      typescript:
+        specifier: catalog:typescript
+        version: 5.9.3
+
   packages/typia:
     dependencies:
       '@standard-schema/spec':
@@ -997,6 +1009,28 @@ importers:
       '@types/uuid':
         specifier: catalog:utils
         version: 11.0.0
+      ts-node:
+        specifier: catalog:typescript
+        version: 10.9.2(@types/node@25.3.1)(typescript@5.9.3)
+      typescript:
+        specifier: catalog:typescript
+        version: 5.9.3
+
+  tests/test-typia-ttsc:
+    dependencies:
+      typia:
+        specifier: workspace:^
+        version: link:../../packages/typia
+    devDependencies:
+      '@nestia/e2e':
+        specifier: catalog:utils
+        version: 10.0.2
+      '@types/node':
+        specifier: catalog:utils
+        version: 25.3.1
+      chalk:
+        specifier: 4.1.2
+        version: 4.1.2
       ts-node:
         specifier: catalog:typescript
         version: 10.9.2(@types/node@25.3.1)(typescript@5.9.3)

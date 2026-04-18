@@ -4,18 +4,21 @@
 >
 > 통합 ecosystem(typia+nestia+agentica+autobe) 일정은 [../10-ecosystem/05-integrated-tsgo-transition.md](../10-ecosystem/05-integrated-tsgo-transition.md) 참조.
 
-## 2026 Q2 (M0) — 공식 출발점
+## 2026 Q2 (M0) — 공식 출발점 (v5 개정: 6-week spike)
+
+> 상세 실행 가이드: [17-phase0-kickoff.md](17-phase0-kickoff.md)
 
 | 주 | 작업 | 담당 |
 |---|---|---|
-| W1 | 공식 입장문 발표 (typia.io 블로그 + GitHub Issue #1534 답변) | samchon |
-| W1-2 | Edge runtime 호환성 홍보 글 (dev.to, X) | samchon |
-| W1-2 | AI-native DX 템플릿 (llms.txt, cursor rules, MCP server) | samchon |
-| W2-4 | Standard Schema 어댑터 (2~3주) | samchon + contributor |
-| W1-4 | ttsc Phase 0 Spike | samchon |
-| W1-12 | **Go 조력자 모집 공고** | samchon |
+| W0 | 이름·상표·LICENSE·workspace 설계, Go 조력자 JD | samchon |
+| W1 | 저장소 스캐폴딩 + Go 조력자 공고 + 공식 입장문 draft | samchon |
+| W2 | typescript-go submodule + gen_shims + MetadataSchema Go struct | samchon (+ 조력자 후기) |
+| W3 | 경로 A/B 프로토타입 병행 (transform hook vs emit-time rewrite) | samchon |
+| W4 | 속도 측정 + sourcemap + Setup v2 + **공식 입장문 발행** | samchon |
+| W5 | Phase 0 리포트 + Phase 1 설계 + Edge 블로그 | samchon |
+| W1-5 | Standard Schema 문서화·확장 (이미 구현됨 → 확장), AI-native DX 템플릿 | contributor 위주 |
 
-**Q2 종료 결정**: Phase 0 go/no-go + Go 조력자 확보 판정
+**Q2 종료 결정**: Phase 0 리포트 기반 Go/No-Go + Go 조력자 확보 판정. Abort gate는 Week 2/3/4 각각 존재.
 
 ## 2026 Q3~Q4 (M1~M2) — ttsc Phase 1
 
@@ -32,7 +35,11 @@
 | M5 | 최소 end-to-end: `typia.is<string>(input)` 변환 성공 |
 | M6 | **Phase 1 Exit**: walking skeleton 완성 |
 
-**M6 종료 결정**: IPC 비용 < 50ms/파일이면 Phase 2, 80~200ms이면 최적화 스프린트, > 200ms이면 C 직행
+**M6 종료 결정 (v5 개정)**: v2 통합 모델에서 Node bridge 제거됨 → 파일당 IPC 오버헤드 개념 소멸. 새 측정 기준은 **tsc+ts-patch 대비 빌드 속도 배수** (17번 Phase 0 리포트에서 실측).
+
+- **≥ 3×** 빠르면 → Phase 2 착수
+- **2~3×** → 최적화 스프린트 1개월
+- **< 2×** → 병목 profiling + 재설계
 
 ## 2027 Q1~Q2 (M7~M12) — ttsc Phase 2~3
 
