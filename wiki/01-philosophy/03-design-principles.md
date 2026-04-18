@@ -8,7 +8,7 @@
 
 ## P1. 메타데이터 IR을 모든 기능의 입력으로 삼는다
 
-`packages/core/src/schemas/metadata/MetadataSchema.ts:49-135`이 typia의 진짜 표준이다. 모든 Programmer는 `MetadataSchema`를 입력으로 받는다.
+`packages/core/src/schemas/metadata/MetadataSchema.ts` (전체 701 LOC; IR 프로퍼티 선언은 `:50-69`, 전체 클래스 `:49-901`)가 typia의 진짜 표준이다. 모든 Programmer는 `MetadataSchema`를 입력으로 받는다.
 
 ```
 Type → MetadataFactory → MetadataSchema → { Is, Assert, Validate, JsonStringify, ..., LlmSchema }

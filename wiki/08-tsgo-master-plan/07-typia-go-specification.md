@@ -153,7 +153,7 @@
 ## 리스크 (정직, [Audit 5](../09-audit/05-cycle5-decision-matrix.md) 누락 5개 포함)
 
 1. **R1 Go 학습 곡선** — AI 페어링 + 조력자
-2. **R2 TS 30K LOC 폐기 심리** — D 옵션 병행
+2. **R2 TS ~35K LOC (core+transform) 폐기 심리** — 단계적 포팅 Phase 2~6으로 완화
 3. **R3 tsgonest 선점** — MVP 8~9개월 조기 출시로 대응
 4. **R4 Go linkname 1.27+ 제약** — typescript-go와 handshake 협약 추진
 5. **R5 tsgo upstream 리팩토링** — gen_shims 자동화 + 주간 CI smoke

@@ -122,7 +122,7 @@ memo/                         리뷰·개선 5 사이클 기록 (이 작업)
 
 ### 패키지 경계
 - **TS 유지**: `@typia/interface`, `@typia/typia` (얇게), `@typia/utils` (런타임부), `@typia/mcp/langchain/vercel`, `@typia/unplugin` (얇게)
-- **Go 포팅**: `@typia/core` (30K TS → Go 80~100K), `@typia/transform` (ttsc driver에 흡수)
+- **Go 포팅**: `@typia/core` (30K TS 단독; core+transform 34K) → Go engine 100~150K (tsgonest 72K/4 namespace 기준 비례 추정), `@typia/transform` 은 ttsc driver에 흡수
 - **신규**: `@typia/ttsc` (Go 바이너리 + Node launcher, 7 플랫폼 배포)
 
 ### 세트 전환

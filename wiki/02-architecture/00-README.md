@@ -24,7 +24,7 @@
 | | 현재 (v12) | 미래 (v14, 2029 Q2) |
 |---|---|---|
 | 빌드 도구 | tsc + ts-patch | ttsc (Go 바이너리) |
-| 엔진 | @typia/core TS 30K LOC | Go 100~150K LOC (ttsc 내장) |
+| 엔진 | @typia/core TS 30,307 LOC (transform 포함 시 34,613) | Go 100~150K LOC (ttsc 내장) |
 | 사용자 API | `typia.is<T>(input)` | **동일** |
 | tsconfig plugins | `typia/lib/transform` | **동일** |
 | 설치 | `npm i typia ts-patch` + prepare | `npm i typia` 끝 |

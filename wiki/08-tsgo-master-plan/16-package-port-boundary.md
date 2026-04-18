@@ -20,7 +20,7 @@
 |---|---|---|---|
 | `@typia/interface` | TS (8,508 LOC) | **TS 유지** | 미세 증가 (신규 LLM 타입 추가) |
 | `@typia/typia` | TS (7,544 LOC) | **TS 유지, 얇게** | 7.5K → ~3K LOC (CLI와 facade만) |
-| `@typia/core` | TS (30,307 LOC) | **삭제 → Go 포팅 (typia-go engine)** | TS 0, Go ~80K |
+| `@typia/core` | TS (30,307 LOC) | **삭제 → Go 포팅 (ttsc 내 engine)** | TS 0, Go ~80K~120K |
 | `@typia/transform` | TS (4,306 LOC) | **삭제 → ttsc driver에 흡수** | TS 0, Go ~5K |
 | `@typia/utils` | TS (규모 미측정) | **분리** — 런타임 TS, 변환 Go | 분할 |
 | `@typia/ttsc` (신규) | — | **Go 바이너리 + Node launcher** | Go ~100~150K + TS ~200 |

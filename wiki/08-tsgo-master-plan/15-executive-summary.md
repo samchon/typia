@@ -4,7 +4,7 @@
 
 > **typescript-go를 직접 정복하지 않는 한 typia에게 미래는 없다.**
 
-ts-patch 경로는 tsgo에서 **구조적으로 불가능**하다. 대체 경로는 없다. 옵션 A(TS 6.x LTS)는 시간 매수일 뿐 해답이 아니다. **옵션 B(ttsc)와 옵션 C(typia-go)는 양자택일이 아니라 한 몸이다** — ttsc는 tsgo 파이프라인의 진입점, typia-go는 그 안에서 실행되는 엔진.
+ts-patch 경로는 tsgo에서 **구조적으로 불가능**하다. 대체 경로는 없다. TS 6.x LTS는 시간 매수일 뿐 해답이 아니다. **ttsc(driver)와 typia-go(engine)는 양자택일이 아니라 한 몸이다** — ttsc는 tsgo 파이프라인의 진입점, typia-go는 그 안에서 실행되는 엔진. 한 Go 바이너리에 통합.
 
 ## 위기의 실체
 

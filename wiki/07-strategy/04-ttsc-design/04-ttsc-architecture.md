@@ -273,6 +273,6 @@ v2는 v1 대비 모든 차원에서 우월:
 
 > **v2 아키텍처는 Effect-TS의 patch 방식(v1)을 tsgolint의 shim 방식으로 대체하고, 필요한 경우에만 최소 patch를 유지하는 하이브리드. 결과적으로 사상 양보 없이 유지보수 비용 극적 감소.**
 
-이 설계가 [06-final-decision/01-four-options-compared.md](../../06-final-decision/01-four-options-compared.md)의 옵션 B의 기준점.
+이 설계가 [06-final-decision/01-four-options-compared.md](../06-final-decision/01-four-options-compared.md)의 옵션 B의 기준점. (참고: 07-strategy는 [역사 문서](../../07-strategy/00-README.md). 최신 ttsc 설계는 [08-tsgo-master-plan/06](../../08-tsgo-master-plan/06-ttsc-specification.md).)
 
 → 다음 [05. 구현 계획](05-ttsc-implementation-plan.md)

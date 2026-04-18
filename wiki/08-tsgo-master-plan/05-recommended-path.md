@@ -78,7 +78,7 @@ START (2026 Q2)
 | 항목 | 현재 (v12) | 전환 후 (v13+) |
 |---|---|---|
 | 빌드 도구 | tsc + ts-patch | ttsc (단일 Go 바이너리) |
-| @typia/core | TypeScript (30K LOC) | **Go (typia-go 안에)** |
+| @typia/core | TypeScript 30,307 LOC (전체 Go 포팅) | **Go (ttsc engine 안에)** |
 | @typia/transform | TypeScript (4K LOC) | **Go (ttsc driver에 흡수)** |
 | @typia/typia | TS (facade + CLI) | **TS 유지, 더 얇아짐** |
 | @typia/interface | TS (0-runtime-dep 타입) | **TS 유지** |
