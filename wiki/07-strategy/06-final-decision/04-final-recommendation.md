@@ -1,5 +1,8 @@
 # 04. Final Recommendation — 최종 권장안 (Cycle 5)
 
+> ⚠️ **역사 문서 (Archived)** — 이 파일은 2026-04-18 초기 분석의 작업 이력. 현재 진실원은 [08-tsgo-master-plan/](../../08-tsgo-master-plan/) + [10-ecosystem/](../../10-ecosystem/). 내용이 현재 결정과 충돌하면 08 · 10 우선.
+
+
 > 5 사이클 분석의 종합 결론. samchon이 즉시 실행 가능한 단일 권장 + 조건별 분기.
 
 ## 한 줄 권장

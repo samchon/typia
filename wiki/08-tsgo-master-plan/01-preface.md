@@ -26,15 +26,18 @@ typia.llm.application<MyClass>();
 ## 이 계획이 흔드는 것 (변경 가능)
 
 ### 1. 빌드 명령어 (최소 변경)
-`tsc` → `ttsc` (신규 옵션 B) 또는 `typia build` (신규 옵션 C). `typia setup`이 package.json의 scripts를 자동 수정한다. 사용자 타이핑 변경은 **한 번**.
+`tsc` → `ttsc`. `typia setup`이 package.json의 scripts를 자동 수정한다. 사용자 타이핑 변경은 **한 번**.
 
 ### 2. 내부 구현 언어
-현재: TypeScript 30K LOC + Node 런타임.
-미래: TypeScript 감소 + Go 증가. 최종적으로 Go 80K+ LOC, Node는 runtime helper만.
+현재: TypeScript **~50,665 LOC** (core 30,307 + transform 4,306 + interface 8,508 + typia 7,544) + Node 런타임.
+- Go 포팅 대상: `@typia/core` + `@typia/transform` = **34,613 TS LOC**
+- TS 유지: `@typia/interface` + `@typia/typia` 얇은 facade + runtime helpers = ~20K
+미래: Go 100~150K (ttsc 내에 engine 통합) + TS ~20K.
 
 ### 3. 의존 도구
-- ts-patch (현재) → ttsc (12개월 후) → typia-go 바이너리 (24개월 후)
-- 각 전환은 사용자에게 투명.
+- ts-patch (현재) → ttsc Go 바이너리 (2027~)
+- ttsc 하나에 engine 내장 — 별도 typia-go 프로젝트 없음
+- 각 전환은 사용자에게 투명
 
 ## 이 계획이 답하지 않는 것
 
@@ -58,7 +61,6 @@ typia.llm.application<MyClass>();
 | **typia v12** | 현재 릴리스, TS 6.x + ts-patch 기반 |
 | **typia v13** | ttsc 채택 릴리스 (2027 Q2 예정) |
 | **typia v14** | typia-go 채택 릴리스 (2029 Q2 예정) |
-| **옵션 A / B / C / D** | 전략 옵션 (04 문서) |
 | **Phase 0~4** | ttsc 개발 단계 (06 문서) |
 | **M0~M7** | typia-go 개발 단계 (07 문서) |
 

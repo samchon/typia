@@ -50,7 +50,7 @@ const app = typia.llm.application<UserService, "chatgpt">();
 
 ## ILlmFunction 구조 — 진짜 핵심
 
-`packages/interface/src/schema/ILlmFunction.ts:1-146`:
+`packages/interface/src/schema/ILlmFunction.ts:1-145`:
 
 ```ts
 interface ILlmFunction<Schema> {

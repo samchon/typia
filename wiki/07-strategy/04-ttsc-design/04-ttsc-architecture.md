@@ -1,5 +1,8 @@
 # 04. ttsc Architecture (v2 — shim 모델 반영)
 
+> ⚠️ **역사 문서 (Archived)** — 이 파일은 2026-04-18 초기 분석의 작업 이력. 현재 진실원은 [08-tsgo-master-plan/](../../08-tsgo-master-plan/) + [10-ecosystem/](../../10-ecosystem/). 내용이 현재 결정과 충돌하면 08 · 10 우선.
+
+
 > v1은 Effect-TS 패턴 중심 (24 patch 예상). v2는 tsgolint 발견 반영: **shim 13개 + 최소 patch 1~3개** 하이브리드.
 
 ## 한 장 그림 (v2)

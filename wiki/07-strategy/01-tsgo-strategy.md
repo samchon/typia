@@ -1,5 +1,8 @@
 # 01. tsgo 대응 전략 — ttsc 중심축 (v2 전면 재작성)
 
+> ⚠️ **역사 문서 (Archived)** — 이 파일은 2026-04-18 초기 분석의 작업 이력. 현재 진실원은 [08-tsgo-master-plan/](../08-tsgo-master-plan/) + [10-ecosystem/](../10-ecosystem/). 내용이 현재 결정과 충돌하면 08 · 10 우선.
+
+
 > v1 (초안)에서 제안한 "Generate 모드 1급 시민화"는 **철회**. 해당 접근은 사상 양보(사용자 API 변화)였다.
 > v2 (이 문서)는 **typia 저자 samchon이 직접 개발·유지할 tsgo transformer wrapper(ttsc)를 중심축으로** 재구성.
 >

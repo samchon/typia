@@ -1,5 +1,8 @@
 # Prior Art 3 — typescript-go 내부 지도
 
+> ⚠️ **역사 문서 (Archived)** — 이 파일은 2026-04-18 초기 분석의 작업 이력. 현재 진실원은 [08-tsgo-master-plan/](../../../08-tsgo-master-plan/) + [10-ecosystem/](../../../10-ecosystem/). 내용이 현재 결정과 충돌하면 08 · 10 우선.
+
+
 > 분석 대상: `/mnt/d/github/contributions/typescript-go` (Microsoft 공식)
 > 중요도: ★★★★★ (ttsc가 물려받거나 우회할 시스템 자체)
 

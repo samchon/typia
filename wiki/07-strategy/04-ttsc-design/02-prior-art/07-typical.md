@@ -1,5 +1,8 @@
 # Prior Art 7 — elliots/typical
 
+> ⚠️ **역사 문서 (Archived)** — 이 파일은 2026-04-18 초기 분석의 작업 이력. 현재 진실원은 [08-tsgo-master-plan/](../../../08-tsgo-master-plan/) + [10-ecosystem/](../../../10-ecosystem/). 내용이 현재 결정과 충돌하면 08 · 10 우선.
+
+
 > 분석 대상: `/mnt/d/github/contributions/typical` (Elliot Shepherd)
 > 중요도: ★★★★★ — **이미 typia의 Go 포팅 프로토타입이 존재**. 옵션 C(typia Go 포팅)의 실현 가능성을 증명하는 prior art.
 
@@ -40,7 +43,7 @@
   ↓ ts-plugin 또는 unplugin (Node JS)
   ↓ stdin JSON → Go 바이너리 (typical-compiler)
   ↓ typescript-go shim 활용
-  ↓ Go analyse + codegen (packages/compiler/go/)
+  ↓ Go analyze + codegen (packages/compiler/go/)
   ↓ MessagePack binary → Node
 변환된 TS
 ```
@@ -53,7 +56,7 @@
 - `cmd/typical/main.go` — binary entry (stdin 서버)
 - `cmd/typical-wasm/main.go` — WebAssembly target (실험)
 - `internal/server/` — MessagePack 서버, transformFile/loadProject RPC
-- `internal/analyse/` — TypeScript 프로젝트 로드, AST 분석
+- `internal/analyze/` — TypeScript 프로젝트 로드, AST 분석
 - `internal/codegen/` — 타입별 validator 생성
   - `primitives.go` — string/number/boolean/bigint/literal
   - `objects.go` — interface/nested
@@ -167,7 +170,7 @@ typia처럼 inline 코드 생성이지만 Go 컴파일러의 분석력 덕에 re
 | `packages/compiler/go/internal/codegen/objects.go` | 객체 검증 |
 | `packages/compiler/go/internal/codegen/unions.go` | union 분기 |
 | `packages/compiler/go/internal/codegen/filtering.go` | JSON 필터링 |
-| `packages/compiler/go/internal/analyse/` | 프로젝트 분석 |
+| `packages/compiler/go/internal/analyze/` | 프로젝트 분석 |
 | `packages/unplugin/src/index.ts` | unplugin wrapper |
 | `packages/tsc-plugin/src/index.ts` | ts-patch plugin |
 | `packages/bun-plugin/src/index.ts` | Bun plugin |

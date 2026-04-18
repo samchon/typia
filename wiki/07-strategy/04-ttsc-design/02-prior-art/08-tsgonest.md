@@ -1,5 +1,8 @@
 # Prior Art 8 — tsgonest/tsgonest ★ 최중요
 
+> ⚠️ **역사 문서 (Archived)** — 이 파일은 2026-04-18 초기 분석의 작업 이력. 현재 진실원은 [08-tsgo-master-plan/](../../../08-tsgo-master-plan/) + [10-ecosystem/](../../../10-ecosystem/). 내용이 현재 결정과 충돌하면 08 · 10 우선.
+
+
 > 분석 대상: `/mnt/d/github/contributions/tsgonest`
 > 중요도: ★★★★★★★ (★ 7개). **typia+nestia의 Go 포팅 실제 구현체**. 옵션 C의 **살아있는 증거**이자 **직접 경쟁자**.
 

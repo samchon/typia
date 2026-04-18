@@ -1,8 +1,8 @@
 # typia wiki — 읽기 가이드 (v4)
 
-> 작성: 2026-04-18 (Claude Opus 4.7 + samchon 협업, 10 사이클 누적)
-> 목적: typia 코드 전수 분석, 사상 정리, 피드백·개선, **tsgo 마스터 플랜**, **생태계 세트(nestia·agentica·autobe) 통합 전환 계획**
-> 최신 상태: **104 파일 / ~12,700 LOC**
+> 작성: 2026-04-18 (Claude Opus 4.7 + samchon 협업)
+> 범위: typia 전수 분석, 사상, 피드백, **tsgo 마스터 플랜**, **생태계 전환 계획** (nestia·agentica·autobe)
+> 규모: 113 파일
 
 ## 현재 단일 진실원
 
@@ -79,8 +79,8 @@
 07-strategy/                  ⚠️ 역사 문서 (Archived). 39 파일, 구식
   00-README 등에 "역사" 표식 추가됨
 
-memo/                         리뷰·개선 5 사이클 기록 (이 작업)
-  00-README  01-cycle1 … 05-cycle5
+memo/                         리뷰·개선 사이클 기록
+  00-README  01~07 cycle logs  round-01
 ```
 
 ## 가장 빠른 길 — 역할별

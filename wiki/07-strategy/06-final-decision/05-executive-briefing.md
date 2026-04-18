@@ -1,5 +1,8 @@
 # 05. Executive Briefing — 30초 경영 요약
 
+> ⚠️ **역사 문서 (Archived)** — 이 파일은 2026-04-18 초기 분석의 작업 이력. 현재 진실원은 [08-tsgo-master-plan/](../../08-tsgo-master-plan/) + [10-ecosystem/](../../10-ecosystem/). 내용이 현재 결정과 충돌하면 08 · 10 우선.
+
+
 ## 위기
 
 **tsgonest** (Go 기반 "typia+nestia" 클론) 이 이미 v0.13.5, 49 releases까지 개발됨. typia migrate 명령으로 사용자 흡수 중. 2년 내 NestJS 시장 잠식 가능.

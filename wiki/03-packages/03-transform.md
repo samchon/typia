@@ -50,7 +50,7 @@ features/IsTransformer
 
 ## 6. 에러 처리
 
-`TransformerError.ts:22-85` — code+message를 가진 커스텀 에러. `MetadataFactory.IError[]`를 받아 포맷팅.
+`TransformerError.ts:22-79` — code+message를 가진 커스텀 에러. `MetadataFactory.IError[]`를 받아 포맷팅.
 `FileTransformer.ts:74-93` — 노드별 try/catch → `ts.createDiagnosticForNode` → `props.context.extras.addDiagnostic` (ts-patch 제공).
 
 ## 7. TS 내부 API 의존도

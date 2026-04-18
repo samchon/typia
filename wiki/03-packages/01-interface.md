@@ -17,7 +17,7 @@
 - `Format<"email">`, `Pattern<"^[A-Z]{3}$">`, `Type<"uint32">`, `Minimum<0>`, ...
 - `validate` 필드의 코드 템플릿(예: `"$importInternal(\"isTypeInt32\")($input)"`)으로 컴파일러가 검증 함수를 emit.
 - `exclusive` 필드로 Format-Pattern 등 충돌 방지 (`Format.ts:17`, `Pattern.ts:37`).
-- 11개 표준 태그: Format, Pattern, Type, Minimum/Maximum, MinLength/MaxLength, UniqueItems, Default, Example 등.
+- 실측 **~21개 export**: Constant, ContentMediaType, Default, Example, Examples, ExclusiveMinimum, ExclusiveMaximum, Format, JsonSchemaPlugin, Maximum, MaxItems, MaxLength, Minimum, MinItems, MinLength, MultipleOf, Pattern, Sequence, Type, UniqueItems, TagBase (`packages/interface/src/tags/index.ts`). wiki가 자주 언급하는 대표 11개: Format, Pattern, Type, Minimum/Maximum, MinLength/MaxLength, UniqueItems, Default, Example.
 
 JSDoc 태그와의 차이: JSDoc은 문서용이고, Brand 태그는 검증 코드를 실제로 emit한다.
 

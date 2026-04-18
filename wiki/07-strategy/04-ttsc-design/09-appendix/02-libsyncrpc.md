@@ -1,5 +1,8 @@
 # Appendix A.2 — libsyncrpc (Microsoft의 Node sync IPC 라이브러리)
 
+> ⚠️ **역사 문서 (Archived)** — 이 파일은 2026-04-18 초기 분석의 작업 이력. 현재 진실원은 [08-tsgo-master-plan/](../../../08-tsgo-master-plan/) + [10-ecosystem/](../../../10-ecosystem/). 내용이 현재 결정과 충돌하면 08 · 10 우선.
+
+
 > 출처: `github.com/microsoft/libsyncrpc` — Microsoft가 tsgo `@typescript/api`에서 동기 IPC에 쓰는 NAPI 모듈.
 > 용도: ttsc의 `@ttsc/node-bridge`에서 그대로 재사용.
 

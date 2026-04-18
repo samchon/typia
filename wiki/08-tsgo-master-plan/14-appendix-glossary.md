@@ -24,10 +24,7 @@
 | **모델 C** | go:linkname shim (tsgolint 방식) |
 | **모델 D** | Hybrid shim + 최소 patch (ttsc 제안) |
 | **모델 E** | 완전 Go 재구현 (tsgonest / typia-go) |
-| **옵션 A** | TS 6.x LTS + ts-patch 유지 |
-| **옵션 B** | ttsc wrapper 개발 |
-| **옵션 C** | typia-go 완전 재구현 |
-| **옵션 D** | Hybrid B + C (권장) |
+| **옵션 A/B/C/D** | (구식 프레임) v1 옵션 비교. v2에서 **ttsc+typia-go 통합** 단일 경로로 대체. 07-strategy 역사 문서에만 잔존 |
 | **Phase 0~4** | ttsc 개발 단계 |
 | **M0~M33** | typia-go 월 단위 단계 |
 | **MetadataSchema** | typia의 자체 IR (Intermediate Representation) |

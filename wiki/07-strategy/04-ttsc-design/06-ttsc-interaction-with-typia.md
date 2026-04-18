@@ -1,5 +1,8 @@
 # 06. typia와의 상호작용 — 기존 코드에 무엇이 바뀌나
 
+> ⚠️ **역사 문서 (Archived)** — 이 파일은 2026-04-18 초기 분석의 작업 이력. 현재 진실원은 [08-tsgo-master-plan/](../../08-tsgo-master-plan/) + [10-ecosystem/](../../10-ecosystem/). 내용이 현재 결정과 충돌하면 08 · 10 우선.
+
+
 ## 결론 먼저
 
 > **typia 사용자의 tsconfig와 코드는 한 자도 바뀌지 않는다. `@typia/core`, `@typia/transform`, `@typia/interface`도 한 줄 변경 없이 그대로 작동한다.** typia 쪽 변화는 `packages/typia/src/executable/` 디렉토리의 setup 스크립트와 package.json 하나뿐.

@@ -1,5 +1,8 @@
 # 04. TS Core → Go 매핑
 
+> ⚠️ **역사 문서 (Archived)** — 이 파일은 2026-04-18 초기 분석의 작업 이력. 현재 진실원은 [08-tsgo-master-plan/](../../08-tsgo-master-plan/) + [10-ecosystem/](../../10-ecosystem/). 내용이 현재 결정과 충돌하면 08 · 10 우선.
+
+
 > typia의 현재 TS 코드를 Go로 이식하는 파일 단위 1:1 대응표.
 > 규모 측정 근거: typia core/transform 총 **34,613 LOC / 334 TS 파일** (실측). Go 포팅 시 LOC 2~3배 증가 예상 → **70~100K Go LOC**. 추가로 일부 기능은 tsgo shim으로 대체되어 줄어들 수 있음 (~80K 예상).
 

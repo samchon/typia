@@ -1,5 +1,8 @@
 # 01. Problem Statement — 왜 ttsc가 필요한가
 
+> ⚠️ **역사 문서 (Archived)** — 이 파일은 2026-04-18 초기 분석의 작업 이력. 현재 진실원은 [08-tsgo-master-plan/](../../08-tsgo-master-plan/) + [10-ecosystem/](../../10-ecosystem/). 내용이 현재 결정과 충돌하면 08 · 10 우선.
+
+
 ## 한 문장 정의
 
 > **typia의 Pure TypeScript 사상을 지키려면, TypeScript 컴파일러 파이프라인에 custom transformer를 주입할 수 있는 자리가 있어야 한다. tsgo는 이 자리를 제공하지 않는다. 그러므로 typia 저자가 그 자리를 직접 만든다 — 그것이 ttsc다.**

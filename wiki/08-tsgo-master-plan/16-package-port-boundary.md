@@ -80,7 +80,7 @@ CLI (`typia setup`, `typia init`)는 `@typia/ttsc` CLI에서 제공하거나 `@t
 - `typia-go/internal/codegen/` — 13 Programmers (Go)
 - 배포: `@typia/ttsc` 바이너리 내부에 통합 (별도 패키지 X)
 
-**예상 Go LOC**: 80K~100K (TS 30K × 2.5~3배, typia의 복잡도 감안)
+**예상 Go LOC**: 100~150K (tsgonest 72K/4 namespace 실측에서 13 namespace 전체로 비례 추정. 단순 TS LOC × 2~3 계산으로는 과소 추정이었음 — Audit 5 정정).
 
 **TS 코드 운명**: `@typia/core`는 **v13부터 빈 패키지 또는 deprecated**. v14에서 완전 제거.
 

@@ -1,5 +1,8 @@
 # 02. Scope and Non-Goals
 
+> ⚠️ **역사 문서 (Archived)** — 이 파일은 2026-04-18 초기 분석의 작업 이력. 현재 진실원은 [08-tsgo-master-plan/](../../08-tsgo-master-plan/) + [10-ecosystem/](../../10-ecosystem/). 내용이 현재 결정과 충돌하면 08 · 10 우선.
+
+
 ## 포팅 대상 (Scope)
 
 ### In-Scope: 사용자가 호출하는 모든 것

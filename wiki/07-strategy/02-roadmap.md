@@ -1,5 +1,8 @@
 # 02. 종합 로드맵 — 24개월 시간축 (v2)
 
+> ⚠️ **역사 문서 (Archived)** — 이 파일은 2026-04-18 초기 분석의 작업 이력. 현재 진실원은 [08-tsgo-master-plan/](../08-tsgo-master-plan/) + [10-ecosystem/](../10-ecosystem/). 내용이 현재 결정과 충돌하면 08 · 10 우선.
+
+
 > v1 (초안)은 Track 2(Generate 모드)를 중심에 두었으나 철회. v2는 **ttsc 개발을 핵심 축**으로 [06-feedback/03-improvement-proposals.md](../06-feedback/03-improvement-proposals.md)의 14개 액션과 [01-tsgo-strategy.md](01-tsgo-strategy.md)의 3-track을 한 시간축에 재배치.
 
 ## Q2 2026 (현재 ~6월) — 공식 입장 + Quick Wins + ttsc 착수
