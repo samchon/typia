@@ -80,7 +80,7 @@
 | 사실 | 출처 |
 |---|---|
 | TS 6.0 2026-03-23 정식 | [Visual Studio Magazine](https://visualstudiomagazine.com/articles/2025/12/02/microsoft-gets-real-on-native-typescript-remake.aspx) |
-| TS 7 GA "mid/late 2026" | [DevBlog](https://devblogs.microsoft.com/typescript/progress-on-typescript-7-december-2025/) |
+| TS 7 GA 2026 (공식 확정일 미정, "mid/late" 추정) | [DevBlog](https://devblogs.microsoft.com/typescript/progress-on-typescript-7-december-2025/) |
 | in-process plugin 불가 | [Discussion #455](https://github.com/microsoft/typescript-go/discussions/455) (jakebailey) |
 | Strada API 미지원 | [DevBlog Native Preview](https://devblogs.microsoft.com/typescript/announcing-typescript-native-previews/) |
 | Issue #516 milestone "Post-7.0" | [Issue #516](https://github.com/microsoft/typescript-go/issues/516) |
@@ -134,7 +134,7 @@
 | Go/TS LOC 비율 | 2~3배 | 낮음 (프로젝트 의존) |
 | IPC 오버헤드 | 15~50ms/파일 | 낮음 (실측 필요) |
 | Patch rebase 시간 | 5~10분 | 낮음 (CI 자동화 후 측정) |
-| Phase 0 spike | 2~4주 | 중간 |
+| Phase 0 spike | 6주 (v5.1 확정) | 중간 |
 | 매 tsgo release 대응 | 1주 내 | 낮음 |
 
 **master plan 원칙**: 이러한 추정치를 사실처럼 쓰지 않음. 항상 "추정", "미검증" 명시.

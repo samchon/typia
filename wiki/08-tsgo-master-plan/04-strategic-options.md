@@ -81,7 +81,7 @@ tsc/ts-patch 의존 **완전 제거**.
 
 ## ttsc와 typia-go의 현실적 개발 순서
 
-### Phase 0 (2026 Q2, 4주) — Spike
+### Phase 0 (2026 Q2, 6주) — Spike
 - typescript-go submodule + shim 자동 생성 도구 복제
 - 최소 patch로 "Hello from ttsc" 증명
 - Go engine 껍데기 (metadata 스키마만)

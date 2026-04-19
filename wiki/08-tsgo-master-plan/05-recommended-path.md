@@ -9,7 +9,7 @@ ttsc + typia-go 동시 개발 (2026 Q2 ~ 2029 Q2)
   +
 TS 6.x LTS 자동 병행 (ts-patch fork, 2028 말까지)
   +
-즉시 착수 5개 (2026 Q2, 4주)
+즉시 착수 5개 (2026 Q2, 6주)
 ```
 
 ## 분기가 아닌 "속도 조절" 결정 트리
@@ -20,7 +20,7 @@ TS 6.x LTS 자동 병행 (ts-patch fork, 2028 말까지)
 START (2026 Q2)
  │
  ├─ 공식 입장문 발표
- ├─ ttsc Phase 0 spike 착수 (4주)
+ ├─ ttsc Phase 0 spike 착수 (6주)
  ├─ Standard Schema 어댑터 (2~3주)
  ├─ Edge runtime / AI-native DX 홍보
  └─ Go 조력자 모집
@@ -49,7 +49,7 @@ START (2026 Q2)
     └─ (2028 말) TS 6.x LTS 종료 + ts-patch 경로 폐지
 ```
 
-## 즉시 착수 5개 (2026 Q2, 4주 내)
+## 즉시 착수 5개 (2026 Q2, 6주 내)
 
 | # | 작업 | 기간 | 효과 |
 |---|---|---|---|
@@ -65,7 +65,7 @@ START (2026 Q2)
 
 | Phase | 기간 | 산출물 | 사용자 노출 |
 |---|---|---|---|
-| **0 Spike** | 2026 Q2 (4주) | 기술 증명 prototype | 비공개 |
+| **0 Spike** | 2026 Q2 (6주) | 기술 증명 prototype | 비공개 |
 | **1 Walking** | 2026 Q3~Q4 | ttsc driver + engine metadata + `is<string>` | 비공개 alpha |
 | **2 Validators** | 2027 Q1~Q2 | is/assert/validate/equals | **typia v13 preview (2027 Q2)** |
 | **3 JSON** | 2027 Q3~Q4 | schema/stringify/parse/application | typia v13 alpha |
@@ -121,7 +121,7 @@ START (2026 Q2)
 
 ## 한 줄 결론
 
-> **유일한 길은 이미 정해졌다. 결정할 것은 얼마나 빨리 갈 것인가, 얼마나 많은 범위를 v13에 넣을 것인가. Phase 0 spike가 4주 후 그 답을 준다.**
+> **유일한 길은 이미 정해졌다. 결정할 것은 얼마나 빨리 갈 것인가, 얼마나 많은 범위를 v13에 넣을 것인가. Phase 0 spike가 6주 후 그 답을 준다.**
 
 → 다음 [06. ttsc Specification](06-ttsc-specification.md)
 → 패키지 경계 상세: [16. Package Port Boundary](16-package-port-boundary.md)

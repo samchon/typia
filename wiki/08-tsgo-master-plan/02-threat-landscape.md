@@ -31,7 +31,7 @@
 - Stars: **13** (2026-04 시점, 아직 신생) [단, 성장 중]
 - Forks: 3
 - 언어 구성: **Go 71.5%, TypeScript 19.5%, MDX 8.2%**
-- Go LOC: 실측 **~72,200** (typescript-go 제외, `find . -name "*.go" | xargs cat | wc -l`)
+- Go LOC: 실측 **~72,190** (typescript-go 제외, `find . -name "*.go" | xargs cat | wc -l`)
 - 플랫폼: darwin/linux/win × arm64/x64
 - typescript-go 연결: **git submodule + 10 shim 패키지** (`go:linkname`)
 - patches 디렉토리 존재 (최소 patch)
@@ -100,7 +100,7 @@
 ### 표준화 — Standard Schema v1.0
 - Zod / Valibot / ArkType / Effect Schema / TypeBox가 모두 `~standard` 인터페이스 구현
 - MCP TS SDK 2025-11-25부터 수용
-- **typia는 아직 미구현** → 생태계 연결 약점
+- **typia는 부분 구현** (ttsc Phase 0에서 `createValidate` `~standard` 주입 완료, 그러나 공식 릴리스 전) → 생태계 연결 여전히 약점
 
 ### 위협 평가
 - **typia 직접 대체는 아님**
@@ -134,7 +134,7 @@
 ### 긴급도 (2026 Q2~Q4)
 1. **tsgo 호환 경로 필요** — 없으면 2027년부터 신규 사용자 0
 2. **tsgonest 대응** — 아무것도 안 하면 NestJS 시장 잃음
-3. **Standard Schema 미지원** — 생태계 고립 심화
+3. **Standard Schema 공식 릴리스 필요** — 부분 구현 존재(ttsc Phase 0), 정식 배포 시 생태계 고립 해소
 
 ### 중요도 (2027~2028)
 4. **Go 네이티브 성능 경쟁** — tsgonest 10× 주장에 대응 필요

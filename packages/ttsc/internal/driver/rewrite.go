@@ -43,6 +43,11 @@ type Rewrite struct {
 	// JavaScript expression to splice in — this becomes the entire call
 	// expression in the output (parenthesised so it's an expression).
 	Replacement string
+	// When true, the rewriter consumes the trailing `(...)` call parens
+	// emitted by tsgo so the replacement stands alone as a value — used for
+	// factory methods like `createIs<T>()` whose result is itself a function
+	// that the user calls later.
+	ConsumeParens bool
 }
 
 // RewriteSet groups rewrites by file, preserving source order.
@@ -71,6 +76,12 @@ func (rs *RewriteSet) Len() int {
 	return n
 }
 
+// RewriteSentinel is the marker inserted at the top of a patched file so
+// re-running the emit on an already-rewritten file is a no-op. Mirrors
+// tsgonest's `/* @tsgonest-rewritten */` pattern; keeps `ttsc build --emit`
+// idempotent in watch-mode / editor builds.
+const RewriteSentinel = "/* @typia-ttsc-rewritten */"
+
 // EmitAll runs tsgo's emitter, patching every registered typia call in the
 // output. Returns the tsgo diagnostics and any patch-time error. When
 // `writeFile` is nil, the patched JS is written to disk via the standard
@@ -85,6 +96,14 @@ func (p *Program) EmitAll(rs *RewriteSet, writeFile shimcompiler.WriteFile) (*sh
 	// Per-file cursor so we consume rewrites in source order.
 	cursors := map[string]int{}
 	wf := func(fileName, text string, data *shimcompiler.WriteFileData) error {
+		// Idempotency guard: if the emit includes the sentinel line (user
+		// piped the output back into the build), skip entirely.
+		if strings.Contains(text, RewriteSentinel) {
+			if writeFile != nil {
+				return writeFile(fileName, text, data)
+			}
+			return writeOutput(fileName, text)
+		}
 		patched, err := applyRewrites(fileName, text, rs, cursors)
 		if err != nil {
 			return err
@@ -93,17 +112,14 @@ func (p *Program) EmitAll(rs *RewriteSet, writeFile shimcompiler.WriteFile) (*sh
 		// default imports that the rewrite pass has left unused so the
 		// runtime .js doesn't carry an accidental require("typia").
 		patched = dropUnusedTypiaImports(patched)
+		// Only stamp the sentinel when we actually touched the file.
+		if patched != text {
+			patched = insertSentinel(patched)
+		}
 		if writeFile != nil {
 			return writeFile(fileName, patched, data)
 		}
-		// Mirror tsgo's default behaviour: create parent directories so
-		// outDir-relative paths work without a pre-flight mkdir.
-		if dir := filepath.Dir(fileName); dir != "" {
-			if err := os.MkdirAll(dir, 0o755); err != nil {
-				return err
-			}
-		}
-		return os.WriteFile(fileName, []byte(patched), 0o644)
+		return writeOutput(fileName, patched)
 	}
 
 	result := p.TSProgram.Emit(context.Background(), shimcompiler.EmitOptions{
@@ -113,6 +129,31 @@ func (p *Program) EmitAll(rs *RewriteSet, writeFile shimcompiler.WriteFile) (*sh
 		return nil, nil, errors.New("driver: Emit returned nil")
 	}
 	return result, convertDiagnostics(result.Diagnostics), nil
+}
+
+// writeOutput is the default disk writer used when EmitAll's caller does not
+// supply a custom WriteFile hook. Creates parent directories so outDir-relative
+// paths work without a pre-flight mkdir and mirrors tsgo's default 0o644 perms.
+func writeOutput(fileName, text string) error {
+	if dir := filepath.Dir(fileName); dir != "" {
+		if err := os.MkdirAll(dir, 0o755); err != nil {
+			return err
+		}
+	}
+	return os.WriteFile(fileName, []byte(text), 0o644)
+}
+
+// insertSentinel stamps the rewrite sentinel near the top of `text`, keeping
+// any `"use strict";` / `'use strict';` directive first so V8 doesn't lose
+// strict mode. Idempotent — callers should check `strings.Contains(text,
+// RewriteSentinel)` before invoking (done by EmitAll).
+func insertSentinel(text string) string {
+	for _, prefix := range []string{"\"use strict\";\n", "'use strict';\n"} {
+		if strings.HasPrefix(text, prefix) {
+			return prefix + RewriteSentinel + "\n" + text[len(prefix):]
+		}
+	}
+	return RewriteSentinel + "\n" + text
 }
 
 // applyRewrites looks up rewrites for the source that produced `outputName`
@@ -151,21 +192,42 @@ func applyRewrites(outputName, text string, rs *RewriteSet, cursors map[string]i
 }
 
 // findSourceForOutput returns the absolute path of the source file tsgo
-// compiled into outputName. tsgo's default mapping is `<src>.ts → <out>.js`
-// with the same basename; when outDir / rootDir differ we fall back to a
-// basename match.
+// compiled into outputName. tsgo mirrors the rootDir layout under outDir, so
+// the longest shared suffix (ignoring extension) uniquely identifies the
+// source even when multiple `.ts` files share a basename across directories.
 func findSourceForOutput(outputName string, rs *RewriteSet) (string, bool) {
-	outSlash := filepath.ToSlash(outputName)
-	baseOut := strings.TrimSuffix(filepath.Base(outSlash), filepath.Ext(outSlash))
+	outSlash := strings.TrimSuffix(filepath.ToSlash(outputName), filepath.Ext(outputName))
 
-	// First try exact stem match.
+	var best string
+	bestScore := 0
 	for path := range rs.byPath {
-		stem := strings.TrimSuffix(filepath.Base(path), filepath.Ext(path))
-		if stem == baseOut {
-			return path, true
+		srcStem := strings.TrimSuffix(filepath.ToSlash(path), filepath.Ext(path))
+		score := commonSuffixSegments(srcStem, outSlash)
+		if score > bestScore {
+			best = path
+			bestScore = score
 		}
 	}
-	return "", false
+	return best, bestScore > 0
+}
+
+// commonSuffixSegments counts the number of trailing `/`-delimited segments
+// that a and b share. `a/b/foo` vs `x/b/foo` returns 2.
+func commonSuffixSegments(a, b string) int {
+	as := strings.Split(a, "/")
+	bs := strings.Split(b, "/")
+	n := len(as)
+	if len(bs) < n {
+		n = len(bs)
+	}
+	shared := 0
+	for i := 1; i <= n; i++ {
+		if as[len(as)-i] != bs[len(bs)-i] {
+			break
+		}
+		shared++
+	}
+	return shared
 }
 
 // spliceCall finds the next occurrence of `<root>.<ns>...<method>(` in text
@@ -199,8 +261,14 @@ func spliceCall(text string, r Rewrite) (string, bool, error) {
 	if parenPos >= len(text) || text[parenPos] != '(' {
 		return text, false, errors.New("driver: expected '(' after method name")
 	}
-	if _, ok := matchParen(text, parenPos); !ok {
+	closePos, ok := matchParen(text, parenPos)
+	if !ok {
 		return text, false, errors.New("driver: unbalanced parens while locating typia call")
+	}
+	if r.ConsumeParens {
+		// Factory methods: swallow the whole `createX()` invocation so the
+		// replacement is treated as a standalone value.
+		return text[:idx] + r.Replacement + text[closePos+1:], true, nil
 	}
 	return text[:idx] + r.Replacement + text[idx+needleLen:], true, nil
 }

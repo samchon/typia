@@ -63,7 +63,7 @@
   14-appendix-glossary        용어집
   15-executive-summary        ★ 1 페이지
   16-package-port-boundary    ⭐ 9 패키지 Go/TS 결정
-  17-phase0-kickoff           ⭐ v2 신규: 첫 4주 실행 가이드 + cycle 2 재실측
+  17-phase0-kickoff           ⭐ v2 신규: 첫 6주 실행 가이드 + cycle 2 재실측
 
 10-ecosystem/                 ⭐ typia + nestia + agentica + autobe 세트
   00-README
@@ -132,7 +132,7 @@ typia (v14) + nestia (v12, Go transformer) + agentica (next) + autobe (next) **2
 ### 즉시 착수 5 (2026 Q2)
 1. 공식 입장문
 2. Standard Schema 어댑터 (2~3주)
-3. ttsc Phase 0 Spike (4주)
+3. ttsc Phase 0 Spike (6주)
 4. Edge runtime / AI-native DX 홍보
 5. Go 조력자 모집
 

@@ -9,6 +9,7 @@ import (
 	shimchecker "github.com/microsoft/typescript-go/shim/checker"
 	shimcompiler "github.com/microsoft/typescript-go/shim/compiler"
 	"github.com/microsoft/typescript-go/shim/core"
+	shimscanner "github.com/microsoft/typescript-go/shim/scanner"
 	"github.com/microsoft/typescript-go/shim/tsoptions"
 	"github.com/microsoft/typescript-go/shim/tspath"
 	"github.com/microsoft/typescript-go/shim/vfs"
@@ -143,19 +144,26 @@ func (p *Program) SourceFiles() []*ast.SourceFile {
 }
 
 // convertDiagnostics translates shim-specific diagnostics into the plain
-// Diagnostic struct. Location info is best-effort for Phase 0 — later phases
-// will wire LineMap for precise line/column.
+// Diagnostic struct with line/column populated via tsgo's ECMALineMap (the
+// same helper tsc uses for its "file:line:col: message" banner).
 func convertDiagnostics(in []*ast.Diagnostic) []Diagnostic {
 	out := make([]Diagnostic, 0, len(in))
 	for _, d := range in {
 		if d == nil {
 			continue
 		}
-		name := ""
+		diag := Diagnostic{Message: d.String()}
 		if file := d.File(); file != nil {
-			name = file.FileName()
+			diag.File = file.FileName()
+			// Line + byte offset are zero-based from tsgo; bump to 1-based so
+			// editors and GH Actions annotations pick them up correctly.
+			if pos := d.Pos(); pos >= 0 {
+				line, col := shimscanner.GetECMALineAndByteOffsetOfPosition(file, pos)
+				diag.Line = line + 1
+				diag.Column = col + 1
+			}
 		}
-		out = append(out, Diagnostic{File: name, Message: d.String()})
+		out = append(out, diag)
 	}
 	return out
 }

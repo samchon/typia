@@ -38,3 +38,12 @@ export const check_nullable_string = (input: unknown): boolean =>
 
 export const check_tuple = (input: unknown): boolean =>
   typia.is<[string, number, boolean]>(input);
+
+// Recursive self-reference — exercises the analyzer's visitingObjects
+// back-reference path and the collection's EmplaceObject dedup.
+interface TreeNode {
+  value: number;
+  children: TreeNode[];
+}
+export const check_tree = (input: unknown): boolean =>
+  typia.is<TreeNode>(input);

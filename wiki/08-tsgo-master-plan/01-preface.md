@@ -84,11 +84,11 @@ typia.llm.application<MyClass>();
 - tsgolint `go:linkname` 개수: `grep -rn "go:linkname" shim/ | wc -l` → **~910** (Audit 6 재실측)
 
 ### 저장소 측정 (확실)
-- tsgonest Go LOC: ~72,200 (typescript-go 제외)
+- tsgonest Go LOC: ~72,190 (typescript-go 제외)
 - Effect-tsgo patch 파일 수: `ls _patches/*.patch | wc -l` → **23** (001~023; Audit 6 재실측)
 
 ### 웹 리서치 (신뢰도 중간)
-- Microsoft DevBlog 발표 (TS 7 GA 2026 mid/late)
+- Microsoft DevBlog 발표 (TS 7 GA 2026 — 공식 확정일 미정, mid/late 추정)
 - Issue #516 milestone "Post-7.0"
 - tsgonest v0.13.5, 49 releases (2026-04-15)
 

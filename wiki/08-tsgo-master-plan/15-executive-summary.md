@@ -8,7 +8,7 @@ ts-patch 경로는 tsgo에서 **구조적으로 불가능**하다. 대체 경로
 
 ## 위기의 실체
 
-- **Microsoft TS 7 (tsgo) GA** 2026 mid/late — JS 모듈 변조 불가, in-process plugin 불가, 공식 transformer API 없음·Post-7.0 milestone
+- **Microsoft TS 7 (tsgo) GA** 2026 (공식 확정일 미정, mid/late 추정) — JS 모듈 변조 불가, in-process plugin 불가, 공식 transformer API 없음·Post-7.0 milestone
 - **tsgonest** 이미 72K Go LOC / v0.13.5 / 49 releases — typia+nestia를 Go로 재구현한 경쟁자가 이미 작동 중
 - **typical** — 또 다른 Go 기반 typia 클론이 실증 완료
 
@@ -55,7 +55,7 @@ typia-go engine        (Go, 100~150K LOC)  ← MetadataFactory + Programmers
 
 typia emit은 `eval`/`new Function(code)` 사용 안 함 → **Cloudflare Workers, Vercel Edge, Deno Deploy에서 그대로 작동**. Ajv 같은 경쟁사는 crash.
 
-## 즉시 착수 (2026 Q2, 4주)
+## 즉시 착수 (2026 Q2, 6주)
 
 1. **공식 입장문** — "ttsc + typia-go 개발 시작, typescript-go 직접 정복"
 2. **ttsc Phase 0 spike** — typescript-go submodule + shim + 최소 patch + "hello from ttsc" 증명

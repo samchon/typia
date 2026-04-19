@@ -190,8 +190,12 @@ func extractRootAndNamespaces(call *ast.CallExpression, method string) (string, 
 	if len(segments) == 0 {
 		return "", nil, false
 	}
-	// Drop the trailing method name from the namespace list.
-	_ = method
+	// The last segment should match the method name. If it doesn't, the call
+	// expression shape doesn't fit the `root.(ns.)*method` pattern we emit
+	// against — bail rather than silently producing the wrong needle.
+	if segments[len(segments)-1] != method {
+		return "", nil, false
+	}
 	namespaces := segments[:len(segments)-1]
 	return rootID.Text, namespaces, true
 }

@@ -8,7 +8,6 @@ import (
 
 	"github.com/samchon/typia/packages/ttsc/internal/driver"
 	"github.com/samchon/typia/packages/ttsc/internal/engine/analyzer"
-	"github.com/samchon/typia/packages/ttsc/internal/engine/emitter"
 )
 
 // runBuild implements `ttsc build`. Two modes:
@@ -71,28 +70,30 @@ func runBuild(args []string) int {
 			fmt.Fprintf(stdout, "%s: typia.%s.%s<T> — type not yet supported (Phase 0)\n", rel, site.Module, site.Method)
 			continue
 		}
-		if site.Module != "module" || site.Method != "is" {
-			fmt.Fprintf(stdout, "%s: typia.%s.%s<T> — emit not wired in Phase 0 (only typia.is covered)\n", rel, site.Module, site.Method)
+		expr, factory, err, handled := dispatchEmit(site.Module, site.Method, schema)
+		if !handled {
+			fmt.Fprintf(stdout, "%s: typia.%s.%s<T> — not covered in Phase 0\n", rel, site.Module, site.Method)
 			continue
 		}
-		expr, err := emitter.EmitIsArrowFunction(schema)
 		if err != nil {
-			fmt.Fprintf(stdout, "%s: typia.is<T> — emitter error: %v\n", rel, err)
+			fmt.Fprintf(stdout, "%s: typia.%s<T> — emitter error: %v\n", rel, site.Method, err)
 			continue
 		}
-		// Rewriter replaces just the call target (everything up to but not
-		// including the opening `(`). Wrapping the arrow function in a pair
-		// of parens makes `(<arrow>)(arg)` a well-formed call at the site.
+		// Wrapping the arrow function in a pair of parens makes
+		// `(<arrow>)(arg)` a well-formed call at the site. For factory
+		// methods we consume the entire `()` call, so the replacement
+		// becomes a naked function reference.
 		replacement := "(" + expr + ")"
 		rewrites.Add(driver.Rewrite{
-			File:        site.File,
-			RootName:    site.RootName,
-			Namespaces:  site.Namespaces,
-			Method:      site.Method,
-			Replacement: replacement,
+			File:          site.File,
+			RootName:      site.RootName,
+			Namespaces:    site.Namespaces,
+			Method:        site.Method,
+			Replacement:   replacement,
+			ConsumeParens: factory,
 		})
 		if !*emit {
-			fmt.Fprintf(stdout, "%s: typia.is<T> → %s\n", rel, expr)
+			fmt.Fprintf(stdout, "%s: typia.%s<T> → %s\n", rel, site.Method, expr)
 		}
 		recognised++
 	}

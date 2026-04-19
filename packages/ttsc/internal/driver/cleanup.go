@@ -2,7 +2,6 @@ package driver
 
 import (
 	"regexp"
-	"strings"
 )
 
 // dropUnusedTypiaImports removes `require("typia")` / ESM import lines that
@@ -92,5 +91,5 @@ func aliasStillReferenced(text, alias string, lineStart, lineEnd int) bool {
 	head := text[:lineStart]
 	tail := text[lineEnd:]
 	pattern := regexp.MustCompile(`\b` + regexp.QuoteMeta(alias) + `\b`)
-	return pattern.MatchString(head) || pattern.MatchString(tail) || strings.Contains(alias, "\n")
+	return pattern.MatchString(head) || pattern.MatchString(tail)
 }

@@ -32,49 +32,110 @@ func EmitIs(valueExpr string, schema *metadata.Schema) (string, error) {
 	if valueExpr == "" {
 		return "", errors.New("emitter: empty value expression")
 	}
-	expr, err := buildIs(valueExpr, schema)
+	st := newIsState()
+	expr, err := st.buildIs(valueExpr, schema)
 	if err != nil {
 		return "", err
 	}
-	return expr, nil
+	return st.wrap(expr), nil
 }
 
 // EmitIsArrowFunction wraps EmitIs in an arrow function compatible with
 // typia v12's `typia.is<T>` emit shape: `(input) => <expr>`.
 func EmitIsArrowFunction(schema *metadata.Schema) (string, error) {
-	expr, err := EmitIs("input", schema)
+	st := newIsState()
+	expr, err := st.buildIs("input", schema)
 	if err != nil {
 		return "", err
 	}
-	return "(input) => " + expr, nil
+	return "(input) => " + st.wrap(expr), nil
+}
+
+// isState tracks in-progress object emissions so recursive types hoist into
+// named helpers (`__is_0`, `__is_1`, …) instead of stack-overflowing.
+type isState struct {
+	// helpers collects already-hoisted helper definitions, keyed by the
+	// ObjectType pointer. Values are the JS body (e.g. `(v) => (...)`).
+	helpers map[*metadata.ObjectType]string
+	// helperName maps ObjectType → generated helper identifier.
+	helperName map[*metadata.ObjectType]string
+	// visiting tracks which ObjectTypes are currently on the emit stack.
+	// Revisiting a visited type means the type is recursive and must be
+	// routed through a helper.
+	visiting map[*metadata.ObjectType]bool
+	// helperOrder records insertion order so wrap() emits stable code.
+	helperOrder []*metadata.ObjectType
+}
+
+func newIsState() *isState {
+	return &isState{
+		helpers:    make(map[*metadata.ObjectType]string),
+		helperName: make(map[*metadata.ObjectType]string),
+		visiting:   make(map[*metadata.ObjectType]bool),
+	}
+}
+
+// wrap materialises hoisted helpers around `body` when recursion was detected.
+// For non-recursive schemas this is a pass-through, so the common case keeps
+// the compact single-expression shape.
+func (s *isState) wrap(body string) string {
+	if len(s.helpers) == 0 {
+		return body
+	}
+	var b strings.Builder
+	b.WriteString("(() => { ")
+	for _, obj := range s.helperOrder {
+		b.WriteString("const ")
+		b.WriteString(s.helperName[obj])
+		b.WriteString(" = ")
+		b.WriteString(s.helpers[obj])
+		b.WriteString("; ")
+	}
+	b.WriteString("return ")
+	b.WriteString(body)
+	b.WriteString("; })()")
+	return b.String()
+}
+
+// reserveHelper assigns a stable name to `obj` and registers insertion order.
+func (s *isState) reserveHelper(obj *metadata.ObjectType) string {
+	if name, ok := s.helperName[obj]; ok {
+		return name
+	}
+	name := fmt.Sprintf("__is_%d", len(s.helperName))
+	s.helperName[obj] = name
+	s.helperOrder = append(s.helperOrder, obj)
+	return name
 }
 
 // buildIs is the recursive worker. It mirrors typia's
 // `CheckerProgrammer.decode` and the fan-out in `iterate/check_*.ts`.
-func buildIs(ve string, s *metadata.Schema) (string, error) {
-	if s.Any {
+func (s *isState) buildIs(ve string, sc *metadata.Schema) (string, error) {
+	if sc.Any {
 		return "true", nil
 	}
 
-	alternatives := make([]string, 0, s.Bucket()+2)
+	alternatives := make([]string, 0, sc.Bucket()+2)
 
 	// Nullable / optional modifier short-circuits.
-	if s.Nullable {
+	if sc.Nullable {
 		alternatives = append(alternatives, "null === "+ve)
 	}
-	if !s.IsRequired() {
+	if !sc.IsRequired() {
 		alternatives = append(alternatives, "undefined === "+ve)
 	}
 
-	// Atomics.
-	for _, atom := range s.Atomics {
-		if a := atomicCheck(ve, atom.Type); a != "" {
-			alternatives = append(alternatives, a)
+	// Atomics (+ attached tags).
+	for _, atom := range sc.Atomics {
+		base := atomicCheck(ve, atom.Type)
+		if base == "" {
+			continue
 		}
+		alternatives = append(alternatives, atomicWithTags(base, ve, atom.Tags))
 	}
 
 	// Literal constants.
-	for _, c := range s.Constants {
+	for _, c := range sc.Constants {
 		for _, v := range c.Values {
 			if e := constantCheck(ve, c.Type, v.Value); e != "" {
 				alternatives = append(alternatives, e)
@@ -83,8 +144,8 @@ func buildIs(ve string, s *metadata.Schema) (string, error) {
 	}
 
 	// Arrays.
-	for _, ref := range s.Arrays {
-		a, err := emitArrayCheck(ve, ref)
+	for _, ref := range sc.Arrays {
+		a, err := s.emitArrayCheck(ve, ref)
 		if err != nil {
 			return "", err
 		}
@@ -92,8 +153,8 @@ func buildIs(ve string, s *metadata.Schema) (string, error) {
 	}
 
 	// Tuples.
-	for _, ref := range s.Tuples {
-		a, err := emitTupleCheck(ve, ref)
+	for _, ref := range sc.Tuples {
+		a, err := s.emitTupleCheck(ve, ref)
 		if err != nil {
 			return "", err
 		}
@@ -101,12 +162,17 @@ func buildIs(ve string, s *metadata.Schema) (string, error) {
 	}
 
 	// Objects.
-	for _, ref := range s.Objects {
-		a, err := emitObjectCheck(ve, ref)
+	for _, ref := range sc.Objects {
+		a, err := s.emitObjectCheck(ve, ref)
 		if err != nil {
 			return "", err
 		}
 		alternatives = append(alternatives, a)
+	}
+
+	// Native classes — `input instanceof Date`-style check.
+	for _, n := range sc.Natives {
+		alternatives = append(alternatives, ve+" instanceof "+n.Name)
 	}
 
 	if len(alternatives) == 0 {
@@ -158,14 +224,14 @@ func constantCheck(ve string, kind metadata.AtomicKind, value any) string {
 }
 
 // emitArrayCheck covers `T[]` / `Array<T>`.
-func emitArrayCheck(ve string, ref *metadata.ArrayRef) (string, error) {
+func (s *isState) emitArrayCheck(ve string, ref *metadata.ArrayRef) (string, error) {
 	if ref == nil || ref.Type == nil {
 		return "", fmt.Errorf("%w: nil array ref", ErrUnsupportedSchema)
 	}
 	elemExpr := "elem"
 	elemCheck := "true"
 	if ref.Type.Value != nil {
-		e, err := buildIs(elemExpr, ref.Type.Value)
+		e, err := s.buildIs(elemExpr, ref.Type.Value)
 		if err != nil {
 			return "", err
 		}
@@ -175,7 +241,7 @@ func emitArrayCheck(ve string, ref *metadata.ArrayRef) (string, error) {
 }
 
 // emitTupleCheck covers fixed-length tuples.
-func emitTupleCheck(ve string, ref *metadata.TupleRef) (string, error) {
+func (s *isState) emitTupleCheck(ve string, ref *metadata.TupleRef) (string, error) {
 	if ref == nil || ref.Type == nil {
 		return "", fmt.Errorf("%w: nil tuple ref", ErrUnsupportedSchema)
 	}
@@ -184,7 +250,7 @@ func emitTupleCheck(ve string, ref *metadata.TupleRef) (string, error) {
 	for i, el := range t.Elements {
 		index := intString(int64(i))
 		elExpr := ve + "[" + index + "]"
-		e, err := buildIs(elExpr, el)
+		e, err := s.buildIs(elExpr, el)
 		if err != nil {
 			return "", err
 		}
@@ -193,12 +259,44 @@ func emitTupleCheck(ve string, ref *metadata.TupleRef) (string, error) {
 	return "(" + strings.Join(parts, " && ") + ")", nil
 }
 
-// emitObjectCheck covers object types (interfaces, type literals).
-func emitObjectCheck(ve string, ref *metadata.ObjectRef) (string, error) {
+// emitObjectCheck covers object types (interfaces, type literals). Recursive
+// types are hoisted into a helper named `__is_N` so the emitted JS is finite
+// even when the IR contains a back-edge.
+func (s *isState) emitObjectCheck(ve string, ref *metadata.ObjectRef) (string, error) {
 	if ref == nil || ref.Type == nil {
 		return "", fmt.Errorf("%w: nil object ref", ErrUnsupportedSchema)
 	}
 	obj := ref.Type
+	// Already-emitted helper → just call it.
+	if name, ok := s.helperName[obj]; ok && !s.visiting[obj] {
+		return name + "(" + ve + ")", nil
+	}
+	// Currently visiting → cycle detected, reserve a helper and forward.
+	if s.visiting[obj] {
+		name := s.reserveHelper(obj)
+		return name + "(" + ve + ")", nil
+	}
+
+	s.visiting[obj] = true
+	defer delete(s.visiting, obj)
+
+	body, err := s.emitObjectBody("v", obj)
+	if err != nil {
+		return "", err
+	}
+	// If a recursive reference fired during body emission, promote the
+	// type to a helper and return a call.
+	if _, ok := s.helperName[obj]; ok {
+		s.helpers[obj] = "(v) => " + body
+		return s.helperName[obj] + "(" + ve + ")", nil
+	}
+	// No recursion — inline the check at the call site for the simple case.
+	return s.inlineObjectBody(ve, obj)
+}
+
+// emitObjectBody returns the bare expression body (no receiver substitution)
+// for an object check. Used both inline and as the body of a hoisted helper.
+func (s *isState) emitObjectBody(ve string, obj *metadata.ObjectType) (string, error) {
 	parts := []string{
 		`"object" === typeof ` + ve,
 		"null !== " + ve,
@@ -217,13 +315,19 @@ func emitObjectCheck(ve string, ref *metadata.ObjectRef) (string, error) {
 			continue
 		}
 		propExpr := accessProperty(ve, name)
-		check, err := buildIs(propExpr, p.Value)
+		check, err := s.buildIs(propExpr, p.Value)
 		if err != nil {
 			return "", err
 		}
 		parts = append(parts, check)
 	}
 	return "(" + strings.Join(parts, " && ") + ")", nil
+}
+
+// inlineObjectBody re-emits the object check against `ve` for the simple
+// (non-recursive) case so the emitted JS keeps typia v12's compact shape.
+func (s *isState) inlineObjectBody(ve string, obj *metadata.ObjectType) (string, error) {
+	return s.emitObjectBody(ve, obj)
 }
 
 // accessProperty produces either `obj.name` or `obj["name"]` depending on

@@ -32,10 +32,6 @@ var (
 	date    = "unknown"
 )
 
-// exitFunc lets tests capture exit codes without calling os.Exit directly.
-// Overridden only in tests.
-var exitFunc = os.Exit
-
 // stdout / stderr are package-level to keep the CLI testable.
 var (
 	stdout io.Writer = os.Stdout
@@ -64,11 +60,46 @@ func run(args []string) int {
 		return runDemo(args[1:])
 	case "build":
 		return runBuild(args[1:])
+	case "check":
+		// `ttsc check` runs the analyze pipeline without emitting JS — useful
+		// in CI and pre-commit hooks that only need schema validation.
+		return runBuild(append([]string{}, appendUnique(args[1:], "--quiet")...))
+	case "transform":
+		// Single-file transform for bundler plugin integration (unplugin,
+		// vite, esbuild, webpack, …). Emits only the requested file's JS to
+		// stdout or a chosen path — no project-wide write.
+		return runTransform(args[1:])
+	case "-p", "--project":
+		// tsc-compatible alias: `ttsc -p tsconfig.json` / `--project foo`.
+		// Mirrors the tsc CLI so existing scripts work with a one-line swap.
+		if len(args) < 2 {
+			fmt.Fprintln(stderr, "ttsc: -p/--project requires a path argument")
+			return 2
+		}
+		return runBuild(append([]string{"--tsconfig=" + args[1], "--emit"}, args[2:]...))
 	default:
 		fmt.Fprintf(stderr, "ttsc: unknown command %q\n", args[0])
 		fmt.Fprintln(stderr, "Run `ttsc --help` for usage.")
 		return 2
 	}
+}
+
+// appendUnique appends `extra` to `args` only when it's not already present.
+func appendUnique(args []string, extra ...string) []string {
+	out := append([]string{}, args...)
+	for _, e := range extra {
+		seen := false
+		for _, a := range out {
+			if a == e {
+				seen = true
+				break
+			}
+		}
+		if !seen {
+			out = append(out, e)
+		}
+	}
+	return out
 }
 
 func printVersion(w io.Writer) {
@@ -92,15 +123,27 @@ Usage:
   ttsc [command] [options]
 
 Commands:
-  build         Run the Phase 0 end-to-end pipeline against a tsconfig.json.
+  build         Compile every .ts in a project and emit rewritten .js.
+  check         Run the analyzer without emitting — type-only validation.
+  transform     Emit a single file's rewritten JS (bundler plugin hook).
   demo          Run the metadata→emitter smoke pipeline with synthetic input.
   version       Print version, build info, and platform.
   help          Show this help.
 
+Drop-in tsc aliases:
+  ttsc -p tsconfig.json          ≡ ttsc build --tsconfig=tsconfig.json --emit
+  ttsc --project tsconfig.json   (same)
+
 Build options:
   --tsconfig=FILE   Path to tsconfig.json (default: tsconfig.json).
   --cwd=DIR         Override working directory.
+  --emit            Write emitted .js files (omit for analysis-only run).
   --quiet           Suppress the per-call summary banner.
+
+Transform options:
+  --file=PATH       Absolute or cwd-relative path of the .ts file to transform.
+  --tsconfig=FILE   tsconfig.json owning --file (default: tsconfig.json).
+  --out=PATH        Write output JS to PATH. Default: stdout.
 
 Demo options:
   --type=T          Atomic TypeScript type to simulate. One of:
@@ -108,12 +151,20 @@ Demo options:
 
 Examples:
   ttsc --version
-  ttsc build --tsconfig=./tsconfig.json
+  ttsc build --tsconfig=./tsconfig.json --emit
+  ttsc -p ./tsconfig.json
+  ttsc check
+  ttsc transform --file=src/main.ts
   ttsc demo --type=number
-  ttsc demo --type=any
 
-This is a Phase 0 spike. The real build/dev/check/setup subcommands will
-arrive in subsequent phases (see wiki/08-tsgo-master-plan/17-phase0-kickoff.md).
+Integration guide (bundlers):
+  - vite / webpack / rollup / esbuild: shell out to "ttsc transform" per file,
+    forward stdout as the bundler transform result. @typia/unplugin wraps
+    this for you.
+  - Next.js / Nuxt / Bun: "ttsc build" in your pipeline replaces tsc and
+    the rewritten .js feeds the runtime directly.
+  - Monorepo / pnpm workspace: share one ttsc binary via a root script;
+    per-package tsconfig.json references work unchanged.
 `))
 }
 
