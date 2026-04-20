@@ -2,6 +2,8 @@
 
 > ⚠️ **Phase 0 spike (version 0.0.0-phase0).** Not production-ready. Do not install.
 
+> ℹ️ Current repository policy: `@typia/ttsc` is excluded from the normal root `package:latest` publish path and must be validated through its own package-local test/build flow.
+
 typia's build driver for [TypeScript 7 / tsgo](https://github.com/microsoft/typescript-go). A Go-native replacement for the current `tsc` + `ts-patch` pipeline.
 
 See [wiki/08-tsgo-master-plan/17-phase0-kickoff.md](../../wiki/08-tsgo-master-plan/17-phase0-kickoff.md) for the detailed plan.

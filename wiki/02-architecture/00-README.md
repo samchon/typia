@@ -8,7 +8,7 @@
 
 1. [01-overview.md](01-overview.md) — 한 장의 그림 (typia 내부)
 2. [02-data-flow.md](02-data-flow.md) — 한 호출이 코드가 되기까지 (9단계)
-3. [03-package-graph.md](03-package-graph.md) — 9개 패키지 의존 그래프
+3. [03-package-graph.md](03-package-graph.md) — 현행 9개 패키지 의존 그래프 (`@typia/ttsc` 제외)
 4. [04-transformation-pipeline.md](04-transformation-pipeline.md) — ts-patch vs unplugin 두 경로 (현재)
 
 **관련 문서**:

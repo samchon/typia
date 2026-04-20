@@ -7,7 +7,7 @@
     "build": "pnpm --filter=./packages/* -r build",
     "format": "prettier --write packages/**/*.ts && prettier --write internals/**/*.ts && prettier --write tests/**/*.ts",
     "test": "pnpm --filter=./tests/test-* -r start",
-    "package:latest": "pnpm --filter=./packages/* -r publish --tag latest --access public",
+    "package:latest": "pnpm --filter=./packages/* --filter=!@typia/ttsc -r publish --tag latest --access public",
     "package:next": "bash next.bash",
     "package:tgz": "node experiments/tarballs",
     "prepare": "ts-patch install",

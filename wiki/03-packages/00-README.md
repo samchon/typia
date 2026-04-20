@@ -1,5 +1,7 @@
 # 03. 패키지별 깊은 분석
 
+> 범위: 이 섹션은 typia v12의 **현행 9개 패키지**를 다룬다. 신규 전환 드라이버 `@typia/ttsc`는 현재 운영 패키지 분석이 아니라 [08-tsgo-master-plan/](../08-tsgo-master-plan/)에서 별도로 다룬다.
+
 ## 읽기 순서 (의존도 낮은 것 → 높은 것)
 
 1. [01-interface.md](01-interface.md) — 0-dep 순수 타입 (모든 패키지의 ABI)
