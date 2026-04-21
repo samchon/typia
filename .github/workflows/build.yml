@@ -3,10 +3,8 @@ on:
   pull_request:
     paths:
       - '.github/workflows/build.yml'
-      - 'internals/config/**'
-      - 'packages/*/src/**'
-      - 'packages/*/package.json'
-      - 'packages/*/rollup.config.mjs'
+      - 'config/**'
+      - 'packages/**'
       - 'pnpm-lock.yaml'
       - 'pnpm-workspace.yaml'
       - 'package.json'

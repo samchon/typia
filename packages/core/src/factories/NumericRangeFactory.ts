@@ -1,5 +1,5 @@
 import { ProtobufAtomic } from "@typia/interface";
-import ts from "typescript";
+import ts from "@typescript/native-preview";
 
 import { ExpressionFactory } from "./ExpressionFactory";
 

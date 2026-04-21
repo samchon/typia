@@ -148,6 +148,6 @@ Check out the document in the [website](https://typia.io/docs/):
 
 
 
-## References
-  - inspired by [`typescript-is`](https://github.com/woutervh-/typescript-is)
-  - inspired by [`ts-patch`](https://github.com/nonara/ts-patch)
+## Inspired By
+- [`typescript-is`](https://github.com/woutervh-/typescript-is)
+- [`ts-patch`](https://github.com/nonara/ts-patch)

@@ -2,11 +2,10 @@ name: test
 on: 
   pull_request:
     paths:
-      - '.github/workflows/build.yml'
-      - 'packages/*/src/**'
-      - 'packages/*/package.json'
-      - 'tests/test-*/src/**'
-      - 'tests/test-*/package.json'
+      - '.github/workflows/test.yml'
+      - 'packages/**'
+      - 'tests/**'
+      - 'examples/**'
       - 'package.json'
       - 'pnpm-lock.yaml'
       - 'pnpm-workspace.yaml'

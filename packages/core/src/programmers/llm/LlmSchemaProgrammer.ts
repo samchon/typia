@@ -5,7 +5,7 @@ import {
   IResult,
 } from "@typia/interface";
 import { LlmSchemaConverter } from "@typia/utils";
-import ts from "typescript";
+import ts from "@typescript/native-preview";
 
 import { IProgrammerProps } from "../../context/IProgrammerProps";
 import { TransformerError } from "../../context/TransformerError";

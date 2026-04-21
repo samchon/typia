@@ -21,6 +21,25 @@ const halt = (desc: string): never => {
   process.exit(-1);
 };
 
+const loadNativePreview = (): void => {
+  const resolvers: Array<() => string> = [
+    () =>
+      require.resolve("@typescript/native-preview/package.json", {
+        paths: [process.cwd()],
+      }),
+    () => require.resolve("@typescript/native-preview/package.json"),
+  ];
+  for (const resolve of resolvers) {
+    try {
+      resolve();
+      return;
+    } catch {}
+  }
+  halt(
+    `@typescript/native-preview has not been installed. Run "npm i -D @typescript/native-preview" before.`,
+  );
+};
+
 const main = async (): Promise<void> => {
   try {
     await import("comment-json");
@@ -32,20 +51,11 @@ const main = async (): Promise<void> => {
 
   const type: string | undefined = process.argv[2];
   if (type === "setup") {
-    const { TypiaSetupWizard } = await import("./TypiaSetupWizard.js");
+    const { TypiaSetupWizard } = await import("./TypiaSetupWizard");
     await TypiaSetupWizard.setup();
-  } else if (type === "patch") {
-    const { TypiaPatchWizard } = await import("./TypiaPatchWizard.js");
-    await TypiaPatchWizard.main();
   } else if (type === "generate") {
-    try {
-      await import("typescript");
-    } catch {
-      halt(
-        `typescript has not been installed. Run "npm i -D typescript" before.`,
-      );
-    }
-    const { TypiaGenerateWizard } = await import("./TypiaGenerateWizard.js");
+    loadNativePreview();
+    const { TypiaGenerateWizard } = await import("./TypiaGenerateWizard");
     await TypiaGenerateWizard.generate();
   } else halt(USAGE);
 };

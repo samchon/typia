@@ -1,4 +1,4 @@
-import ts from "typescript";
+import ts from "@typescript/native-preview";
 
 import { MetadataTemplate } from "../../schemas/metadata/MetadataTemplate";
 import { ICheckEntry } from "../helpers/ICheckEntry";

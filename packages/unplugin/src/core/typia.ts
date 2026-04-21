@@ -1,7 +1,7 @@
 import { consola } from "consola";
 import { dirname, resolve } from "pathe";
 import { resolveTSConfig } from "pkg-types";
-import ts from "typescript";
+import ts from "@typescript/native-preview";
 import { transform as typiaTransform } from "typia/lib/transform";
 import type { Alias } from "vite";
 

@@ -1,5 +1,5 @@
 import { ITransformOptions, ITypiaContext } from "@typia/core";
-import ts from "typescript";
+import ts from "@typescript/native-preview";
 
 import { FileTransformer } from "./FileTransformer";
 
@@ -17,8 +17,8 @@ import { FileTransformer } from "./FileTransformer";
  * **Requirements:**
  *
  * - TypeScript's `strictNullChecks` or `strict` compiler option must be enabled
- * - The transformer must be configured in `tsconfig.json` via ts-patch or
- *   ttypescript
+ * - The transformer must be configured in `tsconfig.json` via
+ *   `compilerOptions.plugins` using `@typia/ttsc/plugin/typia`
  *
  * **Configuration example (tsconfig.json):**
  *

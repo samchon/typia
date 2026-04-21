@@ -3,13 +3,7 @@
   "compilerOptions": {
     "noEmit": false,
     "outDir": "bin",
-  },
-  "ts-node": {
-    "transpileOnly": true,
-    "compilerOptions": {
-      "module": "commonjs",
-      "plugins": []
-    }
+    "rootDir": "src"
   },
   "include": ["src"],
 }

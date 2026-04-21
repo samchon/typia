@@ -3,7 +3,7 @@ import {
   IJsDocTagInfo,
   IMetadataSchema,
 } from "@typia/interface";
-import ts from "typescript";
+import ts from "@typescript/native-preview";
 
 import { IMetadataDictionary } from "./IMetadataDictionary";
 import { MetadataSchema } from "./MetadataSchema";

@@ -1,5 +1,5 @@
 import { ArrayUtil } from "@typia/utils";
-import ts from "typescript";
+import ts from "@typescript/native-preview";
 
 import { MetadataAlias } from "../../../schemas/metadata/MetadataAlias";
 import { MetadataAliasType } from "../../../schemas/metadata/MetadataAliasType";

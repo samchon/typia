@@ -1,0 +1,39 @@
+{
+  "private": true,
+  "name": "@typia/test-typia-ttsc",
+  "version": "0.0.0-phase0",
+  "description": "End-to-end smoke tests for @typia/ttsc (Phase 0 spike).",
+  "scripts": {
+    "dev": "ttsx src/index.ts",
+    "build:packages": "pnpm --filter @typia/ttsc build && pnpm --filter @typia/ttsx build && pnpm --filter typia build",
+    "build:go": "bash -c 'export PATH=\"$HOME/go-sdk/go/bin:$PATH\"; cd ../../packages/ttsc && go build -o bin/ttsc-native ./cmd/ttsc'",
+    "prestart": "pnpm run build:packages && pnpm run build:go",
+    "start": "ttsx src/index.ts",
+    "test": "pnpm run start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/samchon/typia"
+  },
+  "keywords": [
+    "typia",
+    "ttsc",
+    "test"
+  ],
+  "author": "Jeongho Nam",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/samchon/typia/issues"
+  },
+  "homepage": "https://typia.io",
+  "devDependencies": {
+    "@nestia/e2e": "catalog:utils",
+    "@types/node": "catalog:utils",
+    "@typia/ttsc": "workspace:^",
+    "@typia/ttsx": "workspace:^",
+    "chalk": "4.1.2"
+  },
+  "dependencies": {
+    "typia": "workspace:^"
+  }
+}

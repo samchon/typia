@@ -1,5 +1,5 @@
 import { ITypiaContext } from "@typia/core";
-import ts from "typescript";
+import ts from "@typescript/native-preview";
 
 import { CallExpressionTransformer } from "./CallExpressionTransformer";
 

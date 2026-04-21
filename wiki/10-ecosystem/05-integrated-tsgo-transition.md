@@ -87,7 +87,7 @@ Phase 6 autobe (agentica + nestia + typia 전체 Go 엔진 소비)
 | samchon 번아웃 | 매우 큼 | 조력자 + AutoBE 상업화로 유지비 조달 |
 | typia Phase 지연 | 세트 전체 지연 | typia 범위 축소 우선, nestia/agentica/autobe 동시 축소 |
 | tsgonest 세트 전체 잠식 | 큼 | AutoBE·Agentica 차별화로 방어 (tsgonest는 autobe 레벨 부재) |
-| 사용자 이주 혼란 | 중 | typia setup이 nestia·agentica·autobe 모두 자동 마이그레이션 |
+| 사용자 이주 혼란 | 중 | typia setup은 typia toolchain만 정렬하고, 나머지 프로젝트는 별도 migration guide로 단계 이행 |
 
 ## tsgonest 경쟁 대응의 층위
 
@@ -123,7 +123,7 @@ Phase 6 autobe (agentica + nestia + typia 전체 Go 엔진 소비)
 1. **중복 투자 제거**: typia 엔진과 nestia 엔진이 **같은 ttsc 바이너리** 안 — 공유 shim, 공유 metadata
 2. **동시 릴리스 파급효과**: 4 프로젝트 **한 번의 뉴스 사이클**에 집중
 3. **사상 일관성**: 4 층 모두 동시 이주 → "일부는 TS, 일부는 Go" 혼란 없음
-4. **사용자 학습 비용 단일**: `npx typia setup` 한 번으로 4 프로젝트 모두 전환
+4. **사용자 학습 비용 단일**: typia toolchain을 중심으로 4 프로젝트 migration guide를 같은 방향으로 정렬
 
 ## 한 줄 결론
 

@@ -11,10 +11,10 @@
 		"resolveJsonModule": true,
 		"types": [
 			"vitest/importMeta",
-			"vitest/globals",
-			"ts-expose-internals"
+			"vitest/globals"
 		],
 		"outDir": "lib",
+		"rootDir": "src",
 		"strict": true,
 		"strictNullChecks": true,
 		"declaration": true,

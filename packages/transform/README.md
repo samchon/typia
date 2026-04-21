@@ -20,6 +20,6 @@ This is an **internal package** of `typia`. You don't need to install it directl
 
 | Export | Description |
 |--------|-------------|
-| `transform()` | TypeScript transformer factory — the main entry point for `ts-patch` and `ttypescript` |
+| `transform()` | Typia transformer factory — consumed via `@typia/ttsc/plugin/typia` in `compilerOptions.plugins` |
 | `TypiaGenerator.build()` | Programmatic build API for generating transformed output files |
 | `ImportTransformer` | Rewrites import paths and removes unused typia imports after transformation |
