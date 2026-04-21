@@ -25,7 +25,7 @@
       │  ┌────────────────────────────────┘
       ▼  ▼
    ┌─────────────────────┐         ┌──────────────────────┐
-   │  @typia/transform   │         │  @typia/typia (메인)  │
+   │  @typia/transform   │         │  typia (메인)         │
    │  (TransformerFactory│ ◀───────│  - CLI                │
    │   FileTransformer,  │         │  - re-export          │
    │   CallExpression... │         │  - 사용자 facing API  │
@@ -68,8 +68,8 @@
 | `@typia/interface` | IValidation, ILlmApplication, OpenApi, tags 등 모든 공개 타입 |
 | `@typia/utils` | 런타임 헬퍼 + LLM/OpenAPI 변환 유틸 + 검증기 헬퍼 |
 | `@typia/core` | MetadataFactory + 모든 Programmer (코드 생성 본체) |
-| `@typia/transform` | ts-patch가 부르는 TransformerFactory (어댑터) |
-| `@typia/typia` | 사용자가 import하는 메인 + CLI (setup/patch/generate) |
+| `@typia/transform` | `@typia/ttsc/plugin/typia` 와 `@typia/unplugin` 이 부르는 TransformerFactory (어댑터) |
+| `typia` | 사용자가 import하는 메인 + CLI (setup/patch/generate) |
 | `@typia/unplugin` | vite/webpack/rspack/...에 transformer 주입 |
 | `@typia/mcp` | MCP SDK Tool로 ILlmController 변환 |
 | `@typia/langchain` | LangChain DynamicStructuredTool로 변환 |
@@ -109,7 +109,7 @@
 
 1. 0-dep `interface`로 순환 차단
 2. LLM SDK 어댑터 격리 → 한 SDK 깨져도 다른 패키지 무사
-3. unplugin이 transform과 분리 → 번들러 사용자가 ts-patch 안 써도 됨
+3. unplugin이 transform과 분리 → 번들러 사용자가 별도 `ttsc` host 없이도 같은 core를 사용
 4. utils가 별도 → 런타임 헬퍼 업데이트가 core 빌드와 무관
 5. typia CLI가 별도 모듈 → CLI 의존(commander/inquirer)이 라이브러리 사용자에게 전파 안 됨
 

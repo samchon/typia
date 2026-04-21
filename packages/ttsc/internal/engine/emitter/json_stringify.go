@@ -36,18 +36,6 @@ func EmitJsonStringifyArrowFunction(schema *metadata.Schema) (string, error) {
 func findUnsupportedJSONStringifyShape(schema *metadata.Schema) (string, bool) {
 	var found string
 	ok := newSchemaWalker().walkSchema(schema, func(s *metadata.Schema) bool {
-		for _, atom := range s.Atomics {
-			if atom.Type == metadata.AtomicBigint {
-				found = "bigint"
-				return true
-			}
-		}
-		for _, c := range s.Constants {
-			if c.Type == metadata.AtomicBigint {
-				found = "bigint"
-				return true
-			}
-		}
 		if len(s.Maps) != 0 {
 			found = "Map"
 			return true

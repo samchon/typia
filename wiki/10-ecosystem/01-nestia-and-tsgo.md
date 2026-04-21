@@ -141,7 +141,7 @@ typia-go 100~150K + nestia 20~35K = **총 120~185K Go LOC** (ttsc 바이너리).
 | **Phase 1** | 2026 Q3-Q4 | nestia v12.1~12.3 minor — @typia/core 호출을 "타입 안전 wrapper"로 격리 (예: `createValidateWithFactory()`) |
 | **Phase 2** | 2027 Q1-Q2 | nestia-go transformer 기본 구현 (ttsc에서 @TypedRoute/Body 인식). @nestia/core v13-beta — deprecated marker + ttsc redirect 경고 |
 | **Phase 3** | 2027 Q3-Q4 | @nestia/sdk·migrate CLI를 `@typia/ttsc` 연동 기준으로 재구성. 공통 코어가 검증되면 그때 generic API로 승격 |
-| **Phase 4** | 2028 이후 | **nestia v14 major** — Go transformer 완전. `prepare: ts-patch install` 자동 제거 (migrate script). migration guide 완성 |
+| **Phase 4** | 2028 이후 | **nestia v14 major** — Go transformer 완전. legacy `ts-patch` 경로 제거와 migration guide 정리 |
 
 ## 사용자 마이그레이션 경로
 
@@ -155,13 +155,12 @@ npm i -D typescript typia nestia @nestia/core @nestia/sdk ts-patch
 ### 전환 후 (v14 / typia v14 동시)
 ```bash
 npm i -D typia nestia @nestia/core @nestia/sdk
-# ts-patch 제거
-# prepare 제거
-
-npx typia setup --nestia   # ttsc + nestia integration 자동
+npx typia setup
+# 결과: @typescript/native-preview + @typia/ttsc
+# nestia transformer는 별도 integration layer에서 정렬
 ```
 
-**tsconfig.json**: 완전히 동일 (plugins 스키마 호환).
+**tsconfig.json**: typia plugin 쪽은 `@typia/ttsc/plugin/typia` 기준으로 바뀌고, nestia transformer는 그 위에서 별도 정렬이 필요하다.
 
 ## tsgonest 경쟁 대응 (Agent 재확인)
 
@@ -205,7 +204,7 @@ tsgonest가 `tsgonest migrate --apply`로 nestia 자동 흡수 시도. nestia의
 | `packages/sdk/src/generates/SwaggerGenerator.ts` | **런타임 MetadataFactory** |
 | `packages/sdk/src/generates/SdkGenerator.ts` | 타입 안전 SDK 생성 |
 | `packages/sdk/src/executable/sdk.ts` | CLI 진입 |
-| `package.json` (루트) | `prepare: ts-patch install` |
+| `package.json` (루트) | 현행 setup 계약과 migration 영향면 검토 포인트 |
 
 ## 한 줄 결론
 

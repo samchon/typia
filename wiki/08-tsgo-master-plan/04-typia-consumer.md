@@ -8,7 +8,7 @@ typia는 `ttsc` / `ttsx` 의 consumer 다.
 
 - `@typia/core`
 - `@typia/transform`
-- `@typia/typia`
+- `typia`
 - `@typia/utils`
 
 이 패키지들은 `ttsc` / `ttsx` platform 위에 올라가는 typia consumer 구현으로 재편된다.
@@ -27,10 +27,11 @@ typia는 `ttsc` / `ttsx` 의 consumer 다.
 
 `npx typia setup` 의 목표는 다음이어야 한다.
 
-1. `ttsc` 설치
-2. 필요 시 `ttsx` 설치
-3. legacy `ts-patch` 제거
-4. typia config / tsconfig 정렬
+1. `@typia/ttsc` 설치
+2. preview 기간에는 `@typescript/native-preview` 설치
+3. 필요 시 `@typia/ttsx` 설치
+4. legacy `ts-patch` 제거
+5. typia config / tsconfig 정렬 (`@typia/ttsc/plugin/typia` 주입)
 
 ## 표현 원칙
 

@@ -35,7 +35,7 @@
 
 ### 어떻게
 ```ts
-// 새 패키지 또는 @typia/typia에 추가
+// 새 패키지 또는 typia에 추가
 const validate = typia.createValidate<Member>();
 validate["~standard"] = {
   version: 1,
@@ -87,15 +87,15 @@ validate["~standard"] = {
 **높 / 1~2주 / 영향 큼**
 
 ### 무엇을
-1. `npx typia init` 한 명령으로 ts-patch + tsconfig + scripts.prepare + IDE 권장 설정까지
+1. `npx typia setup` 한 명령으로 `@typescript/native-preview` + `@typia/ttsc` + `@typia/ttsc/plugin/typia` + IDE 권장 설정까지
 2. 신규 사용자 가이드 첫 문단에 "왜 transformer가 필요한가"를 솔직히 설명 + 그 비용으로 얻는 것을 즉시 시각화
 3. `vite-create`/`create-next-app` template (typia 옵션 포함)
 
 ### 왜
-신규 채택의 가장 큰 장벽이 setup. zod는 `npm i zod`로 끝인데 typia는 4단계.
+신규 채택의 가장 큰 장벽이 setup. zod는 `npm i zod`로 끝인데 typia는 여전히 compiler host / bundler path / optional runner를 이해해야 한다.
 
 ### 어떻게
-- `typia init`이 패키지 매니저 감지 + 의존 설치 + tsconfig 수정 + prepare 스크립트 + IDE 설정(.vscode/extensions.json 권장) 한 번에
+- `typia setup`이 패키지 매니저 감지 + 의존 설치 + tsconfig plugin 주입 + legacy 설정 정리 + IDE 설정(.vscode/extensions.json 권장) 을 한 번에
 - "Why do I need a transformer?" FAQ 페이지 (3분 분량)
 - 별도 starter template (typia-starter-vite, typia-starter-nextjs, typia-starter-nestjs)
 
@@ -129,7 +129,7 @@ validate["~standard"] = {
 ### 무엇을
 1. 핵심 기능 emit 코드의 **snapshot test** (jest snapshot)
 2. 매주 main 머지 후 GitHub Action이 **벤치 1줄을 history.csv에 추가**
-3. TypeScript 매트릭스 CI (5.5 / 5.7 / 5.9 / @typescript/native-preview)
+3. 전환면 매트릭스 CI (`@typia/ttsc` package-local test + `@typia/test-typia-ttsc` smoke + current native-preview baseline)
 4. LLM 통합 mock test (실제 LLM 호출 없이 결정적 응답)
 
 ### 왜
@@ -148,19 +148,19 @@ benchmark/charts/  (시계열 SVG 자동 갱신)
 
 ---
 
-## A6. unplugin 1급 시민화 — **중~높**
+## A6. unplugin 대체 경로 강화 — **중~높**
 
 **중 / 1주 / 영향 큼 (tsgo 대응의 일부)**
 
 ### 무엇을
-1. setup 페이지에 vite/Next.js/rspack 사용자에게 unplugin을 **먼저** 권장
-2. ts-patch는 "tsc 직접 빌드 시" 옵션으로 강조
-3. unplugin이 "기본 권장 경로"임을 명시
+1. setup 페이지에 vite/Next.js/rspack 사용자에게 `@typia/unplugin` 을 bundler-native 대체 경로로 명시
+2. 기본 경로는 여전히 `@typia/ttsc` 라고 분명히 적기
+3. `@typia/unplugin` 이 필요한 환경과 필요 없는 환경을 표로 분리
 
 ### 왜
-- tsgo 시대에 ts-patch는 수명 위험
-- unplugin은 빌드 도구의 transform 훅을 쓰므로 typescript 모듈 패치 불필요
-- 사용자 입장에서 setup이 더 단순
+- `ttsc` 가 현재 기본 계약이어도, 번들러 사용자는 `unplugin` 경로를 더 자연스럽게 받아들인다
+- `unplugin` 은 빌드 도구의 transform 훅을 쓰므로 별도 host를 직접 다루지 않아도 된다
+- "기본 경로" 와 "bundler-native 대체 경로" 를 분리해야 setup 문서가 덜 헷갈린다
 
 ---
 

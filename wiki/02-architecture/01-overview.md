@@ -11,12 +11,12 @@
 │   typia.json.stringify<Member>(member);                            │
 │   typia.llm.application<MyClass>();                                │
 └────────────────────────┬───────────────────────────────────────────┘
-                         │ tsc 또는 unplugin
+                         │ ttsc 또는 unplugin
                          ▼
 ┌────────────────────────────────────────────────────────────────────┐
-│   ts-patch | unplugin-typia                                        │
+│   @typia/ttsc | unplugin-typia                                     │
 │                                                                    │
-│   - tsc 빌드 파이프라인에 typia transformer 주입                    │
+│   - 기본 경로: `@typia/ttsc` host가 `@typia/ttsc/plugin/typia` 로드 │
 │   - unplugin: vite/webpack/rspack/esbuild/rolldown/bun/farm/next   │
 └────────────────────────┬───────────────────────────────────────────┘
                          │ TransformerFactory(program, options, extras)
@@ -69,7 +69,7 @@
 
 | 박스 | 책임 | 패키지 |
 |---|---|---|
-| **빌드 통합** | tsc/번들러에 transformer 주입 | ts-patch (외부), `@typia/unplugin` |
+| **빌드 통합** | 표준 compiler/번들러에 transformer 주입 | `@typia/ttsc`, `@typia/unplugin` |
 | **AST 어댑터** | typia.* 식별 + 라우팅 | `@typia/transform` |
 | **메타데이터 분석** | ts.Type → MetadataSchema | `@typia/core` (factories) |
 | **코드 생성** | MetadataSchema → ts.Expression | `@typia/core` (programmers) |
@@ -78,7 +78,7 @@
 
 - `@typia/interface` — 모든 패키지가 의존하는 0-dep 타입 정의 (IValidation, ILlmApplication, OpenApi, tags, ...)
 - `@typia/utils` — 런타임에 emit되는 헬퍼들 + OpenAPI/LLM 변환 유틸
-- `@typia/typia` — 사용자가 import하는 메인 모듈 (CLI 포함)
+- `typia` — 사용자가 import하는 메인 모듈 (CLI 포함)
 - `@typia/mcp / langchain / vercel` — LLM 프레임워크 어댑터 3종
 
 ## 이 그림이 말해주는 4가지 강점
