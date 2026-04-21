@@ -1,5 +1,5 @@
 import { IJsDocTagInfo, IJsonSchemaApplication } from "@typia/interface";
-import ts from "typescript";
+import ts from "@typescript/native-preview";
 
 import { ITypiaContext } from "../../context/ITypiaContext";
 import { LiteralFactory } from "../../factories/LiteralFactory";

@@ -53,11 +53,11 @@
 
 ## 이 명제의 비용
 
-공짜가 아니다. **TS 컴파일러를 빌드 파이프라인에 끼워야** 한다 — `ts-patch + plugin` 또는 `unplugin`. 이는:
+공짜가 아니다. **TS 컴파일러를 빌드 파이프라인에 끼워야** 한다 — 현재 기본 경로는 `npx typia setup` → `@typescript/native-preview` + `@typia/ttsc` + `@typia/ttsc/plugin/typia`, 번들러 중심 대체 경로는 `@typia/unplugin` 이다. 이는:
 
-- ttsc → ts-patch → unplugin 진화 동안 setup 마찰이 끊임없는 약점
+- legacy `ts-patch`, current `ttsc`, bundler-native `unplugin` 이 공존하는 전환기라 setup 마찰이 끊임없는 약점
 - TypeScript Compiler API (특히 향후 tsgo)에 강하게 종속
-- ts-node·swc·esbuild 같은 "빠른 트랜스파일러"와의 통합이 어려움 (그래서 unplugin이 별도 존재)
+- `ts-node` / `tsx` 류 실행은 별도 runner `@typia/ttsx` 같은 보조 경로가 필요
 
 이 비용을 어떻게 다룰지가 [08-tsgo-master-plan/](../08-tsgo-master-plan/)의 핵심 주제.
 

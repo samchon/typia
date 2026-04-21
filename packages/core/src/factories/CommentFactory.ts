@@ -1,4 +1,4 @@
-import ts from "typescript";
+import ts from "@typescript/native-preview";
 
 /**
  * Factory for extracting JSDoc comments from TypeScript symbols.

@@ -2,24 +2,32 @@
   "name": "typia",
   "version": "12.0.2",
   "description": "Superfast runtime validators with only one line",
-  "main": "src/index.ts",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "exports": {
-    ".": "./src/index.ts",
-    "./lib/transform": "./src/transform.ts",
-    "./lib/internal/*": "./src/internal/*.ts",
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./lib/index.js",
+      "default": "./lib/index.js"
+    },
+    "./lib/transform": {
+      "types": "./lib/transform.d.ts",
+      "import": "./lib/transform.js",
+      "default": "./lib/transform.js"
+    },
+    "./lib/internal/*": {
+      "types": "./lib/internal/*.d.ts",
+      "import": "./lib/internal/*.js",
+      "default": "./lib/internal/*.js"
+    },
     "./package.json": "./package.json"
   },
   "bin": {
     "typia": "./src/executable/typia.ts"
   },
-  "tsp": {
-    "tscOptions": {
-      "parseAllJsDoc": true
-    }
-  },
   "scripts": {
-    "build": "rimraf lib && tsc && rollup -c && cp ../../README.md README.md",
-    "dev": "rimraf lib && tsc --watch",
+    "build": "rimraf lib && ttsc build --emit --tsconfig tsconfig.json && rollup -c && cp ../../README.md README.md",
+    "dev": "ttsc build --emit --tsconfig tsconfig.json",
     "prepack": "pnpm run build"
   },
   "repository": {
@@ -45,17 +53,17 @@
     "randexp": "^0.5.3"
   },
   "peerDependencies": {
-    "typescript": ">=4.8.0 <5.10.0"
+    "@typescript/native-preview": ">=7.0.0-dev.20260420.1"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "catalog:rollup",
     "@rollup/plugin-node-resolve": "catalog:rollup",
-    "@rollup/plugin-typescript": "catalog:rollup",
     "@types/inquirer": "^8.2.5",
     "@types/node": "catalog:utils",
-    "@types/ts-expose-internals": "catalog:typescript",
     "@typescript-eslint/eslint-plugin": "^8.1.0",
     "@typescript-eslint/parser": "^8.1.0",
+    "@typescript/native-preview": "catalog:tsgo",
+    "@typia/ttsc": "workspace:^",
     "chalk": "^4.0.0",
     "eslint-plugin-deprecation": "^3.0.0",
     "rimraf": "catalog:utils",
@@ -63,9 +71,7 @@
     "rollup-plugin-auto-external": "catalog:rollup",
     "rollup-plugin-node-externals": "catalog:rollup",
     "suppress-warnings": "^1.0.2",
-    "tinyglobby": "^0.2.12",
-    "ts-node": "catalog:typescript",
-    "typescript": "catalog:typescript"
+    "tinyglobby": "^0.2.12"
   },
   "sideEffects": false,
   "files": [
@@ -78,7 +84,6 @@
     "fast",
     "json",
     "stringify",
-    "typescript",
     "transform",
     "ajv",
     "io-ts",

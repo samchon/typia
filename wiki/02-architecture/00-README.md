@@ -8,12 +8,12 @@
 
 1. [01-overview.md](01-overview.md) — 한 장의 그림 (typia 내부)
 2. [02-data-flow.md](02-data-flow.md) — 한 호출이 코드가 되기까지 (9단계)
-3. [03-package-graph.md](03-package-graph.md) — 9개 패키지 의존 그래프
-4. [04-transformation-pipeline.md](04-transformation-pipeline.md) — ts-patch vs unplugin 두 경로 (현재)
+3. [03-package-graph.md](03-package-graph.md) — 현행 9개 패키지 의존 그래프 (`@typia/ttsc` 제외)
+4. [04-transformation-pipeline.md](04-transformation-pipeline.md) — `ttsc` 기본 경로와 `@typia/unplugin` 대체 경로 (현재)
 
 **관련 문서**:
 - [10-ecosystem/04-philosophy-pyramid.md](../10-ecosystem/04-philosophy-pyramid.md) — typia가 속한 4층 피라미드
-- [08-tsgo-master-plan/06-ttsc-specification.md](../08-tsgo-master-plan/06-ttsc-specification.md) — 미래 아키텍처 (ttsc + typia-go)
+- [08-tsgo-master-plan/00-README.md](../08-tsgo-master-plan/00-README.md) — tsgo 전환 live entrypoint
 
 ## 핵심 한 줄
 
@@ -23,10 +23,10 @@
 
 | | 현재 (v12) | 미래 (v14, 2029 Q2) |
 |---|---|---|
-| 빌드 도구 | tsc + ts-patch | ttsc (Go 바이너리) |
-| 엔진 | @typia/core TS 30,307 LOC (transform 포함 시 34,613) | Go 100~150K LOC (ttsc 내장) |
+| 빌드 도구 | `typia setup` → `@typescript/native-preview` + `@typia/ttsc`, 또는 `@typia/unplugin` | `typescript@7` + `@typia/ttsc` |
+| 엔진 | @typia/core 30,307 + transform 4,306 = 34,613 LOC (9 패키지 합계 64,678 LOC) | Go 100~150K LOC (ttsc 내장) |
 | 사용자 API | `typia.is<T>(input)` | **동일** |
-| tsconfig plugins | `typia/lib/transform` | **동일** |
-| 설치 | `npm i typia ts-patch` + prepare | `npm i typia` 끝 |
+| tsconfig plugins | `@typia/ttsc/plugin/typia` 기본, `typia/lib/transform` 는 compatibility alias | 같은 host plugin 계약 유지 |
+| 설치 | `npm i typia` + `npx typia setup` | preview compiler 제거 후 같은 setup 흐름 |
 
-상세 로드맵: [08-tsgo-master-plan/08-implementation-timeline.md](../08-tsgo-master-plan/08-implementation-timeline.md).
+상세 로드맵: [08-tsgo-master-plan/06-roadmap.md](../08-tsgo-master-plan/06-roadmap.md).

@@ -1,4 +1,4 @@
-import ts from "typescript";
+import ts from "@typescript/native-preview";
 
 import { TemplateFactory } from "../../factories/TemplateFactory";
 import { ValueFactory } from "../../factories/ValueFactory";

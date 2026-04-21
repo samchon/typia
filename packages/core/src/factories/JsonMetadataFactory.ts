@@ -1,5 +1,5 @@
 import { ValidationPipe } from "@typia/interface";
-import ts from "typescript";
+import ts from "@typescript/native-preview";
 
 import { TransformerError } from "../context/TransformerError";
 import { AtomicPredicator } from "../programmers/helpers/AtomicPredicator";

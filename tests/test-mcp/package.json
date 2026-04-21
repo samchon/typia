@@ -4,7 +4,7 @@
   "version": "12.0.2",
   "description": "Test suite for @typia/mcp package",
   "scripts": {
-    "start": "ts-node src/index.ts"
+    "start": "ttsx src/index.ts"
   },
   "repository": {
     "type": "git",
@@ -14,9 +14,7 @@
   "license": "MIT",
   "devDependencies": {
     "@types/node": "catalog:utils",
-    "@types/ts-expose-internals": "catalog:typescript",
-    "ts-node": "catalog:typescript",
-    "typescript": "catalog:typescript"
+    "@typia/ttsx": "workspace:^"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.26.0",

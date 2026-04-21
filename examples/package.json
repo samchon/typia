@@ -4,8 +4,8 @@
   "version": "12.0.2",
   "description": "Example codes for typia website",
   "scripts": {
-    "build": "rimraf bin && cross-env NODE_OPTIONS=\"--no-experimental-strip-types -r ts-node/register\" tsc && prettier --write bin/**/*.js",
-    "dev": "tsc --watch"
+    "build": "rimraf bin && ttsc build --emit --tsconfig tsconfig.json && prettier --write bin/**/*.js",
+    "dev": "ttsc build --emit --tsconfig tsconfig.json"
   },
   "repository": {
     "type": "git",
@@ -22,12 +22,10 @@
   },
   "homepage": "https://typia.io",
   "devDependencies": {
+    "@typia/ttsc": "workspace:^",
     "@types/node": "catalog:utils",
     "@types/uuid": "catalog:utils",
-    "cross-env": "^7.0.3",
-    "rimraf": "catalog:utils",
-    "ts-node": "catalog:typescript",
-    "typescript": "catalog:typescript"
+    "rimraf": "catalog:utils"
   },
   "dependencies": {
     "@typia/utils": "workspace:^",

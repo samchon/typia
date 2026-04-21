@@ -6,7 +6,7 @@ import {
   MetadataSchema,
 } from "@typia/core";
 import { ILlmSchema, ValidationPipe } from "@typia/interface";
-import ts from "typescript";
+import ts from "@typescript/native-preview";
 
 import { ITransformProps } from "../../ITransformProps";
 import { TransformerError } from "../../TransformerError";

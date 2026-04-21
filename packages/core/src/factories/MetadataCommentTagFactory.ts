@@ -1,5 +1,5 @@
 import { IMetadataTypeTag } from "@typia/interface";
-import ts from "typescript";
+import ts from "@typescript/native-preview";
 
 import { MetadataSchema } from "../schemas/metadata/MetadataSchema";
 import { Writable } from "../typings/Writable";

@@ -6,11 +6,9 @@
   "devDependencies": {
     "@rollup/plugin-commonjs": "catalog:rollup",
     "@rollup/plugin-node-resolve": "catalog:rollup",
-    "@rollup/plugin-typescript": "catalog:rollup",
     "rollup": "catalog:rollup",
     "rollup-plugin-auto-external": "catalog:rollup",
     "rollup-plugin-node-externals": "catalog:rollup",
-    "tinyglobby": "^0.2.12",
-    "typescript": "catalog:typescript"
+    "tinyglobby": "^0.2.12"
   }
 }

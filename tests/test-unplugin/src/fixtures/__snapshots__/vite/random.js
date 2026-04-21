@@ -1,60 +1,110 @@
-const _randomInteger = (schema) => {
-  let minimum = schema.minimum ?? schema.exclusiveMinimum ?? (schema.multipleOf ?? 1) * (schema.maximum === void 0 && schema.exclusiveMaximum === void 0 ? 0 : (schema.maximum ?? schema.exclusiveMaximum) - 100);
-  if (schema.exclusiveMinimum !== void 0)
-    minimum++;
-  let maximum = schema.maximum ?? schema.exclusiveMaximum ?? (schema.multipleOf ?? 1) * (schema.minimum === void 0 && schema.exclusiveMinimum === void 0 ? 100 : (schema.minimum ?? schema.exclusiveMinimum) + 100);
-  if (schema.exclusiveMaximum !== void 0)
-    maximum--;
-  if (minimum > maximum)
-    throw new Error("Minimum value is greater than maximum value.");
-  return schema.multipleOf === void 0 ? scalar({
-    minimum,
-    maximum
-  }) : multiple({
-    minimum,
-    maximum,
-    multipleOf: schema.multipleOf
+var _randomFormatEmail = {};
+var _randomString = {};
+var _randomInteger = {};
+var hasRequired_randomInteger;
+function require_randomInteger() {
+  if (hasRequired_randomInteger) return _randomInteger;
+  hasRequired_randomInteger = 1;
+  Object.defineProperty(_randomInteger, "__esModule", { value: true });
+  _randomInteger._randomInteger = void 0;
+  const _randomInteger$1 = (schema) => {
+    var _a, _b, _c, _d, _e, _f, _g, _h;
+    let minimum = (_b = (_a = schema.minimum) !== null && _a !== void 0 ? _a : schema.exclusiveMinimum) !== null && _b !== void 0 ? _b : ((_c = schema.multipleOf) !== null && _c !== void 0 ? _c : 1) * (schema.maximum === void 0 && schema.exclusiveMaximum === void 0 ? 0 : ((_d = schema.maximum) !== null && _d !== void 0 ? _d : schema.exclusiveMaximum) - 100);
+    if (schema.exclusiveMinimum !== void 0)
+      minimum++;
+    let maximum = (_f = (_e = schema.maximum) !== null && _e !== void 0 ? _e : schema.exclusiveMaximum) !== null && _f !== void 0 ? _f : ((_g = schema.multipleOf) !== null && _g !== void 0 ? _g : 1) * (schema.minimum === void 0 && schema.exclusiveMinimum === void 0 ? 100 : ((_h = schema.minimum) !== null && _h !== void 0 ? _h : schema.exclusiveMinimum) + 100);
+    if (schema.exclusiveMaximum !== void 0)
+      maximum--;
+    if (minimum > maximum)
+      throw new Error("Minimum value is greater than maximum value.");
+    return schema.multipleOf === void 0 ? scalar({
+      minimum,
+      maximum
+    }) : multiple({
+      minimum,
+      maximum,
+      multipleOf: schema.multipleOf
+    });
+  };
+  _randomInteger._randomInteger = _randomInteger$1;
+  const scalar = (p) => Math.floor(Math.random() * (p.maximum - p.minimum + 1)) + p.minimum;
+  const multiple = (p) => {
+    const minimum = Math.ceil(p.minimum / p.multipleOf) * p.multipleOf;
+    const maximum = Math.floor(p.maximum / p.multipleOf) * p.multipleOf;
+    if (minimum > maximum)
+      throw new Error("The range of the integer is smaller than the multipleOf value.");
+    const value = scalar({
+      minimum,
+      maximum
+    });
+    return value - value % p.multipleOf;
+  };
+  return _randomInteger;
+}
+var hasRequired_randomString;
+function require_randomString() {
+  if (hasRequired_randomString) return _randomString;
+  hasRequired_randomString = 1;
+  Object.defineProperty(_randomString, "__esModule", { value: true });
+  _randomString._randomString = void 0;
+  const _randomInteger_1 = /* @__PURE__ */ require_randomInteger();
+  const _randomString$1 = (props) => {
+    var _a;
+    const length = (0, _randomInteger_1._randomInteger)({
+      type: "integer",
+      minimum: (_a = props.minLength) !== null && _a !== void 0 ? _a : 0,
+      maximum: props.maxLength
+    });
+    return new Array(length).fill(0).map(() => ALPHABETS[random2()]).join("");
+  };
+  _randomString._randomString = _randomString$1;
+  const ALPHABETS = "abcdefghijklmnopqrstuvwxyz";
+  const random2 = () => (0, _randomInteger_1._randomInteger)({
+    type: "integer",
+    minimum: 0,
+    maximum: ALPHABETS.length - 1
   });
-};
-const scalar = (p) => Math.floor(Math.random() * (p.maximum - p.minimum + 1)) + p.minimum;
-const multiple = (p) => {
-  const minimum = Math.ceil(p.minimum / p.multipleOf) * p.multipleOf;
-  const maximum = Math.floor(p.maximum / p.multipleOf) * p.multipleOf;
-  if (minimum > maximum)
-    throw new Error("The range of the integer is smaller than the multipleOf value.");
-  const value = scalar({
-    minimum,
-    maximum
+  return _randomString;
+}
+var hasRequired_randomFormatEmail;
+function require_randomFormatEmail() {
+  if (hasRequired_randomFormatEmail) return _randomFormatEmail;
+  hasRequired_randomFormatEmail = 1;
+  Object.defineProperty(_randomFormatEmail, "__esModule", { value: true });
+  _randomFormatEmail._randomFormatEmail = void 0;
+  const _randomString_1 = /* @__PURE__ */ require_randomString();
+  const _randomFormatEmail$1 = () => `${random2(10)}@${random2(10)}.${random2(3)}`;
+  _randomFormatEmail._randomFormatEmail = _randomFormatEmail$1;
+  const random2 = (length) => (0, _randomString_1._randomString)({
+    type: "string",
+    minLength: length,
+    maxLength: length
   });
-  return value - value % p.multipleOf;
-};
-const _randomString = (props) => {
-  const length = _randomInteger({
-    minimum: props.minLength ?? 0,
-    maximum: props.maxLength
+  return _randomFormatEmail;
+}
+var _randomFormatEmailExports = /* @__PURE__ */ require_randomFormatEmail();
+var _randomFormatUuid = {};
+var hasRequired_randomFormatUuid;
+function require_randomFormatUuid() {
+  if (hasRequired_randomFormatUuid) return _randomFormatUuid;
+  hasRequired_randomFormatUuid = 1;
+  Object.defineProperty(_randomFormatUuid, "__esModule", { value: true });
+  _randomFormatUuid._randomFormatUuid = void 0;
+  const _randomFormatUuid$1 = () => "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
+    const r = Math.random() * 16 | 0;
+    const v = c === "x" ? r : r & 3 | 8;
+    return v.toString(16);
   });
-  return new Array(length).fill(0).map(() => ALPHABETS[random$2()]).join("");
-};
-const ALPHABETS = "abcdefghijklmnopqrstuvwxyz";
-const random$2 = () => _randomInteger({
-  minimum: 0,
-  maximum: ALPHABETS.length - 1
-});
-const _randomFormatEmail = () => `${random$1(10)}@${random$1(10)}.${random$1(3)}`;
-const random$1 = (length) => _randomString({
-  minLength: length,
-  maxLength: length
-});
-const _randomFormatUuid = () => "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
-  const r = Math.random() * 16 | 0;
-  const v = c === "x" ? r : r & 3 | 8;
-  return v.toString(16);
-});
+  _randomFormatUuid._randomFormatUuid = _randomFormatUuid$1;
+  return _randomFormatUuid;
+}
+var _randomFormatUuidExports = /* @__PURE__ */ require_randomFormatUuid();
+var _randomIntegerExports = /* @__PURE__ */ require_randomInteger();
 const random = /* @__PURE__ */ (() => {
   const _ro0 = (_recursive = false, _depth = 0) => ({
-    email: ((_generator == null ? void 0 : _generator.email) ?? _randomFormatEmail)(),
-    id: ((_generator == null ? void 0 : _generator.uuid) ?? _randomFormatUuid)(),
-    age: ((_generator == null ? void 0 : _generator.integer) ?? _randomInteger)({
+    email: ((_generator == null ? void 0 : _generator.email) ?? _randomFormatEmailExports._randomFormatEmail)(),
+    id: ((_generator == null ? void 0 : _generator.uuid) ?? _randomFormatUuidExports._randomFormatUuid)(),
+    age: ((_generator == null ? void 0 : _generator.integer) ?? _randomIntegerExports._randomInteger)({
       type: "integer",
       minimum: 0,
       exclusiveMinimum: 19,

@@ -1,5 +1,5 @@
 import { IProgrammerProps } from "@typia/core";
-import ts from "typescript";
+import ts from "@typescript/native-preview";
 
 import { ITransformProps } from "../ITransformProps";
 import { TransformerError } from "../TransformerError";

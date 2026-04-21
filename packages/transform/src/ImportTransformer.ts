@@ -1,5 +1,5 @@
 import path from "path";
-import ts from "typescript";
+import ts from "@typescript/native-preview";
 
 /**
  * Transforms import paths for typia build output.

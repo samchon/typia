@@ -23,8 +23,8 @@ const validate = (directory) => {
       );
       return false;
     }
-    return true;
   }
+  return true;
 };
 
 const main = () => {

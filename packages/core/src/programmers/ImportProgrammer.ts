@@ -1,5 +1,5 @@
 import { MapUtil } from "@typia/utils";
-import ts from "typescript";
+import ts from "@typescript/native-preview";
 
 /**
  * Import statement manager for code generation.

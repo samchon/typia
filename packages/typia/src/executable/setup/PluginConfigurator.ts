@@ -1,9 +1,12 @@
 import comments from "comment-json";
 import fs from "fs";
 
-import { TypiaSetupWizard } from "../TypiaSetupWizard";
+import type { TypiaSetupWizard } from "../TypiaSetupWizard";
 
 export namespace PluginConfigurator {
+  const LEGACY_TRANSFORM = "typia/lib/transform";
+  const TTSC_TYPIA_PLUGIN = "@typia/ttsc/plugin/typia";
+
   export async function configure(
     args: TypiaSetupWizard.IArguments,
   ): Promise<void> {
@@ -40,32 +43,27 @@ export namespace PluginConfigurator {
     const skipLibCheck: boolean | undefined = compilerOptions.skipLibCheck as
       | boolean
       | undefined;
-    const oldbie: comments.CommentObject | undefined = plugins.find(
+    const filtered: comments.CommentObject[] = plugins.filter(
       (p) =>
         typeof p === "object" &&
         p !== null &&
-        p.transform === "typia/lib/transform",
-    );
-    if (
-      strictNullChecks !== false &&
-      (strict === true || strictNullChecks === true) &&
-      oldbie !== undefined &&
-      skipLibCheck === true
-    )
-      return;
+        p.transform !== LEGACY_TRANSFORM &&
+        p.transform !== TTSC_TYPIA_PLUGIN,
+    ) as comments.CommentObject[];
+    filtered.push({ transform: TTSC_TYPIA_PLUGIN } as comments.CommentObject);
+    const changed: boolean =
+      JSON.stringify(filtered) !== JSON.stringify(plugins) ||
+      strictNullChecks === false ||
+      (strict !== true && strictNullChecks !== true) ||
+      skipLibCheck !== true;
+    if (changed === false) return;
 
     // DO CONFIGURE
     compilerOptions.skipLibCheck = true;
     compilerOptions.strictNullChecks = true;
     if (strict === undefined && strictNullChecks === undefined)
       compilerOptions.strict = true;
-    if (oldbie === undefined)
-      plugins.push(
-        comments.parse(`
-                        {
-                            "transform": "typia/lib/transform"
-                        }`) as comments.CommentObject,
-      );
+    compilerOptions.plugins = filtered as any;
     await fs.promises.writeFile(
       args.project!,
       comments.stringify(config, null, 2),

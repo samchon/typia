@@ -1,5 +1,5 @@
 import { ILlmSchema } from "@typia/interface";
-import ts from "typescript";
+import ts from "@typescript/native-preview";
 
 import { IProgrammerProps } from "../../context/IProgrammerProps";
 import { IdentifierFactory } from "../../factories/IdentifierFactory";

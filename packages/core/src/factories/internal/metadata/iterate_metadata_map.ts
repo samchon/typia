@@ -1,5 +1,5 @@
 import { ArrayUtil } from "@typia/utils";
-import ts from "typescript";
+import ts from "@typescript/native-preview";
 
 import { MetadataMap } from "../../../schemas/metadata/MetadataMap";
 import { TypeFactory } from "../../TypeFactory";

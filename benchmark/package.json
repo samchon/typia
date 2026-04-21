@@ -5,12 +5,11 @@
   "description": "Benchmark program of typia performance",
   "main": "bin/index.js",
   "scripts": {
-    "build": "rimraf bin && tsc",
-    "prepare": "ts-patch install",
+    "build": "rimraf bin && ttsc build --emit --quiet --tsconfig=tsconfig.json",
     "prettier": "prettier ./src/**/*.ts --write",
     "start": "node bin",
     "start:bun": "bun bin/bun.js",
-    "template": "ts-node src/template && npm run prettier && npm run build"
+    "template": "ttsx src/template/index.ts && npm run prettier && npm run build"
   },
   "repository": {
     "type": "git",
@@ -27,6 +26,8 @@
   },
   "homepage": "https://github.com/samchon/typia#readme",
   "devDependencies": {
+    "@typia/ttsx": "workspace:^",
+    "@typia/ttsc": "workspace:^",
     "@fastify/type-provider-typebox": "^3.5.0",
     "@sinclair/typebox": "^0.31.17",
     "@trivago/prettier-plugin-sort-imports": "^3.3.0",
@@ -38,7 +39,6 @@
     "@types/express": "^4.17.14",
     "@types/node": "catalog:utils",
     "@types/physical-cpu-count": "^2.0.0",
-    "@types/ts-expose-internals": "catalog:typescript",
     "@types/uuid": "catalog:utils",
     "ajv": "^8.12.0",
     "autocannon": "^7.10.0",
@@ -59,10 +59,7 @@
     "source-map-support": "^0.5.21",
     "suppress-warnings": "^1.0.2",
     "tgrid": "^0.10.0",
-    "ts-node": "^10.9.1",
-    "ts-patch": "catalog:typescript",
     "tstl": "^3.0.0",
-    "typescript": "catalog:typescript",
     "uuid": "catalog:utils",
     "zod": "^3.19.1"
   },

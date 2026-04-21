@@ -1,6 +1,6 @@
 import { ITypiaContext, ImportProgrammer } from "@typia/core";
 import { Singleton } from "@typia/utils";
-import ts from "typescript";
+import ts from "@typescript/native-preview";
 
 import { NodeTransformer } from "./NodeTransformer";
 import { TransformerError } from "./TransformerError";
@@ -128,11 +128,11 @@ const checkJsDocParsingMode = new Singleton(
           key: "jsDocParsingMode",
           category: ts.DiagnosticCategory.Warning,
           message: [
-            `Run "npx typia setup" or "npx typia patch" command again.`,
+            `Run "npx typia setup" command again.`,
             ``,
-            `Since TypeScript v5.3 update, "tsc" no more parses JSDoc comments. Therefore, "typia" also cannot utilize those JSDoc comments too, and it damages on some features of "typia" like "comment tags" or "JSON schema" generator.`,
+            `The active compiler host is not parsing JSDoc comments. Therefore, "typia" also cannot utilize those JSDoc comments, and it damages features like comment tags or JSON schema generation.`,
             ``,
-            `To solve this problem, run "npx typia setup" or "npx typia patch" command to hack the TypeScript compiler to revive the JSDoc parsing feature.`,
+            `To solve this problem, run "npx typia setup" so the tsgo + ttsc plugin pipeline can be configured again.`,
             ``,
             `  - reference: https://github.com/microsoft/TypeScript/pull/55739`,
           ].join("\n"),

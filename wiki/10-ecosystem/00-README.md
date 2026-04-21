@@ -35,14 +35,14 @@ Layer 0 — 컴파일러
 ## 왜 한 세트인가
 
 - **기술적**: 모두 `tsconfig.json plugins`에 typia transformer를 필요로 함. nestia는 독자 transformer도 추가.
-- **배포적**: pnpm workspace, 동일 release 라이프사이클, 동일 ts-patch 의존
+- **배포적**: pnpm workspace, 동일 release 라이프사이클, typia → ttsc 전환면을 함께 추적
 - **사상적**: "Pure TypeScript, 타입에서 모든 것" 원칙의 4단계 계층 확장
 - **운영적**: samchon 한 사람이 전체 관리, autobe는 wrtnlabs 팀까지
 
 ## tsgo 전환의 함의
 
 typia가 Go로 전환하면 **nestia·agentica·autobe도 동시 전환** 불가피:
-- nestia: ts-patch 의존 제거, @nestia/core transformer를 ttsc에 통합
+- nestia: legacy `ts-patch` 의존 제거, `@nestia/core` transformer를 `ttsc` host/plugin 모델로 재배치
 - agentica: typia.llm.application의 Go 구현을 그대로 소비 (표면 변화 적음)
 - autobe: typia interface 소비 (표면 변화 거의 없음)
 

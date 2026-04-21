@@ -2,14 +2,19 @@
   "name": "@typia/utils",
   "version": "12.0.2",
   "description": "Superfast runtime validators with only one line",
-  "main": "src/index.ts",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "exports": {
-    ".": "./src/index.ts",
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./lib/index.js",
+      "default": "./lib/index.js"
+    },
     "./package.json": "./package.json"
   },
   "scripts": {
-    "build": "rimraf lib && tsc && rollup -c",
-    "dev": "rimraf lib && tsc --watch",
+    "build": "rimraf lib && ttsc build --emit --tsconfig tsconfig.json && rollup -c",
+    "dev": "ttsc build --emit --tsconfig tsconfig.json",
     "prepack": "pnpm run build"
   },
   "repository": {
@@ -28,13 +33,12 @@
   "devDependencies": {
     "@rollup/plugin-commonjs": "catalog:rollup",
     "@rollup/plugin-node-resolve": "catalog:rollup",
-    "@rollup/plugin-typescript": "catalog:rollup",
+    "@typia/ttsc": "workspace:^",
     "rimraf": "catalog:utils",
     "rollup": "catalog:rollup",
     "rollup-plugin-auto-external": "catalog:rollup",
     "rollup-plugin-node-externals": "catalog:rollup",
-    "tinyglobby": "^0.2.12",
-    "typescript": "catalog:typescript"
+    "tinyglobby": "^0.2.12"
   },
   "sideEffects": false,
   "files": [
@@ -47,7 +51,6 @@
     "fast",
     "json",
     "stringify",
-    "typescript",
     "transform",
     "ajv",
     "io-ts",

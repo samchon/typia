@@ -3,7 +3,8 @@ import {
   ProtobufAtomic,
   ValidationPipe,
 } from "@typia/interface";
-import ts from "typescript";
+import { NamingConvention } from "@typia/utils";
+import ts from "@typescript/native-preview";
 
 import { TransformerError } from "../context/TransformerError";
 import { ProtobufUtil } from "../programmers/helpers/ProtobufUtil";
@@ -462,6 +463,33 @@ export namespace ProtobufFactory {
         props.metadata.objects.some((obj) => obj.type.properties.length === 0)
       )
         noSupport("empty object type");
+      // STATIC PROPERTY NAMES MUST BE VALID PROTO FIELD IDENTIFIERS
+      if (
+        props.metadata.objects.length &&
+        props.metadata.objects.some((obj) =>
+          obj.type.properties.some(
+            (property) =>
+              property.key.isSoleLiteral() === true &&
+              NamingConvention.variable(property.key.getSoleLiteral()!) ===
+                false,
+          ),
+        )
+      )
+        noSupport("object type with non-variable property name");
+      // BOXED NATIVE OBJECTS
+      if (
+        props.metadata.objects.length &&
+        props.metadata.objects.some((obj) => isBoxedNativeObject(obj.type))
+      ) {
+        const boxed = props.metadata.objects
+          .map((obj) => obj.type)
+          .find((obj) => isBoxedNativeObject(obj));
+        const instead = boxed
+          ? BANNED_NATIVE_TYPES.get(boxed.name)
+          : undefined;
+        if (boxed && instead !== undefined)
+          noSupport(`${boxed.name} type. Use ${instead} type instead.`);
+      }
       // MULTIPLE DYNAMIC KEY TYPED PROPERTIES
       if (
         props.metadata.objects.length &&
@@ -846,6 +874,12 @@ export namespace ProtobufFactory {
 
 const isDynamicObject = (obj: MetadataObjectType): boolean =>
   obj.properties[0]!.key.isSoleLiteral() === false;
+
+const isBoxedNativeObject = (obj: MetadataObjectType): boolean =>
+  BANNED_NATIVE_TYPES.has(obj.name) &&
+  obj.properties.length === 1 &&
+  obj.properties[0]!.key.isSoleLiteral() === true &&
+  obj.properties[0]!.key.getSoleLiteral()!.startsWith("__@toStringTag@");
 
 const BANNED_NATIVE_TYPES: Map<string, string | null> = new Map([
   ["Date", "string"],

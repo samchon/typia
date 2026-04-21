@@ -23,35 +23,35 @@
 ### Wrapping 구조
 
 - `packages/typia/src/transform.ts` — 단순 re-export of `@typia/transform`.
-- `package.json` exports에서 `./lib/transform` 별도 진입점 → ts-patch가 직접 참조.
+- `package.json` exports에서 `./lib/transform` 별도 진입점 유지 → legacy `typia/lib/transform` compatibility alias 및 일부 내부/브라우저 경로가 참조.
 - 메인 패키지는 **사용자 facing API + CLI**만 들고, 실제 transformer는 의존성으로 가져온다.
 
 ### 빌드
 
 - Rollup 번들 (`config/rollup.config.mjs` 공유)
-- `tsc → rollup` 순으로 lib/ 생성
+- `ttsc → rollup` 순으로 lib/ 생성
 - Dual CJS+ESM
 - `@typia/core | @typia/transform | @typia/utils | @typia/interface`는 workspace dependency
 - `@standard-schema/spec`, `commander`, `inquirer`, `randexp`는 외부 dep
-- TypeScript는 peerDependency
+- `@typescript/native-preview` 는 peerDependency
+- `@typia/ttsc` 는 현재 build/dev dependency
 
 ### CLI (`packages/typia/src/executable/typia.ts`)
 
 ```
 npx typia setup    [--manager npm|pnpm|yarn|bun] [--project tsconfig.json]
-npx typia patch    # JSDoc parseAll 패치 (TypeScript 5.3+ 대응)
 npx typia generate --input <dir> --output <dir>
 ```
 
 #### `typia setup` 5단계
 1. PackageManager 감지 (`detect`)
 2. Inquirer 인터랙티브 입력
-3. `typescript` + `ts-patch` 설치
-4. `package.json.scripts.prepare = "ts-patch install"` (기존 "typia patch"는 제거)
-5. `tsconfig.json.compilerOptions.plugins += [{ transform: "typia/lib/transform" }]` + strict 옵션 활성화 → `ts-patch install` 실행
+3. `@typescript/native-preview` + `@typia/ttsc` 설치
+4. 기존 `ts-patch install` / `typia patch` 성격의 prepare/postinstall hook 제거
+5. `tsconfig.json.compilerOptions.plugins += [{ transform: "@typia/ttsc/plugin/typia" }]` + strict 옵션 활성화
 
 지원 빌더:
-- **ts-patch** (TypeScript 4.8 ~ 5.9) — 표준 경로
+- **ttsc** (`@typescript/native-preview` + `@typia/ttsc`) — 기본 경로
 - **unplugin** (Vite/Webpack/Rspack/esbuild/Rolldown/Bun) — 별도 패키지
 
 ---
@@ -82,7 +82,7 @@ npx typia generate --input <dir> --output <dir>
 - `vite.ts | webpack.ts | rspack.ts | rollup.ts | esbuild.ts | farm.ts | rolldown.ts | bun.ts | next.ts` — 각 번들러 wrapper
 
 ### ts-patch 우회 메커니즘 (`core/typia.ts:31-62`)
-- `typia/lib/transform`을 직접 import하지 않고
+- 현재 기본 설치 계약(`@typia/ttsc/plugin/typia`)과 독립적으로,
 - TypeScript Compiler API + `ts.transform()` + `ts.createPrinter()`로 **개별 파일 단위 변환**
 - 파일별 변환 결과를 캐싱 (`Cache` 클래스)
 - diff-match-patch-es로 sourcemap 생성
@@ -106,7 +106,6 @@ npx typia generate --input <dir> --output <dir>
 - `transform.ts` — `@typia/transform` re-export
 - `executable/typia.ts` — CLI dispatcher
 - `executable/TypiaSetupWizard.ts` — setup 본체
-- `executable/TypiaPatchWizard.ts` — JSDoc parseAll 패치
 - `executable/TypiaGenerateWizard.ts` — generate 명령
 - `executable/setup/PluginConfigurator.ts` — tsconfig 수정
 

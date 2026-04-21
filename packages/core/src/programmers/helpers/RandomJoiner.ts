@@ -1,6 +1,6 @@
 import { OpenApi } from "@typia/interface";
 import { NamingConvention } from "@typia/utils";
-import ts from "typescript";
+import ts from "@typescript/native-preview";
 
 import { ExpressionFactory } from "../../factories/ExpressionFactory";
 import { IdentifierFactory } from "../../factories/IdentifierFactory";

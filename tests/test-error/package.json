@@ -5,7 +5,7 @@
   "description": "Test program of typia generated error",
   "main": "index.js",
   "scripts": {
-    "build": "rimraf bin && cross-env NODE_OPTIONS=\"--no-experimental-strip-types -r ts-node/register\" tsc",
+    "build": "rimraf bin && ttsc build --emit --tsconfig tsconfig.json",
     "start": "node index.js"
   },
   "repository": {
@@ -24,10 +24,8 @@
   },
   "homepage": "https://github.com/samchon/typia#readme",
   "devDependencies": {
-    "cross-env": "^7.0.3",
-    "rimraf": "catalog:utils",
-    "ts-node": "catalog:typescript",
-    "typescript": "catalog:typescript"
+    "@typia/ttsc": "workspace:^",
+    "rimraf": "catalog:utils"
   },
   "dependencies": {
     "typia": "workspace:^"

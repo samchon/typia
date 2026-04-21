@@ -1,5 +1,5 @@
 import { ILlmSchema } from "@typia/interface";
-import ts from "typescript";
+import ts from "@typescript/native-preview";
 
 import { ITypiaContext } from "../../context/ITypiaContext";
 import { MetadataSchema } from "../../schemas/metadata/MetadataSchema";

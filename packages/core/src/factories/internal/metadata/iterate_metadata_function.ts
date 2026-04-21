@@ -1,4 +1,4 @@
-import ts from "typescript";
+import ts from "@typescript/native-preview";
 
 import { FunctionalGeneralProgrammer } from "../../../programmers/functional/internal/FunctionalGeneralProgrammer";
 import { MetadataFunction } from "../../../schemas/metadata/MetadataFunction";

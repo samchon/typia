@@ -1,5 +1,5 @@
 import { MapUtil } from "@typia/utils";
-import ts from "typescript";
+import ts from "@typescript/native-preview";
 
 import { ITypiaContext } from "../../context/ITypiaContext";
 import { IdentifierFactory } from "../../factories/IdentifierFactory";

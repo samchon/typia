@@ -1,11 +1,11 @@
 # packages/transform — TypeScript Transformer 어댑터
 
 > 위치: `packages/transform/src`
-> 책임: ts-patch / unplugin이 호출하는 TransformerFactory 진입점. typia.* 호출을 감지하고 `@typia/core`의 Programmer로 디스패치한다.
+> 책임: `@typia/ttsc/plugin/typia` / `@typia/unplugin` 이 호출하는 TransformerFactory 진입점. typia.* 호출을 감지하고 `@typia/core`의 Programmer로 디스패치한다.
 
 ## 1. 진입점 구조
 
-- `transform.ts:41-68` — ts-patch가 부르는 `transform(program, options, extras)`. strict 모드 검증 후 TransformerFactory를 반환.
+- `transform.ts:41-68` — 현재 `@typia/ttsc/plugin/typia` 와 `@typia/unplugin` 이 공통으로 소비하는 `transform(program, options, extras)`. strict 모드 검증 후 TransformerFactory를 반환.
 - `FileTransformer.ts:18-58` — 각 SourceFile을 받아 `ts.visitEachChild`로 깊이 우선 탐색. CallExpression을 만나면 `iterate_node`로 처리.
 - `FileTransformer.ts:35-43` — JSDoc 파싱 모드 체크 (TS 5.3 변경 대응).
 
@@ -51,7 +51,7 @@ features/IsTransformer
 ## 6. 에러 처리
 
 `TransformerError.ts:22-79` — code+message를 가진 커스텀 에러. `MetadataFactory.IError[]`를 받아 포맷팅.
-`FileTransformer.ts:74-93` — 노드별 try/catch → `ts.createDiagnosticForNode` → `props.context.extras.addDiagnostic` (ts-patch 제공).
+`FileTransformer.ts:74-93` — 노드별 try/catch → `ts.createDiagnosticForNode` → `props.context.extras.addDiagnostic` (현재 compiler host / plugin bridge가 제공).
 
 ## 7. TS 내부 API 의존도
 
@@ -64,7 +64,7 @@ features/IsTransformer
 
 | 파일 | LOC | 책임 |
 |---|---|---|
-| `transform.ts` | 68 | ts-patch entry, strict 검증 |
+| `transform.ts` | 68 | current host/plugin entry, strict 검증 |
 | `FileTransformer.ts` | 143 | AST 순회, error 처리, import 주입 위치 |
 | `NodeTransformer.ts` | 25 | CallExpression 필터링 |
 | `CallExpressionTransformer.ts` | 581 | FUNCTORS 맵, 라우팅, target 파일 검증 |

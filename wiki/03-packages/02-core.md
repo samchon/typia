@@ -9,7 +9,7 @@
 - **코드 생성**: Is/Assert/Validate, Json {Stringify, Parse, Schema, Application}, Random, Protobuf {Encode, Decode, Message}, LLM {Schema, Application, Parameters}
 - **Union/Intersection 최적화**: 합성 타입 분기/병합
 - **재귀 타입 처리**: 순환 참조 감지 + 캐싱
-- **AST 인젝션**: ts-patch 또는 unplugin이 결과 AST를 호출 위치에 삽입
+- **AST 인젝션**: `@typia/ttsc/plugin/typia` 또는 `@typia/unplugin` 이 결과 AST를 호출 위치에 삽입
 
 ## 2. 핵심 데이터 모델
 

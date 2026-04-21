@@ -1,4 +1,4 @@
-import ts from "typescript";
+import ts from "@typescript/native-preview";
 
 import { TypeFactory } from "../../TypeFactory";
 import { IMetadataIteratorProps } from "./IMetadataIteratorProps";

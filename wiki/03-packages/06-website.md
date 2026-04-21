@@ -57,7 +57,7 @@ LLM function calling harness: 6.75% → 100% accuracy
 >
 > Those duplicated schema definitions are not only annoying, but also error-prone. If you take any mistake on the extra schema definition, such mistake can't be detected by TypeScript compiler.
 
-핵심 차이: AOT(Ahead of Time) 컴파일 — 타입을 분석해 컴파일 타임에 검증/직렬화 코드 emit. 런타임에 타입 정보는 사라지지만 ts-patch + `typia/lib/transform`이 AST에서 해결 (`pure.mdx:302-304`).
+핵심 차이: AOT(Ahead of Time) 컴파일 — 타입을 분석해 컴파일 타임에 검증/직렬화 코드 emit. 현재 공개 setup 문서의 기본 경로는 `typia setup` → `@typescript/native-preview` + `@typia/ttsc` + `@typia/ttsc/plugin/typia` 다. 다만 브라우저 playground/compiler 쪽에는 아직 `typia/lib/transform` compatibility entry가 남아 있다.
 
 ## 5. 기능 문서 품질
 
@@ -82,7 +82,7 @@ LLM function calling harness: 6.75% → 100% accuracy
 
 `website/src/compiler/index.ts` — Web Worker:
 1. `EmbedTypeScript` (브라우저용 TS 컴파일러)
-2. `typia/lib/transform` (transformer)
+2. `typia/lib/transform` compatibility entry (browser worker)
 3. `tgrid` WorkerServer (RPC)
 4. `RollupBundler` (esm.sh CDN)
 
@@ -114,7 +114,7 @@ const binary = typia.protobuf.encode(member);
 |---|---|
 | `src/content/index.mdx` | 홈, HomeHeroMovie / HomeCompilationMovie |
 | `src/content/docs/pure.mdx` | 핵심 철학, 3-라이브러리 비교, 컴파일 시각화 |
-| `src/content/docs/setup.mdx` | 8 환경별 설정 (tsc/Webpack/Vite/Next.js/Rspack/NX/...) |
+| `src/content/docs/setup.mdx` | 현재 toolchain 설정 (`typia setup`, `@typia/ttsc`, bundler guide, NX caveat) |
 | `src/content/docs/validators/{is,assert,validate,tags}.mdx` | 검증 핵심 |
 | `src/content/docs/llm/application.mdx` | `typia.llm.application<App>()`, ILlmApplication 구조 |
 | `src/content/docs/random.mdx` | 타입 분석 기반 랜덤, IRandomGenerator 커스텀 |

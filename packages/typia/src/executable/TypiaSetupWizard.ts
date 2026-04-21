@@ -2,11 +2,13 @@ import fs from "fs";
 import { DetectResult, detect } from "package-manager-detector";
 
 import { ArgumentParser } from "./setup/ArgumentParser";
-import { CommandExecutor } from "./setup/CommandExecutor";
 import { PackageManager } from "./setup/PackageManager";
 import { PluginConfigurator } from "./setup/PluginConfigurator";
 
 export namespace TypiaSetupWizard {
+  const TTSC_PACKAGE = "@typia/ttsc";
+  const TSGO_COMPILER_PACKAGE = "@typescript/native-preview";
+
   export interface IArguments {
     manager: "npm" | "pnpm" | "yarn" | "bun";
     project: string | null;
@@ -21,44 +23,41 @@ export namespace TypiaSetupWizard {
     const pack: PackageManager = await PackageManager.mount();
     const args: IArguments = await ArgumentParser.parse(pack, inquiry);
 
-    // INSTALL TYPESCRIPT COMPILERS
+    // INSTALL TSGO TOOLCHAIN
     pack.install({
       dev: true,
-      modulo: "typescript",
-      version: await getTypeScriptVersion(),
+      modulo: TSGO_COMPILER_PACKAGE,
+      version: "latest",
     });
-    pack.install({ dev: true, modulo: "ts-patch", version: "latest" });
+    pack.install({ dev: true, modulo: TTSC_PACKAGE, version: "latest" });
     args.project ??= (() => {
-      const runner: string = pack.manager === "npm" ? "npx" : pack.manager;
-      CommandExecutor.run(`${runner} tsc --init`);
+      fs.writeFileSync(
+        "tsconfig.json",
+        `${JSON.stringify({ compilerOptions: {} }, null, 2)}\n`,
+        "utf8",
+      );
       return (args.project = "tsconfig.json");
     })();
 
-    // SETUP TRANSFORMER
+    // NORMALIZE PROJECT SETTINGS
     await pack.save((data) => {
-      // COMPOSE PREPARE COMMAND
       data.scripts ??= {};
-      if (
-        typeof data.scripts.prepare === "string" &&
-        data.scripts.prepare.trim().length !== 0
-      ) {
-        if (data.scripts.prepare.includes("ts-patch install") === false)
-          data.scripts.prepare = "ts-patch install && " + data.scripts.prepare;
-      } else data.scripts.prepare = "ts-patch install";
-
-      // NO MORE "typia patch" REQUIRED
-      data.scripts.prepare = data.scripts.prepare
-        .split("&&")
-        .map((str) => str.trim())
-        .filter((str) => str !== "typia patch")
-        .join(" && ");
-
-      // FOR OLDER VERSIONS
+      if (typeof data.scripts.prepare === "string") {
+        const prepare = data.scripts.prepare
+          .split("&&")
+          .map((str) => str.trim())
+          .filter(
+            (str) => str.length !== 0 && isLegacyCompilerPatchStep(str) === false,
+          )
+          .join(" && ");
+        if (prepare.length !== 0) data.scripts.prepare = prepare;
+        else delete data.scripts.prepare;
+      }
       if (typeof data.scripts.postinstall === "string") {
         data.scripts.postinstall = data.scripts.postinstall
           .split("&&")
           .map((str) => str.trim())
-          .filter((str) => str.indexOf("ts-patch install") === -1)
+          .filter((str) => isLegacyCompilerPatchStep(str) === false)
           .join(" && ");
         if (data.scripts.postinstall.length === 0)
           delete data.scripts.postinstall;
@@ -67,7 +66,6 @@ export namespace TypiaSetupWizard {
 
     // CONFIGURE TYPIA
     await PluginConfigurator.configure(args);
-    CommandExecutor.run(`${pack.manager} run prepare`);
   };
 
   const inquiry: ArgumentParser.Inquiry<IArguments> = async (
@@ -159,13 +157,6 @@ export namespace TypiaSetupWizard {
     }
   };
 
-  const getTypeScriptVersion = async (): Promise<string> => {
-    const content: string = await fs.promises.readFile(
-      `${__dirname}/../../package.json`,
-      "utf-8",
-    );
-    const json: { devDependencies: { typescript: string } } =
-      JSON.parse(content);
-    return json.devDependencies.typescript;
-  };
+  const isLegacyCompilerPatchStep = (str: string): boolean =>
+    str === "typia patch" || /\b[a-z-]+-patch install\b/.test(str);
 }

@@ -1,5 +1,5 @@
 import { ValidationPipe } from "@typia/interface";
-import ts from "typescript";
+import ts from "@typescript/native-preview";
 
 import { MetadataAliasType } from "../schemas/metadata/MetadataAliasType";
 import { MetadataArrayType } from "../schemas/metadata/MetadataArrayType";

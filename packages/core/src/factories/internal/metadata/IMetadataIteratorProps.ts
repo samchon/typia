@@ -1,4 +1,4 @@
-import ts from "typescript";
+import ts from "@typescript/native-preview";
 
 import { MetadataCollection } from "../../../schemas/metadata/MetadataCollection";
 import { MetadataSchema } from "../../../schemas/metadata/MetadataSchema";

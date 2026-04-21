@@ -14,9 +14,9 @@ interface Member {
 const ok = typia.is<Member>(input);
 ```
 
-## 단계 1. ts-patch / unplugin이 typia transformer를 호출
+## 단계 1. ttsc host / unplugin이 typia transformer를 호출
 
-`packages/transform/src/transform.ts:41-68` — `transform(program, options, extras)` 가 ts-patch 표준 시그니처. 호출되면 strict 옵션 검증 후 TransformerFactory를 반환.
+`packages/transform/src/transform.ts:41-68` — `transform(program, options, extras)` 는 현재 `@typia/ttsc/plugin/typia` 와 `@typia/unplugin` 이 공통으로 소비하는 TransformerFactory 진입점이다. 호출되면 strict 옵션 검증 후 TransformerFactory를 반환한다. legacy `ts-patch` 경로도 이 시그니처를 reuse할 수 있지만, 현행 기본 계약은 아니다.
 
 ## 단계 2. FileTransformer가 SourceFile 순회
 

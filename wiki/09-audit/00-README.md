@@ -20,6 +20,8 @@
 5. [05-cycle5-decision-matrix.md](05-cycle5-decision-matrix.md) — 의사결정 근거 빈약
 6. [06-cycle6-repository-measurements.md](06-cycle6-repository-measurements.md) — 저장소 실측
 7. [07-cycle7-missing-perspectives.md](07-cycle7-missing-perspectives.md) — 누락된 14개 관점
+8. [08-cycle8-v2-remeasurement.md](08-cycle8-v2-remeasurement.md) ⭐ **v2 신규**: 9 패키지 LOC, Standard Schema 부분 구현 발견, FUNCTORS 147 entries 등
+9. [09-cycle9-phase0-critical-review.md](09-cycle9-phase0-critical-review.md) ⭐ **v2 신규**: Phase 0 계획(17번) 20개 결함 도출, 4주→6주 재작성의 근거
 
 ## master plan 반영 상태
 
