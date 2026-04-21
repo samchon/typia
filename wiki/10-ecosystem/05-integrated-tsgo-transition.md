@@ -1,6 +1,6 @@
 # 05. 세트 tsgo 전환 통합 계획 (typia + nestia + agentica + autobe)
 
-> 4 프로젝트의 동시 전환 일정. master plan의 Phase 0~6을 ecosystem 전체로 확장.
+> 4 프로젝트의 동시 전환 일정. master plan의 Stage 0~6을 ecosystem 전체로 확장.
 
 ## 원칙
 
@@ -25,13 +25,13 @@
 ## 의존 순서 (토폴로지)
 
 ```
-Phase 2 typia validators
+Stage 2 typia validators
   ↓ (소비)
-Phase 3 nestia @TypedRoute (typia.assert 사용)
+Stage 3 nestia @TypedRoute (typia.assert 사용)
   ↓
-Phase 4 typia LLM + nestia @TypedBody
+Stage 4 typia LLM + nestia @TypedBody
   ↓
-Phase 4 agentica (typia.llm.application Go 엔진 사용)
+Stage 4 agentica (typia.llm.application Go 엔진 사용)
   ↓
 Phase 5 @nestia/sdk Swagger generator (typia.json.schema Go)
   ↓

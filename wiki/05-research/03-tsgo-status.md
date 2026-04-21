@@ -9,6 +9,12 @@
 - 2026-03-23 **TypeScript 6.0** 정식 — "마지막 JS 기반 버전".
 - **TypeScript 7.0 (Corsa) GA: 공식 미정** — Microsoft DevBlog (2025-12 Progress report)는 날짜 명시 없음. InfoWorld 등 3rd-party 추정 "2026 mid/late", 일부는 "2026-01-15 GA" 주장하나 **공식 확인 불가**. 안전 범위 **2026 H2 ~ 2027 H1** (v2 재조사).
 - Preview npm 패키지: `@typescript/native-preview` (nightly).
+- 현재 `microsoft/typescript-go` README 기준 상태표:
+  - `Build mode / project references`: **done**
+  - `Incremental build`: **done**
+  - `Declaration emit`: **in progress** (TypeScript 파일은 done, JavaScript 파일은 미완)
+  - `Watch mode`: **prototype**
+  - `API`: **not ready**
 - 2025-12 DevBlog "Progress on TypeScript 7":
   - Parser/Binder/Checker: 거의 완성 (20,000 테스트 중 74건 미스매치)
   - Emitter: **미완** — es2021 미만 downlevel 미지원, **데코레이터 emit 미지원**

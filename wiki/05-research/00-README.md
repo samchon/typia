@@ -1,6 +1,6 @@
 # 05. 외부 리서치 (사실 자료)
 
-> WebSearch / WebFetch / GitHub 광범위 조사 결과. 모든 주장에 인용 URL 제공.
+외부 문서와 저장소를 대조해 사실만 정리한 섹션이다.
 
 ## 읽기 순서
 
@@ -8,8 +8,8 @@
 2. [02-competitors.md](02-competitors.md) — Zod/Valibot/ArkType/TypeBox/Deepkit/BAML 동향
 3. [03-tsgo-status.md](03-tsgo-status.md) — TypeScript 7.0 (Corsa) 위협의 사실 자료
 
-## 핵심 한 줄
+## 핵심
 
-- typia 벤치 우위는 견고 (특히 에러 경로 + stringify)
-- Standard Schema 표준화가 2025~2026 가장 큰 외부 변동
-- tsgo는 in-process plugin 미지원 — typia는 새 빌드 통합 필요
+- typia의 성능 우위는 유지된다.
+- Standard Schema는 이미 무시할 수 없는 공통 경계다.
+- tsgo는 새 빌드 통합을 요구한다.

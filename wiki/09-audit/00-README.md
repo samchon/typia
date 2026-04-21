@@ -1,15 +1,12 @@
 # 09. Audit — 독립 감수 결과
 
-> 이 폴더는 **wiki 전체에 대한 독립 감수 에이전트 7개의 비판 보고**. 저자(AI) 옹호 없이 공격적으로 수행됨.
+이 폴더는 wiki와 계획 문서의 수치, 주장, 누락을 검증한 기록이다.
 
-## 핵심 교훈
+## 핵심
 
-1. **wiki는 "정직한 감수"라 자칭했으나 실제로는 AI 호의적 편향 존재**
-2. **사실 수치 오차 다수** (tsgolint linkname 896→910, Effect patch 24→23, typia LOC 34K→50K, Tag 11→~21)
-3. **내부 모순 존재** (S10 vs 비판 8, S2 vs W5, "0-dep" vs 실제 devDep)
-4. **의사결정 매트릭스는 post-hoc rationalization** — 점수·가중치 자의적
-5. **v1/v2 불일치** — ttsc 설계 일부만 v2 업데이트
-6. **누락 관점** — Edge runtime 승리, Standard Schema 1시간 아닌 2-3주, MS 적대 정책 리스크 등
+1. 수치 오차와 과장된 표현을 교정했다.
+2. 계획 문서와 구현 사이의 어긋남을 드러냈다.
+3. 누락된 리스크와 검증 과제를 분리했다.
 
 ## 문서
 
@@ -20,9 +17,10 @@
 5. [05-cycle5-decision-matrix.md](05-cycle5-decision-matrix.md) — 의사결정 근거 빈약
 6. [06-cycle6-repository-measurements.md](06-cycle6-repository-measurements.md) — 저장소 실측
 7. [07-cycle7-missing-perspectives.md](07-cycle7-missing-perspectives.md) — 누락된 14개 관점
-8. [08-cycle8-v2-remeasurement.md](08-cycle8-v2-remeasurement.md) ⭐ **v2 신규**: 9 패키지 LOC, Standard Schema 부분 구현 발견, FUNCTORS 147 entries 등
-9. [09-cycle9-phase0-critical-review.md](09-cycle9-phase0-critical-review.md) ⭐ **v2 신규**: Phase 0 계획(17번) 20개 결함 도출, 4주→6주 재작성의 근거
+8. [08-cycle8-v2-remeasurement.md](08-cycle8-v2-remeasurement.md)
+9. [09-cycle9-stage0-critical-review.md](09-cycle9-stage0-critical-review.md)
 
-## master plan 반영 상태
+## 메모
 
-모든 감수 결과는 [08-tsgo-master-plan/](../08-tsgo-master-plan/) 에 반영됨. master plan은 이 감수 결과를 기반으로 재작성된 **정직한 단일 진실원**.
+- 현재 계획 문서는 [08-tsgo-master-plan/](../08-tsgo-master-plan/) 이다.
+- 이 폴더는 그 계획에 반영된 검증 근거를 남긴다.

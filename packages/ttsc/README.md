@@ -1,14 +1,13 @@
 # @typia/ttsc
 
-> ⚠️ **Phase 0 spike (version 0.0.0-phase0).** Not production-ready. Do not install.
+`@typia/ttsc` is the standalone `tsgo` host in this monorepo.
 
-> ℹ️ Current repository policy: `@typia/ttsc` is excluded from the normal root `package:latest` publish path and must be validated through its own package-local test/build flow.
+- It owns `build`, `check`, and `transform`.
+- It loads `compilerOptions.plugins` from `tsconfig.json`.
+- It selects the matching native backend binary for each consumer plugin.
+- It keeps the standalone host code and the consumer-specific native code separate.
 
-`@typia/ttsc` is the current monorepo package for the `ttsc` host: a general-purpose compiler adapter and plugin host for [TypeScript 7 / tsgo](https://github.com/microsoft/typescript-go).
-
-`@typia/ttsc` owns build/check/transform orchestration, plugin loading, and native backend discovery. The `ts-node` / `tsx`-style execute surface lives in the sibling package `@typia/ttsx`, which reuses this package's compiler discovery, build pipeline, and cache helpers.
-
-typia is the first built-in consumer plugin, not the product boundary itself. See [wiki/08-tsgo-master-plan/05-phase0-kickoff.md](../../wiki/08-tsgo-master-plan/05-phase0-kickoff.md) for the Phase 0 plan.
+typia is the first native consumer. Its TypeScript plugin entry is `typia/lib/ttsc/plugin`, and its native backend lives under `packages/typia/native`.
 
 ## Layout
 
@@ -16,14 +15,9 @@ typia is the first built-in consumer plugin, not the product boundary itself. Se
 packages/ttsc/
 ├── bin/ttsc.js            # Public CLI / plugin host launcher
 ├── src/                   # Node-side host, plugin, and platform code
+├── driver/                # Generic tsgo host + emit rewrite mechanics
 ├── test/                  # Node-side tests (node:test runner)
-├── cmd/ttsc/              # Native backend entrypoint
-└── internal/
-    ├── engine/
-    │   ├── metadata/      # typia built-in consumer IR
-    │   └── emitter/       # typia built-in native emitter
-    └── driver/
-        └── shim/          # typescript-go go:linkname shim
+└── cmd/ttsc/              # Standalone native binary without consumer-specific rewrites
 ```
 
 ## Commands
@@ -46,8 +40,8 @@ pnpm test
 
 - One Go binary per platform, distributed as `@typia/ttsc-{platform}-{arch}` optional dependencies.
 - `ttsc` reads `compilerOptions.plugins` and composes native and JS plugins through one host surface.
-- typia currently ships as the first built-in native consumer plugin (`@typia/ttsc/plugin/typia`).
-- Driver (`internal/driver`) hooks into typescript-go via shim (go:linkname) + minimal patches.
+- Native consumers supply their own backend binary; the standalone host no longer embeds typia-specific analyzers or emitters.
+- The generic driver package hooks into typescript-go through the local shim layer.
 - The public CLI lives in Node so `ttsx` and third-party plugins reuse the same host pipeline.
 
 ## License

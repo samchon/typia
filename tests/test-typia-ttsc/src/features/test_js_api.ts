@@ -15,7 +15,28 @@ export async function test_js_api(): Promise<void> {
   // not the `src/` TypeScript.
   const api = require(
     path.join(TestGlobal.ROOT, "..", "..", "packages", "ttsc", "lib", "api.js"),
-  ) as typeof import("../../../../packages/ttsc/src/api");
+  ) as {
+    version(options: { binary: string }): string;
+    transform(options: {
+      cwd: string;
+      file: string;
+      tsconfig: string;
+    }): string;
+    transformAsync(options: {
+      cwd: string;
+      file: string;
+      tsconfig: string;
+    }): Promise<string>;
+    build(options: {
+      cwd: string;
+      tsconfig: string;
+      emit: boolean;
+      quiet: boolean;
+    }): {
+      status: number;
+      stderr: string;
+    };
+  };
 
   const binary = path.join(
     TestGlobal.ROOT,
@@ -34,7 +55,6 @@ export async function test_js_api(): Promise<void> {
 
   // transform(): returns rewritten JS text.
   const text = api.transform({
-    binary,
     cwd: fixture,
     file: path.join(fixture, "src", "main.ts"),
     tsconfig: "tsconfig.json",
@@ -46,7 +66,6 @@ export async function test_js_api(): Promise<void> {
 
   // build({ emit: false }): returns result record with status 0.
   const result = api.build({
-    binary,
     cwd: fixture,
     tsconfig: "tsconfig.json",
     emit: false,
@@ -56,7 +75,6 @@ export async function test_js_api(): Promise<void> {
 
   // transformAsync(): Promise-based variant returns the same text.
   const asyncText = await api.transformAsync({
-    binary,
     cwd: fixture,
     file: path.join(fixture, "src", "main.ts"),
     tsconfig: "tsconfig.json",

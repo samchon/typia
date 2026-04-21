@@ -1,13 +1,13 @@
 # 04. Final Recommendation — 최종 권장안 (Cycle 5)
 
-> ⚠️ **역사 문서 (Archived)** — 이 파일은 2026-04-18 초기 분석의 작업 이력. 현재 진실원은 [08-tsgo-master-plan/](../../08-tsgo-master-plan/) + [10-ecosystem/](../../10-ecosystem/). 내용이 현재 결정과 충돌하면 08 · 10 우선.
+> 보존용 참고 문서. 현재 기준은 [08-tsgo-master-plan/](../../08-tsgo-master-plan/) + [10-ecosystem/](../../10-ecosystem/).
 
 
 > 5 사이클 분석의 종합 결론. samchon이 즉시 실행 가능한 단일 권장 + 조건별 분기.
 
 ## 한 줄 권장
 
-> **"지금부터 옵션 D(Hybrid)를 기본 경로로 가되, Phase 0의 처음 6개월은 옵션 B(ttsc) 집중. Go 조력자 확보 시점부터 옵션 C(typia-go) 병행 착수."**
+> **"지금부터 옵션 D(Hybrid)를 기본 경로로 가되, Stage 0의 처음 6개월은 옵션 B(ttsc) 집중. Go 조력자 확보 시점부터 옵션 C(typia-go) 병행 착수."**
 
 즉:
 - 즉시 B 착수 (빠른 방어선)
@@ -25,16 +25,16 @@
 
 #### 즉시 (2026 Q2)
 - [ ] 공식 입장문 발표 ([07-strategy/03-positioning-actions.md](../03-positioning-actions.md)): "typia는 TS 7 대응 준비 중, ttsc와 typia-go 동시 검토"
-- [ ] ttsc Phase 0 spike 2주 실행 ([04-ttsc-design/05-ttsc-implementation-plan.md](../04-ttsc-design/05-ttsc-implementation-plan.md))
+- [ ] ttsc Stage 0 spike 2주 실행 ([04-ttsc-design/05-ttsc-implementation-plan.md](../04-ttsc-design/05-ttsc-implementation-plan.md))
 - [ ] Go 조력자 모집 공고 (커뮤니티 / 후원사)
 - [ ] Standard Schema 어댑터 1주 작업 ([06-feedback/03-improvement-proposals.md](../../06-feedback/03-improvement-proposals.md) A1)
 
-#### 2026 Q2-Q4 (ttsc Phase 1-2)
+#### 2026 Q2-Q4 (ttsc Stage 1-2)
 - [ ] ttsc walking skeleton 완성
 - [ ] typia test suite 절반 통과
 - [ ] early alpha 공개 (Q4)
 
-#### 2027 Q1-Q2 (ttsc Phase 3-4)
+#### 2027 Q1-Q2 (ttsc Stage 3-4)
 - [ ] watch / cache / diagnostics
 - [ ] 7 플랫폼 바이너리 배포
 - [ ] **ttsc v1.0 출시 (2027 Q2)**
@@ -102,14 +102,14 @@
 - [ ] Go 조력자 모집 공고
 
 ### Week 5-8 (2026-06)
-- [ ] ttsc Phase 0 spike 시작
+- [ ] ttsc Stage 0 spike 시작
 - [ ] Effect-TS/tsgo 빌드 시스템 복제 실험
 - [ ] tsgolint gen_shims 복제
 - [ ] 10-line patch로 hello world 증명
 
 ### Q2 2026 종료 (2026-06-30)
-- [ ] Phase 0 go/no-go 결정
-- [ ] Phase 1 착수 여부 확정
+- [ ] Stage 0 go/no-go 결정
+- [ ] Stage 1 착수 여부 확정
 
 ## 성공 지표 (KPI)
 
@@ -135,14 +135,14 @@
 ### Red flag 1: Go 조력자 6개월 내 미확보
 - 조치: C 포기, B+A 유지. LLM 차별화로 방어.
 
-### Red flag 2: ttsc IPC 오버헤드가 3× 이하 (Phase 2 측정 시)
+### Red flag 2: ttsc IPC 오버헤드가 3× 이하 (Stage 2 측정 시)
 - 조치: C 착수 가속 (IPC 없는 단일 프로세스가 해답)
 
 ### Red flag 3: tsgonest가 Q3 2027까지 NestJS 60%+ 점유
 - 조치: 긴급 C 가속 (AutoBE 수익 전부 투입)
 
 ### Red flag 4: samchon 번아웃 조짐
-- 조치: 모든 일정 -50% 리셋, Phase 0~1만 집중. 나머지는 커뮤니티에 이양.
+- 조치: 모든 일정 -50% 리셋, Stage 0~1만 집중. 나머지는 커뮤니티에 이양.
 
 ## 사상 일관성 최종 확인
 

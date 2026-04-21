@@ -1,10 +1,16 @@
 import * as fs from "node:fs";
 import Module = require("node:module");
+import { spawnSync } from "node:child_process";
 import * as path from "node:path";
 
-import { register, type RegisterOptions } from "./register";
+import {
+  prepareExecution,
+  register,
+  type PreparedExecution,
+  type RegisterOptions,
+} from "./register";
 
-const VERSION = "0.0.0-phase0";
+const VERSION = "0.1.0-dev";
 
 interface ParsedCLI extends RegisterOptions {
   entry: string;
@@ -28,6 +34,18 @@ export function main(argv: readonly string[] = process.argv.slice(2)): number {
   if (!fs.existsSync(entry)) {
     process.stderr.write(`ttsx: entry not found: ${entry}\n`);
     return 2;
+  }
+
+  const prepared = prepareExecution(entry, {
+    binary: parsed.binary,
+    cacheDir: parsed.cacheDir,
+    cwd,
+    env: parsed.env,
+    extensions: parsed.extensions,
+    project: parsed.project,
+  });
+  if (prepared.moduleKind === "esm") {
+    return runEsmEntry(parsed, prepared, cwd);
   }
 
   const unregister = register({
@@ -139,6 +157,10 @@ function printHelp(): void {
       "  -h, --help             Show this help",
       "  -v, --version          Print the runner version",
       "",
+      "Runtime:",
+      "  CommonJS projects execute in-process via the require hook.",
+      "  ESM projects execute the cached emitted entry in a child Node process.",
+      "",
       "Examples:",
       "  ttsx src/index.ts",
       "  ttsx --project tsconfig.json src/index.ts -- --port 3000",
@@ -160,4 +182,71 @@ function takeValue(flag: string, rest: string[]): string {
     throw new Error(`ttsx: ${flag} requires a value`);
   }
   return value;
+}
+
+function runEsmEntry(parsed: ParsedCLI, execution: PreparedExecution, cwd: string): number {
+  fs.mkdirSync(execution.emitDir, { recursive: true });
+  rewriteEsmSpecifiers(execution.emitDir);
+  fs.writeFileSync(
+    path.join(execution.emitDir, "package.json"),
+    JSON.stringify({ type: "module" }),
+    "utf8",
+  );
+  const args = [
+    ...parsed.preload.flatMap((preload) => ["-r", resolvePreload(cwd, preload)]),
+    execution.entryFile,
+    ...parsed.passthrough,
+  ];
+  const result = spawnSync(process.execPath, args, {
+    stdio: "inherit",
+    env: process.env,
+    windowsHide: true,
+  });
+  if (result.error) {
+    process.stderr.write(`${result.error.message}\n`);
+    return 1;
+  }
+  return result.status ?? 1;
+}
+
+function rewriteEsmSpecifiers(root: string): void {
+  const stack = [root];
+  while (stack.length !== 0) {
+    const current = stack.pop()!;
+    for (const entry of fs.readdirSync(current, { withFileTypes: true })) {
+      const next = path.join(current, entry.name);
+      if (entry.isDirectory()) {
+        stack.push(next);
+        continue;
+      }
+      if (!entry.isFile() || !next.endsWith(".js")) {
+        continue;
+      }
+      const before = fs.readFileSync(next, "utf8");
+      const after = before
+        .replace(
+          /\bfrom\s+(['"])(\.[^'"]+)\1/g,
+          (_, quote: string, specifier: string) =>
+            `from ${quote}${withJsExtension(specifier)}${quote}`,
+        )
+        .replace(
+          /\bimport\(\s*(['"])(\.[^'"]+)\1\s*\)/g,
+          (_, quote: string, specifier: string) =>
+            `import(${quote}${withJsExtension(specifier)}${quote})`,
+        );
+      if (after !== before) {
+        fs.writeFileSync(next, after, "utf8");
+      }
+    }
+  }
+}
+
+function withJsExtension(specifier: string): string {
+  if (!specifier.startsWith(".")) {
+    return specifier;
+  }
+  if (/\.(?:[cm]?js|json|node)$/i.test(specifier)) {
+    return specifier;
+  }
+  return `${specifier}.js`;
 }

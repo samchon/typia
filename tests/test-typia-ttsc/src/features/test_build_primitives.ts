@@ -14,7 +14,7 @@ export async function test_build_primitives(): Promise<void> {
     `ttsc build should succeed; stderr=\n${result.stderr}`,
   );
 
-  // The Phase 0 build command prints one line per recognised call site. We
+  // The build command prints one line per recognised call site. We
   // check the *exact* emit for every primitive — any drift from typia v12's
   // `"string" === typeof input` shape is a regression.
   const checks: ReadonlyArray<{ label: string; fragment: string }> = [

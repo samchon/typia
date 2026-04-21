@@ -1,24 +1,14 @@
-# 06. 최종 의사결정 — ⚠️ 역사 문서 (Archived)
+# 06. 최종 의사결정
 
-> **이 폴더는 5 사이클 분석 후 "옵션 D Hybrid B→C"를 권장한 이력이다.** 사용자가 이후 이 권장을 **폐기**하고 "ttsc+typia-go 통합"을 확정.
->
-> 특히 [02-decision-matrix.md](02-decision-matrix.md)는 [09-audit/05-cycle5-decision-matrix.md](../../09-audit/05-cycle5-decision-matrix.md)가 **post-hoc rationalization으로 비판**한 매트릭스. 역사 기록으로만 의미.
->
-> **최신 의사결정: [../../08-tsgo-master-plan/04-strategic-options.md](../../08-tsgo-master-plan/04-strategic-options.md) + [05-recommended-path.md](../../08-tsgo-master-plan/05-recommended-path.md)**
-
----
-
-# 원본 제목: 최종 의사결정 폴더
-
-> 사이클 2-5에 걸친 옵션 비교·의사결정·최종 권장의 모음.
+> 보존용 참고 문서. 현재 기준은 [08-tsgo-master-plan/](../../08-tsgo-master-plan/) + [10-ecosystem/](../../10-ecosystem/).
 
 ## 읽기 순서
 
-1. [01-four-options-compared.md](01-four-options-compared.md) — Cycle 2 산출물: A/B/C/D 4옵션 정교 비교
-2. [02-decision-matrix.md](02-decision-matrix.md) — Cycle 4 산출물: trade-off 매트릭스
-3. [03-cycle-log.md](03-cycle-log.md) — 5 사이클의 분석 진화 궤적
-4. [04-final-recommendation.md](04-final-recommendation.md) — Cycle 5 산출물: 최종 권장안
-5. [05-executive-briefing.md](05-executive-briefing.md) — 30초 경영 요약
+1. [01-four-options-compared.md](01-four-options-compared.md) — 4옵션 비교
+2. [02-decision-matrix.md](02-decision-matrix.md) — trade-off 매트릭스
+3. [03-cycle-log.md](03-cycle-log.md) — 분석 로그
+4. [04-final-recommendation.md](04-final-recommendation.md) — 최종 권장안
+5. [05-executive-briefing.md](05-executive-briefing.md) — 요약
 
 ## 4옵션 요약
 

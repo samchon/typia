@@ -8,7 +8,7 @@ import { runTtsc } from "../utils/runTtsc";
 /**
  * End-to-end emit test: run `ttsc build --emit` on the primitives fixture,
  * then require the generated dist/main.js and assert the compiled validators
- * return the expected booleans for a handful of inputs. This is the Phase 0
+ * return the expected booleans for a handful of inputs. This is the core
  * proof that ttsc produces runnable TS7/tsgo output byte-for-byte compatible
  * with typia v12's `is<T>` semantics for primitive types.
  */

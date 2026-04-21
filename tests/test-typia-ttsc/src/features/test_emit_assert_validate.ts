@@ -8,9 +8,9 @@ import { runTtsc } from "../utils/runTtsc";
 /**
  * Smoke for `typia.assert<T>` and `typia.validate<T>`. Assert throws with a
  * `TypeGuardError`-named exception on failure; validate returns a
- * `{ success, data, errors }` record. Phase 0 semantics are simplified
- * (assert error is plain, validate reports a single top-level error) but
- * match the runtime shape users consume.
+ * `{ success, data, errors }` record. The current native semantics stay deliberately minimal here: assert uses
+ * a plain error shape and validate reports a single top-level error, while
+ * preserving the runtime contract users consume.
  */
 export async function test_emit_assert_validate(): Promise<void> {
   const fixture = path.join(TestGlobal.ROOT, "fixtures", "assert-validate");

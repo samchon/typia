@@ -1,6 +1,6 @@
 # 05. 구현 계획 — 12개월 로드맵
 
-> ⚠️ **역사 문서 (Archived)** — 이 파일은 2026-04-18 초기 분석의 작업 이력. 현재 진실원은 [08-tsgo-master-plan/](../../08-tsgo-master-plan/) + [10-ecosystem/](../../10-ecosystem/). 내용이 현재 결정과 충돌하면 08 · 10 우선.
+> 보존용 참고 문서. 현재 기준은 [08-tsgo-master-plan/](../../08-tsgo-master-plan/) + [10-ecosystem/](../../10-ecosystem/).
 
 
 ## 전체 그림
@@ -18,7 +18,7 @@ Month 10-12   Phase 4: Public beta + typia setup 자동화
 목표: **기술적 실현 가능성 확인**. 하나의 `typia.is<string>(input)`를 ttsc로 변환해서 실행까지 보기.
 
 **Week 0-1**:
-- `/mnt/d/github/contributions/typescript-go`의 `cmd/tsgo/main.go` 복제
+- `typescript-go`의 `cmd/tsgo/main.go` 복제
 - 최소 patch (10줄) 추가 — `fmt.Println("hello from ttsc")`를 transform chain에 삽입
 - `go build && ./ttsc file.ts` 동작 확인
 
@@ -33,7 +33,7 @@ Month 10-12   Phase 4: Public beta + typia setup 자동화
 ### Month 1. Foundation
 
 **W1-2: 저장소 초기화**
-- `/mnt/d/github/samchon/ttsc` 새 저장소 (또는 typia 저장소 `packages/ttsc` workspace)
+- standalone `ttsc` 저장소 (또는 typia 저장소 `packages/ttsc` workspace)
 - Go workspace: `go.work` with `typescript-go` submodule / pinned commit
 - Nix flake.nix (Effect 방식 복사)
 - pnpm workspace: `@ttsc/cli`, `@ttsc/node-bridge`, `@ttsc/types`

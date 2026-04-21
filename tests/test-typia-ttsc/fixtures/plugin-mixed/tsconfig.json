@@ -5,7 +5,7 @@
     "target": "ES2020",
     "plugins": [
       {
-        "transform": "@typia/ttsc/plugin/typia"
+        "transform": "typia/lib/ttsc/plugin"
       },
       {
         "transform": "./plugins/banner-plugin.cjs",

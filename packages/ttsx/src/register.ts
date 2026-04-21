@@ -15,6 +15,12 @@ export interface RegisterOptions extends CommonOptions {
   extensions?: readonly string[];
 }
 
+export interface PreparedExecution {
+  emitDir: string;
+  entryFile: string;
+  moduleKind: "cjs" | "esm";
+}
+
 type RequireExtension = (module: NodeJS.Module, filename: string) => void;
 type CompilableModule = NodeJS.Module & {
   _compile(code: string, filename: string): void;
@@ -114,6 +120,22 @@ export function register(options: RegisterOptions = {}): () => void {
   };
 }
 
+export function prepareExecution(
+  entryFile: string,
+  options: RegisterOptions = {},
+): PreparedExecution {
+  const cwd = path.resolve(options.cwd ?? process.cwd());
+  const context = resolveProjectContext(cwd, entryFile, options);
+  ensureProjectBuild(context, options);
+  const resolvedEntry = resolveEmittedFile(context, entryFile);
+  const output = fs.readFileSync(resolvedEntry, "utf8");
+  return {
+    emitDir: context.emitDir,
+    entryFile: resolvedEntry,
+    moduleKind: looksLikeESM(output) ? "esm" : "cjs",
+  };
+}
+
 function ensureProjectBuild(context: ProjectContext, options: RegisterOptions): void {
   if (context.emittedFiles !== null) return;
 
@@ -141,6 +163,39 @@ function ensureProjectBuild(context: ProjectContext, options: RegisterOptions): 
     .filter((line) => line.trim().length !== 0)
     .join("\n");
   throw new Error(detail);
+}
+
+function resolveProjectContext(
+  cwd: string,
+  filename: string,
+  options: RegisterOptions,
+): ProjectContext {
+  if (options.project) {
+    const tsconfig = resolveProjectConfig({
+      cwd,
+      tsconfig: path.resolve(cwd, options.project),
+    });
+    return createProjectContext(cwd, tsconfig, options);
+  }
+  const tsconfig = resolveProjectConfig({ cwd, file: filename });
+  return createProjectContext(cwd, tsconfig, options);
+}
+
+function createProjectContext(
+  cwd: string,
+  tsconfig: string,
+  options: RegisterOptions,
+): ProjectContext {
+  const root = resolveProjectRoot({ cwd, tsconfig });
+  const cacheDir = options.cacheDir ?? defaultCacheDirectory(root, "ttsx");
+  return {
+    tsconfig,
+    root,
+    cacheDir,
+    emitDir: path.join(cacheDir, "project", PROCESS_CACHE_KEY),
+    emittedFiles: null,
+    entryMap: new Map<string, string>(),
+  };
 }
 
 function resolveEmittedFile(context: ProjectContext, filename: string): string {

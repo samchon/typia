@@ -6,7 +6,7 @@ import { TestGlobal } from "../TestGlobal";
 import { runTtsc } from "../utils/runTtsc";
 
 /**
- * Covers TS-only advanced constructs that Phase 0 must accept without
+ * Covers TS-only advanced constructs that the current native path must accept without
  * crashing: discriminated unions, `Partial<T>`, `Pick<T, K>`, readonly
  * arrays, and three-level-deep optional chains. These are the everyday shapes
  * users throw at typia (NestJS DTOs, react-hook-form state, etc.) — if any

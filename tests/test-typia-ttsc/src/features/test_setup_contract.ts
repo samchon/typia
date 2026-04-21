@@ -3,12 +3,17 @@ import * as fs from "fs";
 import * as os from "os";
 import * as path from "path";
 
-import { PluginConfigurator } from "../../../../packages/typia/src/executable/setup/PluginConfigurator";
-
 import { TestGlobal } from "../TestGlobal";
 
 export async function test_setup_contract(): Promise<void> {
   const root = path.resolve(TestGlobal.ROOT, "..", "..");
+  const { PluginConfigurator } = require(
+    path.join(root, "packages/typia/lib/executable/setup/PluginConfigurator.js"),
+  ) as {
+    PluginConfigurator: {
+      configure(args: { manager: string; project: string }): Promise<void>;
+    };
+  };
   const manifest = JSON.parse(
     fs.readFileSync(path.join(root, "package.json"), "utf8"),
   ) as {
@@ -88,7 +93,7 @@ export async function test_setup_contract(): Promise<void> {
     };
     assert.deepEqual(parsed.compilerOptions.plugins, [
       { name: "keep-me" },
-      { transform: "@typia/ttsc/plugin/typia" },
+      { transform: "typia/lib/ttsc/plugin" },
     ]);
     assert.equal(parsed.compilerOptions.skipLibCheck, true);
     assert.equal(parsed.compilerOptions.strictNullChecks, true);

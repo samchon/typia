@@ -31,6 +31,18 @@ test("resolveBinary falls back to local binary when optional package is missing"
   assert.equal(resolved, "/tmp/local-ttsc");
 });
 
+test("resolveBinary falls back to source launcher in a source checkout", () => {
+  const resolved = resolveBinary({
+    env: {},
+    localBinaryLookup: () => null,
+    moduleDir: `${process.cwd()}/src`,
+    resolver: () => {
+      throw new Error("optional package missing");
+    },
+  });
+  assert.match(resolved ?? "", /packages\/ttsc\/bin\/ttsc-dev\.js$/);
+});
+
 test("platform helpers describe the published package contract", () => {
   assert.equal(binaryName({ platform: "win32" }), "ttsc.exe");
   assert.equal(binaryName({ platform: "linux" }), "ttsc");
@@ -42,4 +54,5 @@ test("platform helpers describe the published package contract", () => {
   const hint = installHint({ platform: "linux", arch: "x64" });
   assert.match(hint, /@typia\/ttsc-linux-x64/);
   assert.match(hint, /TTSC_BINARY env var/);
+  assert.match(hint, /ttsc-dev\.js/);
 });

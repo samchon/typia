@@ -1,9 +1,9 @@
 # Prior Art 7 — elliots/typical
 
-> ⚠️ **역사 문서 (Archived)** — 이 파일은 2026-04-18 초기 분석의 작업 이력. 현재 진실원은 [08-tsgo-master-plan/](../../../08-tsgo-master-plan/) + [10-ecosystem/](../../../10-ecosystem/). 내용이 현재 결정과 충돌하면 08 · 10 우선.
+> 보존용 참고 문서. 현재 기준은 [08-tsgo-master-plan/](../../../08-tsgo-master-plan/) + [10-ecosystem/](../../../10-ecosystem/).
 
 
-> 분석 대상: `/mnt/d/github/contributions/typical` (Elliot Shepherd)
+> 분석 대상: `elliotshpherd/typical`
 > 중요도: ★★★★★ — **이미 typia의 Go 포팅 프로토타입이 존재**. 옵션 C(typia Go 포팅)의 실현 가능성을 증명하는 prior art.
 
 ## 한 줄 요약

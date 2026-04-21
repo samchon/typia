@@ -8,7 +8,7 @@ import { runTtsc } from "../utils/runTtsc";
 /**
  * Re-emitting an already-rewritten project must be a no-op. tsgonest's
  * "@tsgonest-rewritten" sentinel pattern — we mirror it with
- * "@typia-ttsc-rewritten" so watch-mode / editor loops don't
+ * "@ttsc-rewritten" so watch-mode / editor loops don't
  * double-rewrite and corrupt earlier output.
  */
 export async function test_rewrite_idempotent(): Promise<void> {
@@ -25,7 +25,7 @@ export async function test_rewrite_idempotent(): Promise<void> {
   const mainPath = path.join(dist, "main.js");
   const firstText = fs.readFileSync(mainPath, "utf8");
   assert.ok(
-    firstText.includes("/* @typia-ttsc-rewritten */"),
+    firstText.includes("/* @ttsc-rewritten */"),
     `expected sentinel in first-run output:\n${firstText.slice(0, 200)}`,
   );
 

@@ -1,14 +1,13 @@
 // Command ttsc is the Go CLI entrypoint for @typia/ttsc.
 //
-// Phase 0 responsibilities:
+// Current responsibilities:
 //   - Report version and platform (`ttsc --version`).
-//   - Exercise the MetadataSchema → emitter round-trip end-to-end
-//     (`ttsc demo --type=string`) so smoke tests can verify the Go binary
-//     really runs.
+//   - Exercise a native rewrite backend end-to-end (`ttsc demo --type=string`)
+//     so smoke tests can verify the Go binary really runs.
 //   - Act as a placeholder for the eventual `build` / `dev` / `check` / `setup`
 //     subcommands that will land in Week 3+.
 //
-// Everything below is deliberately dependency-free so that the Phase 0 binary
+// Everything below is deliberately dependency-free so that the standalone binary
 // stays small and its behaviour is trivial to audit.
 package main
 
@@ -19,15 +18,12 @@ import (
 	"os"
 	"runtime"
 	"strings"
-
-	"github.com/samchon/typia/packages/ttsc/internal/engine/emitter"
-	"github.com/samchon/typia/packages/ttsc/internal/engine/metadata"
 )
 
 // These are overridden via `-ldflags "-X main.version=... -X main.commit=..."`
 // in CI. Sensible defaults keep local `go run ./cmd/ttsc` usable.
 var (
-	version = "0.0.0-phase0"
+	version = "0.0.0-dev"
 	commit  = "dev"
 	date    = "unknown"
 )
@@ -117,7 +113,7 @@ func printVersion(w io.Writer) {
 
 func printHelp(w io.Writer) {
 	fmt.Fprintln(w, strings.TrimSpace(`
-ttsc — typia's typescript-go driver (Phase 0 preview).
+ttsc — standalone typescript-go host.
 
 Usage:
   ttsc [command] [options]
@@ -126,7 +122,7 @@ Commands:
   build         Compile every .ts in a project and emit rewritten .js.
   check         Run the analyzer without emitting — type-only validation.
   transform     Emit a single file's rewritten JS (bundler plugin hook).
-  demo          Run the metadata→emitter smoke pipeline with synthetic input.
+  demo          Run a native backend smoke pipeline with synthetic input.
   version       Print version, build info, and platform.
   help          Show this help.
 
@@ -139,14 +135,14 @@ Build options:
   --cwd=DIR         Override working directory.
   --emit            Write emitted .js files (omit for analysis-only run).
   --quiet           Suppress the per-call summary banner.
-  --rewrite-mode=M  Native rewrite backend. One of: typia, none.
+  --rewrite-mode=M  Native rewrite backend id.
   --manifest=FILE   Write emitted file paths as JSON to FILE after build --emit.
 
 Transform options:
   --file=PATH       Absolute or cwd-relative path of the .ts file to transform.
   --tsconfig=FILE   tsconfig.json owning --file (default: tsconfig.json).
   --out=PATH        Write output JS to PATH. Default: stdout.
-  --rewrite-mode=M  Native rewrite backend. One of: typia, none.
+  --rewrite-mode=M  Native rewrite backend id.
 
 Demo options:
   --type=T          Atomic TypeScript type to simulate. One of:
@@ -179,41 +175,30 @@ func runDemo(args []string) int {
 		return 2
 	}
 
-	schema, err := schemaForDemo(*typ)
+	arrow, err := demoArrow(*typ)
 	if err != nil {
 		fmt.Fprintf(stderr, "ttsc demo: %v\n", err)
 		return 2
 	}
 
-	arrow, err := emitter.EmitIsArrowFunction(schema)
-	if err != nil {
-		fmt.Fprintf(stderr, "ttsc demo: %v\n", err)
-		return 3
-	}
-
-	fmt.Fprintf(stdout, "// typia.is<%s>(input) ⇢ emitted by @typia/ttsc %s\n", *typ, version)
+	fmt.Fprintf(stdout, "// demo<%s> ⇢ emitted by @typia/ttsc %s\n", *typ, version)
 	fmt.Fprintln(stdout, arrow)
 	return 0
 }
 
-// schemaForDemo builds a minimal MetadataSchema matching the name the user
-// passed on the command line. Kept package-private so we can assert against
-// it in tests without exposing it publicly.
-func schemaForDemo(name string) (*metadata.Schema, error) {
+func demoArrow(name string) (string, error) {
 	switch strings.ToLower(name) {
 	case "any":
-		s := metadata.NewSchema()
-		s.Any = true
-		return s, nil
+		return "(input) => true", nil
 	case "boolean":
-		return metadata.NewSchema().AddAtomic(metadata.AtomicBoolean), nil
+		return `(input) => "boolean" === typeof input`, nil
 	case "number":
-		return metadata.NewSchema().AddAtomic(metadata.AtomicNumber), nil
+		return `(input) => "number" === typeof input`, nil
 	case "bigint":
-		return metadata.NewSchema().AddAtomic(metadata.AtomicBigint), nil
+		return `(input) => "bigint" === typeof input`, nil
 	case "string", "":
-		return metadata.NewSchema().AddAtomic(metadata.AtomicString), nil
+		return `(input) => "string" === typeof input`, nil
 	default:
-		return nil, fmt.Errorf("unknown --type value %q (want: string|number|boolean|bigint|any)", name)
+		return "", fmt.Errorf("unknown --type value %q (want: string|number|boolean|bigint|any)", name)
 	}
 }

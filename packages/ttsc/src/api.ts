@@ -51,7 +51,7 @@ export interface CommonOptions extends ResolveOptions {
    */
   plugins?: readonly ProjectPluginConfig[] | false;
   /** Override the native rewrite backend. Defaults to the loaded plugin mode. */
-  rewriteMode?: "none" | "typia";
+  rewriteMode?: string;
 }
 
 /** Options for `transform()`. */
@@ -103,6 +103,28 @@ function mergeEnv(extra?: NodeJS.ProcessEnv): NodeJS.ProcessEnv {
   return { ...process.env, ...extra };
 }
 
+function spawnBinary(
+  binary: string,
+  args: readonly string[],
+  options: {
+    cwd?: string;
+    env?: NodeJS.ProcessEnv;
+    encoding?: BufferEncoding;
+  },
+) {
+  const viaNode = shouldSpawnViaNode(binary);
+  return spawnSync(viaNode ? process.execPath : binary, viaNode ? [binary, ...args] : [...args], {
+    cwd: options.cwd,
+    env: options.env,
+    encoding: options.encoding,
+    windowsHide: true,
+  });
+}
+
+function shouldSpawnViaNode(binary: string): boolean {
+  return /\.(?:[cm]?js|ts)$/i.test(binary);
+}
+
 /**
  * Transform a single .ts file and return the rewritten JS as a string.
  *
@@ -122,11 +144,10 @@ export function transform(options: TransformOptions): string {
   ];
   if (options.tsconfig) args.push("--tsconfig=" + options.tsconfig);
 
-  const res = spawnSync(execution.bin, args, {
+  const res = spawnBinary(execution.bin, args, {
     cwd: options.cwd,
     env: mergeEnv(options.env),
     encoding: "utf8",
-    windowsHide: true,
   });
   if (res.error) {
     throw new Error(
@@ -180,11 +201,10 @@ export function build(options: BuildOptions = {}): BuildResult {
   const manifest = needsManifest ? createTempManifestPath() : null;
   if (manifest) args.push("--manifest=" + manifest);
 
-  const res = spawnSync(execution.bin, args, {
+  const res = spawnBinary(execution.bin, args, {
     cwd: options.cwd,
     env: mergeEnv(options.env),
     encoding: "utf8",
-    windowsHide: true,
   });
   if (res.error) {
     throw new Error("ttsc.build: failed to spawn " + execution.bin + ": " + res.error.message);
@@ -211,9 +231,8 @@ export function check(options: CheckOptions = {}): BuildResult {
 /** Ask the binary for its version banner. Handy for user-agent strings. */
 export function version(options: CommonOptions = {}): string {
   const bin = resolveOrThrow(options);
-  const res = spawnSync(bin, ["version"], {
+  const res = spawnBinary(bin, ["version"], {
     encoding: "utf8",
-    windowsHide: true,
   });
   if (res.error || res.status !== 0) {
     throw new Error("ttsc.version: failed: " + (res.stderr || res.error?.message));
@@ -222,7 +241,7 @@ export function version(options: CommonOptions = {}): string {
 }
 
 /**
- * Promise-facing variant of `transform()`. The Phase 0 plugin host keeps the
+ * Promise-facing variant of `transform()`. The plugin host keeps the
  * transform pipeline synchronous so plugin modules can stay dependency-free,
  * but many adapter surfaces still prefer a Promise-returning function.
  */
@@ -233,7 +252,7 @@ export function transformAsync(options: TransformOptions): Promise<string> {
 interface ExecutionContext {
   bin: string;
   cwd: string;
-  nativeMode: "none" | "typia";
+  nativeMode: string;
   plugins: readonly TtscPlugin[];
   projectRoot: string;
   tsconfig: string;
@@ -242,19 +261,26 @@ interface ExecutionContext {
 function resolveExecutionContext(
   options: CommonOptions & { tsconfig?: string },
 ): ExecutionContext {
-  const bin = resolveOrThrow(options);
   const cwd = path.resolve(options.cwd ?? process.cwd());
+  const fallbackBinary =
+    options.binary && path.isAbsolute(options.binary) && fs.existsSync(options.binary)
+      ? options.binary
+      : resolveBinary(options);
   const tsconfig = resolveProjectConfig({
     cwd,
     tsconfig: options.tsconfig,
   });
   const projectRoot = resolveProjectRoot({ cwd, tsconfig });
   const loaded = loadProjectPlugins({
-    binary: bin,
+    binary: fallbackBinary ?? "",
     cwd,
     entries: options.plugins,
     tsconfig,
   });
+  const bin = options.binary ?? loaded.nativeBinary ?? fallbackBinary;
+  if (!bin) {
+    throw new Error(installHint(options));
+  }
   return {
     bin,
     cwd,

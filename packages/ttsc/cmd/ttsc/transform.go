@@ -10,8 +10,7 @@ import (
 
 	shimcompiler "github.com/microsoft/typescript-go/shim/compiler"
 
-	"github.com/samchon/typia/packages/ttsc/internal/driver"
-	"github.com/samchon/typia/packages/ttsc/internal/engine/analyzer"
+	"github.com/samchon/typia/packages/ttsc/driver"
 )
 
 // runTransform implements `ttsc transform` — a single-file transform used by
@@ -34,7 +33,7 @@ func runTransform(args []string) int {
 	tsconfigPath := fs.String("tsconfig", "tsconfig.json", "tsconfig.json owning --file")
 	cwdOverride := fs.String("cwd", "", "override the working directory")
 	out := fs.String("out", "", "write output JS to PATH (default: stdout)")
-	rewriteMode := fs.String("rewrite-mode", "typia", "native rewrite backend (typia|none)")
+	rewriteMode := fs.String("rewrite-mode", "none", "native rewrite backend id")
 	if err := fs.Parse(args); err != nil {
 		return 2
 	}
@@ -74,37 +73,10 @@ func runTransform(args []string) int {
 	}
 	absFile = filepath.ToSlash(absFile)
 
-	sites := prog.CollectCallSites()
 	rewrites := driver.NewRewriteSet()
-	switch *rewriteMode {
-	case "none":
-	case "typia":
-		for _, site := range sites {
-			if filepath.ToSlash(site.FilePath) != absFile {
-				continue
-			}
-			if site.TypeArgument == nil {
-				continue
-			}
-			schema, ok := analyzer.New(prog.Checker, analyzer.DefaultOptions(), nil).Walk(site.TypeArgument)
-			if !ok {
-				continue
-			}
-			expr, factory, eerr, handled := dispatchEmit(site.Module, site.Method, schema)
-			if !handled || eerr != nil {
-				continue
-			}
-			rewrites.Add(driver.Rewrite{
-				File:          site.File,
-				RootName:      site.RootName,
-				Namespaces:    site.Namespaces,
-				Method:        site.Method,
-				Replacement:   "(" + expr + ")",
-				ConsumeParens: factory,
-			})
-		}
-	default:
-		fmt.Fprintf(stderr, "ttsc transform: unknown --rewrite-mode value %q\n", *rewriteMode)
+	if *rewriteMode != "none" {
+		fmt.Fprintf(stderr, "ttsc transform: rewrite backend %q is not built into the standalone ttsc binary\n", *rewriteMode)
+		fmt.Fprintln(stderr, "ttsc transform: run through the JS host with the matching compiler plugin so it can select the consumer-provided native binary")
 		return 2
 	}
 
@@ -136,7 +108,6 @@ func runTransform(args []string) int {
 		fmt.Fprintf(stderr, "ttsc transform: no output produced for %s\n", absFile)
 		return 3
 	}
-
 	if *out == "" {
 		if _, werr := bytes.NewReader(captured).WriteTo(stdout); werr != nil {
 			fmt.Fprintf(stderr, "ttsc transform: write stdout: %v\n", werr)

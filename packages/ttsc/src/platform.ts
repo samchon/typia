@@ -5,7 +5,7 @@
  * Keep it pure and dependency-free so it can be unit-tested without spawning
  * any child process.
  *
- * Resolution order (Phase 0):
+ * Resolution order:
  *
  *   1. `TTSC_BINARY` environment variable (absolute path). Highest priority —
  *      lets local devs or CI point at an ad-hoc build without touching
@@ -13,10 +13,13 @@
  *   2. `@typia/ttsc-{platform}-{arch}/bin/ttsc{.exe}` optional dependency.
  *      Standard distribution path.
  *   3. A sibling `bin/ttsc-native` binary next to ttsc.js. Used by this
- *      repository's Phase 0 `pnpm go:build` output before the platform
+ *      repository's local `pnpm go:build` output before the platform
  *      packages exist on npm.
+ *   4. A source-checkout launcher (`bin/ttsc-dev.js`) when the package still
+ *      carries `cmd/ttsc/`. This keeps pnpm workspace builds working before a
+ *      native binary has been prebuilt.
  *
- * If all three fail, `resolveBinary` returns `null` so the caller can print a
+ * If every strategy fails, `resolveBinary` returns `null` so the caller can print a
  * detailed install hint.
  */
 
@@ -40,6 +43,12 @@ export interface ResolveOptions {
    * fallback. Returns an absolute path if present, else null.
    */
   localBinaryLookup?: () => string | null;
+  /**
+   * Override the module directory used to resolve sibling `bin/` and `cmd/`
+   * entries. Test-only seam so source-checkout fallbacks can be covered
+   * without depending on the runtime module format.
+   */
+  moduleDir?: string;
 }
 
 /** Canonical key `{platform}-{arch}` used in the binary package name. */
@@ -66,7 +75,7 @@ export function platformPackageRequest(opts: ResolveOptions = {}): string {
   return `@typia/ttsc-${key}/bin/${bin}`;
 }
 
-/** The list of platform keys Phase 0 will ship. */
+/** The list of platform keys the package currently ships. */
 export const SUPPORTED_PLATFORMS: readonly string[] = Object.freeze([
   "linux-x64",
   "linux-arm64",
@@ -103,13 +112,18 @@ export function resolveBinary(opts: ResolveOptions = {}): string | null {
     /* fall through */
   }
 
-  // 3. Local Phase 0 fallback: <package>/bin/ttsc-native.
+  // 3. Local workspace fallback: <package>/bin/ttsc-native.
   if (opts.localBinaryLookup) {
     const local = opts.localBinaryLookup();
     if (local) return local;
   } else {
     const local = defaultLocalBinaryPath(opts);
     if (local) return local;
+  }
+
+  const source = defaultSourceBinaryPath(opts);
+  if (source) {
+    return source;
   }
 
   return null;
@@ -130,24 +144,40 @@ export function installHint(opts: ResolveOptions = {}): string {
     `Resolution order:`,
     `  1. TTSC_BINARY env var (absolute path)`,
     `  2. ${pkg} optional dependency`,
-    `  3. ./bin/ttsc-native (Phase 0 local build)`,
+    `  3. ./bin/ttsc-native (local workspace build)`,
+    `  4. ./bin/ttsc-dev.js (source checkout fallback)`,
     ``,
     `Try:`,
     `  npm install --include=optional ${pkg}`,
     `  pnpm install --shamefully-hoist`,
     ``,
-    `Supported platforms (Phase 0): ${supported}.`,
+    `Supported platforms: ${supported}.`,
     `If your platform is not in that list, open an issue at`,
     `https://github.com/samchon/typia/issues.`,
   ].join("\n");
 }
 
 function defaultLocalBinaryPath(opts: ResolveOptions): string | null {
+  const root = packageRootDir(opts);
   const candidate = path.resolve(
-    __dirname,
+    root,
     "..",
     "bin",
     (opts.platform ?? process.platform) === "win32" ? "ttsc-native.exe" : "ttsc-native",
   );
   return fs.existsSync(candidate) ? candidate : null;
+}
+
+function defaultSourceBinaryPath(opts: ResolveOptions = {}): string | null {
+  const root = packageRootDir(opts);
+  const source = path.resolve(root, "..", "cmd", "ttsc", "main.go");
+  const launcher = path.resolve(root, "..", "bin", "ttsc-dev.js");
+  return fs.existsSync(source) && fs.existsSync(launcher) ? launcher : null;
+}
+
+function packageRootDir(opts: ResolveOptions = {}): string {
+  if (opts.moduleDir) {
+    return fs.realpathSync.native?.(opts.moduleDir) ?? fs.realpathSync(opts.moduleDir);
+  }
+  return fs.realpathSync.native?.(__dirname) ?? fs.realpathSync(__dirname);
 }

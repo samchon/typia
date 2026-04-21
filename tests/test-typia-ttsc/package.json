@@ -1,8 +1,8 @@
 {
   "private": true,
   "name": "@typia/test-typia-ttsc",
-  "version": "0.0.0-phase0",
-  "description": "End-to-end smoke tests for @typia/ttsc (Phase 0 spike).",
+  "version": "0.1.0-dev",
+  "description": "End-to-end smoke tests for @typia/ttsc and @typia/ttsx.",
   "scripts": {
     "dev": "ttsx src/index.ts",
     "build:packages": "pnpm --filter @typia/ttsc build && pnpm --filter @typia/ttsx build && pnpm --filter typia build",

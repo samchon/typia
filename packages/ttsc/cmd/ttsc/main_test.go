@@ -4,8 +4,6 @@ import (
 	"bytes"
 	"strings"
 	"testing"
-
-	"github.com/samchon/typia/packages/ttsc/internal/engine/metadata"
 )
 
 // withCapture replaces stdout/stderr with buffers for the duration of fn.
@@ -91,7 +89,7 @@ func TestRunDemoString(t *testing.T) {
 	if !strings.Contains(out, want) {
 		t.Errorf("expected demo output to contain %q, got:\n%s", want, out)
 	}
-	if !strings.Contains(out, "typia.is<string>") {
+	if !strings.Contains(out, "demo<string>") {
 		t.Errorf("expected comment prefix in demo output, got:\n%s", out)
 	}
 }
@@ -128,36 +126,23 @@ func TestRunDemoUnknownTypeExits2(t *testing.T) {
 	}
 }
 
-func TestSchemaForDemoReturnsAtomics(t *testing.T) {
-	cases := map[string]metadata.AtomicKind{
-		"string":  metadata.AtomicString,
-		"number":  metadata.AtomicNumber,
-		"boolean": metadata.AtomicBoolean,
-		"bigint":  metadata.AtomicBigint,
+func TestDemoArrowEveryAtomic(t *testing.T) {
+	cases := map[string]string{
+		"string":  `"string" === typeof input`,
+		"number":  `"number" === typeof input`,
+		"boolean": `"boolean" === typeof input`,
+		"bigint":  `"bigint" === typeof input`,
+		"any":     `(input) => true`,
 	}
-	for name, wantKind := range cases {
+	for name, want := range cases {
 		t.Run(name, func(t *testing.T) {
-			s, err := schemaForDemo(name)
+			arrow, err := demoArrow(name)
 			if err != nil {
 				t.Fatalf("unexpected err: %v", err)
 			}
-			kind, ok := s.IsSoleAtomic()
-			if !ok {
-				t.Fatalf("expected sole atomic schema for %s", name)
-			}
-			if kind != wantKind {
-				t.Errorf("for %s want %s, got %s", name, wantKind, kind)
+			if !strings.Contains(arrow, want) {
+				t.Errorf("for %s want %q, got %q", name, want, arrow)
 			}
 		})
-	}
-}
-
-func TestSchemaForDemoAny(t *testing.T) {
-	s, err := schemaForDemo("any")
-	if err != nil {
-		t.Fatalf("unexpected err: %v", err)
-	}
-	if !s.Any {
-		t.Error("expected Any=true")
 	}
 }

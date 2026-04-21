@@ -18,7 +18,7 @@ import { FileTransformer } from "./FileTransformer";
  *
  * - TypeScript's `strictNullChecks` or `strict` compiler option must be enabled
  * - The transformer must be configured in `tsconfig.json` via
- *   `compilerOptions.plugins` using `@typia/ttsc/plugin/typia`
+ *   `compilerOptions.plugins` using `typia/lib/ttsc/plugin`
  *
  * **Configuration example (tsconfig.json):**
  *
@@ -26,7 +26,7 @@ import { FileTransformer } from "./FileTransformer";
  * {
  *   "compilerOptions": {
  *     "strict": true,
- *     "plugins": [{ "transform": "typia/lib/transform" }]
+ *     "plugins": [{ "transform": "typia/lib/ttsc/plugin" }]
  *   }
  * }
  * ```

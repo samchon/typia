@@ -1,7 +1,7 @@
 {
   "name": "@typia/ttsx",
-  "version": "0.0.0-phase0",
-  "description": "Standalone tsgo runner built on top of the ttsc host. Phase 0 spike.",
+  "version": "0.1.0-dev",
+  "description": "Standalone tsgo runner built on top of the ttsc host.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "bin": {

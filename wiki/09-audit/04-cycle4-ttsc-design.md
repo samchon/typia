@@ -31,12 +31,12 @@
 - 실제 파일당 80~200ms 가능성
 
 ### 7. tsgonest "Rewrite 모델" 평가 누락
-- Wiki는 "Cycle 3에서 재평가"라 했으나 실행 안 함
+- Wiki는 "이후 재평가"라 했으나 실행 안 함
 - Emit 후 파일 기반 수정은 patch 지점을 **더 줄일 수 있는 대안**
 
 ## 결론
 
 - 04-architecture만 업데이트되고 **나머지 문서는 v1 상태**
 - 수치의 20%까지 오차
-- Phase 0 spike 필수 — 종이 설계로는 IPC 비용·patch 수 검증 불가
+- Stage 0 spike 필수 — 종이 설계로는 IPC 비용·patch 수 검증 불가
 - master plan 06-ttsc-specification은 이 모든 결함을 한꺼번에 교정

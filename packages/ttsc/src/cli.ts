@@ -67,7 +67,8 @@ function delegateToNative(argv: readonly string[]): number {
     process.stderr.write(`${installHint()}\n`);
     return 1;
   }
-  const result = spawnSync(bin, [...argv], {
+  const viaNode = /\.(?:[cm]?js|ts)$/i.test(bin);
+  const result = spawnSync(viaNode ? process.execPath : bin, viaNode ? [bin, ...argv] : [...argv], {
     stdio: "inherit",
     env: process.env,
     windowsHide: true,
@@ -85,7 +86,7 @@ function parseBuildArgs(argv: readonly string[], checkOnly: boolean): BuildOptio
   let emit = checkOnly ? false : false;
   let outDir: string | undefined;
   let quiet = false;
-  let rewriteMode: "none" | "typia" | undefined;
+  let rewriteMode: string | undefined;
   let tsconfig: string | undefined;
 
   const rest = [...argv];
@@ -151,7 +152,7 @@ function parseTransformArgs(argv: readonly string[]): TransformOptions {
   let cwd: string | undefined;
   let file: string | undefined;
   let out: string | undefined;
-  let rewriteMode: "none" | "typia" | undefined;
+  let rewriteMode: string | undefined;
   let tsconfig: string | undefined;
 
   const rest = [...argv];
@@ -227,7 +228,7 @@ function printHelp(): void {
       "  --cwd <dir>            Resolve project-relative paths from this directory",
       "  --emit                 Write emitted files during build",
       "  --outDir <dir>         Override compilerOptions.outDir for this invocation",
-      "  --rewrite-mode <mode>  Native rewrite backend (typia|none)",
+      "  --rewrite-mode <mode>  Native rewrite backend id",
       "  --quiet                Suppress the native per-call summary banner",
       "  --out <path>           Write transform output to a file instead of stdout",
       "  --binary <path>        Use an explicit native backend binary",
@@ -235,11 +236,7 @@ function printHelp(): void {
       "Plugin contract:",
       "  ttsc reads compilerOptions.plugins from tsconfig.json.",
       "  TS plugins may export `definePlugin(...)` from @typia/ttsc/plugin.",
-      "  The built-in typia consumer plugin lives at @typia/ttsc/plugin/typia.",
-      "",
-      "Compatibility:",
-      "  Projects without compilerOptions.plugins keep the current typia-first",
-      "  fallback so existing Phase 0 setups continue to run.",
+      "  Native consumer plugins may also provide their own binary path.",
     ].join("\n"),
   );
   process.stdout.write("\n");
@@ -253,11 +250,11 @@ function takeValue(flag: string, rest: string[]): string {
   return value;
 }
 
-function takeRewriteMode(value: string): "none" | "typia" {
-  if (value === "none" || value === "typia") {
-    return value;
+function takeRewriteMode(value: string): string {
+  if (value.length === 0) {
+    throw new Error("ttsc: rewrite mode must not be empty");
   }
-  throw new Error(`ttsc: unknown rewrite mode ${value}`);
+  return value;
 }
 
 function formatError(error: unknown): string {

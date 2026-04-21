@@ -15,6 +15,11 @@
       "import": "./lib/transform.js",
       "default": "./lib/transform.js"
     },
+    "./lib/ttsc/plugin": {
+      "types": "./lib/ttsc/plugin.d.ts",
+      "import": "./lib/ttsc/plugin.js",
+      "default": "./lib/ttsc/plugin.js"
+    },
     "./lib/internal/*": {
       "types": "./lib/internal/*.d.ts",
       "import": "./lib/internal/*.js",
@@ -76,6 +81,8 @@
   "sideEffects": false,
   "files": [
     "README.md",
+    "bin",
+    "native",
     "package.json",
     "lib",
     "src"
@@ -134,6 +141,11 @@
         "types": "./lib/transform.d.ts",
         "import": "./lib/transform.mjs",
         "default": "./lib/transform.js"
+      },
+      "./lib/ttsc/plugin": {
+        "types": "./lib/ttsc/plugin.d.ts",
+        "import": "./lib/ttsc/plugin.mjs",
+        "default": "./lib/ttsc/plugin.js"
       },
       "./lib/internal/*": {
         "types": "./lib/internal/*.d.ts",
