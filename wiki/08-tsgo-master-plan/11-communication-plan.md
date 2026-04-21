@@ -11,9 +11,11 @@
 typia는 TypeScript 7 / tsgo 대응에 착수했습니다.
 
 1. 약속: 기존 typia v12 사용자 코드는 한 자도 바뀌지 않습니다.
-2. 계획: 
-   - Year 1: ttsc (tsgo wrapper) 개발
-   - Year 2-3: typia-go (Go 재구현) 병행
+2. 계획:
+   - 현재 제품: @typia/ttsc
+   - 현재 개발 위치: typia monorepo
+   - 현재 방향: driver와 engine을 함께 Go로 이식
+   - 공통 ttsc 분리는 안정화 이후 검토
 3. 지원: TS 6.x LTS 2028 말까지 유지
 4. Standard Schema 어댑터 즉시 출시 (2026 Q2)
 5. Edge runtime (Cloudflare Workers, Vercel Edge) 완벽 호환
@@ -50,7 +52,7 @@ typia는 TypeScript 7 / tsgo 대응에 착수했습니다.
 **내용**:
 - Phase 1 완료
 - early adopter 초대
-- IPC 비용 실측 결과 (숨기지 않음)
+- 빌드 속도, 안정성, setup 이주 결과 공개
 
 ### 메시지 E (2027 Q2): ttsc v1.0 + typia v13
 
@@ -74,6 +76,7 @@ typia는 TypeScript 7 / tsgo 대응에 착수했습니다.
 - MVP milestone
 - LOC / 기능 진도
 - 투명한 지연 보고
+- 공통 코어와 typia adapter 분리 상태 공유
 
 ### 메시지 G (2029 Q2): typia v14
 

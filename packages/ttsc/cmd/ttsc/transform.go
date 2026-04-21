@@ -52,7 +52,9 @@ func runTransform(args []string) int {
 		}
 	}
 
-	prog, diags, err := driver.LoadProgram(cwd, *tsconfigPath)
+	prog, diags, err := driver.LoadProgram(cwd, *tsconfigPath, driver.LoadProgramOptions{
+		ForceEmit: true,
+	})
 	if err != nil {
 		fmt.Fprintf(stderr, "ttsc transform: %v\n", err)
 		return 2
@@ -100,15 +102,18 @@ func runTransform(args []string) int {
 
 	// Filter WriteFile to keep only the target file's output in memory.
 	var captured []byte
+	bestScore := 0
 	capture := func(name, text string, _ *shimcompiler.WriteFileData) error {
 		rel := filepath.ToSlash(name)
 		if !strings.HasSuffix(rel, ".js") {
 			return nil
 		}
-		if !sameSourceStem(rel, absFile) {
+		score := sharedSourceStemSegments(rel, absFile)
+		if score == 0 || score < bestScore {
 			return nil
 		}
 		captured = []byte(text)
+		bestScore = score
 		return nil
 	}
 	_, eDiags, err := prog.EmitAll(rewrites, capture)
@@ -144,10 +149,13 @@ func runTransform(args []string) int {
 	return 0
 }
 
-// sameSourceStem reports whether the emitted output path and the original
-// source path share a non-empty trailing segment sequence (after stripping
-// extensions). Matches `src/foo/bar.ts` ↔ `dist/foo/bar.js`.
-func sameSourceStem(outPath, srcPath string) bool {
+// sharedSourceStemSegments counts the shared trailing path segments between the
+// emitted output path and the original source path after stripping extensions.
+// `src/foo/bar.ts` ↔ `dist/foo/bar.js` returns 2, while unrelated paths return
+// 0. `ttsc transform` uses the highest score to pick the emitted JS that
+// belongs to the requested source file even when a project contains multiple
+// `index.ts` files.
+func sharedSourceStemSegments(outPath, srcPath string) int {
 	trim := func(p string) []string {
 		p = strings.TrimSuffix(p, filepath.Ext(p))
 		return strings.Split(p, "/")
@@ -164,5 +172,5 @@ func sameSourceStem(outPath, srcPath string) bool {
 		}
 		shared++
 	}
-	return shared > 0
+	return shared
 }

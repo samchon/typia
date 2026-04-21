@@ -108,9 +108,11 @@ export namespace McpControllerRegistrar {
       "server" in originalServer ? (originalServer as McpServer) : null;
 
     // Helper to get existing tools dynamically (supports tools registered after this call)
-    const getExistingTools = (): Record<string, any> =>
+    const getExistingTools = (): Record<string, any> => {
+      if (mcpServer === null) return {};
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      mcpServer ? ((mcpServer as any)._registeredTools ?? {}) : {};
+      return (mcpServer as any)._registeredTools ?? {};
+    };
 
     // Check for conflicts with existing McpServer tools at registration time
     for (const pair of Object.entries(getExistingTools())) {

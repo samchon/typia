@@ -1,0 +1,1 @@
+{"version":3,"file":"HttpFormDataTransformer.js","sourceRoot":"","sources":["HttpFormDataTransformer.ts"],"names":[],"mappings":";;;AAAA,sCAAqD;AAGrD,0EAAuE;AAEvE,IAAiB,uBAAuB,CAOvC;AAPD,WAAiB,uBAAuB;IACzB,iCAAS,GAAG,CAAC,KAAsB,EAAE,EAAE,CAClD,uCAAkB,CAAC,MAAM,iCACpB,KAAK,KACR,MAAM,EAAE,eAAe,EACvB,KAAK,EAAE,6BAAsB,CAAC,KAAK,IACnC,CAAC;AACP,CAAC,EAPgB,uBAAuB,uCAAvB,uBAAuB,QAOvC"}

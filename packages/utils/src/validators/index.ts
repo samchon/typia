@@ -10,5 +10,4 @@ export * from "./OpenApiV3_1TypeChecker";
 /** @internal */
 export * from "./SwaggerV2TypeChecker";
 
-/** @internal */
 export * from "./OpenApiValidator";

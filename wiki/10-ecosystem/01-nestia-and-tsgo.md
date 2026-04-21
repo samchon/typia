@@ -73,11 +73,14 @@ import { JsonMetadataFactory, MetadataFactory } from "@typia/core/...";
 
 ### 방안 A ★★★★★ 권장: ttsc에 nestia 기능 완전 흡수
 ```
-@typia/ttsc (단일 Go 바이너리)
+@typia/ttsc (build adapter + bridge)
 ├─ typia-go engine (metadata, 13 programmers)
 ├─ nestia-go driver (@Typed* 데코레이터 감지)
 ├─ nestia-go programmer 22 (Http*/Validate*/WebSocket 등)
 └─ openapi-go + sdk generator-go
+
+@typia/ttsx (runner)
+└─ @typia/ttsc 코어 재사용
 
 사용자: plugins = [
   { transform: "typia/lib/transform" },
@@ -121,29 +124,23 @@ import { JsonMetadataFactory, MetadataFactory } from "@typia/core/...";
 
 typia-go 100~150K + nestia 20~35K = **총 120~185K Go LOC** (ttsc 바이너리).
 
-## ttsc IPC API 설계 (런타임 접근용)
+## ttsc 연동 표면
 
-@nestia/sdk와 @nestia/migrate가 런타임에 Go engine 호출:
+지금 기준으로 nestia가 기대해야 할 것은 가상의 `@typia/ttsc/client` 가 아니라 다음 두 층이다.
 
-```ts
-// 가상 예
-import { TtscClient } from "@typia/ttsc/client";
+1. **현재 확정 표면**: `@typia/ttsc` CLI와 JS API (`build/check/transform`)
+2. **미래 추출 표면**: 공통 코어가 안정화된 뒤의 generic `ttsc` contract
 
-const ttsc = new TtscClient();
-const metadata = await ttsc.analyze({ sourceFile, typeName });
-const openApi = await ttsc.generateOpenApi({ metadata, version: "3.1" });
-```
-
-Phase 0 spike에서 **IPC 프로토콜 확정** 필수.
+즉, nestia는 당장 존재하지 않는 장기 IPC client에 걸지 말고, `@typia/ttsc` 기준의 adapter 경계를 먼저 맞춰야 한다.
 
 ## Phase별 이식 일정 (Agent 권고 5단계)
 
 | Phase | 시점 | nestia 작업 |
 |---|---|---|
-| **Phase 0** | 2026 Q2 | ttsc IPC API 스펙 + nestia-go driver 구조 설계 (산출: `wiki/17-nestia-integration-spec.md`) |
+| **Phase 0** | 2026 Q2 | `@typia/ttsc` adapter 경계 정리 + nestia-go driver 구조 설계 |
 | **Phase 1** | 2026 Q3-Q4 | nestia v12.1~12.3 minor — @typia/core 호출을 "타입 안전 wrapper"로 격리 (예: `createValidateWithFactory()`) |
 | **Phase 2** | 2027 Q1-Q2 | nestia-go transformer 기본 구현 (ttsc에서 @TypedRoute/Body 인식). @nestia/core v13-beta — deprecated marker + ttsc redirect 경고 |
-| **Phase 3** | 2027 Q3-Q4 | @nestia/sdk·migrate CLI를 ttsc IPC API 소비로 재구성. @nestia/sdk v13, @nestia/migrate v13 |
+| **Phase 3** | 2027 Q3-Q4 | @nestia/sdk·migrate CLI를 `@typia/ttsc` 연동 기준으로 재구성. 공통 코어가 검증되면 그때 generic API로 승격 |
 | **Phase 4** | 2028 이후 | **nestia v14 major** — Go transformer 완전. `prepare: ts-patch install` 자동 제거 (migrate script). migration guide 완성 |
 
 ## 사용자 마이그레이션 경로
@@ -184,7 +181,7 @@ tsgonest가 `tsgonest migrate --apply`로 nestia 자동 흡수 시도. nestia의
 
 ## samchon에게 구체적 실행 권고 5
 
-1. **Phase 0 (2026-06 말)**: ttsc의 "MetadataFactory IPC API" 스펙 + nestia-go driver 설계. 산출: `wiki/08-tsgo-master-plan/17-nestia-integration-spec.md`
+1. **Phase 0 (2026-06 말)**: `@typia/ttsc` adapter 경계와 nestia-go driver 설계 정리
 2. **Phase 1 (2026 Q3-Q4)**: nestia v12.1~12.3 — @typia/core 호출을 wrapper로 격리 (향후 swap 용이)
 3. **Phase 2 (2027 Q1-Q2)**: ttsc에 nestia-go driver 구현. @nestia/core v13-beta (deprecated 경고)
 4. **Phase 3 (2027 Q3-Q4)**: @nestia/sdk·migrate CLI를 ttsc IPC로 재구성. v13 출시
@@ -212,6 +209,6 @@ tsgonest가 `tsgonest migrate --apply`로 nestia 자동 흡수 시도. nestia의
 
 ## 한 줄 결론
 
-> **nestia의 핵심(@nestia/core transformer 8 + programmer 22)은 Go 포팅해 ttsc에 흡수. @nestia/sdk·migrate·editor는 TS 유지하되 ttsc IPC API를 소비하는 모델로 재구성. 2029 Q2 nestia v14 = Go native, typia v14와 동시 출시.**
+> **nestia의 핵심(@nestia/core transformer 8 + programmer 22)은 Go 포팅해 `@typia/ttsc` 공통 코어 후보 위에 얹는다. @nestia/sdk·migrate·editor는 TS 유지하되 현재는 `@typia/ttsc` 연동, 나중에 generic `ttsc` contract가 검증되면 그쪽으로 승격한다.**
 
 → 다음 [02-agentica.md](02-agentica.md)

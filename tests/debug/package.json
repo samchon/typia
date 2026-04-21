@@ -4,7 +4,7 @@
   "version": "12.0.2",
   "description": "Convenient debug program for typia",
   "scripts": {
-    "start": "ts-node src/index.ts"
+    "start": "ttsx src/index.ts"
   },
   "repository": {
     "type": "git",
@@ -21,11 +21,11 @@
   },
   "homepage": "https://typia.io",
   "devDependencies": {
+    "@typia/ttsx": "workspace:^",
     "@types/node": "catalog:utils",
     "@types/ts-expose-internals": "catalog:typescript",
     "@types/uuid": "catalog:utils",
     "rimraf": "catalog:utils",
-    "ts-node": "catalog:typescript",
     "typescript": "catalog:typescript"
   },
   "dependencies": {

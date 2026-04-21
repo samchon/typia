@@ -5,7 +5,7 @@
   "description": "Automated test features of typia.",
   "scripts": {
     "dev": "tsc --watch",
-    "start": "ts-node src/index.ts"
+    "start": "ttsx src/index.ts"
   },
   "repository": {
     "type": "git",
@@ -22,10 +22,10 @@
   },
   "homepage": "https://typia.io",
   "devDependencies": {
+    "@typia/ttsx": "workspace:^",
     "@types/node": "catalog:utils",
     "@types/ts-expose-internals": "catalog:typescript",
     "@types/uuid": "catalog:utils",
-    "ts-node": "catalog:typescript",
     "typescript": "catalog:typescript"
   },
   "dependencies": {

@@ -35,7 +35,8 @@ typia/
 │   ├── langchain/         # LangChain integration
 │   ├── mcp/               # MCP integration
 │   ├── vercel/            # Vercel AI SDK integration
-│   └── ttsc/              # Experimental tsgo/TypeScript 7 spike
+│   ├── ttsc/              # tsgo-backed compiler adapter
+│   └── ttsx/              # tsgo-backed runner
 ├── tests/                 # Test workspaces and generated test fixtures
 │   ├── template/          # Shared test structures package (@typia/template)
 │   └── test-*/            # Test suites
@@ -51,9 +52,9 @@ typia/
 
 There are three important build/setup paths in the repository:
 
-1. Stable current path: `typia` with `typia setup` and `ts-patch`
+1. Stable current path: `typia` with `typia setup`, `@typia/ttsc`, and `@typescript/native-preview`
 2. Stable alternative path: `@typia/unplugin` for bundler environments
-3. Experimental path: `@typia/ttsc` for the tsgo/TypeScript 7 transition
+3. Dedicated runner path: `@typia/ttsx` for `ts-node` / `tsx`-style execution
 
 For a concise repository status overview, see [CURRENT_STATUS.md](./CURRENT_STATUS.md).
 

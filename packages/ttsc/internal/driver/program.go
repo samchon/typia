@@ -45,6 +45,14 @@ type Program struct {
 	FS             vfs.FS
 }
 
+// LoadProgramOptions controls tsconfig overrides applied before tsgo creates
+// the program. `ForceEmit` is used by `ttsc build --emit` and `ttsc transform`
+// so runtime compilation still works when the project defaults to `noEmit`.
+type LoadProgramOptions struct {
+	ForceEmit bool
+	OutDir    string
+}
+
 // Close releases the checker pool lease acquired by LoadProgram.
 func (p *Program) Close() error {
 	if p.checkerRelease != nil {
@@ -98,7 +106,7 @@ func CreateProgramFromConfig(parsed *tsoptions.ParsedCommandLine, host shimcompi
 // the wrapped façade.
 //
 // cwd must be absolute; tsconfigPath may be relative to cwd.
-func LoadProgram(cwd, tsconfigPath string) (*Program, []Diagnostic, error) {
+func LoadProgram(cwd, tsconfigPath string, options LoadProgramOptions) (*Program, []Diagnostic, error) {
 	cwd = tspath.ResolvePath(cwd)
 	fs := DefaultFS()
 	host := DefaultHost(cwd, fs)
@@ -109,6 +117,12 @@ func LoadProgram(cwd, tsconfigPath string) (*Program, []Diagnostic, error) {
 	}
 	if len(diags) > 0 {
 		return nil, diags, nil
+	}
+	if options.ForceEmit {
+		forceEmit(parsed)
+	}
+	if options.OutDir != "" {
+		overrideOutDir(cwd, parsed, options.OutDir)
 	}
 
 	tsProgram, progDiags, err := CreateProgramFromConfig(parsed, host)
@@ -128,6 +142,22 @@ func LoadProgram(cwd, tsconfigPath string) (*Program, []Diagnostic, error) {
 		Host:           host,
 		FS:             fs,
 	}, nil, nil
+}
+
+func forceEmit(parsed *tsoptions.ParsedCommandLine) {
+	if parsed == nil || parsed.ParsedConfig == nil || parsed.ParsedConfig.CompilerOptions == nil {
+		return
+	}
+	options := parsed.ParsedConfig.CompilerOptions
+	options.NoEmit = core.TSFalse
+	options.EmitDeclarationOnly = core.TSFalse
+}
+
+func overrideOutDir(cwd string, parsed *tsoptions.ParsedCommandLine, outDir string) {
+	if parsed == nil || parsed.ParsedConfig == nil || parsed.ParsedConfig.CompilerOptions == nil {
+		return
+	}
+	parsed.ParsedConfig.CompilerOptions.OutDir = tspath.ResolvePath(cwd, outDir)
 }
 
 // SourceFiles exposes the program's user-authored source files (declaration

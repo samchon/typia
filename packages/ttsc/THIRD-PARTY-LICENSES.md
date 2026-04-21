@@ -11,7 +11,6 @@
 | tsgonest | https://github.com/tsgonest/tsgonest | **MIT** | Overall Go-binary-with-shim architecture reference; emit-time rewrite pattern |
 | effect-tsgo | https://github.com/Effect-TS/tsgo | (TBD Phase 0 W0) | Upstream-patch + Go-hook model reference |
 | typical | https://github.com/elliots/typical | (TBD Phase 0 W0) | MessagePack IPC prototype reference |
-| ts-patch | https://github.com/nonara/ts-patch | **MIT** | Plugin config schema compatibility reference |
 
 ## License compatibility
 

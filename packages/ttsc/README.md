@@ -6,6 +6,8 @@
 
 typia's build driver for [TypeScript 7 / tsgo](https://github.com/microsoft/typescript-go). A Go-native replacement for the current `tsc` + `ts-patch` pipeline.
 
+`@typia/ttsc` owns the build/check/transform core. The `ts-node` / `tsx`-style execute surface lives in the sibling package `@typia/ttsx`, which reuses this package's compiler discovery, transform, and cache helpers.
+
 See [wiki/08-tsgo-master-plan/17-phase0-kickoff.md](../../wiki/08-tsgo-master-plan/17-phase0-kickoff.md) for the detailed plan.
 
 ## Layout

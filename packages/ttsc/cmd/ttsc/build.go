@@ -22,6 +22,7 @@ func runBuild(args []string) int {
 	cwdOverride := fs.String("cwd", "", "override the working directory (defaults to process cwd)")
 	quiet := fs.Bool("quiet", false, "suppress the per-call diagnostic summary")
 	emit := fs.Bool("emit", false, "emit .js files (runs tsgo + ttsc rewrite)")
+	outDir := fs.String("outDir", "", "override compilerOptions.outDir for this build")
 	if err := fs.Parse(args); err != nil {
 		return 2
 	}
@@ -36,7 +37,10 @@ func runBuild(args []string) int {
 		}
 	}
 
-	prog, diags, err := driver.LoadProgram(cwd, *tsconfigPath)
+	prog, diags, err := driver.LoadProgram(cwd, *tsconfigPath, driver.LoadProgramOptions{
+		ForceEmit: *emit,
+		OutDir:    *outDir,
+	})
 	if err != nil {
 		fmt.Fprintf(stderr, "ttsc build: %v\n", err)
 		return 2

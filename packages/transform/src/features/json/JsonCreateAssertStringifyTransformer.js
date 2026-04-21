@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.JsonCreateAssertStringifyTransformer = void 0;
+const core_1 = require("@typia/core");
+const GenericTransformer_1 = require("../../internal/GenericTransformer");
+var JsonCreateAssertStringifyTransformer;
+(function (JsonCreateAssertStringifyTransformer) {
+    JsonCreateAssertStringifyTransformer.transform = (props) => GenericTransformer_1.GenericTransformer.factory(Object.assign(Object.assign({}, props), { method: "json.createAssertStringify", write: core_1.JsonAssertStringifyProgrammer.write }));
+})(JsonCreateAssertStringifyTransformer || (exports.JsonCreateAssertStringifyTransformer = JsonCreateAssertStringifyTransformer = {}));
+//# sourceMappingURL=JsonCreateAssertStringifyTransformer.js.map

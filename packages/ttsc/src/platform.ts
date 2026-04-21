@@ -20,6 +20,7 @@
  * detailed install hint.
  */
 
+import * as fs from "node:fs";
 import * as path from "node:path";
 
 export interface ResolveOptions {
@@ -106,6 +107,9 @@ export function resolveBinary(opts: ResolveOptions = {}): string | null {
   if (opts.localBinaryLookup) {
     const local = opts.localBinaryLookup();
     if (local) return local;
+  } else {
+    const local = defaultLocalBinaryPath(opts);
+    if (local) return local;
   }
 
   return null;
@@ -136,4 +140,14 @@ export function installHint(opts: ResolveOptions = {}): string {
     `If your platform is not in that list, open an issue at`,
     `https://github.com/samchon/typia/issues.`,
   ].join("\n");
+}
+
+function defaultLocalBinaryPath(opts: ResolveOptions): string | null {
+  const candidate = path.resolve(
+    __dirname,
+    "..",
+    "bin",
+    (opts.platform ?? process.platform) === "win32" ? "ttsc-native.exe" : "ttsc-native",
+  );
+  return fs.existsSync(candidate) ? candidate : null;
 }

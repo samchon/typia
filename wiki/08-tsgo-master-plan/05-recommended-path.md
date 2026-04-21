@@ -5,7 +5,7 @@
 ## 유일한 경로 요약
 
 ```
-ttsc + typia-go 동시 개발 (2026 Q2 ~ 2029 Q2)
+@typia/ttsc + typia-go 동시 개발 (2026 Q2 ~ 2029 Q2)
   +
 TS 6.x LTS 자동 병행 (ts-patch fork, 2028 말까지)
   +
@@ -61,6 +61,28 @@ START (2026 Q2)
 
 5개 모두 **경로 무관 즉시 실행**. 병렬 가능.
 
+## 제품 경로
+
+1. **현 단계**: typia monorepo 안에서 `@typia/ttsc` 를 완성한다.
+2. **중간 단계**: current bridge 구현과 최종 제품 계약을 분리한다.
+3. **후속 단계**: 공통 코어와 typia 어댑터를 내부에서 분리한다.
+4. **마지막 단계**: 두 번째 소비자까지 붙고 나면 generic `ttsc` 추출을 검토한다.
+
+지금은 1단계와 2단계를 함께 확정한다. 3과 4는 성공 기준을 충족했을 때만 진행한다.
+
+## 설치 모델 확정
+
+최종 제품 계약은 다음으로 고정한다.
+
+- **preview 기간**: `@typescript/native-preview` + `@typia/ttsc`
+- **7.0 GA 이후**: `typescript@7` + `@typia/ttsc`
+- `@typia/ttsc` 는 **공식 compiler를 재사용하는 adapter package** 다.
+- 실행 표면은 **별도 패키지 `@typia/ttsx`** 로 둔다.
+- `@typia/ttsx` 는 `@typia/ttsc` 의 compiler discovery / rewrite / cache 코어를 재사용한다.
+- 사용자가 **git repo `typescript-go` checkout** 이나 Go module import 를 직접 상대하게 만들지 않는다.
+
+현재 Phase 0 의 shim/linkname/단일 Go 바이너리 구현은 **bridge** 다. feasibility 와 성능 검증에는 유효하지만, 이 구현을 사용자-facing 설치 계약으로 굳히지 않는다.
+
 ## Phase 로드맵 (v2)
 
 | Phase | 기간 | 산출물 | 사용자 노출 |
@@ -77,7 +99,7 @@ START (2026 Q2)
 
 | 항목 | 현재 (v12) | 전환 후 (v13+) |
 |---|---|---|
-| 빌드 도구 | tsc + ts-patch | ttsc (단일 Go 바이너리) |
+| 빌드 도구 | tsc + ts-patch | `@typia/ttsc` + `@typescript/native-preview` (later `typescript@7`) |
 | @typia/core | TypeScript 30,307 LOC (전체 Go 포팅) | **Go (ttsc engine 안에)** |
 | @typia/transform | TypeScript (4K LOC) | **Go (ttsc driver에 흡수)** |
 | @typia/typia | TS (facade + CLI) | **TS 유지, 더 얇아짐** |
@@ -96,6 +118,15 @@ START (2026 Q2)
 3. Go 조력자 상태
 4. tsgonest 시장 지표
 5. Microsoft 공개 업데이트
+
+## generic `ttsc` 분리 기준
+
+다음이 모두 충족될 때만 분리를 검토한다.
+
+- `@typia/ttsc` 의 CLI와 JS API가 안정화됨
+- typia 내부 테스트와 setup 경로가 `@typia/ttsc` 기준으로 고정됨
+- 두 번째 소비자에서 공통 코어 경계가 검증됨
+- 분리해도 typia release cadence를 해치지 않음
 
 ## Kill Criteria (계획 파기 또는 전면 재조정)
 
@@ -116,8 +147,9 @@ START (2026 Q2)
 1. `typia.is<T>(input)` 한 자도 바뀌지 않는다
 2. `tsconfig.json plugins` 스키마 호환 (자동 마이그레이션)
 3. 13 namespace 전부 유지
-4. LLM / Protobuf / Edge runtime 차별점 유지
-5. `npx typia setup` 한 줄로 전환 완료
+4. `ttsc build` 와 함께 **`@typia/ttsx` 의 `ttsx src/index.ts` 실행 표면**을 제공한다
+5. LLM / Protobuf / Edge runtime 차별점 유지
+6. `npx typia setup` 한 줄로 전환 완료
 
 ## 한 줄 결론
 

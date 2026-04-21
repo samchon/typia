@@ -55,6 +55,8 @@ export interface BuildOptions extends CommonOptions {
   tsconfig?: string;
   /** Emit .js files to disk. Default: `true`. */
   emit?: boolean;
+  /** Override compilerOptions.outDir for this invocation. */
+  outDir?: string;
   /** Suppress the per-call summary banner. Default: `false`. */
   quiet?: boolean;
 }
@@ -131,6 +133,7 @@ export function build(options: BuildOptions = {}): BuildResult {
   const args = ["build"];
   if (options.tsconfig) args.push("--tsconfig=" + options.tsconfig);
   if (options.emit !== false) args.push("--emit");
+  if (options.outDir) args.push("--outDir=" + options.outDir);
   if (options.quiet) args.push("--quiet");
 
   const res = spawnSync(bin, args, {

@@ -9,6 +9,11 @@ export class TestGlobal {
     `${__dirname}/../../../packages/ttsc/bin/ttsc-native`,
   );
 
+  /** Absolute path to the workspace-linked ttsx launcher. */
+  public static readonly TTSX_BINARY: string = path.resolve(
+    `${__dirname}/../node_modules/.bin/${process.platform === "win32" ? "ttsx.cmd" : "ttsx"}`,
+  );
+
   /** Mirror of the helper used by the rest of the typia test suite. */
   public static getArguments(type: string): string[] {
     const from: number = process.argv.indexOf(`--${type}`) + 1;

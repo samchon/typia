@@ -1,141 +1,82 @@
-# 08. Implementation Timeline — 월 단위 일정
+# 08. Implementation Timeline
 
-> ⚠️ **이 문서의 "D-sequential" 용어는 v1 잔재**. 사용자가 "옵션 중 선택" 을 폐기하고 "ttsc+typia-go 통합"을 확정 후에도 일정 자체는 타당하므로 보존. "D-sequential" = **현재의 단일 경로(Phase 0~6)** 와 동의어로 읽으면 됨.
->
-> 통합 ecosystem(typia+nestia+agentica+autobe) 일정은 [../10-ecosystem/05-integrated-tsgo-transition.md](../10-ecosystem/05-integrated-tsgo-transition.md) 참조.
+> 자세한 첫 6주는 [17](17-phase0-kickoff.md), 현재 구현 상태는 [18](18-phase0-progress-report.md)를 본다.
 
-## 2026 Q2 (M0) — 공식 출발점 (v5 개정: 6-week spike)
+## 원칙
 
-> 상세 실행 가이드: [17-phase0-kickoff.md](17-phase0-kickoff.md)
+1. 먼저 `@typia/ttsc` 코어와 `@typia/ttsx` runner를 typia 전용 제품으로 안정화한다.
+2. 그 안에서 공통 코어와 typia 어댑터를 분리한다.
+3. generic `ttsc` 분리는 마지막에 검토한다.
 
-| 주 | 작업 | 담당 |
-|---|---|---|
-| W0 | 이름·상표·LICENSE·workspace 설계, Go 조력자 JD | samchon |
-| W1 | 저장소 스캐폴딩 + Go 조력자 공고 + 공식 입장문 draft | samchon |
-| W2 | typescript-go submodule + gen_shims + MetadataSchema Go struct | samchon (+ 조력자 후기) |
-| W3 | 경로 A/B 프로토타입 병행 (transform hook vs emit-time rewrite) | samchon |
-| W4 | 속도 측정 + sourcemap + Setup v2 + **공식 입장문 발행** | samchon |
-| W5 | Phase 0 리포트 + Phase 1 설계 + Edge 블로그 | samchon |
-| W1-5 | Standard Schema 문서화·확장 (이미 구현됨 → 확장), AI-native DX 템플릿 | contributor 위주 |
+## Phase 0 — 2026 Q2
 
-**Q2 종료 결정**: Phase 0 리포트 기반 Go/No-Go + Go 조력자 확보 판정. Abort gate는 Week 2/3/4 각각 존재.
+- `@typia/ttsc` 패키지 골격
+- `@typia/ttsx` 패키지 골격
+- tsgo 연결
+- rewrite 기반 end-to-end
+- setup/migration 초안
+- 속도·sourcemap·배포 검증
 
-## 2026 Q3~Q4 (M1~M2) — ttsc Phase 1
+출구 기준은 [17](17-phase0-kickoff.md)의 week gate를 따른다.
 
-| 월 | 작업 |
-|---|---|
-| M1 | Phase 1: 저장소 초기화, go.mod, flake.nix, gen_shims 복제 |
-| M1 | Minimum patch 시도 (hook import, emitter hook, plugins field) |
-| M2 | shim 13개 자동 생성 (tsgolint 패턴) |
-| M2 | ttsccore: PluginConfig 파싱 (ts-patch 스키마 호환) |
-| M3 | ttschooks: transform chain hook |
-| M3 | ttscbridge: MessagePack IPC (Go 측) |
-| M4 | @ttsc/node-bridge: AST 역직렬화, Program proxy |
-| M4 | @ttsc/cli: Node launcher, 바이너리 spawn |
-| M5 | 최소 end-to-end: `typia.is<string>(input)` 변환 성공 |
-| M6 | **Phase 1 Exit**: walking skeleton 완성 |
+## Phase 1 — 2026 Q3~Q4
 
-**M6 종료 결정 (v5 개정)**: v2 통합 모델에서 Node bridge 제거됨 → 파일당 IPC 오버헤드 개념 소멸. 새 측정 기준은 **tsc+ts-patch 대비 빌드 속도 배수** (17번 Phase 0 리포트에서 실측).
+- validators 핵심 경로 안정화
+- CLI `build/check/transform/version` 정리
+- JS API 정리
+- `ttsx` CJS runner 정리
+- typia workspace dogfooding 시작
+- 7플랫폼 빌드/배포 정착
 
-- **≥ 3×** 빠르면 → Phase 2 착수
-- **2~3×** → 최적화 스프린트 1개월
-- **< 2×** → 병목 profiling + 재설계
+목표: `@typia/ttsc` 가 typia preview의 실제 빌드 도구가 되는 것.
 
-## 2027 Q1~Q2 (M7~M12) — ttsc Phase 2~3
+## Phase 2 — 2027 Q1~Q2
 
-| 월 | 작업 |
-|---|---|
-| M7 | typia validators (is/assert/validate/equals) 100% 통과 |
-| M8 | typia json (schema/stringify/parse) 통과 |
-| M9 | typia llm + protobuf + random + misc 통과 |
-| M10 | 5 transformer types 지원, 3rd party (ts-runtime-checks 등) 검증 |
-| M11 | watch / incremental / diagnostics |
-| M12 | CI 7 플랫폼 빌드, 서명, npm 배포 자동화 |
+- `is/assert/validate/equals` parity 확대
+- JSON 경로 본격 이식
+- diagnostics/watch/incremental 정리
+- `npx typia setup` 마이그레이션 자동화
 
-**M12 종료**: ttsc v1.0 출시 + typia v13 릴리스 (2027 Q2)
+목표: **typia v13 preview / stable의 최소 성립선** 확보.
 
-## 2027 Q3 (M13~M15) — 전환점
+## Phase 3 — 2027 Q3~Q4
 
-**조건 분기**:
-- Go 조력자 확보 → typia-go Phase 0 spike 착수
-- 미확보 → ttsc 유지, C 연기
-- tsgonest 50%+ 시장 잠식 → 긴급 C 가속
+- JSON 완성도 향상
+- factory/createX 계열 정리
+- LLM/HTTP/Misc 우선순위 재정렬
+- 두 번째 소비자 후보와 공통 코어 경계 검증 시작
 
-| 월 | 작업 (조력자 확보 시나리오) |
-|---|---|
-| M13 | typia-go 저장소 초기화, 빌드 인프라 |
-| M13 | typescript-go submodule + shim 자동 생성 |
-| M14 | metadata schema (1,500 LOC) + analyzer 기초 |
-| M15 | `typia.is<T>()` Go native 변환 증명 |
+목표: typia 전용 구현과 공통 코어 사이의 실제 경계를 문서가 아니라 코드로 증명하는 것.
 
-## 2027 Q4~2028 Q2 (M16~M21) — typia-go M1~M2
+## Phase 4 — 2028 Q1~Q2
 
-| 월 | 작업 |
-|---|---|
-| M16 | analyzer 완성 (union, intersection, recursive, generic) |
-| M17 | IsProgrammer/AssertProgrammer/ValidateProgrammer Go 구현 |
-| M18 | UnionExplorer, CheckerProgrammer 분리·이식 |
-| M19 | typia validators 100% 통과 (Go) |
-| M20 | json.schema + json.stringify 포팅 |
-| M21 | json.parse + application + functional |
+- LLM, OpenAPI, schema 계열 강화
+- ecosystem dogfooding 확대
+- `@typia/ttsc` API 안정화
 
-**M21 종료**: typia-go **v0.5 alpha** (validators + json) — 시장 피드백
+목표: typia 중심 제품으로서는 충분히 완성된 상태에 도달하는 것.
 
-## 2028 Q3 (M22~M24) — typia-go M3 (LLM MVP)
+## Phase 5 — 2028 Q3~Q4
 
-| 월 | 작업 |
-|---|---|
-| M22 | llm.schema, llm.parameters 포팅 |
-| M23 | llm.application, llm.controller |
-| M24 | llm.structuredOutput + MCP/LangChain/Vercel 어댑터 검증 |
+- nestia 같은 두 번째 소비자 연결
+- 공통 driver/runtime 계층 분리
+- typia adapter와 공통 코어의 계약 정련
 
-**M24 종료**: typia-go **v0.9 beta** (validators + json + llm) — AutoBE/Agentica 내부 전환
+목표: generic extraction 가능성 검증.
 
-## 2028 Q4 (M25~M27) — typia-go M4 (Misc + HTTP)
+## Phase 6 — 2029 Q1~Q2
 
-| 월 | 작업 |
-|---|---|
-| M25 | misc (clone/prune/literals) |
-| M26 | notations + reflect + functional |
-| M27 | http.formData/queryObject/headers/parameter |
+- generic `ttsc` 분리 여부 최종 판단
+- 분리 시: 코어 추출 + typia adapter 유지
+- 미분리 시: `@typia/ttsc` 유지하되 내부 계층만 확정
 
-## 2029 Q1 (M28~M30) — typia-go M5 (Specialized)
+목표는 분리 자체가 아니라 **지속 가능한 구조** 다.
 
-| 월 | 작업 |
-|---|---|
-| M28 | random (RandomProgrammer 이식, 3,000 LOC) |
-| M29 | protobuf encode/decode/message |
-| M30 | 전체 통합 + CI + 벤치마크 공개 |
+## 병행 활동
 
-## 2029 Q2 (M31~M33) — typia-go v1.0 출시
+- TS 6.x LTS 유지
+- tsgo upstream 추적
+- 시장 모니터링
+- 문서·블로그·커뮤니티 소통
 
-| 월 | 작업 |
-|---|---|
-| M31 | ttsc → typia-go migration 가이드 + codemod |
-| M32 | typia v14 릴리스 = Go native |
-| M33 | 컨퍼런스 발표 (TSConf, Korea JS) + 블로그 시리즈 |
-
-**M33 종료**: ttsc deprecation 공지 시작, TS 6.x LTS 종료 (2028 말 예정에 맞춤)
-
-## 전체 요약
-
-```
-2026 Q2  ─ 공식 입장문 + Standard Schema + Phase 0 spike + Edge 홍보 + AI DX
-2026 Q3-Q4 ─ ttsc Phase 1 (walking skeleton)
-2027 Q1-Q2 ─ ttsc Phase 2-3, v1.0 출시 (typia v13)
-2027 Q3  ─ Go 조력자 확보 / typia-go 착수
-2027 Q4-2028 Q2 ─ typia-go M1-M2 (validators + json)
-2028 Q3  ─ typia-go M3 (LLM MVP) = v0.9 beta
-2028 Q4  ─ typia-go M4 (Misc + HTTP)
-2029 Q1  ─ typia-go M5 (random + protobuf)
-2029 Q2  ─ typia-go v1.0 = typia v14
-```
-
-## 병행 활동 (전 기간)
-
-- TS 6.x LTS 유지 (ts-patch fork, 보안 패치만)
-- 매 tsgo release 대응 (shim 재생성, patch rebase)
-- 매 분기 tsgonest/typical 시장 모니터링
-- 컨퍼런스 · 블로그 · 커뮤니티 (매월 최소 1건)
-
-→ 다음 [09. 리스크 대장](09-risk-register.md)
+→ 다음 [09. Risk Register](09-risk-register.md)

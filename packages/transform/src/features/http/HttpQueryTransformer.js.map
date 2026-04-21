@@ -1,0 +1,1 @@
+{"version":3,"file":"HttpQueryTransformer.js","sourceRoot":"","sources":["HttpQueryTransformer.ts"],"names":[],"mappings":";;;AAAA,sCAAkD;AAGlD,0EAAuE;AAEvE,IAAiB,oBAAoB,CAOpC;AAPD,WAAiB,oBAAoB;IACtB,8BAAS,GAAG,CAAC,KAAsB,EAAE,EAAE,CAClD,uCAAkB,CAAC,MAAM,iCACpB,KAAK,KACR,MAAM,EAAE,YAAY,EACpB,KAAK,EAAE,0BAAmB,CAAC,KAAK,IAChC,CAAC;AACP,CAAC,EAPgB,oBAAoB,oCAApB,oBAAoB,QAOpC"}

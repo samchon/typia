@@ -17,8 +17,9 @@ This is the main product line behind the current `typia` v12 workflow.
 Default setup:
 
 - `npx typia setup`
-- `ts-patch`
-- TypeScript transformer flow
+- `@typia/ttsc`
+- `@typescript/native-preview`
+- `ttsc` / `ttsx` flow
 
 ### Stable alternative path
 
@@ -41,13 +42,13 @@ Current example:
 ### Experimental transition path
 
 - `@typia/ttsc`
+- `@typia/ttsx`
 
-`@typia/ttsc` exists in the repository as a real package and Phase 0 spike for the tsgo / TypeScript 7 transition. It is not the default installation path for `typia` today.
+`@typia/ttsc` and `@typia/ttsx` exist in the repository as real packages and the current tsgo / TypeScript 7 transition surface. They now back the default `typia setup` path, but still require stricter local scrutiny than the rest of the root test matrix.
 
 Current repository policy:
 
-- experimental package
-- not part of the normal `package:latest` publish path
+- transition package
 - requires its own test/build scrutiny beyond the root default `pnpm test`
 
 ## Test Boundaries

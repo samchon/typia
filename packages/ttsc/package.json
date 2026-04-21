@@ -10,7 +10,7 @@
   "exports": {
     ".": {
       "types": "./lib/index.d.ts",
-      "import": "./lib/index.mjs",
+      "import": "./lib/index.js",
       "default": "./lib/index.js"
     },
     "./package.json": "./package.json"
@@ -55,8 +55,7 @@
     "tsgo",
     "typescript-go",
     "transformer",
-    "ttsc",
-    "ts-patch"
+    "ttsc"
   ],
   "packageManager": "pnpm@10.6.4",
   "publishConfig": {

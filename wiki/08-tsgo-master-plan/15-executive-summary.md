@@ -4,7 +4,7 @@
 
 > **typescript-go를 직접 정복하지 않는 한 typia에게 미래는 없다.**
 
-ts-patch 경로는 tsgo에서 **구조적으로 불가능**하다. 대체 경로는 없다. TS 6.x LTS는 시간 매수일 뿐 해답이 아니다. **ttsc(driver)와 typia-go(engine)는 양자택일이 아니라 한 몸이다** — ttsc는 tsgo 파이프라인의 진입점, typia-go는 그 안에서 실행되는 엔진. 한 Go 바이너리에 통합.
+ts-patch 경로는 tsgo에서 **구조적으로 불가능**하다. 다만 최종 제품 계약은 **tsgo 내장형 독자 compiler** 가 아니라 **공식 compiler + `@typia/ttsc` adapter** 다. TS 6.x LTS는 시간 매수일 뿐 해답이 아니고, current internal Go spike 는 그 사이를 메우는 bridge 다.
 
 ## 위기의 실체
 
@@ -16,12 +16,14 @@ ts-patch 경로는 tsgo에서 **구조적으로 불가능**하다. 대체 경로
 
 ## 해답의 실체 (택일 아님)
 
-**ttsc + typia-go를 처음부터 함께 만든다**:
+**`@typia/ttsc` + `@typia/ttsx` + official compiler side-by-side + bridge/engine 동시 개발**:
 
-- **ttsc** = typescript-go에 hook을 꽂는 드라이버. tsgonest/tsgolint/effect-tsgo가 검증한 `shim + 최소 patch` 하이브리드.
-- **typia-go** = ttsc 안에서 실행되는 엔진. MetadataFactory + 13 Programmers의 Go 재구현.
+- **`@typia/ttsc`** = typia monorepo 안에서 개발되는 현재 제품. 공식 compiler 위에 typia build/run surface 를 올리는 adapter.
+- **`@typia/ttsx`** = `ts-node`/`tsx` 대체 runner. `@typia/ttsc` 코어를 재사용하는 별도 패키지.
+- **official compiler** = 지금은 `@typescript/native-preview`, 나중에는 `typescript@7`.
+- **bridge / typia engine** = upstream API 공백 동안 필요한 내부 구현. current spike 는 Go driver + Go engine.
 
-두 프로젝트는 **동일 Go 바이너리** 내에서 결합 가능. 개발 순서는 **ttsc 스캐폴딩이 typia-go의 뼈대를 우선 담고, typia-go가 채워지면서 완성**.
+개발 순서는 **공식 compiler reuse 계약을 먼저 고정하고**, 그 위에 bridge 와 engine 을 단계적으로 교체하는 방식이다.
 
 ## 패키지 포팅 경계 (Layer 원칙)
 
@@ -31,7 +33,7 @@ ts-patch 경로는 tsgo에서 **구조적으로 불가능**하다. 대체 경로
 | L1 Facade | `@typia/typia` | **TS 유지, 얇게** | 사용자가 import하는 marker API. 실체는 ttsc가 빌드 타임 치환 |
 | L2 Engine | `@typia/core` + `@typia/transform` | **Go 포팅 필수** | MetadataFactory + 13 Programmers. ttsc 안으로 흡수 |
 | L3 Runtime helpers | `@typia/utils` (런타임 부분) | **TS 유지** | emit된 JS에 import되는 헬퍼. Node/Edge/Bun 실행 |
-| L4 Build | `@typia/ttsc` (신규) + `@typia/unplugin` | **Go 본체 + TS 얇은 launcher** | 사용자 빌드 통합 |
+| L4 Build | `@typia/ttsc` + `@typia/ttsx` + `@typia/unplugin` | **Go bridge + TS adapter/runner** | 사용자 빌드/실행 통합 |
 | L5 LLM adapters | `@typia/mcp`, `langchain`, `vercel` | **TS 유지** | 외부 Node SDK peer 의존 |
 
 상세: [16-package-port-boundary.md](16-package-port-boundary.md) (신규).
@@ -39,15 +41,18 @@ ts-patch 경로는 tsgo에서 **구조적으로 불가능**하다. 대체 경로
 ## 전환 후 최종 모습
 
 ```
-@typia/typia           (TS, ~2K LOC)     ← 사용자 import 지점
+@typia/typia           (TS, thin facade) ← 사용자 import 지점
   ↓  (typia.is<T> 마커)
-@typia/ttsc            (Go binary + Node launcher)  ← 빌드 타임 치환
-  ↓  (typescript-go 호출)
-typescript-go          (submodule + shim + 최소 patch)
-  ↓  (metadata extraction)
-typia-go engine        (Go, 100~150K LOC)  ← MetadataFactory + Programmers
-  ↓  (emit)
-사용자 .js 파일        (static, zero typia runtime)  ← Edge runtime 호환
+@typia/ttsc            (현재 제품)        ← build adapter
+  └─ ttsc build/check/transform
+@typia/ttsx            (별도 제품)        ← runner
+  └─ ttsx src/index.ts
+       ↓  (reuse @typia/ttsc core)
+official compiler      (`@typescript/native-preview`, later `typescript@7`)
+       ↓
+bridge / typia engine  (현재는 shim + Go spike, 장기적으로 공식 경계 재사용)
+       ↓
+사용자 .js 파일        (static, zero typia runtime) ← Edge runtime 호환
   + @typia/utils       (TS 헬퍼 import)
 ```
 
@@ -68,17 +73,26 @@ typia emit은 `eval`/`new Function(code)` 사용 안 함 → **Cloudflare Worker
 
 | 시점 | 마일스톤 |
 |---|---|
-| 2026 Q2 | 공식 출발, spike, Go 조력자 확보 공지 |
-| 2026 Q4 | ttsc walking skeleton + typia-go analyzer 기초 |
-| 2027 Q2 | ttsc 0.5 + typia-go alpha (validators + json) = **typia v13 preview** |
-| 2028 Q2 | typia-go MVP (+ LLM) = typia v13 stable |
-| 2029 Q2 | typia-go v1.0 (13 namespace 전체) = **typia v14** |
+| 2026 Q2 | `@typia/ttsc` 공식 출발, spike, 조력자 확보 공지 |
+| 2026 Q4 | `@typia/ttsc` walking skeleton + Go engine analyzer 기초 |
+| 2027 Q2 | `@typia/ttsc` preview = **typia v13 preview** |
+| 2028 Q2 | typia 중심 제품으로 안정화 |
+| 2029 Q2 | generic extraction 가능 여부 최종 판단 |
+
+## 패키징 원칙
+
+- 지금은 **`@typia/ttsc`**
+- runner는 **`@typia/ttsx`**
+- 설치 계약은 **공식 compiler + `@typia/ttsc` side-by-side**
+- 나중에 공통 코어가 검증되면 **generic `ttsc`**
+- 지금 repo 분리를 강행하지 않는다
 
 ## 사용자 약속 (불변)
 
 - `typia.is<T>(input)` 한 자도 바뀌지 않는다
 - `tsconfig.json plugins` 스키마 호환
 - 빌드 명령어 `tsc` → `ttsc` (자동화로 한 번에)
+- 실행 명령어 `tsx` / `ts-node` 류에 대응하는 **`@typia/ttsx` 의 `ttsx src/index.ts`** 를 제공한다
 - 13 namespace 전부 유지
 - LLM/Protobuf/Edge runtime 차별점 유지
 
@@ -86,11 +100,11 @@ typia emit은 `eval`/`new Function(code)` 사용 안 함 → **Cloudflare Worker
 
 1. **R8 samchon 번아웃** → 조력자 + 재정 + 범위 관리
 2. **R3 tsgonest 선점** → 2028 Q2 LLM MVP 조기 출시로 방어
-3. **R4 Go linkname 1.27+ 제약** → typescript-go와 handshake 협약
+3. **R4 upstream API 미성숙** → current bridge 를 유지하되 공식 compiler side-by-side 계약을 먼저 고정
 
 ## 한 문장
 
-> **ttsc와 typia-go를 동시에 만들어 typescript-go를 정복한다. 사용자 API는 불변, 구현은 Go로 이주, 3년 뒤 typia는 tsgo 시대의 de-facto 자리를 지킨다.**
+> **지금은 `@typia/ttsc` 로 typia 빌드 코어를 먼저 살리고, `@typia/ttsx` 로 실행 표면을 분리한다. 설치 계약은 공식 compiler와의 side-by-side 로 고정하고, current Go spike 는 bridge 로만 본다.**
 
 ---
 

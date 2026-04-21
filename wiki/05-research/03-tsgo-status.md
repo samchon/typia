@@ -16,6 +16,7 @@
   - Build / `--incremental` / project references: 지원
   - Watch: 프로토타입
   - **API: "not ready" — 공식 README 명시**
+  - **tooling workaround 공식 제시**: 필요한 경우 `typescript` 와 `@typescript/native-preview` 를 side-by-side 설치해 6.0 API tooling 과 7.0 build 를 병행
 
 [추정] 1.0 Stable은 2026 Q3 말~Q4 초 가능. API 레이어(typia가 필요로 하는 부분)는 GA 이후로 늦춰질 가능성 높음.
 
@@ -24,6 +25,7 @@
 [사실]
 - "**TypeScript 7.0은 기존 Strada API를 지원하지 않음**" (DevBlog 공식).
 - Discussion #455 (Daniel Rosenwasser, 2025-03-11): "API 소비자는 동일 프로세스 내에서 통신하지 않을 것. **IPC 레이어를 거치는 메시지 패싱**."
+- Issue #2824 (andrewbranch, 2026-02-18): TS 6.x 의 server plugin 직접 로드는 Go 구현에서 불가능. 대체는 **IPC 기반 API + TypeScript client library**.
 - **FFI/동일 프로세스 내 플러그인 로드는 기술적으로 불가능** — Go 런타임 다중 로드 문제 (jakebailey).
 - andrewbranch: "Watch API는 매우 불확실".
 - RyanCavanaugh: semver는 지킨다 — "더 나은 버저닝을 위해 의도적 설계".
@@ -66,7 +68,19 @@
 - TS 6.x 병행 유지. Strada(JS) 코드베이스는 7.x 성숙까지 LTS.
 - 7.0은 에디터 기본값 아닌 **opt-in VS Code 확장**으로 먼저.
 - `@typescript/native-preview` → 7.0 GA → 점진적 기본 전환.
+- 2025-12 DevBlog는 **"editor-side Strada-specific functionality (e.g. language service plugins)" 가 필요하면 6.0 editor + 7.0 build 병행** 을 공식 workaround 로 제시.
 - Strada API 의존 도구의 공식 마이그레이션 가이드는 **아직 없음**.
+
+## 6.5. typia/ttsc 에 대한 직접 함의
+
+[사실]
+- `typescript-go` 를 외부 패키지가 **Go module import** 형태로 재사용하는 것은 공식 방향이 아니다.
+- Microsoft가 열고 있는 경계는 **CLI / VS Code extension / IPC API / TypeScript client** 쪽이다.
+- public Go API 는 2025-03 Discussion #481에서 **"unlikely side"** 로 답변되었다.
+
+[결론]
+- typia 계열 도구의 **최종 설치 계약**은 `@typescript/native-preview`/향후 `typescript@7` + `@typia/ttsc` 의 **side-by-side** 가 자연스럽다.
+- 다만 2026-04 현재 공식 API가 아직 불안정하므로, 내부 shim·bridge 같은 **한 차례 우회 구현** 은 현실적으로 필요하다.
 
 ## 7. 커뮤니티 라이브러리 대응
 
@@ -96,6 +110,7 @@
 - [DevBlog — Announcing TypeScript Native Previews](https://devblogs.microsoft.com/typescript/announcing-typescript-native-previews/)
 - [microsoft/typescript-go README](https://github.com/microsoft/typescript-go)
 - [Discussion #455 — What is the API story?](https://github.com/microsoft/typescript-go/discussions/455)
+- [Discussion #481 — Potential Public-Facing Go API for Embedding?](https://github.com/microsoft/typescript-go/discussions/481)
 - [Issue #516 — Transformer Plugin or Compiler API](https://github.com/microsoft/typescript-go/issues/516)
 - [PR #711 — Scaffold IPC-based API](https://github.com/microsoft/typescript-go/pull/711)
 - [Issue #2824 — API usage patterns for editor extensions](https://github.com/microsoft/typescript-go/issues/2824)

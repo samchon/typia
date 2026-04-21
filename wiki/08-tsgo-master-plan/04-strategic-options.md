@@ -7,7 +7,7 @@
 | 이전 옵션 | 재평가 |
 |---|---|
 | A: TS 6.x LTS 유지 | 시간 매수일 뿐. 2027~28 신규 사용자 0. 자체 해답 아님. **병행 맥락으로만 의미**. |
-| B: ttsc wrapper | 그 자체로 끝이 아님. **typia-go 없이는 Node bridge IPC 비용으로 성능 무너짐**. |
+| B: wrapper만 만들기 | 그 자체로 끝이 아님. 결국 engine 포팅이 필요하다. wrapper만 일반화해도 본질 문제가 안 풀린다. |
 | C: typia-go 완전 재구현 | ttsc 스캐폴딩 없이는 **사용자에게 닿지 않음** — 빌드 파이프라인 통합 수단 없음. |
 | D: 단기 B, 장기 C | 순차 전환 발상이 잘못. **처음부터 함께** 해야 중복 투자 안 남음. |
 
@@ -62,11 +62,19 @@ npm run build             # tsc + patched transformer
 
 # 전환 후 (v13+)
 npm i -D typia
-npx typia setup           # ttsc 바이너리 install
+npx typia setup           # @typia/ttsc + @typia/ttsx + 공식 compiler install
 npm run build             # ttsc (내부적으로 Go engine + typescript-go)
+ttsx src/index.ts         # 실행 경로
 ```
 
 tsc/ts-patch 의존 **완전 제거**.
+
+### 관점 5. 제품 단계도 두 단계로 나눠야 한다
+
+- **지금**: typia monorepo의 `@typia/ttsc` + `@typia/ttsx`
+- **나중**: 공통 코어가 안정화된 뒤의 generic `ttsc`
+
+이 둘을 한 번에 합치면 공통 API를 너무 일찍 얼려버린다. 지금은 typia를 먼저 통과시키고, 그 다음에야 분리를 검토한다.
 
 ## TS 6.x LTS는 어떻게 되는가
 
