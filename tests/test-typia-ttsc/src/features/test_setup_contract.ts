@@ -86,7 +86,10 @@ export async function test_setup_contract(): Promise<void> {
         strictNullChecks?: boolean;
       };
     };
-    assert.deepEqual(parsed.compilerOptions.plugins, [{ name: "keep-me" }]);
+    assert.deepEqual(parsed.compilerOptions.plugins, [
+      { name: "keep-me" },
+      { transform: "@typia/ttsc/plugin/typia" },
+    ]);
     assert.equal(parsed.compilerOptions.skipLibCheck, true);
     assert.equal(parsed.compilerOptions.strictNullChecks, true);
   } finally {

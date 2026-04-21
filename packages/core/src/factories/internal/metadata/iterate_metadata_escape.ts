@@ -1,4 +1,4 @@
-import ts from "typescript";
+import ts from "@typescript/native-preview";
 
 import { MetadataEscaped } from "../../../schemas/metadata/MetadataEscaped";
 import { MetadataSchema } from "../../../schemas/metadata/MetadataSchema";

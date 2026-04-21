@@ -26,6 +26,10 @@ func (a *Analyzer) iterateObject(out *metadata.Schema, t *shimchecker.Type) bool
 	a.visitingObjects[key] = obj
 
 	if fresh {
+		if len(shimchecker.Checker_getIndexInfosOfType(a.Checker, t)) != 0 {
+			delete(a.visitingObjects, key)
+			return false
+		}
 		// Populate properties only once; subsequent references share the
 		// same ObjectType pointer.
 		properties := shimchecker.Checker_getPropertiesOfType(a.Checker, t)
@@ -40,9 +44,8 @@ func (a *Analyzer) iterateObject(out *metadata.Schema, t *shimchecker.Type) bool
 			}
 			valueSchema, ok := a.Walk(propType)
 			if !ok {
-				// Skip unsupported property shapes rather than aborting — matches
-				// typia's graceful degradation.
-				continue
+				delete(a.visitingObjects, key)
+				return false
 			}
 			if sym.Flags&ast.SymbolFlagsOptional != 0 {
 				valueSchema.Optional = true

@@ -16,8 +16,14 @@ func EmitMiscLiteralsExpression(schema *metadata.Schema) (string, error) {
 	if schema == nil {
 		return "", errors.New("emitter: nil schema")
 	}
+	if !schema.IsConstant() || len(schema.Constants) == 0 {
+		return "", fmt.Errorf("%w: misc.literals requires literal unions", ErrUnsupportedSchema)
+	}
 	values := make([]string, 0)
 	for _, c := range schema.Constants {
+		if c.Type == metadata.AtomicBigint {
+			return "", fmt.Errorf("%w: misc.literals does not support bigint literals", ErrUnsupportedSchema)
+		}
 		for _, v := range c.Values {
 			values = append(values, jsLiteral(c.Type, v.Value))
 		}

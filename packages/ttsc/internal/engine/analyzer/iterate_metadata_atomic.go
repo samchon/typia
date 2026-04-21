@@ -11,6 +11,9 @@ import (
 // zero (literal values are picked up by `iterateConstant`).
 func (a *Analyzer) iterateAtomic(out *metadata.Schema, t *shimchecker.Type) bool {
 	flags := t.Flags()
+	if flags&shimchecker.TypeFlagsTemplateLiteral != 0 || flags&shimchecker.TypeFlagsStringMapping != 0 {
+		return false
+	}
 	table := []struct {
 		flag metadata.AtomicKind
 		mask shimchecker.TypeFlags

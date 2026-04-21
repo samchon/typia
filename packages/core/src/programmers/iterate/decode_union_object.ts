@@ -1,4 +1,4 @@
-import ts from "typescript";
+import ts from "@typescript/native-preview";
 
 import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
 import { FeatureProgrammer } from "../internal/FeatureProgrammer";

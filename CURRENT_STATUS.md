@@ -46,6 +46,12 @@ Current example:
 
 `@typia/ttsc` and `@typia/ttsx` exist in the repository as real packages and the current tsgo / TypeScript 7 transition surface. They now back the default `typia setup` path, but still require stricter local scrutiny than the rest of the root test matrix.
 
+Current architecture note:
+
+- `ttsc` / `ttsx` are the general host and runner surfaces
+- typia is the first built-in consumer plugin on that host
+- the current package names remain `@typia/ttsc` / `@typia/ttsx` inside this monorepo
+
 Current repository policy:
 
 - transition package

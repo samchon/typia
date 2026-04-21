@@ -13,10 +13,8 @@
   "author": "Jeongho Nam",
   "license": "MIT",
   "devDependencies": {
-    "@typia/ttsx": "workspace:^",
     "@types/node": "catalog:utils",
-    "@types/ts-expose-internals": "catalog:typescript",
-    "typescript": "catalog:typescript"
+    "@typia/ttsx": "workspace:^"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.26.0",

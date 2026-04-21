@@ -1,12 +1,11 @@
 import commonjs from "@rollup/plugin-commonjs";
 import nodeResolve from "@rollup/plugin-node-resolve";
-import typescript from "@rollup/plugin-typescript";
 import autoExternal from "rollup-plugin-auto-external";
 import nodeExternals from "rollup-plugin-node-externals";
 import { globSync } from "tinyglobby";
 
 export default {
-  input: globSync("./src/**/*.ts"),
+  input: globSync("./lib/**/*.js"),
   external: (id) => /node_modules/.test(id),
   output: {
     dir: "./lib",
@@ -19,17 +18,12 @@ export default {
       return `[name].mjs`;
     },
     preserveModules: true,
-    preserveModulesRoot: "src",
+    preserveModulesRoot: "lib",
   },
   plugins: [
     nodeExternals(),
     autoExternal(),
     nodeResolve(),
     commonjs(),
-    typescript({
-      tsconfig: "tsconfig.json",
-      module: "ESNext",
-      target: "ESNext",
-    }),
   ],
 };

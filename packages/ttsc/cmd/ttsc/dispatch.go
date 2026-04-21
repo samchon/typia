@@ -36,6 +36,12 @@ func dispatchEmit(module, method string, schema *metadata.Schema) (string, bool,
 		// MCP / Hono / Next.js Server Actions can consume the function.
 		expr, err := emitter.EmitCreateValidateWithStandardSchema(schema)
 		return expr, true, err, true
+	case module == "module" && method == "random":
+		expr, err := emitter.EmitRandomArrowFunction(schema)
+		return expr, false, err, true
+	case module == "module" && method == "createRandom":
+		expr, err := emitter.EmitCreateRandomArrowFunction(schema)
+		return expr, false, err, true
 	case module == "json" && method == "stringify":
 		expr, err := emitter.EmitJsonStringifyArrowFunction(schema)
 		return expr, false, err, true
@@ -54,6 +60,11 @@ func dispatchEmit(module, method string, schema *metadata.Schema) (string, bool,
 	case module == "json" && method == "schema":
 		// typia.json.schema<T>() takes no args; rewriter consumes the `()`.
 		expr, err := emitter.EmitJsonSchemaExpression(schema)
+		return expr, true, err, true
+	case module == "json" && method == "schemas":
+		// typia.json.schemas<[A, B]>() also takes no args and returns the
+		// collection value directly.
+		expr, err := emitter.EmitJsonSchemasExpression(schema)
 		return expr, true, err, true
 	case module == "misc" && method == "literals":
 		expr, err := emitter.EmitMiscLiteralsExpression(schema)
@@ -82,6 +93,12 @@ func dispatchEmit(module, method string, schema *metadata.Schema) (string, bool,
 	case module == "http" && (method == "headers" || method == "formData"):
 		// Headers/FormData share the string-in-structured-out shape; reuse.
 		expr, err := emitter.EmitHttpQueryObjectArrowFunction(schema)
+		return expr, false, err, true
+	case module == "llm" && method == "structuredOutput":
+		expr, err := emitter.EmitLlmStructuredOutputExpression(schema)
+		return expr, true, err, true
+	case module == "llm" && method == "controller":
+		expr, err := emitter.EmitLlmControllerArrowFunction(schema)
 		return expr, false, err, true
 	}
 	return "", false, nil, false

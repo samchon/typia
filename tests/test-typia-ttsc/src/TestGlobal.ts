@@ -9,6 +9,11 @@ export class TestGlobal {
     `${__dirname}/../../../packages/ttsc/bin/ttsc-native`,
   );
 
+  /** Absolute path to the workspace-linked public ttsc launcher. */
+  public static readonly TTSC_LAUNCHER: string = path.resolve(
+    `${__dirname}/../node_modules/.bin/${process.platform === "win32" ? "ttsc.cmd" : "ttsc"}`,
+  );
+
   /** Absolute path to the workspace-linked ttsx launcher. */
   public static readonly TTSX_BINARY: string = path.resolve(
     `${__dirname}/../node_modules/.bin/${process.platform === "win32" ? "ttsx.cmd" : "ttsx"}`,

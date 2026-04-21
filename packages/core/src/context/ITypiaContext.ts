@@ -1,4 +1,4 @@
-import ts from "typescript";
+import ts from "@typescript/native-preview";
 
 import { ImportProgrammer } from "../programmers/ImportProgrammer";
 import { ITransformOptions } from "./ITransformOptions";
@@ -84,7 +84,7 @@ export interface ITypiaContext {
   /**
    * Diagnostic utilities for error reporting.
    *
-   * Provided by ts-patch or ttypescript for reporting compilation errors and
+   * Provided by the active compiler host for reporting compilation errors and
    * warnings. Used to surface transformation errors in the IDE and build
    * output.
    */

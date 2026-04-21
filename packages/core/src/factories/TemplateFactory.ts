@@ -1,4 +1,4 @@
-import ts from "typescript";
+import ts from "@typescript/native-preview";
 
 export namespace TemplateFactory {
   export const generate = (expressions: ts.Expression[]): ts.Expression => {

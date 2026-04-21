@@ -23,9 +23,19 @@ export function runTtsc(args: readonly string[], fixtureDir?: string): TtscResul
         `Run \`pnpm run build:go\` before the test, or use the top-level \`pnpm test\` script.`,
     );
   }
-  const result = spawnSync(TestGlobal.TTSC_BINARY, args, {
+  if (!fs.existsSync(TestGlobal.TTSC_LAUNCHER)) {
+    throw new Error(
+      `ttsc launcher missing at ${TestGlobal.TTSC_LAUNCHER}. ` +
+        `Run \`pnpm run build:packages\` before the test, or use the package \`start\` script.`,
+    );
+  }
+  const result = spawnSync(TestGlobal.TTSC_LAUNCHER, args, {
     cwd: fixtureDir,
     encoding: "utf8",
+    env: {
+      ...process.env,
+      TTSC_BINARY: TestGlobal.TTSC_BINARY,
+    },
     windowsHide: true,
   });
   if (result.error) throw result.error;

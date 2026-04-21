@@ -1,5 +1,5 @@
 import { StringUtil } from "@typia/utils";
-import ts from "typescript";
+import ts from "@typescript/native-preview";
 
 import { ITypiaContext } from "../../context/ITypiaContext";
 import { ExpressionFactory } from "../../factories/ExpressionFactory";

@@ -21,12 +21,10 @@
   },
   "homepage": "https://typia.io",
   "devDependencies": {
-    "@typia/ttsx": "workspace:^",
     "@types/node": "catalog:utils",
-    "@types/ts-expose-internals": "catalog:typescript",
     "@types/uuid": "catalog:utils",
-    "rimraf": "catalog:utils",
-    "typescript": "catalog:typescript"
+    "@typia/ttsx": "workspace:^",
+    "rimraf": "catalog:utils"
   },
   "dependencies": {
     "@typia/core": "workspace:^",

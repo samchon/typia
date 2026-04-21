@@ -125,7 +125,7 @@ function parseCLI(argv: readonly string[]): ParsedCLI | "help" | "version" {
 function printHelp(): void {
   process.stdout.write(
     [
-      "ttsx — typia runner built on top of @typia/ttsc.",
+      "ttsx — ts-node/tsx-style runner built on top of the ttsc host.",
       "",
       "Usage:",
       "  ttsx [options] <entry.ts> [-- <argv...>]",

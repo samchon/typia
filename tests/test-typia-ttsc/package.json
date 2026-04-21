@@ -4,7 +4,7 @@
   "version": "0.0.0-phase0",
   "description": "End-to-end smoke tests for @typia/ttsc (Phase 0 spike).",
   "scripts": {
-    "dev": "tsc --watch",
+    "dev": "ttsx src/index.ts",
     "build:packages": "pnpm --filter @typia/ttsc build && pnpm --filter @typia/ttsx build",
     "build:go": "bash -c 'export PATH=\"$HOME/go-sdk/go/bin:$PATH\"; cd ../../packages/ttsc && go build -o bin/ttsc-native ./cmd/ttsc'",
     "prestart": "pnpm run build:packages && pnpm run build:go",
@@ -27,12 +27,11 @@
   },
   "homepage": "https://typia.io",
   "devDependencies": {
-    "@typia/ttsc": "workspace:^",
-    "@typia/ttsx": "workspace:^",
     "@nestia/e2e": "catalog:utils",
     "@types/node": "catalog:utils",
-    "chalk": "4.1.2",
-    "typescript": "catalog:typescript"
+    "@typia/ttsc": "workspace:^",
+    "@typia/ttsx": "workspace:^",
+    "chalk": "4.1.2"
   },
   "dependencies": {
     "typia": "workspace:^"

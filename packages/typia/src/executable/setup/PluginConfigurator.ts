@@ -5,6 +5,7 @@ import type { TypiaSetupWizard } from "../TypiaSetupWizard";
 
 export namespace PluginConfigurator {
   const LEGACY_TRANSFORM = "typia/lib/transform";
+  const TTSC_TYPIA_PLUGIN = "@typia/ttsc/plugin/typia";
 
   export async function configure(
     args: TypiaSetupWizard.IArguments,
@@ -46,10 +47,12 @@ export namespace PluginConfigurator {
       (p) =>
         typeof p === "object" &&
         p !== null &&
-        p.transform !== LEGACY_TRANSFORM,
+        p.transform !== LEGACY_TRANSFORM &&
+        p.transform !== TTSC_TYPIA_PLUGIN,
     ) as comments.CommentObject[];
+    filtered.push({ transform: TTSC_TYPIA_PLUGIN } as comments.CommentObject);
     const changed: boolean =
-      filtered.length !== plugins.length ||
+      JSON.stringify(filtered) !== JSON.stringify(plugins) ||
       strictNullChecks === false ||
       (strict !== true && strictNullChecks !== true) ||
       skipLibCheck !== true;

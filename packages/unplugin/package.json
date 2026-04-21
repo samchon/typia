@@ -73,12 +73,12 @@
   "files": [
     "LICENSE",
     "README.md",
-    "dist",
+    "lib",
     "package.json",
     "src"
   ],
   "scripts": {
-    "build": "tsdown",
+    "build": "rimraf lib && ttsc build --emit --tsconfig tsconfig.json",
     "prepack": "pnpm run build"
   },
   "peerDependencies": {
@@ -96,6 +96,7 @@
   },
   "dependencies": {
     "@rollup/pluginutils": "^5.1.4",
+    "@typescript/native-preview": "catalog:tsgo",
     "bun-only": "^0.0.1",
     "consola": "^3.4.2",
     "defu": "^6.1.4",
@@ -110,35 +111,33 @@
   "devDependencies": {
     "@types/bun": "^1.2.15",
     "@types/node": "^20.17.57",
-    "@types/ts-expose-internals": "catalog:typescript",
     "@typia/core": "workspace:^",
     "@typia/transform": "workspace:^",
+    "@typia/ttsc": "workspace:^",
     "fs-fixture": "^2.7.1",
     "next": "^16.1.6",
     "publint": "^0.3.12",
-    "tsdown": "^0.12.7",
-    "typescript": "catalog:typescript",
     "typia": "workspace:^",
     "vite": "^6.2.2",
     "vitest": "^3.0.9"
   },
   "publishConfig": {
     "access": "public",
-    "main": "./dist/index.js",
-    "module": "./dist/index.js",
-    "types": "./dist/index.d.ts",
+    "main": "./lib/index.js",
+    "module": "./lib/index.js",
+    "types": "./lib/index.d.ts",
     "exports": {
-      ".": "./dist/index.js",
-      "./api": "./dist/api.js",
-      "./bun": "./dist/bun.js",
-      "./esbuild": "./dist/esbuild.js",
-      "./farm": "./dist/farm.js",
-      "./next": "./dist/next.js",
-      "./rolldown": "./dist/rolldown.js",
-      "./rollup": "./dist/rollup.js",
-      "./rspack": "./dist/rspack.js",
-      "./vite": "./dist/vite.js",
-      "./webpack": "./dist/webpack.js",
+      ".": "./lib/index.js",
+      "./api": "./lib/api.js",
+      "./bun": "./lib/bun.js",
+      "./esbuild": "./lib/esbuild.js",
+      "./farm": "./lib/farm.js",
+      "./next": "./lib/next.js",
+      "./rolldown": "./lib/rolldown.js",
+      "./rollup": "./lib/rollup.js",
+      "./rspack": "./lib/rspack.js",
+      "./vite": "./lib/vite.js",
+      "./webpack": "./lib/webpack.js",
       "./package.json": "./package.json"
     }
   }

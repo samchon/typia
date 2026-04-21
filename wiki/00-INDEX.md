@@ -46,9 +46,9 @@
 - **최종 설치 계약**은 **공식 compiler와 `@typia/ttsc` 의 side-by-side** 다.
   - preview 기간: `@typescript/native-preview` + `@typia/ttsc`
   - 7.0 GA 이후: `typescript@7` + `@typia/ttsc`
-- 현재 구현 방향의 **Phase 0 spike** 는 **Go driver + Go engine bridge** 다. 이것은 최종 제품 계약이 아니라 upstream API 공백을 메우는 과도기 구현이다.
-- 최종 목표는 typia 전용 구현을 먼저 안정화한 뒤, 공통 코어가 검증되면 **generic `ttsc`** 로 분리하는 것이다.
-- 따라서 지금 시점의 질문은 “repo를 나눌까”가 아니라 **어디까지를 공통 코어로 설계할까** 다.
+- 현재 구현 방향의 **Phase 0 spike** 는 **Go native backend + JS plugin host** 다. 이것은 standalone `ttsc` / `ttsx` 를 typia monorepo 안에서 검증하는 과도기 구현이다.
+- typia는 이 host 위에 올라가는 **첫 built-in consumer plugin** 이다.
+- 따라서 지금 시점의 질문은 “typia 전용으로 둘까”가 아니라 **standalone host 계약을 monorepo 안에서 어떻게 검증할까** 다.
 
 ## 폴더 지도
 
@@ -69,11 +69,11 @@
 ## 지금 기준 핵심 결론
 
 ### ttsc
-- 지금 만들 것은 **generic `ttsc` repo** 가 아니라 **`@typia/ttsc` 패키지** 다.
-- `@typia/ttsc` 는 최종적으로 **공식 compiler를 재사용하는 adapter package** 다.
-- `@typia/ttsx` 는 **별도 runner package** 로 두고, 내부적으로 `@typia/ttsc` 코어를 재사용한다.
-- 현재 monorepo 안의 driver와 typia Go engine은 **bridge 구현** 으로 성숙시킨다.
-- generic `ttsc` 분리는 제품이 아니라 **추출 결과물** 로 본다.
+- 지금 구현하는 것은 typia monorepo 안에 있는 **`ttsc` host / `ttsx` runner package pair** 다.
+- 현재 배포 이름은 `@typia/ttsc`, `@typia/ttsx` 지만 역할은 **standalone host / runner** 다.
+- `@typia/ttsc` 는 **공식 compiler를 재사용하는 adapter + plugin host** 다.
+- `@typia/ttsx` 는 **별도 runner package** 로 두고, 내부적으로 `@typia/ttsc` host를 재사용한다.
+- typia는 그 위의 **첫 consumer plugin** 으로 취급한다.
 
 ### 패키지 경계
 - **TS 유지**: `@typia/interface`, `@typia/typia`, 런타임 성격의 `@typia/utils`, LLM adapter 패키지들
@@ -81,9 +81,9 @@
 - **얇게 유지**: `@typia/unplugin`, setup/migration facade
 
 ### 생태계
-- typia가 먼저 `@typia/ttsc` 로 안정화된다.
-- 그 다음 nestia 같은 두 번째 소비자를 붙여 공통 코어의 경계를 검증한다.
-- 그 후에야 generic `ttsc` 분리를 논한다.
+- typia가 첫 consumer 로 `ttsc` / `ttsx` 를 dogfood 한다.
+- 그 다음 nestia 같은 두 번째 소비자를 붙여 공통 host 경계를 검증한다.
+- 배포 이름 / 저장소 경계는 그 검증 뒤에 조정할 수 있지만, **host 정체성 자체는 지금부터 generic** 으로 본다.
 
 ## 주의
 

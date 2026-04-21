@@ -16,11 +16,22 @@
  * executable without touching PATH or node_modules.
  */
 
-import { spawn, spawnSync } from "node:child_process";
+import { spawnSync } from "node:child_process";
 import * as fs from "node:fs";
+import * as os from "node:os";
 import * as path from "node:path";
 
+import {
+  applyPluginTransforms,
+  loadProjectPlugins,
+  type TtscPlugin,
+} from "./plugin";
 import { resolveBinary, installHint, type ResolveOptions } from "./platform";
+import {
+  resolveProjectConfig,
+  resolveProjectRoot,
+  type ProjectPluginConfig,
+} from "./project";
 
 /**
  * Options shared by every API call. `binary` takes precedence over platform
@@ -34,6 +45,13 @@ export interface CommonOptions extends ResolveOptions {
   cwd?: string;
   /** Extra environment variables; merged onto `process.env`. */
   env?: NodeJS.ProcessEnv;
+  /**
+   * Override project plugin loading. `false` disables tsconfig plugins;
+   * an array replaces the tsconfig `compilerOptions.plugins` list.
+   */
+  plugins?: readonly ProjectPluginConfig[] | false;
+  /** Override the native rewrite backend. Defaults to the loaded plugin mode. */
+  rewriteMode?: "none" | "typia";
 }
 
 /** Options for `transform()`. */
@@ -96,24 +114,47 @@ function mergeEnv(extra?: NodeJS.ProcessEnv): NodeJS.ProcessEnv {
  * bundler error overlays surface the real cause.
  */
 export function transform(options: TransformOptions): string {
-  const bin = resolveOrThrow(options);
-  const args = ["transform", "--file=" + options.file];
+  const execution = resolveExecutionContext(options);
+  const args = [
+    "transform",
+    "--file=" + options.file,
+    "--rewrite-mode=" + execution.nativeMode,
+  ];
   if (options.tsconfig) args.push("--tsconfig=" + options.tsconfig);
-  if (options.out) args.push("--out=" + options.out);
 
-  const res = spawnSync(bin, args, {
+  const res = spawnSync(execution.bin, args, {
     cwd: options.cwd,
     env: mergeEnv(options.env),
     encoding: "utf8",
     windowsHide: true,
   });
   if (res.error) {
-    throw new Error("ttsc.transform: failed to spawn " + bin + ": " + res.error.message);
+    throw new Error(
+      "ttsc.transform: failed to spawn " + execution.bin + ": " + res.error.message,
+    );
   }
   if (res.status !== 0) {
     throw new Error("ttsc.transform exited " + res.status + "\n" + (res.stderr || ""));
   }
-  return options.out ? fs.readFileSync(options.out, "utf8") : res.stdout;
+  const sourceFile = path.isAbsolute(options.file)
+    ? options.file
+    : path.resolve(options.cwd ?? process.cwd(), options.file);
+  const transformed = finalizeTransformText(
+    execution.plugins,
+    {
+      command: "transform",
+      cwd: execution.cwd,
+      projectRoot: execution.projectRoot,
+      sourceFile,
+      tsconfig: execution.tsconfig,
+    },
+    res.stdout,
+  );
+  if (options.out) {
+    fs.mkdirSync(path.dirname(options.out), { recursive: true });
+    fs.writeFileSync(options.out, transformed, "utf8");
+  }
+  return transformed;
 }
 
 /** Result of `build()`. Non-zero `status` means the build failed. */
@@ -129,21 +170,32 @@ export interface BuildResult {
  * exit — bundler pipelines often want to continue and collect errors.
  */
 export function build(options: BuildOptions = {}): BuildResult {
-  const bin = resolveOrThrow(options);
-  const args = ["build"];
+  const execution = resolveExecutionContext(options);
+  const args = ["build", "--rewrite-mode=" + execution.nativeMode];
   if (options.tsconfig) args.push("--tsconfig=" + options.tsconfig);
   if (options.emit !== false) args.push("--emit");
   if (options.outDir) args.push("--outDir=" + options.outDir);
   if (options.quiet) args.push("--quiet");
+  const needsManifest = options.emit !== false && execution.plugins.length > 0;
+  const manifest = needsManifest ? createTempManifestPath() : null;
+  if (manifest) args.push("--manifest=" + manifest);
 
-  const res = spawnSync(bin, args, {
+  const res = spawnSync(execution.bin, args, {
     cwd: options.cwd,
     env: mergeEnv(options.env),
     encoding: "utf8",
     windowsHide: true,
   });
   if (res.error) {
-    throw new Error("ttsc.build: failed to spawn " + bin + ": " + res.error.message);
+    throw new Error("ttsc.build: failed to spawn " + execution.bin + ": " + res.error.message);
+  }
+  if ((res.status ?? 1) === 0 && manifest) {
+    try {
+      const emittedFiles = JSON.parse(fs.readFileSync(manifest, "utf8")) as string[];
+      applyBuildPlugins(execution.plugins, execution, emittedFiles);
+    } finally {
+      fs.rmSync(path.dirname(manifest), { recursive: true, force: true });
+    }
   }
   return { status: res.status ?? 1, stdout: res.stdout ?? "", stderr: res.stderr ?? "" };
 }
@@ -170,46 +222,91 @@ export function version(options: CommonOptions = {}): string {
 }
 
 /**
- * Streaming variant of `transform()` for unplugin frameworks that prefer
- * promise / async pipes (vite's transform, webpack's loader-runner). Emits
- * the same JS string but via `spawn`, so large outputs don't block the
- * event loop.
+ * Promise-facing variant of `transform()`. The Phase 0 plugin host keeps the
+ * transform pipeline synchronous so plugin modules can stay dependency-free,
+ * but many adapter surfaces still prefer a Promise-returning function.
  */
 export function transformAsync(options: TransformOptions): Promise<string> {
-  const bin = resolveOrThrow(options);
-  const args = ["transform", "--file=" + options.file];
-  if (options.tsconfig) args.push("--tsconfig=" + options.tsconfig);
-  if (options.out) args.push("--out=" + options.out);
+  return Promise.resolve().then(() => transform(options));
+}
 
-  return new Promise((resolve, reject) => {
-    const child = spawn(bin, args, {
-      cwd: options.cwd,
-      env: mergeEnv(options.env),
-      windowsHide: true,
-    });
-    const out: Buffer[] = [];
-    const err: Buffer[] = [];
-    child.stdout.on("data", (b: Buffer) => out.push(b));
-    child.stderr.on("data", (b: Buffer) => err.push(b));
-    child.on("error", reject);
-    child.on("close", (code) => {
-      if (code !== 0) {
-        reject(
-          new Error(
-            "ttsc.transformAsync exited " + code + "\n" + Buffer.concat(err).toString(),
-          ),
-        );
-        return;
-      }
-      if (options.out) {
-        try {
-          resolve(fs.readFileSync(options.out, "utf8"));
-        } catch (readErr) {
-          reject(readErr as Error);
-        }
-        return;
-      }
-      resolve(Buffer.concat(out).toString("utf8"));
-    });
+interface ExecutionContext {
+  bin: string;
+  cwd: string;
+  nativeMode: "none" | "typia";
+  plugins: readonly TtscPlugin[];
+  projectRoot: string;
+  tsconfig: string;
+}
+
+function resolveExecutionContext(
+  options: CommonOptions & { tsconfig?: string },
+): ExecutionContext {
+  const bin = resolveOrThrow(options);
+  const cwd = path.resolve(options.cwd ?? process.cwd());
+  const tsconfig = resolveProjectConfig({
+    cwd,
+    tsconfig: options.tsconfig,
   });
+  const projectRoot = resolveProjectRoot({ cwd, tsconfig });
+  const loaded = loadProjectPlugins({
+    binary: bin,
+    cwd,
+    entries: options.plugins,
+    tsconfig,
+  });
+  return {
+    bin,
+    cwd,
+    nativeMode: options.rewriteMode ?? loaded.nativeMode,
+    plugins: loaded.plugins.filter((plugin) => plugin.transformOutput),
+    projectRoot,
+    tsconfig,
+  };
+}
+
+function finalizeTransformText(
+  plugins: readonly TtscPlugin[],
+  context: Omit<Parameters<typeof applyPluginTransforms>[1], "code">,
+  text: string,
+): string {
+  if (plugins.length === 0) {
+    return text;
+  }
+  return applyPluginTransforms(plugins, {
+    ...context,
+    code: text,
+  });
+}
+
+function applyBuildPlugins(
+  plugins: readonly TtscPlugin[],
+  execution: ExecutionContext,
+  emittedFiles: readonly string[],
+): void {
+  if (plugins.length === 0) {
+    return;
+  }
+  for (const file of emittedFiles) {
+    if (!file.endsWith(".js") || !fs.existsSync(file)) {
+      continue;
+    }
+    const current = fs.readFileSync(file, "utf8");
+    const next = applyPluginTransforms(plugins, {
+      code: current,
+      command: "build",
+      cwd: execution.cwd,
+      outputFile: file,
+      projectRoot: execution.projectRoot,
+      tsconfig: execution.tsconfig,
+    });
+    if (next !== current) {
+      fs.writeFileSync(file, next, "utf8");
+    }
+  }
+}
+
+function createTempManifestPath(): string {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "ttsc-build-"));
+  return path.join(dir, "manifest.json");
 }

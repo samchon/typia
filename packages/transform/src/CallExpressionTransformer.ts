@@ -12,7 +12,7 @@ import {
 } from "@typia/core";
 import { NamingConvention } from "@typia/utils";
 import path from "path";
-import ts from "typescript";
+import ts from "@typescript/native-preview";
 
 import { ITransformProps } from "./ITransformProps";
 import { AssertTransformer } from "./features/AssertTransformer";

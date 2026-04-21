@@ -1,7 +1,7 @@
 {
   "name": "@typia/ttsx",
   "version": "0.0.0-phase0",
-  "description": "typia runner built on top of @typia/ttsc. Phase 0 spike.",
+  "description": "Standalone tsgo runner built on top of the ttsc host. Phase 0 spike.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "bin": {
@@ -16,7 +16,7 @@
     "./package.json": "./package.json"
   },
   "scripts": {
-    "build": "rimraf lib && tsc",
+    "build": "rimraf lib && ttsc build --emit --tsconfig tsconfig.json",
     "prepack": "pnpm run build"
   },
   "repository": {
@@ -30,14 +30,11 @@
   },
   "homepage": "https://typia.io",
   "dependencies": {
-    "@typia/transform": "workspace:^",
-    "@typia/ttsc": "workspace:^",
-    "typescript": "catalog:typescript"
+    "@typia/ttsc": "workspace:^"
   },
   "devDependencies": {
     "@types/node": "catalog:utils",
-    "rimraf": "catalog:utils",
-    "typescript": "catalog:typescript"
+    "rimraf": "catalog:utils"
   },
   "sideEffects": false,
   "files": [
@@ -49,11 +46,8 @@
   ],
   "keywords": [
     "typia",
-    "typescript",
     "tsgo",
-    "typescript-go",
     "runner",
-    "ts-node",
     "tsx",
     "ttsx"
   ],

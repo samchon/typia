@@ -60,6 +60,9 @@ func (a *Analyzer) iterate(out *metadata.Schema, t *shimchecker.Type) bool {
 	if a.isArray(t) {
 		return a.iterateArray(out, t)
 	}
+	if a.iterateFunction(out, t) {
+		return true
+	}
 	if flags&shimchecker.TypeFlagsObject != 0 {
 		if native, ok := nativeName(a.Checker, t); ok {
 			out.Natives = append(out.Natives, metadata.Native{Name: native})

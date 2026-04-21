@@ -1,8 +1,8 @@
 // Package driver: post-emit rewriter.
 //
 // tsgo emits `.js` with typia call expressions preserved as-is because the
-// TypeScript transformer that would rewrite them (from the ts-patch era)
-// doesn't run. This file implements the emit-time rewrite pattern pioneered
+// compile-time transformer stage is now hosted outside the native compiler.
+// This file implements the emit-time rewrite pattern pioneered
 // by tsgonest: we hook tsgo's Emit() via its WriteFile callback, locate each
 // previously-recognised typia call in the emitted JS, and replace the call
 // expression with the JS we would have synthesised at the AST level.

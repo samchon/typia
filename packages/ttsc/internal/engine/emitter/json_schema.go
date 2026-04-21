@@ -12,36 +12,58 @@ import (
 // EmitJsonSchemaExpression returns a JS expression whose runtime value is the
 // OpenAPI v3.1-compatible JSON Schema representation of the supplied
 // MetadataSchema.
-//
-// typia v12 emits a literal object with `$defs` for recursive shapes and
-// `schema` plus `components` for simple ones. Phase 0 mirrors the simple
-// layout — enough for non-recursive types the existing fixtures exercise.
 func EmitJsonSchemaExpression(schema *metadata.Schema) (string, error) {
 	if schema == nil {
 		return "", errors.New("emitter: nil schema")
 	}
-	converted, err := convertToJSONSchema(schema)
+	encoder := newJSONSchemaEncoder()
+	converted, err := encoder.encodeRootSchema(schema)
 	if err != nil {
 		return "", err
 	}
 	wrapper := map[string]any{
 		"version":    "3.1",
-		"components": map[string]any{},
+		"components": map[string]any{"schemas": encoder.components},
 		"schema":     converted,
 	}
 	raw, err := json.Marshal(wrapper)
 	if err != nil {
 		return "", fmt.Errorf("json schema: marshal wrapper: %w", err)
 	}
-	// Return a parenthesised object literal so tsgo's emit treats it as an
-	// expression in position. The string is already valid JSON, which is a
-	// subset of JS object literals.
+	return "(" + string(raw) + ")", nil
+}
+
+// EmitJsonSchemasExpression returns a JS expression whose runtime value is the
+// collection form used by typia.json.schemas<[A, B, ...]>(). The input schema
+// is either the tuple type argument itself or a single type.
+func EmitJsonSchemasExpression(schema *metadata.Schema) (string, error) {
+	if schema == nil {
+		return "", errors.New("emitter: nil schema")
+	}
+	encoder := newJSONSchemaEncoder()
+	items := expandSchemaCollectionInput(schema)
+	schemas := make([]any, 0, len(items))
+	for _, item := range items {
+		converted, err := encoder.encodeRootSchema(item)
+		if err != nil {
+			return "", err
+		}
+		schemas = append(schemas, converted)
+	}
+	wrapper := map[string]any{
+		"version":    "3.1",
+		"components": map[string]any{"schemas": encoder.components},
+		"schemas":    schemas,
+	}
+	raw, err := json.Marshal(wrapper)
+	if err != nil {
+		return "", fmt.Errorf("json schemas: marshal wrapper: %w", err)
+	}
 	return "(" + string(raw) + ")", nil
 }
 
 // EmitJsonSchemaArrowFunction wraps the expression in a factory-style arrow
-// so typia.json.schema<T>() can return the schema on invocation. Kept as a
-// helper even though the call is parameter-free — matches typia v12's shape.
+// so typia.json.schema<T>() can return the schema on invocation.
 func EmitJsonSchemaArrowFunction(schema *metadata.Schema) (string, error) {
 	expr, err := EmitJsonSchemaExpression(schema)
 	if err != nil {
@@ -50,12 +72,17 @@ func EmitJsonSchemaArrowFunction(schema *metadata.Schema) (string, error) {
 	return "() => " + expr, nil
 }
 
-// convertToJSONSchema implements the Phase 0 subset of typia's
-// `JsonSchemaProgrammer`. Supported: atomics, literals, objects, arrays,
-// tuples, unions, nullable/optional. Everything else falls back to
-// `{"type":"unknown"}` with a TODO marker so downstream callers can surface
-// a helpful diagnostic.
-func convertToJSONSchema(s *metadata.Schema) (any, error) {
+type jsonSchemaEncoder struct {
+	components map[string]any
+}
+
+func newJSONSchemaEncoder() *jsonSchemaEncoder {
+	return &jsonSchemaEncoder{
+		components: map[string]any{},
+	}
+}
+
+func (e *jsonSchemaEncoder) encodeSchema(s *metadata.Schema) (any, error) {
 	if s == nil {
 		return map[string]any{}, nil
 	}
@@ -80,63 +107,50 @@ func convertToJSONSchema(s *metadata.Schema) (any, error) {
 		}
 	}
 	for _, ref := range s.Arrays {
-		if ref.Type == nil {
+		if ref == nil || ref.Type == nil {
 			continue
 		}
-		items := map[string]any{}
-		if ref.Type.Value != nil {
-			inner, err := convertToJSONSchema(ref.Type.Value)
-			if err != nil {
-				return nil, err
-			}
-			items = toMap(inner)
-		}
-		alternatives = append(alternatives, map[string]any{"type": "array", "items": items})
-	}
-	for _, ref := range s.Tuples {
-		if ref.Type == nil {
-			continue
-		}
-		prefix := make([]any, 0, len(ref.Type.Elements))
-		for _, el := range ref.Type.Elements {
-			inner, err := convertToJSONSchema(el)
-			if err != nil {
-				return nil, err
-			}
-			prefix = append(prefix, inner)
-		}
-		alternatives = append(alternatives, map[string]any{
-			"type":        "array",
-			"prefixItems": prefix,
-			"minItems":    len(prefix),
-			"maxItems":    len(prefix),
-		})
-	}
-	for _, ref := range s.Objects {
-		if ref.Type == nil {
-			continue
-		}
-		obj, err := objectToJSONSchema(ref.Type)
+		alt, err := e.encodeArrayRef(ref)
 		if err != nil {
 			return nil, err
 		}
-		alternatives = append(alternatives, obj)
+		alternatives = append(alternatives, alt)
+	}
+	for _, ref := range s.Tuples {
+		if ref == nil || ref.Type == nil {
+			continue
+		}
+		alt, err := e.encodeTupleRef(ref)
+		if err != nil {
+			return nil, err
+		}
+		alternatives = append(alternatives, alt)
+	}
+	for _, ref := range s.Objects {
+		if ref == nil || ref.Type == nil {
+			continue
+		}
+		alt, err := e.encodeObjectRef(ref)
+		if err != nil {
+			return nil, err
+		}
+		alternatives = append(alternatives, alt)
 	}
 	for _, n := range s.Natives {
 		alternatives = append(alternatives, nativeToJSONSchema(n.Name))
 	}
 	for _, ref := range s.Aliases {
-		if ref == nil || ref.Type == nil || ref.Type.Value == nil {
+		if ref == nil || ref.Type == nil {
 			continue
 		}
-		inner, err := convertToJSONSchema(ref.Type.Value)
+		alt, err := e.encodeAliasRef(ref)
 		if err != nil {
 			return nil, err
 		}
-		alternatives = append(alternatives, inner)
+		alternatives = append(alternatives, alt)
 	}
 	if s.Escaped != nil && s.Escaped.Returns != nil {
-		inner, err := convertToJSONSchema(s.Escaped.Returns)
+		inner, err := e.encodeSchema(s.Escaped.Returns)
 		if err != nil {
 			return nil, err
 		}
@@ -152,15 +166,221 @@ func convertToJSONSchema(s *metadata.Schema) (any, error) {
 	return map[string]any{"oneOf": alternatives}, nil
 }
 
+func (e *jsonSchemaEncoder) encodeRootSchema(s *metadata.Schema) (any, error) {
+	if s == nil {
+		return map[string]any{}, nil
+	}
+	if !s.Nullable && s.Bucket() == 1 && s.Size() == 1 {
+		if len(s.Objects) == 1 && s.Objects[0] != nil && s.Objects[0].Type != nil {
+			return e.encodeRootObject(s.Objects[0].Type)
+		}
+		if len(s.Arrays) == 1 && s.Arrays[0] != nil && s.Arrays[0].Type != nil {
+			return e.encodeRootArray(s.Arrays[0].Type)
+		}
+		if len(s.Tuples) == 1 && s.Tuples[0] != nil && s.Tuples[0].Type != nil {
+			return e.encodeRootTuple(s.Tuples[0].Type)
+		}
+		if len(s.Aliases) == 1 && s.Aliases[0] != nil && s.Aliases[0].Type != nil {
+			return e.encodeRootAlias(s.Aliases[0].Type)
+		}
+	}
+	return e.encodeSchema(s)
+}
+
+func (e *jsonSchemaEncoder) encodeArrayRef(ref *metadata.ArrayRef) (any, error) {
+	if ref == nil || ref.Type == nil {
+		return map[string]any{}, nil
+	}
+	return e.ensureComponent(ref.Type.Name, func() (map[string]any, error) {
+		return e.buildArrayType(ref.Type)
+	})
+}
+
+func (e *jsonSchemaEncoder) encodeTupleRef(ref *metadata.TupleRef) (any, error) {
+	if ref == nil || ref.Type == nil {
+		return map[string]any{}, nil
+	}
+	return e.ensureComponent(ref.Type.Name, func() (map[string]any, error) {
+		return e.buildTupleType(ref.Type)
+	})
+}
+
+func (e *jsonSchemaEncoder) encodeObjectRef(ref *metadata.ObjectRef) (any, error) {
+	if ref == nil || ref.Type == nil {
+		return map[string]any{}, nil
+	}
+	return e.ensureComponent(ref.Type.Name, func() (map[string]any, error) {
+		return e.buildObjectType(ref.Type)
+	})
+}
+
+func (e *jsonSchemaEncoder) encodeAliasRef(ref *metadata.AliasRef) (any, error) {
+	if ref == nil || ref.Type == nil {
+		return map[string]any{}, nil
+	}
+	return e.ensureComponent(ref.Type.Name, func() (map[string]any, error) {
+		return e.buildAliasType(ref.Type)
+	})
+}
+
+func (e *jsonSchemaEncoder) ensureComponent(name string, build func() (map[string]any, error)) (map[string]any, error) {
+	if name == "" {
+		return build()
+	}
+	if _, ok := e.components[name]; ok {
+		return map[string]any{"$ref": "#/components/schemas/" + name}, nil
+	}
+	e.components[name] = map[string]any{}
+	encoded, err := build()
+	if err != nil {
+		delete(e.components, name)
+		return nil, err
+	}
+	e.components[name] = encoded
+	return map[string]any{"$ref": "#/components/schemas/" + name}, nil
+}
+
+func (e *jsonSchemaEncoder) encodeRootArray(arr *metadata.ArrayType) (any, error) {
+	return e.ensureRootComponent(arr.Name, func() (map[string]any, error) {
+		return e.buildArrayType(arr)
+	})
+}
+
+func (e *jsonSchemaEncoder) encodeRootTuple(tuple *metadata.TupleType) (any, error) {
+	return e.ensureRootComponent(tuple.Name, func() (map[string]any, error) {
+		return e.buildTupleType(tuple)
+	})
+}
+
+func (e *jsonSchemaEncoder) encodeRootObject(obj *metadata.ObjectType) (any, error) {
+	return e.ensureRootComponent(obj.Name, func() (map[string]any, error) {
+		return e.buildObjectType(obj)
+	})
+}
+
+func (e *jsonSchemaEncoder) encodeRootAlias(alias *metadata.AliasType) (any, error) {
+	return e.ensureRootComponent(alias.Name, func() (map[string]any, error) {
+		return e.buildAliasType(alias)
+	})
+}
+
+func (e *jsonSchemaEncoder) ensureRootComponent(name string, build func() (map[string]any, error)) (map[string]any, error) {
+	if name == "" {
+		return build()
+	}
+	if _, ok := e.components[name]; ok {
+		component, ok := e.components[name].(map[string]any)
+		if ok {
+			return component, nil
+		}
+	}
+	e.components[name] = map[string]any{}
+	encoded, err := build()
+	if err != nil {
+		delete(e.components, name)
+		return nil, err
+	}
+	e.components[name] = encoded
+	return encoded, nil
+}
+
+func (e *jsonSchemaEncoder) buildArrayType(arr *metadata.ArrayType) (map[string]any, error) {
+	items := map[string]any{}
+	if arr != nil && arr.Value != nil {
+		inner, err := e.encodeSchema(arr.Value)
+		if err != nil {
+			return nil, err
+		}
+		items = toMap(inner)
+	}
+	return map[string]any{
+		"type":  "array",
+		"items": items,
+	}, nil
+}
+
+func (e *jsonSchemaEncoder) buildTupleType(tuple *metadata.TupleType) (map[string]any, error) {
+	prefix := make([]any, 0)
+	if tuple != nil {
+		prefix = make([]any, 0, len(tuple.Elements))
+		for _, el := range tuple.Elements {
+			inner, err := e.encodeSchema(el)
+			if err != nil {
+				return nil, err
+			}
+			prefix = append(prefix, inner)
+		}
+	}
+	return map[string]any{
+		"type":        "array",
+		"prefixItems": prefix,
+		"minItems":    len(prefix),
+		"maxItems":    len(prefix),
+	}, nil
+}
+
+func (e *jsonSchemaEncoder) buildObjectType(obj *metadata.ObjectType) (map[string]any, error) {
+	properties := map[string]any{}
+	required := make([]string, 0)
+	if obj != nil {
+		required = make([]string, 0, len(obj.Properties))
+		for _, p := range obj.Properties {
+			if p == nil || p.Key == nil {
+				continue
+			}
+			name, ok := p.Key.GetSoleLiteral()
+			if !ok {
+				return nil, fmt.Errorf("%w: json schema does not support dynamic object keys", ErrUnsupportedSchema)
+			}
+			inner, err := e.encodeSchema(p.Value)
+			if err != nil {
+				return nil, err
+			}
+			properties[name] = inner
+			if p.Value != nil && p.Value.IsRequired() {
+				required = append(required, name)
+			}
+		}
+	}
+	sort.Strings(required)
+	return map[string]any{
+		"type":                 "object",
+		"properties":           properties,
+		"required":             required,
+		"additionalProperties": false,
+	}, nil
+}
+
+func (e *jsonSchemaEncoder) buildAliasType(alias *metadata.AliasType) (map[string]any, error) {
+	if alias == nil || alias.Value == nil {
+		return map[string]any{}, nil
+	}
+	inner, err := e.encodeSchema(alias.Value)
+	if err != nil {
+		return nil, err
+	}
+	return toMap(inner), nil
+}
+
+func expandSchemaCollectionInput(s *metadata.Schema) []*metadata.Schema {
+	if s == nil {
+		return nil
+	}
+	if len(s.Tuples) == 1 && s.Bucket() == 1 && s.Size() == 1 {
+		tuple := s.Tuples[0]
+		if tuple != nil && tuple.Type != nil && len(tuple.Type.Elements) != 0 {
+			return tuple.Type.Elements
+		}
+	}
+	return []*metadata.Schema{s}
+}
+
 // applyTagsToAtomic folds typia tags into OpenAPI-flavoured constraints on
 // the atomic schema map.
 func applyTagsToAtomic(out map[string]any, matrix metadata.TagMatrix) {
 	if len(matrix) == 0 {
 		return
 	}
-	// For Phase 0 we flatten: just take the first row (most common single-row
-	// case) and translate kinds we recognise. Multi-row (union-of-tags) would
-	// require oneOf expansion, deferred to Phase 1.
 	for _, tag := range matrix[0] {
 		switch tag.Kind {
 		case "format":
@@ -196,12 +416,6 @@ func applyTagsToAtomic(out map[string]any, matrix metadata.TagMatrix) {
 }
 
 // nativeToJSONSchema maps a native JS class name to its OpenAPI 3.1 encoding.
-// Date → date-time; Uint8Array/Buffer → base64-encoded byte string;
-// URL → URI; RegExp/Set/Map → best-effort object shape.
-//
-// Mirrors typia v12's `json_schema_native` special-casing: for classes whose
-// `toJSON` yields a primitive, we emit that primitive's schema instead of
-// an opaque `{}`.
 func nativeToJSONSchema(name string) map[string]any {
 	switch name {
 	case "Date":
@@ -223,33 +437,7 @@ func nativeToJSONSchema(name string) map[string]any {
 	return map[string]any{"type": "object"}
 }
 
-func objectToJSONSchema(obj *metadata.ObjectType) (map[string]any, error) {
-	properties := map[string]any{}
-	required := make([]string, 0, len(obj.Properties))
-	for _, p := range obj.Properties {
-		name, ok := p.Key.GetSoleLiteral()
-		if !ok {
-			continue
-		}
-		inner, err := convertToJSONSchema(p.Value)
-		if err != nil {
-			return nil, err
-		}
-		properties[name] = inner
-		if p.Value.IsRequired() {
-			required = append(required, name)
-		}
-	}
-	sort.Strings(required)
-	return map[string]any{
-		"type":                 "object",
-		"properties":           properties,
-		"required":             required,
-		"additionalProperties": false,
-	}, nil
-}
-
-// toMap coerces the any produced by convertToJSONSchema into a map so nested
+// toMap coerces the any produced by encodeSchema into a map so nested
 // fields can be added by callers. Non-maps get wrapped in `{ "allOf": [...] }`.
 func toMap(v any) map[string]any {
 	if m, ok := v.(map[string]any); ok {

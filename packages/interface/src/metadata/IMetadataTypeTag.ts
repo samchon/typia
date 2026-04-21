@@ -1,4 +1,4 @@
-import type ts from "typescript";
+import type ts from "@typescript/native-preview";
 
 /**
  * Type constraint tag metadata.

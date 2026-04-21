@@ -139,11 +139,14 @@ Build options:
   --cwd=DIR         Override working directory.
   --emit            Write emitted .js files (omit for analysis-only run).
   --quiet           Suppress the per-call summary banner.
+  --rewrite-mode=M  Native rewrite backend. One of: typia, none.
+  --manifest=FILE   Write emitted file paths as JSON to FILE after build --emit.
 
 Transform options:
   --file=PATH       Absolute or cwd-relative path of the .ts file to transform.
   --tsconfig=FILE   tsconfig.json owning --file (default: tsconfig.json).
   --out=PATH        Write output JS to PATH. Default: stdout.
+  --rewrite-mode=M  Native rewrite backend. One of: typia, none.
 
 Demo options:
   --type=T          Atomic TypeScript type to simulate. One of:

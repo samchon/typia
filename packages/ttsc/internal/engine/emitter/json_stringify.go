@@ -23,11 +23,49 @@ func EmitJsonStringifyArrowFunction(schema *metadata.Schema) (string, error) {
 	if schema == nil {
 		return "", errors.New("emitter: nil schema")
 	}
+	if unsupported, ok := findUnsupportedJSONStringifyShape(schema); ok {
+		return "", fmt.Errorf("%w: json stringify does not support %s", ErrUnsupportedSchema, unsupported)
+	}
 	expr, err := buildJsonStringify("input", schema)
 	if err != nil {
 		return "", err
 	}
 	return "(input) => " + expr, nil
+}
+
+func findUnsupportedJSONStringifyShape(schema *metadata.Schema) (string, bool) {
+	var found string
+	ok := newSchemaWalker().walkSchema(schema, func(s *metadata.Schema) bool {
+		for _, atom := range s.Atomics {
+			if atom.Type == metadata.AtomicBigint {
+				found = "bigint"
+				return true
+			}
+		}
+		for _, c := range s.Constants {
+			if c.Type == metadata.AtomicBigint {
+				found = "bigint"
+				return true
+			}
+		}
+		if len(s.Maps) != 0 {
+			found = "Map"
+			return true
+		}
+		if len(s.Sets) != 0 {
+			found = "Set"
+			return true
+		}
+		for _, native := range s.Natives {
+			if native.Name == "Date" {
+				continue
+			}
+			found = native.Name
+			return true
+		}
+		return false
+	})
+	return found, ok
 }
 
 // buildJsonStringify returns a JS expression whose runtime value is the JSON
@@ -102,7 +140,7 @@ func objectStringify(ve string, ref *metadata.ObjectRef) (string, error) {
 	optional := make([]*metadata.Property, 0)
 	for _, p := range obj.Properties {
 		if _, ok := p.Key.GetSoleLiteral(); !ok {
-			continue // Index signatures not supported in Phase 0.
+			return "", fmt.Errorf("%w: json stringify does not support dynamic object keys", ErrUnsupportedSchema)
 		}
 		if p.Value.IsRequired() {
 			required = append(required, p)

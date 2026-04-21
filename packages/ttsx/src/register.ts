@@ -9,8 +9,6 @@ import {
   type CommonOptions,
 } from "@typia/ttsc";
 
-import { buildLegacyProject } from "./legacy";
-
 export interface RegisterOptions extends CommonOptions {
   cacheDir?: string;
   project?: string;
@@ -130,28 +128,19 @@ function ensureProjectBuild(context: ProjectContext, options: RegisterOptions): 
     quiet: true,
     tsconfig: context.tsconfig,
   });
-  if (result.status === 0 && !hasPhase0CoverageGap(result.stdout)) {
+  if (result.status === 0) {
     context.emittedFiles = listEmittedFiles(context.emitDir);
     return;
   }
 
   fs.rmSync(context.emitDir, { recursive: true, force: true });
-  try {
-    buildLegacyProject({
-      emitDir: context.emitDir,
-      tsconfig: context.tsconfig,
-    });
-  } catch (error) {
-    const detail = [
-      `ttsx: project build failed for ${context.tsconfig}`,
-      result.stderr || result.stdout,
-      error instanceof Error ? error.message : String(error),
-    ]
-      .filter((line) => line.trim().length !== 0)
-      .join("\n");
-    throw new Error(detail);
-  }
-  context.emittedFiles = listEmittedFiles(context.emitDir);
+  const detail = [
+    `ttsx: native project build failed for ${context.tsconfig}`,
+    result.stderr || result.stdout,
+  ]
+    .filter((line) => line.trim().length !== 0)
+    .join("\n");
+  throw new Error(detail);
 }
 
 function resolveEmittedFile(context: ProjectContext, filename: string): string {
@@ -210,10 +199,6 @@ function sharedSourceStemSegments(outPath: string, srcPath: string): number {
     shared += 1;
   }
   return shared;
-}
-
-function hasPhase0CoverageGap(output: string): boolean {
-  return /Phase 0|Phase 0 skip|not covered in Phase 0|type not yet supported/.test(output);
 }
 
 function looksLikeESM(output: string): boolean {

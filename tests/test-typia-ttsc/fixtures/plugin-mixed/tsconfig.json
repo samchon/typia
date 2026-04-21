@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "strict": true,
+    "target": "ES2020",
+    "plugins": [
+      {
+        "transform": "@typia/ttsc/plugin/typia"
+      },
+      {
+        "transform": "./plugins/banner-plugin.cjs",
+        "banner": "/* mixed-plugin */"
+      }
+    ]
+  },
+  "include": [
+    "src/**/*.ts"
+  ]
+}

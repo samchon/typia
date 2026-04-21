@@ -21,11 +21,9 @@
   },
   "homepage": "https://typia.io",
   "devDependencies": {
-    "@typia/ttsx": "workspace:^",
     "@types/node": "catalog:utils",
-    "@types/ts-expose-internals": "catalog:typescript",
     "@types/uuid": "catalog:utils",
-    "typescript": "catalog:typescript"
+    "@typia/ttsx": "workspace:^"
   },
   "dependencies": {
     "@nestia/e2e": "catalog:utils",

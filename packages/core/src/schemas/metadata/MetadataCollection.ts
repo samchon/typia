@@ -1,6 +1,6 @@
 import { IMetadataComponents } from "@typia/interface";
 import { MapUtil } from "@typia/utils";
-import ts from "typescript";
+import ts from "@typescript/native-preview";
 
 import { CommentFactory } from "../../factories/CommentFactory";
 import { TypeFactory } from "../../factories/TypeFactory";

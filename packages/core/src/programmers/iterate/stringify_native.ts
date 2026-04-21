@@ -1,4 +1,4 @@
-import ts from "typescript";
+import ts from "@typescript/native-preview";
 
 /** @internal */
 export const stringify_native = (): ts.Expression =>

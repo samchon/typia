@@ -13,8 +13,8 @@
     "./package.json": "./package.json"
   },
   "scripts": {
-    "build": "rimraf lib && tsc && rollup -c",
-    "dev": "rimraf lib && tsc --watch",
+    "build": "rimraf lib && ttsc build --emit --tsconfig tsconfig.json && rollup -c",
+    "dev": "ttsc build --emit --tsconfig tsconfig.json",
     "prepack": "pnpm run build"
   },
   "repository": {
@@ -28,6 +28,7 @@
   },
   "homepage": "https://typia.io",
   "dependencies": {
+    "@typescript/native-preview": "catalog:tsgo",
     "@typia/core": "workspace:^",
     "@typia/interface": "workspace:^",
     "@typia/utils": "workspace:^"
@@ -35,15 +36,13 @@
   "devDependencies": {
     "@rollup/plugin-commonjs": "catalog:rollup",
     "@rollup/plugin-node-resolve": "catalog:rollup",
-    "@rollup/plugin-typescript": "catalog:rollup",
     "@types/node": "catalog:utils",
-    "@types/ts-expose-internals": "catalog:typescript",
+    "@typia/ttsc": "workspace:^",
     "rimraf": "catalog:utils",
     "rollup": "catalog:rollup",
     "rollup-plugin-auto-external": "catalog:rollup",
     "rollup-plugin-node-externals": "catalog:rollup",
-    "tinyglobby": "^0.2.12",
-    "typescript": "catalog:typescript"
+    "tinyglobby": "^0.2.12"
   },
   "sideEffects": false,
   "files": [
@@ -56,7 +55,6 @@
     "fast",
     "json",
     "stringify",
-    "typescript",
     "transform",
     "ajv",
     "io-ts",

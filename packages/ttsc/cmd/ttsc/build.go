@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"flag"
 	"fmt"
 	"os"
@@ -23,6 +24,8 @@ func runBuild(args []string) int {
 	quiet := fs.Bool("quiet", false, "suppress the per-call diagnostic summary")
 	emit := fs.Bool("emit", false, "emit .js files (runs tsgo + ttsc rewrite)")
 	outDir := fs.String("outDir", "", "override compilerOptions.outDir for this build")
+	manifestPath := fs.String("manifest", "", "write emitted file list as JSON to this path")
+	rewriteMode := fs.String("rewrite-mode", "typia", "native rewrite backend (typia|none)")
 	if err := fs.Parse(args); err != nil {
 		return 2
 	}
@@ -53,12 +56,78 @@ func runBuild(args []string) int {
 	}
 	defer prog.Close()
 
-	sites := prog.CollectCallSites()
+	sites := 0
+	rewrites := driver.NewRewriteSet()
+	recognised := 0
+	switch *rewriteMode {
+	case "none":
+		// Plain tsgo emit/check path. JS host plugins may apply follow-up
+		// rewrites after the native compiler exits.
+	case "typia":
+		var err error
+		sites, recognised, err = collectTypiaRewrites(prog, cwd, *emit, *quiet, rewrites)
+		if err != nil {
+			fmt.Fprintf(stderr, "ttsc build: %v\n", err)
+			return 3
+		}
+	default:
+		fmt.Fprintf(stderr, "ttsc build: unknown --rewrite-mode value %q\n", *rewriteMode)
+		return 2
+	}
 	if !*quiet {
-		fmt.Fprintf(stdout, "// ttsc build: tsconfig=%s cwd=%s sites=%d emit=%v\n", *tsconfigPath, cwd, len(sites), *emit)
+		fmt.Fprintf(stdout, "// ttsc build: tsconfig=%s cwd=%s sites=%d emit=%v rewrite=%s\n", *tsconfigPath, cwd, sites, *emit, *rewriteMode)
 	}
 
-	rewrites := driver.NewRewriteSet()
+	if *emit {
+		res, eDiags, err := prog.EmitAll(rewrites, nil)
+		if err != nil {
+			fmt.Fprintf(stderr, "ttsc build: emit failed: %v\n", err)
+			return 3
+		}
+		for _, d := range eDiags {
+			fmt.Fprintln(stderr, "  -", d.String())
+		}
+		if !*quiet {
+			fmt.Fprintf(stdout, "// ttsc build: emitted=%d files\n", len(res.EmittedFiles))
+			for _, f := range res.EmittedFiles {
+				rel := f
+				if abs, err := filepath.Rel(cwd, f); err == nil {
+					rel = abs
+				}
+				fmt.Fprintln(stdout, "  +", rel)
+			}
+		}
+		if *manifestPath != "" {
+			data, err := json.Marshal(res.EmittedFiles)
+			if err != nil {
+				fmt.Fprintf(stderr, "ttsc build: manifest marshal failed: %v\n", err)
+				return 3
+			}
+			if err := os.MkdirAll(filepath.Dir(*manifestPath), 0o755); err != nil {
+				fmt.Fprintf(stderr, "ttsc build: manifest mkdir failed: %v\n", err)
+				return 3
+			}
+			if err := os.WriteFile(*manifestPath, data, 0o644); err != nil {
+				fmt.Fprintf(stderr, "ttsc build: manifest write failed: %v\n", err)
+				return 3
+			}
+		}
+	}
+
+	if !*quiet {
+		fmt.Fprintf(stdout, "// ttsc build: recognised=%d total=%d rewrites=%d\n", recognised, sites, rewrites.Len())
+	}
+	return 0
+}
+
+func collectTypiaRewrites(
+	prog *driver.Program,
+	cwd string,
+	emit bool,
+	quiet bool,
+	rewrites *driver.RewriteSet,
+) (int, int, error) {
+	sites := prog.CollectCallSites()
 	recognised := 0
 	for _, site := range sites {
 		rel := site.FilePath
@@ -83,10 +152,6 @@ func runBuild(args []string) int {
 			fmt.Fprintf(stdout, "%s: typia.%s<T> — emitter error: %v\n", rel, site.Method, err)
 			continue
 		}
-		// Wrapping the arrow function in a pair of parens makes
-		// `(<arrow>)(arg)` a well-formed call at the site. For factory
-		// methods we consume the entire `()` call, so the replacement
-		// becomes a naked function reference.
 		replacement := "(" + expr + ")"
 		rewrites.Add(driver.Rewrite{
 			File:          site.File,
@@ -96,35 +161,10 @@ func runBuild(args []string) int {
 			Replacement:   replacement,
 			ConsumeParens: factory,
 		})
-		if !*emit {
+		if !emit && !quiet {
 			fmt.Fprintf(stdout, "%s: typia.%s<T> → %s\n", rel, site.Method, expr)
 		}
 		recognised++
 	}
-
-	if *emit {
-		res, eDiags, err := prog.EmitAll(rewrites, nil)
-		if err != nil {
-			fmt.Fprintf(stderr, "ttsc build: emit failed: %v\n", err)
-			return 3
-		}
-		for _, d := range eDiags {
-			fmt.Fprintln(stderr, "  -", d.String())
-		}
-		if !*quiet {
-			fmt.Fprintf(stdout, "// ttsc build: emitted=%d files\n", len(res.EmittedFiles))
-			for _, f := range res.EmittedFiles {
-				rel := f
-				if abs, err := filepath.Rel(cwd, f); err == nil {
-					rel = abs
-				}
-				fmt.Fprintln(stdout, "  +", rel)
-			}
-		}
-	}
-
-	if !*quiet {
-		fmt.Fprintf(stdout, "// ttsc build: recognised=%d total=%d rewrites=%d\n", recognised, len(sites), rewrites.Len())
-	}
-	return 0
+	return len(sites), recognised, nil
 }

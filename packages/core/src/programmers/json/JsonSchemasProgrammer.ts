@@ -1,6 +1,6 @@
 import { IJsonSchemaCollection, OpenApi, OpenApiV3 } from "@typia/interface";
 import { OpenApiConverter } from "@typia/utils";
-import ts from "typescript";
+import ts from "@typescript/native-preview";
 
 import { ITypiaContext } from "../../context/ITypiaContext";
 import { TransformerError } from "../../context/TransformerError";
