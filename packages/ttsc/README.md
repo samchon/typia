@@ -7,7 +7,7 @@
 - It selects the matching native backend binary for each consumer plugin.
 - It keeps the standalone host code and the consumer-specific native code separate.
 
-typia is the first native consumer. Its TypeScript plugin entry is `typia/lib/ttsc/plugin`, and its native backend lives under `packages/typia/native`.
+typia is the first native consumer. Its TypeScript plugin entry is `typia/lib/ttsc/plugin`, its native implementation lives under `packages/core/native`, and its native rewrite backend lives under `packages/transform/native`.
 
 ## Layout
 

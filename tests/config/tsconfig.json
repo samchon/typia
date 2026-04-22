@@ -31,9 +31,11 @@
     // "rootDir": "./",                                  /* Specify the root folder within your source files. */
     "moduleResolution": "node",                       /* Specify how TypeScript looks up a file from a given module specifier. */
     // "baseUrl": "./",
-    "paths": {
-      "typia/lib/internal/*": ["../../packages/typia/src/internal/*"]
-    },
+    "plugins": [
+      {
+        "transform": "typia/lib/ttsc/plugin"
+      }
+    ],
     // "rootDirs": [],                                   /* Allow multiple folders to be treated as one when resolving modules. */
     // "typeRoots": [],                                  /* Specify multiple folders that act like `./node_modules/@types`. */
     // "types": [],                                      /* Specify type package names to be included without being referenced in a source file. */

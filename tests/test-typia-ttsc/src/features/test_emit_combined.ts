@@ -95,7 +95,7 @@ export async function test_emit_combined(): Promise<void> {
   assert.equal(s.type, "object");
   assert.ok(s.properties.id.format === "uuid");
   assert.ok(s.properties.authorEmail.format === "email");
-  assert.equal(s.properties.score.type, "number");
+  assert.equal(s.properties.score.type, "integer");
 
   // misc.literals.
   assert.deepEqual(

@@ -1,6 +1,10 @@
 import { TestStructure } from "@typia/template";
 import typia from "typia";
 
+import {
+  assertValidationFailure,
+  assertValidationSuccess,
+} from "./_assert_validation";
 import { create_query } from "../utils/create_query";
 import { resolved_equal_to } from "../utils/resolved_equal_to";
 
@@ -18,7 +22,7 @@ export const _test_http_validateQuery =
       throw new Error(
         `Bug on typia.http.validateQuery(): failed to understand ${name} type.`,
       );
-    typia.assertEquals<typia.IValidation.ISuccess<unknown>>(result);
+    assertValidationSuccess(result);
 
     const equal: boolean =
       result !== null && resolved_equal_to(name)(data, result.data);
@@ -40,7 +44,7 @@ export const _test_http_validateQuery =
           `Bug on typia.http.validateQuery(): failed to detect error on the ${name} type.`,
         );
 
-      typia.assertEquals(valid);
+      assertValidationFailure(valid);
       expected.sort();
       valid.errors.sort((x, y) => (x.path < y.path ? -1 : 1));
 

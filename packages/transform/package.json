@@ -47,6 +47,8 @@
   "sideEffects": false,
   "files": [
     "README.md",
+    "bin",
+    "native",
     "package.json",
     "lib",
     "src"

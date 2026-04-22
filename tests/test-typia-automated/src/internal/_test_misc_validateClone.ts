@@ -1,6 +1,10 @@
 import { TestStructure } from "@typia/template";
 import typia from "typia";
 
+import {
+  assertValidationFailure,
+  assertValidationSuccess,
+} from "./_assert_validation";
 import { resolved_equal_to } from "../utils/resolved_equal_to";
 
 export const _test_misc_validateClone =
@@ -14,7 +18,7 @@ export const _test_misc_validateClone =
         `Bug on typia.misc.validateClone(): failed to understand the ${name} type.`,
       );
 
-    typia.assertEquals<typia.IValidation.ISuccess<unknown>>(valid);
+    assertValidationSuccess(valid);
     if (resolved_equal_to(name)(input, valid.data) === false) {
       throw new Error(
         `Bug on typia.misc.validateClone(): failed to understand the ${name} type.`,
@@ -32,7 +36,7 @@ export const _test_misc_validateClone =
           `Bug on typia.misc.validateClone(): failed to detect error on the ${name} type.`,
         );
 
-      typia.assertEquals(valid);
+      assertValidationFailure(valid);
       expected.sort();
       valid.errors.sort((x, y) => (x.path < y.path ? -1 : 1));
 

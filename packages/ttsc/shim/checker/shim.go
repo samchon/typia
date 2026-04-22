@@ -12,6 +12,7 @@ type Signature = innerchecker.Signature
 type SignatureKind = innerchecker.SignatureKind
 type Type = innerchecker.Type
 type TypeFlags = innerchecker.TypeFlags
+type ObjectFlags = innerchecker.ObjectFlags
 
 const (
 	SignatureKindCall = innerchecker.SignatureKindCall
@@ -36,6 +37,8 @@ const (
 	TypeFlagsNumberLike      = innerchecker.TypeFlagsNumberLike
 	TypeFlagsBigIntLike      = innerchecker.TypeFlagsBigIntLike
 	TypeFlagsBooleanLike     = innerchecker.TypeFlagsBooleanLike
+
+	ObjectFlagsReference = innerchecker.ObjectFlagsReference
 )
 
 func IsTupleType(t *innerchecker.Type) bool {
@@ -50,12 +53,65 @@ func Checker_getPropertiesOfType(recv *innerchecker.Checker, t *innerchecker.Typ
 	return recv.GetPropertiesOfType(t)
 }
 
+func Checker_getApparentProperties(recv *innerchecker.Checker, t *innerchecker.Type) []*innerast.Symbol {
+	return recv.GetApparentProperties(t)
+}
+
 func Checker_getTypeArguments(recv *innerchecker.Checker, t *innerchecker.Type) []*innerchecker.Type {
 	return recv.GetTypeArguments(t)
 }
 
 func Checker_getTypeOfSymbol(recv *innerchecker.Checker, symbol *innerast.Symbol) *innerchecker.Type {
 	return recv.GetTypeOfSymbol(symbol)
+}
+
+func Checker_getTypeOfSymbolAtLocation(recv *innerchecker.Checker, symbol *innerast.Symbol, node *innerast.Node) *innerchecker.Type {
+	return recv.GetTypeOfSymbolAtLocation(symbol, node)
+}
+
+func Checker_getTypeOfPropertyOfType(recv *innerchecker.Checker, t *innerchecker.Type, name string) *innerchecker.Type {
+	return recv.GetTypeOfPropertyOfType(t, name)
+}
+
+//go:linkname checkerGetAliasSymbolForTypeNode github.com/microsoft/typescript-go/internal/checker.(*Checker).getAliasSymbolForTypeNode
+func checkerGetAliasSymbolForTypeNode(recv *innerchecker.Checker, node *innerast.Node) *innerast.Symbol
+
+func Checker_getAliasSymbolForTypeNode(recv *innerchecker.Checker, node *innerast.Node) *innerast.Symbol {
+	return checkerGetAliasSymbolForTypeNode(recv, node)
+}
+
+//go:linkname checkerGetDeclarationOfAliasSymbol github.com/microsoft/typescript-go/internal/checker.(*Checker).getDeclarationOfAliasSymbol
+func checkerGetDeclarationOfAliasSymbol(recv *innerchecker.Checker, symbol *innerast.Symbol) *innerast.Node
+
+func Checker_getDeclarationOfAliasSymbol(recv *innerchecker.Checker, symbol *innerast.Symbol) *innerast.Node {
+	return checkerGetDeclarationOfAliasSymbol(recv, symbol)
+}
+
+//go:linkname checkerGetTargetOfImportSpecifier github.com/microsoft/typescript-go/internal/checker.(*Checker).getTargetOfImportSpecifier
+func checkerGetTargetOfImportSpecifier(recv *innerchecker.Checker, node *innerast.Node) *innerast.Symbol
+
+func Checker_getTargetOfImportSpecifier(recv *innerchecker.Checker, node *innerast.Node) *innerast.Symbol {
+	if recv == nil || node == nil {
+		return nil
+	}
+	return checkerGetTargetOfImportSpecifier(recv, node)
+}
+
+func Checker_getAliasedSymbol(recv *innerchecker.Checker, symbol *innerast.Symbol) *innerast.Symbol {
+	if recv == nil || symbol == nil {
+		return nil
+	}
+	return recv.GetAliasedSymbol(symbol)
+}
+
+//go:linkname checkerGetTypeNameSymbol github.com/microsoft/typescript-go/internal/checker.getTypeNameSymbol
+func checkerGetTypeNameSymbol(t *innerchecker.Type) *innerast.Symbol
+
+func Type_getTypeNameSymbol(t *innerchecker.Type) *innerast.Symbol {
+	if t == nil {
+		return nil
+	}
+	return checkerGetTypeNameSymbol(t)
 }
 
 //go:linkname checkerIsArrayType github.com/microsoft/typescript-go/internal/checker.(*Checker).isArrayType

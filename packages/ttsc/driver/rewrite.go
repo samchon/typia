@@ -136,9 +136,10 @@ func applyRewrites(outputName, text string, rs *RewriteSet, cursors map[string]i
 	rewrites := rs.byPath[srcPath]
 	pos := cursors[srcPath]
 	out := text
+	searchFrom := 0
 	for pos < len(rewrites) {
 		r := rewrites[pos]
-		replaced, ok, err := spliceCall(out, r)
+		replaced, nextSearchFrom, ok, err := spliceCall(out, r, searchFrom)
 		if err != nil {
 			return "", err
 		}
@@ -150,6 +151,7 @@ func applyRewrites(outputName, text string, rs *RewriteSet, cursors map[string]i
 			return "", fmt.Errorf("driver: could not locate %s.%s(…) call in %s (tried roots %v; preview: %q)", joinRootAndNamespaces(r), r.Method, outputName, candidateRoots(r.RootName), preview)
 		}
 		out = replaced
+		searchFrom = nextSearchFrom
 		pos++
 	}
 	cursors[srcPath] = pos
@@ -188,34 +190,36 @@ func commonSuffixSegments(a, b string) int {
 	return shared
 }
 
-func spliceCall(text string, r Rewrite) (string, bool, error) {
+func spliceCall(text string, r Rewrite, searchFrom int) (string, int, bool, error) {
 	aliases := candidateRoots(r.RootName)
 	tail := needleTail(r)
 	idx := -1
 	needleLen := 0
 	for _, cand := range aliases {
 		candNeedle := cand + tail
-		if i := indexAtCallStart(text, candNeedle); i >= 0 {
+		if i := indexAtCallStart(text, candNeedle, searchFrom); i >= 0 {
 			idx = i
 			needleLen = len(candNeedle) - 1
 			break
 		}
 	}
 	if idx < 0 {
-		return text, false, nil
+		return text, searchFrom, false, nil
 	}
 	parenPos := idx + needleLen
 	if parenPos >= len(text) || text[parenPos] != '(' {
-		return text, false, errors.New("driver: expected '(' after method name")
+		return text, searchFrom, false, errors.New("driver: expected '(' after method name")
 	}
 	closePos, ok := matchParen(text, parenPos)
 	if !ok {
-		return text, false, errors.New("driver: unbalanced parens while locating plugin call")
+		return text, searchFrom, false, errors.New("driver: unbalanced parens while locating plugin call")
 	}
 	if r.ConsumeParens {
-		return text[:idx] + r.Replacement + text[closePos+1:], true, nil
+		replaced := text[:idx] + r.Replacement + text[closePos+1:]
+		return replaced, idx + len(r.Replacement), true, nil
 	}
-	return text[:idx] + r.Replacement + text[idx+needleLen:], true, nil
+	replaced := text[:idx] + r.Replacement + text[idx+needleLen:]
+	return replaced, idx + len(r.Replacement), true, nil
 }
 
 func candidateRoots(root string) []string {
@@ -243,8 +247,11 @@ func needleTail(r Rewrite) string {
 	return "." + strings.Join(r.Namespaces, ".") + "." + r.Method + "("
 }
 
-func indexAtCallStart(text, needle string) int {
-	start := 0
+func indexAtCallStart(text, needle string, searchFrom int) int {
+	start := searchFrom
+	if start < 0 {
+		start = 0
+	}
 	for {
 		hit := strings.Index(text[start:], needle)
 		if hit < 0 {

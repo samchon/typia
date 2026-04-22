@@ -38,7 +38,7 @@ export function resolveProjectConfig(opts: ProjectLocatorOptions = {}): string {
     if (!fs.existsSync(resolved)) {
       throw new Error(`ttsc: tsconfig not found: ${resolved}`);
     }
-    return resolved;
+    return resolveRealPath(resolved);
   }
 
   const start = opts.file ? resolveAbsolutePath(cwd, opts.file) : cwd;
@@ -49,7 +49,7 @@ export function resolveProjectConfig(opts: ProjectLocatorOptions = {}): string {
       `ttsc: could not find tsconfig.json or jsconfig.json starting from ${from}`,
     );
   }
-  return found;
+  return resolveRealPath(found);
 }
 
 export function resolveProjectRoot(opts: ProjectLocatorOptions = {}): string {
@@ -63,24 +63,11 @@ export function defaultCacheDirectory(projectRoot: string, tool: string): string
 export function readProjectConfig(opts: ProjectLocatorOptions = {}): ParsedProjectConfig {
   const tsconfig = resolveProjectConfig(opts);
   const root = path.dirname(tsconfig);
-  const parsed = parseJsonc(fs.readFileSync(tsconfig, "utf8")) as {
-    compilerOptions?: {
-      outDir?: unknown;
-      plugins?: unknown;
-    };
-  };
-  const compilerOptions = parsed.compilerOptions;
-  const plugins = Array.isArray(compilerOptions?.plugins)
-    ? compilerOptions.plugins.filter(isProjectPluginConfig)
-    : [];
-  const outDir =
-    typeof compilerOptions?.outDir === "string"
-      ? resolveAbsolutePath(root, compilerOptions.outDir)
-      : undefined;
+  const compilerOptions = readResolvedCompilerOptions(tsconfig);
   return {
     compilerOptions: {
-      outDir,
-      plugins,
+      outDir: compilerOptions.outDir,
+      plugins: compilerOptions.plugins,
     },
     path: tsconfig,
     root,
@@ -136,6 +123,94 @@ function isDirectory(location: string): boolean {
 
 function isProjectPluginConfig(value: unknown): value is ProjectPluginConfig {
   return typeof value === "object" && value !== null;
+}
+
+interface RawTsconfig {
+  extends?: unknown;
+  compilerOptions?: {
+    outDir?: unknown;
+    plugins?: unknown;
+  };
+}
+
+interface ResolvedCompilerOptions {
+  outDir?: string;
+  plugins: ProjectPluginConfig[];
+}
+
+function resolveRealPath(location: string): string {
+  try {
+    return fs.realpathSync(location);
+  } catch {
+    return location;
+  }
+}
+
+function readResolvedCompilerOptions(
+  tsconfig: string,
+  seen: Set<string> = new Set(),
+): ResolvedCompilerOptions {
+  const canonical = resolveRealPath(tsconfig);
+  if (seen.has(canonical)) {
+    throw new Error(`ttsc: circular tsconfig extends detected: ${canonical}`);
+  }
+  seen.add(canonical);
+
+  const parsed = parseJsonc(fs.readFileSync(canonical, "utf8")) as RawTsconfig;
+  const own = parsed.compilerOptions;
+  const base =
+    typeof parsed.extends === "string"
+      ? readResolvedCompilerOptions(resolveExtendsConfig(canonical, parsed.extends), seen)
+      : { plugins: [] };
+  return {
+    outDir:
+      typeof own?.outDir === "string"
+        ? resolveAbsolutePath(path.dirname(canonical), own.outDir)
+        : base.outDir,
+    plugins: Array.isArray(own?.plugins)
+      ? own.plugins.filter(isProjectPluginConfig)
+      : base.plugins,
+  };
+}
+
+function resolveExtendsConfig(tsconfig: string, specifier: string): string {
+  const baseDir = path.dirname(tsconfig);
+  if (path.isAbsolute(specifier)) {
+    return resolveExistingExtendsPath(specifier);
+  }
+  if (isRelativePluginSpecifier(specifier)) {
+    return resolveExistingExtendsPath(path.resolve(baseDir, specifier));
+  }
+  try {
+    return resolveRealPath(require.resolve(specifier, { paths: [baseDir] }));
+  } catch {
+    return resolveRealPath(require.resolve(`${specifier}.json`, { paths: [baseDir] }));
+  }
+}
+
+function resolveExistingExtendsPath(location: string): string {
+  const candidates = new Set<string>([
+    location,
+    `${location}.json`,
+    path.join(location, "tsconfig.json"),
+  ]);
+  for (const candidate of candidates) {
+    if (fs.existsSync(candidate)) {
+      return resolveRealPath(candidate);
+    }
+  }
+  throw new Error(`ttsc: extended tsconfig not found: ${location}`);
+}
+
+function isRelativePluginSpecifier(specifier: string): boolean {
+  return (
+    specifier === "." ||
+    specifier === ".." ||
+    specifier.startsWith("./") ||
+    specifier.startsWith("../") ||
+    specifier.startsWith(".\\") ||
+    specifier.startsWith("..\\")
+  );
 }
 
 function parseJsonc(input: string): unknown {

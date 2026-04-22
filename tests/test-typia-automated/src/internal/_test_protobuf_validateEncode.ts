@@ -1,6 +1,10 @@
 import { TestStructure } from "@typia/template";
 import typia from "typia";
 
+import {
+  assertValidationFailure,
+  assertValidationSuccess,
+} from "./_assert_validation";
 import { _test_protobuf_encode } from "./_test_protobuf_encode";
 
 export const _test_protobuf_validateEncode =
@@ -17,7 +21,7 @@ export const _test_protobuf_validateEncode =
       encode: (input: T) => {
         const result: typia.IValidation<Uint8Array> = functor.encode(input);
         if (!result.success) throw new Error();
-        typia.assertEquals(result);
+        assertValidationSuccess(result);
         return result.data;
       },
     }) satisfies void;
@@ -33,7 +37,7 @@ export const _test_protobuf_validateEncode =
           `Bug on typia.json.validateEncode(): failed to detect error on the ${name} type.`,
         );
 
-      typia.assertEquals(valid);
+      assertValidationFailure(valid);
       expected.sort();
       valid.errors.sort((x, y) => (x.path < y.path ? -1 : 1));
 
