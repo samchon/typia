@@ -316,6 +316,11 @@ function resolveSingleFileOut(file: string, cwd: string, outDir?: string): strin
 
 function runWatch(options: BuildInvocation, checkOnly: boolean): number {
   const cwd = path.resolve(options.cwd ?? process.cwd());
+  const invocation: BuildInvocation = {
+    ...options,
+    cwd,
+    quiet: true,
+  };
   const root = path.dirname(
     resolveProjectConfig({
       cwd,
@@ -341,10 +346,10 @@ function runWatch(options: BuildInvocation, checkOnly: boolean): number {
     }
     process.stdout.write(`[ttsc] rebuilding at ${new Date().toLocaleTimeString()}\n`);
     const status =
-      options.files.length !== 0
-        ? runSingleFile({ ...options, cwd })
+      invocation.files.length !== 0
+        ? runSingleFile(invocation)
         : (() => {
-            const result = checkOnly ? check({ ...options, cwd }) : build({ ...options, cwd });
+            const result = checkOnly ? check(invocation) : build(invocation);
             if (result.stdout) process.stdout.write(result.stdout);
             if (result.stderr) process.stderr.write(result.stderr);
             return result.status;

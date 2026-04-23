@@ -137,11 +137,15 @@ func collectTypiaRewrites(
 			rel = abs
 		}
 		if site.TypeArgument == nil {
-			fmt.Fprintf(stdout, "%s: typia.%s.%s — no explicit type argument (skip)\n", rel, site.Module, site.Method)
+			if !quiet {
+				fmt.Fprintf(stdout, "%s: typia.%s.%s — no explicit type argument (skip)\n", rel, site.Module, site.Method)
+			}
 			continue
 		}
 		if reason := typiattsc.UnsupportedReason(prog.Checker, site.TypeArgument, site.TypeNode, site.ConfigTypeNode, site.Module, site.Method); reason != "" {
-			fmt.Fprintf(stdout, "%s: typia.%s.%s<T> — %s\n", rel, site.Module, site.Method, reason)
+			if !quiet {
+				fmt.Fprintf(stdout, "%s: typia.%s.%s<T> — %s\n", rel, site.Module, site.Method, reason)
+			}
 			continue
 		}
 		schema, ok := typiattsc.AnalyzeTypeWithOptions(
@@ -152,20 +156,28 @@ func collectTypiaRewrites(
 			typiattsc.AnalysisOptions(site.Module, site.Method),
 		)
 		if !ok {
-			fmt.Fprintf(stdout, "%s: typia.%s.%s<T> — type not yet supported\n", rel, site.Module, site.Method)
+			if !quiet {
+				fmt.Fprintf(stdout, "%s: typia.%s.%s<T> — type not yet supported\n", rel, site.Module, site.Method)
+			}
 			continue
 		}
 		if reason := typiattsc.UnsupportedSchemaReason(site.Module, site.Method, schema, site.ConfigTypeNode, site.TypeNode); reason != "" {
-			fmt.Fprintf(stdout, "%s: typia.%s.%s<T> — %s\n", rel, site.Module, site.Method, reason)
+			if !quiet {
+				fmt.Fprintf(stdout, "%s: typia.%s.%s<T> — %s\n", rel, site.Module, site.Method, reason)
+			}
 			continue
 		}
 		expr, factory, err, handled := typiattsc.EmitCall(site.Module, site.Method, schema, site.TypeNode, site.ConfigTypeNode)
 		if !handled {
-			fmt.Fprintf(stdout, "%s: typia.%s.%s<T> — method not covered\n", rel, site.Module, site.Method)
+			if !quiet {
+				fmt.Fprintf(stdout, "%s: typia.%s.%s<T> — method not covered\n", rel, site.Module, site.Method)
+			}
 			continue
 		}
 		if err != nil {
-			fmt.Fprintf(stdout, "%s: typia.%s<T> — emitter error: %v\n", rel, site.Method, err)
+			if !quiet {
+				fmt.Fprintf(stdout, "%s: typia.%s<T> — emitter error: %v\n", rel, site.Method, err)
+			}
 			continue
 		}
 		rewrites.Add(driver.Rewrite{
