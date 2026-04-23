@@ -696,6 +696,9 @@ importers:
       '@typescript/native-preview':
         specifier: catalog:typescript
         version: 7.0.0-dev.20260421.2
+      '@typia/ttsc':
+        specifier: workspace:^
+        version: link:../../toolchain/ttsc
       '@typia/ttsx':
         specifier: workspace:^
         version: link:../../toolchain/ttsx
@@ -795,6 +798,9 @@ importers:
       '@typescript/native-preview':
         specifier: catalog:typescript
         version: 7.0.0-dev.20260421.2
+      '@typia/ttsc':
+        specifier: workspace:^
+        version: link:../../toolchain/ttsc
       '@typia/ttsx':
         specifier: workspace:^
         version: link:../../toolchain/ttsx
@@ -832,6 +838,9 @@ importers:
       '@typescript/native-preview':
         specifier: catalog:typescript
         version: 7.0.0-dev.20260421.2
+      '@typia/ttsc':
+        specifier: workspace:^
+        version: link:../../toolchain/ttsc
       '@typia/ttsx':
         specifier: workspace:^
         version: link:../../toolchain/ttsx
@@ -878,6 +887,9 @@ importers:
       '@typescript/native-preview':
         specifier: catalog:typescript
         version: 7.0.0-dev.20260421.2
+      '@typia/ttsc':
+        specifier: workspace:^
+        version: link:../../toolchain/ttsc
       '@typia/ttsx':
         specifier: workspace:^
         version: link:../../toolchain/ttsx
@@ -1020,6 +1032,9 @@ importers:
       '@typescript/native-preview':
         specifier: catalog:typescript
         version: 7.0.0-dev.20260421.2
+      '@typia/ttsc':
+        specifier: workspace:^
+        version: link:../../toolchain/ttsc
       '@typia/ttsx':
         specifier: workspace:^
         version: link:../../toolchain/ttsx
@@ -1057,6 +1072,9 @@ importers:
       '@typescript/native-preview':
         specifier: catalog:typescript
         version: 7.0.0-dev.20260421.2
+      '@typia/ttsc':
+        specifier: workspace:^
+        version: link:../../toolchain/ttsc
       '@typia/ttsx':
         specifier: workspace:^
         version: link:../../toolchain/ttsx
@@ -1100,6 +1118,9 @@ importers:
       '@typescript/native-preview':
         specifier: catalog:typescript
         version: 7.0.0-dev.20260421.2
+      '@typia/ttsc':
+        specifier: workspace:^
+        version: link:../../toolchain/ttsc
       '@typia/ttsx':
         specifier: workspace:^
         version: link:../../toolchain/ttsx
