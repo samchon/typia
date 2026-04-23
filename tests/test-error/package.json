@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/samchon/typia#readme",
   "devDependencies": {
+    "@typescript/native-preview": "catalog:typescript",
     "@typia/ttsc": "workspace:^",
     "rimraf": "catalog:utils"
   },

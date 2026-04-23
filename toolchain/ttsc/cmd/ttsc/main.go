@@ -40,7 +40,7 @@ func main() {
 
 func run(args []string) int {
 	if len(args) == 0 {
-		return runBuild([]string{"--emit"})
+		return runBuild(nil)
 	}
 
 	switch args[0] {
@@ -57,7 +57,7 @@ func run(args []string) int {
 	case "check":
 		// `ttsc check` runs the analyze pipeline without emitting JS — useful
 		// in CI and pre-commit hooks that only need schema validation.
-		return runBuild(append([]string{}, appendUnique(args[1:], "--quiet")...))
+		return runBuild(append([]string{"--noEmit"}, appendUnique(args[1:], "--quiet")...))
 	case "transform":
 		// Single-file transform for bundler plugin integration (unplugin,
 		// vite, esbuild, webpack, …). Emits only the requested file's JS to
@@ -68,12 +68,9 @@ func run(args []string) int {
 			fmt.Fprintln(stderr, "ttsc: -p/--project requires a path argument")
 			return 2
 		}
-		return runBuild(append([]string{"--tsconfig=" + args[1], "--emit"}, args[2:]...))
+		return runBuild(append([]string{"--tsconfig=" + args[1]}, args[2:]...))
 	default:
-		if strings.HasPrefix(args[0], "-") {
-			return runBuild(append([]string{"--emit"}, args...))
-		}
-		return runBuild(append([]string{"--emit"}, args...))
+		return runBuild(args)
 	}
 }
 
@@ -133,7 +130,8 @@ Drop-in tsc aliases:
 Build options:
   --tsconfig=FILE   Path to tsconfig.json (default: tsconfig.json).
   --cwd=DIR         Override working directory.
-  --emit            Write emitted .js files (omit for analysis-only run).
+  --emit            Force emitted .js files even when tsconfig has noEmit.
+  --noEmit          Force analysis-only run even when tsconfig would emit.
   --quiet           Suppress the per-call summary banner.
   --rewrite-mode=M  Native rewrite backend id.
   --manifest=FILE   Write emitted file paths as JSON to FILE after build --emit.
@@ -150,7 +148,7 @@ Demo options:
 
 Examples:
   ttsc --version
-  ttsc build --tsconfig=./tsconfig.json --emit
+  ttsc build --tsconfig=./tsconfig.json
   ttsc -p ./tsconfig.json
   ttsc check
   ttsc transform --file=src/main.ts

@@ -94,7 +94,7 @@ function delegateToNative(argv: readonly string[]): number {
 function parseBuildArgs(argv: readonly string[], checkOnly: boolean): BuildInvocation {
   let binary: string | undefined;
   let cwd: string | undefined;
-  let emit = !checkOnly;
+  let emit: boolean | undefined = checkOnly ? false : undefined;
   const files: string[] = [];
   let outDir: string | undefined;
   let preserveWatchOutput = false;
@@ -109,6 +109,9 @@ function parseBuildArgs(argv: readonly string[], checkOnly: boolean): BuildInvoc
     switch (current) {
       case "--emit":
         emit = true;
+        break;
+      case "--noEmit":
+        emit = false;
         break;
       case "--quiet":
         quiet = true;
@@ -260,7 +263,8 @@ function printHelp(): void {
       "  -p, --project <file>   Resolve project settings from this tsconfig",
       "  --tsconfig <file>      Resolve project settings from this tsconfig",
       "  --cwd <dir>            Resolve project-relative paths from this directory",
-      "  --emit                 Write emitted files during build",
+      "  --emit                 Force emitted files during build",
+      "  --noEmit               Force analysis-only build with no file writes",
       "  -w, --watch            Rebuild when project files change",
       "  --preserveWatchOutput  Do not clear the screen between watch rebuilds",
       "  --outDir <dir>         Override compilerOptions.outDir for this invocation",

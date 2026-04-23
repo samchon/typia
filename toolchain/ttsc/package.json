@@ -42,6 +42,7 @@
   "homepage": "https://typia.io",
   "devDependencies": {
     "@types/node": "catalog:utils",
+    "@typescript/native-preview": "catalog:typescript",
     "rimraf": "catalog:utils"
   },
   "sideEffects": false,

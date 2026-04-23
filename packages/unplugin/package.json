@@ -96,7 +96,7 @@
   },
   "dependencies": {
     "@rollup/pluginutils": "^5.1.4",
-    "@typescript/native-preview": "catalog:tsgo",
+    "@typescript/native-preview": "catalog:typescript",
     "bun-only": "^0.0.1",
     "consola": "^3.4.2",
     "defu": "^6.1.4",

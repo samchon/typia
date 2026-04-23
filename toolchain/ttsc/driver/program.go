@@ -49,8 +49,9 @@ type Program struct {
 // the program. `ForceEmit` is used by `ttsc build --emit` and `ttsc transform`
 // so runtime compilation still works when the project defaults to `noEmit`.
 type LoadProgramOptions struct {
-	ForceEmit bool
-	OutDir    string
+	ForceEmit   bool
+	ForceNoEmit bool
+	OutDir      string
 }
 
 // Close releases the checker pool lease acquired by LoadProgram.
@@ -118,6 +119,9 @@ func LoadProgram(cwd, tsconfigPath string, options LoadProgramOptions) (*Program
 	if len(diags) > 0 {
 		return nil, diags, nil
 	}
+	if options.ForceNoEmit {
+		forceNoEmit(parsed)
+	}
 	if options.ForceEmit {
 		forceEmit(parsed)
 	}
@@ -151,6 +155,13 @@ func forceEmit(parsed *tsoptions.ParsedCommandLine) {
 	options := parsed.ParsedConfig.CompilerOptions
 	options.NoEmit = core.TSFalse
 	options.EmitDeclarationOnly = core.TSFalse
+}
+
+func forceNoEmit(parsed *tsoptions.ParsedCommandLine) {
+	if parsed == nil || parsed.ParsedConfig == nil || parsed.ParsedConfig.CompilerOptions == nil {
+		return
+	}
+	parsed.ParsedConfig.CompilerOptions.NoEmit = core.TSTrue
 }
 
 func overrideOutDir(cwd string, parsed *tsoptions.ParsedCommandLine, outDir string) {

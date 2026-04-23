@@ -7,7 +7,7 @@ packages:
   - 'toolchain/*'
   - 'toolchain-tests/*'
 catalogs:
-  tsgo:
+  typescript:
     '@typescript/native-preview': 7.0.0-dev.20260421.2
   rollup:
     rollup: ^4.56.0

@@ -34,6 +34,7 @@
     "@modelcontextprotocol/sdk": "^1.26.0",
     "@rollup/plugin-commonjs": "catalog:rollup",
     "@rollup/plugin-node-resolve": "catalog:rollup",
+    "@typescript/native-preview": "catalog:typescript",
     "@typia/ttsc": "workspace:^",
     "rimraf": "catalog:utils",
     "rollup": "catalog:rollup",

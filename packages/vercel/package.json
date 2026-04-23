@@ -33,6 +33,7 @@
     "@rollup/plugin-commonjs": "catalog:rollup",
     "@rollup/plugin-node-resolve": "catalog:rollup",
     "@types/json-schema": "^7.0.15",
+    "@typescript/native-preview": "catalog:typescript",
     "@typia/ttsc": "workspace:^",
     "ai": "^6.0.116",
     "rimraf": "catalog:utils",

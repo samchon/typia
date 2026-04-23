@@ -28,7 +28,6 @@
   },
   "homepage": "https://typia.io",
   "dependencies": {
-    "@typescript/native-preview": "catalog:tsgo",
     "@typia/core": "workspace:^",
     "@typia/interface": "workspace:^",
     "@typia/utils": "workspace:^"
@@ -37,6 +36,7 @@
     "@rollup/plugin-commonjs": "catalog:rollup",
     "@rollup/plugin-node-resolve": "catalog:rollup",
     "@types/node": "catalog:utils",
+    "@typescript/native-preview": "catalog:typescript",
     "@typia/ttsc": "workspace:^",
     "rimraf": "catalog:utils",
     "rollup": "catalog:rollup",

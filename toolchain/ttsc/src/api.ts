@@ -71,7 +71,7 @@ export interface TransformOptions extends CommonOptions {
 export interface BuildOptions extends CommonOptions {
   /** Path to tsconfig.json. Default: `tsconfig.json`. */
   tsconfig?: string;
-  /** Emit .js files to disk. Default: `true`. */
+  /** Emit override. `true` forces emit, `false` forces noEmit, `undefined` follows tsconfig. */
   emit?: boolean;
   /** Override compilerOptions.outDir for this invocation. */
   outDir?: string;
@@ -195,7 +195,8 @@ export function build(options: BuildOptions = {}): BuildResult {
   const execution = resolveExecutionContext(options);
   const args = ["build", "--rewrite-mode=" + execution.nativeMode];
   if (options.tsconfig) args.push("--tsconfig=" + options.tsconfig);
-  if (options.emit !== false) args.push("--emit");
+  if (options.emit === true) args.push("--emit");
+  else if (options.emit === false) args.push("--noEmit");
   if (options.outDir) args.push("--outDir=" + options.outDir);
   if (options.quiet) args.push("--quiet");
   const needsManifest = options.emit !== false && execution.plugins.length > 0;

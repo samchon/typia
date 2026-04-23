@@ -23,6 +23,7 @@
   "devDependencies": {
     "@types/node": "catalog:utils",
     "@types/uuid": "catalog:utils",
+    "@typescript/native-preview": "catalog:typescript",
     "@typia/ttsx": "workspace:^",
     "rimraf": "catalog:utils"
   },

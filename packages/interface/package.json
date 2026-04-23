@@ -28,7 +28,7 @@
   },
   "homepage": "https://typia.io",
   "devDependencies": {
-    "@typescript/native-preview": "catalog:tsgo",
+    "@typescript/native-preview": "catalog:typescript",
     "@typia/ttsc": "workspace:^",
     "rimraf": "catalog:utils"
   },
