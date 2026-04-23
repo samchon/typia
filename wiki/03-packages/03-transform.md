@@ -1,11 +1,11 @@
 # packages/transform — TypeScript Transformer 어댑터
 
 > 위치: `packages/transform/src`
-> 책임: `@typia/ttsc/plugin/typia` / `@typia/unplugin` 이 호출하는 TransformerFactory 진입점. typia.* 호출을 감지하고 `@typia/core`의 Programmer로 디스패치한다.
+> 책임: `typia/lib/ttsc/plugin` / `@typia/unplugin` 이 호출하는 TransformerFactory 진입점. typia.* 호출을 감지하고 `@typia/core`의 Programmer로 디스패치한다.
 
 ## 1. 진입점 구조
 
-- `transform.ts:41-68` — 현재 `@typia/ttsc/plugin/typia` 와 `@typia/unplugin` 이 공통으로 소비하는 `transform(program, options, extras)`. strict 모드 검증 후 TransformerFactory를 반환.
+- `transform.ts:41-68` — 현재 `typia/lib/ttsc/plugin` 과 `@typia/unplugin` 이 공통으로 소비하는 `transform(program, options, extras)`. strict 모드 검증 후 TransformerFactory를 반환.
 - `FileTransformer.ts:18-58` — 각 SourceFile을 받아 `ts.visitEachChild`로 깊이 우선 탐색. CallExpression을 만나면 `iterate_node`로 처리.
 - `FileTransformer.ts:35-43` — JSDoc 파싱 모드 체크 (TS 5.3 변경 대응).
 

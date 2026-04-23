@@ -31,7 +31,7 @@ typia는 `ttsc` / `ttsx` 의 consumer 다.
 2. preview 기간에는 `@typescript/native-preview` 설치
 3. 필요 시 `@typia/ttsx` 설치
 4. legacy `ts-patch` 제거
-5. typia config / tsconfig 정렬 (`@typia/ttsc/plugin/typia` 주입)
+5. typia config / tsconfig 정렬 (`typia/lib/ttsc/plugin` 주입)
 
 ## 표현 원칙
 

@@ -5,7 +5,7 @@
   "description": "Test program of typia generated error",
   "main": "index.js",
   "scripts": {
-    "build": "rimraf bin && ttsc build --emit --tsconfig tsconfig.json",
+    "build": "rimraf bin && ttsc build",
     "start": "node index.js"
   },
   "repository": {
@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/samchon/typia#readme",
   "devDependencies": {
+    "@typescript/native-preview": "catalog:typescript",
     "@typia/ttsc": "workspace:^",
     "rimraf": "catalog:utils"
   },

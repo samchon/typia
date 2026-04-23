@@ -1,6 +1,6 @@
-# 01. nestia 개요 + tsgo 전환 계획 (Agent 실측 기반 v2)
+# 01. nestia 개요 + tsgo 전환 계획
 
-> `/mnt/d/github/samchon/nestia` (samchon 직접 관리). v11.0.2, MIT. typia와 세트로 움직임.
+> `samchon/nestia`, v11.0.2, MIT.
 
 ## 한 줄 정의
 
@@ -31,7 +31,7 @@
 
 ### A. @nestia/core transformer 체이닝
 - 진입: `packages/core/src/transform.ts:1` — `ITypiaContext` import
-- tsconfig: `plugins: [{ transform: "typia/lib/transform" }]` (nestia 자체 빌드)
+- tsconfig: `plugins: [{ transform: "typia/lib/ttsc/plugin" }]` (nestia 쪽 typia 경로)
 - 사용자 tsconfig: **2개 transformer 순차 실행** — typia → nestia
 
 ### B. @nestia/core programmer들의 MetadataFactory 직접 호출 ⚠️
@@ -62,7 +62,7 @@ import { JsonMetadataFactory, MetadataFactory } from "@typia/core/...";
 {
   "compilerOptions": {
     "plugins": [
-      { "transform": "typia/lib/transform" },
+      { "transform": "typia/lib/ttsc/plugin" },
       { "transform": "@nestia/core/lib/transform" }
     ]
   }
@@ -83,7 +83,7 @@ import { JsonMetadataFactory, MetadataFactory } from "@typia/core/...";
 └─ @typia/ttsc 코어 재사용
 
 사용자: plugins = [
-  { transform: "typia/lib/transform" },
+  { transform: "typia/lib/ttsc/plugin" },
   { transform: "@nestia/core/lib/transform" }
 ]
 (tsconfig 변경 없음. ttsc가 두 plugin 모두 내부 dispatch)
@@ -137,11 +137,11 @@ typia-go 100~150K + nestia 20~35K = **총 120~185K Go LOC** (ttsc 바이너리).
 
 | Phase | 시점 | nestia 작업 |
 |---|---|---|
-| **Phase 0** | 2026 Q2 | `@typia/ttsc` adapter 경계 정리 + nestia-go driver 구조 설계 |
-| **Phase 1** | 2026 Q3-Q4 | nestia v12.1~12.3 minor — @typia/core 호출을 "타입 안전 wrapper"로 격리 (예: `createValidateWithFactory()`) |
-| **Phase 2** | 2027 Q1-Q2 | nestia-go transformer 기본 구현 (ttsc에서 @TypedRoute/Body 인식). @nestia/core v13-beta — deprecated marker + ttsc redirect 경고 |
-| **Phase 3** | 2027 Q3-Q4 | @nestia/sdk·migrate CLI를 `@typia/ttsc` 연동 기준으로 재구성. 공통 코어가 검증되면 그때 generic API로 승격 |
-| **Phase 4** | 2028 이후 | **nestia v14 major** — Go transformer 완전. legacy `ts-patch` 경로 제거와 migration guide 정리 |
+| **Stage 0** | 2026 Q2 | `@typia/ttsc` adapter 경계 정리 + nestia-go driver 구조 설계 |
+| **Stage 1** | 2026 Q3-Q4 | nestia v12.1~12.3 minor — @typia/core 호출을 "타입 안전 wrapper"로 격리 (예: `createValidateWithFactory()`) |
+| **Stage 2** | 2027 Q1-Q2 | nestia-go transformer 기본 구현 (ttsc에서 @TypedRoute/Body 인식). @nestia/core v13-beta — deprecated marker + ttsc redirect 경고 |
+| **Stage 3** | 2027 Q3-Q4 | @nestia/sdk·migrate CLI를 `@typia/ttsc` 연동 기준으로 재구성. 공통 코어가 검증되면 그때 generic API로 승격 |
+| **Stage 4** | 2028 이후 | **nestia v14 major** — Go transformer 완전. legacy `ts-patch` 경로 제거와 migration guide 정리 |
 
 ## 사용자 마이그레이션 경로
 
@@ -149,7 +149,7 @@ typia-go 100~150K + nestia 20~35K = **총 120~185K Go LOC** (ttsc 바이너리).
 ```bash
 npm i -D typescript typia nestia @nestia/core @nestia/sdk ts-patch
 # package.json: "prepare": "ts-patch install"
-# tsconfig: plugins: [{ transform: "typia/lib/transform" }, ...]
+# tsconfig: plugins: [{ transform: "typia/lib/ttsc/plugin" }, ...]
 ```
 
 ### 전환 후 (v14 / typia v14 동시)
@@ -160,7 +160,7 @@ npx typia setup
 # nestia transformer는 별도 integration layer에서 정렬
 ```
 
-**tsconfig.json**: typia plugin 쪽은 `@typia/ttsc/plugin/typia` 기준으로 바뀌고, nestia transformer는 그 위에서 별도 정렬이 필요하다.
+**tsconfig.json**: typia plugin 쪽은 `typia/lib/ttsc/plugin` 기준으로 바뀌고, nestia transformer는 그 위에서 별도 정렬이 필요하다.
 
 ## tsgonest 경쟁 대응 (Agent 재확인)
 
@@ -174,17 +174,17 @@ tsgonest가 `tsgonest migrate --apply`로 nestia 자동 흡수 시도. nestia의
 ## 불확실성 (Agent 명시)
 
 - **@typia/core의 v13 deprecation 시점** 미확정
-- **ttsc의 IPC/API 스펙** 미정 (Phase 0 산출물)
+- **ttsc의 IPC/API 스펙** 추가 안정화 여지 있음
 - **pnpm 호이스팅**: nestia transformer의 substring matching이 pnpm virtual store에서 작동?
 - **@nestia/editor standalone 번들**: browser에서 SDK 분석 시 Go engine 없이 어떻게?
 
 ## samchon에게 구체적 실행 권고 5
 
-1. **Phase 0 (2026-06 말)**: `@typia/ttsc` adapter 경계와 nestia-go driver 설계 정리
-2. **Phase 1 (2026 Q3-Q4)**: nestia v12.1~12.3 — @typia/core 호출을 wrapper로 격리 (향후 swap 용이)
-3. **Phase 2 (2027 Q1-Q2)**: ttsc에 nestia-go driver 구현. @nestia/core v13-beta (deprecated 경고)
-4. **Phase 3 (2027 Q3-Q4)**: @nestia/sdk·migrate CLI를 ttsc IPC로 재구성. v13 출시
-5. **Phase 4 (2028+)**: nestia v14 major — ts-patch 완전 제거, migration guide + tsgonest 통합 문서
+1. **Stage 0 (2026-06 말)**: `@typia/ttsc` adapter 경계와 nestia-go driver 설계 정리
+2. **Stage 1 (2026 Q3-Q4)**: nestia v12.1~12.3 — @typia/core 호출을 wrapper로 격리 (향후 swap 용이)
+3. **Stage 2 (2027 Q1-Q2)**: ttsc에 nestia-go driver 구현. @nestia/core v13-beta (deprecated 경고)
+4. **Stage 3 (2027 Q3-Q4)**: @nestia/sdk·migrate CLI를 ttsc IPC로 재구성. v13 출시
+5. **Stage 4 (2028+)**: nestia v14 major — ts-patch 완전 제거, migration guide + tsgonest 통합 문서
 
 ## 주요 파일 (Agent 조사 40개 중 핵심 15)
 

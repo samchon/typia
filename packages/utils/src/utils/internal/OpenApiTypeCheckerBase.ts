@@ -66,6 +66,8 @@ export namespace OpenApiTypeCheckerBase {
   export const isReference = (
     schema: OpenApi.IJsonSchema,
   ): schema is OpenApi.IJsonSchema.IReference =>
+    !!schema &&
+    typeof schema === "object" &&
     (schema as any).$ref !== undefined;
 
   export const isOneOf = (

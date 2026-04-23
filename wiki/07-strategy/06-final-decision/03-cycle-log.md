@@ -1,6 +1,6 @@
 # 03. 5 Cycles 분석 진화 로그
 
-> ⚠️ **역사 문서 (Archived)** — 이 파일은 2026-04-18 초기 분석의 작업 이력. 현재 진실원은 [08-tsgo-master-plan/](../../08-tsgo-master-plan/) + [10-ecosystem/](../../10-ecosystem/). 내용이 현재 결정과 충돌하면 08 · 10 우선.
+> 보존용 참고 문서. 현재 기준은 [08-tsgo-master-plan/](../../08-tsgo-master-plan/) + [10-ecosystem/](../../10-ecosystem/).
 
 
 > 사용자의 요구 — "이 싸이클을 약 5회 반복하여 정말 완벽하게 이해" — 에 따른 사이클별 발견과 관점 변화.

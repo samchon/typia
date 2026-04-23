@@ -1,9 +1,9 @@
 # Prior Art 3 — typescript-go 내부 지도
 
-> ⚠️ **역사 문서 (Archived)** — 이 파일은 2026-04-18 초기 분석의 작업 이력. 현재 진실원은 [08-tsgo-master-plan/](../../../08-tsgo-master-plan/) + [10-ecosystem/](../../../10-ecosystem/). 내용이 현재 결정과 충돌하면 08 · 10 우선.
+> 보존용 참고 문서. 현재 기준은 [08-tsgo-master-plan/](../../../08-tsgo-master-plan/) + [10-ecosystem/](../../../10-ecosystem/).
 
 
-> 분석 대상: `/mnt/d/github/contributions/typescript-go` (Microsoft 공식)
+> 분석 대상: `microsoft/typescript-go`
 > 중요도: ★★★★★ (ttsc가 물려받거나 우회할 시스템 자체)
 
 ## 저장소 개요
@@ -12,6 +12,22 @@
 - npm workspace: `_extension/`, `_packages/native-preview`, `_packages/ast`, `_packages/api`
 - **.go 파일 약 4,500개, 37 MB**
 - Hereby task runner + Go make 병행 (`Herebyfile.mjs`)
+
+## 현재 상태 스냅샷
+
+현재 `typescript-go` README는 다음 상태를 명시한다.
+
+| 항목 | 현재 표기 |
+|---|---|
+| Program creation / Parsing / Type checking / Emit | done |
+| Declaration emit | in progress |
+| Watch mode | prototype |
+| Build mode / project references | done |
+| Incremental build | done |
+| Language service | in progress |
+| API | not ready |
+
+이 스냅샷은 "tsgo가 아직 아무 것도 안 된 초기 실험체"라는 식의 오래된 인상을 교정한다. 현재 더 정확한 표현은 **컴파일러 본체는 빠르게 전진했지만, typia가 직접 기대하는 API/transformer 경계는 아직 닫혀 있다** 쪽이다.
 
 ## 실행 진입점: cmd/tsgo
 

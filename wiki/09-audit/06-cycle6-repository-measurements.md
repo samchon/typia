@@ -1,6 +1,6 @@
 # Audit 6 — 저장소 실측 대조표
 
-> `/mnt/d/github/contributions/*` 와 `/mnt/d/github/samchon/typia/` 에 대한 직접 측정 결과.
+> typia와 관련 reference repository를 대조 측정한 결과.
 
 ## 측정 표 (2026-04-18 기준)
 

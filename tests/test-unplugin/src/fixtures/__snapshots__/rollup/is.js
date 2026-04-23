@@ -1,10 +1,6 @@
 // is.js
-import * as __typia_transform__isFormatEmail from 'typia/lib/internal/_isFormatEmail';
-import * as __typia_transform__isFormatUuid from 'typia/lib/internal/_isFormatUuid';
-import * as __typia_transform__isTypeUint32 from 'typia/lib/internal/_isTypeUint32';
-
-const is = /* @__PURE__ */ (() => {
-  const _io0 = (input) => "string" === typeof input.email && __typia_transform__isFormatEmail._isFormatEmail(input.email) && ("string" === typeof input.id && __typia_transform__isFormatUuid._isFormatUuid(input.id)) && ("number" === typeof input.age && (__typia_transform__isTypeUint32._isTypeUint32(input.age) && 19 < input.age && input.age <= 100));
-  return (input) => "object" === typeof input && null !== input && _io0(input);
-})();
+const is = ((input) => (() => {
+  const __is_0 = (v) => "object" === typeof v && null !== v && false === Array.isArray(v) && ("number" === typeof v.age && Number.isFinite(v.age) && Number.isInteger(v.age) && 0 <= v.age && v.age <= 4294967295 && 19 < v.age && 100 >= v.age) && ("string" === typeof v.email && new RegExp("^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$").test(v.email)) && ("string" === typeof v.id && new RegExp("^(?:urn:uuid:)?[0-9a-fA-F]{8}-(?:[0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$").test(v.id));
+  return __is_0(input);
+})());
 is({});

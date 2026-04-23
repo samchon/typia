@@ -1,6 +1,6 @@
 # 01. Four Options Compared (Cycle 2)
 
-> ⚠️ **역사 문서 (Archived)** — 이 파일은 2026-04-18 초기 분석의 작업 이력. 현재 진실원은 [08-tsgo-master-plan/](../../08-tsgo-master-plan/) + [10-ecosystem/](../../10-ecosystem/). 내용이 현재 결정과 충돌하면 08 · 10 우선.
+> 보존용 참고 문서. 현재 기준은 [08-tsgo-master-plan/](../../08-tsgo-master-plan/) + [10-ecosystem/](../../10-ecosystem/).
 
 
 > 사이클 2의 산출물. 4옵션 각각을 같은 깊이로 정직하게 평가.
@@ -78,7 +78,7 @@ ttsc-go 바이너리:
 ```
 
 ### 비용
-- **개발**: 12 person-months (Phase 0~4)
+- **개발**: 12 person-months (Stage 0~4)
 - **유지보수**: 매 tsgo release당 5~15분 (shim 자동생성 + 최소 patch rebase)
 - 7 플랫폼 바이너리 배포 인프라
 
@@ -178,10 +178,10 @@ npm 패키지:
 
 ### 범위
 ```
-Year 1 (2026): Phase 0~4 of ttsc (옵션 B)
+Year 1 (2026): Stage 0~4 of ttsc (옵션 B)
   → ttsc v1.0 출시, 사용자 TS 7 전환 경로 확보
 
-Year 2 (2027): typia-go Phase 0~3 병행 착수
+Year 2 (2027): typia-go Stage 0~3 병행 착수
   → Go 포팅의 분석기·metadata schema 완성
   → ttsc 유지 + typia-go alpha
 

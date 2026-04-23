@@ -1,6 +1,6 @@
 # 02. agentica — LLM function calling 프레임워크
 
-> `/mnt/d/github/samchon/agentica` (samchon 관리). AutoBE의 핵심 의존.
+> `samchon/agentica`. AutoBE의 핵심 의존.
 
 ## 한 줄 정의
 

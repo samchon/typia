@@ -48,7 +48,7 @@ npx typia generate --input <dir> --output <dir>
 2. Inquirer 인터랙티브 입력
 3. `@typescript/native-preview` + `@typia/ttsc` 설치
 4. 기존 `ts-patch install` / `typia patch` 성격의 prepare/postinstall hook 제거
-5. `tsconfig.json.compilerOptions.plugins += [{ transform: "@typia/ttsc/plugin/typia" }]` + strict 옵션 활성화
+5. `tsconfig.json.compilerOptions.plugins += [{ transform: "typia/lib/ttsc/plugin" }]` + strict 옵션 활성화
 
 지원 빌더:
 - **ttsc** (`@typescript/native-preview` + `@typia/ttsc`) — 기본 경로
@@ -82,7 +82,7 @@ npx typia generate --input <dir> --output <dir>
 - `vite.ts | webpack.ts | rspack.ts | rollup.ts | esbuild.ts | farm.ts | rolldown.ts | bun.ts | next.ts` — 각 번들러 wrapper
 
 ### ts-patch 우회 메커니즘 (`core/typia.ts:31-62`)
-- 현재 기본 설치 계약(`@typia/ttsc/plugin/typia`)과 독립적으로,
+- 현재 기본 설치 계약(`typia/lib/ttsc/plugin`)과 독립적으로,
 - TypeScript Compiler API + `ts.transform()` + `ts.createPrinter()`로 **개별 파일 단위 변환**
 - 파일별 변환 결과를 캐싱 (`Cache` 클래스)
 - diff-match-patch-es로 sourcemap 생성

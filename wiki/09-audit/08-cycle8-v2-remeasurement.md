@@ -1,4 +1,4 @@
-# Audit 8 — Cycle 2 v2 재실측 (2026-04-18)
+# Audit 8 — 재실측 (2026-04-18)
 
 > 목적: wiki v4 작성 이후 line-by-line 재정독 + 소스 코드 실측 + 외부 저장소 재조사로 확인된 오차·누락 사실 기록.
 
@@ -7,7 +7,7 @@
 1. wiki 104 파일 전수 정독 (7,215 lines)
 2. typia 9 패키지 전체 소스 구조 파악 (src 디렉토리 전체)
 3. 핵심 transform/core 파일 line-by-line 정독
-4. 외부 8개 저장소 (`/mnt/d/github/contributions/`) 재확인
+4. 외부 저장소 재확인
 5. 웹 리서치로 tsgo / Issue #516 / #1534 최신성 확인
 
 ## 발견 1: typia 전체 LOC 재실측
@@ -44,7 +44,6 @@
 - path 파서 (`typiaPathToStandardSchemaPath`) — `$input.user.address[0].zipCode` → `[{key:"user"},{key:"address"},{key:0},{key:"zipCode"}]`
 
 **영향**:
-- **06-feedback/02 W2, 03 A1 대규모 개정 필요 (완료: 해당 섹션에 "v2 재실측 정정" 경고 추가)**
 - 현재 작업은 "미구현 → 구현"이 아니라 "구현 → 문서화·확장·마케팅"
 - 남은 과제: (a) `createIs` / `createAssert`로 확장, (b) MCP/AI SDK 통합 예제, (c) 공식 블로그/문서
 
@@ -76,7 +75,7 @@
 
 **영향**:
 - 08/03-technical-foundations에 "3개 실측" 반영 완료
-- ttsc Phase 0 목표: tsgonest처럼 **3개 이하 patches** 달성 가능성 높음
+- ttsc Stage 0 목표: tsgonest처럼 **3개 이하 patches** 달성 가능성 높음
 
 ## 발견 5: FUNCTORS 147 entries 확정
 
@@ -126,7 +125,7 @@
 - [x] `05-research/03-tsgo-status.md` — GA 날짜 정정
 - [x] `06-feedback/02-weaknesses.md` W2 — Standard Schema 부분 구현 경고
 - [x] `06-feedback/03-improvement-proposals.md` A1 — Standard Schema 문서화·확장으로 성격 변경
-- [x] `08-tsgo-master-plan/17-phase0-kickoff.md` 신설 — 첫 4주 실행 가이드
+- [x] `08-tsgo-master-plan/05-stage0-kickoff.md` 신설 — 첫 4주 실행 가이드
 - [x] `00-INDEX.md` v5 — cycle 2 변경사항 노출
 
 ## 남은 검증 과제 (다음 사이클)
@@ -135,7 +134,7 @@
 2. `@typia/core` 내 각 Programmer의 LOC 실측 표
 3. tsgonest `internal/codegen/` 각 파일 vs typia 대응 파일 1:1 매핑표
 4. effect-tsgo 23 patches 각각의 내용 요약 (어떤 hook을 걸었는지)
-5. tsgolint gen_shims의 실제 생성 규칙 파악 (Phase 0 직전 필수)
+5. tsgolint gen_shims의 실제 생성 규칙 파악 (Stage 0 직전 필수)
 6. PR #711의 2026-04 최신 커밋 노출 API 범위 재조사
 7. Issue #516 전체 comment 추이 (공식 정책 힌트가 숨어있을 가능성)
 8. Go 1.27 release notes preview (linkname 정책 확인)

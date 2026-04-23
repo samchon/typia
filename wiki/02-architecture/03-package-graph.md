@@ -68,7 +68,7 @@
 | `@typia/interface` | IValidation, ILlmApplication, OpenApi, tags 등 모든 공개 타입 |
 | `@typia/utils` | 런타임 헬퍼 + LLM/OpenAPI 변환 유틸 + 검증기 헬퍼 |
 | `@typia/core` | MetadataFactory + 모든 Programmer (코드 생성 본체) |
-| `@typia/transform` | `@typia/ttsc/plugin/typia` 와 `@typia/unplugin` 이 부르는 TransformerFactory (어댑터) |
+| `@typia/transform` | `typia/lib/ttsc/plugin` 과 `@typia/unplugin` 이 부르는 TransformerFactory (어댑터) |
 | `typia` | 사용자가 import하는 메인 + CLI (setup/patch/generate) |
 | `@typia/unplugin` | vite/webpack/rspack/...에 transformer 주입 |
 | `@typia/mcp` | MCP SDK Tool로 ILlmController 변환 |

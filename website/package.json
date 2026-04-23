@@ -5,7 +5,7 @@
   "description": "Typia Guide Documents",
   "scripts": {
     "build": "npm run prebuild && next build && npm run postbuild",
-    "prebuild": "rimraf .next && rimraf out && npm run build:compiler && npm run build:typedoc && npm run build:blog:rss",
+    "prebuild": "rimraf .next && rimraf out && npm run build:compiler && npm run build:blog:rss",
     "postbuild": "npm run build:pagefind && npm run build:sitemap",
     "build:blog:rss": "node build/blog",
     "build:compiler": "node build/compiler",
@@ -32,9 +32,9 @@
     "@mui/icons-material": "^5.15.4",
     "@mui/material": "^5.12.0",
     "@rollup/browser": "4.13.0",
-    "@typia/core": "../experiments/tarballs/core.tgz",
-    "@typia/interface": "../experiments/tarballs/interface.tgz",
-    "@typia/transform": "../experiments/tarballs/transform.tgz",
+    "@typia/core": "^12.0.2",
+    "@typia/interface": "^12.0.2",
+    "@typia/transform": "^12.0.2",
     "embed-typescript": "^1.1.0",
     "lz-string": "^1.5.0",
     "monaco-editor": "^0.50.0",
@@ -48,7 +48,7 @@
     "react-dom": "^18.2.0",
     "tgrid": "^1.0.3",
     "tstl": "^3.0.0",
-    "typia": "../experiments/tarballs/typia.tgz"
+    "typia": "^12.0.2"
   },
   "devDependencies": {
     "@rspack/cli": "^1.0.0",

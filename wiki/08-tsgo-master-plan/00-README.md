@@ -16,7 +16,7 @@
 2. [02. Products](02-products.md)
 3. [03. Plugin Contract](03-plugin-contract.md)
 4. [04. typia Consumer Plan](04-typia-consumer.md)
-5. [05. Phase 0 Kickoff](05-phase0-kickoff.md)
+5. [05. Stage 0 Kickoff](05-stage0-kickoff.md)
 6. [06. Roadmap](06-roadmap.md)
 7. [07. Open Questions](07-open-questions.md)
 8. [08. Current Spike](08-current-spike.md)

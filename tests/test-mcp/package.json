@@ -4,6 +4,7 @@
   "version": "12.0.2",
   "description": "Test suite for @typia/mcp package",
   "scripts": {
+    "dev": "ttsc --watch",
     "start": "ttsx src/index.ts"
   },
   "repository": {
@@ -14,6 +15,8 @@
   "license": "MIT",
   "devDependencies": {
     "@types/node": "catalog:utils",
+    "@typescript/native-preview": "catalog:typescript",
+    "@typia/ttsc": "workspace:^",
     "@typia/ttsx": "workspace:^"
   },
   "dependencies": {

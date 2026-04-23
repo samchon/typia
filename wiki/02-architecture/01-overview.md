@@ -16,7 +16,7 @@
 ┌────────────────────────────────────────────────────────────────────┐
 │   @typia/ttsc | unplugin-typia                                     │
 │                                                                    │
-│   - 기본 경로: `@typia/ttsc` host가 `@typia/ttsc/plugin/typia` 로드 │
+│   - 기본 경로: `@typia/ttsc` host가 `typia/lib/ttsc/plugin` 로드 │
 │   - unplugin: vite/webpack/rspack/esbuild/rolldown/bun/farm/next   │
 └────────────────────────┬───────────────────────────────────────────┘
                          │ TransformerFactory(program, options, extras)

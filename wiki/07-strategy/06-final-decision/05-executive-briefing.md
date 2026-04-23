@@ -1,6 +1,6 @@
 # 05. Executive Briefing — 30초 경영 요약
 
-> ⚠️ **역사 문서 (Archived)** — 이 파일은 2026-04-18 초기 분석의 작업 이력. 현재 진실원은 [08-tsgo-master-plan/](../../08-tsgo-master-plan/) + [10-ecosystem/](../../10-ecosystem/). 내용이 현재 결정과 충돌하면 08 · 10 우선.
+> 보존용 참고 문서. 현재 기준은 [08-tsgo-master-plan/](../../08-tsgo-master-plan/) + [10-ecosystem/](../../10-ecosystem/).
 
 
 ## 위기
@@ -68,7 +68,7 @@ Year 2-3 (2027 Q3 - 2029 Q2): typia-go 병행
 
 - [ ] 공식 입장문 발표
 - [ ] Standard Schema 어댑터 출시
-- [ ] ttsc Phase 0 spike (2주)
+- [ ] ttsc Stage 0 spike (2주)
 - [ ] Go 조력자 모집
 
 ## 재정 요구

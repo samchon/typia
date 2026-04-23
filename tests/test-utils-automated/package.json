@@ -4,6 +4,7 @@
   "version": "12.0.2",
   "description": "Automated test features of openapi.",
   "scripts": {
+    "dev": "ttsc --watch",
     "start": "ttsx src/index.ts"
   },
   "repository": {
@@ -23,6 +24,8 @@
   "devDependencies": {
     "@types/node": "catalog:utils",
     "@types/uuid": "catalog:utils",
+    "@typescript/native-preview": "catalog:typescript",
+    "@typia/ttsc": "workspace:^",
     "@typia/ttsx": "workspace:^"
   },
   "dependencies": {

@@ -77,7 +77,9 @@ export namespace TypiaGenerator {
         transform(
           program,
           ((compilerOptions.plugins as any[]) ?? []).find(
-            (p: any) => p.transform === "typia/lib/transform",
+            (p: any) =>
+              p.transform === "typia/lib/ttsc/plugin" ||
+              p.transform === "typia/lib/transform",
           ) ?? {},
           {
             addDiagnostic: (diag) => diagnostics.push(diag),
