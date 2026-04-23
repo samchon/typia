@@ -11,7 +11,7 @@ import (
 	shimcompiler "github.com/microsoft/typescript-go/shim/compiler"
 
 	typiattsc "github.com/samchon/typia/packages/transform/native/ttsc"
-	"github.com/samchon/typia/packages/ttsc/driver"
+	"github.com/samchon/typia/toolchain/ttsc/driver"
 )
 
 func runTransform(args []string) int {

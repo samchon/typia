@@ -4,6 +4,8 @@ packages:
   - 'examples'
   - 'packages/*'
   - 'tests/*'
+  - 'toolchain/*'
+  - 'toolchain-tests/*'
 catalogs:
   tsgo:
     '@typescript/native-preview': 7.0.0-dev.20260420.1

@@ -133,10 +133,10 @@ importers:
         version: 11.0.0
       '@typia/ttsc':
         specifier: workspace:^
-        version: link:../packages/ttsc
+        version: link:../toolchain/ttsc
       '@typia/ttsx':
         specifier: workspace:^
-        version: link:../packages/ttsx
+        version: link:../toolchain/ttsx
       ajv:
         specifier: ^8.12.0
         version: 8.18.0
@@ -236,7 +236,7 @@ importers:
         version: 11.0.0
       '@typia/ttsc':
         specifier: workspace:^
-        version: link:../packages/ttsc
+        version: link:../toolchain/ttsc
       rimraf:
         specifier: catalog:utils
         version: 6.1.3
@@ -264,7 +264,7 @@ importers:
         version: 25.6.0
       '@typia/ttsc':
         specifier: workspace:^
-        version: link:../ttsc
+        version: link:../../toolchain/ttsc
       rimraf:
         specifier: catalog:utils
         version: 6.1.3
@@ -288,7 +288,7 @@ importers:
         version: 7.0.0-dev.20260420.1
       '@typia/ttsc':
         specifier: workspace:^
-        version: link:../ttsc
+        version: link:../../toolchain/ttsc
       rimraf:
         specifier: catalog:utils
         version: 6.1.3
@@ -313,7 +313,7 @@ importers:
         version: 16.0.3(rollup@4.60.2)
       '@typia/ttsc':
         specifier: workspace:^
-        version: link:../ttsc
+        version: link:../../toolchain/ttsc
       rimraf:
         specifier: catalog:utils
         version: 6.1.3
@@ -353,7 +353,7 @@ importers:
         version: 16.0.3(rollup@4.60.2)
       '@typia/ttsc':
         specifier: workspace:^
-        version: link:../ttsc
+        version: link:../../toolchain/ttsc
       rimraf:
         specifier: catalog:utils
         version: 6.1.3
@@ -399,7 +399,7 @@ importers:
         version: 25.6.0
       '@typia/ttsc':
         specifier: workspace:^
-        version: link:../ttsc
+        version: link:../../toolchain/ttsc
       rimraf:
         specifier: catalog:utils
         version: 6.1.3
@@ -415,28 +415,6 @@ importers:
       tinyglobby:
         specifier: ^0.2.12
         version: 0.2.16
-
-  packages/ttsc:
-    devDependencies:
-      '@types/node':
-        specifier: catalog:utils
-        version: 25.6.0
-      rimraf:
-        specifier: catalog:utils
-        version: 6.1.3
-
-  packages/ttsx:
-    dependencies:
-      '@typia/ttsc':
-        specifier: workspace:^
-        version: link:../ttsc
-    devDependencies:
-      '@types/node':
-        specifier: catalog:utils
-        version: 25.6.0
-      rimraf:
-        specifier: catalog:utils
-        version: 6.1.3
 
   packages/typia:
     dependencies:
@@ -454,7 +432,7 @@ importers:
         version: link:../transform
       '@typia/ttsc':
         specifier: workspace:^
-        version: link:../ttsc
+        version: link:../../toolchain/ttsc
       '@typia/utils':
         specifier: workspace:^
         version: link:../utils
@@ -576,7 +554,7 @@ importers:
         version: link:../transform
       '@typia/ttsc':
         specifier: workspace:^
-        version: link:../ttsc
+        version: link:../../toolchain/ttsc
       fs-fixture:
         specifier: ^2.7.1
         version: 2.13.0
@@ -610,7 +588,7 @@ importers:
         version: 16.0.3(rollup@4.60.2)
       '@typia/ttsc':
         specifier: workspace:^
-        version: link:../ttsc
+        version: link:../../toolchain/ttsc
       rimraf:
         specifier: catalog:utils
         version: 6.1.3
@@ -647,7 +625,7 @@ importers:
         version: 7.0.15
       '@typia/ttsc':
         specifier: workspace:^
-        version: link:../ttsc
+        version: link:../../toolchain/ttsc
       ai:
         specifier: ^6.0.116
         version: 6.0.168(zod@3.25.76)
@@ -699,7 +677,7 @@ importers:
         version: 11.0.0
       '@typia/ttsx':
         specifier: workspace:^
-        version: link:../../packages/ttsx
+        version: link:../../toolchain/ttsx
       rimraf:
         specifier: catalog:utils
         version: 6.1.3
@@ -743,7 +721,7 @@ importers:
     devDependencies:
       '@typia/ttsc':
         specifier: workspace:^
-        version: link:../../packages/ttsc
+        version: link:../../toolchain/ttsc
       rimraf:
         specifier: catalog:utils
         version: 6.1.3
@@ -789,7 +767,7 @@ importers:
         version: 25.6.0
       '@typia/ttsx':
         specifier: workspace:^
-        version: link:../../packages/ttsx
+        version: link:../../toolchain/ttsx
 
   tests/test-mcp:
     dependencies:
@@ -823,7 +801,7 @@ importers:
         version: 25.6.0
       '@typia/ttsx':
         specifier: workspace:^
-        version: link:../../packages/ttsx
+        version: link:../../toolchain/ttsx
 
   tests/test-typia-automated:
     dependencies:
@@ -866,7 +844,7 @@ importers:
         version: 11.0.0
       '@typia/ttsx':
         specifier: workspace:^
-        version: link:../../packages/ttsx
+        version: link:../../toolchain/ttsx
 
   tests/test-typia-generate:
     dependencies:
@@ -879,10 +857,10 @@ importers:
         version: 7.0.0-dev.20260420.1
       '@typia/ttsc':
         specifier: workspace:^
-        version: link:../../packages/ttsc
+        version: link:../../toolchain/ttsc
       '@typia/ttsx':
         specifier: workspace:^
-        version: link:../../packages/ttsx
+        version: link:../../toolchain/ttsx
       rimraf:
         specifier: catalog:utils
         version: 6.1.3
@@ -925,29 +903,7 @@ importers:
         version: 11.0.0
       '@typia/ttsx':
         specifier: workspace:^
-        version: link:../../packages/ttsx
-
-  tests/test-typia-ttsc:
-    dependencies:
-      typia:
-        specifier: workspace:^
-        version: link:../../packages/typia
-    devDependencies:
-      '@nestia/e2e':
-        specifier: catalog:utils
-        version: 10.0.2
-      '@types/node':
-        specifier: catalog:utils
-        version: 25.6.0
-      '@typia/ttsc':
-        specifier: workspace:^
-        version: link:../../packages/ttsc
-      '@typia/ttsx':
-        specifier: workspace:^
-        version: link:../../packages/ttsx
-      chalk:
-        specifier: 4.1.2
-        version: 4.1.2
+        version: link:../../toolchain/ttsx
 
   tests/test-unplugin:
     dependencies:
@@ -1018,7 +974,7 @@ importers:
         version: 11.0.0
       '@typia/ttsx':
         specifier: workspace:^
-        version: link:../../packages/ttsx
+        version: link:../../toolchain/ttsx
 
   tests/test-utils-automated:
     dependencies:
@@ -1052,7 +1008,7 @@ importers:
         version: 11.0.0
       '@typia/ttsx':
         specifier: workspace:^
-        version: link:../../packages/ttsx
+        version: link:../../toolchain/ttsx
 
   tests/test-vercel:
     dependencies:
@@ -1092,7 +1048,51 @@ importers:
         version: 25.6.0
       '@typia/ttsx':
         specifier: workspace:^
-        version: link:../../packages/ttsx
+        version: link:../../toolchain/ttsx
+
+  toolchain-tests/test-typia-ttsc:
+    dependencies:
+      typia:
+        specifier: workspace:^
+        version: link:../../packages/typia
+    devDependencies:
+      '@nestia/e2e':
+        specifier: catalog:utils
+        version: 10.0.2
+      '@types/node':
+        specifier: catalog:utils
+        version: 25.6.0
+      '@typia/ttsc':
+        specifier: workspace:^
+        version: link:../../toolchain/ttsc
+      '@typia/ttsx':
+        specifier: workspace:^
+        version: link:../../toolchain/ttsx
+      chalk:
+        specifier: 4.1.2
+        version: 4.1.2
+
+  toolchain/ttsc:
+    devDependencies:
+      '@types/node':
+        specifier: catalog:utils
+        version: 25.6.0
+      rimraf:
+        specifier: catalog:utils
+        version: 6.1.3
+
+  toolchain/ttsx:
+    dependencies:
+      '@typia/ttsc':
+        specifier: workspace:^
+        version: link:../ttsc
+    devDependencies:
+      '@types/node':
+        specifier: catalog:utils
+        version: 25.6.0
+      rimraf:
+        specifier: catalog:utils
+        version: 6.1.3
 
 packages:
 
@@ -7081,7 +7081,7 @@ snapshots:
 
   '@types/connect@3.4.38':
     dependencies:
-      '@types/node': 25.6.0
+      '@types/node': 20.19.39
 
   '@types/d3-array@3.2.2': {}
 
@@ -7210,7 +7210,7 @@ snapshots:
 
   '@types/express-serve-static-core@4.19.8':
     dependencies:
-      '@types/node': 25.6.0
+      '@types/node': 20.19.39
       '@types/qs': 6.15.0
       '@types/range-parser': 1.2.7
       '@types/send': 1.2.1
@@ -7260,21 +7260,21 @@ snapshots:
   '@types/send@0.17.6':
     dependencies:
       '@types/mime': 1.3.5
-      '@types/node': 25.6.0
+      '@types/node': 20.19.39
 
   '@types/send@1.2.1':
     dependencies:
-      '@types/node': 25.6.0
+      '@types/node': 20.19.39
 
   '@types/serve-static@1.15.10':
     dependencies:
       '@types/http-errors': 2.0.5
-      '@types/node': 25.6.0
+      '@types/node': 20.19.39
       '@types/send': 0.17.6
 
   '@types/through@0.0.33':
     dependencies:
-      '@types/node': 25.6.0
+      '@types/node': 20.19.39
 
   '@types/trusted-types@2.0.7': {}
 
