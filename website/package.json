@@ -5,7 +5,7 @@
   "description": "Typia Guide Documents",
   "scripts": {
     "build": "npm run prebuild && next build && npm run postbuild",
-    "prebuild": "rimraf .next && rimraf out && npm run build:compiler && npm run build:typedoc && npm run build:blog:rss",
+    "prebuild": "rimraf .next && rimraf out && npm run build:compiler && npm run build:blog:rss",
     "postbuild": "npm run build:pagefind && npm run build:sitemap",
     "build:blog:rss": "node build/blog",
     "build:compiler": "node build/compiler",
