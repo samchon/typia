@@ -4,7 +4,7 @@
   "version": "12.0.2",
   "description": "Test features for JSON schema, LLM schema and protobuf message of typia.",
   "scripts": {
-    "dev": "ttsx src/index.ts",
+    "dev": "ttsc --watch",
     "start": "ttsx src/index.ts"
   },
   "repository": {

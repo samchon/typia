@@ -4,8 +4,8 @@
   "version": "12.0.2",
   "description": "Example codes for typia website",
   "scripts": {
-    "build": "rimraf bin && ttsc build --emit --tsconfig tsconfig.json && prettier --write bin/**/*.js",
-    "dev": "ttsc build --emit --tsconfig tsconfig.json"
+    "build": "rimraf bin && ttsc && prettier --write bin/**/*.js",
+    "dev": "ttsc --watch"
   },
   "repository": {
     "type": "git",

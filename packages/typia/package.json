@@ -31,8 +31,8 @@
     "typia": "./src/executable/typia.ts"
   },
   "scripts": {
-    "build": "rimraf lib && ttsc build --emit --tsconfig tsconfig.json && rollup -c && cp ../../README.md README.md",
-    "dev": "ttsc build --emit --tsconfig tsconfig.json",
+    "build": "rimraf lib && ttsc && rollup -c && cp ../../README.md README.md",
+    "dev": "ttsc --watch",
     "prepack": "pnpm run build"
   },
   "repository": {
