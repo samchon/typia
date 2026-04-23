@@ -43,7 +43,7 @@ func run(args []string) int {
 	case "build":
 		return runBuild(args[1:])
 	case "check":
-		return runBuild(append([]string{"--noEmit"}, appendUnique(args[1:], "--quiet")...))
+		return runBuild(append([]string{"--noEmit"}, args[1:]...))
 	case "transform":
 		return runTransform(args[1:])
 	case "-p", "--project":

@@ -75,7 +75,7 @@ export interface BuildOptions extends CommonOptions {
   emit?: boolean;
   /** Override compilerOptions.outDir for this invocation. */
   outDir?: string;
-  /** Suppress the per-call summary banner. Default: `false`. */
+  /** Suppress the per-call summary banner. Default: `true`. */
   quiet?: boolean;
 }
 
@@ -216,7 +216,8 @@ export function build(options: BuildOptions = {}): BuildResult {
   if (options.emit === true) args.push("--emit");
   else if (options.emit === false) args.push("--noEmit");
   if (options.outDir) args.push("--outDir=" + options.outDir);
-  if (options.quiet) args.push("--quiet");
+  if (options.quiet === false) args.push("--verbose");
+  else if (options.quiet === true) args.push("--quiet");
   const needsManifest = options.emit !== false && execution.plugins.length > 0;
   const manifest = needsManifest ? createTempManifestPath() : null;
   if (manifest) args.push("--manifest=" + manifest);

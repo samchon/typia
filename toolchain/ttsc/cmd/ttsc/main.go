@@ -58,7 +58,7 @@ func run(args []string) int {
 	case "check":
 		// `ttsc check` runs the analyze pipeline without emitting JS — useful
 		// in CI and pre-commit hooks that only need schema validation.
-		return runBuild(append([]string{"--noEmit"}, appendUnique(args[1:], "--quiet")...))
+		return runBuild(append([]string{"--noEmit"}, args[1:]...))
 	case "transform":
 		// Single-file transform for bundler plugin integration (unplugin,
 		// vite, esbuild, webpack, …). Emits only the requested file's JS to
@@ -154,7 +154,8 @@ Build options:
   --cwd=DIR         Override working directory.
   --emit            Force emitted .js files even when tsconfig has noEmit.
   --noEmit          Force analysis-only run even when tsconfig would emit.
-  --quiet           Suppress the per-call summary banner.
+  --quiet           Suppress the per-call summary banner (default).
+  --verbose         Print the per-call summary banner and emitted file list.
   --rewrite-mode=M  Native rewrite backend id.
   --manifest=FILE   Write emitted file paths as JSON to FILE after build --emit.
 

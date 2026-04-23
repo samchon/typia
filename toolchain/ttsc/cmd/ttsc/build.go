@@ -14,7 +14,7 @@ import (
 
 // runBuild implements `ttsc build`. Two modes:
 //
-//   - default (dry run): analyze, report per-call-site status to stdout.
+//   - default (dry run): analyze quietly, surfacing only diagnostics/errors.
 //   - --emit: also run tsgo's emit pipeline, patching every recognized native
 //     consumer call in the resulting .js files.
 func runBuild(args []string) int {
@@ -22,7 +22,8 @@ func runBuild(args []string) int {
 	fs.SetOutput(stderr)
 	tsconfigPath := fs.String("tsconfig", "tsconfig.json", "path to tsconfig.json")
 	cwdOverride := fs.String("cwd", "", "override the working directory (defaults to process cwd)")
-	quiet := fs.Bool("quiet", false, "suppress the per-call diagnostic summary")
+	quiet := fs.Bool("quiet", true, "suppress the per-call diagnostic summary")
+	verbose := fs.Bool("verbose", false, "print the per-call diagnostic summary")
 	emit := fs.Bool("emit", false, "force emitted .js files (runs tsgo + ttsc rewrite)")
 	noEmit := fs.Bool("noEmit", false, "force analysis-only run with no file writes")
 	outDir := fs.String("outDir", "", "override compilerOptions.outDir for this build")
@@ -34,6 +35,9 @@ func runBuild(args []string) int {
 	if *emit && *noEmit {
 		fmt.Fprintln(stderr, "ttsc build: --emit and --noEmit are mutually exclusive")
 		return 2
+	}
+	if *verbose {
+		*quiet = false
 	}
 
 	cwd := *cwdOverride

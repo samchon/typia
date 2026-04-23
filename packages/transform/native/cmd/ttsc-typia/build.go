@@ -18,7 +18,8 @@ func runBuild(args []string) int {
 	fs.SetOutput(stderr)
 	tsconfigPath := fs.String("tsconfig", "tsconfig.json", "path to tsconfig.json")
 	cwdOverride := fs.String("cwd", "", "override the working directory (defaults to process cwd)")
-	quiet := fs.Bool("quiet", false, "suppress the per-call diagnostic summary")
+	quiet := fs.Bool("quiet", true, "suppress the per-call diagnostic summary")
+	verbose := fs.Bool("verbose", false, "print the per-call diagnostic summary")
 	emit := fs.Bool("emit", false, "force emitted .js files (runs tsgo + typia rewrite)")
 	noEmit := fs.Bool("noEmit", false, "force analysis-only run with no file writes")
 	outDir := fs.String("outDir", "", "override compilerOptions.outDir for this build")
@@ -30,6 +31,9 @@ func runBuild(args []string) int {
 	if *emit && *noEmit {
 		fmt.Fprintln(stderr, "ttsc-typia build: --emit and --noEmit are mutually exclusive")
 		return 2
+	}
+	if *verbose {
+		*quiet = false
 	}
 	if *rewriteMode != "none" && *rewriteMode != "typia" {
 		fmt.Fprintf(stderr, "ttsc-typia build: unknown --rewrite-mode value %q\n", *rewriteMode)

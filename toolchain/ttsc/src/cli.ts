@@ -111,7 +111,7 @@ function parseBuildArgs(argv: readonly string[], checkOnly: boolean): BuildInvoc
   const files: string[] = [];
   let outDir: string | undefined;
   let preserveWatchOutput = false;
-  let quiet = false;
+  let quiet = true;
   let rewriteMode: string | undefined;
   let tsconfig: string | undefined;
   let watch = false;
@@ -128,6 +128,9 @@ function parseBuildArgs(argv: readonly string[], checkOnly: boolean): BuildInvoc
         break;
       case "--quiet":
         quiet = true;
+        break;
+      case "--verbose":
+        quiet = false;
         break;
       case "-w":
       case "--watch":
@@ -170,6 +173,8 @@ function parseBuildArgs(argv: readonly string[], checkOnly: boolean): BuildInvoc
           preserveWatchOutput = current.slice("--preserveWatchOutput=".length) !== "false";
         } else if (current.startsWith("--binary=")) {
           binary = current.slice("--binary=".length);
+        } else if (current === "--verbose") {
+          quiet = false;
         } else if (current.startsWith("-")) {
           throw new Error(`ttsc: unknown option ${current}`);
         } else {
@@ -282,7 +287,8 @@ function printHelp(): void {
       "  --preserveWatchOutput  Do not clear the screen between watch rebuilds",
       "  --outDir <dir>         Override compilerOptions.outDir for this invocation",
       "  --rewrite-mode <mode>  Native rewrite backend id",
-      "  --quiet                Suppress the native per-call summary banner",
+      "  --quiet                Keep native build output quiet (default)",
+      "  --verbose              Print the native build summary and emitted files",
       "  --out <path>           Write transform output to a file instead of stdout",
       "  --binary <path>        Use an explicit native backend binary",
       "",
