@@ -8,7 +8,7 @@
     "./package.json": "./package.json"
   },
   "scripts": {
-    "build": "rimraf lib && ttsc build --emit --tsconfig tsconfig.json && rollup -c",
+    "build": "rimraf lib && ttsc && rollup -c",
     "dev": "ttsc --watch",
     "prepack": "pnpm run build"
   },
