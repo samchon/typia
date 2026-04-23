@@ -48,7 +48,7 @@
     "react-dom": "^18.2.0",
     "tgrid": "^1.0.3",
     "tstl": "^3.0.0",
-    "typia": "../experiments/tarballs/typia.tgz"
+    "typia": "^12.0.2"
   },
   "devDependencies": {
     "@rspack/cli": "^1.0.0",
