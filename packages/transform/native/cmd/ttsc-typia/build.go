@@ -144,7 +144,13 @@ func collectTypiaRewrites(
 			fmt.Fprintf(stdout, "%s: typia.%s.%s<T> — %s\n", rel, site.Module, site.Method, reason)
 			continue
 		}
-		schema, ok := typiattsc.AnalyzeType(prog.Checker, site.TypeArgument, site.TypeNode)
+		schema, ok := typiattsc.AnalyzeTypeWithOptions(
+			prog.Checker,
+			site.TypeArgument,
+			site.TypeNode,
+			prog.TSProgram.SourceFiles(),
+			typiattsc.AnalysisOptions(site.Module, site.Method),
+		)
 		if !ok {
 			fmt.Fprintf(stdout, "%s: typia.%s.%s<T> — type not yet supported\n", rel, site.Module, site.Method)
 			continue

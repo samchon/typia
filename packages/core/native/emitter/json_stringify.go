@@ -58,6 +58,9 @@ func buildJsonStringify(ve string, s *metadata.Schema, state *jsonStringifyState
 	if s.Any {
 		return fmt.Sprintf("JSON.stringify(%s)", ve), nil
 	}
+	if s.Escaped != nil {
+		return fmt.Sprintf("JSON.stringify(%s)", ve), nil
+	}
 
 	// Sole atomic — hot path for scalar values.
 	if kind, ok := s.IsSoleAtomic(); ok && !s.Nullable && s.IsRequired() {
@@ -117,6 +120,9 @@ func objectStringify(ve string, ref *metadata.ObjectRef, state *jsonStringifySta
 	if obj == nil {
 		return "", fmt.Errorf("%w: nil object", ErrUnsupportedSchema)
 	}
+	if len(obj.DynamicProperties) != 0 {
+		return fmt.Sprintf("JSON.stringify(%s)", ve), nil
+	}
 	if state.objects[ref] > 0 {
 		return fmt.Sprintf("JSON.stringify(%s)", ve), nil
 	}
@@ -156,6 +162,15 @@ func objectStringify(ve string, ref *metadata.ObjectRef, state *jsonStringifySta
 			return "", err
 		}
 		var b strings.Builder
+		b.WriteString(`(() => { const __proto = Object.getPrototypeOf(`)
+		b.WriteString(ve)
+		b.WriteString(`); if ((null !== `)
+		b.WriteString(ve)
+		b.WriteString(` && "function" === typeof `)
+		b.WriteString(ve)
+		b.WriteString(`.toJSON) || (__proto !== Object.prototype && __proto !== null)) return JSON.stringify(`)
+		b.WriteString(ve)
+		b.WriteString(`); `)
 		b.WriteString(`(() => { const __parts = []; const __allow = new Set([`)
 		firstAllow := true
 		for _, p := range required {
@@ -209,11 +224,62 @@ func objectStringify(ve string, ref *metadata.ObjectRef, state *jsonStringifySta
 		b.WriteString(ve)
 		b.WriteString(`[__key]; if (__value === undefined) continue; __parts.push(JSON.stringify(__key)+":" + (`)
 		b.WriteString(extraValue)
-		b.WriteString(`)); } return "{" + __parts.join(",") + "}"; })()`)
+		b.WriteString(`)); } return "{" + __parts.join(",") + "}"; })(); })()`)
+		return b.String(), nil
+	}
+	if len(optional) != 0 {
+		var b strings.Builder
+		b.WriteString(`(() => { const __proto = Object.getPrototypeOf(`)
+		b.WriteString(ve)
+		b.WriteString(`); if ((null !== `)
+		b.WriteString(ve)
+		b.WriteString(` && "function" === typeof `)
+		b.WriteString(ve)
+		b.WriteString(`.toJSON) || (__proto !== Object.prototype && __proto !== null)) return JSON.stringify(`)
+		b.WriteString(ve)
+		b.WriteString(`); const __parts = []; `)
+		for _, p := range required {
+			key, _ := p.Key.GetSoleLiteral()
+			propExpr := accessProperty(ve, key)
+			inner, err := buildJsonStringify(propExpr, p.Value, state)
+			if err != nil {
+				return "", err
+			}
+			b.WriteString(`__parts.push(`)
+			b.WriteString(jsonQuote(jsonQuote(key) + `:`))
+			b.WriteString(`+(`)
+			b.WriteString(inner)
+			b.WriteString(`)); `)
+		}
+		for _, p := range optional {
+			key, _ := p.Key.GetSoleLiteral()
+			propExpr := accessProperty(ve, key)
+			inner, err := buildJsonStringify(propExpr, p.Value, state)
+			if err != nil {
+				return "", err
+			}
+			b.WriteString(`if ((`)
+			b.WriteString(propExpr)
+			b.WriteString(`) !== undefined) __parts.push(`)
+			b.WriteString(jsonQuote(jsonQuote(key) + `:`))
+			b.WriteString(`+(`)
+			b.WriteString(inner)
+			b.WriteString(`)); `)
+		}
+		b.WriteString(`return "{" + __parts.join(",") + "}"; })()`)
 		return b.String(), nil
 	}
 
 	var b strings.Builder
+	b.WriteString(`(() => { const __proto = Object.getPrototypeOf(`)
+	b.WriteString(ve)
+	b.WriteString(`); if ((null !== `)
+	b.WriteString(ve)
+	b.WriteString(` && "function" === typeof `)
+	b.WriteString(ve)
+	b.WriteString(`.toJSON) || (__proto !== Object.prototype && __proto !== null)) return JSON.stringify(`)
+	b.WriteString(ve)
+	b.WriteString(`); return `)
 	b.WriteString(`"{"`)
 	first := true
 	for _, p := range required {
@@ -233,33 +299,8 @@ func objectStringify(ve string, ref *metadata.ObjectRef, state *jsonStringifySta
 		b.WriteString(inner)
 		b.WriteString(`)`)
 	}
-	for _, p := range optional {
-		key, _ := p.Key.GetSoleLiteral()
-		propExpr := accessProperty(ve, key)
-		inner, err := buildJsonStringify(propExpr, p.Value, state)
-		if err != nil {
-			return "", err
-		}
-		// `undefined` → omit property entirely. If the first required item
-		// hasn't been emitted yet (pathologically all-optional struct), we
-		// still need to avoid a leading comma on the very first non-empty
-		// optional — typia v12 defers this decision to runtime; we do too.
-		prefix := `","`
-		if first {
-			prefix = `""`
-		}
-		b.WriteString(`+((`)
-		b.WriteString(propExpr)
-		b.WriteString(`) === undefined ? "" : `)
-		b.WriteString(prefix)
-		b.WriteString(`+`)
-		b.WriteString(jsonQuote(jsonQuote(key) + `:`))
-		b.WriteString(`+(`)
-		b.WriteString(inner)
-		b.WriteString(`))`)
-		first = false
-	}
 	b.WriteString(`+"}"`)
+	b.WriteString(`; })()`)
 	return b.String(), nil
 }
 

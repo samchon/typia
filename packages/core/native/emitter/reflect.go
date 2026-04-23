@@ -457,7 +457,7 @@ func serializeObjectType(value *metadata.ObjectType) any {
 		"description":          value.Description,
 		"jsDocTags":            []any{},
 		"index":                value.Index,
-		"recursive":            value.Recursive,
+		"recursive":            value.Recursive || objectTypeSelfRecursive(value),
 		"nullables":            value.Nullables,
 	}
 }
@@ -488,6 +488,7 @@ func serializeTags(matrix metadata.TagMatrix) []any {
 				"value":     tag.Value,
 				"validate":  tag.Validate,
 				"exclusive": tag.Exclusive,
+				"schema":    tag.Schema,
 			})
 		}
 		out = append(out, serialized)
@@ -509,7 +510,10 @@ func reflectTupleTypeName(value *metadata.TupleType) string {
 	if value == nil {
 		return "[]"
 	}
-	if value.Name != "" && value.Name != "Array" && !strings.HasPrefix(value.Name, "Type#") {
+	if value.Name != "" &&
+		value.Name != "Array" &&
+		value.Name != "Tuple" &&
+		!strings.HasPrefix(value.Name, "Type#") {
 		return value.Name
 	}
 	parts := make([]string, 0, len(value.Elements))
@@ -610,4 +614,108 @@ func displayName(schema *metadata.Schema) string {
 	default:
 		return join(parts, " | ")
 	}
+}
+
+func objectTypeSelfRecursive(target *metadata.ObjectType) bool {
+	if target == nil {
+		return false
+	}
+	for _, property := range target.Properties {
+		if property != nil && schemaReferencesObjectType(property.Value, target, map[*metadata.Schema]struct{}{}) {
+			return true
+		}
+	}
+	for _, property := range target.DynamicProperties {
+		if property != nil && schemaReferencesObjectType(property.Value, target, map[*metadata.Schema]struct{}{}) {
+			return true
+		}
+	}
+	return schemaReferencesObjectType(target.AdditionalProperties, target, map[*metadata.Schema]struct{}{})
+}
+
+func schemaReferencesObjectType(
+	schema *metadata.Schema,
+	target *metadata.ObjectType,
+	visited map[*metadata.Schema]struct{},
+) bool {
+	if schema == nil || target == nil {
+		return false
+	}
+	if _, ok := visited[schema]; ok {
+		return false
+	}
+	visited[schema] = struct{}{}
+	for _, object := range schema.Objects {
+		if object == nil || object.Type == nil {
+			continue
+		}
+		if object.Type == target {
+			return true
+		}
+		for _, property := range object.Type.Properties {
+			if property != nil && schemaReferencesObjectType(property.Value, target, visited) {
+				return true
+			}
+		}
+		for _, property := range object.Type.DynamicProperties {
+			if property != nil && schemaReferencesObjectType(property.Value, target, visited) {
+				return true
+			}
+		}
+		if schemaReferencesObjectType(object.Type.AdditionalProperties, target, visited) {
+			return true
+		}
+	}
+	for _, array := range schema.Arrays {
+		if array != nil && array.Type != nil && schemaReferencesObjectType(array.Type.Value, target, visited) {
+			return true
+		}
+	}
+	for _, tuple := range schema.Tuples {
+		if tuple == nil || tuple.Type == nil {
+			continue
+		}
+		for _, element := range tuple.Type.Elements {
+			if schemaReferencesObjectType(element, target, visited) {
+				return true
+			}
+		}
+	}
+	for _, alias := range schema.Aliases {
+		if alias != nil && alias.Type != nil && schemaReferencesObjectType(alias.Type.Value, target, visited) {
+			return true
+		}
+	}
+	for _, set := range schema.Sets {
+		if set != nil && schemaReferencesObjectType(set.Value, target, visited) {
+			return true
+		}
+	}
+	for _, m := range schema.Maps {
+		if m != nil && (schemaReferencesObjectType(m.Key, target, visited) || schemaReferencesObjectType(m.Value, target, visited)) {
+			return true
+		}
+	}
+	if schemaReferencesObjectType(schema.Rest, target, visited) {
+		return true
+	}
+	if schema.Escaped != nil &&
+		(schemaReferencesObjectType(schema.Escaped.Original, target, visited) ||
+			schemaReferencesObjectType(schema.Escaped.Returns, target, visited)) {
+		return true
+	}
+	for _, fn := range schema.Functions {
+		if fn == nil {
+			continue
+		}
+		for _, param := range fn.Parameters {
+			if param != nil && schemaReferencesObjectType(param.Type, target, visited) {
+				return true
+			}
+		}
+		if schemaReferencesObjectType(fn.Output, target, visited) {
+			return true
+		}
+	}
+	return false
 }

@@ -52,30 +52,48 @@ func tagCheck(ve string, tag metadata.TypeTag) string {
 	// `validate` string like `"2 <= $input.length"` carrying the
 	// instantiated generic value.
 	if tag.Validate != "" {
-		if expanded := expandValidate(tag.Validate, ve); expanded != "" {
+		if expanded := expandValidate(instantiateTagValidate(tag.Validate, tag.Value), ve); expanded != "" {
 			return expanded
 		}
 	}
 
 	// Numeric fallbacks — kept for tags users author themselves without a
 	// `validate` template.
+	literal := numberLiteral(tag.Value)
+	if tag.Target == "bigint" {
+		literal = literal + "n"
+	}
 	switch tag.Kind {
 	case "minimum":
-		return fmt.Sprintf("%s <= %s", numberLiteral(tag.Value), ve)
+		return fmt.Sprintf("%s <= %s", literal, ve)
 	case "maximum":
-		return fmt.Sprintf("%s >= %s", numberLiteral(tag.Value), ve)
+		return fmt.Sprintf("%s >= %s", literal, ve)
 	case "exclusiveMinimum":
-		return fmt.Sprintf("%s < %s", numberLiteral(tag.Value), ve)
+		return fmt.Sprintf("%s < %s", literal, ve)
 	case "exclusiveMaximum":
-		return fmt.Sprintf("%s > %s", numberLiteral(tag.Value), ve)
+		return fmt.Sprintf("%s > %s", literal, ve)
 	case "multipleOf":
-		return fmt.Sprintf("%s %% %s === 0", ve, numberLiteral(tag.Value))
+		if tag.Target == "bigint" {
+			return fmt.Sprintf("%s %% %s === 0n", ve, literal)
+		}
+		return fmt.Sprintf("%s %% %s === 0", ve, literal)
 	case "minLength", "minItems":
-		return fmt.Sprintf("%s <= %s.length", numberLiteral(tag.Value), ve)
+		return fmt.Sprintf("%s <= %s.length", literal, ve)
 	case "maxLength", "maxItems":
-		return fmt.Sprintf("%s >= %s.length", numberLiteral(tag.Value), ve)
+		return fmt.Sprintf("%s >= %s.length", literal, ve)
 	}
 	return ""
+}
+
+func instantiateTagValidate(template string, value any) string {
+	switch v := value.(type) {
+	case string:
+		return strings.ReplaceAll(template, "${Value}", v)
+	case fmt.Stringer:
+		return strings.ReplaceAll(template, "${Value}", v.String())
+	default:
+		return strings.ReplaceAll(template, "${Value}", fmt.Sprint(value))
+	}
 }
 
 // formatCheck returns an inline JS expression that validates a string against
@@ -139,6 +157,9 @@ func typeTagCheck(ve, target, kind string) string {
 // value expression, removing any `$importInternal(...)` wrappers because the
 // runtime that would resolve them isn't present in the emitted JS.
 func expandValidate(template, ve string) string {
+	if len(template) >= 2 && template[0] == '`' && template[len(template)-1] == '`' {
+		template = template[1 : len(template)-1]
+	}
 	// Strip `$importInternal("…")(` / `)` pairs; the inner expression tends
 	// to be a plain JS call using `$input` that is fine on its own *if* we
 	// also emit the helper somewhere. Phase 1 will inject the helper; for

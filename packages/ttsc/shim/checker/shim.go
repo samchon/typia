@@ -104,6 +104,30 @@ func Checker_getAliasedSymbol(recv *innerchecker.Checker, symbol *innerast.Symbo
 	return recv.GetAliasedSymbol(symbol)
 }
 
+//go:linkname checkerResolveEntityName github.com/microsoft/typescript-go/internal/checker.(*Checker).resolveEntityName
+func checkerResolveEntityName(
+	recv *innerchecker.Checker,
+	name *innerast.Node,
+	meaning innerast.SymbolFlags,
+	ignoreErrors bool,
+	dontResolveAlias bool,
+	location *innerast.Node,
+) *innerast.Symbol
+
+func Checker_resolveEntityName(
+	recv *innerchecker.Checker,
+	name *innerast.Node,
+	meaning innerast.SymbolFlags,
+	ignoreErrors bool,
+	dontResolveAlias bool,
+	location *innerast.Node,
+) *innerast.Symbol {
+	if recv == nil || name == nil {
+		return nil
+	}
+	return checkerResolveEntityName(recv, name, meaning, ignoreErrors, dontResolveAlias, location)
+}
+
 //go:linkname checkerGetTypeNameSymbol github.com/microsoft/typescript-go/internal/checker.getTypeNameSymbol
 func checkerGetTypeNameSymbol(t *innerchecker.Type) *innerast.Symbol
 

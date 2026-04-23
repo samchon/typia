@@ -3,10 +3,15 @@ import type { IValidation } from "typia";
 export function assertValidationSuccess<T>(
   valid: IValidation<T>,
 ): asserts valid is IValidation.ISuccess<T> {
-  if (valid.success !== true || !Array.isArray(valid.errors))
+  if (valid.success !== true)
     throw new Error("Invalid IValidation success result.");
-  if (valid.errors.length !== 0)
-    throw new Error("Invalid IValidation success errors.");
+  const errors = (valid as { errors?: unknown }).errors;
+  if (errors !== undefined) {
+    if (!Array.isArray(errors))
+      throw new Error("Invalid IValidation success result.");
+    if (errors.length !== 0)
+      throw new Error("Invalid IValidation success errors.");
+  }
 }
 
 export function assertValidationFailure<T>(

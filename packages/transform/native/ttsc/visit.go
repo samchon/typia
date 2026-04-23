@@ -117,7 +117,9 @@ func tryCallSite(
 			site.ConfigTypeNode = typeArgs.Nodes[1]
 		}
 	} else if supportsInferredInputType(module, method, call) {
-		site.TypeArgument = checker.GetTypeAtLocation(call.Arguments.Nodes[0])
+		input := call.Arguments.Nodes[0]
+		site.TypeArgument = checker.GetTypeAtLocation(input)
+		site.TypeNode = inferredInputTypeNode(checker, input)
 	}
 	return site, true
 }
@@ -147,6 +149,33 @@ func supportsInferredInputType(
 	default:
 		return false
 	}
+}
+
+func inferredInputTypeNode(
+	checker *shimchecker.Checker,
+	input *ast.Node,
+) *ast.Node {
+	if checker == nil || input == nil {
+		return nil
+	}
+	sym := checker.GetSymbolAtLocation(input)
+	if sym == nil && input.Kind == ast.KindPropertyAccessExpression {
+		if prop := input.AsPropertyAccessExpression(); prop != nil {
+			sym = checker.GetSymbolAtLocation(prop.Name())
+		}
+	}
+	if sym == nil {
+		return nil
+	}
+	if sym.ValueDeclaration != nil && sym.ValueDeclaration.Type() != nil {
+		return sym.ValueDeclaration.Type()
+	}
+	for _, decl := range sym.Declarations {
+		if decl != nil && decl.Type() != nil {
+			return decl.Type()
+		}
+	}
+	return nil
 }
 
 func matchTypiaModule(path string) (string, bool) {

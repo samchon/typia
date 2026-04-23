@@ -38,6 +38,7 @@ func (a *Analyzer) iterate(out *metadata.Schema, t *shimchecker.Type) bool {
 		return true
 	}
 	if flags&shimchecker.TypeFlagsNever != 0 {
+		out.Required = false
 		return true
 	}
 

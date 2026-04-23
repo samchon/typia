@@ -4,6 +4,7 @@ import (
 	"strings"
 
 	"github.com/microsoft/typescript-go/shim/ast"
+	shimscanner "github.com/microsoft/typescript-go/shim/scanner"
 )
 
 func symbolDescription(sym *ast.Symbol) *string {
@@ -50,10 +51,6 @@ func nodeDescription(node *ast.Node) *string {
 		return nil
 	}
 	jsdocs := node.JSDoc(file)
-	if len(jsdocs) == 0 {
-		return nil
-	}
-
 	lines := make([]string, 0, len(jsdocs))
 	for _, jsdoc := range jsdocs {
 		if jsdoc == nil || jsdoc.CommentList() == nil {
@@ -71,11 +68,14 @@ func nodeDescription(node *ast.Node) *string {
 			lines = append(lines, text)
 		}
 	}
-	if len(lines) == 0 {
-		return nil
+	if len(lines) != 0 {
+		description := strings.Join(lines, "\n\n")
+		return &description
 	}
-	description := strings.Join(lines, "\n\n")
-	return &description
+	if raw := parseRawLeadingJsDocDescription(file.Text(), shimscanner.GetTokenPosOfNode(node, file, false)); raw != nil {
+		return raw
+	}
+	return nil
 }
 
 func nodeHasJsDocTag(node *ast.Node, target string) bool {
@@ -85,4 +85,56 @@ func nodeHasJsDocTag(node *ast.Node, target string) bool {
 		}
 	}
 	return false
+}
+
+func parseRawLeadingJsDocDescription(text string, pos int) *string {
+	if pos <= 0 || pos > len(text) {
+		return nil
+	}
+	end := pos
+	for end > 0 {
+		switch text[end-1] {
+		case ' ', '\t', '\r', '\n':
+			end--
+		default:
+			goto trimmed
+		}
+	}
+trimmed:
+	if end < 2 || text[end-2:end] != "*/" {
+		return nil
+	}
+	start := strings.LastIndex(text[:end-2], "/**")
+	if start < 0 {
+		return nil
+	}
+	body := text[start+3 : end-2]
+	lines := strings.Split(body, "\n")
+	output := make([]string, 0, len(lines))
+	lastBlank := false
+	for _, line := range lines {
+		line = strings.TrimSpace(line)
+		line = strings.TrimPrefix(line, "*")
+		line = strings.TrimSpace(line)
+		if strings.HasPrefix(line, "@") {
+			continue
+		}
+		if line == "" {
+			if len(output) != 0 && !lastBlank {
+				output = append(output, "")
+			}
+			lastBlank = true
+			continue
+		}
+		output = append(output, line)
+		lastBlank = false
+	}
+	for len(output) != 0 && output[len(output)-1] == "" {
+		output = output[:len(output)-1]
+	}
+	if len(output) == 0 {
+		return nil
+	}
+	description := strings.Join(output, "\n")
+	return &description
 }

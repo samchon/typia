@@ -19,9 +19,11 @@ type TemplateLiteralTypeSpan = innerast.TemplateLiteralTypeSpan
 type TemplateMiddle = innerast.TemplateMiddle
 type TemplateTail = innerast.TemplateTail
 type PrefixUnaryExpression = innerast.PrefixUnaryExpression
+type ComputedPropertyName = innerast.ComputedPropertyName
 type PropertySignatureDeclaration = innerast.PropertySignatureDeclaration
 type QualifiedName = innerast.QualifiedName
 type TypeLiteralNode = innerast.TypeLiteralNode
+type FunctionTypeNode = innerast.FunctionTypeNode
 type InterfaceDeclaration = innerast.InterfaceDeclaration
 type TypeReferenceNode = innerast.TypeReferenceNode
 type SourceFile = innerast.SourceFile
@@ -50,6 +52,7 @@ const (
 	KindIdentifier                    = innerast.KindIdentifier
 	KindPropertyAccessExpression      = innerast.KindPropertyAccessExpression
 	KindPropertySignature             = innerast.KindPropertySignature
+	KindComputedPropertyName          = innerast.KindComputedPropertyName
 	KindMethodSignature               = innerast.KindMethodSignature
 	KindMethodDeclaration             = innerast.KindMethodDeclaration
 	KindIndexSignature                = innerast.KindIndexSignature
@@ -59,6 +62,7 @@ const (
 	KindBooleanKeyword                = innerast.KindBooleanKeyword
 	KindBigIntKeyword                 = innerast.KindBigIntKeyword
 	KindAnyKeyword                    = innerast.KindAnyKeyword
+	KindNeverKeyword                  = innerast.KindNeverKeyword
 	KindUndefinedKeyword              = innerast.KindUndefinedKeyword
 	KindNullKeyword                   = innerast.KindNullKeyword
 	KindVoidKeyword                   = innerast.KindVoidKeyword
@@ -72,6 +76,7 @@ const (
 	KindNumericLiteral                = innerast.KindNumericLiteral
 	KindBigIntLiteral                 = innerast.KindBigIntLiteral
 	KindTypeReference                 = innerast.KindTypeReference
+	KindFunctionType                  = innerast.KindFunctionType
 	KindLiteralType                   = innerast.KindLiteralType
 	KindArrayType                     = innerast.KindArrayType
 	KindTypeLiteral                   = innerast.KindTypeLiteral
@@ -90,11 +95,18 @@ const (
 	KindTypeAliasDeclaration          = innerast.KindTypeAliasDeclaration
 	KindTypeParameter                 = innerast.KindTypeParameter
 	KindImportSpecifier               = innerast.KindImportSpecifier
+	KindImportDeclaration             = innerast.KindImportDeclaration
+	KindNamedImports                  = innerast.KindNamedImports
+	KindNamespaceImport               = innerast.KindNamespaceImport
 	KindExportSpecifier               = innerast.KindExportSpecifier
+	KindModuleBlock                   = innerast.KindModuleBlock
+	KindModuleDeclaration             = innerast.KindModuleDeclaration
 	KindMinusToken                    = innerast.KindMinusToken
 
-	SymbolFlagsOptional = innerast.SymbolFlagsOptional
-	SymbolFlagsAlias    = innerast.SymbolFlagsAlias
+	SymbolFlagsOptional  = innerast.SymbolFlagsOptional
+	SymbolFlagsAlias     = innerast.SymbolFlagsAlias
+	SymbolFlagsType      = innerast.SymbolFlagsType
+	SymbolFlagsNamespace = innerast.SymbolFlagsNamespace
 )
 
 //go:linkname GetSourceFileOfNode github.com/microsoft/typescript-go/internal/ast.GetSourceFileOfNode

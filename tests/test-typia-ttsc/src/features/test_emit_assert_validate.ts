@@ -31,12 +31,12 @@ export async function test_emit_assert_validate(): Promise<void> {
     validate_string: (x: unknown) => {
       success: boolean;
       data: unknown;
-      errors: Array<{ path: string; expected: string; value: unknown }>;
+      errors?: Array<{ path: string; expected: string; value: unknown }>;
     };
     validate_user: (x: unknown) => {
       success: boolean;
       data: unknown;
-      errors: Array<{ path: string; expected: string; value: unknown }>;
+      errors?: Array<{ path: string; expected: string; value: unknown }>;
     };
   };
 
@@ -54,7 +54,7 @@ export async function test_emit_assert_validate(): Promise<void> {
   // validate: success
   const ok = mod.validate_string("hello");
   assert.equal(ok.success, true);
-  assert.equal(ok.errors.length, 0);
+  assert.equal(ok.errors, undefined);
 
   // validate: failure
   const bad = mod.validate_string(42);
@@ -67,6 +67,7 @@ export async function test_emit_assert_validate(): Promise<void> {
   // validate: user schema
   const userOk = mod.validate_user(validUser);
   assert.equal(userOk.success, true);
+  assert.equal(userOk.errors, undefined);
   const userBad = mod.validate_user({ id: "a", age: -5 });
   assert.equal(userBad.success, false);
 }

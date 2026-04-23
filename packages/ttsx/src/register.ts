@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import * as fs from "node:fs";
 import * as path from "node:path";
 
@@ -6,6 +7,8 @@ import {
   defaultCacheDirectory,
   resolveProjectConfig,
   resolveProjectRoot,
+  resolveBinary,
+  transform,
   type CommonOptions,
 } from "@typia/ttsc";
 
@@ -28,6 +31,8 @@ type CompilableModule = NodeJS.Module & {
 
 interface ProjectContext {
   cacheDir: string;
+  cacheSalt: string;
+  compiledText: Map<string, string>;
   emitDir: string;
   emittedFiles: string[] | null;
   entryMap: Map<string, string>;
@@ -43,6 +48,7 @@ const DEFAULT_EXTENSIONS: readonly string[] = Object.freeze([
 ]);
 
 const PROCESS_CACHE_KEY = String(process.pid);
+const SINGLE_FILE_CACHE_VERSION = "v4";
 
 export function register(options: RegisterOptions = {}): () => void {
   const cwd = path.resolve(options.cwd ?? process.cwd());
@@ -62,6 +68,8 @@ export function register(options: RegisterOptions = {}): () => void {
         tsconfig,
         root,
         cacheDir,
+        cacheSalt: createCompilerCacheSalt(options),
+        compiledText: new Map<string, string>(),
         emitDir: path.join(cacheDir, "project", PROCESS_CACHE_KEY),
         emittedFiles: null,
         entryMap: new Map<string, string>(),
@@ -79,6 +87,8 @@ export function register(options: RegisterOptions = {}): () => void {
       tsconfig,
       root,
       cacheDir,
+      cacheSalt: createCompilerCacheSalt(options),
+      compiledText: new Map<string, string>(),
       emitDir: path.join(cacheDir, "project", PROCESS_CACHE_KEY),
       emittedFiles: null,
       entryMap: new Map<string, string>(),
@@ -89,9 +99,7 @@ export function register(options: RegisterOptions = {}): () => void {
 
   const compile = (filename: string): string => {
     const context = getContext(filename);
-    ensureProjectBuild(context, options);
-    const outFile = resolveEmittedFile(context, filename);
-    const output = fs.readFileSync(outFile, "utf8");
+    const output = readCompiledOutput(context, filename, options);
     if (looksLikeESM(output)) {
       throw new Error(
         `ttsx: ESM output is not yet supported by the in-process CJS runner (${filename}).`,
@@ -126,6 +134,14 @@ export function prepareExecution(
 ): PreparedExecution {
   const cwd = path.resolve(options.cwd ?? process.cwd());
   const context = resolveProjectContext(cwd, entryFile, options);
+  const entryOutput = transformSingleFile(context, entryFile, options);
+  if (!looksLikeESM(entryOutput)) {
+    return {
+      emitDir: context.emitDir,
+      entryFile,
+      moduleKind: "cjs",
+    };
+  }
   ensureProjectBuild(context, options);
   const resolvedEntry = resolveEmittedFile(context, entryFile);
   const output = fs.readFileSync(resolvedEntry, "utf8");
@@ -165,6 +181,14 @@ function ensureProjectBuild(context: ProjectContext, options: RegisterOptions): 
   throw new Error(detail);
 }
 
+function readCompiledOutput(
+  context: ProjectContext,
+  filename: string,
+  options: RegisterOptions,
+): string {
+  return transformSingleFile(context, filename, options);
+}
+
 function resolveProjectContext(
   cwd: string,
   filename: string,
@@ -192,16 +216,142 @@ function createProjectContext(
     tsconfig,
     root,
     cacheDir,
+    cacheSalt: createCompilerCacheSalt(options),
+    compiledText: new Map<string, string>(),
     emitDir: path.join(cacheDir, "project", PROCESS_CACHE_KEY),
     emittedFiles: null,
     entryMap: new Map<string, string>(),
   };
 }
 
-function resolveEmittedFile(context: ProjectContext, filename: string): string {
+function transformSingleFile(
+  context: ProjectContext,
+  filename: string,
+  options: RegisterOptions,
+): string {
+  const normalized = path.resolve(filename);
+  const cached = context.compiledText.get(normalized);
+  if (cached !== undefined) return cached;
+
+  const cacheFile = singleFileCachePath(context, normalized);
+  const sourceStat = safeStat(normalized);
+  const cacheStat = safeStat(cacheFile);
+  if (
+    sourceStat &&
+    cacheStat &&
+    cacheStat.isFile() &&
+    cacheStat.mtimeMs >= sourceStat.mtimeMs
+  ) {
+    const output = fs.readFileSync(cacheFile, "utf8");
+    context.compiledText.set(normalized, output);
+    return output;
+  }
+
+  const output = transform({
+    binary: options.binary,
+    cwd: context.root,
+    env: options.env,
+    file: normalized,
+    rewriteMode: options.rewriteMode,
+    tsconfig: context.tsconfig,
+  });
+  fs.mkdirSync(path.dirname(cacheFile), { recursive: true });
+  fs.writeFileSync(cacheFile, output, "utf8");
+  context.compiledText.set(normalized, output);
+  return output;
+}
+
+function singleFileCachePath(context: ProjectContext, filename: string): string {
+  const digest = createHash("sha1")
+    .update(context.cacheSalt)
+    .update("\0")
+    .update(filename)
+    .digest("hex");
+  return path.join(
+    context.cacheDir,
+    "single",
+    SINGLE_FILE_CACHE_VERSION,
+    `${digest}.js`,
+  );
+}
+
+function createCompilerCacheSalt(options: RegisterOptions): string {
+  const parts = [SINGLE_FILE_CACHE_VERSION];
+  const binary = resolveBinary(options);
+  if (binary) {
+    parts.push(fileSignature(binary));
+    for (const location of workspaceCompilerLocations(binary)) {
+      const signature = treeSignature(location);
+      if (signature) {
+        parts.push(signature);
+      }
+    }
+  }
+  return parts.join("|");
+}
+
+function workspaceCompilerLocations(binary: string): string[] {
+  const resolved = path.resolve(binary);
+  const packageRoot = path.resolve(path.dirname(resolved), "..");
+  const candidates = [
+    path.resolve(packageRoot, "cmd"),
+    path.resolve(packageRoot, "src"),
+    path.resolve(packageRoot, "..", "core", "native"),
+    path.resolve(packageRoot, "..", "transform", "native"),
+    path.resolve(packageRoot, "..", "transform", "bin"),
+    path.resolve(packageRoot, "..", "typia", "bin"),
+  ];
+  return candidates.filter((location) => fs.existsSync(location));
+}
+
+function fileSignature(file: string): string {
+  const stat = safeStat(file);
+  if (!stat) return `missing:${path.resolve(file)}`;
+  return `file:${path.resolve(file)}:${stat.size}:${stat.mtimeMs}`;
+}
+
+function treeSignature(root: string): string | null {
+  if (!fs.existsSync(root)) return null;
+  let latest = 0;
+  let count = 0;
+  const stack = [root];
+  while (stack.length !== 0) {
+    const current = stack.pop()!;
+    for (const entry of fs.readdirSync(current, { withFileTypes: true })) {
+      const next = path.join(current, entry.name);
+      if (entry.isDirectory()) {
+        stack.push(next);
+        continue;
+      }
+      if (!entry.isFile()) continue;
+      if (!/\.(?:go|[cm]?js|ts)$/.test(entry.name)) continue;
+      const stat = safeStat(next);
+      if (!stat) continue;
+      latest = Math.max(latest, stat.mtimeMs);
+      count += 1;
+    }
+  }
+  return `tree:${path.resolve(root)}:${count}:${latest}`;
+}
+
+function safeStat(file: string): fs.Stats | null {
+  try {
+    return fs.statSync(file);
+  } catch {
+    return null;
+  }
+}
+
+function resolveEmittedFile(context: ProjectContext, filename: string): string | null {
   const normalized = path.resolve(filename);
   const cached = context.entryMap.get(normalized);
-  if (cached) return cached;
+  if (cached && fs.existsSync(cached)) return cached;
+
+  const exact = resolveExactEmittedFile(context, normalized);
+  if (exact && fs.existsSync(exact)) {
+    context.entryMap.set(normalized, exact);
+    return exact;
+  }
 
   const files = context.emittedFiles ?? [];
   let best: string | null = null;
@@ -213,11 +363,25 @@ function resolveEmittedFile(context: ProjectContext, filename: string): string {
       bestScore = score;
     }
   }
-  if (!best) {
-    throw new Error(`ttsx: emitted output not found for ${normalized}`);
+  if (!best || !fs.existsSync(best)) {
+    return null;
   }
   context.entryMap.set(normalized, best);
   return best;
+}
+
+function resolveExactEmittedFile(
+  context: ProjectContext,
+  filename: string,
+): string | null {
+  const relative = path.relative(context.root, filename);
+  if (relative === "" || relative.startsWith("..") || path.isAbsolute(relative)) {
+    return null;
+  }
+  return path.resolve(
+    context.emitDir,
+    relative.slice(0, relative.length - path.extname(relative).length) + ".js",
+  );
 }
 
 function listEmittedFiles(root: string): string[] {

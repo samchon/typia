@@ -3,6 +3,7 @@ package analyzer
 import (
 	"fmt"
 	"os"
+	"sort"
 	"strconv"
 	"strings"
 
@@ -16,8 +17,9 @@ import (
 type bigintLiteral string
 
 type typeNodeBinding struct {
-	Type *shimchecker.Type
-	Node *ast.Node
+	Type     *shimchecker.Type
+	Node     *ast.Node
+	Bindings map[string]typeNodeBinding
 }
 
 func debugArrayAnyNodeEnabled() bool {
@@ -44,6 +46,22 @@ func (a *Analyzer) walkTypeNodeBound(
 	if node == nil {
 		return nil, false
 	}
+	visitKey := boundSyntaxNodeKey(node, bindings)
+	if a != nil {
+		if a.visitingTypeNodes == nil {
+			a.visitingTypeNodes = make(map[string]bool)
+		}
+		if a.visitingTypeNodes[visitKey] {
+			if a.Checker != nil {
+				if resolved := a.Checker.GetTypeFromTypeNode(node); resolved != nil && resolved.Flags() != shimchecker.TypeFlagsAny {
+					return a.Walk(resolved)
+				}
+			}
+			return nil, false
+		}
+		a.visitingTypeNodes[visitKey] = true
+		defer delete(a.visitingTypeNodes, visitKey)
+	}
 	switch node.Kind {
 	case ast.KindAnyKeyword:
 		out := metadata.NewSchema()
@@ -65,12 +83,18 @@ func (a *Analyzer) walkTypeNodeBound(
 		out := metadata.NewSchema()
 		out.Required = false
 		return out, true
+	case ast.KindNeverKeyword:
+		out := metadata.NewSchema()
+		out.Required = false
+		return out, true
 	case ast.KindLiteralType:
 		return literalSchemaFromNode(node.AsLiteralTypeNode().Literal)
 	case ast.KindArrayType:
 		return a.walkArrayTypeNodeBound(node.AsArrayTypeNode(), bindings)
 	case ast.KindTupleType:
 		return a.walkTupleTypeNodeBound(node.AsTupleTypeNode(), bindings)
+	case ast.KindFunctionType:
+		return a.walkFunctionTypeNode(node.AsFunctionTypeNode())
 	case ast.KindUnionType:
 		return a.walkUnionTypeNodeBound(node.AsUnionTypeNode(), bindings)
 	case ast.KindIntersectionType:
@@ -106,10 +130,11 @@ func (a *Analyzer) walkTypeNodeBound(
 	case ast.KindTypeReference:
 		ref := node.AsTypeReferenceNode()
 		if ref != nil {
-			resolved := a.Checker.GetTypeFromTypeNode(node)
 			if binding, ok := resolveTypeNodeBinding(ref, bindings); ok {
 				return a.walkBoundTypeNode(binding)
 			}
+			resolved := a.Checker.GetTypeFromTypeNode(node)
+			refBindings := buildTypeReferenceBindings(a.Checker, ref, resolved, bindings)
 			switch entityNameText(ref.TypeName) {
 			case "Array", "ReadonlyArray":
 				if ref.TypeArguments != nil && len(ref.TypeArguments.Nodes) == 1 {
@@ -144,6 +169,29 @@ func (a *Analyzer) walkTypeNodeBound(
 					})
 					return out, true
 				}
+			case "Record":
+				if ref.TypeArguments != nil && len(ref.TypeArguments.Nodes) == 2 {
+					key, ok := a.walkTypeNodeBound(ref.TypeArguments.Nodes[0], bindings)
+					if !ok || !supportsObjectIndexKey(key) {
+						return nil, false
+					}
+					value, ok := a.walkTypeNodeBound(ref.TypeArguments.Nodes[1], bindings)
+					if !ok {
+						return nil, false
+					}
+					out := metadata.NewSchema()
+					obj := &metadata.ObjectType{
+						Name: "Record<" + key.Name() + ", " + value.Name() + ">",
+						DynamicProperties: []*metadata.Property{{
+							Key:   key,
+							Value: value,
+						}},
+						AdditionalProperties: metadata.NewSchema(),
+					}
+					mergeInto(obj.AdditionalProperties, value)
+					out.Objects = append(out.Objects, &metadata.ObjectRef{Type: obj})
+					return out, true
+				}
 			case "Set":
 				if ref.TypeArguments != nil && len(ref.TypeArguments.Nodes) == 1 {
 					value, ok := a.walkTypeNodeBound(ref.TypeArguments.Nodes[0], bindings)
@@ -154,6 +202,86 @@ func (a *Analyzer) walkTypeNodeBound(
 					out.Sets = append(out.Sets, &metadata.SetRef{Value: value})
 					return out, true
 				}
+			case "Partial":
+				if ref.TypeArguments != nil && len(ref.TypeArguments.Nodes) == 1 {
+					base, ok := a.walkTypeNodeBound(ref.TypeArguments.Nodes[0], bindings)
+					if !ok {
+						return nil, false
+					}
+					return applyMappedOptionality(base, false), true
+				}
+			case "Required":
+				if ref.TypeArguments != nil && len(ref.TypeArguments.Nodes) == 1 {
+					base, ok := a.walkTypeNodeBound(ref.TypeArguments.Nodes[0], bindings)
+					if !ok {
+						return nil, false
+					}
+					return applyMappedOptionality(base, true), true
+				}
+			case "Pick":
+				if ref.TypeArguments != nil && len(ref.TypeArguments.Nodes) == 2 {
+					base, ok := a.walkTypeNodeBound(ref.TypeArguments.Nodes[0], bindings)
+					if !ok {
+						return nil, false
+					}
+					keys, ok := mappedPickKeys(ref.TypeArguments.Nodes[1])
+					if !ok {
+						return nil, false
+					}
+					return applyMappedPick(base, keys), true
+				}
+			case "Exclude":
+				if ref.TypeArguments != nil && len(ref.TypeArguments.Nodes) == 2 {
+					base, ok := a.walkTypeNodeBound(ref.TypeArguments.Nodes[0], bindings)
+					if !ok {
+						return nil, false
+					}
+					excluded, ok := a.walkTypeNodeBound(ref.TypeArguments.Nodes[1], bindings)
+					if !ok {
+						return nil, false
+					}
+					return applyMappedExclude(base, excluded), true
+				}
+			}
+			if resolved != nil && resolved.Flags() != shimchecker.TypeFlagsAny {
+				if native, ok := nativeName(a.Checker, resolved); ok && native != "Map" && native != "Set" {
+					out := metadata.NewSchema()
+					out.Natives = append(out.Natives, metadata.Native{Name: native})
+					return out, true
+				}
+			}
+			if aliasDecl := aliasDeclarationTargetTypeAlias(a.Checker, ref); aliasDecl != nil &&
+				aliasDecl.Type != nil &&
+				aliasDecl.Type != node {
+				return a.walkTypeNodeBound(aliasDecl.Type, refBindings)
+			}
+			if alias := shimchecker.Checker_getAliasSymbolForTypeNode(a.Checker, node); alias != nil {
+				if decl := shimchecker.Checker_getDeclarationOfAliasSymbol(a.Checker, alias); decl != nil {
+					if decl.Kind == ast.KindInterfaceDeclaration {
+						if iface := decl.AsInterfaceDeclaration(); iface != nil {
+							return a.walkInterfaceDeclarationBound(iface, refBindings)
+						}
+					}
+					if target := aliasDeclarationTargetNode(decl); target != nil && target != node {
+						return a.walkTypeNodeBound(target, refBindings)
+					}
+				}
+				for _, decl := range relatedDeclarations(a.Checker, alias) {
+					if decl != nil && decl.Kind == ast.KindInterfaceDeclaration {
+						if iface := decl.AsInterfaceDeclaration(); iface != nil {
+							return a.walkInterfaceDeclarationBound(iface, refBindings)
+						}
+					}
+					if target := aliasDeclarationTargetNode(decl); target != nil && target != node {
+						return a.walkTypeNodeBound(target, refBindings)
+					}
+				}
+			}
+			if target := referencedInterfaceDeclaration(a.Checker, ref, resolved); target != nil {
+				return a.walkInterfaceDeclarationBound(target, refBindings)
+			}
+			if target := referencedAliasTargetNode(a.Checker, resolved); target != nil && target != node {
+				return a.walkTypeNodeBound(target, refBindings)
 			}
 			if resolved != nil && resolved.Flags() != shimchecker.TypeFlagsAny {
 				if atomic, ok := wrapperAtomicKind(a.Checker, resolved); ok {
@@ -164,28 +292,6 @@ func (a *Analyzer) walkTypeNodeBound(
 					out.Natives = append(out.Natives, metadata.Native{Name: native})
 					return out, true
 				}
-			}
-			if alias := shimchecker.Checker_getAliasSymbolForTypeNode(a.Checker, node); alias != nil {
-				aliasBindings := buildAliasTypeNodeBindings(a.Checker, ref, resolved, bindings)
-				if decl := shimchecker.Checker_getDeclarationOfAliasSymbol(a.Checker, alias); decl != nil {
-					if iface := decl.AsInterfaceDeclaration(); iface != nil {
-						return a.walkInterfaceDeclarationBound(iface, aliasBindings)
-					}
-					if target := aliasDeclarationTargetNode(decl); target != nil && target != node {
-						return a.walkTypeNodeBound(target, aliasBindings)
-					}
-				}
-				for _, decl := range relatedDeclarations(a.Checker, alias) {
-					if iface := decl.AsInterfaceDeclaration(); iface != nil {
-						return a.walkInterfaceDeclarationBound(iface, aliasBindings)
-					}
-					if target := aliasDeclarationTargetNode(decl); target != nil && target != node {
-						return a.walkTypeNodeBound(target, aliasBindings)
-					}
-				}
-			}
-			if target := referencedInterfaceDeclaration(a.Checker, ref, resolved); target != nil {
-				return a.walkInterfaceDeclarationBound(target, bindings)
 			}
 		}
 		if resolved := a.Checker.GetTypeFromTypeNode(node); resolved != nil && resolved.Flags() != shimchecker.TypeFlagsAny {
@@ -273,13 +379,25 @@ func relatedDeclarations(checker *shimchecker.Checker, seeds ...*ast.Symbol) []*
 }
 
 func (a *Analyzer) walkBoundTypeNode(binding typeNodeBinding) (*metadata.Schema, bool) {
+	if binding.Node != nil && len(binding.Bindings) != 0 {
+		if out, ok := a.walkTypeNodeBound(binding.Node, binding.Bindings); ok {
+			return out, true
+		}
+	}
 	if binding.Node != nil || binding.Type != nil {
 		return a.WalkWithTypeNode(binding.Type, binding.Node)
 	}
 	return nil, false
 }
 
-func buildAliasTypeNodeBindings(
+func (a *Analyzer) walkFunctionTypeNode(node *ast.FunctionTypeNode) (*metadata.Schema, bool) {
+	if node == nil {
+		return nil, false
+	}
+	return a.methodLikeSchema(node.Parameters, node.Type)
+}
+
+func buildTypeReferenceBindings(
 	checker *shimchecker.Checker,
 	ref *ast.TypeReferenceNode,
 	resolved *shimchecker.Type,
@@ -290,20 +408,58 @@ func buildAliasTypeNodeBindings(
 	}
 	typeArgs := []*shimchecker.Type(nil)
 	if checker != nil && resolved != nil {
-		typeArgs = shimchecker.Checker_getTypeArguments(checker, resolved)
+		typeArgs = safeTypeArguments(checker, resolved)
 	}
 	if len(typeArgs) == 0 && resolved != nil {
-		typeArgs = resolved.Types()
+		typeArgs = safeUnionTypes(resolved)
 	}
-	if ref.TypeArguments == nil || len(ref.TypeArguments.Nodes) == 0 {
+	typeParams := typeReferenceTypeParameters(checker, ref, resolved)
+	var argNodes []*ast.Node
+	if ref.TypeArguments != nil {
+		argNodes = ref.TypeArguments.Nodes
+	}
+	return buildTypeArgumentBindings(typeParams, argNodes, typeArgs, parent)
+}
+
+func buildExpressionTypeBindings(
+	checker *shimchecker.Checker,
+	expr *ast.Node,
+	resolved *shimchecker.Type,
+	parent map[string]typeNodeBinding,
+) map[string]typeNodeBinding {
+	if expr == nil {
 		return parent
 	}
-	aliasDecl := aliasDeclarationTargetTypeAlias(checker, ref)
-	if aliasDecl == nil || aliasDecl.TypeParameters == nil || len(aliasDecl.TypeParameters.Nodes) == 0 {
+	heritage := expr.AsExpressionWithTypeArguments()
+	if heritage == nil {
+		return parent
+	}
+	typeArgs := []*shimchecker.Type(nil)
+	if checker != nil && resolved != nil {
+		typeArgs = safeTypeArguments(checker, resolved)
+	}
+	if len(typeArgs) == 0 && resolved != nil {
+		typeArgs = safeUnionTypes(resolved)
+	}
+	typeParams := expressionTypeParameters(checker, heritage.Expression, resolved)
+	var argNodes []*ast.Node
+	if heritage.TypeArguments != nil {
+		argNodes = heritage.TypeArguments.Nodes
+	}
+	return buildTypeArgumentBindings(typeParams, argNodes, typeArgs, parent)
+}
+
+func buildTypeArgumentBindings(
+	typeParams []*ast.Node,
+	argNodes []*ast.Node,
+	typeArgs []*shimchecker.Type,
+	parent map[string]typeNodeBinding,
+) map[string]typeNodeBinding {
+	if len(typeParams) == 0 {
 		return parent
 	}
 	next := cloneTypeNodeBindings(parent)
-	for i, param := range aliasDecl.TypeParameters.Nodes {
+	for i, param := range typeParams {
 		if param == nil || param.Kind != ast.KindTypeParameter {
 			continue
 		}
@@ -316,15 +472,40 @@ func buildAliasTypeNodeBindings(
 			continue
 		}
 		binding := typeNodeBinding{}
-		if i < len(ref.TypeArguments.Nodes) {
-			binding.Node = ref.TypeArguments.Nodes[i]
+		if i < len(argNodes) {
+			binding.Node = argNodes[i]
+			binding.Bindings = cloneTypeNodeBindings(parent)
+		} else if typeParam.DefaultType != nil {
+			binding.Node = typeParam.DefaultType.AsNode()
+			binding.Bindings = cloneTypeNodeBindings(next)
 		}
 		if i < len(typeArgs) {
 			binding.Type = typeArgs[i]
 		}
+		if binding.Node == nil && binding.Type == nil {
+			continue
+		}
 		next[name] = binding
 	}
 	return next
+}
+
+func typeReferenceTypeParameters(
+	checker *shimchecker.Checker,
+	ref *ast.TypeReferenceNode,
+	resolved *shimchecker.Type,
+) []*ast.Node {
+	if aliasDecl := aliasDeclarationTargetTypeAlias(checker, ref); aliasDecl != nil &&
+		aliasDecl.TypeParameters != nil &&
+		len(aliasDecl.TypeParameters.Nodes) != 0 {
+		return aliasDecl.TypeParameters.Nodes
+	}
+	if iface := referencedInterfaceDeclaration(checker, ref, resolved); iface != nil &&
+		iface.TypeParameters != nil &&
+		len(iface.TypeParameters.Nodes) != 0 {
+		return iface.TypeParameters.Nodes
+	}
+	return nil
 }
 
 func referencedInterfaceDeclaration(
@@ -332,21 +513,49 @@ func referencedInterfaceDeclaration(
 	ref *ast.TypeReferenceNode,
 	resolved *shimchecker.Type,
 ) *ast.InterfaceDeclaration {
-	symbols := make([]*ast.Symbol, 0, 2)
-	if ref != nil && ref.TypeName != nil {
-		if node := ref.TypeName.AsNode(); node != nil && node.Symbol() != nil {
-			symbols = append(symbols, node.Symbol())
-		}
+	if ref == nil {
+		return nil
 	}
-	if resolved != nil && resolved.Symbol() != nil {
-		symbols = append(symbols, resolved.Symbol())
-	}
-	if resolved != nil && shimchecker.Type_getTypeNameSymbol(resolved) != nil {
-		symbols = append(symbols, shimchecker.Type_getTypeNameSymbol(resolved))
-	}
+	return referencedInterfaceDeclarationFromExpression(checker, ref.TypeName.AsNode(), resolved)
+}
+
+func referencedInterfaceDeclarationFromExpression(
+	checker *shimchecker.Checker,
+	expr *ast.Node,
+	resolved *shimchecker.Type,
+) *ast.InterfaceDeclaration {
+	symbols := expressionSymbols(checker, expr, resolved)
 	for _, decl := range relatedDeclarations(checker, symbols...) {
 		if decl != nil && decl.Kind == ast.KindInterfaceDeclaration {
 			return decl.AsInterfaceDeclaration()
+		}
+	}
+	return nil
+}
+
+func expressionTypeParameters(
+	checker *shimchecker.Checker,
+	expr *ast.Node,
+	resolved *shimchecker.Type,
+) []*ast.Node {
+	if expr == nil {
+		return nil
+	}
+	symbols := expressionSymbols(checker, expr, resolved)
+	for _, decl := range relatedDeclarations(checker, symbols...) {
+		switch {
+		case decl != nil && decl.Kind == ast.KindTypeAliasDeclaration:
+			if alias := decl.AsTypeAliasDeclaration(); alias != nil &&
+				alias.TypeParameters != nil &&
+				len(alias.TypeParameters.Nodes) != 0 {
+				return alias.TypeParameters.Nodes
+			}
+		case decl != nil && decl.Kind == ast.KindInterfaceDeclaration:
+			if iface := decl.AsInterfaceDeclaration(); iface != nil &&
+				iface.TypeParameters != nil &&
+				len(iface.TypeParameters.Nodes) != 0 {
+				return iface.TypeParameters.Nodes
+			}
 		}
 	}
 	return nil
@@ -363,99 +572,258 @@ func (a *Analyzer) walkInterfaceDeclarationBound(
 	if root == nil {
 		return nil, false
 	}
-	key := syntaxNodeKey(root)
+	key := boundSyntaxNodeKey(root, bindings)
 	name := "Interface#" + intToString(int64(root.Pos()))
-	if decl.Name() != nil && decl.Name().Text() != "" {
+	if a.Checker != nil {
+		if resolved := a.Checker.GetTypeAtLocation(root); resolved != nil {
+			if resolvedName := strings.TrimSpace(typeName(a.Checker, resolved)); resolvedName != "" {
+				name = resolvedName
+			}
+		}
+	}
+	if qualified := qualifiedDeclarationName(root); qualified != "" {
+		if strings.HasPrefix(name, "Interface#") ||
+			(decl.Name() != nil && name == decl.Name().Text()) {
+			name = qualified
+		}
+	} else if strings.HasPrefix(name, "Interface#") && decl.Name() != nil && decl.Name().Text() != "" {
 		name = decl.Name().Text()
 	}
 	obj, fresh := a.Collection.EmplaceObject(key, name)
 	if fresh {
+		obj.Description = nodeDescription(root)
 		obj.Properties = make([]*metadata.Property, 0)
 		obj.DynamicProperties = make([]*metadata.Property, 0)
-		if decl.Members != nil {
-			for _, member := range decl.Members.Nodes {
-				if member == nil {
-					continue
-				}
-				switch member.Kind {
-				case ast.KindPropertySignature:
-					prop := member.AsPropertySignatureDeclaration()
-					if prop == nil || prop.Type == nil {
-						return nil, false
-					}
-					valueSchema, ok := a.walkTypeNodeBound(prop.Type, bindings)
-					if !ok {
-						return nil, false
-					}
-					if prop.PostfixToken != nil {
-						valueSchema.Optional = true
-						valueSchema.Required = false
-					}
-					keyName, ok := propertyNameText(member.Name())
-					if !ok {
-						return nil, false
-					}
-					keySchema := metadata.NewSchema()
-					keySchema.AddConstant(metadata.AtomicString, keyName)
-					obj.Properties = append(obj.Properties, &metadata.Property{
-						Key:   keySchema,
-						Value: valueSchema,
-					})
-				case ast.KindMethodSignature:
-					method := member.AsMethodSignatureDeclaration()
-					if method == nil {
-						return nil, false
-					}
-					valueSchema, ok := a.methodSignatureSchema(method)
-					if !ok {
-						return nil, false
-					}
-					keyName, ok := propertyNameText(member.Name())
-					if !ok {
-						return nil, false
-					}
-					keySchema := metadata.NewSchema()
-					keySchema.AddConstant(metadata.AtomicString, keyName)
-					obj.Properties = append(obj.Properties, &metadata.Property{
-						Key:   keySchema,
-						Value: valueSchema,
-					})
-				case ast.KindIndexSignature:
-					index := member.AsIndexSignatureDeclaration()
-					if index == nil || index.Type == nil || index.Parameters == nil || len(index.Parameters.Nodes) == 0 {
-						return nil, false
-					}
-					parameter := index.Parameters.Nodes[0]
-					if parameter == nil || parameter.Kind != ast.KindParameter {
-						return nil, false
-					}
-					paramDecl := parameter.AsParameterDeclaration()
-					if paramDecl == nil || paramDecl.Type == nil {
-						return nil, false
-					}
-					keySchema, ok := a.walkTypeNodeBound(paramDecl.Type, bindings)
-					if !ok || !supportsObjectIndexKey(keySchema) {
-						return nil, false
-					}
-					valueSchema, ok := a.walkTypeNodeBound(index.Type, bindings)
-					if !ok {
-						return nil, false
-					}
-					obj.DynamicProperties = append(obj.DynamicProperties, &metadata.Property{
-						Key:   keySchema,
-						Value: valueSchema,
-					})
-					if obj.AdditionalProperties == nil {
-						obj.AdditionalProperties = metadata.NewSchema()
-					}
-					mergeInto(obj.AdditionalProperties, valueSchema)
-				}
-			}
+		if !a.mergeInterfaceHeritage(obj, decl, bindings) {
+			return nil, false
+		}
+		if !a.appendInterfaceMembersBound(obj, decl.Members, bindings) {
+			return nil, false
 		}
 	}
 	out := metadata.NewSchema()
 	out.Objects = append(out.Objects, &metadata.ObjectRef{Type: obj})
 	return out, true
+}
+
+func (a *Analyzer) mergeInterfaceHeritage(
+	obj *metadata.ObjectType,
+	decl *ast.InterfaceDeclaration,
+	bindings map[string]typeNodeBinding,
+) bool {
+	if obj == nil || decl == nil || decl.HeritageClauses == nil {
+		return true
+	}
+	for _, clauseNode := range decl.HeritageClauses.Nodes {
+		if clauseNode == nil {
+			continue
+		}
+		clause := clauseNode.AsHeritageClause()
+		if clause == nil || clause.Types == nil {
+			continue
+		}
+		for _, baseNode := range clause.Types.Nodes {
+			if baseNode == nil {
+				return false
+			}
+			base := baseNode.AsExpressionWithTypeArguments()
+			if base == nil {
+				return false
+			}
+			resolved := (*shimchecker.Type)(nil)
+			if a.Checker != nil {
+				resolved = a.Checker.GetTypeAtLocation(baseNode)
+			}
+			next := buildExpressionTypeBindings(a.Checker, baseNode, resolved, bindings)
+			switch {
+			case referencedInterfaceDeclarationFromExpression(a.Checker, base.Expression, resolved) != nil:
+				target := referencedInterfaceDeclarationFromExpression(a.Checker, base.Expression, resolved)
+				schema, ok := a.walkInterfaceDeclarationBound(target, next)
+				if !ok || !mergeInheritedSchemaIntoObject(obj, schema) {
+					return false
+				}
+			case resolved != nil && resolved.Flags() != shimchecker.TypeFlagsAny:
+				schema, ok := a.Walk(resolved)
+				if !ok || !mergeInheritedSchemaIntoObject(obj, schema) {
+					return false
+				}
+			default:
+				return false
+			}
+		}
+	}
+	return true
+}
+
+func (a *Analyzer) appendInterfaceMembersBound(
+	obj *metadata.ObjectType,
+	members *ast.NodeList,
+	bindings map[string]typeNodeBinding,
+) bool {
+	if obj == nil || members == nil {
+		return true
+	}
+	for _, member := range members.Nodes {
+		if member == nil {
+			continue
+		}
+		switch member.Kind {
+		case ast.KindPropertySignature:
+			prop := member.AsPropertySignatureDeclaration()
+			if prop == nil || prop.Type == nil {
+				return false
+			}
+			if nodeHasJsDocTag(member, "internal") {
+				continue
+			}
+			valueSchema, ok := a.walkTypeNodeBound(prop.Type, bindings)
+			if !ok {
+				return false
+			}
+			applyCommentTags(valueSchema, member)
+			if prop.PostfixToken != nil {
+				valueSchema.Optional = true
+				valueSchema.Required = false
+			}
+			keyName, ok := propertyNameText(member.Name())
+			if !ok {
+				return false
+			}
+			keySchema := metadata.NewSchema()
+			keySchema.AddConstant(metadata.AtomicString, keyName)
+			description := nodeDescription(member)
+			upsertObjectProperty(obj, &metadata.Property{
+				Key:         keySchema,
+				Value:       valueSchema,
+				Description: description,
+			})
+		case ast.KindMethodSignature:
+			method := member.AsMethodSignatureDeclaration()
+			if method == nil {
+				return false
+			}
+			if nodeHasJsDocTag(member, "internal") {
+				continue
+			}
+			valueSchema, ok := a.methodSignatureSchema(method)
+			if !ok {
+				return false
+			}
+			keyName, ok := propertyNameText(member.Name())
+			if !ok {
+				return false
+			}
+			keySchema := metadata.NewSchema()
+			keySchema.AddConstant(metadata.AtomicString, keyName)
+			description := nodeDescription(member)
+			upsertObjectProperty(obj, &metadata.Property{
+				Key:         keySchema,
+				Value:       valueSchema,
+				Description: description,
+			})
+		case ast.KindIndexSignature:
+			index := member.AsIndexSignatureDeclaration()
+			if index == nil || index.Type == nil || index.Parameters == nil || len(index.Parameters.Nodes) == 0 {
+				return false
+			}
+			parameter := index.Parameters.Nodes[0]
+			if parameter == nil || parameter.Kind != ast.KindParameter {
+				return false
+			}
+			paramDecl := parameter.AsParameterDeclaration()
+			if paramDecl == nil || paramDecl.Type == nil {
+				return false
+			}
+			keySchema, ok := a.walkTypeNodeBound(paramDecl.Type, bindings)
+			if !ok || !supportsObjectIndexKey(keySchema) {
+				return false
+			}
+			valueSchema, ok := a.walkTypeNodeBound(index.Type, bindings)
+			if !ok {
+				return false
+			}
+			obj.DynamicProperties = append(obj.DynamicProperties, &metadata.Property{
+				Key:   keySchema,
+				Value: valueSchema,
+			})
+			if obj.AdditionalProperties == nil {
+				obj.AdditionalProperties = metadata.NewSchema()
+			}
+			mergeInto(obj.AdditionalProperties, valueSchema)
+		}
+	}
+	return true
+}
+
+func mergeInheritedSchemaIntoObject(obj *metadata.ObjectType, schema *metadata.Schema) bool {
+	if obj == nil || schema == nil {
+		return false
+	}
+	if len(schema.Objects) == 0 {
+		return schema.Empty()
+	}
+	for _, ref := range schema.Objects {
+		if ref == nil || ref.Type == nil {
+			continue
+		}
+		mergeInheritedObject(obj, ref.Type)
+	}
+	return true
+}
+
+func mergeInheritedObject(dst *metadata.ObjectType, src *metadata.ObjectType) {
+	if dst == nil || src == nil {
+		return
+	}
+	for _, prop := range src.Properties {
+		upsertObjectProperty(dst, cloneObjectProperty(prop))
+	}
+	for _, prop := range src.DynamicProperties {
+		dst.DynamicProperties = append(dst.DynamicProperties, cloneObjectProperty(prop))
+	}
+	if src.AdditionalProperties != nil {
+		if dst.AdditionalProperties == nil {
+			dst.AdditionalProperties = metadata.NewSchema()
+		}
+		mergeInto(dst.AdditionalProperties, src.AdditionalProperties)
+	}
+}
+
+func cloneObjectProperty(prop *metadata.Property) *metadata.Property {
+	if prop == nil {
+		return nil
+	}
+	out := &metadata.Property{
+		Key:         prop.Key,
+		Value:       prop.Value,
+		Description: prop.Description,
+	}
+	if len(prop.JsDocTags) != 0 {
+		out.JsDocTags = append([]string{}, prop.JsDocTags...)
+	}
+	return out
+}
+
+func upsertObjectProperty(obj *metadata.ObjectType, prop *metadata.Property) {
+	if obj == nil || prop == nil {
+		return
+	}
+	key, ok := prop.Key.GetSoleLiteral()
+	if !ok {
+		obj.Properties = append(obj.Properties, prop)
+		return
+	}
+	for i, existing := range obj.Properties {
+		if existing == nil || existing.Key == nil {
+			continue
+		}
+		current, ok := existing.Key.GetSoleLiteral()
+		if ok && current == key {
+			obj.Properties[i] = prop
+			return
+		}
+	}
+	obj.Properties = append(obj.Properties, prop)
 }
 
 func aliasDeclarationTargetTypeAlias(checker *shimchecker.Checker, ref *ast.TypeReferenceNode) *ast.TypeAliasDeclaration {
@@ -466,12 +834,91 @@ func aliasDeclarationTargetTypeAlias(checker *shimchecker.Checker, ref *ast.Type
 	if node == nil {
 		return nil
 	}
-	for _, decl := range relatedDeclarations(checker, node.Symbol()) {
-		if alias := decl.AsTypeAliasDeclaration(); alias != nil {
-			return alias
+	seeds := expressionSymbols(checker, node, nil)
+	for _, decl := range relatedDeclarations(checker, seeds...) {
+		if decl != nil && decl.Kind == ast.KindTypeAliasDeclaration {
+			if alias := decl.AsTypeAliasDeclaration(); alias != nil {
+				return alias
+			}
 		}
 	}
 	return nil
+}
+
+func expressionSymbols(
+	checker *shimchecker.Checker,
+	expr *ast.Node,
+	resolved *shimchecker.Type,
+) []*ast.Symbol {
+	out := make([]*ast.Symbol, 0, 4)
+	seen := map[*ast.Symbol]struct{}{}
+	appendSymbol := func(sym *ast.Symbol) {
+		if sym == nil {
+			return
+		}
+		if _, exists := seen[sym]; exists {
+			return
+		}
+		seen[sym] = struct{}{}
+		out = append(out, sym)
+	}
+	appendNode := func(node *ast.Node) {
+		if node == nil {
+			return
+		}
+		if node.Symbol() != nil {
+			appendSymbol(node.Symbol())
+		}
+		if checker != nil {
+			if sym := checker.GetSymbolAtLocation(node); sym != nil {
+				appendSymbol(sym)
+			}
+		}
+	}
+	var walkExpr func(*ast.Node)
+	walkExpr = func(node *ast.Node) {
+		if node == nil {
+			return
+		}
+		appendNode(node)
+		if node.Kind == ast.KindQualifiedName {
+			q := node.AsQualifiedName()
+			if q != nil && q.Right != nil {
+				appendNode(q.Right)
+			}
+		}
+	}
+	walkExpr(expr)
+	if checker != nil && expr != nil {
+		for _, meaning := range []ast.SymbolFlags{
+			ast.SymbolFlagsType,
+			ast.SymbolFlagsNamespace,
+		} {
+			appendSymbol(shimchecker.Checker_resolveEntityName(
+				checker,
+				expr,
+				meaning,
+				true,
+				false,
+				nil,
+			))
+			appendSymbol(shimchecker.Checker_resolveEntityName(
+				checker,
+				expr,
+				meaning,
+				true,
+				true,
+				nil,
+			))
+		}
+	}
+	if resolved != nil && resolved.Symbol() != nil {
+		appendSymbol(resolved.Symbol())
+	}
+	if resolved != nil && shimchecker.Type_getTypeNameSymbol(resolved) != nil {
+		appendSymbol(shimchecker.Type_getTypeNameSymbol(resolved))
+	}
+	return out
 }
 
 func cloneTypeNodeBindings(src map[string]typeNodeBinding) map[string]typeNodeBinding {
@@ -483,6 +930,30 @@ func cloneTypeNodeBindings(src map[string]typeNodeBinding) map[string]typeNodeBi
 		out[key] = value
 	}
 	return out
+}
+
+func safeTypeArguments(checker *shimchecker.Checker, resolved *shimchecker.Type) (out []*shimchecker.Type) {
+	if checker == nil || resolved == nil {
+		return nil
+	}
+	defer func() {
+		if recover() != nil {
+			out = nil
+		}
+	}()
+	return shimchecker.Checker_getTypeArguments(checker, resolved)
+}
+
+func safeUnionTypes(resolved *shimchecker.Type) (out []*shimchecker.Type) {
+	if resolved == nil {
+		return nil
+	}
+	defer func() {
+		if recover() != nil {
+			out = nil
+		}
+	}()
+	return resolved.Types()
 }
 
 func referencedAliasTargetNode(checker *shimchecker.Checker, t *shimchecker.Type) *ast.Node {
@@ -499,6 +970,9 @@ func referencedAliasTargetNode(checker *shimchecker.Checker, t *shimchecker.Type
 
 func aliasDeclarationTargetNode(decl *ast.Node) *ast.Node {
 	if decl == nil {
+		return nil
+	}
+	if decl.Kind != ast.KindTypeAliasDeclaration {
 		return nil
 	}
 	if alias := decl.AsTypeAliasDeclaration(); alias != nil && alias.Type != nil {
@@ -575,7 +1049,18 @@ func (a *Analyzer) walkTupleTypeNodeBound(
 			schema.Required = false
 		}
 		if rest {
-			tuple.Elements = append(tuple.Elements, schema)
+			wrapper := metadata.NewSchema()
+			if len(schema.Arrays) == 1 &&
+				schema.Size() == 1 &&
+				schema.Bucket() == 1 &&
+				schema.Arrays[0] != nil &&
+				schema.Arrays[0].Type != nil &&
+				schema.Arrays[0].Type.Value != nil {
+				wrapper.Rest = schema.Arrays[0].Type.Value
+			} else {
+				wrapper.Rest = schema
+			}
+			tuple.Elements = append(tuple.Elements, wrapper)
 			continue
 		}
 		tuple.Elements = append(tuple.Elements, schema)
@@ -632,8 +1117,9 @@ func (a *Analyzer) walkIntersectionTypeNodeBound(
 	if node == nil || node.Types == nil || len(node.Types.Nodes) == 0 {
 		return nil, false
 	}
-	out := metadata.NewSchema()
+	children := make([]*metadata.Schema, 0, len(node.Types.Nodes))
 	var tags []metadata.TypeTag
+	var regulars []*metadata.Schema
 	regular := 0
 	for _, child := range node.Types.Nodes {
 		if tag, ok := typeTagFromNode(child); ok {
@@ -644,11 +1130,33 @@ func (a *Analyzer) walkIntersectionTypeNodeBound(
 		if !ok {
 			return nil, false
 		}
-		mergeInto(out, schema)
+		if tag, ok := extractTag(schema); ok {
+			tags = append(tags, tag)
+			continue
+		}
+		children = append(children, schema)
 		regular++
 	}
 	if regular == 0 {
 		return nil, false
+	}
+	out := metadata.NewSchema()
+	for _, child := range children {
+		regulars = append(regulars, child)
+	}
+	switch {
+	case len(regulars) == 1:
+		mergeInto(out, regulars[0])
+	case len(regulars) > 1:
+		if merged, ok := mergeObjectIntersection(regulars); ok {
+			mergeInto(out, merged)
+		} else {
+			return nil, false
+		}
+	default:
+		for _, child := range children {
+			mergeInto(out, child)
+		}
 	}
 	for _, tag := range tags {
 		attachTag(out, tag)
@@ -668,8 +1176,11 @@ func (a *Analyzer) walkTypeLiteralNodeBound(
 	if root == nil || node == nil {
 		return nil, false
 	}
-	key := syntaxNodeKey(root)
+	key := boundSyntaxNodeKey(root, bindings)
 	name := "TypeLiteral#" + intToString(int64(root.Pos()))
+	if aliasName := typeLiteralDeclarationName(root); aliasName != "" {
+		name = aliasName
+	}
 	obj, fresh := a.Collection.EmplaceObject(key, name)
 	if fresh {
 		obj.Properties = make([]*metadata.Property, 0)
@@ -741,6 +1252,18 @@ func (a *Analyzer) walkTypeLiteralNodeBound(
 	out := metadata.NewSchema()
 	out.Objects = append(out.Objects, &metadata.ObjectRef{Type: obj})
 	return out, true
+}
+
+func typeLiteralDeclarationName(root *ast.Node) string {
+	if root == nil || root.Parent == nil {
+		return ""
+	}
+	switch root.Parent.Kind {
+	case ast.KindTypeAliasDeclaration, ast.KindInterfaceDeclaration:
+		return qualifiedDeclarationName(root.Parent)
+	default:
+		return ""
+	}
 }
 
 func propertyTypeNode(sym *ast.Symbol) *ast.Node {
@@ -888,6 +1411,36 @@ func typeTagFromNode(node *ast.Node) (metadata.TypeTag, bool) {
 		}
 		tag.Kind = "sequence"
 		tag.Value = value
+	case "Default":
+		value, ok := firstTypeArgumentValue(ref)
+		if !ok {
+			return metadata.TypeTag{}, false
+		}
+		switch value.(type) {
+		case bool:
+			tag.Target = "boolean"
+		case string:
+			tag.Target = "string"
+		case int64, float64:
+			tag.Target = "number"
+		case bigintLiteral:
+			tag.Target = "bigint"
+			value = string(value.(bigintLiteral))
+		default:
+			return metadata.TypeTag{}, false
+		}
+		tag.Kind = "default"
+		tag.Value = value
+		tag.Exclusive = true
+		if tag.Target == "bigint" {
+			tag.Schema = map[string]any{
+				"default": value,
+			}
+		} else {
+			tag.Schema = map[string]any{
+				"default": value,
+			}
+		}
 	default:
 		return metadata.TypeTag{}, false
 	}
@@ -943,11 +1496,17 @@ func typeArgumentValue(node *ast.Node) (any, bool) {
 	if node.Kind == ast.KindLiteralType {
 		literal := node.AsLiteralTypeNode().Literal
 		if value, ok := literalNodeValue(literal); ok {
+			if bigint, ok := value.(bigintLiteral); ok {
+				return string(bigint), true
+			}
 			return value, true
 		}
 		return templateLiteralTypeValue(literal)
 	}
 	if value, ok := literalNodeValue(node); ok {
+		if bigint, ok := value.(bigintLiteral); ok {
+			return string(bigint), true
+		}
 		return value, true
 	}
 	return templateLiteralTypeValue(node)
@@ -1031,6 +1590,356 @@ func templateLiteralSourceValue(text string) (string, bool) {
 	return body, true
 }
 
+func applyMappedOptionality(schema *metadata.Schema, required bool) *metadata.Schema {
+	if schema == nil {
+		return nil
+	}
+	out := cloneSchemaShallow(schema)
+	out.Objects = make([]*metadata.ObjectRef, 0, len(schema.Objects))
+	for _, ref := range schema.Objects {
+		if ref == nil || ref.Type == nil {
+			out.Objects = append(out.Objects, ref)
+			continue
+		}
+		out.Objects = append(out.Objects, &metadata.ObjectRef{
+			Type: cloneObjectWithProperties(ref.Type, func(prop *metadata.Property) *metadata.Property {
+				if prop == nil {
+					return nil
+				}
+				next := clonePropertyShallow(prop)
+				if next.Value != nil {
+					next.Value.Required = required
+					next.Value.Optional = !required
+				}
+				return next
+			}),
+			Tags: ref.Tags.Clone(),
+		})
+	}
+	return out
+}
+
+func applyMappedPick(schema *metadata.Schema, keys map[string]struct{}) *metadata.Schema {
+	if schema == nil {
+		return nil
+	}
+	out := cloneSchemaShallow(schema)
+	out.Objects = make([]*metadata.ObjectRef, 0, len(schema.Objects))
+	for _, ref := range schema.Objects {
+		if ref == nil || ref.Type == nil {
+			out.Objects = append(out.Objects, ref)
+			continue
+		}
+		obj := cloneObjectWithProperties(ref.Type, func(prop *metadata.Property) *metadata.Property {
+			if prop == nil || prop.Key == nil {
+				return nil
+			}
+			name, ok := prop.Key.GetSoleLiteral()
+			if !ok {
+				return nil
+			}
+			if _, keep := keys[name]; !keep {
+				return nil
+			}
+			return clonePropertyShallow(prop)
+		})
+		obj.DynamicProperties = nil
+		obj.AdditionalProperties = nil
+		out.Objects = append(out.Objects, &metadata.ObjectRef{
+			Type: obj,
+			Tags: ref.Tags.Clone(),
+		})
+	}
+	return out
+}
+
+func applyMappedExclude(schema *metadata.Schema, excluded *metadata.Schema) *metadata.Schema {
+	return applyMappedExcludeInternal(schema, excluded, map[*metadata.Schema]struct{}{})
+}
+
+func applyMappedExcludeInternal(
+	schema *metadata.Schema,
+	excluded *metadata.Schema,
+	visited map[*metadata.Schema]struct{},
+) *metadata.Schema {
+	if schema == nil {
+		return nil
+	}
+	out := cloneSchemaShallow(schema)
+	if excluded == nil {
+		return out
+	}
+	if _, exists := visited[excluded]; exists {
+		return out
+	}
+	visited[excluded] = struct{}{}
+	defer delete(visited, excluded)
+
+	if len(excluded.Aliases) != 0 {
+		aliasNames := map[string]struct{}{}
+		for _, ref := range excluded.Aliases {
+			if ref == nil || ref.Type == nil {
+				continue
+			}
+			aliasNames[ref.Type.Name] = struct{}{}
+			if ref.Type.Value != nil {
+				out = applyMappedExcludeInternal(out, ref.Type.Value, visited)
+			}
+		}
+		filtered := out.Aliases[:0]
+		for _, ref := range out.Aliases {
+			if ref == nil || ref.Type == nil {
+				filtered = append(filtered, ref)
+				continue
+			}
+			if _, skip := aliasNames[ref.Type.Name]; !skip {
+				filtered = append(filtered, ref)
+			}
+		}
+		out.Aliases = filtered
+	}
+
+	if len(excluded.Objects) != 0 {
+		names := map[string]struct{}{}
+		for _, ref := range excluded.Objects {
+			if ref == nil || ref.Type == nil {
+				continue
+			}
+			names[ref.Type.Name] = struct{}{}
+		}
+		filtered := out.Objects[:0]
+		for _, ref := range out.Objects {
+			if ref == nil || ref.Type == nil {
+				filtered = append(filtered, ref)
+				continue
+			}
+			if _, skip := names[ref.Type.Name]; !skip {
+				filtered = append(filtered, ref)
+			}
+		}
+		out.Objects = filtered
+	}
+
+	if len(excluded.Arrays) != 0 {
+		names := map[string]struct{}{}
+		for _, ref := range excluded.Arrays {
+			if ref == nil || ref.Type == nil {
+				continue
+			}
+			names[ref.Type.Name] = struct{}{}
+		}
+		filtered := out.Arrays[:0]
+		for _, ref := range out.Arrays {
+			if ref == nil || ref.Type == nil {
+				filtered = append(filtered, ref)
+				continue
+			}
+			if _, skip := names[ref.Type.Name]; !skip {
+				filtered = append(filtered, ref)
+			}
+		}
+		out.Arrays = filtered
+	}
+
+	if len(excluded.Tuples) != 0 {
+		names := map[string]struct{}{}
+		for _, ref := range excluded.Tuples {
+			if ref == nil || ref.Type == nil {
+				continue
+			}
+			names[ref.Type.Name] = struct{}{}
+		}
+		filtered := out.Tuples[:0]
+		for _, ref := range out.Tuples {
+			if ref == nil || ref.Type == nil {
+				filtered = append(filtered, ref)
+				continue
+			}
+			if _, skip := names[ref.Type.Name]; !skip {
+				filtered = append(filtered, ref)
+			}
+		}
+		out.Tuples = filtered
+	}
+
+	if len(excluded.Natives) != 0 {
+		names := map[string]struct{}{}
+		for _, native := range excluded.Natives {
+			names[native.Name] = struct{}{}
+		}
+		filtered := out.Natives[:0]
+		for _, native := range out.Natives {
+			if _, skip := names[native.Name]; !skip {
+				filtered = append(filtered, native)
+			}
+		}
+		out.Natives = filtered
+	}
+
+	if len(excluded.Atomics) != 0 {
+		denied := map[metadata.AtomicKind]struct{}{}
+		for _, atomic := range excluded.Atomics {
+			denied[atomic.Type] = struct{}{}
+		}
+		filtered := out.Atomics[:0]
+		for _, atomic := range out.Atomics {
+			if _, skip := denied[atomic.Type]; !skip {
+				filtered = append(filtered, atomic)
+			}
+		}
+		out.Atomics = filtered
+	}
+
+	if len(excluded.Constants) != 0 {
+		denied := map[metadata.AtomicKind]map[any]struct{}{}
+		for _, constant := range excluded.Constants {
+			bucket := denied[constant.Type]
+			if bucket == nil {
+				bucket = map[any]struct{}{}
+				denied[constant.Type] = bucket
+			}
+			for _, value := range constant.Values {
+				bucket[value.Value] = struct{}{}
+			}
+		}
+		filtered := make([]metadata.Constant, 0, len(out.Constants))
+		for _, constant := range out.Constants {
+			bucket := denied[constant.Type]
+			if bucket == nil {
+				filtered = append(filtered, constant)
+				continue
+			}
+			values := make([]metadata.ConstantValue, 0, len(constant.Values))
+			for _, value := range constant.Values {
+				if _, skip := bucket[value.Value]; !skip {
+					values = append(values, value)
+				}
+			}
+			if len(values) != 0 {
+				next := constant
+				next.Values = values
+				filtered = append(filtered, next)
+			}
+		}
+		out.Constants = filtered
+	}
+
+	if len(excluded.Templates) != 0 {
+		denied := map[string]struct{}{}
+		for _, template := range excluded.Templates {
+			denied[template.RawName] = struct{}{}
+		}
+		filtered := out.Templates[:0]
+		for _, template := range out.Templates {
+			if _, skip := denied[template.RawName]; !skip {
+				filtered = append(filtered, template)
+			}
+		}
+		out.Templates = filtered
+	}
+
+	return out
+}
+
+func mappedPickKeys(node *ast.Node) (map[string]struct{}, bool) {
+	if node == nil {
+		return nil, false
+	}
+	switch node.Kind {
+	case ast.KindLiteralType:
+		value, ok := literalNodeValue(node.AsLiteralTypeNode().Literal)
+		if !ok {
+			return nil, false
+		}
+		text, ok := value.(string)
+		if !ok {
+			return nil, false
+		}
+		return map[string]struct{}{text: {}}, true
+	case ast.KindUnionType:
+		union := node.AsUnionTypeNode()
+		if union == nil || union.Types == nil {
+			return nil, false
+		}
+		out := make(map[string]struct{}, len(union.Types.Nodes))
+		for _, elem := range union.Types.Nodes {
+			keys, ok := mappedPickKeys(elem)
+			if !ok {
+				return nil, false
+			}
+			for key := range keys {
+				out[key] = struct{}{}
+			}
+		}
+		return out, true
+	default:
+		return nil, false
+	}
+}
+
+func cloneSchemaShallow(input *metadata.Schema) *metadata.Schema {
+	if input == nil {
+		return nil
+	}
+	out := *input
+	out.Atomics = append([]metadata.Atomic(nil), input.Atomics...)
+	out.Constants = append([]metadata.Constant(nil), input.Constants...)
+	out.Templates = append([]metadata.Template(nil), input.Templates...)
+	out.Arrays = append([]*metadata.ArrayRef(nil), input.Arrays...)
+	out.Tuples = append([]*metadata.TupleRef(nil), input.Tuples...)
+	out.Objects = append([]*metadata.ObjectRef(nil), input.Objects...)
+	out.Aliases = append([]*metadata.AliasRef(nil), input.Aliases...)
+	out.Natives = append([]metadata.Native(nil), input.Natives...)
+	out.Sets = append([]*metadata.SetRef(nil), input.Sets...)
+	out.Maps = append([]*metadata.MapRef(nil), input.Maps...)
+	out.Functions = append([]*metadata.Function(nil), input.Functions...)
+	return &out
+}
+
+func clonePropertyShallow(input *metadata.Property) *metadata.Property {
+	if input == nil {
+		return nil
+	}
+	out := *input
+	if input.Key != nil {
+		out.Key = cloneSchemaShallow(input.Key)
+	}
+	if input.Value != nil {
+		out.Value = cloneSchemaShallow(input.Value)
+	}
+	out.JsDocTags = append([]string(nil), input.JsDocTags...)
+	return &out
+}
+
+func cloneObjectWithProperties(
+	input *metadata.ObjectType,
+	transform func(*metadata.Property) *metadata.Property,
+) *metadata.ObjectType {
+	if input == nil {
+		return nil
+	}
+	out := *input
+	out.Properties = make([]*metadata.Property, 0, len(input.Properties))
+	for _, prop := range input.Properties {
+		next := transform(prop)
+		if next != nil {
+			out.Properties = append(out.Properties, next)
+		}
+	}
+	out.DynamicProperties = make([]*metadata.Property, 0, len(input.DynamicProperties))
+	for _, prop := range input.DynamicProperties {
+		next := transform(prop)
+		if next != nil {
+			out.DynamicProperties = append(out.DynamicProperties, next)
+		}
+	}
+	if input.AdditionalProperties != nil {
+		out.AdditionalProperties = cloneSchemaShallow(input.AdditionalProperties)
+	}
+	out.JsDocTags = append([]string(nil), input.JsDocTags...)
+	return &out
+}
+
 func entityNameText(node *ast.Node) string {
 	if node == nil {
 		return ""
@@ -1056,16 +1965,104 @@ func propertyNameText(node *ast.Node) (string, bool) {
 		return node.AsStringLiteral().Text, true
 	case ast.KindNumericLiteral:
 		return node.AsNumericLiteral().Text, true
+	case ast.KindComputedPropertyName:
+		name := node.AsComputedPropertyName()
+		if name == nil || name.Expression == nil {
+			return "", false
+		}
+		return propertyNameText(name.Expression)
 	default:
 		return "", false
 	}
 }
 
 func numericTagTarget(value any) string {
-	if _, ok := value.(string); ok {
+	switch value.(type) {
+	case string, bigintLiteral:
 		return "bigint"
 	}
 	return "number"
+}
+
+func boundSyntaxNodeKey(node *ast.Node, bindings map[string]typeNodeBinding) string {
+	return boundSyntaxNodeKeyInternal(node, bindings, map[string]struct{}{}, 0)
+}
+
+func boundSyntaxNodeKeyInternal(
+	node *ast.Node,
+	bindings map[string]typeNodeBinding,
+	visiting map[string]struct{},
+	depth int,
+) string {
+	key := syntaxNodeKey(node)
+	if len(bindings) == 0 {
+		return key
+	}
+	if depth >= 1 {
+		return key + "|bindings:" + shallowBindingsKey(bindings)
+	}
+	if _, exists := visiting[key]; exists {
+		return key + "|cycle"
+	}
+	visiting[key] = struct{}{}
+	defer delete(visiting, key)
+	keys := make([]string, 0, len(bindings))
+	for name := range bindings {
+		keys = append(keys, name)
+	}
+	sort.Strings(keys)
+	var builder strings.Builder
+	builder.WriteString(key)
+	for _, name := range keys {
+		binding := bindings[name]
+		builder.WriteString("|")
+		builder.WriteString(name)
+		builder.WriteString("=")
+		switch {
+		case binding.Node != nil:
+			builder.WriteString(boundSyntaxNodeKeyInternal(binding.Node, binding.Bindings, visiting, depth+1))
+			if binding.Type != nil {
+				builder.WriteString("@")
+				builder.WriteString(typeKey(binding.Type))
+			}
+		case binding.Type != nil:
+			builder.WriteString(typeKey(binding.Type))
+		default:
+			builder.WriteString("nil")
+		}
+	}
+	return builder.String()
+}
+
+func shallowBindingsKey(bindings map[string]typeNodeBinding) string {
+	keys := make([]string, 0, len(bindings))
+	for name := range bindings {
+		keys = append(keys, name)
+	}
+	sort.Strings(keys)
+	var builder strings.Builder
+	for i, name := range keys {
+		if i != 0 {
+			builder.WriteString(",")
+		}
+		builder.WriteString(name)
+		builder.WriteString("=")
+		builder.WriteString(shallowTypeNodeBindingKey(bindings[name]))
+	}
+	return builder.String()
+}
+
+func shallowTypeNodeBindingKey(binding typeNodeBinding) string {
+	switch {
+	case binding.Node != nil && binding.Type != nil:
+		return syntaxNodeKey(binding.Node) + "@" + typeKey(binding.Type)
+	case binding.Node != nil:
+		return syntaxNodeKey(binding.Node)
+	case binding.Type != nil:
+		return typeKey(binding.Type)
+	default:
+		return "nil"
+	}
 }
 
 func syntaxNodeKey(node *ast.Node) string {

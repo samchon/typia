@@ -18,8 +18,69 @@ func AnalyzeType(
 	checker *shimchecker.Checker,
 	t *shimchecker.Type,
 	typeNode *ast.Node,
+	sourceFiles []*ast.SourceFile,
 ) (*metadata.Schema, bool) {
-	return analyzer.New(checker, analyzer.DefaultOptions(), nil).WalkWithTypeNode(t, typeNode)
+	return AnalyzeTypeWithOptions(
+		checker,
+		t,
+		typeNode,
+		sourceFiles,
+		analyzer.DefaultOptions(),
+	)
+}
+
+func AnalyzeTypeWithOptions(
+	checker *shimchecker.Checker,
+	t *shimchecker.Type,
+	typeNode *ast.Node,
+	sourceFiles []*ast.SourceFile,
+	options analyzer.Options,
+) (*metadata.Schema, bool) {
+	out, ok := analyzer.New(checker, options, nil).WalkWithTypeNode(t, typeNode)
+	if ok && !schemaIsAnyOnly(out) {
+		return out, true
+	}
+	if fallbackNode := resolveQualifiedImportedTypeNode(sourceFiles, typeNode); fallbackNode != nil {
+		fallbackType := checker.GetTypeFromTypeNode(fallbackNode)
+		if fallbackType == nil {
+			fallbackType = checker.GetTypeAtLocation(fallbackNode)
+		}
+		var (
+			fallback *metadata.Schema
+			ok       bool
+		)
+		if fallbackType != nil && fallbackType.Flags()&shimchecker.TypeFlagsAny == 0 {
+			fallback, ok = analyzer.New(checker, options, nil).Walk(fallbackType)
+		} else {
+			fallback, ok = analyzer.New(checker, options, nil).WalkWithTypeNode(fallbackType, fallbackNode)
+		}
+		if ok && !schemaIsAnyOnly(fallback) {
+			return fallback, true
+		}
+	}
+	return out, ok
+}
+
+func AnalysisOptions(module string, method string) analyzer.Options {
+	options := analyzer.DefaultOptions()
+	switch module {
+	case "json":
+		switch method {
+		case "schema", "schemas":
+			options.Functional = true
+		}
+	case "reflect":
+		switch method {
+		case "metadata", "schema", "schemas":
+			options.Functional = true
+		}
+	case "llm":
+		switch method {
+		case "application", "controller":
+			options.Functional = true
+		}
+	}
+	return options
 }
 
 func UnsupportedReason(
@@ -86,7 +147,7 @@ func UnsupportedReason(
 			}
 		}
 	case "llm":
-		if containsTupleTypeNode(typeNode) || containsTupleType(checker, t) {
+		if containsTupleTypeNode(typeNode) {
 			return "LLM schema does not support tuple type"
 		}
 		if llmStrictEnabled(configTypeNode) && strings.Contains(typeText, "Record<") {
@@ -201,16 +262,13 @@ func UnsupportedSchemaReason(
 		if !isProtobufContractMethod(method) {
 			return ""
 		}
-		if schema.Size() != 1 || len(schema.Objects) != 1 || !schema.IsRequired() || schema.Nullable {
+		obj := protobufRootObject(schema)
+		if obj == nil {
 			return "protobuf target type must be a sole and static object type"
 		}
-		if obj := schema.Objects[0]; obj == nil || obj.Type == nil {
-			return "protobuf target type must be a sole and static object type"
-		} else {
-			for _, prop := range obj.Type.Properties {
-				if prop == nil || prop.Key == nil || !prop.Key.IsSoleLiteral() {
-					return "protobuf target type must be a sole and static object type"
-				}
+		for _, prop := range obj.Properties {
+			if prop == nil || prop.Key == nil || !prop.Key.IsSoleLiteral() {
+				return "protobuf target type must be a sole and static object type"
 			}
 		}
 		if facts.any {
@@ -360,14 +418,18 @@ func EmitCall(
 		switch method {
 		case "parameter", "createParameter":
 			return emitter.EmitHttpParameterArrowFunction(schema)
-		case "query", "queryObject", "headers", "formData",
-			"createQuery", "createHeaders", "createFormData",
-			"assertQuery", "assertHeaders", "assertFormData",
-			"isQuery", "isHeaders", "isFormData",
-			"validateQuery", "validateHeaders", "validateFormData",
-			"createAssertQuery", "createAssertHeaders", "createAssertFormData",
-			"createIsQuery", "createIsHeaders", "createIsFormData",
-			"createValidateQuery", "createValidateHeaders", "createValidateFormData":
+		case "headers", "createHeaders",
+			"assertHeaders", "isHeaders", "validateHeaders",
+			"createAssertHeaders", "createIsHeaders", "createValidateHeaders":
+			return emitter.EmitHttpHeadersObjectArrowFunction(schema)
+		case "query", "queryObject", "formData",
+			"createQuery", "createFormData",
+			"assertQuery", "assertFormData",
+			"isQuery", "isFormData",
+			"validateQuery", "validateFormData",
+			"createAssertQuery", "createAssertFormData",
+			"createIsQuery", "createIsFormData",
+			"createValidateQuery", "createValidateFormData":
 			return emitter.EmitHttpQueryObjectArrowFunction(schema)
 		default:
 			return "", fmt.Errorf("%w: unsupported http decoder method %q", emitter.ErrUnsupportedSchema, method)
@@ -408,36 +470,42 @@ func EmitCall(
 	}
 	switch {
 	case module == "module" && (method == "is" || method == "equals"):
-		expr, err := emitter.EmitIsArrowFunction(schema)
+		expr, err := emitter.EmitIsArrowFunctionWithEquals(schema, method == "equals")
 		return expr, false, err, true
 	case module == "module" && (method == "assert" || method == "assertGuard" || method == "assertType" || method == "assertEquals" || method == "assertGuardEquals"):
 		assertMethod := "typia.assert"
+		equals := false
 		switch method {
 		case "assertEquals":
 			assertMethod = "typia.assertEquals"
+			equals = true
 		case "assertGuardEquals":
 			assertMethod = "typia.assertGuardEquals"
+			equals = true
 		}
-		expr, err := emitter.EmitAssertArrowFunctionWithMethod(schema, assertMethod)
+		expr, err := emitter.EmitAssertArrowFunctionWithMethodAndEquals(schema, assertMethod, equals)
 		return expr, false, err, true
 	case module == "module" && (method == "validate" || method == "validateEquals"):
-		expr, err := emitter.EmitValidateArrowFunction(schema)
+		expr, err := emitter.EmitValidateArrowFunctionWithEquals(schema, method == "validateEquals")
 		return expr, false, err, true
 	case module == "module" && (method == "createIs" || method == "createEquals"):
-		expr, err := emitter.EmitIsArrowFunction(schema)
+		expr, err := emitter.EmitIsArrowFunctionWithEquals(schema, method == "createEquals")
 		return expr, true, err, true
 	case module == "module" && (method == "createAssert" || method == "createAssertGuard" || method == "createAssertType" || method == "createAssertEquals" || method == "createAssertGuardEquals"):
 		assertMethod := "typia.assert"
+		equals := false
 		switch method {
 		case "createAssertEquals":
 			assertMethod = "typia.createAssertEquals"
+			equals = true
 		case "createAssertGuardEquals":
 			assertMethod = "typia.createAssertGuardEquals"
+			equals = true
 		}
-		expr, err := emitter.EmitAssertArrowFunctionWithMethod(schema, assertMethod)
+		expr, err := emitter.EmitAssertArrowFunctionWithMethodAndEquals(schema, assertMethod, equals)
 		return expr, true, err, true
 	case module == "module" && (method == "createValidate" || method == "createValidateEquals"):
-		expr, err := emitter.EmitCreateValidateWithStandardSchema(schema)
+		expr, err := emitter.EmitCreateValidateWithStandardSchemaAndEquals(schema, method == "createValidateEquals")
 		return expr, true, err, true
 	case module == "module" && method == "random":
 		expr, err := emitter.EmitRandomArrowFunction(schema)
@@ -451,6 +519,12 @@ func EmitCall(
 	case module == "json" && method == "assertStringify":
 		expr, err := emitter.EmitAssertStringifyArrowFunction(schema)
 		return expr, false, err, true
+	case module == "json" && method == "isStringify":
+		expr, err := emitter.EmitIsStringifyArrowFunction(schema)
+		return expr, false, err, true
+	case module == "json" && method == "validateStringify":
+		expr, err := emitter.EmitValidateStringifyArrowFunction(schema)
+		return expr, false, err, true
 	case module == "json" && (method == "parse" || method == "assertParse" || method == "isParse" || method == "validateParse"):
 		expr, err := emitter.EmitJsonParseArrowFunction(schema, method)
 		return expr, false, err, true
@@ -459,6 +533,12 @@ func EmitCall(
 		return expr, true, err, true
 	case module == "json" && method == "createAssertStringify":
 		expr, err := emitter.EmitAssertStringifyArrowFunction(schema)
+		return expr, true, err, true
+	case module == "json" && method == "createIsStringify":
+		expr, err := emitter.EmitIsStringifyArrowFunction(schema)
+		return expr, true, err, true
+	case module == "json" && method == "createValidateStringify":
+		expr, err := emitter.EmitValidateStringifyArrowFunction(schema)
 		return expr, true, err, true
 	case module == "json" && method == "schema":
 		expr, err := emitter.EmitJsonSchemaExpression(schema)
@@ -926,13 +1006,13 @@ func headersPropertyUnsupportedReason(key string, schema *metadata.Schema) strin
 	if len(schema.Tuples) != 0 {
 		return "http headers does not support tuple type"
 	}
-	if schema.Size() > 1 {
+	if headersPropertyIsUnion(schema) {
 		return "http headers does not support union type in property"
 	}
 	if len(schema.Objects) != 0 || len(schema.Sets) != 0 || len(schema.Maps) != 0 || len(schema.Natives) != 0 {
 		return "http headers does not support nested object type"
 	}
-	if schema.Nullable || !schema.IsRequired() {
+	if schema.Nullable {
 		return "http headers does not support nullable type in property"
 	}
 	isArray := len(schema.Arrays) != 0
@@ -952,6 +1032,43 @@ func headersPropertyUnsupportedReason(key string, schema *metadata.Schema) strin
 		return "http headers " + key + " property cannot be array"
 	}
 	return ""
+}
+
+func headersPropertyIsUnion(schema *metadata.Schema) bool {
+	if schema == nil {
+		return false
+	}
+	atomics := map[string]struct{}{}
+	for _, atomic := range schema.Atomics {
+		atomics[string(atomic.Type)] = struct{}{}
+	}
+	for _, constant := range schema.Constants {
+		atomics[string(constant.Type)] = struct{}{}
+	}
+	if len(schema.Templates) != 0 {
+		atomics[string(metadata.AtomicString)] = struct{}{}
+	}
+	return len(atomics)+len(schema.Arrays)+len(schema.Tuples)+len(schema.Natives)+len(schema.Maps)+len(schema.Objects) > 1
+}
+
+func protobufRootObject(schema *metadata.Schema) *metadata.ObjectType {
+	if schema == nil || !schema.IsRequired() || schema.Nullable {
+		return nil
+	}
+	if len(schema.Objects) == 1 && schema.Size() == 1 && schema.Objects[0] != nil {
+		obj := schema.Objects[0].Type
+		if obj == nil ||
+			len(obj.Properties) == 0 ||
+			len(obj.DynamicProperties) != 0 ||
+			obj.AdditionalProperties != nil {
+			return nil
+		}
+		return obj
+	}
+	if len(schema.Aliases) == 1 && schema.Aliases[0] != nil && schema.Aliases[0].Type != nil {
+		return protobufRootObject(schema.Aliases[0].Type.Value)
+	}
+	return nil
 }
 
 func headersArrayElementUnsupportedReason(schema *metadata.Schema) string {
@@ -1111,7 +1228,9 @@ func (i *schemaInspector) visitSchema(schema *metadata.Schema) {
 		if obj == nil || obj.Type == nil {
 			continue
 		}
-		if len(obj.Type.Properties) == 0 && obj.Type.AdditionalProperties == nil {
+		if len(obj.Type.Properties) == 0 &&
+			len(obj.Type.DynamicProperties) == 0 &&
+			obj.Type.AdditionalProperties == nil {
 			i.facts.emptyObject = true
 		}
 		dynamicCount := 0
@@ -1220,6 +1339,18 @@ func (i *schemaInspector) visitSchema(schema *metadata.Schema) {
 	if schema.Rest != nil {
 		i.visitSchema(schema.Rest)
 	}
+	for _, fn := range schema.Functions {
+		if fn == nil {
+			continue
+		}
+		for _, param := range fn.Parameters {
+			if param == nil {
+				continue
+			}
+			i.visitSchema(param.Type)
+		}
+		i.visitSchema(fn.Output)
+	}
 }
 
 func llmStrictEnabled(configTypeNode *ast.Node) bool {
@@ -1261,16 +1392,24 @@ func schemaHasDynamicObject(schema *metadata.Schema) bool {
 }
 
 func schemaHasNativeName(schema *metadata.Schema, name string) bool {
+	return schemaHasNativeNameInternal(schema, name, map[*metadata.Schema]struct{}{})
+}
+
+func schemaHasNativeNameInternal(schema *metadata.Schema, name string, visited map[*metadata.Schema]struct{}) bool {
 	if schema == nil {
 		return false
 	}
+	if _, exists := visited[schema]; exists {
+		return false
+	}
+	visited[schema] = struct{}{}
 	for _, native := range schema.Natives {
 		if native.Name == name {
 			return true
 		}
 	}
 	for _, array := range schema.Arrays {
-		if array != nil && array.Type != nil && schemaHasNativeName(array.Type.Value, name) {
+		if array != nil && array.Type != nil && schemaHasNativeNameInternal(array.Type.Value, name, visited) {
 			return true
 		}
 	}
@@ -1279,7 +1418,7 @@ func schemaHasNativeName(schema *metadata.Schema, name string) bool {
 			continue
 		}
 		for _, elem := range tuple.Type.Elements {
-			if schemaHasNativeName(elem, name) {
+			if schemaHasNativeNameInternal(elem, name, visited) {
 				return true
 			}
 		}
@@ -1289,33 +1428,33 @@ func schemaHasNativeName(schema *metadata.Schema, name string) bool {
 			continue
 		}
 		for _, prop := range obj.Type.Properties {
-			if prop != nil && schemaHasNativeName(prop.Value, name) {
+			if prop != nil && schemaHasNativeNameInternal(prop.Value, name, visited) {
 				return true
 			}
 		}
-		if schemaHasNativeName(obj.Type.AdditionalProperties, name) {
+		if schemaHasNativeNameInternal(obj.Type.AdditionalProperties, name, visited) {
 			return true
 		}
 	}
 	for _, alias := range schema.Aliases {
-		if alias != nil && alias.Type != nil && schemaHasNativeName(alias.Type.Value, name) {
+		if alias != nil && alias.Type != nil && schemaHasNativeNameInternal(alias.Type.Value, name, visited) {
 			return true
 		}
 	}
 	for _, setRef := range schema.Sets {
-		if setRef != nil && schemaHasNativeName(setRef.Value, name) {
+		if setRef != nil && schemaHasNativeNameInternal(setRef.Value, name, visited) {
 			return true
 		}
 	}
 	for _, mapRef := range schema.Maps {
-		if mapRef != nil && (schemaHasNativeName(mapRef.Key, name) || schemaHasNativeName(mapRef.Value, name)) {
+		if mapRef != nil && (schemaHasNativeNameInternal(mapRef.Key, name, visited) || schemaHasNativeNameInternal(mapRef.Value, name, visited)) {
 			return true
 		}
 	}
-	if schemaHasNativeName(schema.Rest, name) {
+	if schemaHasNativeNameInternal(schema.Rest, name, visited) {
 		return true
 	}
-	if schema.Escaped != nil && (schemaHasNativeName(schema.Escaped.Original, name) || schemaHasNativeName(schema.Escaped.Returns, name)) {
+	if schema.Escaped != nil && (schemaHasNativeNameInternal(schema.Escaped.Original, name, visited) || schemaHasNativeNameInternal(schema.Escaped.Returns, name, visited)) {
 		return true
 	}
 	for _, fn := range schema.Functions {
@@ -1323,11 +1462,11 @@ func schemaHasNativeName(schema *metadata.Schema, name string) bool {
 			continue
 		}
 		for _, param := range fn.Parameters {
-			if param != nil && schemaHasNativeName(param.Type, name) {
+			if param != nil && schemaHasNativeNameInternal(param.Type, name, visited) {
 				return true
 			}
 		}
-		if schemaHasNativeName(fn.Output, name) {
+		if schemaHasNativeNameInternal(fn.Output, name, visited) {
 			return true
 		}
 	}

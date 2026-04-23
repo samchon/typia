@@ -37,7 +37,7 @@ func TestEmitValidate(t *testing.T) {
 		`"number" === typeof input`,
 		`success: true`,
 		`success: false`,
-		`data: input, errors: [] } : { success: false, data: input, errors: __errors }`,
+		`data: input } : { success: false, data: input, errors: __errors }`,
 		`__diag("$input", "number", input)`,
 	} {
 		if !strings.Contains(got, fragment) {

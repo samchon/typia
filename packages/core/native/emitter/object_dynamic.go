@@ -78,6 +78,22 @@ func allowsAnyStringKey(schema *metadata.Schema) bool {
 	if schema == nil || schema.Any {
 		return true
 	}
+	if schema.Nullable || !schema.IsRequired() {
+		return false
+	}
+	if len(schema.Constants) != 0 ||
+		len(schema.Templates) != 0 ||
+		len(schema.Objects) != 0 ||
+		len(schema.Arrays) != 0 ||
+		len(schema.Tuples) != 0 ||
+		len(schema.Sets) != 0 ||
+		len(schema.Maps) != 0 ||
+		len(schema.Functions) != 0 ||
+		len(schema.Aliases) != 0 ||
+		len(schema.Natives) > 1 ||
+		len(schema.Atomics) > 1 {
+		return false
+	}
 	for _, atom := range schema.Atomics {
 		if atom.Type == metadata.AtomicString && len(atom.Tags) == 0 {
 			return true

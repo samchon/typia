@@ -2,12 +2,14 @@ package emitter
 
 import (
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/samchon/typia/packages/core/native/metadata"
 )
 
 type diagnosticState struct {
+	equals       bool
 	order        []string
 	helpers      map[string]string
 	objectHelper map[*metadata.ObjectType]string
@@ -18,8 +20,9 @@ type diagnosticState struct {
 	visitingTup  map[*metadata.TupleType]bool
 }
 
-func newDiagnosticState() *diagnosticState {
+func newDiagnosticState(equals bool) *diagnosticState {
 	return &diagnosticState{
+		equals:       equals,
 		helpers:      make(map[string]string),
 		objectHelper: make(map[*metadata.ObjectType]string),
 		arrayHelper:  make(map[*metadata.ArrayType]string),
@@ -39,7 +42,7 @@ func (s *diagnosticState) emit(schema *metadata.Schema) (string, error) {
 	b.WriteString("(() => { ")
 	b.WriteString(`const __diag = (path, expected, value) => ({ path, expected, value }); `)
 	b.WriteString(`const __push = (out, chunk) => { if (chunk.length !== 0) out.push(...chunk); }; `)
-	b.WriteString(`const __pick = (chunks) => { let best = []; for (const chunk of chunks) { if (chunk.length !== 0 && (best.length === 0 || chunk.length < best.length)) best = chunk; } return best; }; `)
+	b.WriteString(`const __pick = (chunks) => { let best = []; for (const chunk of chunks) { if (chunk.length === 0) return chunk; if (best.length === 0 || chunk.length < best.length) best = chunk; } return best; }; `)
 	b.WriteString(`const __prop = (path, key) => /^[$A-Z_a-z][$0-9A-Z_a-z]*$/.test(key) ? path + "." + key : path + "[" + JSON.stringify(key) + "]"; `)
 	for _, name := range s.order {
 		b.WriteString("const ")
@@ -58,7 +61,7 @@ func (s *diagnosticState) buildErrors(ve, path string, schema *metadata.Schema) 
 	if schema == nil || schema.Any {
 		return "[]", nil
 	}
-	okExpr, err := diagnosticIsExpr(ve, schema)
+	okExpr, err := diagnosticIsExpr(ve, schema, s.equals)
 	if err != nil {
 		return "", err
 	}
@@ -69,13 +72,6 @@ func (s *diagnosticState) buildErrors(ve, path string, schema *metadata.Schema) 
 	}
 	if !schema.IsRequired() {
 		cases = append(cases, "(undefined === "+ve+" ? [] : null)")
-	}
-	if len(schema.Objects) != 0 {
-		objectCase, err := s.emitObjectUnionErrors(ve, path, typeName, schema.Objects)
-		if err != nil {
-			return "", err
-		}
-		cases = append(cases, objectCase)
 	}
 	if len(schema.Arrays) != 0 {
 		arrayCase, err := s.emitArrayUnionErrors(ve, path, typeName, schema.Arrays)
@@ -112,12 +108,22 @@ func (s *diagnosticState) buildErrors(ve, path string, schema *metadata.Schema) 
 	if len(schema.Functions) != 0 {
 		cases = append(cases, `("function" === typeof `+ve+` ? [] : null)`)
 	}
+	if primitiveExpr := diagnosticPrimitiveExpr(ve, schema); primitiveExpr != "" {
+		cases = append(cases, `(`+primitiveExpr+` ? [] : null)`)
+	}
 	if len(schema.Natives) != 0 {
 		chunks := make([]string, 0, len(schema.Natives))
 		for _, native := range schema.Natives {
 			chunks = append(chunks, `(`+ve+` instanceof `+native.Name+` ? [] : [__diag(`+path+`, `+jsonQuote(native.Name)+`, `+ve+`)])`)
 		}
 		cases = append(cases, `__pick([`+strings.Join(chunks, ", ")+`])`)
+	}
+	if len(schema.Objects) != 0 {
+		objectCase, err := s.emitObjectUnionErrors(ve, path, typeName, schema.Objects)
+		if err != nil {
+			return "", err
+		}
+		cases = append(cases, objectCase)
 	}
 	if len(schema.Templates) != 0 {
 		checks := make([]string, 0, len(schema.Templates))
@@ -134,9 +140,11 @@ func (s *diagnosticState) buildErrors(ve, path string, schema *metadata.Schema) 
 
 	var b strings.Builder
 	b.WriteString("(() => { ")
-	b.WriteString("if (")
-	b.WriteString(okExpr)
-	b.WriteString(") return []; ")
+	if len(schema.Objects) <= 1 {
+		b.WriteString("if (")
+		b.WriteString(okExpr)
+		b.WriteString(") return []; ")
+	}
 	for i, cond := range cases {
 		name := fmt.Sprintf("__candidate_%d", i)
 		b.WriteString("const ")
@@ -187,6 +195,16 @@ func (s *diagnosticState) emitObjectUnionErrors(
 	typeName string,
 	refs []*metadata.ObjectRef,
 ) (string, error) {
+	return s.emitObjectUnionErrorsMode(ve, path, typeName, refs, false)
+}
+
+func (s *diagnosticState) emitObjectUnionErrorsMode(
+	ve string,
+	path string,
+	typeName string,
+	refs []*metadata.ObjectRef,
+	preferPick bool,
+) (string, error) {
 	if len(refs) == 1 {
 		return s.emitObjectErrors(ve, path, refs[0])
 	}
@@ -200,13 +218,20 @@ func (s *diagnosticState) emitObjectUnionErrors(
 	}
 	specialized, remained := objectUnionSpecializers(refs)
 	if len(specialized) == 0 {
-		return `("object" === typeof ` + ve + ` && null !== ` + ve + ` && false === Array.isArray(` + ve + `) ? [__diag(` + path + `, ` + typeName + `, ` + ve + `)] : null)`, nil
+		if s.equals || preferPick {
+			matched, err := s.emitObjectUnionMatchedPick(ve, path, refs)
+			if err != nil {
+				return "", err
+			}
+			return `("object" === typeof ` + ve + ` && null !== ` + ve + ` && false === Array.isArray(` + ve + `) ? (() => { const __matched = ` + matched + `; if (__matched.length === 1) return __matched[0]; if (__matched.length > 1) return __pick(__matched); return __pick([` + strings.Join(chunks, ", ") + `]); })() : null)`, nil
+		}
+		return `("object" === typeof ` + ve + ` && null !== ` + ve + ` && false === Array.isArray(` + ve + `) ? (() => { const __best = __pick([` + strings.Join(chunks, ", ") + `]); return __best.length === 0 ? [] : [__diag(` + path + `, ` + typeName + `, ` + ve + `)]; })() : null)`, nil
 	}
 
 	var remainedExpr string
 	if len(remained) != 0 {
 		var err error
-		remainedExpr, err = s.emitObjectUnionErrors(ve, path, typeName, remained)
+		remainedExpr, err = s.emitObjectUnionErrorsMode(ve, path, typeName, remained, true)
 		if err != nil {
 			return "", err
 		}
@@ -219,35 +244,41 @@ func (s *diagnosticState) emitObjectUnionErrors(
 	b.WriteString(ve)
 	b.WriteString(` && false === Array.isArray(`)
 	b.WriteString(ve)
-	b.WriteString(`) ? (() => { const __matched = []; `)
-	for _, spec := range specialized {
-		accessor := accessProperty(ve, spec.key)
-		predicate := `undefined !== ` + accessor
-		if spec.neighbor {
-			expr, err := diagnosticDiscriminatorExpr(accessor, spec.value)
+	b.WriteString(`) ? (() => { `)
+	for _, group := range objectUnionSpecializerGroups(specialized) {
+		b.WriteString(`{ const __matched = []; `)
+		for _, spec := range group {
+			accessor := accessProperty(ve, spec.key)
+			chunk, err := s.emitObjectErrors(ve, path, spec.ref)
 			if err != nil {
 				return "", err
 			}
-			predicate = expr
+			predicate, err := objectUnionDiagnosticPredicate(accessor, spec.value, spec.neighbor, s.equals)
+			if err != nil {
+				return "", err
+			}
+			b.WriteString("if (")
+			b.WriteString(predicate)
+			b.WriteString(") __matched.push(")
+			b.WriteString(chunk)
+			b.WriteString("); ")
 		}
-		chunk, err := s.emitObjectErrors(ve, path, spec.ref)
-		if err != nil {
-			return "", err
-		}
-		b.WriteString("if (")
-		b.WriteString(predicate)
-		b.WriteString(") __matched.push(")
-		b.WriteString(chunk)
-		b.WriteString("); ")
+		b.WriteString(`if (__matched.length === 1) return __matched[0]; `)
+		b.WriteString(`if (__matched.length > 1) return __pick(__matched); } `)
 	}
-	b.WriteString(`if (__matched.length === 1) return __matched[0]; `)
-	b.WriteString(`if (__matched.length > 1) return __pick(__matched); `)
 	if remainedExpr != "" {
 		b.WriteString("return ")
 		b.WriteString(remainedExpr)
 		b.WriteString("; ")
+	} else if sameObjectUnionSpecializerKey(specialized) && objectUnionSinglePropertyOnly(specialized) {
+		b.WriteString(`return __pick([`)
+		b.WriteString(strings.Join(chunks, ", "))
+		b.WriteString(`]); `)
 	} else {
-		b.WriteString("return [__diag(")
+		b.WriteString("const __best = __pick([")
+		b.WriteString(strings.Join(chunks, ", "))
+		b.WriteString("]); ")
+		b.WriteString("return __best.length === 0 ? [] : [__diag(")
 		b.WriteString(path)
 		b.WriteString(", ")
 		b.WriteString(typeName)
@@ -257,6 +288,34 @@ func (s *diagnosticState) emitObjectUnionErrors(
 	}
 	b.WriteString(`})() : null)`)
 	return b.String(), nil
+}
+
+func (s *diagnosticState) emitObjectUnionMatchedPick(
+	ve string,
+	path string,
+	refs []*metadata.ObjectRef,
+) (string, error) {
+	items := make([]string, 0, len(refs))
+	for _, ref := range refs {
+		if ref == nil || ref.Type == nil {
+			continue
+		}
+		schema := metadata.NewSchema()
+		schema.Objects = []*metadata.ObjectRef{ref}
+		predicate, err := diagnosticDiscriminatorExpr(ve, schema, s.equals)
+		if err != nil {
+			return "", err
+		}
+		chunk, err := s.emitObjectErrors(ve, path, ref)
+		if err != nil {
+			return "", err
+		}
+		items = append(items, `(() => { const __matched = []; if (`+predicate+`) __matched.push(`+chunk+`); return __matched; })()`)
+	}
+	if len(items) == 0 {
+		return "[]", nil
+	}
+	return `[].concat(` + strings.Join(items, ", ") + `)`, nil
 }
 
 func (s *diagnosticState) objectBody(obj *metadata.ObjectType) (string, error) {
@@ -337,7 +396,7 @@ func (s *diagnosticState) objectBody(obj *metadata.ObjectType) (string, error) {
 		b.WriteString(`]); for (const __key of Object.keys(v)) { if (__allow.has(__key)) continue; __push(__errors, `)
 		b.WriteString(extraErrors)
 		b.WriteString(`); } `)
-	} else if len(allowed) != 0 {
+	} else if s.equals {
 		b.WriteString(`const __allow = new Set([`)
 		b.WriteString(strings.Join(allowed, ", "))
 		b.WriteString(`]); for (const __key of Object.keys(v)) { if (__allow.has(__key)) continue; __errors.push(__diag(__prop(p, __key), "undefined", v[__key])); } `)
@@ -372,7 +431,8 @@ func (s *diagnosticState) emitArrayErrors(ve, path string, ref *metadata.ArrayRe
 			return "", err
 		}
 	}
-	body := `(() => { if (!Array.isArray(v)) return [__diag(p, ` + jsonQuote(arr.Name) + `, v)]; const __errors = []; for (let i = 0; i < v.length; ++i) __push(__errors, ` + elemErrors + `); return __errors; })()`
+	arrayCheck := atomicWithTags("Array.isArray(v)", "v", ref.Tags)
+	body := `(() => { if (!(` + arrayCheck + `)) return [__diag(p, ` + jsonQuote(arr.Name) + `, v)]; const __errors = []; for (let i = 0; i < v.length; ++i) __push(__errors, ` + elemErrors + `); return __errors; })()`
 	s.helpers[name] = "(v, p) => " + body
 	return name + "(" + ve + ", " + path + ")", nil
 }
@@ -398,7 +458,7 @@ func (s *diagnosticState) emitArrayUnionErrors(
 		}
 		predicate := "Array.isArray(" + ve + ")"
 		if ref != nil && ref.Type != nil && ref.Type.Value != nil {
-			elemExpr, err := diagnosticIsExpr(ve+`[0]`, ref.Type.Value)
+			elemExpr, err := diagnosticIsExpr(ve+`[0]`, ref.Type.Value, s.equals)
 			if err != nil {
 				return "", err
 			}
@@ -451,15 +511,42 @@ func (s *diagnosticState) emitTupleErrors(ve, path string, ref *metadata.TupleRe
 	defer delete(s.visitingTup, tuple)
 
 	var b strings.Builder
-	b.WriteString(`(() => { if (!Array.isArray(v) || v.length !== `)
-	b.WriteString(intString(int64(len(tuple.Elements))))
+	b.WriteString(`(() => { if (!Array.isArray(v)`)
+	if lengthCheck := tupleLengthCheckExpr("v", tuple.Elements); lengthCheck != "" {
+		b.WriteString(` || !(`)
+		b.WriteString(lengthCheck)
+		b.WriteString(`)`)
+	}
 	b.WriteString(`) return [__diag(p, `)
 	b.WriteString(jsonQuote(tuple.Name))
 	b.WriteString(`, v)]; const __errors = []; `)
+	restStart := len(tuple.Elements)
+	if tupleHasRest(tuple.Elements) {
+		restStart--
+	}
 	for i, elem := range tuple.Elements {
+		if elem != nil && elem.Rest != nil {
+			restErrors, err := s.buildErrors(
+				`__rest`,
+				`p + "[" + __restIndex + "]"`,
+				elem.Rest,
+			)
+			if err != nil {
+				return "", err
+			}
+			b.WriteString(`for (let __restIndex = `)
+			b.WriteString(intString(int64(restStart)))
+			b.WriteString(`; __restIndex < v.length; ++__restIndex) { const __rest = v[__restIndex]; __push(__errors, `)
+			b.WriteString(restErrors)
+			b.WriteString(`); } `)
+			break
+		}
 		errorsExpr, err := s.buildErrors("v["+intString(int64(i))+"]", `p + "[`+intString(int64(i))+`]"`, elem)
 		if err != nil {
 			return "", err
+		}
+		if elem != nil && elem.Optional {
+			errorsExpr = `(() => { if (v[` + intString(int64(i)) + `] === undefined) return []; return ` + errorsExpr + `; })()`
 		}
 		b.WriteString("__push(__errors, ")
 		b.WriteString(errorsExpr)
@@ -517,14 +604,14 @@ func (s *diagnosticState) emitMapUnionErrors(
 		if ref != nil && (ref.Key != nil || ref.Value != nil) {
 			parts := []string{ve + ` instanceof Map`, `0 !== __entries.length`}
 			if ref.Key != nil {
-				keyExpr, err := diagnosticDiscriminatorExpr(`__entries[0][0]`, ref.Key)
+				keyExpr, err := diagnosticDiscriminatorExpr(`__entries[0][0]`, ref.Key, s.equals)
 				if err != nil {
 					return "", err
 				}
 				parts = append(parts, keyExpr)
 			}
 			if ref.Value != nil {
-				valueExpr, err := diagnosticDiscriminatorExpr(`__entries[0][1]`, ref.Value)
+				valueExpr, err := diagnosticDiscriminatorExpr(`__entries[0][1]`, ref.Value, s.equals)
 				if err != nil {
 					return "", err
 				}
@@ -599,7 +686,7 @@ func (s *diagnosticState) emitSetUnionErrors(
 		}
 		predicate := ve + ` instanceof Set`
 		if ref != nil && ref.Value != nil {
-			elemExpr, err := diagnosticIsExpr(`__values[0]`, ref.Value)
+			elemExpr, err := diagnosticIsExpr(`__values[0]`, ref.Value, s.equals)
 			if err != nil {
 				return "", err
 			}
@@ -668,8 +755,8 @@ func (s *diagnosticState) reserveName() string {
 	return name
 }
 
-func diagnosticIsExpr(ve string, schema *metadata.Schema) (string, error) {
-	st := newIsState()
+func diagnosticIsExpr(ve string, schema *metadata.Schema, equals bool) (string, error) {
+	st := newIsState(equals)
 	body, err := st.buildIs(ve, schema)
 	if err != nil {
 		return "", err
@@ -677,7 +764,7 @@ func diagnosticIsExpr(ve string, schema *metadata.Schema) (string, error) {
 	return st.wrap(body), nil
 }
 
-func diagnosticDiscriminatorExpr(ve string, schema *metadata.Schema) (string, error) {
+func diagnosticDiscriminatorExpr(ve string, schema *metadata.Schema, equals bool) (string, error) {
 	if schema == nil || schema.Any {
 		return "true", nil
 	}
@@ -706,7 +793,7 @@ func diagnosticDiscriminatorExpr(ve string, schema *metadata.Schema) (string, er
 		len(schema.Natives) != 0 ||
 		len(schema.Templates) != 0 ||
 		len(schema.Aliases) != 0 {
-		return diagnosticIsExpr(ve, schema)
+		return diagnosticIsExpr(ve, schema, false)
 	}
 	for _, constant := range schema.Constants {
 		if len(constant.Values) == 0 {
@@ -720,7 +807,7 @@ func diagnosticDiscriminatorExpr(ve string, schema *metadata.Schema) (string, er
 	if len(parts) != 0 {
 		return "(" + strings.Join(parts, " || ") + ")", nil
 	}
-	return diagnosticIsExpr(ve, schema)
+	return diagnosticIsExpr(ve, schema, equals)
 }
 
 func atomicTypeExpr(ve string, kind metadata.AtomicKind) string {
@@ -738,6 +825,54 @@ func atomicTypeExpr(ve string, kind metadata.AtomicKind) string {
 	}
 }
 
+func objectUnionDiagnosticPredicate(
+	ve string,
+	schema *metadata.Schema,
+	neighbor bool,
+	equals bool,
+) (string, error) {
+	if schema == nil || schema.Any {
+		return "true", nil
+	}
+	if !neighbor {
+		return `undefined !== ` + ve, nil
+	}
+	return diagnosticDiscriminatorExpr(ve, schema, equals)
+}
+
+func diagnosticPrimitiveExpr(ve string, schema *metadata.Schema) string {
+	parts := make([]string, 0, len(schema.Atomics)+len(schema.Constants))
+	for _, atomic := range schema.Atomics {
+		base := atomicCheck(ve, atomic.Type)
+		if base == "" {
+			continue
+		}
+		parts = append(parts, atomicWithTags(base, ve, atomic.Tags))
+	}
+	for _, constant := range schema.Constants {
+		for _, value := range constant.Values {
+			if expr := constantCheck(ve, constant.Type, value.Value); expr != "" {
+				parts = append(parts, expr)
+			}
+		}
+	}
+	if len(parts) == 0 {
+		return ""
+	}
+	sortStringsStable(parts)
+	return "(" + strings.Join(parts, " || ") + ")"
+}
+
+func sortStringsStable(values []string) {
+	for i := 0; i < len(values); i++ {
+		for j := i + 1; j < len(values); j++ {
+			if values[j] < values[i] {
+				values[i], values[j] = values[j], values[i]
+			}
+		}
+	}
+}
+
 func joinPropertyPath(base, name string) string {
 	if isIdentifier(name) {
 		return base + ` + "." + ` + jsonQuote(name)
@@ -750,23 +885,34 @@ type objectUnionSpecializer struct {
 	key      string
 	value    *metadata.Schema
 	neighbor bool
+	required bool
 }
 
 type objectUnionKeyValue struct {
 	key string
 }
 
+type objectUnionGroupKey struct {
+	key      string
+	priority int
+}
+
+type objectUnionProperty struct {
+	ref  *metadata.ObjectRef
+	prop *metadata.Property
+}
+
 func objectUnionSpecializers(
 	refs []*metadata.ObjectRef,
 ) ([]objectUnionSpecializer, []*metadata.ObjectRef) {
-	matrix := make(map[objectUnionKeyValue][]*metadata.Property)
+	matrix := make(map[objectUnionKeyValue][]objectUnionProperty)
 	perRef := make(map[*metadata.ObjectRef][]objectUnionSpecializer)
 	for _, ref := range refs {
 		if ref == nil || ref.Type == nil {
 			continue
 		}
 		for _, prop := range ref.Type.Properties {
-			if prop == nil || prop.Key == nil {
+			if prop == nil || prop.Key == nil || prop.Value == nil || !prop.Value.IsRequired() {
 				continue
 			}
 			key, ok := prop.Key.GetSoleLiteral()
@@ -774,7 +920,10 @@ func objectUnionSpecializers(
 				continue
 			}
 			pair := objectUnionKeyValue{key: key}
-			matrix[pair] = append(matrix[pair], prop)
+			matrix[pair] = append(matrix[pair], objectUnionProperty{
+				ref:  ref,
+				prop: prop,
+			})
 		}
 	}
 	for _, ref := range refs {
@@ -791,9 +940,9 @@ func objectUnionSpecializers(
 			}
 			pair := objectUnionKeyValue{key: key}
 			all := matrix[pair]
-			neighbors := make([]*metadata.Property, 0, len(all))
+			neighbors := make([]objectUnionProperty, 0, len(all))
 			for _, candidate := range all {
-				if candidate != prop {
+				if candidate.ref != ref || candidate.prop != prop {
 					neighbors = append(neighbors, candidate)
 				}
 			}
@@ -801,7 +950,7 @@ func objectUnionSpecializers(
 			if !unique {
 				unique = true
 				for _, neighbor := range neighbors {
-					if schemaMayIntersect(prop.Value, neighbor.Value) {
+					if schemaMayIntersect(prop.Value, neighbor.prop.Value) {
 						unique = false
 						break
 					}
@@ -815,6 +964,7 @@ func objectUnionSpecializers(
 				key:      key,
 				value:    prop.Value,
 				neighbor: len(neighbors) != 0,
+				required: prop.Value.IsRequired(),
 			})
 		}
 	}
@@ -837,20 +987,100 @@ func objectUnionSpecializers(
 	return specialized, remained
 }
 
-func specializerPriority(spec objectUnionSpecializer) int {
-	if spec.value != nil && spec.value.IsConstant() {
-		return -1
+func sameObjectUnionSpecializerKey(specialized []objectUnionSpecializer) bool {
+	if len(specialized) < 2 {
+		return false
 	}
+	key := specialized[0].key
+	if key == "" {
+		return false
+	}
+	for _, spec := range specialized[1:] {
+		if spec.key != key {
+			return false
+		}
+	}
+	return true
+}
+
+func objectUnionSinglePropertyOnly(specialized []objectUnionSpecializer) bool {
+	if len(specialized) == 0 {
+		return false
+	}
+	for _, spec := range specialized {
+		if spec.ref == nil || spec.ref.Type == nil || len(spec.ref.Type.Properties) != 1 || len(spec.ref.Type.DynamicProperties) != 0 || spec.ref.Type.AdditionalProperties != nil {
+			return false
+		}
+	}
+	return true
+}
+
+func objectUnionSpecializerGroups(specialized []objectUnionSpecializer) [][]objectUnionSpecializer {
+	if len(specialized) == 0 {
+		return nil
+	}
+	index := map[objectUnionGroupKey]int{}
+	groups := make([][]objectUnionSpecializer, 0)
+	for _, spec := range specialized {
+		groupKey := objectUnionGroupKey{
+			key:      spec.key,
+			priority: specializerPriority(spec),
+		}
+		i, ok := index[groupKey]
+		if !ok {
+			index[groupKey] = len(groups)
+			groups = append(groups, []objectUnionSpecializer{spec})
+			continue
+		}
+		groups[i] = append(groups[i], spec)
+	}
+	sort.SliceStable(groups, func(i, j int) bool {
+		pi := objectUnionGroupPriority(groups[i])
+		pj := objectUnionGroupPriority(groups[j])
+		if pi != pj {
+			return pi < pj
+		}
+		if len(groups[i]) == 0 || len(groups[j]) == 0 {
+			return len(groups[i]) < len(groups[j])
+		}
+		return groups[i][0].key < groups[j][0].key
+	})
+	return groups
+}
+
+func objectUnionGroupPriority(group []objectUnionSpecializer) int {
+	if len(group) == 0 {
+		return 1 << 30
+	}
+	best := specializerPriority(group[0])
+	for _, spec := range group[1:] {
+		if score := specializerPriority(spec); score < best {
+			best = score
+		}
+	}
+	return best
+}
+
+func specializerPriority(spec objectUnionSpecializer) int {
+	score := 3
 	switch spec.key {
 	case "type":
-		return 0
+		score = 0
 	case "kind":
-		return 1
+		score = 1
 	case "extension":
-		return 2
-	default:
-		return 3
+		score = 2
 	}
+	if spec.value != nil && spec.value.IsConstant() {
+		score -= 10
+	}
+	if !spec.required {
+		score += 5
+	}
+	if spec.neighbor {
+		score += 10
+	}
+	return score
 }
 
 func schemaMayIntersect(x, y *metadata.Schema) bool {

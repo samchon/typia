@@ -13,6 +13,7 @@ import (
 	"errors"
 	"fmt"
 	"sort"
+	"strconv"
 	"strings"
 
 	"github.com/samchon/typia/packages/core/native/metadata"
@@ -32,7 +33,7 @@ func EmitIs(valueExpr string, schema *metadata.Schema) (string, error) {
 	if valueExpr == "" {
 		return "", errors.New("emitter: empty value expression")
 	}
-	st := newIsState()
+	st := newIsState(false)
 	expr, err := st.buildIs(valueExpr, schema)
 	if err != nil {
 		return "", err
@@ -43,7 +44,11 @@ func EmitIs(valueExpr string, schema *metadata.Schema) (string, error) {
 // EmitIsArrowFunction wraps EmitIs in an arrow function compatible with
 // typia v12's `typia.is<T>` emit shape: `(input) => <expr>`.
 func EmitIsArrowFunction(schema *metadata.Schema) (string, error) {
-	st := newIsState()
+	return EmitIsArrowFunctionWithEquals(schema, false)
+}
+
+func EmitIsArrowFunctionWithEquals(schema *metadata.Schema, equals bool) (string, error) {
+	st := newIsState(equals)
 	expr, err := st.buildIs("input", schema)
 	if err != nil {
 		return "", err
@@ -54,6 +59,7 @@ func EmitIsArrowFunction(schema *metadata.Schema) (string, error) {
 // isState tracks in-progress object emissions so recursive types hoist into
 // named helpers (`__is_0`, `__is_1`, …) instead of stack-overflowing.
 type isState struct {
+	equals bool
 	// helpers collects already-hoisted helper definitions, keyed by helper
 	// identifier. Values are the JS body (e.g. `(v) => (...)`).
 	helpers map[string]string
@@ -69,10 +75,12 @@ type isState struct {
 	visitingObjects map[*metadata.ObjectType]bool
 	visitingArrays  map[*metadata.ArrayType]bool
 	visitingTuples  map[*metadata.TupleType]bool
+	tempIndex       int
 }
 
-func newIsState() *isState {
+func newIsState(equals bool) *isState {
 	return &isState{
+		equals:          equals,
 		helpers:         make(map[string]string),
 		objectHelpers:   make(map[*metadata.ObjectType]string),
 		arrayHelpers:    make(map[*metadata.ArrayType]string),
@@ -139,6 +147,12 @@ func (s *isState) reserveHelperName() string {
 	return name
 }
 
+func (s *isState) fresh(prefix string) string {
+	name := fmt.Sprintf("__%s_%d", prefix, s.tempIndex)
+	s.tempIndex++
+	return name
+}
+
 // buildIs is the recursive worker. It mirrors typia's
 // `CheckerProgrammer.decode` and the fan-out in `iterate/check_*.ts`.
 func (s *isState) buildIs(ve string, sc *metadata.Schema) (string, error) {
@@ -198,8 +212,8 @@ func (s *isState) buildIs(ve string, sc *metadata.Schema) (string, error) {
 	}
 
 	// Objects.
-	for _, ref := range sc.Objects {
-		a, err := s.emitObjectCheck(ve, ref)
+	if len(sc.Objects) != 0 {
+		a, err := s.emitObjectUnionCheck(ve, sc.Objects)
 		if err != nil {
 			return "", err
 		}
@@ -208,7 +222,7 @@ func (s *isState) buildIs(ve string, sc *metadata.Schema) (string, error) {
 
 	// Native classes — `input instanceof Date`-style check.
 	for _, n := range sc.Natives {
-		alternatives = append(alternatives, ve+" instanceof "+n.Name)
+		alternatives = append(alternatives, nativeCheckExpr(ve, n.Name))
 	}
 	for _, ref := range sc.Sets {
 		expr, err := s.emitSetCheck(ve, ref)
@@ -285,13 +299,26 @@ func atomicCheck(ve string, kind metadata.AtomicKind) string {
 	case metadata.AtomicBoolean:
 		return `"boolean" === typeof ` + ve
 	case metadata.AtomicNumber:
-		return `"number" === typeof ` + ve
+		return `"number" === typeof ` + ve + ` && Number.isFinite(` + ve + `)`
 	case metadata.AtomicBigint:
 		return `"bigint" === typeof ` + ve
 	case metadata.AtomicString:
 		return `"string" === typeof ` + ve
 	}
 	return ""
+}
+
+func nativeCheckExpr(ve string, name string) string {
+	switch name {
+	case "Boolean":
+		return `("boolean" === typeof ` + ve + ` || ` + ve + ` instanceof Boolean)`
+	case "Number":
+		return `(("number" === typeof ` + ve + ` && Number.isFinite(` + ve + `)) || ` + ve + ` instanceof Number)`
+	case "String":
+		return `("string" === typeof ` + ve + ` || ` + ve + ` instanceof String)`
+	default:
+		return ve + " instanceof " + name
+	}
 }
 
 // constantCheck returns the JS expression for a literal value check.
@@ -374,9 +401,34 @@ func (s *isState) emitTupleCheck(ve string, ref *metadata.TupleRef) (string, err
 	defer delete(s.visitingTuples, ref.Type)
 
 	t := ref.Type
-	inline := []string{"Array.isArray(" + ve + ")", ve + ".length === " + intString(int64(len(t.Elements)))}
-	body := []string{"Array.isArray(v)", "v.length === " + intString(int64(len(t.Elements)))}
+	inline := []string{"Array.isArray(" + ve + ")"}
+	body := []string{"Array.isArray(v)"}
+	if lengthCheck := tupleLengthCheckExpr(ve, t.Elements); lengthCheck != "" {
+		inline = append(inline, lengthCheck)
+	}
+	if lengthCheck := tupleLengthCheckExpr("v", t.Elements); lengthCheck != "" {
+		body = append(body, lengthCheck)
+	}
+	restStart := len(t.Elements)
+	if tupleHasRest(t.Elements) {
+		restStart--
+	}
 	for i, el := range t.Elements {
+		if el != nil && el.Rest != nil {
+			restInlineVar := "__elem"
+			restBodyVar := "__rest"
+			inlineCheck, err := s.buildIs(restInlineVar, el.Rest)
+			if err != nil {
+				return "", err
+			}
+			bodyCheck, err := s.buildIs(restBodyVar, el.Rest)
+			if err != nil {
+				return "", err
+			}
+			inline = append(inline, ve+".slice("+intString(int64(restStart))+").every(("+restInlineVar+") => "+inlineCheck+")")
+			body = append(body, "v.slice("+intString(int64(restStart))+").every(("+restBodyVar+") => "+bodyCheck+")")
+			break
+		}
 		index := intString(int64(i))
 		inlineExpr := ve + "[" + index + "]"
 		bodyExpr := "v[" + index + "]"
@@ -388,6 +440,10 @@ func (s *isState) emitTupleCheck(ve string, ref *metadata.TupleRef) (string, err
 		if err != nil {
 			return "", err
 		}
+		if el != nil && el.Optional {
+			inlineCheck = "(" + inlineExpr + " === undefined || " + inlineCheck + ")"
+			bodyCheck = "(" + bodyExpr + " === undefined || " + bodyCheck + ")"
+		}
 		inline = append(inline, inlineCheck)
 		body = append(body, bodyCheck)
 	}
@@ -398,6 +454,98 @@ func (s *isState) emitTupleCheck(ve string, ref *metadata.TupleRef) (string, err
 	return atomicWithTags("("+strings.Join(inline, " && ")+")", ve, ref.Tags), nil
 }
 
+func tupleHasRest(elements []*metadata.Schema) bool {
+	return len(elements) != 0 && elements[len(elements)-1] != nil && elements[len(elements)-1].Rest != nil
+}
+
+func (s *isState) emitObjectUnionCheck(ve string, refs []*metadata.ObjectRef) (string, error) {
+	if len(refs) == 1 {
+		return s.emitObjectCheck(ve, refs[0])
+	}
+	specialized, remained := objectUnionSpecializers(refs)
+	if len(specialized) != 0 {
+		var remainedExpr string
+		if len(remained) != 0 {
+			var err error
+			remainedExpr, err = s.emitObjectUnionCheck(ve, remained)
+			if err != nil {
+				return "", err
+			}
+		}
+
+		var b strings.Builder
+		b.WriteString(`("object" === typeof `)
+		b.WriteString(ve)
+		b.WriteString(` && null !== `)
+		b.WriteString(ve)
+		b.WriteString(` && false === Array.isArray(`)
+		b.WriteString(ve)
+		b.WriteString(`) ? (() => { `)
+		for _, group := range objectUnionSpecializerGroups(specialized) {
+			b.WriteString(`{ const __matched = []; `)
+			for _, spec := range group {
+				accessor := accessProperty(ve, spec.key)
+				check, err := s.emitObjectCheck(ve, spec.ref)
+				if err != nil {
+					return "", err
+				}
+				predicate, err := objectUnionDiagnosticPredicate(accessor, spec.value, spec.neighbor, s.equals)
+				if err != nil {
+					return "", err
+				}
+				b.WriteString(`if (`)
+				b.WriteString(predicate)
+				b.WriteString(`) __matched.push(`)
+				b.WriteString(check)
+				b.WriteString(`); `)
+			}
+			b.WriteString(`if (__matched.length !== 0) return __matched.some((value) => value); } `)
+		}
+		if remainedExpr != "" {
+			b.WriteString(`return `)
+			b.WriteString(remainedExpr)
+			b.WriteString(`; `)
+		} else {
+			b.WriteString(`return false; `)
+		}
+		b.WriteString(`})() : false)`)
+		return b.String(), nil
+	}
+	plain := make([]string, 0, len(refs))
+	for _, ref := range refs {
+		chunk, err := s.emitObjectCheck(ve, ref)
+		if err != nil {
+			return "", err
+		}
+		plain = append(plain, chunk)
+	}
+	sort.Strings(plain)
+	return "(" + strings.Join(plain, " || ") + ")", nil
+}
+
+func tupleLengthCheckExpr(valueExpr string, elements []*metadata.Schema) string {
+	required := 0
+	for _, element := range elements {
+		if element == nil || element.Rest != nil {
+			continue
+		}
+		if !element.Optional {
+			required++
+		}
+	}
+	if tupleHasRest(elements) {
+		return valueExpr + ".length >= " + intString(int64(required))
+	}
+	if required == len(elements) {
+		return valueExpr + ".length === " + intString(int64(len(elements)))
+	}
+	return "(" +
+		valueExpr + ".length >= " + intString(int64(required)) +
+		" && " +
+		valueExpr + ".length <= " + intString(int64(len(elements))) +
+		")"
+}
+
 // emitObjectCheck covers object types (interfaces, type literals). Recursive
 // types are hoisted into a helper named `__is_N` so the emitted JS is finite
 // even when the IR contains a back-edge.
@@ -406,16 +554,15 @@ func (s *isState) emitObjectCheck(ve string, ref *metadata.ObjectRef) (string, e
 		return "", fmt.Errorf("%w: nil object ref", ErrUnsupportedSchema)
 	}
 	obj := ref.Type
-	// Already-emitted helper → just call it.
 	if name, ok := s.objectHelpers[obj]; ok && !s.visitingObjects[obj] {
 		return atomicWithTags(name+"("+ve+")", ve, ref.Tags), nil
 	}
-	// Currently visiting → cycle detected, reserve a helper and forward.
 	if s.visitingObjects[obj] {
 		name := s.reserveObjectHelper(obj)
 		return atomicWithTags(name+"("+ve+")", ve, ref.Tags), nil
 	}
 
+	name := s.reserveObjectHelper(obj)
 	s.visitingObjects[obj] = true
 	defer delete(s.visitingObjects, obj)
 
@@ -423,18 +570,8 @@ func (s *isState) emitObjectCheck(ve string, ref *metadata.ObjectRef) (string, e
 	if err != nil {
 		return "", err
 	}
-	// If a recursive reference fired during body emission, promote the
-	// type to a helper and return a call.
-	if name, ok := s.objectHelpers[obj]; ok {
-		s.helpers[name] = "(v) => " + body
-		return atomicWithTags(name+"("+ve+")", ve, ref.Tags), nil
-	}
-	// No recursion — inline the check at the call site for the simple case.
-	inline, err := s.inlineObjectBody(ve, obj)
-	if err != nil {
-		return "", err
-	}
-	return atomicWithTags(inline, ve, ref.Tags), nil
+	s.helpers[name] = "(v) => " + body
+	return atomicWithTags(name+"("+ve+")", ve, ref.Tags), nil
 }
 
 // emitObjectBody returns the bare expression body (no receiver substitution)
@@ -447,7 +584,6 @@ func (s *isState) emitObjectBody(ve string, obj *metadata.ObjectType) (string, e
 	}
 	props, dynamicProps := splitObjectProperties(obj)
 	literalKeys := make([]string, 0, len(props))
-	closed := len(dynamicProps) == 0
 	for _, p := range props {
 		name, ok := p.Key.GetSoleLiteral()
 		if !ok {
@@ -467,15 +603,16 @@ func (s *isState) emitObjectBody(ve string, obj *metadata.ObjectType) (string, e
 	}
 	if len(dynamicProps) != 0 {
 		dynamicChecks := make([]string, 0, len(dynamicProps))
+		keyVar := s.fresh("key")
 		for _, prop := range dynamicProps {
 			if prop == nil || prop.Key == nil || prop.Value == nil {
 				continue
 			}
-			keyCheck, err := dynamicKeyCheck("key", prop.Key)
+			keyCheck, err := dynamicKeyCheck(keyVar, prop.Key)
 			if err != nil {
 				return "", err
 			}
-			valueCheck, err := s.buildIs(ve+"[key]", prop.Value)
+			valueCheck, err := s.buildIs(ve+"["+keyVar+"]", prop.Value)
 			if err != nil {
 				return "", err
 			}
@@ -486,38 +623,34 @@ func (s *isState) emitObjectBody(ve string, obj *metadata.ObjectType) (string, e
 			predicate = strings.Join(dynamicChecks, " || ")
 		}
 		if len(allowed) != 0 {
-			predicate = "[" + strings.Join(allowed, ", ") + `].includes(key) || (` + predicate + ")"
+			predicate = "[" + strings.Join(allowed, ", ") + `].includes(` + keyVar + `) || (` + predicate + ")"
 		}
 		parts = append(
 			parts,
-			"Object.keys("+ve+").every((key) => "+predicate+")",
+			"Object.keys("+ve+").every(("+keyVar+") => "+predicate+")",
 		)
 	} else if obj.AdditionalProperties != nil {
-		check, err := s.buildIs(ve+"[key]", obj.AdditionalProperties)
+		keyVar := s.fresh("key")
+		check, err := s.buildIs(ve+"["+keyVar+"]", obj.AdditionalProperties)
 		if err != nil {
 			return "", err
 		}
 		predicate := "(" + check + ")"
 		if len(allowed) != 0 {
-			predicate = "[" + strings.Join(allowed, ", ") + `].includes(key) || ` + predicate
+			predicate = "[" + strings.Join(allowed, ", ") + `].includes(` + keyVar + `) || ` + predicate
 		}
 		parts = append(
 			parts,
-			"Object.keys("+ve+").every((key) => "+predicate+")",
+			"Object.keys("+ve+").every(("+keyVar+") => "+predicate+")",
 		)
-	} else if closed {
+	} else if s.equals {
+		keyVar := s.fresh("key")
 		parts = append(
 			parts,
-			"Object.keys("+ve+").every((key) => ["+strings.Join(allowed, ", ")+`].includes(key))`,
+			"Object.keys("+ve+").every(("+keyVar+") => ["+strings.Join(allowed, ", ")+`].includes(`+keyVar+`))`,
 		)
 	}
 	return "(" + strings.Join(parts, " && ") + ")", nil
-}
-
-// inlineObjectBody re-emits the object check against `ve` for the simple
-// (non-recursive) case so the emitted JS keeps typia v12's compact shape.
-func (s *isState) inlineObjectBody(ve string, obj *metadata.ObjectType) (string, error) {
-	return s.emitObjectBody(ve, obj)
 }
 
 // accessProperty produces either `obj.name` or `obj["name"]` depending on
@@ -566,23 +699,66 @@ func templateLiteralPattern(raw string) (string, bool) {
 		if end == -1 {
 			return "", false
 		}
-		placeholder := strings.TrimSpace(body[:end])
-		switch placeholder {
-		case "string":
-			b.WriteString(".*")
-		case "number":
-			b.WriteString(`-?(?:0|[1-9]\d*)(?:\.\d+)?(?:[eE][+-]?\d+)?`)
-		case "bigint":
-			b.WriteString(`-?(?:0|[1-9]\d*)`)
-		case "boolean":
-			b.WriteString(`(?:true|false)`)
-		default:
+		pattern, ok := templatePlaceholderPattern(strings.TrimSpace(body[:end]))
+		if !ok {
 			return "", false
 		}
+		b.WriteString(pattern)
 		body = body[end+1:]
 	}
 	b.WriteString("$")
 	return b.String(), true
+}
+
+func templatePlaceholderPattern(placeholder string) (string, bool) {
+	if placeholder == "" {
+		return "", false
+	}
+	items := strings.Split(placeholder, "|")
+	patterns := make([]string, 0, len(items))
+	for _, item := range items {
+		pattern, ok := templatePlaceholderItemPattern(strings.TrimSpace(item))
+		if !ok {
+			return "", false
+		}
+		if pattern == ".*" {
+			return ".*", true
+		}
+		patterns = append(patterns, pattern)
+	}
+	if len(patterns) == 1 {
+		return patterns[0], true
+	}
+	sort.Strings(patterns)
+	return "(?:" + strings.Join(patterns, "|") + ")", true
+}
+
+func templatePlaceholderItemPattern(item string) (string, bool) {
+	switch item {
+	case "string":
+		return ".*", true
+	case "number":
+		return `-?(?:0|[1-9]\d*)(?:\.\d+)?(?:[eE][+-]?\d+)?`, true
+	case "bigint":
+		return `-?(?:0|[1-9]\d*)`, true
+	case "boolean":
+		return `(?:true|false)`, true
+	case "true", "false":
+		return regexpEscape(item), true
+	}
+	if len(item) >= 2 && ((item[0] == '"' && item[len(item)-1] == '"') || (item[0] == '\'' && item[len(item)-1] == '\'')) {
+		return regexpEscape(item[1 : len(item)-1]), true
+	}
+	if strings.HasSuffix(item, "n") {
+		base := strings.TrimSuffix(item, "n")
+		if _, err := strconv.ParseInt(base, 10, 64); err == nil {
+			return regexpEscape(base), true
+		}
+	}
+	if _, err := strconv.ParseFloat(item, 64); err == nil {
+		return regexpEscape(item), true
+	}
+	return "", false
 }
 
 func regexpEscape(input string) string {

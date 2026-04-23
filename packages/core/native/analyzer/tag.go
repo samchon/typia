@@ -61,6 +61,14 @@ func extractTag(s *metadata.Schema) (metadata.TypeTag, bool) {
 		case "validate":
 			if v, ok := p.Value.GetSoleLiteral(); ok {
 				tag.Validate = v
+			} else if len(p.Value.Templates) == 1 &&
+				p.Value.Size() == 1 &&
+				p.Value.Bucket() == 1 {
+				tag.Validate = p.Value.Templates[0].RawName
+			} else if len(p.Value.Constants) == 1 && len(p.Value.Constants[0].Values) == 1 {
+				if value, ok := p.Value.Constants[0].Values[0].Value.(string); ok {
+					tag.Validate = value
+				}
 			}
 		case "exclusive":
 			// `exclusive` is typed `boolean | string[]`. iterate_metadata
@@ -71,6 +79,10 @@ func extractTag(s *metadata.Schema) (metadata.TypeTag, bool) {
 				// Non-literal boolean — assume the common `exclusive: true` case.
 				tag.Exclusive = true
 			}
+		case "schema":
+			if schema, ok := serializeTagSchemaValue(p.Value); ok {
+				tag.Schema = schema
+			}
 		}
 	}
 	if tag.Kind == "" {
@@ -78,6 +90,66 @@ func extractTag(s *metadata.Schema) (metadata.TypeTag, bool) {
 	}
 	normalizeExtractedTag(&tag)
 	return tag, true
+}
+
+func serializeTagSchemaValue(schema *metadata.Schema) (any, bool) {
+	if schema == nil {
+		return nil, false
+	}
+	if value, ok := schema.GetSoleLiteral(); ok {
+		return value, true
+	}
+	if len(schema.Constants) == 1 {
+		constant := schema.Constants[0]
+		if len(constant.Values) == 1 {
+			return constant.Values[0].Value, true
+		}
+		values := make([]any, 0, len(constant.Values))
+		for _, value := range constant.Values {
+			values = append(values, value.Value)
+		}
+		return values, true
+	}
+	if len(schema.Templates) != 0 && len(schema.Templates) == schema.Size() {
+		out := make([]any, 0, len(schema.Templates))
+		for _, tpl := range schema.Templates {
+			out = append(out, tpl.RawName)
+		}
+		return out, true
+	}
+	if len(schema.Arrays) == 1 && schema.Bucket() == 1 && schema.Size() == 1 {
+		array := schema.Arrays[0]
+		if array == nil || array.Type == nil {
+			return nil, false
+		}
+		return serializeTagSchemaValue(array.Type.Value)
+	}
+	if len(schema.Objects) == 1 && schema.Bucket() == 1 && schema.Size() == 1 {
+		obj := schema.Objects[0]
+		if obj == nil || obj.Type == nil {
+			return nil, false
+		}
+		if len(obj.Type.DynamicProperties) != 0 || obj.Type.AdditionalProperties != nil {
+			return nil, false
+		}
+		out := map[string]any{}
+		for _, prop := range obj.Type.Properties {
+			if prop == nil || prop.Key == nil || prop.Value == nil {
+				continue
+			}
+			key, ok := prop.Key.GetSoleLiteral()
+			if !ok {
+				return nil, false
+			}
+			value, ok := serializeTagSchemaValue(prop.Value)
+			if !ok {
+				return nil, false
+			}
+			out[key] = value
+		}
+		return out, true
+	}
+	return nil, false
 }
 
 // attachTag adds the tag to every bucket whose category matches tag.Target.

@@ -8,7 +8,7 @@
     "build:ttsc-runtime": "pnpm --filter @typia/ttsc build && pnpm --filter @typia/ttsx build && pnpm --filter @typia/utils build && pnpm --filter @typia/unplugin build && pnpm --filter @typia/ttsc go:build",
     "format": "prettier --write packages/**/*.ts && prettier --write internals/**/*.ts && prettier --write tests/**/*.ts",
     "pretest": "pnpm run guard:generated && pnpm run build:ttsc-runtime",
-    "test": "pnpm --filter=./tests/test-* -r start",
+    "test": "pnpm --filter=./tests/test-* -r --workspace-concurrency=1 start",
     "package:latest": "pnpm --filter=./packages/* -r publish --tag latest --access public",
     "package:next": "bash next.bash",
     "package:tgz": "node experiments/tarballs",

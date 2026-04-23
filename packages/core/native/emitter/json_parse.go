@@ -23,6 +23,39 @@ func EmitAssertStringifyArrowFunction(schema *metadata.Schema) (string, error) {
 	return fmt.Sprintf("(input) => (%s)((%s)(input))", stringify, assertExpr), nil
 }
 
+// EmitIsStringifyArrowFunction composes `typia.is<T>` with fast stringify.
+// Returns `null` when the input fails the type check.
+func EmitIsStringifyArrowFunction(schema *metadata.Schema) (string, error) {
+	isExpr, err := EmitIsArrowFunction(schema)
+	if err != nil {
+		return "", err
+	}
+	stringify, err := EmitJsonStringifyArrowFunction(schema)
+	if err != nil {
+		return "", err
+	}
+	return fmt.Sprintf("(input) => ((%s)(input)) ? (%s)(input) : null", isExpr, stringify), nil
+}
+
+// EmitValidateStringifyArrowFunction composes `typia.validate<T>` with fast
+// stringify so success payloads carry the JSON string, while failures keep the
+// original validation errors.
+func EmitValidateStringifyArrowFunction(schema *metadata.Schema) (string, error) {
+	validateExpr, err := EmitValidateArrowFunction(schema)
+	if err != nil {
+		return "", err
+	}
+	stringify, err := EmitJsonStringifyArrowFunction(schema)
+	if err != nil {
+		return "", err
+	}
+	return fmt.Sprintf(
+		"(input) => { const __valid = (%s)(input); return __valid.success ? { success: true, data: (%s)(input) } : __valid; }",
+		validateExpr,
+		stringify,
+	), nil
+}
+
 // EmitJsonParseArrowFunction wraps `JSON.parse` with a post-parse validation
 // step matching the requested method name.
 //

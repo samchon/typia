@@ -5,6 +5,7 @@ import (
 	"strings"
 
 	"github.com/microsoft/typescript-go/shim/ast"
+	shimscanner "github.com/microsoft/typescript-go/shim/scanner"
 
 	"github.com/samchon/typia/packages/core/native/metadata"
 )
@@ -34,27 +35,100 @@ func nodeJsDocTags(node *ast.Node) []jsDocTag {
 		return nil
 	}
 	jsdocs := node.JSDoc(file)
-	if len(jsdocs) == 0 {
+	if len(jsdocs) != 0 {
+		last := jsdocs[len(jsdocs)-1]
+		if last != nil && last.IsJSDoc() {
+			doc := last.AsJSDoc()
+			if doc != nil && doc.Tags != nil && len(doc.Tags.Nodes) != 0 {
+				output := make([]jsDocTag, 0, len(doc.Tags.Nodes))
+				for _, tag := range doc.Tags.Nodes {
+					if tag == nil || tag.TagName() == nil {
+						continue
+					}
+					text := jsDocTagText(tag)
+					output = append(output, jsDocTag{
+						Name: strings.TrimSpace(tag.TagName().Text()),
+						Text: text,
+					})
+				}
+				if len(output) != 0 {
+					return output
+				}
+			}
+		}
+	}
+	return parseRawLeadingJsDocTags(file.Text(), shimscanner.GetTokenPosOfNode(node, file, false))
+}
+
+func jsDocTagText(tag *ast.Node) string {
+	if tag == nil {
+		return ""
+	}
+	text := strings.TrimSpace(joinCommentList(tag.CommentList()))
+	if text != "" {
+		return text
+	}
+	raw := strings.TrimSpace(shimscanner.GetTextOfNode(tag))
+	if raw == "" || !strings.HasPrefix(raw, "@") {
+		return ""
+	}
+	if nameNode := tag.TagName(); nameNode != nil {
+		name := strings.TrimSpace(nameNode.Text())
+		if name != "" {
+			raw = strings.TrimPrefix(raw, "@"+name)
+			raw = strings.TrimSpace(raw)
+		}
+	}
+	raw = strings.TrimPrefix(raw, "{")
+	raw = strings.TrimSuffix(raw, "}")
+	return strings.TrimSpace(raw)
+}
+
+func parseRawLeadingJsDocTags(text string, pos int) []jsDocTag {
+	if pos <= 0 || pos > len(text) {
 		return nil
 	}
-	last := jsdocs[len(jsdocs)-1]
-	if last == nil || !last.IsJSDoc() {
+	end := pos
+	for end > 0 {
+		switch text[end-1] {
+		case ' ', '\t', '\r', '\n':
+			end--
+		default:
+			goto trimmed
+		}
+	}
+trimmed:
+	if end < 2 || text[end-2:end] != "*/" {
 		return nil
 	}
-	doc := last.AsJSDoc()
-	if doc == nil || doc.Tags == nil || len(doc.Tags.Nodes) == 0 {
+	start := strings.LastIndex(text[:end-2], "/**")
+	if start < 0 {
 		return nil
 	}
-	output := make([]jsDocTag, 0, len(doc.Tags.Nodes))
-	for _, tag := range doc.Tags.Nodes {
-		if tag == nil || tag.TagName() == nil {
+	body := text[start+3 : end-2]
+	lines := strings.Split(body, "\n")
+	output := make([]jsDocTag, 0, len(lines))
+	for _, line := range lines {
+		line = strings.TrimSpace(line)
+		line = strings.TrimPrefix(line, "*")
+		line = strings.TrimSpace(line)
+		if !strings.HasPrefix(line, "@") {
 			continue
 		}
-		text := strings.TrimSpace(joinCommentList(tag.CommentList()))
-		output = append(output, jsDocTag{
-			Name: strings.TrimSpace(tag.TagName().Text()),
-			Text: text,
-		})
+		line = strings.TrimPrefix(line, "@")
+		name := line
+		value := ""
+		for i, r := range line {
+			if r == ' ' || r == '\t' {
+				name = line[:i]
+				value = strings.TrimSpace(line[i+1:])
+				break
+			}
+		}
+		if name == "" {
+			continue
+		}
+		output = append(output, jsDocTag{Name: name, Text: value})
 	}
 	return output
 }

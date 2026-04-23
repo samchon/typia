@@ -48,7 +48,7 @@ func EmitJsonSchemasExpression(schema *metadata.Schema) (string, error) {
 	items := expandSchemaCollectionInput(schema)
 	schemas := make([]any, 0, len(items))
 	for _, item := range items {
-		converted, err := encoder.encodeSchema(item)
+		converted, err := encoder.encodeCollectionItem(item)
 		if err != nil {
 			return "", err
 		}
@@ -154,6 +154,14 @@ func (e *jsonSchemaEncoder) encodeSchema(s *metadata.Schema) (any, error) {
 			alternatives = append(alternatives, alt)
 		}
 	}
+	for _, t := range s.Templates {
+		alt := map[string]any{"type": "string"}
+		if pattern, ok := templateLiteralPattern(t.RawName); ok {
+			alt["pattern"] = pattern
+		}
+		applyTagsToAtomic(alt, t.Tags)
+		alternatives = append(alternatives, alt)
+	}
 	for _, ref := range s.Arrays {
 		if ref == nil || ref.Type == nil {
 			continue
@@ -182,6 +190,26 @@ func (e *jsonSchemaEncoder) encodeSchema(s *metadata.Schema) (any, error) {
 			continue
 		}
 		alt, err := e.encodeObjectRef(ref)
+		if err != nil {
+			return nil, err
+		}
+		alternatives = append(alternatives, alt)
+	}
+	for _, ref := range s.Sets {
+		if ref == nil {
+			continue
+		}
+		alt, err := e.encodeSetRef(ref)
+		if err != nil {
+			return nil, err
+		}
+		alternatives = append(alternatives, alt)
+	}
+	for _, ref := range s.Maps {
+		if ref == nil {
+			continue
+		}
+		alt, err := e.encodeMapRef(ref)
 		if err != nil {
 			return nil, err
 		}
@@ -223,6 +251,43 @@ func (e *jsonSchemaEncoder) encodeSchema(s *metadata.Schema) (any, error) {
 	return map[string]any{"oneOf": alternatives}, nil
 }
 
+func (e *jsonSchemaEncoder) encodeCollectionItem(s *metadata.Schema) (any, error) {
+	if s == nil {
+		return map[string]any{}, nil
+	}
+	if !s.Nullable && s.Bucket() == 1 && s.Size() == 1 {
+		if len(s.Arrays) == 1 && s.Arrays[0] != nil && s.Arrays[0].Type != nil {
+			encoded, err := e.encodeRootArray(s.Arrays[0].Type)
+			if err != nil {
+				return nil, err
+			}
+			if m, ok := encoded.(map[string]any); ok {
+				applyTagsToArray(m, s.Arrays[0].Tags)
+			}
+			return encoded, nil
+		}
+		if len(s.Tuples) == 1 && s.Tuples[0] != nil && s.Tuples[0].Type != nil {
+			encoded, err := e.encodeRootTuple(s.Tuples[0].Type)
+			if err != nil {
+				return nil, err
+			}
+			if m, ok := encoded.(map[string]any); ok {
+				applyTagsToArray(m, s.Tuples[0].Tags)
+			}
+			return encoded, nil
+		}
+		if len(s.Objects) == 1 && s.Objects[0] != nil && s.Objects[0].Type != nil &&
+			shouldInlineCollectionRoot(s.Objects[0].Type.Name) {
+			return e.encodeRootObject(s.Objects[0].Type)
+		}
+		if len(s.Aliases) == 1 && s.Aliases[0] != nil && s.Aliases[0].Type != nil &&
+			shouldInlineCollectionRoot(s.Aliases[0].Type.Name) {
+			return e.encodeRootAlias(s.Aliases[0].Type)
+		}
+	}
+	return e.encodeSchema(s)
+}
+
 func (e *jsonSchemaEncoder) encodeRootSchema(s *metadata.Schema) (any, error) {
 	if s == nil {
 		return map[string]any{}, nil
@@ -262,6 +327,9 @@ func (e *jsonSchemaEncoder) encodeArrayRef(ref *metadata.ArrayRef) (any, error) 
 	if ref == nil || ref.Type == nil {
 		return map[string]any{}, nil
 	}
+	if shouldInlineSyntheticComponent(ref.Type.Name, ref.Type.Recursive) {
+		return e.buildArrayType(ref.Type)
+	}
 	return e.ensureComponent(ref.Type.Name, func() (map[string]any, error) {
 		return e.buildArrayType(ref.Type)
 	})
@@ -270,6 +338,9 @@ func (e *jsonSchemaEncoder) encodeArrayRef(ref *metadata.ArrayRef) (any, error) 
 func (e *jsonSchemaEncoder) encodeTupleRef(ref *metadata.TupleRef) (any, error) {
 	if ref == nil || ref.Type == nil {
 		return map[string]any{}, nil
+	}
+	if shouldInlineSyntheticComponent(ref.Type.Name, ref.Type.Recursive) {
+		return e.buildTupleType(ref.Type)
 	}
 	return e.ensureComponent(ref.Type.Name, func() (map[string]any, error) {
 		return e.buildTupleType(ref.Type)
@@ -280,6 +351,9 @@ func (e *jsonSchemaEncoder) encodeObjectRef(ref *metadata.ObjectRef) (any, error
 	if ref == nil || ref.Type == nil {
 		return map[string]any{}, nil
 	}
+	if shouldInlineSyntheticComponent(ref.Type.Name, ref.Type.Recursive) {
+		return e.buildObjectType(ref.Type)
+	}
 	return e.ensureComponent(ref.Type.Name, func() (map[string]any, error) {
 		return e.buildObjectType(ref.Type)
 	})
@@ -289,9 +363,60 @@ func (e *jsonSchemaEncoder) encodeAliasRef(ref *metadata.AliasRef) (any, error) 
 	if ref == nil || ref.Type == nil {
 		return map[string]any{}, nil
 	}
+	if shouldInlineSyntheticComponent(ref.Type.Name, ref.Type.Recursive) {
+		return e.buildAliasType(ref.Type)
+	}
 	return e.ensureComponent(ref.Type.Name, func() (map[string]any, error) {
 		return e.buildAliasType(ref.Type)
 	})
+}
+
+func (e *jsonSchemaEncoder) encodeSetRef(ref *metadata.SetRef) (map[string]any, error) {
+	items := map[string]any{}
+	if ref != nil && ref.Value != nil {
+		inner, err := e.encodeSchema(ref.Value)
+		if err != nil {
+			return nil, err
+		}
+		items = toMap(inner)
+	}
+	out := map[string]any{
+		"type":           "array",
+		"items":          items,
+		"uniqueItems":    true,
+		"x-typia-native": "Set",
+	}
+	applyTagsToArray(out, ref.Tags)
+	return out, nil
+}
+
+func (e *jsonSchemaEncoder) encodeMapRef(ref *metadata.MapRef) (map[string]any, error) {
+	key := map[string]any{}
+	if ref != nil && ref.Key != nil {
+		inner, err := e.encodeSchema(ref.Key)
+		if err != nil {
+			return nil, err
+		}
+		key = toMap(inner)
+	}
+	value := map[string]any{}
+	if ref != nil && ref.Value != nil {
+		inner, err := e.encodeSchema(ref.Value)
+		if err != nil {
+			return nil, err
+		}
+		value = toMap(inner)
+	}
+	return map[string]any{
+		"type":           "array",
+		"x-typia-native": "Map",
+		"items": map[string]any{
+			"type":        "array",
+			"prefixItems": []any{key, value},
+			"minItems":    2,
+			"maxItems":    2,
+		},
+	}, nil
 }
 
 func (e *jsonSchemaEncoder) ensureComponent(name string, build func() (map[string]any, error)) (map[string]any, error) {
@@ -355,10 +480,22 @@ func (e *jsonSchemaEncoder) ensureRootComponent(name string, build func() (map[s
 	return encoded, nil
 }
 
+func shouldInlineSyntheticComponent(name string, recursive bool) bool {
+	if name == "" {
+		return true
+	}
+	if recursive {
+		return false
+	}
+	return name == "Tuple" ||
+		strings.HasPrefix(name, "TypeLiteral#") ||
+		strings.HasPrefix(name, "Interface#")
+}
+
 func (e *jsonSchemaEncoder) buildArrayType(arr *metadata.ArrayType) (map[string]any, error) {
 	items := map[string]any{}
 	if arr != nil && arr.Value != nil {
-		inner, err := e.encodeSchema(arr.Value)
+		inner, err := e.encodeObjectProperty(arr.Value)
 		if err != nil {
 			return nil, err
 		}
@@ -372,22 +509,40 @@ func (e *jsonSchemaEncoder) buildArrayType(arr *metadata.ArrayType) (map[string]
 
 func (e *jsonSchemaEncoder) buildTupleType(tuple *metadata.TupleType) (map[string]any, error) {
 	prefix := make([]any, 0)
+	required := 0
+	var restSchema *metadata.Schema
 	if tuple != nil {
 		prefix = make([]any, 0, len(tuple.Elements))
 		for _, el := range tuple.Elements {
-			inner, err := e.encodeSchema(el)
+			if el != nil && el.Rest != nil {
+				restSchema = el.Rest
+				continue
+			}
+			inner, err := e.encodeObjectProperty(el)
 			if err != nil {
 				return nil, err
 			}
 			prefix = append(prefix, inner)
+			if el != nil && !el.Optional {
+				required++
+			}
 		}
 	}
-	return map[string]any{
+	out := map[string]any{
 		"type":        "array",
 		"prefixItems": prefix,
-		"minItems":    len(prefix),
-		"maxItems":    len(prefix),
-	}, nil
+		"minItems":    required,
+	}
+	if restSchema == nil {
+		out["maxItems"] = len(prefix)
+		return out, nil
+	}
+	items, err := e.encodeObjectProperty(restSchema)
+	if err != nil {
+		return nil, err
+	}
+	out["items"] = items
+	return out, nil
 }
 
 func (e *jsonSchemaEncoder) buildObjectType(obj *metadata.ObjectType) (map[string]any, error) {
@@ -407,6 +562,11 @@ func (e *jsonSchemaEncoder) buildObjectType(obj *metadata.ObjectType) (map[strin
 			if err != nil {
 				return nil, err
 			}
+			if p.Description != nil {
+				if property, ok := inner.(map[string]any); ok {
+					property["description"] = *p.Description
+				}
+			}
 			properties[name] = inner
 			if p.Value != nil && p.Value.IsRequired() {
 				required = append(required, name)
@@ -422,12 +582,16 @@ func (e *jsonSchemaEncoder) buildObjectType(obj *metadata.ObjectType) (map[strin
 		additionalProperties = inner
 	}
 	sort.Strings(required)
-	return map[string]any{
+	out := map[string]any{
 		"type":                 "object",
 		"properties":           properties,
 		"required":             required,
 		"additionalProperties": additionalProperties,
-	}, nil
+	}
+	if obj != nil && obj.Description != nil {
+		out["description"] = *obj.Description
+	}
+	return out, nil
 }
 
 func (e *jsonSchemaEncoder) buildAliasType(alias *metadata.AliasType) (map[string]any, error) {
@@ -438,7 +602,11 @@ func (e *jsonSchemaEncoder) buildAliasType(alias *metadata.AliasType) (map[strin
 	if err != nil {
 		return nil, err
 	}
-	return toMap(inner), nil
+	out := toMap(inner)
+	if alias.Description != nil {
+		out["description"] = *alias.Description
+	}
+	return out, nil
 }
 
 func (e *jsonSchemaEncoder) encodeObjectProperty(s *metadata.Schema) (any, error) {
@@ -446,6 +614,14 @@ func (e *jsonSchemaEncoder) encodeObjectProperty(s *metadata.Schema) (any, error
 		return map[string]any{}, nil
 	}
 	if !s.Nullable && s.Bucket() == 1 && s.Size() == 1 {
+		if len(s.Objects) == 1 && s.Objects[0] != nil && s.Objects[0].Type != nil &&
+			shouldInlineCollectionRoot(s.Objects[0].Type.Name) {
+			return e.buildObjectType(s.Objects[0].Type)
+		}
+		if len(s.Aliases) == 1 && s.Aliases[0] != nil && s.Aliases[0].Type != nil &&
+			shouldInlineCollectionRoot(s.Aliases[0].Type.Name) {
+			return e.buildAliasType(s.Aliases[0].Type)
+		}
 		if len(s.Arrays) == 1 && s.Arrays[0] != nil && s.Arrays[0].Type != nil {
 			alt, err := e.buildArrayType(s.Arrays[0].Type)
 			if err != nil {
@@ -486,6 +662,11 @@ func applyTagsToAtomic(out map[string]any, matrix metadata.TagMatrix) {
 		return
 	}
 	for _, tag := range matrix[0] {
+		if schema, ok := tag.Schema.(map[string]any); ok {
+			for key, value := range schema {
+				out[key] = value
+			}
+		}
 		switch tag.Kind {
 		case "format":
 			if v, ok := tag.Value.(string); ok {
@@ -546,6 +727,20 @@ func applyTagsToArray(out map[string]any, matrix metadata.TagMatrix) {
 	}
 }
 
+func shouldInlineCollectionRoot(name string) bool {
+	name = strings.TrimSpace(name)
+	if name == "" || name == "Tuple" {
+		return true
+	}
+	if strings.HasSuffix(name, "[]") {
+		return shouldInlineCollectionRoot(strings.TrimSuffix(name, "[]"))
+	}
+	return strings.HasPrefix(name, "TypeLiteral#") ||
+		strings.HasPrefix(name, "Interface#") ||
+		strings.HasPrefix(name, "Type#") ||
+		strings.HasPrefix(name, "Intersection<")
+}
+
 func (e *jsonSchemaEncoder) discriminatorForOneOf(alternatives []any) map[string]any {
 	property := ""
 	for _, candidate := range alternatives {
@@ -592,21 +787,35 @@ func (e *jsonSchemaEncoder) discriminatorForOneOf(alternatives []any) map[string
 // nativeToJSONSchema maps a native JS class name to its OpenAPI 3.1 encoding.
 func nativeToJSONSchema(name string) map[string]any {
 	switch name {
+	case "Boolean":
+		return map[string]any{"type": "boolean", "x-typia-native": "Boolean"}
+	case "Number":
+		return map[string]any{"type": "number", "x-typia-native": "Number"}
+	case "String":
+		return map[string]any{"type": "string", "x-typia-native": "String"}
 	case "Date":
-		return map[string]any{"type": "string", "format": "date-time"}
+		return map[string]any{"type": "string", "format": "date-time", "x-typia-native": "Date"}
+	case "Blob":
+		return map[string]any{"type": "string", "format": "binary", "x-typia-native": "Blob"}
+	case "File":
+		return map[string]any{"type": "string", "format": "binary", "x-typia-native": "File"}
 	case "Uint8Array", "Buffer":
-		return map[string]any{"type": "string", "format": "byte"}
+		return map[string]any{"type": "string", "format": "byte", "x-typia-native": name}
 	case "URL":
-		return map[string]any{"type": "string", "format": "uri"}
+		return map[string]any{"type": "string", "format": "uri", "x-typia-native": "URL"}
 	case "RegExp":
-		return map[string]any{"type": "string", "format": "regex"}
+		return map[string]any{"type": "string", "format": "regex", "x-typia-native": "RegExp"}
 	case "Set":
-		return map[string]any{"type": "array", "items": map[string]any{}, "uniqueItems": true}
+		return map[string]any{"type": "array", "items": map[string]any{}, "uniqueItems": true, "x-typia-native": "Set"}
 	case "Map":
-		return map[string]any{"type": "object", "additionalProperties": map[string]any{}}
+		return map[string]any{"type": "array", "items": map[string]any{}, "x-typia-native": "Map"}
 	case "Int8Array", "Int16Array", "Int32Array", "Uint16Array", "Uint32Array",
-		"Float32Array", "Float64Array", "BigInt64Array", "BigUint64Array", "Uint8ClampedArray":
-		return map[string]any{"type": "array", "items": map[string]any{"type": "number"}}
+		"Float32Array", "Float64Array", "Uint8ClampedArray":
+		return map[string]any{"type": "array", "items": map[string]any{"type": "number"}, "x-typia-native": name}
+	case "BigInt64Array", "BigUint64Array":
+		return map[string]any{"type": "array", "items": map[string]any{"type": "integer", "x-typia-bigint": true}, "x-typia-native": name}
+	case "ArrayBuffer", "SharedArrayBuffer", "DataView":
+		return map[string]any{"type": "object", "x-typia-native": name}
 	}
 	return map[string]any{"type": "object"}
 }

@@ -117,6 +117,7 @@ function spawnBinary(
     cwd: options.cwd,
     env: options.env,
     encoding: options.encoding,
+    maxBuffer: 1024 * 1024 * 256,
     windowsHide: true,
   });
 }

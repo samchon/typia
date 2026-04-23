@@ -28,6 +28,8 @@
 package analyzer
 
 import (
+	"strings"
+
 	"github.com/microsoft/typescript-go/shim/ast"
 	shimchecker "github.com/microsoft/typescript-go/shim/checker"
 
@@ -46,6 +48,10 @@ type Options struct {
 	// Absorb matches typia's `absorb` option — tags on atomics are merged
 	// across union members. The default is true.
 	Absorb bool
+	// Functional mirrors typia's `functional` option. When enabled, object
+	// metadata preserves callable members (method declarations/signatures)
+	// instead of skipping them as non-data properties.
+	Functional bool
 }
 
 // DefaultOptions returns typia's common defaults (constant on, escape off,
@@ -64,9 +70,10 @@ type Analyzer struct {
 	// references resolve to the pre-registered placeholder instead of
 	// infinitely recursing. Keyed by Type.Id() because tsgo can hand back
 	// distinct pointers for the same semantic type mid-walk.
-	visitingObjects map[string]*metadata.ObjectType
-	visitingArrays  map[string]*metadata.ArrayType
-	visitingTuples  map[string]*metadata.TupleType
+	visitingObjects   map[string]*metadata.ObjectType
+	visitingArrays    map[string]*metadata.ArrayType
+	visitingTuples    map[string]*metadata.TupleType
+	visitingTypeNodes map[string]bool
 }
 
 // New returns a fresh analyzer with the given checker and options. If
@@ -76,12 +83,13 @@ func New(checker *shimchecker.Checker, opts Options, collection *metadata.Collec
 		collection = metadata.NewCollection()
 	}
 	return &Analyzer{
-		Checker:         checker,
-		Options:         opts,
-		Collection:      collection,
-		visitingObjects: make(map[string]*metadata.ObjectType),
-		visitingArrays:  make(map[string]*metadata.ArrayType),
-		visitingTuples:  make(map[string]*metadata.TupleType),
+		Checker:           checker,
+		Options:           opts,
+		Collection:        collection,
+		visitingObjects:   make(map[string]*metadata.ObjectType),
+		visitingArrays:    make(map[string]*metadata.ArrayType),
+		visitingTuples:    make(map[string]*metadata.TupleType),
+		visitingTypeNodes: make(map[string]bool),
 	}
 }
 
@@ -112,6 +120,7 @@ func (a *Analyzer) WalkWithTypeNode(t *shimchecker.Type, typeNode *ast.Node) (*m
 		if !syntaxPreferred {
 			switch typeNode.Kind {
 			case ast.KindIntersectionType,
+				ast.KindFunctionType,
 				ast.KindTupleType,
 				ast.KindArrayType,
 				ast.KindTypeLiteral,
@@ -129,7 +138,8 @@ func (a *Analyzer) WalkWithTypeNode(t *shimchecker.Type, typeNode *ast.Node) (*m
 				syntaxPreferred = true
 			case ast.KindTypeReference:
 				if ref := typeNode.AsTypeReferenceNode(); ref != nil {
-					if referencedInterfaceDeclaration(a.Checker, ref, t) != nil ||
+					if strings.Contains(entityNameText(ref.TypeName), ".") ||
+						referencedInterfaceDeclaration(a.Checker, ref, t) != nil ||
 						aliasDeclarationTargetTypeAlias(a.Checker, ref) != nil {
 						syntaxPreferred = true
 					}
@@ -138,7 +148,9 @@ func (a *Analyzer) WalkWithTypeNode(t *shimchecker.Type, typeNode *ast.Node) (*m
 		}
 		if syntaxPreferred {
 			if out, ok := a.walkTypeNode(typeNode); ok {
-				return out, true
+				if t == nil || t.Flags()&shimchecker.TypeFlagsAny != 0 || !schemaLooksDegraded(out) {
+					return out, true
+				}
 			}
 		}
 	}
@@ -171,7 +183,34 @@ func schemaLooksDegraded(schema *metadata.Schema) bool {
 	if schema == nil || schema.Empty() {
 		return true
 	}
-	return schema.Name() == "unknown"
+	if schema.Name() == "unknown" {
+		return true
+	}
+	if len(schema.Objects) == 1 &&
+		schema.Size() == 1 &&
+		schema.Bucket() == 1 &&
+		len(schema.Arrays) == 0 &&
+		len(schema.Tuples) == 0 &&
+		len(schema.Maps) == 0 &&
+		len(schema.Sets) == 0 &&
+		len(schema.Aliases) == 0 &&
+		len(schema.Functions) == 0 &&
+		len(schema.Natives) == 0 &&
+		len(schema.Atomics) == 0 &&
+		len(schema.Constants) == 0 &&
+		len(schema.Templates) == 0 &&
+		schema.Escaped == nil {
+		obj := schema.Objects[0]
+		if obj == nil || obj.Type == nil {
+			return true
+		}
+		if len(obj.Type.Properties) == 0 &&
+			len(obj.Type.DynamicProperties) == 0 &&
+			obj.Type.AdditionalProperties == nil {
+			return true
+		}
+	}
+	return false
 }
 
 // FromType is the convenience entrypoint used by the standalone rewriter. It

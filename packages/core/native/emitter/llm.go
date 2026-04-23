@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"strings"
+	"unicode"
 
 	"github.com/samchon/typia/packages/core/native/metadata"
 )
@@ -91,6 +92,9 @@ func EmitLlmApplicationArrowFunction(schema *metadata.Schema) (string, error) {
 	if obj == nil {
 		return "", errors.New("llm.application: target type must be a class/interface object")
 	}
+	if err := validateLlmCallableObject("llm.application", obj); err != nil {
+		return "", err
+	}
 
 	methods := make([]string, 0, len(obj.Properties))
 	for _, prop := range obj.Properties {
@@ -127,6 +131,9 @@ func EmitLlmControllerArrowFunction(schema *metadata.Schema) (string, error) {
 	obj := firstObjectType(schema)
 	if obj == nil {
 		return "", errors.New("llm.controller: target type must be a class/interface object")
+	}
+	if err := validateLlmCallableObject("llm.controller", obj); err != nil {
+		return "", err
 	}
 
 	methods := make([]string, 0, len(obj.Properties))
@@ -172,13 +179,148 @@ func emitLlmFunctionEntry(name string, fn *metadata.Function) (string, error) {
 		fmt.Sprintf(`coerce: (input) => require("@typia/utils").LlmJson.coerce(input, %s)`, parametersExpr),
 		fmt.Sprintf(`validate: (() => { const __hook = __hooks && __hooks[%s]; return typeof __hook === "function" ? __hook : (%s); })()`, jsonQuote(name), validateExpr),
 	}
-	if fn.Description != nil && strings.TrimSpace(*fn.Description) != "" {
-		parts = append(parts, fmt.Sprintf(`description: %s`, jsonQuote(strings.TrimSpace(*fn.Description))))
+	if description := llmFunctionDescription(name, fn); description != "" {
+		parts = append(parts, fmt.Sprintf(`description: %s`, jsonQuote(description)))
 	}
 	if hasOutput {
 		parts = append(parts, fmt.Sprintf(`output: %s`, outputExpr))
 	}
 	return "{ " + strings.Join(parts, ", ") + " }", nil
+}
+
+func validateLlmCallableObject(prefix string, obj *metadata.ObjectType) error {
+	if obj == nil {
+		return fmt.Errorf("%s: missing object metadata", prefix)
+	}
+	found := false
+	for _, prop := range obj.Properties {
+		if prop == nil || prop.Key == nil || prop.Value == nil || len(prop.Value.Functions) == 0 {
+			continue
+		}
+		name, ok := prop.Key.GetSoleLiteral()
+		if !ok {
+			continue
+		}
+		found = true
+		if err := validateLlmFunction(prefix, name, prop.Value.Functions[0]); err != nil {
+			return err
+		}
+	}
+	if !found {
+		return fmt.Errorf("%s: target type must expose at least one callable method", prefix)
+	}
+	return nil
+}
+
+func validateLlmFunction(prefix, name string, fn *metadata.Function) error {
+	if name == "" {
+		return fmt.Errorf("%s: function name cannot be empty", prefix)
+	}
+	if r := rune(name[0]); unicode.IsDigit(r) {
+		return fmt.Errorf("%s.%s: function name cannot start with a number", prefix, name)
+	}
+	for _, r := range name {
+		if unicode.IsLetter(r) || unicode.IsDigit(r) || r == '_' || r == '-' {
+			continue
+		}
+		return fmt.Errorf("%s.%s: function name must contain only alphanumeric characters, underscores, or hyphens", prefix, name)
+	}
+	if len(name) > 64 {
+		return fmt.Errorf("%s.%s: function name cannot exceed 64 characters", prefix, name)
+	}
+	if description := llmFunctionDescription(name, fn); description != "" && len(description) > 1024 {
+		return fmt.Errorf("%s.%s: function description must not exceed 1024 characters", prefix, name)
+	}
+	if fn == nil {
+		return fmt.Errorf("%s.%s: missing function metadata", prefix, name)
+	}
+	if len(fn.Parameters) > 1 {
+		return fmt.Errorf("%s.%s: function must have exactly one parameter or no parameters", prefix, name)
+	}
+	if len(fn.Parameters) == 1 {
+		param := fn.Parameters[0]
+		if param == nil || param.Type == nil {
+			return fmt.Errorf("%s.%s: missing parameter type", prefix, name)
+		}
+		if err := validateLlmObjectSchema(prefix, name, "parameter", param.Type); err != nil {
+			return err
+		}
+	}
+	if fn.Output != nil && !fn.Output.Empty() {
+		if err := validateLlmObjectSchema(prefix, name, "return type", fn.Output); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func validateLlmObjectSchema(prefix, name, label string, schema *metadata.Schema) error {
+	if schema == nil {
+		return fmt.Errorf("%s.%s: %s is missing", prefix, name, label)
+	}
+	if !schema.IsRequired() {
+		return fmt.Errorf("%s.%s: %s cannot be optional", prefix, name, label)
+	}
+	if schema.Nullable {
+		return fmt.Errorf("%s.%s: %s cannot be nullable", prefix, name, label)
+	}
+	if schema.Size() != 1 || len(schema.Objects) != 1 || schema.Objects[0] == nil || schema.Objects[0].Type == nil {
+		return fmt.Errorf("%s.%s: %s must be a single object type", prefix, name, label)
+	}
+	obj := schema.Objects[0].Type
+	if len(obj.DynamicProperties) != 0 || obj.AdditionalProperties != nil {
+		return fmt.Errorf("%s.%s: %s cannot have dynamic property keys", prefix, name, label)
+	}
+	hasRequiredProperty := false
+	for _, prop := range obj.Properties {
+		if prop == nil || prop.Key == nil || !prop.Key.IsSoleLiteral() {
+			return fmt.Errorf("%s.%s: %s cannot have dynamic property keys", prefix, name, label)
+		}
+		if prop.Value != nil && prop.Value.IsRequired() {
+			hasRequiredProperty = true
+		}
+	}
+	if len(obj.Properties) != 0 && !hasRequiredProperty {
+		return fmt.Errorf("%s.%s: %s must contain at least one required property", prefix, name, label)
+	}
+	return nil
+}
+
+func llmFunctionDescription(name string, fn *metadata.Function) string {
+	if fn != nil && fn.Description != nil {
+		if text := strings.TrimSpace(*fn.Description); text != "" {
+			return text
+		}
+	}
+	return humanizeFunctionName(name)
+}
+
+func humanizeFunctionName(name string) string {
+	trimmed := strings.TrimSpace(name)
+	if trimmed == "" {
+		return ""
+	}
+	var builder strings.Builder
+	var prev rune
+	for i, r := range trimmed {
+		if i > 0 &&
+			((unicode.IsLower(prev) && unicode.IsUpper(r)) ||
+				((prev == '_' || prev == '-' || prev == ' ') && r != '_' && r != '-' && r != ' ')) {
+			builder.WriteByte(' ')
+		}
+		if r == '_' || r == '-' {
+			builder.WriteByte(' ')
+		} else {
+			builder.WriteRune(r)
+		}
+		prev = r
+	}
+	words := strings.Fields(strings.ToLower(builder.String()))
+	if len(words) == 0 {
+		return ""
+	}
+	words[0] = strings.ToUpper(words[0][:1]) + words[0][1:]
+	return strings.Join(words, " ")
 }
 
 func emitLlmParameterArtifacts(name string, fn *metadata.Function) (string, string, error) {
@@ -231,7 +373,7 @@ func emptyLlmParametersExpression() string {
 }
 
 func emptyObjectValidateExpression() string {
-	return `(input) => { const __value = input ?? {}; const __ok = __value !== null && typeof __value === "object" && !Array.isArray(__value) && Object.keys(__value).length === 0; return __ok ? { success: true, data: __value, errors: [] } : { success: false, data: input, errors: [{ path: "$input", expected: "{}", value: input }] }; }`
+	return `(input) => { const __value = input ?? {}; const __ok = __value !== null && typeof __value === "object" && !Array.isArray(__value) && Object.keys(__value).length === 0; return __ok ? { success: true, data: __value } : { success: false, data: input, errors: [{ path: "$input", expected: "{}", value: input }] }; }`
 }
 
 func firstObjectType(schema *metadata.Schema) *metadata.ObjectType {

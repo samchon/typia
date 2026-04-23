@@ -40,9 +40,6 @@ func (a *Analyzer) iterateIntersection(out *metadata.Schema, t *shimchecker.Type
 			tags = append(tags, tag)
 			continue
 		}
-		if ignorableIntersectionObject(c) {
-			continue
-		}
 		regulars = append(regulars, c)
 	}
 	if len(regulars) == 1 {
@@ -59,13 +56,9 @@ func (a *Analyzer) iterateIntersection(out *metadata.Schema, t *shimchecker.Type
 		}
 		return true
 	}
-	for _, r := range regulars {
-		mergeInto(out, r)
-	}
-	for _, tag := range tags {
-		attachTag(out, tag)
-	}
-	return true
+	// typia treats multi-branch intersections that are neither pure tag
+	// decoration nor mergeable object intersections as nonsensible.
+	return false
 }
 
 func ignorableIntersectionType(
@@ -89,34 +82,6 @@ func ignorableIntersectionType(
 		if prop == nil || prop.Flags&ast.SymbolFlagsOptional == 0 {
 			return false
 		}
-	}
-	return true
-}
-
-func ignorableIntersectionObject(schema *metadata.Schema) bool {
-	if schema == nil ||
-		schema.Any ||
-		schema.Nullable ||
-		!schema.IsRequired() ||
-		len(schema.Objects) != 1 ||
-		schema.Bucket() != 1 ||
-		schema.Size() != 1 {
-		return false
-	}
-	ref := schema.Objects[0]
-	if ref == nil || ref.Type == nil {
-		return false
-	}
-	for _, prop := range ref.Type.Properties {
-		if prop == nil || prop.Value == nil {
-			return false
-		}
-		if prop.Value.IsRequired() {
-			return false
-		}
-	}
-	if ref.Type.AdditionalProperties != nil {
-		return false
 	}
 	return true
 }
