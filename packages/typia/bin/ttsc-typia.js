@@ -30,13 +30,26 @@ if (
   argv.push(`--cwd=${invocationCwd}`);
 }
 
-if (!fs.existsSync(nativeEntrypoint)) {
+const hasNativeBinary = fs.existsSync(nativeBinary);
+const hasSourceEntrypoint = fs.existsSync(nativeEntrypoint);
+
+if (!hasNativeBinary && !hasSourceEntrypoint) {
   process.stderr.write(
-    "ttsc-typia: source checkout backend is missing. Expected packages/transform/native/cmd/ttsc-typia/main.go.\n",
+    "ttsc-typia: backend is missing. Expected either a bundled ttsc-typia-native binary or packages/transform/native/cmd/ttsc-typia/main.go.\n",
   );
   process.exitCode = 1;
 } else {
-  const result = fs.existsSync(nativeBinary)
+  if (hasNativeBinary && process.platform !== "win32") {
+    try {
+      const mode = fs.statSync(nativeBinary).mode & 0o777;
+      if ((mode & 0o111) === 0) {
+        fs.chmodSync(nativeBinary, mode | 0o755);
+      }
+    } catch {
+      /* keep the original spawn error path */
+    }
+  }
+  const result = hasNativeBinary
     ? spawnSync(nativeBinary, argv, {
         env: process.env,
         stdio: "inherit",
@@ -50,7 +63,7 @@ if (!fs.existsSync(nativeEntrypoint)) {
       });
   if (result.error) {
     process.stderr.write(
-      fs.existsSync(nativeBinary)
+      hasNativeBinary
         ? `ttsc-typia: failed to launch prebuilt backend: ${result.error.message}\n`
         : `ttsc-typia: failed to launch source checkout via ${command}: ${result.error.message}\n`,
     );

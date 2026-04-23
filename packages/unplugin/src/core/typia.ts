@@ -1,4 +1,5 @@
-import { dirname, resolve } from "pathe";
+import { existsSync } from "node:fs";
+import { dirname, isAbsolute, join, resolve } from "pathe";
 import { transform as ttscTransform } from "@typia/ttsc";
 import type { Alias } from "vite";
 
@@ -25,10 +26,11 @@ export async function transformTypia(
   _aliases?: Alias[],
 ): Promise<Data> {
   const id = wrap<ID>(resolve(_id));
+  const tsconfig = resolveTsconfig(id, options.tsconfig);
   const result = ttscTransform({
     file: id,
-    cwd: options.tsconfig ? process.cwd() : dirname(id),
-    tsconfig: options.tsconfig,
+    cwd: dirname(tsconfig),
+    tsconfig,
     plugins: [
       {
         transform: "typia/lib/ttsc/plugin",
@@ -37,4 +39,26 @@ export async function transformTypia(
     rewriteMode: "typia",
   });
   return wrap<Data>(result);
+}
+
+function resolveTsconfig(file: string, tsconfig?: string): string {
+  if (tsconfig) {
+    return isAbsolute(tsconfig) ? tsconfig : resolve(process.cwd(), tsconfig);
+  }
+
+  let current = dirname(file);
+  while (true) {
+    for (const name of ["tsconfig.json", "jsconfig.json"]) {
+      const candidate = join(current, name);
+      if (existsSync(candidate)) {
+        return candidate;
+      }
+    }
+    const parent = dirname(current);
+    if (parent === current) {
+      break;
+    }
+    current = parent;
+  }
+  return resolve(process.cwd(), "tsconfig.json");
 }

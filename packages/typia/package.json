@@ -31,7 +31,7 @@
     "typia": "./src/executable/typia.ts"
   },
   "scripts": {
-    "build": "rimraf lib && ttsc && rollup -c && cp ../../README.md README.md",
+    "build": "rimraf lib && ttsc build && rollup -c && cp ../../README.md README.md",
     "dev": "ttsc --watch",
     "prepack": "pnpm run build"
   },

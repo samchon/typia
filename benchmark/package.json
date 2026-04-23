@@ -5,7 +5,7 @@
   "description": "Benchmark program of typia performance",
   "main": "bin/index.js",
   "scripts": {
-    "build": "rimraf bin && ttsc",
+    "build": "rimraf bin && ttsc build",
     "prettier": "prettier ./src/**/*.ts --write",
     "start": "node bin",
     "start:bun": "bun bin/bun.js",

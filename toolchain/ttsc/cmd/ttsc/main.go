@@ -40,7 +40,8 @@ func main() {
 
 func run(args []string) int {
 	if len(args) == 0 {
-		return runBuild(nil)
+		printHelp(stdout)
+		return 0
 	}
 
 	switch args[0] {
@@ -70,7 +71,28 @@ func run(args []string) int {
 		}
 		return runBuild(append([]string{"--tsconfig=" + args[1]}, args[2:]...))
 	default:
-		return runBuild(args)
+		if isBuildAlias(args[0]) {
+			return runBuild(args)
+		}
+		fmt.Fprintf(stderr, "ttsc: unknown command %q\n", args[0])
+		fmt.Fprintln(stderr, `ttsc: run "ttsc --help" to see supported commands`)
+		return 2
+	}
+}
+
+func isBuildAlias(arg string) bool {
+	if strings.HasPrefix(arg, "-") {
+		return true
+	}
+	switch {
+	case strings.HasSuffix(arg, ".json"),
+		strings.HasSuffix(arg, ".ts"),
+		strings.HasSuffix(arg, ".tsx"),
+		strings.HasSuffix(arg, ".mts"),
+		strings.HasSuffix(arg, ".cts"):
+		return true
+	default:
+		return false
 	}
 }
 

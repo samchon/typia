@@ -113,6 +113,9 @@ function spawnBinary(
   },
 ) {
   const viaNode = shouldSpawnViaNode(binary);
+  if (!viaNode) {
+    ensureExecutable(binary);
+  }
   return spawnSync(viaNode ? process.execPath : binary, viaNode ? [binary, ...args] : [...args], {
     cwd: options.cwd,
     env: options.env,
@@ -124,6 +127,21 @@ function spawnBinary(
 
 function shouldSpawnViaNode(binary: string): boolean {
   return /\.(?:[cm]?js|ts)$/i.test(binary);
+}
+
+function ensureExecutable(binary: string): void {
+  if (process.platform === "win32") {
+    return;
+  }
+  try {
+    const mode = fs.statSync(binary).mode & 0o777;
+    if ((mode & 0o111) !== 0) {
+      return;
+    }
+    fs.chmodSync(binary, mode | 0o755);
+  } catch {
+    /* keep the original spawn error path */
+  }
 }
 
 /**

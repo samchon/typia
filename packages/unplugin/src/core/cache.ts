@@ -1,5 +1,4 @@
 import findCacheDirectory from "find-cache-dir";
-import { createFixture } from "fs-fixture";
 import { createHash } from "node:crypto";
 import {
   accessSync,
@@ -145,6 +144,7 @@ function getCacheDir(): FilePath {
 }
 
 if (import.meta.vitest != null) {
+  const { createFixture } = await import("fs-fixture");
   await using fixture = await createFixture();
   process.env.CACHE_DIR = fixture.path;
 

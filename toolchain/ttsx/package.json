@@ -16,7 +16,7 @@
     "./package.json": "./package.json"
   },
   "scripts": {
-    "build": "rimraf lib && ttsc",
+    "build": "rimraf lib && ttsc build",
     "prepack": "pnpm run build"
   },
   "repository": {

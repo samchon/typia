@@ -8,7 +8,8 @@ import { installHint, resolveBinary } from "./platform";
 export function main(argv: readonly string[] = process.argv.slice(2)): number {
   try {
     if (argv.length === 0) {
-      return runCompatibleBuild([], false);
+      printHelp();
+      return 0;
     }
 
     const [command, ...rest] = argv;
@@ -35,12 +36,24 @@ export function main(argv: readonly string[] = process.argv.slice(2)): number {
       case "--project":
         return runCompatibleBuild(argv, false);
       default:
-        return runCompatibleBuild(argv, false);
+        if (isBuildAlias(command)) {
+          return runCompatibleBuild(argv, false);
+        }
+        process.stderr.write(`ttsc: unknown command ${JSON.stringify(command)}\n`);
+        process.stderr.write(`ttsc: run "ttsc --help" to see supported commands\n`);
+        return 2;
     }
   } catch (error) {
     process.stderr.write(`${formatError(error)}\n`);
     return 2;
   }
+}
+
+function isBuildAlias(command: string): boolean {
+  if (command.startsWith("-")) return true;
+  return [".json", ".ts", ".tsx", ".mts", ".cts"].some((ext) =>
+    command.endsWith(ext),
+  );
 }
 
 interface BuildInvocation extends BuildOptions {
