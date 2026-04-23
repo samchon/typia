@@ -43,7 +43,7 @@ func run(args []string) int {
 	case "build":
 		return runBuild(args[1:])
 	case "check":
-		return runBuild(append([]string{}, appendUnique(args[1:], "--quiet")...))
+		return runBuild(append([]string{"--noEmit"}, appendUnique(args[1:], "--quiet")...))
 	case "transform":
 		return runTransform(args[1:])
 	case "-p", "--project":
@@ -51,7 +51,7 @@ func run(args []string) int {
 			fmt.Fprintln(stderr, "ttsc-typia: -p/--project requires a path argument")
 			return 2
 		}
-		return runBuild(append([]string{"--tsconfig=" + args[1], "--emit"}, args[2:]...))
+		return runBuild(append([]string{"--tsconfig=" + args[1]}, args[2:]...))
 	default:
 		fmt.Fprintf(stderr, "ttsc-typia: unknown command %q\n", args[0])
 		fmt.Fprintln(stderr, "Run `ttsc-typia --help` for usage.")

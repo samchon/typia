@@ -19,11 +19,16 @@ func runBuild(args []string) int {
 	tsconfigPath := fs.String("tsconfig", "tsconfig.json", "path to tsconfig.json")
 	cwdOverride := fs.String("cwd", "", "override the working directory (defaults to process cwd)")
 	quiet := fs.Bool("quiet", false, "suppress the per-call diagnostic summary")
-	emit := fs.Bool("emit", false, "emit .js files (runs tsgo + typia rewrite)")
+	emit := fs.Bool("emit", false, "force emitted .js files (runs tsgo + typia rewrite)")
+	noEmit := fs.Bool("noEmit", false, "force analysis-only run with no file writes")
 	outDir := fs.String("outDir", "", "override compilerOptions.outDir for this build")
 	manifestPath := fs.String("manifest", "", "write emitted file list as JSON to this path")
 	rewriteMode := fs.String("rewrite-mode", "typia", "native rewrite backend id")
 	if err := fs.Parse(args); err != nil {
+		return 2
+	}
+	if *emit && *noEmit {
+		fmt.Fprintln(stderr, "ttsc-typia build: --emit and --noEmit are mutually exclusive")
 		return 2
 	}
 	if *rewriteMode != "none" && *rewriteMode != "typia" {
@@ -42,8 +47,9 @@ func runBuild(args []string) int {
 	}
 
 	prog, diags, err := driver.LoadProgram(cwd, *tsconfigPath, driver.LoadProgramOptions{
-		ForceEmit: *emit,
-		OutDir:    *outDir,
+		ForceEmit:   *emit,
+		ForceNoEmit: *noEmit,
+		OutDir:      *outDir,
 	})
 	if err != nil {
 		fmt.Fprintf(stderr, "ttsc-typia build: %v\n", err)
@@ -60,18 +66,19 @@ func runBuild(args []string) int {
 	rewrites := driver.NewRewriteSet()
 	sites := 0
 	recognized := 0
+	shouldEmit := !prog.ParsedConfig.ParsedConfig.CompilerOptions.NoEmit.IsTrue()
 	if *rewriteMode == "typia" {
 		var err error
-		sites, recognized, err = collectTypiaRewrites(prog, cwd, *emit, *quiet, "", rewrites)
+		sites, recognized, err = collectTypiaRewrites(prog, cwd, shouldEmit, *quiet, "", rewrites)
 		if err != nil {
 			fmt.Fprintf(stderr, "ttsc-typia build: %v\n", err)
 			return 3
 		}
 	}
 	if !*quiet {
-		fmt.Fprintf(stdout, "// ttsc-typia build: tsconfig=%s cwd=%s sites=%d emit=%v rewrite=%s\n", *tsconfigPath, cwd, sites, *emit, *rewriteMode)
+		fmt.Fprintf(stdout, "// ttsc-typia build: tsconfig=%s cwd=%s sites=%d emit=%v rewrite=%s\n", *tsconfigPath, cwd, sites, shouldEmit, *rewriteMode)
 	}
-	if *emit {
+	if shouldEmit {
 		writeFile := shimcompiler.WriteFile(
 			func(fileName, text string, _ *shimcompiler.WriteFileData) error {
 				text = typiattsc.CleanupTransformedText(text)
