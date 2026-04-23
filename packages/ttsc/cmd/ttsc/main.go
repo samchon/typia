@@ -8,7 +8,7 @@
 //     subcommands that will land in Week 3+.
 //
 // Everything below is deliberately dependency-free so that the standalone binary
-// stays small and its behaviour is trivial to audit.
+// stays small and its behavior is trivial to audit.
 package main
 
 import (

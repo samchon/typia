@@ -4,7 +4,7 @@
 // the compile-time transformer stage is now hosted outside the native
 // compiler. This file implements the emit-time rewrite pattern pioneered by
 // tsgonest: we hook tsgo's Emit() via its WriteFile callback, locate each
-// previously-recognised plugin call in the emitted JS, and replace the call
+// previously-recognized plugin call in the emitted JS, and replace the call
 // expression with the JS the native consumer produced.
 //
 // The rewriter operates on the output text only — it relies on the caller

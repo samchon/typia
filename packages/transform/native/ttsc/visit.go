@@ -8,7 +8,7 @@ import (
 	shimchecker "github.com/microsoft/typescript-go/shim/checker"
 )
 
-// CallSite describes one typia consumer call recognised by the typia native
+// CallSite describes one typia consumer call recognized by the typia native
 // plugin. The generic ttsc host does not own this shape.
 type CallSite struct {
 	File           *ast.SourceFile

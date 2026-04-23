@@ -53,7 +53,7 @@ func findUnsupportedJSONStringifyShape(schema *metadata.Schema) (string, bool) {
 // representation of the value held in `ve`. Unsupported shapes bubble up an
 // ErrUnsupportedSchema so the caller can skip rather than emit nonsense.
 func buildJsonStringify(ve string, s *metadata.Schema, state *jsonStringifyState) (string, error) {
-	// `any` defers to the runtime — preserves typia v12's behaviour of
+	// `any` defers to the runtime — preserves typia v12's behavior of
 	// letting JSON.stringify do the heavy lifting for unknown shapes.
 	if s.Any {
 		return fmt.Sprintf("JSON.stringify(%s)", ve), nil
@@ -87,7 +87,7 @@ func buildJsonStringify(ve string, s *metadata.Schema, state *jsonStringifyState
 	}
 
 	// Fallback for union / nullable / optional / complex combinations: lean
-	// on JSON.stringify so behaviour stays correct even when the fast path
+	// on JSON.stringify so behavior stays correct even when the fast path
 	// can't apply.
 	return fmt.Sprintf("JSON.stringify(%s)", ve), nil
 }

@@ -5,7 +5,7 @@
 //
 // The API is deliberately shaped to match typia v12: every programmer takes
 // an input expression string (e.g. `input`, `$input.user.name`) and returns
-// a JavaScript boolean expression. The `assert` and `validate` flavours
+// a JavaScript boolean expression. The `assert` and `validate` flavors
 // produce extra path-tracking code using the same shape.
 package emitter
 

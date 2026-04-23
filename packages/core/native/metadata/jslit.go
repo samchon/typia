@@ -1,6 +1,6 @@
 package metadata
 
-// literalName emits a JS-flavoured source form for a constant literal.
+// literalName emits a JS-flavored source form for a constant literal.
 // String values gain surrounding quotes, bigints get the `n` suffix.
 func literalName(k AtomicKind, v any) string {
 	switch k {

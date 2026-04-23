@@ -28,7 +28,7 @@ func TypeName(checker *shimchecker.Checker, t *shimchecker.Type) string {
 }
 
 // intToString avoids importing strconv in a hot path. Not a performance
-// optimisation — keeps dependency surface predictable so the analyzer stays
+// optimization — keeps dependency surface predictable so the analyzer stays
 // easy to reason about.
 func intToString(n int64) string {
 	if n == 0 {

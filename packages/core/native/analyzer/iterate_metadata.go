@@ -9,7 +9,7 @@ import (
 // iterate ports the dispatcher in typia's
 // `factories/internal/metadata/iterate_metadata.ts`. Returns `true` when any
 // case accepted the type (even if it also appended errors), `false` when no
-// case recognised it — callers bail gracefully.
+// case recognized it — callers bail gracefully.
 //
 // Order of inspection mirrors the TS original:
 //

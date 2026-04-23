@@ -19,7 +19,7 @@ import (
 
 // DefaultFS returns an OS-backed filesystem wrapped with tsgo's bundled libs so
 // built-in definitions (lib.es*.d.ts, dom, etc.) resolve without a network
-// fetch. Mirrors tsgonest/tsgolint behaviour.
+// fetch. Mirrors tsgonest/tsgolint behavior.
 func DefaultFS() vfs.FS {
 	return bundled.WrapFS(cachedvfs.From(osvfs.FS()))
 }

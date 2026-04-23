@@ -278,7 +278,7 @@ func nextNonSpaceByte(input string, start int) byte {
 // here are the patterns inside `RegexCall(/.../)` (leading/trailing slashes
 // and trailing flags like `i`, `u`, `gm` stripped so `new RegExp(pattern)`
 // gets the plain body). Flag differences are captured by the `formatFlags`
-// map so emitted tests can replicate typia's behaviour exactly.
+// map so emitted tests can replicate typia's behavior exactly.
 var formatRegexps = map[string]string{
 	"byte":                  `^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$`,
 	"date":                  `^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$`,

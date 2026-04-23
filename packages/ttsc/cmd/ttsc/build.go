@@ -15,7 +15,7 @@ import (
 // runBuild implements `ttsc build`. Two modes:
 //
 //   - default (dry run): analyse, report per-call-site status to stdout.
-//   - --emit: also run tsgo's emit pipeline, patching every recognised native
+//   - --emit: also run tsgo's emit pipeline, patching every recognized native
 //     consumer call in the resulting .js files.
 func runBuild(args []string) int {
 	fs := flag.NewFlagSet("build", flag.ContinueOnError)
@@ -109,7 +109,7 @@ func runBuild(args []string) int {
 	}
 
 	if !*quiet {
-		fmt.Fprintf(stdout, "// ttsc build: recognised=%d total=%d rewrites=%d\n", 0, 0, rewrites.Len())
+		fmt.Fprintf(stdout, "// ttsc build: recognized=%d total=%d rewrites=%d\n", 0, 0, rewrites.Len())
 	}
 	return 0
 }

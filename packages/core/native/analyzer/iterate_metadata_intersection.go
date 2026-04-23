@@ -11,7 +11,7 @@ import (
 )
 
 // iterateIntersection walks each member of an intersection. Members that
-// match typia's brand-type shape (`{ "typia.tag"?: {...} }`) are recognised
+// match typia's brand-type shape (`{ "typia.tag"?: {...} }`) are recognized
 // as tag constraints and attached to matching atomic / array / object
 // buckets instead of leaking through as real object members.
 //

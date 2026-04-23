@@ -37,7 +37,7 @@ func TestTagCheckMinimumMaximum(t *testing.T) {
 
 func TestTagCheckValidateTemplateOverride(t *testing.T) {
 	// When a validate template is present it wins over the numeric fallback
-	// — matches typia v12 behaviour where the generic value is already baked.
+	// — matches typia v12 behavior where the generic value is already baked.
 	tag := metadata.TypeTag{Kind: "minimum", Value: int64(0), Validate: "5 <= $input"}
 	got := tagCheck("input", tag)
 	if got != "5 <= input" {

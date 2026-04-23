@@ -7,7 +7,7 @@ import (
 )
 
 // EmitAssertArrowFunction returns `(input) => <check> ? input : (() => {
-// throw ... })()` — matches the v12 behaviour that `typia.assert<T>(x)` either
+// throw ... })()` — matches the v12 behavior that `typia.assert<T>(x)` either
 // returns `x` typed as `T` or throws. The current native path uses a plain
 // `Error`; the full TypeGuardError with path threading can land later.
 func EmitAssertArrowFunction(schema *metadata.Schema) (string, error) {

@@ -15,7 +15,7 @@ import (
 
 // runTransform implements `ttsc transform` — a single-file transform used by
 // bundler plugin adapters (unplugin, vite, webpack, rollup, esbuild, rspack,
-// farm). Behaviour:
+// farm). Behavior:
 //
 //   - Loads the enclosing tsconfig so tsgo resolves imports and types.
 //   - Runs tsgo Emit, filtering WriteFile so only the requested source

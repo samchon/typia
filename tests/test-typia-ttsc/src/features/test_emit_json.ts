@@ -8,7 +8,7 @@ import { runTtsc } from "../utils/runTtsc";
 /**
  * End-to-end smoke for `typia.json.stringify`, `typia.json.assertParse` and
  * `typia.json.isParse`. Verifies (a) the emit composes tsgo's JSON output
- * inline (no `require("typia")`), (b) the runtime behaviour matches typia v12:
+ * inline (no `require("typia")`), (b) the runtime behavior matches typia v12:
  *
  *   - stringify: output is valid JSON and reversible via JSON.parse
  *   - assertParse: returns the parsed value on success, throws TypeGuardError otherwise

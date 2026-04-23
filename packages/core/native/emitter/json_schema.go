@@ -655,7 +655,7 @@ func expandSchemaCollectionInput(s *metadata.Schema) []*metadata.Schema {
 	return []*metadata.Schema{s}
 }
 
-// applyTagsToAtomic folds typia tags into OpenAPI-flavoured constraints on
+// applyTagsToAtomic folds typia tags into OpenAPI-flavored constraints on
 // the atomic schema map.
 func applyTagsToAtomic(out map[string]any, matrix metadata.TagMatrix) {
 	if len(matrix) == 0 {

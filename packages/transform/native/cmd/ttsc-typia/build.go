@@ -59,10 +59,10 @@ func runBuild(args []string) int {
 
 	rewrites := driver.NewRewriteSet()
 	sites := 0
-	recognised := 0
+	recognized := 0
 	if *rewriteMode == "typia" {
 		var err error
-		sites, recognised, err = collectTypiaRewrites(prog, cwd, *emit, *quiet, "", rewrites)
+		sites, recognized, err = collectTypiaRewrites(prog, cwd, *emit, *quiet, "", rewrites)
 		if err != nil {
 			fmt.Fprintf(stderr, "ttsc-typia build: %v\n", err)
 			return 3
@@ -113,7 +113,7 @@ func runBuild(args []string) int {
 		}
 	}
 	if !*quiet {
-		fmt.Fprintf(stdout, "// ttsc-typia build: recognised=%d total=%d rewrites=%d\n", recognised, sites, rewrites.Len())
+		fmt.Fprintf(stdout, "// ttsc-typia build: recognized=%d total=%d rewrites=%d\n", recognized, sites, rewrites.Len())
 	}
 	return 0
 }
@@ -127,7 +127,7 @@ func collectTypiaRewrites(
 	rewrites *driver.RewriteSet,
 ) (int, int, error) {
 	sites := typiattsc.CollectCallSites(prog.SourceFiles(), prog.Checker)
-	recognised := 0
+	recognized := 0
 	for _, site := range sites {
 		if onlyFile != "" && filepath.ToSlash(site.FilePath) != filepath.ToSlash(onlyFile) {
 			continue
@@ -179,7 +179,7 @@ func collectTypiaRewrites(
 		if !emit && !quiet {
 			fmt.Fprintf(stdout, "%s: typia.%s<T> → %s\n", rel, site.Method, expr)
 		}
-		recognised++
+		recognized++
 	}
-	return len(sites), recognised, nil
+	return len(sites), recognized, nil
 }
