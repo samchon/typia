@@ -12,6 +12,7 @@
     "format": "prettier --write packages/**/*.ts && prettier --write internals/**/*.ts && prettier --write tests/**/*.ts && prettier --write toolchain-tests/**/*.ts",
     "pretest": "pnpm run guard:generated && pnpm run build:toolchain && pnpm run build:native-consumers",
     "test": "pnpm run test:packages && pnpm run test:toolchain",
+    "test:ci": "pnpm run guard:generated && pnpm run build && pnpm run build:native-consumers && pnpm run test:packages && pnpm run test:toolchain",
     "test:packages": "pnpm --filter=./tests/test-* -r --workspace-concurrency=1 start",
     "test:toolchain": "pnpm --filter @typia/ttsc test && pnpm --filter=./toolchain-tests/* -r --workspace-concurrency=1 start",
     "package:latest": "pnpm --filter=./packages/* -r publish --tag latest --access public",
