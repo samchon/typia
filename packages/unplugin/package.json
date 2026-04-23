@@ -117,6 +117,7 @@
     "fs-fixture": "^2.7.1",
     "next": "^16.1.6",
     "publint": "^0.3.12",
+    "rimraf": "catalog:utils",
     "typia": "workspace:^",
     "vite": "^6.2.2",
     "vitest": "^3.0.9"
