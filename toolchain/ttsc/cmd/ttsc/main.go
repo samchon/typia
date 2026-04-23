@@ -39,10 +39,8 @@ func main() {
 }
 
 func run(args []string) int {
-	// No args → print help, same exit status as `--help`.
 	if len(args) == 0 {
-		printHelp(stdout)
-		return 0
+		return runBuild([]string{"--emit"})
 	}
 
 	switch args[0] {
@@ -66,17 +64,16 @@ func run(args []string) int {
 		// stdout or a chosen path — no project-wide write.
 		return runTransform(args[1:])
 	case "-p", "--project":
-		// tsc-compatible alias: `ttsc -p tsconfig.json` / `--project foo`.
-		// Mirrors the tsc CLI so existing scripts work with a one-line swap.
 		if len(args) < 2 {
 			fmt.Fprintln(stderr, "ttsc: -p/--project requires a path argument")
 			return 2
 		}
 		return runBuild(append([]string{"--tsconfig=" + args[1], "--emit"}, args[2:]...))
 	default:
-		fmt.Fprintf(stderr, "ttsc: unknown command %q\n", args[0])
-		fmt.Fprintln(stderr, "Run `ttsc --help` for usage.")
-		return 2
+		if strings.HasPrefix(args[0], "-") {
+			return runBuild(append([]string{"--emit"}, args...))
+		}
+		return runBuild(append([]string{"--emit"}, args...))
 	}
 }
 
@@ -116,6 +113,9 @@ func printHelp(w io.Writer) {
 ttsc — standalone typescript-go host.
 
 Usage:
+  ttsc
+  ttsc [file.ts]
+  ttsc --watch
   ttsc [command] [options]
 
 Commands:
