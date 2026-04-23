@@ -5,7 +5,7 @@ import (
 	"strings"
 )
 
-// computeName synthesises the Name() output of a Schema by joining the names
+// computeName synthesizes the Name() output of a Schema by joining the names
 // of every populated bucket. Matches typia's `getName` / `MetadataSchema.name`
 // implementation — the format is `"(string | number | Member)"` for unions,
 // `"Member"` for a sole reference, and `"unknown"` for an empty schema.

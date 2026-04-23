@@ -91,7 +91,7 @@ func newIsState(equals bool) *isState {
 	}
 }
 
-// wrap materialises hoisted helpers around `body` when recursion was detected.
+// wrap materializes hoisted helpers around `body` when recursion was detected.
 // For non-recursive schemas this is a pass-through, so the common case keeps
 // the compact single-expression shape.
 func (s *isState) wrap(body string) string {

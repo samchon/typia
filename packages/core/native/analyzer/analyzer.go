@@ -37,7 +37,7 @@ import (
 )
 
 // Options mirrors typia's `MetadataFactory.IOptions` — the knobs callers can
-// flip to change analyser behavior (e.g. emit escape variants for Date).
+// flip to change analyze behavior (e.g. emit escape variants for Date).
 type Options struct {
 	// Escape controls whether Date/Uint8Array-style transformations are
 	// extracted into `Escaped`. The default is false.

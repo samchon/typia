@@ -6,7 +6,7 @@ import (
 	"github.com/samchon/typia/packages/core/native/metadata"
 )
 
-// extractTag recognises the typia brand-type shape:
+// extractTag recognizes the typia brand-type shape:
 //
 //	{ "typia.tag"?: { target, kind, value, validate?, exclusive?, schema? } }
 //

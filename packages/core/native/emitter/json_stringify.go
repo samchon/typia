@@ -343,7 +343,7 @@ func jsonLiteral(k metadata.AtomicKind, v any) string {
 	case metadata.AtomicNumber:
 		return numberLiteral(v)
 	case metadata.AtomicBigint:
-		return numberLiteral(v) // bigints serialise as plain numbers for JSON
+		return numberLiteral(v) // bigints serialize as plain numbers for JSON
 	}
 	return "null"
 }

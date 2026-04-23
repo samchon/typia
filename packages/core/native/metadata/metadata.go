@@ -1,5 +1,5 @@
 // Package metadata is ttsc's in-memory representation of TypeScript types
-// after they have been analysed by the engine. It is the Go port of typia's
+// after they have been analyzed by the engine. It is the Go port of typia's
 // `packages/core/src/schemas/metadata/*.ts` module and is the single IR
 // consumed by every code generator in `../emitter`.
 //

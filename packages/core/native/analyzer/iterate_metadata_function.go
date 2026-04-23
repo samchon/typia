@@ -8,7 +8,7 @@ import (
 )
 
 // iterateFunction ports the function/call-signature branch of typia's
-// metadata analyser. It records every callable signature on `t` into the
+// metadata analyze. It records every callable signature on `t` into the
 // schema's Functions bucket so higher-level emitters (llm.controller,
 // json.application, etc.) can inspect parameter and return shapes.
 func (a *Analyzer) iterateFunction(out *metadata.Schema, t *shimchecker.Type) bool {
