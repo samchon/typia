@@ -1,13 +1,6 @@
 # 02. 약점·위험요소 — 정직한 진단
 
-> ⚠️ [09-audit/03-cycle3-feedback-honesty.md](../09-audit/03-cycle3-feedback-honesty.md) 감수 결과: 이 문서의 "정직" 주장은 **AI의 호의적 편향**을 가리는 레토릭. 실제 일부 약점은 축소되거나 프레이밍 편향.
->
-> **주요 정정 사항** (Cycle 4에서 반영):
-> - W1: "방어 가능성" 낙관 → tsgo는 **6~12개월 full-time 리아키텍처 필수**
-> - W1 본문의 `07-strategy` 링크 → **`08-tsgo-master-plan`**으로 갱신
-> - W13 "속도 마케팅" — AI 편향으로 약점화한 것. 실제 사용자 80%가 "faster than zod"로 유입하므로 **강점의 현실적 측면**으로 재해석 가능.
-
-[01-strengths.md](01-strengths.md)와 같은 정직함으로 약점을 본다. 이 절은 비판이 아니라 **방어 가능한 위험을 미리 표면화**하는 것이 목적이다.
+[01-strengths.md](01-strengths.md)와 짝이 되는 문서다. 목적은 위험을 미리 표면화하고, 개선 우선순위를 분명히 하는 것이다.
 
 ## W1. tsgo 종속 위험 (생존 차원)
 
@@ -21,18 +14,16 @@
 
 **핵심 위험**: TS 7.0이 stable 되고 사용자가 이주하기 시작하면 typia는 (지금 형태로는) 새 사용자를 받을 수 없다.
 
-**방어 가능성** (정정): 이전 버전은 "P3·P4 원칙 덕에 core IR은 살아남는다"라고 낙관했으나, 사용자가 이후 **ttsc+typia-go 통합 Go 포팅**으로 확정. 단순 어댑터 교체가 아닌 **18~24개월 Go 재구현** 필요.
+**핵심 판단**: 단순 어댑터 교체가 아니라 **18~24개월급 Go 재구현**이 필요하다.
 
 → 최신 단일 진실원: [08-tsgo-master-plan/](../08-tsgo-master-plan/).
 
-## W2. Standard Schema ~~미지원~~ 부분 구현 / 미홍보 (생태계 차원)
+## W2. Standard Schema 부분 구현 / 미홍보 (생태계 차원)
 
-> ⚠️ **v2 재실측 정정 (2026-04-18 Cycle 2)**: wiki 초기 "미구현" 주장은 **틀렸음**. 실제로는 **이미 부분 구현**되어 있다.
-> - `packages/typia/src/internal/_createStandardSchema.ts` (134 LOC) 존재
-> - `@standard-schema/spec` 실제 dep
-> - `typia.createValidate<T>()` / `createValidateEquals<T>()`가 이미 `~standard` 프로퍼티 자동 주입
-> - `CallExpressionTransformer`에 `standardSchema: true` 플래그 이미 라우팅
-> - `ValidateProgrammer.IConfig.standardSchema?: boolean` 이미 존재
+현재는 이미 부분 구현되어 있다.
+- `packages/typia/src/internal/_createStandardSchema.ts`
+- `typia.createValidate<T>()` / `createValidateEquals<T>()` 의 `~standard`
+- transformer / programmer 경로의 `standardSchema` 옵션 배선
 
 **시급**. [05-research/02-competitors.md](../05-research/02-competitors.md):
 - Zod, Valibot, ArkType, Effect Schema, TypeBox 모두 `~standard` 인터페이스 구현
@@ -44,14 +35,14 @@ typia는 **이미 부분 구현 완료**이나:
 - `createValidate` / `createValidateEquals`만 지원 — `createIs` / `createAssert` 등 다른 factory는 확장 여지
 - MCP / AI SDK / LangChain / Hono 통합 예제 부족
 
-→ **1주 이내 문서화·홍보 + 2~3주 전면 확장**. 신규 개발이 아니라 노출 작업이 핵심.
+→ **문서화·홍보 + 나머지 factory 확장**이 핵심이다.
 
 ## W3. Setup 마찰 (신규 사용자 차원)
 
 이 약점은 typia의 사상이 가진 **구조적 비용**이다.
 
 신규 사용자가 typia를 시도하려면:
-1. `npx typia setup` 또는 수동으로 `@typescript/native-preview` + `@typia/ttsc` + `@typia/ttsc/plugin/typia` 배선
+1. `npx typia setup` 또는 수동으로 `@typescript/native-preview` + `@typia/ttsc` + `typia/lib/ttsc/plugin` 배선
 2. 번들러 환경이면 `@typia/unplugin` 과 기본 `ttsc` 경로 중 어느 쪽을 쓸지 결정
 3. IDE TypeScript Service가 transformer 결과를 직접 보여주지 않음 → 에러 메시지가 빌드 시에만 보이기 쉬움
 4. `ts-node` / `tsx` 류 실행이 필요하면 `@typia/ttsx` 같은 runner를 추가로 이해해야 함

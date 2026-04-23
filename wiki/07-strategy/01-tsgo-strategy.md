@@ -1,6 +1,6 @@
 # 01. tsgo 대응 전략 — ttsc 중심축 (v2 전면 재작성)
 
-> ⚠️ **역사 문서 (Archived)** — 이 파일은 2026-04-18 초기 분석의 작업 이력. 현재 진실원은 [08-tsgo-master-plan/](../08-tsgo-master-plan/) + [10-ecosystem/](../10-ecosystem/). 내용이 현재 결정과 충돌하면 08 · 10 우선.
+> 보존용 참고 문서. 현재 기준은 [08-tsgo-master-plan/](../08-tsgo-master-plan/) + [10-ecosystem/](../10-ecosystem/).
 
 
 > v1 (초안)에서 제안한 "Generate 모드 1급 시민화"는 **철회**. 해당 접근은 사상 양보(사용자 API 변화)였다.
@@ -16,7 +16,7 @@
 | 핵심 자산 | typia의 P3·P4 원칙(public API only + import 경로 기반 식별), MetadataSchema 자체 IR. **core 80%가 tsgo와 무관하게 살아남음** |
 | 해답 | **ttsc** — tsgo Go 소스의 minimal fork + hook-only patch + Node IPC bridge. **Effect-TS/tsgo가 증명한 패턴**을 typia용으로 축소 |
 | 사상 양보 | **0**. 사용자 API, tsconfig plugins 스키마, typia 내부 코드 모두 불변 |
-| 비용 | 12 person-months (Phase 0~4). 매 tsgo release당 ~10분 patch rebase |
+| 비용 | 12 person-months (Stage 0~4). 매 tsgo release당 ~10분 patch rebase |
 | 병행 | TS 6.x LTS 경로는 기존 ts-patch (samchon fork)로 2028 말까지 유지 |
 
 ## 왜 "기다리기 / Generate 모드 / Zod 피벗"은 답이 아닌가
@@ -40,14 +40,14 @@
 
 **목표**: 기존 사용자 안정 운영.
 
-- 기존 ts-patch 또는 samchon의 ts-patch fork(`/mnt/d/github/contributions/ts-patch-typescript-6.0`)로 계속 동작
+- 기존 ts-patch 또는 samchon의 TS 6.x 호환 fork(`ts-patch-typescript-6.0`)로 계속 동작
 - 2026~2027: 보안 패치 + 버그 수정만
 - 2027 말 공지: "TS 6.x 지원 2028 말 종료"
 - 2028 말 종료
 
 **비용**: 운영 부담만, 신규 개발 0.
 
-### Track 2. **ttsc 개발** (Phase 0~4, 12개월)
+### Track 2. **ttsc 개발** (Stage 0~4, 12개월)
 
 **목표**: tsgo 시대에 typia 사상을 지키는 기반 인프라.
 
@@ -89,7 +89,7 @@
 | 리스크 | 가능성 | 영향 | 완화 |
 |---|---|---|---|
 | tsgo upstream 대규모 리팩토링 | 중 | 큼 | hook-only patch, CI smoke |
-| Node ↔ Go IPC 오버헤드 | 중 | 큼 | batch API, 캐시, Phase 3 최적화 |
+| Node ↔ Go IPC 오버헤드 | 중 | 큼 | batch API, 캐시, Stage 3 최적화 |
 | Microsoft 공식 API 조기 출시 | 낮 | 중 | ttsc facade라 수용 가능 |
 | samchon 1인 번아웃 | 중 | 매우 큼 | Effect 자동화 재사용 + 조력자 + 재정 |
 | 사용자 ttsc 채택 저조 | 낮 | 중 | typia setup 자동, ts-patch와 공존 |
@@ -130,14 +130,14 @@
 - [ ] ttsc 이름/네임스페이스 확보 (npm `ttsc`, `@typia/ttsc` 중 결정)
 - [ ] 공식 입장문 초안 작성 ([04-ttsc-design/00-README.md](04-ttsc-design/00-README.md) 기반)
 
-### 이번 달 (Phase 0 spike)
+### 이번 달 (Stage 0 spike)
 - [ ] Effect-TS/tsgo의 `flake.nix`, `setup-repo.sh`, `gen_shims` 분석 완료 (이미 wiki에 정리됨)
-- [ ] `/mnt/d/github/contributions/typescript-go`에 10-line patch로 "hello from ttsc" 주입 실험
+- [ ] `typescript-go`에 10-line patch로 "hello from ttsc" 주입 실험
 - [ ] Node ↔ Go MessagePack echo 실험
 - [ ] 기술 go/no-go 결정
 
 ### 2026 Q2
-- [ ] Phase 1 착수 (저장소 개설, 최소 patch set, 바이너리 빌드)
+- [ ] Stage 1 착수 (저장소 개설, 최소 patch set, 바이너리 빌드)
 - [ ] 공식 발표
 - [ ] A1 Standard Schema 어댑터 (ttsc와 병행, [06-feedback/03-improvement-proposals.md](../06-feedback/03-improvement-proposals.md))
 

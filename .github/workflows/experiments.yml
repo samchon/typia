@@ -3,8 +3,15 @@ on:
   pull_request:
     paths:
       - '.github/workflows/experiments.yml'
+      - 'packages/*/native/**'
       - 'packages/*/src/**'
       - 'packages/*/package.json'
+      - 'toolchain/*/cmd/**'
+      - 'toolchain/*/*.go'
+      - 'toolchain/*/go.mod'
+      - 'toolchain/*/go.sum'
+      - 'toolchain/*/src/**'
+      - 'toolchain/*/package.json'
       - 'experiments/**'
       - 'package.json'
       - 'pnpm-lock.yaml'

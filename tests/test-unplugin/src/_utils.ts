@@ -19,7 +19,9 @@ export async function readFixture(id: string): Promise<string> {
 }
 
 export async function getFixtureIDs(): Promise<string[]> {
-	const ids = await $`ls ${root}`.lines().then(lines => lines.filter(line => line.endsWith('.ts')));
+	const ids = await $`ls ${root}`.lines().then(
+		lines => lines.filter(line => line.endsWith('.ts') && !line.endsWith('.d.ts')),
+	);
 	return ids;
 }
 

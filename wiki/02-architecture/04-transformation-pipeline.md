@@ -8,7 +8,7 @@ typia transformer는 현재 두 가지 진입 경로가 있다. 하나는 기본
 [사용자] typia setup / ttsc build
    ↓
 [ttsc] tsconfig.json의 plugins[].transform 읽음
-   ↓ "@typia/ttsc/plugin/typia" resolve
+   ↓ "typia/lib/ttsc/plugin" resolve
 [ttsc host] built-in typia plugin 로드
    ↓ native rewrite + JS plugin host 조합
 [ttsc] 각 SourceFile에 rewrite / transform 적용
@@ -20,13 +20,13 @@ typia transformer는 현재 두 가지 진입 경로가 있다. 하나는 기본
 
 1. `npm i typia`
 2. `npm i -D @typescript/native-preview @typia/ttsc`
-3. `tsconfig.json.compilerOptions.plugins += [{ transform: "@typia/ttsc/plugin/typia" }]`
+3. `tsconfig.json.compilerOptions.plugins += [{ transform: "typia/lib/ttsc/plugin" }]`
 4. `strict` / `strictNullChecks` / `skipLibCheck` 정리
 5. `ttsc build --emit --tsconfig tsconfig.json`
 
 참고:
 - `typia/lib/transform` 는 아직 compatibility alias 로 남아 있어 기존 경로를 즉시 깨뜨리지는 않는다.
-- 하지만 현재 문서와 setup wizard 기준의 **기본 경로**는 `@typia/ttsc/plugin/typia` 다.
+- 하지만 현재 문서와 setup wizard 기준의 **기본 경로**는 `typia/lib/ttsc/plugin` 이다.
 
 ### 장점
 - `ts-patch install` / `prepare` 없이 기본 경로가 동작한다

@@ -5,7 +5,7 @@
   "description": "Benchmark program of typia performance",
   "main": "bin/index.js",
   "scripts": {
-    "build": "rimraf bin && ttsc build --emit --quiet --tsconfig=tsconfig.json",
+    "build": "rimraf bin && ttsc build",
     "prettier": "prettier ./src/**/*.ts --write",
     "start": "node bin",
     "start:bun": "bun bin/bun.js",
@@ -28,6 +28,7 @@
   "devDependencies": {
     "@typia/ttsx": "workspace:^",
     "@typia/ttsc": "workspace:^",
+    "@typescript/native-preview": "catalog:typescript",
     "@fastify/type-provider-typebox": "^3.5.0",
     "@sinclair/typebox": "^0.31.17",
     "@trivago/prettier-plugin-sort-imports": "^3.3.0",
@@ -55,7 +56,7 @@
     "physical-cpu-count": "^2.0.0",
     "prettier": "^2.6.2",
     "reflect-metadata": "^0.1.13",
-    "rimraf": "^3.0.2",
+    "rimraf": "catalog:utils",
     "source-map-support": "^0.5.21",
     "suppress-warnings": "^1.0.2",
     "tgrid": "^0.10.0",

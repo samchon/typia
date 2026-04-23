@@ -1,5 +1,7 @@
-import { TypiaGenerator } from "@typia/transform";
 import fs from "fs";
+import path from "path";
+
+import { transform } from "@typia/ttsc";
 
 import { ArgumentParser } from "./setup/ArgumentParser";
 import { PackageManager } from "./setup/PackageManager";
@@ -13,7 +15,7 @@ export namespace TypiaGenerateWizard {
     // LOAD PACKAGE.JSON INFO
     const pack: PackageManager = await PackageManager.mount();
     const options: IArguments = await ArgumentParser.parse(pack, inquiry);
-    await TypiaGenerator.build(options);
+    await build(options);
   }
 
   const inquiry: ArgumentParser.Inquiry<IArguments> = async (
@@ -79,4 +81,91 @@ export namespace TypiaGenerateWizard {
     output: string;
     project: string;
   }
+
+  async function build(location: IArguments): Promise<void> {
+    location.input = path.resolve(location.input);
+    location.output = path.resolve(location.output);
+    location.project = path.resolve(location.project);
+
+    if ((await isDirectory(location.input)) === false) {
+      throw new URIError(
+        "Error on TypiaGenerateWizard.generate(): input path is not a directory.",
+      );
+    } else if (fs.existsSync(location.output) === false) {
+      await fs.promises.mkdir(location.output, { recursive: true });
+    } else if ((await isDirectory(location.output)) === false) {
+      const parent: string = path.join(location.output, "..");
+      if ((await isDirectory(parent)) === false) {
+        throw new URIError(
+          "Error on TypiaGenerateWizard.generate(): output path is not a directory.",
+        );
+      }
+      await fs.promises.mkdir(location.output);
+    }
+
+    const files: string[] = [];
+    await gather({
+      location,
+      container: files,
+      from: location.input,
+      to: location.output,
+    });
+
+    const cwd = path.dirname(location.project);
+    for (const file of files) {
+      const relative = path.relative(location.input, file);
+      const target = path.join(location.output, relative);
+      const output = transform({
+        cwd,
+        file,
+        tsconfig: location.project,
+        plugins: [{ transform: "typia/lib/ttsc/plugin" }],
+        rewriteMode: "typia",
+      });
+      await fs.promises.mkdir(path.dirname(target), { recursive: true });
+      await fs.promises.writeFile(target, output, "utf8");
+    }
+  }
+
+  async function isDirectory(current: string): Promise<boolean> {
+    const stat: fs.Stats = await fs.promises.stat(current);
+    return stat.isDirectory();
+  }
+
+  async function gather(props: {
+    location: IArguments;
+    container: string[];
+    from: string;
+    to: string;
+  }): Promise<void> {
+    if (props.from === props.location.output) return;
+    if (fs.existsSync(props.to) === false) {
+      await fs.promises.mkdir(props.to);
+    }
+
+    for (const file of await fs.promises.readdir(props.from)) {
+      const next: string = path.join(props.from, file);
+      const stat: fs.Stats = await fs.promises.stat(next);
+
+      if (stat.isDirectory()) {
+        await gather({
+          location: props.location,
+          container: props.container,
+          from: next,
+          to: path.join(props.to, file),
+        });
+        continue;
+      }
+      if (isSupportedExtension(file)) {
+        props.container.push(next);
+      }
+    }
+  }
+
+  function isSupportedExtension(filename: string): boolean {
+    return TS_PATTERN.test(filename) && !DTS_PATTERN.test(filename);
+  }
 }
+
+const TS_PATTERN = /\.[cm]?tsx?$/;
+const DTS_PATTERN = /\.d\.[cm]?tsx?$/;

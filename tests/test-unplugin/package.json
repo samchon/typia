@@ -15,6 +15,7 @@
     "test": "vitest"
   },
   "devDependencies": {
+    "@typescript/native-preview": "catalog:typescript",
     "@vue-macros/test-utils": "^1.7.1",
     "dax-sh": "^0.42.0",
     "esbuild": "^0.25.5",

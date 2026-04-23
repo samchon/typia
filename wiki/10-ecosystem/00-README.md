@@ -1,6 +1,6 @@
 # 10. Ecosystem — typia · nestia · agentica · autobe (세트)
 
-> samchon이 직접 개발·관리하는 **4 프로젝트의 피라미드 구조**. typia의 tsgo 전환은 이 세트 전체를 함께 움직인다.
+typia를 중심으로 연결된 4개 프로젝트를 다룬다.
 
 ## 이 폴더의 구성
 
@@ -32,12 +32,12 @@ Layer 0 — 컴파일러
   typescript-go (Microsoft)
 ```
 
-## 왜 한 세트인가
+## 왜 같이 보나
 
-- **기술적**: 모두 `tsconfig.json plugins`에 typia transformer를 필요로 함. nestia는 독자 transformer도 추가.
-- **배포적**: pnpm workspace, 동일 release 라이프사이클, typia → ttsc 전환면을 함께 추적
-- **사상적**: "Pure TypeScript, 타입에서 모든 것" 원칙의 4단계 계층 확장
-- **운영적**: samchon 한 사람이 전체 관리, autobe는 wrtnlabs 팀까지
+- typia가 공통 기반이다.
+- nestia는 transformer와 schema를 직접 소비한다.
+- agentica와 autobe는 typia의 LLM 경계를 소비한다.
+- tsgo 전환 영향이 네 프로젝트에 연결된다.
 
 ## tsgo 전환의 함의
 

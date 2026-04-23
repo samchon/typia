@@ -1,9 +1,9 @@
 # Prior Art 6 — oxc-project/tsgolint
 
-> ⚠️ **역사 문서 (Archived)** — 이 파일은 2026-04-18 초기 분석의 작업 이력. 현재 진실원은 [08-tsgo-master-plan/](../../../08-tsgo-master-plan/) + [10-ecosystem/](../../../10-ecosystem/). 내용이 현재 결정과 충돌하면 08 · 10 우선.
+> 보존용 참고 문서. 현재 기준은 [08-tsgo-master-plan/](../../../08-tsgo-master-plan/) + [10-ecosystem/](../../../10-ecosystem/).
 
 
-> 분석 대상: `/mnt/d/github/contributions/tsgolint`
+> 분석 대상: `samchon/tsgolint`
 > 중요도: ★★★★★★ (★ 6개). ttsc 아키텍처의 **결정적 발견**. Effect-TS의 patch 방식과 완전히 다른 대안 — `go:linkname` shim만으로 tsgo internal API를 patch 없이 접근.
 
 ## 한 줄 요약

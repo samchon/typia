@@ -1,9 +1,9 @@
 # Prior Art 5 — unplugin-typia (ryoppippi/unplugin-typia)
 
-> ⚠️ **역사 문서 (Archived)** — 이 파일은 2026-04-18 초기 분석의 작업 이력. 현재 진실원은 [08-tsgo-master-plan/](../../../08-tsgo-master-plan/) + [10-ecosystem/](../../../10-ecosystem/). 내용이 현재 결정과 충돌하면 08 · 10 우선.
+> 보존용 참고 문서. 현재 기준은 [08-tsgo-master-plan/](../../../08-tsgo-master-plan/) + [10-ecosystem/](../../../10-ecosystem/).
 
 
-> 분석 대상: `/mnt/d/github/contributions/unplugin-typia` (ryoppippi이 만들다가 typia 공식으로 흡수된 것)
+> 분석 대상: `ryoppippi/unplugin-typia`
 > 중요도: ★★★★ — 번들러 통합 경로의 참조. ts-patch 우회 사례.
 
 ## ryoppippi/unplugin-typia ↔ @typia/unplugin 관계

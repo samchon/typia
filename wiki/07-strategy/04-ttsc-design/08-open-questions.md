@@ -1,6 +1,6 @@
 # 08. Open Questions — 의사결정이 필요한 지점들
 
-> ⚠️ **역사 문서 (Archived)** — 이 파일은 2026-04-18 초기 분석의 작업 이력. 현재 진실원은 [08-tsgo-master-plan/](../../08-tsgo-master-plan/) + [10-ecosystem/](../../10-ecosystem/). 내용이 현재 결정과 충돌하면 08 · 10 우선.
+> 보존용 참고 문서. 현재 기준은 [08-tsgo-master-plan/](../../08-tsgo-master-plan/) + [10-ecosystem/](../../10-ecosystem/).
 
 
 아래 질문들은 **ttsc 착수 전 또는 Phase 1 초기에 samchon이 선택해야 할 핵심 분기점들**. 각각에 대한 추천과 근거를 적었다.
@@ -8,8 +8,8 @@
 ## Q1. ttsc를 typia 모노레포에 둘 것인가, 별도 저장소인가
 
 **옵션**:
-- (A) `/mnt/d/github/samchon/typia/packages/ttsc/` 내부
-- (B) `/mnt/d/github/samchon/ttsc/` 별도 저장소
+- (A) typia monorepo `packages/ttsc/` 내부
+- (B) standalone `ttsc` 저장소
 
 **추천**: **B (별도 저장소)**
 

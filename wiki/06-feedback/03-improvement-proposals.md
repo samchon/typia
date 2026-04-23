@@ -1,25 +1,17 @@
 # 03. 구체적 개선 제안 — Action Items 모음
 
-> ⚠️ [09-audit/03-cycle3-feedback-honesty.md](../09-audit/03-cycle3-feedback-honesty.md) 감수 결과 주요 정정:
-> - **A1 Standard Schema 어댑터 "1주"** → 실제 **2~3주** (type inference, factory 연결, test 반복).
-> - **A3 "typia init 한 줄"** → `npx typia setup`이 이미 존재. 실제 작업은 **문서·UX 개선 2~3일** 수준.
-> - **A8 거대 파일 리팩토링 "1~2개월"** → snapshot test 선행 포함 시 **2~3개월 현실**.
-> - 우선순위 매트릭스에 **의존성 DAG** 누락 (A5 → A8 블로킹 등). 자체 재검토 필요.
-
 [02-weaknesses.md](02-weaknesses.md)의 13개 약점을 **실행 가능한 작업 단위**로 변환. 각 항목에 (우선순위 / 작업량 / 영향) 표기.
 
 ---
 
-## A1. Standard Schema ~~어댑터 출시~~ 문서화·확장 — **최우선**
+## A1. Standard Schema 문서화·확장 — **최우선**
 
-> ⚠️ **v2 재실측 정정 (2026-04-18 Cycle 2)**: `createValidate` / `createValidateEquals`는 **이미 `~standard` 주입 구현 완료**. 신규 개발이 아니라 **(1) 공식 문서화, (2) 다른 factory로 확장, (3) MCP/AI SDK 통합 예제 작성**이 실제 작업.
-
-**우선 / 1주 문서화 + 2-3주 확장 / 영향 매우 큼**
+**우선 / 문서화 후 확장 / 영향 매우 큼**
 
 ### 무엇을
-이미 구현된 Standard Schema 지원을 공식 노출하고, 다른 factory 함수까지 확장.
+이미 구현된 Standard Schema 지원을 공식 노출하고, 다른 factory 함수까지 확장한다.
 
-**이미 구현된 것** (`packages/typia/src/internal/_createStandardSchema.ts`):
+**이미 구현된 것**:
 - `typia.createValidate<T>()` → `~standard` 자동 주입
 - `typia.createValidateEquals<T>()` → 동일
 - path 파서 (`typiaPathToStandardSchemaPath`) 내장
@@ -82,12 +74,12 @@ validate["~standard"] = {
 
 ---
 
-## A3. Setup 마찰 자동화 — **높**
+## A3. Setup 마찰 완화 — **높**
 
 **높 / 1~2주 / 영향 큼**
 
 ### 무엇을
-1. `npx typia setup` 한 명령으로 `@typescript/native-preview` + `@typia/ttsc` + `@typia/ttsc/plugin/typia` + IDE 권장 설정까지
+1. `npx typia setup` 경로를 더 짧고 명확하게 정리
 2. 신규 사용자 가이드 첫 문단에 "왜 transformer가 필요한가"를 솔직히 설명 + 그 비용으로 얻는 것을 즉시 시각화
 3. `vite-create`/`create-next-app` template (typia 옵션 포함)
 

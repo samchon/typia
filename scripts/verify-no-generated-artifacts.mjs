@@ -4,6 +4,8 @@ const generatedDirectories = [
   /^packages\/[^/]+\/lib\//,
   /^packages\/[^/]+\/dist\//,
   /^tests\/[^/]+\/bin\//,
+  /^packages\/[^/]+\/src\/.*\.(?:js|d\.ts|js\.map)$/,
+  /^tests\/[^/]+\/src\/.*\.(?:js|d\.ts|js\.map)$/,
 ];
 
 const listUntrackedFiles = () => {

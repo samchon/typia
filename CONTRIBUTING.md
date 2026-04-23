@@ -86,8 +86,8 @@ pnpm run test
 
 If you touch one of these areas, run its local path too:
 
-- `packages/ttsc`: `pnpm --filter @typia/ttsc test`
-- `tests/test-typia-ttsc`: `pnpm --filter @typia/test-typia-ttsc test`
+- `toolchain/ttsc`: `pnpm --filter @typia/ttsc test`
+- `toolchain-tests/test-typia-ttsc`: `pnpm --filter @typia/test-typia-ttsc test`
 - `tests/test-unplugin`: `pnpm --filter @typia/test-unplugin start`
 - `website`: `cd website && npm install && npm run build`
 - tarball-dependent flows: `pnpm run package:tgz`
@@ -102,7 +102,7 @@ Start from the package closest to the behavior you are changing:
 - runtime/shared typing surfaces: `packages/interface`, `packages/utils`
 - adapter integrations: `packages/langchain`, `packages/mcp`, `packages/vercel`
 - bundler path: `packages/unplugin`
-- experimental tsgo spike: `packages/ttsc`
+- experimental tsgo spike: `toolchain/ttsc`
 
 ## Documentation And Strategy
 

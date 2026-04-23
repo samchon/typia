@@ -27,6 +27,10 @@ function removeRslibPrefix(id: string) {
   return id;
 }
 
+function isDeclarationFile(id: string): boolean {
+  return id.endsWith(".d.ts") || id.endsWith(".d.mts") || id.endsWith(".d.cts");
+}
+
 /** Create a filter function from the given include and exclude patterns. */
 function createFilter(
   include: Options["include"],
@@ -202,6 +206,9 @@ const unpluginFactory: UnpluginFactory<Options | undefined, false> = (
 
     transformInclude(id) {
       const _id = removeRslibPrefix(id);
+      if (isDeclarationFile(_id)) {
+        return false;
+      }
       return filter(_id);
     },
 
@@ -210,6 +217,10 @@ const unpluginFactory: UnpluginFactory<Options | undefined, false> = (
       const resolvedId = resolve(_id);
       const removeRslibPrefixId = removeRslibPrefix(resolvedId);
       const id = wrap<ID>(removeRslibPrefixId);
+
+      if (isDeclarationFile(id)) {
+        return;
+      }
 
       /** Skip if source does not include typia */
       if (!source.includes("typia")) {

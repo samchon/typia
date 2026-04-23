@@ -26,10 +26,10 @@ jobs:
           node-version: 24.x
       - uses: pnpm/action-setup@v2
 
-      - name: Root
-        run: |
-          pnpm install
-          pnpm run package:tgz
+      # - name: Root
+      #   run: |
+      #     pnpm install
+      #     pnpm run package:tgz
 
       - name: Build
         working-directory: website

@@ -46,6 +46,6 @@
 
 ## 결론
 
-현 의사결정 문서는 **"이미 결정된 D를 매트릭스로 정당화"**하는 형태. 진정한 결정은 **Phase 0 spike + 6개월 go/no-go + 12개월 commit**의 단계적 실행.
+현 의사결정 문서는 **"이미 결정된 D를 매트릭스로 정당화"**하는 형태. 진정한 결정은 **Stage 0 spike + 6개월 go/no-go + 12개월 commit**의 단계적 실행.
 
 master plan의 05-recommended-path와 10-success-criteria는 이 재구조화를 수용.

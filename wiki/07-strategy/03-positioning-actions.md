@@ -1,6 +1,6 @@
 # 03. 포지셔닝 & 메시징 액션
 
-> ⚠️ **역사 문서 (Archived)** — 이 파일은 2026-04-18 초기 분석의 작업 이력. 현재 진실원은 [08-tsgo-master-plan/](../08-tsgo-master-plan/) + [10-ecosystem/](../10-ecosystem/). 내용이 현재 결정과 충돌하면 08 · 10 우선.
+> 보존용 참고 문서. 현재 기준은 [08-tsgo-master-plan/](../08-tsgo-master-plan/) + [10-ecosystem/](../10-ecosystem/).
 
 
 전략은 코드만이 아니라 **메시지**가 함께 움직여야 한다. typia가 다음 1~2년 외부에 어떻게 비춰져야 할지의 액션 아이템.

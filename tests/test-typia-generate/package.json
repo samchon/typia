@@ -25,7 +25,7 @@
   "devDependencies": {
     "@typia/ttsc": "workspace:^",
     "@typia/ttsx": "workspace:^",
-    "@typescript/native-preview": "catalog:tsgo",
+    "@typescript/native-preview": "catalog:typescript",
     "rimraf": "catalog:utils"
   },
   "dependencies": {

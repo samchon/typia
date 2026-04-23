@@ -14,10 +14,16 @@
   "author": "Jeongho Nam",
   "license": "MIT",
   "dependencies": {
+    "@typia/core": "../tarballs/core.tgz",
+    "@typia/interface": "../tarballs/interface.tgz",
+    "@typia/transform": "../tarballs/transform.tgz",
+    "@typia/ttsc": "../tarballs/ttsc.tgz",
     "@typia/unplugin": "../tarballs/unplugin.tgz",
+    "@typia/utils": "../tarballs/utils.tgz",
     "typia": "../tarballs/typia.tgz"
   },
   "devDependencies": {
+    "@typescript/native-preview": "7.0.0-dev.20260421.2",
     "typescript": "^5.9.3",
     "vitest": "^3.0.9"
   }

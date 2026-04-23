@@ -1,6 +1,6 @@
 # 07. 리스크와 대안
 
-> ⚠️ **역사 문서 (Archived)** — 이 파일은 2026-04-18 초기 분석의 작업 이력. 현재 진실원은 [08-tsgo-master-plan/](../../08-tsgo-master-plan/) + [10-ecosystem/](../../10-ecosystem/). 내용이 현재 결정과 충돌하면 08 · 10 우선.
+> 보존용 참고 문서. 현재 기준은 [08-tsgo-master-plan/](../../08-tsgo-master-plan/) + [10-ecosystem/](../../10-ecosystem/).
 
 
 ## 8대 리스크 매트릭스
@@ -86,7 +86,7 @@ IPC가 심각하게 느려서 회복 불가한 경우:
 
 ## 대안 4. ts-patch의 fork만 유지 (samchon의 ts-patch)
 
-`/mnt/d/github/contributions/ts-patch-typescript-6.0`이 이미 존재. 이건 **TS 6.x LTS 잔존용**으로만 가치. tsgo 시대에는 쓸 수 없음.
+`ts-patch-typescript-6.0` fork는 **TS 6.x LTS 잔존용**으로만 가치가 있다. tsgo 시대의 해법은 아니다.
 
 → **ttsc 개발과 병행** 가능. ts-patch fork로 TS 6.x 호환을 유지하면서 ttsc로 미래 대비.
 

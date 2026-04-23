@@ -14,11 +14,11 @@
   "homepage": "https://typia.io",
   "devDependencies": {
     "@autobe/interface": "latest",
-    "@typia/interface": "../../experiments/tarballs/interface.tgz",
-    "@typia/utils": "../../experiments/tarballs/utils.tgz",
-    "@typia/mcp": "../../experiments/tarballs/mcp.tgz",
-    "@typia/vercel": "../../experiments/tarballs/vercel.tgz",
-    "@typia/langchain": "../../experiments/tarballs/langchain.tgz",
-    "typia": "../../experiments/tarballs/typia.tgz"
+    "@typia/interface": "^12.0.2",
+    "@typia/utils": "^12.0.2",
+    "@typia/mcp": "^12.0.2",
+    "@typia/vercel": "^12.0.2",
+    "@typia/langchain": "^12.0.2",
+    "typia": "^12.0.2"
   }
 }

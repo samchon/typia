@@ -1,6 +1,6 @@
-# 03. AutoBE — vibe coding의 실증 (Agent 실측 기반 v2)
+# 03. AutoBE — vibe coding의 실증
 
-> `/mnt/d/github/wrtnlabs/autobe@private` (Wrtn Technologies + samchon, AGPL-3.0 오픈 코어).
+> `wrtnlabs/autobe`, AGPL-3.0 오픈 코어.
 
 ## 한 줄 정의
 

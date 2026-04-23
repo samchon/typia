@@ -1,6 +1,7 @@
 import { StandardSchemaV1 } from "@standard-schema/spec";
 import { TestStructure } from "@typia/template";
-import typia from "typia";
+
+import { assertStandardSchemaIssueResult } from "./_assert_validation";
 
 export const _test_standardSchema_validate =
   (name: string) =>
@@ -31,7 +32,7 @@ export const _test_standardSchema_validate =
           `Bug on typia.createValidate["~standard"].validate(): failed to detect error on the ${name} type.`,
         );
 
-      typia.assertEquals(valid);
+      assertStandardSchemaIssueResult(valid);
       expected.sort();
       const issues = [...valid.issues];
 

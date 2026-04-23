@@ -7,12 +7,12 @@ export const test_json_schema_type_checker_cover_array = (): void => {
   const app: IJsonSchemaCollection =
     typia.json.schemas<[Plan2D, Plan3D, Box2D, Box3D]>();
   const components: OpenApi.IComponents = app.components;
-
-  const plan2D: OpenApi.IJsonSchema = components.schemas!.Plan2D!;
-  const plan3D: OpenApi.IJsonSchema = components.schemas!.Plan3D!;
-
-  const box2D: OpenApi.IJsonSchema = components.schemas!.Box2D!;
-  const box3D: OpenApi.IJsonSchema = components.schemas!.Box3D!;
+  const [plan2D, plan3D, box2D, box3D] = app.schemas as [
+    OpenApi.IJsonSchema,
+    OpenApi.IJsonSchema,
+    OpenApi.IJsonSchema,
+    OpenApi.IJsonSchema,
+  ];
 
   TestValidator.equals(
     "Plan3D[] covers Plan2D[]",

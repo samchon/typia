@@ -1,9 +1,20 @@
 # Prior Art (선행 연구)
 
-> ⚠️ **역사 문서 (Archived)** — 이 파일은 2026-04-18 초기 분석의 작업 이력. 현재 진실원은 [08-tsgo-master-plan/](../../../08-tsgo-master-plan/) + [10-ecosystem/](../../../10-ecosystem/). 내용이 현재 결정과 충돌하면 08 · 10 우선.
+> 보존용 참고 문서. 현재 기준은 [08-tsgo-master-plan/](../../../08-tsgo-master-plan/) + [10-ecosystem/](../../../10-ecosystem/).
 
 
-ttsc 설계에 앞서 5개 저장소를 `/mnt/d/github/contributions`에 clone하여 line-by-line 정밀 분석한 결과.
+ttsc 설계에 앞서 line-by-line 정밀 분석한 결과.
+
+분석 대상 저장소:
+
+- `ts-patch`
+- `tsgolint`
+- `tsgonest`
+- `typescript-go`
+- `typical`
+
+- `tsgolint/typescript-go/`, `tsgonest/typescript-go/`처럼 **repo 내부에 vendored/pinned `typescript-go` 트리**가 포함된 사례도 있다.
+- 따라서 prior art는 top-level repo와 embedded `typescript-go` tree를 함께 읽어야 한다.
 
 ## 읽기 순서 (8편)
 
@@ -59,4 +70,4 @@ prior art 8편을 기법으로 분류하면 **3가지 근본 모델**로 수렴:
 | IPC 오버헤드 | 있음 | 없음 |
 | tsgonest 대비 위치 | 보조적 | **정면 대응** |
 
-→ 결정은 Cycle 4-5에서 확정.
+→ 이후 결정 문서는 08 폴더에서 읽는다.

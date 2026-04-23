@@ -4,6 +4,8 @@ on:
     paths:
       - '.github/workflows/test.yml'
       - 'packages/**'
+      - 'toolchain/**'
+      - 'toolchain-tests/**'
       - 'tests/**'
       - 'examples/**'
       - 'package.json'
@@ -23,4 +25,4 @@ jobs:
         run: pnpm install
 
       - name: Run Tests
-        run: pnpm run test
+        run: pnpm run test:ci

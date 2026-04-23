@@ -1,9 +1,9 @@
 # Prior Art 4 — Effect-TS/tsgo
 
-> ⚠️ **역사 문서 (Archived)** — 이 파일은 2026-04-18 초기 분석의 작업 이력. 현재 진실원은 [08-tsgo-master-plan/](../../../08-tsgo-master-plan/) + [10-ecosystem/](../../../10-ecosystem/). 내용이 현재 결정과 충돌하면 08 · 10 우선.
+> 보존용 참고 문서. 현재 기준은 [08-tsgo-master-plan/](../../../08-tsgo-master-plan/) + [10-ecosystem/](../../../10-ecosystem/).
 
 
-> 분석 대상: `/mnt/d/github/contributions/effect-tsgo`
+> 분석 대상: `Effect-TS/tsgo`
 > 중요도: ★★★★★★ (★ 6개) — ttsc의 구조적 모델. 유일한 production-grade tsgo wrapper.
 
 ## 한 줄

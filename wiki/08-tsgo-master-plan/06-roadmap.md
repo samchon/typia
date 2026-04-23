@@ -1,24 +1,24 @@
 # 06. Roadmap
 
-## Phase 0
+## Stage 0
 
 - standalone product skeleton
 - TS/Go plugin contract 검증
 - typia consumer spike
 
-## Phase 1
+## Stage 1
 
 - host stabilization
 - runner stabilization
 - typia validator path dogfooding
 
-## Phase 2
+## Stage 2
 
 - typia coverage 확대
 - setup 자동화
 - second consumer 탐색
 
-## Phase 3
+## Stage 3
 
 - second consumer 실검증
 - plugin SDK 정제

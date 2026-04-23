@@ -1,6 +1,6 @@
 # 06. 피드백 (★ 핵심 산출물)
 
-> 외부 관점의 정직한 진단 — 강점·약점·개선 제안·사상 비판
+강점, 약점, 개선 과제를 한곳에 모은 섹션이다.
 
 ## 읽기 순서
 
@@ -9,8 +9,8 @@
 3. [03-improvement-proposals.md](03-improvement-proposals.md) — 실행 가능한 액션 아이템 14
 4. [04-philosophy-critique.md](04-philosophy-critique.md) — 사상 자체의 빈틈 8가지
 
-## 가장 시급한 3개
+## 우선 과제
 
-1. **A1 Standard Schema 어댑터** — 1주 작업, 영향 매우 큼 (생태계 진입)
-2. **Track 2 Generate 모드 1급 시민화** — tsgo 대응의 base
-3. **A2 홈페이지 메시지 정렬** — 며칠, 인지 영향 큼
+1. Standard Schema 노출과 확장
+2. tsgo 대응 toolchain 정리
+3. setup와 문서 단순화

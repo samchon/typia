@@ -1,9 +1,9 @@
 # Prior Art 2 — ts-patch (nonara/ts-patch)
 
-> ⚠️ **역사 문서 (Archived)** — 이 파일은 2026-04-18 초기 분석의 작업 이력. 현재 진실원은 [08-tsgo-master-plan/](../../../08-tsgo-master-plan/) + [10-ecosystem/](../../../10-ecosystem/). 내용이 현재 결정과 충돌하면 08 · 10 우선.
+> 보존용 참고 문서. 현재 기준은 [08-tsgo-master-plan/](../../../08-tsgo-master-plan/) + [10-ecosystem/](../../../10-ecosystem/).
 
 
-> 분석 대상: `/mnt/d/github/contributions/ts-patch` (현재), `ts-patch@original` (백업), `ts-patch-typescript-6.0` (samchon의 TS 6.0 호환 테스트 fork)
+> 분석 대상: `nonara/ts-patch`, `ts-patch@original`, `ts-patch-typescript-6.0`
 > 중요도: ★★★★★ (현재 typia가 쓰는 것. 계승 자산 최대.)
 
 ## 전략 요약

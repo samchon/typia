@@ -5,7 +5,7 @@ import type { TypiaSetupWizard } from "../TypiaSetupWizard";
 
 export namespace PluginConfigurator {
   const LEGACY_TRANSFORM = "typia/lib/transform";
-  const TTSC_TYPIA_PLUGIN = "@typia/ttsc/plugin/typia";
+  const TTSC_TYPIA_PLUGIN = "typia/lib/ttsc/plugin";
 
   export async function configure(
     args: TypiaSetupWizard.IArguments,

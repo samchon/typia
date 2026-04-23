@@ -1,6 +1,6 @@
 # 02. 종합 로드맵 — 24개월 시간축 (v2)
 
-> ⚠️ **역사 문서 (Archived)** — 이 파일은 2026-04-18 초기 분석의 작업 이력. 현재 진실원은 [08-tsgo-master-plan/](../08-tsgo-master-plan/) + [10-ecosystem/](../10-ecosystem/). 내용이 현재 결정과 충돌하면 08 · 10 우선.
+> 보존용 참고 문서. 현재 기준은 [08-tsgo-master-plan/](../08-tsgo-master-plan/) + [10-ecosystem/](../10-ecosystem/).
 
 
 > v1 (초안)은 Track 2(Generate 모드)를 중심에 두었으나 철회. v2는 **ttsc 개발을 핵심 축**으로 [06-feedback/03-improvement-proposals.md](../06-feedback/03-improvement-proposals.md)의 14개 액션과 [01-tsgo-strategy.md](01-tsgo-strategy.md)의 3-track을 한 시간축에 재배치.
@@ -10,49 +10,49 @@
 | 항목 | 우선 | 비용 | 영향 |
 |---|---|---|---|
 | **공식 tsgo 입장문 발표** ([03-positioning-actions.md](03-positioning-actions.md)) | ★★★★★ | 1주 | 매우 큼 |
-| **ttsc Phase 0 spike** (2주) — go/no-go 결정 | ★★★★★ | 2주 | 매우 큼 |
+| **ttsc Stage 0 spike** (2주) — go/no-go 결정 | ★★★★★ | 2주 | 매우 큼 |
 | **A1 Standard Schema 어댑터** | ★★★★★ | 1주 | 생태계 |
 | **A2 홈페이지 메시지 정렬** | ★★★★ | 며칠 | 인지 |
 | A10 SDK 어댑터 안정화 (매주 latest CI) | ★★ | 며칠 | 격리 |
 | A13 Edge 런타임 호환성 표 | ★★ | 며칠 | 신뢰 |
 
-## Q3 2026 (7~9월) — ttsc Phase 1 + 마이그레이션 자료
+## Q3 2026 (7~9월) — ttsc Stage 1 + 마이그레이션 자료
 
 | 항목 | 우선 | 비용 | 영향 |
 |---|---|---|---|
-| **ttsc Phase 1 (Walking Skeleton)** | ★★★★★ | 3개월 full | 미래 |
+| **ttsc Stage 1 (Walking Skeleton)** | ★★★★★ | 3개월 full | 미래 |
 | A4 마이그레이션 가이드 3종 (class-validator/zod/joi → typia) | ★★★★ | 2주 | 채택 |
 | A6 unplugin 1급 시민화 | ★★★ | 1주 | tsgo 대비 |
 | A3 `typia init` 한 줄 setup | ★★★★ | 1주 | 채택 |
 | A12 Format 사용자 확장 prototype | ★★★ | 3주 | DX |
 
-## Q4 2026 — ttsc Phase 2 + 회귀 인프라
+## Q4 2026 — ttsc Stage 2 + 회귀 인프라
 
 | 항목 | 우선 |
 |---|---|
-| **ttsc Phase 2 (typia full compatibility)** | ★★★★★ |
+| **ttsc Stage 2 (typia full compatibility)** | ★★★★★ |
 | A5 회귀 테스트 + 시계열 벤치 | ★★★★ |
 | A7 RSC / Server Action / Hono / Tanstack 가이드 | ★★★ |
 | A9 LLM 호환성 자동 검증 (분기 smoke test) | ★★★ |
 
 **마일스톤**: ttsc가 typia test suite 전부 통과. **ttsc 0.5 alpha** 출시 가능.
 
-## Q1 2027 (TS 7.0 GA 무렵) — ttsc Phase 3 시작
+## Q1 2027 (TS 7.0 GA 무렵) — ttsc Stage 3 시작
 
 | 항목 | 우선 |
 |---|---|
 | TS 7.0 GA 직후 typia 호환 발표 (TS 6 LTS + ttsc 0.x alpha) | ★★★★★ |
-| **ttsc Phase 3 (Production Hardening)** — watch/cache/diagnostics | ★★★★★ |
+| **ttsc Stage 3 (Production Hardening)** — watch/cache/diagnostics | ★★★★★ |
 | A11 OpenAPI 3.2 정식 지원 | ★★ |
 | A14 거대 파일 리팩토링 1차 (CheckerProgrammer) | ★★★ |
 
 **마일스톤**: ttsc 0.9 beta 릴리스. 얼리어답터 초대.
 
-## Q2 2027 — ttsc Phase 4 + 일반 공개
+## Q2 2027 — ttsc Stage 4 + 일반 공개
 
 | 항목 | 우선 |
 |---|---|
-| **ttsc Phase 4 (Launch)** — typia setup 자동화, 사용자 beta, v1.0 | ★★★★★ |
+| **ttsc Stage 4 (Launch)** — typia setup 자동화, 사용자 beta, v1.0 | ★★★★★ |
 | **typia v13** — ttsc 1급 지원 | ★★★★★ |
 | TS 6.x 지원 종료 일정 공지 (2028 말) | ★★★ |
 | A8 거대 파일 리팩토링 2차 (RandomProgrammer, JsonStringifyProgrammer) | ★★ |

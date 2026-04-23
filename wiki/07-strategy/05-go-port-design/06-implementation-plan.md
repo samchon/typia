@@ -1,6 +1,6 @@
 # 06. typia-go 18개월 로드맵
 
-> ⚠️ **역사 문서 (Archived)** — 이 파일은 2026-04-18 초기 분석의 작업 이력. 현재 진실원은 [08-tsgo-master-plan/](../../08-tsgo-master-plan/) + [10-ecosystem/](../../10-ecosystem/). 내용이 현재 결정과 충돌하면 08 · 10 우선.
+> 보존용 참고 문서. 현재 기준은 [08-tsgo-master-plan/](../../08-tsgo-master-plan/) + [10-ecosystem/](../../10-ecosystem/).
 
 
 ## 전체 시간축
@@ -24,7 +24,7 @@ M7  (3개월)  Specialized: random, protobuf, v1.0 launch prep
 기술 실현 가능성 최종 확인.
 
 ### 작업
-- `/mnt/d/github/contributions/tsgonest` 로컬 빌드 → 실행 검증
+- `tsgonest` 로컬 빌드 → 실행 검증
 - tsgonest의 metadata schema Go 파일을 이해 (`internal/metadata/metadata.go`)
 - 최소 go:linkname 샘플 작성 — `Checker_getTypeOfSymbol` 호출
 - 간단한 "typia.is<string>(input)" → "(input) => typeof input === 'string'" emit 실증

@@ -1,6 +1,6 @@
 # 01. Problem Statement — 왜 ttsc가 필요한가
 
-> ⚠️ **역사 문서 (Archived)** — 이 파일은 2026-04-18 초기 분석의 작업 이력. 현재 진실원은 [08-tsgo-master-plan/](../../08-tsgo-master-plan/) + [10-ecosystem/](../../10-ecosystem/). 내용이 현재 결정과 충돌하면 08 · 10 우선.
+> 보존용 참고 문서. 현재 기준은 [08-tsgo-master-plan/](../../08-tsgo-master-plan/) + [10-ecosystem/](../../10-ecosystem/).
 
 
 ## 한 문장 정의
@@ -23,7 +23,7 @@
 
 둘 다 **전제 조건이 "Node.js 프로세스 안에서 JS로 된 TypeScript 컴파일러가 돈다"**이다.
 
-tsgo (TypeScript 7)는 **Go로 작성된 독립 바이너리**다 (`/mnt/d/github/contributions/typescript-go/cmd/tsgo/main.go`). 이 전제가 완전히 무너진다. ts-patch를 그대로 tsgo에 쓸 방법이 없다.
+tsgo (TypeScript 7)는 **Go로 작성된 독립 바이너리**다 (`cmd/tsgo/main.go`). 이 전제가 완전히 무너진다. ts-patch를 그대로 tsgo에 쓸 방법이 없다.
 
 관련: [02-prior-art/02-ts-patch.md](02-prior-art/02-ts-patch.md) § "tsgo 관점에서 ts-patch의 근본 한계"
 

@@ -10,7 +10,7 @@
  * ```json
  * {
  *   "compilerOptions": {
- *     "plugins": [{ "transform": "typia/lib/transform", "finite": true }]
+ *     "plugins": [{ "transform": "typia/lib/ttsc/plugin", "finite": true }]
  *   }
  * }
  * ```
