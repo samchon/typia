@@ -14,7 +14,7 @@ import (
 
 // runBuild implements `ttsc build`. Two modes:
 //
-//   - default (dry run): analyse, report per-call-site status to stdout.
+//   - default (dry run): analyze, report per-call-site status to stdout.
 //   - --emit: also run tsgo's emit pipeline, patching every recognized native
 //     consumer call in the resulting .js files.
 func runBuild(args []string) int {

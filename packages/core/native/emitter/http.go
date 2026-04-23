@@ -11,7 +11,7 @@ import (
 
 // EmitHttpParameterArrowFunction converts a single URL parameter string into
 // the target type. Strings pass straight through; numbers go via Number();
-// booleans recognise `"true"`. Matches `typia.http.parameter<T>`.
+// booleans recognize `"true"`. Matches `typia.http.parameter<T>`.
 func EmitHttpParameterArrowFunction(schema *metadata.Schema) (string, error) {
 	if schema == nil {
 		return "", errors.New("emitter: nil schema")
