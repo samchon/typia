@@ -31,6 +31,9 @@ jobs:
       #     pnpm install
       #     pnpm run package:tgz
 
+      - name: Toolchain
+        run: pnpm build:toolchain
+
       - name: Build
         working-directory: website
         run: |
