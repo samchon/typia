@@ -30,3 +30,4 @@
 6. [06. Current Gaps](06-roadmap.md)
 7. [07. Open Questions](07-open-questions.md)
 8. [08. Product State](08-current-spike.md)
+9. [09. References](09-references.md)

@@ -17,7 +17,8 @@
 2. [02-architecture/00-README.md](02-architecture/00-README.md)
 3. [03-packages/00-README.md](03-packages/00-README.md)
 4. [06-feedback/05-ttsc-ttsx-follow-ups.md](06-feedback/05-ttsc-ttsx-follow-ups.md)
-5. [10-ecosystem/00-README.md](10-ecosystem/00-README.md)
+5. [08-tsgo-master-plan/09-references.md](08-tsgo-master-plan/09-references.md)
+6. [10-ecosystem/00-README.md](10-ecosystem/00-README.md)
 
 ## 폴더
 
