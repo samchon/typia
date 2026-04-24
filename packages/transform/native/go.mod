@@ -8,6 +8,7 @@ replace (
 	github.com/microsoft/typescript-go/shim/checker => ../../../toolchain/ttsc/shim/checker
 	github.com/microsoft/typescript-go/shim/compiler => ../../../toolchain/ttsc/shim/compiler
 	github.com/microsoft/typescript-go/shim/core => ../../../toolchain/ttsc/shim/core
+	github.com/microsoft/typescript-go/shim/diagnosticwriter => ../../../toolchain/ttsc/shim/diagnosticwriter
 	github.com/microsoft/typescript-go/shim/parser => ../../../toolchain/ttsc/shim/parser
 	github.com/microsoft/typescript-go/shim/scanner => ../../../toolchain/ttsc/shim/scanner
 	github.com/microsoft/typescript-go/shim/tsoptions => ../../../toolchain/ttsc/shim/tsoptions
@@ -23,6 +24,7 @@ require (
 	github.com/microsoft/typescript-go/shim/ast v0.0.0
 	github.com/microsoft/typescript-go/shim/checker v0.0.0
 	github.com/microsoft/typescript-go/shim/compiler v0.0.0
+	github.com/microsoft/typescript-go/shim/scanner v0.0.0
 	github.com/samchon/typia/packages/core/native v0.0.0
 	github.com/samchon/typia/toolchain/ttsc v0.0.0
 )
@@ -33,7 +35,7 @@ require (
 	github.com/microsoft/typescript-go v0.0.0-20260408193441-2a5e1cf9fe22 // indirect
 	github.com/microsoft/typescript-go/shim/bundled v0.0.0 // indirect
 	github.com/microsoft/typescript-go/shim/core v0.0.0 // indirect
-	github.com/microsoft/typescript-go/shim/scanner v0.0.0 // indirect
+	github.com/microsoft/typescript-go/shim/diagnosticwriter v0.0.0 // indirect
 	github.com/microsoft/typescript-go/shim/tsoptions v0.0.0 // indirect
 	github.com/microsoft/typescript-go/shim/tspath v0.0.0 // indirect
 	github.com/microsoft/typescript-go/shim/vfs v0.0.0 // indirect

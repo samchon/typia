@@ -10,8 +10,8 @@ export async function test_emit_plugin_js(): Promise<void> {
   const outDir = path.join(fixture, "dist");
   fs.rmSync(outDir, { recursive: true, force: true });
 
-  const result = runTtsc(["build", "--emit", "--tsconfig=tsconfig.json"], fixture);
-  assert.equal(result.status, 0, `ttsc build should succeed; stderr:\n${result.stderr}`);
+  const result = runTtsc(["--emit", "--tsconfig=tsconfig.json"], fixture);
+  assert.equal(result.status, 0, `ttsc should succeed; stderr:\n${result.stderr}`);
 
   const output = path.join(outDir, "src", "main.js");
   assert.equal(fs.existsSync(output), true, `expected emitted file at ${output}`);

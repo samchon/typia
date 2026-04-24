@@ -61,6 +61,9 @@ function listTargets(baseDir) {
   return fs
     .readdirSync(baseDir, { withFileTypes: true })
     .filter((entry) => entry.isDirectory())
+    .filter((entry) =>
+      fs.existsSync(path.join(baseDir, entry.name, "package.json")),
+    )
     .map((entry) => ({
       name: entry.name,
       dir: path.join(baseDir, entry.name),

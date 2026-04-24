@@ -41,7 +41,9 @@ export function resolveProjectConfig(opts: ProjectLocatorOptions = {}): string {
     return resolveRealPath(resolved);
   }
 
-  const start = opts.file ? resolveAbsolutePath(cwd, opts.file) : cwd;
+  const start = opts.file
+    ? resolveRealPath(resolveAbsolutePath(cwd, opts.file))
+    : cwd;
   const from = isDirectory(start) ? start : path.dirname(start);
   const found = findUp(from, ["tsconfig.json", "jsconfig.json"]);
   if (!found) {

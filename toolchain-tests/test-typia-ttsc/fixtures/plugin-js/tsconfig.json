@@ -1,6 +1,9 @@
 {
   "compilerOptions": {
     "module": "commonjs",
+    "ignoreDeprecations": "6.0",
+    "types": ["*"],
+    "rootDir": ".",
     "outDir": "dist",
     "strict": true,
     "target": "ES2020",

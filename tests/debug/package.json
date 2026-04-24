@@ -11,10 +11,7 @@
     "type": "git",
     "url": "https://github.com/samchon/typia"
   },
-  "keywords": [
-    "typia",
-    "test"
-  ],
+  "keywords": ["typia", "test"],
   "author": "Jeongho Nam",
   "license": "MIT",
   "bugs": {
@@ -30,9 +27,7 @@
     "rimraf": "catalog:utils"
   },
   "dependencies": {
-    "@typia/core": "workspace:^",
     "@typia/interface": "workspace:^",
-    "@typia/transform": "workspace:^",
     "@typia/utils": "workspace:^",
     "tstl": "catalog:utils",
     "typia": "workspace:^",

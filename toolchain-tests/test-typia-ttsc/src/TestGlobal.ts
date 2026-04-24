@@ -6,7 +6,7 @@ export class TestGlobal {
 
   /** Absolute path to the compiled Go binary. */
   public static readonly TTSC_BINARY: string = path.resolve(
-    `${__dirname}/../../../toolchain/ttsc/bin/ttsc-native`,
+    `${__dirname}/../../../toolchain/ttsc/native/ttsc-native`,
   );
 
   /** Absolute path to the workspace-linked public ttsc launcher. */

@@ -3,7 +3,7 @@
  *
  * Exports:
  *   - platform helpers (`resolveBinary`, `installHint`, …) — used by the
- *     `bin/ttsc.js` launcher and any external tool that wants to know where
+ *     public launcher and any external tool that wants to know where
  *     the native binary lives without spawning it.
  *   - programmatic API (`transform`, `build`, `check`, `version`) — a thin
  *     TS wrapper around the Go binary that bundler adapters (unplugin, vite,

@@ -1,5 +1,3 @@
-import type ts from "@typescript/native-preview";
-
 /**
  * Type constraint tag metadata.
  *
@@ -33,7 +31,4 @@ export interface IMetadataTypeTag {
 
   /** JSON schema fragment to merge. */
   schema?: object | undefined;
-
-  /** @internal */
-  predicate?: (input: ts.Expression) => ts.Expression;
 }

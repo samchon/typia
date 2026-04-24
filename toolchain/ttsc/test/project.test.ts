@@ -4,7 +4,10 @@ const os = require("node:os");
 const path = require("node:path");
 const test = require("node:test");
 
-const { readProjectConfig, resolveProjectConfig } = require("../src/project.ts");
+const {
+  readProjectConfig,
+  resolveProjectConfig,
+} = require("../src/project.ts");
 
 test("resolveProjectConfig canonicalizes symlinked tsconfig paths", () => {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), "ttsc-project-"));
@@ -32,7 +35,7 @@ test("readProjectConfig inherits plugins and outDir through tsconfig extends", (
       {
         compilerOptions: {
           outDir: "../dist/shared",
-          plugins: [{ transform: "typia/lib/ttsc/plugin" }],
+          plugins: [{ transform: "typia/lib/transform" }],
         },
       },
       null,
@@ -57,7 +60,7 @@ test("readProjectConfig inherits plugins and outDir through tsconfig extends", (
     tsconfig: path.join(project, "tsconfig.json"),
   });
   assert.deepEqual(parsed.compilerOptions.plugins, [
-    { transform: "typia/lib/ttsc/plugin" },
+    { transform: "typia/lib/transform" },
   ]);
   assert.equal(parsed.compilerOptions.outDir, path.join(root, "dist/shared"));
 });
@@ -73,7 +76,7 @@ test("readProjectConfig lets child tsconfig override inherited plugins", () => {
     JSON.stringify(
       {
         compilerOptions: {
-          plugins: [{ transform: "typia/lib/ttsc/plugin" }],
+          plugins: [{ transform: "typia/lib/transform" }],
         },
       },
       null,

@@ -44,5 +44,5 @@ export const schema = typia.json.schema<Article>();
 export const statuses = typia.misc.literals<Status>();
 
 // misc.prune on article shape
-export const prune = (input: Record<string, unknown>) =>
+export const prune = (input: Article) =>
   typia.misc.prune<Article>(input);

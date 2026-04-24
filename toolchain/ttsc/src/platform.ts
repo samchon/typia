@@ -1,7 +1,7 @@
 /**
  * Platform detection and binary resolution for @typia/ttsc.
  *
- * This is the tested implementation used by bin/ttsc.js (after build).
+ * This is the tested implementation used by the ttsc launcher after build.
  * Keep it pure and dependency-free so it can be unit-tested without spawning
  * any child process.
  *
@@ -12,7 +12,7 @@
  *      node_modules.
  *   2. `@typia/ttsc-{platform}-{arch}/bin/ttsc{.exe}` optional dependency.
  *      Standard distribution path.
- *   3. A sibling `bin/ttsc-native` binary next to ttsc.js. Used by this
+ *   3. A package-local `native/ttsc-native` binary. Used by this
  *      repository's local `pnpm run build:toolchain` output before the
  *      platform packages exist on npm.
  *
@@ -36,11 +36,11 @@ export interface ResolveOptions {
   /** Override `process.env` for testing. */
   env?: NodeJS.ProcessEnv;
   /**
-   * Override the sibling-directory scan used for the local `bin/ttsc-native`
+   * Override the package-local scan used for the local `native/ttsc-native`
    * fallback. Returns an absolute path if present, else null.
    */
   localBinaryLookup?: () => string | null;
-  /** Override the module directory used to resolve sibling `bin/` entries. */
+  /** Override the module directory used to resolve the package-local binary. */
   moduleDir?: string;
 }
 
@@ -105,7 +105,7 @@ export function resolveBinary(opts: ResolveOptions = {}): string | null {
     /* fall through */
   }
 
-  // 3. Local workspace fallback: <package>/bin/ttsc-native.
+  // 3. Package-local fallback: <package>/native/ttsc-native.
   if (opts.localBinaryLookup) {
     const local = opts.localBinaryLookup();
     if (local) return local;
@@ -132,7 +132,7 @@ export function installHint(opts: ResolveOptions = {}): string {
     `Resolution order:`,
     `  1. TTSC_BINARY env var (absolute path)`,
     `  2. ${pkg} optional dependency`,
-    `  3. ./bin/ttsc-native (local workspace build)`,
+    `  3. ./native/ttsc-native (local workspace build)`,
     ``,
     `Try:`,
     `  npm install --include=optional ${pkg}`,
@@ -149,7 +149,7 @@ function defaultLocalBinaryPath(opts: ResolveOptions): string | null {
   const candidate = path.resolve(
     root,
     "..",
-    "bin",
+    "native",
     (opts.platform ?? process.platform) === "win32" ? "ttsc-native.exe" : "ttsc-native",
   );
   return fs.existsSync(candidate) ? candidate : null;

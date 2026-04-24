@@ -19,6 +19,15 @@ interface ParsedCLI extends RegisterOptions {
 }
 
 export function main(argv: readonly string[] = process.argv.slice(2)): number {
+  try {
+    return run(argv);
+  } catch (error) {
+    process.stderr.write(`${formatError(error)}\n`);
+    return 2;
+  }
+}
+
+function run(argv: readonly string[]): number {
   const parsed = parseCLI(argv);
   if (parsed === "help") {
     printHelp();
@@ -63,6 +72,13 @@ export function main(argv: readonly string[] = process.argv.slice(2)): number {
   process.argv = [process.execPath, entry, ...parsed.passthrough];
   Module.runMain();
   return 0;
+}
+
+function formatError(error: unknown): string {
+  if (error instanceof Error) {
+    return error.message;
+  }
+  return String(error);
 }
 
 function parseCLI(argv: readonly string[]): ParsedCLI | "help" | "version" {

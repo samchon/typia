@@ -19,6 +19,7 @@
 7. [07-cycle7-missing-perspectives.md](07-cycle7-missing-perspectives.md) — 누락된 14개 관점
 8. [08-cycle8-v2-remeasurement.md](08-cycle8-v2-remeasurement.md)
 9. [09-cycle9-stage0-critical-review.md](09-cycle9-stage0-critical-review.md)
+10. [10-native-core-transform-port-review.md](10-native-core-transform-port-review.md) — Go native core/transform 포팅 감수와 nestia 재사용성 평가
 
 ## 메모
 

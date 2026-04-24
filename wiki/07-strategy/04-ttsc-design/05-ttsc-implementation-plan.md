@@ -68,7 +68,7 @@ Month 10-12   Phase 4: Public beta + typia setup 자동화
 
 **W11-12: @ttsc/cli**
 - commander 기반 CLI
-- `ttsc --build`, `ttsc --watch` (watch는 stub)
+- `ttsc`, `ttsc --watch` (watch는 stub)
 - tsconfig 파싱 + 바이너리 spawn
 - platform detection (@ttsc-{platform}-{arch} resolve)
 
@@ -130,7 +130,7 @@ Month 10-12   Phase 4: Public beta + typia setup 자동화
 
 **W31-32**:
 - `ttsc --noEmit` 검증 모드
-- `ttsc --build` project references
+- `ttsc` project references
 
 ### Month 9. 배포 인프라
 

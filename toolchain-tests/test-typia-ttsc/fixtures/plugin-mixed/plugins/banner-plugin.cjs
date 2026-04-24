@@ -1,11 +1,12 @@
 "use strict";
 
-const { definePlugin } = require("@typia/ttsc/plugin");
+const { definePlugin } = require("@typia/ttsc");
 
 module.exports = definePlugin((config) => ({
   name: "banner-plugin",
   transformOutput(context) {
-    const banner = typeof config.banner === "string" ? config.banner : "/* plugin */";
+    const banner =
+      typeof config.banner === "string" ? config.banner : "/* plugin */";
     return `${banner}\n${context.code}`;
   },
 }));

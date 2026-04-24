@@ -1,15 +1,17 @@
 # 07. Open Questions
 
-## 아직 열려 있는 것
+닫힌 질문:
 
-1. plugin transport 를 IPC 로 둘지, file contract 로 둘지, hybrid 로 둘지
-2. TS plugin runtime 을 Node child 로 둘지, 공식 JS client 로 둘지
-3. Go plugin ABI 를 어떻게 안정화할지
-4. `ttsx` 의 ESM loader 전략을 어떻게 잡을지
+- `ttsc` 는 standalone host 다.
+- `ttsx` 는 standalone runner 다.
+- typia는 첫 consumer 다.
+- TypeScript v7 lane 에서 legacy transformer object 호환을 목표로 두지 않는다.
+- 현재 setup 은 `@typescript/native-preview`, `@typia/ttsc`, `@typia/ttsx` 를 설치한다.
 
-## 이미 확정된 것
+열린 질문:
 
-1. `ttsc` / `ttsx` 의 standalone product 정체성
-2. TS / Go / mixed plugin 의 동등한 공식 지위
-3. typia 의 consumer 위치
-4. `typia setup` 의 기본 설치 계약: preview 기간 `@typescript/native-preview` + `@typia/ttsc`, `@typia/ttsx` 는 별도 optional runner
+- native plugin 여러 개를 어떻게 compose 할지
+- diagnostics / assets / phase hook 을 어디까지 public API 로 고정할지
+- `ttsx` CJS/ESM 실행 차이를 어떻게 줄일지
+- `typescript@7` stable lane 전환 시 setup 기본값을 어떻게 바꿀지
+- nestia 같은 second consumer 가 공유할 core API 를 어떤 패키지로 제공할지

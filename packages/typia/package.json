@@ -2,36 +2,19 @@
   "name": "typia",
   "version": "12.0.2",
   "description": "Superfast runtime validators with only one line",
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
   "exports": {
-    ".": {
-      "types": "./lib/index.d.ts",
-      "import": "./lib/index.js",
-      "default": "./lib/index.js"
-    },
-    "./lib/transform": {
-      "types": "./lib/transform.d.ts",
-      "import": "./lib/transform.js",
-      "default": "./lib/transform.js"
-    },
-    "./lib/ttsc/plugin": {
-      "types": "./lib/ttsc/plugin.d.ts",
-      "import": "./lib/ttsc/plugin.js",
-      "default": "./lib/ttsc/plugin.js"
-    },
-    "./lib/internal/*": {
-      "types": "./lib/internal/*.d.ts",
-      "import": "./lib/internal/*.js",
-      "default": "./lib/internal/*.js"
-    },
+    ".": "./src/index.ts",
+    "./lib/transform": "./src/transform.ts",
+    "./lib/internal/*": "./src/internal/*.ts",
     "./package.json": "./package.json"
   },
   "bin": {
     "typia": "./src/executable/typia.ts"
   },
   "scripts": {
-    "build": "rimraf lib && ttsc build && rollup -c && cp ../../README.md README.md",
+    "build": "rimraf lib && ttsc && rollup -c && cp ../../README.md README.md",
     "dev": "ttsc --watch",
     "prepack": "pnpm run build"
   },
@@ -47,9 +30,7 @@
   "homepage": "https://typia.io",
   "dependencies": {
     "@standard-schema/spec": "^1.0.0",
-    "@typia/core": "workspace:^",
     "@typia/interface": "workspace:^",
-    "@typia/transform": "workspace:^",
     "@typia/ttsc": "workspace:^",
     "@typia/utils": "workspace:^",
     "commander": "^10.0.0",
@@ -79,13 +60,7 @@
     "tinyglobby": "^0.2.12"
   },
   "sideEffects": false,
-  "files": [
-    "README.md",
-    "bin",
-    "package.json",
-    "lib",
-    "src"
-  ],
+  "files": ["README.md", "bin", "package.json", "lib", "src"],
   "keywords": [
     "fast",
     "json",
@@ -140,11 +115,6 @@
         "types": "./lib/transform.d.ts",
         "import": "./lib/transform.mjs",
         "default": "./lib/transform.js"
-      },
-      "./lib/ttsc/plugin": {
-        "types": "./lib/ttsc/plugin.d.ts",
-        "import": "./lib/ttsc/plugin.mjs",
-        "default": "./lib/ttsc/plugin.js"
       },
       "./lib/internal/*": {
         "types": "./lib/internal/*.d.ts",

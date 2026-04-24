@@ -4,9 +4,9 @@ import * as os from "os";
 import { runTtsc } from "../utils/runTtsc";
 
 export async function test_missing_tsconfig(): Promise<void> {
-  // Run build in /tmp where no tsconfig lives.
+  // Run in /tmp where no tsconfig lives.
   const { stderr, status } = runTtsc(
-    ["build", "--tsconfig=tsconfig-does-not-exist.json"],
+    ["--tsconfig=tsconfig-does-not-exist.json"],
     os.tmpdir(),
   );
   assert.equal(status, 2, "missing tsconfig must exit 2");

@@ -4,11 +4,14 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"io"
+	"path/filepath"
 
 	"github.com/microsoft/typescript-go/shim/ast"
 	shimchecker "github.com/microsoft/typescript-go/shim/checker"
 	shimcompiler "github.com/microsoft/typescript-go/shim/compiler"
 	"github.com/microsoft/typescript-go/shim/core"
+	shimdiagnosticwriter "github.com/microsoft/typescript-go/shim/diagnosticwriter"
 	shimscanner "github.com/microsoft/typescript-go/shim/scanner"
 	"github.com/microsoft/typescript-go/shim/tsoptions"
 	"github.com/microsoft/typescript-go/shim/tspath"
@@ -22,6 +25,21 @@ type Diagnostic struct {
 	Line    int
 	Column  int
 	Message string
+	raw     *ast.Diagnostic
+}
+
+// SourceFile returns the program source file matching filename.
+func (p *Program) SourceFile(filename string) *ast.SourceFile {
+	if p == nil || p.TSProgram == nil {
+		return nil
+	}
+	normalized := filepath.ToSlash(filename)
+	for _, file := range p.TSProgram.SourceFiles() {
+		if filepath.ToSlash(file.FileName()) == normalized {
+			return file
+		}
+	}
+	return nil
 }
 
 // String returns a `path:line:col: message` formatted string.
@@ -35,6 +53,24 @@ func (d Diagnostic) String() string {
 	return fmt.Sprintf("%s: %s", d.File, d.Message)
 }
 
+// WritePrettyDiagnostics renders diagnostics with TypeScript-style colors,
+// source snippets and the trailing error summary when raw tsgo diagnostic
+// objects are available. It falls back to the legacy one-line form for
+// diagnostics assembled outside tsgo.
+func WritePrettyDiagnostics(w io.Writer, diagnostics []Diagnostic, cwd string) {
+	raw := make([]*ast.Diagnostic, 0, len(diagnostics))
+	for _, d := range diagnostics {
+		if d.raw == nil {
+			for _, d := range diagnostics {
+				fmt.Fprintln(w, "  -", d.String())
+			}
+			return
+		}
+		raw = append(raw, d.raw)
+	}
+	shimdiagnosticwriter.FormatASTDiagnosticsWithColorAndContext(w, raw, cwd)
+}
+
 // Program is the shim-agnostic facade the rest of the engine sees.
 type Program struct {
 	TSProgram      *shimcompiler.Program
@@ -46,7 +82,7 @@ type Program struct {
 }
 
 // LoadProgramOptions controls tsconfig overrides applied before tsgo creates
-// the program. `ForceEmit` is used by `ttsc build --emit` and `ttsc transform`
+// the program. `ForceEmit` is used by `ttsc --emit` and `ttsc transform`
 // so runtime compilation still works when the project defaults to `noEmit`.
 type LoadProgramOptions struct {
 	ForceEmit   bool
@@ -102,12 +138,17 @@ func CreateProgramFromConfig(parsed *tsoptions.ParsedCommandLine, host shimcompi
 	return p, nil, nil
 }
 
-// LoadProgram is the one-shot convenience used by `ttsc build`.
+// LoadProgram is the one-shot convenience used by `ttsc`.
 // It parses the tsconfig, creates a program and a type-checker, and returns
 // the wrapped facade.
 //
 // cwd must be absolute; tsconfigPath may be relative to cwd.
 func LoadProgram(cwd, tsconfigPath string, options LoadProgramOptions) (*Program, []Diagnostic, error) {
+	if !filepath.IsAbs(cwd) {
+		if abs, err := filepath.Abs(cwd); err == nil {
+			cwd = abs
+		}
+	}
 	cwd = tspath.ResolvePath(cwd)
 	fs := DefaultFS()
 	host := DefaultHost(cwd, fs)
@@ -184,6 +225,53 @@ func (p *Program) SourceFiles() []*ast.SourceFile {
 	return out
 }
 
+// Diagnostics returns project diagnostics that must block compilation or
+// runtime execution before any JavaScript is emitted or evaluated.
+func (p *Program) Diagnostics() []Diagnostic {
+	if p == nil || p.TSProgram == nil {
+		return []Diagnostic{{Message: "driver: nil program"}}
+	}
+	ctx := context.Background()
+	raw := make([]*ast.Diagnostic, 0)
+	raw = append(raw, p.TSProgram.GetConfigFileParsingDiagnostics()...)
+	raw = append(raw, p.TSProgram.GetProgramDiagnostics()...)
+	raw = append(raw, p.TSProgram.GetSyntacticDiagnostics(ctx, nil)...)
+	raw = append(raw, p.TSProgram.GetSemanticDiagnostics(ctx, nil)...)
+	raw = append(raw, p.TSProgram.GetGlobalDiagnostics(ctx)...)
+	raw = filterDiagnostics(raw)
+	return convertDiagnostics(shimcompiler.SortAndDeduplicateDiagnostics(raw))
+}
+
+func filterDiagnostics(in []*ast.Diagnostic) []*ast.Diagnostic {
+	out := in[:0]
+	for _, d := range in {
+		if isUnusedOverloadSignatureTypeParameterDiagnostic(d) {
+			continue
+		}
+		out = append(out, d)
+	}
+	return out
+}
+
+func isUnusedOverloadSignatureTypeParameterDiagnostic(d *ast.Diagnostic) bool {
+	if d == nil || d.File() == nil {
+		return false
+	}
+	switch d.Code() {
+	case 6196, 6205: // unused declaration / all type parameters are unused
+	default:
+		return false
+	}
+	node := ast.GetNodeAtPosition(d.File(), d.Pos(), false)
+	for node != nil {
+		if node.Kind == ast.KindFunctionDeclaration {
+			return node.Body() == nil
+		}
+		node = node.Parent
+	}
+	return false
+}
+
 // convertDiagnostics translates shim-specific diagnostics into the plain
 // Diagnostic struct with line/column populated via tsgo's ECMALineMap (the
 // same helper tsc uses for its "file:line:col: message" banner).
@@ -193,7 +281,7 @@ func convertDiagnostics(in []*ast.Diagnostic) []Diagnostic {
 		if d == nil {
 			continue
 		}
-		diag := Diagnostic{Message: d.String()}
+		diag := Diagnostic{Message: d.String(), raw: d}
 		if file := d.File(); file != nil {
 			diag.File = file.FileName()
 			if pos := d.Pos(); pos >= 0 {

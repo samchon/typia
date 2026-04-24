@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "commonjs",
+    "moduleResolution": "bundler",
+    "ignoreDeprecations": "6.0",
+    "types": ["*"],
+    "esModuleInterop": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "rootDir": "src",
+    "outDir": "dist"
+  },
+  "include": ["src"]
+}

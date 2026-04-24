@@ -11,7 +11,7 @@ export async function test_emit_noemit_override(): Promise<void> {
   fs.rmSync(outDir, { recursive: true, force: true });
 
   const result = runTtsc(
-    ["build", "--tsconfig=tsconfig.json", "--emit", "--quiet"],
+    ["--tsconfig=tsconfig.json", "--emit", "--quiet"],
     fixture,
   );
   assert.equal(result.status, 0, `stderr:\n${result.stderr}`);

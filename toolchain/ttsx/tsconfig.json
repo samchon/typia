@@ -1,13 +1,9 @@
 {
   "extends": "../../config/tsconfig.json",
   "compilerOptions": {
-    "baseUrl": ".",
+    "ignoreDeprecations": "6.0",
+    "moduleResolution": "bundler",
     "outDir": "lib",
-    "paths": {
-      "@typia/ttsc": [
-        "../ttsc/lib/index.d.ts"
-      ]
-    },
     "rootDir": "src"
   },
   "include": ["src"]

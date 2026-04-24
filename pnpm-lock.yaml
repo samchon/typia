@@ -244,46 +244,6 @@ importers:
         specifier: catalog:utils
         version: 6.1.3
 
-  packages/core:
-    dependencies:
-      '@typia/interface':
-        specifier: workspace:^
-        version: link:../interface
-      '@typia/utils':
-        specifier: workspace:^
-        version: link:../utils
-    devDependencies:
-      '@rollup/plugin-commonjs':
-        specifier: catalog:rollup
-        version: 29.0.2(rollup@4.60.2)
-      '@rollup/plugin-node-resolve':
-        specifier: catalog:rollup
-        version: 16.0.3(rollup@4.60.2)
-      '@types/node':
-        specifier: catalog:utils
-        version: 25.6.0
-      '@typescript/native-preview':
-        specifier: catalog:typescript
-        version: 7.0.0-dev.20260421.2
-      '@typia/ttsc':
-        specifier: workspace:^
-        version: link:../../toolchain/ttsc
-      rimraf:
-        specifier: catalog:utils
-        version: 6.1.3
-      rollup:
-        specifier: catalog:rollup
-        version: 4.60.2
-      rollup-plugin-auto-external:
-        specifier: catalog:rollup
-        version: 2.0.0(rollup@4.60.2)
-      rollup-plugin-node-externals:
-        specifier: catalog:rollup
-        version: 8.1.2(rollup@4.60.2)
-      tinyglobby:
-        specifier: ^0.2.12
-        version: 0.2.16
-
   packages/interface:
     devDependencies:
       '@typescript/native-preview':
@@ -382,63 +342,14 @@ importers:
         specifier: ^3.25.0
         version: 3.25.76
 
-  packages/transform:
-    dependencies:
-      '@typia/core':
-        specifier: workspace:^
-        version: link:../core
-      '@typia/interface':
-        specifier: workspace:^
-        version: link:../interface
-      '@typia/utils':
-        specifier: workspace:^
-        version: link:../utils
-    devDependencies:
-      '@rollup/plugin-commonjs':
-        specifier: catalog:rollup
-        version: 29.0.2(rollup@4.60.2)
-      '@rollup/plugin-node-resolve':
-        specifier: catalog:rollup
-        version: 16.0.3(rollup@4.60.2)
-      '@types/node':
-        specifier: catalog:utils
-        version: 25.6.0
-      '@typescript/native-preview':
-        specifier: catalog:typescript
-        version: 7.0.0-dev.20260421.2
-      '@typia/ttsc':
-        specifier: workspace:^
-        version: link:../../toolchain/ttsc
-      rimraf:
-        specifier: catalog:utils
-        version: 6.1.3
-      rollup:
-        specifier: catalog:rollup
-        version: 4.60.2
-      rollup-plugin-auto-external:
-        specifier: catalog:rollup
-        version: 2.0.0(rollup@4.60.2)
-      rollup-plugin-node-externals:
-        specifier: catalog:rollup
-        version: 8.1.2(rollup@4.60.2)
-      tinyglobby:
-        specifier: ^0.2.12
-        version: 0.2.16
-
   packages/typia:
     dependencies:
       '@standard-schema/spec':
         specifier: ^1.0.0
         version: 1.1.0
-      '@typia/core':
-        specifier: workspace:^
-        version: link:../core
       '@typia/interface':
         specifier: workspace:^
         version: link:../interface
-      '@typia/transform':
-        specifier: workspace:^
-        version: link:../transform
       '@typia/ttsc':
         specifier: workspace:^
         version: link:../../toolchain/ttsc
@@ -555,12 +466,6 @@ importers:
       '@types/node':
         specifier: ^20.17.57
         version: 20.19.39
-      '@typia/core':
-        specifier: workspace:^
-        version: link:../core
-      '@typia/transform':
-        specifier: workspace:^
-        version: link:../transform
       '@typia/ttsc':
         specifier: workspace:^
         version: link:../../toolchain/ttsc
@@ -665,15 +570,9 @@ importers:
 
   tests/debug:
     dependencies:
-      '@typia/core':
-        specifier: workspace:^
-        version: link:../../packages/core
       '@typia/interface':
         specifier: workspace:^
         version: link:../../packages/interface
-      '@typia/transform':
-        specifier: workspace:^
-        version: link:../../packages/transform
       '@typia/utils':
         specifier: workspace:^
         version: link:../../packages/utils
@@ -865,9 +764,6 @@ importers:
       randexp:
         specifier: ^0.5.3
         version: 0.5.3
-      tgrid:
-        specifier: catalog:utils
-        version: 1.2.1
       tstl:
         specifier: catalog:utils
         version: 3.0.0
@@ -893,6 +789,9 @@ importers:
       '@typia/ttsx':
         specifier: workspace:^
         version: link:../../toolchain/ttsx
+      rimraf:
+        specifier: catalog:utils
+        version: 6.1.3
 
   tests/test-typia-generate:
     dependencies:
@@ -1053,9 +952,6 @@ importers:
       '@typia/utils':
         specifier: workspace:^
         version: link:../../packages/utils
-      tgrid:
-        specifier: catalog:utils
-        version: 1.2.1
       typia:
         specifier: workspace:^
         version: link:../../packages/typia
@@ -1078,6 +974,9 @@ importers:
       '@typia/ttsx':
         specifier: workspace:^
         version: link:../../toolchain/ttsx
+      rimraf:
+        specifier: catalog:utils
+        version: 6.1.3
 
   tests/test-vercel:
     dependencies:

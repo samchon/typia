@@ -1,7 +1,11 @@
 import { TestValidator } from "@nestia/e2e";
 import { IValidation, OpenApi } from "@typia/interface";
 import { Spoiler } from "@typia/template";
-import { NamingConvention, OpenApiValidator } from "@typia/utils";
+import {
+  NamingConvention,
+  OpenApiConverter,
+  OpenApiValidator,
+} from "@typia/utils";
 
 export const _test_validateEquals = <T>(props: {
   schema: OpenApi.IJsonSchema;
@@ -12,9 +16,16 @@ export const _test_validateEquals = <T>(props: {
   };
   name: string;
 }): void => {
+  const components: OpenApi.IComponents = OpenApiConverter.upgradeComponents(
+    props.components as any,
+  );
+  const schema: OpenApi.IJsonSchema = OpenApiConverter.upgradeSchema({
+    components: props.components as any,
+    schema: props.schema as any,
+  });
   const validate = OpenApiValidator.create({
-    components: props.components,
-    schema: props.schema,
+    components,
+    schema,
     required: true,
     equals: true,
   });

@@ -6,7 +6,7 @@ import { TestGlobal } from "../TestGlobal";
 import { runTtsc } from "../utils/runTtsc";
 
 /**
- * End-to-end emit test: run `ttsc build --emit` on the primitives fixture,
+ * End-to-end emit test: run `ttsc --emit` on the primitives fixture,
  * then require the generated dist/main.js and assert the compiled validators
  * return the expected booleans for a handful of inputs. This is the core
  * proof that ttsc produces runnable TS7/tsgo output byte-for-byte compatible
@@ -19,13 +19,13 @@ export async function test_emit_primitives(): Promise<void> {
   fs.rmSync(dist, { recursive: true, force: true });
 
   const result = runTtsc(
-    ["build", "--tsconfig=tsconfig.json", "--emit", "--quiet"],
+    ["--tsconfig=tsconfig.json", "--emit", "--quiet"],
     fixture,
   );
   assert.equal(
     result.status,
     0,
-    `ttsc build --emit should succeed; stderr=\n${result.stderr}`,
+    `ttsc --emit should succeed; stderr=\n${result.stderr}`,
   );
 
   const mainPath = path.join(dist, "main.js");

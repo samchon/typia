@@ -14,7 +14,7 @@ export async function test_emit_http(): Promise<void> {
   fs.rmSync(dist, { recursive: true, force: true });
 
   const result = runTtsc(
-    ["build", "--tsconfig=tsconfig.json", "--emit", "--quiet"],
+    ["--tsconfig=tsconfig.json", "--emit", "--quiet"],
     fixture,
   );
   assert.equal(result.status, 0, `stderr:\n${result.stderr}`);

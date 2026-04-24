@@ -1,18 +1,25 @@
 import { spawnSync } from "node:child_process";
 import * as fs from "node:fs";
 import * as path from "node:path";
-import { build, check, transform, version, type BuildOptions, type TransformOptions } from "./api";
-import { resolveProjectConfig, resolveProjectRoot } from "./project";
+
+import {
+  type BuildOptions,
+  type TransformOptions,
+  build,
+  check,
+  transform,
+  version,
+} from "./api";
 import { installHint, resolveBinary } from "./platform";
+import { resolveProjectConfig, resolveProjectRoot } from "./project";
 
 export function main(argv: readonly string[] = process.argv.slice(2)): number {
   try {
     if (argv.length === 0) {
-      printHelp();
-      return 0;
+      return runCompatibleBuild([], false);
     }
 
-    const [command, ...rest] = argv;
+    const [command, ...rest] = argv as [string, ...string[]];
     switch (command) {
       case "-h":
       case "--help":
@@ -39,8 +46,12 @@ export function main(argv: readonly string[] = process.argv.slice(2)): number {
         if (isBuildAlias(command)) {
           return runCompatibleBuild(argv, false);
         }
-        process.stderr.write(`ttsc: unknown command ${JSON.stringify(command)}\n`);
-        process.stderr.write(`ttsc: run "ttsc --help" to see supported commands\n`);
+        process.stderr.write(
+          `ttsc: unknown command ${JSON.stringify(command)}\n`,
+        );
+        process.stderr.write(
+          `ttsc: run "ttsc --help" to see supported commands\n`,
+        );
         return 2;
     }
   } catch (error) {
@@ -62,7 +73,10 @@ interface BuildInvocation extends BuildOptions {
   watch: boolean;
 }
 
-function runCompatibleBuild(argv: readonly string[], checkOnly: boolean): number {
+function runCompatibleBuild(
+  argv: readonly string[],
+  checkOnly: boolean,
+): number {
   const options = parseBuildArgs(argv, checkOnly);
   if (options.watch) {
     return runWatch(options, checkOnly);
@@ -92,11 +106,15 @@ function delegateToNative(argv: readonly string[]): number {
     return 1;
   }
   const viaNode = /\.(?:[cm]?js|ts)$/i.test(bin);
-  const result = spawnSync(viaNode ? process.execPath : bin, viaNode ? [bin, ...argv] : [...argv], {
-    stdio: "inherit",
-    env: process.env,
-    windowsHide: true,
-  });
+  const result = spawnSync(
+    viaNode ? process.execPath : bin,
+    viaNode ? [bin, ...argv] : [...argv],
+    {
+      stdio: "inherit",
+      env: process.env,
+      windowsHide: true,
+    },
+  );
   if (result.error) {
     process.stderr.write(`${result.error.message}\n`);
     return 1;
@@ -104,7 +122,10 @@ function delegateToNative(argv: readonly string[]): number {
   return result.status ?? 1;
 }
 
-function parseBuildArgs(argv: readonly string[], checkOnly: boolean): BuildInvocation {
+function parseBuildArgs(
+  argv: readonly string[],
+  checkOnly: boolean,
+): BuildInvocation {
   let binary: string | undefined;
   let cwd: string | undefined;
   let emit: boolean | undefined = checkOnly ? false : undefined;
@@ -164,13 +185,16 @@ function parseBuildArgs(argv: readonly string[], checkOnly: boolean): BuildInvoc
         } else if (current === "-w") {
           watch = true;
         } else if (current.startsWith("--rewrite-mode=")) {
-          rewriteMode = takeRewriteMode(current.slice("--rewrite-mode=".length));
+          rewriteMode = takeRewriteMode(
+            current.slice("--rewrite-mode=".length),
+          );
         } else if (current.startsWith("--tsconfig=")) {
           tsconfig = current.slice("--tsconfig=".length);
         } else if (current.startsWith("--project=")) {
           tsconfig = current.slice("--project=".length);
         } else if (current.startsWith("--preserveWatchOutput=")) {
-          preserveWatchOutput = current.slice("--preserveWatchOutput=".length) !== "false";
+          preserveWatchOutput =
+            current.slice("--preserveWatchOutput=".length) !== "false";
         } else if (current.startsWith("--binary=")) {
           binary = current.slice("--binary=".length);
         } else if (current === "--verbose") {
@@ -238,7 +262,9 @@ function parseTransformArgs(argv: readonly string[]): TransformOptions {
         } else if (current.startsWith("--out=")) {
           out = current.slice("--out=".length);
         } else if (current.startsWith("--rewrite-mode=")) {
-          rewriteMode = takeRewriteMode(current.slice("--rewrite-mode=".length));
+          rewriteMode = takeRewriteMode(
+            current.slice("--rewrite-mode=".length),
+          );
         } else if (current.startsWith("--tsconfig=")) {
           tsconfig = current.slice("--tsconfig=".length);
         } else if (current.startsWith("--project=")) {
@@ -269,13 +295,12 @@ function printHelp(): void {
       "",
       "Usage:",
       "  ttsc",
-      "  ttsc [file.ts]",
-      "  ttsc --watch",
       "  ttsc -p tsconfig.json",
-      "  ttsc build [options]",
-      "  ttsc check [options]",
+      "  ttsc --watch",
+      "  ttsc --noEmit",
       "  ttsc transform --file <path> [options]",
       "  ttsc version",
+      "  ttsc --help",
       "",
       "Options:",
       "  -p, --project <file>   Resolve project settings from this tsconfig",
@@ -294,8 +319,12 @@ function printHelp(): void {
       "",
       "Plugin contract:",
       "  ttsc reads compilerOptions.plugins from tsconfig.json.",
-      "  TS plugins may export `definePlugin(...)` from @typia/ttsc/plugin.",
+      "  TS plugins may export `definePlugin(...)` from @typia/ttsc.",
       "  Native consumer plugins may also provide their own binary path.",
+      "",
+      "Compatibility aliases:",
+      "  ttsc build [options]       Same project build lane as `ttsc [options]`.",
+      "  ttsc check [options]       Same as `ttsc --noEmit [options]`.",
     ].join("\n"),
   );
   process.stdout.write("\n");
@@ -303,7 +332,9 @@ function printHelp(): void {
 
 function runSingleFile(options: BuildInvocation): number {
   if (options.files.length !== 1) {
-    throw new Error("ttsc: single-file mode currently accepts exactly one input file");
+    throw new Error(
+      "ttsc: single-file mode currently accepts exactly one input file",
+    );
   }
   const cwd = path.resolve(options.cwd ?? process.cwd());
   const file = path.resolve(cwd, options.files[0]!);
@@ -324,7 +355,11 @@ function runSingleFile(options: BuildInvocation): number {
   return 0;
 }
 
-function resolveSingleFileOut(file: string, cwd: string, outDir?: string): string {
+function resolveSingleFileOut(
+  file: string,
+  cwd: string,
+  outDir?: string,
+): string {
   const relative = path.relative(cwd, file);
   const jsRelative = relative.replace(/\.[cm]?tsx?$/i, ".js");
   if (outDir) {
@@ -363,7 +398,9 @@ function runWatch(options: BuildInvocation, checkOnly: boolean): number {
     if (!options.preserveWatchOutput) {
       process.stdout.write("\x1bc");
     }
-    process.stdout.write(`[ttsc] rebuilding at ${new Date().toLocaleTimeString()}\n`);
+    process.stdout.write(
+      `[ttsc] rebuilding at ${new Date().toLocaleTimeString()}\n`,
+    );
     const status =
       invocation.files.length !== 0
         ? runSingleFile(invocation)
@@ -373,7 +410,9 @@ function runWatch(options: BuildInvocation, checkOnly: boolean): number {
             if (result.stderr) process.stderr.write(result.stderr);
             return result.status;
           })();
-    process.stdout.write(`[ttsc] ${status === 0 ? "watch build complete" : "watch build failed"}\n`);
+    process.stdout.write(
+      `[ttsc] ${status === 0 ? "watch build complete" : "watch build failed"}\n`,
+    );
     running = false;
     if (rerun) {
       rerun = false;

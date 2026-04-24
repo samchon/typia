@@ -7,7 +7,7 @@
     "dev": "ttsx src/index.ts",
     "build:backend": "bash -c 'export PATH=\"$HOME/go-sdk/go/bin:$PATH\"; cd ../../packages/transform/native && go build -o ../../../packages/typia/bin/ttsc-typia-native ./cmd/ttsc-typia'",
     "build:packages": "pnpm --filter @typia/ttsc build && pnpm --filter @typia/ttsx build && pnpm --filter typia build",
-    "build:go": "bash -c 'export PATH=\"$HOME/go-sdk/go/bin:$PATH\"; cd ../../toolchain/ttsc && go build -o bin/ttsc-native ./cmd/ttsc'",
+    "build:go": "bash -c 'export PATH=\"$HOME/go-sdk/go/bin:$PATH\"; cd ../../toolchain/ttsc && mkdir -p native && go build -o native/ttsc-native ./cmd/ttsc'",
     "prestart": "pnpm run build:packages && pnpm run build:go && pnpm run build:backend",
     "start": "ttsx src/index.ts",
     "test": "pnpm run start"

@@ -5,7 +5,7 @@
   "description": "Test typia generation command",
   "scripts": {
     "build": "rimraf bin && ttsc build --emit --rewrite-mode none --tsconfig tsconfig.json",
-    "generate": "ttsx node_modules/typia/src/executable/typia.ts generate --input src/input --output src/output",
+    "generate": "rimraf src/output && ttsx node_modules/typia/src/executable/typia.ts generate --input src/input --output src/output",
     "start": "pnpm run generate && pnpm run build"
   },
   "repository": {
