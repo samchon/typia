@@ -53,7 +53,7 @@
 
 ## 이 명제의 비용
 
-공짜가 아니다. **TS 컴파일러를 빌드 파이프라인에 끼워야** 한다 — 현재 기본 경로는 `npx typia setup` → `@typescript/native-preview` + `@typia/ttsc` + `typia/lib/ttsc/plugin`, 번들러 중심 대체 경로는 `@typia/unplugin` 이다. 이는:
+공짜가 아니다. **TS 컴파일러를 빌드 파이프라인에 끼워야** 한다 — 현재 기본 경로는 `npx typia setup` → `@typescript/native-preview` + `@typia/ttsc` + `typia/lib/transform`, 번들러 중심 대체 경로는 `@typia/unplugin` 이다. 이는:
 
 - 기본 설치 계약은 이미 `ttsc` 로 넘어왔지만, bundler/browser compatibility lane 과 optional runner(`@typia/ttsx`)까지 이해해야 하므로 setup 마찰이 여전히 큰 약점
 - TypeScript Compiler API (특히 향후 tsgo)에 강하게 종속

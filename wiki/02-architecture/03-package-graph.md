@@ -13,7 +13,7 @@
         │
         ├──────────────▶ typia
         │                    │
-        │                    └────────▶ typia/lib/ttsc/plugin
+        │                    └────────▶ typia/lib/transform
         │
         └──────────────▶ @typia/unplugin ─────▶ @typia/ttsc.transform()
 ```

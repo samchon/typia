@@ -32,7 +32,7 @@ typia lane 에 속한다.
 1. `@typia/ttsc` 설치
 2. `@typescript/native-preview` 설치
 3. legacy `ts-patch` 제거
-4. typia config / tsconfig 정렬 (`typia/lib/ttsc/plugin` 주입)
+4. typia config / tsconfig 정렬 (`typia/lib/transform` 주입)
 
 현재 구현과 이상 사이의 편차:
 

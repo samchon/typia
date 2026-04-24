@@ -42,7 +42,7 @@ typia는 **이미 부분 구현 완료**이나:
 이 약점은 typia의 사상이 가진 **구조적 비용**이다.
 
 신규 사용자가 typia를 시도하려면:
-1. `npx typia setup` 또는 수동으로 `@typescript/native-preview` + `@typia/ttsc` + `typia/lib/ttsc/plugin` 배선
+1. `npx typia setup` 또는 수동으로 `@typescript/native-preview` + `@typia/ttsc` + `typia/lib/transform` 배선
 2. 번들러 환경이면 `@typia/unplugin` 과 기본 `ttsc` 경로 중 어느 쪽을 쓸지 결정
 3. IDE TypeScript Service가 transformer 결과를 직접 보여주지 않음 → 에러 메시지가 빌드 시에만 보이기 쉬움
 4. `ts-node` / `tsx` 류 실행이 필요하면 `@typia/ttsx` 같은 runner를 추가로 이해해야 함

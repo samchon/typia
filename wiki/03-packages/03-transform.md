@@ -2,7 +2,7 @@
 
 > 위치: `packages/transform/native`
 
-`@typia/transform` TypeScript 패키지는 제거되었다. 현재 transform 계층은 Go native ttsc adapter이며, `typia/lib/ttsc/plugin`이 지정하는 native binary가 이 코드를 실행한다.
+`@typia/transform` TypeScript 패키지는 제거되었다. 현재 transform 계층은 Go native ttsc adapter이며, `typia/lib/transform`이 지정하는 native binary가 이 코드를 실행한다.
 
 ## 구성
 

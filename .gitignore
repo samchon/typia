@@ -2,8 +2,6 @@
 .codex/
 bin/
 !/bin
-!packages/typia/bin/
-!packages/typia/bin/ttsc-typia.js
 node_modules/
 
 packages/*/lib/
@@ -17,6 +15,7 @@ toolchain-tests/test-typia-ttsc/fixtures/*/build/output/
 wiki/memo/
 
 package-lock.json
+!experiments/setup-wizard-npm/package-lock.json
 
 *.env
 *.log

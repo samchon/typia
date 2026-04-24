@@ -33,7 +33,7 @@
     // "baseUrl": "./",
     "plugins": [
       {
-        "transform": "typia/lib/ttsc/plugin"
+        "transform": "typia/lib/transform"
       }
     ],
     // "rootDirs": [],                                   /* Allow multiple folders to be treated as one when resolving modules. */

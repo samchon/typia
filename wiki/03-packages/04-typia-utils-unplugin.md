@@ -7,12 +7,12 @@
 - 기본 검증: `is`, `assert`, `assertGuard`, `validate`, `equals`, `random`, factory 계열
 - namespace: `json`, `llm`, `protobuf`, `misc`, `notations`, `reflect`, `functional`, `http`
 - CLI: `typia setup`, `typia generate`
-- plugin entry: `typia/lib/ttsc/plugin`
+- plugin entry: `typia/lib/transform`
 
 ### 현재 wrapping 구조
 
-- `packages/typia/src/ttsc/plugin.ts` 가 `@typia/ttsc.definePlugin()`으로 native plugin을 선언한다.
-- `typia/lib/transform` export는 제거되었다.
+- `packages/typia/src/transform.ts` 가 `@typia/ttsc.definePlugin()`으로 native plugin을 선언한다.
+- `typia/lib/transform` export는 native plugin entry로 유지된다.
 - `TypiaProgrammer` legacy alias도 제거되었다.
 - 메인 패키지는 사용자 facing API, 런타임 헬퍼, CLI, native plugin entry만 들고 간다.
 
@@ -42,7 +42,7 @@
 ### 메커니즘
 
 - transform hook에서 typia가 포함된 TS 파일만 처리한다.
-- `plugins: [{ transform: "typia/lib/ttsc/plugin" }]` 를 명시 주입한다.
+- `plugins: [{ transform: "typia/lib/transform" }]` 를 명시 주입한다.
 - `@typia/ttsc.transform()` 이 반환한 JS string을 diff-match-patch-es + magic-string으로 sourcemap 처리한다.
 
 ### 옵션

@@ -31,9 +31,7 @@ Later the compiler package is expected to become `typescript@7`, but the current
 ```json
 {
   "compilerOptions": {
-    "plugins": [
-      { "transform": "typia/lib/ttsc/plugin" }
-    ]
+    "plugins": [{ "transform": "typia/lib/transform" }]
   }
 }
 ```
@@ -123,7 +121,8 @@ Important behavior:
 - `transform()` resolves the enclosing `tsconfig.json` unless `tsconfig` is given.
 - `plugins` can override the tsconfig plugin list.
 - `plugins: false` disables tsconfig plugin loading.
-- `rewriteMode` overrides the native rewrite backend selected by the plugin.
+- plugin-declared `native.mode` selects the native rewrite backend.
+- `rewriteMode` is a low-level override for tests and migration probes.
 - `out` writes the final transformed text to a file instead of only returning it.
 
 ### `build(options)` / `check(options)`
@@ -180,7 +179,7 @@ Optional extra keys are passed to the plugin factory unchanged.
 - an absolute path
 - a relative path from the project root
 
-The loader also has a source-checkout fallback for `*/lib/ttsc/plugin`, so workspace consumers can be developed before packing/publishing.
+The loader also has a source-checkout fallback for `*/lib/transform`, so workspace consumers can be developed before packing/publishing.
 
 ## Writing a Plugin
 
@@ -190,23 +189,68 @@ The host surface for plugin authors lives in:
 import { definePlugin } from "@typia/ttsc";
 ```
 
+There are two plugin shapes.
+
+- **Native transform plugin**: owns type analysis, call-site recognition, AST rewrite,
+  diagnostics, and emitted assets in a consumer-native backend.
+- **JS output plugin**: receives emitted JavaScript text and returns edited JavaScript
+  text.
+
+The native shape is the TypeScript v7 path: the plugin describes the backend,
+and the backend performs compiler work through the `typescript-go` lane.
+
 ### Minimal native consumer plugin
 
 ```ts
-import * as path from "node:path";
 import { definePlugin } from "@typia/ttsc";
+import * as path from "node:path";
 
 export default definePlugin(() => ({
   name: "my-consumer",
-  nativeMode: "my-consumer",
-  nativeBinary: path.resolve(__dirname, "../native/ttsc-my-consumer.js"),
+  native: {
+    mode: "my-consumer",
+    binary: path.resolve(__dirname, "../native/ttsc-my-consumer.js"),
+    contractVersion: 1,
+    capabilities: ["rewrite", "diagnostics", "assets"],
+  },
 }));
 ```
 
 This tells `ttsc`:
 
-- which native rewrite mode to request
-- which consumer-owned native binary to run
+- which native rewrite mode to request (`native.mode`)
+- which consumer-owned native binary to run (`native.binary`)
+- which plugin contract version the package was written for
+- which capabilities the backend expects to own
+
+The backend binary is responsible for the work that old TypeScript
+transformers used to do in-process:
+
+- loading the project through the `typescript-go` lane
+- finding marker calls such as `typia.is<T>()`
+- analyzing types through native checker access or a serialized IR
+- emitting the replacement JavaScript
+- reporting plugin-specific diagnostics
+
+The plugin declaration should stay small. Keep compiler work in the native
+backend and keep package discovery/configuration in the Node plugin.
+
+### Native backend descriptor
+
+```ts
+interface TtscNativeBackend {
+  mode: string;
+  binary?: string;
+  contractVersion?: 1;
+  capabilities?: readonly string[];
+}
+```
+
+`mode` is the stable name passed to the native compiler process. `binary`
+overrides the default `ttsc` binary when the plugin ships a consumer-specific
+backend. `contractVersion` defaults to `1`; declaring it pins the plugin to the
+current host protocol. `capabilities` is descriptive today and should be used by
+plugin authors as a manifest of owned responsibilities.
 
 ### Plugin with JS-side output post-processing
 
@@ -229,12 +273,104 @@ export default definePlugin((config) => ({
 - after `ttsc transform`
 - after emitted `.js` files are produced during `ttsc`
 
-That makes it suitable for text-level post-processing such as:
+Use this hook for text-level post-processing such as:
 
 - banner injection
 - output string patching
 - runtime helper import rewrites
 - consumer-specific output normalization
+
+Put compiler-sensitive work in a native backend or in a separate IR bridge:
+
+- type analysis
+- AST mutation
+- call-site recognition
+- `ts.Program` / `ts.TypeChecker` transformer compatibility
+
+## Transform Development Guide
+
+This is the recommended path for a new transform consumer.
+
+### 1. Publish a tiny Node plugin entry
+
+Create a package entry such as `my-lib/lib/transform`.
+
+```ts
+import { definePlugin } from "@typia/ttsc";
+import * as path from "node:path";
+
+export default definePlugin((config, context) => ({
+  name: "my-lib",
+  native: {
+    mode: "my-lib",
+    binary: path.resolve(__dirname, "../../native/ttsc-my-lib.js"),
+    contractVersion: 1,
+    capabilities: ["rewrite", "diagnostics"],
+  },
+  transformOutput(output) {
+    return output.code;
+  },
+}));
+```
+
+The factory receives the raw `compilerOptions.plugins[]` entry as `config` and
+the resolved project locations as `context`. Use this entry for
+package-relative asset lookup, feature flags, diagnostics labels, and manifest
+construction. Keep type analysis and AST rewriting in the native backend.
+
+### 2. Add the plugin to `tsconfig.json`
+
+```json
+{
+  "compilerOptions": {
+    "plugins": [{ "transform": "my-lib/lib/transform" }]
+  }
+}
+```
+
+The same entry is consumed by the CLI and by the JS API.
+
+### 3. Call `ttsc` from a build
+
+```bash
+ttsc
+ttsc --noEmit
+ttsc --outDir bin
+```
+
+The host loads the plugin, selects `native.mode`, and runs the selected native
+backend. The user should not have to pass `--rewrite-mode` for normal use.
+
+### 4. Reuse the same contract from a bundler
+
+```ts
+import { transform } from "@typia/ttsc";
+
+const code = transform({
+  cwd: "/project",
+  file: "/project/src/index.ts",
+  tsconfig: "/project/tsconfig.json",
+  plugins: [{ transform: "my-lib/lib/transform" }],
+});
+```
+
+When `plugins` is supplied, it replaces the `tsconfig` plugin list. This is
+useful for bundlers that want deterministic plugin state.
+
+### 5. Keep the compiler boundary honest
+
+`typescript-go` exposes a new compiler lane. A `ttsc` transform should exchange
+stable artifacts:
+
+- plugin manifest
+- serialized request/response
+- generated JavaScript
+- emitted asset list
+- diagnostic payload
+
+Design transforms around those artifacts. Treat `typescript-go` internal Go
+structs, TypeScript's old JS `ts.Node` objects, and typia-specific helper names
+as implementation details.
 
 ### Factory context
 
@@ -267,7 +403,7 @@ These are real current constraints, not future ideals.
 
 ### 1. One native mode per invocation
 
-Today `@typia/ttsc` allows only one `nativeMode` / `nativeBinary` pair per invocation.
+Today `@typia/ttsc` allows only one `native.mode` / `native.binary` pair per invocation.
 
 If two loaded plugins request different native modes or binaries, the host throws.
 
@@ -304,7 +440,7 @@ The current documented and implemented setup lane is still `@typescript/native-p
 
 This is what `typia` does today:
 
-- publish a tsconfig plugin entry such as `typia/lib/ttsc/plugin`
+- publish a tsconfig plugin entry such as `typia/lib/transform`
 - point that entry at a consumer-native binary
 - optionally layer JS-side output transforms on top
 

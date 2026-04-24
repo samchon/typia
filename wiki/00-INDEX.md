@@ -18,7 +18,8 @@
 - preview 기본 설치 계약은 `@typescript/native-preview` + `@typia/ttsc` 다.
 - stable 기본 설치 계약은 `typescript@7` + `@typia/ttsc` 가 목표다.
 - `@typia/ttsx` 는 optional runner 다.
-- `@typia/core`, `@typia/transform`, `typia/lib/transform` TypeScript legacy 표면은 제거되었다.
+- `@typia/core`, `@typia/transform` TypeScript legacy transformer 표면은 제거되었다.
+- `typia/lib/transform` 은 현재 native plugin entry 다.
 - 현재 native 구현은 `packages/core/native` 와 `packages/transform/native` 에 남아 있다.
 
 ## 폴더

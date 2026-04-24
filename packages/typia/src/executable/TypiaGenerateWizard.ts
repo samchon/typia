@@ -1,7 +1,6 @@
+import { transform } from "@typia/ttsc";
 import fs from "fs";
 import path from "path";
-
-import { transform } from "@typia/ttsc";
 
 import { ArgumentParser } from "./setup/ArgumentParser";
 import { PackageManager } from "./setup/PackageManager";
@@ -119,8 +118,7 @@ export namespace TypiaGenerateWizard {
         cwd,
         file,
         tsconfig: location.project,
-        plugins: [{ transform: "typia/lib/ttsc/plugin" }],
-        rewriteMode: "typia",
+        plugins: [{ transform: "typia/lib/transform" }],
       });
       await fs.promises.mkdir(path.dirname(target), { recursive: true });
       await fs.promises.writeFile(target, output, "utf8");

@@ -5,7 +5,7 @@
 1. `ttsc` 는 standalone compiler adapter / plugin host 로 정체성이 확정되었다.
 2. `ttsx` 는 standalone runner 로 분리되었다.
 3. typia는 `@typia/ttsc` / `@typia/ttsx` 를 소비하는 첫 consumer 로 정렬되었다.
-4. 기본 setup 계약은 preview compiler + `@typia/ttsc` + `typia/lib/ttsc/plugin` 으로 이미 전환되었다.
+4. 기본 setup 계약은 preview compiler + `@typia/ttsc` + `typia/lib/transform` 으로 이미 전환되었다.
 
 ## 다음 단계
 

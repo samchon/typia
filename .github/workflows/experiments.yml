@@ -35,3 +35,7 @@ jobs:
       - name: Test Experiments (unplugin)
         working-directory: experiments/unplugin
         run: npm install && npm start
+
+      - name: Test Experiments (setup)
+        working-directory: experiments/setup
+        run: npm install && npm start

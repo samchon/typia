@@ -41,26 +41,21 @@ export namespace TypiaSetupWizard {
 
     // NORMALIZE PROJECT SETTINGS
     await pack.save((data) => {
-      data.scripts ??= {};
-      if (typeof data.scripts.prepare === "string") {
-        const prepare = data.scripts.prepare
-          .split("&&")
-          .map((str) => str.trim())
-          .filter(
-            (str) => str.length !== 0 && isLegacyCompilerPatchStep(str) === false,
-          )
-          .join(" && ");
+      if (typeof data.scripts?.prepare === "string") {
+        const prepare = removeLegacyCompilerPatchSteps(data.scripts.prepare);
         if (prepare.length !== 0) data.scripts.prepare = prepare;
         else delete data.scripts.prepare;
+        if (Object.keys(data.scripts).length === 0) delete data.scripts;
       }
-      if (typeof data.scripts.postinstall === "string") {
-        data.scripts.postinstall = data.scripts.postinstall
-          .split("&&")
-          .map((str) => str.trim())
-          .filter((str) => isLegacyCompilerPatchStep(str) === false)
-          .join(" && ");
-        if (data.scripts.postinstall.length === 0)
-          delete data.scripts.postinstall;
+      if (data.devDependencies?.["ts-patch"] !== undefined) {
+        delete data.devDependencies["ts-patch"];
+        if (Object.keys(data.devDependencies).length === 0)
+          delete data.devDependencies;
+      }
+      if (data.dependencies?.["ts-patch"] !== undefined) {
+        delete data.dependencies["ts-patch"];
+        if (Object.keys(data.dependencies).length === 0)
+          delete data.dependencies;
       }
     });
 
@@ -158,5 +153,14 @@ export namespace TypiaSetupWizard {
   };
 
   const isLegacyCompilerPatchStep = (str: string): boolean =>
-    str === "typia patch" || /\b[a-z-]+-patch install\b/.test(str);
+    str === "typia patch" || str.includes("ts-patch install");
+
+  const removeLegacyCompilerPatchSteps = (script: string): string =>
+    script
+      .split("&&")
+      .map((str) => str.trim())
+      .filter(
+        (str) => str.length !== 0 && isLegacyCompilerPatchStep(str) === false,
+      )
+      .join(" && ");
 }

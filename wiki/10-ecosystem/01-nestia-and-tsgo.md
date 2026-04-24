@@ -33,7 +33,7 @@
 
 ### A. @nestia/core transformer 체이닝
 - 진입: `packages/core/src/transform.ts:1` — `ITypiaContext` import
-- tsconfig: `plugins: [{ transform: "typia/lib/ttsc/plugin" }]` (nestia 쪽 typia 경로)
+- tsconfig: `plugins: [{ transform: "typia/lib/transform" }]` (nestia 쪽 typia 경로)
 - 사용자 tsconfig: **2개 transformer 순차 실행** — typia → nestia
 
 ### B. @nestia/core programmer들의 MetadataFactory 직접 호출 ⚠️
@@ -64,7 +64,7 @@ import { JsonMetadataFactory, MetadataFactory } from "@typia/core/...";
 {
   "compilerOptions": {
     "plugins": [
-      { "transform": "typia/lib/ttsc/plugin" },
+      { "transform": "typia/lib/transform" },
       { "transform": "@nestia/core/lib/transform" }
     ]
   }
@@ -85,7 +85,7 @@ import { JsonMetadataFactory, MetadataFactory } from "@typia/core/...";
 └─ @typia/ttsc 코어 재사용
 
 사용자: plugins = [
-  { transform: "typia/lib/ttsc/plugin" },
+  { transform: "typia/lib/transform" },
   { transform: "@nestia/core/lib/transform" }
 ]
 (tsconfig 변경 없음. ttsc가 두 plugin 모두 내부 dispatch)
@@ -151,7 +151,7 @@ typia-go 100~150K + nestia 20~35K = **총 120~185K Go LOC** (ttsc 바이너리).
 ```bash
 npm i -D typescript typia nestia @nestia/core @nestia/sdk ts-patch
 # package.json: "prepare": "ts-patch install"
-# tsconfig: plugins: [{ transform: "typia/lib/ttsc/plugin" }, ...]
+# tsconfig: plugins: [{ transform: "typia/lib/transform" }, ...]
 ```
 
 ### 전환 후 (v14 / typia v14 동시)
@@ -162,7 +162,7 @@ npx typia setup
 # nestia transformer는 별도 integration layer에서 정렬
 ```
 
-**tsconfig.json**: typia plugin 쪽은 `typia/lib/ttsc/plugin` 기준으로 바뀌고, nestia transformer는 그 위에서 별도 정렬이 필요하다.
+**tsconfig.json**: typia plugin 쪽은 `typia/lib/transform` 기준으로 바뀌고, nestia transformer는 그 위에서 별도 정렬이 필요하다.
 
 ## tsgonest 경쟁 대응 (Agent 재확인)
 

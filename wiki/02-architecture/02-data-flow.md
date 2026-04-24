@@ -14,9 +14,9 @@ interface Member {
 const ok = typia.is<Member>(input);
 ```
 
-## 단계 1. ttsc host / unplugin이 typia transformer를 호출
+## 단계 1. ttsc host / unplugin이 typia native plugin을 호출
 
-`packages/transform/src/transform.ts:41-68` — `transform(program, options, extras)` 는 현재 `typia/lib/ttsc/plugin` 과 `@typia/unplugin` 이 공통으로 소비하는 TransformerFactory 진입점이다. 호출되면 strict 옵션 검증 후 TransformerFactory를 반환한다. legacy `ts-patch` 경로도 이 시그니처를 reuse할 수 있지만, 현행 기본 계약은 아니다.
+`typia/lib/transform` 은 현재 `packages/typia/src/transform.ts` 가 노출하는 native plugin entry다. 이 entry는 `@typia/ttsc.definePlugin()` 결과를 반환하고, `native.mode = "typia"` 와 typia native backend launcher를 선언한다. `@typia/unplugin` 도 같은 entry를 `@typia/ttsc.transform()` 호출에 주입한다.
 
 ## 단계 2. FileTransformer가 SourceFile 순회
 

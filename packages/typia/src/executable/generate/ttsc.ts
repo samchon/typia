@@ -1,15 +1,13 @@
-#!/usr/bin/env node
-"use strict";
+import { spawnSync } from "node:child_process";
+import * as fs from "node:fs";
+import * as path from "node:path";
 
-const fs = require("node:fs");
-const path = require("node:path");
-const { spawnSync } = require("node:child_process");
-
-const packageRoot = path.resolve(__dirname, "..");
+const packageRoot = path.resolve(__dirname, "..", "..", "..");
 const repoRoot = path.resolve(packageRoot, "..", "..");
 const nativeProject = path.resolve(repoRoot, "packages", "transform", "native");
 const nativeBinary = path.resolve(
-  __dirname,
+  packageRoot,
+  "bin",
   process.platform === "win32" ? "ttsc-typia-native.exe" : "ttsc-typia-native",
 );
 const nativeEntrypoint = path.resolve(
@@ -24,7 +22,7 @@ const argv = [...process.argv.slice(2)];
 
 if (
   argv.length > 0 &&
-  needsCwd(argv[0]) &&
+  needsCwd(argv[0]!) &&
   !argv.some((value) => value === "--cwd" || value.startsWith("--cwd="))
 ) {
   argv.push(`--cwd=${invocationCwd}`);
@@ -73,7 +71,7 @@ if (!hasNativeBinary && !hasSourceEntrypoint) {
   }
 }
 
-function needsCwd(commandName) {
+function needsCwd(commandName: string): boolean {
   return (
     commandName === "build" ||
     commandName === "check" ||

@@ -58,7 +58,7 @@ LLM function calling harness: 6.75% → 100% accuracy
 >
 > Those duplicated schema definitions are not only annoying, but also error-prone. If you take any mistake on the extra schema definition, such mistake can't be detected by TypeScript compiler.
 
-핵심 차이: AOT(Ahead of Time) 컴파일 — 타입을 분석해 컴파일 타임에 검증/직렬화 코드 emit. 현재 공개 setup 문서의 기본 경로는 `typia setup` → `@typescript/native-preview` + `@typia/ttsc` + `typia/lib/ttsc/plugin` 이다.
+핵심 차이: AOT(Ahead of Time) 컴파일 — 타입을 분석해 컴파일 타임에 검증/직렬화 코드 emit. 현재 공개 setup 문서의 기본 경로는 `typia setup` → `@typescript/native-preview` + `@typia/ttsc` + `typia/lib/transform` 이다.
 
 ## 5. 기능 문서 품질
 

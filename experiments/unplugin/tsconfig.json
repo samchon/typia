@@ -11,7 +11,7 @@
     "skipLibCheck": true,
     "plugins": [
       {
-        "transform": "typia/lib/ttsc/plugin"
+        "transform": "typia/lib/transform"
       }
     ]
   },

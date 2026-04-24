@@ -6,7 +6,7 @@
 
 1. `@typia/ttsc` / `@typia/ttsx` package identity 확정
 2. `ttsc` / `ttsx` CLI 진입점과 JS API 표면 확보
-3. `typia/lib/ttsc/plugin` 경로 확정
+3. `typia/lib/transform` 경로 확정
 4. `typia setup` 가 legacy `ts-patch` 경로 대신 preview compiler + `@typia/ttsc` 를 설치하도록 전환
 5. typia workspace 패키지들이 `ttsc` / `ttsc --watch` 기준으로 재정렬
 6. `ttsx src/index.ts` 경로 확보

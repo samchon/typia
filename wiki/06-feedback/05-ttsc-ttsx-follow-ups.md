@@ -63,7 +63,7 @@
 현재 중심축은 이미:
 
 - `@typia/ttsc`
-- `typia/lib/ttsc/plugin`
+- `typia/lib/transform`
 - `@typia/ttsx`
 
 이다.

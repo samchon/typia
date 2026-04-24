@@ -8,7 +8,7 @@
     "skipLibCheck": true,
     "rootDir": "src",
     "outDir": "dist",
-    "plugins": [{ "transform": "typia/lib/ttsc/plugin" }],
+    "plugins": [{ "transform": "typia/lib/transform" }],
     "noEmit": true
   },
   "include": ["src"]

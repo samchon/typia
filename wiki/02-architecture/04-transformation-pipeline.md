@@ -1,6 +1,6 @@
 # 04. 변환 파이프라인 — `ttsc`와 unplugin
 
-typia transformer의 현재 진입 경로는 두 가지다. 둘 다 `typia/lib/ttsc/plugin` 과 Go native backend로 수렴한다.
+typia transformer의 현재 진입 경로는 두 가지다. 둘 다 `typia/lib/transform` 과 Go native backend로 수렴한다.
 
 ## 경로 A. `ttsc` (기본)
 
@@ -8,8 +8,8 @@ typia transformer의 현재 진입 경로는 두 가지다. 둘 다 `typia/lib/t
 [사용자] typia setup / ttsc
    ↓
 [ttsc] tsconfig.json의 plugins[].transform 읽음
-   ↓ "typia/lib/ttsc/plugin" resolve
-[typia plugin] nativeBinary + nativeMode 선언
+   ↓ "typia/lib/transform" resolve
+[typia plugin] native.mode + native.binary 선언
    ↓
 [ttsc-typia build]
    - tsgo Program 로드
@@ -22,7 +22,7 @@ typia transformer의 현재 진입 경로는 두 가지다. 둘 다 `typia/lib/t
 
 1. `npm i typia`
 2. `npm i -D @typescript/native-preview @typia/ttsc`
-3. `tsconfig.json.compilerOptions.plugins += [{ transform: "typia/lib/ttsc/plugin" }]`
+3. `tsconfig.json.compilerOptions.plugins += [{ transform: "typia/lib/transform" }]`
 4. `strict` / `strictNullChecks` / `skipLibCheck` 정리
 5. `ttsc --emit --tsconfig tsconfig.json`
 
@@ -33,7 +33,7 @@ typia transformer의 현재 진입 경로는 두 가지다. 둘 다 `typia/lib/t
    ↓
 [@typia/unplugin] transform hook
    ↓
-[@typia/ttsc.transform({ file, tsconfig, plugins, rewriteMode: "typia" })]
+[@typia/ttsc.transform({ file, tsconfig, plugins })]
    ↓
 [ttsc-typia transform]
    - 단일 파일의 emitted JS capture
@@ -56,6 +56,6 @@ unplugin은 별도 TypeScript transformer를 들고 있지 않다. 번들러 ada
 
 ## 제거된 경로
 
-`typia/lib/transform` + `@typia/transform` + `@typia/core` 기반 TypeScript transformer는 현재 코드베이스에서 제거되었다. 구버전 TypeScript transformer가 필요한 사용자는 해당 기능을 포함한 구버전 typia를 사용한다.
+`@typia/transform` + `@typia/core` 기반 TypeScript transformer는 현재 코드베이스에서 제거되었다. `typia/lib/transform` 은 같은 이름을 유지하는 native plugin entry이며, 구버전 TypeScript transformer가 필요한 사용자는 해당 기능을 포함한 구버전 typia를 사용한다.
 
 → 패키지별 깊은 구조는 [03-packages/](../03-packages/) 참조.

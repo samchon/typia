@@ -148,7 +148,7 @@ Firstly install `typia` as a dependency. And then, install `@typescript/native-p
     "strictNullChecks": true, 
     "skipLibCheck": true,
     "plugins": [
-      { "transform": "typia/lib/ttsc/plugin" }
+      { "transform": "typia/lib/transform" }
     ]
   }
 }
@@ -487,7 +487,7 @@ After installing `typia` like above, and ensuring `@typescript/native-preview` a
     "outDir": "../../dist/out-tsc",
     "declaration": true,
     "types": [],
-    "plugins": [{ "transform": "typia/lib/ttsc/plugin" }]
+    "plugins": [{ "transform": "typia/lib/transform" }]
   },
   "include": ["**/*.ts"],
   "exclude": ["jest.config.ts", "**/*.spec.ts", "**/*.test.ts"]
@@ -518,7 +518,7 @@ To debug whether this is an issue with your setup or simply NX just silently swa
 
 Running this task will show you the errors from Typia, and allow you to correct them, meaning that using the standard `nx <package-name>:build` task should now work the way you expect.
 
-Note: While Nx has a `transformers` feature on the `@nx/js` plugin, that won't work with Typia. Nx expects a transformer to export a `before` hook, which it then plugs directly into the compiler API. Typia's default path is the `ttsc` host plus `typia/lib/ttsc/plugin`, so the Nx transformer slot is not the primary integration point.
+Note: While Nx has a `transformers` feature on the `@nx/js` plugin, that won't work with Typia. Nx expects a transformer to export a `before` hook, which it then plugs directly into the compiler API. Typia's default path is the `ttsc` host plus `typia/lib/transform`, so the Nx transformer slot is not the primary integration point.
 
 ## Generation
 

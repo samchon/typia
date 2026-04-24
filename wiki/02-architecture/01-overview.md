@@ -14,11 +14,11 @@
                          │ ttsc 또는 unplugin
                          ▼
 ┌────────────────────────────────────────────────────────────────────┐
-│   typia/lib/ttsc/plugin                                            │
+│   typia/lib/transform                                            │
 │                                                                    │
 │   - @typia/ttsc host가 로드하는 plugin entry                       │
-│   - nativeBinary: packages/typia/bin/ttsc-typia.js                 │
-│   - nativeMode: "typia"                                           │
+│   - native.binary: packages/typia/lib/executable/generate/ttsc.js  │
+│   - native.mode: "typia"                                          │
 └────────────────────────┬───────────────────────────────────────────┘
                          │ ttsc-typia build / transform
                          ▼

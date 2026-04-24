@@ -10,10 +10,10 @@
       "import": "./lib/index.js",
       "default": "./lib/index.js"
     },
-    "./lib/ttsc/plugin": {
-      "types": "./lib/ttsc/plugin.d.ts",
-      "import": "./lib/ttsc/plugin.js",
-      "default": "./lib/ttsc/plugin.js"
+    "./lib/transform": {
+      "types": "./lib/transform.d.ts",
+      "import": "./lib/transform.js",
+      "default": "./lib/transform.js"
     },
     "./lib/internal/*": {
       "types": "./lib/internal/*.d.ts",
@@ -123,10 +123,10 @@
         "import": "./lib/index.mjs",
         "default": "./lib/index.js"
       },
-      "./lib/ttsc/plugin": {
-        "types": "./lib/ttsc/plugin.d.ts",
-        "import": "./lib/ttsc/plugin.mjs",
-        "default": "./lib/ttsc/plugin.js"
+      "./lib/transform": {
+        "types": "./lib/transform.d.ts",
+        "import": "./lib/transform.mjs",
+        "default": "./lib/transform.js"
       },
       "./lib/internal/*": {
         "types": "./lib/internal/*.d.ts",
