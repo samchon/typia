@@ -1,5 +1,17 @@
 name: build
 on: 
+  push:
+    branches:
+      - master
+    paths:
+      - '.github/workflows/build.yml'
+      - 'internals/config/**'
+      - 'packages/*/src/**'
+      - 'packages/*/package.json'
+      - 'packages/*/rollup.config.mjs'
+      - 'pnpm-lock.yaml'
+      - 'pnpm-workspace.yaml'
+      - 'package.json'
   pull_request:
     paths:
       - '.github/workflows/build.yml'
