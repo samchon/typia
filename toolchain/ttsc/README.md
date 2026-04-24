@@ -187,14 +187,14 @@ The loader also has a source-checkout fallback for `*/lib/ttsc/plugin`, so works
 The host surface for plugin authors lives in:
 
 ```ts
-import { definePlugin } from "@typia/ttsc/plugin";
+import { definePlugin } from "@typia/ttsc";
 ```
 
 ### Minimal native consumer plugin
 
 ```ts
 import * as path from "node:path";
-import { definePlugin } from "@typia/ttsc/plugin";
+import { definePlugin } from "@typia/ttsc";
 
 export default definePlugin(() => ({
   name: "my-consumer",
@@ -211,7 +211,7 @@ This tells `ttsc`:
 ### Plugin with JS-side output post-processing
 
 ```ts
-import { definePlugin } from "@typia/ttsc/plugin";
+import { definePlugin } from "@typia/ttsc";
 
 export default definePlugin((config) => ({
   name: "banner-plugin",

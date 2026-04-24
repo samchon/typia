@@ -70,13 +70,7 @@
     },
     "./package.json": "./package.json"
   },
-  "files": [
-    "LICENSE",
-    "README.md",
-    "lib",
-    "package.json",
-    "src"
-  ],
+  "files": ["LICENSE", "README.md", "lib", "package.json", "src"],
   "scripts": {
     "build": "rimraf lib && ttsc",
     "prepack": "pnpm run build"
@@ -111,8 +105,6 @@
   "devDependencies": {
     "@types/bun": "^1.2.15",
     "@types/node": "^20.17.57",
-    "@typia/core": "workspace:^",
-    "@typia/transform": "workspace:^",
     "@typia/ttsc": "workspace:^",
     "fs-fixture": "^2.7.1",
     "next": "^16.1.6",

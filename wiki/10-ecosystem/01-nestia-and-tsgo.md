@@ -128,7 +128,7 @@ typia-go 100~150K + nestia 20~35K = **총 120~185K Go LOC** (ttsc 바이너리).
 
 ## ttsc 연동 표면
 
-지금 기준으로 nestia가 기대해야 할 것은 가상의 `@typia/ttsc/client` 가 아니라 다음 두 층이다.
+지금 기준으로 nestia가 기대해야 할 것은 가상의 `@typia/ttsc` 가 아니라 다음 두 층이다.
 
 1. **현재 확정 표면**: `@typia/ttsc` CLI와 JS API (`build/check/transform`)
 2. **미래 추출 표면**: 공통 코어가 안정화된 뒤의 generic `ttsc` contract

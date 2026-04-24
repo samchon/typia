@@ -10,11 +10,6 @@
       "import": "./lib/index.js",
       "default": "./lib/index.js"
     },
-    "./lib/transform": {
-      "types": "./lib/transform.d.ts",
-      "import": "./lib/transform.js",
-      "default": "./lib/transform.js"
-    },
     "./lib/ttsc/plugin": {
       "types": "./lib/ttsc/plugin.d.ts",
       "import": "./lib/ttsc/plugin.js",
@@ -47,9 +42,7 @@
   "homepage": "https://typia.io",
   "dependencies": {
     "@standard-schema/spec": "^1.0.0",
-    "@typia/core": "workspace:^",
     "@typia/interface": "workspace:^",
-    "@typia/transform": "workspace:^",
     "@typia/ttsc": "workspace:^",
     "@typia/utils": "workspace:^",
     "commander": "^10.0.0",
@@ -79,13 +72,7 @@
     "tinyglobby": "^0.2.12"
   },
   "sideEffects": false,
-  "files": [
-    "README.md",
-    "bin",
-    "package.json",
-    "lib",
-    "src"
-  ],
+  "files": ["README.md", "bin", "package.json", "lib", "src"],
   "keywords": [
     "fast",
     "json",
@@ -135,11 +122,6 @@
         "types": "./lib/index.d.ts",
         "import": "./lib/index.mjs",
         "default": "./lib/index.js"
-      },
-      "./lib/transform": {
-        "types": "./lib/transform.d.ts",
-        "import": "./lib/transform.mjs",
-        "default": "./lib/transform.js"
       },
       "./lib/ttsc/plugin": {
         "types": "./lib/ttsc/plugin.d.ts",

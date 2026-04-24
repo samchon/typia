@@ -1,7 +1,14 @@
 import type { FilterPattern } from "@rollup/pluginutils";
-import type { ITransformOptions } from "@typia/core";
 import { createDefu } from "defu";
 import type { OverrideProperties, RequiredDeep } from "type-fest";
+
+export interface TypiaTransformOptions {
+  finite?: undefined | boolean;
+  numeric?: undefined | boolean;
+  functional?: undefined | boolean;
+  undefined?: undefined | boolean;
+  runtime?: "ts" | "js";
+}
 
 /** Represents the options for the plugin. */
 export type Options = {
@@ -37,7 +44,7 @@ export type Options = {
   tsconfig?: string;
 
   /** The options for the typia transformer. */
-  typia?: ITransformOptions;
+  typia?: TypiaTransformOptions;
 
   /**
    * The options for cache. The cache-dir-searching feature is powered by

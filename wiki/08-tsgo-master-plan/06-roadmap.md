@@ -11,20 +11,23 @@
 
 ### 1. host / runner hardening
 
-- plugin SDK 정리
+- native plugin SDK 정리
 - diagnostics / manifest / watch UX 정제
-- native host와 JS-side adapter 경계 정제
+- native host와 JS-side text/IR adapter 경계 정제
+- legacy `ts.Program` transformer 호환을 목표 목록에서 제거
 
 ### 2. consumer hardening
 
 - typia 문서와 ecosystem 문서 정합성 유지
 - `typia setup` 의 stable lane 전환 시점 정리
 - browser compatibility lane 과 native lane 의 역할 분리
+- 구버전 TypeScript transformer 가 필요한 사용자는 구버전 typia/TypeScript lane 으로 안내
 
 ### 3. second consumer
 
 - typia 밖의 실제 consumer 에서 `ttsc` contract 검증
 - consumer 별 adapter boundary를 source-backed contract 로 축소
+- nestia 같은 consumer 가 필요한 `@typia/core` equivalent surface 를 IR/API 로 재설계
 
 ## 성공 모습
 

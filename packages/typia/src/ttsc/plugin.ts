@@ -1,6 +1,5 @@
+import { definePlugin } from "@typia/ttsc";
 import * as path from "node:path";
-
-import { definePlugin } from "@typia/ttsc/plugin";
 
 export default definePlugin(() => ({
   name: "typia",
