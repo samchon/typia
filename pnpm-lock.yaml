@@ -865,9 +865,6 @@ importers:
       randexp:
         specifier: ^0.5.3
         version: 0.5.3
-      tgrid:
-        specifier: catalog:utils
-        version: 1.2.1
       tstl:
         specifier: catalog:utils
         version: 3.0.0
@@ -893,6 +890,9 @@ importers:
       '@typia/ttsx':
         specifier: workspace:^
         version: link:../../toolchain/ttsx
+      rimraf:
+        specifier: catalog:utils
+        version: 6.1.3
 
   tests/test-typia-generate:
     dependencies:
@@ -1053,9 +1053,6 @@ importers:
       '@typia/utils':
         specifier: workspace:^
         version: link:../../packages/utils
-      tgrid:
-        specifier: catalog:utils
-        version: 1.2.1
       typia:
         specifier: workspace:^
         version: link:../../packages/typia
@@ -1078,6 +1075,9 @@ importers:
       '@typia/ttsx':
         specifier: workspace:^
         version: link:../../toolchain/ttsx
+      rimraf:
+        specifier: catalog:utils
+        version: 6.1.3
 
   tests/test-vercel:
     dependencies:

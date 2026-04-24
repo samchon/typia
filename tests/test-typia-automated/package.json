@@ -4,6 +4,7 @@
   "version": "12.0.2",
   "description": "Automated test features of typia.",
   "scripts": {
+    "build": "rimraf bin && ttsc",
     "dev": "ttsc --watch",
     "start": "ttsx src/index.ts"
   },
@@ -26,16 +27,16 @@
     "@types/uuid": "catalog:utils",
     "@typescript/native-preview": "catalog:typescript",
     "@typia/ttsc": "workspace:^",
-    "@typia/ttsx": "workspace:^"
+    "@typia/ttsx": "workspace:^",
+    "rimraf": "catalog:utils"
   },
   "dependencies": {
     "@nestia/e2e": "catalog:utils",
     "@standard-schema/spec": "^1.0.0",
-    "@typia/utils": "workspace:^",
     "@typia/template": "workspace:^",
+    "@typia/utils": "workspace:^",
     "protobufjs": "7.2.5",
     "randexp": "^0.5.3",
-    "tgrid": "catalog:utils",
     "tstl": "catalog:utils",
     "typia": "workspace:^",
     "uuid": "catalog:utils"
