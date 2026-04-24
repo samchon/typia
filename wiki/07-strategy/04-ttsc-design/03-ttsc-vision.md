@@ -68,7 +68,7 @@ npm run build  # tsc가 ts-patch와 함께 작동
 ```
 ```bash
 npx typia setup    # 내부적으로 ttsc를 install
-npx ttsc --build   # 또는 npm run build에 ttsc 지정
+npx ttsc   # 또는 npm run build에 ttsc 지정
 ```
 
 **변한 것**: `tsc` → `ttsc` (또는 `npm run build`가 내부적으로 ttsc 호출).

@@ -1,34 +1,27 @@
-# 05. Stage 0 Kickoff
+# 05. Stage 0 Outcome
 
-## Week 0
+이 문서는 원래 kickoff checklist 였다. 지금은 Stage 0에서 실제로 달성된 최소선을 기록한다.
 
-1. `ttsc` / `ttsx` standalone repo/package 정체성 확정
-2. npm name / GitHub repo / binary packaging 확인
-3. typia repo 안의 작업은 integration mirror 로만 취급
+## 달성된 것
 
-## Week 1
+1. `@typia/ttsc` / `@typia/ttsx` package identity 확정
+2. `ttsc` / `ttsx` CLI 진입점과 JS API 표면 확보
+3. `typia/lib/ttsc/plugin` 경로 확정
+4. `typia setup` 가 legacy `ts-patch` 경로 대신 preview compiler + `@typia/ttsc` 를 설치하도록 전환
+5. typia workspace 패키지들이 `ttsc` / `ttsc --watch` 기준으로 재정렬
+6. `ttsx src/index.ts` 경로 확보
 
-1. `ttsc` host skeleton
-2. `ttsx` runner skeleton
-3. TS plugin 최소 예제
-4. Go plugin 최소 예제
+## 아직 남아 있는 것
 
-## Week 2
-
-1. tsgo 연결
-2. rewrite / diagnostics / cache 최소선
-3. `ttsx src/index.ts` 최소선
-
-## Week 3
-
-1. typia consumer spike
-2. setup / migration spike
-3. source map / performance 측정
+1. public plugin SDK와 long-term generic contract 정제
+2. second consumer 실검증
+3. stable `typescript@7` lane으로의 기본 전환
+4. browser/static-hosting 계열과 native host 계열의 문서 경계 정리
 
 ## Exit Criteria
 
-- `ttsc build` 동작
-- `ttsx src/index.ts` 동작
-- TS plugin 예제 동작
-- Go plugin 예제 동작
-- typia consumer 최소 경로 동작
+- `ttsc` project build 동작: 달성
+- `ttsx src/index.ts` 동작: 달성
+- typia consumer 최소 경로 동작: 달성
+- standalone host / runner framing 정착: 달성
+- plugin contract hardening: 진행 중

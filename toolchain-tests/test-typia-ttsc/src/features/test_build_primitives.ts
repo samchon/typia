@@ -9,12 +9,15 @@ export async function test_build_primitives(): Promise<void> {
   const fixture = path.join(TestGlobal.ROOT, "fixtures", "primitives");
   const dist = path.join(fixture, "dist");
   fs.rmSync(dist, { recursive: true, force: true });
-  const result = runTtsc(["build", "--tsconfig=tsconfig.json"], fixture);
+  const result = runTtsc(
+    ["--tsconfig=tsconfig.json", "--verbose"],
+    fixture,
+  );
 
   assert.equal(
     result.status,
     0,
-    `ttsc build should succeed; stderr=\n${result.stderr}`,
+    `ttsc should build the project; stderr=\n${result.stderr}`,
   );
 
   assert.ok(

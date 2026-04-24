@@ -44,7 +44,7 @@ export async function test_js_api(): Promise<void> {
     "..",
     "toolchain",
     "ttsc",
-    "bin",
+    "native",
     process.platform === "win32" ? "ttsc-native.exe" : "ttsc-native",
   );
   const fixture = path.join(TestGlobal.ROOT, "fixtures", "primitives");

@@ -82,10 +82,12 @@ npx typia generate --input <dir> --output <dir>
 - `vite.ts | webpack.ts | rspack.ts | rollup.ts | esbuild.ts | farm.ts | rolldown.ts | bun.ts | next.ts` — 각 번들러 wrapper
 
 ### ts-patch 우회 메커니즘 (`core/typia.ts:31-62`)
-- 현재 기본 설치 계약(`typia/lib/ttsc/plugin`)과 독립적으로,
-- TypeScript Compiler API + `ts.transform()` + `ts.createPrinter()`로 **개별 파일 단위 변환**
+- 현재는 `@typia/ttsc.transform()` 를 호출하는 thin adapter 다.
+- unplugin 쪽에서 `plugins: [{ transform: "typia/lib/ttsc/plugin" }]` 를 명시 주입해 native host 결과를 가져온다.
 - 파일별 변환 결과를 캐싱 (`Cache` 클래스)
-- diff-match-patch-es로 sourcemap 생성
+- diff-match-patch-es + magic-string 으로 sourcemap 생성
+
+즉, 이상적인 중심축은 이미 `ttsc` host 이고, unplugin은 그 host를 bundler transform 훅에 끼워 넣는 adapter 역할로 수렴했다.
 
 ### 옵션 (`core/options.ts:7-78`)
 - `include`, `exclude` — 파일 필터

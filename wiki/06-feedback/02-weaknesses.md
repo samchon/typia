@@ -51,7 +51,7 @@ typia는 **이미 부분 구현 완료**이나:
 
 **완화 방향**:
 - unplugin을 1급 시민으로 권장 (vite/webpack/rspack 사용자)
-- `npx typia init` 한 줄로 100% 자동화 (이미 setup 있지만 더 매끄럽게)
+- `npx typia setup` 이 preview/stable lane, optional runner, bundler 대체 경로까지 한 번에 설명하고 정리하도록 더 매끄럽게
 - "왜 transformer가 필요한가"를 setup 페이지 첫 문단에서 인정 + 그 비용으로 무엇을 얻는지 즉시 보여줌
 
 ## W4. 거대 파일 (유지보수 차원)

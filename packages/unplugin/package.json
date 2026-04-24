@@ -78,7 +78,7 @@
     "src"
   ],
   "scripts": {
-    "build": "rimraf lib && ttsc build",
+    "build": "rimraf lib && ttsc",
     "prepack": "pnpm run build"
   },
   "peerDependencies": {

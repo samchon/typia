@@ -15,7 +15,7 @@
 - `ttsx` 는 standalone runner 다.
 - typia는 `ttsc` / `ttsx` 위에 올라가는 첫 consumer 다.
 - preview 기본 설치 계약은 `@typescript/native-preview` + `@typia/ttsc` 다.
-- stable 기본 설치 계약은 `typescript@7` + `@typia/ttsc` 다.
+- stable 기본 설치 계약은 `typescript@7` + `@typia/ttsc` 가 목표다.
 - `@typia/ttsx` 는 optional runner 다.
 - `@typia/core`, `@typia/transform` 는 Go 이전 대상이다.
 

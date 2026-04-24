@@ -1,8 +1,8 @@
 # 03. 패키지 의존 그래프
 
-> 범위: typia v12 기준 **현행 9개 패키지**의 의존 구조를 설명한다. 신규 전환 드라이버 `@typia/ttsc`는 현재 구현 그래프가 아니라 [08-tsgo-master-plan/](../08-tsgo-master-plan/)에서 별도로 다룬다.
+> 범위: typia v12 기준 패키지 구조를 설명한다. 본 문서는 typia 본체 패키지군과 standalone toolchain 패키지군을 함께 다루되, graph 자체는 역할별로 분리해서 읽는다.
 
-## 그림
+## A. typia 본체 패키지군
 
 ```
                       ┌──────────────────────┐
@@ -47,7 +47,7 @@
        (peerDependency)         (peerDependency)         (peerDependency)
 ```
 
-## 의존 layer 정리
+## typia 본체 의존 layer 정리
 
 | Layer | 패키지 | 역할 |
 |---|---|---|
@@ -61,7 +61,7 @@
 
 → 위 → 아래로의 의존만 존재. 순환 없음. 이 깨끗함이 최대 자산.
 
-## 현행 9개 패키지 책임 한 줄
+## typia 본체 9개 패키지 책임 한 줄
 
 | 패키지 | 한 줄 |
 |---|---|
@@ -74,6 +74,29 @@
 | `@typia/mcp` | MCP SDK Tool로 ILlmController 변환 |
 | `@typia/langchain` | LangChain DynamicStructuredTool로 변환 |
 | `@typia/vercel` | Vercel AI SDK tool()로 변환 |
+
+## B. standalone toolchain 패키지군
+
+```
+@typescript/native-preview
+          │
+          ▼
+   @typia/ttsc   ← compiler adapter / plugin host / JS API
+          │
+          ▼
+   @typia/ttsx   ← runner, built on top of @typia/ttsc
+```
+
+| 패키지 | 역할 |
+|---|---|
+| `@typia/ttsc` | standalone compiler adapter / plugin host / JS API (`build`, `check`, `transform`) |
+| `@typia/ttsx` | standalone runner (`ttsx src/index.ts`) |
+
+메모:
+
+- toolchain 패키지군은 typia 본체 9개 패키지와 성격이 다르다.
+- 본체 패키지군은 라이브러리 / adapter surface 이고, toolchain 패키지군은 compiler host / runner surface 다.
+- 그래서 상세 계약은 [08-tsgo-master-plan/](../08-tsgo-master-plan/)에 별도 정리한다.
 
 ## 외부 의존성 표
 

@@ -205,7 +205,7 @@ export interface BuildResult {
 }
 
 /**
- * Run `ttsc build` against a tsconfig. Returns once the binary exits so the
+ * Run `ttsc` against a tsconfig. Returns once the binary exits so the
  * caller can decide how to surface diagnostics. Does not throw on non-zero
  * exit — bundler pipelines often want to continue and collect errors.
  */

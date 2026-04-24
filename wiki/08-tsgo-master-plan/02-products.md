@@ -26,14 +26,22 @@
   - `npm i typia`
   - `npx typia setup`
   - 결과: `@typescript/native-preview` + `@typia/ttsc`
+- preview 실행 경로:
+  - `ttsx src/index.ts`
+  - 결과: `@typia/ttsx` 가 `@typia/ttsc` host를 재사용
 - preview 수동 경로:
   - `npm i -D @typescript/native-preview @typia/ttsc`
   - runner 필요 시 `npm i -D @typia/ttsx`
 - stable 예상 경로:
   - `npm i typia`
   - `npx typia setup`
-  - 결과: `typescript@7` + `@typia/ttsc`
+  - 목표 결과: `typescript@7` + `@typia/ttsc`
   - runner 필요 시 `npm i -D @typia/ttsx`
+
+현재 구현 메모:
+
+- `typia setup` 는 오늘 시점에 항상 preview compiler (`@typescript/native-preview`)를 설치한다.
+- stable `typescript@7` 자동 전환은 문서상의 목표이며, 아직 setup wizard의 현재 동작은 아니다.
 
 ## typia와의 관계
 

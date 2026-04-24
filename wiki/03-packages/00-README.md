@@ -1,6 +1,6 @@
 # 03. 패키지별 깊은 분석
 
-이 섹션은 현재 운영 패키지를 다룬다. `@typia/ttsc`, `@typia/ttsx` 계획은 [08-tsgo-master-plan/](../08-tsgo-master-plan/)에서 다룬다.
+이 섹션은 typia 본체 패키지군을 다룬다. `@typia/ttsc`, `@typia/ttsx` 는 이미 현재 product 이지만, 성격이 toolchain host / runner 이므로 [08-tsgo-master-plan/](../08-tsgo-master-plan/)에서 별도 다룬다.
 
 ## 읽기 순서 (의존도 낮은 것 → 높은 것)
 

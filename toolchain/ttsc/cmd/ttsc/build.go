@@ -12,7 +12,7 @@ import (
 	"github.com/samchon/typia/toolchain/ttsc/driver"
 )
 
-// runBuild implements `ttsc build`. Two modes:
+// runBuild implements the `ttsc` project-build lane. Two modes:
 //
 //   - default (dry run): analyze quietly, surfacing only diagnostics/errors.
 //   - --emit: also run tsgo's emit pipeline, patching every recognized native
@@ -33,7 +33,7 @@ func runBuild(args []string) int {
 		return 2
 	}
 	if *emit && *noEmit {
-		fmt.Fprintln(stderr, "ttsc build: --emit and --noEmit are mutually exclusive")
+		fmt.Fprintln(stderr, "ttsc: --emit and --noEmit are mutually exclusive")
 		return 2
 	}
 	if *verbose {
@@ -45,7 +45,7 @@ func runBuild(args []string) int {
 		var err error
 		cwd, err = os.Getwd()
 		if err != nil {
-			fmt.Fprintf(stderr, "ttsc build: could not get working directory: %v\n", err)
+			fmt.Fprintf(stderr, "ttsc: could not get working directory: %v\n", err)
 			return 2
 		}
 	}
@@ -56,7 +56,7 @@ func runBuild(args []string) int {
 		OutDir:      *outDir,
 	})
 	if err != nil {
-		fmt.Fprintf(stderr, "ttsc build: %v\n", err)
+		fmt.Fprintf(stderr, "ttsc: %v\n", err)
 		return 2
 	}
 	if len(diags) > 0 {
@@ -70,12 +70,12 @@ func runBuild(args []string) int {
 	rewrites := driver.NewRewriteSet()
 	shouldEmit := !prog.ParsedConfig.ParsedConfig.CompilerOptions.NoEmit.IsTrue()
 	if *rewriteMode != "none" {
-		fmt.Fprintf(stderr, "ttsc build: rewrite backend %q is not built into the standalone ttsc binary\n", *rewriteMode)
-		fmt.Fprintln(stderr, "ttsc build: run through the JS host with the matching compiler plugin so it can select the consumer-provided native binary")
+		fmt.Fprintf(stderr, "ttsc: rewrite backend %q is not built into the standalone ttsc binary\n", *rewriteMode)
+		fmt.Fprintln(stderr, "ttsc: run through the JS host with the matching compiler plugin so it can select the consumer-provided native binary")
 		return 2
 	}
 	if !*quiet {
-		fmt.Fprintf(stdout, "// ttsc build: tsconfig=%s cwd=%s sites=%d emit=%v rewrite=%s\n", *tsconfigPath, cwd, 0, shouldEmit, *rewriteMode)
+		fmt.Fprintf(stdout, "// ttsc: tsconfig=%s cwd=%s sites=%d emit=%v rewrite=%s\n", *tsconfigPath, cwd, 0, shouldEmit, *rewriteMode)
 	}
 
 	if shouldEmit {
@@ -86,14 +86,14 @@ func runBuild(args []string) int {
 		)
 		res, eDiags, err := prog.EmitAll(rewrites, writeFile)
 		if err != nil {
-			fmt.Fprintf(stderr, "ttsc build: emit failed: %v\n", err)
+			fmt.Fprintf(stderr, "ttsc: emit failed: %v\n", err)
 			return 3
 		}
 		for _, d := range eDiags {
 			fmt.Fprintln(stderr, "  -", d.String())
 		}
 		if !*quiet {
-			fmt.Fprintf(stdout, "// ttsc build: emitted=%d files\n", len(res.EmittedFiles))
+			fmt.Fprintf(stdout, "// ttsc: emitted=%d files\n", len(res.EmittedFiles))
 			for _, f := range res.EmittedFiles {
 				rel := f
 				if abs, err := filepath.Rel(cwd, f); err == nil {
@@ -105,22 +105,22 @@ func runBuild(args []string) int {
 		if *manifestPath != "" {
 			data, err := json.Marshal(res.EmittedFiles)
 			if err != nil {
-				fmt.Fprintf(stderr, "ttsc build: manifest marshal failed: %v\n", err)
+				fmt.Fprintf(stderr, "ttsc: manifest marshal failed: %v\n", err)
 				return 3
 			}
 			if err := os.MkdirAll(filepath.Dir(*manifestPath), 0o755); err != nil {
-				fmt.Fprintf(stderr, "ttsc build: manifest mkdir failed: %v\n", err)
+				fmt.Fprintf(stderr, "ttsc: manifest mkdir failed: %v\n", err)
 				return 3
 			}
 			if err := os.WriteFile(*manifestPath, data, 0o644); err != nil {
-				fmt.Fprintf(stderr, "ttsc build: manifest write failed: %v\n", err)
+				fmt.Fprintf(stderr, "ttsc: manifest write failed: %v\n", err)
 				return 3
 			}
 		}
 	}
 
 	if !*quiet {
-		fmt.Fprintf(stdout, "// ttsc build: recognized=%d total=%d rewrites=%d\n", 0, 0, rewrites.Len())
+		fmt.Fprintf(stdout, "// ttsc: recognized=%d total=%d rewrites=%d\n", 0, 0, rewrites.Len())
 	}
 	return 0
 }

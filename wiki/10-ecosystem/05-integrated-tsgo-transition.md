@@ -2,6 +2,12 @@
 
 > 4 프로젝트의 동시 전환 일정. master plan의 Stage 0~6을 ecosystem 전체로 확장.
 
+상태 주석:
+
+- typia 단독 기준의 host / runner 전환은 이미 완료되었다.
+- 이 문서의 달력, launch-day, 동시 릴리스 문구는 아직 source-backed current contract 가 아니다.
+- 따라서 이 문서는 **후속 ecosystem coordination sketch** 로 읽어야 하며, typia repo의 현재 구현 사실과 혼동하면 안 된다.
+
 ## 원칙
 
 1. **typia가 선행** — 모든 상위 층이 typia를 소비하므로 기반 완성 필수
@@ -14,8 +20,8 @@
 
 | Phase | 시점 | typia | nestia | agentica | autobe |
 |---|---|---|---|---|---|
-| 0 Spike | 2026 Q2 | ttsc spike | (관찰) | (관찰) | (관찰) |
-| 1 Walking | 2026 Q3-Q4 | engine 기초 | (관찰) | (관찰) | (관찰) |
+| 0 Done | 완료 | `ttsc` / `ttsx` / typia consumer 정렬 완료 | (관찰) | (관찰) | (관찰) |
+| 1 Follow-up | 이후 | host / plugin / stable lane hardening | (관찰) | (관찰) | (관찰) |
 | 2 Validators | 2027 Q1-Q2 | **validators Go** | typed* 분석 시작 | (영향 없음) | (영향 없음) |
 | 3 JSON | 2027 Q3-Q4 | JSON Go | `@TypedRoute` 포팅 시작 | (영향 없음) | (영향 없음) |
 | 4 LLM | 2028 Q1-Q2 | **llm Go + typia v13** | `@TypedBody`, `@TypedQuery` Go | **agentica 내부 전환** | (영향 없음) |

@@ -11,7 +11,7 @@
 - **Rspack 1.0.0** — 브라우저용 TypeScript 컴파일러 번들 (`rspack.config.js`)
 - **Monaco Editor** + `@rollup/browser` — 인-브라우저 편집/번들
 - **Pagefind** — 정적 검색
-- **TypeDoc** — API 문서 자동 생성 (`build:typedoc`)
+- **TypeDoc** — 현재 website 기본 빌드에서는 분리됨 (`build:typedoc` 스크립트는 남아 있으나 `prebuild` 에서 호출하지 않음)
 
 ## 2. IA / 메뉴 (`src/content/docs/_meta.ts`)
 
@@ -88,6 +88,12 @@ LLM function calling harness: 6.75% → 100% accuracy
 
 3 모드: `compile / transform / bundle`.
 
+현재 구현 메모:
+
+- website는 GitHub static hosting 제약 때문에 browser-only lane 을 유지한다.
+- 그래서 native/default lane 의 중심축이 `@typia/ttsc` / `typia/lib/ttsc/plugin` 으로 넘어갔어도, website playground는 아직 TS5 + `typia/lib/transform` compatibility entry 를 사용한다.
+- 이건 이상적인 장기 구조와는 다르지만, static-hosting 위에서 유지 가능한 browser demo lane 이라는 분명한 역할이 있다.
+
 기본 스크립트:
 ```ts
 const member: IMember = typia.random<IMember>();
@@ -103,7 +109,7 @@ const binary = typia.protobuf.encode(member);
 | 벤치마크 | 외부 GitHub | 사이트 내 인터랙티브 차트 |
 | 마이그레이션 가이드 | 없음 (class-validator → typia 등) | 단계별 변환 가이드 |
 | 고급 패턴 | 태그 사용법 위주 | 커스텀 포매터/검증기 확장 예제 |
-| TypeDoc | 외부 링크 | 사이트 내장 |
+| TypeDoc | website 기본 빌드에서 분리 | TS7-ready TypeDoc lane 또는 별도 산출 파이프라인 정리 |
 | 에러 메시지 카탈로그 | 일반론 | 실제 메시지 + 해결법 |
 | Playground 공유 | URL 공유 미지원 | gist/pastebin 통합 |
 | LLM 다중 공급자 | OpenAI 위주 | Anthropic/Google/Groq/Ollama 예제 |
@@ -126,4 +132,4 @@ const binary = typia.protobuf.encode(member);
 
 ## 핵심 통찰
 
-웹사이트는 **이론(사상) + 실용(playground) 균형**이 매우 우수. "Pure TypeScript" 메시지가 일관되게 강조됨. 다음 단계로 (a) 사이트 내 벤치마크 인터랙티브, (b) class-validator/zod 마이그레이션 가이드, (c) Anthropic/Gemini 등 LLM 공급자별 워크플로 문서, (d) playground 공유 URL이 효과 큼.
+웹사이트는 **이론(사상) + 실용(playground) 균형**이 매우 우수하다. 다만 현재 playground는 native host의 대표 구현이 아니라 browser compatibility lane 이라는 점을 문서에서 더 분명히 해야 한다. 다음 단계로 (a) site-native lane 과 browser lane 구분 표기, (b) class-validator/zod 마이그레이션 가이드, (c) Anthropic/Gemini 등 LLM 공급자별 워크플로 문서, (d) playground 공유 URL이 효과 큼.

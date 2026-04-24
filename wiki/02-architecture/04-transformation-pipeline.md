@@ -5,7 +5,7 @@ typia transformer는 현재 두 가지 진입 경로가 있다. 하나는 기본
 ## 경로 A. `ttsc` (기본 / 표준)
 
 ```
-[사용자] typia setup / ttsc build
+[사용자] typia setup / ttsc
    ↓
 [ttsc] tsconfig.json의 plugins[].transform 읽음
    ↓ "typia/lib/ttsc/plugin" resolve
@@ -22,7 +22,7 @@ typia transformer는 현재 두 가지 진입 경로가 있다. 하나는 기본
 2. `npm i -D @typescript/native-preview @typia/ttsc`
 3. `tsconfig.json.compilerOptions.plugins += [{ transform: "typia/lib/ttsc/plugin" }]`
 4. `strict` / `strictNullChecks` / `skipLibCheck` 정리
-5. `ttsc build --emit --tsconfig tsconfig.json`
+5. `ttsc --emit --tsconfig tsconfig.json`
 
 참고:
 - `typia/lib/transform` 는 아직 compatibility alias 로 남아 있어 기존 경로를 즉시 깨뜨리지는 않는다.
@@ -45,11 +45,11 @@ typia transformer는 현재 두 가지 진입 경로가 있다. 하나는 기본
    ↓
 [unplugin-typia] 각 .ts 파일을 transform 훅에서 가로챔
    ↓
-[unplugin core/typia.ts:31-62]
-   - ts.createProgram() 또는 캐시된 program
-   - ts.transform()으로 typia transformer 적용
-   - ts.createPrinter()로 변환된 코드 print
-   - diff-match-patch-es로 sourcemap 생성
+[unplugin core/typia.ts]
+   - tsconfig 자동 탐색
+   - `@typia/ttsc.transform()` 호출
+   - plugin entry를 `typia/lib/ttsc/plugin` 로 고정 주입
+   - diff-match-patch-es + magic-string 으로 sourcemap 생성
    ↓
 [번들러] 변환된 코드를 받아 다음 단계 진행
 ```
@@ -71,14 +71,14 @@ export default {
 - `enforce` — 플러그인 순서 (pre/post)
 
 ### 장점
-- 기본 `ttsc` 경로와 독립적으로 번들러에 통합 가능
+- 기본 `ttsc` host 표면을 재사용하므로 rewrite 결과가 더 직접적으로 수렴한다
 - 빌드 캐시로 재빌드 빠름
 - vite/webpack/rspack/esbuild/rolldown/bun/farm/next 다 지원
 
 ### 단점
-- `ttsc` 직접 빌드는 변환 안 함 (번들러 통과해야만)
+- browser/static-hosting 쪽은 여전히 compatibility lane (`typia/lib/transform`)을 병행한다
 - 캐시 무효화 버그 가능성
-- esbuild의 빠른 트랜스파일러를 그대로 쓰지 못함 (typia는 type info 필요 → tsc 의존)
+- bundler path 라도 tsconfig와 `@typia/ttsc` host에 기대므로, 완전 독립 경로는 아니다
 
 ## 두 경로의 비교 결정 트리
 
@@ -99,9 +99,13 @@ export default {
 - 앱 (Next.js, Vite SPA) → unplugin
 - 라이브러리 + 앱 모노레포 → ttsc + unplugin 둘 다
 
-## 양쪽 다 거치는 공통 핵심: typia transformer factory
+## 양쪽 다 거치는 공통 핵심
 
-두 경로 모두 결국 `@typia/transform.transform(program, options, extras)`를 부른다. 그 후 흐름은 같다 → [02. 데이터 플로우](02-data-flow.md) 참조.
+- native/default lane: `ttsc` host + `typia/lib/ttsc/plugin`
+- bundler lane: `@typia/unplugin` 이 `@typia/ttsc.transform()` 를 호출
+- browser/static-hosting compatibility lane: 아직 `typia/lib/transform` entry가 남아 있다
+
+즉, 이상적인 중심축은 `ttsc` host 이고, browser lane만 아직 compatibility surface를 유지한다.
 
 ## tsgo 시대의 이 그림 (현재 방향)
 

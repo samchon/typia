@@ -2,6 +2,12 @@
 
 typia를 중심으로 연결된 4개 프로젝트를 다룬다.
 
+주의:
+
+- typia 쪽 `ttsc` / `ttsx` 전환은 이미 현재 repo 안에서 실현되었다.
+- 이 폴더의 나머지 문서는 downstream consumer 들의 정렬 방향과 설계 메모를 포함한다.
+- 따라서 precise calendar, launch-day 서술, 다프로젝트 동시 릴리스 문구는 **계약**이 아니라 **ecosystem planning note** 로 읽어야 한다.
+
 ## 이 폴더의 구성
 
 | # | 문서 | 역할 |

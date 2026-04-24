@@ -14,7 +14,7 @@
 │   typia.is<Member>(input);                                       │
 │   tsconfig.json: plugins: [{ transform: "typia/lib/transform" }] │
 └──────────────┬───────────────────────────────────────────────────┘
-               │ npx ttsc --build
+               │ npx ttsc
                ▼
 ┌──────────────────────────────────────────────────────────────────┐
 │ Layer 3: @ttsc/cli  (Node, ~200 LOC)                              │

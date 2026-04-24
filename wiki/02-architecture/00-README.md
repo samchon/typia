@@ -1,12 +1,12 @@
 # 02. 아키텍처 (Architecture)
 
-현재 typia 구현 구조를 설명한다. 전환 계획은 [08-tsgo-master-plan/](../08-tsgo-master-plan/)에서 다룬다.
+현재 typia 구현 구조를 설명한다. `ttsc` / `ttsx` 자체의 제품 계약과 남은 후속 과제는 [08-tsgo-master-plan/](../08-tsgo-master-plan/)에서 다룬다.
 
 ## 읽기 순서
 
 1. [01-overview.md](01-overview.md) — 한 장의 그림 (typia 내부)
 2. [02-data-flow.md](02-data-flow.md) — 한 호출이 코드가 되기까지 (9단계)
-3. [03-package-graph.md](03-package-graph.md) — 현행 9개 패키지 의존 그래프 (`@typia/ttsc` 제외)
+3. [03-package-graph.md](03-package-graph.md) — typia 본체 패키지군과 standalone toolchain 패키지군의 의존 구조
 4. [04-transformation-pipeline.md](04-transformation-pipeline.md) — `ttsc` 기본 경로와 `@typia/unplugin` 대체 경로 (현재)
 
 ## 핵심 한 줄

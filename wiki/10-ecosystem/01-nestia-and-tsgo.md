@@ -1,6 +1,8 @@
-# 01. nestia 개요 + tsgo 전환 계획
+# 01. nestia 개요 + tsgo 후속 정렬 메모
 
 > `samchon/nestia`, v11.0.2, MIT.
+>
+> 상태 메모: typia 쪽 host / runner 전환은 이미 완료되었다. 이 문서는 그 이후 nestia가 어떤 adapter boundary 위에서 따라와야 하는지를 정리한다.
 
 ## 한 줄 정의
 

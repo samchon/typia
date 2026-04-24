@@ -3,7 +3,8 @@
 
 const fs = require("node:fs");
 const path = require("node:path");
-const builtCli = path.resolve(__dirname, "..", "lib", "cli.js");
+
+const builtCli = path.resolve(__dirname, "..", "..", "lib", "cli.js");
 if (fs.existsSync(builtCli)) {
   const { main } = require(builtCli);
   const code = main(process.argv.slice(2));

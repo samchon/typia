@@ -1,6 +1,6 @@
 # 08. tsgo Master Plan
 
-이 폴더는 `ttsc` / `ttsx` 를 **처음부터 standalone general-purpose product** 로 만드는 계획만 다룬다.
+이 폴더는 `ttsc` / `ttsx` 를 **standalone general-purpose product** 로 정립한 계약과, 그 계약이 현재 typia repo 안에서 어디까지 실현되었는지를 함께 다룬다.
 
 핵심 전제:
 
@@ -16,7 +16,7 @@
 2. [02. Products](02-products.md)
 3. [03. Plugin Contract](03-plugin-contract.md)
 4. [04. typia Consumer Plan](04-typia-consumer.md)
-5. [05. Stage 0 Kickoff](05-stage0-kickoff.md)
-6. [06. Roadmap](06-roadmap.md)
-7. [07. Open Questions](07-open-questions.md)
-8. [08. Current Spike](08-current-spike.md)
+5. [05. Stage 0 Outcome](05-stage0-kickoff.md)
+6. [06. Current Status & Next Steps](06-roadmap.md)
+7. [07. Remaining Questions](07-open-questions.md)
+8. [08. Current Product State](08-current-spike.md)

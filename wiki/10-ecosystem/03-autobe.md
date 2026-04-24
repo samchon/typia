@@ -131,7 +131,7 @@ AutoBE (Orchestration)
 ### 사용자 API 불변 → AutoBE 내부 수정 거의 없음
 - `typia.llm.application<T>()` 표면 API 동일
 - 반환 `ILlmApplication` 구조 동일
-- Go engine이 내부 스키마 생성 → AutoBE에는 투명
+- 현재 typia toolchain 재정렬이 완료되어도 AutoBE가 보는 핵심 경계는 여전히 동일
 
 ### 성능 이점 (기대)
 - 40+ agent × 다수 호출 → typia 검증 hot path
@@ -139,9 +139,9 @@ AutoBE (Orchestration)
 - Prisma/OpenAPI 생성 속도 향상
 - 전체 pipeline throughput ↑
 
-### 전환 일정
-- **2028 Q1-Q2** (Phase 4 typia LLM Go): AutoBE 내부 dogfooding
-- **2029 Q2** (Phase 6 typia v14): "AutoBE next" 릴리스
+### 일정 메모
+
+이 문서의 정확한 연도/분기 표시는 ecosystem planning note 다. 현재 repo 기준으로 확정된 사실은 typia 쪽 host / runner 정렬이 완료되었다는 점이고, AutoBE 쪽 precise rollout 은 이 저장소만으로 확정할 수 없다.
 
 ## AutoBE → typia 개선 피드백 3개 (Agent 발견)
 

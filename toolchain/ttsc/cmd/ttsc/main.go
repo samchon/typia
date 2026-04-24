@@ -40,8 +40,7 @@ func main() {
 
 func run(args []string) int {
 	if len(args) == 0 {
-		printHelp(stdout)
-		return 0
+		return runBuild(nil)
 	}
 
 	switch args[0] {
@@ -133,21 +132,19 @@ ttsc — standalone typescript-go host.
 
 Usage:
   ttsc
-  ttsc [file.ts]
+  ttsc -p tsconfig.json
   ttsc --watch
-  ttsc [command] [options]
+  ttsc --noEmit
+  ttsc transform --file=src/main.ts
 
-Commands:
-  build         Compile every .ts in a project and emit rewritten .js.
-  check         Run the analyzer without emitting — type-only validation.
+Project build:
+  ttsc compiles the current tsconfig.json, matching the tsc/tsgo shape.
+  build         Compatibility alias for the same project build lane.
+  check         Compatibility alias for --noEmit validation.
   transform     Emit a single file's rewritten JS (bundler plugin hook).
   demo          Run a native backend smoke pipeline with synthetic input.
   version       Print version, build info, and platform.
   help          Show this help.
-
-Drop-in tsc aliases:
-  ttsc -p tsconfig.json          ≡ ttsc build --tsconfig=tsconfig.json --emit
-  ttsc --project tsconfig.json   (same)
 
 Build options:
   --tsconfig=FILE   Path to tsconfig.json (default: tsconfig.json).
@@ -171,9 +168,9 @@ Demo options:
 
 Examples:
   ttsc --version
-  ttsc build --tsconfig=./tsconfig.json
+  ttsc
   ttsc -p ./tsconfig.json
-  ttsc check
+  ttsc --noEmit
   ttsc transform --file=src/main.ts
   ttsc demo --type=number
 
@@ -181,7 +178,7 @@ Integration guide (bundlers):
   - vite / webpack / rollup / esbuild: shell out to "ttsc transform" per file,
     forward stdout as the bundler transform result. @typia/unplugin wraps
     this for you.
-  - Next.js / Nuxt / Bun: "ttsc build" in your pipeline replaces tsc and
+  - Next.js / Nuxt / Bun: "ttsc" in your pipeline replaces tsc and
     the rewritten .js feeds the runtime directly.
   - Monorepo / pnpm workspace: share one ttsc binary via a root script;
     per-package tsconfig.json references work unchanged.

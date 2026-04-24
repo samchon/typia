@@ -21,14 +21,17 @@ func withCapture(fn func()) (out, errOut string) {
 	return outBuf.String(), errBuf.String()
 }
 
-func TestRunNoArgsPrintsHelp(t *testing.T) {
-	out, _ := withCapture(func() {
-		if code := run(nil); code != 0 {
-			t.Errorf("expected exit 0 on no args, got %d", code)
+func TestRunNoArgsAttemptsProjectBuild(t *testing.T) {
+	out, errOut := withCapture(func() {
+		if code := run(nil); code == 0 {
+			t.Errorf("expected no-args run without a local tsconfig to fail")
 		}
 	})
-	if !strings.Contains(out, "Usage:") {
-		t.Errorf("expected Usage banner in stdout, got %q", out)
+	if strings.Contains(out, "Usage:") {
+		t.Errorf("no-args ttsc must build the project, not print help; got %q", out)
+	}
+	if !strings.Contains(errOut, "tsconfig") {
+		t.Errorf("expected no-args build to look for tsconfig, got stderr %q", errOut)
 	}
 }
 

@@ -27,8 +27,8 @@ AutoBE의 40+ 전문 agent는 각자 자체 `typia.llm.application<TheAgent>()` 
 ## tsgo 전환 영향
 
 - **사용자 API 표면**: 전혀 불변
-- **내부**: typia.llm.application이 Go engine 결과로 바뀌지만 agentica 입장에서는 동일한 ILlmApplication 객체를 받는다
-- **릴리스 타이밍**: typia v13 (2028 Q2, LLM Go) 출시와 동기화
+- **내부**: typia.llm.application이 `ttsc` / `ttsx` 위 현재 host lane을 소비하게 정렬되지만 agentica 입장에서는 동일한 `ILlmApplication` 객체를 받는다
+- precise 릴리스 타이밍은 이 repo의 current contract 가 아니다. 여기서는 downstream 영향면만 본다.
 
 ## 전환 전 / 후
 

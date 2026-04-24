@@ -8,8 +8,7 @@ import { installHint, resolveBinary } from "./platform";
 export function main(argv: readonly string[] = process.argv.slice(2)): number {
   try {
     if (argv.length === 0) {
-      printHelp();
-      return 0;
+      return runCompatibleBuild([], false);
     }
 
     const [command, ...rest] = argv;
@@ -269,13 +268,12 @@ function printHelp(): void {
       "",
       "Usage:",
       "  ttsc",
-      "  ttsc [file.ts]",
-      "  ttsc --watch",
       "  ttsc -p tsconfig.json",
-      "  ttsc build [options]",
-      "  ttsc check [options]",
+      "  ttsc --watch",
+      "  ttsc --noEmit",
       "  ttsc transform --file <path> [options]",
       "  ttsc version",
+      "  ttsc --help",
       "",
       "Options:",
       "  -p, --project <file>   Resolve project settings from this tsconfig",
@@ -296,6 +294,10 @@ function printHelp(): void {
       "  ttsc reads compilerOptions.plugins from tsconfig.json.",
       "  TS plugins may export `definePlugin(...)` from @typia/ttsc/plugin.",
       "  Native consumer plugins may also provide their own binary path.",
+      "",
+      "Compatibility aliases:",
+      "  ttsc build [options]       Same project build lane as `ttsc [options]`.",
+      "  ttsc check [options]       Same as `ttsc --noEmit [options]`.",
     ].join("\n"),
   );
   process.stdout.write("\n");

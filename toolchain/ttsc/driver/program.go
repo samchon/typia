@@ -46,7 +46,7 @@ type Program struct {
 }
 
 // LoadProgramOptions controls tsconfig overrides applied before tsgo creates
-// the program. `ForceEmit` is used by `ttsc build --emit` and `ttsc transform`
+// the program. `ForceEmit` is used by `ttsc --emit` and `ttsc transform`
 // so runtime compilation still works when the project defaults to `noEmit`.
 type LoadProgramOptions struct {
 	ForceEmit   bool
@@ -102,7 +102,7 @@ func CreateProgramFromConfig(parsed *tsoptions.ParsedCommandLine, host shimcompi
 	return p, nil, nil
 }
 
-// LoadProgram is the one-shot convenience used by `ttsc build`.
+// LoadProgram is the one-shot convenience used by `ttsc`.
 // It parses the tsconfig, creates a program and a type-checker, and returns
 // the wrapped facade.
 //

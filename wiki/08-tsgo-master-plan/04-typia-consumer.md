@@ -1,4 +1,4 @@
-# 04. typia Consumer Plan
+# 04. typia Consumer State
 
 ## 위치
 
@@ -25,13 +25,17 @@ typia는 `ttsc` / `ttsx` 의 consumer 다.
 
 ## setup
 
-`npx typia setup` 의 목표는 다음이어야 한다.
+`npx typia setup` 의 현재 동작은 다음과 같다.
 
 1. `@typia/ttsc` 설치
-2. preview 기간에는 `@typescript/native-preview` 설치
-3. 필요 시 `@typia/ttsx` 설치
+2. `@typescript/native-preview` 설치
 4. legacy `ts-patch` 제거
 5. typia config / tsconfig 정렬 (`typia/lib/ttsc/plugin` 주입)
+
+현재 구현과 이상 사이의 편차:
+
+- `@typia/ttsx` 는 이미 별도 sibling runner package 로 존재하지만, `typia setup` 가 optional runner 설치까지 자동화하지는 않는다.
+- stable `typescript@7` 자동 전환은 아직 목표 상태다. 현재 wizard는 preview lane을 명시적으로 설치한다.
 
 ## 표현 원칙
 
