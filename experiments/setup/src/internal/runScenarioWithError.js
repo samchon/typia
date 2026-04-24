@@ -32,6 +32,9 @@ function runScenarioWithError(context, scenario) {
     );
   }
 
+  const installCommands = {
+    before: context.getWizardInstallCommandCounts(),
+  };
   scenario.verify({
     error: (() => {
       try {
@@ -45,6 +48,10 @@ function runScenarioWithError(context, scenario) {
         return error;
       }
     })(),
+    installCommands: {
+      ...installCommands,
+      after: context.getWizardInstallCommandCounts(),
+    },
     manifest: context.readPackageJson(),
     project,
   });

@@ -15,7 +15,7 @@ toolchain-tests/test-typia-ttsc/fixtures/*/build/output/
 wiki/memo/
 
 package-lock.json
-!experiments/setup-wizard-npm/package-lock.json
+!experiments/setup/package-lock.json
 
 *.env
 *.log

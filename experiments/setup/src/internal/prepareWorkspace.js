@@ -13,7 +13,7 @@ function prepareWorkspace(context) {
     JSON.stringify(
       {
         private: true,
-        name: "@typia/experiment-setup-wizard-npm-consumer",
+        name: "@typia/experiment-setup-consumer",
         version: "0.0.0",
       },
       null,

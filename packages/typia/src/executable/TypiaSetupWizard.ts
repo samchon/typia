@@ -7,6 +7,7 @@ import { PluginConfigurator } from "./setup/PluginConfigurator";
 
 export namespace TypiaSetupWizard {
   const TTSC_PACKAGE = "@typia/ttsc";
+  const TTSX_PACKAGE = "@typia/ttsx";
   const TSGO_COMPILER_PACKAGE = "@typescript/native-preview";
 
   export interface IArguments {
@@ -23,13 +24,6 @@ export namespace TypiaSetupWizard {
     const pack: PackageManager = await PackageManager.mount();
     const args: IArguments = await ArgumentParser.parse(pack, inquiry);
 
-    // INSTALL TSGO TOOLCHAIN
-    pack.install({
-      dev: true,
-      modulo: TSGO_COMPILER_PACKAGE,
-      version: "latest",
-    });
-    pack.install({ dev: true, modulo: TTSC_PACKAGE, version: "latest" });
     args.project ??= (() => {
       fs.writeFileSync(
         "tsconfig.json",
@@ -38,6 +32,9 @@ export namespace TypiaSetupWizard {
       );
       return (args.project = "tsconfig.json");
     })();
+
+    // CONFIGURE TYPIA
+    await PluginConfigurator.configure(args);
 
     // NORMALIZE PROJECT SETTINGS
     await pack.save((data) => {
@@ -59,8 +56,14 @@ export namespace TypiaSetupWizard {
       }
     });
 
-    // CONFIGURE TYPIA
-    await PluginConfigurator.configure(args);
+    // INSTALL TSGO TOOLCHAIN
+    pack.install({
+      dev: true,
+      modulo: TSGO_COMPILER_PACKAGE,
+      version: "latest",
+    });
+    pack.install({ dev: true, modulo: TTSC_PACKAGE, version: "latest" });
+    pack.install({ dev: true, modulo: TTSX_PACKAGE, version: "latest" });
   };
 
   const inquiry: ArgumentParser.Inquiry<IArguments> = async (

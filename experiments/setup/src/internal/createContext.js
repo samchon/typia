@@ -14,6 +14,7 @@ function createContext(props) {
   const fakeBin = path.join(experimentRoot, ".tmp", "fake-bin");
   const npmLog = path.join(experimentRoot, ".tmp", "npm-wizard.log");
   const state = {
+    installScenarios: 0,
     packageJson: null,
   };
 
@@ -29,6 +30,7 @@ function createContext(props) {
       installTarballs({ tarballs, workspace });
       state.packageJson = readJson(path.join(workspace, "package.json"));
     },
+    getWizardInstallCommandCounts: () => getWizardInstallCommandCounts(npmLog),
     readBaselinePackageJson: () => structuredClone(state.packageJson),
     readPackageJson: () => readJson(path.join(workspace, "package.json")),
     run: runCommand,
@@ -36,12 +38,13 @@ function createContext(props) {
       runSetupWizard({
         fakeBin,
         project,
+        state,
         workspace,
       }),
     tarball: (name) => tarball(tarballs, name),
     verifyInstalledPackage: () => verifyInstalledPackage(workspace),
-    verifyWizardInstallCommands: (count) =>
-      verifyWizardInstallCommands(npmLog, count),
+    verifyWizardInstallCommands: () =>
+      verifyWizardInstallCommands(npmLog, state.installScenarios),
     writePackageJson: (manifest) => writePackageJson(workspace, manifest),
   };
 }
@@ -93,6 +96,7 @@ function runSetupWizard(context) {
   if (result.status !== 0) {
     throw new Error(`typia setup exited with status ${result.status}`);
   }
+  context.state.installScenarios += 1;
 }
 
 function verifyInstalledPackage(workspace) {
@@ -167,21 +171,39 @@ function verifyInstalledPackage(workspace) {
 }
 
 function verifyWizardInstallCommands(npmLog, count) {
-  const wizardLog = fs.readFileSync(npmLog, "utf8");
+  const commands = getWizardInstallCommandCounts(npmLog);
   TestValidator.equals(
     "setup wizard installs TypeScript Go preview once per scenario",
     count,
-    countMatches(wizardLog, "i -D @typescript/native-preview@latest"),
+    commands.typescript,
   );
   TestValidator.equals(
     "setup wizard installs ttsc once per scenario",
     count,
-    countMatches(wizardLog, "i -D @typia/ttsc@latest"),
+    commands.ttsc,
+  );
+  TestValidator.equals(
+    "setup wizard installs ttsx once per scenario",
+    count,
+    commands.ttsx,
   );
   TestValidator.predicate(
     "setup wizard does not install ts-patch",
-    wizardLog.includes("ts-patch") === false,
+    commands.legacy === 0,
   );
+}
+
+function getWizardInstallCommandCounts(npmLog) {
+  const wizardLog = fs.existsSync(npmLog) ? fs.readFileSync(npmLog, "utf8") : "";
+  return {
+    legacy: countMatches(wizardLog, "ts-patch"),
+    ttsc: countMatches(wizardLog, "i -D @typia/ttsc@latest"),
+    ttsx: countMatches(wizardLog, "i -D @typia/ttsx@latest"),
+    typescript: countMatches(
+      wizardLog,
+      "i -D @typescript/native-preview@latest",
+    ),
+  };
 }
 
 function tarball(tarballs, name) {

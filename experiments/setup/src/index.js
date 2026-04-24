@@ -67,7 +67,7 @@ async function main() {
     process.exit(1);
   }
 
-  context.verifyWizardInstallCommands(report.executions.length);
+  context.verifyWizardInstallCommands();
   console.log("Success");
   console.log("Elapsed time", Math.max(0, report.time).toLocaleString(), "ms");
 }

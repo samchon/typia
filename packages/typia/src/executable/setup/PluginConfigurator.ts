@@ -13,13 +13,9 @@ export namespace PluginConfigurator {
     const config: comments.CommentObject = comments.parse(
       await fs.promises.readFile(args.project!, "utf8"),
     ) as comments.CommentObject;
-    const compilerOptions = config.compilerOptions as
-      | comments.CommentObject
-      | undefined;
-    if (compilerOptions === undefined)
-      throw new ReferenceError(
-        `${args.project} file does not have "compilerOptions" property.`,
-      );
+    const compilerOptions = (
+      config.compilerOptions ??= {} as comments.CommentObject
+    ) as comments.CommentObject;
 
     // PREPARE PLUGINS
     const plugins: comments.CommentArray<comments.CommentObject> = (() => {
