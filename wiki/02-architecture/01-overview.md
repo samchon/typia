@@ -1,71 +1,55 @@
-# 01. 아키텍처 개요 — 한 장의 그림
-
-## 한 장의 그림
+# 01. Overview
 
 ```
-┌────────────────────────────────────────────────────────────────────┐
-│                          사용자 코드 (TS)                           │
-│                                                                    │
-│   import typia, { tags } from "typia";                             │
-│   typia.is<Member>(input);                                         │
-│   typia.json.stringify<Member>(member);                            │
-│   typia.llm.application<MyClass>();                                │
-└────────────────────────┬───────────────────────────────────────────┘
-                         │ ttsc 또는 unplugin
-                         ▼
-┌────────────────────────────────────────────────────────────────────┐
-│   typia/lib/transform                                            │
-│                                                                    │
-│   - @typia/ttsc host가 로드하는 plugin entry                       │
-│   - native.binary: packages/typia/lib/executable/generate/ttsc.js  │
-│   - native.mode: "typia"                                          │
-└────────────────────────┬───────────────────────────────────────────┘
-                         │ ttsc-typia build / transform
-                         ▼
-┌────────────────────────────────────────────────────────────────────┐
-│   packages/transform/native                                        │
-│                                                                    │
-│   - tsgo Program 로드                                              │
-│   - typia.* call site 수집                                         │
-│   - source call site와 emitted JS call site 연결                   │
-└────────────────────────┬───────────────────────────────────────────┘
-                         │ TypeChecker + TypeNode
-                         ▼
-┌────────────────────────────────────────────────────────────────────┐
-│   packages/core/native                                             │
-│                                                                    │
-│   - analyzer: TypeScript type → metadata.Schema                    │
-│   - emitter: metadata.Schema → JavaScript expression string        │
-└────────────────────────┬───────────────────────────────────────────┘
-                         │ RewriteSet
-                         ▼
-┌────────────────────────────────────────────────────────────────────┐
-│   toolchain/ttsc/driver                                            │
-│                                                                    │
-│   - tsgo emit 결과의 typia.* call expression을 native output으로 교체 │
-│   - build: 파일에 write                                            │
-│   - transform: 단일 파일 JS string 반환                            │
-└────────────────────────────────────────────────────────────────────┘
+user TypeScript
+  typia.is<T>(input)
+        |
+        v
+tsconfig.json
+  compilerOptions.plugins = [{ transform: "typia/lib/transform" }]
+        |
+        v
+@typia/ttsc
+  load project
+  load plugin
+  run TypeScript-Go
+        |
+        v
+typia/lib/transform
+  declares native.mode = "typia"
+  declares native.binary = typia ttsc launcher
+        |
+        v
+packages/transform/native
+  collect typia.* call sites
+  build rewrite set
+        |
+        v
+packages/core/native
+  analyze TypeScript type
+  emit JavaScript expression
+        |
+        v
+toolchain/ttsc/driver
+  rewrite emitted JS
 ```
 
-## 현재 패키지 책임
+## 책임
 
-| 영역              | 책임                                                     | 위치                        |
-| ----------------- | -------------------------------------------------------- | --------------------------- |
-| 사용자 API        | 런타임 모듈, CLI, plugin entry                           | `packages/typia`            |
-| 빌드 host         | `build`, `check`, `transform` API                        | `toolchain/ttsc`            |
-| 실행 hook         | `ttsx` 런타임 실행                                       | `toolchain/ttsx`            |
-| call site adapter | typia 호출 수집과 rewrite 구성                           | `packages/transform/native` |
-| analyzer/emitter  | metadata 분석과 JS 코드 생성                             | `packages/core/native`      |
-| bundler adapter   | 번들러 transform hook에서 `@typia/ttsc.transform()` 호출 | `packages/unplugin`         |
+| 영역 | 위치 | 책임 |
+| --- | --- | --- |
+| public API | `packages/typia` | 사용자가 import 하는 runtime API |
+| plugin entry | `packages/typia/src/transform.ts` | native backend 선언 |
+| compiler host | `toolchain/ttsc` | build/check/transform, plugin load, rewrite orchestration |
+| runner | `toolchain/ttsx` | TypeScript 실행 |
+| call-site adapter | `packages/transform/native` | typia 호출 수집 |
+| analyzer/emitter | `packages/core/native` | type -> metadata -> JS expression |
+| bundler adapter | `packages/unplugin` | `@typia/ttsc.transform()` 호출 |
 
-## 제거된 TypeScript legacy 표면
+## 제거된 표면
 
-- `@typia/core`
-- `@typia/transform`
-- `typia/lib/transform`
-- `TypiaProgrammer`
-- `packages/core/src`
-- `packages/transform/src`
+- `@typia/core` TypeScript package
+- `@typia/transform` TypeScript package
+- TypeScript AST factory 기반 legacy transformer implementation
 
-→ 다음 [02. 데이터 플로우](02-data-flow.md)
+`typia/lib/transform` 은 남아 있다. 다만 의미가 legacy transformer 에서 native plugin entry 로 바뀌었다.

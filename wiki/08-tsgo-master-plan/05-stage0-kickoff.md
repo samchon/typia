@@ -1,27 +1,24 @@
-# 05. Stage 0 Outcome
+# 05. Current Outcome
 
-이 문서는 원래 kickoff checklist 였다. 지금은 Stage 0에서 실제로 달성된 최소선을 기록한다.
+현재 repo 에서 이미 확인되는 결과만 적는다.
 
-## 달성된 것
+## 완료
 
-1. `@typia/ttsc` / `@typia/ttsx` package identity 확정
-2. `ttsc` / `ttsx` CLI 진입점과 JS API 표면 확보
-3. `typia/lib/transform` 경로 확정
-4. `typia setup` 가 legacy `ts-patch` 경로 대신 preview compiler + `@typia/ttsc` 를 설치하도록 전환
-5. typia workspace 패키지들이 `ttsc` / `ttsc --watch` 기준으로 재정렬
-6. `ttsx src/index.ts` 경로 확보
+- `toolchain/ttsc` package 존재
+- `toolchain/ttsx` package 존재
+- `ttsc` CLI 무인자 build 동작
+- `ttsc -p tsconfig.json`, `ttsc --noEmit`, `ttsc transform --file=...` 경로 존재
+- `ttsx src/index.ts` runner 존재
+- `typia/lib/transform` native plugin entry 존재
+- typia package 는 `@typia/ttsc` 에 의존
+- `typia setup` 은 `@typescript/native-preview`, `@typia/ttsc`, `@typia/ttsx` 를 설치
+- `typia setup` 은 legacy `ts-patch` 설정을 제거
+- native typia backend 는 Go 로 존재
 
-## 아직 남아 있는 것
+## 아직 좁은 부분
 
-1. public plugin SDK와 long-term generic contract 정제
-2. second consumer 실검증
-3. stable `typescript@7` lane으로의 기본 전환
-4. browser/static-hosting 계열과 native host 계열의 문서 경계 정리
-
-## Exit Criteria
-
-- `ttsc` project build 동작: 달성
-- `ttsx src/index.ts` 동작: 달성
-- typia consumer 최소 경로 동작: 달성
-- standalone host / runner framing 정착: 달성
-- plugin contract hardening: 진행 중
+- native plugin composition 은 한 invocation 안에서 넓지 않다.
+- `ttsx` CLI 는 JS API 보다 옵션 표면이 좁다.
+- CJS runner 와 ESM runner 는 실행 방식이 다르다.
+- `@typescript/native-preview` 기반 preview lane 이다.
+- `typescript@7` stable lane 전환은 아직 현재 동작이 아니다.

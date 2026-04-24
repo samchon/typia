@@ -1,54 +1,52 @@
 # 03. Plugin Contract
 
-## 목표
+`ttsc` plugin 은 tsconfig 의 `compilerOptions.plugins[]` 에서 로드된다.
 
-`ttsc` 는 plugin host 여야 하며, plugin author 는 native backend, serialized IR, emitted asset, diagnostics payload 위에서 동작해야 한다.
+```json
+{
+  "compilerOptions": {
+    "plugins": [{ "transform": "typia/lib/transform" }]
+  }
+}
+```
 
-이 계약은 TypeScript v5/v6 시대의 in-process transformer API를 재현하지 않는다.
-`ts.Program`, `ts.TypeChecker`, `ts.NodeFactory`, `TransformationContext`,
-`TransformerFactory<SourceFile>` 를 JavaScript plugin 에 그대로 넘기는 호환 모드는
-TypeScript v7 native lane 의 목표가 아니다.
+## plugin module
 
-## host 책임
+plugin module 은 다음 중 하나를 export 한다.
 
-- call-site inventory
-- type/context handoff
-- diagnostics surface
-- rewrite plan application
-- emitted asset 관리
+- `default`
+- `plugin`
+- `createTtscPlugin`
 
-## plugin 책임
+factory 형태:
 
-- marker call 해석
-- 타입 분석
-- JS emit / asset emit
-- plugin-specific diagnostics
+```ts
+import { definePlugin } from "@typia/ttsc";
 
-## 언어 정책
+export default definePlugin((config, context) => ({
+  name: "my-plugin",
+  native: {
+    mode: "my-plugin",
+    binary: "/absolute/path/to/backend",
+    contractVersion: 1,
+  },
+}));
+```
 
-- Go native plugin: 공식 경로
-- mixed plugin: Node-side manifest/config + native backend 조합
-- TS-side plugin: JS text post-processing 또는 serialized IR client 로 제한
+## 현재 plugin shape
 
-문서는 세 경로를 같은 급의 legacy transformer 호환으로 서술하지 않는다.
+| 필드 | 의미 |
+| --- | --- |
+| `name` | plugin 이름 |
+| `native.mode` | native rewrite backend id |
+| `native.binary` | consumer native backend launcher |
+| `native.contractVersion` | 현재 `1` |
+| `native.capabilities` | `"rewrite"`, `"diagnostics"`, `"assets"` 같은 선언 |
+| `transformOutput(context)` | emitted JS text 후처리 hook |
 
-TS-side code 가 존재할 수는 있다. 다만 그 의미는 `typescript` npm package 의
-compiler object 를 받아 AST 를 직접 mutate 하는 기존 transformer 가 아니라,
-`ttsc` host 가 제공한 manifest, IR, emitted text, diagnostics 를 다루는 adapter 다.
+## 현재 제약
 
-## 공개 경계
-
-public contract 구성 요소:
-
-- serialized request / response
-- rewrite plan
-- emitted asset description
-- diagnostic payload
-- optional text-output transform payload
-
-implementation-private 예시:
-
-- TS internal object shape
-- Go internal struct layout
-- typia-specific helper naming
-- typescript-go internal `ast` / `checker` struct pointer
+- 서로 다른 native mode/binary 를 동시에 compose 하지 않는다.
+- 여러 `transformOutput()` 은 순서대로 적용된다.
+- legacy `ts.Program` / `ts.TypeChecker` / `ts.NodeFactory` 를 JS plugin 에 넘기지 않는다.
+- richer diagnostics callback, asset API, phase model 은 아직 public API 가 아니다.

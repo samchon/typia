@@ -1,34 +1,29 @@
-# 06. Current Status & Next Steps
+# 06. Current Gaps
 
-## 현재 상태
+현재 구현을 기준으로 남은 gap 만 적는다.
 
-1. `ttsc` 는 standalone compiler adapter / plugin host 로 정체성이 확정되었다.
-2. `ttsx` 는 standalone runner 로 분리되었다.
-3. typia는 `@typia/ttsc` / `@typia/ttsx` 를 소비하는 첫 consumer 로 정렬되었다.
-4. 기본 setup 계약은 preview compiler + `@typia/ttsc` + `typia/lib/transform` 으로 이미 전환되었다.
+## `ttsc`
 
-## 다음 단계
+- full `tsc` parity 는 아니다.
+- project-reference build, `--showConfig`, `--init`, TS7 parallel flags 는 아직 public guide 의 중심이 아니다.
+- plugin diagnostics / asset emit / phase model 은 아직 좁다.
+- 서로 다른 native backend 여러 개를 한 번에 compose 하는 모델은 없다.
 
-### 1. host / runner hardening
+## `ttsx`
 
-- native plugin SDK 정리
-- diagnostics / manifest / watch UX 정제
-- native host와 JS-side text/IR adapter 경계 정제
-- legacy `ts.Program` transformer 호환을 목표 목록에서 제거
+- CJS 는 in-process require hook 이다.
+- ESM 은 build 후 child Node 실행이다.
+- CLI option 은 JS API option 보다 적다.
+- sourcemap/debugger/cache invalidation UX 는 더 검증해야 한다.
 
-### 2. consumer hardening
+## typia
 
-- typia 문서와 ecosystem 문서 정합성 유지
-- `typia setup` 의 stable lane 전환 시점 정리
-- browser compatibility lane 과 native lane 의 역할 분리
-- 구버전 TypeScript transformer 가 필요한 사용자는 구버전 typia/TypeScript lane 으로 안내
+- native backend 중심으로 동작한다.
+- website playground 같은 browser/static-hosting lane 은 별도 compatibility lane 이다.
+- legacy TypeScript transformer 경로는 현재 코드베이스의 기본 경로가 아니다.
 
-### 3. second consumer
+## release
 
-- typia 밖의 실제 consumer 에서 `ttsc` contract 검증
-- consumer 별 adapter boundary를 source-backed contract 로 축소
-- nestia 같은 consumer 가 필요한 `@typia/core` equivalent surface 를 IR/API 로 재설계
-
-## 성공 모습
-
-`ttsc` / `ttsx` 는 typia 없이도 설명되고, typia는 그 위의 강력한 consumer 로만 설명된다.
+- `toolchain/*` 는 `packages/*` 와 같은 first-class publish 대상이어야 한다.
+- `@typia/ttsc` publish 후 `typia`, `@typia/ttsx` publish 순서를 맞춰야 한다.
+- tarball 에 launcher, `lib`, native binary 포함 여부를 계속 dry-run 으로 확인해야 한다.

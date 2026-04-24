@@ -1,47 +1,30 @@
-# 04. typia Consumer State
+# 04. typia Consumer
 
-## 위치
+typia는 `ttsc` / `ttsx` 의 첫 consumer 다.
 
-typia는 `ttsc` / `ttsx` 의 consumer 다.
+## 현재 경로
 
-## 의미
+1. 사용자는 `typia.is<T>()`, `typia.json.stringify<T>()` 같은 public API 를 호출한다.
+2. `typia setup` 이 `tsconfig.json` 에 `{ "transform": "typia/lib/transform" }` 를 넣는다.
+3. `typia/lib/transform` 은 `@typia/ttsc.definePlugin()` 으로 native backend 를 선언한다.
+4. `@typia/ttsc` 가 `packages/typia/lib/executable/generate/ttsc.js` 또는 source checkout 의 `src/executable/generate/ttsc.ts` 를 실행한다.
+5. 그 launcher 가 `packages/transform/native/cmd/ttsc-typia` 를 실행한다.
+6. `packages/transform/native` 가 call site 를 찾고, `packages/core/native` 가 타입 분석과 JS emit 을 수행한다.
 
-- `@typia/core`
-- `@typia/transform`
-- `typia`
-- `@typia/utils`
+## setup wizard
 
-이 패키지들은 `ttsc` / `ttsx` platform 위에 올라가는 typia consumer 구현으로 재편된다.
+현재 동작:
 
-## 선택지
+- 없으면 `tsconfig.json` 생성
+- `compilerOptions` 가 없으면 생성
+- `compilerOptions.plugins` 가 없으면 배열 생성
+- `plugins` 가 배열이 아니면 실패
+- `typia/lib/transform` 중복 제거 후 하나만 추가
+- `strictNullChecks: true`, `skipLibCheck: true` 보정
+- legacy `prepare` 의 `typia patch` / `ts-patch install` 제거
+- `dependencies.ts-patch`, `devDependencies.ts-patch` 제거
+- `@typescript/native-preview`, `@typia/ttsc`, `@typia/ttsx` 설치
 
-### typia plugin 구현
+## legacy 경계
 
-- Go native 구현: TypeScript v7 native lane 의 주 경로
-- mixed 구현: Node-side plugin manifest/config 와 Go native backend 조합
-- TS 구현: generate/unplugin/browser compatibility 같은 별도 lane 또는 text-level adapter
-
-기존 `typia/lib/transform` 형태의 TypeScript transformer 를 `typescript-go` 위에서
-그대로 실행하는 것은 현재 목표가 아니다. 그 코드는 TypeScript v5/v6 또는 구버전
-typia lane 에 속한다.
-
-## setup
-
-`npx typia setup` 의 현재 동작은 다음과 같다.
-
-1. `@typia/ttsc` 설치
-2. `@typescript/native-preview` 설치
-3. legacy `ts-patch` 제거
-4. typia config / tsconfig 정렬 (`typia/lib/transform` 주입)
-
-현재 구현과 이상 사이의 편차:
-
-- `@typia/ttsx` 는 이미 별도 sibling runner package 로 존재하지만, `typia setup` 가 optional runner 설치까지 자동화하지는 않는다.
-- stable `typescript@7` 자동 전환은 아직 목표 상태다. 현재 wizard는 preview lane을 명시적으로 설치한다.
-
-## 표현 원칙
-
-- typia repo 내부 구조는 typia consumer 구현으로 서술한다.
-- typia-specific codegen 구조는 typia plugin 구현으로 서술한다.
-- `ttsc` 와 `ttsx` 는 standalone product 로 서술한다.
-- legacy transformer 호환을 `ttsc` 의 핵심 목표처럼 서술하지 않는다.
+`@typia/core` / `@typia/transform` TypeScript transformer 패키지는 현재 코드베이스에 없다. legacy transformer 가 필요한 사용자는 해당 기능이 남아 있는 구버전 typia lane 을 사용한다.

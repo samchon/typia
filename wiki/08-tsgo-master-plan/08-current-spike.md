@@ -1,13 +1,41 @@
-# 08. Current Product State
+# 08. Product State
 
-현재 typia repo 안의 구현은 더 이상 단순 spike 만은 아니다.
+이 문서는 더 이상 spike 계획서가 아니다. 현재 repo 상태 요약이다.
 
-- `@typia/ttsc` / `@typia/ttsx` package 가 실제 workspace product 로 존재한다.
-- typia 는 그 host / runner 를 소비하는 첫 consumer 로 동작한다.
-- 다만 browser playground, 일부 compatibility entry, future stable lane 같은 주변부는 아직 과도기 strata 를 남긴다.
+## package
 
-문서 해석 기준:
+- `@typia/ttsc`: `toolchain/ttsc`
+- `@typia/ttsx`: `toolchain/ttsx`
+- `typia`: `packages/typia`
 
-- standalone product 중심
-- typia consumer 중심
-- 현재 구현과 이상 사이의 편차 명시
+## compile
+
+```
+typia setup
+  -> tsconfig plugins += typia/lib/transform
+  -> install @typescript/native-preview
+  -> install @typia/ttsc
+  -> install @typia/ttsx
+
+ttsc
+  -> load tsconfig
+  -> load plugins
+  -> run TypeScript-Go
+  -> run native backend when plugin declares it
+  -> rewrite emitted JS
+```
+
+## run
+
+```
+ttsx src/index.ts
+  -> resolve project
+  -> reuse @typia/ttsc
+  -> CJS require hook or ESM cached build
+```
+
+## invalid config behavior
+
+- JS project helper reports missing `tsconfig`, missing `extends`, and circular `extends` as `ttsc:` errors.
+- native build path parses tsconfig with TypeScript-Go and prints diagnostics to stderr before exiting non-zero.
+- setup wizard rejects non-array `compilerOptions.plugins` before installing packages or rewriting `package.json`.

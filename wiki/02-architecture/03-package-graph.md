@@ -1,78 +1,46 @@
-# 03. 패키지 의존 그래프
+# 03. Package Graph
 
-## A. typia 본체 패키지군
-
-```
-@typia/interface        ← 0-dep 공개 타입
-        │
-        ├──────────────▶ @typia/utils
-        │                    │
-        │                    ├────────▶ @typia/mcp
-        │                    ├────────▶ @typia/langchain
-        │                    └────────▶ @typia/vercel
-        │
-        ├──────────────▶ typia
-        │                    │
-        │                    └────────▶ typia/lib/transform
-        │
-        └──────────────▶ @typia/unplugin ─────▶ @typia/ttsc.transform()
-```
-
-`@typia/core` / `@typia/transform` TypeScript 패키지는 제거되었다. native 구현은 npm workspace package가 아니라 Go module 디렉터리로 남아 있다.
-
-## B. native backend
+## public packages
 
 ```
-packages/transform/native
-        │
-        ├─ typia.* call site 수집
-        ├─ RewriteSet 구성
-        │
-        ▼
-packages/core/native
-        ├─ analyzer: TypeScript type → metadata.Schema
-        └─ emitter: metadata.Schema → JS expression string
+@typia/interface
+  -> @typia/utils
+  -> typia
+  -> @typia/unplugin
+  -> @typia/mcp
+  -> @typia/langchain
+  -> @typia/vercel
 ```
 
-## C. standalone toolchain 패키지군
+## toolchain
 
 ```
 @typescript/native-preview
-          │
-          ▼
-   @typia/ttsc   ← compiler adapter / plugin host / JS API
-          │
-          ▼
-   @typia/ttsx   ← runner, built on top of @typia/ttsc
+  -> @typia/ttsc
+       -> @typia/ttsx
 ```
 
-| 패키지        | 역할                                                                               |
-| ------------- | ---------------------------------------------------------------------------------- |
-| `@typia/ttsc` | standalone compiler adapter / plugin host / JS API (`build`, `check`, `transform`) |
-| `@typia/ttsx` | standalone runner (`ttsx src/index.ts`)                                            |
+`typia` depends on `@typia/ttsc`. `@typia/ttsx` depends on `@typia/ttsc`.
 
-## 공개 패키지 책임
+## native backend
 
-| 패키지             | 한 줄                                                     |
-| ------------------ | --------------------------------------------------------- |
-| `@typia/interface` | IValidation, ILlmApplication, OpenAPI, tags 등 공개 타입  |
-| `@typia/utils`     | 런타임 헬퍼 + LLM/OpenAPI 변환 유틸                       |
-| `typia`            | 사용자가 import하는 메인 + CLI + native plugin entry      |
-| `@typia/unplugin`  | bundler transform hook에서 `@typia/ttsc.transform()` 호출 |
-| `@typia/mcp`       | MCP SDK Tool로 ILlmController 변환                        |
-| `@typia/langchain` | LangChain DynamicStructuredTool로 변환                    |
-| `@typia/vercel`    | Vercel AI SDK tool()로 변환                               |
+```
+packages/transform/native
+  -> packages/core/native
+  -> toolchain/ttsc/driver
+```
 
-## 외부 의존성 표
+## current package roles
 
-| 패키지      | 주요 외부 의존                                                             |
-| ----------- | -------------------------------------------------------------------------- |
-| `interface` | 없음                                                                       |
-| `utils`     | 없음                                                                       |
-| `typia`     | `commander`, `inquirer`, `randexp`, `@standard-schema/spec`, `@typia/ttsc` |
-| `unplugin`  | `unplugin`, `diff-match-patch-es`, `magic-string`, `@typia/ttsc`           |
-| `mcp`       | `@modelcontextprotocol/sdk` (peer)                                         |
-| `langchain` | `@langchain/core` (peer)                                                   |
-| `vercel`    | `ai` (peer)                                                                |
+| package / directory | role |
+| --- | --- |
+| `typia` | public runtime API, CLI, native plugin entry |
+| `@typia/interface` | public type contracts |
+| `@typia/utils` | runtime helpers and schema utilities |
+| `@typia/unplugin` | bundler adapter over `@typia/ttsc.transform()` |
+| `@typia/ttsc` | compiler adapter / plugin host |
+| `@typia/ttsx` | runner over `@typia/ttsc` |
+| `packages/core/native` | type analysis and JS expression emit |
+| `packages/transform/native` | typia call-site collection and rewrite planning |
 
-→ 다음 [04. 변환 파이프라인](04-transformation-pipeline.md)
+`@typia/core` and `@typia/transform` TypeScript packages are not part of the current package graph.
