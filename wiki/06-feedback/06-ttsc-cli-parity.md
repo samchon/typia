@@ -9,7 +9,7 @@
 - TypeScript 7.0 Beta 공지(2026-04-21): 현재는 `@typescript/native-preview@beta` 와 `tsgo` entry point 로 검증하고, stable TypeScript 7.0 에서는 `typescript` package 와 `tsc` entry point 로 들어간다.
 - `microsoft/typescript-go` README: `npx tsgo` 는 `tsc` 처럼 사용한다.
 - `@typescript/native-preview@7.0.0-dev.20260421.2` 로컬 help: 첫 번째 common command 는 `tsc`, 설명은 "Compiles the current project (tsconfig.json in the working directory.)" 이다.
-- `microsoft/typescript-go` 최신 `main` 소스(ba858e5c, 2026-04-23): `cmd/tsgo/main.go` 는 `--lsp` / `--api` 외 입력을 `execute.CommandLine(...)` 으로 넘긴다. `internal/execute/tsc.go` 는 `-b` / `--build` 만 build command parser 로 분기하고, 나머지는 일반 `tsc` command parser 로 처리한다.
+- `microsoft/typescript-go` 최신 `main` 소스: `cmd/tsgo/main.go` 는 `--lsp` / `--api` 외 입력을 `execute.CommandLine(...)` 으로 넘긴다. `internal/execute/tsc.go` 는 `-b` / `--build` 만 build command parser 로 분기하고, 나머지는 일반 `tsc` command parser 로 처리한다.
 
 즉 공개 compiler CLI의 기본 형태는 subcommand 중심이 아니다.
 
