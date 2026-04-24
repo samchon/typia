@@ -107,6 +107,12 @@ console.log(value);
 	if !strings.Contains(errOut, "Type 'number' is not assignable to type 'string'") {
 		t.Errorf("expected semantic diagnostic, got %q", errOut)
 	}
+	if !strings.Contains(errOut, "\x1b[91merror\x1b[0m") || !strings.Contains(errOut, "TS2322") {
+		t.Errorf("expected colored TypeScript-style diagnostic header, got %q", errOut)
+	}
+	if !strings.Contains(errOut, "\x1b[7m1\x1b[0m") || !strings.Contains(errOut, "~~~~~") {
+		t.Errorf("expected source context with highlighted span, got %q", errOut)
+	}
 	if _, err := os.Stat(filepath.Join(root, "bin", "index.js")); !os.IsNotExist(err) {
 		t.Errorf("expected no emitted JS, stat err=%v", err)
 	}

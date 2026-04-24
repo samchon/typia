@@ -4,12 +4,14 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"io"
 	"path/filepath"
 
 	"github.com/microsoft/typescript-go/shim/ast"
 	shimchecker "github.com/microsoft/typescript-go/shim/checker"
 	shimcompiler "github.com/microsoft/typescript-go/shim/compiler"
 	"github.com/microsoft/typescript-go/shim/core"
+	shimdiagnosticwriter "github.com/microsoft/typescript-go/shim/diagnosticwriter"
 	shimscanner "github.com/microsoft/typescript-go/shim/scanner"
 	"github.com/microsoft/typescript-go/shim/tsoptions"
 	"github.com/microsoft/typescript-go/shim/tspath"
@@ -23,6 +25,7 @@ type Diagnostic struct {
 	Line    int
 	Column  int
 	Message string
+	raw     *ast.Diagnostic
 }
 
 // SourceFile returns the program source file matching filename.
@@ -48,6 +51,24 @@ func (d Diagnostic) String() string {
 		return fmt.Sprintf("%s:%d:%d: %s", d.File, d.Line, d.Column, d.Message)
 	}
 	return fmt.Sprintf("%s: %s", d.File, d.Message)
+}
+
+// WritePrettyDiagnostics renders diagnostics with TypeScript-style colors,
+// source snippets and the trailing error summary when raw tsgo diagnostic
+// objects are available. It falls back to the legacy one-line form for
+// diagnostics assembled outside tsgo.
+func WritePrettyDiagnostics(w io.Writer, diagnostics []Diagnostic, cwd string) {
+	raw := make([]*ast.Diagnostic, 0, len(diagnostics))
+	for _, d := range diagnostics {
+		if d.raw == nil {
+			for _, d := range diagnostics {
+				fmt.Fprintln(w, "  -", d.String())
+			}
+			return
+		}
+		raw = append(raw, d.raw)
+	}
+	shimdiagnosticwriter.FormatASTDiagnosticsWithColorAndContext(w, raw, cwd)
 }
 
 // Program is the shim-agnostic facade the rest of the engine sees.
@@ -123,6 +144,11 @@ func CreateProgramFromConfig(parsed *tsoptions.ParsedCommandLine, host shimcompi
 //
 // cwd must be absolute; tsconfigPath may be relative to cwd.
 func LoadProgram(cwd, tsconfigPath string, options LoadProgramOptions) (*Program, []Diagnostic, error) {
+	if !filepath.IsAbs(cwd) {
+		if abs, err := filepath.Abs(cwd); err == nil {
+			cwd = abs
+		}
+	}
 	cwd = tspath.ResolvePath(cwd)
 	fs := DefaultFS()
 	host := DefaultHost(cwd, fs)
@@ -255,7 +281,7 @@ func convertDiagnostics(in []*ast.Diagnostic) []Diagnostic {
 		if d == nil {
 			continue
 		}
-		diag := Diagnostic{Message: d.String()}
+		diag := Diagnostic{Message: d.String(), raw: d}
 		if file := d.File(); file != nil {
 			diag.File = file.FileName()
 			if pos := d.Pos(); pos >= 0 {
