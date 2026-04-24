@@ -179,9 +179,14 @@ function outputText(value: string | Buffer | null | undefined): string {
  */
 export function transform(options: TransformOptions): string {
   const execution = resolveExecutionContext(options);
+  const sourceFile = realpathIfExists(
+    path.isAbsolute(options.file)
+      ? options.file
+      : path.resolve(options.cwd ?? process.cwd(), options.file),
+  );
   const args = [
     "transform",
-    "--file=" + options.file,
+    "--file=" + sourceFile,
     "--rewrite-mode=" + execution.nativeMode,
   ];
   if (options.tsconfig) args.push("--tsconfig=" + options.tsconfig);
@@ -204,9 +209,6 @@ export function transform(options: TransformOptions): string {
       "ttsc.transform exited " + res.status + "\n" + (res.stderr || ""),
     );
   }
-  const sourceFile = path.isAbsolute(options.file)
-    ? options.file
-    : path.resolve(options.cwd ?? process.cwd(), options.file);
   const transformed = finalizeTransformText(
     execution.plugins,
     {
@@ -223,6 +225,14 @@ export function transform(options: TransformOptions): string {
     fs.writeFileSync(options.out, transformed, "utf8");
   }
   return transformed;
+}
+
+function realpathIfExists(file: string): string {
+  try {
+    return fs.realpathSync(file);
+  } catch {
+    return file;
+  }
 }
 
 /** Result of `build()`. Non-zero `status` means the build failed. */

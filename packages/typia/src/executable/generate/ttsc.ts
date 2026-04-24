@@ -1,8 +1,15 @@
-import { spawnSync } from "node:child_process";
-import * as fs from "node:fs";
-import * as path from "node:path";
+const { spawnSync } = require(
+  "node:child_process",
+) as typeof import("node:child_process");
+const fs = require("node:fs") as typeof import("node:fs");
+const path = require("node:path") as typeof import("node:path");
 
-const packageRoot = path.resolve(__dirname, "..", "..", "..");
+const packageRoot = path.resolve(
+  path.dirname(path.resolve(process.argv[1] ?? "")),
+  "..",
+  "..",
+  "..",
+);
 const repoRoot = path.resolve(packageRoot, "..", "..");
 const nativeProject = path.resolve(repoRoot, "packages", "transform", "native");
 const nativeBinary = path.resolve(

@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"path/filepath"
 
 	"github.com/microsoft/typescript-go/shim/ast"
 	shimchecker "github.com/microsoft/typescript-go/shim/checker"
@@ -22,6 +23,20 @@ type Diagnostic struct {
 	Line    int
 	Column  int
 	Message string
+}
+
+// SourceFile returns the program source file matching filename.
+func (p *Program) SourceFile(filename string) *ast.SourceFile {
+	if p == nil || p.TSProgram == nil {
+		return nil
+	}
+	normalized := filepath.ToSlash(filename)
+	for _, file := range p.TSProgram.SourceFiles() {
+		if filepath.ToSlash(file.FileName()) == normalized {
+			return file
+		}
+	}
+	return nil
 }
 
 // String returns a `path:line:col: message` formatted string.

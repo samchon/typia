@@ -86,23 +86,23 @@ func runTransform(args []string) int {
 		return 2
 	}
 
-	// Filter WriteFile to keep only the target file's output in memory.
+	target := prog.SourceFile(absFile)
+	if target == nil {
+		fmt.Fprintf(stderr, "ttsc transform: source file is not in program: %s\n", absFile)
+		return 2
+	}
+
+	// Capture the requested source file's JS output.
 	var captured []byte
-	bestScore := 0
 	capture := func(name, text string, _ *shimcompiler.WriteFileData) error {
 		rel := filepath.ToSlash(name)
 		if !strings.HasSuffix(rel, ".js") {
 			return nil
 		}
-		score := sharedSourceStemSegments(rel, absFile)
-		if score == 0 || score < bestScore {
-			return nil
-		}
 		captured = []byte(text)
-		bestScore = score
 		return nil
 	}
-	_, eDiags, err := prog.EmitAll(rewrites, capture)
+	_, eDiags, err := prog.EmitFile(rewrites, target, capture)
 	if err != nil {
 		fmt.Fprintf(stderr, "ttsc transform: emit: %v\n", err)
 		return 3
