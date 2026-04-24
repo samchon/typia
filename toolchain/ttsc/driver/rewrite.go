@@ -72,6 +72,16 @@ const RewriteSentinel = "/* @ttsc-rewritten */"
 // `writeFile` is nil, the patched JS is written to disk via the standard
 // tsgo WriteFile.
 func (p *Program) EmitAll(rs *RewriteSet, writeFile shimcompiler.WriteFile) (*shimcompiler.EmitResult, []Diagnostic, error) {
+	return p.emit(rs, nil, writeFile)
+}
+
+// EmitFile runs tsgo's emitter for one source file, applying the same rewrite
+// pipeline as EmitAll.
+func (p *Program) EmitFile(rs *RewriteSet, target *ast.SourceFile, writeFile shimcompiler.WriteFile) (*shimcompiler.EmitResult, []Diagnostic, error) {
+	return p.emit(rs, target, writeFile)
+}
+
+func (p *Program) emit(rs *RewriteSet, target *ast.SourceFile, writeFile shimcompiler.WriteFile) (*shimcompiler.EmitResult, []Diagnostic, error) {
 	if p == nil || p.TSProgram == nil {
 		return nil, nil, errors.New("driver: nil program")
 	}
@@ -100,7 +110,8 @@ func (p *Program) EmitAll(rs *RewriteSet, writeFile shimcompiler.WriteFile) (*sh
 	}
 
 	result := p.TSProgram.Emit(context.Background(), shimcompiler.EmitOptions{
-		WriteFile: wf,
+		TargetSourceFile: target,
+		WriteFile:        wf,
 	})
 	if result == nil {
 		return nil, nil, errors.New("driver: Emit returned nil")

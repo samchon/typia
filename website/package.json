@@ -5,16 +5,17 @@
   "description": "Typia Guide Documents",
   "scripts": {
     "build": "npm run prebuild && next build && npm run postbuild",
-    "prebuild": "rimraf .next && rimraf out && npm run build:compiler && npm run build:blog:rss",
+    "prebuild": "rimraf .next && rimraf out && npm run build:compiler && npm run build:blog:rss && npm run build:examples",
     "postbuild": "npm run build:pagefind && npm run build:sitemap",
     "build:blog:rss": "node build/blog",
     "build:compiler": "node build/compiler",
+    "build:examples": "cd ../examples && pnpm run build",
     "build:pagefind": "pagefind --site .next/server/app --output-path out/_pagefind",
     "build:sitemap": "node build/sitemap",
     "build:tgz": "node build/tgz",
     "build:typedoc": "node build/typedoc",
     "deploy": "node build/deploy",
-    "dev": "npm run build:compiler && next dev"
+    "dev": "npm run build:compiler && npm run build:examples && next dev"
   },
   "repository": {
     "type": "git",

@@ -2,18 +2,14 @@
   "name": "@typia/interface",
   "version": "12.0.2",
   "description": "Superfast runtime validators with only one line",
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
   "exports": {
-    ".": {
-      "types": "./lib/index.d.ts",
-      "import": "./lib/index.js",
-      "default": "./lib/index.js"
-    },
+    ".": "./src/index.ts",
     "./package.json": "./package.json"
   },
   "scripts": {
-    "build": "rimraf lib && ttsc build",
+    "build": "rimraf lib && ttsc",
     "dev": "ttsc --watch",
     "prepack": "pnpm run build"
   },

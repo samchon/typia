@@ -1,34 +1,24 @@
-# 05. Stage 0 Kickoff
+# 05. Current Outcome
 
-## Week 0
+현재 repo 에서 이미 확인되는 결과만 적는다.
 
-1. `ttsc` / `ttsx` standalone repo/package 정체성 확정
-2. npm name / GitHub repo / binary packaging 확인
-3. typia repo 안의 작업은 integration mirror 로만 취급
+## 완료
 
-## Week 1
+- `toolchain/ttsc` package 존재
+- `toolchain/ttsx` package 존재
+- `ttsc` CLI 무인자 build 동작
+- `ttsc -p tsconfig.json`, `ttsc --noEmit`, `ttsc transform --file=...` 경로 존재
+- `ttsx src/index.ts` runner 존재
+- `typia/lib/transform` native plugin entry 존재
+- typia package 는 `@typia/ttsc` 에 의존
+- `typia setup` 은 `@typescript/native-preview`, `@typia/ttsc`, `@typia/ttsx` 를 설치
+- `typia setup` 은 legacy `ts-patch` 설정을 제거
+- native typia backend 는 Go 로 존재
 
-1. `ttsc` host skeleton
-2. `ttsx` runner skeleton
-3. TS plugin 최소 예제
-4. Go plugin 최소 예제
+## 아직 좁은 부분
 
-## Week 2
-
-1. tsgo 연결
-2. rewrite / diagnostics / cache 최소선
-3. `ttsx src/index.ts` 최소선
-
-## Week 3
-
-1. typia consumer spike
-2. setup / migration spike
-3. source map / performance 측정
-
-## Exit Criteria
-
-- `ttsc build` 동작
-- `ttsx src/index.ts` 동작
-- TS plugin 예제 동작
-- Go plugin 예제 동작
-- typia consumer 최소 경로 동작
+- native plugin composition 은 한 invocation 안에서 넓지 않다.
+- `ttsx` CLI 는 JS API 보다 옵션 표면이 좁다.
+- CJS runner 와 ESM runner 는 실행 방식이 다르다.
+- `@typescript/native-preview` 기반 preview lane 이다.
+- `typescript@7` stable lane 전환은 아직 현재 동작이 아니다.

@@ -72,7 +72,7 @@
 - 위 Critical에서 다룸
 
 #### D7. 사용자 설치 UX 상세 미작성
-- `bin/ttsc.js` 내용 템플릿: `require.resolve(`@typia/ttsc-${process.platform}-${process.arch}/bin/ttsc${ext}`)`
+- `src/launcher/ttsc.js` 는 추적되는 JS launcher 로 유지하고, native binary 는 optional dependency 또는 local `native/ttsc-native` 에서 찾는다.
 - Linux musl (Alpine) 호환 (glibc vs musl)
 - Windows 권한 (executable bit, SmartScreen)
 - `postinstall` fallback (optional dep 설치 실패 시 안내)

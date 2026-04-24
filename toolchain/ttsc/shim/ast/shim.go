@@ -101,6 +101,7 @@ const (
 	KindExportSpecifier               = innerast.KindExportSpecifier
 	KindModuleBlock                   = innerast.KindModuleBlock
 	KindModuleDeclaration             = innerast.KindModuleDeclaration
+	KindFunctionDeclaration           = innerast.KindFunctionDeclaration
 	KindMinusToken                    = innerast.KindMinusToken
 
 	SymbolFlagsOptional  = innerast.SymbolFlagsOptional
@@ -111,3 +112,6 @@ const (
 
 //go:linkname GetSourceFileOfNode github.com/microsoft/typescript-go/internal/ast.GetSourceFileOfNode
 func GetSourceFileOfNode(node *innerast.Node) *innerast.SourceFile
+
+//go:linkname GetNodeAtPosition github.com/microsoft/typescript-go/internal/ast.GetNodeAtPosition
+func GetNodeAtPosition(file *innerast.SourceFile, position int, includeJSDoc bool) *innerast.Node

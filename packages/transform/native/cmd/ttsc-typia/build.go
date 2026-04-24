@@ -60,12 +60,14 @@ func runBuild(args []string) int {
 		return 2
 	}
 	if len(diags) > 0 {
-		for _, d := range diags {
-			fmt.Fprintln(stderr, "  -", d.String())
-		}
+		driver.WritePrettyDiagnostics(stderr, diags, cwd)
 		return 2
 	}
 	defer prog.Close()
+	if diags := prog.Diagnostics(); len(diags) > 0 {
+		driver.WritePrettyDiagnostics(stderr, diags, cwd)
+		return 2
+	}
 
 	rewrites := driver.NewRewriteSet()
 	sites := 0

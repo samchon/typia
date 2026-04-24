@@ -17,7 +17,7 @@ export async function test_rewrite_idempotent(): Promise<void> {
   fs.rmSync(dist, { recursive: true, force: true });
 
   const first = runTtsc(
-    ["build", "--tsconfig=tsconfig.json", "--emit", "--quiet"],
+    ["--tsconfig=tsconfig.json", "--emit", "--quiet"],
     fixture,
   );
   assert.equal(first.status, 0, `first run failed:\n${first.stderr}`);
@@ -32,7 +32,7 @@ export async function test_rewrite_idempotent(): Promise<void> {
   // Second emit into the same tree: the sentinel must short-circuit the
   // rewrite pass and leave the file textually identical.
   const second = runTtsc(
-    ["build", "--tsconfig=tsconfig.json", "--emit", "--quiet"],
+    ["--tsconfig=tsconfig.json", "--emit", "--quiet"],
     fixture,
   );
   assert.equal(second.status, 0, `second run failed:\n${second.stderr}`);

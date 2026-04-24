@@ -4,8 +4,7 @@ import fs from "fs";
 import type { TypiaSetupWizard } from "../TypiaSetupWizard";
 
 export namespace PluginConfigurator {
-  const LEGACY_TRANSFORM = "typia/lib/transform";
-  const TTSC_TYPIA_PLUGIN = "typia/lib/ttsc/plugin";
+  const TYPIA_TRANSFORM = "typia/lib/transform";
 
   export async function configure(
     args: TypiaSetupWizard.IArguments,
@@ -14,13 +13,9 @@ export namespace PluginConfigurator {
     const config: comments.CommentObject = comments.parse(
       await fs.promises.readFile(args.project!, "utf8"),
     ) as comments.CommentObject;
-    const compilerOptions = config.compilerOptions as
-      | comments.CommentObject
-      | undefined;
-    if (compilerOptions === undefined)
-      throw new ReferenceError(
-        `${args.project} file does not have "compilerOptions" property.`,
-      );
+    const compilerOptions = (
+      config.compilerOptions ??= {} as comments.CommentObject
+    ) as comments.CommentObject;
 
     // PREPARE PLUGINS
     const plugins: comments.CommentArray<comments.CommentObject> = (() => {
@@ -45,12 +40,11 @@ export namespace PluginConfigurator {
       | undefined;
     const filtered: comments.CommentObject[] = plugins.filter(
       (p) =>
-        typeof p === "object" &&
-        p !== null &&
-        p.transform !== LEGACY_TRANSFORM &&
-        p.transform !== TTSC_TYPIA_PLUGIN,
+        typeof p === "object" && p !== null && p.transform !== TYPIA_TRANSFORM,
     ) as comments.CommentObject[];
-    filtered.push({ transform: TTSC_TYPIA_PLUGIN } as comments.CommentObject);
+    filtered.push({
+      transform: TYPIA_TRANSFORM,
+    } as unknown as comments.CommentObject);
     const changed: boolean =
       JSON.stringify(filtered) !== JSON.stringify(plugins) ||
       strictNullChecks === false ||

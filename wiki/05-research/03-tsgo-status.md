@@ -5,6 +5,7 @@
 ## 1. 프로젝트 현황
 
 [사실]
+
 - 2025-03 Anders Hejlsberg가 "Corsa" 발표 (TypeScript의 Go 포팅). 빌드 7~10×, 메모리 -50%, 에디터 시작 8× 목표.
 - 2026-03-23 **TypeScript 6.0** 정식 — "마지막 JS 기반 버전".
 - **TypeScript 7.0 (Corsa) GA: 공식 미정** — Microsoft DevBlog (2025-12 Progress report)는 날짜 명시 없음. InfoWorld 등 3rd-party 추정 "2026 mid/late", 일부는 "2026-01-15 GA" 주장하나 **공식 확인 불가**. 안전 범위 **2026 H2 ~ 2027 H1** (v2 재조사).
@@ -29,6 +30,7 @@
 ## 2. 호환성 정책 — 중대 비호환 선언
 
 [사실]
+
 - "**TypeScript 7.0은 기존 Strada API를 지원하지 않음**" (DevBlog 공식).
 - Discussion #455 (Daniel Rosenwasser, 2025-03-11): "API 소비자는 동일 프로세스 내에서 통신하지 않을 것. **IPC 레이어를 거치는 메시지 패싱**."
 - Issue #2824 (andrewbranch, 2026-02-18): TS 6.x 의 server plugin 직접 로드는 Go 구현에서 불가능. 대체는 **IPC 기반 API + TypeScript client library**.
@@ -41,6 +43,7 @@
 ## 3. Transformer Plugin 지원 — typia에 가장 결정적
 
 [사실]
+
 - Issue #516 "Transformer Plugin or Compiler API" (2025-03-12, M-jerez 개설) — **milestone "Post-7.0"**, 여전히 Open. Microsoft 공식 답변 없음.
 - Discussion #455 jakebailey: "We love ts-morph; it is explicitly an anti-goal to prevent ts-morph from working altogether" — 타입 정보는 IPC로 노출.
   - 그러나 **custom transformer / ts-patch / typia 같은 internal patching 기반 도구는 "redesigned approaches" 필요** — 공식 인정.
@@ -53,6 +56,7 @@
 ## 4. ts.TypeChecker / Internal API 호환성
 
 [사실]
+
 - 현재 IPC API (PR #711)는 `getSymbolAtLocation`, `getTypeOfSymbol` 정도만 노출. typia가 쓰는 `getTypeAtLocation`, `getPropertiesOfType`, `getIndexInfoOfType`, `getApparentType`, `getAugmentedPropertiesOfType` 등 **대부분 미노출**.
 - tsgo 패키지 대부분이 `internal/`로 선언 → JS 레이어에서 ts-expose-internals에 해당하는 것 자체가 **존재하지 않음**.
 - Discussion #455의 IPC 설계는 "curated API" 명시 → 전체 checker API 노출 계획 없음.
@@ -62,6 +66,7 @@
 ## 5. AST 호환성
 
 [사실]
+
 - AST는 `internal/ast/ast.go`에 Go struct. **SyntaxKind enum 값은 유지 방향**이지만 Node는 Go struct → JS 측은 IPC 직렬화 형태로만 접근.
 - PR #711에서 "binary encoded AST" 포맷 언급 — JS 쪽 AST 생성 → tsgo 주입 실험 중 (`DocumentStore`).
 - CHANGES.md에 TS 6.0 대비 의도적 비호환 리스트 존재.
@@ -71,6 +76,7 @@
 ## 6. Microsoft 공식 마이그레이션 경로
 
 [사실]
+
 - TS 6.x 병행 유지. Strada(JS) 코드베이스는 7.x 성숙까지 LTS.
 - 7.0은 에디터 기본값 아닌 **opt-in VS Code 확장**으로 먼저.
 - `@typescript/native-preview` → 7.0 GA → 점진적 기본 전환.
@@ -80,34 +86,38 @@
 ## 6.5. typia/ttsc 에 대한 직접 함의
 
 [사실]
+
 - `typescript-go` 를 외부 패키지가 **Go module import** 형태로 재사용하는 것은 공식 방향이 아니다.
 - Microsoft가 열고 있는 경계는 **CLI / VS Code extension / IPC API / TypeScript client** 쪽이다.
 - public Go API 는 2025-03 Discussion #481에서 **"unlikely side"** 로 답변되었다.
+- `@typia/ttsc` 의 현재 plugin contract 에도 JS-side AST hook 은 없다. JS plugin 은 text-output post-processing 까지만 stack 가능하고, type analysis / AST mutation / native rewrite 는 native backend responsibility 로 둔다.
 
 [결론]
+
 - typia 계열 도구의 **최종 설치 계약**은 `@typescript/native-preview`/향후 `typescript@7` + `@typia/ttsc` 의 **side-by-side** 가 자연스럽다.
 - 다만 2026-04 현재 공식 API가 아직 불안정하므로, 내부 shim·bridge 같은 **한 차례 우회 구현** 은 현실적으로 필요하다.
+- 기존 TypeScript transformer API 를 그대로 지원하는 범용 `ttsc` 는 현실 목표에서 제외한다. TypeScript v7 lane 은 native plugin 또는 IR bridge 로 설계하고, legacy transformer 는 TS v5/v6 또는 구버전 typia lane 에 남긴다.
 
 ## 7. 커뮤니티 라이브러리 대응
 
-| 프로젝트 | 2026-04 현황 |
-|---|---|
-| ts-patch (nonara) | Issue #181 (2025-03-11) 개설만, **maintainer 응답 없음**, 로드맵 미공개 |
-| **typia (samchon)** | Issue #1534 (2025-03-13) 개설, **공식 플랜 없음** |
-| ts-morph (dsherret) | Microsoft "anti-goal to break ts-morph" — IPC 타입 정보 보장 |
-| Effect-TS | `Effect-TS/tsgo` 포크 (LSP 커스터마이징 실험) |
-| ttypescript | 사실상 유지보수 중단, ts-patch가 후계 |
-| Vue/Vite/Angular | Issue #516에서 우려 표명, 개별 대응 미공개 |
+| 프로젝트            | 2026-04 현황                                                            |
+| ------------------- | ----------------------------------------------------------------------- |
+| ts-patch (nonara)   | Issue #181 (2025-03-11) 개설만, **maintainer 응답 없음**, 로드맵 미공개 |
+| **typia (samchon)** | Issue #1534 (2025-03-13) 개설, **공식 플랜 없음**                       |
+| ts-morph (dsherret) | Microsoft "anti-goal to break ts-morph" — IPC 타입 정보 보장            |
+| Effect-TS           | `Effect-TS/tsgo` 포크 (LSP 커스터마이징 실험)                           |
+| ttypescript         | 사실상 유지보수 중단, ts-patch가 후계                                   |
+| Vue/Vite/Angular    | Issue #516에서 우려 표명, 개별 대응 미공개                              |
 
 ## 8. 타임라인 추정
 
-| 이벤트 | 시점 | 신뢰도 |
-|---|---|---|
-| TS 7.0 GA (컴파일러 중심) | 2026 Q3~Q4 | 높음 |
-| Editor 기본 전환 | 2026 말~2027 | 중 |
-| IPC API 1.0 stable | **2027 H1 이후** | 추정 |
-| **Transformer/Plugin 공식 지원** | **빨라야 2027 하반기** | 추정 |
-| ts-patch/typia 대응 완료 | 2027~2028 | 추정 |
+| 이벤트                           | 시점                   | 신뢰도 |
+| -------------------------------- | ---------------------- | ------ |
+| TS 7.0 GA (컴파일러 중심)        | 2026 Q3~Q4             | 높음   |
+| Editor 기본 전환                 | 2026 말~2027           | 중     |
+| IPC API 1.0 stable               | **2027 H1 이후**       | 추정   |
+| **Transformer/Plugin 공식 지원** | **빨라야 2027 하반기** | 추정   |
+| ts-patch/typia 대응 완료         | 2027~2028              | 추정   |
 
 ## 인용
 

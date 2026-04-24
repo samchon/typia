@@ -1,13 +1,22 @@
-import * as path from "node:path";
-import * as fs from "node:fs";
+import fs from "node:fs";
+import path from "node:path";
 
 import {
-  readProjectConfig,
+  type NativeRewriteMode,
+  type TtscNativeBackend,
+  resolveNativeBackend,
+} from "./native";
+import {
   type ParsedProjectConfig,
   type ProjectPluginConfig,
+  readProjectConfig,
 } from "./project";
 
-export type NativeRewriteMode = string;
+export type {
+  NativePluginContractVersion,
+  NativeRewriteMode,
+  TtscNativeBackend,
+} from "./native";
 
 export interface TtscPluginFactoryContext {
   binary: string;
@@ -28,7 +37,10 @@ export interface TtscTransformContext {
 
 export interface TtscPlugin {
   name: string;
+  native?: TtscNativeBackend;
+  /** @deprecated Use `native.mode` instead. */
   nativeMode?: NativeRewriteMode;
+  /** @deprecated Use `native.binary` instead. */
   nativeBinary?: string;
   transformOutput?(context: TtscTransformContext): string;
 }
@@ -42,6 +54,7 @@ export type TtscPluginModule = TtscPlugin | TtscPluginFactory;
 
 export interface LoadedPlugins {
   compatibilityFallback: boolean;
+  nativeBackend: TtscNativeBackend | null;
   nativeBinary: string | null;
   nativeMode: NativeRewriteMode;
   plugins: TtscPlugin[];
@@ -75,6 +88,7 @@ export function loadProjectPlugins(options: LoadPluginsOptions): LoadedPlugins {
   if (entries.length === 0) {
     return {
       compatibilityFallback: false,
+      nativeBackend: null,
       nativeBinary: null,
       nativeMode: "none",
       plugins: [],
@@ -91,33 +105,32 @@ export function loadProjectPlugins(options: LoadPluginsOptions): LoadedPlugins {
   const plugins = entries.map((entry) => loadPluginEntry(entry, context));
 
   let nativeBinary: string | null = null;
+  let nativeBackend: TtscNativeBackend | null = null;
   let nativeMode: NativeRewriteMode = "none";
   for (const plugin of plugins) {
-    if (plugin.nativeBinary && (!plugin.nativeMode || plugin.nativeMode === "none")) {
-      throw new Error(
-        `ttsc: plugin "${plugin.name}" declared nativeBinary without a non-empty nativeMode`,
-      );
-    }
-    if (!plugin.nativeMode || plugin.nativeMode === "none") {
+    const backend = resolveNativeBackend(plugin);
+    if (!backend) {
       continue;
     }
-    if (nativeMode !== "none" && nativeMode !== plugin.nativeMode) {
+    if (nativeMode !== "none" && nativeMode !== backend.mode) {
       throw new Error(
-        `ttsc: multiple native plugin modes requested (${nativeMode}, ${plugin.nativeMode})`,
+        `ttsc: multiple native plugin modes requested (${nativeMode}, ${backend.mode})`,
       );
     }
-    nativeMode = plugin.nativeMode;
-    if (plugin.nativeBinary) {
-      if (nativeBinary !== null && nativeBinary !== plugin.nativeBinary) {
+    nativeMode = backend.mode;
+    nativeBackend = backend;
+    if (backend.binary) {
+      if (nativeBinary !== null && nativeBinary !== backend.binary) {
         throw new Error(
-          `ttsc: multiple native plugin binaries requested (${nativeBinary}, ${plugin.nativeBinary})`,
+          `ttsc: multiple native plugin binaries requested (${nativeBinary}, ${backend.binary})`,
         );
       }
-      nativeBinary = plugin.nativeBinary;
+      nativeBinary = backend.binary;
     }
   }
   return {
     compatibilityFallback: false,
+    nativeBackend,
     nativeBinary,
     nativeMode,
     plugins,
@@ -154,14 +167,23 @@ function loadPluginEntry(
     default?: TtscPluginModule;
   } & Partial<Record<"plugin", TtscPluginModule>>;
   const candidate =
-    mod.createTtscPlugin ?? mod.default ?? mod.plugin ?? (mod as unknown as TtscPluginModule);
+    mod.createTtscPlugin ??
+    mod.default ??
+    mod.plugin ??
+    (mod as unknown as TtscPluginModule);
   if (typeof candidate === "function") {
     return candidate(entry, context);
   }
-  if (candidate && typeof candidate === "object" && typeof candidate.name === "string") {
+  if (
+    candidate &&
+    typeof candidate === "object" &&
+    typeof candidate.name === "string"
+  ) {
     return candidate;
   }
-  throw new Error(`ttsc: plugin "${specifier}" does not export a valid ttsc plugin`);
+  throw new Error(
+    `ttsc: plugin "${specifier}" does not export a valid ttsc plugin`,
+  );
 }
 
 function resolvePluginRequest(specifier: string, projectRoot: string): string {
@@ -198,7 +220,7 @@ function resolveSourceCheckoutPlugin(
   projectRoot: string,
 ): string | null {
   const normalized = specifier.replace(/\\/g, "/");
-  const match = normalized.match(/^(.*)\/lib\/ttsc\/plugin$/);
+  const match = normalized.match(/^(.*)\/lib\/transform$/);
   if (!match) {
     return null;
   }
@@ -206,8 +228,13 @@ function resolveSourceCheckoutPlugin(
     const packageJson = require.resolve(`${match[1]}/package.json`, {
       paths: [projectRoot],
     });
-    const candidate = path.join(path.dirname(packageJson), "bin", "ttsc-plugin.cjs");
-    return fs.existsSync(candidate) ? candidate : null;
+    const packageRoot = path.dirname(packageJson);
+    const candidates = [
+      path.join(packageRoot, "lib", "transform.js"),
+      path.join(packageRoot, "src", "transform.ts"),
+      path.join(packageRoot, "bin", "ttsc-plugin.cjs"),
+    ];
+    return candidates.find((candidate) => fs.existsSync(candidate)) ?? null;
   } catch {
     return null;
   }

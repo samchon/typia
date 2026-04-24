@@ -8,7 +8,10 @@ import { TestGlobal } from "../TestGlobal";
 export async function test_setup_contract(): Promise<void> {
   const root = path.resolve(TestGlobal.ROOT, "..", "..");
   const { PluginConfigurator } = require(
-    path.join(root, "packages/typia/lib/executable/setup/PluginConfigurator.js"),
+    path.join(
+      root,
+      "packages/typia/lib/executable/setup/PluginConfigurator.js",
+    ),
   ) as {
     PluginConfigurator: {
       configure(args: { manager: string; project: string }): Promise<void>;
@@ -93,7 +96,7 @@ export async function test_setup_contract(): Promise<void> {
     };
     assert.deepEqual(parsed.compilerOptions.plugins, [
       { name: "keep-me" },
-      { transform: "typia/lib/ttsc/plugin" },
+      { transform: "typia/lib/transform" },
     ]);
     assert.equal(parsed.compilerOptions.skipLibCheck, true);
     assert.equal(parsed.compilerOptions.strictNullChecks, true);

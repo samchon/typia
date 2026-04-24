@@ -1,42 +1,42 @@
 # 02. Products
 
-## `ttsc`
+## `@typia/ttsc`
 
-- 역할: standalone compiler adapter / plugin host
-- 책임:
-  - compiler discovery
-  - project loading
-  - plugin dispatch
-  - rewrite / emit orchestration
-  - diagnostics / cache / watch
+역할: TypeScript-Go 기반 compiler adapter / plugin host.
 
-## `ttsx`
+현재 제공:
 
-- 역할: standalone runner
-- 책임:
-  - `ttsc` 코어 재사용
-  - `ttsx src/index.ts`
-  - argv / env pass-through
-  - source map
-  - cache reuse
+- CLI: `ttsc`, `ttsc -p tsconfig.json`, `ttsc --noEmit`, `ttsc --watch`, `ttsc transform --file=...`
+- JS API: `build`, `check`, `transform`, `transformAsync`, `version`
+- plugin API: `definePlugin`, `loadProjectPlugins`, `transformOutput`
+- project helper: `resolveProjectConfig`, `resolveProjectRoot`, `readProjectConfig`
+- native backend 선택: plugin 의 `native.mode` / `native.binary`
 
-## 설치 모델
+## `@typia/ttsx`
 
-- preview 기본 경로:
-  - `npm i typia`
-  - `npx typia setup`
-  - 결과: `@typescript/native-preview` + `@typia/ttsc`
-- preview 수동 경로:
-  - `npm i -D @typescript/native-preview @typia/ttsc`
-  - runner 필요 시 `npm i -D @typia/ttsx`
-- stable 예상 경로:
-  - `npm i typia`
-  - `npx typia setup`
-  - 결과: `typescript@7` + `@typia/ttsc`
-  - runner 필요 시 `npm i -D @typia/ttsx`
+역할: `ttsc` host 를 재사용하는 runner.
 
-## typia와의 관계
+현재 제공:
 
-- typia는 `@typia/ttsc` 를 기본 toolchain 으로 쓰는 첫 consumer 다.
-- `typia setup` 의 기본 설치 대상은 `@typia/ttsc` 이고, `@typia/ttsx` 는 별도 sibling runner package 다.
-- typia integration 은 standalone host / runner product identity 위에서 정렬된다.
+- CLI: `ttsx src/index.ts`
+- option: `--project`, `--cwd`, `--cache-dir`, `--binary`, `-r/--require`
+- CJS: require hook + per-file `@typia/ttsc.transform()`
+- ESM: project build + cache emit + child Node 실행
+
+## 설치
+
+현재 `typia setup` 결과:
+
+```bash
+npm i -D @typescript/native-preview@latest
+npm i -D @typia/ttsc@latest
+npm i -D @typia/ttsx@latest
+```
+
+수동 설치:
+
+```bash
+npm i -D @typescript/native-preview @typia/ttsc @typia/ttsx
+```
+
+`@typia/ttsx` 는 `@typia/ttsc` 에 의존하지만, setup wizard 는 runner 사용을 바로 가능하게 하려고 둘 다 설치한다.

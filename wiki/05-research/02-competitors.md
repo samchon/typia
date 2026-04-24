@@ -103,6 +103,6 @@
 typia의 **객관적 속도 우위**는 여전히 견고하다. 그러나 2025~2026 생태계의 진짜 변동축은 (a) Standard Schema 표준화, (b) MCP/AI SDK가 Zod를 사실상 표준으로 굳힌 점, (c) tsgo 전환의 그림자다. typia가 다음 1~2년에 잃지 않으려면:
 
 1. **Standard Schema 어댑터를 first-class로 출시** (1주일 작업, 영향 큼)
-2. **Setup 마찰 제거** — `typia init` 한 줄로 ts-patch+plugin+tsconfig 자동, unplugin이 기본 권장
+2. **Setup 마찰 제거** — `typia setup` 한 줄로 preview/stable lane, plugin 주입, bundler 대체 경로, optional runner 안내까지 정리
 3. **AutoBE/Agentica 같은 type-first AI 워크플로 사례를 표면에 노출** — "vibe coding 시대의 typia" 메시지
 4. **벤치 시계열 사이트** (matrix.typia.io 식) — 신뢰의 정량 표시

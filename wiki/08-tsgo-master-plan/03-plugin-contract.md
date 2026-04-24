@@ -1,43 +1,52 @@
 # 03. Plugin Contract
 
-## 목표
+`ttsc` plugin 은 tsconfig 의 `compilerOptions.plugins[]` 에서 로드된다.
 
-`ttsc` 는 plugin host 여야 하며, plugin author 가 TS / Go / mixed 중 어느 경로를 택해도 같은 contract 위에서 동작해야 한다.
+```json
+{
+  "compilerOptions": {
+    "plugins": [{ "transform": "typia/lib/transform" }]
+  }
+}
+```
 
-## host 책임
+## plugin module
 
-- call-site inventory
-- type/context handoff
-- diagnostics surface
-- rewrite plan application
-- emitted asset 관리
+plugin module 은 다음 중 하나를 export 한다.
 
-## plugin 책임
+- `default`
+- `plugin`
+- `createTtscPlugin`
 
-- marker call 해석
-- 타입 분석
-- JS emit / asset emit
-- plugin-specific diagnostics
+factory 형태:
 
-## 언어 정책
+```ts
+import { definePlugin } from "@typia/ttsc";
 
-- TS plugin: 공식 경로
-- Go plugin: 공식 경로
-- mixed plugin: 공식 경로
+export default definePlugin((config, context) => ({
+  name: "my-plugin",
+  native: {
+    mode: "my-plugin",
+    binary: "/absolute/path/to/backend",
+    contractVersion: 1,
+  },
+}));
+```
 
-문서는 세 경로를 같은 급의 공식 경로로 서술한다.
+## 현재 plugin shape
 
-## 공개 경계
+| 필드 | 의미 |
+| --- | --- |
+| `name` | plugin 이름 |
+| `native.mode` | native rewrite backend id |
+| `native.binary` | consumer native backend launcher |
+| `native.contractVersion` | 현재 `1` |
+| `native.capabilities` | `"rewrite"`, `"diagnostics"`, `"assets"` 같은 선언 |
+| `transformOutput(context)` | emitted JS text 후처리 hook |
 
-public contract 구성 요소:
+## 현재 제약
 
-- serialized request / response
-- rewrite plan
-- emitted asset description
-- diagnostic payload
-
-implementation-private 예시:
-
-- TS internal object shape
-- Go internal struct layout
-- typia-specific helper naming
+- 서로 다른 native mode/binary 를 동시에 compose 하지 않는다.
+- 여러 `transformOutput()` 은 순서대로 적용된다.
+- legacy `ts.Program` / `ts.TypeChecker` / `ts.NodeFactory` 를 JS plugin 에 넘기지 않는다.
+- richer diagnostics callback, asset API, phase model 은 아직 public API 가 아니다.

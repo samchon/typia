@@ -1,7 +1,6 @@
+import { transform } from "@typia/ttsc";
 import fs from "fs";
 import path from "path";
-
-import { transform } from "@typia/ttsc";
 
 import { ArgumentParser } from "./setup/ArgumentParser";
 import { PackageManager } from "./setup/PackageManager";
@@ -119,11 +118,10 @@ export namespace TypiaGenerateWizard {
         cwd,
         file,
         tsconfig: location.project,
-        plugins: [{ transform: "typia/lib/ttsc/plugin" }],
-        rewriteMode: "typia",
+        plugins: [{ transform: "typia/lib/transform" }],
       });
       await fs.promises.mkdir(path.dirname(target), { recursive: true });
-      await fs.promises.writeFile(target, output, "utf8");
+      await fs.promises.writeFile(target, formatOutput(output), "utf8");
     }
   }
 
@@ -164,6 +162,12 @@ export namespace TypiaGenerateWizard {
 
   function isSupportedExtension(filename: string): boolean {
     return TS_PATTERN.test(filename) && !DTS_PATTERN.test(filename);
+  }
+
+  function formatOutput(output: string): string {
+    return output.startsWith("// @ts-nocheck")
+      ? output
+      : `// @ts-nocheck\n${output}`;
   }
 }
 

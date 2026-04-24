@@ -10,75 +10,25 @@
     "url": "https://github.com/samchon/typia"
   },
   "sideEffects": false,
-  "main": "./lib/index.js",
-  "types": "./lib/index.d.ts",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
   "exports": {
-    ".": {
-      "types": "./lib/index.d.ts",
-      "import": "./lib/index.js",
-      "default": "./lib/index.js"
-    },
-    "./api": {
-      "types": "./lib/api.d.ts",
-      "import": "./lib/api.js",
-      "default": "./lib/api.js"
-    },
-    "./bun": {
-      "types": "./lib/bun.d.ts",
-      "import": "./lib/bun.js",
-      "default": "./lib/bun.js"
-    },
-    "./esbuild": {
-      "types": "./lib/esbuild.d.ts",
-      "import": "./lib/esbuild.js",
-      "default": "./lib/esbuild.js"
-    },
-    "./farm": {
-      "types": "./lib/farm.d.ts",
-      "import": "./lib/farm.js",
-      "default": "./lib/farm.js"
-    },
-    "./next": {
-      "types": "./lib/next.d.ts",
-      "import": "./lib/next.js",
-      "default": "./lib/next.js"
-    },
-    "./rolldown": {
-      "types": "./lib/rolldown.d.ts",
-      "import": "./lib/rolldown.js",
-      "default": "./lib/rolldown.js"
-    },
-    "./rollup": {
-      "types": "./lib/rollup.d.ts",
-      "import": "./lib/rollup.js",
-      "default": "./lib/rollup.js"
-    },
-    "./rspack": {
-      "types": "./lib/rspack.d.ts",
-      "import": "./lib/rspack.js",
-      "default": "./lib/rspack.js"
-    },
-    "./vite": {
-      "types": "./lib/vite.d.ts",
-      "import": "./lib/vite.js",
-      "default": "./lib/vite.js"
-    },
-    "./webpack": {
-      "types": "./lib/webpack.d.ts",
-      "import": "./lib/webpack.js",
-      "default": "./lib/webpack.js"
-    },
+    ".": "./src/index.ts",
+    "./api": "./src/api.ts",
+    "./bun": "./src/bun.ts",
+    "./esbuild": "./src/esbuild.ts",
+    "./farm": "./src/farm.ts",
+    "./next": "./src/next.ts",
+    "./rolldown": "./src/rolldown.ts",
+    "./rollup": "./src/rollup.ts",
+    "./rspack": "./src/rspack.ts",
+    "./vite": "./src/vite.ts",
+    "./webpack": "./src/webpack.ts",
     "./package.json": "./package.json"
   },
-  "files": [
-    "LICENSE",
-    "README.md",
-    "lib",
-    "package.json",
-    "src"
-  ],
+  "files": ["LICENSE", "README.md", "lib", "package.json", "src"],
   "scripts": {
-    "build": "rimraf lib && ttsc build",
+    "build": "rimraf lib && ttsc",
     "prepack": "pnpm run build"
   },
   "peerDependencies": {
@@ -111,8 +61,6 @@
   "devDependencies": {
     "@types/bun": "^1.2.15",
     "@types/node": "^20.17.57",
-    "@typia/core": "workspace:^",
-    "@typia/transform": "workspace:^",
     "@typia/ttsc": "workspace:^",
     "fs-fixture": "^2.7.1",
     "next": "^16.1.6",

@@ -1,6 +1,6 @@
+import { transform as ttscTransform } from "@typia/ttsc";
 import { existsSync } from "node:fs";
 import { dirname, isAbsolute, join, resolve } from "pathe";
-import { transform as ttscTransform } from "@typia/ttsc";
 import type { Alias } from "vite";
 
 import type { ResolvedOptions } from "./options.js";
@@ -33,10 +33,9 @@ export async function transformTypia(
     tsconfig,
     plugins: [
       {
-        transform: "typia/lib/ttsc/plugin",
+        transform: "typia/lib/transform",
       },
     ],
-    rewriteMode: "typia",
   });
   return wrap<Data>(result);
 }
