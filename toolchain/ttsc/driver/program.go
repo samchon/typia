@@ -184,6 +184,53 @@ func (p *Program) SourceFiles() []*ast.SourceFile {
 	return out
 }
 
+// Diagnostics returns project diagnostics that must block compilation or
+// runtime execution before any JavaScript is emitted or evaluated.
+func (p *Program) Diagnostics() []Diagnostic {
+	if p == nil || p.TSProgram == nil {
+		return []Diagnostic{{Message: "driver: nil program"}}
+	}
+	ctx := context.Background()
+	raw := make([]*ast.Diagnostic, 0)
+	raw = append(raw, p.TSProgram.GetConfigFileParsingDiagnostics()...)
+	raw = append(raw, p.TSProgram.GetProgramDiagnostics()...)
+	raw = append(raw, p.TSProgram.GetSyntacticDiagnostics(ctx, nil)...)
+	raw = append(raw, p.TSProgram.GetSemanticDiagnostics(ctx, nil)...)
+	raw = append(raw, p.TSProgram.GetGlobalDiagnostics(ctx)...)
+	raw = filterDiagnostics(raw)
+	return convertDiagnostics(shimcompiler.SortAndDeduplicateDiagnostics(raw))
+}
+
+func filterDiagnostics(in []*ast.Diagnostic) []*ast.Diagnostic {
+	out := in[:0]
+	for _, d := range in {
+		if isUnusedOverloadSignatureTypeParameterDiagnostic(d) {
+			continue
+		}
+		out = append(out, d)
+	}
+	return out
+}
+
+func isUnusedOverloadSignatureTypeParameterDiagnostic(d *ast.Diagnostic) bool {
+	if d == nil || d.File() == nil {
+		return false
+	}
+	switch d.Code() {
+	case 6196, 6205: // unused declaration / all type parameters are unused
+	default:
+		return false
+	}
+	node := ast.GetNodeAtPosition(d.File(), d.Pos(), false)
+	for node != nil {
+		if node.Kind == ast.KindFunctionDeclaration {
+			return node.Body() == nil
+		}
+		node = node.Parent
+	}
+	return false
+}
+
 // convertDiagnostics translates shim-specific diagnostics into the plain
 // Diagnostic struct with line/column populated via tsgo's ECMALineMap (the
 // same helper tsc uses for its "file:line:col: message" banner).

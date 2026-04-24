@@ -4,6 +4,7 @@ import * as path from "node:path";
 
 import {
   build,
+  check,
   defaultCacheDirectory,
   resolveProjectConfig,
   resolveProjectRoot,
@@ -35,6 +36,7 @@ interface ProjectContext {
   compiledText: Map<string, string>;
   emitDir: string;
   emittedFiles: string[] | null;
+  diagnosticsChecked: boolean;
   entryMap: Map<string, string>;
   root: string;
   tsconfig: string;
@@ -70,6 +72,7 @@ export function register(options: RegisterOptions = {}): () => void {
         cacheDir,
         cacheSalt: createCompilerCacheSalt(options),
         compiledText: new Map<string, string>(),
+        diagnosticsChecked: false,
         emitDir: path.join(cacheDir, "project", PROCESS_CACHE_KEY),
         emittedFiles: null,
         entryMap: new Map<string, string>(),
@@ -89,6 +92,7 @@ export function register(options: RegisterOptions = {}): () => void {
       cacheDir,
       cacheSalt: createCompilerCacheSalt(options),
       compiledText: new Map<string, string>(),
+      diagnosticsChecked: false,
       emitDir: path.join(cacheDir, "project", PROCESS_CACHE_KEY),
       emittedFiles: null,
       entryMap: new Map<string, string>(),
@@ -99,6 +103,7 @@ export function register(options: RegisterOptions = {}): () => void {
 
   const compile = (filename: string): string => {
     const context = getContext(filename);
+    ensureProjectDiagnostics(context, options);
     const output = readCompiledOutput(context, filename, options);
     if (looksLikeESM(output)) {
       throw new Error(
@@ -134,6 +139,7 @@ export function prepareExecution(
 ): PreparedExecution {
   const cwd = path.resolve(options.cwd ?? process.cwd());
   const context = resolveProjectContext(cwd, entryFile, options);
+  ensureProjectDiagnostics(context, options);
   const entryOutput = transformSingleFile(context, entryFile, options);
   if (!looksLikeESM(entryOutput)) {
     return {
@@ -144,6 +150,9 @@ export function prepareExecution(
   }
   ensureProjectBuild(context, options);
   const resolvedEntry = resolveEmittedFile(context, entryFile);
+  if (resolvedEntry === null) {
+    throw new Error(`ttsx: emitted entry not found for ${entryFile}`);
+  }
   const output = fs.readFileSync(resolvedEntry, "utf8");
   return {
     emitDir: context.emitDir,
@@ -218,10 +227,39 @@ function createProjectContext(
     cacheDir,
     cacheSalt: createCompilerCacheSalt(options),
     compiledText: new Map<string, string>(),
+    diagnosticsChecked: false,
     emitDir: path.join(cacheDir, "project", PROCESS_CACHE_KEY),
     emittedFiles: null,
     entryMap: new Map<string, string>(),
   };
+}
+
+function ensureProjectDiagnostics(
+  context: ProjectContext,
+  options: RegisterOptions,
+): void {
+  if (context.diagnosticsChecked) {
+    return;
+  }
+  const result = check({
+    binary: options.binary,
+    cwd: context.root,
+    env: options.env,
+    plugins: options.plugins,
+    quiet: true,
+    rewriteMode: options.rewriteMode,
+    tsconfig: context.tsconfig,
+  });
+  if (result.status !== 0) {
+    const detail = [result.stderr.trim(), result.stdout.trim()]
+      .filter(Boolean)
+      .join("\n");
+    throw new Error(
+      `ttsx: project check failed for ${context.tsconfig}` +
+        (detail ? `\n${detail}` : ""),
+    );
+  }
+  context.diagnosticsChecked = true;
 }
 
 function transformSingleFile(

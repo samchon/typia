@@ -160,6 +160,13 @@ function ensureExecutable(binary: string): void {
   }
 }
 
+function outputText(value: string | Buffer | null | undefined): string {
+  if (value == null) {
+    return "";
+  }
+  return typeof value === "string" ? value : value.toString("utf8");
+}
+
 /**
  * Transform a single .ts file and return the rewritten JS as a string.
  *
@@ -209,7 +216,7 @@ export function transform(options: TransformOptions): string {
       sourceFile,
       tsconfig: execution.tsconfig,
     },
-    res.stdout,
+    outputText(res.stdout),
   );
   if (options.out) {
     fs.mkdirSync(path.dirname(options.out), { recursive: true });
@@ -265,8 +272,8 @@ export function build(options: BuildOptions = {}): BuildResult {
   }
   return {
     status: res.status ?? 1,
-    stdout: res.stdout ?? "",
-    stderr: res.stderr ?? "",
+    stdout: outputText(res.stdout),
+    stderr: outputText(res.stderr),
   };
 }
 
@@ -286,10 +293,10 @@ export function version(options: CommonOptions = {}): string {
   });
   if (res.error || res.status !== 0) {
     throw new Error(
-      "ttsc.version: failed: " + (res.stderr || res.error?.message),
+      "ttsc.version: failed: " + (outputText(res.stderr) || res.error?.message),
     );
   }
-  return res.stdout.trim();
+  return outputText(res.stdout).trim();
 }
 
 /**

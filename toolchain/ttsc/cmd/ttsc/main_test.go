@@ -2,6 +2,8 @@ package main
 
 import (
 	"bytes"
+	"os"
+	"path/filepath"
 	"strings"
 	"testing"
 )
@@ -79,6 +81,135 @@ func TestRunUnknownCommandExits2(t *testing.T) {
 	})
 	if !strings.Contains(errOut, "unknown command") {
 		t.Errorf("expected error text, got %q", errOut)
+	}
+}
+
+func TestRunBuildBlocksSemanticDiagnosticsBeforeEmit(t *testing.T) {
+	root := t.TempDir()
+	writeProjectFile(t, root, "tsconfig.json", `{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es2020",
+    "outDir": "bin",
+    "strict": true
+  }
+}
+`)
+	writeProjectFile(t, root, "index.ts", `const value: string = 123;
+console.log(value);
+`)
+
+	_, errOut := withCapture(func() {
+		if code := runBuild([]string{"--cwd", root, "--emit"}); code != 2 {
+			t.Errorf("expected exit 2, got %d", code)
+		}
+	})
+	if !strings.Contains(errOut, "Type 'number' is not assignable to type 'string'") {
+		t.Errorf("expected semantic diagnostic, got %q", errOut)
+	}
+	if _, err := os.Stat(filepath.Join(root, "bin", "index.js")); !os.IsNotExist(err) {
+		t.Errorf("expected no emitted JS, stat err=%v", err)
+	}
+}
+
+func TestRunBuildAllowsUnusedTypeParametersOnOverloadSignatures(t *testing.T) {
+	root := t.TempDir()
+	writeProjectFile(t, root, "tsconfig.json", `{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es2020",
+    "outDir": "bin",
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true
+  }
+}
+`)
+	writeProjectFile(t, root, "index.ts", `export function marker<T>(input: unknown): string;
+export function marker(input: unknown): string {
+  return String(input);
+}
+`)
+
+	_, errOut := withCapture(func() {
+		if code := runBuild([]string{"--cwd", root, "--emit", "--quiet"}); code != 0 {
+			t.Errorf("expected exit 0, got %d", code)
+		}
+	})
+	if strings.Contains(errOut, "declared but never used") || strings.Contains(errOut, "All type parameters are unused") {
+		t.Errorf("overload signature type parameters must not fail noUnused checks, got %q", errOut)
+	}
+	if _, err := os.Stat(filepath.Join(root, "bin", "index.js")); err != nil {
+		t.Errorf("expected emitted JS, stat err=%v", err)
+	}
+}
+
+func TestRunBuildBlocksUnusedParametersBeforeEmit(t *testing.T) {
+	root := t.TempDir()
+	writeProjectFile(t, root, "tsconfig.json", `{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es2020",
+    "outDir": "bin",
+    "strict": true,
+    "noUnusedParameters": true
+  }
+}
+`)
+	writeProjectFile(t, root, "index.ts", `export function run(unused: string): number {
+  return 1;
+}
+`)
+
+	_, errOut := withCapture(func() {
+		if code := runBuild([]string{"--cwd", root, "--emit"}); code != 2 {
+			t.Errorf("expected exit 2, got %d", code)
+		}
+	})
+	if !strings.Contains(errOut, "'unused' is declared but its value is never read") &&
+		!strings.Contains(errOut, "'unused' is declared but never used") {
+		t.Errorf("expected unused parameter diagnostic, got %q", errOut)
+	}
+	if _, err := os.Stat(filepath.Join(root, "bin", "index.js")); !os.IsNotExist(err) {
+		t.Errorf("expected no emitted JS, stat err=%v", err)
+	}
+}
+
+func TestRunBuildBlocksSyntacticDiagnosticsBeforeEmit(t *testing.T) {
+	root := t.TempDir()
+	writeProjectFile(t, root, "tsconfig.json", `{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es2020",
+    "outDir": "bin"
+  }
+}
+`)
+	writeProjectFile(t, root, "index.ts", `console.log("before");
+const = ;
+`)
+
+	_, errOut := withCapture(func() {
+		if code := runBuild([]string{"--cwd", root, "--emit"}); code != 2 {
+			t.Errorf("expected exit 2, got %d", code)
+		}
+	})
+	if !strings.Contains(errOut, "Variable declaration expected") {
+		t.Errorf("expected syntactic diagnostic, got %q", errOut)
+	}
+	if _, err := os.Stat(filepath.Join(root, "bin", "index.js")); !os.IsNotExist(err) {
+		t.Errorf("expected no emitted JS, stat err=%v", err)
+	}
+}
+
+func writeProjectFile(t *testing.T, root string, name string, contents string) {
+	t.Helper()
+	file := filepath.Join(root, name)
+	if err := os.MkdirAll(filepath.Dir(file), 0o755); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(file, []byte(contents), 0o644); err != nil {
+		t.Fatal(err)
 	}
 }
 

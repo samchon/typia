@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "module": "esnext",
+    "module": "commonjs",
     "moduleResolution": "bundler",
     "ignoreDeprecations": "6.0",
     "types": ["*"],
@@ -9,8 +9,7 @@
     "strict": true,
     "skipLibCheck": true,
     "rootDir": "src",
-    "outDir": "dist",
-    "plugins": [{ "transform": "typia/lib/transform" }]
+    "outDir": "dist"
   },
   "include": ["src"]
 }

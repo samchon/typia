@@ -19,7 +19,7 @@ export function main(argv: readonly string[] = process.argv.slice(2)): number {
       return runCompatibleBuild([], false);
     }
 
-    const [command, ...rest] = argv;
+    const [command, ...rest] = argv as [string, ...string[]];
     switch (command) {
       case "-h":
       case "--help":
