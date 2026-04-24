@@ -121,7 +121,7 @@ export namespace TypiaGenerateWizard {
         plugins: [{ transform: "typia/lib/transform" }],
       });
       await fs.promises.mkdir(path.dirname(target), { recursive: true });
-      await fs.promises.writeFile(target, output, "utf8");
+      await fs.promises.writeFile(target, formatOutput(output), "utf8");
     }
   }
 
@@ -162,6 +162,12 @@ export namespace TypiaGenerateWizard {
 
   function isSupportedExtension(filename: string): boolean {
     return TS_PATTERN.test(filename) && !DTS_PATTERN.test(filename);
+  }
+
+  function formatOutput(output: string): string {
+    return output.startsWith("// @ts-nocheck")
+      ? output
+      : `// @ts-nocheck\n${output}`;
   }
 }
 

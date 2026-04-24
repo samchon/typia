@@ -1,5 +1,5 @@
 import { TestStructure } from "@typia/template";
-import typia, { IValidation } from "typia";
+import type { IValidation } from "typia";
 
 import {
   assertValidationFailure,

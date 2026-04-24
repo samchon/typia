@@ -1,6 +1,6 @@
 import { TestStructure } from "@typia/template";
 import { NamingConvention } from "@typia/utils";
-import typia, { IValidation } from "typia";
+import type { IValidation } from "typia";
 
 import {
   assertValidationFailure,

@@ -3,6 +3,7 @@
   "compilerOptions": {
     "noEmit": false,
     "outDir": "bin",
+    "rootDir": "src",
   },
   "include": ["src"],
 }

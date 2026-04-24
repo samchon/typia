@@ -13,7 +13,7 @@ async function main(): Promise<void> {
 
   const servant: TestServant = new TestServant();
   const exceptions: Error[] = await servant.execute({
-    location: `${TestGlobal.ROOT}/bin/src/features`,
+    location: `${TestGlobal.ROOT}/bin/features`,
     include: TestGlobal.getArguments("include") ?? [],
     exclude: TestGlobal.getArguments("exclude") ?? [],
     extension: "js",
