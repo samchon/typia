@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@typia/station",
-  "version": "13.0.0-dev.20260425",
+  "version": "13.0.0-dev.20260426",
   "description": "Typia Station",
   "scripts": {
     "build": "pnpm run build:packages",

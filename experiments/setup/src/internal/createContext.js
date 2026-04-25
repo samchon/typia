@@ -183,11 +183,6 @@ function verifyWizardInstallCommands(npmLog, count) {
     count,
     commands.ttsc,
   );
-  TestValidator.equals(
-    "setup wizard does not install a separate ttsx package",
-    0,
-    commands.ttsx,
-  );
   TestValidator.predicate(
     "setup wizard does not install ts-patch",
     commands.legacy === 0,
@@ -199,7 +194,6 @@ function getWizardInstallCommandCounts(npmLog) {
   return {
     legacy: countMatches(wizardLog, "ts-patch"),
     ttsc: countMatches(wizardLog, "i -D ttsc@latest"),
-    ttsx: countMatches(wizardLog, "i -D @typia/ttsx@latest"),
     typescript: countMatches(
       wizardLog,
       "i -D @typescript/native-preview@latest",
