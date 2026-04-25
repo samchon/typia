@@ -6,8 +6,7 @@ import { PackageManager } from "./setup/PackageManager";
 import { PluginConfigurator } from "./setup/PluginConfigurator";
 
 export namespace TypiaSetupWizard {
-  const TTSC_PACKAGE = "@typia/ttsc";
-  const TTSX_PACKAGE = "@typia/ttsx";
+  const TTSC_PACKAGE = "ttsc";
   const TSGO_COMPILER_PACKAGE = "@typescript/native-preview";
 
   export interface IArguments {
@@ -46,11 +45,27 @@ export namespace TypiaSetupWizard {
       }
       if (data.devDependencies?.["ts-patch"] !== undefined) {
         delete data.devDependencies["ts-patch"];
+      }
+      if (data.devDependencies?.["@typia/ttsc"] !== undefined) {
+        delete data.devDependencies["@typia/ttsc"];
+      }
+      if (data.devDependencies?.["@typia/ttsx"] !== undefined) {
+        delete data.devDependencies["@typia/ttsx"];
+      }
+      if (data.devDependencies !== undefined) {
         if (Object.keys(data.devDependencies).length === 0)
           delete data.devDependencies;
       }
       if (data.dependencies?.["ts-patch"] !== undefined) {
         delete data.dependencies["ts-patch"];
+      }
+      if (data.dependencies?.["@typia/ttsc"] !== undefined) {
+        delete data.dependencies["@typia/ttsc"];
+      }
+      if (data.dependencies?.["@typia/ttsx"] !== undefined) {
+        delete data.dependencies["@typia/ttsx"];
+      }
+      if (data.dependencies !== undefined) {
         if (Object.keys(data.dependencies).length === 0)
           delete data.dependencies;
       }
@@ -63,7 +78,6 @@ export namespace TypiaSetupWizard {
       version: "latest",
     });
     pack.install({ dev: true, modulo: TTSC_PACKAGE, version: "latest" });
-    pack.install({ dev: true, modulo: TTSX_PACKAGE, version: "latest" });
   };
 
   const inquiry: ArgumentParser.Inquiry<IArguments> = async (

@@ -24,7 +24,7 @@ JavaScript expression string
 
 - 사용자는 계속 `typia.is<T>()`, `typia.json.stringify<T>()` 같은 public API를 호출한다.
 - TypeScript transformer AST factory는 더 이상 사용하지 않는다.
-- rewrite 결과는 `toolchain/ttsc/driver`가 emitted JS 텍스트에 적용한다.
+- rewrite 결과는 `../ttsc/packages/ttsc/driver`가 emitted JS 텍스트에 적용한다.
 
 ## 남은 참고성 주석
 

@@ -25,5 +25,5 @@
 ## release
 
 - `toolchain/*` 는 `packages/*` 와 같은 first-class publish 대상이어야 한다.
-- `@typia/ttsc` publish 후 `typia`, `@typia/ttsx` publish 순서를 맞춰야 한다.
+- `ttsc` publish 후 `typia`, `ttsc` publish 순서를 맞춰야 한다.
 - tarball 에 launcher, `lib`, native binary 포함 여부를 계속 dry-run 으로 확인해야 한다.

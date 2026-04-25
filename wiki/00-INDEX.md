@@ -2,8 +2,8 @@
 
 ## 현재 기준
 
-- 기본 컴파일 경로는 `@typescript/native-preview` + `@typia/ttsc` + `typia/lib/transform` 이다.
-- `typia setup` 은 `@typescript/native-preview`, `@typia/ttsc`, `@typia/ttsx` 를 설치하고, legacy `ts-patch` 설정을 제거한다.
+- 기본 컴파일 경로는 `@typescript/native-preview` + `ttsc` + `typia/lib/transform` 이다.
+- `typia setup` 은 `@typescript/native-preview`, `ttsc`, `ttsc` 를 설치하고, legacy `ts-patch` 설정을 제거한다.
 - `ttsc` 는 standalone compiler adapter / plugin host 다.
 - `ttsx` 는 `ttsc` host 를 재사용하는 standalone runner 다.
 - typia는 `ttsc` / `ttsx` 의 첫 consumer 다.

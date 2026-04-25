@@ -52,9 +52,9 @@ typia/
 
 There are three important build/setup paths in the repository:
 
-1. Stable current path: `typia` with `typia setup`, `@typia/ttsc`, and `@typescript/native-preview`
+1. Stable current path: `typia` with `typia setup`, `ttsc`, and `@typescript/native-preview`
 2. Stable alternative path: `@typia/unplugin` for bundler environments
-3. Dedicated runner path: `@typia/ttsx` for `ts-node` / `tsx`-style execution
+3. Dedicated runner path: `ttsc` for `ts-node` / `tsx`-style execution
 
 For a concise repository status overview, see [CURRENT_STATUS.md](./CURRENT_STATUS.md).
 
@@ -86,7 +86,7 @@ pnpm run test
 
 If you touch one of these areas, run its local path too:
 
-- `toolchain/ttsc`: `pnpm --filter @typia/ttsc test`
+- `../ttsc/packages/ttsc`: `pnpm --filter ttsc test`
 - `toolchain-tests/test-typia-ttsc`: `pnpm --filter @typia/test-typia-ttsc test`
 - `tests/test-unplugin`: `pnpm --filter @typia/test-unplugin start`
 - `website`: `cd website && npm install && npm run build`
@@ -102,7 +102,7 @@ Start from the package closest to the behavior you are changing:
 - runtime/shared typing surfaces: `packages/interface`, `packages/utils`
 - adapter integrations: `packages/langchain`, `packages/mcp`, `packages/vercel`
 - bundler path: `packages/unplugin`
-- experimental tsgo spike: `toolchain/ttsc`
+- experimental tsgo spike: `../ttsc/packages/ttsc`
 
 ## Documentation And Strategy
 

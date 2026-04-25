@@ -15,7 +15,7 @@ setup 문서는 다음 current lane 을 설명해야 한다.
 
 ```bash
 npx typia setup
-# installs @typescript/native-preview, @typia/ttsc, @typia/ttsx
+# installs @typescript/native-preview, ttsc, ttsc
 # writes compilerOptions.plugins += [{ transform: "typia/lib/transform" }]
 # removes legacy ts-patch settings
 ```
@@ -28,8 +28,8 @@ website playground 는 browser/static-hosting 제약이 있다. 현재 native ho
 
 | lane | 의미 |
 | --- | --- |
-| native/default | `@typescript/native-preview` + `@typia/ttsc` + Go native backend |
-| runner | `@typia/ttsx` |
+| native/default | `@typescript/native-preview` + `ttsc` + Go native backend |
+| runner | `ttsc` |
 | bundler | `@typia/unplugin` |
 | browser playground | website compatibility lane |
 

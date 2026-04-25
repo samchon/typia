@@ -1,0 +1,21 @@
+{
+  "name": "@typia/win32-arm64",
+  "version": "13.0.0-dev.20260425",
+  "description": "Windows arm64 native transform binary for typia.",
+  "os": ["win32"],
+  "cpu": ["arm64"],
+  "scripts": {
+    "build": "node ../../scripts/build-typia-platform-package.cjs",
+    "prepack": "pnpm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/samchon/typia"
+  },
+  "author": "Jeongho Nam",
+  "license": "MIT",
+  "files": ["bin", "package.json", "README.md"],
+  "publishConfig": {
+    "access": "public"
+  }
+}

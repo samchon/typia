@@ -36,7 +36,7 @@ prog.EmitAll(rewrites, writeFile)
 `@typia/unplugin`과 `typia generate` CLI가 쓰는 per-file API다.
 
 ```
-@typia/ttsc.transform()
+ttsc.transform()
   ↓ ttsc-typia transform --file=...
 collectTypiaRewrites(... onlyFile ...)
   ↓

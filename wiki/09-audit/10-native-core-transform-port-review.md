@@ -94,7 +94,7 @@ compatibility 위험이 아니라, 실제로 nestia가 `@typia/core`를 public t
 | `packages/transform/native/ttsc/adapter.go`   |  86-205 | method별 syntax/string 기반 unsupported guard다.                                                                                |
 | `packages/transform/native/ttsc/adapter.go`   | 471-824 | typia module/method dispatch가 registry가 아니라 큰 switch로 구현되어 있다.                                                     |
 | `packages/core/native/go.mod`                 |    5-18 | shim replace 경로가 현재 저장소 구조와 맞지 않는다.                                                                             |
-| `packages/transform/native/go.mod`            |    5-20 | transform native 쪽은 `toolchain/ttsc`와 `core/native`를 직접 replace한다.                                                      |
+| `packages/transform/native/go.mod`            |    5-20 | transform native 쪽은 `../ttsc/packages/ttsc`와 `core/native`를 직접 replace한다.                                                      |
 
 ## 현재 native 파일 ledger
 
@@ -216,9 +216,9 @@ shape를 빌드 전에 명시하려는 좋은 방향이다.
 ### 부족한 부분
 
 `packages/core/native/go.mod`의 replace 경로가 `../../ttsc/shim/*`로 되어 있다.
-현재 저장소 구조에서는 `packages/ttsc`가 아니라 `toolchain/ttsc`가 존재하므로
+현재 저장소 구조에서는 `packages/ttsc`가 아니라 `../ttsc/packages/ttsc`가 존재하므로
 독립 `go test`가 analyzer setup 단계에서 실패한다. 반면
-`packages/transform/native/go.mod`는 `../../../toolchain/ttsc/shim/*`를 가리킨다.
+`packages/transform/native/go.mod`는 `../../../../ttsc/packages/ttsc/shim/*`를 가리킨다.
 두 모듈의 계약이 이미 어긋난 상태다.
 
 `visit.go`의 call-site 인식은 `typia/lib/`, `typia/src/`,
@@ -275,7 +275,7 @@ OpenAPI composer, diagnostic contract는 별도 설계가 필요하다.
 기존 TypeScript v5/v6 transformer 를 `ttsc` 가 TypeScript v7 native compiler 안에서
 그대로 실행하는 방향은 폐기한다. `typescript-go` 의 공식 API 방향은 in-process
 `ts.Program` object graph 제공이 아니라 IPC 기반 curated API 이며, 현재
-`@typia/ttsc` plugin contract 도 JS-side AST hook 을 제공하지 않는다.
+`ttsc` plugin contract 도 JS-side AST hook 을 제공하지 않는다.
 
 따라서 `ttsc` 의 장기 방향은 다음과 같이 고정한다.
 
@@ -340,7 +340,7 @@ dispatch, 독립 테스트, package contract가 필요하다.
 ## 필요한 후속 작업
 
 1. `packages/core/native/go.mod`의 shim replace 경로를
-   `../../../toolchain/ttsc/shim/*`로 맞춘다.
+   `../../../../ttsc/packages/ttsc/shim/*`로 맞춘다.
 2. `packages/core/native`와 `packages/transform/native`에 `go test ./...` CI를
    추가한다.
 3. stale emitter fixture를 현재 의도에 맞게 갱신하거나, `Number.isFinite` 및 helper

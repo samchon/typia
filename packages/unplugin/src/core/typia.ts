@@ -1,4 +1,4 @@
-import { transform as ttscTransform } from "@typia/ttsc";
+import { transform as ttscTransform } from "ttsc";
 import { existsSync } from "node:fs";
 import { dirname, isAbsolute, join, resolve } from "pathe";
 import type { Alias } from "vite";

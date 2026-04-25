@@ -22,9 +22,9 @@ Current code depends on `github.com/microsoft/typescript-go` and local shim modu
 
 Representative locations:
 
-- `toolchain/ttsc/go.mod`
-- `toolchain/ttsc/driver/program.go`
-- `toolchain/ttsc/driver/host.go`
+- `../ttsc/packages/ttsc/go.mod`
+- `../ttsc/packages/ttsc/driver/program.go`
+- `../ttsc/packages/ttsc/driver/host.go`
 - `packages/core/native/go.mod`
 - `packages/transform/native/go.mod`
 
@@ -45,7 +45,7 @@ Current code follows the same practical family:
 - emitted JS rewrite
 - Go native analyzer/emitter
 
-`toolchain/ttsc/driver/host.go` explicitly notes that the helper shape is adapted from tsgonest's compiler host pattern.
+`../ttsc/packages/ttsc/driver/host.go` explicitly notes that the helper shape is adapted from tsgonest's compiler host pattern.
 
 ### `tsgolint`
 
@@ -53,8 +53,8 @@ Current shim generation is adapted from tsgolint.
 
 Representative locations:
 
-- `toolchain/ttsc/tools/gen_shims/main.go`
-- `toolchain/ttsc/shim/*`
+- `../ttsc/packages/ttsc/tools/gen_shims/main.go`
+- `../ttsc/packages/ttsc/shim/*`
 
 Current use:
 

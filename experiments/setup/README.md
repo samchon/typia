@@ -6,8 +6,7 @@ It builds local `.tgz` packages, installs them into a temporary npm project, run
 the built `typia` setup wizard, and verifies that:
 
 - npm installed the local tarballs into `node_modules`;
-- `@typescript/native-preview`, `@typia/ttsc`, and `@typia/ttsx` are installed
-  by valid setup runs;
+- `@typescript/native-preview` and `ttsc` are installed by valid setup runs;
 - `typia/lib/transform` is the only setup plugin path;
 - `typia/lib/ttsc/plugin` is not exported as a package path;
 - `bin/ttsc-typia.js` is not included in the installed package;

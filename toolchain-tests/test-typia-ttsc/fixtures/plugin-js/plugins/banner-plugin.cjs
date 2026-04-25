@@ -1,6 +1,6 @@
 "use strict";
 
-const { definePlugin } = require("@typia/ttsc");
+const { definePlugin } = require("ttsc");
 
 module.exports = definePlugin((config) => ({
   name: "banner-plugin",

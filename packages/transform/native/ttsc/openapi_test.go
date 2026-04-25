@@ -11,7 +11,7 @@ import (
 	shimscanner "github.com/microsoft/typescript-go/shim/scanner"
 
 	"github.com/samchon/typia/packages/core/native/analyzer"
-	"github.com/samchon/typia/toolchain/ttsc/driver"
+	"github.com/samchon/ttsc/packages/ttsc/driver"
 )
 
 func TestAnalyzeOpenApiIJsonSchema(t *testing.T) {

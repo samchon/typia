@@ -105,7 +105,7 @@
 1. 사실 인지: "TS 7이 옵니다. typia는 준비합니다."
 2. 약속:
    - TS 6.x는 2028 말까지 LTS 지원
-   - tsgo 대응: @typia/ttsc 별도 프로젝트로 즉시 착수
+   - tsgo 대응: ttsc 별도 프로젝트로 즉시 착수
    - ttsc는 사용자 API / tsconfig plugins 스키마 그대로 유지
 3. 사상 약속: "Pure TypeScript 명제는 양보하지 않습니다."
 4. 사용자 액션 가이드:
@@ -127,7 +127,7 @@
 ## 현재 위치 (2026-04) & 즉시 실행
 
 ### 이번 주
-- [ ] ttsc 이름/네임스페이스 확보 (npm `ttsc`, `@typia/ttsc` 중 결정)
+- [ ] ttsc 이름/네임스페이스 확보 (npm `ttsc`, `ttsc` 중 결정)
 - [ ] 공식 입장문 초안 작성 ([04-ttsc-design/00-README.md](04-ttsc-design/00-README.md) 기반)
 
 ### 이번 달 (Stage 0 spike)
