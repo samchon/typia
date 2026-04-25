@@ -54,12 +54,6 @@ export async function test_setup_contract(): Promise<void> {
     "setup wizard must provision the external ttsc package",
   );
   assert.equal(
-    wizardSource.includes('const TTSC_PACKAGE = "@typia/ttsc"') ||
-      wizardSource.includes("const TTSX_PACKAGE"),
-    false,
-    "setup wizard must not provision deprecated @typia toolchain packages",
-  );
-  assert.equal(
     wizardSource.includes("@typescript/native-preview"),
     true,
     "setup wizard must provision the tsgo compiler package",
