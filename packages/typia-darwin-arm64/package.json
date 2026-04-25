@@ -1,6 +1,6 @@
 {
   "name": "@typia/darwin-arm64",
-  "version": "12.0.2",
+  "version": "13.0.0-dev.20260425",
   "description": "macOS arm64 native transform binary for typia.",
   "os": ["darwin"],
   "cpu": ["arm64"],
