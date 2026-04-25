@@ -12,11 +12,7 @@ const packageRoot = path.resolve(
 );
 const repoRoot = path.resolve(packageRoot, "..", "..");
 const nativeProject = path.resolve(repoRoot, "packages", "transform", "native");
-const nativeBinary = path.resolve(
-  packageRoot,
-  "bin",
-  process.platform === "win32" ? "ttsc-typia-native.exe" : "ttsc-typia-native",
-);
+const nativeBinary = resolveNativeBinary();
 const nativeEntrypoint = path.resolve(
   nativeProject,
   "cmd",
@@ -40,7 +36,7 @@ const hasSourceEntrypoint = fs.existsSync(nativeEntrypoint);
 
 if (!hasNativeBinary && !hasSourceEntrypoint) {
   process.stderr.write(
-    "ttsc-typia: backend is missing. Expected either a bundled ttsc-typia-native binary or packages/transform/native/cmd/ttsc-typia/main.go.\n",
+    "ttsc-typia: backend is missing. Expected a platform @typia native package, a package-local ttsc-typia-native binary, or packages/transform/native/cmd/ttsc-typia/main.go.\n",
   );
   process.exitCode = 1;
 } else {
@@ -86,4 +82,20 @@ function needsCwd(commandName: string): boolean {
     commandName === "-p" ||
     commandName === "--project"
   );
+}
+
+function resolveNativeBinary(): string {
+  const name =
+    process.platform === "win32"
+      ? "ttsc-typia-native.exe"
+      : "ttsc-typia-native";
+  const platformKey = `${process.platform}-${process.arch}`;
+  const optionalRequest = `@typia/${platformKey}/bin/${name}`;
+  try {
+    return require.resolve(optionalRequest, {
+      paths: [packageRoot, process.cwd()],
+    });
+  } catch {
+    return path.resolve(packageRoot, "bin", name);
+  }
 }

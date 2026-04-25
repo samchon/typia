@@ -1,13 +1,12 @@
 import * as path from "path";
+import { resolveBinary } from "ttsc";
 
 export class TestGlobal {
   /** Absolute path to `toolchain-tests/test-typia-ttsc/`. */
   public static readonly ROOT: string = path.resolve(`${__dirname}/..`);
 
-  /** Absolute path to the compiled Go binary. */
-  public static readonly TTSC_BINARY: string = path.resolve(
-    `${__dirname}/../../../toolchain/ttsc/native/ttsc-native`,
-  );
+  /** Absolute path to the installed ttsc native binary. */
+  public static readonly TTSC_BINARY: string | null = resolveBinary();
 
   /** Absolute path to the workspace-linked public ttsc launcher. */
   public static readonly TTSC_LAUNCHER: string = path.resolve(

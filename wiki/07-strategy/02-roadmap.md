@@ -86,7 +86,7 @@
   # Setup
   npm i -D typescript@7 typia
   npx typia setup
-  # → typia 감지: TS 7 → @typia/ttsc 자동 설치 → tsconfig 자동 구성
+  # → typia 감지: TS 7 → ttsc 자동 설치 → tsconfig 자동 구성
   
   # 사용자 코드 — 완전 불변
   interface Member { 

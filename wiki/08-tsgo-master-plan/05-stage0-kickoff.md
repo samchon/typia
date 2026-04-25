@@ -4,14 +4,14 @@
 
 ## 완료
 
-- `toolchain/ttsc` package 존재
-- `toolchain/ttsx` package 존재
+- `../ttsc/packages/ttsc` package 존재
+- `ttsc package runner` package 존재
 - `ttsc` CLI 무인자 build 동작
 - `ttsc -p tsconfig.json`, `ttsc --noEmit`, `ttsc transform --file=...` 경로 존재
 - `ttsx src/index.ts` runner 존재
 - `typia/lib/transform` native plugin entry 존재
-- typia package 는 `@typia/ttsc` 에 의존
-- `typia setup` 은 `@typescript/native-preview`, `@typia/ttsc`, `@typia/ttsx` 를 설치
+- typia package 는 `ttsc` 에 의존
+- `typia setup` 은 `@typescript/native-preview`, `ttsc`, `ttsc` 를 설치
 - `typia setup` 은 legacy `ts-patch` 설정을 제거
 - native typia backend 는 Go 로 존재
 

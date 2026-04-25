@@ -1,4 +1,4 @@
-import { definePlugin } from "@typia/ttsc";
+import { definePlugin } from "ttsc";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 

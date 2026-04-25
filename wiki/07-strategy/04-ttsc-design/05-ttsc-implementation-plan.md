@@ -140,7 +140,7 @@ Month 10-12   Phase 4: Public beta + typia setup 자동화
 - 각 플랫폼 smoke test
 
 **W35-36**:
-- `@typia/ttsc` + `@ttsc-{platform}-{arch}` npm publish 자동화
+- `ttsc` + `@ttsc-{platform}-{arch}` npm publish 자동화
 - 매 tsgo release 감지 시 자동 PR (patch rebase 필요 표시)
 
 **Phase 3 Exit**: ttsc 0.9 beta 출시 가능.

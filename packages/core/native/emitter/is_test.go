@@ -15,7 +15,7 @@ func TestEmitIsAtomic(t *testing.T) {
 		expr string
 	}{
 		{"string", metadata.AtomicString, `"string" === typeof input`, "input"},
-		{"number", metadata.AtomicNumber, `"number" === typeof input`, "input"},
+		{"number", metadata.AtomicNumber, `"number" === typeof input && Number.isFinite(input)`, "input"},
 		{"boolean", metadata.AtomicBoolean, `"boolean" === typeof input`, "input"},
 		{"bigint", metadata.AtomicBigint, `"bigint" === typeof input`, "input"},
 		{"nested path", metadata.AtomicString, `"string" === typeof $input.user.name`, "$input.user.name"},
@@ -60,7 +60,7 @@ func TestEmitIsUnion(t *testing.T) {
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
-	want := `("number" === typeof input || "string" === typeof input)`
+	want := `("number" === typeof input && Number.isFinite(input) || "string" === typeof input)`
 	if got != want {
 		t.Errorf("got %q want %q", got, want)
 	}
@@ -125,7 +125,7 @@ func TestEmitIsTuple(t *testing.T) {
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
-	want := `(Array.isArray(input) && input.length === 2 && "string" === typeof input[0] && "number" === typeof input[1])`
+	want := `(Array.isArray(input) && input.length === 2 && "string" === typeof input[0] && "number" === typeof input[1] && Number.isFinite(input[1]))`
 	if got != want {
 		t.Errorf("got %q want %q", got, want)
 	}
@@ -150,11 +150,13 @@ func TestEmitIsObject(t *testing.T) {
 		t.Fatalf("unexpected error: %v", err)
 	}
 	for _, fragment := range []string{
-		`"object" === typeof input`,
-		`null !== input`,
-		`false === Array.isArray(input)`,
-		`"number" === typeof input.x`,
-		`"number" === typeof input.y`,
+		`"object" === typeof v`,
+		`null !== v`,
+		`false === Array.isArray(v)`,
+		`"number" === typeof v.x`,
+		`Number.isFinite(v.x)`,
+		`"number" === typeof v.y`,
+		`Number.isFinite(v.y)`,
 	} {
 		if !strings.Contains(got, fragment) {
 			t.Errorf("expected fragment %q in %q", fragment, got)

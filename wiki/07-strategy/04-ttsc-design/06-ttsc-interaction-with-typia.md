@@ -47,7 +47,7 @@ npm i -D typescript@6
 npx typia setup          # ts-patch install
 
 # TS 7 업그레이드 후
-npm i -D typescript@7 @typia/ttsc
+npm i -D typescript@7 ttsc
 npx typia setup          # ttsc가 설치됨, tsconfig 수정 없음
 npm run build            # 내부적으로 ttsc 실행
 ```
@@ -59,7 +59,7 @@ npm run build            # 내부적으로 ttsc 실행
 ```bash
 npm i -D typescript@7 typia
 npx typia setup
-# → typia가 TS 7 감지 → @typia/ttsc 자동 설치 → tsconfig 구성 → 끝
+# → typia가 TS 7 감지 → ttsc 자동 설치 → tsconfig 구성 → 끝
 npm run build
 ```
 
@@ -130,10 +130,10 @@ async function setup() {
   
   if (major(tsVersion) >= 7) {
     // TS 7+ — ttsc 경로
-    await install(manager, ["typescript@7", "@typia/ttsc"]);
+    await install(manager, ["typescript@7", "ttsc"]);
     configurePlugins();   // tsconfig.plugins 동일
     // ts-patch 관련 prepare 스크립트 불필요
-    ensureTtscBinary();   // @typia/ttsc가 platform binary 설치
+    ensureTtscBinary();   // ttsc가 platform binary 설치
   } else {
     // TS ≤6 — 기존 ts-patch 경로
     await install(manager, ["typescript", "ts-patch"]);

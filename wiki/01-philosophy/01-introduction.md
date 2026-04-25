@@ -25,8 +25,8 @@ ttsc
 setup 은 다음을 수행한다.
 
 - `@typescript/native-preview` 설치
-- `@typia/ttsc` 설치
-- `@typia/ttsx` 설치
+- `ttsc` 설치
+- `ttsc` 설치
 - `tsconfig.json` 에 `typia/lib/transform` 추가
 - legacy `ts-patch` 설정 제거
 

@@ -10,11 +10,11 @@
 
 ## 공개 계약
 
-- `@typia/ttsc.build()`
-- `@typia/ttsc.check()`
-- `@typia/ttsc.transform()`
-- `@typia/ttsc.definePlugin()`
-- `@typia/ttsx` CLI / `register()` / `prepareExecution()`
+- `ttsc.build()`
+- `ttsc.check()`
+- `ttsc.transform()`
+- `ttsc.definePlugin()`
+- `ttsc` CLI / `register()` / `prepareExecution()`
 - plugin `native.mode`, `native.binary`, `contractVersion: 1`
 
 ## 비공개 구현

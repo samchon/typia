@@ -4,7 +4,7 @@
 
 ## current fact
 
-- typia는 `@typia/ttsc` / `@typia/ttsx` 전환을 repo 안에 구현했다.
+- typia는 `ttsc` / `ttsc` 전환을 repo 안에 구현했다.
 - typia native backend 는 Go 로 존재한다.
 - `@typia/core` / `@typia/transform` TypeScript package 는 현재 코드베이스에 없다.
 - `typia/lib/transform` 은 native plugin entry 다.

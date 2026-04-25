@@ -4,14 +4,14 @@
 
 ## 한 줄
 
-`typia/lib/transform` 이 `@typia/ttsc` plugin 으로 로드되고, Go native backend 가 `typia.*` 호출을 emitted JS 로 rewrite 한다.
+`typia/lib/transform` 이 `ttsc` plugin 으로 로드되고, Go native backend 가 `typia.*` 호출을 emitted JS 로 rewrite 한다.
 
 ## 현재 구조
 
 | 영역 | 현재 |
 | --- | --- |
-| compiler host | `@typia/ttsc` |
-| runner | `@typia/ttsx` |
+| compiler host | `ttsc` |
+| runner | `ttsc` |
 | TypeScript compiler | `@typescript/native-preview` |
 | typia plugin entry | `typia/lib/transform` |
 | typia native adapter | `packages/transform/native` |

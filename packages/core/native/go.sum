@@ -8,6 +8,12 @@ github.com/microsoft/typescript-go v0.0.0-20260408193441-2a5e1cf9fe22 h1:iH0TuqC
 github.com/microsoft/typescript-go v0.0.0-20260408193441-2a5e1cf9fe22/go.mod h1:eE2mO7PBRpeR8gWgxwsZq1LOW4tsgIF6zd0iQ5TbsJU=
 github.com/peter-evans/patience v0.3.0 h1:rX0JdJeepqdQl1Sk9c9uvorjYYzL2TfgLX1adqYm9cA=
 github.com/peter-evans/patience v0.3.0/go.mod h1:Kmxu5sY1NmBLFSStvXjX1wS9mIv7wMcP/ubucyMOAu0=
+github.com/samchon/ttsc/packages/ttsc/shim/ast v0.0.0-20260424211148-8021826efa7a h1:hziK1utrk1tfed0AUox4oSWmVUxaCv9mcdJ7BMa13HE=
+github.com/samchon/ttsc/packages/ttsc/shim/ast v0.0.0-20260424211148-8021826efa7a/go.mod h1:bkvU8mdrWtIDprKYo0E5g+5ggYhiXp24Iq2FhMSWEec=
+github.com/samchon/ttsc/packages/ttsc/shim/checker v0.0.0-20260424211148-8021826efa7a h1:o7pg+j/lQBGG8xt5sjeSn+uJunfywK2yw7uAvUBRsK0=
+github.com/samchon/ttsc/packages/ttsc/shim/checker v0.0.0-20260424211148-8021826efa7a/go.mod h1:KZQ51EGQmDVxMJzsTeCEOKHwM/GT/taY/zcP7cyqNek=
+github.com/samchon/ttsc/packages/ttsc/shim/scanner v0.0.0-20260424211148-8021826efa7a h1:aJC9bY4GPn1hjuLYZ/GS0Uw1cLF0pPw9Qcz92AsQaOw=
+github.com/samchon/ttsc/packages/ttsc/shim/scanner v0.0.0-20260424211148-8021826efa7a/go.mod h1:Qq7K0gPEHNTBlxmbMFl0jqG2MMIJwAExWS9Zothi5Qg=
 github.com/zeebo/assert v1.3.0 h1:g7C04CbJuIDKNPFHmsk4hwZDO5O+kntRxzaUoNXj+IQ=
 github.com/zeebo/assert v1.3.0/go.mod h1:Pq9JiuJQpG8JLJdtkwrJESF0Foym2/D9XMU5ciN/wJ0=
 github.com/zeebo/xxh3 v1.1.0 h1:s7DLGDK45Dyfg7++yxI0khrfwq9661w9EN78eP/UZVs=

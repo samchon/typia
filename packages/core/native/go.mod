@@ -3,18 +3,18 @@ module github.com/samchon/typia/packages/core/native
 go 1.26
 
 replace (
-	github.com/microsoft/typescript-go/shim/ast => ../../ttsc/shim/ast
-	github.com/microsoft/typescript-go/shim/bundled => ../../ttsc/shim/bundled
-	github.com/microsoft/typescript-go/shim/checker => ../../ttsc/shim/checker
-	github.com/microsoft/typescript-go/shim/compiler => ../../ttsc/shim/compiler
-	github.com/microsoft/typescript-go/shim/core => ../../ttsc/shim/core
-	github.com/microsoft/typescript-go/shim/parser => ../../ttsc/shim/parser
-	github.com/microsoft/typescript-go/shim/scanner => ../../ttsc/shim/scanner
-	github.com/microsoft/typescript-go/shim/tsoptions => ../../ttsc/shim/tsoptions
-	github.com/microsoft/typescript-go/shim/tspath => ../../ttsc/shim/tspath
-	github.com/microsoft/typescript-go/shim/vfs => ../../ttsc/shim/vfs
-	github.com/microsoft/typescript-go/shim/vfs/cachedvfs => ../../ttsc/shim/vfs/cachedvfs
-	github.com/microsoft/typescript-go/shim/vfs/osvfs => ../../ttsc/shim/vfs/osvfs
+	github.com/microsoft/typescript-go/shim/ast => github.com/samchon/ttsc/packages/ttsc/shim/ast v0.0.0-20260424211148-8021826efa7a
+	github.com/microsoft/typescript-go/shim/bundled => github.com/samchon/ttsc/packages/ttsc/shim/bundled v0.0.0-20260424211148-8021826efa7a
+	github.com/microsoft/typescript-go/shim/checker => github.com/samchon/ttsc/packages/ttsc/shim/checker v0.0.0-20260424211148-8021826efa7a
+	github.com/microsoft/typescript-go/shim/compiler => github.com/samchon/ttsc/packages/ttsc/shim/compiler v0.0.0-20260424211148-8021826efa7a
+	github.com/microsoft/typescript-go/shim/core => github.com/samchon/ttsc/packages/ttsc/shim/core v0.0.0-20260424211148-8021826efa7a
+	github.com/microsoft/typescript-go/shim/parser => github.com/samchon/ttsc/packages/ttsc/shim/parser v0.0.0-20260424211148-8021826efa7a
+	github.com/microsoft/typescript-go/shim/scanner => github.com/samchon/ttsc/packages/ttsc/shim/scanner v0.0.0-20260424211148-8021826efa7a
+	github.com/microsoft/typescript-go/shim/tsoptions => github.com/samchon/ttsc/packages/ttsc/shim/tsoptions v0.0.0-20260424211148-8021826efa7a
+	github.com/microsoft/typescript-go/shim/tspath => github.com/samchon/ttsc/packages/ttsc/shim/tspath v0.0.0-20260424211148-8021826efa7a
+	github.com/microsoft/typescript-go/shim/vfs => github.com/samchon/ttsc/packages/ttsc/shim/vfs v0.0.0-20260424211148-8021826efa7a
+	github.com/microsoft/typescript-go/shim/vfs/cachedvfs => github.com/samchon/ttsc/packages/ttsc/shim/vfs/cachedvfs v0.0.0-20260424211148-8021826efa7a
+	github.com/microsoft/typescript-go/shim/vfs/osvfs => github.com/samchon/ttsc/packages/ttsc/shim/vfs/osvfs v0.0.0-20260424211148-8021826efa7a
 )
 
 require (

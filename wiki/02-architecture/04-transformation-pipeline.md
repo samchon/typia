@@ -28,13 +28,13 @@ ttsc
 
 ```
 bundler transform hook
-  -> @typia/ttsc.transform({ file, tsconfig, plugins })
+  -> ttsc.transform({ file, tsconfig, plugins })
   -> ttsc-typia transform
   -> JS string
   -> bundler result
 ```
 
-`@typia/unplugin` 은 별도 TypeScript transformer 를 들고 있지 않다. `@typia/ttsc.transform()` 을 호출하는 adapter 다.
+`@typia/unplugin` 은 별도 TypeScript transformer 를 들고 있지 않다. `ttsc.transform()` 을 호출하는 adapter 다.
 
 ## `ttsx`
 

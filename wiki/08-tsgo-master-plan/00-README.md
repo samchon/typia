@@ -14,8 +14,8 @@
 
 | 영역 | 위치 |
 | --- | --- |
-| `ttsc` JS API / CLI | `toolchain/ttsc/src`, `toolchain/ttsc/cmd/ttsc` |
-| `ttsx` runner | `toolchain/ttsx/src` |
+| `ttsc` JS API / CLI | `../ttsc/packages/ttsc/src`, `../ttsc/packages/ttsc/cmd/ttsc` |
+| `ttsx` runner | `ttsc package runner/src` |
 | typia plugin entry | `packages/typia/src/transform.ts` |
 | typia native backend | `packages/core/native`, `packages/transform/native` |
 | setup wizard | `packages/typia/src/executable/TypiaSetupWizard.ts` |

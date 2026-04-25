@@ -6,7 +6,7 @@
 - `ttsx` 는 standalone runner 다.
 - typia는 첫 consumer 다.
 - TypeScript v7 lane 에서 legacy transformer object 호환을 목표로 두지 않는다.
-- 현재 setup 은 `@typescript/native-preview`, `@typia/ttsc`, `@typia/ttsx` 를 설치한다.
+- 현재 setup 은 `@typescript/native-preview`, `ttsc`, `ttsc` 를 설치한다.
 
 열린 질문:
 
