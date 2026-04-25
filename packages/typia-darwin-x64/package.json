@@ -1,6 +1,6 @@
 {
   "name": "@typia/darwin-x64",
-  "version": "13.0.0-dev.20260425",
+  "version": "13.0.0-dev.20260426",
   "description": "macOS x64 native transform binary for typia.",
   "os": ["darwin"],
   "cpu": ["x64"],
