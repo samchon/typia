@@ -26,8 +26,6 @@
   },
   "homepage": "https://github.com/samchon/typia#readme",
   "devDependencies": {
-    "@typia/ttsx": "workspace:^",
-    "@typia/ttsc": "workspace:^",
     "@typescript/native-preview": "catalog:typescript",
     "@fastify/type-provider-typebox": "^3.5.0",
     "@sinclair/typebox": "^0.31.17",
@@ -62,7 +60,8 @@
     "tgrid": "^0.10.0",
     "tstl": "^3.0.0",
     "uuid": "catalog:utils",
-    "zod": "^3.19.1"
+    "zod": "^3.19.1",
+    "ttsc": "^0.4.2"
   },
   "dependencies": {
     "@typia/interface": "workspace:^",

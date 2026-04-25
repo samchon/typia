@@ -4,7 +4,6 @@ packages:
   - 'examples'
   - 'packages/*'
   - 'tests/*'
-  - 'toolchain/*'
   - 'toolchain-tests/*'
 catalogs:
   typescript:

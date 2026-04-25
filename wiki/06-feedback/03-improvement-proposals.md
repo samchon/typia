@@ -37,4 +37,4 @@
 
 ## A6. second consumer
 
-nestia 같은 typia 외 consumer 로 `@typia/ttsc` contract 를 검증한다.
+nestia 같은 typia 외 consumer 로 `ttsc` contract 를 검증한다.

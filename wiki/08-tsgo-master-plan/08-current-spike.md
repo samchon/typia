@@ -4,8 +4,8 @@
 
 ## package
 
-- `@typia/ttsc`: `toolchain/ttsc`
-- `@typia/ttsx`: `toolchain/ttsx`
+- `ttsc`: `../ttsc/packages/ttsc`
+- `ttsc`: `ttsc package runner`
 - `typia`: `packages/typia`
 
 ## compile
@@ -14,8 +14,8 @@
 typia setup
   -> tsconfig plugins += typia/lib/transform
   -> install @typescript/native-preview
-  -> install @typia/ttsc
-  -> install @typia/ttsx
+  -> install ttsc
+  -> install ttsc
 
 ttsc
   -> load tsconfig
@@ -30,7 +30,7 @@ ttsc
 ```
 ttsx src/index.ts
   -> resolve project
-  -> reuse @typia/ttsc
+  -> reuse ttsc
   -> CJS require hook or ESM cached build
 ```
 

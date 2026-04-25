@@ -57,10 +57,11 @@ function installTarballs(context) {
       "--no-audit",
       "--no-fund",
       tarball(context.tarballs, "interface"),
-      tarball(context.tarballs, "ttsc"),
       tarball(context.tarballs, "utils"),
+      tarball(context.tarballs, `typia-${process.platform}-${process.arch}`),
       tarball(context.tarballs, "typia"),
       "@typescript/native-preview@7.0.0-dev.20260421.2",
+      "ttsc@^0.4.2",
     ].join(" "),
     context.workspace,
   );
@@ -183,8 +184,8 @@ function verifyWizardInstallCommands(npmLog, count) {
     commands.ttsc,
   );
   TestValidator.equals(
-    "setup wizard installs ttsx once per scenario",
-    count,
+    "setup wizard does not install a separate ttsx package",
+    0,
     commands.ttsx,
   );
   TestValidator.predicate(
@@ -197,7 +198,7 @@ function getWizardInstallCommandCounts(npmLog) {
   const wizardLog = fs.existsSync(npmLog) ? fs.readFileSync(npmLog, "utf8") : "";
   return {
     legacy: countMatches(wizardLog, "ts-patch"),
-    ttsc: countMatches(wizardLog, "i -D @typia/ttsc@latest"),
+    ttsc: countMatches(wizardLog, "i -D ttsc@latest"),
     ttsx: countMatches(wizardLog, "i -D @typia/ttsx@latest"),
     typescript: countMatches(
       wizardLog,

@@ -90,11 +90,11 @@
 - `typescript-go` 를 외부 패키지가 **Go module import** 형태로 재사용하는 것은 공식 방향이 아니다.
 - Microsoft가 열고 있는 경계는 **CLI / VS Code extension / IPC API / TypeScript client** 쪽이다.
 - public Go API 는 2025-03 Discussion #481에서 **"unlikely side"** 로 답변되었다.
-- `@typia/ttsc` 의 현재 plugin contract 에도 JS-side AST hook 은 없다. JS plugin 은 text-output post-processing 까지만 stack 가능하고, type analysis / AST mutation / native rewrite 는 native backend responsibility 로 둔다.
+- `ttsc` 의 현재 plugin contract 에도 JS-side AST hook 은 없다. JS plugin 은 text-output post-processing 까지만 stack 가능하고, type analysis / AST mutation / native rewrite 는 native backend responsibility 로 둔다.
 
 [결론]
 
-- typia 계열 도구의 **최종 설치 계약**은 `@typescript/native-preview`/향후 `typescript@7` + `@typia/ttsc` 의 **side-by-side** 가 자연스럽다.
+- typia 계열 도구의 **최종 설치 계약**은 `@typescript/native-preview`/향후 `typescript@7` + `ttsc` 의 **side-by-side** 가 자연스럽다.
 - 다만 2026-04 현재 공식 API가 아직 불안정하므로, 내부 shim·bridge 같은 **한 차례 우회 구현** 은 현실적으로 필요하다.
 - 기존 TypeScript transformer API 를 그대로 지원하는 범용 `ttsc` 는 현실 목표에서 제외한다. TypeScript v7 lane 은 native plugin 또는 IR bridge 로 설계하고, legacy transformer 는 TS v5/v6 또는 구버전 typia lane 에 남긴다.
 

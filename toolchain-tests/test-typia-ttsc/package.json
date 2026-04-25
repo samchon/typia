@@ -2,13 +2,13 @@
   "private": true,
   "name": "@typia/test-typia-ttsc",
   "version": "0.1.0-dev",
-  "description": "End-to-end smoke tests for @typia/ttsc and @typia/ttsx.",
+  "description": "End-to-end smoke tests for typia over the external ttsc package.",
   "scripts": {
     "dev": "ttsx src/index.ts",
     "build:backend": "bash -c 'export PATH=\"$HOME/go-sdk/go/bin:$PATH\"; cd ../../packages/transform/native && go build -o ../../../packages/typia/bin/ttsc-typia-native ./cmd/ttsc-typia'",
-    "build:packages": "pnpm --filter @typia/ttsc build && pnpm --filter @typia/ttsx build && pnpm --filter typia build",
-    "build:go": "bash -c 'export PATH=\"$HOME/go-sdk/go/bin:$PATH\"; cd ../../toolchain/ttsc && mkdir -p native && go build -o native/ttsc-native ./cmd/ttsc'",
-    "prestart": "pnpm run build:packages && pnpm run build:go && pnpm run build:backend",
+    "build:packages": "pnpm --filter typia build",
+    "build:go": "ttsc --version",
+    "prestart": "pnpm run build:packages && pnpm run build:backend",
     "start": "ttsx src/index.ts",
     "test": "pnpm run start"
   },
@@ -31,9 +31,8 @@
     "@nestia/e2e": "catalog:utils",
     "@types/node": "catalog:utils",
     "@typescript/native-preview": "catalog:typescript",
-    "@typia/ttsc": "workspace:^",
-    "@typia/ttsx": "workspace:^",
-    "chalk": "4.1.2"
+    "chalk": "4.1.2",
+    "ttsc": "^0.4.2"
   },
   "dependencies": {
     "typia": "workspace:^"

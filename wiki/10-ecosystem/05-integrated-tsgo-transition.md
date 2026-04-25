@@ -6,9 +6,9 @@
 
 ```
 @typescript/native-preview
-  -> @typia/ttsc
+  -> ttsc
        -> typia
-       -> @typia/ttsx
+       -> ttsc
        -> @typia/unplugin
             -> downstream projects
 ```
@@ -16,8 +16,8 @@
 ## current transition rule
 
 1. typia native backend parity 를 먼저 맞춘다.
-2. `@typia/ttsc` plugin contract 를 좁고 안정적으로 유지한다.
-3. `@typia/ttsx` runner semantics 를 검증한다.
+2. `ttsc` plugin contract 를 좁고 안정적으로 유지한다.
+3. `ttsc` runner semantics 를 검증한다.
 4. nestia 같은 second consumer 로 generic boundary 를 검증한다.
 5. agentica/autobe 는 typia public API parity 로 영향 범위를 확인한다.
 

@@ -6,7 +6,6 @@ const root = path.resolve(__dirname, "../..");
 const outputDir = __dirname;
 
 const targets = [
-  ...listTargets(path.join(root, "toolchain")),
   ...listTargets(path.join(root, "packages")),
 ];
 
@@ -39,10 +38,6 @@ function build(target) {
 
 function prepareNativeBinaries() {
   console.log("Preparing native binaries");
-  cp.execSync("pnpm --filter @typia/ttsc go:build", {
-    stdio: "inherit",
-    cwd: root,
-  });
   cp.execSync("pnpm run build:native-consumers", {
     stdio: "inherit",
     cwd: root,

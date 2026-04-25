@@ -21,7 +21,7 @@ plugin module 은 다음 중 하나를 export 한다.
 factory 형태:
 
 ```ts
-import { definePlugin } from "@typia/ttsc";
+import { definePlugin } from "ttsc";
 
 export default definePlugin((config, context) => ({
   name: "my-plugin",

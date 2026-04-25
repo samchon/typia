@@ -31,16 +31,25 @@
   "dependencies": {
     "@standard-schema/spec": "^1.0.0",
     "@typia/interface": "workspace:^",
-    "@typia/ttsc": "workspace:^",
     "@typia/utils": "workspace:^",
     "commander": "^10.0.0",
     "comment-json": "^4.2.3",
     "inquirer": "^8.2.5",
     "package-manager-detector": "^0.2.0",
-    "randexp": "^0.5.3"
+    "randexp": "^0.5.3",
+    "ttsc": "^0.4.2"
   },
   "peerDependencies": {
     "@typescript/native-preview": ">=7.0.0-dev.20260420.1"
+  },
+  "optionalDependencies": {
+    "@typia/linux-x64": "workspace:^",
+    "@typia/linux-arm": "workspace:^",
+    "@typia/linux-arm64": "workspace:^",
+    "@typia/darwin-x64": "workspace:^",
+    "@typia/darwin-arm64": "workspace:^",
+    "@typia/win32-x64": "workspace:^",
+    "@typia/win32-arm64": "workspace:^"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "catalog:rollup",
@@ -60,7 +69,13 @@
     "tinyglobby": "^0.2.12"
   },
   "sideEffects": false,
-  "files": ["README.md", "bin", "package.json", "lib", "src"],
+  "files": [
+    "README.md",
+    "bin",
+    "package.json",
+    "lib",
+    "src"
+  ],
   "keywords": [
     "fast",
     "json",

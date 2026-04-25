@@ -91,7 +91,7 @@ Layer 1 (JS)  — @ttsc/node-bridge   : Go가 spawn하는 Node 자식, transform
 1. **기능**: typia의 모든 transformer (is/assert/validate, json.*, llm.*, protobuf.*, random, misc, http) 가 ttsc에서 정상 동작. typia test suite 통과.
 2. **호환**: ts-patch의 `plugins[]` 스키마를 그대로 파싱. ts-runtime-checks도 추가 설정 없이 동작 검증.
 3. **성능**: tsc 5.x + ts-patch 대비 **최소 3× 빠름** (tsgo의 속도 이점을 어느 정도 보존).
-4. **배포**: 7 플랫폼 바이너리가 npm `@typia/ttsc`에서 단일 명령으로 설치됨.
+4. **배포**: 7 플랫폼 바이너리가 npm `ttsc`에서 단일 명령으로 설치됨.
 5. **안정**: 매 tsgo patch release마다 ttsc release가 **일주일 안에** 따라옴.
 6. **문서**: typia setup이 자동으로 ttsc 사용. 마이그레이션 가이드 없이도 기존 사용자 그대로 작동.
 

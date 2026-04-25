@@ -8,7 +8,7 @@ const ok = typia.is<Member>(input);
 
 ## 1. plugin load
 
-`@typia/ttsc` 는 `tsconfig.json` 의 plugin entry 를 읽는다.
+`ttsc` 는 `tsconfig.json` 의 plugin entry 를 읽는다.
 
 ```json
 {
@@ -54,7 +54,7 @@ type information
 
 ## 5. rewrite
 
-`toolchain/ttsc/driver` 는 TypeScript-Go 가 emit 한 JS 에 rewrite set 을 적용한다.
+`../ttsc/packages/ttsc/driver` 는 TypeScript-Go 가 emit 한 JS 에 rewrite set 을 적용한다.
 
 결과:
 

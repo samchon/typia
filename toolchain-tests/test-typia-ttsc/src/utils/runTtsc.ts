@@ -17,7 +17,7 @@ export interface TtscResult {
  * test harness.
  */
 export function runTtsc(args: readonly string[], fixtureDir?: string): TtscResult {
-  if (!fs.existsSync(TestGlobal.TTSC_BINARY)) {
+  if (!TestGlobal.TTSC_BINARY || !fs.existsSync(TestGlobal.TTSC_BINARY)) {
     throw new Error(
       `ttsc binary missing at ${TestGlobal.TTSC_BINARY}. ` +
         `Run \`pnpm run build:go\` before the test, or use the top-level \`pnpm test\` script.`,
@@ -34,7 +34,7 @@ export function runTtsc(args: readonly string[], fixtureDir?: string): TtscResul
     encoding: "utf8",
     env: {
       ...process.env,
-      TTSC_BINARY: TestGlobal.TTSC_BINARY,
+      ...(TestGlobal.TTSC_BINARY ? { TTSC_BINARY: TestGlobal.TTSC_BINARY } : {}),
     },
     windowsHide: true,
   });

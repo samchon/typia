@@ -1,4 +1,4 @@
-import { transform } from "@typia/ttsc";
+import { transform } from "ttsc";
 import fs from "fs";
 import path from "path";
 

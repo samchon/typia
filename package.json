@@ -4,18 +4,18 @@
   "version": "12.0.2",
   "description": "Typia Station",
   "scripts": {
-    "build": "pnpm run build:toolchain && pnpm run build:packages",
+    "build": "pnpm run build:packages",
     "build:native-consumers": "bash -c 'export PATH=\"$HOME/go-sdk/go/bin:$PATH\"; cd packages/transform/native && go build -o ../../../packages/typia/bin/ttsc-typia-native ./cmd/ttsc-typia'",
     "build:packages": "pnpm --filter=./packages/* -r build",
-    "build:toolchain": "pnpm --filter @typia/ttsc build && pnpm --filter @typia/ttsc go:build && pnpm --filter @typia/ttsx build",
+    "build:toolchain": "ttsc --version",
     "build:ttsc-runtime": "pnpm run build:toolchain",
     "format": "prettier --write packages/**/*.ts && prettier --write internals/**/*.ts && prettier --write tests/**/*.ts && prettier --write toolchain-tests/**/*.ts",
-    "pretest": "pnpm run guard:generated && pnpm run build:toolchain && pnpm run build:native-consumers",
+    "pretest": "pnpm run guard:generated && pnpm run build:native-consumers",
     "test": "pnpm run test:packages && pnpm run test:toolchain",
-    "test:ci": "pnpm run guard:generated && pnpm run build && pnpm run build:native-consumers && pnpm run test:packages && pnpm run test:toolchain",
+    "test:ci": "pnpm run guard:generated && pnpm run build:native-consumers && pnpm run build && pnpm run test:packages && pnpm run test:toolchain",
     "test:packages": "pnpm --filter=./tests/test-* -r --workspace-concurrency=1 start",
-    "test:toolchain": "pnpm --filter @typia/ttsc test && pnpm --filter=./toolchain-tests/* -r --workspace-concurrency=1 start",
-    "package:latest": "bash -c 'pnpm --filter=./toolchain/* -r publish --tag latest --access public \"$@\" && pnpm --filter=./packages/* -r publish --tag latest --access public \"$@\"' --",
+    "test:toolchain": "pnpm --filter=./toolchain-tests/* -r --workspace-concurrency=1 start",
+    "package:latest": "bash -c 'pnpm --filter=./packages/* -r publish --tag latest --access public \"$@\"' --",
     "package:next": "bash next.bash",
     "package:tgz": "node experiments/tarballs",
     "release": "bumpp -r",
@@ -71,6 +71,7 @@
     "@trivago/prettier-plugin-sort-imports": "^6.0.2",
     "bumpp": "^10.4.1",
     "prettier": "^3.8.1",
-    "prettier-plugin-jsdoc": "^1.8.0"
+    "prettier-plugin-jsdoc": "^1.8.0",
+    "ttsc": "^0.4.2"
   }
 }

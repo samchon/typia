@@ -21,7 +21,7 @@ export function runTtsx(args: readonly string[], fixtureDir?: string): TtsxResul
     encoding: "utf8",
     env: {
       ...process.env,
-      TTSC_BINARY: TestGlobal.TTSC_BINARY,
+      ...(TestGlobal.TTSC_BINARY ? { TTSC_BINARY: TestGlobal.TTSC_BINARY } : {}),
     },
     windowsHide: true,
   });

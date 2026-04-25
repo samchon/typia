@@ -16,8 +16,7 @@
   "devDependencies": {
     "@types/node": "catalog:utils",
     "@typescript/native-preview": "catalog:typescript",
-    "@typia/ttsc": "workspace:^",
-    "@typia/ttsx": "workspace:^"
+    "ttsc": "^0.4.2"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.26.0",

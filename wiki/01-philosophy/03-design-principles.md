@@ -18,7 +18,7 @@
 
 ## P4. host 와 consumer 분리
 
-`@typia/ttsc` 는 generic host 다. typia는 `typia/lib/transform` 으로 consumer native backend 를 선언한다.
+`ttsc` 는 generic host 다. typia는 `typia/lib/transform` 으로 consumer native backend 를 선언한다.
 
 ## P5. diagnostics 는 compile surface 로 올린다
 

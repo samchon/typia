@@ -17,7 +17,7 @@
 - ttsc의 사용자는 typia 사용자만이 아님 (ts-runtime-checks 등도 잠재 고객)
 - Go 빌드 인프라(flake.nix, Nix, cross-compile)가 typia 빌드와 성격 다름
 - typia 저장소에 Go 파일 수천 개가 들어가면 CI/PR 리뷰 부담
-- `@typia/ttsc` 대신 `@ttsc/ttsc` 같은 독립 namespace도 가능 (브랜딩 유연성)
+- `ttsc` 대신 `@ttsc/ttsc` 같은 독립 namespace도 가능 (브랜딩 유연성)
 
 **반대 논거**: 같은 저장소면 PR 동기화 쉬움. typia 의존성 바꾸기 편함.
 
@@ -37,7 +37,7 @@
 - "Transformer TypeScript"라는 커뮤니티 관례적 약칭
 - ttypescript 사용자에게 자연스러운 계승 느낌
 - `tsc` → `ttsc`로 한 글자만 변경 — 직관적
-- npm에 `ttsc`가 사용 중(다른 패키지)이라면 `@typia/ttsc` 또는 `@ttsc-tools/ttsc` scope
+- npm에 `ttsc`가 사용 중(다른 패키지)이라면 `ttsc` 또는 `@ttsc-tools/ttsc` scope
 
 **확인 필요**: `ttsc` npm 이름 available 여부, 상표/분쟁 없는지.
 
@@ -160,7 +160,7 @@
 
 **옵션**:
 - (A) `npx typia setup` — typia가 ttsc를 알아서 설치
-- (B) `npm i -D @typia/ttsc` — 명시적
+- (B) `npm i -D ttsc` — 명시적
 - (C) 둘 다 지원
 
 **추천**: **(C) 둘 다, (A)가 기본**

@@ -4,7 +4,7 @@
 
 ## 현재 사실
 
-- typia의 current transformer lane 은 `@typia/ttsc` + `typia/lib/transform` + Go native backend 다.
+- typia의 current transformer lane 은 `ttsc` + `typia/lib/transform` + Go native backend 다.
 - `@typia/core` / `@typia/transform` TypeScript package 는 현재 typia 코드베이스에 없다.
 - nestia가 legacy `@typia/core` 또는 TypeScript transformer 구현에 기대고 있다면 current typia lane 과 바로 맞지 않는다.
 
@@ -14,7 +14,7 @@ nestia가 붙어야 할 표면은 다음 둘이다.
 
 | 표면 | 용도 |
 | --- | --- |
-| `@typia/ttsc` CLI / JS API | build, check, transform orchestration |
+| `ttsc` CLI / JS API | build, check, transform orchestration |
 | shared native/core API | nestia decorator 분석과 schema generation. 아직 public API 로 고정되지 않았다. |
 
 ## 현재 판단

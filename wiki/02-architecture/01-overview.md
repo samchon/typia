@@ -9,7 +9,7 @@ tsconfig.json
   compilerOptions.plugins = [{ transform: "typia/lib/transform" }]
         |
         v
-@typia/ttsc
+ttsc
   load project
   load plugin
   run TypeScript-Go
@@ -30,7 +30,7 @@ packages/core/native
   emit JavaScript expression
         |
         v
-toolchain/ttsc/driver
+../ttsc/packages/ttsc/driver
   rewrite emitted JS
 ```
 
@@ -40,11 +40,11 @@ toolchain/ttsc/driver
 | --- | --- | --- |
 | public API | `packages/typia` | 사용자가 import 하는 runtime API |
 | plugin entry | `packages/typia/src/transform.ts` | native backend 선언 |
-| compiler host | `toolchain/ttsc` | build/check/transform, plugin load, rewrite orchestration |
-| runner | `toolchain/ttsx` | TypeScript 실행 |
+| compiler host | `../ttsc/packages/ttsc` | build/check/transform, plugin load, rewrite orchestration |
+| runner | `ttsc package runner` | TypeScript 실행 |
 | call-site adapter | `packages/transform/native` | typia 호출 수집 |
 | analyzer/emitter | `packages/core/native` | type -> metadata -> JS expression |
-| bundler adapter | `packages/unplugin` | `@typia/ttsc.transform()` 호출 |
+| bundler adapter | `packages/unplugin` | `ttsc.transform()` 호출 |
 
 ## 제거된 표면
 

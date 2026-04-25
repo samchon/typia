@@ -54,7 +54,7 @@
 
 확인할 것:
 
-- `@typia/ttsc` native binary 포함
-- `@typia/ttsx` launcher 포함
+- `ttsc` native binary 포함
+- `ttsc` launcher 포함
 - publish 순서: toolchain 후 consumer packages
 - npm tarball dry-run

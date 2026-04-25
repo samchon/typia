@@ -4,18 +4,13 @@ import * as path from "path";
 import { TestGlobal } from "../TestGlobal";
 
 /**
- * The `@typia/ttsc` package also exposes a TypeScript API (`transform`,
+ * The `ttsc` package exposes a TypeScript API (`transform`,
  * `build`, `check`, `version`) for bundler adapters that prefer to stay in
  * JS rather than shell out directly. This test drives each entry-point with
- * the repo-local Go binary (via `TTSC_BINARY` env) to confirm the JS wrapper
- * round-trips correctly.
+ * the installed native binary to confirm the JS wrapper round-trips correctly.
  */
 export async function test_js_api(): Promise<void> {
-  // Load the compiled library directly so we exercise the published surface,
-  // not the `src/` TypeScript.
-  const api = require(
-    path.join(TestGlobal.ROOT, "..", "..", "toolchain", "ttsc", "lib", "api.js"),
-  ) as {
+  const api = require("ttsc") as {
     version(options: { binary: string }): string;
     transform(options: {
       cwd: string;
@@ -38,15 +33,8 @@ export async function test_js_api(): Promise<void> {
     };
   };
 
-  const binary = path.join(
-    TestGlobal.ROOT,
-    "..",
-    "..",
-    "toolchain",
-    "ttsc",
-    "native",
-    process.platform === "win32" ? "ttsc-native.exe" : "ttsc-native",
-  );
+  assert.ok(TestGlobal.TTSC_BINARY, "ttsc native binary must be resolvable");
+  const binary = TestGlobal.TTSC_BINARY;
   const fixture = path.join(TestGlobal.ROOT, "fixtures", "primitives");
 
   // version(): banner starts with "ttsc ".

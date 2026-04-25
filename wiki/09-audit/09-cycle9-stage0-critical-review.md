@@ -101,7 +101,7 @@
 
 #### D19. "ttsc" 이름 상표/가용성 미확인
 - GitHub: `ttsc` 조직 존재 여부
-- npm: `@typia/ttsc` 네임스페이스 OK (samchon 보유) — `ttsc` 단독 패키지 가용성 확인 필요
+- npm: `ttsc` 네임스페이스 OK (samchon 보유) — `ttsc` 단독 패키지 가용성 확인 필요
 - Microsoft의 "tsc"와 명칭 혼동 / 상표 리스크
 - 대안: `tgo`, `typigo`, `tso`, `typia-build`
 - **개정**: Stage 0 Week 0 (사전 준비)에 이름 가용성·상표 체크 추가

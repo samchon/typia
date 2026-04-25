@@ -22,10 +22,10 @@
   },
   "homepage": "https://typia.io",
   "devDependencies": {
-    "@typia/ttsc": "workspace:^",
     "@types/node": "catalog:utils",
     "@types/uuid": "catalog:utils",
-    "rimraf": "catalog:utils"
+    "rimraf": "catalog:utils",
+    "ttsc": "^0.4.2"
   },
   "dependencies": {
     "@typia/utils": "workspace:^",

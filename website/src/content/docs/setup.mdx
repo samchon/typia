@@ -113,33 +113,33 @@ Setup wizard would be executed, and it will do everything for the transformation
   <Tabs.Tab>
 ```bash filename="Terminal" copy showLineNumbers
 npm install --save typia
-npm install --save-dev @typescript/native-preview @typia/ttsc
+npm install --save-dev @typescript/native-preview ttsc
 ```
   </Tabs.Tab>
   <Tabs.Tab>
 ```bash filename="Terminal" copy showLineNumbers
 pnpm install --save typia
-pnpm install --save-dev @typescript/native-preview @typia/ttsc
+pnpm install --save-dev @typescript/native-preview ttsc
 ```
   </Tabs.Tab>
   <Tabs.Tab>
 ```bash filename="Terminal" copy showLineNumbers
 # YARN BERRY IS NOT SUPPORTED
 yarn add typia
-yarn add -D @typescript/native-preview @typia/ttsc
+yarn add -D @typescript/native-preview ttsc
 ```
   </Tabs.Tab>
   <Tabs.Tab>
 ```bash filename="Terminal" copy showLineNumbers
 bun add typia
-bun add -d @typescript/native-preview @typia/ttsc
+bun add -d @typescript/native-preview ttsc
 ```
   </Tabs.Tab>
 </Tabs>
 
 If you want to install `typia` manually, just follow the steps.
 
-Firstly install `typia` as a dependency. And then, install `@typescript/native-preview` and `@typia/ttsc` as `devDependencies`.
+Firstly install `typia` as a dependency. And then, install `@typescript/native-preview` and `ttsc` as `devDependencies`.
 
 ```json filename="tsconfig.json" copy showLineNumbers
 {
@@ -164,7 +164,7 @@ As `typia` generates optimal operation code through transformation, it must be c
     "typia": "^6.0.6"
   },
   "devDependencies": {
-    "@typia/ttsc": "^12.0.2",
+    "ttsc": "^0.4.2",
     "@typescript/native-preview": "^7.0.0-dev"
   }
 }
@@ -478,7 +478,7 @@ bun typia setup --manager bun
     </Tabs.Tab>
 </Tabs>
 
-After installing `typia` like above, and ensuring `@typescript/native-preview` and `@typia/ttsc` are available, modify the `tsconfig.lib.json` on each `@nx/js` package to be similar to the below.
+After installing `typia` like above, and ensuring `@typescript/native-preview` and `ttsc` are available, modify the `tsconfig.lib.json` on each `@nx/js` package to be similar to the below.
 
 ```json filename="tsconfig.lib.json" showLineNumbers copy
 {
