@@ -100,8 +100,7 @@ func UnsupportedReason(
 	}
 	switch module {
 	case "json":
-		switch method {
-		case "stringify", "assertStringify", "createStringify", "schema", "schemas":
+		if isJsonRuntimeContractMethod(method) {
 			if strings.Contains(typeText, "bigint") {
 				return "json does not support bigint"
 			}
@@ -205,6 +204,19 @@ func UnsupportedReason(
 	return ""
 }
 
+func isJsonRuntimeContractMethod(method string) bool {
+	switch method {
+	case "application", "schema", "schemas",
+		"stringify", "assertStringify", "isStringify", "validateStringify",
+		"createStringify", "createAssertStringify", "createIsStringify", "createValidateStringify",
+		"parse", "assertParse", "isParse", "validateParse",
+		"createAssertParse", "createIsParse", "createValidateParse":
+		return true
+	default:
+		return false
+	}
+}
+
 func UnsupportedSchemaReason(
 	module string,
 	method string,
@@ -218,6 +230,11 @@ func UnsupportedSchemaReason(
 	facts := inspectSchema(schema)
 	switch module {
 	case "llm":
+		if isLlmParametersMethod(method) {
+			if reason := llmParametersUnsupportedReason(schema); reason != "" {
+				return reason
+			}
+		}
 		if facts.bigint {
 			return "LLM schema does not support bigint type"
 		}
@@ -339,6 +356,53 @@ func UnsupportedSchemaReason(
 		}
 		if facts.sequenceDuplicate {
 			return "protobuf sequence tag is duplicated"
+		}
+	}
+	return ""
+}
+
+func isLlmParametersMethod(method string) bool {
+	switch method {
+	case "parameters", "parse", "createParse", "coerce", "createCoerce", "structuredOutput":
+		return true
+	default:
+		return false
+	}
+}
+
+func llmParametersUnsupportedReason(schema *metadata.Schema) string {
+	if schema == nil {
+		return "LLM parameters must be an object type."
+	}
+	target := schema
+	for len(target.Aliases) == 1 && target.Size() == 1 && target.Aliases[0] != nil && target.Aliases[0].Type != nil {
+		target = target.Aliases[0].Type.Value
+		if target == nil {
+			return "LLM parameters must be an object type."
+		}
+	}
+	if len(target.Objects) == 0 {
+		return "LLM parameters must be an object type."
+	}
+	if len(target.Objects) != 1 || target.Size() != 1 {
+		return "LLM parameters must be a single object type."
+	}
+	if target.Nullable {
+		return "LLM parameters must be a non-nullable object type."
+	}
+	if !target.IsRequired() {
+		return "LLM parameters must be a non-undefined object type."
+	}
+	obj := target.Objects[0]
+	if obj == nil || obj.Type == nil {
+		return "LLM parameters must be an object type."
+	}
+	if len(obj.Type.DynamicProperties) != 0 || obj.Type.AdditionalProperties != nil {
+		return "LLM parameters must not have dynamic keys."
+	}
+	for _, prop := range obj.Type.Properties {
+		if prop == nil || prop.Key == nil || !prop.Key.IsSoleLiteral() {
+			return "LLM parameters must not have dynamic keys."
 		}
 	}
 	return ""

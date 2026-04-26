@@ -4,13 +4,15 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
+	"io"
 	"os"
 	"path/filepath"
 
 	shimcompiler "github.com/microsoft/typescript-go/shim/compiler"
+	shimscanner "github.com/microsoft/typescript-go/shim/scanner"
 
-	typiattsc "github.com/samchon/typia/packages/transform/native/ttsc"
 	"github.com/samchon/ttsc/packages/ttsc/driver"
+	typiattsc "github.com/samchon/typia/packages/transform/native/ttsc"
 )
 
 func runBuild(args []string) int {
@@ -72,12 +74,17 @@ func runBuild(args []string) int {
 	rewrites := driver.NewRewriteSet()
 	sites := 0
 	recognized := 0
+	transformDiags := []typiaTransformDiagnostic{}
 	shouldEmit := !prog.ParsedConfig.ParsedConfig.CompilerOptions.NoEmit.IsTrue()
 	if *rewriteMode == "typia" {
 		var err error
-		sites, recognized, err = collectTypiaRewrites(prog, cwd, shouldEmit, *quiet, "", rewrites)
+		sites, recognized, transformDiags, err = collectTypiaRewrites(prog, cwd, shouldEmit, *quiet, "", rewrites)
 		if err != nil {
 			fmt.Fprintf(stderr, "ttsc-typia build: %v\n", err)
+			return 3
+		}
+		if !shouldEmit && len(transformDiags) > 0 {
+			writeTypiaTransformDiagnostics(stderr, transformDiags, cwd)
 			return 3
 		}
 	}
@@ -125,10 +132,57 @@ func runBuild(args []string) int {
 			}
 		}
 	}
+	if len(transformDiags) > 0 {
+		writeTypiaTransformDiagnostics(stderr, transformDiags, cwd)
+		return 3
+	}
 	if !*quiet {
 		fmt.Fprintf(stdout, "// ttsc-typia build: recognized=%d total=%d rewrites=%d\n", recognized, sites, rewrites.Len())
 	}
 	return 0
+}
+
+type typiaTransformDiagnostic struct {
+	File    string
+	Line    int
+	Column  int
+	Code    string
+	Message string
+}
+
+func (d typiaTransformDiagnostic) String(cwd string) string {
+	file := d.File
+	if rel, err := filepath.Rel(cwd, file); err == nil {
+		file = rel
+	}
+	if d.Line > 0 {
+		return fmt.Sprintf("%s:%d:%d - error TS(%s): %s", file, d.Line, d.Column, d.Code, d.Message)
+	}
+	return fmt.Sprintf("%s - error TS(%s): %s", file, d.Code, d.Message)
+}
+
+func writeTypiaTransformDiagnostics(out io.Writer, diagnostics []typiaTransformDiagnostic, cwd string) {
+	for _, diag := range diagnostics {
+		fmt.Fprintln(out, diag.String(cwd))
+	}
+}
+
+func newTypiaTransformDiagnostic(site typiattsc.CallSite, message string) typiaTransformDiagnostic {
+	line, column := 0, 0
+	if site.File != nil && site.Call != nil {
+		pos := site.Call.AsNode().Pos()
+		if pos >= 0 {
+			l, c := shimscanner.GetECMALineAndByteOffsetOfPosition(site.File, pos)
+			line, column = l+1, c+1
+		}
+	}
+	return typiaTransformDiagnostic{
+		File:    site.FilePath,
+		Line:    line,
+		Column:  column,
+		Code:    "typia." + site.Module + "." + site.Method,
+		Message: message,
+	}
 }
 
 func collectTypiaRewrites(
@@ -138,9 +192,10 @@ func collectTypiaRewrites(
 	quiet bool,
 	onlyFile string,
 	rewrites *driver.RewriteSet,
-) (int, int, error) {
+) (int, int, []typiaTransformDiagnostic, error) {
 	sites := typiattsc.CollectCallSites(prog.SourceFiles(), prog.Checker)
 	recognized := 0
+	diagnostics := []typiaTransformDiagnostic{}
 	for _, site := range sites {
 		if onlyFile != "" && filepath.ToSlash(site.FilePath) != filepath.ToSlash(onlyFile) {
 			continue
@@ -150,15 +205,11 @@ func collectTypiaRewrites(
 			rel = abs
 		}
 		if site.TypeArgument == nil {
-			if !quiet {
-				fmt.Fprintf(stdout, "%s: typia.%s.%s — no explicit type argument (skip)\n", rel, site.Module, site.Method)
-			}
+			diagnostics = append(diagnostics, newTypiaTransformDiagnostic(site, "no explicit type argument"))
 			continue
 		}
 		if reason := typiattsc.UnsupportedReason(prog.Checker, site.TypeArgument, site.TypeNode, site.ConfigTypeNode, site.Module, site.Method); reason != "" {
-			if !quiet {
-				fmt.Fprintf(stdout, "%s: typia.%s.%s<T> — %s\n", rel, site.Module, site.Method, reason)
-			}
+			diagnostics = append(diagnostics, newTypiaTransformDiagnostic(site, reason))
 			continue
 		}
 		schema, ok := typiattsc.AnalyzeTypeWithOptions(
@@ -169,15 +220,11 @@ func collectTypiaRewrites(
 			typiattsc.AnalysisOptions(site.Module, site.Method),
 		)
 		if !ok {
-			if !quiet {
-				fmt.Fprintf(stdout, "%s: typia.%s.%s<T> — type not yet supported\n", rel, site.Module, site.Method)
-			}
+			diagnostics = append(diagnostics, newTypiaTransformDiagnostic(site, "type not yet supported"))
 			continue
 		}
 		if reason := typiattsc.UnsupportedSchemaReason(site.Module, site.Method, schema, site.ConfigTypeNode, site.TypeNode); reason != "" {
-			if !quiet {
-				fmt.Fprintf(stdout, "%s: typia.%s.%s<T> — %s\n", rel, site.Module, site.Method, reason)
-			}
+			diagnostics = append(diagnostics, newTypiaTransformDiagnostic(site, reason))
 			continue
 		}
 		expr, factory, err, handled := typiattsc.EmitCall(site.Module, site.Method, schema, site.TypeNode, site.ConfigTypeNode)
@@ -188,9 +235,7 @@ func collectTypiaRewrites(
 			continue
 		}
 		if err != nil {
-			if !quiet {
-				fmt.Fprintf(stdout, "%s: typia.%s<T> — emitter error: %v\n", rel, site.Method, err)
-			}
+			diagnostics = append(diagnostics, newTypiaTransformDiagnostic(site, err.Error()))
 			continue
 		}
 		rewrites.Add(driver.Rewrite{
@@ -206,5 +251,5 @@ func collectTypiaRewrites(
 		}
 		recognized++
 	}
-	return len(sites), recognized, nil
+	return len(sites), recognized, diagnostics, nil
 }

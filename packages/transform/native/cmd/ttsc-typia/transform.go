@@ -10,8 +10,8 @@ import (
 
 	shimcompiler "github.com/microsoft/typescript-go/shim/compiler"
 
-	typiattsc "github.com/samchon/typia/packages/transform/native/ttsc"
 	"github.com/samchon/ttsc/packages/ttsc/driver"
+	typiattsc "github.com/samchon/typia/packages/transform/native/ttsc"
 )
 
 func runTransform(args []string) int {
@@ -69,8 +69,11 @@ func runTransform(args []string) int {
 
 	rewrites := driver.NewRewriteSet()
 	if *rewriteMode == "typia" {
-		if _, _, err := collectTypiaRewrites(prog, cwd, true, true, absFile, rewrites); err != nil {
+		if _, _, diagnostics, err := collectTypiaRewrites(prog, cwd, true, true, absFile, rewrites); err != nil {
 			fmt.Fprintf(stderr, "ttsc-typia transform: %v\n", err)
+			return 3
+		} else if len(diagnostics) > 0 {
+			writeTypiaTransformDiagnostics(stderr, diagnostics, cwd)
 			return 3
 		}
 	}

@@ -29,10 +29,12 @@ const validate = (directory) => {
 
 const main = () => {
   // BUILD THE ERRORS PROJECT
-  cp.execSync("pnpm run build", {
-    cwd: __dirname,
-    stdio: "inherit",
-  });
+  try {
+    cp.execSync("pnpm run build", {
+      cwd: __dirname,
+      stdio: "ignore",
+    });
+  } catch {}
 
   // DO VALIDATE
   const results = fs
