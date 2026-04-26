@@ -229,9 +229,7 @@ func collectTypiaRewrites(
 		}
 		expr, factory, err, handled := typiattsc.EmitCall(site.Module, site.Method, schema, site.TypeNode, site.ConfigTypeNode)
 		if !handled {
-			if !quiet {
-				fmt.Fprintf(stdout, "%s: typia.%s.%s<T> — method not covered\n", rel, site.Module, site.Method)
-			}
+			diagnostics = append(diagnostics, newTypiaTransformDiagnostic(site, "method not covered"))
 			continue
 		}
 		if err != nil {

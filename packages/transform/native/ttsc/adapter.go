@@ -592,6 +592,15 @@ func EmitCall(
 	case module == "json" && (method == "parse" || method == "assertParse" || method == "isParse" || method == "validateParse"):
 		expr, err := emitter.EmitJsonParseArrowFunction(schema, method)
 		return expr, false, err, true
+	case module == "json" && method == "createAssertParse":
+		expr, err := emitter.EmitJsonParseArrowFunction(schema, "assertParse")
+		return expr, true, err, true
+	case module == "json" && method == "createIsParse":
+		expr, err := emitter.EmitJsonParseArrowFunction(schema, "isParse")
+		return expr, true, err, true
+	case module == "json" && method == "createValidateParse":
+		expr, err := emitter.EmitJsonParseArrowFunction(schema, "validateParse")
+		return expr, true, err, true
 	case module == "json" && method == "createStringify":
 		expr, err := emitter.EmitJsonStringifyArrowFunction(schema)
 		return expr, true, err, true
@@ -745,9 +754,35 @@ func EmitCall(
 			return "", true, err, true
 		}
 		return fmt.Sprintf(`(input) => (%s)((%s)(input))`, validateExpr, pruneExpr), true, nil, true
-	case module == "notations" && (method == "camel" || method == "pascal" || method == "snake"):
-		expr, err := emitter.EmitNotationArrowFunction(schema, method)
-		return expr, false, err, true
+	case module == "notations":
+		if kind, mode, create, ok := notationMethod(method); ok {
+			notationExpr, err := emitter.EmitNotationArrowFunction(schema, kind)
+			if err != nil {
+				return "", create, err, true
+			}
+			switch mode {
+			case "plain":
+				return notationExpr, create, nil, true
+			case "assert":
+				assertExpr, err := emitter.EmitAssertArrowFunction(schema)
+				if err != nil {
+					return "", create, err, true
+				}
+				return fmt.Sprintf(`(input) => (%s)((%s)(input))`, notationExpr, assertExpr), create, nil, true
+			case "is":
+				isExpr, err := emitter.EmitIsArrowFunction(schema)
+				if err != nil {
+					return "", create, err, true
+				}
+				return fmt.Sprintf(`(input) => ((%s)(input)) ? (%s)(input) : null`, isExpr, notationExpr), create, nil, true
+			case "validate":
+				validateExpr, err := emitter.EmitValidateArrowFunction(schema)
+				if err != nil {
+					return "", create, err, true
+				}
+				return fmt.Sprintf(`(input) => { const __result = (%s)(input); if (__result.success) __result.data = (%s)(input); return __result; }`, validateExpr, notationExpr), create, nil, true
+			}
+		}
 	case module == "reflect" && method == "schema":
 		expr, err := emitter.EmitReflectSchemaExpression(schema)
 		return expr, true, err, true
@@ -806,6 +841,16 @@ func EmitCall(
 			return "", false, err, true
 		}
 		return fmt.Sprintf(`(input) => (%s)((%s)(input))`, encodeExpr, assertExpr), false, nil, true
+	case module == "protobuf" && method == "createAssertEncode":
+		encodeExpr, err := emitter.EmitProtobufEncodeArrowFunction(schema)
+		if err != nil {
+			return "", true, err, true
+		}
+		assertExpr, err := emitter.EmitAssertArrowFunction(schema)
+		if err != nil {
+			return "", true, err, true
+		}
+		return fmt.Sprintf(`(input) => (%s)((%s)(input))`, encodeExpr, assertExpr), true, nil, true
 	case module == "protobuf" && method == "isEncode":
 		encodeExpr, err := emitter.EmitProtobufEncodeArrowFunction(schema)
 		if err != nil {
@@ -816,6 +861,16 @@ func EmitCall(
 			return "", false, err, true
 		}
 		return fmt.Sprintf(`(input) => ((%s)(input)) ? (%s)(input) : null`, isExpr, encodeExpr), false, nil, true
+	case module == "protobuf" && method == "createIsEncode":
+		encodeExpr, err := emitter.EmitProtobufEncodeArrowFunction(schema)
+		if err != nil {
+			return "", true, err, true
+		}
+		isExpr, err := emitter.EmitIsArrowFunction(schema)
+		if err != nil {
+			return "", true, err, true
+		}
+		return fmt.Sprintf(`(input) => ((%s)(input)) ? (%s)(input) : null`, isExpr, encodeExpr), true, nil, true
 	case module == "protobuf" && method == "validateEncode":
 		encodeExpr, err := emitter.EmitProtobufEncodeArrowFunction(schema)
 		if err != nil {
@@ -826,6 +881,16 @@ func EmitCall(
 			return "", false, err, true
 		}
 		return fmt.Sprintf(`(input) => { const __result = (%s)(input); return __result.success ? { success: true, data: (%s)(input) } : __result; }`, validateExpr, encodeExpr), false, nil, true
+	case module == "protobuf" && method == "createValidateEncode":
+		encodeExpr, err := emitter.EmitProtobufEncodeArrowFunction(schema)
+		if err != nil {
+			return "", true, err, true
+		}
+		validateExpr, err := emitter.EmitValidateArrowFunction(schema)
+		if err != nil {
+			return "", true, err, true
+		}
+		return fmt.Sprintf(`(input) => { const __result = (%s)(input); return __result.success ? { success: true, data: (%s)(input) } : __result; }`, validateExpr, encodeExpr), true, nil, true
 	case module == "protobuf" && method == "assertDecode":
 		decodeExpr, err := emitter.EmitProtobufDecodeArrowFunction(schema)
 		if err != nil {
@@ -836,6 +901,16 @@ func EmitCall(
 			return "", false, err, true
 		}
 		return fmt.Sprintf(`(input) => (%s)((%s)(input))`, assertExpr, decodeExpr), false, nil, true
+	case module == "protobuf" && method == "createAssertDecode":
+		decodeExpr, err := emitter.EmitProtobufDecodeArrowFunction(schema)
+		if err != nil {
+			return "", true, err, true
+		}
+		assertExpr, err := emitter.EmitAssertArrowFunction(schema)
+		if err != nil {
+			return "", true, err, true
+		}
+		return fmt.Sprintf(`(input) => (%s)((%s)(input))`, assertExpr, decodeExpr), true, nil, true
 	case module == "protobuf" && method == "isDecode":
 		decodeExpr, err := emitter.EmitProtobufDecodeArrowFunction(schema)
 		if err != nil {
@@ -846,6 +921,16 @@ func EmitCall(
 			return "", false, err, true
 		}
 		return fmt.Sprintf(`(input) => { const __decoded = (%s)(input); return ((%s)(__decoded)) ? __decoded : null; }`, decodeExpr, isExpr), false, nil, true
+	case module == "protobuf" && method == "createIsDecode":
+		decodeExpr, err := emitter.EmitProtobufDecodeArrowFunction(schema)
+		if err != nil {
+			return "", true, err, true
+		}
+		isExpr, err := emitter.EmitIsArrowFunction(schema)
+		if err != nil {
+			return "", true, err, true
+		}
+		return fmt.Sprintf(`(input) => { const __decoded = (%s)(input); return ((%s)(__decoded)) ? __decoded : null; }`, decodeExpr, isExpr), true, nil, true
 	case module == "protobuf" && method == "validateDecode":
 		decodeExpr, err := emitter.EmitProtobufDecodeArrowFunction(schema)
 		if err != nil {
@@ -856,6 +941,16 @@ func EmitCall(
 			return "", false, err, true
 		}
 		return fmt.Sprintf(`(input) => (%s)((%s)(input))`, validateExpr, decodeExpr), false, nil, true
+	case module == "protobuf" && method == "createValidateDecode":
+		decodeExpr, err := emitter.EmitProtobufDecodeArrowFunction(schema)
+		if err != nil {
+			return "", true, err, true
+		}
+		validateExpr, err := emitter.EmitValidateArrowFunction(schema)
+		if err != nil {
+			return "", true, err, true
+		}
+		return fmt.Sprintf(`(input) => (%s)((%s)(input))`, validateExpr, decodeExpr), true, nil, true
 	case module == "llm" && method == "application":
 		expr, err := emitter.EmitLlmApplicationArrowFunctionWithConfig(schema, llmStrictEnabled(configTypeNode))
 		return expr, false, err, true
@@ -2107,4 +2202,35 @@ func protobufBigintTypeRow(tags []metadata.TypeTag) string {
 		}
 	}
 	return "int64"
+}
+
+func notationMethod(method string) (kind string, mode string, create bool, ok bool) {
+	switch method {
+	case "camel", "createCamel":
+		return "camel", "plain", method == "createCamel", true
+	case "assertCamel", "createAssertCamel":
+		return "camel", "assert", method == "createAssertCamel", true
+	case "isCamel", "createIsCamel":
+		return "camel", "is", method == "createIsCamel", true
+	case "validateCamel", "createValidateCamel":
+		return "camel", "validate", method == "createValidateCamel", true
+	case "pascal", "createPascal":
+		return "pascal", "plain", method == "createPascal", true
+	case "assertPascal", "createAssertPascal":
+		return "pascal", "assert", method == "createAssertPascal", true
+	case "isPascal", "createIsPascal":
+		return "pascal", "is", method == "createIsPascal", true
+	case "validatePascal", "createValidatePascal":
+		return "pascal", "validate", method == "createValidatePascal", true
+	case "snake", "createSnake":
+		return "snake", "plain", method == "createSnake", true
+	case "assertSnake", "createAssertSnake":
+		return "snake", "assert", method == "createAssertSnake", true
+	case "isSnake", "createIsSnake":
+		return "snake", "is", method == "createIsSnake", true
+	case "validateSnake", "createValidateSnake":
+		return "snake", "validate", method == "createValidateSnake", true
+	default:
+		return "", "", false, false
+	}
 }
