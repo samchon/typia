@@ -25,7 +25,7 @@
     "@types/node": "catalog:utils",
     "@types/uuid": "catalog:utils",
     "rimraf": "catalog:utils",
-    "ttsc": "^0.4.2"
+    "ttsc": "catalog:typescript"
   },
   "dependencies": {
     "@typia/utils": "workspace:^",

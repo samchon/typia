@@ -72,6 +72,6 @@
     "bumpp": "^10.4.1",
     "prettier": "^3.8.1",
     "prettier-plugin-jsdoc": "^1.8.0",
-    "ttsc": "^0.4.2"
+    "ttsc": "catalog:typescript"
   }
 }

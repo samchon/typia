@@ -27,7 +27,7 @@
     "@types/uuid": "catalog:utils",
     "@typescript/native-preview": "catalog:typescript",
     "rimraf": "catalog:utils",
-    "ttsc": "^0.4.2"
+    "ttsc": "catalog:typescript"
   },
   "dependencies": {
     "@nestia/e2e": "catalog:utils",

@@ -32,7 +32,7 @@
     "@types/node": "catalog:utils",
     "@typescript/native-preview": "catalog:typescript",
     "chalk": "4.1.2",
-    "ttsc": "^0.4.2"
+    "ttsc": "catalog:typescript"
   },
   "dependencies": {
     "typia": "workspace:^"

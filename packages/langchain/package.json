@@ -39,7 +39,7 @@
     "rollup-plugin-auto-external": "catalog:rollup",
     "rollup-plugin-node-externals": "catalog:rollup",
     "tinyglobby": "^0.2.12",
-    "ttsc": "^0.4.2"
+    "ttsc": "catalog:typescript"
   },
   "sideEffects": false,
   "files": [

@@ -41,7 +41,7 @@
     "rollup-plugin-node-externals": "catalog:rollup",
     "tinyglobby": "^0.2.12",
     "zod": "^3.25.0",
-    "ttsc": "^0.4.2"
+    "ttsc": "catalog:typescript"
   },
   "sideEffects": false,
   "files": [
