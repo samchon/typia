@@ -37,7 +37,7 @@
     "inquirer": "^8.2.5",
     "package-manager-detector": "^0.2.0",
     "randexp": "^0.5.3",
-    "ttsc": "^0.4.2"
+    "ttsc": "catalog:typescript"
   },
   "peerDependencies": {
     "@typescript/native-preview": ">=7.0.0-dev.20260420.1"

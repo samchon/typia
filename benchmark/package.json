@@ -61,7 +61,7 @@
     "tstl": "^3.0.0",
     "uuid": "catalog:utils",
     "zod": "^3.19.1",
-    "ttsc": "^0.4.2"
+    "ttsc": "catalog:typescript"
   },
   "dependencies": {
     "@typia/interface": "workspace:^",

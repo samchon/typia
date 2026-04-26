@@ -18,7 +18,7 @@
     "@typia/unplugin": "../tarballs/unplugin.tgz",
     "@typia/utils": "../tarballs/utils.tgz",
     "typia": "../tarballs/typia.tgz",
-    "ttsc": "^0.4.2"
+    "ttsc": "catalog:typescript"
   },
   "devDependencies": {
     "@typescript/native-preview": "7.0.0-dev.20260421.2",
