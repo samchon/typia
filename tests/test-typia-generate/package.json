@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@typia/test-typia-generate",
-  "version": "13.0.0-dev.20260426",
+  "version": "13.0.0-dev.20260427",
   "description": "Test typia generation command",
   "scripts": {
     "build": "rimraf bin && ttsc build --emit --rewrite-mode none --tsconfig tsconfig.json",

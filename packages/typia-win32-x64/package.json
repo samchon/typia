@@ -1,6 +1,6 @@
 {
   "name": "@typia/win32-x64",
-  "version": "13.0.0-dev.20260426",
+  "version": "13.0.0-dev.20260427",
   "description": "Windows x64 native transform binary for typia.",
   "os": ["win32"],
   "cpu": ["x64"],
