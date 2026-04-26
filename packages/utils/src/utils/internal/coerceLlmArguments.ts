@@ -301,32 +301,14 @@ function findMatchingObjectInAnyOf(
     if (!LlmTypeChecker.isObject(resolved)) continue;
     const propSchema: ILlmSchema | undefined = resolved.properties?.[key];
     if (propSchema === undefined) continue;
-    const literals: string[] = discriminatorLiterals(propSchema, $defs);
+    const resolvedProp: ILlmSchema = resolveSchema(propSchema, $defs);
     if (
-      typeof discriminatorValue === "string" &&
-      literals.includes(discriminatorValue)
+      LlmTypeChecker.isString(resolvedProp) &&
+      resolvedProp.enum?.includes(discriminatorValue as string)
     ) {
       return s;
     }
   }
 
   return undefined;
-}
-
-function discriminatorLiterals(
-  schema: ILlmSchema,
-  $defs: Record<string, ILlmSchema> | undefined,
-): string[] {
-  const resolved: ILlmSchema = resolveSchema(schema, $defs);
-  if (LlmTypeChecker.isString(resolved)) return resolved.enum ?? [];
-  if (
-    "const" in resolved &&
-    typeof (resolved as { const?: unknown }).const === "string"
-  ) {
-    return [(resolved as { const: string }).const];
-  }
-  if (LlmTypeChecker.isAnyOf(resolved)) {
-    return resolved.anyOf.flatMap((child) => discriminatorLiterals(child, $defs));
-  }
-  return [];
 }

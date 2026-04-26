@@ -66,7 +66,7 @@ func AnalysisOptions(module string, method string) analyzer.Options {
 	switch module {
 	case "json":
 		switch method {
-		case "schema", "schemas":
+		case "application", "schema", "schemas":
 			options.Functional = true
 		}
 	case "reflect":
@@ -618,6 +618,9 @@ func EmitCall(
 		return expr, true, err, true
 	case module == "json" && method == "schemas":
 		expr, err := emitter.EmitJsonSchemasExpression(schema)
+		return expr, true, err, true
+	case module == "json" && method == "application":
+		expr, err := emitter.EmitJsonApplicationExpression(schema)
 		return expr, true, err, true
 	case module == "misc" && method == "literals":
 		expr, err := emitter.EmitMiscLiteralsExpression(schema)

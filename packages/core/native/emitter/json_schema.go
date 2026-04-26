@@ -66,6 +66,44 @@ func EmitJsonSchemasExpression(schema *metadata.Schema) (string, error) {
 	return "(" + string(raw) + ")", nil
 }
 
+// EmitJsonApplicationExpression returns the JSON function-schema application
+// produced by typia.json.application<T>(). The validation and shape mirror the
+// legacy JsonApplicationProgrammer: a static class/interface root whose public
+// callable properties become function entries.
+func EmitJsonApplicationExpression(schema *metadata.Schema) (string, error) {
+	if schema == nil {
+		return "", errors.New("emitter: nil schema")
+	}
+	obj, err := jsonApplicationRootObject(schema)
+	if err != nil {
+		return "", err
+	}
+	encoder := newJSONSchemaEncoder(false)
+	functions := make([]any, 0, len(obj.Properties))
+	for _, prop := range obj.Properties {
+		entry, ok, err := encoder.jsonApplicationFunction(prop)
+		if err != nil {
+			return "", err
+		}
+		if ok {
+			functions = append(functions, entry)
+		}
+	}
+	if len(functions) == 0 {
+		return "", errors.New("JSON application's target type must have at least a function type.")
+	}
+	wrapper := map[string]any{
+		"version":    "3.1",
+		"components": map[string]any{"schemas": encoder.components},
+		"functions":  functions,
+	}
+	raw, err := json.Marshal(wrapper)
+	if err != nil {
+		return "", fmt.Errorf("json application: marshal wrapper: %w", err)
+	}
+	return "(" + string(raw) + ")", nil
+}
+
 // EmitRandomSchemaExpression returns the JSON-schema wrapper consumed by the
 // native random emitter. This path keeps bigint intent through a custom
 // extension field so runtime generation can still produce bigint values.
@@ -98,6 +136,60 @@ func EmitJsonSchemaArrowFunction(schema *metadata.Schema) (string, error) {
 		return "", err
 	}
 	return "() => " + expr, nil
+}
+
+func jsonApplicationRootObject(schema *metadata.Schema) (*metadata.ObjectType, error) {
+	if schema.Size() != 1 ||
+		len(schema.Objects) != 1 ||
+		schema.Objects[0] == nil ||
+		schema.Objects[0].Type == nil ||
+		!schema.IsRequired() ||
+		schema.Nullable {
+		return nil, errors.New("JSON application's generic argument must be a class/interface type.")
+	}
+	obj := schema.Objects[0].Type
+	for _, prop := range obj.Properties {
+		if prop == nil || prop.Key == nil {
+			continue
+		}
+		if !prop.Key.IsSoleLiteral() {
+			return nil, errors.New("JSON application does not allow dynamic keys.")
+		}
+		if prop.Value == nil {
+			continue
+		}
+		value := jsonApplicationUnalias(prop.Value)
+		if len(value.Functions) == 0 {
+			continue
+		}
+		if len(value.Functions) != 1 || value.Size() != 1 {
+			return nil, errors.New("JSON application's function type does not allow union type.")
+		}
+		if !prop.Value.IsRequired() {
+			return nil, errors.New("JSON application's function type must be required.")
+		}
+		if prop.Value.Nullable {
+			return nil, errors.New("JSON application's function type must not be nullable.")
+		}
+	}
+	return obj, nil
+}
+
+func jsonApplicationUnalias(schema *metadata.Schema) *metadata.Schema {
+	current := schema
+	seen := map[*metadata.Schema]struct{}{}
+	for current != nil && len(current.Aliases) == 1 && current.Size() == 1 {
+		if _, ok := seen[current]; ok {
+			break
+		}
+		seen[current] = struct{}{}
+		ref := current.Aliases[0]
+		if ref == nil || ref.Type == nil || ref.Type.Value == nil {
+			break
+		}
+		current = ref.Type.Value
+	}
+	return current
 }
 
 func normalizeBigintJSONValue(value any) string {
@@ -143,7 +235,7 @@ func (e *jsonSchemaEncoder) encodeSchema(s *metadata.Schema) (any, error) {
 	}
 	for _, c := range s.Constants {
 		for _, v := range c.Values {
-			alt := map[string]any{"type": string(c.Type), "const": v.Value}
+			alt := map[string]any{"const": v.Value}
 			if c.Type == metadata.AtomicBigint && e.allowBigint {
 				alt = map[string]any{
 					"type":           "integer",
@@ -321,6 +413,113 @@ func (e *jsonSchemaEncoder) encodeRootSchema(s *metadata.Schema) (any, error) {
 		}
 	}
 	return e.encodeSchema(s)
+}
+
+func (e *jsonSchemaEncoder) jsonApplicationFunction(prop *metadata.Property) (map[string]any, bool, error) {
+	if prop == nil || prop.Key == nil || prop.Value == nil {
+		return nil, false, nil
+	}
+	if hasAnyJsDocTag(prop.JsDocTags, "hidden", "ignore", "internal") {
+		return nil, false, nil
+	}
+	name, ok := prop.Key.GetSoleLiteral()
+	if !ok {
+		return nil, false, nil
+	}
+	value := jsonApplicationUnalias(prop.Value)
+	if value == nil || value.Size() != 1 || value.Nullable || !value.IsRequired() || len(value.Functions) != 1 {
+		return nil, false, nil
+	}
+	fn := value.Functions[0]
+	out := map[string]any{
+		"name":       name,
+		"async":      fn.Async,
+		"parameters": []any{},
+	}
+	if prop.Description != nil {
+		if text := strings.TrimSpace(*prop.Description); text != "" {
+			out["description"] = text
+		}
+	}
+	if hasAnyJsDocTag(prop.JsDocTags, "deprecated") {
+		out["deprecated"] = true
+	}
+	if tags := llmFunctionTags(prop); len(tags) != 0 {
+		out["tags"] = tags
+	}
+	parameters := make([]any, 0, len(fn.Parameters))
+	for _, param := range fn.Parameters {
+		if param == nil {
+			continue
+		}
+		encoded, err := e.encodeObjectProperty(param.Type)
+		if err != nil {
+			return nil, false, err
+		}
+		entry := map[string]any{
+			"name":     param.Name,
+			"required": param.Type != nil && param.Type.IsRequired(),
+			"schema":   encoded,
+		}
+		if description := jsonApplicationParameterDescription(prop, param); description != "" {
+			title, description := llmWriteDescription(description, propJsDocTexts(prop), "title")
+			if title != "" {
+				entry["title"] = title
+			}
+			if description != "" {
+				entry["description"] = description
+			}
+		}
+		parameters = append(parameters, entry)
+	}
+	out["parameters"] = parameters
+	if fn.Output != nil && fn.Output.Size() != 0 {
+		encoded, err := e.encodeObjectProperty(fn.Output)
+		if err != nil {
+			return nil, false, err
+		}
+		output := map[string]any{
+			"schema":   encoded,
+			"required": fn.Output.IsRequired(),
+		}
+		if description := firstJsDocText(propJsDocTexts(prop), "return", "returns"); description != "" {
+			output["description"] = description
+		}
+		out["output"] = output
+	}
+	return out, true, nil
+}
+
+func jsonApplicationParameterDescription(prop *metadata.Property, param *metadata.Parameter) string {
+	if param == nil {
+		return ""
+	}
+	if param.Description != nil {
+		if text := strings.TrimSpace(*param.Description); text != "" {
+			return text
+		}
+	}
+	if text := firstJsDocText(param.JsDocTexts, "description"); text != "" {
+		return text
+	}
+	if prop == nil {
+		return ""
+	}
+	for _, value := range prop.JsDocTexts["param"] {
+		text := strings.TrimSpace(value)
+		if text == "" {
+			continue
+		}
+		fields := strings.Fields(text)
+		if len(fields) == 0 || fields[0] != param.Name {
+			continue
+		}
+		return strings.TrimSpace(strings.TrimPrefix(text, fields[0]))
+	}
+	if len(prop.JsDocTexts["param"]) == 1 {
+		return strings.TrimSpace(prop.JsDocTexts["param"][0])
+	}
+	return ""
 }
 
 func (e *jsonSchemaEncoder) encodeArrayRef(ref *metadata.ArrayRef) (any, error) {

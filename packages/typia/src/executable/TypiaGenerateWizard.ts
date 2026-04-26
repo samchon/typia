@@ -1,6 +1,6 @@
-import { transform } from "ttsc";
 import fs from "fs";
 import path from "path";
+import { transform } from "ttsc";
 
 import { ArgumentParser } from "./setup/ArgumentParser";
 import { PackageManager } from "./setup/PackageManager";
@@ -121,7 +121,19 @@ export namespace TypiaGenerateWizard {
         plugins: [{ transform: "typia/lib/transform" }],
       });
       await fs.promises.mkdir(path.dirname(target), { recursive: true });
-      await fs.promises.writeFile(target, formatOutput(output), "utf8");
+      await fs.promises.writeFile(
+        target,
+        formatOutput(
+          rewriteExternalRelativeImports({
+            input: location.input,
+            output: location.output,
+            source: file,
+            target,
+            code: output,
+          }),
+        ),
+        "utf8",
+      );
     }
   }
 
@@ -168,6 +180,58 @@ export namespace TypiaGenerateWizard {
     return output.startsWith("// @ts-nocheck")
       ? output
       : `// @ts-nocheck\n${output}`;
+  }
+
+  function rewriteExternalRelativeImports(props: {
+    input: string;
+    output: string;
+    source: string;
+    target: string;
+    code: string;
+  }): string {
+    return props.code.replace(
+      /(require\s*\(\s*|from\s+|import\s*\(\s*)(["'])(\.[^"']*)\2/g,
+      (full, prefix: string, quote: string, specifier: string) => {
+        const next: string = rewriteRelativeSpecifier({
+          input: props.input,
+          output: props.output,
+          source: props.source,
+          target: props.target,
+          specifier,
+        });
+        return next === specifier ? full : `${prefix}${quote}${next}${quote}`;
+      },
+    );
+  }
+
+  function rewriteRelativeSpecifier(props: {
+    input: string;
+    output: string;
+    source: string;
+    target: string;
+    specifier: string;
+  }): string {
+    const location: string = path.resolve(
+      path.dirname(props.source),
+      props.specifier,
+    );
+    if (isInside(location, props.input)) {
+      return props.specifier;
+    }
+    const relative: string = path
+      .relative(path.dirname(props.target), location)
+      .split(path.sep)
+      .join("/");
+    return relative.startsWith(".") ? relative : `./${relative}`;
+  }
+
+  function isInside(file: string, directory: string): boolean {
+    const relative: string = path.relative(directory, file);
+    return (
+      relative.length === 0 ||
+      (relative.startsWith("..") === false &&
+        path.isAbsolute(relative) === false)
+    );
   }
 }
 
