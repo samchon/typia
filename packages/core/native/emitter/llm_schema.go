@@ -341,26 +341,53 @@ func blockQuoteDescription(text string) string {
 
 func llmCascadeDescription(wrapper jsonSchemaExpressionWrapper, ref string, rootDescription any, current any) string {
 	key := ref[strings.LastIndex(ref, "/")+1:]
+	if index := strings.Index(ref, "#/components/schemas/"); index >= 0 {
+		key = ref[index+len("#/components/schemas/"):]
+	}
 	rootText, _ := rootDescription.(string)
 	currentText, _ := current.(string)
-	schema, _ := wrapper.Components.Schemas[key].(map[string]any)
-	parentText, _ := schema["description"].(string)
-	if strings.TrimSpace(rootText) == "" && strings.TrimSpace(currentText) == "" && strings.TrimSpace(parentText) == "" {
-		return ""
+	schemaText := currentText
+	if strings.TrimSpace(schemaText) == "" {
+		schemaText = rootText
 	}
 	parts := []string{}
-	if strings.TrimSpace(rootText) != "" {
-		parts = append(parts, rootText)
+	if strings.TrimSpace(schemaText) != "" {
+		parts = append(parts, schemaText)
 	}
-	if strings.TrimSpace(currentText) != "" {
-		if strings.TrimSpace(currentText) != strings.TrimSpace(rootText) {
-			parts = append(parts, currentText)
+
+	accessors := strings.Split(key, ".")
+	references := make([]struct {
+		key         string
+		description string
+		ok          bool
+	}, 0, len(accessors))
+	for i := range accessors {
+		name := strings.Join(accessors[:i+1], ".")
+		schema, _ := wrapper.Components.Schemas[name].(map[string]any)
+		description, ok := schema["description"].(string)
+		references = append(references, struct {
+			key         string
+			description string
+			ok          bool
+		}{key: name, description: description, ok: ok})
+	}
+	for i := 0; i < len(references)/2; i++ {
+		j := len(references) - 1 - i
+		references[i], references[j] = references[j], references[i]
+	}
+	for i, reference := range references {
+		if i != 0 && strings.TrimSpace(reference.description) == "" {
+			continue
 		}
-	}
-	if strings.TrimSpace(parentText) != "" {
-		parts = append(parts, "Description of the current {@link "+key+"} type:\n\n"+blockQuoteDescription(parentText))
-	} else {
-		parts = append(parts, "Current Type: {@link "+key+"}")
+		if !reference.ok {
+			parts = append(parts, "Current Type: {@link "+reference.key+"}")
+			continue
+		}
+		kind := "parent"
+		if i == 0 {
+			kind = "current"
+		}
+		parts = append(parts, "Description of the "+kind+" {@link "+reference.key+"} type:\n\n"+blockQuoteDescription(reference.description))
 	}
 	return strings.Join(parts, "\n\n------------------------------\n\n")
 }
@@ -416,7 +443,7 @@ func convertOpenApiToLlmSchema(
 	typ, _ := obj["type"].(string)
 	switch typ {
 	case "object":
-		out := copyLlmAttribute(obj)
+		out := copyOpenApiSchema(obj)
 		out["type"] = "object"
 		props := map[string]any{}
 		if rawProps, ok := obj["properties"].(map[string]any); ok {
@@ -460,7 +487,7 @@ func convertOpenApiToLlmSchema(
 		}
 		return out, nil
 	case "array":
-		out := copyLlmAttribute(obj)
+		out := copyOpenApiSchema(obj)
 		out["type"] = "array"
 		next, err := convertOpenApiToLlmSchema(wrapper, defs, obj["items"], strict)
 		if err != nil {

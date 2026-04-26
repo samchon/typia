@@ -19,6 +19,7 @@ class Service {
   /**
    * Search users.
    *
+   * @summary Search operation
    * @param input LLM user payload.
    * @returns Search result payload.
    * @tag users operations

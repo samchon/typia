@@ -1275,7 +1275,7 @@ func (i *schemaInspector) visitSchema(schema *metadata.Schema) {
 			}
 			i.visitSchema(obj.Type.AdditionalProperties)
 		}
-		if hasDuplicatedSequence(obj.Type) {
+		if hasInvalidProtobufSequence(obj.Type) {
 			i.facts.sequenceDuplicate = true
 		}
 		if dynamicCount > 1 {
@@ -1748,7 +1748,7 @@ func isVariableName(name string) bool {
 	return true
 }
 
-func hasDuplicatedSequence(obj *metadata.ObjectType) bool {
+func hasInvalidProtobufSequence(obj *metadata.ObjectType) bool {
 	if obj == nil {
 		return false
 	}
@@ -1757,7 +1757,11 @@ func hasDuplicatedSequence(obj *metadata.ObjectType) bool {
 		if prop == nil || prop.Value == nil {
 			continue
 		}
-		for _, value := range sequenceValues(prop.Value) {
+		local, invalid := protobufPropertySequences(prop.Value)
+		if invalid {
+			return true
+		}
+		for value := range local {
 			if _, ok := seen[value]; ok {
 				return true
 			}
@@ -1767,58 +1771,276 @@ func hasDuplicatedSequence(obj *metadata.ObjectType) bool {
 	return false
 }
 
-func sequenceValues(schema *metadata.Schema) []int {
-	out := make([]int, 0)
-	pushMatrix := func(matrix metadata.TagMatrix) {
+func protobufPropertySequences(schema *metadata.Schema) (map[int]struct{}, bool) {
+	used := make(map[int]struct{})
+	add := func(value int) bool {
+		if _, ok := used[value]; ok {
+			return false
+		}
+		used[value] = struct{}{}
+		return true
+	}
+	if protobufSequenceCompletenessInvalid(schema) {
+		return used, true
+	}
+	if protobufBooleanSequenceInvalid(schema, add) {
+		return used, true
+	}
+	for _, kind := range []string{"int64", "uint64"} {
+		if protobufNumericSequenceInvalid(schema, metadata.AtomicBigint, kind, protobufBigintTypeRow, add) {
+			return used, true
+		}
+	}
+	for _, kind := range []string{"double", "float", "int32", "uint32", "int64", "uint64"} {
+		if protobufNumericSequenceInvalid(schema, metadata.AtomicNumber, kind, protobufNumberTypeRow, add) {
+			return used, true
+		}
+	}
+	if protobufStringSequenceInvalid(schema, add) {
+		return used, true
+	}
+	for _, array := range schema.Arrays {
+		if array != nil && protobufInstanceSequenceInvalid(array.Tags, add) {
+			return used, true
+		}
+	}
+	for _, obj := range schema.Objects {
+		if obj != nil && protobufInstanceSequenceInvalid(obj.Tags, add) {
+			return used, true
+		}
+	}
+	for _, mapRef := range schema.Maps {
+		if mapRef != nil && protobufInstanceSequenceInvalid(mapRef.Tags, add) {
+			return used, true
+		}
+	}
+	for _, native := range schema.Natives {
+		if native.Name == "Uint8Array" && protobufInstanceSequenceInvalid(native.Tags, add) {
+			return used, true
+		}
+	}
+	return used, false
+}
+
+func protobufSequenceCompletenessInvalid(schema *metadata.Schema) bool {
+	if schema == nil {
+		return false
+	}
+	total := 0
+	sequenced := 0
+	countMatrix := func(matrix metadata.TagMatrix) {
+		if len(matrix) == 0 {
+			total++
+			return
+		}
 		for _, row := range matrix {
-			for _, tag := range row {
-				if tag.Kind != "sequence" {
-					continue
-				}
-				switch v := tag.Value.(type) {
-				case int:
-					out = append(out, v)
-				case int64:
-					out = append(out, int(v))
-				case float64:
-					out = append(out, int(v))
-				}
+			total++
+			if _, ok := protobufSequenceValue(row); ok {
+				sequenced++
 			}
 		}
 	}
 	for _, atomic := range schema.Atomics {
-		pushMatrix(atomic.Tags)
+		countMatrix(atomic.Tags)
 	}
 	for _, constant := range schema.Constants {
 		for _, value := range constant.Values {
-			pushMatrix(value.Tags)
+			countMatrix(value.Tags)
 		}
 	}
 	for _, template := range schema.Templates {
-		pushMatrix(template.Tags)
+		countMatrix(template.Tags)
 	}
 	for _, array := range schema.Arrays {
 		if array != nil {
-			pushMatrix(array.Tags)
+			countMatrix(array.Tags)
 		}
 	}
 	for _, obj := range schema.Objects {
 		if obj != nil {
-			pushMatrix(obj.Tags)
-		}
-	}
-	for _, setRef := range schema.Sets {
-		if setRef != nil {
-			pushMatrix(setRef.Tags)
+			countMatrix(obj.Tags)
 		}
 	}
 	for _, mapRef := range schema.Maps {
 		if mapRef != nil {
-			pushMatrix(mapRef.Tags)
+			countMatrix(mapRef.Tags)
 		}
 	}
 	for _, native := range schema.Natives {
-		pushMatrix(native.Tags)
+		if native.Name == "Uint8Array" {
+			countMatrix(native.Tags)
+		}
+	}
+	return sequenced != 0 && sequenced != total
+}
+
+func protobufBooleanSequenceInvalid(schema *metadata.Schema, add func(int) bool) bool {
+	var matrices []metadata.TagMatrix
+	for _, atomic := range schema.Atomics {
+		if atomic.Type == metadata.AtomicBoolean {
+			matrices = append(matrices, atomic.Tags)
+		}
+	}
+	for _, constant := range schema.Constants {
+		if constant.Type != metadata.AtomicBoolean {
+			continue
+		}
+		for _, value := range constant.Values {
+			matrices = append(matrices, value.Tags)
+		}
+	}
+	return protobufSequenceGroupInvalid(matrices, add)
+}
+
+func protobufNumericSequenceInvalid(
+	schema *metadata.Schema,
+	atomicKind metadata.AtomicKind,
+	category string,
+	typeOf func([]metadata.TypeTag) string,
+	add func(int) bool,
+) bool {
+	var matrices []metadata.TagMatrix
+	for _, atomic := range schema.Atomics {
+		if atomic.Type != atomicKind {
+			continue
+		}
+		matrices = append(matrices, protobufFilterSequenceCategory(atomic.Tags, category, typeOf))
+	}
+	for _, constant := range schema.Constants {
+		if constant.Type != atomicKind {
+			continue
+		}
+		for _, value := range constant.Values {
+			matrices = append(matrices, protobufFilterSequenceCategory(value.Tags, category, typeOf))
+		}
+	}
+	return protobufSequenceGroupInvalid(matrices, add)
+}
+
+func protobufStringSequenceInvalid(schema *metadata.Schema, add func(int) bool) bool {
+	var matrices []metadata.TagMatrix
+	for _, atomic := range schema.Atomics {
+		if atomic.Type == metadata.AtomicString {
+			matrices = append(matrices, atomic.Tags)
+		}
+	}
+	for _, constant := range schema.Constants {
+		if constant.Type != metadata.AtomicString {
+			continue
+		}
+		for _, value := range constant.Values {
+			matrices = append(matrices, value.Tags)
+		}
+	}
+	for _, template := range schema.Templates {
+		matrices = append(matrices, template.Tags)
+	}
+	return protobufSequenceGroupInvalid(matrices, add)
+}
+
+func protobufSequenceGroupInvalid(matrices []metadata.TagMatrix, add func(int) bool) bool {
+	unique := make(map[int]struct{})
+	expected := 0
+	actual := 0
+	for _, matrix := range matrices {
+		for _, row := range matrix {
+			if value, ok := protobufSequenceValue(row); ok {
+				unique[value] = struct{}{}
+				actual++
+			}
+			expected++
+		}
+	}
+	if len(unique) == 0 {
+		return false
+	}
+	if actual != expected || len(unique) > 1 {
+		return true
+	}
+	for value := range unique {
+		return !add(value)
+	}
+	return false
+}
+
+func protobufInstanceSequenceInvalid(matrix metadata.TagMatrix, add func(int) bool) bool {
+	unique := make(map[int]struct{})
+	count := 0
+	for _, row := range matrix {
+		if value, ok := protobufSequenceValue(row); ok {
+			unique[value] = struct{}{}
+			count++
+		}
+	}
+	if len(unique) == 0 {
+		return false
+	}
+	if count != len(matrix) || len(unique) > 1 {
+		return true
+	}
+	for value := range unique {
+		return !add(value)
+	}
+	return false
+}
+
+func protobufFilterSequenceCategory(
+	matrix metadata.TagMatrix,
+	category string,
+	typeOf func([]metadata.TypeTag) string,
+) metadata.TagMatrix {
+	out := make(metadata.TagMatrix, 0, len(matrix))
+	for _, row := range matrix {
+		if typeOf(row) == category {
+			out = append(out, row)
+		}
 	}
 	return out
+}
+
+func protobufSequenceValue(tags []metadata.TypeTag) (int, bool) {
+	for _, tag := range tags {
+		if tag.Kind != "sequence" {
+			continue
+		}
+		switch v := tag.Value.(type) {
+		case int:
+			return v, true
+		case int64:
+			return int(v), true
+		case float64:
+			return int(v), true
+		}
+	}
+	return 0, false
+}
+
+func protobufNumberTypeRow(tags []metadata.TypeTag) string {
+	for _, tag := range tags {
+		if tag.Kind != "type" {
+			continue
+		}
+		if value, ok := tag.Value.(string); ok {
+			switch value {
+			case "int32", "uint32", "int64", "uint64", "float", "double":
+				return value
+			}
+		}
+	}
+	return "double"
+}
+
+func protobufBigintTypeRow(tags []metadata.TypeTag) string {
+	for _, tag := range tags {
+		if tag.Kind != "type" {
+			continue
+		}
+		if value, ok := tag.Value.(string); ok {
+			switch value {
+			case "int64", "uint64":
+				return value
+			}
+		}
+	}
+	return "int64"
 }

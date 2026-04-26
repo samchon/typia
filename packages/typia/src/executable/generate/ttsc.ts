@@ -89,6 +89,8 @@ function resolveNativeBinary(): string {
     process.platform === "win32"
       ? "ttsc-typia-native.exe"
       : "ttsc-typia-native";
+  const localBinary = path.resolve(packageRoot, "bin", name);
+  if (fs.existsSync(localBinary)) return localBinary;
   const platformKey = `${process.platform}-${process.arch}`;
   const optionalRequest = `@typia/${platformKey}/bin/${name}`;
   try {
@@ -96,6 +98,6 @@ function resolveNativeBinary(): string {
       paths: [packageRoot, process.cwd()],
     });
   } catch {
-    return path.resolve(packageRoot, "bin", name);
+    return localBinary;
   }
 }

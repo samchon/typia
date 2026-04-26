@@ -71,6 +71,9 @@ func nodeJsDocTags(node *ast.Node) []jsDocTag {
 	for _, tag := range parseRawLeadingJsDocTags(file.Text(), shimscanner.GetTokenPosOfNode(node, file, false)) {
 		appendTag(tag)
 	}
+	for _, tag := range parseRawLeadingJsDocTags(file.Text(), int(node.Pos())) {
+		appendTag(tag)
+	}
 	return output
 }
 
@@ -112,6 +115,7 @@ func parseRawLeadingJsDocTags(text string, pos int) []jsDocTag {
 		}
 	}
 trimmed:
+	end = skipLeadingModifiersBeforePosition(text, end)
 	if end < 2 || text[end-2:end] != "*/" {
 		return nil
 	}
@@ -119,7 +123,15 @@ trimmed:
 	if start < 0 {
 		return nil
 	}
-	body := text[start+3 : end-2]
+	return parseRawJsDocComment(text[start:end])
+}
+
+func parseRawJsDocComment(comment string) []jsDocTag {
+	comment = strings.TrimSpace(comment)
+	if len(comment) < 5 || !strings.HasPrefix(comment, "/**") || !strings.HasSuffix(comment, "*/") {
+		return nil
+	}
+	body := comment[3 : len(comment)-2]
 	lines := strings.Split(body, "\n")
 	output := make([]jsDocTag, 0, len(lines))
 	for _, line := range lines {
@@ -145,6 +157,47 @@ trimmed:
 		output = append(output, jsDocTag{Name: name, Text: value})
 	}
 	return output
+}
+
+func skipLeadingModifiersBeforePosition(text string, end int) int {
+	for {
+		original := end
+		for end > 0 {
+			switch text[end-1] {
+			case ' ', '\t', '\r', '\n':
+				end--
+			default:
+				goto token
+			}
+		}
+	token:
+		start := end
+		for start > 0 {
+			ch := text[start-1]
+			if ('A' <= ch && ch <= 'Z') || ('a' <= ch && ch <= 'z') {
+				start--
+				continue
+			}
+			break
+		}
+		if start == end {
+			return end
+		}
+		if !isLeadingModifier(text[start:end]) {
+			return original
+		}
+		end = start
+	}
+}
+
+func isLeadingModifier(word string) bool {
+	switch word {
+	case "abstract", "accessor", "async", "declare", "default", "export",
+		"override", "private", "protected", "public", "readonly", "static":
+		return true
+	default:
+		return false
+	}
 }
 
 func joinCommentList(list *ast.NodeList) string {

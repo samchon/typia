@@ -109,6 +109,9 @@ func nodeDescription(node *ast.Node) *string {
 	if raw := parseRawLeadingJsDocDescription(file.Text(), shimscanner.GetTokenPosOfNode(node, file, false)); raw != nil {
 		return raw
 	}
+	if raw := parseRawLeadingJsDocDescription(file.Text(), int(node.Pos())); raw != nil {
+		return raw
+	}
 	return nil
 }
 
@@ -193,6 +196,7 @@ func parseRawLeadingJsDocDescription(text string, pos int) *string {
 		}
 	}
 trimmed:
+	end = skipLeadingModifiersBeforePosition(text, end)
 	if end < 2 || text[end-2:end] != "*/" {
 		return nil
 	}
@@ -200,7 +204,15 @@ trimmed:
 	if start < 0 {
 		return nil
 	}
-	body := text[start+3 : end-2]
+	return parseRawJsDocDescription(text[start:end])
+}
+
+func parseRawJsDocDescription(comment string) *string {
+	comment = strings.TrimSpace(comment)
+	if len(comment) < 5 || !strings.HasPrefix(comment, "/**") || !strings.HasSuffix(comment, "*/") {
+		return nil
+	}
+	body := comment[3 : len(comment)-2]
 	lines := strings.Split(body, "\n")
 	output := make([]string, 0, len(lines))
 	lastBlank := false

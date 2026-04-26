@@ -333,17 +333,19 @@ func validateLlmObjectSchema(prefix, name, label string, schema *metadata.Schema
 }
 
 func llmFunctionDescription(name string, prop *metadata.Property, fn *metadata.Function) string {
+	description := ""
 	if prop != nil && prop.Description != nil {
 		if text := strings.TrimSpace(*prop.Description); text != "" {
-			return text
+			description = text
 		}
 	}
-	if fn != nil && fn.Description != nil {
+	if description == "" && fn != nil && fn.Description != nil {
 		if text := strings.TrimSpace(*fn.Description); text != "" {
-			return text
+			description = text
 		}
 	}
-	return ""
+	summary, description := llmWriteDescription(description, propJsDocTexts(prop), "summary")
+	return concatLlmDescription(summary, description)
 }
 
 func humanizeFunctionName(name string) string {
@@ -394,6 +396,25 @@ func llmWriteDescription(description string, jsDocTexts map[string][]string, kin
 		}
 	}
 	return title, description
+}
+
+func concatLlmDescription(summary string, description string) string {
+	summary = strings.TrimSpace(summary)
+	description = strings.TrimSpace(description)
+	if summary == "" || description == "" {
+		if summary != "" {
+			return summary
+		}
+		return description
+	}
+	normalizedSummary := summary
+	if strings.HasSuffix(normalizedSummary, ".") {
+		normalizedSummary = strings.TrimSuffix(normalizedSummary, ".")
+	}
+	if strings.HasPrefix(description, normalizedSummary) {
+		return description
+	}
+	return normalizedSummary + ".\n\n" + description
 }
 
 func firstJsDocText(texts map[string][]string, names ...string) string {

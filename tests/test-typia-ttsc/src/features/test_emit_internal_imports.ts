@@ -40,7 +40,7 @@ export async function test_emit_internal_imports(): Promise<void> {
 
   assert.ok(emitted.includes("deprecated: true"));
   assert.ok(emitted.includes('tags: ["users"]'));
-  assert.ok(emitted.includes("Search users."));
+  assert.ok(emitted.includes("Search operation.\\n\\nSearch users."));
   assert.ok(emitted.includes('"description":"LLM user payload."'));
   assert.ok(emitted.includes('"description":"Search result payload."'));
 }
