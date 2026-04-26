@@ -42,6 +42,40 @@ func symbolHasInternalJsDoc(sym *ast.Symbol) bool {
 	return false
 }
 
+func jsDocTagsFromSymbol(sym *ast.Symbol) []string {
+	if sym == nil {
+		return nil
+	}
+	out := []string{}
+	seen := map[string]bool{}
+	for _, decl := range symbolDeclarations(sym) {
+		for _, name := range nodeJsDocTagNames(decl) {
+			if seen[name] {
+				continue
+			}
+			seen[name] = true
+			out = append(out, name)
+		}
+	}
+	return out
+}
+
+func jsDocTextsFromSymbol(sym *ast.Symbol) map[string][]string {
+	if sym == nil {
+		return nil
+	}
+	out := map[string][]string{}
+	for _, decl := range symbolDeclarations(sym) {
+		for name, values := range nodeJsDocTexts(decl) {
+			out[name] = append(out[name], values...)
+		}
+	}
+	if len(out) == 0 {
+		return nil
+	}
+	return out
+}
+
 func nodeDescription(node *ast.Node) *string {
 	if node == nil {
 		return nil
@@ -85,6 +119,64 @@ func nodeHasJsDocTag(node *ast.Node, target string) bool {
 		}
 	}
 	return false
+}
+
+func nodeJsDocTagNames(node *ast.Node) []string {
+	tags := nodeJsDocTags(node)
+	if len(tags) == 0 {
+		return nil
+	}
+	out := make([]string, 0, len(tags))
+	seen := map[string]bool{}
+	for _, tag := range tags {
+		name := strings.TrimSpace(tag.Name)
+		if name == "" || seen[name] {
+			continue
+		}
+		seen[name] = true
+		out = append(out, name)
+	}
+	return out
+}
+
+func nodeJsDocTexts(node *ast.Node) map[string][]string {
+	tags := nodeJsDocTags(node)
+	if len(tags) == 0 {
+		return nil
+	}
+	out := map[string][]string{}
+	for _, tag := range tags {
+		name := strings.TrimSpace(tag.Name)
+		if name == "" {
+			continue
+		}
+		out[name] = append(out[name], strings.TrimSpace(tag.Text))
+	}
+	if len(out) == 0 {
+		return nil
+	}
+	return out
+}
+
+func parameterDescriptionFromMethodJsDoc(texts map[string][]string, name string, sole bool) string {
+	values := texts["param"]
+	if len(values) == 0 {
+		return ""
+	}
+	for _, value := range values {
+		text := strings.TrimSpace(value)
+		if text == "" {
+			continue
+		}
+		fields := strings.Fields(text)
+		if len(fields) != 0 && fields[0] == name {
+			return strings.TrimSpace(strings.TrimPrefix(text, fields[0]))
+		}
+	}
+	if sole && len(values) == 1 {
+		return strings.TrimSpace(values[0])
+	}
+	return ""
 }
 
 func parseRawLeadingJsDocDescription(text string, pos int) *string {

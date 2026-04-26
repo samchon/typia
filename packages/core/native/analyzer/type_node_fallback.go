@@ -394,7 +394,7 @@ func (a *Analyzer) walkFunctionTypeNode(node *ast.FunctionTypeNode) (*metadata.S
 	if node == nil {
 		return nil, false
 	}
-	return a.methodLikeSchema(node.Parameters, node.Type)
+	return a.methodLikeSchema(node.AsNode(), node.Parameters, node.Type)
 }
 
 func buildTypeReferenceBindings(
@@ -696,6 +696,8 @@ func (a *Analyzer) appendInterfaceMembersBound(
 				Key:         keySchema,
 				Value:       valueSchema,
 				Description: description,
+				JsDocTags:   nodeJsDocTagNames(member),
+				JsDocTexts:  nodeJsDocTexts(member),
 			})
 		case ast.KindMethodSignature:
 			method := member.AsMethodSignatureDeclaration()
@@ -720,6 +722,8 @@ func (a *Analyzer) appendInterfaceMembersBound(
 				Key:         keySchema,
 				Value:       valueSchema,
 				Description: description,
+				JsDocTags:   nodeJsDocTagNames(member),
+				JsDocTexts:  nodeJsDocTexts(member),
 			})
 		case ast.KindIndexSignature:
 			index := member.AsIndexSignatureDeclaration()
@@ -1243,8 +1247,10 @@ func (a *Analyzer) walkTypeLiteralNodeBound(
 				keySchema := metadata.NewSchema()
 				keySchema.AddConstant(metadata.AtomicString, keyName)
 				obj.Properties = append(obj.Properties, &metadata.Property{
-					Key:   keySchema,
-					Value: valueSchema,
+					Key:        keySchema,
+					Value:      valueSchema,
+					JsDocTags:  nodeJsDocTagNames(member),
+					JsDocTexts: nodeJsDocTexts(member),
 				})
 			}
 		}
@@ -1908,6 +1914,12 @@ func clonePropertyShallow(input *metadata.Property) *metadata.Property {
 		out.Value = cloneSchemaShallow(input.Value)
 	}
 	out.JsDocTags = append([]string(nil), input.JsDocTags...)
+	if len(input.JsDocTexts) != 0 {
+		out.JsDocTexts = make(map[string][]string, len(input.JsDocTexts))
+		for key, values := range input.JsDocTexts {
+			out.JsDocTexts[key] = append([]string(nil), values...)
+		}
+	}
 	return &out
 }
 

@@ -34,30 +34,44 @@ func nodeJsDocTags(node *ast.Node) []jsDocTag {
 	if file == nil {
 		return nil
 	}
+	output := []jsDocTag{}
+	seen := map[string]bool{}
+	appendTag := func(tag jsDocTag) {
+		name := strings.TrimSpace(tag.Name)
+		text := strings.TrimSpace(tag.Text)
+		if name == "" {
+			return
+		}
+		key := name + "\x00" + text
+		if seen[key] {
+			return
+		}
+		seen[key] = true
+		output = append(output, jsDocTag{Name: name, Text: text})
+	}
 	jsdocs := node.JSDoc(file)
 	if len(jsdocs) != 0 {
 		last := jsdocs[len(jsdocs)-1]
 		if last != nil && last.IsJSDoc() {
 			doc := last.AsJSDoc()
 			if doc != nil && doc.Tags != nil && len(doc.Tags.Nodes) != 0 {
-				output := make([]jsDocTag, 0, len(doc.Tags.Nodes))
 				for _, tag := range doc.Tags.Nodes {
 					if tag == nil || tag.TagName() == nil {
 						continue
 					}
 					text := jsDocTagText(tag)
-					output = append(output, jsDocTag{
+					appendTag(jsDocTag{
 						Name: strings.TrimSpace(tag.TagName().Text()),
 						Text: text,
 					})
 				}
-				if len(output) != 0 {
-					return output
-				}
 			}
 		}
 	}
-	return parseRawLeadingJsDocTags(file.Text(), shimscanner.GetTokenPosOfNode(node, file, false))
+	for _, tag := range parseRawLeadingJsDocTags(file.Text(), shimscanner.GetTokenPosOfNode(node, file, false)) {
+		appendTag(tag)
+	}
+	return output
 }
 
 func jsDocTagText(tag *ast.Node) string {

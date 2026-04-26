@@ -136,6 +136,8 @@ func (a *Analyzer) iterateObject(out *metadata.Schema, t *shimchecker.Type) bool
 				Key:         keySchema,
 				Value:       valueSchema,
 				Description: description,
+				JsDocTags:   jsDocTagsFromSymbol(sym),
+				JsDocTexts:  jsDocTextsFromSymbol(sym),
 			})
 			existing[sym.Name] = true
 		}
@@ -346,6 +348,8 @@ func (a *Analyzer) syntaxObjectProperties(t *shimchecker.Type) ([]*metadata.Prop
 					Key:         keySchema,
 					Value:       valueSchema,
 					Description: description,
+					JsDocTags:   nodeJsDocTagNames(member),
+					JsDocTexts:  nodeJsDocTexts(member),
 				})
 				if debugArrayAny {
 					debugArrayAnyWrite("  syntaxProp=" + keyName)
@@ -384,6 +388,8 @@ func (a *Analyzer) syntaxObjectProperties(t *shimchecker.Type) ([]*metadata.Prop
 					Key:         keySchema,
 					Value:       valueSchema,
 					Description: description,
+					JsDocTags:   nodeJsDocTagNames(member),
+					JsDocTexts:  nodeJsDocTexts(member),
 				})
 				found = true
 			case ast.KindIndexSignature:
@@ -500,8 +506,62 @@ func (a *Analyzer) propertySchema(parent *shimchecker.Type, sym *ast.Symbol) (*m
 	if !ok {
 		return nil, false
 	}
-	applyCommentTags(schema, propertyDeclaration(sym))
+	decl := propertyDeclaration(sym)
+	applyCommentTags(schema, decl)
+	applyFunctionParameterDescriptionsFromDeclaration(schema, decl)
 	return schema, true
+}
+
+func applyFunctionParameterDescriptionsFromDeclaration(schema *metadata.Schema, decl *ast.Node) {
+	if schema == nil || decl == nil || len(schema.Functions) == 0 {
+		return
+	}
+	var parameters *ast.NodeList
+	switch decl.Kind {
+	case ast.KindMethodDeclaration:
+		if method := decl.AsMethodDeclaration(); method != nil {
+			parameters = method.Parameters
+		}
+	case ast.KindMethodSignature:
+		if method := decl.AsMethodSignatureDeclaration(); method != nil {
+			parameters = method.Parameters
+		}
+	default:
+		return
+	}
+	if parameters == nil {
+		return
+	}
+	ownerTexts := nodeJsDocTexts(decl)
+	parameterNodes := make([]*ast.Node, 0, len(parameters.Nodes))
+	for _, node := range parameters.Nodes {
+		if node != nil && node.Kind == ast.KindParameter {
+			parameterNodes = append(parameterNodes, node)
+		}
+	}
+	if len(parameterNodes) == 0 {
+		return
+	}
+	for _, fn := range schema.Functions {
+		if fn == nil {
+			continue
+		}
+		for i, paramMetadata := range fn.Parameters {
+			if paramMetadata == nil || paramMetadata.Description != nil || i >= len(parameterNodes) {
+				continue
+			}
+			node := parameterNodes[i]
+			name := paramMetadata.Name
+			if decl := node.AsParameterDeclaration(); decl != nil && decl.Name() != nil {
+				if text, ok := propertyNameText(decl.Name()); ok {
+					name = text
+				}
+			}
+			if text := parameterDescriptionFromMethodJsDoc(ownerTexts, name, len(parameterNodes) == 1); text != "" {
+				paramMetadata.Description = &text
+			}
+		}
+	}
 }
 
 func symbolShouldSkipObjectProperty(sym *ast.Symbol, functional bool) bool {
@@ -535,19 +595,28 @@ func (a *Analyzer) methodSignatureSchema(decl *ast.MethodSignatureDeclaration) (
 	if decl == nil {
 		return nil, false
 	}
-	return a.methodLikeSchema(decl.Parameters, decl.Type)
+	return a.methodLikeSchema(decl.AsNode(), decl.Parameters, decl.Type)
 }
 
 func (a *Analyzer) methodDeclarationSchema(decl *ast.MethodDeclaration) (*metadata.Schema, bool) {
 	if decl == nil {
 		return nil, false
 	}
-	return a.methodLikeSchema(decl.Parameters, decl.Type)
+	return a.methodLikeSchema(decl.AsNode(), decl.Parameters, decl.Type)
 }
 
-func (a *Analyzer) methodLikeSchema(parameters *ast.NodeList, returnType *ast.Node) (*metadata.Schema, bool) {
+func (a *Analyzer) methodLikeSchema(owner *ast.Node, parameters *ast.NodeList, returnType *ast.Node) (*metadata.Schema, bool) {
 	fn := &metadata.Function{
 		Parameters: make([]*metadata.Parameter, 0),
+	}
+	ownerJsDocTexts := nodeJsDocTexts(owner)
+	parameterCount := 0
+	if parameters != nil {
+		for _, node := range parameters.Nodes {
+			if node != nil && node.Kind == ast.KindParameter {
+				parameterCount++
+			}
+		}
 	}
 	if parameters != nil {
 		for _, node := range parameters.Nodes {
@@ -573,10 +642,19 @@ func (a *Analyzer) methodLikeSchema(parameters *ast.NodeList, returnType *ast.No
 					name = text
 				}
 			}
+			description := nodeDescription(node)
+			if description == nil {
+				if text := parameterDescriptionFromMethodJsDoc(ownerJsDocTexts, name, parameterCount == 1); text != "" {
+					description = &text
+				}
+			}
 			fn.Parameters = append(fn.Parameters, &metadata.Parameter{
-				Name:     name,
-				Type:     schema,
-				Optional: optional,
+				Name:        name,
+				Type:        schema,
+				Description: description,
+				Optional:    optional,
+				JsDocTags:   nodeJsDocTagNames(node),
+				JsDocTexts:  nodeJsDocTexts(node),
 			})
 		}
 	}

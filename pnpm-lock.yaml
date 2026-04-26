@@ -879,6 +879,28 @@ importers:
         specifier: catalog:typescript
         version: 0.4.3
 
+  tests/test-typia-ttsc:
+    dependencies:
+      typia:
+        specifier: workspace:^
+        version: link:../../packages/typia
+    devDependencies:
+      '@nestia/e2e':
+        specifier: catalog:utils
+        version: 10.0.2
+      '@types/node':
+        specifier: catalog:utils
+        version: 25.6.0
+      '@typescript/native-preview':
+        specifier: catalog:typescript
+        version: 7.0.0-dev.20260425.1
+      chalk:
+        specifier: 4.1.2
+        version: 4.1.2
+      ttsc:
+        specifier: catalog:typescript
+        version: 0.4.3
+
   tests/test-unplugin:
     dependencies:
       '@typia/unplugin':
@@ -1032,28 +1054,6 @@ importers:
       '@typescript/native-preview':
         specifier: catalog:typescript
         version: 7.0.0-dev.20260425.1
-      ttsc:
-        specifier: catalog:typescript
-        version: 0.4.3
-
-  toolchain-tests/test-typia-ttsc:
-    dependencies:
-      typia:
-        specifier: workspace:^
-        version: link:../../packages/typia
-    devDependencies:
-      '@nestia/e2e':
-        specifier: catalog:utils
-        version: 10.0.2
-      '@types/node':
-        specifier: catalog:utils
-        version: 25.6.0
-      '@typescript/native-preview':
-        specifier: catalog:typescript
-        version: 7.0.0-dev.20260425.1
-      chalk:
-        specifier: 4.1.2
-        version: 4.1.2
       ttsc:
         specifier: catalog:typescript
         version: 0.4.3

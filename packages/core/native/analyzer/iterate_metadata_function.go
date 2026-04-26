@@ -57,9 +57,12 @@ func (a *Analyzer) signatureToFunction(sig *shimchecker.Signature) (*metadata.Fu
 			schema.Required = false
 		}
 		fn.Parameters = append(fn.Parameters, &metadata.Parameter{
-			Name:     sym.Name,
-			Type:     schema,
-			Optional: optional,
+			Name:        sym.Name,
+			Type:        schema,
+			Optional:    optional,
+			Description: symbolDescription(sym),
+			JsDocTags:   jsDocTagsFromSymbol(sym),
+			JsDocTexts:  jsDocTextsFromSymbol(sym),
 		})
 	}
 

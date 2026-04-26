@@ -5,7 +5,6 @@ on:
       - '.github/workflows/test.yml'
       - 'packages/**'
       - 'toolchain/**'
-      - 'toolchain-tests/**'
       - 'tests/**'
       - 'examples/**'
       - 'package.json'

@@ -35,10 +35,11 @@ type TupleRef struct {
 // Key is stored as a full Schema because typia supports computed / symbolic
 // keys (`${string}-id` → Template, symbols → constant, etc.).
 type Property struct {
-	Key         *Schema  `json:"key"`
-	Value       *Schema  `json:"value"`
-	Description *string  `json:"description,omitempty"`
-	JsDocTags   []string `json:"jsDocTags,omitempty"`
+	Key         *Schema             `json:"key"`
+	Value       *Schema             `json:"value"`
+	Description *string             `json:"description,omitempty"`
+	JsDocTags   []string            `json:"jsDocTags,omitempty"`
+	JsDocTexts  map[string][]string `json:"jsDocTexts,omitempty"`
 }
 
 // ObjectType mirrors `MetadataObjectType`.

@@ -20,10 +20,12 @@ type Escaped struct {
 
 // Parameter mirrors `MetadataParameter` — one argument of a Function.
 type Parameter struct {
-	Name        string  `json:"name"`
-	Type        *Schema `json:"type"`
-	Description *string `json:"description,omitempty"`
-	Optional    bool    `json:"optional"`
+	Name        string              `json:"name"`
+	Type        *Schema             `json:"type"`
+	Description *string             `json:"description,omitempty"`
+	Optional    bool                `json:"optional"`
+	JsDocTags   []string            `json:"jsDocTags,omitempty"`
+	JsDocTexts  map[string][]string `json:"jsDocTexts,omitempty"`
 }
 
 // Function mirrors `MetadataFunction` — used for callable object fields and

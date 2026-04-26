@@ -10,29 +10,42 @@ import (
 )
 
 // EmitLlmStructuredOutputExpression emits the runtime object returned by
-// typia.llm.structuredOutput<T>(). The heavy JSON-schema-to-LLM conversion is
-// delegated to @typia/utils at runtime so the native path can reuse the
-// existing, battle-tested converter.
+// typia.llm.structuredOutput<T>(). Runtime helper calls are routed through
+// typia/lib/internal modules, matching legacy ImportProgrammer.internal output.
 func EmitLlmStructuredOutputExpression(schema *metadata.Schema) (string, error) {
 	return EmitLlmStructuredOutputExpressionWithEquals(schema, false)
 }
 
 func EmitLlmStructuredOutputExpressionWithEquals(schema *metadata.Schema, equals bool) (string, error) {
+	return EmitLlmStructuredOutputExpressionWithConfig(schema, equals, false)
+}
+
+func EmitLlmStructuredOutputExpressionWithConfig(schema *metadata.Schema, equals bool, strict bool) (string, error) {
 	if schema == nil {
 		return "", errors.New("emitter: nil schema")
 	}
-	parametersExpr, err := EmitLlmParametersExpression(schema)
+	parametersExpr, err := EmitLlmParametersExpressionWithConfig(schema, strict)
+	if err != nil {
+		return "", err
+	}
+	validateExpr, err := EmitValidateArrowFunctionWithEquals(schema, equals)
 	if err != nil {
 		return "", err
 	}
 	return fmt.Sprintf(
-		`(() => { const __utils = require("@typia/utils"); const __parameters = %s; return __utils.LlmJson.structuredOutput(__parameters, %t); })()`,
+		`(() => { const __parameters = %s; return { parameters: __parameters, parse: (input) => %s._parseLlmArguments(input, __parameters), coerce: (input) => %s._coerceLlmArguments(input, __parameters), validate: %s }; })()`,
 		parametersExpr,
-		equals,
+		parseLlmArgumentsImportAlias,
+		coerceLlmArgumentsImportAlias,
+		validateExpr,
 	), nil
 }
 
 func EmitLlmParametersExpression(schema *metadata.Schema) (string, error) {
+	return EmitLlmParametersExpressionWithConfig(schema, false)
+}
+
+func EmitLlmParametersExpressionWithConfig(schema *metadata.Schema, strict bool) (string, error) {
 	if schema == nil {
 		return "", errors.New("emitter: nil schema")
 	}
@@ -40,13 +53,14 @@ func EmitLlmParametersExpression(schema *metadata.Schema) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	return fmt.Sprintf(
-		`(() => { const __utils = require("@typia/utils"); const __schema = %s; const __result = __utils.LlmSchemaConverter.parameters({ components: __schema.components, schema: __schema.schema }); if (!__result.success) throw new Error("typia.llm.parameters: failed to convert JSON schema to LLM schema"); return __result.value; })()`,
-		schemaExpr,
-	), nil
+	return ConvertJsonSchemaExpressionToLlmParametersExpressionWithConfig(schemaExpr, strict)
 }
 
 func EmitLlmSchemaArrowFunction(schema *metadata.Schema, rootName string) (string, error) {
+	return EmitLlmSchemaArrowFunctionWithConfig(schema, rootName, false)
+}
+
+func EmitLlmSchemaArrowFunctionWithConfig(schema *metadata.Schema, rootName string, strict bool) (string, error) {
 	if schema == nil {
 		return "", errors.New("emitter: nil schema")
 	}
@@ -60,31 +74,38 @@ func EmitLlmSchemaArrowFunction(schema *metadata.Schema, rootName string) (strin
 		preface = fmt.Sprintf(`const __root = %s; __schema.components.schemas ??= {}; if (__schema.components.schemas[__root] === undefined) __schema.components.schemas[__root] = __schema.schema; `, jsonQuote(strings.TrimSpace(rootName)))
 		schemaTarget = "{ $ref: `#/components/schemas/${__root}` }"
 	}
-	return fmt.Sprintf(
-		`($defs = {}) => { const __utils = require("@typia/utils"); const __schema = %s; %sconst __result = __utils.LlmSchemaConverter.schema({ components: __schema.components, $defs, schema: %s }); if (!__result.success) throw new Error("typia.llm.schema: failed to convert JSON schema to LLM schema"); return __result.value; }`,
-		schemaExpr,
-		preface,
-		schemaTarget,
-	), nil
+	return ConvertJsonSchemaExpressionToLlmSchemaArrowFunctionWithConfig(schemaExpr, preface, schemaTarget, strict)
 }
 
 func EmitLlmParseArrowFunction(schema *metadata.Schema) (string, error) {
-	parametersExpr, err := EmitLlmParametersExpression(schema)
+	return EmitLlmParseArrowFunctionWithConfig(schema, false)
+}
+
+func EmitLlmParseArrowFunctionWithConfig(schema *metadata.Schema, strict bool) (string, error) {
+	parametersExpr, err := EmitLlmParametersExpressionWithConfig(schema, strict)
 	if err != nil {
 		return "", err
 	}
-	return fmt.Sprintf(`(input) => require("@typia/utils").LlmJson.parse(input, %s)`, parametersExpr), nil
+	return fmt.Sprintf(`(input) => %s._parseLlmArguments(input, %s)`, parseLlmArgumentsImportAlias, parametersExpr), nil
 }
 
 func EmitLlmCoerceArrowFunction(schema *metadata.Schema) (string, error) {
-	parametersExpr, err := EmitLlmParametersExpression(schema)
+	return EmitLlmCoerceArrowFunctionWithConfig(schema, false)
+}
+
+func EmitLlmCoerceArrowFunctionWithConfig(schema *metadata.Schema, strict bool) (string, error) {
+	parametersExpr, err := EmitLlmParametersExpressionWithConfig(schema, strict)
 	if err != nil {
 		return "", err
 	}
-	return fmt.Sprintf(`(input) => require("@typia/utils").LlmJson.coerce(input, %s)`, parametersExpr), nil
+	return fmt.Sprintf(`(input) => %s._coerceLlmArguments(input, %s)`, coerceLlmArgumentsImportAlias, parametersExpr), nil
 }
 
 func EmitLlmApplicationArrowFunction(schema *metadata.Schema) (string, error) {
+	return EmitLlmApplicationArrowFunctionWithConfig(schema, false)
+}
+
+func EmitLlmApplicationArrowFunctionWithConfig(schema *metadata.Schema, strict bool) (string, error) {
 	if schema == nil {
 		return "", errors.New("emitter: nil schema")
 	}
@@ -101,12 +122,15 @@ func EmitLlmApplicationArrowFunction(schema *metadata.Schema) (string, error) {
 		if prop == nil || prop.Key == nil || prop.Value == nil {
 			continue
 		}
+		if hasAnyJsDocTag(prop.JsDocTags, "hidden", "ignore", "internal") {
+			continue
+		}
 		name, ok := prop.Key.GetSoleLiteral()
 		if !ok || len(prop.Value.Functions) == 0 {
 			continue
 		}
 		fn := prop.Value.Functions[0]
-		entry, err := emitLlmFunctionEntry(name, fn)
+		entry, err := emitLlmFunctionEntry(name, prop, fn, strict)
 		if err != nil {
 			return "", err
 		}
@@ -116,7 +140,8 @@ func EmitLlmApplicationArrowFunction(schema *metadata.Schema) (string, error) {
 		return "", errors.New("llm.application: target type must expose at least one callable method")
 	}
 	return fmt.Sprintf(
-		`(config) => { const __hooks = config && typeof config === "object" ? (config.validate ?? null) : null; return { functions: [%s], options: { validate: __hooks } }; }`,
+		`(config) => %s._llmApplicationFinalize({ functions: [%s] }, config)`,
+		llmApplicationFinalizeAlias,
 		strings.Join(methods, ", "),
 	), nil
 }
@@ -125,6 +150,10 @@ func EmitLlmApplicationArrowFunction(schema *metadata.Schema) (string, error) {
 // original call site's `(name, execute, config)` arguments, producing an
 // ILlmController-compatible runtime object.
 func EmitLlmControllerArrowFunction(schema *metadata.Schema) (string, error) {
+	return EmitLlmControllerArrowFunctionWithConfig(schema, false)
+}
+
+func EmitLlmControllerArrowFunctionWithConfig(schema *metadata.Schema, strict bool) (string, error) {
 	if schema == nil {
 		return "", errors.New("emitter: nil schema")
 	}
@@ -141,12 +170,15 @@ func EmitLlmControllerArrowFunction(schema *metadata.Schema) (string, error) {
 		if prop == nil || prop.Key == nil || prop.Value == nil {
 			continue
 		}
+		if hasAnyJsDocTag(prop.JsDocTags, "hidden", "ignore", "internal") {
+			continue
+		}
 		name, ok := prop.Key.GetSoleLiteral()
 		if !ok || len(prop.Value.Functions) == 0 {
 			continue
 		}
 		fn := prop.Value.Functions[0]
-		entry, err := emitLlmFunctionEntry(name, fn)
+		entry, err := emitLlmFunctionEntry(name, prop, fn, strict)
 		if err != nil {
 			return "", err
 		}
@@ -157,17 +189,18 @@ func EmitLlmControllerArrowFunction(schema *metadata.Schema) (string, error) {
 	}
 
 	return fmt.Sprintf(
-		`(name, execute, config) => { const __hooks = config && typeof config === "object" ? (config.validate ?? null) : null; return { protocol: "class", name, execute, application: { functions: [%s], config: { strict: false, validate: __hooks } } }; }`,
+		`(name, execute, config) => ({ protocol: "class", name, execute, application: %s._llmApplicationFinalize({ functions: [%s] }, config) })`,
+		llmApplicationFinalizeAlias,
 		strings.Join(methods, ", "),
 	), nil
 }
 
-func emitLlmFunctionEntry(name string, fn *metadata.Function) (string, error) {
-	parametersExpr, validateExpr, err := emitLlmParameterArtifacts(name, fn)
+func emitLlmFunctionEntry(name string, prop *metadata.Property, fn *metadata.Function, strict bool) (string, error) {
+	parametersExpr, validateExpr, err := emitLlmParameterArtifacts(name, prop, fn, strict)
 	if err != nil {
 		return "", err
 	}
-	outputExpr, hasOutput, err := emitLlmOutputArtifacts(name, fn)
+	outputExpr, hasOutput, err := emitLlmOutputArtifacts(name, prop, fn, strict)
 	if err != nil {
 		return "", err
 	}
@@ -175,12 +208,22 @@ func emitLlmFunctionEntry(name string, fn *metadata.Function) (string, error) {
 	parts := []string{
 		fmt.Sprintf(`name: %s`, jsonQuote(name)),
 		fmt.Sprintf(`parameters: %s`, parametersExpr),
-		fmt.Sprintf(`parse: (input) => require("@typia/utils").LlmJson.parse(input, %s)`, parametersExpr),
-		fmt.Sprintf(`coerce: (input) => require("@typia/utils").LlmJson.coerce(input, %s)`, parametersExpr),
-		fmt.Sprintf(`validate: (() => { const __hook = __hooks && __hooks[%s]; return typeof __hook === "function" ? __hook : (%s); })()`, jsonQuote(name), validateExpr),
+		fmt.Sprintf(`parse: (input) => %s._parseLlmArguments(input, %s)`, parseLlmArgumentsImportAlias, parametersExpr),
+		fmt.Sprintf(`coerce: (input) => %s._coerceLlmArguments(input, %s)`, coerceLlmArgumentsImportAlias, parametersExpr),
+		fmt.Sprintf(`validate: %s`, validateExpr),
 	}
-	if description := llmFunctionDescription(name, fn); description != "" {
+	if description := llmFunctionDescription(name, prop, fn); description != "" {
 		parts = append(parts, fmt.Sprintf(`description: %s`, jsonQuote(description)))
+	}
+	if prop != nil && hasAnyJsDocTag(prop.JsDocTags, "deprecated") {
+		parts = append(parts, `deprecated: true`)
+	}
+	if tags := llmFunctionTags(prop); len(tags) != 0 {
+		values := make([]string, 0, len(tags))
+		for _, tag := range tags {
+			values = append(values, jsonQuote(tag))
+		}
+		parts = append(parts, `tags: [`+strings.Join(values, ", ")+`]`)
 	}
 	if hasOutput {
 		parts = append(parts, fmt.Sprintf(`output: %s`, outputExpr))
@@ -197,11 +240,17 @@ func validateLlmCallableObject(prefix string, obj *metadata.ObjectType) error {
 		if prop == nil || prop.Key == nil || prop.Value == nil || len(prop.Value.Functions) == 0 {
 			continue
 		}
+		if hasAnyJsDocTag(prop.JsDocTags, "hidden", "ignore", "internal") {
+			continue
+		}
 		name, ok := prop.Key.GetSoleLiteral()
 		if !ok {
 			continue
 		}
 		found = true
+		if description := llmFunctionDescription(name, prop, prop.Value.Functions[0]); description != "" && len(description) > 1024 {
+			return fmt.Errorf("%s.%s: function description must not exceed 1024 characters", prefix, name)
+		}
 		if err := validateLlmFunction(prefix, name, prop.Value.Functions[0]); err != nil {
 			return err
 		}
@@ -227,9 +276,6 @@ func validateLlmFunction(prefix, name string, fn *metadata.Function) error {
 	}
 	if len(name) > 64 {
 		return fmt.Errorf("%s.%s: function name cannot exceed 64 characters", prefix, name)
-	}
-	if description := llmFunctionDescription(name, fn); description != "" && len(description) > 1024 {
-		return fmt.Errorf("%s.%s: function description must not exceed 1024 characters", prefix, name)
 	}
 	if fn == nil {
 		return fmt.Errorf("%s.%s: missing function metadata", prefix, name)
@@ -286,13 +332,18 @@ func validateLlmObjectSchema(prefix, name, label string, schema *metadata.Schema
 	return nil
 }
 
-func llmFunctionDescription(name string, fn *metadata.Function) string {
+func llmFunctionDescription(name string, prop *metadata.Property, fn *metadata.Function) string {
+	if prop != nil && prop.Description != nil {
+		if text := strings.TrimSpace(*prop.Description); text != "" {
+			return text
+		}
+	}
 	if fn != nil && fn.Description != nil {
 		if text := strings.TrimSpace(*fn.Description); text != "" {
 			return text
 		}
 	}
-	return humanizeFunctionName(name)
+	return ""
 }
 
 func humanizeFunctionName(name string) string {
@@ -323,7 +374,118 @@ func humanizeFunctionName(name string) string {
 	return strings.Join(words, " ")
 }
 
-func emitLlmParameterArtifacts(name string, fn *metadata.Function) (string, string, error) {
+func llmWriteDescription(description string, jsDocTexts map[string][]string, kind string) (string, string) {
+	title := ""
+	for _, value := range jsDocTexts[kind] {
+		if text := strings.TrimSpace(value); text != "" {
+			title = text
+			break
+		}
+	}
+	description = strings.TrimSpace(description)
+	if title == "" && description != "" {
+		top := description
+		if index := strings.Index(top, "\n"); index >= 0 {
+			top = top[:index]
+		}
+		top = strings.TrimSpace(top)
+		if strings.HasSuffix(top, ".") {
+			title = strings.TrimSpace(strings.TrimSuffix(top, "."))
+		}
+	}
+	return title, description
+}
+
+func firstJsDocText(texts map[string][]string, names ...string) string {
+	for _, name := range names {
+		for _, value := range texts[name] {
+			if text := strings.TrimSpace(value); text != "" {
+				return text
+			}
+		}
+	}
+	return ""
+}
+
+func llmParameterDescription(prop *metadata.Property, param *metadata.Parameter) string {
+	if param == nil {
+		return ""
+	}
+	if param.Description != nil {
+		if text := strings.TrimSpace(*param.Description); text != "" {
+			return text
+		}
+	}
+	if text := firstJsDocText(param.JsDocTexts, "description"); text != "" {
+		return text
+	}
+	if prop == nil {
+		return ""
+	}
+	for _, value := range prop.JsDocTexts["param"] {
+		text := strings.TrimSpace(value)
+		if text == "" {
+			continue
+		}
+		fields := strings.Fields(text)
+		if len(fields) == 0 || fields[0] != param.Name {
+			continue
+		}
+		return strings.TrimSpace(strings.TrimPrefix(text, fields[0]))
+	}
+	if len(prop.JsDocTexts["param"]) == 1 {
+		return strings.TrimSpace(prop.JsDocTexts["param"][0])
+	}
+	return ""
+}
+
+func llmParameterRootMetadata(prop *metadata.Property, param *metadata.Parameter) llmRootMetadata {
+	description := llmParameterDescription(prop, param)
+	title, description := llmWriteDescription(description, propJsDocTexts(prop), "title")
+	return llmRootMetadata{
+		Title:       title,
+		Description: description,
+	}
+}
+
+func llmOutputRootMetadata(prop *metadata.Property) llmRootMetadata {
+	return llmRootMetadata{
+		DescriptionFallback: firstJsDocText(propJsDocTexts(prop), "return", "returns"),
+	}
+}
+
+func propJsDocTexts(prop *metadata.Property) map[string][]string {
+	if prop == nil || len(prop.JsDocTexts) == 0 {
+		return nil
+	}
+	return prop.JsDocTexts
+}
+
+func llmFunctionTags(prop *metadata.Property) []string {
+	if prop == nil || len(prop.JsDocTexts) == 0 {
+		return nil
+	}
+	values := prop.JsDocTexts["tag"]
+	if len(values) == 0 {
+		return nil
+	}
+	out := make([]string, 0, len(values))
+	seen := map[string]bool{}
+	for _, value := range values {
+		tag := ""
+		if fields := strings.Fields(value); len(fields) != 0 {
+			tag = fields[0]
+		}
+		if tag == "" || seen[tag] {
+			continue
+		}
+		seen[tag] = true
+		out = append(out, tag)
+	}
+	return out
+}
+
+func emitLlmParameterArtifacts(name string, prop *metadata.Property, fn *metadata.Function, strict bool) (string, string, error) {
 	if fn == nil {
 		return "", "", errors.New("llm.controller: nil function metadata")
 	}
@@ -331,7 +493,7 @@ func emitLlmParameterArtifacts(name string, fn *metadata.Function) (string, stri
 		return "", "", fmt.Errorf("llm.controller.%s: only zero or one parameter is supported by the current native emitter", name)
 	}
 	if len(fn.Parameters) == 0 {
-		return emptyLlmParametersExpression(), emptyObjectValidateExpression(), nil
+		return emptyLlmParametersExpression(), anyValidateExpression(), nil
 	}
 	param := fn.Parameters[0]
 	if param == nil || param.Type == nil {
@@ -345,11 +507,19 @@ func emitLlmParameterArtifacts(name string, fn *metadata.Function) (string, stri
 	if err != nil {
 		return "", "", err
 	}
-	parametersExpr := llmParametersFromUnitExpression(schemaExpr, "typia.llm.controller."+name)
+	if hasAnyJsDocTag(param.JsDocTags, "human") {
+		return emptyLlmParametersExpression(), validateExpr, nil
+	}
+	parametersExpr := llmParametersFromUnitExpressionWithRootMetadata(
+		schemaExpr,
+		"typia.llm.controller."+name,
+		strict,
+		llmParameterRootMetadata(prop, param),
+	)
 	return parametersExpr, validateExpr, nil
 }
 
-func emitLlmOutputArtifacts(name string, fn *metadata.Function) (string, bool, error) {
+func emitLlmOutputArtifacts(name string, prop *metadata.Property, fn *metadata.Function, strict bool) (string, bool, error) {
 	if fn == nil || fn.Output == nil || fn.Output.Empty() {
 		return "", false, nil
 	}
@@ -357,23 +527,36 @@ func emitLlmOutputArtifacts(name string, fn *metadata.Function) (string, bool, e
 	if err != nil {
 		return "", false, err
 	}
-	return llmParametersFromUnitExpression(schemaExpr, "typia.llm.controller."+name+".output"), true, nil
+	return llmParametersFromUnitExpressionWithRootMetadata(
+		schemaExpr,
+		"typia.llm.controller."+name+".output",
+		strict,
+		llmOutputRootMetadata(prop),
+	), true, nil
 }
 
-func llmParametersFromUnitExpression(unitExpr, label string) string {
-	return fmt.Sprintf(
-		`(() => { const __schema = %s; const __utils = require("@typia/utils"); const __result = __utils.LlmSchemaConverter.parameters({ components: __schema.components, schema: __schema.schema }); if (!__result.success) throw new Error(%s); return __result.value; })()`,
-		unitExpr,
-		jsonQuote(label+": failed to convert JSON schema to LLM schema"),
-	)
+func llmParametersFromUnitExpression(unitExpr, label string, strict bool) string {
+	expr, err := ConvertJsonSchemaExpressionToLlmParametersExpressionWithConfig(unitExpr, strict)
+	if err != nil {
+		return fmt.Sprintf(`(() => { throw new Error(%s); })()`, jsonQuote(label+": "+err.Error()))
+	}
+	return expr
+}
+
+func llmParametersFromUnitExpressionWithRootMetadata(unitExpr, label string, strict bool, meta llmRootMetadata) string {
+	expr, err := ConvertJsonSchemaExpressionToLlmParametersExpressionWithRootMetadata(unitExpr, strict, meta)
+	if err != nil {
+		return fmt.Sprintf(`(() => { throw new Error(%s); })()`, jsonQuote(label+": "+err.Error()))
+	}
+	return expr
 }
 
 func emptyLlmParametersExpression() string {
 	return `({ type: "object", properties: {}, required: [], additionalProperties: false, $defs: {} })`
 }
 
-func emptyObjectValidateExpression() string {
-	return `(input) => { const __value = input ?? {}; const __ok = __value !== null && typeof __value === "object" && !Array.isArray(__value) && Object.keys(__value).length === 0; return __ok ? { success: true, data: __value } : { success: false, data: input, errors: [{ path: "$input", expected: "{}", value: input }] }; }`
+func anyValidateExpression() string {
+	return `(input) => ({ success: true, data: input })`
 }
 
 func firstObjectType(schema *metadata.Schema) *metadata.ObjectType {
@@ -393,4 +576,19 @@ func firstObjectType(schema *metadata.Schema) *metadata.ObjectType {
 		}
 	}
 	return nil
+}
+
+func hasAnyJsDocTag(tags []string, names ...string) bool {
+	if len(tags) == 0 || len(names) == 0 {
+		return false
+	}
+	for _, tag := range tags {
+		normalized := strings.TrimPrefix(strings.ToLower(strings.TrimSpace(tag)), "@")
+		for _, name := range names {
+			if normalized == strings.TrimPrefix(strings.ToLower(strings.TrimSpace(name)), "@") {
+				return true
+			}
+		}
+	}
+	return false
 }

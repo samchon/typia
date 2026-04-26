@@ -743,13 +743,16 @@ func shouldInlineCollectionRoot(name string) bool {
 
 func (e *jsonSchemaEncoder) discriminatorForOneOf(alternatives []any) map[string]any {
 	property := ""
+	mapping := map[string]any{}
 	for _, candidate := range alternatives {
 		schema, ok := candidate.(map[string]any)
 		if !ok {
 			return nil
 		}
 		resolved := schema
-		if ref, ok := schema["$ref"].(string); ok {
+		ref := ""
+		if candidateRef, ok := schema["$ref"].(string); ok {
+			ref = candidateRef
 			key := strings.TrimPrefix(ref, "#/components/schemas/")
 			component, ok := e.components[key].(map[string]any)
 			if !ok {
@@ -772,6 +775,9 @@ func (e *jsonSchemaEncoder) discriminatorForOneOf(alternatives []any) map[string
 				} else if property != key {
 					return nil
 				}
+				if ref != "" {
+					mapping[fmt.Sprint(prop["const"])] = ref
+				}
 				goto matched
 			}
 		}
@@ -781,7 +787,11 @@ func (e *jsonSchemaEncoder) discriminatorForOneOf(alternatives []any) map[string
 	if property == "" {
 		return nil
 	}
-	return map[string]any{"propertyName": property}
+	out := map[string]any{"propertyName": property}
+	if len(mapping) == len(alternatives) {
+		out["mapping"] = mapping
+	}
+	return out
 }
 
 // nativeToJSONSchema maps a native JS class name to its OpenAPI 3.1 encoding.

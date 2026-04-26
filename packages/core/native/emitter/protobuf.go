@@ -3,7 +3,9 @@ package emitter
 import (
 	"errors"
 	"fmt"
+	"math"
 	"sort"
+	"strconv"
 	"strings"
 	"unicode"
 
@@ -26,41 +28,31 @@ func EmitProtobufMessageExpression(schema *metadata.Schema) (string, error) {
 }
 
 func EmitProtobufEncodeArrowFunction(schema *metadata.Schema) (string, error) {
-	message, err := EmitProtobufMessageExpression(schema)
-	if err != nil {
-		return "", err
-	}
 	root := protobufRootObject(schema)
 	if root == nil {
 		return "", errors.New("protobuf.encode: target type must be a sole static object")
 	}
-	name := protobufTypeName(protobufObjectName(root))
 	state := newProtobufTransformState()
 	encodeRoot, err := state.emitEncodeHelper(root)
 	if err != nil {
 		return "", err
 	}
 	helpers := state.render()
-	return fmt.Sprintf(`(() => { const __message = %s; const __pjs = require("protobufjs"); const __name = %s; const __type = __pjs.parse(__message, { keepCase: true }).root.lookupType(__name); %s return (input) => __type.encode(%s(input)).finish(); })()`, message, jsonQuote(name), helpers, encodeRoot), nil
+	return fmt.Sprintf(`(() => { %s return (input) => { const __sizer = %s(new %s._ProtobufSizer(), input); const __writer = %s(new %s._ProtobufWriter(__sizer), input); return __writer.buffer(); }; })()`, helpers, encodeRoot, protobufSizerImportAlias, encodeRoot, protobufWriterImportAlias), nil
 }
 
 func EmitProtobufDecodeArrowFunction(schema *metadata.Schema) (string, error) {
-	message, err := EmitProtobufMessageExpression(schema)
-	if err != nil {
-		return "", err
-	}
 	root := protobufRootObject(schema)
 	if root == nil {
 		return "", errors.New("protobuf.decode: target type must be a sole static object")
 	}
-	name := protobufTypeName(protobufObjectName(root))
 	state := newProtobufTransformState()
 	decodeRoot, err := state.emitDecodeHelper(root)
 	if err != nil {
 		return "", err
 	}
 	helpers := state.render()
-	return fmt.Sprintf(`(() => { const __message = %s; const __pjs = require("protobufjs"); const __name = %s; const __type = __pjs.parse(__message, { keepCase: true }).root.lookupType(__name); %s return (input) => %s(__type.toObject(__type.decode(input), { longs: String, enums: String, bytes: Uint8Array, defaults: false, arrays: true, objects: true })); })()`, message, jsonQuote(name), helpers, decodeRoot), nil
+	return fmt.Sprintf(`(() => { %s return (input) => { const __reader = new %s._ProtobufReader(input); return %s(__reader, __reader.size()); }; })()`, helpers, protobufReaderImportAlias, decodeRoot), nil
 }
 
 type protobufTransformState struct {
@@ -116,16 +108,16 @@ func (s *protobufTransformState) emitEncodeHelper(obj *metadata.ObjectType) (str
 	defer delete(s.visitingEncode, obj)
 
 	var b strings.Builder
-	b.WriteString(`(v) => { const out = {}; `)
+	b.WriteString(`(writer, input) => { `)
 	specs, err := protobufPropertySpecs(obj)
 	if err != nil {
 		return "", err
 	}
 	for _, spec := range specs {
-		accessor := accessProperty("v", spec.Key)
+		accessor := accessProperty("input", spec.Key)
 		if len(spec.Variants) == 1 {
 			variant := spec.Variants[0]
-			valueExpr, err := s.encodeExpr(accessor, variant.Schema)
+			statement, err := s.encodeField("writer", accessor, variant.Schema, variant.FieldType, variant.Index)
 			if err != nil {
 				return "", err
 			}
@@ -133,11 +125,9 @@ func (s *protobufTransformState) emitEncodeHelper(obj *metadata.ObjectType) (str
 			b.WriteString(accessor)
 			b.WriteString(` && null !== `)
 			b.WriteString(accessor)
-			b.WriteString(`) out[`)
-			b.WriteString(jsonQuote(variant.FieldName))
-			b.WriteString(`] = `)
-			b.WriteString(valueExpr)
-			b.WriteString(`; `)
+			b.WriteString(`) { `)
+			b.WriteString(statement)
+			b.WriteString(`} `)
 			continue
 		}
 		ordered := protobufOrderVariantsForEncode(spec.Variants)
@@ -151,7 +141,7 @@ func (s *protobufTransformState) emitEncodeHelper(obj *metadata.ObjectType) (str
 			if err != nil {
 				return "", err
 			}
-			valueExpr, err := s.encodeExpr(accessor, variant.Schema)
+			statement, err := s.encodeField("writer", accessor, variant.Schema, variant.FieldType, variant.Index)
 			if err != nil {
 				return "", err
 			}
@@ -161,15 +151,13 @@ func (s *protobufTransformState) emitEncodeHelper(obj *metadata.ObjectType) (str
 				b.WriteString(`else if (`)
 			}
 			b.WriteString(predicate)
-			b.WriteString(`) out[`)
-			b.WriteString(jsonQuote(variant.FieldName))
-			b.WriteString(`] = `)
-			b.WriteString(valueExpr)
-			b.WriteString(`; `)
+			b.WriteString(`) { `)
+			b.WriteString(statement)
+			b.WriteString(`} `)
 		}
 		b.WriteString(`} `)
 	}
-	b.WriteString(`return out; }`)
+	b.WriteString(`return writer; }`)
 	s.helpers[name] = b.String()
 	return name, nil
 }
@@ -186,161 +174,309 @@ func (s *protobufTransformState) emitDecodeHelper(obj *metadata.ObjectType) (str
 	s.visitingDecode[obj] = true
 	defer delete(s.visitingDecode, obj)
 
-	var b strings.Builder
-	b.WriteString(`(v) => { const out = {}; `)
 	specs, err := protobufPropertySpecs(obj)
 	if err != nil {
 		return "", err
 	}
+	var b strings.Builder
+	b.WriteString(`(reader, limit) => { const output = {`)
+	for i, spec := range specs {
+		if i != 0 {
+			b.WriteString(`,`)
+		}
+		b.WriteString(jsonQuote(spec.Key))
+		b.WriteString(`:`)
+		b.WriteString(protobufDefaultValueExpression(spec.Schema))
+	}
+	b.WriteString(`}; while (reader.index() < limit) { const tag = reader.uint32(); switch (tag >>> 3) { `)
 	for _, spec := range specs {
-		if len(spec.Variants) == 1 {
-			variant := spec.Variants[0]
-			accessor := accessProperty("v", variant.FieldName)
-			valueExpr, err := s.decodeExpr(accessor, variant.Schema)
+		for _, variant := range spec.Variants {
+			statement, err := s.decodeField("reader", "tag", accessProperty("output", spec.Key), variant.Schema, variant.FieldType)
 			if err != nil {
 				return "", err
 			}
-			b.WriteString(`if (undefined !== `)
-			b.WriteString(accessor)
-			b.WriteString(` && null !== `)
-			b.WriteString(accessor)
-			b.WriteString(`) out[`)
-			b.WriteString(jsonQuote(spec.Key))
-			b.WriteString(`] = `)
-			b.WriteString(valueExpr)
-			b.WriteString(`; `)
-			if spec.Nullable {
-				b.WriteString(`else out[`)
-				b.WriteString(jsonQuote(spec.Key))
-				b.WriteString(`] = null; `)
-			}
-			continue
-		}
-		for i, variant := range spec.Variants {
-			accessor := accessProperty("v", variant.FieldName)
-			valueExpr, err := s.decodeExpr(accessor, variant.Schema)
-			if err != nil {
-				return "", err
-			}
-			if i == 0 {
-				b.WriteString(`if (`)
-			} else {
-				b.WriteString(`else if (`)
-			}
-			b.WriteString(`undefined !== `)
-			b.WriteString(accessor)
-			b.WriteString(` && null !== `)
-			b.WriteString(accessor)
-			b.WriteString(`) out[`)
-			b.WriteString(jsonQuote(spec.Key))
-			b.WriteString(`] = `)
-			b.WriteString(valueExpr)
-			b.WriteString(`; `)
-		}
-		if spec.Nullable {
-			b.WriteString(`else out[`)
-			b.WriteString(jsonQuote(spec.Key))
-			b.WriteString(`] = null; `)
+			b.WriteString(`case `)
+			b.WriteString(fmt.Sprintf("%d", variant.Index))
+			b.WriteString(`: { `)
+			b.WriteString(statement)
+			b.WriteString(`break; } `)
 		}
 	}
-	b.WriteString(`return out; }`)
+	b.WriteString(`default: reader.skipType(tag & 7); break; } } return output; }`)
 	s.helpers[name] = b.String()
 	return name, nil
 }
 
-func (s *protobufTransformState) encodeExpr(expr string, schema *metadata.Schema) (string, error) {
+func (s *protobufTransformState) encodeField(writer, expr string, schema *metadata.Schema, fieldType string, index int) (string, error) {
 	if schema == nil {
-		return expr, nil
+		return "", nil
 	}
+	schema = protobufUnalias(schema)
 	if len(schema.Aliases) == 1 && schema.Aliases[0] != nil && schema.Aliases[0].Type != nil {
-		return s.encodeExpr(expr, schema.Aliases[0].Type.Value)
+		return s.encodeField(writer, expr, schema.Aliases[0].Type.Value, fieldType, index)
 	}
 	if len(schema.Maps) != 0 && schema.Maps[0] != nil {
 		ref := schema.Maps[0]
-		keyExpr, err := s.encodeExpr("__key", ref.Key)
+		keyType, _, err := protobufFieldType(ref.Key)
 		if err != nil {
 			return "", err
 		}
-		valueExpr, err := s.encodeExpr("__value", ref.Value)
+		valueType, _, err := protobufFieldType(ref.Value)
 		if err != nil {
 			return "", err
 		}
-		return `Object.fromEntries(Array.from(` + expr + `.entries()).map(([__key, __value]) => [` + keyExpr + `, ` + valueExpr + `]))`, nil
+		keyStmt, err := s.encodeField(writer, "__key", ref.Key, keyType, 1)
+		if err != nil {
+			return "", err
+		}
+		valueStmt, err := s.encodeField(writer, "__value", ref.Value, valueType, 2)
+		if err != nil {
+			return "", err
+		}
+		return fmt.Sprintf(`for (const [__key, __value] of (%s instanceof Map ? %s.entries() : Object.entries(%s))) { %s.uint32(%d); %s.fork(); %s%s.ldelim(); } `, expr, expr, expr, writer, protobufTag(index, protobufWireLen), writer, keyStmt+valueStmt, writer), nil
 	}
 	if len(schema.Arrays) != 0 && schema.Arrays[0] != nil && schema.Arrays[0].Type != nil {
-		valueExpr, err := s.encodeExpr("__elem", schema.Arrays[0].Type.Value)
+		elem := schema.Arrays[0].Type.Value
+		elemType, _, err := protobufFieldType(elem)
 		if err != nil {
 			return "", err
 		}
-		return `(` + expr + `).map((__elem) => ` + valueExpr + `)`, nil
+		if method, wire, ok := protobufScalarMethod(elemType); ok && wire != protobufWireLen {
+			return fmt.Sprintf(`if (%s.length !== 0) { %s.uint32(%d); %s.fork(); for (const __elem of %s) { %s.%s(__elem); } %s.ldelim(); } `, expr, writer, protobufTag(index, protobufWireLen), writer, expr, writer, method, writer), nil
+		}
+		elemStmt, err := s.encodeField(writer, "__elem", elem, elemType, index)
+		if err != nil {
+			return "", err
+		}
+		return `for (const __elem of ` + expr + `) { ` + elemStmt + `} `, nil
 	}
 	if len(schema.Objects) != 0 && schema.Objects[0] != nil && schema.Objects[0].Type != nil {
 		if valueSchema := protobufDynamicObjectValueSchema(schema.Objects[0].Type); valueSchema != nil {
-			valueExpr, err := s.encodeExpr("__value", valueSchema)
+			valueType, _, err := protobufFieldType(valueSchema)
 			if err != nil {
 				return "", err
 			}
-			return `Object.fromEntries(Object.entries(` + expr + `).map(([__key, __value]) => [__key, ` + valueExpr + `]))`, nil
+			keyStmt, err := s.encodeField(writer, "__key", protobufSchemaForAtomic(metadata.Atomic{Type: metadata.AtomicString}), "string", 1)
+			if err != nil {
+				return "", err
+			}
+			valueStmt, err := s.encodeField(writer, "__value", valueSchema, valueType, 2)
+			if err != nil {
+				return "", err
+			}
+			return fmt.Sprintf(`for (const [__key, __value] of Object.entries(%s)) { %s.uint32(%d); %s.fork(); %s%s.ldelim(); } `, expr, writer, protobufTag(index, protobufWireLen), writer, keyStmt+valueStmt, writer), nil
 		}
 		name, err := s.emitEncodeHelper(schema.Objects[0].Type)
 		if err != nil {
 			return "", err
 		}
-		return name + "(" + expr + ")", nil
+		return fmt.Sprintf(`%s.uint32(%d); %s.fork(); %s(%s, %s); %s.ldelim(); `, writer, protobufTag(index, protobufWireLen), writer, name, writer, expr, writer), nil
 	}
-	if protobufIsBigintSchema(schema) {
-		return `(` + expr + `).toString()`, nil
+	method, wire, ok := protobufScalarMethod(fieldType)
+	if !ok {
+		return "", fmt.Errorf("protobuf.encode: unsupported field type %q", fieldType)
 	}
-	return expr, nil
+	return fmt.Sprintf(`%s.uint32(%d); %s.%s(%s); `, writer, protobufTag(index, wire), writer, method, expr), nil
 }
 
-func (s *protobufTransformState) decodeExpr(expr string, schema *metadata.Schema) (string, error) {
+func (s *protobufTransformState) decodeField(reader, tag, accessor string, schema *metadata.Schema, fieldType string) (string, error) {
 	if schema == nil {
-		return expr, nil
+		return "", nil
 	}
+	schema = protobufUnalias(schema)
 	if len(schema.Aliases) == 1 && schema.Aliases[0] != nil && schema.Aliases[0].Type != nil {
-		return s.decodeExpr(expr, schema.Aliases[0].Type.Value)
+		return s.decodeField(reader, tag, accessor, schema.Aliases[0].Type.Value, fieldType)
 	}
 	if len(schema.Maps) != 0 && schema.Maps[0] != nil {
 		ref := schema.Maps[0]
-		keyExpr, err := s.decodeExpr("__key", ref.Key)
+		keyType, _, err := protobufFieldType(ref.Key)
 		if err != nil {
 			return "", err
 		}
-		valueExpr, err := s.decodeExpr("__value", ref.Value)
+		valueType, _, err := protobufFieldType(ref.Value)
 		if err != nil {
 			return "", err
 		}
-		return `new Map(Object.entries(` + expr + `).map(([__key, __value]) => [` + keyExpr + `, ` + valueExpr + `]))`, nil
+		entryDecoder, err := s.decodeEntryObject(reader, keyType, ref.Key, valueType, ref.Value)
+		if err != nil {
+			return "", err
+		}
+		return `(() => { const __end = ` + reader + `.uint32() + ` + reader + `.index(); const __entry = ` + entryDecoder + `; ` + accessor + ` ??= new Map(); ` + accessor + `.set(__entry.key, __entry.value); })(); `, nil
 	}
 	if len(schema.Arrays) != 0 && schema.Arrays[0] != nil && schema.Arrays[0].Type != nil {
-		valueExpr, err := s.decodeExpr("__elem", schema.Arrays[0].Type.Value)
+		elem := schema.Arrays[0].Type.Value
+		elemType, _, err := protobufFieldType(elem)
 		if err != nil {
 			return "", err
 		}
-		return `(` + expr + `).map((__elem) => ` + valueExpr + `)`, nil
+		valueExpr, err := s.decodeValue(reader, elem, elemType)
+		if err != nil {
+			return "", err
+		}
+		if _, wire, ok := protobufScalarMethod(elemType); ok && wire != protobufWireLen {
+			return accessor + ` ??= []; if ((` + tag + ` & 7) === 2) { const __end = ` + reader + `.uint32() + ` + reader + `.index(); while (` + reader + `.index() < __end) ` + accessor + `.push(` + valueExpr + `); } else ` + accessor + `.push(` + valueExpr + `); `, nil
+		}
+		return accessor + ` ??= []; ` + accessor + `.push(` + valueExpr + `); `, nil
 	}
 	if len(schema.Objects) != 0 && schema.Objects[0] != nil && schema.Objects[0].Type != nil {
 		if valueSchema := protobufDynamicObjectValueSchema(schema.Objects[0].Type); valueSchema != nil {
-			valueExpr, err := s.decodeExpr("__value", valueSchema)
+			valueType, _, err := protobufFieldType(valueSchema)
 			if err != nil {
 				return "", err
 			}
-			return `Object.fromEntries(Object.entries(` + expr + `).map(([__key, __value]) => [__key, ` + valueExpr + `]))`, nil
+			entryDecoder, err := s.decodeEntryObject(reader, "string", protobufSchemaForAtomic(metadata.Atomic{Type: metadata.AtomicString}), valueType, valueSchema)
+			if err != nil {
+				return "", err
+			}
+			return `(() => { const __end = ` + reader + `.uint32() + ` + reader + `.index(); const __entry = ` + entryDecoder + `; ` + accessor + ` ??= {}; ` + accessor + `[__entry.key] = __entry.value; })(); `, nil
 		}
 		name, err := s.emitDecodeHelper(schema.Objects[0].Type)
 		if err != nil {
 			return "", err
 		}
-		return name + "(" + expr + ")", nil
+		return accessor + ` = ` + name + `(` + reader + `, ` + reader + `.uint32() + ` + reader + `.index()); `, nil
 	}
+	valueExpr, err := s.decodeValue(reader, schema, fieldType)
+	if err != nil {
+		return "", err
+	}
+	return accessor + ` = ` + valueExpr + `; `, nil
+}
+
+func (s *protobufTransformState) decodeEntryObject(reader, keyType string, keySchema *metadata.Schema, valueType string, valueSchema *metadata.Schema) (string, error) {
+	keyExpr, err := s.decodeValue(reader, keySchema, keyType)
+	if err != nil {
+		return "", err
+	}
+	valueExpr, err := s.decodeValue(reader, valueSchema, valueType)
+	if err != nil {
+		return "", err
+	}
+	return `(() => { const __entry = { key: undefined, value: undefined }; while (` + reader + `.index() < __end) { const __kind = ` + reader + `.uint32(); switch (__kind >>> 3) { case 1: __entry.key = ` + keyExpr + `; break; case 2: __entry.value = ` + valueExpr + `; break; default: ` + reader + `.skipType(__kind & 7); break; } } return __entry; })()`, nil
+}
+
+func (s *protobufTransformState) decodeValue(reader string, schema *metadata.Schema, fieldType string) (string, error) {
+	schema = protobufUnalias(schema)
+	if len(schema.Objects) != 0 && schema.Objects[0] != nil && schema.Objects[0].Type != nil {
+		if protobufDynamicObjectValueSchema(schema.Objects[0].Type) == nil {
+			name, err := s.emitDecodeHelper(schema.Objects[0].Type)
+			if err != nil {
+				return "", err
+			}
+			return name + `(` + reader + `, ` + reader + `.uint32() + ` + reader + `.index())`, nil
+		}
+	}
+	method, _, ok := protobufScalarMethod(fieldType)
+	if !ok {
+		return "", fmt.Errorf("protobuf.decode: unsupported field type %q", fieldType)
+	}
+	expr := reader + "." + method + "()"
 	if protobufIsLongNumberSchema(schema) {
-		return `Number(` + expr + `)`, nil
-	}
-	if protobufIsBigintSchema(schema) {
-		return `BigInt(` + expr + `)`, nil
+		return "Number(" + expr + ")", nil
 	}
 	return expr, nil
+}
+
+const (
+	protobufWireVariant = 0
+	protobufWireI64     = 1
+	protobufWireLen     = 2
+	protobufWireI32     = 5
+)
+
+func protobufTag(index int, wire int) int {
+	return (index << 3) | wire
+}
+
+func protobufUnalias(schema *metadata.Schema) *metadata.Schema {
+	for schema != nil && len(schema.Aliases) == 1 && schema.Aliases[0] != nil && schema.Aliases[0].Type != nil && schema.Aliases[0].Type.Value != nil {
+		schema = schema.Aliases[0].Type.Value
+	}
+	return schema
+}
+
+func protobufScalarMethod(fieldType string) (string, int, bool) {
+	fieldType = strings.TrimSpace(strings.TrimPrefix(fieldType, "repeated "))
+	switch fieldType {
+	case "bool":
+		return "bool", protobufWireVariant, true
+	case "int32":
+		return "int32", protobufWireVariant, true
+	case "uint32":
+		return "uint32", protobufWireVariant, true
+	case "sint32":
+		return "sint32", protobufWireVariant, true
+	case "int64":
+		return "int64", protobufWireVariant, true
+	case "uint64":
+		return "uint64", protobufWireVariant, true
+	case "sint64":
+		return "sint64", protobufWireVariant, true
+	case "float":
+		return "float", protobufWireI32, true
+	case "double":
+		return "double", protobufWireI64, true
+	case "string":
+		return "string", protobufWireLen, true
+	case "bytes":
+		return "bytes", protobufWireLen, true
+	default:
+		return "", 0, false
+	}
+}
+
+func protobufDefaultValueExpression(schema *metadata.Schema) string {
+	schema = protobufUnalias(schema)
+	if schema == nil {
+		return "undefined"
+	}
+	if schema.Nullable {
+		return "null"
+	}
+	if !schema.IsRequired() || schema.Optional {
+		return "undefined"
+	}
+	if len(schema.Arrays) != 0 {
+		return "[]"
+	}
+	if len(schema.Maps) != 0 {
+		return "new Map()"
+	}
+	for _, native := range schema.Natives {
+		if native.Name == "Uint8Array" {
+			return "new Uint8Array([])"
+		}
+	}
+	if len(schema.Atomics) != 0 {
+		for _, atomic := range schema.Atomics {
+			if atomic.Type == metadata.AtomicString {
+				return jsonQuote("")
+			}
+		}
+	}
+	if len(schema.Constants) != 0 {
+		for _, constant := range schema.Constants {
+			if constant.Type != metadata.AtomicString {
+				continue
+			}
+			for _, value := range constant.Values {
+				if text, ok := value.Value.(string); ok && text == "" {
+					return jsonQuote("")
+				}
+			}
+		}
+	}
+	if len(schema.Templates) != 0 {
+		return jsonQuote("")
+	}
+	if len(schema.Objects) != 0 {
+		for _, ref := range schema.Objects {
+			if ref != nil && ref.Type != nil && protobufDynamicObjectValueSchema(ref.Type) != nil {
+				return "{}"
+			}
+		}
+	}
+	return "undefined"
 }
 
 func protobufIsBigintSchema(schema *metadata.Schema) bool {
@@ -586,6 +722,7 @@ type protobufPropertySpec struct {
 	Key      string
 	Optional bool
 	Nullable bool
+	Schema   *metadata.Schema
 	Variants []protobufVariantSpec
 }
 
@@ -616,6 +753,7 @@ func protobufPropertySpecs(obj *metadata.ObjectType) ([]protobufPropertySpec, er
 			Key:      key,
 			Optional: !prop.Value.IsRequired() || prop.Value.Optional || prop.Value.Nullable,
 			Nullable: prop.Value.Nullable,
+			Schema:   prop.Value,
 			Variants: variants,
 		})
 	}
@@ -837,58 +975,211 @@ func protobufConstantVariantSpecs(constant metadata.Constant) ([]protobufVariant
 	if len(constant.Values) == 0 {
 		return nil, nil
 	}
-	specs := []protobufVariantSpec{}
+	switch constant.Type {
+	case metadata.AtomicBoolean:
+		return protobufConstantAtomicVariant(constant, "bool", 0)
+	case metadata.AtomicString:
+		return protobufConstantAtomicVariant(constant, "string", 0)
+	case metadata.AtomicNumber:
+		return protobufNumberConstantVariants(constant)
+	case metadata.AtomicBigint:
+		return protobufBigintConstantVariants(constant)
+	default:
+		return nil, nil
+	}
+}
+
+func protobufConstantAtomicVariant(constant metadata.Constant, fieldType string, index int) ([]protobufVariantSpec, error) {
+	fixed := false
+	if len(constant.Values) != 0 && len(constant.Values[0].Tags) != 0 {
+		index = protobufSequenceRow(constant.Values[0].Tags[0])
+		fixed = index != 0
+	}
+	schema := protobufSchemaForAtomic(metadata.Atomic{
+		Type: constant.Type,
+		Tags: protobufTagMatrixForFieldType(fieldType),
+	})
+	return []protobufVariantSpec{{
+		FieldType: fieldType,
+		Schema:    schema,
+		Index:     index,
+		fixed:     fixed,
+	}}, nil
+}
+
+func protobufNumberConstantVariants(constant metadata.Constant) ([]protobufVariantSpec, error) {
+	init := protobufDeduceNumberConstantType(constant.Values)
+	grouped := map[string]protobufVariantSpec{}
 	for _, value := range constant.Values {
 		if len(value.Tags) == 0 {
-			variant := protobufSchemaForConstant(metadata.Constant{
-				Type:   constant.Type,
-				Values: []metadata.ConstantValue{{Value: value.Value}},
-			})
-			fieldType, repeated, err := protobufFieldType(variant)
-			if err != nil {
-				return nil, err
+			grouped[init] = protobufVariantSpec{
+				FieldType: init,
+				Schema: protobufSchemaForAtomic(metadata.Atomic{
+					Type: metadata.AtomicNumber,
+					Tags: protobufTagMatrixForFieldType(init),
+				}),
 			}
-			specs = append(specs, protobufVariantSpec{
-				FieldType: fieldType,
-				Repeated:  repeated,
-				Schema:    variant,
-			})
 			continue
 		}
 		for _, row := range value.Tags {
-			next := metadata.Constant{
-				Type: constant.Type,
-				Values: []metadata.ConstantValue{{
-					Value: value.Value,
-					Tags:  metadata.TagMatrix{row},
-				}},
-			}
-			switch constant.Type {
-			case metadata.AtomicNumber:
-				if typ := protobufNumberTypeRow(row); typ == "" {
-					next.Values[0].Tags = nil
-				}
-			case metadata.AtomicBigint:
-				if typ := protobufBigintTypeRow(row); typ == "" {
-					next.Values[0].Tags = nil
-				}
-			}
-			variant := protobufSchemaForConstant(next)
-			fieldType, repeated, err := protobufFieldType(variant)
-			if err != nil {
-				return nil, err
+			fieldType := protobufNumberTypeRow(row)
+			if fieldType == "" {
+				fieldType = "double"
 			}
 			index := protobufSequenceRow(row)
-			specs = append(specs, protobufVariantSpec{
+			grouped[fieldType] = protobufVariantSpec{
 				FieldType: fieldType,
-				Repeated:  repeated,
-				Schema:    variant,
-				Index:     index,
-				fixed:     index != 0,
-			})
+				Schema: protobufSchemaForAtomic(metadata.Atomic{
+					Type: metadata.AtomicNumber,
+					Tags: metadata.TagMatrix{protobufRowWithFieldType(row, fieldType)},
+				}),
+				Index: index,
+				fixed: index != 0,
+			}
 		}
 	}
-	return specs, nil
+	return protobufOrderedScalarVariants(grouped), nil
+}
+
+func protobufBigintConstantVariants(constant metadata.Constant) ([]protobufVariantSpec, error) {
+	init := protobufDeduceBigintConstantType(constant.Values)
+	grouped := map[string]protobufVariantSpec{}
+	for _, value := range constant.Values {
+		if len(value.Tags) == 0 {
+			grouped[init] = protobufVariantSpec{
+				FieldType: init,
+				Schema: protobufSchemaForAtomic(metadata.Atomic{
+					Type: metadata.AtomicBigint,
+					Tags: protobufTagMatrixForFieldType(init),
+				}),
+			}
+			continue
+		}
+		for _, row := range value.Tags {
+			fieldType := protobufBigintTypeRow(row)
+			if fieldType == "" {
+				fieldType = "int64"
+			}
+			index := protobufSequenceRow(row)
+			grouped[fieldType] = protobufVariantSpec{
+				FieldType: fieldType,
+				Schema: protobufSchemaForAtomic(metadata.Atomic{
+					Type: metadata.AtomicBigint,
+					Tags: metadata.TagMatrix{protobufRowWithFieldType(row, fieldType)},
+				}),
+				Index: index,
+				fixed: index != 0,
+			}
+		}
+	}
+	return protobufOrderedScalarVariants(grouped), nil
+}
+
+func protobufOrderedScalarVariants(grouped map[string]protobufVariantSpec) []protobufVariantSpec {
+	order := map[string]int{
+		"bool":   0,
+		"int32":  1,
+		"uint32": 2,
+		"int64":  3,
+		"uint64": 4,
+		"float":  5,
+		"double": 6,
+		"string": 7,
+	}
+	keys := make([]string, 0, len(grouped))
+	for key := range grouped {
+		keys = append(keys, key)
+	}
+	sort.SliceStable(keys, func(i, j int) bool {
+		return order[keys[i]] < order[keys[j]]
+	})
+	out := make([]protobufVariantSpec, 0, len(keys))
+	for _, key := range keys {
+		out = append(out, grouped[key])
+	}
+	return out
+}
+
+func protobufDeduceNumberConstantType(values []metadata.ConstantValue) string {
+	if len(values) == 0 {
+		return "double"
+	}
+	allInteger := true
+	allInt32 := true
+	for _, value := range values {
+		n, ok := protobufFloat(value.Value)
+		if !ok || math.Trunc(n) != n {
+			allInteger = false
+			break
+		}
+		if n < -2147483648 || n > 2147483647 {
+			allInt32 = false
+		}
+	}
+	if !allInteger {
+		return "double"
+	}
+	if allInt32 {
+		return "int32"
+	}
+	return "int64"
+}
+
+func protobufDeduceBigintConstantType(values []metadata.ConstantValue) string {
+	for _, value := range values {
+		text := strings.TrimSpace(fmt.Sprint(value.Value))
+		if strings.HasPrefix(text, "-") {
+			return "int64"
+		}
+	}
+	return "uint64"
+}
+
+func protobufFloat(value any) (float64, bool) {
+	switch v := value.(type) {
+	case float64:
+		return v, true
+	case float32:
+		return float64(v), true
+	case int:
+		return float64(v), true
+	case int32:
+		return float64(v), true
+	case int64:
+		return float64(v), true
+	case uint:
+		return float64(v), true
+	case uint32:
+		return float64(v), true
+	case uint64:
+		return float64(v), true
+	case jsonNumber:
+		n, err := strconv.ParseFloat(string(v), 64)
+		return n, err == nil
+	case string:
+		n, err := strconv.ParseFloat(v, 64)
+		return n, err == nil
+	default:
+		return 0, false
+	}
+}
+
+type jsonNumber string
+
+func protobufTagMatrixForFieldType(fieldType string) metadata.TagMatrix {
+	return metadata.TagMatrix{[]metadata.TypeTag{{Kind: "type", Value: fieldType}}}
+}
+
+func protobufRowWithFieldType(row []metadata.TypeTag, fieldType string) []metadata.TypeTag {
+	out := append([]metadata.TypeTag(nil), row...)
+	for i := range out {
+		if out[i].Kind == "type" {
+			out[i].Value = fieldType
+			return out
+		}
+	}
+	out = append(out, metadata.TypeTag{Kind: "type", Value: fieldType})
+	return out
 }
 
 func protobufOrderVariantsForEncode(variants []protobufVariantSpec) []protobufVariantSpec {

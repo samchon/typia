@@ -793,31 +793,31 @@ func EmitCall(
 		}
 		return fmt.Sprintf(`(input) => (%s)((%s)(input))`, validateExpr, decodeExpr), false, nil, true
 	case module == "llm" && method == "application":
-		expr, err := emitter.EmitLlmApplicationArrowFunction(schema)
+		expr, err := emitter.EmitLlmApplicationArrowFunctionWithConfig(schema, llmStrictEnabled(configTypeNode))
 		return expr, false, err, true
 	case module == "llm" && method == "parameters":
-		expr, err := emitter.EmitLlmParametersExpression(schema)
+		expr, err := emitter.EmitLlmParametersExpressionWithConfig(schema, llmStrictEnabled(configTypeNode))
 		return expr, true, err, true
 	case module == "llm" && method == "schema":
-		expr, err := emitter.EmitLlmSchemaArrowFunction(schema, rootIdentifier(typeNode))
+		expr, err := emitter.EmitLlmSchemaArrowFunctionWithConfig(schema, rootIdentifier(typeNode), llmStrictEnabled(configTypeNode))
 		return expr, false, err, true
 	case module == "llm" && method == "parse":
-		expr, err := emitter.EmitLlmParseArrowFunction(schema)
+		expr, err := emitter.EmitLlmParseArrowFunctionWithConfig(schema, llmStrictEnabled(configTypeNode))
 		return expr, false, err, true
 	case module == "llm" && method == "createParse":
-		expr, err := emitter.EmitLlmParseArrowFunction(schema)
+		expr, err := emitter.EmitLlmParseArrowFunctionWithConfig(schema, llmStrictEnabled(configTypeNode))
 		return expr, true, err, true
 	case module == "llm" && method == "coerce":
-		expr, err := emitter.EmitLlmCoerceArrowFunction(schema)
+		expr, err := emitter.EmitLlmCoerceArrowFunctionWithConfig(schema, llmStrictEnabled(configTypeNode))
 		return expr, false, err, true
 	case module == "llm" && method == "createCoerce":
-		expr, err := emitter.EmitLlmCoerceArrowFunction(schema)
+		expr, err := emitter.EmitLlmCoerceArrowFunctionWithConfig(schema, llmStrictEnabled(configTypeNode))
 		return expr, true, err, true
 	case module == "llm" && method == "structuredOutput":
-		expr, err := emitter.EmitLlmStructuredOutputExpressionWithEquals(schema, llmEqualsEnabled(configTypeNode))
+		expr, err := emitter.EmitLlmStructuredOutputExpressionWithConfig(schema, llmEqualsEnabled(configTypeNode), llmStrictEnabled(configTypeNode))
 		return expr, true, err, true
 	case module == "llm" && method == "controller":
-		expr, err := emitter.EmitLlmControllerArrowFunction(schema)
+		expr, err := emitter.EmitLlmControllerArrowFunctionWithConfig(schema, llmStrictEnabled(configTypeNode))
 		return expr, false, err, true
 	}
 	return "", false, nil, false

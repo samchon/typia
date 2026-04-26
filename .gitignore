@@ -1,17 +1,16 @@
 .claude/
 .codex/
 bin/
-!/bin
 node_modules/
+.wiki/
 
 packages/*/lib/
 packages/*/dist/
 toolchain/*/lib/
 tests/*/bin/
-toolchain-tests/*/bin/
 toolchain/ttsc/native/
-toolchain-tests/test-typia-ttsc/fixtures/*/dist/
-toolchain-tests/test-typia-ttsc/fixtures/*/build/output/
+tests/test-typia-ttsc/fixtures/*/dist/
+tests/test-typia-ttsc/fixtures/*/build/output/
 wiki/memo/
 
 package-lock.json
