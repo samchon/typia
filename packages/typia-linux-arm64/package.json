@@ -1,6 +1,6 @@
 {
   "name": "@typia/linux-arm64",
-  "version": "13.0.0-dev.20260426",
+  "version": "13.0.0-dev.20260427",
   "description": "Linux arm64 native transform binary for typia.",
   "os": ["linux"],
   "cpu": ["arm64"],
