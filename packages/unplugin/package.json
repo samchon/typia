@@ -61,7 +61,7 @@
     "magic-string": "^0.30.17",
     "pathe": "^2.0.3",
     "pkg-types": "^2.1.0",
-    "ttsc": "^0.4.2",
+    "ttsc": "catalog:typescript",
     "type-fest": "^4.37.0",
     "unplugin": "^2.2.2"
   },

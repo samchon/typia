@@ -18,7 +18,7 @@
   "devDependencies": {
     "@types/node": "catalog:utils",
     "@typescript/native-preview": "catalog:typescript",
-    "ttsc": "^0.4.2"
+    "ttsc": "catalog:typescript"
   },
   "dependencies": {
     "@langchain/core": "^1.1.31",
