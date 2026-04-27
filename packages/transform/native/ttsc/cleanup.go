@@ -177,6 +177,7 @@ var runtimeImports = []runtimeImport{
 	{alias: "__typia_transform_jsonStringifyNumber", module: "typia/lib/internal/_jsonStringifyNumber"},
 	{alias: "__typia_transform_jsonStringifyRest", module: "typia/lib/internal/_jsonStringifyRest"},
 	{alias: "__typia_transform_jsonStringifyTail", module: "typia/lib/internal/_jsonStringifyTail"},
+	{alias: "__typia_transform_throwTypeGuardError", module: "typia/lib/internal/_throwTypeGuardError"},
 	{alias: "__typia_transform_miscCloneAny", module: "typia/lib/internal/_miscCloneAny"},
 	{alias: "__typia_transform_notationAny", module: "typia/lib/internal/_notationAny"},
 	{alias: "__typia_transform_notationCamel", module: "typia/lib/internal/_notationCamel"},

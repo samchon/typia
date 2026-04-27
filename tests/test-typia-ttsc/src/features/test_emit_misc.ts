@@ -47,12 +47,15 @@ export async function test_emit_misc(): Promise<void> {
       components: {
         objects: Array<{
           name: string;
+          description?: string;
+          jsDocTags: Array<{ name: string; text?: unknown[] }>;
           properties: Array<{
             value: {
               templates: Array<{ row: unknown[] }>;
             };
             description: string | null;
-            jsDocTags: Array<{ name: string }>;
+            jsDocTags: Array<{ name: string; text?: unknown[] }>;
+            mutability?: "readonly" | null;
           }>;
           dynamicProperties?: unknown;
           additionalProperties?: unknown;
@@ -145,11 +148,32 @@ export async function test_emit_misc(): Promise<void> {
   assert.match(mod.regularConditionalName, /^TypeLiteral#[0-9]+$/);
   const reflectedObject = mod.reflected.components.objects[0]!;
   assert.equal(reflectedObject.name, "ReflectTarget");
+  assert.equal(reflectedObject.description, "Reflect object docs.");
+  assert.deepEqual(reflectedObject.jsDocTags, [
+    {
+      name: "deprecated",
+      text: [{ text: "Object deprecated.", kind: "text" }],
+    },
+  ]);
   assert.equal("dynamicProperties" in reflectedObject, false);
   assert.equal("additionalProperties" in reflectedObject, false);
   const reflectedProperty = reflectedObject.properties[0]!;
   assert.equal(reflectedProperty.description, "Visible property docs.");
   assert.equal(reflectedProperty.jsDocTags[0]!.name, "deprecated");
+  assert.deepEqual(reflectedProperty.jsDocTags[0]!.text, [
+    { text: "Use replacement.", kind: "text" },
+  ]);
+  assert.deepEqual(
+    reflectedProperty.jsDocTags.map((tag) => tag.name),
+    ["deprecated", "example", "example"],
+  );
+  assert.deepEqual(reflectedProperty.jsDocTags[1]!.text, [
+    { text: "first sample", kind: "text" },
+  ]);
+  assert.deepEqual(reflectedProperty.jsDocTags[2]!.text, [
+    { text: "second sample", kind: "text" },
+  ]);
+  assert.equal(reflectedProperty.mutability, "readonly");
   assert.equal(
     typeof reflectedProperty.value.templates[0]!.row[0],
     "object",

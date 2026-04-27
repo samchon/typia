@@ -174,10 +174,83 @@ func TestJsonStringifyAtomicUnionUsesHelpers(t *testing.T) {
 		jsonStringifyStringAlias + "._jsonStringifyString(input)",
 		`"number" === typeof input`,
 		jsonStringifyNumberAlias + "._jsonStringifyNumber(input)",
+		throwTypeGuardErrorAlias + "._throwTypeGuardError",
 	} {
 		if !strings.Contains(got, fragment) {
 			t.Fatalf("atomic union should use helper branch %q: %s", fragment, got)
 		}
+	}
+}
+
+func TestJsonStringifyObjectUnionUsesStructuredBranches(t *testing.T) {
+	keyKind := metadata.NewSchema().AddConstant(metadata.AtomicString, "kind")
+	keyX := metadata.NewSchema().AddConstant(metadata.AtomicString, "x")
+	keyText := metadata.NewSchema().AddConstant(metadata.AtomicString, "text")
+	point := &metadata.ObjectType{
+		Name: "PointBranch",
+		Properties: []*metadata.Property{
+			{Key: keyKind, Value: metadata.NewSchema().AddConstant(metadata.AtomicString, "point")},
+			{Key: keyX, Value: metadata.NewSchema().AddAtomic(metadata.AtomicNumber)},
+		},
+	}
+	label := &metadata.ObjectType{
+		Name: "LabelBranch",
+		Properties: []*metadata.Property{
+			{Key: keyKind, Value: metadata.NewSchema().AddConstant(metadata.AtomicString, "label")},
+			{Key: keyText, Value: metadata.NewSchema().AddAtomic(metadata.AtomicString)},
+		},
+	}
+	s := metadata.NewSchema()
+	s.Objects = append(s.Objects, &metadata.ObjectRef{Type: point}, &metadata.ObjectRef{Type: label})
+	got, err := EmitJsonStringifyArrowFunction(s)
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, fragment := range []string{
+		"if (",
+		`"\"x\":"`,
+		`"\"text\":"`,
+		jsonStringifyNumberAlias + "._jsonStringifyNumber(input.x)",
+		jsonStringifyStringAlias + "._jsonStringifyString(input.text)",
+		throwTypeGuardErrorAlias + "._throwTypeGuardError",
+	} {
+		if !strings.Contains(got, fragment) {
+			t.Fatalf("object union stringify should contain %q: %s", fragment, got)
+		}
+	}
+	if strings.HasPrefix(got, "(input) => JSON.stringify(input)") {
+		t.Fatalf("object union stringify must not use whole-input fallback as the primary path: %s", got)
+	}
+}
+
+func TestJsonStringifyMixedAtomicObjectUnionUsesStructuredBranches(t *testing.T) {
+	keyKind := metadata.NewSchema().AddConstant(metadata.AtomicString, "kind")
+	keyText := metadata.NewSchema().AddConstant(metadata.AtomicString, "text")
+	label := &metadata.ObjectType{
+		Name: "LabelBranch",
+		Properties: []*metadata.Property{
+			{Key: keyKind, Value: metadata.NewSchema().AddConstant(metadata.AtomicString, "label")},
+			{Key: keyText, Value: metadata.NewSchema().AddAtomic(metadata.AtomicString)},
+		},
+	}
+	s := metadata.NewSchema().AddAtomic(metadata.AtomicString)
+	s.Objects = append(s.Objects, &metadata.ObjectRef{Type: label})
+	got, err := EmitJsonStringifyArrowFunction(s)
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, fragment := range []string{
+		`"string" === typeof input`,
+		jsonStringifyStringAlias + "._jsonStringifyString(input)",
+		jsonStringifyStringAlias + "._jsonStringifyString(input.text)",
+		throwTypeGuardErrorAlias + "._throwTypeGuardError",
+	} {
+		if !strings.Contains(got, fragment) {
+			t.Fatalf("mixed union stringify should contain %q: %s", fragment, got)
+		}
+	}
+	if strings.HasPrefix(got, "(input) => JSON.stringify(input)") {
+		t.Fatalf("mixed union stringify must not use whole-input fallback as the primary path: %s", got)
 	}
 }
 

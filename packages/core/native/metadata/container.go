@@ -35,25 +35,28 @@ type TupleRef struct {
 // Key is stored as a full Schema because typia supports computed / symbolic
 // keys (`${string}-id` → Template, symbols → constant, etc.).
 type Property struct {
-	Key         *Schema             `json:"key"`
-	Value       *Schema             `json:"value"`
-	Description *string             `json:"description,omitempty"`
-	JsDocTags   []string            `json:"jsDocTags,omitempty"`
-	JsDocTexts  map[string][]string `json:"jsDocTexts,omitempty"`
+	Key           *Schema             `json:"key"`
+	Value         *Schema             `json:"value"`
+	Description   *string             `json:"description,omitempty"`
+	JsDocTags     []string            `json:"jsDocTags,omitempty"`
+	JsDocTexts    map[string][]string `json:"jsDocTexts,omitempty"`
+	JsDocTagInfos []JsDocTagInfo      `json:"jsDocTagInfos,omitempty"`
+	Mutability    *string             `json:"mutability,omitempty"`
 }
 
 // ObjectType mirrors `MetadataObjectType`.
 type ObjectType struct {
-	Name                 string      `json:"name"`
-	Properties           []*Property `json:"properties"`
-	DynamicProperties    []*Property `json:"dynamicProperties,omitempty"`
-	AdditionalProperties *Schema     `json:"additionalProperties,omitempty"`
-	Description          *string     `json:"description,omitempty"`
-	JsDocTags            []string    `json:"jsDocTags,omitempty"`
-	Index                int         `json:"index"`
-	Validated            bool        `json:"validated"`
-	Recursive            bool        `json:"recursive"`
-	Nullables            []bool      `json:"nullables,omitempty"`
+	Name                 string         `json:"name"`
+	Properties           []*Property    `json:"properties"`
+	DynamicProperties    []*Property    `json:"dynamicProperties,omitempty"`
+	AdditionalProperties *Schema        `json:"additionalProperties,omitempty"`
+	Description          *string        `json:"description,omitempty"`
+	JsDocTags            []string       `json:"jsDocTags,omitempty"`
+	JsDocTagInfos        []JsDocTagInfo `json:"jsDocTagInfos,omitempty"`
+	Index                int            `json:"index"`
+	Validated            bool           `json:"validated"`
+	Recursive            bool           `json:"recursive"`
+	Nullables            []bool         `json:"nullables,omitempty"`
 }
 
 // ObjectRef mirrors `MetadataObject`.

@@ -20,6 +20,10 @@ import (
 // JSON.stringify" numbers come from — less dynamic traversal, more inlined
 // string concatenation.
 func EmitJsonStringifyArrowFunction(schema *metadata.Schema) (string, error) {
+	return EmitJsonStringifyArrowFunctionWithMethod(schema, "typia.json.stringify")
+}
+
+func EmitJsonStringifyArrowFunctionWithMethod(schema *metadata.Schema, method string) (string, error) {
 	if schema == nil {
 		return "", errors.New("emitter: nil schema")
 	}
@@ -27,6 +31,8 @@ func EmitJsonStringifyArrowFunction(schema *metadata.Schema) (string, error) {
 		return "", fmt.Errorf("%w: json stringify does not support %s", ErrUnsupportedSchema, unsupported)
 	}
 	state := newJSONStringifyState(schema)
+	state.method = method
+	state.expected = schema.Name()
 	expr, err := buildJsonStringify("input", schema, state)
 	if err != nil {
 		return "", err
@@ -42,6 +48,8 @@ func EmitJsonStringifyArrowFunction(schema *metadata.Schema) (string, error) {
 }
 
 type jsonStringifyState struct {
+	method           string
+	expected         string
 	arrayTypes        map[*metadata.ArrayType]int
 	tupleTypes        map[*metadata.TupleType]int
 	objects           map[*metadata.ObjectType]int
@@ -271,6 +279,118 @@ func (state *jsonStringifyState) localHelpers() (string, error) {
 	return b.String(), nil
 }
 
+func (state *jsonStringifyState) arrayHelperName(array *metadata.ArrayType) (string, bool) {
+	if state == nil || array == nil {
+		return "", false
+	}
+	if name, ok := state.arrayHelpers[array]; ok {
+		return name, true
+	}
+	if array.Name == "" {
+		return "", false
+	}
+	for candidate, name := range state.arrayHelpers {
+		if candidate != nil && candidate.Name == array.Name {
+			return name, true
+		}
+	}
+	for candidate, name := range state.arrayHelpers {
+		if schemaReferencesArrayHelper(array.Value, candidate, map[*metadata.Schema]bool{}) {
+			return name, true
+		}
+	}
+	return "", false
+}
+
+func (state *jsonStringifyState) tupleHelperName(tuple *metadata.TupleType) (string, bool) {
+	if state == nil || tuple == nil {
+		return "", false
+	}
+	if name, ok := state.tupleHelpers[tuple]; ok {
+		return name, true
+	}
+	if tuple.Name == "" {
+		return "", false
+	}
+	for candidate, name := range state.tupleHelpers {
+		if candidate != nil && candidate.Name == tuple.Name {
+			return name, true
+		}
+	}
+	for candidate, name := range state.tupleHelpers {
+		for _, elem := range tuple.Elements {
+			if schemaReferencesTupleHelper(elem, candidate, map[*metadata.Schema]bool{}) {
+				return name, true
+			}
+		}
+	}
+	return "", false
+}
+
+func schemaReferencesArrayHelper(schema *metadata.Schema, target *metadata.ArrayType, seen map[*metadata.Schema]bool) bool {
+	if schema == nil || target == nil || seen[schema] {
+		return false
+	}
+	seen[schema] = true
+	for _, ref := range schema.Arrays {
+		if ref == nil || ref.Type == nil {
+			continue
+		}
+		if ref.Type == target || (target.Name != "" && ref.Type.Name == target.Name) {
+			return true
+		}
+		if schemaReferencesArrayHelper(ref.Type.Value, target, seen) {
+			return true
+		}
+	}
+	for _, ref := range schema.Tuples {
+		if ref != nil && ref.Type != nil {
+			for _, elem := range ref.Type.Elements {
+				if schemaReferencesArrayHelper(elem, target, seen) {
+					return true
+				}
+			}
+		}
+	}
+	for _, ref := range schema.Aliases {
+		if ref != nil && ref.Type != nil && schemaReferencesArrayHelper(ref.Type.Value, target, seen) {
+			return true
+		}
+	}
+	return false
+}
+
+func schemaReferencesTupleHelper(schema *metadata.Schema, target *metadata.TupleType, seen map[*metadata.Schema]bool) bool {
+	if schema == nil || target == nil || seen[schema] {
+		return false
+	}
+	seen[schema] = true
+	for _, ref := range schema.Tuples {
+		if ref == nil || ref.Type == nil {
+			continue
+		}
+		if ref.Type == target || (target.Name != "" && ref.Type.Name == target.Name) {
+			return true
+		}
+		for _, elem := range ref.Type.Elements {
+			if schemaReferencesTupleHelper(elem, target, seen) {
+				return true
+			}
+		}
+	}
+	for _, ref := range schema.Arrays {
+		if ref != nil && ref.Type != nil && schemaReferencesTupleHelper(ref.Type.Value, target, seen) {
+			return true
+		}
+	}
+	for _, ref := range schema.Aliases {
+		if ref != nil && ref.Type != nil && schemaReferencesTupleHelper(ref.Type.Value, target, seen) {
+			return true
+		}
+	}
+	return false
+}
+
 func findUnsupportedJSONStringifyShape(schema *metadata.Schema) (string, bool) {
 	return findUnsupportedJSONShape(schema)
 }
@@ -350,7 +470,12 @@ func buildJsonStringify(ve string, s *metadata.Schema, state *jsonStringifyState
 		}
 	}
 
-	if expr, ok := atomicUnionStringify(ve, s); ok {
+	if expr, ok := atomicUnionStringify(ve, s, state); ok {
+		return expr, nil
+	}
+	if expr, ok, err := objectUnionStringify(ve, s, state); err != nil {
+		return "", err
+	} else if ok {
 		return expr, nil
 	}
 
@@ -391,7 +516,7 @@ func nativeStringify(ve string, name string) string {
 	return `"{}"`
 }
 
-func atomicUnionStringify(ve string, s *metadata.Schema) (string, bool) {
+func atomicUnionStringify(ve string, s *metadata.Schema, state *jsonStringifyState) (string, bool) {
 	if s == nil || !s.IsRequired() || s.Nullable || s.Any || s.Size() != len(s.Atomics) || len(s.Atomics) < 2 {
 		return "", false
 	}
@@ -421,10 +546,74 @@ func atomicUnionStringify(ve string, s *metadata.Schema) (string, bool) {
 			return "", false
 		}
 	}
-	b.WriteString(`return JSON.stringify(`)
-	b.WriteString(ve)
-	b.WriteString(`); })()`)
+	b.WriteString(jsonStringifyThrowExpression(state, ve))
+	b.WriteString(`; })()`)
 	return b.String(), true
+}
+
+func objectUnionStringify(ve string, s *metadata.Schema, state *jsonStringifyState) (string, bool, error) {
+	if s == nil || !s.IsRequired() || s.Nullable || s.Any || len(s.Objects) == 0 || s.Size() != len(s.Objects)+len(s.Atomics) {
+		return "", false, nil
+	}
+	var b strings.Builder
+	b.WriteString(`(() => { `)
+	for _, atom := range s.Atomics {
+		var check string
+		switch atom.Type {
+		case metadata.AtomicString:
+			check = `"string" === typeof ` + ve
+		case metadata.AtomicNumber:
+			check = `"number" === typeof ` + ve
+		case metadata.AtomicBoolean:
+			check = `"boolean" === typeof ` + ve
+		default:
+			return "", false, nil
+		}
+		b.WriteString(`if (`)
+		b.WriteString(check)
+		b.WriteString(`) return `)
+		b.WriteString(atomicStringify(ve, atom.Type))
+		b.WriteString(`; `)
+	}
+	for _, ref := range s.Objects {
+		if ref == nil || ref.Type == nil {
+			continue
+		}
+		partial := metadata.NewSchema()
+		partial.Objects = append(partial.Objects, ref)
+		checker := newIsState(false)
+		check, err := checker.buildIs(ve, partial)
+		if err != nil {
+			return "", false, err
+		}
+		check = checker.wrap(check)
+		value, err := objectStringify(ve, ref, state)
+		if err != nil {
+			return "", false, err
+		}
+		b.WriteString(`if (`)
+		b.WriteString(check)
+		b.WriteString(`) return `)
+		b.WriteString(value)
+		b.WriteString(`; `)
+	}
+	b.WriteString(jsonStringifyThrowExpression(state, ve))
+	b.WriteString(`; })()`)
+	return b.String(), true, nil
+}
+
+func jsonStringifyThrowExpression(state *jsonStringifyState, ve string) string {
+	method := "typia.json.stringify"
+	expected := "unknown"
+	if state != nil {
+		if state.method != "" {
+			method = state.method
+		}
+		if state.expected != "" {
+			expected = state.expected
+		}
+	}
+	return fmt.Sprintf(`%s._throwTypeGuardError({ method: %s, expected: %s, value: %s })`, throwTypeGuardErrorAlias, jsonQuote(method), jsonQuote(expected), ve)
 }
 
 func constantStringify(ve string, kind metadata.AtomicKind, value any) string {
@@ -699,12 +888,12 @@ func arrayStringify(ve string, ref *metadata.ArrayRef, state *jsonStringifyState
 	}
 	array := ref.Type
 	if state.arrayTypes[array] > 0 {
-		if name, ok := state.arrayHelpers[array]; ok {
+		if name, ok := state.arrayHelperName(array); ok {
 			return fmt.Sprintf("%s(%s)", name, ve), nil
 		}
 		return fmt.Sprintf("JSON.stringify(%s)", ve), nil
 	}
-	if name, ok := state.arrayHelpers[array]; ok && !state.generatingArrays[array] {
+	if name, ok := state.arrayHelperName(array); ok && !state.generatingArrays[array] {
 		return fmt.Sprintf("%s(%s)", name, ve), nil
 	}
 	state.arrayTypes[array] += 1
@@ -756,12 +945,12 @@ func tupleStringify(ve string, ref *metadata.TupleRef, state *jsonStringifyState
 	}
 	tuple := ref.Type
 	if state.tupleTypes[tuple] > 0 {
-		if name, ok := state.tupleHelpers[tuple]; ok {
+		if name, ok := state.tupleHelperName(tuple); ok {
 			return fmt.Sprintf("%s(%s)", name, ve), nil
 		}
 		return fmt.Sprintf("JSON.stringify(%s)", ve), nil
 	}
-	if name, ok := state.tupleHelpers[tuple]; ok && !state.generatingTuples[tuple] {
+	if name, ok := state.tupleHelperName(tuple); ok && !state.generatingTuples[tuple] {
 		return fmt.Sprintf("%s(%s)", name, ve), nil
 	}
 	state.tupleTypes[tuple] += 1

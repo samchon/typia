@@ -5,6 +5,8 @@ import (
 
 	"github.com/microsoft/typescript-go/shim/ast"
 	shimscanner "github.com/microsoft/typescript-go/shim/scanner"
+
+	"github.com/samchon/typia/packages/core/native/metadata"
 )
 
 func symbolDescription(sym *ast.Symbol) *string {
@@ -68,6 +70,28 @@ func jsDocTextsFromSymbol(sym *ast.Symbol) map[string][]string {
 	for _, decl := range symbolDeclarations(sym) {
 		for name, values := range nodeJsDocTexts(decl) {
 			out[name] = append(out[name], values...)
+		}
+	}
+	if len(out) == 0 {
+		return nil
+	}
+	return out
+}
+
+func jsDocTagInfosFromSymbol(sym *ast.Symbol) []metadata.JsDocTagInfo {
+	if sym == nil {
+		return nil
+	}
+	out := []metadata.JsDocTagInfo{}
+	seen := map[string]bool{}
+	for _, decl := range symbolDeclarations(sym) {
+		for _, info := range nodeJsDocTagInfos(decl) {
+			key := jsDocTagInfoKey(info)
+			if seen[key] {
+				continue
+			}
+			seen[key] = true
+			out = append(out, info)
 		}
 	}
 	if len(out) == 0 {
@@ -159,6 +183,68 @@ func nodeJsDocTexts(node *ast.Node) map[string][]string {
 		return nil
 	}
 	return out
+}
+
+func nodeJsDocTagInfos(node *ast.Node) []metadata.JsDocTagInfo {
+	tags := nodeJsDocTags(node)
+	if len(tags) == 0 {
+		return nil
+	}
+	out := make([]metadata.JsDocTagInfo, 0, len(tags))
+	for _, tag := range tags {
+		name := strings.TrimSpace(tag.Name)
+		if name == "" {
+			continue
+		}
+		info := metadata.JsDocTagInfo{Name: name}
+		if len(tag.Segments) != 0 {
+			info.Text = append([]metadata.JsDocText(nil), tag.Segments...)
+		} else if text := strings.TrimSpace(tag.Text); text != "" {
+			info.Text = []metadata.JsDocText{{Text: text, Kind: "text"}}
+		}
+		out = append(out, info)
+	}
+	if len(out) == 0 {
+		return nil
+	}
+	return out
+}
+
+func jsDocTagInfoKey(info metadata.JsDocTagInfo) string {
+	var builder strings.Builder
+	builder.WriteString(info.Name)
+	for _, segment := range info.Text {
+		builder.WriteByte('\x00')
+		builder.WriteString(segment.Kind)
+		builder.WriteByte('\x00')
+		builder.WriteString(segment.Text)
+	}
+	return builder.String()
+}
+
+func propertyMutabilityFromNode(node *ast.Node) *string {
+	if node == nil || node.Modifiers() == nil {
+		return nil
+	}
+	for _, modifier := range node.Modifiers().Nodes {
+		if modifier != nil && strings.TrimSpace(shimscanner.GetTextOfNode(modifier)) == "readonly" {
+			value := "readonly"
+			return &value
+		}
+	}
+	return nil
+}
+
+func propertyMutabilityFromSymbol(sym *ast.Symbol) *string {
+	if sym == nil {
+		return nil
+	}
+	for _, decl := range sym.Declarations {
+		if mutability := propertyMutabilityFromNode(decl); mutability != nil {
+			return mutability
+		}
+	}
+	return nil
 }
 
 func parameterDescriptionFromMethodJsDoc(texts map[string][]string, name string, sole bool) string {

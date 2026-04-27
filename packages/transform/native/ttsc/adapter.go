@@ -857,7 +857,7 @@ func EmitCall(
 		expr, err := emitter.EmitCreateRandomArrowFunction(schema)
 		return expr, false, err, true
 	case module == "json" && method == "stringify":
-		expr, err := emitter.EmitJsonStringifyArrowFunction(schema)
+		expr, err := emitter.EmitJsonStringifyArrowFunctionWithMethod(schema, "typia.json.stringify")
 		return expr, false, err, true
 	case module == "json" && method == "assertStringify":
 		expr, err := emitter.EmitAssertStringifyArrowFunctionWithMethod(schema, "typia.json.assertStringify")
@@ -881,7 +881,7 @@ func EmitCall(
 		expr, err := emitter.EmitJsonParseArrowFunction(schema, "validateParse")
 		return expr, true, err, true
 	case module == "json" && method == "createStringify":
-		expr, err := emitter.EmitJsonStringifyArrowFunction(schema)
+		expr, err := emitter.EmitJsonStringifyArrowFunctionWithMethod(schema, "typia.json.createStringify")
 		return expr, true, err, true
 	case module == "json" && method == "createAssertStringify":
 		expr, err := emitter.EmitCreateAssertStringifyExpressionWithMethod(schema, "typia.json.createAssertStringify")

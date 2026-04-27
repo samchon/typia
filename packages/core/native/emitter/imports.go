@@ -65,6 +65,7 @@ const (
 	jsonStringifyNumberAlias      = "__typia_transform_jsonStringifyNumber"
 	jsonStringifyRestAlias        = "__typia_transform_jsonStringifyRest"
 	jsonStringifyTailAlias        = "__typia_transform_jsonStringifyTail"
+	throwTypeGuardErrorAlias      = "__typia_transform_throwTypeGuardError"
 	miscCloneAnyImportAlias       = "__typia_transform_miscCloneAny"
 	notationAnyImportAlias        = "__typia_transform_notationAny"
 	notationCamelImportAlias      = "__typia_transform_notationCamel"

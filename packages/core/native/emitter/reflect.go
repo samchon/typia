@@ -432,7 +432,7 @@ func serializeFunctions(values []*metadata.Function) []any {
 				"name":        param.Name,
 				"type":        serializeSchema(param.Type),
 				"description": nullableString(param.Description),
-				"jsDocTags":   serializeJsDocTags(param.JsDocTags, param.JsDocTexts),
+				"jsDocTags":   serializeJsDocTags(param.JsDocTagInfos, param.JsDocTags, param.JsDocTexts),
 			})
 		}
 		out = append(out, map[string]any{
@@ -487,14 +487,17 @@ func serializeObjectType(value *metadata.ObjectType) any {
 			"key":         serializeSchema(property.Key),
 			"value":       serializeSchema(property.Value),
 			"description": nullableString(property.Description),
-			"jsDocTags":   serializeJsDocTags(property.JsDocTags, property.JsDocTexts),
+			"jsDocTags":   serializeJsDocTags(property.JsDocTagInfos, property.JsDocTags, property.JsDocTexts),
+		}
+		if property.Mutability != nil {
+			item["mutability"] = *property.Mutability
 		}
 		properties = append(properties, item)
 	}
 	out := map[string]any{
 		"name":       value.Name,
 		"properties": properties,
-		"jsDocTags":  serializeJsDocTags(value.JsDocTags, nil),
+		"jsDocTags":  serializeJsDocTags(value.JsDocTagInfos, value.JsDocTags, nil),
 		"index":      value.Index,
 		"recursive":  value.Recursive || objectTypeSelfRecursive(value),
 		"nullables":  value.Nullables,
@@ -514,7 +517,7 @@ func serializeAliasType(value *metadata.AliasType) any {
 		"value":       serializeSchema(value.Value),
 		"nullables":   value.Nullables,
 		"description": nullableString(value.Description),
-		"jsDocTags":   serializeJsDocTags(value.JsDocTags, nil),
+		"jsDocTags":   serializeJsDocTags(value.JsDocTagInfos, value.JsDocTags, nil),
 		"recursive":   value.Recursive,
 	}
 }
@@ -526,19 +529,54 @@ func nullableString(value *string) any {
 	return *value
 }
 
-func serializeJsDocTags(tags []string, texts map[string][]string) []any {
+func serializeJsDocTags(infos []metadata.JsDocTagInfo, tags []string, texts map[string][]string) []any {
+	if len(infos) != 0 {
+		out := make([]any, 0, len(infos))
+		for _, info := range infos {
+			if strings.TrimSpace(info.Name) == "" {
+				continue
+			}
+			item := map[string]any{"name": info.Name}
+			if len(info.Text) != 0 {
+				segments := make([]any, 0, len(info.Text))
+				for _, segment := range info.Text {
+					if strings.TrimSpace(segment.Text) == "" {
+						continue
+					}
+					kind := segment.Kind
+					if kind == "" {
+						kind = "text"
+					}
+					segments = append(segments, map[string]any{
+						"text": segment.Text,
+						"kind": kind,
+					})
+				}
+				if len(segments) != 0 {
+					item["text"] = segments
+				}
+			}
+			out = append(out, item)
+		}
+		return out
+	}
 	out := make([]any, 0, len(tags))
 	for _, tag := range tags {
 		item := map[string]any{"name": tag}
 		if values := texts[tag]; len(values) != 0 {
 			segments := make([]any, 0, len(values))
 			for _, value := range values {
+				if strings.TrimSpace(value) == "" {
+					continue
+				}
 				segments = append(segments, map[string]any{
 					"text": value,
 					"kind": "text",
 				})
 			}
-			item["text"] = segments
+			if len(segments) != 0 {
+				item["text"] = segments
+			}
 		}
 		out = append(out, item)
 	}

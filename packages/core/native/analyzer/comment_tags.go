@@ -11,8 +11,9 @@ import (
 )
 
 type jsDocTag struct {
-	Name string
-	Text string
+	Name     string
+	Text     string
+	Segments []metadata.JsDocText
 }
 
 func applyCommentTags(schema *metadata.Schema, node *ast.Node) {
@@ -47,7 +48,7 @@ func nodeJsDocTags(node *ast.Node) []jsDocTag {
 			return
 		}
 		seen[key] = true
-		output = append(output, jsDocTag{Name: name, Text: text})
+		output = append(output, jsDocTag{Name: name, Text: text, Segments: tag.Segments})
 	}
 	jsdocs := node.JSDoc(file)
 	if len(jsdocs) != 0 {
@@ -61,8 +62,9 @@ func nodeJsDocTags(node *ast.Node) []jsDocTag {
 					}
 					text := jsDocTagText(tag)
 					appendTag(jsDocTag{
-						Name: strings.TrimSpace(tag.TagName().Text()),
-						Text: text,
+						Name:     strings.TrimSpace(tag.TagName().Text()),
+						Text:     text,
+						Segments: jsDocTagSegments(tag, text),
 					})
 				}
 			}
@@ -99,6 +101,14 @@ func jsDocTagText(tag *ast.Node) string {
 	raw = strings.TrimPrefix(raw, "{")
 	raw = strings.TrimSuffix(raw, "}")
 	return strings.TrimSpace(raw)
+}
+
+func jsDocTagSegments(tag *ast.Node, text string) []metadata.JsDocText {
+	text = strings.TrimSpace(text)
+	if text == "" {
+		return nil
+	}
+	return []metadata.JsDocText{{Text: text, Kind: "text"}}
 }
 
 func parseRawLeadingJsDocTags(text string, pos int) []jsDocTag {
@@ -154,9 +164,28 @@ func parseRawJsDocComment(comment string) []jsDocTag {
 		if name == "" {
 			continue
 		}
-		output = append(output, jsDocTag{Name: name, Text: value})
+		output = append(output, jsDocTag{Name: name, Text: value, Segments: rawJsDocTagSegments(name, value)})
 	}
 	return output
+}
+
+func rawJsDocTagSegments(name, value string) []metadata.JsDocText {
+	value = strings.TrimSpace(value)
+	if value == "" {
+		return nil
+	}
+	if name == "param" || name == "arg" || name == "argument" {
+		fields := strings.Fields(value)
+		if len(fields) != 0 {
+			rest := strings.TrimSpace(strings.TrimPrefix(value, fields[0]))
+			segments := []metadata.JsDocText{{Text: fields[0], Kind: "parameterName"}}
+			if rest != "" {
+				segments = append(segments, metadata.JsDocText{Text: " " + rest, Kind: "text"})
+			}
+			return segments
+		}
+	}
+	return []metadata.JsDocText{{Text: value, Kind: "text"}}
 }
 
 func skipLeadingModifiersBeforePosition(text string, end int) int {

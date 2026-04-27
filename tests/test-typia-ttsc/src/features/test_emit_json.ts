@@ -42,6 +42,10 @@ export async function test_emit_json(): Promise<void> {
     stringify_array: (x: number[]) => string;
     stringify_date: (x: Date) => string;
     stringify_union: (x: string | number) => string;
+    stringify_object_union: (
+      x: { kind: "point"; x: number } | { kind: "label"; text: string },
+    ) => string;
+    stringify_mixed_union: (x: string | { kind: "label"; text: string }) => string;
     stringify_nullable_string: (x: string | null) => string;
     ToJsonString: new (value: string) => { toJSON(): string };
     stringify_to_json_string: (x: { toJSON(): string }) => string;
@@ -89,6 +93,31 @@ export async function test_emit_json(): Promise<void> {
   );
   assert.equal(mod.stringify_union("x"), `"x"`);
   assert.equal(mod.stringify_union(1.5), `1.5`);
+  assert.throws(
+    () => mod.stringify_union(true as any),
+    (err: Error) => err.constructor.name === "TypeGuardError",
+  );
+  assert.deepEqual(JSON.parse(mod.stringify_object_union({ kind: "point", x: 3 })), {
+    kind: "point",
+    x: 3,
+  });
+  assert.deepEqual(
+    JSON.parse(mod.stringify_object_union({ kind: "label", text: "hello" })),
+    { kind: "label", text: "hello" },
+  );
+  assert.equal(mod.stringify_mixed_union("hello"), `"hello"`);
+  assert.deepEqual(
+    JSON.parse(mod.stringify_mixed_union({ kind: "label", text: "hello" })),
+    { kind: "label", text: "hello" },
+  );
+  assert.throws(
+    () => mod.stringify_object_union({ kind: "bad" } as any),
+    (err: Error) => err.constructor.name === "TypeGuardError",
+  );
+  assert.throws(
+    () => mod.stringify_mixed_union({ kind: "bad" } as any),
+    (err: Error) => err.constructor.name === "TypeGuardError",
+  );
   assert.equal(mod.stringify_nullable_string("x"), `"x"`);
   assert.equal(mod.stringify_nullable_string(null), `null`);
   assert.equal(mod.stringify_to_json_string(new mod.ToJsonString('quoted "x"')), `"quoted \\"x\\""`);
@@ -122,6 +151,11 @@ export async function test_emit_json(): Promise<void> {
   assert.ok(emitted.includes("_jsonStringifyRest"));
   assert.ok(emitted.includes('"string" === typeof input'));
   assert.ok(emitted.includes('"number" === typeof input'));
+  assert.ok(emitted.includes("const stringify_object_union"));
+  assert.ok(emitted.includes("const stringify_mixed_union"));
+  assert.ok(emitted.includes("_throwTypeGuardError"));
+  assert.ok(emitted.includes("_jsonStringifyNumber(input.x)"));
+  assert.ok(emitted.includes("_jsonStringifyString(input.text)"));
   assert.ok(emitted.includes('null !== input) ? (__typia_transform_jsonStringifyString._jsonStringifyString(input)) : "null"'));
   assert.ok(emitted.includes("_jsonStringifyString(input.toJSON())"));
   assert.ok(emitted.includes("const _so0 = (input) =>"));

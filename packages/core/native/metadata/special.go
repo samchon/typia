@@ -20,22 +20,24 @@ type Escaped struct {
 
 // Parameter mirrors `MetadataParameter` — one argument of a Function.
 type Parameter struct {
-	Name        string              `json:"name"`
-	Type        *Schema             `json:"type"`
-	Description *string             `json:"description,omitempty"`
-	Optional    bool                `json:"optional"`
-	JsDocTags   []string            `json:"jsDocTags,omitempty"`
-	JsDocTexts  map[string][]string `json:"jsDocTexts,omitempty"`
+	Name          string              `json:"name"`
+	Type          *Schema             `json:"type"`
+	Description   *string             `json:"description,omitempty"`
+	Optional      bool                `json:"optional"`
+	JsDocTags     []string            `json:"jsDocTags,omitempty"`
+	JsDocTexts    map[string][]string `json:"jsDocTexts,omitempty"`
+	JsDocTagInfos []JsDocTagInfo      `json:"jsDocTagInfos,omitempty"`
 }
 
 // Function mirrors `MetadataFunction` — used for callable object fields and
 // the Escaped `toJSON` signature in typia v12.
 type Function struct {
-	Parameters  []*Parameter `json:"parameters"`
-	Output      *Schema      `json:"output,omitempty"`
-	Description *string      `json:"description,omitempty"`
-	Async       bool         `json:"async"`
-	JsDocTags   []string     `json:"jsDocTags,omitempty"`
+	Parameters    []*Parameter   `json:"parameters"`
+	Output        *Schema        `json:"output,omitempty"`
+	Description   *string        `json:"description,omitempty"`
+	Async         bool           `json:"async"`
+	JsDocTags     []string       `json:"jsDocTags,omitempty"`
+	JsDocTagInfos []JsDocTagInfo `json:"jsDocTagInfos,omitempty"`
 }
 
 // SetRef mirrors `MetadataSet` — `Set<T>`.

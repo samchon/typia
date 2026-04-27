@@ -5,12 +5,13 @@ package metadata
 // chooses to preserve the alias rather than resolve it (typia uses aliases
 // for JSDoc / naming metadata; the current port mostly resolves through).
 type AliasType struct {
-	Name        string   `json:"name"`
-	Value       *Schema  `json:"value"`
-	Description *string  `json:"description,omitempty"`
-	JsDocTags   []string `json:"jsDocTags,omitempty"`
-	Recursive   bool     `json:"recursive"`
-	Nullables   []bool   `json:"nullables,omitempty"`
+	Name          string         `json:"name"`
+	Value         *Schema        `json:"value"`
+	Description   *string        `json:"description,omitempty"`
+	JsDocTags     []string       `json:"jsDocTags,omitempty"`
+	JsDocTagInfos []JsDocTagInfo `json:"jsDocTagInfos,omitempty"`
+	Recursive     bool           `json:"recursive"`
+	Nullables     []bool         `json:"nullables,omitempty"`
 }
 
 // AliasRef mirrors `MetadataAlias` — the pointer-plus-tags reference form.

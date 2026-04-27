@@ -63,6 +63,9 @@ func (a *Analyzer) iterateObject(out *metadata.Schema, t *shimchecker.Type) bool
 		if obj.Description == nil {
 			obj.Description = objectDescription(a.Checker, t)
 		}
+		if len(obj.JsDocTagInfos) == 0 {
+			obj.JsDocTagInfos = objectJsDocTagInfos(a.Checker, t)
+		}
 		if syntaxFound {
 			obj.Properties = append(obj.Properties, syntaxProperties...)
 			if len(syntaxDynamic) != 0 {
@@ -133,11 +136,13 @@ func (a *Analyzer) iterateObject(out *metadata.Schema, t *shimchecker.Type) bool
 				}
 			}
 			obj.Properties = append(obj.Properties, &metadata.Property{
-				Key:         keySchema,
-				Value:       valueSchema,
-				Description: description,
-				JsDocTags:   jsDocTagsFromSymbol(sym),
-				JsDocTexts:  jsDocTextsFromSymbol(sym),
+				Key:           keySchema,
+				Value:         valueSchema,
+				Description:   description,
+				JsDocTags:     jsDocTagsFromSymbol(sym),
+				JsDocTexts:    jsDocTextsFromSymbol(sym),
+				JsDocTagInfos: jsDocTagInfosFromSymbol(sym),
+				Mutability:    propertyMutabilityFromSymbol(sym),
 			})
 			existing[sym.Name] = true
 		}
@@ -345,11 +350,13 @@ func (a *Analyzer) syntaxObjectProperties(t *shimchecker.Type) ([]*metadata.Prop
 				keySchema := metadata.NewSchema()
 				keySchema.AddConstant(metadata.AtomicString, keyName)
 				properties = append(properties, &metadata.Property{
-					Key:         keySchema,
-					Value:       valueSchema,
-					Description: description,
-					JsDocTags:   nodeJsDocTagNames(member),
-					JsDocTexts:  nodeJsDocTexts(member),
+					Key:           keySchema,
+					Value:         valueSchema,
+					Description:   description,
+					JsDocTags:     nodeJsDocTagNames(member),
+					JsDocTexts:    nodeJsDocTexts(member),
+					JsDocTagInfos: nodeJsDocTagInfos(member),
+					Mutability:    propertyMutabilityFromNode(member),
 				})
 				if debugArrayAny {
 					debugArrayAnyWrite("  syntaxProp=" + keyName)
@@ -385,11 +392,13 @@ func (a *Analyzer) syntaxObjectProperties(t *shimchecker.Type) ([]*metadata.Prop
 				keySchema := metadata.NewSchema()
 				keySchema.AddConstant(metadata.AtomicString, keyName)
 				properties = append(properties, &metadata.Property{
-					Key:         keySchema,
-					Value:       valueSchema,
-					Description: description,
-					JsDocTags:   nodeJsDocTagNames(member),
-					JsDocTexts:  nodeJsDocTexts(member),
+					Key:           keySchema,
+					Value:         valueSchema,
+					Description:   description,
+					JsDocTags:     nodeJsDocTagNames(member),
+					JsDocTexts:    nodeJsDocTexts(member),
+					JsDocTagInfos: nodeJsDocTagInfos(member),
+					Mutability:    propertyMutabilityFromNode(member),
 				})
 				found = true
 			case ast.KindIndexSignature:
@@ -649,12 +658,13 @@ func (a *Analyzer) methodLikeSchema(owner *ast.Node, parameters *ast.NodeList, r
 				}
 			}
 			fn.Parameters = append(fn.Parameters, &metadata.Parameter{
-				Name:        name,
-				Type:        schema,
-				Description: description,
-				Optional:    optional,
-				JsDocTags:   nodeJsDocTagNames(node),
-				JsDocTexts:  nodeJsDocTexts(node),
+				Name:          name,
+				Type:          schema,
+				Description:   description,
+				Optional:      optional,
+				JsDocTags:     nodeJsDocTagNames(node),
+				JsDocTexts:    nodeJsDocTexts(node),
+				JsDocTagInfos: nodeJsDocTagInfos(node),
 			})
 		}
 	}
@@ -723,4 +733,33 @@ func objectDescription(
 		}
 	}
 	return nil
+}
+
+func objectJsDocTagInfos(
+	checker *shimchecker.Checker,
+	t *shimchecker.Type,
+) []metadata.JsDocTagInfo {
+	if t == nil {
+		return nil
+	}
+	decls := relatedDeclarations(checker, t.Symbol(), shimchecker.Type_getTypeNameSymbol(t))
+	out := []metadata.JsDocTagInfo{}
+	seen := map[string]bool{}
+	for _, decl := range decls {
+		if decl == nil {
+			continue
+		}
+		for _, info := range nodeJsDocTagInfos(decl) {
+			key := jsDocTagInfoKey(info)
+			if seen[key] {
+				continue
+			}
+			seen[key] = true
+			out = append(out, info)
+		}
+	}
+	if len(out) == 0 {
+		return nil
+	}
+	return out
 }

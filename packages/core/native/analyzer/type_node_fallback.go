@@ -592,6 +592,7 @@ func (a *Analyzer) walkInterfaceDeclarationBound(
 	obj, fresh := a.Collection.EmplaceObject(key, name)
 	if fresh {
 		obj.Description = nodeDescription(root)
+		obj.JsDocTagInfos = nodeJsDocTagInfos(root)
 		obj.Properties = make([]*metadata.Property, 0)
 		obj.DynamicProperties = make([]*metadata.Property, 0)
 		if !a.mergeInterfaceHeritage(obj, decl, bindings) {
@@ -693,11 +694,13 @@ func (a *Analyzer) appendInterfaceMembersBound(
 			keySchema.AddConstant(metadata.AtomicString, keyName)
 			description := nodeDescription(member)
 			upsertObjectProperty(obj, &metadata.Property{
-				Key:         keySchema,
-				Value:       valueSchema,
-				Description: description,
-				JsDocTags:   nodeJsDocTagNames(member),
-				JsDocTexts:  nodeJsDocTexts(member),
+				Key:           keySchema,
+				Value:         valueSchema,
+				Description:   description,
+				JsDocTags:     nodeJsDocTagNames(member),
+				JsDocTexts:    nodeJsDocTexts(member),
+				JsDocTagInfos: nodeJsDocTagInfos(member),
+				Mutability:    propertyMutabilityFromNode(member),
 			})
 		case ast.KindMethodSignature:
 			method := member.AsMethodSignatureDeclaration()
@@ -719,11 +722,13 @@ func (a *Analyzer) appendInterfaceMembersBound(
 			keySchema.AddConstant(metadata.AtomicString, keyName)
 			description := nodeDescription(member)
 			upsertObjectProperty(obj, &metadata.Property{
-				Key:         keySchema,
-				Value:       valueSchema,
-				Description: description,
-				JsDocTags:   nodeJsDocTagNames(member),
-				JsDocTexts:  nodeJsDocTexts(member),
+				Key:           keySchema,
+				Value:         valueSchema,
+				Description:   description,
+				JsDocTags:     nodeJsDocTagNames(member),
+				JsDocTexts:    nodeJsDocTexts(member),
+				JsDocTagInfos: nodeJsDocTagInfos(member),
+				Mutability:    propertyMutabilityFromNode(member),
 			})
 		case ast.KindIndexSignature:
 			index := member.AsIndexSignatureDeclaration()
@@ -1187,6 +1192,8 @@ func (a *Analyzer) walkTypeLiteralNodeBound(
 	}
 	obj, fresh := a.Collection.EmplaceObject(key, name)
 	if fresh {
+		obj.Description = nodeDescription(root)
+		obj.JsDocTagInfos = nodeJsDocTagInfos(root)
 		obj.Properties = make([]*metadata.Property, 0)
 		if node.Members != nil {
 			for _, member := range node.Members.Nodes {
@@ -1247,10 +1254,11 @@ func (a *Analyzer) walkTypeLiteralNodeBound(
 				keySchema := metadata.NewSchema()
 				keySchema.AddConstant(metadata.AtomicString, keyName)
 				obj.Properties = append(obj.Properties, &metadata.Property{
-					Key:        keySchema,
-					Value:      valueSchema,
-					JsDocTags:  nodeJsDocTagNames(member),
-					JsDocTexts: nodeJsDocTexts(member),
+					Key:           keySchema,
+					Value:         valueSchema,
+					JsDocTags:     nodeJsDocTagNames(member),
+					JsDocTexts:    nodeJsDocTexts(member),
+					JsDocTagInfos: nodeJsDocTagInfos(member),
 				})
 			}
 		}
@@ -1914,6 +1922,7 @@ func clonePropertyShallow(input *metadata.Property) *metadata.Property {
 		out.Value = cloneSchemaShallow(input.Value)
 	}
 	out.JsDocTags = append([]string(nil), input.JsDocTags...)
+	out.JsDocTagInfos = append([]metadata.JsDocTagInfo(nil), input.JsDocTagInfos...)
 	if len(input.JsDocTexts) != 0 {
 		out.JsDocTexts = make(map[string][]string, len(input.JsDocTexts))
 		for key, values := range input.JsDocTexts {
@@ -1949,6 +1958,7 @@ func cloneObjectWithProperties(
 		out.AdditionalProperties = cloneSchemaShallow(input.AdditionalProperties)
 	}
 	out.JsDocTags = append([]string(nil), input.JsDocTags...)
+	out.JsDocTagInfos = append([]metadata.JsDocTagInfo(nil), input.JsDocTagInfos...)
 	return &out
 }
 

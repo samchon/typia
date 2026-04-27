@@ -20,6 +20,10 @@ type DynamicJson = { fixed_value: string } & Record<
   `extra_${string}`,
   { first_name: string }
 >;
+type JsonUnion =
+  | { kind: "point"; x: number }
+  | { kind: "label"; text: string };
+type JsonMixedUnion = string | { kind: "label"; text: string };
 
 export class ToJsonString {
   public constructor(private readonly value: string) {}
@@ -55,6 +59,12 @@ export const stringify_date = (input: Date): string =>
 
 export const stringify_union = (input: string | number): string =>
   typia.json.stringify<string | number>(input);
+
+export const stringify_object_union = (input: JsonUnion): string =>
+  typia.json.stringify<JsonUnion>(input);
+
+export const stringify_mixed_union = (input: JsonMixedUnion): string =>
+  typia.json.stringify<JsonMixedUnion>(input);
 
 export const stringify_nullable_string = (input: string | null): string =>
   typia.json.stringify<string | null>(input);

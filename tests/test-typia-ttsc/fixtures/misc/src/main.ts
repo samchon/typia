@@ -22,13 +22,20 @@ interface RecursiveClone {
   name_value: string;
   children: RecursiveClone[];
 }
+/**
+ * Reflect object docs.
+ *
+ * @deprecated Object deprecated.
+ */
 interface ReflectTarget {
   /**
    * Visible property docs.
    *
-   * @deprecated
+   * @deprecated Use replacement.
+   * @example first sample
+   * @example second sample
    */
-  value: `prefix-${number}`;
+  readonly value: `prefix-${number}`;
 }
 type ReflectRegularFlag = true;
 type ReflectNonRegularFlag = false;
