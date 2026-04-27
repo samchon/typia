@@ -20,7 +20,7 @@ const [, npmOs, npmArch] = match;
 const goos = npmOs === "win32" ? "windows" : npmOs;
 const goarch = npmArch === "x64" ? "amd64" : npmArch;
 const root = path.resolve(cwd, "../..");
-const source = path.join(root, "packages", "transform", "native");
+const source = path.join(root, "packages", "transform");
 const outDir = path.join(cwd, "bin");
 const outFile = path.join(
   outDir,
@@ -31,12 +31,15 @@ fs.rmSync(outDir, { recursive: true, force: true });
 fs.mkdirSync(outDir, { recursive: true });
 
 const goRoot = path.join(process.env.HOME ?? "", "go-sdk", "go", "bin");
+const goBin = fs.existsSync(path.join(goRoot, "go"))
+  ? path.join(goRoot, "go")
+  : "go";
 const pathValue = fs.existsSync(goRoot)
   ? `${goRoot}${path.delimiter}${process.env.PATH ?? ""}`
   : process.env.PATH;
 
 console.log(`Building ${manifest.name} -> ${path.relative(root, outFile)}`);
-cp.execFileSync("go", ["build", "-o", outFile, "./cmd/ttsc-typia"], {
+cp.execFileSync(goBin, ["build", "-o", outFile, "./cmd/ttsc-typia"], {
   cwd: source,
   env: {
     ...process.env,
