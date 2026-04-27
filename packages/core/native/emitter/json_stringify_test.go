@@ -181,6 +181,128 @@ func TestJsonStringifyAtomicUnionUsesHelpers(t *testing.T) {
 	}
 }
 
+func TestJsonStringifyEscapedUsesToJSONReturnSchema(t *testing.T) {
+	escaped := metadata.NewSchema()
+	escaped.Escaped = &metadata.Escaped{
+		Original: func() *metadata.Schema {
+			s := metadata.NewSchema()
+			s.Natives = append(s.Natives, metadata.Native{Name: "Date"})
+			return s
+		}(),
+		Returns: metadata.NewSchema().AddAtomic(metadata.AtomicString),
+	}
+	got, err := EmitJsonStringifyArrowFunction(escaped)
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, fragment := range []string{
+		"input.toJSON()",
+		jsonStringifyStringAlias + "._jsonStringifyString(input.toJSON())",
+	} {
+		if !strings.Contains(got, fragment) {
+			t.Fatalf("escaped stringify should decode toJSON return through legacy helpers %q: %s", fragment, got)
+		}
+	}
+	if strings.Contains(got, "JSON.stringify(input)") {
+		t.Fatalf("escaped stringify must not fall back to whole input JSON.stringify: %s", got)
+	}
+}
+
+func TestJsonStringifyRecursiveObjectUsesLocalHelper(t *testing.T) {
+	keyValue := metadata.NewSchema().AddConstant(metadata.AtomicString, "value")
+	keyChildren := metadata.NewSchema().AddConstant(metadata.AtomicString, "children")
+	node := &metadata.ObjectType{Name: "JsonNode", Recursive: true}
+	node.Properties = []*metadata.Property{
+		{Key: keyValue, Value: metadata.NewSchema().AddAtomic(metadata.AtomicString)},
+		{
+			Key: keyChildren,
+			Value: func() *metadata.Schema {
+				value := metadata.NewSchema()
+				value.Arrays = append(value.Arrays, &metadata.ArrayRef{Type: &metadata.ArrayType{
+					Name: "JsonNode[]",
+					Value: func() *metadata.Schema {
+						child := metadata.NewSchema()
+						child.Objects = append(child.Objects, &metadata.ObjectRef{Type: node})
+						return child
+					}(),
+				}})
+				return value
+			}(),
+		},
+	}
+	s := metadata.NewSchema()
+	s.Objects = append(s.Objects, &metadata.ObjectRef{Type: node})
+	got, err := EmitJsonStringifyArrowFunction(s)
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, fragment := range []string{
+		"const _so0 = (input) => ",
+		"return _so0(input);",
+		"input.children.map((elem) => _so0(elem))",
+	} {
+		if !strings.Contains(got, fragment) {
+			t.Fatalf("recursive object stringify should contain %q: %s", fragment, got)
+		}
+	}
+	if strings.Contains(got, "JSON.stringify(elem)") || strings.Contains(got, "JSON.stringify(input.children)") {
+		t.Fatalf("recursive object stringify must not fall back to JSON.stringify for recursive children: %s", got)
+	}
+}
+
+func TestJsonStringifyRecursiveArrayUsesLocalHelper(t *testing.T) {
+	array := &metadata.ArrayType{Name: "RecursiveArray", Recursive: true}
+	value := metadata.NewSchema()
+	value.Arrays = append(value.Arrays, &metadata.ArrayRef{Type: array})
+	array.Value = value
+	s := metadata.NewSchema()
+	s.Arrays = append(s.Arrays, &metadata.ArrayRef{Type: array})
+	got, err := EmitJsonStringifyArrowFunction(s)
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, fragment := range []string{
+		"const _sa0 = (input) => ",
+		"return _sa0(input);",
+		"input.map((elem) => _sa0(elem))",
+	} {
+		if !strings.Contains(got, fragment) {
+			t.Fatalf("recursive array stringify should contain %q: %s", fragment, got)
+		}
+	}
+	if strings.Contains(got, "JSON.stringify(elem)") {
+		t.Fatalf("recursive array stringify must not fall back to JSON.stringify for recursive elements: %s", got)
+	}
+}
+
+func TestJsonStringifyRecursiveTupleUsesLocalHelper(t *testing.T) {
+	tuple := &metadata.TupleType{Name: "RecursiveTuple", Recursive: true}
+	child := metadata.NewSchema()
+	child.Tuples = append(child.Tuples, &metadata.TupleRef{Type: tuple})
+	tuple.Elements = []*metadata.Schema{
+		metadata.NewSchema().AddAtomic(metadata.AtomicString),
+		child,
+	}
+	s := metadata.NewSchema()
+	s.Tuples = append(s.Tuples, &metadata.TupleRef{Type: tuple})
+	got, err := EmitJsonStringifyArrowFunction(s)
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, fragment := range []string{
+		"const _st0 = (input) => ",
+		"return _st0(input);",
+		"_st0(input[1])",
+	} {
+		if !strings.Contains(got, fragment) {
+			t.Fatalf("recursive tuple stringify should contain %q: %s", fragment, got)
+		}
+	}
+	if strings.Contains(got, "JSON.stringify(input[1])") {
+		t.Fatalf("recursive tuple stringify must not fall back to JSON.stringify for recursive elements: %s", got)
+	}
+}
+
 func TestJsonStringifyRejectsArrayElementUndefined(t *testing.T) {
 	elem := metadata.NewSchema().AddAtomic(metadata.AtomicString)
 	elem.Optional = true

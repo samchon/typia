@@ -68,6 +68,7 @@ func AnalysisOptions(module string, method string) analyzer.Options {
 	options := analyzer.DefaultOptions()
 	switch module {
 	case "json":
+		options.Escape = true
 		switch method {
 		case "application", "schema", "schemas":
 			options.Functional = true

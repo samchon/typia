@@ -67,6 +67,9 @@ func (a *Analyzer) iterate(out *metadata.Schema, t *shimchecker.Type) bool {
 	if a.iterateFunction(out, t) {
 		return true
 	}
+	if a.iterateEscape(out, t) {
+		return true
+	}
 	if flags&shimchecker.TypeFlagsObject != 0 {
 		if atomic, ok := wrapperAtomicKind(a.Checker, t); ok {
 			out.AddAtomic(atomic)

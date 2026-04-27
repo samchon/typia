@@ -26,23 +26,249 @@ func EmitJsonStringifyArrowFunction(schema *metadata.Schema) (string, error) {
 	if unsupported, ok := findUnsupportedJSONStringifyShape(schema); ok {
 		return "", fmt.Errorf("%w: json stringify does not support %s", ErrUnsupportedSchema, unsupported)
 	}
-	expr, err := buildJsonStringify("input", schema, newJSONStringifyState())
+	state := newJSONStringifyState(schema)
+	expr, err := buildJsonStringify("input", schema, state)
 	if err != nil {
 		return "", err
+	}
+	helpers, err := state.localHelpers()
+	if err != nil {
+		return "", err
+	}
+	if helpers != "" {
+		return "(input) => { " + helpers + "return " + expr + "; }", nil
 	}
 	return "(input) => " + expr, nil
 }
 
 type jsonStringifyState struct {
-	arrays  map[*metadata.ArrayRef]int
-	objects map[*metadata.ObjectRef]int
+	arrayTypes        map[*metadata.ArrayType]int
+	tupleTypes        map[*metadata.TupleType]int
+	objects           map[*metadata.ObjectType]int
+	objectHelpers     map[*metadata.ObjectType]string
+	arrayHelpers      map[*metadata.ArrayType]string
+	tupleHelpers      map[*metadata.TupleType]string
+	generatingObjects map[*metadata.ObjectType]bool
+	generatingArrays  map[*metadata.ArrayType]bool
+	generatingTuples  map[*metadata.TupleType]bool
 }
 
-func newJSONStringifyState() *jsonStringifyState {
+func newJSONStringifyState(schema *metadata.Schema) *jsonStringifyState {
+	objects, arrays, tuples := collectJsonStringifyHelpers(schema)
 	return &jsonStringifyState{
-		arrays:  map[*metadata.ArrayRef]int{},
-		objects: map[*metadata.ObjectRef]int{},
+		arrayTypes:        map[*metadata.ArrayType]int{},
+		tupleTypes:        map[*metadata.TupleType]int{},
+		objects:           map[*metadata.ObjectType]int{},
+		objectHelpers:     objects,
+		arrayHelpers:      arrays,
+		tupleHelpers:      tuples,
+		generatingObjects: map[*metadata.ObjectType]bool{},
+		generatingArrays:  map[*metadata.ArrayType]bool{},
+		generatingTuples:  map[*metadata.TupleType]bool{},
 	}
+}
+
+func collectJsonStringifyHelpers(root *metadata.Schema) (map[*metadata.ObjectType]string, map[*metadata.ArrayType]string, map[*metadata.TupleType]string) {
+	objectHelpers := map[*metadata.ObjectType]string{}
+	arrayHelpers := map[*metadata.ArrayType]string{}
+	tupleHelpers := map[*metadata.TupleType]string{}
+	seenSchemas := map[*metadata.Schema]bool{}
+	seenObjects := map[*metadata.ObjectType]bool{}
+	seenArrays := map[*metadata.ArrayType]bool{}
+	seenTuples := map[*metadata.TupleType]bool{}
+	walkingObjects := map[*metadata.ObjectType]bool{}
+	walkingArrays := map[*metadata.ArrayType]bool{}
+	walkingTuples := map[*metadata.TupleType]bool{}
+	var walk func(*metadata.Schema)
+	walk = func(schema *metadata.Schema) {
+		if schema == nil || seenSchemas[schema] {
+			return
+		}
+		seenSchemas[schema] = true
+		if schema.Escaped != nil {
+			walk(schema.Escaped.Returns)
+		}
+		if schema.Rest != nil {
+			walk(schema.Rest)
+		}
+		for _, ref := range schema.Arrays {
+			if ref != nil && ref.Type != nil {
+				array := ref.Type
+				if array.Recursive || walkingArrays[array] {
+					if _, ok := arrayHelpers[array]; !ok {
+						arrayHelpers[array] = fmt.Sprintf("_sa%d", len(arrayHelpers))
+					}
+				}
+				if walkingArrays[array] {
+					continue
+				}
+				if seenArrays[array] {
+					continue
+				}
+				seenArrays[array] = true
+				walkingArrays[array] = true
+				walk(ref.Type.Value)
+				delete(walkingArrays, array)
+			}
+		}
+		for _, ref := range schema.Tuples {
+			if ref != nil && ref.Type != nil {
+				tuple := ref.Type
+				if tuple.Recursive || walkingTuples[tuple] {
+					if _, ok := tupleHelpers[tuple]; !ok {
+						tupleHelpers[tuple] = fmt.Sprintf("_st%d", len(tupleHelpers))
+					}
+				}
+				if walkingTuples[tuple] {
+					continue
+				}
+				if seenTuples[tuple] {
+					continue
+				}
+				seenTuples[tuple] = true
+				walkingTuples[tuple] = true
+				for _, elem := range ref.Type.Elements {
+					walk(elem)
+				}
+				delete(walkingTuples, tuple)
+			}
+		}
+		for _, ref := range schema.Objects {
+			if ref == nil || ref.Type == nil {
+				continue
+			}
+			obj := ref.Type
+			if obj.Recursive || walkingObjects[obj] {
+				if _, ok := objectHelpers[obj]; !ok {
+					objectHelpers[obj] = fmt.Sprintf("_so%d", len(objectHelpers))
+				}
+			}
+			if walkingObjects[obj] {
+				continue
+			}
+			if seenObjects[obj] {
+				continue
+			}
+			seenObjects[obj] = true
+			walkingObjects[obj] = true
+			for _, prop := range obj.Properties {
+				if prop != nil {
+					walk(prop.Key)
+					walk(prop.Value)
+				}
+			}
+			for _, prop := range obj.DynamicProperties {
+				if prop != nil {
+					walk(prop.Key)
+					walk(prop.Value)
+				}
+			}
+			walk(obj.AdditionalProperties)
+			delete(walkingObjects, obj)
+		}
+		for _, ref := range schema.Aliases {
+			if ref != nil && ref.Type != nil {
+				walk(ref.Type.Value)
+			}
+		}
+		for _, ref := range schema.Sets {
+			if ref != nil {
+				walk(ref.Value)
+			}
+		}
+		for _, ref := range schema.Maps {
+			if ref != nil {
+				walk(ref.Key)
+				walk(ref.Value)
+			}
+		}
+	}
+	walk(root)
+	return objectHelpers, arrayHelpers, tupleHelpers
+}
+
+func (state *jsonStringifyState) localHelpers() (string, error) {
+	if state == nil || (len(state.objectHelpers) == 0 && len(state.arrayHelpers) == 0 && len(state.tupleHelpers) == 0) {
+		return "", nil
+	}
+	type entry struct {
+		object *metadata.ObjectType
+		name   string
+	}
+	entries := make([]entry, 0, len(state.objectHelpers))
+	for obj, name := range state.objectHelpers {
+		entries = append(entries, entry{object: obj, name: name})
+	}
+	sort.Slice(entries, func(i, j int) bool {
+		return entries[i].name < entries[j].name
+	})
+	var b strings.Builder
+	arrayEntries := make([]struct {
+		array *metadata.ArrayType
+		name  string
+	}, 0, len(state.arrayHelpers))
+	for array, name := range state.arrayHelpers {
+		arrayEntries = append(arrayEntries, struct {
+			array *metadata.ArrayType
+			name  string
+		}{array: array, name: name})
+	}
+	sort.Slice(arrayEntries, func(i, j int) bool {
+		return arrayEntries[i].name < arrayEntries[j].name
+	})
+	for _, item := range arrayEntries {
+		state.generatingArrays[item.array] = true
+		body, err := arrayStringify("input", &metadata.ArrayRef{Type: item.array}, state)
+		delete(state.generatingArrays, item.array)
+		if err != nil {
+			return "", err
+		}
+		b.WriteString("const ")
+		b.WriteString(item.name)
+		b.WriteString(" = (input) => ")
+		b.WriteString(body)
+		b.WriteString("; ")
+	}
+	tupleEntries := make([]struct {
+		tuple *metadata.TupleType
+		name  string
+	}, 0, len(state.tupleHelpers))
+	for tuple, name := range state.tupleHelpers {
+		tupleEntries = append(tupleEntries, struct {
+			tuple *metadata.TupleType
+			name  string
+		}{tuple: tuple, name: name})
+	}
+	sort.Slice(tupleEntries, func(i, j int) bool {
+		return tupleEntries[i].name < tupleEntries[j].name
+	})
+	for _, item := range tupleEntries {
+		state.generatingTuples[item.tuple] = true
+		body, err := tupleStringify("input", &metadata.TupleRef{Type: item.tuple}, state)
+		delete(state.generatingTuples, item.tuple)
+		if err != nil {
+			return "", err
+		}
+		b.WriteString("const ")
+		b.WriteString(item.name)
+		b.WriteString(" = (input) => ")
+		b.WriteString(body)
+		b.WriteString("; ")
+	}
+	for _, item := range entries {
+		state.generatingObjects[item.object] = true
+		body, err := objectStringify("input", &metadata.ObjectRef{Type: item.object}, state)
+		delete(state.generatingObjects, item.object)
+		if err != nil {
+			return "", err
+		}
+		b.WriteString("const ")
+		b.WriteString(item.name)
+		b.WriteString(" = (input) => ")
+		b.WriteString(body)
+		b.WriteString("; ")
+	}
+	return b.String(), nil
 }
 
 func findUnsupportedJSONStringifyShape(schema *metadata.Schema) (string, bool) {
@@ -53,15 +279,6 @@ func findUnsupportedJSONStringifyShape(schema *metadata.Schema) (string, bool) {
 // representation of the value held in `ve`. Unsupported shapes bubble up an
 // ErrUnsupportedSchema so the caller can skip rather than emit nonsense.
 func buildJsonStringify(ve string, s *metadata.Schema, state *jsonStringifyState) (string, error) {
-	// `any` defers to the runtime — preserves typia v12's behavior of
-	// letting JSON.stringify do the heavy lifting for unknown shapes.
-	if s.Any {
-		return fmt.Sprintf("JSON.stringify(%s)", ve), nil
-	}
-	if s.Escaped != nil {
-		return fmt.Sprintf("JSON.stringify(%s)", ve), nil
-	}
-
 	if (s.Nullable || !s.IsRequired()) && s.Size() != 0 {
 		core := *s
 		core.Nullable = false
@@ -78,6 +295,18 @@ func buildJsonStringify(ve string, s *metadata.Schema, state *jsonStringifyState
 			return fmt.Sprintf("((undefined !== %s) ? (%s) : undefined)", ve, inner), nil
 		}
 		return inner, nil
+	}
+
+	// `any` defers to the runtime — preserves typia v12's behavior of
+	// letting JSON.stringify do the heavy lifting for unknown shapes.
+	if s.Any {
+		return fmt.Sprintf("JSON.stringify(%s)", ve), nil
+	}
+	if s.Escaped != nil {
+		if s.Escaped.Returns != nil {
+			return buildJsonStringify(fmt.Sprintf("%s.toJSON()", ve), s.Escaped.Returns, state)
+		}
+		return fmt.Sprintf("JSON.stringify(%s.toJSON())", ve), nil
 	}
 
 	// Sole atomic — hot path for scalar values.
@@ -143,8 +372,7 @@ func atomicStringify(ve string, kind metadata.AtomicKind) string {
 	case metadata.AtomicBoolean:
 		return fmt.Sprintf("String(%s)", ve)
 	case metadata.AtomicBigint:
-		// BigInt → typia emits `${x}` but we use toString() for clarity.
-		return fmt.Sprintf("%s.toString()", ve)
+		return fmt.Sprintf("String(%s)", ve)
 	}
 	return fmt.Sprintf("JSON.stringify(%s)", ve)
 }
@@ -221,14 +449,20 @@ func objectStringify(ve string, ref *metadata.ObjectRef, state *jsonStringifySta
 	if obj == nil {
 		return "", fmt.Errorf("%w: nil object", ErrUnsupportedSchema)
 	}
-	if state.objects[ref] > 0 {
+	if state.objects[obj] > 0 {
+		if name, ok := state.objectHelpers[obj]; ok {
+			return fmt.Sprintf("%s(%s)", name, ve), nil
+		}
 		return fmt.Sprintf("JSON.stringify(%s)", ve), nil
 	}
-	state.objects[ref] += 1
+	if name, ok := state.objectHelpers[obj]; ok && !state.generatingObjects[obj] {
+		return fmt.Sprintf("%s(%s)", name, ve), nil
+	}
+	state.objects[obj] += 1
 	defer func() {
-		state.objects[ref] -= 1
-		if state.objects[ref] == 0 {
-			delete(state.objects, ref)
+		state.objects[obj] -= 1
+		if state.objects[obj] == 0 {
+			delete(state.objects, obj)
 		}
 	}()
 	literalProps := make([]*metadata.Property, 0, len(obj.Properties))
@@ -463,14 +697,21 @@ func arrayStringify(ve string, ref *metadata.ArrayRef, state *jsonStringifyState
 	if ref.Type == nil || ref.Type.Value == nil {
 		return "", fmt.Errorf("%w: nil array", ErrUnsupportedSchema)
 	}
-	if state.arrays[ref] > 0 {
+	array := ref.Type
+	if state.arrayTypes[array] > 0 {
+		if name, ok := state.arrayHelpers[array]; ok {
+			return fmt.Sprintf("%s(%s)", name, ve), nil
+		}
 		return fmt.Sprintf("JSON.stringify(%s)", ve), nil
 	}
-	state.arrays[ref] += 1
+	if name, ok := state.arrayHelpers[array]; ok && !state.generatingArrays[array] {
+		return fmt.Sprintf("%s(%s)", name, ve), nil
+	}
+	state.arrayTypes[array] += 1
 	defer func() {
-		state.arrays[ref] -= 1
-		if state.arrays[ref] == 0 {
-			delete(state.arrays, ref)
+		state.arrayTypes[array] -= 1
+		if state.arrayTypes[array] == 0 {
+			delete(state.arrayTypes, array)
 		}
 	}()
 	inner, err := buildJsonArrayElementStringify("elem", ref.Type.Value, state)
@@ -514,6 +755,22 @@ func tupleStringify(ve string, ref *metadata.TupleRef, state *jsonStringifyState
 		return "", fmt.Errorf("%w: nil tuple", ErrUnsupportedSchema)
 	}
 	tuple := ref.Type
+	if state.tupleTypes[tuple] > 0 {
+		if name, ok := state.tupleHelpers[tuple]; ok {
+			return fmt.Sprintf("%s(%s)", name, ve), nil
+		}
+		return fmt.Sprintf("JSON.stringify(%s)", ve), nil
+	}
+	if name, ok := state.tupleHelpers[tuple]; ok && !state.generatingTuples[tuple] {
+		return fmt.Sprintf("%s(%s)", name, ve), nil
+	}
+	state.tupleTypes[tuple] += 1
+	defer func() {
+		state.tupleTypes[tuple] -= 1
+		if state.tupleTypes[tuple] == 0 {
+			delete(state.tupleTypes, tuple)
+		}
+	}()
 	if len(tuple.Elements) == 0 {
 		return `"[]"`, nil
 	}

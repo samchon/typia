@@ -10,10 +10,24 @@ interface Member {
   name: string;
   active: boolean;
 }
+
+interface JsonTree {
+  value: string;
+  children: JsonTree[];
+}
+type JsonNestedArray = JsonNestedArray[];
 type DynamicJson = { fixed_value: string } & Record<
   `extra_${string}`,
   { first_name: string }
 >;
+
+export class ToJsonString {
+  public constructor(private readonly value: string) {}
+
+  public toJSON(): string {
+    return this.value;
+  }
+}
 
 export const stringify_number = (input: number): string =>
   typia.json.stringify<number>(input);
@@ -44,6 +58,15 @@ export const stringify_union = (input: string | number): string =>
 
 export const stringify_nullable_string = (input: string | null): string =>
   typia.json.stringify<string | null>(input);
+
+export const stringify_to_json_string = (input: ToJsonString): string =>
+  typia.json.stringify<ToJsonString>(input);
+
+export const stringify_tree = (input: JsonTree): string =>
+  typia.json.stringify<JsonTree>(input);
+
+export const stringify_nested_array = (input: JsonNestedArray): string =>
+  typia.json.stringify<JsonNestedArray>(input);
 
 export const stringify_tuple = (input: [string, number, ...string[]]): string =>
   typia.json.stringify<[string, number, ...string[]]>(input);

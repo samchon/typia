@@ -43,6 +43,13 @@ export async function test_emit_json(): Promise<void> {
     stringify_date: (x: Date) => string;
     stringify_union: (x: string | number) => string;
     stringify_nullable_string: (x: string | null) => string;
+    ToJsonString: new (value: string) => { toJSON(): string };
+    stringify_to_json_string: (x: { toJSON(): string }) => string;
+    stringify_tree: (x: {
+      value: string;
+      children: Array<{ value: string; children: unknown[] }>;
+    }) => string;
+    stringify_nested_array: (x: unknown[]) => string;
     stringify_tuple: (x: [string, number, ...string[]]) => string;
     stringify_dynamic: (x: {
       fixed_value: string;
@@ -84,6 +91,17 @@ export async function test_emit_json(): Promise<void> {
   assert.equal(mod.stringify_union(1.5), `1.5`);
   assert.equal(mod.stringify_nullable_string("x"), `"x"`);
   assert.equal(mod.stringify_nullable_string(null), `null`);
+  assert.equal(mod.stringify_to_json_string(new mod.ToJsonString('quoted "x"')), `"quoted \\"x\\""`);
+  assert.deepEqual(
+    JSON.parse(
+      mod.stringify_tree({
+        value: "root",
+        children: [{ value: "leaf", children: [] }],
+      }),
+    ),
+    { value: "root", children: [{ value: "leaf", children: [] }] },
+  );
+  assert.equal(mod.stringify_nested_array([[[]]]), `[[[]]]`);
   assert.equal(mod.stringify_tuple(["a", 1, "b", "c"]), `["a",1,"b","c"]`);
   assert.equal(mod.stringify_tuple(["a", 1]), `["a",1]`);
   assert.deepEqual(
@@ -105,6 +123,11 @@ export async function test_emit_json(): Promise<void> {
   assert.ok(emitted.includes('"string" === typeof input'));
   assert.ok(emitted.includes('"number" === typeof input'));
   assert.ok(emitted.includes('null !== input) ? (__typia_transform_jsonStringifyString._jsonStringifyString(input)) : "null"'));
+  assert.ok(emitted.includes("_jsonStringifyString(input.toJSON())"));
+  assert.ok(emitted.includes("const _so0 = (input) =>"));
+  assert.ok(emitted.includes("input.children.map((elem) => _so0(elem))"));
+  assert.ok(emitted.includes("const _sa0 = (input) =>"));
+  assert.ok(emitted.includes("input.map((elem) => _sa0(elem))"));
   assert.ok(emitted.includes("Object.entries(input).map"));
   const dynamicStart = emitted.indexOf("const stringify_dynamic");
   const dynamicEnd = emitted.indexOf("exports.stringify_dynamic", dynamicStart);
