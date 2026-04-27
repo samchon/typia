@@ -1,5 +1,6 @@
 import { transform as ttscTransform } from "ttsc";
 import { existsSync } from "node:fs";
+import { createRequire } from "node:module";
 import { dirname, isAbsolute, join, resolve } from "pathe";
 import type { Alias } from "vite";
 
@@ -29,6 +30,7 @@ export async function transformTypia(
   const tsconfig = resolveTsconfig(id, options.tsconfig);
   const result = ttscTransform({
     file: id,
+    binary: resolveTsgoBinary(),
     cwd: dirname(tsconfig),
     tsconfig,
     plugins: [
@@ -38,6 +40,22 @@ export async function transformTypia(
     ],
   });
   return wrap<Data>(result);
+}
+
+function resolveTsgoBinary(): string | undefined {
+  try {
+    const require = createRequire(import.meta.url);
+    const packageJson = require.resolve("@typescript/native-preview/package.json");
+    const platform = `@typescript/native-preview-${process.platform}-${process.arch}`;
+    const platformJson = createRequire(packageJson).resolve(`${platform}/package.json`);
+    return join(
+      dirname(platformJson),
+      "lib",
+      process.platform === "win32" ? "tsgo.exe" : "tsgo",
+    );
+  } catch {
+    return undefined;
+  }
 }
 
 function resolveTsconfig(file: string, tsconfig?: string): string {

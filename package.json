@@ -5,7 +5,7 @@
   "description": "Typia Station",
   "scripts": {
     "build": "pnpm run build:packages",
-    "build:native-consumers": "bash -c 'export PATH=\"$HOME/go-sdk/go/bin:$PATH\"; cd packages/transform/native && go build -o ../../../packages/typia/bin/ttsc-typia-native ./cmd/ttsc-typia'",
+    "build:native-consumers": "bash -c 'export PATH=\"$HOME/go-sdk/go/bin:$PATH\"; cd packages/transform && go build -o ../../packages/typia/bin/ttsc-typia-native ./cmd/ttsc-typia'",
     "build:packages": "pnpm --filter=./packages/* -r build",
     "build:toolchain": "ttsc --version",
     "build:ttsc-runtime": "pnpm run build:toolchain",

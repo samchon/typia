@@ -20,7 +20,7 @@ export function runTtsc(args: readonly string[], fixtureDir?: string): TtscResul
   if (!TestGlobal.TTSC_BINARY || !fs.existsSync(TestGlobal.TTSC_BINARY)) {
     throw new Error(
       `ttsc binary missing at ${TestGlobal.TTSC_BINARY}. ` +
-        `Run \`pnpm run build:go\` before the test, or use the top-level \`pnpm test\` script.`,
+        `Run \`pnpm run build:toolchain\` before the test, or use the top-level \`pnpm test\` script.`,
     );
   }
   if (!fs.existsSync(TestGlobal.TTSC_LAUNCHER)) {

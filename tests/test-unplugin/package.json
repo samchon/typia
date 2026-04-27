@@ -11,7 +11,7 @@
   "author": "Jeongho Nam",
   "license": "MIT",
   "scripts": {
-    "start": "vitest run",
+    "start": "rm -f ../../packages/typia/src/internal/_randomFormatDuration.js ../../packages/typia/src/internal/_randomFormatIpv4.js ../../packages/typia/src/internal/_randomFormatIpv6.js ../../packages/typia/src/internal/_randomInteger.js ../../packages/typia/src/internal/_randomNumber.js ../../packages/typia/src/internal/_randomString.js && vitest run",
     "test": "vitest"
   },
   "devDependencies": {

@@ -13,7 +13,14 @@ ts.Debug.assertEqual = function (a, b, msg) {
 };
 
 require("ts-node").register({
+  skipProject: true,
   transpileOnly: true,
+  compilerOptions: {
+    esModuleInterop: true,
+    module: "commonjs",
+    moduleResolution: "node",
+    target: "esnext",
+  },
 });
 
 // Remap .js imports to .ts for workspace source resolution

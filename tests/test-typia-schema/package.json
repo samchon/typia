@@ -5,7 +5,7 @@
   "description": "Test features for JSON schema, LLM schema and protobuf message of typia.",
   "scripts": {
     "dev": "tsc --watch",
-    "start": "ts-node src/index.ts"
+    "start": "ttsx src/index.ts"
   },
   "repository": {
     "type": "git",

@@ -4,7 +4,7 @@
   "version": "12.0.2",
   "description": "Automated test features of openapi.",
   "scripts": {
-    "start": "node -r ts-node/register src/index.ts"
+    "start": "ttsx src/index.ts"
   },
   "repository": {
     "type": "git",
