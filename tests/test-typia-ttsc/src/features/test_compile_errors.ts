@@ -17,4 +17,6 @@ export async function test_compile_errors(): Promise<void> {
   assert.match(output, /Strict mode does not allow dynamic property in object/);
   assert.match(output, /error TS\(typia\.llm\.application\)/);
   assert.match(output, /parameter must be a single object type/);
+  assert.match(output, /error TS\(typia\.protobuf\.createAssertEncode\)/);
+  assert.match(output, /protobuf does not support Date type\. Use string type instead\./);
 }

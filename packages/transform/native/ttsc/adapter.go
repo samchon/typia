@@ -2,6 +2,7 @@ package ttsc
 
 import (
 	"fmt"
+	"strconv"
 	"strings"
 	"unicode"
 
@@ -129,9 +130,24 @@ func UnsupportedReason(
 		}
 	case "protobuf":
 		switch method {
-		case "message", "createDecode", "createEncode":
+		case "message", "encode", "decode", "assertEncode", "isEncode", "validateEncode", "assertDecode", "isDecode", "validateDecode",
+			"createEncode", "createDecode", "createAssertEncode", "createIsEncode", "createValidateEncode", "createAssertDecode", "createIsDecode", "createValidateDecode":
 			if strings.Contains(typeText, "any") {
 				return "protobuf does not support any type"
+			}
+			for _, native := range []string{
+				"Date", "Boolean", "BigInt", "Number", "String",
+				"Buffer", "Uint8ClampedArray", "Uint16Array", "Uint32Array",
+				"BigUint64Array", "Int8Array", "Int16Array", "Int32Array",
+				"BigInt64Array", "Float32Array", "Float64Array", "DataView",
+				"ArrayBuffer", "SharedArrayBuffer", "WeakSet", "WeakMap",
+			} {
+				if containsTypeWord(typeText, native) {
+					if replacement := protobufNativeReplacement(native); replacement != "" {
+						return "protobuf does not support " + native + " type. Use " + replacement + " type instead."
+					}
+					return "protobuf does not support " + native + " type"
+				}
 			}
 			if strings.Contains(typeText, "[]") && strings.Contains(typeText, "|") {
 				return "protobuf does not support union type with array type"
@@ -293,6 +309,12 @@ func UnsupportedSchemaReason(
 		}
 		if facts.function {
 			return "protobuf does not support functional type"
+		}
+		if facts.unsupportedProtobufNative != "" {
+			if replacement := protobufNativeReplacement(facts.unsupportedProtobufNative); replacement != "" {
+				return "protobuf does not support " + facts.unsupportedProtobufNative + " type. Use " + replacement + " type instead."
+			}
+			return "protobuf does not support " + facts.unsupportedProtobufNative + " type"
 		}
 		if facts.emptyObject {
 			return "protobuf does not support empty object type"
@@ -486,29 +508,36 @@ func EmitCall(
 			"assertHeaders", "isHeaders", "validateHeaders",
 			"createAssertHeaders", "createIsHeaders", "createValidateHeaders":
 			return emitter.EmitHttpHeadersObjectArrowFunction(schema)
-		case "query", "queryObject", "formData",
-			"createQuery", "createFormData",
-			"assertQuery", "assertFormData",
-			"isQuery", "isFormData",
-			"validateQuery", "validateFormData",
-			"createAssertQuery", "createAssertFormData",
-			"createIsQuery", "createIsFormData",
-			"createValidateQuery", "createValidateFormData":
+		case "query", "queryObject",
+			"createQuery",
+			"assertQuery",
+			"isQuery",
+			"validateQuery",
+			"createAssertQuery",
+			"createIsQuery",
+			"createValidateQuery":
 			return emitter.EmitHttpQueryObjectArrowFunction(schema)
+		case "formData", "createFormData",
+			"assertFormData", "isFormData", "validateFormData",
+			"createAssertFormData", "createIsFormData", "createValidateFormData":
+			return emitter.EmitHttpFormDataObjectArrowFunction(schema)
 		default:
 			return "", fmt.Errorf("%w: unsupported http decoder method %q", emitter.ErrUnsupportedSchema, method)
 		}
 	}
-	httpAssert := func() (string, error) {
+	httpAssert := func(assertMethod string, factory bool) (string, error) {
 		decode, err := httpDecode()
 		if err != nil {
 			return "", err
 		}
-		assertExpr, err := emitter.EmitAssertArrowFunction(schema)
+		assertExpr, err := emitter.EmitAssertArrowFunctionWithMethod(schema, assertMethod)
 		if err != nil {
 			return "", err
 		}
-		return fmt.Sprintf(`(input) => (%s)((%s)(input))`, assertExpr, decode), nil
+		if factory {
+			return fmt.Sprintf(`(errorFactory) => (input) => (%s)((%s)(input), errorFactory)`, assertExpr, decode), nil
+		}
+		return fmt.Sprintf(`(input, errorFactory) => (%s)((%s)(input), errorFactory)`, assertExpr, decode), nil
 	}
 	httpIs := func() (string, error) {
 		decode, err := httpDecode()
@@ -532,22 +561,25 @@ func EmitCall(
 		}
 		return fmt.Sprintf(`(input) => (%s)((%s)(input))`, validateExpr, decode), nil
 	}
+	httpParameter := func() (string, error) {
+		decode, err := emitter.EmitHttpParameterArrowFunction(schema)
+		if err != nil {
+			return "", err
+		}
+		assertExpr, err := emitter.EmitAssertArrowFunctionWithMethod(schema, "typia.http.parameter")
+		if err != nil {
+			return "", err
+		}
+		return fmt.Sprintf(`(input) => (%s)((%s)(input))`, assertExpr, decode), nil
+	}
 	switch {
 	case module == "module" && (method == "is" || method == "equals"):
 		expr, err := emitter.EmitIsArrowFunctionWithEquals(schema, method == "equals")
 		return expr, false, err, true
 	case module == "module" && (method == "assert" || method == "assertGuard" || method == "assertType" || method == "assertEquals" || method == "assertGuardEquals"):
-		assertMethod := "typia.assert"
-		equals := false
-		switch method {
-		case "assertEquals":
-			assertMethod = "typia.assertEquals"
-			equals = true
-		case "assertGuardEquals":
-			assertMethod = "typia.assertGuardEquals"
-			equals = true
-		}
-		expr, err := emitter.EmitAssertArrowFunctionWithMethodAndEquals(schema, assertMethod, equals)
+		equals := method == "assertEquals" || method == "assertGuardEquals"
+		guard := method == "assertGuard" || method == "assertGuardEquals"
+		expr, err := emitter.EmitAssertArrowFunctionWithMethodEqualsAndGuard(schema, "typia."+method, equals, guard)
 		return expr, false, err, true
 	case module == "module" && (method == "validate" || method == "validateEquals"):
 		expr, err := emitter.EmitValidateArrowFunctionWithEquals(schema, method == "validateEquals")
@@ -556,18 +588,10 @@ func EmitCall(
 		expr, err := emitter.EmitIsArrowFunctionWithEquals(schema, method == "createEquals")
 		return expr, true, err, true
 	case module == "module" && (method == "createAssert" || method == "createAssertGuard" || method == "createAssertType" || method == "createAssertEquals" || method == "createAssertGuardEquals"):
-		assertMethod := "typia.assert"
-		equals := false
-		switch method {
-		case "createAssertEquals":
-			assertMethod = "typia.createAssertEquals"
-			equals = true
-		case "createAssertGuardEquals":
-			assertMethod = "typia.createAssertGuardEquals"
-			equals = true
-		}
-		expr, err := emitter.EmitAssertArrowFunctionWithMethodAndEquals(schema, assertMethod, equals)
-		return expr, true, err, true
+		equals := method == "createAssertEquals" || method == "createAssertGuardEquals"
+		guard := method == "createAssertGuard" || method == "createAssertGuardEquals"
+		expr, err := emitter.EmitAssertFactoryExpressionWithMethodEqualsAndGuard(schema, "typia."+method, equals, guard)
+		return expr, false, err, true
 	case module == "module" && (method == "createValidate" || method == "createValidateEquals"):
 		expr, err := emitter.EmitCreateValidateWithStandardSchemaAndEquals(schema, method == "createValidateEquals")
 		return expr, true, err, true
@@ -581,7 +605,7 @@ func EmitCall(
 		expr, err := emitter.EmitJsonStringifyArrowFunction(schema)
 		return expr, false, err, true
 	case module == "json" && method == "assertStringify":
-		expr, err := emitter.EmitAssertStringifyArrowFunction(schema)
+		expr, err := emitter.EmitAssertStringifyArrowFunctionWithMethod(schema, "typia.json.assertStringify")
 		return expr, false, err, true
 	case module == "json" && method == "isStringify":
 		expr, err := emitter.EmitIsStringifyArrowFunction(schema)
@@ -593,8 +617,8 @@ func EmitCall(
 		expr, err := emitter.EmitJsonParseArrowFunction(schema, method)
 		return expr, false, err, true
 	case module == "json" && method == "createAssertParse":
-		expr, err := emitter.EmitJsonParseArrowFunction(schema, "assertParse")
-		return expr, true, err, true
+		expr, err := emitter.EmitJsonCreateAssertParseExpressionWithMethod(schema, "typia.json.createAssertParse")
+		return expr, false, err, true
 	case module == "json" && method == "createIsParse":
 		expr, err := emitter.EmitJsonParseArrowFunction(schema, "isParse")
 		return expr, true, err, true
@@ -605,8 +629,8 @@ func EmitCall(
 		expr, err := emitter.EmitJsonStringifyArrowFunction(schema)
 		return expr, true, err, true
 	case module == "json" && method == "createAssertStringify":
-		expr, err := emitter.EmitAssertStringifyArrowFunction(schema)
-		return expr, true, err, true
+		expr, err := emitter.EmitCreateAssertStringifyExpressionWithMethod(schema, "typia.json.createAssertStringify")
+		return expr, false, err, true
 	case module == "json" && method == "createIsStringify":
 		expr, err := emitter.EmitIsStringifyArrowFunction(schema)
 		return expr, true, err, true
@@ -633,11 +657,11 @@ func EmitCall(
 		if err != nil {
 			return "", false, err, true
 		}
-		assertExpr, err := emitter.EmitAssertArrowFunction(schema)
+		assertExpr, err := emitter.EmitAssertArrowFunctionWithMethod(schema, "typia.misc.assertClone")
 		if err != nil {
 			return "", false, err, true
 		}
-		return fmt.Sprintf(`(input) => (%s)((%s)(input))`, assertExpr, cloneExpr), false, nil, true
+		return fmt.Sprintf(`(input, errorFactory) => { (%s)(input, errorFactory); return (%s)(input); }`, assertExpr, cloneExpr), false, nil, true
 	case module == "misc" && method == "isClone":
 		cloneExpr, err := emitter.EmitMiscCloneArrowFunction(schema)
 		if err != nil {
@@ -647,7 +671,7 @@ func EmitCall(
 		if err != nil {
 			return "", false, err, true
 		}
-		return fmt.Sprintf(`(input) => { const __clone = (%s)(input); return ((%s)(__clone)) ? __clone : null; }`, cloneExpr, isExpr), false, nil, true
+		return fmt.Sprintf(`(input) => ((%s)(input)) ? (%s)(input) : null`, isExpr, cloneExpr), false, nil, true
 	case module == "misc" && method == "validateClone":
 		cloneExpr, err := emitter.EmitMiscCloneArrowFunction(schema)
 		if err != nil {
@@ -657,7 +681,7 @@ func EmitCall(
 		if err != nil {
 			return "", false, err, true
 		}
-		return fmt.Sprintf(`(input) => (%s)((%s)(input))`, validateExpr, cloneExpr), false, nil, true
+		return fmt.Sprintf(`(input) => { const __result = (%s)(input); return __result.success ? { success: true, data: (%s)(input) } : __result; }`, validateExpr, cloneExpr), false, nil, true
 	case module == "misc" && method == "prune":
 		expr, err := emitter.EmitMiscPruneArrowFunction(schema)
 		return expr, false, err, true
@@ -666,11 +690,11 @@ func EmitCall(
 		if err != nil {
 			return "", false, err, true
 		}
-		assertExpr, err := emitter.EmitAssertArrowFunction(schema)
+		assertExpr, err := emitter.EmitAssertArrowFunctionWithMethod(schema, "typia.misc.assertPrune")
 		if err != nil {
 			return "", false, err, true
 		}
-		return fmt.Sprintf(`(input) => (%s)((%s)(input))`, assertExpr, pruneExpr), false, nil, true
+		return fmt.Sprintf(`(input, errorFactory) => { (%s)(input, errorFactory); (%s)(input); return input; }`, assertExpr, pruneExpr), false, nil, true
 	case module == "misc" && method == "isPrune":
 		pruneExpr, err := emitter.EmitMiscPruneArrowFunction(schema)
 		if err != nil {
@@ -680,7 +704,7 @@ func EmitCall(
 		if err != nil {
 			return "", false, err, true
 		}
-		return fmt.Sprintf(`(input) => { const __pruned = (%s)(input); return ((%s)(__pruned)) ? __pruned : null; }`, pruneExpr, isExpr), false, nil, true
+		return fmt.Sprintf(`(input) => { if (!((%s)(input))) return false; (%s)(input); return true; }`, isExpr, pruneExpr), false, nil, true
 	case module == "misc" && method == "validatePrune":
 		pruneExpr, err := emitter.EmitMiscPruneArrowFunction(schema)
 		if err != nil {
@@ -690,7 +714,7 @@ func EmitCall(
 		if err != nil {
 			return "", false, err, true
 		}
-		return fmt.Sprintf(`(input) => (%s)((%s)(input))`, validateExpr, pruneExpr), false, nil, true
+		return fmt.Sprintf(`(input) => { const __result = (%s)(input); if (__result.success) (%s)(input); return __result; }`, validateExpr, pruneExpr), false, nil, true
 	case module == "misc" && method == "createClone":
 		expr, err := emitter.EmitMiscCloneArrowFunction(schema)
 		return expr, true, err, true
@@ -699,11 +723,11 @@ func EmitCall(
 		if err != nil {
 			return "", true, err, true
 		}
-		assertExpr, err := emitter.EmitAssertArrowFunction(schema)
+		assertExpr, err := emitter.EmitAssertArrowFunctionWithMethod(schema, "typia.misc.createAssertClone")
 		if err != nil {
 			return "", true, err, true
 		}
-		return fmt.Sprintf(`(input) => (%s)((%s)(input))`, assertExpr, cloneExpr), true, nil, true
+		return fmt.Sprintf(`(errorFactory) => (input) => { (%s)(input, errorFactory); return (%s)(input); }`, assertExpr, cloneExpr), false, nil, true
 	case module == "misc" && method == "createIsClone":
 		cloneExpr, err := emitter.EmitMiscCloneArrowFunction(schema)
 		if err != nil {
@@ -713,7 +737,7 @@ func EmitCall(
 		if err != nil {
 			return "", true, err, true
 		}
-		return fmt.Sprintf(`(input) => { const __clone = (%s)(input); return ((%s)(__clone)) ? __clone : null; }`, cloneExpr, isExpr), true, nil, true
+		return fmt.Sprintf(`(input) => ((%s)(input)) ? (%s)(input) : null`, isExpr, cloneExpr), true, nil, true
 	case module == "misc" && method == "createValidateClone":
 		cloneExpr, err := emitter.EmitMiscCloneArrowFunction(schema)
 		if err != nil {
@@ -723,7 +747,7 @@ func EmitCall(
 		if err != nil {
 			return "", true, err, true
 		}
-		return fmt.Sprintf(`(input) => (%s)((%s)(input))`, validateExpr, cloneExpr), true, nil, true
+		return fmt.Sprintf(`(input) => { const __result = (%s)(input); return __result.success ? { success: true, data: (%s)(input) } : __result; }`, validateExpr, cloneExpr), true, nil, true
 	case module == "misc" && method == "createPrune":
 		expr, err := emitter.EmitMiscPruneArrowFunction(schema)
 		return expr, true, err, true
@@ -732,11 +756,11 @@ func EmitCall(
 		if err != nil {
 			return "", true, err, true
 		}
-		assertExpr, err := emitter.EmitAssertArrowFunction(schema)
+		assertExpr, err := emitter.EmitAssertArrowFunctionWithMethod(schema, "typia.misc.createAssertPrune")
 		if err != nil {
 			return "", true, err, true
 		}
-		return fmt.Sprintf(`(input) => (%s)((%s)(input))`, assertExpr, pruneExpr), true, nil, true
+		return fmt.Sprintf(`(errorFactory) => (input) => { (%s)(input, errorFactory); (%s)(input); return input; }`, assertExpr, pruneExpr), false, nil, true
 	case module == "misc" && method == "createIsPrune":
 		pruneExpr, err := emitter.EmitMiscPruneArrowFunction(schema)
 		if err != nil {
@@ -746,7 +770,7 @@ func EmitCall(
 		if err != nil {
 			return "", true, err, true
 		}
-		return fmt.Sprintf(`(input) => { const __pruned = (%s)(input); return ((%s)(__pruned)) ? __pruned : null; }`, pruneExpr, isExpr), true, nil, true
+		return fmt.Sprintf(`(input) => { if (!((%s)(input))) return false; (%s)(input); return true; }`, isExpr, pruneExpr), true, nil, true
 	case module == "misc" && method == "createValidatePrune":
 		pruneExpr, err := emitter.EmitMiscPruneArrowFunction(schema)
 		if err != nil {
@@ -756,7 +780,7 @@ func EmitCall(
 		if err != nil {
 			return "", true, err, true
 		}
-		return fmt.Sprintf(`(input) => (%s)((%s)(input))`, validateExpr, pruneExpr), true, nil, true
+		return fmt.Sprintf(`(input) => { const __result = (%s)(input); if (__result.success) (%s)(input); return __result; }`, validateExpr, pruneExpr), true, nil, true
 	case module == "notations":
 		if kind, mode, create, ok := notationMethod(method); ok {
 			notationExpr, err := emitter.EmitNotationArrowFunction(schema, kind)
@@ -767,11 +791,14 @@ func EmitCall(
 			case "plain":
 				return notationExpr, create, nil, true
 			case "assert":
-				assertExpr, err := emitter.EmitAssertArrowFunction(schema)
+				assertExpr, err := emitter.EmitAssertArrowFunctionWithMethod(schema, "typia.notations."+method)
 				if err != nil {
 					return "", create, err, true
 				}
-				return fmt.Sprintf(`(input) => (%s)((%s)(input))`, notationExpr, assertExpr), create, nil, true
+				if create {
+					return fmt.Sprintf(`(errorFactory) => (input) => (%s)((%s)(input, errorFactory))`, notationExpr, assertExpr), false, nil, true
+				}
+				return fmt.Sprintf(`(input, errorFactory) => (%s)((%s)(input, errorFactory))`, notationExpr, assertExpr), false, nil, true
 			case "is":
 				isExpr, err := emitter.EmitIsArrowFunction(schema)
 				if err != nil {
@@ -793,13 +820,22 @@ func EmitCall(
 		expr, err := emitter.EmitReflectSchemasFromSchema(schema)
 		return expr, true, err, true
 	case module == "reflect" && method == "name":
+		if !typeArgumentTrue(configTypeNode) && typeNode != nil {
+			text := strings.TrimSpace(shimscanner.GetTextOfNode(typeNode))
+			if text != "" {
+				return strconv.Quote(text), true, nil, true
+			}
+		}
 		expr, err := emitter.EmitReflectNameExpression(schema)
 		return expr, true, err, true
-	case module == "http" && (method == "parameter" || method == "query" || method == "queryObject" || method == "headers" || method == "formData"):
+	case module == "http" && method == "parameter":
+		expr, err := httpParameter()
+		return expr, false, err, true
+	case module == "http" && (method == "query" || method == "queryObject" || method == "headers" || method == "formData"):
 		expr, err := httpDecode()
 		return expr, false, err, true
 	case module == "http" && (method == "assertQuery" || method == "assertHeaders" || method == "assertFormData"):
-		expr, err := httpAssert()
+		expr, err := httpAssert("typia.http."+method, false)
 		return expr, false, err, true
 	case module == "http" && (method == "isQuery" || method == "isHeaders" || method == "isFormData"):
 		expr, err := httpIs()
@@ -807,12 +843,15 @@ func EmitCall(
 	case module == "http" && (method == "validateQuery" || method == "validateHeaders" || method == "validateFormData"):
 		expr, err := httpValidate()
 		return expr, false, err, true
-	case module == "http" && (method == "createParameter" || method == "createQuery" || method == "createHeaders" || method == "createFormData"):
+	case module == "http" && method == "createParameter":
+		expr, err := httpParameter()
+		return expr, true, err, true
+	case module == "http" && (method == "createQuery" || method == "createHeaders" || method == "createFormData"):
 		expr, err := httpDecode()
 		return expr, true, err, true
 	case module == "http" && (method == "createAssertQuery" || method == "createAssertHeaders" || method == "createAssertFormData"):
-		expr, err := httpAssert()
-		return expr, true, err, true
+		expr, err := httpAssert("typia.http."+method, true)
+		return expr, false, err, true
 	case module == "http" && (method == "createIsQuery" || method == "createIsHeaders" || method == "createIsFormData"):
 		expr, err := httpIs()
 		return expr, true, err, true
@@ -839,21 +878,21 @@ func EmitCall(
 		if err != nil {
 			return "", false, err, true
 		}
-		assertExpr, err := emitter.EmitAssertArrowFunction(schema)
+		assertExpr, err := emitter.EmitAssertArrowFunctionWithMethod(schema, "typia.protobuf.assertEncode")
 		if err != nil {
 			return "", false, err, true
 		}
-		return fmt.Sprintf(`(input) => (%s)((%s)(input))`, encodeExpr, assertExpr), false, nil, true
+		return fmt.Sprintf(`(input, errorFactory) => (%s)((%s)(input, errorFactory))`, encodeExpr, assertExpr), false, nil, true
 	case module == "protobuf" && method == "createAssertEncode":
 		encodeExpr, err := emitter.EmitProtobufEncodeArrowFunction(schema)
 		if err != nil {
 			return "", true, err, true
 		}
-		assertExpr, err := emitter.EmitAssertArrowFunction(schema)
+		assertExpr, err := emitter.EmitAssertArrowFunctionWithMethod(schema, "typia.protobuf.createAssertEncode")
 		if err != nil {
 			return "", true, err, true
 		}
-		return fmt.Sprintf(`(input) => (%s)((%s)(input))`, encodeExpr, assertExpr), true, nil, true
+		return fmt.Sprintf(`(errorFactory) => (input) => (%s)((%s)(input, errorFactory))`, encodeExpr, assertExpr), false, nil, true
 	case module == "protobuf" && method == "isEncode":
 		encodeExpr, err := emitter.EmitProtobufEncodeArrowFunction(schema)
 		if err != nil {
@@ -899,21 +938,21 @@ func EmitCall(
 		if err != nil {
 			return "", false, err, true
 		}
-		assertExpr, err := emitter.EmitAssertArrowFunction(schema)
+		assertExpr, err := emitter.EmitAssertArrowFunctionWithMethod(schema, "typia.protobuf.assertDecode")
 		if err != nil {
 			return "", false, err, true
 		}
-		return fmt.Sprintf(`(input) => (%s)((%s)(input))`, assertExpr, decodeExpr), false, nil, true
+		return fmt.Sprintf(`(input, errorFactory) => (%s)((%s)(input), errorFactory)`, assertExpr, decodeExpr), false, nil, true
 	case module == "protobuf" && method == "createAssertDecode":
 		decodeExpr, err := emitter.EmitProtobufDecodeArrowFunction(schema)
 		if err != nil {
 			return "", true, err, true
 		}
-		assertExpr, err := emitter.EmitAssertArrowFunction(schema)
+		assertExpr, err := emitter.EmitAssertArrowFunctionWithMethod(schema, "typia.protobuf.createAssertDecode")
 		if err != nil {
 			return "", true, err, true
 		}
-		return fmt.Sprintf(`(input) => (%s)((%s)(input))`, assertExpr, decodeExpr), true, nil, true
+		return fmt.Sprintf(`(errorFactory) => (input) => (%s)((%s)(input), errorFactory)`, assertExpr, decodeExpr), false, nil, true
 	case module == "protobuf" && method == "isDecode":
 		decodeExpr, err := emitter.EmitProtobufDecodeArrowFunction(schema)
 		if err != nil {
@@ -1072,6 +1111,7 @@ type schemaFacts struct {
 	mapType                   bool
 	setType                   bool
 	unsupportedLlmNative      string
+	unsupportedProtobufNative string
 }
 
 type schemaInspector struct {
@@ -1340,13 +1380,16 @@ func (i *schemaInspector) visitSchema(schema *metadata.Schema) {
 	}
 	for _, native := range schema.Natives {
 		if i.facts.unsupportedLlmNative != "" {
-			continue
+			// keep the first reported LLM native
+		} else {
+			switch native.Name {
+			case "Date", "Blob", "File":
+			default:
+				i.facts.unsupportedLlmNative = native.Name
+			}
 		}
-		switch native.Name {
-		case "Date", "Blob", "File":
-			continue
-		default:
-			i.facts.unsupportedLlmNative = native.Name
+		if i.facts.unsupportedProtobufNative == "" && native.Name != "Uint8Array" {
+			i.facts.unsupportedProtobufNative = native.Name
 		}
 	}
 	for _, array := range schema.Arrays {
@@ -1523,6 +1566,35 @@ func llmStrictEnabled(configTypeNode *ast.Node) bool {
 	return strings.Contains(text, "strict") && strings.Contains(text, "true")
 }
 
+func typeArgumentTrue(node *ast.Node) bool {
+	if node == nil {
+		return false
+	}
+	return strings.TrimSpace(shimscanner.GetTextOfNode(node)) == "true"
+}
+
+func containsTypeWord(text string, word string) bool {
+	start := 0
+	for {
+		index := strings.Index(text[start:], word)
+		if index < 0 {
+			return false
+		}
+		index += start
+		beforeOK := index == 0 || !isIdentifierPart(rune(text[index-1]))
+		afterIndex := index + len(word)
+		afterOK := afterIndex == len(text) || !isIdentifierPart(rune(text[afterIndex]))
+		if beforeOK && afterOK {
+			return true
+		}
+		start = afterIndex
+	}
+}
+
+func isIdentifierPart(r rune) bool {
+	return r == '_' || r == '$' || unicode.IsLetter(r) || unicode.IsDigit(r)
+}
+
 func arrayValueIsUnion(schema *metadata.Schema) bool {
 	if schema == nil || schema.Size() <= 1 {
 		return false
@@ -1633,6 +1705,30 @@ func schemaHasNativeNameInternal(schema *metadata.Schema, name string, visited m
 		}
 	}
 	return false
+}
+
+func protobufNativeReplacement(name string) string {
+	switch name {
+	case "Date", "String":
+		return "string"
+	case "Boolean":
+		return "boolean"
+	case "BigInt":
+		return "bigint"
+	case "Number":
+		return "number"
+	case "Buffer", "Uint8ClampedArray", "Uint16Array", "Uint32Array",
+		"BigUint64Array", "Int8Array", "Int16Array", "Int32Array",
+		"BigInt64Array", "Float32Array", "Float64Array", "DataView",
+		"ArrayBuffer", "SharedArrayBuffer":
+		return "Uint8Array"
+	case "WeakSet":
+		return "Array"
+	case "WeakMap":
+		return "Map"
+	default:
+		return ""
+	}
 }
 
 func containsTupleTypeNode(node *ast.Node) bool {

@@ -132,20 +132,29 @@ func supportsInferredInputType(
 	if call == nil || call.Arguments == nil || call.Arguments.Nodes == nil || len(call.Arguments.Nodes) == 0 {
 		return false
 	}
-	if module != "module" {
-		return false
-	}
-	switch method {
-	case "assert",
-		"assertEquals",
-		"assertGuard",
-		"assertGuardEquals",
-		"assertType",
-		"equals",
-		"is",
-		"validate",
-		"validateEquals":
-		return true
+	switch module {
+	case "module":
+		switch method {
+		case "assert",
+			"assertEquals",
+			"assertGuard",
+			"assertGuardEquals",
+			"assertType",
+			"equals",
+			"is",
+			"validate",
+			"validateEquals":
+			return true
+		default:
+			return false
+		}
+	case "json":
+		switch method {
+		case "stringify", "assertStringify", "isStringify", "validateStringify":
+			return true
+		default:
+			return false
+		}
 	default:
 		return false
 	}

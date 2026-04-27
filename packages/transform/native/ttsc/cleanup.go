@@ -84,6 +84,10 @@ type runtimeImport struct {
 
 var runtimeImports = []runtimeImport{
 	{
+		alias:  "__typia_transform_assertGuard",
+		module: "typia/lib/internal/_assertGuard",
+	},
+	{
 		alias:  "__typia_transform_parseLlmArguments",
 		module: "typia/lib/internal/_parseLlmArguments",
 	},

@@ -10,7 +10,11 @@ import (
 // can call `typia.json.assertStringify<T>(v)` and get both runtime validation
 // and fast JSON output with one call.
 func EmitAssertStringifyArrowFunction(schema *metadata.Schema) (string, error) {
-	assertExpr, err := EmitAssertArrowFunction(schema)
+	return EmitAssertStringifyArrowFunctionWithMethod(schema, "typia.json.assertStringify")
+}
+
+func EmitAssertStringifyArrowFunctionWithMethod(schema *metadata.Schema, method string) (string, error) {
+	assertExpr, err := EmitAssertArrowFunctionWithMethod(schema, method)
 	if err != nil {
 		return "", err
 	}
@@ -20,7 +24,19 @@ func EmitAssertStringifyArrowFunction(schema *metadata.Schema) (string, error) {
 	}
 	// Compose: the assert function throws on mismatch, stringify formats
 	// the validated payload.
-	return fmt.Sprintf("(input) => (%s)((%s)(input))", stringify, assertExpr), nil
+	return fmt.Sprintf("(input, errorFactory) => (%s)((%s)(input, errorFactory))", stringify, assertExpr), nil
+}
+
+func EmitCreateAssertStringifyExpressionWithMethod(schema *metadata.Schema, method string) (string, error) {
+	assertExpr, err := EmitAssertArrowFunctionWithMethod(schema, method)
+	if err != nil {
+		return "", err
+	}
+	stringify, err := EmitJsonStringifyArrowFunction(schema)
+	if err != nil {
+		return "", err
+	}
+	return fmt.Sprintf("(errorFactory) => (input) => (%s)((%s)(input, errorFactory))", stringify, assertExpr), nil
 }
 
 // EmitIsStringifyArrowFunction composes `typia.is<T>` with fast stringify.
@@ -70,11 +86,44 @@ func EmitJsonParseArrowFunction(schema *metadata.Schema, method string) (string,
 	case "parse":
 		return "(input) => JSON.parse(input)", nil
 	case "assertParse":
-		assertFn, err := EmitAssertArrowFunction(schema)
+		return EmitJsonAssertParseArrowFunctionWithMethod(schema, "typia.json.assertParse")
+	case "isParse":
+		is, err := EmitIsArrowFunction(schema)
 		if err != nil {
 			return "", err
 		}
-		return fmt.Sprintf("(input) => (%s)(JSON.parse(input))", assertFn), nil
+		return fmt.Sprintf(
+			"(input) => { const __parsed = JSON.parse(input); return ((%s)(__parsed)) ? __parsed : null; }",
+			is,
+		), nil
+	case "validateParse":
+		validate, err := EmitValidateArrowFunction(schema)
+		if err != nil {
+			return "", err
+		}
+		return fmt.Sprintf("(input) => (%s)(JSON.parse(input))", validate), nil
+	}
+	return "", fmt.Errorf("%w: unknown json parse method %q", ErrUnsupportedSchema, method)
+}
+
+func EmitJsonAssertParseArrowFunctionWithMethod(schema *metadata.Schema, method string) (string, error) {
+	assertFn, err := EmitAssertArrowFunctionWithMethod(schema, method)
+	if err != nil {
+		return "", err
+	}
+	return fmt.Sprintf("(input, errorFactory) => (%s)(JSON.parse(input), errorFactory)", assertFn), nil
+}
+
+func EmitJsonCreateAssertParseExpressionWithMethod(schema *metadata.Schema, method string) (string, error) {
+	assertFn, err := EmitAssertArrowFunctionWithMethod(schema, method)
+	if err != nil {
+		return "", err
+	}
+	return fmt.Sprintf("(errorFactory) => (input) => (%s)(JSON.parse(input), errorFactory)", assertFn), nil
+}
+
+func emitJsonParseNonAssertArrowFunction(schema *metadata.Schema, method string) (string, error) {
+	switch method {
 	case "isParse":
 		is, err := EmitIsArrowFunction(schema)
 		if err != nil {

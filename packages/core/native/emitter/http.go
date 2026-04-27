@@ -20,6 +20,9 @@ func EmitHttpParameterArrowFunction(schema *metadata.Schema) (string, error) {
 	if kind, ok := schema.IsSoleAtomic(); ok {
 		return "(input) => " + coerceAtomic("input", kind), nil
 	}
+	if kind, ok := httpConstantAtomicKind(schema); ok {
+		return "(input) => " + coerceAtomic("input", kind), nil
+	}
 	// Literal single-value parameter.
 	if lit, ok := schema.GetSoleLiteral(); ok {
 		return fmt.Sprintf(`(input) => (input === %s ? input : (() => { throw new Error("typia.http.parameter: expected %s") })())`, jsonQuote(lit), jsEscape(lit)), nil
@@ -119,6 +122,51 @@ func EmitHttpQueryObjectArrowFunction(schema *metadata.Schema) (string, error) {
 	return b.String(), nil
 }
 
+func EmitHttpFormDataObjectArrowFunction(schema *metadata.Schema) (string, error) {
+	if schema == nil || len(schema.Objects) != 1 {
+		return "(input) => input", nil
+	}
+	obj := schema.Objects[0].Type
+	if obj == nil {
+		return "(input) => input", nil
+	}
+
+	var b strings.Builder
+	b.WriteString(`(input) => {`)
+	b.WriteString(`const __readString = (value) => value instanceof File ? value : value === null ? undefined : value === "null" ? null : value;`)
+	b.WriteString(`const __readBoolean = (value) => value instanceof File ? value : value === null ? undefined : value === "null" ? null : value.length === 0 ? true : value === "true" || value === "1" ? true : value === "false" || value === "0" ? false : value;`)
+	b.WriteString(`const __toNumber = (str) => { const value = Number(str); return Number.isNaN(value) ? str : value; };`)
+	b.WriteString(`const __readNumber = (value) => value instanceof File ? value : value && value.length ? value === "null" ? null : __toNumber(value) : undefined;`)
+	b.WriteString(`const __toBigint = (str) => { try { return BigInt(str); } catch { return str; } };`)
+	b.WriteString(`const __readBigint = (value) => value instanceof File ? value : value && value.length ? value === "null" ? null : __toBigint(value) : undefined;`)
+	b.WriteString(`const __readBlob = (value) => value instanceof Blob ? value : value === null ? undefined : value === "null" ? null : value;`)
+	b.WriteString(`const __readFile = (value) => value instanceof File ? value : value === null ? undefined : value === "null" ? null : value;`)
+	b.WriteString(`const __readArray = (value, alternative) => value.length ? value : alternative;`)
+	b.WriteString(`const __get = (key) => input.get(key);`)
+	b.WriteString(`const __getAll = (key) => input.getAll(key);`)
+	b.WriteString(`const out = {};`)
+
+	props := append([]*metadata.Property{}, obj.Properties...)
+	sort.Slice(props, func(i, j int) bool {
+		ki, _ := props[i].Key.GetSoleLiteral()
+		kj, _ := props[j].Key.GetSoleLiteral()
+		return ki < kj
+	})
+	for _, p := range props {
+		name, ok := p.Key.GetSoleLiteral()
+		if !ok {
+			continue
+		}
+		value, err := httpFormDataProperty(p.Value, name)
+		if err != nil {
+			return "", err
+		}
+		b.WriteString(value)
+	}
+	b.WriteString(`return out; }`)
+	return b.String(), nil
+}
+
 func httpQueryProperty(s *metadata.Schema, name string) (string, error) {
 	quoted := jsonQuote(name)
 	if len(s.Arrays) == 1 && s.Arrays[0].Type != nil && s.Arrays[0].Type.Value != nil {
@@ -151,6 +199,68 @@ func httpQueryProperty(s *metadata.Schema, name string) (string, error) {
 		return fmt.Sprintf(` { const v = __get(%s); const value = %s; out[%s] = %s; }`, quoted, nativeExpr, quoted, httpQueryRequiredWrapExpr("value", name, s)), nil
 	}
 	return fmt.Sprintf(` { const value = __get(%s); out[%s] = %s; }`, quoted, quoted, httpQueryRequiredWrapExpr("value", name, s)), nil
+}
+
+func httpFormDataProperty(s *metadata.Schema, name string) (string, error) {
+	quoted := jsonQuote(name)
+	if len(s.Arrays) == 1 && s.Arrays[0].Type != nil && s.Arrays[0].Type.Value != nil {
+		elemSchema := s.Arrays[0].Type.Value
+		reader, err := httpFormDataReader("elem", elemSchema)
+		if err != nil {
+			return "", err
+		}
+		alternative := "undefined"
+		if s.Nullable {
+			alternative = "null"
+		}
+		valueExpr := "value"
+		if s.Nullable || !s.IsRequired() {
+			valueExpr = fmt.Sprintf(`__readArray(value, %s)`, alternative)
+		}
+		return fmt.Sprintf(` { const value = __getAll(%s).map((elem) => %s); out[%s] = %s; }`, quoted, reader, quoted, valueExpr), nil
+	}
+	reader, err := httpFormDataReader("__get("+quoted+")", s)
+	if err != nil {
+		return "", err
+	}
+	if !s.Nullable && !s.IsRequired() {
+		reader = "(" + reader + " ?? undefined)"
+	}
+	return fmt.Sprintf(` { out[%s] = %s; }`, quoted, reader), nil
+}
+
+func httpFormDataReader(input string, s *metadata.Schema) (string, error) {
+	if kind, ok := s.IsSoleAtomic(); ok {
+		return httpFormDataReadExpr(input, kind), nil
+	}
+	if kind, ok := httpConstantAtomicKind(s); ok {
+		return httpFormDataReadExpr(input, kind), nil
+	}
+	if httpTemplateLike(s) {
+		return fmt.Sprintf(`__readString(%s)`, input), nil
+	}
+	for _, native := range s.Natives {
+		switch native.Name {
+		case "Blob":
+			return fmt.Sprintf(`__readBlob(%s)`, input), nil
+		case "File":
+			return fmt.Sprintf(`__readFile(%s)`, input), nil
+		}
+	}
+	return "", fmt.Errorf("%w: http formData property must be atomic, constant, template, Blob, File, or an array of them", ErrUnsupportedSchema)
+}
+
+func httpFormDataReadExpr(input string, kind metadata.AtomicKind) string {
+	switch kind {
+	case metadata.AtomicBoolean:
+		return fmt.Sprintf(`__readBoolean(%s)`, input)
+	case metadata.AtomicNumber:
+		return fmt.Sprintf(`__readNumber(%s)`, input)
+	case metadata.AtomicBigint:
+		return fmt.Sprintf(`__readBigint(%s)`, input)
+	default:
+		return fmt.Sprintf(`__readString(%s)`, input)
+	}
 }
 
 func httpHeadersProperty(s *metadata.Schema, name string) (string, error) {

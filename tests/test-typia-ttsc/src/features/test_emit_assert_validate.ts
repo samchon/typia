@@ -8,9 +8,9 @@ import { runTtsc } from "../utils/runTtsc";
 /**
  * Smoke for `typia.assert<T>` and `typia.validate<T>`. Assert throws with a
  * `TypeGuardError`-named exception on failure; validate returns a
- * `{ success, data, errors }` record. The current native semantics stay deliberately minimal here: assert uses
- * a plain error shape and validate reports a single top-level error, while
- * preserving the runtime contract users consume.
+ * `{ success, data, errors }` record. Assert-family output must preserve
+ * typia's TypeGuardError identity, guard return semantics, and custom
+ * errorFactory plumbing.
  */
 export async function test_emit_assert_validate(): Promise<void> {
   const fixture = path.join(TestGlobal.ROOT, "fixtures", "assert-validate");
@@ -28,6 +28,10 @@ export async function test_emit_assert_validate(): Promise<void> {
   const mod = require(mainPath) as {
     assert_string: (x: unknown) => string;
     assert_user: (x: unknown) => unknown;
+    assert_guard_user: (x: unknown) => void;
+    assert_user_custom: (x: unknown) => unknown;
+    create_assert_user_custom: (x: unknown) => unknown;
+    create_assert_guard_user_custom: (x: unknown) => void;
     validate_string: (x: unknown) => {
       success: boolean;
       data: unknown;
@@ -43,13 +47,35 @@ export async function test_emit_assert_validate(): Promise<void> {
   // assert: success returns the input.
   assert.equal(mod.assert_string("ok"), "ok");
   assert.throws(() => mod.assert_string(42), (err: Error) => {
-    return err.name === "TypeGuardError" && err.message.includes("string");
+    return (
+      err.constructor.name === "TypeGuardError" &&
+      err.message.includes("string")
+    );
   }, "assert_string(42) must throw TypeGuardError");
 
   const validUser = { id: "a", name: "Bob", age: 10 };
   assert.deepEqual(mod.assert_user(validUser), validUser);
+  assert.equal(mod.assert_guard_user(validUser), undefined);
   assert.throws(() => mod.assert_user({ id: "a" }));
   assert.throws(() => mod.assert_user({ id: "a", name: "b", age: -1 }), "age < 0 must throw");
+  assert.throws(
+    () => mod.assert_user_custom({ id: "a" }),
+    (err: Error) =>
+      err.name === "CustomTypiaError" &&
+      err.message.includes("custom:typia.assert:"),
+  );
+  assert.throws(
+    () => mod.create_assert_user_custom({ id: "a" }),
+    (err: Error) =>
+      err.name === "CustomTypiaError" &&
+      err.message.includes("custom:typia.createAssert:"),
+  );
+  assert.throws(
+    () => mod.create_assert_guard_user_custom({ id: "a" }),
+    (err: Error) =>
+      err.name === "CustomTypiaError" &&
+      err.message.includes("custom:typia.createAssertGuard:"),
+  );
 
   // validate: success
   const ok = mod.validate_string("hello");

@@ -708,7 +708,6 @@ func (e *jsonSchemaEncoder) buildArrayType(arr *metadata.ArrayType) (map[string]
 
 func (e *jsonSchemaEncoder) buildTupleType(tuple *metadata.TupleType) (map[string]any, error) {
 	prefix := make([]any, 0)
-	required := 0
 	var restSchema *metadata.Schema
 	if tuple != nil {
 		prefix = make([]any, 0, len(tuple.Elements))
@@ -722,25 +721,21 @@ func (e *jsonSchemaEncoder) buildTupleType(tuple *metadata.TupleType) (map[strin
 				return nil, err
 			}
 			prefix = append(prefix, inner)
-			if el != nil && !el.Optional {
-				required++
-			}
 		}
 	}
 	out := map[string]any{
 		"type":        "array",
 		"prefixItems": prefix,
-		"minItems":    required,
 	}
 	if restSchema == nil {
-		out["maxItems"] = len(prefix)
+		out["additionalItems"] = false
 		return out, nil
 	}
-	items, err := e.encodeObjectProperty(restSchema)
+	additionalItems, err := e.encodeObjectProperty(restSchema)
 	if err != nil {
 		return nil, err
 	}
-	out["items"] = items
+	out["additionalItems"] = additionalItems
 	return out, nil
 }
 

@@ -14,11 +14,11 @@ func TestEmitAssert(t *testing.T) {
 		t.Fatal(err)
 	}
 	for _, fragment := range []string{
-		`(input) => { const __errors =`,
+		`(input, errorFactory) => { const __errors =`,
 		`"string" === typeof input`,
-		`if (__errors.length === 0) return input;`,
-		`throw`,
-		`TypeGuardError`,
+		`if (__errors.length === 0) { return input; }`,
+		`__typia_transform_assertGuard._assertGuard`,
+		`errorFactory`,
 	} {
 		if !strings.Contains(got, fragment) {
 			t.Errorf("assert expression should contain %q, got:\n%s", fragment, got)

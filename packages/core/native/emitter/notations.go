@@ -33,7 +33,7 @@ func notationHelper(kind string) (string, error) {
 	case "pascal":
 		return `((s) => { const camel = s.replace(/[_\-\s]+(.)/g, (_, c) => c.toUpperCase()); return camel.charAt(0).toUpperCase() + camel.slice(1); })`, nil
 	case "snake":
-		return `((s) => s.replace(/([A-Z])/g, "_$1").replace(/[-\s]+/g, "_").replace(/^_+|_+$/g, "").toLowerCase())`, nil
+		return `((s) => { if (s.length === 0) return s; let prefix = ""; for (let i = 0; i < s.length; i++) { if (s[i] === "_") prefix += "_"; else break; } if (prefix.length) s = s.substring(prefix.length); const out = (v) => prefix + v; const items = s.split("_"); if (items.length > 1) return out(items.map((x) => x.toLowerCase()).join("_")); const indexes = []; for (let i = 0; i < s.length; i++) { const code = s.charCodeAt(i); if (65 <= code && code <= 90) indexes.push(i); } for (let i = indexes.length - 1; i > 0; --i) { const now = indexes[i], prev = indexes[i - 1]; if (now - prev === 1) indexes.splice(i, 1); } if (indexes.length && indexes[0] === 0) indexes.splice(0, 1); if (indexes.length === 0) return out(s.toLowerCase()); let ret = ""; for (let i = 0; i < indexes.length; i++) { const first = i === 0 ? 0 : indexes[i - 1]; const last = indexes[i]; ret += s.substring(first, last).toLowerCase(); ret += "_"; } ret += s.substring(indexes[indexes.length - 1]).toLowerCase(); return out(ret); })`, nil
 	}
 	return "", errors.New("notationHelper: unknown kind " + kind)
 }

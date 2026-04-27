@@ -418,12 +418,13 @@ const random = ((generator) => { const __unit = ({"components":{"schemas":{"IMem
       case "string":
         return __string(generator, current);
       case "array": {
-        if (Array.isArray(current.prefixItems) && current.prefixItems.length > 0) {
+        if (Array.isArray(current.prefixItems)) {
           const prefix = current.prefixItems.map((item) => __random(item, components, generator, depth + 1));
-          if (current.items === undefined) return prefix;
+          const rest = current.additionalItems === undefined ? current.items : current.additionalItems;
+          if (rest === undefined || rest === false) return prefix;
           const restCount = depth > 3 ? 0 : Math.max(0, __length(current, prefix.length) - prefix.length);
           return prefix.concat(
-            Array.from({ length: restCount }, () => __random(current.items ?? {}, components, generator, depth + 1)),
+            Array.from({ length: restCount }, () => __random(rest === true ? {} : rest, components, generator, depth + 1)),
           );
         }
         const count = depth > 3 ? 0 : __length(current, 1);

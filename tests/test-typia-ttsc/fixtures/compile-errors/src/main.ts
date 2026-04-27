@@ -23,3 +23,7 @@ typia.llm.parameters<
 typia.llm.application<{
   numeric(value: number): void;
 }>();
+
+typia.protobuf.createAssertEncode<{
+  created: Date;
+}>();

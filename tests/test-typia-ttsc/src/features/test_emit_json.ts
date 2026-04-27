@@ -31,6 +31,7 @@ export async function test_emit_json(): Promise<void> {
     stringify_number: (x: number) => string;
     stringify_string: (x: string) => string;
     stringify_point: (x: { x: number; y: number }) => string;
+    stringify_point_inferred: (x: { x: number; y: number }) => string;
     stringify_member: (x: {
       id: string;
       name: string;
@@ -38,6 +39,10 @@ export async function test_emit_json(): Promise<void> {
     }) => string;
     stringify_array: (x: number[]) => string;
     parse_point: (x: string) => { x: number; y: number };
+    parse_point_custom: (x: string) => { x: number; y: number };
+    create_parse_point_custom: (x: string) => { x: number; y: number };
+    assert_stringify_point_custom: (x: unknown) => string;
+    create_assert_stringify_point_custom: (x: unknown) => string;
     parse_member_maybe: (x: string) =>
       | { id: string; name: string; active: boolean }
       | null;
@@ -53,6 +58,7 @@ export async function test_emit_json(): Promise<void> {
   // Stringify objects — JSON round-trip must match.
   const point = { x: 1, y: 2 };
   assert.deepEqual(JSON.parse(mod.stringify_point(point)), point);
+  assert.deepEqual(JSON.parse(mod.stringify_point_inferred(point)), point);
   const member = { id: "a", name: "Bob", active: true };
   assert.deepEqual(JSON.parse(mod.stringify_member(member)), member);
 
@@ -62,6 +68,30 @@ export async function test_emit_json(): Promise<void> {
   // assertParse success + failure.
   assert.deepEqual(mod.parse_point(`{"x":1,"y":2}`), { x: 1, y: 2 });
   assert.throws(() => mod.parse_point(`{"x":"bad"}`));
+  assert.throws(
+    () => mod.parse_point_custom(`{"x":"bad"}`),
+    (err: Error) =>
+      err.name === "JsonCustomError" &&
+      err.message.includes("custom-json:typia.json.assertParse:"),
+  );
+  assert.throws(
+    () => mod.create_parse_point_custom(`{"x":"bad"}`),
+    (err: Error) =>
+      err.name === "JsonCustomError" &&
+      err.message.includes("custom-json:typia.json.createAssertParse:"),
+  );
+  assert.throws(
+    () => mod.assert_stringify_point_custom({ x: "bad" }),
+    (err: Error) =>
+      err.name === "JsonCustomError" &&
+      err.message.includes("custom-json:typia.json.assertStringify:"),
+  );
+  assert.throws(
+    () => mod.create_assert_stringify_point_custom({ x: "bad" }),
+    (err: Error) =>
+      err.name === "JsonCustomError" &&
+      err.message.includes("custom-json:typia.json.createAssertStringify:"),
+  );
 
   // isParse success / failure.
   const good = mod.parse_member_maybe(

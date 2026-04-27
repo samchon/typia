@@ -1,6 +1,7 @@
 package emitter
 
 const (
+	assertGuardImportAlias        = "__typia_transform_assertGuard"
 	parseLlmArgumentsImportAlias  = "__typia_transform_parseLlmArguments"
 	coerceLlmArgumentsImportAlias = "__typia_transform_coerceLlmArguments"
 	llmApplicationFinalizeAlias   = "__typia_transform_llmApplicationFinalize"

@@ -6,10 +6,9 @@ import (
 	"github.com/samchon/typia/packages/core/native/metadata"
 )
 
-// EmitAssertArrowFunction returns `(input) => <check> ? input : (() => {
-// throw ... })()` — matches the v12 behavior that `typia.assert<T>(x)` either
-// returns `x` typed as `T` or throws. The current native path uses a plain
-// `Error`; the full TypeGuardError with path threading can land later.
+// EmitAssertArrowFunction returns a v12-compatible assertion arrow. The
+// generated code delegates throwing to typia's internal _assertGuard helper so
+// custom error factories and exported TypeGuardError identity are preserved.
 func EmitAssertArrowFunction(schema *metadata.Schema) (string, error) {
 	return EmitAssertArrowFunctionWithMethodAndEquals(schema, "typia.assert", false)
 }
@@ -19,11 +18,31 @@ func EmitAssertArrowFunctionWithMethod(schema *metadata.Schema, method string) (
 }
 
 func EmitAssertArrowFunctionWithMethodAndEquals(schema *metadata.Schema, method string, equals bool) (string, error) {
+	return EmitAssertArrowFunctionWithMethodEqualsAndGuard(schema, method, equals, false)
+}
+
+func EmitAssertGuardArrowFunctionWithMethodAndEquals(schema *metadata.Schema, method string, equals bool) (string, error) {
+	return EmitAssertArrowFunctionWithMethodEqualsAndGuard(schema, method, equals, true)
+}
+
+func EmitAssertArrowFunctionWithMethodEqualsAndGuard(schema *metadata.Schema, method string, equals bool, guard bool) (string, error) {
 	diagnostics, err := newDiagnosticState(equals).emit(schema)
 	if err != nil {
 		return "", err
 	}
-	return fmt.Sprintf(`(input) => { const __errors = %s; if (__errors.length === 0) return input; class TypeGuardError extends Error { constructor(props) { super("Error on %s: invalid type" + (props.path ? " on " + props.path : "") + ", expect to be " + props.expected); this.name = "TypeGuardError"; this.method = props.method; this.path = props.path; this.expected = props.expected; this.value = props.value; } } throw new TypeGuardError({ method: %q, path: __errors[0].path, expected: __errors[0].expected, value: __errors[0].value }); }`, diagnostics, method, method), nil
+	success := "return input;"
+	if guard {
+		success = "return;"
+	}
+	return fmt.Sprintf(`(input, errorFactory) => { const __errors = %s; if (__errors.length === 0) { %s } return %s._assertGuard(true, { method: %q, path: __errors[0].path, expected: __errors[0].expected, value: __errors[0].value }, errorFactory); }`, diagnostics, success, assertGuardImportAlias, method), nil
+}
+
+func EmitAssertFactoryExpressionWithMethodEqualsAndGuard(schema *metadata.Schema, method string, equals bool, guard bool) (string, error) {
+	arrow, err := EmitAssertArrowFunctionWithMethodEqualsAndGuard(schema, method, equals, guard)
+	if err != nil {
+		return "", err
+	}
+	return fmt.Sprintf(`(errorFactory) => (input) => (%s)(input, errorFactory)`, arrow), nil
 }
 
 // EmitValidateArrowFunction returns `IValidation<T>` matching the interface

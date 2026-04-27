@@ -404,12 +404,13 @@ const random = /* @__PURE__ */ ((generator) => {
         case "string":
           return __string(generator2, current);
         case "array": {
-          if (Array.isArray(current.prefixItems) && current.prefixItems.length > 0) {
+          if (Array.isArray(current.prefixItems)) {
             const prefix = current.prefixItems.map((item) => __random2(item, components, generator2, depth + 1));
-            if (current.items === void 0) return prefix;
+            const rest = current.additionalItems === void 0 ? current.items : current.additionalItems;
+            if (rest === void 0 || rest === false) return prefix;
             const restCount = depth > 3 ? 0 : Math.max(0, __length(current, prefix.length) - prefix.length);
             return prefix.concat(
-              Array.from({ length: restCount }, () => __random2(current.items ?? {}, components, generator2, depth + 1))
+              Array.from({ length: restCount }, () => __random2(rest === true ? {} : rest, components, generator2, depth + 1))
             );
           }
           const count = depth > 3 ? 0 : __length(current, 1);

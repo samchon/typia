@@ -23,10 +23,18 @@ export async function test_emit_misc(): Promise<void> {
   delete require.cache[require.resolve(mainPath)];
   const mod = require(mainPath) as {
     statuses: string[];
+    booleans: boolean[];
+    bigintLiterals: bigint[];
     schemaName: string;
+    inlineName: string;
+    regularInlineName: string;
     toCamel: (x: { first_name: string; last_name: string }) => {
       firstName: string;
       lastName: string;
+    };
+    toSnake: (x: { __userID: string; displayName: string }) => {
+      __user_id: string;
+      display_name: string;
     };
     pruneMember: (x: Record<string, unknown>) => Record<string, unknown>;
     cloneMember: (x: { id: string; name: string }) => {
@@ -40,10 +48,18 @@ export async function test_emit_misc(): Promise<void> {
     ["active", "archived", "pending"],
   );
   assert.equal(mod.schemaName, "Member");
+  assert.deepEqual(mod.booleans, [true, false]);
+  assert.deepEqual(mod.bigintLiterals, [BigInt(1), BigInt(2)]);
+  assert.equal(mod.inlineName, "{ value: string }");
+  assert.match(mod.regularInlineName, /^TypeLiteral#[0-9]+$/);
 
   assert.deepEqual(
     mod.toCamel({ first_name: "Jane", last_name: "Doe" }),
     { firstName: "Jane", lastName: "Doe" },
+  );
+  assert.deepEqual(
+    mod.toSnake({ __userID: "u", displayName: "Jane" }),
+    { __user_id: "u", display_name: "Jane" },
   );
 
   const pruned = mod.pruneMember({

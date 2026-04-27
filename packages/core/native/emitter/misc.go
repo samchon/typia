@@ -3,7 +3,6 @@ package emitter
 import (
 	"errors"
 	"fmt"
-	"sort"
 	"strings"
 
 	"github.com/samchon/typia/packages/core/native/metadata"
@@ -16,19 +15,23 @@ func EmitMiscLiteralsExpression(schema *metadata.Schema) (string, error) {
 	if schema == nil {
 		return "", errors.New("emitter: nil schema")
 	}
-	if !schema.IsConstant() || len(schema.Constants) == 0 {
+	if !schema.IsConstant() && !(schema.Bucket() == 1 && len(schema.Atomics) == 1 && schema.Atomics[0].Type == metadata.AtomicBoolean) {
 		return "", fmt.Errorf("%w: misc.literals requires literal unions", ErrUnsupportedSchema)
 	}
 	values := make([]string, 0)
 	for _, c := range schema.Constants {
-		if c.Type == metadata.AtomicBigint {
-			return "", fmt.Errorf("%w: misc.literals does not support bigint literals", ErrUnsupportedSchema)
-		}
 		for _, v := range c.Values {
 			values = append(values, jsLiteral(c.Type, v.Value))
 		}
 	}
-	sort.Strings(values)
+	for _, a := range schema.Atomics {
+		if a.Type == metadata.AtomicBoolean {
+			values = append(values, "true", "false")
+		}
+	}
+	if schema.Nullable {
+		values = append(values, "null")
+	}
 	return "(" + "[" + strings.Join(values, ",") + "]" + ")", nil
 }
 
