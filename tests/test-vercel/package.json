@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@typia/test-vercel",
-  "version": "13.0.0-dev.20260427-2",
+  "version": "13.0.0-dev.20260427-3",
   "description": "Test suite for @typia/vercel package",
   "scripts": {
     "dev": "ttsc --watch",

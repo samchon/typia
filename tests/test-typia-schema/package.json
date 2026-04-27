@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@typia/test-typia-schema",
-  "version": "13.0.0-dev.20260427-2",
+  "version": "13.0.0-dev.20260427-3",
   "description": "Test features for JSON schema, LLM schema and protobuf message of typia.",
   "scripts": {
     "dev": "ttsc --watch",

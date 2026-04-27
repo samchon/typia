@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@typia/template",
-  "version": "13.0.0-dev.20260427-2",
+  "version": "13.0.0-dev.20260427-3",
   "description": "Template structures for typia testing.",
   "main": "src/index.ts",
   "repository": {

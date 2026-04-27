@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@typia/test-typia-ttsc",
-  "version": "13.0.0-dev.20260427-2",
+  "version": "13.0.0-dev.20260427-3",
   "description": "End-to-end tests for typia over the external ttsc package.",
   "scripts": {
     "dev": "ttsx src/index.ts",
