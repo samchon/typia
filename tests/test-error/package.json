@@ -25,9 +25,7 @@
   "homepage": "https://github.com/samchon/typia#readme",
   "devDependencies": {
     "cross-env": "^7.0.3",
-    "rimraf": "catalog:utils",
-    "ts-node": "catalog:typescript",
-    "typescript": "catalog:typescript"
+    "rimraf": "catalog:utils"
   },
   "dependencies": {
     "typia": "workspace:^"

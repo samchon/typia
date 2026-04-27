@@ -5,7 +5,7 @@
   "description": "Test typia generation command",
   "scripts": {
     "build": "ttsc",
-    "generate": "node -r ./register.cjs node_modules/typia/src/executable/typia.ts generate --input src/input --output src/output",
+    "generate": "ttsx node_modules/typia/src/executable/typia.ts generate --input src/input --output src/output",
     "start": "pnpm run generate && pnpm run build"
   },
   "repository": {
@@ -23,9 +23,7 @@
   },
   "homepage": "https://typia.io",
   "devDependencies": {
-    "cross-env": "^7.0.3",
-    "ts-node": "catalog:typescript",
-    "typescript": "catalog:typescript"
+    "cross-env": "^7.0.3"
   },
   "dependencies": {
     "typia": "workspace:^"

@@ -155,6 +155,9 @@ func executeBuild(options *commonOptions) int {
 	}
 	if shouldEmit {
 		writeFile := shimcompiler.WriteFile(func(fileName, text string, _ *shimcompiler.WriteFileData) error {
+			if shouldSkipExternalEmit(fileName, options.cwd, options.outDir) {
+				return nil
+			}
 			return driver.DefaultWriteFile(fileName, typia.ImportTransformer.Cleanup(text))
 		})
 		res, emitDiags, err := prog.EmitAll(rewrites.Set, writeFile)
@@ -322,6 +325,35 @@ func transformOutputCandidates(target string) []string {
 		candidates = append(candidates, target[:len(target)-len(".jsx")]+".js")
 	}
 	return candidates
+}
+
+func shouldSkipExternalEmit(fileName string, cwd string, outDir string) bool {
+	if cwd == "" {
+		return false
+	}
+	if insidePath(fileName, cwd) {
+		return false
+	}
+	if outDir != "" && insidePath(fileName, outDir) {
+		return false
+	}
+	return true
+}
+
+func insidePath(fileName string, root string) bool {
+	fileAbs, err := filepath.Abs(fileName)
+	if err != nil {
+		return false
+	}
+	rootAbs, err := filepath.Abs(root)
+	if err != nil {
+		return false
+	}
+	rel, err := filepath.Rel(rootAbs, fileAbs)
+	if err != nil {
+		return false
+	}
+	return rel == "." || (!strings.HasPrefix(rel, "..") && !filepath.IsAbs(rel))
 }
 
 func matchesAnyFile(file string, candidates []string) bool {

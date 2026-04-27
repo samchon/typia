@@ -22,10 +22,7 @@
   "homepage": "https://typia.io",
   "devDependencies": {
     "@types/node": "catalog:utils",
-    "@types/ts-expose-internals": "catalog:typescript",
-    "@types/uuid": "catalog:utils",
-    "ts-node": "catalog:typescript",
-    "typescript": "catalog:typescript"
+    "@types/uuid": "catalog:utils"
   },
   "dependencies": {
     "@nestia/e2e": "catalog:utils",

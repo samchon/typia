@@ -609,12 +609,6 @@ importers:
 
   tests/debug:
     dependencies:
-      '@typia/interface':
-        specifier: workspace:^
-        version: link:../../packages/interface
-      '@typia/utils':
-        specifier: workspace:^
-        version: link:../../packages/utils
       tstl:
         specifier: catalog:utils
         version: 3.0.0
@@ -631,15 +625,9 @@ importers:
       '@types/uuid':
         specifier: catalog:utils
         version: 11.0.0
-      '@typescript/native-preview':
-        specifier: catalog:typescript
-        version: 7.0.0-dev.20260425.1
       rimraf:
         specifier: catalog:utils
         version: 6.1.3
-      ttsc:
-        specifier: catalog:typescript
-        version: 0.4.3
 
   tests/template:
     dependencies:
@@ -671,9 +659,6 @@ importers:
       '@types/uuid':
         specifier: catalog:utils
         version: 11.0.0
-      '@typescript/native-preview':
-        specifier: catalog:typescript
-        version: 7.0.0-dev.20260425.1
 
   tests/test-error:
     dependencies:
@@ -681,15 +666,12 @@ importers:
         specifier: workspace:^
         version: link:../../packages/typia
     devDependencies:
-      '@typescript/native-preview':
-        specifier: catalog:typescript
-        version: 7.0.0-dev.20260425.1
+      cross-env:
+        specifier: ^7.0.3
+        version: 7.0.3
       rimraf:
         specifier: catalog:utils
         version: 6.1.3
-      ttsc:
-        specifier: catalog:typescript
-        version: 0.4.3
 
   tests/test-langchain:
     dependencies:
@@ -730,12 +712,6 @@ importers:
       '@types/node':
         specifier: catalog:utils
         version: 25.6.0
-      '@typescript/native-preview':
-        specifier: catalog:typescript
-        version: 7.0.0-dev.20260425.1
-      ttsc:
-        specifier: catalog:typescript
-        version: 0.4.3
 
   tests/test-mcp:
     dependencies:
@@ -767,12 +743,6 @@ importers:
       '@types/node':
         specifier: catalog:utils
         version: 25.6.0
-      '@typescript/native-preview':
-        specifier: catalog:typescript
-        version: 7.0.0-dev.20260425.1
-      ttsc:
-        specifier: catalog:typescript
-        version: 0.4.3
 
   tests/test-typia-automated:
     dependencies:
@@ -794,6 +764,9 @@ importers:
       randexp:
         specifier: ^0.5.3
         version: 0.5.3
+      tgrid:
+        specifier: catalog:utils
+        version: 1.2.1
       tstl:
         specifier: catalog:utils
         version: 3.0.0
@@ -810,15 +783,6 @@ importers:
       '@types/uuid':
         specifier: catalog:utils
         version: 11.0.0
-      '@typescript/native-preview':
-        specifier: catalog:typescript
-        version: 7.0.0-dev.20260425.1
-      rimraf:
-        specifier: catalog:utils
-        version: 6.1.3
-      ttsc:
-        specifier: catalog:typescript
-        version: 0.4.3
 
   tests/test-typia-generate:
     dependencies:
@@ -826,15 +790,9 @@ importers:
         specifier: workspace:^
         version: link:../../packages/typia
     devDependencies:
-      '@typescript/native-preview':
-        specifier: catalog:typescript
-        version: 7.0.0-dev.20260425.1
-      rimraf:
-        specifier: catalog:utils
-        version: 6.1.3
-      ttsc:
-        specifier: catalog:typescript
-        version: 0.4.3
+      cross-env:
+        specifier: ^7.0.3
+        version: 7.0.3
 
   tests/test-typia-schema:
     dependencies:
@@ -872,9 +830,25 @@ importers:
       '@types/uuid':
         specifier: catalog:utils
         version: 11.0.0
+
+  tests/test-typia-ttsc:
+    dependencies:
+      typia:
+        specifier: workspace:^
+        version: link:../../packages/typia
+    devDependencies:
+      '@nestia/e2e':
+        specifier: catalog:utils
+        version: 10.0.2
+      '@types/node':
+        specifier: catalog:utils
+        version: 25.6.0
       '@typescript/native-preview':
         specifier: catalog:typescript
         version: 7.0.0-dev.20260425.1
+      chalk:
+        specifier: 4.1.2
+        version: 4.1.2
       ttsc:
         specifier: catalog:typescript
         version: 0.4.3
@@ -888,9 +862,6 @@ importers:
         specifier: workspace:^
         version: link:../../packages/typia
     devDependencies:
-      '@typescript/native-preview':
-        specifier: catalog:typescript
-        version: 7.0.0-dev.20260425.1
       '@vue-macros/test-utils':
         specifier: ^1.7.1
         version: 1.7.1(@types/node@25.6.0)(esbuild@0.25.12)(jiti@2.6.1)(vite@6.4.2(@types/node@25.6.0)(jiti@2.6.1)(yaml@2.8.3))(vitest@3.2.4(@types/debug@4.1.13)(@types/node@25.6.0)(jiti@2.6.1)(jsdom@26.1.0)(yaml@2.8.3))(yaml@2.8.3)
@@ -949,12 +920,6 @@ importers:
       '@types/uuid':
         specifier: catalog:utils
         version: 11.0.0
-      '@typescript/native-preview':
-        specifier: catalog:typescript
-        version: 7.0.0-dev.20260425.1
-      ttsc:
-        specifier: catalog:typescript
-        version: 0.4.3
 
   tests/test-utils-automated:
     dependencies:
@@ -970,6 +935,9 @@ importers:
       '@typia/utils':
         specifier: workspace:^
         version: link:../../packages/utils
+      tgrid:
+        specifier: catalog:utils
+        version: 1.2.1
       typia:
         specifier: workspace:^
         version: link:../../packages/typia
@@ -983,15 +951,6 @@ importers:
       '@types/uuid':
         specifier: catalog:utils
         version: 11.0.0
-      '@typescript/native-preview':
-        specifier: catalog:typescript
-        version: 7.0.0-dev.20260425.1
-      rimraf:
-        specifier: catalog:utils
-        version: 6.1.3
-      ttsc:
-        specifier: catalog:typescript
-        version: 0.4.3
 
   tests/test-vercel:
     dependencies:
@@ -1029,34 +988,6 @@ importers:
       '@types/node':
         specifier: catalog:utils
         version: 25.6.0
-      '@typescript/native-preview':
-        specifier: catalog:typescript
-        version: 7.0.0-dev.20260425.1
-      ttsc:
-        specifier: catalog:typescript
-        version: 0.4.3
-
-  tests/test-typia-ttsc:
-    dependencies:
-      typia:
-        specifier: workspace:^
-        version: link:../../packages/typia
-    devDependencies:
-      '@nestia/e2e':
-        specifier: catalog:utils
-        version: 10.0.2
-      '@types/node':
-        specifier: catalog:utils
-        version: 25.6.0
-      '@typescript/native-preview':
-        specifier: catalog:typescript
-        version: 7.0.0-dev.20260425.1
-      chalk:
-        specifier: 4.1.2
-        version: 4.1.2
-      ttsc:
-        specifier: catalog:typescript
-        version: 0.4.3
 
 packages:
 
@@ -3192,6 +3123,11 @@ packages:
 
   cross-argv@2.0.0:
     resolution: {integrity: sha512-YIaY9TR5Nxeb8SMdtrU8asWVM4jqJDNDYlKV21LxtYcfNJhp1kEsgSa6qXwXgzN0WQWGODps0+TlGp2xQSHwOg==}
+
+  cross-env@7.0.3:
+    resolution: {integrity: sha512-+/HKd6EgcQCJGh2PSjZuUitQBQynKor4wrFbRg4DtAgS1aWO+gU52xpH7M9ScGgXSYmAVS9bIJ8EzuaGw0oNAw==}
+    engines: {node: '>=10.14', npm: '>=6', yarn: '>=1'}
+    hasBin: true
 
   cross-spawn@7.0.6:
     resolution: {integrity: sha512-uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==}
@@ -8034,6 +7970,10 @@ snapshots:
       vary: 1.1.2
 
   cross-argv@2.0.0: {}
+
+  cross-env@7.0.3:
+    dependencies:
+      cross-spawn: 7.0.6
 
   cross-spawn@7.0.6:
     dependencies:

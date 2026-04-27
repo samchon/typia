@@ -21,9 +21,7 @@
   "devDependencies": {
     "@nestia/e2e": "catalog:utils",
     "@types/node": "catalog:utils",
-    "@types/uuid": "catalog:utils",
-    "ts-node": "catalog:typescript",
-    "typescript": "catalog:typescript"
+    "@types/uuid": "catalog:utils"
   },
   "dependencies": {
     "chalk": "4.1.2",

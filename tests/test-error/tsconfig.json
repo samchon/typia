@@ -7,12 +7,5 @@
     "outDir": "bin",
     "rootDir": "src",
   },
-  "ts-node": {
-    "transpileOnly": true,
-    "compilerOptions": {
-      "module": "commonjs",
-      "plugins": []
-    }
-  },
   "include": ["src"],
 }
