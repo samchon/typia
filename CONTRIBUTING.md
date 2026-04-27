@@ -87,7 +87,7 @@ pnpm run test
 If you touch one of these areas, run its local path too:
 
 - `../ttsc/packages/ttsc`: `pnpm --filter ttsc test`
-- `toolchain-tests/test-typia-ttsc`: `pnpm --filter @typia/test-typia-ttsc test`
+- `tests/test-typia-ttsc`: `pnpm --filter @typia/test-typia-ttsc test`
 - `tests/test-unplugin`: `pnpm --filter @typia/test-unplugin start`
 - `website`: `cd website && npm install && npm run build`
 - tarball-dependent flows: `pnpm run package:tgz`

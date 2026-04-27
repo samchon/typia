@@ -1036,7 +1036,7 @@ importers:
         specifier: catalog:typescript
         version: 0.4.3
 
-  toolchain-tests/test-typia-ttsc:
+  tests/test-typia-ttsc:
     dependencies:
       typia:
         specifier: workspace:^

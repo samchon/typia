@@ -1,13 +1,12 @@
 {
   "private": true,
   "name": "@typia/test-langchain",
-  "version": "13.0.0-dev.20260427",
+  "version": "12.0.2",
   "description": "Test suite for @typia/langchain package",
   "scripts": {
-    "dev": "ttsc --watch",
-    "start": "ttsx src/index.ts",
-    "structured-output": "ttsx src/structured-output.ts",
-    "tool-calling": "ttsx src/experimental/tool-calling.ts"
+    "start": "ts-node src/index.ts",
+    "structured-output": "ts-node src/structured-output.ts",
+    "tool-calling": "ts-node src/experimental/tool-calling.ts"
   },
   "repository": {
     "type": "git",
@@ -17,8 +16,9 @@
   "license": "MIT",
   "devDependencies": {
     "@types/node": "catalog:utils",
-    "@typescript/native-preview": "catalog:typescript",
-    "ttsc": "catalog:typescript"
+    "@types/ts-expose-internals": "catalog:typescript",
+    "ts-node": "catalog:typescript",
+    "typescript": "catalog:typescript"
   },
   "dependencies": {
     "@langchain/core": "^1.1.31",

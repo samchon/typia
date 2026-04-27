@@ -1,11 +1,10 @@
 {
   "private": true,
   "name": "@typia/test-mcp",
-  "version": "13.0.0-dev.20260427",
+  "version": "12.0.2",
   "description": "Test suite for @typia/mcp package",
   "scripts": {
-    "dev": "ttsc --watch",
-    "start": "ttsx src/index.ts"
+    "start": "ts-node src/index.ts"
   },
   "repository": {
     "type": "git",
@@ -15,8 +14,9 @@
   "license": "MIT",
   "devDependencies": {
     "@types/node": "catalog:utils",
-    "@typescript/native-preview": "catalog:typescript",
-    "ttsc": "catalog:typescript"
+    "@types/ts-expose-internals": "catalog:typescript",
+    "ts-node": "catalog:typescript",
+    "typescript": "catalog:typescript"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.26.0",

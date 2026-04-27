@@ -1,11 +1,11 @@
 {
   "private": true,
   "name": "@typia/test-utils",
-  "version": "13.0.0-dev.20260427",
+  "version": "12.0.2",
   "description": "Automated test features of typia.",
   "scripts": {
-    "dev": "ttsc --watch",
-    "start": "ttsx src/index.ts"
+    "dev": "tsc --watch",
+    "start": "ts-node src/index.ts"
   },
   "repository": {
     "type": "git",
@@ -23,9 +23,10 @@
   "homepage": "https://typia.io",
   "devDependencies": {
     "@types/node": "catalog:utils",
+    "@types/ts-expose-internals": "catalog:typescript",
     "@types/uuid": "catalog:utils",
-    "@typescript/native-preview": "catalog:typescript",
-    "ttsc": "catalog:typescript"
+    "ts-node": "catalog:typescript",
+    "typescript": "catalog:typescript"
   },
   "dependencies": {
     "@nestia/e2e": "catalog:utils",

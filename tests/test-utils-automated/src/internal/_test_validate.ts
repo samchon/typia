@@ -1,6 +1,6 @@
 import { IValidation, OpenApi } from "@typia/interface";
 import { Spoiler } from "@typia/template";
-import { OpenApiConverter, OpenApiValidator } from "@typia/utils";
+import { OpenApiValidator } from "@typia/utils";
 
 export const _test_validate = <T>(props: {
   schema: OpenApi.IJsonSchema;
@@ -11,17 +11,10 @@ export const _test_validate = <T>(props: {
   };
   name: string;
 }): void => {
-  const components: OpenApi.IComponents = OpenApiConverter.upgradeComponents(
-    props.components as any,
-  );
-  const schema: OpenApi.IJsonSchema = OpenApiConverter.upgradeSchema({
-    components: props.components as any,
-    schema: props.schema as any,
-  });
   const input: T = props.factory.generate();
   const validate = OpenApiValidator.create({
-    components,
-    schema,
+    components: props.components,
+    schema: props.schema,
     required: true,
   });
   const result: IValidation<unknown> = validate(input);

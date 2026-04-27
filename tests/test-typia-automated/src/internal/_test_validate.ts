@@ -1,11 +1,6 @@
 import { TestStructure } from "@typia/template";
 import typia from "typia";
 
-import {
-  assertValidationFailure,
-  assertValidationSuccess,
-} from "./_assert_validation";
-
 export const _test_validate =
   (name: string) =>
   <T>(factory: TestStructure<T>) =>
@@ -20,7 +15,7 @@ export const _test_validate =
       throw new Error(
         "Bug on typia.validate(): failed to archive the input value.",
       );
-    assertValidationSuccess(valid);
+    typia.assertEquals(valid);
 
     const wrong: ISpoiled[] = [];
     for (const spoil of factory.SPOILERS ?? []) {
@@ -33,7 +28,7 @@ export const _test_validate =
           `Bug on typia.validate(): failed to detect error on the ${name} type.`,
         );
 
-      assertValidationFailure(valid);
+      typia.assertEquals(valid);
       expected.sort();
       valid.errors.sort((x, y) => (x.path < y.path ? -1 : 1));
 

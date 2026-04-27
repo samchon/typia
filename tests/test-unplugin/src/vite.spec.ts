@@ -10,12 +10,6 @@ async function transform(_id: string): Promise<RollupOutput['output']> {
 	const { output } = (await build({
 		root,
 		build: {
-			commonjsOptions: {
-				include: [
-					/node_modules/,
-					/packages[\\/]+typia[\\/]lib[\\/]internal[\\/]/,
-				],
-			},
 			minify: false,
 			rollupOptions: {
 				input: [id],

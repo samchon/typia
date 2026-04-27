@@ -1,11 +1,11 @@
 {
   "private": true,
   "name": "@typia/test-typia-generate",
-  "version": "13.0.0-dev.20260427",
+  "version": "12.0.2",
   "description": "Test typia generation command",
   "scripts": {
-    "build": "rimraf bin && ttsc build --emit --rewrite-mode none --tsconfig tsconfig.json",
-    "generate": "rimraf src/output && ttsx node_modules/typia/src/executable/typia.ts generate --input src/input --output src/output",
+    "build": "cross-env NODE_OPTIONS=\"--no-experimental-strip-types -r ts-node/register\" tsc",
+    "generate": "node -r ./register.cjs node_modules/typia/src/executable/typia.ts generate --input src/input --output src/output",
     "start": "pnpm run generate && pnpm run build"
   },
   "repository": {
@@ -23,9 +23,9 @@
   },
   "homepage": "https://typia.io",
   "devDependencies": {
-    "@typescript/native-preview": "catalog:typescript",
-    "rimraf": "catalog:utils",
-    "ttsc": "catalog:typescript"
+    "cross-env": "^7.0.3",
+    "ts-node": "catalog:typescript",
+    "typescript": "catalog:typescript"
   },
   "dependencies": {
     "typia": "workspace:^"

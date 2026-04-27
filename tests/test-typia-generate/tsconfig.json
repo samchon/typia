@@ -3,8 +3,13 @@
   "compilerOptions": {
     "noUnusedLocals": false,
     "noUnusedParameters": false,
-    "outDir": "bin",
-    "rootDir": "src"
   },
   "include": ["src"],
+  "ts-node": {
+    "transpileOnly": true,
+    "compilerOptions": {
+      "module": "commonjs",
+      "plugins": []
+    }
+  },
 }

@@ -26,7 +26,7 @@ export class TestServant {
         (props.exclude.length
           ? props.exclude.every((str) => !name.includes(str))
           : true),
-      extension: props.extension ?? __filename.substr(-2),
+      extension: __filename.substr(-2),
     });
     exceptions.push(
       ...report.executions.map((e) => e.error).filter((e) => e !== null),
@@ -43,6 +43,5 @@ export namespace TestServant {
     location: string;
     include: string[];
     exclude: string[];
-    extension?: string;
   }
 }

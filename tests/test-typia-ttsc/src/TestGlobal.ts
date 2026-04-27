@@ -2,7 +2,7 @@ import * as path from "path";
 import { resolveBinary } from "ttsc";
 
 export class TestGlobal {
-  /** Absolute path to `toolchain-tests/test-typia-ttsc/`. */
+  /** Absolute path to `tests/test-typia-ttsc/`. */
   public static readonly ROOT: string = path.resolve(`${__dirname}/..`);
 
   /** Absolute path to the installed ttsc native binary. */
