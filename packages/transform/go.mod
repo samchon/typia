@@ -29,32 +29,32 @@ require (
 	golang.org/x/text v0.35.0 // indirect
 )
 
-replace github.com/microsoft/typescript-go/shim/ast => ../../../ttsc/packages/ttsc/shim/ast
+replace github.com/microsoft/typescript-go/shim/ast => ../../node_modules/ttsc/shim/ast
 
-replace github.com/microsoft/typescript-go/shim/bundled => ../../../ttsc/packages/ttsc/shim/bundled
+replace github.com/microsoft/typescript-go/shim/bundled => ../../node_modules/ttsc/shim/bundled
 
-replace github.com/microsoft/typescript-go/shim/checker => ../../../ttsc/packages/ttsc/shim/checker
+replace github.com/microsoft/typescript-go/shim/checker => ../../node_modules/ttsc/shim/checker
 
-replace github.com/microsoft/typescript-go/shim/compiler => ../../../ttsc/packages/ttsc/shim/compiler
+replace github.com/microsoft/typescript-go/shim/compiler => ../../node_modules/ttsc/shim/compiler
 
-replace github.com/microsoft/typescript-go/shim/core => ../../../ttsc/packages/ttsc/shim/core
+replace github.com/microsoft/typescript-go/shim/core => ../../node_modules/ttsc/shim/core
 
-replace github.com/microsoft/typescript-go/shim/diagnosticwriter => ../../../ttsc/packages/ttsc/shim/diagnosticwriter
+replace github.com/microsoft/typescript-go/shim/diagnosticwriter => ../../node_modules/ttsc/shim/diagnosticwriter
 
-replace github.com/microsoft/typescript-go/shim/parser => ../../../ttsc/packages/ttsc/shim/parser
+replace github.com/microsoft/typescript-go/shim/parser => ../../node_modules/ttsc/shim/parser
 
-replace github.com/microsoft/typescript-go/shim/scanner => ../../../ttsc/packages/ttsc/shim/scanner
+replace github.com/microsoft/typescript-go/shim/scanner => ../../node_modules/ttsc/shim/scanner
 
-replace github.com/microsoft/typescript-go/shim/tsoptions => ../../../ttsc/packages/ttsc/shim/tsoptions
+replace github.com/microsoft/typescript-go/shim/tsoptions => ../../node_modules/ttsc/shim/tsoptions
 
-replace github.com/microsoft/typescript-go/shim/tspath => ../../../ttsc/packages/ttsc/shim/tspath
+replace github.com/microsoft/typescript-go/shim/tspath => ../../node_modules/ttsc/shim/tspath
 
-replace github.com/microsoft/typescript-go/shim/vfs => ../../../ttsc/packages/ttsc/shim/vfs
+replace github.com/microsoft/typescript-go/shim/vfs => ../../node_modules/ttsc/shim/vfs
 
-replace github.com/microsoft/typescript-go/shim/vfs/cachedvfs => ../../../ttsc/packages/ttsc/shim/vfs/cachedvfs
+replace github.com/microsoft/typescript-go/shim/vfs/cachedvfs => ../../node_modules/ttsc/shim/vfs/cachedvfs
 
-replace github.com/microsoft/typescript-go/shim/vfs/osvfs => ../../../ttsc/packages/ttsc/shim/vfs/osvfs
+replace github.com/microsoft/typescript-go/shim/vfs/osvfs => ../../node_modules/ttsc/shim/vfs/osvfs
 
-replace github.com/samchon/ttsc/packages/ttsc => ../../../ttsc/packages/ttsc
+replace github.com/samchon/ttsc/packages/ttsc => ../../node_modules/ttsc
 
 replace github.com/samchon/typia/packages/core => ../core

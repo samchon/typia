@@ -4,8 +4,6 @@ on:
     paths:
       - '.github/workflows/test.yml'
       - 'packages/**'
-      - 'toolchain/**'
-      - 'toolchain-tests/**'
       - 'tests/**'
       - 'examples/**'
       - 'package.json'
@@ -19,6 +17,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 24.x
+      - uses: actions/setup-go@v5
+        with:
+          go-version: 1.26.x
       - uses: pnpm/action-setup@v4
       
       - name: Install Dependencies

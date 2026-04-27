@@ -6,6 +6,7 @@ on:
     paths:
       - .github/workflows/website.yml
       - 'examples/**'
+      - 'packages/**'
       - 'website/**'
       - 'website/package.json'
       - 'package.json'
@@ -13,6 +14,7 @@ on:
     paths:
       - .github/workflows/website.yml
       - 'examples/**'
+      - 'packages/**'
       - 'website/**'
       - 'website/package.json'
       - 'package.json'
@@ -24,7 +26,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 24.x
-      - uses: pnpm/action-setup@v2
+      - uses: actions/setup-go@v5
+        with:
+          go-version: 1.26.x
+      - uses: pnpm/action-setup@v4
 
       # - name: Root
       #   run: |
