@@ -11,6 +11,10 @@ export const parseQuery = (input: URLSearchParams | Record<string, any>): Query 
   typia.http.query<Query>(input as any);
 export const parseIntParam = (input: string): number =>
   typia.http.parameter<number>(input);
+export const parseBoolParam = (input: string): boolean =>
+  typia.http.parameter<boolean>(input);
+export const parseBigintParam = (input: string): bigint =>
+  typia.http.parameter<bigint>(input);
 export const parseLiteralParam = typia.http.createParameter<3>();
 export const parseFormData = (input: FormData): typia.Resolved<UploadForm> =>
   typia.http.formData<UploadForm>(input);

@@ -117,9 +117,9 @@ func dynamicAtomicKeyCheck(keyExpr string, kind metadata.AtomicKind, tags metada
 		return base + " && " + atomicWithTags("true", numberExpr, tags)
 	case metadata.AtomicBigint:
 		if len(tags) == 0 {
-			return `(/^[-]?(?:0|[1-9]\d*)$/).test(` + keyExpr + `)`
+			return isBigintStringImportAlias + "._isBigintString(" + keyExpr + ")"
 		}
-		return `((/^[-]?(?:0|[1-9]\d*)$/).test(` + keyExpr + `) && ` + atomicWithTags("true", `BigInt(`+keyExpr+`)`, tags) + `)`
+		return `(` + isBigintStringImportAlias + "._isBigintString(" + keyExpr + `) && ` + atomicWithTags("true", `BigInt(`+keyExpr+`)`, tags) + `)`
 	case metadata.AtomicBoolean:
 		return `("false" === ` + keyExpr + ` || "true" === ` + keyExpr + `)`
 	default:
@@ -134,7 +134,7 @@ func dynamicNativeKeyCheck(keyExpr, name string) string {
 	case "Number":
 		return `(!Number.isNaN(Number(` + keyExpr + `)) && Number.isFinite(Number(` + keyExpr + `)))`
 	case "BigInt":
-		return `(/^[-]?(?:0|[1-9]\d*)$/).test(` + keyExpr + `)`
+		return isBigintStringImportAlias + "._isBigintString(" + keyExpr + ")"
 	case "Boolean":
 		return `("false" === ` + keyExpr + ` || "true" === ` + keyExpr + `)`
 	default:

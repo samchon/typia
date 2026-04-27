@@ -14,7 +14,8 @@ import (
 //
 // Strategy (matches typia v12):
 //
-//  1. For `format` and `pattern` we emit a regex test inline.
+//  1. For `format` we delegate to typia's internal `_isFormat*` helpers, and
+//     for `pattern` we emit the same `RegExp` test shape.
 //  2. For `type` we emit a typeof / Number.isInteger + bounds check.
 //  3. Otherwise we prefer the tag's `validate` template (`2 <= $input.length`,
 //     `$input % 2 === 0`, …) which comes pre-baked with the generic's
@@ -22,7 +23,6 @@ import (
 //  4. As a last resort we fall back to a numeric/length switch based on
 //     `tag.Value` — used only when `validate` is missing or unparsable.
 func tagCheck(ve string, tag metadata.TypeTag) string {
-	// Format / Pattern — inline regex (typia's `_isFormat*` helpers folded).
 	switch tag.Kind {
 	case "format":
 		if s, ok := tag.Value.(string); ok {
@@ -44,7 +44,7 @@ func tagCheck(ve string, tag metadata.TypeTag) string {
 		if b, ok := tag.Value.(bool); ok && !b {
 			return ""
 		}
-		return fmt.Sprintf("(new Set(%s).size === %s.length)", ve, ve)
+		return fmt.Sprintf("%s._isUniqueItems(%s)", isUniqueItemsImportAlias, ve)
 	}
 
 	// Validate template — handles minimum/maximum/exclusive*/multipleOf/
@@ -96,33 +96,41 @@ func instantiateTagValidate(template string, value any) string {
 	}
 }
 
-// formatCheck returns an inline JS expression that validates a string against
-// the given format. Mirrors typia v12's `FormatCheatSheet` — two special
-// formats short-circuit the regex path:
-//
-//   - `password` accepts anything (typia emits `true`).
-//   - `regex` tries to construct a RegExp from the value.
-//
-// Anything else looks up `formatRegexps` and emits an inline RegExp test.
+// formatCheck returns the same internal helper calls emitted by typia's
+// TypeScript transformer.
 func formatCheck(ve, format string) string {
-	switch format {
-	case "password":
-		return "true"
-	case "regex":
-		return fmt.Sprintf(`(() => { try { new RegExp(%s); return true; } catch { return false; } })()`, ve)
-	case "uri":
-		return fmt.Sprintf(`(/^[\x00-\x7F]*$/.test(%s) && new RegExp(%s).test(%s))`, ve, jsonQuote(formatRegexps["uri"]), ve)
-	case "uri-reference":
-		return fmt.Sprintf(`(/^[\x00-\x7F]*$/.test(%s) && new RegExp(%s).test(%s))`, ve, jsonQuote(formatRegexps["uri-reference"]), ve)
+	helpers := map[string]struct {
+		alias string
+		name  string
+	}{
+		"byte":                  {isFormatByteImportAlias, "_isFormatByte"},
+		"date":                  {isFormatDateImportAlias, "_isFormatDate"},
+		"date-time":             {isFormatDateTimeImportAlias, "_isFormatDateTime"},
+		"duration":              {isFormatDurationImportAlias, "_isFormatDuration"},
+		"email":                 {isFormatEmailImportAlias, "_isFormatEmail"},
+		"hostname":              {isFormatHostnameImportAlias, "_isFormatHostname"},
+		"idn-email":             {isFormatIdnEmailImportAlias, "_isFormatIdnEmail"},
+		"idn-hostname":          {isFormatIdnHostnameAlias, "_isFormatIdnHostname"},
+		"ipv4":                  {isFormatIpv4ImportAlias, "_isFormatIpv4"},
+		"ipv6":                  {isFormatIpv6ImportAlias, "_isFormatIpv6"},
+		"iri":                   {isFormatIriImportAlias, "_isFormatIri"},
+		"iri-reference":         {isFormatIriReferenceAlias, "_isFormatIriReference"},
+		"json-pointer":          {isFormatJsonPointerAlias, "_isFormatJsonPointer"},
+		"password":              {isFormatPasswordAlias, "_isFormatPassword"},
+		"regex":                 {isFormatRegexImportAlias, "_isFormatRegex"},
+		"relative-json-pointer": {isFormatRelativeJsonPtrAlias, "_isFormatRelativeJsonPointer"},
+		"time":                  {isFormatTimeImportAlias, "_isFormatTime"},
+		"uri":                   {isFormatUriImportAlias, "_isFormatUri"},
+		"uri-reference":         {isFormatUriReferenceAlias, "_isFormatUriReference"},
+		"uri-template":          {isFormatUriTemplateAlias, "_isFormatUriTemplate"},
+		"url":                   {isFormatUrlImportAlias, "_isFormatUrl"},
+		"uuid":                  {isFormatUuidImportAlias, "_isFormatUuid"},
 	}
-	re, ok := formatRegexps[format]
+	helper, ok := helpers[format]
 	if !ok {
-		// Unknown format — emit a permissive pass-through so the overall
-		// validator doesn't silently reject well-formed strings. Phase 1
-		// surfaces this as a diagnostic.
 		return ""
 	}
-	return fmt.Sprintf("new RegExp(%s).test(%s)", jsonQuote(re), ve)
+	return fmt.Sprintf("%s.%s(%s)", helper.alias, helper.name, ve)
 }
 
 // typeTagCheck handles `tags.Type<"int32" | "int64" | "uint32" | "float" | ...>`.
@@ -137,15 +145,22 @@ func typeTagCheck(ve, target, kind string) string {
 		return ""
 	}
 	switch kind {
-	case "int", "int8", "int16", "int32", "int64", "uint", "uint8", "uint16", "uint32", "uint64":
+	case "int32":
+		return fmt.Sprintf("%s._isTypeInt32(%s)", isTypeInt32ImportAlias, ve)
+	case "int64":
+		return fmt.Sprintf("%s._isTypeInt64(%s)", isTypeInt64ImportAlias, ve)
+	case "uint32":
+		return fmt.Sprintf("%s._isTypeUint32(%s)", isTypeUint32ImportAlias, ve)
+	case "uint64":
+		return fmt.Sprintf("%s._isTypeUint64(%s)", isTypeUint64ImportAlias, ve)
+	case "int", "int8", "int16", "uint", "uint8", "uint16":
 		base := fmt.Sprintf("Number.isInteger(%s)", ve)
 		if bounds, ok := integerBounds[kind]; ok {
 			return base + " && " + strings.ReplaceAll(bounds, "__INPUT__", ve)
 		}
 		return base
 	case "float":
-		// typia v12 bounds float to single-precision IEEE-754 range.
-		return fmt.Sprintf("(Number.isFinite(%s) && -1.175494351e38 <= %s && %s <= 3.4028235e38)", ve, ve, ve)
+		return fmt.Sprintf("%s._isTypeFloat(%s)", isTypeFloatImportAlias, ve)
 	case "double":
 		// typia v12 emits `true` for double (already represented natively).
 		return fmt.Sprintf("Number.isFinite(%s)", ve)
@@ -271,40 +286,6 @@ func nextNonSpaceByte(input string, start int) byte {
 		return input[i]
 	}
 	return 0
-}
-
-// formatRegexps maps format names to the regex source typia v12 ships.
-// Sourced from `packages/core/src/factories/FormatCheatSheet.ts` — the strings
-// here are the patterns inside `RegexCall(/.../)` (leading/trailing slashes
-// and trailing flags like `i`, `u`, `gm` stripped so `new RegExp(pattern)`
-// gets the plain body). Flag differences are captured by the `formatFlags`
-// map so emitted tests can replicate typia's behavior exactly.
-var formatRegexps = map[string]string{
-	"byte":                  `^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$`,
-	"date":                  `^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$`,
-	"date-time":             `^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])(T|\s)([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](?:\.[0-9]{1,9})?(Z|[+-]([01][0-9]|2[0-3]):[0-5][0-9])$`,
-	"duration":              `^P(?!$)((\d+Y)?(\d+M)?(\d+D)?(T(?=\d)(\d+H)?(\d+M)?(\d+S)?)?|(\d+W)?)$`,
-	"email":                 `^[a-z0-9!#$%&'*+/=?^_` + "`" + `{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_` + "`" + `{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$`,
-	"hostname":              `^(?=.{1,253}\.?$)[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?(?:\.[a-z0-9](?:[-0-9a-z]{0,61}[0-9a-z])?)*\.?$`,
-	"idn-email":             `^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$`,
-	"idn-hostname":          `^([a-z0-9\u00a1-\uffff0-9]+(-[a-z0-9\u00a1-\uffff0-9]+)*\.)+[a-z\u00a1-\uffff]{2,}$`,
-	"ipv4":                  `^(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\.){3}(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)$`,
-	"iri":                   "^[A-Za-z][\\d+-.A-Za-z]*:[^\\u0000-\\u0020\"<>\\\\^`{|}]*$",
-	"iri-reference":         "^[A-Za-z][\\d+-.A-Za-z]*:[^\\u0000-\\u0020\"<>\\\\^`{|}]*$",
-	"json-pointer":          `^(?:\/(?:[^~/]|~0|~1)*)*$`,
-	"relative-json-pointer": `^(?:0|[1-9][0-9]*)(?:#|(?:\/(?:[^~/]|~0|~1)*)*)$`,
-	"time":                  `^([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](?:\.[0-9]{1,9})?(Z|[+-]([01][0-9]|2[0-3]):[0-5][0-9])$`,
-	"url":                   `^(?:https?|ftp):\/\/(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z0-9]+-)*[a-z0-9]+)(?:\.(?:[a-z0-9]+-)*[a-z0-9]+)*(?:\.(?:[a-z]{2,})))(?::\d{2,5})?(?:\/[^\s]*)?$`,
-	// uuid accepts an optional `urn:uuid:` prefix — matches typia's case-insensitive pattern.
-	"uuid": `^(?:urn:uuid:)?[0-9a-fA-F]{8}-(?:[0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$`,
-	// Light-weight URI / URI-reference / URI-template fallbacks — typia's full
-	// patterns are large (1.5kB each) and rarely used in the current fixtures;
-	// we keep compact but correct approximations and can restore the long
-	// patterns when parity work becomes worthwhile.
-	"uri":           `^[a-zA-Z][a-zA-Z0-9+.-]*:[^\s]*$`,
-	"uri-reference": `^[^\s]*$`,
-	"uri-template":  `^(?:(?:[^\x00-\x20"'<>%\\^` + "`" + `{|}]|%[0-9a-fA-F]{2})|\{[+#./;?&=,!@|]?(?:[a-zA-Z0-9_]|%[0-9a-fA-F]{2})+(?::[1-9][0-9]{0,3}|\*)?(?:,(?:[a-zA-Z0-9_]|%[0-9a-fA-F]{2})+(?::[1-9][0-9]{0,3}|\*)?)*\})*$`,
-	"ipv6":          `^((([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)))$`,
 }
 
 // integerBounds maps signed/unsigned fixed-width kinds to an additional

@@ -10,8 +10,8 @@ import (
 func TestTagCheckFormatEmail(t *testing.T) {
 	tag := metadata.TypeTag{Kind: "format", Value: "email"}
 	got := tagCheck("input", tag)
-	if !strings.Contains(got, "new RegExp") || !strings.Contains(got, ".test(input)") {
-		t.Errorf("format email should emit regex.test, got %q", got)
+	if !strings.Contains(got, isFormatEmailImportAlias+"._isFormatEmail(input)") {
+		t.Errorf("format email should emit typia internal helper, got %q", got)
 	}
 }
 
@@ -56,11 +56,8 @@ func TestTagCheckPattern(t *testing.T) {
 func TestTagCheckTypeInt32(t *testing.T) {
 	tag := metadata.TypeTag{Kind: "type", Value: "int32"}
 	got := tagCheck("input", tag)
-	if !strings.Contains(got, "Number.isInteger(input)") {
-		t.Errorf("type int32 should use Number.isInteger, got %q", got)
-	}
-	if !strings.Contains(got, "-2147483648") {
-		t.Errorf("type int32 should include signed 32-bit bounds, got %q", got)
+	if !strings.Contains(got, isTypeInt32ImportAlias+"._isTypeInt32(input)") {
+		t.Errorf("type int32 should use typia internal helper, got %q", got)
 	}
 }
 
@@ -90,11 +87,26 @@ func TestAtomicWithTagsSingleRow(t *testing.T) {
 	}
 }
 
-func TestFormatsTableCovers10(t *testing.T) {
-	required := []string{"email", "uuid", "ipv4", "ipv6", "url", "uri", "hostname", "date", "date-time", "time"}
+func TestFormatHelpersCover10(t *testing.T) {
+	required := []struct {
+		format string
+		helper string
+	}{
+		{"email", "_isFormatEmail"},
+		{"uuid", "_isFormatUuid"},
+		{"ipv4", "_isFormatIpv4"},
+		{"ipv6", "_isFormatIpv6"},
+		{"url", "_isFormatUrl"},
+		{"uri", "_isFormatUri"},
+		{"hostname", "_isFormatHostname"},
+		{"date", "_isFormatDate"},
+		{"date-time", "_isFormatDateTime"},
+		{"time", "_isFormatTime"},
+	}
 	for _, name := range required {
-		if _, ok := formatRegexps[name]; !ok {
-			t.Errorf("formatRegexps missing %q", name)
+		got := formatCheck("input", name.format)
+		if !strings.Contains(got, name.helper+"(input)") {
+			t.Errorf("%s should use %s, got %q", name.format, name.helper, got)
 		}
 	}
 }

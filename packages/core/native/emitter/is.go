@@ -584,12 +584,16 @@ func (s *isState) emitObjectBody(ve string, obj *metadata.ObjectType) (string, e
 	}
 	props, dynamicProps := splitObjectProperties(obj)
 	literalKeys := make([]string, 0, len(props))
+	requiredLiteralCount := 0
 	for _, p := range props {
 		name, ok := p.Key.GetSoleLiteral()
 		if !ok {
 			continue
 		}
 		literalKeys = append(literalKeys, name)
+		if p.Value != nil && p.Value.IsRequired() {
+			requiredLiteralCount += 1
+		}
 		propExpr := accessProperty(ve, name)
 		check, err := s.buildIs(propExpr, p.Value)
 		if err != nil {
@@ -645,6 +649,10 @@ func (s *isState) emitObjectBody(ve string, obj *metadata.ObjectType) (string, e
 		)
 	} else if s.equals {
 		keyVar := s.fresh("key")
+		parts = append(
+			parts,
+			fmt.Sprintf("%s._isBetween(Object.keys(%s).length, 0, %d)", isBetweenImportAlias, ve, len(allowed)),
+		)
 		parts = append(
 			parts,
 			"Object.keys("+ve+").every(("+keyVar+") => ["+strings.Join(allowed, ", ")+`].includes(`+keyVar+`))`,

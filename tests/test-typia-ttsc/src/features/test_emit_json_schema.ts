@@ -34,6 +34,19 @@ export async function test_emit_json_schema(): Promise<void> {
       components: Record<string, unknown>;
       schema: Record<string, unknown>;
     };
+    uploadSchemaV30: {
+      version: string;
+      schema: Record<string, any>;
+    };
+    collectionV30: {
+      version: string;
+      schemas: Record<string, unknown>[];
+    };
+    applicationV30: {
+      version: string;
+      components: { schemas: Record<string, any> };
+      functions: Array<{ name: string; parameters: Array<{ schema: any }> }>;
+    };
   };
 
   // string schema — simplest case.
@@ -54,4 +67,23 @@ export async function test_emit_json_schema(): Promise<void> {
   // Minimum tag folds in; we also expect just number + minimum keys.
   assert.equal(m.properties.age.type, "number");
   assert.equal(m.properties.age.minimum, 0);
+
+  // Version generic and Blob/File schema behavior.
+  assert.equal(mod.uploadSchemaV30.version, "3.0");
+  assert.equal(mod.collectionV30.version, "3.0");
+  assert.equal(mod.applicationV30.version, "3.0");
+  assert.deepEqual(mod.uploadSchemaV30.schema.properties.file, {
+    type: "string",
+    format: "binary",
+  });
+  assert.equal(mod.uploadSchemaV30.schema.properties.optional.nullable, true);
+  assert.equal(mod.applicationV30.functions.length, 1);
+  assert.equal(mod.applicationV30.functions[0]!.name, "upload");
+  assert.deepEqual(mod.applicationV30.functions[0]!.parameters[0]!.schema, {
+    $ref: "#/components/schemas/Upload",
+  });
+  assert.deepEqual(mod.applicationV30.components.schemas.Upload.properties.file, {
+    type: "string",
+    format: "binary",
+  });
 }

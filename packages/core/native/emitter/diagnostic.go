@@ -43,7 +43,9 @@ func (s *diagnosticState) emit(schema *metadata.Schema) (string, error) {
 	b.WriteString(`const __diag = (path, expected, value) => ({ path, expected, value }); `)
 	b.WriteString(`const __push = (out, chunk) => { if (chunk.length !== 0) out.push(...chunk); }; `)
 	b.WriteString(`const __pick = (chunks) => { let best = []; for (const chunk of chunks) { if (chunk.length === 0) return chunk; if (best.length === 0 || chunk.length < best.length) best = chunk; } return best; }; `)
-	b.WriteString(`const __prop = (path, key) => /^[$A-Z_a-z][$0-9A-Z_a-z]*$/.test(key) ? path + "." + key : path + "[" + JSON.stringify(key) + "]"; `)
+	b.WriteString(`const __prop = (path, key) => path + `)
+	b.WriteString(accessExpressionAsStringAlias)
+	b.WriteString(`._accessExpressionAsString(key); `)
 	for _, name := range s.order {
 		b.WriteString("const ")
 		b.WriteString(name)

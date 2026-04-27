@@ -41,6 +41,23 @@ export async function test_emit_misc(): Promise<void> {
       id: string;
       name: string;
     };
+    cloneRich: (x: {
+      created: Date;
+      bytes: Uint8Array;
+      tags: Set<string>;
+      scores: Map<string, number>;
+      value: bigint;
+    }) => {
+      created: Date;
+      bytes: Uint8Array;
+      tags: Set<string>;
+      scores: Map<string, number>;
+      value: bigint;
+    };
+    randomMap: () => Map<string, number>;
+    randomSet: () => Set<string>;
+    createRandomMap: () => Map<string, number>;
+    createRandomSet: () => Set<string>;
   };
 
   assert.deepEqual(
@@ -73,4 +90,27 @@ export async function test_emit_misc(): Promise<void> {
   const cloned = mod.cloneMember(src);
   assert.deepEqual(cloned, src);
   assert.notStrictEqual(cloned, src, "clone should create a new reference");
+
+  const rich = {
+    created: new Date("2026-04-27T00:00:00.000Z"),
+    bytes: new Uint8Array([1, 2, 3]),
+    tags: new Set(["a", "b"]),
+    scores: new Map([["a", 1]]),
+    value: BigInt(10),
+  };
+  const clonedRich = mod.cloneRich(rich);
+  assert.notStrictEqual(clonedRich, rich);
+  assert.notStrictEqual(clonedRich.created, rich.created);
+  assert.equal(clonedRich.created.getTime(), rich.created.getTime());
+  assert.deepEqual([...clonedRich.bytes], [1, 2, 3]);
+  assert.notStrictEqual(clonedRich.bytes, rich.bytes);
+  assert.deepEqual([...clonedRich.tags], ["a", "b"]);
+  assert.notStrictEqual(clonedRich.tags, rich.tags);
+  assert.deepEqual([...clonedRich.scores], [["a", 1]]);
+  assert.notStrictEqual(clonedRich.scores, rich.scores);
+  assert.equal(clonedRich.value, BigInt(10));
+  assert.ok(mod.randomMap() instanceof Map);
+  assert.ok(mod.randomSet() instanceof Set);
+  assert.ok(mod.createRandomMap() instanceof Map);
+  assert.ok(mod.createRandomSet() instanceof Set);
 }

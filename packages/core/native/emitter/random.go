@@ -333,205 +333,53 @@ func randomRuntimeHelper() string {
     }
     switch (format) {
       case "uuid":
-        return "123e4567-e89b-12d3-a456-426614174000";
+        return __typia_transform_randomFormatUuid._randomFormatUuid();
       case "email":
+        return __typia_transform_randomFormatEmail._randomFormatEmail();
       case "idn-email":
-        return "user@example.com";
+        return __typia_transform_randomFormatIdnEmail._randomFormatIdnEmail();
       case "hostname":
+        return __typia_transform_randomFormatHostname._randomFormatHostname();
       case "idn-hostname":
-        return "example.com";
+        return __typia_transform_randomFormatIdnHostname._randomFormatIdnHostname();
       case "date":
-        return "2020-01-01";
+        return __typia_transform_randomFormatDate._randomFormatDate();
       case "date-time":
       case "datetime":
-        return "2020-01-01T00:00:00.000Z";
+        return __typia_transform_randomFormatDatetime._randomFormatDatetime();
       case "time":
-        return "12:34:56.000Z";
+        return __typia_transform_randomFormatTime._randomFormatTime();
       case "duration":
-        return "P1D";
+        return __typia_transform_randomFormatDuration._randomFormatDuration();
       case "byte":
-        return "aGVsbG8=";
+        return __typia_transform_randomFormatByte._randomFormatByte();
       case "json-pointer":
-        return "/components/schemas/Example";
+        return __typia_transform_randomFormatJsonPointer._randomFormatJsonPointer();
       case "relative-json-pointer":
-        return "0/example";
+        return __typia_transform_randomFormatRelativeJsonPointer._randomFormatRelativeJsonPointer();
       case "ipv4":
-        return "127.0.0.1";
+        return __typia_transform_randomFormatIpv4._randomFormatIpv4();
       case "ipv6":
-        return "2001:db8::1";
+        return __typia_transform_randomFormatIpv6._randomFormatIpv6();
       case "iri":
+        return __typia_transform_randomFormatIri._randomFormatIri();
       case "iri-reference":
+        return __typia_transform_randomFormatIriReference._randomFormatIriReference();
       case "uri":
+        return __typia_transform_randomFormatUri._randomFormatUri();
       case "uri-reference":
+        return __typia_transform_randomFormatUriReference._randomFormatUriReference();
       case "url":
-        return "https://example.com";
+        return __typia_transform_randomFormatUrl._randomFormatUrl();
       case "uri-template":
-        return "https://example.com/{id}";
+        return __typia_transform_randomFormatUriTemplate._randomFormatUriTemplate();
       case "password":
-        return "password-1234";
+        return __typia_transform_randomFormatPassword._randomFormatPassword();
       case "regex":
-        return "typia";
+        return __typia_transform_randomFormatRegex._randomFormatRegex();
       default:
         return undefined;
     }
-  };
-  const __patternClass = (content) => {
-    if (content.includes("1-9")) return "1";
-    if (content.includes("0-9")) return "0";
-    if (content.includes("a-z")) return "a";
-    if (content.includes("A-Z")) return "A";
-    if (content.includes("a-f")) return "a";
-    if (content.includes("A-F")) return "A";
-    for (let i = 0; i < content.length; ++i) {
-      const ch = content[i];
-      if (ch === "\\" && i + 1 < content.length) {
-        const escaped = content[++i];
-        if (escaped === "d") return "0";
-        if (escaped === "w") return "x";
-        return escaped;
-      }
-      if (/[0-9A-Za-z]/.test(ch)) return ch;
-    }
-    return "x";
-  };
-  const __patternQuantifier = (pattern, index) => {
-    if (index >= pattern.length) return { count: 1, next: index };
-    const ch = pattern[index];
-    if (ch === "?") return { count: 0, next: index + 1 };
-    if (ch === "*" || ch === "+") return { count: 1, next: index + 1 };
-    if (ch !== "{") return { count: 1, next: index };
-    let end = index + 1;
-    while (end < pattern.length && pattern[end] !== "}") {
-      if (pattern[end] === "\\") end += 1;
-      end += 1;
-    }
-    if (end >= pattern.length) return { count: 1, next: index };
-    const body = pattern.slice(index + 1, end);
-    const head = body.split(",")[0]?.trim() ?? "";
-    const parsed = Number.parseInt(head, 10);
-    if (Number.isFinite(parsed)) {
-      if (parsed > 0) return { count: parsed, next: end + 1 };
-      if (body.includes(",") && !/^0(?:\s*)$/.test(body)) {
-        return { count: 1, next: end + 1 };
-      }
-      return { count: 0, next: end + 1 };
-    }
-    return { count: 1, next: end + 1 };
-  };
-  const __patternGroupEnd = (pattern, start, open, close) => {
-    let depth = 1;
-    for (let i = start + 1; i < pattern.length; ++i) {
-      const ch = pattern[i];
-      if (ch === "\\") {
-        i += 1;
-        continue;
-      }
-      if (open === "(" && ch === "[") {
-        while (++i < pattern.length) {
-          if (pattern[i] === "\\") i += 1;
-          else if (pattern[i] === "]") break;
-        }
-        continue;
-      }
-      if (ch === open) depth += 1;
-      else if (ch === close) depth -= 1;
-      if (depth === 0) return i;
-    }
-    return -1;
-  };
-  const __patternAlternatives = (pattern) => {
-    const output = [];
-    let depth = 0;
-    let bracket = 0;
-    let last = 0;
-    for (let i = 0; i < pattern.length; ++i) {
-      const ch = pattern[i];
-      if (ch === "\\") {
-        i += 1;
-        continue;
-      }
-      if (ch === "[") {
-        bracket += 1;
-        continue;
-      }
-      if (ch === "]" && bracket > 0) {
-        bracket -= 1;
-        continue;
-      }
-      if (bracket > 0) continue;
-      if (ch === "(") depth += 1;
-      else if (ch === ")" && depth > 0) depth -= 1;
-      else if (ch === "|" && depth === 0) {
-        output.push(pattern.slice(last, i));
-        last = i + 1;
-      }
-    }
-    output.push(pattern.slice(last));
-    return output;
-  };
-  const __patternSource = (pattern) => {
-    let output = "";
-    for (let i = 0; i < pattern.length;) {
-      let token = "";
-      const ch = pattern[i];
-      if (ch === "^" || ch === "$") {
-        i += 1;
-        continue;
-      }
-      if (ch === "\\") {
-        if (i + 1 >= pattern.length) break;
-        const escaped = pattern[i + 1];
-        token = escaped === "d"
-          ? "0"
-          : escaped === "w"
-            ? "x"
-            : escaped === "s"
-              ? " "
-              : escaped;
-        i += 2;
-      } else if (ch === "[") {
-        const end = __patternGroupEnd(pattern, i, "[", "]");
-        if (end === -1) return output;
-        token = __patternClass(pattern.slice(i + 1, end));
-        i = end + 1;
-      } else if (ch === "(") {
-        const end = __patternGroupEnd(pattern, i, "(", ")");
-        if (end === -1) return output;
-        let body = pattern.slice(i + 1, end);
-        if (body.startsWith("?:")) body = body.slice(2);
-        token = __patternSource(__patternAlternatives(body)[0] ?? "");
-        i = end + 1;
-      } else if (ch === "|" || ch === ")" || ch === "]") {
-        break;
-      } else {
-        token = ch;
-        i += 1;
-      }
-      const quantifier = __patternQuantifier(pattern, i);
-      i = quantifier.next;
-      if (quantifier.count > 0) {
-        output += token.repeat(quantifier.count);
-      }
-    }
-    return output;
-  };
-  const __patternString = (pattern) => {
-    if (typeof pattern !== "string" || pattern.length === 0) return undefined;
-    if (pattern.includes("[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[4][0-9A-Fa-f]{3}")) {
-      return "123e4567-e89b-42d3-a456-426614174000";
-    }
-    if (pattern.includes("@(?:[a-z0-9]") || (pattern.includes("@") && pattern.includes("a-z0-9"))) {
-      return "user@example.com";
-    }
-    if (pattern.includes("[0-9a-fA-F]{1,4}:") || pattern.includes("::(ffff")) {
-      return "0:0:0:0:0:0:0:1";
-    }
-    if (pattern.includes("25[0-5]") && pattern.includes("\\.")) {
-      return "127.0.0.1";
-    }
-    const source = __patternSource(pattern);
-    if (source.length === 0) return undefined;
-    return source;
   };
   const __string = (generator, schema) => {
     const formatted = __format(generator, schema);
@@ -544,17 +392,18 @@ func randomRuntimeHelper() string {
         // ignore invalid regexes and fall back to a plain string
       }
     }
-    const patterned = __patternString(schema?.pattern);
-    if (typeof patterned === "string" && patterned.length !== 0) {
-      const min = Math.max(1, __length(schema, patterned.length));
-      if (patterned.length >= min) return patterned;
-      return patterned + "x".repeat(min - patterned.length);
+    if (typeof schema?.pattern === "string") {
+      try {
+        return __typia_transform_randomPattern._randomPattern(new RegExp(schema.pattern));
+      } catch {
+        // ignore invalid regexes and fall back to a plain string
+      }
     }
     if (typeof generator?.string === "function") {
       const value = generator.string(schema);
       if (typeof value === "string") return value;
     }
-    return "x".repeat(Math.max(1, __length(schema, 8)));
+    return __typia_transform_randomString._randomString(schema ?? { type: "string" });
   };
   const __numeric = (generator, schema, integer) => {
     const hook = integer ? generator?.integer : generator?.number;
@@ -564,32 +413,26 @@ func randomRuntimeHelper() string {
         return integer ? Math.trunc(value) : value;
       }
     }
-    let value = __number(schema?.minimum, 0);
-    if (typeof schema?.exclusiveMinimum === "number" && schema.exclusiveMinimum >= value) {
-      value = schema.exclusiveMinimum + (integer ? 1 : 0.1);
-    }
-    if (typeof schema?.maximum === "number" && value > schema.maximum) {
-      value = schema.maximum;
-    }
-    return integer ? Math.trunc(value) : value;
+    return integer
+      ? __typia_transform_randomInteger._randomInteger(schema ?? { type: "integer" })
+      : __typia_transform_randomNumber._randomNumber(schema ?? { type: "number" });
   };
   const __bigint = (generator, schema) => {
+    const normalized = schema && typeof schema === "object"
+      ? {
+          ...schema,
+          minimum: schema.minimum === undefined ? undefined : Number(schema.minimum),
+          maximum: schema.maximum === undefined ? undefined : Number(schema.maximum),
+          exclusiveMinimum: schema.exclusiveMinimum === undefined ? undefined : Number(schema.exclusiveMinimum),
+          exclusiveMaximum: schema.exclusiveMaximum === undefined ? undefined : Number(schema.exclusiveMaximum),
+          multipleOf: schema.multipleOf === undefined ? undefined : Number(schema.multipleOf),
+        }
+      : schema;
     if (typeof generator?.bigint === "function") {
-      const value = generator.bigint(schema);
+      const value = generator.bigint(normalized);
       if (typeof value === "bigint") return value;
     }
-    let value = __bigintValue(schema?.minimum, 0n);
-    const exclusiveMinimum = schema?.exclusiveMinimum;
-    if (exclusiveMinimum !== undefined) {
-      const min = __bigintValue(exclusiveMinimum, value);
-      if (min >= value) value = min + 1n;
-    }
-    const maximum = schema?.maximum;
-    if (maximum !== undefined) {
-      const max = __bigintValue(maximum, value);
-      if (value > max) value = max;
-    }
-    return value;
+    return __typia_transform_randomBigint._randomBigint(normalized ?? { type: "integer" });
   };
   const __mergeSchema = (base, extra) => {
     if (!base || typeof base !== "object") return extra && typeof extra === "object" ? extra : {};
@@ -634,10 +477,13 @@ func randomRuntimeHelper() string {
         });
       }
       if (choice === undefined) {
-        choice = current.oneOf.find((candidate) => {
+        const choices = current.oneOf.filter((candidate) => {
           const resolved = __resolve(candidate, components);
           return resolved?.type !== "null";
-        }) ?? current.oneOf[0];
+        });
+        choice = choices.length === 0
+          ? current.oneOf[0]
+          : __typia_transform_randomPick._randomPick(choices);
       }
       return __random(choice, components, generator, depth);
     }
@@ -711,7 +557,7 @@ func randomRuntimeHelper() string {
           const value = generator.boolean(current);
           if (typeof value === "boolean") return value;
         }
-        return true;
+        return __typia_transform_randomBoolean._randomBoolean();
       case "integer":
         if (current["x-typia-bigint"] === true) return __bigint(generator, current);
         return __numeric(generator, current, true);
@@ -729,7 +575,6 @@ func randomRuntimeHelper() string {
             Array.from({ length: restCount }, () => __random(rest === true ? {} : rest, components, generator, depth + 1)),
           );
         }
-        const count = depth > 3 ? 0 : __length(current, 1);
         if (typeof generator?.array === "function") {
           const custom = generator.array({
             ...current,
@@ -737,7 +582,12 @@ func randomRuntimeHelper() string {
           });
           if (Array.isArray(custom)) return custom;
         }
-        return Array.from({ length: count }, () => __random(current.items ?? {}, components, generator, depth + 1));
+        return depth > 3
+          ? []
+          : __typia_transform_randomArray._randomArray({
+              ...current,
+              element: (index, total) => __random(current.items ?? {}, components, generator, depth + 1),
+            });
       }
       case "object": {
         const output = {};

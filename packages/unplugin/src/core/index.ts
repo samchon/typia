@@ -31,6 +31,10 @@ function isDeclarationFile(id: string): boolean {
   return id.endsWith(".d.ts") || id.endsWith(".d.mts") || id.endsWith(".d.cts");
 }
 
+function isTypiaInternalFile(id: string): boolean {
+  return /[/\\]packages[/\\]typia[/\\](?:src|lib)[/\\]internal[/\\]/.test(id);
+}
+
 /** Create a filter function from the given include and exclude patterns. */
 function createFilter(
   include: Options["include"],
@@ -209,6 +213,9 @@ const unpluginFactory: UnpluginFactory<Options | undefined, false> = (
       if (isDeclarationFile(_id)) {
         return false;
       }
+      if (isTypiaInternalFile(_id)) {
+        return false;
+      }
       return filter(_id);
     },
 
@@ -219,6 +226,9 @@ const unpluginFactory: UnpluginFactory<Options | undefined, false> = (
       const id = wrap<ID>(removeRslibPrefixId);
 
       if (isDeclarationFile(id)) {
+        return;
+      }
+      if (isTypiaInternalFile(id)) {
         return;
       }
 

@@ -15,6 +15,12 @@ interface Output {
   ok: boolean;
 }
 
+interface InternalShape {
+  id: string & tags.Format<"uuid">;
+  count: number & tags.Type<"int32">;
+  values?: string[] & tags.UniqueItems;
+}
+
 class Service {
   /**
    * Search users.
@@ -58,5 +64,10 @@ export const llmController = typia.llm.controller<Service>(
   "service",
   new Service(),
 );
+export const validateUser = (input: unknown) => typia.validate<LlmUser>(input);
+export const standardValidateUser = typia.createValidate<LlmUser>();
+export const randomUser = typia.random<LlmUser>();
+export const createRandomUser = typia.createRandom<LlmUser>();
+export const equalsInternal = typia.createEquals<InternalShape>();
 export const protobufEncode = typia.protobuf.createEncode<ProtobufUser>();
 export const protobufDecode = typia.protobuf.createDecode<ProtobufUser>();

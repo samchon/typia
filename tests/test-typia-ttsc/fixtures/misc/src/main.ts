@@ -2,6 +2,13 @@ import typia from "typia";
 
 type Status = "pending" | "active" | "archived";
 interface Member { id: string; name: string; }
+interface RichClone {
+  created: Date;
+  bytes: Uint8Array;
+  tags: Set<string>;
+  scores: Map<string, number>;
+  value: bigint;
+}
 
 export const statuses = typia.misc.literals<Status>();
 export const booleans = typia.misc.literals<boolean>();
@@ -21,3 +28,9 @@ export const pruneMember = (input: Member) =>
 
 export const cloneMember = (input: Member) =>
   typia.misc.clone<Member>(input);
+export const cloneRich = (input: RichClone) =>
+  typia.misc.clone<RichClone>(input);
+export const randomMap = () => typia.random<Map<string, number>>();
+export const randomSet = () => typia.random<Set<string>>();
+export const createRandomMap = typia.createRandom<Map<string, number>>();
+export const createRandomSet = typia.createRandom<Set<string>>();

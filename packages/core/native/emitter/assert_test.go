@@ -33,11 +33,12 @@ func TestEmitValidate(t *testing.T) {
 		t.Fatal(err)
 	}
 	for _, fragment := range []string{
-		`const __errors`,
+		`const errors = []`,
+		`__typia_transform_validateReport._validateReport(errors)`,
 		`"number" === typeof input`,
 		`success: true`,
 		`success: false`,
-		`data: input } : { success: false, data: input, errors: __errors }`,
+		`data: input } : { success: false, data: input, errors }`,
 		`__diag("$input", "number", input)`,
 	} {
 		if !strings.Contains(got, fragment) {

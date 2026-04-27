@@ -57,14 +57,10 @@ func jsLiteral(k metadata.AtomicKind, v any) string {
 	return "null"
 }
 
-// EmitMiscCloneArrowFunction returns a naïve deep-clone that handles the
-// shapes the current analyzer supports. Rather than structure the clone
-// around MetadataSchema (which gives the fastest typia v12 output), we use
-// structured-clone-equivalent semantics via JSON round-trip for primitives /
-// arrays / objects. Users requiring protobuf / Map / Set etc. will fall back
-// to `typia.misc.clone` typia-v12 in the interim.
+// EmitMiscCloneArrowFunction returns a runtime deep clone for values typia can
+// validate, preserving non-JSON values that legacy misc.clone supports.
 func EmitMiscCloneArrowFunction(_ *metadata.Schema) (string, error) {
-	return "(input) => JSON.parse(JSON.stringify(input))", nil
+	return `(input) => { const __clone = (v) => { if (v === null || typeof v !== "object") return v; if (v instanceof Date) return new Date(v.getTime()); if (v instanceof RegExp) return new RegExp(v.source, v.flags); if (v instanceof ArrayBuffer) return v.slice(0); if (ArrayBuffer.isView(v)) return new v.constructor(v); if (v instanceof Set) return new Set(Array.from(v, __clone)); if (v instanceof Map) return new Map(Array.from(v, ([k, val]) => [__clone(k), __clone(val)])); if (Array.isArray(v)) return v.map(__clone); const out = {}; for (const key of Object.keys(v)) out[key] = __clone(v[key]); return out; }; return __clone(input); }`, nil
 }
 
 // EmitMiscPruneArrowFunction returns an in-place prune that walks a schema

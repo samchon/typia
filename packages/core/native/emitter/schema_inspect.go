@@ -170,7 +170,7 @@ func findUnsupportedJSONShape(schema *metadata.Schema) (string, bool) {
 			return true
 		}
 		for _, native := range s.Natives {
-			if native.Name == "Date" || isJSONAtomicNative(native.Name) {
+			if native.Name == "Date" || native.Name == "Blob" || native.Name == "File" || isJSONAtomicNative(native.Name) {
 				continue
 			}
 			found = native.Name

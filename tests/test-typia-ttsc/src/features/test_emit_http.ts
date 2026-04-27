@@ -29,6 +29,8 @@ export async function test_emit_http(): Promise<void> {
       sort?: string;
     };
     parseIntParam: (x: string) => number;
+    parseBoolParam: (x: string) => boolean;
+    parseBigintParam: (x: string) => bigint;
     parseLiteralParam: (x: string) => 3;
     parseFormData: (x: FormData) => {
       title: string;
@@ -55,6 +57,15 @@ export async function test_emit_http(): Promise<void> {
 
   // parameter coercion.
   assert.equal(mod.parseIntParam("42"), 42);
+  assert.throws(() => mod.parseIntParam("null" as any), /typia\.http\.parameter/);
+  assert.throws(() => mod.parseIntParam("NaN-ish"), /typia\.http\.parameter/);
+  assert.equal(mod.parseBoolParam("1"), true);
+  assert.equal(mod.parseBoolParam("0"), false);
+  assert.throws(() => mod.parseBoolParam("null" as any), /typia\.http\.parameter/);
+  assert.throws(() => mod.parseBoolParam("yes"), /typia\.http\.parameter/);
+  assert.equal(mod.parseBigintParam("123"), BigInt(123));
+  assert.throws(() => mod.parseBigintParam("null" as any), /typia\.http\.parameter/);
+  assert.throws(() => mod.parseBigintParam("abc"), /typia\.http\.parameter/);
   assert.equal(mod.parseLiteralParam("3"), 3);
   assert.throws(() => mod.parseLiteralParam("4"), /expect to be 3/);
 
@@ -71,11 +82,13 @@ export async function test_emit_http(): Promise<void> {
   );
   assert.equal(q2.sort, "desc");
 
-  // missing required throws.
-  assert.throws(
-    () => mod.parseQuery(new URLSearchParams("page=1")),
-    /missing size/,
-    "missing required param must throw",
+  // raw query decoder follows legacy helpers and leaves missing required
+  // values as undefined; assert/is/validate wrappers are responsible for
+  // reporting the type failure.
+  assert.equal(
+    mod.parseQuery(new URLSearchParams("page=1")).size,
+    undefined,
+    "raw query decoder must not throw on missing required values",
   );
 
   const file = new File(["hello"], "hello.txt", { type: "text/plain" });

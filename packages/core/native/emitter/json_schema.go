@@ -14,6 +14,10 @@ import (
 // OpenAPI v3.1-compatible JSON Schema representation of the supplied
 // MetadataSchema.
 func EmitJsonSchemaExpression(schema *metadata.Schema) (string, error) {
+	return EmitJsonSchemaExpressionWithVersion(schema, "3.1")
+}
+
+func EmitJsonSchemaExpressionWithVersion(schema *metadata.Schema, version string) (string, error) {
 	if schema == nil {
 		return "", errors.New("emitter: nil schema")
 	}
@@ -25,9 +29,11 @@ func EmitJsonSchemaExpression(schema *metadata.Schema) (string, error) {
 	if err != nil {
 		return "", err
 	}
+	converted = downgradeJSONSchema(converted, version)
+	components := downgradeJSONSchema(encoder.components, version)
 	wrapper := map[string]any{
-		"version":    "3.1",
-		"components": map[string]any{"schemas": encoder.components},
+		"version":    normalizeJSONSchemaVersion(version),
+		"components": map[string]any{"schemas": components},
 		"schema":     converted,
 	}
 	raw, err := json.Marshal(wrapper)
@@ -41,6 +47,10 @@ func EmitJsonSchemaExpression(schema *metadata.Schema) (string, error) {
 // collection form used by typia.json.schemas<[A, B, ...]>(). The input schema
 // is either the tuple type argument itself or a single type.
 func EmitJsonSchemasExpression(schema *metadata.Schema) (string, error) {
+	return EmitJsonSchemasExpressionWithVersion(schema, "3.1")
+}
+
+func EmitJsonSchemasExpressionWithVersion(schema *metadata.Schema, version string) (string, error) {
 	if schema == nil {
 		return "", errors.New("emitter: nil schema")
 	}
@@ -52,11 +62,12 @@ func EmitJsonSchemasExpression(schema *metadata.Schema) (string, error) {
 		if err != nil {
 			return "", err
 		}
-		schemas = append(schemas, converted)
+		schemas = append(schemas, downgradeJSONSchema(converted, version))
 	}
+	components := downgradeJSONSchema(encoder.components, version)
 	wrapper := map[string]any{
-		"version":    "3.1",
-		"components": map[string]any{"schemas": encoder.components},
+		"version":    normalizeJSONSchemaVersion(version),
+		"components": map[string]any{"schemas": components},
 		"schemas":    schemas,
 	}
 	raw, err := json.Marshal(wrapper)
@@ -71,6 +82,10 @@ func EmitJsonSchemasExpression(schema *metadata.Schema) (string, error) {
 // legacy JsonApplicationProgrammer: a static class/interface root whose public
 // callable properties become function entries.
 func EmitJsonApplicationExpression(schema *metadata.Schema) (string, error) {
+	return EmitJsonApplicationExpressionWithVersion(schema, "3.1")
+}
+
+func EmitJsonApplicationExpressionWithVersion(schema *metadata.Schema, version string) (string, error) {
 	if schema == nil {
 		return "", errors.New("emitter: nil schema")
 	}
@@ -92,9 +107,13 @@ func EmitJsonApplicationExpression(schema *metadata.Schema) (string, error) {
 	if len(functions) == 0 {
 		return "", errors.New("JSON application's target type must have at least a function type.")
 	}
+	for _, fn := range functions {
+		downgradeJSONSchema(fn, version)
+	}
+	components := downgradeJSONSchema(encoder.components, version)
 	wrapper := map[string]any{
-		"version":    "3.1",
-		"components": map[string]any{"schemas": encoder.components},
+		"version":    normalizeJSONSchemaVersion(version),
+		"components": map[string]any{"schemas": components},
 		"functions":  functions,
 	}
 	raw, err := json.Marshal(wrapper)
@@ -111,7 +130,7 @@ func EmitRandomSchemaExpression(schema *metadata.Schema) (string, error) {
 	if schema == nil {
 		return "", errors.New("emitter: nil schema")
 	}
-	encoder := newJSONSchemaEncoder(true)
+	encoder := newRandomSchemaEncoder()
 	converted, err := encoder.encodeRootSchema(schema)
 	if err != nil {
 		return "", err
@@ -148,30 +167,6 @@ func jsonApplicationRootObject(schema *metadata.Schema) (*metadata.ObjectType, e
 		return nil, errors.New("JSON application's generic argument must be a class/interface type.")
 	}
 	obj := schema.Objects[0].Type
-	for _, prop := range obj.Properties {
-		if prop == nil || prop.Key == nil {
-			continue
-		}
-		if !prop.Key.IsSoleLiteral() {
-			return nil, errors.New("JSON application does not allow dynamic keys.")
-		}
-		if prop.Value == nil {
-			continue
-		}
-		value := jsonApplicationUnalias(prop.Value)
-		if len(value.Functions) == 0 {
-			continue
-		}
-		if len(value.Functions) != 1 || value.Size() != 1 {
-			return nil, errors.New("JSON application's function type does not allow union type.")
-		}
-		if !prop.Value.IsRequired() {
-			return nil, errors.New("JSON application's function type must be required.")
-		}
-		if prop.Value.Nullable {
-			return nil, errors.New("JSON application's function type must not be nullable.")
-		}
-	}
 	return obj, nil
 }
 
@@ -198,14 +193,23 @@ func normalizeBigintJSONValue(value any) string {
 }
 
 type jsonSchemaEncoder struct {
-	allowBigint bool
-	components  map[string]any
+	allowBigint    bool
+	preserveNative bool
+	components     map[string]any
 }
 
 func newJSONSchemaEncoder(allowBigint bool) *jsonSchemaEncoder {
 	return &jsonSchemaEncoder{
 		allowBigint: allowBigint,
 		components:  map[string]any{},
+	}
+}
+
+func newRandomSchemaEncoder() *jsonSchemaEncoder {
+	return &jsonSchemaEncoder{
+		allowBigint:    true,
+		preserveNative: true,
+		components:     map[string]any{},
 	}
 }
 
@@ -308,7 +312,7 @@ func (e *jsonSchemaEncoder) encodeSchema(s *metadata.Schema) (any, error) {
 		alternatives = append(alternatives, alt)
 	}
 	for _, n := range s.Natives {
-		alternatives = append(alternatives, nativeToJSONSchema(n.Name))
+		alternatives = append(alternatives, nativeToJSONSchema(n.Name, e.preserveNative))
 	}
 	for _, ref := range s.Aliases {
 		if ref == nil || ref.Type == nil {
@@ -988,8 +992,100 @@ func (e *jsonSchemaEncoder) discriminatorForOneOf(alternatives []any) map[string
 	return out
 }
 
+func normalizeJSONSchemaVersion(version string) string {
+	if strings.TrimSpace(version) == "3.0" {
+		return "3.0"
+	}
+	return "3.1"
+}
+
+func downgradeJSONSchema(value any, version string) any {
+	if normalizeJSONSchemaVersion(version) != "3.0" {
+		return value
+	}
+	switch v := value.(type) {
+	case []any:
+		for i, elem := range v {
+			v[i] = downgradeJSONSchema(elem, version)
+		}
+		return v
+	case map[string]any:
+		for key, elem := range v {
+			v[key] = downgradeJSONSchema(elem, version)
+		}
+		if c, ok := v["const"]; ok {
+			delete(v, "const")
+			v["enum"] = []any{c}
+		}
+		downgradeNullableUnion(v, "oneOf")
+		downgradeNullableUnion(v, "anyOf")
+		if prefix, ok := v["prefixItems"].([]any); ok {
+			delete(v, "prefixItems")
+			if len(prefix) == 0 {
+				v["items"] = map[string]any{}
+			} else if len(prefix) == 1 {
+				v["items"] = prefix[0]
+			} else {
+				v["items"] = map[string]any{"oneOf": prefix}
+			}
+			if rest, ok := v["additionalItems"]; ok {
+				delete(v, "additionalItems")
+				if rest == false {
+					v["minItems"] = len(prefix)
+					v["maxItems"] = len(prefix)
+				} else if rest != nil {
+					v["items"] = map[string]any{
+						"oneOf": []any{v["items"], rest},
+					}
+				}
+			}
+		}
+		return v
+	default:
+		return value
+	}
+}
+
+func downgradeNullableUnion(schema map[string]any, key string) {
+	raw, ok := schema[key].([]any)
+	if !ok {
+		return
+	}
+	filtered := make([]any, 0, len(raw))
+	nullable := false
+	for _, elem := range raw {
+		if m, ok := elem.(map[string]any); ok {
+			if typ, ok := m["type"].(string); ok && typ == "null" {
+				nullable = true
+				continue
+			}
+		}
+		filtered = append(filtered, elem)
+	}
+	if !nullable {
+		return
+	}
+	schema["nullable"] = true
+	if len(filtered) == 0 {
+		delete(schema, key)
+		return
+	}
+	if len(filtered) == 1 {
+		delete(schema, key)
+		if m, ok := filtered[0].(map[string]any); ok {
+			for k, v := range m {
+				schema[k] = v
+			}
+		} else {
+			schema[key] = filtered
+		}
+		return
+	}
+	schema[key] = filtered
+}
+
 // nativeToJSONSchema maps a native JS class name to its OpenAPI 3.1 encoding.
-func nativeToJSONSchema(name string) map[string]any {
+func nativeToJSONSchema(name string, preserveNative bool) map[string]any {
 	switch name {
 	case "Boolean":
 		return map[string]any{"type": "boolean", "x-typia-native": "Boolean"}
@@ -1000,9 +1096,15 @@ func nativeToJSONSchema(name string) map[string]any {
 	case "Date":
 		return map[string]any{"type": "string", "format": "date-time", "x-typia-native": "Date"}
 	case "Blob":
-		return map[string]any{"type": "string", "format": "binary", "x-typia-native": "Blob"}
+		if preserveNative {
+			return map[string]any{"type": "string", "format": "binary", "x-typia-native": "Blob"}
+		}
+		return map[string]any{"type": "string", "format": "binary"}
 	case "File":
-		return map[string]any{"type": "string", "format": "binary", "x-typia-native": "File"}
+		if preserveNative {
+			return map[string]any{"type": "string", "format": "binary", "x-typia-native": "File"}
+		}
+		return map[string]any{"type": "string", "format": "binary"}
 	case "Uint8Array", "Buffer":
 		return map[string]any{"type": "string", "format": "byte", "x-typia-native": name}
 	case "URL":

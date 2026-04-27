@@ -20,7 +20,7 @@ func EmitNotationArrowFunction(_ *metadata.Schema, kind string) (string, error) 
 	if err != nil {
 		return "", err
 	}
-	return fmt.Sprintf(`((__rename) => (input) => { const __walk = (v) => { if (Array.isArray(v)) return v.map(__walk); if (v && typeof v === "object") { const out = {}; for (const k of Object.keys(v)) out[__rename(k)] = __walk(v[k]); return out; } return v; }; return __walk(input); })(%s)`, helper), nil
+	return fmt.Sprintf(`((__rename) => (input) => { const __walk = (v) => { if (Array.isArray(v)) return v.map(__walk); if (v instanceof Date) return new Date(v.getTime()); if (v instanceof RegExp) return new RegExp(v.source, v.flags); if (v instanceof Set) return new Set(Array.from(v, __walk)); if (v instanceof Map) return new Map(Array.from(v, ([k, val]) => [__walk(k), __walk(val)])); if (v && typeof v === "object") { const out = {}; for (const k of Object.keys(v)) out[__rename(k)] = __walk(v[k]); return out; } return v; }; return __walk(input); })(%s)`, helper), nil
 }
 
 // notationHelper returns the inline JS function that performs the per-key

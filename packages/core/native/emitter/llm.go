@@ -102,10 +102,10 @@ func EmitLlmCoerceArrowFunctionWithConfig(schema *metadata.Schema, strict bool) 
 }
 
 func EmitLlmApplicationArrowFunction(schema *metadata.Schema) (string, error) {
-	return EmitLlmApplicationArrowFunctionWithConfig(schema, false)
+	return EmitLlmApplicationArrowFunctionWithConfig(schema, false, false)
 }
 
-func EmitLlmApplicationArrowFunctionWithConfig(schema *metadata.Schema, strict bool) (string, error) {
+func EmitLlmApplicationArrowFunctionWithConfig(schema *metadata.Schema, strict bool, equals bool) (string, error) {
 	if schema == nil {
 		return "", errors.New("emitter: nil schema")
 	}
@@ -130,7 +130,7 @@ func EmitLlmApplicationArrowFunctionWithConfig(schema *metadata.Schema, strict b
 			continue
 		}
 		fn := prop.Value.Functions[0]
-		entry, err := emitLlmFunctionEntry(name, prop, fn, strict)
+		entry, err := emitLlmFunctionEntry(name, prop, fn, strict, equals)
 		if err != nil {
 			return "", err
 		}
@@ -150,10 +150,10 @@ func EmitLlmApplicationArrowFunctionWithConfig(schema *metadata.Schema, strict b
 // original call site's `(name, execute, config)` arguments, producing an
 // ILlmController-compatible runtime object.
 func EmitLlmControllerArrowFunction(schema *metadata.Schema) (string, error) {
-	return EmitLlmControllerArrowFunctionWithConfig(schema, false)
+	return EmitLlmControllerArrowFunctionWithConfig(schema, false, false)
 }
 
-func EmitLlmControllerArrowFunctionWithConfig(schema *metadata.Schema, strict bool) (string, error) {
+func EmitLlmControllerArrowFunctionWithConfig(schema *metadata.Schema, strict bool, equals bool) (string, error) {
 	if schema == nil {
 		return "", errors.New("emitter: nil schema")
 	}
@@ -178,7 +178,7 @@ func EmitLlmControllerArrowFunctionWithConfig(schema *metadata.Schema, strict bo
 			continue
 		}
 		fn := prop.Value.Functions[0]
-		entry, err := emitLlmFunctionEntry(name, prop, fn, strict)
+		entry, err := emitLlmFunctionEntry(name, prop, fn, strict, equals)
 		if err != nil {
 			return "", err
 		}
@@ -195,8 +195,8 @@ func EmitLlmControllerArrowFunctionWithConfig(schema *metadata.Schema, strict bo
 	), nil
 }
 
-func emitLlmFunctionEntry(name string, prop *metadata.Property, fn *metadata.Function, strict bool) (string, error) {
-	parametersExpr, validateExpr, err := emitLlmParameterArtifacts(name, prop, fn, strict)
+func emitLlmFunctionEntry(name string, prop *metadata.Property, fn *metadata.Function, strict bool, equals bool) (string, error) {
+	parametersExpr, validateExpr, err := emitLlmParameterArtifacts(name, prop, fn, strict, equals)
 	if err != nil {
 		return "", err
 	}
@@ -317,17 +317,10 @@ func validateLlmObjectSchema(prefix, name, label string, schema *metadata.Schema
 	if len(obj.DynamicProperties) != 0 || obj.AdditionalProperties != nil {
 		return fmt.Errorf("%s.%s: %s cannot have dynamic property keys", prefix, name, label)
 	}
-	hasRequiredProperty := false
 	for _, prop := range obj.Properties {
 		if prop == nil || prop.Key == nil || !prop.Key.IsSoleLiteral() {
 			return fmt.Errorf("%s.%s: %s cannot have dynamic property keys", prefix, name, label)
 		}
-		if prop.Value != nil && prop.Value.IsRequired() {
-			hasRequiredProperty = true
-		}
-	}
-	if len(obj.Properties) != 0 && !hasRequiredProperty {
-		return fmt.Errorf("%s.%s: %s must contain at least one required property", prefix, name, label)
 	}
 	return nil
 }
@@ -506,7 +499,7 @@ func llmFunctionTags(prop *metadata.Property) []string {
 	return out
 }
 
-func emitLlmParameterArtifacts(name string, prop *metadata.Property, fn *metadata.Function, strict bool) (string, string, error) {
+func emitLlmParameterArtifacts(name string, prop *metadata.Property, fn *metadata.Function, strict bool, equals bool) (string, string, error) {
 	if fn == nil {
 		return "", "", errors.New("llm.controller: nil function metadata")
 	}
@@ -524,7 +517,7 @@ func emitLlmParameterArtifacts(name string, prop *metadata.Property, fn *metadat
 	if err != nil {
 		return "", "", err
 	}
-	validateExpr, err := EmitValidateArrowFunction(param.Type)
+	validateExpr, err := EmitValidateArrowFunctionWithEquals(param.Type, equals)
 	if err != nil {
 		return "", "", err
 	}

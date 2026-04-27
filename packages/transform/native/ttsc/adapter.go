@@ -105,15 +105,19 @@ func UnsupportedReason(
 			if strings.Contains(typeText, "bigint") {
 				return "json does not support bigint"
 			}
-			for _, native := range []string{
+			natives := []string{
 				"Map<", "Set<", "WeakMap<", "WeakSet<",
 				"Uint8Array", "Uint8ClampedArray", "Uint16Array", "Uint32Array",
 				"Int8Array", "Int16Array", "Int32Array",
 				"Float32Array", "Float64Array",
 				"BigInt64Array", "BigUint64Array",
 				"ArrayBuffer", "SharedArrayBuffer", "DataView",
-				"Blob", "File", "RegExp",
-			} {
+				"RegExp",
+			}
+			if !isJsonSchemaMethod(method) {
+				natives = append(natives, "Blob", "File")
+			}
+			for _, native := range natives {
 				if strings.Contains(typeText, native) {
 					return "json does not support " + strings.TrimSuffix(native, "<")
 				}
@@ -122,7 +126,7 @@ func UnsupportedReason(
 	case "module":
 		switch method {
 		case "random", "createRandom":
-			for _, native := range []string{"WeakMap<", "WeakSet<", "Map<", "Set<"} {
+			for _, native := range []string{"WeakMap<", "WeakSet<"} {
 				if strings.Contains(typeText, native) {
 					return "random does not support " + strings.TrimSuffix(native, "<")
 				}
@@ -179,12 +183,10 @@ func UnsupportedReason(
 		}
 		if isQueryMethod(method) {
 			switch {
-			case isGenericReferenceTypeNode(typeNode):
-				return "http query generic wrapper type is not yet supported"
-			case containsTupleTypeNode(typeNode):
-				return "http query does not support tuple type"
 			case containsUnionTypeNode(typeNode) || strings.Contains(typeText, "|"):
 				return "http query does not support union type in property"
+			case containsTupleTypeNode(typeNode):
+				return "http query does not support tuple type"
 			case containsNestedArrayTypeNode(typeNode):
 				return "http query array elements must be atomic or constant"
 			case containsNestedGenericTypeReference(typeNode, true):
@@ -197,8 +199,6 @@ func UnsupportedReason(
 			switch {
 			case containsTupleTypeNode(typeNode):
 				return "http headers does not support tuple type"
-			case containsUnionTypeNode(typeNode):
-				return "http headers does not support union type in property"
 			case containsNestedArrayTypeNode(typeNode):
 				return "http headers array elements must be atomic or constant"
 			case containsNestedGenericTypeReference(typeNode, true):
@@ -225,8 +225,17 @@ func isJsonRuntimeContractMethod(method string) bool {
 	case "application", "schema", "schemas",
 		"stringify", "assertStringify", "isStringify", "validateStringify",
 		"createStringify", "createAssertStringify", "createIsStringify", "createValidateStringify",
-		"parse", "assertParse", "isParse", "validateParse",
+		"assertParse", "isParse", "validateParse",
 		"createAssertParse", "createIsParse", "createValidateParse":
+		return true
+	default:
+		return false
+	}
+}
+
+func isJsonSchemaMethod(method string) bool {
+	switch method {
+	case "application", "schema", "schemas":
 		return true
 	default:
 		return false
@@ -251,8 +260,19 @@ func UnsupportedSchemaReason(
 				return reason
 			}
 		}
+		if (method == "application" || method == "controller") && facts.dynamicObject {
+			return "LLM application does not allow dynamic keys."
+		}
+		if method == "application" || method == "controller" {
+			if reason := llmApplicationUnsupportedReason(schema); reason != "" {
+				return reason
+			}
+		}
 		if facts.bigint {
 			return "LLM schema does not support bigint type"
+		}
+		if facts.arrayOptional {
+			return "LLM schema does not support undefined type in array"
 		}
 		if facts.tuple {
 			return "LLM schema does not support tuple type"
@@ -273,8 +293,13 @@ func UnsupportedSchemaReason(
 			return "Strict mode does not support optional property in object"
 		}
 	case "http":
-		if isQueryMethod(method) && isEmptyObjectSchema(schema) {
-			return "http query does not support dynamic property"
+		if isParameterMethod(method) {
+			return parameterUnsupportedReason(schema)
+		}
+		if isQueryMethod(method) {
+			if reason := queryUnsupportedReason(schema); reason != "" {
+				return reason
+			}
 		}
 		if isFormDataMethod(method) {
 			return formDataUnsupportedReason(schema)
@@ -346,7 +371,7 @@ func UnsupportedSchemaReason(
 		if facts.multiDimArray {
 			return "protobuf does not support over two dimensional array type"
 		}
-		if facts.arrayOptional {
+		if facts.arrayOptional || facts.arrayNullable {
 			return "protobuf does not support optional type in array"
 		}
 		if facts.arrayValueUnion {
@@ -396,13 +421,7 @@ func llmParametersUnsupportedReason(schema *metadata.Schema) string {
 	if schema == nil {
 		return "LLM parameters must be an object type."
 	}
-	target := schema
-	for len(target.Aliases) == 1 && target.Size() == 1 && target.Aliases[0] != nil && target.Aliases[0].Type != nil {
-		target = target.Aliases[0].Type.Value
-		if target == nil {
-			return "LLM parameters must be an object type."
-		}
-	}
+	target := unaliasSchema(schema)
 	if len(target.Objects) == 0 {
 		return "LLM parameters must be an object type."
 	}
@@ -426,6 +445,227 @@ func llmParametersUnsupportedReason(schema *metadata.Schema) string {
 		if prop == nil || prop.Key == nil || !prop.Key.IsSoleLiteral() {
 			return "LLM parameters must not have dynamic keys."
 		}
+	}
+	return ""
+}
+
+func llmApplicationUnsupportedReason(schema *metadata.Schema) string {
+	if schema == nil {
+		return "LLM application's target type must be a single object type."
+	}
+	target := unaliasSchema(schema)
+	if target.Size() != 1 || len(target.Objects) != 1 || target.Objects[0] == nil || target.Objects[0].Type == nil {
+		return "LLM application's target type must be a single object type."
+	}
+	least := false
+	for _, prop := range target.Objects[0].Type.Properties {
+		if prop == nil || prop.Value == nil {
+			continue
+		}
+		value := unaliasSchema(prop.Value)
+		if value == nil || len(value.Functions) == 0 {
+			continue
+		}
+		least = true
+		if len(value.Functions) != 1 || value.Size() != 1 {
+			return "LLM application's target function must be a single function type."
+		}
+		fn := value.Functions[0]
+		if fn == nil {
+			continue
+		}
+		if len(fn.Parameters) > 1 {
+			return "LLM application's function must have exactly one parameter or no parameters."
+		}
+		if len(fn.Parameters) == 1 {
+			if reason := llmApplicationObjectUnsupportedReason(fn.Parameters[0].Type, "parameter"); reason != "" {
+				return reason
+			}
+		}
+		if fn.Output != nil && !fn.Output.Empty() {
+			if reason := llmApplicationObjectUnsupportedReason(fn.Output, "return type"); reason != "" {
+				return reason
+			}
+		}
+	}
+	if !least {
+		return "LLM application's target type must have at least a function type."
+	}
+	return ""
+}
+
+func llmApplicationObjectUnsupportedReason(schema *metadata.Schema, label string) string {
+	if schema == nil {
+		return "LLM application's function " + label + " must be a single object type."
+	}
+	target := unaliasSchema(schema)
+	if !target.IsRequired() {
+		return "LLM application's function " + label + " cannot be optional."
+	}
+	if target.Nullable {
+		return "LLM application's function " + label + " cannot be nullable."
+	}
+	if target.Size() != 1 || len(target.Objects) != 1 || target.Objects[0] == nil || target.Objects[0].Type == nil {
+		return "LLM application's function " + label + " must be a single object type."
+	}
+	for _, prop := range target.Objects[0].Type.Properties {
+		if prop == nil || prop.Key == nil || !prop.Key.IsSoleLiteral() {
+			return "LLM application's function " + label + " cannot have dynamic property keys."
+		}
+		if prop.Value != nil && !prop.Value.IsRequired() && strings.HasPrefix(target.Objects[0].Type.Name, "TypeLiteral") {
+			return "LLM application's function " + label + " cannot have optional properties."
+		}
+	}
+	return ""
+}
+
+func unaliasSchema(schema *metadata.Schema) *metadata.Schema {
+	target := schema
+	for target != nil && len(target.Aliases) == 1 && target.Size() == 1 && target.Aliases[0] != nil && target.Aliases[0].Type != nil {
+		target = target.Aliases[0].Type.Value
+	}
+	return target
+}
+
+func parameterUnsupportedReason(schema *metadata.Schema) string {
+	if schema == nil {
+		return "http parameter only atomic or constant types are allowed"
+	}
+	schema = unaliasSchema(schema)
+	if schema.Any {
+		return "http parameter does not support any type"
+	}
+	if !schema.IsRequired() {
+		return "http parameter does not allow undefindable type"
+	}
+	atomics := map[metadata.AtomicKind]bool{}
+	for _, atomic := range schema.Atomics {
+		atomics[atomic.Type] = true
+	}
+	for _, constant := range schema.Constants {
+		atomics[constant.Type] = true
+	}
+	expected := len(schema.Atomics) + len(schema.Templates)
+	for _, constant := range schema.Constants {
+		expected += len(constant.Values)
+	}
+	if schema.Size() != expected || len(atomics) == 0 {
+		return "http parameter only atomic or constant types are allowed"
+	}
+	if len(atomics) > 1 {
+		return "http parameter does not allow union type"
+	}
+	return ""
+}
+
+func queryUnsupportedReason(schema *metadata.Schema) string {
+	if schema == nil {
+		return ""
+	}
+	target := unaliasSchema(schema)
+	if target == nil {
+		return ""
+	}
+	if target.Size() != 1 || len(target.Objects) != 1 || !target.IsRequired() || target.Nullable {
+		return "http query target type must be a sole object type"
+	}
+	ref := target.Objects[0]
+	if ref == nil || ref.Type == nil {
+		return "http query target type must be a sole object type"
+	}
+	obj := ref.Type
+	if len(obj.DynamicProperties) != 0 || obj.AdditionalProperties != nil {
+		return "http query does not support dynamic property"
+	}
+	for _, prop := range obj.Properties {
+		if prop == nil || prop.Key == nil || prop.Value == nil {
+			continue
+		}
+		if !prop.Key.IsSoleLiteral() {
+			return "http query does not support dynamic property"
+		}
+		if reason := queryPropertyUnsupportedReason(prop.Value); reason != "" {
+			return reason
+		}
+	}
+	return ""
+}
+
+func queryPropertyUnsupportedReason(schema *metadata.Schema) string {
+	if schema == nil {
+		return ""
+	}
+	schema = unaliasSchema(schema)
+	if schema == nil {
+		return ""
+	}
+	if len(schema.Tuples) != 0 {
+		return "http query does not support tuple type"
+	}
+	if queryPropertyIsUnion(schema) {
+		return "http query does not support union type in property"
+	}
+	if len(schema.Objects) != 0 || len(schema.Sets) != 0 || len(schema.Maps) != 0 || len(schema.Natives) != 0 {
+		return "http query does not support nested object type"
+	}
+	if len(schema.Arrays) != 0 {
+		if schema.Size() != 1 || len(schema.Arrays) != 1 || schema.Arrays[0] == nil || schema.Arrays[0].Type == nil {
+			return "http query does not support union type in property"
+		}
+		if reason := queryArrayElementUnsupportedReason(schema.Arrays[0].Type.Value); reason != "" {
+			return reason
+		}
+	}
+	return ""
+}
+
+func queryPropertyIsUnion(schema *metadata.Schema) bool {
+	if schema == nil {
+		return false
+	}
+	atomics := map[string]struct{}{}
+	for _, atomic := range schema.Atomics {
+		atomics[string(atomic.Type)] = struct{}{}
+	}
+	for _, constant := range schema.Constants {
+		atomics[string(constant.Type)] = struct{}{}
+	}
+	if len(schema.Templates) != 0 {
+		atomics[string(metadata.AtomicString)] = struct{}{}
+	}
+	return len(atomics)+len(schema.Arrays)+len(schema.Tuples)+len(schema.Natives)+len(schema.Maps)+len(schema.Objects) > 1
+}
+
+func queryArrayElementUnsupportedReason(schema *metadata.Schema) string {
+	if schema == nil {
+		return ""
+	}
+	schema = unaliasSchema(schema)
+	if schema == nil {
+		return ""
+	}
+	if !schema.IsRequired() {
+		return "http query array elements must be atomic or constant"
+	}
+	atomics := map[metadata.AtomicKind]bool{}
+	for _, atomic := range schema.Atomics {
+		atomics[atomic.Type] = true
+	}
+	for _, constant := range schema.Constants {
+		atomics[constant.Type] = true
+	}
+	if len(schema.Templates) != 0 {
+		atomics[metadata.AtomicString] = true
+	}
+	expected := len(schema.Atomics) + len(schema.Templates)
+	for _, constant := range schema.Constants {
+		expected += len(constant.Values)
+	}
+	if len(atomics) > 1 {
+		return "http query does not support union type in array"
+	}
+	if schema.Size() != expected {
+		return "http query array elements must be atomic or constant"
 	}
 	return ""
 }
@@ -486,7 +726,9 @@ func isProtobufContractMethod(method string) bool {
 	switch method {
 	case "message",
 		"encode", "createEncode", "assertEncode", "isEncode", "validateEncode",
-		"decode", "createDecode", "assertDecode", "isDecode", "validateDecode":
+		"createAssertEncode", "createIsEncode", "createValidateEncode",
+		"decode", "createDecode", "assertDecode", "isDecode", "validateDecode",
+		"createAssertDecode", "createIsDecode", "createValidateDecode":
 		return true
 	default:
 		return false
@@ -613,7 +855,7 @@ func EmitCall(
 	case module == "json" && method == "validateStringify":
 		expr, err := emitter.EmitValidateStringifyArrowFunction(schema)
 		return expr, false, err, true
-	case module == "json" && (method == "parse" || method == "assertParse" || method == "isParse" || method == "validateParse"):
+	case module == "json" && (method == "assertParse" || method == "isParse" || method == "validateParse"):
 		expr, err := emitter.EmitJsonParseArrowFunction(schema, method)
 		return expr, false, err, true
 	case module == "json" && method == "createAssertParse":
@@ -638,13 +880,13 @@ func EmitCall(
 		expr, err := emitter.EmitValidateStringifyArrowFunction(schema)
 		return expr, true, err, true
 	case module == "json" && method == "schema":
-		expr, err := emitter.EmitJsonSchemaExpression(schema)
+		expr, err := emitter.EmitJsonSchemaExpressionWithVersion(schema, jsonSchemaVersion(configTypeNode))
 		return expr, true, err, true
 	case module == "json" && method == "schemas":
-		expr, err := emitter.EmitJsonSchemasExpression(schema)
+		expr, err := emitter.EmitJsonSchemasExpressionWithVersion(schema, jsonSchemaVersion(configTypeNode))
 		return expr, true, err, true
 	case module == "json" && method == "application":
-		expr, err := emitter.EmitJsonApplicationExpression(schema)
+		expr, err := emitter.EmitJsonApplicationExpressionWithVersion(schema, jsonSchemaVersion(configTypeNode))
 		return expr, true, err, true
 	case module == "misc" && method == "literals":
 		expr, err := emitter.EmitMiscLiteralsExpression(schema)
@@ -994,7 +1236,7 @@ func EmitCall(
 		}
 		return fmt.Sprintf(`(input) => (%s)((%s)(input))`, validateExpr, decodeExpr), true, nil, true
 	case module == "llm" && method == "application":
-		expr, err := emitter.EmitLlmApplicationArrowFunctionWithConfig(schema, llmStrictEnabled(configTypeNode))
+		expr, err := emitter.EmitLlmApplicationArrowFunctionWithConfig(schema, llmStrictEnabled(configTypeNode), llmEqualsEnabled(configTypeNode))
 		return expr, false, err, true
 	case module == "llm" && method == "parameters":
 		expr, err := emitter.EmitLlmParametersExpressionWithConfig(schema, llmStrictEnabled(configTypeNode))
@@ -1018,7 +1260,7 @@ func EmitCall(
 		expr, err := emitter.EmitLlmStructuredOutputExpressionWithConfig(schema, llmEqualsEnabled(configTypeNode), llmStrictEnabled(configTypeNode))
 		return expr, true, err, true
 	case module == "llm" && method == "controller":
-		expr, err := emitter.EmitLlmControllerArrowFunctionWithConfig(schema, llmStrictEnabled(configTypeNode))
+		expr, err := emitter.EmitLlmControllerArrowFunctionWithConfig(schema, llmStrictEnabled(configTypeNode), llmEqualsEnabled(configTypeNode))
 		return expr, false, err, true
 	}
 	return "", false, nil, false
@@ -1030,6 +1272,17 @@ func llmEqualsEnabled(configTypeNode *ast.Node) bool {
 	}
 	text := strings.TrimSpace(shimscanner.GetTextOfNode(configTypeNode))
 	return strings.Contains(text, "equals") && strings.Contains(text, "true")
+}
+
+func jsonSchemaVersion(configTypeNode *ast.Node) string {
+	if configTypeNode == nil {
+		return "3.1"
+	}
+	text := strings.TrimSpace(shimscanner.GetTextOfNode(configTypeNode))
+	if strings.Contains(text, `"3.0"`) || strings.Contains(text, `'3.0'`) {
+		return "3.0"
+	}
+	return "3.1"
 }
 
 func rootIdentifier(typeNode *ast.Node) string {
@@ -1089,6 +1342,7 @@ type schemaFacts struct {
 	function                  bool
 	arrayUnion                bool
 	arrayOptional             bool
+	arrayNullable             bool
 	arrayValueUnion           bool
 	dynamicObjectInArray      bool
 	dynamicObjectArrayValue   bool
@@ -1325,6 +1579,15 @@ func formDataValueUnsupportedReason(schema *metadata.Schema) string {
 	if schema.Size() > 1 {
 		return "http formData does not support union type in property"
 	}
+	if len(schema.Natives) != 0 {
+		if len(schema.Natives) == 1 && schema.Size() == 1 {
+			switch schema.Natives[0].Name {
+			case "Blob", "File":
+				return ""
+			}
+		}
+		return "http formData does not support nested object type"
+	}
 	if len(schema.Objects) != 0 {
 		return "http formData does not support nested object type"
 	}
@@ -1404,8 +1667,11 @@ func (i *schemaInspector) visitSchema(schema *metadata.Schema) {
 			if len(array.Type.Value.Arrays) != 0 {
 				i.facts.multiDimArray = true
 			}
-			if !array.Type.Value.IsRequired() || array.Type.Value.Nullable {
+			if !array.Type.Value.IsRequired() {
 				i.facts.arrayOptional = true
+			}
+			if array.Type.Value.Nullable {
+				i.facts.arrayNullable = true
 			}
 			if arrayValueIsUnion(array.Type.Value) {
 				i.facts.arrayValueUnion = true

@@ -10,18 +10,17 @@ import (
 )
 
 // EmitHttpParameterArrowFunction converts a single URL parameter string into
-// the target type. Strings pass straight through; numbers go via Number();
-// booleans recognize `"true"`. Matches `typia.http.parameter<T>`.
+// the target type, matching the runtime `_httpParameterRead*` helpers.
 func EmitHttpParameterArrowFunction(schema *metadata.Schema) (string, error) {
 	if schema == nil {
 		return "", errors.New("emitter: nil schema")
 	}
 	// Union / nullable wiring is still simplified here; we accept the first atomic.
 	if kind, ok := schema.IsSoleAtomic(); ok {
-		return "(input) => " + coerceAtomic("input", kind), nil
+		return "(input) => " + httpParameterReader("input", kind), nil
 	}
 	if kind, ok := httpConstantAtomicKind(schema); ok {
-		return "(input) => " + coerceAtomic("input", kind), nil
+		return "(input) => " + httpParameterReader("input", kind), nil
 	}
 	// Literal single-value parameter.
 	if lit, ok := schema.GetSoleLiteral(); ok {
@@ -42,11 +41,6 @@ func EmitHttpHeadersObjectArrowFunction(schema *metadata.Schema) (string, error)
 
 	var b strings.Builder
 	b.WriteString(`(input) => {`)
-	b.WriteString(`const __headerReadBoolean = (value) => value !== undefined ? (value === "true" ? true : value === "false" ? false : value) : undefined;`)
-	b.WriteString(`const __headerToNumber = (str) => { const value = Number(str); return Number.isNaN(value) ? str : value; };`)
-	b.WriteString(`const __headerReadNumber = (value) => value !== undefined ? __headerToNumber(value) : undefined;`)
-	b.WriteString(`const __headerToBigint = (str) => { try { return BigInt(str); } catch { return str; } };`)
-	b.WriteString(`const __headerReadBigint = (value) => value !== undefined ? __headerToBigint(value) : undefined;`)
 	b.WriteString(`const __get = (key) => { if (!input) return undefined; return input[key]; };`)
 	b.WriteString(`const out = {};`)
 
@@ -88,15 +82,7 @@ func EmitHttpQueryObjectArrowFunction(schema *metadata.Schema) (string, error) {
 
 	var b strings.Builder
 	b.WriteString(`(input) => {`)
-	b.WriteString(`const __parse = (input) => { if (typeof input === "string") { const index = input.indexOf("?"); input = index === -1 ? "" : input.substring(index + 1); return new URLSearchParams(input); } return input; };`)
-	b.WriteString(`const __queryReadString = (str) => str === null ? undefined : str === "null" ? null : str;`)
-	b.WriteString(`const __queryReadBoolean = (str) => str === null ? undefined : str === "null" ? null : str.length === 0 ? true : str === "true" || str === "1" ? true : str === "false" || str === "0" ? false : str;`)
-	b.WriteString(`const __queryToNumber = (str) => { const value = Number(str); return Number.isNaN(value) ? str : value; };`)
-	b.WriteString(`const __queryReadNumber = (str) => str && str.length ? (str === "null" ? null : __queryToNumber(str)) : undefined;`)
-	b.WriteString(`const __queryToBigint = (str) => { try { return BigInt(str); } catch { return str; } };`)
-	b.WriteString(`const __queryReadBigint = (str) => str && str.length ? (str === "null" ? null : __queryToBigint(str)) : undefined;`)
-	b.WriteString(`const __queryReadArray = (input, alternative) => input.length ? input : alternative;`)
-	b.WriteString(`input = __parse(input);`)
+	b.WriteString(`input = ` + httpQueryParseAlias + `._httpQueryParseURLSearchParams(input);`)
 	b.WriteString(`const __get = (k) => { if (!input) return null; if (typeof input.get === "function") return input.get(k); const v = input[k]; return Array.isArray(v) ? (v.length ? v[0] : null) : (v === undefined ? null : v); };`)
 	b.WriteString(`const __getAll = (k) => { if (!input) return []; if (typeof input.getAll === "function") return input.getAll(k); const v = input[k]; if (Array.isArray(v)) return v; return v === undefined ? [] : [v]; };`)
 	b.WriteString(`const out = {};`)
@@ -133,15 +119,6 @@ func EmitHttpFormDataObjectArrowFunction(schema *metadata.Schema) (string, error
 
 	var b strings.Builder
 	b.WriteString(`(input) => {`)
-	b.WriteString(`const __readString = (value) => value instanceof File ? value : value === null ? undefined : value === "null" ? null : value;`)
-	b.WriteString(`const __readBoolean = (value) => value instanceof File ? value : value === null ? undefined : value === "null" ? null : value.length === 0 ? true : value === "true" || value === "1" ? true : value === "false" || value === "0" ? false : value;`)
-	b.WriteString(`const __toNumber = (str) => { const value = Number(str); return Number.isNaN(value) ? str : value; };`)
-	b.WriteString(`const __readNumber = (value) => value instanceof File ? value : value && value.length ? value === "null" ? null : __toNumber(value) : undefined;`)
-	b.WriteString(`const __toBigint = (str) => { try { return BigInt(str); } catch { return str; } };`)
-	b.WriteString(`const __readBigint = (value) => value instanceof File ? value : value && value.length ? value === "null" ? null : __toBigint(value) : undefined;`)
-	b.WriteString(`const __readBlob = (value) => value instanceof Blob ? value : value === null ? undefined : value === "null" ? null : value;`)
-	b.WriteString(`const __readFile = (value) => value instanceof File ? value : value === null ? undefined : value === "null" ? null : value;`)
-	b.WriteString(`const __readArray = (value, alternative) => value.length ? value : alternative;`)
 	b.WriteString(`const __get = (key) => input.get(key);`)
 	b.WriteString(`const __getAll = (key) => input.getAll(key);`)
 	b.WriteString(`const out = {};`)
@@ -178,7 +155,7 @@ func httpQueryProperty(s *metadata.Schema, name string) (string, error) {
 			return fmt.Sprintf(` { const value = __getAll(%s).map((elem) => %s); out[%s] = %s; }`, quoted, httpQueryReadExpr("elem", kind), quoted, httpQueryArrayWrapExpr("value", s)), nil
 		}
 		if httpTemplateLike(elemSchema) {
-			return fmt.Sprintf(` { const value = __getAll(%s).map((elem) => __queryReadString(elem)); out[%s] = %s; }`, quoted, quoted, httpQueryArrayWrapExpr("value", s)), nil
+			return fmt.Sprintf(` { const value = __getAll(%s).map((elem) => %s._httpQueryReadString(elem)); out[%s] = %s; }`, quoted, httpQueryReadStringAlias, quoted, httpQueryArrayWrapExpr("value", s)), nil
 		}
 		if nativeExpr, ok := httpNativePassthroughExpr("v", elemSchema); ok {
 			return fmt.Sprintf(` { const value = __getAll(%s).map((v) => %s); out[%s] = %s; }`, quoted, nativeExpr, quoted, httpQueryArrayWrapExpr("value", s)), nil
@@ -193,7 +170,7 @@ func httpQueryProperty(s *metadata.Schema, name string) (string, error) {
 		return fmt.Sprintf(` { const value = %s; out[%s] = %s; }`, httpQueryReadExpr("__get("+quoted+")", kind), quoted, httpQueryRequiredWrapExpr("value", name, s)), nil
 	}
 	if httpTemplateLike(s) {
-		return fmt.Sprintf(` { const value = __queryReadString(__get(%s)); out[%s] = %s; }`, quoted, quoted, httpQueryRequiredWrapExpr("value", name, s)), nil
+		return fmt.Sprintf(` { const value = %s._httpQueryReadString(__get(%s)); out[%s] = %s; }`, httpQueryReadStringAlias, quoted, quoted, httpQueryRequiredWrapExpr("value", name, s)), nil
 	}
 	if nativeExpr, ok := httpNativePassthroughExpr("v", s); ok {
 		return fmt.Sprintf(` { const v = __get(%s); const value = %s; out[%s] = %s; }`, quoted, nativeExpr, quoted, httpQueryRequiredWrapExpr("value", name, s)), nil
@@ -215,7 +192,7 @@ func httpFormDataProperty(s *metadata.Schema, name string) (string, error) {
 		}
 		valueExpr := "value"
 		if s.Nullable || !s.IsRequired() {
-			valueExpr = fmt.Sprintf(`__readArray(value, %s)`, alternative)
+			valueExpr = fmt.Sprintf(`%s._httpFormDataReadArray(value, %s)`, httpFormDataReadArrayAlias, alternative)
 		}
 		return fmt.Sprintf(` { const value = __getAll(%s).map((elem) => %s); out[%s] = %s; }`, quoted, reader, quoted, valueExpr), nil
 	}
@@ -237,14 +214,14 @@ func httpFormDataReader(input string, s *metadata.Schema) (string, error) {
 		return httpFormDataReadExpr(input, kind), nil
 	}
 	if httpTemplateLike(s) {
-		return fmt.Sprintf(`__readString(%s)`, input), nil
+		return fmt.Sprintf(`%s._httpFormDataReadString(%s)`, httpFormDataReadStringAlias, input), nil
 	}
 	for _, native := range s.Natives {
 		switch native.Name {
 		case "Blob":
-			return fmt.Sprintf(`__readBlob(%s)`, input), nil
+			return fmt.Sprintf(`%s._httpFormDataReadBlob(%s)`, httpFormDataReadBlobAlias, input), nil
 		case "File":
-			return fmt.Sprintf(`__readFile(%s)`, input), nil
+			return fmt.Sprintf(`%s._httpFormDataReadFile(%s)`, httpFormDataReadFileAlias, input), nil
 		}
 	}
 	return "", fmt.Errorf("%w: http formData property must be atomic, constant, template, Blob, File, or an array of them", ErrUnsupportedSchema)
@@ -253,13 +230,13 @@ func httpFormDataReader(input string, s *metadata.Schema) (string, error) {
 func httpFormDataReadExpr(input string, kind metadata.AtomicKind) string {
 	switch kind {
 	case metadata.AtomicBoolean:
-		return fmt.Sprintf(`__readBoolean(%s)`, input)
+		return fmt.Sprintf(`%s._httpFormDataReadBoolean(%s)`, httpFormDataReadBooleanAlias, input)
 	case metadata.AtomicNumber:
-		return fmt.Sprintf(`__readNumber(%s)`, input)
+		return fmt.Sprintf(`%s._httpFormDataReadNumber(%s)`, httpFormDataReadNumberAlias, input)
 	case metadata.AtomicBigint:
-		return fmt.Sprintf(`__readBigint(%s)`, input)
+		return fmt.Sprintf(`%s._httpFormDataReadBigint(%s)`, httpFormDataReadBigintAlias, input)
 	default:
-		return fmt.Sprintf(`__readString(%s)`, input)
+		return fmt.Sprintf(`%s._httpFormDataReadString(%s)`, httpFormDataReadStringAlias, input)
 	}
 }
 
@@ -319,6 +296,20 @@ func coerceAtomic(ve string, kind metadata.AtomicKind) string {
 	return ve
 }
 
+func httpParameterReader(ve string, kind metadata.AtomicKind) string {
+	switch kind {
+	case metadata.AtomicString:
+		return httpParameterReadStringAlias + "._httpParameterReadString(" + ve + ")"
+	case metadata.AtomicNumber:
+		return httpParameterReadNumberAlias + "._httpParameterReadNumber(" + ve + ")"
+	case metadata.AtomicBoolean:
+		return httpParameterReadBooleanAlias + "._httpParameterReadBoolean(" + ve + ")"
+	case metadata.AtomicBigint:
+		return httpParameterReadBigintAlias + "._httpParameterReadBigint(" + ve + ")"
+	}
+	return ve
+}
+
 func httpNativePassthroughExpr(ve string, schema *metadata.Schema) (string, bool) {
 	if schema == nil || len(schema.Natives) != 1 || schema.Size() != 1 {
 		return "", false
@@ -359,13 +350,13 @@ func httpTemplateLike(schema *metadata.Schema) bool {
 func httpQueryReadExpr(ve string, kind metadata.AtomicKind) string {
 	switch kind {
 	case metadata.AtomicString:
-		return "__queryReadString(" + ve + ")"
+		return httpQueryReadStringAlias + "._httpQueryReadString(" + ve + ")"
 	case metadata.AtomicNumber:
-		return "__queryReadNumber(" + ve + ")"
+		return httpQueryReadNumberAlias + "._httpQueryReadNumber(" + ve + ")"
 	case metadata.AtomicBoolean:
-		return "__queryReadBoolean(" + ve + ")"
+		return httpQueryReadBooleanAlias + "._httpQueryReadBoolean(" + ve + ")"
 	case metadata.AtomicBigint:
-		return "__queryReadBigint(" + ve + ")"
+		return httpQueryReadBigintAlias + "._httpQueryReadBigint(" + ve + ")"
 	default:
 		return ve
 	}
@@ -376,29 +367,26 @@ func httpQueryArrayWrapExpr(ve string, schema *metadata.Schema) string {
 		return ve
 	}
 	if schema.Nullable {
-		return "__queryReadArray(" + ve + ", null)"
+		return httpQueryReadArrayAlias + "._httpQueryReadArray(" + ve + ", null)"
 	}
 	if !schema.IsRequired() {
-		return "__queryReadArray(" + ve + ", undefined)"
+		return httpQueryReadArrayAlias + "._httpQueryReadArray(" + ve + ", undefined)"
 	}
 	return ve
 }
 
 func httpQueryRequiredWrapExpr(ve string, name string, schema *metadata.Schema) string {
-	if schema == nil || !schema.IsRequired() {
-		return ve
-	}
-	return fmt.Sprintf(`(%s !== undefined ? %s : (() => { throw new Error("typia.http.query: missing %s"); })())`, ve, ve, jsEscape(name))
+	return ve
 }
 
 func httpHeaderReader(kind metadata.AtomicKind) string {
 	switch kind {
 	case metadata.AtomicBoolean:
-		return "__headerReadBoolean"
+		return httpHeaderReadBooleanAlias + "._httpHeaderReadBoolean"
 	case metadata.AtomicNumber:
-		return "__headerReadNumber"
+		return httpHeaderReadNumberAlias + "._httpHeaderReadNumber"
 	case metadata.AtomicBigint:
-		return "__headerReadBigint"
+		return httpHeaderReadBigintAlias + "._httpHeaderReadBigint"
 	default:
 		return "((str) => str)"
 	}
