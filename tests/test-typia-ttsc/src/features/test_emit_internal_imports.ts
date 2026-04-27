@@ -39,8 +39,6 @@ export async function test_emit_internal_imports(): Promise<void> {
     "_isBetween",
     "_randomFormatUuid",
     "_randomInteger",
-    "_randomString",
-    "_randomPick",
     "_ProtobufSizer",
     "_ProtobufWriter",
     "_ProtobufReader",

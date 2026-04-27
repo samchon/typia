@@ -59,7 +59,7 @@ func TestRandomSupportsBigintSchema(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	for _, fragment := range []string{`"x-typia-bigint":true`, `generator?.bigint`, `BigInt(`} {
+	for _, fragment := range []string{`"x-typia-bigint":true`, `_generator?.bigint`, `_randomBigint`} {
 		if !strings.Contains(got, fragment) {
 			t.Errorf("random bigint expression should contain %q, got:\n%s", fragment, got)
 		}

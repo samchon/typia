@@ -16,15 +16,7 @@ func EmitRandomArrowFunction(schema *metadata.Schema) (string, error) {
 	if native, ok := findUnsupportedRandomNative(schema); ok {
 		return "", fmt.Errorf("%w: random does not support %s", ErrUnsupportedSchema, native)
 	}
-	unitExpr, err := EmitRandomSchemaExpression(sanitizeRandomSchema(schema))
-	if err != nil {
-		return "", err
-	}
-	return fmt.Sprintf(
-		`(generator) => { const __unit = %s; const __random = %s; return __random(__unit.schema, __unit.components?.schemas ?? {}, generator ?? {}, 0); }`,
-		unitExpr,
-		randomRuntimeHelper(),
-	), nil
+	return emitRandomDirectArrowFunction(schema)
 }
 
 // EmitCreateRandomArrowFunction emits the reusable generator returned by
@@ -36,15 +28,7 @@ func EmitCreateRandomArrowFunction(schema *metadata.Schema) (string, error) {
 	if native, ok := findUnsupportedRandomNative(schema); ok {
 		return "", fmt.Errorf("%w: random does not support %s", ErrUnsupportedSchema, native)
 	}
-	unitExpr, err := EmitRandomSchemaExpression(sanitizeRandomSchema(schema))
-	if err != nil {
-		return "", err
-	}
-	return fmt.Sprintf(
-		`(generator) => { const __unit = %s; const __random = %s; const __generator = generator ?? {}; return () => __random(__unit.schema, __unit.components?.schemas ?? {}, __generator, 0); }`,
-		unitExpr,
-		randomRuntimeHelper(),
-	), nil
+	return emitCreateRandomDirectArrowFunction(schema)
 }
 
 func findUnsupportedRandomNative(schema *metadata.Schema) (string, bool) {
