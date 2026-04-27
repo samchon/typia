@@ -155,7 +155,9 @@ func (s *randomDirectState) objectHelpers() string {
 		objects = append(objects, obj)
 	}
 	sort.Slice(objects, func(i, j int) bool { return objects[i].Index < objects[j].Index })
-	sort.SliceStable(objects, func(i, j int) bool { return s.objects[objects[i]] < s.objects[objects[j]] })
+	sort.SliceStable(objects, func(i, j int) bool {
+		return randomHelperOrdinal(s.objects[objects[i]]) < randomHelperOrdinal(s.objects[objects[j]])
+	})
 	var b strings.Builder
 	for _, obj := range objects {
 		b.WriteString("const ")
@@ -165,6 +167,14 @@ func (s *randomDirectState) objectHelpers() string {
 		b.WriteString("; ")
 	}
 	return b.String()
+}
+
+func randomHelperOrdinal(name string) int {
+	value, err := strconv.Atoi(strings.TrimPrefix(name, "_ro"))
+	if err != nil {
+		return 0
+	}
+	return value
 }
 
 func (s *randomDirectState) decode(schema *metadata.Schema, recursive bool) (string, error) {
