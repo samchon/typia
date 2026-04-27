@@ -15,6 +15,8 @@ import (
 	"github.com/samchon/typia/packages/core/native/metadata"
 )
 
+const typeFlagsTypeParameter shimchecker.TypeFlags = 1 << 19
+
 func AnalyzeType(
 	checker *shimchecker.Checker,
 	t *shimchecker.Type,
@@ -100,10 +102,28 @@ func UnsupportedReason(
 		}
 	}
 	switch module {
+	case "reflect":
+		if method == "schema" && t != nil && t.Flags()&typeFlagsTypeParameter != 0 {
+			return "reflect.schema does not allow type parameter"
+		}
+		if method == "schemas" {
+			if t != nil && t.Flags()&typeFlagsTypeParameter != 0 {
+				return "reflect.schemas does not allow type parameter"
+			}
+			if typeNode == nil || typeNode.Kind != ast.KindTupleType {
+				return "reflect.schemas requires tuple type"
+			}
+		}
 	case "json":
 		if isJsonRuntimeContractMethod(method) {
 			if strings.Contains(typeText, "bigint") {
 				return "json does not support bigint"
+			}
+			if strings.Contains(typeText, "undefined") &&
+				(strings.Contains(typeText, "Array<") ||
+					strings.Contains(typeText, "[]") ||
+					strings.Contains(typeText, "[")) {
+				return "json does not support undefined type in array"
 			}
 			natives := []string{
 				"Map<", "Set<", "WeakMap<", "WeakSet<",
@@ -177,20 +197,13 @@ func UnsupportedReason(
 			if strings.Contains(typeText, "any") {
 				return "http parameter does not support any type"
 			}
-			if containsUnionTypeNode(typeNode) || strings.Contains(typeText, "|") {
-				return "http parameter does not support union type"
-			}
 		}
 		if isQueryMethod(method) {
 			switch {
-			case containsUnionTypeNode(typeNode) || strings.Contains(typeText, "|"):
-				return "http query does not support union type in property"
 			case containsTupleTypeNode(typeNode):
 				return "http query does not support tuple type"
 			case containsNestedArrayTypeNode(typeNode):
 				return "http query array elements must be atomic or constant"
-			case containsNestedGenericTypeReference(typeNode, true):
-				return "http query does not support nested object type"
 			case containsDynamicTypeReference(checker, typeNode):
 				return "http query does not support dynamic property"
 			}
@@ -201,8 +214,6 @@ func UnsupportedReason(
 				return "http headers does not support tuple type"
 			case containsNestedArrayTypeNode(typeNode):
 				return "http headers array elements must be atomic or constant"
-			case containsNestedGenericTypeReference(typeNode, true):
-				return "http headers does not support nested object type"
 			}
 		}
 	case "misc":
@@ -736,6 +747,7 @@ func isProtobufContractMethod(method string) bool {
 }
 
 func EmitCall(
+	checker *shimchecker.Checker,
 	module string,
 	method string,
 	schema *metadata.Schema,
@@ -1062,7 +1074,7 @@ func EmitCall(
 		expr, err := emitter.EmitReflectSchemasFromSchema(schema)
 		return expr, true, err, true
 	case module == "reflect" && method == "name":
-		if !typeArgumentTrue(configTypeNode) && typeNode != nil {
+		if !reflectNameRegular(checker, configTypeNode) && typeNode != nil {
 			text := strings.TrimSpace(shimscanner.GetTextOfNode(typeNode))
 			if text != "" {
 				return strconv.Quote(text), true, nil, true
@@ -1271,7 +1283,7 @@ func llmEqualsEnabled(configTypeNode *ast.Node) bool {
 		return false
 	}
 	text := strings.TrimSpace(shimscanner.GetTextOfNode(configTypeNode))
-	return strings.Contains(text, "equals") && strings.Contains(text, "true")
+	return llmBoolConfigText(text, "equals")
 }
 
 func jsonSchemaVersion(configTypeNode *ast.Node) string {
@@ -1829,14 +1841,80 @@ func llmStrictEnabled(configTypeNode *ast.Node) bool {
 		return false
 	}
 	text := strings.TrimSpace(shimscanner.GetTextOfNode(configTypeNode))
-	return strings.Contains(text, "strict") && strings.Contains(text, "true")
+	return llmBoolConfigText(text, "strict")
 }
 
-func typeArgumentTrue(node *ast.Node) bool {
-	if node == nil {
+func llmBoolConfigText(text string, name string) bool {
+	for _, token := range []string{name, `"` + name + `"`, `'` + name + `'`} {
+		offset := 0
+		for {
+			idx := strings.Index(text[offset:], token)
+			if idx < 0 {
+				break
+			}
+			start := offset + idx
+			end := start + len(token)
+			if token == name {
+				if (start > 0 && isIdentifierPart(rune(text[start-1]))) ||
+					(end < len(text) && isIdentifierPart(rune(text[end]))) {
+					offset = end
+					continue
+				}
+			}
+			pos := end
+			for pos < len(text) && unicode.IsSpace(rune(text[pos])) {
+				pos++
+			}
+			if pos >= len(text) || text[pos] != ':' {
+				offset = end
+				continue
+			}
+			pos++
+			for pos < len(text) && unicode.IsSpace(rune(text[pos])) {
+				pos++
+			}
+			if hasBoolLiteral(text[pos:], "true") {
+				return true
+			}
+			if hasBoolLiteral(text[pos:], "false") {
+				return false
+			}
+			offset = end
+		}
+	}
+	return false
+}
+
+func hasBoolLiteral(text string, literal string) bool {
+	if !strings.HasPrefix(text, literal) {
 		return false
 	}
-	return strings.TrimSpace(shimscanner.GetTextOfNode(node)) == "true"
+	return len(text) == len(literal) || !isIdentifierPart(rune(text[len(literal)]))
+}
+
+func reflectNameRegular(checker *shimchecker.Checker, node *ast.Node) bool {
+	if checker == nil || node == nil {
+		return false
+	}
+	t := checker.GetTypeFromTypeNode(node)
+	if t == nil {
+		t = checker.GetTypeAtLocation(node)
+	}
+	if t == nil {
+		return false
+	}
+	options := analyzer.DefaultOptions()
+	options.Absorb = false
+	schema, ok := analyzer.New(checker, options, nil).Walk(t)
+	if !ok || schema == nil || schema.Size() != 1 || len(schema.Constants) != 1 {
+		return false
+	}
+	constant := schema.Constants[0]
+	if constant.Type != metadata.AtomicBoolean || len(constant.Values) != 1 {
+		return false
+	}
+	value, ok := constant.Values[0].Value.(bool)
+	return ok && value
 }
 
 func containsTypeWord(text string, word string) bool {

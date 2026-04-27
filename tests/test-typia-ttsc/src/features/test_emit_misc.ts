@@ -5,9 +5,7 @@ import * as path from "path";
 import { TestGlobal } from "../TestGlobal";
 import { runTtsc } from "../utils/runTtsc";
 
-/**
- * misc.literals / misc.clone / misc.prune / notations.camel / reflect.name.
- */
+/** Misc.literals / misc.clone / misc.prune / notations.camel / reflect.name. */
 export async function test_emit_misc(): Promise<void> {
   const fixture = path.join(TestGlobal.ROOT, "fixtures", "misc");
   const dist = path.join(fixture, "dist");
@@ -20,6 +18,17 @@ export async function test_emit_misc(): Promise<void> {
   assert.equal(result.status, 0, `stderr:\n${result.stderr}`);
 
   const mainPath = path.join(dist, "main.js");
+  const emitted = fs.readFileSync(mainPath, "utf8");
+  assert.equal(
+    emitted.includes("const __clone = (v)"),
+    false,
+    "misc clone fixture should use schema-shaped clone emit, not the generic walker",
+  );
+  assert.equal(
+    emitted.includes("const __walk ="),
+    false,
+    "notation fixture should use schema-shaped notation emit, not the generic walker",
+  );
   delete require.cache[require.resolve(mainPath)];
   const mod = require(mainPath) as {
     statuses: string[];
@@ -28,6 +37,28 @@ export async function test_emit_misc(): Promise<void> {
     schemaName: string;
     inlineName: string;
     regularInlineName: string;
+    regularAliasName: string;
+    nonRegularAliasName: string;
+    regularConditionalName: string;
+    reflected: {
+      schema: {
+        objects: Array<{ name: string; tags: unknown[] }>;
+      };
+      components: {
+        objects: Array<{
+          name: string;
+          properties: Array<{
+            value: {
+              templates: Array<{ row: unknown[] }>;
+            };
+            description: string | null;
+            jsDocTags: Array<{ name: string }>;
+          }>;
+          dynamicProperties?: unknown;
+          additionalProperties?: unknown;
+        }>;
+      };
+    };
     toCamel: (x: { first_name: string; last_name: string }) => {
       firstName: string;
       lastName: string;
@@ -54,30 +85,85 @@ export async function test_emit_misc(): Promise<void> {
       scores: Map<string, number>;
       value: bigint;
     };
+    cloneNativeString: (x: String) => string;
+    cloneUnion: (
+      x: string | { id: string; nested_value: { first_name: string } },
+    ) => string | { id: string; nested_value: { first_name: string } };
+    notationUnion: (
+      x: string | { id: string; nested_value: { first_name: string } },
+    ) => string | { id: string; nestedValue: { firstName: string } };
+    cloneDynamic: (x: {
+      fixed_value: string;
+      extra_user: { first_name: string };
+      ignored?: { first_name: string };
+    }) => {
+      fixed_value: string;
+      extra_user: { first_name: string };
+    };
+    notationDynamic: (x: {
+      fixed_value: string;
+      extra_user: { first_name: string };
+      ignored?: { first_name: string };
+    }) => {
+      fixedValue: string;
+      extra_user: { firstName: string };
+    };
+    cloneAdditional: (
+      x: Record<string, { first_name: string }>,
+    ) => Record<string, { first_name: string }>;
+    notationAdditional: (
+      x: Record<string, { first_name: string }>,
+    ) => Record<string, { firstName: string }>;
+    cloneRecursive: (x: {
+      name_value: string;
+      children: Array<{ name_value: string; children: unknown[] }>;
+    }) => {
+      name_value: string;
+      children: Array<{ name_value: string; children: unknown[] }>;
+    };
+    notationRecursive: (x: {
+      name_value: string;
+      children: Array<{ name_value: string; children: unknown[] }>;
+    }) => {
+      nameValue: string;
+      children: Array<{ nameValue: string; children: unknown[] }>;
+    };
     randomMap: () => Map<string, number>;
     randomSet: () => Set<string>;
     createRandomMap: () => Map<string, number>;
     createRandomSet: () => Set<string>;
   };
 
-  assert.deepEqual(
-    [...mod.statuses].sort(),
-    ["active", "archived", "pending"],
-  );
+  assert.deepEqual([...mod.statuses].sort(), ["active", "archived", "pending"]);
   assert.equal(mod.schemaName, "Member");
   assert.deepEqual(mod.booleans, [true, false]);
   assert.deepEqual(mod.bigintLiterals, [BigInt(1), BigInt(2)]);
   assert.equal(mod.inlineName, "{ value: string }");
   assert.match(mod.regularInlineName, /^TypeLiteral#[0-9]+$/);
+  assert.match(mod.regularAliasName, /^TypeLiteral#[0-9]+$/);
+  assert.equal(mod.nonRegularAliasName, "{ value: string }");
+  assert.match(mod.regularConditionalName, /^TypeLiteral#[0-9]+$/);
+  const reflectedObject = mod.reflected.components.objects[0]!;
+  assert.equal(reflectedObject.name, "ReflectTarget");
+  assert.equal("dynamicProperties" in reflectedObject, false);
+  assert.equal("additionalProperties" in reflectedObject, false);
+  const reflectedProperty = reflectedObject.properties[0]!;
+  assert.equal(reflectedProperty.description, "Visible property docs.");
+  assert.equal(reflectedProperty.jsDocTags[0]!.name, "deprecated");
+  assert.equal(
+    typeof reflectedProperty.value.templates[0]!.row[0],
+    "object",
+    "reflect template rows must contain schema objects, not raw strings",
+  );
 
-  assert.deepEqual(
-    mod.toCamel({ first_name: "Jane", last_name: "Doe" }),
-    { firstName: "Jane", lastName: "Doe" },
-  );
-  assert.deepEqual(
-    mod.toSnake({ __userID: "u", displayName: "Jane" }),
-    { __user_id: "u", display_name: "Jane" },
-  );
+  assert.deepEqual(mod.toCamel({ first_name: "Jane", last_name: "Doe" }), {
+    firstName: "Jane",
+    lastName: "Doe",
+  });
+  assert.deepEqual(mod.toSnake({ __userID: "u", displayName: "Jane" }), {
+    __user_id: "u",
+    display_name: "Jane",
+  });
 
   const pruned = mod.pruneMember({
     id: "a",
@@ -109,6 +195,73 @@ export async function test_emit_misc(): Promise<void> {
   assert.deepEqual([...clonedRich.scores], [["a", 1]]);
   assert.notStrictEqual(clonedRich.scores, rich.scores);
   assert.equal(clonedRich.value, BigInt(10));
+  assert.equal(mod.cloneNativeString(new String("wrapped")), "wrapped");
+  assert.equal(mod.cloneUnion("scalar"), "scalar");
+  assert.deepEqual(
+    mod.cloneUnion({ id: "a", nested_value: { first_name: "Jane" } }),
+    {
+      id: "a",
+      nested_value: { first_name: "Jane" },
+    },
+  );
+  assert.deepEqual(
+    mod.notationUnion({ id: "a", nested_value: { first_name: "Jane" } }),
+    { id: "a", nestedValue: { firstName: "Jane" } },
+  );
+  assert.deepEqual(
+    mod.cloneDynamic({
+      fixed_value: "fixed",
+      extra_user: { first_name: "Jane" },
+      ignored: { first_name: "Drop" },
+    }),
+    {
+      fixed_value: "fixed",
+      extra_user: { first_name: "Jane" },
+    },
+  );
+  assert.deepEqual(
+    mod.notationDynamic({
+      fixed_value: "fixed",
+      extra_user: { first_name: "Jane" },
+      ignored: { first_name: "Drop" },
+    }),
+    {
+      fixedValue: "fixed",
+      extra_user: { firstName: "Jane" },
+    },
+  );
+  assert.deepEqual(
+    mod.cloneAdditional({
+      first: { first_name: "Jane" },
+      second: { first_name: "John" },
+    }),
+    {
+      first: { first_name: "Jane" },
+      second: { first_name: "John" },
+    },
+  );
+  assert.deepEqual(
+    mod.notationAdditional({
+      first: { first_name: "Jane" },
+      second: { first_name: "John" },
+    }),
+    {
+      first: { firstName: "Jane" },
+      second: { firstName: "John" },
+    },
+  );
+  const recursive = {
+    name_value: "root",
+    children: [{ name_value: "leaf", children: [] }],
+  };
+  const clonedRecursive = mod.cloneRecursive(recursive);
+  assert.deepEqual(clonedRecursive, recursive);
+  assert.notStrictEqual(clonedRecursive, recursive);
+  assert.notStrictEqual(clonedRecursive.children[0], recursive.children[0]);
+  assert.deepEqual(mod.notationRecursive(recursive), {
+    nameValue: "root",
+    children: [{ nameValue: "leaf", children: [] }],
+  });
   assert.ok(mod.randomMap() instanceof Map);
   assert.ok(mod.randomSet() instanceof Set);
   assert.ok(mod.createRandomMap() instanceof Map);

@@ -32,3 +32,15 @@ export const is_duration = (input: unknown): boolean =>
 
 export const is_json_pointer = (input: unknown): boolean =>
   typia.is<string & tags.Format<"json-pointer">>(input);
+
+type EmailByImportInternal = tags.TagBase<{
+  target: "string";
+  kind: "emailByImportInternal";
+  value: "email";
+  validate: `$importInternal("isFormatEmail")($input)`;
+  exclusive: false;
+  schema: undefined;
+}>;
+
+export const is_custom_import_internal = (input: unknown): boolean =>
+  typia.is<string & EmailByImportInternal>(input);

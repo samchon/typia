@@ -36,17 +36,21 @@ const pathValue = fs.existsSync(goRoot)
   : process.env.PATH;
 
 console.log(`Building ${manifest.name} -> ${path.relative(root, outFile)}`);
-cp.execFileSync("go", ["build", "-o", outFile, "./cmd/ttsc-typia"], {
-  cwd: source,
-  env: {
-    ...process.env,
-    CGO_ENABLED: "0",
-    GOARCH: goarch,
-    GOOS: goos,
-    PATH: pathValue,
+cp.execFileSync(
+  "go",
+  ["build", "-trimpath", "-ldflags=-s -w", "-o", outFile, "./cmd/ttsc-typia"],
+  {
+    cwd: source,
+    env: {
+      ...process.env,
+      CGO_ENABLED: "0",
+      GOARCH: goarch,
+      GOOS: goos,
+      PATH: pathValue,
+    },
+    stdio: "inherit",
   },
-  stdio: "inherit",
-});
+);
 
 if (npmOs !== "win32") {
   fs.chmodSync(outFile, 0o755);

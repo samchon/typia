@@ -249,11 +249,66 @@ func serializeTemplates(values []metadata.Template) []any {
 	out := make([]any, 0, len(values))
 	for _, value := range values {
 		out = append(out, map[string]any{
-			"row":  []any{value.RawName},
+			"row":  serializeTemplateRow(value.RawName),
 			"tags": serializeTags(value.Tags),
 		})
 	}
 	return out
+}
+
+func serializeTemplateRow(raw string) []any {
+	text := strings.TrimSpace(raw)
+	if len(text) >= 2 && text[0] == '`' && text[len(text)-1] == '`' {
+		text = text[1 : len(text)-1]
+	}
+	row := make([]any, 0)
+	for len(text) != 0 {
+		start := strings.Index(text, "${")
+		if start < 0 {
+			if text != "" {
+				row = append(row, serializeStringConstantSchema(text))
+			}
+			break
+		}
+		if start != 0 {
+			row = append(row, serializeStringConstantSchema(text[:start]))
+		}
+		rest := text[start+2:]
+		end := strings.Index(rest, "}")
+		if end < 0 {
+			row = append(row, serializeStringConstantSchema(text[start:]))
+			break
+		}
+		row = append(row, serializeTemplatePlaceholder(strings.TrimSpace(rest[:end])))
+		text = rest[end+1:]
+	}
+	if len(row) == 0 {
+		row = append(row, serializeStringConstantSchema(""))
+	}
+	return row
+}
+
+func serializeTemplatePlaceholder(name string) any {
+	schema := metadata.NewSchema()
+	switch name {
+	case "string":
+		schema.AddAtomic(metadata.AtomicString)
+	case "number":
+		schema.AddAtomic(metadata.AtomicNumber)
+	case "bigint":
+		schema.AddAtomic(metadata.AtomicBigint)
+	case "boolean":
+		schema.AddAtomic(metadata.AtomicBoolean)
+	default:
+		schema.Any = true
+	}
+	return serializeSchema(schema)
+}
+
+func serializeStringConstantSchema(value string) any {
+	schema := metadata.NewSchema()
+	schema.AddConstant(metadata.AtomicString, value)
+	return serializeSchema(schema)
 }
 
 func serializeEscaped(value *metadata.Escaped) any {
@@ -376,8 +431,8 @@ func serializeFunctions(values []*metadata.Function) []any {
 			params = append(params, map[string]any{
 				"name":        param.Name,
 				"type":        serializeSchema(param.Type),
-				"description": param.Description,
-				"jsDocTags":   []any{},
+				"description": nullableString(param.Description),
+				"jsDocTags":   serializeJsDocTags(param.JsDocTags, param.JsDocTexts),
 			})
 		}
 		out = append(out, map[string]any{
@@ -428,38 +483,26 @@ func serializeObjectType(value *metadata.ObjectType) any {
 		if property == nil {
 			continue
 		}
-		properties = append(properties, map[string]any{
+		item := map[string]any{
 			"key":         serializeSchema(property.Key),
 			"value":       serializeSchema(property.Value),
-			"description": property.Description,
-			"jsDocTags":   []any{},
-			"mutability":  nil,
-		})
-	}
-	dynamicProperties := make([]any, 0, len(value.DynamicProperties))
-	for _, property := range value.DynamicProperties {
-		if property == nil {
-			continue
+			"description": nullableString(property.Description),
+			"jsDocTags":   serializeJsDocTags(property.JsDocTags, property.JsDocTexts),
 		}
-		dynamicProperties = append(dynamicProperties, map[string]any{
-			"key":         serializeSchema(property.Key),
-			"value":       serializeSchema(property.Value),
-			"description": property.Description,
-			"jsDocTags":   []any{},
-			"mutability":  nil,
-		})
+		properties = append(properties, item)
 	}
-	return map[string]any{
-		"name":                 value.Name,
-		"properties":           properties,
-		"dynamicProperties":    dynamicProperties,
-		"additionalProperties": serializeSchemaOrNil(value.AdditionalProperties),
-		"description":          value.Description,
-		"jsDocTags":            []any{},
-		"index":                value.Index,
-		"recursive":            value.Recursive || objectTypeSelfRecursive(value),
-		"nullables":            value.Nullables,
+	out := map[string]any{
+		"name":       value.Name,
+		"properties": properties,
+		"jsDocTags":  serializeJsDocTags(value.JsDocTags, nil),
+		"index":      value.Index,
+		"recursive":  value.Recursive || objectTypeSelfRecursive(value),
+		"nullables":  value.Nullables,
 	}
+	if value.Description != nil {
+		out["description"] = *value.Description
+	}
+	return out
 }
 
 func serializeAliasType(value *metadata.AliasType) any {
@@ -470,10 +513,36 @@ func serializeAliasType(value *metadata.AliasType) any {
 		"name":        value.Name,
 		"value":       serializeSchema(value.Value),
 		"nullables":   value.Nullables,
-		"description": value.Description,
-		"jsDocTags":   []any{},
+		"description": nullableString(value.Description),
+		"jsDocTags":   serializeJsDocTags(value.JsDocTags, nil),
 		"recursive":   value.Recursive,
 	}
+}
+
+func nullableString(value *string) any {
+	if value == nil {
+		return nil
+	}
+	return *value
+}
+
+func serializeJsDocTags(tags []string, texts map[string][]string) []any {
+	out := make([]any, 0, len(tags))
+	for _, tag := range tags {
+		item := map[string]any{"name": tag}
+		if values := texts[tag]; len(values) != 0 {
+			segments := make([]any, 0, len(values))
+			for _, value := range values {
+				segments = append(segments, map[string]any{
+					"text": value,
+					"kind": "text",
+				})
+			}
+			item["text"] = segments
+		}
+		out = append(out, item)
+	}
+	return out
 }
 
 func serializeTags(matrix metadata.TagMatrix) []any {

@@ -37,8 +37,17 @@ export async function test_emit_internal_imports(): Promise<void> {
     "_isTypeUint32",
     "_isUniqueItems",
     "_isBetween",
+    "_jsonStringifyString",
+    "_jsonStringifyNumber",
+    "_jsonStringifyTail",
+    "_miscCloneAny",
+    "_notationAny",
+    "_notationCamel",
+    "_randomArray",
+    "_randomFormatRegex",
     "_randomFormatUuid",
     "_randomInteger",
+    "_randomString",
     "_ProtobufSizer",
     "_ProtobufWriter",
     "_ProtobufReader",
@@ -53,4 +62,10 @@ export async function test_emit_internal_imports(): Promise<void> {
   assert.ok(emitted.includes("Search operation.\\n\\nSearch users."));
   assert.ok(emitted.includes('"description":"LLM user payload."'));
   assert.ok(emitted.includes('"description":"Search result payload."'));
+  assert.ok(emitted.includes("input.values.map"));
+  assert.equal(emitted.includes("JSON.stringify(input.values)"), false);
+  assert.ok(emitted.includes("new Blob([new Uint8Array("));
+  assert.ok(emitted.includes("new File([new Uint8Array("));
+  assert.ok(emitted.includes("minLength: 1, maxLength: 8"));
+  assert.ok(emitted.includes("minLength: 3, maxLength: 3"));
 }

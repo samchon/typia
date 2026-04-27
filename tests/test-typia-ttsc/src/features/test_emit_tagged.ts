@@ -36,6 +36,7 @@ export async function test_emit_tagged(): Promise<void> {
     is_url: (x: unknown) => boolean;
     is_duration: (x: unknown) => boolean;
     is_json_pointer: (x: unknown) => boolean;
+    is_custom_import_internal: (x: unknown) => boolean;
   };
 
   // Format<"email">
@@ -85,4 +86,14 @@ export async function test_emit_tagged(): Promise<void> {
   assert.equal(mod.is_json_pointer("/foo/bar"), true);
   assert.equal(mod.is_json_pointer(""), true, "empty pointer is valid");
   assert.equal(mod.is_json_pointer("no slash"), false);
+
+  // Custom TagBase validate using $importInternal("...") macro.
+  assert.equal(mod.is_custom_import_internal("user@example.com"), true);
+  assert.equal(mod.is_custom_import_internal("no at sign"), false);
+
+  const emitted = fs.readFileSync(mainPath, "utf8");
+  assert.ok(emitted.includes("typia/lib/internal/_isFormatEmail"));
+  assert.ok(
+    emitted.includes("__typia_transform_isFormatEmail._isFormatEmail(input)"),
+  );
 }

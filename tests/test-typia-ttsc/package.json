@@ -5,7 +5,7 @@
   "description": "End-to-end tests for typia over the external ttsc package.",
   "scripts": {
     "dev": "ttsx src/index.ts",
-    "build:backend": "bash -c 'export PATH=\"$HOME/go-sdk/go/bin:$PATH\"; cd ../../packages/transform/native && go build -o ../../../packages/typia/bin/ttsc-typia-native ./cmd/ttsc-typia'",
+    "build:backend": "bash -c 'export PATH=\"$HOME/go-sdk/go/bin:$PATH\"; cd ../../packages/transform/native && go build -trimpath -ldflags=\"-s -w\" -o ../../../packages/typia/bin/ttsc-typia-native ./cmd/ttsc-typia'",
     "build:packages": "pnpm --filter typia build",
     "build:go": "ttsc --version",
     "prestart": "pnpm run build:packages && pnpm run build:backend",
@@ -16,11 +16,7 @@
     "type": "git",
     "url": "https://github.com/samchon/typia"
   },
-  "keywords": [
-    "typia",
-    "ttsc",
-    "test"
-  ],
+  "keywords": ["typia", "ttsc", "test"],
   "author": "Jeongho Nam",
   "license": "MIT",
   "bugs": {

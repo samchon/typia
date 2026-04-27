@@ -60,7 +60,7 @@ func TestEmitIsUnion(t *testing.T) {
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
-	want := `("number" === typeof input && Number.isFinite(input) || "string" === typeof input)`
+	want := `("string" === typeof input || "number" === typeof input && Number.isFinite(input))`
 	if got != want {
 		t.Errorf("got %q want %q", got, want)
 	}
@@ -75,7 +75,7 @@ func TestEmitIsLiteralUnion(t *testing.T) {
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
-	want := `("active" === input || "archived" === input || "pending" === input)`
+	want := `("pending" === input || "active" === input || "archived" === input)`
 	if got != want {
 		t.Errorf("got %q want %q", got, want)
 	}
@@ -88,7 +88,7 @@ func TestEmitIsNullable(t *testing.T) {
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
-	want := `("string" === typeof input || null === input)`
+	want := `(null === input || "string" === typeof input)`
 	if got != want {
 		t.Errorf("got %q want %q", got, want)
 	}

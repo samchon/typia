@@ -169,20 +169,109 @@ func typeTagCheck(ve, target, kind string) string {
 }
 
 // expandValidate substitutes `$input` in a validate template with the actual
-// value expression, removing any `$importInternal(...)` wrappers because the
-// runtime that would resolve them isn't present in the emitted JS.
+// value expression and resolves typia's `$importInternal(...)` macros to the
+// namespace imports used by this emitter.
 func expandValidate(template, ve string) string {
 	if len(template) >= 2 && template[0] == '`' && template[len(template)-1] == '`' {
 		template = template[1 : len(template)-1]
 	}
-	// Strip `$importInternal("…")(` / `)` pairs; the inner expression tends
-	// to be a plain JS call using `$input` that is fine on its own *if* we
-	// also emit the helper somewhere. Phase 1 will inject the helper; for
-	// now we skip this family.
 	if strings.Contains(template, "$importInternal") {
-		return ""
+		rewritten, ok := rewriteImportInternal(template)
+		if !ok {
+			return ""
+		}
+		template = rewritten
 	}
 	return eraseValidateTypeAnnotations(strings.ReplaceAll(template, "$input", ve))
+}
+
+func rewriteImportInternal(template string) (string, bool) {
+	ok := true
+	rewritten := importInternalCallPattern.ReplaceAllStringFunc(template, func(match string) string {
+		groups := importInternalCallPattern.FindStringSubmatch(match)
+		if len(groups) != 2 {
+			ok = false
+			return match
+		}
+		ref, exists := internalHelperReference(groups[1])
+		if !exists {
+			ok = false
+			return match
+		}
+		return ref
+	})
+	return rewritten, ok
+}
+
+func internalHelperReference(name string) (string, bool) {
+	base := strings.TrimPrefix(name, "_")
+	alias := ""
+	switch base {
+	case "isBigintString":
+		alias = isBigintStringImportAlias
+	case "isBetween":
+		alias = isBetweenImportAlias
+	case "isFormatByte":
+		alias = isFormatByteImportAlias
+	case "isFormatDate":
+		alias = isFormatDateImportAlias
+	case "isFormatDateTime":
+		alias = isFormatDateTimeImportAlias
+	case "isFormatDuration":
+		alias = isFormatDurationImportAlias
+	case "isFormatEmail":
+		alias = isFormatEmailImportAlias
+	case "isFormatHostname":
+		alias = isFormatHostnameImportAlias
+	case "isFormatIdnEmail":
+		alias = isFormatIdnEmailImportAlias
+	case "isFormatIdnHostname":
+		alias = isFormatIdnHostnameAlias
+	case "isFormatIpv4":
+		alias = isFormatIpv4ImportAlias
+	case "isFormatIpv6":
+		alias = isFormatIpv6ImportAlias
+	case "isFormatIri":
+		alias = isFormatIriImportAlias
+	case "isFormatIriReference":
+		alias = isFormatIriReferenceAlias
+	case "isFormatJsonPointer":
+		alias = isFormatJsonPointerAlias
+	case "isFormatPassword":
+		alias = isFormatPasswordAlias
+	case "isFormatRegex":
+		alias = isFormatRegexImportAlias
+	case "isFormatRelativeJsonPointer":
+		alias = isFormatRelativeJsonPtrAlias
+	case "isFormatTime":
+		alias = isFormatTimeImportAlias
+	case "isFormatUri":
+		alias = isFormatUriImportAlias
+	case "isFormatUriReference":
+		alias = isFormatUriReferenceAlias
+	case "isFormatUriTemplate":
+		alias = isFormatUriTemplateAlias
+	case "isFormatUrl":
+		alias = isFormatUrlImportAlias
+	case "isFormatUuid":
+		alias = isFormatUuidImportAlias
+	case "isTypeFloat":
+		alias = isTypeFloatImportAlias
+	case "isTypeInt32":
+		alias = isTypeInt32ImportAlias
+	case "isTypeInt64":
+		alias = isTypeInt64ImportAlias
+	case "isTypeUint32":
+		alias = isTypeUint32ImportAlias
+	case "isTypeUint64":
+		alias = isTypeUint64ImportAlias
+	case "isUniqueItems":
+		alias = isUniqueItemsImportAlias
+	}
+	if alias == "" {
+		return "", false
+	}
+	return alias + "._" + base, true
 }
 
 func eraseValidateTypeAnnotations(input string) string {
@@ -240,7 +329,10 @@ func eraseValidateTypeAnnotations(input string) string {
 	return builder.String()
 }
 
-var validateVariableTypePattern = regexp.MustCompile(`\b(const|let|var)\s+([A-Za-z_$][A-Za-z0-9_$]*)\s*:\s*([^=]+?)\s*=`)
+var (
+	importInternalCallPattern   = regexp.MustCompile(`\$importInternal\("([^"]+)"\)`)
+	validateVariableTypePattern = regexp.MustCompile(`\b(const|let|var)\s+([A-Za-z_$][A-Za-z0-9_$]*)\s*:\s*([^=]+?)\s*=`)
+)
 
 func skipTypeAnnotation(input string, start int) int {
 	depthAngles := 0

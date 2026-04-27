@@ -28,10 +28,21 @@ export async function test_emit_http(): Promise<void> {
       tag: string[];
       sort?: string;
     };
+    parseAliasQuery: (x: URLSearchParams | Record<string, unknown>) => {
+      keyword: string;
+      limit?: number;
+    };
     parseIntParam: (x: string) => number;
     parseBoolParam: (x: string) => boolean;
     parseBigintParam: (x: string) => bigint;
     parseLiteralParam: (x: string) => 3;
+    parseHeaders: (x: Record<string, string | string[] | undefined>) => {
+      age: number;
+      active: boolean;
+      cookie: string[];
+      "x-tags": string[];
+      "set-cookie": string[];
+    };
     parseFormData: (x: FormData) => {
       title: string;
       count: number;
@@ -69,6 +80,21 @@ export async function test_emit_http(): Promise<void> {
   assert.equal(mod.parseLiteralParam("3"), 3);
   assert.throws(() => mod.parseLiteralParam("4"), /expect to be 3/);
 
+  const headers = mod.parseHeaders({
+    age: "42",
+    active: "true",
+    cookie: "foo=1; bar=2",
+    "x-tags": " alpha, beta ",
+    "set-cookie": ["sid=1", "theme=dark"],
+  });
+  assert.deepEqual(headers, {
+    age: 42,
+    active: true,
+    cookie: ["foo=1", "bar=2"],
+    "x-tags": ["alpha", "beta"],
+    "set-cookie": ["sid=1", "theme=dark"],
+  });
+
   // query with multi-value tag, missing sort.
   const q = mod.parseQuery(new URLSearchParams("page=2&size=10&tag=red&tag=blue"));
   assert.equal(q.page, 2);
@@ -89,6 +115,11 @@ export async function test_emit_http(): Promise<void> {
     mod.parseQuery(new URLSearchParams("page=1")).size,
     undefined,
     "raw query decoder must not throw on missing required values",
+  );
+  assert.deepEqual(
+    mod.parseAliasQuery(new URLSearchParams("keyword=typia&limit=3")),
+    { keyword: "typia", limit: 3 },
+    "metadata-valid generic aliases must not be rejected as nested objects",
   );
 
   const file = new File(["hello"], "hello.txt", { type: "text/plain" });

@@ -10,12 +10,19 @@ interface Member {
   name: string;
   active: boolean;
 }
+type DynamicJson = { fixed_value: string } & Record<
+  `extra_${string}`,
+  { first_name: string }
+>;
 
 export const stringify_number = (input: number): string =>
   typia.json.stringify<number>(input);
 
 export const stringify_string = (input: string): string =>
   typia.json.stringify<string>(input);
+
+export const stringify_literal = (input: "literal"): string =>
+  typia.json.stringify<"literal">(input);
 
 export const stringify_point = (input: Point): string =>
   typia.json.stringify<Point>(input);
@@ -28,6 +35,21 @@ export const stringify_member = (input: Member): string =>
 
 export const stringify_array = (input: number[]): string =>
   typia.json.stringify<number[]>(input);
+
+export const stringify_date = (input: Date): string =>
+  typia.json.stringify<Date>(input);
+
+export const stringify_union = (input: string | number): string =>
+  typia.json.stringify<string | number>(input);
+
+export const stringify_nullable_string = (input: string | null): string =>
+  typia.json.stringify<string | null>(input);
+
+export const stringify_tuple = (input: [string, number, ...string[]]): string =>
+  typia.json.stringify<[string, number, ...string[]]>(input);
+
+export const stringify_dynamic = (input: DynamicJson): string =>
+  typia.json.stringify<DynamicJson>(input);
 
 export const parse_point = (input: string): Point =>
   typia.json.assertParse<Point>(input);

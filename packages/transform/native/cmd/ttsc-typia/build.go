@@ -227,7 +227,7 @@ func collectTypiaRewrites(
 			diagnostics = append(diagnostics, newTypiaTransformDiagnostic(site, reason))
 			continue
 		}
-		expr, factory, err, handled := typiattsc.EmitCall(site.Module, site.Method, schema, site.TypeNode, site.ConfigTypeNode)
+		expr, factory, err, handled := typiattsc.EmitCall(prog.Checker, site.Module, site.Method, schema, site.TypeNode, site.ConfigTypeNode)
 		if !handled {
 			diagnostics = append(diagnostics, newTypiaTransformDiagnostic(site, "method not covered"))
 			continue

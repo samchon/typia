@@ -26,8 +26,7 @@ func EmitHttpParameterArrowFunction(schema *metadata.Schema) (string, error) {
 	if lit, ok := schema.GetSoleLiteral(); ok {
 		return fmt.Sprintf(`(input) => (input === %s ? input : (() => { throw new Error("typia.http.parameter: expected %s") })())`, jsonQuote(lit), jsEscape(lit)), nil
 	}
-	// Fallback: return input as-is (user receives the raw string).
-	return "(input) => input", nil
+	return "", fmt.Errorf("%w: http parameter only atomic or constant types are allowed", ErrUnsupportedSchema)
 }
 
 func EmitHttpHeadersObjectArrowFunction(schema *metadata.Schema) (string, error) {
@@ -44,13 +43,7 @@ func EmitHttpHeadersObjectArrowFunction(schema *metadata.Schema) (string, error)
 	b.WriteString(`const __get = (key) => { if (!input) return undefined; return input[key]; };`)
 	b.WriteString(`const out = {};`)
 
-	props := append([]*metadata.Property{}, obj.Properties...)
-	sort.Slice(props, func(i, j int) bool {
-		ki, _ := props[i].Key.GetSoleLiteral()
-		kj, _ := props[j].Key.GetSoleLiteral()
-		return ki < kj
-	})
-	for _, p := range props {
+	for _, p := range obj.Properties {
 		name, ok := p.Key.GetSoleLiteral()
 		if !ok {
 			continue
@@ -157,10 +150,7 @@ func httpQueryProperty(s *metadata.Schema, name string) (string, error) {
 		if httpTemplateLike(elemSchema) {
 			return fmt.Sprintf(` { const value = __getAll(%s).map((elem) => %s._httpQueryReadString(elem)); out[%s] = %s; }`, quoted, httpQueryReadStringAlias, quoted, httpQueryArrayWrapExpr("value", s)), nil
 		}
-		if nativeExpr, ok := httpNativePassthroughExpr("v", elemSchema); ok {
-			return fmt.Sprintf(` { const value = __getAll(%s).map((v) => %s); out[%s] = %s; }`, quoted, nativeExpr, quoted, httpQueryArrayWrapExpr("value", s)), nil
-		}
-		return "", fmt.Errorf("%w: http.query array element must be atomic or native", ErrUnsupportedSchema)
+		return "", fmt.Errorf("%w: http query array elements must be atomic or constant", ErrUnsupportedSchema)
 	}
 	kind, ok := s.IsSoleAtomic()
 	if ok {
@@ -172,10 +162,7 @@ func httpQueryProperty(s *metadata.Schema, name string) (string, error) {
 	if httpTemplateLike(s) {
 		return fmt.Sprintf(` { const value = %s._httpQueryReadString(__get(%s)); out[%s] = %s; }`, httpQueryReadStringAlias, quoted, quoted, httpQueryRequiredWrapExpr("value", name, s)), nil
 	}
-	if nativeExpr, ok := httpNativePassthroughExpr("v", s); ok {
-		return fmt.Sprintf(` { const v = __get(%s); const value = %s; out[%s] = %s; }`, quoted, nativeExpr, quoted, httpQueryRequiredWrapExpr("value", name, s)), nil
-	}
-	return fmt.Sprintf(` { const value = __get(%s); out[%s] = %s; }`, quoted, quoted, httpQueryRequiredWrapExpr("value", name, s)), nil
+	return "", fmt.Errorf("%w: http query property must be atomic, constant, template, or an array of them", ErrUnsupportedSchema)
 }
 
 func httpFormDataProperty(s *metadata.Schema, name string) (string, error) {
@@ -248,13 +235,17 @@ func httpHeadersProperty(s *metadata.Schema, name string) (string, error) {
 		reader := `((str) => str.trim())`
 		switch {
 		case len(name) != 0 && strings.EqualFold(name, "set-cookie"):
-			return fmt.Sprintf(` { const value = __get(%s); out[%s] = Array.isArray(value) ? value.slice() : value; }`, lower, quoted), nil
+			return fmt.Sprintf(` out[%s] = __get(%s);`, quoted, lower), nil
 		case func() bool { _, ok := elemSchema.IsSoleAtomic(); return ok }():
 			kind, _ := elemSchema.IsSoleAtomic()
-			reader = httpHeaderReader(kind)
+			if kind != metadata.AtomicString {
+				reader = httpHeaderReader(kind)
+			}
 		case func() bool { _, ok := httpConstantAtomicKind(elemSchema); return ok }():
 			kind, _ := httpConstantAtomicKind(elemSchema)
-			reader = httpHeaderReader(kind)
+			if kind != metadata.AtomicString {
+				reader = httpHeaderReader(kind)
+			}
 		case httpTemplateLike(elemSchema):
 			reader = `((str) => str.trim())`
 		default:
@@ -308,19 +299,6 @@ func httpParameterReader(ve string, kind metadata.AtomicKind) string {
 		return httpParameterReadBigintAlias + "._httpParameterReadBigint(" + ve + ")"
 	}
 	return ve
-}
-
-func httpNativePassthroughExpr(ve string, schema *metadata.Schema) (string, bool) {
-	if schema == nil || len(schema.Natives) != 1 || schema.Size() != 1 {
-		return "", false
-	}
-	name := schema.Natives[0].Name
-	switch name {
-	case "Blob", "File":
-		return ve, true
-	default:
-		return "", false
-	}
 }
 
 func httpConstantAtomicKind(schema *metadata.Schema) (metadata.AtomicKind, bool) {

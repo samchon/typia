@@ -248,8 +248,6 @@ func (s *isState) buildIs(ve string, sc *metadata.Schema) (string, error) {
 	if len(alternatives) == 1 {
 		return alternatives[0], nil
 	}
-	// Stable ordering so test diffs are deterministic.
-	sort.Strings(alternatives)
 	return "(" + strings.Join(alternatives, " || ") + ")", nil
 }
 
@@ -519,7 +517,6 @@ func (s *isState) emitObjectUnionCheck(ve string, refs []*metadata.ObjectRef) (s
 		}
 		plain = append(plain, chunk)
 	}
-	sort.Strings(plain)
 	return "(" + strings.Join(plain, " || ") + ")", nil
 }
 

@@ -13,6 +13,8 @@ import (
 
 type randomDirectState struct {
 	objects        map[*metadata.ObjectType]string
+	arrays         map[*metadata.ArrayType]string
+	tuples         map[*metadata.TupleType]string
 	visiting       map[*metadata.Schema]bool
 	visitingArrays map[*metadata.ArrayType]bool
 	visitingTuples map[*metadata.TupleType]bool
@@ -25,7 +27,7 @@ func emitRandomDirectArrowFunction(schema *metadata.Schema) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	return fmt.Sprintf(`(() => { %slet _generator; let _recursive = false; let _depth = 0; return (generator) => { _generator = generator; return %s; }; })()`, state.objectHelpers(), body), nil
+	return fmt.Sprintf(`(() => { %slet _generator; let _recursive = false; let _depth = 0; return (generator) => { _generator = generator; return %s; }; })()`, state.localHelpers(), body), nil
 }
 
 func emitCreateRandomDirectArrowFunction(schema *metadata.Schema) (string, error) {
@@ -34,12 +36,15 @@ func emitCreateRandomDirectArrowFunction(schema *metadata.Schema) (string, error
 	if err != nil {
 		return "", err
 	}
-	return fmt.Sprintf(`(() => { %slet _generator; let _recursive = false; let _depth = 0; return (generator) => { _generator = generator; return () => %s; }; })()`, state.objectHelpers(), body), nil
+	return fmt.Sprintf(`(() => { %slet _generator; let _recursive = false; let _depth = 0; return (generator) => { _generator = generator; return () => %s; }; })()`, state.localHelpers(), body), nil
 }
 
 func newRandomDirectState(schema *metadata.Schema) *randomDirectState {
+	objects, arrays, tuples := collectRandomHelpers(schema)
 	return &randomDirectState{
-		objects:        collectRandomObjects(schema),
+		objects:        objects,
+		arrays:         arrays,
+		tuples:         tuples,
 		visiting:       map[*metadata.Schema]bool{},
 		visitingArrays: map[*metadata.ArrayType]bool{},
 		visitingTuples: map[*metadata.TupleType]bool{},
@@ -47,12 +52,14 @@ func newRandomDirectState(schema *metadata.Schema) *randomDirectState {
 	}
 }
 
-func collectRandomObjects(root *metadata.Schema) map[*metadata.ObjectType]string {
-	seen := map[*metadata.ObjectType]string{}
+func collectRandomHelpers(root *metadata.Schema) (map[*metadata.ObjectType]string, map[*metadata.ArrayType]string, map[*metadata.TupleType]string) {
+	seenObjects := map[*metadata.ObjectType]string{}
+	seenArrays := map[*metadata.ArrayType]string{}
+	seenTuples := map[*metadata.TupleType]string{}
 	seenSchemas := map[*metadata.Schema]bool{}
-	seenArrays := map[*metadata.ArrayType]bool{}
+	walkedArrays := map[*metadata.ArrayType]bool{}
 	seenArrayNames := map[string]bool{}
-	seenTuples := map[*metadata.TupleType]bool{}
+	walkedTuples := map[*metadata.TupleType]bool{}
 	seenTupleNames := map[string]bool{}
 	seenAliases := map[*metadata.AliasType]bool{}
 	seenAliasNames := map[string]bool{}
@@ -73,10 +80,15 @@ func collectRandomObjects(root *metadata.Schema) map[*metadata.ObjectType]string
 		}
 		for _, ref := range schema.Arrays {
 			if ref != nil && ref.Type != nil {
-				if seenArrays[ref.Type] || (ref.Type.Name != "" && seenArrayNames[ref.Type.Name]) {
+				if ref.Type.Recursive {
+					if _, ok := seenArrays[ref.Type]; !ok {
+						seenArrays[ref.Type] = fmt.Sprintf("_ra%d", len(seenArrays))
+					}
+				}
+				if walkedArrays[ref.Type] || (ref.Type.Name != "" && seenArrayNames[ref.Type.Name]) {
 					continue
 				}
-				seenArrays[ref.Type] = true
+				walkedArrays[ref.Type] = true
 				if ref.Type.Name != "" {
 					seenArrayNames[ref.Type.Name] = true
 				}
@@ -85,10 +97,15 @@ func collectRandomObjects(root *metadata.Schema) map[*metadata.ObjectType]string
 		}
 		for _, ref := range schema.Tuples {
 			if ref != nil && ref.Type != nil {
-				if seenTuples[ref.Type] || (ref.Type.Name != "" && seenTupleNames[ref.Type.Name]) {
+				if ref.Type.Recursive {
+					if _, ok := seenTuples[ref.Type]; !ok {
+						seenTuples[ref.Type] = fmt.Sprintf("_rt%d", len(seenTuples))
+					}
+				}
+				if walkedTuples[ref.Type] || (ref.Type.Name != "" && seenTupleNames[ref.Type.Name]) {
 					continue
 				}
-				seenTuples[ref.Type] = true
+				walkedTuples[ref.Type] = true
 				if ref.Type.Name != "" {
 					seenTupleNames[ref.Type.Name] = true
 				}
@@ -101,8 +118,8 @@ func collectRandomObjects(root *metadata.Schema) map[*metadata.ObjectType]string
 			if ref == nil || ref.Type == nil {
 				continue
 			}
-			if _, ok := seen[ref.Type]; !ok {
-				seen[ref.Type] = fmt.Sprintf("_ro%d", len(seen))
+			if _, ok := seenObjects[ref.Type]; !ok {
+				seenObjects[ref.Type] = fmt.Sprintf("_ro%d", len(seenObjects))
 				for _, prop := range ref.Type.Properties {
 					if prop != nil {
 						walk(prop.Value)
@@ -143,13 +160,21 @@ func collectRandomObjects(root *metadata.Schema) map[*metadata.ObjectType]string
 		}
 	}
 	walk(root)
-	return seen
+	return seenObjects, seenArrays, seenTuples
+}
+
+func (s *randomDirectState) localHelpers() string {
+	if len(s.objects) == 0 && len(s.arrays) == 0 && len(s.tuples) == 0 {
+		return ""
+	}
+	var b strings.Builder
+	b.WriteString(s.objectHelpers())
+	b.WriteString(s.arrayHelpers())
+	b.WriteString(s.tupleHelpers())
+	return b.String()
 }
 
 func (s *randomDirectState) objectHelpers() string {
-	if len(s.objects) == 0 {
-		return ""
-	}
 	objects := make([]*metadata.ObjectType, 0, len(s.objects))
 	for obj := range s.objects {
 		objects = append(objects, obj)
@@ -169,8 +194,56 @@ func (s *randomDirectState) objectHelpers() string {
 	return b.String()
 }
 
+func (s *randomDirectState) arrayHelpers() string {
+	arrays := make([]*metadata.ArrayType, 0, len(s.arrays))
+	for array := range s.arrays {
+		arrays = append(arrays, array)
+	}
+	sort.SliceStable(arrays, func(i, j int) bool {
+		return randomHelperOrdinal(s.arrays[arrays[i]]) < randomHelperOrdinal(s.arrays[arrays[j]])
+	})
+	var b strings.Builder
+	for _, array := range arrays {
+		elem, err := s.decode(array.Value, true)
+		if err != nil {
+			elem = "undefined"
+		}
+		b.WriteString("const ")
+		b.WriteString(s.arrays[array])
+		b.WriteString(" = (_schema, _recursive = true, _depth = 0) => ")
+		b.WriteString("(5 >= _depth ? ")
+		b.WriteString(fmt.Sprintf("(_generator?.array ?? %s._randomArray)({..._schema, \"element\": () => %s})", randomArrayImportAlias, elem))
+		b.WriteString(" : []); ")
+	}
+	return b.String()
+}
+
+func (s *randomDirectState) tupleHelpers() string {
+	tuples := make([]*metadata.TupleType, 0, len(s.tuples))
+	for tuple := range s.tuples {
+		tuples = append(tuples, tuple)
+	}
+	sort.SliceStable(tuples, func(i, j int) bool {
+		return randomHelperOrdinal(s.tuples[tuples[i]]) < randomHelperOrdinal(s.tuples[tuples[j]])
+	})
+	var b strings.Builder
+	for _, tuple := range tuples {
+		body, err := s.tupleLiteral(tuple, true, false)
+		if err != nil {
+			body = "[]"
+		}
+		b.WriteString("const ")
+		b.WriteString(s.tuples[tuple])
+		b.WriteString(" = (_recursive = true, _depth = 0) => ")
+		b.WriteString(body)
+		b.WriteString("; ")
+	}
+	return b.String()
+}
+
 func randomHelperOrdinal(name string) int {
-	value, err := strconv.Atoi(strings.TrimPrefix(name, "_ro"))
+	trimmed := strings.TrimPrefix(strings.TrimPrefix(strings.TrimPrefix(name, "_ro"), "_ra"), "_rt")
+	value, err := strconv.Atoi(trimmed)
 	if err != nil {
 		return 0
 	}
@@ -433,6 +506,13 @@ func (s *randomDirectState) decodeTemplate(t metadata.Template, recursive bool) 
 }
 
 func (s *randomDirectState) decodeArray(ref *metadata.ArrayRef, recursive bool) (string, error) {
+	if name, ok := s.arrays[ref.Type]; ok {
+		schema, err := randomArraySchemaLiteral(ref)
+		if err != nil {
+			return "", err
+		}
+		return fmt.Sprintf("%s(%s)", name, schema), nil
+	}
 	if s.visitingArrays[ref.Type] {
 		return "[]", nil
 	}
@@ -454,6 +534,16 @@ func (s *randomDirectState) decodeArray(ref *metadata.ArrayRef, recursive bool) 
 }
 
 func (s *randomDirectState) decodeTuple(tuple *metadata.TupleType, recursive bool) (string, error) {
+	if name, ok := s.tuples[tuple]; ok {
+		if recursive {
+			return fmt.Sprintf("%s(true, 1 + _depth)", name), nil
+		}
+		return fmt.Sprintf("%s(true, 0)", name), nil
+	}
+	return s.tupleLiteral(tuple, recursive, recursive || tuple.Recursive)
+}
+
+func (s *randomDirectState) tupleLiteral(tuple *metadata.TupleType, recursive bool, guard bool) (string, error) {
 	if s.visitingTuples[tuple] {
 		return "[]", nil
 	}
@@ -472,7 +562,7 @@ func (s *randomDirectState) decodeTuple(tuple *metadata.TupleType, recursive boo
 		parts = append(parts, expr)
 	}
 	body := "[" + strings.Join(parts, ", ") + "]"
-	if recursive || tuple.Recursive {
+	if guard {
 		return fmt.Sprintf("(5 >= _depth ? %s : [])", body), nil
 	}
 	return body, nil
@@ -582,13 +672,30 @@ func (s *randomDirectState) decodeNative(name string, recursive bool) (string, e
 	case "Date":
 		return fmt.Sprintf("new Date((_generator?.datetime ?? %s._randomFormatDatetime)())", randomFormatDatetimeAlias), nil
 	case "RegExp":
-		return "new RegExp(/(?:)/)", nil
-	case "URL":
-		return "new URL(\"https://example.com\")", nil
-	case "ArrayBuffer", "SharedArrayBuffer":
-		return "new " + name + "()", nil
+		return fmt.Sprintf("new RegExp((_generator?.regex ?? %s._randomFormatRegex)())", randomFormatRegexAlias), nil
+	case "ArrayBuffer":
+		bytes, err := s.decodeNativeByteArray("Uint8Array", recursive)
+		if err != nil {
+			return "", err
+		}
+		return bytes + ".buffer", nil
+	case "SharedArrayBuffer":
+		length := randomAtomicCall(metadata.AtomicNumber, randomAtomicSchema(metadata.AtomicNumber, metadata.TagMatrix{{
+			{Kind: "type", Target: string(metadata.AtomicNumber), Value: "uint32"},
+		}}))
+		byteSchema := randomAtomicSchema(metadata.AtomicNumber, metadata.TagMatrix{{
+			{Kind: "type", Target: string(metadata.AtomicNumber), Value: "uint32"},
+			{Kind: "minimum", Target: string(metadata.AtomicNumber), Value: 0},
+			{Kind: "maximum", Target: string(metadata.AtomicNumber), Value: 255},
+		}})
+		byteValue := randomAtomicCall(metadata.AtomicNumber, byteSchema)
+		return fmt.Sprintf(`(() => { const length = %s; const buffer = new SharedArrayBuffer(length); const bytes = new Uint8Array(buffer); bytes.set(new Array(length).fill(0).map(() => %s), 0); return buffer; })()`, length, byteValue), nil
 	case "DataView":
-		return "new DataView(new ArrayBuffer())", nil
+		bytes, err := s.decodeNativeByteArray("Uint8Array", recursive)
+		if err != nil {
+			return "", err
+		}
+		return "new DataView(" + bytes + ".buffer)", nil
 	case "Blob":
 		bytes, err := s.decodeNativeByteArray("Uint8Array", recursive)
 		if err != nil {
@@ -632,9 +739,9 @@ func nativeByteArrayAtomic(name string) (metadata.AtomicKind, []metadata.TypeTag
 	case "Uint16Array":
 		typeSpec, minimum, maximum = "uint32", 0, 65535
 	case "Uint32Array":
-		typeSpec, minimum, maximum = "uint32", 0, int64(4294967295)
+		typeSpec, minimum, maximum = "uint32", 0, 4294967295
 	case "BigUint64Array":
-		typeSpec, minimum, maximum, kind = "uint64", 0, int64(9007199254740991), metadata.AtomicBigint
+		typeSpec, minimum, maximum, kind = "uint64", 0, 18446744073709551615.0, metadata.AtomicBigint
 	case "Int8Array":
 		typeSpec, minimum, maximum = "int32", -128, 127
 	case "Int16Array":
@@ -642,11 +749,11 @@ func nativeByteArrayAtomic(name string) (metadata.AtomicKind, []metadata.TypeTag
 	case "Int32Array":
 		typeSpec, minimum, maximum = "int32", -2147483648, 2147483647
 	case "BigInt64Array":
-		typeSpec, minimum, maximum, kind = "int64", int64(-9007199254740991), int64(9007199254740991), metadata.AtomicBigint
+		typeSpec, minimum, maximum, kind = "uint64", -9223372036854775808.0, 9223372036854775807.0, metadata.AtomicBigint
 	case "Float32Array":
-		typeSpec, minimum, maximum = "float", -3.4028235e38, 3.4028235e38
+		typeSpec, minimum, maximum = "float", -1.175494351e38, 3.4028235e38
 	case "Float64Array":
-		typeSpec, minimum, maximum = "double", -1e100, 1e100
+		typeSpec, minimum, maximum = "double", 5e-324, 1.7976931348623157e308
 	}
 	return kind, []metadata.TypeTag{
 		{Kind: "type", Target: string(kind), Value: typeSpec},
@@ -661,7 +768,14 @@ func writeRangedString(min, max int) string {
 
 func randomArraySchemaLiteral(ref *metadata.ArrayRef) (string, error) {
 	tmp := metadata.NewSchema()
-	tmp.Arrays = append(tmp.Arrays, ref)
+	arrayRef := ref
+	if ref != nil && ref.Type != nil && ref.Type.Recursive {
+		shallow := *ref.Type
+		shallow.Value = metadata.NewSchema()
+		shallow.Recursive = false
+		arrayRef = &metadata.ArrayRef{Type: &shallow, Tags: ref.Tags}
+	}
+	tmp.Arrays = append(tmp.Arrays, arrayRef)
 	encoder := newRandomSchemaEncoder()
 	raw, err := encoder.encodeSchema(tmp)
 	if err != nil {

@@ -110,3 +110,25 @@ func TestFormatHelpersCover10(t *testing.T) {
 		}
 	}
 }
+
+func TestExpandValidateResolvesImportInternal(t *testing.T) {
+	expr := expandValidate(`$importInternal("isFormatEmail")($input)`, "input.email")
+	expected := isFormatEmailImportAlias + "._isFormatEmail(input.email)"
+	if expr != expected {
+		t.Fatalf("expected %q, got %q", expected, expr)
+	}
+}
+
+func TestExpandValidateResolvesUnderscoredImportInternal(t *testing.T) {
+	expr := expandValidate(`$importInternal("_isFormatUuid")($input)`, "input.id")
+	expected := isFormatUuidImportAlias + "._isFormatUuid(input.id)"
+	if expr != expected {
+		t.Fatalf("expected %q, got %q", expected, expr)
+	}
+}
+
+func TestExpandValidateSkipsUnknownImportInternal(t *testing.T) {
+	if expr := expandValidate(`$importInternal("notAHelper")($input)`, "input.value"); expr != "" {
+		t.Fatalf("expected unknown helper to be skipped, got %q", expr)
+	}
+}
