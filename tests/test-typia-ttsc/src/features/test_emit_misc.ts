@@ -135,6 +135,12 @@ export async function test_emit_misc(): Promise<void> {
     randomSet: () => Set<string>;
     createRandomMap: () => Map<string, number>;
     createRandomSet: () => Set<string>;
+    randomRecursiveCollections: () => {
+      name: string;
+      tags: Set<string>;
+      scores: Map<string, number>;
+      children: unknown[];
+    } & Record<`extra_${string}`, string>;
   };
 
   assert.deepEqual([...mod.statuses].sort(), ["active", "archived", "pending"]);
@@ -146,7 +152,9 @@ export async function test_emit_misc(): Promise<void> {
   assert.match(mod.regularAliasName, /^TypeLiteral#[0-9]+$/);
   assert.equal(mod.nonRegularAliasName, "{ value: string }");
   assert.match(mod.regularConditionalName, /^TypeLiteral#[0-9]+$/);
-  const reflectedObject = mod.reflected.components.objects[0]!;
+  const reflectedObject = mod.reflected.components.objects.find(
+    (obj) => obj.name === "ReflectTarget",
+  )!;
   assert.equal(reflectedObject.name, "ReflectTarget");
   assert.equal(reflectedObject.description, "Reflect object docs.");
   assert.deepEqual(reflectedObject.jsDocTags, [
@@ -290,4 +298,11 @@ export async function test_emit_misc(): Promise<void> {
   assert.ok(mod.randomSet() instanceof Set);
   assert.ok(mod.createRandomMap() instanceof Map);
   assert.ok(mod.createRandomSet() instanceof Set);
+  const recursiveRandom = mod.randomRecursiveCollections();
+  assert.ok(recursiveRandom.tags instanceof Set);
+  assert.ok(recursiveRandom.scores instanceof Map);
+  assert.ok(Array.isArray(recursiveRandom.children));
+  assert.ok(emitted.includes("new Set((5 >= _depth ?"));
+  assert.ok(emitted.includes("new Map((5 >= _depth ?"));
+  assert.ok(emitted.includes("Object.fromEntries((5 >= _depth ?"));
 }

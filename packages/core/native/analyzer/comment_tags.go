@@ -43,6 +43,25 @@ func nodeJsDocTags(node *ast.Node) []jsDocTag {
 		if name == "" {
 			return
 		}
+		if text == "" {
+			prefix := name + "\x00"
+			for key := range seen {
+				if strings.HasPrefix(key, prefix) && key != prefix {
+					return
+				}
+			}
+		}
+		if text != "" && seen[name+"\x00"] {
+			filtered := output[:0]
+			for _, existing := range output {
+				if existing.Name == name && strings.TrimSpace(existing.Text) == "" {
+					continue
+				}
+				filtered = append(filtered, existing)
+			}
+			output = filtered
+			delete(seen, name+"\x00")
+		}
 		key := name + "\x00" + text
 		if seen[key] {
 			return

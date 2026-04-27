@@ -193,3 +193,72 @@ func TestRandomRecursiveTupleUsesLocalHelper(t *testing.T) {
 		}
 	}
 }
+
+func TestRandomRecursiveObjectUsesLegacyDepthArgument(t *testing.T) {
+	obj := &metadata.ObjectType{Name: "RecursiveObject", Index: 0, Recursive: true}
+	child := metadata.NewSchema()
+	child.Objects = append(child.Objects, &metadata.ObjectRef{Type: obj})
+	obj.Properties = []*metadata.Property{{
+		Key:   metadata.NewSchema().AddConstant(metadata.AtomicString, "child"),
+		Value: child,
+	}}
+	schema := metadata.NewSchema()
+	schema.Objects = append(schema.Objects, &metadata.ObjectRef{Type: obj})
+
+	got, err := EmitRandomArrowFunction(schema)
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, fragment := range []string{
+		"const _ro0 = (_recursive = false, _depth = 0) =>",
+		"child: _ro0(true, (_recursive ? 1 + _depth : _depth))",
+		"return _ro0();",
+	} {
+		if !strings.Contains(got, fragment) {
+			t.Fatalf("recursive object random should include %q:\n%s", fragment, got)
+		}
+	}
+}
+
+func TestRandomRecursiveCollectionsGuardArrayNotContainer(t *testing.T) {
+	value := metadata.NewSchema().AddAtomic(metadata.AtomicString)
+	schema := metadata.NewSchema()
+	schema.Sets = append(schema.Sets, &metadata.SetRef{Value: value})
+	schema.Maps = append(schema.Maps, &metadata.MapRef{
+		Key:   metadata.NewSchema().AddAtomic(metadata.AtomicString),
+		Value: metadata.NewSchema().AddAtomic(metadata.AtomicNumber),
+	})
+	object := &metadata.ObjectType{
+		Name:      "DynamicObject",
+		Index:     0,
+		Recursive: true,
+		DynamicProperties: []*metadata.Property{{
+			Key:   metadata.NewSchema().AddAtomic(metadata.AtomicString),
+			Value: metadata.NewSchema().AddAtomic(metadata.AtomicString),
+		}},
+	}
+	schema.Objects = append(schema.Objects, &metadata.ObjectRef{Type: object})
+
+	state := newRandomDirectState(schema)
+	setExpr, err := state.decodeSet(schema.Sets[0], true)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !strings.Contains(setExpr, "new Set((5 >= _depth ?") || strings.Contains(setExpr, "new Set())") {
+		t.Fatalf("recursive Set should guard generated array, not container:\n%s", setExpr)
+	}
+	mapExpr, err := state.decodeMap(schema.Maps[0], true)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !strings.Contains(mapExpr, "new Map((5 >= _depth ?") || strings.Contains(mapExpr, "new Map())") {
+		t.Fatalf("recursive Map should guard generated array, not container:\n%s", mapExpr)
+	}
+	dynamicExpr, err := state.decodeDynamicProperty(object.DynamicProperties[0], true)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !strings.Contains(dynamicExpr, "Object.fromEntries((5 >= _depth ?") {
+		t.Fatalf("recursive dynamic properties should guard generated entries array:\n%s", dynamicExpr)
+	}
+}

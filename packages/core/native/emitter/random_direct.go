@@ -574,7 +574,7 @@ func (s *randomDirectState) decodeObject(obj *metadata.ObjectType, recursive boo
 		name = fmt.Sprintf("_ro%d", obj.Index)
 	}
 	if recursive {
-		call := fmt.Sprintf("%s(true, 1 + _depth)", name)
+		call := fmt.Sprintf("%s(true, (_recursive ? 1 + _depth : _depth))", name)
 		if len(obj.Properties) == 0 && len(obj.DynamicProperties) != 0 {
 			return fmt.Sprintf("(5 >= _depth ? %s : {})", call)
 		}
@@ -624,7 +624,7 @@ func (s *randomDirectState) decodeDynamicProperty(prop *metadata.Property, recur
 		return "", err
 	}
 	entry := "[" + key + ", " + value + "]"
-	array := fmt.Sprintf("(_generator?.array ?? %s._randomArray)({ element: () => %s })", randomArrayImportAlias, entry)
+	array := randomCollectionArrayExpression(entry, recursive)
 	return "Object.fromEntries(" + array + ")", nil
 }
 
@@ -633,12 +633,7 @@ func (s *randomDirectState) decodeSet(set *metadata.SetRef, recursive bool) (str
 	if err != nil {
 		return "", err
 	}
-	array := fmt.Sprintf("(_generator?.array ?? %s._randomArray)({ element: () => %s })", randomArrayImportAlias, elem)
-	call := "new Set(" + array + ")"
-	if recursive {
-		return "(5 >= _depth ? " + call + " : new Set())", nil
-	}
-	return call, nil
+	return "new Set(" + randomCollectionArrayExpression(elem, recursive) + ")", nil
 }
 
 func (s *randomDirectState) decodeMap(mp *metadata.MapRef, recursive bool) (string, error) {
@@ -651,12 +646,15 @@ func (s *randomDirectState) decodeMap(mp *metadata.MapRef, recursive bool) (stri
 		return "", err
 	}
 	entry := "[" + key + ", " + value + "]"
-	array := fmt.Sprintf("(_generator?.array ?? %s._randomArray)({ element: () => %s })", randomArrayImportAlias, entry)
-	call := "new Map(" + array + ")"
+	return "new Map(" + randomCollectionArrayExpression(entry, recursive) + ")", nil
+}
+
+func randomCollectionArrayExpression(element string, recursive bool) string {
+	call := fmt.Sprintf("(_generator?.array ?? %s._randomArray)({ element: () => %s })", randomArrayImportAlias, element)
 	if recursive {
-		return "(5 >= _depth ? " + call + " : new Map())", nil
+		return "(5 >= _depth ? " + call + " : [])"
 	}
-	return call, nil
+	return call
 }
 
 func (s *randomDirectState) decodeNative(name string, recursive bool) (string, error) {

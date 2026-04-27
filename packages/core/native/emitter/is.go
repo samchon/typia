@@ -170,15 +170,6 @@ func (s *isState) buildIs(ve string, sc *metadata.Schema) (string, error) {
 		alternatives = append(alternatives, "undefined === "+ve)
 	}
 
-	// Atomics (+ attached tags).
-	for _, atom := range sc.Atomics {
-		base := atomicCheck(ve, atom.Type)
-		if base == "" {
-			continue
-		}
-		alternatives = append(alternatives, atomicWithTags(base, ve, atom.Tags))
-	}
-
 	// Literal constants.
 	for _, c := range sc.Constants {
 		for _, v := range c.Values {
@@ -186,6 +177,15 @@ func (s *isState) buildIs(ve string, sc *metadata.Schema) (string, error) {
 				alternatives = append(alternatives, e)
 			}
 		}
+	}
+
+	// Atomics (+ attached tags).
+	for _, atom := range sc.Atomics {
+		base := atomicCheck(ve, atom.Type)
+		if base == "" {
+			continue
+		}
+		alternatives = append(alternatives, atomicWithTags(base, ve, atom.Tags))
 	}
 	for _, t := range sc.Templates {
 		if e := templateCheck(ve, t); e != "" {

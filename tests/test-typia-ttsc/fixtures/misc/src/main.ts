@@ -22,6 +22,12 @@ interface RecursiveClone {
   name_value: string;
   children: RecursiveClone[];
 }
+type RecursiveRandomCollections = {
+  name: string;
+  tags: Set<string>;
+  scores: Map<string, number>;
+  children: RecursiveRandomCollections[];
+} & Record<`extra_${string}`, string>;
 /**
  * Reflect object docs.
  *
@@ -32,8 +38,11 @@ interface ReflectTarget {
    * Visible property docs.
    *
    * @deprecated Use replacement.
-   * @example first sample
-   * @example second sample
+   * @example
+   *   first sample
+   *
+   * @example
+   *   second sample
    */
   readonly value: `prefix-${number}`;
 }
@@ -93,3 +102,5 @@ export const randomMap = () => typia.random<Map<string, number>>();
 export const randomSet = () => typia.random<Set<string>>();
 export const createRandomMap = typia.createRandom<Map<string, number>>();
 export const createRandomSet = typia.createRandom<Set<string>>();
+export const randomRecursiveCollections = () =>
+  typia.random<RecursiveRandomCollections>();

@@ -81,6 +81,20 @@ func TestEmitIsLiteralUnion(t *testing.T) {
 	}
 }
 
+func TestEmitIsConstantsPrecedeAtomics(t *testing.T) {
+	s := metadata.NewSchema().
+		AddAtomic(metadata.AtomicString).
+		AddConstant(metadata.AtomicString, "pending")
+	got, err := EmitIs("input", s)
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+	want := `("pending" === input || "string" === typeof input)`
+	if got != want {
+		t.Errorf("got %q want %q", got, want)
+	}
+}
+
 func TestEmitIsNullable(t *testing.T) {
 	s := metadata.NewSchema().AddAtomic(metadata.AtomicString)
 	s.Nullable = true
