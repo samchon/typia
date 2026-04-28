@@ -5,7 +5,7 @@
   "description": "End-to-end smoke tests for typia over the external ttsc package.",
   "scripts": {
     "dev": "ttsx src/index.ts",
-    "build:backend": "bash -c 'export PATH=\"$HOME/go-sdk/go/bin:$PATH\"; cd ../../packages/transform && go build -o ../../packages/typia/bin/ttsc-typia-native ./cmd/ttsc-typia'",
+    "build:backend": "node -e \"process.exit(0)\"",
     "build:packages": "pnpm --filter typia build",
     "build:toolchain": "ttsc --version",
     "prestart": "pnpm run build:packages && pnpm run build:backend",
