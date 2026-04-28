@@ -1,3 +1,5 @@
+[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/samchon-typia-badge.png)](https://mseep.ai/app/samchon-typia)
+
 # Typia
 ![Typia Logo](https://typia.io/logo.png)
 
