@@ -10,9 +10,26 @@ const packageRoot = path.resolve(
   "..",
   "..",
 );
+const repoRoot = path.resolve(packageRoot, "..", "..");
+const nativeProject = path.resolve(repoRoot, "packages", "typia", "native");
 const nativeBinary = resolveNativeBinary();
+const nativeEntrypoint = path.resolve(
+  nativeProject,
+  "cmd",
+  "ttsc-typia",
+  "main.go",
+);
+const command = process.platform === "win32" ? "go.exe" : "go";
 const invocationCwd = process.cwd();
 const argv = [...process.argv.slice(2)];
+
+if (
+  process.env.TYPIA_TTSC_TRANSFORM_OUTPUT === "ts" &&
+  argv[0] === "transform" &&
+  !argv.some((value) => value === "--output" || value.startsWith("--output="))
+) {
+  argv.push("--output=ts");
+}
 
 if (
   argv.length > 0 &&
@@ -23,10 +40,11 @@ if (
 }
 
 const hasNativeBinary = fs.existsSync(nativeBinary);
+const hasSourceEntrypoint = fs.existsSync(nativeEntrypoint);
 
-if (!hasNativeBinary) {
+if (!hasNativeBinary && !hasSourceEntrypoint) {
   process.stderr.write(
-    "ttsc-typia: backend is missing. Expected a platform @typia native package or a package-local ttsc-typia-native binary.\n",
+    "ttsc-typia: backend is missing. Expected a platform @typia native package, a package-local ttsc-typia-native binary, or packages/typia/native/cmd/ttsc-typia/main.go.\n",
   );
   process.exitCode = 1;
 } else {
@@ -40,14 +58,23 @@ if (!hasNativeBinary) {
       /* keep the original spawn error path */
     }
   }
-  const result = spawnSync(nativeBinary, argv, {
-    env: process.env,
-    stdio: "inherit",
-    windowsHide: true,
-  });
+  const result = hasNativeBinary
+    ? spawnSync(nativeBinary, argv, {
+        env: process.env,
+        stdio: "inherit",
+        windowsHide: true,
+      })
+    : spawnSync(command, ["run", "./cmd/ttsc-typia", ...argv], {
+        cwd: nativeProject,
+        env: process.env,
+        stdio: "inherit",
+        windowsHide: true,
+      });
   if (result.error) {
     process.stderr.write(
-      `ttsc-typia: failed to launch prebuilt backend: ${result.error.message}\n`,
+      hasNativeBinary
+        ? `ttsc-typia: failed to launch prebuilt backend: ${result.error.message}\n`
+        : `ttsc-typia: failed to launch source checkout via ${command}: ${result.error.message}\n`,
     );
     process.exitCode = 1;
   } else {

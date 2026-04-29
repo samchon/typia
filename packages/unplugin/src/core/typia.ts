@@ -1,7 +1,8 @@
 import { transform as ttscTransform } from "ttsc";
-import { existsSync } from "node:fs";
+import { existsSync, mkdtempSync, rmSync, writeFileSync } from "node:fs";
 import { createRequire } from "node:module";
-import { dirname, isAbsolute, join, resolve } from "pathe";
+import { tmpdir } from "node:os";
+import { dirname, isAbsolute, join, relative, resolve } from "pathe";
 import type { Alias } from "vite";
 
 import type { ResolvedOptions } from "./options.js";
@@ -27,19 +28,90 @@ export async function transformTypia(
   _aliases?: Alias[],
 ): Promise<Data> {
   const id = wrap<ID>(resolve(_id));
+  if (isDeclarationFile(id)) {
+    return wrap<Data>(cleanupDeclarationText(_source));
+  }
   const tsconfig = resolveTsconfig(id, options.tsconfig);
-  const result = ttscTransform({
-    file: id,
-    binary: resolveTsgoBinary(),
-    cwd: dirname(tsconfig),
-    tsconfig,
-    plugins: [
-      {
-        transform: "typia/lib/transform",
+  const configured = createTransformTsconfig(tsconfig, _aliases);
+  try {
+    const result = ttscTransform({
+      file: id,
+      binary: resolveTsgoBinary(),
+      cwd: dirname(tsconfig),
+      env: {
+        TYPIA_TTSC_TRANSFORM_OUTPUT: "ts",
       },
-    ],
-  });
-  return wrap<Data>(result);
+      tsconfig: configured.path,
+      plugins: [
+        {
+          transform: "typia/lib/transform",
+        },
+      ],
+    });
+    return wrap<Data>(result);
+  } finally {
+    configured.dispose();
+  }
+}
+
+function isDeclarationFile(id: string): boolean {
+  return id.endsWith(".d.ts") || id.endsWith(".d.mts") || id.endsWith(".d.cts");
+}
+
+function cleanupDeclarationText(source: string): string {
+  let output = source.replaceAll("\t", "    ");
+  output = output.replace(/(^import[^\n]+;\n)\n+/m, "$1");
+  if (!output.endsWith("\n")) {
+    output += "\n";
+  }
+  return output;
+}
+
+function createTransformTsconfig(
+  tsconfig: string,
+  aliases?: Alias[],
+): { path: string; dispose: () => void } {
+  const directory = mkdtempSync(join(tmpdir(), "typia-unplugin-"));
+  const path = join(directory, "tsconfig.json");
+  const baseUrl = dirname(tsconfig);
+  writeFileSync(
+    path,
+    JSON.stringify(
+      {
+        extends: tsconfig,
+        compilerOptions: {
+          baseUrl,
+          paths: createAliasPaths(baseUrl, aliases),
+        },
+      },
+      null,
+      2,
+    ),
+  );
+  return {
+    path,
+    dispose: () => rmSync(directory, { recursive: true, force: true }),
+  };
+}
+
+function createAliasPaths(
+  baseUrl: string,
+  aliases?: Alias[],
+): Record<string, string[]> {
+  const paths: Record<string, string[]> = {};
+  for (const alias of aliases ?? []) {
+    if (
+      typeof alias.find !== "string" ||
+      typeof alias.replacement !== "string"
+    ) {
+      continue;
+    }
+    const find = alias.find.replace(/\/+$/, "");
+    const replacement = relative(baseUrl, alias.replacement).replace(/\/+$/, "");
+    paths[find] = [replacement];
+    paths[`${find}/*`] = [`${replacement}/*`];
+  }
+  return paths;
 }
 
 function resolveTsgoBinary(): string | undefined {
