@@ -11,18 +11,26 @@ async function main(): Promise<void> {
   const exceptions: Error[] = [];
 
   await TestAutomationController.iterate(async (location) => {
+    console.error("[parent] visit location=", location);
     const connector = new WorkerConnector(null, null, "process");
-    await connector.connect(`${__dirname}/servant/index.ts`);
-
+    try {
+      await connector.connect(`${__dirname}/servant/index.ts`);
+      console.error("[parent] connected");
+    } catch (e) {
+      console.error("[parent] connect FAILED:", e);
+      return;
+    }
     const servant = connector.getDriver<TestServant>();
     try {
-      exceptions.push(
-        ...(await servant.execute({
-          location,
-          include,
-          exclude,
-        })),
-      );
+      const result = await servant.execute({
+        location,
+        include,
+        exclude,
+      });
+      console.error("[parent] execute returned", result.length, "errors");
+      exceptions.push(...result);
+    } catch (e) {
+      console.error("[parent] execute threw:", e);
     } finally {
       await connector.close();
     }

@@ -4,6 +4,7 @@ import chalk from "chalk";
 export class TestServant {
   public async execute(props: TestServant.IProps): Promise<Error[]> {
     const exceptions: Error[] = [];
+    console.error("[TestServant] location=", props.location, "ext=", __filename.substr(-2));
     const report: DynamicExecutor.IReport = await DynamicExecutor.validate({
       prefix: "test_",
       location: props.location,
@@ -28,6 +29,7 @@ export class TestServant {
           : true),
       extension: __filename.substr(-2),
     });
+    console.error("[TestServant] executions=", report.executions.length);
     exceptions.push(
       ...report.executions.map((e) => e.error).filter((e) => e !== null),
     );

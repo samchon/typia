@@ -5,7 +5,7 @@
   "description": "Test program of typia generated error",
   "main": "index.js",
   "scripts": {
-    "build": "rimraf bin && ttsc",
+    "build": "rimraf bin && ttsc --emit",
     "start": "node index.js"
   },
   "repository": {
