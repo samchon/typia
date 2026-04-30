@@ -2,23 +2,7 @@ module github.com/samchon/typia/packages/typia/native
 
 go 1.26
 
-replace (
-	github.com/microsoft/typescript-go/shim/ast => ../../../../ttsc/packages/ttsc/shim/ast
-	github.com/microsoft/typescript-go/shim/bundled => ../../../../ttsc/packages/ttsc/shim/bundled
-	github.com/microsoft/typescript-go/shim/checker => ../../../../ttsc/packages/ttsc/shim/checker
-	github.com/microsoft/typescript-go/shim/compiler => ../../../../ttsc/packages/ttsc/shim/compiler
-	github.com/microsoft/typescript-go/shim/core => ../../../../ttsc/packages/ttsc/shim/core
-	github.com/microsoft/typescript-go/shim/diagnosticwriter => ../../../../ttsc/packages/ttsc/shim/diagnosticwriter
-	github.com/microsoft/typescript-go/shim/parser => ../../../../ttsc/packages/ttsc/shim/parser
-	github.com/microsoft/typescript-go/shim/printer => ./shim/printer
-	github.com/microsoft/typescript-go/shim/scanner => ../../../../ttsc/packages/ttsc/shim/scanner
-	github.com/microsoft/typescript-go/shim/tsoptions => ../../../../ttsc/packages/ttsc/shim/tsoptions
-	github.com/microsoft/typescript-go/shim/tspath => ../../../../ttsc/packages/ttsc/shim/tspath
-	github.com/microsoft/typescript-go/shim/vfs => ../../../../ttsc/packages/ttsc/shim/vfs
-	github.com/microsoft/typescript-go/shim/vfs/cachedvfs => ../../../../ttsc/packages/ttsc/shim/vfs/cachedvfs
-	github.com/microsoft/typescript-go/shim/vfs/osvfs => ../../../../ttsc/packages/ttsc/shim/vfs/osvfs
-	github.com/samchon/ttsc/packages/ttsc => ../../../../ttsc/packages/ttsc
-)
+replace github.com/microsoft/typescript-go/shim/printer => ./shim/printer
 
 require (
 	github.com/microsoft/typescript-go/shim/ast v0.0.0

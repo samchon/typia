@@ -9,7 +9,7 @@
     "target": "ES2020",
     "plugins": [
       {
-        "transform": "./plugins/banner-plugin.cjs",
+        "transform": "@ttsc/banner",
         "banner": "/* plugin-js */"
       }
     ]

@@ -23,7 +23,8 @@ func runTransform(args []string) int {
 	cwdOverride := fs.String("cwd", "", "override the working directory")
 	out := fs.String("out", "", "write output JS to PATH")
 	rewriteMode := fs.String("rewrite-mode", "typia", "native rewrite backend id")
-	output := fs.String("output", "js", "transform output kind: js or ts")
+	output := fs.String("output", defaultTransformOutput(), "transform output kind: js or ts")
+	_ = fs.String("plugins-json", "", "ordered ttsc plugin payload")
 	if err := fs.Parse(args); err != nil {
 		return 2
 	}
@@ -124,6 +125,13 @@ func runTransform(args []string) int {
 		return 3
 	}
 	return 0
+}
+
+func defaultTransformOutput() string {
+	if os.Getenv("TYPIA_TTSC_TRANSFORM_OUTPUT") == "ts" {
+		return "ts"
+	}
+	return "js"
 }
 
 type transformSourceRewrite struct {

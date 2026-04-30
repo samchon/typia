@@ -59,6 +59,65 @@ export async function test_setup_contract(): Promise<void> {
     "setup wizard must provision the tsgo compiler package",
   );
 
+  const typiaPackage = JSON.parse(
+    fs.readFileSync(path.join(root, "packages/typia/package.json"), "utf8"),
+  ) as {
+    files?: string[];
+    optionalDependencies?: Record<string, string>;
+  };
+  assert.equal(
+    typiaPackage.optionalDependencies,
+    undefined,
+    "typia must not depend on platform-specific native binary packages",
+  );
+  assert.equal(
+    typiaPackage.files?.includes("native"),
+    true,
+    "typia package must publish its native Go source tree",
+  );
+  assert.equal(
+    typiaPackage.files?.includes("bin"),
+    false,
+    "typia package must not publish a native binary bin directory",
+  );
+
+  const transformModule = require(
+    path.join(root, "packages/typia/lib/transform.js"),
+  ) as {
+    default: (
+      config: unknown,
+      context: { projectRoot: string },
+    ) => {
+      native: {
+        binary?: string;
+        source?: { dir: string; entry?: string };
+      };
+    };
+  };
+  const descriptor = transformModule.default(
+    {},
+    { projectRoot: path.join(root, "tests/test-typia-ttsc") },
+  );
+  assert.equal(
+    descriptor.native.binary,
+    undefined,
+    "typia transform descriptor must not point at a prebuilt binary",
+  );
+  assert.deepEqual(descriptor.native.source, {
+    dir: path.join(root, "packages/typia/native"),
+    entry: "./cmd/ttsc-typia",
+  });
+
+  const nativeGoMod = fs.readFileSync(
+    path.join(root, "packages/typia/native/go.mod"),
+    "utf8",
+  );
+  assert.equal(
+    nativeGoMod.includes("../../../../ttsc"),
+    false,
+    "native go.mod must not contain checkout-relative ttsc replacements",
+  );
+
   const temp = fs.mkdtempSync(path.join(os.tmpdir(), "typia-setup-"));
   try {
     const tsconfig = path.join(temp, "tsconfig.json");

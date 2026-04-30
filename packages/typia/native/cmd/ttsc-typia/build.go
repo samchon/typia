@@ -27,6 +27,7 @@ func runBuild(args []string) int {
 	outDir := fs.String("outDir", "", "override compilerOptions.outDir")
 	manifestPath := fs.String("manifest", "", "write emitted file list as JSON")
 	rewriteMode := fs.String("rewrite-mode", "typia", "native rewrite backend id")
+	_ = fs.String("plugins-json", "", "ordered ttsc plugin payload")
 	if err := fs.Parse(args); err != nil {
 		return 2
 	}

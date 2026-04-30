@@ -36,20 +36,11 @@
     "comment-json": "^4.2.3",
     "inquirer": "^8.2.5",
     "package-manager-detector": "^0.2.0",
-    "randexp": "^0.5.3",
-    "ttsc": "catalog:typescript"
+    "randexp": "^0.5.3"
   },
   "peerDependencies": {
-    "@typescript/native-preview": ">=7.0.0-dev.20260420.1"
-  },
-  "optionalDependencies": {
-    "@typia/linux-x64": "workspace:^",
-    "@typia/linux-arm": "workspace:^",
-    "@typia/linux-arm64": "workspace:^",
-    "@typia/darwin-x64": "workspace:^",
-    "@typia/darwin-arm64": "workspace:^",
-    "@typia/win32-x64": "workspace:^",
-    "@typia/win32-arm64": "workspace:^"
+    "@typescript/native-preview": ">=7.0.0-dev.20260420.1",
+    "ttsc": "^0.5.0"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "catalog:rollup",
@@ -66,14 +57,15 @@
     "rollup-plugin-auto-external": "catalog:rollup",
     "rollup-plugin-node-externals": "catalog:rollup",
     "suppress-warnings": "^1.0.2",
-    "tinyglobby": "^0.2.12"
+    "tinyglobby": "^0.2.12",
+    "ttsc": "catalog:typescript"
   },
   "sideEffects": false,
   "files": [
     "README.md",
-    "bin",
     "package.json",
     "lib",
+    "native",
     "src"
   ],
   "keywords": [

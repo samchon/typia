@@ -10,19 +10,14 @@ export interface TtscResult {
 }
 
 /**
- * Invoke the compiled ttsc binary. `fixtureDir` must contain a tsconfig.json.
+ * Invoke the workspace-linked ttsc launcher. `fixtureDir` must contain a
+ * tsconfig.json.
  *
- * Gives every test a single place to add pre-flight assertions (binary
+ * Gives every test a single place to add pre-flight assertions (launcher
  * present, etc.) — this is the only entry point used by the DynamicExecutor
  * test harness.
  */
 export function runTtsc(args: readonly string[], fixtureDir?: string): TtscResult {
-  if (!TestGlobal.TTSC_BINARY || !fs.existsSync(TestGlobal.TTSC_BINARY)) {
-    throw new Error(
-      `ttsc binary missing at ${TestGlobal.TTSC_BINARY}. ` +
-        `Run \`pnpm run build:toolchain\` before the test, or use the top-level \`pnpm test\` script.`,
-    );
-  }
   if (!fs.existsSync(TestGlobal.TTSC_LAUNCHER)) {
     throw new Error(
       `ttsc launcher missing at ${TestGlobal.TTSC_LAUNCHER}. ` +
@@ -34,6 +29,7 @@ export function runTtsc(args: readonly string[], fixtureDir?: string): TtscResul
     encoding: "utf8",
     env: {
       ...process.env,
+      TTSC_CACHE_DIR: TestGlobal.TTSC_CACHE_DIR,
       ...(TestGlobal.TTSC_BINARY ? { TTSC_BINARY: TestGlobal.TTSC_BINARY } : {}),
     },
     windowsHide: true,

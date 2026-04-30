@@ -7,7 +7,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 export default defineConfig({
   test: {
     globals: true,
-    testTimeout: 150_000,
+    testTimeout: 300_000,
   },
   resolve: {
     alias: {

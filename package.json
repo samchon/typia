@@ -67,6 +67,11 @@
     "llama"
   ],
   "packageManager": "pnpm@10.6.4",
+  "pnpm": {
+    "overrides": {
+      "ttsc": "link:../ttsc/packages/ttsc"
+    }
+  },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^6.0.2",
     "bumpp": "^10.4.1",

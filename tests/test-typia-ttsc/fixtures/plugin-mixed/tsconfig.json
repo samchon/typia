@@ -11,7 +11,7 @@
         "transform": "typia/lib/transform"
       },
       {
-        "transform": "./plugins/banner-plugin.cjs",
+        "transform": "@ttsc/banner",
         "banner": "/* mixed-plugin */"
       }
     ]
