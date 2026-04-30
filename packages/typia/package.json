@@ -50,10 +50,6 @@
     "package-manager-detector": "^0.2.0",
     "randexp": "^0.5.3"
   },
-  "peerDependencies": {
-    "@typescript/native-preview": ">=7.0.0-dev.20260420.1",
-    "ttsc": "^0.5.0"
-  },
   "devDependencies": {
     "@rollup/plugin-commonjs": "catalog:rollup",
     "@rollup/plugin-node-resolve": "catalog:rollup",
