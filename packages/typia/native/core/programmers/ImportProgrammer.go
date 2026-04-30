@@ -1,7 +1,6 @@
 package programmers
 
 import (
-	"fmt"
 	"sort"
 	"strings"
 
@@ -112,26 +111,25 @@ func (p *ImportProgrammer) Internal(name string) *shimast.Node {
 	if !strings.HasPrefix(name, "_") {
 		name = "_" + name
 	}
-	return importProgrammer_factory.NewPropertyAccessExpression(
-		p.Namespace(ImportProgrammer_INamespace{
-			File: "typia/lib/internal/" + name,
-			Name: p.alias(name),
-		}),
-		nil,
-		importProgrammer_factory.NewIdentifier(name),
-		shimast.NodeFlagsNone,
-	)
+	alias := p.alias(name)
+	return p.Instance(ImportProgrammer_IInstance{
+		File:  "typia/lib/internal/" + name,
+		Name:  name,
+		Alias: &alias,
+	})
 }
 
 func (p *ImportProgrammer) GetInternalText(name string) string {
 	if !strings.HasPrefix(name, "_") {
 		name = "_" + name
 	}
-	asset := p.take("typia/lib/internal/" + name)
-	if asset.namespace == nil {
-		panic(fmt.Sprintf("Internal asset not found: %s", name))
-	}
-	return asset.namespace.Name + "." + name
+	alias := p.alias(name)
+	p.Instance(ImportProgrammer_IInstance{
+		File:  "typia/lib/internal/" + name,
+		Name:  name,
+		Alias: &alias,
+	})
+	return alias
 }
 
 func (p *ImportProgrammer) ToStatements() []*shimast.Node {

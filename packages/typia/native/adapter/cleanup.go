@@ -84,10 +84,19 @@ func injectRuntimeImports(text string) string {
 		if runtimeImportAlreadyExists(text, alias, module) {
 			continue
 		}
+		name := runtimeNameOf(alias)
 		if esModule {
-			imports = append(imports, fmt.Sprintf(`import * as %s from %q;`, alias, module))
+			if alias == "__typia_utils" {
+				imports = append(imports, fmt.Sprintf(`import * as %s from %q;`, alias, module))
+			} else {
+				imports = append(imports, fmt.Sprintf(`import { %s as %s } from %q;`, name, alias, module))
+			}
 		} else {
-			imports = append(imports, fmt.Sprintf(`const %s = require(%q);`, alias, module))
+			if alias == "__typia_utils" {
+				imports = append(imports, fmt.Sprintf(`const %s = require(%q);`, alias, module))
+			} else {
+				imports = append(imports, fmt.Sprintf(`const { %s: %s } = require(%q);`, name, alias, module))
+			}
 		}
 	}
 	if len(imports) == 0 {
@@ -152,16 +161,22 @@ func runtimeModuleOf(alias string) string {
 	if alias == "__typia_utils" {
 		return "@typia/utils"
 	}
+	return "typia/lib/internal/" + runtimeNameOf(alias)
+}
+
+func runtimeNameOf(alias string) string {
 	name := strings.TrimPrefix(alias, "__typia_transform_")
-	if strings.HasPrefix(name, "_") {
-		return "typia/lib/internal/" + name
+	if !strings.HasPrefix(name, "_") {
+		name = "_" + name
 	}
-	return "typia/lib/internal/_" + name
+	return name
 }
 
 func runtimeImportAlreadyExists(text string, alias string, module string) bool {
 	return regexp.MustCompile(`(?m)^import \* as `+regexp.QuoteMeta(alias)+` from ["']`+regexp.QuoteMeta(module)+`["'];$`).MatchString(text) ||
-		regexp.MustCompile(`(?m)^const `+regexp.QuoteMeta(alias)+` = require\(["']`+regexp.QuoteMeta(module)+`["']\);$`).MatchString(text)
+		regexp.MustCompile(`(?m)^import \{[^}\n]*\bas\s+`+regexp.QuoteMeta(alias)+`\b[^}\n]*\} from ["']`+regexp.QuoteMeta(module)+`["'];$`).MatchString(text) ||
+		regexp.MustCompile(`(?m)^const `+regexp.QuoteMeta(alias)+` = require\(["']`+regexp.QuoteMeta(module)+`["']\);$`).MatchString(text) ||
+		regexp.MustCompile(`(?m)^const \{[^}\n]*:\s*`+regexp.QuoteMeta(alias)+`\b[^}\n]*\} = require\(["']`+regexp.QuoteMeta(module)+`["']\);$`).MatchString(text)
 }
 
 func isESModuleOutput(text string) bool {

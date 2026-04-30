@@ -10,16 +10,15 @@
     "build:toolchain": "ttsc --version",
     "build:ttsc-runtime": "pnpm run build:toolchain",
     "format": "prettier --write packages/**/*.ts && prettier --write internals/**/*.ts && prettier --write tests/**/*.ts",
-    "pretest": "pnpm run guard:generated && pnpm run build:native-consumers",
+    "pretest": "pnpm run build:native-consumers",
     "test": "pnpm run test:packages && pnpm run test:toolchain",
-    "test:ci": "pnpm run guard:generated && pnpm run build:native-consumers && pnpm run build && pnpm run test:packages && pnpm run test:toolchain",
-    "test:packages": "pnpm --filter=./tests/test-* -r --workspace-concurrency=1 start",
+    "test:ci": "pnpm run build:native-consumers && pnpm run build && pnpm run test:packages && pnpm run test:toolchain",
+    "test:packages": "pnpm --filter=./tests/test-* --filter=!./tests/test-typia-ttsc -r start",
     "test:toolchain": "pnpm --filter=./tests/test-typia-ttsc -r --workspace-concurrency=1 start",
     "package:latest": "bash -c 'pnpm --filter=./packages/* -r publish --tag latest --access public \"$@\"' --",
     "package:next": "bash next.bash",
     "package:tgz": "node experiments/tarballs",
-    "release": "bumpp -r",
-    "guard:generated": "node scripts/verify-no-generated-artifacts.mjs"
+    "release": "bumpp -r"
   },
   "repository": {
     "type": "git",

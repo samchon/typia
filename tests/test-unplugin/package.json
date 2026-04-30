@@ -11,7 +11,7 @@
   "author": "Jeongho Nam",
   "license": "MIT",
   "scripts": {
-    "start": "rm -f ../../packages/typia/src/internal/_randomFormatDuration.js ../../packages/typia/src/internal/_randomFormatIpv4.js ../../packages/typia/src/internal/_randomFormatIpv6.js ../../packages/typia/src/internal/_randomInteger.js ../../packages/typia/src/internal/_randomNumber.js ../../packages/typia/src/internal/_randomString.js && TTSC_CACHE_DIR=${TTSC_CACHE_DIR:-$(mktemp -d)} vitest run",
+    "start": "TTSC_CACHE_DIR=${TTSC_CACHE_DIR:-$(mktemp -d)} vitest run --no-file-parallelism",
     "test": "vitest"
   },
   "devDependencies": {
