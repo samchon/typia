@@ -1,8 +1,7 @@
-import { transform as ttscTransform } from "ttsc";
-import { existsSync, mkdtempSync, rmSync, writeFileSync } from "node:fs";
+import { existsSync, rmSync, writeFileSync } from "node:fs";
 import { createRequire } from "node:module";
-import { tmpdir } from "node:os";
 import { dirname, isAbsolute, join, relative, resolve } from "pathe";
+import { transform as ttscTransform } from "ttsc";
 import type { Alias } from "vite";
 
 import type { ResolvedOptions } from "./options.js";
@@ -72,9 +71,13 @@ function createTransformTsconfig(
   tsconfig: string,
   aliases?: Alias[],
 ): { path: string; dispose: () => void } {
-  const directory = mkdtempSync(join(tmpdir(), "typia-unplugin-"));
-  const path = join(directory, "tsconfig.json");
   const baseUrl = dirname(tsconfig);
+  const path = join(
+    baseUrl,
+    `.typia-unplugin-${process.pid}-${Date.now()}-${Math.random()
+      .toString(36)
+      .slice(2)}.json`,
+  );
   writeFileSync(
     path,
     JSON.stringify(
@@ -91,7 +94,7 @@ function createTransformTsconfig(
   );
   return {
     path,
-    dispose: () => rmSync(directory, { recursive: true, force: true }),
+    dispose: () => rmSync(path, { force: true }),
   };
 }
 
@@ -108,7 +111,10 @@ function createAliasPaths(
       continue;
     }
     const find = alias.find.replace(/\/+$/, "");
-    const replacement = relative(baseUrl, alias.replacement).replace(/\/+$/, "");
+    const replacement = relative(baseUrl, alias.replacement).replace(
+      /\/+$/,
+      "",
+    );
     paths[find] = [replacement];
     paths[`${find}/*`] = [`${replacement}/*`];
   }
@@ -118,9 +124,12 @@ function createAliasPaths(
 function resolveTsgoBinary(): string | undefined {
   try {
     const require = createRequire(import.meta.url);
-    const packageJson = require.resolve("@typescript/native-preview/package.json");
+    const packageJson =
+      require.resolve("@typescript/native-preview/package.json");
     const platform = `@typescript/native-preview-${process.platform}-${process.arch}`;
-    const platformJson = createRequire(packageJson).resolve(`${platform}/package.json`);
+    const platformJson = createRequire(packageJson).resolve(
+      `${platform}/package.json`,
+    );
     return join(
       dirname(platformJson),
       "lib",

@@ -5,6 +5,7 @@
   "type": "module",
   "description": "Experiment for @typia/unplugin package with tgz installation",
   "scripts": {
+    "prestart": "ttsc --noEmit -p tsconfig.json",
     "start": "vitest run"
   },
   "repository": {
@@ -18,7 +19,7 @@
     "@typia/unplugin": "../tarballs/unplugin.tgz",
     "@typia/utils": "../tarballs/utils.tgz",
     "typia": "../tarballs/typia.tgz",
-    "ttsc": "^0.4.3"
+    "ttsc": "^0.5.0"
   },
   "devDependencies": {
     "@typescript/native-preview": "7.0.0-dev.20260421.2",
