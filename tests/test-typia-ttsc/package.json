@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@typia/test-typia-ttsc",
-  "version": "13.0.0-dev.20260427",
+  "version": "13.0.0-dev.20260430",
   "description": "End-to-end smoke tests for typia over the external ttsc package.",
   "scripts": {
     "dev": "ttsx src/index.ts",
@@ -28,7 +28,6 @@
   },
   "homepage": "https://typia.io",
   "devDependencies": {
-    "@ttsc/banner": "^0.5.0",
     "@nestia/e2e": "catalog:utils",
     "@types/node": "catalog:utils",
     "@typescript/native-preview": "catalog:typescript",
