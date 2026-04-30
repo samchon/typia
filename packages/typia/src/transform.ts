@@ -1,11 +1,11 @@
-import { definePlugin } from "ttsc";
+import { definePlugin, type ITtscPluginFactoryContext } from "ttsc";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const filename: string = currentFilename();
 const dirname: string = path.dirname(filename);
 
-export default definePlugin((_config, context) => {
+export default definePlugin((context: ITtscPluginFactoryContext) => {
   const root: string =
     resolvePackageRoot(context.projectRoot) ?? inferPackageRoot();
   return {
