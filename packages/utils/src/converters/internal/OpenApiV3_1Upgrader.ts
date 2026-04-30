@@ -532,13 +532,10 @@ export namespace OpenApiV3_1Upgrader {
                 items: undefined!,
                 prefixItems: schema.prefixItems.map(convertSchema(components)),
                 additionalItems:
-                  schema.items !== undefined &&
-                  Array.isArray(schema.items) === false
-                    ? convertSchema(components)(schema.items)
-                    : typeof schema.additionalItems === "object" &&
-                        schema.additionalItems !== null
-                      ? convertSchema(components)(schema.additionalItems)
-                      : schema.additionalItems,
+                  typeof schema.additionalItems === "object" &&
+                  schema.additionalItems !== null
+                    ? convertSchema(components)(schema.additionalItems)
+                    : schema.additionalItems,
               },
             });
           else if (schema.items === undefined)

@@ -275,7 +275,7 @@ export function schema(): never;
  * @param $defs Shared schema definitions for `$ref` referencing
  * @returns LLM type schema
  */
-export function schema<T, Config extends Partial<ILlmSchema.IConfig> = {}>(
+export function schema<T, Config = {}>(
   $defs: Record<string, ILlmSchema>,
 ): ILlmSchema;
 

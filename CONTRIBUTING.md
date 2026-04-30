@@ -54,7 +54,7 @@ There are three important build/setup paths in the repository:
 
 1. Stable current path: `typia` with `typia setup`, `ttsc`, and `@typescript/native-preview`
 2. Stable alternative path: `@typia/unplugin` for bundler environments
-3. Dedicated runner path: `ttsc` for `ts-node` / `tsx`-style execution
+3. Dedicated runner path: `ttsx` for direct TypeScript execution
 
 For a concise repository status overview, see [CURRENT_STATUS.md](./CURRENT_STATUS.md).
 
@@ -87,7 +87,7 @@ pnpm run test
 If you touch one of these areas, run its local path too:
 
 - `../ttsc/packages/ttsc`: `pnpm --filter ttsc test`
-- `toolchain-tests/test-typia-ttsc`: `pnpm --filter @typia/test-typia-ttsc test`
+- `tests/test-typia-ttsc`: `pnpm --filter @typia/test-typia-ttsc test`
 - `tests/test-unplugin`: `pnpm --filter @typia/test-unplugin start`
 - `website`: `cd website && npm install && npm run build`
 - tarball-dependent flows: `pnpm run package:tgz`

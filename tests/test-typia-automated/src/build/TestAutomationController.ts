@@ -34,7 +34,7 @@ export namespace TestAutomationController {
     const output: TestAutomationMetadata<any>[] = [];
 
     for (const file of await fs.promises.readdir(path)) {
-      if (file === "index.ts" || file.endsWith(".ts") === false) continue;
+      if (file === "index.ts") continue;
 
       const location: string = `${path}/${file}`;
       const modulo: Record<string, TestAutomationMetadata<any>> = await import(

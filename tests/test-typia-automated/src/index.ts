@@ -1,22 +1,39 @@
 import { TestServant } from "@typia/template";
-import cp from "child_process";
+import { WorkerConnector } from "tgrid";
 
 import { TestGlobal } from "./TestGlobal";
 import { TestAutomationController } from "./build/TestAutomationController";
 
 async function main(): Promise<void> {
-  await TestAutomationController.iterate(async () => {});
-  cp.execSync("pnpm build", {
-    cwd: TestGlobal.ROOT,
-    stdio: "inherit",
-  });
+  const include: string[] = TestGlobal.getArguments("include") ?? [];
+  const exclude: string[] = TestGlobal.getArguments("exclude") ?? [];
 
-  const servant: TestServant = new TestServant();
-  const exceptions: Error[] = await servant.execute({
-    location: `${TestGlobal.ROOT}/bin/features`,
-    include: TestGlobal.getArguments("include") ?? [],
-    exclude: TestGlobal.getArguments("exclude") ?? [],
-    extension: "js",
+  const exceptions: Error[] = [];
+
+  await TestAutomationController.iterate(async (location) => {
+    console.error("[parent] visit location=", location);
+    const connector = new WorkerConnector(null, null, "process");
+    try {
+      await connector.connect(`${__dirname}/servant/index.ts`);
+      console.error("[parent] connected");
+    } catch (e) {
+      console.error("[parent] connect FAILED:", e);
+      return;
+    }
+    const servant = connector.getDriver<TestServant>();
+    try {
+      const result = await servant.execute({
+        location,
+        include,
+        exclude,
+      });
+      console.error("[parent] execute returned", result.length, "errors");
+      exceptions.push(...result);
+    } catch (e) {
+      console.error("[parent] execute threw:", e);
+    } finally {
+      await connector.close();
+    }
   });
   if (exceptions.length === 0) {
     console.log("Success");

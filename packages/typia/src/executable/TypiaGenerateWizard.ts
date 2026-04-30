@@ -1,6 +1,7 @@
-import { transform } from "ttsc";
 import fs from "fs";
+import { createRequire } from "module";
 import path from "path";
+import { transform } from "ttsc";
 
 import { ArgumentParser } from "./setup/ArgumentParser";
 import { PackageManager } from "./setup/PackageManager";
@@ -111,10 +112,12 @@ export namespace TypiaGenerateWizard {
     });
 
     const cwd = path.dirname(location.project);
+    const binary = resolveTsgoBinary();
     for (const file of files) {
       const relative = path.relative(location.input, file);
       const target = path.join(location.output, relative);
       const output = transform({
+        binary,
         cwd,
         file,
         tsconfig: location.project,
@@ -123,6 +126,90 @@ export namespace TypiaGenerateWizard {
       await fs.promises.mkdir(path.dirname(target), { recursive: true });
       await fs.promises.writeFile(target, formatOutput(output), "utf8");
     }
+  }
+
+  function resolveTsgoBinary(): string {
+    const explicit: string | undefined = process.env.TTSC_TSGO_BINARY;
+    if (explicit !== undefined && explicit.length !== 0) {
+      if (path.isAbsolute(explicit) && fs.existsSync(explicit)) {
+        return explicit;
+      }
+      throw new URIError(
+        `Error on TypiaGenerateWizard.generate(): TTSC_TSGO_BINARY must be an existing absolute path: ${explicit}`,
+      );
+    }
+
+    const packageRoot: string = resolveTypiaPackageRoot();
+    const manifest: string | null = resolveFromRoots(
+      "@typescript/native-preview/package.json",
+      [packageRoot, path.resolve(packageRoot, "..", "..")],
+    );
+    if (manifest === null) {
+      throw new URIError(
+        "Error on TypiaGenerateWizard.generate(): unable to resolve @typescript/native-preview from the typia package or workspace root.",
+      );
+    }
+
+    const platform: string = `@typescript/native-preview-${process.platform}-${process.arch}`;
+    const platformManifest: string = createRequire(manifest).resolve(
+      `${platform}/package.json`,
+    );
+    const binary: string = path.join(
+      path.dirname(platformManifest),
+      "lib",
+      process.platform === "win32" ? "tsgo.exe" : "tsgo",
+    );
+    if (fs.existsSync(binary) === false) {
+      throw new URIError(
+        `Error on TypiaGenerateWizard.generate(): TypeScript-Go executable not found: ${binary}`,
+      );
+    }
+    return binary;
+  }
+
+  function resolveTypiaPackageRoot(): string {
+    const current: string = path.resolve(__dirname);
+    for (const directory of [
+      path.resolve(current, "..", ".."),
+      path.resolve(current, ".."),
+    ]) {
+      const file: string = path.join(directory, "package.json");
+      if (fs.existsSync(file) === false) {
+        continue;
+      }
+      try {
+        const pack = JSON.parse(fs.readFileSync(file, "utf8")) as Partial<
+          Record<"name", unknown>
+        >;
+        if (pack.name === "typia") {
+          return directory;
+        }
+      } catch {
+        continue;
+      }
+    }
+
+    const resolved: string | null = resolveFromRoots("typia/package.json", [
+      process.cwd(),
+      current,
+    ]);
+    if (resolved === null) {
+      throw new URIError(
+        "Error on TypiaGenerateWizard.generate(): unable to resolve typia package root.",
+      );
+    }
+    return path.dirname(resolved);
+  }
+
+  function resolveFromRoots(request: string, roots: string[]): string | null {
+    for (const root of roots) {
+      try {
+        return require.resolve(request, { paths: [root] });
+      } catch {
+        continue;
+      }
+    }
+    return null;
   }
 
   async function isDirectory(current: string): Promise<boolean> {

@@ -4,11 +4,10 @@ packages:
   - 'examples'
   - 'packages/*'
   - 'tests/*'
-  - 'toolchain-tests/*'
 catalogs:
   typescript:
-    '@typescript/native-preview': 7.0.0-dev.20260425.1
-    ttsc: ^0.4.3
+    '@typescript/native-preview': 7.0.0-dev.20260429.1
+    ttsc: ^0.5.0
   rollup:
     rollup: ^4.56.0
     rollup-plugin-auto-external: ^2.0.0

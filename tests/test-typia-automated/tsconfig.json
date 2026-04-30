@@ -1,9 +1,15 @@
 {
   "extends": "../config/tsconfig.json",
   "compilerOptions": {
-    "noEmit": false,
-    "outDir": "bin",
     "rootDir": "src",
+    "plugins": [
+      { 
+        "transform": "typia/lib/transform", 
+        "functional": true, 
+        "numeric": true, 
+        "finite": true,
+      },
+    ]
   },
   "include": ["src"],
 }

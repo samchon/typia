@@ -23,11 +23,11 @@ catalogs:
       version: 8.1.2
   typescript:
     '@typescript/native-preview':
-      specifier: 7.0.0-dev.20260425.1
-      version: 7.0.0-dev.20260425.1
+      specifier: 7.0.0-dev.20260429.1
+      version: 7.0.0-dev.20260429.1
     ttsc:
-      specifier: ^0.4.3
-      version: 0.4.3
+      specifier: ^0.5.0
+      version: 0.5.0
   utils:
     '@nestia/e2e':
       specifier: ^10.0.2
@@ -72,7 +72,7 @@ importers:
         version: 1.8.0(prettier@3.8.3)
       ttsc:
         specifier: catalog:typescript
-        version: 0.4.3
+        version: 0.5.0
 
   benchmark:
     dependencies:
@@ -139,7 +139,7 @@ importers:
         version: 11.0.0
       '@typescript/native-preview':
         specifier: catalog:typescript
-        version: 7.0.0-dev.20260425.1
+        version: 7.0.0-dev.20260429.1
       ajv:
         specifier: ^8.12.0
         version: 8.18.0
@@ -193,7 +193,7 @@ importers:
         version: 0.10.3
       ttsc:
         specifier: catalog:typescript
-        version: 0.4.3
+        version: 0.5.0
       zod:
         specifier: ^3.19.1
         version: 3.25.76
@@ -245,19 +245,19 @@ importers:
         version: 6.1.3
       ttsc:
         specifier: catalog:typescript
-        version: 0.4.3
+        version: 0.5.0
 
   packages/interface:
     devDependencies:
       '@typescript/native-preview':
         specifier: catalog:typescript
-        version: 7.0.0-dev.20260425.1
+        version: 7.0.0-dev.20260429.1
       rimraf:
         specifier: catalog:utils
         version: 6.1.3
       ttsc:
         specifier: catalog:typescript
-        version: 0.4.3
+        version: 0.5.0
 
   packages/langchain:
     dependencies:
@@ -279,7 +279,7 @@ importers:
         version: 16.0.3(rollup@4.60.2)
       '@typescript/native-preview':
         specifier: catalog:typescript
-        version: 7.0.0-dev.20260425.1
+        version: 7.0.0-dev.20260429.1
       rimraf:
         specifier: catalog:utils
         version: 6.1.3
@@ -297,7 +297,7 @@ importers:
         version: 0.2.16
       ttsc:
         specifier: catalog:typescript
-        version: 0.4.3
+        version: 0.5.0
 
   packages/mcp:
     dependencies:
@@ -322,7 +322,7 @@ importers:
         version: 16.0.3(rollup@4.60.2)
       '@typescript/native-preview':
         specifier: catalog:typescript
-        version: 7.0.0-dev.20260425.1
+        version: 7.0.0-dev.20260429.1
       rimraf:
         specifier: catalog:utils
         version: 6.1.3
@@ -340,7 +340,7 @@ importers:
         version: 0.2.16
       ttsc:
         specifier: catalog:typescript
-        version: 0.4.3
+        version: 0.5.0
       zod:
         specifier: ^3.25.0
         version: 3.25.76
@@ -371,9 +371,6 @@ importers:
       randexp:
         specifier: ^0.5.3
         version: 0.5.3
-      ttsc:
-        specifier: catalog:typescript
-        version: 0.4.3
     devDependencies:
       '@rollup/plugin-commonjs':
         specifier: catalog:rollup
@@ -395,7 +392,7 @@ importers:
         version: 8.59.0(eslint@8.57.1)(typescript@5.9.3)
       '@typescript/native-preview':
         specifier: catalog:typescript
-        version: 7.0.0-dev.20260425.1
+        version: 7.0.0-dev.20260429.1
       chalk:
         specifier: ^4.0.0
         version: 4.1.2
@@ -420,42 +417,9 @@ importers:
       tinyglobby:
         specifier: ^0.2.12
         version: 0.2.16
-    optionalDependencies:
-      '@typia/darwin-arm64':
-        specifier: workspace:^
-        version: link:../typia-darwin-arm64
-      '@typia/darwin-x64':
-        specifier: workspace:^
-        version: link:../typia-darwin-x64
-      '@typia/linux-arm':
-        specifier: workspace:^
-        version: link:../typia-linux-arm
-      '@typia/linux-arm64':
-        specifier: workspace:^
-        version: link:../typia-linux-arm64
-      '@typia/linux-x64':
-        specifier: workspace:^
-        version: link:../typia-linux-x64
-      '@typia/win32-arm64':
-        specifier: workspace:^
-        version: link:../typia-win32-arm64
-      '@typia/win32-x64':
-        specifier: workspace:^
-        version: link:../typia-win32-x64
-
-  packages/typia-darwin-arm64: {}
-
-  packages/typia-darwin-x64: {}
-
-  packages/typia-linux-arm: {}
-
-  packages/typia-linux-arm64: {}
-
-  packages/typia-linux-x64: {}
-
-  packages/typia-win32-arm64: {}
-
-  packages/typia-win32-x64: {}
+      ttsc:
+        specifier: catalog:typescript
+        version: 0.5.0
 
   packages/unplugin:
     dependencies:
@@ -464,7 +428,7 @@ importers:
         version: 5.3.0(rollup@4.60.2)
       '@typescript/native-preview':
         specifier: catalog:typescript
-        version: 7.0.0-dev.20260425.1
+        version: 7.0.0-dev.20260429.1
       bun-only:
         specifier: ^0.0.1
         version: 0.0.1
@@ -494,7 +458,7 @@ importers:
         version: 5.55.4(@typescript-eslint/types@8.59.0)
       ttsc:
         specifier: catalog:typescript
-        version: 0.4.3
+        version: 0.5.0
       type-fest:
         specifier: ^4.37.0
         version: 4.41.0
@@ -544,7 +508,7 @@ importers:
         version: 16.0.3(rollup@4.60.2)
       '@typescript/native-preview':
         specifier: catalog:typescript
-        version: 7.0.0-dev.20260425.1
+        version: 7.0.0-dev.20260429.1
       rimraf:
         specifier: catalog:utils
         version: 6.1.3
@@ -562,7 +526,7 @@ importers:
         version: 0.2.16
       ttsc:
         specifier: catalog:typescript
-        version: 0.4.3
+        version: 0.5.0
 
   packages/vercel:
     dependencies:
@@ -584,7 +548,7 @@ importers:
         version: 7.0.15
       '@typescript/native-preview':
         specifier: catalog:typescript
-        version: 7.0.0-dev.20260425.1
+        version: 7.0.0-dev.20260429.1
       ai:
         specifier: ^6.0.116
         version: 6.0.168(zod@3.25.76)
@@ -605,16 +569,10 @@ importers:
         version: 0.2.16
       ttsc:
         specifier: catalog:typescript
-        version: 0.4.3
+        version: 0.5.0
 
   tests/debug:
     dependencies:
-      '@typia/interface':
-        specifier: workspace:^
-        version: link:../../packages/interface
-      '@typia/utils':
-        specifier: workspace:^
-        version: link:../../packages/utils
       tstl:
         specifier: catalog:utils
         version: 3.0.0
@@ -631,15 +589,9 @@ importers:
       '@types/uuid':
         specifier: catalog:utils
         version: 11.0.0
-      '@typescript/native-preview':
-        specifier: catalog:typescript
-        version: 7.0.0-dev.20260425.1
       rimraf:
         specifier: catalog:utils
         version: 6.1.3
-      ttsc:
-        specifier: catalog:typescript
-        version: 0.4.3
 
   tests/template:
     dependencies:
@@ -671,9 +623,6 @@ importers:
       '@types/uuid':
         specifier: catalog:utils
         version: 11.0.0
-      '@typescript/native-preview':
-        specifier: catalog:typescript
-        version: 7.0.0-dev.20260425.1
 
   tests/test-error:
     dependencies:
@@ -681,15 +630,12 @@ importers:
         specifier: workspace:^
         version: link:../../packages/typia
     devDependencies:
-      '@typescript/native-preview':
-        specifier: catalog:typescript
-        version: 7.0.0-dev.20260425.1
+      cross-env:
+        specifier: ^7.0.3
+        version: 7.0.3
       rimraf:
         specifier: catalog:utils
         version: 6.1.3
-      ttsc:
-        specifier: catalog:typescript
-        version: 0.4.3
 
   tests/test-langchain:
     dependencies:
@@ -730,12 +676,6 @@ importers:
       '@types/node':
         specifier: catalog:utils
         version: 25.6.0
-      '@typescript/native-preview':
-        specifier: catalog:typescript
-        version: 7.0.0-dev.20260425.1
-      ttsc:
-        specifier: catalog:typescript
-        version: 0.4.3
 
   tests/test-mcp:
     dependencies:
@@ -767,12 +707,6 @@ importers:
       '@types/node':
         specifier: catalog:utils
         version: 25.6.0
-      '@typescript/native-preview':
-        specifier: catalog:typescript
-        version: 7.0.0-dev.20260425.1
-      ttsc:
-        specifier: catalog:typescript
-        version: 0.4.3
 
   tests/test-typia-automated:
     dependencies:
@@ -794,6 +728,9 @@ importers:
       randexp:
         specifier: ^0.5.3
         version: 0.5.3
+      tgrid:
+        specifier: catalog:utils
+        version: 1.2.1
       tstl:
         specifier: catalog:utils
         version: 3.0.0
@@ -810,15 +747,6 @@ importers:
       '@types/uuid':
         specifier: catalog:utils
         version: 11.0.0
-      '@typescript/native-preview':
-        specifier: catalog:typescript
-        version: 7.0.0-dev.20260425.1
-      rimraf:
-        specifier: catalog:utils
-        version: 6.1.3
-      ttsc:
-        specifier: catalog:typescript
-        version: 0.4.3
 
   tests/test-typia-generate:
     dependencies:
@@ -826,15 +754,9 @@ importers:
         specifier: workspace:^
         version: link:../../packages/typia
     devDependencies:
-      '@typescript/native-preview':
-        specifier: catalog:typescript
-        version: 7.0.0-dev.20260425.1
-      rimraf:
-        specifier: catalog:utils
-        version: 6.1.3
-      ttsc:
-        specifier: catalog:typescript
-        version: 0.4.3
+      cross-env:
+        specifier: ^7.0.3
+        version: 7.0.3
 
   tests/test-typia-schema:
     dependencies:
@@ -872,12 +794,31 @@ importers:
       '@types/uuid':
         specifier: catalog:utils
         version: 11.0.0
+
+  tests/test-typia-ttsc:
+    dependencies:
+      typia:
+        specifier: workspace:^
+        version: link:../../packages/typia
+    devDependencies:
+      '@nestia/e2e':
+        specifier: catalog:utils
+        version: 10.0.2
+      '@ttsc/banner':
+        specifier: ^0.5.0
+        version: 0.5.0(ttsc@0.5.0)
+      '@types/node':
+        specifier: catalog:utils
+        version: 25.6.0
       '@typescript/native-preview':
         specifier: catalog:typescript
-        version: 7.0.0-dev.20260425.1
+        version: 7.0.0-dev.20260429.1
+      chalk:
+        specifier: 4.1.2
+        version: 4.1.2
       ttsc:
         specifier: catalog:typescript
-        version: 0.4.3
+        version: 0.5.0
 
   tests/test-unplugin:
     dependencies:
@@ -888,9 +829,6 @@ importers:
         specifier: workspace:^
         version: link:../../packages/typia
     devDependencies:
-      '@typescript/native-preview':
-        specifier: catalog:typescript
-        version: 7.0.0-dev.20260425.1
       '@vue-macros/test-utils':
         specifier: ^1.7.1
         version: 1.7.1(@types/node@25.6.0)(esbuild@0.25.12)(jiti@2.6.1)(vite@6.4.2(@types/node@25.6.0)(jiti@2.6.1)(yaml@2.8.3))(vitest@3.2.4(@types/debug@4.1.13)(@types/node@25.6.0)(jiti@2.6.1)(jsdom@26.1.0)(yaml@2.8.3))(yaml@2.8.3)
@@ -949,12 +887,6 @@ importers:
       '@types/uuid':
         specifier: catalog:utils
         version: 11.0.0
-      '@typescript/native-preview':
-        specifier: catalog:typescript
-        version: 7.0.0-dev.20260425.1
-      ttsc:
-        specifier: catalog:typescript
-        version: 0.4.3
 
   tests/test-utils-automated:
     dependencies:
@@ -970,6 +902,9 @@ importers:
       '@typia/utils':
         specifier: workspace:^
         version: link:../../packages/utils
+      tgrid:
+        specifier: catalog:utils
+        version: 1.2.1
       typia:
         specifier: workspace:^
         version: link:../../packages/typia
@@ -983,15 +918,6 @@ importers:
       '@types/uuid':
         specifier: catalog:utils
         version: 11.0.0
-      '@typescript/native-preview':
-        specifier: catalog:typescript
-        version: 7.0.0-dev.20260425.1
-      rimraf:
-        specifier: catalog:utils
-        version: 6.1.3
-      ttsc:
-        specifier: catalog:typescript
-        version: 0.4.3
 
   tests/test-vercel:
     dependencies:
@@ -1029,34 +955,6 @@ importers:
       '@types/node':
         specifier: catalog:utils
         version: 25.6.0
-      '@typescript/native-preview':
-        specifier: catalog:typescript
-        version: 7.0.0-dev.20260425.1
-      ttsc:
-        specifier: catalog:typescript
-        version: 0.4.3
-
-  toolchain-tests/test-typia-ttsc:
-    dependencies:
-      typia:
-        specifier: workspace:^
-        version: link:../../packages/typia
-    devDependencies:
-      '@nestia/e2e':
-        specifier: catalog:utils
-        version: 10.0.2
-      '@types/node':
-        specifier: catalog:utils
-        version: 25.6.0
-      '@typescript/native-preview':
-        specifier: catalog:typescript
-        version: 7.0.0-dev.20260425.1
-      chalk:
-        specifier: 4.1.2
-        version: 4.1.2
-      ttsc:
-        specifier: catalog:typescript
-        version: 0.4.3
 
 packages:
 
@@ -2357,38 +2255,43 @@ packages:
       svelte:
         optional: true
 
-  '@ttsc/darwin-arm64@0.4.3':
-    resolution: {integrity: sha512-DusqBK9kOMu4tALY4HSmviVG0osrd5OdmfCLXfA3JPr+dqUjaJn4w/G1QrkSlyqFJqzxy1weS79hIscZ8C+qoQ==}
+  '@ttsc/banner@0.5.0':
+    resolution: {integrity: sha512-vTBEv0leikwGO5oEf7HnakiLJKTjXNXV8MVbmABFIuYIFv1arRpnCb3kjhUlIdANB8FLqNlPzEsGPtyfzG1wWA==}
+    peerDependencies:
+      ttsc: ^0.5.0-dev.20260429
+
+  '@ttsc/darwin-arm64@0.5.0':
+    resolution: {integrity: sha512-QnLs/xvHXaL4+zyiapRDLHjnzVe2ly3lEkVoiip7JWRrbTtv75QeMrIXDKrMbBinE8OH5+ouGJCZRkI5FKVZVg==}
     cpu: [arm64]
     os: [darwin]
 
-  '@ttsc/darwin-x64@0.4.3':
-    resolution: {integrity: sha512-SGhZmL2R8HFcs3y+txhz7f5ra10nSN71B9niDuhFNXuLK8IlvBzPNHrQ8owJy6NUTcI2XoGVzOgAVdHhuKpcPg==}
+  '@ttsc/darwin-x64@0.5.0':
+    resolution: {integrity: sha512-h/Uq5TKlXOwYOB6Xik8BrwkSH63w6ddrSxTPzQXY3VY1/RcE/qwcUU51dt7LEpDb92P0aqh2dIqIm/cg1sR3TA==}
     cpu: [x64]
     os: [darwin]
 
-  '@ttsc/linux-arm64@0.4.3':
-    resolution: {integrity: sha512-VyszfqiBrge5L382qkwh9UAy/R5l6Tqsgz1iBVFN60sD76+HKQOZt4sYGufe6gQ4zX9MFa2+i7CZhrVFpaN13w==}
+  '@ttsc/linux-arm64@0.5.0':
+    resolution: {integrity: sha512-CtO9Kk4IEPrMQKX8CVaMfvni4WrV4vHwhGIRyBwJWfjsRKKzGKF8d9WCxQrTwxkiUg/yhx/Fy/Wy6NcH7oRlkg==}
     cpu: [arm64]
     os: [linux]
 
-  '@ttsc/linux-arm@0.4.3':
-    resolution: {integrity: sha512-X5sSjcSBzoP65wJBCGCc+AHdPPC65Mks1ouxYTpaaceF5+sL7/e6ZOqUtjJyKMa37JwHy2PslOLyb8zUyuaI/w==}
+  '@ttsc/linux-arm@0.5.0':
+    resolution: {integrity: sha512-Oue6ru/vMmBao1jA4OVzZFO8uBOQMF03pWhFcodK1fV8tXJqWOimVrHyWSwwUG70MEehTnRsbNELpEgwji44Gg==}
     cpu: [arm]
     os: [linux]
 
-  '@ttsc/linux-x64@0.4.3':
-    resolution: {integrity: sha512-IYXNJlGWHGwMmfBAIx3y3HB/Lm1f450MCFpb932pY8oYw9GokId7+1vPsoFN0aU2WVlVeiqVP14xcy8TPSbRtw==}
+  '@ttsc/linux-x64@0.5.0':
+    resolution: {integrity: sha512-tDnAZkWGgeXkAYIktEGlSKGNobhhOAW3q08aj4WWYWrhwObmIjo2RmqWotbDLEN/1OZ/OZ5x1aYw98xseUR8jg==}
     cpu: [x64]
     os: [linux]
 
-  '@ttsc/win32-arm64@0.4.3':
-    resolution: {integrity: sha512-0QKdHz/NjLzLsLFuAsP084Gtk4qylgKkkl7tSL/DKl6Okk0dyp4cN6qUG/Bww6MCYGJKzhVTFKy8HI4tSEhfUw==}
+  '@ttsc/win32-arm64@0.5.0':
+    resolution: {integrity: sha512-3J3wJ/PqP0XxAXC2iU4h7EgDpQxM1R5qN5TOjr5jl8jHMDpaEeHQiWOGU3w/9KdQYQd4FUFIxzeLuJm5RjxVhA==}
     cpu: [arm64]
     os: [win32]
 
-  '@ttsc/win32-x64@0.4.3':
-    resolution: {integrity: sha512-ifQ6Coeb33kKPLzd7X5IWStjDmKZbw2mH9KdN0MRdPpe1+5mh2xugPhJwYYY8WQd1ClJfo1/SAnYJJ8IU+W7Zw==}
+  '@ttsc/win32-x64@0.5.0':
+    resolution: {integrity: sha512-TyNMcZOADahzs9BmHELkknYn+UJesJ7blvopGQfFRvHO5ZgQu03TjF+2ONySjNNlpCjEq+EFrsBQD1zNf0Au0A==}
     cpu: [x64]
     os: [win32]
 
@@ -2686,50 +2589,50 @@ packages:
     resolution: {integrity: sha512-/uejZt4dSere1bx12WLlPfv8GktzcaDtuJ7s42/HEZ5zGj9oxRaD4bj7qwSunXkf+pbAhFt2zjpHYUiT5lHf0Q==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@typescript/native-preview-darwin-arm64@7.0.0-dev.20260425.1':
-    resolution: {integrity: sha512-vM7O+PlxHRUT4Dv0VkxEmU3N2uyWeSFrhu57O7s3SE9TX1ENljwQlCFG0oQdBGLBRo+SZSoedxKL5jOGlD1eiw==}
+  '@typescript/native-preview-darwin-arm64@7.0.0-dev.20260429.1':
+    resolution: {integrity: sha512-+Rl8iPf+vYKq0fnb8euEOJxxvE/abEOWmhdllQIe+Shd8xhS7UVi+2WunsP1GyH2Ofc+N8rGYz0/dMnhrRYEZA==}
     engines: {node: '>=16.20.0'}
     cpu: [arm64]
     os: [darwin]
 
-  '@typescript/native-preview-darwin-x64@7.0.0-dev.20260425.1':
-    resolution: {integrity: sha512-EiikklZSuEvMhZEeN0VRb0vmedhLgtKwz5p4Oz9e8hlJ4lLrslgvX7Z7JWb2YSKlhm14dUlRMvdoe+6t+56rSA==}
+  '@typescript/native-preview-darwin-x64@7.0.0-dev.20260429.1':
+    resolution: {integrity: sha512-be6Y7VVJz+usdI1ifCHy5mcldpxf8KXGYoyIp8w5Rd54zUtvtkYEJJWKzV5/bJt4bsQLLcp1i0vD4KJSr06Tmg==}
     engines: {node: '>=16.20.0'}
     cpu: [x64]
     os: [darwin]
 
-  '@typescript/native-preview-linux-arm64@7.0.0-dev.20260425.1':
-    resolution: {integrity: sha512-5KJ++prl1dscJtxnkE7Cb6rjud4T3nO4mcnKhkCfYcQaFtFrvcZhBtDobwcpSzHbfsW0MeM+QCy1UfWoK4gjUQ==}
+  '@typescript/native-preview-linux-arm64@7.0.0-dev.20260429.1':
+    resolution: {integrity: sha512-44amAEH/VxG6K/hrAmhiyOTnwoTzm7bj0ja7d8sV8Iuocv37oUiSB/8OgJLytLqfIh+Q6kipfTwY6Do3jh6THQ==}
     engines: {node: '>=16.20.0'}
     cpu: [arm64]
     os: [linux]
 
-  '@typescript/native-preview-linux-arm@7.0.0-dev.20260425.1':
-    resolution: {integrity: sha512-9eWInaHqhfTu1Mt/1M85p5M+HlSStahAQkqYaW9rJzUWRe+AcVUKsN6I7U7iwxbkCT8gFZsMCRqABcwBUWw3kg==}
+  '@typescript/native-preview-linux-arm@7.0.0-dev.20260429.1':
+    resolution: {integrity: sha512-ngN6+qt5bPdp2zzasShoT4UONGXr+tvzHdz4NjuitwhiAF/d70CseXunb4syaudl1a+lJyTHro/ALTC0hRf6vA==}
     engines: {node: '>=16.20.0'}
     cpu: [arm]
     os: [linux]
 
-  '@typescript/native-preview-linux-x64@7.0.0-dev.20260425.1':
-    resolution: {integrity: sha512-a/E/8UL2x6nWmIJwrrbEvLz938RMcrFfm5hLRKaPMjCE32bgwesBZEG5jRn8fzQes+4HICRXKEaL544jtb/Syg==}
+  '@typescript/native-preview-linux-x64@7.0.0-dev.20260429.1':
+    resolution: {integrity: sha512-haAOqc0fJCZkt4RDi0/ZQGBdDfpDzr2N+mEcR+FbiYQD3Y00kOK34hXSrjZafO2kq56ZDWunvCaUTCev0fJDbA==}
     engines: {node: '>=16.20.0'}
     cpu: [x64]
     os: [linux]
 
-  '@typescript/native-preview-win32-arm64@7.0.0-dev.20260425.1':
-    resolution: {integrity: sha512-BZ7jEnaNZHkHbq9LWuqqIgYMmMb2E2NReMybjOyl3ASFmJHYekDnytXIT3Zbp4dyPLJV55faGzLqMw2MMS81NA==}
+  '@typescript/native-preview-win32-arm64@7.0.0-dev.20260429.1':
+    resolution: {integrity: sha512-J5O0tGVGqOZHbqm9ijRnZ5ADfPqYTjFIwZtYKpQL1yj1dZnUzMszO8P3bnOSfYD//DJhZINQyJzpPJxu29uiwQ==}
     engines: {node: '>=16.20.0'}
     cpu: [arm64]
     os: [win32]
 
-  '@typescript/native-preview-win32-x64@7.0.0-dev.20260425.1':
-    resolution: {integrity: sha512-/iwK50mO31lKr1KVDRCqW5xGyKArZuq9jQr2b/PJ3e0xEuV6hoJ4Kok11LA1lhx1uctqr3UXKmfwQF3HWqcZTQ==}
+  '@typescript/native-preview-win32-x64@7.0.0-dev.20260429.1':
+    resolution: {integrity: sha512-/OZ99Hi/32huvZQ5fdqTwqLvZtKC3QrCXmLuKfMyVuBisV/TSd6LhlFQLolvIpr7/E530mnFZ4sXjgDEzVFqAw==}
     engines: {node: '>=16.20.0'}
     cpu: [x64]
     os: [win32]
 
-  '@typescript/native-preview@7.0.0-dev.20260425.1':
-    resolution: {integrity: sha512-qhSVDT9DsoKPBeEm777eUUkiCDjBFlF7wwjfMvcPctZFVHfD6b1O1icpfCdQHPqzjrSXWu2YaNiY0DXbljTmgw==}
+  '@typescript/native-preview@7.0.0-dev.20260429.1':
+    resolution: {integrity: sha512-SGKnvs5EA+V1spnraYJqum/lEajE0IQ2bVVPC72hFfWjoCfQ6N7iVYxLUGreiE3VFyQWWQBPgXZrRUFnawVvpQ==}
     engines: {node: '>=16.20.0'}
     hasBin: true
 
@@ -3192,6 +3095,11 @@ packages:
 
   cross-argv@2.0.0:
     resolution: {integrity: sha512-YIaY9TR5Nxeb8SMdtrU8asWVM4jqJDNDYlKV21LxtYcfNJhp1kEsgSa6qXwXgzN0WQWGODps0+TlGp2xQSHwOg==}
+
+  cross-env@7.0.3:
+    resolution: {integrity: sha512-+/HKd6EgcQCJGh2PSjZuUitQBQynKor4wrFbRg4DtAgS1aWO+gU52xpH7M9ScGgXSYmAVS9bIJ8EzuaGw0oNAw==}
+    engines: {node: '>=10.14', npm: '>=6', yarn: '>=1'}
+    hasBin: true
 
   cross-spawn@7.0.6:
     resolution: {integrity: sha512-uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==}
@@ -5106,8 +5014,8 @@ packages:
   tstl@3.0.0:
     resolution: {integrity: sha512-pR83y6/tbJx6jeGRqGJXk2t/eCUynaHEE6zsOLB0Zga8ej61LXtPfoeiROdhezpoCT15+1QMbqKB1Um5kasSKg==}
 
-  ttsc@0.4.3:
-    resolution: {integrity: sha512-ZLNYfiPxI0JCD9ORp+xCXlCQJuNDqrmmq39yyoRwXY8oa09Ph7DN/Cz1Rbo1EHoxrKL1iSUvsk7zhqSYfUuArw==}
+  ttsc@0.5.0:
+    resolution: {integrity: sha512-fZ5wQ88tW/2K7kFSsiIGnfHsWdgbWZuKMuWdl6kA9bZ81DbX0JLJb2GgJuwLpyUeoDkz+2Fmy/fABYVpMXWiQg==}
     hasBin: true
 
   type-check@0.4.0:
@@ -7061,25 +6969,29 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@ttsc/darwin-arm64@0.4.3':
+  '@ttsc/banner@0.5.0(ttsc@0.5.0)':
+    dependencies:
+      ttsc: 0.5.0
+
+  '@ttsc/darwin-arm64@0.5.0':
     optional: true
 
-  '@ttsc/darwin-x64@0.4.3':
+  '@ttsc/darwin-x64@0.5.0':
     optional: true
 
-  '@ttsc/linux-arm64@0.4.3':
+  '@ttsc/linux-arm64@0.5.0':
     optional: true
 
-  '@ttsc/linux-arm@0.4.3':
+  '@ttsc/linux-arm@0.5.0':
     optional: true
 
-  '@ttsc/linux-x64@0.4.3':
+  '@ttsc/linux-x64@0.5.0':
     optional: true
 
-  '@ttsc/win32-arm64@0.4.3':
+  '@ttsc/win32-arm64@0.5.0':
     optional: true
 
-  '@ttsc/win32-x64@0.4.3':
+  '@ttsc/win32-x64@0.5.0':
     optional: true
 
   '@typegoose/typegoose@10.6.0(mongoose@6.13.9)':
@@ -7093,14 +7005,14 @@ snapshots:
 
   '@types/autocannon@7.12.7':
     dependencies:
-      '@types/node': 25.6.0
+      '@types/node': 20.19.39
 
   '@types/benchmark@2.1.5': {}
 
   '@types/body-parser@1.19.6':
     dependencies:
       '@types/connect': 3.4.38
-      '@types/node': 25.6.0
+      '@types/node': 20.19.39
 
   '@types/bun@1.3.13':
     dependencies:
@@ -7462,36 +7374,36 @@ snapshots:
       '@typescript-eslint/types': 8.59.0
       eslint-visitor-keys: 5.0.1
 
-  '@typescript/native-preview-darwin-arm64@7.0.0-dev.20260425.1':
+  '@typescript/native-preview-darwin-arm64@7.0.0-dev.20260429.1':
     optional: true
 
-  '@typescript/native-preview-darwin-x64@7.0.0-dev.20260425.1':
+  '@typescript/native-preview-darwin-x64@7.0.0-dev.20260429.1':
     optional: true
 
-  '@typescript/native-preview-linux-arm64@7.0.0-dev.20260425.1':
+  '@typescript/native-preview-linux-arm64@7.0.0-dev.20260429.1':
     optional: true
 
-  '@typescript/native-preview-linux-arm@7.0.0-dev.20260425.1':
+  '@typescript/native-preview-linux-arm@7.0.0-dev.20260429.1':
     optional: true
 
-  '@typescript/native-preview-linux-x64@7.0.0-dev.20260425.1':
+  '@typescript/native-preview-linux-x64@7.0.0-dev.20260429.1':
     optional: true
 
-  '@typescript/native-preview-win32-arm64@7.0.0-dev.20260425.1':
+  '@typescript/native-preview-win32-arm64@7.0.0-dev.20260429.1':
     optional: true
 
-  '@typescript/native-preview-win32-x64@7.0.0-dev.20260425.1':
+  '@typescript/native-preview-win32-x64@7.0.0-dev.20260429.1':
     optional: true
 
-  '@typescript/native-preview@7.0.0-dev.20260425.1':
+  '@typescript/native-preview@7.0.0-dev.20260429.1':
     optionalDependencies:
-      '@typescript/native-preview-darwin-arm64': 7.0.0-dev.20260425.1
-      '@typescript/native-preview-darwin-x64': 7.0.0-dev.20260425.1
-      '@typescript/native-preview-linux-arm': 7.0.0-dev.20260425.1
-      '@typescript/native-preview-linux-arm64': 7.0.0-dev.20260425.1
-      '@typescript/native-preview-linux-x64': 7.0.0-dev.20260425.1
-      '@typescript/native-preview-win32-arm64': 7.0.0-dev.20260425.1
-      '@typescript/native-preview-win32-x64': 7.0.0-dev.20260425.1
+      '@typescript/native-preview-darwin-arm64': 7.0.0-dev.20260429.1
+      '@typescript/native-preview-darwin-x64': 7.0.0-dev.20260429.1
+      '@typescript/native-preview-linux-arm': 7.0.0-dev.20260429.1
+      '@typescript/native-preview-linux-arm64': 7.0.0-dev.20260429.1
+      '@typescript/native-preview-linux-x64': 7.0.0-dev.20260429.1
+      '@typescript/native-preview-win32-arm64': 7.0.0-dev.20260429.1
+      '@typescript/native-preview-win32-x64': 7.0.0-dev.20260429.1
 
   '@ungap/structured-clone@1.3.0': {}
 
@@ -8034,6 +7946,10 @@ snapshots:
       vary: 1.1.2
 
   cross-argv@2.0.0: {}
+
+  cross-env@7.0.3:
+    dependencies:
+      cross-spawn: 7.0.6
 
   cross-spawn@7.0.6:
     dependencies:
@@ -9655,7 +9571,7 @@ snapshots:
       '@protobufjs/path': 1.1.2
       '@protobufjs/pool': 1.1.0
       '@protobufjs/utf8': 1.1.0
-      '@types/node': 25.6.0
+      '@types/node': 20.19.39
       long: 5.3.2
 
   proxy-addr@2.0.7:
@@ -10219,15 +10135,15 @@ snapshots:
 
   tstl@3.0.0: {}
 
-  ttsc@0.4.3:
+  ttsc@0.5.0:
     optionalDependencies:
-      '@ttsc/darwin-arm64': 0.4.3
-      '@ttsc/darwin-x64': 0.4.3
-      '@ttsc/linux-arm': 0.4.3
-      '@ttsc/linux-arm64': 0.4.3
-      '@ttsc/linux-x64': 0.4.3
-      '@ttsc/win32-arm64': 0.4.3
-      '@ttsc/win32-x64': 0.4.3
+      '@ttsc/darwin-arm64': 0.5.0
+      '@ttsc/darwin-x64': 0.5.0
+      '@ttsc/linux-arm': 0.5.0
+      '@ttsc/linux-arm64': 0.5.0
+      '@ttsc/linux-x64': 0.5.0
+      '@ttsc/win32-arm64': 0.5.0
+      '@ttsc/win32-x64': 0.5.0
 
   type-check@0.4.0:
     dependencies:

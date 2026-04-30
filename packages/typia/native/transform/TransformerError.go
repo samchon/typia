@@ -1,0 +1,11 @@
+package transform
+
+import nativeinternal "github.com/samchon/typia/packages/typia/native/transform/internal"
+
+type TransformerError = nativeinternal.TransformerError
+type TransformerError_IProps = nativeinternal.TransformerError_IProps
+type TransformerError_MetadataFactory_IError = nativeinternal.TransformerError_MetadataFactory_IError
+type TransformerError_MetadataFactory_IExplore = nativeinternal.TransformerError_MetadataFactory_IExplore
+
+var NewTransformerError = nativeinternal.NewTransformerError
+var TransformerError_from = nativeinternal.TransformerError_from
