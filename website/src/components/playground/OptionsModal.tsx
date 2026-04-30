@@ -10,7 +10,7 @@ import {
   Typography,
   Box,
 } from "@mui/material";
-import { ITransformOptions } from "@typia/core";
+import { ITransformOptions } from "../../compiler/ITransformOptions";
 
 interface OptionsModalProps {
   open: boolean;

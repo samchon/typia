@@ -12,7 +12,7 @@ import React, { useEffect, useState } from "react";
 import { Button, Tooltip } from "@mui/material";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import SettingsIcon from "@mui/icons-material/Settings";
-import { version } from "../../../package.json";
+import stationPackage from "../../../package.json";
 
 import LanguageButton from "../components/playground/LanguageButton";
 import ResultViewer from "../components/playground/ResultViewer";
@@ -26,7 +26,7 @@ import { WorkerConnector } from "tgrid";
 import { COMPILER_OPTIONS } from "../compiler/COMPILER_OPTIONS";
 import { PLAYGROUND_DEFAULT_SCRIPT } from "../components/playground/PLAYGROUND_DEFAULT_SCRIPT";
 import external from "../raw/external.json";
-import { ITransformOptions } from "@typia/core";
+import { ITransformOptions } from "../compiler/ITransformOptions";
 import { PlaygroundExampleStorage } from "../compiler/PlaygroundExampleStorage";
 
 const PlaygroundMovie = () => {
@@ -331,7 +331,7 @@ const PlaygroundMovie = () => {
       >
         <p>
           <code className="nx-border-black nx-border-opacity-[0.04] nx-bg-opacity-[0.03] nx-bg-black nx-break-words nx-rounded-md nx-border nx-py-0.5 nx-px-[.25em] nx-text-[.9em] dark:nx-border-white/10 dark:nx-bg-white/10">
-            typia@{version}
+            typia@{stationPackage.version}
           </code>{" "}
           - Made with ❤️ by{" "}
           <a

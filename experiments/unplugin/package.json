@@ -22,7 +22,7 @@
     "ttsc": "^0.5.0"
   },
   "devDependencies": {
-    "@typescript/native-preview": "7.0.0-dev.20260421.2",
+    "@typescript/native-preview": "7.0.0-dev.20260429.1",
     "vitest": "^3.0.9"
   }
 }

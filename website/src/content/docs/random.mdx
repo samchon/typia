@@ -8,7 +8,7 @@ import LocalSource from "../../components/LocalSource";
 ## `random()` function
 
 <Tabs items={[
-  <code>typia</code>, 
+  <code>typia</code>,
   <code>IRandomGenerator.ts</code>,
   <code>Resolved.ts</code>
 ]}>
@@ -18,14 +18,14 @@ export function random<T>(g?: IRandomGenerator): Resolved<T>;
 ```
   </Tabs.Tab>
   <Tabs.Tab>
-    <LocalSource 
-      path="packages/interface/src/utils/IRandomGenerator.ts" 
+    <LocalSource
+      path="packages/interface/src/utils/IRandomGenerator.ts"
       filename="@typia/interface"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <LocalSource 
-      path="packages/interface/src/typings/Resolved.ts" 
+    <LocalSource
+      path="packages/interface/src/typings/Resolved.ts"
       filename="@typia/interface"
       showLineNumbers />
   </Tabs.Tab>
@@ -33,19 +33,19 @@ export function random<T>(g?: IRandomGenerator): Resolved<T>;
 
 You can make every random data just by calling `typia.random<T>()` function.
 
-When you call the `typia.random<T>()` function, `typia` will analyze your type `T`, and writes optimal random generation code for the type `T`, in the compilation level. This is called AOT (Ahead of Time) compilation, and you may understand what it is just by reading below example code. 
+When you call the `typia.random<T>()` function, `typia` will analyze your type `T`, and writes optimal random generation code for the type `T`, in the compilation level. This is called AOT (Ahead of Time) compilation, and you may understand what it is just by reading below example code.
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
   <Tabs.Tab>
-    <LocalSource 
-      path="examples/src/random/random.ts" 
-      filename="examples/src/random/random.ts" 
+    <LocalSource
+      path="examples/src/random/random.ts"
+      filename="examples/src/random/random.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <LocalSource 
-      path="examples/bin/random/random.js" 
-      filename="examples/bin/random/random.js" 
+    <LocalSource
+      path="examples/bin/random/random.js"
+      filename="examples/bin/random/random.js"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>
@@ -53,9 +53,8 @@ When you call the `typia.random<T>()` function, `typia` will analyze your type `
 ## Reusable function
 
 <Tabs items={[
-  <code>typia</code>, 
-  <code>IRandomGenerator.ts</code>, 
-  <code>Customizable.ts</code>,
+  <code>typia</code>,
+  <code>IRandomGenerator.ts</code>,
   <code>Resolved.ts</code>,
 ]}>
   <Tabs.Tab>
@@ -64,20 +63,14 @@ export function createRandom<T>(): (g?: IRandomGenerator) => Resolved<T>;
 ```
   </Tabs.Tab>
   <Tabs.Tab>
-    <LocalSource 
-      path="src/IRandomGenerator.ts" 
-      filename="typia/IRandomGenerator.ts" 
+    <LocalSource
+      path="packages/interface/src/utils/IRandomGenerator.ts"
+      filename="@typia/interface"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <LocalSource 
-      path="src/typings/Customizable.ts" 
-      filename="typia/Customizable.ts"
-      showLineNumbers />
-  </Tabs.Tab>
-  <Tabs.Tab>
-    <LocalSource 
-      path="packages/interface/src/typings/Resolved.ts" 
+    <LocalSource
+      path="packages/interface/src/typings/Resolved.ts"
       filename="@typia/interface"
       showLineNumbers />
   </Tabs.Tab>
@@ -90,26 +83,26 @@ Runtime validators of `typia` provides additional type checking logic through [T
 For reference, whether you choose [Type Tags](../validators/tags#type-tags) or [Comment Tags](../validators/tags#comment-tags). `typia.random<T>()`, it is not a matter for `typia.random<T>()` function. Below two TypeScript codes are generating exactly same JavaScript code. Therefore, you can choose whatever you want considering your preference.
 
 <Tabs items={[
-  'TypeScript (Type Tags)', 
-  'TypeScript (Comment Tags)', 
+  'TypeScript (Type Tags)',
+  'TypeScript (Comment Tags)',
   'Compiled JavaScript File'
 ]}>
   <Tabs.Tab>
-    <LocalSource 
-      path="examples/src/random/random-tag.ts" 
-      filename="examples/src/random/random-tag.ts" 
+    <LocalSource
+      path="examples/src/random/random-tag.ts"
+      filename="examples/src/random/random-tag.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <LocalSource 
-      path="examples/src/random/random-comment-tag.ts" 
-      filename="examples/src/random/random-comment-tag.ts" 
+    <LocalSource
+      path="examples/src/random/random-comment-tag.ts"
+      filename="examples/src/random/random-comment-tag.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <LocalSource 
-      path="examples/bin/random/random-tag.js" 
-      filename="examples/bin/random/random-tag.js" 
+    <LocalSource
+      path="examples/bin/random/random-tag.js"
+      filename="examples/bin/random/random-tag.js"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>
@@ -117,9 +110,8 @@ For reference, whether you choose [Type Tags](../validators/tags#type-tags) or [
 ## Customization
 
 <Tabs items={[
-  <code>typia</code>, 
-  <code>IRandomGenerator.ts</code>, 
-  <code>Customizable.ts</code>,
+  <code>typia</code>,
+  <code>IRandomGenerator.ts</code>,
   <code>Resolved.ts</code>,
 ]}>
   <Tabs.Tab>
@@ -128,20 +120,14 @@ export function random<T>(g?: IRandomGenerator): Resolved<T>;
 ```
   </Tabs.Tab>
   <Tabs.Tab>
-    <LocalSource 
-      path="src/IRandomGenerator.ts" 
-      filename="typia/IRandomGenerator.ts" 
+    <LocalSource
+      path="packages/interface/src/utils/IRandomGenerator.ts"
+      filename="@typia/interface"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <LocalSource 
-      path="src/typings/Customizable.ts" 
-      filename="typia/Customizable.ts"
-      showLineNumbers />
-  </Tabs.Tab>
-  <Tabs.Tab>
-    <LocalSource 
-      path="packages/interface/src/typings/Resolved.ts" 
+    <LocalSource
+      path="packages/interface/src/typings/Resolved.ts"
       filename="@typia/interface"
       showLineNumbers />
   </Tabs.Tab>
@@ -151,21 +137,21 @@ You can add custom type tags for random data generation.
 
 As above `IRandomGenerator.CustomMap` has a little bit complicate type, it may hard to understand for newcomers. However, such newcomers may easily understand, how to customize the random generation, just by reading the following example.
 
-Just define custom type tags like below, then everything would be done. 
+Just define custom type tags like below, then everything would be done.
 
 For reference, when defining custom type tag, `typia` enforces user to define `validate` function literal for type safety. Never forget it when you define custom type tags for random generation. Such validation logic definition may enhance your random data generator logic when combining with [`typia.assert<T>()`](../validators/assert) function.
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
   <Tabs.Tab>
-    <LocalSource 
-      path="examples/src/random/random-custom.ts" 
-      filename="examples/src/random/random-custom.ts" 
+    <LocalSource
+      path="examples/src/random/random-custom.ts"
+      filename="examples/src/random/random-custom.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <LocalSource 
-      path="examples/bin/random/random-custom.js" 
-      filename="examples/bin/random/random-custom.js" 
+    <LocalSource
+      path="examples/bin/random/random-custom.js"
+      filename="examples/bin/random/random-custom.js"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>

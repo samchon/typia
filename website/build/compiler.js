@@ -26,7 +26,7 @@ fs.writeFileSync(
 console.log(" Installing compiler dependencies");
 //-------------------------------------------------------
 const dependencies = path.resolve(`${__dirname}/../compiler-dependencies`);
-cp.execSync("npm install", {
+cp.execSync("npm install --legacy-peer-deps", {
   stdio: "ignore",
   cwd: dependencies,
 });

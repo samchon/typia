@@ -40,6 +40,7 @@ jobs:
         run: |
           pnpm install
           pnpm build:toolchain
+          pnpm run package:tgz
 
       - name: Build
         working-directory: website
