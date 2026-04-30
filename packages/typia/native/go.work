@@ -1,0 +1,20 @@
+go 1.26
+
+use (
+	.
+	./shim/printer
+	./third_party/ttsc
+	./third_party/ttsc/shim/ast
+	./third_party/ttsc/shim/bundled
+	./third_party/ttsc/shim/checker
+	./third_party/ttsc/shim/compiler
+	./third_party/ttsc/shim/core
+	./third_party/ttsc/shim/diagnosticwriter
+	./third_party/ttsc/shim/parser
+	./third_party/ttsc/shim/scanner
+	./third_party/ttsc/shim/tsoptions
+	./third_party/ttsc/shim/tspath
+	./third_party/ttsc/shim/vfs
+	./third_party/ttsc/shim/vfs/cachedvfs
+	./third_party/ttsc/shim/vfs/osvfs
+)

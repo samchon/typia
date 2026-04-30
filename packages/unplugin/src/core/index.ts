@@ -206,6 +206,9 @@ const unpluginFactory: UnpluginFactory<Options | undefined, false> = (
 
     transformInclude(id) {
       const _id = removeRslibPrefix(id);
+      if (isTypiaInternalFile(_id)) {
+        return false;
+      }
       if (isDeclarationFile(_id)) {
         return false;
       }
@@ -218,6 +221,9 @@ const unpluginFactory: UnpluginFactory<Options | undefined, false> = (
       const removeRslibPrefixId = removeRslibPrefix(resolvedId);
       const id = wrap<ID>(removeRslibPrefixId);
 
+      if (isTypiaInternalFile(id)) {
+        return;
+      }
       if (isDeclarationFile(id)) {
         return;
       }
@@ -268,3 +274,11 @@ export type { Options };
 export { resolveOptions, createFilter, transformTypia, unplugin };
 
 export default unplugin;
+
+function isTypiaInternalFile(id: string): boolean {
+  const normalized = id.replaceAll("\\", "/");
+  return (
+    normalized.includes("/packages/typia/src/") ||
+    normalized.includes("/packages/interface/src/")
+  );
+}

@@ -4,7 +4,7 @@ import {
   IEmbedTypeScriptTransformation,
 } from "embed-typescript";
 import { WorkerServer } from "tgrid";
-import typiaTransform from "typia/lib/transform";
+import typiaTransform from "@typia/legacy-transform";
 
 import { COMPILER_OPTIONS } from "./COMPILER_OPTIONS";
 import { ICompilerService } from "./ICompilerService";

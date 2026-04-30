@@ -1,7 +1,5 @@
 import { TestStructure } from "@typia/template";
-import { IValidation } from "typia";
-
-import { assertValidationFailure } from "./_assert_validation";
+import { IValidation, assertEquals } from "typia";
 
 export const _test_misc_validatePrune =
   (name: string) =>
@@ -45,7 +43,7 @@ export const _test_misc_validatePrune =
           `Bug on typia.misc.validatePrune(): failed to detect error on the ${name} type.`,
         );
 
-      assertValidationFailure(valid);
+      assertEquals(valid);
       expected.sort();
       valid.errors.sort((x, y) => (x.path < y.path ? -1 : 1));
 

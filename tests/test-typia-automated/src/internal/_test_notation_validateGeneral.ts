@@ -1,10 +1,6 @@
 import { TestStructure } from "@typia/template";
-import type { IValidation } from "typia";
+import typia, { IValidation } from "typia";
 
-import {
-  assertValidationFailure,
-  assertValidationSuccess,
-} from "./_assert_validation";
 import { _test_notation_general } from "./_test_notation_general";
 
 export const _test_notation_validateGeneral =
@@ -22,7 +18,7 @@ export const _test_notation_validateGeneral =
           throw new Error(
             `Bug on typia.notations.validateX(): failed to understand the ${name} type.`,
           );
-        assertValidationSuccess(res);
+        typia.assertEquals<IValidation.ISuccess<unknown>>(res);
         return res.data;
       },
     }) satisfies void;
@@ -38,7 +34,7 @@ export const _test_notation_validateGeneral =
           `Bug on typia.notations.validateX(): failed to detect error on the ${name} type.`,
         );
 
-      assertValidationFailure(valid);
+      typia.assertEquals(valid);
       expected.sort();
       valid.errors.sort((x, y) => (x.path < y.path ? -1 : 1));
 

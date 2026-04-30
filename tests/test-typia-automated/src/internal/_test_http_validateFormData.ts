@@ -1,10 +1,6 @@
 import { TestStructure } from "@typia/template";
 import typia from "typia";
 
-import {
-  assertValidationFailure,
-  assertValidationSuccess,
-} from "./_assert_validation";
 import { create_form_data } from "../utils/create_form_data";
 import { resolved_equal_to } from "../utils/resolved_equal_to";
 
@@ -20,7 +16,7 @@ export const _test_http_validateFormData =
       throw new Error(
         `Bug on typia.http.validateFormData(): failed to understand ${name} type.`,
       );
-    assertValidationSuccess(result);
+    typia.assertEquals<typia.IValidation.ISuccess<unknown>>(result);
 
     const equal: boolean =
       result !== null && resolved_equal_to(name)(data, result.data);
@@ -42,7 +38,7 @@ export const _test_http_validateFormData =
           `Bug on typia.http.validateFormData(): failed to detect error on the ${name} type.`,
         );
 
-      assertValidationFailure(valid);
+      typia.assertEquals(valid);
       expected.sort();
       valid.errors.sort((x, y) => (x.path < y.path ? -1 : 1));
 

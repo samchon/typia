@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "ignoreDeprecations": "6.0",
+    "types": ["*"],
+    "rootDir": "src",
+    "strict": true,
+    "target": "ES2020",
+    "plugins": [
+      {
+        "transform": "typia/lib/transform"
+      },
+      {
+        "transform": "@ttsc/banner",
+        "banner": "/* mixed-plugin */"
+      }
+    ]
+  },
+  "include": [
+    "src/**/*.ts"
+  ]
+}

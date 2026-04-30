@@ -200,29 +200,29 @@ export namespace LlmSchemaConverter {
         },
       };
 
-    const convertConstant = (
-      input: OpenApi.IJsonSchema.IConstant,
-    ): ILlmSchema | null => {
-      if (input.const === null)
-        return {
-          type: "null",
-        };
-      if (typeof input.const === "boolean")
-        return {
-          type: "boolean",
-          enum: [input.const],
-        };
-      if (typeof input.const === "string")
-        return {
-          type: "string",
-          enum: [input.const],
-        };
-      if (typeof input.const === "number")
-        return {
-          type: Number.isInteger(input.const) ? "integer" : "number",
-          enum: [input.const],
-        };
-      return null;
+    const visitConstant = (input: OpenApi.IJsonSchema): void => {
+      const insert = (value: any): void => {
+        const matched:
+          | ILlmSchema.IString
+          | ILlmSchema.INumber
+          | ILlmSchema.IBoolean
+          | undefined = union.find(
+          (u) =>
+            (u as (IJsonSchemaAttribute & { type: string }) | undefined)
+              ?.type === typeof value,
+        ) as ILlmSchema.IString | undefined;
+        if (matched !== undefined) {
+          matched.enum ??= [];
+          matched.enum.push(value);
+        } else
+          union.push({
+            type: typeof value as "number",
+            enum: [value],
+          });
+      };
+      if (OpenApiTypeChecker.isConstant(input)) insert(input.const);
+      else if (OpenApiTypeChecker.isOneOf(input))
+        input.oneOf.forEach(visitConstant);
     };
     const visit = (input: OpenApi.IJsonSchema, accessor: string): void => {
       if (OpenApiTypeChecker.isOneOf(input)) {
@@ -347,9 +347,6 @@ export namespace LlmSchemaConverter {
                 items: items.value,
               },
         );
-      } else if (OpenApiTypeChecker.isConstant(input)) {
-        const constant: ILlmSchema | null = convertConstant(input);
-        if (constant !== null) union.push(constant);
       } else if (OpenApiTypeChecker.isString(input))
         union.push(
           props.config.strict === true
@@ -371,8 +368,8 @@ export namespace LlmSchemaConverter {
         union.push({ ...input });
     };
 
+    visitConstant(props.schema);
     visit(props.schema, props.accessor ?? "$input.schema");
-    const normalized: ILlmSchema[] = normalizeLlmUnion(union);
 
     if (reasons.length > 0)
       return {
@@ -383,7 +380,7 @@ export namespace LlmSchemaConverter {
           reasons,
         },
       };
-    else if (normalized.length === 0)
+    else if (union.length === 0)
       return {
         // unknown type
         success: true,
@@ -392,25 +389,25 @@ export namespace LlmSchemaConverter {
           type: undefined,
         },
       };
-    else if (normalized.length === 1)
+    else if (union.length === 1)
       return {
         // single type
         success: true,
         value: {
           ...attribute,
-          ...normalized[0],
+          ...union[0],
           description:
             props.config.strict === true &&
-            LlmTypeChecker.isReference(normalized[0]!)
+            LlmTypeChecker.isReference(union[0]!)
               ? undefined
-              : (normalized[0]!.description ?? attribute.description),
+              : (union[0]!.description ?? attribute.description),
         },
       };
     return {
       success: true,
       value: {
         ...attribute,
-        anyOf: normalized.map((u) => ({
+        anyOf: union.map((u) => ({
           ...u,
           description:
             props.config.strict === true && LlmTypeChecker.isReference(u)
@@ -420,8 +417,8 @@ export namespace LlmSchemaConverter {
         "x-discriminator":
           OpenApiTypeChecker.isOneOf(props.schema) &&
           props.schema.discriminator !== undefined &&
-          props.schema.oneOf.length === normalized.length &&
-          normalized.every(
+          props.schema.oneOf.length === union.length &&
+          union.every(
             (e) => LlmTypeChecker.isReference(e) || LlmTypeChecker.isNull(e),
           )
             ? {
@@ -436,11 +433,7 @@ export namespace LlmSchemaConverter {
                           ],
                         ),
                       )
-                    : discriminatorMapping({
-                        propertyName: props.schema.discriminator.propertyName,
-                        refs: normalized.filter(LlmTypeChecker.isReference),
-                        $defs: props.$defs,
-                      }),
+                    : undefined,
               }
             : undefined,
       },
@@ -499,7 +492,7 @@ export namespace LlmSchemaConverter {
         union.push({
           ...schema,
           properties: Object.fromEntries(
-            Object.entries(schema.properties).map(([key, value]) => [
+            Object.entries(schema.properties ?? {}).map(([key, value]) => [
               key,
               next(value),
             ]),
@@ -599,118 +592,6 @@ export namespace LlmSchemaConverter {
   };
 }
 
-const discriminatorMapping = (props: {
-  propertyName: string;
-  refs: ILlmSchema.IReference[];
-  $defs: Record<string, ILlmSchema>;
-}): Record<string, string> | undefined => {
-  const entries: Array<[string, string]> = props.refs.flatMap((ref) => {
-    const key: string =
-      ref.$ref.split("#/$defs/")[1] ?? ref.$ref.split("/").at(-1)!;
-    const schema: ILlmSchema | undefined = props.$defs[key];
-    if (!schema || !LlmTypeChecker.isObject(schema)) return [];
-    const literals: string[] = llmDiscriminatorLiterals(
-      schema.properties[props.propertyName],
-      props.$defs,
-    );
-    return literals.map((literal) => [literal, ref.$ref] as [string, string]);
-  });
-  return entries.length !== 0 ? Object.fromEntries(entries) : undefined;
-};
-
-const llmDiscriminatorLiterals = (
-  schema: ILlmSchema | undefined,
-  $defs: Record<string, ILlmSchema>,
-): string[] => {
-  if (schema === undefined) return [];
-  if (LlmTypeChecker.isReference(schema)) {
-    const key: string =
-      schema.$ref.split("#/$defs/")[1] ?? schema.$ref.split("/").at(-1)!;
-    return llmDiscriminatorLiterals($defs[key], $defs);
-  }
-  if (LlmTypeChecker.isString(schema)) return schema.enum ?? [];
-  if (LlmTypeChecker.isAnyOf(schema))
-    return schema.anyOf.flatMap((child) => llmDiscriminatorLiterals(child, $defs));
-  return [];
-};
-
-const normalizeLlmUnion = (union: ILlmSchema[]): ILlmSchema[] => {
-  if (union.length <= 1) return union;
-  if (union.every(isEnumOnlyString)) {
-    return [
-      {
-        type: "string",
-        enum: uniqueEnumValues(union.flatMap((schema) => schema.enum ?? [])),
-      },
-    ];
-  }
-  if (union.every(isEnumOnlyBoolean)) {
-    return [
-      {
-        type: "boolean",
-        enum: uniqueEnumValues(union.flatMap((schema) => schema.enum ?? [])),
-      },
-    ];
-  }
-  if (union.every(isEnumOnlyInteger)) {
-    return [
-      {
-        type: "integer",
-        enum: uniqueEnumValues(union.flatMap((schema) => schema.enum ?? [])),
-      },
-    ];
-  }
-  if (union.every(isEnumOnlyNumber)) {
-    return [
-      {
-        type: "number",
-        enum: uniqueEnumValues(union.flatMap((schema) => schema.enum ?? [])),
-      },
-    ];
-  }
-  return union;
-};
-
-const isEnumOnlyString = (
-  schema: ILlmSchema,
-): schema is ILlmSchema.IString & { enum: string[] } =>
-  LlmTypeChecker.isString(schema) &&
-  Array.isArray(schema.enum) &&
-  schema.enum.length !== 0 &&
-  primitiveSchemaHasOnlyEnum(schema);
-
-const isEnumOnlyBoolean = (
-  schema: ILlmSchema,
-): schema is ILlmSchema.IBoolean & { enum: boolean[] } =>
-  LlmTypeChecker.isBoolean(schema) &&
-  Array.isArray(schema.enum) &&
-  schema.enum.length !== 0 &&
-  primitiveSchemaHasOnlyEnum(schema);
-
-const isEnumOnlyInteger = (
-  schema: ILlmSchema,
-): schema is ILlmSchema.IInteger & { enum: number[] } =>
-  LlmTypeChecker.isInteger(schema) &&
-  Array.isArray(schema.enum) &&
-  schema.enum.length !== 0 &&
-  primitiveSchemaHasOnlyEnum(schema);
-
-const isEnumOnlyNumber = (
-  schema: ILlmSchema,
-): schema is ILlmSchema.INumber & { enum: number[] } =>
-  LlmTypeChecker.isNumber(schema) &&
-  Array.isArray(schema.enum) &&
-  schema.enum.length !== 0 &&
-  primitiveSchemaHasOnlyEnum(schema);
-
-const primitiveSchemaHasOnlyEnum = (schema: ILlmSchema): boolean =>
-  Object.entries(schema).every(([key, value]) => {
-    if (value === undefined) return true;
-    return key === "type" || key === "enum";
-  });
-
-const uniqueEnumValues = <T>(values: T[]): T[] => Array.from(new Set(values));
-
 const validateStrict = (
   schema: OpenApi.IJsonSchema,
   accessor: string,
@@ -724,13 +605,6 @@ const validateStrict = (
         message:
           "LLM does not allow additionalProperties in strict mode, the dynamic key typed object.",
       });
-    for (const key of Object.keys(schema.properties ?? {}))
-      if (schema.required?.includes(key) === false)
-        reasons.push({
-          schema: schema,
-          accessor: `${accessor}.properties.${key}`,
-          message: "LLM does not allow optional properties in strict mode.",
-        });
   }
   return reasons;
 };

@@ -16,6 +16,9 @@ jobs:
         with:
           node-version: 24.x
           registry-url: https://registry.npmjs.org/
+      - uses: actions/setup-go@v5
+        with:
+          go-version: 1.26.x
       - uses: pnpm/action-setup@v4
       - name: Install dependencies
         run: pnpm install
@@ -45,6 +48,9 @@ jobs:
         with:
           node-version: 24.x
           registry-url: https://registry.npmjs.org/
+      - uses: actions/setup-go@v5
+        with:
+          go-version: 1.26.x
       - uses: pnpm/action-setup@v4
       - name: Build Packages
         run: pnpm install && pnpm run package:tgz

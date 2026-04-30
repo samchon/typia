@@ -1,11 +1,6 @@
 import { TestStructure } from "@typia/template";
 import { NamingConvention } from "@typia/utils";
-import type { IValidation } from "typia";
-
-import {
-  assertValidationFailure,
-  assertValidationSuccess,
-} from "./_assert_validation";
+import typia, { IValidation } from "typia";
 
 export const _test_validateEquals =
   (name: string) =>
@@ -23,7 +18,7 @@ export const _test_validateEquals =
       throw new Error(
         "Bug on typia.validateEquals(): failed to archive the input value.",
       );
-    assertValidationSuccess(valid);
+    typia.assertEquals(valid);
     if (factory.ADDABLE === false) return;
 
     // EXPECTED
@@ -36,7 +31,6 @@ export const _test_validateEquals =
 
     // SOLUTION
     const result: IValidation<T> = validateEquals(input);
-    assertValidationFailure(result);
     const actual: string[] = result.success
       ? []
       : result.errors.map((err) => err.path).sort();

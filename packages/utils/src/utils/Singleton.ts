@@ -1,3 +1,4 @@
+/** @internal */
 export class Singleton<T, Args extends any[] = []> {
   private readonly closure_: (...args: Args) => T;
   private value_: T | object;

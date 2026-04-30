@@ -86,6 +86,7 @@ export class TypeGuardError<T = any> extends Error {
     else (this as any).__proto__ = proto;
 
     // ASSIGN MEMBERS
+    this.name = "TypeGuardError";
     this.method = props.method;
     this.path = props.path;
     this.expected = props.expected;

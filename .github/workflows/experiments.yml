@@ -3,15 +3,7 @@ on:
   pull_request:
     paths:
       - '.github/workflows/experiments.yml'
-      - 'packages/*/native/**'
-      - 'packages/*/src/**'
-      - 'packages/*/package.json'
-      - 'toolchain/*/cmd/**'
-      - 'toolchain/*/*.go'
-      - 'toolchain/*/go.mod'
-      - 'toolchain/*/go.sum'
-      - 'toolchain/*/src/**'
-      - 'toolchain/*/package.json'
+      - 'packages/**'
       - 'experiments/**'
       - 'package.json'
       - 'pnpm-lock.yaml'
@@ -24,6 +16,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 24.x
+      - uses: actions/setup-go@v5
+        with:
+          go-version: 1.26.x
       - uses: pnpm/action-setup@v4
 
       - name: Install Dependencies

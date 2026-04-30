@@ -27,7 +27,7 @@ function createContext(props) {
     tarballs,
     workspace,
     installTarballs: () => {
-      installTarballs({ tarballs, workspace });
+      installTarballs({ root, tarballs, workspace });
       state.packageJson = readJson(path.join(workspace, "package.json"));
     },
     getWizardInstallCommandCounts: () => getWizardInstallCommandCounts(npmLog),
@@ -50,6 +50,7 @@ function createContext(props) {
 }
 
 function installTarballs(context) {
+  const catalog = readTypescriptCatalog(context.root);
   runCommand(
     [
       "npm install",
@@ -58,10 +59,9 @@ function installTarballs(context) {
       "--no-fund",
       tarball(context.tarballs, "interface"),
       tarball(context.tarballs, "utils"),
-      tarball(context.tarballs, `typia-${process.platform}-${process.arch}`),
       tarball(context.tarballs, "typia"),
-      "@typescript/native-preview@7.0.0-dev.20260421.2",
-      "ttsc@^0.4.2",
+      npmInstallSpec("@typescript/native-preview", catalog.nativePreview),
+      npmInstallSpec("ttsc", catalog.ttsc),
     ].join(" "),
     context.workspace,
   );
@@ -160,14 +160,55 @@ function verifyInstalledPackage(workspace) {
     1,
     plugin.native.contractVersion,
   );
-  TestValidator.predicate(
-    "typia transform native binary exists",
-    fs.existsSync(plugin.native.binary),
+  TestValidator.equals(
+    "typia transform native binary is not prebuilt",
+    undefined,
+    plugin.native.binary,
   );
   TestValidator.equals(
-    "typia transform native binary path",
-    path.join(installedTypia, "lib", "executable", "generate", "ttsc.js"),
-    plugin.native.binary,
+    "typia transform native source entry",
+    "./cmd/ttsc-typia",
+    plugin.native.source.entry,
+  );
+  TestValidator.equals(
+    "typia transform native source directory",
+    path.join(installedTypia, "native"),
+    plugin.native.source.dir,
+  );
+  TestValidator.predicate(
+    "typia transform native source directory exists",
+    fs.existsSync(plugin.native.source.dir),
+  );
+  TestValidator.predicate(
+    "typia transform native source entry exists",
+    fs.existsSync(path.join(plugin.native.source.dir, "cmd", "ttsc-typia")),
+  );
+  TestValidator.predicate(
+    "typia transform native module file exists",
+    fs.existsSync(path.join(plugin.native.source.dir, "go.mod")),
+  );
+  TestValidator.predicate(
+    "typia transform native workspace file exists",
+    fs.existsSync(path.join(plugin.native.source.dir, "go.work")),
+  );
+  TestValidator.predicate(
+    "typia transform native vendored ttsc driver exists",
+    fs.existsSync(
+      path.join(plugin.native.source.dir, "third_party", "ttsc", "driver"),
+    ),
+  );
+  TestValidator.predicate(
+    "typia transform native vendored compiler shim module exists",
+    fs.existsSync(
+      path.join(
+        plugin.native.source.dir,
+        "third_party",
+        "ttsc",
+        "shim",
+        "compiler",
+        "go.mod",
+      ),
+    ),
   );
 }
 
@@ -190,7 +231,9 @@ function verifyWizardInstallCommands(npmLog, count) {
 }
 
 function getWizardInstallCommandCounts(npmLog) {
-  const wizardLog = fs.existsSync(npmLog) ? fs.readFileSync(npmLog, "utf8") : "";
+  const wizardLog = fs.existsSync(npmLog)
+    ? fs.readFileSync(npmLog, "utf8")
+    : "";
   return {
     legacy: countMatches(wizardLog, "ts-patch"),
     ttsc: countMatches(wizardLog, "i -D ttsc@latest"),
@@ -208,6 +251,71 @@ function tarball(tarballs, name) {
     fs.existsSync(file),
   );
   return file;
+}
+
+function readTypescriptCatalog(root) {
+  return {
+    nativePreview: readCatalogVersion(
+      root,
+      "typescript",
+      "@typescript/native-preview",
+    ),
+    ttsc: readCatalogVersion(root, "typescript", "ttsc"),
+  };
+}
+
+function readCatalogVersion(root, catalogName, packageName) {
+  const workspace = fs.readFileSync(
+    path.join(root, "pnpm-workspace.yaml"),
+    "utf8",
+  );
+  let inCatalogs = false;
+  let inCatalog = false;
+  for (const line of workspace.split(/\r?\n/)) {
+    if (/^catalogs:\s*$/.test(line)) {
+      inCatalogs = true;
+      inCatalog = false;
+      continue;
+    }
+    if (inCatalogs === false) {
+      continue;
+    }
+    if (/^\S/.test(line)) {
+      inCatalogs = false;
+      inCatalog = false;
+      continue;
+    }
+
+    const catalogMatch = line.match(/^  ([^:]+):\s*$/);
+    if (catalogMatch) {
+      inCatalog = unquoteYamlScalar(catalogMatch[1]) === catalogName;
+      continue;
+    }
+    if (inCatalog === false) {
+      continue;
+    }
+
+    const versionMatch = line.match(/^    (.+?):\s*(.+?)\s*$/);
+    if (versionMatch && unquoteYamlScalar(versionMatch[1]) === packageName) {
+      return unquoteYamlScalar(versionMatch[2]);
+    }
+  }
+  throw new Error(
+    `Could not find ${packageName} in pnpm-workspace.yaml catalogs.${catalogName}`,
+  );
+}
+
+function unquoteYamlScalar(value) {
+  const trimmed = value.trim();
+  const quote = trimmed[0];
+  if ((quote === "'" || quote === '"') && trimmed.endsWith(quote)) {
+    return trimmed.slice(1, -1);
+  }
+  return trimmed;
+}
+
+function npmInstallSpec(name, version) {
+  return `${name}@${version}`;
 }
 
 function runCommand(command, cwd) {

@@ -1,9 +1,11 @@
 {
   "extends": "../config/tsconfig.json",
   "compilerOptions": {
+    "ignoreDeprecations": "6.0",
+    "moduleResolution": "bundler",
     "noEmit": false,
     "outDir": "bin",
-    "rootDir": "src"
+    "rootDir": "src",
   },
   "include": ["src"],
 }

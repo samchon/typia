@@ -177,11 +177,31 @@ function coerceObject(
     if (!(key in schema.properties)) {
       result[key] = additionalSchema
         ? coerceValue(value[key], additionalSchema, $defs)
-        : value[key];
+        : coerceLoose(value[key]);
     }
   }
 
   return result;
+}
+
+function coerceLoose(value: unknown): unknown {
+  if (typeof value === "string") {
+    const parsed: IJsonParseResult<unknown> = parseLenientJson(value);
+    if (parsed.success) return coerceLoose(parsed.data);
+    if (value === "true") return true;
+    if (value === "false") return false;
+    if (/^-?\d+(?:\.\d+)?$/.test(value)) return Number(value);
+    return value;
+  }
+  if (Array.isArray(value)) return value.map(coerceLoose);
+  if (value !== null && typeof value === "object")
+    return Object.fromEntries(
+      Object.entries(value as Record<string, unknown>).map(([key, val]) => [
+        key,
+        coerceLoose(val),
+      ]),
+    );
+  return value;
 }
 
 function resolveSchema(
@@ -301,32 +321,20 @@ function findMatchingObjectInAnyOf(
     if (!LlmTypeChecker.isObject(resolved)) continue;
     const propSchema: ILlmSchema | undefined = resolved.properties?.[key];
     if (propSchema === undefined) continue;
-    const literals: string[] = discriminatorLiterals(propSchema, $defs);
+    const resolvedProp: ILlmSchema = resolveSchema(propSchema, $defs);
     if (
-      typeof discriminatorValue === "string" &&
-      literals.includes(discriminatorValue)
+      "const" in resolvedProp &&
+      (resolvedProp as any).const === discriminatorValue
+    ) {
+      return s;
+    }
+    if (
+      LlmTypeChecker.isString(resolvedProp) &&
+      resolvedProp.enum?.includes(discriminatorValue as string)
     ) {
       return s;
     }
   }
 
   return undefined;
-}
-
-function discriminatorLiterals(
-  schema: ILlmSchema,
-  $defs: Record<string, ILlmSchema> | undefined,
-): string[] {
-  const resolved: ILlmSchema = resolveSchema(schema, $defs);
-  if (LlmTypeChecker.isString(resolved)) return resolved.enum ?? [];
-  if (
-    "const" in resolved &&
-    typeof (resolved as { const?: unknown }).const === "string"
-  ) {
-    return [(resolved as { const: string }).const];
-  }
-  if (LlmTypeChecker.isAnyOf(resolved)) {
-    return resolved.anyOf.flatMap((child) => discriminatorLiterals(child, $defs));
-  }
-  return [];
 }

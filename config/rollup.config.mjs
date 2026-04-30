@@ -24,6 +24,8 @@ export default {
     nodeExternals(),
     autoExternal(),
     nodeResolve(),
-    commonjs(),
+    commonjs({
+      strictRequires: false,
+    }),
   ],
 };

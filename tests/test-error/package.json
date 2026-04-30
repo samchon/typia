@@ -1,11 +1,11 @@
 {
   "private": true,
   "name": "@typia/test-error",
-  "version": "13.0.0-dev.20260427",
+  "version": "12.0.2",
   "description": "Test program of typia generated error",
   "main": "index.js",
   "scripts": {
-    "build": "rimraf bin && ttsc build",
+    "build": "rimraf bin && ttsc --emit",
     "start": "node index.js"
   },
   "repository": {
@@ -24,9 +24,8 @@
   },
   "homepage": "https://github.com/samchon/typia#readme",
   "devDependencies": {
-    "@typescript/native-preview": "catalog:typescript",
-    "rimraf": "catalog:utils",
-    "ttsc": "catalog:typescript"
+    "cross-env": "^7.0.3",
+    "rimraf": "catalog:utils"
   },
   "dependencies": {
     "typia": "workspace:^"

@@ -4,22 +4,17 @@ import { fileURLToPath } from "node:url";
 
 const filename: string = currentFilename();
 const dirname: string = path.dirname(filename);
-const extension: string = path.extname(filename);
 
 export default definePlugin((_config, context) => {
   const root: string =
     resolvePackageRoot(context.projectRoot) ?? inferPackageRoot();
-  const source: boolean = extension === ".ts";
   return {
     name: "typia",
     native: {
-      binary: path.resolve(
-        root,
-        source
-          ? "src/executable/generate/ttsc.ts"
-          : "lib/executable/generate/ttsc.js",
-      ),
-      capabilities: ["rewrite", "diagnostics", "assets"],
+      source: {
+        dir: path.resolve(root, "native"),
+        entry: "./cmd/ttsc-typia",
+      },
       contractVersion: 1,
       mode: "typia",
     },
@@ -37,9 +32,6 @@ function resolvePackageRoot(projectRoot: string): string | null {
 }
 
 function inferPackageRoot(): string {
-  if (extension === ".ts") {
-    return path.resolve(dirname, "..");
-  }
   return path.resolve(dirname, "..");
 }
 

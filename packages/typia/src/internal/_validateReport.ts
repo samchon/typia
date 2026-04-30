@@ -2,7 +2,8 @@ import { IValidation } from "@typia/interface";
 
 export const _validateReport = (array: IValidation.IError[]) => {
   const reportable = (path: string): boolean => {
-    if (array.length === 0) return true;
+    if (array.length === 0)
+      return true;
     const last: string = array[array.length - 1]!.path;
     return path.length > last.length || last.substring(0, path.length) !== path;
   };
