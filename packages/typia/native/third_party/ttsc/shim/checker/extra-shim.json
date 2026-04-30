@@ -1,0 +1,31 @@
+{
+  "ExtraMethods": {
+    "Checker": [
+      "getApparentType",
+      "getIndexTypeOfType",
+      "getPropertiesOfType",
+      "getTypeOfSymbol",
+      "getDeclaredTypeOfSymbol",
+      "getBaseTypes",
+      "getTypeArguments",
+      "getIndexInfosOfType",
+      "isArrayType",
+      "isArrayOrTupleType",
+      "isTypeAssignableTo",
+      "isReadonlySymbol",
+      "getWidenedType",
+      "getPropertyNameForKnownSymbolName",
+      "getBaseConstraintOfType",
+      "getNullableType",
+      "getExportsOfModule"
+    ]
+  },
+  "ExtraFields": {
+    "Type": [
+      "alias"
+    ],
+    "Checker": [
+      "globalRegExpType"
+    ]
+  }
+}

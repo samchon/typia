@@ -6,9 +6,9 @@ import (
 	shimast "github.com/microsoft/typescript-go/shim/ast"
 	shimchecker "github.com/microsoft/typescript-go/shim/checker"
 	shimcore "github.com/microsoft/typescript-go/shim/core"
+	"github.com/samchon/ttsc/packages/ttsc/driver"
 	nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
 	nativeprogrammers "github.com/samchon/typia/packages/typia/native/core/programmers"
-	"github.com/samchon/typia/packages/typia/native/ttsc/driver"
 )
 
 type fileTransformerNamespace struct{}

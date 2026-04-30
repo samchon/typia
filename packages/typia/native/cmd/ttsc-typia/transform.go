@@ -11,8 +11,8 @@ import (
 	"strings"
 
 	shimcompiler "github.com/microsoft/typescript-go/shim/compiler"
-	typiattsc "github.com/samchon/typia/packages/typia/native/ttsc"
-	"github.com/samchon/typia/packages/typia/native/ttsc/driver"
+	"github.com/samchon/ttsc/packages/ttsc/driver"
+	typiaadapter "github.com/samchon/typia/packages/typia/native/adapter"
 )
 
 func runTransform(args []string) int {
@@ -92,7 +92,7 @@ func runTransform(args []string) int {
 		if !strings.HasSuffix(rel, ".js") {
 			return nil
 		}
-		captured = []byte(typiattsc.CleanupTransformedText(text))
+		captured = []byte(typiaadapter.CleanupTransformedText(text))
 		return nil
 	}
 	_, eDiags, err := prog.EmitFile(rewrites, target, capture)
@@ -208,20 +208,20 @@ func collectTypiaSourceRewrites(
 	prog *driver.Program,
 	cwd string,
 	onlyFile string,
-	pluginOptions typiattsc.PluginOptions,
+	pluginOptions typiaadapter.PluginOptions,
 ) ([]transformSourceRewrite, []typiaTransformDiagnostic) {
-	sites := typiattsc.CollectCallSites(prog.SourceFiles(), prog.Checker)
+	sites := typiaadapter.CollectCallSites(prog.SourceFiles(), prog.Checker)
 	rewrites := []transformSourceRewrite{}
 	diagnostics := []typiaTransformDiagnostic{}
 	for _, site := range sites {
 		if filepath.ToSlash(site.FilePath) != filepath.ToSlash(onlyFile) {
 			continue
 		}
-		if reason := typiattsc.UnsupportedReason(site); reason != "" {
+		if reason := typiaadapter.UnsupportedReason(site); reason != "" {
 			diagnostics = append(diagnostics, newTypiaTransformDiagnostic(site, reason))
 			continue
 		}
-		expr, handled, err := typiattsc.EmitCallWithOptionsPreservingTypes(prog, site, pluginOptions)
+		expr, handled, err := typiaadapter.EmitCallWithOptionsPreservingTypes(prog, site, pluginOptions)
 		if !handled {
 			diagnostics = append(diagnostics, newTypiaTransformDiagnostic(site, "method not covered"))
 			continue
@@ -256,7 +256,7 @@ func applySourceRewrites(source string, rewrites []transformSourceRewrite) (stri
 }
 
 func cleanupTypeScriptTransformText(text string) string {
-	text = typiattsc.CleanupTransformedText(text)
+	text = typiaadapter.CleanupTransformedText(text)
 	text = regexp.MustCompile(`(?m)^import type \{([^{}\n]+)\} from`).ReplaceAllStringFunc(text, func(line string) string {
 		return regexp.MustCompile(`^import type \{\s*([^{}\n]+?)\s*\} from`).ReplaceAllString(line, "import type { $1 } from")
 	})
