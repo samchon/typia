@@ -7,6 +7,8 @@ lib/
 node_modules/
 
 tests/test-typia-ttsc/fixtures/*/build/output/
+tests/test-unplugin/src/fixtures/.generated/
+tests/test-unplugin/src/fixtures/__snapshots__/
 
 package-lock.json
 !experiments/setup/package-lock.json
