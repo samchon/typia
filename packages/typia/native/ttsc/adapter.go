@@ -9,10 +9,10 @@ import (
 
 	shimast "github.com/microsoft/typescript-go/shim/ast"
 	shimprinter "github.com/microsoft/typescript-go/shim/printer"
-	"github.com/samchon/ttsc/packages/ttsc/driver"
 	nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
 	nativeprogrammers "github.com/samchon/typia/packages/typia/native/core/programmers"
 	nativetransform "github.com/samchon/typia/packages/typia/native/transform"
+	"github.com/samchon/typia/packages/typia/native/ttsc/driver"
 )
 
 type PluginOptions struct {

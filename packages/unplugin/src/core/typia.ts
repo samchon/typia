@@ -39,6 +39,7 @@ export async function transformTypia(
       binary: resolveTsgoBinary(),
       cwd: dirname(tsconfig),
       env: {
+        ...process.env,
         TYPIA_TTSC_TRANSFORM_OUTPUT: "ts",
       },
       tsconfig: configured.path,

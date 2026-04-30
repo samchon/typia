@@ -28,7 +28,7 @@
   },
   "homepage": "https://typia.io",
   "devDependencies": {
-    "@ttsc/banner": "workspace:^",
+    "@ttsc/banner": "^0.5.0",
     "@nestia/e2e": "catalog:utils",
     "@types/node": "catalog:utils",
     "@typescript/native-preview": "catalog:typescript",

@@ -4,7 +4,7 @@ import (
 	shimast "github.com/microsoft/typescript-go/shim/ast"
 	shimchecker "github.com/microsoft/typescript-go/shim/checker"
 	shimcore "github.com/microsoft/typescript-go/shim/core"
-	"github.com/samchon/ttsc/packages/ttsc/driver"
+	"github.com/samchon/typia/packages/typia/native/ttsc/driver"
 )
 
 type ITypiaContext struct {

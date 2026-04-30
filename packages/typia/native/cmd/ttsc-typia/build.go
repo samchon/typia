@@ -11,8 +11,8 @@ import (
 
 	shimcompiler "github.com/microsoft/typescript-go/shim/compiler"
 	shimscanner "github.com/microsoft/typescript-go/shim/scanner"
-	"github.com/samchon/ttsc/packages/ttsc/driver"
 	typiattsc "github.com/samchon/typia/packages/typia/native/ttsc"
+	"github.com/samchon/typia/packages/typia/native/ttsc/driver"
 )
 
 func runBuild(args []string) int {

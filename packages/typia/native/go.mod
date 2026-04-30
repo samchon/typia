@@ -12,7 +12,6 @@ require (
 	github.com/microsoft/typescript-go/shim/parser v0.0.0
 	github.com/microsoft/typescript-go/shim/printer v0.0.0
 	github.com/microsoft/typescript-go/shim/scanner v0.0.0
-	github.com/samchon/ttsc/packages/ttsc v0.0.0
 )
 
 require (

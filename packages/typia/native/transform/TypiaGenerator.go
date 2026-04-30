@@ -9,8 +9,8 @@ import (
 	"strings"
 
 	shimast "github.com/microsoft/typescript-go/shim/ast"
-	"github.com/samchon/ttsc/packages/ttsc/driver"
 	nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
+	"github.com/samchon/typia/packages/typia/native/ttsc/driver"
 )
 
 type typiaGeneratorNamespace struct{}

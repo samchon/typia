@@ -3,8 +3,8 @@ package transform
 import (
 	shimast "github.com/microsoft/typescript-go/shim/ast"
 	shimcore "github.com/microsoft/typescript-go/shim/core"
-	"github.com/samchon/ttsc/packages/ttsc/driver"
 	nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
+	"github.com/samchon/typia/packages/typia/native/ttsc/driver"
 )
 
 type TransformFactory func(file *shimast.SourceFile) *shimast.SourceFile
