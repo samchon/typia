@@ -86,17 +86,9 @@ func injectRuntimeImports(text string) string {
 		}
 		name := runtimeNameOf(alias)
 		if esModule {
-			if alias == "__typia_utils" {
-				imports = append(imports, fmt.Sprintf(`import * as %s from %q;`, alias, module))
-			} else {
-				imports = append(imports, fmt.Sprintf(`import { %s as %s } from %q;`, name, alias, module))
-			}
+			imports = append(imports, fmt.Sprintf(`import { %s as %s } from %q;`, name, alias, module))
 		} else {
-			if alias == "__typia_utils" {
-				imports = append(imports, fmt.Sprintf(`const %s = require(%q);`, alias, module))
-			} else {
-				imports = append(imports, fmt.Sprintf(`const { %s: %s } = require(%q);`, name, alias, module))
-			}
+			imports = append(imports, fmt.Sprintf(`const { %s: %s } = require(%q);`, name, alias, module))
 		}
 	}
 	if len(imports) == 0 {
@@ -111,9 +103,6 @@ func collectRuntimeAliases(text string) []string {
 	seen := map[string]bool{}
 	for _, match := range re.FindAllStringSubmatch(text, -1) {
 		seen[match[0]] = true
-	}
-	if regexp.MustCompile(`\b__typia_utils\b`).MatchString(text) {
-		seen["__typia_utils"] = true
 	}
 	aliases := make([]string, 0, len(seen))
 	for alias := range seen {
@@ -130,9 +119,6 @@ func collectRuntimeAliases(text string) []string {
 }
 
 func runtimeAliasRank(alias string) int {
-	if alias == "__typia_utils" {
-		return 50
-	}
 	name := strings.TrimPrefix(alias, "__typia_transform_")
 	switch {
 	case strings.HasPrefix(name, "_is"):
@@ -158,9 +144,6 @@ func runtimeAliasRank(alias string) int {
 }
 
 func runtimeModuleOf(alias string) string {
-	if alias == "__typia_utils" {
-		return "@typia/utils"
-	}
 	return "typia/lib/internal/" + runtimeNameOf(alias)
 }
 
