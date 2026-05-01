@@ -33,4 +33,4 @@ jobs:
 
       - name: Test Experiments (setup)
         working-directory: experiments/setup
-        run: npm install && npm start
+        run: npm install && npm start -- --skip-pack

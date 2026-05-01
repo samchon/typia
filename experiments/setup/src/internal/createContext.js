@@ -141,67 +141,47 @@ function verifyInstalledPackage(workspace) {
   const factory = require(
     path.join(installedTypia, "lib", "transform.js"),
   ).default;
-  const plugin = factory(
-    { transform: "typia/lib/transform" },
-    {
-      binary: "ttsc",
-      cwd: workspace,
-      projectRoot: workspace,
-      tsconfig: path.join(workspace, "tsconfig.json"),
-    },
-  );
+  const plugin = factory({
+    binary: "ttsc",
+    cwd: workspace,
+    plugin: { transform: "typia/lib/transform" },
+    projectRoot: workspace,
+    tsconfig: path.join(workspace, "tsconfig.json"),
+  });
   TestValidator.equals(
-    "typia transform native mode",
+    "typia transform plugin name",
     "typia",
-    plugin.native.mode,
+    plugin.name,
   );
   TestValidator.equals(
-    "typia transform native contract version",
-    1,
-    plugin.native.contractVersion,
-  );
-  TestValidator.equals(
-    "typia transform native binary is not prebuilt",
-    undefined,
-    plugin.native.binary,
-  );
-  TestValidator.equals(
-    "typia transform native source entry",
-    "./cmd/ttsc-typia",
-    plugin.native.source.entry,
-  );
-  TestValidator.equals(
-    "typia transform native source directory",
-    path.join(installedTypia, "native"),
-    plugin.native.source.dir,
+    "typia transform source path",
+    path.join(installedTypia, "native", "cmd", "ttsc-typia"),
+    plugin.source,
   );
   TestValidator.predicate(
-    "typia transform native source directory exists",
-    fs.existsSync(plugin.native.source.dir),
-  );
-  TestValidator.predicate(
-    "typia transform native source entry exists",
-    fs.existsSync(path.join(plugin.native.source.dir, "cmd", "ttsc-typia")),
+    "typia transform source path exists",
+    fs.existsSync(plugin.source),
   );
   TestValidator.predicate(
     "typia transform native module file exists",
-    fs.existsSync(path.join(plugin.native.source.dir, "go.mod")),
+    fs.existsSync(path.join(installedTypia, "native", "go.mod")),
   );
   TestValidator.predicate(
     "typia transform native workspace file exists",
-    fs.existsSync(path.join(plugin.native.source.dir, "go.work")),
+    fs.existsSync(path.join(installedTypia, "native", "go.work")),
   );
   TestValidator.predicate(
     "typia transform native vendored ttsc driver exists",
     fs.existsSync(
-      path.join(plugin.native.source.dir, "third_party", "ttsc", "driver"),
+      path.join(installedTypia, "native", "third_party", "ttsc", "driver"),
     ),
   );
   TestValidator.predicate(
     "typia transform native vendored compiler shim module exists",
     fs.existsSync(
       path.join(
-        plugin.native.source.dir,
+        installedTypia,
+        "native",
         "third_party",
         "ttsc",
         "shim",
