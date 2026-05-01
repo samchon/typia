@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"encoding/json"
 	"flag"
 	"fmt"
 	"os"
@@ -26,10 +27,6 @@ func runTransform(args []string) int {
 	output := fs.String("output", defaultTransformOutput(), "transform output kind: js or ts")
 	_ = fs.String("plugins-json", "", "ordered ttsc plugin payload")
 	if err := fs.Parse(args); err != nil {
-		return 2
-	}
-	if *file == "" {
-		fmt.Fprintln(stderr, "ttsc-typia transform: --file is required")
 		return 2
 	}
 	if *rewriteMode != "none" && *rewriteMode != "typia" {
@@ -62,6 +59,14 @@ func runTransform(args []string) int {
 		return 2
 	}
 	defer prog.Close()
+
+	if *file == "" {
+		if *out != "" {
+			fmt.Fprintln(stderr, "ttsc-typia transform: --out requires --file")
+			return 2
+		}
+		return runTransformProject(prog, cwd, *rewriteMode, *tsconfigPath)
+	}
 
 	absFile := *file
 	if !filepath.IsAbs(absFile) {
@@ -134,10 +139,90 @@ func defaultTransformOutput() string {
 	return "js"
 }
 
+type transformProjectOutput struct {
+	Diagnostics []transformCompilerDiagnostic `json:"diagnostics,omitempty"`
+	TypeScript  map[string]string             `json:"typescript"`
+}
+
+type transformCompilerDiagnostic struct {
+	File        *string `json:"file"`
+	Category    string  `json:"category"`
+	Code        string  `json:"code"`
+	Line        int     `json:"line,omitempty"`
+	Character   int     `json:"character,omitempty"`
+	MessageText string  `json:"messageText"`
+}
+
 type transformSourceRewrite struct {
 	start       int
 	end         int
 	replacement string
+}
+
+func runTransformProject(
+	prog *driver.Program,
+	cwd string,
+	rewriteMode string,
+	tsconfigPath string,
+) int {
+	rewrites := map[string][]transformSourceRewrite{}
+	diagnostics := []transformCompilerDiagnostic{}
+	if rewriteMode == "typia" {
+		grouped, diags := collectTypiaSourceRewriteMap(
+			prog,
+			readTypiaPluginOptions(cwd, tsconfigPath),
+		)
+		rewrites = grouped
+		for _, diag := range diags {
+			diagnostics = append(diagnostics, transformDiagnosticToCompilerDiagnostic(diag))
+		}
+	}
+
+	output := transformProjectOutput{
+		Diagnostics: diagnostics,
+		TypeScript:  map[string]string{},
+	}
+	for _, file := range prog.SourceFiles() {
+		filename := filepath.ToSlash(file.FileName())
+		source, ok := sourceFileText(file)
+		if !ok {
+			output.Diagnostics = append(
+				output.Diagnostics,
+				newTransformCompilerDiagnostic(
+					filename,
+					0,
+					0,
+					"typia.transform",
+					"source text is unavailable",
+				),
+			)
+			continue
+		}
+		transformed, err := applySourceRewrites(source, rewrites[filename])
+		if err != nil {
+			output.Diagnostics = append(
+				output.Diagnostics,
+				newTransformCompilerDiagnostic(
+					filename,
+					0,
+					0,
+					"typia.transform",
+					err.Error(),
+				),
+			)
+			continue
+		}
+		output.TypeScript[sourceFileKey(cwd, filename)] = cleanupTypeScriptTransformText(transformed)
+	}
+
+	if err := json.NewEncoder(stdout).Encode(output); err != nil {
+		fmt.Fprintf(stderr, "ttsc-typia transform: encode output: %v\n", err)
+		return 3
+	}
+	if len(output.Diagnostics) > 0 {
+		return 3
+	}
+	return 0
 }
 
 func runTransformTypeScript(
@@ -241,6 +326,38 @@ func collectTypiaSourceRewrites(
 	return rewrites, diagnostics
 }
 
+func collectTypiaSourceRewriteMap(
+	prog *driver.Program,
+	pluginOptions typiaadapter.PluginOptions,
+) (map[string][]transformSourceRewrite, []typiaTransformDiagnostic) {
+	sites := typiaadapter.CollectCallSites(prog.SourceFiles(), prog.Checker)
+	rewrites := map[string][]transformSourceRewrite{}
+	diagnostics := []typiaTransformDiagnostic{}
+	for _, site := range sites {
+		file := filepath.ToSlash(site.FilePath)
+		if reason := typiaadapter.UnsupportedReason(site); reason != "" {
+			diagnostics = append(diagnostics, newTypiaTransformDiagnostic(site, reason))
+			continue
+		}
+		expr, handled, err := typiaadapter.EmitCallWithOptionsPreservingTypes(prog, site, pluginOptions)
+		if !handled {
+			diagnostics = append(diagnostics, newTypiaTransformDiagnostic(site, "method not covered"))
+			continue
+		}
+		if err != nil {
+			diagnostics = append(diagnostics, newTypiaTransformDiagnostic(site, err.Error()))
+			continue
+		}
+		node := site.Call.AsNode()
+		rewrites[file] = append(rewrites[file], transformSourceRewrite{
+			start:       node.Pos(),
+			end:         node.End(),
+			replacement: expr,
+		})
+	}
+	return rewrites, diagnostics
+}
+
 func applySourceRewrites(source string, rewrites []transformSourceRewrite) (string, error) {
 	sort.SliceStable(rewrites, func(i, j int) bool {
 		return rewrites[i].start > rewrites[j].start
@@ -287,4 +404,46 @@ func cleanupTypeScriptTransformText(text string) string {
 		return text + "\n"
 	}
 	return text
+}
+
+func sourceFileKey(cwd string, file string) string {
+	rel, err := filepath.Rel(cwd, filepath.FromSlash(file))
+	if err != nil || rel == ".." || strings.HasPrefix(rel, ".."+string(os.PathSeparator)) {
+		return filepath.ToSlash(file)
+	}
+	return filepath.ToSlash(rel)
+}
+
+func transformDiagnosticToCompilerDiagnostic(
+	diag typiaTransformDiagnostic,
+) transformCompilerDiagnostic {
+	return newTransformCompilerDiagnostic(
+		diag.File,
+		diag.Line,
+		diag.Column,
+		diag.Code,
+		diag.Message,
+	)
+}
+
+func newTransformCompilerDiagnostic(
+	file string,
+	line int,
+	character int,
+	code string,
+	message string,
+) transformCompilerDiagnostic {
+	var ptr *string
+	if file != "" {
+		normalized := filepath.ToSlash(file)
+		ptr = &normalized
+	}
+	return transformCompilerDiagnostic{
+		File:        ptr,
+		Category:    "error",
+		Code:        code,
+		Line:        line,
+		Character:   character,
+		MessageText: message,
+	}
 }
