@@ -329,8 +329,7 @@ func llmApplicationProgrammer_writeParameters(props struct {
 }) any {
 	rawParameters, _ := props.Function["parameters"].([]any)
 	if len(rawParameters) == 0 {
-		return llmParametersProgrammer_write_parameters_expression(
-			props.Context,
+		return llmApplicationProgrammer_convertParameters(
 			props.Components,
 			nativeiterate.JsonSchema{"type": "object", "properties": map[string]any{}, "additionalProperties": false, "required": []any{}},
 			props.Config,
@@ -355,7 +354,7 @@ func llmApplicationProgrammer_writeParameters(props struct {
 			schema["description"] = description
 		}
 	}
-	return llmParametersProgrammer_write_parameters_expression(props.Context, props.Components, schema, props.Config)
+	return llmApplicationProgrammer_convertParameters(props.Components, schema, props.Config)
 }
 
 func llmApplicationProgrammer_writeOutput(props struct {
@@ -370,7 +369,20 @@ func llmApplicationProgrammer_writeOutput(props struct {
 			props.Schema["description"] = desc
 		}
 	}
-	return llmParametersProgrammer_write_parameters_expression(props.Context, props.Components, props.Schema, props.Config)
+	return llmApplicationProgrammer_convertParameters(props.Components, props.Schema, props.Config)
+}
+
+func llmApplicationProgrammer_convertParameters(
+	components *nativeiterate.OpenApi_IComponents,
+	schema nativeiterate.JsonSchema,
+	config map[string]any,
+) map[string]any {
+	defs := map[string]any{}
+	target := llmParametersProgrammer_dereference_schema(schema, components)
+	output := llmSchemaProgrammer_convert_schema_config(target, components, defs, config)
+	output["additionalProperties"] = false
+	output["$defs"] = defs
+	return output
 }
 
 func llmApplicationProgrammer_writeValidator(props struct {

@@ -45,27 +45,13 @@ func (llmParametersProgrammerNamespace) Write(props LlmParametersProgrammer_IWri
 }
 
 func (llmParametersProgrammerNamespace) WriteParametersExpression(props LlmParametersProgrammer_IWriteProps) *shimast.Node {
-	collection := nativejson.JsonSchemasProgrammer.WriteSchemas(struct {
-		Version   string
-		Metadatas []*schemametadata.MetadataSchema
+	return nativefactories.LiteralFactory.Write(LlmParametersProgrammer.WriteParameters(struct {
+		Metadata *schemametadata.MetadataSchema
+		Config   map[string]any
 	}{
-		Version:   "3.1",
-		Metadatas: []*schemametadata.MetadataSchema{props.Metadata},
-	})
-	if len(collection.Schemas) == 0 {
-		return llmParametersProgrammer_write_parameters_expression(
-			props.Context,
-			&nativeiterate.OpenApi_IComponents{Schemas: map[string]nativeiterate.JsonSchema{}},
-			nativeiterate.JsonSchema{"type": "object", "properties": map[string]any{}, "required": []any{}},
-			props.Config,
-		)
-	}
-	return llmParametersProgrammer_write_parameters_expression(
-		props.Context,
-		collection.Components,
-		llmParametersProgrammer_dereference_schema(collection.Schemas[0], collection.Components),
-		props.Config,
-	)
+		Metadata: props.Metadata,
+		Config:   props.Config,
+	}))
 }
 
 func (llmParametersProgrammerNamespace) WriteParameters(props struct {
@@ -84,14 +70,14 @@ func (llmParametersProgrammerNamespace) WriteParameters(props struct {
 	}
 	schema := collection.Schemas[0]
 	if typ, ok := schema["type"].(string); ok && typ == "object" {
-		return llmParametersProgrammer_convert_parameters(schema, collection.Components)
+		return llmParametersProgrammer_convert_parameters(schema, collection.Components, props.Config)
 	}
 	if ref, ok := schema["$ref"].(string); ok {
 		name := ref[strings.LastIndex(ref, "/")+1:]
 		if collection.Components != nil && collection.Components.Schemas != nil {
 			if target, found := collection.Components.Schemas[name]; found {
 				if typ, ok := target["type"].(string); ok && typ == "object" {
-					return llmParametersProgrammer_convert_parameters(target, collection.Components)
+					return llmParametersProgrammer_convert_parameters(target, collection.Components, props.Config)
 				}
 			}
 		}
@@ -133,26 +119,13 @@ func (llmParametersProgrammerNamespace) Validate(props struct {
 	return output
 }
 
-func llmParametersProgrammer_convert_parameters(schema nativeiterate.JsonSchema, components *nativeiterate.OpenApi_IComponents) map[string]any {
+func llmParametersProgrammer_convert_parameters(schema nativeiterate.JsonSchema, components *nativeiterate.OpenApi_IComponents, config map[string]any) map[string]any {
 	defs := map[string]any{}
 	target := llmParametersProgrammer_dereference_schema(schema, components)
-	output := llmSchemaProgrammer_convert_schema(target, components, defs)
+	output := llmSchemaProgrammer_convert_schema_config(target, components, defs, config)
 	output["additionalProperties"] = false
 	output["$defs"] = defs
 	return output
-}
-
-func llmParametersProgrammer_write_parameters_expression(
-	context nativecontext.ITypiaContext,
-	components *nativeiterate.OpenApi_IComponents,
-	schema nativeiterate.JsonSchema,
-	config map[string]any,
-) *shimast.Node {
-	return llmProgrammer_converter_result(context, "parameters", "typia.llm.parameters", []*shimast.Node{
-		llmProgrammer_object_property("config", llmProgrammer_config_expression(config)),
-		llmProgrammer_object_property("components", nativefactories.LiteralFactory.Write(components)),
-		llmProgrammer_object_property("schema", nativefactories.LiteralFactory.Write(schema)),
-	})
 }
 
 func llmParametersProgrammer_dereference_schema(schema nativeiterate.JsonSchema, components *nativeiterate.OpenApi_IComponents) nativeiterate.JsonSchema {

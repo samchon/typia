@@ -605,6 +605,13 @@ const validateStrict = (
         message:
           "LLM does not allow additionalProperties in strict mode, the dynamic key typed object.",
       });
+    for (const key of Object.keys(schema.properties ?? {}))
+      if (schema.required?.includes(key) === false)
+        reasons.push({
+          schema: schema,
+          accessor: `${accessor}.properties.${key}`,
+          message: "LLM does not allow optional properties in strict mode.",
+        });
   }
   return reasons;
 };
