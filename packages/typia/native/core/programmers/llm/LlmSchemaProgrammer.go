@@ -2,6 +2,9 @@ package llm
 
 import (
 	"fmt"
+	"reflect"
+	"sort"
+	"strconv"
 	"strings"
 
 	shimast "github.com/microsoft/typescript-go/shim/ast"
@@ -41,13 +44,6 @@ type LlmSchemaProgrammer_IWriteProps struct {
 var llmSchemaProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
 func (llmSchemaProgrammerNamespace) Write(props LlmSchemaProgrammer_IWriteProps) *shimast.Node {
-	collection := nativejson.JsonSchemasProgrammer.WriteSchemas(struct {
-		Version   string
-		Metadatas []*schemametadata.MetadataSchema
-	}{
-		Version:   "3.1",
-		Metadatas: []*schemametadata.MetadataSchema{props.Metadata},
-	})
 	output := LlmSchemaProgrammer.WriteSchema(struct {
 		Metadata *schemametadata.MetadataSchema
 		Config   map[string]any
@@ -55,17 +51,13 @@ func (llmSchemaProgrammerNamespace) Write(props LlmSchemaProgrammer_IWriteProps)
 		Metadata: props.Metadata,
 		Config:   props.Config,
 	})
-	schema := nativeiterate.JsonSchema{}
-	if len(collection.Schemas) != 0 {
-		schema = collection.Schemas[0]
-	}
 	schemaTypeNode := llmProgrammer_import_type(props.Context, nativeprogrammers.ImportProgrammer_TypeProps{
 		File: "typia",
 		Name: "ILlmSchema",
 	})
 	schemaLiteral := llmSchemaProgrammer_factory.NewAsExpression(
 		llmSchemaProgrammer_factory.NewSatisfiesExpression(
-			llmSchemaProgrammer_write_schema_expression(props.Context, collection.Components, schema, props.Config, nil),
+			nativefactories.LiteralFactory.Write(output.Schema),
 			schemaTypeNode,
 		),
 		schemaTypeNode,
@@ -73,13 +65,7 @@ func (llmSchemaProgrammerNamespace) Write(props LlmSchemaProgrammer_IWriteProps)
 	if len(output.Defs) == 0 {
 		return schemaLiteral
 	}
-	recordType := llmSchemaProgrammer_factory.NewTypeReferenceNode(
-		llmSchemaProgrammer_factory.NewIdentifier("Record"),
-		llmSchemaProgrammer_factory.NewNodeList([]*shimast.Node{
-			nativefactories.TypeFactory.Keyword("string"),
-			schemaTypeNode,
-		}),
-	)
+	recordType := llmSchemaProgrammer_record_type(schemaTypeNode)
 	return llmSchemaProgrammer_factory.NewArrowFunction(
 		nil,
 		nil,
@@ -90,20 +76,33 @@ func (llmSchemaProgrammerNamespace) Write(props LlmSchemaProgrammer_IWriteProps)
 		nil,
 		llmSchemaProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
 		llmSchemaProgrammer_factory.NewBlock(llmSchemaProgrammer_factory.NewNodeList([]*shimast.Node{
-			llmSchemaProgrammer_factory.NewReturnStatement(llmSchemaProgrammer_factory.NewAsExpression(
-				llmSchemaProgrammer_factory.NewSatisfiesExpression(
-					llmSchemaProgrammer_write_schema_expression(
-						props.Context,
-						collection.Components,
-						schema,
-						props.Config,
+			llmSchemaProgrammer_factory.NewExpressionStatement(
+				llmSchemaProgrammer_factory.NewCallExpression(
+					llmSchemaProgrammer_factory.NewIdentifier("Object.assign"),
+					nil,
+					nil,
+					llmSchemaProgrammer_factory.NewNodeList([]*shimast.Node{
 						llmSchemaProgrammer_factory.NewIdentifier("$defs"),
-					),
-					schemaTypeNode,
+						llmSchemaProgrammer_factory.NewAsExpression(
+							nativefactories.LiteralFactory.Write(output.Defs),
+							llmSchemaProgrammer_record_type(schemaTypeNode),
+						),
+					}),
+					shimast.NodeFlagsNone,
 				),
-				schemaTypeNode,
-			)),
+			),
+			llmSchemaProgrammer_factory.NewReturnStatement(schemaLiteral),
 		}), true),
+	)
+}
+
+func llmSchemaProgrammer_record_type(schemaTypeNode *shimast.Node) *shimast.Node {
+	return llmSchemaProgrammer_factory.NewTypeReferenceNode(
+		llmSchemaProgrammer_factory.NewIdentifier("Record"),
+		llmSchemaProgrammer_factory.NewNodeList([]*shimast.Node{
+			nativefactories.TypeFactory.Keyword("string"),
+			schemaTypeNode,
+		}),
 	)
 }
 
@@ -121,7 +120,7 @@ func (llmSchemaProgrammerNamespace) WriteSchema(props struct {
 	defs := map[string]any{}
 	schema := map[string]any{}
 	if len(collection.Schemas) != 0 {
-		schema = llmSchemaProgrammer_convert_schema(collection.Schemas[0], collection.Components, defs)
+		schema = llmSchemaProgrammer_convert_schema_config(collection.Schemas[0], collection.Components, defs, props.Config)
 	}
 	return LlmSchemaProgrammer_IOutput{
 		Defs:   defs,
@@ -254,56 +253,358 @@ func llmSchemaProgrammer_size(metadata *schemametadata.MetadataSchema) int {
 }
 
 func llmSchemaProgrammer_convert_schema(schema nativeiterate.JsonSchema, components *nativeiterate.OpenApi_IComponents, defs map[string]any) map[string]any {
-	output := map[string]any{}
-	var oneOf any
-	var discriminator map[string]any
-	for key, value := range schema {
-		if key == "$ref" {
-			ref := fmt.Sprint(value)
-			name := ref[strings.LastIndex(ref, "/")+1:]
-			output["$ref"] = "#/$defs/" + name
-			if components != nil && components.Schemas != nil {
-				if target, ok := components.Schemas[name]; ok {
-					if _, exists := defs[name]; exists == false {
-						defs[name] = map[string]any{}
-						defs[name] = llmSchemaProgrammer_convert_schema(target, components, defs)
+	return llmSchemaProgrammer_convert_schema_config(schema, components, defs, nil)
+}
+
+func llmSchemaProgrammer_convert_schema_config(schema nativeiterate.JsonSchema, components *nativeiterate.OpenApi_IComponents, defs map[string]any, config map[string]any) map[string]any {
+	strict := llmSchemaProgrammer_strict(config)
+	attribute := llmSchemaProgrammer_attribute(schema)
+	union := []map[string]any{}
+
+	insertConstant := func(value any) {
+		typ := llmSchemaProgrammer_constant_type(value)
+		for _, elem := range union {
+			if elem["type"] == typ {
+				elem["enum"] = append(llmSchemaProgrammer_array(elem["enum"]), value)
+				return
+			}
+		}
+		union = append(union, map[string]any{
+			"type": typ,
+			"enum": []any{value},
+		})
+	}
+	var visitConstant func(nativeiterate.JsonSchema)
+	visitConstant = func(input nativeiterate.JsonSchema) {
+		if value, ok := input["const"]; ok {
+			insertConstant(value)
+			return
+		}
+		for _, elem := range llmSchemaProgrammer_schema_array(input["oneOf"]) {
+			visitConstant(elem)
+		}
+	}
+
+	var visit func(nativeiterate.JsonSchema)
+	visit = func(input nativeiterate.JsonSchema) {
+		if oneOf := llmSchemaProgrammer_schema_array(input["oneOf"]); len(oneOf) != 0 {
+			for _, elem := range oneOf {
+				visit(elem)
+			}
+			return
+		}
+		if ref, ok := input["$ref"].(string); ok {
+			key := llmSchemaProgrammer_ref_key(ref)
+			if _, exists := defs[key]; exists == false {
+				defs[key] = map[string]any{}
+				if target, found := llmSchemaProgrammer_component(components, key); found {
+					defs[key] = llmSchemaProgrammer_convert_schema_config(target, components, defs, config)
+				}
+			}
+			union = append(union, map[string]any{"$ref": "#/$defs/" + key})
+			return
+		}
+		if input["type"] == "object" {
+			properties := map[string]any{}
+			if raw, ok := llmSchemaProgrammer_schema_map(input["properties"]); ok {
+				keys := make([]string, 0, len(raw))
+				for key := range raw {
+					keys = append(keys, key)
+				}
+				sort.Strings(keys)
+				for _, key := range keys {
+					if value, ok := llmSchemaProgrammer_schema_from_any(raw[key]); ok {
+						properties[key] = llmSchemaProgrammer_convert_schema_config(value, components, defs, config)
 					}
 				}
 			}
-			continue
-		}
-		if key == "oneOf" {
-			oneOf = value
-			output["anyOf"] = llmSchemaProgrammer_convert_value(value, components, defs)
-			continue
-		}
-		if key == "discriminator" {
-			if mapValue, ok := value.(map[string]any); ok {
-				discriminator = mapValue
+			output := llmSchemaProgrammer_clone(input)
+			output["properties"] = properties
+			if additional, ok := llmSchemaProgrammer_schema_from_any(input["additionalProperties"]); ok {
+				output["additionalProperties"] = llmSchemaProgrammer_convert_schema_config(additional, components, defs, config)
+			} else if strict {
+				output["additionalProperties"] = false
+			} else if value, ok := input["additionalProperties"]; ok {
+				output["additionalProperties"] = value
 			}
-			continue
+			if _, ok := input["required"]; ok {
+				output["required"] = input["required"]
+			} else {
+				output["required"] = []any{}
+			}
+			if strict {
+				if description := llmSchemaProgrammer_json_descriptor_take(input); description != nil {
+					output["description"] = *description
+				} else {
+					delete(output, "description")
+				}
+			}
+			union = append(union, output)
+			return
 		}
-		output[key] = llmSchemaProgrammer_convert_value(value, components, defs)
+		if input["type"] == "array" {
+			output := llmSchemaProgrammer_clone(input)
+			if items, ok := llmSchemaProgrammer_schema_from_any(input["items"]); ok {
+				output["items"] = llmSchemaProgrammer_convert_schema_config(items, components, defs, config)
+			}
+			if strict {
+				output = llmSchemaProgrammer_shift_array(output)
+			}
+			union = append(union, output)
+			return
+		}
+		if input["type"] == "string" {
+			output := llmSchemaProgrammer_clone(input)
+			if strict {
+				output = llmSchemaProgrammer_shift_string(output)
+			}
+			union = append(union, output)
+			return
+		}
+		if input["type"] == "number" || input["type"] == "integer" {
+			output := llmSchemaProgrammer_clone(input)
+			if strict {
+				output = llmSchemaProgrammer_shift_numeric(output)
+			}
+			union = append(union, output)
+			return
+		}
+		if _, ok := input["const"]; ok {
+			return
+		}
+		union = append(union, llmSchemaProgrammer_clone(input))
 	}
-	if oneOf != nil && discriminator != nil {
-		if x := llmSchemaProgrammer_convert_discriminator(discriminator); x != nil {
-			output["x-discriminator"] = x
+
+	visitConstant(schema)
+	visit(schema)
+
+	if len(union) == 0 {
+		output := llmSchemaProgrammer_clone(attribute)
+		output["type"] = nil
+		return output
+	}
+	if len(union) == 1 {
+		output := llmSchemaProgrammer_merge(attribute, union[0])
+		if strict && llmSchemaProgrammer_is_reference(union[0]) {
+			delete(output, "description")
+		} else if description, ok := union[0]["description"]; ok {
+			output["description"] = description
+		} else if description, ok := attribute["description"]; ok {
+			output["description"] = description
+		}
+		return output
+	}
+	anyOf := make([]any, 0, len(union))
+	for _, elem := range union {
+		output := llmSchemaProgrammer_clone(elem)
+		if strict && llmSchemaProgrammer_is_reference(elem) {
+			delete(output, "description")
+		}
+		anyOf = append(anyOf, output)
+	}
+	output := llmSchemaProgrammer_clone(attribute)
+	output["anyOf"] = anyOf
+	if x := llmSchemaProgrammer_discriminator(schema, union); x != nil {
+		output["x-discriminator"] = x
+	}
+	return output
+}
+
+func llmSchemaProgrammer_strict(config map[string]any) bool {
+	strict, _ := config["strict"].(bool)
+	return strict
+}
+
+func llmSchemaProgrammer_attribute(schema nativeiterate.JsonSchema) map[string]any {
+	output := map[string]any{}
+	for _, key := range []string{
+		"title",
+		"description",
+		"deprecated",
+		"readOnly",
+		"writeOnly",
+		"example",
+		"examples",
+	} {
+		if value, ok := schema[key]; ok && llmSchemaProgrammer_is_nil_like(value) == false {
+			output[key] = value
+		}
+	}
+	for key, value := range schema {
+		if strings.HasPrefix(key, "x-") && llmSchemaProgrammer_is_nil_like(value) == false {
+			output[key] = value
 		}
 	}
 	return output
 }
 
-func llmSchemaProgrammer_convert_discriminator(discriminator map[string]any) map[string]any {
+func llmSchemaProgrammer_clone(input map[string]any) map[string]any {
+	output := map[string]any{}
+	for key, value := range input {
+		if llmSchemaProgrammer_is_nil_like(value) {
+			continue
+		}
+		output[key] = value
+	}
+	return output
+}
+
+func llmSchemaProgrammer_is_nil_like(value any) bool {
+	if value == nil {
+		return true
+	}
+	reflected := reflect.ValueOf(value)
+	switch reflected.Kind() {
+	case reflect.Chan, reflect.Func, reflect.Interface, reflect.Map, reflect.Pointer, reflect.Slice:
+		return reflected.IsNil()
+	default:
+		return false
+	}
+}
+
+func llmSchemaProgrammer_merge(left map[string]any, right map[string]any) map[string]any {
+	output := llmSchemaProgrammer_clone(left)
+	for key, value := range right {
+		output[key] = value
+	}
+	return output
+}
+
+func llmSchemaProgrammer_array(value any) []any {
+	switch v := value.(type) {
+	case []any:
+		return append([]any{}, v...)
+	case []string:
+		output := make([]any, 0, len(v))
+		for _, elem := range v {
+			output = append(output, elem)
+		}
+		return output
+	case []nativeiterate.JsonSchema:
+		output := make([]any, 0, len(v))
+		for _, elem := range v {
+			output = append(output, elem)
+		}
+		return output
+	default:
+		return []any{}
+	}
+}
+
+func llmSchemaProgrammer_schema_array(value any) []nativeiterate.JsonSchema {
+	switch v := value.(type) {
+	case []nativeiterate.JsonSchema:
+		return append([]nativeiterate.JsonSchema{}, v...)
+	case []map[string]any:
+		output := make([]nativeiterate.JsonSchema, 0, len(v))
+		for _, elem := range v {
+			output = append(output, nativeiterate.JsonSchema(elem))
+		}
+		return output
+	case []any:
+		output := make([]nativeiterate.JsonSchema, 0, len(v))
+		for _, elem := range v {
+			if schema, ok := llmSchemaProgrammer_schema_from_any(elem); ok {
+				output = append(output, schema)
+			}
+		}
+		return output
+	default:
+		return nil
+	}
+}
+
+func llmSchemaProgrammer_schema_map(value any) (map[string]any, bool) {
+	switch v := value.(type) {
+	case nativeiterate.JsonSchema:
+		output := map[string]any{}
+		for key, value := range v {
+			output[key] = value
+		}
+		return output, true
+	case map[string]any:
+		return v, true
+	default:
+		return nil, false
+	}
+}
+
+func llmSchemaProgrammer_schema_from_any(value any) (nativeiterate.JsonSchema, bool) {
+	switch v := value.(type) {
+	case nativeiterate.JsonSchema:
+		return v, true
+	case map[string]any:
+		return nativeiterate.JsonSchema(v), true
+	default:
+		return nil, false
+	}
+}
+
+func llmSchemaProgrammer_constant_type(value any) string {
+	reflected := reflect.ValueOf(value)
+	if reflected.IsValid() == false {
+		return fmt.Sprintf("%T", value)
+	}
+	switch reflected.Kind() {
+	case reflect.Bool:
+		return "boolean"
+	case reflect.String:
+		return "string"
+	case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64,
+		reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64,
+		reflect.Float32, reflect.Float64:
+		return "number"
+	default:
+		return fmt.Sprintf("%T", value)
+	}
+}
+
+func llmSchemaProgrammer_ref_key(ref string) string {
+	if strings.Contains(ref, "#/components/schemas/") {
+		return strings.Split(ref, "#/components/schemas/")[1]
+	}
+	index := strings.LastIndex(ref, "/")
+	if index == -1 {
+		return ref
+	}
+	return ref[index+1:]
+}
+
+func llmSchemaProgrammer_component(components *nativeiterate.OpenApi_IComponents, key string) (nativeiterate.JsonSchema, bool) {
+	if components == nil || components.Schemas == nil {
+		return nil, false
+	}
+	schema, ok := components.Schemas[key]
+	return schema, ok
+}
+
+func llmSchemaProgrammer_is_reference(schema map[string]any) bool {
+	_, ok := schema["$ref"].(string)
+	return ok
+}
+
+func llmSchemaProgrammer_is_null(schema map[string]any) bool {
+	return schema["type"] == "null"
+}
+
+func llmSchemaProgrammer_discriminator(schema nativeiterate.JsonSchema, union []map[string]any) map[string]any {
+	discriminator, ok := llmSchemaProgrammer_schema_map(schema["discriminator"])
+	if ok == false || len(llmSchemaProgrammer_schema_array(schema["oneOf"])) != len(union) {
+		return nil
+	}
+	for _, elem := range union {
+		if llmSchemaProgrammer_is_reference(elem) == false && llmSchemaProgrammer_is_null(elem) == false {
+			return nil
+		}
+	}
 	output := map[string]any{}
 	if propertyName, ok := discriminator["propertyName"].(string); ok {
 		output["propertyName"] = propertyName
 	}
-	if rawMapping, ok := discriminator["mapping"].(map[string]any); ok {
+	if rawMapping, ok := llmSchemaProgrammer_schema_map(discriminator["mapping"]); ok {
 		mapping := map[string]any{}
 		for key, value := range rawMapping {
-			ref := fmt.Sprint(value)
-			name := ref[strings.LastIndex(ref, "/")+1:]
-			mapping[key] = "#/$defs/" + name
+			mapping[key] = "#/$defs/" + llmSchemaProgrammer_ref_key(fmt.Sprint(value))
 		}
 		output["mapping"] = mapping
 	}
@@ -313,113 +614,169 @@ func llmSchemaProgrammer_convert_discriminator(discriminator map[string]any) map
 	return output
 }
 
-func llmSchemaProgrammer_convert_value(value any, components *nativeiterate.OpenApi_IComponents, defs map[string]any) any {
-	switch v := value.(type) {
-	case nativeiterate.JsonSchema:
-		return llmSchemaProgrammer_convert_schema(v, components, defs)
-	case map[string]any:
-		return llmSchemaProgrammer_convert_schema(nativeiterate.JsonSchema(v), components, defs)
-	case []nativeiterate.JsonSchema:
-		out := make([]any, 0, len(v))
-		for _, elem := range v {
-			out = append(out, llmSchemaProgrammer_convert_schema(elem, components, defs))
+func llmSchemaProgrammer_shift_array(schema map[string]any) map[string]any {
+	output := llmSchemaProgrammer_clone(schema)
+	tags := []string{}
+	if value, ok := output["minItems"]; ok {
+		tags = append(tags, "@minItems "+fmt.Sprint(value))
+		delete(output, "minItems")
+	}
+	if value, ok := output["maxItems"]; ok {
+		tags = append(tags, "@maxItems "+fmt.Sprint(value))
+		delete(output, "maxItems")
+	}
+	if value, ok := output["uniqueItems"].(bool); ok {
+		if value {
+			tags = append(tags, "@uniqueItems")
 		}
-		return out
-	case []any:
-		out := make([]any, 0, len(v))
-		for _, elem := range v {
-			out = append(out, llmSchemaProgrammer_convert_value(elem, components, defs))
+		delete(output, "uniqueItems")
+	}
+	llmSchemaProgrammer_write_tag_with_description(output, tags)
+	return output
+}
+
+func llmSchemaProgrammer_shift_numeric(schema map[string]any) map[string]any {
+	output := llmSchemaProgrammer_clone(schema)
+	llmSchemaProgrammer_emend_exclusive(output)
+	tags := []string{}
+	for _, key := range []string{"minimum", "maximum", "exclusiveMinimum", "exclusiveMaximum", "multipleOf"} {
+		if value, ok := output[key]; ok {
+			tags = append(tags, "@"+key+" "+fmt.Sprint(value))
+			delete(output, key)
 		}
-		return out
+	}
+	llmSchemaProgrammer_write_tag_with_description(output, tags)
+	delete(output, "default")
+	return output
+}
+
+func llmSchemaProgrammer_shift_string(schema map[string]any) map[string]any {
+	output := llmSchemaProgrammer_clone(schema)
+	tags := []string{}
+	for _, key := range []string{"minLength", "maxLength", "format", "pattern", "contentMediaType", "default"} {
+		if value, ok := output[key]; ok {
+			tags = append(tags, "@"+key+" "+fmt.Sprint(value))
+			delete(output, key)
+		}
+	}
+	llmSchemaProgrammer_write_tag_with_description(output, tags)
+	return output
+}
+
+func llmSchemaProgrammer_write_tag_with_description(schema map[string]any, tags []string) {
+	if len(tags) == 0 {
+		return
+	}
+	lines := []string{}
+	if description, ok := schema["description"].(string); ok && len(description) != 0 {
+		lines = append(lines, description, "\n")
+	}
+	lines = append(lines, tags...)
+	schema["description"] = strings.Join(lines, "\n")
+}
+
+func llmSchemaProgrammer_emend_exclusive(schema map[string]any) {
+	if exclusiveMinimum, ok := llmSchemaProgrammer_number(schema["exclusiveMinimum"]); ok {
+		if minimum, found := llmSchemaProgrammer_number(schema["minimum"]); found {
+			if minimum > exclusiveMinimum {
+				schema["minimum"] = minimum
+				delete(schema, "exclusiveMinimum")
+			} else {
+				schema["exclusiveMinimum"] = exclusiveMinimum
+				delete(schema, "minimum")
+			}
+		}
+	}
+	if exclusiveMaximum, ok := llmSchemaProgrammer_number(schema["exclusiveMaximum"]); ok {
+		if maximum, found := llmSchemaProgrammer_number(schema["maximum"]); found {
+			if maximum < exclusiveMaximum {
+				schema["maximum"] = maximum
+				delete(schema, "exclusiveMaximum")
+			} else {
+				schema["exclusiveMaximum"] = exclusiveMaximum
+				delete(schema, "maximum")
+			}
+		}
+	}
+}
+
+func llmSchemaProgrammer_number(value any) (float64, bool) {
+	reflected := reflect.ValueOf(value)
+	if reflected.IsValid() == false {
+		return 0, false
+	}
+	switch reflected.Kind() {
+	case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
+		return float64(reflected.Int()), true
+	case reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64:
+		return float64(reflected.Uint()), true
+	case reflect.Float32, reflect.Float64:
+		return reflected.Convert(reflect.TypeOf(float64(0))).Float(), true
 	default:
-		return value
+		return 0, false
 	}
 }
 
-func llmSchemaProgrammer_write_schema_expression(
-	context nativecontext.ITypiaContext,
-	components *nativeiterate.OpenApi_IComponents,
-	schema nativeiterate.JsonSchema,
-	config map[string]any,
-	defs *shimast.Node,
-) *shimast.Node {
-	if defs == nil {
-		defs = llmSchemaProgrammer_factory.NewObjectLiteralExpression(llmSchemaProgrammer_factory.NewNodeList(nil), false)
+func llmSchemaProgrammer_json_descriptor_take(schema nativeiterate.JsonSchema) *string {
+	parts := []string{}
+	if description, ok := schema["description"].(string); ok && len(description) != 0 {
+		parts = append(parts, description)
 	}
-	return llmProgrammer_converter_result(context, "schema", "typia.llm.schema", []*shimast.Node{
-		llmProgrammer_object_property("config", llmProgrammer_config_expression(config)),
-		llmProgrammer_object_property("components", nativefactories.LiteralFactory.Write(components)),
-		llmProgrammer_object_property("schema", nativefactories.LiteralFactory.Write(schema)),
-		llmProgrammer_object_property("$defs", defs),
-	})
-}
-
-func llmProgrammer_converter_result(context nativecontext.ITypiaContext, method string, code string, properties []*shimast.Node) *shimast.Node {
-	result := llmSchemaProgrammer_factory.NewIdentifier("__result")
-	call := llmSchemaProgrammer_factory.NewCallExpression(
-		nativefactories.IdentifierFactory.Access(llmProgrammer_llm_schema_converter(context), method),
-		nil,
-		nil,
-		llmSchemaProgrammer_factory.NewNodeList([]*shimast.Node{
-			llmSchemaProgrammer_factory.NewObjectLiteralExpression(llmSchemaProgrammer_factory.NewNodeList(properties), true),
-		}),
-		shimast.NodeFlagsNone,
-	)
-	return nativefactories.ExpressionFactory.SelfCall(
-		llmSchemaProgrammer_factory.NewBlock(llmSchemaProgrammer_factory.NewNodeList([]*shimast.Node{
-			nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
-				Name:  "__result",
-				Value: call,
-			}),
-			llmSchemaProgrammer_factory.NewIfStatement(
-				llmSchemaProgrammer_factory.NewBinaryExpression(
-					nil,
-					nativefactories.IdentifierFactory.Access(result, "success"),
-					nil,
-					llmSchemaProgrammer_factory.NewToken(shimast.KindEqualsEqualsEqualsToken),
-					llmSchemaProgrammer_factory.NewKeywordExpression(shimast.KindFalseKeyword),
-				),
-				llmSchemaProgrammer_factory.NewThrowStatement(llmSchemaProgrammer_factory.NewNewExpression(
-					llmSchemaProgrammer_factory.NewIdentifier("Error"),
-					nil,
-					llmSchemaProgrammer_factory.NewNodeList([]*shimast.Node{
-						llmSchemaProgrammer_factory.NewStringLiteral("failed to convert JSON schema to LLM schema: "+code, shimast.TokenFlagsNone),
-					}),
-				)),
-				nil,
-			),
-			llmSchemaProgrammer_factory.NewReturnStatement(nativefactories.IdentifierFactory.Access(result, "value")),
-		}), true),
-	)
-}
-
-func llmProgrammer_object_property(name string, value *shimast.Node) *shimast.Node {
-	return llmSchemaProgrammer_factory.NewPropertyAssignment(
-		nil,
-		nativefactories.IdentifierFactory.Identifier(name),
-		nil,
-		nil,
-		value,
-	)
-}
-
-func llmProgrammer_config_expression(config map[string]any) *shimast.Node {
-	if config == nil {
-		return llmSchemaProgrammer_factory.NewIdentifier("undefined")
+	properties, ok := llmSchemaProgrammer_schema_map(schema["properties"])
+	if ok {
+		keys := make([]string, 0, len(properties))
+		for key := range properties {
+			keys = append(keys, key)
+		}
+		sort.Strings(keys)
+		for _, key := range keys {
+			value, ok := llmSchemaProgrammer_schema_from_any(properties[key])
+			if ok == false || llmSchemaProgrammer_is_reference(value) == false {
+				continue
+			}
+			description, ok := value["description"].(string)
+			if ok == false || len(description) == 0 {
+				continue
+			}
+			name := key
+			if llmSchemaProgrammer_is_variable_name(key) == false {
+				name = strconv.Quote(key)
+			}
+			parts = append(parts, "### Description of {@link "+name+"} property:\n\n"+llmSchemaProgrammer_quote_description(description))
+		}
 	}
-	return nativefactories.LiteralFactory.Write(config)
+	if len(parts) == 0 {
+		return nil
+	}
+	output := strings.Join(parts, "\n\n")
+	return &output
 }
 
-func llmProgrammer_llm_schema_converter(context nativecontext.ITypiaContext) *shimast.Node {
-	if importer, ok := context.Importer.(interface {
-		Namespace(nativeprogrammers.ImportProgrammer_INamespace) *shimast.Node
-	}); ok {
-		return nativefactories.IdentifierFactory.Access(importer.Namespace(nativeprogrammers.ImportProgrammer_INamespace{
-			File: "@typia/utils",
-			Name: "__typia_utils",
-		}), "LlmSchemaConverter")
+func llmSchemaProgrammer_quote_description(description string) string {
+	lines := strings.Split(description, "\n")
+	for i, line := range lines {
+		lines[i] = "> " + line
 	}
-	return nativefactories.IdentifierFactory.Access(llmSchemaProgrammer_factory.NewIdentifier("__typia_utils"), "LlmSchemaConverter")
+	return strings.Join(lines, "\n")
+}
+
+func llmSchemaProgrammer_is_variable_name(str string) bool {
+	if len(str) == 0 {
+		return false
+	}
+	for i, r := range str {
+		if i == 0 {
+			if (r >= 'A' && r <= 'Z') || (r >= 'a' && r <= 'z') || r == '_' || r == '$' {
+				continue
+			}
+			return false
+		}
+		if (r >= 'A' && r <= 'Z') || (r >= 'a' && r <= 'z') || (r >= '0' && r <= '9') || r == '_' || r == '$' {
+			continue
+		}
+		return false
+	}
+	return true
 }
 
 func llmProgrammer_internal(context nativecontext.ITypiaContext, name string) *shimast.Node {
