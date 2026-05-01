@@ -1,4 +1,5 @@
 import { NamingConvention } from "@typia/utils";
+import * as template from "@typia/template";
 import fs from "fs";
 
 import { TestGlobal } from "../TestGlobal";
@@ -32,17 +33,20 @@ export namespace TestAutomationController {
   async function loadMetadata(): Promise<TestAutomationMetadata<any>[]> {
     const path: string = `${TestGlobal.ROOT}/../template/src/structures`;
     const output: TestAutomationMetadata<any>[] = [];
+    const metadata: Record<string, TestAutomationMetadata<any>> =
+      template as unknown as Record<string, TestAutomationMetadata<any>>;
 
     for (const file of await fs.promises.readdir(path)) {
       if (file === "index.ts") continue;
 
-      const location: string = `${path}/${file}`;
-      const modulo: Record<string, TestAutomationMetadata<any>> = await import(
-        location
-      );
+      const name: string = file.substring(0, file.length - 3);
+      const modulo: TestAutomationMetadata<any> | undefined = metadata[name];
+      if (modulo === undefined) {
+        throw new Error(`@typia/template does not export ${name}`);
+      }
       output.push({
-        ...Object.values(modulo)[0]!,
-        name: file.substring(0, file.length - 3),
+        ...modulo,
+        name,
       });
     }
     return output;

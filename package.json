@@ -13,7 +13,7 @@
     "pretest": "pnpm run build:native-consumers",
     "test": "pnpm run test:packages && pnpm run test:toolchain",
     "test:ci": "pnpm run build:native-consumers && pnpm run build && pnpm run test:packages && pnpm run test:toolchain",
-    "test:packages": "pnpm --filter=./tests/test-* --filter=!./tests/test-typia-ttsc -r start",
+    "test:packages": "pnpm --filter @typia/template build && pnpm --filter=./tests/test-* --filter=!./tests/test-typia-ttsc -r start",
     "test:toolchain": "pnpm --filter=./tests/test-typia-ttsc -r --workspace-concurrency=1 start",
     "package:latest": "bash -c 'pnpm --filter=./packages/* -r publish --tag latest --access public \"$@\"' --",
     "package:next": "bash next.bash",
