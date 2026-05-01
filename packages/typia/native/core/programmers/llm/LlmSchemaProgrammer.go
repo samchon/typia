@@ -752,6 +752,76 @@ func llmSchemaProgrammer_json_descriptor_take(schema nativeiterate.JsonSchema) *
 	return &output
 }
 
+func llmSchemaProgrammer_json_descriptor_cascade(props struct {
+	Prefix     string
+	Components *nativeiterate.OpenApi_IComponents
+	Schema     nativeiterate.JsonSchema
+	Escape     bool
+}) *string {
+	ref, ok := props.Schema["$ref"].(string)
+	if ok == false {
+		return nil
+	}
+	target := ref
+	if index := strings.Index(ref, props.Prefix); index != -1 {
+		target = ref[index+len(props.Prefix):]
+	} else if index := strings.LastIndex(ref, "/"); index != -1 {
+		target = ref[index+1:]
+	}
+	accessors := strings.Split(target, ".")
+	limit := len(accessors)
+	if props.Escape == false && limit != 0 {
+		limit--
+	}
+	type parentReference struct {
+		Key         string
+		Description *string
+	}
+	references := []parentReference{}
+	for i := 0; i < limit; i++ {
+		key := strings.Join(accessors[:i+1], ".")
+		var description *string
+		if props.Components != nil && props.Components.Schemas != nil {
+			if schema, ok := props.Components.Schemas[key]; ok {
+				if value, ok := schema["description"].(string); ok {
+					description = &value
+				}
+			}
+		}
+		references = append(references, parentReference{Key: key, Description: description})
+	}
+	for i, j := 0, len(references)-1; i < j; i, j = i+1, j-1 {
+		references[i], references[j] = references[j], references[i]
+	}
+	filtered := []parentReference{}
+	for i, ref := range references {
+		if i == 0 || (ref.Description != nil && len(*ref.Description) != 0) {
+			filtered = append(filtered, ref)
+		}
+	}
+	description, hasDescription := props.Schema["description"].(string)
+	if (hasDescription == false || len(description) == 0) && len(filtered) == 0 {
+		return nil
+	}
+	parts := []string{}
+	if hasDescription && len(description) != 0 {
+		parts = append(parts, description)
+	}
+	for i, ref := range filtered {
+		if ref.Description == nil {
+			parts = append(parts, "Current Type: {@link "+ref.Key+"}")
+			continue
+		}
+		kind := "parent"
+		if i == 0 && props.Escape {
+			kind = "current"
+		}
+		parts = append(parts, "Description of the "+kind+" {@link "+ref.Key+"} type:\n\n"+llmSchemaProgrammer_quote_description(*ref.Description))
+	}
+	output := strings.Join(parts, "\n\n------------------------------\n\n")
+	return &output
+}
+
 func llmSchemaProgrammer_quote_description(description string) string {
 	lines := strings.Split(description, "\n")
 	for i, line := range lines {
