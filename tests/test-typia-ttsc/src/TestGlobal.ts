@@ -1,14 +1,13 @@
 import * as fs from "fs";
 import * as os from "os";
 import * as path from "path";
-import { resolveBinary } from "ttsc";
 
 export class TestGlobal {
   /** Absolute path to `tests/test-typia-ttsc/`. */
   public static readonly ROOT: string = path.resolve(`${__dirname}/..`);
 
   /** Absolute path to the installed ttsc helper binary. */
-  public static readonly TTSC_BINARY: string | null = resolveBinary();
+  public static readonly TTSC_BINARY: string | null = resolveTtscBinary();
 
   /** Absolute path to the workspace-linked public ttsc launcher. */
   public static readonly TTSC_LAUNCHER: string = path.resolve(
@@ -36,5 +35,21 @@ export class TestGlobal {
       from,
       to === -1 ? process.argv.length : to + from,
     );
+  }
+}
+
+function resolveTtscBinary(): string | null {
+  const explicit: string | undefined = process.env.TTSC_BINARY;
+  if (explicit !== undefined && path.isAbsolute(explicit)) {
+    return explicit;
+  }
+  try {
+    return require.resolve(
+      `@ttsc/${process.platform}-${process.arch}/bin/${
+        process.platform === "win32" ? "ttsc.exe" : "ttsc"
+      }`,
+    );
+  } catch {
+    return null;
   }
 }
