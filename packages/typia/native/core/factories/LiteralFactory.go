@@ -100,7 +100,7 @@ func literalFactory_fieldName(name string) string {
 func literalFactory_writeObject(obj map[string]any) *shimast.Node {
 	keys := make([]string, 0, len(obj))
 	for key, value := range obj {
-		if value == nil {
+		if literalFactory_isNilLike(value) {
 			continue
 		}
 		keys = append(keys, key)
@@ -188,6 +188,19 @@ func literalFactory_propertyRank(key string) int {
 		return 92
 	}
 	return 1_000
+}
+
+func literalFactory_isNilLike(value any) bool {
+	if value == nil {
+		return true
+	}
+	reflected := reflect.ValueOf(value)
+	switch reflected.Kind() {
+	case reflect.Chan, reflect.Func, reflect.Interface, reflect.Map, reflect.Pointer, reflect.Slice:
+		return reflected.IsNil()
+	default:
+		return false
+	}
 }
 
 func literalFactory_writeArray(array []any) *shimast.Node {
