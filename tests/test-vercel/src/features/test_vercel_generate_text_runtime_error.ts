@@ -1,8 +1,8 @@
-import { generateText } from "ai";
-import { MockLanguageModelV3 } from "ai/test";
 import { TestValidator } from "@nestia/e2e";
 import { ILlmController } from "@typia/interface";
 import { toVercelTools } from "@typia/vercel";
+import { generateText } from "ai";
+import { MockLanguageModelV3 } from "ai/test";
 import typia from "typia";
 
 import { Calculator } from "../structures/Calculator";
@@ -58,8 +58,7 @@ export const test_vercel_generate_text_runtime_error =
       error: string;
     };
     TestValidator.equals("result should be failure", toolResult.success, false);
-    TestValidator.predicate(
-      "error should contain division by zero",
-      () => toolResult.error.includes("Division by zero"),
+    TestValidator.predicate("error should contain division by zero", () =>
+      toolResult.error.includes("Division by zero"),
     );
   };

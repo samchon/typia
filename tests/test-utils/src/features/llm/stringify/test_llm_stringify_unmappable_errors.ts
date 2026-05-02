@@ -42,9 +42,5 @@ export const test_llm_stringify_unmappable_errors = (): void => {
   );
 
   // The main JSON block should still be present
-  TestValidator.equals(
-    "contains code block",
-    output.includes("```json"),
-    true,
-  );
+  TestValidator.equals("contains code block", output.includes("```json"), true);
 };

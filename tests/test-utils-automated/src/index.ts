@@ -12,7 +12,7 @@ async function main(): Promise<void> {
   const exceptions: Error[] = [];
 
   const connector = new WorkerConnector(null, null, "process");
-  await connector.connect(`${__dirname}/servant/index.ts`);
+  await connector.connect(`${TestGlobal.ROOT}/src/servant/index.ts`);
 
   const servant = connector.getDriver<TestServant>();
   try {

@@ -71,7 +71,11 @@ export async function test_emit_tagged(): Promise<void> {
 
   // Format<"date-time"> — Cycle 3 format extension coverage.
   assert.equal(mod.is_date_time("2026-04-19T12:34:56Z"), true);
-  assert.equal(mod.is_date_time("2026-04-19"), false, "date alone is not date-time");
+  assert.equal(
+    mod.is_date_time("2026-04-19"),
+    false,
+    "date alone is not date-time",
+  );
 
   // Format<"url">.
   assert.equal(mod.is_url("https://example.com/path"), true);

@@ -1,5 +1,6 @@
 import { DynamicExecutor } from "@nestia/e2e";
 import chalk from "chalk";
+import * as path from "path";
 
 import { TestGlobal } from "./TestGlobal";
 
@@ -9,7 +10,7 @@ const main = async (): Promise<void> => {
   const report: DynamicExecutor.IReport = await DynamicExecutor.validate({
     prefix: "test_",
     location: __dirname + "/features",
-    extension: "ts",
+    extension: path.extname(__filename).slice(1),
     parameters: () => [],
     onComplete: (exec) => {
       const trace = (str: string) =>

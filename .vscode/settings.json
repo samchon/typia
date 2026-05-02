@@ -7,6 +7,10 @@
       "source.fixAll.eslint": "explicit"
     }
   },
+  "[go]": {
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true
+  },
   "[mdx]": {
     "editor.wordWrap": "on"
   },

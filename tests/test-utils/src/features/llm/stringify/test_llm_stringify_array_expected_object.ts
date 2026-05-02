@@ -13,8 +13,20 @@ export const test_llm_stringify_array_expected_object = (): void => {
   TestValidator.equals("success", result.success, false);
   if (!result.success) {
     const output: string = LlmJson.stringify(result);
-    TestValidator.equals("contains code block", output.includes("```json"), true);
-    TestValidator.equals("contains error marker", output.includes("// ❌"), true);
-    TestValidator.equals("contains data.x path", output.includes("$input.data.x"), true);
+    TestValidator.equals(
+      "contains code block",
+      output.includes("```json"),
+      true,
+    );
+    TestValidator.equals(
+      "contains error marker",
+      output.includes("// ❌"),
+      true,
+    );
+    TestValidator.equals(
+      "contains data.x path",
+      output.includes("$input.data.x"),
+      true,
+    );
   }
 };

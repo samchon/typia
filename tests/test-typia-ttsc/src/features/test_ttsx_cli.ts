@@ -12,7 +12,11 @@ export async function test_ttsx_cli(): Promise<void> {
     ["--project", "tsconfig.json", entry, "--", "alpha", "beta"],
     fixture,
   );
-  assert.equal(result.status, 0, `ttsx should exit 0; stderr:\n${result.stderr}`);
+  assert.equal(
+    result.status,
+    0,
+    `ttsx should exit 0; stderr:\n${result.stderr}`,
+  );
 
   const parsed = JSON.parse(result.stdout.trim()) as {
     argv: string[];

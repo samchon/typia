@@ -49,9 +49,5 @@ export const test_llm_schema_enum_reference = (): void => {
     const anyOf = (result.value as any).anyOf;
     return Array.isArray(anyOf) && anyOf.length === 2;
   });
-  TestValidator.equals(
-    "named $defs",
-    ($defs.named as any)?.enum,
-    [4, 5],
-  );
+  TestValidator.equals("named $defs", ($defs.named as any)?.enum, [4, 5]);
 };

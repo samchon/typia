@@ -185,7 +185,10 @@ export namespace OpenApi {
     /** Path description. */
     description?: string;
 
-    /** Additional non-standard HTTP method operations (e.g., LINK, UNLINK, PURGE). */
+    /**
+     * Additional non-standard HTTP method operations (e.g., LINK, UNLINK,
+     * PURGE).
+     */
     additionalOperations?: Record<string, IOperation>;
   }
 

@@ -18,8 +18,10 @@ interface Nested {
 }
 
 export const check_point = (input: unknown): boolean => typia.is<Point>(input);
-export const check_member = (input: unknown): boolean => typia.is<Member>(input);
-export const check_nested = (input: unknown): boolean => typia.is<Nested>(input);
+export const check_member = (input: unknown): boolean =>
+  typia.is<Member>(input);
+export const check_nested = (input: unknown): boolean =>
+  typia.is<Nested>(input);
 
 export const check_string_array = (input: unknown): boolean =>
   typia.is<string[]>(input);

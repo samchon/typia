@@ -15,7 +15,11 @@ export const test_llm_parameters_string = (): void => {
 
   // parameters should be object with additionalProperties: false
   TestValidator.predicate("is object", () => LlmTypeChecker.isObject(params));
-  TestValidator.equals("additionalProperties", params.additionalProperties, false);
+  TestValidator.equals(
+    "additionalProperties",
+    params.additionalProperties,
+    false,
+  );
   TestValidator.predicate("has $defs", () => params.$defs !== undefined);
 
   // check properties exist
@@ -25,11 +29,13 @@ export const test_llm_parameters_string = (): void => {
   TestValidator.predicate("has length", () => "length" in params.properties);
 
   // all should be required
-  TestValidator.predicate("basic is required", () =>
-    params.required?.includes("basic") ?? false,
+  TestValidator.predicate(
+    "basic is required",
+    () => params.required?.includes("basic") ?? false,
   );
-  TestValidator.predicate("email is required", () =>
-    params.required?.includes("email") ?? false,
+  TestValidator.predicate(
+    "email is required",
+    () => params.required?.includes("email") ?? false,
   );
 
   // check basic string

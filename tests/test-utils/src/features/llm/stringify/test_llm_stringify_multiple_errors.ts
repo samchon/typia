@@ -16,8 +16,20 @@ export const test_llm_stringify_multiple_errors = (): void => {
   TestValidator.equals("success", result.success, false);
   if (!result.success) {
     const output: string = LlmJson.stringify(result);
-    TestValidator.equals("contains code block", output.includes("```json"), true);
-    TestValidator.equals("contains name error", output.includes("$input.name"), true);
-    TestValidator.equals("contains age error", output.includes("$input.age"), true);
+    TestValidator.equals(
+      "contains code block",
+      output.includes("```json"),
+      true,
+    );
+    TestValidator.equals(
+      "contains name error",
+      output.includes("$input.name"),
+      true,
+    );
+    TestValidator.equals(
+      "contains age error",
+      output.includes("$input.age"),
+      true,
+    );
   }
 };

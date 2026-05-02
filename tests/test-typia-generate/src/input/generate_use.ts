@@ -1,6 +1,6 @@
 "use strict";
 
-'use server';
+"use server";
 
 import typia, { tags } from "typia";
 

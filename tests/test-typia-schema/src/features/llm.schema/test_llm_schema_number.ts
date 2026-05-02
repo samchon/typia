@@ -5,7 +5,9 @@ import typia, { tags } from "typia";
 export const test_llm_schema_number = (): void => {
   const schema = typia.llm.schema<number>({});
 
-  TestValidator.predicate("is number type", () => LlmTypeChecker.isNumber(schema));
+  TestValidator.predicate("is number type", () =>
+    LlmTypeChecker.isNumber(schema),
+  );
 
   // integer type
   const integer = typia.llm.schema<number & tags.Type<"int32">>({});
@@ -14,7 +16,9 @@ export const test_llm_schema_number = (): void => {
   );
 
   // number with range
-  const ranged = typia.llm.schema<number & tags.Minimum<0> & tags.Maximum<100>>({});
+  const ranged = typia.llm.schema<number & tags.Minimum<0> & tags.Maximum<100>>(
+    {},
+  );
   if (LlmTypeChecker.isNumber(ranged)) {
     TestValidator.equals("minimum", ranged.minimum, 0);
     TestValidator.equals("maximum", ranged.maximum, 100);

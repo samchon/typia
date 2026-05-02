@@ -5,7 +5,9 @@ import typia, { tags } from "typia";
 export const test_llm_schema_array = (): void => {
   const schema = typia.llm.schema<string[]>({});
 
-  TestValidator.predicate("is array type", () => LlmTypeChecker.isArray(schema));
+  TestValidator.predicate("is array type", () =>
+    LlmTypeChecker.isArray(schema),
+  );
 
   if (LlmTypeChecker.isArray(schema)) {
     TestValidator.predicate("items is string", () =>

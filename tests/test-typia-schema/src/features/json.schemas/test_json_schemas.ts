@@ -13,9 +13,8 @@ export const test_json_schemas = (): void => {
     author: IMember;
   }
 
-  const collection: IJsonSchemaCollection = typia.json.schemas<
-    [IMember, IArticle, string, number]
-  >();
+  const collection: IJsonSchemaCollection =
+    typia.json.schemas<[IMember, IArticle, string, number]>();
 
   // schemas array has 4 items
   TestValidator.equals("schemas count", collection.schemas.length, 4);
@@ -37,12 +36,16 @@ export const test_json_schemas = (): void => {
   );
 
   // components has both named types
-  TestValidator.predicate("components has IMember", () =>
-    collection.components.schemas !== undefined &&
-    "IMember" in collection.components.schemas,
+  TestValidator.predicate(
+    "components has IMember",
+    () =>
+      collection.components.schemas !== undefined &&
+      "IMember" in collection.components.schemas,
   );
-  TestValidator.predicate("components has IArticle", () =>
-    collection.components.schemas !== undefined &&
-    "IArticle" in collection.components.schemas,
+  TestValidator.predicate(
+    "components has IArticle",
+    () =>
+      collection.components.schemas !== undefined &&
+      "IArticle" in collection.components.schemas,
   );
 };

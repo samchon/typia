@@ -8,7 +8,9 @@ export namespace OpenApiV3_1Downgrader {
     downgraded: OpenApiV3_1.IComponents;
   }
 
-  export const downgrade = (input: OpenApi.IDocument): OpenApiV3_1.IDocument => {
+  export const downgrade = (
+    input: OpenApi.IDocument,
+  ): OpenApiV3_1.IDocument => {
     const collection: IComponentsCollection = downgradeComponents(
       input.components,
     );
@@ -53,12 +55,16 @@ export namespace OpenApiV3_1Downgrader {
 
       // query method goes to x-additionalOperations
       if (pathItem.query) {
-        xAdditionalOperations["query"] = downgradeOperation(collection)(pathItem.query);
+        xAdditionalOperations["query"] = downgradeOperation(collection)(
+          pathItem.query,
+        );
       }
 
       // additionalOperations also go to x-additionalOperations
       if (pathItem.additionalOperations) {
-        for (const [key, value] of Object.entries(pathItem.additionalOperations)) {
+        for (const [key, value] of Object.entries(
+          pathItem.additionalOperations,
+        )) {
           if (value !== undefined) {
             xAdditionalOperations[key] = downgradeOperation(collection)(value);
           }
@@ -145,7 +151,9 @@ export namespace OpenApiV3_1Downgrader {
 
   const downgradeResponse =
     (collection: IComponentsCollection) =>
-    (input: OpenApi.IOperation.IResponse): OpenApiV3_1.IOperation.IResponse => ({
+    (
+      input: OpenApi.IOperation.IResponse,
+    ): OpenApiV3_1.IOperation.IResponse => ({
       ...input,
       content: input.content
         ? downgradeContent(collection)(input.content)
@@ -232,8 +240,7 @@ export namespace OpenApiV3_1Downgrader {
         ),
       };
       const visit = (schema: OpenApi.IJsonSchema): void => {
-        if (OpenApiTypeChecker.isNull(schema))
-          union.push({ type: "null" });
+        if (OpenApiTypeChecker.isNull(schema)) union.push({ type: "null" });
         else if (OpenApiTypeChecker.isConstant(schema))
           union.push({ const: schema.const });
         else if (
@@ -252,9 +259,7 @@ export namespace OpenApiV3_1Downgrader {
         else if (OpenApiTypeChecker.isTuple(schema))
           union.push({
             ...schema,
-            prefixItems: schema.prefixItems.map(
-              downgradeSchema(collection),
-            ),
+            prefixItems: schema.prefixItems.map(downgradeSchema(collection)),
             additionalItems:
               typeof schema.additionalItems === "object"
                 ? downgradeSchema(collection)(schema.additionalItems)

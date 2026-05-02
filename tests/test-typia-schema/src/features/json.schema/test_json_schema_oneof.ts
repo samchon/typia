@@ -24,8 +24,9 @@ export const test_json_schema_oneof = (): void => {
   let actualSchema: OpenApi.IJsonSchema;
   if (OpenApiTypeChecker.isReference(schema)) {
     const animalSchema = unit.components.schemas?.["Animal"];
-    TestValidator.predicate("Animal exists in components", () =>
-      animalSchema !== undefined,
+    TestValidator.predicate(
+      "Animal exists in components",
+      () => animalSchema !== undefined,
     );
     actualSchema = animalSchema!;
   } else {
@@ -42,8 +43,9 @@ export const test_json_schema_oneof = (): void => {
     TestValidator.equals("oneOf has 2 types", oneOf.oneOf.length, 2);
 
     // check discriminator
-    TestValidator.predicate("has discriminator", () =>
-      oneOf.discriminator !== undefined,
+    TestValidator.predicate(
+      "has discriminator",
+      () => oneOf.discriminator !== undefined,
     );
     if (oneOf.discriminator) {
       TestValidator.equals(
@@ -63,10 +65,16 @@ export const test_json_schema_oneof = (): void => {
   }
 
   // check ICat and IDog in components
-  TestValidator.predicate("ICat exists in components", () =>
-    unit.components.schemas !== undefined && "ICat" in unit.components.schemas,
+  TestValidator.predicate(
+    "ICat exists in components",
+    () =>
+      unit.components.schemas !== undefined &&
+      "ICat" in unit.components.schemas,
   );
-  TestValidator.predicate("IDog exists in components", () =>
-    unit.components.schemas !== undefined && "IDog" in unit.components.schemas,
+  TestValidator.predicate(
+    "IDog exists in components",
+    () =>
+      unit.components.schemas !== undefined &&
+      "IDog" in unit.components.schemas,
   );
 };

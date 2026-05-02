@@ -9,17 +9,17 @@ type TextRange = innercore.TextRange
 type ScriptKind = innercore.ScriptKind
 
 const (
-	TSFalse = innercore.TSFalse
-	TSTrue  = innercore.TSTrue
+  TSFalse = innercore.TSFalse
+  TSTrue  = innercore.TSTrue
 
-	ScriptKindUnknown  = innercore.ScriptKindUnknown
-	ScriptKindJS       = innercore.ScriptKindJS
-	ScriptKindJSX      = innercore.ScriptKindJSX
-	ScriptKindTS       = innercore.ScriptKindTS
-	ScriptKindTSX      = innercore.ScriptKindTSX
-	ScriptKindExternal = innercore.ScriptKindExternal
-	ScriptKindJSON     = innercore.ScriptKindJSON
-	ScriptKindDeferred = innercore.ScriptKindDeferred
+  ScriptKindUnknown  = innercore.ScriptKindUnknown
+  ScriptKindJS       = innercore.ScriptKindJS
+  ScriptKindJSX      = innercore.ScriptKindJSX
+  ScriptKindTS       = innercore.ScriptKindTS
+  ScriptKindTSX      = innercore.ScriptKindTSX
+  ScriptKindExternal = innercore.ScriptKindExternal
+  ScriptKindJSON     = innercore.ScriptKindJSON
+  ScriptKindDeferred = innercore.ScriptKindDeferred
 )
 
 // NewTextRange constructs a closed/open [pos, end) text range.

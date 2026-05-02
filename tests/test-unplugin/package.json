@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@typia/test-unplugin",
-  "version": "13.0.0-dev.20260430",
+  "version": "13.0.0-dev.20260501",
   "type": "module",
   "description": "Test for @typia/unplugin package",
   "repository": {
@@ -11,7 +11,7 @@
   "author": "Jeongho Nam",
   "license": "MIT",
   "scripts": {
-    "start": "TTSC_CACHE_DIR=${TTSC_CACHE_DIR:-$(mktemp -d)} vitest run --no-file-parallelism",
+    "start": "bash -c 'export TTSC_CACHE_DIR=${TTSC_CACHE_DIR:-$(mktemp -d)}; vitest run --no-file-parallelism'",
     "test": "vitest"
   },
   "devDependencies": {

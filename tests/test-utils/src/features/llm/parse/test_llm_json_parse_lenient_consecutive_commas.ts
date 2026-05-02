@@ -5,20 +5,17 @@ export const test_llm_json_parse_lenient_consecutive_commas = (): void => {
   // Double comma in array
   const r1 = LlmJson.parse("[1,,2]");
   TestValidator.equals("double-comma-success", r1.success, true);
-  if (r1.success)
-    TestValidator.equals("double-comma-data", r1.data, [1, 2]);
+  if (r1.success) TestValidator.equals("double-comma-data", r1.data, [1, 2]);
 
   // Triple comma in array
   const r2 = LlmJson.parse("[1,,,2]");
   TestValidator.equals("triple-comma-success", r2.success, true);
-  if (r2.success)
-    TestValidator.equals("triple-comma-data", r2.data, [1, 2]);
+  if (r2.success) TestValidator.equals("triple-comma-data", r2.data, [1, 2]);
 
   // Leading comma in array
   const r3 = LlmJson.parse("[,1, 2]");
   TestValidator.equals("leading-comma-success", r3.success, true);
-  if (r3.success)
-    TestValidator.equals("leading-comma-data", r3.data, [1, 2]);
+  if (r3.success) TestValidator.equals("leading-comma-data", r3.data, [1, 2]);
 
   // Only commas in array
   const r4 = LlmJson.parse("[,,,]");
@@ -51,8 +48,7 @@ export const test_llm_json_parse_lenient_consecutive_commas = (): void => {
   // Trailing comma in array
   const r9 = LlmJson.parse("[1, 2, 3,]");
   TestValidator.equals("trailing-arr-success", r9.success, true);
-  if (r9.success)
-    TestValidator.equals("trailing-arr-data", r9.data, [1, 2, 3]);
+  if (r9.success) TestValidator.equals("trailing-arr-data", r9.data, [1, 2, 3]);
 
   // Multiple trailing commas in array
   const r10 = LlmJson.parse("[1, 2,,]");

@@ -43,12 +43,16 @@ export namespace OpenApiV3Downgrader {
 
       // query method goes to x-additionalOperations
       if (pathItem.query) {
-        xAdditionalOperations["query"] = downgradeOperation(collection)(pathItem.query);
+        xAdditionalOperations["query"] = downgradeOperation(collection)(
+          pathItem.query,
+        );
       }
 
       // additionalOperations also go to x-additionalOperations
       if (pathItem.additionalOperations) {
-        for (const [key, value] of Object.entries(pathItem.additionalOperations)) {
+        for (const [key, value] of Object.entries(
+          pathItem.additionalOperations,
+        )) {
           if (value !== undefined) {
             xAdditionalOperations[key] = downgradeOperation(collection)(value);
           }

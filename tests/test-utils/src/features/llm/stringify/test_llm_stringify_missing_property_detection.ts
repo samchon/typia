@@ -68,7 +68,11 @@ export const test_llm_stringify_missing_property_detection = (): void => {
 
   const output3: string = LlmJson.stringify(failure3);
   TestValidator.equals("bracket-code-block", output3.includes("```json"), true);
-  TestValidator.equals("bracket-missing-key", output3.includes("missing-key"), true);
+  TestValidator.equals(
+    "bracket-missing-key",
+    output3.includes("missing-key"),
+    true,
+  );
 
   // Test 4: Grandchild path should NOT create missing property on parent
   // (extractDirectChildKey should return null for grandchildren)
@@ -85,7 +89,11 @@ export const test_llm_stringify_missing_property_detection = (): void => {
   };
 
   const output4: string = LlmJson.stringify(failure4);
-  TestValidator.equals("grandchild-code-block", output4.includes("```json"), true);
+  TestValidator.equals(
+    "grandchild-code-block",
+    output4.includes("```json"),
+    true,
+  );
   // "email" should show as missing property under "user", not under root
   TestValidator.equals("grandchild-email", output4.includes("email"), true);
 
@@ -103,7 +111,11 @@ export const test_llm_stringify_missing_property_detection = (): void => {
   };
 
   const output5: string = LlmJson.stringify(failure5);
-  TestValidator.equals("array-idx-code-block", output5.includes("```json"), true);
+  TestValidator.equals(
+    "array-idx-code-block",
+    output5.includes("```json"),
+    true,
+  );
   // Should not create a property named "0" on items
 
   // Test 6: Nested missing property

@@ -8,10 +8,11 @@ export const test_llm_json_parse_lenient_trailing_junk = (): void => {
   // Trailing text after object
   const result1 = LlmJson.parse('{"name": "test"} and some trailing text');
   TestValidator.equals("success1", result1.success, true);
-  if (result1.success) TestValidator.equals("value1", result1.data, { name: "test" });
+  if (result1.success)
+    TestValidator.equals("value1", result1.data, { name: "test" });
 
   // Trailing text after array
-  const result2 = LlmJson.parse('[1, 2, 3] extra stuff here');
+  const result2 = LlmJson.parse("[1, 2, 3] extra stuff here");
   TestValidator.equals("success2", result2.success, true);
   if (result2.success) TestValidator.equals("value2", result2.data, [1, 2, 3]);
 

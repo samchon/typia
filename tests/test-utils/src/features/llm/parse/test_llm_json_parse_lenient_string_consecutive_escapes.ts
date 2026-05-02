@@ -46,9 +46,7 @@ export const test_llm_json_parse_lenient_string_consecutive_escapes =
       });
 
     // All escapes together
-    const r6 = LlmJson.parse(
-      '{"all": "\\"\\\\\\/ \\b\\f\\n\\r\\t"}',
-    );
+    const r6 = LlmJson.parse('{"all": "\\"\\\\\\/ \\b\\f\\n\\r\\t"}');
     TestValidator.equals("all-escapes-success", r6.success, true);
     if (r6.success)
       TestValidator.equals("all-escapes-data", r6.data, {

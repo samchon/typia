@@ -31,16 +31,8 @@ export const test_llm_stringify_multiple_errors_same_path = (): void => {
   const output: string = LlmJson.stringify(failure);
 
   // All three errors should be in a single error comment array
-  TestValidator.equals(
-    "contains code block",
-    output.includes("```json"),
-    true,
-  );
-  TestValidator.equals(
-    "contains error marker",
-    output.includes("// ❌"),
-    true,
-  );
+  TestValidator.equals("contains code block", output.includes("```json"), true);
+  TestValidator.equals("contains error marker", output.includes("// ❌"), true);
   // The error comment should contain all three expected values
   TestValidator.equals(
     "contains Format<email>",
@@ -52,11 +44,7 @@ export const test_llm_stringify_multiple_errors_same_path = (): void => {
     output.includes("MinLength<5>"),
     true,
   );
-  TestValidator.equals(
-    "contains Pattern",
-    output.includes("Pattern"),
-    true,
-  );
+  TestValidator.equals("contains Pattern", output.includes("Pattern"), true);
   // Should NOT have unmappable errors section
   TestValidator.equals(
     "no unmappable section",

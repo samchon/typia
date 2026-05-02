@@ -2,15 +2,15 @@ import { TestValidator } from "@nestia/e2e";
 import { LlmJson } from "@typia/utils";
 
 /**
- * Tests that the lenient parser accepts missing commas between
- * object properties and array elements.
+ * Tests that the lenient parser accepts missing commas between object
+ * properties and array elements.
  *
- * The parser's object/array loops do NOT require commas between entries.
- * After parsing a value, if the next token is not a comma, the loop
- * simply continues and tries to parse the next key/value directly.
+ * The parser's object/array loops do NOT require commas between entries. After
+ * parsing a value, if the next token is not a comma, the loop simply continues
+ * and tries to parse the next key/value directly.
  *
- * This is a deliberate lenient behavior that enables parsing of
- * LLM outputs where commas are occasionally omitted.
+ * This is a deliberate lenient behavior that enables parsing of LLM outputs
+ * where commas are occasionally omitted.
  */
 export const test_llm_json_parse_lenient_comma_optional = (): void => {
   // =========================================================================
@@ -66,11 +66,7 @@ export const test_llm_json_parse_lenient_comma_optional = (): void => {
   const a2 = LlmJson.parse('["a" "b" "c"]');
   TestValidator.equals("arr-no-comma-strings-success", a2.success, true);
   if (a2.success)
-    TestValidator.equals("arr-no-comma-strings-data", a2.data, [
-      "a",
-      "b",
-      "c",
-    ]);
+    TestValidator.equals("arr-no-comma-strings-data", a2.data, ["a", "b", "c"]);
 
   // Keywords without commas
   const a3 = LlmJson.parse("[true false null]");

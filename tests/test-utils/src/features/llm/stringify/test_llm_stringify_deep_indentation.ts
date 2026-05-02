@@ -44,16 +44,8 @@ export const test_llm_stringify_deep_indentation = (): void => {
 
   const output: string = LlmJson.stringify(failure);
 
-  TestValidator.equals(
-    "contains code block",
-    output.includes("```json"),
-    true,
-  );
-  TestValidator.equals(
-    "contains error marker",
-    output.includes("// ❌"),
-    true,
-  );
+  TestValidator.equals("contains code block", output.includes("```json"), true);
+  TestValidator.equals("contains error marker", output.includes("// ❌"), true);
   // Check that all levels are present
   TestValidator.equals("contains level1", output.includes("level1"), true);
   TestValidator.equals("contains level10", output.includes("level10"), true);

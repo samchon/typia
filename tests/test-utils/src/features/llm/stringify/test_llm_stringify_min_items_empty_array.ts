@@ -26,21 +26,13 @@ export const test_llm_stringify_min_items_empty_array = (): void => {
     output.includes("undefined"),
     true,
   );
-  TestValidator.equals(
-    "contains error marker",
-    output.includes("// ❌"),
-    true,
-  );
+  TestValidator.equals("contains error marker", output.includes("// ❌"), true);
   TestValidator.equals(
     "contains items path",
     output.includes("$input.items[]"),
     true,
   );
-  TestValidator.equals(
-    "contains code block",
-    output.includes("```json"),
-    true,
-  );
+  TestValidator.equals("contains code block", output.includes("```json"), true);
 
   // Test with multiple missing elements
   const multiFailure: IValidation.IFailure = {

@@ -46,7 +46,8 @@ export namespace OpenApiObjectValidator {
               }),
             )
         : []),
-      ...(ctx.equals === true && typeof ctx.schema.additionalProperties !== "object"
+      ...(ctx.equals === true &&
+      typeof ctx.schema.additionalProperties !== "object"
         ? [validateEquals(ctx)]
         : []),
     ].every((v) => v);

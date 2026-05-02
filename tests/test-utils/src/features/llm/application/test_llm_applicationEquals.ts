@@ -23,7 +23,11 @@ export const test_llm_applicationEquals = (): void => {
   });
   TestValidator.equals("result-success", result.success, false);
   if (!result.success)
-    TestValidator.equals("result-errors", [{ expected: "undefined" }], result.errors);
+    TestValidator.equals(
+      "result-errors",
+      [{ expected: "undefined" }],
+      result.errors,
+    );
 };
 
 const document: OpenApi.IDocument = {

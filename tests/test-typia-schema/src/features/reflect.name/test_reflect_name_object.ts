@@ -7,5 +7,9 @@ export const test_reflect_name_object = (): void => {
     name: string;
   }
 
-  TestValidator.equals("named object", typia.reflect.name<IMember>(), "IMember");
+  TestValidator.equals(
+    "named object",
+    typia.reflect.name<IMember>(),
+    "IMember",
+  );
 };

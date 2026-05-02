@@ -12,7 +12,11 @@ export const test_llm_parameters_boolean = (): void => {
   const params: ILlmSchema.IParameters = typia.llm.parameters<IInput>();
 
   TestValidator.predicate("is object", () => LlmTypeChecker.isObject(params));
-  TestValidator.equals("additionalProperties", params.additionalProperties, false);
+  TestValidator.equals(
+    "additionalProperties",
+    params.additionalProperties,
+    false,
+  );
 
   // check active
   const active = params.properties["active"];
@@ -27,10 +31,12 @@ export const test_llm_parameters_boolean = (): void => {
   );
 
   // all required
-  TestValidator.predicate("active is required", () =>
-    params.required?.includes("active") ?? false,
+  TestValidator.predicate(
+    "active is required",
+    () => params.required?.includes("active") ?? false,
   );
-  TestValidator.predicate("enabled is required", () =>
-    params.required?.includes("enabled") ?? false,
+  TestValidator.predicate(
+    "enabled is required",
+    () => params.required?.includes("enabled") ?? false,
   );
 };

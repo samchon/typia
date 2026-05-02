@@ -31,10 +31,7 @@ export const test_llm_coerce_anyof_discriminated_second = (): void => {
     },
   };
 
-  const result = LlmJson.parse<IAnimal>(
-    JSON.stringify(corrupted),
-    parameters,
-  );
+  const result = LlmJson.parse<IAnimal>(JSON.stringify(corrupted), parameters);
   TestValidator.equals("success", result.success, true);
   if (result.success) {
     const animal = result.data.animal as ICat;

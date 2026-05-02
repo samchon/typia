@@ -19,8 +19,20 @@ export const test_llm_stringify_nested_constraint = (): void => {
   TestValidator.equals("success", result.success, false);
   if (!result.success) {
     const output: string = LlmJson.stringify(result);
-    TestValidator.equals("contains code block", output.includes("```json"), true);
-    TestValidator.equals("contains email error", output.includes("$input.user.email"), true);
-    TestValidator.equals("contains age error", output.includes("$input.user.age"), true);
+    TestValidator.equals(
+      "contains code block",
+      output.includes("```json"),
+      true,
+    );
+    TestValidator.equals(
+      "contains email error",
+      output.includes("$input.user.email"),
+      true,
+    );
+    TestValidator.equals(
+      "contains age error",
+      output.includes("$input.user.age"),
+      true,
+    );
   }
 };

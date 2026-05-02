@@ -44,13 +44,31 @@ export const test_llm_coerce_mixed_complex = (): void => {
     }),
   };
 
-  const result = LlmJson.parse<IComplexNested>(JSON.stringify(corrupted), parameters);
+  const result = LlmJson.parse<IComplexNested>(
+    JSON.stringify(corrupted),
+    parameters,
+  );
   TestValidator.equals("success", result.success, true);
   if (result.success) {
-    TestValidator.equals("users[0].profile.name", result.data.users[0]!.profile.name, "Alice");
-    TestValidator.equals("users[0].profile.tags", result.data.users[0]!.profile.tags, ["admin", "user"]);
-    TestValidator.equals("users[0].scores", result.data.users[0]!.scores, [95, 87, 92]);
+    TestValidator.equals(
+      "users[0].profile.name",
+      result.data.users[0]!.profile.name,
+      "Alice",
+    );
+    TestValidator.equals(
+      "users[0].profile.tags",
+      result.data.users[0]!.profile.tags,
+      ["admin", "user"],
+    );
+    TestValidator.equals(
+      "users[0].scores",
+      result.data.users[0]!.scores,
+      [95, 87, 92],
+    );
     TestValidator.equals("metadata.count", result.data.metadata.count, 100);
-    TestValidator.equals("metadata.labels", result.data.metadata.labels, ["active", "verified"]);
+    TestValidator.equals("metadata.labels", result.data.metadata.labels, [
+      "active",
+      "verified",
+    ]);
   }
 };

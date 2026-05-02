@@ -27,9 +27,7 @@ export const test_llm_json_parse_lenient_string_special_chars = (): void => {
     });
 
   // String with forward slashes (URLs)
-  const r4 = LlmJson.parse(
-    '{"url": "https://example.com/path?q=1&b=2#hash"}',
-  );
+  const r4 = LlmJson.parse('{"url": "https://example.com/path?q=1&b=2#hash"}');
   TestValidator.equals("url-success", r4.success, true);
   if (r4.success)
     TestValidator.equals("url-data", r4.data, {

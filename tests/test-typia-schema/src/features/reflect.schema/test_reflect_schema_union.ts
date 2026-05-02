@@ -4,7 +4,11 @@ import typia from "typia";
 export const test_reflect_schema_union = (): void => {
   // primitive union
   const primitiveUnion = typia.reflect.schema<string | number>();
-  TestValidator.equals("atomics length", primitiveUnion.schema.atomics.length, 2);
+  TestValidator.equals(
+    "atomics length",
+    primitiveUnion.schema.atomics.length,
+    2,
+  );
 
   const types = primitiveUnion.schema.atomics.map((a) => a.type);
   TestValidator.predicate("has string", () => types.includes("string"));

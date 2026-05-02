@@ -1,25 +1,20 @@
-import { definePlugin, type ITtscPluginFactoryContext } from "ttsc";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import type { ITtscPlugin, ITtscPluginFactoryContext } from "ttsc";
 
 const filename: string = currentFilename();
 const dirname: string = path.dirname(filename);
 
-export default definePlugin((context: ITtscPluginFactoryContext) => {
+export default function createTtscPlugin(
+  context: ITtscPluginFactoryContext,
+): ITtscPlugin {
   const root: string =
     resolvePackageRoot(context.projectRoot) ?? inferPackageRoot();
   return {
     name: "typia",
-    native: {
-      source: {
-        dir: path.resolve(root, "native"),
-        entry: "./cmd/ttsc-typia",
-      },
-      contractVersion: 1,
-      mode: "typia",
-    },
+    source: path.resolve(root, "native", "cmd", "ttsc-typia"),
   };
-});
+}
 
 function resolvePackageRoot(projectRoot: string): string | null {
   try {

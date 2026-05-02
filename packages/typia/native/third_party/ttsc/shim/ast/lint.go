@@ -13,7 +13,7 @@
 package ast
 
 import (
-	innerast "github.com/microsoft/typescript-go/internal/ast"
+  innerast "github.com/microsoft/typescript-go/internal/ast"
 )
 
 // ---- Node-list / visitor primitives ----
@@ -125,185 +125,185 @@ type ExternalModuleIndicatorOptions = innerast.ExternalModuleIndicatorOptions
 // ---- Node-flag constants ----
 
 const (
-	NodeFlagsNone         = innerast.NodeFlagsNone
-	NodeFlagsLet          = innerast.NodeFlagsLet
-	NodeFlagsConst        = innerast.NodeFlagsConst
-	NodeFlagsBlockScoped  = innerast.NodeFlagsBlockScoped
-	NodeFlagsAwaitContext = innerast.NodeFlagsAwaitContext
+  NodeFlagsNone         = innerast.NodeFlagsNone
+  NodeFlagsLet          = innerast.NodeFlagsLet
+  NodeFlagsConst        = innerast.NodeFlagsConst
+  NodeFlagsBlockScoped  = innerast.NodeFlagsBlockScoped
+  NodeFlagsAwaitContext = innerast.NodeFlagsAwaitContext
 )
 
 // ---- Statement / declaration / expression kinds ----
 
 const (
-	KindSourceFile = innerast.KindSourceFile
+  KindSourceFile = innerast.KindSourceFile
 
-	// Statements
-	KindBlock                   = innerast.KindBlock
-	KindBreakStatement          = innerast.KindBreakStatement
-	KindCaseBlock               = innerast.KindCaseBlock
-	KindCaseClause              = innerast.KindCaseClause
-	KindCatchClause             = innerast.KindCatchClause
-	KindContinueStatement       = innerast.KindContinueStatement
-	KindDebuggerStatement       = innerast.KindDebuggerStatement
-	KindDefaultClause           = innerast.KindDefaultClause
-	KindDoStatement             = innerast.KindDoStatement
-	KindEmptyStatement          = innerast.KindEmptyStatement
-	KindExpressionStatement     = innerast.KindExpressionStatement
-	KindForInStatement          = innerast.KindForInStatement
-	KindForOfStatement          = innerast.KindForOfStatement
-	KindForStatement            = innerast.KindForStatement
-	KindIfStatement             = innerast.KindIfStatement
-	KindLabeledStatement        = innerast.KindLabeledStatement
-	KindReturnStatement         = innerast.KindReturnStatement
-	KindSwitchStatement         = innerast.KindSwitchStatement
-	KindThrowStatement          = innerast.KindThrowStatement
-	KindTryStatement            = innerast.KindTryStatement
-	KindVariableDeclaration     = innerast.KindVariableDeclaration
-	KindVariableDeclarationList = innerast.KindVariableDeclarationList
-	KindVariableStatement       = innerast.KindVariableStatement
-	KindWhileStatement          = innerast.KindWhileStatement
-	KindWithStatement           = innerast.KindWithStatement
+  // Statements
+  KindBlock                   = innerast.KindBlock
+  KindBreakStatement          = innerast.KindBreakStatement
+  KindCaseBlock               = innerast.KindCaseBlock
+  KindCaseClause              = innerast.KindCaseClause
+  KindCatchClause             = innerast.KindCatchClause
+  KindContinueStatement       = innerast.KindContinueStatement
+  KindDebuggerStatement       = innerast.KindDebuggerStatement
+  KindDefaultClause           = innerast.KindDefaultClause
+  KindDoStatement             = innerast.KindDoStatement
+  KindEmptyStatement          = innerast.KindEmptyStatement
+  KindExpressionStatement     = innerast.KindExpressionStatement
+  KindForInStatement          = innerast.KindForInStatement
+  KindForOfStatement          = innerast.KindForOfStatement
+  KindForStatement            = innerast.KindForStatement
+  KindIfStatement             = innerast.KindIfStatement
+  KindLabeledStatement        = innerast.KindLabeledStatement
+  KindReturnStatement         = innerast.KindReturnStatement
+  KindSwitchStatement         = innerast.KindSwitchStatement
+  KindThrowStatement          = innerast.KindThrowStatement
+  KindTryStatement            = innerast.KindTryStatement
+  KindVariableDeclaration     = innerast.KindVariableDeclaration
+  KindVariableDeclarationList = innerast.KindVariableDeclarationList
+  KindVariableStatement       = innerast.KindVariableStatement
+  KindWhileStatement          = innerast.KindWhileStatement
+  KindWithStatement           = innerast.KindWithStatement
 
-	// Class / enum / module
-	KindClassDeclaration    = innerast.KindClassDeclaration
-	KindClassExpression     = innerast.KindClassExpression
-	KindConstructor         = innerast.KindConstructor
-	KindEnumDeclaration     = innerast.KindEnumDeclaration
-	KindEnumMember          = innerast.KindEnumMember
-	KindGetAccessor         = innerast.KindGetAccessor
-	KindSetAccessor         = innerast.KindSetAccessor
-	KindHeritageClause      = innerast.KindHeritageClause
-	KindPropertyDeclaration = innerast.KindPropertyDeclaration
+  // Class / enum / module
+  KindClassDeclaration    = innerast.KindClassDeclaration
+  KindClassExpression     = innerast.KindClassExpression
+  KindConstructor         = innerast.KindConstructor
+  KindEnumDeclaration     = innerast.KindEnumDeclaration
+  KindEnumMember          = innerast.KindEnumMember
+  KindGetAccessor         = innerast.KindGetAccessor
+  KindSetAccessor         = innerast.KindSetAccessor
+  KindHeritageClause      = innerast.KindHeritageClause
+  KindPropertyDeclaration = innerast.KindPropertyDeclaration
 
-	// Module syntax
-	KindExportAssignment        = innerast.KindExportAssignment
-	KindExportDeclaration       = innerast.KindExportDeclaration
-	KindImportEqualsDeclaration = innerast.KindImportEqualsDeclaration
-	KindExternalModuleReference = innerast.KindExternalModuleReference
-	KindImportType              = innerast.KindImportType
-	KindImportKeyword           = innerast.KindImportKeyword
+  // Module syntax
+  KindExportAssignment        = innerast.KindExportAssignment
+  KindExportDeclaration       = innerast.KindExportDeclaration
+  KindImportEqualsDeclaration = innerast.KindImportEqualsDeclaration
+  KindExternalModuleReference = innerast.KindExternalModuleReference
+  KindImportType              = innerast.KindImportType
+  KindImportKeyword           = innerast.KindImportKeyword
 
-	// Binding
-	KindBindingElement       = innerast.KindBindingElement
-	KindObjectBindingPattern = innerast.KindObjectBindingPattern
-	KindArrayBindingPattern  = innerast.KindArrayBindingPattern
-	KindOmittedExpression    = innerast.KindOmittedExpression
+  // Binding
+  KindBindingElement       = innerast.KindBindingElement
+  KindObjectBindingPattern = innerast.KindObjectBindingPattern
+  KindArrayBindingPattern  = innerast.KindArrayBindingPattern
+  KindOmittedExpression    = innerast.KindOmittedExpression
 
-	// Expressions
-	KindArrayLiteralExpression      = innerast.KindArrayLiteralExpression
-	KindArrowFunction               = innerast.KindArrowFunction
-	KindAsExpression                = innerast.KindAsExpression
-	KindAwaitExpression             = innerast.KindAwaitExpression
-	KindBinaryExpression            = innerast.KindBinaryExpression
-	KindConditionalExpression       = innerast.KindConditionalExpression
-	KindDeleteExpression            = innerast.KindDeleteExpression
-	KindElementAccessExpression     = innerast.KindElementAccessExpression
-	KindFunctionExpression          = innerast.KindFunctionExpression
-	KindNewExpression               = innerast.KindNewExpression
-	KindNonNullExpression           = innerast.KindNonNullExpression
-	KindObjectLiteralExpression     = innerast.KindObjectLiteralExpression
-	KindParenthesizedExpression     = innerast.KindParenthesizedExpression
-	KindPostfixUnaryExpression      = innerast.KindPostfixUnaryExpression
-	KindPropertyAssignment          = innerast.KindPropertyAssignment
-	KindShorthandPropertyAssignment = innerast.KindShorthandPropertyAssignment
-	KindSpreadAssignment            = innerast.KindSpreadAssignment
-	KindSpreadElement               = innerast.KindSpreadElement
-	KindTaggedTemplateExpression    = innerast.KindTaggedTemplateExpression
-	KindTemplateExpression          = innerast.KindTemplateExpression
-	KindTemplateSpan                = innerast.KindTemplateSpan
-	KindTypeAssertionExpression     = innerast.KindTypeAssertionExpression
-	KindTypeOfExpression            = innerast.KindTypeOfExpression
-	KindVoidExpression              = innerast.KindVoidExpression
-	KindYieldExpression             = innerast.KindYieldExpression
-	KindRegularExpressionLiteral    = innerast.KindRegularExpressionLiteral
-	KindSatisfiesExpression         = innerast.KindSatisfiesExpression
+  // Expressions
+  KindArrayLiteralExpression      = innerast.KindArrayLiteralExpression
+  KindArrowFunction               = innerast.KindArrowFunction
+  KindAsExpression                = innerast.KindAsExpression
+  KindAwaitExpression             = innerast.KindAwaitExpression
+  KindBinaryExpression            = innerast.KindBinaryExpression
+  KindConditionalExpression       = innerast.KindConditionalExpression
+  KindDeleteExpression            = innerast.KindDeleteExpression
+  KindElementAccessExpression     = innerast.KindElementAccessExpression
+  KindFunctionExpression          = innerast.KindFunctionExpression
+  KindNewExpression               = innerast.KindNewExpression
+  KindNonNullExpression           = innerast.KindNonNullExpression
+  KindObjectLiteralExpression     = innerast.KindObjectLiteralExpression
+  KindParenthesizedExpression     = innerast.KindParenthesizedExpression
+  KindPostfixUnaryExpression      = innerast.KindPostfixUnaryExpression
+  KindPropertyAssignment          = innerast.KindPropertyAssignment
+  KindShorthandPropertyAssignment = innerast.KindShorthandPropertyAssignment
+  KindSpreadAssignment            = innerast.KindSpreadAssignment
+  KindSpreadElement               = innerast.KindSpreadElement
+  KindTaggedTemplateExpression    = innerast.KindTaggedTemplateExpression
+  KindTemplateExpression          = innerast.KindTemplateExpression
+  KindTemplateSpan                = innerast.KindTemplateSpan
+  KindTypeAssertionExpression     = innerast.KindTypeAssertionExpression
+  KindTypeOfExpression            = innerast.KindTypeOfExpression
+  KindVoidExpression              = innerast.KindVoidExpression
+  KindYieldExpression             = innerast.KindYieldExpression
+  KindRegularExpressionLiteral    = innerast.KindRegularExpressionLiteral
+  KindSatisfiesExpression         = innerast.KindSatisfiesExpression
 
-	// Keywords / tokens used by rules
-	KindThisKeyword                  = innerast.KindThisKeyword
-	KindSuperKeyword                 = innerast.KindSuperKeyword
-	KindEqualsToken                  = innerast.KindEqualsToken
-	KindEqualsEqualsToken            = innerast.KindEqualsEqualsToken
-	KindEqualsEqualsEqualsToken      = innerast.KindEqualsEqualsEqualsToken
-	KindExclamationEqualsToken       = innerast.KindExclamationEqualsToken
-	KindExclamationEqualsEqualsToken = innerast.KindExclamationEqualsEqualsToken
-	KindLessThanToken                = innerast.KindLessThanToken
-	KindGreaterThanToken             = innerast.KindGreaterThanToken
-	KindLessThanEqualsToken          = innerast.KindLessThanEqualsToken
-	KindGreaterThanEqualsToken       = innerast.KindGreaterThanEqualsToken
-	KindPlusToken                    = innerast.KindPlusToken
-	KindPlusEqualsToken              = innerast.KindPlusEqualsToken
-	KindMinusEqualsToken             = innerast.KindMinusEqualsToken
-	KindAsteriskToken                = innerast.KindAsteriskToken
-	KindSlashToken                   = innerast.KindSlashToken
-	KindAmpersandAmpersandToken      = innerast.KindAmpersandAmpersandToken
-	KindBarBarToken                  = innerast.KindBarBarToken
-	KindQuestionQuestionToken        = innerast.KindQuestionQuestionToken
-	KindExclamationToken             = innerast.KindExclamationToken
-	KindTildeToken                   = innerast.KindTildeToken
-	KindInKeyword                    = innerast.KindInKeyword
-	KindInstanceOfKeyword            = innerast.KindInstanceOfKeyword
-	KindAsKeyword                    = innerast.KindAsKeyword
-	KindPlusPlusToken                = innerast.KindPlusPlusToken
-	KindMinusMinusToken              = innerast.KindMinusMinusToken
-	KindDotToken                     = innerast.KindDotToken
+  // Keywords / tokens used by rules
+  KindThisKeyword                  = innerast.KindThisKeyword
+  KindSuperKeyword                 = innerast.KindSuperKeyword
+  KindEqualsToken                  = innerast.KindEqualsToken
+  KindEqualsEqualsToken            = innerast.KindEqualsEqualsToken
+  KindEqualsEqualsEqualsToken      = innerast.KindEqualsEqualsEqualsToken
+  KindExclamationEqualsToken       = innerast.KindExclamationEqualsToken
+  KindExclamationEqualsEqualsToken = innerast.KindExclamationEqualsEqualsToken
+  KindLessThanToken                = innerast.KindLessThanToken
+  KindGreaterThanToken             = innerast.KindGreaterThanToken
+  KindLessThanEqualsToken          = innerast.KindLessThanEqualsToken
+  KindGreaterThanEqualsToken       = innerast.KindGreaterThanEqualsToken
+  KindPlusToken                    = innerast.KindPlusToken
+  KindPlusEqualsToken              = innerast.KindPlusEqualsToken
+  KindMinusEqualsToken             = innerast.KindMinusEqualsToken
+  KindAsteriskToken                = innerast.KindAsteriskToken
+  KindSlashToken                   = innerast.KindSlashToken
+  KindAmpersandAmpersandToken      = innerast.KindAmpersandAmpersandToken
+  KindBarBarToken                  = innerast.KindBarBarToken
+  KindQuestionQuestionToken        = innerast.KindQuestionQuestionToken
+  KindExclamationToken             = innerast.KindExclamationToken
+  KindTildeToken                   = innerast.KindTildeToken
+  KindInKeyword                    = innerast.KindInKeyword
+  KindInstanceOfKeyword            = innerast.KindInstanceOfKeyword
+  KindAsKeyword                    = innerast.KindAsKeyword
+  KindPlusPlusToken                = innerast.KindPlusPlusToken
+  KindMinusMinusToken              = innerast.KindMinusMinusToken
+  KindDotToken                     = innerast.KindDotToken
 
-	// Bitwise / shift / exponent operator tokens — needed by
-	// no-bitwise, prefer-exponentiation-operator, etc.
-	KindAmpersandToken                               = innerast.KindAmpersandToken
-	KindBarToken                                     = innerast.KindBarToken
-	KindCaretToken                                   = innerast.KindCaretToken
-	KindLessThanLessThanToken                        = innerast.KindLessThanLessThanToken
-	KindGreaterThanGreaterThanToken                  = innerast.KindGreaterThanGreaterThanToken
-	KindGreaterThanGreaterThanGreaterThanToken       = innerast.KindGreaterThanGreaterThanGreaterThanToken
-	KindAsteriskAsteriskToken                        = innerast.KindAsteriskAsteriskToken
-	KindAmpersandAmpersandEqualsToken                = innerast.KindAmpersandAmpersandEqualsToken
-	KindBarBarEqualsToken                            = innerast.KindBarBarEqualsToken
-	KindQuestionQuestionEqualsToken                  = innerast.KindQuestionQuestionEqualsToken
-	KindAsteriskEqualsToken                          = innerast.KindAsteriskEqualsToken
-	KindSlashEqualsToken                             = innerast.KindSlashEqualsToken
-	KindPercentEqualsToken                           = innerast.KindPercentEqualsToken
-	KindAsteriskAsteriskEqualsToken                  = innerast.KindAsteriskAsteriskEqualsToken
-	KindAmpersandEqualsToken                         = innerast.KindAmpersandEqualsToken
-	KindBarEqualsToken                               = innerast.KindBarEqualsToken
-	KindCaretEqualsToken                             = innerast.KindCaretEqualsToken
-	KindLessThanLessThanEqualsToken                  = innerast.KindLessThanLessThanEqualsToken
-	KindGreaterThanGreaterThanEqualsToken            = innerast.KindGreaterThanGreaterThanEqualsToken
-	KindGreaterThanGreaterThanGreaterThanEqualsToken = innerast.KindGreaterThanGreaterThanGreaterThanEqualsToken
-	KindCommaToken                                   = innerast.KindCommaToken
-	KindQuestionToken                                = innerast.KindQuestionToken
+  // Bitwise / shift / exponent operator tokens — needed by
+  // no-bitwise, prefer-exponentiation-operator, etc.
+  KindAmpersandToken                               = innerast.KindAmpersandToken
+  KindBarToken                                     = innerast.KindBarToken
+  KindCaretToken                                   = innerast.KindCaretToken
+  KindLessThanLessThanToken                        = innerast.KindLessThanLessThanToken
+  KindGreaterThanGreaterThanToken                  = innerast.KindGreaterThanGreaterThanToken
+  KindGreaterThanGreaterThanGreaterThanToken       = innerast.KindGreaterThanGreaterThanGreaterThanToken
+  KindAsteriskAsteriskToken                        = innerast.KindAsteriskAsteriskToken
+  KindAmpersandAmpersandEqualsToken                = innerast.KindAmpersandAmpersandEqualsToken
+  KindBarBarEqualsToken                            = innerast.KindBarBarEqualsToken
+  KindQuestionQuestionEqualsToken                  = innerast.KindQuestionQuestionEqualsToken
+  KindAsteriskEqualsToken                          = innerast.KindAsteriskEqualsToken
+  KindSlashEqualsToken                             = innerast.KindSlashEqualsToken
+  KindPercentEqualsToken                           = innerast.KindPercentEqualsToken
+  KindAsteriskAsteriskEqualsToken                  = innerast.KindAsteriskAsteriskEqualsToken
+  KindAmpersandEqualsToken                         = innerast.KindAmpersandEqualsToken
+  KindBarEqualsToken                               = innerast.KindBarEqualsToken
+  KindCaretEqualsToken                             = innerast.KindCaretEqualsToken
+  KindLessThanLessThanEqualsToken                  = innerast.KindLessThanLessThanEqualsToken
+  KindGreaterThanGreaterThanEqualsToken            = innerast.KindGreaterThanGreaterThanEqualsToken
+  KindGreaterThanGreaterThanGreaterThanEqualsToken = innerast.KindGreaterThanGreaterThanGreaterThanEqualsToken
+  KindCommaToken                                   = innerast.KindCommaToken
+  KindQuestionToken                                = innerast.KindQuestionToken
 
-	// Metaprogramming / privacy / async syntax
-	KindMetaProperty                = innerast.KindMetaProperty
-	KindPrivateIdentifier           = innerast.KindPrivateIdentifier
-	KindClassStaticBlockDeclaration = innerast.KindClassStaticBlockDeclaration
+  // Metaprogramming / privacy / async syntax
+  KindMetaProperty                = innerast.KindMetaProperty
+  KindPrivateIdentifier           = innerast.KindPrivateIdentifier
+  KindClassStaticBlockDeclaration = innerast.KindClassStaticBlockDeclaration
 
-	// Misc syntax used by suggestion rules
-	KindSymbolKeyword = innerast.KindSymbolKeyword
-	KindObjectKeyword = innerast.KindObjectKeyword
+  // Misc syntax used by suggestion rules
+  KindSymbolKeyword = innerast.KindSymbolKeyword
+  KindObjectKeyword = innerast.KindObjectKeyword
 
-	// Modifier-style keywords
-	KindAsyncKeyword    = innerast.KindAsyncKeyword
-	KindAwaitKeyword    = innerast.KindAwaitKeyword
-	KindReadonlyKeyword = innerast.KindReadonlyKeyword
-	KindStaticKeyword   = innerast.KindStaticKeyword
-	KindAbstractKeyword = innerast.KindAbstractKeyword
-	KindExportKeyword   = innerast.KindExportKeyword
-	KindDeclareKeyword  = innerast.KindDeclareKeyword
-	KindModuleKeyword   = innerast.KindModuleKeyword
-	KindTypeKeyword     = innerast.KindTypeKeyword
+  // Modifier-style keywords
+  KindAsyncKeyword    = innerast.KindAsyncKeyword
+  KindAwaitKeyword    = innerast.KindAwaitKeyword
+  KindReadonlyKeyword = innerast.KindReadonlyKeyword
+  KindStaticKeyword   = innerast.KindStaticKeyword
+  KindAbstractKeyword = innerast.KindAbstractKeyword
+  KindExportKeyword   = innerast.KindExportKeyword
+  KindDeclareKeyword  = innerast.KindDeclareKeyword
+  KindModuleKeyword   = innerast.KindModuleKeyword
+  KindTypeKeyword     = innerast.KindTypeKeyword
 
-	// TypeScript-specific kinds used by ts rules
-	KindCallSignature      = innerast.KindCallSignature
-	KindConstructSignature = innerast.KindConstructSignature
-	KindTypeQuery          = innerast.KindTypeQuery
-	KindTypeOperator       = innerast.KindTypeOperator
+  // TypeScript-specific kinds used by ts rules
+  KindCallSignature      = innerast.KindCallSignature
+  KindConstructSignature = innerast.KindConstructSignature
+  KindTypeQuery          = innerast.KindTypeQuery
+  KindTypeOperator       = innerast.KindTypeOperator
 )
 
 // ---- Comment-directive kind constants ----
 
 const (
-	CommentDirectiveKindIgnore      = innerast.CommentDirectiveKindIgnore
-	CommentDirectiveKindExpectError = innerast.CommentDirectiveKindExpectError
+  CommentDirectiveKindIgnore      = innerast.CommentDirectiveKindIgnore
+  CommentDirectiveKindExpectError = innerast.CommentDirectiveKindExpectError
 )
 
 // ---- Helpers ----
@@ -313,7 +313,7 @@ const (
 // internally; lint rules need it to detect `var` declarations whose flag
 // lives on the VariableDeclarationList rather than the declaration itself.
 func GetCombinedNodeFlags(node *Node) NodeFlags {
-	return innerast.GetCombinedNodeFlags(node)
+  return innerast.GetCombinedNodeFlags(node)
 }
 
 // IsLet reports whether the declaration was introduced by `let` / `using`.

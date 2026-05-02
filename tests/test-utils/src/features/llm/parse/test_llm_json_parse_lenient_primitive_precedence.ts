@@ -2,16 +2,17 @@ import { TestValidator } from "@nestia/e2e";
 import { LlmJson } from "@typia/utils";
 
 /**
- * Tests that primitive values take precedence over objects/arrays
- * when both appear in the same input.
+ * Tests that primitive values take precedence over objects/arrays when both
+ * appear in the same input.
  *
- * The parser checks `startsWithPrimitive` BEFORE `findJsonStart`.
- * If someone reorders these checks, primitives would be skipped
- * and the object/array would be returned instead.
+ * The parser checks `startsWithPrimitive` BEFORE `findJsonStart`. If someone
+ * reorders these checks, primitives would be skipped and the object/array would
+ * be returned instead.
  *
  * This is the critical behavioral contract:
- * - Standard keywords (`true`, `false`, `null`) use prefix matching
- *   → they win even when followed by JSON structures
+ *
+ * - Standard keywords (`true`, `false`, `null`) use prefix matching → they win
+ *   even when followed by JSON structures
  * - Boolean coercion keywords (`yes`, `no`, `on`, `off`, `y`) use exact matching
  *   → they only win when they are the ENTIRE input
  */
@@ -52,14 +53,12 @@ export const test_llm_json_parse_lenient_primitive_precedence = (): void => {
   // So startsWithPrimitive returns false, and findJsonStart finds the object.
   const r7 = LlmJson.parse('tru {"key": 1}');
   TestValidator.equals("partial-obj-success", r7.success, true);
-  if (r7.success)
-    TestValidator.equals("partial-obj-data", r7.data, { key: 1 });
+  if (r7.success) TestValidator.equals("partial-obj-data", r7.data, { key: 1 });
 
   // "yes" + object → object wins! (yes uses exact match, not prefix)
   const r8 = LlmJson.parse('yes {"key": 1}');
   TestValidator.equals("yes-obj-success", r8.success, true);
-  if (r8.success)
-    TestValidator.equals("yes-obj-data", r8.data, { key: 1 });
+  if (r8.success) TestValidator.equals("yes-obj-data", r8.data, { key: 1 });
 
   // "yes" alone → true (exact match works)
   const r9 = LlmJson.parse("yes");
@@ -69,8 +68,7 @@ export const test_llm_json_parse_lenient_primitive_precedence = (): void => {
   // "no" + object → object wins (exact match only)
   const r10 = LlmJson.parse('no {"key": 1}');
   TestValidator.equals("no-obj-success", r10.success, true);
-  if (r10.success)
-    TestValidator.equals("no-obj-data", r10.data, { key: 1 });
+  if (r10.success) TestValidator.equals("no-obj-data", r10.data, { key: 1 });
 
   // "on" + array → array wins (exact match only)
   const r11 = LlmJson.parse("on [1, 2]");
@@ -102,19 +100,46 @@ export const test_llm_json_parse_lenient_primitive_precedence = (): void => {
   const r15 = LlmJson.parse("trueish");
   TestValidator.equals("trueish-root-success", r15.success, false);
   if (!r15.success)
-    TestValidator.equals("trueish-root-errors", [{ expected: "JSON value (string, number, boolean, null, object, or array)" }], r15.errors);
+    TestValidator.equals(
+      "trueish-root-errors",
+      [
+        {
+          expected:
+            "JSON value (string, number, boolean, null, object, or array)",
+        },
+      ],
+      r15.errors,
+    );
 
   // "falsetto" at root level
   const r16 = LlmJson.parse("falsetto");
   TestValidator.equals("falsetto-root-success", r16.success, false);
   if (!r16.success)
-    TestValidator.equals("falsetto-root-errors", [{ expected: "JSON value (string, number, boolean, null, object, or array)" }], r16.errors);
+    TestValidator.equals(
+      "falsetto-root-errors",
+      [
+        {
+          expected:
+            "JSON value (string, number, boolean, null, object, or array)",
+        },
+      ],
+      r16.errors,
+    );
 
   // "nullable" at root level
   const r17 = LlmJson.parse("nullable");
   TestValidator.equals("nullable-root-success", r17.success, false);
   if (!r17.success)
-    TestValidator.equals("nullable-root-errors", [{ expected: "JSON value (string, number, boolean, null, object, or array)" }], r17.errors);
+    TestValidator.equals(
+      "nullable-root-errors",
+      [
+        {
+          expected:
+            "JSON value (string, number, boolean, null, object, or array)",
+        },
+      ],
+      r17.errors,
+    );
 
   // =========================================================================
   // Same pattern after comment stripping (lines 78-79)
@@ -126,11 +151,29 @@ export const test_llm_json_parse_lenient_primitive_precedence = (): void => {
   const r18 = LlmJson.parse("// comment\ntrueish");
   TestValidator.equals("comment-trueish-success", r18.success, false);
   if (!r18.success)
-    TestValidator.equals("comment-trueish-errors", [{ expected: "JSON value (string, number, boolean, null, object, or array)" }], r18.errors);
+    TestValidator.equals(
+      "comment-trueish-errors",
+      [
+        {
+          expected:
+            "JSON value (string, number, boolean, null, object, or array)",
+        },
+      ],
+      r18.errors,
+    );
 
   // "falsetto" after block comment
   const r19 = LlmJson.parse("/* block */falsetto");
   TestValidator.equals("comment-falsetto-success", r19.success, false);
   if (!r19.success)
-    TestValidator.equals("comment-falsetto-errors", [{ expected: "JSON value (string, number, boolean, null, object, or array)" }], r19.errors);
+    TestValidator.equals(
+      "comment-falsetto-errors",
+      [
+        {
+          expected:
+            "JSON value (string, number, boolean, null, object, or array)",
+        },
+      ],
+      r19.errors,
+    );
 };

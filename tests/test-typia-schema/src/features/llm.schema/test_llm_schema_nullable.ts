@@ -5,7 +5,9 @@ import typia from "typia";
 export const test_llm_schema_nullable = (): void => {
   const schema = typia.llm.schema<string | null>({});
 
-  TestValidator.predicate("is anyOf type", () => LlmTypeChecker.isAnyOf(schema));
+  TestValidator.predicate("is anyOf type", () =>
+    LlmTypeChecker.isAnyOf(schema),
+  );
 
   if (LlmTypeChecker.isAnyOf(schema)) {
     TestValidator.predicate("contains string", () =>
