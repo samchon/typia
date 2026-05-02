@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@typia/config",
-  "version": "12.1.0-dev.20260325",
+  "version": "12.1.0",
   "description": "Shared build configuration for typia packages",
   "devDependencies": {
     "@rollup/plugin-commonjs": "catalog:rollup",

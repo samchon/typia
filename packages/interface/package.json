@@ -1,6 +1,6 @@
 {
   "name": "@typia/interface",
-  "version": "12.1.0-dev.20260325",
+  "version": "12.1.0",
   "description": "Superfast runtime validators with only one line",
   "main": "src/index.ts",
   "exports": {
