@@ -6,11 +6,4 @@
     "noUnusedLocals": false,
     "noUnusedParameters": false,
   },
-  "ts-node": {
-    "transpileOnly": true,
-    "compilerOptions": {
-      "module": "commonjs",
-      "moduleResolution": "nodenext",
-    }
-  },
 }

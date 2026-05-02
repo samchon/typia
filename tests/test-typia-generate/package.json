@@ -4,7 +4,7 @@
   "version": "12.1.0-dev.20260325",
   "description": "Test typia generation command",
   "scripts": {
-    "build": "cross-env NODE_OPTIONS=\"--no-experimental-strip-types -r ts-node/register\" tsc",
+    "build": "cross-env NODE_OPTIONS=\"--no-experimental-strip-types -r ./register.cjs\" tsc",
     "generate": "node -r ./register.cjs node_modules/typia/src/executable/typia.ts generate --input src/input --output src/output",
     "start": "pnpm run generate && pnpm run build"
   },
