@@ -374,6 +374,7 @@ func applySourceRewrites(source string, rewrites []transformSourceRewrite) (stri
 
 func cleanupTypeScriptTransformText(text string) string {
 	text = typiaadapter.CleanupTransformedText(text)
+	text = normalizeParenthesizedTypeAnnotations(text)
 	text = regexp.MustCompile(`(?m)^import type \{([^{}\n]+)\} from`).ReplaceAllStringFunc(text, func(line string) string {
 		return regexp.MustCompile(`^import type \{\s*([^{}\n]+?)\s*\} from`).ReplaceAllString(line, "import type { $1 } from")
 	})
@@ -403,6 +404,13 @@ func cleanupTypeScriptTransformText(text string) string {
 	if text != "" && !strings.HasSuffix(text, "\n") {
 		return text + "\n"
 	}
+	return text
+}
+
+func normalizeParenthesizedTypeAnnotations(text string) string {
+	typeAtom := `([A-Za-z_$][A-Za-z0-9_$.]*(<[^()\n;{}]*>)?)`
+	text = regexp.MustCompile(`: \(`+typeAtom+`\)(\s*=>)`).ReplaceAllString(text, ": $1$3")
+	text = regexp.MustCompile(`\| \((null|undefined)\)`).ReplaceAllString(text, "| $1")
 	return text
 }
 
