@@ -13,7 +13,11 @@ export const test_llm_parameters_nullable = (): void => {
   const params: ILlmSchema.IParameters = typia.llm.parameters<IInput>();
 
   TestValidator.predicate("is object", () => LlmTypeChecker.isObject(params));
-  TestValidator.equals("additionalProperties", params.additionalProperties, false);
+  TestValidator.equals(
+    "additionalProperties",
+    params.additionalProperties,
+    false,
+  );
 
   // check required is just string
   const required = params.properties["required"];
@@ -23,8 +27,9 @@ export const test_llm_parameters_nullable = (): void => {
 
   // check nullableString - should be anyOf with string and null
   const nullableString = params.properties["nullableString"];
-  TestValidator.predicate("nullableString exists", () =>
-    nullableString !== undefined,
+  TestValidator.predicate(
+    "nullableString exists",
+    () => nullableString !== undefined,
   );
   TestValidator.predicate("nullableString is anyOf", () =>
     LlmTypeChecker.isAnyOf(nullableString!),

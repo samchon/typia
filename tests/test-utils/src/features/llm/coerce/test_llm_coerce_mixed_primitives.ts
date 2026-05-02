@@ -22,7 +22,10 @@ export const test_llm_coerce_mixed_primitives = (): void => {
     nullables: original.nullables.map((n) => JSON.stringify(n) as unknown),
   };
 
-  const result = LlmJson.parse<IPrimitiveArrays>(JSON.stringify(corrupted), parameters);
+  const result = LlmJson.parse<IPrimitiveArrays>(
+    JSON.stringify(corrupted),
+    parameters,
+  );
   TestValidator.equals("success", result.success, true);
   if (result.success) {
     TestValidator.equals("numbers", result.data.numbers, [1, 2, 3]);

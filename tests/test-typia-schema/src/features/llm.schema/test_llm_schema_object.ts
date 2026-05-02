@@ -14,7 +14,9 @@ export const test_llm_schema_object = (): void => {
   const schema = typia.llm.schema<IMember>($defs);
 
   // named type returns $ref
-  TestValidator.predicate("is reference", () => LlmTypeChecker.isReference(schema));
+  TestValidator.predicate("is reference", () =>
+    LlmTypeChecker.isReference(schema),
+  );
 
   // actual schema in $defs
   TestValidator.predicate("$defs has IMember", () => "IMember" in $defs);
@@ -22,14 +24,22 @@ export const test_llm_schema_object = (): void => {
   const member = $defs["IMember"];
   if (member && LlmTypeChecker.isObject(member)) {
     TestValidator.predicate("has id property", () => "id" in member.properties);
-    TestValidator.predicate("has name property", () => "name" in member.properties);
-    TestValidator.predicate("has email property", () => "email" in member.properties);
-
-    TestValidator.predicate("id is required", () =>
-      member.required?.includes("id") ?? false,
+    TestValidator.predicate(
+      "has name property",
+      () => "name" in member.properties,
     );
-    TestValidator.predicate("email is optional", () =>
-      !(member.required?.includes("email") ?? false),
+    TestValidator.predicate(
+      "has email property",
+      () => "email" in member.properties,
+    );
+
+    TestValidator.predicate(
+      "id is required",
+      () => member.required?.includes("id") ?? false,
+    );
+    TestValidator.predicate(
+      "email is optional",
+      () => !(member.required?.includes("email") ?? false),
     );
 
     TestValidator.predicate("id is number", () =>

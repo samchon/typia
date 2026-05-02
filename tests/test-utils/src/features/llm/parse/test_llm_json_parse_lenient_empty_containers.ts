@@ -64,7 +64,8 @@ export const test_llm_json_parse_lenient_empty_containers = (): void => {
   // Empty object with whitespace
   const r9 = LlmJson.parse("{   }");
   TestValidator.equals("empty-whitespace-obj-success", r9.success, true);
-  if (r9.success) TestValidator.equals("empty-whitespace-obj-data", r9.data, {});
+  if (r9.success)
+    TestValidator.equals("empty-whitespace-obj-data", r9.data, {});
 
   // Empty array with whitespace
   const r10 = LlmJson.parse("[   ]");

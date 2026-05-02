@@ -22,7 +22,11 @@ export const test_llm_stringify_array_last_element_error = (): void => {
 
   TestValidator.equals("contains code block", output.includes("```json"), true);
   TestValidator.equals("contains error marker", output.includes("// ❌"), true);
-  TestValidator.equals("contains items[2] path", output.includes("$input.items[2]"), true);
+  TestValidator.equals(
+    "contains items[2] path",
+    output.includes("$input.items[2]"),
+    true,
+  );
   // Last element should not have a comma after it
   // Check structure is valid
 
@@ -48,7 +52,11 @@ export const test_llm_stringify_array_last_element_error = (): void => {
   const output2: string = LlmJson.stringify(failure2);
   TestValidator.equals("missing-code-block", output2.includes("```json"), true);
   // In this case, the last data element needs a comma because missing elements follow
-  TestValidator.equals("missing-undefined", output2.includes("undefined"), true);
+  TestValidator.equals(
+    "missing-undefined",
+    output2.includes("undefined"),
+    true,
+  );
 
   // Test: Single element array with error
   const failure3: IValidation.IFailure = {

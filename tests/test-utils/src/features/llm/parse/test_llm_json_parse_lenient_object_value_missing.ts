@@ -6,21 +6,13 @@ export const test_llm_json_parse_lenient_object_value_missing = (): void => {
   const r1 = LlmJson.parse('{"key":}');
   TestValidator.equals("missing-val-success", r1.success, true);
   if (r1.success)
-    TestValidator.equals(
-      "missing-val-data",
-      (r1.data as any).key,
-      undefined,
-    );
+    TestValidator.equals("missing-val-data", (r1.data as any).key, undefined);
 
   // Value missing, then more properties follow
   const r2 = LlmJson.parse('{"a":, "b": 2}');
   TestValidator.equals("missing-then-more-success", r2.success, true);
   if (r2.success) {
-    TestValidator.equals(
-      "missing-then-more-a",
-      (r2.data as any).a,
-      undefined,
-    );
+    TestValidator.equals("missing-then-more-a", (r2.data as any).a, undefined);
     TestValidator.equals("missing-then-more-b", (r2.data as any).b, 2);
   }
 

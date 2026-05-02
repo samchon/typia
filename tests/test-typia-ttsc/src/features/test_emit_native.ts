@@ -6,9 +6,8 @@ import { TestGlobal } from "../TestGlobal";
 import { runTtsc } from "../utils/runTtsc";
 
 /**
- * Native-class detection: Date / Uint8Array / Map / Set should emit a
- * matching `instanceof` check rather than falling through to a generic object
- * walk.
+ * Native-class detection: Date / Uint8Array / Map / Set should emit a matching
+ * `instanceof` check rather than falling through to a generic object walk.
  */
 export async function test_emit_native(): Promise<void> {
   const fixture = path.join(TestGlobal.ROOT, "fixtures", "native");

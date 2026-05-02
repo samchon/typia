@@ -7,9 +7,9 @@ import { runTtsc } from "../utils/runTtsc";
 
 /**
  * Re-emitting an already-rewritten project must be a no-op. tsgonest's
- * "@tsgonest-rewritten" sentinel pattern — we mirror it with
- * "@ttsc-rewritten" so watch-mode / editor loops don't
- * double-rewrite and corrupt earlier output.
+ * "@tsgonest-rewritten" sentinel pattern — we mirror it with "@ttsc-rewritten"
+ * so watch-mode / editor loops don't double-rewrite and corrupt earlier
+ * output.
  */
 export async function test_rewrite_idempotent(): Promise<void> {
   const fixture = path.join(TestGlobal.ROOT, "fixtures", "primitives");

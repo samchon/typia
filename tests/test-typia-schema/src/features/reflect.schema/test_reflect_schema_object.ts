@@ -15,7 +15,11 @@ export const test_reflect_schema_object = (): void => {
   TestValidator.equals("object name", unit.schema.objects[0]?.name, "IMember");
 
   // components has object definition
-  TestValidator.equals("components objects length", unit.components.objects.length, 1);
+  TestValidator.equals(
+    "components objects length",
+    unit.components.objects.length,
+    1,
+  );
 
   const obj = unit.components.objects[0];
   if (obj === undefined) return;
@@ -33,8 +37,12 @@ export const test_reflect_schema_object = (): void => {
   });
 
   TestValidator.predicate("has id property", () => propNames.includes("id"));
-  TestValidator.predicate("has name property", () => propNames.includes("name"));
-  TestValidator.predicate("has email property", () => propNames.includes("email"));
+  TestValidator.predicate("has name property", () =>
+    propNames.includes("name"),
+  );
+  TestValidator.predicate("has email property", () =>
+    propNames.includes("email"),
+  );
 
   // check optional property
   const emailProp = obj.properties.find((p) => {
@@ -45,5 +53,8 @@ export const test_reflect_schema_object = (): void => {
     return false;
   });
 
-  TestValidator.predicate("email is optional", () => emailProp?.value.optional === true);
+  TestValidator.predicate(
+    "email is optional",
+    () => emailProp?.value.optional === true,
+  );
 };

@@ -1,7 +1,11 @@
 import { existsSync, rmSync, writeFileSync } from "node:fs";
 import { createRequire } from "node:module";
 import { dirname, isAbsolute, join, relative, resolve } from "pathe";
-import { transform as ttscTransform } from "ttsc";
+import {
+  type ITtscCompilerDiagnostic,
+  type ITtscCompilerTransformation,
+  TtscCompiler,
+} from "ttsc";
 import type { Alias } from "vite";
 
 import type { ResolvedOptions } from "./options.js";
@@ -33,8 +37,7 @@ export async function transformTypia(
   const tsconfig = resolveTsconfig(id, options.tsconfig);
   const configured = createTransformTsconfig(tsconfig, _aliases);
   try {
-    const result = ttscTransform({
-      file: id,
+    const result = new TtscCompiler({
       binary: resolveTsgoBinary(),
       cwd: dirname(tsconfig),
       env: {
@@ -47,8 +50,14 @@ export async function transformTypia(
           transform: "typia/lib/transform",
         },
       ],
-    });
-    return wrap<Data>(result);
+    }).transform();
+    return wrap<Data>(
+      selectTransformedSource({
+        file: id,
+        projectRoot: dirname(configured.path),
+        result,
+      }),
+    );
   } finally {
     configured.dispose();
   }
@@ -119,6 +128,68 @@ function createAliasPaths(
     paths[`${find}/*`] = [`${replacement}/*`];
   }
   return paths;
+}
+
+function selectTransformedSource(props: {
+  file: string;
+  projectRoot: string;
+  result: ITtscCompilerTransformation;
+}): string {
+  if (props.result.type === "exception") {
+    throw new Error(formatUnknownError(props.result.error));
+  }
+  if (props.result.type === "failure") {
+    throw new Error(formatDiagnostics(props.result.diagnostics));
+  }
+
+  const key = toProjectKey(props.projectRoot, props.file);
+  const direct = props.result.typescript[key];
+  if (direct !== undefined) {
+    return direct;
+  }
+  for (const [candidate, source] of Object.entries(props.result.typescript)) {
+    if (resolve(props.projectRoot, candidate) === props.file) {
+      return source;
+    }
+  }
+  throw new Error(`ttsc transform did not return output for ${props.file}`);
+}
+
+function toProjectKey(root: string, file: string): string {
+  return relative(root, file).replace(/\\/g, "/");
+}
+
+function formatDiagnostics(diagnostics: ITtscCompilerDiagnostic[]): string {
+  return diagnostics.length === 0
+    ? "ttsc transform failed"
+    : diagnostics
+        .map((diag) =>
+          [
+            diag.file ?? "ttsc",
+            diag.line === undefined
+              ? undefined
+              : `${diag.line}:${diag.character ?? 1}`,
+            diag.messageText,
+          ]
+            .filter((part) => part !== undefined && part !== "")
+            .join(": "),
+        )
+        .join("\n");
+}
+
+function formatUnknownError(error: unknown): string {
+  if (error instanceof Error) {
+    return error.message;
+  }
+  if (
+    typeof error === "object" &&
+    error !== null &&
+    "message" in error &&
+    typeof error.message === "string"
+  ) {
+    return error.message;
+  }
+  return String(error);
 }
 
 function resolveTsgoBinary(): string | undefined {

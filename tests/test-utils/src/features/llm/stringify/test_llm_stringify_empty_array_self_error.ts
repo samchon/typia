@@ -20,27 +20,15 @@ export const test_llm_stringify_empty_array_self_error = (): void => {
 
   const output: string = LlmJson.stringify(failure);
 
-  TestValidator.equals(
-    "contains code block",
-    output.includes("```json"),
-    true,
-  );
-  TestValidator.equals(
-    "contains error marker",
-    output.includes("// ❌"),
-    true,
-  );
+  TestValidator.equals("contains code block", output.includes("```json"), true);
+  TestValidator.equals("contains error marker", output.includes("// ❌"), true);
   TestValidator.equals(
     "contains $input.items path",
     output.includes("$input.items"),
     true,
   );
   // Should show [] with error comment
-  TestValidator.equals(
-    "contains empty array",
-    output.includes("[]"),
-    true,
-  );
+  TestValidator.equals("contains empty array", output.includes("[]"), true);
 
   // Test: Root empty array with self error
   const failure2: IValidation.IFailure = {

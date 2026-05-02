@@ -7,10 +7,10 @@ import { runTtsc } from "../utils/runTtsc";
 
 /**
  * Smoke for `typia.assert<T>` and `typia.validate<T>`. Assert throws with a
- * `TypeGuardError`-named exception on failure; validate returns a
- * `{ success, data, errors }` record. The current native semantics stay deliberately minimal here: assert uses
- * a plain error shape and validate reports a single top-level error, while
- * preserving the runtime contract users consume.
+ * `TypeGuardError`-named exception on failure; validate returns a `{ success,
+ * data, errors }` record. The current native semantics stay deliberately
+ * minimal here: assert uses a plain error shape and validate reports a single
+ * top-level error, while preserving the runtime contract users consume.
  */
 export async function test_emit_assert_validate(): Promise<void> {
   const fixture = path.join(TestGlobal.ROOT, "fixtures", "assert-validate");
@@ -42,14 +42,21 @@ export async function test_emit_assert_validate(): Promise<void> {
 
   // assert: success returns the input.
   assert.equal(mod.assert_string("ok"), "ok");
-  assert.throws(() => mod.assert_string(42), (err: Error) => {
-    return err.name === "TypeGuardError" && err.message.includes("string");
-  }, "assert_string(42) must throw TypeGuardError");
+  assert.throws(
+    () => mod.assert_string(42),
+    (err: Error) => {
+      return err.name === "TypeGuardError" && err.message.includes("string");
+    },
+    "assert_string(42) must throw TypeGuardError",
+  );
 
   const validUser = { id: "a", name: "Bob", age: 10 };
   assert.deepEqual(mod.assert_user(validUser), validUser);
   assert.throws(() => mod.assert_user({ id: "a" }));
-  assert.throws(() => mod.assert_user({ id: "a", name: "b", age: -1 }), "age < 0 must throw");
+  assert.throws(
+    () => mod.assert_user({ id: "a", name: "b", age: -1 }),
+    "age < 0 must throw",
+  );
 
   // validate: success
   const ok = mod.validate_string("hello");

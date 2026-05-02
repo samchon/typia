@@ -18,6 +18,10 @@ export const test_llm_json_parse_lenient_max_depth = (): void => {
   // Should fail due to max depth exceeded
   TestValidator.equals("success", result.success, false);
   if (!result.success) {
-    TestValidator.equals("has_depth_error", result.errors.some(e => e.expected?.includes("max depth")), true);
+    TestValidator.equals(
+      "has_depth_error",
+      result.errors.some((e) => e.expected?.includes("max depth")),
+      true,
+    );
   }
 };

@@ -14,8 +14,20 @@ export const test_llm_stringify_undefined_value = (): void => {
   TestValidator.equals("success", result.success, false);
   if (!result.success) {
     const output: string = LlmJson.stringify(result);
-    TestValidator.equals("contains code block", output.includes("```json"), true);
-    TestValidator.equals("contains error marker", output.includes("// ❌"), true);
-    TestValidator.equals("contains value path", output.includes("$input.value"), true);
+    TestValidator.equals(
+      "contains code block",
+      output.includes("```json"),
+      true,
+    );
+    TestValidator.equals(
+      "contains error marker",
+      output.includes("// ❌"),
+      true,
+    );
+    TestValidator.equals(
+      "contains value path",
+      output.includes("$input.value"),
+      true,
+    );
   }
 };

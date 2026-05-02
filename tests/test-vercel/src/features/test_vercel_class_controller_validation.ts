@@ -1,7 +1,7 @@
-import type { Tool } from "ai";
 import { TestValidator } from "@nestia/e2e";
 import { ILlmController } from "@typia/interface";
 import { toVercelTools } from "@typia/vercel";
+import type { Tool } from "ai";
 import typia from "typia";
 
 import { Calculator } from "../structures/Calculator";
@@ -30,12 +30,10 @@ export const test_vercel_class_controller_validation =
       "result should be a failure object",
       () => res.success === false && typeof res.error === "string",
     );
-    TestValidator.predicate(
-      "error should contain title",
-      () => res.error!.includes('Type errors in "add" arguments'),
+    TestValidator.predicate("error should contain title", () =>
+      res.error!.includes('Type errors in "add" arguments'),
     );
-    TestValidator.predicate(
-      "error should contain json code block",
-      () => res.error!.includes("```json"),
+    TestValidator.predicate("error should contain json code block", () =>
+      res.error!.includes("```json"),
     );
   };

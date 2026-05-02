@@ -89,6 +89,10 @@ export const test_llm_stringify_primitive_root = (): void => {
   };
 
   const output5: string = LlmJson.stringify(failure5);
-  TestValidator.equals("undefined-code-block", output5.includes("```json"), true);
+  TestValidator.equals(
+    "undefined-code-block",
+    output5.includes("```json"),
+    true,
+  );
   TestValidator.equals("undefined-value", output5.includes("undefined"), true);
 };

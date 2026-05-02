@@ -18,9 +18,16 @@ export const test_llm_coerce_anyof_nested_coercion = (): void => {
     }),
   };
 
-  const result = LlmJson.parse<IUnionWithNestedCoercion>(JSON.stringify(corrupted), parameters);
+  const result = LlmJson.parse<IUnionWithNestedCoercion>(
+    JSON.stringify(corrupted),
+    parameters,
+  );
   TestValidator.equals("success", result.success, true);
   if (result.success) {
-    TestValidator.equals("data.nested.value", result.data.data?.nested.value, 456);
+    TestValidator.equals(
+      "data.nested.value",
+      result.data.data?.nested.value,
+      456,
+    );
   }
 };

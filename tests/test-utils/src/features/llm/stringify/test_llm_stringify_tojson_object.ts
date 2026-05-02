@@ -24,27 +24,15 @@ export const test_llm_stringify_tojson_object = (): void => {
 
   const output: string = LlmJson.stringify(failure);
 
-  TestValidator.equals(
-    "contains code block",
-    output.includes("```json"),
-    true,
-  );
-  TestValidator.equals(
-    "contains error marker",
-    output.includes("// ❌"),
-    true,
-  );
+  TestValidator.equals("contains code block", output.includes("```json"), true);
+  TestValidator.equals("contains error marker", output.includes("// ❌"), true);
   // The transformed object should appear in output
   TestValidator.equals(
     "contains transformed key",
     output.includes("transformed"),
     true,
   );
-  TestValidator.equals(
-    "contains data key",
-    output.includes("data"),
-    true,
-  );
+  TestValidator.equals("contains data key", output.includes("data"), true);
 
   // Test nested toJSON (object inside object with toJSON)
   const innerObjWithToJson = {

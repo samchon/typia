@@ -26,8 +26,16 @@ export const test_llm_stringify_bracket_notation_keys = (): void => {
   TestValidator.equals("hyphen-success", result1.success, false);
   if (!result1.success) {
     const output1: string = LlmJson.stringify(result1);
-    TestValidator.equals("hyphen-code-block", output1.includes("```json"), true);
-    TestValidator.equals("hyphen-error-marker", output1.includes("// ❌"), true);
+    TestValidator.equals(
+      "hyphen-code-block",
+      output1.includes("```json"),
+      true,
+    );
+    TestValidator.equals(
+      "hyphen-error-marker",
+      output1.includes("// ❌"),
+      true,
+    );
     TestValidator.equals("hyphen-key", output1.includes("my-key"), true);
   }
 
@@ -50,8 +58,20 @@ export const test_llm_stringify_bracket_notation_keys = (): void => {
   TestValidator.equals("string-hyphen-success", result3.success, false);
   if (!result3.success) {
     const output3: string = LlmJson.stringify(result3);
-    TestValidator.equals("string-hyphen-code-block", output3.includes("```json"), true);
-    TestValidator.equals("string-hyphen-error-marker", output3.includes("// ❌"), true);
-    TestValidator.equals("string-hyphen-key", output3.includes("data-value"), true);
+    TestValidator.equals(
+      "string-hyphen-code-block",
+      output3.includes("```json"),
+      true,
+    );
+    TestValidator.equals(
+      "string-hyphen-error-marker",
+      output3.includes("// ❌"),
+      true,
+    );
+    TestValidator.equals(
+      "string-hyphen-key",
+      output3.includes("data-value"),
+      true,
+    );
   }
 };

@@ -19,8 +19,7 @@ interface Article {
 }
 
 // is<Article>
-export const isArticle = (input: unknown): boolean =>
-  typia.is<Article>(input);
+export const isArticle = (input: unknown): boolean => typia.is<Article>(input);
 
 // assert<Article>
 export const assertArticle = (input: unknown): Article =>
@@ -44,5 +43,4 @@ export const schema = typia.json.schema<Article>();
 export const statuses = typia.misc.literals<Status>();
 
 // misc.prune on article shape
-export const prune = (input: Article) =>
-  typia.misc.prune<Article>(input);
+export const prune = (input: Article) => typia.misc.prune<Article>(input);

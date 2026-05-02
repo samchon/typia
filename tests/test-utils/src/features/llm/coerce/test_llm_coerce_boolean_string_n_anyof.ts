@@ -37,9 +37,5 @@ export const test_llm_coerce_boolean_string_n_anyof = (): void => {
     { value: "n" as unknown },
     bothParams,
   );
-  TestValidator.equals(
-    "n -> n (both union)",
-    bothResult.value as unknown,
-    "n",
-  );
+  TestValidator.equals("n -> n (both union)", bothResult.value as unknown, "n");
 };

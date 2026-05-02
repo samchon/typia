@@ -1,9 +1,13 @@
 {
   "private": true,
   "name": "@typia/template",
-  "version": "13.0.0-dev.20260430",
+  "version": "13.0.0-dev.20260501",
   "description": "Template structures for typia testing.",
-  "main": "src/index.ts",
+  "main": "lib/index.js",
+  "types": "src/index.ts",
+  "scripts": {
+    "build": "rimraf lib && ttsc"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/samchon/typia"
@@ -21,7 +25,9 @@
   "devDependencies": {
     "@nestia/e2e": "catalog:utils",
     "@types/node": "catalog:utils",
-    "@types/uuid": "catalog:utils"
+    "@types/uuid": "catalog:utils",
+    "rimraf": "catalog:utils",
+    "ttsc": "catalog:typescript"
   },
   "dependencies": {
     "chalk": "4.1.2",

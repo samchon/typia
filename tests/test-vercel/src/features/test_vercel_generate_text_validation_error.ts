@@ -1,8 +1,8 @@
-import { generateText } from "ai";
-import { MockLanguageModelV3 } from "ai/test";
 import { TestValidator } from "@nestia/e2e";
 import { ILlmController } from "@typia/interface";
 import { toVercelTools } from "@typia/vercel";
+import { generateText } from "ai";
+import { MockLanguageModelV3 } from "ai/test";
 import typia from "typia";
 
 import { Calculator } from "../structures/Calculator";
@@ -59,12 +59,10 @@ export const test_vercel_generate_text_validation_error =
       error: string;
     };
     TestValidator.equals("result should be failure", toolResult.success, false);
-    TestValidator.predicate(
-      "error should contain validation failure",
-      () => toolResult.error.includes("```json"),
+    TestValidator.predicate("error should contain validation failure", () =>
+      toolResult.error.includes("```json"),
     );
-    TestValidator.predicate(
-      "error should indicate type error",
-      () => toolResult.error.includes("number"),
+    TestValidator.predicate("error should indicate type error", () =>
+      toolResult.error.includes("number"),
     );
   };

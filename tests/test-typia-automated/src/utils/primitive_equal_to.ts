@@ -44,8 +44,8 @@ function recursive_equal_to<T>(
       return array_equal_to(x, y as typeof x, path, tracer);
     else
       return object_equal_to(
-        (<any>x) as object,
-        (<any>y) as object,
+        x as any as object,
+        y as any as object,
         path,
         tracer,
       );

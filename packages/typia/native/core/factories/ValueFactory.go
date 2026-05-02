@@ -9,28 +9,28 @@ var ValueFactory = valueFactoryNamespace{}
 var valueFactory_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
 func (valueFactoryNamespace) NULL() *shimast.Node {
-	return valueFactory_factory.NewKeywordExpression(shimast.KindNullKeyword)
+  return valueFactory_factory.NewKeywordExpression(shimast.KindNullKeyword)
 }
 
 func (valueFactoryNamespace) UNDEFINED() *shimast.Node {
-	return valueFactory_factory.NewIdentifier("undefined")
+  return valueFactory_factory.NewIdentifier("undefined")
 }
 
 func (valueFactoryNamespace) BOOLEAN(value bool) *shimast.Node {
-	if value {
-		return valueFactory_factory.NewKeywordExpression(shimast.KindTrueKeyword)
-	}
-	return valueFactory_factory.NewKeywordExpression(shimast.KindFalseKeyword)
+  if value {
+    return valueFactory_factory.NewKeywordExpression(shimast.KindTrueKeyword)
+  }
+  return valueFactory_factory.NewKeywordExpression(shimast.KindFalseKeyword)
 }
 
 func (valueFactoryNamespace) INPUT(str ...string) *shimast.Node {
-	name := "input"
-	if len(str) != 0 {
-		name = str[0]
-	}
-	return valueFactory_factory.NewIdentifier(name)
+  name := "input"
+  if len(str) != 0 {
+    name = str[0]
+  }
+  return valueFactory_factory.NewIdentifier(name)
 }
 
 func (valueFactoryNamespace) TYPEOF(input *shimast.Expression) *shimast.Node {
-	return valueFactory_factory.NewTypeOfExpression(input)
+  return valueFactory_factory.NewTypeOfExpression(input)
 }

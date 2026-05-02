@@ -17,7 +17,10 @@ export interface TtscResult {
  * present, etc.) — this is the only entry point used by the DynamicExecutor
  * test harness.
  */
-export function runTtsc(args: readonly string[], fixtureDir?: string): TtscResult {
+export function runTtsc(
+  args: readonly string[],
+  fixtureDir?: string,
+): TtscResult {
   if (!fs.existsSync(TestGlobal.TTSC_LAUNCHER)) {
     throw new Error(
       `ttsc launcher missing at ${TestGlobal.TTSC_LAUNCHER}. ` +
@@ -30,7 +33,9 @@ export function runTtsc(args: readonly string[], fixtureDir?: string): TtscResul
     env: {
       ...process.env,
       TTSC_CACHE_DIR: TestGlobal.TTSC_CACHE_DIR,
-      ...(TestGlobal.TTSC_BINARY ? { TTSC_BINARY: TestGlobal.TTSC_BINARY } : {}),
+      ...(TestGlobal.TTSC_BINARY
+        ? { TTSC_BINARY: TestGlobal.TTSC_BINARY }
+        : {}),
     },
     windowsHide: true,
   });

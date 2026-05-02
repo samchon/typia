@@ -21,16 +21,8 @@ export const test_llm_stringify_error_description = (): void => {
 
   const output: string = LlmJson.stringify(failure);
 
-  TestValidator.equals(
-    "contains code block",
-    output.includes("```json"),
-    true,
-  );
-  TestValidator.equals(
-    "contains error marker",
-    output.includes("// ❌"),
-    true,
-  );
+  TestValidator.equals("contains code block", output.includes("```json"), true);
+  TestValidator.equals("contains error marker", output.includes("// ❌"), true);
   // Should include the description in the error comment
   TestValidator.equals(
     "contains description",
@@ -85,14 +77,6 @@ export const test_llm_stringify_error_description = (): void => {
   };
 
   const output3: string = LlmJson.stringify(failure3);
-  TestValidator.equals(
-    "no-desc-code-block",
-    output3.includes("```json"),
-    true,
-  );
-  TestValidator.equals(
-    "no-desc-error-marker",
-    output3.includes("// ❌"),
-    true,
-  );
+  TestValidator.equals("no-desc-code-block", output3.includes("```json"), true);
+  TestValidator.equals("no-desc-error-marker", output3.includes("// ❌"), true);
 };

@@ -7,8 +7,8 @@ import { runTtsc } from "../utils/runTtsc";
 
 /**
  * Emit test for objects, arrays, tuples, literal-unions, atomic unions and
- * nullable types. Exercises the whole MetadataSchema → emitter pipeline
- * against the `fixtures/objects/src/main.ts` source.
+ * nullable types. Exercises the whole MetadataSchema → emitter pipeline against
+ * the `fixtures/objects/src/main.ts` source.
  */
 export async function test_emit_objects(): Promise<void> {
   const fixture = path.join(TestGlobal.ROOT, "fixtures", "objects");

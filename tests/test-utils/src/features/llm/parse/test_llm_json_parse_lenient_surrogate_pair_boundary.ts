@@ -93,9 +93,7 @@ export const test_llm_json_parse_lenient_surrogate_pair_boundary = (): void => {
     });
 
   // Flag emoji (two regional indicator symbols)
-  const r12 = LlmJson.parse(
-    '{"t": "\\uD83C\\uDDF0\\uD83C\\uDDF7"}',
-  );
+  const r12 = LlmJson.parse('{"t": "\\uD83C\\uDDF0\\uD83C\\uDDF7"}');
   TestValidator.equals("flag-emoji-success", r12.success, true);
   if (r12.success)
     TestValidator.equals("flag-emoji-data", r12.data, {

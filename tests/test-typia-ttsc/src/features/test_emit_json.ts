@@ -10,9 +10,10 @@ import { runTtsc } from "../utils/runTtsc";
  * `typia.json.isParse`. Verifies (a) the emit composes tsgo's JSON output
  * inline (no `require("typia")`), (b) the runtime behavior matches typia v12:
  *
- *   - stringify: output is valid JSON and reversible via JSON.parse
- *   - assertParse: returns the parsed value on success, throws TypeGuardError otherwise
- *   - isParse: returns the parsed value on success, `null` otherwise
+ * - Stringify: output is valid JSON and reversible via JSON.parse
+ * - AssertParse: returns the parsed value on success, throws TypeGuardError
+ *   otherwise
+ * - IsParse: returns the parsed value on success, `null` otherwise
  */
 export async function test_emit_json(): Promise<void> {
   const fixture = path.join(TestGlobal.ROOT, "fixtures", "json");
@@ -38,9 +39,9 @@ export async function test_emit_json(): Promise<void> {
     }) => string;
     stringify_array: (x: number[]) => string;
     parse_point: (x: string) => { x: number; y: number };
-    parse_member_maybe: (x: string) =>
-      | { id: string; name: string; active: boolean }
-      | null;
+    parse_member_maybe: (
+      x: string,
+    ) => { id: string; name: string; active: boolean } | null;
   };
 
   // Stringify primitives.
@@ -64,9 +65,7 @@ export async function test_emit_json(): Promise<void> {
   assert.throws(() => mod.parse_point(`{"x":"bad"}`));
 
   // isParse success / failure.
-  const good = mod.parse_member_maybe(
-    `{"id":"a","name":"b","active":false}`,
-  );
+  const good = mod.parse_member_maybe(`{"id":"a","name":"b","active":false}`);
   assert.deepEqual(good, { id: "a", name: "b", active: false });
   const bad = mod.parse_member_maybe(`{"wrong":true}`);
   assert.equal(bad, null);

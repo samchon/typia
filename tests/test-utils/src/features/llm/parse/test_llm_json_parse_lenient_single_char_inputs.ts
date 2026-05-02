@@ -54,43 +54,71 @@ export const test_llm_json_parse_lenient_single_char_inputs = (): void => {
   const r9 = LlmJson.parse("}");
   TestValidator.equals("close-brace-success", r9.success, false);
   if (!r9.success)
-    TestValidator.equals("close-brace-errors", [{ expected: "JSON value" }], r9.errors);
+    TestValidator.equals(
+      "close-brace-errors",
+      [{ expected: "JSON value" }],
+      r9.errors,
+    );
 
   // ] → failure (no opening bracket)
   const r10 = LlmJson.parse("]");
   TestValidator.equals("close-bracket-success", r10.success, false);
   if (!r10.success)
-    TestValidator.equals("close-bracket-errors", [{ expected: "JSON value" }], r10.errors);
+    TestValidator.equals(
+      "close-bracket-errors",
+      [{ expected: "JSON value" }],
+      r10.errors,
+    );
 
   // , → failure
   const r11 = LlmJson.parse(",");
   TestValidator.equals("comma-success", r11.success, false);
   if (!r11.success)
-    TestValidator.equals("comma-errors", [{ expected: "JSON value" }], r11.errors);
+    TestValidator.equals(
+      "comma-errors",
+      [{ expected: "JSON value" }],
+      r11.errors,
+    );
 
   // : → failure
   const r12 = LlmJson.parse(":");
   TestValidator.equals("colon-success", r12.success, false);
   if (!r12.success)
-    TestValidator.equals("colon-errors", [{ expected: "JSON value" }], r12.errors);
+    TestValidator.equals(
+      "colon-errors",
+      [{ expected: "JSON value" }],
+      r12.errors,
+    );
 
   // space → failure (empty after trim)
   const r13 = LlmJson.parse(" ");
   TestValidator.equals("space-success", r13.success, false);
   if (!r13.success)
-    TestValidator.equals("space-errors", [{ expected: "JSON value" }], r13.errors);
+    TestValidator.equals(
+      "space-errors",
+      [{ expected: "JSON value" }],
+      r13.errors,
+    );
 
   // tab → failure
   const r14 = LlmJson.parse("\t");
   TestValidator.equals("tab-success", r14.success, false);
   if (!r14.success)
-    TestValidator.equals("tab-errors", [{ expected: "JSON value" }], r14.errors);
+    TestValidator.equals(
+      "tab-errors",
+      [{ expected: "JSON value" }],
+      r14.errors,
+    );
 
   // newline → failure
   const r15 = LlmJson.parse("\n");
   TestValidator.equals("newline-success", r15.success, false);
   if (!r15.success)
-    TestValidator.equals("newline-errors", [{ expected: "JSON value" }], r15.errors);
+    TestValidator.equals(
+      "newline-errors",
+      [{ expected: "JSON value" }],
+      r15.errors,
+    );
 
   // @ → failure (not a valid JSON start)
   const r16 = LlmJson.parse("@");
@@ -102,59 +130,99 @@ export const test_llm_json_parse_lenient_single_char_inputs = (): void => {
   const r17 = LlmJson.parse("#");
   TestValidator.equals("hash-success", r17.success, false);
   if (!r17.success)
-    TestValidator.equals("hash-errors", [{ expected: "JSON value" }], r17.errors);
+    TestValidator.equals(
+      "hash-errors",
+      [{ expected: "JSON value" }],
+      r17.errors,
+    );
 
   // / → failure (single slash, not a comment)
   const r18 = LlmJson.parse("/");
   TestValidator.equals("slash-success", r18.success, false);
   if (!r18.success)
-    TestValidator.equals("slash-errors", [{ expected: "JSON value" }], r18.errors);
+    TestValidator.equals(
+      "slash-errors",
+      [{ expected: "JSON value" }],
+      r18.errors,
+    );
 
   // \ → failure
   const r19 = LlmJson.parse("\\");
   TestValidator.equals("backslash-success", r19.success, false);
   if (!r19.success)
-    TestValidator.equals("backslash-errors", [{ expected: "JSON value" }], r19.errors);
+    TestValidator.equals(
+      "backslash-errors",
+      [{ expected: "JSON value" }],
+      r19.errors,
+    );
 
   // ! → failure
   const r20 = LlmJson.parse("!");
   TestValidator.equals("excl-success", r20.success, false);
   if (!r20.success)
-    TestValidator.equals("excl-errors", [{ expected: "JSON value" }], r20.errors);
+    TestValidator.equals(
+      "excl-errors",
+      [{ expected: "JSON value" }],
+      r20.errors,
+    );
 
   // . → failure (not recognized as number start)
   const r21 = LlmJson.parse(".");
   TestValidator.equals("dot-success", r21.success, false);
   if (!r21.success)
-    TestValidator.equals("dot-errors", [{ expected: "JSON value" }], r21.errors);
+    TestValidator.equals(
+      "dot-errors",
+      [{ expected: "JSON value" }],
+      r21.errors,
+    );
 
   // + → failure (not recognized as number start)
   const r22 = LlmJson.parse("+");
   TestValidator.equals("plus-success", r22.success, false);
   if (!r22.success)
-    TestValidator.equals("plus-errors", [{ expected: "JSON value" }], r22.errors);
+    TestValidator.equals(
+      "plus-errors",
+      [{ expected: "JSON value" }],
+      r22.errors,
+    );
 
   // .5 → failure (dot doesn't start numbers)
   const r23 = LlmJson.parse(".5");
   TestValidator.equals("dot-five-success", r23.success, false);
   if (!r23.success)
-    TestValidator.equals("dot-five-errors", [{ expected: "JSON value" }], r23.errors);
+    TestValidator.equals(
+      "dot-five-errors",
+      [{ expected: "JSON value" }],
+      r23.errors,
+    );
 
   // +5 → failure (plus doesn't start numbers)
   const r24 = LlmJson.parse("+5");
   TestValidator.equals("plus-five-success", r24.success, false);
   if (!r24.success)
-    TestValidator.equals("plus-five-errors", [{ expected: "JSON value" }], r24.errors);
+    TestValidator.equals(
+      "plus-five-errors",
+      [{ expected: "JSON value" }],
+      r24.errors,
+    );
 
   // Empty string → failure
   const r25 = LlmJson.parse("");
   TestValidator.equals("empty-success", r25.success, false);
   if (!r25.success)
-    TestValidator.equals("empty-errors", [{ expected: "JSON value" }], r25.errors);
+    TestValidator.equals(
+      "empty-errors",
+      [{ expected: "JSON value" }],
+      r25.errors,
+    );
 
   // Plain text without JSON → failure
   const r26 = LlmJson.parse("just plain text without any JSON");
   TestValidator.equals("no-json-success", r26.success, false);
   if (!r26.success)
-    TestValidator.equals("no-json-errors", [{ expected: "JSON value" }], r26.errors);
+    TestValidator.equals(
+      "no-json-errors",
+      [{ expected: "JSON value" }],
+      r26.errors,
+    );
 };

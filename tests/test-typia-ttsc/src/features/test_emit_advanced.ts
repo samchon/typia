@@ -6,8 +6,8 @@ import { TestGlobal } from "../TestGlobal";
 import { runTtsc } from "../utils/runTtsc";
 
 /**
- * Covers TS-only advanced constructs that the current native path must accept without
- * crashing: discriminated unions, `Partial<T>`, `Pick<T, K>`, readonly
+ * Covers TS-only advanced constructs that the current native path must accept
+ * without crashing: discriminated unions, `Partial<T>`, `Pick<T, K>`, readonly
  * arrays, and three-level-deep optional chains. These are the everyday shapes
  * users throw at typia (NestJS DTOs, react-hook-form state, etc.) — if any
  * regress, real projects break silently.
@@ -37,8 +37,16 @@ export async function test_emit_advanced(): Promise<void> {
   assert.equal(mod.isShape({ kind: "circle", radius: 10 }), true);
   assert.equal(mod.isShape({ kind: "square", side: 5 }), true);
   assert.equal(mod.isShape({ kind: "triangle", base: 3, height: 4 }), true);
-  assert.equal(mod.isShape({ kind: "hexagon", side: 1 }), false, "unknown kind rejected");
-  assert.equal(mod.isShape({ kind: "circle" }), false, "missing radius rejected");
+  assert.equal(
+    mod.isShape({ kind: "hexagon", side: 1 }),
+    false,
+    "unknown kind rejected",
+  );
+  assert.equal(
+    mod.isShape({ kind: "circle" }),
+    false,
+    "missing radius rejected",
+  );
 
   // Partial<T> — every property optional.
   assert.equal(mod.isPartial({}), true, "empty object allowed for Partial");

@@ -6,10 +6,10 @@ import { TestGlobal } from "../TestGlobal";
 import { runTtsc } from "../utils/runTtsc";
 
 /**
- * Compiles a fixture with a wide (50-field) interface, a 5-level-deep nest,
- * and a 20-alternative union array. Proves the emitter scales without
- * hitting stack, regex, or tsgo-memory limits on shapes wider and deeper
- * than the happy-path fixtures.
+ * Compiles a fixture with a wide (50-field) interface, a 5-level-deep nest, and
+ * a 20-alternative union array. Proves the emitter scales without hitting
+ * stack, regex, or tsgo-memory limits on shapes wider and deeper than the
+ * happy-path fixtures.
  */
 export async function test_emit_stress(): Promise<void> {
   const fixture = path.join(TestGlobal.ROOT, "fixtures", "stress");
@@ -49,10 +49,7 @@ export async function test_emit_stress(): Promise<void> {
   assert.equal(mod.isWide(damaged), false, "missing field rejected");
 
   // Deep nest — correct + wrong innermost type.
-  assert.equal(
-    mod.isL1({ l2: { l3: { l4: { l5: { v: 7 } } } } }),
-    true,
-  );
+  assert.equal(mod.isL1({ l2: { l3: { l4: { l5: { v: 7 } } } } }), true);
   assert.equal(
     mod.isL1({ l2: { l3: { l4: { l5: { v: "not a number" } } } } }),
     false,
@@ -63,6 +60,10 @@ export async function test_emit_stress(): Promise<void> {
     k: "abcdefghijklmnopqrst"[i]!,
   }));
   assert.equal(mod.isVariantArr(variants), true, "all 20 variants valid");
-  assert.equal(mod.isVariantArr([...variants, { k: "z" }]), false, "unseen kind rejected");
+  assert.equal(
+    mod.isVariantArr([...variants, { k: "z" }]),
+    false,
+    "unseen kind rejected",
+  );
   assert.equal(mod.isVariantArr("not an array"), false);
 }

@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@typia/test-mcp",
-  "version": "13.0.0-dev.20260430",
+  "version": "13.0.0-dev.20260501",
   "description": "Test suite for @typia/mcp package",
   "scripts": {
     "start": "ttsx src/index.ts"

@@ -1,10 +1,10 @@
 package misc
 
 import (
-	shimast "github.com/microsoft/typescript-go/shim/ast"
-	nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
-	nativemiscprogrammers "github.com/samchon/typia/packages/typia/native/core/programmers/misc"
-	nativeinternal "github.com/samchon/typia/packages/typia/native/transform/internal"
+  shimast "github.com/microsoft/typescript-go/shim/ast"
+  nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
+  nativemiscprogrammers "github.com/samchon/typia/packages/typia/native/core/programmers/misc"
+  nativeinternal "github.com/samchon/typia/packages/typia/native/transform/internal"
 )
 
 type miscIsCloneTransformerNamespace struct{}
@@ -12,11 +12,11 @@ type miscIsCloneTransformerNamespace struct{}
 var MiscIsCloneTransformer = miscIsCloneTransformerNamespace{}
 
 func (miscIsCloneTransformerNamespace) Transform(props nativeinternal.ITransformProps) *shimast.Node {
-	return nativeinternal.GenericTransformer.Scalar(nativeinternal.GenericTransformer_IProps{
-		ITransformProps: props,
-		Method:          "misc.isClone",
-		Write: func(x nativecontext.IProgrammerProps) *shimast.Node {
-			return nativemiscprogrammers.MiscIsCloneProgrammer.Write(x)
-		},
-	})
+  return nativeinternal.GenericTransformer.Scalar(nativeinternal.GenericTransformer_IProps{
+    ITransformProps: props,
+    Method:          "misc.isClone",
+    Write: func(x nativecontext.IProgrammerProps) *shimast.Node {
+      return nativemiscprogrammers.MiscIsCloneProgrammer.Write(x)
+    },
+  })
 }

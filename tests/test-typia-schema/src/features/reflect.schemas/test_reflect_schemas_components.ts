@@ -10,9 +10,8 @@ export const test_reflect_schemas_components = (): void => {
     parent?: IChild;
   }
 
-  const collection: IMetadataSchemaCollection = typia.reflect.schemas<
-    [IBase, IChild]
-  >();
+  const collection: IMetadataSchemaCollection =
+    typia.reflect.schemas<[IBase, IChild]>();
 
   TestValidator.equals("schemas count", collection.schemas.length, 2);
 
@@ -26,7 +25,10 @@ export const test_reflect_schemas_components = (): void => {
 
   // check recursive type
   const child = collection.components.objects.find((o) => o.name === "IChild");
-  TestValidator.predicate("IChild is recursive", () => child?.recursive === true);
+  TestValidator.predicate(
+    "IChild is recursive",
+    () => child?.recursive === true,
+  );
 
   // check IChild has parent property
   TestValidator.predicate("IChild has parent property", () => {

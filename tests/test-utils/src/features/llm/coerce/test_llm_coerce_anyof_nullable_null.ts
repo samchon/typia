@@ -13,7 +13,10 @@ export const test_llm_coerce_anyof_nullable_null = (): void => {
     data: "null" as unknown,
   };
 
-  const result = LlmJson.parse<INullableObject>(JSON.stringify(corrupted), parameters);
+  const result = LlmJson.parse<INullableObject>(
+    JSON.stringify(corrupted),
+    parameters,
+  );
   TestValidator.equals("success", result.success, true);
   if (result.success) {
     TestValidator.equals("data is null", result.data.data, null);

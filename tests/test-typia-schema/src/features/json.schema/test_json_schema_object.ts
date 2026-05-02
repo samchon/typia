@@ -17,8 +17,9 @@ export const test_json_schema_object = (): void => {
   let actualSchema: OpenApi.IJsonSchema;
   if (OpenApiTypeChecker.isReference(schema)) {
     const memberSchema = unit.components.schemas?.["IMember"];
-    TestValidator.predicate("IMember exists in components", () =>
-      memberSchema !== undefined,
+    TestValidator.predicate(
+      "IMember exists in components",
+      () => memberSchema !== undefined,
     );
     actualSchema = memberSchema!;
   } else {
@@ -38,14 +39,17 @@ export const test_json_schema_object = (): void => {
     TestValidator.predicate("has name property", () => "name" in props);
     TestValidator.predicate("has email property", () => "email" in props);
 
-    TestValidator.predicate("id is required", () =>
-      obj.required?.includes("id") ?? false,
+    TestValidator.predicate(
+      "id is required",
+      () => obj.required?.includes("id") ?? false,
     );
-    TestValidator.predicate("name is required", () =>
-      obj.required?.includes("name") ?? false,
+    TestValidator.predicate(
+      "name is required",
+      () => obj.required?.includes("name") ?? false,
     );
-    TestValidator.predicate("email is optional", () =>
-      !(obj.required?.includes("email") ?? false),
+    TestValidator.predicate(
+      "email is optional",
+      () => !(obj.required?.includes("email") ?? false),
     );
 
     TestValidator.predicate("id is number", () =>

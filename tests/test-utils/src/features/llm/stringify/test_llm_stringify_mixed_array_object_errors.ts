@@ -71,7 +71,11 @@ export const test_llm_stringify_mixed_array_object_errors = (): void => {
 
   // Count error markers - should have multiple
   const errorMarkerCount = (output.match(/\/\/ ❌/g) || []).length;
-  TestValidator.equals("has multiple error markers", errorMarkerCount >= 5, true);
+  TestValidator.equals(
+    "has multiple error markers",
+    errorMarkerCount >= 5,
+    true,
+  );
 
   // Check all error paths are present
   TestValidator.equals(
@@ -93,7 +97,11 @@ export const test_llm_stringify_mixed_array_object_errors = (): void => {
   // Check structure is preserved
   TestValidator.equals("contains users", output.includes('"users"'), true);
   TestValidator.equals("contains profile", output.includes('"profile"'), true);
-  TestValidator.equals("contains metadata", output.includes('"metadata"'), true);
+  TestValidator.equals(
+    "contains metadata",
+    output.includes('"metadata"'),
+    true,
+  );
 
   // Check missing element placeholder
   TestValidator.equals(

@@ -78,7 +78,11 @@ export const test_llm_stringify_special_json_values = (): void => {
   };
 
   const output5: string = LlmJson.stringify(failure5);
-  TestValidator.equals("empty-str-code-block", output5.includes("```json"), true);
+  TestValidator.equals(
+    "empty-str-code-block",
+    output5.includes("```json"),
+    true,
+  );
   TestValidator.equals("empty-str-value", output5.includes('""'), true);
 
   // Test 6: Zero

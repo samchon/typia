@@ -7,8 +7,8 @@ import { runTtsc } from "../utils/runTtsc";
 
 /**
  * End-to-end smoke for `typia.json.schema<T>()`. Verifies the emitted JSON
- * Schema carries the correct type info and folds typia tags into OpenAPI
- * v3.1 constraints.
+ * Schema carries the correct type info and folds typia tags into OpenAPI v3.1
+ * constraints.
  */
 export async function test_emit_json_schema(): Promise<void> {
   const fixture = path.join(TestGlobal.ROOT, "fixtures", "schema");

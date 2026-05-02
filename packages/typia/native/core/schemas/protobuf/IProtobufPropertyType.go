@@ -1,48 +1,48 @@
 package protobuf
 
 type IProtobufPropertyType interface {
-	IProtobufSchema
-	protobufPropertyType()
+  IProtobufSchema
+  protobufPropertyType()
 }
 
 type IProtobufPropertyType_IByte struct {
-	IProtobufSchema_IByte
-	Index *int
+  IProtobufSchema_IByte
+  Index *int
 }
 
 type IProtobufPropertyType_IBoolean struct {
-	IProtobufSchema_IBoolean
-	Index *int
+  IProtobufSchema_IBoolean
+  Index *int
 }
 
 type IProtobufPropertyType_IBigint struct {
-	IProtobufSchema_IBigint
-	Index *int
+  IProtobufSchema_IBigint
+  Index *int
 }
 
 type IProtobufPropertyType_INumber struct {
-	IProtobufSchema_INumber
-	Index *int
+  IProtobufSchema_INumber
+  Index *int
 }
 
 type IProtobufPropertyType_IString struct {
-	IProtobufSchema_IString
-	Index *int
+  IProtobufSchema_IString
+  Index *int
 }
 
 type IProtobufPropertyType_IArray struct {
-	IProtobufSchema_IArray
-	Index *int
+  IProtobufSchema_IArray
+  Index *int
 }
 
 type IProtobufPropertyType_IObject struct {
-	IProtobufSchema_IObject
-	Index *int
+  IProtobufSchema_IObject
+  Index *int
 }
 
 type IProtobufPropertyType_IMap struct {
-	IProtobufSchema_IMap
-	Index *int
+  IProtobufSchema_IMap
+  Index *int
 }
 
 func (IProtobufPropertyType_IByte) protobufPropertyType()    {}

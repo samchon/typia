@@ -26,8 +26,7 @@ export const test_llm_json_parse_lenient_llm_streaming = (): void => {
   // Chunk 5: value started
   const r5 = LlmJson.parse('{"name": "Jo');
   TestValidator.equals("chunk5-success", r5.success, true);
-  if (r5.success)
-    TestValidator.equals("chunk5-data", r5.data, { name: "Jo" });
+  if (r5.success) TestValidator.equals("chunk5-data", r5.data, { name: "Jo" });
 
   // Chunk 6: first property complete
   const r6 = LlmJson.parse('{"name": "John"');
@@ -54,9 +53,7 @@ export const test_llm_json_parse_lenient_llm_streaming = (): void => {
     TestValidator.equals("chunk9-data", r9.data, { name: "John", age: 30 });
 
   // Chunk 10: nested array starting
-  const r10 = LlmJson.parse(
-    '{"name": "John", "age": 30, "tags": [',
-  );
+  const r10 = LlmJson.parse('{"name": "John", "age": 30, "tags": [');
   TestValidator.equals("chunk10-success", r10.success, true);
   if (r10.success)
     TestValidator.equals("chunk10-data", r10.data, {
@@ -66,9 +63,7 @@ export const test_llm_json_parse_lenient_llm_streaming = (): void => {
     });
 
   // Chunk 11: array with partial string
-  const r11 = LlmJson.parse(
-    '{"name": "John", "age": 30, "tags": ["dev',
-  );
+  const r11 = LlmJson.parse('{"name": "John", "age": 30, "tags": ["dev');
   TestValidator.equals("chunk11-success", r11.success, true);
   if (r11.success)
     TestValidator.equals("chunk11-data", r11.data, {
@@ -78,9 +73,7 @@ export const test_llm_json_parse_lenient_llm_streaming = (): void => {
     });
 
   // Chunk 12: complete
-  const r12 = LlmJson.parse(
-    '{"name": "John", "age": 30, "tags": ["dev"]}',
-  );
+  const r12 = LlmJson.parse('{"name": "John", "age": 30, "tags": ["dev"]}');
   TestValidator.equals("chunk12-success", r12.success, true);
   if (r12.success)
     TestValidator.equals("chunk12-data", r12.data, {

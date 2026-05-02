@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@typia/station",
-  "version": "13.0.0-dev.20260430",
+  "version": "13.0.0-dev.20260501",
   "description": "Typia Station",
   "scripts": {
     "build": "pnpm run build:packages",
@@ -9,11 +9,12 @@
     "build:packages": "pnpm --filter=./packages/* -r build",
     "build:toolchain": "ttsc --version",
     "build:ttsc-runtime": "pnpm run build:toolchain",
-    "format": "prettier --write packages/**/*.ts && prettier --write internals/**/*.ts && prettier --write tests/**/*.ts",
+    "format": "prettier --write \"**/*.ts\" && pnpm run format:go",
+    "format:go": "node scripts/format-go.cjs",
     "pretest": "pnpm run build:native-consumers",
     "test": "pnpm run test:packages && pnpm run test:toolchain",
     "test:ci": "pnpm run build:native-consumers && pnpm run build && pnpm run test:packages && pnpm run test:toolchain",
-    "test:packages": "pnpm --filter=./tests/test-* --filter=!./tests/test-typia-ttsc -r start",
+    "test:packages": "pnpm --filter @typia/template build && pnpm --filter=./tests/test-* --filter=!./tests/test-typia-ttsc -r start",
     "test:toolchain": "pnpm --filter=./tests/test-typia-ttsc -r --workspace-concurrency=1 start",
     "package:latest": "bash -c 'pnpm --filter=./packages/* -r publish --tag latest --access public \"$@\"' --",
     "package:next": "bash next.bash",

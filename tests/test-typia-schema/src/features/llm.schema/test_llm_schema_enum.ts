@@ -10,15 +10,19 @@ export const test_llm_schema_enum = (): void => {
   const schema = typia.llm.schema<Status>($defs);
 
   // named type returns $ref
-  TestValidator.predicate("is reference", () => LlmTypeChecker.isReference(schema));
+  TestValidator.predicate("is reference", () =>
+    LlmTypeChecker.isReference(schema),
+  );
 
   const status = $defs["Status"];
   if (status && LlmTypeChecker.isString(status)) {
-    TestValidator.predicate("has enum values", () =>
-      status.enum !== undefined && status.enum.length === 3,
+    TestValidator.predicate(
+      "has enum values",
+      () => status.enum !== undefined && status.enum.length === 3,
     );
-    TestValidator.predicate("contains pending", () =>
-      status.enum?.includes("pending") ?? false,
+    TestValidator.predicate(
+      "contains pending",
+      () => status.enum?.includes("pending") ?? false,
     );
   }
 };

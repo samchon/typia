@@ -44,14 +44,12 @@ export const test_llm_json_parse_lenient_truncation_object_systematic =
     // 8. Key + colon + opening value quote
     const r8 = LlmJson.parse('{"name": "');
     TestValidator.equals("t8-success", r8.success, true);
-    if (r8.success)
-      TestValidator.equals("t8-data", r8.data, { name: "" });
+    if (r8.success) TestValidator.equals("t8-data", r8.data, { name: "" });
 
     // 9. Partial value
     const r9 = LlmJson.parse('{"name": "Jo');
     TestValidator.equals("t9-success", r9.success, true);
-    if (r9.success)
-      TestValidator.equals("t9-data", r9.data, { name: "Jo" });
+    if (r9.success) TestValidator.equals("t9-data", r9.data, { name: "Jo" });
 
     // 10. Complete value, no closing quote
     const r10 = LlmJson.parse('{"name": "John');
@@ -131,14 +129,12 @@ export const test_llm_json_parse_lenient_truncation_object_systematic =
     // 21. Nested object truncation: value is an object being built
     const r21 = LlmJson.parse('{"user": {');
     TestValidator.equals("t21-success", r21.success, true);
-    if (r21.success)
-      TestValidator.equals("t21-data", r21.data, { user: {} });
+    if (r21.success) TestValidator.equals("t21-data", r21.data, { user: {} });
 
     // 22. Nested object with partial key
     const r22 = LlmJson.parse('{"user": {"na');
     TestValidator.equals("t22-success", r22.success, true);
-    if (r22.success)
-      TestValidator.equals("t22-data", r22.data, { user: {} });
+    if (r22.success) TestValidator.equals("t22-data", r22.data, { user: {} });
 
     // 23. Nested object with complete property
     const r23 = LlmJson.parse('{"user": {"name": "Jo');

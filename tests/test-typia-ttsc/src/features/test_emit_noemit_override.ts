@@ -17,7 +17,10 @@ export async function test_emit_noemit_override(): Promise<void> {
   assert.equal(result.status, 0, `stderr:\n${result.stderr}`);
 
   const emitted = path.join(outDir, "main.js");
-  assert.ok(fs.existsSync(emitted), "build --emit must override tsconfig noEmit");
+  assert.ok(
+    fs.existsSync(emitted),
+    "build --emit must override tsconfig noEmit",
+  );
 
   delete require.cache[require.resolve(emitted)];
   const mod = require(emitted) as { check: (input: unknown) => boolean };

@@ -22,27 +22,11 @@ export const test_llm_stringify_long_string_values = (): void => {
 
   const output: string = LlmJson.stringify(failure);
 
-  TestValidator.equals(
-    "contains code block",
-    output.includes("```json"),
-    true,
-  );
-  TestValidator.equals(
-    "contains error marker",
-    output.includes("// ❌"),
-    true,
-  );
+  TestValidator.equals("contains code block", output.includes("```json"), true);
+  TestValidator.equals("contains error marker", output.includes("// ❌"), true);
   // The long string should be present (at least partially)
-  TestValidator.equals(
-    "contains long string",
-    output.includes("aaaa"),
-    true,
-  );
-  TestValidator.equals(
-    "output is long enough",
-    output.length > 10000,
-    true,
-  );
+  TestValidator.equals("contains long string", output.includes("aaaa"), true);
+  TestValidator.equals("output is long enough", output.length > 10000, true);
 
   // Test: Long expected type description
   const longExpected = "string & " + Array(100).fill("Constraint").join(" & ");
@@ -72,7 +56,8 @@ export const test_llm_stringify_long_string_values = (): void => {
   );
 
   // Test: Long description
-  const longDescription = "This validation failed because " + "reason ".repeat(500);
+  const longDescription =
+    "This validation failed because " + "reason ".repeat(500);
 
   const failure3: IValidation.IFailure = {
     success: false,
@@ -93,9 +78,5 @@ export const test_llm_stringify_long_string_values = (): void => {
     output3.includes("```json"),
     true,
   );
-  TestValidator.equals(
-    "long-desc-content",
-    output3.includes("reason"),
-    true,
-  );
+  TestValidator.equals("long-desc-content", output3.includes("reason"), true);
 };

@@ -36,9 +36,16 @@ export const test_llm_coerce_nested_object_triple = (): void => {
     },
   };
 
-  const result = LlmJson.parse<IDeepNested>(JSON.stringify(corrupted), parameters);
+  const result = LlmJson.parse<IDeepNested>(
+    JSON.stringify(corrupted),
+    parameters,
+  );
   TestValidator.equals("success", result.success, true);
   if (result.success) {
-    TestValidator.equals("value", result.data.level1.level2.level3.level4.value, 99);
+    TestValidator.equals(
+      "value",
+      result.data.level1.level2.level3.level4.value,
+      99,
+    );
   }
 };

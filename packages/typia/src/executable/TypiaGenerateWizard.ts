@@ -1,7 +1,11 @@
 import fs from "fs";
 import { createRequire } from "module";
 import path from "path";
-import { transform } from "ttsc";
+import {
+  type ITtscCompilerDiagnostic,
+  type ITtscCompilerTransformation,
+  TtscCompiler,
+} from "ttsc";
 
 import { ArgumentParser } from "./setup/ArgumentParser";
 import { PackageManager } from "./setup/PackageManager";
@@ -111,21 +115,49 @@ export namespace TypiaGenerateWizard {
       to: location.output,
     });
 
-    const cwd = path.dirname(location.project);
     const binary = resolveTsgoBinary();
+    const cwd = path.dirname(location.project);
+    const transformed = transformProject({
+      binary,
+      cwd,
+      tsconfig: location.project,
+    });
     for (const file of files) {
       const relative = path.relative(location.input, file);
       const target = path.join(location.output, relative);
-      const output = transform({
-        binary,
-        cwd,
-        file,
-        tsconfig: location.project,
-        plugins: [{ transform: "typia/lib/transform" }],
-      });
+      const output = transformed[projectKey(cwd, file)];
+      if (output === undefined) {
+        throw new URIError(
+          `Error on TypiaGenerateWizard.generate(): no transformed output for ${file}`,
+        );
+      }
       await fs.promises.mkdir(path.dirname(target), { recursive: true });
       await fs.promises.writeFile(target, formatOutput(output), "utf8");
     }
+  }
+
+  function transformProject(props: {
+    binary: string;
+    cwd: string;
+    tsconfig: string;
+  }): Record<string, string> {
+    const result: ITtscCompilerTransformation = new TtscCompiler({
+      binary: props.binary,
+      cwd: props.cwd,
+      plugins: [{ transform: "typia/lib/transform" }],
+      tsconfig: props.tsconfig,
+    }).transform();
+    if (result.type === "success") {
+      return result.typescript;
+    }
+    if (result.type === "failure") {
+      throw new URIError(
+        `Error on TypiaGenerateWizard.generate(): ${formatDiagnostics(result.diagnostics)}`,
+      );
+    }
+    throw new URIError(
+      `Error on TypiaGenerateWizard.generate(): ${formatUnknownError(result.error)}`,
+    );
   }
 
   function resolveTsgoBinary(): string {
@@ -255,6 +287,43 @@ export namespace TypiaGenerateWizard {
     return output.startsWith("// @ts-nocheck")
       ? output
       : `// @ts-nocheck\n${output}`;
+  }
+
+  function projectKey(root: string, file: string): string {
+    return path.relative(root, file).replace(/\\/g, "/");
+  }
+
+  function formatDiagnostics(diagnostics: ITtscCompilerDiagnostic[]): string {
+    return diagnostics.length === 0
+      ? "transformation failed"
+      : diagnostics
+          .map((diag) =>
+            [
+              diag.file ?? "ttsc",
+              diag.line === undefined
+                ? undefined
+                : `${diag.line}:${diag.character ?? 1}`,
+              diag.messageText,
+            ]
+              .filter((part) => part !== undefined && part !== "")
+              .join(": "),
+          )
+          .join("\n");
+  }
+
+  function formatUnknownError(error: unknown): string {
+    if (error instanceof Error) {
+      return error.message;
+    }
+    if (
+      typeof error === "object" &&
+      error !== null &&
+      "message" in error &&
+      typeof error.message === "string"
+    ) {
+      return error.message;
+    }
+    return String(error);
   }
 }
 

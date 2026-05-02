@@ -13,7 +13,15 @@ export const test_llm_stringify_format_output = (): void => {
   TestValidator.equals("success", result.success, false);
   if (!result.success) {
     const output: string = LlmJson.stringify(result);
-    TestValidator.equals("starts with code block", output.startsWith("```json"), true);
-    TestValidator.equals("ends with code block", output.trim().endsWith("```"), true);
+    TestValidator.equals(
+      "starts with code block",
+      output.startsWith("```json"),
+      true,
+    );
+    TestValidator.equals(
+      "ends with code block",
+      output.trim().endsWith("```"),
+      true,
+    );
   }
 };

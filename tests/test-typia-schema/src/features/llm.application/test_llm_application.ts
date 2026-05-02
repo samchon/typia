@@ -28,6 +28,7 @@ export const test_llm_application = (): void => {
   interface IController {
     /**
      * Get member by ID.
+     *
      * @param input Member ID input
      * @returns Member information
      */
@@ -35,6 +36,7 @@ export const test_llm_application = (): void => {
 
     /**
      * Create a new member.
+     *
      * @param input Member creation input
      * @returns Created member
      */
@@ -42,6 +44,7 @@ export const test_llm_application = (): void => {
 
     /**
      * Update member information.
+     *
      * @param input Member update input
      * @returns Updated member
      */
@@ -49,6 +52,7 @@ export const test_llm_application = (): void => {
 
     /**
      * Delete a member.
+     *
      * @param input Member ID input
      */
     deleteMember(input: IDeleteMemberInput): void;
@@ -75,20 +79,24 @@ export const test_llm_application = (): void => {
   // check getMember function
   const getMember = app.functions.find((f) => f.name === "getMember");
   if (getMember) {
-    TestValidator.predicate("getMember has description", () =>
-      getMember.description !== undefined &&
-      getMember.description.includes("Get member"),
+    TestValidator.predicate(
+      "getMember has description",
+      () =>
+        getMember.description !== undefined &&
+        getMember.description.includes("Get member"),
     );
-    TestValidator.predicate("getMember has parameters", () =>
-      getMember.parameters !== undefined,
+    TestValidator.predicate(
+      "getMember has parameters",
+      () => getMember.parameters !== undefined,
     );
   }
 
   // check createMember function
   const createMember = app.functions.find((f) => f.name === "createMember");
   if (createMember && createMember.parameters) {
-    TestValidator.predicate("createMember parameters has properties", () =>
-      "properties" in createMember.parameters,
+    TestValidator.predicate(
+      "createMember parameters has properties",
+      () => "properties" in createMember.parameters,
     );
   }
 
@@ -107,5 +115,9 @@ export const test_llm_application = (): void => {
     email: null,
   };
   const invalidValidation = typia.validate<IMember>(invalidMember);
-  TestValidator.equals("invalid member fails", invalidValidation.success, false);
+  TestValidator.equals(
+    "invalid member fails",
+    invalidValidation.success,
+    false,
+  );
 };

@@ -6,9 +6,9 @@ import { TestGlobal } from "../TestGlobal";
 import { runTtsc } from "../utils/runTtsc";
 
 /**
- * Covers the factory variants `typia.createIs<T>()` (and friends).  Emitting
- * them needs the rewriter to consume the trailing `()` so the factory returns
- * a function rather than invoking it.
+ * Covers the factory variants `typia.createIs<T>()` (and friends). Emitting
+ * them needs the rewriter to consume the trailing `()` so the factory returns a
+ * function rather than invoking it.
  */
 export async function test_emit_factory(): Promise<void> {
   const fixture = path.join(TestGlobal.ROOT, "fixtures", "factory");

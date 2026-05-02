@@ -7,17 +7,17 @@ type optionPredicatorNamespace struct{}
 var OptionPredicator optionPredicatorNamespace
 
 func (optionPredicatorNamespace) Numeric(options nativecontext.ITransformOptions) bool {
-	return OptionPredicator.Finite(options) || options.Numeric != nil && *options.Numeric
+  return OptionPredicator.Finite(options) || options.Numeric != nil && *options.Numeric
 }
 
 func (optionPredicatorNamespace) Functional(options nativecontext.ITransformOptions) bool {
-	return options.Functional != nil && *options.Functional
+  return options.Functional != nil && *options.Functional
 }
 
 func (optionPredicatorNamespace) Finite(options nativecontext.ITransformOptions) bool {
-	return options.Finite != nil && *options.Finite
+  return options.Finite != nil && *options.Finite
 }
 
 func (optionPredicatorNamespace) Undefined(options nativecontext.ITransformOptions) bool {
-	return options.Undefined == nil || *options.Undefined
+  return options.Undefined == nil || *options.Undefined
 }

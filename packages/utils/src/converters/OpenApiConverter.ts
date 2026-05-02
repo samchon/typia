@@ -308,7 +308,9 @@ export namespace OpenApiConverter {
   }): OpenApiV3_1.IJsonSchema;
 
   /** @internal */
-  export function downgradeSchema<Version extends "2.0" | "3.0" | "3.1">(props: {
+  export function downgradeSchema<
+    Version extends "2.0" | "3.0" | "3.1",
+  >(props: {
     components: OpenApi.IComponents;
     schema: OpenApi.IJsonSchema;
     version: Version;
@@ -317,10 +319,7 @@ export namespace OpenApiConverter {
       : Version extends "3.1"
         ? OpenApiV3_1.IComponents
         : OpenApiV3.IComponents;
-  }):
-    | OpenApiV3.IJsonSchema
-    | OpenApiV3_1.IJsonSchema
-    | SwaggerV2.IJsonSchema {
+  }): OpenApiV3.IJsonSchema | OpenApiV3_1.IJsonSchema | SwaggerV2.IJsonSchema {
     if (props.version === "2.0")
       return SwaggerV2Downgrader.downgradeSchema({
         original: props.components,

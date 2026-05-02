@@ -6,8 +6,8 @@ import { OpenApiV3_1Upgrader } from "./OpenApiV3_1Upgrader";
 /**
  * OpenAPI v3.2 to emended OpenApi converter.
  *
- * Reuses JSON Schema conversion logic from OpenApiV3_1Upgrader since
- * the schema format is identical between v3.1 and v3.2.
+ * Reuses JSON Schema conversion logic from OpenApiV3_1Upgrader since the schema
+ * format is identical between v3.1 and v3.2.
  */
 export namespace OpenApiV3_2Upgrader {
   export const convert = (input: OpenApiV3_2.IDocument): OpenApi.IDocument => {
@@ -45,7 +45,9 @@ export namespace OpenApiV3_2Upgrader {
   /* -----------------------------------------------------------
     TAGS
   ----------------------------------------------------------- */
-  const convertTag = (tag: OpenApiV3_2.IDocument.ITag): OpenApi.IDocument.ITag => ({
+  const convertTag = (
+    tag: OpenApiV3_2.IDocument.ITag,
+  ): OpenApi.IDocument.ITag => ({
     name: tag.name,
     summary: tag.summary,
     description: tag.description,
@@ -308,8 +310,7 @@ export namespace OpenApiV3_2Upgrader {
           Object.entries(input.securitySchemes)
             .filter(([_, v]) => v !== undefined)
             .map(
-              ([key, value]) =>
-                [key, convertSecurityScheme(value)] as const,
+              ([key, value]) => [key, convertSecurityScheme(value)] as const,
             ),
         )
       : undefined,
@@ -332,8 +333,8 @@ export namespace OpenApiV3_2Upgrader {
   };
 
   /**
-   * Reuse schema conversion from OpenApiV3_1Upgrader.
-   * OpenAPI v3.2 uses the same JSON Schema (2020-12) as v3.1.
+   * Reuse schema conversion from OpenApiV3_1Upgrader. OpenAPI v3.2 uses the
+   * same JSON Schema (2020-12) as v3.1.
    */
   export const convertSchema =
     (components: OpenApiV3_2.IComponents) =>

@@ -11,7 +11,9 @@ export const test_llm_coerce_quadruple_stringify = (): void => {
   const original: ISimple = { value: 42 };
 
   const corrupted = {
-    value: JSON.stringify(JSON.stringify(JSON.stringify(original.value))) as unknown,
+    value: JSON.stringify(
+      JSON.stringify(JSON.stringify(original.value)),
+    ) as unknown,
   };
 
   const result = LlmJson.parse<ISimple>(JSON.stringify(corrupted), parameters);

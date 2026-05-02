@@ -9,13 +9,21 @@ export const test_llm_json_parse_lenient_number_format_nonstandard =
     const r1 = LlmJson.parse('{"val": .5}');
     TestValidator.equals("dot-five-success", r1.success, false);
     if (!r1.success)
-      TestValidator.equals("dot-five-errors", [{ expected: "JSON value" }, { expected: "string key" }], r1.errors);
+      TestValidator.equals(
+        "dot-five-errors",
+        [{ expected: "JSON value" }, { expected: "string key" }],
+        r1.errors,
+      );
 
     // +5 (plus sign) - '+' is not '-' or digit, not identifier start → error
     const r2 = LlmJson.parse('{"val": +5}');
     TestValidator.equals("plus-five-success", r2.success, false);
     if (!r2.success)
-      TestValidator.equals("plus-five-errors", [{ expected: "JSON value" }, { expected: "string key" }], r2.errors);
+      TestValidator.equals(
+        "plus-five-errors",
+        [{ expected: "JSON value" }, { expected: "string key" }],
+        r2.errors,
+      );
 
     // Multiple decimal points: 1.2.3
     // parseNumber reads "1.2" then stops at second "." (not digit)
@@ -23,7 +31,11 @@ export const test_llm_json_parse_lenient_number_format_nonstandard =
     const r3 = LlmJson.parse('{"val": 1.2.3}');
     TestValidator.equals("multi-dot-success", r3.success, false);
     if (!r3.success) {
-      TestValidator.equals("multi-dot-errors", [{ expected: "string key" }], r3.errors);
+      TestValidator.equals(
+        "multi-dot-errors",
+        [{ expected: "string key" }],
+        r3.errors,
+      );
       TestValidator.equals("multi-dot-data", (r3.data as any).val, 1.2);
     }
 
@@ -33,7 +45,11 @@ export const test_llm_json_parse_lenient_number_format_nonstandard =
     const r4 = LlmJson.parse('{"val": 1e2e3}');
     TestValidator.equals("multi-exp-success", r4.success, false);
     if (!r4.success) {
-      TestValidator.equals("multi-exp-errors", [{ expected: "':'" }], r4.errors);
+      TestValidator.equals(
+        "multi-exp-errors",
+        [{ expected: "':'" }],
+        r4.errors,
+      );
       TestValidator.equals("multi-exp-data", (r4.data as any).val, 100);
     }
 
@@ -71,7 +87,11 @@ export const test_llm_json_parse_lenient_number_format_nonstandard =
     const r8 = LlmJson.parse('{"val": 42abc}');
     TestValidator.equals("num-trailing-text-success", r8.success, false);
     if (!r8.success) {
-      TestValidator.equals("num-trailing-text-errors", [{ expected: "':'" }], r8.errors);
+      TestValidator.equals(
+        "num-trailing-text-errors",
+        [{ expected: "':'" }],
+        r8.errors,
+      );
       TestValidator.equals("num-trailing-text-data", (r8.data as any).val, 42);
     }
 
@@ -92,7 +112,11 @@ export const test_llm_json_parse_lenient_number_format_nonstandard =
     // This results in error
     TestValidator.equals("minus-then-alpha-success", r9.success, false);
     if (!r9.success) {
-      TestValidator.equals("minus-then-alpha-errors", [{ expected: "':'" }], r9.errors);
+      TestValidator.equals(
+        "minus-then-alpha-errors",
+        [{ expected: "':'" }],
+        r9.errors,
+      );
       TestValidator.equals("minus-then-alpha-data", (r9.data as any).val, 0);
     }
 
@@ -104,7 +128,11 @@ export const test_llm_json_parse_lenient_number_format_nonstandard =
     const r10 = LlmJson.parse('{"val": 1e+-3}');
     TestValidator.equals("double-sign-success", r10.success, false);
     if (!r10.success) {
-      TestValidator.equals("double-sign-errors", [{ expected: "string key" }], r10.errors);
+      TestValidator.equals(
+        "double-sign-errors",
+        [{ expected: "string key" }],
+        r10.errors,
+      );
       TestValidator.equals("double-sign-data", (r10.data as any).val, 0);
     }
 

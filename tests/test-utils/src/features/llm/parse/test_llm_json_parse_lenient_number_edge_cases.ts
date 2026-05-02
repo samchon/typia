@@ -5,8 +5,7 @@ export const test_llm_json_parse_lenient_number_edge_cases = (): void => {
   // Zero
   const r1 = LlmJson.parse('{"val": 0}');
   TestValidator.equals("zero-success", r1.success, true);
-  if (r1.success)
-    TestValidator.equals("zero-data", r1.data, { val: 0 });
+  if (r1.success) TestValidator.equals("zero-data", r1.data, { val: 0 });
 
   // Negative zero
   const r2 = LlmJson.parse('{"val": -0}');
@@ -29,14 +28,12 @@ export const test_llm_json_parse_lenient_number_edge_cases = (): void => {
   // Scientific notation variations
   const r5 = LlmJson.parse('{"val": 1E10}');
   TestValidator.equals("big-E-success", r5.success, true);
-  if (r5.success)
-    TestValidator.equals("big-E-data", r5.data, { val: 1e10 });
+  if (r5.success) TestValidator.equals("big-E-data", r5.data, { val: 1e10 });
 
   // Negative exponent
   const r6 = LlmJson.parse('{"val": 5e-3}');
   TestValidator.equals("neg-exp-success", r6.success, true);
-  if (r6.success)
-    TestValidator.equals("neg-exp-data", r6.data, { val: 0.005 });
+  if (r6.success) TestValidator.equals("neg-exp-data", r6.data, { val: 0.005 });
 
   // Positive exponent sign
   const r7 = LlmJson.parse('{"val": 1e+5}');
@@ -59,8 +56,7 @@ export const test_llm_json_parse_lenient_number_edge_cases = (): void => {
   // Primitive number at root
   const r10 = LlmJson.parse("3.14159");
   TestValidator.equals("root-float-success", r10.success, true);
-  if (r10.success)
-    TestValidator.equals("root-float-data", r10.data, 3.14159);
+  if (r10.success) TestValidator.equals("root-float-data", r10.data, 3.14159);
 
   // Negative primitive
   const r11 = LlmJson.parse("-42");
@@ -70,6 +66,5 @@ export const test_llm_json_parse_lenient_number_edge_cases = (): void => {
   // Decimal only (0.5)
   const r12 = LlmJson.parse('{"val": 0.5}');
   TestValidator.equals("half-success", r12.success, true);
-  if (r12.success)
-    TestValidator.equals("half-data", r12.data, { val: 0.5 });
+  if (r12.success) TestValidator.equals("half-data", r12.data, { val: 0.5 });
 };

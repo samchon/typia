@@ -84,29 +84,25 @@ export async function test_setup_contract(): Promise<void> {
   const transformModule = require(
     path.join(root, "packages/typia/lib/transform.js"),
   ) as {
-    default: (
-      config: unknown,
-      context: { projectRoot: string },
-    ) => {
-      native: {
-        binary?: string;
-        source?: { dir: string; entry?: string };
-      };
+    default: (context: { projectRoot: string }) => {
+      name: string;
+      native?: unknown;
+      source: string;
     };
   };
-  const descriptor = transformModule.default(
-    {},
-    { projectRoot: path.join(root, "tests/test-typia-ttsc") },
-  );
+  const descriptor = transformModule.default({
+    projectRoot: path.join(root, "tests/test-typia-ttsc"),
+  });
+  assert.equal(descriptor.name, "typia");
   assert.equal(
-    descriptor.native.binary,
+    descriptor.native,
     undefined,
     "typia transform descriptor must not point at a prebuilt binary",
   );
-  assert.deepEqual(descriptor.native.source, {
-    dir: path.join(root, "packages/typia/native"),
-    entry: "./cmd/ttsc-typia",
-  });
+  assert.equal(
+    descriptor.source,
+    path.join(root, "packages/typia/native/cmd/ttsc-typia"),
+  );
 
   const nativeGoMod = fs.readFileSync(
     path.join(root, "packages/typia/native/go.mod"),

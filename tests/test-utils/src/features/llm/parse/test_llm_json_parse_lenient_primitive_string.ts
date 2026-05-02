@@ -10,8 +10,7 @@ export const test_llm_json_parse_lenient_primitive_string = (): void => {
   // String with escape at root
   const r2 = LlmJson.parse('"hello\\nworld"');
   TestValidator.equals("escape-success", r2.success, true);
-  if (r2.success)
-    TestValidator.equals("escape-data", r2.data, "hello\nworld");
+  if (r2.success) TestValidator.equals("escape-data", r2.data, "hello\nworld");
 
   // Empty string at root
   const r3 = LlmJson.parse('""');
@@ -29,9 +28,7 @@ export const test_llm_json_parse_lenient_primitive_string = (): void => {
   if (r5.success) TestValidator.equals("unicode-data", r5.data, "ABC");
 
   // String with all escape types at root
-  const r6 = LlmJson.parse(
-    '"\\"\\\\\\/\\b\\f\\n\\r\\t"',
-  );
+  const r6 = LlmJson.parse('"\\"\\\\\\/\\b\\f\\n\\r\\t"');
   TestValidator.equals("all-esc-success", r6.success, true);
   if (r6.success)
     TestValidator.equals("all-esc-data", r6.data, '"\\/\b\f\n\r\t');

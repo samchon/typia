@@ -16,7 +16,10 @@ export const test_llm_coerce_anyof_array_union = (): void => {
     items: JSON.stringify(original.items) as unknown,
   };
 
-  const result = LlmJson.parse<IArrayUnion>(JSON.stringify(corrupted), parameters);
+  const result = LlmJson.parse<IArrayUnion>(
+    JSON.stringify(corrupted),
+    parameters,
+  );
   TestValidator.equals("success", result.success, true);
   if (result.success) {
     TestValidator.equals("items", result.data.items, [1, 2, 3]);

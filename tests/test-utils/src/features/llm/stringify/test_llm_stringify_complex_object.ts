@@ -25,8 +25,20 @@ export const test_llm_stringify_complex_object = (): void => {
   TestValidator.equals("success", result.success, false);
   if (!result.success) {
     const output: string = LlmJson.stringify(result);
-    TestValidator.equals("contains code block", output.includes("```json"), true);
-    TestValidator.equals("contains error marker", output.includes("// ❌"), true);
-    TestValidator.equals("contains address.zip path", output.includes("$input.address.zip"), true);
+    TestValidator.equals(
+      "contains code block",
+      output.includes("```json"),
+      true,
+    );
+    TestValidator.equals(
+      "contains error marker",
+      output.includes("// ❌"),
+      true,
+    );
+    TestValidator.equals(
+      "contains address.zip path",
+      output.includes("$input.address.zip"),
+      true,
+    );
   }
 };

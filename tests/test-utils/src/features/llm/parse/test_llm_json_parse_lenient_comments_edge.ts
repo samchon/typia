@@ -3,9 +3,7 @@ import { LlmJson } from "@typia/utils";
 
 export const test_llm_json_parse_lenient_comments_edge = (): void => {
   // Comment containing JSON-like content
-  const r1 = LlmJson.parse(
-    '{"key": 1 /* {"not": "parsed"} */}',
-  );
+  const r1 = LlmJson.parse('{"key": 1 /* {"not": "parsed"} */}');
   TestValidator.equals("json-in-comment-success", r1.success, true);
   if (r1.success)
     TestValidator.equals("json-in-comment-data", r1.data, { key: 1 });
@@ -17,9 +15,7 @@ export const test_llm_json_parse_lenient_comments_edge = (): void => {
     TestValidator.equals("braces-in-comment-data", r2.data, { key: 1 });
 
   // Single-line comment with special characters
-  const r3 = LlmJson.parse(
-    '{"key": 1 // !@#$%^&*(){}[]\n}',
-  );
+  const r3 = LlmJson.parse('{"key": 1 // !@#$%^&*(){}[]\n}');
   TestValidator.equals("special-in-comment-success", r3.success, true);
   if (r3.success)
     TestValidator.equals("special-in-comment-data", r3.data, { key: 1 });

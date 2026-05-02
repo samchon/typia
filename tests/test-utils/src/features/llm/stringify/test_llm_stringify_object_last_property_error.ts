@@ -22,7 +22,11 @@ export const test_llm_stringify_object_last_property_error = (): void => {
 
   TestValidator.equals("contains code block", output.includes("```json"), true);
   TestValidator.equals("contains error marker", output.includes("// ❌"), true);
-  TestValidator.equals("contains $input.c path", output.includes("$input.c"), true);
+  TestValidator.equals(
+    "contains $input.c path",
+    output.includes("$input.c"),
+    true,
+  );
 
   // Test: Last property error with missing properties after
   const failure2: IValidation.IFailure = {
@@ -47,7 +51,11 @@ export const test_llm_stringify_object_last_property_error = (): void => {
   // Both b and c should appear
   TestValidator.equals("missing-b", output2.includes('"b"'), true);
   TestValidator.equals("missing-c", output2.includes('"c"'), true);
-  TestValidator.equals("missing-undefined", output2.includes("undefined"), true);
+  TestValidator.equals(
+    "missing-undefined",
+    output2.includes("undefined"),
+    true,
+  );
 
   // Test: Single property object with error
   const failure3: IValidation.IFailure = {

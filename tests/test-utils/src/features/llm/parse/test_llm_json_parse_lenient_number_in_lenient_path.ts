@@ -10,11 +10,12 @@ import { LlmJson } from "@typia/utils";
  * removes the decimal parsing (lines 772-781) or exponent parsing (lines
  * 784-801), no existing test would catch it.
  *
- * This test forces the lenient parser by using UNQUOTED KEYS (e.g., `{val: 3.14}`)
- * which cause JSON.parse to fail. The numbers in the values are then processed
- * by the lenient parser's own parseNumber method.
+ * This test forces the lenient parser by using UNQUOTED KEYS (e.g., `{val:
+ * 3.14}`) which cause JSON.parse to fail. The numbers in the values are then
+ * processed by the lenient parser's own parseNumber method.
  *
- * parseNumber sections tested:
+ * ParseNumber sections tested:
+ *
  * - Decimal point + digit loop (lines 772-781)
  * - Exponent letter 'e' (line 786)
  * - Exponent letter 'E' (line 786)
@@ -83,8 +84,7 @@ export const test_llm_json_parse_lenient_number_in_lenient_path = (): void => {
 
   const c1 = LlmJson.parse("{val: 3.14e2}");
   TestValidator.equals("dec-exp-success", c1.success, true);
-  if (c1.success)
-    TestValidator.equals("dec-exp-data", c1.data, { val: 314 });
+  if (c1.success) TestValidator.equals("dec-exp-data", c1.data, { val: 314 });
 
   // Decimal + exponent + negative sign
   const c2 = LlmJson.parse("{val: 6.022e-23}");

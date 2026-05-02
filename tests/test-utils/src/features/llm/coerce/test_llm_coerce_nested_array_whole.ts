@@ -16,7 +16,10 @@ export const test_llm_coerce_nested_array_whole = (): void => {
     numbers: JSON.stringify(original.numbers) as unknown,
   };
 
-  const result = LlmJson.parse<ISimpleArray>(JSON.stringify(corrupted), parameters);
+  const result = LlmJson.parse<ISimpleArray>(
+    JSON.stringify(corrupted),
+    parameters,
+  );
   TestValidator.equals("success", result.success, true);
   if (result.success) {
     TestValidator.equals("numbers", result.data.numbers, [10, 20, 30, 40]);

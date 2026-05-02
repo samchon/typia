@@ -38,11 +38,7 @@ export const test_llm_stringify_comma_insertion = (): void => {
   const failure2: IValidation.IFailure = {
     success: false,
     data: {
-      items: [
-        { id: "wrong" },
-        { id: "also-wrong" },
-        { id: 3 },
-      ],
+      items: [{ id: "wrong" }, { id: "also-wrong" }, { id: 3 }],
     },
     errors: [
       {

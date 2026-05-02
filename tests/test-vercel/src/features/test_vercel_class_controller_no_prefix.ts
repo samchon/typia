@@ -1,7 +1,7 @@
-import type { Tool } from "ai";
 import { TestValidator } from "@nestia/e2e";
 import { ILlmController } from "@typia/interface";
 import { toVercelTools } from "@typia/vercel";
+import type { Tool } from "ai";
 import typia from "typia";
 
 import { Calculator } from "../structures/Calculator";

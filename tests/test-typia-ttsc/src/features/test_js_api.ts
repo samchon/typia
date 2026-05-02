@@ -4,35 +4,26 @@ import * as path from "path";
 import { TestGlobal } from "../TestGlobal";
 
 /**
- * The `ttsc` package exposes a TypeScript API (`transform`, `build`, `check`,
- * `version`) for bundler adapters that prefer to stay in JS rather than shell
- * out directly. This test drives each entry-point with the installed native
- * binary to confirm the JS wrapper round-trips correctly.
+ * The `ttsc` package exposes `TtscCompiler` for JS hosts that prefer to stay in
+ * process rather than shell out directly. This test drives the compile and
+ * transform API against typia's plugin contract.
  */
 export async function test_js_api(): Promise<void> {
   const api = require("ttsc") as {
-    version(options: { binary: string }): string;
-    transform(options: {
-      cwd: string;
-      env?: NodeJS.ProcessEnv;
-      file: string;
-      tsconfig: string;
-    }): string;
-    transformAsync(options: {
-      cwd: string;
-      env?: NodeJS.ProcessEnv;
-      file: string;
-      tsconfig: string;
-    }): Promise<string>;
-    build(options: {
+    TtscCompiler: new (context: {
+      binary: string;
       cwd: string;
       env?: NodeJS.ProcessEnv;
       tsconfig: string;
-      emit: boolean;
-      quiet: boolean;
-    }): {
-      status: number;
-      stderr: string;
+    }) => {
+      compile(): {
+        output?: Record<string, string>;
+        type: "success" | "failure" | "exception";
+      };
+      transform(): {
+        type: "success" | "failure" | "exception";
+        typescript?: Record<string, string>;
+      };
     };
   };
 
@@ -44,47 +35,29 @@ export async function test_js_api(): Promise<void> {
   process.env.TTSC_CACHE_DIR = TestGlobal.TTSC_CACHE_DIR;
 
   try {
-    // version(): banner starts with "ttsc ".
-    const ver = api.version({ binary });
-    assert.ok(
-      ver.startsWith("ttsc "),
-      `version() banner format mismatch: ${ver}`,
-    );
-
-    // transform(): returns rewritten JS text.
-    const text = api.transform({
+    const compiler = new api.TtscCompiler({
+      binary,
       cwd: fixture,
       env,
-      file: path.join(fixture, "src", "main.ts"),
       tsconfig: "tsconfig.json",
     });
+
+    // transform(): returns rewritten TypeScript text.
+    const transformed = compiler.transform();
+    assert.equal(transformed.type, "success");
+    const text = transformed.typescript?.["src/main.ts"] ?? "";
     assert.ok(
       text.includes(`"string" === typeof input`),
       `transform() output missing rewritten body:\n${text.slice(0, 400)}`,
     );
 
-    // build({ emit: false }): returns result record with status 0.
-    const result = api.build({
-      cwd: fixture,
-      env,
-      tsconfig: "tsconfig.json",
-      emit: false,
-      quiet: true,
-    });
-    assert.equal(
-      result.status,
-      0,
-      `build(emit:false) exited ${result.status}:\n${result.stderr}`,
+    // compile(): returns emitted JS text without writing to the fixture.
+    const compiled = compiler.compile();
+    assert.equal(compiled.type, "success");
+    assert.ok(
+      compiled.output?.["dist/main.js"]?.includes(`"string" === typeof input`),
+      "compile() output missing rewritten JavaScript",
     );
-
-    // transformAsync(): Promise-based variant returns the same text.
-    const asyncText = await api.transformAsync({
-      cwd: fixture,
-      env,
-      file: path.join(fixture, "src", "main.ts"),
-      tsconfig: "tsconfig.json",
-    });
-    assert.equal(asyncText, text, "transformAsync must match transform()");
   } finally {
     if (previousCacheDir === undefined) delete process.env.TTSC_CACHE_DIR;
     else process.env.TTSC_CACHE_DIR = previousCacheDir;

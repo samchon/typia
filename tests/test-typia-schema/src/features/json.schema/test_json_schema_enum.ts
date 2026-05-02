@@ -15,8 +15,9 @@ export const test_json_schema_enum = (): void => {
   let actualSchema: OpenApi.IJsonSchema;
   if (isRef) {
     const statusSchema = unit.components.schemas?.["Status"];
-    TestValidator.predicate("Status exists in components", () =>
-      statusSchema !== undefined,
+    TestValidator.predicate(
+      "Status exists in components",
+      () => statusSchema !== undefined,
     );
     actualSchema = statusSchema!;
   } else {

@@ -64,7 +64,11 @@ export const test_llm_stringify_has_errors_at_or_under = (): void => {
   };
 
   const output3: string = LlmJson.stringify(failure3);
-  TestValidator.equals("no-match-code-block", output3.includes("```json"), true);
+  TestValidator.equals(
+    "no-match-code-block",
+    output3.includes("```json"),
+    true,
+  );
   TestValidator.equals("no-match-name", output3.includes("name"), true);
   // "unused" should NOT appear because it has no errors at or under it
   // Actually Object.entries would filter it anyway... let's check

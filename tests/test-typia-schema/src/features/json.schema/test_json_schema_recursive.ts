@@ -16,8 +16,9 @@ export const test_json_schema_recursive = (): void => {
   let actualSchema: OpenApi.IJsonSchema;
   if (OpenApiTypeChecker.isReference(schema)) {
     const categorySchema = unit.components.schemas?.["ICategory"];
-    TestValidator.predicate("ICategory exists in components", () =>
-      categorySchema !== undefined,
+    TestValidator.predicate(
+      "ICategory exists in components",
+      () => categorySchema !== undefined,
     );
     actualSchema = categorySchema!;
   } else {

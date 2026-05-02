@@ -26,8 +26,7 @@ export const test_llm_json_parse_lenient_null_after_length2 = (): void => {
   // "nu" in object value
   const r5 = LlmJson.parse('{"val": nu');
   TestValidator.equals("nu-obj-success", r5.success, true);
-  if (r5.success)
-    TestValidator.equals("nu-obj-data", r5.data, { val: null });
+  if (r5.success) TestValidator.equals("nu-obj-data", r5.data, { val: null });
 
   // "nu" in array
   const r6 = LlmJson.parse("[nu]");

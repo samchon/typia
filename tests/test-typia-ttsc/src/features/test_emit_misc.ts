@@ -5,9 +5,7 @@ import * as path from "path";
 import { TestGlobal } from "../TestGlobal";
 import { runTtsc } from "../utils/runTtsc";
 
-/**
- * misc.literals / misc.clone / misc.prune / notations.camel / reflect.name.
- */
+/** Misc.literals / misc.clone / misc.prune / notations.camel / reflect.name. */
 export async function test_emit_misc(): Promise<void> {
   const fixture = path.join(TestGlobal.ROOT, "fixtures", "misc");
   const dist = path.join(fixture, "dist");
@@ -35,16 +33,13 @@ export async function test_emit_misc(): Promise<void> {
     };
   };
 
-  assert.deepEqual(
-    [...mod.statuses].sort(),
-    ["active", "archived", "pending"],
-  );
+  assert.deepEqual([...mod.statuses].sort(), ["active", "archived", "pending"]);
   assert.equal(mod.schemaName, "Member");
 
-  assert.deepEqual(
-    mod.toCamel({ first_name: "Jane", last_name: "Doe" }),
-    { firstName: "Jane", lastName: "Doe" },
-  );
+  assert.deepEqual(mod.toCamel({ first_name: "Jane", last_name: "Doe" }), {
+    firstName: "Jane",
+    lastName: "Doe",
+  });
 
   const pruned = mod.pruneMember({
     id: "a",

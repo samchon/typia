@@ -16,7 +16,11 @@ export const test_llm_parameters_object = (): void => {
   const params: ILlmSchema.IParameters = typia.llm.parameters<IInput>();
 
   TestValidator.predicate("is object", () => LlmTypeChecker.isObject(params));
-  TestValidator.equals("additionalProperties", params.additionalProperties, false);
+  TestValidator.equals(
+    "additionalProperties",
+    params.additionalProperties,
+    false,
+  );
 
   // check name
   const name = params.properties["name"];
@@ -35,28 +39,33 @@ export const test_llm_parameters_object = (): void => {
 
   // if reference, check $defs
   if (LlmTypeChecker.isReference(address!)) {
-    TestValidator.predicate("IAddress in $defs", () =>
-      "IAddress" in params.$defs,
+    TestValidator.predicate(
+      "IAddress in $defs",
+      () => "IAddress" in params.$defs,
     );
 
     const addressDef = params.$defs["IAddress"];
     if (addressDef && LlmTypeChecker.isObject(addressDef)) {
-      TestValidator.predicate("IAddress has street", () =>
-        "street" in addressDef.properties,
+      TestValidator.predicate(
+        "IAddress has street",
+        () => "street" in addressDef.properties,
       );
-      TestValidator.predicate("IAddress has city", () =>
-        "city" in addressDef.properties,
+      TestValidator.predicate(
+        "IAddress has city",
+        () => "city" in addressDef.properties,
       );
     }
   }
 
   // if inline object
   if (LlmTypeChecker.isObject(address!)) {
-    TestValidator.predicate("address has street", () =>
-      "street" in address.properties,
+    TestValidator.predicate(
+      "address has street",
+      () => "street" in address.properties,
     );
-    TestValidator.predicate("address has city", () =>
-      "city" in address.properties,
+    TestValidator.predicate(
+      "address has city",
+      () => "city" in address.properties,
     );
   }
 };

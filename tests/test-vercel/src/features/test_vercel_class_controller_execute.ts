@@ -1,17 +1,15 @@
-import type { Tool } from "ai";
 import { TestValidator } from "@nestia/e2e";
 import { ILlmController } from "@typia/interface";
 import { toVercelTools } from "@typia/vercel";
+import type { Tool } from "ai";
 import typia from "typia";
 
 import { Calculator } from "../structures/Calculator";
 
 export const test_vercel_class_controller_execute = async (): Promise<void> => {
   // 1. Create class-based controller using typia.llm.controller
-  const controller: ILlmController<Calculator> = typia.llm.controller<Calculator>(
-    "calculator",
-    new Calculator(),
-  );
+  const controller: ILlmController<Calculator> =
+    typia.llm.controller<Calculator>("calculator", new Calculator());
 
   // 2. Convert to Vercel tools
   const tools: Record<string, Tool> = toVercelTools({

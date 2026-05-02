@@ -22,7 +22,10 @@ export const test_llm_coerce_nested_array_objects = (): void => {
     users: original.users.map((u) => JSON.stringify(u) as unknown),
   };
 
-  const result = LlmJson.parse<IArrayOfUsers>(JSON.stringify(corrupted), parameters);
+  const result = LlmJson.parse<IArrayOfUsers>(
+    JSON.stringify(corrupted),
+    parameters,
+  );
   TestValidator.equals("success", result.success, true);
   if (result.success) {
     TestValidator.equals("users[0].name", result.data.users[0]!.name, "Alice");

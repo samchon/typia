@@ -6,11 +6,11 @@ import { TestGlobal } from "../TestGlobal";
 import { runTtsc } from "../utils/runTtsc";
 
 /**
- * End-to-end emit test: run `ttsc --emit` on the primitives fixture,
- * then require the generated dist/main.js and assert the compiled validators
- * return the expected booleans for a handful of inputs. This is the core
- * proof that ttsc produces runnable TS7/tsgo output byte-for-byte compatible
- * with typia v12's `is<T>` semantics for primitive types.
+ * End-to-end emit test: run `ttsc --emit` on the primitives fixture, then
+ * require the generated dist/main.js and assert the compiled validators return
+ * the expected booleans for a handful of inputs. This is the core proof that
+ * ttsc produces runnable TS7/tsgo output byte-for-byte compatible with typia
+ * v12's `is<T>` semantics for primitive types.
  */
 export async function test_emit_primitives(): Promise<void> {
   const fixture = path.join(TestGlobal.ROOT, "fixtures", "primitives");

@@ -32,27 +32,11 @@ export const test_llm_stringify_undefined_entries_with_errors = (): void => {
 
   const output: string = LlmJson.stringify(failure);
 
-  TestValidator.equals(
-    "contains code block",
-    output.includes("```json"),
-    true,
-  );
-  TestValidator.equals(
-    "contains error marker",
-    output.includes("// ❌"),
-    true,
-  );
+  TestValidator.equals("contains code block", output.includes("```json"), true);
+  TestValidator.equals("contains error marker", output.includes("// ❌"), true);
   // Both undefined fields should appear in output
-  TestValidator.equals(
-    "contains email",
-    output.includes("email"),
-    true,
-  );
-  TestValidator.equals(
-    "contains age",
-    output.includes("age"),
-    true,
-  );
+  TestValidator.equals("contains email", output.includes("email"), true);
+  TestValidator.equals("contains age", output.includes("age"), true);
   // Should show undefined values
   TestValidator.equals(
     "contains undefined",

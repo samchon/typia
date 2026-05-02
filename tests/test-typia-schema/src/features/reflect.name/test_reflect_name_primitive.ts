@@ -7,5 +7,9 @@ export const test_reflect_name_primitive = (): void => {
   TestValidator.equals("boolean", typia.reflect.name<boolean>(), "boolean");
   TestValidator.equals("bigint", typia.reflect.name<bigint>(), "bigint");
   TestValidator.equals("null", typia.reflect.name<null>(), "null");
-  TestValidator.equals("undefined", typia.reflect.name<undefined>(), "undefined");
+  TestValidator.equals(
+    "undefined",
+    typia.reflect.name<undefined>(),
+    "undefined",
+  );
 };

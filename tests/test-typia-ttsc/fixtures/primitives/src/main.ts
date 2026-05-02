@@ -12,5 +12,4 @@ export const check_boolean = (input: unknown): boolean =>
 export const check_bigint = (input: unknown): boolean =>
   typia.is<bigint>(input);
 
-export const check_any = (input: unknown): boolean =>
-  typia.is<any>(input);
+export const check_any = (input: unknown): boolean => typia.is<any>(input);

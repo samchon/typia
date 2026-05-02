@@ -6,15 +6,13 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
   test: {
+    globalSetup: ["./src/setup.ts"],
     globals: true,
     testTimeout: 300_000,
   },
   resolve: {
     alias: {
-      "@typia/unplugin": path.resolve(
-        __dirname,
-        "../../packages/unplugin/src",
-      ),
+      "@typia/unplugin": path.resolve(__dirname, "../../packages/unplugin/src"),
     },
   },
 });

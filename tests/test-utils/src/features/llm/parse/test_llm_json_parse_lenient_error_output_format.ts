@@ -10,8 +10,16 @@ export const test_llm_json_parse_lenient_error_output_format = (): void => {
   TestValidator.equals("simple-failure-success", r1.success, false);
   if (!r1.success) {
     TestValidator.equals("simple-failure-has-input", typeof r1.input, "string");
-    TestValidator.equals("simple-failure-input", r1.input, '{"name": invalid_token}');
-    TestValidator.equals("simple-failure-errors", [{ expected: JSON_VALUE_EXPECTED }], r1.errors);
+    TestValidator.equals(
+      "simple-failure-input",
+      r1.input,
+      '{"name": invalid_token}',
+    );
+    TestValidator.equals(
+      "simple-failure-errors",
+      [{ expected: JSON_VALUE_EXPECTED }],
+      r1.errors,
+    );
   }
 
   // Failure with markdown should include FULL original input
@@ -32,19 +40,31 @@ export const test_llm_json_parse_lenient_error_output_format = (): void => {
   const r4 = LlmJson.parse('{"nested": {"bad": xyz}}');
   TestValidator.equals("nested-error-success", r4.success, false);
   if (!r4.success)
-    TestValidator.equals("nested-error-errors", [{ expected: JSON_VALUE_EXPECTED }], r4.errors);
+    TestValidator.equals(
+      "nested-error-errors",
+      [{ expected: JSON_VALUE_EXPECTED }],
+      r4.errors,
+    );
 
   // Multiple errors should all be captured
   const r5 = LlmJson.parse('{"a": bad1, "b": bad2}');
   TestValidator.equals("multiple-errors-success", r5.success, false);
   if (!r5.success)
-    TestValidator.equals("multiple-errors-errors", [{ expected: JSON_VALUE_EXPECTED }, { expected: JSON_VALUE_EXPECTED }], r5.errors);
+    TestValidator.equals(
+      "multiple-errors-errors",
+      [{ expected: JSON_VALUE_EXPECTED }, { expected: JSON_VALUE_EXPECTED }],
+      r5.errors,
+    );
 
   // Data should still be partially recovered on failure
   const r6 = LlmJson.parse('{"good": "value", "bad": oops}');
   TestValidator.equals("partial-recovery-success", r6.success, false);
   if (!r6.success)
-    TestValidator.equals("partial-recovery-good-value", (r6.data as any)?.good, "value");
+    TestValidator.equals(
+      "partial-recovery-good-value",
+      (r6.data as any)?.good,
+      "value",
+    );
 
   // Failure input preserved even with comments
   const commentInput = '{"key": /* comment */ invalid}';
@@ -57,5 +77,9 @@ export const test_llm_json_parse_lenient_error_output_format = (): void => {
   const r8 = LlmJson.parse('{"name": abcdefg}');
   TestValidator.equals("descriptive-error-success", r8.success, false);
   if (!r8.success)
-    TestValidator.equals("descriptive-error-errors", [{ expected: JSON_VALUE_EXPECTED }], r8.errors);
+    TestValidator.equals(
+      "descriptive-error-errors",
+      [{ expected: JSON_VALUE_EXPECTED }],
+      r8.errors,
+    );
 };

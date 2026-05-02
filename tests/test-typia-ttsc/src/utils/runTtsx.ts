@@ -9,7 +9,10 @@ export interface TtsxResult {
   status: number;
 }
 
-export function runTtsx(args: readonly string[], fixtureDir?: string): TtsxResult {
+export function runTtsx(
+  args: readonly string[],
+  fixtureDir?: string,
+): TtsxResult {
   if (!fs.existsSync(TestGlobal.TTSX_BINARY)) {
     throw new Error(
       `ttsx binary missing at ${TestGlobal.TTSX_BINARY}. ` +
@@ -22,7 +25,9 @@ export function runTtsx(args: readonly string[], fixtureDir?: string): TtsxResul
     env: {
       ...process.env,
       TTSC_CACHE_DIR: TestGlobal.TTSC_CACHE_DIR,
-      ...(TestGlobal.TTSC_BINARY ? { TTSC_BINARY: TestGlobal.TTSC_BINARY } : {}),
+      ...(TestGlobal.TTSC_BINARY
+        ? { TTSC_BINARY: TestGlobal.TTSC_BINARY }
+        : {}),
     },
     windowsHide: true,
   });

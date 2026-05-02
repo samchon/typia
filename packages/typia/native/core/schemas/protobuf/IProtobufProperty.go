@@ -1,6 +1,6 @@
 package protobuf
 
 type IProtobufProperty struct {
-	Fixed bool
-	Union []IProtobufPropertyType
+  Fixed bool
+  Union []IProtobufPropertyType
 }

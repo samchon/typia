@@ -9,10 +9,7 @@ export async function test_build_primitives(): Promise<void> {
   const fixture = path.join(TestGlobal.ROOT, "fixtures", "primitives");
   const dist = path.join(fixture, "dist");
   fs.rmSync(dist, { recursive: true, force: true });
-  const result = runTtsc(
-    ["--tsconfig=tsconfig.json", "--verbose"],
-    fixture,
-  );
+  const result = runTtsc(["--tsconfig=tsconfig.json", "--verbose"], fixture);
 
   assert.equal(
     result.status,
@@ -25,7 +22,9 @@ export async function test_build_primitives(): Promise<void> {
     `expected emitted-files summary in stdout:\n${result.stdout}`,
   );
   assert.ok(
-    result.stdout.includes("// ttsc-typia build: recognized=5 total=5 rewrites=5"),
+    result.stdout.includes(
+      "// ttsc-typia build: recognized=5 total=5 rewrites=5",
+    ),
     `expected recognized-sites summary in stdout:\n${result.stdout}`,
   );
   assert.ok(

@@ -55,9 +55,7 @@ export const test_llm_json_parse_lenient_string_only_escapes = (): void => {
     });
 
   // String with only unicode escapes
-  const r8 = LlmJson.parse(
-    '{"t": "\\u0048\\u0065\\u006C\\u006C\\u006F"}',
-  );
+  const r8 = LlmJson.parse('{"t": "\\u0048\\u0065\\u006C\\u006C\\u006F"}');
   TestValidator.equals("unicode-only-success", r8.success, true);
   if (r8.success)
     TestValidator.equals("unicode-only-data", r8.data, { t: "Hello" });

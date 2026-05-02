@@ -3,13 +3,12 @@ import { LlmJson } from "@typia/utils";
 
 /**
  * Tests that extractMarkdownCodeBlock is case-sensitive (requires ```json
- * exactly), and that JSON inside non-matching code blocks is still found
- * via findJsonStart fallback.
+ * exactly), and that JSON inside non-matching code blocks is still found via
+ * findJsonStart fallback.
  *
- * This pins down the behavior: ```JSON, ```Json, ```jsonl, ```json5
- * are NOT recognized as markdown code blocks, but the JSON inside them
- * is still parsed because findJsonStart finds the { or [ after scanning
- * past the backticks as junk.
+ * This pins down the behavior: `JSON, `Json, `jsonl, `json5 are NOT recognized
+ * as markdown code blocks, but the JSON inside them is still parsed because
+ * findJsonStart finds the { or [ after scanning past the backticks as junk.
  */
 export const test_llm_json_parse_lenient_markdown_case_insensitive =
   (): void => {
@@ -29,14 +28,12 @@ export const test_llm_json_parse_lenient_markdown_case_insensitive =
     // the "```json" prefix. Content after "```jsonl\n" is extracted.
     const r3 = LlmJson.parse('```jsonl\n{"key": 1}\n```');
     TestValidator.equals("jsonl-tag-success", r3.success, true);
-    if (r3.success)
-      TestValidator.equals("jsonl-tag-data", r3.data, { key: 1 });
+    if (r3.success) TestValidator.equals("jsonl-tag-data", r3.data, { key: 1 });
 
     // ```json5 → also matches because indexOf("```json") finds the prefix
     const r4 = LlmJson.parse('```json5\n{"key": 1}\n```');
     TestValidator.equals("json5-tag-success", r4.success, true);
-    if (r4.success)
-      TestValidator.equals("json5-tag-data", r4.data, { key: 1 });
+    if (r4.success) TestValidator.equals("json5-tag-data", r4.data, { key: 1 });
 
     // ```JSON with array → same fallback to findJsonStart
     const r5 = LlmJson.parse("```JSON\n[1, 2, 3]\n```");

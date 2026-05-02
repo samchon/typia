@@ -25,11 +25,27 @@ export async function test_emit_formats(): Promise<void> {
   delete require.cache[require.resolve(mainPath)];
   type Check = (x: unknown) => boolean;
   const mod = require(mainPath) as {
-    email: Check; idnEmail: Check; hostname: Check; idnHostname: Check;
-    ipv4: Check; ipv6: Check; uri: Check; uriRef: Check; uriTpl: Check;
-    iri: Check; iriRef: Check; url: Check; uuid: Check; byte: Check;
-    dateOnly: Check; dateTime: Check; time: Check; duration: Check;
-    jsonPointer: Check; relJsonPointer: Check; password: Check;
+    email: Check;
+    idnEmail: Check;
+    hostname: Check;
+    idnHostname: Check;
+    ipv4: Check;
+    ipv6: Check;
+    uri: Check;
+    uriRef: Check;
+    uriTpl: Check;
+    iri: Check;
+    iriRef: Check;
+    url: Check;
+    uuid: Check;
+    byte: Check;
+    dateOnly: Check;
+    dateTime: Check;
+    time: Check;
+    duration: Check;
+    jsonPointer: Check;
+    relJsonPointer: Check;
+    password: Check;
     regexFmt: Check;
   };
 

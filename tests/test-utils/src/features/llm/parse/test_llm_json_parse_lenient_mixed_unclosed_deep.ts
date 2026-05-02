@@ -14,14 +14,10 @@ export const test_llm_json_parse_lenient_mixed_unclosed_deep = (): void => {
   const r2 = LlmJson.parse('[{"values": [1, 2');
   TestValidator.equals("arr-obj-arr-success", r2.success, true);
   if (r2.success)
-    TestValidator.equals("arr-obj-arr-data", r2.data, [
-      { values: [1, 2] },
-    ]);
+    TestValidator.equals("arr-obj-arr-data", r2.data, [{ values: [1, 2] }]);
 
   // Multiple siblings at the same level, partially complete
-  const r3 = LlmJson.parse(
-    '{"a": {"x": 1}, "b": {"y": 2}, "c": {"z":',
-  );
+  const r3 = LlmJson.parse('{"a": {"x": 1}, "b": {"y": 2}, "c": {"z":');
   TestValidator.equals("siblings-success", r3.success, true);
   if (r3.success)
     TestValidator.equals("siblings-data", r3.data, {
@@ -64,7 +60,10 @@ export const test_llm_json_parse_lenient_mixed_unclosed_deep = (): void => {
   const r7 = LlmJson.parse("[[1, 2], [3, 4");
   TestValidator.equals("nested-arr-success", r7.success, true);
   if (r7.success)
-    TestValidator.equals("nested-arr-data", r7.data, [[1, 2], [3, 4]]);
+    TestValidator.equals("nested-arr-data", r7.data, [
+      [1, 2],
+      [3, 4],
+    ]);
 
   // Unclosed nested object
   const r8 = LlmJson.parse('{"user": {"name": "John"');
