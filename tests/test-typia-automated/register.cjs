@@ -9,6 +9,32 @@ const parsed = ts.parseJsonConfigFileContent(
   __dirname,
 );
 
+const repoRoot = path.resolve(__dirname, "../..");
+const pkgEntries = (() => {
+  const entries = {};
+  for (const name of fs.readdirSync(path.join(repoRoot, "packages"))) {
+    const dir = path.join(repoRoot, "packages", name);
+    const pkg = JSON.parse(
+      fs.readFileSync(path.join(dir, "package.json"), "utf8"),
+    );
+    entries[pkg.name] = [path.join(dir, "src/index.ts")];
+    entries[`${pkg.name}/*`] = [path.join(dir, "src/*")];
+    if (pkg.exports) {
+      for (const [key, val] of Object.entries(pkg.exports)) {
+        if (typeof val !== "string" || key === "./package.json") continue;
+        const k = key === "." ? pkg.name : `${pkg.name}/${key.slice(2)}`;
+        entries[k] = [path.resolve(dir, val)];
+      }
+    }
+  }
+  for (const name of ["template", "utils"]) {
+    const dir = path.join(repoRoot, "tests", name);
+    entries[`@typia/${name}`] = [path.join(dir, "src/index.ts")];
+    entries[`@typia/${name}/*`] = [path.join(dir, "src/*")];
+  }
+  return entries;
+})();
+
 const compilerOptions = {
   ...parsed.options,
   module: ts.ModuleKind.CommonJS,
@@ -21,6 +47,8 @@ const compilerOptions = {
   skipLibCheck: true,
   rootDir: undefined,
   outDir: undefined,
+  baseUrl: __dirname,
+  paths: { ...(parsed.options.paths || {}), ...pkgEntries },
 };
 
 const sourceCache = new Map();
