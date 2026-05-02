@@ -12,7 +12,7 @@ export default async function BlogPage() {
   const [posts, tags] = await Promise.all([getPosts(), getTagCounts()]);
 
   return (
-    <>
+    <section className="typia-blog-list-page">
       <h1>Typia Blog</h1>
       <p>
         Release notes, engineering deep dives, and practical articles about typia, TypeScript,
@@ -36,6 +36,6 @@ export default async function BlogPage() {
           <BlogPostCard key={post.route} post={post} />
         ))}
       </div>
-    </>
+    </section>
   );
 }

@@ -36,7 +36,8 @@ export default async function DocsLayout(props) {
             </span>
           </>}
           projectLink="https://github.com/samchon/typia"
-        />
+        >
+        </Navbar>
       }
       pageMap={await getPageMap()}
       docsRepositoryBase="https://github.com/samchon/typia/tree/master/website"

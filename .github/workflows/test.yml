@@ -1,5 +1,17 @@
 name: test
 on: 
+  push:
+    branches:
+      - master
+    paths:
+      - '.github/workflows/build.yml'
+      - 'packages/*/src/**'
+      - 'packages/*/package.json'
+      - 'tests/test-*/src/**'
+      - 'tests/test-*/package.json'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+      - 'pnpm-workspace.yaml'
   pull_request:
     paths:
       - '.github/workflows/build.yml'

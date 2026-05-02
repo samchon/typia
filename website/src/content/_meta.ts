@@ -15,8 +15,12 @@ export default {
     type: "page",
   },
   blog: {
-    title: "📝 Blog Articles",
+    display: "hidden",
+  },
+  "blog-articles": {
     type: "page",
+    title: "📝 Blog Articles",
+    href: "/blog",
   },
   playground: {
     title: "💻 Playground",

@@ -1,9 +1,21 @@
-.x\:container.x\:prose {
-  max-width: min(1200px, calc(100vw - 2rem));
-}
-
 .x\:prose {
   max-width: none;
+}
+
+.typia-blog-list-page {
+  max-width: min(1200px, calc(100vw - 2rem));
+  margin-left: auto;
+  margin-right: auto;
+  padding: 2rem 1.5rem 0;
+}
+
+.typia-blog-list-page > :first-child {
+  margin-top: 0;
+}
+
+.typia-blog-list-page > p {
+  max-width: 72rem;
+  line-height: 1.7;
 }
 
 .typia-blog-grid {
@@ -123,6 +135,13 @@
   margin-top: 3rem;
   padding-top: 2rem;
   border-top: 1px solid rgba(127, 127, 127, 0.18);
+}
+
+.typia-blog-post-page {
+  max-width: min(1100px, calc(100vw - 2rem));
+  margin-left: auto;
+  margin-right: auto;
+  padding: 2rem 1.5rem 0;
 }
 
 .typia-blog-post-layout {
