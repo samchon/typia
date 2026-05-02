@@ -1,15 +1,9 @@
 {
   "extends": "../config/tsconfig.json",
+  "include": ["src"],
   "compilerOptions": {
+    "rootDir": "src",
     "noUnusedLocals": false,
     "noUnusedParameters": false,
-  },
-  "include": ["src"],
-  "ts-node": {
-    "transpileOnly": true,
-    "compilerOptions": {
-      "module": "commonjs",
-      "plugins": []
-    }
   },
 }
