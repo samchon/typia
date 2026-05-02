@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@typia/test-typia-generate",
-  "version": "12.1.0-dev.20260325",
+  "version": "12.1.0",
   "description": "Test typia generation command",
   "scripts": {
     "build": "cross-env NODE_OPTIONS=\"--no-experimental-strip-types -r ./register.cjs\" tsc",
