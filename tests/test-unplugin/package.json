@@ -11,7 +11,7 @@
   "author": "Jeongho Nam",
   "license": "MIT",
   "scripts": {
-    "start": "TTSC_CACHE_DIR=${TTSC_CACHE_DIR:-$(mktemp -d)} vitest run --no-file-parallelism",
+    "start": "bash -c 'export TTSC_CACHE_DIR=${TTSC_CACHE_DIR:-$(mktemp -d)}; vitest run --no-file-parallelism'",
     "test": "vitest"
   },
   "devDependencies": {

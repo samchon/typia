@@ -3,4 +3,7 @@ lib/
 node_modules/
 
 tests/test-typia-generate/src/output
+tests/test-typia-automated/src/features
+tests/test-unplugin/src/fixtures/.generated
 tests/test-unplugin/src/fixtures/__snapshots__
+website/.next
