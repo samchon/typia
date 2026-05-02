@@ -1,15 +1,18 @@
 {
   "extends": "../config/tsconfig.json",
+  "include": ["src"],
   "compilerOptions": {
+    "outDir": "bin",
+    "rootDir": "src",
+    "noEmit": false,
     "noUnusedLocals": false,
     "noUnusedParameters": false,
   },
-  "include": ["src"],
   "ts-node": {
     "transpileOnly": true,
     "compilerOptions": {
       "module": "commonjs",
-      "plugins": []
+      "moduleResolution": "nodenext",
     }
   },
 }

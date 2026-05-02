@@ -1,6 +1,9 @@
 {
   "extends": "../config/tsconfig.json",
   "compilerOptions": {
+    "outDir": "bin",
+    "rootDir": "src",
+    "noEmit": false,
     "plugins": [
       { 
         "transform": "typia/lib/transform", 

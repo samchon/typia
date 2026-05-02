@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "ignoreDeprecations": "6.0",
-    "target": "es5",
+    "target": "es2015",
     "lib": [
       "dom",
       "dom.iterable",
@@ -11,7 +11,7 @@
     "skipLibCheck": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "downlevelIteration": true,
+    // "downlevelIteration": true,
     "noEmit": true,
     "incremental": true,
     "esModuleInterop": true,
