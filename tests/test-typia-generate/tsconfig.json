@@ -2,9 +2,7 @@
   "extends": "../config/tsconfig.json",
   "include": ["src"],
   "compilerOptions": {
-    "outDir": "bin",
     "rootDir": "src",
-    "noEmit": false,
     "noUnusedLocals": false,
     "noUnusedParameters": false,
   },
