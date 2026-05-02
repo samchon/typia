@@ -4,7 +4,7 @@
   "version": "12.1.0-dev.20260325",
   "description": "Automated test features of typia.",
   "scripts": {
-    "start": "ts-node src/index.ts"
+    "start": "NODE_OPTIONS=\"--no-experimental-strip-types -r ./register.cjs\" node src/index.ts"
   },
   "repository": {
     "type": "git",
