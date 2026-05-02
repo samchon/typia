@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@typia/test-typia-generate",
-  "version": "13.0.0-dev.20260501",
+  "version": "13.0.0-dev.20260502-2",
   "description": "Test typia generation command",
   "scripts": {
     "build": "ttsc",
