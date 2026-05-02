@@ -126,6 +126,11 @@
         "import": "./lib/index.mjs",
         "default": "./lib/index.js"
       },
+      "./lib/module": {
+        "types": "./lib/index.d.ts",
+        "import": "./lib/index.mjs",
+        "default": "./lib/index.js"
+      },
       "./lib/transform": {
         "types": "./lib/transform.d.ts",
         "import": "./lib/transform.mjs",
