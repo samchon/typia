@@ -6,10 +6,10 @@ import { TestGlobal } from "../TestGlobal";
 import { runTtsc } from "../utils/runTtsc";
 
 /**
- * Kitchen-sink integration: a single Article type drives is / assert /
- * validate / createValidate (with Standard Schema) / json.stringify /
- * json.schema / misc.literals / misc.prune simultaneously. Any regression
- * across analyzer / emitter / rewriter trips this test.
+ * Kitchen-sink integration: a single Article type drives is / assert / validate
+ * / createValidate (with Standard Schema) / json.stringify / json.schema /
+ * misc.literals / misc.prune simultaneously. Any regression across analyzer /
+ * emitter / rewriter trips this test.
  */
 export async function test_emit_combined(): Promise<void> {
   const fixture = path.join(TestGlobal.ROOT, "fixtures", "combined");
@@ -27,9 +27,11 @@ export async function test_emit_combined(): Promise<void> {
   const mod = require(mainPath) as {
     isArticle: (x: unknown) => boolean;
     assertArticle: (x: unknown) => unknown;
-    validateArticle: (
-      x: unknown,
-    ) => { success: boolean; data: unknown; errors: unknown[] };
+    validateArticle: (x: unknown) => {
+      success: boolean;
+      data: unknown;
+      errors: unknown[];
+    };
     validator: {
       (x: unknown): { success: boolean; data: unknown; errors: unknown[] };
       ["~standard"]: {
@@ -98,10 +100,7 @@ export async function test_emit_combined(): Promise<void> {
   assert.equal(s.properties.score.type, "integer");
 
   // misc.literals.
-  assert.deepEqual(
-    [...mod.statuses].sort(),
-    ["active", "archived", "pending"],
-  );
+  assert.deepEqual([...mod.statuses].sort(), ["active", "archived", "pending"]);
 
   // misc.prune.
   const junky = {

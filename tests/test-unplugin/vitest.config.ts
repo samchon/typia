@@ -11,10 +11,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      "@typia/unplugin": path.resolve(
-        __dirname,
-        "../../packages/unplugin/src",
-      ),
+      "@typia/unplugin": path.resolve(__dirname, "../../packages/unplugin/src"),
     },
   },
 });

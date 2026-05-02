@@ -24,20 +24,17 @@ export const test_llm_json_parse_lenient_incomplete_keyword_context =
     // Incomplete true in array
     const r4 = LlmJson.parse("[tru");
     TestValidator.equals("true-in-arr-success", r4.success, true);
-    if (r4.success)
-      TestValidator.equals("true-in-arr-data", r4.data, [true]);
+    if (r4.success) TestValidator.equals("true-in-arr-data", r4.data, [true]);
 
     // Incomplete false in array
     const r5 = LlmJson.parse("[fals");
     TestValidator.equals("false-in-arr-success", r5.success, true);
-    if (r5.success)
-      TestValidator.equals("false-in-arr-data", r5.data, [false]);
+    if (r5.success) TestValidator.equals("false-in-arr-data", r5.data, [false]);
 
     // Incomplete null in array
     const r6 = LlmJson.parse("[nu");
     TestValidator.equals("null-in-arr-success", r6.success, true);
-    if (r6.success)
-      TestValidator.equals("null-in-arr-data", r6.data, [null]);
+    if (r6.success) TestValidator.equals("null-in-arr-data", r6.data, [null]);
 
     // "t" alone in object
     const r7 = LlmJson.parse('{"flag": t');

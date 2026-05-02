@@ -13,9 +13,25 @@ export const test_llm_stringify_format_email = (): void => {
   TestValidator.equals("success", result.success, false);
   if (!result.success) {
     const output: string = LlmJson.stringify(result);
-    TestValidator.equals("contains code block", output.includes("```json"), true);
-    TestValidator.equals("contains error marker", output.includes("// ❌"), true);
-    TestValidator.equals("contains email path", output.includes("$input.email"), true);
-    TestValidator.equals("contains format info", output.includes("Format"), true);
+    TestValidator.equals(
+      "contains code block",
+      output.includes("```json"),
+      true,
+    );
+    TestValidator.equals(
+      "contains error marker",
+      output.includes("// ❌"),
+      true,
+    );
+    TestValidator.equals(
+      "contains email path",
+      output.includes("$input.email"),
+      true,
+    );
+    TestValidator.equals(
+      "contains format info",
+      output.includes("Format"),
+      true,
+    );
   }
 };

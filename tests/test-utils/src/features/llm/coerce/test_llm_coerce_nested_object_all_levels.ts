@@ -24,7 +24,10 @@ export const test_llm_coerce_nested_object_all_levels = (): void => {
     }),
   };
 
-  const result = LlmJson.parse<ISimpleNested>(JSON.stringify(corrupted), parameters);
+  const result = LlmJson.parse<ISimpleNested>(
+    JSON.stringify(corrupted),
+    parameters,
+  );
   TestValidator.equals("success", result.success, true);
   if (result.success) {
     TestValidator.equals("value", result.data.outer.inner.value, 777);

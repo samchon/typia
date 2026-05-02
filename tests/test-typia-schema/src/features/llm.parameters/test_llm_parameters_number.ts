@@ -15,7 +15,11 @@ export const test_llm_parameters_number = (): void => {
   const params: ILlmSchema.IParameters = typia.llm.parameters<IInput>();
 
   TestValidator.predicate("is object", () => LlmTypeChecker.isObject(params));
-  TestValidator.equals("additionalProperties", params.additionalProperties, false);
+  TestValidator.equals(
+    "additionalProperties",
+    params.additionalProperties,
+    false,
+  );
 
   // check basic number
   const basic = params.properties["basic"];

@@ -4,8 +4,8 @@ import * as path from "path";
 import { TestGlobal } from "../TestGlobal";
 
 /**
- * `TtscCompiler.transform()` is the plugin-author hook: given a project and
- * its tsconfig, it returns rewritten TypeScript text by project-relative path.
+ * `TtscCompiler.transform()` is the plugin-author hook: given a project and its
+ * tsconfig, it returns rewritten TypeScript text by project-relative path.
  */
 export async function test_transform_api_contract(): Promise<void> {
   const api = require("ttsc") as {

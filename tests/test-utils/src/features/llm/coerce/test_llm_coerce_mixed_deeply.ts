@@ -29,17 +29,30 @@ export const test_llm_coerce_mixed_deeply = (): void => {
       JSON.stringify({
         level2: JSON.stringify({
           level3: JSON.stringify(
-            original.level1[0]!.level2.level3.map((item) => JSON.stringify(item)),
+            original.level1[0]!.level2.level3.map((item) =>
+              JSON.stringify(item),
+            ),
           ),
         }),
       }),
     ],
   };
 
-  const result = LlmJson.parse<IDeeplyMixed>(JSON.stringify(corrupted), parameters);
+  const result = LlmJson.parse<IDeeplyMixed>(
+    JSON.stringify(corrupted),
+    parameters,
+  );
   TestValidator.equals("success", result.success, true);
   if (result.success) {
-    TestValidator.equals("level1[0].level2.level3[0].value", result.data.level1[0]!.level2.level3[0]!.value, 111);
-    TestValidator.equals("level1[0].level2.level3[1].value", result.data.level1[0]!.level2.level3[1]!.value, 222);
+    TestValidator.equals(
+      "level1[0].level2.level3[0].value",
+      result.data.level1[0]!.level2.level3[0]!.value,
+      111,
+    );
+    TestValidator.equals(
+      "level1[0].level2.level3[1].value",
+      result.data.level1[0]!.level2.level3[1]!.value,
+      222,
+    );
   }
 };

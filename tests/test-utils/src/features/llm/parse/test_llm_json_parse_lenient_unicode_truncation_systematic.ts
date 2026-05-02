@@ -7,14 +7,12 @@ export const test_llm_json_parse_lenient_unicode_truncation_systematic =
     // After \u with 0 hex digits
     const r1 = LlmJson.parse('{"t": "\\u');
     TestValidator.equals("u-only-success", r1.success, true);
-    if (r1.success)
-      TestValidator.equals("u-only-data", r1.data, { t: "\\u" });
+    if (r1.success) TestValidator.equals("u-only-data", r1.data, { t: "\\u" });
 
     // After \u with 1 hex digit
     const r2 = LlmJson.parse('{"t": "\\u0');
     TestValidator.equals("u-1hex-success", r2.success, true);
-    if (r2.success)
-      TestValidator.equals("u-1hex-data", r2.data, { t: "\\u0" });
+    if (r2.success) TestValidator.equals("u-1hex-data", r2.data, { t: "\\u0" });
 
     // After \u with 2 hex digits
     const r3 = LlmJson.parse('{"t": "\\u00');
@@ -31,8 +29,7 @@ export const test_llm_json_parse_lenient_unicode_truncation_systematic =
     // Complete \u with 4 hex digits (but string unclosed)
     const r5 = LlmJson.parse('{"t": "\\u0041');
     TestValidator.equals("u-4hex-success", r5.success, true);
-    if (r5.success)
-      TestValidator.equals("u-4hex-data", r5.data, { t: "A" });
+    if (r5.success) TestValidator.equals("u-4hex-data", r5.data, { t: "A" });
 
     // Surrogate pair truncation: \uD83D\uDE00 at every position
     // High surrogate complete, then \u
@@ -92,8 +89,7 @@ export const test_llm_json_parse_lenient_unicode_truncation_systematic =
     // Just \u at end of input (no hex digits at all, string unclosed)
     const r13 = LlmJson.parse('"\\u');
     TestValidator.equals("root-u-only-success", r13.success, true);
-    if (r13.success)
-      TestValidator.equals("root-u-only-data", r13.data, "\\u");
+    if (r13.success) TestValidator.equals("root-u-only-data", r13.data, "\\u");
 
     // Unicode escape with exactly 4 chars but they wrap around string end
     // \u00 then end quote → only 2 hex chars available
@@ -152,5 +148,7 @@ export const test_llm_json_parse_lenient_unicode_truncation_systematic =
     const r15 = LlmJson.parse('{"text": "hello\\u00');
     TestValidator.equals("incomplete-u-success", r15.success, true);
     if (r15.success)
-      TestValidator.equals("incomplete-u-data", r15.data, { text: "hello\\u00" });
+      TestValidator.equals("incomplete-u-data", r15.data, {
+        text: "hello\\u00",
+      });
   };

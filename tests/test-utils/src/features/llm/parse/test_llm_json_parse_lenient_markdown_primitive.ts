@@ -2,12 +2,12 @@ import { TestValidator } from "@nestia/e2e";
 import { LlmJson } from "@typia/utils";
 
 /**
- * Tests that primitive values (numbers, strings, booleans, null)
- * inside markdown code blocks are correctly extracted and parsed.
+ * Tests that primitive values (numbers, strings, booleans, null) inside
+ * markdown code blocks are correctly extracted and parsed.
  *
- * All markdown tests in the suite use objects/arrays inside code blocks.
- * This test verifies the interaction between markdown extraction and
- * primitive parsing.
+ * All markdown tests in the suite use objects/arrays inside code blocks. This
+ * test verifies the interaction between markdown extraction and primitive
+ * parsing.
  */
 export const test_llm_json_parse_lenient_markdown_primitive = (): void => {
   // Number in markdown code block

@@ -34,7 +34,15 @@ export const test_llm_coerce_nested_array_deep = (): void => {
   );
   TestValidator.equals("success", result.success, true);
   if (result.success) {
-    TestValidator.equals("items[0].values", result.data.data.items[0]!.values, [1, 2, 3]);
-    TestValidator.equals("items[1].values", result.data.data.items[1]!.values, [4, 5, 6]);
+    TestValidator.equals(
+      "items[0].values",
+      result.data.data.items[0]!.values,
+      [1, 2, 3],
+    );
+    TestValidator.equals(
+      "items[1].values",
+      result.data.data.items[1]!.values,
+      [4, 5, 6],
+    );
   }
 };

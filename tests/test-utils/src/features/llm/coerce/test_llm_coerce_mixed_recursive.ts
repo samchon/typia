@@ -27,11 +27,22 @@ export const test_llm_coerce_mixed_recursive = (): void => {
     }),
   };
 
-  const result = LlmJson.parse<IRecursiveLike>(JSON.stringify(corrupted), parameters);
+  const result = LlmJson.parse<IRecursiveLike>(
+    JSON.stringify(corrupted),
+    parameters,
+  );
   TestValidator.equals("success", result.success, true);
   if (result.success) {
     TestValidator.equals("node.value", result.data.node.value, 1);
-    TestValidator.equals("node.children[0].value", result.data.node.children[0]!.value, 10);
-    TestValidator.equals("node.children[1].value", result.data.node.children[1]!.value, 20);
+    TestValidator.equals(
+      "node.children[0].value",
+      result.data.node.children[0]!.value,
+      10,
+    );
+    TestValidator.equals(
+      "node.children[1].value",
+      result.data.node.children[1]!.value,
+      20,
+    );
   }
 };

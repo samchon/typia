@@ -28,8 +28,7 @@ export const test_llm_json_parse_lenient_standard_roundtrip = (): void => {
   const obj3 = { korean: "한국어", emoji: "😀", chinese: "中文" };
   const r3 = LlmJson.parse(JSON.stringify(obj3));
   TestValidator.equals("roundtrip-unicode-success", r3.success, true);
-  if (r3.success)
-    TestValidator.equals("roundtrip-unicode-data", r3.data, obj3);
+  if (r3.success) TestValidator.equals("roundtrip-unicode-data", r3.data, obj3);
 
   // Deeply nested
   const obj4 = { a: { b: { c: { d: { e: { f: 1 } } } } } };
@@ -53,14 +52,6 @@ export const test_llm_json_parse_lenient_standard_roundtrip = (): void => {
   TestValidator.equals("roundtrip-null", LlmJson.parse("null").data, null);
   TestValidator.equals("roundtrip-0", LlmJson.parse("0").data, 0);
   TestValidator.equals("roundtrip-neg", LlmJson.parse("-1").data, -1);
-  TestValidator.equals(
-    "roundtrip-float",
-    LlmJson.parse("3.14").data,
-    3.14,
-  );
-  TestValidator.equals(
-    "roundtrip-str",
-    LlmJson.parse('"hello"').data,
-    "hello",
-  );
+  TestValidator.equals("roundtrip-float", LlmJson.parse("3.14").data, 3.14);
+  TestValidator.equals("roundtrip-str", LlmJson.parse('"hello"').data, "hello");
 };

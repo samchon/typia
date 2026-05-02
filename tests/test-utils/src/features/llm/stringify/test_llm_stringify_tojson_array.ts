@@ -24,32 +24,12 @@ export const test_llm_stringify_tojson_array = (): void => {
 
   const output: string = LlmJson.stringify(failure);
 
-  TestValidator.equals(
-    "contains code block",
-    output.includes("```json"),
-    true,
-  );
-  TestValidator.equals(
-    "contains error marker",
-    output.includes("// ❌"),
-    true,
-  );
+  TestValidator.equals("contains code block", output.includes("```json"), true);
+  TestValidator.equals("contains error marker", output.includes("// ❌"), true);
   // The array should appear in output
-  TestValidator.equals(
-    "contains array element 1",
-    output.includes("1"),
-    true,
-  );
-  TestValidator.equals(
-    "contains array element 2",
-    output.includes("2"),
-    true,
-  );
-  TestValidator.equals(
-    "contains array element 3",
-    output.includes("3"),
-    true,
-  );
+  TestValidator.equals("contains array element 1", output.includes("1"), true);
+  TestValidator.equals("contains array element 2", output.includes("2"), true);
+  TestValidator.equals("contains array element 3", output.includes("3"), true);
 
   // Test toJSON returning array with nested objects
   const objWithNestedArrayToJson = {

@@ -25,16 +25,8 @@ export const test_llm_stringify_tojson_primitive = (): void => {
 
   const output: string = LlmJson.stringify(failure);
 
-  TestValidator.equals(
-    "contains code block",
-    output.includes("```json"),
-    true,
-  );
-  TestValidator.equals(
-    "contains error marker",
-    output.includes("// ❌"),
-    true,
-  );
+  TestValidator.equals("contains code block", output.includes("```json"), true);
+  TestValidator.equals("contains error marker", output.includes("// ❌"), true);
   // The toJSON result should appear in output
   TestValidator.equals(
     "contains serialized value",
@@ -65,11 +57,7 @@ export const test_llm_stringify_tojson_primitive = (): void => {
     output2.includes("```json"),
     true,
   );
-  TestValidator.equals(
-    "number-contains 42",
-    output2.includes("42"),
-    true,
-  );
+  TestValidator.equals("number-contains 42", output2.includes("42"), true);
 
   // Test toJSON returning boolean
   const objWithBoolToJson = {
@@ -94,11 +82,7 @@ export const test_llm_stringify_tojson_primitive = (): void => {
     output3.includes("```json"),
     true,
   );
-  TestValidator.equals(
-    "bool-contains true",
-    output3.includes("true"),
-    true,
-  );
+  TestValidator.equals("bool-contains true", output3.includes("true"), true);
 
   // Test toJSON returning null
   const objWithNullToJson = {
@@ -123,9 +107,5 @@ export const test_llm_stringify_tojson_primitive = (): void => {
     output4.includes("```json"),
     true,
   );
-  TestValidator.equals(
-    "null-contains null",
-    output4.includes("null"),
-    true,
-  );
+  TestValidator.equals("null-contains null", output4.includes("null"), true);
 };

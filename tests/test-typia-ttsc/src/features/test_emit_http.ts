@@ -5,9 +5,7 @@ import * as path from "path";
 import { TestGlobal } from "../TestGlobal";
 import { runTtsc } from "../utils/runTtsc";
 
-/**
- * typia.http.query / parameter — HTTP string → typed object coercion.
- */
+/** Typia.http.query / parameter — HTTP string → typed object coercion. */
 export async function test_emit_http(): Promise<void> {
   const fixture = path.join(TestGlobal.ROOT, "fixtures", "http");
   const dist = path.join(fixture, "dist");
@@ -35,7 +33,9 @@ export async function test_emit_http(): Promise<void> {
   assert.equal(mod.parseIntParam("42"), 42);
 
   // query with multi-value tag, missing sort.
-  const q = mod.parseQuery(new URLSearchParams("page=2&size=10&tag=red&tag=blue"));
+  const q = mod.parseQuery(
+    new URLSearchParams("page=2&size=10&tag=red&tag=blue"),
+  );
   assert.equal(q.page, 2);
   assert.equal(q.size, 10);
   assert.deepEqual(q.tag, ["red", "blue"]);

@@ -15,7 +15,11 @@ export const test_llm_parameters_enum = (): void => {
   const params: ILlmSchema.IParameters = typia.llm.parameters<IInput>();
 
   TestValidator.predicate("is object", () => LlmTypeChecker.isObject(params));
-  TestValidator.equals("additionalProperties", params.additionalProperties, false);
+  TestValidator.equals(
+    "additionalProperties",
+    params.additionalProperties,
+    false,
+  );
 
   // check status - string enum may be inline or $ref
   const status = params.properties["status"];
@@ -26,16 +30,19 @@ export const test_llm_parameters_enum = (): void => {
     TestValidator.predicate("Status in $defs", () => "Status" in params.$defs);
     const statusDef = params.$defs["Status"];
     if (statusDef && LlmTypeChecker.isString(statusDef)) {
-      TestValidator.predicate("Status has enum", () =>
-        statusDef.enum !== undefined && statusDef.enum.length === 3,
+      TestValidator.predicate(
+        "Status has enum",
+        () => statusDef.enum !== undefined && statusDef.enum.length === 3,
       );
-      TestValidator.predicate("Status contains pending", () =>
-        statusDef.enum?.includes("pending") ?? false,
+      TestValidator.predicate(
+        "Status contains pending",
+        () => statusDef.enum?.includes("pending") ?? false,
       );
     }
   } else if (LlmTypeChecker.isString(status!)) {
-    TestValidator.predicate("status has enum", () =>
-      status.enum !== undefined && status.enum.length === 3,
+    TestValidator.predicate(
+      "status has enum",
+      () => status.enum !== undefined && status.enum.length === 3,
     );
   }
 
@@ -47,16 +54,19 @@ export const test_llm_parameters_enum = (): void => {
     TestValidator.predicate("Level in $defs", () => "Level" in params.$defs);
     const levelDef = params.$defs["Level"];
     if (levelDef && LlmTypeChecker.isNumber(levelDef)) {
-      TestValidator.predicate("Level has enum", () =>
-        levelDef.enum !== undefined && levelDef.enum.length === 3,
+      TestValidator.predicate(
+        "Level has enum",
+        () => levelDef.enum !== undefined && levelDef.enum.length === 3,
       );
-      TestValidator.predicate("Level contains 1", () =>
-        levelDef.enum?.includes(1) ?? false,
+      TestValidator.predicate(
+        "Level contains 1",
+        () => levelDef.enum?.includes(1) ?? false,
       );
     }
   } else if (LlmTypeChecker.isNumber(level!)) {
-    TestValidator.predicate("level has enum", () =>
-      level.enum !== undefined && level.enum.length === 3,
+    TestValidator.predicate(
+      "level has enum",
+      () => level.enum !== undefined && level.enum.length === 3,
     );
   }
 };

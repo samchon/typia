@@ -1,6 +1,5 @@
-const { spawnSync } = require(
-  "node:child_process",
-) as typeof import("node:child_process");
+const { spawnSync } =
+  require("node:child_process") as typeof import("node:child_process");
 const fs = require("node:fs") as typeof import("node:fs");
 const path = require("node:path") as typeof import("node:path");
 

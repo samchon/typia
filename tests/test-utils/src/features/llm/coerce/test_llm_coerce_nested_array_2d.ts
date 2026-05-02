@@ -19,7 +19,10 @@ export const test_llm_coerce_nested_array_2d = (): void => {
     matrix: original.matrix.map((row) => JSON.stringify(row) as unknown),
   };
 
-  const result = LlmJson.parse<IMatrix2D>(JSON.stringify(corrupted), parameters);
+  const result = LlmJson.parse<IMatrix2D>(
+    JSON.stringify(corrupted),
+    parameters,
+  );
   TestValidator.equals("success", result.success, true);
   if (result.success) {
     TestValidator.equals("matrix[0]", result.data.matrix[0], [1, 2, 3]);

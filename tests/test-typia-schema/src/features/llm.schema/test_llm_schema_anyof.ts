@@ -21,11 +21,14 @@ export const test_llm_schema_anyof = (): void => {
   const schema = typia.llm.schema<Animal>($defs);
 
   // named union type returns $ref
-  TestValidator.predicate("is reference", () => LlmTypeChecker.isReference(schema));
+  TestValidator.predicate("is reference", () =>
+    LlmTypeChecker.isReference(schema),
+  );
 
   const animalSchema = $defs["Animal"];
-  TestValidator.predicate("Animal exists in $defs", () =>
-    animalSchema !== undefined,
+  TestValidator.predicate(
+    "Animal exists in $defs",
+    () => animalSchema !== undefined,
   );
 
   if (animalSchema) {
@@ -53,14 +56,17 @@ export const test_llm_schema_anyof = (): void => {
   // verify ICat structure
   const catSchema = $defs["ICat"];
   if (catSchema && LlmTypeChecker.isObject(catSchema)) {
-    TestValidator.predicate("ICat has type property", () =>
-      "type" in catSchema.properties,
+    TestValidator.predicate(
+      "ICat has type property",
+      () => "type" in catSchema.properties,
     );
-    TestValidator.predicate("ICat has name property", () =>
-      "name" in catSchema.properties,
+    TestValidator.predicate(
+      "ICat has name property",
+      () => "name" in catSchema.properties,
     );
-    TestValidator.predicate("ICat has meow property", () =>
-      "meow" in catSchema.properties,
+    TestValidator.predicate(
+      "ICat has meow property",
+      () => "meow" in catSchema.properties,
     );
   }
 };

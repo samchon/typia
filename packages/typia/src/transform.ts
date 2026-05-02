@@ -1,6 +1,6 @@
-import type { ITtscPlugin, ITtscPluginFactoryContext } from "ttsc";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import type { ITtscPlugin, ITtscPluginFactoryContext } from "ttsc";
 
 const filename: string = currentFilename();
 const dirname: string = path.dirname(filename);

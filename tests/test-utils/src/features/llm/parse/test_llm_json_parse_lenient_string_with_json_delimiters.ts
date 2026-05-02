@@ -57,9 +57,7 @@ export const test_llm_json_parse_lenient_string_with_json_delimiters =
       });
 
     // Array element that is a string containing JSON
-    const r7 = LlmJson.parse(
-      '["{\\"a\\": 1}", "{\\"b\\": 2}"]',
-    );
+    const r7 = LlmJson.parse('["{\\"a\\": 1}", "{\\"b\\": 2}"]');
     TestValidator.equals("arr-json-str-success", r7.success, true);
     if (r7.success)
       TestValidator.equals("arr-json-str-data", r7.data, [
