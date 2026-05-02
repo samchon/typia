@@ -5,7 +5,8 @@
   "description": "Test program of typia generated error",
   "main": "index.js",
   "scripts": {
-    "build": "rimraf bin && cross-env NODE_OPTIONS=\"--no-experimental-strip-types -r ts-node/register\" tsc",
+    "build": "rimraf bin && pnpm run tsc",
+    "tsc": "cross-env NODE_OPTIONS=\"--no-experimental-strip-types -r ts-node/register\" tsc",
     "start": "node index.js"
   },
   "repository": {

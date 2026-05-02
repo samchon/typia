@@ -28,7 +28,7 @@
 
     /* Modules */
     "module": "nodenext",                                /* Specify what module code is generated. */
-    // "moduleResolution": "node",                       /* Specify how TypeScript looks up a file from a given module specifier. */
+    "moduleResolution": "nodenext",                       /* Specify how TypeScript looks up a file from a given module specifier. */
     // "ignoreDeprecations": "6.0",
     "rootDir": "../..",
     // "baseUrl": "./",
