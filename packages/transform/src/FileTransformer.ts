@@ -82,12 +82,14 @@ export namespace FileTransformer {
       if (!isTransformerError(exp)) throw exp;
 
       // REPORT DIAGNOSTIC
-      const diagnostic = ts.createDiagnosticForNode(props.node, {
-        key: exp.code,
+      const diagnostic: ts.Diagnostic = {
+        file: props.node.getSourceFile(),
+        start: props.node.getStart(),
+        length: props.node.getWidth(),
+        messageText: exp.message,
         category: ts.DiagnosticCategory.Error,
-        message: exp.message,
         code: `(${exp.code})` as any,
-      });
+      };
       props.context.extras.addDiagnostic(diagnostic);
       return null;
     }
@@ -118,26 +120,24 @@ const isTransformerError = (error: any): error is TransformerError =>
 
 const checkJsDocParsingMode = new Singleton(
   (context: ITypiaContext, file: ts.SourceFile) => {
-    if (
-      typeof file.jsDocParsingMode === "number" &&
-      file.jsDocParsingMode !== 0
-    ) {
-      context.extras.addDiagnostic(
-        ts.createDiagnosticForNode(file, {
-          code: `(typia setup)` as any,
-          key: "jsDocParsingMode",
-          category: ts.DiagnosticCategory.Warning,
-          message: [
-            `Run "npx typia setup" or "npx typia patch" command again.`,
-            ``,
-            `Since TypeScript v5.3 update, "tsc" no more parses JSDoc comments. Therefore, "typia" also cannot utilize those JSDoc comments too, and it damages on some features of "typia" like "comment tags" or "JSON schema" generator.`,
-            ``,
-            `To solve this problem, run "npx typia setup" or "npx typia patch" command to hack the TypeScript compiler to revive the JSDoc parsing feature.`,
-            ``,
-            `  - reference: https://github.com/microsoft/TypeScript/pull/55739`,
-          ].join("\n"),
-        }),
-      );
+    const jsDocParsingMode = (file as any).jsDocParsingMode;
+    if (typeof jsDocParsingMode === "number" && jsDocParsingMode !== 0) {
+      context.extras.addDiagnostic({
+        file,
+        start: 0,
+        length: 0,
+        messageText: [
+          `Run "npx typia setup" or "npx typia patch" command again.`,
+          ``,
+          `Since TypeScript v5.3 update, "tsc" no more parses JSDoc comments. Therefore, "typia" also cannot utilize those JSDoc comments too, and it damages on some features of "typia" like "comment tags" or "JSON schema" generator.`,
+          ``,
+          `To solve this problem, run "npx typia setup" or "npx typia patch" command to hack the TypeScript compiler to revive the JSDoc parsing feature.`,
+          ``,
+          `  - reference: https://github.com/microsoft/TypeScript/pull/55739`,
+        ].join("\n"),
+        category: ts.DiagnosticCategory.Warning,
+        code: `(typia setup)` as any,
+      });
     }
   },
 );

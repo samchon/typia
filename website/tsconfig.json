@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "ignoreDeprecations": "6.0",
+    "target": "es2015",
     "lib": [
       "dom",
       "dom.iterable",
@@ -10,6 +11,7 @@
     "skipLibCheck": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
+    // "downlevelIteration": true,
     "noEmit": true,
     "incremental": true,
     "esModuleInterop": true,
@@ -18,7 +20,6 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "downlevelIteration": true,
     "plugins": [
       {
         "name": "next"

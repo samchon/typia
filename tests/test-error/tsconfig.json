@@ -1,13 +1,16 @@
 {
   "extends": "../config/tsconfig.json",
   "compilerOptions": {
-    "noEmit": false,
     "outDir": "bin",
+    "rootDir": "src",
+    "noEmit": false,
   },
   "ts-node": {
     "transpileOnly": true,
+    "ignoreDiagnostics": [5110],
     "compilerOptions": {
       "module": "commonjs",
+      "moduleResolution": "nodenext",
       "plugins": []
     }
   },

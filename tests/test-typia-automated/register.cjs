@@ -2,6 +2,13 @@ const fs = require("fs");
 const path = require("path");
 const ts = require("typescript");
 
+const configPath = path.join(__dirname, "tsconfig.json");
+const parsed = ts.parseJsonConfigFileContent(
+  ts.readConfigFile(configPath, ts.sys.readFile).config,
+  ts.sys,
+  __dirname,
+);
+
 const repoRoot = path.resolve(__dirname, "../..");
 const pkgEntries = (() => {
   const entries = {};
@@ -22,7 +29,6 @@ const pkgEntries = (() => {
   }
   for (const name of ["template", "utils"]) {
     const dir = path.join(repoRoot, "tests", name);
-    if (!fs.existsSync(path.join(dir, "src/index.ts"))) continue;
     entries[`@typia/${name}`] = [path.join(dir, "src/index.ts")];
     entries[`@typia/${name}/*`] = [path.join(dir, "src/*")];
   }
@@ -30,21 +36,19 @@ const pkgEntries = (() => {
 })();
 
 const compilerOptions = {
-  target: ts.ScriptTarget.ESNext,
+  ...parsed.options,
   module: ts.ModuleKind.CommonJS,
   moduleResolution: ts.ModuleResolutionKind.Node10,
-  esModuleInterop: true,
-  experimentalDecorators: true,
-  emitDecoratorMetadata: true,
-  skipLibCheck: true,
-  strict: true,
   sourceMap: false,
   declaration: false,
   declarationMap: false,
   inlineSourceMap: false,
   noEmit: false,
+  skipLibCheck: true,
+  rootDir: undefined,
+  outDir: undefined,
   baseUrl: __dirname,
-  paths: pkgEntries,
+  paths: { ...(parsed.options.paths || {}), ...pkgEntries },
 };
 
 const sourceCache = new Map();
@@ -58,8 +62,10 @@ baseHost.getSourceFile = (fname, ...args) => {
   return sf;
 };
 
-const rootSet = new Set();
-let program = ts.createProgram([], compilerOptions, baseHost);
+const entryFile = path.resolve(__dirname, "src/index.ts");
+const servantFile = path.resolve(__dirname, "src/servant/index.ts");
+const rootSet = new Set([entryFile, servantFile]);
+let program = ts.createProgram([...rootSet], compilerOptions, baseHost);
 
 const transpileFallback = (m, filename) => {
   const source = fs.readFileSync(filename, "utf8");
@@ -92,25 +98,11 @@ const compile = (m, filename) => {
     if (/\.[cm]?js$/.test(fname)) outputText = data;
   };
   program.emit(sourceFile, writeFile);
-  if (outputText === undefined) return transpileFallback(m, filename);
+  if (outputText === undefined)
+    return transpileFallback(m, filename);
 
   m._compile(outputText, filename);
 };
 
 require.extensions[".ts"] = compile;
 require.extensions[".tsx"] = compile;
-
-const Module = require("module");
-const originalResolveFilename = Module._resolveFilename;
-Module._resolveFilename = function (request, parent) {
-  try {
-    return originalResolveFilename.apply(this, arguments);
-  } catch (e) {
-    if (typeof request === "string" && request.endsWith(".js")) {
-      const args = Array.from(arguments);
-      args[0] = request.replace(/\.js$/, ".ts");
-      return originalResolveFilename.apply(this, args);
-    }
-    throw e;
-  }
-};

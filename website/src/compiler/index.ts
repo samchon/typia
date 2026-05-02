@@ -94,14 +94,17 @@ const main = async (): Promise<void> => {
       props: ICompilerService.IProps,
     ): Promise<ICompilerService.IResult> => {
       const result: ICompilerService.IResult = await provider.compile(props);
-      if (result.type !== "success") return result;
+      if (result.type === "error") return result;
       try {
         const value: string = await RollupBundler.build(result.value);
         return {
-          type: "success",
+          type: result.type,
           target: "javascript",
           value,
-        };
+          ...(result.type === "failure"
+            ? { diagnostics: result.diagnostics }
+            : {}),
+        } as ICompilerService.IResult;
       } catch (error) {
         return {
           type: "error",
