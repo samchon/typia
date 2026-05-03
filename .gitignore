@@ -2,6 +2,7 @@ bin/
 !/bin
 lib/
 node_modules/
+.wiki/
 
 bun.lockb
 bun.lock
