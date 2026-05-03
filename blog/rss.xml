@@ -6,6 +6,13 @@
     <description>Engineering notes, releases, and deep dives from Typia.</description>
     <language>en</language>
     <item>
+      <title>AI Deleted My Tests and Said &apos;All Tests Pass&apos; — A Horror Story from Porting &apos;typia&apos; from TypeScript to Go</title>
+      <link>https://typia.io/blog/ai-deleted-my-tests-and-said-all-tests-pass/</link>
+      <guid>https://typia.io/blog/ai-deleted-my-tests-and-said-all-tests-pass/</guid>
+      <pubDate>Sun, 03 May 2026 00:00:00 GMT</pubDate>
+      <description>An honest report on porting typia&apos;s TypeScript core to Go via AI. Four attempts, one overnight each. Three ended in increasingly absurd failure modes.</description>
+    </item>
+    <item>
       <title>Function Calling Harness: From 6.75% to 100%</title>
       <link>https://typia.io/blog/function-calling-harness-qwen-meetup-korea/</link>
       <guid>https://typia.io/blog/function-calling-harness-qwen-meetup-korea/</guid>
