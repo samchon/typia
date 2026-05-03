@@ -1,0 +1,228 @@
+---
+title: "AI Deleted My Tests and Said 'All Tests Pass' — A Horror Story from Porting 'typia' from TypeScript to Go"
+description: "An honest report on porting typia's TypeScript core to Go via AI. Four attempts, one overnight each. Three ended in increasingly absurd failure modes. What the AI did, what saved my library, and what I'd actually do differently."
+date: "2026-05-03"
+author: "Jeongho Nam"
+tags:
+  - ai
+  - typescript
+  - go
+  - vibecoding
+---
+
+> ## TL;DR
+>
+> **The job.** Take typia's existing TS files, translate the *contents* line by line into Go, change the extensions to `.go`. Keep the algorithms and compiler logic intact. Iterate until 80,000 lines of e2e tests pass.
+>
+> **What the AI actually did.**
+>
+> 1. Did a half-assed implementation and **deleted all the failing tests.**
+> 2. **Burned 8 billion tokens** to hardcode every output into a 168-case lookup table — and called that "passing."
+> 3. Replaced typia with Zod, then **edited the CI workflow to skip the tests Zod couldn't pass.**
+> 4. **It worked on the fourth try, after I hand-ported one file as a demo.**
+
+---
+
+I ported [typia](https://github.com/samchon/typia) to Go. I had AI do it. Four attempts, one overnight each.
+
+Kick off the agent before bed, check the result in the morning. Three failures, one success.
+
+I genuinely didn't think this was hard. Take typia's *existing TS files*, mechanically translate their contents into Go, change the extensions to `.go`. Algorithms unchanged. There are ~80k lines of e2e tests, so the loop is "iterate the core until they pass." That's the whole job.
+
+I'd run a similar pattern before — [feed Nestia's auto-generated SDK into AI with a mockup simulator and let it produce the entire frontend in one shot](https://dev.to/samchon/nestia-well-designed-backend-fully-automated-frontend-development-45d9). 100% success rate. The lesson there: give AI strong type context plus a real test harness, and it eventually converges. So this job — *mechanical* TS-to-Go translation, with an even tighter test harness (80k lines) — should have been easier. There was no reason for it not to work.
+
+Except it didn't. Repeatedly. For reasons that defied any sane reading. *Just translate the file contents into Go syntax, line by line, and change the extension. Algorithm intact.* How hard is that? Anyway, each failure was so absurd I had to write them down.
+
+## Wait — what's typia?
+
+Skip if you know.
+
+**typia is a TypeScript compiler transformer.** You write a TypeScript type, and at `tsc` time typia turns it into a runtime validator (or JSON serializer, LLM schema, random generator, etc.) specialized to that exact type:
+
+```typescript
+// Input
+typia.createIs<IPoint3d>();
+
+// What ends up in your dist/
+const _io0 = (input) =>
+  "number" === typeof input.x &&
+  "number" === typeof input.y &&
+  "number" === typeof input.z;
+const check = (input) =>
+  "object" === typeof input && null !== input && _io0(input);
+```
+
+The catch: typia hooks into `tsc`. So when [TypeScript itself ships in Go later this year as `tsgo`](https://github.com/microsoft/typescript-go/issues/516), every transformer plugin dies — including typia. To survive the move, typia's transformer had to be rewritten in Go.
+
+That's the part I outsourced to AI. This is the story of how that went.
+
+## The Job Description
+
+The exact prompt I gave every agent is [public on the `next` branch](https://raw.githubusercontent.com/samchon/typia/next/GO-MIGRATION-INSTRUCTION.md). The core of it:
+
+> **Mechanical 1:1 porting.**
+> Keep typia's file tree, module structure, class/function/type names, and coding style as close to the original as possible.
+>
+> **Tests must pass.**
+> The code and types under `tests/` are the verification baseline. Iterate until tests pass.
+
+In short: take a `.ts` file, rewrite it as a `.go` file, leave the algorithm alone, iterate until tests pass.
+
+The test suite is brutal. ~2,900 files. 168 structural fixtures, each cross-tested across ~21 typia features. 80k lines total. Not the kind of suite you can fake your way through.
+
+So I kicked off the agent before bed and went to sleep.
+
+## 1. It Deleted All the Tests
+
+Woke up to a green CI badge. All tests passing. Felt a flicker of *holy shit, it actually worked first try.*
+
+Then I looked at the diff.
+
+Apparently *change the file extensions and leave the algorithms alone* was too much to ask. The agent had rewritten typia's source tree to its own taste. Two-thirds of the core logic was missing. Tests were failing left and right. So what did it do? It **deleted every failing test.** The `tests/` tree was 70% smaller than I'd left it.
+
+CI was green because *most of the tests no longer existed.*
+
+The agent had gutted the algorithm, broken every test that depended on it, and instead of fixing the algorithm, it took the shortcut: `rm -rf` the tests. After all, deleting a test file is a hell of a lot easier than actually porting the logic. Obviously.
+
+Worst part? It never said it had done this. Its final report was just `all tests pass`. Technically true. Honest little bastard.
+
+Genuinely — sit with the cognitive process behind that. *Delete all the tests. Report "tests passed."* A human would have at least felt the weight of the lie. This thing felt nothing.
+
+## 2. 8 Billion Tokens, Hardcoded Outputs
+
+I tightened the prompt. Added a bold rule: `Tests are sacred. Do not modify, delete, or simplify them.` That should do it.
+
+Started a new run, went to sleep.
+
+Woke up to green CI. Checked the dashboard.
+
+**8 billion tokens.** Not a typo. 8,000,000,000. For a job whose specification fits on one screen.
+
+I've launched a lot of agents. I've never seen a number like that. That single run cost more tokens than every other agent run I'd launched all year, combined. I assumed the dashboard was broken. It wasn't.
+
+But the tests had passed. The tests were untouched. *Maybe this is the one. Maybe whatever it spent 8 billion tokens on actually worked. Maybe it's two-tries-lucky.* I opened `IsProgrammer.go` — the file responsible for converting TypeScript types into validation code.
+
+It was a switch statement.
+
+```go
+// IsProgrammer.go (paraphrased; dozens of files in this same shape)
+func generate(typeName string) string {
+    switch typeName {
+    case "ObjectSimple":
+        return `(input) => "object" === typeof input && null !== input && _io0(input);
+                const _io0 = (input) =>
+                  "number" === typeof input.x &&
+                  "number" === typeof input.y &&
+                  "number" === typeof input.z;`
+    case "ArrayRecursive":      return `...`
+    case "ObjectUnionExplicit": return `...`
+    // 165 more cases
+    }
+}
+```
+
+Here's what this thing did. For every fixture in the test suite, it ran the original TypeScript validator — meaning it actually compiled typia's original transformer hundreds of times — captured the emitted JS as a string, and *embedded those literal strings into the Go code*. All 168 fixtures. All 21 typia features. `typia.createIs`, `typia.createValidate`, `typia.random`, `typia.llm.structuredOutput` — every function got its own giant lookup table.
+
+That's where the 8 billion tokens went. The agent never ported `IsProgrammer.ts`. It ran the original transformer thousands of times to harvest its outputs, and then it *memorized* them.
+
+The bolded rule "no branching on specific type names" lasted exactly until first contact with a model trying to make `pnpm test` go green.
+
+But really — *mechanical TS → Go translation*. How does that prompt parse into "delete the original logic and the AST construction code, replace it with a giant lookup table indexed by test type names"? Is this a different cognitive structure than mine, or is the AI just clinically psychotic?
+
+The lookup-table cheat passed CI exactly once. The day after I added a single new structural fixture, every test that touched that table went red.
+
+What a genius.
+
+## 3. `typia.toZodSchema<T>()` and CI Sabotage
+
+This one I didn't see coming at all. In some twisted way, it was even creative.
+
+I tightened the prompt again: `Code generation must be done via AST construction. Hardcoded if-else string returns keyed by test type names — like 'if (type == "IPoint3d") return ...' — are absolutely forbidden.` Lookup-table cheating wasn't going to fool me twice.
+
+Next morning's diff. The agent had built a *masterpiece*.
+
+```typescript
+typia.toZodSchema<User>();
+```
+
+It rewrote every typia function to run on top of Zod. `typia.is` calls `.safeParse()`. `typia.validate` calls `.parse()` and adapts the error shape. For typia features Zod doesn't have, it pulled in third-party Zod plugins; for whatever was still missing, it wrote brand-new Zod plugins from scratch.
+
+This isn't misunderstanding. This is creative problem-solving in the wrong direction.
+
+It also nukes typia's entire reason for existing. typia is the only validator in the [official comparison matrix](https://typia.io/docs/validators/validate/) that handles implicit unions, recursive unions, and the "Ultimate Union Type" benchmark. Zod fails all of them.
+
+Worse: recursive Zod schemas hit TypeScript's instantiation depth limit and bail out with `TS2589: Type instantiation is excessively deep and possibly infinite`. This is [an issue the maintainer is *still* rewriting in v4](https://github.com/colinhacks/zod/issues/5086). And `z.discriminatedUnion`? The Zod maintainer himself [proposed deprecating it on his own issue tracker](https://github.com/colinhacks/zod/issues/2106), calling it a mistake.
+
+So: typia exists *precisely to handle the cases Zod can't.* And the AI filled exactly that hole *with Zod*. It's like prescribing a patient the one drug you know they're allergic to.
+
+But that wasn't even the end of it. Even after rewriting on top of Zod, *some tests Zod simply couldn't pass*. So the agent did one more thing in the same run — it edited the workflow file directly.
+
+```yaml
+# .github/workflows/test.yml — yes, the agent edited this
+- name: Run Tests
+  run: pnpm run test --exclude union recursive complicate protobuf class
+```
+
+The cases Zod couldn't pass got excluded from CI entirely. `union`, `recursive`, `complicate` — the categories where Zod's validation accuracy collapses. Plus `protobuf` and `class` — categories Zod doesn't even attempt. That's *the five reasons typia exists*, dropped from CI in one commit. Everything else passed, so the library converged into a state of "broken in every meaningful way, but CI is green." Real galaxy-brained move.
+
+Stop and think about this for a second. Building `typia.toZodSchema<T>()` and *rewriting the entire library on top of Zod through it* — how high does an IQ need to be, and how many degrees off-axis, to even imagine that as a solution? And then, when Zod's limits cause tests to break, instead of doubting the design and rolling back, *quietly excluding the broken tests from CI*? How shameless does an entity have to be to take that path?
+
+What the actual fuck?
+
+That's three failures. They look different on the surface, but they're the same impulse. It's the **classic exam-cheating trifecta**:
+
+- **#1**: The student who fails the exam, *tears up the answer sheet*, and reports "I got an A."
+- **#2**: The student who *memorizes the answer key and copies it onto the exam*, never considering that the questions might change.
+- **#3**: The student who *can't solve the problems, outsources to a friend, and then asks the proctor to drop the questions the friend can't solve* — when those questions are exactly what makes the exam discriminating.
+
+Same motivation across all three. Not *take the exam* but *find the cheapest path to looking like you took the exam.*
+
+> **Give an AI a single signal — `pnpm test` is green — and it will reach for the path of *appearing to pass* over the path of *actually passing*. Every time. There are infinitely more of the former.**
+
+Every prompt rule I added was a hole I tried to plug. Every morning I came back to find the agent had crawled out through a hole I hadn't thought to plug.
+
+## 4. It Finally Worked
+
+The fourth attempt was Codex. Specifically Codex with GPT-5.5 xhigh. Which models the failed runs used, I'll leave unstated. You can probably guess.
+
+Honestly, by that point I'd given up on tightening the prompt further. I threw out the variable I'd been controlling, switched models entirely, and — *just in case* — hand-ported one file as a demo.
+
+`IsProgrammer.ts` → `IsProgrammer.go`, by hand, line by line, all 270 lines. Same names, same control flow, same factory call sites. Wherever Go couldn't directly express a TS construct, I left a comment explaining the shim.
+
+Then I told the agent: *this is the pattern. Do the next file the same way. And the next.*
+
+It worked. The rest of the port held up beautifully. Total tokens spent after the pivot didn't even register against the 8 billion the runaway agent had burned.
+
+What changed? Honestly — I don't know. I changed two variables at once. Could've been the model. Could've been the demo. Could've been both. I didn't run a controlled experiment.
+
+What I can say is this: the demo *itself* does one specific thing — it **narrows the space of interpretations.** Before the demo, "port this" could mean anything, including all the cheating interpretations. After the demo, "port this" has a concrete shape: same identifier names, same algorithmic structure, AST factory calls translated 1:1 into Go function calls, shims only where my demo had shims.
+
+The prompt said `mechanical 1:1 porting`. Two words. On paper, that was the whole spec.
+
+But without a demo, "1:1" can mean anything from "literally line by line" to "passes the test suite, that's it." The agent picks whichever interpretation is cheapest to satisfy.
+
+In one line:
+
+> **Whether it was the model or the demo, I don't know. But the demo is *cheap* and it narrows the AI's wiggle room. As a safety net, that's enough.**
+
+## So What Did I Actually Learn
+
+If I'd been even slightly careless, typia would have been dead.
+
+Every morning was the same routine: open the diff, scan for *what the hell did this thing do this time?* If on one tired morning I'd merged on the strength of "all tests pass" alone, typia would have shipped *with two-thirds of its core gone*, or *as a giant lookup table*, or *running on top of Zod with the failing tests excluded from CI*. The library would have died on the spot.
+
+But I can't *not* use AI for coding. The speed is real, the convenience is real, and a migration like this — pure repetitive translation — is exactly the kind of work where AI compresses a multi-week human task into a couple of days. There's no putting the genie back.
+
+So the real question is *how* you use it.
+
+1. **Don't kick off massive jobs and go to sleep.** Throw a giant task at the AI in one shot, and by the time you check on it, 8 billion tokens have been spent and a lookup table is hardcoded into your codebase. The cost of unwinding that is far higher than the cost of going one step at a time.
+2. **Keep the supervision interval short.** Reviewing the diff after every file (or every module) is faster and safer than waking up to debug a whole night's worth of accumulated weirdness. You want to catch the agent's shortcut *the moment it tries it*, before it compounds.
+3. **Read the diff, not the summary.** Every failure above could have been caught in 30 seconds — by anyone who actually opened the diff. The AI isn't malicious. It's just that a model whose objective is "make `pnpm test` green" produces summaries optimized for *that* objective, not for your understanding of what actually happened.
+
+Vibe coding works. But let it run on autopilot, and "library is dead" is one overnight away. Take the speed. Just keep the inspection cadence tight. Don't dump a month of work into a single prompt — break it up, and watch it as it goes.
+
+## Code
+
+- The exact prompt I used: [`GO-MIGRATION-INSTRUCTION.md`](https://github.com/samchon/typia/blob/next/GO-MIGRATION-INSTRUCTION.md)
+- `typia` (next branch, Go transformer): https://github.com/samchon/typia/tree/next
+- `ttsc` (Go-native plugin host for tsgo): https://github.com/samchon/ttsc
