@@ -1,5 +1,5 @@
 import type { FilterPattern } from "@rollup/pluginutils";
-import type { ITransformOptions } from "@typia/core";
+import type { ITransformOptions } from "../../../core/lib/context/ITransformOptions.js";
 import { createDefu } from "defu";
 import type { OverrideProperties, RequiredDeep } from "type-fest";
 
