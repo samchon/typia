@@ -1,0 +1,192 @@
+---
+title: "I Code in VR to Watch 5 AI Agents at Once, for Ultimate Vibe Coding"
+description: "To supervise multiple AI coding agents, I need their VSCode windows in one field of view. Physical desks run out of monitors, so VR turns the room into my workspace."
+ogImage: "/images/blog/vr-coding/immersed-5-screens.jpg"
+date: "2026-05-04"
+author: "Jeongho Nam"
+tags:
+  - ai
+  - vr
+  - vibecoding
+  - productivity
+---
+
+> ## TL;DR
+>
+> - **I try to keep my eyes on the AI agents.** I gave one too much rope once, and the kind of mess it made while I wasn't watching is something I'd rather not retell.
+> - **Which is why I needed 5 monitors.** To run 5 agents in parallel, 5 VSCode windows have to live in one field of view.
+> - **Physical monitors hit a wall.** No desk fits five; even my viewing angle gives out before the desk does.
+> - **So I strapped on a VR headset.** Immersed and Overay (not a typo — that really is the name) project monitors into virtual space.
+> - **Putting it on is slow and annoying.** And that exact annoyance is what keeps me planted in one chair for 3-hour stretches once I'm in.
+
+---
+
+![Five VSCode windows floating in Immersed](/images/blog/vr-coding/immersed-5-screens.jpg)
+
+These days my routine is simple. Spin up four or five AI agents at once, hand each one a different project. [`typia`](https://github.com/samchon/typia), [`nestia`](https://github.com/samchon/nestia), [`autobe`](https://github.com/wrtnlabs/autobe), [`ttsc`](https://github.com/samchon/ttsc) — OSS projects I contribute to — and while the agents tear through code, I dart my eyes between their windows.
+
+But for any of this to actually work, one physical condition has to hold:
+
+> **All 5 VSCode windows have to fit inside one field of view.**
+
+I'm not really reading 5 at the same time. I'm a human; I look at one place at a time. But while 5 agents are rewriting code, those 5 diffs need to _be in my field of view somewhere_. That way, when [one of them suddenly deletes tests, pulls in some random library, or starts hardcoding with test lookup tables](https://dev.to/samchon/ai-deleted-my-tests-and-said-all-tests-pass-a-horror-story-from-porting-typia-from-typescript-2bmf) — with luck I catch it the moment it happens, without luck within a few minutes. Catch it an hour later and _hundreds of millions of tokens_ have already evaporated.
+
+The catch: there's no desk — at home or at the office — that fits 5 monitors. Two external displays plus a laptop is usually where it caps out. Desk width, viewing angle, both run out around there. And nothing about that setup travels.
+
+So I went to VR.
+
+## What "Coding in VR" Actually Means
+
+Two apps dominate the space.
+
+- **[Immersed](https://immersed.com/)** — The simpler path. Its screen layout is easiest to set up, and the five-slot snap-to-grid behavior gets me into a usable workspace almost immediately.
+- **[Overay desk](https://desk.overay.com/en)** — Not a typo. It really is called _Overay_. A Korean startup product, fully free, and much more flexible about screen count, size, resolution, ratio, position, curvature, and angle.
+
+The principle is the same on both. Install a streamer app on the laptop, a client app on the headset, pair them, and the laptop's display output flows into virtual monitors. Number, size, curvature, distance — all up to me.
+
+### Immersed — Fast Setup, Fixed Slots
+
+Immersed is what I use when I want the workspace ready with the least fiddling. The five-screen snap layout is the big advantage. I put the screens in place, they snap into a clean arrangement, and I can start watching agents without spending five minutes nudging floating rectangles by hand. The screenshot at the top of this article is exactly that version of the setup.
+
+The trade-off is that convenience comes from templates. For high-resolution screens, the ratio is basically fixed into shapes like 16:9 or 9:16. I can pick from the supported layouts, but I cannot freely sculpt width, height, and aspect ratio the way I can in Overay. The free/pro split matters too: the free plan is enough to test the workflow, but if I want five screens and premium resolutions, I need the paid plan.
+
+The surprise upside is atmosphere. Immersed has good virtual backgrounds, and that matters more than it sounds. When I'm going to sit there for three hours watching code move, a clean visual environment helps. It makes the headset feel less like a debug helmet and more like a private work room.
+
+![Five VSCode windows floating in Immersed](/images/blog/vr-coding/immersed-5-screens.jpg)
+
+![Immersed virtual workspace background](/images/blog/vr-coding/immersed-background.jpg)
+
+![Another Immersed focus background](/images/blog/vr-coding/immersed-background2.jpg)
+
+### Overay — Free Layout, Full Manual Control
+
+Overay is the opposite. It is free, I can place up to six screens, and the control surface is much more open. Width, height, resolution, aspect ratio, distance, angle, curvature — I can tune almost everything. If I want a tall portrait screen, a wide log screen, or a square-ish monitor for a dashboard, Overay lets me build it.
+
+![Overay six-screen workspace](/images/blog/vr-coding/overay-6-screens.jpg)
+
+That freedom is also the cost. There is more manual setup. Immersed gives me five slots and says, "Use these." Overay gives me the whole room and says, "Arrange it yourself."
+
+![Overay screen configuration controls](/images/blog/vr-coding/overay-configuration.jpg)
+
+After trying a bunch of layouts, I don't actually prefer a wild mix of portrait and landscape monitors for coding. The most comfortable layout for me is still simple: four screens arranged as a rectangle, with extra screens available nearby when I need them. That gives me the dense field of view I wanted without turning the whole workspace into visual noise.
+
+Imagine actually putting five or six physical monitors on a desk. The viewing angles wouldn't work. Human heads turn left and right; VR knows that and uses it. Instead of being trapped in the flat plane of a desk, **the entire sphere around my head becomes workspace.**
+
+## Watching 5 Agents in One Field of View
+
+For me this isn't just "more monitors are nice."
+
+I got burned once by leaving an agent off-leash for too long. The 8-billion-token incident — where it lookup-tabled the entire transformer — happened while I was asleep. Had I been waking up every hour to check the diff that night, I'd have caught it around the 100-million-token mark.
+
+So my current loop is:
+
+1. **Spin up 5 agents on 5 projects nearly simultaneously.** Each one gets a different task.
+2. **Glance between the 5 windows inside the headset.** I can only read one at a time, but peripheral vision is sharper than people think — when a 100-line diff suddenly flies past in one window, my eyes go there on instinct.
+3. **When something looks off, that's when I stop.** "Wait, why is it touching the test file?" — gut check, halt the agent, read the diff carefully.
+
+This is roughly impossible on my desk monitors. Try splitting one external display into 4 panes — each window's font shrinks until you can't even tell at a glance what changed. **VR is different. Each virtual monitor unfolds at effectively 27-inch scale.** A single head turn brings a full-size screen into view.
+
+## The Downside Is Real — Bootstrapping Is Slow
+
+The question I always get when I write something like this: _isn't that uncomfortable?_
+
+It is. I won't lie about it.
+
+- **Putting it on takes time.** Pull out the headset, power it on, launch the streamer on the laptop, launch the client in VR, pair the two. Even when you're used to it, it's 1–2 minutes. A monitor starts the instant you open the laptop.
+- **Stepping away has a cost.** Bathroom break, snack run — taking the headset off is its own annoyance. Hair gets squashed, glasses leave imprints, putting it back on means re-fitting it.
+- **Weight.** This varies by person, but some of us feel it on the neck after a while. Even a "light" headset is still something strapped to your head.
+
+These are real downsides. VR has a long way to go before it matches the immediacy of a physical monitor.
+
+## And Yet — That Downside Is the Biggest Upside
+
+The bootstrap cost — those 1–2 minutes of friction to put the headset on and launch the apps — **runs in reverse for me.**
+
+> **Once it's on, I don't want to take it off. So I just sit there.**
+
+Think about how I work on a regular laptop. A build starts, an agent pauses, a test suite takes 30 seconds, and the context starts leaking. I open another task, answer a message, check an unrelated tab, and the original thread gets colder.
+
+VR doesn't make distractions impossible. I can still open chat, browser tabs, and everything else. What changes is the default path. Once the headset is fitted, the screens are arranged, and the code is floating around me, **staying in the coding loop becomes the path of least resistance.** And because taking the headset off carries its own re-fitting cost, _I just don't take it off._
+
+The result: when I'm in VR, I average 3–4 hours in one seat coding. It's a kind of **deep-work-by-force**. I didn't summon it from willpower — it's a side effect of the tool's friction.
+
+> **The discomfort itself ends up scaffolding my focus.**
+
+Same principle as working from a café. The friction of getting there is exactly why, once you're there, you make it count. VR is that café, mounted on my head.
+
+## How I Adapted to the AI Coding Era
+
+Pulling it all together:
+
+- **I run multiple agents at once.** For me, that's the only way to contribute to several OSS projects in parallel.
+- **I needed an environment to watch them all in.** Desk monitors didn't give me the field of view; VR turned out to be the most realistic answer I found.
+- **I started using friction in reverse.** VR's bootstrap cost is a downside, but for me it became the scaffolding for focus. Once I'm in, I stay 3+ hours.
+
+A physical monitor lives on a desk — a flat plane. With VR, **the entire sphere around my head becomes workspace.** The ceiling on my monitor count moved from "how wide is my desk" to "how much can my attention handle." As long as my attention holds up, there's room to grow.
+
+> **The way I keep AI from breaking my code is to catch it as fast as possible when it does. For that, I need a wider field of view.**
+
+---
+
+## Appendix — What Headset I Use
+
+For the readers who got here and want to know _what to actually buy._
+
+Right now I'm on **Meta Quest 3**. Both Overay and Immersed run smoothly on it, and it handles 5 monitors without breaking a sweat. Price, weight, passthrough quality — the balance is about as good as it gets right now. If retail is steep, used works fine — I picked mine up for $300 secondhand.
+
+The harder choice is the strap. Most people optimize for "lighter," but after actually coding in one for hours, I care about two different things: total weight and weight distribution. They are not the same.
+
+![Meta Quest 3 with a lightweight strap](/images/blog/vr-coding/meta-quest-3-with-overay-accessory.jpg)
+
+The lightweight strap is easiest to recommend first. It keeps the whole headset setup light, so it is less intimidating to put on and easier on the neck.
+
+The downside is front bias. Because most of the mass still sits around the display housing, the headset can press into the forehead or cheekbones during long sessions. It is light, but it is not perfectly balanced.
+
+![Meta Quest 3 with a rear-mounted battery strap](/images/blog/vr-coding/meta-quest-3-heavy-accessory.jpg)
+
+The rear-mounted battery strap solves the balance problem. Put the battery behind the head, and the front no longer feels like it is constantly pulling off your face.
+
+This is the one I actually use. It is heavier, but the balance is better, and for my coding sessions that matters more.
+
+But this is not a universal upgrade. Quest 3 alone is about 600g, while my battery-strap setup climbs to roughly 1.3kg. If your neck gets tired easily, that extra mass can become its own problem.
+
+The trade-off is simple: the light strap reduces total weight but keeps some face pressure; the battery strap balances the headset better but asks more from your neck. Battery life going up is just a bonus.
+
+## Appendix — The Same Headset Doubles as a Gym
+
+This part is a slightly absurd bonus: **the same VR headset is also exercise gear.**
+
+What I actually play is [The Thrill of the Fight](https://thrillofthefight.com/) — a VR boxing game. Not in the casual sense. The AI opponent throws real jabs and hooks. Slipping, blocking, countering — every motion is an actual boxing motion. **15 minutes in this beats an hour on a treadmill.**
+
+<br />
+<iframe
+  src="https://www.youtube.com/embed/3GG9KU-R6vI"
+  title="VR Boxing — The Thrill of the Fight"
+  width="100%"
+  height="500"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+  referrerPolicy="strict-origin-when-cross-origin"
+  allowFullScreen
+></iframe>
+
+Coders end up in a chair all day. Every developer knows this — forward head, rounded shoulders, carpal tunnel are just the start; obesity and lifestyle disease come trailing right after. We sign up for gyms every other quarter, but the friction of going there is too high. Change clothes, drive there, work out, shower, drive back — two hours gone.
+
+VR boxing's friction isn't even in the same league. When my brain stalls mid-coding, I grab the headset and head up to the rooftop. Quick session, towel off, back down to coding. **It's like having a gym strapped to my head.**
+
+This sounds like a side benefit, but on a year-long horizon it's been the thing that makes the biggest difference. My biggest enemy as a coder, at least, was the chair.
+
+Honestly — even setting aside this whole article about AI coding and 5–6 monitors — **VR is the thing I most often recommend to other developers right now.** And it's for the one reason above. It turns sit-time into shake-out-the-body-time without leaving the seat. That alone is enough to justify it.
+
+---
+
+## References
+
+- VR desktop apps
+  - [Immersed](https://immersed.com/) — simple setup, five-slot snap layout, virtual backgrounds
+  - [Overay desk](https://desk.overay.com/en) — free layout, up to 6 screens in my setup, manual size/ratio control
+- VR boxing: [The Thrill of the Fight](https://thrillofthefight.com/)
+- OSS projects I contribute to
+  - [typia](https://github.com/samchon/typia)
+  - [nestia](https://github.com/samchon/nestia)
+  - [autobe](https://github.com/wrtnlabs/autobe)
+  - [ttsc](https://github.com/samchon/ttsc)
