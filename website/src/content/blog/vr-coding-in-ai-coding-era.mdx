@@ -24,11 +24,13 @@ tags:
 
 ## 1. Preface
 
-AI coding has a strange new kind of idle time. An agent starts editing, pauses to think, runs a test, waits on a build, or gets stuck halfway through a plan. Sitting there watching one task crawl is boring, so people naturally fill that time by launching another agent on another ticket. Around me, this is already normal: one developer, several agents, several tasks moving at once.
+![A VR headset beside a keyboard with focused coding windows in the background](/images/blog/vr-coding/preface-vr-coding-workspace.png)
+
+AI coding has a strange new kind of idle time. An agent starts editing, pauses to think, runs a test, waits on a build, or gets stuck halfway through a plan. Sitting there watching one task crawl is boring, so I found myself filling that time by launching another agent on another ticket. In my own workflow, this became normal quickly: one developer, several agents, several tasks moving at once.
 
 Launching them is easy. Watching them is the annoying part.
 
-And by "watching," I do not mean staring at five agent terminals. A CLI transcript tells me what the agent claims it is doing. The editor tells me what it is actually changing. For this workflow to be safe, I need the code, the diff, and the agent log visible together.
+And by "watching," I do not mean staring at five agent terminals. The terminal is the agent's story; the editor and diff are the evidence. For this workflow to be safe, I need the code, the diff, and the agent log visible together.
 
 These days my routine is simple. Spin up four or five AI agents at once, hand each one a different task in a different repository, and keep their VSCode windows visible. [`typia`](https://github.com/samchon/typia), [`nestia`](https://github.com/samchon/nestia), [`autobe`](https://github.com/wrtnlabs/autobe), [`ttsc`](https://github.com/samchon/ttsc) — the repositories currently in the rotation — are not toy codebases. They sit around compiler, framework, agent, and toolchain boundaries, which means a bad shortcut can travel farther than the agent summary admits.
 
@@ -54,7 +56,7 @@ No VR evangelism here. For my own multi-agent workflow, this just happened to be
 
 I still type on a physical keyboard. The laptop is still the machine. VR is the monitor layer: the place where I arrange the VSCode windows, terminals, diffs, logs, and agent transcripts I need to watch.
 
-In practice, I usually split each VSCode window into two parts: one side has a terminal running the Codex or Claude Code CLI, and the other side has the source code or diff it is changing. The exact agent does not matter much. What matters is that the agent's words and the agent's code changes sit next to each other.
+In practice, I usually split each VSCode window into two parts: one side has a terminal running the Codex or Claude Code CLI, and the other side has the source code it is editing or the diff it is producing. The exact agent does not matter much. What matters is that the agent's words and the agent's code changes sit next to each other.
 
 My workspace is closer to this than to a wall of terminals:
 
@@ -62,16 +64,16 @@ My workspace is closer to this than to a wall of terminals:
 
 Once each VSCode window is split this way, VR takes over. Immersed or Overay turns those windows into separate virtual monitors, so I can keep several code-and-agent pairs open around me instead of stacking them on one cramped desktop.
 
-I mainly bounce between two apps.
+I think of these less as VR apps and more as two ways to build a supervision layout.
 
-- **[Immersed](https://immersed.com/)** — The fast path. It gives me a repeatable five-screen workspace with very little setup.
-- **[Overay desk](https://desk.overay.com/en)** — It really is called _Overay_. In my setup, it is the manual-control path: more work to arrange, but more freedom to shape the monitoring layout.
+- **[Immersed](https://immersed.com/)** — The fast, fixed monitoring board. It gives me a repeatable five-screen workspace with very little setup.
+- **[Overay desk](https://desk.overay.com/en)** — It really is called _Overay_. In my setup, it is the manual monitoring board: more work to arrange, but more freedom to shape the layout.
 
 The principle is the same on both. Install a streamer app on the laptop, a client app on the headset, pair them, and the laptop's display output flows into virtual monitors. I do not care much about the VR technology for its own sake. I care that monitor count, distance, curvature, and placement become adjustable parts of how I watch the agents.
 
 ### 2.1. Immersed
 
-Immersed is what I use when I want the workspace ready with the least fiddling. The five-screen snap layout is the big advantage. I put the screens in place, they snap into a clean arrangement, and I can start watching agents without spending five minutes nudging floating rectangles by hand. The screenshot below is exactly that version of the setup.
+Immersed is what I use when I want the workspace ready with the least fiddling. The five-screen snap layout is the big advantage. I put the screens in place, they snap into a clean arrangement, and I can start watching agents without spending five minutes nudging floating rectangles by hand. For monitoring, the fixed slots matter because the agents stay in predictable places. The screenshot below is exactly that version of the setup.
 
 ![Five VSCode windows floating in Immersed](/images/blog/vr-coding/immersed-5-screens.jpg)
 
@@ -93,7 +95,7 @@ That freedom is also the cost. There is more manual setup. Immersed gives me fiv
 
 After trying a bunch of layouts, I don't actually prefer a wild mix of portrait and landscape monitors for coding. The most comfortable layout for me is still simple: four screens arranged as a rectangle, with extra screens available nearby when I need them. The four-screen rectangle is where the active agents live; the extras are for logs, lower-priority runs, or side context. That gives me the dense field of view I wanted without turning the whole workspace into visual noise.
 
-Imagine actually putting five or six physical monitors on a desk. The viewing angles get ugly fast. Human heads turn left and right; VR knows that and uses it. Instead of being trapped in the flat plane of a desk, the workspace can wrap around me.
+Imagine actually putting five or six physical monitors on a desk. The viewing angles get ugly fast. Human heads turn left and right; VR lets me use that head movement instead of fighting it. Instead of being trapped in the flat plane of a desk, the workspace can wrap around me.
 
 ## 3. Watching Agents
 
@@ -107,9 +109,11 @@ So my current loop is:
 2. **Glance between the 5 windows inside the headset.** I am not just watching agent terminals. I want the editor and diff visible too, because that is where the real damage shows up first. I can only read one at a time, but peripheral vision is good at catching motion and sudden large changes. When a 100-line diff suddenly flies past in one window, my eyes go there on instinct.
 3. **When something looks off, that's when I stop.** "Wait, why is it touching the test file?" — gut check, halt the agent, read the diff carefully.
 
+![Five virtual agent workspaces with one suspicious diff highlighted](/images/blog/vr-coding/watching-agents-anomaly-detection.png)
+
 I am not deeply reviewing five diffs at once. I am watching for anomalies: test files changing, new dependencies appearing, giant unrelated diffs, snapshot rewrites, deleted fixtures, or anything that smells like the agent is optimizing for the test instead of the task. The deep review still happens one agent at a time. VR just makes the early warning signals visible.
 
-When a signal trips, I do not ask the agent for a cheerful summary and move on. I pause it, read the diff myself, check touched tests and dependencies, and run a narrow test when needed. If the run smells wrong enough, I throw it away. I want to catch the moment before a small bad diff becomes a large confident rewrite.
+In each window, I watch the transcript, changed files, diff, terminal output, and test output together. When a signal trips, I do not ask the agent for a cheerful summary and move on. I pause it, compare the transcript with the changed files, read the diff myself, check touched tests and dependencies, and run a narrow test when needed. If the run smells wrong enough, I throw it away. I want to catch the moment before a small bad diff becomes a large confident rewrite.
 
 This is where my desk monitors break down. Try splitting one external display into 4 panes — each window's font shrinks until you can't even tell at a glance what changed. **VR is different. Each virtual monitor can be large enough to read like a real desktop display.** A single head turn brings a full-size screen into view.
 
@@ -125,6 +129,8 @@ It is. I won't lie about it.
 
 These are real downsides. VR has a long way to go before it matches the immediacy of a physical monitor.
 
+![A developer wearing a VR headset and staying immersed among floating coding windows](/images/blog/vr-coding/productive-friction-immersion.png)
+
 But that same discomfort has a strange upside. The bootstrap cost — those 1–2 minutes of friction to put the headset on and launch the apps — **runs in reverse for me.**
 
 > **Once it's on, I don't want to take it off. So I just sit there.**
@@ -133,7 +139,7 @@ Think about how I work on a regular laptop. A build starts, an agent pauses, a t
 
 VR doesn't make distractions impossible. I can still open chat, browser tabs, and everything else. What changes is the default path. Once the headset is fitted, the screens are arranged, and the code is floating around me, **staying in the coding loop becomes the path of least resistance.** And because taking the headset off carries its own re-fitting cost, _I just don't take it off._
 
-The result: when I'm in VR, I average 3–4 hours in one seat coding. The agents stay in front of me the whole time, so I keep checking them instead of drifting away and coming back to a giant mystery diff.
+The result: when I'm in VR, I often stay 3–4 hours in one seat coding. The agents stay in front of me the whole time, so I keep checking them instead of drifting away and coming back to a giant mystery diff.
 
 > **The annoying part is also what keeps me there.**
 
@@ -145,9 +151,9 @@ This is the workflow I ended up with: each agent gets a VSCode window, each wind
 
 That is the whole reason I keep using it. I am not trying to make coding look futuristic, and I am not telling everyone to buy a headset. I am trying to keep multi-agent coding from becoming a pile of confident summaries I only inspect after the damage is done.
 
-The setup is not smooth. It is heavier, slower to start, and more awkward than opening a laptop. But once I am inside it, the friction works in my favor. I stay seated, keep the agents in view, and catch suspicious diffs earlier.
+The setup is not smooth. It is heavier, slower to start, and more awkward than opening a laptop. But once I am inside it, the friction works in my favor. I stay seated, keep the agents in view, and shorten the inspection interval.
 
-> **For me, VR coding is not about escaping the desk. It is about keeping the agent, the code, and the diff visible before the bad change turns into a rewrite.**
+> **For me, VR coding is not about escaping the desk. It is about keeping the agent, the code, the diff, and the test output visible before a bad change compounds.**
 
 ---
 
@@ -159,7 +165,7 @@ Everything below is practical setup detail: the headset, the straps, and one off
 
 For the readers who got here and want to know what I actually use.
 
-Right now I'm on **Meta Quest 3**. Both Overay and Immersed run smoothly on it, and it has handled my five-screen workspace reliably enough for daily use. Price, weight, passthrough quality, app compatibility, and the ability to glance at my real keyboard all matter here. If retail is steep, used works fine — I picked mine up for $300 secondhand.
+Right now I'm on **Meta Quest 3**. Both Overay and Immersed run smoothly on it, and it has handled my five-screen workspace reliably enough for daily use. Price, weight, passthrough quality, app compatibility, and the ability to glance at my real keyboard all matter here. If retail is steep, buying used can be a practical option if the unit is in good condition — I picked mine up for $300 secondhand.
 
 My blunt advice: do not judge Quest 3 by the default strap. For gaming in short bursts it may be tolerable; for coding, I would treat it as something to replace immediately.
 
