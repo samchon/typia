@@ -527,7 +527,7 @@ func miscPruneProgrammer_explore_arrays(props miscPruneProgrammer_exploreArraysP
             Context:  props.Context,
             Functor:  props.Functor,
             Input:    v.Input,
-            Metadata: v.Definition.(*schemametadata.MetadataArray).Type.Value,
+            Metadata: v.Definition.(*schemametadata.MetadataSchema),
             Explore:  miscCloneProgrammer_checker_explore(v.Explore),
           })
         },

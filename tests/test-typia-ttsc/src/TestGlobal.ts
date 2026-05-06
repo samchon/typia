@@ -17,14 +17,6 @@ export class TestGlobal {
     process.platform === "win32" ? "ttsc.cmd" : "ttsc",
   );
 
-  /** Absolute path to the workspace-linked ttsx launcher. */
-  public static readonly TTSX_BINARY: string = path.resolve(
-    TestGlobal.ROOT,
-    "node_modules",
-    ".bin",
-    process.platform === "win32" ? "ttsx.cmd" : "ttsx",
-  );
-
   /** Shared source-plugin cache for this test process. */
   public static readonly TTSC_CACHE_DIR: string = fs.mkdtempSync(
     path.join(os.tmpdir(), "typia-ttsc-cache-"),

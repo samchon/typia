@@ -2,8 +2,10 @@ module github.com/samchon/ttsc/packages/ttsc
 
 go 1.26
 
-// The typia source plugin vendors ttsc's Go driver with the shim modules it
-// needs, so editor tooling can resolve this replacement module by itself.
+// Every shim sub-module is wired up via the sibling go.work file together
+// with the local typescript-go checkout under ../../third_party/typescript-go.
+// Tagged upstream versions can replace these local wires when the shim API
+// stabilizes.
 replace (
 	github.com/microsoft/typescript-go/shim/ast => ./shim/ast
 	github.com/microsoft/typescript-go/shim/bundled => ./shim/bundled
@@ -38,7 +40,7 @@ require (
 require (
 	github.com/go-json-experiment/json v0.0.0-20260214004413-d219187c3433 // indirect
 	github.com/klauspost/cpuid/v2 v2.2.10 // indirect
-	github.com/microsoft/typescript-go v0.0.0-20260428010401-3499951dbc49 // indirect
+	github.com/microsoft/typescript-go v0.0.0-20260429010842-56ab4af42157 // indirect
 	github.com/zeebo/xxh3 v1.1.0 // indirect
 	golang.org/x/sync v0.20.0 // indirect
 	golang.org/x/sys v0.43.0 // indirect

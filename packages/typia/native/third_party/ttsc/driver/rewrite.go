@@ -3,7 +3,7 @@
 // tsgo emits `.js` with plugin-owned call expressions preserved as-is because
 // the compile-time transformer stage is now hosted outside the native
 // compiler. This file implements the emit-time rewrite pattern pioneered by
-// tsgonest: we hook tsgo's Emit() via its WriteFile callback, locate each
+// tsgonest: we intercept tsgo's Emit() via its WriteFile callback, locate each
 // previously-recognized plugin call in the emitted JS, and replace the call
 // expression with the JS the native consumer produced.
 //
@@ -75,6 +75,26 @@ func (p *Program) EmitAll(rs *RewriteSet, writeFile shimcompiler.WriteFile) (*sh
   return p.emit(rs, nil, writeFile)
 }
 
+// EmitAllRaw runs TypeScript-Go emit without ttsc output-text rewrites.
+func (p *Program) EmitAllRaw(writeFile shimcompiler.WriteFile) (*shimcompiler.EmitResult, []Diagnostic, error) {
+  if p == nil || p.TSProgram == nil {
+    return nil, nil, errors.New("driver: nil program")
+  }
+  wf := writeFile
+  if wf == nil {
+    wf = func(fileName, text string, data *shimcompiler.WriteFileData) error {
+      return DefaultWriteFile(fileName, text)
+    }
+  }
+  result := p.TSProgram.Emit(context.Background(), shimcompiler.EmitOptions{
+    WriteFile: wf,
+  })
+  if result == nil {
+    return nil, nil, errors.New("driver: Emit returned nil")
+  }
+  return result, convertDiagnostics(result.Diagnostics), nil
+}
+
 // EmitFile runs tsgo's emitter for one source file, applying the same rewrite
 // pipeline as EmitAll.
 func (p *Program) EmitFile(rs *RewriteSet, target *ast.SourceFile, writeFile shimcompiler.WriteFile) (*shimcompiler.EmitResult, []Diagnostic, error) {
@@ -90,12 +110,18 @@ func (p *Program) emit(rs *RewriteSet, target *ast.SourceFile, writeFile shimcom
   }
   cursors := map[string]int{}
   wf := func(fileName, text string, data *shimcompiler.WriteFileData) error {
+    // A patched file is idempotent: once the sentinel exists, the emitted text
+    // is passed through unchanged. This matters for watch/rebuild loops and
+    // tests that re-run emit over the same output directory.
     if strings.Contains(text, RewriteSentinel) {
       if writeFile != nil {
         return writeFile(fileName, text, data)
       }
       return DefaultWriteFile(fileName, text)
     }
+    // Rewrites are matched after tsgo has printed JavaScript. The source-file
+    // association is recovered from the output path because WriteFile receives
+    // only the final file name and text.
     patched, err := applyRewrites(fileName, text, rs, cursors)
     if err != nil {
       return err
@@ -120,7 +146,7 @@ func (p *Program) emit(rs *RewriteSet, target *ast.SourceFile, writeFile shimcom
 }
 
 // DefaultWriteFile is the default disk writer used when EmitAll's caller does not
-// supply a custom WriteFile hook.
+// supply a custom WriteFile callback.
 func DefaultWriteFile(fileName, text string) error {
   if dir := filepath.Dir(fileName); dir != "" {
     if err := os.MkdirAll(dir, 0o755); err != nil {
