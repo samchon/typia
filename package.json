@@ -1,13 +1,13 @@
 {
   "private": true,
   "name": "@typia/station",
-  "version": "13.0.0-dev.20260502-2",
+  "version": "13.0.0-dev.20260506",
   "description": "Typia Station",
   "scripts": {
     "build": "pnpm run build:packages",
     "build:native-consumers": "node -e \"process.exit(0)\"",
     "build:packages": "pnpm --filter=./packages/* -r build",
-    "build:toolchain": "ttsc --version",
+    "build:toolchain": "node -e \"process.exit(0)\"",
     "build:ttsc-runtime": "pnpm run build:toolchain",
     "format": "prettier --write \"**/*.ts\" && pnpm run format:go",
     "format:go": "node scripts/format-go.cjs",

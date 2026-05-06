@@ -1,13 +1,13 @@
 {
   "private": true,
   "name": "@typia/test-typia-ttsc",
-  "version": "13.0.0-dev.20260502-2",
+  "version": "13.0.0-dev.20260506",
   "description": "End-to-end smoke tests for typia over the external ttsc package.",
   "scripts": {
     "dev": "ttsx src/index.ts",
     "build:backend": "node -e \"process.exit(0)\"",
     "build:packages": "pnpm --filter typia build",
-    "build:toolchain": "ttsc --version",
+    "build:toolchain": "node -e \"process.exit(0)\"",
     "prestart": "pnpm run build:packages && pnpm run build:backend",
     "start": "ttsx src/index.ts",
     "test": "pnpm run start"

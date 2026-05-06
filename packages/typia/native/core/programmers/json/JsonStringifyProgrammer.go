@@ -949,7 +949,7 @@ func jsonStringifyProgrammer_explore_arrays(props jsonStringifyProgrammer_explor
             return nativeprogrammers.IsProgrammer.Decode(nativeprogrammers.IsProgrammer_DecodeProps{
               Context:  props.Context,
               Functor:  props.Functor,
-              Metadata: v.Definition.(*schemametadata.MetadataArray).Type.Value,
+              Metadata: v.Definition.(*schemametadata.MetadataSchema),
               Input:    v.Input,
               Explore:  jsonStringifyProgrammer_checker_explore(v.Explore),
             })
