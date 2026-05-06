@@ -5,8 +5,8 @@
 //
 // Structural note: this file is deliberately adapted from tsgonest's
 // `internal/compiler/host.go` (MIT, github.com/tsgonest/tsgonest).
-// The helper surface is the same; we keep names in sync to make future
-// upstream changes easy to compare.
+// The helper surface is the same because both hosts need the same bundled-lib
+// filesystem and CompilerHost construction.
 package driver
 
 import (

@@ -6,6 +6,8 @@ import (
   "fmt"
   "io"
   "path/filepath"
+  "strings"
+  "time"
 
   "github.com/microsoft/typescript-go/shim/ast"
   shimchecker "github.com/microsoft/typescript-go/shim/checker"
@@ -30,6 +32,9 @@ type Diagnostic struct {
   File     string
   Line     int
   Column   int
+  Code     int32
+  Start    *int
+  Length   *int
   Message  string
   Severity Severity
   raw      *ast.Diagnostic
@@ -72,6 +77,7 @@ func NewLintDiagnostic(
   }
   lint := shimdiagnosticwriter.NewLintDiagnostic(file, pos, end, code, cat, message)
   d := Diagnostic{
+    Code:     code,
     Message:  message,
     Severity: severity,
     lint:     lint,
@@ -79,6 +85,9 @@ func NewLintDiagnostic(
   if file != nil {
     d.File = file.FileName()
     if pos >= 0 {
+      length := end - pos
+      d.Start = &pos
+      d.Length = &length
       line, col := shimscanner.GetECMALineAndByteOffsetOfPosition(file, pos)
       d.Line = line + 1
       d.Column = col + 1
@@ -187,12 +196,13 @@ type Program struct {
 }
 
 // LoadProgramOptions controls tsconfig overrides applied before tsgo creates
-// the program. `ForceEmit` is used by `ttsc --emit` and `ttsc transform`
-// so runtime compilation still works when the project defaults to `noEmit`.
+// the program. `ForceEmit` is used by `ttsc --emit` and runtime compilation
+// so execution still works when the project defaults to `noEmit`.
 type LoadProgramOptions struct {
-  ForceEmit   bool
-  ForceNoEmit bool
-  OutDir      string
+  ForceEmit      bool
+  ForceNoEmit    bool
+  OutDir         string
+  SourcePreamble string
 }
 
 // Close releases the checker pool lease acquired by LoadProgram.
@@ -256,6 +266,12 @@ func LoadProgram(cwd, tsconfigPath string, options LoadProgramOptions) (*Program
   }
   cwd = tspath.ResolvePath(cwd)
   fs := DefaultFS()
+  if options.SourcePreamble != "" {
+    fs = sourcePreambleFS{
+      FS:       fs,
+      preamble: options.SourcePreamble,
+    }
+  }
   host := DefaultHost(cwd, fs)
 
   parsed, diags, err := ParseTSConfig(fs, cwd, tsconfigPath, host)
@@ -315,6 +331,50 @@ func overrideOutDir(cwd string, parsed *tsoptions.ParsedCommandLine, outDir stri
     return
   }
   parsed.ParsedConfig.CompilerOptions.OutDir = tspath.ResolvePath(cwd, outDir)
+}
+
+type sourcePreambleFS struct {
+  vfs.FS
+  preamble string
+}
+
+func (fs sourcePreambleFS) ReadFile(filePath string) (string, bool) {
+  contents, ok := fs.FS.ReadFile(filePath)
+  if !ok || !isSourcePreambleTarget(filePath) {
+    return contents, ok
+  }
+  return fs.preamble + contents, true
+}
+
+func (fs sourcePreambleFS) WriteFile(filePath string, data string) error {
+  return fs.FS.WriteFile(filePath, data)
+}
+
+func (fs sourcePreambleFS) AppendFile(filePath string, data string) error {
+  return fs.FS.AppendFile(filePath, data)
+}
+
+func (fs sourcePreambleFS) Remove(filePath string) error {
+  return fs.FS.Remove(filePath)
+}
+
+func (fs sourcePreambleFS) Chtimes(filePath string, aTime time.Time, mTime time.Time) error {
+  return fs.FS.Chtimes(filePath, aTime, mTime)
+}
+
+func isSourcePreambleTarget(filePath string) bool {
+  lower := strings.ToLower(filepath.ToSlash(filePath))
+  for _, suffix := range []string{".d.ts", ".d.mts", ".d.cts"} {
+    if strings.HasSuffix(lower, suffix) {
+      return false
+    }
+  }
+  for _, suffix := range []string{".ts", ".tsx", ".mts", ".cts", ".js", ".jsx", ".mjs", ".cjs"} {
+    if strings.HasSuffix(lower, suffix) {
+      return true
+    }
+  }
+  return false
 }
 
 // SourceFiles exposes the program's user-authored source files (declaration
@@ -388,10 +448,13 @@ func convertDiagnostics(in []*ast.Diagnostic) []Diagnostic {
     if d == nil {
       continue
     }
-    diag := Diagnostic{Message: d.String(), raw: d}
+    diag := Diagnostic{Code: d.Code(), Message: d.String(), raw: d}
     if file := d.File(); file != nil {
       diag.File = file.FileName()
       if pos := d.Pos(); pos >= 0 {
+        length := d.Len()
+        diag.Start = &pos
+        diag.Length = &length
         line, col := shimscanner.GetECMALineAndByteOffsetOfPosition(file, pos)
         diag.Line = line + 1
         diag.Column = col + 1

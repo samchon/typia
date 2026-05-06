@@ -24,3 +24,6 @@ const (
 
 // NewTextRange constructs a closed/open [pos, end) text range.
 func NewTextRange(pos, end int) TextRange { return innercore.NewTextRange(pos, end) }
+
+// UndefinedTextRange marks synthesized AST nodes that do not map to source.
+func UndefinedTextRange() TextRange { return innercore.UndefinedTextRange() }

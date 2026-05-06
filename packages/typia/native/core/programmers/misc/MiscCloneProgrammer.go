@@ -643,7 +643,7 @@ func miscCloneProgrammer_explore_arrays(props miscCloneProgrammer_exploreArraysP
             Context:  props.Context,
             Functor:  props.Functor,
             Input:    v.Input,
-            Metadata: v.Definition.(*schemametadata.MetadataArray).Type.Value,
+            Metadata: v.Definition.(*schemametadata.MetadataSchema),
             Explore:  miscCloneProgrammer_checker_explore(v.Explore),
           })
         },
@@ -697,7 +697,7 @@ func miscCloneProgrammer_explore_sets(props miscCloneProgrammer_exploreSetsProps
             Context:  props.Context,
             Functor:  props.Functor,
             Input:    v.Input,
-            Metadata: v.Definition.(*schemametadata.MetadataArray).Type.Value,
+            Metadata: v.Definition.(*schemametadata.MetadataSchema),
             Explore:  miscCloneProgrammer_checker_explore(v.Explore),
           })
         },
@@ -757,7 +757,7 @@ func miscCloneProgrammer_explore_maps(props miscCloneProgrammer_exploreMapsProps
     nativehelpers.UnionExplorer.Map(nativehelpers.UnionExplorer_MapProps{
       Config: nativehelpers.UnionExplorer_ArrayLikeConfig{
         Checker: func(v nativehelpers.UnionExplorer_ArrayLikeCheckerProps) *shimast.Node {
-          pair := v.Definition.(*schemametadata.MetadataArray).Type.Value.Tuples[0].Type.Elements
+          pair := v.Definition.([]*schemametadata.MetadataSchema)
           first := nativeprogrammers.IsProgrammer.Decode(nativeprogrammers.IsProgrammer_DecodeProps{
             Context:  props.Context,
             Functor:  props.Functor,

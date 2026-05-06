@@ -55,6 +55,7 @@ type WithStatement = innerast.WithStatement
 
 type ClassDeclaration = innerast.ClassDeclaration
 type ClassExpression = innerast.ClassExpression
+type ClassStaticBlockDeclaration = innerast.ClassStaticBlockDeclaration
 type ConstructorDeclaration = innerast.ConstructorDeclaration
 type EnumDeclaration = innerast.EnumDeclaration
 type EnumMember = innerast.EnumMember
@@ -106,6 +107,7 @@ type TaggedTemplateExpression = innerast.TaggedTemplateExpression
 type TemplateExpression = innerast.TemplateExpression
 type TemplateSpan = innerast.TemplateSpan
 type TypeAssertion = innerast.TypeAssertion
+type TypeOperatorNode = innerast.TypeOperatorNode
 type TypeOfExpression = innerast.TypeOfExpression
 type VoidExpression = innerast.VoidExpression
 type YieldExpression = innerast.YieldExpression
@@ -126,6 +128,7 @@ type ExternalModuleIndicatorOptions = innerast.ExternalModuleIndicatorOptions
 
 const (
   NodeFlagsNone         = innerast.NodeFlagsNone
+  NodeFlagsSynthesized  = innerast.NodeFlagsSynthesized
   NodeFlagsLet          = innerast.NodeFlagsLet
   NodeFlagsConst        = innerast.NodeFlagsConst
   NodeFlagsBlockScoped  = innerast.NodeFlagsBlockScoped
