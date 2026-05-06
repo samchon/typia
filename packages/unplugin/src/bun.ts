@@ -128,7 +128,9 @@ function bunTypiaPlugin(bunOptions?: BunOptions): BunPlugin {
         build.onLoad({ filter }, async (args) => {
           const id = wrap<ID>(args.path);
 
-          const source = wrap<Source>(await Bun.file(id).text());
+          const source = wrap<Source>(
+            (await import(`${args.path}?`, { with: { type: "text" } })).default,
+          );
 
           const code = await taggedTransform(id, source, unpluginRaw);
 
