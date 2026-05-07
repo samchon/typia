@@ -45,11 +45,10 @@ typia/
 
 ## Current Paths
 
-There are three important build/setup paths in the repository:
+There are two important build/setup paths in the repository:
 
 1. Stable current path: `typia` with `typia setup`, `ttsc`, and `@typescript/native-preview`
-2. Bundler path: `@ttsc/unplugin` from the `ttsc` project for bundler environments
-3. Dedicated runner path: `ttsx` from the `ttsc` project for direct TypeScript execution
+2. Dedicated runner path: `ttsx` from the `ttsc` project for direct TypeScript execution
 
 ## Build And Test
 
