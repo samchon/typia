@@ -1,14 +1,6 @@
 #!/usr/bin/env node
 const USAGE = `Wrong command has been detected. Use like below:
 
-  npx typia setup \\
-    --manager (npm|pnpm|yarn) \\
-    --project {tsconfig.json file path}
-
-    - npx typia setup
-    - npx typia setup --manager pnpm
-    - npx typia setup --project tsconfig.test.json
-
   npx typia generate 
     --input {directory} \\
     --output {directory}
@@ -42,7 +34,6 @@ const loadNativePreview = (): void => {
 
 const main = async (): Promise<void> => {
   try {
-    await import("comment-json");
     await import("inquirer");
     await import("commander");
   } catch {
@@ -50,10 +41,7 @@ const main = async (): Promise<void> => {
   }
 
   const type: string | undefined = process.argv[2];
-  if (type === "setup") {
-    const { TypiaSetupWizard } = await import("./TypiaSetupWizard");
-    await TypiaSetupWizard.setup();
-  } else if (type === "generate") {
+  if (type === "generate") {
     loadNativePreview();
     const { TypiaGenerateWizard } = await import("./TypiaGenerateWizard");
     await TypiaGenerateWizard.generate();

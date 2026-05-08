@@ -25,6 +25,9 @@
   "bin": {
     "typia": "./src/executable/typia.ts"
   },
+  "ttsc": {
+    "plugin": { "transform": "typia/lib/transform" }
+  },
   "scripts": {
     "build": "rimraf lib && ttsc && rollup -c && cp ../../README.md README.md",
     "dev": "ttsc --watch",
@@ -45,9 +48,7 @@
     "@typia/interface": "workspace:^",
     "@typia/utils": "workspace:^",
     "commander": "^10.0.0",
-    "comment-json": "^4.2.3",
     "inquirer": "^8.2.5",
-    "package-manager-detector": "^0.2.0",
     "randexp": "^0.5.3"
   },
   "devDependencies": {
