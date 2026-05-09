@@ -1,6 +1,8 @@
 import typia from "typia";
 
-const func = typia.functional.validateFunction(
+const func = typia.functional.validateFunction<
+  (x: number, y: number) => number
+>(
   (x: number, y: number): number => x + y,
 );
 func(3, 4);

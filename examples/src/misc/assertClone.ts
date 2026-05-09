@@ -1,7 +1,7 @@
 import typia from "typia";
 
 const department: IDepartment = typia.random<IDepartment>();
-const cloned: IDepartment = typia.misc.assertClone(department);
+const cloned: IDepartment = typia.misc.assertClone<IDepartment>(department);
 
 console.log(cloned);
 
