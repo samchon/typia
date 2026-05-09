@@ -9,8 +9,7 @@
     "strict": true,
     "skipLibCheck": true,
     "rootDir": "src",
-    "outDir": "dist",
-    "plugins": [{ "transform": "typia/lib/transform" }]
+    "outDir": "dist"
   },
   "include": ["src"]
 }

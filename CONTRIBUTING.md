@@ -47,7 +47,7 @@ typia/
 
 There are two important build/setup paths in the repository:
 
-1. Stable current path: `typia` with `typia setup`, `ttsc`, and `@typescript/native-preview`
+1. Stable current path: `typia` with package-declared `ttsc.plugin`, `ttsc`, and `@typescript/native-preview`
 2. Dedicated runner path: `ttsx` from the `ttsc` project for direct TypeScript execution
 
 ## Build And Test

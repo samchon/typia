@@ -1,4 +1,6 @@
+import commander from "commander";
 import fs from "fs";
+import inquirer from "inquirer";
 import { createRequire } from "module";
 import path from "path";
 import {
@@ -7,33 +9,26 @@ import {
   TtscCompiler,
 } from "ttsc";
 
-import { ArgumentParser } from "./setup/ArgumentParser";
-import { PackageManager } from "./setup/PackageManager";
-
 export namespace TypiaGenerateWizard {
   export async function generate(): Promise<void> {
     console.log("----------------------------------------");
     console.log(" Typia Generate Wizard");
     console.log("----------------------------------------");
 
-    // LOAD PACKAGE.JSON INFO
-    const pack: PackageManager = await PackageManager.mount();
-    const options: IArguments = await ArgumentParser.parse(pack, inquiry);
+    const options: IArguments = await parseArguments();
     await build(options);
   }
 
-  const inquiry: ArgumentParser.Inquiry<IArguments> = async (
-    _pack,
-    command,
-    prompt,
-    action,
-  ) => {
-    // PREPARE ASSETS
-    command.option("--input [path]", "input directory");
-    command.option("--output [directory]", "output directory");
-    command.option("--project [project]", "tsconfig.json file location");
+  async function parseArguments(): Promise<IArguments> {
+    commander.program.option("--input [path]", "input directory");
+    commander.program.option("--output [directory]", "output directory");
+    commander.program.option(
+      "--project [project]",
+      "tsconfig.json file location",
+    );
 
     const questioned = { value: false };
+    const prompt = inquirer.createPromptModule;
 
     const input = (name: string) => async (message: string) => {
       const result = await prompt()({
@@ -72,13 +67,21 @@ export namespace TypiaGenerateWizard {
       return select("tsconfig")("TS Config File")(files);
     };
 
-    return action(async (options) => {
-      options.input ??= await input("input")("input directory");
-      options.output ??= await input("output")("output directory");
-      options.project ??= await configure();
-      return options as IArguments;
+    return new Promise<IArguments>((resolve, reject) => {
+      commander.program.action(async (options: Partial<IArguments>) => {
+        try {
+          options.input ??= await input("input")("input directory");
+          options.output ??= await input("output")("output directory");
+          options.project ??= await configure();
+          if (questioned.value) console.log("");
+          resolve(options as IArguments);
+        } catch (exp) {
+          reject(exp);
+        }
+      });
+      commander.program.parseAsync().catch(reject);
     });
-  };
+  }
 
   export interface IArguments {
     input: string;
@@ -144,7 +147,6 @@ export namespace TypiaGenerateWizard {
     const result: ITtscCompilerTransformation = new TtscCompiler({
       binary: props.binary,
       cwd: props.cwd,
-      plugins: [{ transform: "typia/lib/transform" }],
       tsconfig: props.tsconfig,
     }).transform();
     if (result.type === "success") {

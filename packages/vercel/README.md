@@ -17,9 +17,8 @@ Converts typia controllers to Vercel AI SDK tools compatible with OpenAI, Anthro
 ## Setup
 
 ```bash
-npm install @typia/vercel ai
-npm install typia
-npx typia setup
+npm install @typia/vercel ai typia
+npm install -D ttsc @typescript/native-preview
 ```
 
 ## Usage
