@@ -26,7 +26,3 @@ jobs:
 
       - name: Build Tarballs
         run: pnpm run package:tgz
-
-      - name: Test Experiments (setup)
-        working-directory: experiments/setup
-        run: npm install && npm start -- --skip-pack
