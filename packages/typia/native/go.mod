@@ -2,10 +2,6 @@ module github.com/samchon/typia/packages/typia/native
 
 go 1.26
 
-replace github.com/microsoft/typescript-go/shim/printer => ./shim/printer
-
-replace github.com/samchon/ttsc/packages/ttsc => ./third_party/ttsc
-
 require (
 	github.com/microsoft/typescript-go/shim/ast v0.0.0
 	github.com/microsoft/typescript-go/shim/checker v0.0.0

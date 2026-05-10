@@ -1,8 +1,6 @@
 import typia from "typia";
 
-const func = typia.functional.assertFunction<
-  (x: number, y: number) => number
->(
+const func = typia.functional.assertFunction<(x: number, y: number) => number>(
   (x: number, y: number): number => x + y,
 );
 func(3, 4);
