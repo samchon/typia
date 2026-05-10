@@ -1,66 +1,44 @@
 package printer
 
 import (
-  innerast "github.com/microsoft/typescript-go/internal/ast"
-  innercore "github.com/microsoft/typescript-go/internal/core"
-  innerprinter "github.com/microsoft/typescript-go/internal/printer"
+  shimast "github.com/microsoft/typescript-go/shim/ast"
+  shimprinter "github.com/microsoft/typescript-go/shim/printer"
 )
 
-type Printer = innerprinter.Printer
-type PrinterOptions = innerprinter.PrinterOptions
-type PrintHandlers = innerprinter.PrintHandlers
-type EmitContext = innerprinter.EmitContext
-
-func NewPrinter(options PrinterOptions, handlers PrintHandlers, emitContext *EmitContext) *Printer {
-  return innerprinter.NewPrinter(options, handlers, emitContext)
-}
-
-func NewEmitContext() *EmitContext {
-  return innerprinter.NewEmitContext()
-}
-
-func Emit(node *innerast.Node, sourceFile *innerast.SourceFile) string {
-  node = stripTypeSyntax(node)
-  normalizeSyntheticTokens(node)
-  return NewPrinter(PrinterOptions{
-    RemoveComments: true,
-    NewLine:        innercore.NewLineKindLF,
-  }, PrintHandlers{}, nil).Emit(node, sourceFile)
-}
-
-func EmitWithIdentifierSubstitutions(node *innerast.Node, sourceFile *innerast.SourceFile, substitutions map[string]string) string {
+func EmitWithIdentifierSubstitutions(node *shimast.Node, sourceFile *shimast.SourceFile, substitutions map[string]string) string {
   node = stripTypeSyntax(node)
   node = rewriteIdentifiers(node, substitutions)
   normalizeSyntheticTokens(node)
-  return NewPrinter(PrinterOptions{
-    RemoveComments: true,
-    NewLine:        innercore.NewLineKindLF,
-  }, PrintHandlers{}, nil).Emit(node, sourceFile)
+  return emit(node, sourceFile)
 }
 
-func EmitPreservingTypesWithIdentifierSubstitutions(node *innerast.Node, sourceFile *innerast.SourceFile, substitutions map[string]string) string {
+func EmitPreservingTypesWithIdentifierSubstitutions(node *shimast.Node, sourceFile *shimast.SourceFile, substitutions map[string]string) string {
   node = rewriteIdentifiers(node, substitutions)
   normalizeSyntheticTokens(node)
-  return NewPrinter(PrinterOptions{
-    RemoveComments: true,
-    NewLine:        innercore.NewLineKindLF,
-  }, PrintHandlers{}, nil).Emit(node, sourceFile)
+  return emit(node, sourceFile)
 }
 
-func stripTypeSyntax(node *innerast.Node) *innerast.Node {
+func emit(node *shimast.Node, sourceFile *shimast.SourceFile) string {
+  return shimprinter.NewPrinter(shimprinter.PrinterOptions{
+    RemoveComments: true,
+    NewLine:        2,
+  }, shimprinter.PrintHandlers{}, nil).Emit(node, sourceFile)
+}
+
+func stripTypeSyntax(node *shimast.Node) *shimast.Node {
   if node == nil {
     return nil
   }
-  factory := innerast.NewNodeFactory(innerast.NodeFactoryHooks{})
-  var visitor *innerast.NodeVisitor
-  visitor = innerast.NewNodeVisitor(func(current *innerast.Node) *innerast.Node {
+  factory := shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
+  var visitor *shimast.NodeVisitor
+  visitor = shimast.NewNodeVisitor(func(current *shimast.Node) *shimast.Node {
     if current == nil {
       return nil
     }
     switch current.Kind {
-    case innerast.KindAsExpression, innerast.KindSatisfiesExpression, innerast.KindTypeAssertionExpression, innerast.KindNonNullExpression:
+    case shimast.KindAsExpression, shimast.KindSatisfiesExpression, shimast.KindTypeAssertionExpression, shimast.KindNonNullExpression:
       return visitor.VisitNode(current.Expression())
-    case innerast.KindVariableDeclaration:
+    case shimast.KindVariableDeclaration:
       decl := current.AsVariableDeclaration()
       return factory.UpdateVariableDeclaration(
         decl,
@@ -69,7 +47,7 @@ func stripTypeSyntax(node *innerast.Node) *innerast.Node {
         nil,
         visitor.VisitNode(decl.Initializer),
       )
-    case innerast.KindParameter:
+    case shimast.KindParameter:
       parameter := current.AsParameterDeclaration()
       return factory.UpdateParameterDeclaration(
         parameter,
@@ -80,7 +58,7 @@ func stripTypeSyntax(node *innerast.Node) *innerast.Node {
         nil,
         visitor.VisitNode(parameter.Initializer),
       )
-    case innerast.KindArrowFunction:
+    case shimast.KindArrowFunction:
       arrow := current.AsArrowFunction()
       return factory.UpdateArrowFunction(
         arrow,
@@ -92,7 +70,7 @@ func stripTypeSyntax(node *innerast.Node) *innerast.Node {
         visitor.VisitNode(arrow.EqualsGreaterThanToken),
         visitor.VisitNode(arrow.Body),
       )
-    case innerast.KindCallExpression:
+    case shimast.KindCallExpression:
       call := current.AsCallExpression()
       return factory.UpdateCallExpression(
         call,
@@ -102,7 +80,7 @@ func stripTypeSyntax(node *innerast.Node) *innerast.Node {
         visitor.VisitNodes(call.Arguments),
         call.Flags,
       )
-    case innerast.KindNewExpression:
+    case shimast.KindNewExpression:
       expr := current.AsNewExpression()
       return factory.UpdateNewExpression(
         expr,
@@ -113,27 +91,27 @@ func stripTypeSyntax(node *innerast.Node) *innerast.Node {
     default:
       return visitor.VisitEachChild(current)
     }
-  }, factory, innerast.NodeVisitorHooks{})
+  }, factory, shimast.NodeVisitorHooks{})
   return visitor.VisitNode(node)
 }
 
-func rewriteIdentifiers(node *innerast.Node, substitutions map[string]string) *innerast.Node {
+func rewriteIdentifiers(node *shimast.Node, substitutions map[string]string) *shimast.Node {
   if node == nil || len(substitutions) == 0 {
     return node
   }
-  factory := innerast.NewNodeFactory(innerast.NodeFactoryHooks{})
-  var visitor *innerast.NodeVisitor
-  visitor = innerast.NewNodeVisitor(func(current *innerast.Node) *innerast.Node {
+  factory := shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
+  var visitor *shimast.NodeVisitor
+  visitor = shimast.NewNodeVisitor(func(current *shimast.Node) *shimast.Node {
     if current == nil {
       return nil
     }
     switch current.Kind {
-    case innerast.KindIdentifier:
+    case shimast.KindIdentifier:
       if replacement, ok := substitutions[current.Text()]; ok {
         return rewriteIdentifierExpression(factory, replacement)
       }
       return current
-    case innerast.KindVariableDeclaration:
+    case shimast.KindVariableDeclaration:
       decl := current.AsVariableDeclaration()
       return factory.UpdateVariableDeclaration(
         decl,
@@ -142,7 +120,7 @@ func rewriteIdentifiers(node *innerast.Node, substitutions map[string]string) *i
         nil,
         visitor.VisitNode(decl.Initializer),
       )
-    case innerast.KindParameter:
+    case shimast.KindParameter:
       parameter := current.AsParameterDeclaration()
       return factory.UpdateParameterDeclaration(
         parameter,
@@ -153,7 +131,7 @@ func rewriteIdentifiers(node *innerast.Node, substitutions map[string]string) *i
         nil,
         visitor.VisitNode(parameter.Initializer),
       )
-    case innerast.KindPropertyAssignment:
+    case shimast.KindPropertyAssignment:
       assignment := current.AsPropertyAssignment()
       return factory.UpdatePropertyAssignment(
         assignment,
@@ -163,10 +141,10 @@ func rewriteIdentifiers(node *innerast.Node, substitutions map[string]string) *i
         nil,
         visitor.VisitNode(assignment.Initializer),
       )
-    case innerast.KindShorthandPropertyAssignment:
+    case shimast.KindShorthandPropertyAssignment:
       assignment := current.AsShorthandPropertyAssignment()
       name := assignment.Name()
-      if name != nil && name.Kind == innerast.KindIdentifier {
+      if name != nil && name.Kind == shimast.KindIdentifier {
         if replacement, ok := substitutions[name.Text()]; ok && assignment.ObjectAssignmentInitializer == nil {
           return factory.NewPropertyAssignment(
             assignment.Modifiers(),
@@ -186,7 +164,7 @@ func rewriteIdentifiers(node *innerast.Node, substitutions map[string]string) *i
         nil,
         visitor.VisitNode(assignment.ObjectAssignmentInitializer),
       )
-    case innerast.KindPropertyAccessExpression:
+    case shimast.KindPropertyAccessExpression:
       access := current.AsPropertyAccessExpression()
       return factory.UpdatePropertyAccessExpression(
         access,
@@ -198,11 +176,11 @@ func rewriteIdentifiers(node *innerast.Node, substitutions map[string]string) *i
     default:
       return visitor.VisitEachChild(current)
     }
-  }, factory, innerast.NodeVisitorHooks{})
+  }, factory, shimast.NodeVisitorHooks{})
   return visitor.VisitNode(node)
 }
 
-func rewriteIdentifierExpression(factory *innerast.NodeFactory, replacement string) *innerast.Node {
+func rewriteIdentifierExpression(factory *shimast.NodeFactory, replacement string) *shimast.Node {
   parts := []string{}
   start := 0
   for i := 0; i <= len(replacement); i++ {
@@ -222,27 +200,27 @@ func rewriteIdentifierExpression(factory *innerast.NodeFactory, replacement stri
       output,
       nil,
       factory.NewIdentifier(part),
-      innerast.NodeFlagsNone,
+      shimast.NodeFlagsNone,
     )
   }
   return output
 }
 
-func normalizeSyntheticTokens(node *innerast.Node) {
+func normalizeSyntheticTokens(node *shimast.Node) {
   if node == nil {
     return
   }
-  if node.Kind == innerast.KindConditionalExpression {
+  if node.Kind == shimast.KindConditionalExpression {
     conditional := node.AsConditionalExpression()
-    factory := innerast.NewNodeFactory(innerast.NodeFactoryHooks{})
+    factory := shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
     if conditional.QuestionToken == nil {
-      conditional.QuestionToken = factory.NewToken(innerast.KindQuestionToken)
+      conditional.QuestionToken = factory.NewToken(shimast.KindQuestionToken)
     }
     if conditional.ColonToken == nil {
-      conditional.ColonToken = factory.NewToken(innerast.KindColonToken)
+      conditional.ColonToken = factory.NewToken(shimast.KindColonToken)
     }
   }
-  node.ForEachChild(func(child *innerast.Node) bool {
+  node.ForEachChild(func(child *shimast.Node) bool {
     normalizeSyntheticTokens(child)
     return false
   })
