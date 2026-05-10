@@ -15,6 +15,13 @@ import (
 	typiaadapter "github.com/samchon/typia/packages/typia/native/adapter"
 )
 
+var (
+	runBuildGetwd       = os.Getwd
+	runBuildJSONMarshal = json.Marshal
+	runBuildMkdirAll    = os.MkdirAll
+	runBuildWriteFile   = os.WriteFile
+)
+
 func runBuild(args []string) int {
 	fs := flag.NewFlagSet("build", flag.ContinueOnError)
 	fs.SetOutput(stderr)
@@ -46,7 +53,7 @@ func runBuild(args []string) int {
 	cwd := *cwdOverride
 	if cwd == "" {
 		var err error
-		cwd, err = os.Getwd()
+		cwd, err = runBuildGetwd()
 		if err != nil {
 			fmt.Fprintf(stderr, "ttsc-typia build: cwd: %v\n", err)
 			return 2
@@ -113,12 +120,16 @@ func runBuild(args []string) int {
 			}
 		}
 		if *manifestPath != "" {
-			data, _ := json.Marshal(res.EmittedFiles)
-			if err := os.MkdirAll(filepath.Dir(*manifestPath), 0o755); err != nil {
+			data, err := runBuildJSONMarshal(res.EmittedFiles)
+			if err != nil {
+				fmt.Fprintf(stderr, "ttsc-typia build: manifest marshal failed: %v\n", err)
+				return 3
+			}
+			if err := runBuildMkdirAll(filepath.Dir(*manifestPath), 0o755); err != nil {
 				fmt.Fprintf(stderr, "ttsc-typia build: manifest mkdir failed: %v\n", err)
 				return 3
 			}
-			if err := os.WriteFile(*manifestPath, data, 0o644); err != nil {
+			if err := runBuildWriteFile(*manifestPath, data, 0o644); err != nil {
 				fmt.Fprintf(stderr, "ttsc-typia build: manifest write failed: %v\n", err)
 				return 3
 			}
