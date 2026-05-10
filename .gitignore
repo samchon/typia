@@ -6,7 +6,7 @@ dist/
 lib/
 node_modules/
 
-tests/test-typia-ttsc/fixtures/*/build/output/
+packages/typia/native/.tmp-ttsc-typia-tests/
 
 package-lock.json
 !experiments/setup/package-lock.json

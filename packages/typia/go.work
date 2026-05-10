@@ -1,0 +1,21 @@
+go 1.26
+
+use (
+	./native
+	./native/shim/printer
+	./native/third_party/ttsc
+	./native/third_party/ttsc/shim/ast
+	./native/third_party/ttsc/shim/bundled
+	./native/third_party/ttsc/shim/checker
+	./native/third_party/ttsc/shim/compiler
+	./native/third_party/ttsc/shim/core
+	./native/third_party/ttsc/shim/diagnosticwriter
+	./native/third_party/ttsc/shim/parser
+	./native/third_party/ttsc/shim/scanner
+	./native/third_party/ttsc/shim/tsoptions
+	./native/third_party/ttsc/shim/tspath
+	./native/third_party/ttsc/shim/vfs
+	./native/third_party/ttsc/shim/vfs/cachedvfs
+	./native/third_party/ttsc/shim/vfs/osvfs
+	./test
+)

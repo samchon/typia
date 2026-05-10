@@ -7,7 +7,6 @@ import (
   "fmt"
   "os"
   "path/filepath"
-  "regexp"
   "sort"
   "strings"
 
@@ -212,7 +211,7 @@ func runTransformProject(
       )
       continue
     }
-    output.TypeScript[sourceFileKey(cwd, filename)] = cleanupTypeScriptTransformText(transformed)
+    output.TypeScript[sourceFileKey(cwd, filename)] = typiaadapter.CleanupTypeScriptTransformText(transformed)
   }
 
   if err := json.NewEncoder(stdout).Encode(output); err != nil {
@@ -258,7 +257,7 @@ func runTransformTypeScript(
     fmt.Fprintf(stderr, "ttsc-typia transform: source rewrite: %v\n", err)
     return 3
   }
-  transformed = cleanupTypeScriptTransformText(transformed)
+  transformed = typiaadapter.CleanupTypeScriptTransformText(transformed)
   if out == "" {
     if _, werr := bytes.NewBufferString(transformed).WriteTo(stdout); werr != nil {
       fmt.Fprintf(stderr, "ttsc-typia transform: write stdout: %v\n", werr)
@@ -370,48 +369,6 @@ func applySourceRewrites(source string, rewrites []transformSourceRewrite) (stri
     output = output[:rewrite.start] + rewrite.replacement + output[rewrite.end:]
   }
   return output, nil
-}
-
-func cleanupTypeScriptTransformText(text string) string {
-  text = typiaadapter.CleanupTransformedText(text)
-  text = normalizeParenthesizedTypeAnnotations(text)
-  text = regexp.MustCompile(`(?m)^import type \{([^{}\n]+)\} from`).ReplaceAllStringFunc(text, func(line string) string {
-    return regexp.MustCompile(`^import type \{\s*([^{}\n]+?)\s*\} from`).ReplaceAllString(line, "import type { $1 } from")
-  })
-  text = regexp.MustCompile(`(?m)(^import [^\n]+;\n)\n+(const |let |var |export )`).ReplaceAllString(text, "$1$2")
-  text = strings.ReplaceAll(text, "=(() =>", "= (() =>")
-  text = strings.ReplaceAll(text, ": (any) =>", ": any =>")
-  text = strings.ReplaceAll(text, ": (boolean) =>", ": boolean =>")
-  text = regexp.MustCompile(`input is \(([A-Za-z_$][A-Za-z0-9_$.]*)\)`).ReplaceAllString(text, "input is $1")
-  text = strings.ReplaceAll(text, "return (success ? ", "return success ? ")
-  text = strings.ReplaceAll(text, "}) as any;", "} as any;")
-  text = strings.ReplaceAll(text, "(() => {\n    const ", "(() => { const ")
-  text = strings.ReplaceAll(text, "(() => {\n    let ", "(() => { let ")
-  text = strings.ReplaceAll(text, "(() => {\n    return ", "(() => { return ")
-  text = strings.ReplaceAll(text, ";\n    const ", "; const ")
-  text = strings.ReplaceAll(text, ";\n    let ", "; let ")
-  text = strings.ReplaceAll(text, ";\n    return ", "; return ")
-  text = strings.ReplaceAll(text, "\n    };\n})()", "\n}; })()")
-  text = strings.ReplaceAll(text, "\n    });\n})()", "\n}); })()")
-  text = strings.ReplaceAll(text, "\n    }); let ", "\n}); let ")
-  text = strings.ReplaceAll(text, ";\n})()", "; })()")
-  text = strings.ReplaceAll(text, "\n        ", "\n    ")
-  text = regexp.MustCompile(`\n\n([A-Za-z_$][A-Za-z0-9_$]*\([^;\n]*\);?)`).ReplaceAllString(text, "\n$1")
-  trimmed := strings.TrimRight(text, " \t\r\n")
-  if strings.HasSuffix(trimmed, ")") && !strings.HasSuffix(trimmed, ";") {
-    return trimmed + ";\n"
-  }
-  if text != "" && !strings.HasSuffix(text, "\n") {
-    return text + "\n"
-  }
-  return text
-}
-
-func normalizeParenthesizedTypeAnnotations(text string) string {
-  typeAtom := `([A-Za-z_$][A-Za-z0-9_$.]*(<[^()\n;{}]*>)?)`
-  text = regexp.MustCompile(`: \(`+typeAtom+`\)(\s*=>)`).ReplaceAllString(text, ": $1$3")
-  text = regexp.MustCompile(`\| \((null|undefined)\)`).ReplaceAllString(text, "| $1")
-  return text
 }
 
 func sourceFileKey(cwd string, file string) string {

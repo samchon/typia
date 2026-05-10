@@ -1,9 +1,9 @@
 package main
 
 import (
-  "encoding/json"
-  "flag"
-  "fmt"
+	"encoding/json"
+	"flag"
+	"fmt"
   "io"
   "os"
   "path/filepath"
@@ -12,7 +12,14 @@ import (
   shimcompiler "github.com/microsoft/typescript-go/shim/compiler"
   shimscanner "github.com/microsoft/typescript-go/shim/scanner"
   "github.com/samchon/ttsc/packages/ttsc/driver"
-  typiaadapter "github.com/samchon/typia/packages/typia/native/adapter"
+	typiaadapter "github.com/samchon/typia/packages/typia/native/adapter"
+)
+
+var (
+	runBuildGetwd       = os.Getwd
+	runBuildJSONMarshal = json.Marshal
+	runBuildMkdirAll    = os.MkdirAll
+	runBuildWriteFile   = os.WriteFile
 )
 
 func runBuild(args []string) int {
@@ -43,13 +50,13 @@ func runBuild(args []string) int {
     return 2
   }
 
-  cwd := *cwdOverride
-  if cwd == "" {
-    var err error
-    cwd, err = os.Getwd()
-    if err != nil {
-      fmt.Fprintf(stderr, "ttsc-typia build: cwd: %v\n", err)
-      return 2
+	cwd := *cwdOverride
+	if cwd == "" {
+		var err error
+		cwd, err = runBuildGetwd()
+		if err != nil {
+			fmt.Fprintf(stderr, "ttsc-typia build: cwd: %v\n", err)
+			return 2
     }
   }
   prog, diags, err := driver.LoadProgram(cwd, *tsconfigPath, driver.LoadProgramOptions{
@@ -88,8 +95,8 @@ func runBuild(args []string) int {
   }
   if !*quiet {
     fmt.Fprintf(stdout, "// ttsc-typia build: tsconfig=%s cwd=%s sites=%d emit=%v rewrite=%s\n", *tsconfigPath, cwd, sites, shouldEmit, *rewriteMode)
-  }
-  if shouldEmit {
+	}
+	if shouldEmit {
     writeFile := shimcompiler.WriteFile(func(fileName, text string, data *shimcompiler.WriteFileData) error {
       text = typiaadapter.CleanupTransformedText(text)
       return driver.DefaultWriteFile(fileName, text)
@@ -111,21 +118,21 @@ func runBuild(args []string) int {
         }
         fmt.Fprintln(stdout, "  +", rel)
       }
-    }
-    if *manifestPath != "" {
-      data, err := json.Marshal(res.EmittedFiles)
-      if err != nil {
-        fmt.Fprintf(stderr, "ttsc-typia build: manifest marshal failed: %v\n", err)
-        return 3
-      }
-      if err := os.MkdirAll(filepath.Dir(*manifestPath), 0o755); err != nil {
-        fmt.Fprintf(stderr, "ttsc-typia build: manifest mkdir failed: %v\n", err)
-        return 3
-      }
-      if err := os.WriteFile(*manifestPath, data, 0o644); err != nil {
-        fmt.Fprintf(stderr, "ttsc-typia build: manifest write failed: %v\n", err)
-        return 3
-      }
+	}
+	if *manifestPath != "" {
+		data, err := runBuildJSONMarshal(res.EmittedFiles)
+		if err != nil {
+			fmt.Fprintf(stderr, "ttsc-typia build: manifest marshal failed: %v\n", err)
+			return 3
+		}
+		if err := runBuildMkdirAll(filepath.Dir(*manifestPath), 0o755); err != nil {
+			fmt.Fprintf(stderr, "ttsc-typia build: manifest mkdir failed: %v\n", err)
+			return 3
+		}
+		if err := runBuildWriteFile(*manifestPath, data, 0o644); err != nil {
+			fmt.Fprintf(stderr, "ttsc-typia build: manifest write failed: %v\n", err)
+			return 3
+		}
     }
   }
   if len(transformDiags) > 0 {
