@@ -1,11 +1,9 @@
 {
   "extends": "../config/tsconfig.json",
+  "include": ["src"],
   "compilerOptions": {
-    "ignoreDeprecations": "6.0",
-    "moduleResolution": "bundler",
+    "rootDir": "src",
     "noUnusedLocals": false,
     "noUnusedParameters": false,
-    "rootDir": "src",
   },
-  "include": ["src"],
 }

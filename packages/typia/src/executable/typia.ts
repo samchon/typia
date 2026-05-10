@@ -43,7 +43,7 @@ const main = async (): Promise<void> => {
   const type: string | undefined = process.argv[2];
   if (type === "generate") {
     loadNativePreview();
-    const { TypiaGenerateWizard } = await import("./TypiaGenerateWizard");
+    const { TypiaGenerateWizard } = await import("./TypiaGenerateWizard.js");
     await TypiaGenerateWizard.generate();
   } else halt(USAGE);
 };
