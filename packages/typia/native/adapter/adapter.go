@@ -8,10 +8,10 @@ import (
   "strings"
 
   shimast "github.com/microsoft/typescript-go/shim/ast"
-  shimprinter "github.com/microsoft/typescript-go/shim/printer"
   "github.com/samchon/ttsc/packages/ttsc/driver"
   nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
   nativeprogrammers "github.com/samchon/typia/packages/typia/native/core/programmers"
+  nativeprinter "github.com/samchon/typia/packages/typia/native/internal/printer"
   nativetransform "github.com/samchon/typia/packages/typia/native/transform"
 )
 
@@ -87,13 +87,13 @@ func emitCallWithOptions(program *driver.Program, site CallSite, plugin PluginOp
     return "", false, nil
   }
   if preserveTypes {
-    return cleanupPrintedExpression(shimprinter.EmitPreservingTypesWithIdentifierSubstitutions(
+    return cleanupPrintedExpression(nativeprinter.EmitPreservingTypesWithIdentifierSubstitutions(
       node,
       site.File,
       nil,
     )), true, nil
   }
-  return cleanupPrintedExpression(shimprinter.EmitWithIdentifierSubstitutions(
+  return cleanupPrintedExpression(nativeprinter.EmitWithIdentifierSubstitutions(
     node,
     site.File,
     identifierSubstitutionsForEmit(program, site.File),
