@@ -3,9 +3,7 @@ const path = require("node:path");
 
 const rawArgs = process.argv.slice(2);
 const useTsNodeRuntime = rawArgs[0] === "--ts-node-runtime";
-const [command, ...args] = (
-  useTsNodeRuntime ? rawArgs.slice(1) : rawArgs
-);
+const [command, ...args] = useTsNodeRuntime ? rawArgs.slice(1) : rawArgs;
 if (!command) {
   console.error(
     "Usage: node scripts/with-ttsc-cache.cjs [--ts-node-runtime] <command> [...args]",
