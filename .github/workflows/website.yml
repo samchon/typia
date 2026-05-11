@@ -36,9 +36,10 @@ jobs:
       #     pnpm install
       #     pnpm run package:tgz
 
-      - name: Packages
+      - name: Toolchain
         run: |
           pnpm install
+          pnpm build:toolchain
           pnpm run package:tgz
 
       - name: Build

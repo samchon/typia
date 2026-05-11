@@ -7,9 +7,7 @@ packages:
 catalogs:
   typescript:
     '@typescript/native-preview': 7.0.0-dev.20260510.1
-    ts-node: ^10.9.2
-    ttsc: ^0.10.0
-    typescript: ~6.0.3
+    ttsc: ^0.10.1
   rollup:
     rollup: ^4.56.0
     rollup-plugin-auto-external: ^2.0.0

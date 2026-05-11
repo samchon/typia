@@ -27,14 +27,11 @@
     // "useDefineForClassFields": true,                  /* Emit ECMAScript-standard-compliant class fields. */
 
     /* Modules */
-    "module": "nodenext",                                /* Specify what module code is generated. */
-    "moduleResolution": "nodenext",                       /* Specify how TypeScript looks up a file from a given module specifier. */
-    // "ignoreDeprecations": "6.0",
-    "rootDir": "../..",
+    "module": "commonjs",                                /* Specify what module code is generated. */
+    // "rootDir": "./",                                  /* Specify the root folder within your source files. */
+    "moduleResolution": "bundler",                    /* Specify how TypeScript looks up a file from a given module specifier. */
+    "ignoreDeprecations": "6.0",
     // "baseUrl": "./",
-    // "paths": {
-    //   "typia/lib/internal/*": ["../../packages/typia/src/internal/*"],
-    // },
     // "rootDirs": [],                                   /* Allow multiple folders to be treated as one when resolving modules. */
     // "typeRoots": [],                                  /* Specify multiple folders that act like `./node_modules/@types`. */
     "types": ["*"],                                      /* Specify type package names to be included without being referenced in a source file. */
@@ -57,7 +54,6 @@
     "noEmit": true,                                   /* Disable emitting files from a compilation. */
     // "importHelpers": true,                            /* Allow importing helper functions from tslib once per project, instead of including them per-file. */
     // "importsNotUsedAsValues": "remove",               /* Specify emit/checking behavior for imports that are only used for types */
-    // "downlevelIteration": true,                       /* Emit more compliant, but verbose and less performant JavaScript for iteration. */
     // "sourceRoot": "",                                 /* Specify the root path for debuggers to find the reference source code. */
     // "mapRoot": "",                                    /* Specify the location where debugger should locate map files instead of generated locations. */
     // "inlineSourceMap": true,                          /* Include sourcemap files inside the emitted JavaScript. */
@@ -101,9 +97,6 @@
 
     /* Completeness */
     // "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
-    "skipLibCheck": true,                                /* Skip type checking all .d.ts files. */
-    "plugins": [
-      { "transform": "typia/lib/transform" },
-    ],
+    "skipLibCheck": true                                /* Skip type checking all .d.ts files. */
   },
 }

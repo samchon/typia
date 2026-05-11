@@ -4,16 +4,12 @@ const path = require("path");
 
 const root = path.resolve(__dirname, "../..");
 const outputDir = __dirname;
-const env = {
-  ...process.env,
-  TTSC_CACHE_DIR:
-    process.env.TTSC_CACHE_DIR ?? path.join(root, "node_modules", ".ttsc"),
-};
 
 const targets = [
   ...listTargets(path.join(root, "packages")),
 ];
 
+prepareNativeBinaries();
 clearOutputDirectory();
 for (const target of targets) build(target);
 
@@ -30,7 +26,6 @@ function build(target) {
   cp.execSync("pnpm pack", {
     stdio: "inherit",
     cwd: packageDir,
-    env,
   });
 
   // copy tgz file
@@ -39,6 +34,14 @@ function build(target) {
     path.join(packageDir, file),
     path.join(outputDir, `${target.tarballName}.tgz`),
   );
+}
+
+function prepareNativeBinaries() {
+  console.log("Preparing native binaries");
+  cp.execSync("pnpm run build:native-consumers", {
+    stdio: "inherit",
+    cwd: root,
+  });
 }
 
 function clearOutputDirectory() {
