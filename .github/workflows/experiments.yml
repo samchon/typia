@@ -27,10 +27,8 @@ jobs:
       - name: Build Tarballs
         run: pnpm run package:tgz
 
-      - name: Publish Smoke
+      - name: Test Smoke
         working-directory: experiments/smoke
-        env:
-          TTSC_CACHE_DIR: ${{ runner.temp }}/typia-smoke-ttsc
         run: |
-          npm install --package-lock=false --no-audit --no-fund
+          npm install
           npm start
