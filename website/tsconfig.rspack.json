@@ -4,7 +4,8 @@
     "lib": [
       "dom",
       "dom.iterable",
-      "esnext"
+      "esnext",
+      "webworker"
     ],
     "allowJs": true,
     "skipLibCheck": true,
@@ -19,7 +20,7 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "downlevelIteration": true,
-    "ignoreDeprecations": "6.0",
+    "ignoreDeprecations": "5.0",
   },
   "include": ["src/compiler"],
 }

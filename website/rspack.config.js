@@ -13,7 +13,7 @@ module.exports = {
   },
 
   mode: "development",
-  target: "web",
+  target: "webworker",
   module: {
     rules: [
       {
