@@ -9,7 +9,6 @@
     "format": "prettier --write \"**/*.ts\" && pnpm run format:go",
     "format:go": "node scripts/format-go.cjs",
     "test": "pnpm run test:packages && pnpm run test:toolchain",
-    "test:ci": "pnpm run build && pnpm run test:packages && pnpm run test:toolchain",
     "test:packages": "node scripts/with-ttsc-cache.cjs pnpm --filter @typia/template build && node scripts/with-ttsc-cache.cjs --ts-node-runtime pnpm --filter=./tests/test-* -r start",
     "test:go": "node scripts/with-ttsc-cache.cjs go -C packages/typia/test test ./...",
     "test:toolchain": "pnpm run test:go",
