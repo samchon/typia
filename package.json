@@ -9,6 +9,7 @@
     "build:packages": "pnpm --filter=./packages/* -r build",
     "build:toolchain": "node -e \"process.exit(0)\"",
     "build:ttsc-runtime": "pnpm run build:toolchain",
+    "coverage:go": "node scripts/test-go-coverage.cjs",
     "format": "prettier --write \"**/*.ts\" && pnpm run format:go",
     "format:go": "node scripts/format-go.cjs",
     "pretest": "pnpm run build:native-consumers",
