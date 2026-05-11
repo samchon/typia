@@ -26,3 +26,9 @@ jobs:
 
       - name: Build Tarballs
         run: pnpm run package:tgz
+
+      - name: Test Smoke
+        working-directory: experiments/smoke
+        run: |
+          npm install
+          npm start
