@@ -1,0 +1,39 @@
+go 1.26
+
+use (
+	.
+	../native
+	../node_modules/ttsc
+	../node_modules/ttsc/shim/ast
+	../node_modules/ttsc/shim/bundled
+	../node_modules/ttsc/shim/checker
+	../node_modules/ttsc/shim/compiler
+	../node_modules/ttsc/shim/core
+	../node_modules/ttsc/shim/diagnosticwriter
+	../node_modules/ttsc/shim/parser
+	../node_modules/ttsc/shim/printer
+	../node_modules/ttsc/shim/scanner
+	../node_modules/ttsc/shim/tsoptions
+	../node_modules/ttsc/shim/tspath
+	../node_modules/ttsc/shim/vfs
+	../node_modules/ttsc/shim/vfs/cachedvfs
+	../node_modules/ttsc/shim/vfs/osvfs
+)
+
+replace (
+	github.com/microsoft/typescript-go/shim/ast v0.0.0 => ../node_modules/ttsc/shim/ast
+	github.com/microsoft/typescript-go/shim/bundled v0.0.0 => ../node_modules/ttsc/shim/bundled
+	github.com/microsoft/typescript-go/shim/checker v0.0.0 => ../node_modules/ttsc/shim/checker
+	github.com/microsoft/typescript-go/shim/compiler v0.0.0 => ../node_modules/ttsc/shim/compiler
+	github.com/microsoft/typescript-go/shim/core v0.0.0 => ../node_modules/ttsc/shim/core
+	github.com/microsoft/typescript-go/shim/diagnosticwriter v0.0.0 => ../node_modules/ttsc/shim/diagnosticwriter
+	github.com/microsoft/typescript-go/shim/parser v0.0.0 => ../node_modules/ttsc/shim/parser
+	github.com/microsoft/typescript-go/shim/printer v0.0.0 => ../node_modules/ttsc/shim/printer
+	github.com/microsoft/typescript-go/shim/scanner v0.0.0 => ../node_modules/ttsc/shim/scanner
+	github.com/microsoft/typescript-go/shim/tsoptions v0.0.0 => ../node_modules/ttsc/shim/tsoptions
+	github.com/microsoft/typescript-go/shim/tspath v0.0.0 => ../node_modules/ttsc/shim/tspath
+	github.com/microsoft/typescript-go/shim/vfs v0.0.0 => ../node_modules/ttsc/shim/vfs
+	github.com/microsoft/typescript-go/shim/vfs/cachedvfs v0.0.0 => ../node_modules/ttsc/shim/vfs/cachedvfs
+	github.com/microsoft/typescript-go/shim/vfs/osvfs v0.0.0 => ../node_modules/ttsc/shim/vfs/osvfs
+	github.com/samchon/ttsc/packages/ttsc v0.0.0 => ../node_modules/ttsc
+)

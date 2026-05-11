@@ -26,4 +26,4 @@ jobs:
         run: pnpm install
 
       - name: Run Tests
-        run: pnpm run test:ci
+        run: pnpm run test
