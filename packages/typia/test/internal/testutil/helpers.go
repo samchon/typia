@@ -8,32 +8,30 @@ import (
 	"testing"
 
 	metadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
+	"github.com/samchon/typia/packages/typia/test/_support/testfatal"
 )
+
+var runtimeCaller = runtime.Caller
 
 func RepoRoot(t *testing.T) string {
 	t.Helper()
-	_, file, _, ok := runtime.Caller(0)
-	if !ok {
-		t.Fatal("runtime.Caller failed")
-	}
+	_, file, _, ok := runtimeCaller(0)
+	testfatal.IfFalse(t, ok, "runtime.Caller failed")
 	return filepath.Clean(filepath.Join(filepath.Dir(file), "..", "..", "..", "..", ".."))
 }
 
 func ReadJSON[T any](t *testing.T, file string) T {
 	t.Helper()
 	var output T
-	if err := json.Unmarshal([]byte(ReadText(t, file)), &output); err != nil {
-		t.Fatalf("failed to parse %s: %v", file, err)
-	}
+	err := json.Unmarshal([]byte(ReadText(t, file)), &output)
+	testfatal.IfError(t, err, "failed to parse %s: %v", file, err)
 	return output
 }
 
 func ReadText(t *testing.T, file string) string {
 	t.Helper()
 	content, err := os.ReadFile(file)
-	if err != nil {
-		t.Fatalf("failed to read %s: %v", file, err)
-	}
+	testfatal.IfError(t, err, "failed to read %s: %v", file, err)
 	return string(content)
 }
 
