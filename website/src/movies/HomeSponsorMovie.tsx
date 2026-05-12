@@ -17,6 +17,25 @@ const HomeSponsorMovie = () => (
         >
           Sponsors
         </Typography>
+      </Box>
+      <Box sx={{ textAlign: "center", mb: 4 }}>
+        <Box
+          component="a"
+          href="https://github.com/sponsors/samchon"
+          sx={{ display: "inline-block" }}
+        >
+          <Box
+            component="img"
+            src="https://raw.githubusercontent.com/samchon/sponsor-images/refs/heads/master/public/circle.svg"
+            alt="Sponsors"
+            sx={{
+              maxWidth: "100%",
+              borderRadius: 2,
+            }}
+          />
+        </Box>
+      </Box>
+      <Box sx={{ textAlign: "center" }}>
         <Typography
           variant="body1"
           sx={{
@@ -27,25 +46,19 @@ const HomeSponsorMovie = () => (
             mx: "auto",
           }}
         >
-          Thanks for your support. Your donation encourages typia development.
-        </Typography>
-      </Box>
-      <Box sx={{ textAlign: "center" }}>
-        <Box
-          component="a"
-          href="https://opencollective.com/typia"
-          sx={{ display: "inline-block" }}
-        >
+          Thanks for your support. Your{" "}
           <Box
-            component="img"
-            src="https://opencollective.com/typia/badge.svg?avatarHeight=75&width=600"
-            alt="Sponsors"
+            component="a"
+            href="https://github.com/sponsors/samchon"
             sx={{
-              maxWidth: "100%",
-              borderRadius: 2,
+              color: "rgba(255,255,255,0.75)",
+              textDecoration: "underline",
             }}
-          />
-        </Box>
+          >
+            donation
+          </Box>{" "}
+          encourages typia development.
+        </Typography>
       </Box>
     </Container>
   </Box>
