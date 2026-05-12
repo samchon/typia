@@ -21,13 +21,13 @@ const HomeSponsorMovie = () => (
       <Box sx={{ textAlign: "center", mb: 4 }}>
         <Box
           component="a"
-          href="https://github.com/sponsors/samchon"
+          href="https://opencollective.com/typia"
           sx={{ display: "inline-block" }}
         >
           <Box
             component="img"
-            src="https://raw.githubusercontent.com/samchon/sponsor-images/refs/heads/master/public/circle.svg"
-            alt="Sponsors"
+            src="https://opencollective.com/typia/backers.svg?avatarHeight=75&width=600"
+            alt="Backers"
             sx={{
               maxWidth: "100%",
               borderRadius: 2,
@@ -49,7 +49,7 @@ const HomeSponsorMovie = () => (
           Thanks for your support. Your{" "}
           <Box
             component="a"
-            href="https://github.com/sponsors/samchon"
+            href="https://opencollective.com/typia"
             sx={{
               color: "rgba(255,255,255,0.75)",
               textDecoration: "underline",
