@@ -1,0 +1,22 @@
+go 1.26
+
+use (
+	.
+	../../../../ttsc/packages/ttsc
+	../../../../ttsc/packages/ttsc/shim/ast
+	../../../../ttsc/packages/ttsc/shim/bundled
+	../../../../ttsc/packages/ttsc/shim/checker
+	../../../../ttsc/packages/ttsc/shim/compiler
+	../../../../ttsc/packages/ttsc/shim/core
+	../../../../ttsc/packages/ttsc/shim/diagnosticwriter
+	../../../../ttsc/packages/ttsc/shim/parser
+	../../../../ttsc/packages/ttsc/shim/printer
+	../../../../ttsc/packages/ttsc/shim/scanner
+	../../../../ttsc/packages/ttsc/shim/tsoptions
+	../../../../ttsc/packages/ttsc/shim/tspath
+	../../../../ttsc/packages/ttsc/shim/vfs
+	../../../../ttsc/packages/ttsc/shim/vfs/cachedvfs
+	../../../../ttsc/packages/ttsc/shim/vfs/osvfs
+)
+
+replace github.com/samchon/ttsc/packages/ttsc v0.0.0 => ../../../../ttsc/packages/ttsc

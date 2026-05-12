@@ -13,15 +13,18 @@ module.exports = {
   },
 
   mode: "development",
-  target: "web",
+  target: "webworker",
   module: {
     rules: [
       {
         test: /\.ts$/,
         exclude: /node_modules/,
-        loader: "ts-loader",
+        loader: "builtin:swc-loader",
         options: {
-          configFile: "tsconfig.rspack.json",
+          jsc: {
+            parser: { syntax: "typescript" },
+            target: "es2020",
+          },
         },
       },
     ],
