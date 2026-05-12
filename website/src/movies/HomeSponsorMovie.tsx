@@ -29,29 +29,6 @@ const HomeSponsorMovie = () => (
         >
           Thanks for your support. Your donation encourages typia development.
         </Typography>
-        <Typography
-          variant="body2"
-          sx={{
-            color: "rgba(255,255,255,0.4)",
-            fontSize: "0.9rem",
-            mt: 1.5,
-            mb: 4,
-          }}
-        >
-          Also, typia is re-distributing quarter of donations to{" "}
-          <Box
-            component="a"
-            href="https://github.com/nonara/ts-patch"
-            sx={{
-              color: "rgb(0,180,255)",
-              textDecoration: "none",
-              "&:hover": { textDecoration: "underline" },
-            }}
-          >
-            nonara/ts-patch
-          </Box>
-          .
-        </Typography>
       </Box>
       <Box sx={{ textAlign: "center" }}>
         <Box
