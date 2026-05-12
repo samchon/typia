@@ -1,0 +1,322 @@
+---
+title: Guide Documents > Setup
+---
+
+import { Tabs } from "nextra/components";
+
+## [TypeScript-Go](/docs/setup/tsgo)
+
+Use `typia@next` with `ttsc`.
+
+TypeScript is migrating its compiler to Go through TypeScript-Go. `ttsc` is the Go-based plugin toolchain for that compiler, and `typia@next` uses the new Go-based transform.
+
+<Tabs items={["npm", "pnpm", "yarn", "bun"]}>
+  <Tabs.Tab>
+```bash filename="Terminal" showLineNumbers copy
+# install
+npm i typia@next
+npm i -D ttsc @typescript/native-preview
+
+# build
+npx ttsc
+
+# run without build
+npx ttsx src/index.ts
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```bash filename="Terminal" showLineNumbers copy
+# install
+pnpm i typia@next
+pnpm i -D ttsc @typescript/native-preview
+
+# build
+pnpm ttsc
+
+# run without build
+pnpm ttsx src/index.ts
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```bash filename="Terminal" showLineNumbers copy
+# install
+yarn add typia@next
+yarn add -D ttsc @typescript/native-preview
+
+# build
+yarn ttsc
+
+# run without build
+yarn ttsx src/index.ts
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```bash filename="Terminal" showLineNumbers copy
+# install
+bun add typia@next
+bun add -d ttsc @typescript/native-preview
+
+# build
+bun ttsc
+
+# run without build
+bun ttsx src/index.ts
+```
+  </Tabs.Tab>
+</Tabs>
+
+You must use `ttsc` and `ttsx`. The stock `tsc`, `ts-node`, and `tsx` cannot apply the `typia` transform, so they will not work.
+
+For bundlers, use `@ttsc/unplugin`.
+
+<Tabs
+  items={[
+    "Vite",
+    "Next.js",
+    "Rollup",
+    "Rolldown",
+    "esbuild",
+    "Webpack",
+    "Rspack",
+    "Farm",
+    "Bun",
+  ]}
+>
+  <Tabs.Tab>
+```ts filename="vite.config.ts" showLineNumbers copy
+import ttsc from "@ttsc/unplugin/vite";
+import { defineConfig } from "vite";
+
+export default defineConfig({
+  plugins: [ttsc()],
+});
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```js filename="next.config.mjs" showLineNumbers copy
+import withTtsc from "@ttsc/unplugin/next";
+
+/** @type {import("next").NextConfig} */
+const nextConfig = {
+  reactStrictMode: true,
+};
+
+export default withTtsc(nextConfig);
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```ts filename="rollup.config.ts" showLineNumbers copy
+import ttsc from "@ttsc/unplugin/rollup";
+
+export default {
+  input: "src/index.ts",
+  output: {
+    dir: "dist",
+    format: "esm",
+  },
+  plugins: [ttsc()],
+};
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```ts filename="rolldown.config.ts" showLineNumbers copy
+import ttsc from "@ttsc/unplugin/rolldown";
+import { defineConfig } from "rolldown";
+
+export default defineConfig({
+  input: "src/index.ts",
+  output: {
+    dir: "dist",
+    format: "esm",
+  },
+  plugins: [ttsc()],
+});
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```ts filename="esbuild.config.ts" showLineNumbers copy
+import ttsc from "@ttsc/unplugin/esbuild";
+import { build } from "esbuild";
+
+await build({
+  entryPoints: ["src/index.ts"],
+  outdir: "dist",
+  bundle: true,
+  plugins: [ttsc()],
+});
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```js filename="webpack.config.mjs" showLineNumbers copy
+import ttsc from "@ttsc/unplugin/webpack";
+
+export default {
+  entry: "./src/index.ts",
+  output: {
+    path: new URL("./dist", import.meta.url).pathname,
+  },
+  plugins: [ttsc()],
+};
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```js filename="rspack.config.mjs" showLineNumbers copy
+import ttsc from "@ttsc/unplugin/rspack";
+
+export default {
+  entry: "./src/index.ts",
+  plugins: [ttsc()],
+};
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```ts filename="farm.config.ts" showLineNumbers copy
+import ttsc from "@ttsc/unplugin/farm";
+import { defineConfig } from "@farmfe/core";
+
+export default defineConfig({
+  plugins: [ttsc()],
+});
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```ts filename="build.ts" showLineNumbers copy
+import ttsc from "@ttsc/unplugin/bun";
+
+await Bun.build({
+  entrypoints: ["src/index.ts"],
+  outdir: "dist",
+  plugins: [ttsc()],
+});
+```
+  </Tabs.Tab>
+</Tabs>
+
+## [Legacy (TS v6)](/docs/setup/legacy)
+
+Use `typia` with `ts-patch`.
+
+This is the existing TypeScript v6 setup. It uses the JavaScript TypeScript compiler with `ts-patch`, and is still the stable path for current `typia` releases.
+
+<Tabs items={["npm", "pnpm", "yarn", "bun"]}>
+  <Tabs.Tab>
+```bash filename="Terminal" showLineNumbers copy
+# install
+npm i typia
+npm i -D typescript ts-node ts-patch
+npx typia setup
+
+# build
+npx tsc
+
+# run without build
+npx ts-node src/index.ts
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```bash filename="Terminal" showLineNumbers copy
+# install
+pnpm i typia
+pnpm i -D typescript ts-node ts-patch
+pnpm typia setup --manager pnpm
+
+# build
+pnpm tsc
+
+# run without build
+pnpm ts-node src/index.ts
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```bash filename="Terminal" showLineNumbers copy
+# install
+# YARN BERRY IS NOT SUPPORTED
+yarn add typia
+yarn add -D typescript ts-node ts-patch
+yarn typia setup --manager yarn
+
+# build
+yarn tsc
+
+# run without build
+yarn ts-node src/index.ts
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```bash filename="Terminal" showLineNumbers copy
+# install
+bun add typia
+bun add -d typescript ts-node ts-patch
+bun typia setup
+
+# build
+bun tsc
+
+# run without build
+bun ts-node src/index.ts
+```
+  </Tabs.Tab>
+</Tabs>
+
+For bundlers, use `@typia/unplugin`.
+
+<Tabs items={["Vite", "Next.js", "esbuild", "Bun.runtime", "Bun.build"]}>
+  <Tabs.Tab>
+```ts filename="vite.config.ts" showLineNumbers copy
+import UnpluginTypia from "@typia/unplugin/vite";
+import { defineConfig } from "vite";
+
+export default defineConfig({
+  plugins: [UnpluginTypia()],
+});
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```js filename="next.config.mjs" showLineNumbers copy
+import unTypiaNext from "@typia/unplugin/next";
+
+/** @type {import("next").NextConfig} */
+const config = {
+  reactStrictMode: true,
+};
+
+export default unTypiaNext(config);
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```js filename="esbuild.config.js" showLineNumbers copy
+import { build } from "esbuild";
+import UnpluginTypia from "@typia/unplugin/esbuild";
+
+build({
+  plugins: [UnpluginTypia()],
+});
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```ts filename="preload.ts" showLineNumbers copy
+import { plugin } from "bun";
+import UnpluginTypia from "@typia/unplugin/bun";
+
+plugin(UnpluginTypia());
+```
+
+```toml filename="bunfig.toml" showLineNumbers copy
+preload = ["./preload.ts"]
+
+[test]
+preload = ["./preload.ts"]
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```ts filename="build.ts" showLineNumbers copy
+import UnpluginTypia from "@typia/unplugin/bun";
+
+await Bun.build({
+  entrypoints: ["./index.ts"],
+  outdir: "./out",
+  plugins: [UnpluginTypia()],
+});
+```
+  </Tabs.Tab>
+</Tabs>

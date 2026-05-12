@@ -1,0 +1,501 @@
+---
+title: Guide Documents > Setup > TypeScript-Go
+---
+
+import { Tabs } from "nextra/components";
+
+## Summary
+
+`typia@next` uses the [`ttsc`](https://github.com/samchon/ttsc) toolchain.
+
+This setup targets TypeScript-Go, the Go migration of the TypeScript compiler. `ttsc` provides the Go-based plugin toolchain, and `typia@next` uses the Go-rewritten `typia` transform.
+
+- `ttsc`: build, check, and watch TypeScript projects
+- `ttsx`: execute TypeScript directly with type checking
+- `@ttsc/unplugin`: run `ttsc` plugins from bundlers
+
+> [!NOTE]
+>
+> `@typescript/native-preview` is not a stable TypeScript release yet, and `typia@next` is also an experimental release of `typia`.
+>
+> Also, you must use `ttsc` and `ttsx`. The stock `tsc`, `ts-node`, and `tsx` cannot apply the `typia` transform, so they will not work.
+
+## Setup
+
+### Install
+
+<Tabs items={["npm", "pnpm", "yarn", "bun"]}>
+  <Tabs.Tab>
+```bash filename="Terminal" showLineNumbers copy
+npm i typia@next
+npm i -D ttsc @typescript/native-preview
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```bash filename="Terminal" showLineNumbers copy
+pnpm i typia@next
+pnpm i -D ttsc @typescript/native-preview
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```bash filename="Terminal" showLineNumbers copy
+yarn add typia@next
+yarn add -D ttsc @typescript/native-preview
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```bash filename="Terminal" showLineNumbers copy
+bun add typia@next
+bun add -d ttsc @typescript/native-preview
+```
+  </Tabs.Tab>
+</Tabs>
+
+Keep your TypeScript project strict.
+
+```json filename="tsconfig.json" showLineNumbers copy
+{
+  "compilerOptions": {
+    "strict": true
+  }
+}
+```
+
+### Compile
+
+Use `ttsc` to build your TypeScript project. It compiles your sources and applies the `typia` transform in one step.
+
+<Tabs items={["npm", "pnpm", "yarn", "bun"]}>
+  <Tabs.Tab>
+```bash filename="Terminal" showLineNumbers copy
+npx ttsc
+npx ttsc --noEmit
+npx ttsc --watch
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```bash filename="Terminal" showLineNumbers copy
+pnpm ttsc
+pnpm ttsc --noEmit
+pnpm ttsc --watch
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```bash filename="Terminal" showLineNumbers copy
+yarn ttsc
+yarn ttsc --noEmit
+yarn ttsc --watch
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```bash filename="Terminal" showLineNumbers copy
+bun ttsc
+bun ttsc --noEmit
+bun ttsc --watch
+```
+  </Tabs.Tab>
+</Tabs>
+
+### Execute
+
+Use `ttsx` to run a TypeScript file directly, without a build step.
+
+<Tabs items={["npm", "pnpm", "yarn", "bun"]}>
+  <Tabs.Tab>
+```bash filename="Terminal" showLineNumbers copy
+npx ttsx src/index.ts
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```bash filename="Terminal" showLineNumbers copy
+pnpm ttsx src/index.ts
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```bash filename="Terminal" showLineNumbers copy
+yarn ttsx src/index.ts
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```bash filename="Terminal" showLineNumbers copy
+bun ttsx src/index.ts
+```
+  </Tabs.Tab>
+</Tabs>
+
+## Bundlers
+
+### Install
+
+Use [`@ttsc/unplugin`](https://github.com/samchon/ttsc/tree/master/packages/unplugin)
+when your project is built by a bundler.
+
+`ttsc` is enough for a normal TypeScript build, but bundlers run their own
+build pipeline. `@ttsc/unplugin` connects the `ttsc` transform to that pipeline.
+
+<Tabs items={["npm", "pnpm", "yarn", "bun"]}>
+  <Tabs.Tab>
+```bash filename="Terminal" showLineNumbers copy
+npm i -D @ttsc/unplugin
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```bash filename="Terminal" showLineNumbers copy
+pnpm i -D @ttsc/unplugin
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```bash filename="Terminal" showLineNumbers copy
+yarn add -D @ttsc/unplugin
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```bash filename="Terminal" showLineNumbers copy
+bun add -d @ttsc/unplugin
+```
+  </Tabs.Tab>
+</Tabs>
+
+### Configuration
+
+Currently, `@ttsc/unplugin` supports the following bundlers:
+
+- Vite
+- Next.js
+- Rollup
+- Rolldown
+- esbuild
+- Webpack
+- Rspack
+- Farm
+- Bun
+
+Then add the matching plugin to your bundler config. Import path must match the
+bundler you are using.
+
+<Tabs
+  items={[
+    "Vite",
+    "Next.js",
+    "Rollup",
+    "Rolldown",
+    "esbuild",
+    "Webpack",
+    "Rspack",
+    "Farm",
+    "Bun",
+  ]}
+>
+  <Tabs.Tab>
+```ts filename="vite.config.ts" showLineNumbers copy
+import ttsc from "@ttsc/unplugin/vite";
+import { defineConfig } from "vite";
+
+export default defineConfig({
+  plugins: [ttsc()],
+});
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```js filename="next.config.mjs" showLineNumbers copy
+import withTtsc from "@ttsc/unplugin/next";
+
+/** @type {import("next").NextConfig} */
+const nextConfig = {
+  reactStrictMode: true,
+};
+
+export default withTtsc(nextConfig);
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```ts filename="rollup.config.ts" showLineNumbers copy
+import ttsc from "@ttsc/unplugin/rollup";
+
+export default {
+  input: "src/index.ts",
+  output: {
+    dir: "dist",
+    format: "esm",
+  },
+  plugins: [ttsc()],
+};
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```ts filename="rolldown.config.ts" showLineNumbers copy
+import ttsc from "@ttsc/unplugin/rolldown";
+import { defineConfig } from "rolldown";
+
+export default defineConfig({
+  input: "src/index.ts",
+  output: {
+    dir: "dist",
+    format: "esm",
+  },
+  plugins: [ttsc()],
+});
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```ts filename="esbuild.config.ts" showLineNumbers copy
+import ttsc from "@ttsc/unplugin/esbuild";
+import { build } from "esbuild";
+
+await build({
+  entryPoints: ["src/index.ts"],
+  outdir: "dist",
+  bundle: true,
+  plugins: [ttsc()],
+});
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```js filename="webpack.config.mjs" showLineNumbers copy
+import ttsc from "@ttsc/unplugin/webpack";
+
+export default {
+  entry: "./src/index.ts",
+  output: {
+    path: new URL("./dist", import.meta.url).pathname,
+  },
+  plugins: [ttsc()],
+};
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```js filename="rspack.config.mjs" showLineNumbers copy
+import ttsc from "@ttsc/unplugin/rspack";
+
+export default {
+  entry: "./src/index.ts",
+  plugins: [ttsc()],
+};
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```ts filename="farm.config.ts" showLineNumbers copy
+import ttsc from "@ttsc/unplugin/farm";
+import { defineConfig } from "@farmfe/core";
+
+export default defineConfig({
+  plugins: [ttsc()],
+});
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```ts filename="build.ts" showLineNumbers copy
+import ttsc from "@ttsc/unplugin/bun";
+
+await Bun.build({
+  entrypoints: ["src/index.ts"],
+  outdir: "dist",
+  plugins: [ttsc()],
+});
+```
+  </Tabs.Tab>
+</Tabs>
+
+Put the plugin in the same config file that already builds your application.
+For example, a Vite app uses `vite.config.ts`, a Next.js app uses
+`next.config.mjs`, and a Webpack app uses `webpack.config.mjs`.
+
+After that, run the normal build command of your framework or bundler.
+
+### Project
+
+If your bundler should read another TypeScript config file, pass `project`.
+
+<Tabs
+  items={[
+    "Vite",
+    "Next.js",
+    "Rollup",
+    "Rolldown",
+    "esbuild",
+    "Webpack",
+    "Rspack",
+    "Farm",
+    "Bun",
+  ]}
+>
+  <Tabs.Tab>
+```ts filename="vite.config.ts" showLineNumbers copy
+import ttsc from "@ttsc/unplugin/vite";
+import { defineConfig } from "vite";
+
+export default defineConfig({
+  plugins: [
+    ttsc({
+      project: "tsconfig.bundle.json",
+    }),
+  ],
+});
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```js filename="next.config.mjs" showLineNumbers copy
+import withTtsc from "@ttsc/unplugin/next";
+
+/** @type {import("next").NextConfig} */
+const nextConfig = {
+  reactStrictMode: true,
+};
+
+export default withTtsc(nextConfig, {
+  project: "tsconfig.bundle.json",
+});
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```ts filename="rollup.config.ts" showLineNumbers copy
+import ttsc from "@ttsc/unplugin/rollup";
+
+export default {
+  input: "src/index.ts",
+  output: {
+    dir: "dist",
+    format: "esm",
+  },
+  plugins: [
+    ttsc({
+      project: "tsconfig.bundle.json",
+    }),
+  ],
+};
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```ts filename="rolldown.config.ts" showLineNumbers copy
+import ttsc from "@ttsc/unplugin/rolldown";
+import { defineConfig } from "rolldown";
+
+export default defineConfig({
+  input: "src/index.ts",
+  output: {
+    dir: "dist",
+    format: "esm",
+  },
+  plugins: [
+    ttsc({
+      project: "tsconfig.bundle.json",
+    }),
+  ],
+});
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```ts filename="esbuild.config.ts" showLineNumbers copy
+import ttsc from "@ttsc/unplugin/esbuild";
+import { build } from "esbuild";
+
+await build({
+  entryPoints: ["src/index.ts"],
+  outdir: "dist",
+  bundle: true,
+  plugins: [
+    ttsc({
+      project: "tsconfig.bundle.json",
+    }),
+  ],
+});
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```js filename="webpack.config.mjs" showLineNumbers copy
+import ttsc from "@ttsc/unplugin/webpack";
+
+export default {
+  entry: "./src/index.ts",
+  output: {
+    path: new URL("./dist", import.meta.url).pathname,
+  },
+  plugins: [
+    ttsc({
+      project: "tsconfig.bundle.json",
+    }),
+  ],
+};
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```js filename="rspack.config.mjs" showLineNumbers copy
+import ttsc from "@ttsc/unplugin/rspack";
+
+export default {
+  entry: "./src/index.ts",
+  plugins: [
+    ttsc({
+      project: "tsconfig.bundle.json",
+    }),
+  ],
+};
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```ts filename="farm.config.ts" showLineNumbers copy
+import ttsc from "@ttsc/unplugin/farm";
+import { defineConfig } from "@farmfe/core";
+
+export default defineConfig({
+  plugins: [
+    ttsc({
+      project: "tsconfig.bundle.json",
+    }),
+  ],
+});
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```ts filename="build.ts" showLineNumbers copy
+import ttsc from "@ttsc/unplugin/bun";
+
+await Bun.build({
+  entrypoints: ["src/index.ts"],
+  outdir: "dist",
+  plugins: [
+    ttsc({
+      project: "tsconfig.bundle.json",
+    }),
+  ],
+});
+```
+  </Tabs.Tab>
+</Tabs>
+
+The `project` path is resolved from the current working directory.
+
+## Transform Options
+
+Add `compilerOptions.plugins` only when you want to change transform options.
+
+```jsonc filename="tsconfig.json" showLineNumbers copy
+{
+  "compilerOptions": {
+    "strict": true,
+    "strictNullChecks": true,
+    "plugins": [
+      {
+        "transform": "typia/lib/transform",
+        "functional": true, // default: false
+        "numeric": true, // default: false
+        "finite": true, // default: false
+        "undefined": false // default: true
+      }
+    ]
+  }
+}
+```
+
+- `functional`: validate function types
+- `numeric`: reject `NaN` from `number`
+- `finite`: reject both `NaN` and `Infinity` from `number`
+- `undefined`: set `false` to skip explicit `undefined` checks
+
+> [!NOTE]
+>
+> If you use the default transform options, do not add
+> `compilerOptions.plugins` to `tsconfig.json`.
+>
+> `ttsc` automatically applies the `typia` transform. This is the difference
+> from the legacy setup.
