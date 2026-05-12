@@ -110,7 +110,7 @@ Thanks for your support.
 
 Your donation encourages `typia` development.
 
-[![Sponsors](https://opencollective.com/typia/badge.svg?avatarHeight=75&width=600)](https://opencollective.com/typia)
+[![Sponsors](https://typia.io/sponsors.svg)](https://opencollective.com/typia)
 
 ## Playground
 

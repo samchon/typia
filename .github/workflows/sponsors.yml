@@ -1,0 +1,46 @@
+name: sponsors
+
+on:
+  schedule:
+    # Every Monday at 06:00 UTC.
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 24.x
+
+      - name: Install sponsorkit
+        working-directory: website
+        # Install just sponsorkit; skip the heavy native tarball deps that the
+        # full website build requires.
+        run: npm install --no-save sponsorkit@^17.1.0
+
+      - name: Generate sponsors.svg
+        working-directory: website
+        env:
+          SPONSORKIT_GITHUB_TOKEN: ${{ secrets.SPONSORKIT_GITHUB_TOKEN }}
+          SPONSORKIT_GITHUB_LOGIN: samchon
+          SPONSORKIT_OPENCOLLECTIVE_KEY: ${{ secrets.SPONSORKIT_OPENCOLLECTIVE_KEY }}
+        run: npx sponsorkit --force
+
+      - name: Commit changes
+        run: |
+          if git diff --quiet -- website/public/sponsors.svg; then
+            echo "No changes to sponsors.svg"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add website/public/sponsors.svg
+          git commit -m "chore(sponsors): refresh sponsors.svg"
+          git push

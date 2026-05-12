@@ -38,7 +38,7 @@ const HomeSponsorMovie = () => (
         >
           <Box
             component="img"
-            src="https://opencollective.com/typia/badge.svg?avatarHeight=75&width=600"
+            src="/sponsors.svg"
             alt="Sponsors"
             sx={{
               maxWidth: "100%",

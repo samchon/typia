@@ -29,6 +29,24 @@ func init() {
       Explore: props.Explore,
     })
   }
+  nativemetadata.MetadataCommentTagAnalyzer = func(props struct {
+    Errors   *[]nativemetadata.MetadataFactory_IError
+    Metadata *schemametadata.MetadataSchema
+    Tags     []schemametadata.IJsDocTagInfo
+    Explore  nativemetadata.MetadataFactory_IExplore
+  }) {
+    MetadataCommentTagFactory.Analyze(struct {
+      Errors   *[]MetadataFactory_IError
+      Metadata *schemametadata.MetadataSchema
+      Tags     []schemametadata.IJsDocTagInfo
+      Explore  MetadataFactory_IExplore
+    }{
+      Errors:   props.Errors,
+      Metadata: props.Metadata,
+      Tags:     props.Tags,
+      Explore:  props.Explore,
+    })
+  }
 }
 
 type MetadataFactory_Validator = func(props struct {

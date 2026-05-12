@@ -15,7 +15,9 @@
     "build:tgz": "node build/tgz",
     "build:typedoc": "node build/typedoc",
     "deploy": "node build/deploy",
-    "dev": "npm run build:compiler && npm run build:examples && next dev"
+    "dev": "npm run build:compiler && npm run build:examples && next dev",
+    "env:init": "node build/env-init.js",
+    "sponsors": "sponsorkit"
   },
   "repository": {
     "type": "git",
@@ -64,6 +66,7 @@
     "pagefind": "^1.3.0",
     "process": "^0.11.10",
     "rimraf": "^5.0.0",
+    "sponsorkit": "^17.1.0",
     "ts-loader": "^9.5.1",
     "ts-node": "^10.9.1",
     "typedoc": "^0.28.9",

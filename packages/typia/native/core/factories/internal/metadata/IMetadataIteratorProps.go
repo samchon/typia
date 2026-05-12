@@ -54,3 +54,10 @@ var MetadataTypeTagAnalyzer func(props struct {
   Objects []*schemametadata.MetadataObjectType
   Explore MetadataFactory_IExplore
 }) []schemametadata.IMetadataTypeTag
+
+var MetadataCommentTagAnalyzer func(props struct {
+  Errors   *[]MetadataFactory_IError
+  Metadata *schemametadata.MetadataSchema
+  Tags     []schemametadata.IJsDocTagInfo
+  Explore  MetadataFactory_IExplore
+})

@@ -133,7 +133,11 @@ func metadata_node_js_doc_tags(symbol *nativeast.Symbol) []schemametadata.IJsDoc
             Text: name,
           })
         }
-        if text := metadata_js_doc_comment_text(tag.CommentList()); text != "" {
+        text := metadata_js_doc_comment_text(tag.CommentList())
+        if text == "" && tag.TagName().Text() == "type" {
+          text = metadata_js_doc_type_expression_text(tag.TypeExpression())
+        }
+        if text != "" {
           texts = append(texts, schemametadata.IJsDocTagInfo_IText{
             Kind: "text",
             Text: text,
@@ -212,6 +216,30 @@ func metadata_js_doc_comment_text(list *nativeast.NodeList) string {
     }
   }
   return metadata_clean_js_doc_text(strings.Join(parts, ""))
+}
+
+func metadata_js_doc_type_expression_text(node *nativeast.Node) (output string) {
+  if node == nil {
+    return ""
+  }
+  defer func() {
+    if recover() != nil {
+      output = ""
+    }
+  }()
+  if node.Kind.String() == "KindJSDocTypeExpression" {
+    node = node.Type()
+  }
+  if node == nil {
+    return ""
+  }
+  if source := nativeast.GetSourceFileOfNode(node); source != nil {
+    text := source.Text()
+    if pos, end := node.Pos(), node.End(); 0 <= pos && pos <= end && end <= len(text) {
+      return metadata_clean_js_doc_text(text[pos:end])
+    }
+  }
+  return metadata_clean_js_doc_text(node.Text())
 }
 
 func metadata_clean_js_doc_text(text string) string {

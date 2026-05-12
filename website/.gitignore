@@ -1,4 +1,5 @@
 .next/
+.sponsorkit-cache/
 _pagefind/
 node_modules/
 out/
@@ -12,4 +13,4 @@ src/raw/
 typedoc-json/
 
 src/compiler/PlaygroundExampleStorage.ts
-!.env
+.env

@@ -12,9 +12,34 @@ func Iterate_metadata_comment_tags(props struct {
   props.Object.Tagged_ = true
 
   for _, property := range props.Object.Properties {
-    _ = property
-    // JSDoc extraction through the TypeScript-Go shim is not yet complete.
-    // The traversal point is kept in the original file location so the
-    // MetadataCommentTagFactory port can be wired without changing callers.
+    if MetadataCommentTagAnalyzer == nil || property == nil || property.Value == nil || len(property.JsDocTags) == 0 {
+      continue
+    }
+    key := any(nil)
+    if property.Key != nil {
+      if literal := property.Key.GetSoleLiteral(); literal != nil {
+        key = *literal
+      }
+    }
+    MetadataCommentTagAnalyzer(struct {
+      Errors   *[]MetadataFactory_IError
+      Metadata *schemametadata.MetadataSchema
+      Tags     []schemametadata.IJsDocTagInfo
+      Explore  MetadataFactory_IExplore
+    }{
+      Errors:   props.Errors,
+      Metadata: property.Value,
+      Tags:     property.JsDocTags,
+      Explore: MetadataFactory_IExplore{
+        Top:       false,
+        Object:    props.Object,
+        Property:  key,
+        Parameter: nil,
+        Nested:    nil,
+        Aliased:   false,
+        Escaped:   false,
+        Output:    false,
+      },
+    })
   }
 }
