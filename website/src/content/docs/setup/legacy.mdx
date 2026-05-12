@@ -1,11 +1,13 @@
 ---
-title: Guide Documents > Setup
+title: Guide Documents > Setup > Legacy
 ---
 import { Callout, Tabs } from "nextra/components";
 
-import LocalSource from "../../components/LocalSource";
+import LocalSource from "../../../components/LocalSource";
 
 ## Summary
+
+This is the legacy setup path for TypeScript v6 and below. It uses [`ts-patch`](https://github.com/nonara/ts-patch) on top of the JavaScript-based TypeScript compiler, and remains the stable path for current `typia` releases.
 
 <Tabs items={['npm', 'pnpm', 'yarn', 'bun']}>
   <Tabs.Tab>
@@ -78,13 +80,13 @@ This is the transform mode performing AOT (Ahead of Time) compilation.
 <Tabs items={['npm', 'pnpm', 'yarn', 'bun']}>
   <Tabs.Tab>
 ```bash filename="Terminal" copy showLineNumbers
-npm install --save typia
+npm install typia
 npx typia setup
 ```
   </Tabs.Tab>
   <Tabs.Tab>
 ```bash filename="Terminal" copy showLineNumbers
-pnpm install --save typia
+pnpm install typia
 pnpm typia setup --manager pnpm
 ```
   </Tabs.Tab>
@@ -112,34 +114,34 @@ Setup wizard would be executed, and it will do everything for the transformation
 <Tabs items={['npm', 'pnpm', 'yarn', 'bun']}>
   <Tabs.Tab>
 ```bash filename="Terminal" copy showLineNumbers
-npm install --save typia
-npm install --save-dev @typescript/native-preview ttsc
+npm install typia
+npm install -D typescript ts-patch
 ```
   </Tabs.Tab>
   <Tabs.Tab>
 ```bash filename="Terminal" copy showLineNumbers
-pnpm install --save typia
-pnpm install --save-dev @typescript/native-preview ttsc
+pnpm install typia
+pnpm install -D typescript ts-patch
 ```
   </Tabs.Tab>
   <Tabs.Tab>
 ```bash filename="Terminal" copy showLineNumbers
 # YARN BERRY IS NOT SUPPORTED
 yarn add typia
-yarn add -D @typescript/native-preview ttsc
+yarn add -D typescript ts-patch
 ```
   </Tabs.Tab>
   <Tabs.Tab>
 ```bash filename="Terminal" copy showLineNumbers
 bun add typia
-bun add -d @typescript/native-preview ttsc
+bun add -d typescript ts-patch
 ```
   </Tabs.Tab>
 </Tabs>
 
 If you want to install `typia` manually, just follow the steps.
 
-Firstly install `typia` as a dependency. And then, install `@typescript/native-preview` and `ttsc` as `devDependencies`.
+Firstly install `typia` as a dependency. And then, install `typescript` and `ts-patch` as `devDependencies`.
 
 ```json filename="tsconfig.json" copy showLineNumbers
 {
@@ -160,17 +162,48 @@ As `typia` generates optimal operation code through transformation, it must be c
 
 ```json filename="package.json" copy showLineNumbers {2-4}
 {
+  "scripts": {
+    "prepare": "ts-patch install"
+  },
   "dependencies": {
     "typia": "^6.0.6"
   },
   "devDependencies": {
-    "ttsc": "^0.4.2",
-    "@typescript/native-preview": "^7.0.0-dev"
+    "ts-patch": "^3.2.0",
+    "typescript": "^5.4.5"
   }
 }
 ```
 
-Finally run `ttsc build --emit --tsconfig tsconfig.json`. The setup wizard automates the same contract without patching the stock `tsc` compiler.
+<Tabs items={['npm', 'pnpm', 'yarn', 'bun']}>
+  <Tabs.Tab>
+```bash filename="Terminal" copy showLineNumbers
+npm run prepare
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```bash filename="Terminal" copy showLineNumbers
+pnpm prepare
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```bash filename="Terminal" copy showLineNumbers
+# YARN BERRY IS NOT SUPPORTED
+yarn prepare
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```bash filename="Terminal" copy showLineNumbers
+bun prepare
+```
+  </Tabs.Tab>
+</Tabs>
+
+Finally open `package.json` file and configure `npm run prepare` command like above.
+
+Be sure to run `npm run prepare` once you have made these changes.
+
+For reference, [`ts-patch`](https://github.com/nonara/ts-patch) is an helper library of TypeScript compiler that supporting custom transformations by plugins. From now on, whenever you run `tsc` command, your `typia` function call statements would be transformed to the optimal operation codes in the compiled JavaScript files.
 
 ## Bundlers
 
@@ -192,7 +225,7 @@ Currently, `@typia/unplugin` supports the following bundlers:
 <Tabs items={['npm', 'pnpm', 'yarn', 'bun']}>
   <Tabs.Tab>
 ```bash filename="Terminal" showLineNumbers copy
-npm install --save typia
+npm install typia
 npx typia setup
 
 npm install -D @typia/unplugin
@@ -333,8 +366,8 @@ npm install typia
 npx typia setup
 
 # WEBPACK + TS-LOADER
-npm install --save-dev ts-loader
-npm install --save-dev webpack webpack-cli
+npm install -D ts-loader
+npm install -D webpack webpack-cli
 ```
   </Tabs.Tab>
   <Tabs.Tab>
@@ -344,8 +377,8 @@ pnpm install typia
 pnpm typia setup --manager pnpm
 
 # WEBPACK + TS-LOADER
-pnpm install --save-dev ts-loader
-pnpm install --save-dev webpack webpack-cli
+pnpm install -D ts-loader
+pnpm install -D webpack webpack-cli
 ```
   </Tabs.Tab>
   <Tabs.Tab>
@@ -453,13 +486,13 @@ Additionally, if you're using `typia` in the NodeJS project especially for the b
 <Tabs items={['npm', 'pnpm', 'yarn', 'bun']}>
   <Tabs.Tab>
 ```bash filename="Terminal" copy showLineNumbers
-npm install --save typia
+npm install typia
 npx typia setup
 ```
   </Tabs.Tab>
   <Tabs.Tab>
 ```bash filename="Terminal" copy showLineNumbers
-pnpm install --save typia
+pnpm install typia
 pnpm typia setup --manager pnpm
 ```
   </Tabs.Tab>
@@ -478,7 +511,7 @@ bun typia setup --manager bun
     </Tabs.Tab>
 </Tabs>
 
-After installing `typia` like above, and ensuring `@typescript/native-preview` and `ttsc` are available, modify the `tsconfig.lib.json` on each `@nx/js` package to be similar to the below.
+After installing `typia` like above, and ensuring the `prepare` script is something similar to `ts-patch install` you have to modify the `tsconfig.lib.json` on each `@nx/js` package to be similar to the below.
 
 ```json filename="tsconfig.lib.json" showLineNumbers copy
 {
@@ -494,7 +527,7 @@ After installing `typia` like above, and ensuring `@typescript/native-preview` a
 }
 ```
 
-After this, when running `nx <package-name>:build` it _should_ now output with the Typia transforms applied. **But if Typia fails for any reason** (for example it considers some type you have to be invalid), this error is not reported back via Nx. Nx can still swallow these transform errors, and the resulting transpiled code will not have typia transformations applied. This will result in an error such as the following when running your tests that use typia (`nx <package-name>:test`), dev versions of your application (`nx <package-name>:serve`), as well as running your application after building.
+After this, when running `nx <package-name>:build` it _should_ now output with the Typia transforms applied. **But if Typia fails for any reason** (for example it considers some type you have to be invalid), this error is not reported back via Nx. Nx will silent swallow these errors from ts-patch/typia, and the resulting transpiled code will not have typia transformations applied. This will result in an error such as the following when running you tests that use typia (`nx <package-name>:test`), dev versions of your application (`nx <package-name>:serve`), as well as running your application after building.
 
 ```bash filename="Terminal"
 Error on typia.createAssert(): no transform has been configured.
@@ -518,7 +551,7 @@ To debug whether this is an issue with your setup or simply NX just silently swa
 
 Running this task will show you the errors from Typia, and allow you to correct them, meaning that using the standard `nx <package-name>:build` task should now work the way you expect.
 
-Note: While Nx has a `transformers` feature on the `@nx/js` plugin, that won't work with Typia. Nx expects a transformer to export a `before` hook, which it then plugs directly into the compiler API. Typia's default path is the `ttsc` host plus `typia/lib/transform`, so the Nx transformer slot is not the primary integration point.
+Note: While Nx has a `transformers` feature on the `@nx/js` plugin, that won't work with Typia. The reason is because Nx is expecting a transformer to export a `before` hook, which Nx then plugs directly into TypeScript via the compiler API. Typia doesn't export that kind of hook, because Typia only works with ts-patch, which abstracts the need for creating a specific before hook in the way Nx wants.
 
 ## Generation
 
@@ -526,8 +559,8 @@ Note: While Nx has a `transformers` feature on the `@nx/js` plugin, that won't w
   <Tabs.Tab>
 ```bash filename="Terminal" copy showLineNumbers
 # INSTALL TYPIA
-npm install --save typia
-npm install --save-dev typescript
+npm install typia
+npm install -D typescript
 
 # GENERATE TRANSFORMED TYPESCRIPT CODES
 npx typia generate \
@@ -539,8 +572,8 @@ npx typia generate \
   <Tabs.Tab>
 ```bash filename="Terminal" copy showLineNumbers
 # INSTALL TYPIA
-pnpm install --save typia
-pnpm install --save-dev typescript
+pnpm install typia
+pnpm install -D typescript
 
 # GENERATE TRANSFORMED TYPESCRIPT CODES
 pnpm typia generate \
