@@ -58,6 +58,7 @@ export function random<T>(g?: Partial<IRandomGenerator>): T;
 > - JSON serialization is **200x faster** than `class-transformer`
 > - LLM function calling harness turns **6.75% → 100%** accuracy
 
+<!--
 ## Setup
 
 Install `typia@next` with the [`ttsc`](https://github.com/samchon/ttsc) toolchain.
@@ -77,6 +78,7 @@ npx ttsx src/index.ts
 You **must** use `ttsc` and `ttsx`. The stock `tsc`, `ts-node`, and `tsx` cannot apply the `typia` transform, so they will not work.
 
 For bundler integration (Vite, Next.js, Webpack, Rollup, esbuild, ...), use [`@ttsc/unplugin`](https://github.com/samchon/ttsc/tree/master/packages/unplugin).
+-->
 
 ## Transformation
 
@@ -124,8 +126,8 @@ Check out the document in the [website](https://typia.io/docs/):
 
 - [Introduction](https://typia.io/docs/)
 - [Setup](https://typia.io/docs/setup/)
-  - [TSGO (TypeScript v7)](https://typia.io/docs/setup/tsgo)
   - [Legacy (TypeScript v6)](https://typia.io/docs/setup/legacy)
+  - [TSGO (TypeScript v7)](https://typia.io/docs/setup/tsgo)
 - [Pure TypeScript](https://typia.io/docs/pure/)
   
 ### 📖 Features
