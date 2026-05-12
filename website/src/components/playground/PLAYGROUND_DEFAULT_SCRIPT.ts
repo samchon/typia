@@ -11,9 +11,9 @@ interface IMember {
 }
 
 const member: IMember = typia.random<IMember>();
-const check: boolean = typia.is(member);
-const json: string = typia.json.stringify(member);
-const binary: Uint8Array = typia.protobuf.encode(member);
+const check: boolean = typia.is<IMember>(member);
+const json: string = typia.json.stringify<IMember>(member);
+const binary: Uint8Array = typia.protobuf.encode<IMember>(member);
 
 console.log({
   member,

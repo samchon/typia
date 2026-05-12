@@ -1,6 +1,13 @@
 import { RollupBuild, rollup } from "@rollup/browser";
 import { VariadicSingleton } from "tstl";
-import lock from "../../package-lock.json";
+
+// Workspaces using pnpm do not produce a package-lock.json, so we skip the
+// strict version-pinning of esm.sh fetches and let esm.sh resolve "latest"
+// when no pinned version is known. The shape below matches the original
+// `package-lock.json` excerpt we used to read from.
+const lock: { packages: Record<string, { version?: string } | undefined> } = {
+  packages: {},
+};
 
 export namespace RollupBundler {
   export const build = async (script: string): Promise<string> => {

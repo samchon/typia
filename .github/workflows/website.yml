@@ -31,6 +31,13 @@ jobs:
           go-version: 1.26.x
       - uses: pnpm/action-setup@v4
 
+      # The wasm playground build links against samchon/ttsc via a sibling
+      # go.work file (packages/typia/native/go.work). Local layout puts ttsc
+      # next to typia; CI must reproduce that so `go build` can resolve the
+      # ttsc/* and ttsc/shim/* modules.
+      - name: Checkout ttsc sibling
+        run: git clone --depth 1 https://github.com/samchon/ttsc.git ../ttsc
+
       # - name: Root
       #   run: |
       #     pnpm install
