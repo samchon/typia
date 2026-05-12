@@ -106,11 +106,11 @@ export const checkString = (() => {
 
 ## Sponsors
 
+[![Sponsors](https://raw.githubusercontent.com/samchon/sponsor-images/refs/heads/master/public/circle.svg)](https://github.com/sponsors/samchon)
+
 Thanks for your support.
 
-Your donation encourages `typia` development.
-
-[![Sponsors](https://opencollective.com/typia/badge.svg?avatarHeight=75&width=600)](https://opencollective.com/typia)
+Your [donation](https://github.com/sponsors/samchon) encourages `typia` development.
 
 ## Playground
 
