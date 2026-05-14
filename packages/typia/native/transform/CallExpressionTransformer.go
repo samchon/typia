@@ -29,9 +29,18 @@ type CallExpressionTransformer_TransformProps struct {
   Expression *shimast.CallExpression
 }
 
+type CallExpressionTransformer_TransformKnownProps struct {
+  Context    nativecontext.ITypiaContext
+  Expression *shimast.CallExpression
+  Module     string
+  Method     string
+}
+
 type callExpressionTransformerTask func(props ITransformProps) *shimast.Node
 
 type callExpressionTransformerFunctor func() callExpressionTransformerTask
+
+var callExpressionTransformer_functors = callExpressionTransformer_createFunctors()
 
 func (callExpressionTransformerNamespace) Transform(props CallExpressionTransformer_TransformProps) *shimast.Node {
   if props.Expression == nil {
@@ -59,8 +68,20 @@ func (callExpressionTransformerNamespace) Transform(props CallExpressionTransfor
     return props.Expression.AsNode()
   }
   name := typ.Symbol().Name
+  return CallExpressionTransformer.TransformKnown(CallExpressionTransformer_TransformKnownProps{
+    Context:    props.Context,
+    Expression: props.Expression,
+    Module:     module,
+    Method:     name,
+  })
+}
+
+func (callExpressionTransformerNamespace) TransformKnown(props CallExpressionTransformer_TransformKnownProps) *shimast.Node {
+  if props.Expression == nil {
+    return nil
+  }
   functors := callExpressionTransformer_FUNCTORS()
-  functor, ok := functors[module][name]
+  functor, ok := functors[props.Module][props.Method]
   if ok == false {
     return props.Expression.AsNode()
   }
@@ -101,6 +122,10 @@ func callExpressionTransformer_sourceFile(node *shimast.Node) *shimast.SourceFil
 }
 
 func callExpressionTransformer_FUNCTORS() map[string]map[string]callExpressionTransformerFunctor {
+  return callExpressionTransformer_functors
+}
+
+func callExpressionTransformer_createFunctors() map[string]map[string]callExpressionTransformerFunctor {
   return map[string]map[string]callExpressionTransformerFunctor{
     "module": {
       "assert": func() callExpressionTransformerTask {

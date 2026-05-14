@@ -4,14 +4,24 @@ import (
   "path/filepath"
   "strconv"
   "strings"
+  "sync"
   "unicode"
 
   shimast "github.com/microsoft/typescript-go/shim/ast"
 )
 
+type commonJSImportIdentifierSubstitutionsCacheEntry struct {
+  value map[string]string
+}
+
+var commonJSImportIdentifierSubstitutionsCache sync.Map
+
 func commonJSImportIdentifierSubstitutions(file *shimast.SourceFile) map[string]string {
   if file == nil || file.Statements == nil {
     return nil
+  }
+  if cached, ok := commonJSImportIdentifierSubstitutionsCache.Load(file); ok {
+    return cached.(commonJSImportIdentifierSubstitutionsCacheEntry).value
   }
   output := map[string]string{}
   counts := map[string]int{}
@@ -61,8 +71,9 @@ func commonJSImportIdentifierSubstitutions(file *shimast.SourceFile) map[string]
     }
   }
   if len(output) == 0 {
-    return nil
+    output = nil
   }
+  commonJSImportIdentifierSubstitutionsCache.Store(file, commonJSImportIdentifierSubstitutionsCacheEntry{value: output})
   return output
 }
 
