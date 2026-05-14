@@ -79,10 +79,20 @@ func emitCallWithOptions(program *driver.Program, site CallSite, plugin PluginOp
       }
     }
   }()
-  node := nativetransform.CallExpressionTransformer.Transform(nativetransform.CallExpressionTransformer_TransformProps{
-    Context:    context,
-    Expression: site.Call,
-  })
+  var node *shimast.Node
+  if site.Module != "" && site.Method != "" {
+    node = nativetransform.CallExpressionTransformer.TransformKnown(nativetransform.CallExpressionTransformer_TransformKnownProps{
+      Context:    context,
+      Expression: site.Call,
+      Module:     site.Module,
+      Method:     site.Method,
+    })
+  } else {
+    node = nativetransform.CallExpressionTransformer.Transform(nativetransform.CallExpressionTransformer_TransformProps{
+      Context:    context,
+      Expression: site.Call,
+    })
+  }
   if node == nil || node == site.Call.AsNode() {
     return "", false, nil
   }
