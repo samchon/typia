@@ -138,7 +138,20 @@ You will see this pattern a lot in HTTP handlers, message bus consumers, and any
 `typia.is<T>` walks structural properties; it does **not** call `instanceof` for user-defined classes, and it does **not** dive into function types.
 
 - **User-defined classes** — `typia.is<MyClass>(input)` only checks `input`'s properties against `MyClass`. If you also need `input instanceof MyClass`, write that check yourself.
-- **Function types** — function values pass through unchecked. typia validates the structural data your code passes around, not the behavior of callables stored inside it.
+- **Function types** — function-typed properties are skipped by default. To make `is` / `assert` / `validate` confirm those properties are actually callable, enable the `functional` transform flag in `tsconfig.json`:
+
+  ```json filename="tsconfig.json"
+  {
+    "compilerOptions": {
+      "plugins": [
+        {
+          "transform": "typia/lib/transform",
+          "functional": true
+        }
+      ]
+    }
+  }
+  ```
 
 Built-in classes — `Date`, `Uint8Array`, `Set<T>`, `Map<K, V>` — are checked properly, including their elements:
 
