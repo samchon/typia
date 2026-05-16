@@ -1,323 +1,262 @@
 ---
-title: Guide Documents > Runtime Validators > assert() functions
+title: Guide Documents > Runtime Validators > assert() function
 ---
 import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
 import { Tabs } from "nextra/components";
 
 import LocalSource from "../../../components/LocalSource";
-import RemoteSource from "../../../components/RemoteSource";
 
-## `assert()` function
+# `typia.assert()` — throw on the first invalid field
 
-<Tabs items={[
-  <code>typia</code>, 
-  <code>TypeGuardError.ts</code>,
-]}>
-  <Tabs.Tab>
-```typescript
-export function assert<T>(input: T): T;
-export function assert<T>(input: unknown): T;
+```typescript copy filename="signature"
+function assert<T>(input: T): T;
+function assert<T>(input: unknown): T;
+function assert<T>(input: unknown,
+                   errorFactory?: (props: TypeGuardError.IProps) => Error): T;
 ```
+
+`typia.assert<T>` is the throwing variant of [`is`](/docs/validators/is). If `input` matches `T`, it returns `input` unchanged. If it doesn't, it throws a `TypeGuardError` that points at exactly **one** failing property — the first one it encounters.
+
+Use it when you want an exception to propagate up the stack (HTTP request handlers, message queue consumers, boot-time config loading).
+
+## First example
+
+```typescript copy filename="hello-assert.ts"
+import typia, { tags } from "typia";
+
+interface User {
+  id: string & tags.Format<"uuid">;
+  age: number & tags.Type<"uint32"> & tags.Minimum<19>;
+}
+
+const user = typia.assert<User>(await loadUserFromRequest());
+// → returns the same value, typed as User
+// → throws TypeGuardError if any field is wrong
+```
+
+If `age` is `18`, you get a `TypeGuardError` carrying:
+
+| Field | Value |
+|-------|-------|
+| `method` | `"typia.assert"` |
+| `path` | `"$input.age"` |
+| `expected` | `"number & Minimum<19>"` |
+| `value` | `18` |
+
+The error includes a default `message` ready for logging, but the structured fields above are usually what you want to surface to clients.
+
+<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
+  <Tabs.Tab>
+    <LocalSource
+      path="examples/src/validators/assert.ts"
+      filename="examples/src/validators/assert.ts"
+      showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <LocalSource 
+    <LocalSource
+      path="examples/bin/validators/assert.js"
+      filename="examples/bin/validators/assert.js"
+      showLineNumbers />
+  </Tabs.Tab>
+</Tabs>
+
+## `TypeGuardError` reference
+
+```typescript copy
+class TypeGuardError<T = any> extends Error {
+  readonly method: string;       // "typia.assert", "typia.assertEquals", …
+  readonly path: string | undefined;  // e.g. "$input.user.age"
+  readonly expected: string;     // e.g. "string & Format<\"uuid\">"
+  readonly value: unknown;       // the offending value
+  readonly description?: string; // hint when the value is `undefined`
+}
+```
+
+<Tabs items={[<code>TypeGuardError.ts</code>]}>
+  <Tabs.Tab>
+    <LocalSource
       path="packages/typia/src/TypeGuardError.ts"
       filename="@samchon/typia"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>
 
-Asserts a value type.
+The `path` uses `$input.x.y` notation so you can copy it into a UI error message without further processing.
 
-`typia.assert<T>()` function throws a `TypeGuardError` when wrong type comes. 
+### Customizing the thrown error
 
-The `TypeGuardError` instance has only the first type error info, with access path and expected type. In the below example case, as the `age` property is wrong with its definition (`@exclusiveMinimum`), such `TypeGuardError` would be thrown:
+Pass an `errorFactory` second argument to throw whatever your framework expects instead of `TypeGuardError`:
 
-  - `method`: `typia.assert()`
-  - `path`: `input.age`
-  - `value`: `18`,
-  - `expected`: `number & ExclusiveMinimum<19>`
+```typescript copy
+import typia from "typia";
 
-<br/>
-<Alert severity="success">
-  <AlertTitle> 
-    **AOT compilation** 
-  </AlertTitle>
-
-If you'd used other competitive validator libraries like `ajv` or `class-validator`, you may found that `typia` does not require any extra schema definition. If you have not experienced them, I can sure that you may get shocked after reading below extra schema definition files.
-
- - `ajv` requires [JSON schema definition](https://github.com/samchon/typia/blob/master/test/schemas/json/swagger/ObjectHierarchical.json).
- - `class-validator` requires [DTO class with decorator function calls](https://github.com/samchon/typia/blob/master/benchmark/structures/class-validator/ClassValidatorObjectHierarchical.ts).
-
-Yeah, `typia` needs only pure TypeScript type. As `typia` is a compiler library, it can analyze TypeScript type by itself, and possible to write the optimal validation code like below. This is the key principle of `typia`, which needs only one line with pure TypeScript type.
-
-</Alert>
-
-<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-  <Tabs.Tab>
-    <LocalSource 
-      path="examples/src/validators/assert.ts" 
-      filename="examples/src/validators/assert.ts" 
-      showLineNumbers />
-  </Tabs.Tab>
-  <Tabs.Tab>
-    <LocalSource 
-      path="examples/bin/validators/assert.js" 
-      filename="examples/bin/validators/assert.js" 
-      showLineNumbers />
-  </Tabs.Tab>
-</Tabs>
-
-## `assertEquals()` function
-
-<Tabs items={[
-  <code>typia</code>, 
-  <code>TypeGuardError.ts</code>,
-]}>
-  <Tabs.Tab>
-```typescript
-export function assertEquals<T>(input: T): T;
-export function assertEquals<T>(input: unknown): T;
-```
-  </Tabs.Tab>
-  <Tabs.Tab>
-    <LocalSource 
-      path="packages/typia/src/TypeGuardError.ts"
-      filename="typia/TypeGuardError.ts"
-      showLineNumbers />
-  </Tabs.Tab>
-</Tabs>
-
-More strict assert function prohibiting superfluous properties.
-
-`typia.assert<T>()` function inspects `input` value type and throws `TypeGuardError` when mismatched, however, it can't detect superfluous properties. If you want to prohibit those superfluous properties, therefore throws an `TypeGuardError` when superfluous property exists, use `typia.assertEquals<T()>` function instead.
-
-In the below example case, as `sex` property is not defined in the `IMember` type, such `TypeGuardError` would be thrown:
-
-  - `method`: `typia.assertEquals()`
-  - `path`: `input.sex`
-  - `value`: `1`,
-  - `expected`: `undefined`
-
-<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-  <Tabs.Tab>
-    <LocalSource 
-      path="examples/src/validators/assertEquals.ts" 
-      filename="examples/src/validators/assertEquals.ts" 
-      showLineNumbers />
-  </Tabs.Tab>
-  <Tabs.Tab>
-    <LocalSource 
-      path="examples/bin/validators/assertEquals.js" 
-      filename="examples/bin/validators/assertEquals.js" 
-      showLineNumbers />
-  </Tabs.Tab>
-</Tabs>
-
-## `assertGuard()` functions
-
-<Tabs items={[
-    <code>typia</code>, 
-    <code>TypeGuardError.ts</code>,
-]}>
-  <Tabs.Tab>
-```typescript
-export function assertGuard<T>(input: T): asserts input is T;
-export function assertGuard<T>(input: unknown): asserts input is T;
-
-export function assertGuardEquals<T>(input: T): asserts input is T;
-export function assertGuardEquals<T>(input: unknown): asserts input is T;
-```
-  </Tabs.Tab>
-  <Tabs.Tab>
-    <LocalSource 
-      path="packages/typia/src/TypeGuardError.ts"
-      filename="typia/TypeGuardError.ts"
-      showLineNumbers />
-  </Tabs.Tab>
-</Tabs>
-
-Assertion guard of a value type.
-
-`typia.assertGuard<T>()` is similar with [`typia.assert<T>()`](#assert-function) throwing a `TypeGuardError` when wrong type. 
-
-However, [`typia.assert<T>()`](#assert-function) returns the parametric input value itself when there's no type problem on the parametric input value, whereas the `typia.assertGuard<T>()` function returns nothing. Instead, the parametric input value would be automatically cased to the type `T`. This is the concept of "Assertion Guard" of a value type.
-
-Such similarities and differences of `typia.assertGuard<T>()` and [`typia.assert<T>()`](#assert-function) functions are the same in the case of `typia.assertGuardEquals<T>()` and [`typia.assertEquals<T>()`](#assertequals-function) functions. If there's no type problem on the `typia.assertGuardEquals<T>()` function, it also performs the "Assertion Guard".
-
-Look at the below code, then you may understand what the "Assertion Guard" means.
-
-<LocalSource 
-  path="examples/src/validators/assertGuard.ts" 
-  filename="examples/src/validators/validatorassertGuard.ts" 
-  showLineNumbers />
-
-## Reusable functions
-
-<Tabs items={[
-  <code>typia</code>, 
-  <code>TypeGuardError.ts</code>,
-  <code>AssertionGuard.ts</code>,
-]}>
-  <Tabs.Tab>
-```typescript
-export function createAssert<T>(): (input: unknown) => T;
-export function createAssertEquals<T>(): (input: unknown) => T;
-
-export function createAssertGuard<T>(): AssertionGuard<T>;
-export function createAssertGuardEquals<T>(): AssertionGuard<T>;
-```
-  </Tabs.Tab>
-  <Tabs.Tab>
-    <LocalSource 
-      path="packages/typia/src/TypeGuardError.ts"
-      filename="typia/TypeGuardError.ts"
-      showLineNumbers />
-  </Tabs.Tab>
-  <Tabs.Tab>
-```typescript
-export type AssertionGuard<T> = (input: unknown) => asserts input is T;
-```
-  </Tabs.Tab>
-</Tabs>
-
-Reusable `typia.assert<T>()` function generators.
-
-If you repeat to call `typia.assert<T>()` function on the same type, size of JavaScript files would be larger because of duplicated AOT compilation. To prevent it, you can generate reusable function through `typia.createAssert<T>()` function.
-
-Just look at the code below, then you may understand how to use it.
-
-<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-  <Tabs.Tab>
-    <LocalSource 
-      path="examples/src/validators/createAssert.ts" 
-      filename="examples/src/validators/createAssert.ts" 
-      showLineNumbers />
-  </Tabs.Tab>
-  <Tabs.Tab>
-    <LocalSource 
-      path="examples/bin/validators/createAssert.js" 
-      filename="examples/bin/validators/createAssert.js" 
-      showLineNumbers />
-  </Tabs.Tab>
-</Tabs>
-
-<Alert severity="warning">
-  <AlertTitle>
-    **Explicitly of Assertion Guard** 
-  </AlertTitle>
-
-Be careful when using `typia.createAssertGuard<T>()` or `typia.createAssertGuardEquals<T>()` functions. 
-
-When calling those functions, you've to declare the variable type explicit on the caller variable. If you don't do it, so that the caller variables come the implicit function type, TypeScript compiler throws an error like below. This is a special limitation of TypeScript compiler about the "Assertion Guard".
-
-<LocalSource 
-  path="examples/src/validators/createAssertGuard.ts" 
-  filename="examples/src/validators/createAssertGuard.ts" 
-  showLineNumbers />
-
-</Alert>
-
-## Restrictions
-
-`typia.assert<T>()` function does not check `function` and user-defined `class` types. 
-
-It validates only the primitive properties. Therefore, `typia.assert<T>()` function does not perform the `instanceof ClassName` for user-defined classes. If you want to validate the user-defined class type in addition to the property types, do it by yourself. Also, `typia.assert<T>()` function does not validate the function type either, unless configuring `functional` property of `plugin` option in the `tsconfig.json` file.
-
-```json filename="tsconfig.json"
-{
-  "compilerOptions": {
-    "plugins": [
-      {
-        "transform": "typia/lib/transform",
-        "functional": true
-      }
-    ]
+class HttpException extends Error {
+  constructor(message: string, public readonly status: number) {
+    super(message);
   }
 }
+
+typia.assert<User>(input, (info) =>
+  new HttpException(`Invalid ${info.path}: expected ${info.expected}`, 400),
+);
 ```
 
-By the way, there're some exception cases. 
+The factory receives the same `TypeGuardError.IProps` and its return value is thrown directly.
 
-If JS native class type like `Date`, `Uint8Array`, or `Map<Key, T>` being utilized, `typia.assert<T>()` function validates them. Especially about the `Set<T>`, and `Map<Key, T>` class cases, `typia.assert<T>()` function validates all of their contained element types, too.
+## Rejecting extra properties — `assertEquals`
 
-Therefore, the `instanceof` statement does not be used only for the user-defined classes.
+`assert` allows properties not declared on `T`. `assertEquals` rejects them — the first extra key becomes the thrown error:
 
-<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+```typescript copy
+typia.assert<User>({ id: "...", age: 25, sex: 1 });       // ok (sex ignored)
+typia.assertEquals<User>({ id: "...", age: 25, sex: 1 }); // throws on `sex`
+```
+
+The thrown `TypeGuardError` for the extra property has `expected: "undefined"` and `path` pointing at the extra key:
+
+| Field | Value |
+|-------|-------|
+| `method` | `"typia.assertEquals"` |
+| `path` | `"$input.sex"` |
+| `expected` | `"undefined"` |
+| `value` | `1` |
+
+<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
   <Tabs.Tab>
-    <LocalSource 
-      path="examples/src/validators/is-map.ts" 
-      filename="examples/src/validators/is-map.ts" 
+    <LocalSource
+      path="examples/src/validators/assertEquals.ts"
+      filename="examples/src/validators/assertEquals.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <LocalSource 
-      path="examples/bin/validators/is-map.js" 
-      filename="examples/bin/validators/is-map.js" 
+    <LocalSource
+      path="examples/bin/validators/assertEquals.js"
+      filename="examples/bin/validators/assertEquals.js"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>
 
-## Customization
+## Assertion guards — `assertGuard`
 
-You can enhance validation logic by special tags.
+`typia.assert<T>` returns the validated value:
 
-Also, with those tags, you can add your custom validation logic, too.
+```typescript
+const user: User = typia.assert<User>(input);
+```
 
-If you want to know about such special tags detaily, read below article:
+That's convenient but it makes you assign to a new variable. If you'd rather **narrow the original variable in place**, use `typia.assertGuard<T>`. It returns nothing — but its return type is `asserts input is T`, so TypeScript narrows the argument after the call:
 
-  - [Special Tags](../tags/)
-    - [Outline](../tags/#outline)
-    - [Type Tags](../tags/#type-tags)
-    - [Comment Tags](../tags/#comment-tags)
-    - [Customization](../tags/#customization)
+```typescript copy
+import typia from "typia";
 
-<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+const input: unknown = await fetchSomething();
+
+typia.assertGuard<User>(input);
+// from this line on, `input` is typed as User
+console.log(input.age);
+```
+
+`typia.assertGuardEquals<T>` is the strict-keys variant. Both throw `TypeGuardError` on mismatch.
+
+<LocalSource
+  path="examples/src/validators/assertGuard.ts"
+  filename="examples/src/validators/assertGuard.ts"
+  showLineNumbers />
+
+## Reusable factories
+
+Same idea as [`createIs`](/docs/validators/is#3-call-it-many-times-for-the-same-type--build-a-reusable-checker-once) — when you call `assert<T>` from many places, hoist the checker once:
+
+```typescript copy
+import typia, { AssertionGuard } from "typia";
+
+export const assertUser = typia.createAssert<User>();
+export const assertUserEquals = typia.createAssertEquals<User>();
+
+export const guardUser: AssertionGuard<User> = typia.createAssertGuard<User>();
+export const guardUserEquals: AssertionGuard<User> = typia.createAssertGuardEquals<User>();
+```
+
+> [!IMPORTANT]
+>
+> **Annotate the variable type for `createAssertGuard`.**
+>
+> TypeScript cannot infer an `asserts ... is T` signature without an explicit annotation. If you write `const guard = typia.createAssertGuard<User>()`, the compiler will refuse to narrow `input` after `guard(input)`. Always declare the variable as `AssertionGuard<T>`.
+
+<LocalSource
+  path="examples/src/validators/createAssertGuard.ts"
+  filename="examples/src/validators/createAssertGuard.ts"
+  showLineNumbers />
+
+`createAssert*` factories accept an optional `errorFactory` that applies to every call.
+
+<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
   <Tabs.Tab>
-    <LocalSource 
-      path="examples/src/validators/assert-custom-tags.ts" 
-      filename="examples/src/validators/assert-custom-tags.ts" 
+    <LocalSource
+      path="examples/src/validators/createAssert.ts"
+      filename="examples/src/validators/createAssert.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <LocalSource 
-      path="examples/bin/validators/assert-custom-tags.js" 
-      filename="examples/bin/validators/assert-custom-tags.js" 
+    <LocalSource
+      path="examples/bin/validators/createAssert.js"
+      filename="examples/bin/validators/createAssert.js"
+      showLineNumbers />
+  </Tabs.Tab>
+</Tabs>
+
+## What `assert` does not check
+
+Same rules as [`is`](/docs/validators/is#what-is-does-not-check): user-defined classes are walked by property (no `instanceof`), and function types are skipped unless you enable the `functional` transformer flag.
+
+Built-in classes (`Date`, `Set<T>`, `Map<K, V>`, `Uint8Array`) are checked end-to-end, including their elements:
+
+<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
+  <Tabs.Tab>
+    <LocalSource
+      path="examples/src/validators/is-map.ts"
+      filename="examples/src/validators/is-map.ts"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource
+      path="examples/bin/validators/is-map.js"
+      filename="examples/bin/validators/is-map.js"
+      showLineNumbers />
+  </Tabs.Tab>
+</Tabs>
+
+## Adding constraints — type tags
+
+Intersect [type tags](/docs/validators/tags) into the type to express formats, ranges, and length limits:
+
+<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
+  <Tabs.Tab>
+    <LocalSource
+      path="examples/src/validators/assert-custom-tags.ts"
+      filename="examples/src/validators/assert-custom-tags.ts"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource
+      path="examples/bin/validators/assert-custom-tags.js"
+      filename="examples/bin/validators/assert-custom-tags.js"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>
 
 ## Performance
 
-Super-fast and super-safe.
-
-Comparing `typia.assert<T>()` function with other competitive libraries, maximum 20,000x faster. 
-
-Furthermore, only `typia` can validate complicate union types.
+Same emission strategy as [`is`](/docs/validators/is#performance), plus the per-field error-throwing branches. Still up to 20,000× faster than `class-validator` on hard-to-validate union structures, and still the only listed library that handles arbitrary unions:
 
 ![Assert Function Benchmark](https://github.com/samchon/typia/raw/master/benchmark/results/AMD%20Ryzen%209%207940HS%20w%20Radeon%20780M%20Graphics/images/assert.svg)
 
 > Measured on [AMD Ryzen 9 7940HS, Rog Flow x13](https://github.com/samchon/typia/tree/master/benchmark/results/AMD%20Ryzen%209%207940HS%20w%20Radeon%20780M%20Graphics#assert)
 
-Components               | `typia` | `TypeBox` | `ajv` | `io-ts` | `zod` | `C.V.`
--------------------------|--------|-----------|-------|---------|-------|------------------
-**Easy to use**          | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ 
-[Object (simple)](https://github.com/samchon/typia/blob/master/test/src/structures/ObjectSimple.ts)          | ✔ | ✔ | ✔ | ✔ | ✔ | ✔
-[Object (hierarchical)](https://github.com/samchon/typia/blob/master/test/src/structures/ObjectHierarchical.ts)    | ✔ | ✔ | ✔ | ✔ | ✔ | ✔
-[Object (recursive)](https://github.com/samchon/typia/blob/master/test/src/structures/ObjectRecursive.ts)       | ✔ | ❌ | ✔ | ✔ | ✔ | ✔ | ✔
-[Object (union, implicit)](https://github.com/samchon/typia/blob/master/test/src/structures/ObjectUnionImplicit.ts) | ✅ | ❌ | ❌ | ❌ | ❌ | ❌
-[Object (union, explicit)](https://github.com/samchon/typia/blob/master/test/src/structures/ObjectUnionExplicit.ts) | ✔ | ✔ | ✔ | ✔ | ✔ | ❌
-[Object (additional tags)](https://github.com/samchon/typia/#comment-tags)        | ✔ | ✔ | ✔ | ✔ | ✔ | ✔
-[Object (template literal types)](https://github.com/samchon/typia/blob/master/test/src/structures/TemplateUnion.ts) | ✔ | ✔ | ✔ | ❌ | ❌ | ❌
-[Object (dynamic properties)](https://github.com/samchon/typia/blob/master/test/src/structures/DynamicTemplate.ts) | ✔ | ✔ | ✔ | ❌ | ❌ | ❌
-[Array (rest tuple)](https://github.com/samchon/typia/blob/master/test/src/structures/TupleRestAtomic.ts) | ✅ | ❌ | ❌ | ❌ | ❌ | ❌
-[Array (hierarchical)](https://github.com/samchon/typia/blob/master/test/src/structures/ArrayHierarchical.ts)     | ✔ | ✔ | ✔ | ✔ | ✔ | ✔
-[Array (recursive)](https://github.com/samchon/typia/blob/master/test/src/structures/ArrayRecursive.ts)        | ✔ | ✔ | ✔ | ✔ | ✔ | ❌
-[Array (recursive, union)](https://github.com/samchon/typia/blob/master/test/src/structures/ArrayRecursiveUnionExplicit.ts) | ✔ | ✔ | ❌ | ✔ | ✔ | ❌
-[Array (R+U, implicit)](https://github.com/samchon/typia/blob/master/test/src/structures/ArrayRecursiveUnionImplicit.ts)    | ✅ | ❌ | ❌ | ❌ | ❌ | ❌
-[Array (repeated)](https://github.com/samchon/typia/blob/master/test/src/structures/ArrayRepeatedNullable.ts)    | ✅ | ❌ | ❌ | ❌ | ❌ | ❌
-[Array (repeated, union)](https://github.com/samchon/typia/blob/master/test/src/structures/ArrayRepeatedUnionWithTuple.ts)    | ✅ | ❌ | ❌ | ❌ | ❌ | ❌
-[**Ultimate Union Type**](https://github.com/samchon/typia/blob/master/src/schemas/IJsonSchema.ts)  | ✅ | ❌ | ❌ | ❌ | ❌ | ❌
+## Where to go next
 
-> `C.V.` means `class-validator`
+- Just want a boolean → [`is`](/docs/validators/is)
+- Want every error at once → [`validate`](/docs/validators/validate)
+- Constraints (formats, ranges, lengths) → [Special Tags](/docs/validators/tags)
+- Validating function calls → [Functional Module](/docs/validators/functional)

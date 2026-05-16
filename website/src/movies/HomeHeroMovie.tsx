@@ -3,6 +3,7 @@
 import ComputerIcon from "@mui/icons-material/Computer";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
+import RocketLaunchIcon from "@mui/icons-material/RocketLaunch";
 import { Box, Button, Container, Grid, Typography } from "@mui/material";
 import { ReactNode } from "react";
 
@@ -107,10 +108,16 @@ const HomeHeroMovie = () => {
           }}
         >
           <HeroButton
+            title="Start Tutorial"
+            icon={<RocketLaunchIcon />}
+            href="/docs/tutorial"
+            variant="contained"
+          />
+          <HeroButton
             title="Guide Documents"
             icon={<MenuBookIcon />}
             href="/docs"
-            variant="contained"
+            variant="outlined"
           />
           <HeroButton
             title="Playground"

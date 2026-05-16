@@ -2,12 +2,20 @@
 title: Guide Documents > Utilization Cases > NestJS
 ---
 
-[Nestia](https://nestia.io) is a set of helper libraries for `NestJS`, supporting below features:
+# NestJS
 
-  - `@nestia/core`: superfast decorators using `typia`
-  - `@nestia/sdk`: evolved **SDK** and **Swagger** generators
-  - `@nestia/migrate`: Swagger to NestJS
-  - `nestia`: just CLI (command line interface) tool
+[Nestia](https://nestia.io) is the NestJS integration layer built on top of typia. It replaces the usual `class-validator` + `@nestjs/swagger` setup with decorators that read your TypeScript interfaces directly — no DTO classes, no decorator soup.
+
+It ships four packages:
+
+| Package | What it does |
+|---------|-------------|
+| `@nestia/core` | Superfast NestJS decorators backed by typia (`@TypedBody`, `@TypedRoute`, `@TypedQuery`, …) |
+| `@nestia/sdk` | Evolved SDK and Swagger generators that read NestJS controllers and emit type-safe client code |
+| `@nestia/migrate` | Swagger → NestJS scaffolding |
+| `nestia` | CLI for the above |
+
+## Minimal controller
 
 ```typescript copy showLineNumbers {14, 16}
 import { Controller } from "@nestjs/common";
@@ -23,16 +31,28 @@ export class BbsArticlesController {
    * @param input Content to store
    * @returns Newly archived article
    */
-  @TypedRoute.Post() // 200x faster and safer JSON.stringify()
+  @TypedRoute.Post()                          // ~200x faster, type-safe JSON.stringify
   public async store(
-    @TypedBody() input: IBbsArticle.IStore, // 20,000x faster validator
-  ): Promise<IBbsArticle>;
-    // do not need DTO class definition,
-    // just fine with interface
+    @TypedBody() input: IBbsArticle.IStore,   // ~20,000x faster validator
+  ): Promise<IBbsArticle> {
+    /* … no DTO class. Plain interface works. */
+  }
 }
 ```
 
+The decorators are interchangeable with the standard NestJS ones — same shape, same testing approach, much less boilerplate. `@TypedBody` validates with [`typia.assert`](/docs/validators/assert) and `@TypedRoute` serializes with [`typia.json.assertStringify`](/docs/json/stringify).
+
+## SDK generation
+
+`@nestia/sdk` reads the same controller files and emits a typed client SDK plus a Swagger document. The TypeScript types you wrote on the server become the request/response types on the client, automatically.
+
 ![nestia-sdk-demo](https://user-images.githubusercontent.com/13158709/215004990-368c589d-7101-404e-b81b-fbc936382f05.gif)
 
-  - Left: `NestJS` server code
-  - Right: Client code using `SDK`
+- Left: NestJS server code
+- Right: Client code using the generated SDK
+
+## Where to go next
+
+- Full Nestia docs: [nestia.io](https://nestia.io)
+- The underlying validator/serializer pair: [`assert`](/docs/validators/assert) · [`json.assertStringify`](/docs/json/stringify)
+- LLM agents that drive a Nestia backend: [Agentica](/docs/llm/chat)

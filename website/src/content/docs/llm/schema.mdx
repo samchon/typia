@@ -5,32 +5,46 @@ import { Callout, Tabs } from "nextra/components";
 
 import LocalSource from "../../../components/LocalSource";
 
-## `schema()` function
+# `typia.llm.schema` — schema for a single inner type
 
-<Tabs items={[
-    <code>typia</code>,
-    <code>ILlmApplication</code>,
-    <code>ILlmFunction</code>,
-    <code>ILlmSchema</code>,
-  ]}>
-  <Tabs.Tab>
-```typescript filename="typia" showLineNumbers {17-21}
-export namespace llm {
-  // LLM FUNCTION CALLING APPLICATION SCHEMA
-  export function application<
-    App extends Record<string, any>,
+```typescript copy filename="signature"
+namespace llm {
+  function schema<
+    T,
     Config extends Partial<ILlmSchema.IConfig> = {},
   >(
-    config?: Partial<Pick<ILlmApplication.IConfig, "validate">>,
-  ): ILlmApplication;
+    $defs: Record<string, ILlmSchema>,
+  ): ILlmSchema;
+}
+```
 
-  // STRUCTURED OUTPUT
-  export function parameters<
-    Parameters extends Record<string, any>,
-    Config extends Partial<ILlmSchema.IConfig> = {},
-  >(): ILlmSchema.IParameters;
+`typia.llm.schema<T>` generates an `ILlmSchema` for `T` — useful when you're composing schemas by hand instead of letting [`parameters`](/docs/llm/parameters) or [`application`](/docs/llm/application) do the whole thing.
 
-  // TYPE SCHEMA
+You pass a `$defs` object as the runtime argument. Any named types referenced in `T` will be added to `$defs` and surfaced through `$ref`. So you can call `llm.schema` multiple times against the same `$defs` and the referenced sub-schemas will be deduplicated.
+
+> Most users want [`parameters`](/docs/llm/parameters), [`structuredOutput`](/docs/llm/structuredOutput), or [`application`](/docs/llm/application) — they all generate full top-level schemas for you. `schema` is the building block.
+
+## First example
+
+```typescript copy filename="hello-schema.ts"
+import typia from "typia";
+import { ILlmSchema } from "typia";
+
+interface Animal {
+  name: string;
+  legs: number;
+}
+
+const $defs: Record<string, ILlmSchema> = {};
+const s = typia.llm.schema<Animal>($defs);
+// s is `{ "$ref": "#/$defs/Animal" }`
+// $defs.Animal = { type: "object", properties: { name: ..., legs: ... }, ... }
+```
+
+<Tabs items={[<code>typia</code>, <code>ILlmSchema</code>]}>
+  <Tabs.Tab>
+```typescript filename="typia" showLineNumbers
+export namespace llm {
   export function schema<
     T,
     Config extends Partial<ILlmSchema.IConfig> = {},
@@ -42,102 +56,72 @@ export namespace llm {
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource
-      path="packages/interface/src/schema/ILlmApplication.ts"
-      filename="@typia/interface"
-      showLineNumbers />
-  </Tabs.Tab>
-  <Tabs.Tab>
-    <LocalSource
-      path="packages/interface/src/schema/ILlmFunction.ts"
-      filename="@typia/interface"
-      showLineNumbers />
-  </Tabs.Tab>
-  <Tabs.Tab>
-    <LocalSource
       path="packages/interface/src/schema/ILlmSchema.ts"
       filename="@typia/interface"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>
 
-Type schema in the LLM function calling application.
-
-`typia.llm.schema<T>()` is a function generating type schema which is used in the LLM (Large Language Model) function calling application schema or structured output, especially composed by the [`typia.llm.parameters<Parameters>()`](../parameters) and [`typia.llm.application<App>()`](../application) functions.
-
-Return value type `ILlmSchema` is similar with the JSON schema definition.
-
-<Callout type="info">
-**LLM Function Calling** and **Structured Output**
-
-LLM selects proper function and fill arguments.
-
-In nowadays, most LLM (Large Language Model) like OpenAI are supporting "function calling" feature. The "LLM function calling" means that LLM automatically selects a proper function and fills parameter values from conversation with the user (may by chatting text).
-
-Structured output is another feature of LLM. The "structured output" means that LLM automatically transforms the output conversation into a structured data format like JSON.
-
-- https://platform.openai.com/docs/guides/function-calling
-- https://platform.openai.com/docs/guides/structured-outputs
-</Callout>
-
-<Tabs items={["TypeScript Source Code", "Compiled JavaScript"]}>
+<Tabs items={["TypeScript Source", "Compiled JavaScript"]}>
   <Tabs.Tab>
-    <LocalSource 
+    <LocalSource
       path="examples/src/llm/schema.ts"
       filename="example/src/llm/schema.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <LocalSource 
+    <LocalSource
       path="examples/bin/llm/schema.js"
       filename="example/bin/llm/schema.js"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>
 
-## Specialization
+## Special fields — description, title, deprecated
 
-You can utilize [type tags](../validators/tags/#type-tags) (or [validator's comment tags](../validators/tags/#comment-tags)) to constructing special fields of JSON schema. 
+[Type tags](/docs/validators/tags) carry over to the JSON Schema:
 
-If you write any comment on a property, it would fill the `IJsonSchema.description` value. Also, there're special comment tags only for JSON schema definition that are different with [validator's comment tags](../validators/tags/#comment-tags) like below.
+- `tags.MaxLength<100>` → `"maxLength": 100`
+- `tags.Format<"email">` → `"format": "email"`
+- `tags.Minimum<0>` → `"minimum": 0`
 
-  - `@deprecated`
-  - `@hidden`
-  - `@internal`
-  - `@title {string}`
+JSDoc comments on properties become `"description"`. Two extra comment tags only affect the emitted schema (not runtime validation):
 
-Let's see how those [type tags](../validators/tags/#type-tags), comment tags and description comments are working with example code.
+| Tag | Effect |
+|-----|--------|
+| `@title Something` | Sets `"title"` separately from the description |
+| `@deprecated` | Sets `"deprecated": true` |
+| `@hidden` / `@internal` | Excludes the field from the emitted schema |
 
-<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
   <Tabs.Tab>
-    <LocalSource 
+    <LocalSource
       path="examples/src/llm/schema-special.ts"
       filename="example/src/llm/schema-special.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <LocalSource 
+    <LocalSource
       path="examples/bin/llm/schema-special.js"
       filename="example/bin/llm/schema-special.js"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>
 
-## Customization
+## Custom `x-…` properties
 
-If what you want is not just filling regular properties of LLM schema specification, but to adding custom properties into the JSON schema definition, you can do it through the `tags.TagBase.schema` property type or `tags.JsonSchemaPlugin` type. 
+JSON Schema lets you add `x-…` extensions. typia surfaces them through `tags.TagBase.schema` (and the `tags.JsonSchemaPlugin` shortcut):
 
-For reference, the custom property must be started with `x-` prefix. It's a rule of LLM schema.
-
-<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
   <Tabs.Tab>
-    <LocalSource 
+    <LocalSource
       path="examples/src/llm/schema-custom.ts"
       filename="example/src/llm/schema-custom.ts"
       showLineNumbers
       highlight="12-14, 18, 22-23" />
   </Tabs.Tab>
   <Tabs.Tab>
-    <LocalSource 
+    <LocalSource
       path="examples/bin/llm/schema-custom.js"
       filename="example/bin/llm/schema-custom.js"
       showLineNumbers
@@ -147,13 +131,17 @@ For reference, the custom property must be started with `x-` prefix. It's a rule
 
 ## Restrictions
 
-LLM schema does not support `bigint` type.
+LLM schemas are OpenAPI 3.0-style JSON Schema. A few things don't survive the conversion:
 
-LLM schema is based on the JSON schema definition of the OpenAPI v3.0 specification. Therefore, limitations of the JSON schema is also applied to the LLM schema, and the `bigint` type is not supported in the LLM function calling schema composition.
+### No `bigint`
 
-Also, LLM schema does not support the tuple type, which is represented by the `OpenApi.IJsonSchema.ITuple` type. It's no LLM providers are supporting the tuple type, and such tuple type harms the separation option of the [`typia.llm.application<App>()`](../application) function. If you need a tuple type, just change the tuple type to a regular object type instead.
+Same as standard JSON Schema. `bigint` properties cause a compile error.
 
-<Tabs items={["TypeScript Source Code", "Console Output"]}>
+### No tuples
+
+`[number, string]` is not allowed — no LLM provider supports tuples, and they confuse `application`'s function-grouping logic. Replace tuples with a plain object: `{ count: number; name: string }`.
+
+<Tabs items={["Source That Won't Compile", "Compiler Errors"]}>
   <Tabs.Tab>
 ```typescript filename="src/examples/llm.schema.bigint-and-tuple.ts" showLineNumbers
 import typia from "typia";
@@ -182,31 +170,19 @@ src/examples/llm.schema.bigint-and-tuple.ts:4:1 - error TS(typia.llm.schema): fa
   </Tabs.Tab>
 </Tabs>
 
-For reference, if recursive type comes from the array type, it would be repeated 3 times, and at the fourth step the recursive type would be removed. If the recursive type comes from a property and the property is optional, the 4th property would be removed from the object type. At last, if the recursive type is combined as an `oneOf` type, the type would be removed from there.
+### No dynamic object keys
 
-<Tabs items={["TypeScript Source Code", "Compiled JavaScript File"]}>
-  <Tabs.Tab>
-    <LocalSource 
-      path="examples/src/llm/schema-recursive-gemini.ts"
-      filename="example/src/llm/schema-recursive-gemini.ts"
-      showLineNumbers />
-  </Tabs.Tab>
-  <Tabs.Tab>
-    <LocalSource 
-      path="examples/bin/llm/schema-recursive-gemini.js"
-      filename="example/bin/llm/schema-recursive-gemini.js"
-      showLineNumbers />
-  </Tabs.Tab>
-</Tabs>
+`Record<string, T>` is not allowed. Convert it to an array of `{ key, value }` pairs:
 
-Also, `typia.llm.schema<T>()` does not support the `OpenApi.IJsonSchema.IObject.additionalProperties` type, which represent the dynamic key typed object like `Record<string, T>` type in the TypeScript. Therefore, if you put the dynamic `Record<string, T>` type like below, `typia.llm.schema<T>()` function throw the compilation error like below.
+```typescript
+// not allowed
+typia.llm.schema<Record<string, number>>({});
 
-Therefore, you have to change the `Record<string, T>` type to an array of regular object type like below. Note that, as LLM providers do not support the `tuple` type, you don't have to define the array type containing the tuple type.
+// recommended
+typia.llm.schema<Array<{ key: string; value: number }>>({});
+```
 
-  - recommended: `Array<{ key: string, value: T }>`
-  - not recommended: `Array<[string, T]>`
-
-<Tabs items={["TypeScript Source Code", "Console Output"]}>
+<Tabs items={["Source That Won't Compile", "Compiler Errors"]}>
   <Tabs.Tab>
 ```typescript filename="src/examples/llm.schema.additionalProperties.ts" showLineNumbers
 import typia from "typia";
@@ -229,3 +205,33 @@ src/examples/llm.schema.additionalProperties.ts:3:1 - error TS(typia.llm.schema)
 ```
   </Tabs.Tab>
 </Tabs>
+
+### Recursion is bounded
+
+LLM providers have limits on how deep a recursive schema can go. typia handles recursion as follows:
+
+- A type that recurses through an **array** is expanded 3 times; the 4th level is removed from the array.
+- A type that recurses through an **optional property** is expanded 3 times; the 4th level drops the property.
+- A type that recurses through a `oneOf` is removed from that branch.
+
+<Tabs items={["TypeScript Source", "Compiled JavaScript"]}>
+  <Tabs.Tab>
+    <LocalSource
+      path="examples/src/llm/schema-recursive-gemini.ts"
+      filename="example/src/llm/schema-recursive-gemini.ts"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource
+      path="examples/bin/llm/schema-recursive-gemini.js"
+      filename="example/bin/llm/schema-recursive-gemini.js"
+      showLineNumbers />
+  </Tabs.Tab>
+</Tabs>
+
+## Where to go next
+
+- Schema for whole `Parameters` object → [`parameters`](/docs/llm/parameters)
+- All-in-one helper bundle → [`structuredOutput`](/docs/llm/structuredOutput)
+- Multiple functions on a class → [`application`](/docs/llm/application)
+- Constraint tags → [Special Tags](/docs/validators/tags)

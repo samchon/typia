@@ -4,11 +4,20 @@ title: Guide Documents > Setup
 
 import { Tabs } from "nextra/components";
 
-## [TypeScript-Go](/docs/setup/tsgo)
+## Pick your setup path
 
-Use `typia@next` with `ttsc`.
+typia is a compile-time transformer, so it has to plug into your TypeScript build. There are two supported paths — pick the one that matches your TypeScript version.
 
-TypeScript is migrating its compiler to Go through TypeScript-Go. `ttsc` is the Go-based plugin toolchain for that compiler, and `typia@next` uses the new Go-based transform.
+| Path | When to use | Package |
+|------|-------------|---------|
+| [**TypeScript-Go (`ttsc`)**](/docs/setup/tsgo) | TypeScript-Go preview (`@typescript/native-preview`) — experimental | `typia@next` |
+| [**Legacy (`ts-patch`)**](/docs/setup/legacy) | Stable TypeScript v5 or v6 (the standard `typescript` npm package) | `typia` |
+
+If you don't know which to pick, choose **Legacy** — it's the stable release used in production today.
+
+## [TypeScript-Go](/docs/setup/tsgo) — `typia@next`
+
+TypeScript is migrating its compiler from JavaScript to Go (the "TypeScript-Go" project). `ttsc` is the Go-native plugin toolchain for that compiler, and `typia@next` ships a Go-rewritten transform that plugs into it.
 
 <Tabs items={["npm", "pnpm", "yarn", "bun"]}>
   <Tabs.Tab>
@@ -20,7 +29,7 @@ npm i -D ttsc @typescript/native-preview
 # build
 npx ttsc
 
-# run without build
+# run without building first
 npx ttsx src/index.ts
 ```
   </Tabs.Tab>
@@ -33,7 +42,7 @@ pnpm i -D ttsc @typescript/native-preview
 # build
 pnpm ttsc
 
-# run without build
+# run without building first
 pnpm ttsx src/index.ts
 ```
   </Tabs.Tab>
@@ -46,7 +55,7 @@ yarn add -D ttsc @typescript/native-preview
 # build
 yarn ttsc
 
-# run without build
+# run without building first
 yarn ttsx src/index.ts
 ```
   </Tabs.Tab>
@@ -59,15 +68,17 @@ bun add -d ttsc @typescript/native-preview
 # build
 bun ttsc
 
-# run without build
+# run without building first
 bun ttsx src/index.ts
 ```
   </Tabs.Tab>
 </Tabs>
 
-You must use `ttsc` and `ttsx`. The stock `tsc`, `ts-node`, and `tsx` cannot apply the `typia` transform, so they will not work.
+> [!IMPORTANT]
+>
+> You must use `ttsc` and `ttsx`. The stock `tsc`, `ts-node`, and `tsx` cannot apply the typia transform, so they will silently produce a build with no validators.
 
-For bundlers, use `@ttsc/unplugin`.
+For bundlers, use `@ttsc/unplugin`:
 
 <Tabs
   items={[
@@ -192,11 +203,11 @@ await Bun.build({
   </Tabs.Tab>
 </Tabs>
 
-## [Legacy (TS v6)](/docs/setup/legacy)
+Continue to [TypeScript-Go setup](/docs/setup/tsgo) for the full configuration reference.
 
-Use `typia` with `ts-patch`.
+## [Legacy (TypeScript v6)](/docs/setup/legacy) — `typia`
 
-This is the existing TypeScript v6 setup. It uses the JavaScript TypeScript compiler with `ts-patch`, and is still the stable path for current `typia` releases.
+The legacy path uses [`ts-patch`](https://github.com/nonara/ts-patch) on top of the JavaScript-based TypeScript compiler. This is the stable release path used in production today.
 
 <Tabs items={["npm", "pnpm", "yarn", "bun"]}>
   <Tabs.Tab>
@@ -209,7 +220,7 @@ npx typia setup
 # build
 npx tsc
 
-# run without build
+# run without building first
 npx ts-node src/index.ts
 ```
   </Tabs.Tab>
@@ -223,14 +234,14 @@ pnpm typia setup --manager pnpm
 # build
 pnpm tsc
 
-# run without build
+# run without building first
 pnpm ts-node src/index.ts
 ```
   </Tabs.Tab>
   <Tabs.Tab>
 ```bash filename="Terminal" showLineNumbers copy
 # install
-# YARN BERRY IS NOT SUPPORTED
+# Yarn Berry is NOT supported
 yarn add typia
 yarn add -D typescript ts-node ts-patch
 yarn typia setup --manager yarn
@@ -238,7 +249,7 @@ yarn typia setup --manager yarn
 # build
 yarn tsc
 
-# run without build
+# run without building first
 yarn ts-node src/index.ts
 ```
   </Tabs.Tab>
@@ -252,13 +263,15 @@ bun typia setup
 # build
 bun tsc
 
-# run without build
+# run without building first
 bun ts-node src/index.ts
 ```
   </Tabs.Tab>
 </Tabs>
 
-For bundlers, use `@typia/unplugin`.
+`npx typia setup` runs a one-shot wizard that installs the right `ts-patch` plugin entry into your `tsconfig.json` and wires up a `prepare` script.
+
+For bundlers, use `@typia/unplugin`:
 
 <Tabs items={["Vite", "Next.js", "esbuild", "Bun.runtime", "Bun.build"]}>
   <Tabs.Tab>
@@ -320,3 +333,18 @@ await Bun.build({
 ```
   </Tabs.Tab>
 </Tabs>
+
+Continue to [Legacy setup](/docs/setup/legacy) for `tsconfig.json` details, NX, Webpack notes, and the [generation](/docs/setup/legacy#generation) fallback for projects that can't run a transformer (Babel, SWC).
+
+## Verifying your setup
+
+Drop this into your project and run it:
+
+```ts copy filename="src/check-setup.ts"
+import typia from "typia";
+
+console.log(typia.is<{ id: string }>({ id: "ok" }));
+// → true
+```
+
+If you see `true`, the transformer ran. If you see an error like `typia transformer has not been configured`, the build is using stock `tsc` / `tsx` instead of `ttsc` / `ttsx` or `ts-patch`. Re-check the build command and `tsconfig.json` plugin entry.

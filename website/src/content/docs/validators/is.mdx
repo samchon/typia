@@ -1,5 +1,5 @@
 ---
-title: Guide Documents > Runtime Validators > is() functions
+title: Guide Documents > Runtime Validators > is() function
 ---
 import { Tabs } from 'nextra/components'
 import Alert from '@mui/material/Alert';
@@ -7,222 +7,225 @@ import AlertTitle from '@mui/material/AlertTitle';
 
 import LocalSource from '../../../components/LocalSource';
 
-## `is()` function
+# `typia.is()` — quick yes / no type check
 
-```typescript copy filename="typia"
-export function is<T>(input: T): input is T;
-export function is<T>(input: unknown): input is T;
+```typescript copy filename="signature"
+function is<T>(input: T): input is T;
+function is<T>(input: unknown): input is T;
 ```
 
-Tests a value type.
+`typia.is<T>` is the simplest validator: it returns `true` if `input` matches type `T`, and `false` otherwise.
 
-When you need to test an instance type, just call `typia.is<T>()` function.
+It is also a [type guard](https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates), so on the `true` branch TypeScript narrows the variable to `T` automatically — you don't have to cast.
 
-If the `input` value is following type `T`, `true` value would be returned. Otherwise, `false` would be returned.
+## First example
 
-<br/>
-<Alert severity="success">
-  <AlertTitle> 
-    **AOT compilation** 
-  </AlertTitle>
+```typescript copy filename="hello-is.ts"
+import typia from "typia";
 
-If you'd used other competitive validator libraries like `ajv` or `class-validator`, you may found that `typia` does not require any extra schema definition. If you have not experienced them, I can sure that you may get shocked after reading below extra schema definition files.
+interface User {
+  id: string;
+  age: number;
+}
 
- - `ajv` requires [JSON schema definition](https://github.com/samchon/typia/blob/master/test/schemas/json/swagger/ObjectHierarchical.json).
- - `class-validator` requires [DTO class with decorator function calls](https://github.com/samchon/typia/blob/master/benchmark/structures/class-validator/ClassValidatorObjectHierarchical.ts).
+const input: unknown = await fetchSomething();
 
-Yeah, `typia` needs only pure TypeScript type. As `typia` is a compiler library, it can analyze TypeScript type by itself, and possible to write the optimal validation code like below. This is the key principle of `typia`, which needs only one line with pure TypeScript type.
+if (typia.is<User>(input)) {
+  // input is now `User` inside this block
+  console.log(input.age);
+}
+```
 
-</Alert>
+That's the whole API. Behind the scenes, typia rewrites `typia.is<User>` at compile time into a hand-written checker specialized to `User` — no schema lookup, no reflection. The result is the fastest validator in the JavaScript ecosystem; see [pure TypeScript](/docs/pure) for the long explanation.
 
-<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+The tabs below show the same example as a full source file (left) and the JavaScript typia actually emits (right). The "Compiled JavaScript" side is what your bundler ships — there's no schema interpreter at runtime, just the inline checks. (You'll see this same source/compiled-output tab pattern on every validator page.)
+
+<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
   <Tabs.Tab>
-    <LocalSource 
-      path="examples/src/validators/is.ts" 
+    <LocalSource
+      path="examples/src/validators/is.ts"
       filename="examples/src/validators/is.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <LocalSource 
-      path="examples/bin/validators/is.js" 
+    <LocalSource
+      path="examples/bin/validators/is.js"
       filename="examples/bin/validators/is.js"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>
 
-## `equals()` function
+## Three things to know
 
-```typescript copy filename="typia"
-export function equals<T>(input: T): input is T;
-export function equals<T>(input: unknown): input is T;
+### 1. It is the cheapest check — and it returns the *least* information
+
+You get a boolean. No path, no expected type, no list of errors. If you need any of that, jump to:
+
+- [`assert`](/docs/validators/assert) — throw a `TypeGuardError` carrying the first failing path
+- [`validate`](/docs/validators/validate) — return an `IValidation` with **every** failing path
+
+If a yes/no answer is all you need, `is` is the right pick because the emitted code is the shortest.
+
+### 2. Extra properties are allowed by default — use `equals` to reject them
+
+```typescript
+interface Point { x: number; y: number; }
+
+typia.is<Point>({ x: 1, y: 2, z: 3 });      // → true  (z is ignored)
+typia.equals<Point>({ x: 1, y: 2, z: 3 });  // → false (z is rejected)
 ```
 
-More strict checker prohibiting superfluous properties.
+`typia.equals<T>` has exactly the same signature as `typia.is<T>` but also rejects any property that isn't declared on `T`. Use it when extra fields should be a hard error — for example, when validating data that someone else might have over-populated.
 
-`typia.is<T>()` can test instance type, but it allows superfluous properties. 
-
-If you want to prohibit those superfluous properties, you can use `typia.equals<T>()` function instead.
-
-<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
   <Tabs.Tab>
-    <LocalSource 
-      path="examples/src/validators/equals.ts" 
+    <LocalSource
+      path="examples/src/validators/equals.ts"
       filename="examples/src/validators/equals.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <LocalSource 
-      path="examples/bin/validators/equals.js" 
+    <LocalSource
+      path="examples/bin/validators/equals.js"
       filename="examples/bin/validators/equals.js"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>
 
-## Reusable functions
+### 3. Call it many times for the same type → build a reusable checker once
 
-```typescript copy filename="typia"
-export function createIs<T>(): (input: unknown) => input is T;
-export function createEquals<T>(): (input: unknown) => input is T;
+Every `typia.is<T>` call expands into the type-specific checker at that call site. If you call it from 20 places with the same `T`, you get 20 copies in the compiled JavaScript. To avoid that, hoist the checker with `typia.createIs<T>()`:
+
+```typescript copy filename="reusable.ts"
+import typia from "typia";
+
+const isUser = typia.createIs<User>();
+
+// ...elsewhere
+if (isUser(input)) { /* ... */ }
 ```
 
-Reusable `typia.is<T>()` function generators.
+`typia.createEquals<T>()` is the strict counterpart. Both factories take no arguments and return a plain `(input: unknown) => input is T` function.
 
-If you repeat to call `typia.is<T>()` function on the same type, size of JavaScript files would be larger because of duplicated AOT compilation. To prevent it, you can generate reusable function through `typia.createIs<T>()` function.
-
-Just look at the code below, then you may understand how to use it.
-
-<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
   <Tabs.Tab>
-    <LocalSource 
-      path="examples/src/validators/createIs.ts" 
+    <LocalSource
+      path="examples/src/validators/createIs.ts"
       filename="examples/src/validators/createIs.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <LocalSource 
-      path="examples/bin/validators/createIs.js" 
+    <LocalSource
+      path="examples/bin/validators/createIs.js"
       filename="examples/bin/validators/createIs.js"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>
 
-## Auto Type Casting
+## Type narrowing in practice
 
-```typescript copy filename="typia"
-export function is<T>(input: unknown): input is T;
-export function equals<T>(input: unknown): input is T;
-export function createIs<T>(): (input: unknown) => input is T;
-export function createEquals<T>(): (input: unknown) => input is T;
-```
+Because `typia.is<T>` is declared as a TypeScript type predicate (`input is T`), the compiler narrows the variable for you:
 
-`typia.is<T>()` function can be used for type casting.
-
-When target `input` value is following the type `T`, therefore `true` value be returned, `typia.is<T>()` function automatically casts the `input` value to the type `T`. Therefore, you can utilize the `typia.is<T>()` function for safe type casting tool like below:
-
-<LocalSource 
-  path="examples/src/validators/is-cast.ts" 
+<LocalSource
+  path="examples/src/validators/is-cast.ts"
   filename="examples/src/validators/is-cast.ts"
   showLineNumbers />
 
-## Restrictions
+You will see this pattern a lot in HTTP handlers, message bus consumers, and anywhere a value enters the program with type `unknown`.
 
-`typia.is<T>()` function does not check `function` and user-defined `class` types. 
+## What `is` does not check
 
-It validates only the primitive properties. Therefore, `typia.is<T>()` function does not perform the `instanceof ClassName` for user-defined classes. If you want to validate the user-defined class type in addition to the property types, do it by yourself. Also, `typia.is<T>()` function does not validate the function type either, unless configuring `functional` property of `plugin` option in the `tsconfig.json` file.
+`typia.is<T>` walks structural properties; it does **not** call `instanceof` for user-defined classes, and it does **not** dive into function types.
 
-```json filename="tsconfig.json"
-{
-  "compilerOptions": {
-    "plugins": [
-      {
-        "transform": "typia/lib/transform",
-        "functional": true
-      }
-    ]
+- **User-defined classes** — `typia.is<MyClass>(input)` only checks `input`'s properties against `MyClass`. If you also need `input instanceof MyClass`, write that check yourself.
+- **Function types** — function types are skipped by default. To validate function signatures (and use [`typia.functional.*`](/docs/validators/functional)), enable `functional` in your tsconfig:
+
+  ```json filename="tsconfig.json"
+  {
+    "compilerOptions": {
+      "plugins": [
+        {
+          "transform": "typia/lib/transform",
+          "functional": true
+        }
+      ]
+    }
   }
-}
-```
+  ```
 
-By the way, there're some exception cases. 
+Built-in classes — `Date`, `Uint8Array`, `Set<T>`, `Map<K, V>` — are checked properly, including their elements:
 
-If JS native class type like `Date`, `Uint8Array`, or `Map<Key, T>` being utilized, `typia.is<T>()` function validates them. Especially about the `Set<T>`, and `Map<Key, T>` class cases, `typia.is<T>()` function validates all of their contained element types, too.
-
-Therefore, the `instanceof` statement does not be used only for the user-defined classes.
-
-<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
   <Tabs.Tab>
-    <LocalSource 
-      path="examples/src/validators/is-map.ts" 
+    <LocalSource
+      path="examples/src/validators/is-map.ts"
       filename="examples/src/validators/is-map.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <LocalSource 
-      path="examples/bin/validators/is-map.js" 
+    <LocalSource
+      path="examples/bin/validators/is-map.js"
       filename="examples/bin/validators/is-map.js"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>
 
-## Customization
+So the rule is "skip user-defined classes and functions; check everything else", and the only thing you commonly need to add yourself is `instanceof MyClass` on top.
 
-You can enhance validation logic by special tags.
+## Adding constraints — type tags
 
-Also, with those tags, you can add your custom validation logic, too.
+`number` is a useful type. `number & tags.Type<"uint32"> & tags.Minimum<1>` is much more useful. typia lets you intersect [type tags](/docs/validators/tags) into a base type to express constraints like "non-negative integer", "valid email", "1-100 string". They participate in `is`, `assert`, `validate`, `random` — every validator-shaped function.
 
-If you want to know about such special tags detaily, read below article:
-
-  - [Special Tags](../tags/)
-    - [Outline](../tags/#outline)
-    - [Type Tags](../tags/#type-tags)
-    - [Comment Tags](../tags/#comment-tags)
-    - [Customization](../tags/#customization)
-
-<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
   <Tabs.Tab>
-    <LocalSource 
-      path="examples/src/validators/is-custom-tags.ts" 
+    <LocalSource
+      path="examples/src/validators/is-custom-tags.ts"
       filename="examples/src/validators/is-custom-tags.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <LocalSource 
-      path="examples/bin/validators/is-custom-tags.js" 
+    <LocalSource
+      path="examples/bin/validators/is-custom-tags.js"
       filename="examples/bin/validators/is-custom-tags.js"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>
 
+See [Special Tags](/docs/validators/tags) for the full catalogue.
+
 ## Performance
 
-Super-fast and super-safe.
-
-Comparing `typia.is<T>()` function with other competitive libraries, maximum 20,000x faster. 
-
-Furthermore, only `typia` can validate complicate union types.
+`typia.is<T>` is the fastest of the validators — it ships only the comparison logic, no error-collection, no path tracking. It is also the fastest validator across the JavaScript ecosystem on this kind of work: up to **20,000× faster than `class-validator`** on union-heavy structures, and notably the only one of the popular libraries that correctly handles arbitrary unions.
 
 ![Is Function Benchmark](https://github.com/samchon/typia/raw/master/benchmark/results/AMD%20Ryzen%209%207940HS%20w%20Radeon%20780M%20Graphics/images/is.svg)
 
 > Measured on [AMD Ryzen 9 7940HS, Rog Flow x13](https://github.com/samchon/typia/tree/master/benchmark/results/AMD%20Ryzen%209%207940HS%20w%20Radeon%20780M%20Graphics#is)
 
-Components               | `typia` | `TypeBox` | `ajv` | `io-ts` | `zod` | `C.V.`
--------------------------|--------|-----------|-------|---------|-------|------------------
-**Easy to use**          | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ 
-[Object (simple)](https://github.com/samchon/typia/blob/master/test/src/structures/ObjectSimple.ts)          | ✔ | ✔ | ✔ | ✔ | ✔ | ✔
-[Object (hierarchical)](https://github.com/samchon/typia/blob/master/test/src/structures/ObjectHierarchical.ts)    | ✔ | ✔ | ✔ | ✔ | ✔ | ✔
-[Object (recursive)](https://github.com/samchon/typia/blob/master/test/src/structures/ObjectRecursive.ts)       | ✔ | ❌ | ✔ | ✔ | ✔ | ✔ | ✔
-[Object (union, implicit)](https://github.com/samchon/typia/blob/master/test/src/structures/ObjectUnionImplicit.ts) | ✅ | ❌ | ❌ | ❌ | ❌ | ❌
-[Object (union, explicit)](https://github.com/samchon/typia/blob/master/test/src/structures/ObjectUnionExplicit.ts) | ✔ | ✔ | ✔ | ✔ | ✔ | ❌
-[Object (additional tags)](https://github.com/samchon/typia/#comment-tags)        | ✔ | ✔ | ✔ | ✔ | ✔ | ✔
-[Object (template literal types)](https://github.com/samchon/typia/blob/master/test/src/structures/TemplateUnion.ts) | ✔ | ✔ | ✔ | ❌ | ❌ | ❌
-[Object (dynamic properties)](https://github.com/samchon/typia/blob/master/test/src/structures/DynamicTemplate.ts) | ✔ | ✔ | ✔ | ❌ | ❌ | ❌
-[Array (rest tuple)](https://github.com/samchon/typia/blob/master/test/src/structures/TupleRestAtomic.ts) | ✅ | ❌ | ❌ | ❌ | ❌ | ❌
-[Array (hierarchical)](https://github.com/samchon/typia/blob/master/test/src/structures/ArrayHierarchical.ts)     | ✔ | ✔ | ✔ | ✔ | ✔ | ✔
-[Array (recursive)](https://github.com/samchon/typia/blob/master/test/src/structures/ArrayRecursive.ts)        | ✔ | ✔ | ✔ | ✔ | ✔ | ❌
-[Array (recursive, union)](https://github.com/samchon/typia/blob/master/test/src/structures/ArrayRecursiveUnionExplicit.ts) | ✔ | ✔ | ❌ | ✔ | ✔ | ❌
-[Array (R+U, implicit)](https://github.com/samchon/typia/blob/master/test/src/structures/ArrayRecursiveUnionImplicit.ts)    | ✅ | ❌ | ❌ | ❌ | ❌ | ❌
-[Array (repeated)](https://github.com/samchon/typia/blob/master/test/src/structures/ArrayRepeatedNullable.ts)    | ✅ | ❌ | ❌ | ❌ | ❌ | ❌
-[Array (repeated, union)](https://github.com/samchon/typia/blob/master/test/src/structures/ArrayRepeatedUnionWithTuple.ts)    | ✅ | ❌ | ❌ | ❌ | ❌ | ❌
-[**Ultimate Union Type**](https://github.com/samchon/typia/blob/master/src/schemas/IJsonSchema.ts)  | ✅ | ❌ | ❌ | ❌ | ❌ | ❌
+| Components | `typia` | `TypeBox` | `ajv` | `io-ts` | `zod` | `C.V.` |
+|------------|---------|-----------|-------|---------|-------|--------|
+| **Easy to use** | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
+| [Object (simple)](https://github.com/samchon/typia/blob/master/test/src/structures/ObjectSimple.ts) | ✔ | ✔ | ✔ | ✔ | ✔ | ✔ |
+| [Object (hierarchical)](https://github.com/samchon/typia/blob/master/test/src/structures/ObjectHierarchical.ts) | ✔ | ✔ | ✔ | ✔ | ✔ | ✔ |
+| [Object (recursive)](https://github.com/samchon/typia/blob/master/test/src/structures/ObjectRecursive.ts) | ✔ | ❌ | ✔ | ✔ | ✔ | ✔ |
+| [Object (union, implicit)](https://github.com/samchon/typia/blob/master/test/src/structures/ObjectUnionImplicit.ts) | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
+| [Object (union, explicit)](https://github.com/samchon/typia/blob/master/test/src/structures/ObjectUnionExplicit.ts) | ✔ | ✔ | ✔ | ✔ | ✔ | ❌ |
+| [Object (additional tags)](https://github.com/samchon/typia/#comment-tags) | ✔ | ✔ | ✔ | ✔ | ✔ | ✔ |
+| [Object (template literal types)](https://github.com/samchon/typia/blob/master/test/src/structures/TemplateUnion.ts) | ✔ | ✔ | ✔ | ❌ | ❌ | ❌ |
+| [Object (dynamic properties)](https://github.com/samchon/typia/blob/master/test/src/structures/DynamicTemplate.ts) | ✔ | ✔ | ✔ | ❌ | ❌ | ❌ |
+| [Array (rest tuple)](https://github.com/samchon/typia/blob/master/test/src/structures/TupleRestAtomic.ts) | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
+| [Array (hierarchical)](https://github.com/samchon/typia/blob/master/test/src/structures/ArrayHierarchical.ts) | ✔ | ✔ | ✔ | ✔ | ✔ | ✔ |
+| [Array (recursive)](https://github.com/samchon/typia/blob/master/test/src/structures/ArrayRecursive.ts) | ✔ | ✔ | ✔ | ✔ | ✔ | ❌ |
+| [Array (recursive, union)](https://github.com/samchon/typia/blob/master/test/src/structures/ArrayRecursiveUnionExplicit.ts) | ✔ | ✔ | ❌ | ✔ | ✔ | ❌ |
+| [Array (R+U, implicit)](https://github.com/samchon/typia/blob/master/test/src/structures/ArrayRecursiveUnionImplicit.ts) | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
+| [Array (repeated)](https://github.com/samchon/typia/blob/master/test/src/structures/ArrayRepeatedNullable.ts) | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
+| [Array (repeated, union)](https://github.com/samchon/typia/blob/master/test/src/structures/ArrayRepeatedUnionWithTuple.ts) | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
+| [**Ultimate Union Type**](https://github.com/samchon/typia/blob/master/test/src/structures/UltimateUnion.ts) | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
 
-> `C.V.` means `class-validator`
+> `C.V.` means `class-validator`.
+
+## Where to go next
+
+- Need an error path or to throw instead of returning a boolean → [`assert`](/docs/validators/assert)
+- Need every error at once for a form, not just the first → [`validate`](/docs/validators/validate)
+- Want to constrain values (formats, ranges, lengths) → [Special Tags](/docs/validators/tags)
+- Validating function calls → [Functional Module](/docs/validators/functional)

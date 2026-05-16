@@ -5,7 +5,18 @@ import { Callout, Tabs } from "nextra/components";
 
 import LocalSource from "../../../components/LocalSource";
 
-## `toLangChainTools()` function
+# LangChain.js
+
+[`@typia/langchain`](https://github.com/samchon/typia/tree/master/packages/langchain) plugs typia controllers into [LangChain.js](https://github.com/langchain-ai/langchainjs). Every method on your TypeScript class — or every endpoint in an OpenAPI document — becomes a `DynamicStructuredTool` ready for `AgentExecutor` and friends, with the same parse/coerce/validate/feedback machinery as [`typia.llm.application`](/docs/llm/application#the-function-calling-harness) wired in automatically.
+
+```typescript copy filename="signature"
+import { toLangChainTools } from "@typia/langchain";
+
+export function toLangChainTools(props: {
+  controllers: Array<ILlmController | IHttpLlmController>;
+  prefix?: boolean;   // default false; if true, tool names are "{controller}_{method}"
+}): DynamicStructuredTool[];
+```
 
 <Tabs items={[
     <code>@typia/langchain</code>,
@@ -41,14 +52,6 @@ export function toLangChainTools(props: {
   </Tabs.Tab>
 </Tabs>
 
-[LangChain.js](https://github.com/langchain-ai/langchainjs) integration for [`typia`](https://github.com/samchon/typia).
-
-`toLangChainTools()` converts TypeScript classes or OpenAPI documents into LangChain `DynamicStructuredTool[]` at once.
-
-Every class method becomes a tool, JSDoc comments become tool descriptions, and TypeScript types become JSON schemas — all at compile time. For OpenAPI documents, every API endpoint is converted to a `DynamicStructuredTool` with schemas from the specification.
-
-Lenient JSON parsing, type coercion, and validation feedback are all embedded automatically — the complete **function calling harness** that turns unreliable LLM output into 100% correct structured data.
-
 ## Setup
 
 ```bash filename="Terminal"
@@ -57,15 +60,8 @@ npm install typia
 npx typia setup
 ```
 
-## From TypeScript Class
+## From a TypeScript class
 
-<Tabs items={[
-    "LangChain Agent",
-    <code>Calculator</code>,
-    <code>BbsArticleService</code>,
-    <code>IBbsArticle</code>,
-  ]}>
-  <Tabs.Tab>
 ```typescript filename="src/main.ts" showLineNumbers {1-6, 10-15, 17-27}
 import { ChainValues, Runnable } from "@langchain/core";
 import { ChatPromptTemplate } from "@langchain/core/prompts";
@@ -97,7 +93,14 @@ const result: ChainValues = await executor.invoke({
   input: "What is 10 + 5?",
 });
 ```
-  </Tabs.Tab>
+
+Every method on `Calculator` is now a LangChain tool. JSDoc comments become tool descriptions, TypeScript types become JSON schemas. Tool names default to the bare method name; pass `prefix: true` to get `{controllerName}_{methodName}`.
+
+<Tabs items={[
+    <code>Calculator</code>,
+    <code>BbsArticleService</code>,
+    <code>IBbsArticle</code>,
+  ]}>
   <Tabs.Tab>
     <LocalSource
       path="tests/test-langchain/src/structures/Calculator.ts"
@@ -118,18 +121,13 @@ const result: ChainValues = await executor.invoke({
   </Tabs.Tab>
 </Tabs>
 
-Create controllers from TypeScript classes with `typia.llm.controller<Class>()`, and pass them to `toLangChainTools()`.
-
-  - `controllers`: Array of controllers created via `typia.llm.controller<Class>()` or `HttpLlm.controller()`
-  - `prefix`: When `true` (default), tool names are formatted as `{controllerName}_{methodName}`. Set to `false` to use bare method names
-
 <Callout type="warning">
-**Type Restrictions**
-
-Every method's parameter type must be a keyworded object type with static keys — not a primitive, array, or union. The return type must also be an object type or `void`. Primitive return types like `number` or `string` are not allowed; wrap them in an object (e.g., `{ value: number }`). See [`typia.llm.application()` Restrictions](../llm/application#restrictions) for details.
+**Method type rules.** Every method's parameter type must be a keyworded object with static keys (no primitives, arrays, or unions). The return type must be an object or `void`. See [`typia.llm.application` restrictions](/docs/llm/application#restrictions) for the full list.
 </Callout>
 
-## From OpenAPI Document
+## From an OpenAPI document
+
+For REST APIs documented with Swagger / OpenAPI, swap [`HttpLlm.controller`](/docs/llm/http) in:
 
 ```typescript filename="src/main.ts" showLineNumbers {1-3, 5-18}
 import { DynamicStructuredTool } from "@langchain/core/tools";
@@ -152,72 +150,32 @@ const tools: DynamicStructuredTool[] = toLangChainTools({
 });
 ```
 
-Create controllers from OpenAPI documents with `HttpLlm.controller()`, and pass them to `toLangChainTools()`.
+## The function calling harness
 
-  - `name`: Controller name used as prefix for tool names
-  - `document`: Swagger/OpenAPI document (v2.0, v3.0, or v3.1)
-  - `connection`: HTTP connection info including `host` and optional `headers`
-
-## The Function Calling Harness
-
-`toLangChainTools()` embeds lenient JSON parsing, type coercion, and validation feedback in every tool — all automatically. When validation fails, the error is returned as text content with inline `// ❌` comments at each invalid property:
+Every tool carries the harness — lenient parsing, type coercion, validation feedback. When validation fails, the tool returns the original input annotated with `// ❌` markers:
 
 ```json
 {
   "name": "John",
-  "age": "twenty", // ❌ [{"path":"$input.age","expected":"number"}]
+  "age": "twenty",      // ❌ [{"path":"$input.age","expected":"number"}]
   "email": "not-an-email", // ❌ [{"path":"$input.email","expected":"string & Format<\"email\">"}]
-  "hobbies": "reading" // ❌ [{"path":"$input.hobbies","expected":"Array<string>"}]
+  "hobbies": "reading"  // ❌ [{"path":"$input.hobbies","expected":"Array<string>"}]
 }
 ```
 
-The LLM reads this feedback and self-corrects on the next turn.
+For the mechanics see [`LlmJson`](/docs/llm/json).
 
-<Callout type="warning">
-**Bypassing LangChain's Built-in Validation**
+<Callout type="info">
+**Why typia replaces LangChain's built-in validator**
 
-LangChain internally uses `@cfworker/json-schema` to validate tool arguments, which throws `ToolInputParsingException` before custom validation can run. `@typia/langchain` solves this by using a passthrough Zod schema (`z.record(z.unknown())`), allowing `typia`'s much more detailed and accurate validator to handle all argument validation instead.
+LangChain validates tool arguments with `@cfworker/json-schema`, which throws `ToolInputParsingException` *before* anything else can run. `@typia/langchain` works around this by registering a permissive passthrough Zod schema (`z.record(z.unknown())`) — then runs typia's much more detailed validator inside the tool body. You get the harness output instead of a generic JSON-schema error.
 </Callout>
 
-In the [AutoBe](https://github.com/wrtnlabs/autobe) project (AI-powered backend code generator by [Wrtn Technologies](https://wrtn.io)), `qwen3-coder-next` showed only **6.75%** raw function calling success rate on compiler AST types. However, with the complete harness, it reached **100%** — across all four tested Qwen models.
+## Structured output
 
-Working on compiler AST means working on any type and any use case.
+For LangChain's `withStructuredOutput`, hand it the schema from [`typia.llm.parameters`](/docs/llm/parameters) and validate the result with [`typia.validate`](/docs/validators/validate):
 
-  - [AutoBeDatabase](https://github.com/wrtnlabs/autobe/blob/main/packages/interface/src/database/AutoBeDatabase.ts)
-  - [AutoBeOpenApi](https://github.com/wrtnlabs/autobe/blob/main/packages/interface/src/openapi/AutoBeOpenApi.ts)
-  - [AutoBeTest](https://github.com/wrtnlabs/autobe/blob/main/packages/interface/src/test/AutoBeTest.ts)
-
-```typescript filename="AutoBeTest.IExpression" showLineNumbers
-// Compiler AST may be the hardest type structure possible
-//
-// Unlimited union types + unlimited depth + recursive references
-export type IExpression =
-  | IBooleanLiteral
-  | INumericLiteral
-  | IStringLiteral
-  | IArrayLiteralExpression   // <- recursive (contains IExpression[])
-  | IObjectLiteralExpression  // <- recursive (contains IExpression)
-  | INullLiteral
-  | IUndefinedKeyword
-  | IIdentifier
-  | IPropertyAccessExpression // <- recursive
-  | IElementAccessExpression  // <- recursive
-  | ITypeOfExpression         // <- recursive
-  | IPrefixUnaryExpression    // <- recursive
-  | IPostfixUnaryExpression   // <- recursive
-  | IBinaryExpression         // <- recursive (left & right)
-  | IArrowFunction            // <- recursive (body is IExpression)
-  | ICallExpression           // <- recursive (args are IExpression[])
-  | INewExpression            // <- recursive
-  | IConditionalPredicate     // <- recursive (then & else branches)
-  | ... // 30+ expression types total
-```
-
-## Structured Output
-
-Use `typia.llm.parameters<T>()` with LangChain's `withStructuredOutput()`:
-
-```typescript filename="src/main.ts" copy showLineNumbers {1-3, 5-11, 13-14, 16-22, 25-28}
+```typescript filename="src/main.ts" copy showLineNumbers {1-3, 13-14, 25-28}
 import { ChatOpenAI } from "@langchain/openai";
 import { dedent, LlmJson } from "@typia/utils";
 import typia, { tags } from "typia";
@@ -241,10 +199,10 @@ const member: IMember = await model.invoke(dedent`
   and joined to this community at 2022-01-01.
 `);
 
-// Validate the result
 const result = typia.validate<IMember>(member);
 if (!result.success) {
   console.error(LlmJson.stringify(result));
+  // → send `LlmJson.stringify(result)` back to the model for correction
 }
 ```
 
@@ -258,6 +216,12 @@ if (!result.success) {
 > }
 > ```
 
-The `IMember` interface is the single source of truth. `typia.llm.parameters<IMember>()` generates the JSON schema, and `typia.validate<IMember>()` validates the output — all from the same type. If validation fails, feed the error back to the LLM for correction.
+The `IMember` interface is the single source of truth. The schema and the validator both come from it; the feedback loop closes the gap between what the model produced and what your code expected.
 
+## Where to go next
 
+- Source TypeScript class for the tools → [`typia.llm.application`](/docs/llm/application)
+- Source OpenAPI document for the tools → [`HttpLlm`](/docs/llm/http)
+- Harness internals → [`LlmJson`](/docs/llm/json)
+- Same idea, different framework → [Vercel AI SDK](/docs/utilization/vercel) · [MCP](/docs/utilization/mcp)
+- Full agent loop on top → [Agentica](/docs/llm/chat)

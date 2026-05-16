@@ -7,14 +7,64 @@ import AlertTitle from '@mui/material/AlertTitle';
 
 import LocalSource from '../../../components/LocalSource';
 
-## `encode()` functions
+# `typia.protobuf.*Encode` — TypeScript object → Protocol Buffer bytes
 
-<Tabs items={[
-  <code>typia</code>, 
-  <code>TypeGuardError.ts</code>, 
-  <code>IValidation.ts</code>,
-  <code>Resolved.ts</code>
-]}>
+```typescript copy filename="signatures"
+namespace protobuf {
+  function encode<T>(input: T): Uint8Array;                          // no validation
+  function isEncode<T>(input: T): Uint8Array | null;                 // is + encode
+  function assertEncode<T>(input: T): Uint8Array;                    // assert + encode
+  function validateEncode<T>(input: T): IValidation<Uint8Array>;     // validate + encode
+}
+```
+
+The encoder reads your type at compile time and emits a hand-rolled binary writer for that exact shape — no separate `.proto` schema is needed. You only need [`protobuf.message`](/docs/protobuf/message) when another service has to read the schema.
+
+## First example
+
+```typescript copy filename="hello-encode.ts"
+import typia from "typia";
+
+interface User { id: string; age: number; hobbies: string[] }
+
+const bytes: Uint8Array = typia.protobuf.assertEncode<User>({
+  id: "1",
+  age: 25,
+  hobbies: ["reading"],
+});
+```
+
+<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
+  <Tabs.Tab>
+    <LocalSource
+      path="examples/src/protobuf/encode.ts"
+      filename="examples/src/protobuf/encode.ts"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource
+      path="examples/bin/protobuf/encode.js"
+      filename="examples/bin/protobuf/encode.js"
+      showLineNumbers />
+  </Tabs.Tab>
+</Tabs>
+
+## Pick the right variant
+
+| Function | Validates input? | On failure |
+|----------|------------------|------------|
+| `protobuf.encode<T>` | **No** | output is undefined — typically the bytes will not decode |
+| `protobuf.isEncode<T>` | Yes ([`is`](/docs/validators/is)) | returns `null` |
+| `protobuf.assertEncode<T>` | Yes ([`assert`](/docs/validators/assert)) | throws `TypeGuardError` |
+| `protobuf.validateEncode<T>` | Yes ([`validate`](/docs/validators/validate)) | returns `IValidation<Uint8Array>` |
+
+> [!CAUTION]
+>
+> **`protobuf.encode<T>` trusts you completely.**
+>
+> If `input` doesn't actually match `T`, the encoder writes whatever bytes its emitted code happens to produce — and the decoder on the other end will likely fail or produce garbage. Use it only when the input was constructed inside the same call frame from typed values. Otherwise, pick `assertEncode` or `validateEncode`.
+
+<Tabs items={[<code>typia</code>, <code>IValidation.ts</code>, <code>TypeGuardError.ts</code>, <code>Resolved.ts</code>]}>
   <Tabs.Tab>
 ```typescript showLineNumbers
 export namespace protobuf {
@@ -26,127 +76,63 @@ export namespace protobuf {
 ```
   </Tabs.Tab>
   <Tabs.Tab>
-    <LocalSource 
-      path="packages/typia/src/TypeGuardError.ts"
-      filename="typia/TypeGuardError.ts"
-      showLineNumbers />
-  </Tabs.Tab>
-  <Tabs.Tab>
     <LocalSource
       path="packages/interface/src/schema/IValidation.ts"
       filename="@typia/interface"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <LocalSource 
-      path="packages/interface/src/typings/Resolved.ts"
-      filename="@typia/interface"
-      showLineNumbers />
-  </Tabs.Tab>
-</Tabs>
-
-Protocol Buffer Encoder.
-
-You can easily convert a JavaScript object to a binary data of Protocol Buffer, without any extra Protocol Buffer [Message Schema](../message) definition. `typia.protobuf.encode<T>()` function analyzes your type `T`, and generates a Protocol Buffer Message Schema internally. And then, it converts the `input` instance to the binary data of Protocol Buffer format.
-
-By the way, `typia.protobuf.encode<T>()` function does not validate the `input` value. It just believes user and `input` value, and converts to the Protocol Buffer binary data directly without any validation. By the way, if the `input` value was not validate, the encoded binary data never can be decoded. So, if you can't sure the `input` value type, you should use below functions instead.
-
-  - `typia.protobuf.isEncode<T>()`: [`typia.is<T>()`](../validators/is) + `typia.protobuf.encode<T>()`
-  - `typia.protobuf.assertEncode<T>()`: [`typia.assert<T>()`](../validators/assert) + `typia.protobuf.encode<T>()`
-  - `typia.protobuf.validateEncode<T>()`: [`typia.validate<T>()`](../validators/validate) + `typia.protobuf.encode<T>()`
-
-<br/>
-<Alert severity="success">
-    <AlertTitle> 
-        **AOT compilation** 
-    </AlertTitle>
-
-`typia.protobuf.encode<T>()` and other similar functions are still much faster than any other competitive libraries, even though they include type checking process. This is the power of AOT compilation, writing optimal dedicated code by analyzing TypeScript type, in the compilation level.
-
-</Alert>
-
-<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-  <Tabs.Tab>
-    <LocalSource 
-      path="examples/src/protobuf/encode.ts"
-      filename="examples/src/protobuf/encode.ts"
-      showLineNumbers />
-  </Tabs.Tab>
-  <Tabs.Tab>
-    <LocalSource 
-      path="examples/bin/protobuf/encode.js"
-      filename="examples/bin/protobuf/encode.js"
-      showLineNumbers />
-  </Tabs.Tab>
-</Tabs>
-
-## Reusable Functions
-
-<Tabs items={[
-  <code>typia</code>, 
-  <code>TypeGuardError.ts</code>, 
-  <code>IValidation.ts</code>,
-  <code>Resolved.ts</code>
-]}>
-  <Tabs.Tab>
-```typescript showLineNumbers
-export namespace protobuf {
-  export function encode<T>(): (input: T) => Uint8Array;
-  export function isEncode<T>(): (input: T) => Uint8Array | null;
-  export function assertEncode<T>(): (input: T) => Uint8Array;
-  export function validateEncode<T>(): (input: T) => IValidation<Uint8Array>;
-}
-```
-  </Tabs.Tab>
-  <Tabs.Tab>
-    <LocalSource 
+    <LocalSource
       path="packages/typia/src/TypeGuardError.ts"
       filename="typia/TypeGuardError.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <LocalSource 
-      path="packages/interface/src/schema/IValidation.ts"
-      filename="@typia/interface"
-      showLineNumbers />
-  </Tabs.Tab>
-  <Tabs.Tab>
-    <LocalSource 
+    <LocalSource
       path="packages/interface/src/typings/Resolved.ts"
       filename="@typia/interface"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>
 
-Reusable `typia.protobuf.encode<T>()` function generators.
+## Reusable factories
 
-If you repeat to call `typia.protobuf.encode<T>()` function on the same type, size of JavaScript files would be larger because of duplicated AOT compilation. To prevent it, you can generate reusable function through `typia.protobuf.createEncode<T>()` function.
+Same pattern as the other namespaces — hoist the per-type code once:
 
-Just look at the code below, then you may understand how to use it.
+```typescript copy
+const encodeUser = typia.protobuf.createAssertEncode<User>();
+```
 
-<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
   <Tabs.Tab>
-    <LocalSource 
+    <LocalSource
       path="examples/src/protobuf/createEncode.ts"
       filename="examples/src/protobuf/createEncode.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <LocalSource 
+    <LocalSource
       path="examples/bin/protobuf/createEncode.js"
       filename="examples/bin/protobuf/createEncode.js"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>
 
-## References
+## Restrictions
 
-Protocol Buffer supports special numeric types like `int32` or `uint64` that are not supported in TypeScript. Also, types of Protocol Buffer cannot fully meet TypeScript type specs either, as expression power of TypeScript types are much stronger than Protocol Buffer.
+The encoder follows the same type restrictions as [`protobuf.message`](/docs/protobuf/message#restrictions): top-level type must be a single static object, no two-dimensional containers, no `any`/`Date`/`Set`/etc.
 
-To know how to define special numeric types like `uint64`, and to understand which TypeScript types are not supported in Protocol Buffer specs, it would better to read below documents. I recommend you to read them before using `typia.protobuf.encode<T>()` related functions.
+If you need numeric types Protocol Buffer specifies but TypeScript doesn't (e.g. `uint32`, `int64`), pick them with [type tags](/docs/validators/tags) on the property:
 
-  - [Typia Guide Documents > Protocol Buffer > Message Schema](../message)
-    - [`message()` function](../message#message-function)
-    - [Type Tags](../message#type-tags)
-    - [Comment Tags](../message#comment-tags)
-    - [Restrictions](../message#restrictions)
+```typescript
+interface Pricing {
+  cents: number & tags.Type<"uint32">;
+  customerCount: bigint & tags.Type<"uint64">;
+}
+```
+
+## Where to go next
+
+- Decoding the bytes back into a value → [`protobuf.decode`](/docs/protobuf/decode)
+- Sharing the schema with another language → [`protobuf.message`](/docs/protobuf/message)
+- Numeric tags → [Special Tags](/docs/validators/tags)
