@@ -40,7 +40,7 @@ The benchmarks are reproducible — run `pnpm benchmark` from the repo.
 ## Common questions
 
 **My tests pass but my service throws "no transform has been configured" in production.**
-You built with stock `tsc` (or your bundler ran SWC/Babel) instead of `ttsc` / `ts-patch` / `@typia/unplugin`. Re-read the [verify-your-setup step in Install](/docs/tutorial/install#verify-your-setup) — the fix is always at the build-tool layer, not in your code.
+You built with stock `tsc` (or your bundler ran SWC/Babel) instead of `ttsc` / `ts-patch` / `@typia/unplugin`. Re-read the [verify-your-setup step in Install](/tutorial/install#verify-your-setup) — the fix is always at the build-tool layer, not in your code.
 
 **The bundler I use isn't listed.**
 typia covers the common ones via `@ttsc/unplugin` (modern) and `@typia/unplugin` (legacy). If yours isn't there, the [generation mode](/docs/setup/legacy#generation) — `npx typia generate --input src --output dist-typia` — lets typia emit `.ts` files ahead of time, which any tool can then compile normally.

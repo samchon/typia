@@ -110,7 +110,7 @@ const HomeHeroMovie = () => {
           <HeroButton
             title="Start Tutorial"
             icon={<RocketLaunchIcon />}
-            href="/docs/tutorial"
+            href="/tutorial"
             variant="contained"
           />
           <HeroButton
