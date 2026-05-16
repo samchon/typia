@@ -9,7 +9,7 @@ import LocalSource from "../../components/LocalSource";
 
 ```typescript copy filename="signatures"
 function random<T>(generator?: Partial<IRandomGenerator>): Resolved<T>;
-function createRandom<T>(): (generator?: Partial<IRandomGenerator>) => Resolved<T>;
+function createRandom<T>(generator?: Partial<IRandomGenerator>): () => Resolved<T>;
 ```
 
 `typia.random<T>` returns a value that satisfies `T`. Use it for test fixtures, seeding databases, or building demos without writing factory functions by hand.
@@ -77,15 +77,20 @@ export function random<T>(g?: Partial<IRandomGenerator>): Resolved<T>;
 
 ```typescript copy
 const randomUser = typia.createRandom<User>();
-
 const a = randomUser();
-const b = randomUser({ /* custom generator overrides */ });
+const b = randomUser();
+
+// Pass a custom generator at factory creation:
+const customRandomUser = typia.createRandom<User>(customGenerator);
+const c = customRandomUser();
 ```
+
+The factory takes the generator **once at creation** and returns a zero-argument function. (If you need different generators per call, just create more factories — they're cheap.)
 
 <Tabs items={[<code>typia</code>, <code>IRandomGenerator.ts</code>, <code>Resolved.ts</code>]}>
   <Tabs.Tab>
 ```typescript copy
-export function createRandom<T>(): (g?: Partial<IRandomGenerator>) => Resolved<T>;
+export function createRandom<T>(g?: Partial<IRandomGenerator>): () => Resolved<T>;
 ```
   </Tabs.Tab>
   <Tabs.Tab>
@@ -131,7 +136,7 @@ The constraints you'd normally use for runtime validation also pin down what `ra
   </Tabs.Tab>
 </Tabs>
 
-> For long-running test suites and especially anything that goes into a real database, prefer type tags — typos in comment tags fall back to defaults silently. See [Special Tags](/docs/validators/tags#comment-tags) for the trade-off.
+**Type tags are the recommended form.** They are statically checked by the TypeScript compiler (a misspelled format string is rejected at compile time), they compose with `&` and `|` like any other type, and they let you define custom constraints. Comment tags only exist for legacy JSDoc-style projects, and a typo there falls back to defaults silently — for long-running test suites and especially anything that seeds a real database, prefer type tags. See [Special Tags](/docs/validators/tags#comment-tags) for the trade-off in full.
 
 ## Custom tags
 

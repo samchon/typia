@@ -212,7 +212,7 @@ LLM providers have limits on how deep a recursive schema can go. typia handles r
 
 - A type that recurses through an **array** is expanded 3 times; the 4th level is removed from the array.
 - A type that recurses through an **optional property** is expanded 3 times; the 4th level drops the property.
-- A type that recurses through a `oneOf` is removed from that branch.
+- A type that recurses through an `anyOf` is removed from that branch.
 
 <Tabs items={["TypeScript Source", "Compiled JavaScript"]}>
   <Tabs.Tab>

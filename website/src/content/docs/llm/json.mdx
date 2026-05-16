@@ -17,6 +17,14 @@ LLM output is messy. Even capable models routinely produce:
 
 `LlmJson` is a namespace from `@typia/utils` that handles every one of these and produces typed data. It's the engine behind `ILlmFunction.parse`, `ILlmFunction.coerce`, and the `parse`/`coerce` methods on [`structuredOutput`](/docs/llm/structuredOutput) — and you can also call it directly when you're working schema-first.
 
+It fixes the LLM output in **three layers**, each callable independently:
+
+1. **Lenient parsing** (`LlmJson.parse`) — accept malformed JSON that `JSON.parse` would reject (unclosed brackets, trailing commas, markdown fences, …)
+2. **Type coercion** (`LlmJson.parse` with a schema, or `LlmJson.coerce` on an already-parsed object) — fix value shapes against the schema (`"42"` → `42`, double-stringified objects → real objects)
+3. **Feedback formatting** (`LlmJson.stringify`) — when validation still fails after parsing + coercing, write an LLM-readable diff for the next turn
+
+`LlmJson.validate` is the fourth function but it sits on the boundary, not in the loop — it gives you a runtime validator from a schema, which feeds layer 3.
+
 ```typescript copy filename="@typia/utils — what's in LlmJson"
 export namespace LlmJson {
   // Format a validation failure as annotated JSON for LLM auto-correction
@@ -207,7 +215,9 @@ Lenient parsing + coercion get the *shape* close. But they don't enforce things 
 LlmJson.coerce<T>(input: unknown, parameters: ILlmSchema.IParameters): T
 ```
 
-Use `coerce` when the JSON has already been parsed for you — typically because the SDK did it:
+Use `coerce` when the JSON has already been parsed for you — typically because the SDK did it.
+
+### When to use `coerce` vs `parse`
 
 | Scenario | Use |
 |----------|-----|
@@ -223,7 +233,9 @@ Use `coerce` when the JSON has already been parsed for you — typically because
   filename="examples/src/llm/application-coerce.ts"
   showLineNumbers />
 
-What it does, step by step:
+### Coercion behavior
+
+What `coerce` actually does, step by step:
 
 1. **Resolve `$ref`** — follow schema references
 2. **`anyOf` with discriminator** — pick the right variant using `x-discriminator`

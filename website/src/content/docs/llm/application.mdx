@@ -38,11 +38,11 @@ Hand `app.functions` (or one of the framework adapters below) to your LLM SDK an
 ```typescript filename="typia" showLineNumbers
 export namespace llm {
   export function application<
-    App extends Record<string, any>,
-    Config extends Partial<ILlmSchema.IConfig> = {},
+    Class extends Record<string, any>,
+    Config extends Partial<ILlmSchema.IConfig & { equals: boolean }> = {},
   >(
-    config?: Partial<Pick<ILlmApplication.IConfig, "validate">>,
-  ): ILlmApplication;
+    config?: Partial<Pick<ILlmApplication.IConfig<Class>, "validate">>,
+  ): ILlmApplication<Class>;
 }
 ```
   </Tabs.Tab>
@@ -109,7 +109,54 @@ export namespace llm {
   </Tabs.Tab>
 </Tabs>
 
-> [💻 Open in Playground](/playground/?script=JYWwDg9gTgLgBAbzgSQDIBsQEExncAYwEMZgIA7OAXzgDMoIQ4AiAAQGciQCALCgeghgApuSJhgzANwAoUJFhwYATwlE6DJsxVrpMuHPDR4SAEIAjdlliF0wgMrCoAN0LDqGxiwB0-C1ZsCO0cXNz0DAgp2eHEwAC4UDGxcfGJSCjgAXiVVYCJvdExvWNSSMnIAHn9rUiCHJ1cCYQA+AAoASllI8nYIOwKIAHNW2M6gA)
+> [💻 Open in Playground](/playground/?script=JYWwDg9gTgLgBAbzgSQDIBsQEExncAYwEMZgIA7OAXzgDMoIQ4AiAAQGciQCALCgeghgApuSJhgzANwAoUJFhwYATwlE6DJsxVrpMuHPDR4SAEIAjdlliF0wgMrCoAN0LDqGxiwB0-C1ZsCO0cXNz0DAgp2eHEwAC4UDGxcfGJSCjgAXiVVYCJvdExvWNSSMnIAHn9rUiCHJ1cCYQA+AAoASklI8nYIOwKIAHNW2M6gA)
+
+## Method shape — the compile-time contract
+
+The compile-time transform enforces the LLM function-calling contract on every method. Getting this right is the #1 reason a new `typia.llm.application<Class>()` call fails to compile, so read it before anything else:
+
+- **Each method takes exactly one keyworded-object parameter.** LLMs invoke functions with named arguments, so `add(x: number, y: number)` is rejected. Wrap the args: `add(props: { x: number; y: number })`.
+- **Each method returns a keyworded-object type** (e.g. `{ value: number }`, `{ items: T[] }`) **or `void`.** Primitives, arrays, and `T | undefined` are rejected. If you need to return one, wrap it.
+- **Object parameter and return types may not have dynamic keys.** `Record<string, number>` won't work — use `Array<{ key: string; value: number }>`.
+
+<Tabs items={["Source That Won't Compile", "Compiler Errors"]}>
+  <Tabs.Tab>
+```typescript filename="example/src/llm/application.violation.ts" showLineNumbers
+import typia, { ILlmApplication, tags } from "typia";
+
+const app: ILlmApplication = typia.llm.application<BbsArticleController>();
+
+interface BbsArticleController {
+  /** Create a new article and return it. */
+  create(props: { input: IBbsArticle.ICreate }): Promise<IBbsArticle | undefined>;
+  //                                            ^ return must not be union with undefined
+
+  /** Add two numbers. */
+  add(props: { x: number; y: number }): number;
+  //                                    ^ return must be an object
+
+  erase(id: string & tags.Format<"uuid">): Promise<void>;
+  //    ^ parameter must be a keyworded object, not a primitive
+}
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```bash filename="Terminal"
+src/examples/llm.application.violation.ts:4:29 - error TS(typia.llm.application): unsupported type detected
+
+- BbsArticleController.create: unknown
+  - LLM application's function ("create")'s return type must not be union type with undefined.
+
+- BbsArticleController.add: unknown
+  - LLM application's function ("add")'s return type must be an object type.
+
+- BbsArticleController.erase: unknown
+  - LLM application's function ("erase")'s parameter must be an object type.
+```
+  </Tabs.Tab>
+</Tabs>
+
+For the deeper type-level rules see [`llm.parameters`](/docs/llm/parameters) and [`llm.schema`](/docs/llm/schema).
 
 ## Framework adapters
 
@@ -355,59 +402,11 @@ By default the auto-generated `ILlmFunction.validate` is lenient: arguments with
 const app = typia.llm.application<BbsArticleService, { equals: true }>();
 ```
 
-`{ equals: true }` does two things:
+`{ equals: true }` switches the embedded validator to `validateEquals` semantics — any property not declared on the parameter type becomes a validation error at runtime.
 
-- Switches the embedded validator to `validateEquals` semantics — any property not declared on the parameter type becomes a validation error
-- Sets `additionalProperties: false` on the parameter schemas, so the LLM is told upfront which fields are allowed
+(The schema-side `additionalProperties: false` is always emitted on LLM parameter schemas, regardless of the flag — the LLM is told upfront which fields are allowed either way. `equals` only changes how the runtime validator treats stray properties the model produced anyway.)
 
 Same switch works on [`structuredOutput`](/docs/llm/structuredOutput#strict-mode) and `controller`. Leave it `false` for chat-style agents (more tolerant of model variability), turn it on for production tools where extra fields would be a real bug.
-
-## Restrictions
-
-The compile-time transform enforces the LLM function-calling contract on every method:
-
-- **Each method takes exactly one keyworded-object parameter.** LLMs invoke functions with named arguments, so `add(x: number, y: number)` is rejected. Wrap the args: `add(props: { x: number; y: number })`.
-- **Each method returns a keyworded-object type** (e.g. `{ value: number }`, `{ items: T[] }`) **or `void`.** Primitives, arrays, and `T | undefined` are rejected. If you need to return one, wrap it.
-- **Object parameter and return types may not have dynamic keys.** `Record<string, number>` won't work — use `Array<{ key: string; value: number }>`.
-
-<Tabs items={["Source That Won't Compile", "Compiler Errors"]}>
-  <Tabs.Tab>
-```typescript filename="example/src/llm/application.violation.ts" showLineNumbers
-import typia, { ILlmApplication, tags } from "typia";
-
-const app: ILlmApplication = typia.llm.application<BbsArticleController>();
-
-interface BbsArticleController {
-  /** Create a new article and return it. */
-  create(props: { input: IBbsArticle.ICreate }): Promise<IBbsArticle | undefined>;
-  //                                            ^ return must not be union with undefined
-
-  /** Add two numbers. */
-  add(props: { x: number; y: number }): number;
-  //                                    ^ return must be an object
-
-  erase(id: string & tags.Format<"uuid">): Promise<void>;
-  //    ^ parameter must be a keyworded object, not a primitive
-}
-```
-  </Tabs.Tab>
-  <Tabs.Tab>
-```bash filename="Terminal"
-src/examples/llm.application.violation.ts:4:29 - error TS(typia.llm.application): unsupported type detected
-
-- BbsArticleController.create: unknown
-  - LLM application's function ("create")'s return type must not be union type with undefined.
-
-- BbsArticleController.add: unknown
-  - LLM application's function ("add")'s return type must be an object type.
-
-- BbsArticleController.erase: unknown
-  - LLM application's function ("erase")'s parameter must be an object type.
-```
-  </Tabs.Tab>
-</Tabs>
-
-For deeper type-level rules see [`llm.parameters`](/docs/llm/parameters) and [`llm.schema`](/docs/llm/schema).
 
 ## Where to go next
 

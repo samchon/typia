@@ -244,7 +244,13 @@ export const correctFunctionCall = (p: {
 
 The numbers in the comments come from running the shopping chatbot demo above. The pattern works for the same reason it works in [`application`](/docs/llm/application#validation-feedback) and at [AutoBe](https://github.com/wrtnlabs/autobe) — typia's validator gives the LLM enough detail (path, expected type, actual value) to fix its own mistakes.
 
-Some LLM providers don't even honor all the JSON Schema constraint keywords (`format`, `pattern`, …). The validation feedback channel works around that too: the model doesn't have to understand "format: uuid" — it just sees `expected: "string & Format<\"uuid\">"` in the error and tries again.
+Some LLM providers don't even honor all the JSON Schema constraint keywords. The validation feedback channel works around that too: the model doesn't have to understand `"format": "uuid"` — it just sees `expected: "string & Format<\"uuid\">"` in the error and tries again. The keywords most commonly ignored by providers, grouped by base type:
+
+- **`string`** — `minLength`, `maxLength`, `pattern`, `format`, `contentMediaType`
+- **`number`** — `minimum`, `maximum`, `exclusiveMinimum`, `exclusiveMaximum`, `multipleOf`
+- **`array`** — `minItems`, `maxItems`, `uniqueItems`, `items`
+
+typia checks every one of these at runtime and surfaces failures into the feedback channel — so whether or not the provider taught the model to honor the schema keyword in the first place, the model gets a chance to fix the value on the next turn.
 
 <ValidatorSupportMatrixSnippet />
 

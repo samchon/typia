@@ -52,6 +52,8 @@ export const check = (input) =>
 
 No reflection at runtime, no schema file to maintain — just the exact comparisons your `User` type implies, inlined into the build. This is the core trick that every other typia feature builds on; see [Pure TypeScript](/docs/pure) for the long story.
 
+> The right-hand "Compiled JavaScript" tab is produced by typia's compile-time transform — **stock `tsc` will not produce it**. To enable the transform, install one of the build paths in [Setup](/docs/setup) (`ttsc` for TypeScript-Go, `ts-patch` for the stable TypeScript v5/v6 release). Without setup, your `typia.is<T>()` call sites throw at runtime instead.
+
 ![Typia Logo](/logo.png)
 
 <span style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", gap: "6px" }}>
@@ -94,6 +96,14 @@ No reflection at runtime, no schema file to maintain — just the exact comparis
 </span>
 
 ## API surface
+
+typia covers five feature areas, all driven by the same TypeScript-type-to-runtime-code transform:
+
+- **Super-fast runtime validators** — `is` / `assert` / `validate` (+ Equals strict variants)
+- **Enhanced JSON** — type-safe `assertParse`, much faster `assertStringify`, OpenAPI / JSON Schema generation
+- **LLM function calling harness** — class → tool schemas with lenient JSON parsing, type coercion, and validation feedback baked in
+- **Protocol Buffer codec** — encode / decode + `.proto` text emission from a TypeScript type
+- **Random data generator** — produce a value that satisfies the type, tags and all
 
 ```ts
 // Runtime validators — write a type, get a checker

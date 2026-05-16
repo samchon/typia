@@ -13,7 +13,11 @@ typia is a compile-time transformer, so it has to plug into your TypeScript buil
 | [**TypeScript-Go (`ttsc`)**](/docs/setup/tsgo) | TypeScript-Go preview (`@typescript/native-preview`) — experimental | `typia@next` |
 | [**Legacy (`ts-patch`)**](/docs/setup/legacy) | Stable TypeScript v5 or v6 (the standard `typescript` npm package) | `typia` |
 
-If you don't know which to pick, choose **Legacy** — it's the stable release used in production today.
+**TypeScript-Go** is the in-progress Go-rewrite of the TypeScript compiler shipped by the TypeScript team. The transformer plug-in API is settled, but packaging and binary naming are not — pin versions carefully and expect breakage.
+
+**Legacy** is what every typia user is running in production today. It patches the JavaScript-based `tsc` at install time via [`ts-patch`](https://github.com/nonara/ts-patch); from then on every `tsc` build applies the typia transform. No experimental preview required.
+
+If you don't know which to pick, choose **Legacy**.
 
 ## TypeScript-Go
 

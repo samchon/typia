@@ -90,7 +90,7 @@ Writes a new article and archives it into the DB.
 
 > [!NOTE]
 >
-> You can also fill `description` with `@description ...`, but watch indentation — the parser is sensitive to leading whitespace in multi-line `@description` blocks.
+> You can also fill `description` with the `@description` comment tag, but **watch the indentation** — every continuation line of a `@description` block must keep its leading whitespace consistent, otherwise only the first line gets captured and the rest is silently dropped. If a generated schema's `description` looks oddly truncated, this is almost always the cause. Plain JSDoc (no `@description` tag) doesn't have this problem.
 
 ## Namespace inheritance
 

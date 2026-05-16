@@ -18,6 +18,12 @@ function is<T>(input: unknown): input is T;
 
 It is also a [type guard](https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates), so on the `true` branch TypeScript narrows the variable to `T` automatically — you don't have to cast.
 
+| Scenario | Pick |
+|----------|------|
+| Just a yes/no answer | **`is`** *(you are here)* |
+| One field is wrong → throw an exception | [`assert`](/docs/validators/assert) |
+| Need every field error at once (form, LLM feedback loop) | [`validate`](/docs/validators/validate) |
+
 ## First example
 
 ```typescript copy filename="hello-is.ts"

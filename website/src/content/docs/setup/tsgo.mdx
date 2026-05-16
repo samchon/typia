@@ -458,8 +458,7 @@ Most projects don't need to touch this. Add `compilerOptions.plugins` only when 
         "transform": "typia/lib/transform",
         "functional": true, // default: false
         "numeric": true,    // default: false
-        "finite": true,     // default: false
-        "undefined": false  // default: true
+        "finite": true      // default: false
       }
     ]
   }
@@ -471,7 +470,6 @@ Most projects don't need to touch this. Add `compilerOptions.plugins` only when 
 | `functional` | `false` | Validate `function`-typed properties as well as data properties |
 | `numeric` | `false` | Reject `NaN` when a property is typed as `number` |
 | `finite` | `false` | Reject `NaN` and `±Infinity` when a property is typed as `number` |
-| `undefined` | `true`  | When `false`, skip explicit `undefined` checks on required properties |
 
 > [!NOTE]
 >

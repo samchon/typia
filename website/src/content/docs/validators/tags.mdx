@@ -63,19 +63,29 @@ type Price = number & tags.Type<"double"> & tags.Minimum<0>;
 Type tags compose with `|` and `&` exactly like regular TypeScript types:
 
 ```typescript copy
-// number can be either a uint32 or a double
 type N = number & (tags.Type<"uint32"> | tags.Type<"double">);
+```
+- the `number` value can be a `uint32` **or** a `double` — the validator accepts either
 
-// number-or-bigint, with different constraints per branch
+```typescript copy
 type ID =
   | (number & tags.Type<"int32">)
   | (bigint  & tags.Type<"uint64">);
+```
+- the value is either:
+  - a `number` that is `int32`, **or**
+  - a `bigint` that is `uint64`
 
-// number that can be either int32 or float, OR bigint that is uint64
+```typescript copy
 type Mixed =
   | (number & (tags.Type<"int32"> | tags.Type<"float">))
   | (bigint  & tags.Type<"uint64">);
 ```
+- the value is either:
+  - a `number` that is `int32` **or** `float`, **or**
+  - a `bigint` that is `uint64`
+
+Note the parentheses on the third example — `number & (Type<"int32"> | Type<"float">)` is the `number` branch; `bigint & Type<"uint64">` is the `bigint` branch. The grouping matters: changing the parentheses changes the meaning, so when in doubt, match the structure of the bulleted breakdown above.
 
 If you intersect a tag with the wrong base type (e.g. `tags.MaxLength<100>` on a `number`), the TypeScript compiler will reject it.
 
