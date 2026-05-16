@@ -408,6 +408,66 @@ const app = typia.llm.application<BbsArticleService, { equals: true }>();
 
 Same switch works on [`structuredOutput`](/docs/llm/structuredOutput#strict-mode) and `controller`. Leave it `false` for chat-style agents (more tolerant of model variability), turn it on for production tools where extra fields would be a real bug.
 
+## Custom validation
+
+Type-based validation rejects "this isn't even the right shape." It cannot reject *business-rule* failures like "this user doesn't exist," "this price exceeds the customer's plan limit," "this URL points at a host we've banned." For those, hook your own validator into `typia.llm.application` through the runtime `config.validate` parameter:
+
+```typescript copy
+import typia, { IValidation } from "typia";
+
+class BookmarkService {
+  /** Save a bookmark. */
+  async add(props: { url: string; tags: string[] }): Promise<{ id: string }> {
+    /* … */
+    return { id: "…" };
+  }
+  /** Delete a bookmark by id. */
+  async remove(props: { id: string }): Promise<{ deleted: boolean }> {
+    /* … */
+    return { deleted: true };
+  }
+}
+
+const app = typia.llm.application<BookmarkService>({
+  validate: {
+    // Per-method custom validator. Receives the raw LLM-produced input,
+    // returns an IValidation<ArgumentType> that the harness threads
+    // through to the model on failure.
+    add: (input: unknown): IValidation<{ url: string; tags: string[] }> => {
+      // Run the default type check first.
+      const typed = typia.validate<{ url: string; tags: string[] }>(input);
+      if (!typed.success) return typed;
+
+      // Then layer business rules on top.
+      if (BANNED_HOSTS.includes(new URL(typed.data.url).host)) {
+        return {
+          success: false,
+          data: typed.data,
+          errors: [{
+            path: "$input.url",
+            expected: "URL not on the banned-host list",
+            value: typed.data.url,
+          }],
+        };
+      }
+      return typed;
+    },
+    // Methods omitted from the `validate` map keep the default type-based
+    // validator — only override the ones that need extra rules.
+  },
+});
+```
+
+**What goes in the map:** one entry per method on the class. The key is the method name (typed against `keyof Class`, so a typo is caught at compile time). The value is `(input: unknown) => IValidation<ArgumentType>` — `ArgumentType` is the same keyworded-object type the method signature declared, and `IValidation<T>` is the same discriminated union [`typia.validate<T>`](/docs/validators/validate) returns.
+
+**What happens on failure:** the validator's `IValidation.IFailure` flows into the same feedback channel the type-based validator uses — `LlmJson.stringify(failure)` formats your custom errors with the same `// ❌ [...]` annotations the LLM has already learned to read. So a custom business-rule failure is indistinguishable to the model from a missing required field; it just retries with corrected input.
+
+**Why this and not "validate after the call":** because of the harness. If you wait until after `ILlmFunction.execute(args)` to apply business rules, the failure path is your problem — you have to format errors, decide whether to retry, choose what to send back. Wiring the validator into `config.validate` makes the rules part of the harness loop: the model gets one consistent error format, the retry logic is already there, and `ILlmFunction.validate(args)` reports the *combined* type + business-rule result so callers don't need to know there's an override.
+
+> [!TIP]
+>
+> Combine `config.validate` with `{ equals: true }` if you want both strict-shape and business-rule checks. The strict shape runs first (inside the per-method validator you call as `typia.validateEquals<ArgumentType>(input)`); your business rules layer on top.
+
 ## Where to go next
 
 - Just need a schema for structured output → [`llm.structuredOutput`](/docs/llm/structuredOutput) or [`llm.parameters`](/docs/llm/parameters)
