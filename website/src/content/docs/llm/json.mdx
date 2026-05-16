@@ -17,6 +17,14 @@ LLM output is messy. Even capable models routinely produce:
 
 `LlmJson` is a namespace from `@typia/utils` that handles every one of these and produces typed data. It's the engine behind `ILlmFunction.parse`, `ILlmFunction.coerce`, and the `parse`/`coerce` methods on [`structuredOutput`](/docs/llm/structuredOutput) — and you can also call it directly when you're working schema-first.
 
+It fixes the LLM output in **three layers**, each callable independently:
+
+1. **Lenient parsing** (`LlmJson.parse`) — accept malformed JSON that `JSON.parse` would reject (unclosed brackets, trailing commas, markdown fences, …)
+2. **Type coercion** (`LlmJson.parse` with a schema, or `LlmJson.coerce` on an already-parsed object) — fix value shapes against the schema (`"42"` → `42`, double-stringified objects → real objects)
+3. **Feedback formatting** (`LlmJson.stringify`) — when validation still fails after parsing + coercing, write an LLM-readable diff for the next turn
+
+`LlmJson.validate` is the fourth function but it sits on the boundary, not in the loop — it gives you a runtime validator from a schema, which feeds layer 3.
+
 ```typescript copy filename="@typia/utils — what's in LlmJson"
 export namespace LlmJson {
   // Format a validation failure as annotated JSON for LLM auto-correction
@@ -87,7 +95,7 @@ func.validate(args);          // typia.validate + bound schema
 The only `LlmJson.*` function that doesn't have a built-in equivalent is `stringify` — that's what you import from `@typia/utils` for the feedback loop.
 </Callout>
 
-## `LlmJson.stringify` — format errors for the LLM
+## `LlmJson.stringify`
 
 When `validate` reports failures, you want to tell the LLM what it did wrong in a form it understands. `LlmJson.stringify(failure)` produces annotated JSON with the original data and inline `// ❌` comments pointing at each error:
 
@@ -128,7 +136,7 @@ What the format does:
 
 Drop that string into a system message ("you made these mistakes, please correct them") and the LLM will fix the problems on the next turn.
 
-## `LlmJson.parse` — lenient JSON + type coercion
+## `LlmJson.parse`
 
 ```typescript copy
 LlmJson.parse<T>(input: string, parameters?: ILlmSchema.IParameters)
@@ -201,13 +209,15 @@ If you omit the `parameters` argument, `LlmJson.parse` still does the lenient JS
 Lenient parsing + coercion get the *shape* close. But they don't enforce things like "this number must be ≥ 0" or "this string must be a valid email". Always follow `parse` with [`typia.validate`](/docs/validators/validate) (or `func.validate` / `output.validate`).
 </Callout>
 
-## `LlmJson.coerce` — type coercion only
+## `LlmJson.coerce`
 
 ```typescript copy
 LlmJson.coerce<T>(input: unknown, parameters: ILlmSchema.IParameters): T
 ```
 
-Use `coerce` when the JSON has already been parsed for you — typically because the SDK did it:
+Use `coerce` when the JSON has already been parsed for you — typically because the SDK did it.
+
+### When to use `coerce` vs `parse`
 
 | Scenario | Use |
 |----------|-----|
@@ -223,7 +233,9 @@ Use `coerce` when the JSON has already been parsed for you — typically because
   filename="examples/src/llm/application-coerce.ts"
   showLineNumbers />
 
-What it does, step by step:
+### Coercion behavior
+
+What `coerce` actually does, step by step:
 
 1. **Resolve `$ref`** — follow schema references
 2. **`anyOf` with discriminator** — pick the right variant using `x-discriminator`
@@ -231,7 +243,7 @@ What it does, step by step:
 4. **Recursive descent** — coerce nested objects and arrays based on `properties` and `items`
 5. **Leave unknown extras alone** — extras pass through; validation later decides whether to accept them
 
-## `LlmJson.validate` — runtime validator from a schema
+## `LlmJson.validate`
 
 ```typescript copy
 LlmJson.validate(parameters: ILlmSchema.IParameters, equals?: boolean)
@@ -287,7 +299,7 @@ strict({ name: "John", age: 25, extra: "ignored" });  // success: false
 `typia.validate<T>` is AOT-compiled and emits inline checks per field — significantly faster than `LlmJson.validate`, which has to interpret the schema at runtime. Reach for `LlmJson.validate` only when the TypeScript type isn't available where you need to validate.
 </Callout>
 
-## Putting it all together — the validation feedback loop
+## Feedback loop
 
 The four functions form a deterministic correction loop around the probabilistic LLM:
 
@@ -373,3 +385,10 @@ The recipe is the same every time:
 2. `validate` to check field constraints
 3. If validation fails, format the errors with `LlmJson.stringify` and send them back
 4. Repeat until validation passes (usually one or two turns)
+
+## Where to go next
+
+- The class-based tool API that wires this loop automatically → [`typia.llm.application`](/docs/llm/application)
+- Single-shape variant (no method-selection layer) → [`typia.llm.structuredOutput`](/docs/llm/structuredOutput)
+- OpenAPI source instead of TypeScript class → [`HttpLlm`](/docs/llm/http)
+- The validator on its own → [`typia.validate`](/docs/validators/validate)

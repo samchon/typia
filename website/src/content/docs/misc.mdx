@@ -11,7 +11,7 @@ import LocalSource from '../../components/LocalSource';
 
 Three small modules that share the typia transform but don't fit anywhere else: `misc` (clone / prune / literals), `notations` (case conversion), and `http` (form data / query / headers / route parameters).
 
-## `misc.clone` — deep copy
+## `misc.clone`
 
 ```typescript copy filename="signatures"
 namespace misc {
@@ -91,13 +91,13 @@ export namespace misc {
   </Tabs.Tab>
 </Tabs>
 
-## `misc.prune` — remove extra properties
+## `misc.prune`
 
 ```typescript copy filename="signatures"
 namespace misc {
   function prune<T>(input: T): void;                          // mutates input
   function assertPrune<T>(input: unknown): T;                 // + assert, then mutates
-  function isPrune<T>(input: unknown): input is T;            // + is; returns false instead of mutating
+  function isPrune<T>(input: unknown): input is T;            // + is; prunes & returns true on match, false (no mutation) on mismatch
   function validatePrune<T>(input: unknown): IValidation<T>;  // + validate
 }
 ```
@@ -140,7 +140,7 @@ Useful when you receive a JSON document with extra fields you'd rather not pass 
   </Tabs.Tab>
 </Tabs>
 
-## `misc.literals` — union literal type → array
+## `misc.literals`
 
 ```typescript copy filename="signature"
 namespace misc {
@@ -167,11 +167,13 @@ Handy for select-box options, discriminated-union test matrices, etc.
   </Tabs.Tab>
 </Tabs>
 
-## `notations` — case conversion
+## `notations`
 
-Three case converters: `camel`, `pascal`, `snake`. Each one walks the object and rewrites property names to that case. Same four-variant family as everywhere else:
+Three case converters: `camel`, `pascal`, `snake`. Each one walks the object and rewrites property names to that case at type *and* runtime. Same four-variant family as everywhere else (`name`, `assertName`, `isName`, `validateName`, plus `create*` factories).
 
-```typescript copy filename="signatures — example for camelCase"
+### `camel`
+
+```typescript copy filename="signatures"
 namespace notations {
   function camel<T>(input: T): CamelCase<T>;
   function assertCamel<T>(input: unknown): CamelCase<T>;
@@ -180,7 +182,65 @@ namespace notations {
 }
 ```
 
-`PascalCase` and `SnakeCase` swap in for `CamelCase` in the type. The output type is computed at the type level so the rest of your code knows about the new property names.
+```typescript copy
+typia.notations.camel<{ user_id: string; user_name: string }>({
+  user_id: "1",
+  user_name: "John",
+});
+// → { userId: "1", userName: "John" }
+```
+
+<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
+  <Tabs.Tab>
+    <LocalSource
+      path="examples/src/notations/camel.ts"
+      filename="examples/src/notations/camel.ts"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource
+      path="examples/bin/notations/camel.js"
+      filename="examples/bin/notations/camel.js"
+      showLineNumbers />
+  </Tabs.Tab>
+</Tabs>
+
+### `pascal`
+
+```typescript copy filename="signatures"
+namespace notations {
+  function pascal<T>(input: T): PascalCase<T>;
+  function assertPascal<T>(input: unknown): PascalCase<T>;
+  function isPascal<T>(input: unknown): PascalCase<T> | null;
+  function validatePascal<T>(input: unknown): IValidation<PascalCase<T>>;
+}
+```
+
+<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
+  <Tabs.Tab>
+    <LocalSource
+      path="examples/src/notations/pascal.ts"
+      filename="examples/src/notations/pascal.ts"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource
+      path="examples/bin/notations/pascal.js"
+      filename="examples/bin/notations/pascal.js"
+      showLineNumbers />
+  </Tabs.Tab>
+</Tabs>
+
+### `snake`
+
+```typescript copy filename="signatures"
+namespace notations {
+  function snake<T>(input: T): SnakeCase<T>;
+  function assertSnake<T>(input: unknown): SnakeCase<T>;
+  function isSnake<T>(input: unknown): SnakeCase<T> | null;
+  function validateSnake<T>(input: unknown): IValidation<SnakeCase<T>>;
+}
+```
 
 ```typescript copy
 typia.notations.snake<{ userId: string; userName: string }>({
@@ -190,67 +250,22 @@ typia.notations.snake<{ userId: string; userName: string }>({
 // → { user_id: "1", user_name: "John" }
 ```
 
-<Tabs items={[
-  <code>typia</code>,
-  <code>TypeGuardError.ts</code>,
-  <code>IValidation.ts</code>,
-  <code>CamelCase.ts</code>,
-]}>
-  <Tabs.Tab>
-```typescript
-export namespace notations {
-  export function camel<T>(input: T): CamelCase<T>;
-  export function assertCamel<T>(input: T | unknown): CamelCase<T>;
-  export function isCamel<T>(input: T | unknown): CamelCase<T> | null;
-  export function validateCamel<T>(input: T | unknown): IValidation<CamelCase<T>>;
-
-  // Same surface for pascal / Pascal and snake / Snake.
-  // Each has create* factories too.
-}
-```
-  </Tabs.Tab>
-  <Tabs.Tab>
-    <LocalSource
-      path="packages/typia/src/TypeGuardError.ts"
-      filename="typia/TypeGuardError.ts"
-      showLineNumbers />
-  </Tabs.Tab>
-  <Tabs.Tab>
-    <LocalSource
-      path="packages/interface/src/schema/IValidation.ts"
-      filename="@typia/interface"
-      showLineNumbers />
-  </Tabs.Tab>
-  <Tabs.Tab>
-    <LocalSource
-      path="packages/interface/src/typings/CamelCase.ts"
-      filename="@typia/interface"
-      showLineNumbers />
-  </Tabs.Tab>
-</Tabs>
-
-<Tabs items={['camel example', 'pascal example', 'snake example']}>
-  <Tabs.Tab>
-    <LocalSource
-      path="examples/src/notations/camel.ts"
-      filename="examples/src/notations/camel.ts"
-      showLineNumbers />
-  </Tabs.Tab>
-  <Tabs.Tab>
-    <LocalSource
-      path="examples/src/notations/pascal.ts"
-      filename="examples/src/notations/pascal.ts"
-      showLineNumbers />
-  </Tabs.Tab>
+<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
   <Tabs.Tab>
     <LocalSource
       path="examples/src/notations/snake.ts"
       filename="examples/src/notations/snake.ts"
       showLineNumbers />
   </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource
+      path="examples/bin/notations/snake.js"
+      filename="examples/bin/notations/snake.js"
+      showLineNumbers />
+  </Tabs.Tab>
 </Tabs>
 
-## `http` — decode form data, query strings, headers, route params
+## `http`
 
 The `http` module turns HTTP-shaped inputs (`URLSearchParams`, headers object, route parameter strings, `FormData`) into typed objects, with automatic string-to-number / string-to-boolean coercion.
 
@@ -267,14 +282,14 @@ These functions back [Nestia](https://nestia.io)'s HTTP decorators — [`@TypedQ
 
 ```typescript copy filename="signatures"
 namespace http {
-  function query<T extends object>(input: string | URLSearchParams): Resolved<T>;
-  function assertQuery<T extends object>(input: string | URLSearchParams): Resolved<T>;
-  function isQuery<T extends object>(input: string | URLSearchParams): Resolved<T> | null;
-  function validateQuery<T extends object>(input: string | URLSearchParams): IValidation<Resolved<T>>;
+  function query<T extends object>(input: string | IReadableURLSearchParams): Resolved<T>;
+  function assertQuery<T extends object>(input: string | IReadableURLSearchParams): Resolved<T>;
+  function isQuery<T extends object>(input: string | IReadableURLSearchParams): Resolved<T> | null;
+  function validateQuery<T extends object>(input: string | IReadableURLSearchParams): IValidation<Resolved<T>>;
 }
 ```
 
-`http.query` decodes a query string (or a `URLSearchParams`) into a typed object. Numeric and boolean properties are coerced from their string form automatically.
+`http.query` decodes a query string (or any `IReadableURLSearchParams`-shaped object — the standard `URLSearchParams` works, as does Hono's and other duck-typed shims) into a typed object. Numeric and boolean properties are coerced from their string form automatically.
 
 **Restrictions** (typia rejects at compile time):
 
@@ -295,7 +310,7 @@ namespace http {
   <Tabs.Tab>
     <LocalSource
       path="examples/bin/http/query.js"
-      filename="examples/bin/query.js"
+      filename="examples/bin/http/query.js"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>
@@ -320,9 +335,26 @@ namespace http {
 5. Only `boolean | bigint | number | string` or arrays of those
 6. No unions
 7. `set-cookie` must be an array
-8. **These headers cannot be array-typed** (the HTTP spec collapses them to a single value):
+8. **These headers cannot be array-typed** (the HTTP spec mandates a single value):
 
-   `age, authorization, content-length, content-type, etag, expires, from, host, if-modified-since, if-unmodified-since, last-modified, location, max-forwards, proxy-authorization, referer, retry-after, server, user-agent`
+   - `age`
+   - `authorization`
+   - `content-length`
+   - `content-type`
+   - `etag`
+   - `expires`
+   - `from`
+   - `host`
+   - `if-modified-since`
+   - `if-unmodified-since`
+   - `last-modified`
+   - `location`
+   - `max-forwards`
+   - `proxy-authorization`
+   - `referer`
+   - `retry-after`
+   - `server`
+   - `user-agent`
 
 If you trip one of these rules, typia rejects the call at compile time with a clear error.
 
@@ -345,11 +377,11 @@ If you trip one of these rules, typia rejects the call at compile time with a cl
 
 ```typescript copy filename="signature"
 namespace http {
-  function parameter<T extends boolean | bigint | number | string | null>(input: string): T;
+  function parameter<T extends boolean | bigint | number | string | null>(input: string): Resolved<T>;
 }
 ```
 
-`http.parameter` decodes a single URL path parameter (a string from `:id` in your route) into the expected primitive type, **and always asserts**. Unlike `query` / `headers`, there's no `isParameter` or `validateParameter` — if the value doesn't match `T`, it throws `TypeGuardError`.
+`http.parameter` decodes a single URL path parameter (a string from `:id` in your route) into the expected primitive type, **and always asserts**. Unlike `query` / `headers` / `formData`, there is no `isParameter`, `validateParameter`, or `createParameter` — a single path-parameter string is either parseable into `T` or it isn't, so typia exposes only the asserting form. If the value doesn't match `T`, it throws `TypeGuardError`.
 
 ```typescript copy
 const id: number = typia.http.parameter<number>(request.params.id);

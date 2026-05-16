@@ -41,6 +41,10 @@ bun typia setup --manager bun
 
 `npx typia setup` installs `typescript` and `ts-patch`, adds the `typia/lib/transform` plugin entry to your `tsconfig.json`, and wires up a `prepare` script so `ts-patch install` runs after every `npm install`. After it finishes, plain `tsc` builds your project with the typia transform applied.
 
+> [!WARNING]
+>
+> **CI tip.** The `prepare` script runs `ts-patch install` after every install — but `npm ci --ignore-scripts` (which most production / Docker multi-stage installs use) silently skips it. Your production build then compiles **without** the typia transform, and validators that worked locally throw `"no transform has been configured"` at runtime. Run `npx ts-patch install` explicitly right after the `npm ci --ignore-scripts` step in your pipeline.
+
 If your build pipeline uses a bundler (Vite, Next.js, Webpack, esbuild, …), you'll also want [`@typia/unplugin`](#typiaunplugin).
 
 If your build pipeline uses Babel, SWC, or another tool that doesn't run TypeScript-compatible transformers, you have to fall back to the [generation mode](#generation) — typia writes the transformed `*.ts` files for you ahead of time.
@@ -621,3 +625,9 @@ export const check = (input: any): input is IMember => {
 > **Why non-standard compilers aren't supported directly.**
 >
 > Babel and SWC strip type annotations before any transformer runs. typia needs the type information, so it can't operate inside those toolchains. Generation mode works around the limitation by running typia ahead of time, producing plain `.ts` files that any tool can then compile.
+
+## Where to go next
+
+- Modern TypeScript-Go alternative → [TypeScript-Go setup](/docs/setup/tsgo)
+- First validator after setup → [`is`](/docs/validators/is) · [`assert`](/docs/validators/assert) · [`validate`](/docs/validators/validate)
+- Why typia needs a transform at all → [Pure TypeScript](/docs/pure)

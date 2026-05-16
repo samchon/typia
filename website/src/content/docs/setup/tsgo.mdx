@@ -458,8 +458,7 @@ Most projects don't need to touch this. Add `compilerOptions.plugins` only when 
         "transform": "typia/lib/transform",
         "functional": true, // default: false
         "numeric": true,    // default: false
-        "finite": true,     // default: false
-        "undefined": false  // default: true
+        "finite": true      // default: false
       }
     ]
   }
@@ -468,11 +467,16 @@ Most projects don't need to touch this. Add `compilerOptions.plugins` only when 
 
 | Flag | Default | What it does |
 |------|---------|--------------|
-| `functional` | `false` | Validate `function` types — needed for `typia.functional.*` |
+| `functional` | `false` | Validate `function`-typed properties as well as data properties |
 | `numeric` | `false` | Reject `NaN` when a property is typed as `number` |
 | `finite` | `false` | Reject `NaN` and `±Infinity` when a property is typed as `number` |
-| `undefined` | `true`  | When `false`, skip explicit `undefined` checks on required properties |
 
 > [!NOTE]
 >
 > With the default flags you do **not** need `compilerOptions.plugins`. `ttsc` will pick up the transform from `typia/package.json` on its own.
+
+## Where to go next
+
+- Stable production alternative → [Legacy setup](/docs/setup/legacy)
+- First validator after setup → [`is`](/docs/validators/is) · [`assert`](/docs/validators/assert) · [`validate`](/docs/validators/validate)
+- Why typia needs a transform at all → [Pure TypeScript](/docs/pure)

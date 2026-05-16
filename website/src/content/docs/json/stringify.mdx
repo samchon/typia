@@ -41,7 +41,7 @@ const text: string = typia.json.stringify<User>({
 
 The output is identical to `JSON.stringify({ id, age, hobbies })`. The speed comes from the compiled code: instead of "for each property, dispatch to the right encoder," the emitted JS just concatenates strings in the order your type declares.
 
-## Pick the right variant
+## Variants
 
 | Function | Validates input? | On failure |
 |----------|------------------|------------|
@@ -128,7 +128,7 @@ Up to **~200× faster than `class-transformer`**, ~10× faster than native `JSON
 
 > Measured on [AMD Ryzen 9 7940HS, Rog Flow x13](https://github.com/samchon/typia/tree/master/benchmark/results/AMD%20Ryzen%209%207940HS%20w%20Radeon%20780M%20Graphics#stringify)
 
-## Why this matters on a server
+## Server impact
 
 A common reaction: "isn't JSON serialization a tiny fraction of request time?"
 

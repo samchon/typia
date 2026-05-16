@@ -86,18 +86,18 @@ export namespace llm {
   <Tabs.Tab>
     <LocalSource
       path="examples/src/llm/structuredOutput.ts"
-      filename="example/src/llm/structuredOutput.ts"
+      filename="examples/src/llm/structuredOutput.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource
       path="examples/bin/llm/structuredOutput.js"
-      filename="example/bin/llm/structuredOutput.js"
+      filename="examples/bin/llm/structuredOutput.js"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>
 
-## `structuredOutput` vs `parameters` vs `application`
+## When to use this
 
 | If you need… | Use |
 |--------------|-----|
@@ -195,7 +195,7 @@ The formatted output:
 
 Same pattern, same payoff as in [`application`](/docs/llm/application#validation-feedback) — `qwen3-coder-next` jumps from 6.75% raw success to 100% with the harness around it.
 
-## Strict mode — reject extra properties
+## Strict mode
 
 ```typescript copy
 const strict = typia.llm.structuredOutput<IMember, { equals: true }>();
@@ -209,7 +209,7 @@ strict.validate({
 });
 ```
 
-`{ equals: true }` switches the validator to `validateEquals` semantics. The schema also gets `additionalProperties: false` so the LLM is told upfront which properties are allowed.
+`{ equals: true }` switches the validator to `validateEquals` semantics. (The schema-side `additionalProperties: false` is always emitted on LLM parameter schemas, regardless of the flag — `equals` only changes how the runtime validator treats stray properties at validation time.)
 
 ## Restrictions
 
@@ -264,4 +264,3 @@ src/examples/llm.structuredOutput.violation.ts:5:1 - error TS(typia.llm.structur
 - Multiple functions, LLM picks → [`application`](/docs/llm/application)
 - Just the schema, no helpers → [`parameters`](/docs/llm/parameters)
 - Harness internals (`parse`, `coerce`, `validate`, `stringify`) → [`LlmJson`](/docs/llm/json)
-- Tutorial walkthrough → [Tutorial: LLM function calling](/docs/tutorial/llm)

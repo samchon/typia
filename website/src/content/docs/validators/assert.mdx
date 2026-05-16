@@ -20,6 +20,12 @@ function assert<T>(input: unknown,
 
 Use it when you want an exception to propagate up the stack (HTTP request handlers, message queue consumers, boot-time config loading).
 
+| Scenario | Pick |
+|----------|------|
+| One field is wrong → throw an exception | **`assert`** *(you are here)* |
+| Just a yes/no answer | [`is`](/docs/validators/is) |
+| Need every field error at once (form, LLM feedback loop) | [`validate`](/docs/validators/validate) |
+
 ## First example
 
 ```typescript copy filename="hello-assert.ts"
@@ -104,7 +110,7 @@ typia.assert<User>(input, (info) =>
 
 The factory receives the same `TypeGuardError.IProps` and its return value is thrown directly.
 
-## Rejecting extra properties — `assertEquals`
+## Strict (`assertEquals`)
 
 `assert` allows properties not declared on `T`. `assertEquals` rejects them — the first extra key becomes the thrown error:
 
@@ -137,7 +143,7 @@ The thrown `TypeGuardError` for the extra property has `expected: "undefined"` a
   </Tabs.Tab>
 </Tabs>
 
-## Assertion guards — `assertGuard`
+## Assertion guards
 
 `typia.assert<T>` returns the validated value:
 
@@ -145,7 +151,7 @@ The thrown `TypeGuardError` for the extra property has `expected: "undefined"` a
 const user: User = typia.assert<User>(input);
 ```
 
-That's convenient but it makes you assign to a new variable. If you'd rather **narrow the original variable in place**, use `typia.assertGuard<T>`. It returns nothing — but its return type is `asserts input is T`, so TypeScript narrows the argument after the call:
+That's convenient but it makes you assign to a new variable. If you'd rather **narrow the original variable in place**, use `typia.assertGuard<T>`. It returns nothing — but its return type is `asserts input is T`, which is TypeScript's *assertion guard* syntax: when a function with that signature returns without throwing, the compiler treats the argument as narrowed to `T` on every subsequent line. So you keep using the same variable instead of binding a new one:
 
 ```typescript copy
 import typia from "typia";
@@ -166,7 +172,7 @@ console.log(input.age);
 
 ## Reusable factories
 
-Same idea as [`createIs`](/docs/validators/is#3-call-it-many-times-for-the-same-type--build-a-reusable-checker-once) — when you call `assert<T>` from many places, hoist the checker once:
+Same idea as [`createIs`](/docs/validators/is#reusable-checkers) — when you call `assert<T>` from many places, hoist the checker once:
 
 ```typescript copy
 import typia, { AssertionGuard } from "typia";
@@ -206,9 +212,9 @@ export const guardUserEquals: AssertionGuard<User> = typia.createAssertGuardEqua
   </Tabs.Tab>
 </Tabs>
 
-## What `assert` does not check
+## What it doesn't check
 
-Same rules as [`is`](/docs/validators/is#what-is-does-not-check): user-defined classes are walked by property (no `instanceof`), and function types are skipped unless you enable the `functional` transformer flag.
+Same rules as [`is`](/docs/validators/is#what-it-doesnt-check): user-defined classes are walked by property (no `instanceof`), and function-typed properties are skipped unless you turn on the [`functional` transform flag](/docs/validators/is#what-it-doesnt-check) in `tsconfig.json`.
 
 Built-in classes (`Date`, `Set<T>`, `Map<K, V>`, `Uint8Array`) are checked end-to-end, including their elements:
 
@@ -227,7 +233,7 @@ Built-in classes (`Date`, `Set<T>`, `Map<K, V>`, `Uint8Array`) are checked end-t
   </Tabs.Tab>
 </Tabs>
 
-## Adding constraints — type tags
+## Constraints
 
 Intersect [type tags](/docs/validators/tags) into the type to express formats, ranges, and length limits:
 
@@ -248,7 +254,7 @@ Intersect [type tags](/docs/validators/tags) into the type to express formats, r
 
 ## Performance
 
-Same emission strategy as [`is`](/docs/validators/is#performance), plus the per-field error-throwing branches. Still up to 20,000× faster than `class-validator` on hard-to-validate union structures, and still the only listed library that handles arbitrary unions:
+Same emission strategy as [`is`](/docs/validators/is#performance), plus the per-field error-throwing branches. Still up to 20,000× faster than `class-validator` on hard-to-validate union structures, and still the only listed library that handles arbitrary unions. The structural feature matrix (recursive unions, template literals, rest tuples, etc.) lives on [`is` § Performance](/docs/validators/is#performance) — same coverage, since `assert` is `is` plus error paths.
 
 ![Assert Function Benchmark](https://github.com/samchon/typia/raw/master/benchmark/results/AMD%20Ryzen%209%207940HS%20w%20Radeon%20780M%20Graphics/images/assert.svg)
 
@@ -259,4 +265,3 @@ Same emission strategy as [`is`](/docs/validators/is#performance), plus the per-
 - Just want a boolean → [`is`](/docs/validators/is)
 - Want every error at once → [`validate`](/docs/validators/validate)
 - Constraints (formats, ranges, lengths) → [Special Tags](/docs/validators/tags)
-- Validating function calls → [Functional Module](/docs/validators/functional)
