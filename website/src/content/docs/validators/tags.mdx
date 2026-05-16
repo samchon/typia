@@ -16,7 +16,7 @@ TypeScript can say "this is a `number`". It cannot say "this is a non-negative 3
 
 Whichever you use, every validator and `random` will respect the constraint and the emitted JavaScript will include the corresponding check.
 
-## A first taste
+## First example
 
 ```typescript copy filename="constrained-user.ts"
 import typia, { tags } from "typia";
@@ -50,7 +50,7 @@ Compiled output — note that each constraint becomes inline code:
   </Tabs.Tab>
 </Tabs>
 
-## Type tags — the recommended way
+## Type tags
 
 You import `tags` from `typia` and intersect them into the base type:
 
@@ -126,7 +126,7 @@ For `bigint`, `tags.Type<...>` accepts `"int64"` or `"uint64"`; range tags accep
 | `tags.JsonSchemaPlugin<{...}>` | Inject arbitrary `x-…` JSON Schema fields |
 | `tags.Sequence<N>` | Protobuf field number ([protobuf docs](/docs/protobuf/message)) |
 
-## Comment tags — for older codebases
+## Comment tags
 
 If you'd rather write JSDoc, the same constraints exist as `@`-prefixed tags:
 

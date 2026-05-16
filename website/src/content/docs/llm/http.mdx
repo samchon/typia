@@ -112,7 +112,7 @@ export namespace HttpLlm {
 | `config` | Optional schema-conversion tuning |
 | `execute` | Optional custom HTTP executor. Defaults to `HttpLlm.execute` |
 
-## Inside the conversion pipeline
+## Conversion pipeline
 
 ```mermaid
 flowchart
@@ -131,7 +131,7 @@ flowchart
 
 `HttpLlm` first normalizes every OpenAPI dialect into one internal representation (emended OpenAPI 3.2), then converts each operation into an `IHttpLlmFunction`. The intermediate representation is what makes "any version in, any LLM provider out" possible without combinatorial conversion code.
 
-## Plug it into your LLM SDK
+## Framework adapters
 
 The same controller plugs into any supported framework. Pick whichever your app already uses:
 
@@ -235,7 +235,7 @@ registerMcpControllers({
   </Tabs.Tab>
 </Tabs>
 
-## Validation feedback — same harness, same payoff
+## Validation feedback
 
 Every `IHttpLlmFunction` carries the same `parse` / `coerce` / `validate` methods as `ILlmFunction`. When validation fails inside a framework adapter (MCP / Vercel / LangChain), the tool returns annotated error JSON the LLM can read:
 

@@ -12,7 +12,7 @@ import ValidatorSupportMatrixSnippet from "../../../snippets/ValidatorSupportMat
 
 If `typia.llm.application` is "describe my service to an LLM," Agentica is "actually run a conversation in which an LLM uses that service."
 
-## Quick taste
+## First example
 
 ```typescript filename="src/index.ts" showLineNumbers {23-26, 37}
 import { Agentica } from "@agentica/core";
@@ -45,7 +45,7 @@ That's a complete chatbot: it understands intent, picks the right method on `Bbs
 `@nestia/agent` was renamed to `@agentica/*` to make room for additional packages built on the same idea.
 </Callout>
 
-## Full example
+## Full source
 
 <Tabs items={[
     <code>src/main.ts</code>,
@@ -101,7 +101,7 @@ await agent.conversate("Hello, I want to create an article.");
 
 - Live demo: [nestia.io/chat/bbs](https://nestia.io/chat/bbs)
 
-## Chatting with an entire REST API
+## From an OpenAPI document
 
 You don't have to start from TypeScript code. Agentica accepts an OpenAPI document directly — every endpoint becomes a tool the LLM can call.
 
@@ -208,7 +208,7 @@ Three sub-agents share the work:
 
 That separation is what keeps Agentica simple: each sub-agent does one thing and you don't have to draw a state graph to keep it on track.
 
-## Why validation feedback is load-bearing
+## Validation feedback
 
 LLM function calling is not perfect. Models make type mistakes — for example, they fill an `Array<string>` field with just a `string`. The fix is to give the model the **structured error** and ask it to retry.
 
@@ -248,7 +248,7 @@ Some LLM providers don't even honor all the JSON Schema constraint keywords (`fo
 
 <ValidatorSupportMatrixSnippet />
 
-## OpenAPI conversion under the hood
+## OpenAPI pipeline
 
 ```mermaid
 flowchart

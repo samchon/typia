@@ -55,9 +55,7 @@ The tabs below show the same example as a full source file (left) and the JavaSc
   </Tabs.Tab>
 </Tabs>
 
-## Three things to know
-
-### 1. It is the cheapest check — and it returns the *least* information
+## Boolean only
 
 You get a boolean. No path, no expected type, no list of errors. If you need any of that, jump to:
 
@@ -66,7 +64,7 @@ You get a boolean. No path, no expected type, no list of errors. If you need any
 
 If a yes/no answer is all you need, `is` is the right pick because the emitted code is the shortest.
 
-### 2. Extra properties are allowed by default — use `equals` to reject them
+## Strict (`equals`)
 
 ```typescript
 interface Point { x: number; y: number; }
@@ -92,7 +90,7 @@ typia.equals<Point>({ x: 1, y: 2, z: 3 });  // → false (z is rejected)
   </Tabs.Tab>
 </Tabs>
 
-### 3. Call it many times for the same type → build a reusable checker once
+## Reusable checkers
 
 Every `typia.is<T>` call expands into the type-specific checker at that call site. If you call it from 20 places with the same `T`, you get 20 copies in the compiled JavaScript. To avoid that, hoist the checker with `typia.createIs<T>()`:
 
@@ -122,7 +120,7 @@ if (isUser(input)) { /* ... */ }
   </Tabs.Tab>
 </Tabs>
 
-## Type narrowing in practice
+## Type narrowing
 
 Because `typia.is<T>` is declared as a TypeScript type predicate (`input is T`), the compiler narrows the variable for you:
 
@@ -133,7 +131,7 @@ Because `typia.is<T>` is declared as a TypeScript type predicate (`input is T`),
 
 You will see this pattern a lot in HTTP handlers, message bus consumers, and anywhere a value enters the program with type `unknown`.
 
-## What `is` does not check
+## What it doesn't check
 
 `typia.is<T>` walks structural properties; it does **not** call `instanceof` for user-defined classes, and it does **not** dive into function types.
 
@@ -172,7 +170,7 @@ Built-in classes — `Date`, `Uint8Array`, `Set<T>`, `Map<K, V>` — are checked
 
 So the rule is "skip user-defined classes and functions; check everything else", and the only thing you commonly need to add yourself is `instanceof MyClass` on top.
 
-## Adding constraints — type tags
+## Constraints
 
 `number` is a useful type. `number & tags.Type<"uint32"> & tags.Minimum<1>` is much more useful. typia lets you intersect [type tags](/docs/validators/tags) into a base type to express constraints like "non-negative integer", "valid email", "1-100 string". They participate in `is`, `assert`, `validate`, `random` — every validator-shaped function.
 

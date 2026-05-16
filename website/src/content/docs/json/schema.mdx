@@ -95,7 +95,7 @@ export namespace json {
   </Tabs.Tab>
 </Tabs>
 
-## What gets included in the schema
+## What gets included
 
 Anything you express in the TypeScript type carries over:
 
@@ -127,7 +127,7 @@ A few JSON-Schema-only comment tags are also recognized — they don't affect ru
   </Tabs.Tab>
 </Tabs>
 
-## Adding custom `x-…` fields
+## Custom fields
 
 JSON Schema reserves the `x-` prefix for non-standard extensions. To embed `x-…` properties (for vendor-specific tooling, internal flags, anything that isn't part of the standard), use `tags.TagBase.schema` or the `tags.JsonSchemaPlugin` helper:
 

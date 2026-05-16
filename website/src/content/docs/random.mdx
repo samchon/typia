@@ -131,9 +131,9 @@ The constraints you'd normally use for runtime validation also pin down what `ra
   </Tabs.Tab>
 </Tabs>
 
-> For long-running test suites and especially anything that goes into a real database, prefer type tags — typos in comment tags fall back to defaults silently. See [Special Tags](/docs/validators/tags#comment-tags--for-older-codebases) for the trade-off.
+> For long-running test suites and especially anything that goes into a real database, prefer type tags — typos in comment tags fall back to defaults silently. See [Special Tags](/docs/validators/tags#comment-tags) for the trade-off.
 
-## Custom tags — custom generators
+## Custom tags
 
 Defining a custom [type tag](/docs/validators/tags#customization) for validation also gives you a hook for random generation. When you write `validate` on the tag, typia uses it for `assert`/`is`/`validate` — and uses the tag's `kind` to look up a generator on the runtime `IRandomGenerator`.
 

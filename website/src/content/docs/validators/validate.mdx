@@ -118,7 +118,7 @@ if (result.success) {
 
 This pattern is called a [discriminated union](https://www.typescriptlang.org/docs/handbook/2/narrowing.html#discriminated-unions), and it's the cleanest way to consume `validate`'s return value.
 
-## Rejecting extra properties — `validateEquals`
+## Strict (`validateEquals`)
 
 `validate` allows extra properties on objects. `validateEquals` reports each one as its own error:
 
@@ -143,7 +143,7 @@ const r = typia.validateEquals<User>({ id: "uuid…", age: 25, sex: 1 });
   </Tabs.Tab>
 </Tabs>
 
-## Reusable factories — and Standard Schema support
+## Reusable factories
 
 ```typescript copy
 const validateUser = typia.createValidate<User>();
@@ -191,9 +191,9 @@ await upfetch("https://jsonplaceholder.typicode.com/todos/10", { schema });
   </Tabs.Tab>
 </Tabs>
 
-## What `validate` does not check
+## What it doesn't check
 
-Same rules as the rest of the validator family — see [`is` § What is does not check](/docs/validators/is#what-is-does-not-check). User-defined classes are walked by property, function types are skipped unless `functional` is on, native classes (`Date`, `Set`, `Map`, `Uint8Array`) are inspected end-to-end.
+Same rules as the rest of the validator family — see [`is` § What it doesn't check](/docs/validators/is#what-it-doesnt-check). User-defined classes are walked by property, function types are skipped unless `functional` is on, native classes (`Date`, `Set`, `Map`, `Uint8Array`) are inspected end-to-end.
 
 <Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
   <Tabs.Tab>
@@ -210,7 +210,7 @@ Same rules as the rest of the validator family — see [`is` § What is does not
   </Tabs.Tab>
 </Tabs>
 
-## Adding constraints — type tags
+## Constraints
 
 Intersect [type tags](/docs/validators/tags) (formats, ranges, lengths) into the type. The error `expected` field repeats the same intersection syntax, so users see exactly what was required:
 
@@ -229,7 +229,7 @@ Intersect [type tags](/docs/validators/tags) (formats, ranges, lengths) into the
   </Tabs.Tab>
 </Tabs>
 
-## When to choose `validate` over `assert`
+## When to choose
 
 | Scenario | Use |
 |----------|-----|

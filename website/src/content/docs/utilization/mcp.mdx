@@ -172,7 +172,7 @@ Every tool registered through `registerMcpControllers` carries built-in lenient 
 
 For the mechanics of `parse` / `coerce` / `validate` / `stringify`, see [`LlmJson`](/docs/llm/json). For the same harness pattern in `typia.llm.application`, see [Function calling harness](/docs/llm/application#the-function-calling-harness).
 
-## Preserve mode — coexisting with `registerTool`
+## Preserve mode
 
 By default `registerMcpControllers` owns the server's tool list. If you've already registered tools the standard way with `McpServer.registerTool(...)` and want typia's tools to coexist, pass `preserve: true`.
 

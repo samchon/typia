@@ -15,9 +15,9 @@ typia is a compile-time transformer, so it has to plug into your TypeScript buil
 
 If you don't know which to pick, choose **Legacy** — it's the stable release used in production today.
 
-## [TypeScript-Go](/docs/setup/tsgo) — `typia@next`
+## TypeScript-Go
 
-TypeScript is migrating its compiler from JavaScript to Go (the "TypeScript-Go" project). `ttsc` is the Go-native plugin toolchain for that compiler, and `typia@next` ships a Go-rewritten transform that plugs into it.
+Use [`typia@next`](/docs/setup/tsgo). TypeScript is migrating its compiler from JavaScript to Go (the "TypeScript-Go" project). `ttsc` is the Go-native plugin toolchain for that compiler, and `typia@next` ships a Go-rewritten transform that plugs into it.
 
 <Tabs items={["npm", "pnpm", "yarn", "bun"]}>
   <Tabs.Tab>
@@ -205,9 +205,9 @@ await Bun.build({
 
 Continue to [TypeScript-Go setup](/docs/setup/tsgo) for the full configuration reference.
 
-## [Legacy (TypeScript v6)](/docs/setup/legacy) — `typia`
+## Legacy
 
-The legacy path uses [`ts-patch`](https://github.com/nonara/ts-patch) on top of the JavaScript-based TypeScript compiler. This is the stable release path used in production today.
+Use [`typia`](/docs/setup/legacy). The legacy path uses [`ts-patch`](https://github.com/nonara/ts-patch) on top of the JavaScript-based TypeScript compiler. This is the stable release path used in production today.
 
 <Tabs items={["npm", "pnpm", "yarn", "bun"]}>
   <Tabs.Tab>
@@ -336,7 +336,7 @@ await Bun.build({
 
 Continue to [Legacy setup](/docs/setup/legacy) for `tsconfig.json` details, NX, Webpack notes, and the [generation](/docs/setup/legacy#generation) fallback for projects that can't run a transformer (Babel, SWC).
 
-## Verifying your setup
+## Verify the setup
 
 Drop this into your project and run it:
 

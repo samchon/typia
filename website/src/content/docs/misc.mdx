@@ -11,7 +11,7 @@ import LocalSource from '../../components/LocalSource';
 
 Three small modules that share the typia transform but don't fit anywhere else: `misc` (clone / prune / literals), `notations` (case conversion), and `http` (form data / query / headers / route parameters).
 
-## `misc.clone` — deep copy
+## `misc.clone`
 
 ```typescript copy filename="signatures"
 namespace misc {
@@ -91,7 +91,7 @@ export namespace misc {
   </Tabs.Tab>
 </Tabs>
 
-## `misc.prune` — remove extra properties
+## `misc.prune`
 
 ```typescript copy filename="signatures"
 namespace misc {
@@ -140,7 +140,7 @@ Useful when you receive a JSON document with extra fields you'd rather not pass 
   </Tabs.Tab>
 </Tabs>
 
-## `misc.literals` — union literal type → array
+## `misc.literals`
 
 ```typescript copy filename="signature"
 namespace misc {
@@ -167,7 +167,7 @@ Handy for select-box options, discriminated-union test matrices, etc.
   </Tabs.Tab>
 </Tabs>
 
-## `notations` — case conversion
+## `notations`
 
 Three case converters: `camel`, `pascal`, `snake`. Each one walks the object and rewrites property names to that case. Same four-variant family as everywhere else:
 
@@ -250,7 +250,7 @@ export namespace notations {
   </Tabs.Tab>
 </Tabs>
 
-## `http` — decode form data, query strings, headers, route params
+## `http`
 
 The `http` module turns HTTP-shaped inputs (`URLSearchParams`, headers object, route parameter strings, `FormData`) into typed objects, with automatic string-to-number / string-to-boolean coercion.
 

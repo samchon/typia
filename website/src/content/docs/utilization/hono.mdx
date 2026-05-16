@@ -6,7 +6,7 @@ title: Guide Documents > Utilization Cases > Hono
 
 [Hono](https://hono.dev) is a small, fast web framework that runs everywhere — Node, Bun, Cloudflare Workers, Deno, edge runtimes. With typia you get one-line request validation that doesn't ship `class-validator` or a schema library to the edge.
 
-The integration is [`@hono/typia-validator`](https://github.com/honojs/middleware/tree/main/packages/typia-validator). You pass it a [`createValidate`](/docs/validators/validate#reusable-factories--and-standard-schema-support) factory result and Hono runs the validator before your handler:
+The integration is [`@hono/typia-validator`](https://github.com/honojs/middleware/tree/main/packages/typia-validator). You pass it a [`createValidate`](/docs/validators/validate#reusable-factories) factory result and Hono runs the validator before your handler:
 
 ```typescript copy showLineNumbers {7-8, 13}
 import { Hono } from "hono";

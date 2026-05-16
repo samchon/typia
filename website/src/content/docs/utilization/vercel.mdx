@@ -208,7 +208,7 @@ const { object } = await generateObject({
 
 The `IMember` interface is the single source of truth. `typia.llm.parameters<IMember>()` produces the schema, `typia.validate<IMember>()` checks the result, and `LlmJson.stringify` formats any validation failure for the LLM to self-correct on retry.
 
-## Runtime errors vs. validation errors
+## Runtime errors
 
 There are two distinct failure modes:
 

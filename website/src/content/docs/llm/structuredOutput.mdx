@@ -97,7 +97,7 @@ export namespace llm {
   </Tabs.Tab>
 </Tabs>
 
-## `structuredOutput` vs `parameters` vs `application`
+## When to use this
 
 | If you need… | Use |
 |--------------|-----|
@@ -195,7 +195,7 @@ The formatted output:
 
 Same pattern, same payoff as in [`application`](/docs/llm/application#validation-feedback) — `qwen3-coder-next` jumps from 6.75% raw success to 100% with the harness around it.
 
-## Strict mode — reject extra properties
+## Strict mode
 
 ```typescript copy
 const strict = typia.llm.structuredOutput<IMember, { equals: true }>();

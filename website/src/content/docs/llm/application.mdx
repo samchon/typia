@@ -75,7 +75,7 @@ export namespace llm {
 `typia.llm.application` is for function calling. For structured output, use [`typia.llm.structuredOutput<T>()`](/docs/llm/structuredOutput).
 </Callout>
 
-## Full example
+## Full source
 
 <Tabs items={[
     "TypeScript Source",
@@ -111,7 +111,7 @@ export namespace llm {
 
 > [💻 Open in Playground](/playground/?script=JYWwDg9gTgLgBAbzgSQDIBsQEExncAYwEMZgIA7OAXzgDMoIQ4AiAAQGciQCALCgeghgApuSJhgzANwAoUJFhwYATwlE6DJsxVrpMuHPDR4SAEIAjdlliF0wgMrCoAN0LDqGxiwB0-C1ZsCO0cXNz0DAgp2eHEwAC4UDGxcfGJSCjgAXiVVYCJvdExvWNSSMnIAHn9rUiCHJ1cCYQA+AAoASllI8nYIOwKIAHNW2M6gA)
 
-## Plug it into your LLM SDK
+## Framework adapters
 
 `typia.llm.controller<Class>(name, instance)` wraps the schema together with an executable instance. You pass the controller to an adapter and the adapter does the wiring:
 
@@ -309,7 +309,7 @@ After `parse`/`coerce`, run `validate` to verify constraints (formats, ranges, l
 }
 ```
 
-Send that block back as a system message ("you made these mistakes — fix them"). The model reads the inline annotations and corrects on the next turn. The full pattern lives at [LlmJson](/docs/llm/json#putting-it-all-together--the-validation-feedback-loop).
+Send that block back as a system message ("you made these mistakes — fix them"). The model reads the inline annotations and corrects on the next turn. The full pattern lives at [LlmJson](/docs/llm/json#feedback-loop).
 
 <Callout type="info">
 **Real-world numbers**
@@ -347,7 +347,7 @@ export type IExpression =
   | ... // 30+ expression types total
 ```
 
-## Strict mode — reject extra properties
+## Strict mode
 
 By default the auto-generated `ILlmFunction.validate` is lenient: arguments with extra (unexpected) properties pass validation. To reject them, set the `equals: true` config:
 
@@ -360,7 +360,7 @@ const app = typia.llm.application<BbsArticleService, { equals: true }>();
 - Switches the embedded validator to `validateEquals` semantics — any property not declared on the parameter type becomes a validation error
 - Sets `additionalProperties: false` on the parameter schemas, so the LLM is told upfront which fields are allowed
 
-Same switch works on [`structuredOutput`](/docs/llm/structuredOutput#strict-mode--reject-extra-properties) and `controller`. Leave it `false` for chat-style agents (more tolerant of model variability), turn it on for production tools where extra fields would be a real bug.
+Same switch works on [`structuredOutput`](/docs/llm/structuredOutput#strict-mode) and `controller`. Leave it `false` for chat-style agents (more tolerant of model variability), turn it on for production tools where extra fields would be a real bug.
 
 ## Restrictions
 

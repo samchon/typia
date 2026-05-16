@@ -28,7 +28,7 @@ All three approaches share two problems:
 
 typia removes both. It is a **compile-time transformer**: it reads your TypeScript type at build time and writes the runtime code for you. The TypeScript type is the only source of truth.
 
-## Compare three approaches side by side
+## Three approaches
 
 The example below is the same data model — a BBS article with files — written for `class-validator`, `ajv`, and typia. Look at the highlighted `files` property in each.
 
@@ -290,7 +290,7 @@ Same data. Same constraints. Three very different costs to maintain.
 
 The typia version is a normal TypeScript interface. The validation rules live in [type tags](/docs/validators/tags) like `tags.Format<"uuid">` and `tags.MaxLength<255>` that intersect with the base type. Rename `files` and TypeScript drags every reference along with it. Forget a constraint and you change the type once.
 
-## "But TypeScript types disappear at runtime..."
+## How can types validate at runtime?
 
 That's a fair objection. If types don't exist at runtime, how does typia validate anything?
 
@@ -395,7 +395,7 @@ That's hand-rolled JavaScript with no dynamic dispatch and no schema interpretat
 
 > Measured on [AMD Ryzen 9 7940HS, Rog Flow x13](https://github.com/samchon/typia/tree/master/benchmark/results/AMD%20Ryzen%209%207940HS%20w%20Radeon%20780M%20Graphics#assert)
 
-## What this means for you
+## Summary
 
 - **No schema files.** You will not check a `*.schema.ts` file into your repo.
 - **No drift.** Rename a field — every validator updates automatically because the type is the validator.

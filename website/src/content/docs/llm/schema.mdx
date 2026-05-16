@@ -77,7 +77,7 @@ export namespace llm {
   </Tabs.Tab>
 </Tabs>
 
-## Special fields — description, title, deprecated
+## Special fields
 
 [Type tags](/docs/validators/tags) carry over to the JSON Schema:
 
@@ -108,7 +108,7 @@ JSDoc comments on properties become `"description"`. Two extra comment tags only
   </Tabs.Tab>
 </Tabs>
 
-## Custom `x-…` properties
+## Custom fields
 
 JSON Schema lets you add `x-…` extensions. typia surfaces them through `tags.TagBase.schema` (and the `tags.JsonSchemaPlugin` shortcut):
 

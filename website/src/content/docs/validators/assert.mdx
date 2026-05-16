@@ -104,7 +104,7 @@ typia.assert<User>(input, (info) =>
 
 The factory receives the same `TypeGuardError.IProps` and its return value is thrown directly.
 
-## Rejecting extra properties — `assertEquals`
+## Strict (`assertEquals`)
 
 `assert` allows properties not declared on `T`. `assertEquals` rejects them — the first extra key becomes the thrown error:
 
@@ -137,7 +137,7 @@ The thrown `TypeGuardError` for the extra property has `expected: "undefined"` a
   </Tabs.Tab>
 </Tabs>
 
-## Assertion guards — `assertGuard`
+## Assertion guards
 
 `typia.assert<T>` returns the validated value:
 
@@ -166,7 +166,7 @@ console.log(input.age);
 
 ## Reusable factories
 
-Same idea as [`createIs`](/docs/validators/is#3-call-it-many-times-for-the-same-type--build-a-reusable-checker-once) — when you call `assert<T>` from many places, hoist the checker once:
+Same idea as [`createIs`](/docs/validators/is#reusable-checkers) — when you call `assert<T>` from many places, hoist the checker once:
 
 ```typescript copy
 import typia, { AssertionGuard } from "typia";
@@ -206,9 +206,9 @@ export const guardUserEquals: AssertionGuard<User> = typia.createAssertGuardEqua
   </Tabs.Tab>
 </Tabs>
 
-## What `assert` does not check
+## What it doesn't check
 
-Same rules as [`is`](/docs/validators/is#what-is-does-not-check): user-defined classes are walked by property (no `instanceof`), and function-typed properties are skipped unless you turn on the `functional` transform flag.
+Same rules as [`is`](/docs/validators/is#what-it-doesnt-check): user-defined classes are walked by property (no `instanceof`), and function-typed properties are skipped unless you turn on the `functional` transform flag.
 
 Built-in classes (`Date`, `Set<T>`, `Map<K, V>`, `Uint8Array`) are checked end-to-end, including their elements:
 
@@ -227,7 +227,7 @@ Built-in classes (`Date`, `Set<T>`, `Map<K, V>`, `Uint8Array`) are checked end-t
   </Tabs.Tab>
 </Tabs>
 
-## Adding constraints — type tags
+## Constraints
 
 Intersect [type tags](/docs/validators/tags) into the type to express formats, ranges, and length limits:
 
