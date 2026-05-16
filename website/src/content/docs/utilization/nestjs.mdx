@@ -42,6 +42,14 @@ export class BbsArticlesController {
 
 The decorators are interchangeable with the standard NestJS ones — same shape, same testing approach, much less boilerplate. `@TypedBody` validates with [`typia.assert`](/docs/validators/assert) and `@TypedRoute` serializes with [`typia.json.assertStringify`](/docs/json/stringify).
 
+## Incremental adoption
+
+You can add `@TypedBody` / `@TypedRoute` to a single route without touching the rest of the codebase. Specifically:
+
+- **`@TypedBody` and `@Body` coexist on different routes of the same controller.** Existing `class-validator`-decorated DTOs keep working; you migrate route by route.
+- **The build still uses `tsc`** — but it must be the `ts-patch`-patched `tsc`. Add the [legacy setup](/docs/setup/legacy) (wizard or manual) once, and from then on your existing `npm run build` keeps the same shape. CI pipelines that run `npm ci --ignore-scripts` need an explicit `npx ts-patch install` after install — see the [CI tip on the Legacy setup page](/docs/setup/legacy#wizard-setup).
+- **`@nestia/sdk` runs alongside `@nestjs/swagger`** during migration. The two generators emit different artifacts (typed client SDK vs Swagger JSON), so you can keep `@nestjs/swagger` until every controller is on `@TypedRoute`, then drop it.
+
 ## SDK generation
 
 `@nestia/sdk` reads the same controller files and emits a typed client SDK plus a Swagger document. The TypeScript types you wrote on the server become the request/response types on the client, automatically.

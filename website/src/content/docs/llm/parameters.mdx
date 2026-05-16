@@ -113,20 +113,20 @@ export namespace llm {
   <Tabs.Tab>
     <LocalSource
       path="examples/src/llm/parameters.ts"
-      filename="example/src/llm/parameters.ts"
+      filename="examples/src/llm/parameters.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource
       path="examples/bin/llm/parameters.js"
-      filename="example/bin/llm/parameters.js"
+      filename="examples/bin/llm/parameters.js"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>
 
 [📖 Open in Playground](/playground/?script=JYWwDg9gTgLgBAbzgSQDIBsQGUDGALAUxAEM4BfOAMyghDgCIABAZ2JHwgDsB6CMAzsTDB6AbgBQoSLDgwAnsOIAaRLOIBzZuSo069eYrHi4kzjAJRKxHARQBZIgCMLiY3CLFg6AFxxmMKGBOdTgAMjVNADoAMWgSGAAeeg8vegA+CTg4QRACX39A4My4DTzsgFcQZyhivAhHR2ACZnyAoPUAbQBdYoArCCCCABMAfWIYVsKQ8JgNZhi48aSh8YJ0iTJxHC5-ODBfNExcQhJI5AAFYig2AnMoLQBeWQVgYkj0TEiwK5u75gTkA4qhY0gAKACUEm2nGYEHQBHeEHUoLAkKAA)
 
-## When to use `parameters` instead of `structuredOutput`
+## When to use this
 
 | What you need | Use |
 |---------------|-----|
@@ -136,16 +136,16 @@ export namespace llm {
 
 `structuredOutput<T>()` is essentially `parameters<T>()` + the parse/coerce/validate methods bundled together. If you don't need those methods (or you'll wire them up yourself from [`LlmJson`](/docs/llm/json)), `parameters` is the leaner choice.
 
-## The function calling harness (when used with `parameters`)
+## Function calling harness
 
 `parameters` is schema-only by design, but you can still get the parse/coerce/validate behavior by composing manually:
 
 | Goal | Use |
 |------|-----|
-| Parse messy LLM JSON text + coerce types | [`LlmJson.parse<T>(text, schema)`](/docs/llm/json#llmjsonparse--lenient-json--type-coercion) |
-| Coerce types on an already-parsed object | [`LlmJson.coerce<T>(obj, schema)`](/docs/llm/json#llmjsoncoerce--type-coercion-only) |
+| Parse messy LLM JSON text + coerce types | [`LlmJson.parse<T>(text, schema)`](/docs/llm/json#llmjsonparse) |
+| Coerce types on an already-parsed object | [`LlmJson.coerce<T>(obj, schema)`](/docs/llm/json#llmjsoncoerce) |
 | Validate against the type | [`typia.validate<T>(obj)`](/docs/validators/validate) |
-| Format errors back to the LLM | [`LlmJson.stringify(failure)`](/docs/llm/json#llmjsonstringify--format-errors-for-the-llm) |
+| Format errors back to the LLM | [`LlmJson.stringify(failure)`](/docs/llm/json#llmjsonstringify) |
 
 <Tabs items={[
     "Parsing Example",

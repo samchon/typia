@@ -51,12 +51,12 @@ console.log(proto);
   <Tabs.Tab>
     <LocalSource
       path="examples/bin/protobuf/message.js"
-      filename="examples/bin/protobuf.message.js"
+      filename="examples/bin/protobuf/message.js"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>
 
-## Picking the wire type — type tags
+## Wire types
 
 Protocol Buffer has narrower numeric types than TypeScript (`int32`, `uint32`, `int64`, `uint64`, `float`, `double`). Use [type tags](/docs/validators/tags) to pick the wire type explicitly:
 
@@ -85,7 +85,7 @@ If you don't tag a `number`, typia treats it as `double`. If you don't tag a `bi
   </Tabs.Tab>
 </Tabs>
 
-## Comment tags — for older codebases
+## Comment tags
 
 Same wire types are also expressible as `@type` comments:
 
@@ -98,7 +98,7 @@ interface User {
 
 > [!CAUTION]
 >
-> Same caveats as [`validators/tags`](/docs/validators/tags#comment-tags--for-older-codebases): comment tags are not type-checked (a typo silently falls back to `double`), they only work on object properties, and they can't express union numeric types. Prefer type tags unless you're maintaining a JSDoc-style codebase.
+> Same caveats as [`validators/tags`](/docs/validators/tags#comment-tags): comment tags are not type-checked (a typo silently falls back to `double`), they only work on object properties, and they can't express union numeric types. Prefer type tags unless you're maintaining a JSDoc-style codebase.
 
 <Tabs items={["TypeScript Source", "Compiled JavaScript"]}>
   <Tabs.Tab>
@@ -110,7 +110,7 @@ interface User {
   <Tabs.Tab>
     <LocalSource
       path="examples/bin/protobuf/message-comment-tag.js"
-      filename="examples/bin/protobuf.message-comment-tag.js"
+      filename="examples/bin/protobuf/message-comment-tag.js"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>

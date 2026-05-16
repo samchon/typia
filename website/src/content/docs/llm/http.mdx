@@ -112,7 +112,7 @@ export namespace HttpLlm {
 | `config` | Optional schema-conversion tuning |
 | `execute` | Optional custom HTTP executor. Defaults to `HttpLlm.execute` |
 
-## Inside the conversion pipeline
+## Conversion pipeline
 
 ```mermaid
 flowchart
@@ -131,7 +131,7 @@ flowchart
 
 `HttpLlm` first normalizes every OpenAPI dialect into one internal representation (emended OpenAPI 3.2), then converts each operation into an `IHttpLlmFunction`. The intermediate representation is what makes "any version in, any LLM provider out" possible without combinatorial conversion code.
 
-## Plug it into your LLM SDK
+## Framework adapters
 
 The same controller plugs into any supported framework. Pick whichever your app already uses:
 
@@ -235,47 +235,11 @@ registerMcpControllers({
   </Tabs.Tab>
 </Tabs>
 
-## Validation feedback — same harness, same payoff
+## The function calling harness
 
-Every `IHttpLlmFunction` carries the same `parse` / `coerce` / `validate` methods as `ILlmFunction`. When validation fails inside a framework adapter (MCP / Vercel / LangChain), the tool returns annotated error JSON the LLM can read:
+Every `IHttpLlmFunction` carries the same `parse` / `coerce` / `validate` methods as `ILlmFunction` — same parse → coerce → validate → stringify-feedback story as [`typia.llm.application`](/docs/llm/application#the-function-calling-harness). The two pages share machinery; if you've already read the application page, the rest of this section is a refresher.
 
-```json
-{
-  "name": "John",
-  "age": "twenty",      // ❌ [{"path":"$input.age","expected":"number"}]
-  "email": "not-an-email", // ❌ [{"path":"$input.email","expected":"string & Format<\"email\">"}]
-  "hobbies": "reading"  // ❌ [{"path":"$input.hobbies","expected":"Array<string>"}]
-}
-```
-
-Same pattern as on [`application`](/docs/llm/application#validation-feedback). Same effect — LLMs self-correct on the next turn instead of producing structured nonsense.
-
-In production at [AutoBe](https://github.com/wrtnlabs/autobe), the harness took `qwen3-coder-next` from **6.75%** raw correctness to **100%** on compiler AST types — across all four tested Qwen models. AST types are the hardest realistic target (unbounded unions × unbounded depth × recursive references), so if the harness handles those, it handles your REST API.
-
-```typescript filename="AutoBeTest.IExpression — the kind of type the harness handles" showLineNumbers
-export type IExpression =
-  | IBooleanLiteral
-  | INumericLiteral
-  | IStringLiteral
-  | IArrayLiteralExpression   // recursive
-  | IObjectLiteralExpression  // recursive
-  | INullLiteral
-  | IUndefinedKeyword
-  | IIdentifier
-  | IPropertyAccessExpression // recursive
-  | IElementAccessExpression  // recursive
-  | ITypeOfExpression         // recursive
-  | IPrefixUnaryExpression    // recursive
-  | IPostfixUnaryExpression   // recursive
-  | IBinaryExpression         // recursive
-  | IArrowFunction            // recursive
-  | ICallExpression           // recursive
-  | INewExpression            // recursive
-  | IConditionalPredicate     // recursive
-  | ... // 30+ expression types total
-```
-
-### Parse and coerce in practice
+### Parse and coerce
 
 <Tabs items={[
     "Parsing (text → object)",
@@ -313,6 +277,46 @@ export type IExpression =
 
 Both run the same type-coercion logic; `parse` adds the lenient JSON layer in front.
 </Callout>
+
+### Validation feedback
+
+When validation fails inside a framework adapter (MCP / Vercel / LangChain), the tool returns annotated error JSON the LLM can read:
+
+```json
+{
+  "name": "John",
+  "age": "twenty",      // ❌ [{"path":"$input.age","expected":"number"}]
+  "email": "not-an-email", // ❌ [{"path":"$input.email","expected":"string & Format<\"email\">"}]
+  "hobbies": "reading"  // ❌ [{"path":"$input.hobbies","expected":"Array<string>"}]
+}
+```
+
+Same pattern as on [`application`](/docs/llm/application#validation-feedback). Same effect — LLMs self-correct on the next turn instead of producing structured nonsense.
+
+In production at [AutoBe](https://github.com/wrtnlabs/autobe), the harness took `qwen3-coder-next` from **6.75%** raw correctness to **100%** on compiler AST types — across all four tested Qwen models. AST types are the hardest realistic target (unbounded unions × unbounded depth × recursive references), so if the harness handles those, it handles your REST API.
+
+```typescript filename="AutoBeTest.IExpression — the kind of type the harness handles" showLineNumbers
+export type IExpression =
+  | IBooleanLiteral
+  | INumericLiteral
+  | IStringLiteral
+  | IArrayLiteralExpression   // recursive
+  | IObjectLiteralExpression  // recursive
+  | INullLiteral
+  | IUndefinedKeyword
+  | IIdentifier
+  | IPropertyAccessExpression // recursive
+  | IElementAccessExpression  // recursive
+  | ITypeOfExpression         // recursive
+  | IPrefixUnaryExpression    // recursive
+  | IPostfixUnaryExpression   // recursive
+  | IBinaryExpression         // recursive
+  | IArrowFunction            // recursive
+  | ICallExpression           // recursive
+  | INewExpression            // recursive
+  | IConditionalPredicate     // recursive
+  | ... // 30+ expression types total
+```
 
 For the full mechanics of `parse`, `coerce`, `validate`, and `stringify`, see [`LlmJson`](/docs/llm/json).
 

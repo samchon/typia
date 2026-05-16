@@ -34,7 +34,7 @@ export type AppRouter = typeof appRouter;
 
 `typia.createAssert<T>()` returns `(input: unknown) => T` — exactly the shape tRPC's `.input()` and `.output()` expect for a validator. On a mismatch the procedure rejects the call with a `TypeGuardError` carrying the path of the bad field.
 
-If you want a Standard Schema-compliant validator (so the same definition also slots into other tools), use [`typia.createValidate`](/docs/validators/validate#reusable-factories--and-standard-schema-support) instead.
+If you want a Standard Schema-compliant validator (so the same definition also slots into other tools), use [`typia.createValidate`](/docs/validators/validate#reusable-factories) instead.
 
 ## Where to go next
 

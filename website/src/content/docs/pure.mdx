@@ -28,7 +28,7 @@ All three approaches share two problems:
 
 typia removes both. It is a **compile-time transformer**: it reads your TypeScript type at build time and writes the runtime code for you. The TypeScript type is the only source of truth.
 
-## Compare three approaches side by side
+## Three approaches
 
 The example below is the same data model — a BBS article with files — written for `class-validator`, `ajv`, and typia. Look at the highlighted `files` property in each.
 
@@ -290,7 +290,7 @@ Same data. Same constraints. Three very different costs to maintain.
 
 The typia version is a normal TypeScript interface. The validation rules live in [type tags](/docs/validators/tags) like `tags.Format<"uuid">` and `tags.MaxLength<255>` that intersect with the base type. Rename `files` and TypeScript drags every reference along with it. Forget a constraint and you change the type once.
 
-## "But TypeScript types disappear at runtime..."
+## How can types validate at runtime?
 
 That's a fair objection. If types don't exist at runtime, how does typia validate anything?
 
@@ -378,7 +378,260 @@ export const assertArticle = (() => {
         RegExp("^[a-z0-9]+$").test(input.extension) &&
         input.extension.length <= 8)) &&
     "string" === typeof input.url;
-  /* …assertion variant that adds error paths, abbreviated… */
+  const _ao0 = (input, _path, _exceptionable = true) =>
+    (("string" === typeof input.id &&
+      (__typia_transform__isFormatUuid._isFormatUuid(input.id) ||
+        __typia_transform__assertGuard._assertGuard(
+          _exceptionable,
+          {
+            method: "typia.createAssert",
+            path: _path + ".id",
+            expected: 'string & Format<"uuid">',
+            value: input.id,
+          },
+          _errorFactory,
+        ))) ||
+      __typia_transform__assertGuard._assertGuard(
+        _exceptionable,
+        {
+          method: "typia.createAssert",
+          path: _path + ".id",
+          expected: '(string & Format<"uuid">)',
+          value: input.id,
+        },
+        _errorFactory,
+      )) &&
+    (null === input.files ||
+      ((Array.isArray(input.files) ||
+        __typia_transform__assertGuard._assertGuard(
+          _exceptionable,
+          {
+            method: "typia.createAssert",
+            path: _path + ".files",
+            expected: "(Array<IAttachmentFile> | null)",
+            value: input.files,
+          },
+          _errorFactory,
+        )) &&
+        input.files.every(
+          (elem, _index2) =>
+            ((("object" === typeof elem && null !== elem) ||
+              __typia_transform__assertGuard._assertGuard(
+                _exceptionable,
+                {
+                  method: "typia.createAssert",
+                  path: _path + ".files[" + _index2 + "]",
+                  expected: "IAttachmentFile",
+                  value: elem,
+                },
+                _errorFactory,
+              )) &&
+              _ao1(
+                elem,
+                _path + ".files[" + _index2 + "]",
+                true && _exceptionable,
+              )) ||
+            __typia_transform__assertGuard._assertGuard(
+              _exceptionable,
+              {
+                method: "typia.createAssert",
+                path: _path + ".files[" + _index2 + "]",
+                expected: "IAttachmentFile",
+                value: elem,
+              },
+              _errorFactory,
+            ),
+        )) ||
+      __typia_transform__assertGuard._assertGuard(
+        _exceptionable,
+        {
+          method: "typia.createAssert",
+          path: _path + ".files",
+          expected: "(Array<IAttachmentFile> | null)",
+          value: input.files,
+        },
+        _errorFactory,
+      )) &&
+    (null === input.title ||
+      ("string" === typeof input.title &&
+        (5 <= input.title.length ||
+          __typia_transform__assertGuard._assertGuard(
+            _exceptionable,
+            {
+              method: "typia.createAssert",
+              path: _path + ".title",
+              expected: "string & MinLength<5>",
+              value: input.title,
+            },
+            _errorFactory,
+          )) &&
+        (input.title.length <= 100 ||
+          __typia_transform__assertGuard._assertGuard(
+            _exceptionable,
+            {
+              method: "typia.createAssert",
+              path: _path + ".title",
+              expected: "string & MaxLength<100>",
+              value: input.title,
+            },
+            _errorFactory,
+          ))) ||
+      __typia_transform__assertGuard._assertGuard(
+        _exceptionable,
+        {
+          method: "typia.createAssert",
+          path: _path + ".title",
+          expected: "((string & MinLength<5> & MaxLength<100>) | null)",
+          value: input.title,
+        },
+        _errorFactory,
+      )) &&
+    ("string" === typeof input.body ||
+      __typia_transform__assertGuard._assertGuard(
+        _exceptionable,
+        {
+          method: "typia.createAssert",
+          path: _path + ".body",
+          expected: "string",
+          value: input.body,
+        },
+        _errorFactory,
+      )) &&
+    (("string" === typeof input.created_at &&
+      (__typia_transform__isFormatDateTime._isFormatDateTime(
+        input.created_at,
+      ) ||
+        __typia_transform__assertGuard._assertGuard(
+          _exceptionable,
+          {
+            method: "typia.createAssert",
+            path: _path + ".created_at",
+            expected: 'string & Format<"date-time">',
+            value: input.created_at,
+          },
+          _errorFactory,
+        ))) ||
+      __typia_transform__assertGuard._assertGuard(
+        _exceptionable,
+        {
+          method: "typia.createAssert",
+          path: _path + ".created_at",
+          expected: '(string & Format<"date-time">)',
+          value: input.created_at,
+        },
+        _errorFactory,
+      ));
+  const _ao1 = (input, _path, _exceptionable = true) =>
+    (("string" === typeof input.name &&
+      (RegExp("^[a-z0-9]+$").test(input.name) ||
+        __typia_transform__assertGuard._assertGuard(
+          _exceptionable,
+          {
+            method: "typia.createAssert",
+            path: _path + ".name",
+            expected: 'string & Pattern<"^[a-z0-9]+$">',
+            value: input.name,
+          },
+          _errorFactory,
+        )) &&
+      (input.name.length <= 255 ||
+        __typia_transform__assertGuard._assertGuard(
+          _exceptionable,
+          {
+            method: "typia.createAssert",
+            path: _path + ".name",
+            expected: "string & MaxLength<255>",
+            value: input.name,
+          },
+          _errorFactory,
+        ))) ||
+      __typia_transform__assertGuard._assertGuard(
+        _exceptionable,
+        {
+          method: "typia.createAssert",
+          path: _path + ".name",
+          expected: '(string & Pattern<"^[a-z0-9]+$"> & MaxLength<255>)',
+          value: input.name,
+        },
+        _errorFactory,
+      )) &&
+    (null === input.extension ||
+      ("string" === typeof input.extension &&
+        (RegExp("^[a-z0-9]+$").test(input.extension) ||
+          __typia_transform__assertGuard._assertGuard(
+            _exceptionable,
+            {
+              method: "typia.createAssert",
+              path: _path + ".extension",
+              expected: 'string & Pattern<"^[a-z0-9]+$">',
+              value: input.extension,
+            },
+            _errorFactory,
+          )) &&
+        (input.extension.length <= 8 ||
+          __typia_transform__assertGuard._assertGuard(
+            _exceptionable,
+            {
+              method: "typia.createAssert",
+              path: _path + ".extension",
+              expected: "string & MaxLength<8>",
+              value: input.extension,
+            },
+            _errorFactory,
+          ))) ||
+      __typia_transform__assertGuard._assertGuard(
+        _exceptionable,
+        {
+          method: "typia.createAssert",
+          path: _path + ".extension",
+          expected: '((string & Pattern<"^[a-z0-9]+$"> & MaxLength<8>) | null)',
+          value: input.extension,
+        },
+        _errorFactory,
+      )) &&
+    ("string" === typeof input.url ||
+      __typia_transform__assertGuard._assertGuard(
+        _exceptionable,
+        {
+          method: "typia.createAssert",
+          path: _path + ".url",
+          expected: "string",
+          value: input.url,
+        },
+        _errorFactory,
+      ));
+  const __is = (input) =>
+    "object" === typeof input && null !== input && _io0(input);
+  let _errorFactory;
+  return (input, errorFactory) => {
+    if (false === __is(input)) {
+      _errorFactory = errorFactory;
+      ((input, _path, _exceptionable = true) =>
+        ((("object" === typeof input && null !== input) ||
+          __typia_transform__assertGuard._assertGuard(
+            true,
+            {
+              method: "typia.createAssert",
+              path: _path + "",
+              expected: "IBbsArticle",
+              value: input,
+            },
+            _errorFactory,
+          )) &&
+          _ao0(input, _path + "", true)) ||
+        __typia_transform__assertGuard._assertGuard(
+          true,
+          {
+            method: "typia.createAssert",
+            path: _path + "",
+            expected: "IBbsArticle",
+            value: input,
+          },
+          _errorFactory,
+        ))(input, "$input", true);
+    }
+    return input;
+  };
 })();
 ```
   </Tabs.Tab>
@@ -395,7 +648,7 @@ That's hand-rolled JavaScript with no dynamic dispatch and no schema interpretat
 
 > Measured on [AMD Ryzen 9 7940HS, Rog Flow x13](https://github.com/samchon/typia/tree/master/benchmark/results/AMD%20Ryzen%209%207940HS%20w%20Radeon%20780M%20Graphics#assert)
 
-## What this means for you
+## Summary
 
 - **No schema files.** You will not check a `*.schema.ts` file into your repo.
 - **No drift.** Rename a field — every validator updates automatically because the type is the validator.
@@ -407,4 +660,3 @@ That's hand-rolled JavaScript with no dynamic dispatch and no schema interpretat
 - [Setup](/docs/setup) — install `ttsc` (or `ts-patch` for TypeScript v6) and you can paste the code above into a fresh project right now.
 - [Validators](/docs/validators/is) — `is`, `assert`, `validate`, and when to pick which.
 - [Type Tags](/docs/validators/tags) — the full list of constraints you can intersect into a type.
-- [Tutorial](/docs/tutorial) — a 30-minute walkthrough from "I just installed it" to "I have a working LLM agent".

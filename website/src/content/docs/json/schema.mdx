@@ -11,9 +11,9 @@ If you've ever hand-written a JSON Schema or an OpenAPI components block, you kn
 
 ```typescript copy filename="signatures"
 namespace json {
-  function schema<T, Version extends "3.0" | "3.1" = "3.1">(): IJsonSchemaUnit;
-  function schemas<Schemas extends unknown[], Version = "3.1">(): IJsonSchemaCollection;
-  function application<Class extends object, Version = "3.1">(): IJsonSchemaApplication;
+  function schema<T, Version extends "3.0" | "3.1" = "3.1">(): IJsonSchemaUnit<Version, T>;
+  function schemas<Schemas extends unknown[], Version extends "3.0" | "3.1" = "3.1">(): IJsonSchemaCollection<Version, Schemas>;
+  function application<Class extends object, Version extends "3.0" | "3.1" = "3.1">(): IJsonSchemaApplication<Version, Class>;
 }
 ```
 
@@ -95,7 +95,7 @@ export namespace json {
   </Tabs.Tab>
 </Tabs>
 
-## What gets included in the schema
+## What gets included
 
 Anything you express in the TypeScript type carries over:
 
@@ -127,7 +127,7 @@ A few JSON-Schema-only comment tags are also recognized — they don't affect ru
   </Tabs.Tab>
 </Tabs>
 
-## Adding custom `x-…` fields
+## Custom fields
 
 JSON Schema reserves the `x-` prefix for non-standard extensions. To embed `x-…` properties (for vendor-specific tooling, internal flags, anything that isn't part of the standard), use `tags.TagBase.schema` or the `tags.JsonSchemaPlugin` helper:
 
@@ -135,7 +135,7 @@ JSON Schema reserves the `x-` prefix for non-standard extensions. To embed `x-�
   <Tabs.Tab>
     <LocalSource
       path="examples/src/json/schemas-type-tags.ts"
-      filename="examples/src/schema-type-tags.ts"
+      filename="examples/src/json/schemas-type-tags.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>

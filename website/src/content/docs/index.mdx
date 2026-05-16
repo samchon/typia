@@ -3,6 +3,7 @@ title: Guide Documents > Introduction
 ---
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
+import { Tabs } from 'nextra/components';
 
 ## What is typia?
 
@@ -10,18 +11,48 @@ import Stack from '@mui/material/Stack';
 
 Other libraries make you write your types twice — once in TypeScript and once as a schema, decorators, or guards. typia reads the type you already wrote and emits the validator, JSON serializer, schema, or decoder for you. One line, pure types, no duplication.
 
-```ts copy filename="hello.ts"
-import typia from "typia";
+Here it is in action — the left tab is the source you write, the right tab is what typia generates for you at compile time:
+
+<Tabs items={['TypeScript source', 'Compiled JavaScript']}>
+  <Tabs.Tab>
+```ts copy filename="src/check.ts"
+import typia, { tags } from "typia";
 
 interface User {
-  id: string;
-  age: number;
+  id: string & tags.Format<"uuid">;
+  email: string & tags.Format<"email">;
+  age: number & tags.Type<"uint32"> & tags.Minimum<19>;
 }
 
-typia.assert<User>(input); // throws TypeGuardError when the shape is wrong
+// One line, pure TypeScript types. No schema, no decorators.
+export const check = typia.createIs<User>();
 ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```js copy filename="dist/check.js"
+import * as __typia_uuid from "typia/lib/_isFormatUuid.js";
+import * as __typia_email from "typia/lib/_isFormatEmail.js";
 
-That call expands at compile time into a hand-rolled checker for `User`. No schema file. No decorator soup. No reflection at runtime.
+export const check = (input) =>
+  "object" === typeof input &&
+  null !== input &&
+  "string" === typeof input.id &&
+  __typia_uuid._isFormatUuid(input.id) &&
+  "string" === typeof input.email &&
+  __typia_email._isFormatEmail(input.email) &&
+  "number" === typeof input.age &&
+  Number.isFinite(input.age) &&
+  Math.floor(input.age) === input.age &&
+  0 <= input.age &&
+  input.age <= 4294967295 &&
+  19 <= input.age;
+```
+  </Tabs.Tab>
+</Tabs>
+
+No reflection at runtime, no schema file to maintain — just the exact comparisons your `User` type implies, inlined into the build. This is the core trick that every other typia feature builds on; see [Pure TypeScript](/docs/pure) for the long story.
+
+> The right-hand "Compiled JavaScript" tab is produced by typia's compile-time transform — **stock `tsc` will not produce it**. To enable the transform, install one of the build paths in [Setup](/docs/setup) (`ttsc` for TypeScript-Go, `ts-patch` for the stable TypeScript v5/v6 release). Without setup, your `typia.is<T>()` call sites throw at runtime instead.
 
 ![Typia Logo](/logo.png)
 
@@ -64,7 +95,15 @@ That call expands at compile time into a hand-rolled checker for `User`. No sche
 ))}
 </span>
 
-## What you get
+## API surface
+
+typia covers five feature areas, all driven by the same TypeScript-type-to-runtime-code transform:
+
+- **Super-fast runtime validators** — `is` / `assert` / `validate` (+ Equals strict variants)
+- **Enhanced JSON** — type-safe `assertParse`, much faster `assertStringify`, OpenAPI / JSON Schema generation
+- **LLM function calling harness** — class → tool schemas with lenient JSON parsing, type coercion, and validation feedback baked in
+- **Protocol Buffer codec** — encode / decode + `.proto` text emission from a TypeScript type
+- **Random data generator** — produce a value that satisfies the type, tags and all
 
 ```ts
 // Runtime validators — write a type, get a checker
@@ -108,7 +147,7 @@ typia.random<T>();                     // generate a value that satisfies T
   </Alert>
 </Stack>
 
-## How it works
+## Build setup
 
 <br/>
 <iframe src="https://www.youtube.com/embed/WM6LGy2UU6s?si=lZrqbILxHI22QwEE"
@@ -118,30 +157,21 @@ typia.random<T>();                     // generate a value that satisfies T
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin"
         allowFullScreen></iframe>
 
-Every TypeScript type disappears at runtime — there is no class object to inspect, no decorator to call. So validator libraries normally ask you to re-encode the type as a schema. typia takes a different route: it ships a compile-time transform that reads the type and writes the runtime code for you.
+The transformation above happens at compile time, so typia needs to be wired into the TypeScript build. There are two supported paths:
 
-You install the [`ttsc`](/docs/setup/tsgo) toolchain — a drop-in replacement for `tsc` that runs typia's transform — or, on stable TypeScript v5 / v6, the [`ts-patch`](/docs/setup/legacy) patcher that injects the same transform into the stock compiler. Your build becomes:
+- **TypeScript-Go (`@next`)** — use [`ttsc`](/docs/setup/tsgo) as a drop-in replacement for `tsc`. The Go-native compiler ships the typia transform on the side.
+- **Stable TypeScript v5 / v6** — use [`ts-patch`](/docs/setup/legacy) to patch the stock JavaScript compiler so it can apply the same transform. This is the production path most teams ship today.
 
-```ts copy filename="src/check.ts"
-import typia from "typia";
-export const check = typia.createIs<string>();
-```
+Bundlers (Vite, Next.js, Webpack, esbuild, Rollup, …) plug in through `@ttsc/unplugin` (modern) or `@typia/unplugin` (legacy). Babel and SWC can't run a TypeScript transformer, so for those toolchains typia falls back to its [generation mode](/docs/setup/legacy#generation), which writes the transformed `.ts` files ahead of time.
 
-```js copy filename="dist/check.js"
-import typia from "typia";
-export const check = (() => {
-  return (input) => "string" === typeof input;
-})();
-```
-
-That's the entire trick. The TypeScript source asks for `is<string>`; the compiler emits the bare-metal check inline. No reflection, no schema, no decorator side effects. See [Pure TypeScript](/docs/pure) for the full motivation.
+> Whichever path you pick, the call sites in your code don't change — `typia.is<T>`, `typia.assert<T>`, `typia.json.assertParse<T>`, … always emit the same inline checks shown in [What is typia?](#what-is-typia) above. Setup is something you do once; the rest of the docs assume it's done.
 
 ## Where to go next
 
-- **Just getting started?** Walk through the [Tutorial](/docs/tutorial) — install, write your first validator, then add JSON and LLM in 30 minutes.
 - **Need to install it now?** See [Setup](/docs/setup) — pick TypeScript-Go (`ttsc`) or the TS v6 legacy path.
 - **Looking up an API?** Jump straight to [Validators](/docs/validators/is), [JSON](/docs/json/schema), [LLM](/docs/llm/application), [Protobuf](/docs/protobuf/message), or [Random](/docs/random).
 - **Building an agent?** Start at [LLM function calling](/docs/llm/application) and the [function calling harness](/docs/llm/json).
+- **Adopting on NestJS / Hono / tRPC?** See the [Utilization Cases](/docs/utilization/nestjs) — drop-in recipes for the most common backend frameworks.
 
 ## Sponsors
 

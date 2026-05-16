@@ -16,7 +16,7 @@ TypeScript can say "this is a `number`". It cannot say "this is a non-negative 3
 
 Whichever you use, every validator and `random` will respect the constraint and the emitted JavaScript will include the corresponding check.
 
-## A first taste
+## First example
 
 ```typescript copy filename="constrained-user.ts"
 import typia, { tags } from "typia";
@@ -50,7 +50,7 @@ Compiled output — note that each constraint becomes inline code:
   </Tabs.Tab>
 </Tabs>
 
-## Type tags — the recommended way
+## Type tags
 
 You import `tags` from `typia` and intersect them into the base type:
 
@@ -63,19 +63,29 @@ type Price = number & tags.Type<"double"> & tags.Minimum<0>;
 Type tags compose with `|` and `&` exactly like regular TypeScript types:
 
 ```typescript copy
-// number can be either a uint32 or a double
 type N = number & (tags.Type<"uint32"> | tags.Type<"double">);
+```
+- the `number` value can be a `uint32` **or** a `double` — the validator accepts either
 
-// number-or-bigint, with different constraints per branch
+```typescript copy
 type ID =
   | (number & tags.Type<"int32">)
   | (bigint  & tags.Type<"uint64">);
+```
+- the value is either:
+  - a `number` that is `int32`, **or**
+  - a `bigint` that is `uint64`
 
-// number that can be either int32 or float, OR bigint that is uint64
+```typescript copy
 type Mixed =
   | (number & (tags.Type<"int32"> | tags.Type<"float">))
   | (bigint  & tags.Type<"uint64">);
 ```
+- the value is either:
+  - a `number` that is `int32` **or** `float`, **or**
+  - a `bigint` that is `uint64`
+
+Note the parentheses on the third example — `number & (Type<"int32"> | Type<"float">)` is the `number` branch; `bigint & Type<"uint64">` is the `bigint` branch. The grouping matters: changing the parentheses changes the meaning, so when in doubt, match the structure of the bulleted breakdown above.
 
 If you intersect a tag with the wrong base type (e.g. `tags.MaxLength<100>` on a `number`), the TypeScript compiler will reject it.
 
@@ -126,7 +136,7 @@ For `bigint`, `tags.Type<...>` accepts `"int64"` or `"uint64"`; range tags accep
 | `tags.JsonSchemaPlugin<{...}>` | Inject arbitrary `x-…` JSON Schema fields |
 | `tags.Sequence<N>` | Protobuf field number ([protobuf docs](/docs/protobuf/message)) |
 
-## Comment tags — for older codebases
+## Comment tags
 
 If you'd rather write JSDoc, the same constraints exist as `@`-prefixed tags:
 
@@ -257,3 +267,11 @@ End-to-end example with three custom tags (`Postfix`, `Dollar`, `IsEven`):
 - [`random`](/docs/random) — generated values respect the constraint
 - [`json.schemas`](/docs/json/schema), [`llm.parameters`](/docs/llm/parameters) — exported as JSON Schema fields (`format`, `minimum`, …)
 - [`protobuf.message`](/docs/protobuf/message) — `tags.Type<"uint32">` selects the wire type; `tags.Sequence<N>` picks the field number
+
+## Where to go next
+
+- Yes/no validator → [`is`](/docs/validators/is)
+- Throw-on-failure validator → [`assert`](/docs/validators/assert)
+- Collect-every-error validator → [`validate`](/docs/validators/validate)
+- Tag-aware random fixtures → [`random`](/docs/random)
+- Tags in emitted JSON Schema → [`json.schemas`](/docs/json/schema)

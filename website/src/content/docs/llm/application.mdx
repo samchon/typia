@@ -38,11 +38,11 @@ Hand `app.functions` (or one of the framework adapters below) to your LLM SDK an
 ```typescript filename="typia" showLineNumbers
 export namespace llm {
   export function application<
-    App extends Record<string, any>,
-    Config extends Partial<ILlmSchema.IConfig> = {},
+    Class extends Record<string, any>,
+    Config extends Partial<ILlmSchema.IConfig & { equals: boolean }> = {},
   >(
-    config?: Partial<Pick<ILlmApplication.IConfig, "validate">>,
-  ): ILlmApplication;
+    config?: Partial<Pick<ILlmApplication.IConfig<Class>, "validate">>,
+  ): ILlmApplication<Class>;
 }
 ```
   </Tabs.Tab>
@@ -75,7 +75,7 @@ export namespace llm {
 `typia.llm.application` is for function calling. For structured output, use [`typia.llm.structuredOutput<T>()`](/docs/llm/structuredOutput).
 </Callout>
 
-## Full example
+## Full source
 
 <Tabs items={[
     "TypeScript Source",
@@ -86,13 +86,13 @@ export namespace llm {
   <Tabs.Tab>
     <LocalSource
       path="examples/src/llm/application.ts"
-      filename="example/src/llm/application.ts"
+      filename="examples/src/llm/application.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource
       path="examples/bin/llm/application.js"
-      filename="example/bin/llm/application.js"
+      filename="examples/bin/llm/application.js"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
@@ -109,14 +109,65 @@ export namespace llm {
   </Tabs.Tab>
 </Tabs>
 
-> [💻 Open in Playground](/playground/?script=JYWwDg9gTgLgBAbzgSQDIBsQEExncAYwEMZgIA7OAXzgDMoIQ4AiAAQGciQCALCgeghgApuSJhgzANwAoUJFhwYATwlE6DJsxVrpMuHPDR4SAEIAjdlliF0wgMrCoAN0LDqGxiwB0-C1ZsCO0cXNz0DAgp2eHEwAC4UDGxcfGJSCjgAXiVVYCJvdExvWNSSMnIAHn9rUiCHJ1cCYQA+AAoASllI8nYIOwKIAHNW2M6gA)
+> [💻 Open in Playground](/playground/?script=JYWwDg9gTgLgBAbzgSQDIBsQEExncAYwEMZgIA7OAXzgDMoIQ4AiAAQGciQCALCgeghgApuSJhgzANwAoUJFhwYATwlE6DJsxVrpMuHPDR4SAEIAjdlliF0wgMrCoAN0LDqGxiwB0-C1ZsCO0cXNz0DAgp2eHEwAC4UDGxcfGJSCjgAXiVVYCJvdExvWNSSMnIAHn9rUiCHJ1cCYQA+AAoASklI8nYIOwKIAHNW2M6gA)
 
-## Plug it into your LLM SDK
+## Restrictions
+
+The compile-time transform enforces a small set of method-shape rules on every method. Getting this right is the #1 reason a new `typia.llm.application<Class>()` call fails to compile, so read it before anything else:
+
+- **Each method takes exactly one keyworded-object parameter.** LLMs invoke functions with named arguments, so `add(x: number, y: number)` is rejected. Wrap the args: `add(props: { x: number; y: number })`.
+- **Each method returns a keyworded-object type** (e.g. `{ value: number }`, `{ items: T[] }`) **or `void`.** Primitives, arrays, and `T | undefined` are rejected. If you need to return one, wrap it.
+- **Object parameter and return types may not have dynamic keys.** `Record<string, number>` won't work — use `Array<{ key: string; value: number }>`.
+
+<Tabs items={["Source That Won't Compile", "Compiler Errors"]}>
+  <Tabs.Tab>
+```typescript filename="examples/src/llm/application.violation.ts" showLineNumbers
+import typia, { ILlmApplication, tags } from "typia";
+
+interface BbsArticleController {
+  /** Create a new article and return it. */
+  create(props: { input: IBbsArticle.ICreate }): Promise<IBbsArticle | undefined>;
+  //                                            ^ return must not be union with undefined
+
+  /** Add two numbers. */
+  add(props: { x: number; y: number }): number;
+  //                                    ^ return must be an object
+
+  erase(id: string & tags.Format<"uuid">): Promise<void>;
+  //    ^ parameter must be a keyworded object, not a primitive
+}
+
+const app: ILlmApplication = typia.llm.application<BbsArticleController>();
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```bash filename="Terminal"
+examples/src/llm/application.violation.ts:15:30 - error TS(typia.llm.application): unsupported type detected
+
+- BbsArticleController.create: unknown
+  - LLM application's function ("create")'s return type must not be union type with undefined.
+
+- BbsArticleController.add: unknown
+  - LLM application's function ("add")'s return type must be an object type.
+
+- BbsArticleController.erase: unknown
+  - LLM application's function ("erase")'s parameter must be an object type.
+```
+  </Tabs.Tab>
+</Tabs>
+
+For the deeper type-level rules see [`llm.parameters`](/docs/llm/parameters) and [`llm.schema`](/docs/llm/schema).
+
+## Framework adapters
 
 `typia.llm.controller<Class>(name, instance)` wraps the schema together with an executable instance. You pass the controller to an adapter and the adapter does the wiring:
 
 <Tabs items={["Vercel AI SDK", "LangChain", "Model Context Protocol"]}>
   <Tabs.Tab>
+```bash filename="Terminal"
+npm i @ai-sdk/openai @typia/vercel ai
+```
+
 ```typescript filename="src/main.ts"
 import { openai } from "@ai-sdk/openai";
 import { toVercelTools } from "@typia/vercel";
@@ -139,6 +190,10 @@ const result = await generateText({
 ```
   </Tabs.Tab>
   <Tabs.Tab>
+```bash filename="Terminal"
+npm i @langchain/core @langchain/openai langchain @typia/langchain
+```
+
 ```typescript filename="src/main.ts"
 import { ChainValues, Runnable } from "@langchain/core";
 import { ChatPromptTemplate } from "@langchain/core/prompts";
@@ -172,6 +227,10 @@ const result: ChainValues = await executor.invoke({
 ```
   </Tabs.Tab>
   <Tabs.Tab>
+```bash filename="Terminal"
+npm i @modelcontextprotocol/sdk @typia/mcp
+```
+
 ```typescript filename="src/main.ts"
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { registerMcpControllers } from "@typia/mcp";
@@ -283,6 +342,11 @@ Many LLMs emit a JSON-stringified value where the schema expects an object — `
 
 After `parse`/`coerce`, run `validate` to verify constraints (formats, ranges, lengths). On failure, format the errors with `LlmJson.stringify` from `@typia/utils` — the output is annotated JSON the LLM can read and self-correct:
 
+```typescript
+import { LlmJson } from "@typia/utils";
+// then use LlmJson.stringify(validationFailure) inside the snippet below
+```
+
 <LocalSource
   path="examples/src/llm/application-validate.ts"
   filename="examples/src/llm/application-validate.ts"
@@ -309,7 +373,7 @@ After `parse`/`coerce`, run `validate` to verify constraints (formats, ranges, l
 }
 ```
 
-Send that block back as a system message ("you made these mistakes — fix them"). The model reads the inline annotations and corrects on the next turn. The full pattern lives at [LlmJson](/docs/llm/json#putting-it-all-together--the-validation-feedback-loop).
+Send that block back as a system message ("you made these mistakes — fix them"). The model reads the inline annotations and corrects on the next turn. The full pattern lives at [LlmJson](/docs/llm/json#feedback-loop).
 
 <Callout type="info">
 **Real-world numbers**
@@ -347,7 +411,7 @@ export type IExpression =
   | ... // 30+ expression types total
 ```
 
-## Strict mode — reject extra properties
+## Strict mode
 
 By default the auto-generated `ILlmFunction.validate` is lenient: arguments with extra (unexpected) properties pass validation. To reject them, set the `equals: true` config:
 
@@ -355,63 +419,84 @@ By default the auto-generated `ILlmFunction.validate` is lenient: arguments with
 const app = typia.llm.application<BbsArticleService, { equals: true }>();
 ```
 
-`{ equals: true }` does two things:
+`{ equals: true }` switches the embedded validator to `validateEquals` semantics — any property not declared on the parameter type becomes a validation error at runtime.
 
-- Switches the embedded validator to `validateEquals` semantics — any property not declared on the parameter type becomes a validation error
-- Sets `additionalProperties: false` on the parameter schemas, so the LLM is told upfront which fields are allowed
+(The schema-side `additionalProperties: false` is always emitted on LLM parameter schemas, regardless of the flag — the LLM is told upfront which fields are allowed either way. `equals` only changes how the runtime validator treats stray properties the model produced anyway.)
 
-Same switch works on [`structuredOutput`](/docs/llm/structuredOutput#strict-mode--reject-extra-properties) and `controller`. Leave it `false` for chat-style agents (more tolerant of model variability), turn it on for production tools where extra fields would be a real bug.
+Same switch works on [`structuredOutput`](/docs/llm/structuredOutput#strict-mode) and `controller`. Leave it `false` for chat-style agents (more tolerant of model variability), turn it on for production tools where extra fields would be a real bug.
 
-## Restrictions
+## Custom validation
 
-The compile-time transform enforces the LLM function-calling contract on every method:
+Type-based validation rejects "this isn't even the right shape." It cannot reject *business-rule* failures like "this user doesn't exist," "this price exceeds the customer's plan limit," "this URL points at a host we've banned." For those, hook your own validator into `typia.llm.application` through the runtime `config.validate` parameter:
 
-- **Each method takes exactly one keyworded-object parameter.** LLMs invoke functions with named arguments, so `add(x: number, y: number)` is rejected. Wrap the args: `add(props: { x: number; y: number })`.
-- **Each method returns a keyworded-object type** (e.g. `{ value: number }`, `{ items: T[] }`) **or `void`.** Primitives, arrays, and `T | undefined` are rejected. If you need to return one, wrap it.
-- **Object parameter and return types may not have dynamic keys.** `Record<string, number>` won't work — use `Array<{ key: string; value: number }>`.
+```typescript copy
+import typia, { IValidation } from "typia";
 
-<Tabs items={["Source That Won't Compile", "Compiler Errors"]}>
-  <Tabs.Tab>
-```typescript filename="example/src/llm/application.violation.ts" showLineNumbers
-import typia, { ILlmApplication, tags } from "typia";
+const BANNED_HOSTS = ["evil.example.com"];
 
-const app: ILlmApplication = typia.llm.application<BbsArticleController>();
-
-interface BbsArticleController {
-  /** Create a new article and return it. */
-  create(props: { input: IBbsArticle.ICreate }): Promise<IBbsArticle | undefined>;
-  //                                            ^ return must not be union with undefined
-
-  /** Add two numbers. */
-  add(props: { x: number; y: number }): number;
-  //                                    ^ return must be an object
-
-  erase(id: string & tags.Format<"uuid">): Promise<void>;
-  //    ^ parameter must be a keyworded object, not a primitive
+class BookmarkService {
+  /** Save a bookmark. */
+  async add(props: { url: string; tags: string[] }): Promise<{ id: string }> {
+    /* … */
+    return { id: "…" };
+  }
+  /** Delete a bookmark by id. */
+  async remove(props: { id: string }): Promise<{ deleted: boolean }> {
+    /* … */
+    return { deleted: true };
+  }
 }
+
+const app = typia.llm.application<BookmarkService>({
+  validate: {
+    // Per-method custom validator. Receives the raw LLM-produced input,
+    // returns an IValidation<ArgumentType> that the harness threads
+    // through to the model on failure.
+    add: (input: unknown): IValidation<{ url: string; tags: string[] }> => {
+      // Run the default type check first.
+      const typed = typia.validate<{ url: string; tags: string[] }>(input);
+      if (!typed.success) return typed;
+
+      // Then layer business rules on top.
+      if (BANNED_HOSTS.includes(new URL(typed.data.url).host)) {
+        return {
+          success: false,
+          data: typed.data,
+          errors: [{
+            path: "$input.url",
+            expected: "URL not on the banned-host list",
+            value: typed.data.url,
+          }],
+        };
+      }
+      return typed;
+    },
+    // Methods omitted from the `validate` map keep the default type-based
+    // validator — only override the ones that need extra rules.
+  },
+});
 ```
-  </Tabs.Tab>
-  <Tabs.Tab>
-```bash filename="Terminal"
-src/examples/llm.application.violation.ts:4:29 - error TS(typia.llm.application): unsupported type detected
 
-- BbsArticleController.create: unknown
-  - LLM application's function ("create")'s return type must not be union type with undefined.
+**What goes in the map:** one entry per method on the class. The key is the method name (typed against `keyof Class`, so a typo is caught at compile time). The value is `(input: unknown) => IValidation<ArgumentType>` — `ArgumentType` is the same keyworded-object type the method signature declared, and `IValidation<T>` is the same discriminated union [`typia.validate<T>`](/docs/validators/validate) returns. Only methods with a single keyworded-object parameter qualify (the same shape rule [Restrictions](#restrictions) enforces on the class).
 
-- BbsArticleController.add: unknown
-  - LLM application's function ("add")'s return type must be an object type.
+**What happens on failure:** the validator's `IValidation.IFailure` flows into the same feedback channel the type-based validator uses — `LlmJson.stringify(failure)` formats your custom errors with the same `// ❌ [...]` annotations the LLM has already learned to read. So a custom business-rule failure is indistinguishable to the model from a missing required field; it just retries with corrected input. (You don't have to format anything, choose retry logic, or decide what to send back — the harness already does all of that.)
 
-- BbsArticleController.erase: unknown
-  - LLM application's function ("erase")'s parameter must be an object type.
-```
-  </Tabs.Tab>
-</Tabs>
-
-For deeper type-level rules see [`llm.parameters`](/docs/llm/parameters) and [`llm.schema`](/docs/llm/schema).
+> [!TIP]
+>
+> Want both strict-shape **and** business-rule checks? `equals` is a generic parameter, `validate` is the runtime config — pass both:
+>
+> ```ts
+> typia.llm.application<BookmarkService, { equals: true }>({
+>   validate: {
+>     add: (input) => typia.validateEquals<…>(input),  // or layer rules on top
+>   },
+> });
+> ```
+>
+> Inside the hook, swap `typia.validate` for `typia.validateEquals` if you want strict-shape rejection on top of business rules. The harness no longer runs the embedded validator when a hook is registered — *you* decide what runs first.
 
 ## Where to go next
 
-- Tutorial walkthrough → [Tutorial: LLM function calling](/docs/tutorial/llm)
 - Just need a schema for structured output → [`llm.structuredOutput`](/docs/llm/structuredOutput) or [`llm.parameters`](/docs/llm/parameters)
 - The harness mechanics in depth → [`LlmJson` utilities](/docs/llm/json)
 - Same idea from an OpenAPI document → [`HttpLlm`](/docs/llm/http)
