@@ -5,37 +5,40 @@ import { Tabs } from "nextra/components";
 
 import LocalSource from "../../components/LocalSource";
 
-## `random()` function
+# `typia.random` — make up a value that satisfies the type
 
-<Tabs items={[
-  <code>typia</code>,
-  <code>IRandomGenerator.ts</code>,
-  <code>Resolved.ts</code>
-]}>
-  <Tabs.Tab>
-```typescript copy
-export function random<T>(g?: IRandomGenerator): Resolved<T>;
+```typescript copy filename="signatures"
+function random<T>(generator?: Partial<IRandomGenerator>): Resolved<T>;
+function createRandom<T>(): (generator?: Partial<IRandomGenerator>) => Resolved<T>;
 ```
-  </Tabs.Tab>
-  <Tabs.Tab>
-    <LocalSource
-      path="packages/interface/src/utils/IRandomGenerator.ts"
-      filename="@typia/interface"
-      showLineNumbers />
-  </Tabs.Tab>
-  <Tabs.Tab>
-    <LocalSource
-      path="packages/interface/src/typings/Resolved.ts"
-      filename="@typia/interface"
-      showLineNumbers />
-  </Tabs.Tab>
-</Tabs>
 
-You can make every random data just by calling `typia.random<T>()` function.
+`typia.random<T>` returns a value that satisfies `T`. Use it for test fixtures, seeding databases, or building demos without writing factory functions by hand.
 
-When you call the `typia.random<T>()` function, `typia` will analyze your type `T`, and writes optimal random generation code for the type `T`, in the compilation level. This is called AOT (Ahead of Time) compilation, and you may understand what it is just by reading below example code.
+It honors every [type tag](/docs/validators/tags) you put on the type: `tags.Format<"email">` will produce an email, `tags.Minimum<0> & tags.Maximum<100>` will pick a number in that range, `tags.MaxLength<8>` will cap a string's length.
 
-<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+## First example
+
+```typescript copy filename="hello-random.ts"
+import typia, { tags } from "typia";
+
+interface User {
+  id: string & tags.Format<"uuid">;
+  email: string & tags.Format<"email">;
+  age: number & tags.Type<"uint32"> & tags.Minimum<19> & tags.Maximum<99>;
+  hobbies: string[];
+}
+
+const user = typia.random<User>();
+// e.g.
+// {
+//   id: "b6e0…",
+//   email: "abc@example.com",
+//   age: 47,
+//   hobbies: ["wzPwLvO", "u_a-mqQ"],
+// }
+```
+
+<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
   <Tabs.Tab>
     <LocalSource
       path="examples/src/random/random.ts"
@@ -50,16 +53,10 @@ When you call the `typia.random<T>()` function, `typia` will analyze your type `
   </Tabs.Tab>
 </Tabs>
 
-## Reusable function
-
-<Tabs items={[
-  <code>typia</code>,
-  <code>IRandomGenerator.ts</code>,
-  <code>Resolved.ts</code>,
-]}>
+<Tabs items={[<code>typia</code>, <code>IRandomGenerator.ts</code>, <code>Resolved.ts</code>]}>
   <Tabs.Tab>
 ```typescript copy
-export function createRandom<T>(): (g?: IRandomGenerator) => Resolved<T>;
+export function random<T>(g?: Partial<IRandomGenerator>): Resolved<T>;
 ```
   </Tabs.Tab>
   <Tabs.Tab>
@@ -76,16 +73,43 @@ export function createRandom<T>(): (g?: IRandomGenerator) => Resolved<T>;
   </Tabs.Tab>
 </Tabs>
 
-## Special Tags
+## Reusable factory
 
-Runtime validators of `typia` provides additional type checking logic through [Type Tags](../validators/tags#type-tags) and [Comment Tags](../validators/tags#comment-tags). `typia.random<T>()` function also like that. `typia.random<T>()` function can utilize those tags to specialize the behavior of random data generation.
+```typescript copy
+const randomUser = typia.createRandom<User>();
 
-For reference, whether you choose [Type Tags](../validators/tags#type-tags) or [Comment Tags](../validators/tags#comment-tags). `typia.random<T>()`, it is not a matter for `typia.random<T>()` function. Below two TypeScript codes are generating exactly same JavaScript code. Therefore, you can choose whatever you want considering your preference.
+const a = randomUser();
+const b = randomUser({ /* custom generator overrides */ });
+```
+
+<Tabs items={[<code>typia</code>, <code>IRandomGenerator.ts</code>, <code>Resolved.ts</code>]}>
+  <Tabs.Tab>
+```typescript copy
+export function createRandom<T>(): (g?: Partial<IRandomGenerator>) => Resolved<T>;
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource
+      path="packages/interface/src/utils/IRandomGenerator.ts"
+      filename="@typia/interface"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource
+      path="packages/interface/src/typings/Resolved.ts"
+      filename="@typia/interface"
+      showLineNumbers />
+  </Tabs.Tab>
+</Tabs>
+
+## Tags in action
+
+The constraints you'd normally use for runtime validation also pin down what `random` produces. Type tags and comment tags compile to the same code, so either style works:
 
 <Tabs items={[
   'TypeScript (Type Tags)',
   'TypeScript (Comment Tags)',
-  'Compiled JavaScript File'
+  'Compiled JavaScript'
 ]}>
   <Tabs.Tab>
     <LocalSource
@@ -107,41 +131,13 @@ For reference, whether you choose [Type Tags](../validators/tags#type-tags) or [
   </Tabs.Tab>
 </Tabs>
 
-## Customization
+> For long-running test suites and especially anything that goes into a real database, prefer type tags — typos in comment tags fall back to defaults silently. See [Special Tags](/docs/validators/tags#comment-tags--for-older-codebases) for the trade-off.
 
-<Tabs items={[
-  <code>typia</code>,
-  <code>IRandomGenerator.ts</code>,
-  <code>Resolved.ts</code>,
-]}>
-  <Tabs.Tab>
-```typescript copy
-export function random<T>(g?: IRandomGenerator): Resolved<T>;
-```
-  </Tabs.Tab>
-  <Tabs.Tab>
-    <LocalSource
-      path="packages/interface/src/utils/IRandomGenerator.ts"
-      filename="@typia/interface"
-      showLineNumbers />
-  </Tabs.Tab>
-  <Tabs.Tab>
-    <LocalSource
-      path="packages/interface/src/typings/Resolved.ts"
-      filename="@typia/interface"
-      showLineNumbers />
-  </Tabs.Tab>
-</Tabs>
+## Custom tags — custom generators
 
-You can add custom type tags for random data generation.
+Defining a custom [type tag](/docs/validators/tags#customization) for validation also gives you a hook for random generation. When you write `validate` on the tag, typia uses it for `assert`/`is`/`validate` — and uses the tag's `kind` to look up a generator on the runtime `IRandomGenerator`.
 
-As above `IRandomGenerator.CustomMap` has a little bit complicate type, it may hard to understand for newcomers. However, such newcomers may easily understand, how to customize the random generation, just by reading the following example.
-
-Just define custom type tags like below, then everything would be done.
-
-For reference, when defining custom type tag, `typia` enforces user to define `validate` function literal for type safety. Never forget it when you define custom type tags for random generation. Such validation logic definition may enhance your random data generator logic when combining with [`typia.assert<T>()`](../validators/assert) function.
-
-<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
   <Tabs.Tab>
     <LocalSource
       path="examples/src/random/random-custom.ts"
@@ -155,3 +151,11 @@ For reference, when defining custom type tag, `typia` enforces user to define `v
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>
+
+A custom tag without a `validate` is fine for documentation purposes, but if you want `random` to actually produce values that satisfy it, define the validation logic. The same `validate` then doubles as the check used by `typia.assert<T>`.
+
+## Where to go next
+
+- The full tag catalogue → [Special Tags](/docs/validators/tags)
+- Validating randomly-generated data round-trips → [`assert`](/docs/validators/assert)
+- Cloning / pruning random values → [Miscellaneous module](/docs/misc)

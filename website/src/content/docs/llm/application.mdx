@@ -5,119 +5,115 @@ import { Callout, Tabs } from "nextra/components";
 
 import LocalSource from "../../../components/LocalSource";
 
-## `application()` function
+# `typia.llm.application` — turn a TypeScript class into LLM tools
 
-<Tabs items={[
-    <code>typia</code>,
-    <code>ILlmApplication</code>,
-    <code>ILlmFunction</code>,
-    <code>ILlmSchema</code>,
-  ]}>
+> [!TIP]
+>
+> This is the **class-based** LLM tool API — for when the LLM picks one of several methods and fills its arguments. If you just want **one specific JSON shape** out of the LLM (no method selection), use [`structuredOutput`](/docs/llm/structuredOutput). If you want LLM tools generated from an **existing REST API**, use [`HttpLlm`](/docs/llm/http).
+
+Modern LLMs (OpenAI, Anthropic, Gemini, …) can decide on their own when to call a function and how to fill its arguments — provided you describe the function's signature in JSON Schema. That description is what "[function calling](https://platform.openai.com/docs/guides/function-calling)" needs.
+
+`typia.llm.application<Class>()` generates that description automatically. You write a normal TypeScript class with normal TypeScript types and JSDoc comments. typia turns each method into a tool, with parameters typed as JSON Schema and validation, parsing, and type coercion already wired up.
+
+```typescript copy filename="hello-application.ts"
+import typia from "typia";
+
+class BbsArticleService {
+  /** Create a new article. */
+  create(props: { input: { title: string; body: string } }): Promise<{ id: string }> { /* … */ }
+
+  /** List recent articles. */
+  recent(props: { limit: number }): Promise<{ items: Array<{ id: string; title: string }> }> { /* … */ }
+}
+
+const app = typia.llm.application<BbsArticleService>();
+//  app.functions[0] = { name: "create", parameters: {...JSON Schema...}, parse, coerce, validate, … }
+//  app.functions[1] = { name: "recent", ... }
+```
+
+Hand `app.functions` (or one of the framework adapters below) to your LLM SDK and the model can now invoke `create` and `recent` with arguments it composes from natural language.
+
+<Tabs items={[<code>typia</code>, <code>ILlmApplication</code>, <code>ILlmFunction</code>, <code>ILlmSchema</code>]}>
   <Tabs.Tab>
-```typescript filename="typia" showLineNumbers {2-9}
+```typescript filename="typia" showLineNumbers
 export namespace llm {
-  // LLM FUNCTION CALLING APPLICATION SCHEMA
   export function application<
     App extends Record<string, any>,
     Config extends Partial<ILlmSchema.IConfig> = {},
   >(
     config?: Partial<Pick<ILlmApplication.IConfig, "validate">>,
   ): ILlmApplication;
-
-  // STRUCTURED OUTPUT
-  export function parameters<
-    Parameters extends Record<string, any>,
-    Config extends Partial<ILlmSchema.IConfig> = {},
-  >(): ILlmSchema.IParameters;
-
-  // TYPE SCHEMA
-  export function schema<
-    T,
-    Config extends Partial<ILlmSchema.IConfig> = {},
-  >(
-    $defs: Record<string, ILlmSchema>,
-  ): ILlmSchema;
 }
 ```
   </Tabs.Tab>
   <Tabs.Tab>
-    <LocalSource 
+    <LocalSource
       path="packages/interface/src/schema/ILlmApplication.ts"
       filename="@typia/interface"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <LocalSource 
+    <LocalSource
       path="packages/interface/src/schema/ILlmFunction.ts"
       filename="@typia/interface"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <LocalSource 
+    <LocalSource
       path="packages/interface/src/schema/ILlmSchema.ts"
       filename="@typia/interface"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>
 
-LLM function calling application schema from a native TypeScript class or interface type.
-
-`typia.llm.application<App>()` is a function composing LLM (Large Language Model) calling application schema from a native TypeScript class or interface type. The function returns an `ILlmApplication` instance, which is a data structure representing a collection of LLM function calling schemas — each with built-in `parse()`, `coerce()`, and `validate()` methods.
-
-If you put LLM function schema instances registered in the `ILlmApplication.functions` to the LLM provider like `OpenAI ChatGPT`, the LLM will select a proper function to call with parameter values of the target function in the conversations with the user. This is the "LLM Function Calling".
-
-Let's make A.I. Chatbot super-easily with `typia.llm.application<App>()` function.
-
 <Callout type="info">
-**LLM Function Calling** and **Structured Output**
+**Quick glossary — function calling vs. structured output**
 
-LLM selects proper function and fill arguments.
+- **Function calling**: the LLM picks one of several functions and fills its arguments. You execute the function and feed the result back. ([OpenAI docs](https://platform.openai.com/docs/guides/function-calling))
+- **Structured output**: the LLM doesn't pick anything — it just emits one specific JSON shape you asked for. ([OpenAI docs](https://platform.openai.com/docs/guides/structured-outputs))
 
-In nowadays, most LLM (Large Language Model) like OpenAI are supporting "function calling" feature. The "LLM function calling" means that LLM automatically selects a proper function and fills parameter values from conversation with the user (may by chatting text).
-
-Structured output is another feature of LLM. The "structured output" means that LLM automatically transforms the output conversation into a structured data format like JSON.
-
-- https://platform.openai.com/docs/guides/function-calling
-- https://platform.openai.com/docs/guides/structured-outputs
+`typia.llm.application` is for function calling. For structured output, use [`typia.llm.structuredOutput<T>()`](/docs/llm/structuredOutput).
 </Callout>
 
+## Full example
+
 <Tabs items={[
-    "TypeScript Source Code",
+    "TypeScript Source",
     "Compiled JavaScript",
     <code>BbsArticleService</code>,
     <code>IBbsArticle</code>,
   ]}>
   <Tabs.Tab>
-    <LocalSource 
+    <LocalSource
       path="examples/src/llm/application.ts"
       filename="example/src/llm/application.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <LocalSource 
+    <LocalSource
       path="examples/bin/llm/application.js"
       filename="example/bin/llm/application.js"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <LocalSource 
+    <LocalSource
       path="examples/src/llm/BbsArticleService.ts"
       filename="examples/src/llm/BbsArticleService.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <LocalSource 
+    <LocalSource
       path="examples/src/llm/IBbsArticle.ts"
       filename="examples/src/llm/IBbsArticle.ts"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>
 
-> [💻 Playground Link](/playground/?script=JYWwDg9gTgLgBAbzgSQDIBsQEExncAYwEMZgIA7OAXzgDMoIQ4AiAAQGciQCALCgeghgApuSJhgzANwAoUJFhwYATwlE6DJsxVrpMuHPDR4SAEIAjdlliF0wgMrCoAN0LDqGxiwB0-C1ZsCO0cXNz0DAgp2eHEwAC4UDGxcfGJSCjgAXiVVYCJvdExvWNSSMnIAHn9rUiCHJ1cCYQA+AAoASllI8nYIOwKIAHNW2M6gA)
+> [💻 Open in Playground](/playground/?script=JYWwDg9gTgLgBAbzgSQDIBsQEExncAYwEMZgIA7OAXzgDMoIQ4AiAAQGciQCALCgeghgApuSJhgzANwAoUJFhwYATwlE6DJsxVrpMuHPDR4SAEIAjdlliF0wgMrCoAN0LDqGxiwB0-C1ZsCO0cXNz0DAgp2eHEwAC4UDGxcfGJSCjgAXiVVYCJvdExvWNSSMnIAHn9rUiCHJ1cCYQA+AAoASllI8nYIOwKIAHNW2M6gA)
 
-## Integrations
+## Plug it into your LLM SDK
 
-`typia.llm.controller<Class>()` wraps a TypeScript class into an `ILlmController` that can be plugged into any supported framework. Every class method becomes a tool — JSDoc comments become descriptions, TypeScript types become JSON schemas, and validation feedback is embedded automatically.
+`typia.llm.controller<Class>(name, instance)` wraps the schema together with an executable instance. You pass the controller to an adapter and the adapter does the wiring:
 
 <Tabs items={["Vercel AI SDK", "LangChain", "Model Context Protocol"]}>
   <Tabs.Tab>
@@ -131,10 +127,7 @@ import { BbsArticleService } from "./BbsArticleService";
 
 const tools: Record<string, Tool> = toVercelTools({
   controllers: [
-    typia.llm.controller<BbsArticleService>(
-      "bbs",
-      new BbsArticleService(),
-    ),
+    typia.llm.controller<BbsArticleService>("bbs", new BbsArticleService()),
   ],
 });
 
@@ -159,10 +152,7 @@ import { BbsArticleService } from "./BbsArticleService";
 
 const tools: DynamicStructuredTool[] = toLangChainTools({
   controllers: [
-    typia.llm.controller<BbsArticleService>(
-      "bbs",
-      new BbsArticleService(),
-    ),
+    typia.llm.controller<BbsArticleService>("bbs", new BbsArticleService()),
   ],
 });
 
@@ -197,31 +187,58 @@ const server: McpServer = new McpServer({
 registerMcpControllers({
   server,
   controllers: [
-    typia.llm.controller<BbsArticleService>(
-      "bbs",
-      new BbsArticleService(),
-    ),
+    typia.llm.controller<BbsArticleService>("bbs", new BbsArticleService()),
   ],
 });
 ```
   </Tabs.Tab>
 </Tabs>
 
-## The Function Calling Harness
+Same controller, three different transports. Pick whichever your project already uses.
 
-The **function calling harness** is typia's three-layer pipeline that turns unreliable LLM output into 100% correct structured data:
+## The function calling harness
 
-1. **Lenient JSON Parsing** — recovers broken JSON (unclosed brackets, trailing commas, markdown wrapping, etc.)
-2. **Type Coercion** — fixes wrong types (`"42"` → `42`, double-stringified objects → objects, etc.)
-3. **Validation Feedback** — pinpoints remaining value errors with inline `// ❌` annotations so the LLM can self-correct and retry
+LLM output is unreliable. Even capable models routinely:
 
-Each layer catches what the previous one didn't. Together they form a deterministic correction loop around the probabilistic LLM.
+- close a JSON object with the wrong bracket
+- wrap their answer in a ```` ```json ```` markdown block
+- return `"42"` when the schema expects a `number`
+- emit a double-stringified object: `"\"{\\\"x\\\":1}\""` instead of `{ x: 1 }`
 
-### Lenient JSON Parsing & Type Coercion
+The `ILlmFunction` typia generates carries **three methods**:
+
+1. **`parse(text)`** — lenient JSON parsing **with** type coercion based on the schema
+2. **`coerce(obj)`** — type coercion only (use when the SDK already JSON-parsed for you)
+3. **`validate(obj)`** — full schema validation; returns `IValidation<unknown>`
+
+Plus a fourth helper that lives on `@typia/utils` because it doesn't depend on a specific function's schema:
+
+4. **`LlmJson.stringify(failure)`** — format the validator's errors as annotated JSON the LLM can read
+
+Together they form a deterministic correction loop around the probabilistic LLM:
+
+```
+LLM text  ─→  parse()   ─→  coerced object
+                              │
+                              ▼
+                            validate()
+                              │
+                  ┌───────────┴────────────┐
+                  ▼                        ▼
+                success                 failure
+                  │                        │
+                  ▼                        ▼
+              execute            stringify errors back
+                                  to the LLM, retry
+```
+
+See [LLM JSON utilities](/docs/llm/json) for the full mechanics — lenient features supported, coercion rules, and the feedback-loop pattern. The same machinery powers `structuredOutput`, `parameters`, and the HTTP-based [`HttpLlm.controller`](/docs/llm/http).
+
+### Parse and coerce in practice
 
 <Tabs items={[
-    "Parsing Example",
-    "Coercing Example",
+    "Parsing (text → object)",
+    "Coercing (object → object)",
     <code>ILlmFunction</code>,
   ]}>
   <Tabs.Tab>
@@ -247,43 +264,29 @@ Each layer catches what the previous one didn't. Together they form a determinis
   </Tabs.Tab>
 </Tabs>
 
-Each `ILlmFunction` includes a `parse()` method for handling LLM JSON outputs. This parser is specifically designed for the messy reality of LLM responses:
+<Callout type="info">
+**Which one do you call — `parse` or `coerce`?**
 
-**Lenient JSON Features:**
-- Unclosed brackets `{`, `[` and strings
-- Trailing commas `[1, 2, 3, ]`
-- JavaScript-style comments (`//` and `/* */`)
-- Unquoted object keys (JavaScript identifier style)
-- Incomplete keywords (`tru`, `fal`, `nul`)
-- Markdown code block extraction (` ```json ... ``` `)
-- Junk text prefix skipping (explanatory text LLMs often add)
+- LLM gives you a raw string (OpenAI `chat.completions` content, etc.) → call `parse(text)`.
+- SDK already JSON-parsed for you (Anthropic, Vercel AI, LangChain, MCP) → call `coerce(obj)`.
 
-**Type Coercion:**
-
-LLMs frequently return wrong types — numbers as strings, booleans as strings, or even double-stringified JSON objects. `ILlmFunction.parse()` automatically coerces these based on the function's parameter schema.
+`parse` is just `coerce` with lenient JSON parsing in front. Run only one.
+</Callout>
 
 <Callout type="warning">
-**0% → 100% Success Rate on Union Types**
+**Double-stringified objects are common — and the coercion layer rescues them**
 
-`Qwen3.5` model shows 0% success rate when handling union types with double-stringified JSON objects. With `ILlmFunction.parse()` type coercion, the success rate jumps to 100%.
+Many LLMs emit a JSON-stringified value where the schema expects an object — `"{\"x\":1}"` instead of `{ x: 1 }`. Without coercion, validation rejects every one of those responses. With `parse`/`coerce` the schema-aware coercion descends through the string-wrapped layers and produces typed data. The AutoBe production data below shows the same kind of effect on much harder structures.
 </Callout>
 
-<Callout type="info">
-**For Pre-parsed Objects, Use `ILlmFunction.coerce()`**
+### Validation feedback
 
-Some LLM SDKs (Anthropic, Vercel AI, LangChain, MCP) parse JSON internally and return JavaScript objects directly. In these cases, use `ILlmFunction.coerce()` instead of `ILlmFunction.parse()` to fix types without re-parsing.
-
-For more details, see [JSON Utilities](./json).
-</Callout>
-
-### Validation Feedback
+After `parse`/`coerce`, run `validate` to verify constraints (formats, ranges, lengths). On failure, format the errors with `LlmJson.stringify` from `@typia/utils` — the output is annotated JSON the LLM can read and self-correct:
 
 <LocalSource
   path="examples/src/llm/application-validate.ts"
   filename="examples/src/llm/application-validate.ts"
   showLineNumbers />
-
-`typia.llm.application<App>()` embeds [`typia.validate<T>()`](/docs/validators/validate) in every function for automatic argument validation. When validation fails, use `LlmJson.stringify()` from `@typia/utils` to format errors with inline `// ❌` comments:
 
 ```json
 {
@@ -306,93 +309,85 @@ For more details, see [JSON Utilities](./json).
 }
 ```
 
-The LLM reads this feedback and self-corrects on the next turn. Together with lenient parsing and type coercion above, this parse → coerce → validate → feedback → retry cycle completes the harness.
+Send that block back as a system message ("you made these mistakes — fix them"). The model reads the inline annotations and corrects on the next turn. The full pattern lives at [LlmJson](/docs/llm/json#putting-it-all-together--the-validation-feedback-loop).
 
 <Callout type="info">
-**In Production**
+**Real-world numbers**
 
-In the [AutoBe](https://github.com/wrtnlabs/autobe) project (AI-powered backend code generator by [Wrtn Technologies](https://wrtn.io)), `qwen3-coder-next` showed only **6.75%** raw function calling success rate on compiler AST types. With the complete harness, it reached **100%** — across all four tested Qwen models.
+In [AutoBe](https://github.com/wrtnlabs/autobe) — an AI backend generator built by Wrtn Technologies — `qwen3-coder-next` produced **6.75%** correct function calls on compiler AST types when used naively. With the typia harness wrapping it, the success rate hit **100%** across all four tested Qwen models.
 
-AutoBe once shipped a build with the system prompt completely missing. Nobody noticed — output quality was identical. The types were the best prompt; the harness was the best orchestration.
-
-Working on compiler AST means working on any type and any use case.
+AutoBe once shipped a build with the system prompt completely empty. Nobody noticed — the types were doing the work the prompt would have done.
 
   - [AutoBeDatabase](https://github.com/wrtnlabs/autobe/blob/main/packages/interface/src/database/AutoBeDatabase.ts)
   - [AutoBeOpenApi](https://github.com/wrtnlabs/autobe/blob/main/packages/interface/src/openapi/AutoBeOpenApi.ts)
   - [AutoBeTest](https://github.com/wrtnlabs/autobe/blob/main/packages/interface/src/test/AutoBeTest.ts)
 </Callout>
 
-```typescript filename="AutoBeTest.IExpression" showLineNumbers
-// Compiler AST may be the hardest type structure possible
-//
-// Unlimited union types + unlimited depth + recursive references
+```typescript filename="AutoBeTest.IExpression — how hard a type the harness solves" showLineNumbers
+// Unlimited unions × unlimited depth × recursive references
 export type IExpression =
   | IBooleanLiteral
   | INumericLiteral
   | IStringLiteral
-  | IArrayLiteralExpression   // <- recursive (contains IExpression[])
-  | IObjectLiteralExpression  // <- recursive (contains IExpression)
+  | IArrayLiteralExpression   // recursive (contains IExpression[])
+  | IObjectLiteralExpression  // recursive
   | INullLiteral
   | IUndefinedKeyword
   | IIdentifier
-  | IPropertyAccessExpression // <- recursive
-  | IElementAccessExpression  // <- recursive
-  | ITypeOfExpression         // <- recursive
-  | IPrefixUnaryExpression    // <- recursive
-  | IPostfixUnaryExpression   // <- recursive
-  | IBinaryExpression         // <- recursive (left & right)
-  | IArrowFunction            // <- recursive (body is IExpression)
-  | ICallExpression           // <- recursive (args are IExpression[])
-  | INewExpression            // <- recursive
-  | IConditionalPredicate     // <- recursive (then & else branches)
+  | IPropertyAccessExpression // recursive
+  | IElementAccessExpression  // recursive
+  | ITypeOfExpression         // recursive
+  | IPrefixUnaryExpression    // recursive
+  | IPostfixUnaryExpression   // recursive
+  | IBinaryExpression         // recursive (left & right)
+  | IArrowFunction            // recursive (body is IExpression)
+  | ICallExpression           // recursive (args)
+  | INewExpression            // recursive
+  | IConditionalPredicate     // recursive (then & else)
   | ... // 30+ expression types total
 ```
 
+## Strict mode — reject extra properties
+
+By default the auto-generated `ILlmFunction.validate` is lenient: arguments with extra (unexpected) properties pass validation. To reject them, set the `equals: true` config:
+
+```typescript copy
+const app = typia.llm.application<BbsArticleService, { equals: true }>();
+```
+
+`{ equals: true }` does two things:
+
+- Switches the embedded validator to `validateEquals` semantics — any property not declared on the parameter type becomes a validation error
+- Sets `additionalProperties: false` on the parameter schemas, so the LLM is told upfront which fields are allowed
+
+Same switch works on [`structuredOutput`](/docs/llm/structuredOutput#strict-mode--reject-extra-properties) and `controller`. Leave it `false` for chat-style agents (more tolerant of model variability), turn it on for production tools where extra fields would be a real bug.
+
 ## Restrictions
 
-`typia.llm.application<App>()` follows the same restrictions of below.
+The compile-time transform enforces the LLM function-calling contract on every method:
 
-About the function parameters type, it follows the restriction of both [`typia.llm.parameters<Params>()`](../parameters) and [`typia.llm.schema<T>()`](../schema) functions. Therefore, the parameters must be a keyworded object type with static keys without any dynamic keys. Also, the object type must not be nullable or optional.
+- **Each method takes exactly one keyworded-object parameter.** LLMs invoke functions with named arguments, so `add(x: number, y: number)` is rejected. Wrap the args: `add(props: { x: number; y: number })`.
+- **Each method returns a keyworded-object type** (e.g. `{ value: number }`, `{ items: T[] }`) **or `void`.** Primitives, arrays, and `T | undefined` are rejected. If you need to return one, wrap it.
+- **Object parameter and return types may not have dynamic keys.** `Record<string, number>` won't work — use `Array<{ key: string; value: number }>`.
 
-About the return value type, it also follows the restriction of [`typia.llm.parameters<Params>()`](../parameters) function. Therefore, the return type must be a keyworded object type with static keys, or `void`. Primitive types (like `number`, `string`, `boolean`), array types, and union types with `undefined` are not allowed as return types. If you need to return a primitive or array value, wrap it in an object type (e.g., `{ value: number }` or `{ items: T[] }`).
-
-  - [`typia.llm.parameters<Params>()`](../parameters)
-  - [`typia.llm.schema<T>()`](../schema)
-
-<Tabs items={["TypeScript Source Code", "Console Output"]}>
+<Tabs items={["Source That Won't Compile", "Compiler Errors"]}>
   <Tabs.Tab>
 ```typescript filename="example/src/llm/application.violation.ts" showLineNumbers
 import typia, { ILlmApplication, tags } from "typia";
 
 const app: ILlmApplication = typia.llm.application<BbsArticleController>();
 
-console.log(app);
-
 interface BbsArticleController {
-  /**
-   * Create a new article.
-   *
-   * Writes a new article and archives it into the DB.
-   *
-   * @param props Properties of create function
-   * @returns Newly created article
-   */
-  create(props: {
-    /**
-     * Information of the article to create
-     */
-    input: IBbsArticle.ICreate;
-  }): Promise<IBbsArticle | undefined>;
+  /** Create a new article and return it. */
+  create(props: { input: IBbsArticle.ICreate }): Promise<IBbsArticle | undefined>;
+  //                                            ^ return must not be union with undefined
 
-  /**
-   * Add two numbers.
-   *
-   * @param props Properties of add function
-   * @returns The sum value
-   */
+  /** Add two numbers. */
   add(props: { x: number; y: number }): number;
+  //                                    ^ return must be an object
 
   erase(id: string & tags.Format<"uuid">): Promise<void>;
+  //    ^ parameter must be a keyworded object, not a primitive
 }
 ```
   </Tabs.Tab>
@@ -408,12 +403,17 @@ src/examples/llm.application.violation.ts:4:29 - error TS(typia.llm.application)
 
 - BbsArticleController.erase: unknown
   - LLM application's function ("erase")'s parameter must be an object type.
-
-4 const app: ILlmApplication = typia.llm.application<BbsArticleController>();
-                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-Found 1 error in src/examples/llm.application.violation.ts:4
 ```
   </Tabs.Tab>
 </Tabs>
+
+For deeper type-level rules see [`llm.parameters`](/docs/llm/parameters) and [`llm.schema`](/docs/llm/schema).
+
+## Where to go next
+
+- Tutorial walkthrough → [Tutorial: LLM function calling](/docs/tutorial/llm)
+- Just need a schema for structured output → [`llm.structuredOutput`](/docs/llm/structuredOutput) or [`llm.parameters`](/docs/llm/parameters)
+- The harness mechanics in depth → [`LlmJson` utilities](/docs/llm/json)
+- Same idea from an OpenAPI document → [`HttpLlm`](/docs/llm/http)
+- Building a full chatbot on top → [Agentica](/docs/llm/chat)
+- Description, hiding, and namespacing tips → [Documentation Strategy](/docs/llm/strategy)

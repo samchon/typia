@@ -1,0 +1,196 @@
+---
+title: Tutorial > 5. LLM function calling
+---
+
+# Step 5 — LLM function calling
+
+So far, only humans have called our bookmark service. Now we'll let an LLM call it. The user types something like *"Save https://typia.io for me, tag it as docs"* — the LLM picks the right method on a `BookmarkService` class, fills the arguments from the conversation, and we execute the call.
+
+The whole "describe the service to the LLM" step is **one line**.
+
+## The service
+
+A small class with two methods. Notice it's just TypeScript — no decorators, no schemas. JSDoc comments will become the LLM-facing descriptions.
+
+```typescript copy filename="src/BookmarkService.ts"
+import { randomUUID } from "node:crypto";
+import typia from "typia";
+
+import { Bookmark } from "./bookmark";
+import { loadAll, saveAll } from "./store";
+
+export class BookmarkService {
+  /**
+   * Add a new bookmark.
+   *
+   * The id and createdAt are generated server-side — don't ask the user for them.
+   * Use the URL the user gave you verbatim, and pick a short title from the user's
+   * description (or from the URL host if they didn't say).
+   */
+  async add(props: {
+    /** The URL the user wants to save. Must be a valid URL. */
+    url: Bookmark["url"];
+    /** A short human-readable title. */
+    title: Bookmark["title"];
+    /** Optional one-paragraph description. */
+    description?: Bookmark["description"];
+    /** At least one tag, e.g. ["docs", "validation"]. */
+    tags: Bookmark["tags"];
+  }): Promise<{ id: Bookmark["id"] }> {
+    const all = await loadAll();
+    const bookmark: Bookmark = {
+      id: randomUUID(),
+      url: props.url,
+      title: props.title,
+      ...(props.description !== undefined && {
+        description: props.description,
+      }),
+      tags: props.tags,
+      createdAt: new Date().toISOString(),
+    };
+    await saveAll([...all, bookmark]);
+    return { id: bookmark.id };
+  }
+
+  /**
+   * List bookmarks tagged with a given keyword.
+   */
+  async list(props: { tag: string }): Promise<{ items: Bookmark[] }> {
+    const all = await loadAll();
+    return { items: all.filter((b) => b.tags.includes(props.tag)) };
+  }
+}
+```
+
+> The LLM-application schema has two rules: every method must take **one keyworded-object parameter**, and the return type must be an **object** (or `void`). If you ever try to write `add(url: string, tags: string[])` directly, the compiler will reject it — see [restrictions](/docs/llm/application#restrictions).
+
+## Turn the class into LLM tools
+
+```typescript copy filename="src/05-llm.ts"
+import typia from "typia";
+
+import { BookmarkService } from "./BookmarkService";
+
+const app = typia.llm.application<BookmarkService>();
+
+for (const fn of app.functions) {
+  console.log(fn.name);
+  console.log(fn.description);
+  console.log(JSON.stringify(fn.parameters, null, 2));
+  console.log("---");
+}
+```
+
+Run it. typia generated an `ILlmApplication` that holds two functions (`add` and `list`), each with the full JSON Schema for its parameters, the JSDoc as the description, and the validation/parse/coerce methods you'll see in a moment.
+
+## Hand it to an LLM
+
+Pick whichever SDK you already use — the same `typia.llm.controller<Class>(name, instance)` plugs into all three. We'll use the [Vercel AI SDK](https://github.com/vercel/ai) because it's the shortest.
+
+> [!TIP]
+>
+> Running this step calls the OpenAI API, which costs a few cents per invocation. If you don't have an OpenAI account, reading the code is enough to follow the rest of the tutorial — you can come back later. You'll need `OPENAI_API_KEY` in your environment:
+>
+> ```bash
+> # macOS / Linux
+> export OPENAI_API_KEY=sk-...
+>
+> # Windows PowerShell
+> $env:OPENAI_API_KEY = "sk-..."
+> ```
+>
+> Or use a `.env` file with `dotenv` if you prefer.
+
+```bash filename="Terminal"
+npm i @ai-sdk/openai @typia/vercel ai
+```
+
+Then:
+
+```typescript copy filename="src/05-vercel.ts"
+import { openai } from "@ai-sdk/openai";
+import { toVercelTools } from "@typia/vercel";
+import { generateText } from "ai";
+import type { Tool } from "ai";
+import typia from "typia";
+
+import { BookmarkService } from "./BookmarkService";
+
+const tools: Record<string, Tool> = toVercelTools({
+  controllers: [
+    typia.llm.controller<BookmarkService>(
+      "bookmarks",
+      new BookmarkService(),
+    ),
+  ],
+});
+
+const result = await generateText({
+  model: openai("gpt-4o"),
+  tools,
+  prompt: "Save https://typia.io for me — tag it as docs and typescript.",
+});
+
+console.log(result.text);
+```
+
+Run it (you need `OPENAI_API_KEY` in your environment). The model picks the `add` tool, fills `url`, `title`, and `tags` from the prompt, and the SDK actually invokes `BookmarkService.add(...)` against your local file. (If you'd rather have the tool names prefixed with the controller name, pass `toVercelTools({ controllers, prefix: true })` — then the tool is `bookmarks_add`.)
+
+> Same idea, different SDK:
+>
+> - LangChain → `toLangChainTools({ controllers })` from [`@typia/langchain`](/docs/utilization/langchain)
+> - MCP server → `registerMcpControllers({ server, controllers })` from [`@typia/mcp`](/docs/utilization/mcp)
+>
+> Same controller. Same harness. Pick whichever transport your project already has.
+
+## Why the LLM almost always gets it right
+
+LLMs are not deterministic. Even capable models routinely:
+
+- pass a single string where the schema wants an array
+- return `"42"` instead of `42`
+- forget to close a JSON bracket
+- wrap the answer in ` ```json ... ``` `
+
+typia wraps the tool in the **three-layer function calling harness** — same one [`llm.application`](/docs/llm/application#the-function-calling-harness) and the other LLM APIs use:
+
+| Layer | Method(s) | What it does |
+|-------|-----------|--------------|
+| 1. Lenient JSON parsing | `func.parse(text)` | Accept malformed JSON, strip markdown fences, recover unclosed brackets |
+| 2. Type coercion | `func.parse(text)` or `func.coerce(obj)` | `"42"` → `42`, `"true"` → `true`, recursively, based on the schema |
+| 3. Validation feedback | `func.validate(args)` + `LlmJson.stringify(failure)` | Check formats/ranges/lengths, then format the errors as annotated JSON the model can read |
+
+`parse` covers layers 1 and 2 in one call (use it when the LLM gave you a raw string). `coerce` is just layer 2 (use it when the SDK already JSON-parsed). `validate + stringify` form layer 3.
+
+Run the harness, send the annotated errors back as a system message, retry. In production at [AutoBe](https://github.com/wrtnlabs/autobe) this took a Qwen model from **6.75% raw success** to **100%** on compiler AST types — the hardest realistic test case there is.
+
+The framework adapters (`@typia/vercel`, `@typia/langchain`, `@typia/mcp`) already wire all three layers for you. When validation fails, the tool returns an error-annotated payload to the model and the model self-corrects on its own next turn. You usually don't write the feedback loop yourself — but if you want to, see [`LlmJson`](/docs/llm/json#putting-it-all-together--the-validation-feedback-loop) for the full pattern.
+
+## A peek at the feedback format
+
+When the LLM produces an invalid argument, the tool's failure response looks like this:
+
+```json
+{
+  "url": "lol",                   // ❌ [{"path":"$input.url","expected":"string & Format<\"url\">"}]
+  "title": "",                     // ❌ [{"path":"$input.title","expected":"string & MinLength<1>"}]
+  "tags": []                       // ❌ [{"path":"$input.tags","expected":"Array<…> & MinItems<1>"}]
+}
+```
+
+The model reads "expected `string & Format<\"url\">`" and tries again with a real URL. Without that information, it has to guess what went wrong from a generic 400 error and ends up retrying randomly.
+
+## Structured output (no function picking involved)
+
+If all you need is "ask the LLM for one specific JSON shape," skip the class — use [`typia.llm.structuredOutput<T>()`](/docs/llm/structuredOutput) or [`typia.llm.parameters<T>()`](/docs/llm/parameters). They give you the schema and the parse/coerce/validate trio without the function-calling layer on top.
+
+## What you've done
+
+- Wrote a normal TypeScript class
+- Turned its methods into LLM tools with one line
+- Plugged the result into the Vercel AI SDK (or any other supported framework)
+- Got automatic validation, coercion, and self-correction for free
+
+Next we'll plug the same `BookmarkService` into Hono so it's reachable from a normal HTTP client — and we'll share the same `Bookmark` type between validation, the HTTP handler, and the LLM tools.
+
+→ [Step 6: Plug into a framework](/docs/tutorial/integrations)

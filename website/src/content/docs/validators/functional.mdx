@@ -7,136 +7,169 @@ import { Tabs } from "nextra/components";
 
 import LocalSource from "../../../components/LocalSource";
 
-## `assertFunction()`
+# `typia.functional` — wrap a function so its inputs and outputs are checked
 
-<Tabs items={[
-  <code>typia</code>,
-  <code>TypeGuardError.ts</code>
-]}>
-  <Tabs.Tab>
-```typescript showLineNumbers
-export namespace functional {
-  export function assertFunction<T extends Function>(func: T): T;
-  export function assertParameters<T extends Function>(func: T): T;
-  export function assertReturn<T extends Function>(func: T): T;
+Sometimes the value you want to validate isn't a single object — it's *what flows through a function*. `typia.functional` wraps a function so every call validates its arguments against the declared parameter types and its return value against the declared return type. The wrapping is transparent: the wrapped function has the same signature as the original.
 
-  export function assertEqualsFunction<T extends Function>(func: T): T;
-  export function assertEqualsParameters<T extends Function>(func: T): T;
-  export function assertEqualsReturn<T extends Function>(func: T): T;
-}
+```typescript copy filename="hello-functional.ts"
+import typia from "typia";
+
+const add = typia.functional.assertFunction(
+  (x: number, y: number): number => x + y,
+);
+
+add(1, 2);        // → 3
+add(1, "wrong");  // → throws TypeGuardError on $input.parameters[1]
 ```
-  </Tabs.Tab>
-  <Tabs.Tab>
-    <LocalSource 
-      path="packages/typia/src/TypeGuardError.ts" 
-      filename="typia/TypeGuardError.ts" 
-      showLineNumbers />
-  </Tabs.Tab>
-</Tabs>
 
-Asserts a function.
+> [!IMPORTANT]
+>
+> **You must enable the `functional` transformer flag** to use this module — without it, typia skips function types and the wrappers won't be emitted. Add `compilerOptions.plugins` to your `tsconfig.json` (this is one of the few cases where the modern `ttsc` setup also needs the explicit plugin entry; with `ts-patch` the setup wizard already added the entry — you only need to add the flag):
+>
+> ```json filename="tsconfig.json"
+> {
+>   "compilerOptions": {
+>     "plugins": [
+>       { "transform": "typia/lib/transform", "functional": true }
+>     ]
+>   }
+> }
+> ```
 
-`typia.functional.assertFunction<T>()` asserts a function, by wrapping the parameter function and checking its parameters and return value through [`typia.assert<T>()`](../assert) function. If some parameter or return value does not match the expected type, it throws a `TypeGuardError` error.
+## The three families
 
-For reference, `TypeGuardError.path` would be a little bit different with individual [`typia.assert<T>()`](../assert) function. If `TypeGuardError` occurs from some parameter, the path would start from `$input.parameters[<index>]`. Otherwise the path would start from `$input.return`.
+For each underlying validator there is a matching `functional.*` wrapper:
 
-  - `$input.parameters[0].~`
-  - `$input.return.~`
+| Underlying | Wrapper | On failure |
+|------------|---------|------------|
+| [`assert`](/docs/validators/assert) | `functional.assertFunction` | throws `TypeGuardError` |
+| [`is`](/docs/validators/is) | `functional.isFunction` | returns `null` (or `Promise<null>` for async) |
+| [`validate`](/docs/validators/validate) | `functional.validateFunction` | returns `IValidation<Output>` |
 
-By the way, if you don't want to assert both parameters and return value, but one of them, you can use `typia.functional.assertParameters<T>()` or `typia.functional.assertReturn<T>()` instead. Otherwise, if you want to prohibit superfluous properties, `typia.functional.assertEqualsFunction<T>()` would be helpful.
+Each family also gives you scoped variants — check only the parameters, only the return value, or both:
 
-Also, if what you want is not just finding the first type error through assertion, but also finding every type errors, utilize [`typia.functional.validateFunction<T>()`](#validatefunction) function instead. Otherwise, you don't need the reason why, but just want to know whether the function is valid or not, use [`typia.functional.isFunction<T>()`](#isfunction) function.
+| Function | What it checks |
+|----------|----------------|
+| `functional.assertFunction(fn)` | parameters **and** return |
+| `functional.assertParameters(fn)` | parameters only |
+| `functional.assertReturn(fn)` | return only |
+| `functional.isFunction(fn)` | params + return, returns `Output \| null` |
+| `functional.isParameters(fn)` | params only |
+| `functional.isReturn(fn)` | return only |
+| `functional.validateFunction(fn)` | params + return, returns `IValidation<Output>` |
+| `functional.validateParameters(fn)` | params only |
+| `functional.validateReturn(fn)` | return only |
 
-<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-  <Tabs.Tab>
-    <LocalSource 
-      path="examples/src/functional/assertFunction.ts" 
-      filename="examples/src/functional/assertFunction.ts" 
-      showLineNumbers />
-  </Tabs.Tab>
-  <Tabs.Tab>
-    <LocalSource 
-      path="examples/bin/functional/assertFunction.js" 
-      filename="examples/bin/functional/assertFunction.js" 
-      showLineNumbers />
-  </Tabs.Tab>
-</Tabs>
+Each function also has an `…Equals…` variant (e.g. `assertEqualsFunction`) that additionally rejects extra object properties.
 
-## `isFunction()`
+## `assertFunction` — throw the first parameter/return mismatch
 
-```typescript filename="typia" showLineNumbers
+```typescript copy
 export namespace functional {
-  export function isFunction<T extends (...args: any[]) => any>(
-    func: T,
-  ): T extends (...args: infer Arguments) => infer Output
-    ? Output extends Promise<infer R>
-      ? (...args: Arguments) => Promise<R | null>
-      : (...args: Arguments) => Output | null
-    : never;
-  export function isParameters<T extends (...args: any[]) => any>(
-    func: T,
-  ): T extends (...args: infer Arguments) => infer Output
-    ? (...args: Arguments) => Output | null
-    : never;
-  export function isReturn<T extends (...args: any[]) => any>(
-    func: T,
-  ): T extends (...args: infer Arguments) => infer Output
-    ? (...args: Arguments) => Output | null
-    : never;
+  function assertFunction<T extends Function>(func: T): T;
+  function assertParameters<T extends Function>(func: T): T;
+  function assertReturn<T extends Function>(func: T): T;
 
-  export function isEqualsFunction;
-  export function isEqualsParameters;
-  export function isEqualsReturn;
+  function assertEqualsFunction<T extends Function>(func: T): T;
+  function assertEqualsParameters<T extends Function>(func: T): T;
+  function assertEqualsReturn<T extends Function>(func: T): T;
 }
 ```
 
-Tests a function.
+When a parameter is wrong, the `TypeGuardError.path` starts with `$input.parameters[<i>]`:
 
-`typia.functional.isFunction<T>()` tests a function, by wrapping the parameter function and checking its parameters and return value through [`typia.is<T>()`](../is) function. If some parameter or return value does not match the expected type, it returns `null`. Otherwise, it returns the return value of the parameter function.
+```
+TypeGuardError: invalid type on $input.parameters[1], expect to be number
+```
 
-By the way, if you don't want to test both parameters and return value, but one of them, you can use `typia.functional.isParameters<T>()` or `typia.functional.isReturn<T>()` instead. Otherwise, if you want to prohibit superfluous properties, `typia.functional.equalsFunction<T>()` would be helpful.
+When the return value is wrong, the path starts with `$input.return`:
 
-Also, if what you want is not just type checking, but want to know the detailed reason(s) why, utilize [`typia.functional.assertFunction<T>`()](#assertfunction) or [`typia.functional.validateFunction<T>()`](#validatefunction) instead.
+```
+TypeGuardError: invalid type on $input.return.id, expect to be string & Format<"uuid">
+```
 
-<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+Promise returns are handled — the wrapped function still returns a `Promise`, the validation just happens after `await`.
+
+<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
   <Tabs.Tab>
-    <LocalSource 
-      path="examples/src/functional/isFunction.ts" 
-      filename="examples/src/functional/isFunction.ts" 
+    <LocalSource
+      path="examples/src/functional/assertFunction.ts"
+      filename="examples/src/functional/assertFunction.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <LocalSource 
-      path="examples/bin/functional/isFunction.js" 
-      filename="examples/bin/functional/isFunction.js" 
+    <LocalSource
+      path="examples/bin/functional/assertFunction.js"
+      filename="examples/bin/functional/assertFunction.js"
+      showLineNumbers />
+  </Tabs.Tab>
+</Tabs>
+
+## `isFunction` — return `null` on mismatch
+
+```typescript copy
+namespace functional {
+  function isFunction<T>(func: T): /* same signature, output ⇒ Output|null */;
+  function isParameters<T>(func: T): /* same signature, output ⇒ Output|null */;
+  function isReturn<T>(func: T): /* same signature, output ⇒ Output|null */;
+
+  function equalsFunction;
+  function equalsParameters;
+  function equalsReturn;
+}
+```
+
+Drop-in for cases where you'd rather check the return for `null` than catch an exception. Async-aware: `(x: number) => Promise<R>` becomes `(x: number) => Promise<R | null>`.
+
+<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
+  <Tabs.Tab>
+    <LocalSource
+      path="examples/src/functional/isFunction.ts"
+      filename="examples/src/functional/isFunction.ts"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource
+      path="examples/bin/functional/isFunction.js"
+      filename="examples/bin/functional/isFunction.js"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>
 
-Validates a function.
+## `validateFunction` — full error list
 
-`typia.functional.validateFunction<T>()` validates a function, by wrapping the parameter function and checking its parameters and return value through [`typia.validate<T>()`](../validate) function. If some parameter or return value does not match the expected type, it returns a `IValidation.IFailure` typed object. Otherwise, it returns a `IValidation.ISuccess` typed object instead.
+`validateFunction` returns an `IValidation<Output>` instead of throwing or null-ing out. Same `path` notation (`$input.parameters[i]`, `$input.return`) as `assertFunction`.
 
-For reference, `IValidation.IError.path` would be a little bit different with individual [`typia.validate<T>()`](../validate) function. If `IValidation.IError` occurs from some parameter, the path would start from `$input.parameters[<index>]`. Otherwise the path would start from `$input.return`.
+Use this when you want to surface every type error at once — for example, when an LLM is calling your function and you need to send all the mistakes back in one round-trip:
 
-  - `$input.parameters[0].~`
-  - `$input.return.~`
-
-By the way, if you don't want to validate both parameters and return value, but one of them, you can use `typia.functional.validateParameters<T>()` or `typia.functional.validateReturn<T>()` instead. Otherwise, if you want to prohibit superfluous properties, `typia.functional.validateEqualsFunction<T>()` would be helpful.
-
-Also, if what you want is not retrieving every type errors, but just finding the first type error, utilize [`typia.functional.assertFunction<T>()`](#assertfunction) function instead. Otherwise, you don't need the reason why, but just want to know whether the function is valid or not, use [`typia.functional.isFunction<T>()`](#isfunction) function.
-
-<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
   <Tabs.Tab>
-    <LocalSource 
-      path="examples/src/functional/validateFunction.ts" 
-      filename="examples/src/functional/validateFunction.ts" 
+    <LocalSource
+      path="examples/src/functional/validateFunction.ts"
+      filename="examples/src/functional/validateFunction.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <LocalSource 
-      path="examples/bin/functional/validateFunction.js" 
-      filename="examples/bin/functional/validateFunction.js" 
+    <LocalSource
+      path="examples/bin/functional/validateFunction.js"
+      filename="examples/bin/functional/validateFunction.js"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>
+
+## Picking the right wrapper
+
+| You want… | Use |
+|-----------|-----|
+| Throw on the first bad parameter or return | `assertFunction` |
+| Return `null` when something is wrong | `isFunction` |
+| Get every error back in one shot | `validateFunction` |
+| Only check the parameters (return is trusted) | `…Parameters` variant |
+| Only check the return (parameters are trusted) | `…Return` variant |
+| Reject extra object properties as well | `…Equals…` variant |
+
+## Where to go next
+
+- The underlying single-value validators — [`is`](/docs/validators/is), [`assert`](/docs/validators/assert), [`validate`](/docs/validators/validate)
+- Constraints on parameter/return types — [Special Tags](/docs/validators/tags)
+- Using this for LLM tool argument validation — [`typia.llm.application`](/docs/llm/application)

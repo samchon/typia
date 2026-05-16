@@ -7,217 +7,200 @@ import { Tabs } from "nextra/components";
 
 import LocalSource from "../../../components/LocalSource";
 
-## Outline
+# Special Tags — adding constraints to a type
 
-`typia` can perform additional validation through [type tags](#type-tags) and [comment tags](#comment-tags).
+TypeScript can say "this is a `number`". It cannot say "this is a non-negative 32-bit integer". typia closes that gap with two parallel mechanisms:
 
-When you need additional validation logic that is not supported in pure TypeScript type spec, you can use [type tags](#type-tags) and [comment tags](#comment-tags) for it. For example, if you define a type with intersection symbol like `number & typia.tags.Type<"uint32">` and validates it, `typia` will check the target numeric value is unsigned integer or not.
+- **Type tags** — branded types you intersect into the base, like `number & tags.Type<"uint32"> & tags.Minimum<0>`. Recommended.
+- **Comment tags** — `@`-prefixed JSDoc tags like `@type uint32`. Provided for compatibility with older codebases.
 
-Also, in TypeScript (and JavaScript), writing `@` character in comment is called [Comment Tag](#comment-tags) and `typia` utilizes such comment tags for enhancing type validation logic. As you can see from below example code, `typia` analyzes `@tagName value` patterned comment tags, and generates optimal validation logic in the compilation level.
+Whichever you use, every validator and `random` will respect the constraint and the emitted JavaScript will include the corresponding check.
 
-Therefore, don't be afraid `typia` uses only pure TypeScript types for type validation schema. Don't be afraid about TypeScript does not support `integer` type. With those [type tags](#type-tags) and [comment tags](#comment-tags), you can express every types in the world.
+## A first taste
 
-  - Q: How to validate integer type? TypeScript does not support it
-    - A1: Use type tag `number & typia.tags.Type<"int32">`
-    - A2: Write a comment tag `@type int32` on the target property
-  - Q: Type Tag vs Comment Tags, which one is better
-    - A1: Type Tag is recommended because it is much safer and generous
-    - A2: Comment Tag is designed for legacy JSDoc styled projects
+```typescript copy filename="constrained-user.ts"
+import typia, { tags } from "typia";
 
-<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+interface User {
+  id: string & tags.Format<"uuid">;
+  age: number & tags.Type<"uint32"> & tags.Minimum<19>;
+  email: string & tags.Format<"email">;
+}
+
+typia.assert<User>(input);
+//  - id must be a UUID string
+//  - age must be an unsigned 32-bit integer ≥ 19
+//  - email must look like an email address
+```
+
+Compiled output — note that each constraint becomes inline code:
+
+<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
   <Tabs.Tab>
-    <LocalSource 
-      path="examples/src/validators/is-type-tag.ts" 
-      filename="examples/src/validators/is-type-tag.ts" 
+    <LocalSource
+      path="examples/src/validators/is-type-tag.ts"
+      filename="examples/src/validators/is-type-tag.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <LocalSource 
-      path="examples/bin/validators/is-type-tag.js" 
-      filename="examples/bin/validators/is-type-tag.js" 
-      showLineNumbers />
-  </Tabs.Tab>
-</Tabs>
-
-## Type Tags
-
-By using type tags, you can utilize additional validation logics.
-
-Just import one of type tags from `typia`, and combine it with target through intersection symbol like `number & typia.tags.Type<"uint32">` case. If you want to declare an union validation logic, combine `|` and bracket (`()`) symbols properly like below:
-
-  - `number & (Type<"uint32"> | Type<"double">)`
-    - `number` type can be both `uint32` and `double`
-  - `(number & Type<"int32">) | (bigint & Type<"uint64">)`
-    - `number` is `int32`
-    - `bigint` is `uint64`
-  - `(number & (Type<"int32">)| Type<"float">) | (bigint & Type<"uint64">)`
-    - `number` can be both `int32` and `float`
-    - `bigint` is `uint64`
-
-Here is the entire list of type tags that `typia` basically supports. 
-
-For reference, when you take a mistake that choosing different target type, TypeScript compiler would block it with compilation error message. Also, if you take a mistake that placing invalid argument on the type, it would also be blocked IDE and compiler. Therefore, have a confidence when using them. 
-
-  - number
-    - `number & Type<{keyword}>`
-      - `int32`
-      - `uint32`
-      - `uint64`
-      - `int64`
-      - `float`
-      - `double`
-    - `number & Minimum<{number}>`
-    - `number & Maximum<{number}>`
-    - `number & ExclusiveMaximum<{number}>`
-    - `number & ExclusiveMinimum<{number}>`
-    - `number & MultipleOf<{number}>`
-  - bigint
-    - `bigint & Type<{keyword}>`
-      - `int64`
-      - `uint64`
-    - `bigint & Minimum<{bigint}>`
-    - `bigint & Maximum<{bigint}>`
-    - `bigint & ExclusiveMaximum<{bigint}>`
-    - `bigint & ExclusiveMinimum<{bigint}>`
-    - `bigint & MultipleOf<{bigint}>`
-  - string
-    - `string & MinLength<{number}>`
-    - `string & MaxLength<{number}>`
-    - `string & Pattern<{regex}>`
-    - `string & Format<{keyword}>`
-      - `byte`
-      - `password`
-      - `regex`
-      - `uuid`
-      - `email`
-      - `hostname`
-      - `idn-email`
-      - `idn-hostname`
-      - `iri`
-      - `iri-reference`
-      - `ipv4`
-      - `ipv6`
-      - `uri`
-      - `uri-reference`
-      - `uri-template`
-      - `url`
-      - `date-time`
-      - `date`
-      - `time`
-      - `duration`
-      - `json-pointer`
-      - `relative-json-pointer`
-  - array
-    - `Array<T> & MinItems<{number}>`
-    - `Array<T> & MaxItems<{number}>`
-    - `Array<T> & UniqueItems`
-
-Also, if you need custom validation logic, just make it by yourself referencing [Customization](#customization) section. It is easy to define. For such type safety and generous use case reasons even customization supporting, I recommend you to use type tags instead of [comment tags](#comment-tags), unless you are maintaining a legacy JSDoc styled project.
-
-<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-  <Tabs.Tab>
-    <LocalSource 
-      path="examples/src/validators/is-type-tag.ts" 
-      filename="examples/src/validators/is-type-tag.ts" 
-      showLineNumbers />
-  </Tabs.Tab>
-  <Tabs.Tab>
-    <LocalSource 
-      path="examples/bin/validators/is-type-tag.js" 
-      filename="examples/bin/validators/is-type-tag.js" 
+    <LocalSource
+      path="examples/bin/validators/is-type-tag.js"
+      filename="examples/bin/validators/is-type-tag.js"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>
 
-## Comment Tags
+## Type tags — the recommended way
 
-`typia` supports those comment tags, too.
+You import `tags` from `typia` and intersect them into the base type:
 
-Here is the entire list of comment tags that `typia` supports.
+```typescript copy
+import typia, { tags } from "typia";
 
-  - number
-    - `@type {string}`
-      - `int` / `int32`
-      - `uint` / `uint32`
-      - `int64`
-      - `uint64`
-      - `float`
-    - `@minimum {number}`
-    - `@maximum {number}`
-    - `@exclusiveMinimum {number}`
-    - `@exclusiveMaximum {number}`
-    - `@multipleOf {number}`
-  - bigint
-    - `@type uint64`
-    - `@minimum {bigint}`
-    - `@maximum {bigint}`
-    - `@exclusiveMinimum {bigint}`
-    - `@exclusiveMaximum {bigint}`
-    - `@multipleOf {bigint}`
-  - string
-    - `@minLength {number}`
-    - `@maxLength {number}`
-    - `@pattern {regex}`
-    - `@format {keyword}`
-      - `byte`
-      - `password`
-      - `regex`
-      - `uuid`
-      - `email`
-      - `hostname`
-      - `idn-email`
-      - `idn-hostname`
-      - `iri`
-      - `iri-reference`
-      - `ipv4`
-      - `ipv6`
-      - `uri`
-      - `uri-reference`
-      - `uri-template`
-      - `url`
-      - `date-time`
-      - `date`
-      - `time`
-      - `duration`
-      - `json-pointer`
-      - `relative-json-pointer`
-  - array
-    - `@minItems {number}`
-    - `@maxItems {number}`
-    - `@uniqueItems`
+type Price = number & tags.Type<"double"> & tags.Minimum<0>;
+```
 
-By the way, I do not recommend this way, because it can't perform union numeric types, and can be used for only object property type. It can't be used standalone, and cannot be used for element type of `Array` and `Map` even when they're declared on object property. Also, When you declare `@type int32` statement, target `number` type be fixed as `int32` type, and never can have another numeric type by declaring union statements.
+Type tags compose with `|` and `&` exactly like regular TypeScript types:
 
-Also, those comment tags are not type safe. If you take a mistake when writing a comment tag, it will not be detected by the compiler, and will cause an error at runtime. For example, if you write a miss-spelled keyword like `@type unit32`, the target `number` type would be `double` type, and you can identify it just by running the program (or visiting playground website).
+```typescript copy
+// number can be either a uint32 or a double
+type N = number & (tags.Type<"uint32"> | tags.Type<"double">);
 
-<br/>
-<Alert severity="warning">
-  <AlertTitle>
-    **Why supports comment tags?**
-  </AlertTitle>
+// number-or-bigint, with different constraints per branch
+type ID =
+  | (number & tags.Type<"int32">)
+  | (bigint  & tags.Type<"uint64">);
 
-Despite these disadvantages, comment tags are still maintained for compatibility with legacy JSDoc-style projects.
+// number that can be either int32 or float, OR bigint that is uint64
+type Mixed =
+  | (number & (tags.Type<"int32"> | tags.Type<"float">))
+  | (bigint  & tags.Type<"uint64">);
+```
 
-If your codebase already describes validation rules in comments, you can keep that style and migrate incrementally instead of rewriting everything to type tags at once.
+If you intersect a tag with the wrong base type (e.g. `tags.MaxLength<100>` on a `number`), the TypeScript compiler will reject it.
 
-</Alert>
+### Full catalogue
 
-<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+#### `number` and `bigint`
+
+| Tag | Notes |
+|-----|-------|
+| `tags.Type<"int32" \| "uint32" \| "int64" \| "uint64" \| "float" \| "double">` | Sub-type of `number` (or, for `int64`/`uint64`, of `bigint`) |
+| `tags.Minimum<N>` | `value >= N` |
+| `tags.Maximum<N>` | `value <= N` |
+| `tags.ExclusiveMinimum<N>` | `value > N` |
+| `tags.ExclusiveMaximum<N>` | `value < N` |
+| `tags.MultipleOf<N>` | `value % N === 0` |
+
+For `bigint`, `tags.Type<...>` accepts `"int64"` or `"uint64"`; range tags accept `bigint` literals.
+
+#### `string`
+
+| Tag | Notes |
+|-----|-------|
+| `tags.MinLength<N>` | `value.length >= N` |
+| `tags.MaxLength<N>` | `value.length <= N` |
+| `tags.Pattern<R>` | regex (passed as a string literal) |
+| `tags.Format<F>` | one of the formats below |
+| `tags.ContentMediaType<MT>` | OpenAPI `contentMediaType` (e.g. `"image/png"`) |
+
+`Format` accepts: `byte`, `password`, `regex`, `uuid`, `email`, `hostname`, `idn-email`, `idn-hostname`, `iri`, `iri-reference`, `ipv4`, `ipv6`, `uri`, `uri-reference`, `uri-template`, `url`, `date-time`, `date`, `time`, `duration`, `json-pointer`, `relative-json-pointer`.
+
+> `Format` and `Pattern` are mutually exclusive on the same string — pick one.
+
+#### `Array<T>`
+
+| Tag | Notes |
+|-----|-------|
+| `tags.MinItems<N>` | `arr.length >= N` |
+| `tags.MaxItems<N>` | `arr.length <= N` |
+| `tags.UniqueItems` | All elements pairwise distinct |
+
+#### Other useful tags
+
+| Tag | What it does |
+|-----|--------------|
+| `tags.Default<V>` | Records a default value in JSON Schema output |
+| `tags.Example<V>` / `tags.Examples<Record>` | Records example(s) in JSON Schema output |
+| `tags.Constant<V, {title, description}>` | Single-value literal with metadata |
+| `tags.JsonSchemaPlugin<{...}>` | Inject arbitrary `x-…` JSON Schema fields |
+| `tags.Sequence<N>` | Protobuf field number ([protobuf docs](/docs/protobuf/message)) |
+
+## Comment tags — for older codebases
+
+If you'd rather write JSDoc, the same constraints exist as `@`-prefixed tags:
+
+| Comment tag | Equivalent type tag |
+|-------------|---------------------|
+| `@type int32` | `tags.Type<"int32">` |
+| `@minimum 0` | `tags.Minimum<0>` |
+| `@maximum 100` | `tags.Maximum<100>` |
+| `@exclusiveMinimum 0` | `tags.ExclusiveMinimum<0>` |
+| `@exclusiveMaximum 100` | `tags.ExclusiveMaximum<100>` |
+| `@multipleOf 0.5` | `tags.MultipleOf<0.5>` |
+| `@minLength 3` | `tags.MinLength<3>` |
+| `@maxLength 100` | `tags.MaxLength<100>` |
+| `@pattern ^[a-z]+$` | `tags.Pattern<"^[a-z]+$">` |
+| `@format uuid` | `tags.Format<"uuid">` |
+| `@minItems 1` | `tags.MinItems<1>` |
+| `@maxItems 10` | `tags.MaxItems<10>` |
+| `@uniqueItems` | `tags.UniqueItems` |
+
+<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
   <Tabs.Tab>
-    <LocalSource 
-      path="examples/src/validators/is-comment-tag.ts" 
-      filename="examples/src/validators/is-comment-tag.ts" 
+    <LocalSource
+      path="examples/src/validators/is-comment-tag.ts"
+      filename="examples/src/validators/is-comment-tag.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <LocalSource 
-      path="examples/bin/validators/is-comment-tag.js" 
-      filename="examples/bin/validators/is-comment-tag.js" 
+    <LocalSource
+      path="examples/bin/validators/is-comment-tag.js"
+      filename="examples/bin/validators/is-comment-tag.js"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>
+
+> [!CAUTION]
+>
+> **Type tags > comment tags. Always, unless you can't.**
+>
+> - Comment tags are **not type-checked**. `@type unit32` (typo of `uint32`) silently falls back to `double`, and you only notice at runtime.
+> - Comment tags only work on **object properties**. They don't apply to element types of `Array` or `Map`, and they can't be combined with union types.
+> - Comment tags can't express union constraints. `@type int32` locks the property to `int32`; you can't follow it with `@type float`.
+>
+> Comment tags exist for JSDoc-style codebases that want to migrate incrementally without rewriting every property at once.
 
 ## Customization
+
+```typescript copy
+type Postfix<P extends string> = tags.TagBase<{
+  kind: "postfix";
+  target: "string";
+  value: P;
+  validate: `$input.endsWith("${P}")`;
+}>;
+
+type IsEven = tags.TagBase<{
+  kind: "isEven";
+  target: "number";
+  value: undefined;
+  validate: `$input % 2 === 0`;
+  // or:
+  // validate: (value: number) => value % 2 === 0;
+}>;
+```
+
+`tags.TagBase<Props>` builds a new tag. The minimum properties are:
+
+- `kind` — the tag's name (must be unique among intersected tags)
+- `target` — `"number" | "bigint" | "string" | "array"` (or a `Record<Target, string>` map if the tag spans multiple bases)
+- `value` — the constant captured by the tag (useful when the tag has a parameter, e.g. `Postfix<".com">`)
+- `validate` — either an inline expression string referencing `$input`, or a regular function
+
+You can also set `exclusive: true | string[]` to mark a tag as mutually exclusive with itself or with named other tags.
+
+Example tag definitions from the standard library — refer to these as templates:
 
 <Tabs items={[
     <code>TagBase.ts</code>,
@@ -226,52 +209,51 @@ If your codebase already describes validation rules in comments, you can keep th
     <code>Pattern.ts</code>,
 ]}>
   <Tabs.Tab>
-    <LocalSource 
-      path="packages/interface/src/tags/TagBase.ts" 
+    <LocalSource
+      path="packages/interface/src/tags/TagBase.ts"
       filename="@typia/interface"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <LocalSource 
-      path="packages/interface/src/tags/Minimum.ts" 
+    <LocalSource
+      path="packages/interface/src/tags/Minimum.ts"
       filename="@typia/interface"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <LocalSource 
-      path="packages/interface/src/tags/Type.ts" 
+    <LocalSource
+      path="packages/interface/src/tags/Type.ts"
       filename="@typia/interface"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <LocalSource 
-      path="packages/interface/src/tags/Pattern.ts" 
+    <LocalSource
+      path="packages/interface/src/tags/Pattern.ts"
       filename="@typia/interface"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>
 
-Above types are supported by `typia` basically. 
+End-to-end example with three custom tags (`Postfix`, `Dollar`, `IsEven`):
 
-If you make a custom type tag extending `typia.tags.TagBase<Props>` type, and utilize it on your type with intersection symbol like `number & Minimum<3>`, its validation logic `3 <= $input` would be inserted into the compiled JavaScript file.
-
-Also, as you can see from the `typia.tags.TagBase<Props>` type, you have to specify which `target` type is the tag for, and need to define the tag can be compatible with others or not through `exclusive` options. If your custom tag has multiple `target` types, you can support all of those `target` types by defining `validate` property as `Record<Target, string>` type like `Type` tag case.
-
-In the Korean proverb, there's a word that, "it is much better to do it once than to hear it a hundred times". Let's see how custom type tag of `typia` can be defined and utilized through an example code. I'll define three custom tag types, `Postfix`, `Dollar` and `IsEven`.
-
-Here is the example code, and I think that it may easy to understand.
-
-<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
   <Tabs.Tab>
-    <LocalSource 
-      path="examples/src/validators/is-custom-tags.ts" 
-      filename="examples/src/validators/is-custom-tags.ts" 
+    <LocalSource
+      path="examples/src/validators/is-custom-tags.ts"
+      filename="examples/src/validators/is-custom-tags.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <LocalSource 
-      path="examples/bin/validators/is-custom-tags.js" 
-      filename="examples/bin/validators/is-custom-tags.js" 
+    <LocalSource
+      path="examples/bin/validators/is-custom-tags.js"
+      filename="examples/bin/validators/is-custom-tags.js"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>
+
+## Where tags are used
+
+- [`is`](/docs/validators/is), [`assert`](/docs/validators/assert), [`validate`](/docs/validators/validate) — runtime checking
+- [`random`](/docs/random) — generated values respect the constraint
+- [`json.schemas`](/docs/json/schema), [`llm.parameters`](/docs/llm/parameters) — exported as JSON Schema fields (`format`, `minimum`, …)
+- [`protobuf.message`](/docs/protobuf/message) — `tags.Type<"uint32">` selects the wire type; `tags.Sequence<N>` picks the field number
