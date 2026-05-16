@@ -14,10 +14,6 @@ export default {
     title: "📖 Guide Documents",
     type: "page",
   },
-  tutorial: {
-    title: "🚀 Tutorial",
-    type: "page",
-  },
   blog: {
     display: "hidden",
   },
