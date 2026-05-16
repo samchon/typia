@@ -208,7 +208,7 @@ export const guardUserEquals: AssertionGuard<User> = typia.createAssertGuardEqua
 
 ## What `assert` does not check
 
-Same rules as [`is`](/docs/validators/is#what-is-does-not-check): user-defined classes are walked by property (no `instanceof`), and function types are skipped unless you enable the `functional` transformer flag.
+Same rules as [`is`](/docs/validators/is#what-is-does-not-check): user-defined classes are walked by property (no `instanceof`), and function-typed properties pass through unchecked.
 
 Built-in classes (`Date`, `Set<T>`, `Map<K, V>`, `Uint8Array`) are checked end-to-end, including their elements:
 
@@ -259,4 +259,3 @@ Same emission strategy as [`is`](/docs/validators/is#performance), plus the per-
 - Just want a boolean → [`is`](/docs/validators/is)
 - Want every error at once → [`validate`](/docs/validators/validate)
 - Constraints (formats, ranges, lengths) → [Special Tags](/docs/validators/tags)
-- Validating function calls → [Functional Module](/docs/validators/functional)
