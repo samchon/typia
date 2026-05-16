@@ -1,5 +1,5 @@
 ---
-title: Guide Documents > Protobuf > Schema
+title: Guide Documents > Protobuf > Message Schema
 ---
 import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
@@ -7,100 +7,108 @@ import { Tabs } from "nextra/components";
 
 import LocalSource from "../../../components/LocalSource";
 
-## `message()` function
+# `typia.protobuf.message` — emit a `.proto` schema from a TypeScript type
 
-<Tabs items={[
-  <code>typia</code>
-]}>
-  <Tabs.Tab>
-```typescript
-export namespace protobuf {
-  export function message<T>(): string;
+If you only encode and decode within TypeScript, you don't need this — the [`encode`](/docs/protobuf/encode) and [`decode`](/docs/protobuf/decode) functions analyze your type internally and produce a wire-compatible binary form.
+
+`typia.protobuf.message<T>()` is for the other case: when you need to **share** the schema with a service written in another language (Go, Python, …). It returns the `.proto` text that any Protocol Buffer compiler can consume.
+
+```typescript copy filename="signature"
+namespace protobuf {
+  function message<T>(): string;  // returns .proto schema text
 }
 ```
-  </Tabs.Tab>
-</Tabs>
 
-`typia.protobuf.message()` function returns a Protocol Buffer message (structure) as a string value.
+## First example
 
-With this `message()` function, you can share `*.proto` files with other languages. If you want to customize byte order or define specific type (that is not supported in the TypeScript) like `uint32`, use comment tags by following [comment tags](#comment-tags) section.
+```typescript copy filename="hello-message.ts"
+import typia, { tags } from "typia";
 
-<Tabs items={["TypeScript Source Code", "Compiled JavaScript File"]}>
+interface User {
+  id: string;
+  age: number & tags.Type<"uint32">;
+  hobbies: string[];
+}
+
+const proto: string = typia.protobuf.message<User>();
+console.log(proto);
+//
+// syntax = "proto3";
+// message User {
+//   required string id = 1;
+//   required uint32 age = 2;
+//   repeated string hobbies = 3;
+// }
+```
+
+<Tabs items={["TypeScript Source", "Compiled JavaScript"]}>
   <Tabs.Tab>
-    <LocalSource 
+    <LocalSource
       path="examples/src/protobuf/message.ts"
       filename="examples/src/protobuf/message.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <LocalSource 
+    <LocalSource
       path="examples/bin/protobuf/message.js"
       filename="examples/bin/protobuf.message.js"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>
 
-## Type Tags
+## Picking the wire type — type tags
 
-By using type tags, you can use special numeric types that are not supported in the TypeScript.
+Protocol Buffer has narrower numeric types than TypeScript (`int32`, `uint32`, `int64`, `uint64`, `float`, `double`). Use [type tags](/docs/validators/tags) to pick the wire type explicitly:
 
-Just import `Type` (or `typia.tags.Type`) type, and combine it with `number` or `bigint` type through intersection symbol `number & typia.tagsType<"float">` case. If you want to declare an union numeric type, combine `|` and bracket (`()`) symbols properly like below.
+```typescript copy
+type Score = number & tags.Type<"float">;
+type Population = bigint & tags.Type<"uint64">;
+type Mixed = (number & tags.Type<"int32">) | (bigint & tags.Type<"uint64">);
+```
 
-When you take a mistake that choosing different target type, TypeScript compiler would block it with compilation error message. Therefore, have a confidence when using the `Type` tag. For such type safety reason, I recommend to use `Type` tag instead of using [comment tags](#comment-tags) as much as possible.
+If you don't tag a `number`, typia treats it as `double`. If you don't tag a `bigint`, typia treats it as `int64`.
 
-  - `number & (Type<"uint32"> | Type<"double">)`
-    - `number` type can be both `uint32` and `double`
-  - `(number & Type<"int32">) | (bigint & Type<"uint64">)`
-    - `number` is `int32`
-    - `bigint` is `uint64`
-  - `(number & (Type<"int32">)| Type<"float">) | (bigint & Type<"uint64">)`
-    - `number` can be both `int32` and `float`
-    - `bigint` is `uint64`
+> The TypeScript compiler will block invalid combinations — you can't put `tags.Type<"uint32">` on a `bigint`, for example.
 
-<Tabs items={["TypeScript Source Code", "Compiled JavaScript File"]}>
+<Tabs items={["TypeScript Source", "Compiled JavaScript"]}>
   <Tabs.Tab>
-    <LocalSource 
+    <LocalSource
       path="examples/src/protobuf/message-type-tag.ts"
       filename="examples/src/protobuf/message-type-tag.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <LocalSource 
+    <LocalSource
       path="examples/bin/protobuf/message-type-tag.js"
       filename="examples/bin/protobuf/message-type-tag.js"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>
 
-## Comment Tags
+## Comment tags — for older codebases
 
-By using `@type {target}` comment tag, you also can use special numeric types.
+Same wire types are also expressible as `@type` comments:
 
-However, this way is not recommended, because it can't perform union numeric types, and cannot be used in `Array` and `Map` types. When you declare `@type int32` statement, target `number` type be fixed as `int32` type, and never can have another numeric type by declaring union statements.
+```typescript copy
+interface User {
+  /** @type uint32 */
+  age: number;
+}
+```
 
-Also, those comment tags are not type safe. If you take a mistake when writing a comment tag, it will not be detected by the compiler, and will cause an error at runtime. For example, if you write a miss-spelled keyword like `@type unit32`, the target `number` type would be `double` type, and you can identify it just by running the program (or visiting playground website).
+> [!CAUTION]
+>
+> Same caveats as [`validators/tags`](/docs/validators/tags#comment-tags--for-older-codebases): comment tags are not type-checked (a typo silently falls back to `double`), they only work on object properties, and they can't express union numeric types. Prefer type tags unless you're maintaining a JSDoc-style codebase.
 
-<br/>
-<Alert severity="warning">
-  <AlertTitle>
-    **Why supports comment tags?**
-  </AlertTitle>
-
-Despite these disadvantages, comment tags are still maintained for compatibility with legacy JSDoc-style projects.
-
-If your codebase already describes numeric constraints in comments, you can keep that style and migrate incrementally instead of rewriting everything to type tags at once.
-
-</Alert>
-
-<Tabs items={["TypeScript Source Code", "Compiled JavaScript File"]}>
+<Tabs items={["TypeScript Source", "Compiled JavaScript"]}>
   <Tabs.Tab>
-    <LocalSource 
+    <LocalSource
       path="examples/src/protobuf/message-comment-tag.ts"
       filename="examples/src/protobuf/message-comment-tag.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <LocalSource 
+    <LocalSource
       path="examples/bin/protobuf/message-comment-tag.js"
       filename="examples/bin/protobuf.message-comment-tag.js"
       showLineNumbers />
@@ -109,31 +117,19 @@ If your codebase already describes numeric constraints in comments, you can keep
 
 ## Restrictions
 
-You know what? Expression power of Protocol Buffer is extremely narrower than type system of TypeScript. For example, Protocol Buffer can't express complicate union type containing array. Also, Protocol Buffer can't express multi dimensional array type, either.
+Protocol Buffer's type system is much narrower than TypeScript's. The following are not representable:
 
-In such reason, when converting TypeScript type to Protocol buffer message schema, lots of restrictions are exist. Let's study which types of TypeScript are not supported in Protocol Buffer. For reference, if you try to call `typia.protobuf.message<T>()` function with unsupported type, `typia` will generate compile errors like below example cases.
+### Top-level type must be a single static object
 
----------------
+`number`, `Array<T>`, `Cat | Dog`, `Record<string, T>` — none of these are valid top-level shapes. Wrap them in an object.
 
-At first, top level type must be a sole and static object. 
-
-If you try to use `number` or `Array<T>` type as a top level type, `typia` will generate compile error like below. Dynamic object types like `Record<string, T>`, or `Map<string, T>` types are not allowed either. For reference, the sole object means that, union of object types is not allowed, either.
-
-<Tabs items={["TypeScript Source Code", "Console Output"]}>
+<Tabs items={["TypeScript Source", "Console Output"]}>
   <Tabs.Tab>
 ```typescript showLineNumbers copy
 import typia from "typia";
 
-interface Cat {
-    type: "cat";
-    name: string;
-    ribbon: boolean;
-}
-interface Dog {
-    type: "dog";
-    name: string;
-    hunt: boolean;
-}
+interface Cat { type: "cat";  name: string; ribbon: boolean }
+interface Dog { type: "dog";  name: string; hunt: boolean }
 
 typia.protobuf.message<bigint>();
 typia.protobuf.createDecode<Record<string, number>>();
@@ -144,30 +140,27 @@ typia.protobuf.createEncode<Cat | Dog>();
   </Tabs.Tab>
   <Tabs.Tab>
 ```bash
-main.ts:14:1 - error TS(typia.protobuf.message): unsupported type detected
+main.ts:6:1 - error TS(typia.protobuf.message): unsupported type detected
 
 - bigint
   - target type must be a sole and static object type
 
-main.ts:15:1 - error TS(typia.protobuf.typia.protobuf.createDecode): unsupported type detected
+main.ts:7:1 - error TS(typia.protobuf.createDecode): unsupported type detected
 
 - Record<string, number>
   - target type must be a sole and static object type
 
-main.ts:16:1 - error TS(typia.protobuf.typia.protobuf.createDecode): unsupported type detected
+main.ts:8:1 - error TS(typia.protobuf.createDecode): unsupported type detected
 
 - Map<(number & Type<"float">), Dog>
   - target type must be a sole and static object type
 
-- (number & Type<"float">)
-  - target type must be a sole and static object type
-
-main.ts:17:1 - error TS(typia.protobuf.typia.protobuf.createEncode): unsupported type detected
+main.ts:9:1 - error TS(typia.protobuf.createEncode): unsupported type detected
 
 - Array<boolean>
   - target type must be a sole and static object type
 
-main.ts:18:1 - error TS(typia.protobuf.typia.protobuf.createEncode): unsupported type detected
+main.ts:10:1 - error TS(typia.protobuf.createEncode): unsupported type detected
 
 - (Cat | Dog)
   - target type must be a sole and static object type
@@ -175,66 +168,53 @@ main.ts:18:1 - error TS(typia.protobuf.typia.protobuf.createEncode): unsupported
   </Tabs.Tab>
 </Tabs>
 
-At next, in Protocol Buffer, those types are categorized as container types.
+### Container nesting is limited
 
-  - `Array<T>`
-  - `Map<Key, T>`
-  - `Record<string, T>` (dynamic object)
+`Array<T>`, `Map<K, V>`, and `Record<string, T>` are containers. The rules:
 
-Also, those container types does not allow over two-dimensional stacking. Therefore, it is not possible to declaring two dimensional array like `number[][]`, or `Array` type in `Map` like `Map<string, number[]>`. Besides, value type of those container also do not support union type either.
+- **No two-dimensional containers.** `number[][]` is not allowed. Neither is `Map<string, number[]>`.
+- **No unions inside container values.** `Map<string, Cat | Dog>` is not allowed.
+- **`Map` keys must be atomic and non-union.** `Map<Cat, string>` and `Map<string | number, Dog>` are not allowed.
 
-Additionally, about `Map<Key, T>` type, key type must be an atomic type. It means that, only `boolean`, `number`, `bigint` and `string` types are allowed. Also, key type cannot be union type, either.
-
-<Tabs items={["TypeScript Source Code", "Console Output"]}>
+<Tabs items={["TypeScript Source", "Console Output"]}>
   <Tabs.Tab>
 ```typescript showLineNumbers copy
 import typia from "typia";
 
-interface IPointer<T> {
-  value: T;
-}
-interface Cat {
-  type: "cat";
-  name: string;
-  ribbon: boolean;
-}
-interface Dog {
-  type: "dog";
-  name: string;
-  hunt: boolean;
-}
+interface IPointer<T> { value: T }
+interface Cat { type: "cat"; name: string; ribbon: boolean }
+interface Dog { type: "dog"; name: string; hunt: boolean }
 
 typia.protobuf.message<IPointer<number[][]>>();
 typia.protobuf.createEncode<IPointer<Record<string, string[]>>>();
 typia.protobuf.createDecode<IPointer<Map<string, Cat | Dog>>>();
-
 typia.protobuf.message<IPointer<Map<Cat, string>>>();
 typia.protobuf.message<IPointer<Map<number | string, Dog>>>();
 ```
   </Tabs.Tab>
   <Tabs.Tab>
 ```bash
-main.ts:17:1 - error TS(typia.protobuf.message): unsupported type detected
+main.ts:7:1 - error TS(typia.protobuf.message): unsupported type detected
 
 - IPointer<Array<Array<number>>>[key]: Array<Array<number>>
   - does not support over two dimensional array type
 
-main.ts:18:1 - error TS(typia.protobuf.typia.protobuf.createEncode): unsupported type detected
+main.ts:8:1 - error TS(typia.protobuf.createEncode): unsupported type detected
 
 - IPointer<Record<string, Array<string>>>[key]: Record<string, Array<string>>
   - does not support dynamic object with array value type
 
-main.ts:19:1 - error TS(typia.protobuf.typia.protobuf.createDecode): unsupported type detected
+main.ts:9:1 - error TS(typia.protobuf.createDecode): unsupported type detected
 
 - IPointer<Map<string, Cat | Dog>>[key]: Map<string, (Cat | Dog)>
   - does not support union type in map value type
 
-main.ts:21:1 - error TS(typia.protobuf.message): unsupported type detected
+main.ts:10:1 - error TS(typia.protobuf.message): unsupported type detected
 
 - IPointer<Map<Cat, string>>[key]: Map<Cat, string>
   - does not support non-atomic key typed map
 
-main.ts:22:1 - error TS(typia.protobuf.message): unsupported type detected
+main.ts:11:1 - error TS(typia.protobuf.message): unsupported type detected
 
 - IPointer<Map<string | number, Dog>>[key]: Map<(number | string), Dog>
   - does not support union key typed map
@@ -243,18 +223,17 @@ main.ts:22:1 - error TS(typia.protobuf.message): unsupported type detected
   </Tabs.Tab>
 </Tabs>
 
-At last, those types are all not allowed.
+### Types with no Protocol Buffer counterpart
 
-  - `any`
-  - `functional type`
-  - `Set<T>`, `WeakSet<T>` and `WeakMap<T>`
-  - `Date`, `Boolean`, `BigInt`, `Number`, `String`
-  - Binary classes except `Uint8Array`
-    - `Uint8ClampedArray`, `Uint16Array`, `Uint32Array`, `BigUint64Array`
-    - `Int8Array`, `Int16Array`, `Int32Array`, `BigInt64Array`
-    - `ArrayBuffer`, `SharedArrayBuffer` and `DataView`
+These are rejected outright:
 
-<Tabs items={["TypeScript Source Code", "Console Output"]}>
+- `any` / `unknown` (you don't know how to encode an unknown value)
+- function types
+- `Set<T>`, `WeakSet<T>`, `WeakMap<K, V>` — use `Array<T>` / `Map<K, V>` instead
+- `Date`, `Boolean`, `BigInt`, `Number`, `String` — use the primitive (`string`, `boolean`, …) instead
+- Typed arrays except `Uint8Array` — use `Uint8Array` for binary data
+
+<Tabs items={["TypeScript Source", "Console Output"]}>
   <Tabs.Tab>
 ```typescript showLineNumbers copy
 import typia from "typia";
@@ -301,3 +280,9 @@ main.ts:13:1 - error TS(typia.protobuf.message): unsupported type detected
 ```
   </Tabs.Tab>
 </Tabs>
+
+## Where to go next
+
+- Encoding a value → [`protobuf.encode`](/docs/protobuf/encode)
+- Decoding bytes → [`protobuf.decode`](/docs/protobuf/decode)
+- Numeric constraints in tags → [Special Tags](/docs/validators/tags)

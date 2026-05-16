@@ -4,25 +4,23 @@ title: Guide Documents > Setup > TypeScript-Go
 
 import { Tabs } from "nextra/components";
 
-## Summary
+## TypeScript-Go (`ttsc`)
 
-`typia@next` uses the [`ttsc`](https://github.com/samchon/ttsc) toolchain.
+This setup targets **TypeScript-Go** — the Go rewrite of the TypeScript compiler that ships under `@typescript/native-preview`. `typia@next` ships a Go-rewritten transform that plugs into it through the [`ttsc`](https://github.com/samchon/ttsc) toolchain.
 
-This setup targets TypeScript-Go, the Go migration of the TypeScript compiler. `ttsc` provides the Go-based plugin toolchain, and `typia@next` uses the Go-rewritten `typia` transform.
+You need three commands:
 
-- `ttsc`: build, check, and watch TypeScript projects
-- `ttsx`: execute TypeScript directly with type checking
-- `@ttsc/unplugin`: run `ttsc` plugins from bundlers
+- `ttsc` — build, check, and watch a TypeScript project
+- `ttsx` — execute a TypeScript file directly, with type checking
+- `@ttsc/unplugin` — connect `ttsc` to a bundler (Vite, Next.js, Webpack, …)
 
 > [!NOTE]
 >
-> `@typescript/native-preview` is not a stable TypeScript release yet, and `typia@next` is also an experimental release of `typia`.
+> `@typescript/native-preview` is **not yet a stable TypeScript release**, and `typia@next` is the matching experimental release of typia. For production today, use the [Legacy (TS v6) setup](/docs/setup/legacy).
 >
-> Also, you must use `ttsc` and `ttsx`. The stock `tsc`, `ts-node`, and `tsx` cannot apply the `typia` transform, so they will not work.
+> The stock `tsc`, `ts-node`, and `tsx` cannot apply the typia transform — you must use `ttsc` and `ttsx`.
 
-## Setup
-
-### Install
+## Install
 
 <Tabs items={["npm", "pnpm", "yarn", "bun"]}>
   <Tabs.Tab>
@@ -51,7 +49,7 @@ bun add -d ttsc @typescript/native-preview
   </Tabs.Tab>
 </Tabs>
 
-Keep your TypeScript project strict.
+Then keep your TypeScript project strict:
 
 ```json filename="tsconfig.json" showLineNumbers copy
 {
@@ -61,16 +59,18 @@ Keep your TypeScript project strict.
 }
 ```
 
-### Compile
+That's it. Unlike the legacy setup, you do **not** add `compilerOptions.plugins` for typia — `ttsc` discovers the transform from the `ttsc` field in `typia/package.json` automatically.
 
-Use `ttsc` to build your TypeScript project. It compiles your sources and applies the `typia` transform in one step.
+## Build
+
+Use `ttsc` exactly the way you would use `tsc`:
 
 <Tabs items={["npm", "pnpm", "yarn", "bun"]}>
   <Tabs.Tab>
 ```bash filename="Terminal" showLineNumbers copy
-npx ttsc
-npx ttsc --noEmit
-npx ttsc --watch
+npx ttsc            # build
+npx ttsc --noEmit   # type-check only
+npx ttsc --watch    # rebuild on change
 ```
   </Tabs.Tab>
   <Tabs.Tab>
@@ -96,9 +96,9 @@ bun ttsc --watch
   </Tabs.Tab>
 </Tabs>
 
-### Execute
+## Execute without building
 
-Use `ttsx` to run a TypeScript file directly, without a build step.
+Use `ttsx` instead of `ts-node` or `tsx`:
 
 <Tabs items={["npm", "pnpm", "yarn", "bun"]}>
   <Tabs.Tab>
@@ -125,13 +125,9 @@ bun ttsx src/index.ts
 
 ## Bundlers
 
+Bundlers (Vite, Next.js, Webpack, …) run their own TypeScript pipeline that bypasses `ttsc`. To plug typia in, install [`@ttsc/unplugin`](https://github.com/samchon/ttsc/tree/master/packages/unplugin) and add its plugin to your bundler config.
+
 ### Install
-
-Use [`@ttsc/unplugin`](https://github.com/samchon/ttsc/tree/master/packages/unplugin)
-when your project is built by a bundler.
-
-`ttsc` is enough for a normal TypeScript build, but bundlers run their own
-build pipeline. `@ttsc/unplugin` connects the `ttsc` transform to that pipeline.
 
 <Tabs items={["npm", "pnpm", "yarn", "bun"]}>
   <Tabs.Tab>
@@ -156,22 +152,9 @@ bun add -d @ttsc/unplugin
   </Tabs.Tab>
 </Tabs>
 
-### Configuration
+### Configure
 
-Currently, `@ttsc/unplugin` supports the following bundlers:
-
-- Vite
-- Next.js
-- Rollup
-- Rolldown
-- esbuild
-- Webpack
-- Rspack
-- Farm
-- Bun
-
-Then add the matching plugin to your bundler config. Import path must match the
-bundler you are using.
+`@ttsc/unplugin` exposes one entry per bundler — import the matching path:
 
 <Tabs
   items={[
@@ -296,15 +279,11 @@ await Bun.build({
   </Tabs.Tab>
 </Tabs>
 
-Put the plugin in the same config file that already builds your application.
-For example, a Vite app uses `vite.config.ts`, a Next.js app uses
-`next.config.mjs`, and a Webpack app uses `webpack.config.mjs`.
+Drop the plugin into the same config file that already builds your app (`vite.config.ts`, `next.config.mjs`, `webpack.config.mjs`, …). After that, run your normal build command — no other change.
 
-After that, run the normal build command of your framework or bundler.
+### Pointing at a different `tsconfig.json`
 
-### Project
-
-If your bundler should read another TypeScript config file, pass `project`.
+If your bundler should use a config other than the default `tsconfig.json`, pass `project`:
 
 <Tabs
   items={[
@@ -465,9 +444,9 @@ await Bun.build({
 
 The `project` path is resolved from the current working directory.
 
-## Transform Options
+## Tuning the transform
 
-Add `compilerOptions.plugins` only when you want to change transform options.
+Most projects don't need to touch this. Add `compilerOptions.plugins` only when you want to flip one of the optional transform flags:
 
 ```jsonc filename="tsconfig.json" showLineNumbers copy
 {
@@ -478,24 +457,22 @@ Add `compilerOptions.plugins` only when you want to change transform options.
       {
         "transform": "typia/lib/transform",
         "functional": true, // default: false
-        "numeric": true, // default: false
-        "finite": true, // default: false
-        "undefined": false // default: true
+        "numeric": true,    // default: false
+        "finite": true,     // default: false
+        "undefined": false  // default: true
       }
     ]
   }
 }
 ```
 
-- `functional`: validate function types
-- `numeric`: reject `NaN` from `number`
-- `finite`: reject both `NaN` and `Infinity` from `number`
-- `undefined`: set `false` to skip explicit `undefined` checks
+| Flag | Default | What it does |
+|------|---------|--------------|
+| `functional` | `false` | Validate `function` types — needed for `typia.functional.*` |
+| `numeric` | `false` | Reject `NaN` when a property is typed as `number` |
+| `finite` | `false` | Reject `NaN` and `±Infinity` when a property is typed as `number` |
+| `undefined` | `true`  | When `false`, skip explicit `undefined` checks on required properties |
 
 > [!NOTE]
 >
-> If you use the default transform options, do not add
-> `compilerOptions.plugins` to `tsconfig.json`.
->
-> `ttsc` automatically applies the `typia` transform. This is the difference
-> from the legacy setup.
+> With the default flags you do **not** need `compilerOptions.plugins`. `ttsc` will pick up the transform from `typia/package.json` on its own.

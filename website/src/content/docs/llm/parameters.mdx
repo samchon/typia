@@ -5,100 +5,38 @@ import { Callout, Tabs } from "nextra/components";
 
 import LocalSource from "../../../components/LocalSource";
 
-## `parameters()` function
+# `typia.llm.parameters` — JSON Schema for one type, no helpers
 
-<Tabs items={[
-    <code>typia</code>,
-    <code>ILlmApplication</code>,
-    <code>ILlmFunction</code>,
-    <code>ILlmSchema</code>,
-  ]}>
-  <Tabs.Tab>
-```typescript filename="typia" showLineNumbers {11-14}
-export namespace llm {
-  // LLM FUNCTION CALLING APPLICATION SCHEMA
-  export function application<
-    App extends Record<string, any>,
-    Config extends Partial<ILlmSchema.IConfig> = {},
-  >(
-    config?: Partial<Pick<ILlmApplication.IConfig, "validate">>,
-  ): ILlmApplication;
+If all you need is the **JSON Schema** for `T` (so you can put it in `response_format` or wherever your LLM SDK accepts a schema), `typia.llm.parameters<T>()` is the minimum tool. It returns the schema and nothing else — no `parse`, no `coerce`, no `validate`.
 
-  // STRUCTURED OUTPUT
-  export function parameters<
+```typescript copy filename="signature"
+namespace llm {
+  function parameters<
     Parameters extends Record<string, any>,
     Config extends Partial<ILlmSchema.IConfig> = {},
   >(): ILlmSchema.IParameters;
-
-  // TYPE SCHEMA
-  export function schema<
-    T,
-    Config extends Partial<ILlmSchema.IConfig> = {},
-  >(
-    $defs: Record<string, ILlmSchema>,
-  ): ILlmSchema;
 }
 ```
-  </Tabs.Tab>
-  <Tabs.Tab>
-    <LocalSource
-      path="packages/interface/src/schema/ILlmApplication.ts"
-      filename="@typia/interface"
-      showLineNumbers />
-  </Tabs.Tab>
-  <Tabs.Tab>
-    <LocalSource
-      path="packages/interface/src/schema/ILlmFunction.ts"
-      filename="@typia/interface"
-      showLineNumbers />
-  </Tabs.Tab>
-  <Tabs.Tab>
-    <LocalSource
-      path="packages/interface/src/schema/ILlmSchema.ts"
-      filename="@typia/interface"
-      showLineNumbers />
-  </Tabs.Tab>
-</Tabs>
 
-Structured output schema of LLM (Large Language Model).
+## First example
 
-`typia.llm.parameters<Parameters>()` is a function generating structured output of LLM (Large Language Model) from a TypeScript object type. It is used to LLM function calling or structured output feature provided by OpenAI like LLM providers.
+```typescript copy filename="hello-parameters.ts"
+import typia, { tags } from "typia";
 
-Return value type `ILlmSchema.IParameters` is a similar with the JSON schema definition's object type.
-  
-<Callout type="info">
-**LLM Function Calling** and **Structured Output**
+interface IMember {
+  email: string & tags.Format<"email">;
+  name: string;
+  age: number;
+  hobbies: string[];
+}
 
-LLM selects proper function and fill arguments.
+const schema = typia.llm.parameters<IMember>();
+// → ILlmSchema.IParameters (an object schema with $defs)
+```
 
-In nowadays, most LLM (Large Language Model) like OpenAI are supporting "function calling" feature. The "LLM function calling" means that LLM automatically selects a proper function and fills parameter values from conversation with the user (may by chatting text).
+You hand `schema` to your LLM SDK and the model knows the expected JSON shape. The full pattern with OpenAI:
 
-Structured output is another feature of LLM. The "structured output" means that LLM automatically transforms the output conversation into a structured data format like JSON.
-
-- https://platform.openai.com/docs/guides/function-calling
-- https://platform.openai.com/docs/guides/structured-outputs
-</Callout>
-
-<Tabs items={["TypeScript Source Code", "Compiled JavaScript"]}>
-  <Tabs.Tab>
-    <LocalSource 
-      path="examples/src/llm/parameters.ts"
-      filename="example/src/llm/parameters.ts"
-      showLineNumbers />
-  </Tabs.Tab>
-  <Tabs.Tab>
-    <LocalSource 
-      path="examples/bin/llm/parameters.js"
-      filename="example/bin/llm/parameters.js"
-      showLineNumbers />
-  </Tabs.Tab>
-</Tabs>
-
-[📖 Playground Link](/playground/?script=JYWwDg9gTgLgBAbzgSQDIBsQGUDGALAUxAEM4BfOAMyghDgCIABAZ2JHwgDsB6CMAzsTDB6AbgBQoSLDgwAnsOIAaRLOIBzZuSo069eYrHi4kzjAJRKxHARQBZIgCMLiY3CLFg6AFxxmMKGBOdTgAMjVNADoAMWgSGAAeeg8vegA+CTg4QRACX39A4My4DTzsgFcQZyhivAhHR2ACZnyAoPUAbQBdYoArCCCCABMAfWIYVsKQ8JgNZhi48aSh8YJ0iTJxHC5-ODBfNExcQhJI5AAFYig2AnMoLQBeWQVgYkj0TEiwK5u75gTkA4qhY0gAKACUEm2nGYEHQBHeEHUoLAkKAA)
-
-## Structured Output
-
-```typescript filename="src/examples/llm.parameters.ts" copy showLineNumbers {4-10, 36}
+```typescript copy filename="src/examples/llm.parameters.ts" {4-10, 36}
 import OpenAI from "openai";
 import typia, { tags } from "typia";
 
@@ -112,8 +50,7 @@ interface IMember {
 
 const main = async (): Promise<void> => {
   const client: OpenAI = new OpenAI({
-    apiKey: TestGlobal.env.CHATGPT_API_KEY,
-    // apiKey: "<YOUR_OPENAI_API_KEY>",
+    apiKey: "<YOUR_OPENAI_API_KEY>",
   });
   const completion: OpenAI.ChatCompletion =
     await client.chat.completions.create({
@@ -143,7 +80,7 @@ const main = async (): Promise<void> => {
 main().catch(console.error);
 ```
 
-> ```bash filename="Terminal"
+> ```bash filename="Terminal output"
 > {
 >   email: 'john.doe@example.com',
 >   name: 'John Doe',
@@ -153,21 +90,62 @@ main().catch(console.error);
 > }
 > ```
 
-You can utilize the `typia.llm.parameters<Parameters>()` function to generate structured output like above.
+<Tabs items={[<code>typia</code>, <code>ILlmSchema</code>]}>
+  <Tabs.Tab>
+```typescript filename="typia" showLineNumbers
+export namespace llm {
+  export function parameters<
+    Parameters extends Record<string, any>,
+    Config extends Partial<ILlmSchema.IConfig> = {},
+  >(): ILlmSchema.IParameters;
+}
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource
+      path="packages/interface/src/schema/ILlmSchema.ts"
+      filename="@typia/interface"
+      showLineNumbers />
+  </Tabs.Tab>
+</Tabs>
 
-Just configure output mode as JSON schema, and deliver the `typia.llm.parameters<Parameters>()` function returned value to the LLM provider like OpenAI (ChatGPT). Then, the LLM provider will automatically transform the output conversation into a structured data format of the `Parameters` type.
+<Tabs items={["TypeScript Source", "Compiled JavaScript"]}>
+  <Tabs.Tab>
+    <LocalSource
+      path="examples/src/llm/parameters.ts"
+      filename="example/src/llm/parameters.ts"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource
+      path="examples/bin/llm/parameters.js"
+      filename="example/bin/llm/parameters.js"
+      showLineNumbers />
+  </Tabs.Tab>
+</Tabs>
 
-## The Function Calling Harness
+[📖 Open in Playground](/playground/?script=JYWwDg9gTgLgBAbzgSQDIBsQGUDGALAUxAEM4BfOAMyghDgCIABAZ2JHwgDsB6CMAzsTDB6AbgBQoSLDgwAnsOIAaRLOIBzZuSo069eYrHi4kzjAJRKxHARQBZIgCMLiY3CLFg6AFxxmMKGBOdTgAMjVNADoAMWgSGAAeeg8vegA+CTg4QRACX39A4My4DTzsgFcQZyhivAhHR2ACZnyAoPUAbQBdYoArCCCCABMAfWIYVsKQ8JgNZhi48aSh8YJ0iTJxHC5-ODBfNExcQhJI5AAFYig2AnMoLQBeWQVgYkj0TEiwK5u75gTkA4qhY0gAKACUEm2nGYEHQBHeEHUoLAkKAA)
 
-The **function calling harness** is typia's three-layer pipeline that turns unreliable LLM output into 100% correct structured data:
+## When to use `parameters` instead of `structuredOutput`
 
-1. **Lenient JSON Parsing** — recovers broken JSON (unclosed brackets, trailing commas, markdown wrapping, etc.)
-2. **Type Coercion** — fixes wrong types (`"42"` → `42`, double-stringified objects → objects, etc.)
-3. **Validation Feedback** — pinpoints remaining value errors with inline `// ❌` annotations so the LLM can self-correct and retry
+| What you need | Use |
+|---------------|-----|
+| Just the schema (your code does the parsing) | `parameters<T>()` |
+| Schema **plus** parse/coerce/validate helpers | [`structuredOutput<T>()`](/docs/llm/structuredOutput) |
+| Multiple functions, LLM picks one to call | [`application<Class>()`](/docs/llm/application) |
 
-Each layer catches what the previous one didn't. Together they form a deterministic correction loop around the probabilistic LLM.
+`structuredOutput<T>()` is essentially `parameters<T>()` + the parse/coerce/validate methods bundled together. If you don't need those methods (or you'll wire them up yourself from [`LlmJson`](/docs/llm/json)), `parameters` is the leaner choice.
 
-### Lenient JSON Parsing & Type Coercion
+## The function calling harness (when used with `parameters`)
+
+`parameters` is schema-only by design, but you can still get the parse/coerce/validate behavior by composing manually:
+
+| Goal | Use |
+|------|-----|
+| Parse messy LLM JSON text + coerce types | [`LlmJson.parse<T>(text, schema)`](/docs/llm/json#llmjsonparse--lenient-json--type-coercion) |
+| Coerce types on an already-parsed object | [`LlmJson.coerce<T>(obj, schema)`](/docs/llm/json#llmjsoncoerce--type-coercion-only) |
+| Validate against the type | [`typia.validate<T>(obj)`](/docs/validators/validate) |
+| Format errors back to the LLM | [`LlmJson.stringify(failure)`](/docs/llm/json#llmjsonstringify--format-errors-for-the-llm) |
 
 <Tabs items={[
     "Parsing Example",
@@ -197,43 +175,20 @@ Each layer catches what the previous one didn't. Together they form a determinis
   </Tabs.Tab>
 </Tabs>
 
-Use `LlmJson.parse()` from `@typia/utils` to handle LLM JSON outputs with the parameter schema from `typia.llm.parameters<T>()`. This parser is specifically designed for the messy reality of LLM responses:
-
-**Lenient JSON Features:**
-- Unclosed brackets `{`, `[` and strings
-- Trailing commas `[1, 2, 3, ]`
-- JavaScript-style comments (`//` and `/* */`)
-- Unquoted object keys (JavaScript identifier style)
-- Incomplete keywords (`tru`, `fal`, `nul`)
-- Markdown code block extraction (` ```json ... ``` `)
-- Junk text prefix skipping (explanatory text LLMs often add)
-
-**Type Coercion:**
-
-LLMs frequently return wrong types — numbers as strings, booleans as strings, or even double-stringified JSON objects. `LlmJson.parse()` automatically coerces these based on the parameter schema.
-
 <Callout type="warning">
-**0% → 100% Success Rate on Union Types**
+**Double-stringified objects fail every time without coercion**
 
-`Qwen3.5` model shows 0% success rate when handling union types with double-stringified JSON objects. With `LlmJson.parse()` type coercion, the success rate jumps to 100%.
+LLMs frequently emit `"{\"x\":1}"` (a JSON-stringified value) where the schema expects an object. Without coercion, validation rejects those responses outright. With `parse`/`coerce` it descends through the string-wrapped layers and produces typed data. See [`application`](/docs/llm/application#the-function-calling-harness) for the full picture.
 </Callout>
 
-<Callout type="info">
-**For Pre-parsed Objects, Use `LlmJson.coerce()`**
-
-Some LLM SDKs (Anthropic, Vercel AI, LangChain, MCP) parse JSON internally and return JavaScript objects directly. In these cases, use `LlmJson.coerce()` instead of `LlmJson.parse()` to fix types without re-parsing.
-
-For more details, see [JSON Utilities](./json).
-</Callout>
-
-### Validation Feedback
+### Validation feedback
 
 <LocalSource
   path="examples/src/llm/parameters-validate.ts"
   filename="examples/src/llm/parameters-validate.ts"
   showLineNumbers />
 
-Use [`typia.validate<T>()`](/docs/validators/validate) for validation feedback on structured output. When validation fails, use `LlmJson.stringify()` from `@typia/utils` to format errors with inline `// ❌` comments:
+When validation fails, format the errors with `LlmJson.stringify` and send them back to the LLM. The formatted output:
 
 ```json
 {
@@ -249,51 +204,40 @@ Use [`typia.validate<T>()`](/docs/validators/validate) for validation feedback o
 }
 ```
 
-The LLM reads this feedback and self-corrects on the next turn.
-
-In the [AutoBe](https://github.com/wrtnlabs/autobe) project (AI-powered backend code generator by [Wrtn Technologies](https://wrtn.io)), `qwen3-coder-next` showed only **6.75%** raw function calling success rate on compiler AST types. However, with the complete harness, it reached **100%** — across all four tested Qwen models.
-
-Working on compiler AST means working on any type and any use case.
-
-  - [AutoBeDatabase](https://github.com/wrtnlabs/autobe/blob/main/packages/interface/src/database/AutoBeDatabase.ts)
-  - [AutoBeOpenApi](https://github.com/wrtnlabs/autobe/blob/main/packages/interface/src/openapi/AutoBeOpenApi.ts)
-  - [AutoBeTest](https://github.com/wrtnlabs/autobe/blob/main/packages/interface/src/test/AutoBeTest.ts)
+In [AutoBe](https://github.com/wrtnlabs/autobe), the same pattern took `qwen3-coder-next` from **6.75% → 100%** correct on compiler AST types. Compiler ASTs are the hardest possible target — unlimited unions, unlimited depth, recursive references — so if the harness works there, it works on anything realistic.
 
 ```typescript filename="AutoBeTest.IExpression" showLineNumbers
-// Compiler AST may be the hardest type structure possible
-//
-// Unlimited union types + unlimited depth + recursive references
 export type IExpression =
   | IBooleanLiteral
   | INumericLiteral
   | IStringLiteral
-  | IArrayLiteralExpression   // <- recursive (contains IExpression[])
-  | IObjectLiteralExpression  // <- recursive (contains IExpression)
+  | IArrayLiteralExpression   // recursive
+  | IObjectLiteralExpression  // recursive
   | INullLiteral
   | IUndefinedKeyword
   | IIdentifier
-  | IPropertyAccessExpression // <- recursive
-  | IElementAccessExpression  // <- recursive
-  | ITypeOfExpression         // <- recursive
-  | IPrefixUnaryExpression    // <- recursive
-  | IPostfixUnaryExpression   // <- recursive
-  | IBinaryExpression         // <- recursive (left & right)
-  | IArrowFunction            // <- recursive (body is IExpression)
-  | ICallExpression           // <- recursive (args are IExpression[])
-  | INewExpression            // <- recursive
-  | IConditionalPredicate     // <- recursive (then & else branches)
+  | IPropertyAccessExpression // recursive
+  | IElementAccessExpression  // recursive
+  | ITypeOfExpression         // recursive
+  | IPrefixUnaryExpression    // recursive
+  | IPostfixUnaryExpression   // recursive
+  | IBinaryExpression         // recursive
+  | IArrowFunction            // recursive
+  | ICallExpression           // recursive
+  | INewExpression            // recursive
+  | IConditionalPredicate     // recursive
   | ... // 30+ expression types total
 ```
 
 ## Restrictions
 
-`typia.llm.parameters<Parameters>()` follows the same restrictions [`typia.llm.schema<T>()`](../schema) function. Also, it has only one additional restriction; the keyworded argument.
+LLMs use keyworded arguments. typia enforces this at compile time:
 
-In the LLM function calling and structured output, the parameters must be a keyworded object type with static keys without any dynamic keys. Also, the object type must not be nullable or optional.
+- `T` must be an **object type** with **static keys**
+- No dynamic keys (`Record<string, V>`)
+- `T` may not be nullable or optional
 
-If you don't follow the LLM's keyworded arguments rule, `typia.llm.parameters<Parameters>()` will throw compilation error like below.
-
-<Tabs items={["TypeScript Source Code", "Console Output"]}>
+<Tabs items={["Source That Won't Compile", "Compiler Errors"]}>
   <Tabs.Tab>
 ```typescript filename="src/examples/llm.parameters.violation.ts" showLineNumbers
 import typia from "typia";
@@ -313,17 +257,10 @@ src/examples/llm.parameters.violation.ts:3:1 - error TS(typia.llm.parameters): u
 3 typia.llm.parameters<string>();
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-src/examples/llm.parameters.violation.ts:3:22 - error TS2344: Type 'string' does not satisfy the constraint 'Record<string, any>'.
-
-3 typia.llm.parameters<string>();
-                       ~~~~~~
-
 src/examples/llm.parameters.violation.ts:4:1 - error TS(typia.llm.parameters): unsupported type detected
 
 - Recordstringboolean
   - LLM parameters must be an object type.
-
-- Recordstringboolean
   - LLM parameters must not have dynamic keys.
 
 4 typia.llm.parameters<Record<string, boolean>>();
@@ -336,9 +273,15 @@ src/examples/llm.parameters.violation.ts:5:1 - error TS(typia.llm.parameters): u
 
 5 typia.llm.parameters<Array<number>>();
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-Found 4 errors in the same file, starting at: src/examples/llm.parameters.violation.ts
 ```
   </Tabs.Tab>
 </Tabs>
+
+For deeper type-level rules (recursion handling, anyOf/$ref behavior) see [`llm.schema`](/docs/llm/schema).
+
+## Where to go next
+
+- All-in-one helper bundle → [`structuredOutput`](/docs/llm/structuredOutput)
+- Multiple methods on a class → [`application`](/docs/llm/application)
+- Inner-type schemas with `$defs` → [`schema`](/docs/llm/schema)
+- Parsing / coercion / validation utilities → [`LlmJson`](/docs/llm/json)

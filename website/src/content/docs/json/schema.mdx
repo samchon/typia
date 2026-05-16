@@ -5,14 +5,66 @@ import { Tabs } from "nextra/components";
 
 import LocalSource from "../../../components/LocalSource";
 
-## `schemas()` function
+# `typia.json.schemas` — emit JSON Schema / OpenAPI from a TypeScript type
 
-<Tabs items={[
-  <code>typia</code>, 
-  <code>IJsonSchemaCollection.ts</code>, 
-  <code>OpenApi</code>,
-  <code>OpenApiV3</code>,
-]}>
+If you've ever hand-written a JSON Schema or an OpenAPI components block, you know how mechanical it is. typia generates it from the TypeScript type at compile time. Same model as the validators — no extra schema file to maintain.
+
+```typescript copy filename="signatures"
+namespace json {
+  function schema<T, Version extends "3.0" | "3.1" = "3.1">(): IJsonSchemaUnit;
+  function schemas<Schemas extends unknown[], Version = "3.1">(): IJsonSchemaCollection;
+  function application<Class extends object, Version = "3.1">(): IJsonSchemaApplication;
+}
+```
+
+| Function | Use case |
+|----------|----------|
+| `json.schema<T>()` | A single top-level schema, plus a `components` map for any `$ref`s the type pulls in |
+| `json.schemas<[T1, T2, ...]>()` | Multiple top-level types sharing one `components` map (the common case for an OpenAPI `components.schemas`) |
+| `json.application<Class>()` | Class methods → a list of `{name, parameters, output}` JSON Schemas — handy for framework-neutral tooling that wants per-method schemas without typia's LLM-specific config |
+
+For the LLM-specific shape (with `$defs`, `additionalProperties: false`, strict mode, …), use [`typia.llm.parameters`](/docs/llm/parameters) or [`typia.llm.application`](/docs/llm/application) instead.
+
+`Version` selects the JSON Schema dialect:
+
+- **`"3.1"` (default)** — OpenAPI 3.1, which is JSON Schema 2020-12. Supports tuples, pattern properties, `null` as a primitive.
+- **`"3.0"`** — OpenAPI 3.0 / Swagger compatibility. No tuples, no pattern properties.
+
+Stick with `"3.1"` unless a downstream consumer demands the older dialect.
+
+## First example
+
+```typescript copy filename="hello-schemas.ts"
+import typia, { tags } from "typia";
+
+interface User {
+  id: string & tags.Format<"uuid">;
+  age: number & tags.Type<"uint32">;
+  email?: string & tags.Format<"email">;
+}
+
+const schemas = typia.json.schemas<[User]>();
+// → an IJsonSchemaCollection with `User` under components.schemas
+```
+
+The output is a plain object — drop it into your OpenAPI spec, hand it to `ajv` if you must, or save it to disk for tooling that wants schemas at rest.
+
+<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
+  <Tabs.Tab>
+    <LocalSource
+      path="examples/src/json/schemas.ts"
+      filename="examples/src/json/schemas.ts"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource
+      path="examples/bin/json/schemas.js"
+      filename="examples/bin/json/schemas.js"
+      showLineNumbers />
+  </Tabs.Tab>
+</Tabs>
+
+<Tabs items={[<code>typia</code>, <code>IJsonSchemaCollection.ts</code>, <code>OpenApi</code>, <code>OpenApiV3</code>]}>
   <Tabs.Tab>
 ```typescript copy
 export namespace json {
@@ -24,9 +76,9 @@ export namespace json {
 ```
   </Tabs.Tab>
   <Tabs.Tab>
-    <LocalSource 
+    <LocalSource
       path="packages/interface/src/schema/IJsonSchemaCollection.ts"
-      filename="@typia/interface/IJsonSchemaCollection.ts"
+      filename="@typia/interface"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
@@ -36,85 +88,58 @@ export namespace json {
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <LocalSource 
+    <LocalSource
       path="packages/interface/src/openapi/OpenApiV3.ts"
       filename="@typia/interface"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>
 
-JSON schema generator.
+## What gets included in the schema
 
-  - Definitions:
-    - [`IJsonSchemaCollection`](https://github.com/samchon/typia/blob/master/packages/interface/src/schema/IJsonSchemaCollection.ts)
-    - [OpenAPI v3.0](https://github.com/samchon/openapi/blob/master/src/OpenApiV3.ts)
-    - [OpenAPI v3.1](https://github.com/samchon/openapi/blob/master/src/OpenApi.ts)
+Anything you express in the TypeScript type carries over:
 
-When you need JSON schema, do not write it by yourself, but just call `typia.json.schemas()` function. 
+- **`tags.Format<"uuid">`** → `"format": "uuid"`
+- **`tags.MaxLength<100>`** → `"maxLength": 100`
+- **`tags.Minimum<0>`** → `"minimum": 0`
+- **JSDoc description on a property** → `"description": "..."`
 
-If you call the `typia.json.schemas()` with specialization of target `Schemas`, `typia` will analyze your `Schemas` and generate JSON schema definition in the compilation level. However, note that, JSON schema definitions of "OpenAPI v3.0" and "OpenAPI v3.1" are a little bit different. Therefore, you have to consider which value to assign in the `Version` argument.
+A few JSON-Schema-only comment tags are also recognized — they don't affect runtime validation but they show up in the emitted schema:
 
-  - Swagger can't express tuple type
-  - Swagger can't express pattern property
+| Tag | Effect |
+|-----|--------|
+| `@title Something` | Sets `title` |
+| `@deprecated` | Sets `deprecated: true` |
+| `@hidden` / `@internal` | Excludes the field from the emitted schema |
 
-<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
   <Tabs.Tab>
-    <LocalSource 
-      path="examples/src/json/schemas.ts"
-      filename="examples/src/json/schemas.ts"
-      showLineNumbers />
-  </Tabs.Tab>
-  <Tabs.Tab>
-    <LocalSource 
-      path="examples/bin/json/schemas.js"
-      filename="examples/bin/json/schemas.js"
-      showLineNumbers />
-  </Tabs.Tab>
-</Tabs>
-
-## Specialization
-
-You can utilize [type tags](../validators/tags/#type-tags) (or [validator's comment tags](../validators/tags/#comment-tags)) to constructing special fields of JSON schema. 
-
-If you write any comment on a property, it would fill the `IJsonSchema.description` value. Also, there're special comment tags only for JSON schema definition that are different with [validator's comment tags](../validators/tags/#comment-tags) like below.
-
-  - `@deprecated`
-  - `@hidden`
-  - `@internal`
-  - `@title {string}`
-
-Let's see how those [type tags](../validators/tags/#type-tags), comment tags and description comments are working with example code.
-
-<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-  <Tabs.Tab>
-    <LocalSource 
+    <LocalSource
       path="examples/src/json/schemas-comment-tags.ts"
       filename="examples/src/json/schemas-comment-tags.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <LocalSource 
+    <LocalSource
       path="examples/bin/json/schemas-comment-tags.js"
       filename="examples/bin/json/schemas-comment-tags.js"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>
 
-## Customization
+## Adding custom `x-…` fields
 
-If what you want is not just filling regular properties of JSON schema specification, but to adding custom properties into the JSON schema definition, you can do it through the `tags.TagBase.schema` property type or `tags.JsonSchemaPlugin` type. 
+JSON Schema reserves the `x-` prefix for non-standard extensions. To embed `x-…` properties (for vendor-specific tooling, internal flags, anything that isn't part of the standard), use `tags.TagBase.schema` or the `tags.JsonSchemaPlugin` helper:
 
-For reference, the custom property must be started with `x-` prefix. It's a rule of JSON schema.
-
-<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
   <Tabs.Tab>
-    <LocalSource 
+    <LocalSource
       path="examples/src/json/schemas-type-tags.ts"
       filename="examples/src/schema-type-tags.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <LocalSource 
+    <LocalSource
       path="examples/bin/json/schemas-type-tags.js"
       filename="examples/bin/json/schemas-type-tags.js"
       showLineNumbers />
@@ -123,13 +148,13 @@ For reference, the custom property must be started with `x-` prefix. It's a rule
 
 ## Restrictions
 
-JSON schema does not support `bigint` type.
+### `bigint` is rejected
 
-So if you use `bigint` type in one of your onetarget schemas, `typia` will make compile error like below.
+JSON Schema has no `bigint`. typia refuses to compile a schema for a type that contains one:
 
-<Tabs items={["TypeScript Source Code", "Console Output"]}>
+<Tabs items={["TypeScript Source", "Console Output"]}>
   <Tabs.Tab>
-```typescript filename="json.schemas.ts" copy showLineNumbers 
+```typescript filename="json.schemas.ts" copy showLineNumbers
 import typia, { tags } from "typia";
 
 interface Something {
@@ -160,9 +185,11 @@ main.ts:12:1 - error TS(typia.json.schemas): unsupported type detected
   </Tabs.Tab>
 </Tabs>
 
-Also, if you put any type of native classes like `Map` or `Uint8Array`, it would also be error, either. By the way, only `Date` class is exceptional, and it would be considered as `string & Format<"date-time">` type like below.
+### Native classes — only `Date` is allowed
 
-<Tabs items={["TypeScript Source Code", "Console Output"]}>
+`Map`, `Set`, `Uint8Array`, … are rejected. `Date` is special-cased: it serializes as `string & tags.Format<"date-time">`, so typia accepts it.
+
+<Tabs items={["TypeScript Source", "Output JSON Schema"]}>
   <Tabs.Tab>
 ```typescript filename="json.schemas.native.ts" showLineNumbers copy
 import typia from "typia";
@@ -175,7 +202,6 @@ typia.json.schemas<[Native]>();
   </Tabs.Tab>
   <Tabs.Tab>
 ```typescript filename="json.schemas.native.js" showLineNumbers
-import typia from "typia";
 ({
   version: "3.1",
   components: {
@@ -201,3 +227,10 @@ import typia from "typia";
 ```
   </Tabs.Tab>
 </Tabs>
+
+## Where to go next
+
+- Reading JSON safely → [`json.*Parse`](/docs/json/parse)
+- Writing JSON fast → [`json.*Stringify`](/docs/json/stringify)
+- LLM-compatible schema for function calling → [`llm.parameters`](/docs/llm/parameters)
+- Constraint cheatsheet → [Special Tags](/docs/validators/tags)

@@ -5,22 +5,67 @@ import { Callout, Tabs } from "nextra/components";
 
 import LocalSource from "../../../components/LocalSource";
 
-## Description Comment
+# Documentation Strategy
+
+LLMs decide which function to call by reading its description. Good descriptions are not optional — they are the prompt. This page covers three practical patterns that make the LLM behave better without changing any TypeScript types:
+
+1. **[Description comments](#description-comments)** — JSDoc on the method and on the parameter type
+2. **[Namespace inheritance](#namespace-inheritance)** — description on the parent type cascades into children
+3. **[Hiding methods](#hiding-methods)** — exclude internal helpers from the schema
+
+Plus two carry-overs from the schema layer for reference:
+
+4. **[Specialization](#specialization)** — `@title`, `@deprecated`, `@hidden`, `@internal`
+5. **[Custom `x-…` fields](#customization)** — vendor extensions in JSON Schema
+
+## Description comments
+
+The LLM reads:
+
+- The **method JSDoc comment** as the function's `description`
+- **Property JSDoc comments** as each property's `description`
+- The **`@title`** comment tag (if present) as the property's `title`
+
+```typescript copy filename="example/src/llm/BbsArticleController.ts" {11, 15-17}
+class BbsArticleController {
+  /**
+   * Create a new article.
+   *
+   * Writes a new article and archives it into the DB.
+   */
+  async create(props: {
+    /**
+     * Information of the article to create.
+     */
+    input: IBbsArticle.ICreate;
+  }): Promise<IBbsArticle> { /* … */ }
+}
+```
+
+Console output of what the LLM sees for `create`:
+
+```
+Create a new article.
+
+Writes a new article and archives it into the DB.
+```
+
+The more the description tells the LLM about *when* to call the function (not just what it returns), the more reliably it picks the right one.
 
 <Tabs items={[
-  "TypeScript Source Code", 
-  "Compiled JavaScript File",
+  "TypeScript Source",
+  "Compiled JavaScript",
   "Console Output"
 ]}>
   <Tabs.Tab>
-    <LocalSource 
+    <LocalSource
       path="examples/src/llm/application-description.ts"
       filename="example/src/llm/application-description.ts"
       showLineNumbers
       highlight="11, 15-17" />
   </Tabs.Tab>
   <Tabs.Tab>
-    <LocalSource 
+    <LocalSource
       path="examples/bin/llm/application-description.js"
       filename="example/bin/llm/application-description.js"
       showLineNumbers />
@@ -34,33 +79,37 @@ Writes a new article and archives it into the DB.
   </Tabs.Tab>
 </Tabs>
 
-Here is the example code utilizing the `typia.llm.application<App, Model>()` function.
+### `description` vs `title`
 
-As you can see, above example code is writing detailed descriptions for every functions and their parameter/return types. Such detailed descriptions are very important to teach the purpose of the function to the LLM (Language Large Model), and LLM actually determines which function to call by the description. Therefore, don't forget to writing detailed descriptions. It's very import feature for the LLM function calling.
+`ILlmFunction` has one `description`. `ILlmSchema` has both `description` and `title`. Use `@title` to add a short heading on a property without it being repeated in the description:
 
-Also, `ILlmFunction` type which has only `description` property about the comment, but `ILlmSchema` has two descriptive properties; `description` and `title`. The `title` property of the `ILlmSchema` can be filled by writing `@title {string}` comment tag. In that case, the `title` value would not be contained in the `description` value. For reference, it is possible to fill the `description` property of the `ILlmSchema` by the comment tag `@description`, but you have to take care of the indentation like below.
-
-<LocalSource 
+<LocalSource
   path="examples/src/llm/IMember.ts"
   filename="examples/src/llm/IMember.ts"
   showLineNumbers />
 
-## Namespace Strategy
+> [!NOTE]
+>
+> You can also fill `description` with `@description ...`, but watch indentation — the parser is sensitive to leading whitespace in multi-line `@description` blocks.
+
+## Namespace inheritance
+
+CRUD-style controllers tend to have parent types (`IBbsArticle`) and child variants (`IBbsArticle.ICreate`, `IBbsArticle.IUpdate`). Repeating the same long description on every variant is tedious. typia copies the parent's description **into** the children automatically:
 
 <Tabs items={[
-  "TypeScript Source Code", 
-  "Compiled JavaScript File",
+  "TypeScript Source",
+  "Compiled JavaScript",
   "Console Output"
 ]}>
   <Tabs.Tab>
-    <LocalSource 
+    <LocalSource
       path="examples/src/llm/application-namespace.ts"
       filename="example/src/llm/application-namespace.ts"
       showLineNumbers
       highlight="11, 13-18, 35-38, 65-70" />
   </Tabs.Tab>
   <Tabs.Tab>
-    <LocalSource 
+    <LocalSource
       path="examples/bin/llm/application-namespace.js"
       filename="example/bin/llm/application-namespace.js"
       showLineNumbers />
@@ -76,48 +125,56 @@ Description of the current {@link IBbsArticle.ICreate} type:
 Information of the article to create.
 
 > Description of the parent {@link IBbsArticle} type: Article entity.
-> 
+>
 > `IBbsArticle` is an entity representing an article in the BBS (Bulletin Board System).
 ```
   </Tabs.Tab>
 </Tabs>
 
-`typia.llm.application<App, Model>()` copies the parent namespaced type description comment to the children types. `typia` calls this comment writing strategy as namespace documentation, and it is recommended for the efficient documentation.
+Write the parent's description once, give each child a short variant-specific note, and the LLM sees both — the variant note **and** the inherited parent context.
 
-As you can see from the above example, `BbsArticleController` has many CRUD functions about the `IBbsArticle` namespaced type. By the way, the above `IBbsArticle.ICreate` and `IBbsArticle.IUpdate` types are not repeating same description comments about the `IBbsArticle` type. Instead, just writing the short description comment about them, and just compose the LLM function calling application schema.
+## Hiding methods
 
-In that case, the `IBbsArticle` type's description comment would be copied to the `IBbsArticle.ICreate` and `IBbsArticle.IUpdate` types like above "Console Output" case. It's a good strategy to avoid repeating same description comments, and also to deliver enough information to the LLM function calling.
+Sometimes you want a method on the class but not on the LLM's tool list — an internal helper, a sensitive admin action, anything the LLM shouldn't be calling. Use one of these JSDoc tags on the method:
 
-## Function Hiding
+| Tag | Means |
+|-----|-------|
+| `@hidden` | Excluded from the LLM application |
+| `@internal` | Excluded (TypeScript convention for "not part of the public API") |
+| `@human` | Excluded (typia convention for "only humans, not LLMs, should call this") |
 
 <Tabs items={[
-    "TypeScript Source Code",
-    "Compiled JavaScript File",
+    "TypeScript Source",
+    "Compiled JavaScript",
   ]}>
   <Tabs.Tab>
-    <LocalSource 
+    <LocalSource
       path="examples/src/llm/application-hidden.ts"
       filename="example/src/llm/application-hidden.ts"
       showLineNumbers
       highlight="36, 52, 72" />
   </Tabs.Tab>
   <Tabs.Tab>
-    <LocalSource 
+    <LocalSource
       path="examples/bin/llm/application-hidden.js"
       filename="example/bin/llm/application-hidden.js"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>
 
-Hiding some functions by comment tag.
-
-If you write `@hidden`, `@human` or `@internal` tag onto a function description comment, the function would not participate in the LLM (Large Language Model) function calling application composition. `ILlmFunction` schema does not be generated in the `ILlmApplication.functions` collection.
-
-It's a good feature to hide some internal functions, so that avoiding the LLM function calling.
+Hidden methods don't appear in `ILlmApplication.functions`, so the LLM never sees them. They still exist on the class instance and you can call them normally from your own code.
 
 ## Specialization
 
-<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+The same comment tags work for properties on the parameter and return types:
+
+| Tag | Effect |
+|-----|--------|
+| `@title Something` | Short title shown alongside description |
+| `@deprecated` | Marks the property as deprecated in the schema |
+| `@hidden` / `@internal` | Excludes the property from the emitted schema |
+
+<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
   <Tabs.Tab>
     <LocalSource
       path="examples/src/llm/schema-special.ts"
@@ -132,36 +189,32 @@ It's a good feature to hide some internal functions, so that avoiding the LLM fu
   </Tabs.Tab>
 </Tabs>
 
-You can utilize [type tags](../validators/tags/#type-tags) (or [validator's comment tags](../validators/tags/#comment-tags)) to constructing special fields of JSON schema. 
-
-If you write any comment on a property, it would fill the `IJsonSchema.description` value. Also, there're special comment tags only for JSON schema definition that are different with [validator's comment tags](../validators/tags/#comment-tags) like below.
-
-  - `@deprecated`
-  - `@hidden`
-  - `@internal`
-  - `@title {string}`
-
-Let's see how those [type tags](../validators/tags/#type-tags), comment tags and description comments are working with example code.
+Also see [type tags](/docs/validators/tags) — the same `Format`, `Minimum`, `MaxLength`, etc. that drive runtime validation also flow into the emitted JSON Schema as `format`, `minimum`, `maxLength`.
 
 ## Customization
 
-If what you want is not just filling regular properties of LLM schema specification, but to adding custom properties into the JSON schema definition, you can do it through the `tags.TagBase.schema` property type or `tags.JsonSchemaPlugin` type. 
+JSON Schema reserves the `x-` prefix for non-standard extensions. To add `x-…` keys, use `tags.TagBase.schema` or the `tags.JsonSchemaPlugin` shortcut:
 
-For reference, the custom property must be started with `x-` prefix. It's a rule of LLM schema.
-
-<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
   <Tabs.Tab>
-    <LocalSource 
+    <LocalSource
       path="examples/src/llm/schema-custom.ts"
       filename="example/src/llm/schema-custom.ts"
       showLineNumbers
       highlight="12-14, 18, 22-23" />
   </Tabs.Tab>
   <Tabs.Tab>
-    <LocalSource 
+    <LocalSource
       path="examples/bin/llm/schema-custom.js"
       filename="example/bin/llm/schema-custom.js"
       showLineNumbers
       highlight="7, 11" />
   </Tabs.Tab>
 </Tabs>
+
+## Where to go next
+
+- The class-based tool API → [`typia.llm.application`](/docs/llm/application)
+- Schema for one structured output → [`structuredOutput`](/docs/llm/structuredOutput) · [`parameters`](/docs/llm/parameters)
+- The validation feedback channel → [`LlmJson`](/docs/llm/json)
+- Constraint tags → [Special Tags](/docs/validators/tags)

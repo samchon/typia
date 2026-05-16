@@ -4,11 +4,28 @@ title: Guide Documents > Introduction
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 
-## Outline
+## What is typia?
+
+**typia turns your TypeScript types into runtime code at compile time.**
+
+Other libraries make you write your types twice — once in TypeScript and once as a schema, decorators, or guards. typia reads the type you already wrote and emits the validator, JSON serializer, schema, or decoder for you. One line, pure types, no duplication.
+
+```ts copy filename="hello.ts"
+import typia from "typia";
+
+interface User {
+  id: string;
+  age: number;
+}
+
+typia.assert<User>(input); // throws TypeGuardError when the shape is wrong
+```
+
+That call expands at compile time into a hand-rolled checker for `User`. No schema file. No decorator soup. No reflection at runtime.
 
 ![Typia Logo](/logo.png)
 
-<span style={{ display: "flex", flexDirection: "row" }}>
+<span style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", gap: "6px" }}>
 {[
   [
     "MIT License",
@@ -31,11 +48,6 @@ import Stack from '@mui/material/Stack';
     "https://github.com/samchon/typia/actions?query=workflow%3Atest",
   ],
   [
-    "Guide Documents",
-    "https://img.shields.io/badge/Guide-Documents-forestgreen",
-    "https://typia.io/docs/",
-  ],
-  [
     "Gurubase",
     "https://img.shields.io/badge/Gurubase-Document%20Chatbot-006BFF",
     "https://gurubase.io/g/typia",
@@ -46,110 +58,99 @@ import Stack from '@mui/material/Stack';
     "https://discord.gg/E94XhzrUCZ",
   ]
 ].map(([alt, image, url]) => (
-  <a href={url} style={{ marginTop: "30px", marginRight: "6px" }}>
+  <a href={url} style={{ marginTop: "20px" }} key={alt}>
       <img src={image} alt={alt} />
   </a>
 ))}
 </span>
 
-```typescript
-// RUNTIME VALIDATORS
-export function is<T>(input: unknown): input is T; // returns boolean
-export function assert<T>(input: unknown): T; // throws TypeGuardError
-export function assertGuard<T>(input: unknown): asserts input is T;
-export function validate<T>(input: unknown): IValidation<T>; // detailed
+## What you get
 
-// JSON FUNCTIONS
-export namespace json {
-  export function schema<T>(): IJsonSchemaUnit<T>; // JSON schema
-  export function assertParse<T>(input: string): T; // type safe parser
-  export function assertStringify<T>(input: T): string; // safe and faster
-}
+```ts
+// Runtime validators — write a type, get a checker
+typia.is<T>(input);          // boolean
+typia.assert<T>(input);      // throws TypeGuardError, otherwise returns input
+typia.assertGuard<T>(input); // narrows the variable (`asserts input is T`)
+typia.validate<T>(input);    // returns IValidation<T> with every error path
 
-// AI FUNCTION CALLING HARNESS
-export namespace llm {
-  // collection of function calling schemas + validators/parsers
-  export function application<Class>(): ILlmApplication<Class>;
-  export function structuredOutput<P>(): ILlmStructuredOutput;
-  // lenient json parser + type coercion
-  export function parse<T>(str: string): T;
-}
+// JSON — same idea, plus performance
+typia.json.assertParse<T>(text);    // safe JSON.parse + assert
+typia.json.assertStringify<T>(obj); // ~10x faster JSON.stringify with type safety
+typia.json.schemas<[T]>();          // emit OpenAPI/JSON Schema
 
-// PROTOCOL BUFFER
-export namespace protobuf {
-  export function message<T>(): string; // Protocol Buffer message
-  export function assertDecode<T>(buffer: Uint8Array): T; // safe decoder
-  export function assertEncode<T>(input: T): Uint8Array; // safe encoder
-}
+// LLM function calling — turn a TypeScript class into tools
+typia.llm.application<MyService>();    // full ILlmApplication with parse/coerce/validate
+typia.llm.structuredOutput<T>();       // schema + parser + coercer + validator
+typia.llm.parameters<T>();             // just the JSON schema
 
-// RANDOM GENERATOR
-export function random<T>(g?: Partial<IRandomGenerator>): T;
+// Protocol Buffer — same again, in binary
+typia.protobuf.assertEncode<T>(obj);
+typia.protobuf.assertDecode<T>(bytes);
+typia.protobuf.message<T>();           // emit .proto schema text
+
+// Test data
+typia.random<T>();                     // generate a value that satisfies T
 ```
-
-`typia` is a transformer library supporting below features:
-
-  - Super-fast Runtime Validators
-  - Enhanced JSON functions
-  - LLM function calling harness
-  - Protocol Buffer encoder and decoder
-  - Random data generator
 
 <br/>
 <Stack spacing={1}>
   <Alert severity="warning">
-    Only **one line** required, with pure TypeScript type
+    Only **one line** required, with pure TypeScript types
   </Alert>
   <Alert severity="success">
-    Runtime validator is **20,000x** faster than `class-validator`
+    Runtime validator up to **20,000× faster** than `class-validator` ([benchmark](https://github.com/samchon/typia/tree/master/benchmark/results/AMD%20Ryzen%209%207940HS%20w%20Radeon%20780M%20Graphics))
   </Alert>
   <Alert severity="info">
-    JSON serialization is **200x faster** than `class-transformer`
+    JSON serialization up to **200× faster** than `class-transformer` ([benchmark](https://github.com/samchon/typia/tree/master/benchmark/results/AMD%20Ryzen%209%207940HS%20w%20Radeon%20780M%20Graphics#stringify))
   </Alert>
   <Alert severity="success">
-    LLM function calling harness turns **6.75% → 100%** accuracy
+    LLM function calling success rate: **6.75% → 100%** with the typia harness ([story](https://github.com/wrtnlabs/autobe))
   </Alert>
 </Stack>
 
-## Transformation
+## How it works
 
 <br/>
-<iframe src="https://www.youtube.com/embed/WM6LGy2UU6s?si=lZrqbILxHI22QwEE" 
-        title="Typia Tutorial Video" 
-        width="100%" 
-        height="500" 
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" 
+<iframe src="https://www.youtube.com/embed/WM6LGy2UU6s?si=lZrqbILxHI22QwEE"
+        title="Typia Tutorial Video"
+        width="100%"
+        height="500"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin"
         allowFullScreen></iframe>
 
-If you call `typia` function, it would be compiled like below.
+Every TypeScript type disappears at runtime — there is no class object to inspect, no decorator to call. So validator libraries normally ask you to re-encode the type as a schema. typia takes a different route: it ships a compile-time transform that reads the type and writes the runtime code for you.
 
-This is the key concept of `typia`, transforming TypeScript type to a runtime function. The `typia.is<T>()` function is transformed to a dedicated type checker by analyzing the target type `T` in the compilation level.
+You install the [`ttsc`](/docs/setup/tsgo) toolchain — a drop-in replacement for `tsc` that runs typia's transform — or, on stable TypeScript v5 / v6, the [`ts-patch`](/docs/setup/legacy) patcher that injects the same transform into the stock compiler. Your build becomes:
 
-This feature enables developers to ensure type safety in their applications, leveraging TypeScript's static typing while also providing runtime validation. Instead of defining additional schemas, you can simply utilize the pure TypeScript type itself.
-
-```typescript
-//----
-// examples/checkString.ts
-//----
-import typia, { tags } from "typia";
-export const checkString = typia.createIs<string>();
-
-//----
-// examples/checkString.js
-//----
+```ts copy filename="src/check.ts"
 import typia from "typia";
-export const checkString = (() => {
+export const check = typia.createIs<string>();
+```
+
+```js copy filename="dist/check.js"
+import typia from "typia";
+export const check = (() => {
   return (input) => "string" === typeof input;
 })();
 ```
+
+That's the entire trick. The TypeScript source asks for `is<string>`; the compiler emits the bare-metal check inline. No reflection, no schema, no decorator side effects. See [Pure TypeScript](/docs/pure) for the full motivation.
+
+## Where to go next
+
+- **Just getting started?** Walk through the [Tutorial](/docs/tutorial) — install, write your first validator, then add JSON and LLM in 30 minutes.
+- **Need to install it now?** See [Setup](/docs/setup) — pick TypeScript-Go (`ttsc`) or the TS v6 legacy path.
+- **Looking up an API?** Jump straight to [Validators](/docs/validators/is), [JSON](/docs/json/schema), [LLM](/docs/llm/application), [Protobuf](/docs/protobuf/message), or [Random](/docs/random).
+- **Building an agent?** Start at [LLM function calling](/docs/llm/application) and the [function calling harness](/docs/llm/json).
 
 ## Sponsors
 
 [![Backers](https://opencollective.com/typia/backers.svg?avatarHeight=75&width=600)](https://opencollective.com/typia)
 
-Thanks for your support.
-
-Your [donation](https://opencollective.com/typia) encourages `typia` development.
+If typia saves you time, please consider [donating to the project](https://opencollective.com/typia).
 
 ## References
 
-  - inspired by [`typescript-is`](https://github.com/woutervh-/typescript-is)
+- Inspired by [`typescript-is`](https://github.com/woutervh-/typescript-is)
+- Source code: [github.com/samchon/typia](https://github.com/samchon/typia)
+- Benchmarks: [benchmark/results](https://github.com/samchon/typia/tree/master/benchmark/results/AMD%20Ryzen%209%207940HS%20w%20Radeon%20780M%20Graphics)

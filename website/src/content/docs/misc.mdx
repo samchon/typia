@@ -7,170 +7,194 @@ import AlertTitle from '@mui/material/AlertTitle';
 
 import LocalSource from '../../components/LocalSource';
 
-## `misc` module
+# Miscellaneous
 
-### `clone()` functions
+Three small modules that share the typia transform but don't fit anywhere else: `misc` (clone / prune / literals), `notations` (case conversion), and `http` (form data / query / headers / route parameters).
 
-<Tabs items={[
-  <code>typia</code>, 
-  <code>TypeGuardError.ts</code>, 
-  <code>IValidation.ts</code>,
-  <code>Resolved.ts</code>
-]}>
+## `misc.clone` — deep copy
+
+```typescript copy filename="signatures"
+namespace misc {
+  function clone<T>(input: T): Resolved<T>;
+  function assertClone<T>(input: unknown): Resolved<T>;  // + assert
+  function isClone<T>(input: unknown): Resolved<T> | null;  // + is
+  function validateClone<T>(input: unknown): IValidation<Resolved<T>>;  // + validate
+}
+```
+
+Same family pattern as the validators — `clone` trusts you, the others wrap the copy with type checking.
+
+```typescript copy
+const copy = typia.misc.clone<User>(user);
+
+// Type-safe variants
+const maybe = typia.misc.isClone<User>(input);        // null if `input` isn't a User
+const result = typia.misc.validateClone<User>(input); // IValidation<User>
+const checked = typia.misc.assertClone<User>(input);  // throws if invalid
+```
+
+The pairing rule is the same as elsewhere:
+
+- `misc.isClone<T>` = [`is<T>`](/docs/validators/is) + `clone<T>`
+- `misc.assertClone<T>` = [`assert<T>`](/docs/validators/assert) + `clone<T>`
+- `misc.validateClone<T>` = [`validate<T>`](/docs/validators/validate) + `clone<T>`
+
+<Tabs items={[<code>typia</code>, <code>TypeGuardError.ts</code>, <code>IValidation.ts</code>, <code>Resolved.ts</code>]}>
   <Tabs.Tab>
 ```typescript
 export namespace misc {
-  export function clone<T>(input: T): T;
+  export function clone<T>(input: T): Resolved<T>;
   export function assertClone<T>(input: T | unknown): Resolved<T>;
   export function isClone<T>(input: T | unknown): Resolved<T> | null;
   export function validateClone<T>(input: T | unknown): IValidation<Resolved<T>>;
 
+  // Factories (Resolved<T> = T projected for the JS runtime)
   export function createClone<T>(): (input: T) => Resolved<T>;
   export function createAssertClone<T>(): (input: T | unknown) => Resolved<T>;
   export function createIsClone<T>(): (input: T | unknown) => Resolved<T> | null;
-  export function createValidateClone<T>(): (
-      input: T | unknown
-  ) => IValidation<Resolved<T>>;
+  export function createValidateClone<T>(): (input: T | unknown) => IValidation<Resolved<T>>;
 }
 ```
   </Tabs.Tab>
   <Tabs.Tab>
-    <LocalSource 
+    <LocalSource
       path="packages/typia/src/TypeGuardError.ts"
       filename="typia/TypeGuardError.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <LocalSource 
+    <LocalSource
       path="packages/interface/src/schema/IValidation.ts"
       filename="@typia/interface"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <LocalSource 
+    <LocalSource
       path="packages/interface/src/typings/Resolved.ts"
       filename="@typia/interface"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>
 
-Deep copy functions.
-
-When you want to copy an instance, just call `typia.misc.clone()` function. It would perform deep copy including nested objects, so you can get a new instance with same values. Also, if you want type safe deep copy function, you can use `typia.misc.isClone()`, `typia.misc.assertClone()` or `typia.misc.validateClone()` functions instead.
-
-  - `typia.misc.assertClone()`: [`typia.assert<T>()`](../validators/assert) + `typia.misc.clone<T>()`
-  - `typia.misc.isClone()`: [`typia.is<T>()`](../validators/is) + `typia.misc.clone<T>()`
-  - `typia.misc.validateClone()`: [`typia.validate<T>()`](../validators/validate) + `typia.misc.clone<T>()`
-
-<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
   <Tabs.Tab>
-    <LocalSource 
+    <LocalSource
       path="examples/src/misc/assertClone.ts"
       filename="examples/src/misc/assertClone.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <LocalSource 
+    <LocalSource
       path="examples/bin/misc/assertClone.js"
       filename="examples/bin/misc/assertClone.js"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>
 
-### `prune()` functions
+## `misc.prune` — remove extra properties
 
-<Tabs items={[
-  <code>typia</code>, 
-  <code>TypeGuardError.ts</code>, 
-  <code>IValidation.ts</code>
-]}>
-  <Tabs.Tab>
-```typescript
-export function prune<T>(input: T): void;
-export function assertPrune<T>(input: T | unknown): T;
-export function isPrune<T>(input: T | unknown): T | null;
-export function validatePrune<T>(input: T | unknown): IValidation<T>;
-
-export function createPrune<T>(): (input: T) => void;
-export function createAssertPrune<T>(): (input: T | unknown) => T;
-export function createIsPrune<T>(): (input: T | unknown) => T | null;
-export function createValidatePrune<T>(): (input: T | unknown) => IValidation<T>;
+```typescript copy filename="signatures"
+namespace misc {
+  function prune<T>(input: T): void;                          // mutates input
+  function assertPrune<T>(input: unknown): T;                 // + assert, then mutates
+  function isPrune<T>(input: unknown): input is T;            // + is; returns false instead of mutating
+  function validatePrune<T>(input: unknown): IValidation<T>;  // + validate
+}
 ```
-  </Tabs.Tab>
+
+**`prune` and `assertPrune` walk the input object and delete any property not declared on `T` — they mutate `input` in place.** `prune` returns `void`; `assertPrune` returns the now-mutated `input` typed as `T`. The `isPrune` and `validatePrune` variants only mutate once they're sure the input matches `T`, so they're safe on values you weren't expecting.
+
+> [!CAUTION]
+>
+> If you need a non-mutating version, clone first: `typia.misc.prune<T>(typia.misc.clone<T>(value))`.
+
+```typescript copy
+typia.misc.prune<User>(input);
+// input is now narrowed in place — extra properties removed.
+
+const cleaned = typia.misc.assertPrune<User>(input);
+// Same, but throws if input doesn't match User. Returns input.
+
+if (typia.misc.isPrune<User>(input)) {
+  // input is User and has been pruned. `input` is now typed as User.
+}
+
+const r = typia.misc.validatePrune<User>(input);
+// r.success === true means input was a User and is now pruned.
+```
+
+Useful when you receive a JSON document with extra fields you'd rather not pass around (e.g. logging, persisting to a DB that's strict about schema).
+
+<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
   <Tabs.Tab>
-    <LocalSource 
-      path="packages/typia/src/TypeGuardError.ts"
-      filename="typia/TypeGuardError.ts"
-      showLineNumbers />
-  </Tabs.Tab>
-  <Tabs.Tab>
-    <LocalSource 
-      path="packages/interface/src/schema/IValidation.ts"
-      filename="@typia/interface/IValidation.ts"
-      showLineNumbers />
-  </Tabs.Tab>
-</Tabs>
-
-Deep prune functions.
-
-When you want to remove every extra properties that are not defined in the type including nested objects, you can use `typia.misc.prune<T>()` function. Also, if you want to perform type safe pruning, you can use `typia.misc.isPrune<T>()`, `typia.misc.assertPrune<T>()` or `typia.misc.validatePrune<T>()` functions instead.
-
-  - `typia.misc.isPrune()`: [`typia.is<T>()`](../validators/is) + `typia.misc.prune<T>()`
-  - `typia.misc.assertPrune()`: [`typia.assert<T>()`](../validators/assert) + `typia.misc.prune<T>()`
-  - `typia.misc.validatePrune()`: [`typia.validate<T>()`](../validators/validate) + `typia.misc.prune<T>()`
-
-<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-  <Tabs.Tab>
-    <LocalSource 
+    <LocalSource
       path="examples/src/misc/assertPrune.ts"
       filename="examples/src/misc/assertPrune.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <LocalSource 
+    <LocalSource
       path="examples/bin/misc/assertPrune.js"
       filename="examples/bin/misc/assertPrune.js"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>
 
-### `literals()` function
-```typescript
-export namespace misc {
-  export function literals<
-    T extends boolean | number | string | bigint | null,
-  >(): T[];
+## `misc.literals` — union literal type → array
+
+```typescript copy filename="signature"
+namespace misc {
+  function literals<T extends boolean | number | string | bigint | null>(): T[];
 }
 ```
 
-Union literal type to array.
+If you have a string-literal union (`"red" | "green" | "blue"`) and you want the runtime array `["red", "green", "blue"]` to iterate over, `misc.literals` reads the union from the TS type and emits the array.
 
-When you call `typia.misc.literals<T>()` function with union literal type, it returns an array of literal values listed in the generic `T` argument. This `typia.misc.literals<T>` function is useful when you are developing test program, especially handling some discriminated union types.
+Handy for select-box options, discriminated-union test matrices, etc.
 
-<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
   <Tabs.Tab>
-    <LocalSource 
+    <LocalSource
       path="examples/src/misc/literals.ts"
       filename="examples/src/misc/literals.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <LocalSource 
+    <LocalSource
       path="examples/bin/misc/literals.js"
       filename="examples/bin/misc/literals.js"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>
 
-## `notations` module
+## `notations` — case conversion
 
-### `camel()` functions
+Three case converters: `camel`, `pascal`, `snake`. Each one walks the object and rewrites property names to that case. Same four-variant family as everywhere else:
+
+```typescript copy filename="signatures — example for camelCase"
+namespace notations {
+  function camel<T>(input: T): CamelCase<T>;
+  function assertCamel<T>(input: unknown): CamelCase<T>;
+  function isCamel<T>(input: unknown): CamelCase<T> | null;
+  function validateCamel<T>(input: unknown): IValidation<CamelCase<T>>;
+}
+```
+
+`PascalCase` and `SnakeCase` swap in for `CamelCase` in the type. The output type is computed at the type level so the rest of your code knows about the new property names.
+
+```typescript copy
+typia.notations.snake<{ userId: string; userName: string }>({
+  userId: "1",
+  userName: "John",
+});
+// → { user_id: "1", user_name: "John" }
+```
 
 <Tabs items={[
-  <code>typia</code>, 
-  <code>TypeGuardError.ts</code>, 
+  <code>typia</code>,
+  <code>TypeGuardError.ts</code>,
   <code>IValidation.ts</code>,
-  <code>CamelCase.ts</code>
+  <code>CamelCase.ts</code>,
 ]}>
   <Tabs.Tab>
 ```typescript
@@ -178,470 +202,189 @@ export namespace notations {
   export function camel<T>(input: T): CamelCase<T>;
   export function assertCamel<T>(input: T | unknown): CamelCase<T>;
   export function isCamel<T>(input: T | unknown): CamelCase<T> | null;
-  export function validateCamel<T>(
-    input: T | unknown,
-  ): IValidation<CamelCase<T>>;
+  export function validateCamel<T>(input: T | unknown): IValidation<CamelCase<T>>;
 
-  export function createCamel<T>(): (input: T) => CamelCase<T>;
-  export function createAssertCamel<T>(): (input: T | unknown) => CamelCase<T>;
-  export function createIsCamel<T>(): (
-    input: T | unknown,
-  ) => CamelCase<T> | null;
-  export function createValidateCamel<T>(): (
-    input: T | unknown,
-  ) => IValidation<CamelCase<T>>;
+  // Same surface for pascal / Pascal and snake / Snake.
+  // Each has create* factories too.
 }
 ```
   </Tabs.Tab>
   <Tabs.Tab>
-    <LocalSource 
+    <LocalSource
       path="packages/typia/src/TypeGuardError.ts"
       filename="typia/TypeGuardError.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <LocalSource 
+    <LocalSource
       path="packages/interface/src/schema/IValidation.ts"
-      filename="@typia/interface/IValidation.ts"
+      filename="@typia/interface"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <LocalSource 
+    <LocalSource
       path="packages/interface/src/typings/CamelCase.ts"
-      filename="typia/CamelCase.ts"
+      filename="@typia/interface"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>
 
-Camel case converters.
-
-Convert every property names of nested objects to be camel case notation.
-
-When you need type safe functions, you can utilize below them.
-
-  - `typia.notations.assertCamel<T>()`: [`typia.assert<T>()`](../validators/assert) + `typia.notations.camel<T>()`
-  - `typia.notations.isCamel<T>`: [`typia.is<T>()`](../validators/is) + `typia.notations.camel<T>()`
-  - `typia.notations.validateCamel<T>`: [`typia.validate<T>()`](../validators/validate) + `typia.notations.camel<T>()`
-
-<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+<Tabs items={['camel example', 'pascal example', 'snake example']}>
   <Tabs.Tab>
-    <LocalSource 
+    <LocalSource
       path="examples/src/notations/camel.ts"
       filename="examples/src/notations/camel.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <LocalSource 
-      path="examples/bin/notations/camel.js"
-      filename="examples/bin/notations/camel.js"
-      showLineNumbers />
-  </Tabs.Tab>
-</Tabs>
-
-### `pascal()` functions
-
-<Tabs items={[
-  <code>typia</code>, 
-  <code>TypeGuardError.ts</code>, 
-  <code>IValidation.ts</code>,
-  <code>PascalCase.ts</code>
-]}>
-  <Tabs.Tab>
-```typescript
-export namespace notations {
-  export function pascal<T>(input: T): PascalCase<T>;
-  export function assertPascal<T>(input: T | unknown): PascalCase<T>;
-  export function isPascal<T>(input: T | unknown): PascalCase<T> | null;
-  export function validatePascal<T>(
-    input: T | unknown,
-  ): IValidation<PascalCase<T>>;
-
-  export function createPascal<T>(): (input: T) => PascalCase<T>;
-  export function createAssertPascal<T>(): (
-    input: T | unknown,
-  ) => PascalCase<T>;
-  export function createIsPascal<T>(): (
-    input: T | unknown,
-  ) => PascalCase<T> | null;
-  export function createValidatePascal<T>(): (
-    input: T | unknown,
-  ) => IValidation<PascalCase<T>>;
-}
-```
-  </Tabs.Tab>
-  <Tabs.Tab>
-    <LocalSource 
-      path="packages/typia/src/TypeGuardError.ts"
-      filename="typia/TypeGuardError.ts"
-      showLineNumbers />
-  </Tabs.Tab>
-  <Tabs.Tab>
-    <LocalSource 
-      path="packages/interface/src/schema/IValidation.ts"
-      filename="@typia/interface/IValidation.ts"
-      showLineNumbers />
-  </Tabs.Tab>
-  <Tabs.Tab>
-    <LocalSource 
-
-      path="packages/interface/src/typings/PascalCase.ts"
-      filename="@typia/interface"
-      showLineNumbers />
-  </Tabs.Tab>
-</Tabs>
-
-Pascal case converters.
-
-Convert every property names of nested objects to be pascal case notation.
-
-When you need type safe functions, you can utilize below them.
-
-  - `typia.notations.assertPascal<T>()`: [`typia.assert<T>()`](../validators/assert) + `typia.notations.pascal<T>()`
-  - `typia.notations.isPascal<T>`: [`typia.is<T>()`](../validators/is) + `typia.notations.pascal<T>()`
-  - `typia.notations.validatePascal<T>`: [`typia.validate<T>()`](../validators/validate) + `typia.notations.pascal<T>()`
-
-<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-  <Tabs.Tab>
-    <LocalSource 
+    <LocalSource
       path="examples/src/notations/pascal.ts"
       filename="examples/src/notations/pascal.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <LocalSource 
-      path="examples/bin/notations/pascal.js"
-      filename="examples/bin/notations/pascal.js"
-      showLineNumbers />
-  </Tabs.Tab>
-</Tabs>
-
-### `snake()` functions
-
-<Tabs items={[
-  <code>typia</code>, 
-  <code>TypeGuardError.ts</code>, 
-  <code>IValidation.ts</code>,
-  <code>SnakeCase.ts</code>
-]}>
-  <Tabs.Tab>
-```typescript
-export namespace notations {
-  export function snake<T>(input: T): SnakeCase<T>;
-  export function assertSnake<T>(input: T | unknown): SnakeCase<T>;
-  export function isSnake<T>(input: T | unknown): SnakeCase<T> | null;
-  export function validateSnake<T>(
-    input: T | unknown,
-  ): IValidation<SnakeCase<T>>;
-
-  export function createSnake<T>(): (input: T) => SnakeCase<T>;
-  export function createAssertSnake<T>(): (input: T | unknown) => SnakeCase<T>;
-  export function createIsSnake<T>(): (
-    input: T | unknown,
-  ) => SnakeCase<T> | null;
-  export function createValidateSnake<T>(): (
-    input: T | unknown,
-  ) => IValidation<SnakeCase<T>>;
-}
-```
-  </Tabs.Tab>
-  <Tabs.Tab>
-    <LocalSource 
-      path="packages/typia/src/TypeGuardError.ts"
-      filename="typia/TypeGuardError.ts"
-      showLineNumbers />
-  </Tabs.Tab>
-  <Tabs.Tab>
-    <LocalSource 
-      path="packages/interface/src/schema/IValidation.ts"
-      filename="@typia/interface/IValidation.ts"
-      showLineNumbers />
-  </Tabs.Tab>
-  <Tabs.Tab>
-    <LocalSource 
-      path="packages/interface/src/typings/SnakeCase.ts"
-      filename="@typia/interface"
-      showLineNumbers />
-  </Tabs.Tab>
-</Tabs>
-
-Snake case converters.
-
-Convert every property names of nested objects to be snake case notation.
-
-When you need type safe functions, you can utilize below them.
-
-  - `typia.notations.assertSnake<T>()`: [`typia.assert<T>()`](../validators/assert) + `typia.notations.snake<T>()`
-  - `typia.notations.isSnake<T>`: [`typia.is<T>()`](../validators/is) + `typia.notations.snake<T>()`
-  - `typia.notations.validateSnake<T>`: [`typia.validate<T>()`](../validators/validate) + `typia.notations.snake<T>()`
-
-<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-  <Tabs.Tab>
-    <LocalSource 
+    <LocalSource
       path="examples/src/notations/snake.ts"
       filename="examples/src/notations/snake.ts"
       showLineNumbers />
   </Tabs.Tab>
-  <Tabs.Tab>
-    <LocalSource 
-      path="examples/bin/notations/snake.js"
-      filename="examples/bin/notations/snake.js"
-      showLineNumbers />
-  </Tabs.Tab>
 </Tabs>
 
-## `http` module
+## `http` — decode form data, query strings, headers, route params
 
-<br/>
+The `http` module turns HTTP-shaped inputs (`URLSearchParams`, headers object, route parameter strings, `FormData`) into typed objects, with automatic string-to-number / string-to-boolean coercion.
+
 <Alert severity="success">
-  <AlertTitle> 
-    **Nestia Supporting** 
+  <AlertTitle>
+    **Designed for Nestia**
   </AlertTitle>
 
-`http` module has been designed to support the [nestia](https://github.com/samchon/nestia) project.
-
-  - `query()` functions -> [`@TypedQuery()`](https://nestia.io/docs/core/TypedQuery/)
-  - `headers()` functions -> [`@TypedHeaders()`](https://nestia.io/docs/core/TypedHeaders/)
-  - `parameter()` function -> [`@TypedParam()`](https://nestia.io/docs/core/TypedParam/)
+These functions back [Nestia](https://nestia.io)'s HTTP decorators — [`@TypedQuery()`](https://nestia.io/docs/core/TypedQuery/), [`@TypedHeaders()`](https://nestia.io/docs/core/TypedHeaders/), [`@TypedParam()`](https://nestia.io/docs/core/TypedParam/), and friends. They also work standalone for hand-rolled Express / Fastify / Hono handlers.
 
 </Alert>
 
-### `query()` functions
+### `http.query` — URL query strings
 
-<Tabs items={[
-  <code>typia</code>, 
-  <code>TypeGuardError.ts</code>, 
-  <code>IValidation.ts</code>,
-  <code>Resolved.ts</code>
-]}>
-  <Tabs.Tab>
-```typescript
-export namespace http {
-  export function query<T extends object>(input: Query): Resolved<T>;
-  export function assertQuery<T extends object>(input: Query): Resolved<T>;
-  export function isQuery<T extends object>(input: Query): Resolved<T> | null;
-  export function validateQuery<T extends object>(
-    input: Query,
-  ): IValidation<Resolved<T>>;
-
-  export function createQuery<T extends object>(): (
-    input: Query,
-  ) => Resolved<T>;
-  export function createAssertQuery<T extends object>(): (
-    input: Query,
-  ) => Resolved<T>;
-  export function createIsQuery<T extends object>(): (
-    input: Query,
-  ) => Resolved<T> | null;
-  export function createValidateQuery<T extends object>(): (
-    input: Query,
-  ) => IValidation<Resolved<T>>;
+```typescript copy filename="signatures"
+namespace http {
+  function query<T extends object>(input: string | URLSearchParams): Resolved<T>;
+  function assertQuery<T extends object>(input: string | URLSearchParams): Resolved<T>;
+  function isQuery<T extends object>(input: string | URLSearchParams): Resolved<T> | null;
+  function validateQuery<T extends object>(input: string | URLSearchParams): IValidation<Resolved<T>>;
 }
-type Query = string | URLSearchParams;
 ```
-  </Tabs.Tab>
+
+`http.query` decodes a query string (or a `URLSearchParams`) into a typed object. Numeric and boolean properties are coerced from their string form automatically.
+
+**Restrictions** (typia rejects at compile time):
+
+1. `T` must be an object type
+2. No dynamic keys
+3. Only `boolean | bigint | number | string` or arrays of those
+4. No unions
+
+`http.query` itself doesn't validate constraint tags (`Format`, `Minimum`, …). The `assertQuery` / `isQuery` / `validateQuery` variants do.
+
+<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
   <Tabs.Tab>
-    <LocalSource 
-      path="packages/typia/src/TypeGuardError.ts"
-      filename="typia/TypeGuardError.ts"
-      showLineNumbers />
-  </Tabs.Tab>
-  <Tabs.Tab>
-    <LocalSource 
-      path="packages/interface/src/schema/IValidation.ts"
-      filename="@typia/interface"
-      showLineNumbers />
-  </Tabs.Tab>
-  <Tabs.Tab>
-    <LocalSource 
-      path="packages/interface/src/typings/Resolved.ts"
-      filename="@typia/interface"
-      showLineNumbers />
-  </Tabs.Tab>
-</Tabs>
-
-URL query decoder functions.
-
-`typia.http.query<T>()` is a function decoding a query string or an `URLSearchParams` instance, with automatic type casting to the expected type. When property type be defined as boolean or number type, `typia.http.query<T>()` will cast the value to the expected type when decoding.
-
-By the way, as URL query is not enough to express complex data structures, `typia.http.query<T>()` function has some limitations. If target type `T` is not following those restrictions, compilation errors would be occurred.
-
-  1. Type T must be an object type
-  2. Do not allow dynamic property
-  3. Only boolean, bigint, number, string or their array types are allowed
-  4. By the way, union type never be not allowed
-
-Also, `typia.http.query<T>()` function does not perform validation about the decoded value. Therefore, if you can't sure that input data is following the `T` type, it would better to call one of below functions instead.
-
-  - `typia.http.assertQuery<T>()`: [`typia.assert<T>()`](../validators/assert) + `typia.http.query<T>()`
-  - `typia.http.isQuery<T>()`: [`typia.is<T>()`](../validators/is) + `typia.http.query<T>()`
-  - `typia.http.validateQuery<T>()`: [`typia.validate<T>()`](../validators/validate) + `typia.http.query<T>()`
-
-<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-  <Tabs.Tab>
-    <LocalSource 
+    <LocalSource
       path="examples/src/http/query.ts"
       filename="examples/src/http/query.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <LocalSource 
+    <LocalSource
       path="examples/bin/http/query.js"
       filename="examples/bin/query.js"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>
 
-### `headers()` functions
+### `http.headers` — HTTP request headers
 
-<Tabs items={[
-  <code>typia</code>, 
-  <code>TypeGuardError.ts</code>, 
-  <code>IValidation.ts</code>,
-  <code>Resolved.ts</code>
-]}>
-  <Tabs.Tab>
-```typescript
-export namespace http {
-  export function headers<T extends object>(input: Headers): Resolved<T>;
-  export function assertHeaders<T extends object>(input: Headers): Resolved<T>;
-  export function isHeaders<T extends object>(
-    input: Headers,
-  ): Resolved<T> | null;
-  export function validateHeaders<T extends object>(
-    input: Headers,
-  ): IValidation<Resolved<T>>;
-
-  export function createHeaders<T extends object>(): (
-    input: Headers,
-  ) => Resolved<T>;
-  export function createAssertHeaders<T extends object>(): (
-    input: Headers,
-  ) => Resolved<T>;
-  export function createIsHeaders<T extends object>(): (
-    input: Headers,
-  ) => Resolved<T> | null;
-  export function createValidateHeaders<T extends object>(): (
-    input: Headers,
-  ) => IValidation<Resolved<T>>;
+```typescript copy filename="signatures"
+namespace http {
+  function headers<T extends object>(
+    input: Record<string, string | string[] | undefined>,
+  ): Resolved<T>;
+  // …assert / is / validate variants
 }
-type Headers = Record<string, string | string[] | undefined>;
 ```
-  </Tabs.Tab>
+
+`http.headers` decodes an Express/Fastify-style headers object. Same coercion as `query`, plus a stricter set of restrictions specific to HTTP:
+
+1. `T` must be an object type
+2. No dynamic keys
+3. **Property keys must be lowercase** (HTTP headers are case-insensitive; typia normalizes to lowercase)
+4. Property values may be `undefined` but not `null`
+5. Only `boolean | bigint | number | string` or arrays of those
+6. No unions
+7. `set-cookie` must be an array
+8. **These headers cannot be array-typed** (the HTTP spec collapses them to a single value):
+
+   `age, authorization, content-length, content-type, etag, expires, from, host, if-modified-since, if-unmodified-since, last-modified, location, max-forwards, proxy-authorization, referer, retry-after, server, user-agent`
+
+If you trip one of these rules, typia rejects the call at compile time with a clear error.
+
+<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
   <Tabs.Tab>
-    <LocalSource 
-      path="packages/typia/src/TypeGuardError.ts"
-      filename="typia/TypeGuardError.ts"
-      showLineNumbers />
-  </Tabs.Tab>
-  <Tabs.Tab>
-    <LocalSource 
-      path="packages/interface/src/schema/IValidation.ts"
-      filename="@typia/interface"
-      showLineNumbers />
-  </Tabs.Tab>
-  <Tabs.Tab>
-    <LocalSource 
-      path="packages/interface/src/typings/Resolved.ts"
-      filename="@typia/interface"
-      showLineNumbers />
-  </Tabs.Tab>
-</Tabs>
-
-Headers decoder (for express and fastify).
-
-`typia.http.headers<t>()` is a function decoding an header instance, with automatic type casting to the expected type. When property type be defined as boolean or number type, `typia.http.headers<t>()` will cast the value to the expected type.
-
-By the way, as HTTP headers are not enough to express complex data structures, `typia.http.headers<t>()` function has some limitations. If target type `T` is not following those restrictions, compilation errors would be occurred.
-
-  1. Type T must be an object type
-  2. Do not allow dynamic property
-  3. Property key must be lower case
-  4. Property value cannot be null, but undefined is possible
-  5. Only boolean, bigint, number, string or their array types are allowed
-  6. By the way, union type never be not allowed
-  7. Property set-cookie must be array type
-  8. Those properties cannot be array type
-     - age
-     - authorization
-     - content-length
-     - content-type
-     - etag
-     - expires
-     - from
-     - host
-     - if-modified-since
-     - if-unmodified-since
-     - last-modified
-     - location
-     - max-forwards
-     - proxy-authorization
-     - referer
-     - retry-after
-     - server
-     - user-agent
-
-Also, `typia.http.headers<t>()` function does not perform validation about the decoded value. Therefore, if you can't sure that input data is following the `T` type, it would better to call one of below functions instead.
-
-  - `typia.http.assertHeaders<T>()`: [`typia.assert<T>()`](../validators/assert) + `typia.http.headers<T>()`
-  - `typia.http.isHeaders<T>()`: [`typia.is<T>()`](../validators/is) + `typia.http.headers<T>()`
-  - `typia.http.validateHeaders<T>()`: [`typia.validate<T>()`](../validators/validate) + `typia.http.headers<T>()`
-
-<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-  <Tabs.Tab>
-    <LocalSource 
+    <LocalSource
       path="examples/src/http/headers.ts"
       filename="examples/src/http/headers.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <LocalSource 
+    <LocalSource
       path="examples/bin/http/headers.js"
       filename="examples/bin/http/headers.js"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>
 
-### `parameter()` functions
+### `http.parameter` — URL path parameters
 
-<Tabs items={[
-  <code>typia</code>, 
-  <code>TypeGuardError.ts</code>, 
-]}>
-  <Tabs.Tab>
-```typescript
-export namespace http {
-  export function parameter<T extends Atomic.Type | null>(input: string): T;
-  export function createParameter<T extends Atomic.Type | null>(): (
-    input: string,
-  ) => T;
+```typescript copy filename="signature"
+namespace http {
+  function parameter<T extends boolean | bigint | number | string | null>(input: string): T;
 }
 ```
-  </Tabs.Tab>
+
+`http.parameter` decodes a single URL path parameter (a string from `:id` in your route) into the expected primitive type, **and always asserts**. Unlike `query` / `headers`, there's no `isParameter` or `validateParameter` — if the value doesn't match `T`, it throws `TypeGuardError`.
+
+```typescript copy
+const id: number = typia.http.parameter<number>(request.params.id);
+// throws if `request.params.id` isn't a valid number string
+```
+
+<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
   <Tabs.Tab>
-    <LocalSource 
-      path="packages/typia/src/TypeGuardError.ts"
-      filename="typia/TypeGuardError.ts"
-      showLineNumbers />
-  </Tabs.Tab>
-</Tabs>
-
-URL path parameter decoder.
-
-`typia.http.parameter<T>()` is a function decoding a path parameter, with automatic type casting to the expected type. When type T has been defined as boolean or number `type, typia.http.parameter<T>()` will cast the value to the expected type.
-
-Also, `typia.http.parameter<T>()` performs type assertion to the decoded value by combining with assert function. Therefore, when the decoded value is not following the `T` type, `TypeGuardError` would be thrown.
-
-<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-  <Tabs.Tab>
-    <LocalSource 
+    <LocalSource
       path="examples/src/http/parameter.ts"
       filename="examples/src/http/parameter.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <LocalSource 
+    <LocalSource
       path="examples/bin/http/parameter.js"
       filename="examples/bin/http/parameter.js"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>
+
+### `http.formData` — multipart form data
+
+```typescript copy filename="signature"
+namespace http {
+  function formData<T extends object>(input: FormData): Resolved<T>;
+  // …assert / is / validate variants
+}
+```
+
+`http.formData` decodes a `FormData` instance into a typed object. Allowed property types: `boolean | bigint | number | string | Blob | File` or arrays of those.
+
+## Where to go next
+
+- The full validator family → [`is`](/docs/validators/is) · [`assert`](/docs/validators/assert) · [`validate`](/docs/validators/validate)
+- Constraint tags on `query`/`headers`/`parameter` values → [Special Tags](/docs/validators/tags)
+- Random data for tests → [`random`](/docs/random)
+- NestJS integration that builds on `http.*` → [Nestia](https://nestia.io)
