@@ -86,13 +86,13 @@ export namespace llm {
   <Tabs.Tab>
     <LocalSource
       path="examples/src/llm/application.ts"
-      filename="example/src/llm/application.ts"
+      filename="examples/src/llm/application.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource
       path="examples/bin/llm/application.js"
-      filename="example/bin/llm/application.js"
+      filename="examples/bin/llm/application.js"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
@@ -111,9 +111,9 @@ export namespace llm {
 
 > [💻 Open in Playground](/playground/?script=JYWwDg9gTgLgBAbzgSQDIBsQEExncAYwEMZgIA7OAXzgDMoIQ4AiAAQGciQCALCgeghgApuSJhgzANwAoUJFhwYATwlE6DJsxVrpMuHPDR4SAEIAjdlliF0wgMrCoAN0LDqGxiwB0-C1ZsCO0cXNz0DAgp2eHEwAC4UDGxcfGJSCjgAXiVVYCJvdExvWNSSMnIAHn9rUiCHJ1cCYQA+AAoASklI8nYIOwKIAHNW2M6gA)
 
-## Method shape — the compile-time contract
+## Restrictions
 
-The compile-time transform enforces the LLM function-calling contract on every method. Getting this right is the #1 reason a new `typia.llm.application<Class>()` call fails to compile, so read it before anything else:
+The compile-time transform enforces a small set of method-shape rules on every method. Getting this right is the #1 reason a new `typia.llm.application<Class>()` call fails to compile, so read it before anything else:
 
 - **Each method takes exactly one keyworded-object parameter.** LLMs invoke functions with named arguments, so `add(x: number, y: number)` is rejected. Wrap the args: `add(props: { x: number; y: number })`.
 - **Each method returns a keyworded-object type** (e.g. `{ value: number }`, `{ items: T[] }`) **or `void`.** Primitives, arrays, and `T | undefined` are rejected. If you need to return one, wrap it.
@@ -121,10 +121,8 @@ The compile-time transform enforces the LLM function-calling contract on every m
 
 <Tabs items={["Source That Won't Compile", "Compiler Errors"]}>
   <Tabs.Tab>
-```typescript filename="example/src/llm/application.violation.ts" showLineNumbers
+```typescript filename="examples/src/llm/application.violation.ts" showLineNumbers
 import typia, { ILlmApplication, tags } from "typia";
-
-const app: ILlmApplication = typia.llm.application<BbsArticleController>();
 
 interface BbsArticleController {
   /** Create a new article and return it. */
@@ -138,11 +136,13 @@ interface BbsArticleController {
   erase(id: string & tags.Format<"uuid">): Promise<void>;
   //    ^ parameter must be a keyworded object, not a primitive
 }
+
+const app: ILlmApplication = typia.llm.application<BbsArticleController>();
 ```
   </Tabs.Tab>
   <Tabs.Tab>
 ```bash filename="Terminal"
-src/examples/llm.application.violation.ts:4:29 - error TS(typia.llm.application): unsupported type detected
+examples/src/llm/application.violation.ts:15:30 - error TS(typia.llm.application): unsupported type detected
 
 - BbsArticleController.create: unknown
   - LLM application's function ("create")'s return type must not be union type with undefined.
@@ -164,6 +164,10 @@ For the deeper type-level rules see [`llm.parameters`](/docs/llm/parameters) and
 
 <Tabs items={["Vercel AI SDK", "LangChain", "Model Context Protocol"]}>
   <Tabs.Tab>
+```bash filename="Terminal"
+npm i @ai-sdk/openai @typia/vercel ai
+```
+
 ```typescript filename="src/main.ts"
 import { openai } from "@ai-sdk/openai";
 import { toVercelTools } from "@typia/vercel";
@@ -186,6 +190,10 @@ const result = await generateText({
 ```
   </Tabs.Tab>
   <Tabs.Tab>
+```bash filename="Terminal"
+npm i @langchain/core @langchain/openai langchain @typia/langchain
+```
+
 ```typescript filename="src/main.ts"
 import { ChainValues, Runnable } from "@langchain/core";
 import { ChatPromptTemplate } from "@langchain/core/prompts";
@@ -219,6 +227,10 @@ const result: ChainValues = await executor.invoke({
 ```
   </Tabs.Tab>
   <Tabs.Tab>
+```bash filename="Terminal"
+npm i @modelcontextprotocol/sdk @typia/mcp
+```
+
 ```typescript filename="src/main.ts"
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { registerMcpControllers } from "@typia/mcp";
@@ -330,6 +342,11 @@ Many LLMs emit a JSON-stringified value where the schema expects an object — `
 
 After `parse`/`coerce`, run `validate` to verify constraints (formats, ranges, lengths). On failure, format the errors with `LlmJson.stringify` from `@typia/utils` — the output is annotated JSON the LLM can read and self-correct:
 
+```typescript
+import { LlmJson } from "@typia/utils";
+// then use LlmJson.stringify(validationFailure) inside the snippet below
+```
+
 <LocalSource
   path="examples/src/llm/application-validate.ts"
   filename="examples/src/llm/application-validate.ts"
@@ -415,6 +432,8 @@ Type-based validation rejects "this isn't even the right shape." It cannot rejec
 ```typescript copy
 import typia, { IValidation } from "typia";
 
+const BANNED_HOSTS = ["evil.example.com"];
+
 class BookmarkService {
   /** Save a bookmark. */
   async add(props: { url: string; tags: string[] }): Promise<{ id: string }> {
@@ -458,15 +477,23 @@ const app = typia.llm.application<BookmarkService>({
 });
 ```
 
-**What goes in the map:** one entry per method on the class. The key is the method name (typed against `keyof Class`, so a typo is caught at compile time). The value is `(input: unknown) => IValidation<ArgumentType>` — `ArgumentType` is the same keyworded-object type the method signature declared, and `IValidation<T>` is the same discriminated union [`typia.validate<T>`](/docs/validators/validate) returns.
+**What goes in the map:** one entry per method on the class. The key is the method name (typed against `keyof Class`, so a typo is caught at compile time). The value is `(input: unknown) => IValidation<ArgumentType>` — `ArgumentType` is the same keyworded-object type the method signature declared, and `IValidation<T>` is the same discriminated union [`typia.validate<T>`](/docs/validators/validate) returns. Only methods with a single keyworded-object parameter qualify (the same shape rule [Restrictions](#restrictions) enforces on the class).
 
-**What happens on failure:** the validator's `IValidation.IFailure` flows into the same feedback channel the type-based validator uses — `LlmJson.stringify(failure)` formats your custom errors with the same `// ❌ [...]` annotations the LLM has already learned to read. So a custom business-rule failure is indistinguishable to the model from a missing required field; it just retries with corrected input.
-
-**Why this and not "validate after the call":** because of the harness. If you wait until after `ILlmFunction.execute(args)` to apply business rules, the failure path is your problem — you have to format errors, decide whether to retry, choose what to send back. Wiring the validator into `config.validate` makes the rules part of the harness loop: the model gets one consistent error format, the retry logic is already there, and `ILlmFunction.validate(args)` reports the *combined* type + business-rule result so callers don't need to know there's an override.
+**What happens on failure:** the validator's `IValidation.IFailure` flows into the same feedback channel the type-based validator uses — `LlmJson.stringify(failure)` formats your custom errors with the same `// ❌ [...]` annotations the LLM has already learned to read. So a custom business-rule failure is indistinguishable to the model from a missing required field; it just retries with corrected input. (You don't have to format anything, choose retry logic, or decide what to send back — the harness already does all of that.)
 
 > [!TIP]
 >
-> Combine `config.validate` with `{ equals: true }` if you want both strict-shape and business-rule checks. The strict shape runs first (inside the per-method validator you call as `typia.validateEquals<ArgumentType>(input)`); your business rules layer on top.
+> Want both strict-shape **and** business-rule checks? `equals` is a generic parameter, `validate` is the runtime config — pass both:
+>
+> ```ts
+> typia.llm.application<BookmarkService, { equals: true }>({
+>   validate: {
+>     add: (input) => typia.validateEquals<…>(input),  // or layer rules on top
+>   },
+> });
+> ```
+>
+> Inside the hook, swap `typia.validate` for `typia.validateEquals` if you want strict-shape rejection on top of business rules. The harness no longer runs the embedded validator when a hook is registered — *you* decide what runs first.
 
 ## Where to go next
 

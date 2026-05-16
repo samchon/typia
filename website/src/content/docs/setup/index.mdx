@@ -8,10 +8,10 @@ import { Tabs } from "nextra/components";
 
 typia is a compile-time transformer, so it has to plug into your TypeScript build. There are two supported paths — pick the one that matches your TypeScript version.
 
-| Path | When to use | Package |
-|------|-------------|---------|
-| [**TypeScript-Go (`ttsc`)**](/docs/setup/tsgo) | TypeScript-Go preview (`@typescript/native-preview`) — experimental | `typia@next` |
-| [**Legacy (`ts-patch`)**](/docs/setup/legacy) | Stable TypeScript v5 or v6 (the standard `typescript` npm package) | `typia` |
+| Path | When to use | Package | Default? |
+|------|-------------|---------|---------|
+| [**TypeScript-Go (`ttsc`)**](/docs/setup/tsgo) | TypeScript-Go preview (`@typescript/native-preview`) — experimental | `typia@next` | experimental preview |
+| [**Legacy (`ts-patch`)**](/docs/setup/legacy) | Stable TypeScript v5 or v6 (the standard `typescript` npm package) | `typia` | ✅ recommended |
 
 **TypeScript-Go** is the in-progress Go-rewrite of the TypeScript compiler shipped by the TypeScript team. The transformer plug-in API is settled, but packaging and binary naming are not — pin versions carefully and expect breakage.
 
@@ -352,3 +352,10 @@ console.log(typia.is<{ id: string }>({ id: "ok" }));
 ```
 
 If you see `true`, the transformer ran. If you see an error like `typia transformer has not been configured`, the build is using stock `tsc` / `tsx` instead of `ttsc` / `ttsx` or `ts-patch`. Re-check the build command and `tsconfig.json` plugin entry.
+
+## Where to go next
+
+- Full ttsc setup including bundler plugins → [TypeScript-Go setup](/docs/setup/tsgo)
+- Full ts-patch setup, NX, Webpack, generation-mode fallback → [Legacy setup](/docs/setup/legacy)
+- First validator after setup → [`is`](/docs/validators/is) · [`assert`](/docs/validators/assert) · [`validate`](/docs/validators/validate)
+- Why typia needs a transform at all → [Pure TypeScript](/docs/pure)

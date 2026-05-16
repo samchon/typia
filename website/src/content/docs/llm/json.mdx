@@ -385,3 +385,10 @@ The recipe is the same every time:
 2. `validate` to check field constraints
 3. If validation fails, format the errors with `LlmJson.stringify` and send them back
 4. Repeat until validation passes (usually one or two turns)
+
+## Where to go next
+
+- The class-based tool API that wires this loop automatically → [`typia.llm.application`](/docs/llm/application)
+- Single-shape variant (no method-selection layer) → [`typia.llm.structuredOutput`](/docs/llm/structuredOutput)
+- OpenAPI source instead of TypeScript class → [`HttpLlm`](/docs/llm/http)
+- The validator on its own → [`typia.validate`](/docs/validators/validate)

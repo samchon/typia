@@ -119,7 +119,7 @@ const agent = new Agentica({
   },
   controllers: [
     // Class-based functions
-    typia.llm.controller<MobileFileSystem>("filesystem", MobileFileSystem()),
+    typia.llm.controller<MobileFileSystem>("filesystem", new MobileFileSystem()),
 
     // Swagger / OpenAPI document → functions
     assertHttpController({
@@ -235,7 +235,7 @@ export const correctFunctionCall = (p: {
     // 3rd trial with validation feedback again: never failed in my testing
     return p.retry(
       "Type errors are detected. Correct it through validation errors.",
-      { errors: result.errors },
+      result.errors,
     );
   }
   return result.data;

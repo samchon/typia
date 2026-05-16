@@ -26,7 +26,7 @@ The LLM reads:
 - **Property JSDoc comments** as each property's `description`
 - The **`@title`** comment tag (if present) as the property's `title`
 
-```typescript copy filename="example/src/llm/BbsArticleController.ts" {11, 15-17}
+```typescript copy filename="examples/src/llm/BbsArticleController.ts" {11, 15-17}
 class BbsArticleController {
   /**
    * Create a new article.
@@ -60,14 +60,14 @@ The more the description tells the LLM about *when* to call the function (not ju
   <Tabs.Tab>
     <LocalSource
       path="examples/src/llm/application-description.ts"
-      filename="example/src/llm/application-description.ts"
+      filename="examples/src/llm/application-description.ts"
       showLineNumbers
       highlight="11, 15-17" />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource
       path="examples/bin/llm/application-description.js"
-      filename="example/bin/llm/application-description.js"
+      filename="examples/bin/llm/application-description.js"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
@@ -104,14 +104,14 @@ CRUD-style controllers tend to have parent types (`IBbsArticle`) and child varia
   <Tabs.Tab>
     <LocalSource
       path="examples/src/llm/application-namespace.ts"
-      filename="example/src/llm/application-namespace.ts"
+      filename="examples/src/llm/application-namespace.ts"
       showLineNumbers
       highlight="11, 13-18, 35-38, 65-70" />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource
       path="examples/bin/llm/application-namespace.js"
-      filename="example/bin/llm/application-namespace.js"
+      filename="examples/bin/llm/application-namespace.js"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
@@ -150,14 +150,14 @@ Sometimes you want a method on the class but not on the LLM's tool list — an i
   <Tabs.Tab>
     <LocalSource
       path="examples/src/llm/application-hidden.ts"
-      filename="example/src/llm/application-hidden.ts"
+      filename="examples/src/llm/application-hidden.ts"
       showLineNumbers
       highlight="36, 52, 72" />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource
       path="examples/bin/llm/application-hidden.js"
-      filename="example/bin/llm/application-hidden.js"
+      filename="examples/bin/llm/application-hidden.js"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>
@@ -178,13 +178,13 @@ The same comment tags work for properties on the parameter and return types:
   <Tabs.Tab>
     <LocalSource
       path="examples/src/llm/schema-special.ts"
-      filename="example/src/llm/schema-special.ts"
+      filename="examples/src/llm/schema-special.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource
       path="examples/bin/llm/schema-special.js"
-      filename="example/bin/llm/schema-special.js"
+      filename="examples/bin/llm/schema-special.js"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>
@@ -199,14 +199,14 @@ JSON Schema reserves the `x-` prefix for non-standard extensions. To add `x-…`
   <Tabs.Tab>
     <LocalSource
       path="examples/src/llm/schema-custom.ts"
-      filename="example/src/llm/schema-custom.ts"
+      filename="examples/src/llm/schema-custom.ts"
       showLineNumbers
       highlight="12-14, 18, 22-23" />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource
       path="examples/bin/llm/schema-custom.js"
-      filename="example/bin/llm/schema-custom.js"
+      filename="examples/bin/llm/schema-custom.js"
       showLineNumbers
       highlight="7, 11" />
   </Tabs.Tab>

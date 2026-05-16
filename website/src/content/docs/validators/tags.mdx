@@ -267,3 +267,11 @@ End-to-end example with three custom tags (`Postfix`, `Dollar`, `IsEven`):
 - [`random`](/docs/random) — generated values respect the constraint
 - [`json.schemas`](/docs/json/schema), [`llm.parameters`](/docs/llm/parameters) — exported as JSON Schema fields (`format`, `minimum`, …)
 - [`protobuf.message`](/docs/protobuf/message) — `tags.Type<"uint32">` selects the wire type; `tags.Sequence<N>` picks the field number
+
+## Where to go next
+
+- Yes/no validator → [`is`](/docs/validators/is)
+- Throw-on-failure validator → [`assert`](/docs/validators/assert)
+- Collect-every-error validator → [`validate`](/docs/validators/validate)
+- Tag-aware random fixtures → [`random`](/docs/random)
+- Tags in emitted JSON Schema → [`json.schemas`](/docs/json/schema)

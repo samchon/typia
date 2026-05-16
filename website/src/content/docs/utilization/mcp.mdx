@@ -1,13 +1,13 @@
 ---
-title: Guide Documents > Utilization Cases > MCP (Model Context Protocol)
+title: Guide Documents > Utilization Cases > MCP
 ---
 import { Callout, Tabs } from "nextra/components";
 
 import LocalSource from "../../../components/LocalSource";
 
-# MCP (Model Context Protocol)
+# MCP
 
-[`@typia/mcp`](https://github.com/samchon/typia/tree/master/packages/mcp) registers typia controllers as [MCP](https://modelcontextprotocol.io) tools. Every method on your TypeScript class — or every endpoint in an OpenAPI document — becomes an MCP tool, with the same parse/coerce/validate/feedback machinery as [`typia.llm.application`](/docs/llm/application#the-function-calling-harness) wired in automatically.
+[`@typia/mcp`](https://github.com/samchon/typia/tree/master/packages/mcp) registers typia controllers as [Model Context Protocol](https://modelcontextprotocol.io) tools. Every method on your TypeScript class — or every endpoint in an OpenAPI document — becomes an MCP tool, with the same parse/coerce/validate/feedback machinery as [`typia.llm.application`](/docs/llm/application#the-function-calling-harness) wired in automatically.
 
 ```typescript copy filename="signature"
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";

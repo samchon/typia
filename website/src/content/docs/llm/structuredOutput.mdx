@@ -86,13 +86,13 @@ export namespace llm {
   <Tabs.Tab>
     <LocalSource
       path="examples/src/llm/structuredOutput.ts"
-      filename="example/src/llm/structuredOutput.ts"
+      filename="examples/src/llm/structuredOutput.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource
       path="examples/bin/llm/structuredOutput.js"
-      filename="example/bin/llm/structuredOutput.js"
+      filename="examples/bin/llm/structuredOutput.js"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>
@@ -209,7 +209,7 @@ strict.validate({
 });
 ```
 
-`{ equals: true }` switches the validator to `validateEquals` semantics. The schema also gets `additionalProperties: false` so the LLM is told upfront which properties are allowed.
+`{ equals: true }` switches the validator to `validateEquals` semantics. (The schema-side `additionalProperties: false` is always emitted on LLM parameter schemas, regardless of the flag — `equals` only changes how the runtime validator treats stray properties at validation time.)
 
 ## Restrictions
 
