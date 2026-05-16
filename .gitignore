@@ -1,6 +1,8 @@
 .claude/
 .codex/
+.discussions/
 .wiki/
+
 bin/
 dist/
 lib/
