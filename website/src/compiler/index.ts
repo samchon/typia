@@ -75,7 +75,9 @@ async function callWasm(
   }
 
   const value =
-    target === "javascript" ? normalizeEsmImports(result.stdout) : result.stdout;
+    target === "javascript"
+      ? normalizeEsmImports(result.stdout)
+      : result.stdout;
   if (result.code === 0) {
     return { type: "success", target, value };
   }
@@ -103,8 +105,7 @@ function normalizeEsmImports(code: string): string {
     )
     .replace(
       /^const\s+([A-Za-z_$][A-Za-z0-9_$]*)\s*=\s*require\(("[^"]+"|'[^']+')\)\s*;?\s*$/gm,
-      (_match, name, source) =>
-        `import * as ${name} from ${source};`,
+      (_match, name, source) => `import * as ${name} from ${source};`,
     );
 }
 
