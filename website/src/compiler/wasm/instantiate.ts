@@ -53,7 +53,10 @@ async function boot(options: {
       `bootTtscTypia: failed to fetch ${wasmUrl}: ${response.status}`,
     );
   }
-  const wasm = await WebAssembly.instantiateStreaming(response, go.importObject);
+  const wasm = await WebAssembly.instantiateStreaming(
+    response,
+    go.importObject,
+  );
   // go.run never resolves until the wasm exits; we don't await it.
   go.run(wasm.instance);
   await ready;

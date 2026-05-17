@@ -37,7 +37,10 @@ export interface IWasmExecFS {
     mode: number,
     callback: (err: NodeJS.ErrnoException | null, fd: number) => void,
   ): void;
-  close(fd: number, callback: (err: NodeJS.ErrnoException | null) => void): void;
+  close(
+    fd: number,
+    callback: (err: NodeJS.ErrnoException | null) => void,
+  ): void;
   read(
     fd: number,
     buffer: Uint8Array,
@@ -67,7 +70,10 @@ export interface IWasmExecFS {
     fd: number,
     callback: (err: NodeJS.ErrnoException | null, stats: IFileStats) => void,
   ): void;
-  fsync(fd: number, callback: (err: NodeJS.ErrnoException | null) => void): void;
+  fsync(
+    fd: number,
+    callback: (err: NodeJS.ErrnoException | null) => void,
+  ): void;
   unlink(
     path: string,
     callback: (err: NodeJS.ErrnoException | null) => void,
@@ -450,7 +456,10 @@ export function createMemFS(): IMemFSHost {
       try {
         callback(null, statSync(p));
       } catch (err) {
-        callback(err as NodeJS.ErrnoException, undefined as unknown as IFileStats);
+        callback(
+          err as NodeJS.ErrnoException,
+          undefined as unknown as IFileStats,
+        );
       }
     },
 
