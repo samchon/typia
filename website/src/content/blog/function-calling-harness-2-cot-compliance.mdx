@@ -1,0 +1,568 @@
+---
+title: "Function Calling Harness 2: CoT Compliance from 9.91% to 100%"
+description: "Free-form Chain of Thought hides skipped steps. A typed contract turns reasoning into a submittable audit artifact — then backtesting matures the contract itself."
+ogImage: "https://media2.dev.to/dynamic/image/width=1000,height=420,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2F5xobtagiasg2fwjosoh4.jpg"
+date: "2026-04-30"
+author: "Jeongho Nam"
+tags:
+  - function-calling
+  - ai
+  - typescript
+  - schema
+---
+
+# Function Calling Harness 2: CoT Compliance from 9.91% to 100%
+
+> **TL;DR**
+>
+> 1. **9.91% is not "did the model get it right on the first try" — it's "did the model walk through the procedure to the end."** Even a frontier model can fail a simple constraint like *"don't skip any endpoint."* The 100% in the title means *the contract can force the model to walk the procedure*.
+> 2. **CoT cannot be inspected if you leave it as free prose.** The real question isn't *"how long does the model think"* — it's *"can we turn that thinking into a submittable audit artifact?"*
+> 3. **The focus shifts from correctness to compliance.** Part 1 was about compile / validate / test. Part 2 is about coverage / reason / audit.
+> 4. **Beyond engineering, you can still guarantee a quality floor.** Encode existing audit formats (SOAP / IRAC / ADR / postmortem) at the type level, and sloppy procedures stop passing.
+> 5. **The schema itself is the next thing to backtest.** Run it against historical cases — backtesting in finance, retrospective chart review in medicine, precedent analysis in law — and the schema's coverage gaps become visible. Schema design becomes empirical, not artistic.
+>
+> `Prompt is a request. Schema is enforcement. Backtesting is what matures the schema.`
+
+## 1. Preface
+
+This post is a follow-up to [`Function Calling Harness: From 6.75% to 100%`](https://dev.to/samchon/qwen-meetup-function-calling-harness-from-675-to-100-3830).
+
+Part 1 had a simple thesis. In domains where deterministic verifiers exist — compilers, validators — you can take a model with a 6.75% first-try success rate and turn it into a 100%-compiling backend generator. The harness — types + validators + feedback loops — is what gets you there.
+
+`If you can verify, you converge.`
+
+So what about domains *without* a verifier? Investment memos, strategy documents, policy specs, security reviews — places where no machine can judge whether the answer is right. Can we still raise the success rate, or was Part 1 just a trick that worked in the narrow domain of engineering?
+
+The answer is this: **yes — but you have to redefine "guarantee."**
+
+You can't judge whether the answer is correct, but you *can* judge whether the procedure was followed. Free-form natural-language CoT cannot guarantee that; schemas and validators can. So the keyword in Part 2 is not correctness but compliance. If Part 1 was about *integrity of the result*, Part 2 is about *adherence to the procedure*.
+
+Concretely:
+
+- **Investment memo**: instead of accepting a one-liner like *"buy this stock,"* require the model to submit *thesis · counter-thesis · valuation driver · kill condition* — all of them.
+- **Medical chart**: SOAP — *Subjective · Objective · Assessment (incl. differential diagnosis) · Plan* — every box filled.
+- **Legal opinion**: IRAC — *Issue · Rule · Application · Conclusion* — every step walked.
+
+Any empty box is invalid. And these aren't new inventions — they're expert procedures refined over decades by absorbing failure cases. This post does two things: enforce those procedures on LLMs at the type level, and refine the schemas themselves by backtesting against history.
+
+`Prompt is a request. Schema is enforcement. Backtesting is what matures the schema.`
+
+![Prompt is request. Schema is enforcement.](https://media2.dev.to/dynamic/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto%2Cformat=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2F4p9dez14sb6t2ewj9scj.png)
+
+## 2. Chain of Thought Compliance
+
+### 2.1. Why 9.91% Was a Procedural Number
+
+The hook of this post is **9.91%**. It's the first-try success rate GPT-5.4 recorded against a backend-generation pipeline's internal schema — specifically [`IAutoBeInterfaceEndpointReviewApplication`](https://github.com/wrtnlabs/autobe/blob/v0.30.5/packages/agent/src/orchestrate/interface/structures/IAutoBeInterfaceEndpointReviewApplication.ts). This post cites that schema as a working example of *how schema-enforced compliance behaves*.
+
+The schema has no recursive unions, no deep nesting. And yet a frontier model still fails most first tries. So this number is closer to a *procedural compliance rate* than a *first-try success rate*.
+
+The difficulty isn't type complexity but **procedural enforcement × items per call**. EndpointReview asks for tens of endpoints to be classified *without missing any* in a single call, and that coverage burden alone drops a frontier model into single digits. "First-try success rate" usually means "did the format come out right the first time"; here the failure isn't format but *walking the prescribed reasoning procedure to the end*. Tell a model in free text "review every item" and you'll get a plausible review — but the items it skipped stay hidden.
+
+That is why this post uses the phrase *"CoT Compliance"* carefully. It does not mean we can inspect the model's private reasoning trace. It means we can require the model to submit a reasoning-shaped audit artifact: what it reviewed, what it changed, what it kept, what it removed, and why.
+
+Free prose can hide a skipped step. A typed submission cannot. The moment you demand procedure as an object, the object of evaluation changes.
+
+That positioning matters because the nearby literature cuts both ways. CoT-faithfulness work warns that free explanations are not reliable audit logs ([Turpin et al., 2023](https://arxiv.org/abs/2305.04388); [Chen et al., 2025](https://arxiv.org/abs/2505.05410)). At the same time, format-restriction studies warn that simply forcing every answer into JSON can degrade reasoning ([Tam et al., 2024](https://arxiv.org/abs/2408.02442)). The target here sits between those failures: don't trust invisible prose, but don't mistake syntax for procedure. Make the procedure itself the artifact.
+
+### 2.2. Case Study — `IAutoBeInterfaceEndpointReviewApplication` (9.91%)
+
+EndpointReview's job collapses to one line: *"For every API endpoint in the input, submit exactly one of keep / create / update / erase, leaving none out."* That's it. No recursive structure, no schema-per-branch.
+
+```typescript
+export interface IAutoBeInterfaceEndpointReviewApplication {
+  process(props: IAutoBeInterfaceEndpointReviewApplication.IProps): void;
+}
+export namespace IAutoBeInterfaceEndpointReviewApplication {
+  export interface IProps {
+    thinking: string;
+    request:
+      | IComplete
+      | IAutoBePreliminaryGetAnalysisSections
+      | IAutoBePreliminaryGetDatabaseSchemas
+      | IAutoBePreliminaryGetPreviousAnalysisSections
+      | IAutoBePreliminaryGetPreviousDatabaseSchemas
+      | IAutoBePreliminaryGetPreviousInterfaceOperations;
+  }
+  export interface IComplete {
+    type: "complete";
+    review: string;
+    revises: AutoBeInterfaceEndpointRevise[];
+  }
+}
+```
+
+The `IProps.request` union splits between preliminary getters (where the model fetches more analysis context) and `IComplete` (where the model submits its decisions outright). The 9.91% measured in this post is the first-try success rate for `IComplete` submissions.
+
+The [`AutoBeInterfaceEndpointRevise`](https://github.com/wrtnlabs/autobe/blob/v0.30.5/packages/interface/src/histories/contents/AutoBeInterfaceEndpointRevise.ts) values that go into `revises[]` form a simple 4-variant union as well.
+
+```typescript
+export type AutoBeInterfaceEndpointRevise =
+  | AutoBeInterfaceEndpointKeep
+  | AutoBeInterfaceEndpointCreate
+  | AutoBeInterfaceEndpointUpdate
+  | AutoBeInterfaceEndpointErase;
+
+export interface AutoBeInterfaceEndpointKeep {
+  reason: string; // why we keep it
+  endpoint: AutoBeOpenApi.IEndpoint;   // exact path+method match against the input list
+  type: "keep";
+}
+
+export interface AutoBeInterfaceEndpointCreate {
+  reason: string; // why we create it
+  type: "create";
+  design: AutoBeInterfaceEndpointDesign;
+}
+
+export interface AutoBeInterfaceEndpointUpdate {
+  reason: string; // why we update it
+  endpoint: AutoBeOpenApi.IEndpoint;   // original endpoint
+  type: "update";
+  newDesign: AutoBeInterfaceEndpointDesign;
+}
+
+export interface AutoBeInterfaceEndpointErase {
+  reason: string; // why we erase it
+  endpoint: AutoBeOpenApi.IEndpoint;
+  type: "erase";
+}
+```
+
+The audit mechanic is simple. Every existing endpoint must receive one explicit branch decision; every branch requires a `reason`; for `keep`/`update`/`erase`, the referenced endpoint must exactly match one in the input list by path + method. `create` is the only branch that adds a new endpoint instead of referring to an existing one.
+
+If the input has 50 existing endpoints, all 50 must be accounted for. Stop at 49 — invalid. Review one twice while missing another — invalid. Drop one entirely — invalid.
+
+That's where 9.91% comes from. The schema is simple, but the procedural mandate of *"don't miss a single one"* is enough to drag the frontier model's first try into single digits.
+
+> A more elaborate case is [`IAutoBeInterfaceSchemaRefineApplication`](https://github.com/wrtnlabs/autobe/blob/main/packages/agent/src/orchestrate/interface/structures/IAutoBeInterfaceSchemaRefineApplication.ts).
+>
+> This is the case where `qwen3-coder-next` recorded 6.75% in Part 1.
+>
+> **Every DTO property and every relevant DB property must be explicitly handled with a reason and a DB-grounded justification.** 100 properties means 100 decisions and 100 justifications.
+
+Seen this way, EndpointReview is not a substitute for CoT. Plain CoT says "write your thinking"; a typed procedure says "submit your thinking against this contract." Same reasoning, but now the skipped parts become visible.
+
+Even when we cannot judge semantic truth, we *can* enforce what was seen, what was changed, what was kept, what was excluded, why, and for whom the explanation was written. That is the bridge from correctness to compliance.
+
+### 2.3. Prompts Ask, Schemas Enforce
+
+A prompt asks the model to follow a procedure. A schema turns that procedure into a submission format. With free-form CoT, a model can skip steps as long as the result is plausible. With schema-enforced CoT, intermediate steps stop being volatile prose. Missing → invalid. Duplicate → reject. `reason` empty → must revise.
+
+| prompt / workflow              | schema / validator                       |
+| ------------------------------ | ---------------------------------------- |
+| describes the procedure in prose | bakes the procedure into a type contract |
+| asks the model to do well      | rejects whatever is missing              |
+| trusts the model's memory      | has the validator check coverage         |
+| infers from the result         | judges from the artifact                 |
+
+The same difference shows up in a single CoT sentence:
+
+- prompt: "Review every property and explain in detail why each was changed."
+- schema: submit `review`, `specification`, `description`, `revises[]`, `excludes[]`, `reason` — all of them.
+
+The first can be honored if the model is excellent, but it's hard to detect omissions externally. The second makes the result *itself* a procedural checklist. *Workflow is scaffolding, schema is enforcement.*
+
+That is the real shift. The schema does not make the model smarter. It changes what the model is allowed to submit.
+
+That is also why this is a harness problem, not a "JSON mode" slogan. Structured-output work such as [JSONSchemaBench](https://arxiv.org/abs/2501.10868) evaluates constrained generation across efficiency, schema coverage, and output quality because structure has operational limits. This post moves the concern one level up: not only whether the JSON is valid, but whether the submitted object proves the required audit procedure was walked.
+
+![](https://media2.dev.to/dynamic/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto%2Cformat=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fy1pmnht9ivocz16yguyo.png)
+
+From this vantage, the relationship between Parts 1 and 2 becomes clear.
+
+| —                       | Part 1                       | Part 2                              |
+| ----------------------- | ---------------------------- | ----------------------------------- |
+| question / what does it guarantee | integrity of the result      | adherence to the procedure          |
+| what does it inspect    | compile / validate / test    | coverage / reason / review          |
+| what does failure mean  | the result is wrong          | the procedure is empty or missing   |
+
+If you only think about correctness harnesses, function calling looks like a technique that's strong only on compilable engineering artifacts. But include procedural harnesses, and the scope widens.
+
+You can't decide whether a final conclusion is true on the spot, but you *can* enforce *evidence inventory / counterargument / kill condition / separation between recommendation and rationale*. The function calling harness becomes more than a correctness optimizer — it's a device for guaranteeing `minimum viable rigor`.
+
+## 3. Beyond Engineering
+
+### 3.1. Where Deterministic Verifiers End
+
+There's a natural objection. In domains like engineering design or backend generation — places with compilers and validators — schema-enforced compliance makes sense. But investment, strategy, policy, specification, research: a machine cannot judge the answer. Does the function calling harness end there?
+
+So far, most discussion frames this as a binary — *useful in engineering / useless in abstract domains*. The more useful map has three zones:
+
+- **Strong correctness guarantees** — backend generation, circuit design, chemical processes. Compilers and simulators decide what's right.
+- **Weak correctness, but procedural guarantees are possible** — investment memos, legal opinions, medical care, policy evaluation. The "right answer" is decided after the fact by markets, courts, patients, time. *How you got there*, however, can be verified immediately.
+- **Both weak** — poetry, jokes, dating advice, aesthetic judgment, moral intuition. Procedure and result are both intrinsically free-form.
+
+![](https://media2.dev.to/dynamic/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto%2Cformat=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2F1kplbvirkrmcqza6shko.png)
+
+What this post actually targets is the second. The first was Part 1's territory. The third is where schemas *shouldn't* go — the moment you enforce a procedure, it stops being that genre.
+
+### 3.2. What You Can Still Guarantee
+
+Even when you can't guarantee the answer, you can guarantee procedural hygiene and a minimum quality. You can prevent: missing key issues, conflating claims with evidence, omitting counter-arguments, letting numbers contradict the prose, omitting approval rationale. That's not a correctness guarantee — it's a quality-floor guarantee.
+
+In this domain, the harness's role is not oracle but discipline machine. It does not certify that the conclusion is right. It refuses to accept a conclusion that skipped the required work.
+
+> Guaranteeing the `best answer` is hard. Refusing to pass a `bad process` is much more achievable.
+
+Take the investment memo as a concrete case. An analyst saying "buy this stock" by itself has little value. The real value lies in *how that conclusion was reached*. A good investment memo always carries:
+
+- **Investment thesis**: how this view differs from market consensus, and why this company should outperform consensus.
+- **Counter-thesis**: how the same facts could be read in the opposite direction. Without this, the memo collapses into "buy because everyone says so."
+- **Valuation driver**: which of these the bet rides on — multiple expansion, margin expansion, top-line growth, or M&A optionality.
+- **Bull / base / bear scenarios**: target prices and conditions for each. Submitting only a base case is a procedural violation.
+- **Kill condition**: what triggers a stop-out. Unfalsifiable answers like "trust in management" are invalid.
+- **Evidence source**: untraceable references like "according to industry sources" are forbidden. Sources must be verifiable after the fact.
+
+Bake that into a schema and you get:
+
+```typescript
+import { tags } from "typia";
+
+export interface IInvestmentMemo {
+  recommendation: "BUY" | "HOLD" | "SELL";
+  thesis:        { consensusView: string; differentiatedView: string };
+  counterThesis: { bearCase: string;      ourResponse: string };
+
+  // bull / base / bear all required — blocks submitting just the base case
+  scenarios: { bull: IScenario; base: IScenario; bear: IScenario };
+
+  // empty arrays are sealed
+  valuationDrivers: IValuationDriver[] & tags.MinItems<1>;
+  killConditions:   IKillCondition[]   & tags.MinItems<1>;
+  evidenceSources:  IEvidenceSource[]  & tags.MinItems<1>;
+}
+
+// Which driver are we betting on — leaves no slot for "it's just a good company"
+export type IValuationDriver =
+  | { type: "multiple_expansion"; current: number; target: number; reason: string }
+  | { type: "margin_expansion";   current: number; target: number; reason: string }
+  | { type: "top_line_growth";    cagr: number;                    reason: string }
+  | { type: "ma_optionality";     candidates: string[];            reason: string };
+
+// Falsifiable thresholds only — blocks free-form like "trust in management"
+export type IKillCondition =
+  | { type: "price_drawdown"; percentBelowEntry: number }
+  | { type: "metric_breach";  metric: string; below: number }
+  | { type: "milestone_miss"; expectedBy: string; what: string };
+
+// Traceable sources only — blocks "according to industry sources"
+export interface IEvidenceSource {
+  type: "filing" | "expert_call" | "primary_research" | "data";
+  citation: string;
+  retrievableAt: string;   // URL · filing ID · call date
+}
+
+export interface IScenario {
+  priceTarget: number;
+  probabilityWeight: number & tags.Minimum<0> & tags.Maximum<1>;
+  preconditions: string[] & tags.MinItems<1>;
+}
+```
+
+The audit mechanics are clear:
+
+- All three keys of `scenarios` (`bull` / `base` / `bear`) are required, blocking the path of submitting only a base case.
+- The `IKillCondition` union splits into exactly three falsifiable threshold types, leaving no slot for free-form strings like "trust in management."
+- `IEvidenceSource.type` is a fixed enum and `retrievableAt` is required, rejecting untraceable evidence like "according to industry sources."
+- `MinItems<1>` on `valuationDrivers` · `killConditions` · `evidenceSources` seals the escape hatch of slipping by with empty arrays.
+
+So what this schema guarantees is not "this stock will go up." It's that *the analyst walked the procedure to the end*. The market still decides what's right, but a flimsy decision process won't pass.
+
+The same picture extends to other domains. Most fields already have an established expert audit format — SOAP in medicine, IRAC in law, ADR / blameless postmortem in engineering, protocol templates in clinical trials. Schema-enforced compliance just imposes those conventions on the LLM too.
+
+| Field | Artifact | Where free prose tends to slip | Schema-enforced slots |
+| ----- | -------- | ------------------------------ | --------------------- |
+| **Investment / Finance** | Investment memo | Just the bottom-line "buy" | thesis · counter-thesis · valuation driver · bull/base/bear scenario · kill condition · evidence source |
+| | M&A due diligence | "no major issues" | financial flag · legal flag · operational flag · materiality · disclosure status |
+| | Credit rating | Score only | 5C (Character/Capacity/Capital/Collateral/Conditions) · evidence · scenario stress tests |
+| **Medicine** | Chart (SOAP) | Heavy on patient complaints; missing objective findings & differentials | Subjective · Objective · Assessment (incl. differential diagnosis) · Plan |
+| | Prescription review | One-line "appropriate" | indication · contraindication · dose appropriateness · drug interactions · allergy history |
+| | Clinical trial protocol | "well designed" | hypothesis · inclusion/exclusion · primary/secondary endpoint · sample size · statistical analysis plan |
+| **Law** | Legal opinion (IRAC) | Conclusion only | Issue · Rule · Application · Conclusion |
+| | Contract review | "no issues" | parties · obligations · termination · dispute resolution · governing law · adverse clauses |
+| | Compliance audit | "compliant" | applicable provisions · controls · evidence · findings · remediation + owner |
+| **Engineering / Tech** | Code review | "LGTM" | scope · security/perf impact · test coverage · breaking change · rollback plan |
+| | Security review | Jumps to mitigation | attack surface · threat model · severity · mitigation · residual risk · monitoring |
+| | System design (ADR) | Decision only | context · decision · alternatives considered · tradeoffs · consequences |
+| | Incident postmortem | One-line "we'll prevent recurrence" | timeline · impact · root cause · contributing factors · action items + owner + due date |
+| **Research / Academia** | Paper peer review | Macro criticism only | per-claim evidence quality · methodology · limitations · reproducibility |
+| | Grant proposal | "important research" | specific aims · significance · innovation · approach · preliminary data · budget justification |
+| **Public / Policy** | Policy impact assessment | "expected to be positive" | problem definition · alternatives · stakeholders · impact analysis · cost · risk · execution plan · monitoring |
+| | Environmental impact assessment | Generalities | baseline · impact matrix · mitigations · residual impact · monitoring plan |
+| **HR / Evaluation** | Performance review | Abstract "did well" | criteria enumeration · evidence (examples) · score · rationale · calibration check |
+| | Hiring interview | "good fit" | per-criterion evidence · concerns · counter-signals · recommendation strength + reason |
+| **Product / UX** | Product spec | "user does X" | actor · flow · exception · dependency · acceptance criteria · success metric |
+| | A/B test result | "significant" | hypothesis · sample · statistical significance · business significance · side-effect review · decision |
+
+What all these domains share is that *the procedure that must not be skipped* matters more than *the final answer*.
+
+In backend generation, the compiler tells you at the end whether it's wrong. Investment memos and strategy reviews pass as long as they sound plausible. In abstract fields where final truth is unverifiable after the fact, *procedural completeness* — what was seen, what was reviewed, what was deliberately excluded — becomes effectively the only verifiable signal.
+
+So as the field gets more abstract, the question shifts. Not *"can the machine know the right answer?"* but *"how much sloppiness can the machine block?"* Every domain in the table gives the same answer: *take the audit format the field already has and bake it into a schema*.
+
+### 3.3. Retrofit in Practice
+
+The retrofit pattern — *decision first, justification reverse-engineered* — is not hypothetical. It has documented history in the same domains the harness targets.
+
+**Investment committee memos.** Behavioral finance has long described the pattern: the decision is made before the data is reviewed, and analysis exists to confirm what was already chosen rather than inform it ([Eyster, Li & Ridout, 2021](https://arxiv.org/abs/2107.07491)). A senior partner signals enthusiasm for a deal; the analyst writes the memo to land on that conclusion. Without schema enforcement, it reads like proper diligence.
+
+With required *counter-thesis · falsifiable kill condition · traceable evidence source*, retrofit struggles — it cannot easily invent a real failure condition for the conclusion it was paid to reach. The empty kill-condition slot is the tell.
+
+**IBM Watson for Oncology.** Watson was sold as a clinical decision-support system that read patient cases and produced treatment recommendations with clinical-grade reasoning. Internal IBM documents leaked to *STAT News* in 2018 showed the system was trained on a small number of *synthetic* cases curated by a handful of specialists, not on guidelines or real outcomes ([Ross & Swetlitz, 2018](https://www.statnews.com/2018/07/25/ibm-watson-recommended-unsafe-incorrect-treatments/)).
+
+One leaked example: Watson recommended bevacizumab for a 65-year-old lung cancer patient with severe bleeding — the drug carries a *black-box warning* against use in patients with severe bleeding. Had a clinician trusted the output, the recommendation could have killed the patient.
+
+The system produced confident, clinical-sounding justification for a treatment its own label forbade. The architecture was *answer first, rationale after*. A schema requiring contraindication cross-check against patient history would have rejected the output before a clinician saw it.
+
+Both cases share the same anatomy: a confident explanation arrives *after* a decision reached by other means. Schema-enforced compliance attacks this not by judging the answer, but by demanding slots retrofit cannot quietly fill.
+
+### 3.4. Backtesting the Schema
+
+Schema enforcement attacks retrofit at the *output* level. But the schema itself is a designed artifact. The slots you chose, the unions you closed off, the fields you marked required — all of it bakes a worldview in before the model ever sees a case. The schema's worldview is enforced one level tighter than the model's: if a category that mattered isn't in the schema, the model can't surface it. It just rounds the truth into the closest available slot.
+
+And no schema ships finished. v1 reflects what the designer knew at v1; new cases reveal what they didn't. The schema has to *mature* — and it matures by being put back through history.
+
+So *who audits the audit format?* Every mature domain already runs the same loop — **backtesting** in finance, retrospective chart review in medicine, precedent analysis in law. Replay the procedure encoded in the schema against past cases, compare what it would have produced against what actually mattered, then revise. *A compiler is a backtest with zero latency.*
+
+`Output is verified by the validator. The schema is verified by backtest.`
+
+#### A worked example
+
+Take the `IInvestmentMemo` schema from §3.2. Its `IKillCondition` union has three slots:
+
+```typescript
+export type IKillCondition =
+  | { type: "price_drawdown"; percentBelowEntry: number }
+  | { type: "metric_breach";  metric: string; below: number }
+  | { type: "milestone_miss"; expectedBy: string; what: string };
+```
+
+Looks reasonable. But "looks reasonable" is exactly what schema bias hides behind. Backtest it: collect a corpus of historical positions, strip the outcomes, run the schema-enforced LLM on each, then compare what *should* have triggered the exit against what the schema's slots could express.
+
+Take SVB going into 2023. The bull thesis through 2022 was a sticky tech-deposit franchise plus rising-rate margin expansion. By the time the Q4 2022 disclosures were on the page, the thesis was already contradicting itself in three places: deposits had been bleeding out all year, the bond portfolio bought during the zero-rate era held enough unrealized loss to wipe equity if it had to be sold, and the cost of holding the remaining deposits was catching up to asset yield faster than the original story allowed. The original story had stopped being the story — *thesis-drift* — months before the price said so. By mid-March the bank was in receivership.
+
+A `price_drawdown -25%` stop, asked to express the exit reason, would have fired spuriously earlier in 2022 against an intact thesis and would not have fired meaningfully again before the March collapse. None of the three slots in `IKillCondition` lets the analyst write down *"the funding model itself is breaking; exit before liquidity runs out."*
+
+That gap is a *coverage failure* and is visible in the backtest diff. The fix is specific:
+
+```typescript
+| { type: "thesis_invalidation";
+    originalThesis:     string;
+    invalidatingSignal: string;
+    detectionMechanism: string };
+```
+
+Re-run. On thesis-drift losses the new slot fires when the data shifts; on winners it stays inert. That is *one* maturation step. The next backtest — against a regime shift, a new failure mode, a slot that over-fits the original corpus — reveals the next gap, and the schema is revised again. The same shape generalizes — a SOAP schema under-weighting differential diagnosis surfaces as missed-diagnosis rate in chart review; a contract-review schema missing `change-of-control` surfaces as renegotiation losses in deal post-mortems. Investment is just the row with the cleanest tooling.
+
+#### Coverage vs framework correctness
+
+Backtesting doesn't close the loop fully. Two failure modes behave differently under it:
+
+- **Coverage failure** — the schema has no slot for X, but X mattered. The pattern above. Backtest catches this directly: a missing factor recurring across cases is unambiguous.
+- **Framework correctness** — the schema has the right slots, but the *weighting or interpretation* is wrong. Backtest catches this only weakly. Outcome doesn't cleanly attribute to one slot, and famous-name corpora carry memorization leakage on top.
+
+*Coverage is catchable in any domain with historical cases. Weighting bounds out at the domain's noise floor.* That is fine for v1, because coverage is the dominant failure mode in new schemas — adding the missing slot is by far the highest-leverage edit. Weighting becomes the limit only after coverage is wide.
+
+That also explains why SOAP, IRAC, ADR feel "right." They have absorbed decades of coverage failures. LLM-era schemas can compress that maturation by backtesting during design rather than waiting years for in-the-wild failures.
+
+Neither schema enforcement nor backtesting is free, though — the next question is what this kind of discipline costs.
+
+### 3.5. The Cost of Discipline
+
+It isn't free. There are real costs: schema design, validator authoring, feedback-loop and orchestration logic, tokens and latency, and the work of keeping domain knowledge encoded as structure.
+
+But the gains are clear too: prevented omissions, less rework, accident prevention, handoff quality, auditability, a guaranteed quality floor. This approach doesn't reduce cost. It pulls cost forward in time and shapes it into something more controllable.
+
+Put differently: *you trade more design cost for a higher floor and lower accident cost*. Acknowledging that tradeoff is what keeps "function calling harness" from becoming a buzzword and lets it survive as a design philosophy.
+
+This isn't always the right tool. For tasks where review cost exceeds accident cost, for one-off artifacts, for fields that lack a shared rubric, it's overkill. The function calling harness is strongest where paying upfront for discipline and audit cost is worth it.
+
+The weakness is just as important: *schema-enforced compliance is only as good as the schema designer.*
+
+A badly designed schema enforces a bad procedure rigorously. If your IRAC schema drops the `application` step, the model will reverse-engineer evidence for a pre-decided conclusion. That weakness is exactly what §3.4's backtest loop bounds — without it, schema bias is permanent; with it, bias has a half-life set by the domain's verification latency.
+
+So this approach is strongest where the field's audit format is already mature, and where new domains can be matured deliberately by backtesting during design instead of waiting decades.
+
+That covers the conceptual case. One more piece remains — can we push procedural enforcement further technically? Specifically, how do we get past the one-shot bottleneck of function calling for long, sequential CoT-like procedures?
+
+## 4. Technical Aside: Streaming and Incremental Validation
+
+### 4.1. The One-Shot Bottleneck of Traditional Function Calling
+
+Traditional function calling demands a complete argument in one shot.
+
+That fits short, closed calls well, but for long reasoning procedures the burden grows. The model has to remember the entire procedure to the end; omissions surface only at the very end; and a single error forces rewriting the whole object.
+
+Worse, if the output token limit cuts the stream mid-generation, the truncated JSON cannot even be validated — the entire call is lost. With fifty endpoints to review in one shot, that ceiling is not hypothetical.
+
+![](https://media2.dev.to/dynamic/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto%2Cformat=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fcji4jctl5kpx819ozg8j.png)
+
+For CoT, this bottleneck is fatal.
+
+It demands a long, intrinsically sequential procedure be returned as a single complete object at the end. The model is more likely to fabricate a plausible finish at the end than to walk the intermediate steps, and from the outside it's hard to distinguish actual procedure from after-the-fact construction.
+
+### 4.2. Lenient Parsing and Type Coercion
+
+This is where a harness like Typia shines again. Even when the output isn't fully closed, lenient parsing reads it, and type coercion restores the partial structure into a meaningful state.
+
+Streaming is text generation's strength; schema enforcement is function calling's strength. The bridge between them is lenient parsing.
+
+Below is the kind of broken JSON LLMs actually emit — markdown fence, unclosed string, unquoted key, trailing comma, truncated keyword, double-stringified union, number-as-string, all in one shot.
+
+```typescript
+import typia, { ILlmApplication, ILlmFunction } from "typia";
+
+const app: ILlmApplication = typia.llm.application<OrderService>();
+const func: ILlmFunction = app.functions[0];
+
+// A single instance of the broken output LLMs actually emit
+const llmOutput = `I'd be happy to help you with your order! 😊
+
+\`\`\`json
+{
+  "order": {
+    "payment": "{\\"type\\":\\"card\\",\\"cardNumber\\":\\"1234-5678", // unclosed string & bracket
+    "product": {
+      name: "Laptop",      // unquoted key
+      price: "1299.99",    // wrong type — string for number
+      quantity: 2,         // trailing comma
+    },
+    "customer": {
+      "name": "John Doe",
+      "email": "john@example.com",
+      vip: tru             // truncated keyword + unclosed brackets
+\`\`\``;
+
+const parsed = ILlmFunction.parse(func, llmOutput);
+```
+
+Feeding this output to strict `JSON.parse()` throws immediately. Typia's `ILlmFunction.parse()`, however, cleans up prefix chatter, unclosed brackets, unquoted keys, trailing commas, the truncated `tru`, number-as-strings, and double-stringified union objects in one pass.
+
+The same property turns the output token ceiling from a hard failure into a recoverable cutoff. Whatever the stream produced before truncation is still a parseable prefix, not garbage.
+
+In a streaming context, partial output almost always takes one of these shapes. With only a strict parser, intermediate states are mostly invalid; with a lenient parser, you can judge at every moment *how much meaningful structure the current prefix already has*. The validator gets to work before the full object arrives.
+
+The core idea: don't only read the finished object — read the structure as it forms.
+
+### 4.3. Incremental Validation
+
+Once partial structure can be read, the next step is incremental validation. `DeepPartial<T>` makes the current prefix type-checkable, while field-order inspection asks whether the procedure is unfolding in the right sequence. Object property order is not enforced by types alone, but a prefix validator can treat the order in which tokens emerge as an audit rule.
+
+Take legal IRAC. The form is essentially ordered. Conclusion is derived from application; application from rule; rule starts from issue. Going in reverse means *"the conclusion was decided first, and evidence was retrofitted afterward."*
+
+```typescript
+export interface ILegalOpinion {
+  issue:       IIssue;       // ① the legal issue
+  rule:        IRule;        // ② applicable doctrine / precedent
+  application: IApplication; // ③ apply doctrine to facts
+  conclusion:  IConclusion;  // ④ conclusion derived from application
+}
+
+export interface IRule {
+  // Doctrine without citation is invalid
+  citations: ICitation[] & tags.MinItems<1>;
+  statement: string;
+}
+
+// Splitting citations by type forces "where this came from" to surface
+export type ICitation =
+  | { type: "statute";    reference: string; relevance: string }
+  | { type: "case_law";   reference: string; relevance: string }
+  | { type: "regulation"; reference: string; relevance: string };
+
+export interface IApplication {
+  // An empty rule × fact mapping means doctrine cited but never applied
+  steps: { ruleRef: string; facts: string[]; analysis: string }[] & tags.MinItems<1>;
+  counterArguments: string[];
+}
+
+export interface IConclusion {
+  outcome: string;
+  // Which application step it derives from — empty means the conclusion is hanging in air
+  derivedFrom: string;
+  caveats: string[];
+}
+```
+
+With this layout, if `conclusion` streams out first while `application` is still empty, you don't need to wait for completion — that's already an IRAC violation. If `rule` is filled but `citations: []`, that's *unsupported doctrine* and invalid on its face. The validator stops being a finished-product checker and starts looking like a state-transition rule.
+
+The loop changes from `generate all → validate once` to `stream step → parse partial → validate prefix → lock → continue`.
+
+![](https://media2.dev.to/dynamic/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto%2Cformat=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fxcclr5bs9j35r8zvhrw0.png)
+
+This also speaks to context-length pressure. Steps that have passed are pinned by the harness as external state, and the model only has to track the next legal state. The harness carries part of the model's reasoning memory.
+
+And if the stream hits the output ceiling, the locked prefix survives as a checkpoint — not thrown away with the rest.
+
+There are three layers. Lenient parsing seals *grammar*, partial type checking seals *types*, procedure invariants seal *audit procedure*. If the prefix is invalid at any layer, you stop the stream and feed back.
+
+Syntactic constrained decoding asks "is the next token structurally possible?" Prefix-of-valid-procedure validation asks one level higher: "is the next *procedural step* allowed by the audit rules?"
+
+This is the same tension [CRANE](https://arxiv.org/abs/2502.09061) points at from the constrained-decoding side: grammars that only permit final syntactic answers can damage reasoning, so constraints need room for reasoning-aware intermediate structure. Incremental validation takes that lesson into the harness layer. The model can still generate progressively, but each prefix must remain a valid procedural state.
+
+In CoT, presence alone isn't what matters. Often the question isn't *"were all the fields there"* but *"did they appear in the right order and context."* For an investment decision, `recommendation` shouldn't be allowed before evidence inventory · valuation · risk · counterargument. Incremental validation watches the generation path itself, not only the finished object.
+
+Three paradigms in one line each:
+
+- **Traditional text generation**: streams freely / weak procedural enforcement
+- **Traditional function calling**: strong structural enforcement / one-shot complete-object bottleneck
+- **Streaming + incremental validation**: streaming flexibility + schema enforcement + procedural audit — all three
+
+If Part 1 was a harness that corrected *completed artifacts*, this extension is a harness that corrects *procedure in flight*. Instead of waiting for stronger models, it catches procedure earlier and corrects it in smaller pieces.
+
+## 5. Conclusion
+
+This post does not deny CoT. It argues that free natural-language reasoning is not enough when the procedure itself matters. The next move is to make the procedure itself a contract.
+
+Function Calling Harness 2 is not the story of "tool calling works on complex schemas too." It's the story of turning requested reasoning into a schema artifact, having a validator inspect the intermediate procedure, and treating procedural compliance as a guarantee of its own *before* final correctness. Where correctness is strong, it becomes a deterministic loop; where correctness is weak, it becomes a quality floor.
+
+Making the model smarter alone isn't enough. Expert agents are not built by vocabulary mimicry; they are built by extracting the expert's operating procedure, turning it into a contract, and backtesting the contract against history. A prompt gives the model a role; a schema gives it a professional habit; the backtest tells you whether the habit is the right habit.
+
+`Prompt asks. Schema demands. Backtesting matures.`
+
+The title — `From 9.91% to 100% CoT Compliance` — is no rhetorical flourish either. The 9.91% is not "the model can't think." It's the number that says *even against a one-line instruction, free generation cannot keep procedure*. The 100% is not "always the best answer" — it's the claim that *at least the procedure baked into the contract can be walked end-to-end*.
+
+---
+
+## References
+
+**CoT (un)faithfulness**
+
+- Turpin et al. (2023), [Language Models Don't Always Say What They Think](https://arxiv.org/abs/2305.04388), *NeurIPS 2023*.
+- Lanham et al. (2023), [Measuring Faithfulness in Chain-of-Thought Reasoning](https://arxiv.org/abs/2307.13702), Anthropic.
+- Chen et al. (2025), [Reasoning Models Don't Always Say What They Think](https://arxiv.org/abs/2505.05410), Anthropic Alignment Science. See also Anthropic's [blog post summary](https://www.anthropic.com/research/reasoning-models-dont-say-think).
+
+**Retrofit cases in practice (§3.3)**
+
+- Eyster, Li & Ridout (2021), [A Theory of Ex Post Rationalization](https://arxiv.org/abs/2107.07491).
+- Ross, C. & Swetlitz, I. (2018), [IBM's Watson supercomputer recommended 'unsafe and incorrect' cancer treatments, internal documents show](https://www.statnews.com/2018/07/25/ibm-watson-recommended-unsafe-incorrect-treatments/), *STAT News*.
+
+**Process supervision and step-level verifiers**
+
+- Lightman et al. (2023), [Let's Verify Step by Step](https://arxiv.org/abs/2305.20050), OpenAI / PRM800K.
+- Wang et al. (2024), [Math-Shepherd](https://arxiv.org/abs/2312.08935), *ACL 2024*.
+
+**Structured / typed reasoning**
+
+- Yao et al. (2023), [Tree of Thoughts](https://arxiv.org/abs/2305.10601), *NeurIPS 2023*.
+- Yao et al. (2022), [ReAct](https://arxiv.org/abs/2210.03629).
+- Wang et al. (2022), [Self-Consistency](https://arxiv.org/abs/2203.11171).
+- Li et al. (2023), [Structured Chain-of-Thought Prompting for Code Generation](https://arxiv.org/abs/2305.06599), *ACM TOSEM*.
+- Guan et al. (2024), [Deliberative Alignment](https://arxiv.org/abs/2412.16339), OpenAI.
+
+**Declarative LM control & constrained generation infrastructure**
+
+- Beurer-Kellner, Fischer, & Vechev (2023), [Prompting Is Programming](https://arxiv.org/abs/2212.06094) / LMQL, *PLDI 2023*.
+- Khattab et al. (2023), [DSPy](https://arxiv.org/abs/2310.03714).
+- Willard & Louf (2023), [Outlines](https://arxiv.org/abs/2307.09702).
+- Dong et al. (2024), [XGrammar](https://arxiv.org/abs/2411.15100), *MLSys 2025*.
+- Tam et al. (2024), [Let Me Speak Freely? A Study on the Impact of Format Restrictions on Performance of Large Language Models](https://arxiv.org/abs/2408.02442), *EMNLP Industry Track 2024*.
+- Geng et al. (2025), [JSONSchemaBench: A Rigorous Benchmark of Structured Outputs for Language Models](https://arxiv.org/abs/2501.10868).
+- Banerjee et al. (2025), [CRANE: Reasoning with constrained LLM generation](https://arxiv.org/abs/2502.09061), *ICML 2025*.
+
+**Case study sources (AutoBe, an open-source backend generator)**
+
+- [`IAutoBeInterfaceEndpointReviewApplication`](https://github.com/wrtnlabs/autobe/blob/v0.30.5/packages/agent/src/orchestrate/interface/structures/IAutoBeInterfaceEndpointReviewApplication.ts) — the 9.91% schema in §2.2.
+- [`AutoBeInterfaceEndpointRevise`](https://github.com/wrtnlabs/autobe/blob/v0.30.5/packages/interface/src/histories/contents/AutoBeInterfaceEndpointRevise.ts) — the 4-variant union it returns.
+- [`IAutoBeInterfaceSchemaRefineApplication`](https://github.com/wrtnlabs/autobe/blob/main/packages/agent/src/orchestrate/interface/structures/IAutoBeInterfaceSchemaRefineApplication.ts) — a deeper case (per-DTO-property review) referenced in part 1.
