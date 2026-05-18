@@ -1,0 +1,15 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    open-pull-requests-limit: 10
+    allow:
+      - dependency-name: "@typescript/native-preview"
+      - dependency-name: "ttsc"
+    groups:
+      typescript:
+        patterns:
+          - "@typescript/native-preview"
+          - "ttsc"
