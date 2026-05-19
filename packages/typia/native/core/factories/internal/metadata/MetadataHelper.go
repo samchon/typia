@@ -201,13 +201,38 @@ func metadata_js_doc_parameter_name(tag *nativeast.Node) string {
   if tag.Kind.String() != "KindJSDocParameterTag" && tag.Kind.String() != "KindJSDocPropertyTag" {
     return ""
   }
-  // `name` is a DeclarationName: typically an Identifier, but for nested
-  // JSDoc parameter names like `@param obj.field description` the parser
-  // produces a QualifiedName, and upstream's (*Node).Text() panics with
-  // `Unhandled case in Node.Text: *ast.QualifiedName` if we call .Text()
-  // directly. NodeText in the ttsc shim covers QualifiedName and any
-  // other DeclarationName Kind that upstream's switch doesn't.
-  return nativeast.NodeText(tag.AsJSDocParameterOrPropertyTag().Name())
+  return metadata_js_doc_parameter_name_text(tag.AsJSDocParameterOrPropertyTag().Name())
+}
+
+// `name` is a DeclarationName: typically an Identifier, but for nested
+// JSDoc parameter names like `@param obj.field description` the parser
+// produces a QualifiedName, and upstream's (*Node).Text() panics with
+// `Unhandled case in Node.Text: *ast.QualifiedName` if we call .Text()
+// directly. Walk the qualified chain manually and fall back to Text() for
+// the leaf Identifier.
+func metadata_js_doc_parameter_name_text(name *nativeast.Node) string {
+  if name == nil {
+    return ""
+  }
+  if name.Kind == nativeast.KindQualifiedName {
+    qn := name.AsQualifiedName()
+    if qn == nil {
+      return ""
+    }
+    left := metadata_js_doc_parameter_name_text(qn.Left)
+    right := ""
+    if qn.Right != nil {
+      right = qn.Right.Text()
+    }
+    if left == "" {
+      return right
+    }
+    if right == "" {
+      return left
+    }
+    return left + "." + right
+  }
+  return name.Text()
 }
 
 func metadata_js_doc_type_expression_text(tag *nativeast.Node) string {
