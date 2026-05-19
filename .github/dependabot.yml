@@ -8,8 +8,3 @@ updates:
     allow:
       - dependency-name: "@typescript/native-preview"
       - dependency-name: "ttsc"
-    groups:
-      typescript:
-        patterns:
-          - "@typescript/native-preview"
-          - "ttsc"
