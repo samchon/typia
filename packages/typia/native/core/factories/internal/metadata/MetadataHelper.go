@@ -201,11 +201,13 @@ func metadata_js_doc_parameter_name(tag *nativeast.Node) string {
   if tag.Kind.String() != "KindJSDocParameterTag" && tag.Kind.String() != "KindJSDocPropertyTag" {
     return ""
   }
-  name := tag.AsJSDocParameterOrPropertyTag().Name()
-  if name == nil {
-    return ""
-  }
-  return name.Text()
+  // `name` is a DeclarationName: typically an Identifier, but for nested
+  // JSDoc parameter names like `@param obj.field description` the parser
+  // produces a QualifiedName, and upstream's (*Node).Text() panics with
+  // `Unhandled case in Node.Text: *ast.QualifiedName` if we call .Text()
+  // directly. NodeText in the ttsc shim covers QualifiedName and any
+  // other DeclarationName Kind that upstream's switch doesn't.
+  return nativeast.NodeText(tag.AsJSDocParameterOrPropertyTag().Name())
 }
 
 func metadata_js_doc_type_expression_text(tag *nativeast.Node) string {
