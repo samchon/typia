@@ -6,7 +6,7 @@
   "scripts": {
     "build": "ttsc",
     "generate": "ttsx node_modules/typia/src/executable/typia.ts generate --input src/input --output src/output",
-    "start": "pnpm run generate && pnpm run build"
+    "start": "pnpm run generate && pnpm run build && node index.js"
   },
   "repository": {
     "type": "git",
