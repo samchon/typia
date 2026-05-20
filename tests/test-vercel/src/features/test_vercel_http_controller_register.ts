@@ -6,6 +6,21 @@ import type { Tool } from "ai";
 
 import { TestGlobal } from "../TestGlobal";
 
+/**
+ * Verifies that an HTTP controller is correctly converted to Vercel AI SDK
+ * tools.
+ *
+ * Locks the HTTP controller branch of `VercelToolsRegistrar`. The returned tool
+ * map must contain one entry per controller function, keyed by the function
+ * name, and each entry must have `description`, `inputSchema`, and an `execute`
+ * function. This test requires a live swagger fetch; needs a vendored fixture
+ * for fully offline CI.
+ *
+ * 1. Fetch the shopping-backend swagger and create an `IHttpLlmController`.
+ * 2. Convert it to Vercel tools via `toVercelTools`.
+ * 3. Assert the tool count equals the controller function count.
+ * 4. Assert every tool has `description`, `inputSchema`, and `execute`.
+ */
 export const test_vercel_http_controller_register = async (): Promise<void> => {
   // 1. Fetch swagger.json and create controller
   const swagger: OpenApi.IDocument = await TestGlobal.getSwagger();

@@ -9,6 +9,21 @@ import typia from "typia";
 
 import { Calculator } from "../structures/Calculator";
 
+/**
+ * Verifies that invalid tool arguments produce a validation-error response via
+ * the MCP handler.
+ *
+ * Locks the validation-failure branch of `McpControllerRegistrar`. When the
+ * `tools/call` handler receives wrong-type arguments it must return a
+ * `CallToolResult` whose text content is the `LlmJson.stringify` of the
+ * validation failure, not throw or return an empty result.
+ *
+ * 1. Register a `Calculator` controller and retrieve the `tools/call` handler.
+ * 2. Invoke `add` with `{ x: "not a number", y: 5 }`.
+ * 3. Independently compute the expected validation message using the same coerce +
+ *    validate path.
+ * 4. Assert the result content text equals the expected message.
+ */
 export const test_mcp_class_controller_validation = async (): Promise<void> => {
   // 1. Create class-based controller using typia.llm.controller
   const controller: ILlmController<Calculator> =

@@ -15,7 +15,14 @@ export const _randomArray = <T>(
   if (props.uniqueItems !== true)
     return new Array(count).fill(null).map((_, i) => props.element(i, count));
   const elements: Set<any> = new Set();
-  while (elements.size !== count)
+  let attempts: number = 0;
+  const maxAttempts: number = count * 100 + 1000;
+  while (elements.size !== count) {
+    if (++attempts > maxAttempts)
+      throw new Error(
+        "Unable to generate enough unique items; the element domain may be too small.",
+      );
     elements.add(props.element(elements.size, count));
+  }
   return Array.from(elements);
 };

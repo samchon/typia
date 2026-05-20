@@ -10,7 +10,7 @@ export const _test_misc_isClone =
     const data: T = factory.generate();
     const cloned: Resolved<T> | null = clone(data);
 
-    if (resolved_equal_to(name)(data, cloned!) === false) {
+    if (cloned === null || resolved_equal_to(name)(data, cloned) === false) {
       throw new Error(
         `Bug on typia.misc.isClone(): failed to understand the ${name} type.`,
       );

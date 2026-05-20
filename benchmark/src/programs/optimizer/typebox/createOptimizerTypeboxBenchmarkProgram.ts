@@ -5,8 +5,9 @@ import { createOptimizerBenchmarkProgram } from "../createOptimizerBenchmarkProg
 
 export const createOptimizerTypeboxBenchmarkProgram = <T extends TSchema>(
   schema: T,
-) =>
-  createOptimizerBenchmarkProgram((input: unknown) => {
-    const program = TypeCompiler.Compile(schema);
-    return program.Check(input);
-  });
+) => {
+  const program = TypeCompiler.Compile(schema);
+  return createOptimizerBenchmarkProgram((input: unknown) =>
+    program.Check(input),
+  );
+};

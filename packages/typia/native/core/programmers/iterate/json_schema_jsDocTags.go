@@ -1,6 +1,7 @@
 package iterate
 
 import (
+  "math"
   "strconv"
   "strings"
 
@@ -38,7 +39,8 @@ func json_schema_jsDocTags_cast(value string) any {
   if value == "false" {
     return false
   }
-  if num, err := strconv.ParseFloat(value, 64); err == nil {
+  if num, err := strconv.ParseFloat(value, 64); err == nil &&
+    math.IsNaN(num) == false && math.IsInf(num, 0) == false {
     return num
   }
   if value == "null" {

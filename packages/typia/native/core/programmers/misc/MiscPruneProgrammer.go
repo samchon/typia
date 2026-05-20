@@ -2,7 +2,6 @@ package misc
 
 import (
   "fmt"
-  "strings"
 
   shimast "github.com/microsoft/typescript-go/shim/ast"
   shimchecker "github.com/microsoft/typescript-go/shim/checker"
@@ -787,12 +786,4 @@ func miscPruneProgrammer_some_schema(values []*schemametadata.MetadataSchema, pr
     }
   }
   return false
-}
-
-func miscPruneProgrammer_join_names[T any](values []T, name func(T) string) string {
-  names := make([]string, 0, len(values))
-  for _, value := range values {
-    names = append(names, name(value))
-  }
-  return strings.Join(names, " | ")
 }

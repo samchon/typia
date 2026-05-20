@@ -58,6 +58,10 @@ func runTransform(args []string) int {
     return 2
   }
   defer prog.Close()
+  if diags := prog.Diagnostics(); len(diags) > 0 {
+    driver.WritePrettyDiagnostics(stderr, diags, cwd)
+    return 2
+  }
 
   if *file == "" {
     if *out != "" {
@@ -73,21 +77,24 @@ func runTransform(args []string) int {
   }
   absFile = filepath.ToSlash(absFile)
 
+  target := prog.SourceFile(absFile)
+  if target == nil {
+    fmt.Fprintf(stderr, "ttsc-typia transform: source file is not in program: %s\n", absFile)
+    return 2
+  }
+  // The TypeScript path re-collects its own rewrites inside
+  // runTransformTypeScript, so the JS-only RewriteSet pass below is skipped
+  // for it to avoid running the diagnostic collection twice.
+  if *output == "ts" {
+    return runTransformTypeScript(prog, cwd, absFile, target, *rewriteMode, *tsconfigPath, *out)
+  }
+
   rewrites := driver.NewRewriteSet()
   if *rewriteMode == "typia" {
     if _, _, diagnostics := collectTypiaRewrites(prog, cwd, true, true, absFile, rewrites, readTypiaPluginOptions(cwd, *tsconfigPath)); len(diagnostics) > 0 {
       writeTypiaTransformDiagnostics(stderr, diagnostics, cwd)
       return 3
     }
-  }
-
-  target := prog.SourceFile(absFile)
-  if target == nil {
-    fmt.Fprintf(stderr, "ttsc-typia transform: source file is not in program: %s\n", absFile)
-    return 2
-  }
-  if *output == "ts" {
-    return runTransformTypeScript(prog, cwd, absFile, target, *rewriteMode, *tsconfigPath, *out)
   }
 
   var captured []byte

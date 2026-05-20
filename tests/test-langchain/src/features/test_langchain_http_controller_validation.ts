@@ -7,6 +7,20 @@ import { IHttpLlmController, OpenApi } from "@typia/interface";
 import { toLangChainTools } from "@typia/langchain";
 import { HttpLlm } from "@typia/utils";
 
+/**
+ * Verifies that invalid HTTP controller tool arguments raise a
+ * `ToolInputParsingException`.
+ *
+ * Locks the validation-failure branch of `LangChainToolsRegistrar` for the HTTP
+ * controller path. A locally-constructed OpenAPI document avoids live network
+ * calls. Passing a string where a number is required must throw
+ * `ToolInputParsingException` rather than proceeding silently.
+ *
+ * 1. Build a minimal `OpenApi.IDocument` with a numeric-body POST endpoint.
+ * 2. Create an `IHttpLlmController` and convert to LangChain tools.
+ * 3. Invoke the tool with `{ body: { x: "not a number", y: 5 } }`.
+ * 4. Assert the invocation throws `ToolInputParsingException`.
+ */
 export const test_langchain_http_controller_validation =
   async (): Promise<void> => {
     // 1. Create minimal OpenApi document with a simple numeric schema
@@ -76,6 +90,7 @@ export const test_langchain_http_controller_validation =
 
     // 5. Test validation failure: wrong type (string instead of number)
     //    (may be thrown by LangChain's JSON Schema validation or typia's validation)
+    let caughtError: unknown = undefined;
     try {
       await addTool.invoke({
         body: {
@@ -83,11 +98,16 @@ export const test_langchain_http_controller_validation =
           y: 5,
         },
       });
-      throw new Error("Expected ToolInputParsingException to be thrown.");
     } catch (error) {
-      TestValidator.predicate(
-        "should throw ToolInputParsingException",
-        () => error instanceof ToolInputParsingException,
+      caughtError = error;
+    }
+    if (caughtError === undefined) {
+      throw new Error(
+        "Expected ToolInputParsingException to be thrown, but invoke succeeded.",
       );
     }
+    TestValidator.predicate(
+      "should throw ToolInputParsingException",
+      () => caughtError instanceof ToolInputParsingException,
+    );
   };

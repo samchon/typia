@@ -1,7 +1,5 @@
 package metadata
 
-import "strings"
-
 type IMetadataSchema_IAtomic struct {
   Type string
   Tags [][]IMetadataTypeTag
@@ -42,28 +40,5 @@ func (obj *MetadataAtomic) ToJSON() IMetadataSchema_IAtomic {
 }
 
 func metadataAtomic_getName(obj *MetadataAtomic) string {
-  if len(obj.Tags) == 0 {
-    return obj.Type
-  }
-  if len(obj.Tags) == 1 {
-    row := []string{obj.Type}
-    for _, tag := range obj.Tags[0] {
-      row = append(row, tag.Name)
-    }
-    return "(" + strings.Join(row, " & ") + ")"
-  }
-  rows := make([]string, 0, len(obj.Tags))
-  for _, row := range obj.Tags {
-    names := make([]string, 0, len(row))
-    for _, tag := range row {
-      names = append(names, tag.Name)
-    }
-    str := strings.Join(names, " & ")
-    if len(row) == 1 {
-      rows = append(rows, str)
-    } else {
-      rows = append(rows, "("+str+")")
-    }
-  }
-  return "(" + obj.Type + " & (" + strings.Join(rows, " | ") + "))"
+  return taggedName(obj.Type, obj.Tags)
 }

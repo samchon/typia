@@ -12,7 +12,7 @@ export const createClientStringifyBenchmarkProgram = async <T>(
   const provider: IBenchmarkProgram<T> = {
     type: () => "success",
     validate: () => true,
-    skip: () => true,
+    skip: () => false,
     success: async (input: T): Promise<IBenchmarkProgram.IMeasurement> => {
       const connector = new tgrid.WorkerConnector(null, null, "process");
       await connector.connect(location);
@@ -41,7 +41,7 @@ const shoot = (port: number) =>
         url: `http://127.0.0.1:${port}/stringify`,
         method: "GET",
         connections: 500,
-        workers: Math.min(1, Math.ceil(PHYSICAL_CPU_COUNT / 2)),
+        workers: Math.max(1, Math.ceil(PHYSICAL_CPU_COUNT / 2)),
       },
       (err, result) => {
         if (err) reject(err);

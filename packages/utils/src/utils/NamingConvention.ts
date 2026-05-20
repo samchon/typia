@@ -115,7 +115,8 @@ export namespace NamingConvention {
    * @param str Input string
    * @returns Localized string
    */
-  export const localize = (str: string) => str[0]!.toLowerCase() + str.slice(1);
+  export const localize = (str: string): string =>
+    str.length !== 0 ? str[0]!.toLowerCase() + str.slice(1) : str;
 
   /**
    * Check if string is valid JavaScript variable name.

@@ -14,7 +14,7 @@ var JsonCreateIsStringifyTransformer = jsonCreateIsStringifyTransformerNamespace
 func (jsonCreateIsStringifyTransformerNamespace) Transform(props nativeinternal.ITransformProps) *shimast.Node {
   return nativeinternal.GenericTransformer.Factory(nativeinternal.GenericTransformer_IProps{
     ITransformProps: props,
-    Method:          "json.stringify",
+    Method:          "json.createIsStringify",
     Write: func(x nativecontext.IProgrammerProps) *shimast.Node {
       return nativejsonprogrammers.JsonIsStringifyProgrammer.Write(x)
     },

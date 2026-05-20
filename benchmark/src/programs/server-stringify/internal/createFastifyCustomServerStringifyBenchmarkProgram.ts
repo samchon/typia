@@ -15,7 +15,7 @@ export const createFastifyCustomServerStringifyBenchmarkProgram = async <T>(
       server.get("/stringify", (_, reply) =>
         reply
           .status(200)
-          .header("Content-Type", "applicataion/json")
+          .header("Content-Type", "application/json")
           .send(stringify(input)),
       );
       await server.listen({ port: PORT });

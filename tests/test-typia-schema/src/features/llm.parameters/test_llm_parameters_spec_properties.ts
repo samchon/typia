@@ -2,6 +2,20 @@ import { TestValidator } from "@nestia/e2e";
 import { ILlmSchema } from "@typia/interface";
 import typia, { tags } from "typia";
 
+/**
+ * Verifies that `typia.llm.parameters` emits correct property schemas and
+ * `required` lists for a complex interface.
+ *
+ * Parameters conversion must handle required, optional, nullable, literal,
+ * nested object, record, and array properties all at once. Order in `required`
+ * arrays must not be assumed since the transform may emit fields in declaration
+ * or alphabetical order.
+ *
+ * 1. Declare `IParameters` with seven distinct property shapes.
+ * 2. Call `typia.llm.parameters<IParameters>()` and assert `type`,
+ *    `additionalProperties`, and sorted `required`.
+ * 3. Assert each property schema and the `$defs` entry for `IChild` individually.
+ */
 export const test_llm_parameters_spec_properties = (): void => {
   interface IChild {
     id: string & tags.Format<"uuid">;
@@ -22,19 +36,19 @@ export const test_llm_parameters_spec_properties = (): void => {
     {
       type: params.type,
       additionalProperties: params.additionalProperties,
-      required: params.required,
+      required: [...(params.required ?? [])].sort(),
     },
     {
       type: "object",
       additionalProperties: false,
       required: [
-        "required",
-        "nullable",
-        "literal",
-        "child",
-        "records",
         "children",
-      ],
+        "child",
+        "literal",
+        "nullable",
+        "records",
+        "required",
+      ].sort(),
     },
   );
   TestValidator.equals("required property", clean(params.properties.required), {
@@ -43,16 +57,11 @@ export const test_llm_parameters_spec_properties = (): void => {
   TestValidator.equals("optional property", clean(params.properties.optional), {
     type: "number",
   });
-  TestValidator.equals("nullable property", clean(params.properties.nullable), {
-    anyOf: [
-      {
-        type: "null",
-      },
-      {
-        type: "boolean",
-      },
-    ],
-  });
+  TestValidator.equals(
+    "nullable property",
+    sortAnyOf(clean(params.properties.nullable)),
+    sortAnyOf({ anyOf: [{ type: "null" }, { type: "boolean" }] }),
+  );
   TestValidator.equals(
     "literal property",
     enumSchema(params.properties.literal),
@@ -110,4 +119,21 @@ const resolve = (
   if (!schema || !("$ref" in schema)) return schema;
   const key = schema.$ref.split("/").at(-1);
   return key === undefined ? undefined : $defs[key];
+};
+
+const sortAnyOf = (schema: unknown): unknown => {
+  if (
+    schema !== null &&
+    typeof schema === "object" &&
+    "anyOf" in schema &&
+    Array.isArray((schema as { anyOf: unknown[] }).anyOf)
+  ) {
+    return {
+      ...schema,
+      anyOf: [...(schema as { anyOf: unknown[] }).anyOf].sort((a, b) =>
+        JSON.stringify(a).localeCompare(JSON.stringify(b)),
+      ),
+    };
+  }
+  return schema;
 };

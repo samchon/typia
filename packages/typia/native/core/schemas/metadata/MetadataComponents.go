@@ -56,10 +56,10 @@ func MetadataComponents_from(json IMetadataComponents) *MetadataComponents {
   }
 
   return &MetadataComponents{
-    Aliases:    metadataComponents_aliases(dictionary.Aliases),
-    Objects:    metadataComponents_objects(dictionary.Objects),
-    Arrays:     metadataComponents_arrays(dictionary.Arrays),
-    Tuples:     metadataComponents_tuples(dictionary.Tuples),
+    Aliases:    metadataComponents_aliases(json.Aliases, dictionary.Aliases),
+    Objects:    metadataComponents_objects(json.Objects, dictionary.Objects),
+    Arrays:     metadataComponents_arrays(json.Arrays, dictionary.Arrays),
+    Tuples:     metadataComponents_tuples(json.Tuples, dictionary.Tuples),
     Dictionary: dictionary,
   }
 }
@@ -89,34 +89,34 @@ func (components *MetadataComponents) ToJSON() IMetadataComponents {
   }
 }
 
-func metadataComponents_aliases(input map[string]*MetadataAliasType) []*MetadataAliasType {
+func metadataComponents_aliases(order []IMetadataSchema_IAliasType, input map[string]*MetadataAliasType) []*MetadataAliasType {
   output := make([]*MetadataAliasType, 0, len(input))
-  for _, value := range input {
-    output = append(output, value)
+  for _, alias := range order {
+    output = append(output, input[alias.Name])
   }
   return output
 }
 
-func metadataComponents_objects(input map[string]*MetadataObjectType) []*MetadataObjectType {
+func metadataComponents_objects(order []IMetadataSchema_IObjectType, input map[string]*MetadataObjectType) []*MetadataObjectType {
   output := make([]*MetadataObjectType, 0, len(input))
-  for _, value := range input {
-    output = append(output, value)
+  for _, obj := range order {
+    output = append(output, input[obj.Name])
   }
   return output
 }
 
-func metadataComponents_arrays(input map[string]*MetadataArrayType) []*MetadataArrayType {
+func metadataComponents_arrays(order []IMetadataSchema_IArrayType, input map[string]*MetadataArrayType) []*MetadataArrayType {
   output := make([]*MetadataArrayType, 0, len(input))
-  for _, value := range input {
-    output = append(output, value)
+  for _, array := range order {
+    output = append(output, input[array.Name])
   }
   return output
 }
 
-func metadataComponents_tuples(input map[string]*MetadataTupleType) []*MetadataTupleType {
+func metadataComponents_tuples(order []IMetadataSchema_ITupleType, input map[string]*MetadataTupleType) []*MetadataTupleType {
   output := make([]*MetadataTupleType, 0, len(input))
-  for _, value := range input {
-    output = append(output, value)
+  for _, tuple := range order {
+    output = append(output, input[tuple.Name])
   }
   return output
 }

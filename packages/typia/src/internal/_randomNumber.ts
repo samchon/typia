@@ -4,17 +4,17 @@ export const _randomNumber = (schema: OpenApi.IJsonSchema.INumber): number => {
   const minimum: number =
     schema.minimum ??
     schema.exclusiveMinimum ??
-    (schema.multipleOf ?? 1) *
-      (schema.maximum === undefined && schema.exclusiveMaximum === undefined
-        ? 0
-        : (schema.maximum ?? schema.exclusiveMaximum!) - 100);
+    (schema.maximum === undefined && schema.exclusiveMaximum === undefined
+      ? 0
+      : (schema.maximum ?? schema.exclusiveMaximum!) -
+        (schema.multipleOf ?? 1) * 100);
   const maximum: number =
     schema.maximum ??
     schema.exclusiveMaximum ??
-    (schema.multipleOf ?? 1) *
-      (schema.minimum === undefined && schema.exclusiveMinimum === undefined
-        ? 100
-        : (schema.minimum ?? schema.exclusiveMinimum!) + 100);
+    (schema.minimum === undefined && schema.exclusiveMinimum === undefined
+      ? (schema.multipleOf ?? 1) * 100
+      : (schema.minimum ?? schema.exclusiveMinimum!) +
+        (schema.multipleOf ?? 1) * 100);
   if (minimum > maximum)
     throw new Error("Minimum value is greater than maximum value.");
   return schema.multipleOf === undefined

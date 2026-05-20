@@ -79,6 +79,7 @@ var protobufDecodeProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactor
 var protobufDecodeProgrammer_objectSequence = 0
 
 func (protobufDecodeProgrammerNamespace) Decompose(props ProtobufDecodeProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
+  protobufDecodeProgrammer_objectSequence = 0
   collection := schemametadata.NewMetadataCollection()
   meta := nativefactories.ProtobufFactory.Metadata(nativefactories.ProtobufFactory_IProps{
     Method:      protobufDecodeProgrammer_method_text(props.Modulo),

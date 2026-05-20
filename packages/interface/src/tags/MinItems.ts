@@ -18,11 +18,11 @@ import { TagBase } from "./TagBase";
  * @example
  *   interface Order {
  *     // Must have at least 1 item
- *     items: (Product & MinItems<1>)[];
+ *     items: Array<Product> & MinItems<1>;
  *   }
  *   interface Team {
  *     // Team must have 2-10 members
- *     members: (User & MinItems<2> & MaxItems<10>)[];
+ *     members: Array<User> & MinItems<2> & MaxItems<10>;
  *   }
  *
  * @template Value Minimum number of elements required

@@ -26,6 +26,7 @@ type protobufMessageProgrammer_Hierarchy struct {
   Key      string
   Object   *schemametadata.MetadataObjectType
   Children map[string]*protobufMessageProgrammer_Hierarchy
+  Order    []string
 }
 
 var protobufMessageProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
@@ -89,11 +90,7 @@ func protobufMessageProgrammer_emplace(hierarchies map[string]*protobufMessagePr
     if i == len(accessors)-1 {
       hierarchy.Object = object
     }
-    childOrder := []string{}
-    for key := range current {
-      childOrder = append(childOrder, key)
-    }
-    currentOrder = &childOrder
+    currentOrder = &hierarchy.Order
   }
   return order
 }
@@ -110,19 +107,17 @@ func protobufMessageProgrammer_write_hierarchy(hierarchy *protobufMessageProgram
       elements = append(elements, "  "+line)
     }
   }
-  if len(hierarchy.Children) != 0 {
-    keys := make([]string, 0, len(hierarchy.Children))
-    for key := range hierarchy.Children {
-      keys = append(keys, key)
+  for _, key := range hierarchy.Order {
+    child, ok := hierarchy.Children[key]
+    if ok == false {
+      continue
     }
-    for _, key := range keys {
-      body := protobufMessageProgrammer_write_hierarchy(hierarchy.Children[key])
-      lines := strings.Split(body, "\n")
-      for i, line := range lines {
-        lines[i] = "  " + line
-      }
-      elements = append(elements, strings.Join(lines, "\n"))
+    body := protobufMessageProgrammer_write_hierarchy(child)
+    lines := strings.Split(body, "\n")
+    for i, line := range lines {
+      lines[i] = "  " + line
     }
+    elements = append(elements, strings.Join(lines, "\n"))
   }
   elements = append(elements, "}")
   return strings.Join(elements, "\n")

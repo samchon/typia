@@ -7,6 +7,22 @@ import typia from "typia";
 
 import { Calculator } from "../structures/Calculator";
 
+/**
+ * Verifies that a type-invalid tool call produces a validation-error result in
+ * `generateText`.
+ *
+ * Locks the validation-failure path of `VercelToolsRegistrar` when used via the
+ * Vercel AI SDK's `generateText`. A string argument where a number is required
+ * must result in `{ success: false, error: string }` containing a JSON code
+ * block and a reference to the `number` type, without throwing.
+ *
+ * 1. Convert a `Calculator` controller to Vercel tools.
+ * 2. Run `generateText` with a mock model that calls `add` with `x: "not a
+ *    number"`.
+ * 3. Assert there is one tool call and one tool result.
+ * 4. Assert the result is `{ success: false, error }` with a JSON code block and
+ *    "number".
+ */
 export const test_vercel_generate_text_validation_error =
   async (): Promise<void> => {
     // 1. Create class-based controller using typia.llm.controller

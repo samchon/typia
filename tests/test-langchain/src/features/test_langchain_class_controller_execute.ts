@@ -6,6 +6,19 @@ import typia from "typia";
 
 import { Calculator } from "../structures/Calculator";
 
+/**
+ * Verifies that class-controller tools execute correctly via LangChain.
+ *
+ * Locks the happy-path execution branch of `LangChainToolsRegistrar` for
+ * class-based controllers. Each `Calculator` method must be reachable as a
+ * `DynamicStructuredTool`, and invoking it with valid arguments must return the
+ * expected `{ success: true, data }` envelope.
+ *
+ * 1. Build an `ILlmController<Calculator>` via `typia.llm.controller`.
+ * 2. Convert it to `DynamicStructuredTool[]` via `toLangChainTools`.
+ * 3. Invoke each of the four arithmetic tools with valid arguments.
+ * 4. Assert each result equals the correct `{ success: true, data: { value } }`.
+ */
 export const test_langchain_class_controller_execute =
   async (): Promise<void> => {
     // 1. Create class-based controller using typia.llm.controller

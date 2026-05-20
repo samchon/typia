@@ -7,7 +7,7 @@ import LocalSource from "../../../components/LocalSource";
 
 ## Legacy (TypeScript v6)
 
-This is the production-stable path. It uses [`ts-patch`](https://github.com/nonara/ts-patch) on top of the JavaScript TypeScript compiler and is what current published `typia` releases (v6 line) plug into.
+This is the production-stable path. It uses [`ts-patch`](https://github.com/nonara/ts-patch) on top of the JavaScript TypeScript compiler and is an alternative to the native `ttsc` plugin path.
 
 The fastest way to install: run the wizard.
 
@@ -169,7 +169,7 @@ Add the `prepare` script to `package.json`:
     "prepare": "ts-patch install"
   },
   "dependencies": {
-    "typia": "^6.0.6"
+    "typia": "^13.0.0"
   },
   "devDependencies": {
     "ts-patch": "^3.2.0",

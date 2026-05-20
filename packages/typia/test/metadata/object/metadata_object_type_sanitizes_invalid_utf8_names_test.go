@@ -1,9 +1,9 @@
 package typia_test
 
 import (
-	"testing"
+  "testing"
 
-	metadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
+  metadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
 )
 
 // TestMetadataObjectTypeSanitizesInvalidUTF8Names verifies object-name cleanup.
@@ -16,14 +16,23 @@ import (
 // 2. Assert creation replaces the invalid byte with a stable marker.
 // 3. Convert the object to JSON and assert the sanitized name is serialized.
 func TestMetadataObjectTypeSanitizesInvalidUTF8Names(t *testing.T) {
-	object := metadata.MetadataObjectType_create(metadata.MetadataObjectType{
-		Name: string([]byte{0xff, 'U', 's', 'e', 'r'}),
-	})
+  object := metadata.MetadataObjectType_create(metadata.MetadataObjectType{
+    Name: string([]byte{0xff, 'U', 's', 'e', 'r'}),
+  })
 
-	if object.Name != "__User" {
-		t.Fatalf("invalid UTF-8 should be replaced in object name: %q", object.Name)
-	}
-	if json := object.ToJSON(); json.Name != "__User" {
-		t.Fatalf("sanitized object name should be serialized: %q", json.Name)
-	}
+  if object.Name != "__User" {
+    t.Fatalf("invalid UTF-8 should be replaced in object name: %q", object.Name)
+  }
+  if json := object.ToJSON(); json.Name != "__User" {
+    t.Fatalf("sanitized object name should be serialized: %q", json.Name)
+  }
+
+  // A literal Unicode replacement character (U+FFFD) in the source is also
+  // sanitized to "__" to ensure stable names regardless of input origin.
+  withReplacement := metadata.MetadataObjectType_create(metadata.MetadataObjectType{
+    Name: "�Value",
+  })
+  if withReplacement.Name != "__Value" {
+    t.Fatalf("literal U+FFFD in name should be replaced with __: %q", withReplacement.Name)
+  }
 }

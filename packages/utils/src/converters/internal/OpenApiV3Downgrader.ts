@@ -225,9 +225,7 @@ export namespace OpenApiV3Downgrader {
         ),
       };
       const visit = (schema: OpenApi.IJsonSchema): void => {
-        if (OpenApiTypeChecker.isBoolean(schema))
-          union.push({ type: "boolean" });
-        else if (
+        if (
           OpenApiTypeChecker.isBoolean(schema) ||
           OpenApiTypeChecker.isInteger(schema) ||
           OpenApiTypeChecker.isNumber(schema) ||
@@ -258,7 +256,7 @@ export namespace OpenApiV3Downgrader {
             })(),
             minItems: schema.prefixItems.length,
             maxItems:
-              !!schema.additionalItems === true
+              schema.additionalItems !== undefined
                 ? undefined
                 : schema.prefixItems.length,
             ...{

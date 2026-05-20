@@ -3,6 +3,7 @@ package programmers
 import (
   "fmt"
   "math"
+  "sort"
   "strings"
 
   shimast "github.com/microsoft/typescript-go/shim/ast"
@@ -1116,17 +1117,22 @@ func randomProgrammer_coalesce(context nativecontext.ITypiaContext, method strin
 }
 
 func randomProgrammer_schema_without_items(schema nativeiterate.JsonSchema) *shimast.Node {
-  properties := []*shimast.Node{}
-  for key, value := range schema {
+  keys := make([]string, 0, len(schema))
+  for key := range schema {
     if key == "items" {
       continue
     }
+    keys = append(keys, key)
+  }
+  sort.Strings(keys)
+  properties := []*shimast.Node{}
+  for _, key := range keys {
     properties = append(properties, randomProgrammer_factory.NewPropertyAssignment(
       nil,
       nativefactories.IdentifierFactory.Identifier(key),
       nil,
       nil,
-      nativefactories.LiteralFactory.Write(value),
+      nativefactories.LiteralFactory.Write(schema[key]),
     ))
   }
   return randomProgrammer_factory.NewObjectLiteralExpression(randomProgrammer_factory.NewNodeList(properties), true)

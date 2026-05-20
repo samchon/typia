@@ -204,28 +204,3 @@ func emplace_metadata_object_valid_dynamic_key(key *schemametadata.MetadataSchem
   }
   return total == key.Size()
 }
-
-func iterate_optional_coalesce(props struct {
-  Metadata *schemametadata.MetadataSchema
-  Type     *nativechecker.Type
-}) {
-  if props.Type != nil && (props.Type.IsUnion() || props.Type.IsIntersection()) {
-    for _, child := range props.Type.Types() {
-      iterate_optional_coalesce(struct {
-        Metadata *schemametadata.MetadataSchema
-        Type     *nativechecker.Type
-      }{
-        Metadata: props.Metadata,
-        Type:     child,
-      })
-    }
-    return
-  }
-  Iterate_metadata_coalesce(struct {
-    Metadata *schemametadata.MetadataSchema
-    Type     *nativechecker.Type
-  }{
-    Metadata: props.Metadata,
-    Type:     props.Type,
-  })
-}

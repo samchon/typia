@@ -51,6 +51,10 @@ func (jsonAssertStringifyProgrammerNamespace) Decompose(props JsonAssertStringif
     nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{Name: "__assert", Value: assert.Arrow}),
     nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{Name: "__stringify", Value: stringify.Arrow}),
   )
+  stringifyType := stringify.Arrow.AsArrowFunction().Type
+  if stringifyType == nil {
+    stringifyType = nativefactories.TypeFactory.Keyword("string")
+  }
   return nativeinternal.FeatureProgrammer_IDecomposed{
     Functions:  jsonStringifyProgrammer_merge_functions(assert.Functions, stringify.Functions),
     Statements: statements,
@@ -64,7 +68,7 @@ func (jsonAssertStringifyProgrammerNamespace) Decompose(props JsonAssertStringif
           Init    *shimast.Node
         }{Context: props.Context, Init: props.Init}),
       }),
-      stringify.Arrow.AsArrowFunction().Type,
+      stringifyType,
       nil,
       jsonAssertStringifyProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
       jsonAssertStringifyProgrammer_factory.NewBlock(jsonAssertStringifyProgrammer_factory.NewNodeList([]*shimast.Node{

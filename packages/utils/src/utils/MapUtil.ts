@@ -5,8 +5,7 @@ export namespace MapUtil {
     key: Key,
     generator: () => T,
   ): T => {
-    const oldbie: T | undefined = dict.get(key);
-    if (oldbie) return oldbie;
+    if (dict.has(key)) return dict.get(key) as T;
 
     const value: T = generator();
     dict.set(key, value);

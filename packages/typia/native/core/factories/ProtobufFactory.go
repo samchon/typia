@@ -271,7 +271,7 @@ func protobufFactory_emplaceBigint(output map[string]nativeprotobuf.IProtobufPro
         break
       }
     }
-    output[init] = &nativeprotobuf.IProtobufPropertyType_IBigint{
+    output[value] = &nativeprotobuf.IProtobufPropertyType_IBigint{
       IProtobufSchema_IBigint: nativeprotobuf.IProtobufSchema_IBigint{Type: "bigint", Name: value},
       Index:                   protobufFactory_getSequence(row),
     }

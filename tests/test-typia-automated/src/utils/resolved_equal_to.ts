@@ -97,7 +97,8 @@ function recursive_equal_to<T>(
         tracer,
       );
   else if (typeof x === "number" && typeof y === "number") {
-    const gap = Math.abs(x - y) / Math.abs(x);
+    const denom = Math.max(Math.abs(x), Math.abs(y));
+    const gap = denom === 0 ? 0 : Math.abs(x - y) / denom;
     if (gap < 0.001) return true;
     return trace(x, y, path, tracer);
   } else return trace(x, y, path, tracer);

@@ -6,6 +6,18 @@ import typia from "typia";
 
 import { Calculator } from "../structures/Calculator";
 
+/**
+ * Verifies that class-controller tools execute correctly via the Vercel AI SDK.
+ *
+ * Locks the happy-path execution branch of `VercelToolsRegistrar` for
+ * class-based controllers. Each `Calculator` method must be callable as a
+ * Vercel `Tool`, and invoking it with valid arguments must return the expected
+ * `{ success: true, data: { value } }` envelope.
+ *
+ * 1. Convert a `Calculator` controller to Vercel tools via `toVercelTools`.
+ * 2. Invoke each of the four arithmetic tools with valid arguments.
+ * 3. Assert each result equals the correct `{ success: true, data: { value } }`.
+ */
 export const test_vercel_class_controller_execute = async (): Promise<void> => {
   // 1. Create class-based controller using typia.llm.controller
   const controller: ILlmController<Calculator> =

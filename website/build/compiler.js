@@ -3,7 +3,7 @@ const fs = require("fs");
 const path = require("path");
 
 //-------------------------------------------------------
-console.log(" Making PlaygourndExampleStorage");
+console.log(" Making PlaygroundExampleStorage");
 //-------------------------------------------------------
 const load = (location) =>
   fs.readFileSync(`${__dirname}/../../examples/${location}`, "utf-8");

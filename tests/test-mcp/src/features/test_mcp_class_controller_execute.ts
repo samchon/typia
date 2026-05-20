@@ -8,6 +8,21 @@ import typia from "typia";
 
 import { Calculator } from "../structures/Calculator";
 
+/**
+ * Verifies that class-controller tools execute correctly via the MCP
+ * `tools/call` handler.
+ *
+ * Locks the happy-path execution branch of `McpControllerRegistrar` for
+ * class-based controllers. Each `Calculator` method must be reachable through
+ * the raw `tools/call` handler, and calling it with valid JSON arguments must
+ * return a `CallToolResult` whose first content item parses to the correct
+ * arithmetic value.
+ *
+ * 1. Register a `Calculator` controller with an `McpServer`.
+ * 2. Retrieve the `tools/call` request handler from the raw `Server` instance.
+ * 3. Invoke each of the four arithmetic tools with valid arguments.
+ * 4. Assert each result's parsed text content equals the expected value.
+ */
 export const test_mcp_class_controller_execute = async (): Promise<void> => {
   // 1. Create class-based controller using typia.llm.controller
   const controller: ILlmController<Calculator> =

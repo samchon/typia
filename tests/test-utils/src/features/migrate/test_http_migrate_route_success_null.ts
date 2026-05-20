@@ -28,5 +28,5 @@ export const test_http_migrate_route_success_null = (): void => {
   };
   const app: IHttpMigrateApplication = HttpMigration.application(document);
   const route: IHttpMigrateRoute = app.routes[0]!;
-  TestValidator.equals("undefined", route.success, null);
+  TestValidator.equals("null", route.success, null);
 };

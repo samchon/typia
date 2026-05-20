@@ -58,10 +58,7 @@ export namespace FunctionalObjectUnion {
 
   export const SPOILERS: Spoiler<FunctionalObjectUnion>[] = [
     (input) => {
-      if ((input as any)[0]!.length) {
-        (input as any)[0]!.length = {} as any;
-        return ["$input[0].length"];
-      }
+      // index 0 is always IPoint (no `length` property); spoil `distance`
       (input as any)[0]!.distance = [] as any;
       return ["$input[0].distance"];
     },

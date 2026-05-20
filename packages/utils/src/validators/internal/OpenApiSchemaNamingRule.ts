@@ -34,20 +34,16 @@ export namespace OpenApiSchemaNamingRule {
 
   const getNameOfInteger = (schema: OpenApi.IJsonSchema.IInteger): string[] => [
     "number",
-    ...(schema.minimum !== undefined
-      ? [
-          schema.exclusiveMinimum
-            ? `tags.ExclusiveMinimum<${schema.minimum}>`
-            : `tags.Minimum<${schema.minimum}>`,
-        ]
-      : []),
-    ...(schema.maximum !== undefined
-      ? [
-          schema.exclusiveMaximum
-            ? `tags.ExclusiveMaximum<${schema.maximum}>`
-            : `tags.Maximum<${schema.maximum}>`,
-        ]
-      : []),
+    ...(schema.exclusiveMinimum !== undefined
+      ? [`tags.ExclusiveMinimum<${schema.exclusiveMinimum}>`]
+      : schema.minimum !== undefined
+        ? [`tags.Minimum<${schema.minimum}>`]
+        : []),
+    ...(schema.exclusiveMaximum !== undefined
+      ? [`tags.ExclusiveMaximum<${schema.exclusiveMaximum}>`]
+      : schema.maximum !== undefined
+        ? [`tags.Maximum<${schema.maximum}>`]
+        : []),
     ...(schema.multipleOf !== undefined
       ? [`tags.MultipleOf<${schema.multipleOf}>`]
       : []),
@@ -55,20 +51,16 @@ export namespace OpenApiSchemaNamingRule {
 
   const getNameOfNumber = (schema: OpenApi.IJsonSchema.INumber): string[] => [
     "number",
-    ...(schema.minimum !== undefined
-      ? [
-          schema.exclusiveMinimum
-            ? `tags.ExclusiveMinimum<${schema.minimum}>`
-            : `tags.Minimum<${schema.minimum}>`,
-        ]
-      : []),
-    ...(schema.maximum !== undefined
-      ? [
-          schema.exclusiveMaximum
-            ? `tags.ExclusiveMaximum<${schema.maximum}>`
-            : `tags.Maximum<${schema.maximum}>`,
-        ]
-      : []),
+    ...(schema.exclusiveMinimum !== undefined
+      ? [`tags.ExclusiveMinimum<${schema.exclusiveMinimum}>`]
+      : schema.minimum !== undefined
+        ? [`tags.Minimum<${schema.minimum}>`]
+        : []),
+    ...(schema.exclusiveMaximum !== undefined
+      ? [`tags.ExclusiveMaximum<${schema.exclusiveMaximum}>`]
+      : schema.maximum !== undefined
+        ? [`tags.Maximum<${schema.maximum}>`]
+        : []),
     ...(schema.multipleOf !== undefined
       ? [`tags.MultipleOf<${schema.multipleOf}>`]
       : []),

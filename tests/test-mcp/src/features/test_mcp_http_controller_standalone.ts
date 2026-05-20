@@ -8,6 +8,23 @@ import { HttpLlm } from "@typia/utils";
 
 import { TestGlobal } from "../TestGlobal";
 
+/**
+ * Verifies that standalone-mode HTTP controller registration correctly wires
+ * tools.
+ *
+ * Locks the `preserve: false` branch of `McpControllerRegistrar` for HTTP
+ * controllers. The registrar must not touch `McpServer._registeredTools`, must
+ * register `tools/list` and `tools/call` handlers on the raw `Server`, and the
+ * resulting tool count must equal the controller's function count. This test
+ * requires a live swagger fetch; needs a vendored fixture for fully offline
+ * CI.
+ *
+ * 1. Fetch the shopping-backend swagger and create an `IHttpLlmController`.
+ * 2. Call `registerMcpControllers` with `preserve: false`.
+ * 3. Assert `_registeredTools` is empty and `_toolHandlersInitialized` is falsy.
+ * 4. Call `tools/list` and assert the tool count matches the controller function
+ *    count.
+ */
 export const test_mcp_http_controller_standalone = async (): Promise<void> => {
   // 1. Fetch swagger.json and create controller
   const swagger: OpenApi.IDocument = await TestGlobal.getSwagger();

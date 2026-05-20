@@ -18,6 +18,9 @@ func Transform(program *driver.Program, options *nativecontext.ITransformOptions
   if options != nil {
     opt = *options
   }
+  // FileTransformer.Transform is curried: environments -> transformer -> file.
+  // typia has no separate transformer object, so nil is passed as the
+  // transformer to obtain the per-file transform function.
   return TransformFactory(FileTransformer.Transform(FileTransformer_IEnvironments{
     Program:         program,
     CompilerOptions: compilerOptions,

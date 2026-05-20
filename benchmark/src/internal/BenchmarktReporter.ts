@@ -5,7 +5,7 @@ import { BenchmarkServer } from "./BenchmarkServer";
 import { BenchmarkStream } from "./BenhmarkStream";
 import { HorizontalBarChart } from "./HorizontalBarChart";
 
-const EXTENSION = __filename.substring(-2);
+const EXTENSION = __filename.slice(-2);
 
 export namespace BenchmarkReporter {
   export interface Measurement {

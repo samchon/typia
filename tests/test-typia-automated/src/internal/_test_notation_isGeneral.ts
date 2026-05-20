@@ -25,9 +25,9 @@ export const _test_notation_isGeneral =
       const elem: T = factory.generate();
       spoil(elem);
 
-      if (functor.convert(elem) === null)
+      if (functor.convert(elem) !== null)
         throw new Error(
-          `Bug on typia.notations.assertX(): failed to detect error on the ${name} type.`,
+          `Bug on typia.notations.isX(): failed to detect error on the ${name} type.`,
         );
     }
   };

@@ -18,11 +18,11 @@ import { TagBase } from "./TagBase";
  * @example
  *   interface Upload {
  *     // Maximum 5 files per upload
- *     files: (File & MaxItems<5>)[];
+ *     files: Array<File> & MaxItems<5>;
  *   }
  *   interface Config {
  *     // Between 1-3 backup servers allowed
- *     backupServers: (Server & MinItems<1> & MaxItems<3>)[];
+ *     backupServers: Array<Server> & MinItems<1> & MaxItems<3>;
  *   }
  *
  * @template Value Maximum number of elements allowed

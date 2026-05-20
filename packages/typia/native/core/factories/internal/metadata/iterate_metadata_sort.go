@@ -59,6 +59,27 @@ func iterate_metadata_sort_iterate(props struct {
   for _, item := range props.metadata.Sets {
     props.next(item.Value)
   }
+  for _, object := range props.metadata.Objects {
+    if object.Type == nil {
+      continue
+    }
+    for _, property := range object.Type.Properties {
+      props.next(property.Value)
+    }
+  }
+  for _, array := range props.metadata.Arrays {
+    if array.Type != nil && array.Type.Value != nil {
+      props.next(array.Type.Value)
+    }
+  }
+  for _, tuple := range props.metadata.Tuples {
+    if tuple.Type == nil {
+      continue
+    }
+    for _, element := range tuple.Type.Elements {
+      props.next(element)
+    }
+  }
   if props.metadata.Escaped != nil {
     props.next(props.metadata.Escaped.Returns)
   }

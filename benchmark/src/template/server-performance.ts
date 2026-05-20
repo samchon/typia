@@ -72,7 +72,7 @@ const SERVERS: BenchmarkProgrammer.ILibrary[] = [
         `      throw new Error(result[0].toString());`,
         `    return output;`,
         `  },`,
-        `  (input) => JSON.stringify(instanceToPlain(schema)),`,
+        `  (input) => JSON.stringify(instanceToPlain(input)),`,
         `);`,
       ].join("\n");
     },
@@ -137,13 +137,20 @@ const SERVERS: BenchmarkProgrammer.ILibrary[] = [
   },
 ];
 
-BenchmarkProgrammer.generate({
-  name: "server-performance",
-  features: FEATURES,
-  libraries: CLIENTS,
-});
-BenchmarkProgrammer.generate({
-  name: "server-performance/internal",
-  features: FEATURES,
-  libraries: SERVERS,
+const main = async (): Promise<void> => {
+  await BenchmarkProgrammer.generate({
+    name: "server-performance",
+    features: FEATURES,
+    libraries: CLIENTS,
+  });
+  await BenchmarkProgrammer.generate({
+    name: "server-performance/internal",
+    features: FEATURES,
+    libraries: SERVERS,
+  });
+};
+
+main().catch((exp) => {
+  console.error(exp);
+  process.exit(-1);
 });

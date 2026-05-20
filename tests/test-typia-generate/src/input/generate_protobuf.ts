@@ -7,6 +7,8 @@ interface IFile {
   data: Uint8Array;
 }
 
+export const message = typia.protobuf.message<IFile>();
+
 export const createEncode = typia.protobuf.createEncode<IFile>();
 export const createAssertEncode = typia.protobuf.createAssertEncode<IFile>();
 export const createIsEncode = typia.protobuf.createIsEncode<IFile>();

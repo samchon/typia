@@ -87,7 +87,7 @@ export const test_json_schema_type_checker_cover_number = (): void => {
     }),
   );
   TestValidator.equals(
-    "exclusiveMaximum covers minimum only when greater",
+    "exclusiveMaximum covers maximum only when greater",
     true,
     OpenApiTypeChecker.covers({
       components: {},

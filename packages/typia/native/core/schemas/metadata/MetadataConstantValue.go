@@ -3,7 +3,6 @@ package metadata
 import (
   "encoding/json"
   "fmt"
-  "strings"
 )
 
 type IJsDocTagInfo struct {
@@ -66,24 +65,7 @@ func (obj *MetadataConstantValue) ToJSON() IMetadataSchema_IConstant_IValue {
 }
 
 func metadataConstantValue_getName(obj *MetadataConstantValue) string {
-  base := metadataConstantValue_base(obj.Value)
-  if len(obj.Tags) == 0 {
-    return base
-  }
-  rows := make([]string, 0, len(obj.Tags))
-  for _, row := range obj.Tags {
-    names := make([]string, 0, len(row))
-    for _, tag := range row {
-      names = append(names, tag.Name)
-    }
-    str := strings.Join(names, " & ")
-    if len(row) == 1 {
-      rows = append(rows, str)
-    } else {
-      rows = append(rows, "("+str+")")
-    }
-  }
-  return "(" + base + " & (" + strings.Join(rows, " | ") + "))"
+  return taggedName(metadataConstantValue_base(obj.Value), obj.Tags)
 }
 
 func metadataConstantValue_base(value any) string {

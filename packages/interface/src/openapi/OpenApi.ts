@@ -45,7 +45,7 @@ export namespace OpenApi {
    * Root document structure for emended OpenAPI v3.2.
    *
    * Contains all API metadata, paths, operations, and reusable components. The
-   * `x-samchon-emended-v4` marker indicates this document has been processed by
+   * `x-typia-emended-v12` marker indicates this document has been processed by
    * `samchon/typia` to normalize schema formats.
    */
   export interface IDocument {
@@ -312,7 +312,7 @@ export namespace OpenApi {
     export type ContentType =
       | "text/plain"
       | "application/json"
-      | "application/x-www-form-url-encoded"
+      | "application/x-www-form-urlencoded"
       | "multipart/form-data"
       | "*/*"
       | (string & {});

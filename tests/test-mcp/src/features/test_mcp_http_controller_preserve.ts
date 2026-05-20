@@ -7,6 +7,21 @@ import { z } from "zod";
 
 import { TestGlobal } from "../TestGlobal";
 
+/**
+ * Verifies that preserve-mode HTTP controller registration keeps pre-existing
+ * tools intact.
+ *
+ * Locks the `preserve: true` branch of `McpControllerRegistrar` for HTTP
+ * controllers. An `existing_tool` registered before `registerMcpControllers` is
+ * called must still be present in `_registeredTools` after registration. This
+ * test requires a live swagger fetch; needs a vendored fixture for fully
+ * offline CI.
+ *
+ * 1. Fetch the shopping-backend swagger and create an `IHttpLlmController`.
+ * 2. Pre-register `existing_tool` via `McpServer.registerTool`.
+ * 3. Call `registerMcpControllers` with `preserve: true`.
+ * 4. Assert `existing_tool` is still present in `_registeredTools`.
+ */
 export const test_mcp_http_controller_preserve = async (): Promise<void> => {
   // 1. Fetch swagger.json and create controller
   const swagger: OpenApi.IDocument = await TestGlobal.getSwagger();

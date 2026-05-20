@@ -4,6 +4,22 @@ import { generateObject } from "ai";
 import { MockLanguageModelV3 } from "ai/test";
 import typia from "typia";
 
+/**
+ * Verifies that `toVercelSchema` produces a schema accepted by
+ * `generateObject`.
+ *
+ * Locks the `toVercelSchema` adapter path. The schema returned by
+ * `toVercelSchema(output.parameters)` must be accepted by the Vercel AI SDK's
+ * `generateObject` function, and the structured output helpers (`coerce`,
+ * `validate`) must correctly process the resulting object including numeric
+ * coercion from string values.
+ *
+ * 1. Obtain an `ILlmStructuredOutput<IMember>` and convert `parameters` via
+ *    `toVercelSchema`.
+ * 2. Run `generateObject` with a mock model that returns a stringified age.
+ * 3. Coerce the raw result and assert the age is converted to a number.
+ * 4. Validate the coerced result and assert success.
+ */
 export const test_vercel_generate_object = async (): Promise<void> => {
   interface IMember {
     name: string;

@@ -1,3 +1,4 @@
+import { TestValidator } from "@nestia/e2e";
 import { OpenApi, OpenApiV3_2 } from "@typia/interface";
 import { OpenApiConverter } from "@typia/utils";
 import fs from "fs";
@@ -21,11 +22,11 @@ export const test_document_upgrade_v32 = async (): Promise<void> => {
       for (const [pathKey, pathItem] of Object.entries(swagger.paths)) {
         if (pathItem?.query !== undefined) {
           const upgradedPath = openapi.paths?.[pathKey];
-          if (upgradedPath?.query === undefined) {
-            throw new Error(
-              `Query method was not preserved for path ${pathKey}`,
-            );
-          }
+          TestValidator.equals(
+            `query-preserved-${pathKey}`,
+            upgradedPath?.query !== undefined,
+            true,
+          );
         }
       }
     }

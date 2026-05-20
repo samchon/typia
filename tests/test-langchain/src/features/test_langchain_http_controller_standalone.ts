@@ -6,6 +6,19 @@ import { HttpLlm } from "@typia/utils";
 
 import { TestGlobal } from "../TestGlobal";
 
+/**
+ * Verifies that an HTTP controller is correctly converted to LangChain tools.
+ *
+ * Locks the HTTP controller branch of `LangChainToolsRegistrar`. The tool count
+ * must equal the controller's function count, and every function name must have
+ * a corresponding tool. This test requires a live swagger fetch;
+ * network-restricted environments should vendor the fixture locally.
+ *
+ * 1. Fetch the shopping-backend swagger and create an `IHttpLlmController`.
+ * 2. Convert it to `DynamicStructuredTool[]` via `toLangChainTools`.
+ * 3. Assert tools count equals controller functions count.
+ * 4. Assert every function name has a matching tool.
+ */
 export const test_langchain_http_controller_standalone =
   async (): Promise<void> => {
     // 1. Fetch swagger.json and create controller

@@ -4,9 +4,9 @@
 package functional
 
 import (
-	"testing"
+  "testing"
 
-	nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
+  nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
 )
 
 // TestFunctionalAssertHelperCoverage exercises internal helper lookup.
@@ -20,7 +20,11 @@ import (
 // 3. Keep the assertion local to the functional package.
 // 4. Avoid depending on a TypeScript checker or importer.
 func TestFunctionalAssertHelperCoverage(t *testing.T) {
-	if functionalAssertProgrammer_internal(nativecontext.ITypiaContext{}, "helper") == nil {
-		t.Fatal("functional assert internal helper returned nil")
-	}
+  node := functionalAssertProgrammer_internal(nativecontext.ITypiaContext{}, "helper")
+  if node == nil {
+    t.Fatal("functional assert internal helper returned nil")
+  }
+  if node.Text() != "helper" {
+    t.Fatalf("functional assert internal helper identifier mismatch: expected %q got %q", "helper", node.Text())
+  }
 }

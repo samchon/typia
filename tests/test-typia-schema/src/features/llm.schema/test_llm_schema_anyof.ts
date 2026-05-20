@@ -3,6 +3,19 @@ import { ILlmSchema } from "@typia/interface";
 import { LlmTypeChecker } from "@typia/utils";
 import typia from "typia";
 
+/**
+ * Verifies typia.llm.schema emits `anyOf` for a discriminated union.
+ *
+ * Locks the union branch of the LLM schema converter. Object-shaped types route
+ * through `LlmTypeChecker.isObject`, but a named union has to be lifted into
+ * `$defs` and referenced via `$ref`, with `anyOf` describing the variants. A
+ * regression in branch selection would silently inline one variant and drop the
+ * other from the function-calling schema.
+ *
+ * 1. Declare two interfaces with a shared `type` discriminator and union them.
+ * 2. Call `typia.llm.schema<Animal>($defs)`.
+ * 3. Assert the call returns a `$ref`, and that `$defs["Animal"]` is `anyOf`.
+ */
 export const test_llm_schema_anyof = (): void => {
   // discriminated union with type property
   interface ICat {

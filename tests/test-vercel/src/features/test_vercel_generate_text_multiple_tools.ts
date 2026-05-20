@@ -7,6 +7,20 @@ import typia from "typia";
 
 import { Calculator } from "../structures/Calculator";
 
+/**
+ * Verifies that multiple tool calls in a single `generateText` response are all
+ * executed.
+ *
+ * Locks the multi-call dispatch branch of `VercelToolsRegistrar`. A mock model
+ * returning three simultaneous tool calls (`add`, `multiply`, `subtract`) must
+ * result in all three tools being executed and their results appearing in
+ * `toolResults`, each with the correct arithmetic value.
+ *
+ * 1. Convert a `Calculator` controller to Vercel tools.
+ * 2. Run `generateText` with a mock model returning three tool calls.
+ * 3. Assert there are exactly three tool calls and three tool results.
+ * 4. Assert each result matches the expected arithmetic output.
+ */
 export const test_vercel_generate_text_multiple_tools =
   async (): Promise<void> => {
     // 1. Create class-based controller using typia.llm.controller

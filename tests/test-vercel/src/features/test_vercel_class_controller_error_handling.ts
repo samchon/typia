@@ -6,6 +6,20 @@ import typia from "typia";
 
 import { Calculator } from "../structures/Calculator";
 
+/**
+ * Verifies that runtime errors inside a Vercel tool execution return a failure
+ * envelope.
+ *
+ * Locks the error-catching branch of `VercelToolsRegistrar`. When a controller
+ * method throws (e.g. division by zero), the tool's `execute` function must
+ * catch the error and return `{ success: false, error: string }` instead of
+ * propagating the exception to the Vercel AI SDK caller.
+ *
+ * 1. Convert a `Calculator` controller to Vercel tools.
+ * 2. Call the `divide` tool with `{ x: 10, y: 0 }`.
+ * 3. Assert the result is `{ success: false, error: string }`.
+ * 4. Assert the error string contains "Division by zero".
+ */
 export const test_vercel_class_controller_error_handling =
   async (): Promise<void> => {
     // 1. Create class-based controller using typia.llm.controller

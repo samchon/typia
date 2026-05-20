@@ -130,7 +130,7 @@ export namespace OpenApiV3_1Upgrader {
                     })
                   : undefined!;
               })
-              .filter((_, v) => v !== undefined)
+              .filter((v) => v !== undefined)
           : undefined,
       requestBody: input.requestBody
         ? convertRequestBody(doc)(input.requestBody)

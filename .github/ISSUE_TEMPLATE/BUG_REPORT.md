@@ -8,7 +8,7 @@ about: Create a report to help us improve
 Note that, the bug you're reporting may have registered in the [issues](https://github.com/samchon/typia/search?type=issues) by another user. Even the bug you're reporting may have been fixed in the `@next` version. In such reasons, I recommend you to check the old [issues](https://github.com/samchon/typia/search?type=issues) and reproduct your code with the `@next` version before publishing the bug reporting issue.
 
 ```bash
-`npm install --save-dev typia@next`
+pnpm add -D typia@next
 ```
 
 When the same error occurs even in the `@next` version, then please fill the below template:

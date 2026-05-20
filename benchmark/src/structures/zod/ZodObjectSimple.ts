@@ -3,6 +3,7 @@ import { z } from "zod";
 const Point3D = z.object({
   x: z.number(),
   y: z.number(),
+  z: z.number(),
 });
 
 const Box3D = z.object({

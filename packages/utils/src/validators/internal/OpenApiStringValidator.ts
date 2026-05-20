@@ -28,38 +28,36 @@ export namespace OpenApiStringValidator {
     ctx: IOpenApiValidatorContext<OpenApi.IJsonSchema.IString>,
   ): boolean => {
     if (typeof ctx.value !== "string") return ctx.report(ctx);
-    return (
-      [
-        ctx.schema.minLength !== undefined
-          ? ctx.value.length >= ctx.schema.minLength ||
-            ctx.report({
-              ...ctx,
-              expected: `string & MinLength<${ctx.schema.minLength}>`,
-            })
-          : true,
-        ctx.schema.maxLength !== undefined
-          ? ctx.value.length <= ctx.schema.maxLength ||
-            ctx.report({
-              ...ctx,
-              expected: `string & MaxLength<${ctx.schema.maxLength}>`,
-            })
-          : true,
-        ctx.schema.pattern !== undefined
-          ? new RegExp(ctx.schema.pattern).test(ctx.value) ||
-            ctx.report({
-              ...ctx,
-              expected: `string & Pattern<${JSON.stringify(ctx.schema.pattern)}>`,
-            })
-          : true,
-        ctx.schema.format && FORMAT[ctx.schema.format as "uuid"]
-          ? FORMAT[ctx.schema.format as "uuid"](ctx.value) ||
-            ctx.report({
-              ...ctx,
-              expected: `string & Format<${JSON.stringify(ctx.schema.format)}>`,
-            })
-          : true,
-      ].every((v) => v) || ctx.report(ctx)
-    );
+    return [
+      ctx.schema.minLength !== undefined
+        ? ctx.value.length >= ctx.schema.minLength ||
+          ctx.report({
+            ...ctx,
+            expected: `string & MinLength<${ctx.schema.minLength}>`,
+          })
+        : true,
+      ctx.schema.maxLength !== undefined
+        ? ctx.value.length <= ctx.schema.maxLength ||
+          ctx.report({
+            ...ctx,
+            expected: `string & MaxLength<${ctx.schema.maxLength}>`,
+          })
+        : true,
+      ctx.schema.pattern !== undefined
+        ? new RegExp(ctx.schema.pattern).test(ctx.value) ||
+          ctx.report({
+            ...ctx,
+            expected: `string & Pattern<${JSON.stringify(ctx.schema.pattern)}>`,
+          })
+        : true,
+      ctx.schema.format && FORMAT[ctx.schema.format as "uuid"]
+        ? FORMAT[ctx.schema.format as "uuid"](ctx.value) ||
+          ctx.report({
+            ...ctx,
+            expected: `string & Format<${JSON.stringify(ctx.schema.format)}>`,
+          })
+        : true,
+    ].every((v) => v);
   };
 }
 

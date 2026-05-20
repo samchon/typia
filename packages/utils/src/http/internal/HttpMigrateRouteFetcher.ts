@@ -7,8 +7,7 @@ export namespace HttpMigrateRouteFetcher {
   export const execute = async (
     props: HttpMigration.IFetchProps,
   ): Promise<unknown> => {
-    const result: IHttpResponse = await _Propagate("request", props);
-    props.route.success?.media;
+    const result: IHttpResponse = await _Propagate("execute", props);
     if (result.status !== 200 && result.status !== 201)
       throw new HttpError(
         props.route.method.toUpperCase() as "GET",
@@ -81,11 +80,15 @@ const _Propagate = async (
     ) as any;
 
   // DO REQUEST
+  const path: string = getPath(props);
+  const hostEndsWithSlash: boolean = props.connection.host.endsWith("/");
+  const pathStartsWithSlash: boolean = path.startsWith("/");
   const resolvedPath: string =
-    props.connection.host.endsWith("/") === false &&
-    props.route.emendedPath.startsWith("/") === false
-      ? `/${getPath(props)}`
-      : getPath(props);
+    hostEndsWithSlash && pathStartsWithSlash
+      ? path.substring(1)
+      : !hostEndsWithSlash && !pathStartsWithSlash
+        ? `/${path}`
+        : path;
   const url: URL = new URL(`${props.connection.host}${resolvedPath}`);
 
   const response: Response = await (props.connection.fetch ?? fetch)(url, init);

@@ -9,7 +9,7 @@ import fs from "fs";
 
 import { TestGlobal } from "../../../TestGlobal";
 
-export const test_http_llm_function_deprecated = async (): Promise<void> => {
+export const test_http_llm_function_tags = async (): Promise<void> => {
   const document: OpenApi.IDocument = OpenApiConverter.upgradeDocument(
     JSON.parse(
       await fs.promises.readFile(`${TestGlobal.ROOT}/swagger.json`, "utf8"),

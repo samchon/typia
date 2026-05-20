@@ -158,7 +158,7 @@ export namespace LlmSchemaConverter {
       ),
     };
 
-    // VALIDADTE SCHEMA
+    // VALIDATE SCHEMA
     const reasons: IJsonSchemaTransformError.IReason[] = [];
     OpenApiTypeChecker.visit({
       closure: (next, accessor) => {

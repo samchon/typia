@@ -66,7 +66,7 @@ export const _test_assertGuardEquals =
             actual: exp.expected,
           });
           throw new Error(
-            `Bug on typia.assertEquals(): failed to detect surplus property on the ${name} type.`,
+            `Bug on typia.assertGuardEquals(): failed to detect surplus property on the ${name} type.`,
           );
         } else throw exp;
       }

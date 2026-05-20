@@ -20,7 +20,11 @@ const equals = (visited: WeakMap<object, WeakMap<object, boolean>>) => {
     else if (typeof a !== typeof b || typeof a !== "object") return false;
     // COMPARE CONTAINERS
     else if (Array.isArray(a))
-      return Array.isArray(b) && a.map((x, i) => next(x, b[i])).every((x) => x);
+      return (
+        Array.isArray(b) &&
+        a.length === b.length &&
+        a.every((x, i) => next(x, b[i]))
+      );
     else if (a instanceof Set)
       return (
         b instanceof Set && a.size === b.size && [...a].every((x) => b.has(x))
@@ -130,16 +134,23 @@ const equals = (visited: WeakMap<object, WeakMap<object, boolean>>) => {
     } else if (a instanceof DataView) {
       if (!(b instanceof DataView) || a.byteLength !== b.byteLength)
         return false;
-      const x: Uint8Array = new Uint8Array(a.buffer);
-      const y: Uint8Array = new Uint8Array(b.buffer);
+      const x: Uint8Array = new Uint8Array(
+        a.buffer,
+        a.byteOffset,
+        a.byteLength,
+      );
+      const y: Uint8Array = new Uint8Array(
+        b.buffer,
+        b.byteOffset,
+        b.byteLength,
+      );
       return x.every((v, i) => v === y[i]);
     } else if (a instanceof File)
       return (
         b instanceof File &&
         a.name === b.name &&
         a.size === b.size &&
-        a.type === b.type &&
-        next(a.slice(), b.slice())
+        a.type === b.type
       );
     // JUST PLAIN OBJECTS
     else if (a !== null && b !== null) {

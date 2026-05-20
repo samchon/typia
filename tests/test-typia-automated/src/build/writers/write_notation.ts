@@ -7,7 +7,7 @@ interface IProps {
 export const write_notation =
   (p: IProps) => (create: boolean) => (structure: string) =>
     dedent`
-      import { ${structure} } from "../../structures/${structure}";
+      import { ${structure} } from "@typia/template";
       import typia from "typia";
 
       import { _${file({

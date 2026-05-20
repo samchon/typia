@@ -6,6 +6,22 @@ import { z } from "zod";
 
 import { Calculator } from "../structures/Calculator";
 
+/**
+ * Verifies that registering a controller whose tool name collides with an
+ * existing MCP tool throws.
+ *
+ * Locks the preserve-mode duplicate-detection branch of
+ * `McpControllerRegistrar`. When `preserve: true` and a controller function
+ * shares a name with a tool registered via `McpServer.registerTool`, the
+ * registrar must throw an error whose message contains `"Duplicate function
+ * name"` before any tools are mutated.
+ *
+ * 1. Create a `Calculator` controller and an `McpServer` with a pre-registered
+ *    `add` tool.
+ * 2. Call `registerMcpControllers` with `preserve: true`.
+ * 3. Assert the call throws.
+ * 4. Assert the error message contains `"Duplicate function name"`.
+ */
 export const test_mcp_class_controller_duplicate_error =
   async (): Promise<void> => {
     // 1. Create class-based controller using typia.llm.controller

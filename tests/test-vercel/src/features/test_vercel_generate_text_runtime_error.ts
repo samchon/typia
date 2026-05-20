@@ -7,6 +7,21 @@ import typia from "typia";
 
 import { Calculator } from "../structures/Calculator";
 
+/**
+ * Verifies that a runtime error during tool execution surfaces as a failure
+ * result in `generateText`.
+ *
+ * Locks the error-catching path of `VercelToolsRegistrar` when used via the
+ * Vercel AI SDK's `generateText`. Division by zero must produce a tool result
+ * of `{ success: false, error: string }` containing "Division by zero", and the
+ * SDK call must not throw.
+ *
+ * 1. Convert a `Calculator` controller to Vercel tools.
+ * 2. Run `generateText` with a mock model that calls `divide` with `y: 0`.
+ * 3. Assert there is exactly one tool call and one tool result.
+ * 4. Assert the result is `{ success: false, error }` with "Division by zero" in
+ *    the error.
+ */
 export const test_vercel_generate_text_runtime_error =
   async (): Promise<void> => {
     // 1. Create class-based controller using typia.llm.controller

@@ -4,18 +4,18 @@ export const _randomInteger = (schema: OpenApi.IJsonSchema.IInteger) => {
   let minimum: number =
     schema.minimum ??
     schema.exclusiveMinimum ??
-    (schema.multipleOf ?? 1) *
-      (schema.maximum === undefined && schema.exclusiveMaximum === undefined
-        ? 0
-        : (schema.maximum ?? schema.exclusiveMaximum!) - 100);
+    (schema.maximum === undefined && schema.exclusiveMaximum === undefined
+      ? 0
+      : (schema.maximum ?? schema.exclusiveMaximum!) -
+        (schema.multipleOf ?? 1) * 100);
   if (schema.exclusiveMinimum !== undefined) minimum++;
   let maximum: number =
     schema.maximum ??
     schema.exclusiveMaximum ??
-    (schema.multipleOf ?? 1) *
-      (schema.minimum === undefined && schema.exclusiveMinimum === undefined
-        ? 100
-        : (schema.minimum ?? schema.exclusiveMinimum!) + 100);
+    (schema.minimum === undefined && schema.exclusiveMinimum === undefined
+      ? (schema.multipleOf ?? 1) * 100
+      : (schema.minimum ?? schema.exclusiveMinimum!) +
+        (schema.multipleOf ?? 1) * 100);
   if (schema.exclusiveMaximum !== undefined) maximum--;
   if (minimum > maximum)
     throw new Error("Minimum value is greater than maximum value.");

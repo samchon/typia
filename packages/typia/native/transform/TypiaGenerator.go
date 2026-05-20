@@ -9,6 +9,7 @@ import (
   "strings"
 
   shimast "github.com/microsoft/typescript-go/shim/ast"
+  shimprinter "github.com/microsoft/typescript-go/shim/printer"
   "github.com/samchon/ttsc/packages/ttsc/driver"
   nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
 )
@@ -58,13 +59,7 @@ func (typiaGeneratorNamespace) Build(location TypiaGenerator_ILocation) error {
   } else if err != nil {
     return err
   } else if ok, err := typiaGenerator_is_directory(location.Output); err != nil || ok == false {
-    parent := filepath.Join(location.Output, "..")
-    if ok, err := typiaGenerator_is_directory(parent); err != nil || ok == false {
-      return errors.New("Error on TypiaGenerator.generate(): output path is not a directory.")
-    }
-    if err := os.Mkdir(location.Output, 0o755); err != nil && errors.Is(err, os.ErrExist) == false {
-      return err
-    }
+    return errors.New("Error on TypiaGenerator.generate(): output path is not a directory.")
   }
 
   container := []string{}
@@ -90,25 +85,65 @@ func (typiaGeneratorNamespace) Build(location TypiaGenerator_ILocation) error {
     return fmt.Errorf("TypiaGenerator.generate(): %s", diagnostics[0].String())
   }
 
+  transformDiagnostics := []*shimast.Diagnostic{}
   plugin := Transform(program, nil, nativecontext.ITypiaContext_Extras{
     AddDiagnostic: func(diag *shimast.Diagnostic) int {
-      diagnostics = append(diagnostics, driver.Diagnostic{Message: "typia transform diagnostic"})
-      return len(diagnostics)
+      transformDiagnostics = append(transformDiagnostics, diag)
+      return len(transformDiagnostics)
     },
   })
+
+  // Transform every file first, collecting the rendered output, so that a
+  // failure on a later file does not leave a partial output tree behind.
+  type typiaGeneratorArtifact struct {
+    To   string
+    Text string
+    From string
+  }
+  artifacts := make([]typiaGeneratorArtifact, 0, len(container))
   for _, file := range container {
-    if source := program.SourceFile(filepath.ToSlash(file)); source != nil {
-      plugin(source)
-    }
-    if len(diagnostics) != 0 {
-      return fmt.Errorf("TypiaGenerator.generate(): %s", diagnostics[0].String())
-    }
     to := filepath.Join(location.Output, strings.TrimPrefix(file, location.Input))
-    if err := typiaGenerator_copy(file, to); err != nil {
+    source := program.SourceFile(filepath.ToSlash(file))
+    if source == nil {
+      // Not part of the program (e.g. unresolved): copy the original bytes.
+      artifacts = append(artifacts, typiaGeneratorArtifact{To: to, From: file})
+      continue
+    }
+    transformed := plugin(source)
+    if len(transformDiagnostics) != 0 {
+      return fmt.Errorf("TypiaGenerator.generate(): typia transform failed for %s", file)
+    }
+    if transformed == nil {
+      transformed = source
+    }
+    artifacts = append(artifacts, typiaGeneratorArtifact{
+      To:   to,
+      Text: typiaGenerator_emit(transformed),
+    })
+  }
+
+  for _, artifact := range artifacts {
+    if artifact.From != "" {
+      if err := typiaGenerator_copy(artifact.From, artifact.To); err != nil {
+        return err
+      }
+      continue
+    }
+    if err := os.MkdirAll(filepath.Dir(artifact.To), 0o755); err != nil {
+      return err
+    }
+    if err := os.WriteFile(artifact.To, []byte(artifact.Text), 0o644); err != nil {
       return err
     }
   }
   return nil
+}
+
+func typiaGenerator_emit(file *shimast.SourceFile) string {
+  printer := shimprinter.NewPrinter(shimprinter.PrinterOptions{
+    NewLine: 2,
+  }, shimprinter.PrintHandlers{}, nil)
+  return shimprinter.EmitSourceFile(printer, file)
 }
 
 func typiaGenerator_is_directory(current string) (bool, error) {

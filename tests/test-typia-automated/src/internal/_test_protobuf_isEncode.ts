@@ -18,7 +18,7 @@ export const _test_protobuf_isEncode =
         const binary: Uint8Array | null = functor.encode(input);
         if (binary === null)
           throw new Error(
-            `Bug on typia.json.isEncode(): failed to understand the ${name} type.`,
+            `Bug on typia.protobuf.isEncode(): failed to understand the ${name} type.`,
           );
         return binary;
       },
@@ -29,7 +29,7 @@ export const _test_protobuf_isEncode =
 
       if (functor.encode(elem) !== null)
         throw new Error(
-          `Bug on typia.json.isEncode(): failed to detect error on the ${name} type.`,
+          `Bug on typia.protobuf.isEncode(): failed to detect error on the ${name} type.`,
         );
     }
   };

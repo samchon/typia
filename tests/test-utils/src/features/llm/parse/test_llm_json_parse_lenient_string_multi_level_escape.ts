@@ -29,7 +29,7 @@ export const test_llm_json_parse_lenient_string_multi_level_escape =
       });
 
     // String with many consecutive backslashes
-    // 8 backslashes in source: \\\\\\\\ → 4 in JSON → 2 in result
+    // 8 backslashes in JSON string: \\\\ \\\\ → 4 escape pairs → 4 in result
     const r3 = LlmJson.parse('{"bs": "\\\\\\\\\\\\\\\\"}');
     TestValidator.equals("8-backslashes-success", r3.success, true);
     if (r3.success)

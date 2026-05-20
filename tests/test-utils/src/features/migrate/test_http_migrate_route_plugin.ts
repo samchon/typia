@@ -6,7 +6,7 @@ import {
 } from "@typia/interface";
 import { HttpMigration } from "@typia/utils";
 
-export const test_http_migrate_route_plugin = async (): Promise<void> => {
+export const test_http_migrate_route_plugin = (): void => {
   const document: OpenApi.IDocument = {
     openapi: "3.2.0",
     "x-typia-emended-v12": true,

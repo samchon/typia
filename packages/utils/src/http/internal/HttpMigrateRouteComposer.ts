@@ -181,11 +181,7 @@ export namespace HttpMigrateRouteComposer {
                           ([name, schema]) =>
                             [
                               name,
-                              {
-                                ...schema,
-                                description:
-                                  schema.description ?? schema.description,
-                              } as OpenApi.IJsonSchema,
+                              { ...schema } as OpenApi.IJsonSchema,
                             ] as const,
                         ),
                       )

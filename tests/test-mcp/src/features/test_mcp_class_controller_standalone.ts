@@ -8,6 +8,22 @@ import typia from "typia";
 
 import { Calculator } from "../structures/Calculator";
 
+/**
+ * Verifies that standalone-mode registration wires tools only through the raw
+ * Server.
+ *
+ * Locks the `preserve: false` branch of `McpControllerRegistrar`. In standalone
+ * mode the registrar must not touch `McpServer._registeredTools` (the
+ * preserve-mode private state) and must instead register `tools/list` and
+ * `tools/call` handlers directly on the underlying `Server`. The resulting tool
+ * listing must exactly match the controller's four arithmetic functions.
+ *
+ * 1. Call `registerMcpControllers` with `preserve: false` and a `Calculator`
+ *    controller.
+ * 2. Assert `_registeredTools` is empty (standalone bypass confirmed).
+ * 3. Assert `tools/list` and `tools/call` handlers exist on the raw `Server`.
+ * 4. Call `tools/list` and assert the exact tool names and required parameters.
+ */
 export const test_mcp_class_controller_standalone = async (): Promise<void> => {
   // 1. Create class-based controller using typia.llm.controller
   const controller: ILlmController<Calculator> =

@@ -20,17 +20,20 @@ export namespace LangChainToolsRegistrar {
     const tools: DynamicStructuredTool[] = [];
 
     // check duplicate tool names
-    if (prefix === false && props.controllers.length >= 2) {
+    if (props.controllers.length >= 2) {
       const names: Map<string, string> = new Map();
       const duplicates: string[] = [];
       for (const controller of props.controllers) {
         for (const func of controller.application.functions) {
-          const existing: string | undefined = names.get(func.name);
+          const toolName: string = prefix
+            ? `${controller.name}_${func.name}`
+            : func.name;
+          const existing: string | undefined = names.get(toolName);
           if (existing !== undefined)
             duplicates.push(
-              `"${func.name}" in "${controller.name}" (conflicts with "${existing}")`,
+              `"${toolName}" in "${controller.name}" (conflicts with "${existing}")`,
             );
-          else names.set(func.name, controller.name);
+          else names.set(toolName, controller.name);
         }
       }
       if (duplicates.length > 0)
@@ -128,7 +131,7 @@ export namespace LangChainToolsRegistrar {
       name: entry.name,
       description: entry.function.description ?? "",
       schema: entry.function.parameters,
-      func: async (args: unknown): Promise<unknown> => {
+      func: async (args: unknown): Promise<string> => {
         const coerced: unknown = LlmJson.coerce(
           args,
           entry.function.parameters,
@@ -142,8 +145,8 @@ export namespace LangChainToolsRegistrar {
           );
         const result: unknown = await entry.execute(valid.data);
         return result === undefined
-          ? { success: true }
-          : { success: true, data: result };
+          ? JSON.stringify({ success: true })
+          : JSON.stringify({ success: true, data: result });
       },
     });
 }

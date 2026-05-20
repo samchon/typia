@@ -82,7 +82,10 @@ func (llmParametersProgrammerNamespace) WriteParameters(props struct {
       }
     }
   }
-  panic("Unreachable code. Failed to find the object schema.")
+  panic(nativecontext.NewTransformerError(nativecontext.TransformerError_IProps{
+    Code:    "typia.llm.parameters",
+    Message: "LLM parameters must be an object type.",
+  }))
 }
 
 func (llmParametersProgrammerNamespace) Validate(props struct {

@@ -64,7 +64,7 @@ Important caveats:
 
 - `pnpm run build` builds `packages/*`
 - `pnpm run test` runs the `start` script of `tests/test-*`
-- some package-local strongest paths are **not** covered by the root `test`
+- some package-local test paths are **not** covered by the root `test`
 - `tests/template` is a workspace package used by automated suites
 - `website` has its own install/build pipeline and consumes local tarballs from `experiments/tarballs`
 
@@ -86,6 +86,7 @@ If you touch one of these areas, run its local path too:
 Start from the package closest to the behavior you are changing:
 
 - public API and CLI: `packages/typia`
+- **Go native transform source**: `packages/typia/native/` (the compile-time transform compiled by `ttsc` on first use)
 - runtime/shared typing surfaces: `packages/interface`, `packages/utils`
 - adapter integrations: `packages/langchain`, `packages/mcp`, `packages/vercel`
 - ttsc host or runner behavior: the sibling `../ttsc` repository
@@ -106,6 +107,7 @@ Before opening a PR:
 - make sure the relevant package/test/docs flow still works
 - mention any path that is intentionally not covered by your local verification
 - call out changes to support boundaries, release policy, or experimental behavior explicitly
+- **if you touched `packages/typia/native/`**, the `typia` package version must be bumped in the same PR — the Go source ships inside the npm package and `ttsc` compiles it into a binary on first use, so a source change without a version bump leaves consumers with a stale binary
 
 Useful references:
 

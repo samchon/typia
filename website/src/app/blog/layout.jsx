@@ -36,6 +36,7 @@ export default async function BlogLayout(props) {
                 src="/favicon/android-chrome-192x192.png"
                 width={32}
                 height={32}
+                alt="Typia logo"
               />
               <span
                 style={{

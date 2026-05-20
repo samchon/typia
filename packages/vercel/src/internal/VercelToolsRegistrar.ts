@@ -48,8 +48,12 @@ export namespace VercelToolsRegistrar {
     for (const controller of props.controllers) {
       if (controller.protocol === "class") {
         registerClassController({ tools, controller, prefix });
-      } else {
+      } else if (controller.protocol === "http") {
         registerHttpController({ tools, controller, prefix });
+      } else {
+        throw new Error(
+          `Unknown controller protocol: ${(controller as { protocol: unknown }).protocol}`,
+        );
       }
     }
 

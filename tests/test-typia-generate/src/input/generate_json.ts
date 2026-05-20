@@ -12,6 +12,7 @@ interface ICitizen {
   children: ICitizen[];
 }
 
+export const schema = typia.json.schema<ICitizen>();
 export const collection = typia.json.schemas<[ICitizen]>();
 
 export const createStringify = typia.json.createStringify<ICitizen>();

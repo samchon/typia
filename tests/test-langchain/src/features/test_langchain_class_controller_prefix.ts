@@ -6,6 +6,19 @@ import typia from "typia";
 
 import { Calculator } from "../structures/Calculator";
 
+/**
+ * Verifies that the `prefix` option controls tool name generation.
+ *
+ * Locks the prefix-enabled and prefix-disabled branches of
+ * `LangChainToolsRegistrar`. With `prefix: true` tool names must be
+ * `<controller>_<function>`; with `prefix: false` they must be bare function
+ * names. A regression in either branch would silently produce wrong tool names
+ * and break LLM routing.
+ *
+ * 1. Create an `ILlmController<Calculator>` via `typia.llm.controller`.
+ * 2. Call `toLangChainTools` with `prefix: true`; assert names are prefixed.
+ * 3. Call `toLangChainTools` with `prefix: false`; assert names are bare.
+ */
 export const test_langchain_class_controller_prefix =
   async (): Promise<void> => {
     // 1. Create class-based controller

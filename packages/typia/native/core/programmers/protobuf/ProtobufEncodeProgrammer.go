@@ -373,31 +373,31 @@ func protobufEncodeProgrammer_decode_property(props protobufEncodeProgrammer_dec
         })
       }
     }
-    objectSchemas := protobufEncodeProgrammer_objectSchemas(props.Protobuf.Union)
-    if len(objectSchemas) != 0 {
-      schemas := objectSchemas
-      union = append(union, protobufEncodeProgrammer_IUnion{
-        Is: func() *shimast.Node {
-          return nativefactories.ExpressionFactory.IsObject(nativefactories.ExpressionFactory_IsObjectProps{
-            CheckNull:  true,
-            CheckArray: false,
-            Input:      props.Input,
-          })
-        },
-        Value: func() *shimast.Node {
-          explore := props.Explore
-          explore.From = "object"
-          return protobufEncodeProgrammer_explore_objects(protobufEncodeProgrammer_exploreObjectsProps{
-            Context: props.Context,
-            Functor: props.Functor,
-            Level:   0,
-            Schemas: schemas,
-            Explore: explore,
-            Input:   props.Input,
-          })
-        },
-      })
-    }
+  }
+  objectSchemas := protobufEncodeProgrammer_objectSchemas(props.Protobuf.Union)
+  if len(objectSchemas) != 0 {
+    schemas := objectSchemas
+    union = append(union, protobufEncodeProgrammer_IUnion{
+      Is: func() *shimast.Node {
+        return nativefactories.ExpressionFactory.IsObject(nativefactories.ExpressionFactory_IsObjectProps{
+          CheckNull:  true,
+          CheckArray: false,
+          Input:      props.Input,
+        })
+      },
+      Value: func() *shimast.Node {
+        explore := props.Explore
+        explore.From = "object"
+        return protobufEncodeProgrammer_explore_objects(protobufEncodeProgrammer_exploreObjectsProps{
+          Context: props.Context,
+          Functor: props.Functor,
+          Level:   0,
+          Schemas: schemas,
+          Explore: explore,
+          Input:   props.Input,
+        })
+      },
+    })
   }
 
   wrapper := func(block *shimast.Node) *shimast.Node { return block }

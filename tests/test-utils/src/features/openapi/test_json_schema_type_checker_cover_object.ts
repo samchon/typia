@@ -61,7 +61,7 @@ export const test_json_schema_type_checker_cover_object = (): void => {
     OpenApiTypeChecker.covers({
       components,
       x: { oneOf: [plan3D, box3D] },
-      y: { oneOf: [box2D, box2D] },
+      y: { oneOf: [plan2D, box2D] },
     }),
   );
 

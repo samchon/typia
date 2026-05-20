@@ -6,6 +6,22 @@ import { z } from "zod";
 
 import { TestGlobal } from "../TestGlobal";
 
+/**
+ * Verifies that registering an HTTP controller with a name collision throws in
+ * preserve mode.
+ *
+ * Locks the preserve-mode duplicate-detection branch of
+ * `McpControllerRegistrar` for HTTP controllers. A tool whose name matches the
+ * first function from the shopping-backend swagger must cause
+ * `registerMcpControllers` to throw with `"Duplicate function name"` in the
+ * message. This test requires a live swagger fetch; needs a vendored fixture
+ * for fully offline CI.
+ *
+ * 1. Fetch the shopping-backend swagger and create an `IHttpLlmController`.
+ * 2. Pre-register a tool with the same name as the controller's first function.
+ * 3. Call `registerMcpControllers` with `preserve: true`; assert it throws.
+ * 4. Assert the error message contains `"Duplicate function name"`.
+ */
 export const test_mcp_http_controller_duplicate_error =
   async (): Promise<void> => {
     // 1. Fetch swagger.json and create controller

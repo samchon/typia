@@ -6,7 +6,7 @@ const iterate = (value: any): boolean =>
         ? iterate_array(value)
         : iterate_object(value)
     : typeof value === "bigint";
-const iterate_object = (obj: any): boolean => Object.values(obj).every(iterate);
+const iterate_object = (obj: any): boolean => Object.values(obj).some(iterate);
 const iterate_array = (elements: any[]): boolean =>
   elements.some((elem) => elem === undefined || iterate(elem));
 

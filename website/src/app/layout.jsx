@@ -32,7 +32,7 @@ export default function RootLayout(props) {
             href={`/favicon/favicon-${size}x${size}.png`}
           />
         ))}
-        <meta name="og:type" content="object" />
+        <meta name="og:type" content="website" />
         <meta name="og:site_name" content={title} />
         <meta name="og:url" content="https://typia.io" />
         <meta name="og:image" content="/og.jpg" />

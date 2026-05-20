@@ -319,6 +319,9 @@ importers:
       '@typia/utils':
         specifier: workspace:^
         version: link:../utils
+      zod:
+        specifier: ^3.25.0
+        version: 3.25.76
       zod-to-json-schema:
         specifier: '>=3.24.0'
         version: 3.25.2(zod@3.25.76)
@@ -353,9 +356,6 @@ importers:
       ttsc:
         specifier: catalog:typescript
         version: 0.12.3
-      zod:
-        specifier: ^3.25.0
-        version: 3.25.76
 
   packages/typia:
     dependencies:

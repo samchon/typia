@@ -11,7 +11,7 @@ export class TestGlobal {
     }
     const to: number = process.argv
       .slice(from)
-      .findIndex((str) => str.startsWith("--"), from);
+      .findIndex((str) => str.startsWith("--"));
     return process.argv.slice(
       from,
       to === -1 ? process.argv.length : to + from,

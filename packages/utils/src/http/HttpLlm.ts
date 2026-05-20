@@ -29,7 +29,6 @@ import { HttpLlmFunctionFetcher } from "./internal/HttpLlmFunctionFetcher";
  * - {@link application}: Convert OpenAPI document to {@link IHttpLlmApplication}
  * - {@link execute}: Call an LLM function and return the response body
  * - {@link propagate}: Call an LLM function and return full HTTP response
- * - {@link mergeParameters}: Merge LLM-filled and human-filled parameters
  *
  * Typical workflow:
  *

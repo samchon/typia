@@ -10,6 +10,8 @@ export const parameters = typia.llm.parameters<{
 
 export const application = typia.llm.application<IApplication>({
   validate: {
+    // Stub validator: always reports failure. Empty errors[] is type-valid
+    // (IError[] accepts []) — this is intentional for fixture purposes only.
     hire: (
       input: unknown,
     ): IValidation<{
@@ -60,6 +62,8 @@ export const coerce = typia.llm.coerce<ISimpleParams>({
 });
 
 export const createCoerce = typia.llm.createCoerce<ISimpleParams>();
+
+export const structuredOutput = typia.llm.structuredOutput<ISimpleParams>();
 
 export interface IApplication {
   establishCompany(props: { company: ICompany }): ICompany;

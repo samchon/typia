@@ -2,7 +2,7 @@ import { NamingConvention } from "../NamingConvention";
 
 export namespace EndpointUtil {
   export const capitalize = (str: string): string =>
-    str.length !== 0 ? str[0]!.toUpperCase() + str.slice(1).toLowerCase() : str;
+    str.length !== 0 ? str[0]!.toUpperCase() + str.slice(1) : str;
 
   export const pascal = (path: string): string =>
     splitWithNormalization(path)

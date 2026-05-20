@@ -8,6 +8,7 @@ export type ArrayRecursiveUnionExplicitPointer = IPointer<
 >;
 export namespace ArrayRecursiveUnionExplicitPointer {
   export const RECURSIVE = true;
+  export const BINARABLE = false;
 
   export type IBucket = IPointer<
     IDirectory | IImageFile | ITextFile | IZipFile | IShortcut

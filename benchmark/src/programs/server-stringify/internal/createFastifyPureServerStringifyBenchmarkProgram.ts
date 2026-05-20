@@ -10,10 +10,7 @@ export const createFastifyPureServerStringifyBenchmarkProgram = async <T>(
   // DEFINE JSON-SCHEMA
   const schema = {
     response: {
-      200: {
-        ...app.schemas[0],
-        ...app,
-      },
+      200: app.schemas[0] ?? {},
     },
   };
 

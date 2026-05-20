@@ -98,6 +98,12 @@ func matchTypiaModule(location string) (string, bool) {
       if index < 0 {
         continue
       }
+      // Require a path-segment boundary before the matched fragment so a
+      // sibling package such as `.../custom-typia/lib/foo.d.ts` is not
+      // misidentified as the real typia package.
+      if index != 0 && location[index-1] != '/' {
+        continue
+      }
       name := location[index+len(middle):]
       if !strings.HasSuffix(name, suffix) {
         continue

@@ -1,5 +1,9 @@
 # Mission: Porting typia from TypeScript to Go
 
+> **HISTORICAL RECORD — COMPLETED MIGRATION ARTIFACT**
+>
+> This document was written at the start of the TypeScript-to-Go porting effort and was committed inside the `typia` repository once the migration landed. The path references below (`../typia/packages/core/src`, `../typia/packages/transform/src`) are **no longer valid**: the packages `packages/core` and `packages/transform` were consolidated into the Go native source tree at `packages/typia/native/` and no longer exist as separate directories. Do not attempt to use the `rsync` seed command or path references below — they describe the original one-time setup, not the current structure.
+
 Port the TypeScript project in the parent directory `../typia` to Go. The goal is to make typia's original functionality work identically in a Go environment.
 
 The reference originals for this mission are the following two source trees:

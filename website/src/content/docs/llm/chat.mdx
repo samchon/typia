@@ -146,7 +146,7 @@ await agent.conversate("I wanna buy MacBook Pro");
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin"
         allowFullScreen></iframe>
 
-- Live demo: [nestia.io/chat/shopping](/chat/shopping)
+- Live demo: [nestia.io/chat/shopping](https://nestia.io/chat/shopping)
 - Backend source: [github.com/samchon/shopping-backend](https://github.com/samchon/shopping-backend)
 - Swagger UI: [open in @nestia/editor](https://nestia.io/editor/?simulate=true&e2e=true&url=https%3A%2F%2Fraw.githubusercontent.com%2Fsamchon%2Fshopping-backend%2Frefs%2Fheads%2Fmaster%2Fpackages%2Fapi%2Fswagger.json)
 
@@ -220,7 +220,7 @@ import { ILlmFunction, IValidation } from "typia";
 
 export const correctFunctionCall = (p: {
   call: FunctionCall;
-  functions: Array<ILlmFunction<"chatgpt">>;
+  functions: Array<ILlmFunction>;
   retry: (reason: string, errors?: IValidation.IError[]) => Promise<unknown>;
 }): Promise<unknown> => {
   const func = p.functions.find((f) => f.name === p.call.name);

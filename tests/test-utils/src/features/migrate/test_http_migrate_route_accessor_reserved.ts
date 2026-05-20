@@ -1,7 +1,10 @@
 import { TestValidator } from "@nestia/e2e";
-import { IHttpMigrateApplication, IHttpMigrateRoute } from "@typia/interface";
+import {
+  IHttpMigrateApplication,
+  IHttpMigrateRoute,
+  OpenApi,
+} from "@typia/interface";
 import { HttpMigration } from "@typia/utils";
-import { OpenApi } from "typia";
 
 export const test_http_migrate_route_accessor_reserved = (): void => {
   const document: OpenApi.IDocument = {

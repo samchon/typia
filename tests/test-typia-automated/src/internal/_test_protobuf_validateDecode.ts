@@ -12,7 +12,10 @@ export const _test_protobuf_validateDecode =
     _test_protobuf_decode(name)(factory)({
       decode: (input) => {
         const result = functor.decode(input);
-        if (!result.success) throw new Error();
+        if (!result.success)
+          throw new Error(
+            `Bug on typia.protobuf.validateDecode(): failed to decode the ${name} type.`,
+          );
         typia.assertEquals<IValidation.ISuccess<unknown>>(result);
         return result.data;
       },

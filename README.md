@@ -163,7 +163,7 @@ Check out the document in the [website](https://typia.io/docs/):
   - [LangChain](https://typia.io/docs/utilization/langchain/)
   - [NestJS](https://typia.io/docs/utilization/nestjs/)
   - [tRPC](https://typia.io/docs/utilization/trpc/)
-- [⇲ Benchmark Result](https://github.com/samchon/typia/tree/master/benchmark/results/11th%20Gen%20Intel(R)%20Core(TM)%20i5-1135G7%20%40%202.40GHz)
+- [⇲ Benchmark Results](https://github.com/samchon/typia/tree/master/benchmark/results)
 - [⇲ `dev.to` Articles](https://dev.to/samchon/series/22474)
 
 ## Inspired By

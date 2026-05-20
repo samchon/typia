@@ -30,7 +30,7 @@ export function validate<T>(input: unknown): IValidation;
 
 Hello, I'm a developer of [typescript-json](https://github.com/samchon/typescript-json), which can validate instance type by only one line, what I'd introduced as "1,000x faster runtime validator library" in here [dev.to](https://dev.to/samchon/typescript-json-is-10-1000x-times-faster-than-zod-and-io-ts-8n6). In today, I came back with powerful JSON string conversion functions.
 
-As you can see from the above code, the new JSON string conversion functions throw `TypedGuardError` or return `null` value when `input` value is different with target type `T`. One thing amazing is, those JSON string conversion functions are much faster than the native `JSON.stringify()` function despite of type validation process.
+As you can see from the above code, the new JSON string conversion functions throw `TypeGuardError` or return `null` value when `input` value is different with target type `T`. One thing amazing is, those JSON string conversion functions are much faster than the native `JSON.stringify()` function despite of type validation process.
 
 ![JSON string conversion speed](https://user-images.githubusercontent.com/13158709/197731958-f20157b2-2e31-4e24-a27f-3ae9a8e565bb.png)
 

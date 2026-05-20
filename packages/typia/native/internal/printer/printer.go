@@ -5,8 +5,6 @@ import (
   shimprinter "github.com/microsoft/typescript-go/shim/printer"
 )
 
-const kindColonToken = shimast.KindQuestionToken + 1
-
 func EmitWithIdentifierSubstitutions(node *shimast.Node, sourceFile *shimast.SourceFile, substitutions map[string]string) string {
   node = stripTypeSyntax(node)
   node = rewriteIdentifiers(node, substitutions)
@@ -219,7 +217,7 @@ func normalizeSyntheticTokens(node *shimast.Node) {
       conditional.QuestionToken = factory.NewToken(shimast.KindQuestionToken)
     }
     if conditional.ColonToken == nil {
-      conditional.ColonToken = factory.NewToken(kindColonToken)
+      conditional.ColonToken = factory.NewToken(shimast.KindColonToken)
     }
   }
   node.ForEachChild(func(child *shimast.Node) bool {

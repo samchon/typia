@@ -1,3 +1,4 @@
+import { TestValidator } from "@nestia/e2e";
 import {
   IHttpMigrateApplication,
   OpenApi,
@@ -27,11 +28,11 @@ export const test_http_migrate_v32 = async (): Promise<void> => {
       const expectedQueryCount = Object.values(swagger.paths).filter(
         (p) => p?.query !== undefined,
       ).length;
-      if (queryRoutes.length !== expectedQueryCount) {
-        throw new Error(
-          `Expected ${expectedQueryCount} query routes but got ${queryRoutes.length}`,
-        );
-      }
+      TestValidator.equals(
+        "query-count",
+        queryRoutes.length,
+        expectedQueryCount,
+      );
     }
   }
 };

@@ -6,6 +6,22 @@ import { IHttpLlmController, IValidation, OpenApi } from "@typia/interface";
 import { registerMcpControllers } from "@typia/mcp";
 import { HttpLlm, LlmJson, OpenApiValidator } from "@typia/utils";
 
+/**
+ * Verifies that invalid HTTP controller tool arguments produce a
+ * validation-error response.
+ *
+ * Locks the validation-failure branch of `McpControllerRegistrar` for HTTP
+ * controllers. A locally-constructed `OpenApi.IDocument` avoids live network
+ * calls. Passing a wrong-type argument to the tool must result in a
+ * `CallToolResult` whose text content is the `LlmJson.stringify` of the
+ * `OpenApiValidator.validate` failure.
+ *
+ * 1. Build a minimal `OpenApi.IDocument` with a numeric-body POST endpoint.
+ * 2. Register the controller and retrieve the `tools/call` handler.
+ * 3. Invoke `calculate_add_post` with `{ body: { x: "not a number", y: 5 } }`.
+ * 4. Independently validate with `OpenApiValidator` and assert the result text
+ *    matches.
+ */
 export const test_mcp_http_controller_validation = async (): Promise<void> => {
   // 1. Create minimal OpenApi document with a simple numeric schema
   const bodySchema: OpenApi.IJsonSchema.IObject = {

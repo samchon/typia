@@ -2,6 +2,20 @@ import { TestValidator } from "@nestia/e2e";
 import { toVercelSchema } from "@typia/vercel";
 import typia from "typia";
 
+/**
+ * Verifies that `ILlmStructuredOutput.coerce` converts string numerics within
+ * the Vercel adapter.
+ *
+ * Locks the coercion path exercised by the Vercel integration. LLMs often
+ * return numbers as JSON strings; `coerce` must silently convert them to their
+ * declared numeric type. `toVercelSchema` is called first to ensure the schema
+ * conversion does not interfere with coercion.
+ *
+ * 1. Obtain `ILlmStructuredOutput<IInput>` and call `toVercelSchema` to confirm
+ *    conversion.
+ * 2. Call `output.coerce` with string-valued numeric fields.
+ * 3. Assert each coerced field equals the expected numeric value.
+ */
 export const test_vercel_structured_output_coerce = (): void => {
   interface IInput {
     name: string;

@@ -161,6 +161,8 @@ func (metadataFactoryNamespace) Validate(props struct {
     Tuples:    map[*schemametadata.MetadataTupleType]bool{},
     Aliases:   map[*schemametadata.MetadataAliasType]bool{},
     Functions: map[*schemametadata.MetadataFunction]bool{},
+    Sets:      map[*schemametadata.MetadataSet]bool{},
+    Maps:      map[*schemametadata.MetadataMap]bool{},
   }
   MetadataFactory.validateMeta(struct {
     Options  MetadataFactory_IOptions
@@ -288,6 +290,10 @@ func (metadataFactoryNamespace) validateMeta(props struct {
     })
   }
   for _, set := range props.Metadata.Sets {
+    if props.Visitor.Sets[set] {
+      continue
+    }
+    props.Visitor.Sets[set] = true
     MetadataFactory.validateMeta(struct {
       Options  MetadataFactory_IOptions
       Visitor  *metadataFactory_IValidationVisitor
@@ -303,6 +309,10 @@ func (metadataFactoryNamespace) validateMeta(props struct {
     })
   }
   for _, m := range props.Metadata.Maps {
+    if props.Visitor.Maps[m] {
+      continue
+    }
+    props.Visitor.Maps[m] = true
     MetadataFactory.validateMeta(struct {
       Options  MetadataFactory_IOptions
       Visitor  *metadataFactory_IValidationVisitor
@@ -531,6 +541,8 @@ type metadataFactory_IValidationVisitor struct {
   Tuples    map[*schemametadata.MetadataTupleType]bool
   Aliases   map[*schemametadata.MetadataAliasType]bool
   Functions map[*schemametadata.MetadataFunction]bool
+  Sets      map[*schemametadata.MetadataSet]bool
+  Maps      map[*schemametadata.MetadataMap]bool
 }
 
 func metadataFactory_unique(input []string) []string {

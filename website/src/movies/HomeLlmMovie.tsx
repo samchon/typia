@@ -18,8 +18,9 @@ const func = app.functions[0];
 // Lenient parse + validation feedback
 const data = func.parse(llmOutput);
 const result = func.validate(data);
-if (result.success === false)
-  const feedback = LlmJson.stringify(result);`;
+if (result.success === false) {
+  const feedback = LlmJson.stringify(result);
+}`;
 
 const callouts = [
   {

@@ -5,4 +5,7 @@ const main = async (): Promise<void> => {
   const server = new WorkerServer();
   await server.open(new TestServant());
 };
-main().catch(console.log);
+main().catch((error) => {
+  console.log(error);
+  process.exit(1);
+});

@@ -226,7 +226,7 @@ interface IMember {
   email: string & tags.Format<"email">;
   age: number &
     tags.Type<"uint32"> &
-    tags.ExclusiveMinimum<19> &
+    tags.ExclusiveMinimum<18> &
     tags.Maximum<100>;
 }
 

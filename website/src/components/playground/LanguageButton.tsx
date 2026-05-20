@@ -15,6 +15,7 @@ const LanguageButton = (props: {
     >
       <img
         src={`/images/playground/${props.language}.png`}
+        alt={props.title}
         title={props.title}
         onClick={props.onClick}
         style={{

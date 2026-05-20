@@ -7,6 +7,21 @@ import typia from "typia";
 
 import { Calculator } from "../structures/Calculator";
 
+/**
+ * Verifies end-to-end tool-call execution via the Vercel AI SDK's
+ * `generateText`.
+ *
+ * Locks the happy-path integration between `VercelToolsRegistrar` and the
+ * Vercel AI SDK. A mock model that requests the `add` tool must result in the
+ * tool being executed and the correct numeric result appearing in
+ * `toolResults`, confirming that tool wiring, argument dispatch, and result
+ * wrapping all work together.
+ *
+ * 1. Convert a `Calculator` controller to Vercel tools.
+ * 2. Run `generateText` with a mock model that calls `add(10, 5)`.
+ * 3. Assert one tool call with name `"add"` and input `{ x: 10, y: 5 }`.
+ * 4. Assert the tool result is `{ success: true, data: { value: 15 } }`.
+ */
 export const test_vercel_generate_text_with_tool_call =
   async (): Promise<void> => {
     // 1. Create class-based controller using typia.llm.controller

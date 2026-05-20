@@ -434,10 +434,10 @@ const llmOutput = `I'd be happy to help you with your order! 😊
       vip: tru             // truncated keyword + unclosed brackets
 \`\`\``;
 
-const parsed = ILlmFunction.parse(func, llmOutput);
+const parsed = func.parse(llmOutput);
 ```
 
-Feeding this output to strict `JSON.parse()` throws immediately. Typia's `ILlmFunction.parse()`, however, cleans up prefix chatter, unclosed brackets, unquoted keys, trailing commas, the truncated `tru`, number-as-strings, and double-stringified union objects in one pass.
+Feeding this output to strict `JSON.parse()` throws immediately. Typia's `func.parse()`, however, cleans up prefix chatter, unclosed brackets, unquoted keys, trailing commas, the truncated `tru`, number-as-strings, and double-stringified union objects in one pass.
 
 The same property turns the output token ceiling from a hard failure into a recoverable cutoff. Whatever the stream produced before truncation is still a parseable prefix, not garbage.
 

@@ -8,6 +8,20 @@ import { z } from "zod";
 
 import { Calculator } from "../structures/Calculator";
 
+/**
+ * Verifies that preserve-mode registration keeps pre-existing MCP tools intact.
+ *
+ * Locks the `preserve: true` branch of `McpControllerRegistrar`. An `echo` tool
+ * registered directly on the `McpServer` before `registerMcpControllers` is
+ * called must still be present in the combined tool listing after registration,
+ * alongside the four `Calculator` tools added by the controller.
+ *
+ * 1. Pre-register an `echo` tool via `McpServer.registerTool`.
+ * 2. Call `registerMcpControllers` with `preserve: true` and a `Calculator`
+ *    controller.
+ * 3. Assert `tools/list` returns five tools: `echo` plus the four arithmetic
+ *    tools.
+ */
 export const test_mcp_class_controller_preserve = async (): Promise<void> => {
   // 1. Create class-based controller using typia.llm.controller
   const controller: ILlmController<Calculator> =

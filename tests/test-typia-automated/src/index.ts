@@ -33,17 +33,19 @@ async function main(): Promise<void> {
   } else {
     for (const exp of exceptions) console.log(exp);
     console.log("Failed");
-    process.exit(-1);
+    process.exit(1);
   }
 }
 
 global.process.on("uncaughtException", (error) => {
   console.log("exception", error);
+  process.exit(1);
 });
 global.process.on("unhandledRejection", (error) => {
   console.log("rejection", error);
+  process.exit(1);
 });
 main().catch((error) => {
   console.log("critical error", error);
-  process.exit(-1);
+  process.exit(1);
 });

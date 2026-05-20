@@ -1,8 +1,6 @@
 package transform
 
 import (
-  "sync"
-
   shimast "github.com/microsoft/typescript-go/shim/ast"
   shimchecker "github.com/microsoft/typescript-go/shim/checker"
   shimcore "github.com/microsoft/typescript-go/shim/core"
@@ -27,7 +25,6 @@ type FileTransformer_IEnvironments struct {
 type FileTransformer_Type func(file *shimast.SourceFile) *shimast.SourceFile
 
 var fileTransformer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
-var fileTransformer_jsDocParsingMode sync.Map
 
 func (fileTransformerNamespace) Transform(environments FileTransformer_IEnvironments) func(transformer any) FileTransformer_Type {
   return func(transformer any) FileTransformer_Type {
@@ -49,7 +46,6 @@ func (fileTransformerNamespace) Transform(environments FileTransformer_IEnvironm
         Importer:        importer,
         Extras:          environments.Extras,
       }
-      fileTransformer_checkJsDocParsingMode(context, file)
       visited := fileTransformer_iterate_file(context, file)
       return fileTransformer_inject_imports(visited, importer.ToStatements())
     }
@@ -139,15 +135,6 @@ func fileTransformer_find_import_injection_index(file *shimast.SourceFile) int {
     }
   }
   return i
-}
-
-func fileTransformer_checkJsDocParsingMode(context nativecontext.ITypiaContext, file *shimast.SourceFile) {
-  if file == nil || context.Extras.AddDiagnostic == nil {
-    return
-  }
-  if _, loaded := fileTransformer_jsDocParsingMode.LoadOrStore(file.FileName(), struct{}{}); loaded {
-    return
-  }
 }
 
 func fileTransformer_program(value any) *driver.Program {

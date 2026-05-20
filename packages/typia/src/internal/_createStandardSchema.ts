@@ -17,7 +17,7 @@ export const _createStandardSchema = <T>(
         } else {
           return {
             issues: result.errors.map((error) => ({
-              message: `expected ${error.expected}, got ${error.value}`,
+              message: `expected ${error.expected}, got ${typeof error.value === "symbol" ? error.value.toString() : String(error.value)}`,
               path: typiaPathToStandardSchemaPath(error.path),
             })),
           } satisfies StandardSchemaV1.FailureResult;

@@ -23,7 +23,7 @@ export default async function DocsLayout(props) {
       navbar={
         <Navbar
           logo={<>
-            <img src="/favicon/android-chrome-192x192.png" width={32} height={32} />
+            <img src="/favicon/android-chrome-192x192.png" width={32} height={32} alt="Typia logo" />
             <span
               style={{
                 fontWeight: "bold",

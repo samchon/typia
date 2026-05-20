@@ -30,7 +30,7 @@ export const _test_protobuf_validateEncode =
 
       if (valid.success === true)
         throw new Error(
-          `Bug on typia.json.validateEncode(): failed to detect error on the ${name} type.`,
+          `Bug on typia.protobuf.validateEncode(): failed to detect error on the ${name} type.`,
         );
 
       typia.assertEquals(valid);
@@ -49,7 +49,7 @@ export const _test_protobuf_validateEncode =
     if (wrong.length !== 0) {
       console.log(wrong);
       throw new Error(
-        `Bug on typia.json.validateEncode(): failed to detect error on the ${name} type.`,
+        `Bug on typia.protobuf.validateEncode(): failed to detect error on the ${name} type.`,
       );
     }
   };

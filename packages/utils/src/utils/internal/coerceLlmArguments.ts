@@ -329,8 +329,9 @@ function findMatchingObjectInAnyOf(
       return s;
     }
     if (
-      LlmTypeChecker.isString(resolvedProp) &&
-      resolvedProp.enum?.includes(discriminatorValue as string)
+      "enum" in resolvedProp &&
+      Array.isArray((resolvedProp as any).enum) &&
+      (resolvedProp as any).enum.includes(discriminatorValue)
     ) {
       return s;
     }

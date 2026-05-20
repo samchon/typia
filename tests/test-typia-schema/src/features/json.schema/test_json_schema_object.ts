@@ -3,6 +3,21 @@ import { OpenApi } from "@typia/interface";
 import { OpenApiTypeChecker } from "@typia/utils";
 import typia from "typia";
 
+/**
+ * Verifies that `typia.json.schema` emits a correct object schema for a simple
+ * interface.
+ *
+ * Covers the property-mapping and `required` emission path for plain
+ * interfaces. The transform may emit the root schema as a `$ref` (for named
+ * types); this test resolves both paths and asserts property presence and
+ * requiredness, pinning the object-schema branch against regressions that would
+ * silently omit fields.
+ *
+ * 1. Define `IMember` with required `id`/`name` and optional `email`.
+ * 2. Call `typia.json.schema<IMember>()` and resolve any `$ref` to the component.
+ * 3. Assert the resolved schema is an object with the expected properties and
+ *    `required` list.
+ */
 export const test_json_schema_object = (): void => {
   interface IMember {
     id: number;
@@ -33,6 +48,7 @@ export const test_json_schema_object = (): void => {
   if (OpenApiTypeChecker.isObject(actualSchema)) {
     const obj = actualSchema as OpenApi.IJsonSchema.IObject;
     const props = obj.properties;
+    TestValidator.predicate("object has properties", () => props !== undefined);
     if (props === undefined) return;
 
     TestValidator.predicate("has id property", () => "id" in props);

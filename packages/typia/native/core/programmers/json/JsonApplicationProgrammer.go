@@ -54,16 +54,14 @@ func (jsonApplicationProgrammerNamespace) Validate(props struct {
       value := p.Value
       if len(value.Functions) != 0 {
         least = true
-        if valid == false {
-          if len(value.Functions) != 1 || value.Size() != 1 {
-            output = append(output, "JSON application's function type does not allow union type.")
-          }
-          if value.IsRequired() == false {
-            output = append(output, "JSON application's function type must be required.")
-          }
-          if value.Nullable == true {
-            output = append(output, "JSON application's function type must not be nullable.")
-          }
+        if len(value.Functions) != 1 || value.Size() != 1 {
+          output = append(output, "JSON application's function type does not allow union type.")
+        }
+        if value.IsRequired() == false {
+          output = append(output, "JSON application's function type must be required.")
+        }
+        if value.Nullable == true {
+          output = append(output, "JSON application's function type must not be nullable.")
         }
       }
     }
@@ -92,6 +90,13 @@ func (jsonApplicationProgrammerNamespace) WriteApplication(props struct {
   Metadata *nativemetadata.MetadataSchema
   Filter   func(prop *nativemetadata.MetadataProperty) bool
 }) map[string]any {
+  if len(props.Metadata.Objects) == 0 {
+    return map[string]any{
+      "version":    props.Version,
+      "components": map[string]any{},
+      "functions":  []any{},
+    }
+  }
   object := props.Metadata.Objects[0].Type
   definitions := []*nativemetadata.MetadataSchema{}
   setters := []func(nativeiterate.JsonSchema){}

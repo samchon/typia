@@ -1,9 +1,9 @@
 package typia_test
 
 import (
-	"testing"
+  "testing"
 
-	metadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
+  metadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
 )
 
 // TestMetadataObjectTypeLiteralNameRules verifies literal-object naming rules.
@@ -17,13 +17,22 @@ import (
 // 3. Build a recursive `__type.*` object.
 // 4. Assert recursion disables literal classification.
 func TestMetadataObjectTypeLiteralNameRules(t *testing.T) {
-	if !metadata.MetadataObjectType_create(metadata.MetadataObjectType{Name: "__type.member"}).IsLiteral() {
-		t.Fatal("__type.* name should be literal")
-	}
-	if !metadata.MetadataObjectType_create(metadata.MetadataObjectType{Name: "readonly [string]"}).IsLiteral() {
-		t.Fatal("readonly tuple-like name should be literal")
-	}
-	if metadata.MetadataObjectType_create(metadata.MetadataObjectType{Name: "__type.loop", Recursive: true}).IsLiteral() {
-		t.Fatal("recursive object should not be literal")
-	}
+  if !metadata.MetadataObjectType_create(metadata.MetadataObjectType{Name: "__type"}).IsLiteral() {
+    t.Fatal("exact __type name should be literal")
+  }
+  if !metadata.MetadataObjectType_create(metadata.MetadataObjectType{Name: "__type.member"}).IsLiteral() {
+    t.Fatal("__type.* name should be literal")
+  }
+  if !metadata.MetadataObjectType_create(metadata.MetadataObjectType{Name: "__object"}).IsLiteral() {
+    t.Fatal("exact __object name should be literal")
+  }
+  if !metadata.MetadataObjectType_create(metadata.MetadataObjectType{Name: "__object.field"}).IsLiteral() {
+    t.Fatal("__object.* name should be literal")
+  }
+  if !metadata.MetadataObjectType_create(metadata.MetadataObjectType{Name: "readonly [string]"}).IsLiteral() {
+    t.Fatal("readonly tuple-like name should be literal")
+  }
+  if metadata.MetadataObjectType_create(metadata.MetadataObjectType{Name: "__type.loop", Recursive: true}).IsLiteral() {
+    t.Fatal("recursive object should not be literal")
+  }
 }

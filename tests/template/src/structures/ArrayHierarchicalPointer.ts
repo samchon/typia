@@ -74,6 +74,8 @@ export namespace ArrayHierarchicalPointer {
     return data;
   }
 
+  export const BINARABLE = false;
+
   export const SPOILERS: Spoiler<ArrayHierarchicalPointer>[] = [
     (input) => {
       input.value[0]!.serial = "number" as any;

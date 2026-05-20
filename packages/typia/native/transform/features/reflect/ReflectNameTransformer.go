@@ -18,7 +18,7 @@ var reflectNameTransformer_factory = shimast.NewNodeFactory(shimast.NodeFactoryH
 func (reflectNameTransformerNamespace) Transform(props nativetransform.ITransformProps) *shimast.Node {
   if props.Expression == nil || props.Expression.TypeArguments == nil || len(props.Expression.TypeArguments.Nodes) == 0 {
     panic(nativetransform.NewTransformerError(nativetransform.TransformerError_IProps{
-      Code:    "typia.reflect.metadata",
+      Code:    "typia.reflect.name",
       Message: "no generic argument.",
     }))
   }

@@ -9,9 +9,10 @@ export const _randomFormatDate = (props?: {
       type: "integer",
       minimum: props?.minimum ?? 0,
       maximum:
-        (props?.maximum ?? props?.minimum === undefined)
+        props?.maximum ??
+        (props?.minimum === undefined
           ? Date.now()
-          : props.minimum + 365 * 24 * 60 * 60 * 1_000,
+          : props.minimum + 365 * 24 * 60 * 60 * 1_000),
     }),
   )
     .toISOString()

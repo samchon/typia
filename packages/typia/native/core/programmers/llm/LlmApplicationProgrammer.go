@@ -138,16 +138,14 @@ func (llmApplicationProgrammerNamespace) Validate(props struct {
       }
       least = true
       name := fmt.Sprintf("%q", *rawName)
-      if isValidType == false {
-        if len(value.Functions) != 1 || value.Size() != 1 {
-          output = append(output, "LLM application's function ("+name+") type does not allow union type.")
-        }
-        if value.IsRequired() == false {
-          output = append(output, "LLM application's function ("+name+") type must be required.")
-        }
-        if value.Nullable {
-          output = append(output, "LLM application's function ("+name+") type must not be nullable.")
-        }
+      if len(value.Functions) != 1 || value.Size() != 1 {
+        output = append(output, "LLM application's function ("+name+") type does not allow union type.")
+      }
+      if value.IsRequired() == false {
+        output = append(output, "LLM application's function ("+name+") type must be required.")
+      }
+      if value.Nullable {
+        output = append(output, "LLM application's function ("+name+") type must not be nullable.")
       }
       prefix := "LLM application's function (" + name + ")"
       output = append(output, llmApplicationProgrammer_validateName(prefix, *rawName)...)
@@ -445,7 +443,7 @@ func llmApplicationProgrammer_validateFunction(name string, fn *schemametadata.M
   if fn.Output != nil && fn.Output.Size() != 0 {
     messages = append(messages, llmApplicationProgrammer_validateObjectSchema(prefix, "return type", fn.Output)...)
   }
-  if len(fn.Parameters) != 0 && len(fn.Parameters) != 1 {
+  if len(fn.Parameters) > 1 {
     messages = append(messages, prefix+" must have exactly one parameter or no parameters.")
   }
   if len(fn.Parameters) != 0 {

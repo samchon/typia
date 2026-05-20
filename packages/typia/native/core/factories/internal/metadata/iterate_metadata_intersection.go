@@ -134,6 +134,7 @@ func Iterate_metadata_intersection(props IMetadataIteratorProps) bool {
       for i := len(removable) - 1; i >= 0; i-- {
         index := removable[i]
         metadatas = append(metadatas[:index], metadatas[index+1:]...)
+        indexes = append(indexes[:index], indexes[index+1:]...)
       }
     } else {
       return nonsensible()

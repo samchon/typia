@@ -6,6 +6,20 @@ import typia from "typia";
 
 import { Calculator } from "../structures/Calculator";
 
+/**
+ * Verifies that class-controller tools are correctly registered in the Vercel
+ * tool map.
+ *
+ * Locks the basic registration branch of `VercelToolsRegistrar`. The returned
+ * `Record<string, Tool>` must contain the expected four arithmetic tool names
+ * (no prefix by default), and each tool must have `description`, `inputSchema`,
+ * and a callable `execute` property.
+ *
+ * 1. Convert a `Calculator` controller to Vercel tools via `toVercelTools`.
+ * 2. Assert the tool map has four entries with the expected names.
+ * 3. Assert each of `description`, `inputSchema`, and `execute` is present on the
+ *    `add` tool.
+ */
 export const test_vercel_class_controller_register =
   async (): Promise<void> => {
     // 1. Create class-based controller using typia.llm.controller

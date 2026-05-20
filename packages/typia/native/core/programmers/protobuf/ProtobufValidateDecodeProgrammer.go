@@ -55,6 +55,7 @@ func (protobufValidateDecodeProgrammerNamespace) Decompose(props ProtobufValidat
   })
   statements := []*shimast.Node{}
   statements = append(statements, validate.Statements...)
+  statements = append(statements, decode.Statements...)
   statements = append(statements,
     nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{Name: "__validate", Value: validate.Arrow}),
     nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{Name: "__decode", Value: decode.Arrow}),

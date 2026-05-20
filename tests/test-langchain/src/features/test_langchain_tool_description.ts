@@ -6,6 +6,18 @@ import typia from "typia";
 
 import { Calculator } from "../structures/Calculator";
 
+/**
+ * Verifies that JSDoc summaries are propagated as LangChain tool descriptions.
+ *
+ * Locks the description-propagation branch of `LangChainToolsRegistrar`. The
+ * `description` field of each `DynamicStructuredTool` must derive from the
+ * JSDoc comment on the corresponding controller method; omitting or truncating
+ * it would degrade LLM routing quality silently.
+ *
+ * 1. Create an `ILlmController<Calculator>` and convert to LangChain tools.
+ * 2. Find the `add` tool and assert its description contains "Add two numbers".
+ * 3. Assert the tool's `schema` property is a non-null object.
+ */
 export const test_langchain_tool_description = async (): Promise<void> => {
   // 1. Create class-based controller
   const controller: ILlmController<Calculator> =

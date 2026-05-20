@@ -324,11 +324,10 @@ func metadataTypeTagFactory_validate_property(props struct {
     }
     target := []string{}
     if len(props.Value.Objects) == 0 {
-      targetProperty := "target"
       return props.Report(struct {
         Property *string
         Message  string
-      }{Property: &targetProperty, Message: "must be one of 'boolean', 'bigint', 'number', 'string', 'array', 'object"})
+      }{Property: property, Message: "must be a string literal type or Record<Target, string> type."})
     }
     for _, property := range props.Value.Objects[0].Type.Properties {
       if lit := property.Key.GetSoleLiteral(); lit != nil {

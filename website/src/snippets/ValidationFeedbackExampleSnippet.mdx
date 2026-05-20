@@ -8,8 +8,8 @@ export const correctFunctionCall = (props: {
   retry: (reason: string, errors?: IValidation.IError[]) => Promise<unknown>;
 }): Promise<unknown> => {
   // FIND FUNCTION
-  const func: ILlmFunction<"chatgpt"> | undefined =
-    props.application.functions.find((f) => f.name === call.name);
+  const func: ILlmFunction | undefined =
+    props.application.functions.find((f) => f.name === props.functionCall.name);
   if (func === undefined) {
     // never happened in my experience
     return props.retry(
@@ -27,9 +27,7 @@ export const correctFunctionCall = (props: {
     // 3nd trial with validation feedback again: never have failed
     return props.retry(
       "Type errors are detected. Correct it through validation errors",
-      {
-        errors: result.errors,
-      },
+      result.errors,
     );
   }
   return result.data;

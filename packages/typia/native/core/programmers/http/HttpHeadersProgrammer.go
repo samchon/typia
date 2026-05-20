@@ -122,7 +122,7 @@ func (httpHeadersProgrammerNamespace) Validate(props struct {
       insert("headers cannot be null.")
     }
     if props.Metadata.IsRequired() == false {
-      insert("headers cannot be null.")
+      insert("headers cannot be undefined.")
     }
   } else if _, ok := props.Explore.Nested.(*schemametadata.MetadataArrayType); props.Explore.Nested != nil && ok {
     atomics := nativehelpers.HttpMetadataUtil.Atomics(props.Metadata)

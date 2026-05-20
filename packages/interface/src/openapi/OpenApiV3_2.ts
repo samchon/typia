@@ -351,7 +351,7 @@ export namespace OpenApiV3_2 {
     examples?: Record<string, IExample>;
   }
 
-  /** JSON Schema type for OpenAPI v3.1. */
+  /** JSON Schema type for OpenAPI v3.2. */
   export type IJsonSchema =
     | IJsonSchema.IMixed
     | IJsonSchema.IConstant

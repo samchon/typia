@@ -25,7 +25,7 @@ export const _test_misc_assertPrune =
           )
         )
           throw new Error(
-            `Bug on typia.misc.isPrune(): failed to prune the ${name} type.`,
+            `Bug on typia.misc.assertPrune(): failed to prune the ${name} type.`,
           );
       })(input);
 

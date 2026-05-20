@@ -44,9 +44,10 @@ export const createExpressServerAssertBenchmarkProgram = async <T>(
 };
 
 const open = (modulo: express.Express) =>
-  new Promise<Server>((resolve) => {
+  new Promise<Server>((resolve, reject) => {
     const server = modulo.listen(PORT);
     server.on("listening", () => resolve(server));
+    server.on("error", (err) => reject(err));
   });
 
 const PORT = 33_333;

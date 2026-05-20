@@ -216,7 +216,7 @@ export namespace OpenApiTypeChecker {
     OpenApiTypeCheckerBase.escape({
       ...props,
       prefix: "#/components/schemas/",
-      method: "OpenApiTypeChecker.method",
+      method: "OpenApiTypeChecker.escape",
     });
 
   /**

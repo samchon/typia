@@ -1,6 +1,6 @@
 ---
 title: "Good bye and thanks to \"typescript-is\" (ancestor of \"typia\")"
-description: "Summary   This story is about a precursor library typescript-is:   There had been an ancesor..."
+description: "Summary   This story is about a precursor library typescript-is:   There had been an ancestor..."
 date: "2023-07-21"
 author: "Jeongho Nam"
 ogImage: "https://media2.dev.to/dynamic/image/width=1000,height=500,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fuvyinnyryddboaft4tig.jpg"
@@ -14,7 +14,7 @@ tags:
 ## Summary
 This story is about a precursor library `typescript-is`:
 
-  - There had been an ancesor library of `typia` named `typescript-is`
+  - There had been an ancestor library of `typia` named `typescript-is`
     - Only one line required
     - AoT (Ahead of Time) compilation through TypeScript Compiler API
     - Much convenient than any other validator libraries like `zod` and `class-validator`
@@ -150,7 +150,7 @@ For reference, purpose of `typescript-json` was to accomplish below `nestia`, ge
 ## `nestia`
 ![Nestia Logo](https://nestia.io/logo.png)
 
-https://github.com/samchon/typia
+https://github.com/samchon/nestia
 
 Using `typescript-is` in `NestJS` made backend developments were much easier and convenient.
 
@@ -228,21 +228,21 @@ Furthermore, I've enhanced `typia` through 1,000,000 LOC test codes. Considering
 Components               | `typia` | `ts-is` | `typebox` | `ajv` | `io-ts` | `zod` | `c.v.`
 -------------------|--------|-----|--------|-------|---------|-------|------------------
 **Easy to use**          | ✅ | ✅| ❌ | ❌ | ❌ | ❌ | ❌ 
-[Object (simple)](https://github.com/samchon/typia/blob/master/test/structures/ObjectSimple.ts)          | ✔ | ✔| ✔ | ✔ | ✔ | ✔ | ✔
-[Object (hierarchical)](https://github.com/samchon/typia/blob/master/test/structures/ObjectHierarchical.ts)    | ✔ | ✔ | ✔ | ✔ | ✔ | ✔ | ✔
-[Object (recursive)](https://github.com/samchon/typia/blob/master/test/structures/ObjectRecursive.ts)       | ✔ | ✔| ❌ | ✔ | ✔ | ✔ | ✔ | ✔
-[Object (union, implicit)](https://github.com/samchon/typia/blob/master/test/structures/ObjectUnionImplicit.ts) | ✅ | ❌| ❌ | ❌ | ❌ | ❌ | ❌
-[Object (union, explicit)](https://github.com/samchon/typia/blob/master/test/structures/ObjectUnionExplicit.ts) | ✔ | ❌| ✔ | ✔ | ✔ | ✔ | ❌
+[Object (simple)](https://github.com/samchon/typia/blob/master/tests/template/src/structures/ObjectSimple.ts)          | ✔ | ✔| ✔ | ✔ | ✔ | ✔ | ✔
+[Object (hierarchical)](https://github.com/samchon/typia/blob/master/tests/template/src/structures/ObjectHierarchical.ts)    | ✔ | ✔ | ✔ | ✔ | ✔ | ✔ | ✔
+[Object (recursive)](https://github.com/samchon/typia/blob/master/tests/template/src/structures/ObjectRecursive.ts)       | ✔ | ✔| ❌ | ✔ | ✔ | ✔ | ✔ | ✔
+[Object (union, implicit)](https://github.com/samchon/typia/blob/master/tests/template/src/structures/ObjectUnionImplicit.ts) | ✅ | ❌| ❌ | ❌ | ❌ | ❌ | ❌
+[Object (union, explicit)](https://github.com/samchon/typia/blob/master/tests/template/src/structures/ObjectUnionExplicit.ts) | ✔ | ❌| ✔ | ✔ | ✔ | ✔ | ❌
 [Object (additional tags)](https://github.com/samchon/typia/#comment-tags)        | ✔ | ❌| ✔ | ✔ | ✔ | ✔ | ✔
-[Object (template literal types)](https://github.com/samchon/typia/blob/master/test/structures/TemplateUnion.ts) | ✔ | ❌ | ✔ | ✔ | ❌ | ❌ | ❌
-[Object (dynamic properties)](https://github.com/samchon/typia/blob/master/test/structures/DynamicTemplate.ts) | ✔ | ✔ | ✔ | ✔ | ❌ | ❌ | ❌
-[Array (rest tuple)](https://github.com/samchon/typia/blob/master/test/structures/TupleRestAtomic.ts) | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
-[Array (hierarchical)](https://github.com/samchon/typia/blob/master/test/structures/ArrayHierarchical.ts)     | ✔ | ✔ | ✔ | ✔ | ✔ | ✔ | ✔
-[Array (recursive)](https://github.com/samchon/typia/blob/master/test/structures/ArrayRecursive.ts)        | ✔ | ✔ | ✔ | ✔ | ✔ | ✔ | ❌
-[Array (recursive, union)](https://github.com/samchon/typia/blob/master/test/structures/ArrayRecursiveUnionExplicit.ts) | ✔ | ✔ | ✔ | ❌ | ✔ | ✔ | ❌
-[Array (R+U, implicit)](https://github.com/samchon/typia/blob/master/test/structures/ArrayRecursiveUnionImplicit.ts)    | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
-[Array (repeated)](https://github.com/samchon/typia/blob/master/test/structures/ArrayRepeatedNullable.ts)    | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
-[Array (repeated, union)](https://github.com/samchon/typia/blob/master/test/structures/ArrayRepeatedUnionWithTuple.ts)    | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
+[Object (template literal types)](https://github.com/samchon/typia/blob/master/tests/template/src/structures/TemplateUnion.ts) | ✔ | ❌ | ✔ | ✔ | ❌ | ❌ | ❌
+[Object (dynamic properties)](https://github.com/samchon/typia/blob/master/tests/template/src/structures/DynamicTemplate.ts) | ✔ | ✔ | ✔ | ✔ | ❌ | ❌ | ❌
+[Array (rest tuple)](https://github.com/samchon/typia/blob/master/tests/template/src/structures/TupleRestAtomic.ts) | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
+[Array (hierarchical)](https://github.com/samchon/typia/blob/master/tests/template/src/structures/ArrayHierarchical.ts)     | ✔ | ✔ | ✔ | ✔ | ✔ | ✔ | ✔
+[Array (recursive)](https://github.com/samchon/typia/blob/master/tests/template/src/structures/ArrayRecursive.ts)        | ✔ | ✔ | ✔ | ✔ | ✔ | ✔ | ❌
+[Array (recursive, union)](https://github.com/samchon/typia/blob/master/tests/template/src/structures/ArrayRecursiveUnionExplicit.ts) | ✔ | ✔ | ✔ | ❌ | ✔ | ✔ | ❌
+[Array (R+U, implicit)](https://github.com/samchon/typia/blob/master/tests/template/src/structures/ArrayRecursiveUnionImplicit.ts)    | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
+[Array (repeated)](https://github.com/samchon/typia/blob/master/tests/template/src/structures/ArrayRepeatedNullable.ts)    | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
+[Array (repeated, union)](https://github.com/samchon/typia/blob/master/tests/template/src/structures/ArrayRepeatedUnionWithTuple.ts)    | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
 [**Ultimate Union Type**](https://github.com/samchon/typia/blob/master/src/schemas/IJsonSchema.ts)  | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
 
 > Data structure of `typia` for TypeScript types:

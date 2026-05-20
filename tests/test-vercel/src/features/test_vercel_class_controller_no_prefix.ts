@@ -6,6 +6,16 @@ import typia from "typia";
 
 import { Calculator } from "../structures/Calculator";
 
+/**
+ * Verifies that `prefix: false` produces bare function names as tool keys.
+ *
+ * Locks the prefix-disabled branch of `VercelToolsRegistrar`. When `prefix:
+ * false`, the returned `Record<string, Tool>` must use bare function names
+ * (`add`, `subtract`, etc.) rather than `<controller>_<function>` names.
+ *
+ * 1. Convert a `Calculator` controller to Vercel tools with `prefix: false`.
+ * 2. Assert the tool map contains exactly the four bare arithmetic names.
+ */
 export const test_vercel_class_controller_no_prefix =
   async (): Promise<void> => {
     // 1. Create class-based controller using typia.llm.controller

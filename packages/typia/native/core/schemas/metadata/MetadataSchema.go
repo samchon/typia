@@ -446,7 +446,7 @@ func MetadataSchema_intersects(x *MetadataSchema, y *MetadataSchema) bool {
     return true
   }
   if anyOf(x.Natives, func(xn *MetadataNative) bool {
-    return anyOf(y.Natives, func(yn *MetadataNative) bool { return xn == yn })
+    return anyOf(y.Natives, func(yn *MetadataNative) bool { return xn.Name == yn.Name })
   }) {
     return true
   }
@@ -565,7 +565,7 @@ func MetadataSchema_covers(x *MetadataSchema, y *MetadataSchema, levelAndEscaped
     }
   }
   for _, yn := range y.Natives {
-    if anyOf(x.Natives, func(xn *MetadataNative) bool { return xn == yn }) == false {
+    if anyOf(x.Natives, func(xn *MetadataNative) bool { return xn.Name == yn.Name }) == false {
       return false
     }
   }

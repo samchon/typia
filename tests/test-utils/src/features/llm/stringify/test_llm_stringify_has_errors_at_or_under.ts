@@ -71,7 +71,7 @@ export const test_llm_stringify_has_errors_at_or_under = (): void => {
   );
   TestValidator.equals("no-match-name", output3.includes("name"), true);
   // "unused" should NOT appear because it has no errors at or under it
-  // Actually Object.entries would filter it anyway... let's check
+  TestValidator.equals("no-match-unused", output3.includes("unused"), false);
 
   // Test 4: Deep nested error path
   const data4: Record<string, unknown> = {

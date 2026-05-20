@@ -508,6 +508,8 @@ func (checkerProgrammerNamespace) Decode(props CheckerProgrammer_DecodeProps) *s
       return nativefactories.ExpressionFactory.Bigint(v)
     case uint64:
       return nativefactories.ExpressionFactory.Bigint(v)
+    case int, float64:
+      return nativefactories.ExpressionFactory.Number(v)
     case bool:
       if v {
         return checkerProgrammer_factory.NewKeywordExpression(shimast.KindTrueKeyword)

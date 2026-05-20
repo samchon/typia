@@ -254,6 +254,8 @@ export namespace OpenApiConverter {
   ): OpenApi.IJsonSchema {
     if ("definitions" in props)
       return SwaggerV2Upgrader.convertSchema(props.definitions)(props.schema);
+    // v3.0 and v3.2 schema shapes are upgrade-compatible with the v3.1
+    // converter at the schema level, so the v3.1 upgrader handles all three.
     return OpenApiV3_1Upgrader.convertSchema(props.components as any)(
       props.schema as any,
     );

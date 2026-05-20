@@ -74,11 +74,17 @@ func reflectTransformer_literal(value any) *shimast.Node {
 func reflectTransformer_toPrimitive(value any) any {
   data, err := json.Marshal(value)
   if err != nil {
-    return nil
+    panic(nativetransform.NewTransformerError(nativetransform.TransformerError_IProps{
+      Code:    "typia.reflect.schema",
+      Message: "failed to serialize the reflect schema: " + err.Error(),
+    }))
   }
   var decoded any
   if err := json.Unmarshal(data, &decoded); err != nil {
-    return nil
+    panic(nativetransform.NewTransformerError(nativetransform.TransformerError_IProps{
+      Code:    "typia.reflect.schema",
+      Message: "failed to deserialize the reflect schema: " + err.Error(),
+    }))
   }
   return reflectTransformer_lowerKeys(decoded)
 }

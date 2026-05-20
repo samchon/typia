@@ -36,7 +36,7 @@ export const _test_protobuf_assertEncode =
             expectedClassName: ErrorClass.name,
           });
         throw new Error(
-          `Bug on typia.json.assertEncode(): failed to detect error on the ${name} type.`,
+          `Bug on typia.protobuf.assertEncode(): failed to detect error on the ${name} type.`,
         );
       }
     }

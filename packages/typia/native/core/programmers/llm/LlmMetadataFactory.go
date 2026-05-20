@@ -64,6 +64,7 @@ func (llmMetadataFactoryNamespace) GetConfig(props struct {
   for _, p := range obj.Type.Properties {
     if p.Value.Size() != 1 ||
       len(p.Value.Constants) != 1 ||
+      len(p.Value.Constants[0].Values) != 1 ||
       p.Value.Nullable == true ||
       p.Value.IsRequired() == false {
       panic(nativecontext.NewTransformerError(nativecontext.TransformerError_IProps{

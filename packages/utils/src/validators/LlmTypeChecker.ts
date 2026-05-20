@@ -252,7 +252,8 @@ export namespace LlmTypeChecker {
     // ATOMIC CASE
     else if (isBoolean(p.x)) return isBoolean(p.y) && coverBoolean(p.x, p.y);
     else if (isInteger(p.x)) return isInteger(p.y) && coverInteger(p.x, p.y);
-    else if (isNumber(p.x)) return isNumber(p.y) && coverNumber(p.x, p.y);
+    else if (isNumber(p.x))
+      return (isInteger(p.y) || isNumber(p.y)) && coverNumber(p.x, p.y);
     else if (isString(p.x)) return isString(p.y) && coverString(p.x, p.y);
     // INSTANCE CASE
     else if (isArray(p.x))
@@ -397,6 +398,9 @@ export namespace LlmTypeChecker {
     schema: ILlmSchema,
   ): Exclude<ILlmSchema, ILlmSchema.IReference> =>
     isReference(schema)
-      ? escapeReference($defs, $defs![schema.$ref.replace("#/$defs/", "")]!)
+      ? escapeReference(
+          $defs,
+          $defs?.[schema.$ref.replace("#/$defs/", "")] ?? {},
+        )
       : schema;
 }

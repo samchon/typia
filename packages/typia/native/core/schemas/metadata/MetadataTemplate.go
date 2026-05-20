@@ -45,8 +45,8 @@ func (obj *MetadataTemplate) GetName() string {
 func (obj *MetadataTemplate) GetBaseName() string {
   parts := make([]string, 0, len(obj.Row))
   for _, child := range obj.Row {
-    if child.IsConstant() && child.Size() == 1 {
-      parts = append(parts, child.Constants[0].Values[0].Value.(string))
+    if value, ok := metadataTemplate_baseSegment(child); ok {
+      parts = append(parts, value)
     } else {
       parts = append(parts, "${"+child.GetName()+"}")
     }
@@ -63,6 +63,17 @@ func (obj *MetadataTemplate) ToJSON() IMetadataSchema_ITemplate {
     Row:  row,
     Tags: cloneTagMatrix(obj.Tags),
   }
+}
+
+func metadataTemplate_baseSegment(child *MetadataSchema) (string, bool) {
+  if child.IsConstant() == false || child.Size() != 1 {
+    return "", false
+  }
+  if child.Constants[0].Type != "string" {
+    return "", false
+  }
+  value, ok := child.Constants[0].Values[0].Value.(string)
+  return value, ok
 }
 
 func metadataTemplate_getName(template *MetadataTemplate) string {

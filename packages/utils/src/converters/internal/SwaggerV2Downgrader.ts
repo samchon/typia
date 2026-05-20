@@ -235,9 +235,7 @@ export namespace SwaggerV2Downgrader {
         ),
       };
       const visit = (schema: OpenApi.IJsonSchema): void => {
-        if (OpenApiTypeChecker.isBoolean(schema))
-          union.push({ type: "boolean" });
-        else if (
+        if (
           OpenApiTypeChecker.isBoolean(schema) ||
           OpenApiTypeChecker.isInteger(schema) ||
           OpenApiTypeChecker.isNumber(schema) ||
@@ -277,7 +275,7 @@ export namespace SwaggerV2Downgrader {
             })(),
             minItems: schema.prefixItems.length,
             maxItems:
-              !!schema.additionalItems === true
+              schema.additionalItems !== undefined
                 ? undefined
                 : schema.prefixItems.length,
             ...{
@@ -317,16 +315,18 @@ export namespace SwaggerV2Downgrader {
         const insert = (value: any): void => {
           const matched: SwaggerV2.IJsonSchema.INumber | undefined = union.find(
             (u) =>
-              (u as SwaggerV2.IJsonSchema.__ISignificant<any>).type === value,
+              (u as SwaggerV2.IJsonSchema.__ISignificant<any>).type ===
+              typeof value,
           ) as SwaggerV2.IJsonSchema.INumber | undefined;
           if (matched !== undefined) {
             matched.enum ??= [];
             matched.enum.push(value);
           } else union.push({ type: typeof value as "number", enum: [value] });
-          if (OpenApiTypeChecker.isConstant(schema)) insert(schema.const);
-          else if (OpenApiTypeChecker.isOneOf(schema))
-            schema.oneOf.forEach(insert);
         };
+        if (OpenApiTypeChecker.isConstant(schema)) insert(schema.const);
+        else if (OpenApiTypeChecker.isOneOf(schema))
+          for (const u of schema.oneOf)
+            if (OpenApiTypeChecker.isConstant(u)) insert(u.const);
       };
 
       visit(input);
