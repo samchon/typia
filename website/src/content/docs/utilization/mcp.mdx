@@ -197,9 +197,38 @@ By default `registerMcpControllers` owns the server's tool list. If you've alrea
 
 In the test above, an `"echo"` tool registered through `McpServer.registerTool` lives alongside four calculator tools registered through `registerMcpControllers` — five tools total. If two registrations would produce the same tool name, registration fails at startup so you can fix it before clients ever see the conflict.
 
+## Runtime errors
+
+There are two distinct failure modes when a tool is called:
+
+- **Validation error** — the LLM passed arguments that don't match the schema. The tool returns `isError: true` with the annotated input (same `// ❌` markers as above) so the model can fix it.
+- **Runtime error** — the tool itself threw (e.g. divide-by-zero, network error, business-rule violation). The tool returns `isError: true` with the error name and message.
+
+In both cases the MCP conversation stays alive — the model sees the failure and can either retry with different inputs or inform the user.
+
+<Tabs items={[
+    "Error handling test",
+    <code>Calculator</code>,
+  ]}>
+  <Tabs.Tab>
+    <LocalSource
+      path="tests/test-mcp/src/features/test_mcp_class_controller_error_handling.ts"
+      filename="test_mcp_class_controller_error_handling.ts"
+      showLineNumbers
+      highlight="61-75, 77-91" />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource
+      path="tests/test-mcp/src/structures/Calculator.ts"
+      filename="Calculator.ts"
+      showLineNumbers />
+  </Tabs.Tab>
+</Tabs>
+
 ## Where to go next
 
 - Same idea, different framework → [Vercel AI SDK](/docs/utilization/vercel) · [LangChain](/docs/utilization/langchain)
 - Source TypeScript class for the tools → [`typia.llm.application`](/docs/llm/application)
 - Source OpenAPI document for the tools → [`HttpLlm`](/docs/llm/http)
+- Harness internals (`parse`, `coerce`, `validate`, `stringify`) → [`LlmJson`](/docs/llm/json)
 - Building a full chatbot → [Agentica](/docs/llm/chat)
