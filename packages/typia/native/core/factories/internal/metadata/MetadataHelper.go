@@ -205,7 +205,48 @@ func metadata_js_doc_parameter_name(tag *nativeast.Node) string {
   if name == nil {
     return ""
   }
-  return name.Text()
+  return metadata_js_doc_name_text(name)
+}
+
+func metadata_js_doc_name_text(node *nativeast.Node) string {
+  if text := metadata_node_source_text(node); text != "" {
+    return text
+  }
+  if node == nil {
+    return ""
+  }
+  if node.Kind == nativeast.KindQualifiedName {
+    name := node.AsQualifiedName()
+    if name == nil {
+      return ""
+    }
+    left := metadata_js_doc_name_text(name.Left)
+    right := metadata_js_doc_name_text(name.Right)
+    if left == "" {
+      return right
+    }
+    if right == "" {
+      return left
+    }
+    return left + "." + right
+  }
+  return node.Text()
+}
+
+func metadata_node_source_text(node *nativeast.Node) string {
+  if node == nil {
+    return ""
+  }
+  file := nativeast.GetSourceFileOfNode(node)
+  if file == nil {
+    return ""
+  }
+  source := file.Text()
+  start, end := node.Pos(), node.End()
+  if start < 0 || end > len(source) || start >= end {
+    return ""
+  }
+  return strings.TrimSpace(source[start:end])
 }
 
 func metadata_js_doc_type_expression_text(tag *nativeast.Node) string {
