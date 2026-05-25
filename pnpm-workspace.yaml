@@ -6,7 +6,7 @@ packages:
   - 'tests/*'
 catalogs:
   typescript:
-    '@typescript/native-preview': 7.0.0-dev.20260521.1
+    '@typescript/native-preview': 7.0.0-dev.20260524.1
     ts-node: ^10.9.2
     ttsc: ^0.12.4
     typescript: ~6.0.3
