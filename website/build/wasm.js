@@ -23,6 +23,12 @@ const fs = require("fs");
 const path = require("path");
 
 const websiteRoot = path.resolve(__dirname, "..");
+// The playground wasm entry lives in a website-owned Go module so that
+// `packages/typia/native` (the published plugin) never depends on
+// `@ttsc/wasm`. `compilerDir` is the module root; it imports typia's native
+// adapter (`nativeDir`) and the ttsc packages (`ttscDir`) through go.mod
+// replaces, so all three trees feed the wasm and the staleness check.
+const compilerDir = path.resolve(websiteRoot, "compiler");
 const nativeDir =
   process.env.TYPIA_NATIVE_DIR ??
   path.resolve(websiteRoot, "..", "packages", "typia", "native");
@@ -97,10 +103,10 @@ function buildWasm() {
       "-s -w",
       "-o",
       wasmOut,
-      "./cmd/ttsc-typia",
+      "./cmd/playground",
     ],
     {
-      cwd: nativeDir,
+      cwd: compilerDir,
       env: { ...process.env, GOOS: "js", GOARCH: "wasm" },
       stdio: "inherit",
     },
@@ -108,11 +114,11 @@ function buildWasm() {
 }
 
 const wasmExecSrc = locateWasmExec();
-const hasNativeDir = fs.existsSync(nativeDir);
+const hasNativeDir = fs.existsSync(compilerDir) && fs.existsSync(nativeDir);
 
 if (!forceRebuild && fs.existsSync(wasmOut)) {
   const wasmMtime = fs.statSync(wasmOut).mtimeMs;
-  const sourceMtime = newestMtime(nativeDir, ttscDir);
+  const sourceMtime = newestMtime(compilerDir, nativeDir, ttscDir);
   if (sourceMtime > 0 && wasmMtime >= sourceMtime) {
     console.log(
       `build/wasm.js: cached ttsc-typia.wasm is up to date (${(
@@ -136,7 +142,10 @@ if (!hasNativeDir || !wasmExecSrc) {
     return;
   }
   if (!hasNativeDir) {
-    console.error(`build/wasm.js: typia native dir not found: ${nativeDir}`);
+    console.error(
+      `build/wasm.js: playground compiler module or typia native dir not found ` +
+        `(compiler: ${compilerDir}, native: ${nativeDir})`,
+    );
   }
   if (!wasmExecSrc) {
     console.error(

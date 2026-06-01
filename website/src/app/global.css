@@ -1,0 +1,28 @@
+@import "tailwindcss";
+@import "nextra-theme-docs/style.css";
+
+/* ── Source roots Tailwind 4 scans for utility-class usage ── */
+@source "../components/**/*.{ts,tsx,jsx}";
+@source "../movies/**/*.{ts,tsx,jsx}";
+@source "../app/**/*.{ts,tsx,jsx,mdx}";
+@source "../../node_modules/@ttsc/playground/lib/**/*.js";
+
+/* ── Playground page: hide Nextra chrome so the playground gets the full viewport ── */
+.typia-playground-page .nextra-sidebar-container,
+.typia-playground-page .nextra-sidebar,
+.typia-playground-page .nextra-breadcrumb,
+.typia-playground-page .nextra-toc,
+.typia-playground-page nav.nextra-toc,
+.typia-playground-page aside,
+.typia-playground-page footer {
+  display: none !important;
+}
+.typia-playground-page article {
+  max-width: 100% !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+.typia-playground-page main {
+  max-width: 100% !important;
+  margin: 0 !important;
+}

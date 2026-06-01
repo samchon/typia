@@ -1,6 +1,8 @@
 import Script from "next/script";
 import { Head } from "nextra/components";
 
+import "./global.css";
+
 const title = "Typia";
 const description = "Superfast TypeScript runtime validators and serializers.";
 
