@@ -32,13 +32,14 @@
     "@monaco-editor/react": "^4.6.0",
     "@mui/icons-material": "^5.15.4",
     "@mui/material": "^5.12.0",
+    "@mui/system": "^5.18.0",
     "@rollup/browser": "4.13.0",
     "@tailwindcss/postcss": "^4.1.13",
-    "@ttsc/playground": "^0.14.0",
-    "@ttsc/wasm": "^0.14.0",
-    "@typia/interface": "file:../experiments/tarballs/interface.tgz",
+    "@ttsc/playground": "catalog:typescript",
+    "@ttsc/wasm": "catalog:typescript",
+    "@typia/interface": "workspace:^",
     "@typia/legacy-transform": "npm:@typia/transform@12.0.2",
-    "@typia/utils": "file:../experiments/tarballs/utils.tgz",
+    "@typia/utils": "workspace:^",
     "lz-string": "^1.5.0",
     "monaco-editor": "^0.50.0",
     "next": "^15.3.4",
@@ -51,9 +52,9 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "tailwindcss": "^4.1.12",
-    "tgrid": "^1.0.3",
-    "tstl": "^3.0.0",
-    "typia": "file:../experiments/tarballs/typia.tgz"
+    "tgrid": "catalog:utils",
+    "tstl": "catalog:utils",
+    "typia": "workspace:^"
   },
   "devDependencies": {
     "@rspack/cli": "^1.0.0",
@@ -73,8 +74,5 @@
     "typedoc": "^0.28.9",
     "typescript": "~5.9.3",
     "write-file-webpack-plugin": "^4.5.1"
-  },
-  "overrides": {
-    "zod": "4.1.12"
   }
 }
