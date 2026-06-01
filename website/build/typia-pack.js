@@ -39,10 +39,14 @@ const SOURCES = [
   {
     dest: "typia",
     root: path.join(repoRoot, "packages", "typia", "src"),
-    skip: (rel) =>
-      rel.startsWith("executable") ||
-      rel.startsWith("transformers") ||
-      rel === "transform.ts",
+    // Skip only the build-tool-only entries. `transformers/` is NOT skipped:
+    // typia's runtime entries (functional.ts, json.ts, http.ts, misc.ts,
+    // module.ts, llm.ts, protobuf.ts, notations.ts, reflect.ts) all import
+    // `./transformers/NoTransformConfigurationError`. Dropping it leaves those
+    // imports dangling, which the wasm's tsgo reports as TS2307 and the cascade
+    // poisons the type checker the typia adapter relies on — every typia.X()
+    // call site falls out, and the playground floods with type errors.
+    skip: (rel) => rel.startsWith("executable") || rel === "transform.ts",
   },
   {
     dest: "@typia/interface",
@@ -55,6 +59,19 @@ const SOURCES = [
     skip: () => false,
   },
 ];
+
+// typia 13 imports `StandardSchemaV1` from `@standard-schema/spec` in
+// `_createStandardSchema.ts` and `module.ts`. Without the package on the MemFS
+// those imports emit TS2307 and poison the type checker → the typia adapter
+// can't resolve typia.X() call sites. The package ships its declarations under
+// `dist/` already, so we mount that tree (and its own package.json) verbatim
+// instead of the src→exports rewrite the typia packages get.
+const STANDARD_SCHEMA_ROOT = path.join(
+  websiteRoot,
+  "node_modules",
+  "@standard-schema",
+  "spec",
+);
 
 const FILE_FILTER = /\.(ts|tsx|mts|cts)$/;
 
@@ -90,6 +107,29 @@ for (const { dest, root, skip } of SOURCES) {
     },
     null,
     2,
+  );
+}
+
+// Mount @standard-schema/spec's published dist tree (declarations + JS) plus
+// its own package.json so `import { StandardSchemaV1 } from "@standard-schema/spec"`
+// resolves inside the wasm's tsgo.
+if (fs.existsSync(STANDARD_SCHEMA_ROOT)) {
+  const distRoot = path.join(STANDARD_SCHEMA_ROOT, "dist");
+  if (fs.existsSync(distRoot)) {
+    for (const file of walk(distRoot)) {
+      const rel = path.relative(distRoot, file).replace(/\\/g, "/");
+      if (!/\.(d\.ts|d\.cts|d\.mts|js|cjs|mjs|ts)$/.test(rel)) continue;
+      pack[path.posix.join("@standard-schema/spec", "dist", rel)] =
+        fs.readFileSync(file, "utf8");
+    }
+  }
+  const pkgJson = path.join(STANDARD_SCHEMA_ROOT, "package.json");
+  if (fs.existsSync(pkgJson)) {
+    pack["@standard-schema/spec/package.json"] = fs.readFileSync(pkgJson, "utf8");
+  }
+} else {
+  console.log(
+    `build/typia-pack.js: @standard-schema/spec not found at ${STANDARD_SCHEMA_ROOT}; skipping`,
   );
 }
 

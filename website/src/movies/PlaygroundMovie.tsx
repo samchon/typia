@@ -1,8 +1,14 @@
 "use client";
 
-import { PlaygroundShell } from "@ttsc/playground";
+import {
+  PlaygroundShell,
+  createSandboxRequire,
+  loadTypiaRuntimePack,
+} from "@ttsc/playground";
 
 import { PLAYGROUND_DEFAULT_SCRIPT } from "../components/playground/PLAYGROUND_DEFAULT_SCRIPT";
+
+const TYPIA_RUNTIME_PACK_URL = "/compiler/typia-runtime-pack.json";
 
 /**
  * In-browser typia playground.
@@ -17,9 +23,9 @@ import { PLAYGROUND_DEFAULT_SCRIPT } from "../components/playground/PLAYGROUND_D
  * - `optionToggles`: typia's four transform options (finite / numeric /
  *   functional / undefined). The corresponding boolean flags are forwarded
  *   to the wasm-side typia adapter via `tsconfig.compilerOptions.plugins`.
- * - `executeBundle`: typia's bundler returns a self-contained CJS module
- *   thanks to `RollupBundler` (which inlines esm.sh imports at bundle
- *   time). We hand it to `new Function` and capture its `console.*` calls.
+ * - `executeBundle`: runs the worker's CommonJS bundle inside a `new Function`
+ *   sandbox whose `require` resolves typia's runtime from a prebuilt pack (see
+ *   the `executeBundle` doc below), capturing its `console.*` calls.
  */
 export default function PlaygroundMovie() {
   return (
@@ -75,24 +81,30 @@ export default function PlaygroundMovie() {
 }
 
 /**
- * Run a self-contained CJS module the typia worker returned (post-rollup,
- * post-esm.sh inline) inside a `new Function` sandbox, routing `console.*`
- * into the shell's Console pane.
+ * Run the CommonJS bundle the worker returned inside a `new Function` sandbox,
+ * routing `console.*` into the shell's Console pane.
  *
- * RollupBundler inlines every external import, so a no-op `require` is
- * sufficient — any leftover require call is a bug in the user's source the
- * `throw` will surface in the Console pane.
+ * The typia transform lowers `typia.is<T>(x)` into `require("typia/lib/internal/
+ * _isFormatUuid")` and friends, so the sandbox needs a real `require`. We build
+ * one with `createSandboxRequire` over the prebuilt typia runtime pack (the
+ * published typia / @typia/* / randexp JS, written by `build/pack-typia-runtime.js`),
+ * merged with whatever runtime files the shell installed for user-typed npm
+ * imports. Anything outside that set throws so the missing dependency surfaces
+ * in the Console pane.
  */
 const executeBundle = async (
   code: string,
-  sandbox: { console: Record<string, (...args: unknown[]) => void> },
+  sandbox: {
+    console: Record<string, (...args: unknown[]) => void>;
+    runtimeFiles: Record<string, string>;
+  },
 ): Promise<void> => {
+  const runtimePack = await loadTypiaRuntimePack(TYPIA_RUNTIME_PACK_URL);
+  const requireFn = createSandboxRequire(
+    { ...runtimePack, ...sandbox.runtimeFiles },
+    { console: sandbox.console },
+  );
   const moduleObj: { exports: Record<string, unknown> } = { exports: {} };
-  const requireFn = (specifier: string): unknown => {
-    throw new Error(
-      `require("${specifier}") is not available in the typia playground sandbox`,
-    );
-  };
   const wrapped = `(function(require, module, exports, console) {\n${code}\n})`;
   const factory = new Function("return " + wrapped)() as (
     req: (s: string) => unknown,
