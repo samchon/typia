@@ -1,6 +1,8 @@
 package metadata
 
 import (
+  "maps"
+  "slices"
   "strings"
 
   nativeast "github.com/microsoft/typescript-go/shim/ast"
@@ -27,9 +29,33 @@ type MetadataCollection struct {
   tuples_order_        []*nativechecker.Type
 
   names_                 map[string]map[*nativechecker.Type]string
+  type_full_names_       map[*nativechecker.Type]string
+  full_names_            map[*nativechecker.Type]string
   object_index_          int
   recursive_array_index_ int
   recursive_tuple_index_ int
+}
+
+// LookupTypeFullName / StoreTypeFullName memoize the pure type -> full-name
+// reconstruction (checker.TypeToString, recursing unions) per collection. The
+// Set/Map iterators recompute it for every explored type just to test a name
+// prefix, so the same pointer is resolved repeatedly within one analysis.
+func (collection *MetadataCollection) LookupTypeFullName(typ *nativechecker.Type) (string, bool) {
+  if collection.type_full_names_ == nil {
+    return "", false
+  }
+  value, ok := collection.type_full_names_[typ]
+  return value, ok
+}
+
+func (collection *MetadataCollection) StoreTypeFullName(typ *nativechecker.Type, name string) {
+  if typ == nil {
+    return
+  }
+  if collection.type_full_names_ == nil {
+    collection.type_full_names_ = map[*nativechecker.Type]string{}
+  }
+  collection.type_full_names_[typ] = name
 }
 
 func NewMetadataCollection(options ...*MetadataCollection_IOptions) *MetadataCollection {
@@ -60,37 +86,36 @@ func NewMetadataCollection(options ...*MetadataCollection_IOptions) *MetadataCol
 }
 
 func (collection *MetadataCollection) Clone() *MetadataCollection {
-  output := NewMetadataCollection(collection.Options)
-  for k, v := range collection.objects_ {
-    output.objects_[k] = v
+  // Clone is the snapshot taken before every intersection exploration, so it is
+  // one of the hottest allocation sites. Pre-size each destination map (maps.Clone)
+  // instead of copying into the empty maps NewMetadataCollection allocates, which
+  // forced repeated rehashing as entries were re-inserted.
+  output := &MetadataCollection{
+    Options: collection.Options,
+
+    objects_:       maps.Clone(collection.objects_),
+    object_unions_: make(map[string][]*MetadataObjectType, len(collection.object_unions_)),
+    aliases_:       maps.Clone(collection.aliases_),
+    arrays_:        maps.Clone(collection.arrays_),
+    tuples_:        maps.Clone(collection.tuples_),
+
+    objects_order_:       slices.Clone(collection.objects_order_),
+    object_unions_order_: slices.Clone(collection.object_unions_order_),
+    aliases_order_:       slices.Clone(collection.aliases_order_),
+    arrays_order_:        slices.Clone(collection.arrays_order_),
+    tuples_order_:        slices.Clone(collection.tuples_order_),
+
+    names_:                 make(map[string]map[*nativechecker.Type]string, len(collection.names_)),
+    object_index_:          collection.object_index_,
+    recursive_array_index_: collection.recursive_array_index_,
+    recursive_tuple_index_: collection.recursive_tuple_index_,
   }
   for k, v := range collection.object_unions_ {
-    output.object_unions_[k] = append([]*MetadataObjectType{}, v...)
+    output.object_unions_[k] = slices.Clone(v)
   }
-  for k, v := range collection.aliases_ {
-    output.aliases_[k] = v
-  }
-  for k, v := range collection.arrays_ {
-    output.arrays_[k] = v
-  }
-  for k, v := range collection.tuples_ {
-    output.tuples_[k] = v
-  }
-  output.objects_order_ = append([]*nativechecker.Type{}, collection.objects_order_...)
-  output.object_unions_order_ = append([]string{}, collection.object_unions_order_...)
-  output.aliases_order_ = append([]*nativechecker.Type{}, collection.aliases_order_...)
-  output.arrays_order_ = append([]*nativechecker.Type{}, collection.arrays_order_...)
-  output.tuples_order_ = append([]*nativechecker.Type{}, collection.tuples_order_...)
   for k, v := range collection.names_ {
-    duplicates := map[*nativechecker.Type]string{}
-    for kt, vt := range v {
-      duplicates[kt] = vt
-    }
-    output.names_[k] = duplicates
+    output.names_[k] = maps.Clone(v)
   }
-  output.object_index_ = collection.object_index_
-  output.recursive_array_index_ = collection.recursive_array_index_
-  output.recursive_tuple_index_ = collection.recursive_tuple_index_
   return output
 }
 
@@ -145,7 +170,22 @@ func (collection *MetadataCollection) Tuples() []*MetadataTupleType {
 }
 
 func (collection *MetadataCollection) getName(checker *nativechecker.Checker, typ *nativechecker.Type) string {
-  name := metadataCollection_getFullName(checker, typ)
+  // metadataCollection_getFullName (checker.TypeToString, recursing generics and
+  // unions) is pure for a given type pointer, but the duplicate-numbering logic
+  // below calls getName again for the same type. Cache only the full-name
+  // reconstruction; the numbering bookkeeping still runs every call so ordering
+  // is unaffected.
+  fullName, ok := collection.full_names_[typ]
+  if ok == false {
+    fullName = metadataCollection_getFullName(checker, typ)
+    if typ != nil {
+      if collection.full_names_ == nil {
+        collection.full_names_ = map[*nativechecker.Type]string{}
+      }
+      collection.full_names_[typ] = fullName
+    }
+  }
+  name := fullName
   name = strings.ToValidUTF8(name, "__")
   name = strings.ReplaceAll(name, "\uFFFD", "__")
   if collection.Options != nil && collection.Options.Replace != nil {

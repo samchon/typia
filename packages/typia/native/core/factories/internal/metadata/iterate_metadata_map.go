@@ -11,7 +11,7 @@ func Iterate_metadata_map(props IMetadataIteratorProps) bool {
     return false
   }
   typ := props.Checker.GetApparentType(props.Type)
-  name := metadata_type_full_name(props.Checker, typ)
+  name := metadata_type_full_name(props.Checker, typ, props.Components)
   if strings.HasPrefix(name, "Map<") == false {
     return false
   }

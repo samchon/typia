@@ -3,7 +3,6 @@ package adapter
 import (
   "fmt"
   "os"
-  "regexp"
   "runtime/debug"
   "strings"
 
@@ -138,10 +137,65 @@ func cleanupPrintedExpression(text string) string {
   return text
 }
 
-var singleParameterArrowPattern = regexp.MustCompile(`(^|[\s(=,:?])([A-Za-z_$][A-Za-z0-9_$]*) =>`)
-
+// parenthesizeSingleParameterArrows wraps a bare single-parameter arrow head
+// `x =>` into `(x) =>`. It reproduces the regex
+// `(^|[\s(=,:?])([A-Za-z_$][A-Za-z0-9_$]*) =>` -> `${1}(${2}) =>` with a manual
+// byte scan: the printed call-site expression is large and this pass ran on
+// every site, where the regex backtracker dominated the cleanup CPU.
 func parenthesizeSingleParameterArrows(text string) string {
-  return singleParameterArrowPattern.ReplaceAllString(text, `${1}(${2}) =>`)
+  arrow := strings.Index(text, " =>")
+  if arrow < 0 {
+    return text
+  }
+  var b strings.Builder
+  last := 0
+  for arrow >= 0 {
+    end := arrow // identifier ends just before the space of " =>"
+    start := end
+    for start > 0 && isArrowIdentByte(text[start-1]) {
+      start--
+    }
+    if end > start && isArrowIdentStart(text[start]) &&
+      (start == 0 || isArrowBoundaryByte(text[start-1])) {
+      if b.Cap() == 0 {
+        b.Grow(len(text) + 16)
+      }
+      b.WriteString(text[last:start])
+      b.WriteByte('(')
+      b.WriteString(text[start:end])
+      b.WriteByte(')')
+      last = end
+    }
+    next := strings.Index(text[arrow+3:], " =>")
+    if next < 0 {
+      break
+    }
+    arrow += 3 + next
+  }
+  if last == 0 {
+    return text
+  }
+  b.WriteString(text[last:])
+  return b.String()
+}
+
+func isArrowIdentStart(c byte) bool {
+  return c == '_' || c == '$' ||
+    (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')
+}
+
+func isArrowIdentByte(c byte) bool {
+  return isArrowIdentStart(c) || (c >= '0' && c <= '9')
+}
+
+// isArrowBoundaryByte matches the regex class [\s(=,:?] (RE2 `\s` is
+// [\t\n\f\r ], i.e. no vertical tab).
+func isArrowBoundaryByte(c byte) bool {
+  switch c {
+  case ' ', '\t', '\n', '\f', '\r', '(', '=', ',', ':', '?':
+    return true
+  }
+  return false
 }
 
 func UnsupportedReason(site CallSite) string {
