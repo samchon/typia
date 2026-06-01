@@ -43,6 +43,11 @@ func cachedRegexp(pattern string) *regexp.Regexp {
 }
 
 func CleanupTransformedText(text string) string {
+  // Every unused-import pattern references the "typia" module specifier, so the
+  // regex scan can be skipped entirely when the emitted file never mentions it.
+  if !strings.Contains(text, "typia") {
+    return injectRuntimeImports(text)
+  }
   for _, pattern := range unusedImportPatterns {
     loc := pattern.regex.FindStringIndex(text)
     for loc != nil {
@@ -69,14 +74,20 @@ func CleanupTransformedText(text string) string {
 func CleanupTypeScriptTransformText(text string) string {
   text = CleanupTransformedText(text)
   text = normalizeParenthesizedTypeAnnotations(text)
-  text = reImportTypeLine.ReplaceAllStringFunc(text, func(line string) string {
-    return reImportTypeNormalize.ReplaceAllString(line, "import type { $1 } from")
-  })
-  text = reBlankBeforeDecl.ReplaceAllString(text, "$1$2")
+  if strings.Contains(text, "import type {") {
+    text = reImportTypeLine.ReplaceAllStringFunc(text, func(line string) string {
+      return reImportTypeNormalize.ReplaceAllString(line, "import type { $1 } from")
+    })
+  }
+  if strings.Contains(text, "\n\n") {
+    text = reBlankBeforeDecl.ReplaceAllString(text, "$1$2")
+  }
   text = strings.ReplaceAll(text, "=(() =>", "= (() =>")
   text = strings.ReplaceAll(text, ": (any) =>", ": any =>")
   text = strings.ReplaceAll(text, ": (boolean) =>", ": boolean =>")
-  text = reInputIsParen.ReplaceAllString(text, "input is $1")
+  if strings.Contains(text, "input is (") {
+    text = reInputIsParen.ReplaceAllString(text, "input is $1")
+  }
   text = strings.ReplaceAll(text, "return (success ? ", "return success ? ")
   text = strings.ReplaceAll(text, "}) as any;", "} as any;")
   text = strings.ReplaceAll(text, "(() => {\n    const ", "(() => { const ")
@@ -90,7 +101,9 @@ func CleanupTypeScriptTransformText(text string) string {
   text = strings.ReplaceAll(text, "\n    }); let ", "\n}); let ")
   text = strings.ReplaceAll(text, ";\n})()", "; })()")
   text = strings.ReplaceAll(text, "\n        ", "\n    ")
-  text = reBlankBeforeCall.ReplaceAllString(text, "\n$1")
+  if strings.Contains(text, "\n\n") {
+    text = reBlankBeforeCall.ReplaceAllString(text, "\n$1")
+  }
   trimmed := strings.TrimRight(text, " \t\r\n")
   if strings.HasSuffix(trimmed, ")") && !strings.HasSuffix(trimmed, ";") {
     return trimmed + ";\n"
@@ -102,8 +115,12 @@ func CleanupTypeScriptTransformText(text string) string {
 }
 
 func normalizeParenthesizedTypeAnnotations(text string) string {
-  text = reParenTypeArrow.ReplaceAllString(text, ": $1$3")
-  text = reParenNullUndefined.ReplaceAllString(text, "| $1")
+  if strings.Contains(text, ": (") {
+    text = reParenTypeArrow.ReplaceAllString(text, ": $1$3")
+  }
+  if strings.Contains(text, "| (") {
+    text = reParenNullUndefined.ReplaceAllString(text, "| $1")
+  }
   return text
 }
 
@@ -203,6 +220,11 @@ func injectRuntimeImports(text string) string {
 }
 
 func collectRuntimeAliases(text string) []string {
+  // The alias regex can only match where the literal prefix appears; skipping
+  // the full-text scan when it is absent avoids work on most emitted files.
+  if !strings.Contains(text, "__typia_transform_") {
+    return nil
+  }
   seen := map[string]bool{}
   for _, match := range reRuntimeTransformAlias.FindAllStringSubmatch(text, -1) {
     seen[match[0]] = true
