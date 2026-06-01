@@ -8,7 +8,7 @@ catalogs:
   typescript:
     '@typescript/native-preview': 7.0.0-dev.20260519.1
     ts-node: ^10.9.2
-    ttsc: ^0.12.3
+    ttsc: ^0.14.1
     typescript: ~6.0.3
   rollup:
     rollup: ^4.56.0
