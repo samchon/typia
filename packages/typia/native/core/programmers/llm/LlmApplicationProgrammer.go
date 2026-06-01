@@ -454,12 +454,14 @@ func llmApplicationProgrammer_validateFunction(name string, fn *schemametadata.M
   return messages
 }
 
+var llmApplicationProgrammer_namePattern = regexp.MustCompile(`^[a-zA-Z0-9_-]+$`)
+
 func llmApplicationProgrammer_validateName(prefix string, name string) []string {
   output := []string{}
-  if len(name) != 0 && regexp.MustCompile(`^[0-9]`).MatchString(name[:1]) {
+  if len(name) != 0 && name[0] >= '0' && name[0] <= '9' {
     output = append(output, prefix+" name cannot start with a number.")
   }
-  if regexp.MustCompile(`^[a-zA-Z0-9_-]+$`).MatchString(name) == false {
+  if llmApplicationProgrammer_namePattern.MatchString(name) == false {
     output = append(output, prefix+" name must contain only alphanumeric characters, underscores, or hyphens.")
   }
   if len(name) > 64 {

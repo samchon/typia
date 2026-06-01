@@ -5,7 +5,42 @@ import (
   "regexp"
   "sort"
   "strings"
+  "sync"
 )
+
+// Static cleanup patterns are compiled once at package load. Compiling them
+// inside the cleanup functions recompiled the same expressions on every emitted
+// file, which dominated the cleanup cost (regex compilation, not matching, was
+// the hot spot).
+const typiaCleanupTypeAtom = `([A-Za-z_$][A-Za-z0-9_$.]*(<[^()\n;{}]*>)?)`
+
+var (
+  reImportTypeLine        = regexp.MustCompile(`(?m)^import type \{([^{}\n]+)\} from`)
+  reImportTypeNormalize   = regexp.MustCompile(`^import type \{\s*([^{}\n]+?)\s*\} from`)
+  reBlankBeforeDecl       = regexp.MustCompile(`(?m)(^import [^\n]+;\n)\n+(const |let |var |export )`)
+  reInputIsParen          = regexp.MustCompile(`input is \(([A-Za-z_$][A-Za-z0-9_$.]*)\)`)
+  reBlankBeforeCall       = regexp.MustCompile(`\n\n([A-Za-z_$][A-Za-z0-9_$]*\([^;\n]*\);?)`)
+  reParenTypeArrow        = regexp.MustCompile(`: \(` + typiaCleanupTypeAtom + `\)(\s*=>)`)
+  reParenNullUndefined    = regexp.MustCompile(`\| \((null|undefined)\)`)
+  reConstAliasHead        = regexp.MustCompile(`^const (\w+) =`)
+  reImportAliasHead       = regexp.MustCompile(`^import (\w+) from`)
+  reRuntimeTransformAlias = regexp.MustCompile(`\b__typia_transform_([A-Za-z0-9_]+)\b`)
+  reESModuleOutput        = regexp.MustCompile(`(?m)^(import\s|import\{|import\*|export\s)`)
+)
+
+// dynamicRegexpCache memoizes the alias/module-parameterized patterns used when
+// checking for pre-existing runtime imports. Aliases and modules recur heavily
+// across the files of a single build, so caching amortizes compilation.
+var dynamicRegexpCache sync.Map // map[string]*regexp.Regexp
+
+func cachedRegexp(pattern string) *regexp.Regexp {
+  if v, ok := dynamicRegexpCache.Load(pattern); ok {
+    return v.(*regexp.Regexp)
+  }
+  re := regexp.MustCompile(pattern)
+  dynamicRegexpCache.Store(pattern, re)
+  return re
+}
 
 func CleanupTransformedText(text string) string {
   for _, pattern := range unusedImportPatterns {
@@ -34,14 +69,14 @@ func CleanupTransformedText(text string) string {
 func CleanupTypeScriptTransformText(text string) string {
   text = CleanupTransformedText(text)
   text = normalizeParenthesizedTypeAnnotations(text)
-  text = regexp.MustCompile(`(?m)^import type \{([^{}\n]+)\} from`).ReplaceAllStringFunc(text, func(line string) string {
-    return regexp.MustCompile(`^import type \{\s*([^{}\n]+?)\s*\} from`).ReplaceAllString(line, "import type { $1 } from")
+  text = reImportTypeLine.ReplaceAllStringFunc(text, func(line string) string {
+    return reImportTypeNormalize.ReplaceAllString(line, "import type { $1 } from")
   })
-  text = regexp.MustCompile(`(?m)(^import [^\n]+;\n)\n+(const |let |var |export )`).ReplaceAllString(text, "$1$2")
+  text = reBlankBeforeDecl.ReplaceAllString(text, "$1$2")
   text = strings.ReplaceAll(text, "=(() =>", "= (() =>")
   text = strings.ReplaceAll(text, ": (any) =>", ": any =>")
   text = strings.ReplaceAll(text, ": (boolean) =>", ": boolean =>")
-  text = regexp.MustCompile(`input is \(([A-Za-z_$][A-Za-z0-9_$.]*)\)`).ReplaceAllString(text, "input is $1")
+  text = reInputIsParen.ReplaceAllString(text, "input is $1")
   text = strings.ReplaceAll(text, "return (success ? ", "return success ? ")
   text = strings.ReplaceAll(text, "}) as any;", "} as any;")
   text = strings.ReplaceAll(text, "(() => {\n    const ", "(() => { const ")
@@ -55,7 +90,7 @@ func CleanupTypeScriptTransformText(text string) string {
   text = strings.ReplaceAll(text, "\n    }); let ", "\n}); let ")
   text = strings.ReplaceAll(text, ";\n})()", "; })()")
   text = strings.ReplaceAll(text, "\n        ", "\n    ")
-  text = regexp.MustCompile(`\n\n([A-Za-z_$][A-Za-z0-9_$]*\([^;\n]*\);?)`).ReplaceAllString(text, "\n$1")
+  text = reBlankBeforeCall.ReplaceAllString(text, "\n$1")
   trimmed := strings.TrimRight(text, " \t\r\n")
   if strings.HasSuffix(trimmed, ")") && !strings.HasSuffix(trimmed, ";") {
     return trimmed + ";\n"
@@ -67,9 +102,8 @@ func CleanupTypeScriptTransformText(text string) string {
 }
 
 func normalizeParenthesizedTypeAnnotations(text string) string {
-  typeAtom := `([A-Za-z_$][A-Za-z0-9_$.]*(<[^()\n;{}]*>)?)`
-  text = regexp.MustCompile(`: \(`+typeAtom+`\)(\s*=>)`).ReplaceAllString(text, ": $1$3")
-  text = regexp.MustCompile(`\| \((null|undefined)\)`).ReplaceAllString(text, "| $1")
+  text = reParenTypeArrow.ReplaceAllString(text, ": $1$3")
+  text = reParenNullUndefined.ReplaceAllString(text, "| $1")
   return text
 }
 
@@ -82,25 +116,25 @@ var unusedImportPatterns = []unusedImportPattern{
   {
     regex: regexp.MustCompile(`(?m)^const (typia(?:_\d+)?) = __importDefault\(require\("typia"\)\);$`),
     alias: func(s string) string {
-      return firstSubmatch(`^const (\w+) =`, s)
+      return firstSubmatch(reConstAliasHead, s)
     },
   },
   {
     regex: regexp.MustCompile(`(?m)^const (typia(?:_\d+)?) = require\("typia"\);$`),
     alias: func(s string) string {
-      return firstSubmatch(`^const (\w+) =`, s)
+      return firstSubmatch(reConstAliasHead, s)
     },
   },
   {
     regex: regexp.MustCompile(`(?m)^import (\w+) from "typia";$`),
     alias: func(s string) string {
-      return firstSubmatch(`^import (\w+) from`, s)
+      return firstSubmatch(reImportAliasHead, s)
     },
   },
 }
 
-func firstSubmatch(pattern string, text string) string {
-  match := regexp.MustCompile(pattern).FindStringSubmatch(text)
+func firstSubmatch(re *regexp.Regexp, text string) string {
+  match := re.FindStringSubmatch(text)
   if len(match) < 2 {
     return ""
   }
@@ -108,10 +142,38 @@ func firstSubmatch(pattern string, text string) string {
 }
 
 func aliasStillReferenced(text, alias string, lineStart, lineEnd int) bool {
-  head := text[:lineStart]
-  tail := text[lineEnd:]
-  pattern := regexp.MustCompile(`\b` + regexp.QuoteMeta(alias) + `\b`)
-  return pattern.MatchString(head) || pattern.MatchString(tail)
+  // Equivalent to matching `\b<alias>\b`, but alias is always a `\w+` token, so
+  // a manual word-boundary scan avoids compiling a regex per import line.
+  return containsWord(text[:lineStart], alias) || containsWord(text[lineEnd:], alias)
+}
+
+// containsWord reports whether word appears in haystack delimited by ASCII word
+// boundaries, matching Go regexp's `\b<word>\b` for word-only tokens.
+func containsWord(haystack, word string) bool {
+  if word == "" {
+    return false
+  }
+  for i := 0; i+len(word) <= len(haystack); {
+    j := strings.Index(haystack[i:], word)
+    if j < 0 {
+      return false
+    }
+    start := i + j
+    end := start + len(word)
+    if (start == 0 || !isWordByte(haystack[start-1])) &&
+      (end == len(haystack) || !isWordByte(haystack[end])) {
+      return true
+    }
+    i = start + 1
+  }
+  return false
+}
+
+func isWordByte(b byte) bool {
+  return b == '_' ||
+    (b >= '0' && b <= '9') ||
+    (b >= 'a' && b <= 'z') ||
+    (b >= 'A' && b <= 'Z')
 }
 
 func injectRuntimeImports(text string) string {
@@ -141,9 +203,8 @@ func injectRuntimeImports(text string) string {
 }
 
 func collectRuntimeAliases(text string) []string {
-  re := regexp.MustCompile(`\b__typia_transform_([A-Za-z0-9_]+)\b`)
   seen := map[string]bool{}
-  for _, match := range re.FindAllStringSubmatch(text, -1) {
+  for _, match := range reRuntimeTransformAlias.FindAllStringSubmatch(text, -1) {
     seen[match[0]] = true
   }
   aliases := make([]string, 0, len(seen))
@@ -198,14 +259,21 @@ func runtimeNameOf(alias string) string {
 }
 
 func runtimeImportAlreadyExists(text string, alias string, module string) bool {
-  return regexp.MustCompile(`(?m)^import \* as `+regexp.QuoteMeta(alias)+` from ["']`+regexp.QuoteMeta(module)+`["'];$`).MatchString(text) ||
-    regexp.MustCompile(`(?m)^import \{[^}\n]*\bas\s+`+regexp.QuoteMeta(alias)+`\b[^}\n]*\} from ["']`+regexp.QuoteMeta(module)+`["'];$`).MatchString(text) ||
-    regexp.MustCompile(`(?m)^const `+regexp.QuoteMeta(alias)+` = require\(["']`+regexp.QuoteMeta(module)+`["']\);$`).MatchString(text) ||
-    regexp.MustCompile(`(?m)^const \{[^}\n]*:\s*`+regexp.QuoteMeta(alias)+`\b[^}\n]*\} = require\(["']`+regexp.QuoteMeta(module)+`["']\);$`).MatchString(text)
+  // Fast reject: every shape below mentions both the alias and the module, so
+  // skip the regex work entirely when either is absent.
+  if !strings.Contains(text, alias) || !strings.Contains(text, module) {
+    return false
+  }
+  a := regexp.QuoteMeta(alias)
+  m := regexp.QuoteMeta(module)
+  return cachedRegexp(`(?m)^import \* as `+a+` from ["']`+m+`["'];$`).MatchString(text) ||
+    cachedRegexp(`(?m)^import \{[^}\n]*\bas\s+`+a+`\b[^}\n]*\} from ["']`+m+`["'];$`).MatchString(text) ||
+    cachedRegexp(`(?m)^const `+a+` = require\(["']`+m+`["']\);$`).MatchString(text) ||
+    cachedRegexp(`(?m)^const \{[^}\n]*:\s*`+a+`\b[^}\n]*\} = require\(["']`+m+`["']\);$`).MatchString(text)
 }
 
 func isESModuleOutput(text string) bool {
-  return regexp.MustCompile(`(?m)^(import\s|import\{|import\*|export\s)`).MatchString(text)
+  return reESModuleOutput.MatchString(text)
 }
 
 func runtimeImportInsertionIndex(text string, esModule bool) int {
