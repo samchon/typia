@@ -38,21 +38,21 @@ jobs:
       - name: Checkout ttsc sibling
         run: git clone --depth 1 https://github.com/samchon/ttsc.git ../ttsc
 
-      # - name: Root
-      #   run: |
-      #     pnpm install
-      #     pnpm run package:tgz
-
+      # website is a pnpm workspace member, so a single root `pnpm install`
+      # wires its deps and the workspace symlinks to typia / @typia/*.
+      # `pnpm run build` compiles every package to `lib/` (read by the website's
+      # runtime pack, build/pack-typia-runtime.js), and `pnpm run package:tgz`
+      # stages the tarballs that `website/compiler-dependencies` still installs
+      # to feed embed-typescript's Monaco type pack.
       - name: Packages
         run: |
           pnpm install
+          pnpm run build
           pnpm run package:tgz
 
       - name: Build
         working-directory: website
-        run: |
-          npm install --force
-          npm run build
+        run: pnpm run build
 
       - name: Deploy
         if: github.event_name == 'push' && github.ref == 'refs/heads/master'
