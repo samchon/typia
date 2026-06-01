@@ -26,6 +26,7 @@ type protobufMessageProgrammer_Hierarchy struct {
   Key      string
   Object   *schemametadata.MetadataObjectType
   Children map[string]*protobufMessageProgrammer_Hierarchy
+  Order    []string
 }
 
 var protobufMessageProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
@@ -86,14 +87,12 @@ func protobufMessageProgrammer_emplace(hierarchies map[string]*protobufMessagePr
       *currentOrder = append(*currentOrder, access)
     }
     current = hierarchy.Children
+    // Track insertion order per level. Ranging the Children map directly (as the
+    // emit pass previously did) made nested message output non-deterministic.
+    currentOrder = &hierarchy.Order
     if i == len(accessors)-1 {
       hierarchy.Object = object
     }
-    childOrder := []string{}
-    for key := range current {
-      childOrder = append(childOrder, key)
-    }
-    currentOrder = &childOrder
   }
   return order
 }
@@ -111,11 +110,7 @@ func protobufMessageProgrammer_write_hierarchy(hierarchy *protobufMessageProgram
     }
   }
   if len(hierarchy.Children) != 0 {
-    keys := make([]string, 0, len(hierarchy.Children))
-    for key := range hierarchy.Children {
-      keys = append(keys, key)
-    }
-    for _, key := range keys {
+    for _, key := range hierarchy.Order {
       body := protobufMessageProgrammer_write_hierarchy(hierarchy.Children[key])
       lines := strings.Split(body, "\n")
       for i, line := range lines {

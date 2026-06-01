@@ -36,10 +36,20 @@ func metadata_array_util_add_bool(array *[]bool, value bool) {
   *array = append(*array, value)
 }
 
-func metadata_type_full_name(checker *nativechecker.Checker, typ *nativechecker.Type) string {
+func metadata_type_full_name(
+  checker *nativechecker.Checker,
+  typ *nativechecker.Type,
+  cache *schemametadata.MetadataCollection,
+) string {
   if checker == nil || typ == nil {
     return ""
   }
+  if cache != nil {
+    if cached, ok := cache.LookupTypeFullName(typ); ok {
+      return cached
+    }
+  }
+  var result string
   if typ.IsUnion() || typ.IsIntersection() {
     joiner := " | "
     if typ.IsIntersection() {
@@ -48,11 +58,16 @@ func metadata_type_full_name(checker *nativechecker.Checker, typ *nativechecker.
     children := typ.Types()
     names := make([]string, 0, len(children))
     for _, child := range children {
-      names = append(names, metadata_type_full_name(checker, child))
+      names = append(names, metadata_type_full_name(checker, child, cache))
     }
-    return strings.Join(names, joiner)
+    result = strings.Join(names, joiner)
+  } else {
+    result = checker.TypeToString(typ)
   }
-  return checker.TypeToString(typ)
+  if cache != nil {
+    cache.StoreTypeFullName(typ, result)
+  }
+  return result
 }
 
 func metadata_get_type_arguments(checker *nativechecker.Checker, typ *nativechecker.Type) (output []*nativechecker.Type) {
