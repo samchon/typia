@@ -27,9 +27,32 @@ type MetadataCollection struct {
   tuples_order_        []*nativechecker.Type
 
   names_                 map[string]map[*nativechecker.Type]string
+  type_full_names_       map[*nativechecker.Type]string
   object_index_          int
   recursive_array_index_ int
   recursive_tuple_index_ int
+}
+
+// LookupTypeFullName / StoreTypeFullName memoize the pure type -> full-name
+// reconstruction (checker.TypeToString, recursing unions) per collection. The
+// Set/Map iterators recompute it for every explored type just to test a name
+// prefix, so the same pointer is resolved repeatedly within one analysis.
+func (collection *MetadataCollection) LookupTypeFullName(typ *nativechecker.Type) (string, bool) {
+  if collection.type_full_names_ == nil {
+    return "", false
+  }
+  value, ok := collection.type_full_names_[typ]
+  return value, ok
+}
+
+func (collection *MetadataCollection) StoreTypeFullName(typ *nativechecker.Type, name string) {
+  if typ == nil {
+    return
+  }
+  if collection.type_full_names_ == nil {
+    collection.type_full_names_ = map[*nativechecker.Type]string{}
+  }
+  collection.type_full_names_[typ] = name
 }
 
 func NewMetadataCollection(options ...*MetadataCollection_IOptions) *MetadataCollection {

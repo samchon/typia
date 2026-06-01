@@ -12,7 +12,7 @@ func Iterate_metadata(props IMetadataIteratorProps) {
   if props.Type.IsTypeParameter() == true {
     if props.Errors != nil {
       *props.Errors = append(*props.Errors, MetadataFactory_IError{
-        Name:     metadata_type_full_name(props.Checker, props.Type),
+        Name:     metadata_type_full_name(props.Checker, props.Type, props.Components),
         Explore:  props.Explore,
         Messages: []string{"non-specified generic argument found."},
       })
