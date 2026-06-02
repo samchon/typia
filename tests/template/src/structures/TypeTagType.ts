@@ -8,6 +8,10 @@ export namespace TypeTagType {
   export interface Type {
     int: number & typia.tags.Type<"int32">;
     uint: number & typia.tags.Type<"uint32">;
+    int8: number & typia.tags.Type<"int8">;
+    uint8: number & typia.tags.Type<"uint8">;
+    int16: number & typia.tags.Type<"int16">;
+    uint16: number & typia.tags.Type<"uint16">;
     int32: number & typia.tags.Type<"int32">;
     uint32: number & typia.tags.Type<"uint32">;
     int64: number & typia.tags.Type<"int64">;
@@ -22,6 +26,10 @@ export namespace TypeTagType {
         value.push({
           int,
           uint,
+          int8: int,
+          uint8: uint,
+          int16: int,
+          uint16: uint,
           int32: int,
           uint32: uint,
           int64: int,
@@ -32,7 +40,7 @@ export namespace TypeTagType {
   }
 
   export const SPOILERS: Spoiler<TypeTagType>[] = [
-    ...(["int", "int32", "int64"] as const)
+    ...(["int", "int8", "int16", "int32", "int64"] as const)
       .map((key) => [
         (input: TypeTagType) => {
           input.value[0]![key] = 0.5;
@@ -48,7 +56,7 @@ export namespace TypeTagType {
       input.value[0]!.int = 0.1;
       return ["$input.value[0].int"];
     },
-    ...(["uint", "uint32", "uint64"] as const)
+    ...(["uint", "uint8", "uint16", "uint32", "uint64"] as const)
       .map((key) => [
         (input: TypeTagType) => {
           input.value[0]![key] = -1;
@@ -75,6 +83,30 @@ export namespace TypeTagType {
     (input) => {
       input.value[2]!.int = 2147483648;
       return ["$input.value[2].int"];
+    },
+    (input) => {
+      input.value[0]!.uint8 = 256;
+      return ["$input.value[0].uint8"];
+    },
+    (input) => {
+      input.value[1]!.int8 = -129;
+      return ["$input.value[1].int8"];
+    },
+    (input) => {
+      input.value[2]!.int8 = 128;
+      return ["$input.value[2].int8"];
+    },
+    (input) => {
+      input.value[0]!.uint16 = 65536;
+      return ["$input.value[0].uint16"];
+    },
+    (input) => {
+      input.value[1]!.int16 = -32769;
+      return ["$input.value[1].int16"];
+    },
+    (input) => {
+      input.value[2]!.int16 = 32768;
+      return ["$input.value[2].int16"];
     },
     (input) => {
       input.value[0]!.uint32 = 4294967296;
