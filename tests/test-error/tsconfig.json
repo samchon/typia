@@ -5,14 +5,5 @@
     "rootDir": "src",
     "noEmit": false,
   },
-  "ts-node": {
-    "transpileOnly": true,
-    "ignoreDiagnostics": [5110],
-    "compilerOptions": {
-      "module": "commonjs",
-      "moduleResolution": "nodenext",
-      "plugins": []
-    }
-  },
   "include": ["src"],
 }

@@ -4,7 +4,7 @@
   "version": "13.0.0-dev.20260601.1",
   "description": "Automated test features of typia.",
   "scripts": {
-    "dev": "tsc --watch",
+    "dev": "ttsc --watch",
     "start": "ttsx src/index.ts"
   },
   "repository": {
