@@ -9,7 +9,7 @@
     "format": "prettier --write \"**/*.ts\" && pnpm run format:go",
     "format:go": "node scripts/format-go.cjs",
     "test": "pnpm run test:packages && pnpm run test:toolchain",
-    "test:packages": "node scripts/with-ttsc-cache.cjs pnpm --filter @typia/template build && node scripts/with-ttsc-cache.cjs --ts-node-runtime pnpm --filter=./tests/test-* -r start",
+    "test:packages": "node scripts/with-ttsc-cache.cjs pnpm --filter=./tests/test-* -r start",
     "test:go": "node scripts/with-ttsc-cache.cjs go -C packages/typia/test test ./...",
     "test:toolchain": "pnpm run test:go",
     "package:latest": "bash -c 'pnpm --filter=./packages/* -r publish --tag latest --access public \"$@\"' --",
@@ -68,8 +68,6 @@
     "bumpp": "^10.4.1",
     "prettier": "^3.8.1",
     "prettier-plugin-jsdoc": "^1.8.0",
-    "ts-node": "catalog:typescript",
-    "ttsc": "catalog:typescript",
-    "typescript": "catalog:typescript"
+    "ttsc": "catalog:typescript"
   }
 }
