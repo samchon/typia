@@ -110,15 +110,21 @@ func emitCallWithOptions(program *driver.Program, site CallSite, plugin PluginOp
 }
 
 func identifierSubstitutionsForEmit(program *driver.Program, file any) map[string]string {
-  if program == nil ||
-    program.ParsedConfig == nil ||
-    program.ParsedConfig.ParsedConfig == nil ||
-    program.ParsedConfig.ParsedConfig.CompilerOptions == nil ||
-    program.ParsedConfig.ParsedConfig.CompilerOptions.GetEmitModuleKind().String() != "CommonJS" {
+  if program == nil || program.TSProgram == nil {
     return nil
   }
   sourceFile, ok := file.(*shimast.SourceFile)
   if ok == false {
+    return nil
+  }
+  // Aliasing must follow each file's *emitted* module format, not the
+  // project-wide `module` option's name. Under `module: nodenext` a CommonJS
+  // package emits every `.ts` file as CommonJS, yet GetEmitModuleKind().String()
+  // reports "NodeNext"; keying off that name skips aliasing and leaves a bare
+  // identifier (e.g. `ArrayAny`) where the require() form (`template_1.ArrayAny`)
+  // is needed, throwing ReferenceError at runtime. GetEmitModuleFormatOfFile
+  // resolves the per-file format (extension + package.json type + module kind).
+  if program.TSProgram.GetEmitModuleFormatOfFile(sourceFile).String() != "CommonJS" {
     return nil
   }
   return commonJSImportIdentifierSubstitutions(sourceFile)
