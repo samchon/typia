@@ -187,6 +187,11 @@ func metadata_node_description(symbol *nativeast.Symbol) *string {
 }
 
 func metadata_is_internal(symbol *nativeast.Symbol) bool {
+  for _, tag := range metadata_node_js_doc_tags(symbol) {
+    if tag.Name == "internal" {
+      return true
+    }
+  }
   return false
 }
 
