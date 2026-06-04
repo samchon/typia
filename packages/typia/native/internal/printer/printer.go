@@ -20,6 +20,14 @@ func EmitPreservingTypesWithIdentifierSubstitutions(node *shimast.Node, sourceFi
   return emit(node, sourceFile)
 }
 
+// NormalizeSyntheticTokens fills in the operator tokens (e.g. a conditional
+// expression's `?` and `:`) that typia's programmers leave nil when building
+// nodes. The legacy text path runs this before printing; the AST-integration
+// emit path must run it too, since tsgo's printer dereferences those tokens.
+func NormalizeSyntheticTokens(node *shimast.Node) {
+  normalizeSyntheticTokens(node)
+}
+
 func emit(node *shimast.Node, sourceFile *shimast.SourceFile) string {
   return shimprinter.NewPrinter(shimprinter.PrinterOptions{
     RemoveComments: true,
