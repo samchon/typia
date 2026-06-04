@@ -9,10 +9,14 @@ import (
   "path/filepath"
   "regexp"
 
+  shimast "github.com/microsoft/typescript-go/shim/ast"
   shimcompiler "github.com/microsoft/typescript-go/shim/compiler"
+  shimprinter "github.com/microsoft/typescript-go/shim/printer"
   shimscanner "github.com/microsoft/typescript-go/shim/scanner"
   "github.com/samchon/ttsc/packages/ttsc/driver"
   typiaadapter "github.com/samchon/typia/packages/typia/native/adapter"
+  nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
+  nativetransform "github.com/samchon/typia/packages/typia/native/transform"
 )
 
 func runBuild(args []string) int {
@@ -71,30 +75,35 @@ func runBuild(args []string) int {
     return 2
   }
 
-  rewrites := driver.NewRewriteSet()
-  transformDiags := []typiaTransformDiagnostic{}
-  sites, recognized := 0, 0
   shouldEmit := !prog.ParsedConfig.ParsedConfig.CompilerOptions.NoEmit.IsTrue()
-  if *rewriteMode == "typia" {
-    sites, recognized, transformDiags = collectTypiaRewrites(
-      prog,
-      cwd,
-      shouldEmit,
-      *quiet,
-      "",
-      rewrites,
-      readTypiaPluginOptions(cwd, *tsconfigPath),
-    )
+  transformDiags := []typiaTransformDiagnostic{}
+  pluginOptions := readTypiaPluginOptions(cwd, *tsconfigPath)
+  transformOptions := pluginOptions.TransformOptions()
+  extras := nativecontext.ITypiaContext_Extras{
+    AddDiagnostic: func(diag *shimast.Diagnostic) int {
+      transformDiags = append(transformDiags, typiaTransformDiagnostic{Message: "typia transform error"})
+      return len(transformDiags)
+    },
+  }
+  // AST-integration emit: typia's per-file transformer runs inside tsgo's emit
+  // pipeline (sharing the EmitContext), so it returns AST and tsgo's module-
+  // transform aliases the injected namespace imports. No text-splice RewriteSet.
+  typiaTransform := func(ec *shimprinter.EmitContext, sf *shimast.SourceFile) *shimast.SourceFile {
+    if *rewriteMode != "typia" {
+      return sf
+    }
+    return nativetransform.Transform(prog, &transformOptions, extras, ec)(sf)
   }
   if !*quiet {
-    fmt.Fprintf(stdout, "// ttsc-typia build: tsconfig=%s cwd=%s sites=%d emit=%v rewrite=%s\n", *tsconfigPath, cwd, sites, shouldEmit, *rewriteMode)
+    fmt.Fprintf(stdout, "// ttsc-typia build: tsconfig=%s cwd=%s emit=%v rewrite=%s\n", *tsconfigPath, cwd, shouldEmit, *rewriteMode)
   }
   if shouldEmit {
+    emitted := []string{}
     writeFile := shimcompiler.WriteFile(func(fileName, text string, data *shimcompiler.WriteFileData) error {
-      text = typiaadapter.CleanupTransformedText(text)
+      emitted = append(emitted, fileName)
       return driver.DefaultWriteFile(fileName, text)
     })
-    res, eDiags, err := prog.EmitAll(rewrites, writeFile)
+    eDiags, err := prog.EmitWithPluginTransformers([]driver.PluginTransform{typiaTransform}, writeFile)
     if err != nil {
       fmt.Fprintf(stderr, "ttsc-typia build: emit failed: %v\n", err)
       return 3
@@ -103,8 +112,8 @@ func runBuild(args []string) int {
       fmt.Fprintln(stderr, "  -", d.String())
     }
     if !*quiet {
-      fmt.Fprintf(stdout, "// ttsc-typia build: emitted=%d files\n", len(res.EmittedFiles))
-      for _, f := range res.EmittedFiles {
+      fmt.Fprintf(stdout, "// ttsc-typia build: emitted=%d files\n", len(emitted))
+      for _, f := range emitted {
         rel := f
         if abs, err := filepath.Rel(cwd, f); err == nil {
           rel = abs
@@ -113,7 +122,7 @@ func runBuild(args []string) int {
       }
     }
     if *manifestPath != "" {
-      data, err := json.Marshal(res.EmittedFiles)
+      data, err := json.Marshal(emitted)
       if err != nil {
         fmt.Fprintf(stderr, "ttsc-typia build: manifest marshal failed: %v\n", err)
         return 3
@@ -131,9 +140,6 @@ func runBuild(args []string) int {
   if len(transformDiags) > 0 {
     writeTypiaTransformDiagnostics(stderr, transformDiags, cwd)
     return 3
-  }
-  if !*quiet {
-    fmt.Fprintf(stdout, "// ttsc-typia build: recognized=%d total=%d rewrites=%d\n", recognized, sites, rewrites.Len())
   }
   return 0
 }
