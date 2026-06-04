@@ -1150,10 +1150,7 @@ func notationGeneralProgrammer_type_name(context nativecontext.ITypiaContext, ty
 }
 
 func notationGeneralProgrammer_method_text(modulo *shimast.Node) string {
-  if modulo == nil {
-    return ""
-  }
-  return modulo.Text()
+  return nativehelpers.ModuloMethodText(modulo)
 }
 
 func notationGeneralProgrammer_feature_explore(input any) nativeinternal.FeatureProgrammer_IExplore {

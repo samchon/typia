@@ -1327,10 +1327,7 @@ func jsonStringifyProgrammer_internal(context nativecontext.ITypiaContext, name 
 }
 
 func jsonStringifyProgrammer_method_text(modulo *shimast.Node) string {
-  if modulo == nil {
-    return ""
-  }
-  return modulo.Text()
+  return nativehelpers.ModuloMethodText(modulo)
 }
 
 func jsonStringifyProgrammer_feature_explore(input any) nativeinternal.FeatureProgrammer_IExplore {

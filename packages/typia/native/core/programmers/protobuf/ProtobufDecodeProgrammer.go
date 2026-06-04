@@ -838,8 +838,5 @@ func protobufDecodeProgrammer_internal(context nativecontext.ITypiaContext, name
 }
 
 func protobufDecodeProgrammer_method_text(modulo *shimast.Node) string {
-  if modulo == nil {
-    return ""
-  }
-  return modulo.Text()
+  return nativehelpers.ModuloMethodText(modulo)
 }

@@ -1200,8 +1200,5 @@ func protobufEncodeProgrammer_internal(context nativecontext.ITypiaContext, name
 }
 
 func protobufEncodeProgrammer_method_text(modulo *shimast.Node) string {
-  if modulo == nil {
-    return ""
-  }
-  return modulo.Text()
+  return nativehelpers.ModuloMethodText(modulo)
 }
