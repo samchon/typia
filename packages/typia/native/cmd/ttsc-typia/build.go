@@ -12,7 +12,6 @@ import (
   shimast "github.com/microsoft/typescript-go/shim/ast"
   shimcompiler "github.com/microsoft/typescript-go/shim/compiler"
   shimprinter "github.com/microsoft/typescript-go/shim/printer"
-  shimscanner "github.com/microsoft/typescript-go/shim/scanner"
   "github.com/samchon/ttsc/packages/ttsc/driver"
   typiaadapter "github.com/samchon/typia/packages/typia/native/adapter"
   nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
@@ -167,73 +166,6 @@ func writeTypiaTransformDiagnostics(out io.Writer, diagnostics []typiaTransformD
   for _, diag := range diagnostics {
     fmt.Fprintln(out, diag.String(cwd))
   }
-}
-
-func newTypiaTransformDiagnostic(site typiaadapter.CallSite, message string) typiaTransformDiagnostic {
-  line, column := 0, 0
-  if site.File != nil && site.Call != nil {
-    pos := site.Call.AsNode().Pos()
-    if pos >= 0 {
-      l, c := shimscanner.GetECMALineAndByteOffsetOfPosition(site.File, pos)
-      line, column = l+1, c+1
-    }
-  }
-  return typiaTransformDiagnostic{
-    File:    site.FilePath,
-    Line:    line,
-    Column:  column,
-    Code:    "typia." + site.Module + "." + site.Method,
-    Message: message,
-  }
-}
-
-func collectTypiaRewrites(
-  prog *driver.Program,
-  cwd string,
-  emit bool,
-  quiet bool,
-  onlyFile string,
-  rewrites *driver.RewriteSet,
-  pluginOptions typiaadapter.PluginOptions,
-) (int, int, []typiaTransformDiagnostic) {
-  sites := typiaadapter.CollectCallSites(prog.SourceFiles(), prog.Checker)
-  recognized := 0
-  diagnostics := []typiaTransformDiagnostic{}
-  for _, site := range sites {
-    if onlyFile != "" && filepath.ToSlash(site.FilePath) != filepath.ToSlash(onlyFile) {
-      continue
-    }
-    rel := site.FilePath
-    if abs, err := filepath.Rel(cwd, rel); err == nil {
-      rel = abs
-    }
-    if reason := typiaadapter.UnsupportedReason(site); reason != "" {
-      diagnostics = append(diagnostics, newTypiaTransformDiagnostic(site, reason))
-      continue
-    }
-    expr, handled, err := typiaadapter.EmitCallWithOptions(prog, site, pluginOptions)
-    if !handled {
-      diagnostics = append(diagnostics, newTypiaTransformDiagnostic(site, "method not covered"))
-      continue
-    }
-    if err != nil {
-      diagnostics = append(diagnostics, newTypiaTransformDiagnostic(site, err.Error()))
-      continue
-    }
-    rewrites.Add(driver.Rewrite{
-      File:          site.File,
-      RootName:      site.RootName,
-      Namespaces:    site.Namespaces,
-      Method:        site.Method,
-      Replacement:   expr,
-      ConsumeParens: true,
-    })
-    if !emit && !quiet {
-      fmt.Fprintf(stdout, "%s: typia.%s<T> -> %s\n", rel, site.Method, expr)
-    }
-    recognized++
-  }
-  return len(sites), recognized, diagnostics
 }
 
 func readTypiaPluginOptions(cwd, tsconfigPath string) typiaadapter.PluginOptions {
