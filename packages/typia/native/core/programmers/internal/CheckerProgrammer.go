@@ -285,7 +285,7 @@ func checkerProgrammer_configure(context nativecontext.ITypiaContext, config Che
     Initializer: func(next FeatureProgrammer_InitializerProps) FeatureProgrammer_InitializerOutput {
       collection := nativemetadata.NewMetadataCollection()
       result := nativefactories.MetadataFactory.Analyze(nativefactories.MetadataFactory_IProps{
-        Checker:     next.Context.Checker,
+        Checker: next.Context.Checker,
         Options: nativefactories.MetadataFactory_IOptions{
           Escape:   false,
           Constant: true,

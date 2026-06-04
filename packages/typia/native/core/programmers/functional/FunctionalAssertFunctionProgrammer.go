@@ -162,7 +162,7 @@ func functionalAssertProgrammer_returnType(declaration *shimast.Node) *shimast.N
 }
 
 func functionalAssertProgrammer_internal(context nativecontext.ITypiaContext, name string) *shimast.Node {
-  if importer, ok := context.Importer.(interface{ Internal(string) *shimast.Node }); ok {
+  if importer := context.Importer; importer != nil {
     return importer.Internal(name)
   }
   return functionalAssertProgrammer_factory.NewIdentifier(name)

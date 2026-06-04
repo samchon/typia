@@ -1270,9 +1270,9 @@ func jsonStringifyProgrammer_configure(props struct {
 
 func jsonStringifyProgrammer_initializer(props nativeinternal.FeatureProgrammer_InitializerProps) nativeinternal.FeatureProgrammer_InitializerOutput {
   result := nativefactories.JsonMetadataFactory.Analyze(nativefactories.JsonMetadataFactory_IProps{
-    Method:      props.Functor.Method,
-    Checker:     props.Context.Checker,
-    Type:        props.Type,
+    Method:  props.Functor.Method,
+    Checker: props.Context.Checker,
+    Type:    props.Type,
   })
   return nativeinternal.FeatureProgrammer_InitializerOutput{
     Collection: result.Collection,
@@ -1319,7 +1319,7 @@ func jsonStringifyProgrammer_binary(left *shimast.Node, operator shimast.Kind, r
 }
 
 func jsonStringifyProgrammer_internal(context nativecontext.ITypiaContext, name string) *shimast.Node {
-  if importer, ok := context.Importer.(interface{ Internal(string) *shimast.Node }); ok {
+  if importer := context.Importer; importer != nil {
     return importer.Internal(name)
   }
   return jsonStringifyProgrammer_factory.NewIdentifier(name)

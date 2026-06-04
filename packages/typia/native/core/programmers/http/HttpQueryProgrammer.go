@@ -5,7 +5,6 @@ import (
   shimchecker "github.com/microsoft/typescript-go/shim/checker"
   nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
   nativefactories "github.com/samchon/typia/packages/typia/native/core/factories"
-  nativeprogrammers "github.com/samchon/typia/packages/typia/native/core/programmers"
   nativehelpers "github.com/samchon/typia/packages/typia/native/core/programmers/helpers"
   nativeinternal "github.com/samchon/typia/packages/typia/native/core/programmers/internal"
   schemametadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
@@ -37,7 +36,7 @@ var httpQueryProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHook
 func (httpQueryProgrammerNamespace) Decompose(props HttpQueryProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
   collection := schemametadata.NewMetadataCollection()
   result := nativefactories.MetadataFactory.Analyze(nativefactories.MetadataFactory_IProps{
-    Checker:     props.Context.Checker,
+    Checker: props.Context.Checker,
     Options: nativefactories.MetadataFactory_IOptions{
       Escape:   false,
       Constant: true,
@@ -92,7 +91,7 @@ func (httpQueryProgrammerNamespace) Decompose(props HttpQueryProgrammer_Decompos
           "input",
           httpQueryProgrammer_factory.NewUnionTypeNode(httpQueryProgrammer_factory.NewNodeList([]*shimast.Node{
             httpQueryProgrammer_factory.NewTypeReferenceNode(httpQueryProgrammer_factory.NewIdentifier("string"), nil),
-            httpProgrammer_import_type(props.Context, nativeprogrammers.ImportProgrammer_TypeProps{
+            httpProgrammer_import_type(props.Context, nativecontext.ImportProgrammer_TypeProps{
               File: "typia",
               Name: "IReadableURLSearchParams",
             }),
@@ -100,7 +99,7 @@ func (httpQueryProgrammerNamespace) Decompose(props HttpQueryProgrammer_Decompos
           nil,
         ),
       }),
-      httpProgrammer_import_type(props.Context, nativeprogrammers.ImportProgrammer_TypeProps{
+      httpProgrammer_import_type(props.Context, nativecontext.ImportProgrammer_TypeProps{
         File: "typia",
         Name: "Resolved",
         Arguments: []*shimast.TypeNode{
@@ -228,7 +227,7 @@ func httpQueryProgrammer_decode_object(props struct {
           httpQueryProgrammer_factory.NewNodeList([]*shimast.Node{input}),
           shimast.NodeFlagsNone,
         ),
-        httpProgrammer_import_type(props.Context, nativeprogrammers.ImportProgrammer_TypeProps{
+        httpProgrammer_import_type(props.Context, nativecontext.ImportProgrammer_TypeProps{
           File: "typia",
           Name: "IReadableURLSearchParams",
         }),

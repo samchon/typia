@@ -102,7 +102,7 @@ func llmTransformer_config(props nativetransform.ITransformProps, method string)
 
 func llmTransformer_analyze(props llmTransformer_analyzeProps) *schemametadata.MetadataSchema {
   result := nativefactories.MetadataFactory.Analyze(nativefactories.MetadataFactory_IProps{
-    Checker:     props.Context.Checker,
+    Checker: props.Context.Checker,
     Options: nativefactories.MetadataFactory_IOptions{
       Absorb:     props.Absorb,
       Escape:     true,

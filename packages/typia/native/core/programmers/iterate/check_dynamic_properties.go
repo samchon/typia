@@ -244,7 +244,7 @@ func check_dynamic_properties_every_required(entries []nativehelpers.IExpression
 }
 
 func check_dynamic_properties_internal(context nativecontext.ITypiaContext, name string) *shimast.Node {
-  if importer, ok := context.Importer.(interface{ Internal(string) *shimast.Node }); ok {
+  if importer := context.Importer; importer != nil {
     return importer.Internal(name)
   }
   return check_dynamic_properties_factory.NewIdentifier(name)

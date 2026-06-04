@@ -23,7 +23,7 @@ var miscLiteralsProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryH
 
 func (miscLiteralsProgrammerNamespace) Write(props MiscLiteralsProgrammer_IProps) *shimast.Node {
   result := nativefactories.MetadataFactory.Analyze(nativefactories.MetadataFactory_IProps{
-    Checker:     props.Context.Checker,
+    Checker: props.Context.Checker,
     Options: nativefactories.MetadataFactory_IOptions{
       Escape:   true,
       Constant: true,

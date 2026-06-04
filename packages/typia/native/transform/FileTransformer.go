@@ -9,7 +9,6 @@ import (
   shimprinter "github.com/microsoft/typescript-go/shim/printer"
   "github.com/samchon/ttsc/packages/ttsc/driver"
   nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
-  nativeprogrammers "github.com/samchon/typia/packages/typia/native/core/programmers"
   nativeprinter "github.com/samchon/typia/packages/typia/native/internal/printer"
 )
 
@@ -21,7 +20,6 @@ type FileTransformer_IEnvironments struct {
   Program         any
   CompilerOptions any
   Checker         any
-  Printer         any
   Options         nativecontext.ITransformOptions
   Extras          nativecontext.ITypiaContext_Extras
   // EmitContext, when set, puts the importer into AST-integration mode so the
@@ -41,7 +39,7 @@ func (fileTransformerNamespace) Transform(environments FileTransformer_IEnvironm
       if file == nil || file.IsDeclarationFile {
         return file
       }
-      importer := nativeprogrammers.NewImportProgrammer(nativeprogrammers.ImportProgrammer_IOptions{
+      importer := nativecontext.NewImportProgrammer(nativecontext.ImportProgrammer_IOptions{
         InternalPrefix: "typia_transform_",
         Runtime:        environments.Options.Runtime,
       })

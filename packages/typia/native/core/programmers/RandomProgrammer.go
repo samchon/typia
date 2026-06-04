@@ -83,7 +83,7 @@ var randomProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{}
 func (randomProgrammerNamespace) Decompose(props RandomProgrammer_IDecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
   collection := schemametadata.NewMetadataCollection()
   result := nativefactories.MetadataFactory.Analyze(nativefactories.MetadataFactory_IProps{
-    Checker:     props.Context.Checker,
+    Checker: props.Context.Checker,
     Options: nativefactories.MetadataFactory_IOptions{
       Escape:   false,
       Constant: true,
@@ -129,7 +129,7 @@ func (randomProgrammerNamespace) Decompose(props RandomProgrammer_IDecomposeProp
   randomGeneratorType := randomProgrammer_factory.NewTypeReferenceNode(
     randomProgrammer_factory.NewIdentifier("Partial"),
     randomProgrammer_factory.NewNodeList([]*shimast.Node{
-      randomProgrammer_import_type(props.Context, ImportProgrammer_TypeProps{
+      randomProgrammer_import_type(props.Context, nativecontext.ImportProgrammer_TypeProps{
         File: "typia",
         Name: "IRandomGenerator",
       }),
@@ -139,7 +139,7 @@ func (randomProgrammerNamespace) Decompose(props RandomProgrammer_IDecomposeProp
   if init == nil {
     init = randomProgrammer_factory.NewToken(shimast.KindQuestionToken)
   }
-  resolvedType := randomProgrammer_import_type(props.Context, ImportProgrammer_TypeProps{
+  resolvedType := randomProgrammer_import_type(props.Context, nativecontext.ImportProgrammer_TypeProps{
     File: "typia",
     Name: "Resolved",
     Arguments: []*shimast.TypeNode{
@@ -1132,16 +1132,14 @@ func randomProgrammer_schema_without_items(schema nativeiterate.JsonSchema) *shi
 }
 
 func randomProgrammer_internal(context nativecontext.ITypiaContext, name string) *shimast.Node {
-  if importer, ok := context.Importer.(interface{ Internal(string) *shimast.Node }); ok {
+  if importer := context.Importer; importer != nil {
     return importer.Internal(name)
   }
   return randomProgrammer_factory.NewIdentifier(name)
 }
 
-func randomProgrammer_import_type(context nativecontext.ITypiaContext, props ImportProgrammer_TypeProps) *shimast.Node {
-  if importer, ok := context.Importer.(interface {
-    Type(ImportProgrammer_TypeProps) *shimast.Node
-  }); ok {
+func randomProgrammer_import_type(context nativecontext.ITypiaContext, props nativecontext.ImportProgrammer_TypeProps) *shimast.Node {
+  if importer := context.Importer; importer != nil {
     return importer.Type(props)
   }
   if str, ok := props.Name.(string); ok {

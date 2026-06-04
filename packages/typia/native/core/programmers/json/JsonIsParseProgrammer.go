@@ -48,7 +48,7 @@ func (jsonIsParseProgrammerNamespace) Decompose(props JsonIsParseProgrammer_Deco
         nativefactories.IdentifierFactory.Parameter("input", nativefactories.TypeFactory.Keyword("string"), nil),
       }),
       jsonParseProgrammer_factory.NewUnionTypeNode(jsonParseProgrammer_factory.NewNodeList([]*shimast.Node{
-        jsonProgrammer_import_type(props.Context, nativeprogrammers.ImportProgrammer_TypeProps{
+        jsonProgrammer_import_type(props.Context, nativecontext.ImportProgrammer_TypeProps{
           File: "typia",
           Name: "Primitive",
           Arguments: []*shimast.TypeNode{
@@ -139,10 +139,8 @@ func jsonParseProgrammer_bool(value bool) *bool {
   return &value
 }
 
-func jsonProgrammer_import_type(context nativecontext.ITypiaContext, props nativeprogrammers.ImportProgrammer_TypeProps) *shimast.Node {
-  if importer, ok := context.Importer.(interface {
-    Type(nativeprogrammers.ImportProgrammer_TypeProps) *shimast.Node
-  }); ok {
+func jsonProgrammer_import_type(context nativecontext.ITypiaContext, props nativecontext.ImportProgrammer_TypeProps) *shimast.Node {
+  if importer := context.Importer; importer != nil {
     return importer.Type(props)
   }
   if str, ok := props.Name.(string); ok {

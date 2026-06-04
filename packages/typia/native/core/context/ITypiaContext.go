@@ -19,7 +19,7 @@ type ITypiaContext struct {
   // namespace가 exports.X = X = {} 로 정상 lowering). 모든 노드 생성은
   // Emit.Factory를 거쳐야 한다.
   Emit     *shimprinter.EmitContext
-  Importer any
+  Importer *ImportProgrammer
   Extras   ITypiaContext_Extras
 }
 

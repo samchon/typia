@@ -11,6 +11,7 @@ import (
   shimast "github.com/microsoft/typescript-go/shim/ast"
   shimcore "github.com/microsoft/typescript-go/shim/core"
   shimparser "github.com/microsoft/typescript-go/shim/parser"
+  nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
 )
 
 type expressionFactoryNamespace struct{}
@@ -29,8 +30,8 @@ type ExpressionFactory_CurryingProps struct {
 }
 
 type ExpressionFactory_TranspileProps struct {
-  Importer    ExpressionFactory_Importer
-  Script      string
+  Importer ExpressionFactory_Importer
+  Script   string
 }
 
 type ExpressionFactory_Importer interface {
@@ -40,25 +41,14 @@ type ExpressionFactory_Importer interface {
   Default(props ExpressionFactory_IDefault) *shimast.Node
 }
 
-type ExpressionFactory_IDefault struct {
-  File string
-  Name string
-  Type bool
-}
-
-type ExpressionFactory_IInstance struct {
-  File  string
-  Name  string
-  Alias *string
-}
-
-type ExpressionFactory_INamespace struct {
-  File string
-  Name string
-}
+// 이 import 인자 타입들의 단일 정의처는 ImportProgrammer가 사는 core/context다.
+// 여기서는 alias만 둔다.
+type ExpressionFactory_IDefault = nativecontext.ImportProgrammer_IDefault
+type ExpressionFactory_IInstance = nativecontext.ImportProgrammer_IInstance
+type ExpressionFactory_INamespace = nativecontext.ImportProgrammer_INamespace
 
 type ExpressionFactory_GetEscapedTextProps struct {
-  Input   *shimast.Expression
+  Input *shimast.Expression
 }
 
 var expressionFactory_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})

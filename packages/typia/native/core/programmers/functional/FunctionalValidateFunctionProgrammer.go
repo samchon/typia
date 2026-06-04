@@ -4,7 +4,6 @@ import (
   shimast "github.com/microsoft/typescript-go/shim/ast"
   nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
   nativefactories "github.com/samchon/typia/packages/typia/native/core/factories"
-  nativeprogrammers "github.com/samchon/typia/packages/typia/native/core/programmers"
 )
 
 type functionalValidateFunctionProgrammerNamespace struct{}
@@ -140,7 +139,7 @@ func (functionalValidateFunctionProgrammerNamespace) GetReturnTypeNode(props str
     return functionalValidateProgrammer_factory.NewTypeReferenceNode(
       functionalValidateProgrammer_factory.NewIdentifier("Promise"),
       functionalValidateProgrammer_factory.NewNodeList([]*shimast.Node{
-        functionalValidateProgrammer_import_type(props.Context, nativeprogrammers.ImportProgrammer_TypeProps{
+        functionalValidateProgrammer_import_type(props.Context, nativecontext.ImportProgrammer_TypeProps{
           File:      "typia",
           Name:      "IValidation",
           Arguments: []*shimast.TypeNode{inner},
@@ -148,17 +147,15 @@ func (functionalValidateFunctionProgrammerNamespace) GetReturnTypeNode(props str
       }),
     )
   }
-  return functionalValidateProgrammer_import_type(props.Context, nativeprogrammers.ImportProgrammer_TypeProps{
+  return functionalValidateProgrammer_import_type(props.Context, nativecontext.ImportProgrammer_TypeProps{
     File:      "typia",
     Name:      "IValidation",
     Arguments: []*shimast.TypeNode{typ},
   })
 }
 
-func functionalValidateProgrammer_import_type(context nativecontext.ITypiaContext, props nativeprogrammers.ImportProgrammer_TypeProps) *shimast.Node {
-  if importer, ok := context.Importer.(interface {
-    Type(nativeprogrammers.ImportProgrammer_TypeProps) *shimast.Node
-  }); ok {
+func functionalValidateProgrammer_import_type(context nativecontext.ITypiaContext, props nativecontext.ImportProgrammer_TypeProps) *shimast.Node {
+  if importer := context.Importer; importer != nil {
     return importer.Type(props)
   }
   if str, ok := props.Name.(string); ok {

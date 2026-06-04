@@ -47,11 +47,11 @@ func (jsonValidateParseProgrammerNamespace) Decompose(props JsonValidateParsePro
       jsonParseProgrammer_factory.NewNodeList([]*shimast.Node{
         nativefactories.IdentifierFactory.Parameter("input", nativefactories.TypeFactory.Keyword("string"), nil),
       }),
-      jsonProgrammer_import_type(props.Context, nativeprogrammers.ImportProgrammer_TypeProps{
+      jsonProgrammer_import_type(props.Context, nativecontext.ImportProgrammer_TypeProps{
         File: "typia",
         Name: "IValidation",
         Arguments: []*shimast.TypeNode{
-          jsonProgrammer_import_type(props.Context, nativeprogrammers.ImportProgrammer_TypeProps{
+          jsonProgrammer_import_type(props.Context, nativecontext.ImportProgrammer_TypeProps{
             File: "typia",
             Name: "Primitive",
             Arguments: []*shimast.TypeNode{

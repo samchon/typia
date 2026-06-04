@@ -24,9 +24,9 @@ type JsonAssertParseProgrammer_DecomposeProps struct {
 
 func (jsonAssertParseProgrammerNamespace) Decompose(props JsonAssertParseProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
   nativefactories.JsonMetadataFactory.Analyze(nativefactories.JsonMetadataFactory_IProps{
-    Method:      props.Functor.Method,
-    Checker:     props.Context.Checker,
-    Type:        props.Type,
+    Method:  props.Functor.Method,
+    Checker: props.Context.Checker,
+    Type:    props.Type,
   })
   assert := nativeprogrammers.AssertProgrammer.Decompose(nativeprogrammers.AssertProgrammer_DecomposeProps{
     Context: jsonParseProgrammer_context(props.Context, &jsonParseProgrammer_options{
@@ -62,7 +62,7 @@ func (jsonAssertParseProgrammerNamespace) Decompose(props JsonAssertParseProgram
           Init:    props.Init,
         }),
       }),
-      jsonProgrammer_import_type(props.Context, nativeprogrammers.ImportProgrammer_TypeProps{
+      jsonProgrammer_import_type(props.Context, nativecontext.ImportProgrammer_TypeProps{
         File: "typia",
         Name: "Primitive",
         Arguments: []*shimast.TypeNode{

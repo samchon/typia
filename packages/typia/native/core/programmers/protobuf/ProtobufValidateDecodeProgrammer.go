@@ -67,7 +67,7 @@ func (protobufValidateDecodeProgrammerNamespace) Decompose(props ProtobufValidat
       nil,
       nil,
       protobufValidateDecodeProgrammer_factory.NewNodeList(protobufAssertDecodeProgrammer_parameters(decode.Arrow)),
-      protobufValidateEncodeProgrammer_import_type(props.Context, nativeprogrammers.ImportProgrammer_TypeProps{
+      protobufValidateEncodeProgrammer_import_type(props.Context, nativecontext.ImportProgrammer_TypeProps{
         File:      "typia",
         Name:      "IValidation",
         Arguments: []*shimast.TypeNode{decodeType},

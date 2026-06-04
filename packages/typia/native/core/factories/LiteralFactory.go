@@ -5,9 +5,9 @@ import (
   "reflect"
   "sort"
   "strings"
-)
 
-import shimast "github.com/microsoft/typescript-go/shim/ast"
+  shimast "github.com/microsoft/typescript-go/shim/ast"
+)
 
 type literalFactoryNamespace struct{}
 

@@ -58,7 +58,7 @@ func (jsonSchemaTransformerNamespace) Transform(props nativetransform.ITransform
       validator = jsonTransformer_schemasValidator
     }
     result := nativefactories.MetadataFactory.Analyze(nativefactories.MetadataFactory_IProps{
-      Checker:     props.Context.Checker,
+      Checker: props.Context.Checker,
       Options: nativefactories.MetadataFactory_IOptions{
         Absorb:   validate,
         Constant: true,

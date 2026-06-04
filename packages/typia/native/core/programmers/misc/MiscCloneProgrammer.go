@@ -871,7 +871,7 @@ func miscCloneProgrammer_configure(props struct {
       return miscCloneProgrammer_factory.NewTypeReferenceNode(miscCloneProgrammer_factory.NewIdentifier(miscCloneProgrammer_type_name(props.Context, t, name)), nil)
     },
     Output: func(t *shimchecker.Type, name *string) *shimast.TypeNode {
-      return miscCloneProgrammer_import_type(props.Context, nativeprogrammers.ImportProgrammer_TypeProps{
+      return miscCloneProgrammer_import_type(props.Context, nativecontext.ImportProgrammer_TypeProps{
         File: "typia",
         Name: "Resolved",
         Arguments: []*shimast.TypeNode{
@@ -1000,7 +1000,7 @@ func miscCloneProgrammer_configure(props struct {
 func miscCloneProgrammer_initializer(props nativeinternal.FeatureProgrammer_InitializerProps) nativeinternal.FeatureProgrammer_InitializerOutput {
   collection := schemametadata.NewMetadataCollection()
   result := nativefactories.MetadataFactory.Analyze(nativefactories.MetadataFactory_IProps{
-    Checker:     props.Context.Checker,
+    Checker: props.Context.Checker,
     Options: nativefactories.MetadataFactory_IOptions{
       Escape:   false,
       Constant: true,
@@ -1080,16 +1080,14 @@ func miscCloneProgrammer_is_instance(metadata *schemametadata.MetadataSchema) bo
 }
 
 func miscCloneProgrammer_internal(context nativecontext.ITypiaContext, name string) *shimast.Node {
-  if importer, ok := context.Importer.(interface{ Internal(string) *shimast.Node }); ok {
+  if importer := context.Importer; importer != nil {
     return importer.Internal(name)
   }
   return miscCloneProgrammer_factory.NewIdentifier(name)
 }
 
-func miscCloneProgrammer_import_type(context nativecontext.ITypiaContext, props nativeprogrammers.ImportProgrammer_TypeProps) *shimast.Node {
-  if importer, ok := context.Importer.(interface {
-    Type(nativeprogrammers.ImportProgrammer_TypeProps) *shimast.Node
-  }); ok {
+func miscCloneProgrammer_import_type(context nativecontext.ITypiaContext, props nativecontext.ImportProgrammer_TypeProps) *shimast.Node {
+  if importer := context.Importer; importer != nil {
     return importer.Type(props)
   }
   if str, ok := props.Name.(string); ok {

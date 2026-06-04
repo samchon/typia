@@ -60,10 +60,10 @@ type MetadataFactory_IExplore = nativemetadata.MetadataFactory_IExplore
 type MetadataFactory_IError = nativemetadata.MetadataFactory_IError
 
 type MetadataFactory_IProps struct {
-  Checker     *nativechecker.Checker
-  Options     MetadataFactory_IOptions
-  Components  *schemametadata.MetadataCollection
-  Type        *nativechecker.Type
+  Checker    *nativechecker.Checker
+  Options    MetadataFactory_IOptions
+  Components *schemametadata.MetadataCollection
+  Type       *nativechecker.Type
 }
 
 type MetadataFactory_ValidationPipe struct {
@@ -109,13 +109,13 @@ func (metadataFactoryNamespace) Analyze(props MetadataFactory_IProps) MetadataFa
 
   if props.Options.Validate != nil {
     errors = append(errors, MetadataFactory.Validate(struct {
-      Options     MetadataFactory_IOptions
-      Functor     MetadataFactory_Validator
-      Metadata    *schemametadata.MetadataSchema
+      Options  MetadataFactory_IOptions
+      Functor  MetadataFactory_Validator
+      Metadata *schemametadata.MetadataSchema
     }{
-      Options:     props.Options,
-      Functor:     props.Options.Validate,
-      Metadata:    metadata,
+      Options:  props.Options,
+      Functor:  props.Options.Validate,
+      Metadata: metadata,
     })...)
   }
   if len(errors) != 0 {
@@ -145,9 +145,9 @@ func (metadataFactoryNamespace) SoleLiteral(value string) *schemametadata.Metada
 }
 
 func (metadataFactoryNamespace) Validate(props struct {
-  Options     MetadataFactory_IOptions
-  Functor     MetadataFactory_Validator
-  Metadata    *schemametadata.MetadataSchema
+  Options  MetadataFactory_IOptions
+  Functor  MetadataFactory_Validator
+  Metadata *schemametadata.MetadataSchema
 }) []MetadataFactory_IError {
   visitor := &metadataFactory_IValidationVisitor{
     Functor:   props.Functor,
