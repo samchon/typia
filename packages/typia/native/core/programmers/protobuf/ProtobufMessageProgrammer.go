@@ -36,7 +36,6 @@ func (protobufMessageProgrammerNamespace) Write(props ProtobufMessageProgrammer_
   nativefactories.ProtobufFactory.Metadata(nativefactories.ProtobufFactory_IProps{
     Method:      "message",
     Checker:     props.Context.Checker,
-    Transformer: props.Context.Transformer,
     Components:  collection,
     Type:        props.Type,
   })

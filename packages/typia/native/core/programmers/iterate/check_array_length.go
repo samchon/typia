@@ -58,7 +58,6 @@ func check_array_length_transpile(context nativecontext.ITypiaContext, script st
     importer = v
   }
   return nativefactories.ExpressionFactory.Transpile(nativefactories.ExpressionFactory_TranspileProps{
-    Transformer: context.Transformer,
     Importer:    importer,
     Script:      script,
   })

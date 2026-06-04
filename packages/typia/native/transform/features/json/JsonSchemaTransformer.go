@@ -59,7 +59,6 @@ func (jsonSchemaTransformerNamespace) Transform(props nativetransform.ITransform
     }
     result := nativefactories.MetadataFactory.Analyze(nativefactories.MetadataFactory_IProps{
       Checker:     props.Context.Checker,
-      Transformer: props.Context.Transformer,
       Options: nativefactories.MetadataFactory_IOptions{
         Absorb:   validate,
         Constant: true,

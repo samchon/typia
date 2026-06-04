@@ -24,7 +24,6 @@ func (llmMetadataFactoryNamespace) GetConfig(props struct {
   collection := nativemetadata.NewMetadataCollection()
   result := nativefactories.MetadataFactory.Analyze(nativefactories.MetadataFactory_IProps{
     Checker:     props.Context.Checker,
-    Transformer: props.Context.Transformer,
     Options: nativefactories.MetadataFactory_IOptions{
       Absorb:     true,
       Escape:     false,

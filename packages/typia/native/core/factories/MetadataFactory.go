@@ -61,7 +61,6 @@ type MetadataFactory_IError = nativemetadata.MetadataFactory_IError
 
 type MetadataFactory_IProps struct {
   Checker     *nativechecker.Checker
-  Transformer any
   Options     MetadataFactory_IOptions
   Components  *schemametadata.MetadataCollection
   Type        *nativechecker.Type
@@ -110,12 +109,10 @@ func (metadataFactoryNamespace) Analyze(props MetadataFactory_IProps) MetadataFa
 
   if props.Options.Validate != nil {
     errors = append(errors, MetadataFactory.Validate(struct {
-      Transformer any
       Options     MetadataFactory_IOptions
       Functor     MetadataFactory_Validator
       Metadata    *schemametadata.MetadataSchema
     }{
-      Transformer: props.Transformer,
       Options:     props.Options,
       Functor:     props.Options.Validate,
       Metadata:    metadata,
@@ -148,7 +145,6 @@ func (metadataFactoryNamespace) SoleLiteral(value string) *schemametadata.Metada
 }
 
 func (metadataFactoryNamespace) Validate(props struct {
-  Transformer any
   Options     MetadataFactory_IOptions
   Functor     MetadataFactory_Validator
   Metadata    *schemametadata.MetadataSchema

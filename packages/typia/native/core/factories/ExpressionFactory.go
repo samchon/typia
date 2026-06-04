@@ -29,7 +29,6 @@ type ExpressionFactory_CurryingProps struct {
 }
 
 type ExpressionFactory_TranspileProps struct {
-  Transformer any
   Importer    ExpressionFactory_Importer
   Script      string
 }
@@ -59,7 +58,6 @@ type ExpressionFactory_INamespace struct {
 }
 
 type ExpressionFactory_GetEscapedTextProps struct {
-  Printer any
   Input   *shimast.Expression
 }
 

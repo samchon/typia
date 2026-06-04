@@ -64,7 +64,6 @@ func check_bigint_transpile(context nativecontext.ITypiaContext, script string) 
     importer = v
   }
   return nativefactories.ExpressionFactory.Transpile(nativefactories.ExpressionFactory_TranspileProps{
-    Transformer: context.Transformer,
     Importer:    importer,
     Script:      script,
   })

@@ -83,7 +83,6 @@ func (protobufDecodeProgrammerNamespace) Decompose(props ProtobufDecodeProgramme
   meta := nativefactories.ProtobufFactory.Metadata(nativefactories.ProtobufFactory_IProps{
     Method:      protobufDecodeProgrammer_method_text(props.Modulo),
     Checker:     props.Context.Checker,
-    Transformer: props.Context.Transformer,
     Components:  collection,
     Type:        props.Type,
   })

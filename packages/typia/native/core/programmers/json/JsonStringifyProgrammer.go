@@ -1272,7 +1272,6 @@ func jsonStringifyProgrammer_initializer(props nativeinternal.FeatureProgrammer_
   result := nativefactories.JsonMetadataFactory.Analyze(nativefactories.JsonMetadataFactory_IProps{
     Method:      props.Functor.Method,
     Checker:     props.Context.Checker,
-    Transformer: props.Context.Transformer,
     Type:        props.Type,
   })
   return nativeinternal.FeatureProgrammer_InitializerOutput{

@@ -26,7 +26,6 @@ func (jsonAssertParseProgrammerNamespace) Decompose(props JsonAssertParseProgram
   nativefactories.JsonMetadataFactory.Analyze(nativefactories.JsonMetadataFactory_IProps{
     Method:      props.Functor.Method,
     Checker:     props.Context.Checker,
-    Transformer: props.Context.Transformer,
     Type:        props.Type,
   })
   assert := nativeprogrammers.AssertProgrammer.Decompose(nativeprogrammers.AssertProgrammer_DecomposeProps{

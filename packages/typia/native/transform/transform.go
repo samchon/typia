@@ -27,7 +27,6 @@ func Transform(program *driver.Program, options *nativecontext.ITransformOptions
     Program:         program,
     CompilerOptions: compilerOptions,
     Checker:         transform_checker(program),
-    Printer:         nil,
     Options:         opt,
     Extras:          extras,
     EmitContext:     ec,
