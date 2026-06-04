@@ -138,8 +138,5 @@ func protobufAssertEncodeProgrammer_merge(groups ...map[string]*shimast.Node) ma
 }
 
 func protobufAssertEncodeProgrammer_method_text(modulo *shimast.Node) string {
-  if modulo == nil {
-    return ""
-  }
-  return modulo.Text()
+  return nativehelpers.ModuloMethodText(modulo)
 }

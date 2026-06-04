@@ -1162,10 +1162,7 @@ func randomProgrammer_type_reference(context nativecontext.ITypiaContext, typ *s
 }
 
 func randomProgrammer_method_text(modulo *shimast.Node) string {
-  if modulo == nil {
-    return ""
-  }
-  return modulo.Text()
+  return nativehelpers.ModuloMethodText(modulo)
 }
 
 func randomProgrammer_errors(errors []nativefactories.MetadataFactory_IError) []nativecontext.TransformerError_MetadataFactory_IError {

@@ -34,10 +34,7 @@ func (httpParameterProgrammerNamespace) Write(props nativecontext.IProgrammerPro
     Type:       props.Type,
   })
   if result.Success == false {
-    code := ""
-    if props.Modulo != nil {
-      code = props.Modulo.Text()
-    }
+    code := nativehelpers.ModuloMethodText(props.Modulo)
     panic(nativecontext.TransformerError_from(struct {
       Code   string
       Errors []nativecontext.TransformerError_MetadataFactory_IError

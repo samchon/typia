@@ -98,10 +98,7 @@ func (jsonAssertParseProgrammerNamespace) Decompose(props JsonAssertParseProgram
 }
 
 func (jsonAssertParseProgrammerNamespace) Write(props nativecontext.IProgrammerProps) *shimast.Node {
-  method := ""
-  if props.Modulo != nil {
-    method = props.Modulo.Text()
-  }
+  method := nativehelpers.ModuloMethodText(props.Modulo)
   functor := nativehelpers.NewFunctionProgrammer(method)
   result := JsonAssertParseProgrammer.Decompose(JsonAssertParseProgrammer_DecomposeProps{
     Context: props.Context,

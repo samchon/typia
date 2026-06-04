@@ -1110,10 +1110,7 @@ func miscCloneProgrammer_type_name(context nativecontext.ITypiaContext, typ *shi
 }
 
 func miscCloneProgrammer_method_text(modulo *shimast.Node) string {
-  if modulo == nil {
-    return ""
-  }
-  return modulo.Text()
+  return nativehelpers.ModuloMethodText(modulo)
 }
 
 func miscCloneProgrammer_errors(errors []nativefactories.MetadataFactory_IError) []nativecontext.TransformerError_MetadataFactory_IError {

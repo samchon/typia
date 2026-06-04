@@ -806,10 +806,7 @@ func llmProgrammer_type_reference(name string) *shimast.Node {
 }
 
 func llmProgrammer_method_text(modulo *shimast.Node) string {
-  if modulo == nil {
-    return ""
-  }
-  return modulo.Text()
+  return nativehelpers.ModuloMethodText(modulo)
 }
 
 func llmProgrammer_concat_description(summary *string, description *string) *string {
