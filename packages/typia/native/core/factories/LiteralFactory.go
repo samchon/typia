@@ -13,6 +13,17 @@ type literalFactoryNamespace struct{}
 
 var LiteralFactory = literalFactoryNamespace{}
 
+// LiteralFactory_OrderedObject is an object literal whose property order is
+// fixed by Keys rather than inferred from a Go map's (unordered) iteration or
+// from propertyRank sorting. Use it for objects whose insertion order is
+// semantically meaningful, such as `components.schemas` (schema-name keyed),
+// which the legacy TS implementation emitted in discovery order. Keys not
+// present in Values, and values that are nil-like, are skipped.
+type LiteralFactory_OrderedObject struct {
+  Keys   []string
+  Values map[string]any
+}
+
 var literalFactory_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
 func (literalFactoryNamespace) Write(input any) *shimast.Node {
@@ -23,6 +34,15 @@ func (literalFactoryNamespace) Write(input any) *shimast.Node {
     if node.Kind == shimast.KindArrowFunction || node.Kind == shimast.KindCallExpression || node.Kind == shimast.KindIdentifier {
       return node
     }
+  }
+  if ordered, ok := input.(LiteralFactory_OrderedObject); ok {
+    return literalFactory_writeOrderedObject(ordered)
+  }
+  if ordered, ok := input.(*LiteralFactory_OrderedObject); ok {
+    if ordered == nil {
+      return literalFactory_factory.NewKeywordExpression(shimast.KindNullKeyword)
+    }
+    return literalFactory_writeOrderedObject(*ordered)
   }
   if array, ok := input.([]any); ok {
     return literalFactory_writeArray(array)
@@ -120,6 +140,27 @@ func literalFactory_writeObject(obj map[string]any) *shimast.Node {
       nil,
       nil,
       LiteralFactory.Write(obj[key]),
+    ))
+  }
+  return literalFactory_factory.NewObjectLiteralExpression(
+    literalFactory_factory.NewNodeList(properties),
+    true,
+  )
+}
+
+func literalFactory_writeOrderedObject(obj LiteralFactory_OrderedObject) *shimast.Node {
+  properties := make([]*shimast.Node, 0, len(obj.Keys))
+  for _, key := range obj.Keys {
+    value, ok := obj.Values[key]
+    if ok == false || literalFactory_isNilLike(value) {
+      continue
+    }
+    properties = append(properties, literalFactory_factory.NewPropertyAssignment(
+      nil,
+      IdentifierFactory.Identifier(key),
+      nil,
+      nil,
+      LiteralFactory.Write(value),
     ))
   }
   return literalFactory_factory.NewObjectLiteralExpression(
