@@ -102,7 +102,15 @@ type FileTransformer_TryTransformNodeProps struct {
 func fileTransformer_try_transform_node(props FileTransformer_TryTransformNodeProps) (output *shimast.Node) {
   defer func() {
     if exp := recover(); exp != nil {
-      if _, ok := exp.(*TransformerError); ok {
+      // typia raises a TransformerError to report a user-facing transform error
+      // (e.g. `typia.llm.schema<Record<...>>` whose argument is not a literal
+      // object). core/programmers panic nativecontext.TransformerError while
+      // transform/features panic the transform-layer alias; both must turn into
+      // a diagnostic, not a repanic that kills the whole emit (the legacy text
+      // adapter swallowed every panic, so the node path must at least handle
+      // both error types).
+      switch exp.(type) {
+      case *TransformerError, *nativecontext.TransformerError:
         fileTransformer_addDiagnostic(props)
         output = nil
         return
