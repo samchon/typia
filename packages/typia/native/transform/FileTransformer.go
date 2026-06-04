@@ -6,6 +6,7 @@ import (
   shimast "github.com/microsoft/typescript-go/shim/ast"
   shimchecker "github.com/microsoft/typescript-go/shim/checker"
   shimcore "github.com/microsoft/typescript-go/shim/core"
+  shimprinter "github.com/microsoft/typescript-go/shim/printer"
   "github.com/samchon/ttsc/packages/ttsc/driver"
   nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
   nativeprogrammers "github.com/samchon/typia/packages/typia/native/core/programmers"
@@ -22,6 +23,10 @@ type FileTransformer_IEnvironments struct {
   Printer         any
   Options         nativecontext.ITransformOptions
   Extras          nativecontext.ITypiaContext_Extras
+  // EmitContext, when set, puts the importer into AST-integration mode so the
+  // emitted file carries namespace imports that tsgo's module-transform aliases,
+  // instead of bare identifiers meant for the legacy text-splice path.
+  EmitContext *shimprinter.EmitContext
 }
 
 type FileTransformer_Type func(file *shimast.SourceFile) *shimast.SourceFile
@@ -39,6 +44,9 @@ func (fileTransformerNamespace) Transform(environments FileTransformer_IEnvironm
         InternalPrefix: "typia_transform_",
         Runtime:        environments.Options.Runtime,
       })
+      if environments.EmitContext != nil {
+        importer.SetEmitContext(environments.EmitContext)
+      }
       context := nativecontext.ITypiaContext{
         Program:         fileTransformer_program(environments.Program),
         CompilerOptions: fileTransformer_compilerOptions(environments.CompilerOptions),

@@ -3,13 +3,18 @@ package transform
 import (
   shimast "github.com/microsoft/typescript-go/shim/ast"
   shimcore "github.com/microsoft/typescript-go/shim/core"
+  shimprinter "github.com/microsoft/typescript-go/shim/printer"
   "github.com/samchon/ttsc/packages/ttsc/driver"
   nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
 )
 
 type TransformFactory func(file *shimast.SourceFile) *shimast.SourceFile
 
-func Transform(program *driver.Program, options *nativecontext.ITransformOptions, extras nativecontext.ITypiaContext_Extras) TransformFactory {
+// Transform builds typia's per-file AST transformer. When ec is non-nil the
+// transformer runs in AST-integration (emit) mode: it injects namespace imports
+// built with ec.Factory so tsgo's module-transform aliases the runtime
+// references itself. A nil ec keeps the legacy text-emit behavior.
+func Transform(program *driver.Program, options *nativecontext.ITransformOptions, extras nativecontext.ITypiaContext_Extras, ec *shimprinter.EmitContext) TransformFactory {
   compilerOptions := transform_compilerOptions(program)
   if transform_strict(compilerOptions) == false && extras.AddDiagnostic != nil {
     extras.AddDiagnostic(&shimast.Diagnostic{})
@@ -25,6 +30,7 @@ func Transform(program *driver.Program, options *nativecontext.ITransformOptions
     Printer:         nil,
     Options:         opt,
     Extras:          extras,
+    EmitContext:     ec,
   })(nil))
 }
 
