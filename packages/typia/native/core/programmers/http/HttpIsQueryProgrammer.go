@@ -45,7 +45,7 @@ func (httpIsQueryProgrammerNamespace) Decompose(props HttpIsQueryProgrammer_Deco
     Type:          props.Type,
     Name:          props.Name,
   })
-  return httpProgrammer_is_result(is, decode)
+  return httpProgrammer_is_result(is, decode, props.Context.Emit)
 }
 
 func (httpIsQueryProgrammerNamespace) Write(props HttpIsQueryProgrammer_IProps) *shimast.Node {

@@ -20,6 +20,7 @@ var LlmSchemaTransformer = llmSchemaTransformerNamespace{}
 var llmTransformer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
 func (llmSchemaTransformerNamespace) Transform(props nativetransform.ITransformProps) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(llmTransformer_factory, props.Context.Emit)
   top, typ, ok := llmTransformer_type_argument(props, "typia.llm.schema")
   if ok == false {
     return props.Expression.AsNode()
@@ -54,11 +55,11 @@ func (llmSchemaTransformerNamespace) Transform(props nativetransform.ITransformP
     Config:   config,
   })
   if props.Expression.Arguments != nil && len(props.Expression.Arguments.Nodes) != 0 && expr.Kind == shimast.KindArrowFunction {
-    return llmTransformer_factory.NewCallExpression(
+    return f.NewCallExpression(
       expr,
       nil,
       nil,
-      llmTransformer_factory.NewNodeList([]*shimast.Node{props.Expression.Arguments.Nodes[0]}),
+      f.NewNodeList([]*shimast.Node{props.Expression.Arguments.Nodes[0]}),
       shimast.NodeFlagsNone,
     )
   }

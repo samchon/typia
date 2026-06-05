@@ -34,7 +34,7 @@ func (httpIsHeadersProgrammerNamespace) Decompose(props HttpIsHeadersProgrammer_
     Type:    props.Type,
     Name:    props.Name,
   })
-  return httpProgrammer_is_result(is, decode)
+  return httpProgrammer_is_result(is, decode, props.Context.Emit)
 }
 
 func (httpIsHeadersProgrammerNamespace) Write(props nativecontext.IProgrammerProps) *shimast.Node {

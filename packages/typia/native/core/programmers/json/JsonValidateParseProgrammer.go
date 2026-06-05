@@ -35,17 +35,18 @@ func (jsonValidateParseProgrammerNamespace) Decompose(props JsonValidateParsePro
     Name:    props.Name,
   })
 
+  f := nativecontext.EmitFactoryOf(jsonParseProgrammer_factory, props.Context.Emit)
   return nativeinternal.FeatureProgrammer_IDecomposed{
     Functions: validate.Functions,
     Statements: append(append([]*shimast.Node{}, validate.Statements...), nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
       Name:  "__validate",
       Value: validate.Arrow,
-    })),
-    Arrow: jsonParseProgrammer_factory.NewArrowFunction(
+    }, props.Context.Emit)),
+    Arrow: f.NewArrowFunction(
       nil,
       nil,
-      jsonParseProgrammer_factory.NewNodeList([]*shimast.Node{
-        nativefactories.IdentifierFactory.Parameter("input", nativefactories.TypeFactory.Keyword("string"), nil),
+      f.NewNodeList([]*shimast.Node{
+        nativefactories.IdentifierFactory.Parameter("input", nativefactories.TypeFactory.Keyword("string", props.Context.Emit), nil, props.Context.Emit),
       }),
       jsonProgrammer_import_type(props.Context, nativecontext.ImportProgrammer_TypeProps{
         File: "typia",
@@ -61,26 +62,26 @@ func (jsonValidateParseProgrammerNamespace) Decompose(props JsonValidateParsePro
         },
       }),
       nil,
-      jsonParseProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
-      jsonParseProgrammer_factory.NewAsExpression(
-        jsonParseProgrammer_factory.NewCallExpression(
-          jsonParseProgrammer_factory.NewIdentifier("__validate"),
+      f.NewToken(shimast.KindEqualsGreaterThanToken),
+      f.NewAsExpression(
+        f.NewCallExpression(
+          f.NewIdentifier("__validate"),
           nil,
           nil,
-          jsonParseProgrammer_factory.NewNodeList([]*shimast.Node{
-            jsonParseProgrammer_factory.NewCallExpression(
-              jsonParseProgrammer_factory.NewIdentifier("JSON.parse"),
+          f.NewNodeList([]*shimast.Node{
+            f.NewCallExpression(
+              f.NewIdentifier("JSON.parse"),
               nil,
               nil,
-              jsonParseProgrammer_factory.NewNodeList([]*shimast.Node{
-                jsonParseProgrammer_factory.NewIdentifier("input"),
+              f.NewNodeList([]*shimast.Node{
+                f.NewIdentifier("input"),
               }),
               shimast.NodeFlagsNone,
             ),
           }),
           shimast.NodeFlagsNone,
         ),
-        jsonParseProgrammer_factory.NewTypeReferenceNode(jsonParseProgrammer_factory.NewIdentifier("any"), nil),
+        f.NewTypeReferenceNode(f.NewIdentifier("any"), nil),
       ),
     ),
   }

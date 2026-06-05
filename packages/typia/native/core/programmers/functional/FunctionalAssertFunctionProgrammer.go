@@ -56,27 +56,28 @@ func (functionalAssertFunctionProgrammerNamespace) Write(props FunctionalAssertF
     Declaration: props.Declaration,
     Wrapper:     wrapper.Name,
   })
+  f := nativecontext.EmitFactoryOf(functionalAssertProgrammer_factory, props.Context.Emit)
   statements := []*shimast.Node{wrapper.Variable}
   statements = append(statements, p.Functions...)
   statements = append(statements, r.Functions...)
   body := []*shimast.Node{}
   for _, exp := range p.Expressions {
-    body = append(body, functionalAssertProgrammer_factory.NewExpressionStatement(exp))
+    body = append(body, f.NewExpressionStatement(exp))
   }
-  body = append(body, functionalAssertProgrammer_factory.NewReturnStatement(r.Value))
-  statements = append(statements, functionalAssertProgrammer_factory.NewReturnStatement(
-    functionalAssertProgrammer_factory.NewArrowFunction(
-      functionalIsProgrammer_asyncModifiers(r.Async),
+  body = append(body, f.NewReturnStatement(r.Value))
+  statements = append(statements, f.NewReturnStatement(
+    f.NewArrowFunction(
+      functionalIsProgrammer_asyncModifiers(r.Async, props.Context.Emit),
       nil,
-      functionalIsProgrammer_parameters(props.Declaration),
+      functionalIsProgrammer_parameters(props.Declaration, props.Context.Emit),
       functionalAssertProgrammer_returnType(props.Declaration),
       nil,
-      functionalAssertProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
-      functionalAssertProgrammer_factory.NewBlock(functionalAssertProgrammer_factory.NewNodeList(body), true),
+      f.NewToken(shimast.KindEqualsGreaterThanToken),
+      f.NewBlock(f.NewNodeList(body), true),
     ),
   ))
   return nativefactories.ExpressionFactory.SelfCall(
-    functionalAssertProgrammer_factory.NewBlock(functionalAssertProgrammer_factory.NewNodeList(statements), true),
+    f.NewBlock(f.NewNodeList(statements), true),
   )
 }
 
@@ -100,7 +101,7 @@ func (functionalAssertFunctionProgrammerNamespace) ErrorFactoryWrapper(props str
       Name:  name,
       Type:  nativeprogrammers.Guardian.Type(props.Context),
       Value: init,
-    }),
+    }, props.Context.Emit),
   }
 }
 
@@ -165,5 +166,5 @@ func functionalAssertProgrammer_internal(context nativecontext.ITypiaContext, na
   if importer := context.Importer; importer != nil {
     return importer.Internal(name)
   }
-  return functionalAssertProgrammer_factory.NewIdentifier(name)
+  return nativecontext.EmitFactoryOf(functionalAssertProgrammer_factory, context.Emit).NewIdentifier(name)
 }

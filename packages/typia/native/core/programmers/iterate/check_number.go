@@ -18,31 +18,32 @@ type Check_numberProps struct {
 }
 
 func Check_number(props Check_numberProps) nativehelpers.ICheckEntry {
-  base := check_number_factory.NewBinaryExpression(
+  f := nativecontext.EmitFactoryOf(check_number_factory, props.Context.Emit)
+  base := f.NewBinaryExpression(
     nil,
-    check_number_factory.NewStringLiteral("number", shimast.TokenFlagsNone),
+    f.NewStringLiteral("number", shimast.TokenFlagsNone),
     nil,
-    check_number_factory.NewToken(shimast.KindEqualsEqualsEqualsToken),
-    check_number_factory.NewTypeOfExpression(props.Input),
+    f.NewToken(shimast.KindEqualsEqualsEqualsToken),
+    f.NewTypeOfExpression(props.Input),
   )
   var addition *shimast.Node
   if props.Numeric {
     if nativehelpers.OptionPredicator.Finite(props.Context.Options) {
-      addition = check_number_factory.NewCallExpression(
-        check_number_factory.NewIdentifier("Number.isFinite"),
+      addition = f.NewCallExpression(
+        f.NewIdentifier("Number.isFinite"),
         nil,
         nil,
-        check_number_factory.NewNodeList([]*shimast.Node{props.Input}),
+        f.NewNodeList([]*shimast.Node{props.Input}),
         shimast.NodeFlagsNone,
       )
     } else if nativehelpers.OptionPredicator.Numeric(props.Context.Options) {
-      addition = check_number_factory.NewPrefixUnaryExpression(
+      addition = f.NewPrefixUnaryExpression(
         shimast.KindExclamationToken,
-        check_number_factory.NewCallExpression(
-          check_number_factory.NewIdentifier("Number.isNaN"),
+        f.NewCallExpression(
+          f.NewIdentifier("Number.isNaN"),
           nil,
           nil,
-          check_number_factory.NewNodeList([]*shimast.Node{props.Input}),
+          f.NewNodeList([]*shimast.Node{props.Input}),
           shimast.NodeFlagsNone,
         ),
       )
@@ -56,11 +57,11 @@ func Check_number(props Check_numberProps) nativehelpers.ICheckEntry {
   })
   expression := base
   if addition != nil && len(conditions) == 0 {
-    expression = check_number_factory.NewBinaryExpression(
+    expression = f.NewBinaryExpression(
       nil,
       base,
       nil,
-      check_number_factory.NewToken(shimast.KindAmpersandAmpersandToken),
+      f.NewToken(shimast.KindAmpersandAmpersandToken),
       addition,
     )
   }

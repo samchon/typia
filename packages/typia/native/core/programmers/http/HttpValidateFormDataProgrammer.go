@@ -59,26 +59,27 @@ func (httpValidateFormDataProgrammerNamespace) Write(props nativecontext.IProgra
 }
 
 func httpProgrammer_validate_result(context nativecontext.ITypiaContext, validate nativeinternal.FeatureProgrammer_IDecomposed, decode nativeinternal.FeatureProgrammer_IDecomposed) nativeinternal.FeatureProgrammer_IDecomposed {
+  f := nativecontext.EmitFactoryOf(httpValidateProgrammer_factory, context.Emit)
   decodeArrow := decode.Arrow.AsArrowFunction()
   output := decodeArrow.Type
   if output == nil {
-    output = nativefactories.TypeFactory.Keyword("any")
+    output = nativefactories.TypeFactory.Keyword("any", context.Emit)
   }
   statements := append([]*shimast.Node{}, validate.Statements...)
   statements = append(statements,
     nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
       Name:  "__validate",
       Value: validate.Arrow,
-    }),
+    }, context.Emit),
     nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
       Name:  "__decode",
       Value: decode.Arrow,
-    }),
+    }, context.Emit),
   )
   return nativeinternal.FeatureProgrammer_IDecomposed{
     Functions:  httpProgrammer_merge_functions(validate.Functions, decode.Functions),
     Statements: statements,
-    Arrow: httpValidateProgrammer_factory.NewArrowFunction(
+    Arrow: f.NewArrowFunction(
       nil,
       nil,
       decodeArrow.Parameters,
@@ -88,17 +89,17 @@ func httpProgrammer_validate_result(context nativecontext.ITypiaContext, validat
         Arguments: []*shimast.TypeNode{output},
       }),
       nil,
-      httpValidateProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
-      httpValidateProgrammer_factory.NewCallExpression(
-        httpValidateProgrammer_factory.NewIdentifier("__validate"),
+      f.NewToken(shimast.KindEqualsGreaterThanToken),
+      f.NewCallExpression(
+        f.NewIdentifier("__validate"),
         nil,
         nil,
-        httpValidateProgrammer_factory.NewNodeList([]*shimast.Node{
-          httpValidateProgrammer_factory.NewCallExpression(
-            httpValidateProgrammer_factory.NewIdentifier("__decode"),
+        f.NewNodeList([]*shimast.Node{
+          f.NewCallExpression(
+            f.NewIdentifier("__decode"),
             nil,
             nil,
-            httpValidateProgrammer_factory.NewNodeList([]*shimast.Node{httpValidateProgrammer_factory.NewIdentifier("input")}),
+            f.NewNodeList([]*shimast.Node{f.NewIdentifier("input")}),
             shimast.NodeFlagsNone,
           ),
         }),

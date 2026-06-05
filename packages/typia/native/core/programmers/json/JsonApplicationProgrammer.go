@@ -90,7 +90,7 @@ func (jsonApplicationProgrammerNamespace) Write(props JsonApplicationProgrammer_
   if components, ok := app["components"].(*nativeiterate.OpenApi_IComponents); ok && components != nil {
     app["components"] = components.ToLiteral()
   }
-  return nativefactories.LiteralFactory.Write(app)
+  return nativefactories.LiteralFactory.Write(app, props.Context.Emit)
 }
 
 func (jsonApplicationProgrammerNamespace) WriteApplication(props struct {

@@ -77,6 +77,7 @@ func (isProgrammerNamespace) Configure(props struct {
   Context nativecontext.ITypiaContext
   Functor *nativehelpers.FunctionProgrammer
 }) nativeinternal.CheckerProgrammer_IConfig {
+  f := nativecontext.EmitFactoryOf(isProgrammer_factory, props.Context.Emit)
   options := props.Options
   return nativeinternal.CheckerProgrammer_IConfig{
     Prefix:  "_i",
@@ -96,17 +97,17 @@ func (isProgrammerNamespace) Configure(props struct {
           for _, cond := range set {
             cols = append(cols, cond.Expression)
           }
-          rows = append(rows, isProgrammer_reduce(cols, shimast.KindAmpersandAmpersandToken, isProgrammer_factory.NewKeywordExpression(shimast.KindTrueKeyword)))
+          rows = append(rows, isProgrammer_reduce(cols, shimast.KindAmpersandAmpersandToken, f.NewKeywordExpression(shimast.KindTrueKeyword)))
         }
-        expressions = append(expressions, isProgrammer_reduce(rows, shimast.KindBarBarToken, isProgrammer_factory.NewKeywordExpression(shimast.KindFalseKeyword)))
+        expressions = append(expressions, isProgrammer_reduce(rows, shimast.KindBarBarToken, f.NewKeywordExpression(shimast.KindFalseKeyword)))
       }
-      return isProgrammer_reduce(expressions, shimast.KindAmpersandAmpersandToken, isProgrammer_factory.NewKeywordExpression(shimast.KindTrueKeyword))
+      return isProgrammer_reduce(expressions, shimast.KindAmpersandAmpersandToken, f.NewKeywordExpression(shimast.KindTrueKeyword))
     },
     Combiner: func(next nativeinternal.CheckerProgrammer_CombinerProps) *shimast.Node {
-      initial := isProgrammer_factory.NewKeywordExpression(shimast.KindFalseKeyword)
+      initial := f.NewKeywordExpression(shimast.KindFalseKeyword)
       operator := shimast.KindBarBarToken
       if next.Logic == "and" {
-        initial = isProgrammer_factory.NewKeywordExpression(shimast.KindTrueKeyword)
+        initial = f.NewKeywordExpression(shimast.KindTrueKeyword)
         operator = shimast.KindAmpersandAmpersandToken
       }
       expressions := make([]*shimast.Node, 0, len(next.Binaries))
@@ -132,9 +133,9 @@ func (isProgrammerNamespace) Configure(props struct {
             Reduce: func(a *shimast.Expression, b *shimast.Expression) *shimast.Node {
               return isProgrammer_binary(a, shimast.KindAmpersandAmpersandToken, b)
             },
-            Positive: isProgrammer_factory.NewKeywordExpression(shimast.KindTrueKeyword),
+            Positive: f.NewKeywordExpression(shimast.KindTrueKeyword),
             Superfluous: func(value *shimast.Expression, description *shimast.Expression) *shimast.Node {
-              return isProgrammer_factory.NewKeywordExpression(shimast.KindFalseKeyword)
+              return f.NewKeywordExpression(shimast.KindFalseKeyword)
             },
           },
           Context: props.Context,
@@ -143,23 +144,24 @@ func (isProgrammerNamespace) Configure(props struct {
         })
       },
       Array: func(v nativeinternal.CheckerProgrammer_JoinerArrayProps) *shimast.Node {
-        return isProgrammer_factory.NewCallExpression(
+        return f.NewCallExpression(
           nativefactories.IdentifierFactory.Access(v.Input, "every"),
           nil,
           nil,
-          isProgrammer_factory.NewNodeList([]*shimast.Node{v.Arrow}),
+          f.NewNodeList([]*shimast.Node{v.Arrow}),
           shimast.NodeFlagsNone,
         )
       },
       Failure: func(nativeinternal.CheckerProgrammer_JoinerFailureProps) *shimast.Node {
-        return isProgrammer_factory.NewKeywordExpression(shimast.KindFalseKeyword)
+        return f.NewKeywordExpression(shimast.KindFalseKeyword)
       },
     },
-    Success: isProgrammer_factory.NewKeywordExpression(shimast.KindTrueKeyword),
+    Success: f.NewKeywordExpression(shimast.KindTrueKeyword),
   }
 }
 
 func (isProgrammerNamespace) Decompose(props IsProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
+  f := nativecontext.EmitFactoryOf(isProgrammer_factory, props.Context.Emit)
   options := &IsProgrammer_CONFIG_IOptions{
     Numeric: props.Context.Options.Numeric,
     Object: func(v IsProgrammer_CONFIG_IOptions_ObjectProps) *shimast.Node {
@@ -171,9 +173,9 @@ func (isProgrammerNamespace) Decompose(props IsProgrammer_DecomposeProps) native
           Reduce: func(a *shimast.Expression, b *shimast.Expression) *shimast.Node {
             return isProgrammer_binary(a, shimast.KindAmpersandAmpersandToken, b)
           },
-          Positive: isProgrammer_factory.NewKeywordExpression(shimast.KindTrueKeyword),
+          Positive: f.NewKeywordExpression(shimast.KindTrueKeyword),
           Superfluous: func(value *shimast.Expression, description *shimast.Expression) *shimast.Node {
-            return isProgrammer_factory.NewKeywordExpression(shimast.KindFalseKeyword)
+            return f.NewKeywordExpression(shimast.KindFalseKeyword)
           },
         },
         Context: props.Context,
@@ -199,13 +201,13 @@ func (isProgrammerNamespace) Decompose(props IsProgrammer_DecomposeProps) native
   return nativeinternal.FeatureProgrammer_IDecomposed{
     Functions:  composed.Functions,
     Statements: composed.Statements,
-    Arrow: isProgrammer_factory.NewArrowFunction(
+    Arrow: f.NewArrowFunction(
       nil,
       nil,
-      isProgrammer_factory.NewNodeList(composed.Parameters),
+      f.NewNodeList(composed.Parameters),
       composed.Response,
       nil,
-      isProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
+      f.NewToken(shimast.KindEqualsGreaterThanToken),
       composed.Body,
     ),
   }

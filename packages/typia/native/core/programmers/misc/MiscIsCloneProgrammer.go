@@ -24,6 +24,7 @@ type MiscIsCloneProgrammer_DecomposeProps struct {
 var miscIsCloneProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
 func (miscIsCloneProgrammerNamespace) Decompose(props MiscIsCloneProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
+  f := nativecontext.EmitFactoryOf(miscIsCloneProgrammer_factory, props.Context.Emit)
   is := nativeprogrammers.IsProgrammer.Decompose(nativeprogrammers.IsProgrammer_DecomposeProps{
     Context: props.Context,
     Functor: props.Functor,
@@ -41,48 +42,48 @@ func (miscIsCloneProgrammerNamespace) Decompose(props MiscIsCloneProgrammer_Deco
   statements := append([]*shimast.Node{}, is.Statements...)
   statements = append(statements, clone.Statements...)
   statements = append(statements,
-    nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{Name: "__is", Value: is.Arrow}),
-    nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{Name: "__clone", Value: clone.Arrow}),
+    nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{Name: "__is", Value: is.Arrow}, props.Context.Emit),
+    nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{Name: "__clone", Value: clone.Arrow}, props.Context.Emit),
   )
   cloneType := clone.Arrow.AsArrowFunction().Type
   if cloneType == nil {
-    cloneType = nativefactories.TypeFactory.Keyword("any")
+    cloneType = nativefactories.TypeFactory.Keyword("any", props.Context.Emit)
   }
   return nativeinternal.FeatureProgrammer_IDecomposed{
     Functions:  miscProgrammer_merge_functions(is.Functions, clone.Functions),
     Statements: statements,
-    Arrow: miscIsCloneProgrammer_factory.NewArrowFunction(
+    Arrow: f.NewArrowFunction(
       nil,
       nil,
-      miscIsCloneProgrammer_factory.NewNodeList([]*shimast.Node{
-        nativefactories.IdentifierFactory.Parameter("input", nativefactories.TypeFactory.Keyword("any"), nil),
+      f.NewNodeList([]*shimast.Node{
+        nativefactories.IdentifierFactory.Parameter("input", nativefactories.TypeFactory.Keyword("any", props.Context.Emit), nil, props.Context.Emit),
       }),
-      miscIsCloneProgrammer_factory.NewUnionTypeNode(miscIsCloneProgrammer_factory.NewNodeList([]*shimast.Node{
+      f.NewUnionTypeNode(f.NewNodeList([]*shimast.Node{
         cloneType,
-        miscIsCloneProgrammer_factory.NewTypeReferenceNode(miscIsCloneProgrammer_factory.NewIdentifier("null"), nil),
+        f.NewTypeReferenceNode(f.NewIdentifier("null"), nil),
       })),
       nil,
-      miscIsCloneProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
-      miscIsCloneProgrammer_factory.NewBlock(miscIsCloneProgrammer_factory.NewNodeList([]*shimast.Node{
-        miscIsCloneProgrammer_factory.NewIfStatement(
-          miscIsCloneProgrammer_factory.NewPrefixUnaryExpression(
+      f.NewToken(shimast.KindEqualsGreaterThanToken),
+      f.NewBlock(f.NewNodeList([]*shimast.Node{
+        f.NewIfStatement(
+          f.NewPrefixUnaryExpression(
             shimast.KindExclamationToken,
-            miscIsCloneProgrammer_factory.NewCallExpression(
-              miscIsCloneProgrammer_factory.NewIdentifier("__is"),
+            f.NewCallExpression(
+              f.NewIdentifier("__is"),
               nil,
               nil,
-              miscIsCloneProgrammer_factory.NewNodeList([]*shimast.Node{miscIsCloneProgrammer_factory.NewIdentifier("input")}),
+              f.NewNodeList([]*shimast.Node{f.NewIdentifier("input")}),
               shimast.NodeFlagsNone,
             ),
           ),
-          miscIsCloneProgrammer_factory.NewReturnStatement(miscIsCloneProgrammer_factory.NewKeywordExpression(shimast.KindNullKeyword)),
+          f.NewReturnStatement(f.NewKeywordExpression(shimast.KindNullKeyword)),
           nil,
         ),
-        miscIsCloneProgrammer_factory.NewReturnStatement(miscIsCloneProgrammer_factory.NewCallExpression(
-          miscIsCloneProgrammer_factory.NewIdentifier("__clone"),
+        f.NewReturnStatement(f.NewCallExpression(
+          f.NewIdentifier("__clone"),
           nil,
           nil,
-          miscIsCloneProgrammer_factory.NewNodeList([]*shimast.Node{miscIsCloneProgrammer_factory.NewIdentifier("input")}),
+          f.NewNodeList([]*shimast.Node{f.NewIdentifier("input")}),
           shimast.NodeFlagsNone,
         )),
       }), true),

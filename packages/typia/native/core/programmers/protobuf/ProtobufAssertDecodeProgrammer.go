@@ -34,6 +34,7 @@ type ProtobufAssertDecodeProgrammer_DecomposeProps struct {
 var protobufAssertDecodeProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
 func (protobufAssertDecodeProgrammerNamespace) Decompose(props ProtobufAssertDecodeProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
+  f := nativecontext.EmitFactoryOf(protobufAssertDecodeProgrammer_factory, props.Context.Emit)
   assertContext := props.Context
   functional := false
   numeric := false
@@ -66,29 +67,29 @@ func (protobufAssertDecodeProgrammerNamespace) Decompose(props ProtobufAssertDec
   statements = append(statements, assert.Statements...)
   statements = append(statements, decode.Statements...)
   statements = append(statements,
-    nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{Name: "__assert", Value: assert.Arrow}),
-    nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{Name: "__decode", Value: decode.Arrow}),
+    nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{Name: "__assert", Value: assert.Arrow}, props.Context.Emit),
+    nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{Name: "__decode", Value: decode.Arrow}, props.Context.Emit),
   )
   return nativeinternal.FeatureProgrammer_IDecomposed{
     Functions:  protobufAssertEncodeProgrammer_merge(assert.Functions, decode.Functions),
     Statements: statements,
-    Arrow: protobufAssertDecodeProgrammer_factory.NewArrowFunction(
+    Arrow: f.NewArrowFunction(
       nil,
       nil,
-      protobufAssertDecodeProgrammer_factory.NewNodeList(parameters),
-      protobufAssertEncodeProgrammer_returnType(decode.Arrow, nativefactories.TypeFactory.Keyword("any")),
+      f.NewNodeList(parameters),
+      protobufAssertEncodeProgrammer_returnType(decode.Arrow, nativefactories.TypeFactory.Keyword("any", props.Context.Emit)),
       nil,
-      protobufAssertDecodeProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
-      protobufAssertDecodeProgrammer_factory.NewCallExpression(
-        protobufAssertDecodeProgrammer_factory.NewIdentifier("__assert"),
+      f.NewToken(shimast.KindEqualsGreaterThanToken),
+      f.NewCallExpression(
+        f.NewIdentifier("__assert"),
         nil,
         nil,
-        protobufAssertDecodeProgrammer_factory.NewNodeList([]*shimast.Node{
-          protobufAssertDecodeProgrammer_factory.NewCallExpression(
-            protobufAssertDecodeProgrammer_factory.NewIdentifier("__decode"),
+        f.NewNodeList([]*shimast.Node{
+          f.NewCallExpression(
+            f.NewIdentifier("__decode"),
             nil,
             nil,
-            protobufAssertDecodeProgrammer_factory.NewNodeList([]*shimast.Node{protobufAssertDecodeProgrammer_factory.NewIdentifier("input")}),
+            f.NewNodeList([]*shimast.Node{f.NewIdentifier("input")}),
             shimast.NodeFlagsNone,
           ),
           nativeprogrammers.Guardian.Identifier(),

@@ -45,20 +45,21 @@ func (jsonAssertStringifyProgrammerNamespace) Decompose(props JsonAssertStringif
     Name:      props.Name,
     Validated: true,
   })
+  f := nativecontext.EmitFactoryOf(jsonAssertStringifyProgrammer_factory, props.Context.Emit)
   statements := append([]*shimast.Node{}, assert.Statements...)
   statements = append(statements, stringify.Statements...)
   statements = append(statements,
-    nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{Name: "__assert", Value: assert.Arrow}),
-    nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{Name: "__stringify", Value: stringify.Arrow}),
+    nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{Name: "__assert", Value: assert.Arrow}, props.Context.Emit),
+    nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{Name: "__stringify", Value: stringify.Arrow}, props.Context.Emit),
   )
   return nativeinternal.FeatureProgrammer_IDecomposed{
     Functions:  jsonStringifyProgrammer_merge_functions(assert.Functions, stringify.Functions),
     Statements: statements,
-    Arrow: jsonAssertStringifyProgrammer_factory.NewArrowFunction(
+    Arrow: f.NewArrowFunction(
       nil,
       nil,
-      jsonAssertStringifyProgrammer_factory.NewNodeList([]*shimast.Node{
-        nativefactories.IdentifierFactory.Parameter("input", nativefactories.TypeFactory.Keyword("any"), nil),
+      f.NewNodeList([]*shimast.Node{
+        nativefactories.IdentifierFactory.Parameter("input", nativefactories.TypeFactory.Keyword("any", props.Context.Emit), nil, props.Context.Emit),
         nativeprogrammers.Guardian.Parameter(struct {
           Context nativecontext.ITypiaContext
           Init    *shimast.Node
@@ -66,23 +67,23 @@ func (jsonAssertStringifyProgrammerNamespace) Decompose(props JsonAssertStringif
       }),
       stringify.Arrow.AsArrowFunction().Type,
       nil,
-      jsonAssertStringifyProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
-      jsonAssertStringifyProgrammer_factory.NewBlock(jsonAssertStringifyProgrammer_factory.NewNodeList([]*shimast.Node{
-        jsonAssertStringifyProgrammer_factory.NewExpressionStatement(jsonAssertStringifyProgrammer_factory.NewCallExpression(
-          jsonAssertStringifyProgrammer_factory.NewIdentifier("__assert"),
+      f.NewToken(shimast.KindEqualsGreaterThanToken),
+      f.NewBlock(f.NewNodeList([]*shimast.Node{
+        f.NewExpressionStatement(f.NewCallExpression(
+          f.NewIdentifier("__assert"),
           nil,
           nil,
-          jsonAssertStringifyProgrammer_factory.NewNodeList([]*shimast.Node{
-            jsonAssertStringifyProgrammer_factory.NewIdentifier("input"),
+          f.NewNodeList([]*shimast.Node{
+            f.NewIdentifier("input"),
             nativeprogrammers.Guardian.Identifier(),
           }),
           shimast.NodeFlagsNone,
         )),
-        jsonAssertStringifyProgrammer_factory.NewReturnStatement(jsonAssertStringifyProgrammer_factory.NewCallExpression(
-          jsonAssertStringifyProgrammer_factory.NewIdentifier("__stringify"),
+        f.NewReturnStatement(f.NewCallExpression(
+          f.NewIdentifier("__stringify"),
           nil,
           nil,
-          jsonAssertStringifyProgrammer_factory.NewNodeList([]*shimast.Node{jsonAssertStringifyProgrammer_factory.NewIdentifier("input")}),
+          f.NewNodeList([]*shimast.Node{f.NewIdentifier("input")}),
           shimast.NodeFlagsNone,
         )),
       }), true),

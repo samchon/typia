@@ -81,6 +81,7 @@ const (
 var randomProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
 func (randomProgrammerNamespace) Decompose(props RandomProgrammer_IDecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
+  f := nativecontext.EmitFactoryOf(randomProgrammer_factory, props.Context.Emit)
   collection := schemametadata.NewMetadataCollection()
   result := nativefactories.MetadataFactory.Analyze(nativefactories.MetadataFactory_IProps{
     Checker: props.Context.Checker,
@@ -126,9 +127,9 @@ func (randomProgrammerNamespace) Decompose(props RandomProgrammer_IDecomposeProp
     functions[randomProgrammer_prefix_tuple(i)] = stmt
   }
 
-  randomGeneratorType := randomProgrammer_factory.NewTypeReferenceNode(
-    randomProgrammer_factory.NewIdentifier("Partial"),
-    randomProgrammer_factory.NewNodeList([]*shimast.Node{
+  randomGeneratorType := f.NewTypeReferenceNode(
+    f.NewIdentifier("Partial"),
+    f.NewNodeList([]*shimast.Node{
       randomProgrammer_import_type(props.Context, nativecontext.ImportProgrammer_TypeProps{
         File: "typia",
         Name: "IRandomGenerator",
@@ -137,7 +138,7 @@ func (randomProgrammerNamespace) Decompose(props RandomProgrammer_IDecomposeProp
   )
   init := props.Init
   if init == nil {
-    init = randomProgrammer_factory.NewToken(shimast.KindQuestionToken)
+    init = f.NewToken(shimast.KindQuestionToken)
   }
   resolvedType := randomProgrammer_import_type(props.Context, nativecontext.ImportProgrammer_TypeProps{
     File: "typia",
@@ -151,30 +152,30 @@ func (randomProgrammerNamespace) Decompose(props RandomProgrammer_IDecomposeProp
     Statements: []*shimast.Node{
       nativefactories.StatementFactory.Mut(nativefactories.StatementFactory_MutProps{
         Name: "_generator",
-        Type: randomProgrammer_factory.NewUnionTypeNode(randomProgrammer_factory.NewNodeList([]*shimast.Node{
+        Type: f.NewUnionTypeNode(f.NewNodeList([]*shimast.Node{
           randomGeneratorType,
-          randomProgrammer_factory.NewTypeReferenceNode(randomProgrammer_factory.NewIdentifier("undefined"), nil),
+          f.NewTypeReferenceNode(f.NewIdentifier("undefined"), nil),
         })),
-      }),
+      }, props.Context.Emit),
     },
-    Arrow: randomProgrammer_factory.NewArrowFunction(
+    Arrow: f.NewArrowFunction(
       nil,
       nil,
-      randomProgrammer_factory.NewNodeList([]*shimast.Node{
-        nativefactories.IdentifierFactory.Parameter("generator", randomGeneratorType, init),
+      f.NewNodeList([]*shimast.Node{
+        nativefactories.IdentifierFactory.Parameter("generator", randomGeneratorType, init, props.Context.Emit),
       }),
       resolvedType,
       nil,
-      randomProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
-      randomProgrammer_factory.NewBlock(randomProgrammer_factory.NewNodeList([]*shimast.Node{
-        randomProgrammer_factory.NewExpressionStatement(randomProgrammer_factory.NewBinaryExpression(
+      f.NewToken(shimast.KindEqualsGreaterThanToken),
+      f.NewBlock(f.NewNodeList([]*shimast.Node{
+        f.NewExpressionStatement(f.NewBinaryExpression(
           nil,
-          randomProgrammer_factory.NewIdentifier("_generator"),
+          f.NewIdentifier("_generator"),
           nil,
-          randomProgrammer_factory.NewToken(shimast.KindEqualsToken),
-          randomProgrammer_factory.NewIdentifier("generator"),
+          f.NewToken(shimast.KindEqualsToken),
+          f.NewIdentifier("generator"),
         )),
-        randomProgrammer_factory.NewReturnStatement(randomProgrammer_decode(randomProgrammer_decodeProps{
+        f.NewReturnStatement(randomProgrammer_decode(randomProgrammer_decodeProps{
           Context: props.Context,
           Functor: props.Functor,
           Explore: randomProgrammer_IExplore{
@@ -228,22 +229,23 @@ func randomProgrammer_write_object_functions(props struct {
   Functor    *nativehelpers.FunctionProgrammer
   Collection *schemametadata.MetadataCollection
 }) []*shimast.Node {
+  f := nativecontext.EmitFactoryOf(randomProgrammer_factory, props.Context.Emit)
   output := []*shimast.Node{}
   for i, obj := range props.Collection.Objects() {
     index := i
     object := obj
     output = append(output, nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
       Name: randomProgrammer_prefix_object(index),
-      Value: randomProgrammer_factory.NewArrowFunction(
+      Value: f.NewArrowFunction(
         nil,
         nil,
-        randomProgrammer_factory.NewNodeList([]*shimast.Node{
-          nativefactories.IdentifierFactory.Parameter("_recursive", nativefactories.TypeFactory.Keyword("boolean"), randomProgrammer_factory.NewIdentifier(fmt.Sprint(object.Recursive))),
-          nativefactories.IdentifierFactory.Parameter("_depth", nativefactories.TypeFactory.Keyword("number"), nativefactories.ExpressionFactory.Number(0)),
+        f.NewNodeList([]*shimast.Node{
+          nativefactories.IdentifierFactory.Parameter("_recursive", nativefactories.TypeFactory.Keyword("boolean", props.Context.Emit), f.NewIdentifier(fmt.Sprint(object.Recursive)), props.Context.Emit),
+          nativefactories.IdentifierFactory.Parameter("_depth", nativefactories.TypeFactory.Keyword("number", props.Context.Emit), nativefactories.ExpressionFactory.Number(0, props.Context.Emit), props.Context.Emit),
         }),
-        nativefactories.TypeFactory.Keyword("any"),
+        nativefactories.TypeFactory.Keyword("any", props.Context.Emit),
         nil,
-        randomProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
+        f.NewToken(shimast.KindEqualsGreaterThanToken),
         nativehelpers.RandomJoiner.Object(nativehelpers.RandomJoiner_ObjectProps{
           Decode: func(metadata *schemametadata.MetadataSchema) *shimast.Node {
             return randomProgrammer_decode(randomProgrammer_decodeProps{
@@ -259,7 +261,7 @@ func randomProgrammer_write_object_functions(props struct {
           Object: object,
         }),
       ),
-    }))
+    }, props.Context.Emit))
   }
   return output
 }
@@ -269,6 +271,7 @@ func randomProgrammer_write_array_functions(props struct {
   Functor    *nativehelpers.FunctionProgrammer
   Collection *schemametadata.MetadataCollection
 }) []*shimast.Node {
+  f := nativecontext.EmitFactoryOf(randomProgrammer_factory, props.Context.Emit)
   output := []*shimast.Node{}
   for i, array := range props.Collection.Arrays() {
     if array.Recursive == false {
@@ -278,17 +281,17 @@ func randomProgrammer_write_array_functions(props struct {
     array := array
     output = append(output, nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
       Name: randomProgrammer_prefix_array(index),
-      Value: randomProgrammer_factory.NewArrowFunction(
+      Value: f.NewArrowFunction(
         nil,
         nil,
-        randomProgrammer_factory.NewNodeList([]*shimast.Node{
-          nativefactories.IdentifierFactory.Parameter("_schema", nativefactories.TypeFactory.Keyword("boolean"), nil),
-          nativefactories.IdentifierFactory.Parameter("_recursive", nativefactories.TypeFactory.Keyword("boolean"), randomProgrammer_factory.NewKeywordExpression(shimast.KindTrueKeyword)),
-          nativefactories.IdentifierFactory.Parameter("_depth", nativefactories.TypeFactory.Keyword("number"), nativefactories.ExpressionFactory.Number(0)),
+        f.NewNodeList([]*shimast.Node{
+          nativefactories.IdentifierFactory.Parameter("_schema", nativefactories.TypeFactory.Keyword("boolean", props.Context.Emit), nil, props.Context.Emit),
+          nativefactories.IdentifierFactory.Parameter("_recursive", nativefactories.TypeFactory.Keyword("boolean", props.Context.Emit), f.NewKeywordExpression(shimast.KindTrueKeyword), props.Context.Emit),
+          nativefactories.IdentifierFactory.Parameter("_depth", nativefactories.TypeFactory.Keyword("number", props.Context.Emit), nativefactories.ExpressionFactory.Number(0, props.Context.Emit), props.Context.Emit),
         }),
-        nativefactories.TypeFactory.Keyword("any"),
+        nativefactories.TypeFactory.Keyword("any", props.Context.Emit),
         nil,
-        randomProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
+        f.NewToken(shimast.KindEqualsGreaterThanToken),
         nativehelpers.RandomJoiner.Array(nativehelpers.RandomJoiner_ArrayProps{
           Decode: func(metadata *schemametadata.MetadataSchema) *shimast.Node {
             return randomProgrammer_decode(randomProgrammer_decodeProps{
@@ -307,7 +310,7 @@ func randomProgrammer_write_array_functions(props struct {
           Schema:     nil,
         }),
       ),
-    }))
+    }, props.Context.Emit))
   }
   return output
 }
@@ -317,6 +320,7 @@ func randomProgrammer_write_tuple_functions(props struct {
   Functor    *nativehelpers.FunctionProgrammer
   Collection *schemametadata.MetadataCollection
 }) []*shimast.Node {
+  f := nativecontext.EmitFactoryOf(randomProgrammer_factory, props.Context.Emit)
   output := []*shimast.Node{}
   for i, tuple := range props.Collection.Tuples() {
     if tuple.Recursive == false {
@@ -326,16 +330,16 @@ func randomProgrammer_write_tuple_functions(props struct {
     tuple := tuple
     output = append(output, nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
       Name: randomProgrammer_prefix_tuple(index),
-      Value: randomProgrammer_factory.NewArrowFunction(
+      Value: f.NewArrowFunction(
         nil,
         nil,
-        randomProgrammer_factory.NewNodeList([]*shimast.Node{
-          nativefactories.IdentifierFactory.Parameter("_recursive", nativefactories.TypeFactory.Keyword("boolean"), randomProgrammer_factory.NewKeywordExpression(shimast.KindTrueKeyword)),
-          nativefactories.IdentifierFactory.Parameter("_depth", nativefactories.TypeFactory.Keyword("number"), nativefactories.ExpressionFactory.Number(0)),
+        f.NewNodeList([]*shimast.Node{
+          nativefactories.IdentifierFactory.Parameter("_recursive", nativefactories.TypeFactory.Keyword("boolean", props.Context.Emit), f.NewKeywordExpression(shimast.KindTrueKeyword), props.Context.Emit),
+          nativefactories.IdentifierFactory.Parameter("_depth", nativefactories.TypeFactory.Keyword("number", props.Context.Emit), nativefactories.ExpressionFactory.Number(0, props.Context.Emit), props.Context.Emit),
         }),
-        nativefactories.TypeFactory.Keyword("any"),
+        nativefactories.TypeFactory.Keyword("any", props.Context.Emit),
         nil,
-        randomProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
+        f.NewToken(shimast.KindEqualsGreaterThanToken),
         nativehelpers.RandomJoiner.Tuple(nativehelpers.RandomJoiner_TupleProps{
           Decode: func(metadata *schemametadata.MetadataSchema) *shimast.Node {
             return randomProgrammer_decode(randomProgrammer_decodeProps{
@@ -351,36 +355,37 @@ func randomProgrammer_write_tuple_functions(props struct {
           Elements: tuple.Elements,
         }),
       ),
-    }))
+    }, props.Context.Emit))
   }
   return output
 }
 
 func randomProgrammer_decode(props randomProgrammer_decodeProps) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(randomProgrammer_factory, props.Context.Emit)
   expressions := []*shimast.Node{}
   if props.Metadata.Any {
-    expressions = append(expressions, randomProgrammer_factory.NewStringLiteral("any type used...", shimast.TokenFlagsNone))
+    expressions = append(expressions, f.NewStringLiteral("any type used...", shimast.TokenFlagsNone))
   }
   if props.Metadata.IsRequired() == false || len(props.Metadata.Functions) != 0 {
-    expressions = append(expressions, randomProgrammer_factory.NewIdentifier("undefined"))
+    expressions = append(expressions, f.NewIdentifier("undefined"))
   }
   if props.Metadata.Nullable {
-    expressions = append(expressions, randomProgrammer_factory.NewKeywordExpression(shimast.KindNullKeyword))
+    expressions = append(expressions, f.NewKeywordExpression(shimast.KindNullKeyword))
   }
   for _, constant := range props.Metadata.Constants {
     for _, value := range constant.Values {
       if constant.Type == "boolean" {
         if truthy, _ := value.Value.(bool); truthy {
-          expressions = append(expressions, randomProgrammer_factory.NewKeywordExpression(shimast.KindTrueKeyword))
+          expressions = append(expressions, f.NewKeywordExpression(shimast.KindTrueKeyword))
         } else {
-          expressions = append(expressions, randomProgrammer_factory.NewKeywordExpression(shimast.KindFalseKeyword))
+          expressions = append(expressions, f.NewKeywordExpression(shimast.KindFalseKeyword))
         }
       } else if constant.Type == "bigint" {
-        expressions = append(expressions, nativefactories.ExpressionFactory.Bigint(value.Value))
+        expressions = append(expressions, nativefactories.ExpressionFactory.Bigint(value.Value, props.Context.Emit))
       } else if constant.Type == "number" {
-        expressions = append(expressions, nativefactories.ExpressionFactory.Number(value.Value))
+        expressions = append(expressions, nativefactories.ExpressionFactory.Number(value.Value, props.Context.Emit))
       } else {
-        expressions = append(expressions, randomProgrammer_factory.NewStringLiteral(fmt.Sprint(value.Value), shimast.TokenFlagsNone))
+        expressions = append(expressions, f.NewStringLiteral(fmt.Sprint(value.Value), shimast.TokenFlagsNone))
       }
     }
   }
@@ -459,23 +464,23 @@ func randomProgrammer_decode(props randomProgrammer_decodeProps) *shimast.Node {
   pickers := make([]*shimast.Node, 0, len(expressions))
   for _, expr := range expressions {
     value := expr
-    pickers = append(pickers, randomProgrammer_factory.NewArrowFunction(
+    pickers = append(pickers, f.NewArrowFunction(
       nil,
       nil,
-      randomProgrammer_factory.NewNodeList(nil),
+      f.NewNodeList(nil),
       nil,
       nil,
-      randomProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
+      f.NewToken(shimast.KindEqualsGreaterThanToken),
       value,
     ))
   }
-  return randomProgrammer_factory.NewCallExpression(
-    randomProgrammer_factory.NewCallExpression(
+  return f.NewCallExpression(
+    f.NewCallExpression(
       randomProgrammer_internal(props.Context, "randomPick"),
       nil,
       nil,
-      randomProgrammer_factory.NewNodeList([]*shimast.Node{
-        randomProgrammer_factory.NewArrayLiteralExpression(randomProgrammer_factory.NewNodeList(pickers), true),
+      f.NewNodeList([]*shimast.Node{
+        f.NewArrayLiteralExpression(f.NewNodeList(pickers), true),
       }),
       shimast.NodeFlagsNone,
     ),
@@ -497,17 +502,19 @@ func randomProgrammer_decode_atomic(props randomProgrammer_decodeAtomicProps) []
   } else {
     schemaList = nativeiterate.Json_schema_number_export(props.Atomic)
   }
+  f := nativecontext.EmitFactoryOf(randomProgrammer_factory, props.Context.Emit)
   output := make([]*shimast.Node, 0, len(schemaList))
   for _, schema := range schemaList {
     composed := randomProgrammer_compose_atomic(props.Atomic.Type, schema)
-    output = append(output, randomProgrammer_factory.NewCallExpression(
+    output = append(output, f.NewCallExpression(
       nativefactories.ExpressionFactory.Coalesce(
-        nativefactories.IdentifierFactory.Access(randomProgrammer_factory.NewIdentifier("_generator"), composed.Method, true),
+        nativefactories.IdentifierFactory.Access(f.NewIdentifier("_generator"), composed.Method, true),
         randomProgrammer_internal(props.Context, composed.Internal),
+        props.Context.Emit,
       ),
       nil,
       nil,
-      randomProgrammer_factory.NewNodeList(composed.Arguments),
+      f.NewNodeList(composed.Arguments),
       shimast.NodeFlagsNone,
     ))
   }
@@ -581,7 +588,7 @@ func randomProgrammer_decode_template(props struct {
       Metadata: metadata,
     }))
   }
-  return nativefactories.TemplateFactory.Generate(expressions)
+  return nativefactories.TemplateFactory.Generate(expressions, props.Context.Emit)
 }
 
 func randomProgrammer_decode_array(props randomProgrammer_decodeArrayProps) []*shimast.Node {
@@ -590,14 +597,15 @@ func randomProgrammer_decode_array(props randomProgrammer_decodeArrayProps) []*s
     Components: components,
     Array:      props.Array,
   })
+  f := nativecontext.EmitFactoryOf(randomProgrammer_factory, props.Context.Emit)
   output := make([]*shimast.Node, 0, len(schemaList))
   if props.Array.Type.Recursive {
     for _, schema := range schemaList {
-      output = append(output, randomProgrammer_factory.NewCallExpression(
-        randomProgrammer_factory.NewIdentifier(props.Functor.UseLocal(randomProgrammer_prefix_array(*props.Array.Type.Index))),
+      output = append(output, f.NewCallExpression(
+        f.NewIdentifier(props.Functor.UseLocal(randomProgrammer_prefix_array(*props.Array.Type.Index))),
         nil,
         nil,
-        randomProgrammer_factory.NewNodeList([]*shimast.Node{
+        f.NewNodeList([]*shimast.Node{
           randomProgrammer_schema_without_items(schema),
         }),
         shimast.NodeFlagsNone,
@@ -626,23 +634,24 @@ func randomProgrammer_decode_array(props randomProgrammer_decodeArrayProps) []*s
 }
 
 func randomProgrammer_decode_tuple(props randomProgrammer_decodeTupleProps) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(randomProgrammer_factory, props.Context.Emit)
   if props.Tuple.Type.Recursive {
-    depth := nativefactories.ExpressionFactory.Number(0)
+    depth := nativefactories.ExpressionFactory.Number(0, props.Context.Emit)
     if props.Explore.Recursive {
-      depth = randomProgrammer_factory.NewBinaryExpression(
+      depth = f.NewBinaryExpression(
         nil,
-        nativefactories.ExpressionFactory.Number(1),
+        nativefactories.ExpressionFactory.Number(1, props.Context.Emit),
         nil,
-        randomProgrammer_factory.NewToken(shimast.KindPlusToken),
-        randomProgrammer_factory.NewIdentifier("_depth"),
+        f.NewToken(shimast.KindPlusToken),
+        f.NewIdentifier("_depth"),
       )
     }
-    return randomProgrammer_factory.NewCallExpression(
-      randomProgrammer_factory.NewIdentifier(props.Functor.UseLocal(randomProgrammer_prefix_tuple(*props.Tuple.Type.Index))),
+    return f.NewCallExpression(
+      f.NewIdentifier(props.Functor.UseLocal(randomProgrammer_prefix_tuple(*props.Tuple.Type.Index))),
       nil,
       nil,
-      randomProgrammer_factory.NewNodeList([]*shimast.Node{
-        randomProgrammer_factory.NewKeywordExpression(shimast.KindTrueKeyword),
+      f.NewNodeList([]*shimast.Node{
+        f.NewKeywordExpression(shimast.KindTrueKeyword),
         depth,
       }),
       shimast.NodeFlagsNone,
@@ -700,6 +709,7 @@ func randomProgrammer_decode_set(props struct {
   Explore randomProgrammer_IExplore
   Set     *schemametadata.MetadataSet
 }) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(randomProgrammer_factory, props.Context.Emit)
   array := schemametadata.MetadataArray_create(schemametadata.MetadataArray{
     Tags: [][]schemametadata.IMetadataTypeTag{},
     Type: schemametadata.MetadataArrayType_create(schemametadata.MetadataArrayType{
@@ -710,10 +720,10 @@ func randomProgrammer_decode_set(props struct {
       Name:      props.Set.GetName(),
     }),
   })
-  return randomProgrammer_factory.NewNewExpression(
-    randomProgrammer_factory.NewIdentifier("Set"),
+  return f.NewNewExpression(
+    f.NewIdentifier("Set"),
     nil,
-    randomProgrammer_factory.NewNodeList([]*shimast.Node{
+    f.NewNodeList([]*shimast.Node{
       randomProgrammer_first(randomProgrammer_decode_array(randomProgrammer_decodeArrayProps{
         Context: props.Context,
         Functor: props.Functor,
@@ -730,6 +740,7 @@ func randomProgrammer_decode_map(props struct {
   Explore randomProgrammer_IExplore
   Map     *schemametadata.MetadataMap
 }) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(randomProgrammer_factory, props.Context.Emit)
   ofMap := true
   tupleType := schemametadata.MetadataTupleType_create(schemametadata.MetadataTupleType{
     Name:      fmt.Sprintf("[%s, %s]", props.Map.Key.GetName(), props.Map.Value.GetName()),
@@ -756,10 +767,10 @@ func randomProgrammer_decode_map(props struct {
       Value:     value,
     }),
   })
-  return randomProgrammer_factory.NewNewExpression(
-    randomProgrammer_factory.NewIdentifier("Map"),
+  return f.NewNewExpression(
+    f.NewIdentifier("Map"),
     nil,
-    randomProgrammer_factory.NewNodeList([]*shimast.Node{
+    f.NewNodeList([]*shimast.Node{
       randomProgrammer_first(randomProgrammer_decode_array(randomProgrammer_decodeArrayProps{
         Context: props.Context,
         Functor: props.Functor,
@@ -820,15 +831,17 @@ func randomProgrammer_decode_native(props struct {
   if props.Name == "RegExp" {
     return randomProgrammer_decode_regexp(props.Context)
   }
-  return randomProgrammer_factory.NewNewExpression(randomProgrammer_factory.NewIdentifier(props.Name), nil, randomProgrammer_factory.NewNodeList(nil))
+  f := nativecontext.EmitFactoryOf(randomProgrammer_factory, props.Context.Emit)
+  return f.NewNewExpression(f.NewIdentifier(props.Name), nil, f.NewNodeList(nil))
 }
 
 func randomProgrammer_decode_native_date(context nativecontext.ITypiaContext) *shimast.Node {
-  return randomProgrammer_factory.NewNewExpression(
-    randomProgrammer_factory.NewIdentifier("Date"),
+  f := nativecontext.EmitFactoryOf(randomProgrammer_factory, context.Emit)
+  return f.NewNewExpression(
+    f.NewIdentifier("Date"),
     nil,
-    randomProgrammer_factory.NewNodeList([]*shimast.Node{
-      randomProgrammer_factory.NewCallExpression(randomProgrammer_coalesce(context, "datetime", "randomFormatDatetime"), nil, nil, randomProgrammer_factory.NewNodeList(nil), shimast.NodeFlagsNone),
+    f.NewNodeList([]*shimast.Node{
+      f.NewCallExpression(randomProgrammer_coalesce(context, "datetime", "randomFormatDatetime"), nil, nil, f.NewNodeList(nil), shimast.NodeFlagsNone),
     }),
   )
 }
@@ -839,6 +852,7 @@ func randomProgrammer_decode_native_byte_array(props struct {
   Explore randomProgrammer_IExplore
   Name    string
 }) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(randomProgrammer_factory, props.Context.Emit)
   protobufType, minimum, maximum := randomProgrammer_typed_array_range(props.Name)
   atomic := "number"
   if props.Name == "BigInt64Array" || props.Name == "BigUint64Array" {
@@ -877,10 +891,10 @@ func randomProgrammer_decode_native_byte_array(props struct {
       Nullables: []bool{},
     }),
   })
-  return randomProgrammer_factory.NewNewExpression(
-    randomProgrammer_factory.NewIdentifier(props.Name),
+  return f.NewNewExpression(
+    f.NewIdentifier(props.Name),
     nil,
-    randomProgrammer_factory.NewNodeList(randomProgrammer_decode_array(randomProgrammer_decodeArrayProps{
+    f.NewNodeList(randomProgrammer_decode_array(randomProgrammer_decodeArrayProps{
       Context: props.Context,
       Functor: props.Functor,
       Explore: props.Explore,
@@ -895,11 +909,12 @@ func randomProgrammer_decode_native_blob(props struct {
   Explore randomProgrammer_IExplore
   Name    string
 }) *shimast.Node {
-  return randomProgrammer_factory.NewNewExpression(
-    randomProgrammer_factory.NewIdentifier("Blob"),
+  f := nativecontext.EmitFactoryOf(randomProgrammer_factory, props.Context.Emit)
+  return f.NewNewExpression(
+    f.NewIdentifier("Blob"),
     nil,
-    randomProgrammer_factory.NewNodeList([]*shimast.Node{
-      randomProgrammer_factory.NewArrayLiteralExpression(randomProgrammer_factory.NewNodeList([]*shimast.Node{
+    f.NewNodeList([]*shimast.Node{
+      f.NewArrayLiteralExpression(f.NewNodeList([]*shimast.Node{
         randomProgrammer_decode_native_byte_array(struct {
           Context nativecontext.ITypiaContext
           Functor *nativehelpers.FunctionProgrammer
@@ -917,11 +932,12 @@ func randomProgrammer_decode_native_file(props struct {
   Explore randomProgrammer_IExplore
   Name    string
 }) *shimast.Node {
-  return randomProgrammer_factory.NewNewExpression(
-    randomProgrammer_factory.NewIdentifier("File"),
+  f := nativecontext.EmitFactoryOf(randomProgrammer_factory, props.Context.Emit)
+  return f.NewNewExpression(
+    f.NewIdentifier("File"),
     nil,
-    randomProgrammer_factory.NewNodeList([]*shimast.Node{
-      randomProgrammer_factory.NewArrayLiteralExpression(randomProgrammer_factory.NewNodeList([]*shimast.Node{
+    f.NewNodeList([]*shimast.Node{
+      f.NewArrayLiteralExpression(f.NewNodeList([]*shimast.Node{
         randomProgrammer_decode_native_byte_array(struct {
           Context nativecontext.ITypiaContext
           Functor *nativehelpers.FunctionProgrammer
@@ -929,16 +945,16 @@ func randomProgrammer_decode_native_file(props struct {
           Name    string
         }{Context: props.Context, Functor: props.Functor, Explore: props.Explore, Name: "Uint8Array"}),
       }), true),
-      randomProgrammer_factory.NewTemplateExpression(
-        randomProgrammer_factory.NewTemplateHead("", "", shimast.TokenFlagsNone),
-        randomProgrammer_factory.NewNodeList([]*shimast.Node{
-          randomProgrammer_factory.NewTemplateSpan(
+      f.NewTemplateExpression(
+        f.NewTemplateHead("", "", shimast.TokenFlagsNone),
+        f.NewNodeList([]*shimast.Node{
+          f.NewTemplateSpan(
             randomProgrammer_write_ranged_string(props.Context, 1, 8),
-            randomProgrammer_factory.NewTemplateMiddle(".", ".", shimast.TokenFlagsNone),
+            f.NewTemplateMiddle(".", ".", shimast.TokenFlagsNone),
           ),
-          randomProgrammer_factory.NewTemplateSpan(
+          f.NewTemplateSpan(
             randomProgrammer_write_ranged_string(props.Context, 3, 3),
-            randomProgrammer_factory.NewTemplateTail("", "", shimast.TokenFlagsNone),
+            f.NewTemplateTail("", "", shimast.TokenFlagsNone),
           ),
         }),
       ),
@@ -952,6 +968,7 @@ func randomProgrammer_decode_native_array_buffer(props struct {
   Explore randomProgrammer_IExplore
   Name    string
 }) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(randomProgrammer_factory, props.Context.Emit)
   if props.Name == "ArrayBuffer" {
     return nativefactories.IdentifierFactory.Access(
       randomProgrammer_decode_native_byte_array(struct {
@@ -997,59 +1014,59 @@ func randomProgrammer_decode_native_array_buffer(props struct {
       )},
     }),
   }))
-  return nativefactories.ExpressionFactory.SelfCall(randomProgrammer_factory.NewBlock(randomProgrammer_factory.NewNodeList([]*shimast.Node{
-    nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{Name: "length", Value: length}),
+  return nativefactories.ExpressionFactory.SelfCall(f.NewBlock(f.NewNodeList([]*shimast.Node{
+    nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{Name: "length", Value: length}, props.Context.Emit),
     nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
       Name: "buffer",
-      Value: randomProgrammer_factory.NewNewExpression(
-        randomProgrammer_factory.NewIdentifier("SharedArrayBuffer"),
+      Value: f.NewNewExpression(
+        f.NewIdentifier("SharedArrayBuffer"),
         nil,
-        randomProgrammer_factory.NewNodeList([]*shimast.Node{randomProgrammer_factory.NewIdentifier("length")}),
+        f.NewNodeList([]*shimast.Node{f.NewIdentifier("length")}),
       ),
-    }),
+    }, props.Context.Emit),
     nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
       Name: "bytes",
-      Value: randomProgrammer_factory.NewNewExpression(
-        randomProgrammer_factory.NewIdentifier("Uint8Array"),
+      Value: f.NewNewExpression(
+        f.NewIdentifier("Uint8Array"),
         nil,
-        randomProgrammer_factory.NewNodeList([]*shimast.Node{randomProgrammer_factory.NewIdentifier("buffer")}),
+        f.NewNodeList([]*shimast.Node{f.NewIdentifier("buffer")}),
       ),
-    }),
-    randomProgrammer_factory.NewExpressionStatement(randomProgrammer_factory.NewCallExpression(
-      nativefactories.IdentifierFactory.Access(randomProgrammer_factory.NewIdentifier("bytes"), "set"),
+    }, props.Context.Emit),
+    f.NewExpressionStatement(f.NewCallExpression(
+      nativefactories.IdentifierFactory.Access(f.NewIdentifier("bytes"), "set"),
       nil,
       nil,
-      randomProgrammer_factory.NewNodeList([]*shimast.Node{
-        randomProgrammer_factory.NewCallExpression(
+      f.NewNodeList([]*shimast.Node{
+        f.NewCallExpression(
           nativefactories.IdentifierFactory.Access(
-            randomProgrammer_factory.NewCallExpression(
+            f.NewCallExpression(
               nativefactories.IdentifierFactory.Access(
-                randomProgrammer_factory.NewNewExpression(
-                  randomProgrammer_factory.NewIdentifier("Array"),
+                f.NewNewExpression(
+                  f.NewIdentifier("Array"),
                   nil,
-                  randomProgrammer_factory.NewNodeList([]*shimast.Node{randomProgrammer_factory.NewIdentifier("length")}),
+                  f.NewNodeList([]*shimast.Node{f.NewIdentifier("length")}),
                 ),
                 "fill",
               ),
               nil,
               nil,
-              randomProgrammer_factory.NewNodeList([]*shimast.Node{nativefactories.ExpressionFactory.Number(0)}),
+              f.NewNodeList([]*shimast.Node{nativefactories.ExpressionFactory.Number(0, props.Context.Emit)}),
               shimast.NodeFlagsNone,
             ),
             "map",
           ),
           nil,
           nil,
-          randomProgrammer_factory.NewNodeList([]*shimast.Node{
-            randomProgrammer_factory.NewArrowFunction(nil, nil, randomProgrammer_factory.NewNodeList(nil), nil, nil, randomProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken), byteValue),
+          f.NewNodeList([]*shimast.Node{
+            f.NewArrowFunction(nil, nil, f.NewNodeList(nil), nil, nil, f.NewToken(shimast.KindEqualsGreaterThanToken), byteValue),
           }),
           shimast.NodeFlagsNone,
         ),
-        nativefactories.ExpressionFactory.Number(0),
+        nativefactories.ExpressionFactory.Number(0, props.Context.Emit),
       }),
       shimast.NodeFlagsNone,
     )),
-    randomProgrammer_factory.NewReturnStatement(randomProgrammer_factory.NewIdentifier("buffer")),
+    f.NewReturnStatement(f.NewIdentifier("buffer")),
   }), true))
 }
 
@@ -1059,10 +1076,11 @@ func randomProgrammer_decode_native_data_view(props struct {
   Explore randomProgrammer_IExplore
   Name    string
 }) *shimast.Node {
-  return randomProgrammer_factory.NewNewExpression(
-    randomProgrammer_factory.NewIdentifier("DataView"),
+  f := nativecontext.EmitFactoryOf(randomProgrammer_factory, props.Context.Emit)
+  return f.NewNewExpression(
+    f.NewIdentifier("DataView"),
     nil,
-    randomProgrammer_factory.NewNodeList([]*shimast.Node{
+    f.NewNodeList([]*shimast.Node{
       nativefactories.IdentifierFactory.Access(
         randomProgrammer_decode_native_byte_array(struct {
           Context nativecontext.ITypiaContext
@@ -1077,11 +1095,12 @@ func randomProgrammer_decode_native_data_view(props struct {
 }
 
 func randomProgrammer_decode_regexp(context nativecontext.ITypiaContext) *shimast.Node {
-  return randomProgrammer_factory.NewNewExpression(
-    randomProgrammer_factory.NewIdentifier("RegExp"),
+  f := nativecontext.EmitFactoryOf(randomProgrammer_factory, context.Emit)
+  return f.NewNewExpression(
+    f.NewIdentifier("RegExp"),
     nil,
-    randomProgrammer_factory.NewNodeList([]*shimast.Node{
-      randomProgrammer_factory.NewCallExpression(randomProgrammer_coalesce(context, "regex", "randomFormatRegex"), nil, nil, nil, shimast.NodeFlagsNone),
+    f.NewNodeList([]*shimast.Node{
+      f.NewCallExpression(randomProgrammer_coalesce(context, "regex", "randomFormatRegex"), nil, nil, nil, shimast.NodeFlagsNone),
     }),
   )
 }
@@ -1108,9 +1127,11 @@ func randomProgrammer_write_ranged_string(context nativecontext.ITypiaContext, m
 }
 
 func randomProgrammer_coalesce(context nativecontext.ITypiaContext, method string, internal string) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(randomProgrammer_factory, context.Emit)
   return nativefactories.ExpressionFactory.Coalesce(
-    nativefactories.IdentifierFactory.Access(randomProgrammer_factory.NewIdentifier("_generator"), method, true),
+    nativefactories.IdentifierFactory.Access(f.NewIdentifier("_generator"), method, true),
     randomProgrammer_internal(context, internal),
+    context.Emit,
   )
 }
 
@@ -1135,24 +1156,26 @@ func randomProgrammer_internal(context nativecontext.ITypiaContext, name string)
   if importer := context.Importer; importer != nil {
     return importer.Internal(name)
   }
-  return randomProgrammer_factory.NewIdentifier(name)
+  return nativecontext.EmitFactoryOf(randomProgrammer_factory, context.Emit).NewIdentifier(name)
 }
 
 func randomProgrammer_import_type(context nativecontext.ITypiaContext, props nativecontext.ImportProgrammer_TypeProps) *shimast.Node {
   if importer := context.Importer; importer != nil {
     return importer.Type(props)
   }
+  f := nativecontext.EmitFactoryOf(randomProgrammer_factory, context.Emit)
   if str, ok := props.Name.(string); ok {
-    return randomProgrammer_factory.NewTypeReferenceNode(randomProgrammer_factory.NewIdentifier(str), randomProgrammer_factory.NewNodeList(props.Arguments))
+    return f.NewTypeReferenceNode(f.NewIdentifier(str), f.NewNodeList(props.Arguments))
   }
   return props.Name.(*shimast.Node)
 }
 
 func randomProgrammer_type_reference(context nativecontext.ITypiaContext, typ *shimchecker.Type, name *string) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(randomProgrammer_factory, context.Emit)
   if name != nil {
-    return randomProgrammer_factory.NewTypeReferenceNode(randomProgrammer_factory.NewIdentifier(*name), nil)
+    return f.NewTypeReferenceNode(f.NewIdentifier(*name), nil)
   }
-  return randomProgrammer_factory.NewTypeReferenceNode(randomProgrammer_factory.NewIdentifier(nativefactories.TypeFactory.GetFullName(nativefactories.TypeFactory_GetFullNameProps{
+  return f.NewTypeReferenceNode(f.NewIdentifier(nativefactories.TypeFactory.GetFullName(nativefactories.TypeFactory_GetFullNameProps{
     Checker: context.Checker,
     Type:    typ,
   })), nil)

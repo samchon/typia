@@ -46,6 +46,7 @@ func (llmCoerceProgrammerNamespace) Decompose(props LlmCoerceProgrammer_Decompos
   if props.Name != nil {
     typeName = *props.Name
   }
+  f := nativecontext.EmitFactoryOf(llmCoerceProgrammer_factory, props.Context.Emit)
   return nativeinternal.FeatureProgrammer_IDecomposed{
     Functions: map[string]*shimast.Node{},
     Statements: []*shimast.Node{
@@ -57,24 +58,24 @@ func (llmCoerceProgrammerNamespace) Decompose(props LlmCoerceProgrammer_Decompos
           Metadata: props.Metadata,
           Config:   props.Config,
         }),
-      }),
+      }, props.Context.Emit),
     },
-    Arrow: llmCoerceProgrammer_factory.NewArrowFunction(
+    Arrow: f.NewArrowFunction(
       nil,
       nil,
-      llmCoerceProgrammer_factory.NewNodeList([]*shimast.Node{
-        nativefactories.IdentifierFactory.Parameter("input", llmProgrammer_type_reference(typeName), nil),
+      f.NewNodeList([]*shimast.Node{
+        nativefactories.IdentifierFactory.Parameter("input", llmProgrammer_type_reference(typeName, props.Context.Emit), nil, props.Context.Emit),
       }),
-      llmProgrammer_type_reference(typeName),
+      llmProgrammer_type_reference(typeName, props.Context.Emit),
       nil,
-      llmCoerceProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
-      llmCoerceProgrammer_factory.NewCallExpression(
+      f.NewToken(shimast.KindEqualsGreaterThanToken),
+      f.NewCallExpression(
         llmProgrammer_internal(props.Context, "coerceLlmArguments"),
         nil,
         nil,
-        llmCoerceProgrammer_factory.NewNodeList([]*shimast.Node{
-          llmCoerceProgrammer_factory.NewIdentifier("input"),
-          llmCoerceProgrammer_factory.NewIdentifier("__schema"),
+        f.NewNodeList([]*shimast.Node{
+          f.NewIdentifier("input"),
+          f.NewIdentifier("__schema"),
         }),
         shimast.NodeFlagsNone,
       ),

@@ -27,6 +27,7 @@ type NotationIsGeneralProgrammer_DecomposeProps struct {
 var notationIsGeneralProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
 func (notationIsGeneralProgrammerNamespace) Decompose(props NotationIsGeneralProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
+  f := nativecontext.EmitFactoryOf(notationIsGeneralProgrammer_factory, props.Context.Emit)
   is := nativeprogrammers.IsProgrammer.Decompose(nativeprogrammers.IsProgrammer_DecomposeProps{
     Context: props.Context,
     Functor: props.Functor,
@@ -45,48 +46,48 @@ func (notationIsGeneralProgrammerNamespace) Decompose(props NotationIsGeneralPro
   statements := append([]*shimast.Node{}, is.Statements...)
   statements = append(statements, notation.Statements...)
   statements = append(statements,
-    nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{Name: "__is", Value: is.Arrow}),
-    nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{Name: "__notation", Value: notation.Arrow}),
+    nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{Name: "__is", Value: is.Arrow}, props.Context.Emit),
+    nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{Name: "__notation", Value: notation.Arrow}, props.Context.Emit),
   )
   notationType := notation.Arrow.AsArrowFunction().Type
   if notationType == nil {
-    notationType = nativefactories.TypeFactory.Keyword("any")
+    notationType = nativefactories.TypeFactory.Keyword("any", props.Context.Emit)
   }
   return nativeinternal.FeatureProgrammer_IDecomposed{
     Functions:  notationGeneralProgrammer_merge_functions(is.Functions, notation.Functions),
     Statements: statements,
-    Arrow: notationIsGeneralProgrammer_factory.NewArrowFunction(
+    Arrow: f.NewArrowFunction(
       nil,
       nil,
-      notationIsGeneralProgrammer_factory.NewNodeList([]*shimast.Node{
-        nativefactories.IdentifierFactory.Parameter("input", nativefactories.TypeFactory.Keyword("any"), nil),
+      f.NewNodeList([]*shimast.Node{
+        nativefactories.IdentifierFactory.Parameter("input", nativefactories.TypeFactory.Keyword("any", props.Context.Emit), nil, props.Context.Emit),
       }),
-      notationIsGeneralProgrammer_factory.NewUnionTypeNode(notationIsGeneralProgrammer_factory.NewNodeList([]*shimast.Node{
+      f.NewUnionTypeNode(f.NewNodeList([]*shimast.Node{
         notationType,
-        notationIsGeneralProgrammer_factory.NewTypeReferenceNode(notationIsGeneralProgrammer_factory.NewIdentifier("null"), nil),
+        f.NewTypeReferenceNode(f.NewIdentifier("null"), nil),
       })),
       nil,
-      notationIsGeneralProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
-      notationIsGeneralProgrammer_factory.NewBlock(notationIsGeneralProgrammer_factory.NewNodeList([]*shimast.Node{
-        notationIsGeneralProgrammer_factory.NewIfStatement(
-          notationIsGeneralProgrammer_factory.NewPrefixUnaryExpression(
+      f.NewToken(shimast.KindEqualsGreaterThanToken),
+      f.NewBlock(f.NewNodeList([]*shimast.Node{
+        f.NewIfStatement(
+          f.NewPrefixUnaryExpression(
             shimast.KindExclamationToken,
-            notationIsGeneralProgrammer_factory.NewCallExpression(
-              notationIsGeneralProgrammer_factory.NewIdentifier("__is"),
+            f.NewCallExpression(
+              f.NewIdentifier("__is"),
               nil,
               nil,
-              notationIsGeneralProgrammer_factory.NewNodeList([]*shimast.Node{notationIsGeneralProgrammer_factory.NewIdentifier("input")}),
+              f.NewNodeList([]*shimast.Node{f.NewIdentifier("input")}),
               shimast.NodeFlagsNone,
             ),
           ),
-          notationIsGeneralProgrammer_factory.NewReturnStatement(notationIsGeneralProgrammer_factory.NewKeywordExpression(shimast.KindNullKeyword)),
+          f.NewReturnStatement(f.NewKeywordExpression(shimast.KindNullKeyword)),
           nil,
         ),
-        notationIsGeneralProgrammer_factory.NewReturnStatement(notationIsGeneralProgrammer_factory.NewCallExpression(
-          notationIsGeneralProgrammer_factory.NewIdentifier("__notation"),
+        f.NewReturnStatement(f.NewCallExpression(
+          f.NewIdentifier("__notation"),
           nil,
           nil,
-          notationIsGeneralProgrammer_factory.NewNodeList([]*shimast.Node{notationIsGeneralProgrammer_factory.NewIdentifier("input")}),
+          f.NewNodeList([]*shimast.Node{f.NewIdentifier("input")}),
           shimast.NodeFlagsNone,
         )),
       }), true),

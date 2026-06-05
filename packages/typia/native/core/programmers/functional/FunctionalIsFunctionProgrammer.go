@@ -24,6 +24,7 @@ type FunctionalIsFunctionProgrammer_IProps struct {
 }
 
 func (functionalIsFunctionProgrammerNamespace) Write(props FunctionalIsFunctionProgrammer_IProps) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(functionalIsProgrammer_factory, props.Context.Emit)
   p := FunctionalIsParametersProgrammer.Decompose(FunctionalIsParametersProgrammer_IDecomposeProps{
     Context:     props.Context,
     Config:      FunctionalIsParametersProgrammer_IConfig{Equals: props.Config.Equals},
@@ -41,11 +42,11 @@ func (functionalIsFunctionProgrammerNamespace) Write(props FunctionalIsFunctionP
   statements = append(statements, r.Functions...)
   body := append([]*shimast.Node{}, p.Statements...)
   body = append(body, r.Statements...)
-  statements = append(statements, functionalIsProgrammer_factory.NewReturnStatement(
-    functionalIsProgrammer_factory.NewArrowFunction(
-      functionalIsProgrammer_asyncModifiers(r.Async),
+  statements = append(statements, f.NewReturnStatement(
+    f.NewArrowFunction(
+      functionalIsProgrammer_asyncModifiers(r.Async, props.Context.Emit),
       nil,
-      functionalIsProgrammer_parameters(props.Declaration),
+      functionalIsProgrammer_parameters(props.Declaration, props.Context.Emit),
       FunctionalIsFunctionProgrammer.GetReturnTypeNode(struct {
         Declaration *shimast.Node
         Async       bool
@@ -54,12 +55,12 @@ func (functionalIsFunctionProgrammerNamespace) Write(props FunctionalIsFunctionP
         Async:       r.Async,
       }),
       nil,
-      functionalIsProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
-      functionalIsProgrammer_factory.NewBlock(functionalIsProgrammer_factory.NewNodeList(body), true),
+      f.NewToken(shimast.KindEqualsGreaterThanToken),
+      f.NewBlock(f.NewNodeList(body), true),
     ),
   ))
   return nativefactories.ExpressionFactory.SelfCall(
-    functionalIsProgrammer_factory.NewBlock(functionalIsProgrammer_factory.NewNodeList(statements), true),
+    f.NewBlock(f.NewNodeList(statements), true),
   )
 }
 

@@ -58,7 +58,7 @@ func (fileTransformerNamespace) Transform(environments FileTransformer_IEnvironm
       _ = transformer
       fileTransformer_checkJsDocParsingMode(context, file)
       visited := fileTransformer_iterate_file(context, file)
-      result := fileTransformer_inject_imports(visited, importer.ToStatements())
+      result := fileTransformer_inject_imports(visited, importer.ToStatements(), environments.EmitContext)
       if environments.EmitContext != nil {
         // AST-integration emit prints these nodes through tsgo's printer, which
         // dereferences operator tokens typia leaves nil; the legacy text path
@@ -139,18 +139,19 @@ func fileTransformer_addDiagnostic(props FileTransformer_TryTransformNodeProps) 
   props.Context.Extras.AddDiagnostic(&shimast.Diagnostic{})
 }
 
-func fileTransformer_inject_imports(file *shimast.SourceFile, imports []*shimast.Node) *shimast.SourceFile {
+func fileTransformer_inject_imports(file *shimast.SourceFile, imports []*shimast.Node, emit ...*shimprinter.EmitContext) *shimast.SourceFile {
   if file == nil || len(imports) == 0 {
     return file
   }
+  f := nativecontext.EmitFactoryOf(fileTransformer_factory, emit...)
   index := fileTransformer_find_import_injection_index(file)
   nodes := make([]*shimast.Node, 0, len(file.Statements.Nodes)+len(imports))
   nodes = append(nodes, file.Statements.Nodes[:index]...)
   nodes = append(nodes, imports...)
   nodes = append(nodes, file.Statements.Nodes[index:]...)
-  return fileTransformer_factory.UpdateSourceFile(
+  return f.UpdateSourceFile(
     file,
-    fileTransformer_factory.NewNodeList(nodes),
+    f.NewNodeList(nodes),
     file.EndOfFileToken,
   ).AsSourceFile()
 }

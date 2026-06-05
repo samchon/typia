@@ -49,49 +49,50 @@ func (jsonIsStringifyProgrammerNamespace) Decompose(props JsonIsStringifyProgram
     Validated: true,
   })
 
+  f := nativecontext.EmitFactoryOf(jsonIsStringifyProgrammer_factory, props.Context.Emit)
   statements := append([]*shimast.Node{}, is.Statements...)
   statements = append(statements, stringify.Statements...)
   statements = append(statements,
-    nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{Name: "__is", Value: is.Arrow}),
-    nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{Name: "__stringify", Value: stringify.Arrow}),
+    nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{Name: "__is", Value: is.Arrow}, props.Context.Emit),
+    nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{Name: "__stringify", Value: stringify.Arrow}, props.Context.Emit),
   )
   stringifyType := stringify.Arrow.AsArrowFunction().Type
   if stringifyType == nil {
-    stringifyType = nativefactories.TypeFactory.Keyword("string")
+    stringifyType = nativefactories.TypeFactory.Keyword("string", props.Context.Emit)
   }
   return nativeinternal.FeatureProgrammer_IDecomposed{
     Functions:  jsonStringifyProgrammer_merge_functions(is.Functions, stringify.Functions),
     Statements: statements,
-    Arrow: jsonIsStringifyProgrammer_factory.NewArrowFunction(
+    Arrow: f.NewArrowFunction(
       nil,
       nil,
-      jsonIsStringifyProgrammer_factory.NewNodeList([]*shimast.Node{
-        nativefactories.IdentifierFactory.Parameter("input", nativefactories.TypeFactory.Keyword("any"), nil),
+      f.NewNodeList([]*shimast.Node{
+        nativefactories.IdentifierFactory.Parameter("input", nativefactories.TypeFactory.Keyword("any", props.Context.Emit), nil, props.Context.Emit),
       }),
-      jsonIsStringifyProgrammer_factory.NewUnionTypeNode(jsonIsStringifyProgrammer_factory.NewNodeList([]*shimast.Node{
+      f.NewUnionTypeNode(f.NewNodeList([]*shimast.Node{
         stringifyType,
-        jsonIsStringifyProgrammer_factory.NewLiteralTypeNode(jsonIsStringifyProgrammer_factory.NewKeywordExpression(shimast.KindNullKeyword)),
+        f.NewLiteralTypeNode(f.NewKeywordExpression(shimast.KindNullKeyword)),
       })),
       nil,
-      jsonIsStringifyProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
-      jsonIsStringifyProgrammer_factory.NewConditionalExpression(
-        jsonIsStringifyProgrammer_factory.NewCallExpression(
-          jsonIsStringifyProgrammer_factory.NewIdentifier("__is"),
+      f.NewToken(shimast.KindEqualsGreaterThanToken),
+      f.NewConditionalExpression(
+        f.NewCallExpression(
+          f.NewIdentifier("__is"),
           nil,
           nil,
-          jsonIsStringifyProgrammer_factory.NewNodeList([]*shimast.Node{jsonIsStringifyProgrammer_factory.NewIdentifier("input")}),
+          f.NewNodeList([]*shimast.Node{f.NewIdentifier("input")}),
           shimast.NodeFlagsNone,
         ),
         nil,
-        jsonIsStringifyProgrammer_factory.NewCallExpression(
-          jsonIsStringifyProgrammer_factory.NewIdentifier("__stringify"),
+        f.NewCallExpression(
+          f.NewIdentifier("__stringify"),
           nil,
           nil,
-          jsonIsStringifyProgrammer_factory.NewNodeList([]*shimast.Node{jsonIsStringifyProgrammer_factory.NewIdentifier("input")}),
+          f.NewNodeList([]*shimast.Node{f.NewIdentifier("input")}),
           shimast.NodeFlagsNone,
         ),
         nil,
-        jsonIsStringifyProgrammer_factory.NewKeywordExpression(shimast.KindNullKeyword),
+        f.NewKeywordExpression(shimast.KindNullKeyword),
       ),
     ),
   }

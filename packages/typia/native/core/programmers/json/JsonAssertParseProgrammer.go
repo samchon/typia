@@ -23,6 +23,7 @@ type JsonAssertParseProgrammer_DecomposeProps struct {
 }
 
 func (jsonAssertParseProgrammerNamespace) Decompose(props JsonAssertParseProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
+  f := nativecontext.EmitFactoryOf(jsonParseProgrammer_factory, props.Context.Emit)
   nativefactories.JsonMetadataFactory.Analyze(nativefactories.JsonMetadataFactory_IProps{
     Method:  props.Functor.Method,
     Checker: props.Context.Checker,
@@ -48,12 +49,12 @@ func (jsonAssertParseProgrammerNamespace) Decompose(props JsonAssertParseProgram
     Statements: append(append([]*shimast.Node{}, assert.Statements...), nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
       Name:  "__assert",
       Value: assert.Arrow,
-    })),
-    Arrow: jsonParseProgrammer_factory.NewArrowFunction(
+    }, props.Context.Emit)),
+    Arrow: f.NewArrowFunction(
       nil,
       nil,
-      jsonParseProgrammer_factory.NewNodeList([]*shimast.Node{
-        nativefactories.IdentifierFactory.Parameter("input", nativefactories.TypeFactory.Keyword("string"), nil),
+      f.NewNodeList([]*shimast.Node{
+        nativefactories.IdentifierFactory.Parameter("input", nativefactories.TypeFactory.Keyword("string", props.Context.Emit), nil, props.Context.Emit),
         nativeprogrammers.Guardian.Parameter(struct {
           Context nativecontext.ITypiaContext
           Init    *shimast.Node
@@ -70,19 +71,19 @@ func (jsonAssertParseProgrammerNamespace) Decompose(props JsonAssertParseProgram
         },
       }),
       nil,
-      jsonParseProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
-      jsonParseProgrammer_factory.NewAsExpression(
-        jsonParseProgrammer_factory.NewCallExpression(
-          jsonParseProgrammer_factory.NewIdentifier("__assert"),
+      f.NewToken(shimast.KindEqualsGreaterThanToken),
+      f.NewAsExpression(
+        f.NewCallExpression(
+          f.NewIdentifier("__assert"),
           nil,
           nil,
-          jsonParseProgrammer_factory.NewNodeList([]*shimast.Node{
-            jsonParseProgrammer_factory.NewCallExpression(
-              jsonParseProgrammer_factory.NewIdentifier("JSON.parse"),
+          f.NewNodeList([]*shimast.Node{
+            f.NewCallExpression(
+              f.NewIdentifier("JSON.parse"),
               nil,
               nil,
-              jsonParseProgrammer_factory.NewNodeList([]*shimast.Node{
-                jsonParseProgrammer_factory.NewIdentifier("input"),
+              f.NewNodeList([]*shimast.Node{
+                f.NewIdentifier("input"),
               }),
               shimast.NodeFlagsNone,
             ),
@@ -90,7 +91,7 @@ func (jsonAssertParseProgrammerNamespace) Decompose(props JsonAssertParseProgram
           }),
           shimast.NodeFlagsNone,
         ),
-        nativefactories.TypeFactory.Keyword("any"),
+        nativefactories.TypeFactory.Keyword("any", props.Context.Emit),
       ),
     ),
   }

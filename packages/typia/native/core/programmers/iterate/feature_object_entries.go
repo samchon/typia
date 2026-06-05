@@ -2,6 +2,7 @@ package iterate
 
 import (
   shimast "github.com/microsoft/typescript-go/shim/ast"
+  shimprinter "github.com/microsoft/typescript-go/shim/printer"
   nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
   nativefactories "github.com/samchon/typia/packages/typia/native/core/factories"
   nativehelpers "github.com/samchon/typia/packages/typia/native/core/programmers/helpers"
@@ -43,7 +44,7 @@ func Feature_object_entries(props Feature_object_entriesProps) []nativehelpers.I
   }
   for _, next := range props.Object.Properties {
     sole := next.Key.GetSoleLiteral()
-    propInput := feature_object_entries_property_input(props.Input, sole)
+    propInput := feature_object_entries_property_input(props.Input, sole, props.Context.Emit)
     postfix := ""
     if props.Config.Trace {
       if sole != nil {
@@ -72,22 +73,23 @@ func Feature_object_entries(props Feature_object_entriesProps) []nativehelpers.I
   return output
 }
 
-func feature_object_entries_property_input(input *shimast.Expression, sole *string) *shimast.Node {
+func feature_object_entries_property_input(input *shimast.Expression, sole *string, emit ...*shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(feature_object_entries_factory, emit...)
   if sole == nil {
-    return feature_object_entries_factory.NewIdentifier("value")
+    return f.NewIdentifier("value")
   }
   if feature_object_entries_variable(*sole) {
-    return feature_object_entries_factory.NewPropertyAccessExpression(
+    return f.NewPropertyAccessExpression(
       input,
       nil,
-      feature_object_entries_factory.NewIdentifier(*sole),
+      f.NewIdentifier(*sole),
       shimast.NodeFlagsNone,
     )
   }
-  return feature_object_entries_factory.NewElementAccessExpression(
+  return f.NewElementAccessExpression(
     input,
     nil,
-    feature_object_entries_factory.NewStringLiteral(*sole, shimast.TokenFlagsNone),
+    f.NewStringLiteral(*sole, shimast.TokenFlagsNone),
     shimast.NodeFlagsNone,
   )
 }
@@ -113,7 +115,8 @@ func feature_object_entries_internal(context nativecontext.ITypiaContext, name s
   if importer := context.Importer; importer != nil {
     return importer.Internal(name)
   }
-  return feature_object_entries_factory.NewIdentifier(name)
+  f := nativecontext.EmitFactoryOf(feature_object_entries_factory, context.Emit)
+  return f.NewIdentifier(name)
 }
 
 func feature_object_entries_get_internal_text(context nativecontext.ITypiaContext, name string) string {

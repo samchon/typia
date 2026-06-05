@@ -46,6 +46,7 @@ func (llmParseProgrammerNamespace) Decompose(props LlmParseProgrammer_DecomposeP
   if props.Name != nil {
     typeName = *props.Name
   }
+  f := nativecontext.EmitFactoryOf(llmParseProgrammer_factory, props.Context.Emit)
   return nativeinternal.FeatureProgrammer_IDecomposed{
     Functions: map[string]*shimast.Node{},
     Statements: []*shimast.Node{
@@ -57,28 +58,28 @@ func (llmParseProgrammerNamespace) Decompose(props LlmParseProgrammer_DecomposeP
           Metadata: props.Metadata,
           Config:   props.Config,
         }),
-      }),
+      }, props.Context.Emit),
     },
-    Arrow: llmParseProgrammer_factory.NewArrowFunction(
+    Arrow: f.NewArrowFunction(
       nil,
       nil,
-      llmParseProgrammer_factory.NewNodeList([]*shimast.Node{
-        nativefactories.IdentifierFactory.Parameter("input", nativefactories.TypeFactory.Keyword("string"), nil),
+      f.NewNodeList([]*shimast.Node{
+        nativefactories.IdentifierFactory.Parameter("input", nativefactories.TypeFactory.Keyword("string", props.Context.Emit), nil, props.Context.Emit),
       }),
       llmProgrammer_import_type(props.Context, nativecontext.ImportProgrammer_TypeProps{
         File:      "typia",
         Name:      "IJsonParseResult",
-        Arguments: []*shimast.TypeNode{llmProgrammer_type_reference(typeName)},
+        Arguments: []*shimast.TypeNode{llmProgrammer_type_reference(typeName, props.Context.Emit)},
       }),
       nil,
-      llmParseProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
-      llmParseProgrammer_factory.NewCallExpression(
+      f.NewToken(shimast.KindEqualsGreaterThanToken),
+      f.NewCallExpression(
         llmProgrammer_internal(props.Context, "parseLlmArguments"),
         nil,
         nil,
-        llmParseProgrammer_factory.NewNodeList([]*shimast.Node{
-          llmParseProgrammer_factory.NewIdentifier("input"),
-          llmParseProgrammer_factory.NewIdentifier("__schema"),
+        f.NewNodeList([]*shimast.Node{
+          f.NewIdentifier("input"),
+          f.NewIdentifier("__schema"),
         }),
         shimast.NodeFlagsNone,
       ),

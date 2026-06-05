@@ -32,6 +32,7 @@ const miscCloneProgrammer_PREFIX = "_c"
 var miscCloneProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
 func (miscCloneProgrammerNamespace) Decompose(props MiscCloneProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
+  f := nativecontext.EmitFactoryOf(miscCloneProgrammer_factory, props.Context.Emit)
   config := miscCloneProgrammer_configure(struct {
     Context nativecontext.ITypiaContext
     Functor *nativehelpers.FunctionProgrammer
@@ -58,13 +59,13 @@ func (miscCloneProgrammerNamespace) Decompose(props MiscCloneProgrammer_Decompos
   return nativeinternal.FeatureProgrammer_IDecomposed{
     Functions:  composed.Functions,
     Statements: composed.Statements,
-    Arrow: miscCloneProgrammer_factory.NewArrowFunction(
+    Arrow: f.NewArrowFunction(
       nil,
       nil,
-      miscCloneProgrammer_factory.NewNodeList(composed.Parameters),
+      f.NewNodeList(composed.Parameters),
       composed.Response,
       nil,
-      miscCloneProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
+      f.NewToken(shimast.KindEqualsGreaterThanToken),
       composed.Body,
     ),
   }

@@ -32,6 +32,7 @@ const miscPruneProgrammer_PREFIX = "_p"
 var miscPruneProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
 func (miscPruneProgrammerNamespace) Decompose(props MiscPruneProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
+  f := nativecontext.EmitFactoryOf(miscPruneProgrammer_factory, props.Context.Emit)
   config := miscPruneProgrammer_configure(struct {
     Context nativecontext.ITypiaContext
     Functor *nativehelpers.FunctionProgrammer
@@ -55,13 +56,13 @@ func (miscPruneProgrammerNamespace) Decompose(props MiscPruneProgrammer_Decompos
   return nativeinternal.FeatureProgrammer_IDecomposed{
     Functions:  composed.Functions,
     Statements: composed.Statements,
-    Arrow: miscPruneProgrammer_factory.NewArrowFunction(
+    Arrow: f.NewArrowFunction(
       nil,
       nil,
-      miscPruneProgrammer_factory.NewNodeList(composed.Parameters),
+      f.NewNodeList(composed.Parameters),
       composed.Response,
       nil,
-      miscPruneProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
+      f.NewToken(shimast.KindEqualsGreaterThanToken),
       miscPruneProgrammer_top_level_body(composed.Body),
     ),
   }

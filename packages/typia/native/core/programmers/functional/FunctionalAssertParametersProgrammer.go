@@ -48,6 +48,7 @@ func (functionalAssertParametersProgrammerNamespace) Write(props FunctionalAsser
     Parameters: functionalIsProgrammer_parameterNodes(props.Declaration),
     Init:       props.Init,
   })
+  f := nativecontext.EmitFactoryOf(functionalAssertProgrammer_factory, props.Context.Emit)
   output := functionalinternal.FunctionalGeneralProgrammer.GetReturnType(functionalinternal.FunctionalGeneralProgrammer_IProps{
     Checker:     props.Context.Checker,
     Declaration: props.Declaration,
@@ -63,32 +64,33 @@ func (functionalAssertParametersProgrammerNamespace) Write(props FunctionalAsser
   statements = append(statements, result.Functions...)
   body := []*shimast.Node{}
   for _, exp := range result.Expressions {
-    body = append(body, functionalAssertProgrammer_factory.NewExpressionStatement(exp))
+    body = append(body, f.NewExpressionStatement(exp))
   }
-  body = append(body, functionalAssertProgrammer_factory.NewReturnStatement(functionalAssertProgrammer_factory.NewCallExpression(
+  body = append(body, f.NewReturnStatement(f.NewCallExpression(
     props.Expression,
     nil,
     nil,
-    functionalAssertProgrammer_factory.NewNodeList(functionalIsProgrammer_parameterIdentifiers(props.Declaration)),
+    f.NewNodeList(functionalIsProgrammer_parameterIdentifiers(props.Declaration, props.Context.Emit)),
     shimast.NodeFlagsNone,
   )))
-  statements = append(statements, functionalAssertProgrammer_factory.NewReturnStatement(
-    functionalAssertProgrammer_factory.NewArrowFunction(
-      functionalIsProgrammer_asyncModifiers(output.Async),
+  statements = append(statements, f.NewReturnStatement(
+    f.NewArrowFunction(
+      functionalIsProgrammer_asyncModifiers(output.Async, props.Context.Emit),
       nil,
-      functionalIsProgrammer_parameters(props.Declaration),
+      functionalIsProgrammer_parameters(props.Declaration, props.Context.Emit),
       functionalAssertProgrammer_returnType(props.Declaration),
       nil,
-      functionalAssertProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
-      functionalAssertProgrammer_factory.NewBlock(functionalAssertProgrammer_factory.NewNodeList(body), true),
+      f.NewToken(shimast.KindEqualsGreaterThanToken),
+      f.NewBlock(f.NewNodeList(body), true),
     ),
   ))
   return nativefactories.ExpressionFactory.SelfCall(
-    functionalAssertProgrammer_factory.NewBlock(functionalAssertProgrammer_factory.NewNodeList(statements), true),
+    f.NewBlock(f.NewNodeList(statements), true),
   )
 }
 
 func (functionalAssertParametersProgrammerNamespace) Decompose(props FunctionalAssertParametersProgrammer_IDecomposeProps) FunctionalAssertParametersProgrammer_IDecomposeOutput {
+  f := nativecontext.EmitFactoryOf(functionalAssertProgrammer_factory, props.Context.Emit)
   functions := make([]*shimast.Node, 0, len(props.Parameters))
   expressions := make([]*shimast.Node, 0, len(props.Parameters))
   for i, p := range props.Parameters {
@@ -102,7 +104,7 @@ func (functionalAssertParametersProgrammerNamespace) Decompose(props FunctionalA
           Guard:  false,
         },
         Type: props.Context.Checker.GetTypeFromTypeNode(
-          functionalIsProgrammer_parameterType(p, nativefactories.TypeFactory.Keyword("any")),
+          functionalIsProgrammer_parameterType(p, nativefactories.TypeFactory.Keyword("any", props.Context.Emit)),
         ),
         Init: FunctionalAssertFunctionProgrammer.HookPath(struct {
           Wrapper  string
@@ -112,13 +114,13 @@ func (functionalAssertParametersProgrammerNamespace) Decompose(props FunctionalA
           Replacer: "$input.parameters[" + functionalIsProgrammer_itoa(i) + "]",
         }),
       }),
-    }))
-    expressions = append(expressions, functionalAssertProgrammer_factory.NewCallExpression(
-      functionalAssertProgrammer_factory.NewIdentifier("__assert_param_"+functionalIsProgrammer_itoa(i)),
+    }, props.Context.Emit))
+    expressions = append(expressions, f.NewCallExpression(
+      f.NewIdentifier("__assert_param_"+functionalIsProgrammer_itoa(i)),
       nil,
       nil,
-      functionalAssertProgrammer_factory.NewNodeList([]*shimast.Node{
-        functionalAssertProgrammer_factory.NewIdentifier(functionalIsProgrammer_parameterName(p)),
+      f.NewNodeList([]*shimast.Node{
+        f.NewIdentifier(functionalIsProgrammer_parameterName(p)),
       }),
       shimast.NodeFlagsNone,
     ))

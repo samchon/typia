@@ -2,6 +2,7 @@ package iterate
 
 import (
   shimast "github.com/microsoft/typescript-go/shim/ast"
+  shimprinter "github.com/microsoft/typescript-go/shim/printer"
   nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
   nativefactories "github.com/samchon/typia/packages/typia/native/core/factories"
   nativehelpers "github.com/samchon/typia/packages/typia/native/core/programmers/helpers"
@@ -16,12 +17,13 @@ type Check_dynamic_propertiesProps struct {
 }
 
 func Check_dynamic_properties(props Check_dynamic_propertiesProps) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(check_dynamic_properties_factory, props.Context.Emit)
   length := nativefactories.IdentifierFactory.Access(
-    check_dynamic_properties_factory.NewCallExpression(
-      check_dynamic_properties_factory.NewIdentifier("Object.keys"),
+    f.NewCallExpression(
+      f.NewIdentifier("Object.keys"),
       nil,
       nil,
-      check_dynamic_properties_factory.NewNodeList([]*shimast.Node{props.Input}),
+      f.NewNodeList([]*shimast.Node{props.Input}),
       shimast.NodeFlagsNone,
     ),
     "length",
@@ -31,22 +33,22 @@ func Check_dynamic_properties(props Check_dynamic_propertiesProps) *shimast.Node
   if props.Config.Equals && len(props.Dynamic) == 0 {
     required := check_dynamic_properties_required_count(props.Regular)
     if props.Config.Undefined || check_dynamic_properties_every_required(props.Regular) {
-      left = check_dynamic_properties_factory.NewBinaryExpression(
+      left = f.NewBinaryExpression(
         nil,
-        nativefactories.ExpressionFactory.Number(required),
+        nativefactories.ExpressionFactory.Number(required, props.Context.Emit),
         nil,
-        check_dynamic_properties_factory.NewToken(shimast.KindEqualsEqualsEqualsToken),
+        f.NewToken(shimast.KindEqualsEqualsEqualsToken),
         length,
       )
     } else {
-      left = check_dynamic_properties_factory.NewCallExpression(
+      left = f.NewCallExpression(
         check_dynamic_properties_internal(props.Context, "isBetween"),
         nil,
-        check_dynamic_properties_factory.NewNodeList(nil),
-        check_dynamic_properties_factory.NewNodeList([]*shimast.Node{
+        f.NewNodeList(nil),
+        f.NewNodeList([]*shimast.Node{
           length,
-          nativefactories.ExpressionFactory.Number(required),
-          nativefactories.ExpressionFactory.Number(len(props.Regular)),
+          nativefactories.ExpressionFactory.Number(required, props.Context.Emit),
+          nativefactories.ExpressionFactory.Number(len(props.Regular), props.Context.Emit),
         }),
         shimast.NodeFlagsNone,
       )
@@ -58,19 +60,19 @@ func Check_dynamic_properties(props Check_dynamic_propertiesProps) *shimast.Node
 
   var criteria *shimast.Node
   property := check_dynamic_property(props)
-  keys := check_dynamic_properties_factory.NewCallExpression(
-    check_dynamic_properties_factory.NewIdentifier("Object.keys"),
+  keys := f.NewCallExpression(
+    f.NewIdentifier("Object.keys"),
     nil,
     nil,
-    check_dynamic_properties_factory.NewNodeList([]*shimast.Node{props.Input}),
+    f.NewNodeList([]*shimast.Node{props.Input}),
     shimast.NodeFlagsNone,
   )
   if props.Config.Entries != nil {
-    criteria = check_dynamic_properties_factory.NewCallExpression(
+    criteria = f.NewCallExpression(
       props.Config.Entries,
       nil,
       nil,
-      check_dynamic_properties_factory.NewNodeList([]*shimast.Node{keys, property}),
+      f.NewNodeList([]*shimast.Node{keys, property}),
       shimast.NodeFlagsNone,
     )
   } else {
@@ -78,11 +80,11 @@ func Check_dynamic_properties(props Check_dynamic_propertiesProps) *shimast.Node
     if props.Config.Assert {
       method = "every"
     }
-    criteria = check_dynamic_properties_factory.NewCallExpression(
+    criteria = f.NewCallExpression(
       nativefactories.IdentifierFactory.Access(keys, method),
       nil,
       nil,
-      check_dynamic_properties_factory.NewNodeList([]*shimast.Node{property}),
+      f.NewNodeList([]*shimast.Node{property}),
       shimast.NodeFlagsNone,
     )
   }
@@ -101,43 +103,44 @@ func Check_dynamic_properties(props Check_dynamic_propertiesProps) *shimast.Node
   if props.Config.Undefined {
     operator = shimast.KindBarBarToken
   }
-  return check_dynamic_properties_factory.NewBinaryExpression(
+  return f.NewBinaryExpression(
     nil,
     left,
     nil,
-    check_dynamic_properties_factory.NewToken(operator),
+    f.NewToken(operator),
     right,
   )
 }
 
 func check_dynamic_property(props Check_dynamic_propertiesProps) *shimast.Node {
-  key := check_dynamic_properties_factory.NewIdentifier("key")
-  value := check_dynamic_properties_factory.NewIdentifier("value")
+  f := nativecontext.EmitFactoryOf(check_dynamic_properties_factory, props.Context.Emit)
+  key := f.NewIdentifier("key")
+  value := f.NewIdentifier("value")
 
   statements := []*shimast.Node{}
   add := func(expression *shimast.Expression, output *shimast.Expression) {
-    statements = append(statements, check_dynamic_properties_factory.NewIfStatement(
+    statements = append(statements, f.NewIfStatement(
       expression,
-      check_dynamic_properties_factory.NewReturnStatement(output),
+      f.NewReturnStatement(output),
       nil,
     ))
   }
   broken := false
 
   if len(props.Regular) != 0 {
-    add(is_regular_property(props.Regular), props.Config.Positive)
+    add(is_regular_property(props.Regular, props.Context.Emit), props.Config.Positive)
   }
   statements = append(statements, nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
     Name:  "value",
-    Value: check_dynamic_properties_factory.NewElementAccessExpression(props.Input, nil, key, shimast.NodeFlagsNone),
-  }))
+    Value: f.NewElementAccessExpression(props.Input, nil, key, shimast.NodeFlagsNone),
+  }, props.Context.Emit))
   if props.Config.Undefined {
     add(
-      check_dynamic_properties_factory.NewBinaryExpression(
+      f.NewBinaryExpression(
         nil,
-        check_dynamic_properties_factory.NewIdentifier("undefined"),
+        f.NewIdentifier("undefined"),
         nil,
-        check_dynamic_properties_factory.NewToken(shimast.KindEqualsEqualsEqualsToken),
+        f.NewToken(shimast.KindEqualsEqualsEqualsToken),
         value,
       ),
       props.Config.Positive,
@@ -151,7 +154,7 @@ func check_dynamic_property(props Check_dynamic_propertiesProps) *shimast.Node {
       Input:    key,
     })
     if condition.Kind == shimast.KindTrueKeyword {
-      statements = append(statements, check_dynamic_properties_factory.NewReturnStatement(entry.Expression))
+      statements = append(statements, f.NewReturnStatement(entry.Expression))
       broken = true
       break
     }
@@ -161,62 +164,63 @@ func check_dynamic_property(props Check_dynamic_propertiesProps) *shimast.Node {
   if !broken {
     output := props.Config.Positive
     if props.Config.Equals {
-      output = props.Config.Superfluous(value, check_dynamic_properties_superfluous_description())
+      output = props.Config.Superfluous(value, check_dynamic_properties_superfluous_description(props.Context.Emit))
     }
-    statements = append(statements, check_dynamic_properties_factory.NewReturnStatement(output))
+    statements = append(statements, f.NewReturnStatement(output))
   }
 
-  block := check_dynamic_properties_factory.NewBlock(
-    check_dynamic_properties_factory.NewNodeList(statements),
+  block := f.NewBlock(
+    f.NewNodeList(statements),
     true,
   )
-  return check_dynamic_properties_factory.NewArrowFunction(
+  return f.NewArrowFunction(
     nil,
     nil,
-    check_dynamic_properties_factory.NewNodeList([]*shimast.Node{
-      nativefactories.IdentifierFactory.Parameter("key", nil, nil),
+    f.NewNodeList([]*shimast.Node{
+      nativefactories.IdentifierFactory.Parameter("key", nil, nil, props.Context.Emit),
     }),
     nil,
     nil,
-    check_dynamic_properties_factory.NewToken(shimast.KindEqualsGreaterThanToken),
+    f.NewToken(shimast.KindEqualsGreaterThanToken),
     block,
   )
 }
 
-func is_regular_property(regular []nativehelpers.IExpressionEntry) *shimast.Node {
+func is_regular_property(regular []nativehelpers.IExpressionEntry, emit ...*shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(check_dynamic_properties_factory, emit...)
   elements := make([]*shimast.Node, 0, len(regular))
   for _, entry := range regular {
     key := entry.Key.GetSoleLiteral()
     if key != nil {
-      elements = append(elements, check_dynamic_properties_factory.NewStringLiteral(*key, shimast.TokenFlagsNone))
+      elements = append(elements, f.NewStringLiteral(*key, shimast.TokenFlagsNone))
     }
   }
-  return check_dynamic_properties_factory.NewCallExpression(
+  return f.NewCallExpression(
     nativefactories.IdentifierFactory.Access(
-      check_dynamic_properties_factory.NewArrayLiteralExpression(
-        check_dynamic_properties_factory.NewNodeList(elements),
+      f.NewArrayLiteralExpression(
+        f.NewNodeList(elements),
         false,
       ),
       "some",
     ),
     nil,
     nil,
-    check_dynamic_properties_factory.NewNodeList([]*shimast.Node{
-      check_dynamic_properties_factory.NewArrowFunction(
+    f.NewNodeList([]*shimast.Node{
+      f.NewArrowFunction(
         nil,
         nil,
-        check_dynamic_properties_factory.NewNodeList([]*shimast.Node{
-          nativefactories.IdentifierFactory.Parameter("prop", nil, nil),
+        f.NewNodeList([]*shimast.Node{
+          nativefactories.IdentifierFactory.Parameter("prop", nil, nil, emit...),
         }),
         nil,
         nil,
-        check_dynamic_properties_factory.NewToken(shimast.KindEqualsGreaterThanToken),
-        check_dynamic_properties_factory.NewBinaryExpression(
+        f.NewToken(shimast.KindEqualsGreaterThanToken),
+        f.NewBinaryExpression(
           nil,
-          check_dynamic_properties_factory.NewIdentifier("key"),
+          f.NewIdentifier("key"),
           nil,
-          check_dynamic_properties_factory.NewToken(shimast.KindEqualsEqualsEqualsToken),
-          check_dynamic_properties_factory.NewIdentifier("prop"),
+          f.NewToken(shimast.KindEqualsEqualsEqualsToken),
+          f.NewIdentifier("prop"),
         ),
       ),
     }),
@@ -247,25 +251,27 @@ func check_dynamic_properties_internal(context nativecontext.ITypiaContext, name
   if importer := context.Importer; importer != nil {
     return importer.Internal(name)
   }
-  return check_dynamic_properties_factory.NewIdentifier(name)
+  f := nativecontext.EmitFactoryOf(check_dynamic_properties_factory, context.Emit)
+  return f.NewIdentifier(name)
 }
 
-func check_dynamic_properties_superfluous_description() *shimast.Node {
-  return check_dynamic_properties_factory.NewCallExpression(
+func check_dynamic_properties_superfluous_description(emit ...*shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(check_dynamic_properties_factory, emit...)
+  return f.NewCallExpression(
     nativefactories.IdentifierFactory.Access(
-      check_dynamic_properties_factory.NewArrayLiteralExpression(
-        check_dynamic_properties_factory.NewNodeList([]*shimast.Node{
-          check_dynamic_properties_factory.NewTemplateExpression(
-            check_dynamic_properties_factory.NewTemplateHead("The property `", "The property \\`", shimast.TokenFlagsNone),
-            check_dynamic_properties_factory.NewNodeList([]*shimast.Node{
-              check_dynamic_properties_factory.NewTemplateSpan(
-                check_dynamic_properties_factory.NewIdentifier("key"),
-                check_dynamic_properties_factory.NewTemplateTail("` is not defined in the object type.", "\\` is not defined in the object type.", shimast.TokenFlagsNone),
+      f.NewArrayLiteralExpression(
+        f.NewNodeList([]*shimast.Node{
+          f.NewTemplateExpression(
+            f.NewTemplateHead("The property `", "The property \\`", shimast.TokenFlagsNone),
+            f.NewNodeList([]*shimast.Node{
+              f.NewTemplateSpan(
+                f.NewIdentifier("key"),
+                f.NewTemplateTail("` is not defined in the object type.", "\\` is not defined in the object type.", shimast.TokenFlagsNone),
               ),
             }),
           ),
-          check_dynamic_properties_factory.NewStringLiteral("", shimast.TokenFlagsNone),
-          check_dynamic_properties_factory.NewStringLiteral("Please remove the property next time.", shimast.TokenFlagsNone),
+          f.NewStringLiteral("", shimast.TokenFlagsNone),
+          f.NewStringLiteral("Please remove the property next time.", shimast.TokenFlagsNone),
         }),
         true,
       ),
@@ -273,8 +279,8 @@ func check_dynamic_properties_superfluous_description() *shimast.Node {
     ),
     nil,
     nil,
-    check_dynamic_properties_factory.NewNodeList([]*shimast.Node{
-      check_dynamic_properties_factory.NewStringLiteral("\n", shimast.TokenFlagsNone),
+    f.NewNodeList([]*shimast.Node{
+      f.NewStringLiteral("\n", shimast.TokenFlagsNone),
     }),
     shimast.NodeFlagsNone,
   )

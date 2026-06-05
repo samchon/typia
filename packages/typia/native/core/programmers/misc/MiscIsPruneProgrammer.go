@@ -24,6 +24,7 @@ type MiscIsPruneProgrammer_DecomposeProps struct {
 var miscIsPruneProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
 func (miscIsPruneProgrammerNamespace) Decompose(props MiscIsPruneProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
+  f := nativecontext.EmitFactoryOf(miscIsPruneProgrammer_factory, props.Context.Emit)
   is := nativeprogrammers.IsProgrammer.Decompose(nativeprogrammers.IsProgrammer_DecomposeProps{
     Context: props.Context,
     Functor: props.Functor,
@@ -41,49 +42,49 @@ func (miscIsPruneProgrammerNamespace) Decompose(props MiscIsPruneProgrammer_Deco
   statements := append([]*shimast.Node{}, is.Statements...)
   statements = append(statements, prune.Statements...)
   statements = append(statements,
-    nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{Name: "__is", Value: is.Arrow}),
-    nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{Name: "__prune", Value: prune.Arrow}),
+    nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{Name: "__is", Value: is.Arrow}, props.Context.Emit),
+    nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{Name: "__prune", Value: prune.Arrow}, props.Context.Emit),
   )
   return nativeinternal.FeatureProgrammer_IDecomposed{
     Functions:  miscProgrammer_merge_functions(is.Functions, prune.Functions),
     Statements: statements,
-    Arrow: miscIsPruneProgrammer_factory.NewArrowFunction(
+    Arrow: f.NewArrowFunction(
       nil,
       nil,
-      miscIsPruneProgrammer_factory.NewNodeList([]*shimast.Node{
-        nativefactories.IdentifierFactory.Parameter("input", nativefactories.TypeFactory.Keyword("any"), nil),
+      f.NewNodeList([]*shimast.Node{
+        nativefactories.IdentifierFactory.Parameter("input", nativefactories.TypeFactory.Keyword("any", props.Context.Emit), nil, props.Context.Emit),
       }),
       is.Arrow.AsArrowFunction().Type,
       nil,
-      miscIsPruneProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
-      miscIsPruneProgrammer_factory.NewBlock(miscIsPruneProgrammer_factory.NewNodeList([]*shimast.Node{
-        miscIsPruneProgrammer_factory.NewIfStatement(
-          miscIsPruneProgrammer_factory.NewBinaryExpression(
+      f.NewToken(shimast.KindEqualsGreaterThanToken),
+      f.NewBlock(f.NewNodeList([]*shimast.Node{
+        f.NewIfStatement(
+          f.NewBinaryExpression(
             nil,
-            miscIsPruneProgrammer_factory.NewKeywordExpression(shimast.KindFalseKeyword),
+            f.NewKeywordExpression(shimast.KindFalseKeyword),
             nil,
-            miscIsPruneProgrammer_factory.NewToken(shimast.KindEqualsEqualsEqualsToken),
-            miscIsPruneProgrammer_factory.NewCallExpression(
-              miscIsPruneProgrammer_factory.NewIdentifier("__is"),
+            f.NewToken(shimast.KindEqualsEqualsEqualsToken),
+            f.NewCallExpression(
+              f.NewIdentifier("__is"),
               nil,
               nil,
-              miscIsPruneProgrammer_factory.NewNodeList([]*shimast.Node{miscIsPruneProgrammer_factory.NewIdentifier("input")}),
+              f.NewNodeList([]*shimast.Node{f.NewIdentifier("input")}),
               shimast.NodeFlagsNone,
             ),
           ),
-          miscIsPruneProgrammer_factory.NewReturnStatement(miscIsPruneProgrammer_factory.NewKeywordExpression(shimast.KindFalseKeyword)),
+          f.NewReturnStatement(f.NewKeywordExpression(shimast.KindFalseKeyword)),
           nil,
         ),
-        miscIsPruneProgrammer_factory.NewExpressionStatement(
-          miscIsPruneProgrammer_factory.NewCallExpression(
-            miscIsPruneProgrammer_factory.NewIdentifier("__prune"),
+        f.NewExpressionStatement(
+          f.NewCallExpression(
+            f.NewIdentifier("__prune"),
             nil,
             nil,
-            miscIsPruneProgrammer_factory.NewNodeList([]*shimast.Node{miscIsPruneProgrammer_factory.NewIdentifier("input")}),
+            f.NewNodeList([]*shimast.Node{f.NewIdentifier("input")}),
             shimast.NodeFlagsNone,
           ),
         ),
-        miscIsPruneProgrammer_factory.NewReturnStatement(miscIsPruneProgrammer_factory.NewKeywordExpression(shimast.KindTrueKeyword)),
+        f.NewReturnStatement(f.NewKeywordExpression(shimast.KindTrueKeyword)),
       }), true),
     ),
   }

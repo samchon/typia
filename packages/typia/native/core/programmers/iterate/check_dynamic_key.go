@@ -4,6 +4,7 @@ import (
   "fmt"
 
   shimast "github.com/microsoft/typescript-go/shim/ast"
+  shimprinter "github.com/microsoft/typescript-go/shim/printer"
   nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
   nativehelpers "github.com/samchon/typia/packages/typia/native/core/programmers/helpers"
   nativemetadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
@@ -16,71 +17,76 @@ type Check_dynamic_keyProps struct {
 }
 
 func Check_dynamic_key(props Check_dynamic_keyProps) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(check_dynamic_key_factory, props.Context.Emit)
   if check_dynamic_key_has_pure_string(props.Metadata) {
-    return check_dynamic_key_factory.NewKeywordExpression(shimast.KindTrueKeyword)
+    return f.NewKeywordExpression(shimast.KindTrueKeyword)
   }
 
   conditions := []*shimast.Node{}
   if props.Metadata.Nullable {
     conditions = append(conditions, check_dynamic_key_strict_equal(
-      check_dynamic_key_factory.NewStringLiteral("null", shimast.TokenFlagsNone),
+      f.NewStringLiteral("null", shimast.TokenFlagsNone),
       props.Input,
+      props.Context.Emit,
     ))
   }
   if !props.Metadata.IsRequired() {
     conditions = append(conditions, check_dynamic_key_strict_equal(
-      check_dynamic_key_factory.NewStringLiteral("undefined", shimast.TokenFlagsNone),
+      f.NewStringLiteral("undefined", shimast.TokenFlagsNone),
       props.Input,
+      props.Context.Emit,
     ))
   }
 
   for _, atom := range props.Metadata.Atomics {
     switch atom.Type {
     case "boolean":
-      conditions = append(conditions, check_dynamic_key_factory.NewBinaryExpression(
+      conditions = append(conditions, f.NewBinaryExpression(
         nil,
         check_dynamic_key_strict_equal(
-          check_dynamic_key_factory.NewStringLiteral("false", shimast.TokenFlagsNone),
+          f.NewStringLiteral("false", shimast.TokenFlagsNone),
           props.Input,
+          props.Context.Emit,
         ),
         nil,
-        check_dynamic_key_factory.NewToken(shimast.KindBarBarToken),
+        f.NewToken(shimast.KindBarBarToken),
         check_dynamic_key_strict_equal(
-          check_dynamic_key_factory.NewStringLiteral("true", shimast.TokenFlagsNone),
+          f.NewStringLiteral("true", shimast.TokenFlagsNone),
           props.Input,
+          props.Context.Emit,
         ),
       ))
     case "bigint":
-      bigintInput := check_dynamic_key_factory.NewCallExpression(
-        check_dynamic_key_factory.NewIdentifier("BigInt"),
+      bigintInput := f.NewCallExpression(
+        f.NewIdentifier("BigInt"),
         nil,
         nil,
-        check_dynamic_key_factory.NewNodeList([]*shimast.Node{props.Input}),
+        f.NewNodeList([]*shimast.Node{props.Input}),
         shimast.NodeFlagsNone,
       )
-      conditions = append(conditions, check_dynamic_key_factory.NewBinaryExpression(
+      conditions = append(conditions, f.NewBinaryExpression(
         nil,
-        check_dynamic_key_factory.NewCallExpression(
+        f.NewCallExpression(
           check_dynamic_key_internal(props.Context, "isBigintString"),
           nil,
           nil,
-          check_dynamic_key_factory.NewNodeList([]*shimast.Node{props.Input}),
+          f.NewNodeList([]*shimast.Node{props.Input}),
           shimast.NodeFlagsNone,
         ),
         nil,
-        check_dynamic_key_factory.NewToken(shimast.KindAmpersandAmpersandToken),
+        f.NewToken(shimast.KindAmpersandAmpersandToken),
         check_dynamic_key_atomist(Check_bigint(Check_bigintProps{
           Context: props.Context,
           Atomic:  atom,
           Input:   bigintInput,
-        })),
+        }), props.Context.Emit),
       ))
     case "number":
-      numberInput := check_dynamic_key_factory.NewCallExpression(
-        check_dynamic_key_factory.NewIdentifier("Number"),
+      numberInput := f.NewCallExpression(
+        f.NewIdentifier("Number"),
         nil,
         nil,
-        check_dynamic_key_factory.NewNodeList([]*shimast.Node{props.Input}),
+        f.NewNodeList([]*shimast.Node{props.Input}),
         shimast.NodeFlagsNone,
       )
       conditions = append(conditions, check_dynamic_key_atomist(Check_number(Check_numberProps{
@@ -88,21 +94,22 @@ func Check_dynamic_key(props Check_dynamic_keyProps) *shimast.Node {
         Numeric: true,
         Atomic:  atom,
         Input:   numberInput,
-      })))
+      }), props.Context.Emit))
     default:
       conditions = append(conditions, check_dynamic_key_atomist(Check_string(Check_stringProps{
         Context: props.Context,
         Atomic:  atom,
         Input:   props.Input,
-      })))
+      }), props.Context.Emit))
     }
   }
 
   for _, constant := range props.Metadata.Constants {
     for _, value := range constant.Values {
       conditions = append(conditions, check_dynamic_key_strict_equal(
-        check_dynamic_key_factory.NewStringLiteral(fmt.Sprint(value.Value), shimast.TokenFlagsNone),
+        f.NewStringLiteral(fmt.Sprint(value.Value), shimast.TokenFlagsNone),
         props.Input,
+        props.Context.Emit,
       ))
     }
   }
@@ -111,59 +118,62 @@ func Check_dynamic_key(props Check_dynamic_keyProps) *shimast.Node {
     conditions = append(conditions, check_dynamic_key_atomist(Check_template(Check_templateProps{
       Templates: props.Metadata.Templates,
       Input:     props.Input,
-    })))
+    }), props.Context.Emit))
   }
 
   for _, native := range props.Metadata.Natives {
     switch native.Name {
     case "Boolean":
-      conditions = append(conditions, check_dynamic_key_factory.NewBinaryExpression(
+      conditions = append(conditions, f.NewBinaryExpression(
         nil,
         check_dynamic_key_strict_equal(
-          check_dynamic_key_factory.NewStringLiteral("false", shimast.TokenFlagsNone),
+          f.NewStringLiteral("false", shimast.TokenFlagsNone),
           props.Input,
+          props.Context.Emit,
         ),
         nil,
-        check_dynamic_key_factory.NewToken(shimast.KindBarBarToken),
+        f.NewToken(shimast.KindBarBarToken),
         check_dynamic_key_strict_equal(
-          check_dynamic_key_factory.NewStringLiteral("true", shimast.TokenFlagsNone),
+          f.NewStringLiteral("true", shimast.TokenFlagsNone),
           props.Input,
+          props.Context.Emit,
         ),
       ))
     case "BigInt":
-      conditions = append(conditions, check_dynamic_key_factory.NewCallExpression(
+      conditions = append(conditions, f.NewCallExpression(
         check_dynamic_key_internal(props.Context, "isBigintString"),
         nil,
         nil,
-        check_dynamic_key_factory.NewNodeList([]*shimast.Node{props.Input}),
+        f.NewNodeList([]*shimast.Node{props.Input}),
         shimast.NodeFlagsNone,
       ))
     case "Number":
       conditions = append(conditions, check_dynamic_key_strict_equal(
-        check_dynamic_key_factory.NewKeywordExpression(shimast.KindFalseKeyword),
-        check_dynamic_key_factory.NewCallExpression(
-          check_dynamic_key_factory.NewIdentifier("Number.isNaN"),
+        f.NewKeywordExpression(shimast.KindFalseKeyword),
+        f.NewCallExpression(
+          f.NewIdentifier("Number.isNaN"),
           nil,
           nil,
-          check_dynamic_key_factory.NewNodeList([]*shimast.Node{
-            check_dynamic_key_factory.NewCallExpression(
-              check_dynamic_key_factory.NewIdentifier("Number"),
+          f.NewNodeList([]*shimast.Node{
+            f.NewCallExpression(
+              f.NewIdentifier("Number"),
               nil,
               nil,
-              check_dynamic_key_factory.NewNodeList([]*shimast.Node{props.Input}),
+              f.NewNodeList([]*shimast.Node{props.Input}),
               shimast.NodeFlagsNone,
             ),
           }),
           shimast.NodeFlagsNone,
         ),
+        props.Context.Emit,
       ))
     }
   }
 
   if len(conditions) == 0 {
-    return check_dynamic_key_factory.NewKeywordExpression(shimast.KindTrueKeyword)
+    return f.NewKeywordExpression(shimast.KindTrueKeyword)
   }
-  return check_dynamic_key_reduce(conditions, shimast.KindBarBarToken)
+  return check_dynamic_key_reduce(conditions, shimast.KindBarBarToken, props.Context.Emit)
 }
 
 func check_dynamic_key_has_pure_string(metadata *nativemetadata.MetadataSchema) bool {
@@ -201,7 +211,7 @@ func check_dynamic_key_fully_validated_tag_rows(rows [][]nativemetadata.IMetadat
   return output
 }
 
-func check_dynamic_key_atomist(entry nativehelpers.ICheckEntry) *shimast.Node {
+func check_dynamic_key_atomist(entry nativehelpers.ICheckEntry, emit ...*shimprinter.EmitContext) *shimast.Node {
   expressions := []*shimast.Node{}
   if entry.Expression != nil {
     expressions = append(expressions, entry.Expression)
@@ -213,36 +223,38 @@ func check_dynamic_key_atomist(entry nativehelpers.ICheckEntry) *shimast.Node {
       for _, condition := range set {
         pieces = append(pieces, condition.Expression)
       }
-      rows = append(rows, check_dynamic_key_reduce(pieces, shimast.KindAmpersandAmpersandToken))
+      rows = append(rows, check_dynamic_key_reduce(pieces, shimast.KindAmpersandAmpersandToken, emit...))
     }
-    expressions = append(expressions, check_dynamic_key_reduce(rows, shimast.KindBarBarToken))
+    expressions = append(expressions, check_dynamic_key_reduce(rows, shimast.KindBarBarToken, emit...))
   }
-  return check_dynamic_key_reduce(expressions, shimast.KindAmpersandAmpersandToken)
+  return check_dynamic_key_reduce(expressions, shimast.KindAmpersandAmpersandToken, emit...)
 }
 
-func check_dynamic_key_reduce(expressions []*shimast.Node, operator shimast.Kind) *shimast.Node {
+func check_dynamic_key_reduce(expressions []*shimast.Node, operator shimast.Kind, emit ...*shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(check_dynamic_key_factory, emit...)
   if len(expressions) == 0 {
-    return check_dynamic_key_factory.NewKeywordExpression(shimast.KindTrueKeyword)
+    return f.NewKeywordExpression(shimast.KindTrueKeyword)
   }
   output := expressions[0]
   for _, next := range expressions[1:] {
-    output = check_dynamic_key_factory.NewBinaryExpression(
+    output = f.NewBinaryExpression(
       nil,
       output,
       nil,
-      check_dynamic_key_factory.NewToken(operator),
+      f.NewToken(operator),
       next,
     )
   }
   return output
 }
 
-func check_dynamic_key_strict_equal(left *shimast.Expression, right *shimast.Expression) *shimast.Node {
-  return check_dynamic_key_factory.NewBinaryExpression(
+func check_dynamic_key_strict_equal(left *shimast.Expression, right *shimast.Expression, emit ...*shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(check_dynamic_key_factory, emit...)
+  return f.NewBinaryExpression(
     nil,
     left,
     nil,
-    check_dynamic_key_factory.NewToken(shimast.KindEqualsEqualsEqualsToken),
+    f.NewToken(shimast.KindEqualsEqualsEqualsToken),
     right,
   )
 }
@@ -251,7 +263,8 @@ func check_dynamic_key_internal(context nativecontext.ITypiaContext, name string
   if importer := context.Importer; importer != nil {
     return importer.Internal(name)
   }
-  return check_dynamic_key_factory.NewIdentifier(name)
+  f := nativecontext.EmitFactoryOf(check_dynamic_key_factory, context.Emit)
+  return f.NewIdentifier(name)
 }
 
 var check_dynamic_key_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})

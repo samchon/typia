@@ -95,7 +95,7 @@ func (jsonSchemasProgrammerNamespace) Write(props JsonSchemasProgrammer_IWritePr
     "version":    collection.Version,
     "components": collection.Components.ToLiteral(),
     "schemas":    collection.Schemas,
-  })
+  }, props.Context.Emit)
 }
 
 func (jsonSchemasProgrammerNamespace) WriteSchemas(props struct {

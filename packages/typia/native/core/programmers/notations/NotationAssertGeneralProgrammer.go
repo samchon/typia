@@ -28,6 +28,7 @@ type NotationAssertGeneralProgrammer_DecomposeProps struct {
 var notationAssertGeneralProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
 func (notationAssertGeneralProgrammerNamespace) Decompose(props NotationAssertGeneralProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
+  f := nativecontext.EmitFactoryOf(notationAssertGeneralProgrammer_factory, props.Context.Emit)
   assert := nativeprogrammers.AssertProgrammer.Decompose(nativeprogrammers.AssertProgrammer_DecomposeProps{
     Context: props.Context,
     Functor: props.Functor,
@@ -47,17 +48,17 @@ func (notationAssertGeneralProgrammerNamespace) Decompose(props NotationAssertGe
   statements := append([]*shimast.Node{}, assert.Statements...)
   statements = append(statements, notation.Statements...)
   statements = append(statements,
-    nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{Name: "__assert", Value: assert.Arrow}),
-    nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{Name: "__notation", Value: notation.Arrow}),
+    nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{Name: "__assert", Value: assert.Arrow}, props.Context.Emit),
+    nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{Name: "__notation", Value: notation.Arrow}, props.Context.Emit),
   )
   return nativeinternal.FeatureProgrammer_IDecomposed{
     Functions:  notationGeneralProgrammer_merge_functions(assert.Functions, notation.Functions),
     Statements: statements,
-    Arrow: notationAssertGeneralProgrammer_factory.NewArrowFunction(
+    Arrow: f.NewArrowFunction(
       nil,
       nil,
-      notationAssertGeneralProgrammer_factory.NewNodeList([]*shimast.Node{
-        nativefactories.IdentifierFactory.Parameter("input", nativefactories.TypeFactory.Keyword("any"), nil),
+      f.NewNodeList([]*shimast.Node{
+        nativefactories.IdentifierFactory.Parameter("input", nativefactories.TypeFactory.Keyword("any", props.Context.Emit), nil, props.Context.Emit),
         nativeprogrammers.Guardian.Parameter(struct {
           Context nativecontext.ITypiaContext
           Init    *shimast.Node
@@ -65,18 +66,18 @@ func (notationAssertGeneralProgrammerNamespace) Decompose(props NotationAssertGe
       }),
       notation.Arrow.AsArrowFunction().Type,
       nil,
-      notationAssertGeneralProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
-      notationAssertGeneralProgrammer_factory.NewCallExpression(
-        notationAssertGeneralProgrammer_factory.NewIdentifier("__notation"),
+      f.NewToken(shimast.KindEqualsGreaterThanToken),
+      f.NewCallExpression(
+        f.NewIdentifier("__notation"),
         nil,
         nil,
-        notationAssertGeneralProgrammer_factory.NewNodeList([]*shimast.Node{
-          notationAssertGeneralProgrammer_factory.NewCallExpression(
-            notationAssertGeneralProgrammer_factory.NewIdentifier("__assert"),
+        f.NewNodeList([]*shimast.Node{
+          f.NewCallExpression(
+            f.NewIdentifier("__assert"),
             nil,
             nil,
-            notationAssertGeneralProgrammer_factory.NewNodeList([]*shimast.Node{
-              notationAssertGeneralProgrammer_factory.NewIdentifier("input"),
+            f.NewNodeList([]*shimast.Node{
+              f.NewIdentifier("input"),
               nativeprogrammers.Guardian.Identifier(),
             }),
             shimast.NodeFlagsNone,

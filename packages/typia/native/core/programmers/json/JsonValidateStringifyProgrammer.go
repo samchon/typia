@@ -45,24 +45,25 @@ func (jsonValidateStringifyProgrammerNamespace) Decompose(props JsonValidateStri
     Name:      props.Name,
     Validated: true,
   })
+  f := nativecontext.EmitFactoryOf(jsonValidateStringifyProgrammer_factory, props.Context.Emit)
   statements := append([]*shimast.Node{}, validate.Statements...)
   statements = append(statements, stringify.Statements...)
   statements = append(statements,
-    nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{Name: "__validate", Value: validate.Arrow}),
-    nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{Name: "__stringify", Value: stringify.Arrow}),
+    nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{Name: "__validate", Value: validate.Arrow}, props.Context.Emit),
+    nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{Name: "__stringify", Value: stringify.Arrow}, props.Context.Emit),
   )
   stringifyType := stringify.Arrow.AsArrowFunction().Type
   if stringifyType == nil {
-    stringifyType = jsonValidateStringifyProgrammer_factory.NewTypeReferenceNode(jsonValidateStringifyProgrammer_factory.NewIdentifier("string"), nil)
+    stringifyType = f.NewTypeReferenceNode(f.NewIdentifier("string"), nil)
   }
   return nativeinternal.FeatureProgrammer_IDecomposed{
     Functions:  jsonStringifyProgrammer_merge_functions(validate.Functions, stringify.Functions),
     Statements: statements,
-    Arrow: jsonValidateStringifyProgrammer_factory.NewArrowFunction(
+    Arrow: f.NewArrowFunction(
       nil,
       nil,
-      jsonValidateStringifyProgrammer_factory.NewNodeList([]*shimast.Node{
-        nativefactories.IdentifierFactory.Parameter("input", nativefactories.TypeFactory.Keyword("any"), nil),
+      f.NewNodeList([]*shimast.Node{
+        nativefactories.IdentifierFactory.Parameter("input", nativefactories.TypeFactory.Keyword("any", props.Context.Emit), nil, props.Context.Emit),
       }),
       jsonProgrammer_import_type(props.Context, nativecontext.ImportProgrammer_TypeProps{
         File:      "typia",
@@ -70,39 +71,39 @@ func (jsonValidateStringifyProgrammerNamespace) Decompose(props JsonValidateStri
         Arguments: []*shimast.TypeNode{stringifyType},
       }),
       nil,
-      jsonValidateStringifyProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
-      jsonValidateStringifyProgrammer_factory.NewBlock(jsonValidateStringifyProgrammer_factory.NewNodeList([]*shimast.Node{
+      f.NewToken(shimast.KindEqualsGreaterThanToken),
+      f.NewBlock(f.NewNodeList([]*shimast.Node{
         nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
           Name: "result",
-          Value: jsonValidateStringifyProgrammer_factory.NewAsExpression(
-            jsonValidateStringifyProgrammer_factory.NewCallExpression(
-              jsonValidateStringifyProgrammer_factory.NewIdentifier("__validate"),
+          Value: f.NewAsExpression(
+            f.NewCallExpression(
+              f.NewIdentifier("__validate"),
               nil,
               nil,
-              jsonValidateStringifyProgrammer_factory.NewNodeList([]*shimast.Node{jsonValidateStringifyProgrammer_factory.NewIdentifier("input")}),
+              f.NewNodeList([]*shimast.Node{f.NewIdentifier("input")}),
               shimast.NodeFlagsNone,
             ),
-            nativefactories.TypeFactory.Keyword("any"),
+            nativefactories.TypeFactory.Keyword("any", props.Context.Emit),
           ),
-        }),
-        jsonValidateStringifyProgrammer_factory.NewIfStatement(
-          jsonValidateStringifyProgrammer_factory.NewIdentifier("result.success"),
-          jsonValidateStringifyProgrammer_factory.NewExpressionStatement(jsonValidateStringifyProgrammer_factory.NewBinaryExpression(
+        }, props.Context.Emit),
+        f.NewIfStatement(
+          f.NewIdentifier("result.success"),
+          f.NewExpressionStatement(f.NewBinaryExpression(
             nil,
-            jsonValidateStringifyProgrammer_factory.NewIdentifier("result.data"),
+            f.NewIdentifier("result.data"),
             nil,
-            jsonValidateStringifyProgrammer_factory.NewToken(shimast.KindEqualsToken),
-            jsonValidateStringifyProgrammer_factory.NewCallExpression(
-              jsonValidateStringifyProgrammer_factory.NewIdentifier("__stringify"),
+            f.NewToken(shimast.KindEqualsToken),
+            f.NewCallExpression(
+              f.NewIdentifier("__stringify"),
               nil,
               nil,
-              jsonValidateStringifyProgrammer_factory.NewNodeList([]*shimast.Node{jsonValidateStringifyProgrammer_factory.NewIdentifier("input")}),
+              f.NewNodeList([]*shimast.Node{f.NewIdentifier("input")}),
               shimast.NodeFlagsNone,
             ),
           )),
           nil,
         ),
-        jsonValidateStringifyProgrammer_factory.NewReturnStatement(jsonValidateStringifyProgrammer_factory.NewIdentifier("result")),
+        f.NewReturnStatement(f.NewIdentifier("result")),
       }), true),
     ),
   }
