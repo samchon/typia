@@ -77,7 +77,7 @@ func (p *FunctionProgrammer) Declare(includeUnions ...bool) []*shimast.Node {
       output = append(output, nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
         Name:  tuple.name,
         Value: tuple.value,
-      }))
+      }, p.emit_))
     }
   }
   return output
