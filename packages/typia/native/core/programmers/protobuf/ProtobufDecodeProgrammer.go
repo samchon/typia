@@ -7,7 +7,6 @@ import (
   shimchecker "github.com/microsoft/typescript-go/shim/checker"
   nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
   nativefactories "github.com/samchon/typia/packages/typia/native/core/factories"
-  nativeprogrammers "github.com/samchon/typia/packages/typia/native/core/programmers"
   nativehelpers "github.com/samchon/typia/packages/typia/native/core/programmers/helpers"
   nativeinternal "github.com/samchon/typia/packages/typia/native/core/programmers/internal"
   schemametadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
@@ -81,11 +80,10 @@ var protobufDecodeProgrammer_objectSequence = 0
 func (protobufDecodeProgrammerNamespace) Decompose(props ProtobufDecodeProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
   collection := schemametadata.NewMetadataCollection()
   meta := nativefactories.ProtobufFactory.Metadata(nativefactories.ProtobufFactory_IProps{
-    Method:      protobufDecodeProgrammer_method_text(props.Modulo),
-    Checker:     props.Context.Checker,
-    Transformer: props.Context.Transformer,
-    Components:  collection,
-    Type:        props.Type,
+    Method:     protobufDecodeProgrammer_method_text(props.Modulo),
+    Checker:    props.Context.Checker,
+    Components: collection,
+    Type:       props.Type,
   })
   functions := map[string]*shimast.Node{}
   for _, object := range collection.Objects() {
@@ -111,7 +109,7 @@ func (protobufDecodeProgrammerNamespace) Decompose(props ProtobufDecodeProgramme
       Type:    props.Type,
     })
   }
-  outputType := protobufDecodeProgrammer_import_type(props.Context, nativeprogrammers.ImportProgrammer_TypeProps{
+  outputType := protobufDecodeProgrammer_import_type(props.Context, nativecontext.ImportProgrammer_TypeProps{
     File: "typia",
     Name: "Resolved",
     Arguments: []*shimast.TypeNode{
@@ -816,10 +814,8 @@ func protobufDecodeProgrammer_isPackedArrayValue(schema schemaprotobuf.IProtobuf
   return typ == "bool" || typ == "bigint" || typ == "number"
 }
 
-func protobufDecodeProgrammer_import_type(context nativecontext.ITypiaContext, props nativeprogrammers.ImportProgrammer_TypeProps) *shimast.Node {
-  if importer, ok := context.Importer.(interface {
-    Type(nativeprogrammers.ImportProgrammer_TypeProps) *shimast.Node
-  }); ok {
+func protobufDecodeProgrammer_import_type(context nativecontext.ITypiaContext, props nativecontext.ImportProgrammer_TypeProps) *shimast.Node {
+  if importer := context.Importer; importer != nil {
     return importer.Type(props)
   }
   if str, ok := props.Name.(string); ok {
@@ -829,17 +825,12 @@ func protobufDecodeProgrammer_import_type(context nativecontext.ITypiaContext, p
 }
 
 func protobufDecodeProgrammer_internal(context nativecontext.ITypiaContext, name string) *shimast.Node {
-  if importer, ok := context.Importer.(interface {
-    Internal(string) *shimast.Node
-  }); ok {
+  if importer := context.Importer; importer != nil {
     return importer.Internal(name)
   }
   return protobufDecodeProgrammer_factory.NewIdentifier(name)
 }
 
 func protobufDecodeProgrammer_method_text(modulo *shimast.Node) string {
-  if modulo == nil {
-    return ""
-  }
-  return modulo.Text()
+  return nativehelpers.ModuloMethodText(modulo)
 }

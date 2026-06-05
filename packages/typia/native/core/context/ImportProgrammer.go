@@ -1,17 +1,24 @@
-package programmers
+package context
 
 import (
   "sort"
   "strings"
 
   shimast "github.com/microsoft/typescript-go/shim/ast"
-  nativefactories "github.com/samchon/typia/packages/typia/native/core/factories"
+  shimprinter "github.com/microsoft/typescript-go/shim/printer"
 )
 
 type ImportProgrammer struct {
   assets_  map[string]*importProgrammer_asset
   order_   []string
   options_ ImportProgrammer_IOptions
+  // emit_은 emit EmitContext다. 설정되면(emit 단계 / AST 통합 모드) import는
+  // emit_.Factory로 만든 namespace import로 나가고 모든 참조는
+  // NewGeneratedNameForNode를 통한 member access라, tsgo의 builtin
+  // module-transform이 손수 짠 commonJS 네이밍 없이 alias한다
+  // (const _x_1 = require(...); _x_1.foo). nil이면(legacy 텍스트 emit 모드)
+  // 원래의 named/default/namespace import와 bare-identifier 참조를 만든다.
+  emit_ *shimprinter.EmitContext
 }
 
 type ImportProgrammer_IOptions struct {
@@ -19,9 +26,22 @@ type ImportProgrammer_IOptions struct {
   Runtime        string
 }
 
-type ImportProgrammer_IDefault = nativefactories.ExpressionFactory_IDefault
-type ImportProgrammer_IInstance = nativefactories.ExpressionFactory_IInstance
-type ImportProgrammer_INamespace = nativefactories.ExpressionFactory_INamespace
+type ImportProgrammer_IDefault struct {
+  File string
+  Name string
+  Type bool
+}
+
+type ImportProgrammer_IInstance struct {
+  File  string
+  Name  string
+  Alias *string
+}
+
+type ImportProgrammer_INamespace struct {
+  File string
+  Name string
+}
 
 type ImportProgrammer_TypeProps struct {
   File      string
@@ -31,6 +51,7 @@ type ImportProgrammer_TypeProps struct {
 
 type importProgrammer_asset struct {
   file      string
+  modSpec   *shimast.Node
   Default   *ImportProgrammer_IDefault
   namespace *ImportProgrammer_INamespace
   instances map[string]ImportProgrammer_IInstance
@@ -51,6 +72,34 @@ func NewImportProgrammer(options ...ImportProgrammer_IOptions) *ImportProgrammer
   }
 }
 
+// SetEmitContext switches the importer into emit-context (AST-integration) mode:
+// references become namespace member accesses and ToStatements emits namespace
+// imports, both built with ec.Factory, so tsgo's module-transform aliases them.
+func (p *ImportProgrammer) SetEmitContext(ec *shimprinter.EmitContext) {
+  p.emit_ = ec
+}
+
+// moduleSpecifier returns the asset's module-specifier string literal, allocated
+// once and reused as the stable key for NewGeneratedNameForNode so the namespace
+// alias prints identically in the import declaration and every reference.
+func (p *ImportProgrammer) moduleSpecifier(asset *importProgrammer_asset) *shimast.Node {
+  if asset.modSpec == nil {
+    asset.modSpec = p.emit_.Factory.NewStringLiteral(asset.file, shimast.TokenFlagsNone)
+  }
+  return asset.modSpec
+}
+
+// member builds `<namespace>.<name>` for the file, where <namespace> is the
+// generated name tsgo's module-transform binds to `require(file)`.
+func (p *ImportProgrammer) member(asset *importProgrammer_asset, name string) *shimast.Node {
+  return p.emit_.Factory.NewPropertyAccessExpression(
+    p.emit_.Factory.NewGeneratedNameForNode(p.moduleSpecifier(asset)),
+    nil,
+    p.emit_.Factory.NewIdentifier(name),
+    shimast.NodeFlagsNone,
+  )
+}
+
 func (p *ImportProgrammer) Default(props ImportProgrammer_IDefault) *shimast.Node {
   asset := p.take(props.File)
   if asset.Default == nil {
@@ -58,6 +107,9 @@ func (p *ImportProgrammer) Default(props ImportProgrammer_IDefault) *shimast.Nod
     asset.Default = &copy
   } else {
     asset.Default.Type = asset.Default.Type || props.Type
+  }
+  if p.emit_ != nil {
+    return p.member(asset, "default")
   }
   return importProgrammer_factory.NewIdentifier(asset.Default.Name)
 }
@@ -72,6 +124,9 @@ func (p *ImportProgrammer) Instance(props ImportProgrammer_IInstance) *shimast.N
     asset.instances[alias] = props
     asset.order = append(asset.order, alias)
   }
+  if p.emit_ != nil {
+    return p.member(asset, props.Name)
+  }
   return importProgrammer_factory.NewIdentifier(alias)
 }
 
@@ -80,6 +135,9 @@ func (p *ImportProgrammer) Namespace(props ImportProgrammer_INamespace) *shimast
   if asset.namespace == nil {
     copy := props
     asset.namespace = &copy
+  }
+  if p.emit_ != nil {
+    return p.emit_.Factory.NewGeneratedNameForNode(p.moduleSpecifier(asset))
   }
   return importProgrammer_factory.NewIdentifier(asset.namespace.Name)
 }
@@ -148,6 +206,23 @@ func (p *ImportProgrammer) ToStatements() []*shimast.Node {
   })
   for _, file := range order {
     asset := p.assets_[file]
+    if p.emit_ != nil {
+      // AST-integration mode: one namespace import per file. tsgo's module-
+      // transform turns it into `const <gen> = require(file)` and aliases every
+      // member access built by member()/Namespace() to the same <gen>.
+      modSpec := p.moduleSpecifier(asset)
+      statements = append(statements, p.emit_.Factory.NewImportDeclaration(
+        nil,
+        p.emit_.Factory.NewImportClause(
+          0,
+          nil,
+          p.emit_.Factory.NewNamespaceImport(p.emit_.Factory.NewGeneratedNameForNode(modSpec)),
+        ),
+        modSpec,
+        nil,
+      ))
+      continue
+    }
     if asset.namespace != nil {
       statements = append(statements, importProgrammer_factory.NewImportDeclaration(
         nil,

@@ -83,7 +83,7 @@ func (llmStructuredOutputProgrammerNamespace) Write(props LlmStructuredOutputPro
           llmStructuredOutputProgrammer_factory.NewNodeList([]*shimast.Node{
             nativefactories.IdentifierFactory.Parameter("input", nativefactories.TypeFactory.Keyword("string"), nil),
           }),
-          llmProgrammer_import_type(props.Context, nativeprogrammers.ImportProgrammer_TypeProps{
+          llmProgrammer_import_type(props.Context, nativecontext.ImportProgrammer_TypeProps{
             File:      "typia",
             Name:      "IJsonParseResult",
             Arguments: []*shimast.TypeNode{llmProgrammer_type_reference(typeName)},
@@ -123,7 +123,7 @@ func (llmStructuredOutputProgrammerNamespace) Write(props LlmStructuredOutputPro
         )),
         llmStructuredOutputProgrammer_factory.NewPropertyAssignment(nil, nativefactories.IdentifierFactory.Identifier("validate"), nil, nil, llmStructuredOutputProgrammer_factory.NewIdentifier("__validate")),
       }), true),
-      llmProgrammer_import_type(props.Context, nativeprogrammers.ImportProgrammer_TypeProps{
+      llmProgrammer_import_type(props.Context, nativecontext.ImportProgrammer_TypeProps{
         File:      "typia",
         Name:      "ILlmStructuredOutput",
         Arguments: []*shimast.TypeNode{llmProgrammer_type_reference(typeName)},

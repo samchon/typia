@@ -22,6 +22,7 @@ func json_schema_alias(props struct {
     props.components.Schemas = map[string]JsonSchema{}
   }
   if _, ok := props.components.Schemas[props.alias.Type.Name]; ok == false {
+    props.components.emplaceSchemaKey(props.alias.Type.Name)
     props.components.Schemas[props.alias.Type.Name] = JsonSchema{}
 
     attribute := JsonSchema{}

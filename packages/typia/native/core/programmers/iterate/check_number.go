@@ -156,13 +156,12 @@ func check_number_is_number(value any) bool {
 
 func check_number_transpile(context nativecontext.ITypiaContext, script string) func(input *shimast.Expression) *shimast.Node {
   var importer nativefactories.ExpressionFactory_Importer
-  if v, ok := context.Importer.(nativefactories.ExpressionFactory_Importer); ok {
+  if v := context.Importer; v != nil {
     importer = v
   }
   return nativefactories.ExpressionFactory.Transpile(nativefactories.ExpressionFactory_TranspileProps{
-    Transformer: context.Transformer,
-    Importer:    importer,
-    Script:      script,
+    Importer: importer,
+    Script:   script,
   })
 }
 

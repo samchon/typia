@@ -110,14 +110,14 @@ func feature_object_entries_variable(str string) bool {
 }
 
 func feature_object_entries_internal(context nativecontext.ITypiaContext, name string) *shimast.Node {
-  if importer, ok := context.Importer.(interface{ Internal(string) *shimast.Node }); ok {
+  if importer := context.Importer; importer != nil {
     return importer.Internal(name)
   }
   return feature_object_entries_factory.NewIdentifier(name)
 }
 
 func feature_object_entries_get_internal_text(context nativecontext.ITypiaContext, name string) string {
-  if importer, ok := context.Importer.(interface{ GetInternalText(string) string }); ok {
+  if importer := context.Importer; importer != nil {
     return importer.GetInternalText(name)
   }
   return name

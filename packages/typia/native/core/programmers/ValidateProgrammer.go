@@ -76,7 +76,7 @@ func (validateProgrammerNamespace) Decompose(props ValidateProgrammer_DecomposeP
     validateProgrammer_factory.NewNodeList([]*shimast.Node{
       nativefactories.IdentifierFactory.Parameter("input", nativefactories.TypeFactory.Keyword("any"), nil),
     }),
-    validateProgrammer_import_type(props.Context, ImportProgrammer_TypeProps{
+    validateProgrammer_import_type(props.Context, nativecontext.ImportProgrammer_TypeProps{
       File:      "typia",
       Name:      "IValidation",
       Arguments: []*shimast.TypeNode{typ},
@@ -165,10 +165,7 @@ func (validateProgrammerNamespace) Decompose(props ValidateProgrammer_DecomposeP
 }
 
 func (validateProgrammerNamespace) Write(props ValidateProgrammer_IProps) *shimast.Node {
-  method := ""
-  if props.Modulo != nil {
-    method = props.Modulo.Text()
-  }
+  method := nativehelpers.ModuloMethodText(props.Modulo)
   functor := nativehelpers.NewFunctionProgrammer(method)
   result := ValidateProgrammer.Decompose(ValidateProgrammer_DecomposeProps{
     Config:  props.Config,
@@ -433,10 +430,8 @@ func validateProgrammer_type_reference(context nativecontext.ITypiaContext, typ 
   return validateProgrammer_factory.NewTypeReferenceNode(validateProgrammer_factory.NewIdentifier(nativefactories.TypeFactory.GetFullName(nativefactories.TypeFactory_GetFullNameProps{Checker: context.Checker, Type: typ})), nil)
 }
 
-func validateProgrammer_import_type(context nativecontext.ITypiaContext, props ImportProgrammer_TypeProps) *shimast.Node {
-  if importer, ok := context.Importer.(interface {
-    Type(ImportProgrammer_TypeProps) *shimast.Node
-  }); ok {
+func validateProgrammer_import_type(context nativecontext.ITypiaContext, props nativecontext.ImportProgrammer_TypeProps) *shimast.Node {
+  if importer := context.Importer; importer != nil {
     return importer.Type(props)
   }
   if str, ok := props.Name.(string); ok {
@@ -446,7 +441,7 @@ func validateProgrammer_import_type(context nativecontext.ITypiaContext, props I
 }
 
 func validateProgrammer_internal(context nativecontext.ITypiaContext, name string) *shimast.Node {
-  if importer, ok := context.Importer.(interface{ Internal(string) *shimast.Node }); ok {
+  if importer := context.Importer; importer != nil {
     return importer.Internal(name)
   }
   return validateProgrammer_factory.NewIdentifier(name)

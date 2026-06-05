@@ -49,7 +49,7 @@ const notationGeneralProgrammer_PREFIX = "_c"
 var notationGeneralProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
 func (notationGeneralProgrammerNamespace) ReturnType(props NotationGeneralProgrammer_ReturnTypeProps) *shimast.Node {
-  return notationGeneralProgrammer_import_type(props.Context, nativeprogrammers.ImportProgrammer_TypeProps{
+  return notationGeneralProgrammer_import_type(props.Context, nativecontext.ImportProgrammer_TypeProps{
     File: "typia",
     Name: notationGeneralProgrammer_capitalize(props.Rename.Name) + "Case",
     Arguments: []*shimast.TypeNode{
@@ -1047,8 +1047,7 @@ func notationGeneralProgrammer_configure(props struct {
 func notationGeneralProgrammer_initializer(props nativeinternal.FeatureProgrammer_InitializerProps) nativeinternal.FeatureProgrammer_InitializerOutput {
   collection := schemametadata.NewMetadataCollection()
   result := nativefactories.MetadataFactory.Analyze(nativefactories.MetadataFactory_IProps{
-    Checker:     props.Context.Checker,
-    Transformer: props.Context.Transformer,
+    Checker: props.Context.Checker,
     Options: nativefactories.MetadataFactory_IOptions{
       Escape:   false,
       Constant: true,
@@ -1121,16 +1120,14 @@ func notationGeneralProgrammer_binary(left *shimast.Node, operator shimast.Kind,
 }
 
 func notationGeneralProgrammer_internal(context nativecontext.ITypiaContext, name string) *shimast.Node {
-  if importer, ok := context.Importer.(interface{ Internal(string) *shimast.Node }); ok {
+  if importer := context.Importer; importer != nil {
     return importer.Internal(name)
   }
   return notationGeneralProgrammer_factory.NewIdentifier(name)
 }
 
-func notationGeneralProgrammer_import_type(context nativecontext.ITypiaContext, props nativeprogrammers.ImportProgrammer_TypeProps) *shimast.Node {
-  if importer, ok := context.Importer.(interface {
-    Type(nativeprogrammers.ImportProgrammer_TypeProps) *shimast.Node
-  }); ok {
+func notationGeneralProgrammer_import_type(context nativecontext.ITypiaContext, props nativecontext.ImportProgrammer_TypeProps) *shimast.Node {
+  if importer := context.Importer; importer != nil {
     return importer.Type(props)
   }
   if str, ok := props.Name.(string); ok {
@@ -1150,10 +1147,7 @@ func notationGeneralProgrammer_type_name(context nativecontext.ITypiaContext, ty
 }
 
 func notationGeneralProgrammer_method_text(modulo *shimast.Node) string {
-  if modulo == nil {
-    return ""
-  }
-  return modulo.Text()
+  return nativehelpers.ModuloMethodText(modulo)
 }
 
 func notationGeneralProgrammer_feature_explore(input any) nativeinternal.FeatureProgrammer_IExplore {

@@ -24,10 +24,9 @@ type JsonAssertParseProgrammer_DecomposeProps struct {
 
 func (jsonAssertParseProgrammerNamespace) Decompose(props JsonAssertParseProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
   nativefactories.JsonMetadataFactory.Analyze(nativefactories.JsonMetadataFactory_IProps{
-    Method:      props.Functor.Method,
-    Checker:     props.Context.Checker,
-    Transformer: props.Context.Transformer,
-    Type:        props.Type,
+    Method:  props.Functor.Method,
+    Checker: props.Context.Checker,
+    Type:    props.Type,
   })
   assert := nativeprogrammers.AssertProgrammer.Decompose(nativeprogrammers.AssertProgrammer_DecomposeProps{
     Context: jsonParseProgrammer_context(props.Context, &jsonParseProgrammer_options{
@@ -63,7 +62,7 @@ func (jsonAssertParseProgrammerNamespace) Decompose(props JsonAssertParseProgram
           Init:    props.Init,
         }),
       }),
-      jsonProgrammer_import_type(props.Context, nativeprogrammers.ImportProgrammer_TypeProps{
+      jsonProgrammer_import_type(props.Context, nativecontext.ImportProgrammer_TypeProps{
         File: "typia",
         Name: "Primitive",
         Arguments: []*shimast.TypeNode{
@@ -98,10 +97,7 @@ func (jsonAssertParseProgrammerNamespace) Decompose(props JsonAssertParseProgram
 }
 
 func (jsonAssertParseProgrammerNamespace) Write(props nativecontext.IProgrammerProps) *shimast.Node {
-  method := ""
-  if props.Modulo != nil {
-    method = props.Modulo.Text()
-  }
+  method := nativehelpers.ModuloMethodText(props.Modulo)
   functor := nativehelpers.NewFunctionProgrammer(method)
   result := JsonAssertParseProgrammer.Decompose(JsonAssertParseProgrammer_DecomposeProps{
     Context: props.Context,

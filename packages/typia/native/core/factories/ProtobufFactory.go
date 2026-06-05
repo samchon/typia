@@ -17,17 +17,15 @@ type protobufFactoryNamespace struct{}
 var ProtobufFactory = protobufFactoryNamespace{}
 
 type ProtobufFactory_IProps struct {
-  Method      string
-  Checker     *shimchecker.Checker
-  Transformer any
-  Components  *schemametadata.MetadataCollection
-  Type        *shimchecker.Type
+  Method     string
+  Checker    *shimchecker.Checker
+  Components *schemametadata.MetadataCollection
+  Type       *shimchecker.Type
 }
 
 func (protobufFactoryNamespace) Metadata(props ProtobufFactory_IProps) *schemametadata.MetadataSchema {
   result := MetadataFactory.Analyze(MetadataFactory_IProps{
-    Checker:     props.Checker,
-    Transformer: props.Transformer,
+    Checker: props.Checker,
     Options: MetadataFactory_IOptions{
       Escape:   false,
       Constant: true,

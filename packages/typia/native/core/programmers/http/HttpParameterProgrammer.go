@@ -22,8 +22,7 @@ var httpParameterProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactory
 
 func (httpParameterProgrammerNamespace) Write(props nativecontext.IProgrammerProps) *shimast.Node {
   result := nativefactories.MetadataFactory.Analyze(nativefactories.MetadataFactory_IProps{
-    Checker:     props.Context.Checker,
-    Transformer: props.Context.Transformer,
+    Checker: props.Context.Checker,
     Options: nativefactories.MetadataFactory_IOptions{
       Escape:   false,
       Constant: true,
@@ -34,10 +33,7 @@ func (httpParameterProgrammerNamespace) Write(props nativecontext.IProgrammerPro
     Type:       props.Type,
   })
   if result.Success == false {
-    code := ""
-    if props.Modulo != nil {
-      code = props.Modulo.Text()
-    }
+    code := nativehelpers.ModuloMethodText(props.Modulo)
     panic(nativecontext.TransformerError_from(struct {
       Code   string
       Errors []nativecontext.TransformerError_MetadataFactory_IError
@@ -156,7 +152,7 @@ func httpParameterProgrammer_typeName(props nativecontext.IProgrammerProps) stri
 }
 
 func httpParameterProgrammer_internal(context nativecontext.ITypiaContext, name string) *shimast.Node {
-  if importer, ok := context.Importer.(interface{ Internal(string) *shimast.Node }); ok {
+  if importer := context.Importer; importer != nil {
     return importer.Internal(name)
   }
   return httpParameterProgrammer_factory.NewIdentifier(name)

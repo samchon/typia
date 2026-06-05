@@ -84,6 +84,12 @@ func (jsonApplicationProgrammerNamespace) Write(props JsonApplicationProgrammer_
     Metadata: props.Metadata,
     Filter:   props.Filter,
   })
+  // Swap the raw *OpenApi_IComponents (consumed as-is by the LLM programmers)
+  // for its order-preserving literal form only at the emit boundary, so the
+  // emitted components.schemas keep discovery order.
+  if components, ok := app["components"].(*nativeiterate.OpenApi_IComponents); ok && components != nil {
+    app["components"] = components.ToLiteral()
+  }
   return nativefactories.LiteralFactory.Write(app)
 }
 

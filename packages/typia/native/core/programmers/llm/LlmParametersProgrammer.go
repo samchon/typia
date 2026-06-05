@@ -6,7 +6,6 @@ import (
   shimast "github.com/microsoft/typescript-go/shim/ast"
   nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
   nativefactories "github.com/samchon/typia/packages/typia/native/core/factories"
-  nativeprogrammers "github.com/samchon/typia/packages/typia/native/core/programmers"
   nativeiterate "github.com/samchon/typia/packages/typia/native/core/programmers/iterate"
   nativejson "github.com/samchon/typia/packages/typia/native/core/programmers/json"
   schemametadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
@@ -34,7 +33,7 @@ type LlmParametersProgrammer_IWriteProps struct {
 var llmParametersProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
 func (llmParametersProgrammerNamespace) Write(props LlmParametersProgrammer_IWriteProps) *shimast.Node {
-  typeNode := llmProgrammer_import_type(props.Context, nativeprogrammers.ImportProgrammer_TypeProps{
+  typeNode := llmProgrammer_import_type(props.Context, nativecontext.ImportProgrammer_TypeProps{
     File: "typia",
     Name: llmParametersProgrammer_factory.NewIdentifier("ILlmSchema.IParameters"),
   })

@@ -64,7 +64,7 @@ func (jsonValidateStringifyProgrammerNamespace) Decompose(props JsonValidateStri
       jsonValidateStringifyProgrammer_factory.NewNodeList([]*shimast.Node{
         nativefactories.IdentifierFactory.Parameter("input", nativefactories.TypeFactory.Keyword("any"), nil),
       }),
-      jsonProgrammer_import_type(props.Context, nativeprogrammers.ImportProgrammer_TypeProps{
+      jsonProgrammer_import_type(props.Context, nativecontext.ImportProgrammer_TypeProps{
         File:      "typia",
         Name:      "IValidation",
         Arguments: []*shimast.TypeNode{stringifyType},

@@ -39,8 +39,7 @@ func (reflectSchemasTransformerNamespace) Transform(props nativetransform.ITrans
       }))
     }
     result := nativefactories.MetadataFactory.Analyze(nativefactories.MetadataFactory_IProps{
-      Checker:     props.Context.Checker,
-      Transformer: props.Context.Transformer,
+      Checker: props.Context.Checker,
       Options: nativefactories.MetadataFactory_IOptions{
         Escape:     true,
         Constant:   true,
