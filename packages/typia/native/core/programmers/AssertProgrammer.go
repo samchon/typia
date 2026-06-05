@@ -183,7 +183,7 @@ func (assertProgrammerNamespace) Decompose(props AssertProgrammer_DecomposeProps
 
 func (assertProgrammerNamespace) Write(props AssertProgrammer_IProps) *shimast.Node {
   method := nativehelpers.ModuloMethodText(props.Modulo)
-  functor := nativehelpers.NewFunctionProgrammer(method)
+  functor := nativehelpers.NewFunctionProgrammer(method, props.Context.Emit)
   result := AssertProgrammer.Decompose(AssertProgrammer_DecomposeProps{
     Config:  props.Config,
     Context: props.Context,

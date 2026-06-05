@@ -166,7 +166,7 @@ func (validateProgrammerNamespace) Decompose(props ValidateProgrammer_DecomposeP
 
 func (validateProgrammerNamespace) Write(props ValidateProgrammer_IProps) *shimast.Node {
   method := nativehelpers.ModuloMethodText(props.Modulo)
-  functor := nativehelpers.NewFunctionProgrammer(method)
+  functor := nativehelpers.NewFunctionProgrammer(method, props.Context.Emit)
   result := ValidateProgrammer.Decompose(ValidateProgrammer_DecomposeProps{
     Config:  props.Config,
     Context: props.Context,

@@ -83,7 +83,7 @@ func (llmCoerceProgrammerNamespace) Decompose(props LlmCoerceProgrammer_Decompos
 }
 
 func (llmCoerceProgrammerNamespace) Write(props LlmCoerceProgrammer_IWriteProps) *shimast.Node {
-  functor := nativehelpers.NewFunctionProgrammer(llmProgrammer_method_text(props.Modulo))
+  functor := nativehelpers.NewFunctionProgrammer(llmProgrammer_method_text(props.Modulo), props.Context.Emit)
   result := LlmCoerceProgrammer.Decompose(LlmCoerceProgrammer_DecomposeProps{
     Context:  props.Context,
     Config:   props.Config,

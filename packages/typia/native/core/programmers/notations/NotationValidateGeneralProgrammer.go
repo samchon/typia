@@ -113,7 +113,7 @@ func (notationValidateGeneralProgrammerNamespace) Decompose(props NotationValida
 }
 
 func (notationValidateGeneralProgrammerNamespace) Write(props NotationValidateGeneralProgrammer_IProps) *shimast.Node {
-  functor := nativehelpers.NewFunctionProgrammer(notationGeneralProgrammer_method_text(props.Modulo))
+  functor := nativehelpers.NewFunctionProgrammer(notationGeneralProgrammer_method_text(props.Modulo), props.Context.Emit)
   result := NotationValidateGeneralProgrammer.Decompose(NotationValidateGeneralProgrammer_DecomposeProps{
     Rename:  props.Rename,
     Context: props.Context,

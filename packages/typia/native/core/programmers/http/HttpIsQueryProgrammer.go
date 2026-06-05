@@ -49,7 +49,7 @@ func (httpIsQueryProgrammerNamespace) Decompose(props HttpIsQueryProgrammer_Deco
 }
 
 func (httpIsQueryProgrammerNamespace) Write(props HttpIsQueryProgrammer_IProps) *shimast.Node {
-  functor := nativehelpers.NewFunctionProgrammer(httpProgrammer_method_text(props.Modulo))
+  functor := nativehelpers.NewFunctionProgrammer(httpProgrammer_method_text(props.Modulo), props.Context.Emit)
   result := HttpIsQueryProgrammer.Decompose(HttpIsQueryProgrammer_DecomposeProps{
     Context:       props.Context,
     Functor:       functor,

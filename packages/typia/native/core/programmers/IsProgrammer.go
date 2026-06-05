@@ -213,7 +213,7 @@ func (isProgrammerNamespace) Decompose(props IsProgrammer_DecomposeProps) native
 
 func (isProgrammerNamespace) Write(props IsProgrammer_IProps) *shimast.Node {
   method := nativehelpers.ModuloMethodText(props.Modulo)
-  functor := nativehelpers.NewFunctionProgrammer(method)
+  functor := nativehelpers.NewFunctionProgrammer(method, props.Context.Emit)
   result := IsProgrammer.Decompose(IsProgrammer_DecomposeProps{
     Config:  props.Config,
     Context: props.Context,

@@ -36,7 +36,7 @@ type LlmStructuredOutputProgrammer_IWriteProps struct {
 var llmStructuredOutputProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
 func (llmStructuredOutputProgrammerNamespace) Write(props LlmStructuredOutputProgrammer_IWriteProps) *shimast.Node {
-  functor := nativehelpers.NewFunctionProgrammer(llmProgrammer_method_text(props.Modulo))
+  functor := nativehelpers.NewFunctionProgrammer(llmProgrammer_method_text(props.Modulo), props.Context.Emit)
   equals := false
   if props.Config != nil {
     if v, ok := props.Config["equals"].(bool); ok {

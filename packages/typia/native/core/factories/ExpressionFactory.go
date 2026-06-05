@@ -11,6 +11,7 @@ import (
   shimast "github.com/microsoft/typescript-go/shim/ast"
   shimcore "github.com/microsoft/typescript-go/shim/core"
   shimparser "github.com/microsoft/typescript-go/shim/parser"
+  shimprinter "github.com/microsoft/typescript-go/shim/printer"
   nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
 )
 
@@ -53,75 +54,80 @@ type ExpressionFactory_GetEscapedTextProps struct {
 
 var expressionFactory_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
-func (expressionFactoryNamespace) Number(value any) *shimast.Node {
+func (expressionFactoryNamespace) Number(value any, emit ...*shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(expressionFactory_factory, emit...)
   text, numeric := expressionFactory_number_text(value)
   if numeric < 0 {
-    return expressionFactory_factory.NewPrefixUnaryExpression(
+    return f.NewPrefixUnaryExpression(
       shimast.KindMinusToken,
-      expressionFactory_factory.NewNumericLiteral(expressionFactory_number_abs_text(numeric), shimast.TokenFlagsNone),
+      f.NewNumericLiteral(expressionFactory_number_abs_text(numeric), shimast.TokenFlagsNone),
     )
   }
-  return expressionFactory_factory.NewNumericLiteral(text, shimast.TokenFlagsNone)
+  return f.NewNumericLiteral(text, shimast.TokenFlagsNone)
 }
 
-func (expressionFactoryNamespace) Bigint(value any) *shimast.Node {
-  return expressionFactory_factory.NewCallExpression(
-    expressionFactory_factory.NewIdentifier("BigInt"),
+func (expressionFactoryNamespace) Bigint(value any, emit ...*shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(expressionFactory_factory, emit...)
+  return f.NewCallExpression(
+    f.NewIdentifier("BigInt"),
     nil,
     nil,
-    expressionFactory_factory.NewNodeList([]*shimast.Node{
-      expressionFactory_factory.NewIdentifier(fmt.Sprint(value)),
+    f.NewNodeList([]*shimast.Node{
+      f.NewIdentifier(fmt.Sprint(value)),
     }),
     shimast.NodeFlagsNone,
   )
 }
 
-func (expressionFactoryNamespace) IsRequired(input *shimast.Expression) *shimast.Node {
-  return expressionFactory_factory.NewBinaryExpression(
+func (expressionFactoryNamespace) IsRequired(input *shimast.Expression, emit ...*shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(expressionFactory_factory, emit...)
+  return f.NewBinaryExpression(
     nil,
-    expressionFactory_factory.NewIdentifier("undefined"),
+    f.NewIdentifier("undefined"),
     nil,
-    expressionFactory_factory.NewToken(shimast.KindExclamationEqualsEqualsToken),
+    f.NewToken(shimast.KindExclamationEqualsEqualsToken),
     input,
   )
 }
 
-func (expressionFactoryNamespace) IsArray(input *shimast.Expression) *shimast.Node {
-  return expressionFactory_factory.NewCallExpression(
-    expressionFactory_factory.NewIdentifier("Array.isArray"),
+func (expressionFactoryNamespace) IsArray(input *shimast.Expression, emit ...*shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(expressionFactory_factory, emit...)
+  return f.NewCallExpression(
+    f.NewIdentifier("Array.isArray"),
     nil,
     nil,
-    expressionFactory_factory.NewNodeList([]*shimast.Node{input}),
+    f.NewNodeList([]*shimast.Node{input}),
     shimast.NodeFlagsNone,
   )
 }
 
-func (expressionFactoryNamespace) IsObject(props ExpressionFactory_IsObjectProps) *shimast.Node {
+func (expressionFactoryNamespace) IsObject(props ExpressionFactory_IsObjectProps, emit ...*shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(expressionFactory_factory, emit...)
   conditions := []*shimast.Node{
-    expressionFactory_factory.NewBinaryExpression(
+    f.NewBinaryExpression(
       nil,
-      expressionFactory_factory.NewStringLiteral("object", shimast.TokenFlagsNone),
+      f.NewStringLiteral("object", shimast.TokenFlagsNone),
       nil,
-      expressionFactory_factory.NewToken(shimast.KindEqualsEqualsEqualsToken),
-      expressionFactory_factory.NewTypeOfExpression(props.Input),
+      f.NewToken(shimast.KindEqualsEqualsEqualsToken),
+      f.NewTypeOfExpression(props.Input),
     ),
   }
   if props.CheckNull {
-    conditions = append(conditions, expressionFactory_factory.NewBinaryExpression(
+    conditions = append(conditions, f.NewBinaryExpression(
       nil,
-      expressionFactory_factory.NewKeywordExpression(shimast.KindNullKeyword),
+      f.NewKeywordExpression(shimast.KindNullKeyword),
       nil,
-      expressionFactory_factory.NewToken(shimast.KindExclamationEqualsEqualsToken),
+      f.NewToken(shimast.KindExclamationEqualsEqualsToken),
       props.Input,
     ))
   }
   if props.CheckArray {
-    conditions = append(conditions, expressionFactory_factory.NewBinaryExpression(
+    conditions = append(conditions, f.NewBinaryExpression(
       nil,
-      expressionFactory_factory.NewKeywordExpression(shimast.KindFalseKeyword),
+      f.NewKeywordExpression(shimast.KindFalseKeyword),
       nil,
-      expressionFactory_factory.NewToken(shimast.KindEqualsEqualsEqualsToken),
-      ExpressionFactory.IsArray(props.Input),
+      f.NewToken(shimast.KindEqualsEqualsEqualsToken),
+      ExpressionFactory.IsArray(props.Input, emit...),
     ))
   }
   if len(conditions) == 1 {
@@ -129,54 +135,57 @@ func (expressionFactoryNamespace) IsObject(props ExpressionFactory_IsObjectProps
   }
   output := conditions[0]
   for _, condition := range conditions[1:] {
-    output = expressionFactory_factory.NewBinaryExpression(
+    output = f.NewBinaryExpression(
       nil,
       output,
       nil,
-      expressionFactory_factory.NewToken(shimast.KindAmpersandAmpersandToken),
+      f.NewToken(shimast.KindAmpersandAmpersandToken),
       condition,
     )
   }
   return output
 }
 
-func (expressionFactoryNamespace) IsInstanceOf(t string, input *shimast.Expression) *shimast.Node {
-  return expressionFactory_factory.NewBinaryExpression(
+func (expressionFactoryNamespace) IsInstanceOf(t string, input *shimast.Expression, emit ...*shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(expressionFactory_factory, emit...)
+  return f.NewBinaryExpression(
     nil,
     input,
     nil,
-    expressionFactory_factory.NewToken(shimast.KindInstanceOfKeyword),
-    expressionFactory_factory.NewIdentifier(t),
+    f.NewToken(shimast.KindInstanceOfKeyword),
+    f.NewIdentifier(t),
   )
 }
 
-func (expressionFactoryNamespace) Coalesce(x *shimast.Expression, y *shimast.Expression) *shimast.Node {
-  return expressionFactory_factory.NewBinaryExpression(
+func (expressionFactoryNamespace) Coalesce(x *shimast.Expression, y *shimast.Expression, emit ...*shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(expressionFactory_factory, emit...)
+  return f.NewBinaryExpression(
     nil,
     x,
     nil,
-    expressionFactory_factory.NewToken(shimast.KindQuestionQuestionToken),
+    f.NewToken(shimast.KindQuestionQuestionToken),
     y,
   )
 }
 
-func (expressionFactoryNamespace) Currying(props ExpressionFactory_CurryingProps) *shimast.Node {
+func (expressionFactoryNamespace) Currying(props ExpressionFactory_CurryingProps, emit ...*shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(expressionFactory_factory, emit...)
   if len(props.Arguments) == 0 {
-    return expressionFactory_factory.NewCallExpression(props.Function, nil, nil, nil, shimast.NodeFlagsNone)
+    return f.NewCallExpression(props.Function, nil, nil, nil, shimast.NodeFlagsNone)
   }
-  prev := expressionFactory_factory.NewCallExpression(
+  prev := f.NewCallExpression(
     props.Function,
     nil,
     nil,
-    expressionFactory_factory.NewNodeList([]*shimast.Node{props.Arguments[0]}),
+    f.NewNodeList([]*shimast.Node{props.Arguments[0]}),
     shimast.NodeFlagsNone,
   )
   for _, param := range props.Arguments[1:] {
-    prev = expressionFactory_factory.NewCallExpression(
+    prev = f.NewCallExpression(
       prev,
       nil,
       nil,
-      expressionFactory_factory.NewNodeList([]*shimast.Node{param}),
+      f.NewNodeList([]*shimast.Node{param}),
       shimast.NodeFlagsNone,
     )
   }
@@ -219,7 +228,8 @@ func (expressionFactoryNamespace) GetEscapedText(props ExpressionFactory_GetEsca
   return IdentifierFactory.GetName(props.Input)
 }
 
-func (expressionFactoryNamespace) Transpile(props ExpressionFactory_TranspileProps) func(input *shimast.Expression) *shimast.Node {
+func (expressionFactoryNamespace) Transpile(props ExpressionFactory_TranspileProps, emit ...*shimprinter.EmitContext) func(input *shimast.Expression) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(expressionFactory_factory, emit...)
   file := shimparser.ParseSourceFile(
     shimast.SourceFileParseOptions{FileName: filepath.Join(os.TempDir(), expressionFactory_random_format_uuid()+".ts")},
     props.Script,
@@ -232,7 +242,7 @@ func (expressionFactoryNamespace) Transpile(props ExpressionFactory_TranspilePro
   if statement.Kind != shimast.KindExpressionStatement {
     panic("Error on ExpressionFactory.transpile(): statement is not an expression statement.")
   }
-  expression := expressionFactory_factory.DeepCloneNode(statement.AsExpressionStatement().Expression)
+  expression := f.DeepCloneNode(statement.AsExpressionStatement().Expression)
   return func(input *shimast.Expression) *shimast.Node {
     var visitor *shimast.NodeVisitor
     visitor = shimast.NewNodeVisitor(func(node *shimast.Node) *shimast.Node {
@@ -248,7 +258,7 @@ func (expressionFactoryNamespace) Transpile(props ExpressionFactory_TranspilePro
         }
       }
       return node.VisitEachChild(visitor)
-    }, expressionFactory_factory, shimast.NodeVisitorHooks{})
+    }, f, shimast.NodeVisitorHooks{})
     return visitor.VisitNode(expression)
   }
 }

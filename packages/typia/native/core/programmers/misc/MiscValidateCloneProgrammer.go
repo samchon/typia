@@ -106,7 +106,7 @@ func (miscValidateCloneProgrammerNamespace) Decompose(props MiscValidateClonePro
 }
 
 func (miscValidateCloneProgrammerNamespace) Write(props nativecontext.IProgrammerProps) *shimast.Node {
-  functor := nativehelpers.NewFunctionProgrammer(miscCloneProgrammer_method_text(props.Modulo))
+  functor := nativehelpers.NewFunctionProgrammer(miscCloneProgrammer_method_text(props.Modulo), props.Context.Emit)
   result := MiscValidateCloneProgrammer.Decompose(MiscValidateCloneProgrammer_DecomposeProps{
     Context: props.Context,
     Modulo:  props.Modulo,

@@ -109,7 +109,7 @@ func (jsonValidateStringifyProgrammerNamespace) Decompose(props JsonValidateStri
 }
 
 func (jsonValidateStringifyProgrammerNamespace) Write(props nativecontext.IProgrammerProps) *shimast.Node {
-  functor := nativehelpers.NewFunctionProgrammer(jsonStringifyProgrammer_method_text(props.Modulo))
+  functor := nativehelpers.NewFunctionProgrammer(jsonStringifyProgrammer_method_text(props.Modulo), props.Context.Emit)
   result := JsonValidateStringifyProgrammer.Decompose(JsonValidateStringifyProgrammer_DecomposeProps{
     Context: props.Context,
     Modulo:  props.Modulo,

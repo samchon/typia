@@ -71,7 +71,7 @@ func (miscCloneProgrammerNamespace) Decompose(props MiscCloneProgrammer_Decompos
 }
 
 func (miscCloneProgrammerNamespace) Write(props nativecontext.IProgrammerProps) *shimast.Node {
-  functor := nativehelpers.NewFunctionProgrammer(miscCloneProgrammer_method_text(props.Modulo))
+  functor := nativehelpers.NewFunctionProgrammer(miscCloneProgrammer_method_text(props.Modulo), props.Context.Emit)
   result := MiscCloneProgrammer.Decompose(MiscCloneProgrammer_DecomposeProps{
     Context:   props.Context,
     Functor:   functor,

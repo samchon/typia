@@ -115,7 +115,7 @@ func (protobufEncodeProgrammerNamespace) Decompose(props ProtobufEncodeProgramme
 }
 
 func (protobufEncodeProgrammerNamespace) Write(props ProtobufEncodeProgrammer_IProps) *shimast.Node {
-  functor := nativehelpers.NewFunctionProgrammer(protobufEncodeProgrammer_method_text(props.Modulo))
+  functor := nativehelpers.NewFunctionProgrammer(protobufEncodeProgrammer_method_text(props.Modulo), props.Context.Emit)
   result := ProtobufEncodeProgrammer.Decompose(ProtobufEncodeProgrammer_DecomposeProps{
     Context: props.Context,
     Modulo:  props.Modulo,

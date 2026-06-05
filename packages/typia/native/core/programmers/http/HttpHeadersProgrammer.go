@@ -88,7 +88,7 @@ func (httpHeadersProgrammerNamespace) Decompose(props HttpHeadersProgrammer_Deco
 }
 
 func (httpHeadersProgrammerNamespace) Write(props nativecontext.IProgrammerProps) *shimast.Node {
-  functor := nativehelpers.NewFunctionProgrammer(httpProgrammer_method_text(props.Modulo))
+  functor := nativehelpers.NewFunctionProgrammer(httpProgrammer_method_text(props.Modulo), props.Context.Emit)
   result := HttpHeadersProgrammer.Decompose(HttpHeadersProgrammer_DecomposeProps{
     Context: props.Context,
     Functor: functor,

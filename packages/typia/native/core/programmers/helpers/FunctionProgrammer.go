@@ -4,6 +4,8 @@ import (
   "fmt"
 
   shimast "github.com/microsoft/typescript-go/shim/ast"
+  shimprinter "github.com/microsoft/typescript-go/shim/printer"
+  nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
   nativefactories "github.com/samchon/typia/packages/typia/native/core/factories"
 )
 
@@ -16,6 +18,10 @@ type FunctionProgrammer struct {
   variableOrder_ []string
   sequence_      int
   disableDeclare bool
+  // emit_ routes declaration/identifier creation through the emit context's
+  // factory when present so generated `const` validators carry original-node
+  // tracking; nil falls back to the standalone factory (legacy / test paths).
+  emit_ *shimprinter.EmitContext
 }
 
 type functionProgrammer_union struct {
@@ -25,8 +31,8 @@ type functionProgrammer_union struct {
 
 var functionProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
-func NewFunctionProgrammer(method string) *FunctionProgrammer {
-  return &FunctionProgrammer{
+func NewFunctionProgrammer(method string, emit ...*shimprinter.EmitContext) *FunctionProgrammer {
+  p := &FunctionProgrammer{
     Method:         method,
     local_:         map[string]bool{},
     unions_:        map[string]*functionProgrammer_union{},
@@ -34,6 +40,10 @@ func NewFunctionProgrammer(method string) *FunctionProgrammer {
     variables_:     map[string]*shimast.Node{},
     variableOrder_: []string{},
   }
+  if len(emit) != 0 {
+    p.emit_ = emit[0]
+  }
+  return p
 }
 
 func (p *FunctionProgrammer) UseLocal(name string) string {
@@ -55,7 +65,7 @@ func (p *FunctionProgrammer) Declare(includeUnions ...bool) []*shimast.Node {
     output = append(output, nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
       Name:  name,
       Value: value,
-    }))
+    }, p.emit_))
   }
   enabled := true
   if len(includeUnions) != 0 {
@@ -112,5 +122,5 @@ func (p *FunctionProgrammer) EmplaceVariable(name string, value *shimast.Express
     p.variableOrder_ = append(p.variableOrder_, name)
   }
   p.variables_[name] = value
-  return functionProgrammer_factory.NewIdentifier(name)
+  return nativecontext.EmitFactoryOf(functionProgrammer_factory, p.emit_).NewIdentifier(name)
 }

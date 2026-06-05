@@ -41,7 +41,7 @@ func (httpIsFormDataProgrammerNamespace) Decompose(props HttpIsFormDataProgramme
 }
 
 func (httpIsFormDataProgrammerNamespace) Write(props nativecontext.IProgrammerProps) *shimast.Node {
-  functor := nativehelpers.NewFunctionProgrammer(httpProgrammer_method_text(props.Modulo))
+  functor := nativehelpers.NewFunctionProgrammer(httpProgrammer_method_text(props.Modulo), props.Context.Emit)
   result := HttpIsFormDataProgrammer.Decompose(HttpIsFormDataProgrammer_DecomposeProps{
     Context: props.Context,
     Functor: functor,

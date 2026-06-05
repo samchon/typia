@@ -189,7 +189,7 @@ func (randomProgrammerNamespace) Decompose(props RandomProgrammer_IDecomposeProp
 }
 
 func (randomProgrammerNamespace) Write(props RandomProgrammer_IProps) *shimast.Node {
-  functor := nativehelpers.NewFunctionProgrammer(randomProgrammer_method_text(props.Modulo))
+  functor := nativehelpers.NewFunctionProgrammer(randomProgrammer_method_text(props.Modulo), props.Context.Emit)
   result := RandomProgrammer.Decompose(RandomProgrammer_IDecomposeProps{
     Context: props.Context,
     Functor: functor,

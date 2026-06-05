@@ -87,7 +87,7 @@ func (llmParseProgrammerNamespace) Decompose(props LlmParseProgrammer_DecomposeP
 }
 
 func (llmParseProgrammerNamespace) Write(props LlmParseProgrammer_IWriteProps) *shimast.Node {
-  functor := nativehelpers.NewFunctionProgrammer(llmProgrammer_method_text(props.Modulo))
+  functor := nativehelpers.NewFunctionProgrammer(llmProgrammer_method_text(props.Modulo), props.Context.Emit)
   result := LlmParseProgrammer.Decompose(LlmParseProgrammer_DecomposeProps{
     Context:  props.Context,
     Config:   props.Config,

@@ -100,7 +100,7 @@ func (jsonIsParseProgrammerNamespace) Decompose(props JsonIsParseProgrammer_Deco
 
 func (jsonIsParseProgrammerNamespace) Write(props nativecontext.IProgrammerProps) *shimast.Node {
   method := nativehelpers.ModuloMethodText(props.Modulo)
-  functor := nativehelpers.NewFunctionProgrammer(method)
+  functor := nativehelpers.NewFunctionProgrammer(method, props.Context.Emit)
   result := JsonIsParseProgrammer.Decompose(JsonIsParseProgrammer_DecomposeProps{
     Context: props.Context,
     Functor: functor,
