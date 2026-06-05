@@ -76,7 +76,7 @@ func (protobufIsEncodeProgrammerNamespace) Decompose(props ProtobufIsEncodeProgr
       })),
       nil,
       f.NewToken(shimast.KindEqualsGreaterThanToken),
-      f.NewConditionalExpression(
+      nativefactories.ExpressionFactory.Conditional(
         f.NewCallExpression(
           f.NewIdentifier("__is"),
           nil,
@@ -84,7 +84,6 @@ func (protobufIsEncodeProgrammerNamespace) Decompose(props ProtobufIsEncodeProgr
           f.NewNodeList([]*shimast.Node{f.NewIdentifier("input")}),
           shimast.NodeFlagsNone,
         ),
-        nil,
         f.NewCallExpression(
           f.NewIdentifier("__encode"),
           nil,
@@ -92,8 +91,8 @@ func (protobufIsEncodeProgrammerNamespace) Decompose(props ProtobufIsEncodeProgr
           f.NewNodeList([]*shimast.Node{f.NewIdentifier("input")}),
           shimast.NodeFlagsNone,
         ),
-        nil,
         f.NewKeywordExpression(shimast.KindNullKeyword),
+        props.Context.Emit,
       ),
     ),
   }

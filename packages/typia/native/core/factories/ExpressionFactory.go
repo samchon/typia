@@ -168,6 +168,23 @@ func (expressionFactoryNamespace) Coalesce(x *shimast.Expression, y *shimast.Exp
   )
 }
 
+// Conditional builds `condition ? whenTrue : whenFalse` with its operator tokens
+// supplied at construction. typia's programmers historically built conditional
+// expressions with nil `?`/`:` tokens and relied on a post-emit tree walk
+// (NormalizeSyntheticTokens) to fill them in; constructing them well-formed here
+// removes that workaround. The node is structurally identical to the patched-up
+// form, so emitted text is unchanged.
+func (expressionFactoryNamespace) Conditional(condition *shimast.Expression, whenTrue *shimast.Expression, whenFalse *shimast.Expression, emit ...*shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(expressionFactory_factory, emit...)
+  return f.NewConditionalExpression(
+    condition,
+    f.NewToken(shimast.KindQuestionToken),
+    whenTrue,
+    f.NewToken(shimast.KindColonToken),
+    whenFalse,
+  )
+}
+
 func (expressionFactoryNamespace) Currying(props ExpressionFactory_CurryingProps, emit ...*shimprinter.EmitContext) *shimast.Node {
   f := nativecontext.EmitFactoryOf(expressionFactory_factory, emit...)
   if len(props.Arguments) == 0 {

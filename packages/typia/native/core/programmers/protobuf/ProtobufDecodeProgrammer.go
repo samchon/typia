@@ -177,12 +177,11 @@ func protobufDecodeProgrammer_write_object_function(props struct {
     protobufDecodeProgrammer_assignment(
       f.NewIdentifier("length"),
       shimast.KindEqualsToken,
-      f.NewConditionalExpression(
+      nativefactories.ExpressionFactory.Conditional(
         protobufDecodeProgrammer_lessThan(f.NewIdentifier("length"), nativefactories.ExpressionFactory.Number(0, props.Context.Emit)),
-        nil,
         protobufDecodeProgrammer_callReader("size", nil),
-        nil,
         protobufDecodeProgrammer_add(protobufDecodeProgrammer_callReader("index", nil), f.NewIdentifier("length")),
+        props.Context.Emit,
       ),
     ),
   )

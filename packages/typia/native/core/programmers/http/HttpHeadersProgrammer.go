@@ -397,12 +397,11 @@ func httpHeadersProgrammer_decode_array(props struct {
       f.NewArrayLiteralExpression(f.NewNodeList(nil), false),
     )
   }
-  return f.NewConditionalExpression(
+  return nativefactories.ExpressionFactory.Conditional(
     nativefactories.ExpressionFactory.IsArray(props.Input, props.Context.Emit),
-    nil,
     arrayMap,
-    nil,
     otherwise,
+    props.Context.Emit,
   )
 }
 

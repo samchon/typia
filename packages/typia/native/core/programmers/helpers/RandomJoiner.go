@@ -92,7 +92,7 @@ func (randomJoinerNamespace) Array(props RandomJoiner_ArrayProps) *shimast.Node 
   if !props.Recursive {
     return call
   }
-  return randomJoiner_factory.NewConditionalExpression(
+  return nativefactories.ExpressionFactory.Conditional(
     randomJoiner_factory.NewBinaryExpression(
       nil,
       nativefactories.ExpressionFactory.Number(5),
@@ -100,9 +100,7 @@ func (randomJoinerNamespace) Array(props RandomJoiner_ArrayProps) *shimast.Node 
       randomJoiner_factory.NewToken(shimast.KindGreaterThanEqualsToken),
       randomJoiner_factory.NewIdentifier("_depth"),
     ),
-    nil,
     call,
-    nil,
     randomJoiner_factory.NewArrayLiteralExpression(randomJoiner_factory.NewNodeList(nil), false),
   )
 }

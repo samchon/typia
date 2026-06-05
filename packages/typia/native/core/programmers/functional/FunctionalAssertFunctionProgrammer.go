@@ -131,9 +131,8 @@ func (functionalAssertFunctionProgrammerNamespace) HookPath(props struct {
             nativefactories.IdentifierFactory.Identifier("path"),
             nil,
             nil,
-            functionalAssertProgrammer_factory.NewConditionalExpression(
+            nativefactories.ExpressionFactory.Conditional(
               path,
-              nil,
               functionalAssertProgrammer_factory.NewCallExpression(
                 nativefactories.IdentifierFactory.Access(path, "replace"),
                 nil,
@@ -144,7 +143,6 @@ func (functionalAssertFunctionProgrammerNamespace) HookPath(props struct {
                 }),
                 shimast.NodeFlagsNone,
               ),
-              nil,
               functionalAssertProgrammer_factory.NewIdentifier("undefined"),
             ),
           ),

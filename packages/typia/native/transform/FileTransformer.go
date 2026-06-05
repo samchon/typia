@@ -9,7 +9,6 @@ import (
   shimprinter "github.com/microsoft/typescript-go/shim/printer"
   "github.com/samchon/ttsc/packages/ttsc/driver"
   nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
-  nativeprinter "github.com/samchon/typia/packages/typia/native/internal/printer"
 )
 
 type fileTransformerNamespace struct{}
@@ -59,12 +58,6 @@ func (fileTransformerNamespace) Transform(environments FileTransformer_IEnvironm
       fileTransformer_checkJsDocParsingMode(context, file)
       visited := fileTransformer_iterate_file(context, file)
       result := fileTransformer_inject_imports(visited, importer.ToStatements(), environments.EmitContext)
-      if environments.EmitContext != nil {
-        // AST-integration emit prints these nodes through tsgo's printer, which
-        // dereferences operator tokens typia leaves nil; the legacy text path
-        // normalized them before printing, so do the same here.
-        nativeprinter.NormalizeSyntheticTokens(result.AsNode())
-      }
       return result
     }
   }

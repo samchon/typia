@@ -335,14 +335,12 @@ func validateProgrammer_joiner(props ValidateProgrammer_DecomposeProps) nativein
 }
 
 func validateProgrammer_create_output() *shimast.Node {
-  return validateProgrammer_factory.NewConditionalExpression(
+  return nativefactories.ExpressionFactory.Conditional(
     validateProgrammer_factory.NewIdentifier("success"),
-    nil,
     validateProgrammer_factory.NewObjectLiteralExpression(validateProgrammer_factory.NewNodeList([]*shimast.Node{
       validateProgrammer_shorthand("success"),
       validateProgrammer_property("data", validateProgrammer_factory.NewIdentifier("input")),
     }), true),
-    nil,
     validateProgrammer_factory.NewObjectLiteralExpression(validateProgrammer_factory.NewNodeList([]*shimast.Node{
       validateProgrammer_shorthand("success"),
       validateProgrammer_shorthand("errors"),

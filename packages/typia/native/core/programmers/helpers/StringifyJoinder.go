@@ -151,12 +151,11 @@ func stringifyJoiner_regular_properties(regular []IExpressionEntry, dynamic []IE
       continue
     }
     if !entry.Meta.IsRequired() || len(entry.Meta.Functions) != 0 || entry.Meta.Any {
-      output = append(output, f.NewConditionalExpression(
+      output = append(output, nativefactories.ExpressionFactory.Conditional(
         stringifyJoiner_regular_condition(entry, emit...),
-        nil,
         f.NewStringLiteral("", shimast.TokenFlagsNone),
-        nil,
         nativefactories.TemplateFactory.Generate(base, emit...),
+        emit...,
       ))
     } else {
       output = append(output, base...)

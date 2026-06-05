@@ -107,7 +107,7 @@ func (functionalIsReturnProgrammerNamespace) Decompose(props FunctionalIsReturnP
         Name:  name,
         Value: value,
       }, props.Context.Emit),
-      f.NewReturnStatement(f.NewConditionalExpression(
+      f.NewReturnStatement(nativefactories.ExpressionFactory.Conditional(
         f.NewCallExpression(
           f.NewIdentifier("__is_return"),
           nil,
@@ -117,10 +117,9 @@ func (functionalIsReturnProgrammerNamespace) Decompose(props FunctionalIsReturnP
           }),
           shimast.NodeFlagsNone,
         ),
-        nil,
         f.NewIdentifier(name),
-        nil,
         f.NewKeywordExpression(shimast.KindNullKeyword),
+        props.Context.Emit,
       )),
     },
   }

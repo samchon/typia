@@ -141,7 +141,7 @@ func (functionalValidateParametersProgrammerNamespace) Decompose(props Functiona
         nil,
         nil,
         f.NewToken(shimast.KindEqualsGreaterThanToken),
-        f.NewConditionalExpression(
+        nativefactories.ExpressionFactory.Conditional(
           f.NewBinaryExpression(
             nil,
             f.NewKeywordExpression(shimast.KindTrueKeyword),
@@ -149,9 +149,7 @@ func (functionalValidateParametersProgrammerNamespace) Decompose(props Functiona
             f.NewToken(shimast.KindEqualsEqualsEqualsToken),
             nativefactories.IdentifierFactory.Access(f.NewIdentifier("r"), "success"),
           ),
-          nil,
           f.NewIdentifier("r"),
-          nil,
           f.NewObjectLiteralExpression(f.NewNodeList([]*shimast.Node{
             f.NewSpreadAssignment(f.NewIdentifier("r")),
             f.NewPropertyAssignment(nil, nativefactories.IdentifierFactory.Identifier("errors", props.Context.Emit), nil, nil, FunctionalValidateFunctionProgrammer.HookErrors(struct {
@@ -170,6 +168,7 @@ func (functionalValidateParametersProgrammerNamespace) Decompose(props Functiona
               ),
             })),
           }), true),
+          props.Context.Emit,
         ),
       ),
     }),

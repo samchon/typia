@@ -679,9 +679,8 @@ func randomProgrammer_decode_object(props randomProgrammer_decodeObjectProps) *s
     }
     args = randomProgrammer_factory.NewNodeList([]*shimast.Node{
       recursive,
-      randomProgrammer_factory.NewConditionalExpression(
+      nativefactories.ExpressionFactory.Conditional(
         randomProgrammer_factory.NewIdentifier("_recursive"),
-        nil,
         randomProgrammer_factory.NewBinaryExpression(
           nil,
           nativefactories.ExpressionFactory.Number(1),
@@ -689,7 +688,6 @@ func randomProgrammer_decode_object(props randomProgrammer_decodeObjectProps) *s
           randomProgrammer_factory.NewToken(shimast.KindPlusToken),
           randomProgrammer_factory.NewIdentifier("_depth"),
         ),
-        nil,
         randomProgrammer_factory.NewIdentifier("_depth"),
       ),
     })

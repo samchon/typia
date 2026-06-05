@@ -76,7 +76,7 @@ func (jsonIsParseProgrammerNamespace) Decompose(props JsonIsParseProgrammer_Deco
             shimast.NodeFlagsNone,
           ),
         )),
-        f.NewReturnStatement(f.NewConditionalExpression(
+        f.NewReturnStatement(nativefactories.ExpressionFactory.Conditional(
           f.NewCallExpression(
             f.NewIdentifier("__is"),
             nil,
@@ -86,13 +86,12 @@ func (jsonIsParseProgrammerNamespace) Decompose(props JsonIsParseProgrammer_Deco
             }),
             shimast.NodeFlagsNone,
           ),
-          nil,
           f.NewAsExpression(
             f.NewIdentifier("input"),
             nativefactories.TypeFactory.Keyword("any", props.Context.Emit),
           ),
-          nil,
           f.NewKeywordExpression(shimast.KindNullKeyword),
+          props.Context.Emit,
         )),
       }), false),
     ),

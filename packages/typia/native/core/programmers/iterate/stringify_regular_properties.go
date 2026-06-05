@@ -44,11 +44,9 @@ func Stringify_regular_properties(props Stringify_regular_propertiesProps) []*sh
       continue
     }
     if !entry.Meta.IsRequired() || len(entry.Meta.Functions) != 0 || entry.Meta.Any {
-      output = append(output, stringify_regular_properties_factory.NewConditionalExpression(
+      output = append(output, nativefactories.ExpressionFactory.Conditional(
         stringify_regular_properties_condition(entry),
-        nil,
         stringify_regular_properties_factory.NewStringLiteral("", shimast.TokenFlagsNone),
-        nil,
         nativefactories.TemplateFactory.Generate(base),
       ))
     } else {

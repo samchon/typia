@@ -220,12 +220,11 @@ func jsonStringifyProgrammer_decode(props struct {
       if props.Explore.From == "array" {
         return f.NewStringLiteral("null", shimast.TokenFlagsNone)
       }
-      return f.NewConditionalExpression(
+      return nativefactories.ExpressionFactory.Conditional(
         jsonStringifyProgrammer_binary(f.NewKeywordExpression(shimast.KindNullKeyword), shimast.KindEqualsEqualsEqualsToken, props.Input),
-        nil,
         f.NewStringLiteral("null", shimast.TokenFlagsNone),
-        nil,
         f.NewIdentifier("undefined"),
+        props.Context.Emit,
       )
     } else if props.Metadata.IsRequired() == false {
       if props.Explore.From == "array" {
@@ -1073,11 +1072,9 @@ func jsonStringifyProgrammer_wrap_required(props struct {
   if props.Explore.From == "array" {
     alternate = jsonStringifyProgrammer_factory.NewStringLiteral("null", shimast.TokenFlagsNone)
   }
-  return jsonStringifyProgrammer_factory.NewConditionalExpression(
+  return nativefactories.ExpressionFactory.Conditional(
     jsonStringifyProgrammer_binary(jsonStringifyProgrammer_factory.NewIdentifier("undefined"), shimast.KindExclamationEqualsEqualsToken, props.Input),
-    nil,
     props.Expression,
-    nil,
     alternate,
   )
 }
@@ -1090,11 +1087,9 @@ func jsonStringifyProgrammer_wrap_nullable(props struct {
   if props.Metadata.Nullable == false {
     return props.Expression
   }
-  return jsonStringifyProgrammer_factory.NewConditionalExpression(
+  return nativefactories.ExpressionFactory.Conditional(
     jsonStringifyProgrammer_binary(jsonStringifyProgrammer_factory.NewKeywordExpression(shimast.KindNullKeyword), shimast.KindExclamationEqualsEqualsToken, props.Input),
-    nil,
     props.Expression,
-    nil,
     jsonStringifyProgrammer_factory.NewStringLiteral("null", shimast.TokenFlagsNone),
   )
 }
@@ -1108,11 +1103,9 @@ func jsonStringifyProgrammer_wrap_functional(props struct {
   if len(props.Metadata.Functions) == 0 {
     return props.Expression
   }
-  return jsonStringifyProgrammer_factory.NewConditionalExpression(
+  return nativefactories.ExpressionFactory.Conditional(
     jsonStringifyProgrammer_binary(jsonStringifyProgrammer_factory.NewStringLiteral("function", shimast.TokenFlagsNone), shimast.KindExclamationEqualsEqualsToken, nativefactories.ValueFactory.TYPEOF(props.Input)),
-    nil,
     props.Expression,
-    nil,
     jsonStringifyProgrammer_decode_functional(props.Explore),
   )
 }

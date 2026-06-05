@@ -402,12 +402,11 @@ func notationGeneralProgrammer_decode(props struct {
   if len(unions) == 1 && props.Metadata.Size() == 1 {
     value := unions[0].Value()
     if (props.Metadata.Nullable || props.Metadata.IsRequired() == false) && notationGeneralProgrammer_is_instance(props.Metadata) {
-      value = f.NewConditionalExpression(
+      value = nativefactories.ExpressionFactory.Conditional(
         props.Input,
-        nil,
         value,
-        nil,
         props.Input,
+        props.Context.Emit,
       )
     }
     return f.NewAsExpression(value, nativefactories.TypeFactory.Keyword("any", props.Context.Emit))
@@ -415,12 +414,11 @@ func notationGeneralProgrammer_decode(props struct {
   last := props.Input
   for i := len(unions) - 1; i >= 0; i-- {
     union := unions[i]
-    last = f.NewConditionalExpression(
+    last = nativefactories.ExpressionFactory.Conditional(
       union.Is(),
-      nil,
       union.Value(),
-      nil,
       last,
+      props.Context.Emit,
     )
   }
   return f.NewAsExpression(last, nativefactories.TypeFactory.Keyword("any", props.Context.Emit))

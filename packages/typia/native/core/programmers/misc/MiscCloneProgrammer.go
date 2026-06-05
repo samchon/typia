@@ -361,12 +361,11 @@ func miscCloneProgrammer_decode(props struct {
   if len(unions) == 1 && props.Metadata.Size() == 1 {
     value := unions[0].Value()
     if (props.Metadata.Nullable || props.Metadata.IsRequired() == false) && miscCloneProgrammer_is_instance(props.Metadata) {
-      value = miscCloneProgrammer_factory.NewConditionalExpression(
+      value = nativefactories.ExpressionFactory.Conditional(
         props.Input,
-        nil,
         value,
-        nil,
         props.Input,
+        props.Context.Emit,
       )
     }
     return miscCloneProgrammer_factory.NewAsExpression(value, nativefactories.TypeFactory.Keyword("any"))
@@ -374,7 +373,7 @@ func miscCloneProgrammer_decode(props struct {
   last := props.Input
   for i := len(unions) - 1; i >= 0; i-- {
     u := unions[i]
-    last = miscCloneProgrammer_factory.NewConditionalExpression(u.Is(), nil, u.Value(), nil, last)
+    last = nativefactories.ExpressionFactory.Conditional(u.Is(), u.Value(), last, props.Context.Emit)
   }
   return miscCloneProgrammer_factory.NewAsExpression(last, nativefactories.TypeFactory.Keyword("any"))
 }

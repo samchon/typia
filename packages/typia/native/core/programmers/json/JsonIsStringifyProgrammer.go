@@ -75,7 +75,7 @@ func (jsonIsStringifyProgrammerNamespace) Decompose(props JsonIsStringifyProgram
       })),
       nil,
       f.NewToken(shimast.KindEqualsGreaterThanToken),
-      f.NewConditionalExpression(
+      nativefactories.ExpressionFactory.Conditional(
         f.NewCallExpression(
           f.NewIdentifier("__is"),
           nil,
@@ -83,7 +83,6 @@ func (jsonIsStringifyProgrammerNamespace) Decompose(props JsonIsStringifyProgram
           f.NewNodeList([]*shimast.Node{f.NewIdentifier("input")}),
           shimast.NodeFlagsNone,
         ),
-        nil,
         f.NewCallExpression(
           f.NewIdentifier("__stringify"),
           nil,
@@ -91,8 +90,8 @@ func (jsonIsStringifyProgrammerNamespace) Decompose(props JsonIsStringifyProgram
           f.NewNodeList([]*shimast.Node{f.NewIdentifier("input")}),
           shimast.NodeFlagsNone,
         ),
-        nil,
         f.NewKeywordExpression(shimast.KindNullKeyword),
+        props.Context.Emit,
       ),
     ),
   }
