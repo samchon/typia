@@ -328,7 +328,11 @@ func httpHeadersProgrammer_decode_array(props struct {
   Value   *schemametadata.MetadataSchema
   Input   *shimast.Node
 }) *shimast.Node {
-  reader := httpParameterProgrammer_internal(props.Context, "httpHeaderRead"+httpParameterProgrammer_capitalize(props.Type))
+  // The reader helper is registered as an import side effect, so it must only be
+  // requested for non-string types; string[] headers map inline (str => str.trim())
+  // and must not pull in a non-existent _httpHeaderReadString helper. Mirrors the
+  // scalar path (decode_value), which short-circuits string before building a reader.
+  var reader *shimast.Node
   if props.Type == "string" {
     reader = httpHeadersProgrammer_factory.NewArrowFunction(
       nil,
@@ -347,6 +351,8 @@ func httpHeadersProgrammer_decode_array(props struct {
         shimast.NodeFlagsNone,
       ),
     )
+  } else {
+    reader = httpParameterProgrammer_internal(props.Context, "httpHeaderRead"+httpParameterProgrammer_capitalize(props.Type))
   }
   delimiter := ", "
   if props.Key == "cookie" {
