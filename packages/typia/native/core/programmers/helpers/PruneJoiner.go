@@ -2,6 +2,8 @@ package helpers
 
 import (
   shimast "github.com/microsoft/typescript-go/shim/ast"
+  shimprinter "github.com/microsoft/typescript-go/shim/printer"
+  nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
   nativefactories "github.com/samchon/typia/packages/typia/native/core/factories"
   nativemetadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
 )
@@ -14,21 +16,25 @@ type PruneJoiner_ObjectProps struct {
   Input   *shimast.Expression
   Entries []IExpressionEntry
   Object  *nativemetadata.MetadataObjectType
+  Emit    *shimprinter.EmitContext
 }
 
 type PruneJoiner_ArrayProps struct {
   Input *shimast.Expression
   Arrow *shimast.Expression
+  Emit  *shimprinter.EmitContext
 }
 
 type PruneJoiner_TupleProps struct {
   Elements []*shimast.ConciseBody
   Rest     *shimast.ConciseBody
+  Emit     *shimprinter.EmitContext
 }
 
 var pruneJoiner_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
 func (pruneJoinerNamespace) Object(props PruneJoiner_ObjectProps) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(pruneJoiner_factory, props.Emit)
   regular := []IExpressionEntry{}
   dynamic := []IExpressionEntry{}
   for _, entry := range props.Entries {
@@ -41,35 +47,38 @@ func (pruneJoinerNamespace) Object(props PruneJoiner_ObjectProps) *shimast.Node 
 
   statements := []*shimast.Node{}
   for _, entry := range regular {
-    statements = append(statements, pruneJoiner_statements(entry.Expression)...)
+    statements = append(statements, pruneJoiner_statements(entry.Expression, props.Emit)...)
   }
   if len(dynamic) != 0 {
-    statements = append(statements, pruneJoiner_factory.NewExpressionStatement(
+    statements = append(statements, f.NewExpressionStatement(
       pruneJoiner_iterate_dynamic_properties(pruneJoiner_iterate_dynamic_propertiesProps{
         Regular: regular,
         Dynamic: dynamic,
         Input:   props.Input,
+        Emit:    props.Emit,
       }),
     ))
   }
-  statements = append(statements, pruneJoiner_prune_object_properties(props.Object))
-  return pruneJoiner_factory.NewBlock(
-    pruneJoiner_factory.NewNodeList(statements),
+  statements = append(statements, pruneJoiner_prune_object_properties(props.Object, props.Emit))
+  return f.NewBlock(
+    f.NewNodeList(statements),
     true,
   )
 }
 
 func (pruneJoinerNamespace) Array(props PruneJoiner_ArrayProps) *shimast.Node {
-  return pruneJoiner_factory.NewCallExpression(
+  f := nativecontext.EmitFactoryOf(pruneJoiner_factory, props.Emit)
+  return f.NewCallExpression(
     nativefactories.IdentifierFactory.Access(nil, props.Input, "forEach"),
     nil,
     nil,
-    pruneJoiner_factory.NewNodeList([]*shimast.Node{props.Arrow}),
+    f.NewNodeList([]*shimast.Node{props.Arrow}),
     shimast.NodeFlagsNone,
   )
 }
 
 func (pruneJoinerNamespace) Tuple(props PruneJoiner_TupleProps) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(pruneJoiner_factory, props.Emit)
   entire := make([]*shimast.Node, 0, len(props.Elements)+1)
   for _, elem := range props.Elements {
     entire = append(entire, elem)
@@ -79,75 +88,78 @@ func (pruneJoinerNamespace) Tuple(props PruneJoiner_TupleProps) *shimast.Node {
   }
   statements := []*shimast.Node{}
   for _, elem := range entire {
-    statements = append(statements, pruneJoiner_statements(elem)...)
+    statements = append(statements, pruneJoiner_statements(elem, props.Emit)...)
   }
-  return pruneJoiner_factory.NewBlock(
-    pruneJoiner_factory.NewNodeList(statements),
+  return f.NewBlock(
+    f.NewNodeList(statements),
     true,
   )
 }
 
-func pruneJoiner_statements(node *shimast.Node) []*shimast.Node {
+func pruneJoiner_statements(node *shimast.Node, emit ...*shimprinter.EmitContext) []*shimast.Node {
+  f := nativecontext.EmitFactoryOf(pruneJoiner_factory, emit...)
   if node != nil && node.Kind == shimast.KindBlock {
     return append([]*shimast.Node{}, node.Statements()...)
   }
-  return []*shimast.Node{pruneJoiner_factory.NewExpressionStatement(node)}
+  return []*shimast.Node{f.NewExpressionStatement(node)}
 }
 
 type pruneJoiner_iterate_dynamic_propertiesProps struct {
   Regular []IExpressionEntry
   Dynamic []IExpressionEntry
   Input   *shimast.Expression
+  Emit    *shimprinter.EmitContext
 }
 
 func pruneJoiner_iterate_dynamic_properties(props pruneJoiner_iterate_dynamic_propertiesProps) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(pruneJoiner_factory, props.Emit)
   statements := []*shimast.Node{
-    pruneJoiner_factory.NewIfStatement(
-      pruneJoiner_factory.NewBinaryExpression(
+    f.NewIfStatement(
+      f.NewBinaryExpression(
         nil,
-        pruneJoiner_factory.NewIdentifier("undefined"),
+        f.NewIdentifier("undefined"),
         nil,
-        pruneJoiner_factory.NewToken(shimast.KindEqualsEqualsEqualsToken),
-        pruneJoiner_factory.NewIdentifier("value"),
+        f.NewToken(shimast.KindEqualsEqualsEqualsToken),
+        f.NewIdentifier("value"),
       ),
-      pruneJoiner_factory.NewReturnStatement(nil),
+      f.NewReturnStatement(nil),
       nil,
     ),
   }
   for _, entry := range props.Regular {
     key := entry.Key.GetSoleLiteral()
-    statements = append(statements, pruneJoiner_factory.NewIfStatement(
-      pruneJoiner_factory.NewBinaryExpression(
+    statements = append(statements, f.NewIfStatement(
+      f.NewBinaryExpression(
         nil,
-        pruneJoiner_factory.NewStringLiteral(*key, shimast.TokenFlagsNone),
+        f.NewStringLiteral(*key, shimast.TokenFlagsNone),
         nil,
-        pruneJoiner_factory.NewToken(shimast.KindEqualsEqualsEqualsToken),
-        pruneJoiner_factory.NewIdentifier("key"),
+        f.NewToken(shimast.KindEqualsEqualsEqualsToken),
+        f.NewIdentifier("key"),
       ),
-      pruneJoiner_factory.NewReturnStatement(nil),
+      f.NewReturnStatement(nil),
       nil,
     ))
   }
   for _, dynamic := range props.Dynamic {
     body := dynamic.Expression
     if body.Kind != shimast.KindBlock {
-      body = pruneJoiner_factory.NewBlock(
-        pruneJoiner_factory.NewNodeList([]*shimast.Node{
-          pruneJoiner_factory.NewExpressionStatement(body),
+      body = f.NewBlock(
+        f.NewNodeList([]*shimast.Node{
+          f.NewExpressionStatement(body),
         }),
         false,
       )
     }
-    statements = append(statements, pruneJoiner_factory.NewIfStatement(
-      pruneJoiner_factory.NewCallExpression(
-        pruneJoiner_factory.NewIdentifier("RegExp(/"+cloneJoiner_metadata_to_pattern(struct {
+    statements = append(statements, f.NewIfStatement(
+      f.NewCallExpression(
+        f.NewIdentifier("RegExp(/"+cloneJoiner_metadata_to_pattern(struct {
           top      bool
           metadata *nativemetadata.MetadataSchema
         }{top: true, metadata: dynamic.Key})+"/).test"),
         nil,
         nil,
-        pruneJoiner_factory.NewNodeList([]*shimast.Node{
-          pruneJoiner_factory.NewIdentifier("key"),
+        f.NewNodeList([]*shimast.Node{
+          f.NewIdentifier("key"),
         }),
         shimast.NodeFlagsNone,
       ),
@@ -155,119 +167,122 @@ func pruneJoiner_iterate_dynamic_properties(props pruneJoiner_iterate_dynamic_pr
       nil,
     ))
   }
-  return pruneJoiner_factory.NewCallExpression(
+  return f.NewCallExpression(
     nativefactories.IdentifierFactory.Access(
       nil,
-      pruneJoiner_factory.NewCallExpression(
-        pruneJoiner_factory.NewIdentifier("Object.entries"),
+      f.NewCallExpression(
+        f.NewIdentifier("Object.entries"),
         nil,
         nil,
-        pruneJoiner_factory.NewNodeList([]*shimast.Node{props.Input}),
+        f.NewNodeList([]*shimast.Node{props.Input}),
         shimast.NodeFlagsNone,
       ),
       "forEach",
     ),
     nil,
     nil,
-    pruneJoiner_factory.NewNodeList([]*shimast.Node{
-      pruneJoiner_factory.NewArrowFunction(
+    f.NewNodeList([]*shimast.Node{
+      f.NewArrowFunction(
         nil,
         nil,
-        pruneJoiner_factory.NewNodeList([]*shimast.Node{
-          nativefactories.IdentifierFactory.Parameter(pruneJoiner_binding_pattern(), nil, nil),
+        f.NewNodeList([]*shimast.Node{
+          nativefactories.IdentifierFactory.Parameter(pruneJoiner_binding_pattern(props.Emit), nil, nil, props.Emit),
         }),
         nil,
         nil,
-        pruneJoiner_factory.NewToken(shimast.KindEqualsGreaterThanToken),
-        pruneJoiner_factory.NewBlock(pruneJoiner_factory.NewNodeList(statements), true),
+        f.NewToken(shimast.KindEqualsGreaterThanToken),
+        f.NewBlock(f.NewNodeList(statements), true),
       ),
     }),
     shimast.NodeFlagsNone,
   )
 }
 
-func pruneJoiner_binding_pattern() *shimast.Node {
-  return pruneJoiner_factory.NewBindingPattern(
+func pruneJoiner_binding_pattern(emit ...*shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(pruneJoiner_factory, emit...)
+  return f.NewBindingPattern(
     shimast.KindArrayBindingPattern,
-    pruneJoiner_factory.NewNodeList([]*shimast.Node{
-      pruneJoiner_factory.NewBindingElement(nil, nil, pruneJoiner_factory.NewIdentifier("key"), nil),
-      pruneJoiner_factory.NewBindingElement(nil, nil, pruneJoiner_factory.NewIdentifier("value"), nil),
+    f.NewNodeList([]*shimast.Node{
+      f.NewBindingElement(nil, nil, f.NewIdentifier("key"), nil),
+      f.NewBindingElement(nil, nil, f.NewIdentifier("value"), nil),
     }),
   )
 }
 
-func pruneJoiner_prune_object_properties(object *nativemetadata.MetadataObjectType) *shimast.Node {
-  input := pruneJoiner_factory.NewIdentifier("input")
-  key := pruneJoiner_factory.NewIdentifier("key")
+func pruneJoiner_prune_object_properties(object *nativemetadata.MetadataObjectType, emit ...*shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(pruneJoiner_factory, emit...)
+  input := f.NewIdentifier("input")
+  key := f.NewIdentifier("key")
   conditions := []*shimast.Node{}
   for _, prop := range object.Properties {
     name := prop.Key.GetSoleLiteral()
     if name != nil {
-      conditions = append(conditions, pruneJoiner_factory.NewBinaryExpression(
+      conditions = append(conditions, f.NewBinaryExpression(
         nil,
-        pruneJoiner_factory.NewStringLiteral(*name, shimast.TokenFlagsNone),
+        f.NewStringLiteral(*name, shimast.TokenFlagsNone),
         nil,
-        pruneJoiner_factory.NewToken(shimast.KindEqualsEqualsEqualsToken),
+        f.NewToken(shimast.KindEqualsEqualsEqualsToken),
         key,
       ))
     } else {
-      conditions = append(conditions, pruneJoiner_factory.NewCallExpression(
-        pruneJoiner_factory.NewIdentifier("RegExp(/"+cloneJoiner_metadata_to_pattern(struct {
+      conditions = append(conditions, f.NewCallExpression(
+        f.NewIdentifier("RegExp(/"+cloneJoiner_metadata_to_pattern(struct {
           top      bool
           metadata *nativemetadata.MetadataSchema
         }{top: true, metadata: prop.Key})+"/).test"),
         nil,
         nil,
-        pruneJoiner_factory.NewNodeList([]*shimast.Node{key}),
+        f.NewNodeList([]*shimast.Node{key}),
         shimast.NodeFlagsNone,
       ))
     }
   }
   statements := []*shimast.Node{}
   if len(conditions) != 0 {
-    statements = append(statements, pruneJoiner_factory.NewIfStatement(
-      pruneJoiner_reduce(conditions, shimast.KindBarBarToken),
-      pruneJoiner_factory.NewContinueStatement(nil),
+    statements = append(statements, f.NewIfStatement(
+      pruneJoiner_reduce(conditions, shimast.KindBarBarToken, emit...),
+      f.NewContinueStatement(nil),
       nil,
     ))
   }
-  statements = append(statements, pruneJoiner_factory.NewExpressionStatement(
-    pruneJoiner_factory.NewDeleteExpression(
-      pruneJoiner_factory.NewElementAccessExpression(input, nil, key, shimast.NodeFlagsNone),
+  statements = append(statements, f.NewExpressionStatement(
+    f.NewDeleteExpression(
+      f.NewElementAccessExpression(input, nil, key, shimast.NodeFlagsNone),
     ),
   ))
   statement := statements[0]
   if len(statements) != 1 {
-    statement = pruneJoiner_factory.NewBlock(pruneJoiner_factory.NewNodeList(statements), true)
+    statement = f.NewBlock(f.NewNodeList(statements), true)
   }
-  return pruneJoiner_factory.NewForInOrOfStatement(
+  return f.NewForInOrOfStatement(
     shimast.KindForOfStatement,
     nil,
-    pruneJoiner_factory.NewVariableDeclarationList(
-      pruneJoiner_factory.NewNodeList([]*shimast.Node{
-        pruneJoiner_factory.NewVariableDeclaration(key, nil, nil, nil),
+    f.NewVariableDeclarationList(
+      f.NewNodeList([]*shimast.Node{
+        f.NewVariableDeclaration(key, nil, nil, nil),
       }),
       shimast.NodeFlagsConst,
     ),
-    pruneJoiner_factory.NewCallExpression(
-      pruneJoiner_factory.NewIdentifier("Object.keys"),
+    f.NewCallExpression(
+      f.NewIdentifier("Object.keys"),
       nil,
       nil,
-      pruneJoiner_factory.NewNodeList([]*shimast.Node{input}),
+      f.NewNodeList([]*shimast.Node{input}),
       shimast.NodeFlagsNone,
     ),
     statement,
   )
 }
 
-func pruneJoiner_reduce(expressions []*shimast.Node, operator shimast.Kind) *shimast.Node {
+func pruneJoiner_reduce(expressions []*shimast.Node, operator shimast.Kind, emit ...*shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(pruneJoiner_factory, emit...)
   output := expressions[0]
   for _, next := range expressions[1:] {
-    output = pruneJoiner_factory.NewBinaryExpression(
+    output = f.NewBinaryExpression(
       nil,
       output,
       nil,
-      pruneJoiner_factory.NewToken(operator),
+      f.NewToken(operator),
       next,
     )
   }

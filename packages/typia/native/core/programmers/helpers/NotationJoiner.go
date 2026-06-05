@@ -2,6 +2,8 @@ package helpers
 
 import (
   shimast "github.com/microsoft/typescript-go/shim/ast"
+  shimprinter "github.com/microsoft/typescript-go/shim/printer"
+  nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
   nativefactories "github.com/samchon/typia/packages/typia/native/core/factories"
   nativemetadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
 )
@@ -14,23 +16,27 @@ type NotationJoiner_ObjectProps struct {
   Rename  func(str string) string
   Input   *shimast.Expression
   Entries []IExpressionEntry
+  Emit    *shimprinter.EmitContext
 }
 
 type NotationJoiner_TupleProps struct {
   Elements []*shimast.Expression
   Rest     *shimast.Expression
+  Emit     *shimprinter.EmitContext
 }
 
 type NotationJoiner_ArrayProps struct {
   Input *shimast.Expression
   Arrow *shimast.Expression
+  Emit  *shimprinter.EmitContext
 }
 
 var notationJoiner_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
 func (notationJoinerNamespace) Object(props NotationJoiner_ObjectProps) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(notationJoiner_factory, props.Emit)
   if len(props.Entries) == 0 {
-    return notationJoiner_factory.NewIdentifier("{}")
+    return f.NewIdentifier("{}")
   }
 
   regular := []IExpressionEntry{}
@@ -46,52 +52,52 @@ func (notationJoinerNamespace) Object(props NotationJoiner_ObjectProps) *shimast
   properties := make([]*shimast.Node, 0, len(regular))
   for _, entry := range regular {
     str := props.Rename(*entry.Key.GetSoleLiteral())
-    properties = append(properties, notationJoiner_factory.NewPropertyAssignment(
+    properties = append(properties, f.NewPropertyAssignment(
       nil,
-      nativefactories.IdentifierFactory.Identifier(str),
+      nativefactories.IdentifierFactory.Identifier(str, props.Emit),
       nil,
       nil,
       entry.Expression,
     ))
   }
-  literal := notationJoiner_factory.NewObjectLiteralExpression(
-    notationJoiner_factory.NewNodeList(properties),
+  literal := f.NewObjectLiteralExpression(
+    f.NewNodeList(properties),
     true,
   )
   if len(dynamic) == 0 {
     return literal
   }
 
-  key := notationJoiner_factory.NewIdentifier("key")
-  output := notationJoiner_factory.NewIdentifier("output")
+  key := f.NewIdentifier("key")
+  output := f.NewIdentifier("output")
   statements := []*shimast.Node{}
   if len(regular) != 0 {
-    statements = append(statements, notationJoiner_regular_skip(regular))
+    statements = append(statements, notationJoiner_regular_skip(regular, props.Emit))
   }
   for _, entry := range dynamic {
-    statements = append(statements, notationJoiner_factory.NewIfStatement(
-      notationJoiner_factory.NewCallExpression(
-        notationJoiner_factory.NewIdentifier("RegExp(/"+cloneJoiner_metadata_to_pattern(struct {
+    statements = append(statements, f.NewIfStatement(
+      f.NewCallExpression(
+        f.NewIdentifier("RegExp(/"+cloneJoiner_metadata_to_pattern(struct {
           top      bool
           metadata *nativemetadata.MetadataSchema
         }{top: true, metadata: entry.Key})+"/).test"),
         nil,
         nil,
-        notationJoiner_factory.NewNodeList([]*shimast.Node{key}),
+        f.NewNodeList([]*shimast.Node{key}),
         shimast.NodeFlagsNone,
       ),
-      notationJoiner_factory.NewBlock(
-        notationJoiner_factory.NewNodeList([]*shimast.Node{
-          notationJoiner_factory.NewExpressionStatement(
-            notationJoiner_factory.NewBinaryExpression(
+      f.NewBlock(
+        f.NewNodeList([]*shimast.Node{
+          f.NewExpressionStatement(
+            f.NewBinaryExpression(
               nil,
-              notationJoiner_factory.NewElementAccessExpression(output, nil, key, shimast.NodeFlagsNone),
+              f.NewElementAccessExpression(output, nil, key, shimast.NodeFlagsNone),
               nil,
-              notationJoiner_factory.NewToken(shimast.KindEqualsToken),
+              f.NewToken(shimast.KindEqualsToken),
               entry.Expression,
             ),
           ),
-          notationJoiner_factory.NewContinueStatement(nil),
+          f.NewContinueStatement(nil),
         }),
         false,
       ),
@@ -99,97 +105,100 @@ func (notationJoinerNamespace) Object(props NotationJoiner_ObjectProps) *shimast
     ))
   }
 
-  return notationJoiner_factory.NewBlock(
-    notationJoiner_factory.NewNodeList([]*shimast.Node{
+  return f.NewBlock(
+    f.NewNodeList([]*shimast.Node{
       nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
         Name: "output",
-        Value: notationJoiner_factory.NewAsExpression(
+        Value: f.NewAsExpression(
           literal,
-          nativefactories.TypeFactory.Keyword("any"),
+          nativefactories.TypeFactory.Keyword("any", props.Emit),
         ),
-      }),
-      notationJoiner_factory.NewForInOrOfStatement(
+      }, props.Emit),
+      f.NewForInOrOfStatement(
         shimast.KindForOfStatement,
         nil,
-        nativefactories.StatementFactory.Entry(nativefactories.StatementFactory_EntryProps{Key: "key", Value: "value"}),
-        notationJoiner_factory.NewCallExpression(
-          notationJoiner_factory.NewIdentifier("Object.entries"),
+        nativefactories.StatementFactory.Entry(nativefactories.StatementFactory_EntryProps{Key: "key", Value: "value"}, props.Emit),
+        f.NewCallExpression(
+          f.NewIdentifier("Object.entries"),
           nil,
           nil,
-          notationJoiner_factory.NewNodeList([]*shimast.Node{props.Input}),
+          f.NewNodeList([]*shimast.Node{props.Input}),
           shimast.NodeFlagsNone,
         ),
-        notationJoiner_factory.NewBlock(notationJoiner_factory.NewNodeList(statements), false),
+        f.NewBlock(f.NewNodeList(statements), false),
       ),
-      notationJoiner_factory.NewReturnStatement(output),
+      f.NewReturnStatement(output),
     }),
     false,
   )
 }
 
 func (notationJoinerNamespace) Tuple(props NotationJoiner_TupleProps) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(notationJoiner_factory, props.Emit)
   elements := make([]*shimast.Node, 0, len(props.Elements)+1)
   for _, elem := range props.Elements {
     elements = append(elements, elem)
   }
   if props.Rest != nil {
-    elements = append(elements, notationJoiner_factory.NewSpreadElement(props.Rest))
+    elements = append(elements, f.NewSpreadElement(props.Rest))
   }
-  return notationJoiner_factory.NewAsExpression(
-    notationJoiner_factory.NewArrayLiteralExpression(
-      notationJoiner_factory.NewNodeList(elements),
+  return f.NewAsExpression(
+    f.NewArrayLiteralExpression(
+      f.NewNodeList(elements),
       true,
     ),
-    nativefactories.TypeFactory.Keyword("any"),
+    nativefactories.TypeFactory.Keyword("any", props.Emit),
   )
 }
 
 func (notationJoinerNamespace) Array(props NotationJoiner_ArrayProps) *shimast.Node {
-  return notationJoiner_factory.NewCallExpression(
+  f := nativecontext.EmitFactoryOf(notationJoiner_factory, props.Emit)
+  return f.NewCallExpression(
     nativefactories.IdentifierFactory.Access(nil, props.Input, "map"),
     nil,
     nil,
-    notationJoiner_factory.NewNodeList([]*shimast.Node{props.Arrow}),
+    f.NewNodeList([]*shimast.Node{props.Arrow}),
     shimast.NodeFlagsNone,
   )
 }
 
-func notationJoiner_regular_skip(regular []IExpressionEntry) *shimast.Node {
+func notationJoiner_regular_skip(regular []IExpressionEntry, emit ...*shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(notationJoiner_factory, emit...)
   elements := make([]*shimast.Node, 0, len(regular))
   for _, entry := range regular {
-    elements = append(elements, notationJoiner_factory.NewStringLiteral(*entry.Key.GetSoleLiteral(), shimast.TokenFlagsNone))
+    elements = append(elements, f.NewStringLiteral(*entry.Key.GetSoleLiteral(), shimast.TokenFlagsNone))
   }
-  return notationJoiner_factory.NewIfStatement(
-    notationJoiner_factory.NewCallExpression(
+  return f.NewIfStatement(
+    f.NewCallExpression(
       nativefactories.IdentifierFactory.Access(
         nil,
-        notationJoiner_factory.NewArrayLiteralExpression(notationJoiner_factory.NewNodeList(elements), false),
+        f.NewArrayLiteralExpression(f.NewNodeList(elements), false),
         "some",
       ),
       nil,
       nil,
-      notationJoiner_factory.NewNodeList([]*shimast.Node{
-        notationJoiner_factory.NewArrowFunction(
+      f.NewNodeList([]*shimast.Node{
+        f.NewArrowFunction(
           nil,
           nil,
-          notationJoiner_factory.NewNodeList([]*shimast.Node{
-            nativefactories.IdentifierFactory.Parameter("regular", nil, nil),
+          f.NewNodeList([]*shimast.Node{
+            nativefactories.IdentifierFactory.Parameter("regular", nil, nil, emit...),
           }),
           nil,
           nil,
-          notationJoiner_factory.NewToken(shimast.KindEqualsGreaterThanToken),
-          notationJoiner_factory.NewBinaryExpression(
+          f.NewToken(shimast.KindEqualsGreaterThanToken),
+          f.NewBinaryExpression(
             nil,
-            notationJoiner_factory.NewIdentifier("regular"),
+            f.NewIdentifier("regular"),
             nil,
-            notationJoiner_factory.NewToken(shimast.KindEqualsEqualsEqualsToken),
-            notationJoiner_factory.NewIdentifier("key"),
+            f.NewToken(shimast.KindEqualsEqualsEqualsToken),
+            f.NewIdentifier("key"),
           ),
         ),
       }),
       shimast.NodeFlagsNone,
     ),
-    notationJoiner_factory.NewContinueStatement(nil),
+    f.NewContinueStatement(nil),
     nil,
   )
 }

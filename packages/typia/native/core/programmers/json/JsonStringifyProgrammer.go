@@ -6,6 +6,7 @@ import (
 
   shimast "github.com/microsoft/typescript-go/shim/ast"
   shimchecker "github.com/microsoft/typescript-go/shim/checker"
+  shimprinter "github.com/microsoft/typescript-go/shim/printer"
   nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
   nativefactories "github.com/samchon/typia/packages/typia/native/core/factories"
   nativeprogrammers "github.com/samchon/typia/packages/typia/native/core/programmers"
@@ -90,10 +91,12 @@ func (jsonStringifyProgrammerNamespace) Write(props nativecontext.IProgrammerPro
 }
 
 func jsonStringifyProgrammer_write_array_functions(props struct {
+  Context    nativecontext.ITypiaContext
   Config     nativeinternal.FeatureProgrammer_IConfig
   Functor    *nativehelpers.FunctionProgrammer
   Collection *schemametadata.MetadataCollection
 }) []*shimast.Node {
+  f := nativecontext.EmitFactoryOf(jsonStringifyProgrammer_factory, props.Context.Emit)
   output := []*shimast.Node{}
   for i, typ := range props.Collection.Arrays() {
     if typ.Recursive == false {
@@ -101,21 +104,22 @@ func jsonStringifyProgrammer_write_array_functions(props struct {
     }
     output = append(output, nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
       Name: fmt.Sprintf("%sa%d", props.Config.Prefix, i),
-      Value: jsonStringifyProgrammer_factory.NewArrowFunction(
+      Value: f.NewArrowFunction(
         nil,
         nil,
-        jsonStringifyProgrammer_factory.NewNodeList(nativeinternal.FeatureProgrammer.ParameterDeclarations(nativeinternal.FeatureProgrammer_ParameterDeclarationsProps{
+        f.NewNodeList(nativeinternal.FeatureProgrammer.ParameterDeclarations(nativeinternal.FeatureProgrammer_ParameterDeclarationsProps{
           Config: nativeinternal.FeatureProgrammer_ParameterConfig{Path: props.Config.Path, Trace: props.Config.Trace},
-          Type:   nativefactories.TypeFactory.Keyword("any"),
-          Input:  jsonStringifyProgrammer_factory.NewIdentifier("input"),
+          Type:   nativefactories.TypeFactory.Keyword("any", props.Context.Emit),
+          Input:  f.NewIdentifier("input"),
         })),
-        nativefactories.TypeFactory.Keyword("any"),
+        nativefactories.TypeFactory.Keyword("any", props.Context.Emit),
         nil,
-        jsonStringifyProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
+        f.NewToken(shimast.KindEqualsGreaterThanToken),
         jsonStringifyProgrammer_decode_array_inline(jsonStringifyProgrammer_decodeArrayProps{
+          Context: props.Context,
           Config:  props.Config,
           Functor: props.Functor,
-          Input:   jsonStringifyProgrammer_factory.NewIdentifier("input"),
+          Input:   f.NewIdentifier("input"),
           Array: schemametadata.MetadataArray_create(schemametadata.MetadataArray{
             Type: typ,
             Tags: [][]schemametadata.IMetadataTypeTag{},
@@ -128,7 +132,7 @@ func jsonStringifyProgrammer_write_array_functions(props struct {
           },
         }),
       ),
-    }))
+    }, props.Context.Emit))
   }
   return output
 }
@@ -186,20 +190,24 @@ func jsonStringifyProgrammer_decode(props struct {
   f := nativecontext.EmitFactoryOf(jsonStringifyProgrammer_factory, props.Context.Emit)
   if props.Metadata.Any {
     return jsonStringifyProgrammer_wrap_required(struct {
+      Context    nativecontext.ITypiaContext
       Input      *shimast.Node
       Metadata   *schemametadata.MetadataSchema
       Explore    nativeinternal.FeatureProgrammer_IExplore
       Expression *shimast.Node
     }{
+      Context:  props.Context,
       Input:    props.Input,
       Metadata: props.Metadata,
       Explore:  props.Explore,
       Expression: jsonStringifyProgrammer_wrap_functional(struct {
+        Context    nativecontext.ITypiaContext
         Input      *shimast.Node
         Metadata   *schemametadata.MetadataSchema
         Explore    nativeinternal.FeatureProgrammer_IExplore
         Expression *shimast.Node
       }{
+        Context:  props.Context,
         Input:    props.Input,
         Metadata: props.Metadata,
         Explore:  props.Explore,
@@ -221,7 +229,7 @@ func jsonStringifyProgrammer_decode(props struct {
         return f.NewStringLiteral("null", shimast.TokenFlagsNone)
       }
       return nativefactories.ExpressionFactory.Conditional(
-        jsonStringifyProgrammer_binary(f.NewKeywordExpression(shimast.KindNullKeyword), shimast.KindEqualsEqualsEqualsToken, props.Input),
+        jsonStringifyProgrammer_binary(f.NewKeywordExpression(shimast.KindNullKeyword), shimast.KindEqualsEqualsEqualsToken, props.Input, props.Context.Emit),
         f.NewStringLiteral("null", shimast.TokenFlagsNone),
         f.NewIdentifier("undefined"),
         props.Context.Emit,
@@ -268,7 +276,7 @@ func jsonStringifyProgrammer_decode(props struct {
         return nativeprogrammers.IsProgrammer.Decode_functional(props.Input)
       },
       Value: func() *shimast.Node {
-        return jsonStringifyProgrammer_decode_functional(props.Explore)
+        return jsonStringifyProgrammer_decode_functional(props.Explore, props.Context.Emit)
       },
     })
   }
@@ -444,6 +452,7 @@ func jsonStringifyProgrammer_decode(props struct {
         explore := props.Explore
         explore.From = "array"
         return jsonStringifyProgrammer_decode_array(jsonStringifyProgrammer_decodeArrayProps{
+          Context: props.Context,
           Config:  props.Config,
           Functor: props.Functor,
           Input:   props.Input,
@@ -544,6 +553,7 @@ func jsonStringifyProgrammer_decode(props struct {
         explore := props.Explore
         explore.From = "object"
         return jsonStringifyProgrammer_explore_objects(jsonStringifyProgrammer_exploreObjectsProps{
+          Context:  props.Context,
           Config:   props.Config,
           Functor:  props.Functor,
           Input:    props.Input,
@@ -556,19 +566,22 @@ func jsonStringifyProgrammer_decode(props struct {
 
   wrapper := func(output *shimast.Node) *shimast.Node {
     return jsonStringifyProgrammer_wrap_required(struct {
+      Context    nativecontext.ITypiaContext
       Input      *shimast.Node
       Metadata   *schemametadata.MetadataSchema
       Explore    nativeinternal.FeatureProgrammer_IExplore
       Expression *shimast.Node
     }{
+      Context:  props.Context,
       Input:    props.Input,
       Metadata: props.Metadata,
       Explore:  props.Explore,
       Expression: jsonStringifyProgrammer_wrap_nullable(struct {
+        Context    nativecontext.ITypiaContext
         Input      *shimast.Node
         Metadata   *schemametadata.MetadataSchema
         Expression *shimast.Node
-      }{Input: props.Input, Metadata: props.Metadata, Expression: output}),
+      }{Context: props.Context, Input: props.Input, Metadata: props.Metadata, Expression: output}),
     })
   }
   if len(unions) == 0 {
@@ -622,6 +635,7 @@ func jsonStringifyProgrammer_decode_object(props struct {
 }
 
 type jsonStringifyProgrammer_decodeArrayProps struct {
+  Context nativecontext.ITypiaContext
   Config  nativeinternal.FeatureProgrammer_IConfig
   Functor *nativehelpers.FunctionProgrammer
   Input   *shimast.Node
@@ -630,16 +644,17 @@ type jsonStringifyProgrammer_decodeArrayProps struct {
 }
 
 func jsonStringifyProgrammer_decode_array(props jsonStringifyProgrammer_decodeArrayProps) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(jsonStringifyProgrammer_factory, props.Context.Emit)
   if props.Array.Type.Recursive {
     index := 0
     if props.Array.Type.Index != nil {
       index = *props.Array.Type.Index
     }
-    return jsonStringifyProgrammer_factory.NewCallExpression(
-      jsonStringifyProgrammer_factory.NewIdentifier(props.Functor.UseLocal(fmt.Sprintf("%sa%d", props.Config.Prefix, index))),
+    return f.NewCallExpression(
+      f.NewIdentifier(props.Functor.UseLocal(fmt.Sprintf("%sa%d", props.Config.Prefix, index))),
       nil,
       nil,
-      jsonStringifyProgrammer_factory.NewNodeList(nativeinternal.FeatureProgrammer.ArgumentsArray(nativeinternal.FeatureProgrammer_ArgumentsArrayProps{
+      f.NewNodeList(nativeinternal.FeatureProgrammer.ArgumentsArray(nativeinternal.FeatureProgrammer_ArgumentsArrayProps{
         Config:  nativeinternal.FeatureProgrammer_ArgumentsArrayConfig{Path: props.Config.Path, Trace: props.Config.Trace},
         Input:   props.Input,
         Explore: jsonStringifyProgrammer_explore_with(props.Explore, "function", "array"),
@@ -666,6 +681,7 @@ func jsonStringifyProgrammer_decode_array_inline(props jsonStringifyProgrammer_d
       return nativehelpers.StringifyJoiner.Array(nativehelpers.StringifyJoiner_ArrayProps{
         Input: next.Input,
         Arrow: next.Arrow,
+        Emit:  props.Context.Emit,
       })
     },
     Array:   props.Array,
@@ -798,6 +814,7 @@ func jsonStringifyProgrammer_decode_tuple_inline(props jsonStringifyProgrammer_d
   return nativehelpers.StringifyJoiner.Tuple(nativehelpers.StringifyJoiner_TupleProps{
     Elements: elements,
     Rest:     rest,
+    Emit:     props.Context.Emit,
   })
 }
 
@@ -855,9 +872,11 @@ func jsonStringifyProgrammer_decode_constant_string(props struct {
         f.NewStringLiteral("\"", shimast.TokenFlagsNone),
         shimast.KindPlusToken,
         props.Input,
+        props.Context.Emit,
       ),
       shimast.KindPlusToken,
       f.NewStringLiteral("\"", shimast.TokenFlagsNone),
+      props.Context.Emit,
     )
   }
   return jsonStringifyProgrammer_decode_atomic(struct {
@@ -890,14 +909,16 @@ func jsonStringifyProgrammer_decode_to_json(props struct {
   return jsonStringifyProgrammer_decode(next)
 }
 
-func jsonStringifyProgrammer_decode_functional(explore nativeinternal.FeatureProgrammer_IExplore) *shimast.Node {
+func jsonStringifyProgrammer_decode_functional(explore nativeinternal.FeatureProgrammer_IExplore, emit *shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(jsonStringifyProgrammer_factory, emit)
   if explore.From == "array" {
-    return jsonStringifyProgrammer_factory.NewStringLiteral("null", shimast.TokenFlagsNone)
+    return f.NewStringLiteral("null", shimast.TokenFlagsNone)
   }
-  return jsonStringifyProgrammer_factory.NewIdentifier("undefined")
+  return f.NewIdentifier("undefined")
 }
 
 type jsonStringifyProgrammer_exploreObjectsProps struct {
+  Context  nativecontext.ITypiaContext
   Config   nativeinternal.FeatureProgrammer_IConfig
   Functor  *nativehelpers.FunctionProgrammer
   Input    *shimast.Node
@@ -923,11 +944,12 @@ func jsonStringifyProgrammer_explore_objects(props jsonStringifyProgrammer_explo
   if props.Metadata.Union_index != nil {
     index = *props.Metadata.Union_index
   }
-  return jsonStringifyProgrammer_factory.NewCallExpression(
-    jsonStringifyProgrammer_factory.NewIdentifier(props.Functor.UseLocal(fmt.Sprintf("%su%d", jsonStringifyProgrammer_PREFIX, index))),
+  f := nativecontext.EmitFactoryOf(jsonStringifyProgrammer_factory, props.Context.Emit)
+  return f.NewCallExpression(
+    f.NewIdentifier(props.Functor.UseLocal(fmt.Sprintf("%su%d", jsonStringifyProgrammer_PREFIX, index))),
     nil,
     nil,
-    jsonStringifyProgrammer_factory.NewNodeList(nativeinternal.FeatureProgrammer.ArgumentsArray(nativeinternal.FeatureProgrammer_ArgumentsArrayProps{
+    f.NewNodeList(nativeinternal.FeatureProgrammer.ArgumentsArray(nativeinternal.FeatureProgrammer_ArgumentsArrayProps{
       Config:  nativeinternal.FeatureProgrammer_ArgumentsArrayConfig{Path: props.Config.Path, Trace: props.Config.Trace},
       Input:   props.Input,
       Explore: props.Explore,
@@ -948,10 +970,12 @@ type jsonStringifyProgrammer_exploreArraysProps struct {
 func jsonStringifyProgrammer_explore_arrays(props jsonStringifyProgrammer_exploreArraysProps) *shimast.Node {
   f := nativecontext.EmitFactoryOf(jsonStringifyProgrammer_factory, props.Context.Emit)
   return jsonStringifyProgrammer_explore_array_like_union_types(jsonStringifyProgrammer_exploreArrayLikeUnionTypesProps[*schemametadata.MetadataArray]{
+    Context: props.Context,
     Config:  props.Config,
     Functor: props.Functor,
     Factory: func(next jsonStringifyProgrammer_arrayLikeFactoryProps[*schemametadata.MetadataArray]) *shimast.Node {
       return nativehelpers.UnionExplorer.Array(nativehelpers.UnionExplorer_ArrayProps{
+        Emit: props.Context.Emit,
         Config: nativehelpers.UnionExplorer_ArrayLikeConfig{
           Checker: func(v nativehelpers.UnionExplorer_ArrayLikeCheckerProps) *shimast.Node {
             return nativeprogrammers.IsProgrammer.Decode(nativeprogrammers.IsProgrammer_DecodeProps{
@@ -964,6 +988,7 @@ func jsonStringifyProgrammer_explore_arrays(props jsonStringifyProgrammer_explor
           },
           Decoder: func(v nativehelpers.UnionExplorer_ArrayLikeDecoderProps) *shimast.Node {
             return jsonStringifyProgrammer_decode_array(jsonStringifyProgrammer_decodeArrayProps{
+              Context: props.Context,
               Config:  props.Config,
               Functor: props.Functor,
               Input:   v.Input,
@@ -1004,6 +1029,7 @@ type jsonStringifyProgrammer_arrayLikeFactoryProps[T any] struct {
 type jsonStringifyProgrammer_exploreArrayLikeUnionTypesProps[T interface {
   *schemametadata.MetadataArray | *schemametadata.MetadataTuple
 }] struct {
+  Context  nativecontext.ITypiaContext
   Config   nativeinternal.FeatureProgrammer_IConfig
   Functor  *nativehelpers.FunctionProgrammer
   Factory  func(next jsonStringifyProgrammer_arrayLikeFactoryProps[T]) *shimast.Node
@@ -1030,8 +1056,9 @@ func jsonStringifyProgrammer_explore_array_like_union_types[T interface {
   arrayExplore := props.Explore
   arrayExplore.Source = "function"
   arrayExplore.From = "array"
-  return jsonStringifyProgrammer_factory.NewCallExpression(
-    jsonStringifyProgrammer_factory.NewIdentifier(props.Functor.EmplaceUnion(props.Config.Prefix, jsonStringifyProgrammer_array_like_names(props.Elements), func() *shimast.Node {
+  f := nativecontext.EmitFactoryOf(jsonStringifyProgrammer_factory, props.Context.Emit)
+  return f.NewCallExpression(
+    f.NewIdentifier(props.Functor.EmplaceUnion(props.Config.Prefix, jsonStringifyProgrammer_array_like_names(props.Elements), func() *shimast.Node {
       explore := arrayExplore
       explore.Postfix = ""
       return arrow(struct {
@@ -1041,16 +1068,16 @@ func jsonStringifyProgrammer_explore_array_like_union_types[T interface {
       }{
         Parameters: nativeinternal.FeatureProgrammer.ParameterDeclarations(nativeinternal.FeatureProgrammer_ParameterDeclarationsProps{
           Config: nativeinternal.FeatureProgrammer_ParameterConfig{Path: props.Config.Path, Trace: props.Config.Trace},
-          Type:   nativefactories.TypeFactory.Keyword("any"),
-          Input:  jsonStringifyProgrammer_factory.NewIdentifier("input"),
+          Type:   nativefactories.TypeFactory.Keyword("any", props.Context.Emit),
+          Input:  f.NewIdentifier("input"),
         }),
         Explore: explore,
-        Input:   jsonStringifyProgrammer_factory.NewIdentifier("input"),
+        Input:   f.NewIdentifier("input"),
       })
     })),
     nil,
     nil,
-    jsonStringifyProgrammer_factory.NewNodeList(nativeinternal.FeatureProgrammer.ArgumentsArray(nativeinternal.FeatureProgrammer_ArgumentsArrayProps{
+    f.NewNodeList(nativeinternal.FeatureProgrammer.ArgumentsArray(nativeinternal.FeatureProgrammer_ArgumentsArrayProps{
       Config:  nativeinternal.FeatureProgrammer_ArgumentsArrayConfig{Path: props.Config.Path, Trace: props.Config.Trace},
       Explore: arrayExplore,
       Input:   props.Input,
@@ -1060,53 +1087,62 @@ func jsonStringifyProgrammer_explore_array_like_union_types[T interface {
 }
 
 func jsonStringifyProgrammer_wrap_required(props struct {
+  Context    nativecontext.ITypiaContext
   Input      *shimast.Node
   Metadata   *schemametadata.MetadataSchema
   Explore    nativeinternal.FeatureProgrammer_IExplore
   Expression *shimast.Node
 }) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(jsonStringifyProgrammer_factory, props.Context.Emit)
   if props.Metadata.IsRequired() && props.Metadata.Any == false {
     return props.Expression
   }
-  alternate := jsonStringifyProgrammer_factory.NewIdentifier("undefined")
+  alternate := f.NewIdentifier("undefined")
   if props.Explore.From == "array" {
-    alternate = jsonStringifyProgrammer_factory.NewStringLiteral("null", shimast.TokenFlagsNone)
+    alternate = f.NewStringLiteral("null", shimast.TokenFlagsNone)
   }
   return nativefactories.ExpressionFactory.Conditional(
-    jsonStringifyProgrammer_binary(jsonStringifyProgrammer_factory.NewIdentifier("undefined"), shimast.KindExclamationEqualsEqualsToken, props.Input),
+    jsonStringifyProgrammer_binary(f.NewIdentifier("undefined"), shimast.KindExclamationEqualsEqualsToken, props.Input, props.Context.Emit),
     props.Expression,
     alternate,
+    props.Context.Emit,
   )
 }
 
 func jsonStringifyProgrammer_wrap_nullable(props struct {
+  Context    nativecontext.ITypiaContext
   Input      *shimast.Node
   Metadata   *schemametadata.MetadataSchema
   Expression *shimast.Node
 }) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(jsonStringifyProgrammer_factory, props.Context.Emit)
   if props.Metadata.Nullable == false {
     return props.Expression
   }
   return nativefactories.ExpressionFactory.Conditional(
-    jsonStringifyProgrammer_binary(jsonStringifyProgrammer_factory.NewKeywordExpression(shimast.KindNullKeyword), shimast.KindExclamationEqualsEqualsToken, props.Input),
+    jsonStringifyProgrammer_binary(f.NewKeywordExpression(shimast.KindNullKeyword), shimast.KindExclamationEqualsEqualsToken, props.Input, props.Context.Emit),
     props.Expression,
-    jsonStringifyProgrammer_factory.NewStringLiteral("null", shimast.TokenFlagsNone),
+    f.NewStringLiteral("null", shimast.TokenFlagsNone),
+    props.Context.Emit,
   )
 }
 
 func jsonStringifyProgrammer_wrap_functional(props struct {
+  Context    nativecontext.ITypiaContext
   Input      *shimast.Node
   Metadata   *schemametadata.MetadataSchema
   Explore    nativeinternal.FeatureProgrammer_IExplore
   Expression *shimast.Node
 }) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(jsonStringifyProgrammer_factory, props.Context.Emit)
   if len(props.Metadata.Functions) == 0 {
     return props.Expression
   }
   return nativefactories.ExpressionFactory.Conditional(
-    jsonStringifyProgrammer_binary(jsonStringifyProgrammer_factory.NewStringLiteral("function", shimast.TokenFlagsNone), shimast.KindExclamationEqualsEqualsToken, nativefactories.ValueFactory.TYPEOF(props.Input)),
+    jsonStringifyProgrammer_binary(f.NewStringLiteral("function", shimast.TokenFlagsNone), shimast.KindExclamationEqualsEqualsToken, nativefactories.ValueFactory.TYPEOF(props.Input), props.Context.Emit),
     props.Expression,
-    jsonStringifyProgrammer_decode_functional(props.Explore),
+    jsonStringifyProgrammer_decode_functional(props.Explore, props.Context.Emit),
+    props.Context.Emit,
   )
 }
 
@@ -1253,10 +1289,11 @@ func jsonStringifyProgrammer_configure(props struct {
     Generator: nativeinternal.FeatureProgrammer_IConfig_IGenerator{
       Arrays: func(collection *schemametadata.MetadataCollection) []*shimast.Node {
         return jsonStringifyProgrammer_write_array_functions(struct {
+          Context    nativecontext.ITypiaContext
           Config     nativeinternal.FeatureProgrammer_IConfig
           Functor    *nativehelpers.FunctionProgrammer
           Collection *schemametadata.MetadataCollection
-        }{Config: config, Functor: props.Functor, Collection: collection})
+        }{Context: props.Context, Config: config, Functor: props.Functor, Collection: collection})
       },
       Tuples: func(collection *schemametadata.MetadataCollection) []*shimast.Node {
         return jsonStringifyProgrammer_write_tuple_functions(struct {
@@ -1319,8 +1356,9 @@ type jsonStringifyProgrammer_IUnion struct {
   Value func() *shimast.Node
 }
 
-func jsonStringifyProgrammer_binary(left *shimast.Node, operator shimast.Kind, right *shimast.Node) *shimast.Node {
-  return jsonStringifyProgrammer_factory.NewBinaryExpression(nil, left, nil, jsonStringifyProgrammer_factory.NewToken(operator), right)
+func jsonStringifyProgrammer_binary(left *shimast.Node, operator shimast.Kind, right *shimast.Node, emit *shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(jsonStringifyProgrammer_factory, emit)
+  return f.NewBinaryExpression(nil, left, nil, f.NewToken(operator), right)
 }
 
 func jsonStringifyProgrammer_internal(context nativecontext.ITypiaContext, name string) *shimast.Node {

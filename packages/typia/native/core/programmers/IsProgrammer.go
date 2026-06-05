@@ -3,6 +3,7 @@ package programmers
 import (
   shimast "github.com/microsoft/typescript-go/shim/ast"
   nativechecker "github.com/microsoft/typescript-go/shim/checker"
+  shimprinter "github.com/microsoft/typescript-go/shim/printer"
   nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
   nativefactories "github.com/samchon/typia/packages/typia/native/core/factories"
   nativehelpers "github.com/samchon/typia/packages/typia/native/core/programmers/helpers"
@@ -97,11 +98,11 @@ func (isProgrammerNamespace) Configure(props struct {
           for _, cond := range set {
             cols = append(cols, cond.Expression)
           }
-          rows = append(rows, isProgrammer_reduce(cols, shimast.KindAmpersandAmpersandToken, f.NewKeywordExpression(shimast.KindTrueKeyword)))
+          rows = append(rows, isProgrammer_reduce(cols, shimast.KindAmpersandAmpersandToken, f.NewKeywordExpression(shimast.KindTrueKeyword), props.Context.Emit))
         }
-        expressions = append(expressions, isProgrammer_reduce(rows, shimast.KindBarBarToken, f.NewKeywordExpression(shimast.KindFalseKeyword)))
+        expressions = append(expressions, isProgrammer_reduce(rows, shimast.KindBarBarToken, f.NewKeywordExpression(shimast.KindFalseKeyword), props.Context.Emit))
       }
-      return isProgrammer_reduce(expressions, shimast.KindAmpersandAmpersandToken, f.NewKeywordExpression(shimast.KindTrueKeyword))
+      return isProgrammer_reduce(expressions, shimast.KindAmpersandAmpersandToken, f.NewKeywordExpression(shimast.KindTrueKeyword), props.Context.Emit)
     },
     Combiner: func(next nativeinternal.CheckerProgrammer_CombinerProps) *shimast.Node {
       initial := f.NewKeywordExpression(shimast.KindFalseKeyword)
@@ -114,7 +115,7 @@ func (isProgrammerNamespace) Configure(props struct {
       for _, binary := range next.Binaries {
         expressions = append(expressions, binary.Expression)
       }
-      return isProgrammer_reduce(expressions, operator, initial)
+      return isProgrammer_reduce(expressions, operator, initial, props.Context.Emit)
     },
     Joiner: nativeinternal.CheckerProgrammer_IConfig_IJoiner{
       Object: func(v nativeinternal.CheckerProgrammer_JoinerObjectProps) *shimast.Node {
@@ -131,7 +132,7 @@ func (isProgrammerNamespace) Configure(props struct {
             Undefined: isProgrammer_option_undefined(options),
             Assert:    true,
             Reduce: func(a *shimast.Expression, b *shimast.Expression) *shimast.Node {
-              return isProgrammer_binary(a, shimast.KindAmpersandAmpersandToken, b)
+              return isProgrammer_binary(a, shimast.KindAmpersandAmpersandToken, b, props.Context.Emit)
             },
             Positive: f.NewKeywordExpression(shimast.KindTrueKeyword),
             Superfluous: func(value *shimast.Expression, description *shimast.Expression) *shimast.Node {
@@ -171,7 +172,7 @@ func (isProgrammerNamespace) Decompose(props IsProgrammer_DecomposeProps) native
           Undefined: nativehelpers.OptionPredicator.Undefined(props.Context.Options),
           Assert:    true,
           Reduce: func(a *shimast.Expression, b *shimast.Expression) *shimast.Node {
-            return isProgrammer_binary(a, shimast.KindAmpersandAmpersandToken, b)
+            return isProgrammer_binary(a, shimast.KindAmpersandAmpersandToken, b, props.Context.Emit)
           },
           Positive: f.NewKeywordExpression(shimast.KindTrueKeyword),
           Superfluous: func(value *shimast.Expression, description *shimast.Expression) *shimast.Node {
@@ -303,7 +304,12 @@ func (isProgrammerNamespace) Decode_object(props IsProgrammer_DecodeObjectProps)
 func (isProgrammerNamespace) Decode_to_json(props struct {
   Input     *shimast.Expression
   CheckNull bool
-}) *shimast.Node {
+}, emit ...*shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(isProgrammer_factory, emit...)
+  var ec *shimprinter.EmitContext
+  if len(emit) != 0 {
+    ec = emit[0]
+  }
   return isProgrammer_binary(
     nativefactories.ExpressionFactory.IsObject(nativefactories.ExpressionFactory_IsObjectProps{
       CheckArray: false,
@@ -312,38 +318,47 @@ func (isProgrammerNamespace) Decode_to_json(props struct {
     }),
     shimast.KindAmpersandAmpersandToken,
     isProgrammer_binary(
-      isProgrammer_factory.NewStringLiteral("function", shimast.TokenFlagsNone),
+      f.NewStringLiteral("function", shimast.TokenFlagsNone),
       shimast.KindEqualsEqualsEqualsToken,
-      nativefactories.ValueFactory.TYPEOF(nativefactories.IdentifierFactory.Access(nil, props.Input, "toJSON")),
+      nativefactories.ValueFactory.TYPEOF(nativefactories.IdentifierFactory.Access(ec, props.Input, "toJSON")),
+      ec,
     ),
+    ec,
   )
 }
 
-func (isProgrammerNamespace) Decode_functional(input *shimast.Expression) *shimast.Node {
+func (isProgrammerNamespace) Decode_functional(input *shimast.Expression, emit ...*shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(isProgrammer_factory, emit...)
+  var ec *shimprinter.EmitContext
+  if len(emit) != 0 {
+    ec = emit[0]
+  }
   return isProgrammer_binary(
-    isProgrammer_factory.NewStringLiteral("function", shimast.TokenFlagsNone),
+    f.NewStringLiteral("function", shimast.TokenFlagsNone),
     shimast.KindEqualsEqualsEqualsToken,
     nativefactories.ValueFactory.TYPEOF(input),
+    ec,
   )
 }
 
-func isProgrammer_reduce(expressions []*shimast.Node, operator shimast.Kind, initial *shimast.Expression) *shimast.Node {
+func isProgrammer_reduce(expressions []*shimast.Node, operator shimast.Kind, initial *shimast.Expression, emit *shimprinter.EmitContext) *shimast.Node {
   if len(expressions) == 0 {
     return initial
   }
   output := expressions[0]
   for _, expr := range expressions[1:] {
-    output = isProgrammer_binary(output, operator, expr)
+    output = isProgrammer_binary(output, operator, expr, emit)
   }
   return output
 }
 
-func isProgrammer_binary(left *shimast.Expression, operator shimast.Kind, right *shimast.Expression) *shimast.Node {
-  return isProgrammer_factory.NewBinaryExpression(
+func isProgrammer_binary(left *shimast.Expression, operator shimast.Kind, right *shimast.Expression, emit *shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(isProgrammer_factory, emit)
+  return f.NewBinaryExpression(
     nil,
     left,
     nil,
-    isProgrammer_factory.NewToken(operator),
+    f.NewToken(operator),
     right,
   )
 }

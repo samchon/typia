@@ -70,40 +70,42 @@ func (functionalValidateFunctionProgrammerNamespace) Write(props FunctionalValid
 }
 
 func (functionalValidateFunctionProgrammerNamespace) HookErrors(props struct {
+  Context    nativecontext.ITypiaContext
   Expression *shimast.Node
   Replacer   *shimast.Node
 }) *shimast.Node {
-  return functionalValidateProgrammer_factory.NewCallExpression(
-    nativefactories.IdentifierFactory.Access(nil, props.Expression, "map"),
+  f := nativecontext.EmitFactoryOf(functionalValidateProgrammer_factory, props.Context.Emit)
+  return f.NewCallExpression(
+    nativefactories.IdentifierFactory.Access(props.Context.Emit, props.Expression, "map"),
     nil,
     nil,
-    functionalValidateProgrammer_factory.NewNodeList([]*shimast.Node{
-      functionalValidateProgrammer_factory.NewArrowFunction(
+    f.NewNodeList([]*shimast.Node{
+      f.NewArrowFunction(
         nil,
         nil,
-        functionalValidateProgrammer_factory.NewNodeList([]*shimast.Node{
-          nativefactories.IdentifierFactory.Parameter("error", nil, nil),
+        f.NewNodeList([]*shimast.Node{
+          nativefactories.IdentifierFactory.Parameter("error", nil, nil, props.Context.Emit),
         }),
         nil,
         nil,
-        functionalValidateProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
-        functionalValidateProgrammer_factory.NewObjectLiteralExpression(functionalValidateProgrammer_factory.NewNodeList([]*shimast.Node{
-          functionalValidateProgrammer_factory.NewSpreadAssignment(functionalValidateProgrammer_factory.NewIdentifier("error")),
-          functionalValidateProgrammer_factory.NewPropertyAssignment(
+        f.NewToken(shimast.KindEqualsGreaterThanToken),
+        f.NewObjectLiteralExpression(f.NewNodeList([]*shimast.Node{
+          f.NewSpreadAssignment(f.NewIdentifier("error")),
+          f.NewPropertyAssignment(
             nil,
-            nativefactories.IdentifierFactory.Identifier("path"),
+            nativefactories.IdentifierFactory.Identifier("path", props.Context.Emit),
             nil,
             nil,
-            functionalValidateProgrammer_factory.NewCallExpression(
+            f.NewCallExpression(
               nativefactories.IdentifierFactory.Access(
-                nil,
-                nativefactories.IdentifierFactory.Access(nil, functionalValidateProgrammer_factory.NewIdentifier("error"), "path"),
+                props.Context.Emit,
+                nativefactories.IdentifierFactory.Access(props.Context.Emit, f.NewIdentifier("error"), "path"),
                 "replace",
               ),
               nil,
               nil,
-              functionalValidateProgrammer_factory.NewNodeList([]*shimast.Node{
-                functionalValidateProgrammer_factory.NewStringLiteral("$input", shimast.TokenFlagsNone),
+              f.NewNodeList([]*shimast.Node{
+                f.NewStringLiteral("$input", shimast.TokenFlagsNone),
                 props.Replacer,
               }),
               shimast.NodeFlagsNone,

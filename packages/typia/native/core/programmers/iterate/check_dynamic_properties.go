@@ -92,7 +92,7 @@ func Check_dynamic_properties(props Check_dynamic_propertiesProps) *shimast.Node
 
   right := criteria
   if !props.Config.Assert {
-    right = Check_everything(criteria)
+    right = Check_everything(criteria, props.Context.Emit)
   }
   if props.Config.Halt != nil {
     right = props.Config.Halt(right)

@@ -23,11 +23,13 @@ type StringifyJoiner_ObjectProps struct {
 type StringifyJoiner_ArrayProps struct {
   Input *shimast.Expression
   Arrow *shimast.Expression
+  Emit  *shimprinter.EmitContext
 }
 
 type StringifyJoiner_TupleProps struct {
   Elements []*shimast.Expression
   Rest     *shimast.Expression
+  Emit     *shimprinter.EmitContext
 }
 
 var stringifyJoiner_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
@@ -77,54 +79,56 @@ func (stringifyJoinerNamespace) Object(props StringifyJoiner_ObjectProps) *shima
 }
 
 func (stringifyJoinerNamespace) Array(props StringifyJoiner_ArrayProps) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(stringifyJoiner_factory, props.Emit)
   return nativefactories.TemplateFactory.Generate([]*shimast.Node{
-    stringifyJoiner_factory.NewStringLiteral("[", shimast.TokenFlagsNone),
-    stringifyJoiner_factory.NewCallExpression(
+    f.NewStringLiteral("[", shimast.TokenFlagsNone),
+    f.NewCallExpression(
       nativefactories.IdentifierFactory.Access(
         nil,
-        stringifyJoiner_factory.NewCallExpression(
+        f.NewCallExpression(
           nativefactories.IdentifierFactory.Access(nil, props.Input, "map"),
           nil,
           nil,
-          stringifyJoiner_factory.NewNodeList([]*shimast.Node{props.Arrow}),
+          f.NewNodeList([]*shimast.Node{props.Arrow}),
           shimast.NodeFlagsNone,
         ),
         "join",
       ),
       nil,
       nil,
-      stringifyJoiner_factory.NewNodeList([]*shimast.Node{
-        stringifyJoiner_factory.NewStringLiteral(",", shimast.TokenFlagsNone),
+      f.NewNodeList([]*shimast.Node{
+        f.NewStringLiteral(",", shimast.TokenFlagsNone),
       }),
       shimast.NodeFlagsNone,
     ),
-    stringifyJoiner_factory.NewStringLiteral("]", shimast.TokenFlagsNone),
-  })
+    f.NewStringLiteral("]", shimast.TokenFlagsNone),
+  }, props.Emit)
 }
 
 func (stringifyJoinerNamespace) Tuple(props StringifyJoiner_TupleProps) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(stringifyJoiner_factory, props.Emit)
   if len(props.Elements) == 0 {
-    return stringifyJoiner_factory.NewStringLiteral("[]", shimast.TokenFlagsNone)
+    return f.NewStringLiteral("[]", shimast.TokenFlagsNone)
   }
   if props.Rest == nil && stringifyJoiner_all_string_literals(props.Elements) {
     texts := make([]string, 0, len(props.Elements))
     for _, child := range props.Elements {
       texts = append(texts, child.Text())
     }
-    return stringifyJoiner_factory.NewStringLiteral("["+joinStrings(texts, ",")+"]", shimast.TokenFlagsNone)
+    return f.NewStringLiteral("["+joinStrings(texts, ",")+"]", shimast.TokenFlagsNone)
   }
-  expressions := []*shimast.Node{stringifyJoiner_factory.NewStringLiteral("[", shimast.TokenFlagsNone)}
+  expressions := []*shimast.Node{f.NewStringLiteral("[", shimast.TokenFlagsNone)}
   for i, child := range props.Elements {
     expressions = append(expressions, child)
     if i != len(props.Elements)-1 {
-      expressions = append(expressions, stringifyJoiner_factory.NewStringLiteral(",", shimast.TokenFlagsNone))
+      expressions = append(expressions, f.NewStringLiteral(",", shimast.TokenFlagsNone))
     }
   }
   if props.Rest != nil {
     expressions = append(expressions, props.Rest)
   }
-  expressions = append(expressions, stringifyJoiner_factory.NewStringLiteral("]", shimast.TokenFlagsNone))
-  return nativefactories.TemplateFactory.Generate(expressions)
+  expressions = append(expressions, f.NewStringLiteral("]", shimast.TokenFlagsNone))
+  return nativefactories.TemplateFactory.Generate(expressions, props.Emit)
 }
 
 func stringifyJoiner_regular_properties(regular []IExpressionEntry, dynamic []IExpressionEntry, emit ...*shimprinter.EmitContext) []*shimast.Node {

@@ -107,44 +107,47 @@ func (functionalAssertFunctionProgrammerNamespace) ErrorFactoryWrapper(props str
 }
 
 func (functionalAssertFunctionProgrammerNamespace) HookPath(props struct {
+  Context  nativecontext.ITypiaContext
   Wrapper  string
   Replacer string
 }) *shimast.Node {
-  path := nativefactories.IdentifierFactory.Access(nil, functionalAssertProgrammer_factory.NewIdentifier("p"), "path")
-  return functionalAssertProgrammer_factory.NewArrowFunction(
+  f := nativecontext.EmitFactoryOf(functionalAssertProgrammer_factory, props.Context.Emit)
+  path := nativefactories.IdentifierFactory.Access(props.Context.Emit, f.NewIdentifier("p"), "path")
+  return f.NewArrowFunction(
     nil,
     nil,
-    functionalAssertProgrammer_factory.NewNodeList([]*shimast.Node{
-      nativefactories.IdentifierFactory.Parameter("p", nil, nil),
+    f.NewNodeList([]*shimast.Node{
+      nativefactories.IdentifierFactory.Parameter("p", nil, nil, props.Context.Emit),
     }),
     nil,
     nil,
-    functionalAssertProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
-    functionalAssertProgrammer_factory.NewCallExpression(
-      functionalAssertProgrammer_factory.NewIdentifier(props.Wrapper),
+    f.NewToken(shimast.KindEqualsGreaterThanToken),
+    f.NewCallExpression(
+      f.NewIdentifier(props.Wrapper),
       nil,
       nil,
-      functionalAssertProgrammer_factory.NewNodeList([]*shimast.Node{
-        functionalAssertProgrammer_factory.NewObjectLiteralExpression(functionalAssertProgrammer_factory.NewNodeList([]*shimast.Node{
-          functionalAssertProgrammer_factory.NewSpreadAssignment(functionalAssertProgrammer_factory.NewIdentifier("p")),
-          functionalAssertProgrammer_factory.NewPropertyAssignment(
+      f.NewNodeList([]*shimast.Node{
+        f.NewObjectLiteralExpression(f.NewNodeList([]*shimast.Node{
+          f.NewSpreadAssignment(f.NewIdentifier("p")),
+          f.NewPropertyAssignment(
             nil,
-            nativefactories.IdentifierFactory.Identifier("path"),
+            nativefactories.IdentifierFactory.Identifier("path", props.Context.Emit),
             nil,
             nil,
             nativefactories.ExpressionFactory.Conditional(
               path,
-              functionalAssertProgrammer_factory.NewCallExpression(
-                nativefactories.IdentifierFactory.Access(nil, path, "replace"),
+              f.NewCallExpression(
+                nativefactories.IdentifierFactory.Access(props.Context.Emit, path, "replace"),
                 nil,
                 nil,
-                functionalAssertProgrammer_factory.NewNodeList([]*shimast.Node{
-                  functionalAssertProgrammer_factory.NewStringLiteral("$input", shimast.TokenFlagsNone),
-                  functionalAssertProgrammer_factory.NewStringLiteral(props.Replacer, shimast.TokenFlagsNone),
+                f.NewNodeList([]*shimast.Node{
+                  f.NewStringLiteral("$input", shimast.TokenFlagsNone),
+                  f.NewStringLiteral(props.Replacer, shimast.TokenFlagsNone),
                 }),
                 shimast.NodeFlagsNone,
               ),
-              functionalAssertProgrammer_factory.NewIdentifier("undefined"),
+              f.NewIdentifier("undefined"),
+              props.Context.Emit,
             ),
           ),
         }), false),

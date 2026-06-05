@@ -5,6 +5,7 @@ import (
 
   shimast "github.com/microsoft/typescript-go/shim/ast"
   shimchecker "github.com/microsoft/typescript-go/shim/checker"
+  shimprinter "github.com/microsoft/typescript-go/shim/printer"
   nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
   nativefactories "github.com/samchon/typia/packages/typia/native/core/factories"
   nativehelpers "github.com/samchon/typia/packages/typia/native/core/programmers/helpers"
@@ -145,7 +146,7 @@ func (protobufDecodeProgrammerNamespace) Decompose(props ProtobufDecodeProgramme
         f.NewReturnStatement(protobufDecodeProgrammer_decode_regular_object(struct {
           Top    bool
           Object *schemametadata.MetadataObjectType
-        }{Top: true, Object: top})),
+        }{Top: true, Object: top}, props.Context.Emit)),
       }), true),
     ),
   }
@@ -178,17 +179,18 @@ func protobufDecodeProgrammer_write_object_function(props struct {
       f.NewIdentifier("length"),
       shimast.KindEqualsToken,
       nativefactories.ExpressionFactory.Conditional(
-        protobufDecodeProgrammer_lessThan(f.NewIdentifier("length"), nativefactories.ExpressionFactory.Number(0, props.Context.Emit)),
-        protobufDecodeProgrammer_callReader("size", nil),
-        protobufDecodeProgrammer_add(protobufDecodeProgrammer_callReader("index", nil), f.NewIdentifier("length")),
+        protobufDecodeProgrammer_lessThan(f.NewIdentifier("length"), nativefactories.ExpressionFactory.Number(0, props.Context.Emit), props.Context.Emit),
+        protobufDecodeProgrammer_callReader("size", nil, props.Context.Emit),
+        protobufDecodeProgrammer_add(protobufDecodeProgrammer_callReader("index", nil, props.Context.Emit), f.NewIdentifier("length"), props.Context.Emit),
         props.Context.Emit,
       ),
+      props.Context.Emit,
     ),
   )
   body := []*shimast.Node{lengthAssign}
   body = append(body, protobufDecodeProgrammer_write_object_function_body(protobufDecodeProgrammer_objectBodyProps{
     Context:   props.Context,
-    Condition: protobufDecodeProgrammer_lessThan(protobufDecodeProgrammer_callReader("index", nil), f.NewIdentifier("length")),
+    Condition: protobufDecodeProgrammer_lessThan(protobufDecodeProgrammer_callReader("index", nil, props.Context.Emit), f.NewIdentifier("length"), props.Context.Emit),
     Tag:       "tag",
     Output:    "output",
     Object:    props.Object,
@@ -231,8 +233,8 @@ func protobufDecodeProgrammer_write_object_function_body(props protobufDecodePro
     nil,
     f.NewNodeList([]*shimast.Node{
       f.NewExpressionStatement(protobufDecodeProgrammer_callReader("skipType", []*shimast.Node{
-        protobufDecodeProgrammer_bitwise_and(f.NewIdentifier(props.Tag), nativefactories.ExpressionFactory.Number(7, props.Context.Emit)),
-      })),
+        protobufDecodeProgrammer_bitwise_and(f.NewIdentifier(props.Tag), nativefactories.ExpressionFactory.Number(7, props.Context.Emit), props.Context.Emit),
+      }, props.Context.Emit)),
       f.NewBreakStatement(nil),
     }),
   ))
@@ -251,7 +253,7 @@ func protobufDecodeProgrammer_write_object_function_body(props protobufDecodePro
       nativefactories.IdentifierFactory.Identifier(*literal, props.Context.Emit),
       nil,
       nil,
-      protobufDecodeProgrammer_write_property_default_value(property.Value),
+      protobufDecodeProgrammer_write_property_default_value(property.Value, props.Context.Emit),
     ))
   }
   return []*shimast.Node{
@@ -267,10 +269,10 @@ func protobufDecodeProgrammer_write_object_function_body(props protobufDecodePro
       f.NewBlock(f.NewNodeList([]*shimast.Node{
         nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
           Name:  props.Tag,
-          Value: protobufDecodeProgrammer_callReader("uint32", nil),
+          Value: protobufDecodeProgrammer_callReader("uint32", nil, props.Context.Emit),
         }, props.Context.Emit),
         f.NewSwitchStatement(
-          protobufDecodeProgrammer_unsigned_right_shift(f.NewIdentifier(props.Tag), nativefactories.ExpressionFactory.Number(3, props.Context.Emit)),
+          protobufDecodeProgrammer_unsigned_right_shift(f.NewIdentifier(props.Tag), nativefactories.ExpressionFactory.Number(3, props.Context.Emit), props.Context.Emit),
           f.NewCaseBlock(f.NewNodeList(clauses)),
         ),
       }), true),
@@ -278,32 +280,33 @@ func protobufDecodeProgrammer_write_object_function_body(props protobufDecodePro
   }
 }
 
-func protobufDecodeProgrammer_write_property_default_value(value *schemametadata.MetadataSchema) *shimast.Node {
+func protobufDecodeProgrammer_write_property_default_value(value *schemametadata.MetadataSchema, emit *shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(protobufDecodeProgrammer_factory, emit)
   var expression *shimast.Node
   if value.Nullable {
-    expression = protobufDecodeProgrammer_factory.NewKeywordExpression(shimast.KindNullKeyword)
+    expression = f.NewKeywordExpression(shimast.KindNullKeyword)
   } else if value.IsRequired() == false {
-    expression = protobufDecodeProgrammer_factory.NewIdentifier("undefined")
+    expression = f.NewIdentifier("undefined")
   } else if len(value.Arrays) != 0 {
-    expression = protobufDecodeProgrammer_factory.NewArrayLiteralExpression(nil, false)
+    expression = f.NewArrayLiteralExpression(nil, false)
   } else if len(value.Maps) != 0 {
-    expression = protobufDecodeProgrammer_factory.NewNewExpression(protobufDecodeProgrammer_factory.NewIdentifier("Map"), nil, protobufDecodeProgrammer_factory.NewNodeList(nil))
+    expression = f.NewNewExpression(f.NewIdentifier("Map"), nil, f.NewNodeList(nil))
   } else if len(value.Natives) != 0 {
-    expression = protobufDecodeProgrammer_factory.NewNewExpression(
-      protobufDecodeProgrammer_factory.NewIdentifier("Uint8Array"),
+    expression = f.NewNewExpression(
+      f.NewIdentifier("Uint8Array"),
       nil,
-      protobufDecodeProgrammer_factory.NewNodeList([]*shimast.Node{
-        protobufDecodeProgrammer_factory.NewArrayLiteralExpression(nil, false),
+      f.NewNodeList([]*shimast.Node{
+        f.NewArrayLiteralExpression(nil, false),
       }),
     )
   } else if protobufDecodeProgrammer_hasStringDefault(value) {
-    expression = protobufDecodeProgrammer_factory.NewStringLiteral("", shimast.TokenFlagsNone)
+    expression = f.NewStringLiteral("", shimast.TokenFlagsNone)
   } else if protobufDecodeProgrammer_hasDynamicObject(value) {
-    expression = protobufDecodeProgrammer_factory.NewObjectLiteralExpression(nil, false)
+    expression = f.NewObjectLiteralExpression(nil, false)
   } else {
-    expression = protobufDecodeProgrammer_factory.NewIdentifier("undefined")
+    expression = f.NewIdentifier("undefined")
   }
-  return protobufDecodeProgrammer_factory.NewAsExpression(expression, nativefactories.TypeFactory.Keyword("any"))
+  return f.NewAsExpression(expression, nativefactories.TypeFactory.Keyword("any", emit))
 }
 
 func protobufDecodeProgrammer_decode_property(props protobufDecodeProgrammer_decodePropertyProps) []*shimast.Node {
@@ -326,29 +329,29 @@ func protobufDecodeProgrammer_decode_property_type(props protobufDecodeProgramme
   f := nativecontext.EmitFactoryOf(protobufDecodeProgrammer_factory, props.Context.Emit)
   outExpr := func(title string, value *shimast.Node) *shimast.Node {
     return protobufDecodeProgrammer_caseClause(protobufDecodeProgrammer_indexValue(protobufDecodeProgrammer_propertyIndex(props.Schema)), title, []*shimast.Node{
-      f.NewExpressionStatement(protobufDecodeProgrammer_assignment(props.Accessor, shimast.KindEqualsToken, value)),
-    })
+      f.NewExpressionStatement(protobufDecodeProgrammer_assignment(props.Accessor, shimast.KindEqualsToken, value, props.Context.Emit)),
+    }, props.Context.Emit)
   }
   outStatements := func(title string, value []*shimast.Node) *shimast.Node {
-    return protobufDecodeProgrammer_caseClause(protobufDecodeProgrammer_indexValue(protobufDecodeProgrammer_propertyIndex(props.Schema)), title, value)
+    return protobufDecodeProgrammer_caseClause(protobufDecodeProgrammer_indexValue(protobufDecodeProgrammer_propertyIndex(props.Schema)), title, value, props.Context.Emit)
   }
   switch schema := props.Schema.(type) {
   case *schemaprotobuf.IProtobufPropertyType_IByte:
-    return outExpr("bytes", protobufDecodeProgrammer_callReader("bytes", nil))
+    return outExpr("bytes", protobufDecodeProgrammer_callReader("bytes", nil, props.Context.Emit))
   case *schemaprotobuf.IProtobufPropertyType_IBoolean:
-    return outExpr("bool", protobufDecodeProgrammer_callReader("bool", nil))
+    return outExpr("bool", protobufDecodeProgrammer_callReader("bool", nil, props.Context.Emit))
   case *schemaprotobuf.IProtobufPropertyType_IBigint:
-    return outExpr(schema.Name, protobufDecodeProgrammer_callReader(schema.Name, nil))
+    return outExpr(schema.Name, protobufDecodeProgrammer_callReader(schema.Name, nil, props.Context.Emit))
   case *schemaprotobuf.IProtobufPropertyType_INumber:
-    return outExpr(schema.Name, protobufDecodeProgrammer_decode_number(schema))
+    return outExpr(schema.Name, protobufDecodeProgrammer_decode_number(schema, props.Context.Emit))
   case *schemaprotobuf.IProtobufPropertyType_IString:
-    return outExpr("string", protobufDecodeProgrammer_callReader("string", nil))
+    return outExpr("string", protobufDecodeProgrammer_callReader("string", nil, props.Context.Emit))
   case *schemaprotobuf.IProtobufPropertyType_IArray:
     return outStatements("Array<"+protobufDecodeProgrammer_arrayValueName(schema)+">", protobufDecodeProgrammer_decode_array(protobufDecodeProgrammer_decodeArrayProps{
       Accessor: props.Accessor,
       Schema:   schema,
       Required: props.Required,
-    }))
+    }, props.Context.Emit))
   case *schemaprotobuf.IProtobufPropertyType_IObject:
     name := "object"
     if obj, ok := schema.Object.(*schemametadata.MetadataObjectType); ok {
@@ -357,7 +360,7 @@ func protobufDecodeProgrammer_decode_property_type(props protobufDecodeProgramme
     return outExpr(name, protobufDecodeProgrammer_decode_regular_object(struct {
       Top    bool
       Object *schemametadata.MetadataObjectType
-    }{Top: false, Object: protobufDecodeProgrammer_objectSchema(schema)}))
+    }{Top: false, Object: protobufDecodeProgrammer_objectSchema(schema)}, props.Context.Emit))
   case *schemaprotobuf.IProtobufPropertyType_IMap:
     if obj, ok := schema.Map.(*schemametadata.MetadataObjectType); ok && len(obj.Properties) != 0 {
       key := obj.Properties[0].Key
@@ -375,6 +378,7 @@ func protobufDecodeProgrammer_decode_property_type(props protobufDecodeProgramme
             f.NewElementAccessExpression(props.Accessor, nil, f.NewIdentifier("entry.key"), shimast.NodeFlagsNone),
             shimast.KindEqualsToken,
             f.NewIdentifier("entry.value"),
+            props.Context.Emit,
           )
         },
       }))
@@ -412,57 +416,61 @@ func protobufDecodeProgrammer_decode_property_type(props protobufDecodeProgramme
   panic("Error on ProtobufDecodeProgrammer.write(): unknown property type")
 }
 
-func protobufDecodeProgrammer_decode_number(schema schemaprotobuf.IProtobufSchema) *shimast.Node {
+func protobufDecodeProgrammer_decode_number(schema schemaprotobuf.IProtobufSchema, emit *shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(protobufDecodeProgrammer_factory, emit)
   name := protobufDecodeProgrammer_numberName(schema)
-  value := protobufDecodeProgrammer_callReader(name, nil)
+  value := protobufDecodeProgrammer_callReader(name, nil, emit)
   if name == "int64" || name == "uint64" {
-    return protobufDecodeProgrammer_factory.NewCallExpression(
-      protobufDecodeProgrammer_factory.NewIdentifier("Number"),
+    return f.NewCallExpression(
+      f.NewIdentifier("Number"),
       nil,
       nil,
-      protobufDecodeProgrammer_factory.NewNodeList([]*shimast.Node{value}),
+      f.NewNodeList([]*shimast.Node{value}),
       shimast.NodeFlagsNone,
     )
   }
   return value
 }
 
-func protobufDecodeProgrammer_decode_array(props protobufDecodeProgrammer_decodeArrayProps) []*shimast.Node {
+func protobufDecodeProgrammer_decode_array(props protobufDecodeProgrammer_decodeArrayProps, emit *shimprinter.EmitContext) []*shimast.Node {
+  f := nativecontext.EmitFactoryOf(protobufDecodeProgrammer_factory, emit)
   statements := []*shimast.Node{}
   if props.Required == false {
-    statements = append(statements, protobufDecodeProgrammer_factory.NewExpressionStatement(
+    statements = append(statements, f.NewExpressionStatement(
       protobufDecodeProgrammer_assignment(
         props.Accessor,
         shimast.KindQuestionQuestionEqualsToken,
-        protobufDecodeProgrammer_factory.NewAsExpression(
-          protobufDecodeProgrammer_factory.NewArrayLiteralExpression(nil, false),
-          protobufDecodeProgrammer_factory.NewTypeReferenceNode(protobufDecodeProgrammer_factory.NewIdentifier("any[]"), nil),
+        f.NewAsExpression(
+          f.NewArrayLiteralExpression(nil, false),
+          f.NewTypeReferenceNode(f.NewIdentifier("any[]"), nil),
         ),
+        emit,
       ),
     ))
   }
   value := protobufDecodeProgrammer_arrayValue(props.Schema)
-  decoder := protobufDecodeProgrammer_decode_array_value(value)
+  decoder := protobufDecodeProgrammer_decode_array_value(value, emit)
   if protobufDecodeProgrammer_isPackedArrayValue(value) {
-    statements = append(statements, protobufDecodeProgrammer_factory.NewIfStatement(
+    statements = append(statements, f.NewIfStatement(
       protobufDecodeProgrammer_strict_equal(
-        nativefactories.ExpressionFactory.Number(2),
-        protobufDecodeProgrammer_bitwise_and(protobufDecodeProgrammer_factory.NewIdentifier("tag"), nativefactories.ExpressionFactory.Number(7)),
+        nativefactories.ExpressionFactory.Number(2, emit),
+        protobufDecodeProgrammer_bitwise_and(f.NewIdentifier("tag"), nativefactories.ExpressionFactory.Number(7, emit), emit),
+        emit,
       ),
-      protobufDecodeProgrammer_factory.NewBlock(protobufDecodeProgrammer_factory.NewNodeList([]*shimast.Node{
+      f.NewBlock(f.NewNodeList([]*shimast.Node{
         nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
           Name:  "piece",
-          Value: protobufDecodeProgrammer_add(protobufDecodeProgrammer_callReader("uint32", nil), protobufDecodeProgrammer_callReader("index", nil)),
-        }),
-        protobufDecodeProgrammer_factory.NewWhileStatement(
-          protobufDecodeProgrammer_lessThan(protobufDecodeProgrammer_callReader("index", nil), protobufDecodeProgrammer_factory.NewIdentifier("piece")),
-          protobufDecodeProgrammer_factory.NewExpressionStatement(protobufDecodeProgrammer_arrayPush(props.Accessor, decoder)),
+          Value: protobufDecodeProgrammer_add(protobufDecodeProgrammer_callReader("uint32", nil, emit), protobufDecodeProgrammer_callReader("index", nil, emit), emit),
+        }, emit),
+        f.NewWhileStatement(
+          protobufDecodeProgrammer_lessThan(protobufDecodeProgrammer_callReader("index", nil, emit), f.NewIdentifier("piece"), emit),
+          f.NewExpressionStatement(protobufDecodeProgrammer_arrayPush(props.Accessor, decoder, emit)),
         ),
       }), true),
-      protobufDecodeProgrammer_factory.NewExpressionStatement(protobufDecodeProgrammer_arrayPush(props.Accessor, decoder)),
+      f.NewExpressionStatement(protobufDecodeProgrammer_arrayPush(props.Accessor, decoder, emit)),
     ))
   } else {
-    statements = append(statements, protobufDecodeProgrammer_factory.NewExpressionStatement(protobufDecodeProgrammer_arrayPush(props.Accessor, decoder)))
+    statements = append(statements, f.NewExpressionStatement(protobufDecodeProgrammer_arrayPush(props.Accessor, decoder, emit)))
   }
   return statements
 }
@@ -470,20 +478,21 @@ func protobufDecodeProgrammer_decode_array(props protobufDecodeProgrammer_decode
 func protobufDecodeProgrammer_decode_regular_object(props struct {
   Top    bool
   Object *schemametadata.MetadataObjectType
-}) *shimast.Node {
+}, emit *shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(protobufDecodeProgrammer_factory, emit)
   index := 0
   if props.Object != nil {
     index = props.Object.Index
   }
-  args := []*shimast.Node{protobufDecodeProgrammer_factory.NewIdentifier("reader")}
+  args := []*shimast.Node{f.NewIdentifier("reader")}
   if props.Top == false {
-    args = append(args, protobufDecodeProgrammer_callReader("uint32", nil))
+    args = append(args, protobufDecodeProgrammer_callReader("uint32", nil, emit))
   }
-  return protobufDecodeProgrammer_factory.NewCallExpression(
-    protobufDecodeProgrammer_factory.NewIdentifier(fmt.Sprintf("%so%d", protobufDecodeProgrammer_PREFIX, index)),
+  return f.NewCallExpression(
+    f.NewIdentifier(fmt.Sprintf("%so%d", protobufDecodeProgrammer_PREFIX, index)),
     nil,
     nil,
-    protobufDecodeProgrammer_factory.NewNodeList(args),
+    f.NewNodeList(args),
     shimast.NodeFlagsNone,
   )
 }
@@ -493,16 +502,16 @@ func protobufDecodeProgrammer_decode_map(props protobufDecodeProgrammer_decodeMa
   statements := []*shimast.Node{}
   if props.Required {
     statements = append(statements, f.NewExpressionStatement(
-      protobufDecodeProgrammer_assignment(props.Accessor, shimast.KindQuestionQuestionEqualsToken, props.Initializer),
+      protobufDecodeProgrammer_assignment(props.Accessor, shimast.KindQuestionQuestionEqualsToken, props.Initializer, props.Context.Emit),
     ))
   }
   statements = append(statements, nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
     Name:  "piece",
-    Value: protobufDecodeProgrammer_add(protobufDecodeProgrammer_callReader("uint32", nil), protobufDecodeProgrammer_callReader("index", nil)),
+    Value: protobufDecodeProgrammer_add(protobufDecodeProgrammer_callReader("uint32", nil, props.Context.Emit), protobufDecodeProgrammer_callReader("index", nil, props.Context.Emit), props.Context.Emit),
   }, props.Context.Emit))
   statements = append(statements, protobufDecodeProgrammer_write_object_function_body(protobufDecodeProgrammer_objectBodyProps{
     Context:   props.Context,
-    Condition: protobufDecodeProgrammer_lessThan(protobufDecodeProgrammer_callReader("index", nil), f.NewIdentifier("piece")),
+    Condition: protobufDecodeProgrammer_lessThan(protobufDecodeProgrammer_callReader("index", nil, props.Context.Emit), f.NewIdentifier("piece"), props.Context.Emit),
     Tag:       "kind",
     Output:    "entry",
     Object: protobufDecodeProgrammer_createObjectType([]struct {
@@ -515,7 +524,7 @@ func protobufDecodeProgrammer_decode_map(props protobufDecodeProgrammer_decodeMa
   })...)
   if props.Required == false {
     statements = append(statements, f.NewExpressionStatement(
-      protobufDecodeProgrammer_assignment(props.Accessor, shimast.KindQuestionQuestionEqualsToken, props.Initializer),
+      protobufDecodeProgrammer_assignment(props.Accessor, shimast.KindQuestionQuestionEqualsToken, props.Initializer, props.Context.Emit),
     ))
   }
   statements = append(statements, f.NewExpressionStatement(props.Setter()))
@@ -527,48 +536,50 @@ func protobufDecodeProgrammer_decode_map(props protobufDecodeProgrammer_decodeMa
   }
 }
 
-func protobufDecodeProgrammer_decode_array_value(schema schemaprotobuf.IProtobufSchema) *shimast.Node {
+func protobufDecodeProgrammer_decode_array_value(schema schemaprotobuf.IProtobufSchema, emit *shimprinter.EmitContext) *shimast.Node {
   switch protobufDecodeProgrammer_schemaType(schema) {
   case "bytes":
-    return protobufDecodeProgrammer_callReader("bytes", nil)
+    return protobufDecodeProgrammer_callReader("bytes", nil, emit)
   case "bool":
-    return protobufDecodeProgrammer_callReader("bool", nil)
+    return protobufDecodeProgrammer_callReader("bool", nil, emit)
   case "bigint":
-    return protobufDecodeProgrammer_callReader(protobufDecodeProgrammer_bigintName(schema), nil)
+    return protobufDecodeProgrammer_callReader(protobufDecodeProgrammer_bigintName(schema), nil, emit)
   case "number":
-    return protobufDecodeProgrammer_decode_number(schema)
+    return protobufDecodeProgrammer_decode_number(schema, emit)
   case "string":
-    return protobufDecodeProgrammer_callReader("string", nil)
+    return protobufDecodeProgrammer_callReader("string", nil, emit)
   case "object":
     return protobufDecodeProgrammer_decode_regular_object(struct {
       Top    bool
       Object *schemametadata.MetadataObjectType
-    }{Top: false, Object: protobufDecodeProgrammer_objectSchema(schema)})
+    }{Top: false, Object: protobufDecodeProgrammer_objectSchema(schema)}, emit)
   default:
     panic("unreachable condition")
   }
 }
 
-func protobufDecodeProgrammer_callReader(method string, args []*shimast.Node) *shimast.Node {
-  return protobufDecodeProgrammer_factory.NewCallExpression(
-    nativefactories.IdentifierFactory.Access(nil, protobufDecodeProgrammer_factory.NewIdentifier("reader"), method),
+func protobufDecodeProgrammer_callReader(method string, args []*shimast.Node, emit *shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(protobufDecodeProgrammer_factory, emit)
+  return f.NewCallExpression(
+    nativefactories.IdentifierFactory.Access(emit, f.NewIdentifier("reader"), method),
     nil,
     nil,
-    protobufDecodeProgrammer_factory.NewNodeList(args),
+    f.NewNodeList(args),
     shimast.NodeFlagsNone,
   )
 }
 
-func protobufDecodeProgrammer_caseClause(index int, title string, statements []*shimast.Node) *shimast.Node {
+func protobufDecodeProgrammer_caseClause(index int, title string, statements []*shimast.Node, emit *shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(protobufDecodeProgrammer_factory, emit)
   body := []*shimast.Node{
-    protobufDecodeProgrammer_factory.NewExpressionStatement(protobufDecodeProgrammer_factory.NewIdentifier("// " + title)),
+    f.NewExpressionStatement(f.NewIdentifier("// " + title)),
   }
   body = append(body, statements...)
-  body = append(body, protobufDecodeProgrammer_factory.NewBreakStatement(nil))
-  return protobufDecodeProgrammer_factory.NewCaseOrDefaultClause(
+  body = append(body, f.NewBreakStatement(nil))
+  return f.NewCaseOrDefaultClause(
     shimast.KindCaseClause,
-    nativefactories.ExpressionFactory.Number(index),
-    protobufDecodeProgrammer_factory.NewNodeList(body),
+    nativefactories.ExpressionFactory.Number(index, emit),
+    f.NewNodeList(body),
   )
 }
 
@@ -646,38 +657,45 @@ func protobufDecodeProgrammer_objectNeedsProtobuf(object *schemametadata.Metadat
   return false
 }
 
-func protobufDecodeProgrammer_arrayPush(accessor *shimast.Node, value *shimast.Node) *shimast.Node {
-  return protobufDecodeProgrammer_factory.NewCallExpression(
-    nativefactories.IdentifierFactory.Access(nil, accessor, "push"),
+func protobufDecodeProgrammer_arrayPush(accessor *shimast.Node, value *shimast.Node, emit *shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(protobufDecodeProgrammer_factory, emit)
+  return f.NewCallExpression(
+    nativefactories.IdentifierFactory.Access(emit, accessor, "push"),
     nil,
     nil,
-    protobufDecodeProgrammer_factory.NewNodeList([]*shimast.Node{value}),
+    f.NewNodeList([]*shimast.Node{value}),
     shimast.NodeFlagsNone,
   )
 }
 
-func protobufDecodeProgrammer_assignment(left *shimast.Node, operator shimast.Kind, right *shimast.Node) *shimast.Node {
-  return protobufDecodeProgrammer_factory.NewBinaryExpression(nil, left, nil, protobufDecodeProgrammer_factory.NewToken(operator), right)
+func protobufDecodeProgrammer_assignment(left *shimast.Node, operator shimast.Kind, right *shimast.Node, emit *shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(protobufDecodeProgrammer_factory, emit)
+  return f.NewBinaryExpression(nil, left, nil, f.NewToken(operator), right)
 }
 
-func protobufDecodeProgrammer_lessThan(left *shimast.Node, right *shimast.Node) *shimast.Node {
-  return protobufDecodeProgrammer_factory.NewBinaryExpression(nil, left, nil, protobufDecodeProgrammer_factory.NewToken(shimast.KindLessThanToken), right)
+func protobufDecodeProgrammer_lessThan(left *shimast.Node, right *shimast.Node, emit *shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(protobufDecodeProgrammer_factory, emit)
+  return f.NewBinaryExpression(nil, left, nil, f.NewToken(shimast.KindLessThanToken), right)
 }
 
-func protobufDecodeProgrammer_add(left *shimast.Node, right *shimast.Node) *shimast.Node {
-  return protobufDecodeProgrammer_factory.NewBinaryExpression(nil, left, nil, protobufDecodeProgrammer_factory.NewToken(shimast.KindPlusToken), right)
+func protobufDecodeProgrammer_add(left *shimast.Node, right *shimast.Node, emit *shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(protobufDecodeProgrammer_factory, emit)
+  return f.NewBinaryExpression(nil, left, nil, f.NewToken(shimast.KindPlusToken), right)
 }
 
-func protobufDecodeProgrammer_unsigned_right_shift(left *shimast.Node, right *shimast.Node) *shimast.Node {
-  return protobufDecodeProgrammer_factory.NewBinaryExpression(nil, left, nil, protobufDecodeProgrammer_factory.NewToken(shimast.KindGreaterThanGreaterThanGreaterThanToken), right)
+func protobufDecodeProgrammer_unsigned_right_shift(left *shimast.Node, right *shimast.Node, emit *shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(protobufDecodeProgrammer_factory, emit)
+  return f.NewBinaryExpression(nil, left, nil, f.NewToken(shimast.KindGreaterThanGreaterThanGreaterThanToken), right)
 }
 
-func protobufDecodeProgrammer_bitwise_and(left *shimast.Node, right *shimast.Node) *shimast.Node {
-  return protobufDecodeProgrammer_factory.NewBinaryExpression(nil, left, nil, protobufDecodeProgrammer_factory.NewToken(shimast.KindAmpersandToken), right)
+func protobufDecodeProgrammer_bitwise_and(left *shimast.Node, right *shimast.Node, emit *shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(protobufDecodeProgrammer_factory, emit)
+  return f.NewBinaryExpression(nil, left, nil, f.NewToken(shimast.KindAmpersandToken), right)
 }
 
-func protobufDecodeProgrammer_strict_equal(left *shimast.Node, right *shimast.Node) *shimast.Node {
-  return protobufDecodeProgrammer_factory.NewBinaryExpression(nil, left, nil, protobufDecodeProgrammer_factory.NewToken(shimast.KindEqualsEqualsEqualsToken), right)
+func protobufDecodeProgrammer_strict_equal(left *shimast.Node, right *shimast.Node, emit *shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(protobufDecodeProgrammer_factory, emit)
+  return f.NewBinaryExpression(nil, left, nil, f.NewToken(shimast.KindEqualsEqualsEqualsToken), right)
 }
 
 func protobufDecodeProgrammer_indexValue(index *int) int {

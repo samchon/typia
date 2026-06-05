@@ -59,7 +59,7 @@ func (llmStructuredOutputProgrammerNamespace) Write(props LlmStructuredOutputPro
   statements := []*shimast.Node{
     nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
       Name: "__parameters",
-      Type: llmProgrammer_import_type(props.Context, ImportTypeIParameters()),
+      Type: llmProgrammer_import_type(props.Context, ImportTypeIParameters(props.Context.Emit)),
       Value: LlmParametersProgrammer.WriteParametersExpression(LlmParametersProgrammer_IWriteProps{
         Context:  props.Context,
         Metadata: props.Metadata,

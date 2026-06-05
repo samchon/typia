@@ -108,9 +108,11 @@ func (functionalAssertParametersProgrammerNamespace) Decompose(props FunctionalA
           functionalIsProgrammer_parameterType(p, nativefactories.TypeFactory.Keyword("any", props.Context.Emit)),
         ),
         Init: FunctionalAssertFunctionProgrammer.HookPath(struct {
+          Context  nativecontext.ITypiaContext
           Wrapper  string
           Replacer string
         }{
+          Context:  props.Context,
           Wrapper:  props.Wrapper,
           Replacer: "$input.parameters[" + functionalIsProgrammer_itoa(i) + "]",
         }),

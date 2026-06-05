@@ -3,6 +3,7 @@ package programmers
 import (
   shimast "github.com/microsoft/typescript-go/shim/ast"
   nativechecker "github.com/microsoft/typescript-go/shim/checker"
+  shimprinter "github.com/microsoft/typescript-go/shim/printer"
   nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
   nativefactories "github.com/samchon/typia/packages/typia/native/core/factories"
   nativehelpers "github.com/samchon/typia/packages/typia/native/core/programmers/helpers"
@@ -95,6 +96,7 @@ func (validateProgrammerNamespace) Decompose(props ValidateProgrammer_DecomposeP
             f.NewNodeList([]*shimast.Node{f.NewIdentifier("input")}),
             shimast.NodeFlagsNone,
           ),
+          props.Context.Emit,
         ),
         f.NewBlock(f.NewNodeList([]*shimast.Node{
           f.NewExpressionStatement(f.NewBinaryExpression(nil, f.NewIdentifier("errors"), nil, f.NewToken(shimast.KindEqualsToken), f.NewArrayLiteralExpression(f.NewNodeList(nil), false))),
@@ -127,16 +129,17 @@ func (validateProgrammerNamespace) Decompose(props ValidateProgrammer_DecomposeP
             Value: validateProgrammer_equal(
               nativefactories.ExpressionFactory.Number(0, props.Context.Emit),
               f.NewIdentifier("errors.length"),
+              props.Context.Emit,
             ),
           }, props.Context.Emit),
-          f.NewReturnStatement(f.NewAsExpression(validateProgrammer_create_output(), nativefactories.TypeFactory.Keyword("any", props.Context.Emit))),
+          f.NewReturnStatement(f.NewAsExpression(validateProgrammer_create_output(props.Context.Emit), nativefactories.TypeFactory.Keyword("any", props.Context.Emit))),
         }), true),
         nil,
       ),
       f.NewReturnStatement(f.NewAsExpression(
         f.NewObjectLiteralExpression(f.NewNodeList([]*shimast.Node{
-          validateProgrammer_property("success", f.NewKeywordExpression(shimast.KindTrueKeyword)),
-          validateProgrammer_property("data", f.NewIdentifier("input")),
+          validateProgrammer_property("success", f.NewKeywordExpression(shimast.KindTrueKeyword), props.Context.Emit),
+          validateProgrammer_property("data", f.NewIdentifier("input"), props.Context.Emit),
         }), true),
         nativefactories.TypeFactory.Keyword("any", props.Context.Emit),
       )),
@@ -199,13 +202,14 @@ func validateProgrammer_atomist(props ValidateProgrammer_DecomposeProps) func(ne
       expressions = append(expressions, next.Entry.Expression)
     }
     if len(next.Entry.Conditions) != 0 {
-      exceptionable := validateProgrammer_exceptionable(next.Explore)
-      path := validateProgrammer_path(next.Explore)
+      exceptionable := validateProgrammer_exceptionable(next.Explore, props.Context.Emit)
+      path := validateProgrammer_path(next.Explore, props.Context.Emit)
       if len(next.Entry.Conditions) == 1 {
         for _, cond := range next.Entry.Conditions[0] {
           expressions = append(expressions, validateProgrammer_or(
             cond.Expression,
-            validateProgrammer_create_report_call(validateProgrammer_createReportCallProps{Exceptionable: exceptionable, Path: path, Expected: cond.Expected, Value: next.Input}),
+            validateProgrammer_create_report_call(validateProgrammer_createReportCallProps{Exceptionable: exceptionable, Path: path, Expected: cond.Expected, Value: next.Input, Emit: props.Context.Emit}),
+            props.Context.Emit,
           ))
         }
       } else {
@@ -215,15 +219,16 @@ func validateProgrammer_atomist(props ValidateProgrammer_DecomposeProps) func(ne
           for _, s := range set {
             cols = append(cols, s.Expression)
           }
-          rows = append(rows, validateProgrammer_reduce(cols, shimast.KindAmpersandAmpersandToken, f.NewKeywordExpression(shimast.KindTrueKeyword)))
+          rows = append(rows, validateProgrammer_reduce(cols, shimast.KindAmpersandAmpersandToken, f.NewKeywordExpression(shimast.KindTrueKeyword), props.Context.Emit))
         }
         expressions = append(expressions, validateProgrammer_or(
-          validateProgrammer_reduce(rows, shimast.KindBarBarToken, f.NewKeywordExpression(shimast.KindFalseKeyword)),
-          validateProgrammer_create_report_call(validateProgrammer_createReportCallProps{Exceptionable: exceptionable, Path: path, Expected: next.Entry.Expected, Value: next.Input}),
+          validateProgrammer_reduce(rows, shimast.KindBarBarToken, f.NewKeywordExpression(shimast.KindFalseKeyword), props.Context.Emit),
+          validateProgrammer_create_report_call(validateProgrammer_createReportCallProps{Exceptionable: exceptionable, Path: path, Expected: next.Entry.Expected, Value: next.Input, Emit: props.Context.Emit}),
+          props.Context.Emit,
         ))
       }
     }
-    return validateProgrammer_reduce(expressions, shimast.KindAmpersandAmpersandToken, f.NewKeywordExpression(shimast.KindTrueKeyword))
+    return validateProgrammer_reduce(expressions, shimast.KindAmpersandAmpersandToken, f.NewKeywordExpression(shimast.KindTrueKeyword), props.Context.Emit)
   }
 }
 
@@ -247,26 +252,27 @@ func validateProgrammer_combine(props struct {
         Functor *nativehelpers.FunctionProgrammer
       }{Options: options, Context: props.Context, Functor: props.Functor}).Combiner(next)
     }
-    path := validateProgrammer_path(next.Explore)
-    exceptionable := validateProgrammer_exceptionable(next.Explore)
+    path := validateProgrammer_path(next.Explore, props.Context.Emit)
+    exceptionable := validateProgrammer_exceptionable(next.Explore, props.Context.Emit)
     if next.Logic == "and" {
       expressions := []*shimast.Node{}
       for _, binary := range next.Binaries {
         if binary.Combined {
           expressions = append(expressions, binary.Expression)
         } else {
-          expressions = append(expressions, validateProgrammer_or(binary.Expression, validateProgrammer_create_report_call(validateProgrammer_createReportCallProps{Exceptionable: exceptionable, Path: path, Expected: next.Expected, Value: next.Input})))
+          expressions = append(expressions, validateProgrammer_or(binary.Expression, validateProgrammer_create_report_call(validateProgrammer_createReportCallProps{Exceptionable: exceptionable, Path: path, Expected: next.Expected, Value: next.Input, Emit: props.Context.Emit}), props.Context.Emit))
         }
       }
-      return validateProgrammer_reduce(expressions, shimast.KindAmpersandAmpersandToken, f.NewKeywordExpression(shimast.KindTrueKeyword))
+      return validateProgrammer_reduce(expressions, shimast.KindAmpersandAmpersandToken, f.NewKeywordExpression(shimast.KindTrueKeyword), props.Context.Emit)
     }
     expressions := []*shimast.Node{}
     for _, binary := range next.Binaries {
       expressions = append(expressions, binary.Expression)
     }
     return validateProgrammer_or(
-      validateProgrammer_reduce(expressions, shimast.KindBarBarToken, f.NewKeywordExpression(shimast.KindFalseKeyword)),
-      validateProgrammer_create_report_call(validateProgrammer_createReportCallProps{Exceptionable: exceptionable, Path: path, Expected: next.Expected, Value: next.Input}),
+      validateProgrammer_reduce(expressions, shimast.KindBarBarToken, f.NewKeywordExpression(shimast.KindFalseKeyword), props.Context.Emit),
+      validateProgrammer_create_report_call(validateProgrammer_createReportCallProps{Exceptionable: exceptionable, Path: path, Expected: next.Expected, Value: next.Input, Emit: props.Context.Emit}),
+      props.Context.Emit,
     )
   }
 }
@@ -287,7 +293,7 @@ func validateProgrammer_validate_object(props validateProgrammer_validateObjectP
       Undefined: true,
       Assert:    false,
       Reduce: func(a *shimast.Expression, b *shimast.Expression) *shimast.Node {
-        return validateProgrammer_binary(a, shimast.KindAmpersandAmpersandToken, b)
+        return validateProgrammer_binary(a, shimast.KindAmpersandAmpersandToken, b, props.Context.Emit)
       },
       Positive: f.NewKeywordExpression(shimast.KindTrueKeyword),
       Superfluous: func(input *shimast.Expression, description *shimast.Expression) *shimast.Node {
@@ -296,14 +302,16 @@ func validateProgrammer_validate_object(props validateProgrammer_validateObjectP
             f.NewIdentifier("_path"),
             shimast.KindPlusToken,
             f.NewCallExpression(validateProgrammer_internal(props.Context, "accessExpressionAsString"), nil, nil, f.NewNodeList([]*shimast.Node{f.NewIdentifier("key")}), shimast.NodeFlagsNone),
+            props.Context.Emit,
           ),
           Expected:    "undefined",
           Value:       input,
           Description: description,
+          Emit:        props.Context.Emit,
         })
       },
       Halt: func(expr *shimast.Expression) *shimast.Node {
-        return validateProgrammer_or(validateProgrammer_equal(f.NewKeywordExpression(shimast.KindFalseKeyword), f.NewIdentifier("_exceptionable")), expr)
+        return validateProgrammer_or(validateProgrammer_equal(f.NewKeywordExpression(shimast.KindFalseKeyword), f.NewIdentifier("_exceptionable"), props.Context.Emit), expr, props.Context.Emit)
       },
     },
     Context: props.Context,
@@ -326,7 +334,7 @@ func validateProgrammer_joiner(props ValidateProgrammer_DecomposeProps) nativein
       if next.Explore != nil {
         explore = *next.Explore
       }
-      return validateProgrammer_create_report_call(validateProgrammer_createReportCallProps{Exceptionable: validateProgrammer_exceptionable(explore), Path: validateProgrammer_path(explore), Expected: next.Expected, Value: next.Input})
+      return validateProgrammer_create_report_call(validateProgrammer_createReportCallProps{Exceptionable: validateProgrammer_exceptionable(explore, props.Context.Emit), Path: validateProgrammer_path(explore, props.Context.Emit), Expected: next.Expected, Value: next.Input, Emit: props.Context.Emit})
     },
     Tuple: func(binaries []*shimast.Node) *shimast.Node {
       return nativeiterate.Check_everything(f.NewArrayLiteralExpression(f.NewNodeList(binaries), true))
@@ -334,18 +342,20 @@ func validateProgrammer_joiner(props ValidateProgrammer_DecomposeProps) nativein
   }
 }
 
-func validateProgrammer_create_output() *shimast.Node {
+func validateProgrammer_create_output(emit *shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(validateProgrammer_factory, emit)
   return nativefactories.ExpressionFactory.Conditional(
-    validateProgrammer_factory.NewIdentifier("success"),
-    validateProgrammer_factory.NewObjectLiteralExpression(validateProgrammer_factory.NewNodeList([]*shimast.Node{
-      validateProgrammer_shorthand("success"),
-      validateProgrammer_property("data", validateProgrammer_factory.NewIdentifier("input")),
+    f.NewIdentifier("success"),
+    f.NewObjectLiteralExpression(f.NewNodeList([]*shimast.Node{
+      validateProgrammer_shorthand("success", emit),
+      validateProgrammer_property("data", f.NewIdentifier("input"), emit),
     }), true),
-    validateProgrammer_factory.NewObjectLiteralExpression(validateProgrammer_factory.NewNodeList([]*shimast.Node{
-      validateProgrammer_shorthand("success"),
-      validateProgrammer_shorthand("errors"),
-      validateProgrammer_property("data", validateProgrammer_factory.NewIdentifier("input")),
+    f.NewObjectLiteralExpression(f.NewNodeList([]*shimast.Node{
+      validateProgrammer_shorthand("success", emit),
+      validateProgrammer_shorthand("errors", emit),
+      validateProgrammer_property("data", f.NewIdentifier("input"), emit),
     }), true),
+    emit,
   )
 }
 
@@ -355,76 +365,83 @@ type validateProgrammer_createReportCallProps struct {
   Expected      string
   Value         *shimast.Expression
   Description   *shimast.Expression
+  Emit          *shimprinter.EmitContext
 }
 
 func validateProgrammer_create_report_call(props validateProgrammer_createReportCallProps) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(validateProgrammer_factory, props.Emit)
   exceptionable := props.Exceptionable
   if exceptionable == nil {
-    exceptionable = validateProgrammer_factory.NewIdentifier("_exceptionable")
+    exceptionable = f.NewIdentifier("_exceptionable")
   }
   properties := []*shimast.Node{
-    validateProgrammer_property("path", props.Path),
-    validateProgrammer_property("expected", validateProgrammer_factory.NewStringLiteral(props.Expected, shimast.TokenFlagsNone)),
-    validateProgrammer_property("value", props.Value),
+    validateProgrammer_property("path", props.Path, props.Emit),
+    validateProgrammer_property("expected", f.NewStringLiteral(props.Expected, shimast.TokenFlagsNone), props.Emit),
+    validateProgrammer_property("value", props.Value, props.Emit),
   }
   if props.Description != nil {
-    properties = append(properties, validateProgrammer_property("description", props.Description))
+    properties = append(properties, validateProgrammer_property("description", props.Description, props.Emit))
   }
-  return validateProgrammer_factory.NewCallExpression(
-    validateProgrammer_factory.NewIdentifier("_report"),
+  return f.NewCallExpression(
+    f.NewIdentifier("_report"),
     nil,
     nil,
-    validateProgrammer_factory.NewNodeList([]*shimast.Node{
+    f.NewNodeList([]*shimast.Node{
       exceptionable,
-      validateProgrammer_factory.NewObjectLiteralExpression(validateProgrammer_factory.NewNodeList(properties), true),
+      f.NewObjectLiteralExpression(f.NewNodeList(properties), true),
     }),
     shimast.NodeFlagsNone,
   )
 }
 
-func validateProgrammer_reduce(expressions []*shimast.Node, operator shimast.Kind, initial *shimast.Expression) *shimast.Node {
+func validateProgrammer_reduce(expressions []*shimast.Node, operator shimast.Kind, initial *shimast.Expression, emit *shimprinter.EmitContext) *shimast.Node {
   if len(expressions) == 0 {
     return initial
   }
   output := expressions[0]
   for _, expr := range expressions[1:] {
-    output = validateProgrammer_binary(output, operator, expr)
+    output = validateProgrammer_binary(output, operator, expr, emit)
   }
   return output
 }
 
-func validateProgrammer_binary(left *shimast.Expression, operator shimast.Kind, right *shimast.Expression) *shimast.Node {
-  return validateProgrammer_factory.NewBinaryExpression(nil, left, nil, validateProgrammer_factory.NewToken(operator), right)
+func validateProgrammer_binary(left *shimast.Expression, operator shimast.Kind, right *shimast.Expression, emit *shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(validateProgrammer_factory, emit)
+  return f.NewBinaryExpression(nil, left, nil, f.NewToken(operator), right)
 }
 
-func validateProgrammer_equal(left *shimast.Expression, right *shimast.Expression) *shimast.Node {
-  return validateProgrammer_binary(left, shimast.KindEqualsEqualsEqualsToken, right)
+func validateProgrammer_equal(left *shimast.Expression, right *shimast.Expression, emit *shimprinter.EmitContext) *shimast.Node {
+  return validateProgrammer_binary(left, shimast.KindEqualsEqualsEqualsToken, right, emit)
 }
 
-func validateProgrammer_or(left *shimast.Expression, right *shimast.Expression) *shimast.Node {
-  return validateProgrammer_binary(left, shimast.KindBarBarToken, right)
+func validateProgrammer_or(left *shimast.Expression, right *shimast.Expression, emit *shimprinter.EmitContext) *shimast.Node {
+  return validateProgrammer_binary(left, shimast.KindBarBarToken, right, emit)
 }
 
-func validateProgrammer_property(name string, value *shimast.Expression) *shimast.Node {
-  return validateProgrammer_factory.NewPropertyAssignment(nil, nativefactories.IdentifierFactory.Identifier(name), nil, nil, value)
+func validateProgrammer_property(name string, value *shimast.Expression, emit *shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(validateProgrammer_factory, emit)
+  return f.NewPropertyAssignment(nil, nativefactories.IdentifierFactory.Identifier(name, emit), nil, nil, value)
 }
 
-func validateProgrammer_shorthand(name string) *shimast.Node {
-  return validateProgrammer_factory.NewShorthandPropertyAssignment(nil, nativefactories.IdentifierFactory.Identifier(name), nil, nil, nil, nil)
+func validateProgrammer_shorthand(name string, emit *shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(validateProgrammer_factory, emit)
+  return f.NewShorthandPropertyAssignment(nil, nativefactories.IdentifierFactory.Identifier(name, emit), nil, nil, nil, nil)
 }
 
-func validateProgrammer_exceptionable(explore nativeinternal.FeatureProgrammer_IExplore) *shimast.Node {
+func validateProgrammer_exceptionable(explore nativeinternal.FeatureProgrammer_IExplore, emit *shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(validateProgrammer_factory, emit)
   if explore.From == "top" || explore.Source == "top" {
-    return validateProgrammer_factory.NewKeywordExpression(shimast.KindTrueKeyword)
+    return f.NewKeywordExpression(shimast.KindTrueKeyword)
   }
-  return validateProgrammer_factory.NewIdentifier("_exceptionable")
+  return f.NewIdentifier("_exceptionable")
 }
 
-func validateProgrammer_path(explore nativeinternal.FeatureProgrammer_IExplore) *shimast.Node {
+func validateProgrammer_path(explore nativeinternal.FeatureProgrammer_IExplore, emit *shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(validateProgrammer_factory, emit)
   if explore.Postfix != "" {
-    return validateProgrammer_factory.NewIdentifier("_path + " + explore.Postfix)
+    return f.NewIdentifier("_path + " + explore.Postfix)
   }
-  return validateProgrammer_factory.NewIdentifier("_path")
+  return f.NewIdentifier("_path")
 }
 
 func validateProgrammer_type_reference(context nativecontext.ITypiaContext, typ *nativechecker.Type, name *string) *shimast.Node {

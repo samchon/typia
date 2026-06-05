@@ -154,9 +154,11 @@ func (functionalValidateParametersProgrammerNamespace) Decompose(props Functiona
           f.NewObjectLiteralExpression(f.NewNodeList([]*shimast.Node{
             f.NewSpreadAssignment(f.NewIdentifier("r")),
             f.NewPropertyAssignment(nil, nativefactories.IdentifierFactory.Identifier("errors", props.Context.Emit), nil, nil, FunctionalValidateFunctionProgrammer.HookErrors(struct {
+              Context    nativecontext.ITypiaContext
               Expression *shimast.Node
               Replacer   *shimast.Node
             }{
+              Context:    props.Context,
               Expression: nativefactories.IdentifierFactory.Access(props.Context.Emit, f.NewIdentifier("r"), "errors"),
               Replacer: f.NewTemplateExpression(
                 f.NewTemplateHead("$input.parameters[", "$input.parameters[", shimast.TokenFlagsNone),

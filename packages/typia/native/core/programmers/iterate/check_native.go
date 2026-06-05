@@ -4,28 +4,32 @@ import (
   "strings"
 
   shimast "github.com/microsoft/typescript-go/shim/ast"
+  shimprinter "github.com/microsoft/typescript-go/shim/printer"
+  nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
   nativefactories "github.com/samchon/typia/packages/typia/native/core/factories"
 )
 
 type Check_nativeProps struct {
   Name  string
   Input *shimast.Expression
+  Emit  *shimprinter.EmitContext
 }
 
 func Check_native(props Check_nativeProps) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(check_native_factory, props.Emit)
   instanceOf := nativefactories.ExpressionFactory.IsInstanceOf(props.Name, props.Input)
   if check_native_atomic_like[props.Name] {
-    return check_native_factory.NewBinaryExpression(
+    return f.NewBinaryExpression(
       nil,
-      check_native_factory.NewBinaryExpression(
+      f.NewBinaryExpression(
         nil,
-        check_native_factory.NewStringLiteral(strings.ToLower(props.Name), shimast.TokenFlagsNone),
+        f.NewStringLiteral(strings.ToLower(props.Name), shimast.TokenFlagsNone),
         nil,
-        check_native_factory.NewToken(shimast.KindEqualsEqualsEqualsToken),
-        check_native_factory.NewTypeOfExpression(props.Input),
+        f.NewToken(shimast.KindEqualsEqualsEqualsToken),
+        f.NewTypeOfExpression(props.Input),
       ),
       nil,
-      check_native_factory.NewToken(shimast.KindBarBarToken),
+      f.NewToken(shimast.KindBarBarToken),
       instanceOf,
     )
   }

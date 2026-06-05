@@ -48,9 +48,11 @@ func (functionalIsFunctionProgrammerNamespace) Write(props FunctionalIsFunctionP
       nil,
       functionalIsProgrammer_parameters(props.Declaration, props.Context.Emit),
       FunctionalIsFunctionProgrammer.GetReturnTypeNode(struct {
+        Context     nativecontext.ITypiaContext
         Declaration *shimast.Node
         Async       bool
       }{
+        Context:     props.Context,
         Declaration: props.Declaration,
         Async:       r.Async,
       }),
@@ -66,6 +68,7 @@ func (functionalIsFunctionProgrammerNamespace) Write(props FunctionalIsFunctionP
 }
 
 func (functionalIsFunctionProgrammerNamespace) GetReturnTypeNode(props struct {
+  Context     nativecontext.ITypiaContext
   Declaration *shimast.Node
   Async       bool
 }) *shimast.Node {
@@ -76,7 +79,8 @@ func (functionalIsFunctionProgrammerNamespace) GetReturnTypeNode(props struct {
   if typ == nil {
     return nil
   }
-  nullType := functionalIsProgrammer_factory.NewTypeReferenceNode(functionalIsProgrammer_factory.NewIdentifier("null"), nil)
+  f := nativecontext.EmitFactoryOf(functionalIsProgrammer_factory, props.Context.Emit)
+  nullType := f.NewTypeReferenceNode(f.NewIdentifier("null"), nil)
   if props.Async {
     var inner *shimast.Node
     if typ.Kind == shimast.KindTypeReference {
@@ -88,14 +92,14 @@ func (functionalIsFunctionProgrammerNamespace) GetReturnTypeNode(props struct {
     if inner == nil {
       return nil
     }
-    return functionalIsProgrammer_factory.NewTypeReferenceNode(
-      functionalIsProgrammer_factory.NewIdentifier("Promise"),
-      functionalIsProgrammer_factory.NewNodeList([]*shimast.Node{
-        functionalIsProgrammer_factory.NewUnionTypeNode(functionalIsProgrammer_factory.NewNodeList([]*shimast.Node{inner, nullType})),
+    return f.NewTypeReferenceNode(
+      f.NewIdentifier("Promise"),
+      f.NewNodeList([]*shimast.Node{
+        f.NewUnionTypeNode(f.NewNodeList([]*shimast.Node{inner, nullType})),
       }),
     )
   }
-  return functionalIsProgrammer_factory.NewUnionTypeNode(functionalIsProgrammer_factory.NewNodeList([]*shimast.Node{
+  return f.NewUnionTypeNode(f.NewNodeList([]*shimast.Node{
     typ,
     nullType,
   }))

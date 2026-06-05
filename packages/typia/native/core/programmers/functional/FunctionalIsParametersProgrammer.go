@@ -59,9 +59,11 @@ func (functionalIsParametersProgrammerNamespace) Write(props FunctionalIsParamet
       nil,
       functionalIsProgrammer_parameters(props.Declaration, props.Context.Emit),
       FunctionalIsFunctionProgrammer.GetReturnTypeNode(struct {
+        Context     nativecontext.ITypiaContext
         Declaration *shimast.Node
         Async       bool
       }{
+        Context:     props.Context,
         Declaration: props.Declaration,
         Async:       output.Async,
       }),

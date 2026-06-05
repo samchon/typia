@@ -130,9 +130,11 @@ func (functionalValidateReturnProgrammerNamespace) Decompose(props FunctionalVal
           nil,
           f.NewToken(shimast.KindEqualsToken),
           FunctionalValidateFunctionProgrammer.HookErrors(struct {
+            Context    nativecontext.ITypiaContext
             Expression *shimast.Node
             Replacer   *shimast.Node
           }{
+            Context:    props.Context,
             Expression: nativefactories.IdentifierFactory.Access(props.Context.Emit, f.NewIdentifier(name), "errors"),
             Replacer:   f.NewStringLiteral("$input.return", shimast.TokenFlagsNone),
           }),

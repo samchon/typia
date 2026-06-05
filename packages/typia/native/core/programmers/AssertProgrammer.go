@@ -3,6 +3,7 @@ package programmers
 import (
   shimast "github.com/microsoft/typescript-go/shim/ast"
   nativechecker "github.com/microsoft/typescript-go/shim/checker"
+  shimprinter "github.com/microsoft/typescript-go/shim/printer"
   nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
   nativefactories "github.com/samchon/typia/packages/typia/native/core/factories"
   nativehelpers "github.com/samchon/typia/packages/typia/native/core/programmers/helpers"
@@ -103,6 +104,7 @@ func (assertProgrammerNamespace) Decompose(props AssertProgrammer_DecomposeProps
           f.NewNodeList([]*shimast.Node{f.NewIdentifier("input")}),
           shimast.NodeFlagsNone,
         ),
+        props.Context.Emit,
       ),
       f.NewBlock(
         f.NewNodeList([]*shimast.Node{
@@ -208,13 +210,14 @@ func assertProgrammer_atomist(props AssertProgrammer_DecomposeProps) func(next n
       expressions = append(expressions, next.Entry.Expression)
     }
     if len(next.Entry.Conditions) != 0 {
-      exceptionable := assertProgrammer_exceptionable(next.Explore)
-      path := assertProgrammer_path(next.Explore)
+      exceptionable := assertProgrammer_exceptionable(next.Explore, props.Context.Emit)
+      path := assertProgrammer_path(next.Explore, props.Context.Emit)
       if len(next.Entry.Conditions) == 1 {
         for _, cond := range next.Entry.Conditions[0] {
           expressions = append(expressions, assertProgrammer_or(
             cond.Expression,
             assertProgrammer_create_guard_call(assertProgrammer_createGuardCallProps{Context: props.Context, Functor: props.Functor, Exceptionable: exceptionable, Path: path, Expected: cond.Expected, Input: next.Input}),
+            props.Context.Emit,
           ))
         }
       } else {
@@ -224,15 +227,16 @@ func assertProgrammer_atomist(props AssertProgrammer_DecomposeProps) func(next n
           for _, s := range set {
             cols = append(cols, s.Expression)
           }
-          rows = append(rows, assertProgrammer_reduce(cols, shimast.KindAmpersandAmpersandToken, f.NewKeywordExpression(shimast.KindTrueKeyword)))
+          rows = append(rows, assertProgrammer_reduce(cols, shimast.KindAmpersandAmpersandToken, f.NewKeywordExpression(shimast.KindTrueKeyword), props.Context.Emit))
         }
         expressions = append(expressions, assertProgrammer_or(
-          assertProgrammer_reduce(rows, shimast.KindBarBarToken, f.NewKeywordExpression(shimast.KindFalseKeyword)),
+          assertProgrammer_reduce(rows, shimast.KindBarBarToken, f.NewKeywordExpression(shimast.KindFalseKeyword), props.Context.Emit),
           assertProgrammer_create_guard_call(assertProgrammer_createGuardCallProps{Context: props.Context, Functor: props.Functor, Exceptionable: exceptionable, Path: path, Expected: next.Entry.Expected, Input: next.Input}),
+          props.Context.Emit,
         ))
       }
     }
-    return assertProgrammer_reduce(expressions, shimast.KindAmpersandAmpersandToken, f.NewKeywordExpression(shimast.KindTrueKeyword))
+    return assertProgrammer_reduce(expressions, shimast.KindAmpersandAmpersandToken, f.NewKeywordExpression(shimast.KindTrueKeyword), props.Context.Emit)
   }
 }
 
@@ -256,8 +260,8 @@ func assertProgrammer_combiner(props struct {
         Functor *nativehelpers.FunctionProgrammer
       }{Options: options, Context: props.Context, Functor: props.Functor}).Combiner(next)
     }
-    path := assertProgrammer_path(next.Explore)
-    exceptionable := assertProgrammer_exceptionable(next.Explore)
+    path := assertProgrammer_path(next.Explore, props.Context.Emit)
+    exceptionable := assertProgrammer_exceptionable(next.Explore, props.Context.Emit)
     if next.Logic == "and" {
       expressions := []*shimast.Node{}
       for _, binary := range next.Binaries {
@@ -267,18 +271,20 @@ func assertProgrammer_combiner(props struct {
           expressions = append(expressions, assertProgrammer_or(
             binary.Expression,
             assertProgrammer_create_guard_call(assertProgrammer_createGuardCallProps{Context: props.Context, Functor: props.Functor, Exceptionable: exceptionable, Path: path, Expected: next.Expected, Input: next.Input}),
+            props.Context.Emit,
           ))
         }
       }
-      return assertProgrammer_reduce(expressions, shimast.KindAmpersandAmpersandToken, f.NewKeywordExpression(shimast.KindTrueKeyword))
+      return assertProgrammer_reduce(expressions, shimast.KindAmpersandAmpersandToken, f.NewKeywordExpression(shimast.KindTrueKeyword), props.Context.Emit)
     }
     expressions := []*shimast.Node{}
     for _, binary := range next.Binaries {
       expressions = append(expressions, binary.Expression)
     }
     return assertProgrammer_or(
-      assertProgrammer_reduce(expressions, shimast.KindBarBarToken, f.NewKeywordExpression(shimast.KindFalseKeyword)),
+      assertProgrammer_reduce(expressions, shimast.KindBarBarToken, f.NewKeywordExpression(shimast.KindFalseKeyword), props.Context.Emit),
       assertProgrammer_create_guard_call(assertProgrammer_createGuardCallProps{Context: props.Context, Functor: props.Functor, Exceptionable: exceptionable, Path: path, Expected: next.Expected, Input: next.Input}),
+      props.Context.Emit,
     )
   }
 }
@@ -299,7 +305,7 @@ func assertProgrammer_assert_object(props assertProgrammer_assertObjectProps) *s
       Assert:    true,
       Undefined: true,
       Reduce: func(a *shimast.Expression, b *shimast.Expression) *shimast.Node {
-        return assertProgrammer_binary(a, shimast.KindAmpersandAmpersandToken, b)
+        return assertProgrammer_binary(a, shimast.KindAmpersandAmpersandToken, b, props.Context.Emit)
       },
       Positive: f.NewKeywordExpression(shimast.KindTrueKeyword),
       Superfluous: func(input *shimast.Expression, description *shimast.Expression) *shimast.Node {
@@ -310,6 +316,7 @@ func assertProgrammer_assert_object(props assertProgrammer_assertObjectProps) *s
             f.NewIdentifier("_path"),
             shimast.KindPlusToken,
             f.NewCallExpression(assertProgrammer_internal(props.Context, "accessExpressionAsString"), nil, nil, f.NewNodeList([]*shimast.Node{f.NewIdentifier("key")}), shimast.NodeFlagsNone),
+            props.Context.Emit,
           ),
           Expected: "undefined",
           Input:    input,
@@ -317,8 +324,9 @@ func assertProgrammer_assert_object(props assertProgrammer_assertObjectProps) *s
       },
       Halt: func(expr *shimast.Expression) *shimast.Node {
         return assertProgrammer_or(
-          assertProgrammer_equal(f.NewKeywordExpression(shimast.KindFalseKeyword), f.NewIdentifier("_exceptionable")),
+          assertProgrammer_equal(f.NewKeywordExpression(shimast.KindFalseKeyword), f.NewIdentifier("_exceptionable"), props.Context.Emit),
           expr,
+          props.Context.Emit,
         )
       },
     },
@@ -342,14 +350,15 @@ func assertProgrammer_joiner(props AssertProgrammer_DecomposeProps) nativeintern
       if next.Explore != nil {
         explore = *next.Explore
       }
-      return assertProgrammer_create_guard_call(assertProgrammer_createGuardCallProps{Context: props.Context, Functor: props.Functor, Exceptionable: assertProgrammer_exceptionable(explore), Path: assertProgrammer_path(explore), Expected: next.Expected, Input: next.Input})
+      return assertProgrammer_create_guard_call(assertProgrammer_createGuardCallProps{Context: props.Context, Functor: props.Functor, Exceptionable: assertProgrammer_exceptionable(explore, props.Context.Emit), Path: assertProgrammer_path(explore, props.Context.Emit), Expected: next.Expected, Input: next.Input})
     },
   }
   if props.Config.Equals == false {
     joiner.Full = func(next nativeinternal.CheckerProgrammer_JoinerFullProps) *shimast.Node {
       return assertProgrammer_or(
         next.Condition,
-        assertProgrammer_create_guard_call(assertProgrammer_createGuardCallProps{Context: props.Context, Functor: props.Functor, Exceptionable: assertProgrammer_exceptionable(next.Explore), Path: f.NewIdentifier("_path"), Expected: next.Expected, Input: next.Input}),
+        assertProgrammer_create_guard_call(assertProgrammer_createGuardCallProps{Context: props.Context, Functor: props.Functor, Exceptionable: assertProgrammer_exceptionable(next.Explore, props.Context.Emit), Path: f.NewIdentifier("_path"), Expected: next.Expected, Input: next.Input}),
+        props.Context.Emit,
       )
     }
   }
@@ -389,8 +398,9 @@ func assertProgrammer_create_guard_call(props assertProgrammer_createGuardCallPr
   )
 }
 
-func (assertProgrammerGuardianNamespace) Identifier() *shimast.Node {
-  return assertProgrammer_factory.NewIdentifier("errorFactory")
+func (assertProgrammerGuardianNamespace) Identifier(emit ...*shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(assertProgrammer_factory, emit...)
+  return f.NewIdentifier("errorFactory")
 }
 
 func (assertProgrammerGuardianNamespace) Parameter(props struct {
@@ -423,41 +433,44 @@ func (assertProgrammerGuardianNamespace) Type(context nativecontext.ITypiaContex
   )
 }
 
-func assertProgrammer_reduce(expressions []*shimast.Node, operator shimast.Kind, initial *shimast.Expression) *shimast.Node {
+func assertProgrammer_reduce(expressions []*shimast.Node, operator shimast.Kind, initial *shimast.Expression, emit *shimprinter.EmitContext) *shimast.Node {
   if len(expressions) == 0 {
     return initial
   }
   output := expressions[0]
   for _, expr := range expressions[1:] {
-    output = assertProgrammer_binary(output, operator, expr)
+    output = assertProgrammer_binary(output, operator, expr, emit)
   }
   return output
 }
 
-func assertProgrammer_binary(left *shimast.Expression, operator shimast.Kind, right *shimast.Expression) *shimast.Node {
-  return assertProgrammer_factory.NewBinaryExpression(nil, left, nil, assertProgrammer_factory.NewToken(operator), right)
+func assertProgrammer_binary(left *shimast.Expression, operator shimast.Kind, right *shimast.Expression, emit *shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(assertProgrammer_factory, emit)
+  return f.NewBinaryExpression(nil, left, nil, f.NewToken(operator), right)
 }
 
-func assertProgrammer_equal(left *shimast.Expression, right *shimast.Expression) *shimast.Node {
-  return assertProgrammer_binary(left, shimast.KindEqualsEqualsEqualsToken, right)
+func assertProgrammer_equal(left *shimast.Expression, right *shimast.Expression, emit *shimprinter.EmitContext) *shimast.Node {
+  return assertProgrammer_binary(left, shimast.KindEqualsEqualsEqualsToken, right, emit)
 }
 
-func assertProgrammer_or(left *shimast.Expression, right *shimast.Expression) *shimast.Node {
-  return assertProgrammer_binary(left, shimast.KindBarBarToken, right)
+func assertProgrammer_or(left *shimast.Expression, right *shimast.Expression, emit *shimprinter.EmitContext) *shimast.Node {
+  return assertProgrammer_binary(left, shimast.KindBarBarToken, right, emit)
 }
 
-func assertProgrammer_exceptionable(explore nativeinternal.FeatureProgrammer_IExplore) *shimast.Node {
+func assertProgrammer_exceptionable(explore nativeinternal.FeatureProgrammer_IExplore, emit *shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(assertProgrammer_factory, emit)
   if explore.From == "top" || explore.Source == "top" {
-    return assertProgrammer_factory.NewKeywordExpression(shimast.KindTrueKeyword)
+    return f.NewKeywordExpression(shimast.KindTrueKeyword)
   }
-  return assertProgrammer_factory.NewIdentifier("_exceptionable")
+  return f.NewIdentifier("_exceptionable")
 }
 
-func assertProgrammer_path(explore nativeinternal.FeatureProgrammer_IExplore) *shimast.Node {
+func assertProgrammer_path(explore nativeinternal.FeatureProgrammer_IExplore, emit *shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(assertProgrammer_factory, emit)
   if explore.Postfix != "" {
-    return assertProgrammer_factory.NewIdentifier("_path + " + explore.Postfix)
+    return f.NewIdentifier("_path + " + explore.Postfix)
   }
-  return assertProgrammer_factory.NewIdentifier("_path")
+  return f.NewIdentifier("_path")
 }
 
 func assertProgrammer_type_name(context nativecontext.ITypiaContext, typ *nativechecker.Type, name *string) string {

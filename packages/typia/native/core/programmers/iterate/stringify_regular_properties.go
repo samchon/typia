@@ -5,6 +5,8 @@ import (
   "sort"
 
   shimast "github.com/microsoft/typescript-go/shim/ast"
+  shimprinter "github.com/microsoft/typescript-go/shim/printer"
+  nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
   nativefactories "github.com/samchon/typia/packages/typia/native/core/factories"
   nativehelpers "github.com/samchon/typia/packages/typia/native/core/programmers/helpers"
   nativemetadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
@@ -13,9 +15,11 @@ import (
 type Stringify_regular_propertiesProps struct {
   Regular []nativehelpers.IExpressionEntry
   Dynamic []nativehelpers.IExpressionEntry
+  Emit    *shimprinter.EmitContext
 }
 
 func Stringify_regular_properties(props Stringify_regular_propertiesProps) []*shimast.Node {
+  f := nativecontext.EmitFactoryOf(stringify_regular_properties_factory, props.Emit)
   output := []*shimast.Node{}
 
   sort.Slice(props.Regular, func(i int, j int) bool {
@@ -31,11 +35,11 @@ func Stringify_regular_properties(props Stringify_regular_propertiesProps) []*sh
       encoded = []byte("\"" + *key + "\"")
     }
     base := []*shimast.Node{
-      stringify_regular_properties_factory.NewStringLiteral(string(encoded)+":", shimast.TokenFlagsNone),
+      f.NewStringLiteral(string(encoded)+":", shimast.TokenFlagsNone),
       entry.Expression,
     }
     if index != len(props.Regular)-1 || len(props.Dynamic) != 0 {
-      base = append(base, stringify_regular_properties_factory.NewStringLiteral(",", shimast.TokenFlagsNone))
+      base = append(base, f.NewStringLiteral(",", shimast.TokenFlagsNone))
     }
 
     empty := (!entry.Meta.IsRequired() && !entry.Meta.Nullable && entry.Meta.Size() == 0) ||
@@ -45,8 +49,8 @@ func Stringify_regular_properties(props Stringify_regular_propertiesProps) []*sh
     }
     if !entry.Meta.IsRequired() || len(entry.Meta.Functions) != 0 || entry.Meta.Any {
       output = append(output, nativefactories.ExpressionFactory.Conditional(
-        stringify_regular_properties_condition(entry),
-        stringify_regular_properties_factory.NewStringLiteral("", shimast.TokenFlagsNone),
+        stringify_regular_properties_condition(entry, props.Emit),
+        f.NewStringLiteral("", shimast.TokenFlagsNone),
         nativefactories.TemplateFactory.Generate(base),
       ))
     } else {
@@ -56,40 +60,42 @@ func Stringify_regular_properties(props Stringify_regular_propertiesProps) []*sh
   return output
 }
 
-func stringify_regular_properties_condition(entry nativehelpers.IExpressionEntry) *shimast.Node {
+func stringify_regular_properties_condition(entry nativehelpers.IExpressionEntry, emit ...*shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(stringify_regular_properties_factory, emit...)
   conditions := []*shimast.Node{}
   if !entry.Meta.IsRequired() || entry.Meta.Any {
-    conditions = append(conditions, stringify_regular_properties_factory.NewBinaryExpression(
+    conditions = append(conditions, f.NewBinaryExpression(
       nil,
-      stringify_regular_properties_factory.NewIdentifier("undefined"),
+      f.NewIdentifier("undefined"),
       nil,
-      stringify_regular_properties_factory.NewToken(shimast.KindEqualsEqualsEqualsToken),
+      f.NewToken(shimast.KindEqualsEqualsEqualsToken),
       entry.Input,
     ))
   }
   if len(entry.Meta.Functions) != 0 || entry.Meta.Any {
-    conditions = append(conditions, stringify_regular_properties_factory.NewBinaryExpression(
+    conditions = append(conditions, f.NewBinaryExpression(
       nil,
-      stringify_regular_properties_factory.NewStringLiteral("function", shimast.TokenFlagsNone),
+      f.NewStringLiteral("function", shimast.TokenFlagsNone),
       nil,
-      stringify_regular_properties_factory.NewToken(shimast.KindEqualsEqualsEqualsToken),
+      f.NewToken(shimast.KindEqualsEqualsEqualsToken),
       nativefactories.ValueFactory.TYPEOF(entry.Input),
     ))
   }
-  return stringify_regular_properties_reduce(conditions, shimast.KindBarBarToken)
+  return stringify_regular_properties_reduce(conditions, shimast.KindBarBarToken, emit...)
 }
 
-func stringify_regular_properties_reduce(expressions []*shimast.Node, operator shimast.Kind) *shimast.Node {
+func stringify_regular_properties_reduce(expressions []*shimast.Node, operator shimast.Kind, emit ...*shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(stringify_regular_properties_factory, emit...)
   if len(expressions) == 0 {
-    return stringify_regular_properties_factory.NewKeywordExpression(shimast.KindFalseKeyword)
+    return f.NewKeywordExpression(shimast.KindFalseKeyword)
   }
   output := expressions[0]
   for _, next := range expressions[1:] {
-    output = stringify_regular_properties_factory.NewBinaryExpression(
+    output = f.NewBinaryExpression(
       nil,
       output,
       nil,
-      stringify_regular_properties_factory.NewToken(operator),
+      f.NewToken(operator),
       next,
     )
   }

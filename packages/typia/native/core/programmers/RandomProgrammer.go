@@ -7,6 +7,7 @@ import (
 
   shimast "github.com/microsoft/typescript-go/shim/ast"
   shimchecker "github.com/microsoft/typescript-go/shim/checker"
+  shimprinter "github.com/microsoft/typescript-go/shim/printer"
   nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
   nativefactories "github.com/samchon/typia/packages/typia/native/core/factories"
   nativehelpers "github.com/samchon/typia/packages/typia/native/core/programmers/helpers"
@@ -70,6 +71,7 @@ type randomProgrammer_decodeObjectProps struct {
   Functor *nativehelpers.FunctionProgrammer
   Explore randomProgrammer_IExplore
   Object  *schemametadata.MetadataObjectType
+  Emit    *shimprinter.EmitContext
 }
 
 const (
@@ -259,6 +261,7 @@ func randomProgrammer_write_object_functions(props struct {
             })
           },
           Object: object,
+          Emit:   props.Context.Emit,
         }),
       ),
     }, props.Context.Emit))
@@ -308,6 +311,7 @@ func randomProgrammer_write_array_functions(props struct {
           Expression: randomProgrammer_coalesce(props.Context, "array", "randomArray"),
           Array:      array,
           Schema:     nil,
+          Emit:       props.Context.Emit,
         }),
       ),
     }, props.Context.Emit))
@@ -353,6 +357,7 @@ func randomProgrammer_write_tuple_functions(props struct {
             })
           },
           Elements: tuple.Elements,
+          Emit:     props.Context.Emit,
         }),
       ),
     }, props.Context.Emit))
@@ -432,6 +437,7 @@ func randomProgrammer_decode(props randomProgrammer_decodeProps) *shimast.Node {
       Functor: props.Functor,
       Explore: props.Explore,
       Object:  object.Type,
+      Emit:    props.Context.Emit,
     }))
   }
   for _, native := range props.Metadata.Natives {
@@ -505,7 +511,7 @@ func randomProgrammer_decode_atomic(props randomProgrammer_decodeAtomicProps) []
   f := nativecontext.EmitFactoryOf(randomProgrammer_factory, props.Context.Emit)
   output := make([]*shimast.Node, 0, len(schemaList))
   for _, schema := range schemaList {
-    composed := randomProgrammer_compose_atomic(props.Atomic.Type, schema)
+    composed := randomProgrammer_compose_atomic(props.Atomic.Type, schema, props.Context.Emit)
     output = append(output, f.NewCallExpression(
       nativefactories.ExpressionFactory.Coalesce(
         nativefactories.IdentifierFactory.Access(props.Context.Emit, f.NewIdentifier("_generator"), composed.Method, true),
@@ -527,7 +533,8 @@ type randomProgrammer_composedAtomic struct {
   Arguments []*shimast.Node
 }
 
-func randomProgrammer_compose_atomic(atomicType string, schema nativeiterate.JsonSchema) randomProgrammer_composedAtomic {
+func randomProgrammer_compose_atomic(atomicType string, schema nativeiterate.JsonSchema, emit *shimprinter.EmitContext) randomProgrammer_composedAtomic {
+  f := nativecontext.EmitFactoryOf(randomProgrammer_factory, emit)
   if atomicType == "string" {
     if raw, ok := schema["format"].(string); ok && raw != "" {
       if raw == "date-time" {
@@ -544,10 +551,10 @@ func randomProgrammer_compose_atomic(atomicType string, schema nativeiterate.Jso
         Method:   "pattern",
         Internal: "randomPattern",
         Arguments: []*shimast.Node{
-          randomProgrammer_factory.NewNewExpression(
-            randomProgrammer_factory.NewIdentifier("RegExp"),
+          f.NewNewExpression(
+            f.NewIdentifier("RegExp"),
             nil,
-            randomProgrammer_factory.NewNodeList([]*shimast.Node{randomProgrammer_factory.NewStringLiteral(pattern, shimast.TokenFlagsNone)}),
+            f.NewNodeList([]*shimast.Node{f.NewStringLiteral(pattern, shimast.TokenFlagsNone)}),
           ),
         },
       }
@@ -557,7 +564,7 @@ func randomProgrammer_compose_atomic(atomicType string, schema nativeiterate.Jso
       return randomProgrammer_composedAtomic{
         Method:    "integer",
         Internal:  "randomInteger",
-        Arguments: []*shimast.Node{nativefactories.LiteralFactory.Write(schema)},
+        Arguments: []*shimast.Node{nativefactories.LiteralFactory.Write(schema, emit)},
       }
     }
   } else if atomicType == "boolean" {
@@ -569,7 +576,7 @@ func randomProgrammer_compose_atomic(atomicType string, schema nativeiterate.Jso
   return randomProgrammer_composedAtomic{
     Method:    atomicType,
     Internal:  "random" + randomProgrammer_capitalize(atomicType),
-    Arguments: []*shimast.Node{nativefactories.LiteralFactory.Write(schema)},
+    Arguments: []*shimast.Node{nativefactories.LiteralFactory.Write(schema, emit)},
   }
 }
 
@@ -606,7 +613,7 @@ func randomProgrammer_decode_array(props randomProgrammer_decodeArrayProps) []*s
         nil,
         nil,
         f.NewNodeList([]*shimast.Node{
-          randomProgrammer_schema_without_items(schema),
+          randomProgrammer_schema_without_items(schema, props.Context.Emit),
         }),
         shimast.NodeFlagsNone,
       ))
@@ -628,6 +635,7 @@ func randomProgrammer_decode_array(props randomProgrammer_decodeArrayProps) []*s
       Array:      props.Array.Type,
       Recursive:  props.Explore.Recursive,
       Schema:     schema,
+      Emit:       props.Context.Emit,
     }))
   }
   return output
@@ -667,33 +675,36 @@ func randomProgrammer_decode_tuple(props randomProgrammer_decodeTupleProps) *shi
       })
     },
     Elements: props.Tuple.Type.Elements,
+    Emit:     props.Context.Emit,
   })
 }
 
 func randomProgrammer_decode_object(props randomProgrammer_decodeObjectProps) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(randomProgrammer_factory, props.Emit)
   var args *shimast.NodeList
   if props.Explore.Function {
-    recursive := randomProgrammer_factory.NewIdentifier("_recursive")
+    recursive := f.NewIdentifier("_recursive")
     if props.Explore.Recursive {
-      recursive = randomProgrammer_factory.NewKeywordExpression(shimast.KindTrueKeyword)
+      recursive = f.NewKeywordExpression(shimast.KindTrueKeyword)
     }
-    args = randomProgrammer_factory.NewNodeList([]*shimast.Node{
+    args = f.NewNodeList([]*shimast.Node{
       recursive,
       nativefactories.ExpressionFactory.Conditional(
-        randomProgrammer_factory.NewIdentifier("_recursive"),
-        randomProgrammer_factory.NewBinaryExpression(
+        f.NewIdentifier("_recursive"),
+        f.NewBinaryExpression(
           nil,
-          nativefactories.ExpressionFactory.Number(1),
+          nativefactories.ExpressionFactory.Number(1, props.Emit),
           nil,
-          randomProgrammer_factory.NewToken(shimast.KindPlusToken),
-          randomProgrammer_factory.NewIdentifier("_depth"),
+          f.NewToken(shimast.KindPlusToken),
+          f.NewIdentifier("_depth"),
         ),
-        randomProgrammer_factory.NewIdentifier("_depth"),
+        f.NewIdentifier("_depth"),
+        props.Emit,
       ),
     })
   }
-  return randomProgrammer_factory.NewCallExpression(
-    randomProgrammer_factory.NewIdentifier(props.Functor.UseLocal(randomProgrammer_prefix_object(props.Object.Index))),
+  return f.NewCallExpression(
+    f.NewIdentifier(props.Functor.UseLocal(randomProgrammer_prefix_object(props.Object.Index))),
     nil,
     nil,
     args,
@@ -727,7 +738,7 @@ func randomProgrammer_decode_set(props struct {
         Functor: props.Functor,
         Explore: props.Explore,
         Array:   array,
-      })),
+      }), props.Context.Emit),
     }),
   )
 }
@@ -774,7 +785,7 @@ func randomProgrammer_decode_map(props struct {
         Functor: props.Functor,
         Explore: props.Explore,
         Array:   array,
-      })),
+      }), props.Context.Emit),
     }),
   )
 }
@@ -796,7 +807,7 @@ func randomProgrammer_decode_native(props struct {
         Type: atomic,
         Tags: [][]schemametadata.IMetadataTypeTag{},
       }),
-    }))
+    }), props.Context.Emit)
   }
   if props.Name == "Date" {
     return randomProgrammer_decode_native_date(props.Context)
@@ -989,7 +1000,7 @@ func randomProgrammer_decode_native_array_buffer(props struct {
         Value string
       }{Kind: "type", Type: "number", Value: "uint32"})},
     }),
-  }))
+  }), props.Context.Emit)
   byteValue := randomProgrammer_first(randomProgrammer_decode_atomic(randomProgrammer_decodeAtomicProps{
     Context: props.Context,
     Atomic: schemametadata.MetadataAtomic_create(schemametadata.MetadataAtomic{
@@ -1012,7 +1023,7 @@ func randomProgrammer_decode_native_array_buffer(props struct {
         }{Kind: "maximum", Type: "number", Value: "255"}),
       )},
     }),
-  }))
+  }), props.Context.Emit)
   return nativefactories.ExpressionFactory.SelfCall(props.Context.Emit, f.NewBlock(f.NewNodeList([]*shimast.Node{
     nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{Name: "length", Value: length}, props.Context.Emit),
     nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
@@ -1125,7 +1136,7 @@ func randomProgrammer_write_ranged_string(context nativecontext.ITypiaContext, m
         }{Kind: "maxLength", Type: "string", Value: fmt.Sprint(maxLength)}),
       )},
     }),
-  }))
+  }), context.Emit)
 }
 
 func randomProgrammer_coalesce(context nativecontext.ITypiaContext, method string, internal string) *shimast.Node {
@@ -1137,21 +1148,22 @@ func randomProgrammer_coalesce(context nativecontext.ITypiaContext, method strin
   )
 }
 
-func randomProgrammer_schema_without_items(schema nativeiterate.JsonSchema) *shimast.Node {
+func randomProgrammer_schema_without_items(schema nativeiterate.JsonSchema, emit *shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(randomProgrammer_factory, emit)
   properties := []*shimast.Node{}
   for key, value := range schema {
     if key == "items" {
       continue
     }
-    properties = append(properties, randomProgrammer_factory.NewPropertyAssignment(
+    properties = append(properties, f.NewPropertyAssignment(
       nil,
-      nativefactories.IdentifierFactory.Identifier(key),
+      nativefactories.IdentifierFactory.Identifier(key, emit),
       nil,
       nil,
-      nativefactories.LiteralFactory.Write(value),
+      nativefactories.LiteralFactory.Write(value, emit),
     ))
   }
-  return randomProgrammer_factory.NewObjectLiteralExpression(randomProgrammer_factory.NewNodeList(properties), true)
+  return f.NewObjectLiteralExpression(f.NewNodeList(properties), true)
 }
 
 func randomProgrammer_internal(context nativecontext.ITypiaContext, name string) *shimast.Node {
@@ -1282,9 +1294,9 @@ func randomProgrammer_tags(base []schemametadata.IMetadataTypeTag, rows ...[]sch
   return output
 }
 
-func randomProgrammer_first(list []*shimast.Node) *shimast.Node {
+func randomProgrammer_first(list []*shimast.Node, emit *shimprinter.EmitContext) *shimast.Node {
   if len(list) == 0 {
-    return randomProgrammer_factory.NewIdentifier("undefined")
+    return nativecontext.EmitFactoryOf(randomProgrammer_factory, emit).NewIdentifier("undefined")
   }
   return list[0]
 }

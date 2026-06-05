@@ -109,9 +109,11 @@ func (functionAssertReturnProgrammerNamespace) Decompose(props FunctionAssertRet
           },
           Type: output.Type,
           Init: FunctionalAssertFunctionProgrammer.HookPath(struct {
+            Context  nativecontext.ITypiaContext
             Wrapper  string
             Replacer string
           }{
+            Context:  props.Context,
             Wrapper:  props.Wrapper,
             Replacer: "$input.return",
           }),

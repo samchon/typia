@@ -2,25 +2,28 @@ package iterate
 
 import (
   shimast "github.com/microsoft/typescript-go/shim/ast"
+  shimprinter "github.com/microsoft/typescript-go/shim/printer"
+  nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
   nativefactories "github.com/samchon/typia/packages/typia/native/core/factories"
 )
 
-func Check_everything(array *shimast.Expression) *shimast.Node {
-  return check_everything_factory.NewCallExpression(
+func Check_everything(array *shimast.Expression, emit ...*shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(check_everything_factory, emit...)
+  return f.NewCallExpression(
     nativefactories.IdentifierFactory.Access(nil, array, "every"),
     nil,
     nil,
-    check_everything_factory.NewNodeList([]*shimast.Node{
-      check_everything_factory.NewArrowFunction(
+    f.NewNodeList([]*shimast.Node{
+      f.NewArrowFunction(
         nil,
         nil,
-        check_everything_factory.NewNodeList([]*shimast.Node{
+        f.NewNodeList([]*shimast.Node{
           nativefactories.IdentifierFactory.Parameter("flag", nativefactories.TypeFactory.Keyword("boolean"), nil),
         }),
         nil,
         nil,
-        check_everything_factory.NewToken(shimast.KindEqualsGreaterThanToken),
-        check_everything_factory.NewIdentifier("flag"),
+        f.NewToken(shimast.KindEqualsGreaterThanToken),
+        f.NewIdentifier("flag"),
       ),
     }),
     shimast.NodeFlagsNone,

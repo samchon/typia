@@ -2,6 +2,7 @@ package llm
 
 import (
   shimast "github.com/microsoft/typescript-go/shim/ast"
+  shimprinter "github.com/microsoft/typescript-go/shim/printer"
   nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
   nativefactories "github.com/samchon/typia/packages/typia/native/core/factories"
   nativehelpers "github.com/samchon/typia/packages/typia/native/core/programmers/helpers"
@@ -52,7 +53,7 @@ func (llmParseProgrammerNamespace) Decompose(props LlmParseProgrammer_DecomposeP
     Statements: []*shimast.Node{
       nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
         Name: "__schema",
-        Type: llmProgrammer_import_type(props.Context, ImportTypeIParameters()),
+        Type: llmProgrammer_import_type(props.Context, ImportTypeIParameters(props.Context.Emit)),
         Value: LlmParametersProgrammer.WriteParametersExpression(LlmParametersProgrammer_IWriteProps{
           Context:  props.Context,
           Metadata: props.Metadata,
@@ -112,9 +113,9 @@ func (llmParseProgrammerNamespace) Validate(props struct {
   return LlmParametersProgrammer.Validate(props)
 }
 
-func ImportTypeIParameters() nativecontext.ImportProgrammer_TypeProps {
+func ImportTypeIParameters(emit ...*shimprinter.EmitContext) nativecontext.ImportProgrammer_TypeProps {
   return nativecontext.ImportProgrammer_TypeProps{
     File: "typia",
-    Name: llmParseProgrammer_factory.NewIdentifier("ILlmSchema.IParameters"),
+    Name: nativecontext.EmitFactoryOf(llmParseProgrammer_factory, emit...).NewIdentifier("ILlmSchema.IParameters"),
   }
 }
