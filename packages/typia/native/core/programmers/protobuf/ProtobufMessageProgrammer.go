@@ -60,6 +60,7 @@ func (protobufMessageProgrammerNamespace) Write(props ProtobufMessageProgrammer_
   }
   return f.NewCallExpression(
     nativefactories.IdentifierFactory.Access(
+      props.Context.Emit,
       f.NewArrayLiteralExpression(f.NewNodeList(elements), true),
       "join",
     ),

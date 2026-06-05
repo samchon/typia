@@ -202,7 +202,7 @@ func httpFormDataProgrammer_decode_regular_property(props struct {
   value := props.Property.Value
   typ, isArray := httpProgrammer_decode_type(value, true)
   input := f.NewCallExpression(
-    nativefactories.IdentifierFactory.Access(f.NewIdentifier("input"), "get"),
+    nativefactories.IdentifierFactory.Access(props.Context.Emit, f.NewIdentifier("input"), "get"),
     nil,
     nil,
     f.NewNodeList([]*shimast.Node{
@@ -213,8 +213,9 @@ func httpFormDataProgrammer_decode_regular_property(props struct {
   if isArray {
     input = f.NewCallExpression(
       nativefactories.IdentifierFactory.Access(
+        props.Context.Emit,
         f.NewCallExpression(
-          nativefactories.IdentifierFactory.Access(f.NewIdentifier("input"), "getAll"),
+          nativefactories.IdentifierFactory.Access(props.Context.Emit, f.NewIdentifier("input"), "getAll"),
           nil,
           nil,
           f.NewNodeList([]*shimast.Node{

@@ -335,7 +335,7 @@ func assertProgrammer_joiner(props AssertProgrammer_DecomposeProps) nativeintern
       return assertProgrammer_assert_object(assertProgrammer_assertObjectProps{Config: props.Config, Context: props.Context, Functor: props.Functor, Entries: next.Entries, Input: next.Input})
     },
     Array: func(next nativeinternal.CheckerProgrammer_JoinerArrayProps) *shimast.Node {
-      return f.NewCallExpression(nativefactories.IdentifierFactory.Access(next.Input, "every"), nil, nil, f.NewNodeList([]*shimast.Node{next.Arrow}), shimast.NodeFlagsNone)
+      return f.NewCallExpression(nativefactories.IdentifierFactory.Access(props.Context.Emit, next.Input, "every"), nil, nil, f.NewNodeList([]*shimast.Node{next.Arrow}), shimast.NodeFlagsNone)
     },
     Failure: func(next nativeinternal.CheckerProgrammer_JoinerFailureProps) *shimast.Node {
       explore := nativeinternal.FeatureProgrammer_IExplore{}

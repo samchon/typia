@@ -81,8 +81,9 @@ func (stringifyJoinerNamespace) Array(props StringifyJoiner_ArrayProps) *shimast
     stringifyJoiner_factory.NewStringLiteral("[", shimast.TokenFlagsNone),
     stringifyJoiner_factory.NewCallExpression(
       nativefactories.IdentifierFactory.Access(
+        nil,
         stringifyJoiner_factory.NewCallExpression(
-          nativefactories.IdentifierFactory.Access(props.Input, "map"),
+          nativefactories.IdentifierFactory.Access(nil, props.Input, "map"),
           nil,
           nil,
           stringifyJoiner_factory.NewNodeList([]*shimast.Node{props.Arrow}),
@@ -206,6 +207,7 @@ func stringifyJoiner_dynamic_properties(dynamic []IExpressionEntry, regular []st
   output := func() *shimast.Node {
     mapped := f.NewCallExpression(
       nativefactories.IdentifierFactory.Access(
+        nil,
         f.NewCallExpression(
           f.NewIdentifier("Object.entries"),
           nil,
@@ -233,7 +235,7 @@ func stringifyJoiner_dynamic_properties(dynamic []IExpressionEntry, regular []st
       shimast.NodeFlagsNone,
     )
     filtered := f.NewCallExpression(
-      nativefactories.IdentifierFactory.Access(mapped, "filter"),
+      nativefactories.IdentifierFactory.Access(nil, mapped, "filter"),
       nil,
       nil,
       f.NewNodeList([]*shimast.Node{
@@ -256,7 +258,7 @@ func stringifyJoiner_dynamic_properties(dynamic []IExpressionEntry, regular []st
       shimast.NodeFlagsNone,
     )
     return f.NewCallExpression(
-      nativefactories.IdentifierFactory.Access(filtered, "join"),
+      nativefactories.IdentifierFactory.Access(nil, filtered, "join"),
       nil,
       nil,
       f.NewNodeList([]*shimast.Node{f.NewStringLiteral(",", shimast.TokenFlagsNone)}),
@@ -271,6 +273,7 @@ func stringifyJoiner_dynamic_properties(dynamic []IExpressionEntry, regular []st
     statements = append(statements, f.NewIfStatement(
       f.NewCallExpression(
         nativefactories.IdentifierFactory.Access(
+          nil,
           f.NewArrayLiteralExpression(f.NewNodeList(elements), false),
           "some",
         ),

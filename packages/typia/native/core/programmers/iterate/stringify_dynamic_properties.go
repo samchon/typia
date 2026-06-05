@@ -27,6 +27,7 @@ func Stringify_dynamic_properties(dynamic []nativehelpers.IExpressionEntry, regu
   output := func() *shimast.Node {
     mapped := stringify_dynamic_properties_factory.NewCallExpression(
       nativefactories.IdentifierFactory.Access(
+        nil,
         stringify_dynamic_properties_factory.NewCallExpression(
           stringify_dynamic_properties_factory.NewIdentifier("Object.entries"),
           nil,
@@ -66,7 +67,7 @@ func Stringify_dynamic_properties(dynamic []nativehelpers.IExpressionEntry, regu
       shimast.NodeFlagsNone,
     )
     filtered := stringify_dynamic_properties_factory.NewCallExpression(
-      nativefactories.IdentifierFactory.Access(mapped, "filter"),
+      nativefactories.IdentifierFactory.Access(nil, mapped, "filter"),
       nil,
       nil,
       stringify_dynamic_properties_factory.NewNodeList([]*shimast.Node{
@@ -91,7 +92,7 @@ func Stringify_dynamic_properties(dynamic []nativehelpers.IExpressionEntry, regu
       shimast.NodeFlagsNone,
     )
     return stringify_dynamic_properties_factory.NewCallExpression(
-      nativefactories.IdentifierFactory.Access(filtered, "join"),
+      nativefactories.IdentifierFactory.Access(nil, filtered, "join"),
       nil,
       nil,
       stringify_dynamic_properties_factory.NewNodeList([]*shimast.Node{
@@ -109,6 +110,7 @@ func Stringify_dynamic_properties(dynamic []nativehelpers.IExpressionEntry, regu
     statements = append(statements, stringify_dynamic_properties_factory.NewIfStatement(
       stringify_dynamic_properties_factory.NewCallExpression(
         nativefactories.IdentifierFactory.Access(
+          nil,
           stringify_dynamic_properties_factory.NewArrayLiteralExpression(
             stringify_dynamic_properties_factory.NewNodeList(elements),
             false,

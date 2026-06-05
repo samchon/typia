@@ -612,7 +612,7 @@ func (checkerProgrammerNamespace) Decode(props CheckerProgrammer_DecodeProps) *s
       Exact: true,
       Left:  f.NewKeywordExpression(shimast.KindTrueKeyword),
       Right: f.NewCallExpression(
-        nativefactories.IdentifierFactory.Access(setName, "has"),
+        nativefactories.IdentifierFactory.Access(props.Context.Emit, setName, "has"),
         nil,
         nil,
         f.NewNodeList([]*shimast.Node{props.Input}),
@@ -1118,7 +1118,7 @@ func checkerProgrammer_decode_tuple_inline(props checkerProgrammer_decodeTupleIn
       Context: props.Context,
       Functor: props.Functor,
       Input: f.NewCallExpression(
-        nativefactories.IdentifierFactory.Access(props.Input, "slice"),
+        nativefactories.IdentifierFactory.Access(props.Context.Emit, props.Input, "slice"),
         nil,
         nil,
         f.NewNodeList([]*shimast.Node{nativefactories.ExpressionFactory.Number(len(props.Tuple.Elements)-1, props.Context.Emit)}),
@@ -1129,7 +1129,7 @@ func checkerProgrammer_decode_tuple_inline(props checkerProgrammer_decodeTupleIn
     })
   }
 
-  arrayLength := nativefactories.IdentifierFactory.Access(props.Input, "length")
+  arrayLength := nativefactories.IdentifierFactory.Access(props.Context.Emit, props.Input, "length")
   entries := []CheckerProgrammer_IBinary{}
   if rest == nil {
     allRequired := true
@@ -1218,7 +1218,7 @@ func checkerProgrammer_decode_escaped(props checkerProgrammer_decodeEscapedProps
     nil,
     f.NewNodeList([]*shimast.Node{
       f.NewCallExpression(
-        nativefactories.IdentifierFactory.Access(props.Input, "toJSON"),
+        nativefactories.IdentifierFactory.Access(props.Context.Emit, props.Input, "toJSON"),
         nil,
         nil,
         nil,
@@ -1684,7 +1684,7 @@ func checkerProgrammer_decode_to_json(props struct {
     }),
     checkerProgrammer_equal(
       checkerProgrammer_factory.NewStringLiteral("function", shimast.TokenFlagsNone),
-      nativefactories.ValueFactory.TYPEOF(nativefactories.IdentifierFactory.Access(props.Input, "toJSON")),
+      nativefactories.ValueFactory.TYPEOF(nativefactories.IdentifierFactory.Access(nil, props.Input, "toJSON")),
     ),
   )
 }

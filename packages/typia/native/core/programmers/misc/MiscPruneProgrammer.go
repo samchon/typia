@@ -493,7 +493,7 @@ func miscPruneProgrammer_decode_tuple_inline(props miscPruneProgrammer_decodeTup
         Config:  props.Config,
         Functor: props.Functor,
         Input: miscPruneProgrammer_factory.NewCallExpression(
-          nativefactories.IdentifierFactory.Access(props.Input, "slice"),
+          nativefactories.IdentifierFactory.Access(props.Context.Emit, props.Input, "slice"),
           nil,
           nil,
           miscPruneProgrammer_factory.NewNodeList([]*shimast.Node{nativefactories.ExpressionFactory.Number(start)}),

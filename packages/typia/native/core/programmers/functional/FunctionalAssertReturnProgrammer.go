@@ -73,6 +73,7 @@ func (functionAssertReturnProgrammerNamespace) Write(props FunctionAssertReturnP
     ),
   ))
   return nativefactories.ExpressionFactory.SelfCall(
+    props.Context.Emit,
     f.NewBlock(f.NewNodeList(statements), true),
   )
 }

@@ -317,7 +317,7 @@ func miscCloneProgrammer_decode(props struct {
       Value: func() *shimast.Node {
         if native.Name == "Boolean" || native.Name == "Number" || native.Name == "String" {
           return miscCloneProgrammer_factory.NewCallExpression(
-            nativefactories.IdentifierFactory.Access(props.Input, "valueOf"),
+            nativefactories.IdentifierFactory.Access(props.Context.Emit, props.Input, "valueOf"),
             nil,
             nil,
             nil,
@@ -542,7 +542,7 @@ func miscCloneProgrammer_decode_tuple_inline(props miscCloneProgrammer_decodeTup
         Config:  props.Config,
         Functor: props.Functor,
         Input: miscCloneProgrammer_factory.NewCallExpression(
-          nativefactories.IdentifierFactory.Access(props.Input, "slice"),
+          nativefactories.IdentifierFactory.Access(props.Context.Emit, props.Input, "slice"),
           nil,
           nil,
           miscCloneProgrammer_factory.NewNodeList([]*shimast.Node{nativefactories.ExpressionFactory.Number(start)}),
@@ -576,7 +576,7 @@ func miscCloneProgrammer_decode_native(props struct {
     return miscCloneProgrammer_factory.NewNewExpression(
       miscCloneProgrammer_factory.NewIdentifier("DataView"),
       nil,
-      miscCloneProgrammer_factory.NewNodeList([]*shimast.Node{nativefactories.IdentifierFactory.Access(props.Input, "buffer")}),
+      miscCloneProgrammer_factory.NewNodeList([]*shimast.Node{nativefactories.IdentifierFactory.Access(nil, props.Input, "buffer")}),
     )
   default:
     return miscCloneProgrammer_factory.NewCallExpression(
@@ -591,17 +591,19 @@ func miscCloneProgrammer_decode_native(props struct {
 
 func miscCloneProgrammer_decode_native_buffer(typ string, input *shimast.Node) *shimast.Node {
   return nativefactories.ExpressionFactory.SelfCall(
+    nil,
     miscCloneProgrammer_factory.NewBlock(miscCloneProgrammer_factory.NewNodeList([]*shimast.Node{
       nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
         Name: "buffer",
         Value: miscCloneProgrammer_factory.NewNewExpression(
           miscCloneProgrammer_factory.NewIdentifier(typ),
           nil,
-          miscCloneProgrammer_factory.NewNodeList([]*shimast.Node{nativefactories.IdentifierFactory.Access(input, "byteLength")}),
+          miscCloneProgrammer_factory.NewNodeList([]*shimast.Node{nativefactories.IdentifierFactory.Access(nil, input, "byteLength")}),
         ),
       }),
       miscCloneProgrammer_factory.NewExpressionStatement(miscCloneProgrammer_factory.NewCallExpression(
         nativefactories.IdentifierFactory.Access(
+          nil,
           miscCloneProgrammer_factory.NewNewExpression(
             miscCloneProgrammer_factory.NewIdentifier("Uint8Array"),
             nil,

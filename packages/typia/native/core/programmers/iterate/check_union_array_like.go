@@ -239,7 +239,7 @@ func Check_union_array_like(props Check_union_array_likeProps) *shimast.Node {
       nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
         Name: "passed",
         Value: check_union_array_like_factory.NewCallExpression(
-          nativefactories.IdentifierFactory.Access(check_union_array_like_factory.NewIdentifier("arrayPredicators"), "filter"),
+          nativefactories.IdentifierFactory.Access(nil, check_union_array_like_factory.NewIdentifier("arrayPredicators"), "filter"),
           nil,
           nil,
           check_union_array_like_factory.NewNodeList([]*shimast.Node{
@@ -330,7 +330,7 @@ func check_union_array_like_array_if(iterate func(init string, from *shimast.Exp
         check_union_array_like_factory.NewIdentifier("passed"),
         check_union_array_like_factory.NewIfStatement(
           check_union_array_like_factory.NewCallExpression(
-            nativefactories.IdentifierFactory.Access(array, "every"),
+            nativefactories.IdentifierFactory.Access(nil, array, "every"),
             nil,
             nil,
             check_union_array_like_factory.NewNodeList([]*shimast.Node{

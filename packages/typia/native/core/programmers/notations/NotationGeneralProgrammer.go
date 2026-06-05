@@ -357,7 +357,7 @@ func notationGeneralProgrammer_decode(props struct {
       Value: func() *shimast.Node {
         if native.Name == "Boolean" || native.Name == "Number" || native.Name == "String" {
           return f.NewCallExpression(
-            nativefactories.IdentifierFactory.Access(props.Input, "valueOf"),
+            nativefactories.IdentifierFactory.Access(props.Context.Emit, props.Input, "valueOf"),
             nil,
             nil,
             nil,
@@ -595,7 +595,7 @@ func notationGeneralProgrammer_decode_tuple_inline(props notationGeneralProgramm
         Context: props.Context,
         Functor: props.Functor,
         Input: f.NewCallExpression(
-          nativefactories.IdentifierFactory.Access(props.Input, "slice"),
+          nativefactories.IdentifierFactory.Access(props.Context.Emit, props.Input, "slice"),
           nil,
           nil,
           f.NewNodeList([]*shimast.Node{nativefactories.ExpressionFactory.Number(start, props.Context.Emit)}),

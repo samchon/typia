@@ -149,7 +149,7 @@ func (cloneJoinerNamespace) Tuple(props CloneJoiner_TupleProps) *shimast.Node {
 
 func (cloneJoinerNamespace) Array(props CloneJoiner_ArrayProps) *shimast.Node {
   return cloneJoiner_factory.NewCallExpression(
-    nativefactories.IdentifierFactory.Access(props.Input, "map"),
+    nativefactories.IdentifierFactory.Access(nil, props.Input, "map"),
     nil,
     nil,
     cloneJoiner_factory.NewNodeList([]*shimast.Node{props.Arrow}),
@@ -165,6 +165,7 @@ func cloneJoiner_regular_skip(regular []IExpressionEntry) *shimast.Node {
   return cloneJoiner_factory.NewIfStatement(
     cloneJoiner_factory.NewCallExpression(
       nativefactories.IdentifierFactory.Access(
+        nil,
         cloneJoiner_factory.NewArrayLiteralExpression(cloneJoiner_factory.NewNodeList(elements), false),
         "some",
       ),

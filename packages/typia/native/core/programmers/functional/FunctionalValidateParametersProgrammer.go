@@ -87,6 +87,7 @@ func (functionalValidateParametersProgrammerNamespace) Write(props FunctionalVal
     ),
   ))
   return nativefactories.ExpressionFactory.SelfCall(
+    props.Context.Emit,
     f.NewBlock(f.NewNodeList(statements), true),
   )
 }
@@ -127,7 +128,7 @@ func (functionalValidateParametersProgrammerNamespace) Decompose(props Functiona
   }
   validationResultArray := f.NewArrayLiteralExpression(f.NewNodeList(results), true)
   errorMatrix := f.NewCallExpression(
-    nativefactories.IdentifierFactory.Access(validationResultArray, "map"),
+    nativefactories.IdentifierFactory.Access(props.Context.Emit, validationResultArray, "map"),
     nil,
     nil,
     f.NewNodeList([]*shimast.Node{
@@ -147,7 +148,7 @@ func (functionalValidateParametersProgrammerNamespace) Decompose(props Functiona
             f.NewKeywordExpression(shimast.KindTrueKeyword),
             nil,
             f.NewToken(shimast.KindEqualsEqualsEqualsToken),
-            nativefactories.IdentifierFactory.Access(f.NewIdentifier("r"), "success"),
+            nativefactories.IdentifierFactory.Access(props.Context.Emit, f.NewIdentifier("r"), "success"),
           ),
           f.NewIdentifier("r"),
           f.NewObjectLiteralExpression(f.NewNodeList([]*shimast.Node{
@@ -156,7 +157,7 @@ func (functionalValidateParametersProgrammerNamespace) Decompose(props Functiona
               Expression *shimast.Node
               Replacer   *shimast.Node
             }{
-              Expression: nativefactories.IdentifierFactory.Access(f.NewIdentifier("r"), "errors"),
+              Expression: nativefactories.IdentifierFactory.Access(props.Context.Emit, f.NewIdentifier("r"), "errors"),
               Replacer: f.NewTemplateExpression(
                 f.NewTemplateHead("$input.parameters[", "$input.parameters[", shimast.TokenFlagsNone),
                 f.NewNodeList([]*shimast.Node{
@@ -175,7 +176,7 @@ func (functionalValidateParametersProgrammerNamespace) Decompose(props Functiona
     shimast.NodeFlagsNone,
   )
   failures := f.NewCallExpression(
-    nativefactories.IdentifierFactory.Access(errorMatrix, "filter"),
+    nativefactories.IdentifierFactory.Access(props.Context.Emit, errorMatrix, "filter"),
     nil,
     nil,
     f.NewNodeList([]*shimast.Node{
@@ -193,7 +194,7 @@ func (functionalValidateParametersProgrammerNamespace) Decompose(props Functiona
           f.NewKeywordExpression(shimast.KindFalseKeyword),
           nil,
           f.NewToken(shimast.KindEqualsEqualsEqualsToken),
-          nativefactories.IdentifierFactory.Access(f.NewIdentifier("r"), "success"),
+          nativefactories.IdentifierFactory.Access(props.Context.Emit, f.NewIdentifier("r"), "success"),
         ),
       ),
     }),
@@ -212,13 +213,13 @@ func (functionalValidateParametersProgrammerNamespace) Decompose(props Functiona
           nativefactories.ExpressionFactory.Number(0, props.Context.Emit),
           nil,
           f.NewToken(shimast.KindExclamationEqualsEqualsToken),
-          nativefactories.IdentifierFactory.Access(f.NewIdentifier(resultName), "length"),
+          nativefactories.IdentifierFactory.Access(props.Context.Emit, f.NewIdentifier(resultName), "length"),
         ),
         f.NewReturnStatement(f.NewObjectLiteralExpression(f.NewNodeList([]*shimast.Node{
           f.NewPropertyAssignment(nil, nativefactories.IdentifierFactory.Identifier("success", props.Context.Emit), nil, nil, f.NewKeywordExpression(shimast.KindFalseKeyword)),
           f.NewPropertyAssignment(nil, nativefactories.IdentifierFactory.Identifier("errors", props.Context.Emit), nil, nil, f.NewCallExpression(
-            nativefactories.IdentifierFactory.Access(f.NewCallExpression(
-              nativefactories.IdentifierFactory.Access(f.NewIdentifier(resultName), "map"),
+            nativefactories.IdentifierFactory.Access(props.Context.Emit, f.NewCallExpression(
+              nativefactories.IdentifierFactory.Access(props.Context.Emit, f.NewIdentifier(resultName), "map"),
               nil,
               nil,
               f.NewNodeList([]*shimast.Node{
@@ -231,7 +232,7 @@ func (functionalValidateParametersProgrammerNamespace) Decompose(props Functiona
                   nil,
                   nil,
                   f.NewToken(shimast.KindEqualsGreaterThanToken),
-                  nativefactories.IdentifierFactory.Access(f.NewIdentifier("r"), "errors"),
+                  nativefactories.IdentifierFactory.Access(props.Context.Emit, f.NewIdentifier("r"), "errors"),
                 ),
               }),
               shimast.NodeFlagsNone,

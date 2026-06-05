@@ -508,7 +508,7 @@ func randomProgrammer_decode_atomic(props randomProgrammer_decodeAtomicProps) []
     composed := randomProgrammer_compose_atomic(props.Atomic.Type, schema)
     output = append(output, f.NewCallExpression(
       nativefactories.ExpressionFactory.Coalesce(
-        nativefactories.IdentifierFactory.Access(f.NewIdentifier("_generator"), composed.Method, true),
+        nativefactories.IdentifierFactory.Access(props.Context.Emit, f.NewIdentifier("_generator"), composed.Method, true),
         randomProgrammer_internal(props.Context, composed.Internal),
         props.Context.Emit,
       ),
@@ -969,6 +969,7 @@ func randomProgrammer_decode_native_array_buffer(props struct {
   f := nativecontext.EmitFactoryOf(randomProgrammer_factory, props.Context.Emit)
   if props.Name == "ArrayBuffer" {
     return nativefactories.IdentifierFactory.Access(
+      props.Context.Emit,
       randomProgrammer_decode_native_byte_array(struct {
         Context nativecontext.ITypiaContext
         Functor *nativehelpers.FunctionProgrammer
@@ -1012,7 +1013,7 @@ func randomProgrammer_decode_native_array_buffer(props struct {
       )},
     }),
   }))
-  return nativefactories.ExpressionFactory.SelfCall(f.NewBlock(f.NewNodeList([]*shimast.Node{
+  return nativefactories.ExpressionFactory.SelfCall(props.Context.Emit, f.NewBlock(f.NewNodeList([]*shimast.Node{
     nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{Name: "length", Value: length}, props.Context.Emit),
     nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
       Name: "buffer",
@@ -1031,14 +1032,16 @@ func randomProgrammer_decode_native_array_buffer(props struct {
       ),
     }, props.Context.Emit),
     f.NewExpressionStatement(f.NewCallExpression(
-      nativefactories.IdentifierFactory.Access(f.NewIdentifier("bytes"), "set"),
+      nativefactories.IdentifierFactory.Access(props.Context.Emit, f.NewIdentifier("bytes"), "set"),
       nil,
       nil,
       f.NewNodeList([]*shimast.Node{
         f.NewCallExpression(
           nativefactories.IdentifierFactory.Access(
+            props.Context.Emit,
             f.NewCallExpression(
               nativefactories.IdentifierFactory.Access(
+                props.Context.Emit,
                 f.NewNewExpression(
                   f.NewIdentifier("Array"),
                   nil,
@@ -1080,6 +1083,7 @@ func randomProgrammer_decode_native_data_view(props struct {
     nil,
     f.NewNodeList([]*shimast.Node{
       nativefactories.IdentifierFactory.Access(
+        props.Context.Emit,
         randomProgrammer_decode_native_byte_array(struct {
           Context nativecontext.ITypiaContext
           Functor *nativehelpers.FunctionProgrammer
@@ -1127,7 +1131,7 @@ func randomProgrammer_write_ranged_string(context nativecontext.ITypiaContext, m
 func randomProgrammer_coalesce(context nativecontext.ITypiaContext, method string, internal string) *shimast.Node {
   f := nativecontext.EmitFactoryOf(randomProgrammer_factory, context.Emit)
   return nativefactories.ExpressionFactory.Coalesce(
-    nativefactories.IdentifierFactory.Access(f.NewIdentifier("_generator"), method, true),
+    nativefactories.IdentifierFactory.Access(context.Emit, f.NewIdentifier("_generator"), method, true),
     randomProgrammer_internal(context, internal),
     context.Emit,
   )

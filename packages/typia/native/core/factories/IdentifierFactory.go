@@ -23,24 +23,29 @@ func (identifierFactoryNamespace) Identifier(name string, emit ...*shimprinter.E
   return f.NewStringLiteral(name, shimast.TokenFlagsNone)
 }
 
-func (identifierFactoryNamespace) Access(input *shimast.Expression, key string, chain ...bool) *shimast.Node {
-  postfix := IdentifierFactory.Identifier(key)
+// Access takes a required emit context (nil for genuinely context-free callers)
+// because its trailing `chain` variadic blocks the optional-emit form the other
+// factories use; a required parameter also makes a forgotten context a compile
+// error rather than a silent metadata gap.
+func (identifierFactoryNamespace) Access(ec *shimprinter.EmitContext, input *shimast.Expression, key string, chain ...bool) *shimast.Node {
+  f := nativecontext.EmitFactory(ec, identifierFactory_factory)
+  postfix := IdentifierFactory.Identifier(key, ec)
   optional := len(chain) != 0 && chain[0]
   var questionDot *shimast.QuestionDotToken
   flags := shimast.NodeFlagsNone
   if optional {
-    questionDot = identifierFactory_factory.NewToken(shimast.KindQuestionDotToken)
+    questionDot = f.NewToken(shimast.KindQuestionDotToken)
     flags = shimast.NodeFlagsOptionalChain
   }
   if shimast.IsStringLiteral(postfix) {
-    return identifierFactory_factory.NewElementAccessExpression(
+    return f.NewElementAccessExpression(
       input,
       questionDot,
       postfix,
       flags,
     )
   }
-  return identifierFactory_factory.NewPropertyAccessExpression(
+  return f.NewPropertyAccessExpression(
     input,
     questionDot,
     postfix,

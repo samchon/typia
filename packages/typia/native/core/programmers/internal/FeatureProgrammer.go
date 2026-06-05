@@ -234,7 +234,7 @@ func (featureProgrammerNamespace) Compose(props FeatureProgrammer_ComposeProps) 
   })
   featureProgrammer_register_schema_unions(initialized.Collection, initialized.Metadata, map[*nativemetadata.MetadataSchema]bool{})
   body := props.Config.Decoder(FeatureProgrammer_DecoderProps{
-    Input:    nativefactories.ValueFactory.INPUT(),
+    Input:    nativefactories.ValueFactory.INPUT(props.Context.Emit),
     Metadata: initialized.Metadata,
     Explore: FeatureProgrammer_IExplore{
       Tracable: props.Config.Path || props.Config.Trace,
@@ -267,7 +267,7 @@ func (featureProgrammerNamespace) Compose(props FeatureProgrammer_ComposeProps) 
     Parameters: FeatureProgrammer.ParameterDeclarations(FeatureProgrammer_ParameterDeclarationsProps{
       Config: FeatureProgrammer_ParameterConfig{Path: props.Config.Path, Trace: props.Config.Trace},
       Type:   props.Config.Types.Input(props.Type, props.Name),
-      Input:  nativefactories.ValueFactory.INPUT(),
+      Input:  nativefactories.ValueFactory.INPUT(props.Context.Emit),
     }),
     Response: props.Config.Types.Output(props.Type, props.Name),
   }
@@ -317,7 +317,7 @@ func (featureProgrammerNamespace) Write(props FeatureProgrammer_WriteProps) *shi
   featureProgrammer_register_schema_unions(initialized.Collection, initialized.Metadata, map[*nativemetadata.MetadataSchema]bool{})
   output := props.Config.Decoder(FeatureProgrammer_DecoderProps{
     Metadata: initialized.Metadata,
-    Input:    nativefactories.ValueFactory.INPUT(),
+    Input:    nativefactories.ValueFactory.INPUT(props.Context.Emit),
     Explore: FeatureProgrammer_IExplore{
       Tracable: props.Config.Path || props.Config.Trace,
       Source:   "top",
@@ -367,7 +367,7 @@ func (featureProgrammerNamespace) Write(props FeatureProgrammer_WriteProps) *shi
     f.NewNodeList(FeatureProgrammer.ParameterDeclarations(FeatureProgrammer_ParameterDeclarationsProps{
       Config: FeatureProgrammer_ParameterConfig{Path: props.Config.Path, Trace: props.Config.Trace},
       Type:   props.Config.Types.Input(props.Type, props.Name),
-      Input:  nativefactories.ValueFactory.INPUT(),
+      Input:  nativefactories.ValueFactory.INPUT(props.Context.Emit),
     })),
     props.Config.Types.Output(props.Type, props.Name),
     nil,
@@ -402,7 +402,7 @@ func (featureProgrammerNamespace) Decode_array(props FeatureProgrammer_DecodeArr
     nil,
     featureProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
     props.Config.Decoder(FeatureProgrammer_DecoderProps{
-      Input:    nativefactories.ValueFactory.INPUT("elem"),
+      Input:    nativefactories.ValueFactory.INPUT(nil, "elem"),
       Metadata: props.Array.Type.Value,
       Explore: FeatureProgrammer_IExplore{
         Tracable: props.Explore.Tracable,
@@ -587,7 +587,7 @@ func featureProgrammer_write_object_functions(config FeatureProgrammer_IConfig, 
         f.NewNodeList(FeatureProgrammer.ParameterDeclarations(FeatureProgrammer_ParameterDeclarationsProps{
           Config: FeatureProgrammer_ParameterConfig{Path: config.Path, Trace: config.Trace},
           Type:   nativefactories.TypeFactory.Keyword("any"),
-          Input:  nativefactories.ValueFactory.INPUT(),
+          Input:  nativefactories.ValueFactory.INPUT(context.Emit),
         })),
         objectType,
         nil,
@@ -643,7 +643,7 @@ func featureProgrammer_write_union(props struct {
     featureProgrammer_factory.NewNodeList(FeatureProgrammer.ParameterDeclarations(FeatureProgrammer_ParameterDeclarationsProps{
       Config: FeatureProgrammer_ParameterConfig{Path: props.Config.Path, Trace: props.Config.Trace},
       Type:   nativefactories.TypeFactory.Keyword("any"),
-      Input:  nativefactories.ValueFactory.INPUT(),
+      Input:  nativefactories.ValueFactory.INPUT(nil),
     })),
     nativefactories.TypeFactory.Keyword("any"),
     nil,
@@ -653,7 +653,7 @@ func featureProgrammer_write_union(props struct {
         Objector: featureProgrammer_union_objector(props.Config.Objector),
       },
       Objects: props.Objects,
-      Input:   nativefactories.ValueFactory.INPUT(),
+      Input:   nativefactories.ValueFactory.INPUT(nil),
       Explore: FeatureProgrammer_IExplore{
         Tracable: props.Config.Path || props.Config.Trace,
         Source:   "function",

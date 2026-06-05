@@ -236,14 +236,14 @@ func httpHeadersProgrammer_decode_object(props struct {
     }, props.Context.Emit),
   }
   for _, key := range optionals {
-    access := nativefactories.IdentifierFactory.Access(output, key)
+    access := nativefactories.IdentifierFactory.Access(props.Context.Emit, output, key)
     statements = append(statements, f.NewIfStatement(
       f.NewBinaryExpression(
         nil,
         nativefactories.ExpressionFactory.Number(0, props.Context.Emit),
         nil,
         f.NewToken(shimast.KindEqualsEqualsEqualsToken),
-        nativefactories.IdentifierFactory.Access(access, "length"),
+        nativefactories.IdentifierFactory.Access(props.Context.Emit, access, "length"),
       ),
       f.NewExpressionStatement(
         f.NewDeleteExpression(access),
@@ -266,6 +266,7 @@ func httpHeadersProgrammer_decode_regular_property(props struct {
   value := props.Property.Value
   typ, isArray := httpProgrammer_decode_type(value, false)
   input := nativefactories.IdentifierFactory.Access(
+    props.Context.Emit,
     f.NewIdentifier("input"),
     strings.ToLower(key),
   )
@@ -350,7 +351,7 @@ func httpHeadersProgrammer_decode_array(props struct {
       nil,
       f.NewToken(shimast.KindEqualsGreaterThanToken),
       f.NewCallExpression(
-        nativefactories.IdentifierFactory.Access(f.NewIdentifier("str"), "trim"),
+        nativefactories.IdentifierFactory.Access(props.Context.Emit, f.NewIdentifier("str"), "trim"),
         nil,
         nil,
         nil,
@@ -365,7 +366,7 @@ func httpHeadersProgrammer_decode_array(props struct {
     delimiter = "; "
   }
   split := f.NewCallExpression(
-    nativefactories.IdentifierFactory.Access(props.Input, "split", true),
+    nativefactories.IdentifierFactory.Access(props.Context.Emit, props.Input, "split", true),
     nil,
     nil,
     f.NewNodeList([]*shimast.Node{
@@ -374,14 +375,14 @@ func httpHeadersProgrammer_decode_array(props struct {
     shimast.NodeFlagsOptionalChain,
   )
   mappedSplit := f.NewCallExpression(
-    nativefactories.IdentifierFactory.Access(split, "map", true),
+    nativefactories.IdentifierFactory.Access(props.Context.Emit, split, "map", true),
     nil,
     nil,
     f.NewNodeList([]*shimast.Node{reader}),
     shimast.NodeFlagsOptionalChain,
   )
   arrayMap := f.NewCallExpression(
-    nativefactories.IdentifierFactory.Access(props.Input, "map"),
+    nativefactories.IdentifierFactory.Access(props.Context.Emit, props.Input, "map"),
     nil,
     nil,
     f.NewNodeList([]*shimast.Node{reader}),

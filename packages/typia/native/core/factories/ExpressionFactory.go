@@ -209,25 +209,29 @@ func (expressionFactoryNamespace) Currying(props ExpressionFactory_CurryingProps
   return prev
 }
 
-func (expressionFactoryNamespace) SelfCall(body *shimast.ConciseBody, typeNode ...*shimast.TypeNode) *shimast.Node {
+// SelfCall takes a required emit context (nil for context-free callers) for the
+// same reason as IdentifierFactory.Access: its trailing typeNode variadic blocks
+// the optional-emit form.
+func (expressionFactoryNamespace) SelfCall(ec *shimprinter.EmitContext, body *shimast.ConciseBody, typeNode ...*shimast.TypeNode) *shimast.Node {
   if body != nil && body.Kind == shimast.KindCallExpression {
     return body
   }
+  f := nativecontext.EmitFactory(ec, expressionFactory_factory)
   var output *shimast.TypeNode
   if len(typeNode) != 0 {
     output = typeNode[0]
   }
-  arrow := expressionFactory_factory.NewArrowFunction(
+  arrow := f.NewArrowFunction(
     nil,
     nil,
-    expressionFactory_factory.NewNodeList(nil),
+    f.NewNodeList(nil),
     output,
     nil,
-    expressionFactory_factory.NewToken(shimast.KindEqualsGreaterThanToken),
+    f.NewToken(shimast.KindEqualsGreaterThanToken),
     body,
   )
-  return expressionFactory_factory.NewCallExpression(
-    expressionFactory_factory.NewParenthesizedExpression(arrow),
+  return f.NewCallExpression(
+    f.NewParenthesizedExpression(arrow),
     nil,
     nil,
     nil,

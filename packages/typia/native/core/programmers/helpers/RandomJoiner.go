@@ -180,7 +180,7 @@ func randomJoiner_dynamicProperty(props randomJoiner_DynamicPropertyProps) *shim
   metadata := nativemetadata.MetadataSchema_initialize()
   metadata.Arrays = []*nativemetadata.MetadataArray{array}
   return randomJoiner_factory.NewCallExpression(
-    nativefactories.IdentifierFactory.Access(randomJoiner_factory.NewIdentifier("Object"), "fromEntries"),
+    nativefactories.IdentifierFactory.Access(nil, randomJoiner_factory.NewIdentifier("Object"), "fromEntries"),
     nil,
     nil,
     randomJoiner_factory.NewNodeList([]*shimast.Node{

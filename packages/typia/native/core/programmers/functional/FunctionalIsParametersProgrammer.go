@@ -80,6 +80,7 @@ func (functionalIsParametersProgrammerNamespace) Write(props FunctionalIsParamet
     ),
   ))
   return nativefactories.ExpressionFactory.SelfCall(
+    props.Context.Emit,
     f.NewBlock(f.NewNodeList(statements), true),
   )
 }

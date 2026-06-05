@@ -259,7 +259,7 @@ func httpQueryProgrammer_decode_regular_property(props struct {
   value := props.Property.Value
   typ, isArray := httpProgrammer_decode_type(value, false)
   input := f.NewCallExpression(
-    nativefactories.IdentifierFactory.Access(f.NewIdentifier("input"), "get"),
+    nativefactories.IdentifierFactory.Access(props.Context.Emit, f.NewIdentifier("input"), "get"),
     nil,
     nil,
     f.NewNodeList([]*shimast.Node{
@@ -269,7 +269,7 @@ func httpQueryProgrammer_decode_regular_property(props struct {
   )
   if isArray {
     input = f.NewCallExpression(
-      nativefactories.IdentifierFactory.Access(f.NewIdentifier("input"), "getAll"),
+      nativefactories.IdentifierFactory.Access(props.Context.Emit, f.NewIdentifier("input"), "getAll"),
       nil,
       nil,
       f.NewNodeList([]*shimast.Node{
@@ -282,6 +282,7 @@ func httpQueryProgrammer_decode_regular_property(props struct {
     }
     input = f.NewCallExpression(
       nativefactories.IdentifierFactory.Access(
+        props.Context.Emit,
         input,
         "map",
       ),
@@ -431,7 +432,7 @@ func httpQueryProgrammer_assert_required_array(key string, input *shimast.Node, 
             nativefactories.ExpressionFactory.Number(0, emit...),
             nil,
             f.NewToken(shimast.KindEqualsEqualsEqualsToken),
-            nativefactories.IdentifierFactory.Access(value, "length"),
+            nativefactories.IdentifierFactory.Access(nil, value, "length"),
           ),
           f.NewThrowStatement(httpQueryProgrammer_missing_error(key, emit...)),
           nil,

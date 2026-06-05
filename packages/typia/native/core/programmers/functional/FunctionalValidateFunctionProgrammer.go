@@ -64,6 +64,7 @@ func (functionalValidateFunctionProgrammerNamespace) Write(props FunctionalValid
     ),
   ))
   return nativefactories.ExpressionFactory.SelfCall(
+    props.Context.Emit,
     f.NewBlock(f.NewNodeList(statements), true),
   )
 }
@@ -73,7 +74,7 @@ func (functionalValidateFunctionProgrammerNamespace) HookErrors(props struct {
   Replacer   *shimast.Node
 }) *shimast.Node {
   return functionalValidateProgrammer_factory.NewCallExpression(
-    nativefactories.IdentifierFactory.Access(props.Expression, "map"),
+    nativefactories.IdentifierFactory.Access(nil, props.Expression, "map"),
     nil,
     nil,
     functionalValidateProgrammer_factory.NewNodeList([]*shimast.Node{
@@ -95,7 +96,8 @@ func (functionalValidateFunctionProgrammerNamespace) HookErrors(props struct {
             nil,
             functionalValidateProgrammer_factory.NewCallExpression(
               nativefactories.IdentifierFactory.Access(
-                nativefactories.IdentifierFactory.Access(functionalValidateProgrammer_factory.NewIdentifier("error"), "path"),
+                nil,
+                nativefactories.IdentifierFactory.Access(nil, functionalValidateProgrammer_factory.NewIdentifier("error"), "path"),
                 "replace",
               ),
               nil,

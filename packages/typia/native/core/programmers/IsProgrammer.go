@@ -145,7 +145,7 @@ func (isProgrammerNamespace) Configure(props struct {
       },
       Array: func(v nativeinternal.CheckerProgrammer_JoinerArrayProps) *shimast.Node {
         return f.NewCallExpression(
-          nativefactories.IdentifierFactory.Access(v.Input, "every"),
+          nativefactories.IdentifierFactory.Access(props.Context.Emit, v.Input, "every"),
           nil,
           nil,
           f.NewNodeList([]*shimast.Node{v.Arrow}),
@@ -314,7 +314,7 @@ func (isProgrammerNamespace) Decode_to_json(props struct {
     isProgrammer_binary(
       isProgrammer_factory.NewStringLiteral("function", shimast.TokenFlagsNone),
       shimast.KindEqualsEqualsEqualsToken,
-      nativefactories.ValueFactory.TYPEOF(nativefactories.IdentifierFactory.Access(props.Input, "toJSON")),
+      nativefactories.ValueFactory.TYPEOF(nativefactories.IdentifierFactory.Access(nil, props.Input, "toJSON")),
     ),
   )
 }

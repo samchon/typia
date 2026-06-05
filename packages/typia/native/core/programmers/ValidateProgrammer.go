@@ -319,7 +319,7 @@ func validateProgrammer_joiner(props ValidateProgrammer_DecomposeProps) nativein
       return validateProgrammer_validate_object(validateProgrammer_validateObjectProps{Context: props.Context, Functor: props.Functor, Config: props.Config, Entries: v.Entries, Input: v.Input})
     },
     Array: func(v nativeinternal.CheckerProgrammer_JoinerArrayProps) *shimast.Node {
-      return nativeiterate.Check_everything(f.NewCallExpression(nativefactories.IdentifierFactory.Access(v.Input, "map"), nil, nil, f.NewNodeList([]*shimast.Node{v.Arrow}), shimast.NodeFlagsNone))
+      return nativeiterate.Check_everything(f.NewCallExpression(nativefactories.IdentifierFactory.Access(props.Context.Emit, v.Input, "map"), nil, nil, f.NewNodeList([]*shimast.Node{v.Arrow}), shimast.NodeFlagsNone))
     },
     Failure: func(next nativeinternal.CheckerProgrammer_JoinerFailureProps) *shimast.Node {
       explore := nativeinternal.FeatureProgrammer_IExplore{}

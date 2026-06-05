@@ -216,7 +216,7 @@ func (unionExplorerNamespace) Object(props UnionExplorer_ObjectProps) *shimast.N
   for i := len(filtered) - 1; i >= 0; i-- {
     spec := filtered[i]
     key := *spec.Property.Key.GetSoleLiteral()
-    accessor := nativefactories.IdentifierFactory.Access(props.Input, key)
+    accessor := nativefactories.IdentifierFactory.Access(nil, props.Input, key)
 
     var pred *shimast.Node
     if spec.Neighbor {
@@ -323,7 +323,7 @@ func (unionExplorerNamespace) Array(props UnionExplorer_ArrayProps) *shimast.Nod
         return x.(*nativemetadata.MetadataArray).Type.Value
       },
       Size: func(input *shimast.Expression) *shimast.Node {
-        return nativefactories.IdentifierFactory.Access(input, "length")
+        return nativefactories.IdentifierFactory.Access(nil, input, "length")
       },
       Front: func(input *shimast.Expression) *shimast.Node {
         return unionExplorer_factory.NewElementAccessExpression(input, nil, nativefactories.ExpressionFactory.Number(0), shimast.NodeFlagsNone)
@@ -352,7 +352,7 @@ func (unionExplorerNamespace) Array_or_tuple(props UnionExplorer_ArrayOrTuplePro
         return x
       },
       Size: func(input *shimast.Expression) *shimast.Node {
-        return nativefactories.IdentifierFactory.Access(input, "length")
+        return nativefactories.IdentifierFactory.Access(nil, input, "length")
       },
       Front: func(input *shimast.Expression) *shimast.Node {
         return unionExplorer_factory.NewElementAccessExpression(input, nil, nativefactories.ExpressionFactory.Number(0), shimast.NodeFlagsNone)
@@ -401,24 +401,24 @@ func (unionExplorerNamespace) Set(props UnionExplorer_SetProps) *shimast.Node {
         return array.(*nativemetadata.MetadataArray).Type.Value
       },
       Size: func(input *shimast.Expression) *shimast.Node {
-        return nativefactories.IdentifierFactory.Access(input, "size")
+        return nativefactories.IdentifierFactory.Access(nil, input, "size")
       },
       Front: func(input *shimast.Expression) *shimast.Node {
         values := unionExplorer_factory.NewCallExpression(
-          nativefactories.IdentifierFactory.Access(input, "values"),
+          nativefactories.IdentifierFactory.Access(nil, input, "values"),
           nil,
           nil,
           nil,
           shimast.NodeFlagsNone,
         )
         next := unionExplorer_factory.NewCallExpression(
-          nativefactories.IdentifierFactory.Access(values, "next"),
+          nativefactories.IdentifierFactory.Access(nil, values, "next"),
           nil,
           nil,
           nil,
           shimast.NodeFlagsNone,
         )
-        return nativefactories.IdentifierFactory.Access(next, "value")
+        return nativefactories.IdentifierFactory.Access(nil, next, "value")
       },
       Array: func(input *shimast.Expression) *shimast.Node {
         return unionExplorer_factory.NewArrayLiteralExpression(
@@ -452,24 +452,24 @@ func (unionExplorerNamespace) Map(props UnionExplorer_MapProps) *shimast.Node {
         return []*nativemetadata.MetadataSchema{elements[0], elements[1]}
       },
       Size: func(input *shimast.Expression) *shimast.Node {
-        return nativefactories.IdentifierFactory.Access(input, "size")
+        return nativefactories.IdentifierFactory.Access(nil, input, "size")
       },
       Front: func(input *shimast.Expression) *shimast.Node {
         entries := unionExplorer_factory.NewCallExpression(
-          nativefactories.IdentifierFactory.Access(input, "entries"),
+          nativefactories.IdentifierFactory.Access(nil, input, "entries"),
           nil,
           nil,
           nil,
           shimast.NodeFlagsNone,
         )
         next := unionExplorer_factory.NewCallExpression(
-          nativefactories.IdentifierFactory.Access(entries, "next"),
+          nativefactories.IdentifierFactory.Access(nil, entries, "next"),
           nil,
           nil,
           nil,
           shimast.NodeFlagsNone,
         )
-        return nativefactories.IdentifierFactory.Access(next, "value")
+        return nativefactories.IdentifierFactory.Access(nil, next, "value")
       },
       Array: func(input *shimast.Expression) *shimast.Node {
         return unionExplorer_factory.NewArrayLiteralExpression(
@@ -742,7 +742,7 @@ func unionExplorer_check_union_array_like(props unionExplorer_check_union_array_
       nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
         Name: "passed",
         Value: unionExplorer_factory.NewCallExpression(
-          nativefactories.IdentifierFactory.Access(unionExplorer_factory.NewIdentifier("arrayPredicators"), "filter"),
+          nativefactories.IdentifierFactory.Access(nil, unionExplorer_factory.NewIdentifier("arrayPredicators"), "filter"),
           nil,
           nil,
           unionExplorer_factory.NewNodeList([]*shimast.Node{
@@ -833,7 +833,7 @@ func unionExplorer_array_if(iterate func(init string, from *shimast.Expression, 
         unionExplorer_factory.NewIdentifier("passed"),
         unionExplorer_factory.NewIfStatement(
           unionExplorer_factory.NewCallExpression(
-            nativefactories.IdentifierFactory.Access(array, "every"),
+            nativefactories.IdentifierFactory.Access(nil, array, "every"),
             nil,
             nil,
             unionExplorer_factory.NewNodeList([]*shimast.Node{

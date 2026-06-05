@@ -28,14 +28,14 @@ func (valueFactoryNamespace) BOOLEAN(value bool, emit ...*shimprinter.EmitContex
   return f.NewKeywordExpression(shimast.KindFalseKeyword)
 }
 
-// INPUT keeps its trailing `str ...string` variadic, so an `emit` variadic cannot
-// be appended; it is threaded in the required-ec follow-up (with SelfCall/Access).
-func (valueFactoryNamespace) INPUT(str ...string) *shimast.Node {
+// INPUT takes a required emit context (nil for context-free callers) because its
+// trailing `str` variadic blocks the optional-emit form used by the other methods.
+func (valueFactoryNamespace) INPUT(ec *shimprinter.EmitContext, str ...string) *shimast.Node {
   name := "input"
   if len(str) != 0 {
     name = str[0]
   }
-  return valueFactory_factory.NewIdentifier(name)
+  return nativecontext.EmitFactory(ec, valueFactory_factory).NewIdentifier(name)
 }
 
 func (valueFactoryNamespace) TYPEOF(input *shimast.Expression, emit ...*shimprinter.EmitContext) *shimast.Node {

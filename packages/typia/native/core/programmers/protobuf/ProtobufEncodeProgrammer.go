@@ -238,7 +238,7 @@ func protobufEncodeProgrammer_write_object_function(props protobufEncodeProgramm
       Explore:  props.Explore,
       Metadata: property.Value,
       Protobuf: property.Of_protobuf_,
-      Input:    nativefactories.IdentifierFactory.Access(props.Input, key),
+      Input:    nativefactories.IdentifierFactory.Access(props.Context.Emit, props.Input, key),
     })
     body = append(body, f.NewExpressionStatement(
       f.NewIdentifier("// property "+fmt.Sprintf("%q", key)+": "+property.Value.GetName()),
@@ -655,7 +655,7 @@ func protobufEncodeProgrammer_decode_array(props protobufEncodeProgrammer_decode
       f.NewIfStatement(
         protobufEncodeProgrammer_strict_not_equal(
           nativefactories.ExpressionFactory.Number(0, props.Context.Emit),
-          nativefactories.IdentifierFactory.Access(props.Input, "length"),
+          nativefactories.IdentifierFactory.Access(props.Context.Emit, props.Input, "length"),
         ),
         block,
         nil,
@@ -781,7 +781,7 @@ func protobufEncodeProgrammer_explore_objects(props protobufEncodeProgrammer_exp
       Functor: props.Functor,
       Schema:  mapSchema,
       Input: f.NewCallExpression(
-        nativefactories.IdentifierFactory.Access(f.NewIdentifier("Object"), "entries"),
+        nativefactories.IdentifierFactory.Access(props.Context.Emit, f.NewIdentifier("Object"), "entries"),
         nil,
         nil,
         f.NewNodeList([]*shimast.Node{props.Input}),
@@ -816,7 +816,7 @@ func protobufEncodeProgrammer_explore_objects(props protobufEncodeProgrammer_exp
         })
       },
       Decoder: func(v nativeiterate.Decode_union_object_next) *shimast.Node {
-        return nativefactories.ExpressionFactory.SelfCall(out(indexes[v.Object]))
+        return nativefactories.ExpressionFactory.SelfCall(props.Context.Emit, out(indexes[v.Object]))
       },
       Success: func(expr *shimast.Expression) *shimast.Node {
         return expr
@@ -865,7 +865,7 @@ func protobufEncodeProgrammer_explore_objects(props protobufEncodeProgrammer_exp
     if key == nil {
       continue
     }
-    accessor := nativefactories.IdentifierFactory.Access(props.Input, *key)
+    accessor := nativefactories.IdentifierFactory.Access(props.Context.Emit, props.Input, *key)
     var pred *shimast.Node
     if spec.Neighbor {
       explore := props.Explore
@@ -889,7 +889,7 @@ func protobufEncodeProgrammer_explore_objects(props protobufEncodeProgrammer_exp
           nextSchemas = append(nextSchemas, indexes[object])
         }
         elseStatement = f.NewExpressionStatement(
-          nativefactories.ExpressionFactory.SelfCall(protobufEncodeProgrammer_explore_objects(protobufEncodeProgrammer_exploreObjectsProps{
+          nativefactories.ExpressionFactory.SelfCall(props.Context.Emit, protobufEncodeProgrammer_explore_objects(protobufEncodeProgrammer_exploreObjectsProps{
             Context: props.Context,
             Functor: props.Functor,
             Level:   props.Level + 1,
@@ -909,13 +909,13 @@ func protobufEncodeProgrammer_explore_objects(props protobufEncodeProgrammer_exp
     }
     statement := f.NewIfStatement(
       pred,
-      f.NewExpressionStatement(nativefactories.ExpressionFactory.SelfCall(out(indexes[spec.Object]))),
+      f.NewExpressionStatement(nativefactories.ExpressionFactory.SelfCall(props.Context.Emit, out(indexes[spec.Object]))),
       elseStatement,
     )
     if len(statements) == 0 {
       statements = append(statements, statement)
     } else {
-      statements[0] = f.NewIfStatement(pred, f.NewExpressionStatement(nativefactories.ExpressionFactory.SelfCall(out(indexes[spec.Object]))), statements[0])
+      statements[0] = f.NewIfStatement(pred, f.NewExpressionStatement(nativefactories.ExpressionFactory.SelfCall(props.Context.Emit, out(indexes[spec.Object]))), statements[0])
     }
   }
   return f.NewBlock(f.NewNodeList(statements), true)
@@ -968,7 +968,7 @@ func protobufEncodeProgrammer_create_throw_error(props protobufEncodeProgrammer_
 
 func protobufEncodeProgrammer_callWriter(method string, args []*shimast.Node) *shimast.Node {
   return protobufEncodeProgrammer_factory.NewCallExpression(
-    nativefactories.IdentifierFactory.Access(protobufEncodeProgrammer_factory.NewIdentifier("writer"), method),
+    nativefactories.IdentifierFactory.Access(nil, protobufEncodeProgrammer_factory.NewIdentifier("writer"), method),
     nil,
     nil,
     protobufEncodeProgrammer_factory.NewNodeList(args),

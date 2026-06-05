@@ -69,6 +69,7 @@ func (functionalValidateReturnProgrammerNamespace) Write(props FunctionalValidat
     ),
   ))
   return nativefactories.ExpressionFactory.SelfCall(
+    props.Context.Emit,
     f.NewBlock(f.NewNodeList(statements), true),
   )
 }
@@ -121,18 +122,18 @@ func (functionalValidateReturnProgrammerNamespace) Decompose(props FunctionalVal
           f.NewKeywordExpression(shimast.KindFalseKeyword),
           nil,
           f.NewToken(shimast.KindEqualsEqualsEqualsToken),
-          nativefactories.IdentifierFactory.Access(f.NewIdentifier(name), "success"),
+          nativefactories.IdentifierFactory.Access(props.Context.Emit, f.NewIdentifier(name), "success"),
         ),
         f.NewExpressionStatement(f.NewBinaryExpression(
           nil,
-          nativefactories.IdentifierFactory.Access(f.NewIdentifier(name), "errors"),
+          nativefactories.IdentifierFactory.Access(props.Context.Emit, f.NewIdentifier(name), "errors"),
           nil,
           f.NewToken(shimast.KindEqualsToken),
           FunctionalValidateFunctionProgrammer.HookErrors(struct {
             Expression *shimast.Node
             Replacer   *shimast.Node
           }{
-            Expression: nativefactories.IdentifierFactory.Access(f.NewIdentifier(name), "errors"),
+            Expression: nativefactories.IdentifierFactory.Access(props.Context.Emit, f.NewIdentifier(name), "errors"),
             Replacer:   f.NewStringLiteral("$input.return", shimast.TokenFlagsNone),
           }),
         )),

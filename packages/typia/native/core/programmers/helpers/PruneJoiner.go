@@ -61,7 +61,7 @@ func (pruneJoinerNamespace) Object(props PruneJoiner_ObjectProps) *shimast.Node 
 
 func (pruneJoinerNamespace) Array(props PruneJoiner_ArrayProps) *shimast.Node {
   return pruneJoiner_factory.NewCallExpression(
-    nativefactories.IdentifierFactory.Access(props.Input, "forEach"),
+    nativefactories.IdentifierFactory.Access(nil, props.Input, "forEach"),
     nil,
     nil,
     pruneJoiner_factory.NewNodeList([]*shimast.Node{props.Arrow}),
@@ -157,6 +157,7 @@ func pruneJoiner_iterate_dynamic_properties(props pruneJoiner_iterate_dynamic_pr
   }
   return pruneJoiner_factory.NewCallExpression(
     nativefactories.IdentifierFactory.Access(
+      nil,
       pruneJoiner_factory.NewCallExpression(
         pruneJoiner_factory.NewIdentifier("Object.entries"),
         nil,

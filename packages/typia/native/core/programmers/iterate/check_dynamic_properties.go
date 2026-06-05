@@ -19,6 +19,7 @@ type Check_dynamic_propertiesProps struct {
 func Check_dynamic_properties(props Check_dynamic_propertiesProps) *shimast.Node {
   f := nativecontext.EmitFactoryOf(check_dynamic_properties_factory, props.Context.Emit)
   length := nativefactories.IdentifierFactory.Access(
+    props.Context.Emit,
     f.NewCallExpression(
       f.NewIdentifier("Object.keys"),
       nil,
@@ -81,7 +82,7 @@ func Check_dynamic_properties(props Check_dynamic_propertiesProps) *shimast.Node
       method = "every"
     }
     criteria = f.NewCallExpression(
-      nativefactories.IdentifierFactory.Access(keys, method),
+      nativefactories.IdentifierFactory.Access(props.Context.Emit, keys, method),
       nil,
       nil,
       f.NewNodeList([]*shimast.Node{property}),
@@ -197,6 +198,7 @@ func is_regular_property(regular []nativehelpers.IExpressionEntry, emit ...*shim
   }
   return f.NewCallExpression(
     nativefactories.IdentifierFactory.Access(
+      nil,
       f.NewArrayLiteralExpression(
         f.NewNodeList(elements),
         false,
@@ -259,6 +261,7 @@ func check_dynamic_properties_superfluous_description(emit ...*shimprinter.EmitC
   f := nativecontext.EmitFactoryOf(check_dynamic_properties_factory, emit...)
   return f.NewCallExpression(
     nativefactories.IdentifierFactory.Access(
+      nil,
       f.NewArrayLiteralExpression(
         f.NewNodeList([]*shimast.Node{
           f.NewTemplateExpression(

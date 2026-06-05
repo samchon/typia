@@ -146,7 +146,7 @@ func (notationJoinerNamespace) Tuple(props NotationJoiner_TupleProps) *shimast.N
 
 func (notationJoinerNamespace) Array(props NotationJoiner_ArrayProps) *shimast.Node {
   return notationJoiner_factory.NewCallExpression(
-    nativefactories.IdentifierFactory.Access(props.Input, "map"),
+    nativefactories.IdentifierFactory.Access(nil, props.Input, "map"),
     nil,
     nil,
     notationJoiner_factory.NewNodeList([]*shimast.Node{props.Arrow}),
@@ -162,6 +162,7 @@ func notationJoiner_regular_skip(regular []IExpressionEntry) *shimast.Node {
   return notationJoiner_factory.NewIfStatement(
     notationJoiner_factory.NewCallExpression(
       nativefactories.IdentifierFactory.Access(
+        nil,
         notationJoiner_factory.NewArrayLiteralExpression(notationJoiner_factory.NewNodeList(elements), false),
         "some",
       ),

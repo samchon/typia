@@ -221,7 +221,7 @@ func protobufDecodeProgrammer_write_object_function_body(props protobufDecodePro
     }
     clauses = append(clauses, protobufDecodeProgrammer_decode_property(protobufDecodeProgrammer_decodePropertyProps{
       Context:  props.Context,
-      Accessor: nativefactories.IdentifierFactory.Access(f.NewIdentifier(props.Output), *literal),
+      Accessor: nativefactories.IdentifierFactory.Access(props.Context.Emit, f.NewIdentifier(props.Output), *literal),
       Protobuf: property.Of_protobuf_,
       Metadata: property.Value,
     })...)
@@ -396,7 +396,7 @@ func protobufDecodeProgrammer_decode_property_type(props protobufDecodeProgramme
         ),
         Setter: func() *shimast.Node {
           return f.NewCallExpression(
-            nativefactories.IdentifierFactory.Access(props.Accessor, "set"),
+            nativefactories.IdentifierFactory.Access(props.Context.Emit, props.Accessor, "set"),
             nil,
             nil,
             f.NewNodeList([]*shimast.Node{
@@ -521,6 +521,7 @@ func protobufDecodeProgrammer_decode_map(props protobufDecodeProgrammer_decodeMa
   statements = append(statements, f.NewExpressionStatement(props.Setter()))
   return []*shimast.Node{
     f.NewExpressionStatement(nativefactories.ExpressionFactory.SelfCall(
+      props.Context.Emit,
       f.NewBlock(f.NewNodeList(statements), true),
     )),
   }
@@ -550,7 +551,7 @@ func protobufDecodeProgrammer_decode_array_value(schema schemaprotobuf.IProtobuf
 
 func protobufDecodeProgrammer_callReader(method string, args []*shimast.Node) *shimast.Node {
   return protobufDecodeProgrammer_factory.NewCallExpression(
-    nativefactories.IdentifierFactory.Access(protobufDecodeProgrammer_factory.NewIdentifier("reader"), method),
+    nativefactories.IdentifierFactory.Access(nil, protobufDecodeProgrammer_factory.NewIdentifier("reader"), method),
     nil,
     nil,
     protobufDecodeProgrammer_factory.NewNodeList(args),
@@ -647,7 +648,7 @@ func protobufDecodeProgrammer_objectNeedsProtobuf(object *schemametadata.Metadat
 
 func protobufDecodeProgrammer_arrayPush(accessor *shimast.Node, value *shimast.Node) *shimast.Node {
   return protobufDecodeProgrammer_factory.NewCallExpression(
-    nativefactories.IdentifierFactory.Access(accessor, "push"),
+    nativefactories.IdentifierFactory.Access(nil, accessor, "push"),
     nil,
     nil,
     protobufDecodeProgrammer_factory.NewNodeList([]*shimast.Node{value}),

@@ -7,7 +7,7 @@ import (
 
 func Check_everything(array *shimast.Expression) *shimast.Node {
   return check_everything_factory.NewCallExpression(
-    nativefactories.IdentifierFactory.Access(array, "every"),
+    nativefactories.IdentifierFactory.Access(nil, array, "every"),
     nil,
     nil,
     check_everything_factory.NewNodeList([]*shimast.Node{

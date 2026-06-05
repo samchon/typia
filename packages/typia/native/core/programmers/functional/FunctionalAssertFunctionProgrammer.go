@@ -77,6 +77,7 @@ func (functionalAssertFunctionProgrammerNamespace) Write(props FunctionalAssertF
     ),
   ))
   return nativefactories.ExpressionFactory.SelfCall(
+    props.Context.Emit,
     f.NewBlock(f.NewNodeList(statements), true),
   )
 }
@@ -109,7 +110,7 @@ func (functionalAssertFunctionProgrammerNamespace) HookPath(props struct {
   Wrapper  string
   Replacer string
 }) *shimast.Node {
-  path := nativefactories.IdentifierFactory.Access(functionalAssertProgrammer_factory.NewIdentifier("p"), "path")
+  path := nativefactories.IdentifierFactory.Access(nil, functionalAssertProgrammer_factory.NewIdentifier("p"), "path")
   return functionalAssertProgrammer_factory.NewArrowFunction(
     nil,
     nil,
@@ -134,7 +135,7 @@ func (functionalAssertFunctionProgrammerNamespace) HookPath(props struct {
             nativefactories.ExpressionFactory.Conditional(
               path,
               functionalAssertProgrammer_factory.NewCallExpression(
-                nativefactories.IdentifierFactory.Access(path, "replace"),
+                nativefactories.IdentifierFactory.Access(nil, path, "replace"),
                 nil,
                 nil,
                 functionalAssertProgrammer_factory.NewNodeList([]*shimast.Node{

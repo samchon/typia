@@ -776,7 +776,7 @@ func jsonStringifyProgrammer_decode_tuple_inline(props jsonStringifyProgrammer_d
         Config:  props.Config,
         Functor: props.Functor,
         Input: f.NewCallExpression(
-          nativefactories.IdentifierFactory.Access(props.Input, "slice"),
+          nativefactories.IdentifierFactory.Access(props.Context.Emit, props.Input, "slice"),
           nil,
           nil,
           f.NewNodeList([]*shimast.Node{nativefactories.ExpressionFactory.Number(start, props.Context.Emit)}),
@@ -881,7 +881,7 @@ func jsonStringifyProgrammer_decode_to_json(props struct {
   f := nativecontext.EmitFactoryOf(jsonStringifyProgrammer_factory, props.Context.Emit)
   next := props
   next.Input = f.NewCallExpression(
-    nativefactories.IdentifierFactory.Access(props.Input, "toJSON"),
+    nativefactories.IdentifierFactory.Access(props.Context.Emit, props.Input, "toJSON"),
     nil,
     nil,
     f.NewNodeList(nil),
