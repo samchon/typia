@@ -11,11 +11,10 @@ type jsonMetadataFactoryNamespace struct{}
 var JsonMetadataFactory = jsonMetadataFactoryNamespace{}
 
 type JsonMetadataFactory_IProps struct {
-  Method      string
-  Checker     *nativechecker.Checker
-  Transformer any
-  Type        *nativechecker.Type
-  Validate    MetadataFactory_Validator
+  Method   string
+  Checker  *nativechecker.Checker
+  Type     *nativechecker.Type
+  Validate MetadataFactory_Validator
 }
 
 type JsonMetadataFactory_IOutput struct {
@@ -43,8 +42,7 @@ func (jsonMetadataFactoryNamespace) Analyze(props JsonMetadataFactory_IProps) Js
     return errors
   }
   result := MetadataFactory.Analyze(MetadataFactory_IProps{
-    Checker:     props.Checker,
-    Transformer: props.Transformer,
+    Checker: props.Checker,
     Options: MetadataFactory_IOptions{
       Absorb:   true,
       Escape:   true,

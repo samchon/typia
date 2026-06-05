@@ -34,11 +34,10 @@ var protobufMessageProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFacto
 func (protobufMessageProgrammerNamespace) Write(props ProtobufMessageProgrammer_IProps) *shimast.Node {
   collection := schemametadata.NewMetadataCollection()
   nativefactories.ProtobufFactory.Metadata(nativefactories.ProtobufFactory_IProps{
-    Method:      "message",
-    Checker:     props.Context.Checker,
-    Transformer: props.Context.Transformer,
-    Components:  collection,
-    Type:        props.Type,
+    Method:     "message",
+    Checker:    props.Context.Checker,
+    Components: collection,
+    Type:       props.Type,
   })
   hierarchies := map[string]*protobufMessageProgrammer_Hierarchy{}
   order := []string{}

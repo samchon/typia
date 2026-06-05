@@ -93,7 +93,7 @@ func (jsonSchemasProgrammerNamespace) Write(props JsonSchemasProgrammer_IWritePr
   })
   return nativefactories.LiteralFactory.Write(map[string]any{
     "version":    collection.Version,
-    "components": collection.Components,
+    "components": collection.Components.ToLiteral(),
     "schemas":    collection.Schemas,
   })
 }

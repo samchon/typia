@@ -70,7 +70,7 @@ func (protobufValidateEncodeProgrammerNamespace) Decompose(props ProtobufValidat
       protobufValidateEncodeProgrammer_factory.NewNodeList([]*shimast.Node{
         nativefactories.IdentifierFactory.Parameter("input", nativefactories.TypeFactory.Keyword("any"), nil),
       }),
-      protobufValidateEncodeProgrammer_import_type(props.Context, nativeprogrammers.ImportProgrammer_TypeProps{
+      protobufValidateEncodeProgrammer_import_type(props.Context, nativecontext.ImportProgrammer_TypeProps{
         File:      "typia",
         Name:      "IValidation",
         Arguments: []*shimast.TypeNode{encodeType},
@@ -132,10 +132,8 @@ func (protobufValidateEncodeProgrammerNamespace) Write(props ProtobufValidateEnc
   })
 }
 
-func protobufValidateEncodeProgrammer_import_type(context nativecontext.ITypiaContext, props nativeprogrammers.ImportProgrammer_TypeProps) *shimast.Node {
-  if importer, ok := context.Importer.(interface {
-    Type(nativeprogrammers.ImportProgrammer_TypeProps) *shimast.Node
-  }); ok {
+func protobufValidateEncodeProgrammer_import_type(context nativecontext.ITypiaContext, props nativecontext.ImportProgrammer_TypeProps) *shimast.Node {
+  if importer := context.Importer; importer != nil {
     return importer.Type(props)
   }
   if str, ok := props.Name.(string); ok {

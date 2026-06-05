@@ -18,10 +18,26 @@ func Iterate_metadata_constant(props IMetadataIteratorProps) bool {
     description *string
     jsDocTags   []schemametadata.IJsDocTagInfo
   } {
+    if filter(nativechecker.TypeFlagsEnumLiteral) == false {
+      return struct {
+        description *string
+        jsDocTags   []schemametadata.IJsDocTagInfo
+      }{}
+    }
+    symbol := props.Type.Symbol()
+    if symbol == nil {
+      return struct {
+        description *string
+        jsDocTags   []schemametadata.IJsDocTagInfo
+      }{}
+    }
     return struct {
       description *string
       jsDocTags   []schemametadata.IJsDocTagInfo
-    }{}
+    }{
+      description: metadata_node_description(symbol),
+      jsDocTags:   metadata_node_js_doc_tags(symbol),
+    }
   }
 
   if filter(nativechecker.TypeFlagsStringLiteral) ||

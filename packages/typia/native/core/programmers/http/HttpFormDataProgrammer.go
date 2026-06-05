@@ -7,7 +7,6 @@ import (
   shimchecker "github.com/microsoft/typescript-go/shim/checker"
   nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
   nativefactories "github.com/samchon/typia/packages/typia/native/core/factories"
-  nativeprogrammers "github.com/samchon/typia/packages/typia/native/core/programmers"
   nativehelpers "github.com/samchon/typia/packages/typia/native/core/programmers/helpers"
   nativeinternal "github.com/samchon/typia/packages/typia/native/core/programmers/internal"
   schemametadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
@@ -29,8 +28,7 @@ var httpFormDataProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryH
 func (httpFormDataProgrammerNamespace) Decompose(props HttpFormDataProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
   collection := schemametadata.NewMetadataCollection()
   result := nativefactories.MetadataFactory.Analyze(nativefactories.MetadataFactory_IProps{
-    Checker:     props.Context.Checker,
-    Transformer: props.Context.Transformer,
+    Checker: props.Context.Checker,
     Options: nativefactories.MetadataFactory_IOptions{
       Escape:   false,
       Constant: true,
@@ -71,7 +69,7 @@ func (httpFormDataProgrammerNamespace) Decompose(props HttpFormDataProgrammer_De
           nil,
         ),
       }),
-      httpProgrammer_import_type(props.Context, nativeprogrammers.ImportProgrammer_TypeProps{
+      httpProgrammer_import_type(props.Context, nativecontext.ImportProgrammer_TypeProps{
         File: "typia",
         Name: "Resolved",
         Arguments: []*shimast.TypeNode{
@@ -330,16 +328,11 @@ func httpFormDataProgrammer_decode_array(props struct {
 }
 
 func httpProgrammer_method_text(modulo *shimast.Node) string {
-  if modulo == nil {
-    return ""
-  }
-  return modulo.Text()
+  return nativehelpers.ModuloMethodText(modulo)
 }
 
-func httpProgrammer_import_type(context nativecontext.ITypiaContext, props nativeprogrammers.ImportProgrammer_TypeProps) *shimast.Node {
-  if importer, ok := context.Importer.(interface {
-    Type(nativeprogrammers.ImportProgrammer_TypeProps) *shimast.Node
-  }); ok {
+func httpProgrammer_import_type(context nativecontext.ITypiaContext, props nativecontext.ImportProgrammer_TypeProps) *shimast.Node {
+  if importer := context.Importer; importer != nil {
     return importer.Type(props)
   }
   if str, ok := props.Name.(string); ok {

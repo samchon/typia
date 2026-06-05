@@ -1,8 +1,10 @@
 package factories
 
-import strings "strings"
+import (
+  strings "strings"
 
-import shimast "github.com/microsoft/typescript-go/shim/ast"
+  shimast "github.com/microsoft/typescript-go/shim/ast"
+)
 
 type templateFactoryNamespace struct{}
 

@@ -63,7 +63,7 @@ func (notationValidateGeneralProgrammerNamespace) Decompose(props NotationValida
       notationValidateGeneralProgrammer_factory.NewNodeList([]*shimast.Node{
         nativefactories.IdentifierFactory.Parameter("input", nativefactories.TypeFactory.Keyword("any"), nil),
       }),
-      notationGeneralProgrammer_import_type(props.Context, nativeprogrammers.ImportProgrammer_TypeProps{
+      notationGeneralProgrammer_import_type(props.Context, nativecontext.ImportProgrammer_TypeProps{
         File:      "typia",
         Name:      "IValidation",
         Arguments: []*shimast.TypeNode{notationType},

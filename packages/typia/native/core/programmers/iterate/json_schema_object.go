@@ -36,6 +36,7 @@ func json_schema_emplace_object(props struct {
     props.components.Schemas = map[string]JsonSchema{}
   }
   lazy := JsonSchema{}
+  props.components.emplaceSchemaKey(key)
   props.components.Schemas[key] = lazy
   json_schema_assign(lazy, json_schema_create_object_schema(props))
   return JsonSchema{"$ref": ref}

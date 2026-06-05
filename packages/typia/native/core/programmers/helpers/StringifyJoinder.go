@@ -367,7 +367,7 @@ func stringifyJoiner_sequence(meta *nativemetadata.MetadataSchema) int {
 }
 
 func stringifyJoiner_internal(context nativecontext.ITypiaContext, name string) *shimast.Node {
-  if importer, ok := context.Importer.(interface{ Internal(string) *shimast.Node }); ok {
+  if importer := context.Importer; importer != nil {
     return importer.Internal(name)
   }
   return stringifyJoiner_factory.NewIdentifier(name)

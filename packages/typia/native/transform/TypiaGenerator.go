@@ -95,7 +95,7 @@ func (typiaGeneratorNamespace) Build(location TypiaGenerator_ILocation) error {
       diagnostics = append(diagnostics, driver.Diagnostic{Message: "typia transform diagnostic"})
       return len(diagnostics)
     },
-  })
+  }, nil)
   for _, file := range container {
     if source := program.SourceFile(filepath.ToSlash(file)); source != nil {
       plugin(source)

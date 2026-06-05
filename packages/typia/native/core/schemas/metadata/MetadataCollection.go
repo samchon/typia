@@ -422,9 +422,17 @@ func metadataCollection_getFullName(checker *nativechecker.Checker, typ *nativec
     return "__type"
   }
   rendered := metadataCollection_sanitizeName(checker.TypeToString(typ))
-  symbol := nativechecker.Type_getTypeNameSymbol(typ)
+
+  // Mirror TypeFactory.getFullName: prefer the alias symbol, then the type's
+  // own symbol. getTypeNameSymbol already returns t.alias.symbol first (the
+  // alias symbol), so a non-nil result that differs from typ.Symbol() means the
+  // name was derived from a type alias such as `type Foo = Bar[]`.
+  nameSymbol := nativechecker.Type_getTypeNameSymbol(typ)
+  rawSymbol := typ.Symbol()
+  aliasDerived := nameSymbol != nil && nameSymbol != rawSymbol
+  symbol := nameSymbol
   if symbol == nil {
-    symbol = typ.Symbol()
+    symbol = rawSymbol
   }
   if symbol == nil {
     if typ.IsUnion() || typ.IsIntersection() {
@@ -445,8 +453,17 @@ func metadataCollection_getFullName(checker *nativechecker.Checker, typ *nativec
     return "__type"
   }
   name := metadataCollection_getName(symbol)
+
+  // Legacy chooses generic arguments by alias-ness: when the type carries an
+  // alias symbol it uses that alias' own type arguments (empty for a plain,
+  // non-generic alias), NOT checker.getTypeArguments(type) which would expose a
+  // reference type's element/instantiation arguments (e.g. the element type of
+  // `Foo = Bar[]`). Reading reference arguments for an alias doubled the name
+  // into `Foo<Foo.Member>` -> sanitized `FooFoo.Member`. A non-generic alias
+  // therefore resolves to the plain alias name; a generic alias is still caught
+  // by the specialized-name branch below because its rendered form is `Foo<..>`.
   generic := []*nativechecker.Type{}
-  if typ.ObjectFlags()&nativechecker.ObjectFlagsReference != 0 {
+  if aliasDerived == false && typ.ObjectFlags()&nativechecker.ObjectFlagsReference != 0 {
     generic = nativechecker.Checker_getTypeArguments(checker, typ)
   }
   if len(generic) == 0 {

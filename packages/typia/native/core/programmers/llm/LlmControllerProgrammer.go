@@ -3,7 +3,6 @@ package llm
 import (
   shimast "github.com/microsoft/typescript-go/shim/ast"
   nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
-  nativeprogrammers "github.com/samchon/typia/packages/typia/native/core/programmers"
   schemametadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
 )
 
@@ -26,7 +25,7 @@ type LlmControllerProgrammer_IWriteProps struct {
 var llmControllerProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
 func (llmControllerProgrammerNamespace) Write(props LlmControllerProgrammer_IWriteProps) *shimast.Node {
-  typeNode := llmProgrammer_import_type(props.Context, nativeprogrammers.ImportProgrammer_TypeProps{
+  typeNode := llmProgrammer_import_type(props.Context, nativecontext.ImportProgrammer_TypeProps{
     File:      "typia",
     Name:      "ILlmController",
     Arguments: []*shimast.TypeNode{props.Node},

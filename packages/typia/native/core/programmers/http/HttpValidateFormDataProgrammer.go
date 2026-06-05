@@ -82,7 +82,7 @@ func httpProgrammer_validate_result(context nativecontext.ITypiaContext, validat
       nil,
       nil,
       decodeArrow.Parameters,
-      httpProgrammer_import_type(context, nativeprogrammers.ImportProgrammer_TypeProps{
+      httpProgrammer_import_type(context, nativecontext.ImportProgrammer_TypeProps{
         File:      "typia",
         Name:      "IValidation",
         Arguments: []*shimast.TypeNode{output},

@@ -47,11 +47,10 @@ var protobufEncodeProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactor
 func (protobufEncodeProgrammerNamespace) Decompose(props ProtobufEncodeProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
   collection := schemametadata.NewMetadataCollection()
   metadata := nativefactories.ProtobufFactory.Metadata(nativefactories.ProtobufFactory_IProps{
-    Method:      protobufEncodeProgrammer_method_text(props.Modulo),
-    Checker:     props.Context.Checker,
-    Transformer: props.Context.Transformer,
-    Components:  collection,
-    Type:        props.Type,
+    Method:     protobufEncodeProgrammer_method_text(props.Modulo),
+    Checker:    props.Context.Checker,
+    Components: collection,
+    Type:       props.Type,
   })
 
   callEncoder := func(writer string, factory *shimast.Node) *shimast.Node {
@@ -192,7 +191,7 @@ func protobufEncodeProgrammer_write_encoder(props protobufEncodeProgrammer_write
       protobufEncodeProgrammer_factory.NewTypeParameterDeclaration(
         nil,
         protobufEncodeProgrammer_factory.NewIdentifier("Writer"),
-        protobufEncodeProgrammer_import_type(props.Context, nativeprogrammers.ImportProgrammer_TypeProps{
+        protobufEncodeProgrammer_import_type(props.Context, nativecontext.ImportProgrammer_TypeProps{
           File: "typia/lib/internal/_IProtobufWriter",
           Name: "_IProtobufWriter",
         }),
@@ -1178,10 +1177,8 @@ func protobufEncodeProgrammer_checker_explore(input any) nativeinternal.CheckerP
   }
 }
 
-func protobufEncodeProgrammer_import_type(context nativecontext.ITypiaContext, props nativeprogrammers.ImportProgrammer_TypeProps) *shimast.Node {
-  if importer, ok := context.Importer.(interface {
-    Type(nativeprogrammers.ImportProgrammer_TypeProps) *shimast.Node
-  }); ok {
+func protobufEncodeProgrammer_import_type(context nativecontext.ITypiaContext, props nativecontext.ImportProgrammer_TypeProps) *shimast.Node {
+  if importer := context.Importer; importer != nil {
     return importer.Type(props)
   }
   if str, ok := props.Name.(string); ok {
@@ -1191,17 +1188,12 @@ func protobufEncodeProgrammer_import_type(context nativecontext.ITypiaContext, p
 }
 
 func protobufEncodeProgrammer_internal(context nativecontext.ITypiaContext, name string) *shimast.Node {
-  if importer, ok := context.Importer.(interface {
-    Internal(string) *shimast.Node
-  }); ok {
+  if importer := context.Importer; importer != nil {
     return importer.Internal(name)
   }
   return protobufEncodeProgrammer_factory.NewIdentifier(name)
 }
 
 func protobufEncodeProgrammer_method_text(modulo *shimast.Node) string {
-  if modulo == nil {
-    return ""
-  }
-  return modulo.Text()
+  return nativehelpers.ModuloMethodText(modulo)
 }

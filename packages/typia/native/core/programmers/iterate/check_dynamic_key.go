@@ -248,7 +248,7 @@ func check_dynamic_key_strict_equal(left *shimast.Expression, right *shimast.Exp
 }
 
 func check_dynamic_key_internal(context nativecontext.ITypiaContext, name string) *shimast.Node {
-  if importer, ok := context.Importer.(interface{ Internal(string) *shimast.Node }); ok {
+  if importer := context.Importer; importer != nil {
     return importer.Internal(name)
   }
   return check_dynamic_key_factory.NewIdentifier(name)

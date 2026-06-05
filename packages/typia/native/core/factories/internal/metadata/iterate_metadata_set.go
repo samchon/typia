@@ -11,7 +11,7 @@ func Iterate_metadata_set(props IMetadataIteratorProps) bool {
     return false
   }
   typ := props.Checker.GetApparentType(props.Type)
-  name := metadata_type_full_name(props.Checker, typ, props.Components)
+  name := metadata_type_symbol_name(props.Checker, typ)
   if strings.HasPrefix(name, "Set<") == false {
     return false
   }

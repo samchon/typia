@@ -39,7 +39,7 @@ type AssertProgrammer_DecomposeProps struct {
 
 type assertProgrammerImporter interface {
   Internal(name string) *shimast.Node
-  Type(props ImportProgrammer_TypeProps) *shimast.Node
+  Type(props nativecontext.ImportProgrammer_TypeProps) *shimast.Node
 }
 
 type assertProgrammerGuardianNamespace struct{}
@@ -182,10 +182,7 @@ func (assertProgrammerNamespace) Decompose(props AssertProgrammer_DecomposeProps
 }
 
 func (assertProgrammerNamespace) Write(props AssertProgrammer_IProps) *shimast.Node {
-  method := ""
-  if props.Modulo != nil {
-    method = props.Modulo.Text()
-  }
+  method := nativehelpers.ModuloMethodText(props.Modulo)
   functor := nativehelpers.NewFunctionProgrammer(method)
   result := AssertProgrammer.Decompose(AssertProgrammer_DecomposeProps{
     Config:  props.Config,
@@ -410,7 +407,7 @@ func (assertProgrammerGuardianNamespace) Type(context nativecontext.ITypiaContex
         nil,
         assertProgrammer_factory.NewIdentifier("p"),
         nil,
-        assertProgrammer_import_type(context, ImportProgrammer_TypeProps{File: "typia", Name: "TypeGuardError.IProps"}),
+        assertProgrammer_import_type(context, nativecontext.ImportProgrammer_TypeProps{File: "typia", Name: "TypeGuardError.IProps"}),
         nil,
       ),
     }),
@@ -463,16 +460,14 @@ func assertProgrammer_type_name(context nativecontext.ITypiaContext, typ *native
 }
 
 func assertProgrammer_internal(context nativecontext.ITypiaContext, name string) *shimast.Node {
-  if importer, ok := context.Importer.(interface{ Internal(string) *shimast.Node }); ok {
+  if importer := context.Importer; importer != nil {
     return importer.Internal(name)
   }
   return assertProgrammer_factory.NewIdentifier(name)
 }
 
-func assertProgrammer_import_type(context nativecontext.ITypiaContext, props ImportProgrammer_TypeProps) *shimast.Node {
-  if importer, ok := context.Importer.(interface {
-    Type(ImportProgrammer_TypeProps) *shimast.Node
-  }); ok {
+func assertProgrammer_import_type(context nativecontext.ITypiaContext, props nativecontext.ImportProgrammer_TypeProps) *shimast.Node {
+  if importer := context.Importer; importer != nil {
     return importer.Type(props)
   }
   return assertProgrammer_factory.NewTypeReferenceNode(assertProgrammer_factory.NewIdentifier(props.Name.(string)), nil)

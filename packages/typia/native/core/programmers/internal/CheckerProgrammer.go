@@ -285,8 +285,7 @@ func checkerProgrammer_configure(context nativecontext.ITypiaContext, config Che
     Initializer: func(next FeatureProgrammer_InitializerProps) FeatureProgrammer_InitializerOutput {
       collection := nativemetadata.NewMetadataCollection()
       result := nativefactories.MetadataFactory.Analyze(nativefactories.MetadataFactory_IProps{
-        Checker:     next.Context.Checker,
-        Transformer: next.Context.Transformer,
+        Checker: next.Context.Checker,
         Options: nativefactories.MetadataFactory_IOptions{
           Escape:   false,
           Constant: true,
@@ -500,16 +499,18 @@ func (checkerProgrammerNamespace) Decode(props CheckerProgrammer_DecodeProps) *s
   }) {
     checkerProgrammer_create_add(&binaries, props.Input, next.Exact, next.Left, next.Right)
   }
-  getConstantValue := func(value any) *shimast.Node {
-    switch v := value.(type) {
-    case string:
-      return checkerProgrammer_factory.NewStringLiteral(v, shimast.TokenFlagsNone)
-    case int64:
-      return nativefactories.ExpressionFactory.Bigint(v)
-    case uint64:
-      return nativefactories.ExpressionFactory.Bigint(v)
-    case bool:
-      if v {
+  // legacy getConstantValue keys on `typeof value` (string | bigint | number |
+  // boolean). Go erases the literal type behind `any`, and typescript-go returns
+  // bigint literals as jsnum.PseudoBigInt (never int64/uint64), so we branch on
+  // the constant's declared `typ` instead of the Go runtime type.
+  getConstantValue := func(typ string, value any) *shimast.Node {
+    switch typ {
+    case "string":
+      return checkerProgrammer_factory.NewStringLiteral(fmt.Sprint(value), shimast.TokenFlagsNone)
+    case "bigint":
+      return nativefactories.ExpressionFactory.Bigint(value)
+    case "boolean":
+      if b, ok := value.(bool); ok && b {
         return checkerProgrammer_factory.NewKeywordExpression(shimast.KindTrueKeyword)
       }
       return checkerProgrammer_factory.NewKeywordExpression(shimast.KindFalseKeyword)
@@ -573,19 +574,19 @@ func (checkerProgrammerNamespace) Decode(props CheckerProgrammer_DecodeProps) *s
     values := []*shimast.Node{}
     for _, c := range constants {
       for _, v := range c.Values {
-        switch value := v.Value.(type) {
-        case bool:
-          if value {
+        switch c.Type {
+        case "boolean":
+          if b, ok := v.Value.(bool); ok && b {
             values = append(values, checkerProgrammer_factory.NewKeywordExpression(shimast.KindTrueKeyword))
           } else {
             values = append(values, checkerProgrammer_factory.NewKeywordExpression(shimast.KindFalseKeyword))
           }
-        case int64, uint64:
-          values = append(values, nativefactories.ExpressionFactory.Bigint(value))
-        case int, float64:
-          values = append(values, nativefactories.ExpressionFactory.Number(value))
+        case "bigint":
+          values = append(values, nativefactories.ExpressionFactory.Bigint(v.Value))
+        case "number":
+          values = append(values, nativefactories.ExpressionFactory.Number(v.Value))
         default:
-          values = append(values, checkerProgrammer_factory.NewStringLiteral(fmt.Sprint(value), shimast.TokenFlagsNone))
+          values = append(values, checkerProgrammer_factory.NewStringLiteral(fmt.Sprint(v.Value), shimast.TokenFlagsNone))
         }
       }
     }
@@ -621,7 +622,7 @@ func (checkerProgrammerNamespace) Decode(props CheckerProgrammer_DecodeProps) *s
           Exact bool
           Left  *shimast.Expression
           Right *shimast.Expression
-        }{Exact: true, Left: getConstantValue(v.Value)})
+        }{Exact: true, Left: getConstantValue(c.Type, v.Value)})
       }
     }
   }

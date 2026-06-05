@@ -55,7 +55,7 @@ func (llmApplicationProgrammerNamespace) Write(props LlmApplicationProgrammer_IW
   if props.Name != nil {
     arguments = []*shimast.TypeNode{llmProgrammer_type_reference(*props.Name)}
   }
-  typeNode := llmProgrammer_import_type(props.Context, nativeprogrammers.ImportProgrammer_TypeProps{
+  typeNode := llmProgrammer_import_type(props.Context, nativecontext.ImportProgrammer_TypeProps{
     File:      "typia",
     Name:      "ILlmApplication.__IPrimitive",
     Arguments: arguments,

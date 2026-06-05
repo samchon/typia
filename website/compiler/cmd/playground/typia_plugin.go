@@ -6,11 +6,17 @@
 // its own package-level stdout/stderr, here we rely on host.runWithCapturedIO
 // to redirect `os.Stdout` / `os.Stderr` for us — the Plugin contract.
 //
-// Public surface this delegates into (all live under
-// `node_modules/typia/native/`):
+// Public surface this delegates into (all live under `packages/typia/native/`):
 //
-//   - `adapter`   — call-site walker and `EmitCallWith*` emitters.
-//   - `driver`    — Program loader / RewriteSet (re-used from ttsc itself).
+//   - `adapter`         — call-site walker and per-feature `PluginOptions`.
+//   - `core/context`    — the `ITypiaContext_Extras` diagnostic sink.
+//   - `transform`       — the AST-integration node transformer.
+//   - `driver`          — Program loader + `EmitWithPluginTransformers`.
+//
+// The transform is the post-refactor AST path: typia's per-file transformer
+// runs inside tsgo's emit pipeline (sharing the EmitContext), returns AST, and
+// tsgo's module-transform aliases the injected namespace imports. There is no
+// text-splice RewriteSet or cleanup pass anymore.
 package main
 
 import (
@@ -20,14 +26,16 @@ import (
   "os"
   "path/filepath"
   "regexp"
-  "sort"
   "strings"
 
+  shimast "github.com/microsoft/typescript-go/shim/ast"
   shimcompiler "github.com/microsoft/typescript-go/shim/compiler"
-  shimscanner "github.com/microsoft/typescript-go/shim/scanner"
+  shimprinter "github.com/microsoft/typescript-go/shim/printer"
 
   "github.com/samchon/ttsc/packages/ttsc/driver"
   typiaadapter "github.com/samchon/typia/packages/typia/native/adapter"
+  nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
+  nativetransform "github.com/samchon/typia/packages/typia/native/transform"
 )
 
 type typiaPlugin struct{}
@@ -65,8 +73,6 @@ func (typiaPlugin) Run(command string, args []string) int {
 //
 //   - writes via os.Stdout / os.Stderr (no package-level writer indirection)
 //   - omits the manifest output (the playground has no use for it)
-//   - keeps the `--rewrite-mode` flag at typia for parity, but does not
-//     surface `none` as a useful mode (the playground is typia-only)
 func runTypiaBuild(args []string) int {
   fs := flag.NewFlagSet("build", flag.ContinueOnError)
   fs.SetOutput(os.Stderr)
@@ -117,26 +123,19 @@ func runTypiaBuild(args []string) int {
     return 2
   }
 
-  rewrites := driver.NewRewriteSet()
   shouldEmit := !prog.ParsedConfig.ParsedConfig.CompilerOptions.NoEmit.IsTrue()
-  sites, recognized, transformDiags := collectTypiaRewrites(
-    prog,
-    cwd,
-    shouldEmit,
-    *quiet,
-    "",
-    rewrites,
-    readTypiaPluginOptions(cwd, *tsconfigPath),
-  )
+  transformDiags := []typiaPlaygroundDiag{}
+  typiaTransform := newTypiaTransform(prog, cwd, *tsconfigPath, &transformDiags)
   if !*quiet {
-    fmt.Fprintf(os.Stdout, "// typia build: tsconfig=%s cwd=%s sites=%d emit=%v\n", *tsconfigPath, cwd, sites, shouldEmit)
+    fmt.Fprintf(os.Stdout, "// typia build: tsconfig=%s cwd=%s emit=%v\n", *tsconfigPath, cwd, shouldEmit)
   }
   if shouldEmit {
+    emitted := []string{}
     writeFile := shimcompiler.WriteFile(func(fileName, text string, _ *shimcompiler.WriteFileData) error {
-      text = typiaadapter.CleanupTransformedText(text)
+      emitted = append(emitted, fileName)
       return driver.DefaultWriteFile(fileName, text)
     })
-    res, eDiags, err := prog.EmitAll(rewrites, writeFile)
+    eDiags, err := prog.EmitWithPluginTransformers([]driver.PluginTransform{typiaTransform}, writeFile)
     if err != nil {
       fmt.Fprintf(os.Stderr, "typia build: emit failed: %v\n", err)
       return 3
@@ -145,15 +144,12 @@ func runTypiaBuild(args []string) int {
       fmt.Fprintln(os.Stderr, "  -", d.String())
     }
     if !*quiet {
-      fmt.Fprintf(os.Stdout, "// typia build: emitted=%d files\n", len(res.EmittedFiles))
+      fmt.Fprintf(os.Stdout, "// typia build: emitted=%d files\n", len(emitted))
     }
   }
   if len(transformDiags) > 0 {
-    writeTypiaTransformDiagnostics(os.Stderr, transformDiags, cwd)
+    writeTypiaPlaygroundDiagnostics(transformDiags, cwd)
     return 3
-  }
-  if !*quiet {
-    fmt.Fprintf(os.Stdout, "// typia build: recognized=%d total=%d\n", recognized, sites)
   }
   return 0
 }
@@ -161,15 +157,14 @@ func runTypiaBuild(args []string) int {
 // runTypiaTransform is the port of typia's `cmd/ttsc-typia/transform.go`
 // runTransform. The playground only needs the project-wide TS rewrite mode
 // (the JSON-shaped output that maps file path → rewritten source); we keep
-// the single-file emit branch so command-line smoke tests stay close to the
-// CLI flow.
+// the single-file branch so command-line smoke tests stay close to the CLI.
 func runTypiaTransform(args []string) int {
   fs := flag.NewFlagSet("transform", flag.ContinueOnError)
   fs.SetOutput(os.Stderr)
   file := fs.String("file", "", "absolute or cwd-relative path of the .ts file to transform")
   tsconfigPath := fs.String("tsconfig", "tsconfig.json", "tsconfig.json owning --file")
   cwdOverride := fs.String("cwd", "", "override the working directory")
-  out := fs.String("out", "", "write output JS to PATH")
+  out := fs.String("out", "", "write output to PATH")
   output := fs.String("output", "ts", "transform output kind: js or ts")
   _ = fs.String("plugins-json", "", "ordered ttsc plugin payload")
   if err := fs.Parse(args); err != nil {
@@ -202,12 +197,15 @@ func runTypiaTransform(args []string) int {
   }
   defer prog.Close()
 
+  transformDiags := []typiaPlaygroundDiag{}
+  typiaTransform := newTypiaTransform(prog, cwd, *tsconfigPath, &transformDiags)
+
   if *file == "" {
     if *out != "" {
       fmt.Fprintln(os.Stderr, "typia transform: --out requires --file")
       return 2
     }
-    return runTypiaTransformProject(prog, cwd, *tsconfigPath)
+    return runTypiaTransformProject(prog, cwd, typiaTransform, &transformDiags)
   }
 
   absFile := *file
@@ -222,74 +220,49 @@ func runTypiaTransform(args []string) int {
   }
 
   if *output == "ts" {
-    rewrites, tdiags := collectTypiaSourceRewrites(prog, cwd, absFile, readTypiaPluginOptions(cwd, *tsconfigPath))
-    if len(tdiags) > 0 {
-      writeTypiaTransformDiagnostics(os.Stderr, tdiags, cwd)
+    text := transformFileToTypeScript(prog, typiaTransform, target)
+    if len(transformDiags) > 0 {
+      writeTypiaPlaygroundDiagnostics(transformDiags, cwd)
       return 3
     }
-    source, ok := typiaSourceFileText(target)
-    if !ok {
-      fmt.Fprintf(os.Stderr, "typia transform: source text unavailable for %s\n", absFile)
-      return 3
-    }
-    transformed, err := applyTypiaSourceRewrites(source, rewrites)
-    if err != nil {
-      fmt.Fprintf(os.Stderr, "typia transform: source rewrite: %v\n", err)
-      return 3
-    }
-    transformed = typiaadapter.CleanupTypeScriptTransformText(transformed)
-    if *out == "" {
-      fmt.Fprint(os.Stdout, transformed)
-      return 0
-    }
-    if err := os.WriteFile(*out, []byte(transformed), 0o644); err != nil {
-      fmt.Fprintf(os.Stderr, "typia transform: write %s: %v\n", *out, err)
-      return 3
-    }
-    return 0
+    return writeTypiaSingleOutput(text, *out)
   }
 
   // output == "js": run the emit pipeline so typia's rewrite lands in the
   // emitted JS file.
-  rewriteSet := driver.NewRewriteSet()
-  _, _, tdiags := collectTypiaRewrites(prog, cwd, true, true, absFile, rewriteSet, readTypiaPluginOptions(cwd, *tsconfigPath))
-  if len(tdiags) > 0 {
-    writeTypiaTransformDiagnostics(os.Stderr, tdiags, cwd)
-    return 3
-  }
-  var captured []byte
-  capture := func(name, text string, _ *shimcompiler.WriteFileData) error {
-    if !strings.HasSuffix(filepath.ToSlash(name), ".js") {
-      return nil
+  var captured string
+  found := false
+  writeFile := shimcompiler.WriteFile(func(fileName, text string, _ *shimcompiler.WriteFileData) error {
+    if sameTypiaSourceStem(absFile, fileName) {
+      captured = text
+      found = true
     }
-    captured = []byte(typiaadapter.CleanupTransformedText(text))
     return nil
-  }
-  _, _, err = prog.EmitFile(rewriteSet, target, capture)
-  if err != nil {
+  })
+  if _, err := prog.EmitWithPluginTransformers([]driver.PluginTransform{typiaTransform}, writeFile); err != nil {
     fmt.Fprintf(os.Stderr, "typia transform: emit: %v\n", err)
     return 3
   }
-  if captured == nil {
+  if len(transformDiags) > 0 {
+    writeTypiaPlaygroundDiagnostics(transformDiags, cwd)
+    return 3
+  }
+  if !found {
     fmt.Fprintf(os.Stderr, "typia transform: no output produced for %s\n", absFile)
     return 3
   }
-  if *out == "" {
-    os.Stdout.Write(captured)
-    return 0
-  }
-  if err := os.WriteFile(*out, captured, 0o644); err != nil {
-    fmt.Fprintf(os.Stderr, "typia transform: write %s: %v\n", *out, err)
-    return 3
-  }
-  return 0
+  return writeTypiaSingleOutput(captured, *out)
 }
 
-// runTypiaTransformProject walks every source file and writes a JSON map
-// keyed by cwd-relative path. Same shape the standalone `ttsc-typia`
-// binary returns so the playground UI can consume either source.
-func runTypiaTransformProject(prog *driver.Program, cwd, tsconfigPath string) int {
-  grouped, diagnostics := collectTypiaSourceRewriteMap(prog, readTypiaPluginOptions(cwd, tsconfigPath))
+// runTypiaTransformProject walks every non-declaration source file and writes a
+// JSON map keyed by cwd-relative path — the same shape the standalone
+// `ttsc-typia` binary returns so the playground UI can consume either source.
+func runTypiaTransformProject(
+  prog *driver.Program,
+  cwd string,
+  typiaTransform driver.PluginTransform,
+  transformDiags *[]typiaPlaygroundDiag,
+) int {
   type compilerDiag struct {
     File        *string `json:"file"`
     Category    string  `json:"category"`
@@ -303,28 +276,30 @@ func runTypiaTransformProject(prog *driver.Program, cwd, tsconfigPath string) in
     TypeScript  map[string]string `json:"typescript"`
   }
   res := out{TypeScript: map[string]string{}}
-  for _, diag := range diagnostics {
-    fp := diag.File
+  for _, sf := range prog.SourceFiles() {
+    if sf.IsDeclarationFile {
+      continue
+    }
+    key := typiaSourceFileKey(cwd, filepath.ToSlash(sf.FileName()))
+    if filepath.IsAbs(key) || key == ".." || strings.HasPrefix(key, "../") {
+      continue
+    }
+    res.TypeScript[key] = transformFileToTypeScript(prog, typiaTransform, sf)
+  }
+  for _, diag := range *transformDiags {
+    var fp *string
+    if diag.File != "" {
+      normalized := filepath.ToSlash(diag.File)
+      fp = &normalized
+    }
     res.Diagnostics = append(res.Diagnostics, compilerDiag{
-      File:        &fp,
+      File:        fp,
       Category:    "error",
       Code:        diag.Code,
       Line:        diag.Line,
       Character:   diag.Column,
       MessageText: diag.Message,
     })
-  }
-  for _, file := range prog.SourceFiles() {
-    filename := filepath.ToSlash(file.FileName())
-    source, ok := typiaSourceFileText(file)
-    if !ok {
-      continue
-    }
-    transformed, err := applyTypiaSourceRewrites(source, grouped[filename])
-    if err != nil {
-      continue
-    }
-    res.TypeScript[typiaSourceFileKey(cwd, filename)] = typiaadapter.CleanupTypeScriptTransformText(transformed)
   }
   if err := json.NewEncoder(os.Stdout).Encode(res); err != nil {
     fmt.Fprintf(os.Stderr, "typia transform: encode output: %v\n", err)
@@ -336,10 +311,78 @@ func runTypiaTransformProject(prog *driver.Program, cwd, tsconfigPath string) in
   return 0
 }
 
-// typiaTransformDiag mirrors `cmd/ttsc-typia/build.go::typiaTransformDiagnostic`
+// newTypiaTransform builds the AST-integration plugin transform: typia's per
+// file node transformer bound to this program's plugin options, recording any
+// transform diagnostics into `sink`.
+func newTypiaTransform(
+  prog *driver.Program,
+  cwd string,
+  tsconfigPath string,
+  sink *[]typiaPlaygroundDiag,
+) driver.PluginTransform {
+  transformOptions := readTypiaPluginOptions(cwd, tsconfigPath).TransformOptions()
+  extras := nativecontext.ITypiaContext_Extras{
+    AddDiagnostic: func(diag *shimast.Diagnostic) int {
+      *sink = append(*sink, typiaPlaygroundDiag{Message: "typia transform error"})
+      return len(*sink)
+    },
+  }
+  return func(ec *shimprinter.EmitContext, sf *shimast.SourceFile) *shimast.SourceFile {
+    return nativetransform.Transform(prog, &transformOptions, extras, ec)(sf)
+  }
+}
+
+// transformFileToTypeScript runs typia's node transformer on one source file in
+// a fresh EmitContext and prints the result as TypeScript. It deliberately skips
+// the JS script transformers (type-erase, module-transform): the caller wants
+// TS, so the injected namespace imports stay as ES imports.
+func transformFileToTypeScript(
+  prog *driver.Program,
+  typiaTransform driver.PluginTransform,
+  sf *shimast.SourceFile,
+) string {
+  options := prog.TSProgram.Options()
+  ec := shimprinter.NewEmitContext()
+  result := sf
+  if next := typiaTransform(ec, result); next != nil {
+    result = next
+  }
+  shimast.SetParentInChildrenUnset(result.AsNode())
+  writer := shimprinter.NewTextWriter(options.NewLine.GetNewLineCharacter(), 0)
+  printer := shimprinter.NewPrinter(shimprinter.PrinterOptions{NewLine: options.NewLine}, shimprinter.PrintHandlers{}, ec)
+  printer.Write(result.AsNode(), result, writer, nil)
+  return writer.String()
+}
+
+func writeTypiaSingleOutput(text, outPath string) int {
+  if outPath == "" {
+    fmt.Fprint(os.Stdout, text)
+    return 0
+  }
+  if dir := filepath.Dir(outPath); dir != "" {
+    if err := os.MkdirAll(dir, 0o755); err != nil {
+      fmt.Fprintf(os.Stderr, "typia transform: mkdir: %v\n", err)
+      return 3
+    }
+  }
+  if err := os.WriteFile(outPath, []byte(text), 0o644); err != nil {
+    fmt.Fprintf(os.Stderr, "typia transform: write %s: %v\n", outPath, err)
+    return 3
+  }
+  return 0
+}
+
+// sameTypiaSourceStem reports whether an emitted .js path corresponds to a .ts
+// source path by comparing their extension-stripped values.
+func sameTypiaSourceStem(tsPath, jsPath string) bool {
+  return strings.TrimSuffix(filepath.ToSlash(jsPath), filepath.Ext(jsPath)) ==
+    strings.TrimSuffix(filepath.ToSlash(tsPath), filepath.Ext(filepath.ToSlash(tsPath)))
+}
+
+// typiaPlaygroundDiag mirrors `cmd/ttsc-typia/build.go::typiaTransformDiagnostic`
 // for the playground. We can't import the upstream type because it lives in
 // `package main`.
-type typiaTransformDiag struct {
+type typiaPlaygroundDiag struct {
   File    string
   Line    int
   Column  int
@@ -347,7 +390,7 @@ type typiaTransformDiag struct {
   Message string
 }
 
-func (d typiaTransformDiag) String(cwd string) string {
+func (d typiaPlaygroundDiag) String(cwd string) string {
   file := d.File
   if rel, err := filepath.Rel(cwd, file); err == nil {
     file = rel
@@ -358,172 +401,10 @@ func (d typiaTransformDiag) String(cwd string) string {
   return fmt.Sprintf("%s - error TS(%s): %s", file, d.Code, d.Message)
 }
 
-type typiaSourceRewrite struct {
-  start       int
-  end         int
-  replacement string
-}
-
-func writeTypiaTransformDiagnostics(w *os.File, diagnostics []typiaTransformDiag, cwd string) {
+func writeTypiaPlaygroundDiagnostics(diagnostics []typiaPlaygroundDiag, cwd string) {
   for _, diag := range diagnostics {
-    fmt.Fprintln(w, diag.String(cwd))
+    fmt.Fprintln(os.Stderr, diag.String(cwd))
   }
-}
-
-func newTypiaTransformDiag(site typiaadapter.CallSite, message string) typiaTransformDiag {
-  line, column := 0, 0
-  if site.File != nil && site.Call != nil {
-    pos := site.Call.AsNode().Pos()
-    if pos >= 0 {
-      l, c := shimscanner.GetECMALineAndByteOffsetOfPosition(site.File, pos)
-      line, column = l+1, c+1
-    }
-  }
-  return typiaTransformDiag{
-    File:    site.FilePath,
-    Line:    line,
-    Column:  column,
-    Code:    "typia." + site.Module + "." + site.Method,
-    Message: message,
-  }
-}
-
-func collectTypiaRewrites(
-  prog *driver.Program,
-  cwd string,
-  emit bool,
-  quiet bool,
-  onlyFile string,
-  rewrites *driver.RewriteSet,
-  pluginOptions typiaadapter.PluginOptions,
-) (int, int, []typiaTransformDiag) {
-  sites := typiaadapter.CollectCallSites(prog.SourceFiles(), prog.Checker)
-  recognized := 0
-  diagnostics := []typiaTransformDiag{}
-  for _, site := range sites {
-    if onlyFile != "" && filepath.ToSlash(site.FilePath) != filepath.ToSlash(onlyFile) {
-      continue
-    }
-    if reason := typiaadapter.UnsupportedReason(site); reason != "" {
-      diagnostics = append(diagnostics, newTypiaTransformDiag(site, reason))
-      continue
-    }
-    expr, handled, err := typiaadapter.EmitCallWithOptions(prog, site, pluginOptions)
-    if !handled {
-      diagnostics = append(diagnostics, newTypiaTransformDiag(site, "method not covered"))
-      continue
-    }
-    if err != nil {
-      diagnostics = append(diagnostics, newTypiaTransformDiag(site, err.Error()))
-      continue
-    }
-    rewrites.Add(driver.Rewrite{
-      File:          site.File,
-      RootName:      site.RootName,
-      Namespaces:    site.Namespaces,
-      Method:        site.Method,
-      Replacement:   expr,
-      ConsumeParens: true,
-    })
-    recognized++
-    _ = emit
-    _ = quiet
-    _ = cwd
-  }
-  return len(sites), recognized, diagnostics
-}
-
-func collectTypiaSourceRewrites(
-  prog *driver.Program,
-  cwd string,
-  onlyFile string,
-  pluginOptions typiaadapter.PluginOptions,
-) ([]typiaSourceRewrite, []typiaTransformDiag) {
-  sites := typiaadapter.CollectCallSites(prog.SourceFiles(), prog.Checker)
-  rewrites := []typiaSourceRewrite{}
-  diagnostics := []typiaTransformDiag{}
-  for _, site := range sites {
-    if filepath.ToSlash(site.FilePath) != filepath.ToSlash(onlyFile) {
-      continue
-    }
-    if reason := typiaadapter.UnsupportedReason(site); reason != "" {
-      diagnostics = append(diagnostics, newTypiaTransformDiag(site, reason))
-      continue
-    }
-    expr, handled, err := typiaadapter.EmitCallWithOptionsPreservingTypes(prog, site, pluginOptions)
-    if !handled {
-      diagnostics = append(diagnostics, newTypiaTransformDiag(site, "method not covered"))
-      continue
-    }
-    if err != nil {
-      diagnostics = append(diagnostics, newTypiaTransformDiag(site, err.Error()))
-      continue
-    }
-    node := site.Call.AsNode()
-    rewrites = append(rewrites, typiaSourceRewrite{
-      start:       node.Pos(),
-      end:         node.End(),
-      replacement: expr,
-    })
-    _ = cwd
-  }
-  return rewrites, diagnostics
-}
-
-func collectTypiaSourceRewriteMap(
-  prog *driver.Program,
-  pluginOptions typiaadapter.PluginOptions,
-) (map[string][]typiaSourceRewrite, []typiaTransformDiag) {
-  sites := typiaadapter.CollectCallSites(prog.SourceFiles(), prog.Checker)
-  rewrites := map[string][]typiaSourceRewrite{}
-  diagnostics := []typiaTransformDiag{}
-  for _, site := range sites {
-    file := filepath.ToSlash(site.FilePath)
-    if reason := typiaadapter.UnsupportedReason(site); reason != "" {
-      diagnostics = append(diagnostics, newTypiaTransformDiag(site, reason))
-      continue
-    }
-    expr, handled, err := typiaadapter.EmitCallWithOptionsPreservingTypes(prog, site, pluginOptions)
-    if !handled {
-      diagnostics = append(diagnostics, newTypiaTransformDiag(site, "method not covered"))
-      continue
-    }
-    if err != nil {
-      diagnostics = append(diagnostics, newTypiaTransformDiag(site, err.Error()))
-      continue
-    }
-    node := site.Call.AsNode()
-    rewrites[file] = append(rewrites[file], typiaSourceRewrite{
-      start:       node.Pos(),
-      end:         node.End(),
-      replacement: expr,
-    })
-  }
-  return rewrites, diagnostics
-}
-
-func applyTypiaSourceRewrites(source string, rewrites []typiaSourceRewrite) (string, error) {
-  sort.SliceStable(rewrites, func(i, j int) bool {
-    return rewrites[i].start > rewrites[j].start
-  })
-  output := source
-  for _, rewrite := range rewrites {
-    if rewrite.start < 0 || rewrite.end < rewrite.start || rewrite.end > len(output) {
-      return "", fmt.Errorf("invalid rewrite range [%d,%d)", rewrite.start, rewrite.end)
-    }
-    output = output[:rewrite.start] + rewrite.replacement + output[rewrite.end:]
-  }
-  return output, nil
-}
-
-func typiaSourceFileText(target any) (string, bool) {
-  type sourceText interface {
-    Text() string
-  }
-  if file, ok := target.(sourceText); ok {
-    return file.Text(), true
-  }
-  return "", false
 }
 
 func typiaSourceFileKey(cwd, file string) string {

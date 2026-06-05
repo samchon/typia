@@ -10,7 +10,6 @@ import (
   shimast "github.com/microsoft/typescript-go/shim/ast"
   nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
   nativefactories "github.com/samchon/typia/packages/typia/native/core/factories"
-  nativeprogrammers "github.com/samchon/typia/packages/typia/native/core/programmers"
   nativehelpers "github.com/samchon/typia/packages/typia/native/core/programmers/helpers"
   nativeiterate "github.com/samchon/typia/packages/typia/native/core/programmers/iterate"
   nativejson "github.com/samchon/typia/packages/typia/native/core/programmers/json"
@@ -51,7 +50,7 @@ func (llmSchemaProgrammerNamespace) Write(props LlmSchemaProgrammer_IWriteProps)
     Metadata: props.Metadata,
     Config:   props.Config,
   })
-  schemaTypeNode := llmProgrammer_import_type(props.Context, nativeprogrammers.ImportProgrammer_TypeProps{
+  schemaTypeNode := llmProgrammer_import_type(props.Context, nativecontext.ImportProgrammer_TypeProps{
     File: "typia",
     Name: "ILlmSchema",
   })
@@ -780,16 +779,14 @@ func llmSchemaProgrammer_is_variable_name(str string) bool {
 }
 
 func llmProgrammer_internal(context nativecontext.ITypiaContext, name string) *shimast.Node {
-  if importer, ok := context.Importer.(interface{ Internal(string) *shimast.Node }); ok {
+  if importer := context.Importer; importer != nil {
     return importer.Internal(name)
   }
   return llmSchemaProgrammer_factory.NewIdentifier(name)
 }
 
-func llmProgrammer_import_type(context nativecontext.ITypiaContext, props nativeprogrammers.ImportProgrammer_TypeProps) *shimast.Node {
-  if importer, ok := context.Importer.(interface {
-    Type(nativeprogrammers.ImportProgrammer_TypeProps) *shimast.Node
-  }); ok {
+func llmProgrammer_import_type(context nativecontext.ITypiaContext, props nativecontext.ImportProgrammer_TypeProps) *shimast.Node {
+  if importer := context.Importer; importer != nil {
     return importer.Type(props)
   }
   if str, ok := props.Name.(string); ok {
@@ -806,10 +803,7 @@ func llmProgrammer_type_reference(name string) *shimast.Node {
 }
 
 func llmProgrammer_method_text(modulo *shimast.Node) string {
-  if modulo == nil {
-    return ""
-  }
-  return modulo.Text()
+  return nativehelpers.ModuloMethodText(modulo)
 }
 
 func llmProgrammer_concat_description(summary *string, description *string) *string {

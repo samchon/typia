@@ -23,8 +23,7 @@ func (llmMetadataFactoryNamespace) GetConfig(props struct {
   typ := props.Context.Checker.GetTypeFromTypeNode(props.Node)
   collection := nativemetadata.NewMetadataCollection()
   result := nativefactories.MetadataFactory.Analyze(nativefactories.MetadataFactory_IProps{
-    Checker:     props.Context.Checker,
-    Transformer: props.Context.Transformer,
+    Checker: props.Context.Checker,
     Options: nativefactories.MetadataFactory_IOptions{
       Absorb:     true,
       Escape:     false,

@@ -41,10 +41,10 @@ func run(args []string) int {
     return runDemo(args[1:])
   case "build":
     return runBuild(args[1:])
-  case "check":
-    return runBuild(append([]string{"--noEmit"}, args[1:]...))
   case "transform":
     return runTransform(args[1:])
+  case "check":
+    return runBuild(append([]string{"--noEmit"}, args[1:]...))
   case "-p", "--project":
     if len(args) < 2 {
       fmt.Fprintln(stderr, "ttsc-typia: -p/--project requires a path argument")

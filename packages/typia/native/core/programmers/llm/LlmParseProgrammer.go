@@ -4,7 +4,6 @@ import (
   shimast "github.com/microsoft/typescript-go/shim/ast"
   nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
   nativefactories "github.com/samchon/typia/packages/typia/native/core/factories"
-  nativeprogrammers "github.com/samchon/typia/packages/typia/native/core/programmers"
   nativehelpers "github.com/samchon/typia/packages/typia/native/core/programmers/helpers"
   nativeinternal "github.com/samchon/typia/packages/typia/native/core/programmers/internal"
   schemametadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
@@ -66,7 +65,7 @@ func (llmParseProgrammerNamespace) Decompose(props LlmParseProgrammer_DecomposeP
       llmParseProgrammer_factory.NewNodeList([]*shimast.Node{
         nativefactories.IdentifierFactory.Parameter("input", nativefactories.TypeFactory.Keyword("string"), nil),
       }),
-      llmProgrammer_import_type(props.Context, nativeprogrammers.ImportProgrammer_TypeProps{
+      llmProgrammer_import_type(props.Context, nativecontext.ImportProgrammer_TypeProps{
         File:      "typia",
         Name:      "IJsonParseResult",
         Arguments: []*shimast.TypeNode{llmProgrammer_type_reference(typeName)},
@@ -112,8 +111,8 @@ func (llmParseProgrammerNamespace) Validate(props struct {
   return LlmParametersProgrammer.Validate(props)
 }
 
-func ImportTypeIParameters() nativeprogrammers.ImportProgrammer_TypeProps {
-  return nativeprogrammers.ImportProgrammer_TypeProps{
+func ImportTypeIParameters() nativecontext.ImportProgrammer_TypeProps {
+  return nativecontext.ImportProgrammer_TypeProps{
     File: "typia",
     Name: llmParseProgrammer_factory.NewIdentifier("ILlmSchema.IParameters"),
   }

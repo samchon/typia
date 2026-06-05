@@ -117,7 +117,7 @@ func (functionalValidateParametersProgrammerNamespace) Decompose(props Functiona
         }),
         shimast.NodeFlagsNone,
       ),
-      functionalValidateProgrammer_import_type(props.Context, nativeprogrammers.ImportProgrammer_TypeProps{
+      functionalValidateProgrammer_import_type(props.Context, nativecontext.ImportProgrammer_TypeProps{
         File: "typia",
         Name: "IValidation.IFailure",
       }),
