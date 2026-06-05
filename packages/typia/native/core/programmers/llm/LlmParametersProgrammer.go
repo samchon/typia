@@ -33,12 +33,13 @@ type LlmParametersProgrammer_IWriteProps struct {
 var llmParametersProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
 func (llmParametersProgrammerNamespace) Write(props LlmParametersProgrammer_IWriteProps) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(llmParametersProgrammer_factory, props.Context.Emit)
   typeNode := llmProgrammer_import_type(props.Context, nativecontext.ImportProgrammer_TypeProps{
     File: "typia",
-    Name: llmParametersProgrammer_factory.NewIdentifier("ILlmSchema.IParameters"),
+    Name: f.NewIdentifier("ILlmSchema.IParameters"),
   })
-  return llmParametersProgrammer_factory.NewAsExpression(
-    llmParametersProgrammer_factory.NewSatisfiesExpression(LlmParametersProgrammer.WriteParametersExpression(props), typeNode),
+  return f.NewAsExpression(
+    f.NewSatisfiesExpression(LlmParametersProgrammer.WriteParametersExpression(props), typeNode),
     typeNode,
   )
 }
@@ -50,7 +51,7 @@ func (llmParametersProgrammerNamespace) WriteParametersExpression(props LlmParam
   }{
     Metadata: props.Metadata,
     Config:   props.Config,
-  }))
+  }), props.Context.Emit)
 }
 
 func (llmParametersProgrammerNamespace) WriteParameters(props struct {

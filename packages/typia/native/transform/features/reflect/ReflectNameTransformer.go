@@ -16,6 +16,7 @@ var ReflectNameTransformer = reflectNameTransformerNamespace{}
 var reflectNameTransformer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
 func (reflectNameTransformerNamespace) Transform(props nativetransform.ITransformProps) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(reflectNameTransformer_factory, props.Context.Emit)
   if props.Expression == nil || props.Expression.TypeArguments == nil || len(props.Expression.TypeArguments.Nodes) == 0 {
     panic(nativetransform.NewTransformerError(nativetransform.TransformerError_IProps{
       Code:    "typia.reflect.metadata",
@@ -50,7 +51,7 @@ func (reflectNameTransformerNamespace) Transform(props nativetransform.ITransfor
       Node:    top,
     }).GetName()
   }
-  return reflectNameTransformer_factory.NewStringLiteral(name, shimast.TokenFlagsNone)
+  return f.NewStringLiteral(name, shimast.TokenFlagsNone)
 }
 
 func reflectNameTransformer_getMetadata(props struct {

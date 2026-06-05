@@ -5,6 +5,8 @@ import (
 
   shimast "github.com/microsoft/typescript-go/shim/ast"
   shimchecker "github.com/microsoft/typescript-go/shim/checker"
+  shimprinter "github.com/microsoft/typescript-go/shim/printer"
+  nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
 )
 
 type typeFactoryNamespace struct{}
@@ -141,7 +143,8 @@ func typeFactory_get_name(symbol *shimast.Symbol) string {
   return typeFactory_explore_name(symbol.Declarations[0].Parent, symbol.Name)
 }
 
-func (typeFactoryNamespace) Keyword(t string) *shimast.Node {
+func (typeFactoryNamespace) Keyword(t string, emit ...*shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(typeFactory_factory, emit...)
   var kind shimast.KeywordTypeSyntaxKind
   switch t {
   case "void":
@@ -159,5 +162,5 @@ func (typeFactoryNamespace) Keyword(t string) *shimast.Node {
   default:
     kind = shimast.KindStringKeyword
   }
-  return typeFactory_factory.NewKeywordTypeNode(kind)
+  return f.NewKeywordTypeNode(kind)
 }

@@ -21,6 +21,7 @@ var HttpParameterProgrammer = httpParameterProgrammerNamespace{}
 var httpParameterProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
 func (httpParameterProgrammerNamespace) Write(props nativecontext.IProgrammerProps) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(httpParameterProgrammer_factory, props.Context.Emit)
   result := nativefactories.MetadataFactory.Analyze(nativefactories.MetadataFactory_IProps{
     Checker: props.Context.Checker,
     Options: nativefactories.MetadataFactory_IOptions{
@@ -60,40 +61,40 @@ func (httpParameterProgrammerNamespace) Write(props nativecontext.IProgrammerPro
           Guard:  false,
         },
       }),
-    }),
+    }, props.Context.Emit),
     nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
       Name: "value",
-      Value: httpParameterProgrammer_factory.NewCallExpression(
+      Value: f.NewCallExpression(
         httpParameterProgrammer_internal(props.Context, "httpParameterRead"+httpParameterProgrammer_capitalize(atomic)),
         nil,
         nil,
-        httpParameterProgrammer_factory.NewNodeList([]*shimast.Node{
-          httpParameterProgrammer_factory.NewIdentifier("input"),
+        f.NewNodeList([]*shimast.Node{
+          f.NewIdentifier("input"),
         }),
         shimast.NodeFlagsNone,
       ),
-    }),
-    httpParameterProgrammer_factory.NewReturnStatement(httpParameterProgrammer_factory.NewCallExpression(
-      httpParameterProgrammer_factory.NewIdentifier("assert"),
+    }, props.Context.Emit),
+    f.NewReturnStatement(f.NewCallExpression(
+      f.NewIdentifier("assert"),
       nil,
       nil,
-      httpParameterProgrammer_factory.NewNodeList([]*shimast.Node{
-        httpParameterProgrammer_factory.NewIdentifier("value"),
+      f.NewNodeList([]*shimast.Node{
+        f.NewIdentifier("value"),
       }),
       shimast.NodeFlagsNone,
     )),
   }
 
-  return httpParameterProgrammer_factory.NewArrowFunction(
+  return f.NewArrowFunction(
     nil,
     nil,
-    httpParameterProgrammer_factory.NewNodeList([]*shimast.Node{
-      nativefactories.IdentifierFactory.Parameter("input", nativefactories.TypeFactory.Keyword("string"), nil),
+    f.NewNodeList([]*shimast.Node{
+      nativefactories.IdentifierFactory.Parameter("input", nativefactories.TypeFactory.Keyword("string", props.Context.Emit), nil, props.Context.Emit),
     }),
-    httpParameterProgrammer_factory.NewTypeReferenceNode(httpParameterProgrammer_factory.NewIdentifier(httpParameterProgrammer_typeName(props)), nil),
+    f.NewTypeReferenceNode(f.NewIdentifier(httpParameterProgrammer_typeName(props)), nil),
     nil,
-    httpParameterProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
-    httpParameterProgrammer_factory.NewBlock(httpParameterProgrammer_factory.NewNodeList(block), true),
+    f.NewToken(shimast.KindEqualsGreaterThanToken),
+    f.NewBlock(f.NewNodeList(block), true),
   )
 }
 
@@ -155,7 +156,7 @@ func httpParameterProgrammer_internal(context nativecontext.ITypiaContext, name 
   if importer := context.Importer; importer != nil {
     return importer.Internal(name)
   }
-  return httpParameterProgrammer_factory.NewIdentifier(name)
+  return nativecontext.EmitFactoryOf(httpParameterProgrammer_factory, context.Emit).NewIdentifier(name)
 }
 
 func httpParameterProgrammer_capitalize(str string) string {

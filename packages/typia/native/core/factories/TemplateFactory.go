@@ -4,6 +4,8 @@ import (
   strings "strings"
 
   shimast "github.com/microsoft/typescript-go/shim/ast"
+  shimprinter "github.com/microsoft/typescript-go/shim/printer"
+  nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
 )
 
 type templateFactoryNamespace struct{}
@@ -17,7 +19,8 @@ type TemplateFactory_IIterator struct {
 
 var templateFactory_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
-func (templateFactoryNamespace) Generate(expressions []*shimast.Expression) *shimast.Node {
+func (templateFactoryNamespace) Generate(expressions []*shimast.Expression, emit ...*shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(templateFactory_factory, emit...)
   allString := true
   for _, exp := range expressions {
     if !shimast.IsStringLiteral(exp) {
@@ -30,11 +33,11 @@ func (templateFactoryNamespace) Generate(expressions []*shimast.Expression) *shi
     for _, str := range expressions {
       values = append(values, str.Text())
     }
-    return templateFactory_factory.NewStringLiteral(strings.Join(values, ""), shimast.TokenFlagsNone)
+    return f.NewStringLiteral(strings.Join(values, ""), shimast.TokenFlagsNone)
   }
   iterator := &TemplateFactory_IIterator{Value: "", Index: 0}
   templateFactory_gather(expressions, iterator)
-  head := templateFactory_factory.NewTemplateHead(iterator.Value, iterator.Value, shimast.TokenFlagsNone)
+  head := f.NewTemplateHead(iterator.Value, iterator.Value, shimast.TokenFlagsNone)
   spans := []*shimast.Node{}
   for {
     elem := expressions[iterator.Index]
@@ -43,18 +46,18 @@ func (templateFactoryNamespace) Generate(expressions []*shimast.Expression) *shi
     broken := iterator.Index == len(expressions)
     var literal *shimast.TemplateMiddleOrTail
     if broken {
-      literal = templateFactory_factory.NewTemplateTail(iterator.Value, iterator.Value, shimast.TokenFlagsNone)
+      literal = f.NewTemplateTail(iterator.Value, iterator.Value, shimast.TokenFlagsNone)
     } else {
-      literal = templateFactory_factory.NewTemplateMiddle(iterator.Value, iterator.Value, shimast.TokenFlagsNone)
+      literal = f.NewTemplateMiddle(iterator.Value, iterator.Value, shimast.TokenFlagsNone)
     }
-    spans = append(spans, templateFactory_factory.NewTemplateSpan(elem, literal))
+    spans = append(spans, f.NewTemplateSpan(elem, literal))
     if broken {
       break
     }
   }
-  return templateFactory_factory.NewTemplateExpression(
+  return f.NewTemplateExpression(
     head,
-    templateFactory_factory.NewNodeList(spans),
+    f.NewNodeList(spans),
   )
 }
 

@@ -5,6 +5,8 @@ import (
   "strings"
 
   shimast "github.com/microsoft/typescript-go/shim/ast"
+  shimprinter "github.com/microsoft/typescript-go/shim/printer"
+  nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
 )
 
 type identifierFactoryNamespace struct{}
@@ -13,31 +15,37 @@ var IdentifierFactory = identifierFactoryNamespace{}
 
 var identifierFactory_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
-func (identifierFactoryNamespace) Identifier(name string) *shimast.Node {
+func (identifierFactoryNamespace) Identifier(name string, emit ...*shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(identifierFactory_factory, emit...)
   if identifierFactory_variable(name) {
-    return identifierFactory_factory.NewIdentifier(name)
+    return f.NewIdentifier(name)
   }
-  return identifierFactory_factory.NewStringLiteral(name, shimast.TokenFlagsNone)
+  return f.NewStringLiteral(name, shimast.TokenFlagsNone)
 }
 
-func (identifierFactoryNamespace) Access(input *shimast.Expression, key string, chain ...bool) *shimast.Node {
-  postfix := IdentifierFactory.Identifier(key)
+// Access takes a required emit context (nil for genuinely context-free callers)
+// because its trailing `chain` variadic blocks the optional-emit form the other
+// factories use; a required parameter also makes a forgotten context a compile
+// error rather than a silent metadata gap.
+func (identifierFactoryNamespace) Access(ec *shimprinter.EmitContext, input *shimast.Expression, key string, chain ...bool) *shimast.Node {
+  f := nativecontext.EmitFactory(ec, identifierFactory_factory)
+  postfix := IdentifierFactory.Identifier(key, ec)
   optional := len(chain) != 0 && chain[0]
   var questionDot *shimast.QuestionDotToken
   flags := shimast.NodeFlagsNone
   if optional {
-    questionDot = identifierFactory_factory.NewToken(shimast.KindQuestionDotToken)
+    questionDot = f.NewToken(shimast.KindQuestionDotToken)
     flags = shimast.NodeFlagsOptionalChain
   }
   if shimast.IsStringLiteral(postfix) {
-    return identifierFactory_factory.NewElementAccessExpression(
+    return f.NewElementAccessExpression(
       input,
       questionDot,
       postfix,
       flags,
     )
   }
-  return identifierFactory_factory.NewPropertyAccessExpression(
+  return f.NewPropertyAccessExpression(
     input,
     questionDot,
     postfix,
@@ -71,27 +79,28 @@ func (identifierFactoryNamespace) Postfix(str string) string {
   return "\"[" + quoted + "]\""
 }
 
-func (identifierFactoryNamespace) Parameter(name any, typeNode *shimast.TypeNode, init *shimast.Node) *shimast.Node {
+func (identifierFactoryNamespace) Parameter(name any, typeNode *shimast.TypeNode, init *shimast.Node, emit ...*shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(identifierFactory_factory, emit...)
   var binding *shimast.BindingName
   switch v := name.(type) {
   case string:
-    binding = identifierFactory_factory.NewIdentifier(v)
+    binding = f.NewIdentifier(v)
   case *shimast.Node:
     binding = v
   default:
-    binding = identifierFactory_factory.NewIdentifier("input")
+    binding = f.NewIdentifier("input")
   }
   if typeNode == nil {
-    typeNode = TypeFactory.Keyword("any")
+    typeNode = TypeFactory.Keyword("any", emit...)
   }
   var question *shimast.QuestionToken
   var initializer *shimast.Expression
   if init != nil && init.Kind == shimast.KindQuestionToken {
-    question = identifierFactory_factory.NewToken(shimast.KindQuestionToken)
+    question = f.NewToken(shimast.KindQuestionToken)
   } else {
     initializer = init
   }
-  return identifierFactory_factory.NewParameterDeclaration(
+  return f.NewParameterDeclaration(
     nil,
     nil,
     binding,

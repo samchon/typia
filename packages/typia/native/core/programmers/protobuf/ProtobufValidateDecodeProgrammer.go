@@ -33,6 +33,7 @@ type ProtobufValidateDecodeProgrammer_DecomposeProps struct {
 var protobufValidateDecodeProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
 func (protobufValidateDecodeProgrammerNamespace) Decompose(props ProtobufValidateDecodeProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
+  f := nativecontext.EmitFactoryOf(protobufValidateDecodeProgrammer_factory, props.Context.Emit)
   validateContext := props.Context
   functional := false
   numeric := false
@@ -56,34 +57,34 @@ func (protobufValidateDecodeProgrammerNamespace) Decompose(props ProtobufValidat
   statements := []*shimast.Node{}
   statements = append(statements, validate.Statements...)
   statements = append(statements,
-    nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{Name: "__validate", Value: validate.Arrow}),
-    nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{Name: "__decode", Value: decode.Arrow}),
+    nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{Name: "__validate", Value: validate.Arrow}, props.Context.Emit),
+    nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{Name: "__decode", Value: decode.Arrow}, props.Context.Emit),
   )
-  decodeType := protobufAssertEncodeProgrammer_returnType(decode.Arrow, nativefactories.TypeFactory.Keyword("any"))
+  decodeType := protobufAssertEncodeProgrammer_returnType(decode.Arrow, nativefactories.TypeFactory.Keyword("any", props.Context.Emit))
   return nativeinternal.FeatureProgrammer_IDecomposed{
     Functions:  protobufAssertEncodeProgrammer_merge(validate.Functions, decode.Functions),
     Statements: statements,
-    Arrow: protobufValidateDecodeProgrammer_factory.NewArrowFunction(
+    Arrow: f.NewArrowFunction(
       nil,
       nil,
-      protobufValidateDecodeProgrammer_factory.NewNodeList(protobufAssertDecodeProgrammer_parameters(decode.Arrow)),
+      f.NewNodeList(protobufAssertDecodeProgrammer_parameters(decode.Arrow)),
       protobufValidateEncodeProgrammer_import_type(props.Context, nativecontext.ImportProgrammer_TypeProps{
         File:      "typia",
         Name:      "IValidation",
         Arguments: []*shimast.TypeNode{decodeType},
       }),
       nil,
-      protobufValidateDecodeProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
-      protobufValidateDecodeProgrammer_factory.NewCallExpression(
-        protobufValidateDecodeProgrammer_factory.NewIdentifier("__validate"),
+      f.NewToken(shimast.KindEqualsGreaterThanToken),
+      f.NewCallExpression(
+        f.NewIdentifier("__validate"),
         nil,
         nil,
-        protobufValidateDecodeProgrammer_factory.NewNodeList([]*shimast.Node{
-          protobufValidateDecodeProgrammer_factory.NewCallExpression(
-            protobufValidateDecodeProgrammer_factory.NewIdentifier("__decode"),
+        f.NewNodeList([]*shimast.Node{
+          f.NewCallExpression(
+            f.NewIdentifier("__decode"),
             nil,
             nil,
-            protobufValidateDecodeProgrammer_factory.NewNodeList([]*shimast.Node{protobufValidateDecodeProgrammer_factory.NewIdentifier("input")}),
+            f.NewNodeList([]*shimast.Node{f.NewIdentifier("input")}),
             shimast.NodeFlagsNone,
           ),
         }),
@@ -94,7 +95,7 @@ func (protobufValidateDecodeProgrammerNamespace) Decompose(props ProtobufValidat
 }
 
 func (protobufValidateDecodeProgrammerNamespace) Write(props ProtobufValidateDecodeProgrammer_IProps) *shimast.Node {
-  functor := nativehelpers.NewFunctionProgrammer(protobufAssertEncodeProgrammer_method_text(props.Modulo))
+  functor := nativehelpers.NewFunctionProgrammer(protobufAssertEncodeProgrammer_method_text(props.Modulo), props.Context.Emit)
   result := ProtobufValidateDecodeProgrammer.Decompose(ProtobufValidateDecodeProgrammer_DecomposeProps{
     Context: props.Context,
     Modulo:  props.Modulo,

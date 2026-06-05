@@ -24,6 +24,7 @@ type FunctionalIsFunctionProgrammer_IProps struct {
 }
 
 func (functionalIsFunctionProgrammerNamespace) Write(props FunctionalIsFunctionProgrammer_IProps) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(functionalIsProgrammer_factory, props.Context.Emit)
   p := FunctionalIsParametersProgrammer.Decompose(FunctionalIsParametersProgrammer_IDecomposeProps{
     Context:     props.Context,
     Config:      FunctionalIsParametersProgrammer_IConfig{Equals: props.Config.Equals},
@@ -41,29 +42,33 @@ func (functionalIsFunctionProgrammerNamespace) Write(props FunctionalIsFunctionP
   statements = append(statements, r.Functions...)
   body := append([]*shimast.Node{}, p.Statements...)
   body = append(body, r.Statements...)
-  statements = append(statements, functionalIsProgrammer_factory.NewReturnStatement(
-    functionalIsProgrammer_factory.NewArrowFunction(
-      functionalIsProgrammer_asyncModifiers(r.Async),
+  statements = append(statements, f.NewReturnStatement(
+    f.NewArrowFunction(
+      functionalIsProgrammer_asyncModifiers(r.Async, props.Context.Emit),
       nil,
-      functionalIsProgrammer_parameters(props.Declaration),
+      functionalIsProgrammer_parameters(props.Declaration, props.Context.Emit),
       FunctionalIsFunctionProgrammer.GetReturnTypeNode(struct {
+        Context     nativecontext.ITypiaContext
         Declaration *shimast.Node
         Async       bool
       }{
+        Context:     props.Context,
         Declaration: props.Declaration,
         Async:       r.Async,
       }),
       nil,
-      functionalIsProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
-      functionalIsProgrammer_factory.NewBlock(functionalIsProgrammer_factory.NewNodeList(body), true),
+      f.NewToken(shimast.KindEqualsGreaterThanToken),
+      f.NewBlock(f.NewNodeList(body), true),
     ),
   ))
   return nativefactories.ExpressionFactory.SelfCall(
-    functionalIsProgrammer_factory.NewBlock(functionalIsProgrammer_factory.NewNodeList(statements), true),
+    props.Context.Emit,
+    f.NewBlock(f.NewNodeList(statements), true),
   )
 }
 
 func (functionalIsFunctionProgrammerNamespace) GetReturnTypeNode(props struct {
+  Context     nativecontext.ITypiaContext
   Declaration *shimast.Node
   Async       bool
 }) *shimast.Node {
@@ -74,7 +79,8 @@ func (functionalIsFunctionProgrammerNamespace) GetReturnTypeNode(props struct {
   if typ == nil {
     return nil
   }
-  nullType := functionalIsProgrammer_factory.NewTypeReferenceNode(functionalIsProgrammer_factory.NewIdentifier("null"), nil)
+  f := nativecontext.EmitFactoryOf(functionalIsProgrammer_factory, props.Context.Emit)
+  nullType := f.NewTypeReferenceNode(f.NewIdentifier("null"), nil)
   if props.Async {
     var inner *shimast.Node
     if typ.Kind == shimast.KindTypeReference {
@@ -86,14 +92,14 @@ func (functionalIsFunctionProgrammerNamespace) GetReturnTypeNode(props struct {
     if inner == nil {
       return nil
     }
-    return functionalIsProgrammer_factory.NewTypeReferenceNode(
-      functionalIsProgrammer_factory.NewIdentifier("Promise"),
-      functionalIsProgrammer_factory.NewNodeList([]*shimast.Node{
-        functionalIsProgrammer_factory.NewUnionTypeNode(functionalIsProgrammer_factory.NewNodeList([]*shimast.Node{inner, nullType})),
+    return f.NewTypeReferenceNode(
+      f.NewIdentifier("Promise"),
+      f.NewNodeList([]*shimast.Node{
+        f.NewUnionTypeNode(f.NewNodeList([]*shimast.Node{inner, nullType})),
       }),
     )
   }
-  return functionalIsProgrammer_factory.NewUnionTypeNode(functionalIsProgrammer_factory.NewNodeList([]*shimast.Node{
+  return f.NewUnionTypeNode(f.NewNodeList([]*shimast.Node{
     typ,
     nullType,
   }))

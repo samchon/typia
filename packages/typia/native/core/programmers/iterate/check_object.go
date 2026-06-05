@@ -2,6 +2,7 @@ package iterate
 
 import (
   shimast "github.com/microsoft/typescript-go/shim/ast"
+  shimprinter "github.com/microsoft/typescript-go/shim/printer"
   nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
   nativehelpers "github.com/samchon/typia/packages/typia/native/core/programmers/helpers"
 )
@@ -46,7 +47,7 @@ func Check_object(props Check_objectProps) *shimast.Node {
     return check_object_reduce(check_object_reduceProps{
       Config:      props.Config,
       Expressions: flags,
-    })
+    }, props.Context.Emit)
   }
 
   flags = append(flags, Check_dynamic_properties(Check_dynamic_propertiesProps{
@@ -59,7 +60,7 @@ func Check_object(props Check_objectProps) *shimast.Node {
   return check_object_reduce(check_object_reduceProps{
     Config:      props.Config,
     Expressions: flags,
-  })
+  }, props.Context.Emit)
 }
 
 type check_object_reduceProps struct {
@@ -67,7 +68,8 @@ type check_object_reduceProps struct {
   Expressions []*shimast.Node
 }
 
-func check_object_reduce(props check_object_reduceProps) *shimast.Node {
+func check_object_reduce(props check_object_reduceProps, emit ...*shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(check_object_factory, emit...)
   if len(props.Expressions) == 0 {
     return props.Config.Positive
   }
@@ -79,8 +81,8 @@ func check_object_reduce(props check_object_reduceProps) *shimast.Node {
     return output
   }
   return Check_everything(
-    check_object_factory.NewArrayLiteralExpression(
-      check_object_factory.NewNodeList(props.Expressions),
+    f.NewArrayLiteralExpression(
+      f.NewNodeList(props.Expressions),
       false,
     ),
   )

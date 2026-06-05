@@ -58,39 +58,42 @@ func (functionAssertReturnProgrammerNamespace) Write(props FunctionAssertReturnP
     Declaration: props.Declaration,
     Wrapper:     wrapper.Name,
   })
+  f := nativecontext.EmitFactoryOf(functionalAssertProgrammer_factory, props.Context.Emit)
   statements := []*shimast.Node{wrapper.Variable}
   statements = append(statements, result.Functions...)
-  statements = append(statements, functionalAssertProgrammer_factory.NewReturnStatement(
-    functionalAssertProgrammer_factory.NewArrowFunction(
-      functionalIsProgrammer_asyncModifiers(result.Async),
+  statements = append(statements, f.NewReturnStatement(
+    f.NewArrowFunction(
+      functionalIsProgrammer_asyncModifiers(result.Async, props.Context.Emit),
       nil,
-      functionalIsProgrammer_parameters(props.Declaration),
+      functionalIsProgrammer_parameters(props.Declaration, props.Context.Emit),
       functionalAssertProgrammer_returnType(props.Declaration),
       nil,
-      functionalAssertProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
+      f.NewToken(shimast.KindEqualsGreaterThanToken),
       result.Value,
     ),
   ))
   return nativefactories.ExpressionFactory.SelfCall(
-    functionalAssertProgrammer_factory.NewBlock(functionalAssertProgrammer_factory.NewNodeList(statements), true),
+    props.Context.Emit,
+    f.NewBlock(f.NewNodeList(statements), true),
   )
 }
 
 func (functionAssertReturnProgrammerNamespace) Decompose(props FunctionAssertReturnProgrammer_IDecomposeProps) FunctionAssertReturnProgrammer_IDecomposeOutput {
+  f := nativecontext.EmitFactoryOf(functionalAssertProgrammer_factory, props.Context.Emit)
   output := functionalinternal.FunctionalGeneralProgrammer.GetReturnType(functionalinternal.FunctionalGeneralProgrammer_IProps{
     Checker:     props.Context.Checker,
     Declaration: props.Declaration,
   })
-  caller := functionalAssertProgrammer_factory.NewCallExpression(
+  caller := f.NewCallExpression(
     props.Expression,
     nil,
     nil,
-    functionalAssertProgrammer_factory.NewNodeList(functionalIsProgrammer_parameterIdentifiers(props.Declaration)),
+    f.NewNodeList(functionalIsProgrammer_parameterIdentifiers(props.Declaration, props.Context.Emit)),
     shimast.NodeFlagsNone,
   )
   value := caller
   if output.Async {
-    value = functionalAssertProgrammer_factory.NewAwaitExpression(caller)
+    value = f.NewAwaitExpression(caller)
   }
   return FunctionAssertReturnProgrammer_IDecomposeOutput{
     Async: output.Async,
@@ -106,20 +109,22 @@ func (functionAssertReturnProgrammerNamespace) Decompose(props FunctionAssertRet
           },
           Type: output.Type,
           Init: FunctionalAssertFunctionProgrammer.HookPath(struct {
+            Context  nativecontext.ITypiaContext
             Wrapper  string
             Replacer string
           }{
+            Context:  props.Context,
             Wrapper:  props.Wrapper,
             Replacer: "$input.return",
           }),
         }),
-      }),
+      }, props.Context.Emit),
     },
-    Value: functionalAssertProgrammer_factory.NewCallExpression(
-      functionalAssertProgrammer_factory.NewIdentifier("__assert_return"),
+    Value: f.NewCallExpression(
+      f.NewIdentifier("__assert_return"),
       nil,
       nil,
-      functionalAssertProgrammer_factory.NewNodeList([]*shimast.Node{value}),
+      f.NewNodeList([]*shimast.Node{value}),
       shimast.NodeFlagsNone,
     ),
   }

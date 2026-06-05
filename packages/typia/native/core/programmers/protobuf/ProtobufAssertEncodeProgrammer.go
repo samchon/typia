@@ -34,6 +34,7 @@ type ProtobufAssertEncodeProgrammer_DecomposeProps struct {
 var protobufAssertEncodeProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
 func (protobufAssertEncodeProgrammerNamespace) Decompose(props ProtobufAssertEncodeProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
+  f := nativecontext.EmitFactoryOf(protobufAssertEncodeProgrammer_factory, props.Context.Emit)
   assertContext := props.Context
   functional := false
   finite := true
@@ -62,36 +63,36 @@ func (protobufAssertEncodeProgrammerNamespace) Decompose(props ProtobufAssertEnc
   statements = append(statements, assert.Statements...)
   statements = append(statements, encode.Statements...)
   statements = append(statements,
-    nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{Name: "__assert", Value: assert.Arrow}),
-    nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{Name: "__encode", Value: encode.Arrow}),
+    nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{Name: "__assert", Value: assert.Arrow}, props.Context.Emit),
+    nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{Name: "__encode", Value: encode.Arrow}, props.Context.Emit),
   )
   return nativeinternal.FeatureProgrammer_IDecomposed{
     Functions:  functions,
     Statements: statements,
-    Arrow: protobufAssertEncodeProgrammer_factory.NewArrowFunction(
+    Arrow: f.NewArrowFunction(
       nil,
       nil,
-      protobufAssertEncodeProgrammer_factory.NewNodeList([]*shimast.Node{
-        nativefactories.IdentifierFactory.Parameter("input", nativefactories.TypeFactory.Keyword("any"), nil),
+      f.NewNodeList([]*shimast.Node{
+        nativefactories.IdentifierFactory.Parameter("input", nativefactories.TypeFactory.Keyword("any", props.Context.Emit), nil, props.Context.Emit),
         nativeprogrammers.Guardian.Parameter(struct {
           Context nativecontext.ITypiaContext
           Init    *shimast.Node
         }{Context: props.Context, Init: props.Init}),
       }),
-      protobufAssertEncodeProgrammer_returnType(encode.Arrow, protobufAssertEncodeProgrammer_factory.NewTypeReferenceNode(protobufAssertEncodeProgrammer_factory.NewIdentifier("Uint8Array"), nil)),
+      protobufAssertEncodeProgrammer_returnType(encode.Arrow, f.NewTypeReferenceNode(f.NewIdentifier("Uint8Array"), nil)),
       nil,
-      protobufAssertEncodeProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
-      protobufAssertEncodeProgrammer_factory.NewCallExpression(
-        protobufAssertEncodeProgrammer_factory.NewIdentifier("__encode"),
+      f.NewToken(shimast.KindEqualsGreaterThanToken),
+      f.NewCallExpression(
+        f.NewIdentifier("__encode"),
         nil,
         nil,
-        protobufAssertEncodeProgrammer_factory.NewNodeList([]*shimast.Node{
-          protobufAssertEncodeProgrammer_factory.NewCallExpression(
-            protobufAssertEncodeProgrammer_factory.NewIdentifier("__assert"),
+        f.NewNodeList([]*shimast.Node{
+          f.NewCallExpression(
+            f.NewIdentifier("__assert"),
             nil,
             nil,
-            protobufAssertEncodeProgrammer_factory.NewNodeList([]*shimast.Node{
-              protobufAssertEncodeProgrammer_factory.NewIdentifier("input"),
+            f.NewNodeList([]*shimast.Node{
+              f.NewIdentifier("input"),
               nativeprogrammers.Guardian.Identifier(),
             }),
             shimast.NodeFlagsNone,
@@ -104,7 +105,7 @@ func (protobufAssertEncodeProgrammerNamespace) Decompose(props ProtobufAssertEnc
 }
 
 func (protobufAssertEncodeProgrammerNamespace) Write(props ProtobufAssertEncodeProgrammer_IProps) *shimast.Node {
-  functor := nativehelpers.NewFunctionProgrammer(protobufAssertEncodeProgrammer_method_text(props.Modulo))
+  functor := nativehelpers.NewFunctionProgrammer(protobufAssertEncodeProgrammer_method_text(props.Modulo), props.Context.Emit)
   result := ProtobufAssertEncodeProgrammer.Decompose(ProtobufAssertEncodeProgrammer_DecomposeProps{
     Context: props.Context,
     Modulo:  props.Modulo,

@@ -51,7 +51,7 @@ func (httpValidateQueryProgrammerNamespace) Decompose(props HttpValidateQueryPro
 }
 
 func (httpValidateQueryProgrammerNamespace) Write(props HttpValidateQueryProgrammer_IProps) *shimast.Node {
-  functor := nativehelpers.NewFunctionProgrammer(httpProgrammer_method_text(props.Modulo))
+  functor := nativehelpers.NewFunctionProgrammer(httpProgrammer_method_text(props.Modulo), props.Context.Emit)
   result := HttpValidateQueryProgrammer.Decompose(HttpValidateQueryProgrammer_DecomposeProps{
     Context:       props.Context,
     Modulo:        props.Modulo,

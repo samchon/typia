@@ -7,6 +7,8 @@ import (
   "strings"
 
   shimast "github.com/microsoft/typescript-go/shim/ast"
+  shimprinter "github.com/microsoft/typescript-go/shim/printer"
+  nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
 )
 
 type literalFactoryNamespace struct{}
@@ -26,9 +28,10 @@ type LiteralFactory_OrderedObject struct {
 
 var literalFactory_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
-func (literalFactoryNamespace) Write(input any) *shimast.Node {
+func (literalFactoryNamespace) Write(input any, emit ...*shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(literalFactory_factory, emit...)
   if input == nil {
-    return literalFactory_factory.NewKeywordExpression(shimast.KindNullKeyword)
+    return f.NewKeywordExpression(shimast.KindNullKeyword)
   }
   if node, ok := input.(*shimast.Node); ok {
     if node.Kind == shimast.KindArrowFunction || node.Kind == shimast.KindCallExpression || node.Kind == shimast.KindIdentifier {
@@ -36,49 +39,49 @@ func (literalFactoryNamespace) Write(input any) *shimast.Node {
     }
   }
   if ordered, ok := input.(LiteralFactory_OrderedObject); ok {
-    return literalFactory_writeOrderedObject(ordered)
+    return literalFactory_writeOrderedObject(ordered, emit...)
   }
   if ordered, ok := input.(*LiteralFactory_OrderedObject); ok {
     if ordered == nil {
-      return literalFactory_factory.NewKeywordExpression(shimast.KindNullKeyword)
+      return f.NewKeywordExpression(shimast.KindNullKeyword)
     }
-    return literalFactory_writeOrderedObject(*ordered)
+    return literalFactory_writeOrderedObject(*ordered, emit...)
   }
   if array, ok := input.([]any); ok {
-    return literalFactory_writeArray(array)
+    return literalFactory_writeArray(array, emit...)
   }
   if object, ok := input.(map[string]any); ok {
-    return literalFactory_writeObject(object)
+    return literalFactory_writeObject(object, emit...)
   }
   switch value := input.(type) {
   case bool:
-    return literalFactory_writeBoolean(value)
+    return literalFactory_writeBoolean(value, emit...)
   case *big.Int:
-    return literalFactory_writeBigint(value)
+    return literalFactory_writeBigint(value, emit...)
   case int:
-    return literalFactory_writeNumber(value)
+    return literalFactory_writeNumber(value, emit...)
   case int64:
-    return literalFactory_writeNumber(value)
+    return literalFactory_writeNumber(value, emit...)
   case float64:
-    return literalFactory_writeNumber(value)
+    return literalFactory_writeNumber(value, emit...)
   case string:
-    return literalFactory_writeString(value)
+    return literalFactory_writeString(value, emit...)
   }
   reflected := reflect.ValueOf(input)
   switch reflected.Kind() {
   case reflect.Bool:
-    return literalFactory_writeBoolean(reflected.Bool())
+    return literalFactory_writeBoolean(reflected.Bool(), emit...)
   case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
-    return literalFactory_writeNumber(reflected.Int())
+    return literalFactory_writeNumber(reflected.Int(), emit...)
   case reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64, reflect.Uintptr:
-    return literalFactory_writeNumber(reflected.Uint())
+    return literalFactory_writeNumber(reflected.Uint(), emit...)
   case reflect.Float32, reflect.Float64:
-    return literalFactory_writeNumber(reflected.Float())
+    return literalFactory_writeNumber(reflected.Float(), emit...)
   case reflect.Pointer:
     if reflected.IsNil() {
-      return literalFactory_factory.NewKeywordExpression(shimast.KindNullKeyword)
+      return f.NewKeywordExpression(shimast.KindNullKeyword)
     }
-    return LiteralFactory.Write(reflected.Elem().Interface())
+    return LiteralFactory.Write(reflected.Elem().Interface(), emit...)
   case reflect.Struct:
     object := map[string]any{}
     typ := reflected.Type()
@@ -89,23 +92,23 @@ func (literalFactoryNamespace) Write(input any) *shimast.Node {
       }
       object[literalFactory_fieldName(field.Name)] = reflected.Field(i).Interface()
     }
-    return literalFactory_writeObject(object)
+    return literalFactory_writeObject(object, emit...)
   case reflect.Slice, reflect.Array:
     array := make([]any, 0, reflected.Len())
     for i := 0; i < reflected.Len(); i++ {
       array = append(array, reflected.Index(i).Interface())
     }
-    return literalFactory_writeArray(array)
+    return literalFactory_writeArray(array, emit...)
   case reflect.Map:
     if reflected.Type().Key().Kind() == reflect.String {
       object := map[string]any{}
       for _, key := range reflected.MapKeys() {
         object[key.String()] = reflected.MapIndex(key).Interface()
       }
-      return literalFactory_writeObject(object)
+      return literalFactory_writeObject(object, emit...)
     }
   case reflect.Func:
-    return literalFactory_factory.NewIdentifier("undefined")
+    return f.NewIdentifier("undefined")
   }
   panic("Error on LiteralFactory.generate(): unknown type.")
 }
@@ -117,7 +120,8 @@ func literalFactory_fieldName(name string) string {
   return strings.ToLower(name[:1]) + name[1:]
 }
 
-func literalFactory_writeObject(obj map[string]any) *shimast.Node {
+func literalFactory_writeObject(obj map[string]any, emit ...*shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(literalFactory_factory, emit...)
   keys := make([]string, 0, len(obj))
   for key, value := range obj {
     if literalFactory_isNilLike(value) {
@@ -134,37 +138,38 @@ func literalFactory_writeObject(obj map[string]any) *shimast.Node {
   })
   properties := make([]*shimast.Node, 0, len(keys))
   for _, key := range keys {
-    properties = append(properties, literalFactory_factory.NewPropertyAssignment(
+    properties = append(properties, f.NewPropertyAssignment(
       nil,
-      IdentifierFactory.Identifier(key),
+      IdentifierFactory.Identifier(key, emit...),
       nil,
       nil,
-      LiteralFactory.Write(obj[key]),
+      LiteralFactory.Write(obj[key], emit...),
     ))
   }
-  return literalFactory_factory.NewObjectLiteralExpression(
-    literalFactory_factory.NewNodeList(properties),
+  return f.NewObjectLiteralExpression(
+    f.NewNodeList(properties),
     true,
   )
 }
 
-func literalFactory_writeOrderedObject(obj LiteralFactory_OrderedObject) *shimast.Node {
+func literalFactory_writeOrderedObject(obj LiteralFactory_OrderedObject, emit ...*shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(literalFactory_factory, emit...)
   properties := make([]*shimast.Node, 0, len(obj.Keys))
   for _, key := range obj.Keys {
     value, ok := obj.Values[key]
     if ok == false || literalFactory_isNilLike(value) {
       continue
     }
-    properties = append(properties, literalFactory_factory.NewPropertyAssignment(
+    properties = append(properties, f.NewPropertyAssignment(
       nil,
-      IdentifierFactory.Identifier(key),
+      IdentifierFactory.Identifier(key, emit...),
       nil,
       nil,
-      LiteralFactory.Write(value),
+      LiteralFactory.Write(value, emit...),
     ))
   }
-  return literalFactory_factory.NewObjectLiteralExpression(
-    literalFactory_factory.NewNodeList(properties),
+  return f.NewObjectLiteralExpression(
+    f.NewNodeList(properties),
     true,
   )
 }
@@ -244,32 +249,34 @@ func literalFactory_isNilLike(value any) bool {
   }
 }
 
-func literalFactory_writeArray(array []any) *shimast.Node {
+func literalFactory_writeArray(array []any, emit ...*shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(literalFactory_factory, emit...)
   elements := make([]*shimast.Node, 0, len(array))
   for _, elem := range array {
-    elements = append(elements, LiteralFactory.Write(elem))
+    elements = append(elements, LiteralFactory.Write(elem, emit...))
   }
-  return literalFactory_factory.NewArrayLiteralExpression(
-    literalFactory_factory.NewNodeList(elements),
+  return f.NewArrayLiteralExpression(
+    f.NewNodeList(elements),
     true,
   )
 }
 
-func literalFactory_writeBoolean(value bool) *shimast.Node {
+func literalFactory_writeBoolean(value bool, emit ...*shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(literalFactory_factory, emit...)
   if value {
-    return literalFactory_factory.NewKeywordExpression(shimast.KindTrueKeyword)
+    return f.NewKeywordExpression(shimast.KindTrueKeyword)
   }
-  return literalFactory_factory.NewKeywordExpression(shimast.KindFalseKeyword)
+  return f.NewKeywordExpression(shimast.KindFalseKeyword)
 }
 
-func literalFactory_writeNumber(value any) *shimast.Node {
-  return ExpressionFactory.Number(value)
+func literalFactory_writeNumber(value any, emit ...*shimprinter.EmitContext) *shimast.Node {
+  return ExpressionFactory.Number(value, emit...)
 }
 
-func literalFactory_writeBigint(value any) *shimast.Node {
-  return ExpressionFactory.Bigint(value)
+func literalFactory_writeBigint(value any, emit ...*shimprinter.EmitContext) *shimast.Node {
+  return ExpressionFactory.Bigint(value, emit...)
 }
 
-func literalFactory_writeString(value string) *shimast.Node {
-  return literalFactory_factory.NewStringLiteral(value, shimast.TokenFlagsNone)
+func literalFactory_writeString(value string, emit ...*shimprinter.EmitContext) *shimast.Node {
+  return nativecontext.EmitFactoryOf(literalFactory_factory, emit...).NewStringLiteral(value, shimast.TokenFlagsNone)
 }
