@@ -2,7 +2,7 @@
   "name": "typia-smoke",
   "version": "0.0.0",
   "private": true,
-  "type": "commonjs",
+  "type": "module",
   "scripts": {
     "start": "ttsx src/index.ts"
   },

@@ -4,6 +4,10 @@
     "outDir": "bin",
     "rootDir": "src",
     "noEmit": false,
+    "module": "esnext",
+    "moduleResolution": "bundler"
   },
-  "include": ["src"],
+  "include": [
+    "src"
+  ]
 }

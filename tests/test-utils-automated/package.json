@@ -32,5 +32,6 @@
     "tgrid": "catalog:utils",
     "typia": "workspace:^",
     "uuid": "catalog:utils"
-  }
+  },
+  "type": "module"
 }

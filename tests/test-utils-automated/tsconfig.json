@@ -1,7 +1,11 @@
 {
   "extends": "../config/tsconfig.json",
-  "include": ["src"],
+  "include": [
+    "src"
+  ],
   "compilerOptions": {
     "rootDir": "src",
-  },
+    "module": "esnext",
+    "moduleResolution": "bundler"
+  }
 }
