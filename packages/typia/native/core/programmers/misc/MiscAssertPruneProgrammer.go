@@ -25,6 +25,7 @@ type MiscAssertPruneProgrammer_DecomposeProps struct {
 var miscAssertPruneProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
 func (miscAssertPruneProgrammerNamespace) Decompose(props MiscAssertPruneProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
+  f := nativecontext.EmitFactoryOf(miscAssertPruneProgrammer_factory, props.Context.Emit)
   assert := nativeprogrammers.AssertProgrammer.Decompose(nativeprogrammers.AssertProgrammer_DecomposeProps{
     Context: props.Context,
     Functor: props.Functor,
@@ -43,64 +44,64 @@ func (miscAssertPruneProgrammerNamespace) Decompose(props MiscAssertPruneProgram
   statements := append([]*shimast.Node{}, assert.Statements...)
   statements = append(statements, prune.Statements...)
   statements = append(statements,
-    nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{Name: "__assert", Value: assert.Arrow}),
-    nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{Name: "__prune", Value: prune.Arrow}),
+    nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{Name: "__assert", Value: assert.Arrow}, props.Context.Emit),
+    nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{Name: "__prune", Value: prune.Arrow}, props.Context.Emit),
   )
   return nativeinternal.FeatureProgrammer_IDecomposed{
     Functions:  miscProgrammer_merge_functions(assert.Functions, prune.Functions),
     Statements: statements,
-    Arrow: miscAssertPruneProgrammer_factory.NewArrowFunction(
+    Arrow: f.NewArrowFunction(
       nil,
       nil,
-      miscAssertPruneProgrammer_factory.NewNodeList([]*shimast.Node{
-        nativefactories.IdentifierFactory.Parameter("input", nativefactories.TypeFactory.Keyword("any"), nil),
+      f.NewNodeList([]*shimast.Node{
+        nativefactories.IdentifierFactory.Parameter("input", nativefactories.TypeFactory.Keyword("any", props.Context.Emit), nil, props.Context.Emit),
         nativeprogrammers.Guardian.Parameter(struct {
           Context nativecontext.ITypiaContext
           Init    *shimast.Node
         }{Context: props.Context, Init: props.Init}),
       }),
-      miscAssertPruneProgrammer_factory.NewTypeReferenceNode(
-        miscAssertPruneProgrammer_factory.NewIdentifier(miscCloneProgrammer_type_name(props.Context, props.Type, props.Name)),
+      f.NewTypeReferenceNode(
+        f.NewIdentifier(miscCloneProgrammer_type_name(props.Context, props.Type, props.Name)),
         nil,
       ),
       nil,
-      miscAssertPruneProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
-      miscAssertPruneProgrammer_factory.NewBlock(miscAssertPruneProgrammer_factory.NewNodeList([]*shimast.Node{
-        miscAssertPruneProgrammer_factory.NewExpressionStatement(
-          miscAssertPruneProgrammer_factory.NewBinaryExpression(
+      f.NewToken(shimast.KindEqualsGreaterThanToken),
+      f.NewBlock(f.NewNodeList([]*shimast.Node{
+        f.NewExpressionStatement(
+          f.NewBinaryExpression(
             nil,
-            miscAssertPruneProgrammer_factory.NewIdentifier("input"),
+            f.NewIdentifier("input"),
             nil,
-            miscAssertPruneProgrammer_factory.NewToken(shimast.KindEqualsToken),
-            miscAssertPruneProgrammer_factory.NewCallExpression(
-              miscAssertPruneProgrammer_factory.NewIdentifier("__assert"),
+            f.NewToken(shimast.KindEqualsToken),
+            f.NewCallExpression(
+              f.NewIdentifier("__assert"),
               nil,
               nil,
-              miscAssertPruneProgrammer_factory.NewNodeList([]*shimast.Node{
-                miscAssertPruneProgrammer_factory.NewIdentifier("input"),
+              f.NewNodeList([]*shimast.Node{
+                f.NewIdentifier("input"),
                 nativeprogrammers.Guardian.Identifier(),
               }),
               shimast.NodeFlagsNone,
             ),
           ),
         ),
-        miscAssertPruneProgrammer_factory.NewExpressionStatement(
-          miscAssertPruneProgrammer_factory.NewCallExpression(
-            miscAssertPruneProgrammer_factory.NewIdentifier("__prune"),
+        f.NewExpressionStatement(
+          f.NewCallExpression(
+            f.NewIdentifier("__prune"),
             nil,
             nil,
-            miscAssertPruneProgrammer_factory.NewNodeList([]*shimast.Node{miscAssertPruneProgrammer_factory.NewIdentifier("input")}),
+            f.NewNodeList([]*shimast.Node{f.NewIdentifier("input")}),
             shimast.NodeFlagsNone,
           ),
         ),
-        miscAssertPruneProgrammer_factory.NewReturnStatement(miscAssertPruneProgrammer_factory.NewIdentifier("input")),
+        f.NewReturnStatement(f.NewIdentifier("input")),
       }), true),
     ),
   }
 }
 
 func (miscAssertPruneProgrammerNamespace) Write(props nativecontext.IProgrammerProps) *shimast.Node {
-  functor := nativehelpers.NewFunctionProgrammer(miscCloneProgrammer_method_text(props.Modulo))
+  functor := nativehelpers.NewFunctionProgrammer(miscCloneProgrammer_method_text(props.Modulo), props.Context.Emit)
   result := MiscAssertPruneProgrammer.Decompose(MiscAssertPruneProgrammer_DecomposeProps{
     Context: props.Context,
     Functor: functor,

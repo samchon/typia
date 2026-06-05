@@ -39,15 +39,16 @@ func (functionalValidateFunctionProgrammerNamespace) Write(props FunctionalValid
     Expression:  props.Expression,
     Declaration: props.Declaration,
   })
+  f := nativecontext.EmitFactoryOf(functionalValidateProgrammer_factory, props.Context.Emit)
   statements := append([]*shimast.Node{}, p.Functions...)
   statements = append(statements, r.Functions...)
   body := append([]*shimast.Node{}, p.Statements...)
   body = append(body, r.Statements...)
-  statements = append(statements, functionalValidateProgrammer_factory.NewReturnStatement(
-    functionalValidateProgrammer_factory.NewArrowFunction(
-      functionalIsProgrammer_asyncModifiers(r.Async),
+  statements = append(statements, f.NewReturnStatement(
+    f.NewArrowFunction(
+      functionalIsProgrammer_asyncModifiers(r.Async, props.Context.Emit),
       nil,
-      functionalIsProgrammer_parameters(props.Declaration),
+      functionalIsProgrammer_parameters(props.Declaration, props.Context.Emit),
       FunctionalValidateFunctionProgrammer.GetReturnTypeNode(struct {
         Context     nativecontext.ITypiaContext
         Declaration *shimast.Node
@@ -58,49 +59,53 @@ func (functionalValidateFunctionProgrammerNamespace) Write(props FunctionalValid
         Async:       r.Async,
       }),
       nil,
-      functionalValidateProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
-      functionalValidateProgrammer_factory.NewBlock(functionalValidateProgrammer_factory.NewNodeList(body), true),
+      f.NewToken(shimast.KindEqualsGreaterThanToken),
+      f.NewBlock(f.NewNodeList(body), true),
     ),
   ))
   return nativefactories.ExpressionFactory.SelfCall(
-    functionalValidateProgrammer_factory.NewBlock(functionalValidateProgrammer_factory.NewNodeList(statements), true),
+    props.Context.Emit,
+    f.NewBlock(f.NewNodeList(statements), true),
   )
 }
 
 func (functionalValidateFunctionProgrammerNamespace) HookErrors(props struct {
+  Context    nativecontext.ITypiaContext
   Expression *shimast.Node
   Replacer   *shimast.Node
 }) *shimast.Node {
-  return functionalValidateProgrammer_factory.NewCallExpression(
-    nativefactories.IdentifierFactory.Access(props.Expression, "map"),
+  f := nativecontext.EmitFactoryOf(functionalValidateProgrammer_factory, props.Context.Emit)
+  return f.NewCallExpression(
+    nativefactories.IdentifierFactory.Access(props.Context.Emit, props.Expression, "map"),
     nil,
     nil,
-    functionalValidateProgrammer_factory.NewNodeList([]*shimast.Node{
-      functionalValidateProgrammer_factory.NewArrowFunction(
+    f.NewNodeList([]*shimast.Node{
+      f.NewArrowFunction(
         nil,
         nil,
-        functionalValidateProgrammer_factory.NewNodeList([]*shimast.Node{
-          nativefactories.IdentifierFactory.Parameter("error", nil, nil),
+        f.NewNodeList([]*shimast.Node{
+          nativefactories.IdentifierFactory.Parameter("error", nil, nil, props.Context.Emit),
         }),
         nil,
         nil,
-        functionalValidateProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
-        functionalValidateProgrammer_factory.NewObjectLiteralExpression(functionalValidateProgrammer_factory.NewNodeList([]*shimast.Node{
-          functionalValidateProgrammer_factory.NewSpreadAssignment(functionalValidateProgrammer_factory.NewIdentifier("error")),
-          functionalValidateProgrammer_factory.NewPropertyAssignment(
+        f.NewToken(shimast.KindEqualsGreaterThanToken),
+        f.NewObjectLiteralExpression(f.NewNodeList([]*shimast.Node{
+          f.NewSpreadAssignment(f.NewIdentifier("error")),
+          f.NewPropertyAssignment(
             nil,
-            nativefactories.IdentifierFactory.Identifier("path"),
+            nativefactories.IdentifierFactory.Identifier("path", props.Context.Emit),
             nil,
             nil,
-            functionalValidateProgrammer_factory.NewCallExpression(
+            f.NewCallExpression(
               nativefactories.IdentifierFactory.Access(
-                nativefactories.IdentifierFactory.Access(functionalValidateProgrammer_factory.NewIdentifier("error"), "path"),
+                props.Context.Emit,
+                nativefactories.IdentifierFactory.Access(props.Context.Emit, f.NewIdentifier("error"), "path"),
                 "replace",
               ),
               nil,
               nil,
-              functionalValidateProgrammer_factory.NewNodeList([]*shimast.Node{
-                functionalValidateProgrammer_factory.NewStringLiteral("$input", shimast.TokenFlagsNone),
+              f.NewNodeList([]*shimast.Node{
+                f.NewStringLiteral("$input", shimast.TokenFlagsNone),
                 props.Replacer,
               }),
               shimast.NodeFlagsNone,
@@ -125,6 +130,7 @@ func (functionalValidateFunctionProgrammerNamespace) GetReturnTypeNode(props str
   if typ == nil {
     return nil
   }
+  f := nativecontext.EmitFactoryOf(functionalValidateProgrammer_factory, props.Context.Emit)
   if props.Async {
     var inner *shimast.Node
     if typ.Kind == shimast.KindTypeReference {
@@ -136,9 +142,9 @@ func (functionalValidateFunctionProgrammerNamespace) GetReturnTypeNode(props str
     if inner == nil {
       return nil
     }
-    return functionalValidateProgrammer_factory.NewTypeReferenceNode(
-      functionalValidateProgrammer_factory.NewIdentifier("Promise"),
-      functionalValidateProgrammer_factory.NewNodeList([]*shimast.Node{
+    return f.NewTypeReferenceNode(
+      f.NewIdentifier("Promise"),
+      f.NewNodeList([]*shimast.Node{
         functionalValidateProgrammer_import_type(props.Context, nativecontext.ImportProgrammer_TypeProps{
           File:      "typia",
           Name:      "IValidation",
@@ -159,7 +165,8 @@ func functionalValidateProgrammer_import_type(context nativecontext.ITypiaContex
     return importer.Type(props)
   }
   if str, ok := props.Name.(string); ok {
-    return functionalValidateProgrammer_factory.NewTypeReferenceNode(functionalValidateProgrammer_factory.NewIdentifier(str), functionalValidateProgrammer_factory.NewNodeList(props.Arguments))
+    f := nativecontext.EmitFactoryOf(functionalValidateProgrammer_factory, context.Emit)
+    return f.NewTypeReferenceNode(f.NewIdentifier(str), f.NewNodeList(props.Arguments))
   }
   return props.Name.(*shimast.Node)
 }

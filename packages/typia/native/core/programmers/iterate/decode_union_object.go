@@ -4,6 +4,8 @@ import (
   "strings"
 
   shimast "github.com/microsoft/typescript-go/shim/ast"
+  shimprinter "github.com/microsoft/typescript-go/shim/printer"
+  nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
   nativemetadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
 )
 
@@ -15,6 +17,7 @@ type Decode_union_objectProps struct {
   Objects []*nativemetadata.MetadataObjectType
   Input   *shimast.Expression
   Explore any
+  Emit    *shimprinter.EmitContext
 }
 
 type Decode_union_object_next struct {
@@ -52,19 +55,21 @@ func Decode_union_object(props Decode_union_objectProps) *shimast.Node {
       },
     })
   }
-  return decode_union_object_factory.NewCallExpression(
-    decode_union_object_factory.NewArrowFunction(
+  f := nativecontext.EmitFactoryOf(decode_union_object_factory, props.Emit)
+  return f.NewCallExpression(
+    f.NewArrowFunction(
       nil,
       nil,
-      decode_union_object_factory.NewNodeList(nil),
+      f.NewNodeList(nil),
       nil,
       nil,
-      decode_union_object_factory.NewToken(shimast.KindEqualsGreaterThanToken),
+      f.NewToken(shimast.KindEqualsGreaterThanToken),
       decode_union_object_iterate(decode_union_object_iterateProps{
         Escaper:  props.Escaper,
         Input:    props.Input,
         Unions:   unions,
         Expected: "(" + strings.Join(names, " | ") + ")",
+        Emit:     props.Emit,
       }),
     ),
     nil,
@@ -79,6 +84,7 @@ type decode_union_object_iterateProps struct {
   Unions   []decode_union_object_IUnion
   Expected string
   Input    *shimast.Expression
+  Emit     *shimprinter.EmitContext
 }
 
 type decode_union_object_IBranch struct {
@@ -87,6 +93,7 @@ type decode_union_object_IBranch struct {
 }
 
 func decode_union_object_iterate(props decode_union_object_iterateProps) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(decode_union_object_factory, props.Emit)
   branches := []decode_union_object_IBranch{}
   for _, u := range props.Unions {
     condition := u.Is()
@@ -103,8 +110,8 @@ func decode_union_object_iterate(props decode_union_object_iterateProps) *shimas
     })
   }
   if len(branches) == 0 {
-    return decode_union_object_factory.NewBlock(
-      decode_union_object_factory.NewNodeList([]*shimast.Node{
+    return f.NewBlock(
+      f.NewNodeList([]*shimast.Node{
         props.Escaper(Decode_union_object_escape{
           Input:    props.Input,
           Expected: props.Expected,
@@ -120,13 +127,13 @@ func decode_union_object_iterate(props decode_union_object_iterateProps) *shimas
   statements := make([]*shimast.Node, 0, len(branches)+1)
   for _, b := range branches {
     if b.Condition != nil {
-      statements = append(statements, decode_union_object_factory.NewIfStatement(
+      statements = append(statements, f.NewIfStatement(
         b.Condition,
-        decode_union_object_factory.NewReturnStatement(b.Value),
+        f.NewReturnStatement(b.Value),
         nil,
       ))
     } else {
-      statements = append(statements, decode_union_object_factory.NewReturnStatement(b.Value))
+      statements = append(statements, f.NewReturnStatement(b.Value))
     }
   }
   if branches[len(branches)-1].Condition != nil {
@@ -135,8 +142,8 @@ func decode_union_object_iterate(props decode_union_object_iterateProps) *shimas
       Expected: props.Expected,
     }))
   }
-  return decode_union_object_factory.NewBlock(
-    decode_union_object_factory.NewNodeList(statements),
+  return f.NewBlock(
+    f.NewNodeList(statements),
     true,
   )
 }

@@ -111,7 +111,7 @@ func (p *ImportProgrammer) Default(props ImportProgrammer_IDefault) *shimast.Nod
   if p.emit_ != nil {
     return p.member(asset, "default")
   }
-  return importProgrammer_factory.NewIdentifier(asset.Default.Name)
+  return EmitFactory(p.emit_, importProgrammer_factory).NewIdentifier(asset.Default.Name)
 }
 
 func (p *ImportProgrammer) Instance(props ImportProgrammer_IInstance) *shimast.Node {
@@ -127,7 +127,7 @@ func (p *ImportProgrammer) Instance(props ImportProgrammer_IInstance) *shimast.N
   if p.emit_ != nil {
     return p.member(asset, props.Name)
   }
-  return importProgrammer_factory.NewIdentifier(alias)
+  return EmitFactory(p.emit_, importProgrammer_factory).NewIdentifier(alias)
 }
 
 func (p *ImportProgrammer) Namespace(props ImportProgrammer_INamespace) *shimast.Node {
@@ -139,14 +139,15 @@ func (p *ImportProgrammer) Namespace(props ImportProgrammer_INamespace) *shimast
   if p.emit_ != nil {
     return p.emit_.Factory.NewGeneratedNameForNode(p.moduleSpecifier(asset))
   }
-  return importProgrammer_factory.NewIdentifier(asset.namespace.Name)
+  return EmitFactory(p.emit_, importProgrammer_factory).NewIdentifier(asset.namespace.Name)
 }
 
 func (p *ImportProgrammer) Type(props ImportProgrammer_TypeProps) *shimast.Node {
+  f := EmitFactory(p.emit_, importProgrammer_factory)
   var qualifier *shimast.EntityName
   switch name := props.Name.(type) {
   case string:
-    qualifier = importProgrammer_factory.NewIdentifier(name)
+    qualifier = f.NewIdentifier(name)
   case *shimast.Node:
     qualifier = name
   }
@@ -154,14 +155,14 @@ func (p *ImportProgrammer) Type(props ImportProgrammer_TypeProps) *shimast.Node 
   for _, arg := range props.Arguments {
     args = append(args, arg)
   }
-  return importProgrammer_factory.NewImportTypeNode(
+  return f.NewImportTypeNode(
     false,
-    importProgrammer_factory.NewLiteralTypeNode(
-      importProgrammer_factory.NewStringLiteral(props.File, shimast.TokenFlagsNone),
+    f.NewLiteralTypeNode(
+      f.NewStringLiteral(props.File, shimast.TokenFlagsNone),
     ),
     nil,
     qualifier,
-    importProgrammer_factory.NewNodeList(args),
+    f.NewNodeList(args),
   )
 }
 
@@ -191,6 +192,7 @@ func (p *ImportProgrammer) GetInternalText(name string) string {
 }
 
 func (p *ImportProgrammer) ToStatements() []*shimast.Node {
+  f := EmitFactory(p.emit_, importProgrammer_factory)
   statements := []*shimast.Node{}
   order := append([]string{}, p.order_...)
   indices := map[string]int{}
@@ -224,14 +226,14 @@ func (p *ImportProgrammer) ToStatements() []*shimast.Node {
       continue
     }
     if asset.namespace != nil {
-      statements = append(statements, importProgrammer_factory.NewImportDeclaration(
+      statements = append(statements, f.NewImportDeclaration(
         nil,
-        importProgrammer_factory.NewImportClause(
+        f.NewImportClause(
           0,
           nil,
-          importProgrammer_factory.NewNamespaceImport(importProgrammer_factory.NewIdentifier(asset.namespace.Name)),
+          f.NewNamespaceImport(f.NewIdentifier(asset.namespace.Name)),
         ),
-        importProgrammer_factory.NewStringLiteral(asset.file, shimast.TokenFlagsNone),
+        f.NewStringLiteral(asset.file, shimast.TokenFlagsNone),
         nil,
       ))
     }
@@ -240,14 +242,14 @@ func (p *ImportProgrammer) ToStatements() []*shimast.Node {
       if asset.Default.Type {
         phase = shimast.KindTypeKeyword
       }
-      statements = append(statements, importProgrammer_factory.NewImportDeclaration(
+      statements = append(statements, f.NewImportDeclaration(
         nil,
-        importProgrammer_factory.NewImportClause(
+        f.NewImportClause(
           phase,
-          importProgrammer_factory.NewIdentifier(asset.Default.Name),
+          f.NewIdentifier(asset.Default.Name),
           nil,
         ),
-        importProgrammer_factory.NewStringLiteral(asset.file, shimast.TokenFlagsNone),
+        f.NewStringLiteral(asset.file, shimast.TokenFlagsNone),
         nil,
       ))
     }
@@ -257,22 +259,22 @@ func (p *ImportProgrammer) ToStatements() []*shimast.Node {
         ins := asset.instances[alias]
         var propertyName *shimast.ModuleExportName
         if ins.Alias != nil {
-          propertyName = importProgrammer_factory.NewIdentifier(ins.Name)
+          propertyName = f.NewIdentifier(ins.Name)
         }
-        specifiers = append(specifiers, importProgrammer_factory.NewImportSpecifier(
+        specifiers = append(specifiers, f.NewImportSpecifier(
           false,
           propertyName,
-          importProgrammer_factory.NewIdentifier(alias),
+          f.NewIdentifier(alias),
         ))
       }
-      statements = append(statements, importProgrammer_factory.NewImportDeclaration(
+      statements = append(statements, f.NewImportDeclaration(
         nil,
-        importProgrammer_factory.NewImportClause(
+        f.NewImportClause(
           0,
           nil,
-          importProgrammer_factory.NewNamedImports(importProgrammer_factory.NewNodeList(specifiers)),
+          f.NewNamedImports(f.NewNodeList(specifiers)),
         ),
-        importProgrammer_factory.NewStringLiteral(asset.file, shimast.TokenFlagsNone),
+        f.NewStringLiteral(asset.file, shimast.TokenFlagsNone),
         nil,
       ))
     }

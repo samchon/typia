@@ -15,15 +15,16 @@ type Check_bigintProps struct {
 }
 
 func Check_bigint(props Check_bigintProps) nativehelpers.ICheckEntry {
+  f := nativecontext.EmitFactoryOf(check_bigint_factory, props.Context.Emit)
   conditions := check_bigint_type_tags(props)
   return nativehelpers.ICheckEntry{
     Expected: props.Atomic.GetName(),
-    Expression: check_bigint_factory.NewBinaryExpression(
+    Expression: f.NewBinaryExpression(
       nil,
-      check_bigint_factory.NewStringLiteral("bigint", shimast.TokenFlagsNone),
+      f.NewStringLiteral("bigint", shimast.TokenFlagsNone),
       nil,
-      check_bigint_factory.NewToken(shimast.KindEqualsEqualsEqualsToken),
-      check_bigint_factory.NewTypeOfExpression(props.Input),
+      f.NewToken(shimast.KindEqualsEqualsEqualsToken),
+      f.NewTypeOfExpression(props.Input),
     ),
     Conditions: conditions,
   }

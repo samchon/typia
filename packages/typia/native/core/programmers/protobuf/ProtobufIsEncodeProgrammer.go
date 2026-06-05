@@ -33,6 +33,7 @@ type ProtobufIsEncodeProgrammer_DecomposeProps struct {
 var protobufIsEncodeProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
 func (protobufIsEncodeProgrammerNamespace) Decompose(props ProtobufIsEncodeProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
+  f := nativecontext.EmitFactoryOf(protobufIsEncodeProgrammer_factory, props.Context.Emit)
   isContext := props.Context
   functional := false
   finite := true
@@ -56,50 +57,49 @@ func (protobufIsEncodeProgrammerNamespace) Decompose(props ProtobufIsEncodeProgr
   statements = append(statements, is.Statements...)
   statements = append(statements, encode.Statements...)
   statements = append(statements,
-    nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{Name: "__is", Value: is.Arrow}),
-    nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{Name: "__encode", Value: encode.Arrow}),
+    nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{Name: "__is", Value: is.Arrow}, props.Context.Emit),
+    nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{Name: "__encode", Value: encode.Arrow}, props.Context.Emit),
   )
-  encodeType := protobufAssertEncodeProgrammer_returnType(encode.Arrow, protobufIsEncodeProgrammer_factory.NewTypeReferenceNode(protobufIsEncodeProgrammer_factory.NewIdentifier("Uint8Array"), nil))
+  encodeType := protobufAssertEncodeProgrammer_returnType(encode.Arrow, f.NewTypeReferenceNode(f.NewIdentifier("Uint8Array"), nil))
   return nativeinternal.FeatureProgrammer_IDecomposed{
     Functions:  protobufAssertEncodeProgrammer_merge(is.Functions, encode.Functions),
     Statements: statements,
-    Arrow: protobufIsEncodeProgrammer_factory.NewArrowFunction(
+    Arrow: f.NewArrowFunction(
       nil,
       nil,
-      protobufIsEncodeProgrammer_factory.NewNodeList([]*shimast.Node{
-        nativefactories.IdentifierFactory.Parameter("input", nativefactories.TypeFactory.Keyword("any"), nil),
+      f.NewNodeList([]*shimast.Node{
+        nativefactories.IdentifierFactory.Parameter("input", nativefactories.TypeFactory.Keyword("any", props.Context.Emit), nil, props.Context.Emit),
       }),
-      protobufIsEncodeProgrammer_factory.NewUnionTypeNode(protobufIsEncodeProgrammer_factory.NewNodeList([]*shimast.Node{
+      f.NewUnionTypeNode(f.NewNodeList([]*shimast.Node{
         encodeType,
-        protobufIsEncodeProgrammer_factory.NewTypeReferenceNode(protobufIsEncodeProgrammer_factory.NewIdentifier("null"), nil),
+        f.NewTypeReferenceNode(f.NewIdentifier("null"), nil),
       })),
       nil,
-      protobufIsEncodeProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
-      protobufIsEncodeProgrammer_factory.NewConditionalExpression(
-        protobufIsEncodeProgrammer_factory.NewCallExpression(
-          protobufIsEncodeProgrammer_factory.NewIdentifier("__is"),
+      f.NewToken(shimast.KindEqualsGreaterThanToken),
+      nativefactories.ExpressionFactory.Conditional(
+        f.NewCallExpression(
+          f.NewIdentifier("__is"),
           nil,
           nil,
-          protobufIsEncodeProgrammer_factory.NewNodeList([]*shimast.Node{protobufIsEncodeProgrammer_factory.NewIdentifier("input")}),
+          f.NewNodeList([]*shimast.Node{f.NewIdentifier("input")}),
           shimast.NodeFlagsNone,
         ),
-        nil,
-        protobufIsEncodeProgrammer_factory.NewCallExpression(
-          protobufIsEncodeProgrammer_factory.NewIdentifier("__encode"),
+        f.NewCallExpression(
+          f.NewIdentifier("__encode"),
           nil,
           nil,
-          protobufIsEncodeProgrammer_factory.NewNodeList([]*shimast.Node{protobufIsEncodeProgrammer_factory.NewIdentifier("input")}),
+          f.NewNodeList([]*shimast.Node{f.NewIdentifier("input")}),
           shimast.NodeFlagsNone,
         ),
-        nil,
-        protobufIsEncodeProgrammer_factory.NewKeywordExpression(shimast.KindNullKeyword),
+        f.NewKeywordExpression(shimast.KindNullKeyword),
+        props.Context.Emit,
       ),
     ),
   }
 }
 
 func (protobufIsEncodeProgrammerNamespace) Write(props ProtobufIsEncodeProgrammer_IProps) *shimast.Node {
-  functor := nativehelpers.NewFunctionProgrammer(protobufAssertEncodeProgrammer_method_text(props.Modulo))
+  functor := nativehelpers.NewFunctionProgrammer(protobufAssertEncodeProgrammer_method_text(props.Modulo), props.Context.Emit)
   result := ProtobufIsEncodeProgrammer.Decompose(ProtobufIsEncodeProgrammer_DecomposeProps{
     Context: props.Context,
     Modulo:  props.Modulo,

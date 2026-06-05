@@ -56,27 +56,29 @@ func (functionalAssertFunctionProgrammerNamespace) Write(props FunctionalAssertF
     Declaration: props.Declaration,
     Wrapper:     wrapper.Name,
   })
+  f := nativecontext.EmitFactoryOf(functionalAssertProgrammer_factory, props.Context.Emit)
   statements := []*shimast.Node{wrapper.Variable}
   statements = append(statements, p.Functions...)
   statements = append(statements, r.Functions...)
   body := []*shimast.Node{}
   for _, exp := range p.Expressions {
-    body = append(body, functionalAssertProgrammer_factory.NewExpressionStatement(exp))
+    body = append(body, f.NewExpressionStatement(exp))
   }
-  body = append(body, functionalAssertProgrammer_factory.NewReturnStatement(r.Value))
-  statements = append(statements, functionalAssertProgrammer_factory.NewReturnStatement(
-    functionalAssertProgrammer_factory.NewArrowFunction(
-      functionalIsProgrammer_asyncModifiers(r.Async),
+  body = append(body, f.NewReturnStatement(r.Value))
+  statements = append(statements, f.NewReturnStatement(
+    f.NewArrowFunction(
+      functionalIsProgrammer_asyncModifiers(r.Async, props.Context.Emit),
       nil,
-      functionalIsProgrammer_parameters(props.Declaration),
+      functionalIsProgrammer_parameters(props.Declaration, props.Context.Emit),
       functionalAssertProgrammer_returnType(props.Declaration),
       nil,
-      functionalAssertProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
-      functionalAssertProgrammer_factory.NewBlock(functionalAssertProgrammer_factory.NewNodeList(body), true),
+      f.NewToken(shimast.KindEqualsGreaterThanToken),
+      f.NewBlock(f.NewNodeList(body), true),
     ),
   ))
   return nativefactories.ExpressionFactory.SelfCall(
-    functionalAssertProgrammer_factory.NewBlock(functionalAssertProgrammer_factory.NewNodeList(statements), true),
+    props.Context.Emit,
+    f.NewBlock(f.NewNodeList(statements), true),
   )
 }
 
@@ -100,51 +102,52 @@ func (functionalAssertFunctionProgrammerNamespace) ErrorFactoryWrapper(props str
       Name:  name,
       Type:  nativeprogrammers.Guardian.Type(props.Context),
       Value: init,
-    }),
+    }, props.Context.Emit),
   }
 }
 
 func (functionalAssertFunctionProgrammerNamespace) HookPath(props struct {
+  Context  nativecontext.ITypiaContext
   Wrapper  string
   Replacer string
 }) *shimast.Node {
-  path := nativefactories.IdentifierFactory.Access(functionalAssertProgrammer_factory.NewIdentifier("p"), "path")
-  return functionalAssertProgrammer_factory.NewArrowFunction(
+  f := nativecontext.EmitFactoryOf(functionalAssertProgrammer_factory, props.Context.Emit)
+  path := nativefactories.IdentifierFactory.Access(props.Context.Emit, f.NewIdentifier("p"), "path")
+  return f.NewArrowFunction(
     nil,
     nil,
-    functionalAssertProgrammer_factory.NewNodeList([]*shimast.Node{
-      nativefactories.IdentifierFactory.Parameter("p", nil, nil),
+    f.NewNodeList([]*shimast.Node{
+      nativefactories.IdentifierFactory.Parameter("p", nil, nil, props.Context.Emit),
     }),
     nil,
     nil,
-    functionalAssertProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
-    functionalAssertProgrammer_factory.NewCallExpression(
-      functionalAssertProgrammer_factory.NewIdentifier(props.Wrapper),
+    f.NewToken(shimast.KindEqualsGreaterThanToken),
+    f.NewCallExpression(
+      f.NewIdentifier(props.Wrapper),
       nil,
       nil,
-      functionalAssertProgrammer_factory.NewNodeList([]*shimast.Node{
-        functionalAssertProgrammer_factory.NewObjectLiteralExpression(functionalAssertProgrammer_factory.NewNodeList([]*shimast.Node{
-          functionalAssertProgrammer_factory.NewSpreadAssignment(functionalAssertProgrammer_factory.NewIdentifier("p")),
-          functionalAssertProgrammer_factory.NewPropertyAssignment(
+      f.NewNodeList([]*shimast.Node{
+        f.NewObjectLiteralExpression(f.NewNodeList([]*shimast.Node{
+          f.NewSpreadAssignment(f.NewIdentifier("p")),
+          f.NewPropertyAssignment(
             nil,
-            nativefactories.IdentifierFactory.Identifier("path"),
+            nativefactories.IdentifierFactory.Identifier("path", props.Context.Emit),
             nil,
             nil,
-            functionalAssertProgrammer_factory.NewConditionalExpression(
+            nativefactories.ExpressionFactory.Conditional(
               path,
-              nil,
-              functionalAssertProgrammer_factory.NewCallExpression(
-                nativefactories.IdentifierFactory.Access(path, "replace"),
+              f.NewCallExpression(
+                nativefactories.IdentifierFactory.Access(props.Context.Emit, path, "replace"),
                 nil,
                 nil,
-                functionalAssertProgrammer_factory.NewNodeList([]*shimast.Node{
-                  functionalAssertProgrammer_factory.NewStringLiteral("$input", shimast.TokenFlagsNone),
-                  functionalAssertProgrammer_factory.NewStringLiteral(props.Replacer, shimast.TokenFlagsNone),
+                f.NewNodeList([]*shimast.Node{
+                  f.NewStringLiteral("$input", shimast.TokenFlagsNone),
+                  f.NewStringLiteral(props.Replacer, shimast.TokenFlagsNone),
                 }),
                 shimast.NodeFlagsNone,
               ),
-              nil,
-              functionalAssertProgrammer_factory.NewIdentifier("undefined"),
+              f.NewIdentifier("undefined"),
+              props.Context.Emit,
             ),
           ),
         }), false),
@@ -165,5 +168,5 @@ func functionalAssertProgrammer_internal(context nativecontext.ITypiaContext, na
   if importer := context.Importer; importer != nil {
     return importer.Internal(name)
   }
-  return functionalAssertProgrammer_factory.NewIdentifier(name)
+  return nativecontext.EmitFactoryOf(functionalAssertProgrammer_factory, context.Emit).NewIdentifier(name)
 }

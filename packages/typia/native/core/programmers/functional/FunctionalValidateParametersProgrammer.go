@@ -48,29 +48,30 @@ func (functionalValidateParametersProgrammerNamespace) Write(props FunctionalVal
     Config:      props.Config,
     Declaration: props.Declaration,
   })
-  caller := functionalValidateProgrammer_factory.NewCallExpression(
+  f := nativecontext.EmitFactoryOf(functionalValidateProgrammer_factory, props.Context.Emit)
+  caller := f.NewCallExpression(
     props.Expression,
     nil,
     nil,
-    functionalValidateProgrammer_factory.NewNodeList(functionalIsProgrammer_parameterIdentifiers(props.Declaration)),
+    f.NewNodeList(functionalIsProgrammer_parameterIdentifiers(props.Declaration, props.Context.Emit)),
     shimast.NodeFlagsNone,
   )
   data := caller
   if output.Async {
-    data = functionalValidateProgrammer_factory.NewAwaitExpression(caller)
+    data = f.NewAwaitExpression(caller)
   }
   statements := append([]*shimast.Node{}, result.Functions...)
   body := append([]*shimast.Node{}, result.Statements...)
-  body = append(body, functionalValidateProgrammer_factory.NewReturnStatement(functionalValidateProgrammer_factory.NewObjectLiteralExpression(functionalValidateProgrammer_factory.NewNodeList([]*shimast.Node{
-    functionalValidateProgrammer_factory.NewPropertyAssignment(nil, nativefactories.IdentifierFactory.Identifier("success"), nil, nil, functionalValidateProgrammer_factory.NewKeywordExpression(shimast.KindTrueKeyword)),
-    functionalValidateProgrammer_factory.NewPropertyAssignment(nil, nativefactories.IdentifierFactory.Identifier("data"), nil, nil, data),
-    functionalValidateProgrammer_factory.NewPropertyAssignment(nil, nativefactories.IdentifierFactory.Identifier("errors"), nil, nil, functionalValidateProgrammer_factory.NewArrayLiteralExpression(functionalValidateProgrammer_factory.NewNodeList(nil), false)),
+  body = append(body, f.NewReturnStatement(f.NewObjectLiteralExpression(f.NewNodeList([]*shimast.Node{
+    f.NewPropertyAssignment(nil, nativefactories.IdentifierFactory.Identifier("success", props.Context.Emit), nil, nil, f.NewKeywordExpression(shimast.KindTrueKeyword)),
+    f.NewPropertyAssignment(nil, nativefactories.IdentifierFactory.Identifier("data", props.Context.Emit), nil, nil, data),
+    f.NewPropertyAssignment(nil, nativefactories.IdentifierFactory.Identifier("errors", props.Context.Emit), nil, nil, f.NewArrayLiteralExpression(f.NewNodeList(nil), false)),
   }), true)))
-  statements = append(statements, functionalValidateProgrammer_factory.NewReturnStatement(
-    functionalValidateProgrammer_factory.NewArrowFunction(
-      functionalIsProgrammer_asyncModifiers(output.Async),
+  statements = append(statements, f.NewReturnStatement(
+    f.NewArrowFunction(
+      functionalIsProgrammer_asyncModifiers(output.Async, props.Context.Emit),
       nil,
-      functionalIsProgrammer_parameters(props.Declaration),
+      functionalIsProgrammer_parameters(props.Declaration, props.Context.Emit),
       FunctionalValidateFunctionProgrammer.GetReturnTypeNode(struct {
         Context     nativecontext.ITypiaContext
         Declaration *shimast.Node
@@ -81,16 +82,18 @@ func (functionalValidateParametersProgrammerNamespace) Write(props FunctionalVal
         Async:       output.Async,
       }),
       nil,
-      functionalValidateProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
-      functionalValidateProgrammer_factory.NewBlock(functionalValidateProgrammer_factory.NewNodeList(body), true),
+      f.NewToken(shimast.KindEqualsGreaterThanToken),
+      f.NewBlock(f.NewNodeList(body), true),
     ),
   ))
   return nativefactories.ExpressionFactory.SelfCall(
-    functionalValidateProgrammer_factory.NewBlock(functionalValidateProgrammer_factory.NewNodeList(statements), true),
+    props.Context.Emit,
+    f.NewBlock(f.NewNodeList(statements), true),
   )
 }
 
 func (functionalValidateParametersProgrammerNamespace) Decompose(props FunctionalValidateParametersProgrammer_IDecomposeProps) FunctionalValidateParametersProgrammer_IDecomposeOutput {
+  f := nativecontext.EmitFactoryOf(functionalValidateProgrammer_factory, props.Context.Emit)
   parameters := functionalIsProgrammer_parameterNodes(props.Declaration)
   resultName := functionalIsProgrammer_escapeDuplicate(functionalIsProgrammer_parameterNames(props.Declaration), "paramErrorResults")
   functions := make([]*shimast.Node, 0, len(parameters))
@@ -103,17 +106,17 @@ func (functionalValidateParametersProgrammerNamespace) Decompose(props Functiona
         Modulo:  props.Modulo,
         Config:  nativeprogrammers.ValidateProgrammer_IConfig{Equals: props.Config.Equals},
         Type: props.Context.Checker.GetTypeFromTypeNode(
-          functionalIsProgrammer_parameterType(p, nativefactories.TypeFactory.Keyword("any")),
+          functionalIsProgrammer_parameterType(p, nativefactories.TypeFactory.Keyword("any", props.Context.Emit)),
         ),
       }),
-    }))
-    results = append(results, functionalValidateProgrammer_factory.NewAsExpression(
-      functionalValidateProgrammer_factory.NewCallExpression(
-        functionalValidateProgrammer_factory.NewIdentifier("__validate_param_"+functionalIsProgrammer_itoa(i)),
+    }, props.Context.Emit))
+    results = append(results, f.NewAsExpression(
+      f.NewCallExpression(
+        f.NewIdentifier("__validate_param_"+functionalIsProgrammer_itoa(i)),
         nil,
         nil,
-        functionalValidateProgrammer_factory.NewNodeList([]*shimast.Node{
-          functionalValidateProgrammer_factory.NewIdentifier(functionalIsProgrammer_parameterName(p)),
+        f.NewNodeList([]*shimast.Node{
+          f.NewIdentifier(functionalIsProgrammer_parameterName(p)),
         }),
         shimast.NodeFlagsNone,
       ),
@@ -123,76 +126,77 @@ func (functionalValidateParametersProgrammerNamespace) Decompose(props Functiona
       }),
     ))
   }
-  validationResultArray := functionalValidateProgrammer_factory.NewArrayLiteralExpression(functionalValidateProgrammer_factory.NewNodeList(results), true)
-  errorMatrix := functionalValidateProgrammer_factory.NewCallExpression(
-    nativefactories.IdentifierFactory.Access(validationResultArray, "map"),
+  validationResultArray := f.NewArrayLiteralExpression(f.NewNodeList(results), true)
+  errorMatrix := f.NewCallExpression(
+    nativefactories.IdentifierFactory.Access(props.Context.Emit, validationResultArray, "map"),
     nil,
     nil,
-    functionalValidateProgrammer_factory.NewNodeList([]*shimast.Node{
-      functionalValidateProgrammer_factory.NewArrowFunction(
+    f.NewNodeList([]*shimast.Node{
+      f.NewArrowFunction(
         nil,
         nil,
-        functionalValidateProgrammer_factory.NewNodeList([]*shimast.Node{
-          nativefactories.IdentifierFactory.Parameter("r", nil, nil),
-          nativefactories.IdentifierFactory.Parameter("i", nil, nil),
+        f.NewNodeList([]*shimast.Node{
+          nativefactories.IdentifierFactory.Parameter("r", nil, nil, props.Context.Emit),
+          nativefactories.IdentifierFactory.Parameter("i", nil, nil, props.Context.Emit),
         }),
         nil,
         nil,
-        functionalValidateProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
-        functionalValidateProgrammer_factory.NewConditionalExpression(
-          functionalValidateProgrammer_factory.NewBinaryExpression(
+        f.NewToken(shimast.KindEqualsGreaterThanToken),
+        nativefactories.ExpressionFactory.Conditional(
+          f.NewBinaryExpression(
             nil,
-            functionalValidateProgrammer_factory.NewKeywordExpression(shimast.KindTrueKeyword),
+            f.NewKeywordExpression(shimast.KindTrueKeyword),
             nil,
-            functionalValidateProgrammer_factory.NewToken(shimast.KindEqualsEqualsEqualsToken),
-            nativefactories.IdentifierFactory.Access(functionalValidateProgrammer_factory.NewIdentifier("r"), "success"),
+            f.NewToken(shimast.KindEqualsEqualsEqualsToken),
+            nativefactories.IdentifierFactory.Access(props.Context.Emit, f.NewIdentifier("r"), "success"),
           ),
-          nil,
-          functionalValidateProgrammer_factory.NewIdentifier("r"),
-          nil,
-          functionalValidateProgrammer_factory.NewObjectLiteralExpression(functionalValidateProgrammer_factory.NewNodeList([]*shimast.Node{
-            functionalValidateProgrammer_factory.NewSpreadAssignment(functionalValidateProgrammer_factory.NewIdentifier("r")),
-            functionalValidateProgrammer_factory.NewPropertyAssignment(nil, nativefactories.IdentifierFactory.Identifier("errors"), nil, nil, FunctionalValidateFunctionProgrammer.HookErrors(struct {
+          f.NewIdentifier("r"),
+          f.NewObjectLiteralExpression(f.NewNodeList([]*shimast.Node{
+            f.NewSpreadAssignment(f.NewIdentifier("r")),
+            f.NewPropertyAssignment(nil, nativefactories.IdentifierFactory.Identifier("errors", props.Context.Emit), nil, nil, FunctionalValidateFunctionProgrammer.HookErrors(struct {
+              Context    nativecontext.ITypiaContext
               Expression *shimast.Node
               Replacer   *shimast.Node
             }{
-              Expression: nativefactories.IdentifierFactory.Access(functionalValidateProgrammer_factory.NewIdentifier("r"), "errors"),
-              Replacer: functionalValidateProgrammer_factory.NewTemplateExpression(
-                functionalValidateProgrammer_factory.NewTemplateHead("$input.parameters[", "$input.parameters[", shimast.TokenFlagsNone),
-                functionalValidateProgrammer_factory.NewNodeList([]*shimast.Node{
-                  functionalValidateProgrammer_factory.NewTemplateSpan(
-                    functionalValidateProgrammer_factory.NewIdentifier("i"),
-                    functionalValidateProgrammer_factory.NewTemplateTail("]", "]", shimast.TokenFlagsNone),
+              Context:    props.Context,
+              Expression: nativefactories.IdentifierFactory.Access(props.Context.Emit, f.NewIdentifier("r"), "errors"),
+              Replacer: f.NewTemplateExpression(
+                f.NewTemplateHead("$input.parameters[", "$input.parameters[", shimast.TokenFlagsNone),
+                f.NewNodeList([]*shimast.Node{
+                  f.NewTemplateSpan(
+                    f.NewIdentifier("i"),
+                    f.NewTemplateTail("]", "]", shimast.TokenFlagsNone),
                   ),
                 }),
               ),
             })),
           }), true),
+          props.Context.Emit,
         ),
       ),
     }),
     shimast.NodeFlagsNone,
   )
-  failures := functionalValidateProgrammer_factory.NewCallExpression(
-    nativefactories.IdentifierFactory.Access(errorMatrix, "filter"),
+  failures := f.NewCallExpression(
+    nativefactories.IdentifierFactory.Access(props.Context.Emit, errorMatrix, "filter"),
     nil,
     nil,
-    functionalValidateProgrammer_factory.NewNodeList([]*shimast.Node{
-      functionalValidateProgrammer_factory.NewArrowFunction(
+    f.NewNodeList([]*shimast.Node{
+      f.NewArrowFunction(
         nil,
         nil,
-        functionalValidateProgrammer_factory.NewNodeList([]*shimast.Node{
-          nativefactories.IdentifierFactory.Parameter("r", nil, nil),
+        f.NewNodeList([]*shimast.Node{
+          nativefactories.IdentifierFactory.Parameter("r", nil, nil, props.Context.Emit),
         }),
         nil,
         nil,
-        functionalValidateProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
-        functionalValidateProgrammer_factory.NewBinaryExpression(
+        f.NewToken(shimast.KindEqualsGreaterThanToken),
+        f.NewBinaryExpression(
           nil,
-          functionalValidateProgrammer_factory.NewKeywordExpression(shimast.KindFalseKeyword),
+          f.NewKeywordExpression(shimast.KindFalseKeyword),
           nil,
-          functionalValidateProgrammer_factory.NewToken(shimast.KindEqualsEqualsEqualsToken),
-          nativefactories.IdentifierFactory.Access(functionalValidateProgrammer_factory.NewIdentifier("r"), "success"),
+          f.NewToken(shimast.KindEqualsEqualsEqualsToken),
+          nativefactories.IdentifierFactory.Access(props.Context.Emit, f.NewIdentifier("r"), "success"),
         ),
       ),
     }),
@@ -204,33 +208,33 @@ func (functionalValidateParametersProgrammerNamespace) Decompose(props Functiona
       nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
         Name:  resultName,
         Value: failures,
-      }),
-      functionalValidateProgrammer_factory.NewIfStatement(
-        functionalValidateProgrammer_factory.NewBinaryExpression(
+      }, props.Context.Emit),
+      f.NewIfStatement(
+        f.NewBinaryExpression(
           nil,
-          nativefactories.ExpressionFactory.Number(0),
+          nativefactories.ExpressionFactory.Number(0, props.Context.Emit),
           nil,
-          functionalValidateProgrammer_factory.NewToken(shimast.KindExclamationEqualsEqualsToken),
-          nativefactories.IdentifierFactory.Access(functionalValidateProgrammer_factory.NewIdentifier(resultName), "length"),
+          f.NewToken(shimast.KindExclamationEqualsEqualsToken),
+          nativefactories.IdentifierFactory.Access(props.Context.Emit, f.NewIdentifier(resultName), "length"),
         ),
-        functionalValidateProgrammer_factory.NewReturnStatement(functionalValidateProgrammer_factory.NewObjectLiteralExpression(functionalValidateProgrammer_factory.NewNodeList([]*shimast.Node{
-          functionalValidateProgrammer_factory.NewPropertyAssignment(nil, nativefactories.IdentifierFactory.Identifier("success"), nil, nil, functionalValidateProgrammer_factory.NewKeywordExpression(shimast.KindFalseKeyword)),
-          functionalValidateProgrammer_factory.NewPropertyAssignment(nil, nativefactories.IdentifierFactory.Identifier("errors"), nil, nil, functionalValidateProgrammer_factory.NewCallExpression(
-            nativefactories.IdentifierFactory.Access(functionalValidateProgrammer_factory.NewCallExpression(
-              nativefactories.IdentifierFactory.Access(functionalValidateProgrammer_factory.NewIdentifier(resultName), "map"),
+        f.NewReturnStatement(f.NewObjectLiteralExpression(f.NewNodeList([]*shimast.Node{
+          f.NewPropertyAssignment(nil, nativefactories.IdentifierFactory.Identifier("success", props.Context.Emit), nil, nil, f.NewKeywordExpression(shimast.KindFalseKeyword)),
+          f.NewPropertyAssignment(nil, nativefactories.IdentifierFactory.Identifier("errors", props.Context.Emit), nil, nil, f.NewCallExpression(
+            nativefactories.IdentifierFactory.Access(props.Context.Emit, f.NewCallExpression(
+              nativefactories.IdentifierFactory.Access(props.Context.Emit, f.NewIdentifier(resultName), "map"),
               nil,
               nil,
-              functionalValidateProgrammer_factory.NewNodeList([]*shimast.Node{
-                functionalValidateProgrammer_factory.NewArrowFunction(
+              f.NewNodeList([]*shimast.Node{
+                f.NewArrowFunction(
                   nil,
                   nil,
-                  functionalValidateProgrammer_factory.NewNodeList([]*shimast.Node{
-                    nativefactories.IdentifierFactory.Parameter("r", nativefactories.TypeFactory.Keyword("any"), nil),
+                  f.NewNodeList([]*shimast.Node{
+                    nativefactories.IdentifierFactory.Parameter("r", nativefactories.TypeFactory.Keyword("any", props.Context.Emit), nil, props.Context.Emit),
                   }),
                   nil,
                   nil,
-                  functionalValidateProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
-                  nativefactories.IdentifierFactory.Access(functionalValidateProgrammer_factory.NewIdentifier("r"), "errors"),
+                  f.NewToken(shimast.KindEqualsGreaterThanToken),
+                  nativefactories.IdentifierFactory.Access(props.Context.Emit, f.NewIdentifier("r"), "errors"),
                 ),
               }),
               shimast.NodeFlagsNone,

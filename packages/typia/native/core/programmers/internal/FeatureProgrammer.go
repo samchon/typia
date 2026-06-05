@@ -6,6 +6,7 @@ import (
 
   shimast "github.com/microsoft/typescript-go/shim/ast"
   shimchecker "github.com/microsoft/typescript-go/shim/checker"
+  shimprinter "github.com/microsoft/typescript-go/shim/printer"
   nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
   nativefactories "github.com/samchon/typia/packages/typia/native/core/factories"
   nativehelpers "github.com/samchon/typia/packages/typia/native/core/programmers/helpers"
@@ -142,6 +143,7 @@ type FeatureProgrammer_WriteDecomposedProps struct {
   Functor       *nativehelpers.FunctionProgrammer
   Result        FeatureProgrammer_IDecomposed
   ReturnWrapper func(arrow *shimast.Node) *shimast.Node
+  Emit          *shimprinter.EmitContext
 }
 
 type FeatureProgrammer_WriteProps struct {
@@ -161,6 +163,7 @@ type FeatureProgrammer_WriteObjectFunctionsProps struct {
 type FeatureProgrammer_WriteUnionFunctionsProps struct {
   Config     FeatureProgrammer_IConfig
   Collection *nativemetadata.MetadataCollection
+  Emit       *shimprinter.EmitContext
 }
 
 type FeatureProgrammer_DecodeArrayConfig struct {
@@ -180,6 +183,7 @@ type FeatureProgrammer_DecodeArrayProps struct {
   Array   *nativemetadata.MetadataArray
   Input   *shimast.Expression
   Explore FeatureProgrammer_IExplore
+  Emit    *shimprinter.EmitContext
 }
 
 type FeatureProgrammer_DecodeObjectConfig struct {
@@ -194,6 +198,7 @@ type FeatureProgrammer_DecodeObjectProps struct {
   Object  *nativemetadata.MetadataObjectType
   Input   *shimast.Expression
   Explore FeatureProgrammer_IExplore
+  Emit    *shimprinter.EmitContext
 }
 
 type FeatureProgrammer_IndexProps struct {
@@ -206,6 +211,7 @@ type FeatureProgrammer_ArgumentsArrayProps struct {
   Config  FeatureProgrammer_ArgumentsArrayConfig
   Input   *shimast.Expression
   Explore FeatureProgrammer_IExplore
+  Emit    *shimprinter.EmitContext
 }
 
 type FeatureProgrammer_ArgumentsArrayConfig struct {
@@ -217,6 +223,7 @@ type FeatureProgrammer_ParameterDeclarationsProps struct {
   Config FeatureProgrammer_ParameterConfig
   Type   *shimast.TypeNode
   Input  *shimast.Node
+  Emit   *shimprinter.EmitContext
 }
 
 type FeatureProgrammer_ParameterConfig struct {
@@ -234,7 +241,7 @@ func (featureProgrammerNamespace) Compose(props FeatureProgrammer_ComposeProps) 
   })
   featureProgrammer_register_schema_unions(initialized.Collection, initialized.Metadata, map[*nativemetadata.MetadataSchema]bool{})
   body := props.Config.Decoder(FeatureProgrammer_DecoderProps{
-    Input:    nativefactories.ValueFactory.INPUT(),
+    Input:    nativefactories.ValueFactory.INPUT(props.Context.Emit),
     Metadata: initialized.Metadata,
     Explore: FeatureProgrammer_IExplore{
       Tracable: props.Config.Path || props.Config.Trace,
@@ -251,7 +258,7 @@ func (featureProgrammerNamespace) Compose(props FeatureProgrammer_ComposeProps) 
   for i, v := range featureProgrammer_object_functions(props, initialized.Collection) {
     functions[fmt.Sprintf("%so%d", props.Config.Prefix, i)] = v
   }
-  for i, v := range featureProgrammer_union_functions(props.Config, initialized.Collection) {
+  for i, v := range featureProgrammer_union_functions(props.Config, initialized.Collection, props.Context.Emit) {
     functions[fmt.Sprintf("%su%d", props.Config.Prefix, i)] = v
   }
   for i, v := range props.Config.Generator.Arrays(initialized.Collection) {
@@ -267,13 +274,15 @@ func (featureProgrammerNamespace) Compose(props FeatureProgrammer_ComposeProps) 
     Parameters: FeatureProgrammer.ParameterDeclarations(FeatureProgrammer_ParameterDeclarationsProps{
       Config: FeatureProgrammer_ParameterConfig{Path: props.Config.Path, Trace: props.Config.Trace},
       Type:   props.Config.Types.Input(props.Type, props.Name),
-      Input:  nativefactories.ValueFactory.INPUT(),
+      Input:  nativefactories.ValueFactory.INPUT(props.Context.Emit),
+      Emit:   props.Context.Emit,
     }),
     Response: props.Config.Types.Output(props.Type, props.Name),
   }
 }
 
 func (featureProgrammerNamespace) WriteDecomposed(props FeatureProgrammer_WriteDecomposedProps) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(featureProgrammer_factory, props.Emit)
   statements := []*shimast.Node{}
   statements = append(statements, props.Functor.Declare()...)
   keys := make([]string, 0, len(props.Result.Functions))
@@ -289,16 +298,16 @@ func (featureProgrammerNamespace) WriteDecomposed(props FeatureProgrammer_WriteD
   if props.ReturnWrapper != nil {
     response = props.ReturnWrapper(props.Result.Arrow)
   }
-  statements = append(statements, featureProgrammer_factory.NewReturnStatement(response))
-  return featureProgrammer_factory.NewCallExpression(
-    featureProgrammer_factory.NewArrowFunction(
+  statements = append(statements, f.NewReturnStatement(response))
+  return f.NewCallExpression(
+    f.NewArrowFunction(
       nil,
       nil,
-      featureProgrammer_factory.NewNodeList(nil),
+      f.NewNodeList(nil),
       nil,
       nil,
-      featureProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
-      featureProgrammer_factory.NewBlock(featureProgrammer_factory.NewNodeList(statements), true),
+      f.NewToken(shimast.KindEqualsGreaterThanToken),
+      f.NewBlock(f.NewNodeList(statements), true),
     ),
     nil,
     nil,
@@ -308,6 +317,7 @@ func (featureProgrammerNamespace) WriteDecomposed(props FeatureProgrammer_WriteD
 }
 
 func (featureProgrammerNamespace) Write(props FeatureProgrammer_WriteProps) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(featureProgrammer_factory, props.Context.Emit)
   initialized := props.Config.Initializer(FeatureProgrammer_InitializerProps{
     Context: props.Context,
     Functor: props.Functor,
@@ -316,7 +326,7 @@ func (featureProgrammerNamespace) Write(props FeatureProgrammer_WriteProps) *shi
   featureProgrammer_register_schema_unions(initialized.Collection, initialized.Metadata, map[*nativemetadata.MetadataSchema]bool{})
   output := props.Config.Decoder(FeatureProgrammer_DecoderProps{
     Metadata: initialized.Metadata,
-    Input:    nativefactories.ValueFactory.INPUT(),
+    Input:    nativefactories.ValueFactory.INPUT(props.Context.Emit),
     Explore: FeatureProgrammer_IExplore{
       Tracable: props.Config.Path || props.Config.Trace,
       Source:   "top",
@@ -332,7 +342,7 @@ func (featureProgrammerNamespace) Write(props FeatureProgrammer_WriteProps) *shi
     Type:    props.Type,
     Name:    props.Name,
   }, initialized.Collection)
-  unions := featureProgrammer_union_functions(props.Config, initialized.Collection)
+  unions := featureProgrammer_union_functions(props.Config, initialized.Collection, props.Context.Emit)
   arrays := props.Config.Generator.Arrays(initialized.Collection)
   tuples := props.Config.Generator.Tuples(initialized.Collection)
 
@@ -357,21 +367,22 @@ func (featureProgrammerNamespace) Write(props FeatureProgrammer_WriteProps) *shi
   if output != nil && output.Kind == shimast.KindBlock {
     statements = append(statements, output.Statements()...)
   } else {
-    statements = append(statements, featureProgrammer_factory.NewReturnStatement(output))
+    statements = append(statements, f.NewReturnStatement(output))
   }
 
-  return featureProgrammer_factory.NewArrowFunction(
+  return f.NewArrowFunction(
     nil,
     nil,
-    featureProgrammer_factory.NewNodeList(FeatureProgrammer.ParameterDeclarations(FeatureProgrammer_ParameterDeclarationsProps{
+    f.NewNodeList(FeatureProgrammer.ParameterDeclarations(FeatureProgrammer_ParameterDeclarationsProps{
       Config: FeatureProgrammer_ParameterConfig{Path: props.Config.Path, Trace: props.Config.Trace},
       Type:   props.Config.Types.Input(props.Type, props.Name),
-      Input:  nativefactories.ValueFactory.INPUT(),
+      Input:  nativefactories.ValueFactory.INPUT(props.Context.Emit),
+      Emit:   props.Context.Emit,
     })),
     props.Config.Types.Output(props.Type, props.Name),
     nil,
-    featureProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
-    featureProgrammer_factory.NewBlock(featureProgrammer_factory.NewNodeList(statements), true),
+    f.NewToken(shimast.KindEqualsGreaterThanToken),
+    f.NewBlock(f.NewNodeList(statements), true),
   )
 }
 
@@ -380,10 +391,11 @@ func (featureProgrammerNamespace) Write_object_functions(props FeatureProgrammer
 }
 
 func (featureProgrammerNamespace) Write_union_functions(props FeatureProgrammer_WriteUnionFunctionsProps) []*shimast.Node {
-  return featureProgrammer_write_union_functions(props.Config, props.Collection)
+  return featureProgrammer_write_union_functions(props.Config, props.Collection, props.Emit)
 }
 
 func (featureProgrammerNamespace) Decode_array(props FeatureProgrammer_DecodeArrayProps) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(featureProgrammer_factory, props.Emit)
   rand := fmt.Sprint(props.Functor.Increment())
   tail := []*shimast.Node{}
   if props.Config.Path || props.Config.Trace {
@@ -393,15 +405,15 @@ func (featureProgrammerNamespace) Decode_array(props FeatureProgrammer_DecodeArr
     nativefactories.IdentifierFactory.Parameter("elem", nativefactories.TypeFactory.Keyword("any"), nil),
   }
   parameters = append(parameters, tail...)
-  arrow := featureProgrammer_factory.NewArrowFunction(
+  arrow := f.NewArrowFunction(
     nil,
     nil,
-    featureProgrammer_factory.NewNodeList(parameters),
+    f.NewNodeList(parameters),
     nil,
     nil,
-    featureProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
+    f.NewToken(shimast.KindEqualsGreaterThanToken),
     props.Config.Decoder(FeatureProgrammer_DecoderProps{
-      Input:    nativefactories.ValueFactory.INPUT("elem"),
+      Input:    nativefactories.ValueFactory.INPUT(nil, "elem"),
       Metadata: props.Array.Type.Value,
       Explore: FeatureProgrammer_IExplore{
         Tracable: props.Explore.Tracable,
@@ -422,16 +434,18 @@ func (featureProgrammerNamespace) Decode_array(props FeatureProgrammer_DecodeArr
 }
 
 func (featureProgrammerNamespace) Decode_object(props FeatureProgrammer_DecodeObjectProps) *shimast.Node {
-  return featureProgrammer_factory.NewCallExpression(
-    featureProgrammer_factory.NewIdentifier(
+  f := nativecontext.EmitFactoryOf(featureProgrammer_factory, props.Emit)
+  return f.NewCallExpression(
+    f.NewIdentifier(
       props.Functor.UseLocal(fmt.Sprintf("%so%d", props.Config.Prefix, props.Object.Index)),
     ),
     nil,
     nil,
-    featureProgrammer_factory.NewNodeList(FeatureProgrammer.ArgumentsArray(FeatureProgrammer_ArgumentsArrayProps{
+    f.NewNodeList(FeatureProgrammer.ArgumentsArray(FeatureProgrammer_ArgumentsArrayProps{
       Config:  FeatureProgrammer_ArgumentsArrayConfig{Path: props.Config.Path, Trace: props.Config.Trace},
       Input:   props.Input,
       Explore: props.Explore,
+      Emit:    props.Emit,
     })),
     shimast.NodeFlagsNone,
   )
@@ -452,6 +466,7 @@ func (featureProgrammerNamespace) Index(props FeatureProgrammer_IndexProps) stri
 }
 
 func (featureProgrammerNamespace) ArgumentsArray(props FeatureProgrammer_ArgumentsArrayProps) []*shimast.Node {
+  f := nativecontext.EmitFactoryOf(featureProgrammer_factory, props.Emit)
   tail := []*shimast.Node{}
   if props.Config.Path == false && props.Config.Trace == false {
     tail = []*shimast.Node{}
@@ -460,33 +475,34 @@ func (featureProgrammerNamespace) ArgumentsArray(props FeatureProgrammer_Argumen
     if props.Explore.Postfix != "" {
       path = "_path + " + props.Explore.Postfix
     }
-    tail = append(tail, featureProgrammer_factory.NewIdentifier(path))
+    tail = append(tail, f.NewIdentifier(path))
     if props.Explore.Source == "function" {
-      tail = append(tail, featureProgrammer_factory.NewIdentifier(fmt.Sprintf("%t && _exceptionable", props.Explore.Tracable)))
+      tail = append(tail, f.NewIdentifier(fmt.Sprintf("%t && _exceptionable", props.Explore.Tracable)))
     } else if props.Explore.Tracable {
-      tail = append(tail, featureProgrammer_factory.NewKeywordExpression(shimast.KindTrueKeyword))
+      tail = append(tail, f.NewKeywordExpression(shimast.KindTrueKeyword))
     } else {
-      tail = append(tail, featureProgrammer_factory.NewKeywordExpression(shimast.KindFalseKeyword))
+      tail = append(tail, f.NewKeywordExpression(shimast.KindFalseKeyword))
     }
   } else if props.Config.Path {
     path := "_path"
     if props.Explore.Postfix != "" {
       path = "_path + " + props.Explore.Postfix
     }
-    tail = append(tail, featureProgrammer_factory.NewIdentifier(path))
+    tail = append(tail, f.NewIdentifier(path))
   } else {
     if props.Explore.Source == "function" {
-      tail = append(tail, featureProgrammer_factory.NewIdentifier(fmt.Sprintf("%t && _exceptionable", props.Explore.Tracable)))
+      tail = append(tail, f.NewIdentifier(fmt.Sprintf("%t && _exceptionable", props.Explore.Tracable)))
     } else if props.Explore.Tracable {
-      tail = append(tail, featureProgrammer_factory.NewKeywordExpression(shimast.KindTrueKeyword))
+      tail = append(tail, f.NewKeywordExpression(shimast.KindTrueKeyword))
     } else {
-      tail = append(tail, featureProgrammer_factory.NewKeywordExpression(shimast.KindFalseKeyword))
+      tail = append(tail, f.NewKeywordExpression(shimast.KindFalseKeyword))
     }
   }
   return append([]*shimast.Node{props.Input}, tail...)
 }
 
 func (featureProgrammerNamespace) ParameterDeclarations(props FeatureProgrammer_ParameterDeclarationsProps) []*shimast.Node {
+  f := nativecontext.EmitFactoryOf(featureProgrammer_factory, props.Emit)
   tail := []*shimast.Node{}
   if props.Config.Path {
     tail = append(tail, nativefactories.IdentifierFactory.Parameter("_path", nativefactories.TypeFactory.Keyword("string"), nil))
@@ -495,7 +511,7 @@ func (featureProgrammerNamespace) ParameterDeclarations(props FeatureProgrammer_
     tail = append(tail, nativefactories.IdentifierFactory.Parameter(
       "_exceptionable",
       nativefactories.TypeFactory.Keyword("boolean"),
-      featureProgrammer_factory.NewKeywordExpression(shimast.KindTrueKeyword),
+      f.NewKeywordExpression(shimast.KindTrueKeyword),
     ))
   }
   return append([]*shimast.Node{
@@ -510,13 +526,13 @@ func featureProgrammer_object_functions(props FeatureProgrammer_ComposeProps, co
   return featureProgrammer_write_object_functions(props.Config, props.Context, collection)
 }
 
-func featureProgrammer_union_functions(config FeatureProgrammer_IConfig, collection *nativemetadata.MetadataCollection) []*shimast.Node {
+func featureProgrammer_union_functions(config FeatureProgrammer_IConfig, collection *nativemetadata.MetadataCollection, emit *shimprinter.EmitContext) []*shimast.Node {
   if config.Generator.Unions != nil {
     if generated := config.Generator.Unions(collection); generated != nil {
       return generated
     }
   }
-  return featureProgrammer_write_union_functions(config, collection)
+  return featureProgrammer_write_union_functions(config, collection, emit)
 }
 
 func featureProgrammer_register_schema_unions(collection *nativemetadata.MetadataCollection, metadata *nativemetadata.MetadataSchema, visited map[*nativemetadata.MetadataSchema]bool) {
@@ -569,27 +585,29 @@ func featureProgrammer_register_schema_unions(collection *nativemetadata.Metadat
 }
 
 func featureProgrammer_write_object_functions(config FeatureProgrammer_IConfig, context nativecontext.ITypiaContext, collection *nativemetadata.MetadataCollection) []*shimast.Node {
+  f := nativecontext.EmitFactoryOf(featureProgrammer_factory, context.Emit)
   objects := collection.Objects()
   output := make([]*shimast.Node, 0, len(objects))
   for _, object := range objects {
-    input := featureProgrammer_factory.NewIdentifier("input")
+    input := f.NewIdentifier("input")
     objectType := config.Objector.Type
     if objectType == nil {
-      objectType = nativefactories.TypeFactory.Keyword("any")
+      objectType = nativefactories.TypeFactory.Keyword("any", context.Emit)
     }
     output = append(output, nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
       Name: fmt.Sprintf("%so%d", config.Prefix, object.Index),
-      Value: featureProgrammer_factory.NewArrowFunction(
+      Value: f.NewArrowFunction(
         nil,
         nil,
-        featureProgrammer_factory.NewNodeList(FeatureProgrammer.ParameterDeclarations(FeatureProgrammer_ParameterDeclarationsProps{
+        f.NewNodeList(FeatureProgrammer.ParameterDeclarations(FeatureProgrammer_ParameterDeclarationsProps{
           Config: FeatureProgrammer_ParameterConfig{Path: config.Path, Trace: config.Trace},
           Type:   nativefactories.TypeFactory.Keyword("any"),
-          Input:  nativefactories.ValueFactory.INPUT(),
+          Input:  nativefactories.ValueFactory.INPUT(context.Emit),
+          Emit:   context.Emit,
         })),
         objectType,
         nil,
-        featureProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
+        f.NewToken(shimast.KindEqualsGreaterThanToken),
         config.Objector.Joiner(FeatureProgrammer_ObjectorJoinerProps{
           Input: input,
           Entries: nativeiterate.Feature_object_entries(nativeiterate.Feature_object_entriesProps{
@@ -611,12 +629,12 @@ func featureProgrammer_write_object_functions(config FeatureProgrammer_IConfig, 
           Object: object,
         }),
       ),
-    }))
+    }, context.Emit))
   }
   return output
 }
 
-func featureProgrammer_write_union_functions(config FeatureProgrammer_IConfig, collection *nativemetadata.MetadataCollection) []*shimast.Node {
+func featureProgrammer_write_union_functions(config FeatureProgrammer_IConfig, collection *nativemetadata.MetadataCollection, emit *shimprinter.EmitContext) []*shimast.Node {
   unions := collection.Unions()
   output := make([]*shimast.Node, 0, len(unions))
   for i, union := range unions {
@@ -625,7 +643,7 @@ func featureProgrammer_write_union_functions(config FeatureProgrammer_IConfig, c
       Value: featureProgrammer_write_union(struct {
         Config  FeatureProgrammer_IConfig
         Objects []*nativemetadata.MetadataObjectType
-      }{Config: config, Objects: union}),
+      }{Config: config, Objects: union}, emit),
     }))
   }
   return output
@@ -634,30 +652,33 @@ func featureProgrammer_write_union_functions(config FeatureProgrammer_IConfig, c
 func featureProgrammer_write_union(props struct {
   Config  FeatureProgrammer_IConfig
   Objects []*nativemetadata.MetadataObjectType
-}) *shimast.Node {
-  return featureProgrammer_factory.NewArrowFunction(
+}, emit *shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(featureProgrammer_factory, emit)
+  return f.NewArrowFunction(
     nil,
     nil,
-    featureProgrammer_factory.NewNodeList(FeatureProgrammer.ParameterDeclarations(FeatureProgrammer_ParameterDeclarationsProps{
+    f.NewNodeList(FeatureProgrammer.ParameterDeclarations(FeatureProgrammer_ParameterDeclarationsProps{
       Config: FeatureProgrammer_ParameterConfig{Path: props.Config.Path, Trace: props.Config.Trace},
       Type:   nativefactories.TypeFactory.Keyword("any"),
-      Input:  nativefactories.ValueFactory.INPUT(),
+      Input:  nativefactories.ValueFactory.INPUT(nil),
+      Emit:   emit,
     })),
     nativefactories.TypeFactory.Keyword("any"),
     nil,
-    featureProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
+    f.NewToken(shimast.KindEqualsGreaterThanToken),
     nativehelpers.UnionExplorer.Object(nativehelpers.UnionExplorer_ObjectProps{
       Config: nativehelpers.UnionExplorer_ObjectConfig{
         Objector: featureProgrammer_union_objector(props.Config.Objector),
       },
       Objects: props.Objects,
-      Input:   nativefactories.ValueFactory.INPUT(),
+      Input:   nativefactories.ValueFactory.INPUT(nil),
       Explore: FeatureProgrammer_IExplore{
         Tracable: props.Config.Path || props.Config.Trace,
         Source:   "function",
         From:     "object",
         Postfix:  "",
       },
+      Emit: emit,
     }),
   )
 }

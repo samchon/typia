@@ -5,6 +5,7 @@ import (
   "strings"
 
   shimast "github.com/microsoft/typescript-go/shim/ast"
+  nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
 )
 
 type importTransformerNamespace struct{}
@@ -107,11 +108,12 @@ func importTransformer_transform_node(props importTransformer_transformNodeProps
   if strings.HasPrefix(replaced, ".") == false {
     replaced = "./" + replaced
   }
-  return importTransformer_factory.UpdateImportDeclaration(
+  f := nativecontext.EmitFactoryOf(importTransformer_factory)
+  return f.UpdateImportDeclaration(
     decl,
     decl.Modifiers(),
     decl.ImportClause,
-    importTransformer_factory.NewStringLiteral(replaced, shimast.TokenFlagsNone),
+    f.NewStringLiteral(replaced, shimast.TokenFlagsNone),
     decl.Attributes,
   )
 }
@@ -124,6 +126,7 @@ func removeUnusedTypiaImports(file *shimast.SourceFile) *shimast.SourceFile {
   if file == nil || file.Statements == nil {
     return file
   }
+  f := nativecontext.EmitFactoryOf(importTransformer_factory)
   imports := map[string]importTransformer_importMetadata{}
   for _, stmt := range file.Statements.Nodes {
     decl := importTransformer_typiaImport(stmt)
@@ -212,12 +215,12 @@ func removeUnusedTypiaImports(file *shimast.SourceFile) *shimast.SourceFile {
     if name == nil && namedBindings == nil {
       continue
     }
-    nextImportClause := importTransformer_factory.NewImportClause(
+    nextImportClause := f.NewImportClause(
       clause.PhaseModifier,
       name,
       namedBindings,
     ).AsImportClause()
-    nodes = append(nodes, importTransformer_factory.UpdateImportDeclaration(
+    nodes = append(nodes, f.UpdateImportDeclaration(
       decl,
       decl.Modifiers(),
       nextImportClause.AsNode(),
@@ -225,9 +228,9 @@ func removeUnusedTypiaImports(file *shimast.SourceFile) *shimast.SourceFile {
       decl.Attributes,
     ))
   }
-  return importTransformer_factory.UpdateSourceFile(
+  return f.UpdateSourceFile(
     file,
-    importTransformer_factory.NewNodeList(nodes),
+    f.NewNodeList(nodes),
     file.EndOfFileToken,
   ).AsSourceFile()
 }

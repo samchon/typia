@@ -2,6 +2,7 @@ package functional
 
 import (
   shimast "github.com/microsoft/typescript-go/shim/ast"
+  shimprinter "github.com/microsoft/typescript-go/shim/printer"
   nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
   nativefactories "github.com/samchon/typia/packages/typia/native/core/factories"
   nativeprogrammers "github.com/samchon/typia/packages/typia/native/core/programmers"
@@ -40,6 +41,7 @@ type FunctionalIsParametersProgrammer_IDecomposeOutput struct {
 var functionalIsProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
 func (functionalIsParametersProgrammerNamespace) Write(props FunctionalIsParametersProgrammer_IProps) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(functionalIsProgrammer_factory, props.Context.Emit)
   output := functionalinternal.FunctionalGeneralProgrammer.GetReturnType(functionalinternal.FunctionalGeneralProgrammer_IProps{
     Checker:     props.Context.Checker,
     Declaration: props.Declaration,
@@ -51,38 +53,42 @@ func (functionalIsParametersProgrammerNamespace) Write(props FunctionalIsParamet
     Declaration: props.Declaration,
   })
   statements := append([]*shimast.Node{}, result.Functions...)
-  statements = append(statements, functionalIsProgrammer_factory.NewReturnStatement(
-    functionalIsProgrammer_factory.NewArrowFunction(
-      functionalIsProgrammer_asyncModifiers(output.Async),
+  statements = append(statements, f.NewReturnStatement(
+    f.NewArrowFunction(
+      functionalIsProgrammer_asyncModifiers(output.Async, props.Context.Emit),
       nil,
-      functionalIsProgrammer_parameters(props.Declaration),
+      functionalIsProgrammer_parameters(props.Declaration, props.Context.Emit),
       FunctionalIsFunctionProgrammer.GetReturnTypeNode(struct {
+        Context     nativecontext.ITypiaContext
         Declaration *shimast.Node
         Async       bool
       }{
+        Context:     props.Context,
         Declaration: props.Declaration,
         Async:       output.Async,
       }),
       nil,
-      functionalIsProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
-      functionalIsProgrammer_factory.NewBlock(functionalIsProgrammer_factory.NewNodeList(append(
+      f.NewToken(shimast.KindEqualsGreaterThanToken),
+      f.NewBlock(f.NewNodeList(append(
         append([]*shimast.Node{}, result.Statements...),
-        functionalIsProgrammer_factory.NewReturnStatement(functionalIsProgrammer_factory.NewCallExpression(
+        f.NewReturnStatement(f.NewCallExpression(
           props.Expression,
           nil,
           nil,
-          functionalIsProgrammer_factory.NewNodeList(functionalIsProgrammer_parameterIdentifiers(props.Declaration)),
+          f.NewNodeList(functionalIsProgrammer_parameterIdentifiers(props.Declaration, props.Context.Emit)),
           shimast.NodeFlagsNone,
         )),
       )), true),
     ),
   ))
   return nativefactories.ExpressionFactory.SelfCall(
-    functionalIsProgrammer_factory.NewBlock(functionalIsProgrammer_factory.NewNodeList(statements), true),
+    props.Context.Emit,
+    f.NewBlock(f.NewNodeList(statements), true),
   )
 }
 
 func (functionalIsParametersProgrammerNamespace) Decompose(props FunctionalIsParametersProgrammer_IDecomposeProps) FunctionalIsParametersProgrammer_IDecomposeOutput {
+  f := nativecontext.EmitFactoryOf(functionalIsProgrammer_factory, props.Context.Emit)
   parameters := functionalIsProgrammer_parameterNodes(props.Declaration)
   functions := make([]*shimast.Node, 0, len(parameters))
   statements := []*shimast.Node{}
@@ -94,27 +100,27 @@ func (functionalIsParametersProgrammerNamespace) Decompose(props FunctionalIsPar
         Modulo:  props.Modulo,
         Config:  nativeprogrammers.IsProgrammer_IConfig{Equals: props.Config.Equals},
         Type: props.Context.Checker.GetTypeFromTypeNode(
-          functionalIsProgrammer_parameterType(p, nativefactories.TypeFactory.Keyword("any")),
+          functionalIsProgrammer_parameterType(p, nativefactories.TypeFactory.Keyword("any", props.Context.Emit)),
         ),
       }),
-    }))
-    statements = append(statements, functionalIsProgrammer_factory.NewIfStatement(
-      functionalIsProgrammer_factory.NewBinaryExpression(
+    }, props.Context.Emit))
+    statements = append(statements, f.NewIfStatement(
+      f.NewBinaryExpression(
         nil,
-        functionalIsProgrammer_factory.NewKeywordExpression(shimast.KindFalseKeyword),
+        f.NewKeywordExpression(shimast.KindFalseKeyword),
         nil,
-        functionalIsProgrammer_factory.NewToken(shimast.KindEqualsEqualsEqualsToken),
-        functionalIsProgrammer_factory.NewCallExpression(
-          functionalIsProgrammer_factory.NewIdentifier("__is_param_"+functionalIsProgrammer_itoa(i)),
+        f.NewToken(shimast.KindEqualsEqualsEqualsToken),
+        f.NewCallExpression(
+          f.NewIdentifier("__is_param_"+functionalIsProgrammer_itoa(i)),
           nil,
           nil,
-          functionalIsProgrammer_factory.NewNodeList([]*shimast.Node{
-            functionalIsProgrammer_factory.NewIdentifier(functionalIsProgrammer_parameterName(p)),
+          f.NewNodeList([]*shimast.Node{
+            f.NewIdentifier(functionalIsProgrammer_parameterName(p)),
           }),
           shimast.NodeFlagsNone,
         ),
       ),
-      functionalIsProgrammer_factory.NewReturnStatement(functionalIsProgrammer_factory.NewKeywordExpression(shimast.KindNullKeyword)),
+      f.NewReturnStatement(f.NewKeywordExpression(shimast.KindNullKeyword)),
       nil,
     ))
   }
@@ -124,9 +130,9 @@ func (functionalIsParametersProgrammerNamespace) Decompose(props FunctionalIsPar
   }
 }
 
-func functionalIsProgrammer_parameters(declaration *shimast.Node) *shimast.ParameterList {
+func functionalIsProgrammer_parameters(declaration *shimast.Node, emit ...*shimprinter.EmitContext) *shimast.ParameterList {
   if declaration == nil || declaration.FunctionLikeData() == nil || declaration.FunctionLikeData().Parameters == nil {
-    return functionalIsProgrammer_factory.NewNodeList(nil)
+    return nativecontext.EmitFactoryOf(functionalIsProgrammer_factory, emit...).NewNodeList(nil)
   }
   return declaration.FunctionLikeData().Parameters
 }
@@ -138,11 +144,12 @@ func functionalIsProgrammer_parameterNodes(declaration *shimast.Node) []*shimast
   return nil
 }
 
-func functionalIsProgrammer_parameterIdentifiers(declaration *shimast.Node) []*shimast.Node {
+func functionalIsProgrammer_parameterIdentifiers(declaration *shimast.Node, emit ...*shimprinter.EmitContext) []*shimast.Node {
+  f := nativecontext.EmitFactoryOf(functionalIsProgrammer_factory, emit...)
   parameters := functionalIsProgrammer_parameterNodes(declaration)
   output := make([]*shimast.Node, 0, len(parameters))
   for _, p := range parameters {
-    output = append(output, functionalIsProgrammer_factory.NewIdentifier(functionalIsProgrammer_parameterName(p)))
+    output = append(output, f.NewIdentifier(functionalIsProgrammer_parameterName(p)))
   }
   return output
 }
@@ -167,12 +174,13 @@ func functionalIsProgrammer_parameterType(param *shimast.Node, fallback *shimast
   return fallback
 }
 
-func functionalIsProgrammer_asyncModifiers(async bool) *shimast.ModifierList {
+func functionalIsProgrammer_asyncModifiers(async bool, emit ...*shimprinter.EmitContext) *shimast.ModifierList {
   if async == false {
     return nil
   }
-  return functionalIsProgrammer_factory.NewModifierList([]*shimast.Node{
-    functionalIsProgrammer_factory.NewModifier(shimast.KindAsyncKeyword),
+  f := nativecontext.EmitFactoryOf(functionalIsProgrammer_factory, emit...)
+  return f.NewModifierList([]*shimast.Node{
+    f.NewModifier(shimast.KindAsyncKeyword),
   })
 }
 

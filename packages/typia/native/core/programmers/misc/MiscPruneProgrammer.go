@@ -6,6 +6,7 @@ import (
 
   shimast "github.com/microsoft/typescript-go/shim/ast"
   shimchecker "github.com/microsoft/typescript-go/shim/checker"
+  shimprinter "github.com/microsoft/typescript-go/shim/printer"
   nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
   nativefactories "github.com/samchon/typia/packages/typia/native/core/factories"
   nativeprogrammers "github.com/samchon/typia/packages/typia/native/core/programmers"
@@ -32,6 +33,7 @@ const miscPruneProgrammer_PREFIX = "_p"
 var miscPruneProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
 func (miscPruneProgrammerNamespace) Decompose(props MiscPruneProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
+  f := nativecontext.EmitFactoryOf(miscPruneProgrammer_factory, props.Context.Emit)
   config := miscPruneProgrammer_configure(struct {
     Context nativecontext.ITypiaContext
     Functor *nativehelpers.FunctionProgrammer
@@ -55,20 +57,20 @@ func (miscPruneProgrammerNamespace) Decompose(props MiscPruneProgrammer_Decompos
   return nativeinternal.FeatureProgrammer_IDecomposed{
     Functions:  composed.Functions,
     Statements: composed.Statements,
-    Arrow: miscPruneProgrammer_factory.NewArrowFunction(
+    Arrow: f.NewArrowFunction(
       nil,
       nil,
-      miscPruneProgrammer_factory.NewNodeList(composed.Parameters),
+      f.NewNodeList(composed.Parameters),
       composed.Response,
       nil,
-      miscPruneProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
-      miscPruneProgrammer_top_level_body(composed.Body),
+      f.NewToken(shimast.KindEqualsGreaterThanToken),
+      miscPruneProgrammer_top_level_body(composed.Body, props.Context.Emit),
     ),
   }
 }
 
 func (miscPruneProgrammerNamespace) Write(props nativecontext.IProgrammerProps) *shimast.Node {
-  functor := nativehelpers.NewFunctionProgrammer(miscCloneProgrammer_method_text(props.Modulo))
+  functor := nativehelpers.NewFunctionProgrammer(miscCloneProgrammer_method_text(props.Modulo), props.Context.Emit)
   result := MiscPruneProgrammer.Decompose(MiscPruneProgrammer_DecomposeProps{
     Context:   props.Context,
     Functor:   functor,
@@ -84,10 +86,12 @@ func (miscPruneProgrammerNamespace) Write(props nativecontext.IProgrammerProps) 
 }
 
 func miscPruneProgrammer_write_array_functions(props struct {
+  Context    nativecontext.ITypiaContext
   Config     nativeinternal.FeatureProgrammer_IConfig
   Functor    *nativehelpers.FunctionProgrammer
   Collection *schemametadata.MetadataCollection
 }) []*shimast.Node {
+  f := nativecontext.EmitFactoryOf(miscPruneProgrammer_factory, props.Context.Emit)
   output := []*shimast.Node{}
   for i, typ := range props.Collection.Arrays() {
     if typ.Recursive == false {
@@ -95,21 +99,22 @@ func miscPruneProgrammer_write_array_functions(props struct {
     }
     output = append(output, nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
       Name: fmt.Sprintf("%sa%d", props.Config.Prefix, i),
-      Value: miscPruneProgrammer_factory.NewArrowFunction(
+      Value: f.NewArrowFunction(
         nil,
         nil,
-        miscPruneProgrammer_factory.NewNodeList(nativeinternal.FeatureProgrammer.ParameterDeclarations(nativeinternal.FeatureProgrammer_ParameterDeclarationsProps{
+        f.NewNodeList(nativeinternal.FeatureProgrammer.ParameterDeclarations(nativeinternal.FeatureProgrammer_ParameterDeclarationsProps{
           Config: nativeinternal.FeatureProgrammer_ParameterConfig{Path: props.Config.Path, Trace: props.Config.Trace},
-          Type:   nativefactories.TypeFactory.Keyword("any"),
-          Input:  miscPruneProgrammer_factory.NewIdentifier("input"),
+          Type:   nativefactories.TypeFactory.Keyword("any", props.Context.Emit),
+          Input:  f.NewIdentifier("input"),
         })),
-        nativefactories.TypeFactory.Keyword("any"),
+        nativefactories.TypeFactory.Keyword("any", props.Context.Emit),
         nil,
-        miscPruneProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
+        f.NewToken(shimast.KindEqualsGreaterThanToken),
         miscPruneProgrammer_decode_array_inline(miscPruneProgrammer_decodeArrayProps{
+          Context: props.Context,
           Config:  props.Config,
           Functor: props.Functor,
-          Input:   miscPruneProgrammer_factory.NewIdentifier("input"),
+          Input:   f.NewIdentifier("input"),
           Array: schemametadata.MetadataArray_create(schemametadata.MetadataArray{
             Type: typ,
             Tags: [][]schemametadata.IMetadataTypeTag{},
@@ -122,7 +127,7 @@ func miscPruneProgrammer_write_array_functions(props struct {
           },
         }),
       ),
-    }))
+    }, props.Context.Emit))
   }
   return output
 }
@@ -133,6 +138,7 @@ func miscPruneProgrammer_write_tuple_functions(props struct {
   Functor    *nativehelpers.FunctionProgrammer
   Collection *schemametadata.MetadataCollection
 }) []*shimast.Node {
+  f := nativecontext.EmitFactoryOf(miscPruneProgrammer_factory, props.Context.Emit)
   output := []*shimast.Node{}
   for i, tuple := range props.Collection.Tuples() {
     if tuple.Recursive == false {
@@ -140,22 +146,22 @@ func miscPruneProgrammer_write_tuple_functions(props struct {
     }
     output = append(output, nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
       Name: fmt.Sprintf("%st%d", props.Config.Prefix, i),
-      Value: miscPruneProgrammer_factory.NewArrowFunction(
+      Value: f.NewArrowFunction(
         nil,
         nil,
-        miscPruneProgrammer_factory.NewNodeList(nativeinternal.FeatureProgrammer.ParameterDeclarations(nativeinternal.FeatureProgrammer_ParameterDeclarationsProps{
+        f.NewNodeList(nativeinternal.FeatureProgrammer.ParameterDeclarations(nativeinternal.FeatureProgrammer_ParameterDeclarationsProps{
           Config: nativeinternal.FeatureProgrammer_ParameterConfig{Path: props.Config.Path, Trace: props.Config.Trace},
-          Type:   nativefactories.TypeFactory.Keyword("any"),
-          Input:  miscPruneProgrammer_factory.NewIdentifier("input"),
+          Type:   nativefactories.TypeFactory.Keyword("any", props.Context.Emit),
+          Input:  f.NewIdentifier("input"),
         })),
-        nativefactories.TypeFactory.Keyword("any"),
+        nativefactories.TypeFactory.Keyword("any", props.Context.Emit),
         nil,
-        miscPruneProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
+        f.NewToken(shimast.KindEqualsGreaterThanToken),
         miscPruneProgrammer_decode_tuple_inline(miscPruneProgrammer_decodeTupleInlineProps{
           Context: props.Context,
           Config:  props.Config,
           Functor: props.Functor,
-          Input:   miscPruneProgrammer_factory.NewIdentifier("input"),
+          Input:   f.NewIdentifier("input"),
           Tuple:   tuple,
           Explore: nativeinternal.FeatureProgrammer_IExplore{
             Tracable: props.Config.Trace,
@@ -165,7 +171,7 @@ func miscPruneProgrammer_write_tuple_functions(props struct {
           },
         }),
       ),
-    }))
+    }, props.Context.Emit))
   }
   return output
 }
@@ -178,8 +184,9 @@ func miscPruneProgrammer_decode(props struct {
   Metadata *schemametadata.MetadataSchema
   Explore  nativeinternal.FeatureProgrammer_IExplore
 }) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(miscPruneProgrammer_factory, props.Context.Emit)
   if miscPruneProgrammer_filter(props.Metadata) == false {
-    return miscPruneProgrammer_factory.NewBlock(miscPruneProgrammer_factory.NewNodeList(nil), false)
+    return f.NewBlock(f.NewNodeList(nil), false)
   }
 
   unions := []miscPruneProgrammer_IUnion{}
@@ -247,7 +254,7 @@ func miscPruneProgrammer_decode(props struct {
         return nativefactories.ExpressionFactory.IsInstanceOf(native.Name, props.Input)
       },
       Value: func() *shimast.Node {
-        return miscPruneProgrammer_factory.NewBlock(miscPruneProgrammer_factory.NewNodeList(nil), true)
+        return f.NewBlock(f.NewNodeList(nil), true)
       },
     })
   }
@@ -258,7 +265,7 @@ func miscPruneProgrammer_decode(props struct {
         return nativefactories.ExpressionFactory.IsInstanceOf("Set", props.Input)
       },
       Value: func() *shimast.Node {
-        return miscPruneProgrammer_factory.NewBlock(miscPruneProgrammer_factory.NewNodeList(nil), true)
+        return f.NewBlock(f.NewNodeList(nil), true)
       },
     })
   }
@@ -269,7 +276,7 @@ func miscPruneProgrammer_decode(props struct {
         return nativefactories.ExpressionFactory.IsInstanceOf("Map", props.Input)
       },
       Value: func() *shimast.Node {
-        return miscPruneProgrammer_factory.NewBlock(miscPruneProgrammer_factory.NewNodeList(nil), true)
+        return f.NewBlock(f.NewNodeList(nil), true)
       },
     })
   }
@@ -287,6 +294,7 @@ func miscPruneProgrammer_decode(props struct {
         explore := props.Explore
         explore.From = "object"
         return miscPruneProgrammer_explore_objects(miscPruneProgrammer_exploreObjectsProps{
+          Context:  props.Context,
           Config:   props.Config,
           Functor:  props.Functor,
           Input:    props.Input,
@@ -299,13 +307,13 @@ func miscPruneProgrammer_decode(props struct {
 
   statements := make([]*shimast.Node, 0, len(unions))
   for _, u := range unions {
-    statements = append(statements, miscPruneProgrammer_factory.NewIfStatement(
+    statements = append(statements, f.NewIfStatement(
       u.Is(),
-      miscPruneProgrammer_to_statement(u.Value()),
+      miscPruneProgrammer_to_statement(u.Value(), props.Context.Emit),
       nil,
     ))
   }
-  return miscPruneProgrammer_factory.NewBlock(miscPruneProgrammer_factory.NewNodeList(statements), true)
+  return f.NewBlock(f.NewNodeList(statements), true)
 }
 
 type miscPruneProgrammer_IUnion struct {
@@ -314,24 +322,26 @@ type miscPruneProgrammer_IUnion struct {
   Value func() *shimast.Node
 }
 
-func miscPruneProgrammer_to_statement(node *shimast.Node) *shimast.Node {
+func miscPruneProgrammer_to_statement(node *shimast.Node, emit *shimprinter.EmitContext) *shimast.Node {
   if node == nil || node.Kind == shimast.KindBlock || node.Kind == shimast.KindReturnStatement {
     return node
   }
-  return miscPruneProgrammer_factory.NewExpressionStatement(node)
+  f := nativecontext.EmitFactoryOf(miscPruneProgrammer_factory, emit)
+  return f.NewExpressionStatement(node)
 }
 
-func miscPruneProgrammer_top_level_body(body *shimast.Node) *shimast.Node {
+func miscPruneProgrammer_top_level_body(body *shimast.Node, emit *shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(miscPruneProgrammer_factory, emit)
   statements := []*shimast.Node{}
   if body != nil && body.Kind == shimast.KindBlock {
     statements = append(statements, body.Statements()...)
   } else if body != nil {
-    statements = append(statements, miscPruneProgrammer_factory.NewExpressionStatement(body))
+    statements = append(statements, f.NewExpressionStatement(body))
   }
-  statements = append(statements, miscPruneProgrammer_factory.NewReturnStatement(
-    miscPruneProgrammer_factory.NewIdentifier("input"),
+  statements = append(statements, f.NewReturnStatement(
+    f.NewIdentifier("input"),
   ))
-  return miscPruneProgrammer_factory.NewBlock(miscPruneProgrammer_factory.NewNodeList(statements), true)
+  return f.NewBlock(f.NewNodeList(statements), true)
 }
 
 func miscPruneProgrammer_decode_object(props struct {
@@ -354,6 +364,7 @@ func miscPruneProgrammer_decode_object(props struct {
 }
 
 type miscPruneProgrammer_decodeArrayProps struct {
+  Context nativecontext.ITypiaContext
   Config  nativeinternal.FeatureProgrammer_IConfig
   Functor *nativehelpers.FunctionProgrammer
   Input   *shimast.Node
@@ -362,12 +373,13 @@ type miscPruneProgrammer_decodeArrayProps struct {
 }
 
 func miscPruneProgrammer_decode_array(props miscPruneProgrammer_decodeArrayProps) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(miscPruneProgrammer_factory, props.Context.Emit)
   if props.Array.Type.Recursive {
-    return miscPruneProgrammer_factory.NewCallExpression(
-      miscPruneProgrammer_factory.NewIdentifier(props.Functor.UseLocal(fmt.Sprintf("%sa%d", props.Config.Prefix, *props.Array.Type.Index))),
+    return f.NewCallExpression(
+      f.NewIdentifier(props.Functor.UseLocal(fmt.Sprintf("%sa%d", props.Config.Prefix, *props.Array.Type.Index))),
       nil,
       nil,
-      miscPruneProgrammer_factory.NewNodeList(nativeinternal.FeatureProgrammer.ArgumentsArray(nativeinternal.FeatureProgrammer_ArgumentsArrayProps{
+      f.NewNodeList(nativeinternal.FeatureProgrammer.ArgumentsArray(nativeinternal.FeatureProgrammer_ArgumentsArrayProps{
         Config:  nativeinternal.FeatureProgrammer_ArgumentsArrayConfig{Path: props.Config.Path, Trace: props.Config.Trace},
         Explore: miscCloneProgrammer_explore_with(props.Explore, "function", "array"),
         Input:   props.Input,
@@ -394,6 +406,7 @@ func miscPruneProgrammer_decode_array_inline(props miscPruneProgrammer_decodeArr
       return nativehelpers.PruneJoiner.Array(nativehelpers.PruneJoiner_ArrayProps{
         Input: next.Input,
         Arrow: next.Arrow,
+        Emit:  props.Context.Emit,
       })
     },
     Array:   props.Array,
@@ -412,12 +425,13 @@ type miscPruneProgrammer_decodeTupleProps struct {
 }
 
 func miscPruneProgrammer_decode_tuple(props miscPruneProgrammer_decodeTupleProps) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(miscPruneProgrammer_factory, props.Context.Emit)
   if props.Tuple.Type.Recursive {
-    return miscPruneProgrammer_factory.NewCallExpression(
-      miscPruneProgrammer_factory.NewIdentifier(props.Functor.UseLocal(fmt.Sprintf("%st%d", props.Config.Prefix, *props.Tuple.Type.Index))),
+    return f.NewCallExpression(
+      f.NewIdentifier(props.Functor.UseLocal(fmt.Sprintf("%st%d", props.Config.Prefix, *props.Tuple.Type.Index))),
       nil,
       nil,
-      miscPruneProgrammer_factory.NewNodeList(nativeinternal.FeatureProgrammer.ArgumentsArray(nativeinternal.FeatureProgrammer_ArgumentsArrayProps{
+      f.NewNodeList(nativeinternal.FeatureProgrammer.ArgumentsArray(nativeinternal.FeatureProgrammer_ArgumentsArrayProps{
         Config:  nativeinternal.FeatureProgrammer_ArgumentsArrayConfig{Path: props.Config.Path, Trace: props.Config.Trace},
         Explore: miscCloneProgrammer_explore_with(props.Explore, "function", props.Explore.From),
         Input:   props.Input,
@@ -445,6 +459,7 @@ type miscPruneProgrammer_decodeTupleInlineProps struct {
 }
 
 func miscPruneProgrammer_decode_tuple_inline(props miscPruneProgrammer_decodeTupleInlineProps) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(miscPruneProgrammer_factory, props.Context.Emit)
   elements := []*shimast.Node{}
   for index, elem := range props.Tuple.Elements {
     if elem.Rest != nil || miscPruneProgrammer_filter(elem) == false {
@@ -468,7 +483,7 @@ func miscPruneProgrammer_decode_tuple_inline(props miscPruneProgrammer_decodeTup
       Context:  props.Context,
       Config:   props.Config,
       Functor:  props.Functor,
-      Input:    miscPruneProgrammer_factory.NewElementAccessExpression(props.Input, nil, nativefactories.ExpressionFactory.Number(index), shimast.NodeFlagsNone),
+      Input:    f.NewElementAccessExpression(props.Input, nil, nativefactories.ExpressionFactory.Number(index, props.Context.Emit), shimast.NodeFlagsNone),
       Metadata: elem,
       Explore:  explore,
     }))
@@ -491,11 +506,11 @@ func miscPruneProgrammer_decode_tuple_inline(props miscPruneProgrammer_decodeTup
         Context: props.Context,
         Config:  props.Config,
         Functor: props.Functor,
-        Input: miscPruneProgrammer_factory.NewCallExpression(
-          nativefactories.IdentifierFactory.Access(props.Input, "slice"),
+        Input: f.NewCallExpression(
+          nativefactories.IdentifierFactory.Access(props.Context.Emit, props.Input, "slice"),
           nil,
           nil,
-          miscPruneProgrammer_factory.NewNodeList([]*shimast.Node{nativefactories.ExpressionFactory.Number(start)}),
+          f.NewNodeList([]*shimast.Node{nativefactories.ExpressionFactory.Number(start, props.Context.Emit)}),
           shimast.NodeFlagsNone,
         ),
         Metadata: nativeiterate.Wrap_metadata_rest_tuple_export(last.Rest),
@@ -506,6 +521,7 @@ func miscPruneProgrammer_decode_tuple_inline(props miscPruneProgrammer_decodeTup
   return nativehelpers.PruneJoiner.Tuple(nativehelpers.PruneJoiner_TupleProps{
     Elements: elements,
     Rest:     rest,
+    Emit:     props.Context.Emit,
   })
 }
 
@@ -519,7 +535,8 @@ type miscPruneProgrammer_exploreArraysProps struct {
 }
 
 func miscPruneProgrammer_explore_arrays(props miscPruneProgrammer_exploreArraysProps) *shimast.Node {
-  return miscPruneProgrammer_factory.NewCallExpression(
+  f := nativecontext.EmitFactoryOf(miscPruneProgrammer_factory, props.Context.Emit)
+  return f.NewCallExpression(
     nativehelpers.UnionExplorer.Array(nativehelpers.UnionExplorer_ArrayProps{
       Config: nativehelpers.UnionExplorer_ArrayLikeConfig{
         Checker: func(v nativehelpers.UnionExplorer_ArrayLikeCheckerProps) *shimast.Node {
@@ -533,6 +550,7 @@ func miscPruneProgrammer_explore_arrays(props miscPruneProgrammer_exploreArraysP
         },
         Decoder: func(v nativehelpers.UnionExplorer_ArrayLikeDecoderProps) *shimast.Node {
           return miscPruneProgrammer_decode_array(miscPruneProgrammer_decodeArrayProps{
+            Context: props.Context,
             Config:  props.Config,
             Functor: props.Functor,
             Input:   v.Input,
@@ -540,8 +558,8 @@ func miscPruneProgrammer_explore_arrays(props miscPruneProgrammer_exploreArraysP
             Explore: miscCloneProgrammer_feature_explore(v.Explore),
           })
         },
-        Empty:   miscPruneProgrammer_factory.NewStringLiteral("[]", shimast.TokenFlagsNone),
-        Success: miscPruneProgrammer_factory.NewKeywordExpression(shimast.KindTrueKeyword),
+        Empty:   f.NewStringLiteral("[]", shimast.TokenFlagsNone),
+        Success: f.NewKeywordExpression(shimast.KindTrueKeyword),
         Failure: func(v nativehelpers.UnionExplorer_ArrayLikeFailureProps) *shimast.Node {
           return miscCloneProgrammer_create_throw_error(miscCloneProgrammer_throwProps{
             Context:  props.Context,
@@ -555,6 +573,7 @@ func miscPruneProgrammer_explore_arrays(props miscPruneProgrammer_exploreArraysP
       Input:      props.Input,
       Arrays:     props.Arrays,
       Explore:    props.Explore,
+      Emit:       props.Context.Emit,
     }),
     nil,
     nil,
@@ -564,6 +583,7 @@ func miscPruneProgrammer_explore_arrays(props miscPruneProgrammer_exploreArraysP
 }
 
 type miscPruneProgrammer_exploreObjectsProps struct {
+  Context  nativecontext.ITypiaContext
   Config   nativeinternal.FeatureProgrammer_IConfig
   Functor  *nativehelpers.FunctionProgrammer
   Input    *shimast.Node
@@ -572,6 +592,7 @@ type miscPruneProgrammer_exploreObjectsProps struct {
 }
 
 func miscPruneProgrammer_explore_objects(props miscPruneProgrammer_exploreObjectsProps) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(miscPruneProgrammer_factory, props.Context.Emit)
   if len(props.Metadata.Objects) == 1 {
     return miscPruneProgrammer_decode_object(struct {
       Functor *nativehelpers.FunctionProgrammer
@@ -589,11 +610,11 @@ func miscPruneProgrammer_explore_objects(props miscPruneProgrammer_exploreObject
   if props.Metadata.Union_index != nil {
     index = *props.Metadata.Union_index
   }
-  return miscPruneProgrammer_factory.NewCallExpression(
-    miscPruneProgrammer_factory.NewIdentifier(props.Functor.UseLocal(fmt.Sprintf("%su%d", miscPruneProgrammer_PREFIX, index))),
+  return f.NewCallExpression(
+    f.NewIdentifier(props.Functor.UseLocal(fmt.Sprintf("%su%d", miscPruneProgrammer_PREFIX, index))),
     nil,
     nil,
-    miscPruneProgrammer_factory.NewNodeList(nativeinternal.FeatureProgrammer.ArgumentsArray(nativeinternal.FeatureProgrammer_ArgumentsArrayProps{
+    f.NewNodeList(nativeinternal.FeatureProgrammer.ArgumentsArray(nativeinternal.FeatureProgrammer_ArgumentsArrayProps{
       Config:  nativeinternal.FeatureProgrammer_ArgumentsArrayConfig{Path: props.Config.Path, Trace: props.Config.Trace},
       Input:   props.Input,
       Explore: props.Explore,
@@ -606,10 +627,11 @@ func miscPruneProgrammer_configure(props struct {
   Context nativecontext.ITypiaContext
   Functor *nativehelpers.FunctionProgrammer
 }) nativeinternal.FeatureProgrammer_IConfig {
+  f := nativecontext.EmitFactoryOf(miscPruneProgrammer_factory, props.Context.Emit)
   config := nativeinternal.FeatureProgrammer_IConfig{}
   config.Types = nativeinternal.FeatureProgrammer_IConfig_ITypes{
     Input: func(t *shimchecker.Type, name *string) *shimast.TypeNode {
-      return miscPruneProgrammer_factory.NewTypeReferenceNode(miscPruneProgrammer_factory.NewIdentifier(miscCloneProgrammer_type_name(props.Context, t, name)), nil)
+      return f.NewTypeReferenceNode(f.NewIdentifier(miscCloneProgrammer_type_name(props.Context, t, name)), nil)
     },
     Output: func(_ *shimchecker.Type, _ *string) *shimast.TypeNode {
       return nativefactories.TypeFactory.Keyword("void")
@@ -659,6 +681,7 @@ func miscPruneProgrammer_configure(props struct {
         Input:   next.Input,
         Entries: next.Entries,
         Object:  next.Object,
+        Emit:    props.Context.Emit,
       })
     },
     Unionizer: func(next nativeinternal.FeatureProgrammer_ObjectorUnionizerProps) *shimast.Node {
@@ -706,10 +729,11 @@ func miscPruneProgrammer_configure(props struct {
   config.Generator = nativeinternal.FeatureProgrammer_IConfig_IGenerator{
     Arrays: func(collection *schemametadata.MetadataCollection) []*shimast.Node {
       return miscPruneProgrammer_write_array_functions(struct {
+        Context    nativecontext.ITypiaContext
         Config     nativeinternal.FeatureProgrammer_IConfig
         Functor    *nativehelpers.FunctionProgrammer
         Collection *schemametadata.MetadataCollection
-      }{Config: config, Functor: props.Functor, Collection: collection})
+      }{Context: props.Context, Config: config, Functor: props.Functor, Collection: collection})
     },
     Tuples: func(collection *schemametadata.MetadataCollection) []*shimast.Node {
       return miscPruneProgrammer_write_tuple_functions(struct {

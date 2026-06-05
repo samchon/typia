@@ -3,6 +3,7 @@ package http
 import (
   shimast "github.com/microsoft/typescript-go/shim/ast"
   shimchecker "github.com/microsoft/typescript-go/shim/checker"
+  shimprinter "github.com/microsoft/typescript-go/shim/printer"
   nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
   nativefactories "github.com/samchon/typia/packages/typia/native/core/factories"
   nativeprogrammers "github.com/samchon/typia/packages/typia/native/core/programmers"
@@ -37,11 +38,11 @@ func (httpIsFormDataProgrammerNamespace) Decompose(props HttpIsFormDataProgramme
     Type:    props.Type,
     Name:    props.Name,
   })
-  return httpProgrammer_is_result(is, decode)
+  return httpProgrammer_is_result(is, decode, props.Context.Emit)
 }
 
 func (httpIsFormDataProgrammerNamespace) Write(props nativecontext.IProgrammerProps) *shimast.Node {
-  functor := nativehelpers.NewFunctionProgrammer(httpProgrammer_method_text(props.Modulo))
+  functor := nativehelpers.NewFunctionProgrammer(httpProgrammer_method_text(props.Modulo), props.Context.Emit)
   result := HttpIsFormDataProgrammer.Decompose(HttpIsFormDataProgrammer_DecomposeProps{
     Context: props.Context,
     Functor: functor,
@@ -55,11 +56,12 @@ func (httpIsFormDataProgrammerNamespace) Write(props nativecontext.IProgrammerPr
   })
 }
 
-func httpProgrammer_is_result(is nativeinternal.FeatureProgrammer_IDecomposed, decode nativeinternal.FeatureProgrammer_IDecomposed) nativeinternal.FeatureProgrammer_IDecomposed {
+func httpProgrammer_is_result(is nativeinternal.FeatureProgrammer_IDecomposed, decode nativeinternal.FeatureProgrammer_IDecomposed, emit ...*shimprinter.EmitContext) nativeinternal.FeatureProgrammer_IDecomposed {
+  f := nativecontext.EmitFactoryOf(httpIsProgrammer_factory, emit...)
   decodeArrow := decode.Arrow.AsArrowFunction()
   output := decodeArrow.Type
   if output == nil {
-    output = nativefactories.TypeFactory.Keyword("any")
+    output = nativefactories.TypeFactory.Keyword("any", emit...)
   }
   statements := append([]*shimast.Node{}, is.Statements...)
   statements = append(statements, decode.Statements...)
@@ -67,51 +69,51 @@ func httpProgrammer_is_result(is nativeinternal.FeatureProgrammer_IDecomposed, d
     nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
       Name:  "__is",
       Value: is.Arrow,
-    }),
+    }, emit...),
     nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
       Name:  "__decode",
       Value: decode.Arrow,
-    }),
+    }, emit...),
   )
   return nativeinternal.FeatureProgrammer_IDecomposed{
     Functions:  httpProgrammer_merge_functions(is.Functions, decode.Functions),
     Statements: statements,
-    Arrow: httpIsProgrammer_factory.NewArrowFunction(
+    Arrow: f.NewArrowFunction(
       nil,
       nil,
       decodeArrow.Parameters,
-      httpIsProgrammer_factory.NewUnionTypeNode(httpIsProgrammer_factory.NewNodeList([]*shimast.Node{
+      f.NewUnionTypeNode(f.NewNodeList([]*shimast.Node{
         output,
-        httpIsProgrammer_factory.NewTypeReferenceNode(httpIsProgrammer_factory.NewIdentifier("null"), nil),
+        f.NewTypeReferenceNode(f.NewIdentifier("null"), nil),
       })),
       nil,
-      httpIsProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
-      httpIsProgrammer_factory.NewBlock(httpIsProgrammer_factory.NewNodeList([]*shimast.Node{
+      f.NewToken(shimast.KindEqualsGreaterThanToken),
+      f.NewBlock(f.NewNodeList([]*shimast.Node{
         nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
           Name: "value",
-          Value: httpIsProgrammer_factory.NewCallExpression(
-            httpIsProgrammer_factory.NewIdentifier("__decode"),
+          Value: f.NewCallExpression(
+            f.NewIdentifier("__decode"),
             nil,
             nil,
-            httpIsProgrammer_factory.NewNodeList([]*shimast.Node{httpIsProgrammer_factory.NewIdentifier("input")}),
+            f.NewNodeList([]*shimast.Node{f.NewIdentifier("input")}),
             shimast.NodeFlagsNone,
           ),
-        }),
-        httpIsProgrammer_factory.NewIfStatement(
-          httpIsProgrammer_factory.NewPrefixUnaryExpression(
+        }, emit...),
+        f.NewIfStatement(
+          f.NewPrefixUnaryExpression(
             shimast.KindExclamationToken,
-            httpIsProgrammer_factory.NewCallExpression(
-              httpIsProgrammer_factory.NewIdentifier("__is"),
+            f.NewCallExpression(
+              f.NewIdentifier("__is"),
               nil,
               nil,
-              httpIsProgrammer_factory.NewNodeList([]*shimast.Node{httpIsProgrammer_factory.NewIdentifier("value")}),
+              f.NewNodeList([]*shimast.Node{f.NewIdentifier("value")}),
               shimast.NodeFlagsNone,
             ),
           ),
-          httpIsProgrammer_factory.NewReturnStatement(httpIsProgrammer_factory.NewKeywordExpression(shimast.KindNullKeyword)),
+          f.NewReturnStatement(f.NewKeywordExpression(shimast.KindNullKeyword)),
           nil,
         ),
-        httpIsProgrammer_factory.NewReturnStatement(httpIsProgrammer_factory.NewIdentifier("value")),
+        f.NewReturnStatement(f.NewIdentifier("value")),
       }), true),
     ),
   }

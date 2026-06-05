@@ -2,6 +2,7 @@ package llm
 
 import (
   shimast "github.com/microsoft/typescript-go/shim/ast"
+  nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
   nativefactories "github.com/samchon/typia/packages/typia/native/core/factories"
   nativellmprogrammers "github.com/samchon/typia/packages/typia/native/core/programmers/llm"
   schemametadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
@@ -13,6 +14,7 @@ type llmCoerceTransformerNamespace struct{}
 var LlmCoerceTransformer = llmCoerceTransformerNamespace{}
 
 func (llmCoerceTransformerNamespace) Transform(props nativetransform.ITransformProps) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(llmTransformer_factory, props.Context.Emit)
   llmTransformer_require_argument(props, "typia.llm.coerce", 0, "no input value.")
   top, typ, ok := llmTransformer_type_argument(props, "typia.llm.coerce")
   if ok == false {
@@ -45,7 +47,7 @@ func (llmCoerceTransformerNamespace) Transform(props nativetransform.ITransformP
     })
   }
   analyze(true)
-  return llmTransformer_factory.NewCallExpression(
+  return f.NewCallExpression(
     nativellmprogrammers.LlmCoerceProgrammer.Write(nativellmprogrammers.LlmCoerceProgrammer_IWriteProps{
       Context:  props.Context,
       Modulo:   props.Modulo,

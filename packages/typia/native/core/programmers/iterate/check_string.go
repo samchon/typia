@@ -15,15 +15,16 @@ type Check_stringProps struct {
 }
 
 func Check_string(props Check_stringProps) nativehelpers.ICheckEntry {
+  f := nativecontext.EmitFactoryOf(check_string_factory, props.Context.Emit)
   conditions := check_string_type_tags(props)
   return nativehelpers.ICheckEntry{
     Expected: props.Atomic.GetName(),
-    Expression: check_string_factory.NewBinaryExpression(
+    Expression: f.NewBinaryExpression(
       nil,
-      check_string_factory.NewStringLiteral("string", shimast.TokenFlagsNone),
+      f.NewStringLiteral("string", shimast.TokenFlagsNone),
       nil,
-      check_string_factory.NewToken(shimast.KindEqualsEqualsEqualsToken),
-      check_string_factory.NewTypeOfExpression(props.Input),
+      f.NewToken(shimast.KindEqualsEqualsEqualsToken),
+      f.NewTypeOfExpression(props.Input),
     ),
     Conditions: conditions,
   }

@@ -36,7 +36,7 @@ type LlmStructuredOutputProgrammer_IWriteProps struct {
 var llmStructuredOutputProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
 func (llmStructuredOutputProgrammerNamespace) Write(props LlmStructuredOutputProgrammer_IWriteProps) *shimast.Node {
-  functor := nativehelpers.NewFunctionProgrammer(llmProgrammer_method_text(props.Modulo))
+  functor := nativehelpers.NewFunctionProgrammer(llmProgrammer_method_text(props.Modulo), props.Context.Emit)
   equals := false
   if props.Config != nil {
     if v, ok := props.Config["equals"].(bool); ok {
@@ -55,78 +55,79 @@ func (llmStructuredOutputProgrammerNamespace) Write(props LlmStructuredOutputPro
   if props.Name != nil {
     typeName = *props.Name
   }
+  f := nativecontext.EmitFactoryOf(llmStructuredOutputProgrammer_factory, props.Context.Emit)
   statements := []*shimast.Node{
     nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
       Name: "__parameters",
-      Type: llmProgrammer_import_type(props.Context, ImportTypeIParameters()),
+      Type: llmProgrammer_import_type(props.Context, ImportTypeIParameters(props.Context.Emit)),
       Value: LlmParametersProgrammer.WriteParametersExpression(LlmParametersProgrammer_IWriteProps{
         Context:  props.Context,
         Metadata: props.Metadata,
         Config:   props.Config,
       }),
-    }),
+    }, props.Context.Emit),
   }
   statements = append(statements, validateDecomposed.Statements...)
   statements = append(statements, nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
     Name:  "__validate",
     Value: validateDecomposed.Arrow,
-  }))
+  }, props.Context.Emit))
   result := nativeinternal.FeatureProgrammer_IDecomposed{
     Functions:  validateDecomposed.Functions,
     Statements: statements,
-    Arrow: llmStructuredOutputProgrammer_factory.NewAsExpression(
-      llmStructuredOutputProgrammer_factory.NewObjectLiteralExpression(llmStructuredOutputProgrammer_factory.NewNodeList([]*shimast.Node{
-        llmStructuredOutputProgrammer_factory.NewPropertyAssignment(nil, nativefactories.IdentifierFactory.Identifier("parameters"), nil, nil, llmStructuredOutputProgrammer_factory.NewIdentifier("__parameters")),
-        llmStructuredOutputProgrammer_factory.NewPropertyAssignment(nil, nativefactories.IdentifierFactory.Identifier("parse"), nil, nil, llmStructuredOutputProgrammer_factory.NewArrowFunction(
+    Arrow: f.NewAsExpression(
+      f.NewObjectLiteralExpression(f.NewNodeList([]*shimast.Node{
+        f.NewPropertyAssignment(nil, nativefactories.IdentifierFactory.Identifier("parameters", props.Context.Emit), nil, nil, f.NewIdentifier("__parameters")),
+        f.NewPropertyAssignment(nil, nativefactories.IdentifierFactory.Identifier("parse", props.Context.Emit), nil, nil, f.NewArrowFunction(
           nil,
           nil,
-          llmStructuredOutputProgrammer_factory.NewNodeList([]*shimast.Node{
-            nativefactories.IdentifierFactory.Parameter("input", nativefactories.TypeFactory.Keyword("string"), nil),
+          f.NewNodeList([]*shimast.Node{
+            nativefactories.IdentifierFactory.Parameter("input", nativefactories.TypeFactory.Keyword("string", props.Context.Emit), nil, props.Context.Emit),
           }),
           llmProgrammer_import_type(props.Context, nativecontext.ImportProgrammer_TypeProps{
             File:      "typia",
             Name:      "IJsonParseResult",
-            Arguments: []*shimast.TypeNode{llmProgrammer_type_reference(typeName)},
+            Arguments: []*shimast.TypeNode{llmProgrammer_type_reference(typeName, props.Context.Emit)},
           }),
           nil,
-          llmStructuredOutputProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
-          llmStructuredOutputProgrammer_factory.NewCallExpression(
+          f.NewToken(shimast.KindEqualsGreaterThanToken),
+          f.NewCallExpression(
             llmProgrammer_internal(props.Context, "parseLlmArguments"),
             nil,
             nil,
-            llmStructuredOutputProgrammer_factory.NewNodeList([]*shimast.Node{
-              llmStructuredOutputProgrammer_factory.NewIdentifier("input"),
-              llmStructuredOutputProgrammer_factory.NewIdentifier("__parameters"),
+            f.NewNodeList([]*shimast.Node{
+              f.NewIdentifier("input"),
+              f.NewIdentifier("__parameters"),
             }),
             shimast.NodeFlagsNone,
           ),
         )),
-        llmStructuredOutputProgrammer_factory.NewPropertyAssignment(nil, nativefactories.IdentifierFactory.Identifier("coerce"), nil, nil, llmStructuredOutputProgrammer_factory.NewArrowFunction(
+        f.NewPropertyAssignment(nil, nativefactories.IdentifierFactory.Identifier("coerce", props.Context.Emit), nil, nil, f.NewArrowFunction(
           nil,
           nil,
-          llmStructuredOutputProgrammer_factory.NewNodeList([]*shimast.Node{
-            nativefactories.IdentifierFactory.Parameter("input", llmProgrammer_type_reference(typeName), nil),
+          f.NewNodeList([]*shimast.Node{
+            nativefactories.IdentifierFactory.Parameter("input", llmProgrammer_type_reference(typeName, props.Context.Emit), nil, props.Context.Emit),
           }),
-          llmProgrammer_type_reference(typeName),
+          llmProgrammer_type_reference(typeName, props.Context.Emit),
           nil,
-          llmStructuredOutputProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
-          llmStructuredOutputProgrammer_factory.NewCallExpression(
+          f.NewToken(shimast.KindEqualsGreaterThanToken),
+          f.NewCallExpression(
             llmProgrammer_internal(props.Context, "coerceLlmArguments"),
             nil,
             nil,
-            llmStructuredOutputProgrammer_factory.NewNodeList([]*shimast.Node{
-              llmStructuredOutputProgrammer_factory.NewIdentifier("input"),
-              llmStructuredOutputProgrammer_factory.NewIdentifier("__parameters"),
+            f.NewNodeList([]*shimast.Node{
+              f.NewIdentifier("input"),
+              f.NewIdentifier("__parameters"),
             }),
             shimast.NodeFlagsNone,
           ),
         )),
-        llmStructuredOutputProgrammer_factory.NewPropertyAssignment(nil, nativefactories.IdentifierFactory.Identifier("validate"), nil, nil, llmStructuredOutputProgrammer_factory.NewIdentifier("__validate")),
+        f.NewPropertyAssignment(nil, nativefactories.IdentifierFactory.Identifier("validate", props.Context.Emit), nil, nil, f.NewIdentifier("__validate")),
       }), true),
       llmProgrammer_import_type(props.Context, nativecontext.ImportProgrammer_TypeProps{
         File:      "typia",
         Name:      "ILlmStructuredOutput",
-        Arguments: []*shimast.TypeNode{llmProgrammer_type_reference(typeName)},
+        Arguments: []*shimast.TypeNode{llmProgrammer_type_reference(typeName, props.Context.Emit)},
       }),
     ),
   }

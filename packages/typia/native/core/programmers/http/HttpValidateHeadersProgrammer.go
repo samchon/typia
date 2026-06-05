@@ -40,7 +40,7 @@ func (httpValidateHeadersProgrammerNamespace) Decompose(props HttpValidateHeader
 }
 
 func (httpValidateHeadersProgrammerNamespace) Write(props nativecontext.IProgrammerProps) *shimast.Node {
-  functor := nativehelpers.NewFunctionProgrammer(httpProgrammer_method_text(props.Modulo))
+  functor := nativehelpers.NewFunctionProgrammer(httpProgrammer_method_text(props.Modulo), props.Context.Emit)
   result := HttpValidateHeadersProgrammer.Decompose(HttpValidateHeadersProgrammer_DecomposeProps{
     Context: props.Context,
     Modulo:  props.Modulo,

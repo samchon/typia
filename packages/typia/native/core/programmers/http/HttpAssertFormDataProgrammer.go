@@ -46,7 +46,7 @@ func (httpAssertFormDataProgrammerNamespace) Decompose(props HttpAssertFormDataP
 }
 
 func (httpAssertFormDataProgrammerNamespace) Write(props nativecontext.IProgrammerProps) *shimast.Node {
-  functor := nativehelpers.NewFunctionProgrammer(httpProgrammer_method_text(props.Modulo))
+  functor := nativehelpers.NewFunctionProgrammer(httpProgrammer_method_text(props.Modulo), props.Context.Emit)
   result := HttpAssertFormDataProgrammer.Decompose(HttpAssertFormDataProgrammer_DecomposeProps{
     Context: props.Context,
     Functor: functor,
@@ -62,6 +62,7 @@ func (httpAssertFormDataProgrammerNamespace) Write(props nativecontext.IProgramm
 }
 
 func httpProgrammer_assert_result(context nativecontext.ITypiaContext, init *shimast.Node, assert nativeinternal.FeatureProgrammer_IDecomposed, decode nativeinternal.FeatureProgrammer_IDecomposed) nativeinternal.FeatureProgrammer_IDecomposed {
+  f := nativecontext.EmitFactoryOf(httpAssertProgrammer_factory, context.Emit)
   decodeArrow := decode.Arrow.AsArrowFunction()
   statements := append([]*shimast.Node{}, assert.Statements...)
   statements = append(statements, decode.Statements...)
@@ -69,20 +70,20 @@ func httpProgrammer_assert_result(context nativecontext.ITypiaContext, init *shi
     nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
       Name:  "__assert",
       Value: assert.Arrow,
-    }),
+    }, context.Emit),
     nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
       Name:  "__decode",
       Value: decode.Arrow,
-    }),
+    }, context.Emit),
   )
   return nativeinternal.FeatureProgrammer_IDecomposed{
     Functions:  httpProgrammer_merge_functions(assert.Functions, decode.Functions),
     Statements: statements,
-    Arrow: httpAssertProgrammer_factory.NewArrowFunction(
+    Arrow: f.NewArrowFunction(
       nil,
       nil,
-      httpAssertProgrammer_factory.NewNodeList([]*shimast.Node{
-        nativefactories.IdentifierFactory.Parameter("input", nativefactories.TypeFactory.Keyword("any"), nil),
+      f.NewNodeList([]*shimast.Node{
+        nativefactories.IdentifierFactory.Parameter("input", nativefactories.TypeFactory.Keyword("any", context.Emit), nil, context.Emit),
         nativeprogrammers.Guardian.Parameter(struct {
           Context nativecontext.ITypiaContext
           Init    *shimast.Node
@@ -93,17 +94,17 @@ func httpProgrammer_assert_result(context nativecontext.ITypiaContext, init *shi
       }),
       decodeArrow.Type,
       nil,
-      httpAssertProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
-      httpAssertProgrammer_factory.NewCallExpression(
-        httpAssertProgrammer_factory.NewIdentifier("__assert"),
+      f.NewToken(shimast.KindEqualsGreaterThanToken),
+      f.NewCallExpression(
+        f.NewIdentifier("__assert"),
         nil,
         nil,
-        httpAssertProgrammer_factory.NewNodeList([]*shimast.Node{
-          httpAssertProgrammer_factory.NewCallExpression(
-            httpAssertProgrammer_factory.NewIdentifier("__decode"),
+        f.NewNodeList([]*shimast.Node{
+          f.NewCallExpression(
+            f.NewIdentifier("__decode"),
             nil,
             nil,
-            httpAssertProgrammer_factory.NewNodeList([]*shimast.Node{httpAssertProgrammer_factory.NewIdentifier("input")}),
+            f.NewNodeList([]*shimast.Node{f.NewIdentifier("input")}),
             shimast.NodeFlagsNone,
           ),
           nativeprogrammers.Guardian.Identifier(),

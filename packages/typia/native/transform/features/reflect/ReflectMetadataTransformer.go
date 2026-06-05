@@ -69,5 +69,5 @@ func (reflectMetadataTransformerNamespace) Transform(props nativetransform.ITran
   return reflectTransformer_literal(map[string]any{
     "schemas":    schemas,
     "components": components.ToJSON(),
-  })
+  }, props.Context.Emit)
 }

@@ -40,6 +40,7 @@ type FunctionalIsReturnProgrammer_IDecomposeOutput struct {
 }
 
 func (functionalIsReturnProgrammerNamespace) Write(props FunctionalIsReturnProgrammer_IProps) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(functionalIsProgrammer_factory, props.Context.Emit)
   result := FunctionalIsReturnProgrammer.Decompose(FunctionalIsReturnProgrammer_IDecomposeProps{
     Context:     props.Context,
     Modulo:      props.Modulo,
@@ -48,44 +49,48 @@ func (functionalIsReturnProgrammerNamespace) Write(props FunctionalIsReturnProgr
     Declaration: props.Declaration,
   })
   statements := append([]*shimast.Node{}, result.Functions...)
-  statements = append(statements, functionalIsProgrammer_factory.NewReturnStatement(
-    functionalIsProgrammer_factory.NewArrowFunction(
-      functionalIsProgrammer_asyncModifiers(result.Async),
+  statements = append(statements, f.NewReturnStatement(
+    f.NewArrowFunction(
+      functionalIsProgrammer_asyncModifiers(result.Async, props.Context.Emit),
       nil,
-      functionalIsProgrammer_parameters(props.Declaration),
+      functionalIsProgrammer_parameters(props.Declaration, props.Context.Emit),
       FunctionalIsFunctionProgrammer.GetReturnTypeNode(struct {
+        Context     nativecontext.ITypiaContext
         Declaration *shimast.Node
         Async       bool
       }{
+        Context:     props.Context,
         Declaration: props.Declaration,
         Async:       result.Async,
       }),
       nil,
-      functionalIsProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
-      functionalIsProgrammer_factory.NewBlock(functionalIsProgrammer_factory.NewNodeList(result.Statements), true),
+      f.NewToken(shimast.KindEqualsGreaterThanToken),
+      f.NewBlock(f.NewNodeList(result.Statements), true),
     ),
   ))
   return nativefactories.ExpressionFactory.SelfCall(
-    functionalIsProgrammer_factory.NewBlock(functionalIsProgrammer_factory.NewNodeList(statements), true),
+    props.Context.Emit,
+    f.NewBlock(f.NewNodeList(statements), true),
   )
 }
 
 func (functionalIsReturnProgrammerNamespace) Decompose(props FunctionalIsReturnProgrammer_IDecomposeProps) FunctionalIsReturnProgrammer_IDecomposeOutput {
+  f := nativecontext.EmitFactoryOf(functionalIsProgrammer_factory, props.Context.Emit)
   output := functionalinternal.FunctionalGeneralProgrammer.GetReturnType(functionalinternal.FunctionalGeneralProgrammer_IProps{
     Checker:     props.Context.Checker,
     Declaration: props.Declaration,
   })
-  caller := functionalIsProgrammer_factory.NewCallExpression(
+  caller := f.NewCallExpression(
     props.Expression,
     nil,
     nil,
-    functionalIsProgrammer_factory.NewNodeList(functionalIsProgrammer_parameterIdentifiers(props.Declaration)),
+    f.NewNodeList(functionalIsProgrammer_parameterIdentifiers(props.Declaration, props.Context.Emit)),
     shimast.NodeFlagsNone,
   )
   name := functionalIsProgrammer_escapeDuplicate(functionalIsProgrammer_parameterNames(props.Declaration), "result")
   value := caller
   if output.Async {
-    value = functionalIsProgrammer_factory.NewAwaitExpression(caller)
+    value = f.NewAwaitExpression(caller)
   }
   return FunctionalIsReturnProgrammer_IDecomposeOutput{
     Async: output.Async,
@@ -98,27 +103,26 @@ func (functionalIsReturnProgrammerNamespace) Decompose(props FunctionalIsReturnP
           Config:  nativeprogrammers.IsProgrammer_IConfig{Equals: props.Config.Equals},
           Type:    output.Type,
         }),
-      }),
+      }, props.Context.Emit),
     },
     Statements: []*shimast.Node{
       nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
         Name:  name,
         Value: value,
-      }),
-      functionalIsProgrammer_factory.NewReturnStatement(functionalIsProgrammer_factory.NewConditionalExpression(
-        functionalIsProgrammer_factory.NewCallExpression(
-          functionalIsProgrammer_factory.NewIdentifier("__is_return"),
+      }, props.Context.Emit),
+      f.NewReturnStatement(nativefactories.ExpressionFactory.Conditional(
+        f.NewCallExpression(
+          f.NewIdentifier("__is_return"),
           nil,
           nil,
-          functionalIsProgrammer_factory.NewNodeList([]*shimast.Node{
-            functionalIsProgrammer_factory.NewIdentifier(name),
+          f.NewNodeList([]*shimast.Node{
+            f.NewIdentifier(name),
           }),
           shimast.NodeFlagsNone,
         ),
-        nil,
-        functionalIsProgrammer_factory.NewIdentifier(name),
-        nil,
-        functionalIsProgrammer_factory.NewKeywordExpression(shimast.KindNullKeyword),
+        f.NewIdentifier(name),
+        f.NewKeywordExpression(shimast.KindNullKeyword),
+        props.Context.Emit,
       )),
     },
   }

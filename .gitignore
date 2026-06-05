@@ -17,3 +17,6 @@ package-lock.json
 *.env
 *.log
 *.tgz
+
+# go workspace checksum (local, points at local ttsc checkout)
+packages/typia/native/go.work.sum
