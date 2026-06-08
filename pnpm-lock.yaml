@@ -558,6 +558,19 @@ importers:
         specifier: catalog:utils
         version: 6.1.3
 
+  tests/test-interface:
+    dependencies:
+      '@typia/interface':
+        specifier: workspace:^
+        version: link:../../packages/interface
+    devDependencies:
+      '@typescript/native-preview':
+        specifier: catalog:typescript
+        version: 7.0.0-dev.20260527.2
+      ttsc:
+        specifier: catalog:typescript
+        version: 0.15.1
+
   tests/test-langchain:
     dependencies:
       '@langchain/core':

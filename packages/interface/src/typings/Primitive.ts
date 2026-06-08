@@ -1,6 +1,5 @@
 import { Format } from "../tags/Format";
 import { Equal } from "./internal/Equal";
-import { IsTuple } from "./internal/IsTuple";
 import { NativeClass } from "./internal/NativeClass";
 import { ValueOf } from "./internal/ValueOf";
 
@@ -47,24 +46,41 @@ type PrimitiveMain<Instance> = Instance extends [never]
 
 type PrimitiveObject<Instance extends object> =
   Instance extends Array<infer T>
-    ? IsTuple<Instance> extends true
+    ? IsPrimitiveTuple<Instance> extends true
       ? PrimitiveTuple<Instance>
       : PrimitiveMain<T>[]
     : {
         [P in keyof Instance]: PrimitiveMain<Instance[P]>;
       };
 
-type PrimitiveTuple<T extends readonly any[]> = T extends []
-  ? []
-  : T extends [infer F]
-    ? [PrimitiveMain<F>]
-    : T extends [infer F, ...infer Rest extends readonly any[]]
-      ? [PrimitiveMain<F>, ...PrimitiveTuple<Rest>]
-      : T extends [(infer F)?]
-        ? [PrimitiveMain<F>?]
-        : T extends [(infer F)?, ...infer Rest extends readonly any[]]
-          ? [PrimitiveMain<F>?, ...PrimitiveTuple<Rest>]
-          : [];
+type PrimitiveTuple<T extends readonly any[]> = number extends T["length"]
+  ? PrimitiveVariadicTuple<T>
+  : T extends []
+    ? []
+    : T extends [infer F]
+      ? [PrimitiveMain<F>]
+      : T extends [infer F, ...infer Rest extends readonly any[]]
+        ? [PrimitiveMain<F>, ...PrimitiveTuple<Rest>]
+        : T extends [(infer F)?]
+          ? [PrimitiveMain<F>?]
+          : T extends [(infer F)?, ...infer Rest extends readonly any[]]
+            ? [PrimitiveMain<F>?, ...PrimitiveTuple<Rest>]
+            : [];
+
+type PrimitiveVariadicTuple<T extends readonly any[]> = {
+  [P in keyof T]: PrimitiveMain<T[P]>;
+};
+
+// Keep this broader tuple detection local to Primitive. Other helpers sharing
+// IsTuple still treat variadic tuples as arrays because their tuple recursions
+// do not preserve open-ended tuple shapes.
+type IsPrimitiveTuple<T extends readonly any[]> = [T] extends [never]
+  ? false
+  : number extends T["length"]
+    ? T extends readonly [any, ...any[]]
+      ? true
+      : false
+    : true;
 
 interface IJsonable<T> {
   toJSON(): T;
