@@ -22,13 +22,13 @@ git checkout -b fix/<issue>-short-name
 
 Use PR and commit titles in the repository Conventional Commits style, such as `fix(typia): ...`, `feat(typia): ...`, or `feat(utils): ...`. Keep unrelated working-tree changes out of the branch and stage files explicitly when the tree is mixed.
 
-Implement from source evidence, not from the issue text alone. Add tests that would fail without the fix, including negative or type-level cases where the bug is type-system behavior. Run the narrow test first, then the affected package build, then broader checks that match the risk.
+Implement from source evidence, not from the issue text alone. Add tests that would fail without the fix, including negative or type-level cases where the bug is type-system behavior. Once the first coherent implementation and focused tests are locally green, commit, push, and open the PR immediately.
 
 Before each commit, run the required formatter from `.codex/skills/development/SKILL.md`. If formatting dirties unrelated files, restore those unrelated files and keep the PR scoped.
 
 ## Review Gate
 
-Before treating a PR as merge-ready, run `.codex/skills/multi-agent/SKILL.md` **Research Review Round** on the changed source, docs, and tests. Continue rounds while at least one validated improvement survives. Apply surviving fixes, push them, and rerun local validation.
+Before treating a PR as merge-ready, run `.codex/skills/multi-agent/SKILL.md` **Research Review Round** on the changed source, docs, and tests. Continue rounds while at least one validated improvement survives. Commit and push each accepted improvement as a small follow-up, then rerun local validation. Do not batch review fixes into a late super-commit.
 
 The PR is merge-ready only after both gates pass:
 
