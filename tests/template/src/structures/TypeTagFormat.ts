@@ -59,7 +59,7 @@ export namespace TypeTagFormat {
       uri: "git://github.com/samchon/typia.git",
       uriReference: "git://github.com/samchon/typia.git/../nestia.git",
       uriTemplate: "git://github.com/{account}/{repository}.git",
-      url: "https://github.com/samchon/typia",
+      url: "https://example--example.example.com/",
       // TIMESTAMPS
       datetime: new Date().toISOString(),
       date: new Date().toISOString().substring(0, 10),
@@ -136,12 +136,26 @@ export namespace TypeTagFormat {
       input.uriTemplate = "http://example.com/dictionary/{term:1}/{term";
       return ["$input.uriTemplate"];
     },
-    ...["httpx://github.com", "telnet://something.damain", "/path", "abcd"].map(
-      (url) => (input: TypeTagFormat) => {
-        input.url = url;
-        return ["$input.url"];
-      },
-    ),
+    ...[
+      "httpx://github.com",
+      "telnet://something.damain",
+      "/path",
+      "abcd",
+      "https://-example.com/",
+      "https://example-.com/",
+      "https://example..com/",
+      "https://example .com/",
+      "example.com",
+      "http://999.999.999.999/",
+      "http://10.0.0.1/",
+      "http://127.0.0.1/",
+      "http://169.254.1.1/",
+      "http://172.16.0.1/",
+      "http://192.168.0.1/",
+    ].map((url) => (input: TypeTagFormat) => {
+      input.url = url;
+      return ["$input.url"];
+    }),
 
     // TIMESTAMPS
     (input) => {

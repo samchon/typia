@@ -116,6 +116,8 @@ For `bigint`, `tags.Type<...>` accepts `"int64"` or `"uint64"`; range tags accep
 
 `Format` accepts: `byte`, `password`, `regex`, `uuid`, `email`, `hostname`, `idn-email`, `idn-hostname`, `iri`, `iri-reference`, `ipv4`, `ipv6`, `uri`, `uri-reference`, `uri-template`, `url`, `date-time`, `date`, `time`, `duration`, `json-pointer`, `relative-json-pointer`.
 
+For `url`, DNS host labels may contain interior hyphen runs such as `example--example`, but leading or trailing label hyphens and private IPv4 hosts are rejected.
+
 > `Format` and `Pattern` are mutually exclusive on the same string — pick one.
 
 #### `Array<T>`
