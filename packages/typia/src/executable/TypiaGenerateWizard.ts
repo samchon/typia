@@ -140,6 +140,10 @@ export namespace TypiaGenerateWizard {
 
     await ensureOutputDirectory(location.output);
     await ensureTargetDirectories(outputs.map(({ entry }) => entry.target));
+    await ensurePhysicalTargets({
+      output: location.output,
+      entries: outputs.map(({ entry }) => entry),
+    });
     await ensureTargetFiles(outputs.map(({ entry }) => entry.target));
     for (const { entry, output } of outputs) {
       await fs.promises.writeFile(entry.target, formatOutput(output), "utf8");
@@ -159,10 +163,11 @@ export namespace TypiaGenerateWizard {
   async function ensureOutputDirectory(output: string): Promise<void> {
     if (fs.existsSync(output) === false) {
       await fs.promises.mkdir(output, { recursive: true });
-    } else if ((await isDirectory(output)) === false) {
-      throw new URIError(
-        "Error on TypiaGenerateWizard.generate(): output path is not a directory.",
-      );
+    } else {
+      await ensureExistingDirectory({
+        label: "output path",
+        directory: output,
+      });
     }
   }
 
@@ -174,13 +179,11 @@ export namespace TypiaGenerateWizard {
     }
 
     for (const directory of directories.values()) {
-      if (
-        fs.existsSync(directory) &&
-        (await isDirectory(directory)) === false
-      ) {
-        throw new URIError(
-          `Error on TypiaGenerateWizard.generate(): output parent path is not a directory: ${directory}`,
-        );
+      if (fs.existsSync(directory)) {
+        await ensureExistingDirectory({
+          label: "output parent path",
+          directory,
+        });
       }
     }
     for (const directory of directories.values()) {
@@ -189,6 +192,55 @@ export namespace TypiaGenerateWizard {
       } catch (exp) {
         throw new URIError(
           `Error on TypiaGenerateWizard.generate(): unable to create output parent directory ${directory}: ${formatUnknownError(exp)}`,
+        );
+      }
+      await ensureExistingDirectory({
+        label: "output parent path",
+        directory,
+      });
+    }
+  }
+
+  async function ensureExistingDirectory(props: {
+    label: string;
+    directory: string;
+  }): Promise<void> {
+    const stat: fs.Stats = await fs.promises.lstat(props.directory);
+    if (stat.isSymbolicLink()) {
+      throw new URIError(
+        `Error on TypiaGenerateWizard.generate(): ${props.label} is a symbolic link: ${props.directory}`,
+      );
+    }
+    if (stat.isDirectory() === false) {
+      throw new URIError(
+        `Error on TypiaGenerateWizard.generate(): ${props.label} is not a directory: ${props.directory}`,
+      );
+    }
+  }
+
+  async function ensurePhysicalTargets(props: {
+    output: string;
+    entries: IInputFile[];
+  }): Promise<void> {
+    const output: string = await fs.promises.realpath(props.output);
+    const inputs: Set<string> = new Set();
+    for (const entry of props.entries) {
+      inputs.add(filesystemKey(await fs.promises.realpath(entry.file)));
+    }
+
+    for (const entry of props.entries) {
+      const parent: string = path.dirname(entry.target);
+      const directory: string = await fs.promises.realpath(parent);
+      if (isSameOrChildPath(directory, output) === false) {
+        throw new URIError(
+          `Error on TypiaGenerateWizard.generate(): output parent path escapes output directory through a symbolic link: ${parent}`,
+        );
+      }
+
+      const target: string = path.join(directory, path.basename(entry.target));
+      if (inputs.has(filesystemKey(target))) {
+        throw new URIError(
+          `Error on TypiaGenerateWizard.generate(): output file would overwrite input file through a symbolic link: ${entry.target}`,
         );
       }
     }
@@ -288,7 +340,7 @@ export namespace TypiaGenerateWizard {
     }
     if (output.length === 0) {
       throw new URIError(
-        "Error on TypiaGenerateWizard.generate(): input files do not include any source files outside the output directory.",
+        "Error on TypiaGenerateWizard.generate(): input files do not include any supported TypeScript source files outside the output directory.",
       );
     }
     return output;
@@ -301,9 +353,7 @@ export namespace TypiaGenerateWizard {
     const output: string[] = [];
     for (const input of inputs) {
       const pattern: string = toGlobPattern(input);
-      if (
-        isDynamicPattern(pattern, { caseSensitiveMatch: isCaseSensitive() })
-      ) {
+      if (isDynamicPattern(pattern, { caseSensitiveMatch: true })) {
         const matches: string[] = await glob(pattern, {
           absolute: true,
           caseSensitiveMatch: isCaseSensitive(),
@@ -506,7 +556,10 @@ export namespace TypiaGenerateWizard {
   }
 
   function isSupportedExtension(filename: string): boolean {
-    return TS_PATTERN.test(filename) && !DTS_PATTERN.test(filename);
+    const normalized: string = isCaseSensitive()
+      ? filename
+      : filename.toLowerCase();
+    return TS_PATTERN.test(normalized) && !DTS_PATTERN.test(normalized);
   }
 
   function formatOutput(output: string): string {
