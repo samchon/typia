@@ -92,22 +92,40 @@ export namespace SwaggerV2Upgrader {
     (doc: SwaggerV2.IDocument) =>
     (pathItem: SwaggerV2.IPath) =>
     (input: SwaggerV2.IOperation): OpenApi.IOperation => {
-      const parameters: SwaggerV2.IOperation.IParameter[] = [
-        ...(pathItem.parameters ?? []),
-        ...(input.parameters ?? []),
-      ]
+      const resolve = (
+        p: SwaggerV2.IOperation.IParameter | SwaggerV2.IJsonSchema.IReference,
+      ): SwaggerV2.IOperation.IParameter | undefined =>
+        SwaggerV2TypeChecker.isReference(p)
+          ? doc.parameters?.[p.$ref.split("/").pop() ?? ""]
+          : p;
+      const pathParameters: SwaggerV2.IOperation.IParameter[] = (
+        pathItem.parameters ?? []
+      )
+        .map(resolve)
+        .filter((p): p is SwaggerV2.IOperation.IParameter => p !== undefined);
+      const operationParameters: SwaggerV2.IOperation.IParameter[] = (
+        input.parameters ?? []
+      )
         .map((p) =>
-          SwaggerV2TypeChecker.isReference(p)
-            ? doc.parameters?.[p.$ref.split("/").pop() ?? ""]!
-            : p,
+          resolve(
+            p as
+              | SwaggerV2.IOperation.IParameter
+              | SwaggerV2.IJsonSchema.IReference,
+          ),
         )
         .filter((p): p is SwaggerV2.IOperation.IParameter => p !== undefined);
-      const body: SwaggerV2.IOperation.IBodyParameter | undefined =
-        parameters.find(
-          (p) =>
-            p.in === "body" ||
-            (p as SwaggerV2.IOperation.IBodyParameter).schema !== undefined,
-        ) as SwaggerV2.IOperation.IBodyParameter | undefined;
+      const parameters: SwaggerV2.IOperation.IParameter[] = [
+        ...pathParameters,
+        ...operationParameters,
+      ];
+      const body: SwaggerV2.IOperation.IBodyParameter | undefined = [
+        ...operationParameters,
+        ...pathParameters,
+      ].find(
+        (p) =>
+          p.in === "body" ||
+          (p as SwaggerV2.IOperation.IBodyParameter).schema !== undefined,
+      ) as SwaggerV2.IOperation.IBodyParameter | undefined;
       return {
         ...input,
         parameters:

@@ -331,6 +331,31 @@ export const test_openapi_converter_parameter_required = (): void => {
           },
         },
       },
+      "/body/override": {
+        parameters: [
+          {
+            name: "body",
+            in: "body",
+            required: false,
+            schema: { type: "string" },
+          },
+        ],
+        post: {
+          parameters: [
+            {
+              name: "body",
+              in: "body",
+              required: true,
+              schema: { type: "number" },
+            },
+          ],
+          responses: {
+            "200": {
+              description: "OK",
+            },
+          },
+        },
+      },
       "/body/ref-operation": {
         post: {
           parameters: [
@@ -371,6 +396,8 @@ export const test_openapi_converter_parameter_required = (): void => {
   const upgradedBodyTrue = openapi.paths!["/body/true"]!.post!.requestBody!;
   const upgradedPathLevelBody =
     openapi.paths!["/body/path-level"]!.post!.requestBody!;
+  const upgradedOverrideBody =
+    openapi.paths!["/body/override"]!.post!.requestBody!;
   const upgradedOperationRefBody =
     openapi.paths!["/body/ref-operation"]!.post!.requestBody!;
   const upgradedPathRefBody =
@@ -447,6 +474,20 @@ export const test_openapi_converter_parameter_required = (): void => {
     {
       own: true,
       value: false,
+    },
+  );
+  TestValidator.equals(
+    "upgraded operation body overrides path body",
+    {
+      required: upgradedOverrideBody.required,
+      schema: (
+        upgradedOverrideBody.content!["application/json"]!
+          .schema as OpenApi.IJsonSchema.INumber
+      ).type,
+    },
+    {
+      required: true,
+      schema: "number",
     },
   );
   TestValidator.equals(
