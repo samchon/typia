@@ -1,11 +1,11 @@
 package typia_test
 
 import (
-  "bytes"
-  "encoding/json"
-  testutil "github.com/samchon/typia/packages/typia/test/internal/testutil"
-  "path/filepath"
-  "testing"
+	"bytes"
+	"encoding/json"
+	testutil "github.com/samchon/typia/packages/typia/test/internal/testutil"
+	"path/filepath"
+	"testing"
 )
 
 // TestPackageModuleExportContract verifies typia/lib/module stays exported.
@@ -19,46 +19,46 @@ import (
 // 3. Assert publish exports expose typia/lib/module through lib/module.* in
 // the exact resolver-condition order.
 func TestPackageModuleExportContract(t *testing.T) {
-  root := testutil.RepoRoot(t)
+	root := testutil.RepoRoot(t)
 
-  typiaPackage := testutil.ReadJSON[struct {
-    Exports       map[string]json.RawMessage `json:"exports"`
-    PublishConfig struct {
-      Exports map[string]json.RawMessage `json:"exports"`
-    } `json:"publishConfig"`
-  }](t, filepath.Join(root, "packages", "typia", "package.json"))
+	typiaPackage := testutil.ReadJSON[struct {
+		Exports       map[string]json.RawMessage `json:"exports"`
+		PublishConfig struct {
+			Exports map[string]json.RawMessage `json:"exports"`
+		} `json:"publishConfig"`
+	}](t, filepath.Join(root, "packages", "typia", "package.json"))
 
-  source, ok := typiaPackage.Exports["./lib/module"]
-  if !ok {
-    t.Fatal("typia source exports must expose ./lib/module")
-  }
-  assertCompactJSON(
-    t,
-    source,
-    `"./src/module.ts"`,
-    "typia source export for ./lib/module",
-  )
+	source, ok := typiaPackage.Exports["./lib/module"]
+	if !ok {
+		t.Fatal("typia source exports must expose ./lib/module")
+	}
+	assertCompactJSON(
+		t,
+		source,
+		`"./src/module.ts"`,
+		"typia source export for ./lib/module",
+	)
 
-  published, ok := typiaPackage.PublishConfig.Exports["./lib/module"]
-  if !ok {
-    t.Fatal("typia publish exports must expose ./lib/module")
-  }
-  assertCompactJSON(
-    t,
-    published,
-    `{"types":"./lib/module.d.ts","import":"./lib/module.mjs","default":"./lib/module.js"}`,
-    "typia publish export for ./lib/module",
-  )
+	published, ok := typiaPackage.PublishConfig.Exports["./lib/module"]
+	if !ok {
+		t.Fatal("typia publish exports must expose ./lib/module")
+	}
+	assertCompactJSON(
+		t,
+		published,
+		`{"types":"./lib/module.d.ts","import":"./lib/module.mjs","default":"./lib/module.js"}`,
+		"typia publish export for ./lib/module",
+	)
 }
 
 func assertCompactJSON(t *testing.T, input json.RawMessage, expected string, label string) {
-  t.Helper()
+	t.Helper()
 
-  buffer := bytes.NewBuffer(nil)
-  if err := json.Compact(buffer, input); err != nil {
-    t.Fatalf("%s must be valid JSON: %v", label, err)
-  }
-  if actual := buffer.String(); actual != expected {
-    t.Fatalf("%s mismatch:\nexpected: %s\nactual:   %s", label, expected, actual)
-  }
+	buffer := bytes.NewBuffer(nil)
+	if err := json.Compact(buffer, input); err != nil {
+		t.Fatalf("%s must be valid JSON: %v", label, err)
+	}
+	if actual := buffer.String(); actual != expected {
+		t.Fatalf("%s mismatch:\nexpected: %s\nactual:   %s", label, expected, actual)
+	}
 }
