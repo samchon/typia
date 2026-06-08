@@ -39,6 +39,8 @@ export const test_openapi_validator_format_url_hyphenated_host = (): void => {
   const invalids: string[] = [
     "https://-example.com/",
     "https://example-.com/",
+    "https://example.-com/",
+    "https://example.com-/",
     "https://example..com/",
     "https://example .com/",
     "example.com",
