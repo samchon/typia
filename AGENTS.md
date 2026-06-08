@@ -30,6 +30,10 @@ Review Cycle, Discussion, Research Review Round, `.codex/skills/multi-agent/SKIL
 
 PR submission flow and the release reference, `.codex/skills/pull-request/SKILL.md`. Read only when the user explicitly asks for a pull request; never open, push, or propose a PR on your own initiative.
 
+### Issue PR Workflow
+
+GitHub issue triage, `.wiki` handoff updates, branch-per-issue implementation, mandatory Research Review Round, CI gating, PR comments, and issue closure, `.codex/skills/issue-pr-workflow/SKILL.md`. Read before sweeping issues or running the issue-to-PR loop.
+
 ### Benchmark
 
 The `@typia/benchmark` runner, fixtures, and per-CPU result archive, `.codex/skills/benchmark/SKILL.md`. Read before running, modifying, or publishing benchmark results.
