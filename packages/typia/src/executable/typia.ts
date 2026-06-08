@@ -1,16 +1,15 @@
 #!/usr/bin/env node
 const USAGE = `Wrong command has been detected. Use like below:
 
-  npx typia generate
-    --input {directory} \\
-    --output {directory}
+  npx typia generate [options] [files...]
 
   npx typia generate
-    --output {directory} \\
-    {file...}
+    --input src/templates \\
+    --output src/generated
 
-    --npx typia generate --input src/templates --output src/functional
-    --npx typia generate --output src/functional src/**/*.typia.ts
+  npx typia generate
+    --output src/generated \\
+    src/**/*.typia.ts
 `;
 
 const halt = (desc: string): never => {
