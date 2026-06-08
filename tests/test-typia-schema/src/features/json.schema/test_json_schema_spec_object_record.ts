@@ -48,7 +48,6 @@ export const test_json_schema_spec_object_record = (): void => {
         type: "string",
         minLength: 1,
       },
-      required: [],
     },
   );
 };

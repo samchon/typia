@@ -26,6 +26,31 @@ export const test_llm_schema_parity_converter_strict_rejection = (): void => {
       ),
     );
 
+  const missingRequired = LlmSchemaConverter.schema({
+    config: { strict: true },
+    components: { schemas: {} },
+    $defs: {},
+    schema: {
+      type: "object",
+      properties: {
+        optional: { type: "number" },
+      },
+      additionalProperties: false,
+    } satisfies OpenApi.IJsonSchema.IObject,
+  });
+
+  TestValidator.equals(
+    "missing required rejected",
+    missingRequired.success,
+    false,
+  );
+  if (missingRequired.success === false)
+    TestValidator.predicate("missing required reason", () =>
+      missingRequired.error.reasons.some((r) =>
+        r.message.includes("optional properties in strict mode"),
+      ),
+    );
+
   const dynamic = LlmSchemaConverter.parameters({
     config: { strict: true },
     components: { schemas: {} },

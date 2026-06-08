@@ -606,7 +606,7 @@ const validateStrict = (
           "LLM does not allow additionalProperties in strict mode, the dynamic key typed object.",
       });
     for (const key of Object.keys(schema.properties ?? {}))
-      if (schema.required?.includes(key) === false)
+      if (schema.required?.includes(key) !== true)
         reasons.push({
           schema: schema,
           accessor: `${accessor}.properties.${key}`,
