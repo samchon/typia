@@ -21,25 +21,27 @@ process.on("exit", () => {
 });
 
 const run = (args) =>
-  cp.execSync([ttsx, ...args].map(quote).join(" "), {
-    cwd: root,
-    encoding: "utf8",
-    env: {
-      ...process.env,
-      TTSC_CACHE_DIR: cache,
+  cp.execSync(
+    [ttsx, "--no-plugins", "--cache-dir", cache, ...args]
+      .map(quote)
+      .join(" "),
+    {
+      cwd: root,
+      encoding: "utf8",
+      env: {
+        ...process.env,
+        TTSC_CACHE_DIR: cache,
+      },
+      stdio: "pipe",
     },
-    stdio: "pipe",
-  });
+  );
 
 const removePath = (file) => {
   if (fs.existsSync(file) === false) return;
   const stat = fs.lstatSync(file);
   if (stat.isSymbolicLink()) {
-    try {
-      fs.rmSync(file, { force: true });
-    } catch {
-      fs.rmdirSync(file);
-    }
+    if (process.platform === "win32") fs.rmdirSync(file);
+    else fs.unlinkSync(file);
     return;
   }
   fs.rmSync(file, { recursive: true, force: true });
@@ -51,11 +53,9 @@ const expectFailure = (name, args, expected) => {
   } catch (exp) {
     const output = `${exp.stdout ?? ""}${exp.stderr ?? ""}`;
     if (output.includes(expected)) return;
-    console.error(`Unexpected ${name} failure output:\n${output}`);
-    process.exit(1);
+    throw new Error(`Unexpected ${name} failure output:\n${output}`);
   }
-  console.error(`Expected ${name} to fail.`);
-  process.exit(1);
+  throw new Error(`Expected ${name} to fail.`);
 };
 
 const generate = (...args) => [
@@ -81,9 +81,33 @@ expectFailure(
 );
 
 expectFailure(
+  "directory passed as literal file",
+  generate("--output", "src/output", "src/input/modules"),
+  "input path is not a file",
+);
+
+expectFailure(
   "declaration-only glob",
   generate("--output", "src/output", "src/input/modules/*.d.ts"),
   "supported TypeScript source files outside the output directory",
+);
+
+expectFailure(
+  "declaration-only literal",
+  generate("--output", "src/output", "src/input/modules/ignored.d.ts"),
+  "supported TypeScript source files outside the output directory",
+);
+
+expectFailure(
+  "missing directory input",
+  generateWithProject(
+    "tsconfig.files.json",
+    "--input",
+    "src/does-not-exist",
+    "--output",
+    "src/output",
+  ),
+  "input path does not exist",
 );
 
 const inputModule = path.join(
@@ -138,8 +162,7 @@ try {
     "symbolic link",
   );
   if (fs.existsSync(path.join(external, "new"))) {
-    console.error("Symlinked output ancestor created an external directory.");
-    process.exit(1);
+    throw new Error("Symlinked output ancestor created an external directory.");
   }
 } finally {
   removePath(output);
@@ -189,10 +212,9 @@ try {
     "symbolic link",
   );
   if (fs.existsSync(path.join(external, "new"))) {
-    console.error(
+    throw new Error(
       "Directory-mode symlinked output ancestor created an external directory.",
     );
-    process.exit(1);
   }
 } finally {
   removePath(output);
@@ -211,8 +233,7 @@ try {
     "physical file alias",
   );
   if (fs.readFileSync(inputModule, "utf8").includes("// @ts-nocheck")) {
-    console.error("Hard-linked output leaf rewrote the input source.");
-    process.exit(1);
+    throw new Error("Hard-linked output leaf rewrote the input source.");
   }
 } finally {
   removePath(output);

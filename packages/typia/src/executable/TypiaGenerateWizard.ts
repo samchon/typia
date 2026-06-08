@@ -402,10 +402,16 @@ export namespace TypiaGenerateWizard {
       location.output,
     )) {
       const file: string = path.resolve(input);
-      if (fs.existsSync(file) === false || (await isFile(file)) === false) {
+      if (fs.existsSync(file) === false) {
         throw new URIError(
           `Error on TypiaGenerateWizard.generate(): input file does not exist: ${input}`,
         );
+      } else if ((await isFile(file)) === false) {
+        throw new URIError(
+          `Error on TypiaGenerateWizard.generate(): input path is not a file: ${input}`,
+        );
+      } else if (isDeclarationFile(file)) {
+        continue;
       } else if (isSupportedExtension(file) === false) {
         throw new URIError(
           `Error on TypiaGenerateWizard.generate(): input file is not a supported TypeScript source: ${input}`,
@@ -649,6 +655,13 @@ export namespace TypiaGenerateWizard {
       ? filename
       : filename.toLowerCase();
     return TS_PATTERN.test(normalized) && !DTS_PATTERN.test(normalized);
+  }
+
+  function isDeclarationFile(filename: string): boolean {
+    const normalized: string = isCaseSensitive()
+      ? filename
+      : filename.toLowerCase();
+    return DTS_PATTERN.test(normalized);
   }
 
   function formatOutput(output: string): string {
