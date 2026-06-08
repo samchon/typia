@@ -1,4 +1,4 @@
-import commander from "commander";
+import { createCommand } from "commander";
 import fs from "fs";
 import inquirer from "inquirer";
 import { createRequire } from "module";
@@ -20,12 +20,11 @@ export namespace TypiaGenerateWizard {
   }
 
   async function parseArguments(): Promise<IArguments> {
-    commander.program.option("--input [path]", "input directory");
-    commander.program.option("--output [directory]", "output directory");
-    commander.program.option(
-      "--project [project]",
-      "tsconfig.json file location",
-    );
+    const command = createCommand();
+    command.argument("[files...]", "input .ts files");
+    command.option("--input [path]", "input directory");
+    command.option("--output [directory]", "output directory");
+    command.option("--project [project]", "tsconfig.json file location");
 
     const questioned = { value: false };
     const prompt = inquirer.createPromptModule;
@@ -68,55 +67,51 @@ export namespace TypiaGenerateWizard {
     };
 
     return new Promise<IArguments>((resolve, reject) => {
-      commander.program.action(async (options: Partial<IArguments>) => {
+      command.action(async (files: string[], options: Partial<IArguments>) => {
         try {
-          options.input ??= await input("input")("input directory");
-          options.output ??= await input("output")("output directory");
-          options.project ??= await configure();
+          if (files.length !== 0 && options.input !== undefined) {
+            throw new URIError(
+              "Error on TypiaGenerateWizard.generate(): file arguments cannot be combined with --input.",
+            );
+          }
+          if (files.length === 0) {
+            options.input ??= await input("input")("input directory");
+          }
+          const output: string =
+            options.output ?? (await input("output")("output directory"));
+          const project: string = options.project ?? (await configure());
           if (questioned.value) console.log("");
-          resolve(options as IArguments);
+          resolve({
+            input: options.input,
+            output,
+            project,
+            files,
+          });
         } catch (exp) {
           reject(exp);
         }
       });
-      commander.program.parseAsync().catch(reject);
+      command.parseAsync(process.argv.slice(3), { from: "user" }).catch(reject);
     });
   }
 
   export interface IArguments {
-    input: string;
+    input?: string;
     output: string;
     project: string;
+    files: string[];
   }
 
   async function build(location: IArguments): Promise<void> {
-    location.input = path.resolve(location.input);
     location.output = path.resolve(location.output);
     location.project = path.resolve(location.project);
 
-    if ((await isDirectory(location.input)) === false) {
-      throw new URIError(
-        "Error on TypiaGenerateWizard.generate(): input path is not a directory.",
-      );
-    } else if (fs.existsSync(location.output) === false) {
-      await fs.promises.mkdir(location.output, { recursive: true });
-    } else if ((await isDirectory(location.output)) === false) {
-      const parent: string = path.join(location.output, "..");
-      if ((await isDirectory(parent)) === false) {
-        throw new URIError(
-          "Error on TypiaGenerateWizard.generate(): output path is not a directory.",
-        );
-      }
-      await fs.promises.mkdir(location.output);
-    }
+    await ensureOutputDirectory(location.output);
 
-    const files: string[] = [];
-    await gather({
-      location,
-      container: files,
-      from: location.input,
-      to: location.output,
-    });
+    const entries: IInputFile[] =
+      location.files.length === 0
+        ? await prepareDirectoryInput(location)
+        : await prepareFileInputs(location);
 
     const binary = resolveTsgoBinary();
     const cwd = path.dirname(location.project);
@@ -125,18 +120,91 @@ export namespace TypiaGenerateWizard {
       cwd,
       tsconfig: location.project,
     });
-    for (const file of files) {
-      const relative = path.relative(location.input, file);
-      const target = path.join(location.output, relative);
-      const output = transformed[projectKey(cwd, file)];
+    for (const entry of entries) {
+      const output = transformed[projectKey(cwd, entry.file)];
       if (output === undefined) {
         throw new URIError(
-          `Error on TypiaGenerateWizard.generate(): no transformed output for ${file}`,
+          `Error on TypiaGenerateWizard.generate(): no transformed output for ${entry.file}`,
         );
       }
-      await fs.promises.mkdir(path.dirname(target), { recursive: true });
-      await fs.promises.writeFile(target, formatOutput(output), "utf8");
+      await fs.promises.mkdir(path.dirname(entry.target), { recursive: true });
+      await fs.promises.writeFile(entry.target, formatOutput(output), "utf8");
     }
+  }
+
+  interface IInputFile {
+    file: string;
+    target: string;
+  }
+
+  async function ensureOutputDirectory(output: string): Promise<void> {
+    if (fs.existsSync(output) === false) {
+      await fs.promises.mkdir(output, { recursive: true });
+    } else if ((await isDirectory(output)) === false) {
+      throw new URIError(
+        "Error on TypiaGenerateWizard.generate(): output path is not a directory.",
+      );
+    }
+  }
+
+  async function prepareDirectoryInput(
+    location: IArguments,
+  ): Promise<IInputFile[]> {
+    if (location.input === undefined) {
+      throw new URIError(
+        "Error on TypiaGenerateWizard.generate(): input path is required.",
+      );
+    }
+    const input = path.resolve(location.input);
+    if ((await isDirectory(input)) === false) {
+      throw new URIError(
+        "Error on TypiaGenerateWizard.generate(): input path is not a directory.",
+      );
+    }
+
+    const files: string[] = [];
+    await gather({
+      location: {
+        input,
+        output: location.output,
+      },
+      container: files,
+      from: input,
+      to: location.output,
+    });
+    return files.map((file) => ({
+      file,
+      target: path.join(location.output, path.relative(input, file)),
+    }));
+  }
+
+  async function prepareFileInputs(
+    location: IArguments,
+  ): Promise<IInputFile[]> {
+    const targets: Set<string> = new Set();
+    const output: IInputFile[] = [];
+    for (const input of location.files) {
+      const file: string = path.resolve(input);
+      if (fs.existsSync(file) === false || (await isFile(file)) === false) {
+        throw new URIError(
+          `Error on TypiaGenerateWizard.generate(): input file does not exist: ${input}`,
+        );
+      } else if (isSupportedExtension(file) === false) {
+        throw new URIError(
+          `Error on TypiaGenerateWizard.generate(): input file is not a supported TypeScript source: ${input}`,
+        );
+      }
+
+      const target: string = path.join(location.output, path.basename(file));
+      if (targets.has(target)) {
+        throw new URIError(
+          `Error on TypiaGenerateWizard.generate(): duplicate output filename for ${target}`,
+        );
+      }
+      targets.add(target);
+      output.push({ file, target });
+    }
+    return output;
   }
 
   function transformProject(props: {
@@ -251,8 +319,16 @@ export namespace TypiaGenerateWizard {
     return stat.isDirectory();
   }
 
+  async function isFile(current: string): Promise<boolean> {
+    const stat: fs.Stats = await fs.promises.stat(current);
+    return stat.isFile();
+  }
+
   async function gather(props: {
-    location: IArguments;
+    location: {
+      input: string;
+      output: string;
+    };
     container: string[];
     from: string;
     to: string;

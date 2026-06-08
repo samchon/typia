@@ -5,8 +5,11 @@
   "description": "Test typia generation command",
   "scripts": {
     "build": "ttsc",
-    "generate": "ttsx node_modules/typia/src/executable/typia.ts generate --input src/input --output src/output",
-    "start": "pnpm run generate && pnpm run build"
+    "clean": "node -e \"require('fs').rmSync('src/output', { recursive: true, force: true })\"",
+    "generate": "pnpm run generate:directory",
+    "generate:directory": "pnpm run clean && ttsx node_modules/typia/src/executable/typia.ts generate --input src/input --output src/output",
+    "generate:files": "pnpm run clean && ttsx node_modules/typia/src/executable/typia.ts generate --project tsconfig.files.json --output src/output src/input/modules/generate_module.ts",
+    "start": "pnpm run generate:directory && pnpm run build && pnpm run generate:files && pnpm run build"
   },
   "repository": {
     "type": "git",
