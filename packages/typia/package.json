@@ -5,7 +5,7 @@
   "main": "src/index.ts",
   "exports": {
     ".": "./src/index.ts",
-    "./lib/module": "./src/module.ts",
+    "./lib/module": "./src/index.ts",
     "./lib/transform": "./src/transform.ts",
     "./lib/internal/*": "./src/internal/*.ts",
     "./package.json": "./package.json"
@@ -116,9 +116,9 @@
         "default": "./lib/index.js"
       },
       "./lib/module": {
-        "types": "./lib/module.d.ts",
-        "import": "./lib/module.mjs",
-        "default": "./lib/module.js"
+        "types": "./lib/index.d.ts",
+        "import": "./lib/index.mjs",
+        "default": "./lib/index.js"
       },
       "./lib/transform": {
         "types": "./lib/transform.d.ts",

@@ -12,11 +12,12 @@ import (
 //
 // Vite 8 resolves bare package subpaths through package.json exports and fails
 // before reading the generated files. This pins both source-workspace and
-// published-package mappings to the actual module entrypoint files.
+// published-package mappings to the root entrypoint files that provide both
+// default and named TypeScript declarations for this compatibility subpath.
 //
 // 1. Read the typia package manifest.
-// 2. Assert source exports expose typia/lib/module through src/module.ts.
-// 3. Assert publish exports expose typia/lib/module through lib/module.* in
+// 2. Assert source exports expose typia/lib/module through src/index.ts.
+// 3. Assert publish exports expose typia/lib/module through lib/index.* in
 // the exact resolver-condition order.
 func TestPackageModuleExportContract(t *testing.T) {
 	root := testutil.RepoRoot(t)
@@ -35,7 +36,7 @@ func TestPackageModuleExportContract(t *testing.T) {
 	assertCompactJSON(
 		t,
 		source,
-		`"./src/module.ts"`,
+		`"./src/index.ts"`,
 		"typia source export for ./lib/module",
 	)
 
@@ -46,7 +47,7 @@ func TestPackageModuleExportContract(t *testing.T) {
 	assertCompactJSON(
 		t,
 		published,
-		`{"types":"./lib/module.d.ts","import":"./lib/module.mjs","default":"./lib/module.js"}`,
+		`{"types":"./lib/index.d.ts","import":"./lib/index.mjs","default":"./lib/index.js"}`,
 		"typia publish export for ./lib/module",
 	)
 }
