@@ -91,50 +91,52 @@ export namespace SwaggerV2Upgrader {
   const convertOperation =
     (doc: SwaggerV2.IDocument) =>
     (pathItem: SwaggerV2.IPath) =>
-    (input: SwaggerV2.IOperation): OpenApi.IOperation => ({
-      ...input,
-      parameters:
-        pathItem.parameters !== undefined || input.parameters !== undefined
-          ? (
-              [...(pathItem.parameters ?? []), ...(input.parameters ?? [])]
-                .map((p) =>
-                  SwaggerV2TypeChecker.isReference(p)
-                    ? doc.parameters?.[p.$ref.split("/").pop() ?? ""]!
-                    : p,
-                )
-                .filter(
+    (input: SwaggerV2.IOperation): OpenApi.IOperation => {
+      const parameters: SwaggerV2.IOperation.IParameter[] = [
+        ...(pathItem.parameters ?? []),
+        ...(input.parameters ?? []),
+      ]
+        .map((p) =>
+          SwaggerV2TypeChecker.isReference(p)
+            ? doc.parameters?.[p.$ref.split("/").pop() ?? ""]!
+            : p,
+        )
+        .filter((p): p is SwaggerV2.IOperation.IParameter => p !== undefined);
+      const body: SwaggerV2.IOperation.IBodyParameter | undefined =
+        parameters.find(
+          (p) =>
+            p.in === "body" ||
+            (p as SwaggerV2.IOperation.IBodyParameter).schema !== undefined,
+        ) as SwaggerV2.IOperation.IBodyParameter | undefined;
+      return {
+        ...input,
+        parameters:
+          pathItem.parameters !== undefined || input.parameters !== undefined
+            ? (
+                parameters.filter(
                   (p) =>
-                    p !== undefined &&
                     p.in !== "body" &&
                     (p as SwaggerV2.IOperation.IBodyParameter).schema ===
                       undefined,
                 ) as SwaggerV2.IOperation.IGeneralParameter[]
-            ).map(convertParameter(doc.definitions ?? {}))
+              ).map(convertParameter(doc.definitions ?? {}))
+            : undefined,
+        requestBody: body
+          ? convertRequestBody(doc.definitions ?? {})(body)
           : undefined,
-      requestBody: (() => {
-        const found: SwaggerV2.IOperation.IBodyParameter | undefined =
-          input.parameters?.find((p) => {
-            if (SwaggerV2TypeChecker.isReference(p))
-              p = doc.parameters?.[p.$ref.split("/").pop() ?? ""]!;
-            return (
-              (p as SwaggerV2.IOperation.IBodyParameter)?.schema !== undefined
-            );
-          }) as SwaggerV2.IOperation.IBodyParameter | undefined;
-        return found
-          ? convertRequestBody(doc.definitions ?? {})(found)
-          : undefined;
-      })(),
-      responses: input.responses
-        ? Object.fromEntries(
-            Object.entries(input.responses)
-              .filter(([_, v]) => v !== undefined)
-              .map(
-                ([key, value]) => [key, convertResponse(doc)(value)!] as const,
-              )
-              .filter(([_, v]) => v !== undefined),
-          )
-        : undefined,
-    });
+        responses: input.responses
+          ? Object.fromEntries(
+              Object.entries(input.responses)
+                .filter(([_, v]) => v !== undefined)
+                .map(
+                  ([key, value]) =>
+                    [key, convertResponse(doc)(value)!] as const,
+                )
+                .filter(([_, v]) => v !== undefined),
+            )
+          : undefined,
+      };
+    };
 
   const convertParameter =
     (definitions: Record<string, SwaggerV2.IJsonSchema>) =>

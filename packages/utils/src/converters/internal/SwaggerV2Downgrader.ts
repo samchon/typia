@@ -149,8 +149,13 @@ export namespace SwaggerV2Downgrader {
         examples: _examples,
         ...rest
       } = input;
+      const { required: _schemaRequired, ...downgraded } = downgradeSchema(
+        collection,
+      )(schema) as SwaggerV2.IJsonSchema & {
+        required?: unknown;
+      };
       return {
-        ...downgradeSchema(collection)(schema),
+        ...downgraded,
         ...rest,
         in: input.in === "querystring" ? "query" : input.in,
         ...(required !== undefined ? { required } : {}),

@@ -13,7 +13,8 @@ import { OpenApiConverter } from "@typia/utils";
  *
  * 1. Downgrade an emended OpenAPI document with omitted, false, and true
  *    parameter-level and request-body `required` values.
- * 2. Upgrade a Swagger v2 document with the same parameter/body cases.
+ * 2. Upgrade a Swagger v2 document with the same parameter/body cases, including
+ *    path-level and `$ref` body parameters.
  * 3. Assert omitted optional values, explicit `false`, and required `true` are
  *    preserved.
  */
@@ -44,6 +45,29 @@ export const test_openapi_converter_parameter_required = (): void => {
                 in: "path",
                 required: true,
                 schema: { type: "string" },
+              },
+              {
+                name: "object",
+                in: "query",
+                schema: {
+                  type: "object",
+                  properties: {
+                    name: { type: "string" },
+                  },
+                  required: ["name"],
+                },
+              },
+              {
+                name: "objectFalse",
+                in: "query",
+                required: false,
+                schema: {
+                  type: "object",
+                  properties: {
+                    name: { type: "string" },
+                  },
+                  required: ["name"],
+                },
               },
             ],
             responses: {
@@ -115,6 +139,8 @@ export const test_openapi_converter_parameter_required = (): void => {
   const keyword = parameters.find((p) => p.name === "keyword")!;
   const filter = parameters.find((p) => p.name === "filter")!;
   const id = parameters.find((p) => p.name === "id")!;
+  const object = parameters.find((p) => p.name === "object")!;
+  const objectFalse = parameters.find((p) => p.name === "objectFalse")!;
   const bodyOmitted = swagger.paths!["/body/omitted"]!.post!
     .parameters![0]! as Parameter;
   const bodyFalse = swagger.paths!["/body/false"]!.post!
@@ -150,6 +176,22 @@ export const test_openapi_converter_parameter_required = (): void => {
     },
   );
   TestValidator.equals(
+    "object schema required omitted from parameter",
+    Object.prototype.hasOwnProperty.call(object, "required"),
+    false,
+  );
+  TestValidator.equals(
+    "object schema explicit false required",
+    {
+      own: Object.prototype.hasOwnProperty.call(objectFalse, "required"),
+      value: objectFalse.required,
+    },
+    {
+      own: true,
+      value: false,
+    },
+  );
+  TestValidator.equals(
     "omitted request body required",
     Object.prototype.hasOwnProperty.call(bodyOmitted, "required"),
     false,
@@ -180,6 +222,14 @@ export const test_openapi_converter_parameter_required = (): void => {
   const openapi: OpenApi.IDocument = OpenApiConverter.upgradeDocument({
     swagger: "2.0",
     info: { title: "test", version: "1.0.0" },
+    parameters: {
+      SharedBody: {
+        name: "body",
+        in: "body",
+        required: true,
+        schema: { type: "string" },
+      },
+    },
     paths: {
       "/items/{id}": {
         get: {
@@ -264,6 +314,51 @@ export const test_openapi_converter_parameter_required = (): void => {
           },
         },
       },
+      "/body/path-level": {
+        parameters: [
+          {
+            name: "body",
+            in: "body",
+            required: false,
+            schema: { type: "string" },
+          },
+        ],
+        post: {
+          responses: {
+            "200": {
+              description: "OK",
+            },
+          },
+        },
+      },
+      "/body/ref-operation": {
+        post: {
+          parameters: [
+            {
+              $ref: "#/parameters/SharedBody",
+            },
+          ],
+          responses: {
+            "200": {
+              description: "OK",
+            },
+          },
+        },
+      },
+      "/body/ref-path": {
+        parameters: [
+          {
+            $ref: "#/parameters/SharedBody",
+          },
+        ],
+        post: {
+          responses: {
+            "200": {
+              description: "OK",
+            },
+          },
+        },
+      },
     },
   } satisfies SwaggerV2.IDocument);
   const upgraded = openapi.paths!["/items/{id}"]!.get!.parameters!;
@@ -274,6 +369,12 @@ export const test_openapi_converter_parameter_required = (): void => {
     openapi.paths!["/body/omitted"]!.post!.requestBody!;
   const upgradedBodyFalse = openapi.paths!["/body/false"]!.post!.requestBody!;
   const upgradedBodyTrue = openapi.paths!["/body/true"]!.post!.requestBody!;
+  const upgradedPathLevelBody =
+    openapi.paths!["/body/path-level"]!.post!.requestBody!;
+  const upgradedOperationRefBody =
+    openapi.paths!["/body/ref-operation"]!.post!.requestBody!;
+  const upgradedPathRefBody =
+    openapi.paths!["/body/ref-path"]!.post!.requestBody!;
 
   TestValidator.equals(
     "upgraded omitted optional required",
@@ -328,6 +429,48 @@ export const test_openapi_converter_parameter_required = (): void => {
     {
       own: Object.prototype.hasOwnProperty.call(upgradedBodyTrue, "required"),
       value: upgradedBodyTrue.required,
+    },
+    {
+      own: true,
+      value: true,
+    },
+  );
+  TestValidator.equals(
+    "upgraded path-level request body required",
+    {
+      own: Object.prototype.hasOwnProperty.call(
+        upgradedPathLevelBody,
+        "required",
+      ),
+      value: upgradedPathLevelBody.required,
+    },
+    {
+      own: true,
+      value: false,
+    },
+  );
+  TestValidator.equals(
+    "upgraded operation ref request body required",
+    {
+      own: Object.prototype.hasOwnProperty.call(
+        upgradedOperationRefBody,
+        "required",
+      ),
+      value: upgradedOperationRefBody.required,
+    },
+    {
+      own: true,
+      value: true,
+    },
+  );
+  TestValidator.equals(
+    "upgraded path ref request body required",
+    {
+      own: Object.prototype.hasOwnProperty.call(
+        upgradedPathRefBody,
+        "required",
+      ),
+      value: upgradedPathRefBody.required,
     },
     {
       own: true,
