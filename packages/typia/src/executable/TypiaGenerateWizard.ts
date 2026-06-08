@@ -31,6 +31,7 @@ export namespace TypiaGenerateWizard {
     const prompt = inquirer.createPromptModule;
 
     const input = (name: string) => async (message: string) => {
+      questioned.value = true;
       const result = await prompt()({
         type: "input",
         name,
@@ -39,32 +40,14 @@ export namespace TypiaGenerateWizard {
       });
       return result[name] as string;
     };
-    const select =
-      (name: string) =>
-      (message: string) =>
-      async <Choice extends string>(choices: Choice[]): Promise<Choice> => {
-        questioned.value = true;
-        return (
-          await prompt()({
-            type: "list",
-            name: name,
-            message: message,
-            choices: choices,
-          })
-        )[name];
-      };
     const configure = async (): Promise<string> => {
-      const files: string[] = await (
-        await fs.promises.readdir(process.cwd())
-      ).filter(
-        (str) =>
-          str.substring(0, 8) === "tsconfig" &&
-          str.substring(str.length - 5) === ".json",
-      );
-      if (files.length === 0)
-        throw new URIError(`Unable to find "tsconfig.json" file.`);
-      else if (files.length === 1) return files[0]!;
-      return select("tsconfig")("TS Config File")(files);
+      const file: string | null = findProjectConfigFile(process.cwd());
+      if (file === null) {
+        throw new URIError(
+          `Unable to find "tsconfig.json" or "jsconfig.json" file.`,
+        );
+      }
+      return file;
     };
 
     return new Promise<IArguments>((resolve, reject) => {
@@ -560,6 +543,23 @@ export namespace TypiaGenerateWizard {
       );
     }
     return resolveRealPath(resolved);
+  }
+
+  function findProjectConfigFile(directory: string): string | null {
+    let current: string = path.resolve(directory);
+    while (true) {
+      for (const filename of ["tsconfig.json", "jsconfig.json"]) {
+        const candidate: string = path.join(current, filename);
+        if (fs.existsSync(candidate) && fs.statSync(candidate).isFile()) {
+          return resolveRealPath(candidate);
+        }
+      }
+      const parent: string = path.dirname(current);
+      if (parent === current) {
+        return null;
+      }
+      current = parent;
+    }
   }
 
   function loadTtscCompiler(): typeof import("ttsc").TtscCompiler {
