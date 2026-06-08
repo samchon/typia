@@ -140,13 +140,23 @@ export namespace SwaggerV2Upgrader {
     (definitions: Record<string, SwaggerV2.IJsonSchema>) =>
     (
       input: SwaggerV2.IOperation.IGeneralParameter,
-    ): OpenApi.IOperation.IParameter => ({
-      name: input.name,
-      in: input.in as any,
-      description: input.description,
-      schema: convertSchema(definitions)(input),
-      required: true,
-    });
+    ): OpenApi.IOperation.IParameter => {
+      const required: boolean | undefined =
+        input.in === "path"
+          ? true
+          : (
+              input as SwaggerV2.IOperation.IGeneralParameter & {
+                required?: boolean;
+              }
+            ).required;
+      return {
+        name: input.name,
+        in: input.in as any,
+        description: input.description,
+        schema: convertSchema(definitions)(input),
+        ...(required !== undefined ? { required } : {}),
+      };
+    };
   const convertRequestBody =
     (definitions: Record<string, SwaggerV2.IJsonSchema>) =>
     (

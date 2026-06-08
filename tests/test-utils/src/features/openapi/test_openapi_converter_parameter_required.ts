@@ -3,17 +3,18 @@ import { OpenApi, SwaggerV2 } from "@typia/interface";
 import { OpenApiConverter } from "@typia/utils";
 
 /**
- * Verifies Swagger parameter downgrades preserve parameter `required`.
+ * Verifies Swagger parameter conversions preserve parameter `required`.
  *
- * Swagger v2 general parameters store `required` as a parameter-level boolean,
- * not as a schema-object `required` array. The downgrade path must not read the
- * boolean from `schema.required`, because doing so drops required path
- * parameters and serializes optional parameters as own `required: undefined`.
+ * Swagger v2 and OpenAPI general parameters store `required` as a
+ * parameter-level boolean, not as a schema-object `required` array. Converters
+ * must preserve omitted optional parameters, explicit `false`, and path `true`
+ * across both directions.
  *
  * 1. Downgrade an emended OpenAPI document with omitted, false, and true
  *    parameter-level `required` values.
- * 2. Assert omitted optional parameters do not gain an own `required` key.
- * 3. Assert explicit `false` and path `true` are preserved.
+ * 2. Upgrade a Swagger v2 document with the same parameter-level cases.
+ * 3. Assert omitted optional parameters, explicit `false`, and path `true` are
+ *    preserved.
  */
 export const test_openapi_converter_parameter_required = (): void => {
   const swagger: SwaggerV2.IDocument = OpenApiConverter.downgradeDocument(
@@ -85,6 +86,77 @@ export const test_openapi_converter_parameter_required = (): void => {
     {
       own: Object.prototype.hasOwnProperty.call(id, "required"),
       value: id.required,
+    },
+    {
+      own: true,
+      value: true,
+    },
+  );
+
+  const openapi: OpenApi.IDocument = OpenApiConverter.upgradeDocument({
+    swagger: "2.0",
+    info: { title: "test", version: "1.0.0" },
+    paths: {
+      "/items/{id}": {
+        get: {
+          parameters: [
+            {
+              name: "keyword",
+              in: "query",
+              type: "string",
+            },
+            {
+              name: "filter",
+              in: "query",
+              required: false,
+              type: "string",
+            } as SwaggerV2.IOperation.IGeneralParameter & {
+              required: false;
+            },
+            {
+              name: "id",
+              in: "path",
+              required: true,
+              type: "string",
+            } as SwaggerV2.IOperation.IGeneralParameter & {
+              required: true;
+            },
+          ],
+          responses: {
+            "200": {
+              description: "OK",
+            },
+          },
+        },
+      },
+    },
+  } satisfies SwaggerV2.IDocument);
+  const upgraded = openapi.paths!["/items/{id}"]!.get!.parameters!;
+  const upgradedKeyword = upgraded.find((p) => p.name === "keyword")!;
+  const upgradedFilter = upgraded.find((p) => p.name === "filter")!;
+  const upgradedId = upgraded.find((p) => p.name === "id")!;
+
+  TestValidator.equals(
+    "upgraded omitted optional required",
+    Object.prototype.hasOwnProperty.call(upgradedKeyword, "required"),
+    false,
+  );
+  TestValidator.equals(
+    "upgraded explicit false required",
+    {
+      own: Object.prototype.hasOwnProperty.call(upgradedFilter, "required"),
+      value: upgradedFilter.required,
+    },
+    {
+      own: true,
+      value: false,
+    },
+  );
+  TestValidator.equals(
+    "upgraded path required",
+    {
+      own: Object.prototype.hasOwnProperty.call(upgradedId, "required"),
+      value: upgradedId.required,
     },
     {
       own: true,
