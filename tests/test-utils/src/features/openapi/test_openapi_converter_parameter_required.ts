@@ -335,7 +335,7 @@ export const test_openapi_converter_parameter_required = (): void => {
         post: {
           parameters: [
             {
-              $ref: "#/parameters/SharedBody",
+              $ref: "#/definitions/parameters/SharedBody",
             },
           ],
           responses: {
