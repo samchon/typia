@@ -20,6 +20,8 @@ interface IUrlValue {
  */
 export const test_openapi_validator_format_url_hyphenated_host = (): void => {
   const valids: string[] = [
+    "https://example.com/",
+    "https://github.com/samchon/typia",
     "https://example--example.example.com/",
     "https://lapis--lazuli.booth.pm/",
     "http://xn--e1afmkfd.xn--p1ai/",
@@ -46,6 +48,7 @@ export const test_openapi_validator_format_url_hyphenated_host = (): void => {
     "example.com",
     "http://999.999.999.999/",
     "http://10.0.0.1/",
+    "http://10.0.0.1:8080/path",
     "http://127.0.0.1/",
     "http://169.254.1.1/",
     "http://172.16.0.1/",
