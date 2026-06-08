@@ -119,13 +119,17 @@ export namespace TypiaGenerateWizard {
 
     const binary = resolveTsgoBinary();
     const cwd = path.dirname(location.project);
-    const transformed = await transformProject({
+    const transformed = transformProject({
       binary,
       cwd,
       tsconfig: location.project,
     });
+    const outputByKey: Map<string, string> =
+      indexTransformedOutputs(transformed);
     const outputs: IOutputFile[] = entries.map((entry) => {
-      const output = transformed[projectKey(cwd, entry.file)];
+      const output = outputByKey.get(
+        projectFileKey(projectKey(cwd, entry.file)),
+      );
       if (output === undefined) {
         throw new URIError(
           `Error on TypiaGenerateWizard.generate(): no transformed output for ${entry.file}. Check that --project includes the file.`,
@@ -136,6 +140,7 @@ export namespace TypiaGenerateWizard {
 
     await ensureOutputDirectory(location.output);
     await ensureTargetDirectories(outputs.map(({ entry }) => entry.target));
+    await ensureTargetFiles(outputs.map(({ entry }) => entry.target));
     for (const { entry, output } of outputs) {
       await fs.promises.writeFile(entry.target, formatOutput(output), "utf8");
     }
@@ -184,6 +189,32 @@ export namespace TypiaGenerateWizard {
       } catch (exp) {
         throw new URIError(
           `Error on TypiaGenerateWizard.generate(): unable to create output parent directory ${directory}: ${formatUnknownError(exp)}`,
+        );
+      }
+    }
+  }
+
+  async function ensureTargetFiles(targets: string[]): Promise<void> {
+    const files: Map<string, string> = new Map();
+    for (const target of targets) {
+      files.set(filesystemKey(target), target);
+    }
+
+    for (const file of files.values()) {
+      let stat: fs.Stats;
+      try {
+        stat = await fs.promises.lstat(file);
+      } catch (exp) {
+        if (isMissingFileError(exp)) {
+          continue;
+        }
+        throw new URIError(
+          `Error on TypiaGenerateWizard.generate(): unable to inspect output file ${file}: ${formatUnknownError(exp)}`,
+        );
+      }
+      if (stat.isFile() === false) {
+        throw new URIError(
+          `Error on TypiaGenerateWizard.generate(): output file path is not a regular file: ${file}`,
         );
       }
     }
@@ -284,7 +315,11 @@ export namespace TypiaGenerateWizard {
             `Error on TypiaGenerateWizard.generate(): input pattern does not match any files: ${input}`,
           );
         }
-        output.push(...excludeOutputFiles(matches, directory));
+        output.push(
+          ...excludeOutputFiles(matches, directory).filter(
+            isSupportedExtension,
+          ),
+        );
       } else {
         const file: string = path.resolve(input);
         if (isSameOrChildPath(file, directory) === false) {
@@ -303,12 +338,12 @@ export namespace TypiaGenerateWizard {
     return input.replace(/\\/g, "/");
   }
 
-  async function transformProject(props: {
+  function transformProject(props: {
     binary: string;
     cwd: string;
     tsconfig: string;
-  }): Promise<Record<string, string>> {
-    const { TtscCompiler } = await import("ttsc");
+  }): Record<string, string> {
+    const TtscCompiler = loadTtscCompiler();
     const result: ITtscCompilerTransformation = new TtscCompiler({
       binary: props.binary,
       cwd: props.cwd,
@@ -327,6 +362,21 @@ export namespace TypiaGenerateWizard {
     );
   }
 
+  function loadTtscCompiler(): typeof import("ttsc").TtscCompiler {
+    const packageRoot: string = resolveTypiaPackageRoot();
+    const resolved: string | null = resolveFromRoots(
+      "ttsc",
+      resolveRuntimeRoots(packageRoot),
+    );
+    if (resolved === null) {
+      throw new URIError(
+        `Error on TypiaGenerateWizard.generate(): unable to resolve ttsc from the current project, typia package, or workspace root. Run "npm i -D ttsc @typescript/native-preview" before.`,
+      );
+    }
+    const imported = createRequire(resolved)(resolved) as typeof import("ttsc");
+    return imported.TtscCompiler;
+  }
+
   function resolveTsgoBinary(): string {
     const explicit: string | undefined = process.env.TTSC_TSGO_BINARY;
     if (explicit !== undefined && explicit.length !== 0) {
@@ -341,11 +391,11 @@ export namespace TypiaGenerateWizard {
     const packageRoot: string = resolveTypiaPackageRoot();
     const manifest: string | null = resolveFromRoots(
       "@typescript/native-preview/package.json",
-      [packageRoot, path.resolve(packageRoot, "..", "..")],
+      resolveRuntimeRoots(packageRoot),
     );
     if (manifest === null) {
       throw new URIError(
-        "Error on TypiaGenerateWizard.generate(): unable to resolve @typescript/native-preview from the typia package or workspace root.",
+        "Error on TypiaGenerateWizard.generate(): unable to resolve @typescript/native-preview from the current project, typia package, or workspace root.",
       );
     }
 
@@ -398,6 +448,10 @@ export namespace TypiaGenerateWizard {
       );
     }
     return path.dirname(resolved);
+  }
+
+  function resolveRuntimeRoots(packageRoot: string): string[] {
+    return [process.cwd(), packageRoot, path.resolve(packageRoot, "..", "..")];
   }
 
   function resolveFromRoots(request: string, roots: string[]): string | null {
@@ -461,8 +515,22 @@ export namespace TypiaGenerateWizard {
       : `// @ts-nocheck\n${output}`;
   }
 
+  function indexTransformedOutputs(
+    outputs: Record<string, string>,
+  ): Map<string, string> {
+    const map: Map<string, string> = new Map();
+    for (const [file, output] of Object.entries(outputs)) {
+      map.set(projectFileKey(file), output);
+    }
+    return map;
+  }
+
   function projectKey(root: string, file: string): string {
     return path.relative(root, file).replace(/\\/g, "/");
+  }
+
+  function projectFileKey(file: string): string {
+    return isCaseSensitive() ? file : file.toLowerCase();
   }
 
   function isSamePath(x: string, y: string): boolean {
@@ -485,6 +553,15 @@ export namespace TypiaGenerateWizard {
 
   function isCaseSensitive(): boolean {
     return process.platform !== "win32" && process.platform !== "darwin";
+  }
+
+  function isMissingFileError(exp: unknown): boolean {
+    return (
+      typeof exp === "object" &&
+      exp !== null &&
+      "code" in exp &&
+      exp.code === "ENOENT"
+    );
   }
 
   function formatDiagnostics(diagnostics: ITtscCompilerDiagnostic[]): string {
