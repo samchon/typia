@@ -22,7 +22,7 @@ export namespace TypiaGenerateWizard {
   async function parseArguments(): Promise<IArguments> {
     const command = createCommand("typia generate");
     command.usage("[options] [files...]");
-    command.argument("[files...]", "input .ts files or globs");
+    command.argument("[files...]", "input TypeScript source files or globs");
     command.option("--input <path>", "input directory");
     command.option("--output <directory>", "output directory");
     command.option(

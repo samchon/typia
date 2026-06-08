@@ -527,7 +527,7 @@ After installation, make sure the `prepare` script runs `ts-patch install`, then
 
 ## Generation
 
-`npx typia generate` is the fallback for build pipelines where a TypeScript transformer can't run — Babel in Create-React-App, raw SWC, and so on. typia reads the input directory or the positional `.ts` files you pass, expands every `typia.*<T>()` call site, and writes the transformed `.ts` files to the output directory. Your bundler then compiles those transformed files normally.
+`npx typia generate` is the fallback for build pipelines where a TypeScript transformer can't run — Babel in Create-React-App, raw SWC, and so on. typia reads the input directory or the positional TypeScript source files you pass, expands every `typia.*<T>()` call site, and writes the transformed source files to the output directory. Your bundler then compiles those transformed files normally.
 
 <Tabs items={['npm', 'pnpm', 'yarn', 'bun']}>
   <Tabs.Tab>
@@ -599,7 +599,7 @@ File/glob mode writes each selected file as `--output/<basename>`. Duplicate bas
 `--project` accepts a `tsconfig.json` or `jsconfig.json` file, or a directory containing either file.
 When you omit `--project`, typia searches from the current working directory upward for the nearest `tsconfig.json` or `jsconfig.json`.
 
-The input directory or file list contains `.ts` files that import typia and re-export validators. typia reads each file, applies the transform, and writes the result to `--output`:
+The input directory or file list contains TypeScript source files that import typia and re-export validators. typia reads each file, applies the transform, and writes the result to `--output`:
 
 <Tabs items={['TypeScript Input', 'Generated TypeScript']}>
   <Tabs.Tab>
