@@ -4,12 +4,15 @@ export type PrimitiveVariadicTupleCases = [
   Assert<IsEqual<LiteralVariadic, ExpectedLiteralVariadic>>,
   Assert<IsEqual<DateRest, ExpectedDateRest>>,
   Assert<IsEqual<TrailingDateRest, ExpectedTrailingDateRest>>,
+  Assert<IsEqual<LeadingDateRest, ExpectedLeadingDateRest>>,
   Assert<IsEqual<ObjectRest, ExpectedObjectRest>>,
   Assert<IsEqual<BrandedDateArray, ExpectedBrandedDateArray>>,
   Assert<IsEqual<OptionalTuple, ExpectedOptionalTuple>>,
   Assert<IsEqual<OptionalRest, ExpectedOptionalRest>>,
   Assert<IsEqual<StringArray, ExpectedStringArray>>,
   Assert<IsEqual<DateArray, ExpectedDateArray>>,
+  Assert<IsEqual<ReadonlyDateArray, ExpectedReadonlyDateArray>>,
+  Assert<IsEqual<ReadonlyDateRest, ExpectedReadonlyDateRest>>,
   Assert<IsEqual<ObjectArray, ExpectedObjectArray>>,
   Assert<IsEqual<UnionTuple, ExpectedUnionTuple>>,
 ];
@@ -46,6 +49,15 @@ export const invalidDateRest: DateRest = ["head", new Date(), "tail"];
 
 // @ts-expect-error trailing rest elements must be converted to date-time strings.
 export const invalidTrailingDateRest: TrailingDateRest = ["head", new Date()];
+
+export const validLeadingDateRestWithoutPrefix: LeadingDateRest = ["tail"];
+export const validLeadingDateRest: LeadingDateRest = [
+  "2026-06-08T00:00:00.000Z" as DateTime,
+  "tail",
+];
+
+// @ts-expect-error leading rest elements must be converted to date-time strings.
+export const invalidLeadingDateRest: LeadingDateRest = [new Date(), "tail"];
 
 export const validObjectRest: ObjectRest = [
   "2026-06-08T00:00:00.000Z" as DateTime,
@@ -96,6 +108,9 @@ type ExpectedDateRest = ["head", ...DateTime[], "tail"];
 type TrailingDateRest = Primitive<["head", ...Date[]]>;
 type ExpectedTrailingDateRest = ["head", ...DateTime[]];
 
+type LeadingDateRest = Primitive<[...Date[], "tail"]>;
+type ExpectedLeadingDateRest = [...DateTime[], "tail"];
+
 type ObjectRest = Primitive<[Date, ...IBoxedValue[], IBoxedDone]>;
 type ExpectedObjectRest = [DateTime, ...IPrimitiveValue[], IPrimitiveDone];
 
@@ -113,6 +128,12 @@ type ExpectedStringArray = string[];
 
 type DateArray = Primitive<Date[]>;
 type ExpectedDateArray = DateTime[];
+
+type ReadonlyDateArray = Primitive<readonly Date[]>;
+type ExpectedReadonlyDateArray = readonly DateTime[];
+
+type ReadonlyDateRest = Primitive<readonly ["head", ...Date[]]>;
+type ExpectedReadonlyDateRest = readonly ["head", ...DateTime[]];
 
 type ObjectArray = Primitive<IBoxedValue[]>;
 type ExpectedObjectArray = IPrimitiveValue[];

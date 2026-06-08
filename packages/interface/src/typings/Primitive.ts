@@ -71,6 +71,9 @@ type PrimitiveVariadicTuple<T extends readonly any[]> = {
   [P in keyof T]: PrimitiveMain<T[P]>;
 };
 
+// Keep this broader tuple detection local to Primitive. Other helpers sharing
+// IsTuple still treat variadic tuples as arrays because their tuple recursions
+// do not preserve open-ended tuple shapes.
 type IsPrimitiveTuple<T extends readonly any[]> = [T] extends [never]
   ? false
   : number extends T["length"]
