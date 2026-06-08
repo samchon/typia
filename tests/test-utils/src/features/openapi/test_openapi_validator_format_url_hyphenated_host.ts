@@ -27,6 +27,13 @@ export const test_openapi_validator_format_url_hyphenated_host = (): void => {
     "https://EXAMPLE--EXAMPLE.EXAMPLE.COM/",
     "https://example--example.example.com:8080/path",
     "http://223.255.255.254/",
+    "http://172.32.0.1/",
+    "http://169.253.1.1/",
+    "http://169.255.1.1/",
+    "https://example.co0/",
+    "https://example.c-d/",
+    "https://" + "a".repeat(63) + ".example.com/",
+    "https://example." + "a".repeat(63) + "/",
   ];
   const invalids: string[] = [
     "https://-example.com/",
@@ -39,8 +46,16 @@ export const test_openapi_validator_format_url_hyphenated_host = (): void => {
     "http://127.0.0.1/",
     "http://169.254.1.1/",
     "http://172.16.0.1/",
+    "http://172.31.255.255/",
     "http://192.168.0.1/",
+    "http://256.0.0.1/",
+    "http://1.2.3/",
+    "http://1.2.3.4.5/",
+    "http://01.2.3.4/",
+    "https://" + "a".repeat(64) + ".example.com/",
+    "https://example." + "a".repeat(64) + "/",
     "https://" + "-".repeat(2048) + ".example.com/",
+    "https://a" + "-".repeat(2048) + ".example.com/",
   ];
 
   for (const value of valids) {
@@ -82,6 +97,14 @@ export const test_openapi_validator_format_url_hyphenated_host = (): void => {
       false,
       typia.validate<IUrlValue>({ value }).success,
     );
+    TestValidator.predicate("typia.assert rejects " + value, () => {
+      try {
+        typia.assert<IUrlValue>({ value });
+        return false;
+      } catch {
+        return true;
+      }
+    });
     TestValidator.equals(
       "OpenApiValidator rejects " + value,
       false,
