@@ -147,7 +147,7 @@ export namespace TypiaGenerateWizard {
       output: location.output,
       entries: outputs.map(({ entry }) => entry),
     });
-    await ensureTargetFiles(outputs.map(({ entry }) => entry.target));
+    await ensureTargetFiles(outputs.map(({ entry }) => entry));
     for (const { entry, output } of outputs) {
       await fs.promises.writeFile(entry.target, formatOutput(output), "utf8");
     }
@@ -323,27 +323,34 @@ export namespace TypiaGenerateWizard {
     }
   }
 
-  async function ensureTargetFiles(targets: string[]): Promise<void> {
-    const files: Map<string, string> = new Map();
-    for (const target of targets) {
-      files.set(filesystemKey(target), target);
+  async function ensureTargetFiles(entries: IInputFile[]): Promise<void> {
+    const inputs: Set<string> = new Set();
+    const files: Map<string, IInputFile> = new Map();
+    for (const entry of entries) {
+      inputs.add(fileIdentityKey(await fs.promises.stat(entry.file)));
+      files.set(filesystemKey(entry.target), entry);
     }
 
-    for (const file of files.values()) {
+    for (const entry of files.values()) {
       let stat: fs.Stats;
       try {
-        stat = await fs.promises.lstat(file);
+        stat = await fs.promises.lstat(entry.target);
       } catch (exp) {
         if (isMissingFileError(exp)) {
           continue;
         }
         throw new URIError(
-          `Error on TypiaGenerateWizard.generate(): unable to inspect output file ${file}: ${formatUnknownError(exp)}`,
+          `Error on TypiaGenerateWizard.generate(): unable to inspect output file ${entry.target}: ${formatUnknownError(exp)}`,
         );
       }
       if (stat.isFile() === false) {
         throw new URIError(
-          `Error on TypiaGenerateWizard.generate(): output file path is not a regular file: ${file}`,
+          `Error on TypiaGenerateWizard.generate(): output file path is not a regular file: ${entry.target}`,
+        );
+      }
+      if (inputs.has(fileIdentityKey(stat))) {
+        throw new URIError(
+          `Error on TypiaGenerateWizard.generate(): output file would overwrite input file through a physical file alias: ${entry.target}`,
         );
       }
     }
@@ -358,6 +365,11 @@ export namespace TypiaGenerateWizard {
       );
     }
     const input = path.resolve(location.input);
+    if (fs.existsSync(input) === false) {
+      throw new URIError(
+        `Error on TypiaGenerateWizard.generate(): input path does not exist: ${input}`,
+      );
+    }
     if ((await isDirectory(input)) === false) {
       throw new URIError(
         "Error on TypiaGenerateWizard.generate(): input path is not a directory.",
@@ -692,6 +704,10 @@ export namespace TypiaGenerateWizard {
       "code" in exp &&
       exp.code === "ENOENT"
     );
+  }
+
+  function fileIdentityKey(stat: fs.Stats): string {
+    return `${stat.dev}:${stat.ino}`;
   }
 
   function formatDiagnostics(diagnostics: ITtscCompilerDiagnostic[]): string {

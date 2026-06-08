@@ -1,8 +1,10 @@
 const cp = require("child_process");
 const fs = require("fs");
+const os = require("os");
 const path = require("path");
 
 const root = path.resolve(__dirname, "..");
+const cache = fs.mkdtempSync(path.join(os.tmpdir(), "typia-generate-errors-"));
 const ttsx = path.resolve(
   root,
   "..",
@@ -14,12 +16,34 @@ const ttsx = path.resolve(
 
 const quote = (str) => JSON.stringify(str);
 
+process.on("exit", () => {
+  fs.rmSync(cache, { recursive: true, force: true });
+});
+
 const run = (args) =>
   cp.execSync([ttsx, ...args].map(quote).join(" "), {
     cwd: root,
     encoding: "utf8",
+    env: {
+      ...process.env,
+      TTSC_CACHE_DIR: cache,
+    },
     stdio: "pipe",
   });
+
+const removePath = (file) => {
+  if (fs.existsSync(file) === false) return;
+  const stat = fs.lstatSync(file);
+  if (stat.isSymbolicLink()) {
+    try {
+      fs.rmSync(file, { force: true });
+    } catch {
+      fs.rmdirSync(file);
+    }
+    return;
+  }
+  fs.rmSync(file, { recursive: true, force: true });
+};
 
 const expectFailure = (name, args, expected) => {
   try {
@@ -62,11 +86,19 @@ expectFailure(
   "supported TypeScript source files outside the output directory",
 );
 
+const inputModule = path.join(
+  root,
+  "src",
+  "input",
+  "modules",
+  "generate_module.ts",
+);
+
 const link = path.join(root, "src", "output-link");
-fs.rmSync(link, { recursive: true, force: true });
+removePath(link);
 try {
   fs.symlinkSync(
-    path.join(root, "src", "input", "modules"),
+    path.dirname(inputModule),
     link,
     process.platform === "win32" ? "junction" : "dir",
   );
@@ -80,14 +112,14 @@ try {
     "symbolic link",
   );
 } finally {
-  fs.rmSync(link, { recursive: true, force: true });
+  removePath(link);
 }
 
 const output = path.join(root, "src", "output");
 const ancestor = path.join(output, "link");
 const external = path.join(root, "src", "external-output");
-fs.rmSync(output, { recursive: true, force: true });
-fs.rmSync(external, { recursive: true, force: true });
+removePath(output);
+removePath(external);
 try {
   fs.mkdirSync(output, { recursive: true });
   fs.mkdirSync(external, { recursive: true });
@@ -110,21 +142,21 @@ try {
     process.exit(1);
   }
 } finally {
-  fs.rmSync(output, { recursive: true, force: true });
-  fs.rmSync(external, { recursive: true, force: true });
+  removePath(output);
+  removePath(external);
 }
 
 const tempInput = path.join(root, "src", "input-symlink");
 const tempSource = path.join(tempInput, "link", "new", "generate_module.ts");
 const tempProject = path.join(root, "tsconfig.file-errors.json");
-fs.rmSync(output, { recursive: true, force: true });
-fs.rmSync(external, { recursive: true, force: true });
-fs.rmSync(tempInput, { recursive: true, force: true });
-fs.rmSync(tempProject, { force: true });
+removePath(output);
+removePath(external);
+removePath(tempInput);
+removePath(tempProject);
 try {
   fs.mkdirSync(path.dirname(tempSource), { recursive: true });
   fs.copyFileSync(
-    path.join(root, "src", "input", "modules", "generate_module.ts"),
+    inputModule,
     tempSource,
   );
   fs.writeFileSync(
@@ -163,8 +195,25 @@ try {
     process.exit(1);
   }
 } finally {
-  fs.rmSync(output, { recursive: true, force: true });
-  fs.rmSync(external, { recursive: true, force: true });
-  fs.rmSync(tempInput, { recursive: true, force: true });
-  fs.rmSync(tempProject, { force: true });
+  removePath(output);
+  removePath(external);
+  removePath(tempInput);
+  removePath(tempProject);
+}
+
+removePath(output);
+try {
+  fs.mkdirSync(output, { recursive: true });
+  fs.linkSync(inputModule, path.join(output, "generate_module.ts"));
+  expectFailure(
+    "hard-linked output leaf",
+    generate("--output", "src/output", "src/input/modules/generate_module.ts"),
+    "physical file alias",
+  );
+  if (fs.readFileSync(inputModule, "utf8").includes("// @ts-nocheck")) {
+    console.error("Hard-linked output leaf rewrote the input source.");
+    process.exit(1);
+  }
+} finally {
+  removePath(output);
 }
