@@ -42,6 +42,14 @@ const generate = (...args) => [
   ...args,
 ];
 
+const generateWithProject = (project, ...args) => [
+  "node_modules/typia/src/executable/typia.ts",
+  "generate",
+  "--project",
+  project,
+  ...args,
+];
+
 expectFailure(
   "literal unsupported file",
   generate("--output", "src/output", "package.json"),
@@ -104,4 +112,59 @@ try {
 } finally {
   fs.rmSync(output, { recursive: true, force: true });
   fs.rmSync(external, { recursive: true, force: true });
+}
+
+const tempInput = path.join(root, "src", "input-symlink");
+const tempSource = path.join(tempInput, "link", "new", "generate_module.ts");
+const tempProject = path.join(root, "tsconfig.file-errors.json");
+fs.rmSync(output, { recursive: true, force: true });
+fs.rmSync(external, { recursive: true, force: true });
+fs.rmSync(tempInput, { recursive: true, force: true });
+fs.rmSync(tempProject, { force: true });
+try {
+  fs.mkdirSync(path.dirname(tempSource), { recursive: true });
+  fs.copyFileSync(
+    path.join(root, "src", "input", "modules", "generate_module.ts"),
+    tempSource,
+  );
+  fs.writeFileSync(
+    tempProject,
+    JSON.stringify(
+      {
+        extends: "./tsconfig.json",
+        include: ["src/input-symlink/link/new/generate_module.ts"],
+      },
+      null,
+      2,
+    ),
+  );
+  fs.mkdirSync(output, { recursive: true });
+  fs.mkdirSync(external, { recursive: true });
+  fs.symlinkSync(
+    external,
+    ancestor,
+    process.platform === "win32" ? "junction" : "dir",
+  );
+  expectFailure(
+    "directory-mode symlinked output ancestor",
+    generateWithProject(
+      "tsconfig.file-errors.json",
+      "--input",
+      "src/input-symlink",
+      "--output",
+      "src/output",
+    ),
+    "symbolic link",
+  );
+  if (fs.existsSync(path.join(external, "new"))) {
+    console.error(
+      "Directory-mode symlinked output ancestor created an external directory.",
+    );
+    process.exit(1);
+  }
+} finally {
+  fs.rmSync(output, { recursive: true, force: true });
+  fs.rmSync(external, { recursive: true, force: true });
+  fs.rmSync(tempInput, { recursive: true, force: true });
+  fs.rmSync(tempProject, { force: true });
 }
