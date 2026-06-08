@@ -168,15 +168,24 @@ export namespace SwaggerV2Upgrader {
         description,
         ...schema
       } = input as SwaggerV2.IOperation.IGeneralParameter & {
-        required?: boolean;
+        required?: boolean | string[];
       };
       const required: boolean | undefined =
-        location === "path" ? true : inputRequired;
+        location === "path"
+          ? true
+          : typeof inputRequired === "boolean"
+            ? inputRequired
+            : undefined;
       return {
         name,
         in: location as any,
         description,
-        schema: convertSchema(definitions)(schema),
+        schema: convertSchema(definitions)({
+          ...schema,
+          ...(Array.isArray(inputRequired)
+            ? { required: inputRequired }
+            : undefined),
+        } as SwaggerV2.IJsonSchema),
         ...(required !== undefined ? { required } : {}),
       };
     };

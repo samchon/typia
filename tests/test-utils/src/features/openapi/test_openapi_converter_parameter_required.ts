@@ -14,7 +14,7 @@ import { OpenApiConverter } from "@typia/utils";
  * 1. Downgrade an emended OpenAPI document with omitted, false, and true
  *    parameter-level and request-body `required` values.
  * 2. Upgrade a Swagger v2 document with the same parameter/body cases, including
- *    path-level and `$ref` body parameters.
+ *    schema-array `required`, path-level, and mixed `$ref` body parameters.
  * 3. Assert omitted optional values, explicit `false`, and required `true` are
  *    preserved.
  */
@@ -256,6 +256,24 @@ export const test_openapi_converter_parameter_required = (): void => {
             } as SwaggerV2.IOperation.IGeneralParameter & {
               required: true;
             },
+            {
+              name: "objectEmpty",
+              in: "query",
+              type: "object",
+              properties: {
+                name: { type: "string" },
+              },
+              required: [],
+            },
+            {
+              name: "objectNamed",
+              in: "query",
+              type: "object",
+              properties: {
+                name: { type: "string" },
+              },
+              required: ["name"],
+            },
           ],
           responses: {
             "200": {
@@ -384,12 +402,58 @@ export const test_openapi_converter_parameter_required = (): void => {
           },
         },
       },
+      "/body/ref-operation-override": {
+        parameters: [
+          {
+            name: "body",
+            in: "body",
+            required: false,
+            schema: { type: "number" },
+          },
+        ],
+        post: {
+          parameters: [
+            {
+              $ref: "#/definitions/parameters/SharedBody",
+            },
+          ],
+          responses: {
+            "200": {
+              description: "OK",
+            },
+          },
+        },
+      },
+      "/body/literal-operation-override": {
+        parameters: [
+          {
+            $ref: "#/parameters/SharedBody",
+          },
+        ],
+        post: {
+          parameters: [
+            {
+              name: "body",
+              in: "body",
+              required: false,
+              schema: { type: "number" },
+            },
+          ],
+          responses: {
+            "200": {
+              description: "OK",
+            },
+          },
+        },
+      },
     },
   } satisfies SwaggerV2.IDocument);
   const upgraded = openapi.paths!["/items/{id}"]!.get!.parameters!;
   const upgradedKeyword = upgraded.find((p) => p.name === "keyword")!;
   const upgradedFilter = upgraded.find((p) => p.name === "filter")!;
   const upgradedId = upgraded.find((p) => p.name === "id")!;
+  const upgradedObjectEmpty = upgraded.find((p) => p.name === "objectEmpty")!;
+  const upgradedObjectNamed = upgraded.find((p) => p.name === "objectNamed")!;
   const upgradedBodyOmitted =
     openapi.paths!["/body/omitted"]!.post!.requestBody!;
   const upgradedBodyFalse = openapi.paths!["/body/false"]!.post!.requestBody!;
@@ -402,6 +466,10 @@ export const test_openapi_converter_parameter_required = (): void => {
     openapi.paths!["/body/ref-operation"]!.post!.requestBody!;
   const upgradedPathRefBody =
     openapi.paths!["/body/ref-path"]!.post!.requestBody!;
+  const upgradedOperationRefOverrideBody =
+    openapi.paths!["/body/ref-operation-override"]!.post!.requestBody!;
+  const upgradedLiteralOperationOverrideBody =
+    openapi.paths!["/body/literal-operation-override"]!.post!.requestBody!;
 
   TestValidator.equals(
     "upgraded omitted optional required",
@@ -435,6 +503,38 @@ export const test_openapi_converter_parameter_required = (): void => {
   assertSchemaMetadataOmitted("upgraded keyword schema", upgradedKeyword);
   assertSchemaMetadataOmitted("upgraded filter schema", upgradedFilter);
   assertSchemaMetadataOmitted("upgraded path schema", upgradedId);
+  TestValidator.equals(
+    "upgraded empty object schema required",
+    {
+      parameter: Object.prototype.hasOwnProperty.call(
+        upgradedObjectEmpty,
+        "required",
+      ),
+      schema: Object.prototype.hasOwnProperty.call(
+        upgradedObjectEmpty.schema,
+        "required",
+      ),
+    },
+    {
+      parameter: false,
+      schema: false,
+    },
+  );
+  TestValidator.equals(
+    "upgraded named object schema required",
+    {
+      parameter: Object.prototype.hasOwnProperty.call(
+        upgradedObjectNamed,
+        "required",
+      ),
+      schema: (upgradedObjectNamed.schema as OpenApi.IJsonSchema.IObject)
+        .required,
+    },
+    {
+      parameter: false,
+      schema: ["name"],
+    },
+  );
   TestValidator.equals(
     "upgraded omitted request body required",
     Object.prototype.hasOwnProperty.call(upgradedBodyOmitted, "required"),
@@ -516,6 +616,34 @@ export const test_openapi_converter_parameter_required = (): void => {
     {
       own: true,
       value: true,
+    },
+  );
+  TestValidator.equals(
+    "upgraded operation ref body overrides path body",
+    {
+      required: upgradedOperationRefOverrideBody.required,
+      schema: (
+        upgradedOperationRefOverrideBody.content!["application/json"]!
+          .schema as OpenApi.IJsonSchema.IString
+      ).type,
+    },
+    {
+      required: true,
+      schema: "string",
+    },
+  );
+  TestValidator.equals(
+    "upgraded operation body overrides path ref body",
+    {
+      required: upgradedLiteralOperationOverrideBody.required,
+      schema: (
+        upgradedLiteralOperationOverrideBody.content!["application/json"]!
+          .schema as OpenApi.IJsonSchema.INumber
+      ).type,
+    },
+    {
+      required: false,
+      schema: "number",
     },
   );
 };
