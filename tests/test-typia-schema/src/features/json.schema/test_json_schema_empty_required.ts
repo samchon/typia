@@ -21,7 +21,7 @@ export const test_json_schema_empty_required = (): void => {
   }
   interface IFilteredOnly {
     /** @ignore */
-    hidden: string;
+    secret: string;
 
     /** @ignore */
     ignored: number;

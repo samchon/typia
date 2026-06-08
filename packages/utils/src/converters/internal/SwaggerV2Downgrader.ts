@@ -141,19 +141,22 @@ export namespace SwaggerV2Downgrader {
     (
       input: OpenApi.IOperation.IParameter,
       i: number,
-    ): SwaggerV2.IOperation.IParameter =>
-      ({
-        ...downgradeSchema(collection)(input.schema),
-        ...input,
+    ): SwaggerV2.IOperation.IParameter => {
+      const {
+        schema,
+        required,
+        example: _example,
+        examples: _examples,
+        ...rest
+      } = input;
+      return {
+        ...downgradeSchema(collection)(schema),
+        ...rest,
         in: input.in === "querystring" ? "query" : input.in,
-        required: (input.schema as any)?.required,
-        schema: undefined,
+        ...(required !== undefined ? { required } : {}),
         name: input.name ?? `p${i}`,
-        ...{
-          example: undefined,
-          examples: undefined,
-        },
-      }) as any;
+      } as SwaggerV2.IOperation.IParameter;
+    };
 
   const downgradeRequestBody =
     (collection: IComponentsCollection) =>

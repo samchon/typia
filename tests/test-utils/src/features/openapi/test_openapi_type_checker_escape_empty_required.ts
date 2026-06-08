@@ -10,8 +10,8 @@ import { OpenApiTypeChecker } from "@typia/utils";
  * OpenAPI schema must omit `required` instead of serializing `required: []`.
  *
  * 1. Escape a referenced optional-only object schema.
- * 2. Assert the reference is resolved.
- * 3. Assert the escaped object does not own a `required` key.
+ * 2. Escape a `oneOf` wrapper carrying an empty `required` sibling.
+ * 3. Assert escaped objects and wrappers do not own a `required` key.
  */
 export const test_openapi_type_checker_escape_empty_required = (): void => {
   const escaped = OpenApiTypeChecker.escape({
@@ -44,6 +44,38 @@ export const test_openapi_type_checker_escape_empty_required = (): void => {
     TestValidator.equals(
       "escaped required omitted",
       Object.prototype.hasOwnProperty.call(schema, "required"),
+      false,
+    );
+  }
+
+  const oneOf = OpenApiTypeChecker.escape({
+    components: { schemas: {} },
+    schema: {
+      oneOf: [
+        {
+          type: "object",
+          properties: {
+            name: { type: "string" },
+          },
+          required: [],
+        },
+      ],
+      required: [],
+    } as OpenApi.IJsonSchema,
+    recursive: false,
+  });
+
+  TestValidator.equals("oneOf escape success", oneOf.success, true);
+  if (oneOf.success === true) {
+    const schema = oneOf.value as OpenApi.IJsonSchema.IOneOf;
+    TestValidator.equals(
+      "oneOf wrapper required omitted",
+      Object.prototype.hasOwnProperty.call(schema, "required"),
+      false,
+    );
+    TestValidator.equals(
+      "oneOf object required omitted",
+      Object.prototype.hasOwnProperty.call(schema.oneOf[0]!, "required"),
       false,
     );
   }

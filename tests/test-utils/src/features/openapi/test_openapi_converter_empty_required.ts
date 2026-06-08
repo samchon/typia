@@ -17,7 +17,7 @@ import { OpenApiConverter } from "@typia/utils";
  *
  * 1. Upgrade Swagger/OpenAPI documents containing optional-only objects.
  * 2. Downgrade an emended OpenAPI document containing `required: []`.
- * 3. Assert every converted object omits the empty `required` keyword.
+ * 3. Assert every converted object keeps its shape and omits empty `required`.
  */
 export const test_openapi_converter_empty_required = (): void => {
   const upgraded = [
@@ -77,8 +77,8 @@ export const test_openapi_converter_empty_required = (): void => {
     ],
   ] as const;
   for (const [name, schemas] of upgraded) {
-    assertNoRequired(`${name} upgraded object`, schemas.Target!);
-    assertNoRequired(`${name} upgraded allOf`, schemas.Merged!);
+    assertObjectNoRequired(`${name} upgraded object`, schemas.Target!);
+    assertObjectNoRequired(`${name} upgraded allOf`, schemas.Merged!);
   }
 
   const emended: OpenApi.IDocument = {
@@ -92,16 +92,16 @@ export const test_openapi_converter_empty_required = (): void => {
       },
     },
   };
-  assertNoRequired(
+  assertObjectNoRequired(
     "downgraded swagger",
     OpenApiConverter.downgradeDocument(emended, "2.0").definitions!.Target!,
   );
-  assertNoRequired(
+  assertObjectNoRequired(
     "downgraded v3.0",
     OpenApiConverter.downgradeDocument(emended, "3.0").components!.schemas!
       .Target!,
   );
-  assertNoRequired(
+  assertObjectNoRequired(
     "downgraded v3.1",
     OpenApiConverter.downgradeDocument(emended, "3.1").components!.schemas!
       .Target!,
@@ -169,7 +169,7 @@ const mergedSwagger = (): SwaggerV2.IJsonSchema.IAllOf => ({
   allOf: [optionalSwagger()],
 });
 
-const assertNoRequired = (
+const assertObjectNoRequired = (
   name: string,
   schema:
     | OpenApi.IJsonSchema
@@ -177,9 +177,33 @@ const assertNoRequired = (
     | OpenApiV3_1.IJsonSchema
     | OpenApiV3_2.IJsonSchema
     | SwaggerV2.IJsonSchema,
-): void =>
+): void => {
+  const object = schema as
+    | OpenApi.IJsonSchema.IObject
+    | OpenApiV3.IJsonSchema.IObject
+    | OpenApiV3_1.IJsonSchema.IObject
+    | OpenApiV3_2.IJsonSchema.IObject
+    | SwaggerV2.IJsonSchema.IObject;
   TestValidator.equals(
-    name,
+    `${name} object shape`,
+    {
+      type: object.type,
+      properties: object.properties,
+      additionalProperties: object.additionalProperties,
+    },
+    {
+      type: "object",
+      properties: {
+        name: {
+          type: "string",
+        },
+      },
+      additionalProperties: false,
+    },
+  );
+  TestValidator.equals(
+    `${name} required omitted`,
     Object.prototype.hasOwnProperty.call(schema, "required"),
     false,
   );
+};

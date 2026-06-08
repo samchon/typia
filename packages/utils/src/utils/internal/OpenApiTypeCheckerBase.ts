@@ -370,7 +370,7 @@ export namespace OpenApiTypeCheckerBase {
         (v) => v !== undefined,
       ) as OpenApi.IJsonSchema[];
       if (filtered.length === 0) return undefined;
-      return {
+      return OpenApiSchemaSanitizer.omitEmptyRequired({
         ...props.schema,
         oneOf: filtered
           .map((v) =>
@@ -381,7 +381,7 @@ export namespace OpenApiTypeCheckerBase {
             }),
           )
           .flat(),
-      };
+      });
     } else if (isObject(props.schema)) {
       // OBJECT
       const object: OpenApi.IJsonSchema.IObject = props.schema;

@@ -1,18 +1,16 @@
 /** @internal */
 export namespace OpenApiSchemaSanitizer {
-  export const omitEmptyRequired = <
-    Schema extends {
-      required?: unknown[];
-    },
-  >(
+  export const omitEmptyRequired = <Schema extends object>(
     schema: Schema,
   ): Schema => {
+    const value: unknown = (schema as { required?: unknown }).required;
     if (
       Object.prototype.hasOwnProperty.call(schema, "required") &&
-      (schema.required === undefined ||
-        (Array.isArray(schema.required) && schema.required.length === 0))
+      (value === undefined || (Array.isArray(value) && value.length === 0))
     ) {
-      const { required: _required, ...rest } = schema;
+      const { required: _required, ...rest } = schema as Schema & {
+        required?: unknown;
+      };
       return rest as Schema;
     }
     return schema;
