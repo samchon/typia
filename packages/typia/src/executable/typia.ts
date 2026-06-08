@@ -9,7 +9,7 @@ const USAGE = `Wrong command has been detected. Use like below:
 
   npx typia generate
     --output src/generated \\
-    src/**/*.typia.ts
+    "src/**/*.typia.ts"
 `;
 
 const halt = (desc: string): never => {
@@ -18,12 +18,26 @@ const halt = (desc: string): never => {
 };
 
 const loadNativePreview = (): void => {
+  loadPackage(
+    "@typescript/native-preview/package.json",
+    `@typescript/native-preview has not been installed. Run "npm i -D ttsc @typescript/native-preview" before.`,
+  );
+};
+
+const loadTtsc = (): void => {
+  loadPackage(
+    "ttsc/package.json",
+    `ttsc has not been installed. Run "npm i -D ttsc @typescript/native-preview" before.`,
+  );
+};
+
+const loadPackage = (request: string, desc: string): void => {
   const resolvers: Array<() => string> = [
     () =>
-      require.resolve("@typescript/native-preview/package.json", {
+      require.resolve(request, {
         paths: [process.cwd()],
       }),
-    () => require.resolve("@typescript/native-preview/package.json"),
+    () => require.resolve(request),
   ];
   for (const resolve of resolvers) {
     try {
@@ -31,9 +45,11 @@ const loadNativePreview = (): void => {
       return;
     } catch {}
   }
-  halt(
-    `@typescript/native-preview has not been installed. Run "npm i -D @typescript/native-preview" before.`,
-  );
+  halt(desc);
+};
+
+const isHelp = (args: string[]): boolean => {
+  return args.some((arg) => arg === "--help" || arg === "-h");
 };
 
 const main = async (): Promise<void> => {
@@ -46,7 +62,10 @@ const main = async (): Promise<void> => {
 
   const type: string | undefined = process.argv[2];
   if (type === "generate") {
-    loadNativePreview();
+    if (isHelp(process.argv.slice(3)) === false) {
+      loadTtsc();
+      loadNativePreview();
+    }
     const { TypiaGenerateWizard } = await import("./TypiaGenerateWizard.js");
     await TypiaGenerateWizard.generate();
   } else halt(USAGE);

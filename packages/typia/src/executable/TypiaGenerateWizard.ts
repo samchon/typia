@@ -4,10 +4,9 @@ import inquirer from "inquirer";
 import { createRequire } from "module";
 import path from "path";
 import { glob, isDynamicPattern } from "tinyglobby";
-import {
-  type ITtscCompilerDiagnostic,
-  type ITtscCompilerTransformation,
-  TtscCompiler,
+import type {
+  ITtscCompilerDiagnostic,
+  ITtscCompilerTransformation,
 } from "ttsc";
 
 export namespace TypiaGenerateWizard {
@@ -120,7 +119,7 @@ export namespace TypiaGenerateWizard {
 
     const binary = resolveTsgoBinary();
     const cwd = path.dirname(location.project);
-    const transformed = transformProject({
+    const transformed = await transformProject({
       binary,
       cwd,
       tsconfig: location.project,
@@ -136,8 +135,8 @@ export namespace TypiaGenerateWizard {
     });
 
     await ensureOutputDirectory(location.output);
+    await ensureTargetDirectories(outputs.map(({ entry }) => entry.target));
     for (const { entry, output } of outputs) {
-      await fs.promises.mkdir(path.dirname(entry.target), { recursive: true });
       await fs.promises.writeFile(entry.target, formatOutput(output), "utf8");
     }
   }
@@ -159,6 +158,34 @@ export namespace TypiaGenerateWizard {
       throw new URIError(
         "Error on TypiaGenerateWizard.generate(): output path is not a directory.",
       );
+    }
+  }
+
+  async function ensureTargetDirectories(targets: string[]): Promise<void> {
+    const directories: Map<string, string> = new Map();
+    for (const target of targets) {
+      const directory: string = path.dirname(target);
+      directories.set(filesystemKey(directory), directory);
+    }
+
+    for (const directory of directories.values()) {
+      if (
+        fs.existsSync(directory) &&
+        (await isDirectory(directory)) === false
+      ) {
+        throw new URIError(
+          `Error on TypiaGenerateWizard.generate(): output parent path is not a directory: ${directory}`,
+        );
+      }
+    }
+    for (const directory of directories.values()) {
+      try {
+        await fs.promises.mkdir(directory, { recursive: true });
+      } catch (exp) {
+        throw new URIError(
+          `Error on TypiaGenerateWizard.generate(): unable to create output parent directory ${directory}: ${formatUnknownError(exp)}`,
+        );
+      }
     }
   }
 
@@ -198,7 +225,10 @@ export namespace TypiaGenerateWizard {
   ): Promise<IInputFile[]> {
     const targets: Set<string> = new Set();
     const output: IInputFile[] = [];
-    for (const input of await expandFileInputs(location.files)) {
+    for (const input of await expandFileInputs(
+      location.files,
+      location.output,
+    )) {
       const file: string = path.resolve(input);
       if (fs.existsSync(file) === false || (await isFile(file)) === false) {
         throw new URIError(
@@ -225,10 +255,18 @@ export namespace TypiaGenerateWizard {
       targets.add(key);
       output.push({ file, target });
     }
+    if (output.length === 0) {
+      throw new URIError(
+        "Error on TypiaGenerateWizard.generate(): input files do not include any source files outside the output directory.",
+      );
+    }
     return output;
   }
 
-  async function expandFileInputs(inputs: string[]): Promise<string[]> {
+  async function expandFileInputs(
+    inputs: string[],
+    directory: string,
+  ): Promise<string[]> {
     const output: string[] = [];
     for (const input of inputs) {
       const pattern: string = toGlobPattern(input);
@@ -246,23 +284,31 @@ export namespace TypiaGenerateWizard {
             `Error on TypiaGenerateWizard.generate(): input pattern does not match any files: ${input}`,
           );
         }
-        output.push(...matches);
+        output.push(...excludeOutputFiles(matches, directory));
       } else {
-        output.push(path.resolve(input));
+        const file: string = path.resolve(input);
+        if (isSameOrChildPath(file, directory) === false) {
+          output.push(file);
+        }
       }
     }
     return output;
+  }
+
+  function excludeOutputFiles(files: string[], directory: string): string[] {
+    return files.filter((file) => isSameOrChildPath(file, directory) === false);
   }
 
   function toGlobPattern(input: string): string {
     return input.replace(/\\/g, "/");
   }
 
-  function transformProject(props: {
+  async function transformProject(props: {
     binary: string;
     cwd: string;
     tsconfig: string;
-  }): Record<string, string> {
+  }): Promise<Record<string, string>> {
+    const { TtscCompiler } = await import("ttsc");
     const result: ITtscCompilerTransformation = new TtscCompiler({
       binary: props.binary,
       cwd: props.cwd,
@@ -421,6 +467,15 @@ export namespace TypiaGenerateWizard {
 
   function isSamePath(x: string, y: string): boolean {
     return filesystemKey(x) === filesystemKey(y);
+  }
+
+  function isSameOrChildPath(file: string, directory: string): boolean {
+    const fileKey: string = filesystemKey(path.resolve(file));
+    const directoryKey: string = filesystemKey(path.resolve(directory));
+    const directoryPrefix: string = directoryKey.endsWith(path.sep)
+      ? directoryKey
+      : `${directoryKey}${path.sep}`;
+    return fileKey === directoryKey || fileKey.startsWith(directoryPrefix);
   }
 
   function filesystemKey(file: string): string {

@@ -591,7 +591,7 @@ Use `--input` when all templates live under one directory. When templates live b
 npx typia generate \
   --output src/generated \
   --project tsconfig.json \
-  src/**/*.typia.ts
+  "src/**/*.typia.ts"
 ```
 
 File/glob mode writes each selected file as `--output/<basename>`. Duplicate basenames are rejected instead of overwritten.
@@ -609,7 +609,8 @@ export const check = typia.createIs<IMember>();
 ```
   </Tabs.Tab>
   <Tabs.Tab>
-```typescript copy filename="examples/src/generated/check.ts" showLineNumbers {3-13}
+```typescript copy filename="examples/src/generated/check.ts" showLineNumbers {4-14}
+// @ts-nocheck
 import typia from "typia";
 import { IMember } from "../structures/IMember";
 export const check = (input: any): input is IMember => {
