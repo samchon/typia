@@ -141,19 +141,22 @@ export namespace SwaggerV2Upgrader {
     (
       input: SwaggerV2.IOperation.IGeneralParameter,
     ): OpenApi.IOperation.IParameter => {
+      const {
+        name,
+        in: location,
+        required: inputRequired,
+        description,
+        ...schema
+      } = input as SwaggerV2.IOperation.IGeneralParameter & {
+        required?: boolean;
+      };
       const required: boolean | undefined =
-        input.in === "path"
-          ? true
-          : (
-              input as SwaggerV2.IOperation.IGeneralParameter & {
-                required?: boolean;
-              }
-            ).required;
+        location === "path" ? true : inputRequired;
       return {
-        name: input.name,
-        in: input.in as any,
-        description: input.description,
-        schema: convertSchema(definitions)(input),
+        name,
+        in: location as any,
+        description,
+        schema: convertSchema(definitions)(schema),
         ...(required !== undefined ? { required } : {}),
       };
     };
@@ -163,6 +166,7 @@ export namespace SwaggerV2Upgrader {
       input: SwaggerV2.IOperation.IBodyParameter,
     ): OpenApi.IOperation.IRequestBody => ({
       description: input.description,
+      ...(input.required !== undefined ? { required: input.required } : {}),
       content: {
         "application/json": {
           schema: convertSchema(definitions)(input.schema),

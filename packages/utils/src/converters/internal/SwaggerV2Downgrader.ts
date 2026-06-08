@@ -166,7 +166,7 @@ export namespace SwaggerV2Downgrader {
       name: "body",
       in: "body",
       description: input.description,
-      required: input.required,
+      ...(input.required !== undefined ? { required: input.required } : {}),
       schema: downgradeSchema(collection)(
         Object.values(input.content ?? {})[0]?.schema ?? {},
       ),
