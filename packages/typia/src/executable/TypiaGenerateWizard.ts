@@ -25,7 +25,10 @@ export namespace TypiaGenerateWizard {
     command.argument("[files...]", "input .ts files or globs");
     command.option("--input <path>", "input directory");
     command.option("--output <directory>", "output directory");
-    command.option("--project <project>", "tsconfig.json file location");
+    command.option(
+      "--project <project>",
+      "tsconfig.json/jsconfig.json file or directory",
+    );
 
     const questioned = { value: false };
     const prompt = inquirer.createPromptModule;
@@ -110,9 +113,11 @@ export namespace TypiaGenerateWizard {
     const outputByKey: Map<string, string> =
       indexTransformedOutputs(transformed);
     const outputs: IOutputFile[] = entries.map((entry) => {
-      const output = outputByKey.get(
-        projectFileKey(projectKey(cwd, entry.file)),
-      );
+      const output = getTransformedOutput({
+        cwd,
+        entry,
+        outputByKey,
+      });
       if (output === undefined) {
         throw new URIError(
           `Error on TypiaGenerateWizard.generate(): no transformed output for ${entry.file}. Check that --project includes the file.`,
@@ -361,6 +366,11 @@ export namespace TypiaGenerateWizard {
       if (inputs.has(fileIdentityKey(stat))) {
         throw new URIError(
           `Error on TypiaGenerateWizard.generate(): output file would overwrite input file through a physical file alias: ${entry.target}`,
+        );
+      }
+      if (stat.nlink > 1) {
+        throw new URIError(
+          `Error on TypiaGenerateWizard.generate(): output file has multiple hard links: ${entry.target}`,
         );
       }
     }
@@ -733,6 +743,28 @@ export namespace TypiaGenerateWizard {
       map.set(projectFileKey(file), output);
     }
     return map;
+  }
+
+  function getTransformedOutput(props: {
+    cwd: string;
+    entry: IInputFile;
+    outputByKey: Map<string, string>;
+  }): string | undefined {
+    const output = props.outputByKey.get(
+      projectFileKey(projectKey(props.cwd, props.entry.file)),
+    );
+    if (output !== undefined) {
+      return output;
+    }
+
+    const real: string = resolveRealPath(props.entry.file);
+    if (
+      isSamePath(real, props.entry.file) ||
+      isSameOrChildPath(real, props.cwd) === false
+    ) {
+      return undefined;
+    }
+    return props.outputByKey.get(projectFileKey(projectKey(props.cwd, real)));
   }
 
   function projectKey(root: string, file: string): string {

@@ -58,6 +58,15 @@ const expectFailure = (name, args, expected) => {
   throw new Error(`Expected ${name} to fail.`);
 };
 
+const expectSuccess = (name, args) => {
+  try {
+    run(args);
+  } catch (exp) {
+    const output = `${exp.stdout ?? ""}${exp.stderr ?? ""}`;
+    throw new Error(`Unexpected ${name} failure output:\n${output}`);
+  }
+};
+
 const generate = (...args) => [
   "node_modules/typia/src/executable/typia.ts",
   "generate",
@@ -71,6 +80,14 @@ const generateWithProject = (project, ...args) => [
   "generate",
   "--project",
   project,
+  ...args,
+];
+
+const generateFromCwd = (cwd, ...args) => [
+  "--cwd",
+  cwd,
+  path.join(root, "node_modules", "typia", "src", "executable", "typia.ts"),
+  "generate",
   ...args,
 ];
 
@@ -298,4 +315,53 @@ try {
   }
 } finally {
   removePath(output);
+}
+
+const externalHardlink = path.join(root, "src", "external-hardlink.ts");
+removePath(output);
+removePath(externalHardlink);
+try {
+  fs.mkdirSync(output, { recursive: true });
+  fs.writeFileSync(externalHardlink, "external hardlink sentinel\n");
+  fs.linkSync(externalHardlink, path.join(output, "generate_module.ts"));
+  expectFailure(
+    "external hard-linked output leaf",
+    generate("--output", "src/output", "src/input/modules/generate_module.ts"),
+    "multiple hard links",
+  );
+  if (
+    fs.readFileSync(externalHardlink, "utf8") !==
+    "external hardlink sentinel\n"
+  ) {
+    throw new Error("External hard-linked output leaf was rewritten.");
+  }
+} finally {
+  removePath(output);
+  removePath(externalHardlink);
+}
+
+const projectAlias = path.join(root, "project-link");
+removePath(output);
+removePath(projectAlias);
+try {
+  fs.symlinkSync(
+    path.join(root, "project-dir"),
+    projectAlias,
+    process.platform === "win32" ? "junction" : "dir",
+  );
+  expectSuccess(
+    "implicit project through aliased cwd",
+    generateFromCwd(
+      path.join(projectAlias, "src"),
+      "--output",
+      path.join(root, "src", "output"),
+      "generate_project.ts",
+    ),
+  );
+  if (fs.existsSync(path.join(output, "generate_project.ts")) === false) {
+    throw new Error("Implicit project through aliased cwd wrote no output.");
+  }
+} finally {
+  removePath(output);
+  removePath(projectAlias);
 }

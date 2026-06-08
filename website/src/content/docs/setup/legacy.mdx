@@ -596,6 +596,9 @@ npx typia generate \
 
 File/glob mode writes each selected file as `--output/<basename>`. Duplicate basenames are rejected instead of overwritten.
 
+`--project` accepts a `tsconfig.json` or `jsconfig.json` file, or a directory containing either file.
+When you omit `--project`, typia searches from the current working directory upward for the nearest `tsconfig.json` or `jsconfig.json`.
+
 The input directory or file list contains `.ts` files that import typia and re-export validators. typia reads each file, applies the transform, and writes the result to `--output`:
 
 <Tabs items={['TypeScript Input', 'Generated TypeScript']}>
