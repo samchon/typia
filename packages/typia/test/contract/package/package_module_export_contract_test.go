@@ -1,10 +1,11 @@
 package typia_test
 
 import (
-	"encoding/json"
-	testutil "github.com/samchon/typia/packages/typia/test/internal/testutil"
-	"path/filepath"
-	"testing"
+  "bytes"
+  "encoding/json"
+  testutil "github.com/samchon/typia/packages/typia/test/internal/testutil"
+  "path/filepath"
+  "testing"
 )
 
 // TestPackageModuleExportContract verifies typia/lib/module stays exported.
@@ -15,40 +16,49 @@ import (
 //
 // 1. Read the typia package manifest.
 // 2. Assert source exports expose typia/lib/module through src/module.ts.
-// 3. Assert publish exports expose typia/lib/module through lib/module.*.
+// 3. Assert publish exports expose typia/lib/module through lib/module.* in
+// the exact resolver-condition order.
 func TestPackageModuleExportContract(t *testing.T) {
-	root := testutil.RepoRoot(t)
+  root := testutil.RepoRoot(t)
 
-	typiaPackage := testutil.ReadJSON[struct {
-		Exports       map[string]json.RawMessage `json:"exports"`
-		PublishConfig struct {
-			Exports map[string]json.RawMessage `json:"exports"`
-		} `json:"publishConfig"`
-	}](t, filepath.Join(root, "packages", "typia", "package.json"))
+  typiaPackage := testutil.ReadJSON[struct {
+    Exports       map[string]json.RawMessage `json:"exports"`
+    PublishConfig struct {
+      Exports map[string]json.RawMessage `json:"exports"`
+    } `json:"publishConfig"`
+  }](t, filepath.Join(root, "packages", "typia", "package.json"))
 
-	var source string
-	if err := json.Unmarshal(typiaPackage.Exports["./lib/module"], &source); err != nil {
-		t.Fatalf("typia source export for ./lib/module must be a string: %v", err)
-	}
-	if source != "./src/module.ts" {
-		t.Fatalf("typia source export for ./lib/module must point to src/module.ts: %q", source)
-	}
+  source, ok := typiaPackage.Exports["./lib/module"]
+  if !ok {
+    t.Fatal("typia source exports must expose ./lib/module")
+  }
+  assertCompactJSON(
+    t,
+    source,
+    `"./src/module.ts"`,
+    "typia source export for ./lib/module",
+  )
 
-	var published struct {
-		Types   string `json:"types"`
-		Import  string `json:"import"`
-		Default string `json:"default"`
-	}
-	if err := json.Unmarshal(typiaPackage.PublishConfig.Exports["./lib/module"], &published); err != nil {
-		t.Fatalf("typia publish export for ./lib/module must be an object: %v", err)
-	}
-	if published.Types != "./lib/module.d.ts" {
-		t.Fatalf("typia publish export for ./lib/module must expose module.d.ts: %q", published.Types)
-	}
-	if published.Import != "./lib/module.mjs" {
-		t.Fatalf("typia publish export for ./lib/module must expose module.mjs: %q", published.Import)
-	}
-	if published.Default != "./lib/module.js" {
-		t.Fatalf("typia publish export for ./lib/module must expose module.js: %q", published.Default)
-	}
+  published, ok := typiaPackage.PublishConfig.Exports["./lib/module"]
+  if !ok {
+    t.Fatal("typia publish exports must expose ./lib/module")
+  }
+  assertCompactJSON(
+    t,
+    published,
+    `{"types":"./lib/module.d.ts","import":"./lib/module.mjs","default":"./lib/module.js"}`,
+    "typia publish export for ./lib/module",
+  )
+}
+
+func assertCompactJSON(t *testing.T, input json.RawMessage, expected string, label string) {
+  t.Helper()
+
+  buffer := bytes.NewBuffer(nil)
+  if err := json.Compact(buffer, input); err != nil {
+    t.Fatalf("%s must be valid JSON: %v", label, err)
+  }
+  if actual := buffer.String(); actual != expected {
+    t.Fatalf("%s mismatch:\nexpected: %s\nactual:   %s", label, expected, actual)
+  }
 }
