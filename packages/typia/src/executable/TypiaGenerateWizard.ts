@@ -110,7 +110,7 @@ export namespace TypiaGenerateWizard {
 
   async function build(location: IArguments): Promise<void> {
     location.output = path.resolve(location.output);
-    location.project = path.resolve(location.project);
+    location.project = resolveProjectConfigFile(location.project);
 
     const entries: IInputFile[] =
       location.files.length === 0
@@ -214,7 +214,7 @@ export namespace TypiaGenerateWizard {
 
   async function ensureCreatableDirectory(directory: string): Promise<void> {
     const parent: string = await nearestExistingAncestor(directory);
-    await ensureExistingDirectory({
+    await ensureExistingDirectoryPath({
       label: "output parent path",
       directory: parent,
     });
@@ -279,6 +279,33 @@ export namespace TypiaGenerateWizard {
   }
 
   async function ensureExistingDirectory(props: {
+    label: string;
+    directory: string;
+  }): Promise<void> {
+    await ensureExistingDirectoryPath(props);
+  }
+
+  async function ensureExistingDirectoryPath(props: {
+    label: string;
+    directory: string;
+  }): Promise<void> {
+    const directory: string = path.resolve(props.directory);
+    const parsed: path.ParsedPath = path.parse(directory);
+    const relative: string = path.relative(parsed.root, directory);
+    let current: string = parsed.root;
+    for (const segment of relative === "" ? [] : relative.split(path.sep)) {
+      current = path.join(current, segment);
+      await ensureExistingDirectorySegment({
+        label:
+          filesystemKey(current) === filesystemKey(directory)
+            ? props.label
+            : `${props.label} ancestor`,
+        directory: current,
+      });
+    }
+  }
+
+  async function ensureExistingDirectorySegment(props: {
     label: string;
     directory: string;
   }): Promise<void> {
@@ -507,6 +534,34 @@ export namespace TypiaGenerateWizard {
     );
   }
 
+  function resolveProjectConfigFile(project: string): string {
+    const resolved: string = path.resolve(project);
+    if (fs.existsSync(resolved) === false) {
+      throw new URIError(
+        `Error on TypiaGenerateWizard.generate(): project path does not exist: ${resolved}`,
+      );
+    }
+
+    const stat: fs.Stats = fs.statSync(resolved);
+    if (stat.isDirectory()) {
+      for (const filename of ["tsconfig.json", "jsconfig.json"]) {
+        const candidate: string = path.join(resolved, filename);
+        if (fs.existsSync(candidate) && fs.statSync(candidate).isFile()) {
+          return resolveRealPath(candidate);
+        }
+      }
+      throw new URIError(
+        `Error on TypiaGenerateWizard.generate(): project directory has no tsconfig.json or jsconfig.json: ${resolved}`,
+      );
+    }
+    if (stat.isFile() === false) {
+      throw new URIError(
+        `Error on TypiaGenerateWizard.generate(): project path is not a file: ${resolved}`,
+      );
+    }
+    return resolveRealPath(resolved);
+  }
+
   function loadTtscCompiler(): typeof import("ttsc").TtscCompiler {
     const packageRoot: string = resolveTypiaPackageRoot();
     const resolved: string | null = resolveFromRoots(
@@ -686,6 +741,14 @@ export namespace TypiaGenerateWizard {
 
   function projectFileKey(file: string): string {
     return isCaseSensitive() ? file : file.toLowerCase();
+  }
+
+  function resolveRealPath(file: string): string {
+    try {
+      return fs.realpathSync(file);
+    } catch {
+      return file;
+    }
   }
 
   function isSamePath(x: string, y: string): boolean {

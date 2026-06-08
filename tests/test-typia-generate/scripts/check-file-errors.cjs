@@ -75,6 +75,35 @@ const generateWithProject = (project, ...args) => [
 ];
 
 expectFailure(
+  "file arguments with input directory",
+  generate(
+    "--input",
+    "src/input",
+    "--output",
+    "src/output",
+    "src/input/modules/generate_module.ts",
+  ),
+  "file arguments cannot be combined with --input",
+);
+
+expectFailure(
+  "file arguments without output directory",
+  generate("src/input/modules/generate_module.ts"),
+  "output directory is required when file arguments are used",
+);
+
+expectFailure(
+  "duplicate file basename",
+  generate(
+    "--output",
+    "src/output",
+    "src/input/modules/generate_module.ts",
+    "src/input/modules/generate_module.ts",
+  ),
+  "duplicate output filename",
+);
+
+expectFailure(
   "literal unsupported file",
   generate("--output", "src/output", "package.json"),
   "input file is not a supported TypeScript source",
@@ -137,6 +166,38 @@ try {
   );
 } finally {
   removePath(link);
+}
+
+const existingLink = path.join(root, "src", "output-link-existing");
+const existingExternal = path.join(root, "src", "external-output-existing");
+removePath(existingLink);
+removePath(existingExternal);
+try {
+  fs.mkdirSync(path.join(existingExternal, "existing"), { recursive: true });
+  fs.symlinkSync(
+    existingExternal,
+    existingLink,
+    process.platform === "win32" ? "junction" : "dir",
+  );
+  expectFailure(
+    "symlinked output ancestor with existing root",
+    generate(
+      "--output",
+      "src/output-link-existing/existing",
+      "src/input/modules/generate_module.ts",
+    ),
+    "symbolic link",
+  );
+  if (
+    fs.existsSync(path.join(existingExternal, "existing", "generate_module.ts"))
+  ) {
+    throw new Error(
+      "Symlinked output ancestor with existing root wrote an external file.",
+    );
+  }
+} finally {
+  removePath(existingLink);
+  removePath(existingExternal);
 }
 
 const output = path.join(root, "src", "output");

@@ -10,10 +10,12 @@
     "generate:directory": "pnpm run clean && ttsx node_modules/typia/src/executable/typia.ts generate --input src/input --output src/output --project tsconfig.json",
     "generate:files": "pnpm run clean && ttsx node_modules/typia/src/executable/typia.ts generate --project tsconfig.files.json --output src/output \"src/input/modules/*\"",
     "generate:files:literals": "pnpm run clean && ttsx node_modules/typia/src/executable/typia.ts generate --project tsconfig.files.json --output src/output src/input/modules/generate_module.ts src/input/modules/ignored.d.ts",
+    "generate:files:project-directory": "pnpm run clean && ttsx node_modules/typia/src/executable/typia.ts generate --project project-dir --output src/output project-dir/src/generate_project.ts",
     "generate:files:rerun": "ttsx node_modules/typia/src/executable/typia.ts generate --project tsconfig.files.json --output src/output \"src/**/generate_module.ts\"",
     "check:files:errors": "node scripts/check-file-errors.cjs",
     "check:files": "node -e \"require('fs').accessSync('src/output/generate_module.ts')\"",
-    "start": "pnpm run generate:directory && pnpm run build && pnpm run check:files:errors && pnpm run generate:files && pnpm run check:files && pnpm run generate:files:literals && pnpm run check:files && pnpm run generate:files:rerun && pnpm run check:files && pnpm run build"
+    "check:files:project-directory": "node -e \"require('fs').accessSync('src/output/generate_project.ts')\"",
+    "start": "pnpm run generate:directory && pnpm run build && pnpm run check:files:errors && pnpm run generate:files && pnpm run check:files && pnpm run generate:files:literals && pnpm run check:files && pnpm run generate:files:project-directory && pnpm run check:files:project-directory && pnpm run generate:files:rerun && pnpm run check:files && pnpm run build"
   },
   "repository": {
     "type": "git",
