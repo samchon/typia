@@ -139,7 +139,10 @@ export namespace TypiaGenerateWizard {
     });
 
     await ensureOutputDirectory(location.output);
-    await ensureTargetDirectories(outputs.map(({ entry }) => entry.target));
+    await ensureTargetDirectories({
+      output: location.output,
+      targets: outputs.map(({ entry }) => entry.target),
+    });
     await ensurePhysicalTargets({
       output: location.output,
       entries: outputs.map(({ entry }) => entry),
@@ -162,6 +165,7 @@ export namespace TypiaGenerateWizard {
 
   async function ensureOutputDirectory(output: string): Promise<void> {
     if (fs.existsSync(output) === false) {
+      await ensureCreatableDirectory(output);
       await fs.promises.mkdir(output, { recursive: true });
     } else {
       await ensureExistingDirectory({
@@ -171,14 +175,21 @@ export namespace TypiaGenerateWizard {
     }
   }
 
-  async function ensureTargetDirectories(targets: string[]): Promise<void> {
+  async function ensureTargetDirectories(props: {
+    output: string;
+    targets: string[];
+  }): Promise<void> {
     const directories: Map<string, string> = new Map();
-    for (const target of targets) {
+    for (const target of props.targets) {
       const directory: string = path.dirname(target);
       directories.set(filesystemKey(directory), directory);
     }
 
     for (const directory of directories.values()) {
+      await ensureOutputAncestorDirectories({
+        output: props.output,
+        directory,
+      });
       if (fs.existsSync(directory)) {
         await ensureExistingDirectory({
           label: "output parent path",
@@ -198,6 +209,72 @@ export namespace TypiaGenerateWizard {
         label: "output parent path",
         directory,
       });
+    }
+  }
+
+  async function ensureCreatableDirectory(directory: string): Promise<void> {
+    const parent: string = await nearestExistingAncestor(directory);
+    await ensureExistingDirectory({
+      label: "output parent path",
+      directory: parent,
+    });
+  }
+
+  async function nearestExistingAncestor(directory: string): Promise<string> {
+    let current: string = path.resolve(directory);
+    while (fs.existsSync(current) === false) {
+      const parent: string = path.dirname(current);
+      if (parent === current) {
+        throw new URIError(
+          `Error on TypiaGenerateWizard.generate(): unable to find existing output parent path: ${directory}`,
+        );
+      }
+      current = parent;
+    }
+    return current;
+  }
+
+  async function ensureOutputAncestorDirectories(props: {
+    output: string;
+    directory: string;
+  }): Promise<void> {
+    const output: string = path.resolve(props.output);
+    const directory: string = path.resolve(props.directory);
+    if (isSameOrChildPath(directory, output) === false) {
+      throw new URIError(
+        `Error on TypiaGenerateWizard.generate(): output parent path escapes output directory: ${props.directory}`,
+      );
+    }
+
+    const relative: string = path.relative(output, directory);
+    if (relative === "") {
+      return;
+    }
+
+    let current: string = output;
+    for (const segment of relative.split(path.sep)) {
+      current = path.join(current, segment);
+      let stat: fs.Stats;
+      try {
+        stat = await fs.promises.lstat(current);
+      } catch (exp) {
+        if (isMissingFileError(exp)) {
+          return;
+        }
+        throw new URIError(
+          `Error on TypiaGenerateWizard.generate(): unable to inspect output parent path ${current}: ${formatUnknownError(exp)}`,
+        );
+      }
+      if (stat.isSymbolicLink()) {
+        throw new URIError(
+          `Error on TypiaGenerateWizard.generate(): output parent path contains a symbolic link: ${current}`,
+        );
+      }
+      if (stat.isDirectory() === false) {
+        throw new URIError(
+          `Error on TypiaGenerateWizard.generate(): output parent path is not a directory: ${current}`,
+        );
+      }
     }
   }
 

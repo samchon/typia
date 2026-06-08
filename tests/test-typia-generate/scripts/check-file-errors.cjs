@@ -64,9 +64,44 @@ try {
   );
   expectFailure(
     "symlinked output root",
-    generate("--output", "src/output-link", "src/input/modules/generate_module.ts"),
+    generate(
+      "--output",
+      "src/output-link",
+      "src/input/modules/generate_module.ts",
+    ),
     "symbolic link",
   );
 } finally {
   fs.rmSync(link, { recursive: true, force: true });
+}
+
+const output = path.join(root, "src", "output");
+const ancestor = path.join(output, "link");
+const external = path.join(root, "src", "external-output");
+fs.rmSync(output, { recursive: true, force: true });
+fs.rmSync(external, { recursive: true, force: true });
+try {
+  fs.mkdirSync(output, { recursive: true });
+  fs.mkdirSync(external, { recursive: true });
+  fs.symlinkSync(
+    external,
+    ancestor,
+    process.platform === "win32" ? "junction" : "dir",
+  );
+  expectFailure(
+    "symlinked output ancestor",
+    generate(
+      "--output",
+      "src/output/link/new",
+      "src/input/modules/generate_module.ts",
+    ),
+    "symbolic link",
+  );
+  if (fs.existsSync(path.join(external, "new"))) {
+    console.error("Symlinked output ancestor created an external directory.");
+    process.exit(1);
+  }
+} finally {
+  fs.rmSync(output, { recursive: true, force: true });
+  fs.rmSync(external, { recursive: true, force: true });
 }
