@@ -1,6 +1,5 @@
 import { Format } from "../tags/Format";
 import { Equal } from "./internal/Equal";
-import { IsTuple } from "./internal/IsTuple";
 import { NativeClass } from "./internal/NativeClass";
 import { ValueOf } from "./internal/ValueOf";
 
@@ -47,7 +46,7 @@ type PrimitiveMain<Instance> = Instance extends [never]
 
 type PrimitiveObject<Instance extends object> =
   Instance extends Array<infer T>
-    ? IsTuple<Instance> extends true
+    ? IsPrimitiveTuple<Instance> extends true
       ? PrimitiveTuple<Instance>
       : PrimitiveMain<T>[]
     : {
@@ -71,6 +70,14 @@ type PrimitiveTuple<T extends readonly any[]> = number extends T["length"]
 type PrimitiveVariadicTuple<T extends readonly any[]> = {
   [P in keyof T]: PrimitiveMain<T[P]>;
 };
+
+type IsPrimitiveTuple<T extends readonly any[]> = [T] extends [never]
+  ? false
+  : number extends T["length"]
+    ? T extends readonly [any, ...any[]]
+      ? true
+      : false
+    : true;
 
 interface IJsonable<T> {
   toJSON(): T;
