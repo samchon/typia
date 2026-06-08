@@ -374,6 +374,9 @@ importers:
       randexp:
         specifier: ^0.5.3
         version: 0.5.3
+      tinyglobby:
+        specifier: ^0.2.12
+        version: 0.2.16
     devDependencies:
       '@rollup/plugin-commonjs':
         specifier: catalog:rollup
@@ -408,9 +411,6 @@ importers:
       suppress-warnings:
         specifier: ^1.0.2
         version: 1.0.2
-      tinyglobby:
-        specifier: ^0.2.12
-        version: 0.2.16
       ttsc:
         specifier: catalog:typescript
         version: 0.15.1
