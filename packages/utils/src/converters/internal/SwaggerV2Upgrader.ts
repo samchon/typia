@@ -1,5 +1,6 @@
 import { IJsonSchemaAttribute, OpenApi, SwaggerV2 } from "@typia/interface";
 
+import { OpenApiSchemaSanitizer } from "../../utils/internal/OpenApiSchemaSanitizer";
 import { OpenApiTypeChecker } from "../../validators/OpenApiTypeChecker";
 import { SwaggerV2TypeChecker } from "../../validators/SwaggerV2TypeChecker";
 import { OpenApiExclusiveEmender } from "./OpenApiExclusiveEmender";
@@ -412,31 +413,35 @@ export namespace SwaggerV2Upgrader {
               : undefined,
           });
         else if (SwaggerV2TypeChecker.isObject(schema))
-          union.push({
-            ...schema,
-            ...{
-              properties: schema.properties
+          union.push(
+            OpenApiSchemaSanitizer.omitEmptyRequired({
+              ...schema,
+              ...{
+                properties: schema.properties
+                  ? Object.fromEntries(
+                      Object.entries(schema.properties)
+                        .filter(([_, v]) => v !== undefined)
+                        .map(([key, value]) => [
+                          key,
+                          convertSchema(definitions)(value),
+                        ]),
+                    )
+                  : {},
+                additionalProperties: schema.additionalProperties
+                  ? typeof schema.additionalProperties === "object" &&
+                    schema.additionalProperties !== null
+                    ? convertSchema(definitions)(schema.additionalProperties)
+                    : schema.additionalProperties
+                  : undefined,
+              },
+              examples: schema.examples
                 ? Object.fromEntries(
-                    Object.entries(schema.properties)
-                      .filter(([_, v]) => v !== undefined)
-                      .map(([key, value]) => [
-                        key,
-                        convertSchema(definitions)(value),
-                      ]),
+                    schema.examples.map((v, i) => [`v${i}`, v]),
                   )
-                : {},
-              additionalProperties: schema.additionalProperties
-                ? typeof schema.additionalProperties === "object" &&
-                  schema.additionalProperties !== null
-                  ? convertSchema(definitions)(schema.additionalProperties)
-                  : schema.additionalProperties
                 : undefined,
-            },
-            examples: schema.examples
-              ? Object.fromEntries(schema.examples.map((v, i) => [`v${i}`, v]))
-              : undefined,
-            required: schema.required ?? [],
-          });
+              required: schema.required ?? [],
+            }),
+          );
         else if (SwaggerV2TypeChecker.isReference(schema))
           union.push({
             ...schema,
@@ -505,9 +510,9 @@ export namespace SwaggerV2Upgrader {
             allOf: undefined,
           },
         };
-      return {
+      return OpenApiSchemaSanitizer.omitEmptyRequired({
         ...input,
-        type: "object",
+        type: "object" as const,
         properties: Object.fromEntries(
           objects
             .map((o) => Object.entries(o?.properties ?? {}))
@@ -521,7 +526,7 @@ export namespace SwaggerV2Upgrader {
           allOf: undefined,
           required: [...new Set(objects.map((o) => o?.required ?? []).flat())],
         },
-      };
+      });
     };
 
   const retrieveObject =

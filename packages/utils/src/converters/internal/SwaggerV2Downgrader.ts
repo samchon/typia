@@ -1,5 +1,6 @@
 import { OpenApi, SwaggerV2 } from "@typia/interface";
 
+import { OpenApiSchemaSanitizer } from "../../utils/internal/OpenApiSchemaSanitizer";
 import { OpenApiTypeChecker } from "../../validators/OpenApiTypeChecker";
 
 export namespace SwaggerV2Downgrader {
@@ -289,27 +290,29 @@ export namespace SwaggerV2Downgrader {
               : undefined,
           });
         else if (OpenApiTypeChecker.isObject(schema))
-          union.push({
-            ...schema,
-            properties: schema.properties
-              ? Object.fromEntries(
-                  Object.entries(schema.properties)
-                    .filter(([_, v]) => v !== undefined)
-                    .map(([key, value]) => [
-                      key,
-                      downgradeSchema(collection)(value),
-                    ]),
-                )
-              : undefined,
-            additionalProperties:
-              typeof schema.additionalProperties === "object"
-                ? downgradeSchema(collection)(schema.additionalProperties)
-                : schema.additionalProperties,
-            required: schema.required,
-            examples: schema.examples
-              ? Object.values(schema.examples)
-              : undefined,
-          });
+          union.push(
+            OpenApiSchemaSanitizer.omitEmptyRequired({
+              ...schema,
+              properties: schema.properties
+                ? Object.fromEntries(
+                    Object.entries(schema.properties)
+                      .filter(([_, v]) => v !== undefined)
+                      .map(([key, value]) => [
+                        key,
+                        downgradeSchema(collection)(value),
+                      ]),
+                  )
+                : undefined,
+              additionalProperties:
+                typeof schema.additionalProperties === "object"
+                  ? downgradeSchema(collection)(schema.additionalProperties)
+                  : schema.additionalProperties,
+              required: schema.required,
+              examples: schema.examples
+                ? Object.values(schema.examples)
+                : undefined,
+            }),
+          );
         else if (OpenApiTypeChecker.isOneOf(schema))
           schema.oneOf.forEach(visit);
       };

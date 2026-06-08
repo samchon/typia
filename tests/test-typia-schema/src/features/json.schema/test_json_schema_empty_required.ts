@@ -1,5 +1,6 @@
 import { TestValidator } from "@nestia/e2e";
 import { OpenApi } from "@typia/interface";
+import { OpenApiValidator } from "@typia/utils";
 import typia, { tags } from "typia";
 
 /**
@@ -9,14 +10,24 @@ import typia, { tags } from "typia";
  * properties. Draft-04 and OpenAPI 3.0 reject `required: []`, while objects
  * with at least one required property must still emit the keyword.
  *
- * 1. Generate schemas for optional-only, record, and required-property objects.
- * 2. Assert optional-only and record schemas do not own a `required` key.
+ * 1. Generate schemas for optional-only, filtered, record, and required objects.
+ * 2. Assert empty required lists are omitted and optional fields stay optional.
  * 3. Assert non-empty required properties are still listed.
  */
 export const test_json_schema_empty_required = (): void => {
   interface IOptionalOnly {
     title?: string;
     count?: number;
+  }
+  interface IFilteredOnly {
+    /** @ignore */
+    hidden: string;
+
+    /** @ignore */
+    ignored: number;
+
+    /** @internal */
+    internal: boolean;
   }
   interface IRequiredOne {
     value: string;
@@ -33,6 +44,24 @@ export const test_json_schema_empty_required = (): void => {
     "count",
     "title",
   ]);
+  TestValidator.equals(
+    "optional-only validator",
+    OpenApiValidator.validate({
+      components: { schemas: {} },
+      schema: optionalOnly,
+      value: {},
+      required: true,
+    }).success,
+    true,
+  );
+
+  const filteredOnly = object(typia.json.schema<IFilteredOnly>());
+  TestValidator.equals("filtered-only properties", sorted(filteredOnly), []);
+  TestValidator.equals(
+    "filtered-only required omitted",
+    hasOwn(filteredOnly, "required"),
+    false,
+  );
 
   const record = typia.json.schema<Record<string, string & tags.MinLength<1>>>()
     .schema as OpenApi.IJsonSchema.IObject;

@@ -1,0 +1,185 @@
+import { TestValidator } from "@nestia/e2e";
+import {
+  OpenApi,
+  OpenApiV3,
+  OpenApiV3_1,
+  OpenApiV3_2,
+  SwaggerV2,
+} from "@typia/interface";
+import { OpenApiConverter } from "@typia/utils";
+
+/**
+ * Verifies OpenAPI conversion omits empty `required` arrays.
+ *
+ * The converter family can synthesize object schemas from version upgrades,
+ * downgrades, and `allOf` merges. Those paths must not reintroduce `required:
+ * []` after typia's schema generator omits it.
+ *
+ * 1. Upgrade Swagger/OpenAPI documents containing optional-only objects.
+ * 2. Downgrade an emended OpenAPI document containing `required: []`.
+ * 3. Assert every converted object omits the empty `required` keyword.
+ */
+export const test_openapi_converter_empty_required = (): void => {
+  const upgraded = [
+    [
+      "swagger",
+      OpenApiConverter.upgradeDocument({
+        swagger: "2.0",
+        info: { title: "test", version: "1.0.0" },
+        paths: {},
+        definitions: {
+          Target: optionalSwagger(),
+          Merged: mergedSwagger(),
+        },
+      } satisfies SwaggerV2.IDocument).components.schemas!,
+    ],
+    [
+      "v3.0",
+      OpenApiConverter.upgradeDocument({
+        openapi: "3.0.0",
+        info: { title: "test", version: "1.0.0" },
+        paths: {},
+        components: {
+          schemas: {
+            Target: optionalV3(),
+            Merged: mergedV3(),
+          },
+        },
+      } satisfies OpenApiV3.IDocument).components.schemas!,
+    ],
+    [
+      "v3.1",
+      OpenApiConverter.upgradeDocument({
+        openapi: "3.1.0",
+        info: { title: "test", version: "1.0.0" },
+        paths: {},
+        components: {
+          schemas: {
+            Target: optionalV31(),
+            Merged: mergedV31(),
+          },
+        },
+      } satisfies OpenApiV3_1.IDocument).components.schemas!,
+    ],
+    [
+      "v3.2",
+      OpenApiConverter.upgradeDocument({
+        openapi: "3.2.0",
+        info: { title: "test", version: "1.0.0" },
+        paths: {},
+        components: {
+          schemas: {
+            Target: optionalV32(),
+            Merged: mergedV32(),
+          },
+        },
+      } satisfies OpenApiV3_2.IDocument).components.schemas!,
+    ],
+  ] as const;
+  for (const [name, schemas] of upgraded) {
+    assertNoRequired(`${name} upgraded object`, schemas.Target!);
+    assertNoRequired(`${name} upgraded allOf`, schemas.Merged!);
+  }
+
+  const emended: OpenApi.IDocument = {
+    openapi: "3.2.0",
+    "x-typia-emended-v12": true,
+    info: { title: "test", version: "1.0.0" },
+    paths: {},
+    components: {
+      schemas: {
+        Target: optionalOpenApi(),
+      },
+    },
+  };
+  assertNoRequired(
+    "downgraded swagger",
+    OpenApiConverter.downgradeDocument(emended, "2.0").definitions!.Target!,
+  );
+  assertNoRequired(
+    "downgraded v3.0",
+    OpenApiConverter.downgradeDocument(emended, "3.0").components!.schemas!
+      .Target!,
+  );
+  assertNoRequired(
+    "downgraded v3.1",
+    OpenApiConverter.downgradeDocument(emended, "3.1").components!.schemas!
+      .Target!,
+  );
+};
+
+const optionalOpenApi = (): OpenApi.IJsonSchema.IObject => ({
+  type: "object",
+  properties: {
+    name: { type: "string" },
+  },
+  additionalProperties: false,
+  required: [],
+});
+
+const optionalV3 = (): OpenApiV3.IJsonSchema.IObject => ({
+  type: "object",
+  properties: {
+    name: { type: "string" },
+  },
+  additionalProperties: false,
+  required: [],
+});
+
+const optionalV31 = (): OpenApiV3_1.IJsonSchema.IObject => ({
+  type: "object",
+  properties: {
+    name: { type: "string" },
+  },
+  additionalProperties: false,
+  required: [],
+});
+
+const optionalV32 = (): OpenApiV3_2.IJsonSchema.IObject => ({
+  type: "object",
+  properties: {
+    name: { type: "string" },
+  },
+  additionalProperties: false,
+  required: [],
+});
+
+const optionalSwagger = (): SwaggerV2.IJsonSchema.IObject => ({
+  type: "object",
+  properties: {
+    name: { type: "string" },
+  },
+  additionalProperties: false,
+  required: [],
+});
+
+const mergedV3 = (): OpenApiV3.IJsonSchema.IAllOf => ({
+  allOf: [optionalV3()],
+});
+
+const mergedV31 = (): OpenApiV3_1.IJsonSchema.IAllOf => ({
+  allOf: [optionalV31()],
+});
+
+const mergedV32 = (): OpenApiV3_2.IJsonSchema.IAllOf => ({
+  allOf: [optionalV32()],
+});
+
+const mergedSwagger = (): SwaggerV2.IJsonSchema.IAllOf => ({
+  allOf: [optionalSwagger()],
+});
+
+const assertNoRequired = (
+  name: string,
+  schema:
+    | OpenApi.IJsonSchema
+    | OpenApiV3.IJsonSchema
+    | OpenApiV3_1.IJsonSchema
+    | OpenApiV3_2.IJsonSchema
+    | SwaggerV2.IJsonSchema,
+): void =>
+  TestValidator.equals(
+    name,
+    Object.prototype.hasOwnProperty.call(schema, "required"),
+    false,
+  );

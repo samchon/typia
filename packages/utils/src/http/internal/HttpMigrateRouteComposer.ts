@@ -2,6 +2,7 @@ import { IHttpMigrateRoute, OpenApi } from "@typia/interface";
 
 import { NamingConvention } from "../../utils/NamingConvention";
 import { EndpointUtil } from "../../utils/internal/EndpointUtil";
+import { OpenApiSchemaSanitizer } from "../../utils/internal/OpenApiSchemaSanitizer";
 import { OpenApiTypeChecker } from "../../validators/OpenApiTypeChecker";
 
 export namespace HttpMigrateRouteComposer {
@@ -142,7 +143,7 @@ export namespace HttpMigrateRouteComposer {
                 o.$ref.replace(`#/components/schemas/`, ``)
               ]! as OpenApi.IJsonSchema.IObject),
         ),
-        {
+        OpenApiSchemaSanitizer.omitEmptyRequired({
           type: "object",
           properties: Object.fromEntries([
             ...primitives.map((p) => [
@@ -160,7 +161,7 @@ export namespace HttpMigrateRouteComposer {
               ...(dto?.required ?? []),
             ]),
           ],
-        },
+        }),
       ];
       return parameters.length === 0
         ? null
@@ -171,7 +172,7 @@ export namespace HttpMigrateRouteComposer {
                 EndpointUtil.pascal(`I/Api/${props.path}`) +
                 "." +
                 EndpointUtil.pascal(`${props.method}/${type}`),
-              schema: {
+              schema: OpenApiSchemaSanitizer.omitEmptyRequired({
                 type: "object",
                 properties: Object.fromEntries([
                   ...new Map<string, OpenApi.IJsonSchema>(
@@ -195,7 +196,7 @@ export namespace HttpMigrateRouteComposer {
                 required: [
                   ...new Set(entire.map((o) => o.required ?? []).flat()),
                 ],
-              } satisfies OpenApi.IJsonSchema.IObject,
+              } satisfies OpenApi.IJsonSchema.IObject),
             }),
           });
     });
@@ -487,7 +488,11 @@ export namespace HttpMigrateRouteComposer {
     schema: OpenApi.IJsonSchema;
   }): OpenApi.IJsonSchema.IReference => {
     props.document.components.schemas ??= {};
-    props.document.components.schemas[props.name] = props.schema;
+    props.document.components.schemas[props.name] = OpenApiTypeChecker.isObject(
+      props.schema,
+    )
+      ? OpenApiSchemaSanitizer.omitEmptyRequired(props.schema)
+      : props.schema;
     return {
       $ref: `#/components/schemas/${props.name}`,
     } satisfies OpenApi.IJsonSchema.IReference;

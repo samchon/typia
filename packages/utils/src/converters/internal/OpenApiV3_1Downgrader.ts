@@ -1,5 +1,6 @@
 import { OpenApi, OpenApiV3_1 } from "@typia/interface";
 
+import { OpenApiSchemaSanitizer } from "../../utils/internal/OpenApiSchemaSanitizer";
 import { OpenApiTypeChecker } from "../../validators/OpenApiTypeChecker";
 
 export namespace OpenApiV3_1Downgrader {
@@ -266,24 +267,26 @@ export namespace OpenApiV3_1Downgrader {
                 : schema.additionalItems,
           });
         else if (OpenApiTypeChecker.isObject(schema))
-          union.push({
-            ...schema,
-            properties: schema.properties
-              ? Object.fromEntries(
-                  Object.entries(schema.properties)
-                    .filter(([_, v]) => v !== undefined)
-                    .map(([key, value]) => [
-                      key,
-                      downgradeSchema(collection)(value),
-                    ]),
-                )
-              : undefined,
-            additionalProperties:
-              typeof schema.additionalProperties === "object"
-                ? downgradeSchema(collection)(schema.additionalProperties)
-                : schema.additionalProperties,
-            required: schema.required,
-          });
+          union.push(
+            OpenApiSchemaSanitizer.omitEmptyRequired({
+              ...schema,
+              properties: schema.properties
+                ? Object.fromEntries(
+                    Object.entries(schema.properties)
+                      .filter(([_, v]) => v !== undefined)
+                      .map(([key, value]) => [
+                        key,
+                        downgradeSchema(collection)(value),
+                      ]),
+                  )
+                : undefined,
+              additionalProperties:
+                typeof schema.additionalProperties === "object"
+                  ? downgradeSchema(collection)(schema.additionalProperties)
+                  : schema.additionalProperties,
+              required: schema.required,
+            }),
+          );
         else if (OpenApiTypeChecker.isOneOf(schema))
           schema.oneOf.forEach(visit);
       };

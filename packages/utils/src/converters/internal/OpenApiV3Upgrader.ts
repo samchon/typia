@@ -1,5 +1,6 @@
 import { IJsonSchemaAttribute, OpenApi, OpenApiV3 } from "@typia/interface";
 
+import { OpenApiSchemaSanitizer } from "../../utils/internal/OpenApiSchemaSanitizer";
 import { OpenApiTypeChecker } from "../../validators/OpenApiTypeChecker";
 import { OpenApiV3TypeChecker } from "../../validators/OpenApiV3TypeChecker";
 import { OpenApiExclusiveEmender } from "./OpenApiExclusiveEmender";
@@ -376,28 +377,30 @@ export namespace OpenApiV3Upgrader {
             items: convertSchema(components)(schema.items),
           });
         else if (OpenApiV3TypeChecker.isObject(schema))
-          union.push({
-            ...schema,
-            ...{
-              properties: schema.properties
-                ? Object.fromEntries(
-                    Object.entries(schema.properties)
-                      .filter(([_, v]) => v !== undefined)
-                      .map(([key, value]) => [
-                        key,
-                        convertSchema(components)(value),
-                      ]),
-                  )
-                : {},
-              additionalProperties: schema.additionalProperties
-                ? typeof schema.additionalProperties === "object" &&
-                  schema.additionalProperties !== null
-                  ? convertSchema(components)(schema.additionalProperties)
-                  : schema.additionalProperties
-                : undefined,
-              required: schema.required ?? [],
-            },
-          });
+          union.push(
+            OpenApiSchemaSanitizer.omitEmptyRequired({
+              ...schema,
+              ...{
+                properties: schema.properties
+                  ? Object.fromEntries(
+                      Object.entries(schema.properties)
+                        .filter(([_, v]) => v !== undefined)
+                        .map(([key, value]) => [
+                          key,
+                          convertSchema(components)(value),
+                        ]),
+                    )
+                  : {},
+                additionalProperties: schema.additionalProperties
+                  ? typeof schema.additionalProperties === "object" &&
+                    schema.additionalProperties !== null
+                    ? convertSchema(components)(schema.additionalProperties)
+                    : schema.additionalProperties
+                  : undefined,
+                required: schema.required ?? [],
+              },
+            }),
+          );
         else if (OpenApiV3TypeChecker.isReference(schema)) union.push(schema);
         else union.push(schema);
       };
@@ -452,9 +455,9 @@ export namespace OpenApiV3Upgrader {
             allOf: undefined,
           },
         };
-      return {
+      return OpenApiSchemaSanitizer.omitEmptyRequired({
         ...input,
-        type: "object",
+        type: "object" as const,
         properties: Object.fromEntries(
           objects
             .map((o) => Object.entries(o?.properties ?? {}))
@@ -468,7 +471,7 @@ export namespace OpenApiV3Upgrader {
           allOf: undefined,
           required: [...new Set(objects.map((o) => o?.required ?? []).flat())],
         },
-      };
+      });
     };
 
   const retrieveObject =
