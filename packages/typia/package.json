@@ -1,10 +1,11 @@
 {
   "name": "typia",
-  "version": "13.0.0-dev.20260605.2",
+  "version": "13.0.0-dev.20260605.3",
   "description": "Superfast runtime validators with only one line",
   "main": "src/index.ts",
   "exports": {
     ".": "./src/index.ts",
+    "./lib/module": "./src/index.ts",
     "./lib/transform": "./src/transform.ts",
     "./lib/internal/*": "./src/internal/*.ts",
     "./package.json": "./package.json"
@@ -110,6 +111,11 @@
     },
     "exports": {
       ".": {
+        "types": "./lib/index.d.ts",
+        "import": "./lib/index.mjs",
+        "default": "./lib/index.js"
+      },
+      "./lib/module": {
         "types": "./lib/index.d.ts",
         "import": "./lib/index.mjs",
         "default": "./lib/index.js"
