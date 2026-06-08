@@ -54,17 +54,23 @@ type PrimitiveObject<Instance extends object> =
         [P in keyof Instance]: PrimitiveMain<Instance[P]>;
       };
 
-type PrimitiveTuple<T extends readonly any[]> = T extends []
-  ? []
-  : T extends [infer F]
-    ? [PrimitiveMain<F>]
-    : T extends [infer F, ...infer Rest extends readonly any[]]
-      ? [PrimitiveMain<F>, ...PrimitiveTuple<Rest>]
-      : T extends [(infer F)?]
-        ? [PrimitiveMain<F>?]
-        : T extends [(infer F)?, ...infer Rest extends readonly any[]]
-          ? [PrimitiveMain<F>?, ...PrimitiveTuple<Rest>]
-          : [];
+type PrimitiveTuple<T extends readonly any[]> = number extends T["length"]
+  ? PrimitiveVariadicTuple<T>
+  : T extends []
+    ? []
+    : T extends [infer F]
+      ? [PrimitiveMain<F>]
+      : T extends [infer F, ...infer Rest extends readonly any[]]
+        ? [PrimitiveMain<F>, ...PrimitiveTuple<Rest>]
+        : T extends [(infer F)?]
+          ? [PrimitiveMain<F>?]
+          : T extends [(infer F)?, ...infer Rest extends readonly any[]]
+            ? [PrimitiveMain<F>?, ...PrimitiveTuple<Rest>]
+            : [];
+
+type PrimitiveVariadicTuple<T extends readonly any[]> = {
+  [P in keyof T]: PrimitiveMain<T[P]>;
+};
 
 interface IJsonable<T> {
   toJSON(): T;
