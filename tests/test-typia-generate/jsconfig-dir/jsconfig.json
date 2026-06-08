@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "lib": ["DOM", "ESNext"],
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "types": ["*"],
+    "noEmit": true,
+    "newLine": "lf",
+    "esModuleInterop": true,
+    "strict": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "noImplicitReturns": true,
+    "noUncheckedIndexedAccess": true,
+    "skipLibCheck": true,
+    "plugins": [{ "transform": "typia/lib/transform" }]
+  },
+  "include": ["src/generate_jsconfig.ts"]
+}

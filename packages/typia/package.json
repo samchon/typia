@@ -36,7 +36,8 @@
     "@typia/utils": "workspace:^",
     "commander": "^10.0.0",
     "inquirer": "^8.2.5",
-    "randexp": "^0.5.3"
+    "randexp": "^0.5.3",
+    "tinyglobby": "^0.2.12"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "catalog:rollup",
@@ -50,7 +51,6 @@
     "rollup-plugin-auto-external": "catalog:rollup",
     "rollup-plugin-node-externals": "catalog:rollup",
     "suppress-warnings": "^1.0.2",
-    "tinyglobby": "^0.2.12",
     "ttsc": "catalog:typescript"
   },
   "sideEffects": [
