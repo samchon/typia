@@ -24,9 +24,9 @@ export namespace TypiaGenerateWizard {
     const command = createCommand("typia generate");
     command.usage("[options] [files...]");
     command.argument("[files...]", "input .ts files or globs");
-    command.option("--input [path]", "input directory");
-    command.option("--output [directory]", "output directory");
-    command.option("--project [project]", "tsconfig.json file location");
+    command.option("--input <path>", "input directory");
+    command.option("--output <directory>", "output directory");
+    command.option("--project <project>", "tsconfig.json file location");
 
     const questioned = { value: false };
     const prompt = inquirer.createPromptModule;
@@ -117,7 +117,6 @@ export namespace TypiaGenerateWizard {
       location.files.length === 0
         ? await prepareDirectoryInput(location)
         : await prepareFileInputs(location);
-    await ensureOutputDirectory(location.output);
 
     const binary = resolveTsgoBinary();
     const cwd = path.dirname(location.project);
@@ -126,13 +125,18 @@ export namespace TypiaGenerateWizard {
       cwd,
       tsconfig: location.project,
     });
-    for (const entry of entries) {
+    const outputs: IOutputFile[] = entries.map((entry) => {
       const output = transformed[projectKey(cwd, entry.file)];
       if (output === undefined) {
         throw new URIError(
-          `Error on TypiaGenerateWizard.generate(): no transformed output for ${entry.file}`,
+          `Error on TypiaGenerateWizard.generate(): no transformed output for ${entry.file}. Check that --project includes the file.`,
         );
       }
+      return { entry, output };
+    });
+
+    await ensureOutputDirectory(location.output);
+    for (const { entry, output } of outputs) {
       await fs.promises.mkdir(path.dirname(entry.target), { recursive: true });
       await fs.promises.writeFile(entry.target, formatOutput(output), "utf8");
     }
@@ -141,6 +145,11 @@ export namespace TypiaGenerateWizard {
   interface IInputFile {
     file: string;
     target: string;
+  }
+
+  interface IOutputFile {
+    entry: IInputFile;
+    output: string;
   }
 
   async function ensureOutputDirectory(output: string): Promise<void> {
@@ -202,6 +211,11 @@ export namespace TypiaGenerateWizard {
       }
 
       const target: string = path.join(location.output, path.basename(file));
+      if (isSamePath(file, target)) {
+        throw new URIError(
+          `Error on TypiaGenerateWizard.generate(): output file would overwrite input file: ${input}`,
+        );
+      }
       const key: string = filesystemKey(target);
       if (targets.has(key)) {
         throw new URIError(
@@ -217,8 +231,11 @@ export namespace TypiaGenerateWizard {
   async function expandFileInputs(inputs: string[]): Promise<string[]> {
     const output: string[] = [];
     for (const input of inputs) {
-      if (isDynamicPattern(input, { caseSensitiveMatch: isCaseSensitive() })) {
-        const matches: string[] = await glob(input, {
+      const pattern: string = toGlobPattern(input);
+      if (
+        isDynamicPattern(pattern, { caseSensitiveMatch: isCaseSensitive() })
+      ) {
+        const matches: string[] = await glob(pattern, {
           absolute: true,
           caseSensitiveMatch: isCaseSensitive(),
           cwd: process.cwd(),
@@ -235,6 +252,10 @@ export namespace TypiaGenerateWizard {
       }
     }
     return output;
+  }
+
+  function toGlobPattern(input: string): string {
+    return input.replace(/\\/g, "/");
   }
 
   function transformProject(props: {

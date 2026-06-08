@@ -533,7 +533,7 @@ After installation, make sure the `prepare` script runs `ts-patch install`, then
   <Tabs.Tab>
 ```bash filename="Terminal" copy showLineNumbers
 npm install typia
-npm install -D typescript
+npm install -D typescript ttsc @typescript/native-preview
 
 npx typia generate \
   --input src/templates \
@@ -544,7 +544,7 @@ npx typia generate \
   <Tabs.Tab>
 ```bash filename="Terminal" copy showLineNumbers
 pnpm install typia
-pnpm install -D typescript
+pnpm install -D typescript ttsc @typescript/native-preview
 
 pnpm typia generate \
   --input src/templates \
@@ -555,7 +555,7 @@ pnpm typia generate \
   <Tabs.Tab>
 ```bash filename="Terminal" copy showLineNumbers
 yarn add typia
-yarn add -D typescript
+yarn add -D typescript ttsc @typescript/native-preview
 
 yarn typia generate \
   --input src/templates \
@@ -566,7 +566,7 @@ yarn typia generate \
   <Tabs.Tab>
 ```bash filename="Terminal" copy showLineNumbers
 bun add typia
-bun add -d typescript
+bun add -d typescript ttsc @typescript/native-preview
 
 bun typia generate \
   --input src/templates \
@@ -593,6 +593,8 @@ npx typia generate \
   --project tsconfig.json \
   src/**/*.typia.ts
 ```
+
+File/glob mode writes each selected file as `--output/<basename>`. Duplicate basenames are rejected instead of overwritten.
 
 The input directory or file list contains `.ts` files that import typia and re-export validators. typia reads each file, applies the transform, and writes the result to `--output`:
 

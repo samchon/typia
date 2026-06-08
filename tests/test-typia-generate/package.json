@@ -7,9 +7,10 @@
     "build": "ttsc",
     "clean": "node -e \"require('fs').rmSync('src/output', { recursive: true, force: true })\"",
     "generate": "pnpm run generate:directory",
-    "generate:directory": "pnpm run clean && ttsx node_modules/typia/src/executable/typia.ts generate --input src/input --output src/output",
-    "generate:files": "pnpm run clean && ttsx node_modules/typia/src/executable/typia.ts generate --project tsconfig.files.json --output src/output src/input/modules/*.ts",
-    "start": "pnpm run generate:directory && pnpm run build && pnpm run generate:files && pnpm run build"
+    "generate:directory": "pnpm run clean && ttsx node_modules/typia/src/executable/typia.ts generate --input src/input --output src/output --project tsconfig.json",
+    "generate:files": "pnpm run clean && ttsx node_modules/typia/src/executable/typia.ts generate --project tsconfig.files.json --output src/output \"src/input/modules/*.ts\"",
+    "check:files": "node -e \"require('fs').accessSync('src/output/generate_module.ts')\"",
+    "start": "pnpm run generate:directory && pnpm run build && pnpm run generate:files && pnpm run check:files && pnpm run build"
   },
   "repository": {
     "type": "git",

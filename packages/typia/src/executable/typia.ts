@@ -52,6 +52,6 @@ const main = async (): Promise<void> => {
   } else halt(USAGE);
 };
 main().catch((exp) => {
-  console.error(exp);
+  console.error(exp instanceof URIError ? exp.message : exp);
   process.exit(-1);
 });
