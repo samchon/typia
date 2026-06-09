@@ -114,30 +114,22 @@ export namespace SwaggerV2Upgrader {
           ),
         )
         .filter((p): p is SwaggerV2.IOperation.IParameter => p !== undefined);
-      const parameters: SwaggerV2.IOperation.IParameter[] = [
-        ...pathParameters,
-        ...operationParameters,
-      ];
+      const parameters: SwaggerV2.IOperation.IGeneralParameter[] =
+        mergeParameters(
+          pathParameters.filter(isGeneralParameter),
+          operationParameters.filter(isGeneralParameter),
+        );
       const body: SwaggerV2.IOperation.IBodyParameter | undefined = [
         ...operationParameters,
         ...pathParameters,
-      ].find(
-        (p) =>
-          p.in === "body" ||
-          (p as SwaggerV2.IOperation.IBodyParameter).schema !== undefined,
-      ) as SwaggerV2.IOperation.IBodyParameter | undefined;
+      ].find(isBodyParameter) as
+        | SwaggerV2.IOperation.IBodyParameter
+        | undefined;
       return {
         ...input,
         parameters:
           pathItem.parameters !== undefined || input.parameters !== undefined
-            ? (
-                parameters.filter(
-                  (p) =>
-                    p.in !== "body" &&
-                    (p as SwaggerV2.IOperation.IBodyParameter).schema ===
-                      undefined,
-                ) as SwaggerV2.IOperation.IGeneralParameter[]
-              ).map(convertParameter(doc.definitions ?? {}))
+            ? parameters.map(convertParameter(doc.definitions ?? {}))
             : undefined,
         requestBody: body
           ? convertRequestBody(doc.definitions ?? {})(body)
@@ -155,6 +147,32 @@ export namespace SwaggerV2Upgrader {
           : undefined,
       };
     };
+
+  const isBodyParameter = (
+    input: SwaggerV2.IOperation.IParameter,
+  ): input is SwaggerV2.IOperation.IBodyParameter =>
+    input.in === "body" ||
+    (input as SwaggerV2.IOperation.IBodyParameter).schema !== undefined;
+
+  const isGeneralParameter = (
+    input: SwaggerV2.IOperation.IParameter,
+  ): input is SwaggerV2.IOperation.IGeneralParameter =>
+    isBodyParameter(input) === false;
+
+  const mergeParameters = (
+    pathParameters: SwaggerV2.IOperation.IGeneralParameter[],
+    operationParameters: SwaggerV2.IOperation.IGeneralParameter[],
+  ): SwaggerV2.IOperation.IGeneralParameter[] => {
+    const map: Map<string, SwaggerV2.IOperation.IGeneralParameter> = new Map();
+    const emplace = (
+      parameter: SwaggerV2.IOperation.IGeneralParameter,
+    ): void => {
+      map.set(`${parameter.in}:${parameter.name}`, parameter);
+    };
+    pathParameters.forEach(emplace);
+    operationParameters.forEach(emplace);
+    return [...map.values()];
+  };
 
   const convertParameter =
     (definitions: Record<string, SwaggerV2.IJsonSchema>) =>

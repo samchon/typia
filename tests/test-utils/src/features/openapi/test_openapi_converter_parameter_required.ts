@@ -229,6 +229,35 @@ export const test_openapi_converter_parameter_required = (): void => {
         required: true,
         schema: { type: "string" },
       },
+      SharedPathBase: {
+        name: "id",
+        in: "path",
+        type: "string",
+      },
+      SharedPathOverride: {
+        name: "id",
+        in: "path",
+        required: false,
+        type: "integer",
+      } as SwaggerV2.IOperation.IGeneralParameter & {
+        required: false;
+      },
+      SharedQueryBase: {
+        name: "keyword",
+        in: "query",
+        required: false,
+        type: "string",
+      } as SwaggerV2.IOperation.IGeneralParameter & {
+        required: false;
+      },
+      SharedQueryOverride: {
+        name: "keyword",
+        in: "query",
+        required: true,
+        type: "number",
+      } as SwaggerV2.IOperation.IGeneralParameter & {
+        required: true;
+      },
     },
     paths: {
       "/items/{id}": {
@@ -297,6 +326,73 @@ export const test_openapi_converter_parameter_required = (): void => {
               type: "string",
             } as SwaggerV2.IOperation.IGeneralParameter & {
               required: false;
+            },
+          ],
+          responses: {
+            "200": {
+              description: "OK",
+            },
+          },
+        },
+      },
+      "/parameters/override/{id}": {
+        parameters: [
+          {
+            name: "keyword",
+            in: "query",
+            required: false,
+            type: "string",
+          } as SwaggerV2.IOperation.IGeneralParameter & {
+            required: false;
+          },
+          {
+            name: "id",
+            in: "path",
+            type: "string",
+          },
+        ],
+        get: {
+          parameters: [
+            {
+              name: "keyword",
+              in: "query",
+              required: true,
+              type: "number",
+            } as SwaggerV2.IOperation.IGeneralParameter & {
+              required: true;
+            },
+            {
+              name: "id",
+              in: "path",
+              required: false,
+              type: "integer",
+            } as SwaggerV2.IOperation.IGeneralParameter & {
+              required: false;
+            },
+          ],
+          responses: {
+            "200": {
+              description: "OK",
+            },
+          },
+        },
+      },
+      "/parameters/ref-override/{id}": {
+        parameters: [
+          {
+            $ref: "#/parameters/SharedQueryBase",
+          },
+          {
+            $ref: "#/parameters/SharedPathBase",
+          },
+        ],
+        get: {
+          parameters: [
+            {
+              $ref: "#/definitions/parameters/SharedQueryOverride",
+            },
+            {
+              $ref: "#/definitions/parameters/SharedPathOverride",
             },
           ],
           responses: {
@@ -486,6 +582,22 @@ export const test_openapi_converter_parameter_required = (): void => {
   const upgradedFalsePath = upgradedPathParameters.find(
     (p) => p.name === "falsePath",
   )!;
+  const upgradedOverrideParameters =
+    openapi.paths!["/parameters/override/{id}"]!.get!.parameters!;
+  const upgradedOverrideKeyword = upgradedOverrideParameters.find(
+    (p) => p.name === "keyword",
+  )!;
+  const upgradedOverrideId = upgradedOverrideParameters.find(
+    (p) => p.name === "id",
+  )!;
+  const upgradedRefOverrideParameters =
+    openapi.paths!["/parameters/ref-override/{id}"]!.get!.parameters!;
+  const upgradedRefOverrideKeyword = upgradedRefOverrideParameters.find(
+    (p) => p.name === "keyword",
+  )!;
+  const upgradedRefOverrideId = upgradedRefOverrideParameters.find(
+    (p) => p.name === "id",
+  )!;
   const upgradedBodyOmitted =
     openapi.paths!["/body/omitted"]!.post!.requestBody!;
   const upgradedBodyFalse = openapi.paths!["/body/false"]!.post!.requestBody!;
@@ -554,6 +666,16 @@ export const test_openapi_converter_parameter_required = (): void => {
       value: true,
     },
   );
+  assertOperationOverride("upgraded operation parameter overrides path", {
+    parameters: upgradedOverrideParameters,
+    keyword: upgradedOverrideKeyword,
+    id: upgradedOverrideId,
+  });
+  assertOperationOverride("upgraded operation refs override path refs", {
+    parameters: upgradedRefOverrideParameters,
+    keyword: upgradedRefOverrideKeyword,
+    id: upgradedRefOverrideId,
+  });
   assertSchemaMetadataOmitted("upgraded keyword schema", upgradedKeyword);
   assertSchemaMetadataOmitted("upgraded filter schema", upgradedFilter);
   assertSchemaMetadataOmitted("upgraded path schema", upgradedId);
@@ -722,5 +844,43 @@ const assertSchemaMetadataOmitted = (
       in: false,
       required: false,
       description: undefined,
+    },
+  );
+
+const assertOperationOverride = (
+  title: string,
+  props: {
+    parameters: OpenApi.IOperation.IParameter[];
+    keyword: OpenApi.IOperation.IParameter;
+    id: OpenApi.IOperation.IParameter;
+  },
+): void =>
+  TestValidator.equals(
+    title,
+    {
+      count: props.parameters.length,
+      keyword: {
+        own: Object.prototype.hasOwnProperty.call(props.keyword, "required"),
+        required: props.keyword.required,
+        schema: (props.keyword.schema as OpenApi.IJsonSchema.INumber).type,
+      },
+      id: {
+        own: Object.prototype.hasOwnProperty.call(props.id, "required"),
+        required: props.id.required,
+        schema: (props.id.schema as OpenApi.IJsonSchema.IInteger).type,
+      },
+    },
+    {
+      count: 2,
+      keyword: {
+        own: true,
+        required: true,
+        schema: "number",
+      },
+      id: {
+        own: true,
+        required: true,
+        schema: "integer",
+      },
     },
   );

@@ -26,7 +26,7 @@ export const test_json_schema_empty_required = (): void => {
     /** @ignore */
     ignored: number;
 
-    /** @hidden */
+    /** @ignore */
     hidden: string;
 
     /** @internal */
