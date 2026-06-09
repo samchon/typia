@@ -155,6 +155,7 @@ export namespace SwaggerV2 {
     /** Operation parameters. */
     parameters?: Array<
       | IOperation.IParameter
+      | IJsonSchema.IReference<`#/parameters/${string}`>
       | IJsonSchema.IReference<`#/definitions/parameters/${string}`>
     >;
 
