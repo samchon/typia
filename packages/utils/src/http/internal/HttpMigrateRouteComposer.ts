@@ -18,8 +18,8 @@ export namespace HttpMigrateRouteComposer {
     // REQUEST AND RESPONSE BODY
     //----
     const body: false | null | IHttpMigrateRoute.IBody = emplaceBodySchema(
-      "request",
-    )((schema) =>
+      props.document,
+    )("request")((schema) =>
       emplaceReference({
         document: props.document,
         name:
@@ -30,7 +30,7 @@ export namespace HttpMigrateRouteComposer {
       }),
     )(props.operation.requestBody);
     const success: false | null | IHttpMigrateRoute.ISuccess = (() => {
-      const body = emplaceBodySchema("response")((schema) =>
+      const body = emplaceBodySchema(props.document)("response")((schema) =>
         emplaceReference({
           document: props.document,
           name:
@@ -73,7 +73,11 @@ export namespace HttpMigrateRouteComposer {
       // FIND TARGET PARAMETERS
       const parameters: OpenApi.IOperation.IParameter[] = (
         props.operation.parameters ?? []
-      ).filter((p) => p.in === type);
+      ).filter((p) =>
+        type === "query"
+          ? p.in === "query" || p.in === "querystring"
+          : p.in === type,
+      );
       if (parameters.length === 0) return null;
 
       // CHECK PARAMETER TYPES -> TO BE OBJECT
@@ -397,6 +401,7 @@ export namespace HttpMigrateRouteComposer {
       .join("\n");
 
   const emplaceBodySchema =
+    (document: OpenApi.IDocument) =>
     (from: "request" | "response") =>
     (
       emplacer: (schema: OpenApi.IJsonSchema) => OpenApi.IJsonSchema.IReference,
@@ -423,7 +428,9 @@ export namespace HttpMigrateRouteComposer {
               type: "application/json",
               name: "body",
               key: "body",
-              schema: isNotObjectLiteral(schema) ? schema : emplacer(schema),
+              schema: isNotObjectLiteral(schema)
+                ? sanitizeObjectSchema(document)(schema)
+                : emplacer(schema),
               description: () => meta.description,
               media: () => json[1],
               "x-nestia-encrypted": meta["x-nestia-encrypted"],
@@ -441,7 +448,9 @@ export namespace HttpMigrateRouteComposer {
               type: "application/x-www-form-urlencoded",
               name: "body",
               key: "body",
-              schema: isNotObjectLiteral(schema) ? schema : emplacer(schema),
+              schema: isNotObjectLiteral(schema)
+                ? sanitizeObjectSchema(document)(schema)
+                : emplacer(schema),
               description: () => meta.description,
               media: () => query[1],
             }
@@ -471,7 +480,7 @@ export namespace HttpMigrateRouteComposer {
             key: "body",
             schema: schema
               ? isNotObjectLiteral(schema)
-                ? schema
+                ? sanitizeObjectSchema(document)(schema)
                 : emplacer(schema)
               : {},
             description: () => meta.description,
@@ -488,11 +497,8 @@ export namespace HttpMigrateRouteComposer {
     schema: OpenApi.IJsonSchema;
   }): OpenApi.IJsonSchema.IReference => {
     props.document.components.schemas ??= {};
-    props.document.components.schemas[props.name] = OpenApiTypeChecker.isObject(
-      props.schema,
-    )
-      ? OpenApiSchemaSanitizer.omitEmptyRequired(props.schema)
-      : props.schema;
+    props.document.components.schemas[props.name] =
+      OpenApiSchemaSanitizer.omitEmptyRequiredDeep(props.schema);
     return {
       $ref: `#/components/schemas/${props.name}`,
     } satisfies OpenApi.IJsonSchema.IReference;
@@ -510,17 +516,16 @@ export namespace HttpMigrateRouteComposer {
   const sanitizeObjectSchema =
     (document: OpenApi.IDocument) =>
     (schema: OpenApi.IJsonSchema): OpenApi.IJsonSchema => {
-      if (OpenApiTypeChecker.isObject(schema))
-        return OpenApiSchemaSanitizer.omitEmptyRequired(schema);
       if (OpenApiTypeChecker.isReference(schema)) {
         const key: string = schema.$ref.replace("#/components/schemas/", "");
         const found: OpenApi.IJsonSchema | undefined =
           document.components.schemas?.[key];
-        if (found !== undefined && OpenApiTypeChecker.isObject(found))
+        if (found !== undefined)
           document.components.schemas![key] =
-            OpenApiSchemaSanitizer.omitEmptyRequired(found);
+            OpenApiSchemaSanitizer.omitEmptyRequiredDeep(found);
+        return schema;
       }
-      return schema;
+      return OpenApiSchemaSanitizer.omitEmptyRequiredDeep(schema);
     };
 
   const isNotObjectLiteral = (schema: OpenApi.IJsonSchema): boolean =>

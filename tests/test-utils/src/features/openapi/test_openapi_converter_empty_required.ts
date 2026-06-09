@@ -31,6 +31,7 @@ export const test_openapi_converter_empty_required = (): void => {
           Target: optionalSwagger(),
           Merged: mergedSwagger(),
           MergedRequired: mergedRequiredSwagger(),
+          MergedRequiredFirst: mergedRequiredFirstSwagger(),
         },
       } satisfies SwaggerV2.IDocument).components.schemas!,
     ],
@@ -45,6 +46,7 @@ export const test_openapi_converter_empty_required = (): void => {
             Target: optionalV3(),
             Merged: mergedV3(),
             MergedRequired: mergedRequiredV3(),
+            MergedRequiredFirst: mergedRequiredFirstV3(),
           },
         },
       } satisfies OpenApiV3.IDocument).components.schemas!,
@@ -60,6 +62,7 @@ export const test_openapi_converter_empty_required = (): void => {
             Target: optionalV31(),
             Merged: mergedV31(),
             MergedRequired: mergedRequiredV31(),
+            MergedRequiredFirst: mergedRequiredFirstV31(),
           },
         },
       } satisfies OpenApiV3_1.IDocument).components.schemas!,
@@ -75,6 +78,7 @@ export const test_openapi_converter_empty_required = (): void => {
             Target: optionalV32(),
             Merged: mergedV32(),
             MergedRequired: mergedRequiredV32(),
+            MergedRequiredFirst: mergedRequiredFirstV32(),
           },
         },
       } satisfies OpenApiV3_2.IDocument).components.schemas!,
@@ -90,6 +94,10 @@ export const test_openapi_converter_empty_required = (): void => {
     assertObjectRequired(
       `${name} upgraded required allOf`,
       schemas.MergedRequired!,
+    );
+    assertObjectRequired(
+      `${name} upgraded required-first allOf`,
+      schemas.MergedRequiredFirst!,
     );
   }
 
@@ -300,6 +308,22 @@ const mergedRequiredV32 = (): OpenApiV3_2.IJsonSchema.IAllOf => ({
 
 const mergedRequiredSwagger = (): SwaggerV2.IJsonSchema.IAllOf => ({
   allOf: [optionalSwagger(), requiredSwagger()],
+});
+
+const mergedRequiredFirstV3 = (): OpenApiV3.IJsonSchema.IAllOf => ({
+  allOf: [requiredV3(), optionalV3()],
+});
+
+const mergedRequiredFirstV31 = (): OpenApiV3_1.IJsonSchema.IAllOf => ({
+  allOf: [requiredV31(), optionalV31()],
+});
+
+const mergedRequiredFirstV32 = (): OpenApiV3_2.IJsonSchema.IAllOf => ({
+  allOf: [requiredV32(), optionalV32()],
+});
+
+const mergedRequiredFirstSwagger = (): SwaggerV2.IJsonSchema.IAllOf => ({
+  allOf: [requiredSwagger(), optionalSwagger()],
 });
 
 const assertObjectNoRequired = (

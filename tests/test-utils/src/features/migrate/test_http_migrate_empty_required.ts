@@ -32,6 +32,15 @@ export const test_http_migrate_empty_required = (): void => {
             token: {
               type: "string",
             },
+            nested: {
+              type: "object",
+              properties: {
+                label: {
+                  type: "string",
+                },
+              },
+              required: [],
+            },
           },
           required: [],
         },
@@ -41,8 +50,153 @@ export const test_http_migrate_empty_required = (): void => {
             search: {
               type: "string",
             },
+            nested: {
+              type: "object",
+              properties: {
+                label: {
+                  type: "string",
+                },
+              },
+              required: [],
+            },
           },
           required: [],
+        },
+        ReferencedBody: {
+          type: "object",
+          properties: {
+            title: {
+              type: "string",
+            },
+            nested: {
+              type: "object",
+              properties: {
+                label: {
+                  type: "string",
+                },
+              },
+              required: [],
+            },
+            variants: {
+              oneOf: [
+                {
+                  type: "object",
+                  properties: {
+                    kind: {
+                      type: "string",
+                    },
+                  },
+                  required: [],
+                },
+                {
+                  type: "string",
+                },
+              ],
+            },
+            list: {
+              type: "array",
+              items: {
+                type: "object",
+                properties: {
+                  item: {
+                    type: "string",
+                  },
+                },
+                required: [],
+              },
+            },
+            map: {
+              type: "object",
+              additionalProperties: {
+                type: "object",
+                properties: {
+                  value: {
+                    type: "string",
+                  },
+                },
+                required: [],
+              },
+              required: [],
+            },
+          },
+          required: [],
+        },
+        ReferencedResponse: {
+          type: "object",
+          properties: {
+            value: {
+              type: "string",
+            },
+            nested: {
+              type: "object",
+              properties: {
+                label: {
+                  type: "string",
+                },
+              },
+              required: [],
+            },
+            variants: {
+              oneOf: [
+                {
+                  type: "object",
+                  properties: {
+                    kind: {
+                      type: "string",
+                    },
+                  },
+                  required: [],
+                },
+                {
+                  type: "string",
+                },
+              ],
+            },
+            list: {
+              type: "array",
+              items: {
+                type: "object",
+                properties: {
+                  item: {
+                    type: "string",
+                  },
+                },
+                required: [],
+              },
+            },
+            map: {
+              type: "object",
+              additionalProperties: {
+                type: "object",
+                properties: {
+                  value: {
+                    type: "string",
+                  },
+                },
+                required: [],
+              },
+              required: [],
+            },
+          },
+          required: [],
+        },
+        RequiredBody: {
+          type: "object",
+          properties: {
+            title: {
+              type: "string",
+            },
+          },
+          required: ["title"],
+        },
+        RequiredResponse: {
+          type: "object",
+          properties: {
+            value: {
+              type: "string",
+            },
+          },
+          required: ["value"],
         },
       },
     },
@@ -176,6 +330,128 @@ export const test_http_migrate_empty_required = (): void => {
           },
         },
       },
+      "/querystring": {
+        get: {
+          parameters: [
+            {
+              name: "query",
+              in: "querystring",
+              schema: {
+                type: "object",
+                properties: {
+                  search: {
+                    type: "string",
+                  },
+                },
+                required: [],
+              },
+            },
+          ],
+          responses: {
+            "200": {
+              description: "OK",
+            },
+          },
+        },
+      },
+      "/required-query": {
+        get: {
+          parameters: [
+            {
+              name: "query",
+              in: "query",
+              schema: {
+                type: "object",
+                properties: {
+                  search: {
+                    type: "string",
+                  },
+                },
+                required: ["search"],
+              },
+            },
+          ],
+          responses: {
+            "200": {
+              description: "OK",
+            },
+          },
+        },
+      },
+      "/required-headers": {
+        get: {
+          parameters: [
+            {
+              name: "headers",
+              in: "header",
+              schema: {
+                type: "object",
+                properties: {
+                  token: {
+                    type: "string",
+                  },
+                },
+                required: ["token"],
+              },
+            },
+          ],
+          responses: {
+            "200": {
+              description: "OK",
+            },
+          },
+        },
+      },
+      "/ref-body-response": {
+        post: {
+          requestBody: {
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/ReferencedBody",
+                },
+              },
+            },
+          },
+          responses: {
+            "200": {
+              description: "OK",
+              content: {
+                "application/json": {
+                  schema: {
+                    $ref: "#/components/schemas/ReferencedResponse",
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+      "/required-body-response": {
+        post: {
+          requestBody: {
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/RequiredBody",
+                },
+              },
+            },
+          },
+          responses: {
+            "200": {
+              description: "OK",
+              content: {
+                "application/json": {
+                  schema: {
+                    $ref: "#/components/schemas/RequiredResponse",
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
     },
   };
 
@@ -225,6 +501,44 @@ export const test_http_migrate_empty_required = (): void => {
     resolveSchema(app, findRoute(app, "/ref-headers").headers!.schema),
     "token",
   );
+  assertObjectNoRequired(
+    "querystring",
+    resolveSchema(app, findRoute(app, "/querystring").query!.schema),
+    "search",
+  );
+  assertObjectRequired(
+    "required query",
+    resolveSchema(app, findRoute(app, "/required-query").query!.schema),
+    "search",
+  );
+  assertObjectRequired(
+    "required headers",
+    resolveSchema(app, findRoute(app, "/required-headers").headers!.schema),
+    "token",
+  );
+  assertObjectNoRequired(
+    "referenced body",
+    resolveSchema(app, findRoute(app, "/ref-body-response").body!.schema),
+    "title",
+  );
+  assertObjectNoRequired(
+    "referenced response",
+    resolveSchema(app, findRoute(app, "/ref-body-response").success!.schema),
+    "value",
+  );
+  assertObjectRequired(
+    "required body",
+    resolveSchema(app, findRoute(app, "/required-body-response").body!.schema),
+    "title",
+  );
+  assertObjectRequired(
+    "required response",
+    resolveSchema(
+      app,
+      findRoute(app, "/required-body-response").success!.schema,
+    ),
+    "value",
+  );
 };
 
 const findRoute = (
@@ -254,20 +568,75 @@ const assertObjectNoRequired = (
   schema: OpenApi.IJsonSchema.IObject,
   property: string,
 ): void => {
+  TestValidator.equals(`${name} object type`, schema.type, "object");
   TestValidator.equals(
-    `${name} object`,
-    {
-      type: schema.type,
-      properties: Object.keys(schema.properties ?? {}),
-    },
-    {
-      type: "object",
-      properties: [property],
-    },
+    `${name} property preserved`,
+    Object.prototype.hasOwnProperty.call(schema.properties ?? {}, property),
+    true,
   );
   TestValidator.equals(
     `${name} required omitted`,
     Object.prototype.hasOwnProperty.call(schema, "required"),
     false,
   );
+  const nested: OpenApi.IJsonSchema.IObject | undefined = schema.properties?.[
+    "nested"
+  ] as OpenApi.IJsonSchema.IObject | undefined;
+  if (nested !== undefined)
+    TestValidator.equals(
+      `${name} nested required omitted`,
+      Object.prototype.hasOwnProperty.call(nested, "required"),
+      false,
+    );
+  assertNoEmptyRequired(name, schema);
+};
+
+const assertObjectRequired = (
+  name: string,
+  schema: OpenApi.IJsonSchema.IObject,
+  property: string,
+): void => {
+  TestValidator.equals(`${name} object type`, schema.type, "object");
+  TestValidator.equals(
+    `${name} property preserved`,
+    Object.prototype.hasOwnProperty.call(schema.properties ?? {}, property),
+    true,
+  );
+  TestValidator.equals(`${name} required preserved`, schema.required, [
+    property,
+  ]);
+};
+
+const assertNoEmptyRequired = (
+  name: string,
+  schema: OpenApi.IJsonSchema,
+): void => {
+  if ("required" in schema)
+    TestValidator.equals(
+      `${name} empty required omitted`,
+      schema.required?.length === 0,
+      false,
+    );
+  if ("properties" in schema && schema.properties !== undefined)
+    Object.entries(schema.properties).forEach(([key, value]) =>
+      assertNoEmptyRequired(`${name}.${key}`, value),
+    );
+  if ("items" in schema) assertNoEmptyRequired(`${name}.items`, schema.items);
+  if ("prefixItems" in schema)
+    schema.prefixItems.forEach((value, index) =>
+      assertNoEmptyRequired(`${name}.prefixItems.${index}`, value),
+    );
+  if ("oneOf" in schema)
+    schema.oneOf.forEach((value, index) =>
+      assertNoEmptyRequired(`${name}.oneOf.${index}`, value),
+    );
+  if (
+    "additionalProperties" in schema &&
+    typeof schema.additionalProperties === "object" &&
+    schema.additionalProperties !== null
+  )
+    assertNoEmptyRequired(
+      `${name}.additionalProperties`,
+      schema.additionalProperties,
+    );
 };

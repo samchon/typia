@@ -221,38 +221,38 @@ export namespace OpenApiV3Upgrader {
           ? Object.fromEntries(
               Object.entries(input.headers)
                 .filter(([_, v]) => v !== undefined)
-                .map(
-                  ([key, value]) =>
-                    [
-                      key,
-                      (() => {
-                        if (OpenApiV3TypeChecker.isReference(value) === false)
-                          return convertParameter(doc.components ?? {})({
-                            ...value,
-                            in: "header",
-                          });
-                        const found:
-                          | Omit<OpenApiV3.IOperation.IParameter, "in">
-                          | undefined = value.$ref.startsWith(
-                          "#/components/headers/",
-                        )
-                          ? doc.components?.headers?.[
-                              value.$ref.split("/").pop() ?? ""
-                            ]
-                          : undefined;
-                        return found !== undefined
-                          ? convertParameter(doc.components ?? {})({
-                              ...found,
-                              in: "header",
-                            })
-                          : undefined!;
-                      })(),
-                    ] as const,
-                )
+                .map(([key, value]) => [
+                  key,
+                  convertHeader(doc.components ?? {})(key, value),
+                ])
                 .filter(([_, v]) => v !== undefined),
             )
           : undefined,
       };
+    };
+
+  const convertHeader =
+    (components: OpenApiV3.IComponents) =>
+    (
+      key: string,
+      input:
+        | Omit<OpenApiV3.IOperation.IParameter, "in">
+        | OpenApiV3.IJsonSchema.IReference<`#/components/headers/${string}`>,
+    ): OpenApi.IOperation.IParameter | undefined => {
+      if (OpenApiV3TypeChecker.isReference(input)) {
+        const found: Omit<OpenApiV3.IOperation.IParameter, "in"> | undefined =
+          input.$ref.startsWith("#/components/headers/")
+            ? components.headers?.[input.$ref.split("/").pop() ?? ""]
+            : undefined;
+        if (found === undefined) return undefined;
+        input = found;
+      }
+      const { name, ...rest } = input;
+      return convertParameter(components)({
+        ...rest,
+        name: name ?? key,
+        in: "header",
+      });
     };
 
   const convertContent =

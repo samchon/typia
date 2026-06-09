@@ -254,8 +254,9 @@ export namespace SwaggerV2Upgrader {
                     [
                       key,
                       {
-                        schema: convertSchema(doc.definitions ?? {})(value),
+                        name: key,
                         in: "header",
+                        schema: convertSchema(doc.definitions ?? {})(value),
                       },
                     ] as const,
                 ),

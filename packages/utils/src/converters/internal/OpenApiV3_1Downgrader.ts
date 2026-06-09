@@ -163,13 +163,16 @@ export namespace OpenApiV3_1Downgrader {
         ? Object.fromEntries(
             Object.entries(input.headers)
               .filter(([_, v]) => v !== undefined)
-              .map(([key, value]) => [
-                key,
-                {
-                  ...value,
-                  schema: downgradeSchema(collection)(value.schema),
-                },
-              ]),
+              .map(([key, value]) => {
+                const { name: _name, in: _in, ...rest } = value;
+                return [
+                  key,
+                  {
+                    ...rest,
+                    schema: downgradeSchema(collection)(value.schema),
+                  },
+                ];
+              }),
           )
         : undefined,
     });

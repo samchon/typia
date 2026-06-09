@@ -719,6 +719,16 @@ export const test_openapi_converter_parameter_required = (): void => {
     OpenApiConverter.upgradeDocument(openApiV3ParameterDocument()),
     "/openapi/headers/ref",
   );
+  assertOpenApiV3InheritedParameter(
+    "v3.0 path-only parameter is inherited",
+    OpenApiConverter.upgradeDocument(openApiV3ParameterDocument()),
+    "/openapi/path-only",
+  );
+  assertOpenApiV3ResponseHeaderReference(
+    "v3.0 response header ref derives header name",
+    OpenApiConverter.upgradeDocument(openApiV3ParameterDocument()),
+    "/openapi/response-header/ref",
+  );
   assertOpenApiV3OperationOverride(
     "v3.1 operation parameter overrides path",
     OpenApiConverter.upgradeDocument(openApiV31ParameterDocument()),
@@ -743,6 +753,16 @@ export const test_openapi_converter_parameter_required = (): void => {
     "v3.1 component header refs keep distinct names",
     OpenApiConverter.upgradeDocument(openApiV31ParameterDocument()),
     "/openapi/headers/ref",
+  );
+  assertOpenApiV3InheritedParameter(
+    "v3.1 path-only parameter is inherited",
+    OpenApiConverter.upgradeDocument(openApiV31ParameterDocument()),
+    "/openapi/path-only",
+  );
+  assertOpenApiV3ResponseHeaderReference(
+    "v3.1 response header ref derives header name",
+    OpenApiConverter.upgradeDocument(openApiV31ParameterDocument()),
+    "/openapi/response-header/ref",
   );
   assertOpenApiV3OperationOverride(
     "v3.2 operation parameter overrides path",
@@ -769,6 +789,17 @@ export const test_openapi_converter_parameter_required = (): void => {
     OpenApiConverter.upgradeDocument(openApiV32ParameterDocument()),
     "/openapi/headers/ref",
   );
+  assertOpenApiV3InheritedParameter(
+    "v3.2 path-only parameter is inherited",
+    OpenApiConverter.upgradeDocument(openApiV32ParameterDocument()),
+    "/openapi/path-only",
+  );
+  assertOpenApiV3ResponseHeaderReference(
+    "v3.2 response header ref derives header name",
+    OpenApiConverter.upgradeDocument(openApiV32ParameterDocument()),
+    "/openapi/response-header/ref",
+  );
+  assertResponseHeaderDowngrade();
   assertSchemaMetadataOmitted("upgraded keyword schema", upgradedKeyword);
   assertSchemaMetadataOmitted("upgraded filter schema", upgradedFilter);
   assertSchemaMetadataOmitted("upgraded path schema", upgradedId);
@@ -1037,6 +1068,114 @@ const assertOpenApiV3HeaderReferences = (
   );
 };
 
+const assertOpenApiV3InheritedParameter = (
+  title: string,
+  document: OpenApi.IDocument,
+  path: string,
+): void => {
+  const parameters = document.paths![path]!.get!.parameters!;
+  assertPathParametersOmitted(
+    `${title} path parameters omitted`,
+    document,
+    path,
+  );
+  TestValidator.equals(
+    title,
+    parameters.map((p) => ({
+      name: p.name,
+      in: p.in,
+      required: p.required,
+      schema: (p.schema as OpenApi.IJsonSchema.IString).type,
+    })),
+    [
+      {
+        name: "locale",
+        in: "query",
+        required: false,
+        schema: "string",
+      },
+    ],
+  );
+};
+
+const assertOpenApiV3ResponseHeaderReference = (
+  title: string,
+  document: OpenApi.IDocument,
+  path: string,
+): void => {
+  const header =
+    document.paths![path]!.get!.responses!["200"]!.headers!["X-Trace"]!;
+  TestValidator.equals(
+    title,
+    {
+      name: header.name,
+      in: header.in,
+      required: header.required,
+      schema: (header.schema as OpenApi.IJsonSchema.IString).type,
+    },
+    {
+      name: "X-Trace",
+      in: "header",
+      required: false,
+      schema: "string",
+    },
+  );
+};
+
+const assertResponseHeaderDowngrade = (): void => {
+  const emended: OpenApi.IDocument = {
+    openapi: "3.2.0",
+    "x-typia-emended-v12": true,
+    info: { title: "test", version: "1.0.0" },
+    components: {},
+    paths: {
+      "/response/header": {
+        get: {
+          responses: {
+            "200": {
+              description: "OK",
+              headers: {
+                "X-Trace": {
+                  name: "X-Trace",
+                  in: "header",
+                  required: false,
+                  schema: { type: "string" },
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  };
+  const swagger = OpenApiConverter.downgradeDocument(emended, "2.0");
+  const v30 = OpenApiConverter.downgradeDocument(emended, "3.0");
+  const v31 = OpenApiConverter.downgradeDocument(emended, "3.1");
+  const headers = [
+    swagger.paths!["/response/header"]!.get!.responses!["200"]!.headers![
+      "X-Trace"
+    ]!,
+    v30.paths!["/response/header"]!.get!.responses!["200"]!.headers![
+      "X-Trace"
+    ]!,
+    v31.paths!["/response/header"]!.get!.responses!["200"]!.headers![
+      "X-Trace"
+    ]!,
+  ];
+  TestValidator.equals(
+    "downgraded response headers omit internal parameter metadata",
+    headers.map((header) => ({
+      name: Object.prototype.hasOwnProperty.call(header, "name"),
+      in: Object.prototype.hasOwnProperty.call(header, "in"),
+    })),
+    [
+      { name: false, in: false },
+      { name: false, in: false },
+      { name: false, in: false },
+    ],
+  );
+};
+
 const assertPathParametersOmitted = (
   title: string,
   document: OpenApi.IDocument,
@@ -1150,7 +1289,16 @@ type OpenApiParameterPathsFixture = Record<
       parameters?: Array<
         OpenApiParameterFixture | OpenApiParameterReferenceFixture
       >;
-      responses: Record<string, { description: string }>;
+      responses: Record<
+        string,
+        {
+          description: string;
+          headers?: Record<
+            string,
+            OpenApiHeaderFixture | OpenApiParameterReferenceFixture
+          >;
+        }
+      >;
     };
   }
 >;
@@ -1357,6 +1505,37 @@ const openApiParameterPaths = () =>
         responses: {
           "200": {
             description: "OK",
+          },
+        },
+      },
+    },
+    "/openapi/path-only": {
+      parameters: [
+        {
+          name: "locale",
+          in: "query",
+          required: false,
+          schema: { type: "string" },
+        },
+      ],
+      get: {
+        responses: {
+          "200": {
+            description: "OK",
+          },
+        },
+      },
+    },
+    "/openapi/response-header/ref": {
+      get: {
+        responses: {
+          "200": {
+            description: "OK",
+            headers: {
+              "X-Trace": {
+                $ref: "#/components/headers/TraceHeader",
+              },
+            },
           },
         },
       },
