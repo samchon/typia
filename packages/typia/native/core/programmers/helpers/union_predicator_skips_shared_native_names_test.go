@@ -99,6 +99,53 @@ func unionPredicatorAtomic(kind string) *nativemetadata.MetadataSchema {
   })
 }
 
+func unionPredicatorArray(value *nativemetadata.MetadataSchema) *nativemetadata.MetadataSchema {
+  return nativemetadata.MetadataSchema_create(nativemetadata.MetadataSchema{
+    Required: true,
+    Arrays: []*nativemetadata.MetadataArray{
+      nativemetadata.MetadataArray_create(nativemetadata.MetadataArray{
+        Type: nativemetadata.MetadataArrayType_create(nativemetadata.MetadataArrayType{
+          Name:      "Array<" + value.GetName() + ">",
+          Value:     value,
+          Nullables: []bool{},
+        }),
+      }),
+    },
+  })
+}
+
+func unionPredicatorTuple(elements ...*nativemetadata.MetadataSchema) *nativemetadata.MetadataSchema {
+  name := "["
+  for i, elem := range elements {
+    if i != 0 {
+      name += ", "
+    }
+    name += elem.GetName()
+  }
+  name += "]"
+  return nativemetadata.MetadataSchema_create(nativemetadata.MetadataSchema{
+    Required: true,
+    Tuples: []*nativemetadata.MetadataTuple{
+      nativemetadata.MetadataTuple_create(nativemetadata.MetadataTuple{
+        Type: nativemetadata.MetadataTupleType_create(nativemetadata.MetadataTupleType{
+          Name:      name,
+          Elements:  elements,
+          Nullables: []bool{},
+        }),
+      }),
+    },
+  })
+}
+
+func unionPredicatorTemplate(row ...*nativemetadata.MetadataSchema) *nativemetadata.MetadataSchema {
+  return nativemetadata.MetadataSchema_create(nativemetadata.MetadataSchema{
+    Required: true,
+    Templates: []*nativemetadata.MetadataTemplate{
+      nativemetadata.MetadataTemplate_create(nativemetadata.MetadataTemplate{Row: row}),
+    },
+  })
+}
+
 func unionPredicatorNativeMetadata(name string, tags [][]nativemetadata.IMetadataTypeTag) *nativemetadata.MetadataSchema {
   return nativemetadata.MetadataSchema_create(nativemetadata.MetadataSchema{
     Required: true,

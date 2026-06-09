@@ -83,6 +83,44 @@ func AtomicMetadata(kind string) *metadata.MetadataSchema {
   })
 }
 
+func ArrayMetadata(value *metadata.MetadataSchema) *metadata.MetadataSchema {
+  return metadata.MetadataSchema_create(metadata.MetadataSchema{
+    Required: true,
+    Arrays: []*metadata.MetadataArray{
+      metadata.MetadataArray_create(metadata.MetadataArray{
+        Type: metadata.MetadataArrayType_create(metadata.MetadataArrayType{
+          Name:      "Array<" + value.GetName() + ">",
+          Value:     value,
+          Nullables: []bool{},
+        }),
+      }),
+    },
+  })
+}
+
+func TupleMetadata(elements ...*metadata.MetadataSchema) *metadata.MetadataSchema {
+  name := "["
+  for i, elem := range elements {
+    if i != 0 {
+      name += ", "
+    }
+    name += elem.GetName()
+  }
+  name += "]"
+  return metadata.MetadataSchema_create(metadata.MetadataSchema{
+    Required: true,
+    Tuples: []*metadata.MetadataTuple{
+      metadata.MetadataTuple_create(metadata.MetadataTuple{
+        Type: metadata.MetadataTupleType_create(metadata.MetadataTupleType{
+          Name:      name,
+          Elements:  elements,
+          Nullables: []bool{},
+        }),
+      }),
+    },
+  })
+}
+
 func NativeMetadata(name string) *metadata.MetadataSchema {
   return metadata.MetadataSchema_create(metadata.MetadataSchema{
     Required: true,

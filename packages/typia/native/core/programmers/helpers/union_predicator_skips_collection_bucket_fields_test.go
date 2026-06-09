@@ -6,15 +6,16 @@ import (
   nativemetadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
 )
 
-// TestUnionPredicatorSkipsCollectionBucketFields verifies Set and Map overlap.
+// TestUnionPredicatorSkipsCollectionBucketFields verifies collection overlap.
 //
-// Empty collections can pass different element schemas, so shared Set or Map
-// properties are not safe discriminators even when their key/value metadata
-// differ.
+// Empty Set and Map values can pass different element schemas, and an array can
+// overlap a tuple. Shared collection properties are therefore not safe
+// discriminators even when their contained metadata differs.
 //
 // 1. Build two branches sharing a Set property with different value schemas.
 // 2. Build two branches sharing a Map property with different key/value schemas.
-// 3. Assert branch-unique properties are selected instead of the collection key.
+// 3. Build two branches sharing an array/tuple property with shared values.
+// 4. Assert branch-unique properties are selected instead of the collection key.
 func TestUnionPredicatorSkipsCollectionBucketFields(t *testing.T) {
   cases := []struct {
     name   string
@@ -41,6 +42,13 @@ func TestUnionPredicatorSkipsCollectionBucketFields(t *testing.T) {
         unionPredicatorAtomic("number"),
         unionPredicatorAtomic("string"),
       ),
+      expect: []string{"leftOnly", "rightOnly"},
+    },
+    {
+      name:   "array-tuple",
+      key:    "items",
+      left:   unionPredicatorArray(unionPredicatorAtomic("number")),
+      right:  unionPredicatorTuple(unionPredicatorAtomic("number")),
       expect: []string{"leftOnly", "rightOnly"},
     },
   }

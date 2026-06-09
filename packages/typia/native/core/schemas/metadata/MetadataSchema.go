@@ -444,6 +444,9 @@ func MetadataSchema_intersects(x *MetadataSchema, y *MetadataSchema) bool {
   if len(x.Arrays) != 0 && len(y.Arrays) != 0 {
     return true
   }
+  if (len(x.Arrays) != 0 && len(y.Tuples) != 0) || (len(x.Tuples) != 0 && len(y.Arrays) != 0) {
+    return true
+  }
   if len(x.Tuples) != 0 && len(y.Tuples) != 0 {
     return true
   }
@@ -508,6 +511,9 @@ func MetadataSchema_intersects(x *MetadataSchema, y *MetadataSchema) bool {
     return true
   }
   if len(y.Templates) != 0 && anyOf(x.Atomics, func(xa *MetadataAtomic) bool { return xa.Type == "string" }) {
+    return true
+  }
+  if len(x.Templates) != 0 && len(y.Templates) != 0 {
     return true
   }
   return false

@@ -161,8 +161,52 @@ type BytesSharedUnion =
       right: string;
     };
 
+type PrimitiveWrapperSharedUnion =
+  | {
+      value: string;
+      left: string;
+    }
+  | {
+      value: String;
+      right: string;
+    };
+
+type SetSharedUnion =
+  | {
+      items: Set<string>;
+      left: string;
+    }
+  | {
+      items: Set<number>;
+      right: string;
+    };
+
+type MapSharedUnion =
+  | {
+      lookup: Map<string, number>;
+      left: string;
+    }
+  | {
+      lookup: Map<number, string>;
+      right: string;
+    };
+
+type ArrayTupleSharedUnion =
+  | {
+      items: number[];
+      left: string;
+    }
+  | {
+      items: [number];
+      right: string;
+    };
+
 export const validateDateShared = typia.createValidate<DateSharedUnion>();
 export const validateBytesShared = typia.createValidate<BytesSharedUnion>();
+export const validatePrimitiveWrapperShared = typia.createValidate<PrimitiveWrapperSharedUnion>();
+export const validateSetShared = typia.createValidate<SetSharedUnion>();
+export const validateMapShared = typia.createValidate<MapSharedUnion>();
+export const validateArrayTupleShared = typia.createValidate<ArrayTupleSharedUnion>();
 `
 
 const intersectionUnionValidationRuntimeRunner = `const mod = require("./main.cjs");
@@ -272,5 +316,37 @@ const validBytesRight = {
 const bytesRight = mod.validateBytesShared(validBytesRight);
 if (bytesRight.success !== true) {
   throw new Error("shared Uint8Array native union failed its right branch: " + JSON.stringify(bytesRight));
+}
+
+const primitiveWrapperRight = mod.validatePrimitiveWrapperShared({
+  value: "x",
+  right: "selected-right",
+});
+if (primitiveWrapperRight.success !== true) {
+  throw new Error("shared primitive wrapper union failed its right branch: " + JSON.stringify(primitiveWrapperRight));
+}
+
+const setRight = mod.validateSetShared({
+  items: new Set(),
+  right: "selected-right",
+});
+if (setRight.success !== true) {
+  throw new Error("shared empty Set union failed its right branch: " + JSON.stringify(setRight));
+}
+
+const mapRight = mod.validateMapShared({
+  lookup: new Map(),
+  right: "selected-right",
+});
+if (mapRight.success !== true) {
+  throw new Error("shared empty Map union failed its right branch: " + JSON.stringify(mapRight));
+}
+
+const arrayTupleRight = mod.validateArrayTupleShared({
+  items: [1],
+  right: "selected-right",
+});
+if (arrayTupleRight.success !== true) {
+  throw new Error("shared array/tuple union failed its right branch: " + JSON.stringify(arrayTupleRight));
 }
 `
