@@ -126,9 +126,13 @@ func objectCustomTagValidationRunRuntimeCases(t *testing.T, project string, js s
   if err := os.WriteFile(filepath.Join(runtimeDir, "standard-schema-stub.cjs"), []byte(objectCustomTagValidationStandardSchemaStub), 0o644); err != nil {
     t.Fatalf("write standard schema stub: %v", err)
   }
+  if err := os.WriteFile(filepath.Join(runtimeDir, "assert-guard-stub.cjs"), []byte(objectCustomTagValidationAssertGuardStub), 0o644); err != nil {
+    t.Fatalf("write assert guard stub: %v", err)
+  }
   runtimeJS := strings.ReplaceAll(js, `require("typia")`, `require("./typia-stub.cjs")`)
   runtimeJS = strings.ReplaceAll(runtimeJS, `require("typia/lib/internal/_validateReport")`, `require("./validate-report-stub.cjs")`)
   runtimeJS = strings.ReplaceAll(runtimeJS, `require("typia/lib/internal/_createStandardSchema")`, `require("./standard-schema-stub.cjs")`)
+  runtimeJS = strings.ReplaceAll(runtimeJS, `require("typia/lib/internal/_assertGuard")`, `require("./assert-guard-stub.cjs")`)
   if err := os.WriteFile(filepath.Join(runtimeDir, "main.cjs"), []byte(runtimeJS), 0o644); err != nil {
     t.Fatalf("write runtime module: %v", err)
   }
@@ -189,6 +193,24 @@ const isFilters = typia.createIs<Filters>();
 const validateFilters = typia.createValidate<Filters>();
 const isTaggedUnion = typia.createIs<TaggedUnion>();
 const validateTaggedUnion = typia.createValidate<TaggedUnion>();
+const assertTaggedUnion = typia.createAssert<TaggedUnion>();
+
+type Container = {
+  union: TaggedUnion;
+  other: string;
+};
+
+const validateContainer = typia.createValidate<Container>();
+const assertContainer = typia.createAssert<Container>();
+
+const capture = (task: () => void): null | { path?: string; expected?: string } => {
+  try {
+    task();
+    return null;
+  } catch (error) {
+    return error as { path?: string; expected?: string };
+  }
+};
 
 export const run = () => ({
   emptyIs: isFilters({}),
@@ -201,6 +223,17 @@ export const run = () => ({
   unionInvalidAValidate: validateTaggedUnion({ type: "a" }).success,
   unionValidAValidate: validateTaggedUnion({ type: "a", value: 1 }).success,
   unionValidBValidate: validateTaggedUnion({ type: "b" }).success,
+  unionValidBAssert: capture(() => assertTaggedUnion({ type: "b" })),
+  containerValidBAssert: capture(() =>
+    assertContainer({ union: { type: "b" }, other: "ok" }),
+  ),
+  containerInvalidOtherAssert: capture(() =>
+    assertContainer({ union: { type: "b" }, other: 1 as any }),
+  ),
+  containerInvalidOtherValidate: validateContainer({
+    union: { type: "b" },
+    other: 1 as any,
+  }),
 });
 `
 
@@ -217,6 +250,21 @@ if (result.unionValidBIs !== true) throw new Error("untagged union branch failed
 if (result.unionInvalidAValidate !== false) throw new Error("tagged union branch passed createValidate without enough entries");
 if (result.unionValidAValidate !== true) throw new Error("tagged union branch failed createValidate with enough entries");
 if (result.unionValidBValidate !== true) throw new Error("untagged union branch failed createValidate");
+if (result.unionValidBAssert !== null) throw new Error("untagged union branch failed createAssert");
+if (result.containerValidBAssert !== null) throw new Error("nested untagged union branch failed createAssert");
+if (!result.containerInvalidOtherAssert || result.containerInvalidOtherAssert.path !== "$input.other") {
+  throw new Error("nested union slow-path assert reported the wrong path: " + JSON.stringify(result.containerInvalidOtherAssert));
+}
+if (result.containerInvalidOtherValidate.success !== false) {
+  throw new Error("container with invalid other property passed createValidate");
+}
+const paths = result.containerInvalidOtherValidate.errors.map((error) => error.path);
+if (paths.includes("$input.union")) {
+  throw new Error("nested valid union emitted a spurious validation error: " + JSON.stringify(result.containerInvalidOtherValidate.errors));
+}
+if (!paths.includes("$input.other")) {
+  throw new Error("container validation did not report the invalid other property: " + JSON.stringify(result.containerInvalidOtherValidate.errors));
+}
 `
 
 const objectCustomTagValidationReportStub = `module.exports._validateReport = (array) => {
@@ -228,4 +276,14 @@ const objectCustomTagValidationReportStub = `module.exports._validateReport = (a
 `
 
 const objectCustomTagValidationStandardSchemaStub = `module.exports._createStandardSchema = (validate) => validate;
+`
+
+const objectCustomTagValidationAssertGuardStub = `module.exports._assertGuard = (exceptionable, props, factory) => {
+  if (exceptionable) {
+    const error = factory ? factory(props) : new Error(props.expected);
+    Object.assign(error, props);
+    throw error;
+  }
+  return false;
+};
 `

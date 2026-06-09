@@ -1576,11 +1576,16 @@ func checkerProgrammer_explore_objects(props checkerProgrammer_exploreObjectsPro
     })
   }
   if checkerProgrammer_has_object_type_tags(props.Metadata.Objects) {
-    binaries := make([]CheckerProgrammer_IBinary, 0, len(props.Metadata.Objects))
     names := make([]string, 0, len(props.Metadata.Objects))
     for _, object := range props.Metadata.Objects {
-      binaries = append(binaries, CheckerProgrammer_IBinary{
-        Expression: checkerProgrammer_decode_object_reference(checkerProgrammer_decodeObjectReferenceProps{
+      names = append(names, object.GetName())
+    }
+    expected := "(" + strings.Join(names, " | ") + ")"
+    f := nativecontext.EmitFactoryOf(checkerProgrammer_factory, props.Context.Emit)
+    statements := make([]*shimast.Node, 0, len(props.Metadata.Objects)+1)
+    for _, object := range props.Metadata.Objects {
+      statements = append(statements, f.NewIfStatement(
+        checkerProgrammer_check_object_reference(checkerProgrammer_decodeObjectReferenceProps{
           Config:  props.Config,
           Context: props.Context,
           Functor: props.Functor,
@@ -1588,17 +1593,37 @@ func checkerProgrammer_explore_objects(props checkerProgrammer_exploreObjectsPro
           Input:   props.Input,
           Explore: props.Explore,
         }),
-        Combined: true,
-      })
-      names = append(names, object.GetName())
+        f.NewReturnStatement(checkerProgrammer_decode_object_reference(checkerProgrammer_decodeObjectReferenceProps{
+          Config:  props.Config,
+          Context: props.Context,
+          Functor: props.Functor,
+          Object:  object,
+          Input:   props.Input,
+          Explore: props.Explore,
+        })),
+        nil,
+      ))
     }
-    return props.Config.Combiner(CheckerProgrammer_CombinerProps{
-      Explore:  props.Explore,
-      Logic:    "or",
+    statements = append(statements, f.NewReturnStatement(props.Config.Joiner.Failure(CheckerProgrammer_JoinerFailureProps{
       Input:    props.Input,
-      Binaries: binaries,
-      Expected: "(" + strings.Join(names, " | ") + ")",
-    })
+      Expected: expected,
+      Explore:  &props.Explore,
+    })))
+    return f.NewCallExpression(
+      f.NewArrowFunction(
+        nil,
+        nil,
+        f.NewNodeList(nil),
+        nil,
+        nil,
+        f.NewToken(shimast.KindEqualsGreaterThanToken),
+        f.NewBlock(f.NewNodeList(statements), true),
+      ),
+      nil,
+      nil,
+      nil,
+      shimast.NodeFlagsNone,
+    )
   }
   f := nativecontext.EmitFactoryOf(checkerProgrammer_factory, props.Context.Emit)
   index := 0
@@ -1628,6 +1653,32 @@ type checkerProgrammer_decodeObjectReferenceProps struct {
   Explore CheckerProgrammer_IExplore
 }
 
+func checkerProgrammer_check_object_reference(props checkerProgrammer_decodeObjectReferenceProps) *shimast.Node {
+  explore := props.Explore
+  explore.Tracable = false
+  decoded := CheckerProgrammer.Decode_object(CheckerProgrammer_DecodeObjectProps{
+    Config:  props.Config,
+    Functor: props.Functor,
+    Object:  props.Object.Type,
+    Input:   props.Input,
+    Explore: explore,
+    Emit:    props.Context.Emit,
+  })
+  tags := nativeiterate.Check_object_type_tags(nativeiterate.Check_object_type_tagsProps{
+    Context: props.Context,
+    Object:  props.Object,
+    Input:   props.Input,
+  })
+  if tags.Expression == nil && len(tags.Conditions) == 0 {
+    return decoded
+  }
+  return checkerProgrammer_and(
+    decoded,
+    checkerProgrammer_object_type_tags_condition(tags, props.Context.Emit),
+    props.Context.Emit,
+  )
+}
+
 func checkerProgrammer_decode_object_reference(props checkerProgrammer_decodeObjectReferenceProps) *shimast.Node {
   decoded := CheckerProgrammer.Decode_object(CheckerProgrammer_DecodeObjectProps{
     Config:  props.Config,
@@ -1646,14 +1697,34 @@ func checkerProgrammer_decode_object_reference(props checkerProgrammer_decodeObj
     return decoded
   }
   return checkerProgrammer_and(
+    decoded,
     props.Config.Atomist(CheckerProgrammer_AtomistProps{
       Explore: props.Explore,
       Entry:   tags,
       Input:   props.Input,
     }),
-    decoded,
     props.Context.Emit,
   )
+}
+
+func checkerProgrammer_object_type_tags_condition(entry nativehelpers.ICheckEntry, emit *shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(checkerProgrammer_factory, emit)
+  expressions := []*shimast.Node{}
+  if entry.Expression != nil {
+    expressions = append(expressions, entry.Expression)
+  }
+  if len(entry.Conditions) != 0 {
+    rows := make([]*shimast.Node, 0, len(entry.Conditions))
+    for _, set := range entry.Conditions {
+      cols := make([]*shimast.Node, 0, len(set))
+      for _, condition := range set {
+        cols = append(cols, condition.Expression)
+      }
+      rows = append(rows, checkerProgrammer_reduce(cols, shimast.KindAmpersandAmpersandToken, f.NewKeywordExpression(shimast.KindTrueKeyword), emit))
+    }
+    expressions = append(expressions, checkerProgrammer_reduce(rows, shimast.KindBarBarToken, f.NewKeywordExpression(shimast.KindFalseKeyword), emit))
+  }
+  return checkerProgrammer_reduce(expressions, shimast.KindAmpersandAmpersandToken, f.NewKeywordExpression(shimast.KindTrueKeyword), emit)
 }
 
 func checkerProgrammer_has_object_type_tags(objects []*nativemetadata.MetadataObject) bool {
@@ -1716,6 +1787,17 @@ func checkerProgrammer_binary(left *shimast.Expression, operator shimast.Kind, r
     f.NewToken(operator),
     right,
   )
+}
+
+func checkerProgrammer_reduce(expressions []*shimast.Node, operator shimast.Kind, initial *shimast.Expression, emit *shimprinter.EmitContext) *shimast.Node {
+  if len(expressions) == 0 {
+    return initial
+  }
+  output := expressions[0]
+  for _, next := range expressions[1:] {
+    output = checkerProgrammer_binary(output, operator, next, emit)
+  }
+  return output
 }
 
 func checkerProgrammer_and(x *shimast.Expression, y *shimast.Expression, emit *shimprinter.EmitContext) *shimast.Node {
