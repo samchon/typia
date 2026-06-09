@@ -10,7 +10,7 @@
 
 ## 실행 후보
 
-- [#1757 Custom Tag with target "object" does not emit its validate code](./issues/1757-object-custom-tag-validate.md): 구현 중. 객체 대상 `TagBase.validate`가 런타임 validator 생성물에 반영되지 않는 문제다.
+현재 열려 있는 실행 후보가 없다.
 
 ## 공통 검증 원칙
 
