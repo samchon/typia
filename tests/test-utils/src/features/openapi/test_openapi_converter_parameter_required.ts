@@ -679,11 +679,21 @@ export const test_openapi_converter_parameter_required = (): void => {
     keyword: upgradedOverrideKeyword,
     id: upgradedOverrideId,
   });
+  assertPathParametersOmitted(
+    "upgraded operation parameter override path parameters omitted",
+    openapi,
+    "/parameters/override/{id}",
+  );
   assertOperationOverride("upgraded operation refs override path refs", {
     parameters: upgradedRefOverrideParameters,
     keyword: upgradedRefOverrideKeyword,
     id: upgradedRefOverrideId,
   });
+  assertPathParametersOmitted(
+    "upgraded operation refs override path parameters omitted",
+    openapi,
+    "/parameters/ref-override/{id}",
+  );
   assertOpenApiV3OperationOverride(
     "v3.0 operation parameter overrides path",
     OpenApiConverter.upgradeDocument(openApiV3ParameterDocument()),
@@ -693,6 +703,21 @@ export const test_openapi_converter_parameter_required = (): void => {
     "v3.0 operation refs override path refs",
     OpenApiConverter.upgradeDocument(openApiV3ParameterDocument()),
     "/openapi/ref/{id}",
+  );
+  assertOpenApiV3ObjectSchemaOverride(
+    "v3.0 operation object parameter override sanitizes empty required",
+    OpenApiConverter.upgradeDocument(openApiV3ParameterDocument()),
+    "/openapi/object/direct",
+  );
+  assertOpenApiV3ObjectSchemaOverride(
+    "v3.0 operation object parameter ref override sanitizes empty required",
+    OpenApiConverter.upgradeDocument(openApiV3ParameterDocument()),
+    "/openapi/object/ref",
+  );
+  assertOpenApiV3HeaderReferences(
+    "v3.0 component header refs keep distinct names",
+    OpenApiConverter.upgradeDocument(openApiV3ParameterDocument()),
+    "/openapi/headers/ref",
   );
   assertOpenApiV3OperationOverride(
     "v3.1 operation parameter overrides path",
@@ -704,6 +729,21 @@ export const test_openapi_converter_parameter_required = (): void => {
     OpenApiConverter.upgradeDocument(openApiV31ParameterDocument()),
     "/openapi/ref/{id}",
   );
+  assertOpenApiV3ObjectSchemaOverride(
+    "v3.1 operation object parameter override sanitizes empty required",
+    OpenApiConverter.upgradeDocument(openApiV31ParameterDocument()),
+    "/openapi/object/direct",
+  );
+  assertOpenApiV3ObjectSchemaOverride(
+    "v3.1 operation object parameter ref override sanitizes empty required",
+    OpenApiConverter.upgradeDocument(openApiV31ParameterDocument()),
+    "/openapi/object/ref",
+  );
+  assertOpenApiV3HeaderReferences(
+    "v3.1 component header refs keep distinct names",
+    OpenApiConverter.upgradeDocument(openApiV31ParameterDocument()),
+    "/openapi/headers/ref",
+  );
   assertOpenApiV3OperationOverride(
     "v3.2 operation parameter overrides path",
     OpenApiConverter.upgradeDocument(openApiV32ParameterDocument()),
@@ -713,6 +753,21 @@ export const test_openapi_converter_parameter_required = (): void => {
     "v3.2 operation refs override path refs",
     OpenApiConverter.upgradeDocument(openApiV32ParameterDocument()),
     "/openapi/ref/{id}",
+  );
+  assertOpenApiV3ObjectSchemaOverride(
+    "v3.2 operation object parameter override sanitizes empty required",
+    OpenApiConverter.upgradeDocument(openApiV32ParameterDocument()),
+    "/openapi/object/direct",
+  );
+  assertOpenApiV3ObjectSchemaOverride(
+    "v3.2 operation object parameter ref override sanitizes empty required",
+    OpenApiConverter.upgradeDocument(openApiV32ParameterDocument()),
+    "/openapi/object/ref",
+  );
+  assertOpenApiV3HeaderReferences(
+    "v3.2 component header refs keep distinct names",
+    OpenApiConverter.upgradeDocument(openApiV32ParameterDocument()),
+    "/openapi/headers/ref",
   );
   assertSchemaMetadataOmitted("upgraded keyword schema", upgradedKeyword);
   assertSchemaMetadataOmitted("upgraded filter schema", upgradedFilter);
@@ -896,7 +951,102 @@ const assertOpenApiV3OperationOverride = (
   )!;
   const id = parameters.find((p) => p.name === "id" && p.in === "path")!;
   assertOperationOverride(title, { parameters, keyword, id });
+  assertPathParametersOmitted(
+    `${title} path parameters omitted`,
+    document,
+    path,
+  );
 };
+
+const assertOpenApiV3ObjectSchemaOverride = (
+  title: string,
+  document: OpenApi.IDocument,
+  path: string,
+): void => {
+  const parameters = document.paths![path]!.get!.parameters!;
+  const payload = parameters.find(
+    (p) => p.name === "payload" && p.in === "query",
+  )!;
+  const schema = payload.schema as OpenApi.IJsonSchema.IObject;
+  assertPathParametersOmitted(
+    `${title} path parameters omitted`,
+    document,
+    path,
+  );
+  TestValidator.equals(
+    title,
+    {
+      count: parameters.length,
+      parameter: {
+        own: Object.prototype.hasOwnProperty.call(payload, "required"),
+        required: payload.required,
+      },
+      schema: {
+        type: schema.type,
+        properties: schema.properties,
+        required: Object.prototype.hasOwnProperty.call(schema, "required"),
+      },
+    },
+    {
+      count: 1,
+      parameter: {
+        own: true,
+        required: true,
+      },
+      schema: {
+        type: "object",
+        properties: {
+          name: {
+            type: "string",
+          },
+        },
+        required: false,
+      },
+    },
+  );
+};
+
+const assertOpenApiV3HeaderReferences = (
+  title: string,
+  document: OpenApi.IDocument,
+  path: string,
+): void => {
+  const parameters = document.paths![path]!.get!.parameters!;
+  TestValidator.equals(
+    title,
+    parameters.map((p) => ({
+      name: p.name,
+      in: p.in,
+      schema: (p.schema as OpenApi.IJsonSchema.IString).type,
+      required: p.required,
+    })),
+    [
+      {
+        name: "TraceHeader",
+        in: "header",
+        schema: "string",
+        required: false,
+      },
+      {
+        name: "RequestHeader",
+        in: "header",
+        schema: "string",
+        required: true,
+      },
+    ],
+  );
+};
+
+const assertPathParametersOmitted = (
+  title: string,
+  document: OpenApi.IDocument,
+  path: string,
+): void =>
+  TestValidator.equals(
+    title,
+    Object.prototype.hasOwnProperty.call(document.paths![path]!, "parameters"),
+    false,
+  );
 
 const assertOperationOverride = (
   title: string,
@@ -946,7 +1096,7 @@ const openApiV3ParameterDocument = (): OpenApiV3.IDocument =>
     info: { title: "test", version: "1.0.0" },
     components: openApiParameterComponents(),
     paths: openApiParameterPaths(),
-  }) as OpenApiV3.IDocument;
+  }) satisfies OpenApiV3.IDocument;
 
 const openApiV31ParameterDocument = (): OpenApiV3_1.IDocument =>
   ({
@@ -954,7 +1104,7 @@ const openApiV31ParameterDocument = (): OpenApiV3_1.IDocument =>
     info: { title: "test", version: "1.0.0" },
     components: openApiParameterComponents(),
     paths: openApiParameterPaths(),
-  }) as OpenApiV3_1.IDocument;
+  }) satisfies OpenApiV3_1.IDocument;
 
 const openApiV32ParameterDocument = (): OpenApiV3_2.IDocument =>
   ({
@@ -962,7 +1112,48 @@ const openApiV32ParameterDocument = (): OpenApiV3_2.IDocument =>
     info: { title: "test", version: "1.0.0" },
     components: openApiParameterComponents(),
     paths: openApiParameterPaths(),
-  }) as OpenApiV3_2.IDocument;
+  }) satisfies OpenApiV3_2.IDocument;
+
+type OpenApiParameterSchemaFixture =
+  | {
+      type: "integer" | "number" | "string";
+    }
+  | {
+      type: "object";
+      properties: Record<string, { type: "string" }>;
+      additionalProperties?: false;
+      required?: string[];
+    };
+
+type OpenApiParameterFixture = {
+  name: string;
+  in: "header" | "path" | "query";
+  required?: boolean;
+  schema: OpenApiParameterSchemaFixture;
+};
+
+type OpenApiHeaderFixture = Omit<OpenApiParameterFixture, "in" | "name"> & {
+  name?: string;
+};
+
+type OpenApiParameterReferenceFixture = {
+  $ref: `#/components/headers/${string}` | `#/components/parameters/${string}`;
+};
+
+type OpenApiParameterPathsFixture = Record<
+  string,
+  {
+    parameters?: Array<
+      OpenApiParameterFixture | OpenApiParameterReferenceFixture
+    >;
+    get: {
+      parameters?: Array<
+        OpenApiParameterFixture | OpenApiParameterReferenceFixture
+      >;
+      responses: Record<string, { description: string }>;
+    };
+  }
+>;
 
 const openApiParameterComponents = () =>
   ({
@@ -990,8 +1181,47 @@ const openApiParameterComponents = () =>
         required: false,
         schema: { type: "integer" },
       },
+      SharedObjectBase: {
+        name: "payload",
+        in: "query",
+        required: false,
+        schema: {
+          type: "object",
+          properties: {
+            name: { type: "string" },
+          },
+          additionalProperties: false,
+          required: ["name"],
+        },
+      },
+      SharedObjectOverride: {
+        name: "payload",
+        in: "query",
+        required: true,
+        schema: {
+          type: "object",
+          properties: {
+            name: { type: "string" },
+          },
+          additionalProperties: false,
+          required: [],
+        },
+      },
     },
-  }) as const;
+    headers: {
+      TraceHeader: {
+        required: false,
+        schema: { type: "string" },
+      },
+      RequestHeader: {
+        required: true,
+        schema: { type: "string" },
+      },
+    },
+  }) satisfies {
+    headers: Record<string, OpenApiHeaderFixture>;
+    parameters: Record<string, OpenApiParameterFixture>;
+  };
 
 const openApiParameterPaths = () =>
   ({
@@ -1056,4 +1286,79 @@ const openApiParameterPaths = () =>
         },
       },
     },
-  }) as const;
+    "/openapi/object/direct": {
+      parameters: [
+        {
+          name: "payload",
+          in: "query",
+          required: false,
+          schema: {
+            type: "object",
+            properties: {
+              name: { type: "string" },
+            },
+            additionalProperties: false,
+            required: ["name"],
+          },
+        },
+      ],
+      get: {
+        parameters: [
+          {
+            name: "payload",
+            in: "query",
+            required: true,
+            schema: {
+              type: "object",
+              properties: {
+                name: { type: "string" },
+              },
+              additionalProperties: false,
+              required: [],
+            },
+          },
+        ],
+        responses: {
+          "200": {
+            description: "OK",
+          },
+        },
+      },
+    },
+    "/openapi/object/ref": {
+      parameters: [
+        {
+          $ref: "#/components/parameters/SharedObjectBase",
+        },
+      ],
+      get: {
+        parameters: [
+          {
+            $ref: "#/components/parameters/SharedObjectOverride",
+          },
+        ],
+        responses: {
+          "200": {
+            description: "OK",
+          },
+        },
+      },
+    },
+    "/openapi/headers/ref": {
+      get: {
+        parameters: [
+          {
+            $ref: "#/components/headers/TraceHeader",
+          },
+          {
+            $ref: "#/components/headers/RequestHeader",
+          },
+        ],
+        responses: {
+          "200": {
+            description: "OK",
+          },
+        },
+      },
+    },
+  }) satisfies OpenApiParameterPathsFixture;

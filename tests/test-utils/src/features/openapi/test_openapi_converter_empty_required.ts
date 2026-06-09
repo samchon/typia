@@ -101,22 +101,54 @@ export const test_openapi_converter_empty_required = (): void => {
     components: {
       schemas: {
         Target: optionalOpenApi(),
+        Required: requiredOpenApi(),
       },
     },
   };
+  const downgradedSwagger = OpenApiConverter.downgradeDocument(emended, "2.0");
+  const downgradedV30 = OpenApiConverter.downgradeDocument(emended, "3.0");
+  const downgradedV31 = OpenApiConverter.downgradeDocument(emended, "3.1");
   assertObjectNoRequired(
     "downgraded swagger",
-    OpenApiConverter.downgradeDocument(emended, "2.0").definitions!.Target!,
+    downgradedSwagger.definitions!.Target!,
+  );
+  assertObjectRequired(
+    "downgraded swagger required",
+    downgradedSwagger.definitions!.Required!,
+    false,
+    {
+      id: {
+        type: "string",
+      },
+    },
   );
   assertObjectNoRequired(
     "downgraded v3.0",
-    OpenApiConverter.downgradeDocument(emended, "3.0").components!.schemas!
-      .Target!,
+    downgradedV30.components!.schemas!.Target!,
+  );
+  assertObjectRequired(
+    "downgraded v3.0 required",
+    downgradedV30.components!.schemas!.Required!,
+    false,
+    {
+      id: {
+        type: "string",
+      },
+    },
   );
   assertObjectNoRequired(
     "downgraded v3.1",
-    OpenApiConverter.downgradeDocument(emended, "3.1").components!.schemas!
-      .Target!,
+    downgradedV31.components!.schemas!.Target!,
+  );
+  assertObjectRequired(
+    "downgraded v3.1 required",
+    downgradedV31.components!.schemas!.Required!,
+    false,
+    {
+      id: {
+        type: "string",
+      },
+    },
   );
 };
 
@@ -127,6 +159,15 @@ const optionalOpenApi = (): OpenApi.IJsonSchema.IObject => ({
   },
   additionalProperties: false,
   required: [],
+});
+
+const requiredOpenApi = (): OpenApi.IJsonSchema.IObject => ({
+  type: "object",
+  properties: {
+    id: { type: "string" },
+  },
+  additionalProperties: false,
+  required: ["id"],
 });
 
 const optionalV3 = (): OpenApiV3.IJsonSchema.IObject => ({
@@ -309,6 +350,15 @@ const assertObjectRequired = (
     | OpenApiV3_1.IJsonSchema
     | OpenApiV3_2.IJsonSchema
     | SwaggerV2.IJsonSchema,
+  expectedAdditionalProperties: false | undefined = undefined,
+  expectedProperties: Record<string, { type: "string" }> = {
+    name: {
+      type: "string",
+    },
+    id: {
+      type: "string",
+    },
+  },
 ): void => {
   const object = schema as
     | OpenApi.IJsonSchema.IObject
@@ -326,15 +376,8 @@ const assertObjectRequired = (
     },
     {
       type: "object",
-      properties: {
-        name: {
-          type: "string",
-        },
-        id: {
-          type: "string",
-        },
-      },
-      additionalProperties: undefined,
+      properties: expectedProperties,
+      additionalProperties: expectedAdditionalProperties,
       required: ["id"],
     },
   );

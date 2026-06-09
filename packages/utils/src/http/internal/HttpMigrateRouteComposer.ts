@@ -118,7 +118,7 @@ export namespace HttpMigrateRouteComposer {
         }) satisfies IHttpMigrateRoute.IHeaders;
 
       if (objects.length === 1 && primitives.length === 0)
-        return out(parameters[0]!);
+        return out(sanitizeParameter(props.document)(parameters[0]!));
       else if (objects.length > 1) {
         failures.push(`${type} typed parameters must be only one object type`);
         return false;
@@ -497,6 +497,31 @@ export namespace HttpMigrateRouteComposer {
       $ref: `#/components/schemas/${props.name}`,
     } satisfies OpenApi.IJsonSchema.IReference;
   };
+
+  const sanitizeParameter =
+    (document: OpenApi.IDocument) =>
+    (
+      parameter: OpenApi.IOperation.IParameter,
+    ): OpenApi.IOperation.IParameter => ({
+      ...parameter,
+      schema: sanitizeObjectSchema(document)(parameter.schema),
+    });
+
+  const sanitizeObjectSchema =
+    (document: OpenApi.IDocument) =>
+    (schema: OpenApi.IJsonSchema): OpenApi.IJsonSchema => {
+      if (OpenApiTypeChecker.isObject(schema))
+        return OpenApiSchemaSanitizer.omitEmptyRequired(schema);
+      if (OpenApiTypeChecker.isReference(schema)) {
+        const key: string = schema.$ref.replace("#/components/schemas/", "");
+        const found: OpenApi.IJsonSchema | undefined =
+          document.components.schemas?.[key];
+        if (found !== undefined && OpenApiTypeChecker.isObject(found))
+          document.components.schemas![key] =
+            OpenApiSchemaSanitizer.omitEmptyRequired(found);
+      }
+      return schema;
+    };
 
   const isNotObjectLiteral = (schema: OpenApi.IJsonSchema): boolean =>
     OpenApiTypeChecker.isReference(schema) ||

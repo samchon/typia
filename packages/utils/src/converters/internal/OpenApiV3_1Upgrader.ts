@@ -71,9 +71,10 @@ export namespace OpenApiV3_1Upgrader {
               ]),
           )
         : undefined;
+      const { parameters: _parameters, ...rest } = pathItem as any;
 
       return {
-        ...(pathItem as any),
+        ...rest,
         ...(pathItem.get
           ? { get: convertOperation(doc)(pathItem)(pathItem.get) }
           : undefined),
@@ -162,7 +163,9 @@ export namespace OpenApiV3_1Upgrader {
         const header:
           | Omit<OpenApiV3_1.IOperation.IParameter, "in">
           | undefined = components.headers?.[key];
-        return header !== undefined ? { ...header, in: "header" } : undefined;
+        if (header === undefined) return undefined;
+        const { name, ...rest } = header;
+        return { ...rest, name: name ?? key, in: "header" };
       }
       return components.parameters?.[key];
     };

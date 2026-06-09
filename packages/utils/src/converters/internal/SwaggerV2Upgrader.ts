@@ -51,9 +51,10 @@ export namespace SwaggerV2Upgrader {
               ]),
           )
         : undefined;
+      const { parameters: _parameters, ...rest } = pathItem as any;
 
       return {
-        ...(pathItem as any),
+        ...rest,
         ...(pathItem.get
           ? { get: convertOperation(doc)(pathItem)(pathItem.get) }
           : undefined),

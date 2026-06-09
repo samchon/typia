@@ -9,21 +9,43 @@ import { HttpMigration } from "@typia/utils";
 /**
  * Verifies HttpMigration omits empty synthesized `required` arrays.
  *
- * Query and header primitive parameters are gathered into synthesized component
- * object schemas, while inline body schemas are stored as referenced
- * components. Optional-only schemas must not reintroduce `required: []` into
- * the migrated OpenAPI document.
+ * Query and header parameters are gathered into route schemas, while inline
+ * body schemas are stored as referenced components. Optional-only schemas must
+ * not reintroduce `required: []` into the migrated OpenAPI document, including
+ * the single object-parameter fast path.
  *
- * 1. Compose a route with optional query, request body, and response body objects.
- * 2. Resolve the synthesized query and body component schemas.
- * 3. Assert every component keeps its object shape and omits empty `required`.
+ * 1. Compose routes with primitive query parameters, inline/ref object
+ *    query/header parameters, request bodies, and response bodies.
+ * 2. Resolve synthesized and referenced route schemas.
+ * 3. Assert every object keeps its shape and omits empty `required`.
  */
 export const test_http_migrate_empty_required = (): void => {
   const document: OpenApi.IDocument = {
     openapi: "3.2.0",
     "x-typia-emended-v12": true,
     info: { title: "test", version: "1.0.0" },
-    components: {},
+    components: {
+      schemas: {
+        ReferencedHeaders: {
+          type: "object",
+          properties: {
+            token: {
+              type: "string",
+            },
+          },
+          required: [],
+        },
+        ReferencedQuery: {
+          type: "object",
+          properties: {
+            search: {
+              type: "string",
+            },
+          },
+          required: [],
+        },
+      },
+    },
     paths: {
       "/items": {
         get: {
@@ -70,11 +92,95 @@ export const test_http_migrate_empty_required = (): void => {
           },
         },
       },
+      "/inline-query": {
+        get: {
+          parameters: [
+            {
+              name: "query",
+              in: "query",
+              schema: {
+                type: "object",
+                properties: {
+                  search: {
+                    type: "string",
+                  },
+                },
+                required: [],
+              },
+            },
+          ],
+          responses: {
+            "200": {
+              description: "OK",
+            },
+          },
+        },
+      },
+      "/ref-query": {
+        get: {
+          parameters: [
+            {
+              name: "query",
+              in: "query",
+              schema: {
+                $ref: "#/components/schemas/ReferencedQuery",
+              },
+            },
+          ],
+          responses: {
+            "200": {
+              description: "OK",
+            },
+          },
+        },
+      },
+      "/inline-headers": {
+        get: {
+          parameters: [
+            {
+              name: "headers",
+              in: "header",
+              schema: {
+                type: "object",
+                properties: {
+                  token: {
+                    type: "string",
+                  },
+                },
+                required: [],
+              },
+            },
+          ],
+          responses: {
+            "200": {
+              description: "OK",
+            },
+          },
+        },
+      },
+      "/ref-headers": {
+        get: {
+          parameters: [
+            {
+              name: "headers",
+              in: "header",
+              schema: {
+                $ref: "#/components/schemas/ReferencedHeaders",
+              },
+            },
+          ],
+          responses: {
+            "200": {
+              description: "OK",
+            },
+          },
+        },
+      },
     },
   };
 
   const app: IHttpMigrateApplication = HttpMigration.application(document);
-  const route: IHttpMigrateRoute = app.routes[0]!;
+  const route: IHttpMigrateRoute = findRoute(app, "/items");
   const ref = route.query!.schema as OpenApi.IJsonSchema.IReference;
   const key = ref.$ref.split("/").at(-1)!;
   const schema = app.document().components.schemas![
@@ -99,7 +205,32 @@ export const test_http_migrate_empty_required = (): void => {
     resolve(app, route.success!.schema),
     "value",
   );
+  assertObjectNoRequired(
+    "inline query",
+    resolveSchema(app, findRoute(app, "/inline-query").query!.schema),
+    "search",
+  );
+  assertObjectNoRequired(
+    "referenced query",
+    resolveSchema(app, findRoute(app, "/ref-query").query!.schema),
+    "search",
+  );
+  assertObjectNoRequired(
+    "inline headers",
+    resolveSchema(app, findRoute(app, "/inline-headers").headers!.schema),
+    "token",
+  );
+  assertObjectNoRequired(
+    "referenced headers",
+    resolveSchema(app, findRoute(app, "/ref-headers").headers!.schema),
+    "token",
+  );
 };
+
+const findRoute = (
+  app: IHttpMigrateApplication,
+  path: string,
+): IHttpMigrateRoute => app.routes.find((route) => route.path === path)!;
 
 const resolve = (
   app: IHttpMigrateApplication,
@@ -109,6 +240,14 @@ const resolve = (
   const key = ref.$ref.split("/").at(-1)!;
   return app.document().components.schemas![key] as OpenApi.IJsonSchema.IObject;
 };
+
+const resolveSchema = (
+  app: IHttpMigrateApplication,
+  schema: OpenApi.IJsonSchema,
+): OpenApi.IJsonSchema.IObject =>
+  "$ref" in schema
+    ? resolve(app, schema)
+    : (schema as OpenApi.IJsonSchema.IObject);
 
 const assertObjectNoRequired = (
   name: string,
