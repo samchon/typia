@@ -3,6 +3,7 @@ package main
 import (
   "bytes"
   "os"
+  "os/exec"
   "path/filepath"
   "runtime"
   "strings"
@@ -19,20 +20,11 @@ import (
 //  1. Transform a fixture with required number, string, and boolean nullable
 //     properties.
 //  2. Assert each property keeps both the primitive guard and the null guard.
-//  3. Cover normal and reversed union order plus nested object and array entries.
+//  3. Execute the emitted validator against primitive, null, missing, and
+//     undefined runtime cases.
 func TestNullablePrimitivePropertyIsTransform(t *testing.T) {
   project := nullablePrimitivePropertyProject(t)
-  out, errText, code := nullablePrimitivePropertyCapture(func() int {
-    return runTransform([]string{
-      "--cwd", project,
-      "--tsconfig", "tsconfig.json",
-      "--file", "src/main.ts",
-      "--output", "ts",
-    })
-  })
-  if code != 0 {
-    t.Fatalf("nullable primitive transform failed: code=%d stderr=\n%s", code, errText)
-  }
+  out := nullablePrimitivePropertyTransform(t, project, "ts")
 
   nullablePrimitivePropertyContainsAll(t, out, []string{
     `null === input.number || "number" === typeof input.number`,
@@ -42,6 +34,11 @@ func TestNullablePrimitivePropertyIsTransform(t *testing.T) {
     `null === input.value || "string" === typeof input.value`,
     `null === input.value || "boolean" === typeof input.value`,
   })
+  nullablePrimitivePropertyRunRuntimeCases(
+    t,
+    project,
+    nullablePrimitivePropertyTransform(t, project, "js"),
+  )
 }
 
 func nullablePrimitivePropertyProject(t *testing.T) string {
@@ -105,12 +102,57 @@ func nullablePrimitivePropertyCapture(run func() int) (string, string, int) {
   return out.String(), err.String(), code
 }
 
+func nullablePrimitivePropertyTransform(t *testing.T, project string, output string) string {
+  t.Helper()
+  out, errText, code := nullablePrimitivePropertyCapture(func() int {
+    return runTransform([]string{
+      "--cwd", project,
+      "--tsconfig", "tsconfig.json",
+      "--file", "src/main.ts",
+      "--output", output,
+    })
+  })
+  if code != 0 {
+    t.Fatalf("nullable primitive transform failed: output=%s code=%d stderr=\n%s", output, code, errText)
+  }
+  return out
+}
+
 func nullablePrimitivePropertyContainsAll(t *testing.T, text string, expected []string) {
   t.Helper()
   for _, needle := range expected {
     if !strings.Contains(text, needle) {
       t.Fatalf("expected transform output to contain %q:\n%s", needle, text)
     }
+  }
+}
+
+func nullablePrimitivePropertyRunRuntimeCases(t *testing.T, project string, js string) {
+  t.Helper()
+  node, err := exec.LookPath("node")
+  if err != nil {
+    t.Skip("node executable not found")
+  }
+  runtimeDir := filepath.Join(project, "runtime")
+  if err := os.MkdirAll(runtimeDir, 0o755); err != nil {
+    t.Fatalf("mkdir runtime dir: %v", err)
+  }
+  if err := os.WriteFile(filepath.Join(runtimeDir, "typia-stub.cjs"), []byte("module.exports = {};\n"), 0o644); err != nil {
+    t.Fatalf("write typia stub: %v", err)
+  }
+  runtimeJS := strings.ReplaceAll(js, `require("typia")`, `require("./typia-stub.cjs")`)
+  if err := os.WriteFile(filepath.Join(runtimeDir, "main.cjs"), []byte(runtimeJS), 0o644); err != nil {
+    t.Fatalf("write runtime module: %v", err)
+  }
+  runner := filepath.Join(runtimeDir, "run.cjs")
+  if err := os.WriteFile(runner, []byte(nullablePrimitivePropertyRuntimeRunner), 0o644); err != nil {
+    t.Fatalf("write runtime runner: %v", err)
+  }
+  cmd := exec.Command(node, runner)
+  cmd.Dir = project
+  output, err := cmd.CombinedOutput()
+  if err != nil {
+    t.Fatalf("nullable primitive runtime cases failed: %v\n%s", err, output)
   }
 }
 
@@ -123,9 +165,7 @@ const nullablePrimitivePropertyTSConfig = `{
     "types": ["*"],
     "esModuleInterop": true,
     "strict": true,
-    "skipLibCheck": true,
-    "rootDir": "src",
-    "outDir": "dist"
+    "skipLibCheck": true
   },
   "include": ["src"]
 }
@@ -148,4 +188,49 @@ interface NullablePrimitiveProperties {
 
 export const isNullablePrimitive = (input: unknown): boolean =>
   typia.is<NullablePrimitiveProperties>(input);
+`
+
+const nullablePrimitivePropertyRuntimeRunner = `const { isNullablePrimitive } = require("./main.cjs");
+
+const valid = {
+  number: 1,
+  string: "alpha",
+  boolean: true,
+  reversedNumber: 2,
+  nested: { value: "nested" },
+  array: [{ value: false }],
+};
+const allNull = {
+  number: null,
+  string: null,
+  boolean: null,
+  reversedNumber: null,
+  nested: { value: null },
+  array: [{ value: null }],
+};
+const cases = [
+  ["valid primitives", valid, true],
+  ["all nullable fields are null", allNull, true],
+  ["wrong number primitive", { ...valid, number: "1" }, false],
+  ["wrong string primitive", { ...valid, string: 1 }, false],
+  ["wrong boolean primitive", { ...valid, boolean: "true" }, false],
+  ["wrong reversed primitive", { ...valid, reversedNumber: false }, false],
+  ["wrong nested nullable primitive", { ...valid, nested: { value: 1 } }, false],
+  ["wrong array nullable primitive", { ...valid, array: [{ value: "false" }] }, false],
+  ["missing required property", (() => {
+    const next = { ...valid };
+    delete next.number;
+    return next;
+  })(), false],
+  ["present undefined required property", { ...valid, number: undefined }, false],
+  ["present undefined nested property", { ...valid, nested: { value: undefined } }, false],
+  ["present undefined array property", { ...valid, array: [{ value: undefined }] }, false],
+];
+
+for (const [name, input, expected] of cases) {
+  const actual = isNullablePrimitive(input);
+  if (actual !== expected) {
+    throw new Error(name + ": expected " + expected + " but got " + actual);
+  }
+}
 `
