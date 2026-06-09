@@ -30,6 +30,7 @@ export const test_openapi_converter_empty_required = (): void => {
         definitions: {
           Target: optionalSwagger(),
           Merged: mergedSwagger(),
+          MergedRequired: mergedRequiredSwagger(),
         },
       } satisfies SwaggerV2.IDocument).components.schemas!,
     ],
@@ -43,6 +44,7 @@ export const test_openapi_converter_empty_required = (): void => {
           schemas: {
             Target: optionalV3(),
             Merged: mergedV3(),
+            MergedRequired: mergedRequiredV3(),
           },
         },
       } satisfies OpenApiV3.IDocument).components.schemas!,
@@ -57,6 +59,7 @@ export const test_openapi_converter_empty_required = (): void => {
           schemas: {
             Target: optionalV31(),
             Merged: mergedV31(),
+            MergedRequired: mergedRequiredV31(),
           },
         },
       } satisfies OpenApiV3_1.IDocument).components.schemas!,
@@ -71,6 +74,7 @@ export const test_openapi_converter_empty_required = (): void => {
           schemas: {
             Target: optionalV32(),
             Merged: mergedV32(),
+            MergedRequired: mergedRequiredV32(),
           },
         },
       } satisfies OpenApiV3_2.IDocument).components.schemas!,
@@ -78,7 +82,15 @@ export const test_openapi_converter_empty_required = (): void => {
   ] as const;
   for (const [name, schemas] of upgraded) {
     assertObjectNoRequired(`${name} upgraded object`, schemas.Target!);
-    assertObjectNoRequired(`${name} upgraded allOf`, schemas.Merged!);
+    assertObjectNoRequired(
+      `${name} upgraded optional allOf`,
+      schemas.Merged!,
+      undefined,
+    );
+    assertObjectRequired(
+      `${name} upgraded required allOf`,
+      schemas.MergedRequired!,
+    );
   }
 
   const emended: OpenApi.IDocument = {
@@ -153,20 +165,100 @@ const optionalSwagger = (): SwaggerV2.IJsonSchema.IObject => ({
   required: [],
 });
 
+const emptyV3 = (): OpenApiV3.IJsonSchema.IObject => ({
+  type: "object",
+  properties: {},
+  additionalProperties: false,
+  required: [],
+});
+
+const emptyV31 = (): OpenApiV3_1.IJsonSchema.IObject => ({
+  type: "object",
+  properties: {},
+  additionalProperties: false,
+  required: [],
+});
+
+const emptyV32 = (): OpenApiV3_2.IJsonSchema.IObject => ({
+  type: "object",
+  properties: {},
+  additionalProperties: false,
+  required: [],
+});
+
+const emptySwagger = (): SwaggerV2.IJsonSchema.IObject => ({
+  type: "object",
+  properties: {},
+  additionalProperties: false,
+  required: [],
+});
+
+const requiredV3 = (): OpenApiV3.IJsonSchema.IObject => ({
+  type: "object",
+  properties: {
+    id: { type: "string" },
+  },
+  additionalProperties: false,
+  required: ["id"],
+});
+
+const requiredV31 = (): OpenApiV3_1.IJsonSchema.IObject => ({
+  type: "object",
+  properties: {
+    id: { type: "string" },
+  },
+  additionalProperties: false,
+  required: ["id"],
+});
+
+const requiredV32 = (): OpenApiV3_2.IJsonSchema.IObject => ({
+  type: "object",
+  properties: {
+    id: { type: "string" },
+  },
+  additionalProperties: false,
+  required: ["id"],
+});
+
+const requiredSwagger = (): SwaggerV2.IJsonSchema.IObject => ({
+  type: "object",
+  properties: {
+    id: { type: "string" },
+  },
+  additionalProperties: false,
+  required: ["id"],
+});
+
 const mergedV3 = (): OpenApiV3.IJsonSchema.IAllOf => ({
-  allOf: [optionalV3()],
+  allOf: [optionalV3(), emptyV3()],
 });
 
 const mergedV31 = (): OpenApiV3_1.IJsonSchema.IAllOf => ({
-  allOf: [optionalV31()],
+  allOf: [optionalV31(), emptyV31()],
 });
 
 const mergedV32 = (): OpenApiV3_2.IJsonSchema.IAllOf => ({
-  allOf: [optionalV32()],
+  allOf: [optionalV32(), emptyV32()],
 });
 
 const mergedSwagger = (): SwaggerV2.IJsonSchema.IAllOf => ({
-  allOf: [optionalSwagger()],
+  allOf: [optionalSwagger(), emptySwagger()],
+});
+
+const mergedRequiredV3 = (): OpenApiV3.IJsonSchema.IAllOf => ({
+  allOf: [optionalV3(), requiredV3()],
+});
+
+const mergedRequiredV31 = (): OpenApiV3_1.IJsonSchema.IAllOf => ({
+  allOf: [optionalV31(), requiredV31()],
+});
+
+const mergedRequiredV32 = (): OpenApiV3_2.IJsonSchema.IAllOf => ({
+  allOf: [optionalV32(), requiredV32()],
+});
+
+const mergedRequiredSwagger = (): SwaggerV2.IJsonSchema.IAllOf => ({
+  allOf: [optionalSwagger(), requiredSwagger()],
 });
 
 const assertObjectNoRequired = (
@@ -177,6 +269,7 @@ const assertObjectNoRequired = (
     | OpenApiV3_1.IJsonSchema
     | OpenApiV3_2.IJsonSchema
     | SwaggerV2.IJsonSchema,
+  expectedAdditionalProperties: false | undefined = false,
 ): void => {
   const object = schema as
     | OpenApi.IJsonSchema.IObject
@@ -198,12 +291,51 @@ const assertObjectNoRequired = (
           type: "string",
         },
       },
-      additionalProperties: false,
+      additionalProperties: expectedAdditionalProperties,
     },
   );
   TestValidator.equals(
     `${name} required omitted`,
     Object.prototype.hasOwnProperty.call(schema, "required"),
     false,
+  );
+};
+
+const assertObjectRequired = (
+  name: string,
+  schema:
+    | OpenApi.IJsonSchema
+    | OpenApiV3.IJsonSchema
+    | OpenApiV3_1.IJsonSchema
+    | OpenApiV3_2.IJsonSchema
+    | SwaggerV2.IJsonSchema,
+): void => {
+  const object = schema as
+    | OpenApi.IJsonSchema.IObject
+    | OpenApiV3.IJsonSchema.IObject
+    | OpenApiV3_1.IJsonSchema.IObject
+    | OpenApiV3_2.IJsonSchema.IObject
+    | SwaggerV2.IJsonSchema.IObject;
+  TestValidator.equals(
+    `${name} object shape`,
+    {
+      type: object.type,
+      properties: object.properties,
+      additionalProperties: object.additionalProperties,
+      required: object.required,
+    },
+    {
+      type: "object",
+      properties: {
+        name: {
+          type: "string",
+        },
+        id: {
+          type: "string",
+        },
+      },
+      additionalProperties: undefined,
+      required: ["id"],
+    },
   );
 };

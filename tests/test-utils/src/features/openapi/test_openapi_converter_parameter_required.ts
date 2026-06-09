@@ -1,5 +1,11 @@
 import { TestValidator } from "@nestia/e2e";
-import { OpenApi, SwaggerV2 } from "@typia/interface";
+import {
+  OpenApi,
+  OpenApiV3,
+  OpenApiV3_1,
+  OpenApiV3_2,
+  SwaggerV2,
+} from "@typia/interface";
 import { OpenApiConverter } from "@typia/utils";
 
 /**
@@ -15,8 +21,10 @@ import { OpenApiConverter } from "@typia/utils";
  *    parameter-level and request-body `required` values.
  * 2. Upgrade a Swagger v2 document with the same parameter/body cases, including
  *    schema-array `required`, path normalization, and mixed `$ref` bodies.
- * 3. Assert omitted optional values, explicit `false`, and required `true` are
- *    preserved.
+ * 3. Upgrade OpenAPI v3.0, v3.1, and v3.2 documents with path-level parameters
+ *    overridden at the operation level.
+ * 4. Assert omitted optional values, explicit `false`, required `true`, and
+ *    parameter override semantics are preserved.
  */
 export const test_openapi_converter_parameter_required = (): void => {
   const swagger: SwaggerV2.IDocument = OpenApiConverter.downgradeDocument(
@@ -676,6 +684,36 @@ export const test_openapi_converter_parameter_required = (): void => {
     keyword: upgradedRefOverrideKeyword,
     id: upgradedRefOverrideId,
   });
+  assertOpenApiV3OperationOverride(
+    "v3.0 operation parameter overrides path",
+    OpenApiConverter.upgradeDocument(openApiV3ParameterDocument()),
+    "/openapi/direct/{id}",
+  );
+  assertOpenApiV3OperationOverride(
+    "v3.0 operation refs override path refs",
+    OpenApiConverter.upgradeDocument(openApiV3ParameterDocument()),
+    "/openapi/ref/{id}",
+  );
+  assertOpenApiV3OperationOverride(
+    "v3.1 operation parameter overrides path",
+    OpenApiConverter.upgradeDocument(openApiV31ParameterDocument()),
+    "/openapi/direct/{id}",
+  );
+  assertOpenApiV3OperationOverride(
+    "v3.1 operation refs override path refs",
+    OpenApiConverter.upgradeDocument(openApiV31ParameterDocument()),
+    "/openapi/ref/{id}",
+  );
+  assertOpenApiV3OperationOverride(
+    "v3.2 operation parameter overrides path",
+    OpenApiConverter.upgradeDocument(openApiV32ParameterDocument()),
+    "/openapi/direct/{id}",
+  );
+  assertOpenApiV3OperationOverride(
+    "v3.2 operation refs override path refs",
+    OpenApiConverter.upgradeDocument(openApiV32ParameterDocument()),
+    "/openapi/ref/{id}",
+  );
   assertSchemaMetadataOmitted("upgraded keyword schema", upgradedKeyword);
   assertSchemaMetadataOmitted("upgraded filter schema", upgradedFilter);
   assertSchemaMetadataOmitted("upgraded path schema", upgradedId);
@@ -847,6 +885,19 @@ const assertSchemaMetadataOmitted = (
     },
   );
 
+const assertOpenApiV3OperationOverride = (
+  title: string,
+  document: OpenApi.IDocument,
+  path: string,
+): void => {
+  const parameters = document.paths![path]!.get!.parameters!;
+  const keyword = parameters.find(
+    (p) => p.name === "keyword" && p.in === "query",
+  )!;
+  const id = parameters.find((p) => p.name === "id" && p.in === "path")!;
+  assertOperationOverride(title, { parameters, keyword, id });
+};
+
 const assertOperationOverride = (
   title: string,
   props: {
@@ -860,11 +911,13 @@ const assertOperationOverride = (
     {
       count: props.parameters.length,
       keyword: {
+        in: props.keyword.in,
         own: Object.prototype.hasOwnProperty.call(props.keyword, "required"),
         required: props.keyword.required,
         schema: (props.keyword.schema as OpenApi.IJsonSchema.INumber).type,
       },
       id: {
+        in: props.id.in,
         own: Object.prototype.hasOwnProperty.call(props.id, "required"),
         required: props.id.required,
         schema: (props.id.schema as OpenApi.IJsonSchema.IInteger).type,
@@ -873,14 +926,134 @@ const assertOperationOverride = (
     {
       count: 2,
       keyword: {
+        in: "query",
         own: true,
         required: true,
         schema: "number",
       },
       id: {
+        in: "path",
         own: true,
         required: true,
         schema: "integer",
       },
     },
   );
+
+const openApiV3ParameterDocument = (): OpenApiV3.IDocument =>
+  ({
+    openapi: "3.0.0",
+    info: { title: "test", version: "1.0.0" },
+    components: openApiParameterComponents(),
+    paths: openApiParameterPaths(),
+  }) as OpenApiV3.IDocument;
+
+const openApiV31ParameterDocument = (): OpenApiV3_1.IDocument =>
+  ({
+    openapi: "3.1.0",
+    info: { title: "test", version: "1.0.0" },
+    components: openApiParameterComponents(),
+    paths: openApiParameterPaths(),
+  }) as OpenApiV3_1.IDocument;
+
+const openApiV32ParameterDocument = (): OpenApiV3_2.IDocument =>
+  ({
+    openapi: "3.2.0",
+    info: { title: "test", version: "1.0.0" },
+    components: openApiParameterComponents(),
+    paths: openApiParameterPaths(),
+  }) as OpenApiV3_2.IDocument;
+
+const openApiParameterComponents = () =>
+  ({
+    parameters: {
+      SharedQueryBase: {
+        name: "keyword",
+        in: "query",
+        required: false,
+        schema: { type: "string" },
+      },
+      SharedQueryOverride: {
+        name: "keyword",
+        in: "query",
+        required: true,
+        schema: { type: "number" },
+      },
+      SharedPathBase: {
+        name: "id",
+        in: "path",
+        schema: { type: "string" },
+      },
+      SharedPathOverride: {
+        name: "id",
+        in: "path",
+        required: false,
+        schema: { type: "integer" },
+      },
+    },
+  }) as const;
+
+const openApiParameterPaths = () =>
+  ({
+    "/openapi/direct/{id}": {
+      parameters: [
+        {
+          name: "keyword",
+          in: "query",
+          required: false,
+          schema: { type: "string" },
+        },
+        {
+          name: "id",
+          in: "path",
+          schema: { type: "string" },
+        },
+      ],
+      get: {
+        parameters: [
+          {
+            name: "keyword",
+            in: "query",
+            required: true,
+            schema: { type: "number" },
+          },
+          {
+            name: "id",
+            in: "path",
+            required: false,
+            schema: { type: "integer" },
+          },
+        ],
+        responses: {
+          "200": {
+            description: "OK",
+          },
+        },
+      },
+    },
+    "/openapi/ref/{id}": {
+      parameters: [
+        {
+          $ref: "#/components/parameters/SharedQueryBase",
+        },
+        {
+          $ref: "#/components/parameters/SharedPathBase",
+        },
+      ],
+      get: {
+        parameters: [
+          {
+            $ref: "#/components/parameters/SharedQueryOverride",
+          },
+          {
+            $ref: "#/components/parameters/SharedPathOverride",
+          },
+        ],
+        responses: {
+          "200": {
+            description: "OK",
+          },
+        },
+      },
+    },
+  }) as const;

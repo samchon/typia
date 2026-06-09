@@ -82,63 +82,98 @@ export namespace OpenApiV3Upgrader {
   const convertOperation =
     (doc: OpenApiV3.IDocument) =>
     (pathItem: OpenApiV3.IPath) =>
-    (input: OpenApiV3.IOperation): OpenApi.IOperation => ({
-      ...input,
-      parameters:
-        pathItem.parameters !== undefined || input.parameters !== undefined
-          ? [...(pathItem.parameters ?? []), ...(input.parameters ?? [])]
-              .map((p) => {
-                if (!OpenApiV3TypeChecker.isReference(p))
-                  return convertParameter(doc.components ?? {})(p);
-                const found:
-                  | Omit<OpenApiV3.IOperation.IParameter, "in">
-                  | undefined = p.$ref.startsWith("#/components/headers/")
-                  ? doc.components?.headers?.[p.$ref.split("/").pop() ?? ""]
-                  : doc.components?.parameters?.[p.$ref.split("/").pop() ?? ""];
-                return found !== undefined
-                  ? convertParameter(doc.components ?? {})({
-                      ...found,
-                      in: "header",
-                    })
-                  : undefined!;
-              })
-              .filter((_, v) => v !== undefined)
-          : undefined,
-      requestBody: input.requestBody
-        ? convertRequestBody(doc)(input.requestBody)
-        : undefined,
-      responses: input.responses
-        ? Object.fromEntries(
-            Object.entries(input.responses)
-              .filter(([_, v]) => v !== undefined)
-              .map(
-                ([key, value]) => [key, convertResponse(doc)(value)!] as const,
+    (input: OpenApiV3.IOperation): OpenApi.IOperation => {
+      const components: OpenApiV3.IComponents = doc.components ?? {};
+      const pathParameters: OpenApiV3.IOperation.IParameter[] = (
+        pathItem.parameters ?? []
+      )
+        .map(resolveParameter(components))
+        .filter((p): p is OpenApiV3.IOperation.IParameter => p !== undefined);
+      const operationParameters: OpenApiV3.IOperation.IParameter[] = (
+        input.parameters ?? []
+      )
+        .map(resolveParameter(components))
+        .filter((p): p is OpenApiV3.IOperation.IParameter => p !== undefined);
+      return {
+        ...input,
+        parameters:
+          pathItem.parameters !== undefined || input.parameters !== undefined
+            ? mergeParameters(pathParameters, operationParameters).map(
+                convertParameter(components),
               )
-              .filter(([_, v]) => v !== undefined),
-          )
-        : undefined,
-    });
+            : undefined,
+        requestBody: input.requestBody
+          ? convertRequestBody(doc)(input.requestBody)
+          : undefined,
+        responses: input.responses
+          ? Object.fromEntries(
+              Object.entries(input.responses)
+                .filter(([_, v]) => v !== undefined)
+                .map(
+                  ([key, value]) =>
+                    [key, convertResponse(doc)(value)!] as const,
+                )
+                .filter(([_, v]) => v !== undefined),
+            )
+          : undefined,
+      };
+    };
+
+  const resolveParameter =
+    (components: OpenApiV3.IComponents) =>
+    (
+      input:
+        | OpenApiV3.IOperation.IParameter
+        | OpenApiV3.IJsonSchema.IReference<`#/components/headers/${string}`>
+        | OpenApiV3.IJsonSchema.IReference<`#/components/parameters/${string}`>,
+    ): OpenApiV3.IOperation.IParameter | undefined => {
+      if (!OpenApiV3TypeChecker.isReference(input)) return input;
+      const key: string = input.$ref.split("/").pop() ?? "";
+      if (input.$ref.startsWith("#/components/headers/")) {
+        const header: Omit<OpenApiV3.IOperation.IParameter, "in"> | undefined =
+          components.headers?.[key];
+        return header !== undefined ? { ...header, in: "header" } : undefined;
+      }
+      return components.parameters?.[key];
+    };
+
+  const mergeParameters = (
+    pathParameters: OpenApiV3.IOperation.IParameter[],
+    operationParameters: OpenApiV3.IOperation.IParameter[],
+  ): OpenApiV3.IOperation.IParameter[] => {
+    const map: Map<string, OpenApiV3.IOperation.IParameter> = new Map();
+    const emplace = (parameter: OpenApiV3.IOperation.IParameter): void => {
+      map.set(`${parameter.in}:${parameter.name}`, parameter);
+    };
+    pathParameters.forEach(emplace);
+    operationParameters.forEach(emplace);
+    return [...map.values()];
+  };
 
   const convertParameter =
     (components: OpenApiV3.IComponents) =>
-    (
-      input: OpenApiV3.IOperation.IParameter,
-    ): OpenApi.IOperation.IParameter => ({
-      ...input,
-      schema: convertSchema(components)(input.schema),
-      examples: input.examples
-        ? Object.fromEntries(
-            Object.entries(input.examples)
-              .map(([key, value]) => [
-                key,
-                OpenApiV3TypeChecker.isReference(value)
-                  ? components.examples?.[value.$ref.split("/").pop() ?? ""]
-                  : value,
-              ])
-              .filter(([_, v]) => v !== undefined),
-          )
-        : undefined,
-    });
+    (input: OpenApiV3.IOperation.IParameter): OpenApi.IOperation.IParameter => {
+      const { required: inputRequired, ...rest } = input;
+      const required: boolean | undefined =
+        input.in === "path" ? true : inputRequired;
+      return {
+        ...rest,
+        ...(required !== undefined ? { required } : {}),
+        schema: convertSchema(components)(input.schema),
+        examples: input.examples
+          ? Object.fromEntries(
+              Object.entries(input.examples)
+                .map(([key, value]) => [
+                  key,
+                  OpenApiV3TypeChecker.isReference(value)
+                    ? components.examples?.[value.$ref.split("/").pop() ?? ""]
+                    : value,
+                ])
+                .filter(([_, v]) => v !== undefined),
+            )
+          : undefined,
+      };
+    };
 
   const convertRequestBody =
     (doc: OpenApiV3.IDocument) =>
