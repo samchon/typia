@@ -29,14 +29,13 @@ func TestOptionPredicatorStrictOptionalUndefinedDistinguishesExplicitUnion(t *te
   }
 
   implicit := schemametadata.MetadataSchema_initialize()
-  implicit.Required = false
   implicit.Optional = true
   if !helpers.OptionPredicator.StrictOptionalUndefined(context, implicit) {
     t.Fatal("optional?: T should reject explicit undefined")
   }
 
   explicit := schemametadata.MetadataSchema_initialize()
-  explicit.Required = true
+  explicit.Required = false
   explicit.Optional = true
   if helpers.OptionPredicator.StrictOptionalUndefined(context, explicit) {
     t.Fatal("optional?: T | undefined should allow explicit undefined")
