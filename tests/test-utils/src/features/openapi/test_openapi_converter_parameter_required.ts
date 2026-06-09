@@ -14,7 +14,7 @@ import { OpenApiConverter } from "@typia/utils";
  * 1. Downgrade an emended OpenAPI document with omitted, false, and true
  *    parameter-level and request-body `required` values.
  * 2. Upgrade a Swagger v2 document with the same parameter/body cases, including
- *    schema-array `required`, path-level, and mixed `$ref` body parameters.
+ *    schema-array `required`, path normalization, and mixed `$ref` bodies.
  * 3. Assert omitted optional values, explicit `false`, and required `true` are
  *    preserved.
  */
@@ -282,6 +282,30 @@ export const test_openapi_converter_parameter_required = (): void => {
           },
         },
       },
+      "/path/{loose}/{falsePath}": {
+        get: {
+          parameters: [
+            {
+              name: "loose",
+              in: "path",
+              type: "string",
+            },
+            {
+              name: "falsePath",
+              in: "path",
+              required: false,
+              type: "string",
+            } as SwaggerV2.IOperation.IGeneralParameter & {
+              required: false;
+            },
+          ],
+          responses: {
+            "200": {
+              description: "OK",
+            },
+          },
+        },
+      },
       "/body/omitted": {
         post: {
           parameters: [
@@ -454,6 +478,14 @@ export const test_openapi_converter_parameter_required = (): void => {
   const upgradedId = upgraded.find((p) => p.name === "id")!;
   const upgradedObjectEmpty = upgraded.find((p) => p.name === "objectEmpty")!;
   const upgradedObjectNamed = upgraded.find((p) => p.name === "objectNamed")!;
+  const upgradedPathParameters =
+    openapi.paths!["/path/{loose}/{falsePath}"]!.get!.parameters!;
+  const upgradedLoosePath = upgradedPathParameters.find(
+    (p) => p.name === "loose",
+  )!;
+  const upgradedFalsePath = upgradedPathParameters.find(
+    (p) => p.name === "falsePath",
+  )!;
   const upgradedBodyOmitted =
     openapi.paths!["/body/omitted"]!.post!.requestBody!;
   const upgradedBodyFalse = openapi.paths!["/body/false"]!.post!.requestBody!;
@@ -494,6 +526,28 @@ export const test_openapi_converter_parameter_required = (): void => {
     {
       own: Object.prototype.hasOwnProperty.call(upgradedId, "required"),
       value: upgradedId.required,
+    },
+    {
+      own: true,
+      value: true,
+    },
+  );
+  TestValidator.equals(
+    "upgraded omitted path required normalized",
+    {
+      own: Object.prototype.hasOwnProperty.call(upgradedLoosePath, "required"),
+      value: upgradedLoosePath.required,
+    },
+    {
+      own: true,
+      value: true,
+    },
+  );
+  TestValidator.equals(
+    "upgraded false path required normalized",
+    {
+      own: Object.prototype.hasOwnProperty.call(upgradedFalsePath, "required"),
+      value: upgradedFalsePath.required,
     },
     {
       own: true,
