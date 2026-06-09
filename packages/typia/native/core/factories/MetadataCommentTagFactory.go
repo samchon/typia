@@ -325,11 +325,19 @@ func metadataCommentTagFactory_parse_type(props struct {
   } else if value == "uint" {
     value = "uint32"
   }
-  if metadataCommentTagFactory_includes([]string{"int32", "uint32", "int64", "uint64", "float", "double"}, value) == false {
+  if metadataCommentTagFactory_includes([]string{"int8", "uint8", "int16", "uint16", "int32", "uint32", "int64", "uint64", "float", "double"}, value) == false {
     return metadataCommentTagFactory_TagRecord{}
   }
   validate := "true"
-  if value == "int32" {
+  if value == "int8" {
+    validate = "Math.floor($input) === $input && -128 <= $input && $input <= 127"
+  } else if value == "uint8" {
+    validate = "Math.floor($input) === $input && 0 <= $input && $input <= 255"
+  } else if value == "int16" {
+    validate = "Math.floor($input) === $input && -32768 <= $input && $input <= 32767"
+  } else if value == "uint16" {
+    validate = "Math.floor($input) === $input && 0 <= $input && $input <= 65535"
+  } else if value == "int32" {
     validate = "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647"
   } else if value == "uint32" {
     validate = "Math.floor($input) === $input && 0 <= $input && $input <= 4294967295"
@@ -341,9 +349,9 @@ func metadataCommentTagFactory_parse_type(props struct {
     validate = "-1.175494351e38 <= $input && $input <= 3.4028235e38"
   }
   var numberSchema any
-  if value == "int32" || value == "int64" {
+  if value == "int8" || value == "int16" || value == "int32" || value == "int64" {
     numberSchema = map[string]any{"type": "integer"}
-  } else if value == "uint32" || value == "uint64" {
+  } else if value == "uint8" || value == "uint16" || value == "uint32" || value == "uint64" {
     numberSchema = map[string]any{"type": "integer", "minimum": 0}
   }
   var bigintSchema any

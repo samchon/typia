@@ -13,8 +13,38 @@ export const test_json_schema_spec_number = (): void => {
     },
   );
   TestValidator.equals(
+    "int8",
+    clean(typia.json.schema<number & tags.Type<"int8">>().schema),
+    {
+      type: "integer",
+    },
+  );
+  TestValidator.equals(
+    "int16",
+    clean(typia.json.schema<number & tags.Type<"int16">>().schema),
+    {
+      type: "integer",
+    },
+  );
+  TestValidator.equals(
     "uint32",
     clean(typia.json.schema<number & tags.Type<"uint32">>().schema),
+    {
+      type: "integer",
+      minimum: 0,
+    },
+  );
+  TestValidator.equals(
+    "uint8",
+    clean(typia.json.schema<number & tags.Type<"uint8">>().schema),
+    {
+      type: "integer",
+      minimum: 0,
+    },
+  );
+  TestValidator.equals(
+    "uint16",
+    clean(typia.json.schema<number & tags.Type<"uint16">>().schema),
     {
       type: "integer",
       minimum: 0,

@@ -14,8 +14,38 @@ export const test_llm_schema_spec_number = (): void => {
     },
   );
   TestValidator.equals(
+    "int8",
+    clean(typia.llm.schema<number & tags.Type<"int8">>({})),
+    {
+      type: "integer",
+    },
+  );
+  TestValidator.equals(
+    "int16",
+    clean(typia.llm.schema<number & tags.Type<"int16">>({})),
+    {
+      type: "integer",
+    },
+  );
+  TestValidator.equals(
     "uint32",
     clean(typia.llm.schema<number & tags.Type<"uint32">>({})),
+    {
+      type: "integer",
+      minimum: 0,
+    },
+  );
+  TestValidator.equals(
+    "uint8",
+    clean(typia.llm.schema<number & tags.Type<"uint8">>({})),
+    {
+      type: "integer",
+      minimum: 0,
+    },
+  );
+  TestValidator.equals(
+    "uint16",
+    clean(typia.llm.schema<number & tags.Type<"uint16">>({})),
     {
       type: "integer",
       minimum: 0,
