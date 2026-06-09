@@ -9,15 +9,15 @@ import {
 import { OpenApiConverter } from "@typia/utils";
 
 /**
- * Verifies OpenAPI conversion omits empty `required` arrays.
+ * Verifies OpenAPI conversion preserves empty `required` arrays.
  *
  * The converter family can synthesize object schemas from version upgrades,
- * downgrades, and `allOf` merges. Those paths must not reintroduce `required:
- * []` after typia's schema generator omits it.
+ * downgrades, and `allOf` merges. Version conversion must preserve explicit
+ * empty object keywords instead of stripping them as a cleanup step.
  *
  * 1. Upgrade Swagger/OpenAPI documents containing optional-only objects.
  * 2. Downgrade an emended OpenAPI document containing `required: []`.
- * 3. Assert every converted object keeps its shape and omits empty `required`.
+ * 3. Assert every converted object keeps its shape and empty `required`.
  */
 export const test_openapi_converter_empty_required = (): void => {
   const upgraded = [
@@ -85,8 +85,8 @@ export const test_openapi_converter_empty_required = (): void => {
     ],
   ] as const;
   for (const [name, schemas] of upgraded) {
-    assertObjectNoRequired(`${name} upgraded object`, schemas.Target!);
-    assertObjectNoRequired(
+    assertObjectEmptyRequired(`${name} upgraded object`, schemas.Target!);
+    assertObjectEmptyRequired(
       `${name} upgraded optional allOf`,
       schemas.Merged!,
       false,
@@ -118,7 +118,7 @@ export const test_openapi_converter_empty_required = (): void => {
   const downgradedSwagger = OpenApiConverter.downgradeDocument(emended, "2.0");
   const downgradedV30 = OpenApiConverter.downgradeDocument(emended, "3.0");
   const downgradedV31 = OpenApiConverter.downgradeDocument(emended, "3.1");
-  assertObjectNoRequired(
+  assertObjectEmptyRequired(
     "downgraded swagger",
     downgradedSwagger.definitions!.Target!,
   );
@@ -132,7 +132,7 @@ export const test_openapi_converter_empty_required = (): void => {
       },
     },
   );
-  assertObjectNoRequired(
+  assertObjectEmptyRequired(
     "downgraded v3.0",
     downgradedV30.components!.schemas!.Target!,
   );
@@ -146,7 +146,7 @@ export const test_openapi_converter_empty_required = (): void => {
       },
     },
   );
-  assertObjectNoRequired(
+  assertObjectEmptyRequired(
     "downgraded v3.1",
     downgradedV31.components!.schemas!.Target!,
   );
@@ -328,7 +328,7 @@ const mergedRequiredFirstSwagger = (): SwaggerV2.IJsonSchema.IAllOf => ({
   allOf: [requiredSwagger(), optionalSwagger()],
 });
 
-const assertObjectNoRequired = (
+const assertObjectEmptyRequired = (
   name: string,
   schema:
     | OpenApi.IJsonSchema
@@ -350,6 +350,7 @@ const assertObjectNoRequired = (
       type: object.type,
       properties: object.properties,
       additionalProperties: object.additionalProperties,
+      required: object.required,
     },
     {
       type: "object",
@@ -359,12 +360,8 @@ const assertObjectNoRequired = (
         },
       },
       additionalProperties: expectedAdditionalProperties,
+      required: [],
     },
-  );
-  TestValidator.equals(
-    `${name} required omitted`,
-    Object.prototype.hasOwnProperty.call(schema, "required"),
-    false,
   );
 };
 

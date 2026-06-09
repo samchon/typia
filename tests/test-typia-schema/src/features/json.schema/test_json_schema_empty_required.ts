@@ -4,15 +4,15 @@ import { OpenApiValidator } from "@typia/utils";
 import typia, { tags } from "typia";
 
 /**
- * Verifies JSON schema omits empty `required` arrays.
+ * Verifies JSON schema keeps empty object keywords on named objects.
  *
- * Locks the OpenAPI/JSON Schema boundary for objects without required named
- * properties. Draft-04 and OpenAPI 3.0 reject `required: []`, while objects
- * with at least one required property must still emit the keyword.
+ * Locks the JSON schema boundary for named objects without required properties.
+ * Empty objects still need explicit `properties: {}` and `required: []`; only
+ * pure record schemas omit both named-object keywords.
  *
  * 1. Generate schemas for optional-only, filtered, record, and required objects.
- * 2. Assert empty required lists are omitted and optional fields stay optional.
- * 3. Assert non-empty required properties are still listed.
+ * 2. Assert named objects keep empty required lists and validate optionality.
+ * 3. Assert pure record schemas omit named-object keywords.
  */
 export const test_json_schema_empty_required = (): void => {
   interface IOptionalOnly {
@@ -38,11 +38,7 @@ export const test_json_schema_empty_required = (): void => {
   }
 
   const optionalOnly = object(typia.json.schema<IOptionalOnly>());
-  TestValidator.equals(
-    "optional-only required omitted",
-    hasOwn(optionalOnly, "required"),
-    false,
-  );
+  TestValidator.equals("optional-only required", optionalOnly.required, []);
   TestValidator.equals("optional-only properties", sorted(optionalOnly), [
     "count",
     "title",
@@ -60,17 +56,18 @@ export const test_json_schema_empty_required = (): void => {
 
   const filteredOnly = object(typia.json.schema<IFilteredOnly>());
   TestValidator.equals("filtered-only properties", sorted(filteredOnly), []);
-  TestValidator.equals(
-    "filtered-only required omitted",
-    hasOwn(filteredOnly, "required"),
-    false,
-  );
+  TestValidator.equals("filtered-only required", filteredOnly.required, []);
 
   const record = typia.json.schema<Record<string, string & tags.MinLength<1>>>()
     .schema as OpenApi.IJsonSchema.IObject;
   TestValidator.equals(
     "record required omitted",
     hasOwn(record, "required"),
+    false,
+  );
+  TestValidator.equals(
+    "record properties omitted",
+    hasOwn(record, "properties"),
     false,
   );
 

@@ -117,9 +117,7 @@ func json_schema_create_object_schema(props struct {
     "type":                 "object",
     "properties":           properties,
     "additionalProperties": false,
-  }
-  if len(required) != 0 {
-    schema["required"] = required
+    "required":             required,
   }
   if title := json_schema_title(struct {
     description *string
@@ -138,6 +136,10 @@ func json_schema_create_object_schema(props struct {
     extra      json_schema_superfluous
   }{components: props.components, extra: extraMeta}); additional != nil {
     schema["additionalProperties"] = additional
+  }
+  if len(properties) == 0 && len(required) == 0 && extraMeta.additionalProperties != nil && len(extraMeta.patternProperties) == 0 {
+    delete(schema, "properties")
+    delete(schema, "required")
   }
   return json_schema_jsDocTags(schema, props.object.Type.JsDocTags)
 }
