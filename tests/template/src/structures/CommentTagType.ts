@@ -25,6 +25,18 @@ export namespace CommentTagType {
     /** @type uint32 */
     uint32: number;
 
+    /** @type int8 */
+    int8: number;
+
+    /** @type uint8 */
+    uint8: number;
+
+    /** @type int16 */
+    int16: number;
+
+    /** @type uint16 */
+    uint16: number;
+
     /** @type int64 */
     int64: number;
 
@@ -42,17 +54,47 @@ export namespace CommentTagType {
         value.push({
           int,
           uint,
+          int8: int,
+          uint8: uint,
+          int16: int,
+          uint16: uint,
           int32: int,
           uint32: uint,
           int64: int,
           uint64: uint,
           float: int + 0.1,
         });
+    value.push({
+      int: -2147483648,
+      uint: 4294967295,
+      int8: -128,
+      uint8: 255,
+      int16: -32768,
+      uint16: 65535,
+      int32: -2147483648,
+      uint32: 4294967295,
+      int64: -2147483648,
+      uint64: 4294967295,
+      float: -1.175494351e38,
+    });
+    value.push({
+      int: 2147483647,
+      uint: 0,
+      int8: 127,
+      uint8: 0,
+      int16: 32767,
+      uint16: 0,
+      int32: 2147483647,
+      uint32: 0,
+      int64: 2147483647,
+      uint64: 0,
+      float: 3.4028235e38,
+    });
     return { value };
   }
 
   export const SPOILERS: Spoiler<CommentTagType>[] = [
-    ...(["int", "int32", "int64"] as const)
+    ...(["int", "int8", "int16", "int32", "int64"] as const)
       .map((key) => [
         (input: CommentTagType) => {
           input.value[0]![key] = 0.5;
@@ -68,7 +110,7 @@ export namespace CommentTagType {
       input.value[0]!.int = 0.1;
       return ["$input.value[0].int"];
     },
-    ...(["uint", "uint32", "uint64"] as const)
+    ...(["uint", "uint8", "uint16", "uint32", "uint64"] as const)
       .map((key) => [
         (input: CommentTagType) => {
           input.value[0]![key] = -1;
@@ -95,6 +137,30 @@ export namespace CommentTagType {
     (input) => {
       input.value[2]!.int = 2147483648;
       return ["$input.value[2].int"];
+    },
+    (input) => {
+      input.value[0]!.uint8 = 256;
+      return ["$input.value[0].uint8"];
+    },
+    (input) => {
+      input.value[1]!.int8 = -129;
+      return ["$input.value[1].int8"];
+    },
+    (input) => {
+      input.value[2]!.int8 = 128;
+      return ["$input.value[2].int8"];
+    },
+    (input) => {
+      input.value[0]!.uint16 = 65536;
+      return ["$input.value[0].uint16"];
+    },
+    (input) => {
+      input.value[1]!.int16 = -32769;
+      return ["$input.value[1].int16"];
+    },
+    (input) => {
+      input.value[2]!.int16 = 32768;
+      return ["$input.value[2].int16"];
     },
     (input) => {
       input.value[0]!.uint32 = 4294967296;

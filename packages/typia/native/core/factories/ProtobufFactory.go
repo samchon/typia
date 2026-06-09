@@ -290,8 +290,8 @@ func protobufFactory_emplaceNumber(output map[string]nativeprotobuf.IProtobufPro
       if tag.Kind != "type" {
         continue
       }
-      str := fmt.Sprint(tag.Value)
-      if str == "int32" || str == "uint32" || str == "int64" || str == "uint64" || str == "float" || str == "double" {
+      str := protobufFactory_normalizeNumberType(fmt.Sprint(tag.Value))
+      if str != "" {
         value = str
         break
       }
@@ -585,8 +585,12 @@ func protobufFactory_validateNumericSequences(metadata *schemametadata.MetadataS
   foundCategories := map[string]bool{}
   getType := func(tags []schemametadata.IMetadataTypeTag) string {
     for _, tag := range tags {
-      if tag.Kind == "type" && categories[fmt.Sprint(tag.Value)] {
-        return fmt.Sprint(tag.Value)
+      if tag.Kind != "type" {
+        continue
+      }
+      value := protobufFactory_normalizeNumberType(fmt.Sprint(tag.Value))
+      if value != "" && categories[value] {
+        return value
       }
     }
     return def
@@ -925,8 +929,8 @@ func protobufFactory_decodeNumberTags(output map[string]*int, tags [][]schemamet
       if tag.Kind != "type" {
         continue
       }
-      str := fmt.Sprint(tag.Value)
-      if protobufFactory_NUMBER_TYPES[str] {
+      str := protobufFactory_normalizeNumberType(fmt.Sprint(tag.Value))
+      if str != "" {
         value = str
         break
       }
@@ -1063,4 +1067,18 @@ var protobufFactory_ATOMIC_ORDER = map[string]int{
   "float":  5,
   "double": 6,
   "string": 7,
+}
+
+func protobufFactory_normalizeNumberType(value string) string {
+  switch value {
+  case "int8", "int16":
+    return "int32"
+  case "uint8", "uint16":
+    return "uint32"
+  default:
+    if protobufFactory_NUMBER_TYPES[value] {
+      return value
+    }
+    return ""
+  }
 }

@@ -56,9 +56,9 @@ console.log(proto);
   </Tabs.Tab>
 </Tabs>
 
-## Wire types
+## Numeric scalar types
 
-Protocol Buffer has narrower numeric types than TypeScript (`int32`, `uint32`, `int64`, `uint64`, `float`, `double`). Use [type tags](/docs/validators/tags) to pick the wire type explicitly:
+Protocol Buffer has narrower numeric types than TypeScript (`int32`, `uint32`, `int64`, `uint64`, `float`, `double`). Use [type tags](/docs/validators/tags) to pick the protobuf scalar type explicitly:
 
 ```typescript copy
 type Score = number & tags.Type<"float">;
@@ -67,6 +67,8 @@ type Mixed = (number & tags.Type<"int32">) | (bigint & tags.Type<"uint64">);
 ```
 
 If you don't tag a `number`, typia treats it as `double`. If you don't tag a `bigint`, typia treats it as `int64`.
+
+`tags.Type<"int8">` and `tags.Type<"int16">` validate the smaller signed integer ranges, then emit the protobuf `int32` scalar type. `tags.Type<"uint8">` and `tags.Type<"uint16">` validate the smaller unsigned integer ranges, then emit `uint32`. Protocol Buffer has no distinct 8-bit or 16-bit numeric scalar types.
 
 > The TypeScript compiler will block invalid combinations — you can't put `tags.Type<"uint32">` on a `bigint`, for example.
 
@@ -87,10 +89,13 @@ If you don't tag a `number`, typia treats it as `double`. If you don't tag a `bi
 
 ## Comment tags
 
-Same wire types are also expressible as `@type` comments:
+The same scalar choices are also expressible as `@type` comments:
 
 ```typescript copy
 interface User {
+  /** @type uint8 */
+  priority: number;
+
   /** @type uint32 */
   age: number;
 }
@@ -98,7 +103,7 @@ interface User {
 
 > [!CAUTION]
 >
-> Same caveats as [`validators/tags`](/docs/validators/tags#comment-tags): comment tags are not type-checked (a typo silently falls back to `double`), they only work on object properties, and they can't express union numeric types. Prefer type tags unless you're maintaining a JSDoc-style codebase.
+> Same caveats as [`validators/tags`](/docs/validators/tags#comment-tags): comment tags are not type-checked (a typo is ignored, so protobuf falls back to the default `double` scalar for an untagged `number`), they only work on object properties, and they can't express union numeric types. Prefer type tags unless you're maintaining a JSDoc-style codebase.
 
 <Tabs items={["TypeScript Source", "Compiled JavaScript"]}>
   <Tabs.Tab>
