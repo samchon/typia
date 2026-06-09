@@ -57,21 +57,7 @@ func TestUnionPredicatorSkipsSharedNativeNames(t *testing.T) {
       )
 
       specs := UnionPredicator.Object([]*nativemetadata.MetadataObjectType{left, right})
-      if len(specs) != len(tc.expect) {
-        t.Fatalf("unexpected specialization count: got %d want %d", len(specs), len(tc.expect))
-      }
-      for i, spec := range specs {
-        key := spec.Property.Key.GetSoleLiteral()
-        if key == nil {
-          t.Fatal("specialized property should be a literal key")
-        }
-        if *key == tc.key {
-          t.Fatalf("shared native key %q should not be selected", tc.key)
-        }
-        if *key != tc.expect[i] {
-          t.Fatalf("unexpected specialized key at %d: got %q want %q", i, *key, tc.expect[i])
-        }
-      }
+      assertUnionPredicatorKeys(t, specs, tc.key, tc.expect)
     })
   }
 }
@@ -123,4 +109,41 @@ func unionPredicatorNativeMetadata(name string, tags [][]nativemetadata.IMetadat
       }),
     },
   })
+}
+
+func unionPredicatorSet(value *nativemetadata.MetadataSchema) *nativemetadata.MetadataSchema {
+  return nativemetadata.MetadataSchema_create(nativemetadata.MetadataSchema{
+    Required: true,
+    Sets: []*nativemetadata.MetadataSet{
+      nativemetadata.MetadataSet_create(nativemetadata.MetadataSet{Value: value}),
+    },
+  })
+}
+
+func unionPredicatorMap(key *nativemetadata.MetadataSchema, value *nativemetadata.MetadataSchema) *nativemetadata.MetadataSchema {
+  return nativemetadata.MetadataSchema_create(nativemetadata.MetadataSchema{
+    Required: true,
+    Maps: []*nativemetadata.MetadataMap{
+      nativemetadata.MetadataMap_create(nativemetadata.MetadataMap{Key: key, Value: value}),
+    },
+  })
+}
+
+func assertUnionPredicatorKeys(t *testing.T, specs []UnionPredicator_ISpecialized, shared string, expect []string) {
+  t.Helper()
+  if len(specs) != len(expect) {
+    t.Fatalf("unexpected specialization count: got %d want %d", len(specs), len(expect))
+  }
+  for i, spec := range specs {
+    key := spec.Property.Key.GetSoleLiteral()
+    if key == nil {
+      t.Fatal("specialized property should be a literal key")
+    }
+    if *key == shared {
+      t.Fatalf("shared key %q should not be selected", shared)
+    }
+    if *key != expect[i] {
+      t.Fatalf("unexpected specialized key at %d: got %q want %q", i, *key, expect[i])
+    }
+  }
 }

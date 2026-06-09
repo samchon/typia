@@ -92,6 +92,33 @@ func NativeMetadata(name string) *metadata.MetadataSchema {
   })
 }
 
+func SetMetadata(value *metadata.MetadataSchema) *metadata.MetadataSchema {
+  return metadata.MetadataSchema_create(metadata.MetadataSchema{
+    Required: true,
+    Sets: []*metadata.MetadataSet{
+      metadata.MetadataSet_create(metadata.MetadataSet{Value: value}),
+    },
+  })
+}
+
+func MapMetadata(key *metadata.MetadataSchema, value *metadata.MetadataSchema) *metadata.MetadataSchema {
+  return metadata.MetadataSchema_create(metadata.MetadataSchema{
+    Required: true,
+    Maps: []*metadata.MetadataMap{
+      metadata.MetadataMap_create(metadata.MetadataMap{Key: key, Value: value}),
+    },
+  })
+}
+
+func TemplateMetadata(row ...*metadata.MetadataSchema) *metadata.MetadataSchema {
+  return metadata.MetadataSchema_create(metadata.MetadataSchema{
+    Required: true,
+    Templates: []*metadata.MetadataTemplate{
+      metadata.MetadataTemplate_create(metadata.MetadataTemplate{Row: row}),
+    },
+  })
+}
+
 func NumberConstantMetadata(values ...any) *metadata.MetadataSchema {
   return ConstantMetadata("number", values...)
 }

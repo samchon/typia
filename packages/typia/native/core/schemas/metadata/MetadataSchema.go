@@ -447,6 +447,12 @@ func MetadataSchema_intersects(x *MetadataSchema, y *MetadataSchema) bool {
   if len(x.Tuples) != 0 && len(y.Tuples) != 0 {
     return true
   }
+  if len(x.Sets) != 0 && len(y.Sets) != 0 {
+    return true
+  }
+  if len(x.Maps) != 0 && len(y.Maps) != 0 {
+    return true
+  }
   if len(x.Objects) != 0 && len(y.Objects) != 0 {
     return true
   }
@@ -456,6 +462,9 @@ func MetadataSchema_intersects(x *MetadataSchema, y *MetadataSchema) bool {
   if anyOf(x.Natives, func(xn *MetadataNative) bool {
     return anyOf(y.Natives, func(yn *MetadataNative) bool { return xn.Name == yn.Name })
   }) {
+    return true
+  }
+  if metadataSchema_intersectsAtomicLikeNative(x, y) || metadataSchema_intersectsAtomicLikeNative(y, x) {
     return true
   }
   if x.Escaped != nil && y.Escaped != nil {
@@ -582,13 +591,26 @@ func MetadataSchema_covers(x *MetadataSchema, y *MetadataSchema, levelAndEscaped
       return false
     }
   }
+  for _, ym := range y.Maps {
+    if anyOf(x.Maps, func(xm *MetadataMap) bool {
+      return MetadataSchema_covers(xm.Key, ym.Key) && MetadataSchema_covers(xm.Value, ym.Value)
+    }) == false {
+      return false
+    }
+  }
+  for _, yt := range y.Templates {
+    if metadataSchema_coversTemplate(x, yt) == false {
+      return false
+    }
+  }
   if anyOf(y.Atomics, func(ya *MetadataAtomic) bool {
-    return anyOf(x.Atomics, func(xa *MetadataAtomic) bool { return xa.Type == ya.Type }) == false
+    return metadataSchema_hasAtomic(x, ya.Type) == false &&
+      metadataSchema_hasAtomicLikeNative(x, ya.Type) == false
   }) {
     return false
   }
   for _, yc := range y.Constants {
-    if anyOf(x.Atomics, func(atom *MetadataAtomic) bool { return yc.Type == atom.Type }) {
+    if metadataSchema_hasAtomic(x, yc.Type) || metadataSchema_hasAtomicLikeNative(x, yc.Type) {
       continue
     }
     var xc *MetadataConstant
@@ -778,6 +800,56 @@ func safeMetadataName(meta *MetadataSchema) string {
     return "unknown"
   }
   return meta.GetName()
+}
+
+func metadataSchema_intersectsAtomicLikeNative(nativeOwner *MetadataSchema, opposite *MetadataSchema) bool {
+  for _, native := range nativeOwner.Natives {
+    atomic, ok := metadataSchema_atomicLikeNative(native.Name)
+    if ok == false {
+      continue
+    }
+    if metadataSchema_hasAtomic(opposite, atomic) ||
+      metadataSchema_hasConstant(opposite, atomic) ||
+      (atomic == "string" && len(opposite.Templates) != 0) {
+      return true
+    }
+  }
+  return false
+}
+
+func metadataSchema_coversTemplate(x *MetadataSchema, y *MetadataTemplate) bool {
+  if metadataSchema_hasAtomic(x, "string") || metadataSchema_hasAtomicLikeNative(x, "string") {
+    return true
+  }
+  return anyOf(x.Templates, func(xt *MetadataTemplate) bool { return xt.GetName() == y.GetName() })
+}
+
+func metadataSchema_hasAtomic(meta *MetadataSchema, atomic string) bool {
+  return anyOf(meta.Atomics, func(elem *MetadataAtomic) bool { return elem.Type == atomic })
+}
+
+func metadataSchema_hasConstant(meta *MetadataSchema, atomic string) bool {
+  return anyOf(meta.Constants, func(elem *MetadataConstant) bool { return elem.Type == atomic })
+}
+
+func metadataSchema_hasAtomicLikeNative(meta *MetadataSchema, atomic string) bool {
+  return anyOf(meta.Natives, func(elem *MetadataNative) bool {
+    nativeAtomic, ok := metadataSchema_atomicLikeNative(elem.Name)
+    return ok && nativeAtomic == atomic
+  })
+}
+
+func metadataSchema_atomicLikeNative(name string) (string, bool) {
+  switch name {
+  case "Boolean":
+    return "boolean", true
+  case "Number":
+    return "number", true
+  case "String":
+    return "string", true
+  default:
+    return "", false
+  }
 }
 
 func anyOf[T any](input []T, pred func(T) bool) bool {

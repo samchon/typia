@@ -75,8 +75,22 @@ func ttscTypiaTestRewriteCommonJS(t *testing.T, js string) string {
 }
 
 const ttscTypiaTestValidateReportStub = `module.exports._validateReport = (array) => {
+  const reportable = (path) => {
+    if (array.length === 0) return true;
+    const last = array[array.length - 1].path;
+    return path.length > last.length || last.substring(0, path.length) !== path;
+  };
   return (exceptable, error) => {
-    if (exceptable) array.push(error);
+    if (exceptable && reportable(error.path)) {
+      if (error.value === undefined && (error.description === undefined || error.description === null)) {
+        error.description = [
+          "The value at this path is " + String.fromCharCode(96) + "undefined" + String.fromCharCode(96) + ".",
+          "",
+          "Please fill the " + String.fromCharCode(96) + error.expected + String.fromCharCode(96) + " typed value next time.",
+        ].join("\n");
+      }
+      array.push(error);
+    }
     return false;
   };
 };
