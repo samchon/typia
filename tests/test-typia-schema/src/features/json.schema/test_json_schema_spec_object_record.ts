@@ -5,12 +5,12 @@ import typia, { tags } from "typia";
  * Verifies object and record schemas follow OpenAPI required semantics.
  *
  * Locks the object/record fixture used by the JSON schema spec tests. Named
- * required object properties must still populate `required`, but record-only
- * objects have no named required properties and therefore must omit it.
+ * object properties must still populate `properties` and `required`, but
+ * record-only objects have no named keys and therefore omit both keywords.
  *
  * 1. Generate schema for an object with required, optional, and nullable fields.
  * 2. Assert its named required properties are retained.
- * 3. Generate a record schema and assert it has no empty `required` array.
+ * 3. Generate a record schema and assert it has no named-object keywords.
  */
 export const test_json_schema_spec_object_record = (): void => {
   interface IObjectSpec {
@@ -54,7 +54,6 @@ export const test_json_schema_spec_object_record = (): void => {
     ),
     {
       type: "object",
-      properties: {},
       additionalProperties: {
         type: "string",
         minLength: 1,

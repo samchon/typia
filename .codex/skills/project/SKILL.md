@@ -1,3 +1,8 @@
+---
+name: project
+description: What typia is, the package family, the JS-descriptor / Go-plugin boundary, the workspace layout, and the canonical commands.
+---
+
 # Project Outline
 
 ## What Typia Is

@@ -1,3 +1,8 @@
+---
+name: development
+description: Work rules, testing, validation, and change integrity. Read before writing or modifying code.
+---
+
 # Development
 
 Read before writing or modifying code.

@@ -705,12 +705,12 @@ export const test_openapi_converter_parameter_required = (): void => {
     "/openapi/ref/{id}",
   );
   assertOpenApiV3ObjectSchemaOverride(
-    "v3.0 operation object parameter override sanitizes empty required",
+    "v3.0 operation object parameter override preserves empty required",
     OpenApiConverter.upgradeDocument(openApiV3ParameterDocument()),
     "/openapi/object/direct",
   );
   assertOpenApiV3ObjectSchemaOverride(
-    "v3.0 operation object parameter ref override sanitizes empty required",
+    "v3.0 operation object parameter ref override preserves empty required",
     OpenApiConverter.upgradeDocument(openApiV3ParameterDocument()),
     "/openapi/object/ref",
   );
@@ -740,12 +740,12 @@ export const test_openapi_converter_parameter_required = (): void => {
     "/openapi/ref/{id}",
   );
   assertOpenApiV3ObjectSchemaOverride(
-    "v3.1 operation object parameter override sanitizes empty required",
+    "v3.1 operation object parameter override preserves empty required",
     OpenApiConverter.upgradeDocument(openApiV31ParameterDocument()),
     "/openapi/object/direct",
   );
   assertOpenApiV3ObjectSchemaOverride(
-    "v3.1 operation object parameter ref override sanitizes empty required",
+    "v3.1 operation object parameter ref override preserves empty required",
     OpenApiConverter.upgradeDocument(openApiV31ParameterDocument()),
     "/openapi/object/ref",
   );
@@ -775,12 +775,12 @@ export const test_openapi_converter_parameter_required = (): void => {
     "/openapi/ref/{id}",
   );
   assertOpenApiV3ObjectSchemaOverride(
-    "v3.2 operation object parameter override sanitizes empty required",
+    "v3.2 operation object parameter override preserves empty required",
     OpenApiConverter.upgradeDocument(openApiV32ParameterDocument()),
     "/openapi/object/direct",
   );
   assertOpenApiV3ObjectSchemaOverride(
-    "v3.2 operation object parameter ref override sanitizes empty required",
+    "v3.2 operation object parameter ref override preserves empty required",
     OpenApiConverter.upgradeDocument(openApiV32ParameterDocument()),
     "/openapi/object/ref",
   );
@@ -814,10 +814,13 @@ export const test_openapi_converter_parameter_required = (): void => {
         upgradedObjectEmpty.schema,
         "required",
       ),
+      required: (upgradedObjectEmpty.schema as OpenApi.IJsonSchema.IObject)
+        .required,
     },
     {
       parameter: false,
-      schema: false,
+      schema: true,
+      required: [],
     },
   );
   TestValidator.equals(
@@ -1015,7 +1018,10 @@ const assertOpenApiV3ObjectSchemaOverride = (
       schema: {
         type: schema.type,
         properties: schema.properties,
-        required: Object.prototype.hasOwnProperty.call(schema, "required"),
+        required: {
+          own: Object.prototype.hasOwnProperty.call(schema, "required"),
+          value: schema.required,
+        },
       },
     },
     {
@@ -1031,7 +1037,10 @@ const assertOpenApiV3ObjectSchemaOverride = (
             type: "string",
           },
         },
-        required: false,
+        required: {
+          own: true,
+          value: [],
+        },
       },
     },
   );

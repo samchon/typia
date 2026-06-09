@@ -1,3 +1,8 @@
+---
+name: issue-pr-workflow
+description: GitHub issue triage, .wiki handoff updates, branch-per-issue implementation, mandatory Research Review Round, CI gating, PR comments, and issue closure. Read before sweeping issues or running the issue-to-PR loop.
+---
+
 # Issue PR Workflow
 
 Read before triaging GitHub issues into `.wiki`, implementing issue fixes, or running the branch-per-issue PR loop.
