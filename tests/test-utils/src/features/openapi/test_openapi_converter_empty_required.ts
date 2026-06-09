@@ -111,11 +111,10 @@ export const test_openapi_converter_empty_required = (): void => {
       schemas.NoisyEmptyOpen!,
     );
     assertRecordKeywordsOmitted(`${name} upgraded record`, schemas.Record!);
-    if (schemas.NoisyRecord !== undefined)
-      assertRecordKeywordsOmitted(
-        `${name} upgraded noisy record`,
-        schemas.NoisyRecord,
-      );
+    assertNoisyRecordKeywordsPreserved(
+      `${name} upgraded noisy record`,
+      schemas.NoisyRecord!,
+    );
     assertObjectEmptyRequired(
       `${name} upgraded optional allOf`,
       schemas.Merged!,
@@ -168,7 +167,7 @@ export const test_openapi_converter_empty_required = (): void => {
     "downgraded swagger record",
     downgradedSwagger.definitions!.Record!,
   );
-  assertRecordKeywordsOmitted(
+  assertNoisyRecordKeywordsPreserved(
     "downgraded swagger noisy record",
     downgradedSwagger.definitions!.NoisyRecord!,
   );
@@ -198,7 +197,7 @@ export const test_openapi_converter_empty_required = (): void => {
     "downgraded v3.0 record",
     downgradedV30.components!.schemas!.Record!,
   );
-  assertRecordKeywordsOmitted(
+  assertNoisyRecordKeywordsPreserved(
     "downgraded v3.0 noisy record",
     downgradedV30.components!.schemas!.NoisyRecord!,
   );
@@ -228,7 +227,7 @@ export const test_openapi_converter_empty_required = (): void => {
     "downgraded v3.1 record",
     downgradedV31.components!.schemas!.Record!,
   );
-  assertRecordKeywordsOmitted(
+  assertNoisyRecordKeywordsPreserved(
     "downgraded v3.1 noisy record",
     downgradedV31.components!.schemas!.NoisyRecord!,
   );
@@ -271,6 +270,8 @@ const recordOpenApi = (): OpenApi.IJsonSchema.IObject => ({
 
 const emptyOpenApi = (): OpenApi.IJsonSchema.IObject => ({
   type: "object",
+  properties: {},
+  required: [],
 });
 
 const noisyEmptyOpenApi = (): OpenApi.IJsonSchema.IObject => ({
@@ -666,16 +667,50 @@ const assertRecordKeywordsOmitted = (
     {
       type: object.type,
       additionalProperties: object.additionalProperties,
-      properties: hasOwn(object, "properties"),
-      required: hasOwn(object, "required"),
+      properties: object.properties,
+      required: object.required,
     },
     {
       type: "object",
       additionalProperties: {
         type: "string",
       },
-      properties: false,
-      required: false,
+      properties: undefined,
+      required: undefined,
+    },
+  );
+};
+
+const assertNoisyRecordKeywordsPreserved = (
+  name: string,
+  schema:
+    | OpenApi.IJsonSchema
+    | OpenApiV3.IJsonSchema
+    | OpenApiV3_1.IJsonSchema
+    | OpenApiV3_2.IJsonSchema
+    | SwaggerV2.IJsonSchema,
+): void => {
+  const object = schema as
+    | OpenApi.IJsonSchema.IObject
+    | OpenApiV3.IJsonSchema.IObject
+    | OpenApiV3_1.IJsonSchema.IObject
+    | OpenApiV3_2.IJsonSchema.IObject
+    | SwaggerV2.IJsonSchema.IObject;
+  TestValidator.equals(
+    `${name} record shape`,
+    {
+      type: object.type,
+      additionalProperties: object.additionalProperties,
+      properties: object.properties,
+      required: object.required,
+    },
+    {
+      type: "object",
+      additionalProperties: {
+        type: "string",
+      },
+      properties: {},
+      required: [],
     },
   );
 };
@@ -700,17 +735,14 @@ const assertEmptyOpenObjectKeywords = (
     {
       type: object.type,
       properties: object.properties,
-      ownsAdditionalProperties: hasOwn(object, "additionalProperties"),
+      additionalProperties: object.additionalProperties,
       required: object.required,
     },
     {
       type: "object",
       properties: {},
-      ownsAdditionalProperties: false,
+      additionalProperties: undefined,
       required: [],
     },
   );
 };
-
-const hasOwn = (obj: object, key: string): boolean =>
-  Object.prototype.hasOwnProperty.call(obj, key);

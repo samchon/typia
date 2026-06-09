@@ -599,46 +599,27 @@ export namespace OpenApiV3_1Upgrader {
         }
         // OBJECT TYPE CASE
         else if (OpenApiV3_1TypeChecker.isObject(schema)) {
-          const { additionalProperties, properties, required, ...rest } =
-            schema;
-          const dynamicRecord: boolean =
-            (properties === undefined ||
-              Object.values(properties).every(
-                (value) => value === undefined,
-              )) &&
-            (required === undefined || required.length === 0) &&
-            additionalProperties !== undefined &&
-            additionalProperties !== false;
           union.push({
-            ...rest,
-            ...(dynamicRecord === false
-              ? {
-                  properties: properties
-                    ? Object.fromEntries(
-                        Object.entries(properties)
-                          .filter(([_, v]) => v !== undefined)
-                          .map(
-                            ([key, value]) =>
-                              [key, convertSchema(components)(value)] as const,
-                          ),
-                      )
-                    : {},
-                }
-              : {}),
-            ...(additionalProperties !== undefined
-              ? {
-                  additionalProperties:
-                    typeof additionalProperties === "object" &&
-                    additionalProperties !== null
-                      ? convertSchema(components)(additionalProperties)
-                      : additionalProperties,
-                }
-              : {}),
-            ...(dynamicRecord === false
-              ? {
-                  required: required ?? [],
-                }
-              : {}),
+            ...schema,
+            properties:
+              schema.properties === undefined
+                ? undefined
+                : Object.fromEntries(
+                    Object.entries(schema.properties)
+                      .filter(([_, v]) => v !== undefined)
+                      .map(
+                        ([key, value]) =>
+                          [key, convertSchema(components)(value)] as const,
+                      ),
+                  ),
+            additionalProperties:
+              schema.additionalProperties === undefined
+                ? undefined
+                : typeof schema.additionalProperties === "object" &&
+                    schema.additionalProperties !== null
+                  ? convertSchema(components)(schema.additionalProperties)
+                  : schema.additionalProperties,
+            required: schema.required,
           });
         } else if (OpenApiV3_1TypeChecker.isReference(schema))
           union.push({

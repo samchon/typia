@@ -268,45 +268,29 @@ export namespace OpenApiV3_1Downgrader {
                 ? downgradeSchema(collection)(schema.additionalItems)
                 : schema.additionalItems,
           });
-        else if (OpenApiTypeChecker.isObject(schema)) {
-          const { additionalProperties, properties, required, ...rest } =
-            schema;
-          const dynamicRecord: boolean =
-            (properties === undefined ||
-              Object.values(properties).every(
-                (value) => value === undefined,
-              )) &&
-            (required === undefined || required.length === 0) &&
-            additionalProperties !== undefined &&
-            additionalProperties !== false;
+        else if (OpenApiTypeChecker.isObject(schema))
           union.push({
-            ...rest,
-            ...(dynamicRecord === false
-              ? {
-                  properties:
-                    properties !== undefined
-                      ? Object.fromEntries(
-                          Object.entries(properties)
-                            .filter(([_, v]) => v !== undefined)
-                            .map(([key, value]) => [
-                              key,
-                              downgradeSchema(collection)(value),
-                            ]),
-                        )
-                      : {},
-                }
-              : {}),
-            ...(additionalProperties !== undefined
-              ? {
-                  additionalProperties:
-                    typeof additionalProperties === "object"
-                      ? downgradeSchema(collection)(additionalProperties)
-                      : additionalProperties,
-                }
-              : {}),
-            ...(dynamicRecord === false ? { required: required ?? [] } : {}),
+            ...schema,
+            properties:
+              schema.properties === undefined
+                ? undefined
+                : Object.fromEntries(
+                    Object.entries(schema.properties)
+                      .filter(([_, v]) => v !== undefined)
+                      .map(([key, value]) => [
+                        key,
+                        downgradeSchema(collection)(value),
+                      ]),
+                  ),
+            additionalProperties:
+              schema.additionalProperties === undefined
+                ? undefined
+                : typeof schema.additionalProperties === "object"
+                  ? downgradeSchema(collection)(schema.additionalProperties)
+                  : schema.additionalProperties,
+            required: schema.required,
           });
-        } else if (OpenApiTypeChecker.isOneOf(schema))
+        else if (OpenApiTypeChecker.isOneOf(schema))
           schema.oneOf.forEach(visit);
       };
       visit(input);
