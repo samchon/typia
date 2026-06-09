@@ -2,6 +2,7 @@
 .codex/*
 !.codex/skills/
 .discussions/
+.repositories/
 .wiki/
 
 bin/
