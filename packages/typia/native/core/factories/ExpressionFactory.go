@@ -252,7 +252,7 @@ func (expressionFactoryNamespace) GetEscapedText(props ExpressionFactory_GetEsca
 func (expressionFactoryNamespace) Transpile(props ExpressionFactory_TranspileProps, emit ...*shimprinter.EmitContext) func(input *shimast.Expression) *shimast.Node {
   f := nativecontext.EmitFactoryOf(expressionFactory_factory, emit...)
   file := shimparser.ParseSourceFile(
-    shimast.SourceFileParseOptions{FileName: filepath.Join(os.TempDir(), expressionFactory_random_format_uuid()+".ts")},
+    shimast.SourceFileParseOptions{FileName: filepath.ToSlash(filepath.Join(os.TempDir(), expressionFactory_random_format_uuid()+".ts"))},
     props.Script,
     shimcore.ScriptKindTS,
   )
