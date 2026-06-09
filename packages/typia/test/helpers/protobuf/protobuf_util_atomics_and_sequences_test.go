@@ -60,29 +60,30 @@ func TestProtobufUtilAtomicsAndSequences(t *testing.T) {
     t.Fatal("protobuf atomic ordering should rank bool before string")
   }
 
-  smaller := metadata.MetadataSchema_create(metadata.MetadataSchema{
-    Atomics: []*metadata.MetadataAtomic{
-      metadata.MetadataAtomic_create(metadata.MetadataAtomic{
-        Type: "number",
-        Tags: [][]metadata.IMetadataTypeTag{{
-          testutil.TypeTag("int8"),
-          testutil.SequenceTag(8),
-        }},
-      }),
-      metadata.MetadataAtomic_create(metadata.MetadataAtomic{
-        Type: "number",
-        Tags: [][]metadata.IMetadataTypeTag{{
-          testutil.TypeTag("uint16"),
-          testutil.SequenceTag(9),
-        }},
-      }),
-    },
-  })
-  normalized := helpers.ProtobufUtil.GetAtomics(smaller)
-  if got := normalized["int32"]; got == nil || *got != 8 {
-    t.Fatalf("int8 should normalize to int32 with its sequence: %#v", normalized)
-  }
-  if got := normalized["uint32"]; got == nil || *got != 9 {
-    t.Fatalf("uint16 should normalize to uint32 with its sequence: %#v", normalized)
+  for _, tuple := range []struct {
+    tag      string
+    scalar   string
+    sequence int
+  }{
+    {tag: "int8", scalar: "int32", sequence: 8},
+    {tag: "uint8", scalar: "uint32", sequence: 9},
+    {tag: "int16", scalar: "int32", sequence: 10},
+    {tag: "uint16", scalar: "uint32", sequence: 11},
+  } {
+    smaller := metadata.MetadataSchema_create(metadata.MetadataSchema{
+      Atomics: []*metadata.MetadataAtomic{
+        metadata.MetadataAtomic_create(metadata.MetadataAtomic{
+          Type: "number",
+          Tags: [][]metadata.IMetadataTypeTag{{
+            testutil.TypeTag(tuple.tag),
+            testutil.SequenceTag(tuple.sequence),
+          }},
+        }),
+      },
+    })
+    normalized := helpers.ProtobufUtil.GetAtomics(smaller)
+    if got := normalized[tuple.scalar]; got == nil || *got != tuple.sequence {
+      t.Fatalf("%s should normalize to %s with its sequence: %#v", tuple.tag, tuple.scalar, normalized)
+    }
   }
 }

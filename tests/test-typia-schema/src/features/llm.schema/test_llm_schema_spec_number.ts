@@ -149,6 +149,39 @@ export const test_llm_schema_spec_number = (): void => {
       additionalProperties: false,
     },
   );
+  const strictCommentTypeDefs: Record<string, ILlmSchema> = {};
+  TestValidator.equals(
+    "strict comment type smaller integers",
+    clean(
+      resolve(
+        typia.llm.schema<ICommentTypeNumbers, { strict: true }>(
+          strictCommentTypeDefs,
+        ),
+        strictCommentTypeDefs,
+      ),
+    ),
+    {
+      type: "object",
+      properties: {
+        int8: {
+          type: "integer",
+        },
+        int16: {
+          type: "integer",
+        },
+        uint8: {
+          type: "integer",
+          description: "@minimum 0",
+        },
+        uint16: {
+          type: "integer",
+          description: "@minimum 0",
+        },
+      },
+      required: ["int8", "uint8", "int16", "uint16"],
+      additionalProperties: false,
+    },
+  );
   TestValidator.equals(
     "number literal union",
     enumSchema(typia.llm.schema<1 | 2 | 3>({})),

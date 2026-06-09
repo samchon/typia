@@ -48,31 +48,44 @@ func TestMetadataCommentTagFactoryCoverage(t *testing.T) {
   if len(unique["array"]) != 1 {
     t.Fatal("uniqueItems should not require a text value")
   }
-  numeric := metadataCommentTagFactory_parse(struct {
-    Report func(msg string) any
-    Tag    schemametadata.IJsDocTagInfo
+  for _, tuple := range []struct {
+    text         string
+    value        string
+    bigintTarget bool
   }{
-    Report: report,
-    Tag: schemametadata.IJsDocTagInfo{
-      Name: "type",
-      Text: []schemametadata.IJsDocTagInfo_IText{{Text: "{uint}"}},
-    },
-  })
-  if numeric["number"][0].Value != "uint32" || len(numeric["bigint"]) != 0 {
-    t.Fatal("typed uint comment should normalize to number-only uint32")
-  }
-  int8 := metadataCommentTagFactory_parse(struct {
-    Report func(msg string) any
-    Tag    schemametadata.IJsDocTagInfo
-  }{
-    Report: report,
-    Tag: schemametadata.IJsDocTagInfo{
-      Name: "type",
-      Text: []schemametadata.IJsDocTagInfo_IText{{Text: "int8"}},
-    },
-  })
-  if int8["number"][0].Value != "int8" || len(int8["bigint"]) != 0 {
-    t.Fatal("typed int8 comment should not leak into bigint tags")
+    {text: "{int}", value: "int32"},
+    {text: "{uint}", value: "uint32"},
+    {text: "int8", value: "int8"},
+    {text: "uint8", value: "uint8"},
+    {text: "int16", value: "int16"},
+    {text: "uint16", value: "uint16"},
+    {text: "int32", value: "int32"},
+    {text: "uint32", value: "uint32"},
+    {text: "int64", value: "int64", bigintTarget: true},
+    {text: "uint64", value: "uint64", bigintTarget: true},
+    {text: "float", value: "float"},
+    {text: "double", value: "double"},
+  } {
+    numeric := metadataCommentTagFactory_parse(struct {
+      Report func(msg string) any
+      Tag    schemametadata.IJsDocTagInfo
+    }{
+      Report: report,
+      Tag: schemametadata.IJsDocTagInfo{
+        Name: "type",
+        Text: []schemametadata.IJsDocTagInfo_IText{{Text: tuple.text}},
+      },
+    })
+    if numeric["number"][0].Value != tuple.value {
+      t.Fatalf("typed %s comment should normalize to number %s", tuple.text, tuple.value)
+    }
+    if tuple.bigintTarget {
+      if numeric["bigint"][0].Value != tuple.value {
+        t.Fatalf("typed %s comment should normalize to bigint %s", tuple.text, tuple.value)
+      }
+    } else if len(numeric["bigint"]) != 0 {
+      t.Fatalf("typed %s comment should not leak into bigint tags", tuple.text)
+    }
   }
   for _, tag := range []schemametadata.IJsDocTagInfo{
     {Name: "items", Text: []schemametadata.IJsDocTagInfo_IText{{Text: "2"}}},
@@ -160,37 +173,42 @@ func TestMetadataCommentTagFactoryCoverage(t *testing.T) {
       schemametadata.MetadataAtomic_create(schemametadata.MetadataAtomic{Type: "number"}),
     },
   })
+  oppositeErrors := []MetadataFactory_IError{}
   MetadataCommentTagFactory.Analyze(struct {
     Errors   *[]MetadataFactory_IError
     Metadata *schemametadata.MetadataSchema
     Tags     []schemametadata.IJsDocTagInfo
     Explore  MetadataFactory_IExplore
   }{
-    Errors:   &errors,
+    Errors:   &oppositeErrors,
     Metadata: oppositeOnly,
     Tags: []schemametadata.IJsDocTagInfo{
       {Name: "type", Text: []schemametadata.IJsDocTagInfo_IText{{Text: "int64"}}},
       {Name: "format", Text: []schemametadata.IJsDocTagInfo_IText{{Text: "date-time"}}},
     },
   })
+  if len(oppositeErrors) != 0 {
+    t.Fatalf("opposite numeric comment targets should be skipped without errors: %#v", oppositeErrors)
+  }
   if len(oppositeOnly.Atomics[0].Tags) == 0 {
     t.Fatal("numeric comment tag should apply when only one numeric side exists")
   }
 
   empty := schemametadata.MetadataSchema_create(schemametadata.MetadataSchema{})
+  unsupportedErrors := []MetadataFactory_IError{}
   MetadataCommentTagFactory.Analyze(struct {
     Errors   *[]MetadataFactory_IError
     Metadata *schemametadata.MetadataSchema
     Tags     []schemametadata.IJsDocTagInfo
     Explore  MetadataFactory_IExplore
   }{
-    Errors:   &errors,
+    Errors:   &unsupportedErrors,
     Metadata: empty,
     Tags: []schemametadata.IJsDocTagInfo{
       {Name: "pattern", Text: []schemametadata.IJsDocTagInfo_IText{{Text: "^x$"}}},
     },
   })
-  if len(errors) == 0 {
+  if len(unsupportedErrors) == 0 {
     t.Fatal("unsupported comment target should report metadata errors")
   }
 
