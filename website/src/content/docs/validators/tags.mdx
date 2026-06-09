@@ -95,7 +95,7 @@ If you intersect a tag with the wrong base type (e.g. `tags.MaxLength<100>` on a
 
 | Tag | Notes |
 |-----|-------|
-| `tags.Type<"int32" \| "uint32" \| "int64" \| "uint64" \| "float" \| "double">` | Sub-type of `number` (or, for `int64`/`uint64`, of `bigint`) |
+| `tags.Type<"int8" \| "uint8" \| "int16" \| "uint16" \| "int32" \| "uint32" \| "int64" \| "uint64" \| "float" \| "double">` | Sub-type of `number` (or, for `int64`/`uint64`, of `bigint`) |
 | `tags.Minimum<N>` | `value >= N` |
 | `tags.Maximum<N>` | `value <= N` |
 | `tags.ExclusiveMinimum<N>` | `value > N` |
@@ -144,7 +144,16 @@ If you'd rather write JSDoc, the same constraints exist as `@`-prefixed tags:
 
 | Comment tag | Equivalent type tag |
 |-------------|---------------------|
+| `@type int8` | `tags.Type<"int8">` |
+| `@type uint8` | `tags.Type<"uint8">` |
+| `@type int16` | `tags.Type<"int16">` |
+| `@type uint16` | `tags.Type<"uint16">` |
 | `@type int32` | `tags.Type<"int32">` |
+| `@type uint32` | `tags.Type<"uint32">` |
+| `@type int64` | `tags.Type<"int64">` |
+| `@type uint64` | `tags.Type<"uint64">` |
+| `@type float` | `tags.Type<"float">` |
+| `@type double` | `tags.Type<"double">` |
 | `@minimum 0` | `tags.Minimum<0>` |
 | `@maximum 100` | `tags.Maximum<100>` |
 | `@exclusiveMinimum 0` | `tags.ExclusiveMinimum<0>` |
@@ -268,7 +277,7 @@ End-to-end example with three custom tags (`Postfix`, `Dollar`, `IsEven`):
 - [`is`](/docs/validators/is), [`assert`](/docs/validators/assert), [`validate`](/docs/validators/validate) — runtime checking
 - [`random`](/docs/random) — generated values respect the constraint
 - [`json.schemas`](/docs/json/schema), [`llm.parameters`](/docs/llm/parameters) — exported as JSON Schema fields (`format`, `minimum`, …)
-- [`protobuf.message`](/docs/protobuf/message) — `tags.Type<"uint32">` selects the wire type; `tags.Sequence<N>` picks the field number
+- [`protobuf.message`](/docs/protobuf/message) — `tags.Type<"uint32">` selects the scalar type; smaller integer tags validate narrower ranges and use the protobuf `int32` / `uint32` scalar types; `tags.Sequence<N>` picks the field number
 
 ## Where to go next
 

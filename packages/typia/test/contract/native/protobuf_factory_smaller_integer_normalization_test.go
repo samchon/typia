@@ -1,4 +1,4 @@
-package factories
+package typia_test
 
 import (
   "testing"
@@ -15,7 +15,7 @@ import (
 // path must still consume those typia numeric tags through its exported object
 // emplacement API without falling back to double.
 //
-// 1. Build an object property for each smaller integer alias.
+// 1. Build object properties for each smaller integer alias and for a mixed row.
 // 2. Emplace protobuf property metadata through ProtobufFactory.EmplaceObject.
 // 3. Assert signed aliases become int32 and unsigned aliases become uint32.
 func TestProtobufFactorySmallerIntegerNormalization(t *testing.T) {
@@ -62,5 +62,46 @@ func TestProtobufFactorySmallerIntegerNormalization(t *testing.T) {
     if number.Index == nil || *number.Index != tuple.sequence {
       t.Fatalf("protobuf number tag %s should preserve its sequence: %#v", tuple.tag, number.Index)
     }
+  }
+
+  mixed := schemametadata.MetadataObjectType_create(schemametadata.MetadataObjectType{
+    Name: "MixedSmallerIntegerProtobuf",
+    Properties: []*schemametadata.MetadataProperty{
+      testutil.Property("mixed", schemametadata.MetadataSchema_create(schemametadata.MetadataSchema{
+        Required: true,
+        Atomics: []*schemametadata.MetadataAtomic{
+          schemametadata.MetadataAtomic_create(schemametadata.MetadataAtomic{
+            Type: "number",
+            Tags: [][]schemametadata.IMetadataTypeTag{
+              {
+                testutil.TypeTag("int8"),
+                testutil.SequenceTag(31),
+              },
+              {
+                testutil.TypeTag("uint8"),
+                testutil.SequenceTag(32),
+              },
+            },
+          }),
+        },
+      })),
+    },
+  })
+  nativefactories.ProtobufFactory.EmplaceObject(mixed)
+
+  property := mixed.Properties[0].Of_protobuf_
+  if property == nil || property.Fixed == false || len(property.Union) != 2 {
+    t.Fatalf("mixed smaller integer property should have two fixed unions: %#v", property)
+  }
+  sequences := map[string]int{}
+  for _, union := range property.Union {
+    number, ok := union.(*nativeprotobuf.IProtobufPropertyType_INumber)
+    if ok == false || number.Index == nil {
+      t.Fatalf("mixed smaller integer union should be a numbered protobuf number: %#v", union)
+    }
+    sequences[number.Name] = *number.Index
+  }
+  if sequences["int32"] != 31 || sequences["uint32"] != 32 {
+    t.Fatalf("mixed smaller integer aliases should keep separate protobuf buckets: %#v", sequences)
   }
 }

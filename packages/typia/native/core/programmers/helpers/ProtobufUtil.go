@@ -212,7 +212,7 @@ func protobufUtil_decode_bigint(output map[string]*int, tags [][]nativemetadata.
     return
   }
   for _, row := range tags {
-    value := "int64"
+    value := defaultType
     for _, tag := range row {
       if tag.Kind == "type" && (tag.Value == "int64" || tag.Value == "uint64") {
         value = fmt.Sprint(tag.Value)
