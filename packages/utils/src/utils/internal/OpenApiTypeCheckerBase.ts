@@ -2,6 +2,7 @@ import { IJsonSchemaTransformError, IResult, OpenApi } from "@typia/interface";
 
 import { MapUtil } from "../MapUtil";
 import { JsonDescriptor } from "./JsonDescriptor";
+import { OpenApiSchemaSanitizer } from "./OpenApiSchemaSanitizer";
 
 /** @internal */
 export namespace OpenApiTypeCheckerBase {
@@ -369,7 +370,7 @@ export namespace OpenApiTypeCheckerBase {
         (v) => v !== undefined,
       ) as OpenApi.IJsonSchema[];
       if (filtered.length === 0) return undefined;
-      return {
+      return OpenApiSchemaSanitizer.omitEmptyRequired({
         ...props.schema,
         oneOf: filtered
           .map((v) =>
@@ -380,7 +381,7 @@ export namespace OpenApiTypeCheckerBase {
             }),
           )
           .flat(),
-      };
+      });
     } else if (isObject(props.schema)) {
       // OBJECT
       const object: OpenApi.IJsonSchema.IObject = props.schema;
@@ -420,7 +421,7 @@ export namespace OpenApiTypeCheckerBase {
         ) === true
       )
         return undefined;
-      return {
+      return OpenApiSchemaSanitizer.omitEmptyRequired({
         ...object,
         properties: Object.fromEntries(
           properties.filter(([_k, v]) => v !== undefined) as Array<
@@ -432,7 +433,7 @@ export namespace OpenApiTypeCheckerBase {
           object.required?.filter((k) =>
             properties.some(([key, value]) => key === k && value !== undefined),
           ) ?? [],
-      };
+      });
     } else if (isTuple(props.schema)) {
       // TUPLE
       const elements: Array<OpenApi.IJsonSchema | null | undefined> =

@@ -116,8 +116,10 @@ func json_schema_create_object_schema(props struct {
   schema := JsonSchema{
     "type":                 "object",
     "properties":           properties,
-    "required":             required,
     "additionalProperties": false,
+  }
+  if len(required) != 0 {
+    schema["required"] = required
   }
   if title := json_schema_title(struct {
     description *string

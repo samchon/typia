@@ -1,5 +1,6 @@
 import { IJsonSchemaAttribute, OpenApi, SwaggerV2 } from "@typia/interface";
 
+import { OpenApiSchemaSanitizer } from "../../utils/internal/OpenApiSchemaSanitizer";
 import { OpenApiTypeChecker } from "../../validators/OpenApiTypeChecker";
 import { SwaggerV2TypeChecker } from "../../validators/SwaggerV2TypeChecker";
 import { OpenApiExclusiveEmender } from "./OpenApiExclusiveEmender";
@@ -50,9 +51,10 @@ export namespace SwaggerV2Upgrader {
               ]),
           )
         : undefined;
+      const { parameters: _parameters, ...rest } = pathItem as any;
 
       return {
-        ...(pathItem as any),
+        ...rest,
         ...(pathItem.get
           ? { get: convertOperation(doc)(pathItem)(pathItem.get) }
           : undefined),
@@ -90,68 +92,129 @@ export namespace SwaggerV2Upgrader {
   const convertOperation =
     (doc: SwaggerV2.IDocument) =>
     (pathItem: SwaggerV2.IPath) =>
-    (input: SwaggerV2.IOperation): OpenApi.IOperation => ({
-      ...input,
-      parameters:
-        pathItem.parameters !== undefined || input.parameters !== undefined
-          ? (
-              [...(pathItem.parameters ?? []), ...(input.parameters ?? [])]
-                .map((p) =>
-                  SwaggerV2TypeChecker.isReference(p)
-                    ? doc.parameters?.[p.$ref.split("/").pop() ?? ""]!
-                    : p,
-                )
-                .filter(
-                  (p) =>
-                    p !== undefined &&
-                    p.in !== "body" &&
-                    (p as SwaggerV2.IOperation.IBodyParameter).schema ===
-                      undefined,
-                ) as SwaggerV2.IOperation.IGeneralParameter[]
-            ).map(convertParameter(doc.definitions ?? {}))
+    (input: SwaggerV2.IOperation): OpenApi.IOperation => {
+      const resolve = (
+        p: SwaggerV2.IOperation.IParameter | SwaggerV2.IJsonSchema.IReference,
+      ): SwaggerV2.IOperation.IParameter | undefined =>
+        SwaggerV2TypeChecker.isReference(p)
+          ? doc.parameters?.[p.$ref.split("/").pop() ?? ""]
+          : p;
+      const pathParameters: SwaggerV2.IOperation.IParameter[] = (
+        pathItem.parameters ?? []
+      )
+        .map(resolve)
+        .filter((p): p is SwaggerV2.IOperation.IParameter => p !== undefined);
+      const operationParameters: SwaggerV2.IOperation.IParameter[] = (
+        input.parameters ?? []
+      )
+        .map((p) =>
+          resolve(
+            p as
+              | SwaggerV2.IOperation.IParameter
+              | SwaggerV2.IJsonSchema.IReference,
+          ),
+        )
+        .filter((p): p is SwaggerV2.IOperation.IParameter => p !== undefined);
+      const parameters: SwaggerV2.IOperation.IGeneralParameter[] =
+        mergeParameters(
+          pathParameters.filter(isGeneralParameter),
+          operationParameters.filter(isGeneralParameter),
+        );
+      const body: SwaggerV2.IOperation.IBodyParameter | undefined = [
+        ...operationParameters,
+        ...pathParameters,
+      ].find(isBodyParameter) as
+        | SwaggerV2.IOperation.IBodyParameter
+        | undefined;
+      return {
+        ...input,
+        parameters:
+          pathItem.parameters !== undefined || input.parameters !== undefined
+            ? parameters.map(convertParameter(doc.definitions ?? {}))
+            : undefined,
+        requestBody: body
+          ? convertRequestBody(doc.definitions ?? {})(body)
           : undefined,
-      requestBody: (() => {
-        const found: SwaggerV2.IOperation.IBodyParameter | undefined =
-          input.parameters?.find((p) => {
-            if (SwaggerV2TypeChecker.isReference(p))
-              p = doc.parameters?.[p.$ref.split("/").pop() ?? ""]!;
-            return (
-              (p as SwaggerV2.IOperation.IBodyParameter)?.schema !== undefined
-            );
-          }) as SwaggerV2.IOperation.IBodyParameter | undefined;
-        return found
-          ? convertRequestBody(doc.definitions ?? {})(found)
-          : undefined;
-      })(),
-      responses: input.responses
-        ? Object.fromEntries(
-            Object.entries(input.responses)
-              .filter(([_, v]) => v !== undefined)
-              .map(
-                ([key, value]) => [key, convertResponse(doc)(value)!] as const,
-              )
-              .filter(([_, v]) => v !== undefined),
-          )
-        : undefined,
-    });
+        responses: input.responses
+          ? Object.fromEntries(
+              Object.entries(input.responses)
+                .filter(([_, v]) => v !== undefined)
+                .map(
+                  ([key, value]) =>
+                    [key, convertResponse(doc)(value)!] as const,
+                )
+                .filter(([_, v]) => v !== undefined),
+            )
+          : undefined,
+      };
+    };
+
+  const isBodyParameter = (
+    input: SwaggerV2.IOperation.IParameter,
+  ): input is SwaggerV2.IOperation.IBodyParameter =>
+    input.in === "body" ||
+    (input as SwaggerV2.IOperation.IBodyParameter).schema !== undefined;
+
+  const isGeneralParameter = (
+    input: SwaggerV2.IOperation.IParameter,
+  ): input is SwaggerV2.IOperation.IGeneralParameter =>
+    isBodyParameter(input) === false;
+
+  const mergeParameters = (
+    pathParameters: SwaggerV2.IOperation.IGeneralParameter[],
+    operationParameters: SwaggerV2.IOperation.IGeneralParameter[],
+  ): SwaggerV2.IOperation.IGeneralParameter[] => {
+    const map: Map<string, SwaggerV2.IOperation.IGeneralParameter> = new Map();
+    const emplace = (
+      parameter: SwaggerV2.IOperation.IGeneralParameter,
+    ): void => {
+      map.set(`${parameter.in}:${parameter.name}`, parameter);
+    };
+    pathParameters.forEach(emplace);
+    operationParameters.forEach(emplace);
+    return [...map.values()];
+  };
 
   const convertParameter =
     (definitions: Record<string, SwaggerV2.IJsonSchema>) =>
     (
       input: SwaggerV2.IOperation.IGeneralParameter,
-    ): OpenApi.IOperation.IParameter => ({
-      name: input.name,
-      in: input.in as any,
-      description: input.description,
-      schema: convertSchema(definitions)(input),
-      required: true,
-    });
+    ): OpenApi.IOperation.IParameter => {
+      const {
+        name,
+        in: location,
+        required: inputRequired,
+        description,
+        ...schema
+      } = input as SwaggerV2.IOperation.IGeneralParameter & {
+        required?: boolean | string[];
+      };
+      const required: boolean | undefined =
+        location === "path"
+          ? true
+          : typeof inputRequired === "boolean"
+            ? inputRequired
+            : undefined;
+      return {
+        name,
+        in: location as any,
+        description,
+        schema: convertSchema(definitions)({
+          ...schema,
+          ...(Array.isArray(inputRequired)
+            ? { required: inputRequired }
+            : undefined),
+        } as SwaggerV2.IJsonSchema),
+        ...(required !== undefined ? { required } : {}),
+      };
+    };
   const convertRequestBody =
     (definitions: Record<string, SwaggerV2.IJsonSchema>) =>
     (
       input: SwaggerV2.IOperation.IBodyParameter,
     ): OpenApi.IOperation.IRequestBody => ({
       description: input.description,
+      ...(input.required !== undefined ? { required: input.required } : {}),
       content: {
         "application/json": {
           schema: convertSchema(definitions)(input.schema),
@@ -191,8 +254,9 @@ export namespace SwaggerV2Upgrader {
                     [
                       key,
                       {
-                        schema: convertSchema(doc.definitions ?? {})(value),
+                        name: key,
                         in: "header",
+                        schema: convertSchema(doc.definitions ?? {})(value),
                       },
                     ] as const,
                 ),
@@ -412,31 +476,36 @@ export namespace SwaggerV2Upgrader {
               : undefined,
           });
         else if (SwaggerV2TypeChecker.isObject(schema))
-          union.push({
-            ...schema,
-            ...{
-              properties: schema.properties
+          union.push(
+            OpenApiSchemaSanitizer.omitEmptyRequired({
+              ...schema,
+              ...{
+                properties: schema.properties
+                  ? Object.fromEntries(
+                      Object.entries(schema.properties)
+                        .filter(([_, v]) => v !== undefined)
+                        .map(([key, value]) => [
+                          key,
+                          convertSchema(definitions)(value),
+                        ]),
+                    )
+                  : {},
+                additionalProperties:
+                  schema.additionalProperties !== undefined
+                    ? typeof schema.additionalProperties === "object" &&
+                      schema.additionalProperties !== null
+                      ? convertSchema(definitions)(schema.additionalProperties)
+                      : schema.additionalProperties
+                    : undefined,
+              },
+              examples: schema.examples
                 ? Object.fromEntries(
-                    Object.entries(schema.properties)
-                      .filter(([_, v]) => v !== undefined)
-                      .map(([key, value]) => [
-                        key,
-                        convertSchema(definitions)(value),
-                      ]),
+                    schema.examples.map((v, i) => [`v${i}`, v]),
                   )
-                : {},
-              additionalProperties: schema.additionalProperties
-                ? typeof schema.additionalProperties === "object" &&
-                  schema.additionalProperties !== null
-                  ? convertSchema(definitions)(schema.additionalProperties)
-                  : schema.additionalProperties
                 : undefined,
-            },
-            examples: schema.examples
-              ? Object.fromEntries(schema.examples.map((v, i) => [`v${i}`, v]))
-              : undefined,
-            required: schema.required ?? [],
-          });
+              required: schema.required ?? [],
+            }),
+          );
         else if (SwaggerV2TypeChecker.isReference(schema))
           union.push({
             ...schema,
@@ -505,9 +574,9 @@ export namespace SwaggerV2Upgrader {
             allOf: undefined,
           },
         };
-      return {
+      return OpenApiSchemaSanitizer.omitEmptyRequired({
         ...input,
-        type: "object",
+        type: "object" as const,
         properties: Object.fromEntries(
           objects
             .map((o) => Object.entries(o?.properties ?? {}))
@@ -517,11 +586,16 @@ export namespace SwaggerV2Upgrader {
                 [key, convertSchema(definitions)(value)] as const,
             ),
         ),
+        additionalProperties: objects.every(
+          (o) => o?.additionalProperties === false,
+        )
+          ? false
+          : undefined,
         ...{
           allOf: undefined,
           required: [...new Set(objects.map((o) => o?.required ?? []).flat())],
         },
-      };
+      });
     };
 
   const retrieveObject =

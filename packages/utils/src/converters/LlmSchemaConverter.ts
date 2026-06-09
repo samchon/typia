@@ -7,6 +7,7 @@ import {
 } from "@typia/interface";
 
 import { JsonDescriptor } from "../utils/internal/JsonDescriptor";
+import { OpenApiSchemaSanitizer } from "../utils/internal/OpenApiSchemaSanitizer";
 import { LlmTypeChecker } from "../validators/LlmTypeChecker";
 import { OpenApiTypeChecker } from "../validators/OpenApiTypeChecker";
 import { LlmDescriptionInverter } from "./internal/LlmDescriptionInverter";
@@ -489,20 +490,22 @@ export namespace LlmSchemaConverter {
           items: next(schema.items),
         });
       else if (LlmTypeChecker.isObject(schema))
-        union.push({
-          ...schema,
-          properties: Object.fromEntries(
-            Object.entries(schema.properties ?? {}).map(([key, value]) => [
-              key,
-              next(value),
-            ]),
-          ),
-          additionalProperties:
-            typeof schema.additionalProperties === "object" &&
-            schema.additionalProperties !== null
-              ? next(schema.additionalProperties)
-              : schema.additionalProperties,
-        });
+        union.push(
+          OpenApiSchemaSanitizer.omitEmptyRequired({
+            ...schema,
+            properties: Object.fromEntries(
+              Object.entries(schema.properties ?? {}).map(([key, value]) => [
+                key,
+                next(value),
+              ]),
+            ),
+            additionalProperties:
+              typeof schema.additionalProperties === "object" &&
+              schema.additionalProperties !== null
+                ? next(schema.additionalProperties)
+                : schema.additionalProperties,
+          }),
+        );
       else if (LlmTypeChecker.isAnyOf(schema)) schema.anyOf.forEach(visit);
       else if (LlmTypeChecker.isReference(schema)) {
         const key: string =
@@ -606,7 +609,7 @@ const validateStrict = (
           "LLM does not allow additionalProperties in strict mode, the dynamic key typed object.",
       });
     for (const key of Object.keys(schema.properties ?? {}))
-      if (schema.required?.includes(key) === false)
+      if (schema.required?.includes(key) !== true)
         reasons.push({
           schema: schema,
           accessor: `${accessor}.properties.${key}`,
