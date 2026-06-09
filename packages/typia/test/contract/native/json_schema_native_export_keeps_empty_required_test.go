@@ -7,17 +7,17 @@ import (
   nativemetadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
 )
 
-// TestJsonSchemaNativeExportOmitsEmptyRequired verifies custom native schema
-// components do not serialize an empty required array.
+// TestJsonSchemaNativeExportKeepsEmptyRequired verifies custom native schema
+// components serialize an explicit empty required array.
 //
 // Custom native components synthesize an object schema with no properties.
-// JSON Schema draft-04 rejects `required: []`, so the component must retain its
-// object shape while omitting `required` entirely.
+// They are named empty objects rather than records, so the component must
+// retain explicit `properties: {}` and `required: []` object keywords.
 //
 // 1. Export a non-built-in native metadata component.
 // 2. Read the generated component schema.
-// 3. Assert it is an empty object without an owned `required` key.
-func TestJsonSchemaNativeExportOmitsEmptyRequired(t *testing.T) {
+// 3. Assert it is an empty object with an empty `required` key.
+func TestJsonSchemaNativeExportKeepsEmptyRequired(t *testing.T) {
   components := &nativeiterate.OpenApi_IComponents{}
 
   schemas := nativeiterate.Json_schema_native_export(nativeiterate.Json_schema_native_export_props{
@@ -44,7 +44,11 @@ func TestJsonSchemaNativeExportOmitsEmptyRequired(t *testing.T) {
   if len(properties) != 0 {
     t.Fatalf("custom native component should have no properties: %#v", properties)
   }
-  if _, ok := component["required"]; ok {
-    t.Fatalf("custom native component must omit empty required: %#v", component)
+  required, ok := component["required"].([]string)
+  if !ok {
+    t.Fatalf("custom native component required mismatch: %#v", component["required"])
+  }
+  if len(required) != 0 {
+    t.Fatalf("custom native component should have no required properties: %#v", required)
   }
 }

@@ -1,3 +1,8 @@
+---
+name: pull-request
+description: PR submission flow and the release reference. Read only when the user explicitly asks for a pull request; never open, push, or propose a PR on your own initiative.
+---
+
 # Pull Request Submission
 
 Only act on this skill when the user explicitly asks for a pull request. Never open, propose, or push a new PR on your own initiative — not as a "helpful" follow-up to a finished change, not because the work looks done. (This bounds PR creation only; it does not change how you commit to a branch.) When the user does ask, follow this flow.

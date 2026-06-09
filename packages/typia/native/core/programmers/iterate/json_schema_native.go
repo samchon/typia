@@ -81,6 +81,7 @@ func json_schema_native(props struct {
     props.components.Schemas[props.native.Name] = JsonSchema{
       "type":       "object",
       "properties": JsonSchema{},
+      "required":   []string{},
     }
   }
   return json_schema_plugin(struct {
