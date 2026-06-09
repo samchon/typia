@@ -397,10 +397,10 @@ export const test_openapi_converter_parameter_required = (): void => {
         get: {
           parameters: [
             {
-              $ref: "#/definitions/parameters/SharedQueryOverride",
+              $ref: "#/parameters/SharedQueryOverride",
             },
             {
-              $ref: "#/definitions/parameters/SharedPathOverride",
+              $ref: "#/parameters/SharedPathOverride",
             },
           ],
           responses: {
@@ -506,7 +506,7 @@ export const test_openapi_converter_parameter_required = (): void => {
         post: {
           parameters: [
             {
-              $ref: "#/definitions/parameters/SharedBody",
+              $ref: "#/parameters/SharedBody",
             },
           ],
           responses: {
@@ -542,7 +542,7 @@ export const test_openapi_converter_parameter_required = (): void => {
         post: {
           parameters: [
             {
-              $ref: "#/definitions/parameters/SharedBody",
+              $ref: "#/parameters/SharedBody",
             },
           ],
           responses: {
@@ -1151,37 +1151,48 @@ const assertResponseHeaderDowngrade = (): void => {
   const swagger = OpenApiConverter.downgradeDocument(emended, "2.0");
   const v30 = OpenApiConverter.downgradeDocument(emended, "3.0");
   const v31 = OpenApiConverter.downgradeDocument(emended, "3.1");
-  const headers = [
-    responseHeader(
-      swagger.paths!["/response/header"]!.get!.responses!["200"]!,
-      "X-Trace",
-    ),
-    responseHeader(
-      v30.paths!["/response/header"]!.get!.responses!["200"]!,
-      "X-Trace",
-    ),
-    responseHeader(
-      v31.paths!["/response/header"]!.get!.responses!["200"]!,
-      "X-Trace",
-    ),
-  ];
-  TestValidator.equals(
-    "downgraded response headers omit internal parameter metadata",
-    headers.map((header) => ({
-      name: Object.prototype.hasOwnProperty.call(header, "name"),
-      in: Object.prototype.hasOwnProperty.call(header, "in"),
-      schema: Object.prototype.hasOwnProperty.call(header, "schema"),
-    })),
-    [
-      { name: false, in: false, schema: false },
-      { name: false, in: false, schema: false },
-      { name: false, in: false, schema: false },
-    ],
+  const swaggerHeader = responseHeader(
+    swagger.paths!["/response/header"]!.get!.responses!["200"]!,
+    "X-Trace",
+  );
+  const v30Header = responseHeader(
+    v30.paths!["/response/header"]!.get!.responses!["200"]!,
+    "X-Trace",
+  );
+  const v31Header = responseHeader(
+    v31.paths!["/response/header"]!.get!.responses!["200"]!,
+    "X-Trace",
   );
   TestValidator.equals(
     "downgraded swagger response header is flattened schema",
-    (headers[0] as SwaggerV2.IJsonSchema.IString).type,
-    "string",
+    {
+      name: Object.prototype.hasOwnProperty.call(swaggerHeader, "name"),
+      in: Object.prototype.hasOwnProperty.call(swaggerHeader, "in"),
+      required: Object.prototype.hasOwnProperty.call(swaggerHeader, "required"),
+      schema: Object.prototype.hasOwnProperty.call(swaggerHeader, "schema"),
+      type: (swaggerHeader as SwaggerV2.IJsonSchema.IString).type,
+    },
+    {
+      name: false,
+      in: false,
+      required: false,
+      schema: false,
+      type: "string",
+    },
+  );
+  TestValidator.equals(
+    "downgraded v3 response headers omit only name and in",
+    [v30Header, v31Header].map((header) => ({
+      name: Object.prototype.hasOwnProperty.call(header, "name"),
+      in: Object.prototype.hasOwnProperty.call(header, "in"),
+      required: Object.prototype.hasOwnProperty.call(header, "required"),
+      schema: (header as { schema?: OpenApiV3.IJsonSchema.IString }).schema
+        ?.type,
+    })),
+    [
+      { name: false, in: false, required: true, schema: "string" },
+      { name: false, in: false, required: true, schema: "string" },
+    ],
   );
 };
 

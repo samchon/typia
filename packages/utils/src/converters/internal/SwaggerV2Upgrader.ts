@@ -586,6 +586,11 @@ export namespace SwaggerV2Upgrader {
                 [key, convertSchema(definitions)(value)] as const,
             ),
         ),
+        additionalProperties: objects.every(
+          (o) => o?.additionalProperties === false,
+        )
+          ? false
+          : undefined,
         ...{
           allOf: undefined,
           required: [...new Set(objects.map((o) => o?.required ?? []).flat())],

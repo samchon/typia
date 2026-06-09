@@ -5,11 +5,11 @@ import { LlmSchemaConverter } from "@typia/utils";
 /**
  * Verifies LLM inversion omits empty OpenAPI `required` arrays.
  *
- * Strict LLM schemas intentionally keep `required: []`, but converting them
- * back to general OpenAPI must not leak that invalid empty array into the
- * OpenAPI schema output.
+ * LLM schemas intentionally keep `required: []`, but converting them back to
+ * general OpenAPI must not leak that invalid empty array into the OpenAPI
+ * schema output.
  *
- * 1. Invert a strict empty LLM object schema.
+ * 1. Invert an empty LLM object schema.
  * 2. Assert object shell fields are preserved.
  * 3. Assert the OpenAPI result omits empty `required`.
  */

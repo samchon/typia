@@ -14,6 +14,8 @@ export namespace HttpMigrateRouteComposer {
     operation: OpenApi.IOperation;
   }
   export const compose = (props: IProps): IHttpMigrateRoute | string[] => {
+    sanitizeOperationSchemas(props.document)(props.operation);
+
     //----
     // REQUEST AND RESPONSE BODY
     //----
@@ -292,18 +294,22 @@ export namespace HttpMigrateRouteComposer {
           .filter(
             ([key]) => key !== "200" && key !== "201" && key !== "default",
           )
-          .map(([status, response]) => [
-            status,
-            {
-              schema: sanitizeSchema(props.document)(
-                response.content?.["application/json"]?.schema ?? {},
-              ),
-              response: () => response,
-              media: () =>
-                (response.content?.["application/json"] ??
-                  {}) satisfies OpenApi.IJsonSchema,
-            } satisfies IHttpMigrateRoute.IException,
-          ]),
+          .map(([status, response]) => {
+            const media = findJsonMedia(response.content);
+            const schema =
+              media !== undefined
+                ? (sanitizeMediaSchema(props.document)(media[1]) ?? {})
+                : {};
+            return [
+              status,
+              {
+                schema,
+                response: () => response,
+                media: () =>
+                  media?.[1] ?? ({} satisfies OpenApi.IOperation.IMediaType),
+              } satisfies IHttpMigrateRoute.IException,
+            ];
+          }),
       ),
       comment: () =>
         writeRouteComment({
@@ -423,7 +429,7 @@ export namespace HttpMigrateRouteComposer {
           : e[0].includes("application/json") || e[0].includes("*/*"),
       );
       if (json) {
-        const { schema } = json[1];
+        const schema = sanitizeMediaSchema(document)(json[1]);
         return schema
           ? {
               type: "application/json",
@@ -443,7 +449,7 @@ export namespace HttpMigrateRouteComposer {
         e[0].includes("application/x-www-form-urlencoded"),
       );
       if (query) {
-        const { schema } = query[1];
+        const schema = sanitizeMediaSchema(document)(query[1]);
         return schema
           ? {
               type: "application/x-www-form-urlencoded",
@@ -474,7 +480,7 @@ export namespace HttpMigrateRouteComposer {
           e[0].includes("multipart/form-data"),
         );
         if (multipart) {
-          const { schema } = multipart[1];
+          const schema = sanitizeMediaSchema(document)(multipart[1]);
           return {
             type: "multipart/form-data",
             name: "body",
@@ -491,6 +497,49 @@ export namespace HttpMigrateRouteComposer {
       }
       return false;
     };
+
+  const sanitizeOperationSchemas =
+    (document: OpenApi.IDocument) =>
+    (operation: OpenApi.IOperation): void => {
+      operation.parameters?.forEach((parameter) => {
+        parameter.schema = sanitizeSchema(document)(parameter.schema);
+      });
+      sanitizeContentSchemas(document)(operation.requestBody?.content);
+      Object.values(operation.responses ?? {}).forEach((response) =>
+        sanitizeContentSchemas(document)(response.content),
+      );
+    };
+
+  const sanitizeContentSchemas =
+    (
+      document: OpenApi.IDocument,
+    ): ((content: OpenApi.IOperation.IContent | undefined) => void) =>
+    (content) => {
+      Object.values(content ?? {}).forEach((media) => {
+        if (media !== undefined) sanitizeMediaSchema(document)(media);
+      });
+    };
+
+  const sanitizeMediaSchema =
+    (document: OpenApi.IDocument) =>
+    (media: OpenApi.IOperation.IMediaType): OpenApi.IJsonSchema | undefined => {
+      if (media.schema === undefined) return undefined;
+      media.schema = sanitizeSchema(document)(media.schema);
+      return media.schema;
+    };
+
+  const findJsonMedia = (
+    content: OpenApi.IOperation.IContent | undefined,
+  ): [string, OpenApi.IOperation.IMediaType] | undefined =>
+    Object.entries(content ?? {}).find(
+      (entry): entry is [string, OpenApi.IOperation.IMediaType] => {
+        const [type, media] = entry;
+        return (
+          media !== undefined &&
+          (type.includes("application/json") || type.includes("*/*"))
+        );
+      },
+    );
 
   const emplaceReference = (props: {
     document: OpenApi.IDocument;

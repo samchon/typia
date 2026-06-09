@@ -362,6 +362,8 @@ export namespace ILlmSchema {
      *
      * Defines the type of each named property on the object. All properties are
      * defined here regardless of whether they are required or optional.
+     * Generated LLM object schemas always include this field, even when it is
+     * empty.
      */
     properties: Record<string, ILlmSchema>;
 
@@ -380,8 +382,9 @@ export namespace ILlmSchema {
     /**
      * List of required property names.
      *
-     * Properties in this array must be present in the object. In strict mode,
-     * all properties become required automatically.
+     * Properties in this array must be present in the object. Generated LLM
+     * object schemas always include this field, even when it is empty. In
+     * strict mode, all properties become required automatically.
      */
     required: string[];
   }

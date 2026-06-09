@@ -89,15 +89,17 @@ export const test_openapi_converter_empty_required = (): void => {
     assertObjectNoRequired(
       `${name} upgraded optional allOf`,
       schemas.Merged!,
-      undefined,
+      false,
     );
     assertObjectRequired(
       `${name} upgraded required allOf`,
       schemas.MergedRequired!,
+      false,
     );
     assertObjectRequired(
       `${name} upgraded required-first allOf`,
       schemas.MergedRequiredFirst!,
+      false,
     );
   }
 

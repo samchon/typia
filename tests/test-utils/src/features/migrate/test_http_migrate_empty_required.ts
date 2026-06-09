@@ -227,11 +227,38 @@ export const test_http_migrate_empty_required = (): void => {
           },
           required: [],
         },
+        CycleA: {
+          type: "object",
+          properties: {
+            next: {
+              $ref: "#/components/schemas/CycleB",
+            },
+          },
+          required: [],
+        },
+        CycleB: {
+          type: "object",
+          properties: {
+            next: {
+              $ref: "#/components/schemas/CycleA",
+            },
+          },
+          required: [],
+        },
         RequiredBody: {
           type: "object",
           properties: {
             title: {
               type: "string",
+            },
+            nested: {
+              type: "object",
+              properties: {
+                label: {
+                  type: "string",
+                },
+              },
+              required: [],
             },
           },
           required: ["title"],
@@ -619,6 +646,49 @@ export const test_http_migrate_empty_required = (): void => {
           },
         },
       },
+      "/exception-wildcard": {
+        get: {
+          responses: {
+            "200": {
+              description: "OK",
+            },
+            "400": {
+              description: "Bad Request",
+              content: {
+                "*/*": {
+                  schema: {
+                    type: "object",
+                    properties: {
+                      error: {
+                        type: "string",
+                      },
+                    },
+                    required: [],
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+      "/cycle": {
+        post: {
+          requestBody: {
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/CycleA",
+                },
+              },
+            },
+          },
+          responses: {
+            "200": {
+              description: "OK",
+            },
+          },
+        },
+      },
     },
   };
 
@@ -639,6 +709,19 @@ export const test_http_migrate_empty_required = (): void => {
     false,
   );
   assertObjectNoRequired(
+    "document request body",
+    app.document().paths!["/items"]!.get!.requestBody!.content![
+      "application/json"
+    ]!.schema as OpenApi.IJsonSchema.IObject,
+    "title",
+  );
+  assertObjectNoRequired(
+    "operation request body",
+    route.operation().requestBody!.content!["application/json"]!
+      .schema as OpenApi.IJsonSchema.IObject,
+    "title",
+  );
+  assertObjectNoRequired(
     "request body",
     resolve(app, route.body!.schema),
     "title",
@@ -651,6 +734,12 @@ export const test_http_migrate_empty_required = (): void => {
   assertObjectNoRequired(
     "inline query",
     resolveSchema(app, findRoute(app, "/inline-query").query!.schema),
+    "search",
+  );
+  assertObjectNoRequired(
+    "inline query operation schema",
+    findRoute(app, "/inline-query").operation().parameters![0]!
+      .schema as OpenApi.IJsonSchema.IObject,
     "search",
   );
   assertObjectNoRequired(
@@ -676,6 +765,12 @@ export const test_http_migrate_empty_required = (): void => {
   assertObjectRequired(
     "required query",
     resolveSchema(app, findRoute(app, "/required-query").query!.schema),
+    "search",
+  );
+  assertObjectRequired(
+    "required query operation schema",
+    findRoute(app, "/required-query").operation().parameters![0]!
+      .schema as OpenApi.IJsonSchema.IObject,
     "search",
   );
   assertObjectRequired(
@@ -760,6 +855,21 @@ export const test_http_migrate_empty_required = (): void => {
     ),
     "error",
   );
+  assertObjectNoRequired(
+    "wildcard exception",
+    resolveSchema(
+      app,
+      findRoute(app, "/exception-wildcard").exceptions["400"]!.schema,
+    ),
+    "error",
+  );
+  const cycle = resolveSchema(app, findRoute(app, "/cycle").body!.schema);
+  assertObjectNoRequired("cycle body", cycle, "next");
+  assertObjectNoRequired(
+    "cycle nested",
+    resolveSchema(app, cycle.properties!.next!),
+    "next",
+  );
 };
 
 const findRoute = (
@@ -826,6 +936,7 @@ const assertObjectRequired = (
   TestValidator.equals(`${name} required preserved`, schema.required, [
     property,
   ]);
+  assertNoEmptyRequired(name, schema);
 };
 
 const assertNoEmptyRequired = (

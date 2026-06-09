@@ -719,6 +719,11 @@ export namespace OpenApiV3_1Upgrader {
                 [key, convertSchema(components)(value)] as const,
             ),
         ),
+        additionalProperties: objects.every(
+          (o) => o?.additionalProperties === false,
+        )
+          ? false
+          : undefined,
         ...{
           allOf: undefined,
           required: [...new Set(objects.map((o) => o?.required ?? []).flat())],
