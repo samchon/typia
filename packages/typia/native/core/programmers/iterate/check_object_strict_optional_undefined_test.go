@@ -42,8 +42,20 @@ func TestCheckObjectStrictOptionalUndefinedAllowsMissingKey(t *testing.T) {
   if outer.Left.Kind != shimast.KindPrefixUnaryExpression {
     t.Fatal("left branch should negate property presence")
   }
-  if outer.Left.AsPrefixUnaryExpression().Operand.AsBinaryExpression().OperatorToken.Kind != shimast.KindInKeyword {
+  prefix := outer.Left.AsPrefixUnaryExpression()
+  if prefix.Operator != shimast.KindExclamationToken {
+    t.Fatal("left branch should use a ! prefix")
+  }
+  presence := prefix.Operand.AsBinaryExpression()
+  if presence.OperatorToken.Kind != shimast.KindInKeyword {
     t.Fatal("left branch should use the in operator")
+  }
+  if presence.Left.Kind != shimast.KindStringLiteral ||
+    shimast.NodeText(presence.Left) != "optional" {
+    t.Fatal("left branch should test the literal property key")
+  }
+  if presence.Right != input {
+    t.Fatal("left branch should test presence on the original input")
   }
   if outer.Right != expression {
     t.Fatal("right branch should be the original strict decoder expression")

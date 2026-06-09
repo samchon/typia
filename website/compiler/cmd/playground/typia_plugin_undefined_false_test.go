@@ -1,9 +1,9 @@
 package main
 
 import (
-	"os"
-	"path/filepath"
-	"testing"
+  "os"
+  "path/filepath"
+  "testing"
 )
 
 // TestPlaygroundPluginOptionsUndefinedFalsePreservesExplicitFalse verifies playground option parsing.
@@ -17,20 +17,20 @@ import (
 // 2. Read plugin options through the playground helper.
 // 3. Assert the undefined option is a non-nil false pointer.
 func TestPlaygroundPluginOptionsUndefinedFalsePreservesExplicitFalse(t *testing.T) {
-	root := t.TempDir()
-	path := filepath.Join(root, "tsconfig.json")
-	if err := os.WriteFile(path, []byte(`{
+  root := t.TempDir()
+  path := filepath.Join(root, "tsconfig.json")
+  if err := os.WriteFile(path, []byte(`{
   "compilerOptions": {
     "plugins": [
       { "transform": "typia/lib/transform", "undefined": false }
     ]
   }
 }`), 0o644); err != nil {
-		t.Fatal(err)
-	}
+    t.Fatal(err)
+  }
 
-	options := readTypiaPluginOptions(root, path)
-	if options.Undefined == nil || *options.Undefined {
-		t.Fatalf("undefined=false should be preserved: %#v", options.Undefined)
-	}
+  options := readTypiaPluginOptions(root, path)
+  if options.Undefined == nil || *options.Undefined {
+    t.Fatalf("undefined=false should be preserved: %#v", options.Undefined)
+  }
 }

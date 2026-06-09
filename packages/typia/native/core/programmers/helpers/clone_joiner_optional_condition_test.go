@@ -48,6 +48,14 @@ func TestCloneJoinerOptionalConditionDistinguishesExplicitUndefined(t *testing.T
   if outer.Right.AsBinaryExpression().OperatorToken.Kind != shimast.KindInKeyword {
     t.Fatal("explicit undefined union should use the in operator")
   }
+  presence := outer.Right.AsBinaryExpression()
+  if presence.Left.Kind != shimast.KindStringLiteral ||
+    shimast.NodeText(presence.Left) != "optionalUndefined" {
+    t.Fatal("explicit undefined union should test the literal property key")
+  }
+  if presence.Right != input {
+    t.Fatal("explicit undefined union should test presence on the original input")
+  }
 }
 
 func cloneJoinerTestLiteralKey(value string) *nativemetadata.MetadataSchema {
