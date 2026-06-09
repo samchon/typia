@@ -10,7 +10,7 @@
 
 ## 실행 후보
 
-현재 열려 있는 실행 후보가 없다.
+- [#1590, 교차된 판별 union 검증 오판](./issues/1590-intersection-union-validation.md): 구현 진행 중. `Date` 같은 native metadata가 다른 인스턴스로 생성되면 서로 다른 타입처럼 판단되어 object-union branch selector가 잘못 만들어지는 문제다.
 
 ## 공통 검증 원칙
 
