@@ -27,7 +27,7 @@ func (optionPredicatorNamespace) Undefined(options nativecontext.ITransformOptio
 
 func (optionPredicatorNamespace) StrictOptionalUndefined(context nativecontext.ITypiaContext, metadata *schemametadata.MetadataSchema) bool {
   return OptionPredicator.ExactOptionalProperty(context, metadata) &&
-    metadata.Required
+    metadata.Required == false
 }
 
 func (optionPredicatorNamespace) ExactOptionalProperty(context nativecontext.ITypiaContext, metadata *schemametadata.MetadataSchema) bool {
