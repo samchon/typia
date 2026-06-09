@@ -20,8 +20,9 @@ import { TagBase } from "./TagBase";
  * - `"float"`: 32-bit floating point
  * - `"double"`: 64-bit floating point (default JavaScript number)
  *
- * For Protocol Buffers, integer types also determine the wire encoding. The
- * constraint is enforced at runtime by `typia.is()`, `typia.assert()`, and
+ * For Protocol Buffers, numeric types select the protobuf scalar type, while
+ * smaller integer tags validate narrower ranges and emit `int32` or `uint32`.
+ * The constraint is enforced at runtime by `typia.is()`, `typia.assert()`, and
  * `typia.validate()`. It generates appropriate `type` in JSON Schema.
  *
  * @author Jeongho Nam - https://github.com/samchon

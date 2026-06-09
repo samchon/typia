@@ -186,7 +186,7 @@ If you'd rather write JSDoc, the same constraints exist as `@`-prefixed tags:
 >
 > **Type tags > comment tags. Always, unless you can't.**
 >
-> - Comment tags are **not type-checked**. `@type unit32` (typo of `uint32`) silently falls back to `double`, and you only notice at runtime.
+> - Comment tags are **not type-checked**. `@type unit32` (typo of `uint32`) is ignored: validators and `random` lose the intended range constraint, and protobuf schema emission falls back to the default `double` scalar for an untagged `number`.
 > - Comment tags only work on **object properties**. They don't apply to element types of `Array` or `Map`, and they can't be combined with union types.
 > - Comment tags can't express union constraints. `@type int32` locks the property to `int32`; you can't follow it with `@type float`.
 >
