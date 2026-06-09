@@ -55,7 +55,7 @@ export const test_json_schema_empty_required = (): void => {
   );
 
   const filteredOnly = object(typia.json.schema<IFilteredOnly>());
-  TestValidator.equals("filtered-only properties", sorted(filteredOnly), []);
+  TestValidator.equals("filtered-only properties", filteredOnly.properties, {});
   TestValidator.equals("filtered-only required", filteredOnly.required, []);
 
   const record = typia.json.schema<Record<string, string & tags.MinLength<1>>>()

@@ -474,34 +474,58 @@ export namespace SwaggerV2Upgrader {
               ? Object.fromEntries(schema.examples.map((v, i) => [`v${i}`, v]))
               : undefined,
           });
-        else if (SwaggerV2TypeChecker.isObject(schema))
+        else if (SwaggerV2TypeChecker.isObject(schema)) {
+          const {
+            additionalProperties,
+            examples,
+            properties,
+            required,
+            ...rest
+          } = schema;
+          const dynamicRecord: boolean =
+            properties === undefined &&
+            required === undefined &&
+            additionalProperties !== undefined &&
+            additionalProperties !== false;
           union.push({
-            ...schema,
-            ...{
-              properties: schema.properties
-                ? Object.fromEntries(
-                    Object.entries(schema.properties)
-                      .filter(([_, v]) => v !== undefined)
-                      .map(([key, value]) => [
-                        key,
-                        convertSchema(definitions)(value),
-                      ]),
-                  )
-                : {},
-              additionalProperties:
-                schema.additionalProperties !== undefined
-                  ? typeof schema.additionalProperties === "object" &&
-                    schema.additionalProperties !== null
-                    ? convertSchema(definitions)(schema.additionalProperties)
-                    : schema.additionalProperties
-                  : undefined,
-            },
-            examples: schema.examples
-              ? Object.fromEntries(schema.examples.map((v, i) => [`v${i}`, v]))
-              : undefined,
-            required: schema.required ?? [],
+            ...rest,
+            ...(dynamicRecord === false
+              ? {
+                  properties: properties
+                    ? Object.fromEntries(
+                        Object.entries(properties)
+                          .filter(([_, v]) => v !== undefined)
+                          .map(([key, value]) => [
+                            key,
+                            convertSchema(definitions)(value),
+                          ]),
+                      )
+                    : {},
+                }
+              : {}),
+            ...(additionalProperties !== undefined
+              ? {
+                  additionalProperties:
+                    typeof additionalProperties === "object" &&
+                    additionalProperties !== null
+                      ? convertSchema(definitions)(additionalProperties)
+                      : additionalProperties,
+                }
+              : {}),
+            ...(examples
+              ? {
+                  examples: Object.fromEntries(
+                    examples.map((v, i) => [`v${i}`, v]),
+                  ),
+                }
+              : {}),
+            ...(dynamicRecord === false
+              ? {
+                  required: required ?? [],
+                }
+              : {}),
           });
-        else if (SwaggerV2TypeChecker.isReference(schema))
+        } else if (SwaggerV2TypeChecker.isReference(schema))
           union.push({
             ...schema,
             $ref: schema.$ref.replace(

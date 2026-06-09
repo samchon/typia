@@ -413,31 +413,46 @@ export namespace OpenApiV3Upgrader {
             ...schema,
             items: convertSchema(components)(schema.items),
           });
-        else if (OpenApiV3TypeChecker.isObject(schema))
+        else if (OpenApiV3TypeChecker.isObject(schema)) {
+          const { additionalProperties, properties, required, ...rest } =
+            schema;
+          const dynamicRecord: boolean =
+            properties === undefined &&
+            required === undefined &&
+            additionalProperties !== undefined &&
+            additionalProperties !== false;
           union.push({
-            ...schema,
-            ...{
-              properties: schema.properties
-                ? Object.fromEntries(
-                    Object.entries(schema.properties)
-                      .filter(([_, v]) => v !== undefined)
-                      .map(([key, value]) => [
-                        key,
-                        convertSchema(components)(value),
-                      ]),
-                  )
-                : {},
-              additionalProperties:
-                schema.additionalProperties !== undefined
-                  ? typeof schema.additionalProperties === "object" &&
-                    schema.additionalProperties !== null
-                    ? convertSchema(components)(schema.additionalProperties)
-                    : schema.additionalProperties
-                  : undefined,
-              required: schema.required ?? [],
-            },
+            ...rest,
+            ...(dynamicRecord === false
+              ? {
+                  properties: properties
+                    ? Object.fromEntries(
+                        Object.entries(properties)
+                          .filter(([_, v]) => v !== undefined)
+                          .map(([key, value]) => [
+                            key,
+                            convertSchema(components)(value),
+                          ]),
+                      )
+                    : {},
+                }
+              : {}),
+            ...(additionalProperties !== undefined
+              ? {
+                  additionalProperties:
+                    typeof additionalProperties === "object" &&
+                    additionalProperties !== null
+                      ? convertSchema(components)(additionalProperties)
+                      : additionalProperties,
+                }
+              : {}),
+            ...(dynamicRecord === false
+              ? {
+                  required: required ?? [],
+                }
+              : {}),
           });
-        else if (OpenApiV3TypeChecker.isReference(schema)) union.push(schema);
+        } else if (OpenApiV3TypeChecker.isReference(schema)) union.push(schema);
         else union.push(schema);
       };
 

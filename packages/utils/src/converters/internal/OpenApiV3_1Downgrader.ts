@@ -268,26 +268,34 @@ export namespace OpenApiV3_1Downgrader {
                 ? downgradeSchema(collection)(schema.additionalItems)
                 : schema.additionalItems,
           });
-        else if (OpenApiTypeChecker.isObject(schema))
+        else if (OpenApiTypeChecker.isObject(schema)) {
+          const { additionalProperties, properties, required, ...rest } =
+            schema;
           union.push({
-            ...schema,
-            properties: schema.properties
-              ? Object.fromEntries(
-                  Object.entries(schema.properties)
-                    .filter(([_, v]) => v !== undefined)
-                    .map(([key, value]) => [
-                      key,
-                      downgradeSchema(collection)(value),
-                    ]),
-                )
-              : undefined,
-            additionalProperties:
-              typeof schema.additionalProperties === "object"
-                ? downgradeSchema(collection)(schema.additionalProperties)
-                : schema.additionalProperties,
-            required: schema.required,
+            ...rest,
+            ...(properties !== undefined
+              ? {
+                  properties: Object.fromEntries(
+                    Object.entries(properties)
+                      .filter(([_, v]) => v !== undefined)
+                      .map(([key, value]) => [
+                        key,
+                        downgradeSchema(collection)(value),
+                      ]),
+                  ),
+                }
+              : {}),
+            ...(additionalProperties !== undefined
+              ? {
+                  additionalProperties:
+                    typeof additionalProperties === "object"
+                      ? downgradeSchema(collection)(additionalProperties)
+                      : additionalProperties,
+                }
+              : {}),
+            ...(required !== undefined ? { required } : {}),
           });
-        else if (OpenApiTypeChecker.isOneOf(schema))
+        } else if (OpenApiTypeChecker.isOneOf(schema))
           schema.oneOf.forEach(visit);
       };
       visit(input);
