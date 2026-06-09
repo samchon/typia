@@ -358,10 +358,15 @@ func metadataCommentTagFactory_parse_type(props struct {
   if value == "uint64" {
     bigintSchema = map[string]any{"minimum": 0}
   }
-  return metadataCommentTagFactory_TagRecord{
+  record := metadataCommentTagFactory_TagRecord{
     "number": {{Name: "Type<" + strconv.Quote(value) + ">", Target: "number", Kind: "type", Value: value, Validate: validate, Exclusive: true, Schema: numberSchema}},
-    "bigint": {{Name: "Type<" + strconv.Quote(value) + ">", Target: "bigint", Kind: "type", Value: value, Validate: map[bool]string{true: "true", false: "BigInt(0) <= $input"}[value == "int64"], Exclusive: true, Schema: bigintSchema}},
   }
+  if value == "int64" || value == "uint64" {
+    record["bigint"] = []schemametadata.IMetadataTypeTag{
+      {Name: "Type<" + strconv.Quote(value) + ">", Target: "bigint", Kind: "type", Value: value, Validate: map[bool]string{true: "true", false: "BigInt(0) <= $input"}[value == "int64"], Exclusive: true, Schema: bigintSchema},
+    }
+  }
+  return record
 }
 
 func metadataCommentTagFactory_numeric(props struct {

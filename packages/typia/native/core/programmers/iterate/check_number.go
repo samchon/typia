@@ -107,7 +107,11 @@ func check_numeric_type_tags(props check_numeric_type_tagsProps) [][]nativehelpe
 func check_numeric_type_tags_covers_addition(row []nativemetadata.IMetadataTypeTag) bool {
   if check_number_some(row, func(tag nativemetadata.IMetadataTypeTag) bool {
     return tag.Kind == "type" &&
-      (tag.Value == "int32" ||
+      (tag.Value == "int8" ||
+        tag.Value == "uint8" ||
+        tag.Value == "int16" ||
+        tag.Value == "uint16" ||
+        tag.Value == "int32" ||
         tag.Value == "uint32" ||
         tag.Value == "int64" ||
         tag.Value == "uint64" ||

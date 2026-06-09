@@ -3,6 +3,20 @@ import { ILlmSchema } from "@typia/interface";
 import typia, { tags } from "typia";
 
 export const test_llm_schema_spec_number = (): void => {
+  interface ICommentTypeNumbers {
+    /** @type int8 */
+    int8: number;
+
+    /** @type uint8 */
+    uint8: number;
+
+    /** @type int16 */
+    int16: number;
+
+    /** @type uint16 */
+    uint16: number;
+  }
+
   TestValidator.equals("number", clean(typia.llm.schema<number>({})), {
     type: "number",
   });
@@ -97,6 +111,45 @@ export const test_llm_schema_spec_number = (): void => {
     },
   );
   TestValidator.equals(
+    "strict uint8 shifts minimum",
+    clean(typia.llm.schema<number & tags.Type<"uint8">, { strict: true }>({})),
+    {
+      type: "integer",
+      description: "@minimum 0",
+    },
+  );
+  const commentTypeDefs: Record<string, ILlmSchema> = {};
+  TestValidator.equals(
+    "comment type smaller integers",
+    clean(
+      resolve(
+        typia.llm.schema<ICommentTypeNumbers>(commentTypeDefs),
+        commentTypeDefs,
+      ),
+    ),
+    {
+      type: "object",
+      properties: {
+        int8: {
+          type: "integer",
+        },
+        int16: {
+          type: "integer",
+        },
+        uint8: {
+          type: "integer",
+          minimum: 0,
+        },
+        uint16: {
+          type: "integer",
+          minimum: 0,
+        },
+      },
+      required: ["int8", "uint8", "int16", "uint16"],
+      additionalProperties: false,
+    },
+  );
+  TestValidator.equals(
     "number literal union",
     enumSchema(typia.llm.schema<1 | 2 | 3>({})),
     {
@@ -114,3 +167,11 @@ const enumSchema = (
   type: (schema as { type?: string }).type,
   enum: [...((schema as { enum?: unknown[] }).enum ?? [])].sort(),
 });
+
+const resolve = (
+  schema: ILlmSchema,
+  $defs: Record<string, ILlmSchema>,
+): ILlmSchema => {
+  if ("$ref" in schema) return $defs[schema.$ref.split("/").at(-1)!]!;
+  return schema;
+};

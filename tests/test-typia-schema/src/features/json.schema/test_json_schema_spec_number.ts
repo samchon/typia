@@ -2,6 +2,20 @@ import { TestValidator } from "@nestia/e2e";
 import typia, { tags } from "typia";
 
 export const test_json_schema_spec_number = (): void => {
+  interface ICommentTypeNumbers {
+    /** @type int8 */
+    int8: number;
+
+    /** @type uint8 */
+    uint8: number;
+
+    /** @type int16 */
+    int16: number;
+
+    /** @type uint16 */
+    uint16: number;
+  }
+
   TestValidator.equals("number", clean(typia.json.schema<number>().schema), {
     type: "number",
   });
@@ -80,6 +94,31 @@ export const test_json_schema_spec_number = (): void => {
     {
       type: "number",
       multipleOf: 5,
+    },
+  );
+  TestValidator.equals(
+    "comment type smaller integers",
+    clean(typia.json.schema<ICommentTypeNumbers>().schema),
+    {
+      type: "object",
+      properties: {
+        int8: {
+          type: "integer",
+        },
+        int16: {
+          type: "integer",
+        },
+        uint8: {
+          type: "integer",
+          minimum: 0,
+        },
+        uint16: {
+          type: "integer",
+          minimum: 0,
+        },
+      },
+      required: ["int8", "uint8", "int16", "uint16"],
+      additionalProperties: false,
     },
   );
   TestValidator.equals(
