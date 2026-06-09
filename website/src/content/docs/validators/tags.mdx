@@ -215,7 +215,7 @@ type IsEven = tags.TagBase<{
 `tags.TagBase<Props>` builds a new tag. The minimum properties are:
 
 - `kind` — the tag's name (must be unique among intersected tags)
-- `target` — `"number" | "bigint" | "string" | "array"` (or a `Record<Target, string>` map if the tag spans multiple bases)
+- `target` — `"number" | "bigint" | "string" | "array" | "object"` (or a `Record<Target, string>` map if the tag spans multiple bases)
 - `value` — the constant captured by the tag (useful when the tag has a parameter, e.g. `Postfix<".com">`)
 - `validate` — either an inline expression string referencing `$input`, or a regular function
 
