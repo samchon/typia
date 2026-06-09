@@ -1593,14 +1593,7 @@ func checkerProgrammer_explore_objects(props checkerProgrammer_exploreObjectsPro
           Input:   props.Input,
           Explore: props.Explore,
         }),
-        f.NewReturnStatement(checkerProgrammer_decode_object_reference(checkerProgrammer_decodeObjectReferenceProps{
-          Config:  props.Config,
-          Context: props.Context,
-          Functor: props.Functor,
-          Object:  object,
-          Input:   props.Input,
-          Explore: props.Explore,
-        })),
+        f.NewReturnStatement(props.Config.Success),
         nil,
       ))
     }

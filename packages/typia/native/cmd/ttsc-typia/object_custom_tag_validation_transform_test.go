@@ -18,14 +18,17 @@ import (
 // it reuses the shared object validator.
 //
 //  1. Transform a fixture with an object-target `TagBase` validator.
-//  2. Assert the generated JavaScript contains the custom object expression.
-//  3. Execute the emitted validator, requiring `createIs` and `createValidate`
-//     to reject an empty partial object and accept a non-empty one.
+//  2. Assert the generated JavaScript contains the custom object expressions.
+//  3. Execute the emitted validators, requiring `createIs`, `createValidate`,
+//     `createAssert`, and equals variants to preserve object tag semantics.
 func TestObjectCustomTagValidationTransform(t *testing.T) {
   project := objectCustomTagValidationProject(t)
   js := objectCustomTagValidationTransform(t, project, "js")
-  if !strings.Contains(js, "Object.keys") || !strings.Contains(js, "length >= 1") {
+  if !strings.Contains(js, "Object.keys") || !strings.Contains(js, "length >= 1") || !strings.Contains(js, "length <= 2") {
     t.Fatalf("object custom tag validation was not emitted:\n%s", js)
+  }
+  if !strings.Contains(js, "__objectTagCount") {
+    t.Fatalf("side-effecting object custom tag validation was not emitted:\n%s", js)
   }
   objectCustomTagValidationRunRuntimeCases(t, project, js)
 }
@@ -129,10 +132,14 @@ func objectCustomTagValidationRunRuntimeCases(t *testing.T, project string, js s
   if err := os.WriteFile(filepath.Join(runtimeDir, "assert-guard-stub.cjs"), []byte(objectCustomTagValidationAssertGuardStub), 0o644); err != nil {
     t.Fatalf("write assert guard stub: %v", err)
   }
+  if err := os.WriteFile(filepath.Join(runtimeDir, "access-expression-stub.cjs"), []byte(objectCustomTagValidationAccessExpressionStub), 0o644); err != nil {
+    t.Fatalf("write access expression stub: %v", err)
+  }
   runtimeJS := strings.ReplaceAll(js, `require("typia")`, `require("./typia-stub.cjs")`)
   runtimeJS = strings.ReplaceAll(runtimeJS, `require("typia/lib/internal/_validateReport")`, `require("./validate-report-stub.cjs")`)
   runtimeJS = strings.ReplaceAll(runtimeJS, `require("typia/lib/internal/_createStandardSchema")`, `require("./standard-schema-stub.cjs")`)
   runtimeJS = strings.ReplaceAll(runtimeJS, `require("typia/lib/internal/_assertGuard")`, `require("./assert-guard-stub.cjs")`)
+  runtimeJS = strings.ReplaceAll(runtimeJS, `require("typia/lib/internal/_accessExpressionAsString")`, `require("./access-expression-stub.cjs")`)
   if err := os.WriteFile(filepath.Join(runtimeDir, "main.cjs"), []byte(runtimeJS), 0o644); err != nil {
     t.Fatalf("write runtime module: %v", err)
   }
@@ -174,11 +181,33 @@ type MinEntries<Value extends number> = tags.TagBase<{
   exclusive: true;
 }>;
 
+type MaxEntries<Value extends number> = tags.TagBase<{
+  target: "object";
+  kind: "maxEntries";
+  value: Value;
+  validate: ` + "`Object.keys($input).length <= ${Value}`" + `;
+  exclusive: true;
+}>;
+
+type CountedMinEntries<Value extends number> = tags.TagBase<{
+  target: "object";
+  kind: "countedMinEntries";
+  value: Value;
+  validate: ` + "`((globalThis.__objectTagCount = (globalThis.__objectTagCount ?? 0) + 1), Object.keys($input).length >= ${Value})`" + `;
+  exclusive: true;
+}>;
+
 type Filters = Partial<{
   user_id: number;
   topic_id: number;
   post_id: number;
 }> & MinEntries<1>;
+
+type BoundedFilters = Partial<{
+  user_id: number;
+  topic_id: number;
+  post_id: number;
+}> & MinEntries<1> & MaxEntries<2>;
 
 type TaggedUnion =
   | ({
@@ -189,11 +218,25 @@ type TaggedUnion =
       type: "b";
     };
 
+type CountedUnion =
+  | ({
+      type: "counted";
+      value: number;
+    } & CountedMinEntries<2>)
+  | {
+      type: "plain";
+    };
+
 const isFilters = typia.createIs<Filters>();
 const validateFilters = typia.createValidate<Filters>();
+const equalsFilters = typia.createEquals<Filters>();
+const validateEqualsFilters = typia.createValidateEquals<Filters>();
+const isBoundedFilters = typia.createIs<BoundedFilters>();
+const validateBoundedFilters = typia.createValidate<BoundedFilters>();
 const isTaggedUnion = typia.createIs<TaggedUnion>();
 const validateTaggedUnion = typia.createValidate<TaggedUnion>();
 const assertTaggedUnion = typia.createAssert<TaggedUnion>();
+const isCountedUnion = typia.createIs<CountedUnion>();
 
 type Container = {
   union: TaggedUnion;
@@ -212,18 +255,47 @@ const capture = (task: () => void): null | { path?: string; expected?: string } 
   }
 };
 
+const withTagCount = (task: () => unknown) => {
+  (globalThis as any).__objectTagCount = 0;
+  const value = task();
+  return { value, count: (globalThis as any).__objectTagCount ?? 0 };
+};
+
 export const run = () => ({
   emptyIs: isFilters({}),
   validIs: isFilters({ user_id: 1 }),
   emptyValidate: validateFilters({}).success,
   validValidate: validateFilters({ user_id: 1 }).success,
+  emptyEquals: equalsFilters({}),
+  validEquals: equalsFilters({ user_id: 1 }),
+  emptyValidateEquals: validateEqualsFilters({}).success,
+  validValidateEquals: validateEqualsFilters({ user_id: 1 }).success,
+  boundedEmptyIs: isBoundedFilters({}),
+  boundedSingleIs: isBoundedFilters({ user_id: 1 }),
+  boundedTooManyIs: isBoundedFilters({
+    user_id: 1,
+    topic_id: 2,
+    post_id: 3,
+  }),
+  boundedEmptyValidate: validateBoundedFilters({}).success,
+  boundedSingleValidate: validateBoundedFilters({ user_id: 1 }).success,
+  boundedTooManyValidate: validateBoundedFilters({
+    user_id: 1,
+    topic_id: 2,
+    post_id: 3,
+  }).success,
   unionInvalidAIs: isTaggedUnion({ type: "a" }),
   unionValidAIs: isTaggedUnion({ type: "a", value: 1 }),
   unionValidBIs: isTaggedUnion({ type: "b" }),
-  unionInvalidAValidate: validateTaggedUnion({ type: "a" }).success,
+  unionInvalidAValidate: validateTaggedUnion({ type: "a" }),
+  unionInvalidAAssert: capture(() => assertTaggedUnion({ type: "a" })),
   unionValidAValidate: validateTaggedUnion({ type: "a", value: 1 }).success,
   unionValidBValidate: validateTaggedUnion({ type: "b" }).success,
   unionValidBAssert: capture(() => assertTaggedUnion({ type: "b" })),
+  countedUnionValid: withTagCount(() =>
+    isCountedUnion({ type: "counted", value: 1 }),
+  ),
+  countedUnionPlain: withTagCount(() => isCountedUnion({ type: "plain" })),
   containerValidBAssert: capture(() =>
     assertContainer({ union: { type: "b" }, other: "ok" }),
   ),
@@ -244,13 +316,35 @@ if (result.emptyIs !== false) throw new Error("empty object passed createIs");
 if (result.validIs !== true) throw new Error("non-empty object failed createIs");
 if (result.emptyValidate !== false) throw new Error("empty object passed createValidate");
 if (result.validValidate !== true) throw new Error("non-empty object failed createValidate");
+if (result.emptyEquals !== false) throw new Error("empty object passed createEquals");
+if (result.validEquals !== true) throw new Error("non-empty object failed createEquals");
+if (result.emptyValidateEquals !== false) throw new Error("empty object passed createValidateEquals");
+if (result.validValidateEquals !== true) throw new Error("non-empty object failed createValidateEquals");
+if (result.boundedEmptyIs !== false) throw new Error("empty object passed bounded createIs");
+if (result.boundedSingleIs !== true) throw new Error("single-entry object failed bounded createIs");
+if (result.boundedTooManyIs !== false) throw new Error("too-large object passed bounded createIs");
+if (result.boundedEmptyValidate !== false) throw new Error("empty object passed bounded createValidate");
+if (result.boundedSingleValidate !== true) throw new Error("single-entry object failed bounded createValidate");
+if (result.boundedTooManyValidate !== false) throw new Error("too-large object passed bounded createValidate");
 if (result.unionInvalidAIs !== false) throw new Error("tagged union branch passed createIs without enough entries");
 if (result.unionValidAIs !== true) throw new Error("tagged union branch failed createIs with enough entries");
 if (result.unionValidBIs !== true) throw new Error("untagged union branch failed createIs");
-if (result.unionInvalidAValidate !== false) throw new Error("tagged union branch passed createValidate without enough entries");
+if (result.unionInvalidAValidate.success !== false) throw new Error("tagged union branch passed createValidate without enough entries");
+if (!result.unionInvalidAValidate.errors.some((error) => error.path === "$input")) {
+  throw new Error("tagged union custom tag failure did not report the union path: " + JSON.stringify(result.unionInvalidAValidate.errors));
+}
+if (!result.unionInvalidAAssert || result.unionInvalidAAssert.path !== "$input") {
+  throw new Error("tagged union custom tag assert reported the wrong path: " + JSON.stringify(result.unionInvalidAAssert));
+}
 if (result.unionValidAValidate !== true) throw new Error("tagged union branch failed createValidate with enough entries");
 if (result.unionValidBValidate !== true) throw new Error("untagged union branch failed createValidate");
 if (result.unionValidBAssert !== null) throw new Error("untagged union branch failed createAssert");
+if (result.countedUnionValid.value !== true || result.countedUnionValid.count !== 1) {
+  throw new Error("selected tagged union branch executed its object tag more than once: " + JSON.stringify(result.countedUnionValid));
+}
+if (result.countedUnionPlain.value !== true || result.countedUnionPlain.count !== 0) {
+  throw new Error("untagged union branch executed an unrelated object tag: " + JSON.stringify(result.countedUnionPlain));
+}
 if (result.containerValidBAssert !== null) throw new Error("nested untagged union branch failed createAssert");
 if (!result.containerInvalidOtherAssert || result.containerInvalidOtherAssert.path !== "$input.other") {
   throw new Error("nested union slow-path assert reported the wrong path: " + JSON.stringify(result.containerInvalidOtherAssert));
@@ -285,5 +379,12 @@ const objectCustomTagValidationAssertGuardStub = `module.exports._assertGuard = 
     throw error;
   }
   return false;
+};
+`
+
+const objectCustomTagValidationAccessExpressionStub = `module.exports._accessExpressionAsString = (key) => {
+  return /^[A-Za-z_$][0-9A-Za-z_$]*$/.test(key)
+    ? "." + key
+    : "[" + JSON.stringify(key) + "]";
 };
 `
