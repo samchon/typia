@@ -306,9 +306,17 @@ export namespace SwaggerV2Downgrader {
         else if (OpenApiTypeChecker.isObject(schema)) {
           const { additionalProperties, properties, required, ...rest } =
             schema;
+          const dynamicRecord: boolean =
+            (properties === undefined ||
+              Object.values(properties).every(
+                (value) => value === undefined,
+              )) &&
+            (required === undefined || required.length === 0) &&
+            additionalProperties !== undefined &&
+            additionalProperties !== false;
           union.push({
             ...rest,
-            ...(properties !== undefined
+            ...(properties !== undefined && dynamicRecord === false
               ? {
                   properties: Object.fromEntries(
                     Object.entries(properties)
@@ -328,7 +336,9 @@ export namespace SwaggerV2Downgrader {
                       : additionalProperties,
                 }
               : {}),
-            ...(required !== undefined ? { required } : {}),
+            ...(required !== undefined && dynamicRecord === false
+              ? { required }
+              : {}),
             examples: schema.examples
               ? Object.values(schema.examples)
               : undefined,

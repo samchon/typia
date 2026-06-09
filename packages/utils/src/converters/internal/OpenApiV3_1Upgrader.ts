@@ -602,8 +602,11 @@ export namespace OpenApiV3_1Upgrader {
           const { additionalProperties, properties, required, ...rest } =
             schema;
           const dynamicRecord: boolean =
-            properties === undefined &&
-            required === undefined &&
+            (properties === undefined ||
+              Object.values(properties).every(
+                (value) => value === undefined,
+              )) &&
+            (required === undefined || required.length === 0) &&
             additionalProperties !== undefined &&
             additionalProperties !== false;
           union.push({

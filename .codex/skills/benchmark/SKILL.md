@@ -1,3 +1,8 @@
+---
+name: benchmark
+description: The @typia/benchmark runner, fixtures, and per-CPU result archive. Read before running, modifying, or publishing benchmark results.
+---
+
 # Benchmark
 
 Read before running, modifying, or publishing benchmark results. The benchmark is the private `@typia/benchmark` workspace under `benchmark/`.

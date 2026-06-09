@@ -30,6 +30,7 @@ export const test_openapi_converter_empty_required = (): void => {
         definitions: {
           Target: optionalSwagger(),
           Record: recordSwagger(),
+          NoisyRecord: noisyRecordSwagger(),
           Merged: mergedSwagger(),
           MergedRequired: mergedRequiredSwagger(),
           MergedRequiredFirst: mergedRequiredFirstSwagger(),
@@ -46,6 +47,7 @@ export const test_openapi_converter_empty_required = (): void => {
           schemas: {
             Target: optionalV3(),
             Record: recordV3(),
+            NoisyRecord: noisyRecordV3(),
             Merged: mergedV3(),
             MergedRequired: mergedRequiredV3(),
             MergedRequiredFirst: mergedRequiredFirstV3(),
@@ -63,6 +65,7 @@ export const test_openapi_converter_empty_required = (): void => {
           schemas: {
             Target: optionalV31(),
             Record: recordV31(),
+            NoisyRecord: noisyRecordV31(),
             Merged: mergedV31(),
             MergedRequired: mergedRequiredV31(),
             MergedRequiredFirst: mergedRequiredFirstV31(),
@@ -80,6 +83,7 @@ export const test_openapi_converter_empty_required = (): void => {
           schemas: {
             Target: optionalV32(),
             Record: recordV32(),
+            NoisyRecord: noisyRecordV32(),
             Merged: mergedV32(),
             MergedRequired: mergedRequiredV32(),
             MergedRequiredFirst: mergedRequiredFirstV32(),
@@ -91,6 +95,11 @@ export const test_openapi_converter_empty_required = (): void => {
   for (const [name, schemas] of upgraded) {
     assertObjectEmptyRequired(`${name} upgraded object`, schemas.Target!);
     assertRecordKeywordsOmitted(`${name} upgraded record`, schemas.Record!);
+    if (schemas.NoisyRecord !== undefined)
+      assertRecordKeywordsOmitted(
+        `${name} upgraded noisy record`,
+        schemas.NoisyRecord,
+      );
     assertObjectEmptyRequired(
       `${name} upgraded optional allOf`,
       schemas.Merged!,
@@ -117,6 +126,7 @@ export const test_openapi_converter_empty_required = (): void => {
       schemas: {
         Target: optionalOpenApi(),
         Record: recordOpenApi(),
+        NoisyRecord: noisyRecordOpenApi(),
         Required: requiredOpenApi(),
       },
     },
@@ -131,6 +141,10 @@ export const test_openapi_converter_empty_required = (): void => {
   assertRecordKeywordsOmitted(
     "downgraded swagger record",
     downgradedSwagger.definitions!.Record!,
+  );
+  assertRecordKeywordsOmitted(
+    "downgraded swagger noisy record",
+    downgradedSwagger.definitions!.NoisyRecord!,
   );
   assertObjectRequired(
     "downgraded swagger required",
@@ -150,6 +164,10 @@ export const test_openapi_converter_empty_required = (): void => {
     "downgraded v3.0 record",
     downgradedV30.components!.schemas!.Record!,
   );
+  assertRecordKeywordsOmitted(
+    "downgraded v3.0 noisy record",
+    downgradedV30.components!.schemas!.NoisyRecord!,
+  );
   assertObjectRequired(
     "downgraded v3.0 required",
     downgradedV30.components!.schemas!.Required!,
@@ -167,6 +185,10 @@ export const test_openapi_converter_empty_required = (): void => {
   assertRecordKeywordsOmitted(
     "downgraded v3.1 record",
     downgradedV31.components!.schemas!.Record!,
+  );
+  assertRecordKeywordsOmitted(
+    "downgraded v3.1 noisy record",
+    downgradedV31.components!.schemas!.NoisyRecord!,
   );
   assertObjectRequired(
     "downgraded v3.1 required",
@@ -205,6 +227,17 @@ const recordOpenApi = (): OpenApi.IJsonSchema.IObject => ({
   },
 });
 
+const noisyRecordOpenApi = (): OpenApi.IJsonSchema.IObject => ({
+  type: "object",
+  properties: {
+    stale: undefined as unknown as OpenApi.IJsonSchema,
+  },
+  additionalProperties: {
+    type: "string",
+  },
+  required: [],
+});
+
 const optionalV3 = (): OpenApiV3.IJsonSchema.IObject => ({
   type: "object",
   properties: {
@@ -219,6 +252,17 @@ const recordV3 = (): OpenApiV3.IJsonSchema.IObject => ({
   additionalProperties: {
     type: "string",
   },
+});
+
+const noisyRecordV3 = (): OpenApiV3.IJsonSchema.IObject => ({
+  type: "object",
+  properties: {
+    stale: undefined as unknown as OpenApiV3.IJsonSchema,
+  },
+  additionalProperties: {
+    type: "string",
+  },
+  required: [],
 });
 
 const optionalV31 = (): OpenApiV3_1.IJsonSchema.IObject => ({
@@ -237,6 +281,17 @@ const recordV31 = (): OpenApiV3_1.IJsonSchema.IObject => ({
   },
 });
 
+const noisyRecordV31 = (): OpenApiV3_1.IJsonSchema.IObject => ({
+  type: "object",
+  properties: {
+    stale: undefined as unknown as OpenApiV3_1.IJsonSchema,
+  },
+  additionalProperties: {
+    type: "string",
+  },
+  required: [],
+});
+
 const optionalV32 = (): OpenApiV3_2.IJsonSchema.IObject => ({
   type: "object",
   properties: {
@@ -253,6 +308,17 @@ const recordV32 = (): OpenApiV3_2.IJsonSchema.IObject => ({
   },
 });
 
+const noisyRecordV32 = (): OpenApiV3_2.IJsonSchema.IObject => ({
+  type: "object",
+  properties: {
+    stale: undefined as unknown as OpenApiV3_2.IJsonSchema,
+  },
+  additionalProperties: {
+    type: "string",
+  },
+  required: [],
+});
+
 const optionalSwagger = (): SwaggerV2.IJsonSchema.IObject => ({
   type: "object",
   properties: {
@@ -267,6 +333,17 @@ const recordSwagger = (): SwaggerV2.IJsonSchema.IObject => ({
   additionalProperties: {
     type: "string",
   },
+});
+
+const noisyRecordSwagger = (): SwaggerV2.IJsonSchema.IObject => ({
+  type: "object",
+  properties: {
+    stale: undefined as unknown as SwaggerV2.IJsonSchema,
+  },
+  additionalProperties: {
+    type: "string",
+  },
+  required: [],
 });
 
 const emptyV3 = (): OpenApiV3.IJsonSchema.IObject => ({
