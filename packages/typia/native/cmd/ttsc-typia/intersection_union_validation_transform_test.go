@@ -30,7 +30,7 @@ func TestIntersectionUnionValidationTransform(t *testing.T) {
 
 func intersectionUnionValidationProject(t *testing.T) string {
   t.Helper()
-  root := objectCustomTagValidationRepoRoot(t)
+  root := ttscTypiaTestRepoRoot(t)
   base := filepath.Join(root, "packages", "typia", "native", ".tmp-ttsc-typia-tests")
   if err := os.MkdirAll(base, 0o755); err != nil {
     t.Fatalf("mkdir temp base: %v", err)
@@ -57,7 +57,7 @@ func intersectionUnionValidationProject(t *testing.T) string {
 
 func intersectionUnionValidationTransform(t *testing.T, project string) string {
   t.Helper()
-  out, errText, code := objectCustomTagValidationCapture(func() int {
+  out, errText, code := ttscTypiaTestCapture(func() int {
     return runTransform([]string{
       "--cwd", project,
       "--tsconfig", "tsconfig.json",
@@ -81,22 +81,8 @@ func intersectionUnionValidationRunRuntimeCases(t *testing.T, project string, js
   if err := os.MkdirAll(runtimeDir, 0o755); err != nil {
     t.Fatalf("mkdir runtime dir: %v", err)
   }
-  if err := os.WriteFile(filepath.Join(runtimeDir, "typia-stub.cjs"), []byte("module.exports = {};\n"), 0o644); err != nil {
-    t.Fatalf("write typia stub: %v", err)
-  }
-  if err := os.WriteFile(filepath.Join(runtimeDir, "validate-report-stub.cjs"), []byte(objectCustomTagValidationReportStub), 0o644); err != nil {
-    t.Fatalf("write validate report stub: %v", err)
-  }
-  if err := os.WriteFile(filepath.Join(runtimeDir, "standard-schema-stub.cjs"), []byte(objectCustomTagValidationStandardSchemaStub), 0o644); err != nil {
-    t.Fatalf("write standard schema stub: %v", err)
-  }
-  if err := os.WriteFile(filepath.Join(runtimeDir, "assert-guard-stub.cjs"), []byte(objectCustomTagValidationAssertGuardStub), 0o644); err != nil {
-    t.Fatalf("write assert guard stub: %v", err)
-  }
-  runtimeJS := strings.ReplaceAll(js, `require("typia")`, `require("./typia-stub.cjs")`)
-  runtimeJS = strings.ReplaceAll(runtimeJS, `require("typia/lib/internal/_validateReport")`, `require("./validate-report-stub.cjs")`)
-  runtimeJS = strings.ReplaceAll(runtimeJS, `require("typia/lib/internal/_createStandardSchema")`, `require("./standard-schema-stub.cjs")`)
-  runtimeJS = strings.ReplaceAll(runtimeJS, `require("typia/lib/internal/_assertGuard")`, `require("./assert-guard-stub.cjs")`)
+  ttscTypiaTestWriteCommonRuntimeStubs(t, runtimeDir)
+  runtimeJS := ttscTypiaTestRewriteCommonJS(t, js)
   if err := os.WriteFile(filepath.Join(runtimeDir, "main.cjs"), []byte(runtimeJS), 0o644); err != nil {
     t.Fatalf("write runtime module: %v", err)
   }
@@ -154,9 +140,41 @@ export const isParty = typia.createIs<PartyWithRole>();
 export const validateParty = typia.createValidate<PartyWithRole>();
 export const assertParty = typia.createAssert<PartyWithRole>();
 export const validateDirect = (input: unknown) => typia.validate<PartyWithRole>(input);
+
+type DateSharedUnion =
+  | {
+      stamp: Date;
+      left: string;
+    }
+  | {
+      stamp: Date;
+      right: string;
+    };
+
+type BytesSharedUnion =
+  | {
+      bytes: Uint8Array;
+      left: string;
+    }
+  | {
+      bytes: Uint8Array;
+      right: string;
+    };
+
+export const validateDateShared = typia.createValidate<DateSharedUnion>();
+export const validateBytesShared = typia.createValidate<BytesSharedUnion>();
 `
 
 const intersectionUnionValidationRuntimeRunner = `const mod = require("./main.cjs");
+
+const capture = (task) => {
+  try {
+    task();
+    return null;
+  } catch (error) {
+    return error;
+  }
+};
 
 const validIndividualOther = {
   type: "individual",
@@ -167,6 +185,16 @@ const validIndividualOther = {
 const validCorporationCustomer = {
   type: "corporation",
   partyRole: "customer",
+};
+const validIndividualCustomer = {
+  type: "individual",
+  birthDate: new Date("2025-06-10T10:43:59.087Z"),
+  partyRole: "customer",
+};
+const validCorporationOther = {
+  type: "corporation",
+  partyRole: "other",
+  otherPartyRole: "some-valid-string",
 };
 const invalidOtherMissingDetail = {
   type: "individual",
@@ -191,6 +219,20 @@ if (mod.assertParty(validIndividualOther) !== validIndividualOther) {
 if (mod.validateParty(validCorporationCustomer).success !== true) {
   throw new Error("valid corporation/customer intersection failed");
 }
+for (const [name, input] of [
+  ["individual/customer", validIndividualCustomer],
+  ["corporation/other", validCorporationOther],
+]) {
+  if (mod.validateParty(input).success !== true) {
+    throw new Error("valid " + name + " intersection failed validate");
+  }
+  if (mod.isParty(input) !== true) {
+    throw new Error("valid " + name + " intersection failed is");
+  }
+  if (mod.assertParty(input) !== input) {
+    throw new Error("valid " + name + " intersection failed assert");
+  }
+}
 
 const invalid = mod.validateParty(invalidOtherMissingDetail);
 if (invalid.success !== false) {
@@ -198,5 +240,37 @@ if (invalid.success !== false) {
 }
 if (invalid.errors.some((entry) => entry.path === "$input.partyRole" && entry.expected === '"customer"')) {
   throw new Error("invalid other branch reported unrelated customer branch: " + JSON.stringify(invalid));
+}
+const invalidDirect = mod.validateDirect(invalidOtherMissingDetail);
+if (invalidDirect.success !== false) {
+  throw new Error("direct validate missing otherPartyRole unexpectedly passed");
+}
+if (invalidDirect.errors.some((entry) => entry.path === "$input.partyRole" && entry.expected === '"customer"')) {
+  throw new Error("direct validate invalid other branch reported unrelated customer branch: " + JSON.stringify(invalidDirect));
+}
+const invalidAssert = capture(() => mod.assertParty(invalidOtherMissingDetail));
+if (invalidAssert === null) {
+  throw new Error("assert missing otherPartyRole unexpectedly passed");
+}
+if (invalidAssert.path === "$input.partyRole" && invalidAssert.expected === '"customer"') {
+  throw new Error("assert invalid other branch reported unrelated customer branch: " + JSON.stringify(invalidAssert));
+}
+
+const validDateRight = {
+  stamp: new Date("2025-06-10T10:43:59.087Z"),
+  right: "selected-right",
+};
+const dateRight = mod.validateDateShared(validDateRight);
+if (dateRight.success !== true) {
+  throw new Error("shared Date native union failed its right branch: " + JSON.stringify(dateRight));
+}
+
+const validBytesRight = {
+  bytes: new Uint8Array([1, 2, 3]),
+  right: "selected-right",
+};
+const bytesRight = mod.validateBytesShared(validBytesRight);
+if (bytesRight.success !== true) {
+  throw new Error("shared Uint8Array native union failed its right branch: " + JSON.stringify(bytesRight));
 }
 `

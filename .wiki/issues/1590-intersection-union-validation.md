@@ -26,9 +26,18 @@
 - `packages/typia/native/cmd/ttsc-typia/intersection_union_validation_transform_test.go`
   - 이슈 재현 fixture를 transform 후 Node로 실행한다.
   - `createIs`, `createValidate`, `createAssert`, direct `validate`가 유효한 `Individual & other` 값을 통과시키는지 확인한다.
+  - `Individual/Corporation`과 `customer/other` branch 조합이 모두 통과하는지 확인한다.
   - invalid `other` 값이 `"customer"` false positive를 내지 않는지 확인한다.
-- `packages/typia/test/metadata/schema/metadata_schema_intersects_primitives_test.go`
-  - 서로 다른 metadata 인스턴스의 `Date` native가 intersect/cover 되는지 단위 테스트한다.
+  - `Date` 및 `Uint8Array` 공유 native 속성이 branch-unique 속성보다 앞에 있을 때도 오른쪽 branch가 통과하는지 확인한다.
+- `packages/typia/native/core/programmers/helpers/union_predicator_skips_shared_native_names_test.go`
+  - shared native 속성이 `UnionPredicator.Object`의 discriminator로 선택되지 않는지 직접 확인한다.
+  - 태그가 다른 `Uint8Array` metadata도 runtime native check와 동일하게 `Name` 기준으로 겹친다고 본다.
+- `packages/typia/test/metadata/schema/metadata_schema_intersects_native_names_test.go`
+  - 서로 다른 metadata 인스턴스의 `Date` native가 intersect 되는지 단위 테스트한다.
+- `packages/typia/test/metadata/schema/metadata_schema_covers_native_names_test.go`
+  - 서로 다른 metadata 인스턴스의 `Date` native가 cover 되는지 단위 테스트한다.
+- `packages/typia/test/internal/testutil/helpers.go`
+  - native metadata fixture helper를 공용화한다.
 - `packages/typia/package.json`
   - native 소스 변경이므로 dev version을 올린다.
 
@@ -36,6 +45,7 @@
 
 - `go test ./cmd/ttsc-typia -run TestIntersectionUnionValidationTransform -count=1 -v`
 - `go test ./metadata/schema -run TestMetadataSchemaIntersectsPrimitives -count=1 -v`
+- `go test ./core/programmers/helpers -run TestUnionPredicatorSkipsSharedNativeNames -count=1 -v` from `packages/typia/native`
 - `pnpm format`
 - `pnpm run format:go`
 - `go test ./cmd/ttsc-typia -count=1`
