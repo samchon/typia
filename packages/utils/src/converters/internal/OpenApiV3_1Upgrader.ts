@@ -279,10 +279,10 @@ export namespace OpenApiV3_1Upgrader {
         if (found === undefined) return undefined;
         input = found;
       }
-      const { name, ...rest } = input;
+      const { name: _name, ...rest } = input;
       return convertParameter(components)({
         ...rest,
-        name: name ?? key,
+        name: key,
         in: "header",
       });
     };
@@ -614,12 +614,13 @@ export namespace OpenApiV3_1Upgrader {
                         ),
                     )
                   : {},
-                additionalProperties: schema.additionalProperties
-                  ? typeof schema.additionalProperties === "object" &&
-                    schema.additionalProperties !== null
-                    ? convertSchema(components)(schema.additionalProperties)
-                    : schema.additionalProperties
-                  : undefined,
+                additionalProperties:
+                  schema.additionalProperties !== undefined
+                    ? typeof schema.additionalProperties === "object" &&
+                      schema.additionalProperties !== null
+                      ? convertSchema(components)(schema.additionalProperties)
+                      : schema.additionalProperties
+                    : undefined,
                 required: schema.required ?? [],
               },
             }),

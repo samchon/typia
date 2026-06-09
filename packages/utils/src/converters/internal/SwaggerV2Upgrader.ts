@@ -490,12 +490,13 @@ export namespace SwaggerV2Upgrader {
                         ]),
                     )
                   : {},
-                additionalProperties: schema.additionalProperties
-                  ? typeof schema.additionalProperties === "object" &&
-                    schema.additionalProperties !== null
-                    ? convertSchema(definitions)(schema.additionalProperties)
-                    : schema.additionalProperties
-                  : undefined,
+                additionalProperties:
+                  schema.additionalProperties !== undefined
+                    ? typeof schema.additionalProperties === "object" &&
+                      schema.additionalProperties !== null
+                      ? convertSchema(definitions)(schema.additionalProperties)
+                      : schema.additionalProperties
+                    : undefined,
               },
               examples: schema.examples
                 ? Object.fromEntries(

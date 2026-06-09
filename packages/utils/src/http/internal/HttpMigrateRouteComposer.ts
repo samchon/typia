@@ -295,8 +295,9 @@ export namespace HttpMigrateRouteComposer {
           .map(([status, response]) => [
             status,
             {
-              schema: (response.content?.["application/json"]?.schema ??
-                {}) satisfies OpenApi.IJsonSchema,
+              schema: sanitizeSchema(props.document)(
+                response.content?.["application/json"]?.schema ?? {},
+              ),
               response: () => response,
               media: () =>
                 (response.content?.["application/json"] ??
@@ -429,7 +430,7 @@ export namespace HttpMigrateRouteComposer {
               name: "body",
               key: "body",
               schema: isNotObjectLiteral(schema)
-                ? sanitizeObjectSchema(document)(schema)
+                ? sanitizeSchema(document)(schema)
                 : emplacer(schema),
               description: () => meta.description,
               media: () => json[1],
@@ -449,7 +450,7 @@ export namespace HttpMigrateRouteComposer {
               name: "body",
               key: "body",
               schema: isNotObjectLiteral(schema)
-                ? sanitizeObjectSchema(document)(schema)
+                ? sanitizeSchema(document)(schema)
                 : emplacer(schema),
               description: () => meta.description,
               media: () => query[1],
@@ -480,7 +481,7 @@ export namespace HttpMigrateRouteComposer {
             key: "body",
             schema: schema
               ? isNotObjectLiteral(schema)
-                ? sanitizeObjectSchema(document)(schema)
+                ? sanitizeSchema(document)(schema)
                 : emplacer(schema)
               : {},
             description: () => meta.description,
@@ -497,8 +498,9 @@ export namespace HttpMigrateRouteComposer {
     schema: OpenApi.IJsonSchema;
   }): OpenApi.IJsonSchema.IReference => {
     props.document.components.schemas ??= {};
-    props.document.components.schemas[props.name] =
-      OpenApiSchemaSanitizer.omitEmptyRequiredDeep(props.schema);
+    props.document.components.schemas[props.name] = sanitizeSchema(
+      props.document,
+    )(props.schema);
     return {
       $ref: `#/components/schemas/${props.name}`,
     } satisfies OpenApi.IJsonSchema.IReference;
@@ -510,22 +512,65 @@ export namespace HttpMigrateRouteComposer {
       parameter: OpenApi.IOperation.IParameter,
     ): OpenApi.IOperation.IParameter => ({
       ...parameter,
-      schema: sanitizeObjectSchema(document)(parameter.schema),
+      schema: sanitizeSchema(document)(parameter.schema),
     });
 
-  const sanitizeObjectSchema =
+  const sanitizeSchema =
     (document: OpenApi.IDocument) =>
     (schema: OpenApi.IJsonSchema): OpenApi.IJsonSchema => {
+      const visited: Set<string> = new Set();
+      return sanitizeSchemaRecursively(document)(visited)(schema);
+    };
+
+  const sanitizeSchemaRecursively =
+    (document: OpenApi.IDocument) =>
+    (visited: Set<string>) =>
+    (schema: OpenApi.IJsonSchema): OpenApi.IJsonSchema => {
       if (OpenApiTypeChecker.isReference(schema)) {
-        const key: string = schema.$ref.replace("#/components/schemas/", "");
+        const key: string | null = schema.$ref.startsWith(
+          "#/components/schemas/",
+        )
+          ? schema.$ref.replace("#/components/schemas/", "")
+          : null;
+        if (key === null || visited.has(key)) return schema;
         const found: OpenApi.IJsonSchema | undefined =
           document.components.schemas?.[key];
-        if (found !== undefined)
+        if (found !== undefined) {
+          visited.add(key);
           document.components.schemas![key] =
-            OpenApiSchemaSanitizer.omitEmptyRequiredDeep(found);
+            sanitizeSchemaRecursively(document)(visited)(found);
+        }
         return schema;
       }
-      return OpenApiSchemaSanitizer.omitEmptyRequiredDeep(schema);
+      const sanitized: OpenApi.IJsonSchema =
+        OpenApiSchemaSanitizer.omitEmptyRequiredDeep(schema);
+      visitSchemaReferences(document)(visited)(sanitized);
+      return sanitized;
+    };
+
+  const visitSchemaReferences =
+    (document: OpenApi.IDocument) =>
+    (visited: Set<string>) =>
+    (schema: OpenApi.IJsonSchema): void => {
+      const visit = sanitizeSchemaRecursively(document)(visited);
+      if (OpenApiTypeChecker.isOneOf(schema))
+        schema.oneOf.forEach((value) => visit(value));
+      else if (OpenApiTypeChecker.isTuple(schema)) {
+        schema.prefixItems.forEach((value) => visit(value));
+        if (
+          typeof schema.additionalItems === "object" &&
+          schema.additionalItems !== null
+        )
+          visit(schema.additionalItems);
+      } else if (OpenApiTypeChecker.isArray(schema)) visit(schema.items);
+      else if (OpenApiTypeChecker.isObject(schema)) {
+        Object.values(schema.properties ?? {}).forEach((value) => visit(value));
+        if (
+          typeof schema.additionalProperties === "object" &&
+          schema.additionalProperties !== null
+        )
+          visit(schema.additionalProperties);
+      }
     };
 
   const isNotObjectLiteral = (schema: OpenApi.IJsonSchema): boolean =>

@@ -92,7 +92,8 @@ export const test_http_migrate_empty_required = (): void => {
                   type: "string",
                 },
               ],
-            },
+              required: [],
+            } as OpenApi.IJsonSchema,
             list: {
               type: "array",
               items: {
@@ -117,6 +118,9 @@ export const test_http_migrate_empty_required = (): void => {
                 required: [],
               },
               required: [],
+            },
+            nestedRef: {
+              $ref: "#/components/schemas/NestedBodyReference",
             },
           },
           required: [],
@@ -151,7 +155,8 @@ export const test_http_migrate_empty_required = (): void => {
                   type: "string",
                 },
               ],
-            },
+              required: [],
+            } as OpenApi.IJsonSchema,
             list: {
               type: "array",
               items: {
@@ -177,6 +182,48 @@ export const test_http_migrate_empty_required = (): void => {
               },
               required: [],
             },
+            nestedRef: {
+              $ref: "#/components/schemas/NestedResponseReference",
+            },
+          },
+          required: [],
+        },
+        ReferencedException: {
+          type: "object",
+          properties: {
+            error: {
+              type: "string",
+            },
+            nestedRef: {
+              $ref: "#/components/schemas/NestedExceptionReference",
+            },
+          },
+          required: [],
+        },
+        NestedBodyReference: {
+          type: "object",
+          properties: {
+            note: {
+              type: "string",
+            },
+          },
+          required: [],
+        },
+        NestedResponseReference: {
+          type: "object",
+          properties: {
+            note: {
+              type: "string",
+            },
+          },
+          required: [],
+        },
+        NestedExceptionReference: {
+          type: "object",
+          properties: {
+            note: {
+              type: "string",
+            },
           },
           required: [],
         },
@@ -197,6 +244,15 @@ export const test_http_migrate_empty_required = (): void => {
             },
           },
           required: ["value"],
+        },
+        RequiredException: {
+          type: "object",
+          properties: {
+            error: {
+              type: "string",
+            },
+          },
+          required: ["error"],
         },
       },
     },
@@ -452,6 +508,117 @@ export const test_http_migrate_empty_required = (): void => {
           },
         },
       },
+      "/form-urlencoded": {
+        post: {
+          requestBody: {
+            content: {
+              "application/x-www-form-urlencoded": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    title: {
+                      type: "string",
+                    },
+                  },
+                  required: [],
+                },
+              },
+            },
+          },
+          responses: {
+            "200": {
+              description: "OK",
+            },
+          },
+        },
+      },
+      "/multipart": {
+        post: {
+          requestBody: {
+            content: {
+              "multipart/form-data": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    file: {
+                      type: "string",
+                    },
+                  },
+                  required: [],
+                },
+              },
+            },
+          },
+          responses: {
+            "200": {
+              description: "OK",
+            },
+          },
+        },
+      },
+      "/exception-inline": {
+        get: {
+          responses: {
+            "200": {
+              description: "OK",
+            },
+            "400": {
+              description: "Bad Request",
+              content: {
+                "application/json": {
+                  schema: {
+                    type: "object",
+                    properties: {
+                      error: {
+                        type: "string",
+                      },
+                    },
+                    required: [],
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+      "/exception-ref": {
+        get: {
+          responses: {
+            "200": {
+              description: "OK",
+            },
+            "400": {
+              description: "Bad Request",
+              content: {
+                "application/json": {
+                  schema: {
+                    $ref: "#/components/schemas/ReferencedException",
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+      "/exception-required": {
+        get: {
+          responses: {
+            "200": {
+              description: "OK",
+            },
+            "400": {
+              description: "Bad Request",
+              content: {
+                "application/json": {
+                  schema: {
+                    $ref: "#/components/schemas/RequiredException",
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
     },
   };
 
@@ -538,6 +705,60 @@ export const test_http_migrate_empty_required = (): void => {
       findRoute(app, "/required-body-response").success!.schema,
     ),
     "value",
+  );
+  assertObjectNoRequired(
+    "form-urlencoded body",
+    resolveSchema(app, findRoute(app, "/form-urlencoded").body!.schema),
+    "title",
+  );
+  assertObjectNoRequired(
+    "multipart body",
+    resolveSchema(app, findRoute(app, "/multipart").body!.schema),
+    "file",
+  );
+  assertObjectNoRequired(
+    "inline exception",
+    resolveSchema(
+      app,
+      findRoute(app, "/exception-inline").exceptions["400"]!.schema,
+    ),
+    "error",
+  );
+  const referencedException = resolveSchema(
+    app,
+    findRoute(app, "/exception-ref").exceptions["400"]!.schema,
+  );
+  assertObjectNoRequired("referenced exception", referencedException, "error");
+  assertObjectNoRequired(
+    "nested referenced body",
+    resolveSchema(
+      app,
+      resolveSchema(app, findRoute(app, "/ref-body-response").body!.schema)
+        .properties!.nestedRef!,
+    ),
+    "note",
+  );
+  assertObjectNoRequired(
+    "nested referenced response",
+    resolveSchema(
+      app,
+      resolveSchema(app, findRoute(app, "/ref-body-response").success!.schema)
+        .properties!.nestedRef!,
+    ),
+    "note",
+  );
+  assertObjectNoRequired(
+    "nested referenced exception",
+    resolveSchema(app, referencedException.properties!.nestedRef!),
+    "note",
+  );
+  assertObjectRequired(
+    "required exception",
+    resolveSchema(
+      app,
+      findRoute(app, "/exception-required").exceptions["400"]!.schema,
+    ),
+    "error",
   );
 };
 

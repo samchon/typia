@@ -22,12 +22,12 @@ export namespace OpenApiSchemaSanitizer {
     schema: OpenApi.IJsonSchema,
   ): OpenApi.IJsonSchema => {
     if (isOneOf(schema))
-      return {
+      return omitEmptyRequired({
         ...schema,
         oneOf: schema.oneOf.map(omitEmptyRequiredDeep) as OpenApi.IJsonSchema[],
-      } satisfies OpenApi.IJsonSchema.IOneOf;
+      } satisfies OpenApi.IJsonSchema.IOneOf);
     if (isTuple(schema))
-      return {
+      return omitEmptyRequired({
         ...schema,
         prefixItems: schema.prefixItems.map(omitEmptyRequiredDeep),
         additionalItems:
@@ -35,12 +35,12 @@ export namespace OpenApiSchemaSanitizer {
           schema.additionalItems !== null
             ? omitEmptyRequiredDeep(schema.additionalItems)
             : schema.additionalItems,
-      } satisfies OpenApi.IJsonSchema.ITuple;
+      } satisfies OpenApi.IJsonSchema.ITuple);
     if (isArray(schema))
-      return {
+      return omitEmptyRequired({
         ...schema,
         items: omitEmptyRequiredDeep(schema.items),
-      } satisfies OpenApi.IJsonSchema.IArray;
+      } satisfies OpenApi.IJsonSchema.IArray);
     if (isObject(schema))
       return omitEmptyRequired({
         ...schema,

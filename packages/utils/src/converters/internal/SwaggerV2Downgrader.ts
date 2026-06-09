@@ -189,16 +189,20 @@ export namespace SwaggerV2Downgrader {
             Object.entries(input.headers)
               .filter(([_, v]) => v !== undefined)
               .map(([key, value]) => {
-                const { name: _name, in: _in, ...rest } = value;
+                const {
+                  name: _name,
+                  in: _in,
+                  required: _required,
+                  example: _example,
+                  examples: _examples,
+                  schema,
+                  ...rest
+                } = value;
                 return [
                   key,
                   {
                     ...rest,
-                    schema: downgradeSchema(collection)(value.schema),
-                    ...{
-                      example: undefined,
-                      examples: undefined,
-                    },
+                    ...downgradeSchema(collection)(schema),
                   },
                 ];
               }),

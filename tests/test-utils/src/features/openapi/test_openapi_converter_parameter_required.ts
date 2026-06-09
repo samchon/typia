@@ -1152,28 +1152,47 @@ const assertResponseHeaderDowngrade = (): void => {
   const v30 = OpenApiConverter.downgradeDocument(emended, "3.0");
   const v31 = OpenApiConverter.downgradeDocument(emended, "3.1");
   const headers = [
-    swagger.paths!["/response/header"]!.get!.responses!["200"]!.headers![
-      "X-Trace"
-    ]!,
-    v30.paths!["/response/header"]!.get!.responses!["200"]!.headers![
-      "X-Trace"
-    ]!,
-    v31.paths!["/response/header"]!.get!.responses!["200"]!.headers![
-      "X-Trace"
-    ]!,
+    responseHeader(
+      swagger.paths!["/response/header"]!.get!.responses!["200"]!,
+      "X-Trace",
+    ),
+    responseHeader(
+      v30.paths!["/response/header"]!.get!.responses!["200"]!,
+      "X-Trace",
+    ),
+    responseHeader(
+      v31.paths!["/response/header"]!.get!.responses!["200"]!,
+      "X-Trace",
+    ),
   ];
   TestValidator.equals(
     "downgraded response headers omit internal parameter metadata",
     headers.map((header) => ({
       name: Object.prototype.hasOwnProperty.call(header, "name"),
       in: Object.prototype.hasOwnProperty.call(header, "in"),
+      schema: Object.prototype.hasOwnProperty.call(header, "schema"),
     })),
     [
-      { name: false, in: false },
-      { name: false, in: false },
-      { name: false, in: false },
+      { name: false, in: false, schema: false },
+      { name: false, in: false, schema: false },
+      { name: false, in: false, schema: false },
     ],
   );
+  TestValidator.equals(
+    "downgraded swagger response header is flattened schema",
+    (headers[0] as SwaggerV2.IJsonSchema.IString).type,
+    "string",
+  );
+};
+
+const responseHeader = (
+  response: { headers?: Record<string, object> } | { $ref: string },
+  name: string,
+): object => {
+  if ("$ref" in response) throw new Error(`Unexpected response ref: ${name}`);
+  const header = response.headers?.[name];
+  if (header === undefined) throw new Error(`Missing response header: ${name}`);
+  return header;
 };
 
 const assertPathParametersOmitted = (
@@ -1365,6 +1384,11 @@ const openApiParameterComponents = () =>
         required: true,
         schema: { type: "string" },
       },
+      WrongNamedTraceHeader: {
+        name: "WrongTraceHeader",
+        required: false,
+        schema: { type: "string" },
+      },
     },
   }) satisfies {
     headers: Record<string, OpenApiHeaderFixture>;
@@ -1533,7 +1557,7 @@ const openApiParameterPaths = () =>
             description: "OK",
             headers: {
               "X-Trace": {
-                $ref: "#/components/headers/TraceHeader",
+                $ref: "#/components/headers/WrongNamedTraceHeader",
               },
             },
           },
