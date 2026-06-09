@@ -1,0 +1,30 @@
+{
+  "private": true,
+  "name": "@typia/test-typia-exact-optional",
+  "version": "13.0.0-dev.20260605.5",
+  "description": "Test exact optional property behavior of typia.",
+  "scripts": {
+    "start": "ttsx src/index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/samchon/typia"
+  },
+  "keywords": [
+    "typia",
+    "test"
+  ],
+  "author": "Jeongho Nam",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/samchon/typia/issues"
+  },
+  "homepage": "https://typia.io",
+  "dependencies": {
+    "@nestia/e2e": "catalog:utils",
+    "typia": "workspace:^"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:utils"
+  }
+}

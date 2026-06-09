@@ -6,8 +6,10 @@ import (
 )
 
 type IExpressionEntry struct {
-  Input      *shimast.Node
-  Key        *nativemetadata.MetadataSchema
-  Meta       *nativemetadata.MetadataSchema
-  Expression *shimast.Node
+  Input                   *shimast.Node
+  Key                     *nativemetadata.MetadataSchema
+  Meta                    *nativemetadata.MetadataSchema
+  Expression              *shimast.Node
+  OptionalProperty        bool
+  StrictOptionalUndefined bool
 }

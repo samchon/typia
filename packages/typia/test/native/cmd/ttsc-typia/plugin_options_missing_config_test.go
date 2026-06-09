@@ -4,8 +4,8 @@
 package main
 
 import (
-	"path/filepath"
-	"testing"
+  "path/filepath"
+  "testing"
 )
 
 // TestPluginOptionsMissingConfigFallsBackToDefaults verifies unreadable config files are ignored.
@@ -17,10 +17,10 @@ import (
 // 1. Point option parsing at a nonexistent tsconfig file.
 // 2. Resolve the path through a temporary working directory.
 // 3. Read typia plugin options.
-// 4. Assert every option remains false.
+// 4. Assert every option remains unset.
 func TestPluginOptionsMissingConfigFallsBackToDefaults(t *testing.T) {
-	options := readTypiaPluginOptions(t.TempDir(), filepath.Join("missing", "tsconfig.json"))
-	if options.Functional || options.Numeric || options.Finite || options.Undefined {
-		t.Fatalf("missing config should return zero plugin options: %+v", options)
-	}
+  options := readTypiaPluginOptions(t.TempDir(), filepath.Join("missing", "tsconfig.json"))
+  if options.Functional || options.Numeric || options.Finite || options.Undefined != nil {
+    t.Fatalf("missing config should return zero plugin options: %+v", options)
+  }
 }

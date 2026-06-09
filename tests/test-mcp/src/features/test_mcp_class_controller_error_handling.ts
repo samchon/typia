@@ -13,9 +13,9 @@ import { Calculator } from "../structures/Calculator";
  *
  * Locks the error-catching branch of `McpControllerRegistrar.handleToolCall`.
  * When a tool's `execute` function throws (e.g. division by zero), the handler
- * must catch the error and return a well-formed `CallToolResult` with
- * `isError: true` and the error message as text content, rather than letting
- * the exception propagate and crash the MCP server.
+ * must catch the error and return a well-formed `CallToolResult` with `isError:
+ * true` and the error message as text content, rather than letting the
+ * exception propagate and crash the MCP server.
  *
  * 1. Register a `Calculator` controller with the MCP server.
  * 2. Invoke the `divide` tool with `y: 0` to trigger a division-by-zero error.

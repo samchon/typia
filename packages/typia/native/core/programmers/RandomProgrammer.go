@@ -260,6 +260,21 @@ func randomProgrammer_write_object_functions(props struct {
               Metadata: metadata,
             })
           },
+          StrictOptionalUndefined: func(metadata *schemametadata.MetadataSchema) bool {
+            return nativehelpers.OptionPredicator.StrictOptionalUndefined(props.Context, metadata)
+          },
+          OptionalProperty: func(metadata *schemametadata.MetadataSchema) bool {
+            return nativehelpers.OptionPredicator.ExactOptionalProperty(props.Context, metadata)
+          },
+          Optional: func() *shimast.Node {
+            return f.NewCallExpression(
+              randomProgrammer_coalesce(props.Context, "boolean", "randomBoolean"),
+              nil,
+              nil,
+              nil,
+              shimast.NodeFlagsNone,
+            )
+          },
           Object: object,
           Emit:   props.Context.Emit,
         }),

@@ -113,6 +113,14 @@ func MetadataSchema_initialize(parentResolved ...bool) *MetadataSchema {
   return meta
 }
 
+func (obj *MetadataSchema) ShallowClone() *MetadataSchema {
+  if obj == nil {
+    return nil
+  }
+  clone := *obj
+  return &clone
+}
+
 func (obj *MetadataSchema) ToJSON() *IMetadataSchema {
   output := &IMetadataSchema{
     Any:      obj.Any,

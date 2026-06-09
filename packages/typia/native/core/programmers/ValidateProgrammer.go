@@ -290,7 +290,7 @@ func validateProgrammer_validate_object(props validateProgrammer_validateObjectP
   return nativeiterate.Check_object(nativeiterate.Check_objectProps{
     Config: nativeiterate.Check_object_IConfig{
       Equals:    props.Config.Equals,
-      Undefined: true,
+      Undefined: nativehelpers.OptionPredicator.Undefined(props.Context.Options),
       Assert:    false,
       Reduce: func(a *shimast.Expression, b *shimast.Expression) *shimast.Node {
         return validateProgrammer_binary(a, shimast.KindAmpersandAmpersandToken, b, props.Context.Emit)

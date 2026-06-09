@@ -8,7 +8,7 @@ type PluginOptions struct {
   Functional bool
   Numeric    bool
   Finite     bool
-  Undefined  bool
+  Undefined  *bool
 }
 
 func (p PluginOptions) TransformOptions() nativecontext.ITransformOptions {
@@ -16,7 +16,7 @@ func (p PluginOptions) TransformOptions() nativecontext.ITransformOptions {
     Finite:     boolPointer(p.Finite),
     Numeric:    boolPointer(p.Numeric),
     Functional: boolPointer(p.Functional),
-    Undefined:  boolPointer(p.Undefined),
+    Undefined:  p.Undefined,
     Runtime:    "typia",
   }
 }

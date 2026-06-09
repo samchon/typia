@@ -33,9 +33,12 @@ type RandomJoiner_TupleProps struct {
 }
 
 type RandomJoiner_ObjectProps struct {
-  Decode RandomJoiner_Decoder
-  Object *nativemetadata.MetadataObjectType
-  Emit   *shimprinter.EmitContext
+  Decode                  RandomJoiner_Decoder
+  Object                  *nativemetadata.MetadataObjectType
+  OptionalProperty        func(*nativemetadata.MetadataSchema) bool
+  StrictOptionalUndefined func(*nativemetadata.MetadataSchema) bool
+  Optional                func() *shimast.Node
+  Emit                    *shimprinter.EmitContext
 }
 
 type randomJoiner_DynamicPropertyProps struct {
@@ -141,13 +144,36 @@ func (randomJoinerNamespace) Object(props RandomJoiner_ObjectProps) *shimast.Nod
       continue
     }
     str := property.Key.GetSoleLiteral()
-    properties = append(properties, f.NewPropertyAssignment(
+    metadata := property.Value
+    optionalProperty := props.OptionalProperty != nil && props.OptionalProperty(property.Value)
+    strictOptionalUndefined := props.StrictOptionalUndefined != nil && props.StrictOptionalUndefined(property.Value)
+    if strictOptionalUndefined {
+      metadata = property.Value.ShallowClone()
+      metadata.Optional = false
+    }
+    propertyAssignment := f.NewPropertyAssignment(
       nil,
       nativefactories.IdentifierFactory.Identifier(*str, props.Emit),
       nil,
       nil,
-      props.Decode(property.Value),
-    ))
+      props.Decode(metadata),
+    )
+    if optionalProperty {
+      condition := f.NewKeywordExpression(shimast.KindTrueKeyword)
+      if props.Optional != nil {
+        condition = props.Optional()
+      }
+      properties = append(properties, f.NewSpreadAssignment(
+        f.NewParenthesizedExpression(nativefactories.ExpressionFactory.Conditional(
+          condition,
+          f.NewObjectLiteralExpression(f.NewNodeList([]*shimast.Node{propertyAssignment}), false),
+          f.NewObjectLiteralExpression(f.NewNodeList(nil), false),
+          props.Emit,
+        )),
+      ))
+    } else {
+      properties = append(properties, propertyAssignment)
+    }
   }
   for _, property := range props.Object.Properties {
     if property.Key.IsSoleLiteral() {
