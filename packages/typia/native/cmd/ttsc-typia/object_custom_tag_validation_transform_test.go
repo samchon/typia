@@ -237,6 +237,8 @@ const isTaggedUnion = typia.createIs<TaggedUnion>();
 const validateTaggedUnion = typia.createValidate<TaggedUnion>();
 const assertTaggedUnion = typia.createAssert<TaggedUnion>();
 const isCountedUnion = typia.createIs<CountedUnion>();
+const validateCountedUnion = typia.createValidate<CountedUnion>();
+const assertCountedUnion = typia.createAssert<CountedUnion>();
 
 type Container = {
   union: TaggedUnion;
@@ -270,6 +272,12 @@ export const run = () => ({
   validEquals: equalsFilters({ user_id: 1 }),
   emptyValidateEquals: validateEqualsFilters({}).success,
   validValidateEquals: validateEqualsFilters({ user_id: 1 }).success,
+  directEmptyEquals: typia.equals<Filters>({}),
+  directValidEquals: typia.equals<Filters>({ user_id: 1 }),
+  directEmptyValidateEquals: typia.validateEquals<Filters>({}).success,
+  directValidValidateEquals: typia.validateEquals<Filters>({
+    user_id: 1,
+  }).success,
   boundedEmptyIs: isBoundedFilters({}),
   boundedSingleIs: isBoundedFilters({ user_id: 1 }),
   boundedTooManyIs: isBoundedFilters({
@@ -294,6 +302,12 @@ export const run = () => ({
   unionValidBAssert: capture(() => assertTaggedUnion({ type: "b" })),
   countedUnionValid: withTagCount(() =>
     isCountedUnion({ type: "counted", value: 1 }),
+  ),
+  countedUnionValidValidate: withTagCount(() =>
+    validateCountedUnion({ type: "counted", value: 1 }).success,
+  ),
+  countedUnionValidAssert: withTagCount(() =>
+    capture(() => assertCountedUnion({ type: "counted", value: 1 })),
   ),
   countedUnionPlain: withTagCount(() => isCountedUnion({ type: "plain" })),
   containerValidBAssert: capture(() =>
@@ -320,6 +334,10 @@ if (result.emptyEquals !== false) throw new Error("empty object passed createEqu
 if (result.validEquals !== true) throw new Error("non-empty object failed createEquals");
 if (result.emptyValidateEquals !== false) throw new Error("empty object passed createValidateEquals");
 if (result.validValidateEquals !== true) throw new Error("non-empty object failed createValidateEquals");
+if (result.directEmptyEquals !== false) throw new Error("empty object passed direct equals");
+if (result.directValidEquals !== true) throw new Error("non-empty object failed direct equals");
+if (result.directEmptyValidateEquals !== false) throw new Error("empty object passed direct validateEquals");
+if (result.directValidValidateEquals !== true) throw new Error("non-empty object failed direct validateEquals");
 if (result.boundedEmptyIs !== false) throw new Error("empty object passed bounded createIs");
 if (result.boundedSingleIs !== true) throw new Error("single-entry object failed bounded createIs");
 if (result.boundedTooManyIs !== false) throw new Error("too-large object passed bounded createIs");
@@ -341,6 +359,12 @@ if (result.unionValidBValidate !== true) throw new Error("untagged union branch 
 if (result.unionValidBAssert !== null) throw new Error("untagged union branch failed createAssert");
 if (result.countedUnionValid.value !== true || result.countedUnionValid.count !== 1) {
   throw new Error("selected tagged union branch executed its object tag more than once: " + JSON.stringify(result.countedUnionValid));
+}
+if (result.countedUnionValidValidate.value !== true || result.countedUnionValidValidate.count !== 1) {
+  throw new Error("selected validate union branch executed its object tag more than once: " + JSON.stringify(result.countedUnionValidValidate));
+}
+if (result.countedUnionValidAssert.value !== null || result.countedUnionValidAssert.count !== 1) {
+  throw new Error("selected assert union branch executed its object tag more than once: " + JSON.stringify(result.countedUnionValidAssert));
 }
 if (result.countedUnionPlain.value !== true || result.countedUnionPlain.count !== 0) {
   throw new Error("untagged union branch executed an unrelated object tag: " + JSON.stringify(result.countedUnionPlain));
