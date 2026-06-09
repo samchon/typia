@@ -16,31 +16,31 @@ export const test_json_schema_spec_number = (): void => {
     uint16: number;
   }
 
-  TestValidator.equals("number", clean(typia.json.schema<number>().schema), {
+  equalsSchema("number", clean(typia.json.schema<number>().schema), {
     type: "number",
   });
-  TestValidator.equals(
+  equalsSchema(
     "int32",
     clean(typia.json.schema<number & tags.Type<"int32">>().schema),
     {
       type: "integer",
     },
   );
-  TestValidator.equals(
+  equalsSchema(
     "int8",
     clean(typia.json.schema<number & tags.Type<"int8">>().schema),
     {
       type: "integer",
     },
   );
-  TestValidator.equals(
+  equalsSchema(
     "int16",
     clean(typia.json.schema<number & tags.Type<"int16">>().schema),
     {
       type: "integer",
     },
   );
-  TestValidator.equals(
+  equalsSchema(
     "uint32",
     clean(typia.json.schema<number & tags.Type<"uint32">>().schema),
     {
@@ -48,7 +48,7 @@ export const test_json_schema_spec_number = (): void => {
       minimum: 0,
     },
   );
-  TestValidator.equals(
+  equalsSchema(
     "uint8",
     clean(typia.json.schema<number & tags.Type<"uint8">>().schema),
     {
@@ -56,7 +56,7 @@ export const test_json_schema_spec_number = (): void => {
       minimum: 0,
     },
   );
-  TestValidator.equals(
+  equalsSchema(
     "uint16",
     clean(typia.json.schema<number & tags.Type<"uint16">>().schema),
     {
@@ -64,7 +64,7 @@ export const test_json_schema_spec_number = (): void => {
       minimum: 0,
     },
   );
-  TestValidator.equals(
+  equalsSchema(
     "inclusive range",
     clean(
       typia.json.schema<number & tags.Minimum<1> & tags.Maximum<10>>().schema,
@@ -75,7 +75,7 @@ export const test_json_schema_spec_number = (): void => {
       maximum: 10,
     },
   );
-  TestValidator.equals(
+  equalsSchema(
     "exclusive range",
     clean(
       typia.json.schema<
@@ -88,7 +88,7 @@ export const test_json_schema_spec_number = (): void => {
       exclusiveMaximum: 10,
     },
   );
-  TestValidator.equals(
+  equalsSchema(
     "multipleOf",
     clean(typia.json.schema<number & tags.MultipleOf<5>>().schema),
     {
@@ -96,7 +96,7 @@ export const test_json_schema_spec_number = (): void => {
       multipleOf: 5,
     },
   );
-  TestValidator.equals(
+  equalsSchema(
     "comment type smaller integers",
     clean(typia.json.schema<ICommentTypeNumbers>().schema),
     {
@@ -121,7 +121,7 @@ export const test_json_schema_spec_number = (): void => {
       additionalProperties: false,
     },
   );
-  TestValidator.equals(
+  equalsSchema(
     "number literal union",
     normalizeOneOf(clean(typia.json.schema<1 | 2 | 3>().schema)),
     {
@@ -141,6 +141,15 @@ export const test_json_schema_spec_number = (): void => {
 };
 
 const clean = <T>(value: T): T => JSON.parse(JSON.stringify(value));
+
+const equalsSchema = (
+  title: string,
+  actual: unknown,
+  expected: unknown,
+): void => {
+  TestValidator.equals(`${title}.actual`, actual, expected);
+  TestValidator.equals(`${title}.expected`, expected, actual);
+};
 
 const normalizeOneOf = (schema: any): any => ({
   ...schema,

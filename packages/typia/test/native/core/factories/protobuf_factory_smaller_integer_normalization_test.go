@@ -1,23 +1,22 @@
-//go:build typia_native_internal
-// +build typia_native_internal
-
 package factories
 
 import (
   "testing"
 
+  nativefactories "github.com/samchon/typia/packages/typia/native/core/factories"
   schemametadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
+  nativeprotobuf "github.com/samchon/typia/packages/typia/native/core/schemas/protobuf"
+  testutil "github.com/samchon/typia/packages/typia/test/internal/testutil"
 )
 
 // TestProtobufFactorySmallerIntegerNormalization verifies protobuf scalar aliasing.
 //
 // Protobuf does not have int8, uint8, int16, or uint16 scalar types. The factory
-// path must still consume those typia numeric tags without falling back to
-// double, because protobuf message generation and sequence validation use this
-// decoder directly.
+// path must still consume those typia numeric tags through its exported object
+// emplacement API without falling back to double.
 //
-// 1. Build tagged number constants for each smaller integer alias.
-// 2. Decode protobuf number tags through the factory helper.
+// 1. Build an object property for each smaller integer alias.
+// 2. Emplace protobuf property metadata through ProtobufFactory.EmplaceObject.
 // 3. Assert signed aliases become int32 and unsigned aliases become uint32.
 func TestProtobufFactorySmallerIntegerNormalization(t *testing.T) {
   for _, tuple := range []struct {
@@ -30,28 +29,38 @@ func TestProtobufFactorySmallerIntegerNormalization(t *testing.T) {
     {tag: "int16", scalar: "int32", sequence: 23},
     {tag: "uint16", scalar: "uint32", sequence: 24},
   } {
-    output := map[string]*int{}
-    protobufFactory_decodeNumber(output, []*schemametadata.MetadataConstantValue{
-      schemametadata.MetadataConstantValue_create(schemametadata.MetadataConstantValue{
-        Value: 3,
-        Tags: [][]schemametadata.IMetadataTypeTag{{
-          {Kind: "type", Value: tuple.tag},
-          protobufFactorySmallerIntegerSequenceTag(tuple.sequence),
-        }},
-      }),
-    }, "double")
-    if got := output[tuple.scalar]; got == nil || *got != tuple.sequence {
-      t.Fatalf("protobuf number tag %s should normalize to %s with its sequence: %#v", tuple.tag, tuple.scalar, output)
-    }
-    if _, ok := output[tuple.tag]; ok {
-      t.Fatalf("protobuf number tag %s should not remain under its non-scalar alias: %#v", tuple.tag, output)
-    }
-  }
-}
+    object := schemametadata.MetadataObjectType_create(schemametadata.MetadataObjectType{
+      Name: "SmallerIntegerProtobuf",
+      Properties: []*schemametadata.MetadataProperty{
+        testutil.Property(tuple.tag, schemametadata.MetadataSchema_create(schemametadata.MetadataSchema{
+          Required: true,
+          Atomics: []*schemametadata.MetadataAtomic{
+            schemametadata.MetadataAtomic_create(schemametadata.MetadataAtomic{
+              Type: "number",
+              Tags: [][]schemametadata.IMetadataTypeTag{{
+                testutil.TypeTag(tuple.tag),
+                testutil.SequenceTag(tuple.sequence),
+              }},
+            }),
+          },
+        })),
+      },
+    })
+    nativefactories.ProtobufFactory.EmplaceObject(object)
 
-func protobufFactorySmallerIntegerSequenceTag(value int) schemametadata.IMetadataTypeTag {
-  return schemametadata.IMetadataTypeTag{
-    Kind:   "sequence",
-    Schema: map[string]any{"x-protobuf-sequence": value},
+    property := object.Properties[0].Of_protobuf_
+    if property == nil || property.Fixed == false || len(property.Union) != 1 {
+      t.Fatalf("protobuf property for %s was not fixed as a single union: %#v", tuple.tag, property)
+    }
+    number, ok := property.Union[0].(*nativeprotobuf.IProtobufPropertyType_INumber)
+    if ok == false {
+      t.Fatalf("protobuf property for %s should be a number: %#v", tuple.tag, property.Union[0])
+    }
+    if number.Name != tuple.scalar {
+      t.Fatalf("protobuf number tag %s should normalize to %s: %#v", tuple.tag, tuple.scalar, number)
+    }
+    if number.Index == nil || *number.Index != tuple.sequence {
+      t.Fatalf("protobuf number tag %s should preserve its sequence: %#v", tuple.tag, number.Index)
+    }
   }
 }

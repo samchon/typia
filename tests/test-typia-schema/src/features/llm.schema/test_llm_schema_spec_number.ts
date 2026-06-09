@@ -17,31 +17,31 @@ export const test_llm_schema_spec_number = (): void => {
     uint16: number;
   }
 
-  TestValidator.equals("number", clean(typia.llm.schema<number>({})), {
+  equalsSchema("number", clean(typia.llm.schema<number>({})), {
     type: "number",
   });
-  TestValidator.equals(
+  equalsSchema(
     "int32",
     clean(typia.llm.schema<number & tags.Type<"int32">>({})),
     {
       type: "integer",
     },
   );
-  TestValidator.equals(
+  equalsSchema(
     "int8",
     clean(typia.llm.schema<number & tags.Type<"int8">>({})),
     {
       type: "integer",
     },
   );
-  TestValidator.equals(
+  equalsSchema(
     "int16",
     clean(typia.llm.schema<number & tags.Type<"int16">>({})),
     {
       type: "integer",
     },
   );
-  TestValidator.equals(
+  equalsSchema(
     "uint32",
     clean(typia.llm.schema<number & tags.Type<"uint32">>({})),
     {
@@ -49,7 +49,7 @@ export const test_llm_schema_spec_number = (): void => {
       minimum: 0,
     },
   );
-  TestValidator.equals(
+  equalsSchema(
     "uint8",
     clean(typia.llm.schema<number & tags.Type<"uint8">>({})),
     {
@@ -57,7 +57,7 @@ export const test_llm_schema_spec_number = (): void => {
       minimum: 0,
     },
   );
-  TestValidator.equals(
+  equalsSchema(
     "uint16",
     clean(typia.llm.schema<number & tags.Type<"uint16">>({})),
     {
@@ -65,14 +65,14 @@ export const test_llm_schema_spec_number = (): void => {
       minimum: 0,
     },
   );
-  TestValidator.equals(
+  equalsSchema(
     "float",
     clean(typia.llm.schema<number & tags.Type<"float">>({})),
     {
       type: "number",
     },
   );
-  TestValidator.equals(
+  equalsSchema(
     "inclusive range",
     clean(typia.llm.schema<number & tags.Minimum<1> & tags.Maximum<10>>({})),
     {
@@ -81,7 +81,7 @@ export const test_llm_schema_spec_number = (): void => {
       maximum: 10,
     },
   );
-  TestValidator.equals(
+  equalsSchema(
     "exclusive range",
     clean(
       typia.llm.schema<
@@ -94,7 +94,7 @@ export const test_llm_schema_spec_number = (): void => {
       exclusiveMaximum: 10,
     },
   );
-  TestValidator.equals(
+  equalsSchema(
     "multipleOf",
     clean(typia.llm.schema<number & tags.MultipleOf<5>>({})),
     {
@@ -102,7 +102,7 @@ export const test_llm_schema_spec_number = (): void => {
       multipleOf: 5,
     },
   );
-  TestValidator.equals(
+  equalsSchema(
     "number default",
     clean(typia.llm.schema<number & tags.Default<3>>({})),
     {
@@ -110,7 +110,7 @@ export const test_llm_schema_spec_number = (): void => {
       default: 3,
     },
   );
-  TestValidator.equals(
+  equalsSchema(
     "strict uint8 shifts minimum",
     clean(typia.llm.schema<number & tags.Type<"uint8">, { strict: true }>({})),
     {
@@ -119,7 +119,7 @@ export const test_llm_schema_spec_number = (): void => {
     },
   );
   const commentTypeDefs: Record<string, ILlmSchema> = {};
-  TestValidator.equals(
+  equalsSchema(
     "comment type smaller integers",
     clean(
       resolve(
@@ -150,7 +150,7 @@ export const test_llm_schema_spec_number = (): void => {
     },
   );
   const strictCommentTypeDefs: Record<string, ILlmSchema> = {};
-  TestValidator.equals(
+  equalsSchema(
     "strict comment type smaller integers",
     clean(
       resolve(
@@ -182,7 +182,7 @@ export const test_llm_schema_spec_number = (): void => {
       additionalProperties: false,
     },
   );
-  TestValidator.equals(
+  equalsSchema(
     "number literal union",
     enumSchema(typia.llm.schema<1 | 2 | 3>({})),
     {
@@ -193,6 +193,15 @@ export const test_llm_schema_spec_number = (): void => {
 };
 
 const clean = <T>(value: T): T => JSON.parse(JSON.stringify(value));
+
+const equalsSchema = (
+  title: string,
+  actual: unknown,
+  expected: unknown,
+): void => {
+  TestValidator.equals(`${title}.actual`, actual, expected);
+  TestValidator.equals(`${title}.expected`, expected, actual);
+};
 
 const enumSchema = (
   schema: ILlmSchema,

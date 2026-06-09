@@ -229,7 +229,7 @@ func protobufUtil_decode_number(output map[string]*int, tags [][]nativemetadata.
     return
   }
   for _, row := range tags {
-    value := "double"
+    value := defaultType
     for _, tag := range row {
       if tag.Kind == "type" {
         str := protobufUtil_normalize_number_type(fmt.Sprint(tag.Value))
