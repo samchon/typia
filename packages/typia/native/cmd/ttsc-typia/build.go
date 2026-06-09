@@ -185,6 +185,15 @@ func readTypiaPluginOptions(cwd, tsconfigPath string) typiaadapter.PluginOptions
     Functional: regexp.MustCompile(`(?s)"functional"\s*:\s*true`).MatchString(text),
     Numeric:    regexp.MustCompile(`(?s)"numeric"\s*:\s*true`).MatchString(text),
     Finite:     regexp.MustCompile(`(?s)"finite"\s*:\s*true`).MatchString(text),
-    Undefined:  regexp.MustCompile(`(?s)"undefined"\s*:\s*true`).MatchString(text),
+    Undefined:  readBooleanPluginOption(text, "undefined"),
   }
+}
+
+func readBooleanPluginOption(text string, name string) *bool {
+  matched := regexp.MustCompile(`(?s)"` + regexp.QuoteMeta(name) + `"\s*:\s*(true|false)`).FindStringSubmatch(text)
+  if matched == nil {
+    return nil
+  }
+  value := matched[1] == "true"
+  return &value
 }

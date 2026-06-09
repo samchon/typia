@@ -55,13 +55,25 @@ func (cloneJoinerNamespace) Object(props CloneJoiner_ObjectProps) *shimast.Node 
   properties := make([]*shimast.Node, 0, len(regular))
   for _, entry := range regular {
     str := entry.Key.GetSoleLiteral()
-    properties = append(properties, f.NewPropertyAssignment(
+    property := f.NewPropertyAssignment(
       nil,
       nativefactories.IdentifierFactory.Identifier(*str, props.Emit),
       nil,
       nil,
       entry.Expression,
-    ))
+    )
+    if entry.OptionalProperty {
+      properties = append(properties, f.NewSpreadAssignment(
+        f.NewParenthesizedExpression(nativefactories.ExpressionFactory.Conditional(
+          nativefactories.ExpressionFactory.IsRequired(entry.Input, props.Emit),
+          f.NewObjectLiteralExpression(f.NewNodeList([]*shimast.Node{property}), false),
+          f.NewObjectLiteralExpression(f.NewNodeList(nil), false),
+          props.Emit,
+        )),
+      ))
+    } else {
+      properties = append(properties, property)
+    }
   }
   literal := f.NewObjectLiteralExpression(
     f.NewNodeList(properties),

@@ -12,9 +12,9 @@ import typia from "typia";
  *
  * 1. Declare a controller method with `@param input.value` documentation.
  * 2. Generate the LLM application schema for that controller.
- * 3. Assert the function exists and its single object parameter was inlined,
- *    so the parameter schema's `properties` carry the object's own keys
- *    (`value`), exactly as published typia emits.
+ * 3. Assert the function exists and its single object parameter was inlined, so
+ *    the parameter schema's `properties` carry the object's own keys (`value`),
+ *    exactly as published typia emits.
  */
 export const test_llm_application_qualified_param = (): void => {
   interface IRequest {
