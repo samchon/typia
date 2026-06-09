@@ -12,10 +12,10 @@ import { Calculator } from "../structures/Calculator";
  * Verifies MCP tool handler returns `isError: true` for unknown tool names.
  *
  * Locks the unknown-tool fallback branch of `McpControllerRegistrar`'s
- * `tools/call` handler. When an LLM calls a tool name that doesn't exist in
- * the registry, the handler must return a well-formed `CallToolResult` with
- * `isError: true` and a descriptive message, rather than throwing or
- * returning undefined.
+ * `tools/call` handler. When an LLM calls a tool name that doesn't exist in the
+ * registry, the handler must return a well-formed `CallToolResult` with
+ * `isError: true` and a descriptive message, rather than throwing or returning
+ * undefined.
  *
  * 1. Register a `Calculator` controller with the MCP server.
  * 2. Invoke a non-existent tool name `"nonExistentTool"`.
@@ -73,14 +73,12 @@ export const test_mcp_class_controller_unknown_tool =
     );
 
     // 7. Verify the error message references the unknown tool name
-    TestValidator.predicate(
-      "error should contain unknown tool name",
-      () =>
-        result.content.some(
-          (c) =>
-            c.type === "text" &&
-            (c as { type: "text"; text: string }).text ===
-              "Unknown tool: nonExistentTool",
-        ),
+    TestValidator.predicate("error should contain unknown tool name", () =>
+      result.content.some(
+        (c) =>
+          c.type === "text" &&
+          (c as { type: "text"; text: string }).text ===
+            "Unknown tool: nonExistentTool",
+      ),
     );
   };

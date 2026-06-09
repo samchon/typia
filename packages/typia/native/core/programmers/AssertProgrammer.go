@@ -303,7 +303,7 @@ func assertProgrammer_assert_object(props assertProgrammer_assertObjectProps) *s
     Config: nativeiterate.Check_object_IConfig{
       Equals:    props.Config.Equals,
       Assert:    true,
-      Undefined: true,
+      Undefined: nativehelpers.OptionPredicator.Undefined(props.Context.Options),
       Reduce: func(a *shimast.Expression, b *shimast.Expression) *shimast.Node {
         return assertProgrammer_binary(a, shimast.KindAmpersandAmpersandToken, b, props.Context.Emit)
       },

@@ -45,6 +45,13 @@ func Feature_object_entries(props Feature_object_entriesProps) []nativehelpers.I
   for _, next := range props.Object.Properties {
     sole := next.Key.GetSoleLiteral()
     propInput := feature_object_entries_property_input(props.Input, sole, props.Context.Emit)
+    optionalProperty := sole != nil && nativehelpers.OptionPredicator.ExactOptionalProperty(props.Context, next.Value)
+    strictOptionalUndefined := sole != nil && nativehelpers.OptionPredicator.StrictOptionalUndefined(props.Context, next.Value)
+    metadata := next.Value
+    if strictOptionalUndefined {
+      metadata = next.Value.ShallowClone()
+      metadata.Optional = false
+    }
     postfix := ""
     if props.Config.Trace {
       if sole != nil {
@@ -55,12 +62,14 @@ func Feature_object_entries(props Feature_object_entriesProps) []nativehelpers.I
       }
     }
     output = append(output, nativehelpers.IExpressionEntry{
-      Input: propInput,
-      Key:   next.Key,
-      Meta:  next.Value,
+      Input:                   propInput,
+      Key:                     next.Key,
+      Meta:                    next.Value,
+      OptionalProperty:        optionalProperty,
+      StrictOptionalUndefined: strictOptionalUndefined,
       Expression: props.Config.Decoder(Feature_object_entriesDecoderProps{
         Input:    propInput,
-        Metadata: next.Value,
+        Metadata: metadata,
         Explore: Feature_object_entriesExplore{
           Tracable: props.Config.Path || props.Config.Trace,
           Source:   "function",

@@ -13,7 +13,10 @@
 // the string-enum tsconfig override; the in-page Execute lane resolves typia's
 // runtime from a prebuilt pack in `PlaygroundMovie`'s `executeBundle`.
 
-import { createTypiaSourcePackMount, createWorkerCompiler } from "@ttsc/playground";
+import {
+  createTypiaSourcePackMount,
+  createWorkerCompiler,
+} from "@ttsc/playground";
 import { WorkerServer } from "tgrid";
 
 const service = createWorkerCompiler({
