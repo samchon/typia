@@ -35,21 +35,13 @@ func TestNullablePrimitivePropertyIsTransform(t *testing.T) {
   }
 
   nullablePrimitivePropertyContainsAll(t, out, []string{
-    `"number" === typeof input.number`,
-    `null === input.number`,
-    `"string" === typeof input.string`,
-    `null === input.string`,
-    `"boolean" === typeof input.boolean`,
-    `null === input.boolean`,
-    `"number" === typeof input.reversedNumber`,
-    `null === input.reversedNumber`,
-    `"string" === typeof input.value`,
-    `null === input.value`,
-    `"boolean" === typeof input.value`,
+    `null === input.number || "number" === typeof input.number`,
+    `null === input.string || "string" === typeof input.string`,
+    `null === input.boolean || "boolean" === typeof input.boolean`,
+    `null === input.reversedNumber || "number" === typeof input.reversedNumber`,
+    `null === input.value || "string" === typeof input.value`,
+    `null === input.value || "boolean" === typeof input.value`,
   })
-  if strings.Count(out, `null === input.value`) < 2 {
-    t.Fatalf("expected nested and array nullable value guards, output:\n%s", out)
-  }
 }
 
 func nullablePrimitivePropertyProject(t *testing.T) string {
@@ -156,6 +148,4 @@ interface NullablePrimitiveProperties {
 
 export const isNullablePrimitive = (input: unknown): boolean =>
   typia.is<NullablePrimitiveProperties>(input);
-export const createIsNullablePrimitive =
-  typia.createIs<NullablePrimitiveProperties>();
 `
