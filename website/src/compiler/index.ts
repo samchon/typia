@@ -6,20 +6,18 @@
 // `@ttsc/wasm`'s `host.Expose` — which registers a single `host.Plugin` named
 // `"typia"` that dispatches `transform` / `build` into typia's native runners.
 //
-// All shared playground scaffolding (worker race guards, MemFS layout, tsconfig
-// builder, npm dependency installer, ESM/CJS compile lanes) lives inside
-// `@ttsc/playground` and is invoked through `createWorkerCompiler`. This file
-// only supplies the typia-specific wasm URL, plugin id, source-pack mount, and
-// the string-enum tsconfig override; the in-page Execute lane resolves typia's
-// runtime from a prebuilt pack in `PlaygroundMovie`'s `executeBundle`.
+// Most shared playground scaffolding lives inside `@ttsc/playground`. The
+// website worker uses a typia-specific compiler wrapper so each compile can
+// serialize the current transform toggles into `compilerOptions.plugins`; the
+// in-page Execute lane resolves typia's runtime from a prebuilt pack in
+// `PlaygroundMovie`'s `executeBundle`.
 
-import {
-  createTypiaSourcePackMount,
-  createWorkerCompiler,
-} from "@ttsc/playground";
+import { createTypiaSourcePackMount } from "@ttsc/playground";
 import { WorkerServer } from "tgrid";
 
-const service = createWorkerCompiler({
+import { createTypiaWorkerCompiler } from "./createTypiaWorkerCompiler";
+
+const service = createTypiaWorkerCompiler({
   wasmUrl: "/compiler/ttsc-typia.wasm",
   wasmExecUrl: "/compiler/wasm_exec.js",
   apiName: "ttscTypia",

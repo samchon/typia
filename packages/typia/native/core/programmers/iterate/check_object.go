@@ -37,7 +37,7 @@ func Check_object(props Check_objectProps) *shimast.Node {
   }
   flags := make([]*shimast.Node, 0, len(regular)+1)
   for _, entry := range regular {
-    flags = append(flags, entry.Expression)
+    flags = append(flags, check_object_regular_expression(props, entry))
   }
 
   if props.Config.Equals == false && len(dynamic) == 0 {
@@ -61,6 +61,28 @@ func Check_object(props Check_objectProps) *shimast.Node {
     Config:      props.Config,
     Expressions: flags,
   }, props.Context.Emit)
+}
+
+func check_object_regular_expression(props Check_objectProps, entry nativehelpers.IExpressionEntry) *shimast.Node {
+  key := entry.Key.GetSoleLiteral()
+  if !entry.StrictOptionalUndefined || key == nil {
+    return entry.Expression
+  }
+  f := nativecontext.EmitFactoryOf(check_object_factory, props.Context.Emit)
+  present := f.NewBinaryExpression(
+    nil,
+    f.NewStringLiteral(*key, shimast.TokenFlagsNone),
+    nil,
+    f.NewToken(shimast.KindInKeyword),
+    props.Input,
+  )
+  return f.NewBinaryExpression(
+    nil,
+    f.NewPrefixUnaryExpression(shimast.KindExclamationToken, present),
+    nil,
+    f.NewToken(shimast.KindBarBarToken),
+    entry.Expression,
+  )
 }
 
 type check_object_reduceProps struct {
