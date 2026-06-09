@@ -22,8 +22,8 @@ import (
 //     `json.application` calls over `ok: false | true` output branches.
 //  2. Execute the emitted JavaScript with an empty typia stub, proving the
 //     schema calls were inlined by the transformer.
-//  3. Assert the reflect and JSON application outputs contain both boolean
-//     constants.
+//  3. Assert the reflect, JSON schema, and JSON application outputs preserve
+//     the boolean constants on the correct object branches.
 func TestBooleanLiteralDiscriminantSchemaTransform(t *testing.T) {
   project := booleanLiteralDiscriminantProject(t)
   js := booleanLiteralDiscriminantTransform(t, project, "js")
@@ -121,6 +121,14 @@ func booleanLiteralDiscriminantRunRuntimeCases(t *testing.T, project string, js 
     t.Fatalf("write typia stub: %v", err)
   }
   runtimeJS := strings.ReplaceAll(js, `require("typia")`, `require("./typia-stub.cjs")`)
+  if strings.Contains(js, `require("typia")`) && !strings.Contains(runtimeJS, `require("./typia-stub.cjs")`) {
+    t.Fatal("runtime module did not rewrite the typia import to the empty stub")
+  }
+  for _, needle := range []string{`require("typia")`, `require('typia')`, `from "typia"`, `from 'typia'`} {
+    if strings.Contains(runtimeJS, needle) {
+      t.Fatalf("runtime module still contains root typia import %q", needle)
+    }
+  }
   if err := os.WriteFile(filepath.Join(runtimeDir, "main.cjs"), []byte(runtimeJS), 0o644); err != nil {
     t.Fatalf("write runtime module: %v", err)
   }
@@ -172,6 +180,10 @@ type Output = IFailure | ISuccess;
 
 interface IController {
   getMe(): Promise<Output>;
+  getMeInline(): Promise<
+    | { ok: false; error: { code: string } }
+    | { ok: true; code: string; data: { id: string } }
+  >;
 }
 
 export const reflectFalse = typia.reflect.schema<false>();
@@ -194,21 +206,56 @@ const assertValues = (name, actual, expected) => {
   }
 };
 
-const collectReflectOkConstants = (unit) =>
-  unit.components.objects
-    .flatMap((object) => object.properties)
-    .filter(
-      (property) =>
-        property.key.constants[0]?.type === "string" &&
-        property.key.constants[0]?.values[0]?.value === "ok",
-    )
-    .flatMap((property) => property.value.constants)
-    .filter((constant) => constant.type === "boolean")
-    .flatMap((constant) => constant.values)
-    .map((value) => value.value)
+const assertStrings = (name, actual, expected) => {
+  const normalized = [...actual].sort();
+  if (JSON.stringify(normalized) !== JSON.stringify(expected)) {
+    throw new Error(name + ": expected " + JSON.stringify(expected) + " but got " + JSON.stringify(normalized));
+  }
+};
+
+const reflectProperty = (object, key) =>
+  object.properties.find(
+    (property) =>
+      property.key.constants[0]?.type === "string" &&
+      property.key.constants[0]?.values[0]?.value === key,
+  );
+
+const reflectOkConstant = (object) =>
+  reflectProperty(object, "ok")?.value.constants
+    .find((constant) => constant.type === "boolean")
+    ?.values.map((value) => value.value)
     .filter((value) => typeof value === "boolean");
 
+const collectReflectOkConstants = (unit) =>
+  unit.components.objects
+    .filter((object) => reflectProperty(object, "ok") !== undefined)
+    .flatMap((object) => reflectOkConstant(object) ?? []);
+
+const assertReflectBranch = (unit, sibling, expected) => {
+  const branch = unit.components.objects.find(
+    (object) =>
+      reflectProperty(object, "ok") !== undefined &&
+      reflectProperty(object, sibling) !== undefined,
+  );
+  if (branch === undefined) {
+    throw new Error("reflect branch with property " + sibling + " was not emitted");
+  }
+  assertValues("reflect branch " + sibling + " ok constant", reflectOkConstant(branch) ?? [], [expected]);
+};
+
 const schemaName = (ref) => ref.split("/").at(-1);
+
+const collectJsonRefs = (schema) => {
+  const visit = (current) => {
+    if (typeof current?.$ref === "string") return [current.$ref];
+    if (Array.isArray(current?.oneOf)) return current.oneOf.flatMap(visit);
+    if (current?.type === "object") {
+      return Object.values(current.properties ?? {}).flatMap(visit);
+    }
+    return [];
+  };
+  return visit(schema);
+};
 
 const collectJsonOkConstants = (schema, components) => {
   const visited = new Set();
@@ -229,6 +276,37 @@ const collectJsonOkConstants = (schema, components) => {
   return visit(schema);
 };
 
+const collectJsonObjects = (schema, components) => {
+  const visited = new Set();
+  const visit = (current) => {
+    if (typeof current?.$ref === "string") {
+      if (visited.has(current.$ref)) return [];
+      visited.add(current.$ref);
+      const target = components.schemas?.[schemaName(current.$ref)];
+      return target === undefined ? [] : visit(target);
+    }
+    if (Array.isArray(current?.oneOf)) return current.oneOf.flatMap(visit);
+    if (current?.type === "object") return [current];
+    return [];
+  };
+  return visit(schema);
+};
+
+const assertJsonBranch = (name, schema, components, sibling, expected) => {
+  const branch = collectJsonObjects(schema, components).find(
+    (object) =>
+      object.properties?.ok !== undefined &&
+      object.properties?.[sibling] !== undefined,
+  );
+  if (branch === undefined) {
+    throw new Error(name + " branch with property " + sibling + " was not emitted");
+  }
+  const actual = branch.properties.ok?.const;
+  if (actual !== expected) {
+    throw new Error(name + " branch " + sibling + " expected ok " + expected + " but got " + actual);
+  }
+};
+
 if (reflectFalse.schema.constants[0]?.type !== "boolean") {
   throw new Error("bare false literal did not emit a boolean constant");
 }
@@ -237,15 +315,60 @@ if (reflectFalse.schema.constants[0]?.values[0]?.value !== false) {
 }
 
 assertValues("reflect union ok constants", collectReflectOkConstants(reflectOutput), [false, true]);
+assertReflectBranch(reflectOutput, "error", false);
+assertReflectBranch(reflectOutput, "data", true);
+
+if (jsonOutput.components.schemas?.IFailure === undefined) {
+  throw new Error("json schema did not emit IFailure component");
+}
+if (jsonOutput.components.schemas?.ISuccess === undefined) {
+  throw new Error("json schema did not emit ISuccess component");
+}
+assertStrings("json schema branch refs", collectJsonRefs(jsonOutput.schema), [
+  "#/components/schemas/IFailure",
+  "#/components/schemas/ISuccess",
+]);
 assertValues("json schema ok constants", collectJsonOkConstants(jsonOutput.schema, jsonOutput.components), [false, true]);
+assertJsonBranch("json schema", jsonOutput.schema, jsonOutput.components, "error", false);
+assertJsonBranch("json schema", jsonOutput.schema, jsonOutput.components, "data", true);
 
 const getMe = jsonApplication.functions.find((func) => func.name === "getMe");
 if (getMe?.output === undefined) {
   throw new Error("json application did not emit getMe output");
 }
+if (jsonApplication.components.schemas?.IFailure === undefined) {
+  throw new Error("json application did not emit IFailure component");
+}
+if (jsonApplication.components.schemas?.ISuccess === undefined) {
+  throw new Error("json application did not emit ISuccess component");
+}
+if (jsonApplication.components.schemas?.Output === undefined) {
+  throw new Error("json application did not emit Output component");
+}
+assertStrings("json application output ref", collectJsonRefs(getMe.output.schema), [
+  "#/components/schemas/Output",
+]);
+assertStrings("json application Output branch refs", collectJsonRefs(jsonApplication.components.schemas.Output), [
+  "#/components/schemas/IFailure",
+  "#/components/schemas/ISuccess",
+]);
 assertValues(
   "json application output ok constants",
   collectJsonOkConstants(getMe.output.schema, jsonApplication.components),
   [false, true],
 );
+assertJsonBranch("json application output", getMe.output.schema, jsonApplication.components, "error", false);
+assertJsonBranch("json application output", getMe.output.schema, jsonApplication.components, "data", true);
+
+const getMeInline = jsonApplication.functions.find((func) => func.name === "getMeInline");
+if (getMeInline?.output === undefined) {
+  throw new Error("json application did not emit getMeInline output");
+}
+assertValues(
+  "json application inline output ok constants",
+  collectJsonOkConstants(getMeInline.output.schema, jsonApplication.components),
+  [false, true],
+);
+assertJsonBranch("json application inline output", getMeInline.output.schema, jsonApplication.components, "error", false);
+assertJsonBranch("json application inline output", getMeInline.output.schema, jsonApplication.components, "data", true);
 `
