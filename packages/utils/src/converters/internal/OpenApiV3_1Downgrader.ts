@@ -281,16 +281,19 @@ export namespace OpenApiV3_1Downgrader {
             additionalProperties !== false;
           union.push({
             ...rest,
-            ...(properties !== undefined && dynamicRecord === false
+            ...(dynamicRecord === false
               ? {
-                  properties: Object.fromEntries(
-                    Object.entries(properties)
-                      .filter(([_, v]) => v !== undefined)
-                      .map(([key, value]) => [
-                        key,
-                        downgradeSchema(collection)(value),
-                      ]),
-                  ),
+                  properties:
+                    properties !== undefined
+                      ? Object.fromEntries(
+                          Object.entries(properties)
+                            .filter(([_, v]) => v !== undefined)
+                            .map(([key, value]) => [
+                              key,
+                              downgradeSchema(collection)(value),
+                            ]),
+                        )
+                      : {},
                 }
               : {}),
             ...(additionalProperties !== undefined
@@ -301,9 +304,7 @@ export namespace OpenApiV3_1Downgrader {
                       : additionalProperties,
                 }
               : {}),
-            ...(required !== undefined && dynamicRecord === false
-              ? { required }
-              : {}),
+            ...(dynamicRecord === false ? { required: required ?? [] } : {}),
           });
         } else if (OpenApiTypeChecker.isOneOf(schema))
           schema.oneOf.forEach(visit);

@@ -316,16 +316,19 @@ export namespace SwaggerV2Downgrader {
             additionalProperties !== false;
           union.push({
             ...rest,
-            ...(properties !== undefined && dynamicRecord === false
+            ...(dynamicRecord === false
               ? {
-                  properties: Object.fromEntries(
-                    Object.entries(properties)
-                      .filter(([_, v]) => v !== undefined)
-                      .map(([key, value]) => [
-                        key,
-                        downgradeSchema(collection)(value),
-                      ]),
-                  ),
+                  properties:
+                    properties !== undefined
+                      ? Object.fromEntries(
+                          Object.entries(properties)
+                            .filter(([_, v]) => v !== undefined)
+                            .map(([key, value]) => [
+                              key,
+                              downgradeSchema(collection)(value),
+                            ]),
+                        )
+                      : {},
                 }
               : {}),
             ...(additionalProperties !== undefined
@@ -336,9 +339,7 @@ export namespace SwaggerV2Downgrader {
                       : additionalProperties,
                 }
               : {}),
-            ...(required !== undefined && dynamicRecord === false
-              ? { required }
-              : {}),
+            ...(dynamicRecord === false ? { required: required ?? [] } : {}),
             examples: schema.examples
               ? Object.values(schema.examples)
               : undefined,
