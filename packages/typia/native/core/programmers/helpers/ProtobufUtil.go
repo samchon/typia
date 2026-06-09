@@ -212,7 +212,7 @@ func protobufUtil_decode_bigint(output map[string]*int, tags [][]nativemetadata.
     return
   }
   for _, row := range tags {
-    value := "int64"
+    value := defaultType
     for _, tag := range row {
       if tag.Kind == "type" && (tag.Value == "int64" || tag.Value == "uint64") {
         value = fmt.Sprint(tag.Value)
@@ -229,11 +229,11 @@ func protobufUtil_decode_number(output map[string]*int, tags [][]nativemetadata.
     return
   }
   for _, row := range tags {
-    value := "double"
+    value := defaultType
     for _, tag := range row {
       if tag.Kind == "type" {
-        str := fmt.Sprint(tag.Value)
-        if str == "int32" || str == "uint32" || str == "int64" || str == "uint64" || str == "float" || str == "double" {
+        str := protobufUtil_normalize_number_type(fmt.Sprint(tag.Value))
+        if str != "" {
           value = str
           break
         }
@@ -293,5 +293,18 @@ func protobufUtil_toFloat(value any) float64 {
   default:
     parsed, _ := strconv.ParseFloat(fmt.Sprint(value), 64)
     return parsed
+  }
+}
+
+func protobufUtil_normalize_number_type(value string) string {
+  switch value {
+  case "int8", "int16":
+    return "int32"
+  case "uint8", "uint16":
+    return "uint32"
+  case "int32", "uint32", "int64", "uint64", "float", "double":
+    return value
+  default:
+    return ""
   }
 }
