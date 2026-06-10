@@ -589,19 +589,36 @@ func metadataSchema_covers(x *MetadataSchema, y *MetadataSchema, escaped bool, v
   }
   for _, yt := range y.Tuples {
     if anyOf(x.Tuples, func(xt *MetadataTuple) bool {
-      if len(yt.Type.Elements) == 0 {
-        return len(xt.Type.Elements) == 0 ||
-          (len(xt.Type.Elements) == 1 && xt.Type.Elements[0].Rest != nil)
+      rest := (*MetadataSchema)(nil)
+      fixed := len(xt.Type.Elements)
+      if fixed != 0 && xt.Type.Elements[fixed-1].Rest != nil {
+        rest = xt.Type.Elements[fixed-1].Rest
+        fixed--
       }
-      if len(xt.Type.Elements) < len(yt.Type.Elements) {
+      if len(yt.Type.Elements) == 0 {
+        return fixed == 0
+      }
+      if rest == nil && len(xt.Type.Elements) < len(yt.Type.Elements) {
         return false
       }
       for i := 0; i < len(yt.Type.Elements); i++ {
-        if metadataSchema_covers(xt.Type.Elements[i], yt.Type.Elements[i], false, visited) == false {
+        var elem *MetadataSchema
+        if i < fixed {
+          elem = xt.Type.Elements[i]
+        } else if rest != nil {
+          elem = rest
+        } else {
+          elem = xt.Type.Elements[i]
+        }
+        target := yt.Type.Elements[i]
+        if rest != nil && i >= fixed && target.Rest != nil {
+          target = target.Rest
+        }
+        if metadataSchema_covers(elem, target, false, visited) == false {
           return false
         }
       }
-      for i := len(yt.Type.Elements); i < len(xt.Type.Elements); i++ {
+      for i := len(yt.Type.Elements); i < fixed; i++ {
         if metadataSchema_covers(xt.Type.Elements[i], yt.Type.Elements[i%len(yt.Type.Elements)], false, visited) == false {
           return false
         }

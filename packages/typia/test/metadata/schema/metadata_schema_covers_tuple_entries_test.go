@@ -18,6 +18,7 @@ import (
 // 4. Assert repeated-extra coverage can wrap across multiple extra elements.
 // 5. Assert repeated-extra coverage also works for reused element pointers.
 // 6. Assert empty tuple targets and rest wrappers cannot fall through.
+// 7. Assert source tuple rest elements cover fixed target tail elements.
 func TestMetadataSchemaCoversTupleEntries(t *testing.T) {
   if !metadata.MetadataSchema_covers(
     testutil.TupleMetadata(testutil.AtomicMetadata("number")),
@@ -101,6 +102,40 @@ func TestMetadataSchemaCoversTupleEntries(t *testing.T) {
     restAndAtomicElement(testutil.AtomicMetadata("string"), "number"),
   ) {
     t.Fatal("rest coverage should not skip other target buckets")
+  }
+  if !metadata.MetadataSchema_covers(
+    testutil.TupleMetadata(
+      testutil.AtomicMetadata("string"),
+      restElement(testutil.AtomicMetadata("number")),
+    ),
+    testutil.TupleMetadata(
+      testutil.StringConstantMetadata("head"),
+      testutil.NumberConstantMetadata(1),
+      testutil.NumberConstantMetadata(2),
+    ),
+  ) {
+    t.Fatal("source tuple rest should cover fixed target tail elements")
+  }
+  if !metadata.MetadataSchema_covers(
+    testutil.TupleMetadata(restElement(testutil.AtomicMetadata("number"))),
+    testutil.TupleMetadata(
+      testutil.NumberConstantMetadata(1),
+      testutil.NumberConstantMetadata(2),
+    ),
+  ) {
+    t.Fatal("source rest-only tuple should cover non-empty fixed target tuple")
+  }
+  if metadata.MetadataSchema_covers(
+    testutil.TupleMetadata(
+      testutil.AtomicMetadata("string"),
+      restElement(testutil.AtomicMetadata("number")),
+    ),
+    testutil.TupleMetadata(
+      testutil.StringConstantMetadata("head"),
+      testutil.StringConstantMetadata("tail"),
+    ),
+  ) {
+    t.Fatal("source tuple rest should not cover mismatched target tail elements")
   }
 }
 

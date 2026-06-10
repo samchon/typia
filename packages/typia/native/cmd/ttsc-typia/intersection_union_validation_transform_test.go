@@ -217,6 +217,10 @@ export const validateMapShared = typia.createValidate<MapSharedUnion>();
 export const validateArrayTupleShared = typia.createValidate<ArrayTupleSharedUnion>();
 export const validateBigIntPrimitiveOrInterface = typia.createValidate<BigIntPrimitiveOrInterface>();
 export const validateBigIntLiteralOrInterface = typia.createValidate<BigIntLiteralOrInterface>();
+export const isBigIntPrimitiveOrInterface = typia.createIs<BigIntPrimitiveOrInterface>();
+export const isBigIntLiteralOrInterface = typia.createIs<BigIntLiteralOrInterface>();
+export const assertBigIntPrimitiveOrInterface = typia.createAssert<BigIntPrimitiveOrInterface>();
+export const assertBigIntLiteralOrInterface = typia.createAssert<BigIntLiteralOrInterface>();
 `
 
 const intersectionUnionValidationRuntimeRunner = `const mod = require("./main.cjs");
@@ -425,5 +429,17 @@ if (mod.validateBigIntPrimitiveOrInterface(1n).success !== true) {
 }
 if (mod.validateBigIntLiteralOrInterface(1n).success !== true) {
   throw new Error("bigint literal should pass 1n | BigInt validation");
+}
+if (mod.isBigIntPrimitiveOrInterface(1n) !== true) {
+  throw new Error("bigint primitive should pass bigint | BigInt is");
+}
+if (mod.isBigIntLiteralOrInterface(1n) !== true) {
+  throw new Error("bigint literal should pass 1n | BigInt is");
+}
+if (mod.assertBigIntPrimitiveOrInterface(1n) !== 1n) {
+  throw new Error("bigint primitive should pass bigint | BigInt assert");
+}
+if (mod.assertBigIntLiteralOrInterface(1n) !== 1n) {
+  throw new Error("bigint literal should pass 1n | BigInt assert");
 }
 `
