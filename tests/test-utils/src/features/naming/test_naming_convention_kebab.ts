@@ -31,7 +31,9 @@ export const test_naming_convention_kebab = (): void => {
     ["word", "word"],
   ];
   for (const [input, expected] of expectations)
-    TestValidator.equals(`kebab(${JSON.stringify(input)})`)(
+    TestValidator.equals(
+      `kebab(${JSON.stringify(input)})`,
       NamingConvention.kebab(input),
-    )(expected);
+      expected,
+    );
 };
