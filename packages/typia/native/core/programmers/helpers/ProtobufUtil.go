@@ -36,19 +36,8 @@ func (protobufUtilNamespace) Size(meta *nativemetadata.MetadataSchema) int {
 
 func (protobufUtilNamespace) GetSequence(tags []nativemetadata.IMetadataTypeTag) *int {
   for _, tag := range tags {
-    if tag.Kind != "sequence" {
-      continue
-    }
-    schema, ok := tag.Schema.(map[string]any)
-    if ok == false {
-      continue
-    }
-    value, ok := schema["x-protobuf-sequence"]
-    if ok == false {
-      continue
-    }
-    if parsed, ok := protobufUtil_toInt(value); ok {
-      return &parsed
+    if sequence := nativemetadata.IMetadataTypeTag_getSequence(tag); sequence != nil {
+      return sequence
     }
   }
   return nil
@@ -240,32 +229,6 @@ func protobufUtil_decode_number(output map[string]*int, tags [][]nativemetadata.
       }
     }
     output[value] = ProtobufUtil.GetSequence(row)
-  }
-}
-
-func protobufUtil_toInt(value any) (int, bool) {
-  switch v := value.(type) {
-  case int:
-    return v, true
-  case int32:
-    return int(v), true
-  case int64:
-    return int(v), true
-  case uint:
-    return int(v), true
-  case uint32:
-    return int(v), true
-  case uint64:
-    return int(v), true
-  case float64:
-    return int(v), true
-  case float32:
-    return int(v), true
-  case string:
-    parsed, err := strconv.Atoi(v)
-    return parsed, err == nil
-  default:
-    return 0, false
   }
 }
 
