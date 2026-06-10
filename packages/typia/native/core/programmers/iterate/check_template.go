@@ -83,15 +83,20 @@ func check_template_type_tags(props Check_templateProps, tpl *nativemetadata.Met
   output := [][]nativehelpers.ICheckEntry_ICondition{}
   for _, row := range tpl.Tags {
     tags := check_string_filter_validate(row)
-    if len(tags) == 0 {
-      continue
-    }
     conditions := make([]nativehelpers.ICheckEntry_ICondition, 0, len(tags))
     for _, tag := range tags {
       conditions = append(conditions, nativehelpers.ICheckEntry_ICondition{
         Expected:   tpl.GetBaseName() + " & " + tag.Name,
         Expression: check_string_transpile(props.Context, tag.Validate)(props.Input),
       })
+    }
+    for _, tag := range row {
+      if condition := check_exclude_condition("string", tag, props.Input, props.Emit); condition != nil {
+        conditions = append(conditions, *condition)
+      }
+    }
+    if len(conditions) == 0 {
+      continue
     }
     output = append(output, conditions)
   }
@@ -104,12 +109,17 @@ func check_template_inline_tags(props Check_templateProps, tpl *nativemetadata.M
   rows := make([]*shimast.Node, 0, len(tpl.Tags))
   for _, row := range tpl.Tags {
     tags := check_string_filter_validate(row)
-    if len(tags) == 0 {
-      continue
-    }
     expressions := make([]*shimast.Node, 0, len(tags))
     for _, tag := range tags {
       expressions = append(expressions, check_string_transpile(props.Context, tag.Validate)(props.Input))
+    }
+    for _, tag := range row {
+      if condition := check_exclude_condition("string", tag, props.Input, props.Emit); condition != nil {
+        expressions = append(expressions, condition.Expression)
+      }
+    }
+    if len(expressions) == 0 {
+      continue
     }
     rows = append(rows, check_template_reduce(expressions, shimast.KindAmpersandAmpersandToken, props.Emit))
   }

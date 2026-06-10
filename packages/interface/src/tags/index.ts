@@ -3,6 +3,7 @@ export * from "./ContentMediaType";
 export * from "./Default";
 export * from "./Example";
 export * from "./Examples";
+export * from "./Exclude";
 export * from "./ExclusiveMaximum";
 export * from "./ExclusiveMinimum";
 export * from "./Format";
