@@ -129,7 +129,7 @@ func jsonSchemasProgrammer_writeV3_1(metadataList []*nativemetadata.MetadataSche
     if schema == nil {
       panic(nativecontext.NewTransformerError(nativecontext.TransformerError_IProps{
         Code:    "typia.json.schemas",
-        Message: fmt.Sprintf("invalid type on argument - (%s, %d)", meta.GetName(), i),
+        Message: fmt.Sprintf("invalid type on argument - (%s, %d)", meta.GetDisplayName(), i),
       }))
     }
     schemas = append(schemas, schema)

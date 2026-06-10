@@ -14,6 +14,7 @@ type IMetadataSchema_IObjectType struct {
 
 type MetadataObjectType struct {
   Name        string
+  DisplayName string
   Properties  []*MetadataProperty
   Description *string
   JsDocTags   []IJsDocTagInfo
@@ -30,6 +31,7 @@ func MetadataObjectType_create(props MetadataObjectType) *MetadataObjectType {
   name = strings.ReplaceAll(name, "\uFFFD", "__")
   return &MetadataObjectType{
     Name:        name,
+    DisplayName: props.DisplayName,
     Properties:  props.Properties,
     Description: props.Description,
     JsDocTags:   append([]IJsDocTagInfo{}, props.JsDocTags...),
@@ -52,6 +54,16 @@ func MetadataObjectType__From_without_properties(obj IMetadataSchema_IObjectType
     Recursive:   obj.Recursive,
     Nullables:   obj.Nullables,
   })
+}
+
+// GetDisplayName returns the human-facing rendering of the type: the
+// structural form for anonymous (inline) types, the identifier name otherwise.
+// Identity-sensitive logic (function keys, deduplication) must keep using Name.
+func (obj *MetadataObjectType) GetDisplayName() string {
+  if obj.DisplayName != "" {
+    return obj.DisplayName
+  }
+  return obj.Name
 }
 
 func (obj *MetadataObjectType) IsPlain(level ...int) bool {

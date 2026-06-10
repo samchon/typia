@@ -31,6 +31,7 @@ type MetadataCollection struct {
   names_                 map[string]map[*nativechecker.Type]string
   type_full_names_       map[*nativechecker.Type]string
   full_names_            map[*nativechecker.Type]string
+  display_names_         map[*nativechecker.Type]string
   object_index_          int
   recursive_array_index_ int
   recursive_tuple_index_ int
@@ -169,7 +170,7 @@ func (collection *MetadataCollection) Tuples() []*MetadataTupleType {
   return output
 }
 
-func (collection *MetadataCollection) getName(checker *nativechecker.Checker, typ *nativechecker.Type) string {
+func (collection *MetadataCollection) getName(checker *nativechecker.Checker, typ *nativechecker.Type) (string, string) {
   // metadataCollection_getFullName (checker.TypeToString, recursing generics and
   // unions) is pure for a given type pointer, but the duplicate-numbering logic
   // below calls getName again for the same type. Cache only the full-name
@@ -188,6 +189,10 @@ func (collection *MetadataCollection) getName(checker *nativechecker.Checker, ty
   name := fullName
   name = strings.ToValidUTF8(name, "__")
   name = strings.ReplaceAll(name, "\uFFFD", "__")
+  // The anonymous marker only reads "__type" after sanitization: the raw
+  // symbol name carries tsgo's internal prefix byte, which the lines above
+  // rewrite to "__". Gate the display rendering on the sanitized form.
+  display := collection.getDisplayName(checker, typ, name)
   if collection.Options != nil && collection.Options.Replace != nil {
     name = collection.Options.Replace(name)
   }
@@ -197,14 +202,41 @@ func (collection *MetadataCollection) getName(checker *nativechecker.Checker, ty
     collection.names_[name] = duplicates
   }
   if oldbie, ok := duplicates[typ]; ok {
-    return oldbie
+    return oldbie, display
   }
   addicted := name
   if len(duplicates) != 0 {
     addicted = name + ".o" + metadataCollection_itoa(len(duplicates))
   }
   duplicates[typ] = addicted
-  return addicted
+  return addicted, display
+}
+
+// getDisplayName renders the structural form (checker.TypeToString) of types
+// whose sanitized identifier name carries the anonymous "__type" marker, so
+// human-facing expected strings can show `{ id: string; name: string; }`
+// instead of `__type.o1`. Named types return "": their identifier name is
+// already the best display, and so is the degenerate case where the rendering
+// brings no extra information.
+func (collection *MetadataCollection) getDisplayName(checker *nativechecker.Checker, typ *nativechecker.Type, sanitized string) string {
+  if strings.Contains(sanitized, "__type") == false {
+    return ""
+  }
+  if checker == nil || typ == nil {
+    return ""
+  }
+  if display, ok := collection.display_names_[typ]; ok {
+    return display
+  }
+  display := metadataCollection_sanitizeName(checker.TypeToString(typ))
+  if display == sanitized {
+    display = ""
+  }
+  if collection.display_names_ == nil {
+    collection.display_names_ = map[*nativechecker.Type]string{}
+  }
+  collection.display_names_[typ] = display
+  return display
 }
 
 func (collection *MetadataCollection) GetUnionIndex(meta *MetadataSchema) int {
@@ -233,9 +265,10 @@ func (collection *MetadataCollection) Emplace(checker *nativechecker.Checker, ty
   if oldbie := collection.objects_[typ]; oldbie != nil {
     return oldbie, false
   }
-  id := collection.getName(checker, typ)
+  id, display := collection.getName(checker, typ)
   obj := MetadataObjectType_create(MetadataObjectType{
     Name:        id,
+    DisplayName: display,
     Properties:  []*MetadataProperty{},
     Description: metadataCollection_description(metadataCollection_symbol(typ)),
     JsDocTags:   metadataCollection_jsDocTags(metadataCollection_symbol(typ)),
@@ -258,9 +291,10 @@ func (collection *MetadataCollection) EmplaceAlias(
   if oldbie := collection.aliases_[typ]; oldbie != nil {
     return oldbie, false, func(meta *MetadataSchema) {}
   }
-  id := collection.getName(checker, typ)
+  id, display := collection.getName(checker, typ)
   alias := MetadataAliasType_create(MetadataAliasType{
     Name:        id,
+    DisplayName: display,
     Value:       nil,
     Description: metadataCollection_description(symbol),
     Recursive:   false,
@@ -281,13 +315,14 @@ func (collection *MetadataCollection) EmplaceArray(
   if oldbie := collection.arrays_[typ]; oldbie != nil {
     return oldbie, false, func(meta *MetadataSchema) {}
   }
-  id := collection.getName(checker, typ)
+  id, display := collection.getName(checker, typ)
   array := MetadataArrayType_create(MetadataArrayType{
-    Name:      id,
-    Value:     nil,
-    Index:     nil,
-    Recursive: false,
-    Nullables: []bool{},
+    Name:        id,
+    DisplayName: display,
+    Value:       nil,
+    Index:       nil,
+    Recursive:   false,
+    Nullables:   []bool{},
   })
   collection.arrays_[typ] = array
   collection.arrays_order_ = append(collection.arrays_order_, typ)
@@ -303,13 +338,14 @@ func (collection *MetadataCollection) EmplaceTuple(
   if oldbie := collection.tuples_[typ]; oldbie != nil {
     return oldbie, false, func(elements []*MetadataSchema) {}
   }
-  id := collection.getName(checker, typ)
+  id, display := collection.getName(checker, typ)
   tuple := MetadataTupleType_create(MetadataTupleType{
-    Name:      id,
-    Elements:  nil,
-    Index:     nil,
-    Recursive: false,
-    Nullables: []bool{},
+    Name:        id,
+    DisplayName: display,
+    Elements:    nil,
+    Index:       nil,
+    Recursive:   false,
+    Nullables:   []bool{},
   })
   collection.tuples_[typ] = tuple
   collection.tuples_order_ = append(collection.tuples_order_, typ)

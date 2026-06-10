@@ -17,7 +17,7 @@ type Check_object_type_tagsProps struct {
 func Check_object_type_tags(props Check_object_type_tagsProps) nativehelpers.ICheckEntry {
   conditions := check_object_type_tags(props)
   return nativehelpers.ICheckEntry{
-    Expected:   props.Object.GetName(),
+    Expected:   props.Object.GetDisplayName(),
     Expression: nil,
     Conditions: conditions,
   }

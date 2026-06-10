@@ -6,11 +6,12 @@ func wrap_metadata_rest_tuple(rest *nativemetadata.MetadataSchema) *nativemetada
   wrapper := nativemetadata.MetadataSchema_initialize()
   wrapper.Arrays = append(wrapper.Arrays, nativemetadata.MetadataArray_create(nativemetadata.MetadataArray{
     Type: nativemetadata.MetadataArrayType_create(nativemetadata.MetadataArrayType{
-      Name:      "..." + rest.GetName(),
-      Value:     rest,
-      Nullables: []bool{},
-      Recursive: false,
-      Index:     nil,
+      Name:        "..." + rest.GetName(),
+      DisplayName: "..." + rest.GetDisplayName(),
+      Value:       rest,
+      Nullables:   []bool{},
+      Recursive:   false,
+      Index:       nil,
     }),
     Tags: [][]nativemetadata.IMetadataTypeTag{},
   }))

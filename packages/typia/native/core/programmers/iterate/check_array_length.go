@@ -17,7 +17,7 @@ type Check_array_lengthProps struct {
 func Check_array_length(props Check_array_lengthProps) nativehelpers.ICheckEntry {
   conditions := check_array_type_tags(props)
   return nativehelpers.ICheckEntry{
-    Expected:   props.Array.GetName(),
+    Expected:   props.Array.GetDisplayName(),
     Expression: nil,
     Conditions: conditions,
   }

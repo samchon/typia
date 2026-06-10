@@ -162,7 +162,7 @@ func (unionExplorerNamespace) Object(props UnionExplorer_ObjectProps) *shimast.N
 
   names := make([]string, 0, len(props.Objects))
   for _, obj := range props.Objects {
-    names = append(names, obj.Name)
+    names = append(names, obj.GetDisplayName())
   }
   expected := "(" + strings.Join(names, " | ") + ")"
 
@@ -310,7 +310,7 @@ func (unionExplorerNamespace) Tuple(props UnionExplorer_TupleProps) *shimast.Nod
       Front:     func(input *shimast.Expression) *shimast.Node { return input },
       Array:     func(input *shimast.Expression) *shimast.Node { return input },
       Name: func(t any, elem any) string {
-        return t.(*nativemetadata.MetadataTuple).Type.Name
+        return t.(*nativemetadata.MetadataTuple).Type.GetDisplayName()
       },
     },
     Parameters:  props.Parameters,
@@ -342,7 +342,7 @@ func (unionExplorerNamespace) Array(props UnionExplorer_ArrayProps) *shimast.Nod
       },
       Array: func(input *shimast.Expression) *shimast.Node { return input },
       Name: func(t any, elem any) string {
-        return t.(*nativemetadata.MetadataArray).Type.Name
+        return t.(*nativemetadata.MetadataArray).Type.GetDisplayName()
       },
     },
     Parameters:  props.Parameters,
@@ -375,9 +375,9 @@ func (unionExplorerNamespace) Array_or_tuple(props UnionExplorer_ArrayOrTuplePro
       Name: func(m any, elem any) string {
         switch v := m.(type) {
         case *nativemetadata.MetadataArray:
-          return v.Type.Name
+          return v.Type.GetDisplayName()
         case *nativemetadata.MetadataTuple:
-          return v.Type.Name
+          return v.Type.GetDisplayName()
         default:
           return "unknown"
         }
@@ -405,11 +405,12 @@ func (unionExplorerNamespace) Set(props UnionExplorer_SetProps) *shimast.Node {
         return nativemetadata.MetadataArray_create(nativemetadata.MetadataArray{
           Tags: [][]nativemetadata.IMetadataTypeTag{},
           Type: nativemetadata.MetadataArrayType_create(nativemetadata.MetadataArrayType{
-            Name:      "Set<" + meta.GetName() + ">",
-            Index:     nil,
-            Recursive: false,
-            Nullables: []bool{},
-            Value:     meta,
+            Name:        "Set<" + meta.GetName() + ">",
+            DisplayName: "Set<" + meta.GetDisplayName() + ">",
+            Index:       nil,
+            Recursive:   false,
+            Nullables:   []bool{},
+            Value:       meta,
           }),
         })
       },
@@ -445,7 +446,7 @@ func (unionExplorerNamespace) Set(props UnionExplorer_SetProps) *shimast.Node {
         )
       },
       Name: func(_m any, elem any) string {
-        return "Set<" + elem.(*nativemetadata.MetadataSchema).GetName() + ">"
+        return "Set<" + elem.(*nativemetadata.MetadataSchema).GetDisplayName() + ">"
       },
     },
     Parameters:  props.Parameters,
@@ -499,7 +500,7 @@ func (unionExplorerNamespace) Map(props UnionExplorer_MapProps) *shimast.Node {
       },
       Name: func(_m any, elem any) string {
         pair := elem.([]*nativemetadata.MetadataSchema)
-        return "Map<" + pair[0].GetName() + ", " + pair[1].GetName() + ">"
+        return "Map<" + pair[0].GetDisplayName() + ", " + pair[1].GetDisplayName() + ">"
       },
       Transform: func(origin any) any {
         m := origin.(*nativemetadata.MetadataMap)
@@ -507,21 +508,23 @@ func (unionExplorerNamespace) Map(props UnionExplorer_MapProps) *shimast.Node {
         tuple := nativemetadata.MetadataTuple_create(nativemetadata.MetadataTuple{
           Tags: [][]nativemetadata.IMetadataTypeTag{},
           Type: nativemetadata.MetadataTupleType_create(nativemetadata.MetadataTupleType{
-            Name:      "[" + m.Key.GetName() + ", " + m.Value.GetName() + "]",
-            Index:     nil,
-            Recursive: false,
-            Nullables: []bool{},
-            Elements:  []*nativemetadata.MetadataSchema{m.Key, m.Value},
+            Name:        "[" + m.Key.GetName() + ", " + m.Value.GetName() + "]",
+            DisplayName: "[" + m.Key.GetDisplayName() + ", " + m.Value.GetDisplayName() + "]",
+            Index:       nil,
+            Recursive:   false,
+            Nullables:   []bool{},
+            Elements:    []*nativemetadata.MetadataSchema{m.Key, m.Value},
           }),
         })
         tuple.Type.Of_map = &ofMap
         return nativemetadata.MetadataArray_create(nativemetadata.MetadataArray{
           Tags: [][]nativemetadata.IMetadataTypeTag{},
           Type: nativemetadata.MetadataArrayType_create(nativemetadata.MetadataArrayType{
-            Name:      "Map<" + m.Key.GetName() + ", " + m.Value.GetName() + ">",
-            Index:     nil,
-            Recursive: false,
-            Nullables: []bool{},
+            Name:        "Map<" + m.Key.GetName() + ", " + m.Value.GetName() + ">",
+            DisplayName: "Map<" + m.Key.GetDisplayName() + ", " + m.Value.GetDisplayName() + ">",
+            Index:       nil,
+            Recursive:   false,
+            Nullables:   []bool{},
             Value: nativemetadata.MetadataSchema_create(nativemetadata.MetadataSchema{
               Any:       false,
               Required:  true,
