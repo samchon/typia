@@ -224,6 +224,8 @@ export const validateDateShared = typia.createValidate<DateSharedUnion>();
 export const validateBytesShared = typia.createValidate<BytesSharedUnion>();
 export const validatePrimitiveWrapperShared = typia.createValidate<PrimitiveWrapperSharedUnion>();
 export const validateTemplateShared = typia.createValidate<TemplateSharedUnion>();
+export const isTemplateShared = typia.createIs<TemplateSharedUnion>();
+export const assertTemplateShared = typia.createAssert<TemplateSharedUnion>();
 export const validateSetShared = typia.createValidate<SetSharedUnion>();
 export const validateMapShared = typia.createValidate<MapSharedUnion>();
 export const validateArrayTupleShared = typia.createValidate<ArrayTupleSharedUnion>();
@@ -404,11 +406,36 @@ const templateRight = mod.validateTemplateShared({
 if (templateRight.success !== true) {
   throw new Error("shared template union failed its overlapping right branch: " + JSON.stringify(templateRight));
 }
+if (mod.isTemplateShared({
+  code: "id-1",
+  right: "selected-right",
+}) !== true) {
+  throw new Error("shared template union failed its overlapping right branch is");
+}
+const templateAssertInput = {
+  code: "id-1",
+  right: "selected-right",
+};
+if (mod.assertTemplateShared(templateAssertInput) !== templateAssertInput) {
+  throw new Error("shared template union failed its overlapping right branch assert");
+}
 if (mod.validateTemplateShared({
   code: "other-1",
   right: "selected-right",
 }).success !== false) {
   throw new Error("shared template union accepted invalid right branch code");
+}
+if (mod.isTemplateShared({
+  code: "other-1",
+  right: "selected-right",
+}) !== false) {
+  throw new Error("shared template union is accepted invalid right branch code");
+}
+if (capture(() => mod.assertTemplateShared({
+  code: "other-1",
+  right: "selected-right",
+})) === null) {
+  throw new Error("shared template union assert accepted invalid right branch code");
 }
 
 const setRight = mod.validateSetShared({
@@ -463,14 +490,17 @@ const boxedBigInt = Object(1n);
 if (mod.validateBigIntInterfaceOnly(boxedBigInt).success !== true) {
   throw new Error("boxed BigInt should pass BigInt validation");
 }
+if (mod.validateBigIntInterfaceOnly(1n).success !== true) {
+  throw new Error("primitive bigint should pass BigInt validation");
+}
 if (mod.validateBigIntPrimitiveOrInterface(boxedBigInt).success !== true) {
   throw new Error("boxed BigInt should pass bigint | BigInt validation");
 }
 if (mod.validateBigIntLiteralOrInterface(Object(2n)).success !== true) {
   throw new Error("boxed BigInt should pass 1n | BigInt validation");
 }
-if (mod.validateBigIntLiteralOrInterface(2n).success !== false) {
-  throw new Error("bigint literal union accepted a non-literal primitive bigint");
+if (mod.validateBigIntLiteralOrInterface(2n).success !== true) {
+  throw new Error("primitive bigint should pass 1n | BigInt validation through BigInt");
 }
 if (mod.isBigIntPrimitiveOrInterface(1n) !== true) {
   throw new Error("bigint primitive should pass bigint | BigInt is");
@@ -481,8 +511,17 @@ if (mod.isBigIntLiteralOrInterface(1n) !== true) {
 if (mod.isBigIntInterfaceOnly(boxedBigInt) !== true) {
   throw new Error("boxed BigInt should pass BigInt is");
 }
-if (mod.isBigIntLiteralOrInterface(2n) !== false) {
-  throw new Error("bigint literal union is accepted a non-literal primitive bigint");
+if (mod.isBigIntInterfaceOnly(1n) !== true) {
+  throw new Error("primitive bigint should pass BigInt is");
+}
+if (mod.isBigIntPrimitiveOrInterface(boxedBigInt) !== true) {
+  throw new Error("boxed BigInt should pass bigint | BigInt is");
+}
+if (mod.isBigIntLiteralOrInterface(Object(2n)) !== true) {
+  throw new Error("boxed BigInt should pass 1n | BigInt is");
+}
+if (mod.isBigIntLiteralOrInterface(2n) !== true) {
+  throw new Error("primitive bigint should pass 1n | BigInt is through BigInt");
 }
 if (mod.assertBigIntPrimitiveOrInterface(1n) !== 1n) {
   throw new Error("bigint primitive should pass bigint | BigInt assert");
@@ -493,7 +532,17 @@ if (mod.assertBigIntLiteralOrInterface(1n) !== 1n) {
 if (mod.assertBigIntInterfaceOnly(boxedBigInt) !== boxedBigInt) {
   throw new Error("boxed BigInt should pass BigInt assert");
 }
-if (capture(() => mod.assertBigIntLiteralOrInterface(2n)) === null) {
-  throw new Error("bigint literal union assert accepted a non-literal primitive bigint");
+if (mod.assertBigIntInterfaceOnly(1n) !== 1n) {
+  throw new Error("primitive bigint should pass BigInt assert");
+}
+if (mod.assertBigIntPrimitiveOrInterface(boxedBigInt) !== boxedBigInt) {
+  throw new Error("boxed BigInt should pass bigint | BigInt assert");
+}
+const boxedBigIntTwo = Object(2n);
+if (mod.assertBigIntLiteralOrInterface(boxedBigIntTwo) !== boxedBigIntTwo) {
+  throw new Error("boxed BigInt should pass 1n | BigInt assert");
+}
+if (mod.assertBigIntLiteralOrInterface(2n) !== 2n) {
+  throw new Error("primitive bigint should pass 1n | BigInt assert through BigInt");
 }
 `

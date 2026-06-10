@@ -903,6 +903,8 @@ func MetadataSchema_atomicLikeNative(name string) (string, bool) {
   switch name {
   case "Boolean":
     return "boolean", true
+  case "BigInt":
+    return "bigint", true
   case "Number":
     return "number", true
   case "String":

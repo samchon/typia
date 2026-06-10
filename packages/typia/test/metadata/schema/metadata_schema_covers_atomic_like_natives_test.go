@@ -14,10 +14,9 @@ import (
 // rejecting the reverse direction, where a primitive cannot cover wrapper
 // instances.
 //
-// 1. Assert `String`, `Number`, and `Boolean` natives cover matching primitives.
+// 1. Assert `String`, `Number`, `Boolean`, and `BigInt` natives cover matching primitives.
 // 2. Assert `String` native covers template-literal strings.
-// 3. Assert `BigInt` is not treated as a runtime atomic-like native wrapper.
-// 4. Assert primitive string does not cover `String` native.
+// 3. Assert primitive string does not cover `String` native.
 func TestMetadataSchemaCoversAtomicLikeNatives(t *testing.T) {
   cases := []struct {
     native string
@@ -27,6 +26,7 @@ func TestMetadataSchemaCoversAtomicLikeNatives(t *testing.T) {
     {native: "String", atomic: "string", value: "x"},
     {native: "Number", atomic: "number", value: 1},
     {native: "Boolean", atomic: "boolean", value: true},
+    {native: "BigInt", atomic: "bigint", value: "1"},
   }
   for _, tc := range cases {
     if !metadata.MetadataSchema_covers(testutil.NativeMetadata(tc.native), testutil.AtomicMetadata(tc.atomic)) {
@@ -42,11 +42,8 @@ func TestMetadataSchemaCoversAtomicLikeNatives(t *testing.T) {
   ) {
     t.Fatal("String native should cover template-literal strings")
   }
-  if atomic, ok := metadata.MetadataSchema_atomicLikeNative("BigInt"); ok || atomic != "" {
-    t.Fatal("BigInt should not be treated as runtime atomic-like native")
-  }
-  if metadata.MetadataSchema_covers(testutil.NativeMetadata("BigInt"), testutil.AtomicMetadata("bigint")) {
-    t.Fatal("BigInt native should not cover bigint atomic")
+  if atomic, ok := metadata.MetadataSchema_atomicLikeNative("BigInt"); !ok || atomic != "bigint" {
+    t.Fatal("BigInt should be treated as runtime atomic-like native")
   }
   if metadata.MetadataSchema_covers(testutil.AtomicMetadata("string"), testutil.NativeMetadata("String")) {
     t.Fatal("string atomic should not cover String wrapper native")

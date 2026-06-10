@@ -16,8 +16,7 @@ import (
 //
 // 1. Assert wrapper natives intersect matching primitive and constant metadata.
 // 2. Assert `String` also intersects template-literal strings.
-// 3. Assert `BigInt` is not in the runtime atomic-like native set.
-// 4. Assert a wrapper native does not intersect an unrelated primitive.
+// 3. Assert a wrapper native does not intersect an unrelated primitive.
 func TestMetadataSchemaIntersectsAtomicLikeNatives(t *testing.T) {
   cases := []struct {
     native string
@@ -27,6 +26,7 @@ func TestMetadataSchemaIntersectsAtomicLikeNatives(t *testing.T) {
     {native: "String", atomic: "string", value: "x"},
     {native: "Number", atomic: "number", value: 1},
     {native: "Boolean", atomic: "boolean", value: true},
+    {native: "BigInt", atomic: "bigint", value: "1"},
   }
   for _, tc := range cases {
     if !metadata.MetadataSchema_intersects(testutil.NativeMetadata(tc.native), testutil.AtomicMetadata(tc.atomic)) {
@@ -41,9 +41,6 @@ func TestMetadataSchemaIntersectsAtomicLikeNatives(t *testing.T) {
     testutil.TemplateMetadata(testutil.StringConstantMetadata("id-"), testutil.AtomicMetadata("number")),
   ) {
     t.Fatal("String native should intersect template-literal strings")
-  }
-  if metadata.MetadataSchema_intersects(testutil.NativeMetadata("BigInt"), testutil.AtomicMetadata("bigint")) {
-    t.Fatal("BigInt native should not intersect bigint atomic")
   }
   if metadata.MetadataSchema_intersects(testutil.NativeMetadata("String"), testutil.AtomicMetadata("number")) {
     t.Fatal("String native should not intersect number atomic")

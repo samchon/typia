@@ -113,6 +113,10 @@ func (jsonMetadataFactoryNamespace) Validate(props struct {
     output = append(output, "JSON does not support Set type.")
   }
   for _, native := range props.Metadata.Natives {
+    if native.Name == "BigInt" {
+      output = append(output, "JSON does not support bigint type.")
+      continue
+    }
     if jsonMetadataFactory_atomic_predicator_native(native.Name) == false && native.Name != "Date" {
       output = append(output, "JSON does not support "+native.Name+" type.")
     }

@@ -16,7 +16,7 @@ import (
 //
 // 1. Build metadata with `String`, `Number`, and `BigInt` native references.
 // 2. Assert schema predicates reject overlapping primitive names.
-// 3. Assert runtime predicates keep `bigint` because `BigInt` is object-only.
+// 3. Assert runtime predicates reject primitive names covered by wrapper natives.
 // 4. Assert unrelated primitive names are still allowed.
 // 5. Assert template predicates reject a native string wrapper.
 func TestAtomicPredicatorRejectsNativeOverlaps(t *testing.T) {
@@ -52,17 +52,17 @@ func TestAtomicPredicatorRejectsNativeOverlaps(t *testing.T) {
   }{Metadata: meta, Name: "bigint"}) {
     t.Fatal("schema atomic predicate should reject native BigInt overlap")
   }
-  if !helpers.AtomicPredicator.RuntimeAtomic(struct {
+  if helpers.AtomicPredicator.RuntimeAtomic(struct {
     Metadata *metadata.MetadataSchema
     Name     string
   }{Metadata: meta, Name: "bigint"}) {
-    t.Fatal("runtime atomic predicate should keep bigint next to native BigInt")
+    t.Fatal("runtime atomic predicate should reject native BigInt overlap")
   }
-  if !helpers.AtomicPredicator.RuntimeConstant(struct {
+  if helpers.AtomicPredicator.RuntimeConstant(struct {
     Metadata *metadata.MetadataSchema
     Name     string
   }{Metadata: meta, Name: "bigint"}) {
-    t.Fatal("runtime constant predicate should keep bigint next to native BigInt")
+    t.Fatal("runtime constant predicate should reject native BigInt overlap")
   }
   if helpers.AtomicPredicator.RuntimeAtomic(struct {
     Metadata *metadata.MetadataSchema
