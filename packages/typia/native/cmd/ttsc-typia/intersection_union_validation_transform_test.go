@@ -383,7 +383,7 @@ if (setRight.success !== true) {
   throw new Error("shared empty Set union failed its right branch: " + JSON.stringify(setRight));
 }
 if (mod.validateSetShared({
-  items: new Set([true]),
+  items: new Set(["left-shaped"]),
   right: "selected-right",
 }).success !== false) {
   throw new Error("shared Set union accepted invalid right branch value");
@@ -397,7 +397,7 @@ if (mapRight.success !== true) {
   throw new Error("shared empty Map union failed its right branch: " + JSON.stringify(mapRight));
 }
 if (mod.validateMapShared({
-  lookup: new Map([[1, 2]]),
+  lookup: new Map([["left-key", 1]]),
   right: "selected-right",
 }).success !== false) {
   throw new Error("shared Map union accepted invalid right branch entry");
@@ -411,7 +411,7 @@ if (arrayTupleRight.success !== true) {
   throw new Error("shared array/tuple union failed its right branch: " + JSON.stringify(arrayTupleRight));
 }
 if (mod.validateArrayTupleShared({
-  items: ["x"],
+  items: [1, 2],
   right: "selected-right",
 }).success !== false) {
   throw new Error("shared array/tuple union accepted invalid right branch item");

@@ -593,7 +593,7 @@ func metadataSchema_covers(x *MetadataSchema, y *MetadataSchema, escaped bool, v
         }
       }
       for i := len(yt.Type.Elements); i < len(xt.Type.Elements); i++ {
-        if metadataSchema_covers(xt.Type.Elements[i], yt.Type.Elements[i-len(yt.Type.Elements)], false, visited) == false {
+        if metadataSchema_covers(xt.Type.Elements[i], yt.Type.Elements[i%len(yt.Type.Elements)], false, visited) == false {
           return false
         }
       }
