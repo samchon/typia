@@ -25,9 +25,5 @@ typia.llm.application<{
 }>();
 
 typia.llm.application<{
-  propertyOptional(p: { value?: string | undefined }): void;
-}>();
-
-typia.llm.application<{
   multiple(x: { x: number }, y: { y: number }): void;
 }>();
