@@ -32,17 +32,8 @@ func (jsonSchemasProgrammerNamespace) Validate(props struct {
   Explore  nativefactories.MetadataFactory_IExplore
 }) []string {
   output := []string{}
-  for _, atomic := range props.Metadata.Atomics {
-    if atomic.Type == "bigint" {
-      output = append(output, "JSON schema does not support bigint type.")
-      break
-    }
-  }
-  for _, constant := range props.Metadata.Constants {
-    if constant.Type == "bigint" {
-      output = append(output, "JSON schema does not support bigint type.")
-      break
-    }
+  if nativemetadata.MetadataSchema_hasBigint(props.Metadata) {
+    output = append(output, "JSON schema does not support bigint type.")
   }
   tupleInvalid := false
   for _, tuple := range props.Metadata.Tuples {
@@ -74,7 +65,6 @@ func (jsonSchemasProgrammerNamespace) Validate(props struct {
   }
   for _, native := range props.Metadata.Natives {
     if native.Name == "BigInt" {
-      output = append(output, "JSON schema does not support bigint type.")
       continue
     }
     if nativehelpers.AtomicPredicator.Native(native.Name) == false &&

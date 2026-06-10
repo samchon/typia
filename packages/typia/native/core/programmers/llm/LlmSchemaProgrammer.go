@@ -155,17 +155,8 @@ func (llmSchemaProgrammerNamespace) Validate(props struct {
       }
     }
   }
-  for _, atomic := range props.Metadata.Atomics {
-    if atomic.Type == "bigint" {
-      output = append(output, "LLM schema does not support bigint type.")
-      break
-    }
-  }
-  for _, constant := range props.Metadata.Constants {
-    if constant.Type == "bigint" {
-      output = append(output, "LLM schema does not support bigint type.")
-      break
-    }
+  if schemametadata.MetadataSchema_hasBigint(props.Metadata) {
+    output = append(output, "LLM schema does not support bigint type.")
   }
   if len(props.Metadata.Tuples) != 0 {
     output = append(output, "LLM schema does not support tuple type.")
@@ -184,7 +175,6 @@ func (llmSchemaProgrammerNamespace) Validate(props struct {
   }
   for _, native := range props.Metadata.Natives {
     if native.Name == "BigInt" {
-      output = append(output, "LLM schema does not support bigint type.")
       continue
     }
     if nativehelpers.AtomicPredicator.Native(native.Name) == false &&
