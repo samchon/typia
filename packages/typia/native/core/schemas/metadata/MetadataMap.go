@@ -7,10 +7,11 @@ type IMetadataSchema_IMap struct {
 }
 
 type MetadataMap struct {
-  Key   *MetadataSchema
-  Value *MetadataSchema
-  Tags  [][]IMetadataTypeTag
-  name_ string
+  Key           *MetadataSchema
+  Value         *MetadataSchema
+  Tags          [][]IMetadataTypeTag
+  name_         string
+  display_name_ string
 }
 
 func MetadataMap_create(props MetadataMap) *MetadataMap {
@@ -26,6 +27,13 @@ func (obj *MetadataMap) GetName() string {
     obj.name_ = taggedName("Map<"+safeMetadataName(obj.Key)+", "+safeMetadataName(obj.Value)+">", obj.Tags)
   }
   return obj.name_
+}
+
+func (obj *MetadataMap) GetDisplayName() string {
+  if obj.display_name_ == "" {
+    obj.display_name_ = taggedName("Map<"+safeMetadataDisplayName(obj.Key)+", "+safeMetadataDisplayName(obj.Value)+">", obj.Tags)
+  }
+  return obj.display_name_
 }
 
 func (obj *MetadataMap) ToJSON() IMetadataSchema_IMap {

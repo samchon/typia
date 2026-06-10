@@ -9,11 +9,12 @@ type IMetadataSchema_IArrayType struct {
 }
 
 type MetadataArrayType struct {
-  Name      string
-  Value     *MetadataSchema
-  Nullables []bool
-  Recursive bool
-  Index     *int
+  Name        string
+  DisplayName string
+  Value       *MetadataSchema
+  Nullables   []bool
+  Recursive   bool
+  Index       *int
 }
 
 func MetadataArrayType__From_without_value(props IMetadataSchema_IArrayType) *MetadataArrayType {
@@ -28,12 +29,23 @@ func MetadataArrayType__From_without_value(props IMetadataSchema_IArrayType) *Me
 
 func MetadataArrayType_create(props MetadataArrayType) *MetadataArrayType {
   return &MetadataArrayType{
-    Name:      props.Name,
-    Value:     props.Value,
-    Index:     props.Index,
-    Recursive: props.Recursive,
-    Nullables: append([]bool{}, props.Nullables...),
+    Name:        props.Name,
+    DisplayName: props.DisplayName,
+    Value:       props.Value,
+    Index:       props.Index,
+    Recursive:   props.Recursive,
+    Nullables:   append([]bool{}, props.Nullables...),
   }
+}
+
+// GetDisplayName returns the human-facing rendering of the type: the
+// structural form for anonymous (inline) types, the identifier name otherwise.
+// Identity-sensitive logic (function keys, deduplication) must keep using Name.
+func (obj *MetadataArrayType) GetDisplayName() string {
+  if obj.DisplayName != "" {
+    return obj.DisplayName
+  }
+  return obj.Name
 }
 
 func (obj *MetadataArrayType) ToJSON() IMetadataSchema_IArrayType {
