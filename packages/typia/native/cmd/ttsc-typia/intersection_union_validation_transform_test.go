@@ -13,12 +13,16 @@ import (
 // Issue #1590 combines two discriminated unions through an intersection:
 // `(Individual | Corporation) & ({ partyRole: "customer" } | OtherRole)`.
 // The validator must accept a value whose left union branch contains a native
-// Date and whose right union branch is selected by another discriminator.
+// Date and whose right union branch is selected by another discriminator. The
+// same fixture also pins shared-field union guards whose metadata may overlap.
 //
 //  1. Transform the intersected-union fixture into JavaScript.
 //  2. Execute `is`, `validate`, `assert`, and direct validate entrypoints.
-//  3. Require the valid `partyRole: "other"` value to pass, and require an
-//     invalid `other` value not to report the unrelated `"customer"` branch.
+//  3. Require valid intersection branches to pass and invalid `Date` data to
+//     fail without depending on exact error formatting.
+//  4. Require invalid `other` data not to report the unrelated `"customer"`
+//     branch, and require shared native/container fields not to misroute a
+//     valid right-side branch.
 func TestIntersectionUnionValidationTransform(t *testing.T) {
   project := intersectionUnionValidationProject(t)
   js := intersectionUnionValidationTransform(t, project)
