@@ -151,6 +151,14 @@ export const validateInlineSet = typia.createValidate<{
   entries: Set<{ flag: boolean }>;
 }>();
 
+// Top-level inline types must render structurally at the "$input" root.
+export const validateTopLevel = typia.createValidate<{ id: string }>();
+
+// Tuples of inline objects must render each element structurally.
+export const validateInlineTuple = typia.createValidate<{
+  pair: [{ a: string }, { b: number }];
+}>();
+
 // Component keys are identifiers and must stay on the synthetic names.
 export const schemas = typia.json.schemas<[{ inline: { id: string } }]>();
 `
@@ -255,4 +263,28 @@ expectError(
   "Set<{ flag: boolean; }>",
 );
 forbidAnonymous("inline Set (missing entries)", set);
+
+// 7. Top-level inline type.
+const topLevel = mod.validateTopLevel(null);
+expectError("top-level inline", topLevel, "$input", "{ id: string; }");
+forbidAnonymous("top-level inline", topLevel);
+
+// 8. Tuple of inline objects.
+const tupleElement = mod.validateInlineTuple({ pair: [{ a: "x" }, { b: "1" }] });
+expectError(
+  "inline tuple (element violation)",
+  tupleElement,
+  "$input.pair[1].b",
+  "number",
+);
+forbidAnonymous("inline tuple (element violation)", tupleElement);
+
+const tupleMissing = mod.validateInlineTuple({ pair: undefined });
+expectError(
+  "inline tuple (missing pair)",
+  tupleMissing,
+  "$input.pair",
+  "[{ a: string; }, { b: number; }]",
+);
+forbidAnonymous("inline tuple (missing pair)", tupleMissing);
 `
