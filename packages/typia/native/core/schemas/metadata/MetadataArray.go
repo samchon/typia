@@ -1,9 +1,10 @@
 package metadata
 
 type MetadataArray struct {
-  Type  *MetadataArrayType
-  Tags  [][]IMetadataTypeTag
-  name_ string
+  Type          *MetadataArrayType
+  Tags          [][]IMetadataTypeTag
+  name_         string
+  display_name_ string
 }
 
 func MetadataArray_create(props MetadataArray) *MetadataArray {
@@ -18,6 +19,13 @@ func (obj *MetadataArray) GetName() string {
     obj.name_ = taggedName(obj.Type.Name, obj.Tags)
   }
   return obj.name_
+}
+
+func (obj *MetadataArray) GetDisplayName() string {
+  if obj.display_name_ == "" {
+    obj.display_name_ = taggedName(obj.Type.GetDisplayName(), obj.Tags)
+  }
+  return obj.display_name_
 }
 
 func (obj *MetadataArray) ToJSON() IMetadataSchema_IReference {
