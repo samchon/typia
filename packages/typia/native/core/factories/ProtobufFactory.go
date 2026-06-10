@@ -481,6 +481,11 @@ func protobufFactory_validateShape(metadata *schemametadata.MetadataSchema, noSu
 
 func protobufFactory_validateObject(object *schemametadata.MetadataObjectType, errors *[]string) {
   for _, property := range object.Properties {
+    // Dynamic keys (template/string typed) become protobuf maps and carry no
+    // field name; only sole-literal keys reach the emitted message text.
+    if name := property.Key.GetSoleLiteral(); name != nil && protobufFactory_isFieldName(*name) == false {
+      *errors = append(*errors, fmt.Sprintf("property name %q is not a valid Protocol Buffer field name", *name))
+    }
     protobufFactory_validateProperty(property.Value, errors)
   }
   entire := map[int]string{}
@@ -756,6 +761,30 @@ func protobufFactory_setPropertyIndex(prop nativeprotobuf.IProtobufPropertyType,
   case *nativeprotobuf.IProtobufPropertyType_IMap:
     v.Index = &index
   }
+}
+
+// protobufFactory_isFieldName reports whether the property name is a valid
+// proto3 field identifier: letters, digits, and underscores, not starting
+// with a digit. Anything else cannot appear in the emitted message text.
+func protobufFactory_isFieldName(name string) bool {
+  if len(name) == 0 {
+    return false
+  }
+  for i := 0; i < len(name); i++ {
+    ch := name[i]
+    switch {
+    case ch == '_':
+    case 'a' <= ch && ch <= 'z':
+    case 'A' <= ch && ch <= 'Z':
+    case '0' <= ch && ch <= '9':
+      if i == 0 {
+        return false
+      }
+    default:
+      return false
+    }
+  }
+  return true
 }
 
 func protobufFactory_firstTagRow(tags [][]schemametadata.IMetadataTypeTag) []schemametadata.IMetadataTypeTag {
