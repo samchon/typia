@@ -169,7 +169,7 @@ Handy for select-box options, discriminated-union test matrices, etc.
 
 ## `notations`
 
-Three case converters: `camel`, `pascal`, `snake`. Each one walks the object and rewrites property names to that case at type *and* runtime. Same four-variant family as everywhere else (`name`, `assertName`, `isName`, `validateName`, plus `create*` factories).
+Four case converters: `camel`, `pascal`, `snake`, `kebab`. Each one walks the object and rewrites property names to that case at type *and* runtime. Same four-variant family as everywhere else (`name`, `assertName`, `isName`, `validateName`, plus `create*` factories).
 
 ### `camel`
 
@@ -261,6 +261,42 @@ typia.notations.snake<{ userId: string; userName: string }>({
     <LocalSource
       path="examples/bin/notations/snake.js"
       filename="examples/bin/notations/snake.js"
+      showLineNumbers />
+  </Tabs.Tab>
+</Tabs>
+
+### `kebab`
+
+```typescript copy filename="signatures"
+namespace notations {
+  function kebab<T>(input: T): KebabCase<T>;
+  function assertKebab<T>(input: unknown): KebabCase<T>;
+  function isKebab<T>(input: unknown): KebabCase<T> | null;
+  function validateKebab<T>(input: unknown): IValidation<KebabCase<T>>;
+}
+```
+
+```typescript copy
+typia.notations.kebab<{ userId: string; user_name: string }>({
+  userId: "1",
+  user_name: "John",
+});
+// → { "user-id": "1", "user-name": "John" }
+```
+
+`kebab` derives the snake_case form first and then rewrites the word separators to hyphens, keeping leading underscores untouched.
+
+<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
+  <Tabs.Tab>
+    <LocalSource
+      path="examples/src/notations/kebab.ts"
+      filename="examples/src/notations/kebab.ts"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource
+      path="examples/bin/notations/kebab.js"
+      filename="examples/bin/notations/kebab.js"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>
