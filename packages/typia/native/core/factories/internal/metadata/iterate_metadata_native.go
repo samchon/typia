@@ -67,6 +67,7 @@ type iterate_metadata_native_property struct {
 var iterate_metadata_native_simples = map[string]iterate_metadata_native_classInfo{
   "Date":              {Name: "Date"},
   "Boolean":           {Name: "Boolean"},
+  "BigInt":            {Name: "BigInt"},
   "Number":            {Name: "Number"},
   "String":            {Name: "String"},
   "Uint8Array":        iterate_metadata_native_getBinaryProps("Uint8Array"),

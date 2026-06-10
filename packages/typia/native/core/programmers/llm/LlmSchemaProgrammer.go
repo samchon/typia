@@ -183,6 +183,10 @@ func (llmSchemaProgrammerNamespace) Validate(props struct {
     output = append(output, "LLM schema does not support Set type.")
   }
   for _, native := range props.Metadata.Natives {
+    if native.Name == "BigInt" {
+      output = append(output, "LLM schema does not support bigint type.")
+      continue
+    }
     if nativehelpers.AtomicPredicator.Native(native.Name) == false &&
       native.Name != "Date" &&
       native.Name != "Blob" &&

@@ -358,7 +358,7 @@ func notationGeneralProgrammer_decode(props struct {
         return nativefactories.ExpressionFactory.IsInstanceOf(native.Name, props.Input, props.Context.Emit)
       },
       Value: func() *shimast.Node {
-        if native.Name == "Boolean" || native.Name == "Number" || native.Name == "String" {
+        if _, ok := schemametadata.MetadataSchema_atomicLikeNative(native.Name); ok {
           return f.NewCallExpression(
             nativefactories.IdentifierFactory.Access(props.Context.Emit, props.Input, "valueOf"),
             nil,

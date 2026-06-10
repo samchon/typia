@@ -315,7 +315,7 @@ func jsonStringifyProgrammer_decode(props struct {
 
   for _, constant := range props.Metadata.Constants {
     constant := constant
-    if nativehelpers.AtomicPredicator.Constant(struct {
+    if nativehelpers.AtomicPredicator.RuntimeConstant(struct {
       Metadata *schemametadata.MetadataSchema
       Name     string
     }{Metadata: props.Metadata, Name: constant.Type}) == false {
@@ -387,7 +387,7 @@ func jsonStringifyProgrammer_decode(props struct {
 
   for _, atomic := range props.Metadata.Atomics {
     atomic := atomic
-    if nativehelpers.AtomicPredicator.Atomic(struct {
+    if nativehelpers.AtomicPredicator.RuntimeAtomic(struct {
       Metadata *schemametadata.MetadataSchema
       Name     string
     }{Metadata: props.Metadata, Name: atomic.Type}) {

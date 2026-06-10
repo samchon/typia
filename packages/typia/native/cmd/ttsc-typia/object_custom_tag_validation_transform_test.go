@@ -1,11 +1,9 @@
 package main
 
 import (
-  "bytes"
   "os"
   "os/exec"
   "path/filepath"
-  "runtime"
   "strings"
   "testing"
 )
@@ -35,7 +33,7 @@ func TestObjectCustomTagValidationTransform(t *testing.T) {
 
 func objectCustomTagValidationProject(t *testing.T) string {
   t.Helper()
-  root := objectCustomTagValidationRepoRoot(t)
+  root := ttscTypiaTestRepoRoot(t)
   base := filepath.Join(root, "packages", "typia", "native", ".tmp-ttsc-typia-tests")
   if err := os.MkdirAll(base, 0o755); err != nil {
     t.Fatalf("mkdir temp base: %v", err)
@@ -60,43 +58,9 @@ func objectCustomTagValidationProject(t *testing.T) string {
   return dir
 }
 
-func objectCustomTagValidationRepoRoot(t *testing.T) string {
-  t.Helper()
-  _, file, _, ok := runtime.Caller(0)
-  if !ok {
-    t.Fatal("runtime.Caller failed")
-  }
-  dir := filepath.Dir(file)
-  for {
-    if _, err := os.Stat(filepath.Join(dir, "pnpm-workspace.yaml")); err == nil {
-      return dir
-    }
-    next := filepath.Dir(dir)
-    if next == dir {
-      t.Fatalf("repo root not found from %s", file)
-    }
-    dir = next
-  }
-}
-
-func objectCustomTagValidationCapture(run func() int) (string, string, int) {
-  var out bytes.Buffer
-  var err bytes.Buffer
-  oldStdout := stdout
-  oldStderr := stderr
-  stdout = &out
-  stderr = &err
-  defer func() {
-    stdout = oldStdout
-    stderr = oldStderr
-  }()
-  code := run()
-  return out.String(), err.String(), code
-}
-
 func objectCustomTagValidationTransform(t *testing.T, project string, output string) string {
   t.Helper()
-  out, errText, code := objectCustomTagValidationCapture(func() int {
+  out, errText, code := ttscTypiaTestCapture(func() int {
     return runTransform([]string{
       "--cwd", project,
       "--tsconfig", "tsconfig.json",
@@ -120,26 +84,8 @@ func objectCustomTagValidationRunRuntimeCases(t *testing.T, project string, js s
   if err := os.MkdirAll(runtimeDir, 0o755); err != nil {
     t.Fatalf("mkdir runtime dir: %v", err)
   }
-  if err := os.WriteFile(filepath.Join(runtimeDir, "typia-stub.cjs"), []byte("module.exports = {};\n"), 0o644); err != nil {
-    t.Fatalf("write typia stub: %v", err)
-  }
-  if err := os.WriteFile(filepath.Join(runtimeDir, "validate-report-stub.cjs"), []byte(objectCustomTagValidationReportStub), 0o644); err != nil {
-    t.Fatalf("write validate report stub: %v", err)
-  }
-  if err := os.WriteFile(filepath.Join(runtimeDir, "standard-schema-stub.cjs"), []byte(objectCustomTagValidationStandardSchemaStub), 0o644); err != nil {
-    t.Fatalf("write standard schema stub: %v", err)
-  }
-  if err := os.WriteFile(filepath.Join(runtimeDir, "assert-guard-stub.cjs"), []byte(objectCustomTagValidationAssertGuardStub), 0o644); err != nil {
-    t.Fatalf("write assert guard stub: %v", err)
-  }
-  if err := os.WriteFile(filepath.Join(runtimeDir, "access-expression-stub.cjs"), []byte(objectCustomTagValidationAccessExpressionStub), 0o644); err != nil {
-    t.Fatalf("write access expression stub: %v", err)
-  }
-  runtimeJS := strings.ReplaceAll(js, `require("typia")`, `require("./typia-stub.cjs")`)
-  runtimeJS = strings.ReplaceAll(runtimeJS, `require("typia/lib/internal/_validateReport")`, `require("./validate-report-stub.cjs")`)
-  runtimeJS = strings.ReplaceAll(runtimeJS, `require("typia/lib/internal/_createStandardSchema")`, `require("./standard-schema-stub.cjs")`)
-  runtimeJS = strings.ReplaceAll(runtimeJS, `require("typia/lib/internal/_assertGuard")`, `require("./assert-guard-stub.cjs")`)
-  runtimeJS = strings.ReplaceAll(runtimeJS, `require("typia/lib/internal/_accessExpressionAsString")`, `require("./access-expression-stub.cjs")`)
+  ttscTypiaTestWriteCommonRuntimeStubs(t, runtimeDir)
+  runtimeJS := ttscTypiaTestRewriteCommonJS(t, js)
   if err := os.WriteFile(filepath.Join(runtimeDir, "main.cjs"), []byte(runtimeJS), 0o644); err != nil {
     t.Fatalf("write runtime module: %v", err)
   }
@@ -383,32 +329,4 @@ if (paths.includes("$input.union")) {
 if (!paths.includes("$input.other")) {
   throw new Error("container validation did not report the invalid other property: " + JSON.stringify(result.containerInvalidOtherValidate.errors));
 }
-`
-
-const objectCustomTagValidationReportStub = `module.exports._validateReport = (array) => {
-  return (exceptable, error) => {
-    if (exceptable) array.push(error);
-    return false;
-  };
-};
-`
-
-const objectCustomTagValidationStandardSchemaStub = `module.exports._createStandardSchema = (validate) => validate;
-`
-
-const objectCustomTagValidationAssertGuardStub = `module.exports._assertGuard = (exceptionable, props, factory) => {
-  if (exceptionable) {
-    const error = factory ? factory(props) : new Error(props.expected);
-    Object.assign(error, props);
-    throw error;
-  }
-  return false;
-};
-`
-
-const objectCustomTagValidationAccessExpressionStub = `module.exports._accessExpressionAsString = (key) => {
-  return /^[A-Za-z_$][0-9A-Za-z_$]*$/.test(key)
-    ? "." + key
-    : "[" + JSON.stringify(key) + "]";
-};
 `
