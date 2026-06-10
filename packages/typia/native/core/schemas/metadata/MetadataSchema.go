@@ -575,6 +575,11 @@ func metadataSchema_covers(x *MetadataSchema, y *MetadataSchema, escaped bool, v
       return false
     }
   }
+  if y.Rest != nil {
+    if x.Rest == nil || metadataSchema_covers(x.Rest, y.Rest, false, visited) == false {
+      return false
+    }
+  }
   for _, ya := range y.Arrays {
     if anyOf(x.Arrays, func(xa *MetadataArray) bool {
       return metadataSchema_covers(xa.Type.Value, ya.Type.Value, false, visited)
@@ -583,7 +588,11 @@ func metadataSchema_covers(x *MetadataSchema, y *MetadataSchema, escaped bool, v
     }
   }
   for _, yt := range y.Tuples {
-    if len(yt.Type.Elements) != 0 && anyOf(x.Tuples, func(xt *MetadataTuple) bool {
+    if anyOf(x.Tuples, func(xt *MetadataTuple) bool {
+      if len(yt.Type.Elements) == 0 {
+        return len(xt.Type.Elements) == 0 ||
+          (len(xt.Type.Elements) == 1 && xt.Type.Elements[0].Rest != nil)
+      }
       if len(xt.Type.Elements) < len(yt.Type.Elements) {
         return false
       }

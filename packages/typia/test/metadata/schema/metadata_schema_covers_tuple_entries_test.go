@@ -17,6 +17,7 @@ import (
 // 3. Assert the existing repeated-extra-element behavior stays pinned.
 // 4. Assert repeated-extra coverage can wrap across multiple extra elements.
 // 5. Assert repeated-extra coverage also works for reused element pointers.
+// 6. Assert empty tuple targets and rest wrappers cannot fall through.
 func TestMetadataSchemaCoversTupleEntries(t *testing.T) {
   if !metadata.MetadataSchema_covers(
     testutil.TupleMetadata(testutil.AtomicMetadata("number")),
@@ -53,4 +54,69 @@ func TestMetadataSchemaCoversTupleEntries(t *testing.T) {
   ) {
     t.Fatal("tuple source should preserve repeated-extra-element coverage for reused element schemas")
   }
+  if metadata.MetadataSchema_covers(
+    testutil.AtomicMetadata("string"),
+    testutil.TupleMetadata(),
+  ) {
+    t.Fatal("atomic source should not cover an empty tuple target")
+  }
+  if metadata.MetadataSchema_covers(
+    testutil.TupleMetadata(testutil.AtomicMetadata("string")),
+    testutil.TupleMetadata(),
+  ) {
+    t.Fatal("tuple source with required elements should not cover an empty tuple target")
+  }
+  if !metadata.MetadataSchema_covers(
+    testutil.TupleMetadata(),
+    testutil.TupleMetadata(),
+  ) {
+    t.Fatal("empty tuple source should cover an empty tuple target")
+  }
+  if !metadata.MetadataSchema_covers(
+    testutil.TupleMetadata(restElement(testutil.AtomicMetadata("string"))),
+    testutil.TupleMetadata(),
+  ) {
+    t.Fatal("rest-only tuple source should cover an empty tuple target")
+  }
+  if metadata.MetadataSchema_covers(
+    testutil.AtomicMetadata("string"),
+    restElement(testutil.AtomicMetadata("number")),
+  ) {
+    t.Fatal("non-rest source should not cover a rest target")
+  }
+  if metadata.MetadataSchema_covers(
+    restElement(testutil.AtomicMetadata("string")),
+    restElement(testutil.AtomicMetadata("number")),
+  ) {
+    t.Fatal("rest source should not cover a mismatched rest target")
+  }
+  if !metadata.MetadataSchema_covers(
+    restElement(testutil.AtomicMetadata("string")),
+    restElement(testutil.StringConstantMetadata("value")),
+  ) {
+    t.Fatal("rest source should cover a compatible rest target")
+  }
+  if metadata.MetadataSchema_covers(
+    restElement(testutil.AtomicMetadata("string")),
+    restAndAtomicElement(testutil.AtomicMetadata("string"), "number"),
+  ) {
+    t.Fatal("rest coverage should not skip other target buckets")
+  }
+}
+
+func restElement(value *metadata.MetadataSchema) *metadata.MetadataSchema {
+  return metadata.MetadataSchema_create(metadata.MetadataSchema{
+    Required: true,
+    Rest:     value,
+  })
+}
+
+func restAndAtomicElement(value *metadata.MetadataSchema, kind string) *metadata.MetadataSchema {
+  return metadata.MetadataSchema_create(metadata.MetadataSchema{
+    Required: true,
+    Rest:     value,
+    Atomics: []*metadata.MetadataAtomic{
+      metadata.MetadataAtomic_create(metadata.MetadataAtomic{Type: kind}),
+    },
+  })
 }

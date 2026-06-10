@@ -298,6 +298,9 @@ const invalid = mod.validateParty(invalidOtherMissingDetail);
 if (invalid.success !== false) {
   throw new Error("missing otherPartyRole unexpectedly passed");
 }
+if (mod.isParty(invalidOtherMissingDetail) !== false) {
+  throw new Error("is accepted missing otherPartyRole");
+}
 if (invalid.errors.some((entry) => entry.path === "$input.partyRole" && entry.expected === '"customer"')) {
   throw new Error("invalid other branch reported unrelated customer branch: " + JSON.stringify(invalid));
 }
