@@ -101,6 +101,7 @@ If you intersect a tag with the wrong base type (e.g. `tags.MaxLength<100>` on a
 | `tags.ExclusiveMinimum<N>` | `value > N` |
 | `tags.ExclusiveMaximum<N>` | `value < N` |
 | `tags.MultipleOf<N>` | `value % N === 0` |
+| `tags.Exclude<[V1, V2, …]>` | `value` is none of the listed literals (`not: { enum: [...] }` in JSON Schema) |
 
 For `bigint`, `tags.Type<...>` accepts `"int64"` or `"uint64"`; range tags accept `bigint` literals.
 
@@ -113,12 +114,15 @@ For `bigint`, `tags.Type<...>` accepts `"int64"` or `"uint64"`; range tags accep
 | `tags.Pattern<R>` | regex (passed as a string literal) |
 | `tags.Format<F>` | one of the formats below |
 | `tags.ContentMediaType<MT>` | OpenAPI `contentMediaType` (e.g. `"image/png"`) |
+| `tags.Exclude<[V1, V2, …]>` | `value` is none of the listed literals (`not: { enum: [...] }` in JSON Schema) |
 
 `Format` accepts: `byte`, `password`, `regex`, `uuid`, `email`, `hostname`, `idn-email`, `idn-hostname`, `iri`, `iri-reference`, `ipv4`, `ipv6`, `uri`, `uri-reference`, `uri-template`, `url`, `date-time`, `date`, `time`, `duration`, `json-pointer`, `relative-json-pointer`.
 
 For `url`, DNS host labels may contain interior hyphen runs such as `example--example`, but leading or trailing label hyphens and private IPv4 hosts are rejected.
 
 > `Format` and `Pattern` are mutually exclusive on the same string — pick one.
+
+> `Exclude` lists every rejected literal in one tuple (a second `Exclude` on the same type is a compile error). OpenAI strict mode cannot express the `not` keyword, so strict `typia.llm.*` schemas reject this tag, and `typia.random` does not consult it.
 
 #### `Array<T>`
 

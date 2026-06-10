@@ -34,15 +34,20 @@ func check_string_type_tags(props Check_stringProps) [][]nativehelpers.ICheckEnt
   output := [][]nativehelpers.ICheckEntry_ICondition{}
   for _, row := range props.Atomic.Tags {
     tags := check_string_filter_validate(row)
-    if len(tags) == 0 {
-      continue
-    }
     conditions := make([]nativehelpers.ICheckEntry_ICondition, 0, len(tags))
     for _, tag := range tags {
       conditions = append(conditions, nativehelpers.ICheckEntry_ICondition{
         Expected:   "string & " + tag.Name,
         Expression: check_string_transpile(props.Context, tag.Validate)(props.Input),
       })
+    }
+    for _, tag := range row {
+      if condition := check_exclude_condition("string", tag, props.Input, props.Context.Emit); condition != nil {
+        conditions = append(conditions, *condition)
+      }
+    }
+    if len(conditions) == 0 {
+      continue
     }
     output = append(output, conditions)
   }
