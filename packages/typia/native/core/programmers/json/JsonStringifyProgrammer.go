@@ -608,7 +608,7 @@ func jsonStringifyProgrammer_decode(props struct {
         Context:  props.Context,
         Functor:  props.Functor,
         Input:    props.Input,
-        Expected: props.Metadata.GetName(),
+        Expected: props.Metadata.GetDisplayName(),
         Unions:   unions,
       }),
     ),

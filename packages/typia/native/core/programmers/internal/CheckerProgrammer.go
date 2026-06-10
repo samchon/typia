@@ -733,7 +733,7 @@ func (checkerProgrammerNamespace) Decode(props CheckerProgrammer_DecodeProps) *s
     any := false
     names := []string{}
     for _, elem := range props.Metadata.Sets {
-      names = append(names, "Set<"+elem.Value.GetName()+">")
+      names = append(names, "Set<"+elem.Value.GetDisplayName()+">")
       if elem.Value.Any {
         any = true
       }
@@ -754,7 +754,7 @@ func (checkerProgrammerNamespace) Decode(props CheckerProgrammer_DecodeProps) *s
     any := false
     names := []string{}
     for _, elem := range props.Metadata.Maps {
-      names = append(names, "Map<"+elem.Key.GetName()+", "+elem.Value.GetName()+">")
+      names = append(names, "Map<"+elem.Key.GetDisplayName()+", "+elem.Value.GetDisplayName()+">")
       if elem.Key.Any && elem.Value.Any {
         any = true
       }
@@ -775,10 +775,10 @@ func (checkerProgrammerNamespace) Decode(props CheckerProgrammer_DecodeProps) *s
     body := (*shimast.Node)(nil)
     expected := []string{}
     for _, tuple := range props.Metadata.Tuples {
-      expected = append(expected, tuple.Type.Name)
+      expected = append(expected, tuple.Type.GetDisplayName())
     }
     for _, array := range props.Metadata.Arrays {
-      expected = append(expected, array.GetName())
+      expected = append(expected, array.GetDisplayName())
     }
     if len(props.Metadata.Arrays) == 0 {
       explore := props.Explore
@@ -833,7 +833,7 @@ func (checkerProgrammerNamespace) Decode(props CheckerProgrammer_DecodeProps) *s
     }
     names := []string{}
     for _, obj := range props.Metadata.Objects {
-      names = append(names, obj.Type.Name)
+      names = append(names, obj.Type.GetDisplayName())
     }
     explore := props.Explore
     explore.From = "object"
@@ -872,7 +872,7 @@ func (checkerProgrammerNamespace) Decode(props CheckerProgrammer_DecodeProps) *s
               {Expression: instance.Head, Combined: false},
               {Expression: instance.Body, Combined: true},
             },
-            Expected: props.Metadata.GetName(),
+            Expected: props.Metadata.GetDisplayName(),
           }),
           Combined: true,
         })
@@ -890,7 +890,7 @@ func (checkerProgrammerNamespace) Decode(props CheckerProgrammer_DecodeProps) *s
           Logic:    "or",
           Input:    props.Input,
           Binaries: transformed,
-          Expected: props.Metadata.GetName(),
+          Expected: props.Metadata.GetDisplayName(),
         }),
         Combined: true,
       })
@@ -922,13 +922,13 @@ func (checkerProgrammerNamespace) Decode(props CheckerProgrammer_DecodeProps) *s
   if len(top) != 0 && len(binaries) != 0 {
     next := append([]CheckerProgrammer_IBinary{}, top...)
     next = append(next, CheckerProgrammer_IBinary{
-      Expression: props.Config.Combiner(CheckerProgrammer_CombinerProps{Explore: props.Explore, Logic: "or", Input: props.Input, Binaries: binaries, Expected: props.Metadata.GetName()}),
+      Expression: props.Config.Combiner(CheckerProgrammer_CombinerProps{Explore: props.Explore, Logic: "or", Input: props.Input, Binaries: binaries, Expected: props.Metadata.GetDisplayName()}),
       Combined:   true,
     })
-    return props.Config.Combiner(CheckerProgrammer_CombinerProps{Explore: props.Explore, Logic: "and", Input: props.Input, Binaries: next, Expected: props.Metadata.GetName()})
+    return props.Config.Combiner(CheckerProgrammer_CombinerProps{Explore: props.Explore, Logic: "and", Input: props.Input, Binaries: next, Expected: props.Metadata.GetDisplayName()})
   }
   if len(binaries) != 0 {
-    return props.Config.Combiner(CheckerProgrammer_CombinerProps{Explore: props.Explore, Logic: "or", Input: props.Input, Binaries: binaries, Expected: props.Metadata.GetName()})
+    return props.Config.Combiner(CheckerProgrammer_CombinerProps{Explore: props.Explore, Logic: "or", Input: props.Input, Binaries: binaries, Expected: props.Metadata.GetDisplayName()})
   }
   return props.Config.Success
 }
@@ -987,7 +987,7 @@ func checkerProgrammer_decode_array(props checkerProgrammer_decodeArrayProps) *s
     ),
     props.Config.Joiner.Failure(CheckerProgrammer_JoinerFailureProps{
       Input:    props.Input,
-      Expected: props.Array.Type.Name,
+      Expected: props.Array.Type.GetDisplayName(),
       Explore:  &arrayExplore,
     }),
     props.Context.Emit,
@@ -1097,7 +1097,7 @@ func checkerProgrammer_decode_tuple(props checkerProgrammer_decodeTupleProps) *s
     ),
     props.Config.Joiner.Failure(CheckerProgrammer_JoinerFailureProps{
       Input:    props.Input,
-      Expected: props.Tuple.Type.Name,
+      Expected: props.Tuple.Type.GetDisplayName(),
       Explore:  &arrayExplore,
     }),
     props.Context.Emit,
@@ -1194,7 +1194,7 @@ func checkerProgrammer_decode_tuple_inline(props checkerProgrammer_decodeTupleIn
   }
   names := make([]string, 0, len(props.Tuple.Elements))
   for _, elem := range props.Tuple.Elements {
-    names = append(names, elem.GetName())
+    names = append(names, elem.GetDisplayName())
   }
   return props.Config.Combiner(CheckerProgrammer_CombinerProps{
     Explore:  props.Explore,
@@ -1460,9 +1460,9 @@ func checkerProgrammer_explore_arrays_and_tuples(props checkerProgrammer_explore
             for _, elem := range props.Definitions {
               switch x := elem.(type) {
               case *nativemetadata.MetadataArray:
-                expected = append(expected, x.GetName())
+                expected = append(expected, x.GetDisplayName())
               case *nativemetadata.MetadataTuple:
-                expected = append(expected, x.Type.Name)
+                expected = append(expected, x.Type.GetDisplayName())
               }
             }
             return props.Config.Atomist(CheckerProgrammer_AtomistProps{
@@ -1513,7 +1513,11 @@ func checkerProgrammer_explore_array_like_union_types(props checkerProgrammer_ex
   arrayExplore := props.Explore
   arrayExplore.Source = "function"
   arrayExplore.From = "array"
+  // EmplaceUnion deduplicates generated union functions by this key, so it
+  // must stay on the unique identifier names; only the human-facing failure
+  // message switches to the display rendering.
   names := checkerProgrammer_definition_names(props.Definitions)
+  displays := checkerProgrammer_definition_display_names(props.Definitions)
   return checkerProgrammer_or(
     f.NewCallExpression(
       f.NewIdentifier(
@@ -1549,7 +1553,7 @@ func checkerProgrammer_explore_array_like_union_types(props checkerProgrammer_ex
     ),
     props.Config.Joiner.Failure(CheckerProgrammer_JoinerFailureProps{
       Input:    props.Input,
-      Expected: strings.Join(names, " | "),
+      Expected: strings.Join(displays, " | "),
       Explore:  &arrayExplore,
     }),
     props.Emit,
@@ -1579,7 +1583,7 @@ func checkerProgrammer_explore_objects(props checkerProgrammer_exploreObjectsPro
   if checkerProgrammer_has_object_type_tags(props.Metadata.Objects) {
     names := make([]string, 0, len(props.Metadata.Objects))
     for _, object := range props.Metadata.Objects {
-      names = append(names, object.GetName())
+      names = append(names, object.GetDisplayName())
     }
     expected := "(" + strings.Join(names, " | ") + ")"
     f := nativecontext.EmitFactoryOf(checkerProgrammer_factory, props.Context.Emit)
@@ -1839,6 +1843,19 @@ func checkerProgrammer_definition_names(definitions []any) []string {
   return names
 }
 
+func checkerProgrammer_definition_display_names(definitions []any) []string {
+  names := make([]string, 0, len(definitions))
+  for _, elem := range definitions {
+    switch v := elem.(type) {
+    case *nativemetadata.MetadataArray:
+      names = append(names, v.Type.GetDisplayName())
+    case *nativemetadata.MetadataTuple:
+      names = append(names, v.Type.GetDisplayName())
+    }
+  }
+  return names
+}
+
 func checkerProgrammer_postfix_of_tuple(str string) string {
   if len(str) > 0 && str[len(str)-1] == '"' {
     return str[:len(str)-1]
@@ -1850,11 +1867,12 @@ func checkerProgrammer_wrap_metadata_rest_tuple(rest *nativemetadata.MetadataSch
   wrapper := nativemetadata.MetadataSchema_initialize()
   wrapper.Arrays = append(wrapper.Arrays, nativemetadata.MetadataArray_create(nativemetadata.MetadataArray{
     Type: nativemetadata.MetadataArrayType_create(nativemetadata.MetadataArrayType{
-      Name:      "..." + rest.GetName(),
-      Value:     rest,
-      Nullables: []bool{},
-      Recursive: false,
-      Index:     nil,
+      Name:        "..." + rest.GetName(),
+      DisplayName: "..." + rest.GetDisplayName(),
+      Value:       rest,
+      Nullables:   []bool{},
+      Recursive:   false,
+      Index:       nil,
     }),
     Tags: [][]nativemetadata.IMetadataTypeTag{},
   }))

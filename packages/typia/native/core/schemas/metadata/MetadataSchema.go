@@ -53,6 +53,7 @@ type MetadataSchema struct {
   Maps    []*MetadataMap
 
   name_                        string
+  display_name_                string
   parent_resolved_             bool
   Union_index                  *int
   Fixed_                       *int
@@ -274,9 +275,20 @@ func MetadataSchema_from(meta *IMetadataSchema, dict IMetadataDictionary) *Metad
 
 func (obj *MetadataSchema) GetName() string {
   if obj.name_ == "" {
-    obj.name_ = metadataSchema_getName(obj)
+    obj.name_ = metadataSchema_getName(obj, false)
   }
   return obj.name_
+}
+
+// GetDisplayName composes the same union notation as GetName, but renders
+// anonymous (inline) member types structurally instead of by their synthetic
+// "__type" identifiers. Use it for human-facing expected strings only;
+// identity-sensitive logic (function keys, deduplication) must keep GetName.
+func (obj *MetadataSchema) GetDisplayName() string {
+  if obj.display_name_ == "" {
+    obj.display_name_ = metadataSchema_getName(obj, true)
+  }
+  return obj.display_name_
 }
 
 func (obj *MetadataSchema) Empty() bool {
@@ -757,9 +769,17 @@ func MetadataSchema_unalias(w *MetadataSchema) *MetadataSchema {
   return w
 }
 
-func metadataSchema_getName(metadata *MetadataSchema) string {
+func metadataSchema_getName(metadata *MetadataSchema, display bool) string {
   if metadata.Any {
     return "any"
+  }
+  // Atomics, constants, templates, and natives never carry anonymous names,
+  // so only the container buckets distinguish display rendering.
+  choose := func(name string, displayName string) string {
+    if display {
+      return displayName
+    }
+    return name
   }
   elements := []string{}
   if metadata.Nullable {
@@ -783,28 +803,28 @@ func metadataSchema_getName(metadata *MetadataSchema) string {
     elements = append(elements, native.GetName())
   }
   for _, set := range metadata.Sets {
-    elements = append(elements, set.GetName())
+    elements = append(elements, choose(set.GetName(), set.GetDisplayName()))
   }
   for _, m := range metadata.Maps {
-    elements = append(elements, m.GetName())
+    elements = append(elements, choose(m.GetName(), m.GetDisplayName()))
   }
   if metadata.Rest != nil {
-    elements = append(elements, "..."+metadata.Rest.GetName())
+    elements = append(elements, "..."+choose(metadata.Rest.GetName(), metadata.Rest.GetDisplayName()))
   }
   for _, tuple := range metadata.Tuples {
-    elements = append(elements, tuple.Type.Name)
+    elements = append(elements, choose(tuple.Type.Name, tuple.Type.GetDisplayName()))
   }
   for _, array := range metadata.Arrays {
-    elements = append(elements, array.GetName())
+    elements = append(elements, choose(array.GetName(), array.GetDisplayName()))
   }
   for _, object := range metadata.Objects {
-    elements = append(elements, object.GetName())
+    elements = append(elements, choose(object.GetName(), object.GetDisplayName()))
   }
   for _, alias := range metadata.Aliases {
-    elements = append(elements, alias.GetName())
+    elements = append(elements, choose(alias.GetName(), alias.GetDisplayName()))
   }
   if metadata.Escaped != nil {
-    elements = append(elements, metadata.Escaped.GetName())
+    elements = append(elements, choose(metadata.Escaped.GetName(), metadata.Escaped.GetDisplayName()))
   }
   if len(elements) == 0 {
     return "unknown"
@@ -859,6 +879,13 @@ func safeMetadataName(meta *MetadataSchema) string {
     return "unknown"
   }
   return meta.GetName()
+}
+
+func safeMetadataDisplayName(meta *MetadataSchema) string {
+  if meta == nil {
+    return "unknown"
+  }
+  return meta.GetDisplayName()
 }
 
 func metadataSchema_intersectsAtomicLikeNative(nativeOwner *MetadataSchema, opposite *MetadataSchema) bool {

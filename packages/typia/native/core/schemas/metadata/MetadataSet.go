@@ -6,9 +6,10 @@ type IMetadataSchema_ISet struct {
 }
 
 type MetadataSet struct {
-  Value *MetadataSchema
-  Tags  [][]IMetadataTypeTag
-  name_ string
+  Value         *MetadataSchema
+  Tags          [][]IMetadataTypeTag
+  name_         string
+  display_name_ string
 }
 
 func MetadataSet_create(props MetadataSet) *MetadataSet {
@@ -23,6 +24,13 @@ func (obj *MetadataSet) GetName() string {
     obj.name_ = taggedName("Set<"+safeMetadataName(obj.Value)+">", obj.Tags)
   }
   return obj.name_
+}
+
+func (obj *MetadataSet) GetDisplayName() string {
+  if obj.display_name_ == "" {
+    obj.display_name_ = taggedName("Set<"+safeMetadataDisplayName(obj.Value)+">", obj.Tags)
+  }
+  return obj.display_name_
 }
 
 func (obj *MetadataSet) ToJSON() IMetadataSchema_ISet {
