@@ -707,6 +707,7 @@ func (checkerProgrammerNamespace) Decode(props CheckerProgrammer_DecodeProps) *s
       Expression: props.Config.Atomist(CheckerProgrammer_AtomistProps{
         Explore: props.Explore,
         Entry: nativeiterate.Check_template(nativeiterate.Check_templateProps{
+          Context:   props.Context,
           Templates: props.Metadata.Templates,
           Input:     props.Input,
         }),
