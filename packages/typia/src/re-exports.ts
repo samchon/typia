@@ -25,6 +25,7 @@ export {
   Primitive,
   Resolved,
   CamelCase,
+  KebabCase,
   PascalCase,
   SnakeCase,
   // http

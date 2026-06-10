@@ -1301,6 +1301,7 @@ func notationGeneralProgrammer_capitalize(str string) string {
 var NotationGeneralProgrammer_Camel = NotationGeneralProgrammer_IRename{Name: "camel", Func: notationGeneralProgrammer_camel}
 var NotationGeneralProgrammer_Pascal = NotationGeneralProgrammer_IRename{Name: "pascal", Func: notationGeneralProgrammer_pascal}
 var NotationGeneralProgrammer_Snake = NotationGeneralProgrammer_IRename{Name: "snake", Func: notationGeneralProgrammer_snake}
+var NotationGeneralProgrammer_Kebab = NotationGeneralProgrammer_IRename{Name: "kebab", Func: notationGeneralProgrammer_kebab}
 
 func notationGeneralProgrammer_camel(str string) string {
   return notationGeneralProgrammer_unsnake(str, func(value string) string {
@@ -1378,6 +1379,19 @@ func notationGeneralProgrammer_snake(str string) string {
   }
   ret += strings.ToLower(str[indexes[len(indexes)-1]:])
   return out(ret)
+}
+
+// notationGeneralProgrammer_kebab derives the snake_case form first and then
+// rewrites the word separators to hyphens, keeping any leading underscores
+// untouched — the exact composition mirrored by the `KebabCase<T>` typing.
+func notationGeneralProgrammer_kebab(str string) string {
+  snaked := notationGeneralProgrammer_snake(str)
+  prefix := ""
+  for len(snaked) != 0 && snaked[0] == '_' {
+    prefix += "_"
+    snaked = snaked[1:]
+  }
+  return prefix + strings.ReplaceAll(snaked, "_", "-")
 }
 
 func notationGeneralProgrammer_unsnake(str string, plain func(string) string, snake func(string, int) string) string {

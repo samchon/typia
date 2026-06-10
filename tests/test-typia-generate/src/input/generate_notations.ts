@@ -30,3 +30,31 @@ export const createAssertSnake = typia.notations.createAssertSnake<ICitizen>();
 export const createIsSnake = typia.notations.createIsSnake<ICitizen>();
 export const createValidateSnake =
   typia.notations.createValidateSnake<ICitizen>();
+
+export const createKebab = typia.notations.createKebab<ICitizen>();
+export const createAssertKebab = typia.notations.createAssertKebab<ICitizen>();
+export const createIsKebab = typia.notations.createIsKebab<ICitizen>();
+export const createValidateKebab =
+  typia.notations.createValidateKebab<ICitizen>();
+
+interface IKebabSource {
+  userId: string;
+  user_name: string;
+  _privateValue: number;
+  XMLParser: boolean;
+  nested: { innerValue: string };
+}
+type Equal<X, Y> =
+  (<T>() => T extends X ? 1 : 2) extends <T>() => T extends Y ? 1 : 2
+    ? true
+    : false;
+const kebabKeyAssertion: Equal<
+  keyof typia.KebabCase<IKebabSource>,
+  "user-id" | "user-name" | "_private-value" | "xmlparser" | "nested"
+> = true;
+const kebabNestedKeyAssertion: Equal<
+  keyof typia.KebabCase<IKebabSource>["nested"],
+  "inner-value"
+> = true;
+void kebabKeyAssertion;
+void kebabNestedKeyAssertion;
