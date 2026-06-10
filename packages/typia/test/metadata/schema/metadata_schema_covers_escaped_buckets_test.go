@@ -10,9 +10,10 @@ import (
 // TestMetadataSchemaCoversEscapedBuckets verifies toJSON-escaped containment.
 //
 // Escaped metadata pairs an original schema with its toJSON return schema, and
-// containment must compare both sides. The variadic escaped flag must also keep
-// accepting the legacy `(level, escaped)` argument shape so escaped recursion
-// can skip the escaped-bucket comparison entirely.
+// containment must compare both sides. No production caller passes the variadic
+// flag (escaped recursion uses the private metadataSchema_covers); the public
+// `(level, escaped)` shape is kept for legacy signature compatibility and must
+// keep skipping the escaped-bucket comparison.
 //
 //  1. Assert matching escaped pairs cover each other.
 //  2. Assert mismatched original schemas are not covered.

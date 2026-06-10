@@ -26,4 +26,9 @@ func TestUnionPredicatorChecksNeighborFlag(t *testing.T) {
   }
   specs := UnionPredicator.Object(objects)
   assertUnionPredicatorKeys(t, objects, specs, "", []string{"kind", "kind"})
+  for i, spec := range specs {
+    if spec.Neighbor == false {
+      t.Fatalf("specialization %d should carry Neighbor=true", i)
+    }
+  }
 }

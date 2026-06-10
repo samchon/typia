@@ -23,7 +23,8 @@ import (
 //     fail without depending on exact error formatting.
 //  4. Require invalid `other` data not to report the unrelated `"customer"`
 //     branch, and require shared native/container fields not to misroute a
-//     valid right-side branch.
+//     valid branch on either side.
+//  5. Require non-bigint inputs to fail every BigInt-typed entrypoint.
 func TestIntersectionUnionValidationTransform(t *testing.T) {
   project := intersectionUnionValidationProject(t)
   js := intersectionUnionValidationTransform(t, project)
@@ -480,6 +481,21 @@ if (mod.validateArrayTupleShared({
   throw new Error("shared array/tuple union accepted invalid right branch item");
 }
 
+for (const [name, validate, input] of [
+  ["Date", mod.validateDateShared, { stamp: new Date("2025-06-10T10:43:59.087Z"), left: "selected-left" }],
+  ["Uint8Array", mod.validateBytesShared, { bytes: new Uint8Array([1, 2, 3]), left: "selected-left" }],
+  ["primitive wrapper", mod.validatePrimitiveWrapperShared, { value: "x", left: "selected-left" }],
+  ["template", mod.validateTemplateShared, { code: "id-1", left: "selected-left" }],
+  ["Set", mod.validateSetShared, { items: new Set(["left-shaped"]), left: "selected-left" }],
+  ["Map", mod.validateMapShared, { lookup: new Map([["left-key", 1]]), left: "selected-left" }],
+  ["array/tuple", mod.validateArrayTupleShared, { items: [1, 2], left: "selected-left" }],
+]) {
+  const left = validate(input);
+  if (left.success !== true) {
+    throw new Error("shared " + name + " union failed its left branch: " + JSON.stringify(left));
+  }
+}
+
 if (mod.validateBigIntPrimitiveOrInterface(1n).success !== true) {
   throw new Error("bigint primitive should pass bigint | BigInt validation");
 }
@@ -544,5 +560,31 @@ if (mod.assertBigIntLiteralOrInterface(boxedBigIntTwo) !== boxedBigIntTwo) {
 }
 if (mod.assertBigIntLiteralOrInterface(2n) !== 2n) {
   throw new Error("primitive bigint should pass 1n | BigInt assert through BigInt");
+}
+
+// NOTE: 2n is NOT a negative for 1n | BigInt: the BigInt arm absorbs every
+// bigint, so 2n is asserted as a positive above. Negatives must be non-bigint.
+const bigintNegatives = [
+  ["string", "1"],
+  ["number", 1],
+  ["null", null],
+  ["boxed Number", Object(1)],
+];
+for (const [alias, validate, is, assert] of [
+  ["bigint | BigInt", mod.validateBigIntPrimitiveOrInterface, mod.isBigIntPrimitiveOrInterface, mod.assertBigIntPrimitiveOrInterface],
+  ["1n | BigInt", mod.validateBigIntLiteralOrInterface, mod.isBigIntLiteralOrInterface, mod.assertBigIntLiteralOrInterface],
+  ["BigInt", mod.validateBigIntInterfaceOnly, mod.isBigIntInterfaceOnly, mod.assertBigIntInterfaceOnly],
+]) {
+  for (const [kind, input] of bigintNegatives) {
+    if (validate(input).success !== false) {
+      throw new Error(kind + " input unexpectedly passed " + alias + " validate");
+    }
+    if (is(input) !== false) {
+      throw new Error(kind + " input unexpectedly passed " + alias + " is");
+    }
+    if (capture(() => assert(input)) === null) {
+      throw new Error(kind + " input unexpectedly passed " + alias + " assert");
+    }
+  }
 }
 `

@@ -15,7 +15,7 @@ import (
 // native names come from TypeScript symbols.
 //
 // 1. Build metadata with `String`, `Number`, and `BigInt` native references.
-// 2. Assert schema predicates reject overlapping primitive names.
+// 2. Assert the constant predicate rejects overlapping primitive names.
 // 3. Assert runtime predicates reject primitive names covered by wrapper natives.
 // 4. Assert unrelated primitive names are still allowed.
 // 5. Assert template predicates reject a native string wrapper.
@@ -34,23 +34,17 @@ func TestAtomicPredicatorRejectsNativeOverlaps(t *testing.T) {
   }{Metadata: meta, Name: "string"}) {
     t.Fatal("constant predicate should reject native String overlap")
   }
-  if helpers.AtomicPredicator.Atomic(struct {
+  if helpers.AtomicPredicator.RuntimeAtomic(struct {
     Metadata *metadata.MetadataSchema
     Name     string
   }{Metadata: meta, Name: "number"}) {
-    t.Fatal("atomic predicate should reject native Number overlap")
+    t.Fatal("runtime atomic predicate should reject native Number overlap")
   }
   if !helpers.AtomicPredicator.Constant(struct {
     Metadata *metadata.MetadataSchema
     Name     string
   }{Metadata: meta, Name: "boolean"}) {
     t.Fatal("unrelated boolean primitive should still be allowed")
-  }
-  if helpers.AtomicPredicator.Atomic(struct {
-    Metadata *metadata.MetadataSchema
-    Name     string
-  }{Metadata: meta, Name: "bigint"}) {
-    t.Fatal("schema atomic predicate should reject native BigInt overlap")
   }
   if helpers.AtomicPredicator.RuntimeAtomic(struct {
     Metadata *metadata.MetadataSchema

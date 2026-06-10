@@ -25,18 +25,6 @@ func (atomicPredicatorNamespace) RuntimeConstant(props struct {
   return atomicPredicator_runtime(props.Metadata, props.Name)
 }
 
-func (atomicPredicatorNamespace) Atomic(props struct {
-  Metadata *nativemetadata.MetadataSchema
-  Name     string
-}) bool {
-  for _, native := range props.Metadata.Natives {
-    if lower(native.Name) == props.Name {
-      return false
-    }
-  }
-  return true
-}
-
 func (atomicPredicatorNamespace) RuntimeAtomic(props struct {
   Metadata *nativemetadata.MetadataSchema
   Name     string

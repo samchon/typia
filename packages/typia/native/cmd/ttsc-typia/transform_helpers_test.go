@@ -101,8 +101,7 @@ const ttscTypiaTestStandardSchemaStub = `module.exports._createStandardSchema = 
 
 const ttscTypiaTestAssertGuardStub = `module.exports._assertGuard = (exceptionable, props, factory) => {
   if (exceptionable) {
-    const error = factory ? factory(props) : new Error(props.expected);
-    Object.assign(error, props);
+    const error = factory ? factory(props) : Object.assign(new Error(props.expected), props);
     throw error;
   }
   return false;
