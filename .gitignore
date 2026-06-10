@@ -11,6 +11,9 @@ node_modules/
 
 tests/test-typia-ttsc/fixtures/*/build/output/
 
+# transform test fixture scratch space (inside the npm-packed native tree)
+packages/typia/native/.tmp-ttsc-typia-tests/
+
 package-lock.json
 !experiments/setup/package-lock.json
 
