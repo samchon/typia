@@ -773,6 +773,7 @@ func (checkerProgrammerNamespace) Decode(props CheckerProgrammer_DecodeProps) *s
 
   if len(props.Metadata.Tuples)+len(props.Metadata.Arrays) > 0 {
     body := (*shimast.Node)(nil)
+    conditions := [][]nativehelpers.ICheckEntry_ICondition{}
     expected := []string{}
     for _, tuple := range props.Metadata.Tuples {
       expected = append(expected, tuple.Type.GetDisplayName())
@@ -789,7 +790,22 @@ func (checkerProgrammerNamespace) Decode(props CheckerProgrammer_DecodeProps) *s
         body = checkerProgrammer_explore_tuples(checkerProgrammer_exploreTuplesProps{Config: props.Config, Context: props.Context, Functor: props.Functor, Tuples: props.Metadata.Tuples, Input: props.Input, Explore: explore})
       }
     } else if checkerProgrammer_array_any(props.Metadata.Arrays) {
+      // Any-element arrays need no element exploration, but a sole array's
+      // validating wrapper tags (MinItems, custom predicates, ...) still
+      // constrain the container and survive on the entry conditions. Unions
+      // mixing a tag-constrained any-element array with other array-like
+      // variants keep the historical wholesale acceptance: the union
+      // explorer discriminates by element checks, which an any element
+      // satisfies trivially, so honoring those tags needs branch
+      // backtracking (tracked on #1933).
       body = nil
+      if len(props.Metadata.Arrays) == 1 && len(props.Metadata.Tuples) == 0 {
+        conditions = nativeiterate.Check_array_length(nativeiterate.Check_array_lengthProps{
+          Context: props.Context,
+          Array:   props.Metadata.Arrays[0],
+          Input:   props.Input,
+        }).Conditions
+      }
     } else if len(props.Metadata.Tuples) == 0 {
       explore := props.Explore
       explore.From = "array"
@@ -807,7 +823,7 @@ func (checkerProgrammerNamespace) Decode(props CheckerProgrammer_DecodeProps) *s
         Entry: nativehelpers.ICheckEntry{
           Expected:   strings.Join(expected, " | "),
           Expression: nativefactories.ExpressionFactory.IsArray(props.Input, props.Context.Emit),
-          Conditions: [][]nativehelpers.ICheckEntry_ICondition{},
+          Conditions: conditions,
         },
         Input: props.Input,
       }),
