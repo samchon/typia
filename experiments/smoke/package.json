@@ -12,7 +12,7 @@
     "typia": "file:../tarballs/typia.tgz"
   },
   "devDependencies": {
-    "@typescript/native-preview": "7.0.0-dev.20260510.1",
+    "@typescript/native-preview": "7.0.0-dev.20260527.2",
     "ttsc": "^0.15.1"
   }
 }
