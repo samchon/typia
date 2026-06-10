@@ -4,10 +4,7 @@ interface IPointer<T> {
   value: T;
 }
 interface Something {
-  id:
-    | (number & tags.Type<"uint32"> & tags.Sequence<1>)
-    | (number & tags.Type<"double"> & tags.Sequence<2>)
-    | string;
+  id: (string & tags.Sequence<1>) | (string & tags.Format<"uuid">);
 }
 
 // MESSAGE
