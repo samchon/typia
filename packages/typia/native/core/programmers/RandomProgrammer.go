@@ -811,11 +811,7 @@ func randomProgrammer_decode_native(props struct {
   Explore randomProgrammer_IExplore
   Name    string
 }) *shimast.Node {
-  if props.Name == "Boolean" || props.Name == "Number" || props.Name == "BigInt" || props.Name == "String" {
-    atomic := strings.ToLower(props.Name)
-    if atomic == "bigint" {
-      atomic = "bigint"
-    }
+  if atomic, ok := schemametadata.MetadataSchema_atomicLikeNative(props.Name); ok {
     return randomProgrammer_first(randomProgrammer_decode_atomic(randomProgrammer_decodeAtomicProps{
       Context: props.Context,
       Atomic: schemametadata.MetadataAtomic_create(schemametadata.MetadataAtomic{

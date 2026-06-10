@@ -897,6 +897,16 @@ func metadataSchema_hasAtomicLikeNative(meta *MetadataSchema, atomic string) boo
   })
 }
 
+// MetadataSchema_hasBigint reports whether the schema can hold bigint values
+// through its atomic, constant, or wrapper-native buckets. JSON-derived
+// validators use it to emit a single bigint diagnostic instead of one per
+// bucket.
+func MetadataSchema_hasBigint(meta *MetadataSchema) bool {
+  return metadataSchema_hasAtomic(meta, "bigint") ||
+    metadataSchema_hasConstant(meta, "bigint") ||
+    metadataSchema_hasAtomicLikeNative(meta, "bigint")
+}
+
 func MetadataSchema_atomicLikeNative(name string) (string, bool) {
   switch name {
   case "Boolean":
