@@ -460,9 +460,13 @@ func MetadataSchema_intersects(x *MetadataSchema, y *MetadataSchema) bool {
   if metadataSchema_intersectsAtomicLikeNative(x, y) || metadataSchema_intersectsAtomicLikeNative(y, x) {
     return true
   }
-  if x.Escaped != nil && y.Escaped != nil {
-    return MetadataSchema_intersects(x.Escaped.Original, y.Escaped.Original) ||
-      MetadataSchema_intersects(x.Escaped.Returns, y.Escaped.Returns)
+  // Escaped buckets may coexist with primitive buckets, so an escaped match is
+  // sufficient but not necessary — fall through to the remaining comparisons
+  // instead of returning their result.
+  if x.Escaped != nil && y.Escaped != nil &&
+    (MetadataSchema_intersects(x.Escaped.Original, y.Escaped.Original) ||
+      MetadataSchema_intersects(x.Escaped.Returns, y.Escaped.Returns)) {
+    return true
   }
   for _, atomic := range x.Atomics {
     if anyOf(y.Atomics, func(ya *MetadataAtomic) bool { return atomic.Type == ya.Type }) {
@@ -553,6 +557,12 @@ func metadataSchema_covers(x *MetadataSchema, y *MetadataSchema, escaped bool, v
     return true
   }
   if y.Any {
+    return false
+  }
+  if y.Nullable && x.Nullable == false {
+    return false
+  }
+  if y.IsRequired() == false && x.IsRequired() {
     return false
   }
   if escaped == false {
@@ -653,7 +663,8 @@ func metadataSchema_covers(x *MetadataSchema, y *MetadataSchema, escaped bool, v
   }
   if anyOf(y.Atomics, func(ya *MetadataAtomic) bool {
     return metadataSchema_hasAtomic(x, ya.Type) == false &&
-      metadataSchema_hasAtomicLikeNative(x, ya.Type) == false
+      metadataSchema_hasAtomicLikeNative(x, ya.Type) == false &&
+      (ya.Type != "boolean" || metadataSchema_hasBooleanLiteralPair(x) == false)
   }) {
     return false
   }
@@ -878,6 +889,21 @@ func metadataSchema_hasAtomic(meta *MetadataSchema, atomic string) bool {
 
 func metadataSchema_hasConstant(meta *MetadataSchema, atomic string) bool {
   return anyOf(meta.Constants, func(elem *MetadataConstant) bool { return elem.Type == atomic })
+}
+
+// metadataSchema_hasBooleanLiteralPair reports whether the schema holds both
+// boolean literals, which together accept exactly what the boolean atomic does.
+func metadataSchema_hasBooleanLiteralPair(meta *MetadataSchema) bool {
+  hasLiteral := func(expected bool) bool {
+    return anyOf(meta.Constants, func(constant *MetadataConstant) bool {
+      return constant.Type == "boolean" &&
+        anyOf(constant.Values, func(value *MetadataConstantValue) bool {
+          actual, ok := value.Value.(bool)
+          return ok && actual == expected
+        })
+    })
+  }
+  return hasLiteral(true) && hasLiteral(false)
 }
 
 func metadataSchema_hasAtomicLikeNative(meta *MetadataSchema, atomic string) bool {
