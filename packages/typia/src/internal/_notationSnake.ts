@@ -28,7 +28,7 @@ export const _notationSnake = (str: string): string => {
     if (now - prev === 1) indexes.splice(i, 1);
   }
   if (indexes.length !== 0 && indexes[0] === 0) indexes.splice(0, 1);
-  if (indexes.length === 0) return str.toLowerCase();
+  if (indexes.length === 0) return out(str.toLowerCase());
 
   let ret: string = "";
   for (let i: number = 0; i < indexes.length; i++) {

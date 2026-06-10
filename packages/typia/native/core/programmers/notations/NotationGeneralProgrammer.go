@@ -1366,7 +1366,7 @@ func notationGeneralProgrammer_snake(str string) string {
     indexes = indexes[1:]
   }
   if len(indexes) == 0 {
-    return strings.ToLower(str)
+    return out(strings.ToLower(str))
   }
   ret := ""
   for i, last := range indexes {
