@@ -1,5 +1,6 @@
 export * from "./AssertionGuard";
 export * from "./CamelCase";
+export * from "./KebabCase";
 export * from "./PascalCase";
 export * from "./Primitive";
 export * from "./Resolved";

@@ -507,6 +507,7 @@ func callExpressionTransformer_notations() map[string]callExpressionTransformerF
   camel := nativenotationprogrammers.NotationGeneralProgrammer_Camel
   pascal := nativenotationprogrammers.NotationGeneralProgrammer_Pascal
   snake := nativenotationprogrammers.NotationGeneralProgrammer_Snake
+  kebab := nativenotationprogrammers.NotationGeneralProgrammer_Kebab
   return map[string]callExpressionTransformerFunctor{
     "camel": func() callExpressionTransformerTask {
       return nativenotationtransformers.NotationGeneralTransformer.Transform(camel)
@@ -544,6 +545,18 @@ func callExpressionTransformer_notations() map[string]callExpressionTransformerF
     "validateSnake": func() callExpressionTransformerTask {
       return nativenotationtransformers.NotationValidateGeneralTransformer.Transform(snake)
     },
+    "kebab": func() callExpressionTransformerTask {
+      return nativenotationtransformers.NotationGeneralTransformer.Transform(kebab)
+    },
+    "assertKebab": func() callExpressionTransformerTask {
+      return nativenotationtransformers.NotationAssertGeneralTransformer.Transform(kebab)
+    },
+    "isKebab": func() callExpressionTransformerTask {
+      return nativenotationtransformers.NotationIsGeneralTransformer.Transform(kebab)
+    },
+    "validateKebab": func() callExpressionTransformerTask {
+      return nativenotationtransformers.NotationValidateGeneralTransformer.Transform(kebab)
+    },
     "createCamel": func() callExpressionTransformerTask {
       return nativenotationtransformers.NotationCreateGeneralTransformer.Transform(camel)
     },
@@ -579,6 +592,18 @@ func callExpressionTransformer_notations() map[string]callExpressionTransformerF
     },
     "createValidateSnake": func() callExpressionTransformerTask {
       return nativenotationtransformers.NotationCreateValidateGeneralTransformer.Transform(snake)
+    },
+    "createKebab": func() callExpressionTransformerTask {
+      return nativenotationtransformers.NotationCreateGeneralTransformer.Transform(kebab)
+    },
+    "createAssertKebab": func() callExpressionTransformerTask {
+      return nativenotationtransformers.NotationCreateAssertGeneralTransformer.Transform(kebab)
+    },
+    "createIsKebab": func() callExpressionTransformerTask {
+      return nativenotationtransformers.NotationCreateIsGeneralTransformer.Transform(kebab)
+    },
+    "createValidateKebab": func() callExpressionTransformerTask {
+      return nativenotationtransformers.NotationCreateValidateGeneralTransformer.Transform(kebab)
     },
   }
 }

@@ -1,6 +1,7 @@
 import {
   CamelCase,
   IValidation,
+  KebabCase,
   PascalCase,
   SnakeCase,
 } from "@typia/interface";
@@ -13,6 +14,7 @@ import { NoTransformConfigurationError } from "./transformers/NoTransformConfigu
       - CAMEL CASE
       - PASCAL CASE
       - SNAKE CASE
+      - KEBAB CASE
       - FACTORY FUNCTIONS
 ==============================================================
     CAMEL CASE
@@ -357,6 +359,120 @@ export function validateSnake(): never {
 }
 
 /* -----------------------------------------------------------
+    KEBAB CASE
+----------------------------------------------------------- */
+/**
+ * Converts property names to kebab-case.
+ *
+ * Transforms all property names in the object (including nested) to kebab-case
+ * convention. Creates a new object with renamed properties.
+ *
+ * Does not validate the input. For validation, use:
+ *
+ * - {@link assertKebab} — Throws on type mismatch
+ * - {@link isKebab} — Returns `null` on type mismatch
+ * - {@link validateKebab} — Returns detailed validation errors
+ *
+ * @template T Type of input value
+ * @param input Object to convert
+ * @returns New object with kebab-case property names
+ */
+export function kebab<T>(input: T): KebabCase<T>;
+
+/** @internal */
+export function kebab(): never {
+  return NoTransformConfigurationError("notations.kebab");
+}
+
+/**
+ * Converts property names to kebab-case with assertion.
+ *
+ * Transforms all property names to kebab-case with {@link assert} validation.
+ * Throws {@link TypeGuardError} on type mismatch.
+ *
+ * Related functions:
+ *
+ * - {@link kebab} — No validation
+ * - {@link isKebab} — Returns `null` instead of throwing
+ * - {@link validateKebab} — Returns detailed validation errors
+ *
+ * @template T Type of input value
+ * @param input Object to convert
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
+ * @returns New object with kebab-case property names
+ * @throws {TypeGuardError} When input doesn't conform to type `T`
+ */
+export function assertKebab<T>(
+  input: T,
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): KebabCase<T>;
+
+/** @internal */
+export function assertKebab<T>(
+  input: unknown,
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): KebabCase<T>;
+
+/** @internal */
+export function assertKebab(): never {
+  return NoTransformConfigurationError("notations.assertKebab");
+}
+
+/**
+ * Converts property names to kebab-case with type checking.
+ *
+ * Transforms all property names to kebab-case with {@link is} validation.
+ * Returns `null` on type mismatch.
+ *
+ * Related functions:
+ *
+ * - {@link kebab} — No validation
+ * - {@link assertKebab} — Throws instead of returning `null`
+ * - {@link validateKebab} — Returns detailed validation errors
+ *
+ * @template T Type of input value
+ * @param input Object to convert
+ * @returns New object with kebab-case property names, or `null` if invalid
+ */
+export function isKebab<T>(input: T): KebabCase<T> | null;
+
+/** @internal */
+export function isKebab<T>(input: unknown): KebabCase<T> | null;
+
+/** @internal */
+export function isKebab(): never {
+  return NoTransformConfigurationError("notations.isKebab");
+}
+
+/**
+ * Converts property names to kebab-case with validation.
+ *
+ * Transforms all property names to kebab-case with {@link validate} validation.
+ * Returns {@link IValidation.IFailure} with all errors on mismatch, or
+ * {@link IValidation.ISuccess} with converted object.
+ *
+ * Related functions:
+ *
+ * - {@link kebab} — No validation
+ * - {@link assertKebab} — Throws on first error
+ * - {@link isKebab} — Returns `null` instead of error details
+ *
+ * @template T Type of input value
+ * @param input Object to convert
+ * @returns Validation result containing converted object or errors
+ */
+export function validateKebab<T>(input: T): IValidation<KebabCase<T>>;
+
+/** @internal */
+export function validateKebab<T>(input: unknown): IValidation<KebabCase<T>>;
+
+/** @internal */
+export function validateKebab(): never {
+  return NoTransformConfigurationError("notations.validateKebab");
+}
+
+/* -----------------------------------------------------------
     FACTORY FUNCTIONS
 ----------------------------------------------------------- */
 /**
@@ -621,4 +737,92 @@ export function createValidateSnake<T>(): (
 /** @internal */
 export function createValidateSnake(): never {
   NoTransformConfigurationError("notations.createValidateSnake");
+}
+
+/**
+ * Creates reusable {@link kebab} function.
+ *
+ * @danger You must configure the generic argument `T`
+ */
+export function createKebab(): never;
+
+/**
+ * Creates reusable {@link kebab} function.
+ *
+ * @template T Type of input value
+ * @returns Reusable conversion function
+ */
+export function createKebab<T>(): (input: T) => KebabCase<T>;
+
+/** @internal */
+export function createKebab(): never {
+  NoTransformConfigurationError("notations.createKebab");
+}
+
+/**
+ * Creates reusable {@link assertKebab} function.
+ *
+ * @danger You must configure the generic argument `T`
+ */
+export function createAssertKebab(
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): never;
+
+/**
+ * Creates reusable {@link assertKebab} function.
+ *
+ * @template T Type of input value
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
+ * @returns Reusable conversion function
+ */
+export function createAssertKebab<T>(
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): (input: T) => KebabCase<T>;
+
+/** @internal */
+export function createAssertKebab(): never {
+  NoTransformConfigurationError("notations.createAssertKebab");
+}
+
+/**
+ * Creates reusable {@link isKebab} function.
+ *
+ * @danger You must configure the generic argument `T`
+ */
+export function createIsKebab(): never;
+
+/**
+ * Creates reusable {@link isKebab} function.
+ *
+ * @template T Type of input value
+ * @returns Reusable conversion function
+ */
+export function createIsKebab<T>(): (input: T) => KebabCase<T> | null;
+
+/** @internal */
+export function createIsKebab(): never {
+  NoTransformConfigurationError("notations.createIsKebab");
+}
+
+/**
+ * Creates reusable {@link validateKebab} function.
+ *
+ * @danger You must configure the generic argument `T`
+ */
+export function createValidateKebab(): never;
+
+/**
+ * Creates reusable {@link validateKebab} function.
+ *
+ * @template T Type of input value
+ * @returns Reusable conversion function
+ */
+export function createValidateKebab<T>(): (
+  input: T,
+) => IValidation<KebabCase<T>>;
+
+/** @internal */
+export function createValidateKebab(): never {
+  NoTransformConfigurationError("notations.createValidateKebab");
 }
