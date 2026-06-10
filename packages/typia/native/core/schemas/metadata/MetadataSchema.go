@@ -570,6 +570,11 @@ func MetadataSchema_covers(x *MetadataSchema, y *MetadataSchema, levelAndEscaped
         if len(xt.Type.Elements) < len(yt.Type.Elements) {
           return false
         }
+        for i := 0; i < len(yt.Type.Elements); i++ {
+          if MetadataSchema_covers(xt.Type.Elements[i], yt.Type.Elements[i], level+1) == false {
+            return false
+          }
+        }
         for i := len(yt.Type.Elements); i < len(xt.Type.Elements); i++ {
           if MetadataSchema_covers(xt.Type.Elements[i], yt.Type.Elements[i-len(yt.Type.Elements)], level+1) == false {
             return false

@@ -16,6 +16,7 @@ import (
 // 1. Assert a Map with atomic value coverage covers a matching literal value.
 // 2. Assert mismatched key schemas are not covered.
 // 3. Assert mismatched value schemas are not covered.
+// 4. Assert nested tuple value schemas are checked.
 func TestMetadataSchemaCoversMapEntries(t *testing.T) {
   source := testutil.MapMetadata(testutil.AtomicMetadata("string"), testutil.AtomicMetadata("number"))
   if !metadata.MetadataSchema_covers(
@@ -35,5 +36,17 @@ func TestMetadataSchemaCoversMapEntries(t *testing.T) {
     testutil.MapMetadata(testutil.AtomicMetadata("string"), testutil.AtomicMetadata("string")),
   ) {
     t.Fatal("map source should not cover mismatched value schema")
+  }
+  if metadata.MetadataSchema_covers(
+    testutil.MapMetadata(
+      testutil.AtomicMetadata("string"),
+      testutil.TupleMetadata(testutil.AtomicMetadata("number")),
+    ),
+    testutil.MapMetadata(
+      testutil.AtomicMetadata("string"),
+      testutil.TupleMetadata(testutil.AtomicMetadata("string")),
+    ),
+  ) {
+    t.Fatal("map source should not cover mismatched nested tuple value schema")
   }
 }

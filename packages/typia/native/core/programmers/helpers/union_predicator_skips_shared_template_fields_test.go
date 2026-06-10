@@ -27,6 +27,11 @@ func TestUnionPredicatorSkipsSharedTemplateFields(t *testing.T) {
       right: unionPredicatorTemplate(unionPredicatorLiteral("id-"), unionPredicatorAtomic("number")),
     },
     {
+      name:  "non-identical-template-template",
+      left:  unionPredicatorTemplate(unionPredicatorLiteral("id-"), unionPredicatorAtomic("number")),
+      right: unionPredicatorTemplate(unionPredicatorLiteral("id-"), unionPredicatorAtomic("string")),
+    },
+    {
       name:  "template-literal",
       left:  unionPredicatorTemplate(unionPredicatorLiteral("id-"), unionPredicatorAtomic("number")),
       right: unionPredicatorLiteral("id-1"),

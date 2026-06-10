@@ -245,6 +245,12 @@ const invalidOtherMissingDetail = {
   birthDate: new Date("2025-06-10T10:43:59.087Z"),
   partyRole: "other",
 };
+const invalidIndividualBirthDate = {
+  type: "individual",
+  birthDate: "2025-06-10T10:43:59.087Z",
+  partyRole: "other",
+  otherPartyRole: "some-valid-string",
+};
 
 const validate = mod.validateParty(validIndividualOther);
 if (validate.success !== true) {
@@ -298,6 +304,21 @@ if (invalidAssert === null) {
 }
 if (invalidAssert.path === "$input.partyRole" && invalidAssert.expected === '"customer"') {
   throw new Error("assert invalid other branch reported unrelated customer branch: " + JSON.stringify(invalidAssert));
+}
+const invalidDate = mod.validateParty(invalidIndividualBirthDate);
+if (invalidDate.success !== false) {
+  throw new Error("invalid individual birthDate unexpectedly passed");
+}
+if (mod.isParty(invalidIndividualBirthDate) !== false) {
+  throw new Error("is accepted invalid individual birthDate");
+}
+const invalidDateDirect = mod.validateDirect(invalidIndividualBirthDate);
+if (invalidDateDirect.success !== false) {
+  throw new Error("direct validate invalid individual birthDate unexpectedly passed");
+}
+const invalidDateAssert = capture(() => mod.assertParty(invalidIndividualBirthDate));
+if (invalidDateAssert === null) {
+  throw new Error("assert invalid individual birthDate unexpectedly passed");
 }
 
 const validDateRight = {
