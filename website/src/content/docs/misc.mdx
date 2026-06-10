@@ -9,7 +9,7 @@ import LocalSource from '../../components/LocalSource';
 
 # Miscellaneous
 
-Three small modules that share the typia transform but don't fit anywhere else: `misc` (clone / prune / literals), `notations` (case conversion), and `http` (form data / query / headers / route parameters).
+Four small modules that share the typia transform but don't fit anywhere else: `misc` (clone / prune / literals), `notations` (case conversion), `http` (form data / query / headers / route parameters), and `reflect` (type metadata introspection).
 
 ## `misc.clone`
 
@@ -413,6 +413,90 @@ namespace http {
 ```
 
 `http.formData` decodes a `FormData` instance into a typed object. Allowed property types: `boolean | bigint | number | string | Blob | File` or arrays of those.
+
+## `reflect`
+
+```typescript copy filename="signatures"
+namespace reflect {
+  function schema<Type>(): IMetadataSchemaUnit;
+  function schemas<Types extends unknown[]>(): IMetadataSchemaCollection;
+  function name<T, Regular extends boolean = false>(): string;
+}
+```
+
+`reflect` exposes typia's own type representation — the metadata every other feature (validators, JSON schema, protobuf, random, LLM schemas) is compiled from. Where `typia.json.schemas` flattens a type into JSON Schema, `reflect.schema` hands you the lossless internal form: unions stay buckets, optionality/nullability stay flags, and type tags keep their validation expressions.
+
+### `reflect.schema` / `reflect.schemas`
+
+`reflect.schema<T>()` returns an `IMetadataSchemaUnit`: the `schema` of the target type plus a `components` dictionary holding every named object, alias, array, and tuple definition it references (recursive types reference themselves through here). `reflect.schemas<[A, B]>()` is the multi-type variant returning an `IMetadataSchemaCollection` with one entry per type over a shared `components`.
+
+An `IMetadataSchema` is a *union of buckets* with top-level flags:
+
+| Member | Meaning |
+| --- | --- |
+| `required` / `optional` / `nullable` / `any` | `undefined` · `?` modifier · `null` · `any` participation |
+| `atomics` | primitive members (`boolean`, `bigint`, `number`, `string`), each with its type-tag matrix |
+| `constants` | literal members, grouped by base type |
+| `templates` | template literal members |
+| `arrays` / `tuples` / `objects` / `aliases` | references into `components` by name |
+| `natives` | built-in classes (`Date`, `Uint8Array`, …) |
+| `sets` / `maps` / `functions` / `escaped` / `rest` | `Set` · `Map` · function members · `toJSON()` projection · variadic tuple rest |
+
+Type tags survive with full fidelity — for `string & tags.Format<"uuid">` the atomic's tag matrix carries the kind, the JSON-schema fragment, and the validation expression:
+
+```typescript copy
+typia.reflect.schema<IMember>();
+
+interface IMember {
+  id: string & tags.Format<"uuid">;
+  age: number;
+  parent: IMember | null;
+}
+```
+
+```javascript filename="compiled (excerpt)"
+export const unit = {
+  schema: { objects: [{ name: "IMember", tags: [] }], required: true, ... },
+  components: {
+    objects: [{
+      name: "IMember",
+      properties: [
+        {
+          key: { constants: [{ type: "string", values: [{ value: "id" }] }], ... },
+          value: {
+            atomics: [{
+              type: "string",
+              tags: [[{
+                kind: "format",
+                name: 'Format<"uuid">',
+                schema: { format: "uuid" },
+                validate: '$importInternal("isFormatUuid")($input)',
+                ...
+              }]],
+            }],
+            ...
+          },
+        },
+        // age: { atomics: [{ type: "number" }] }, parent: { objects: [IMember], nullable: true }
+      ],
+    }],
+    aliases: [], arrays: [], tuples: [],
+  },
+};
+```
+
+Everything is a plain literal embedded at compile time — there is no runtime reflection cost, and the result is `JSON.stringify`-able as-is.
+
+### `reflect.name`
+
+`reflect.name<T>()` embeds the display name typia uses for `T` in error messages and component keys:
+
+```typescript copy
+typia.reflect.name<IMember[]>();              // "IMember[]"
+typia.reflect.name<{ value: string } | null>(); // "{ value: string } | null"
+```
+
+Use it when correlating `TypeGuardError.expected` / `IValidation.IError.expected` strings, or `components` entries from `reflect.schema`, back to your own types.
 
 ## Where to go next
 
