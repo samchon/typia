@@ -1,8 +1,6 @@
 package iterate
 
 import (
-  "strings"
-
   shimast "github.com/microsoft/typescript-go/shim/ast"
   shimprinter "github.com/microsoft/typescript-go/shim/printer"
   nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
@@ -19,12 +17,12 @@ type Check_nativeProps struct {
 func Check_native(props Check_nativeProps) *shimast.Node {
   f := nativecontext.EmitFactoryOf(check_native_factory, props.Emit)
   instanceOf := nativefactories.ExpressionFactory.IsInstanceOf(props.Name, props.Input)
-  if _, ok := nativemetadata.MetadataSchema_atomicLikeNative(props.Name); ok {
+  if atomic, ok := nativemetadata.MetadataSchema_atomicLikeNative(props.Name); ok {
     return f.NewBinaryExpression(
       nil,
       f.NewBinaryExpression(
         nil,
-        f.NewStringLiteral(strings.ToLower(props.Name), shimast.TokenFlagsNone),
+        f.NewStringLiteral(atomic, shimast.TokenFlagsNone),
         nil,
         f.NewToken(shimast.KindEqualsEqualsEqualsToken),
         f.NewTypeOfExpression(props.Input),

@@ -533,6 +533,9 @@ func MetadataSchema_covers(x *MetadataSchema, y *MetadataSchema, levelAndEscaped
       break
     }
   }
+  if x == y {
+    return false
+  }
   return metadataSchema_covers(x, y, escaped, map[metadataSchemaCoversPair]struct{}{})
 }
 
@@ -544,7 +547,7 @@ type metadataSchemaCoversPair struct {
 
 func metadataSchema_covers(x *MetadataSchema, y *MetadataSchema, escaped bool, visited map[metadataSchemaCoversPair]struct{}) bool {
   if x == y {
-    return false
+    return true
   }
   pair := metadataSchemaCoversPair{
     X:       x,
@@ -555,6 +558,7 @@ func metadataSchema_covers(x *MetadataSchema, y *MetadataSchema, escaped bool, v
     return true
   }
   visited[pair] = struct{}{}
+  defer delete(visited, pair)
   if x.Any {
     return true
   }

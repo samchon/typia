@@ -15,6 +15,7 @@ import (
 // 1. Assert a tuple covers another tuple with compatible elements.
 // 2. Assert same-length tuples with incompatible elements are not covered.
 // 3. Assert the existing repeated-extra-element behavior stays pinned.
+// 4. Assert repeated-extra coverage also works for reused element pointers.
 func TestMetadataSchemaCoversTupleEntries(t *testing.T) {
   if !metadata.MetadataSchema_covers(
     testutil.TupleMetadata(testutil.AtomicMetadata("number")),
@@ -33,5 +34,12 @@ func TestMetadataSchemaCoversTupleEntries(t *testing.T) {
     testutil.TupleMetadata(testutil.AtomicMetadata("string")),
   ) {
     t.Fatal("tuple source should preserve repeated-extra-element coverage")
+  }
+  shared := testutil.ArrayMetadata(testutil.AtomicMetadata("string"))
+  if !metadata.MetadataSchema_covers(
+    testutil.TupleMetadata(shared, shared),
+    testutil.TupleMetadata(shared),
+  ) {
+    t.Fatal("tuple source should preserve repeated-extra-element coverage for reused element schemas")
   }
 }

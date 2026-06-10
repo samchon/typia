@@ -15,7 +15,8 @@ import (
 //
 // 1. Assert nested arrays still cover compatible literal element schemas.
 // 2. Assert nested arrays with incompatible elements are not covered.
-// 3. Assert tuple elements containing arrays or tuples are also checked.
+// 3. Assert failed candidate pairs do not leak through the recursion guard.
+// 4. Assert tuple elements containing arrays or tuples are also checked.
 func TestMetadataSchemaCoversNestedCollectionEntries(t *testing.T) {
   if !metadata.MetadataSchema_covers(
     testutil.ArrayMetadata(testutil.ArrayMetadata(testutil.AtomicMetadata("number"))),
@@ -28,6 +29,29 @@ func TestMetadataSchemaCoversNestedCollectionEntries(t *testing.T) {
     testutil.ArrayMetadata(testutil.ArrayMetadata(testutil.AtomicMetadata("string"))),
   ) {
     t.Fatal("nested array source should not cover mismatched element schema")
+  }
+  duplicate := testutil.AtomicMetadata("number")
+  source := metadata.MetadataSchema_create(metadata.MetadataSchema{
+    Required: true,
+    Arrays: []*metadata.MetadataArray{
+      metadata.MetadataArray_create(metadata.MetadataArray{
+        Type: metadata.MetadataArrayType_create(metadata.MetadataArrayType{
+          Name:      "Array<number>.a",
+          Value:     duplicate,
+          Nullables: []bool{},
+        }),
+      }),
+      metadata.MetadataArray_create(metadata.MetadataArray{
+        Type: metadata.MetadataArrayType_create(metadata.MetadataArrayType{
+          Name:      "Array<number>.b",
+          Value:     duplicate,
+          Nullables: []bool{},
+        }),
+      }),
+    },
+  })
+  if metadata.MetadataSchema_covers(source, testutil.ArrayMetadata(testutil.AtomicMetadata("string"))) {
+    t.Fatal("failed duplicate array candidate should not pass through visited-pair state")
   }
   if metadata.MetadataSchema_covers(
     testutil.TupleMetadata(testutil.ArrayMetadata(testutil.AtomicMetadata("number"))),

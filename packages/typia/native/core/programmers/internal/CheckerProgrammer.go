@@ -576,7 +576,7 @@ func (checkerProgrammerNamespace) Decode(props CheckerProgrammer_DecodeProps) *s
   constants := []*nativemetadata.MetadataConstant{}
   constantLength := 0
   for _, c := range props.Metadata.Constants {
-    if nativehelpers.AtomicPredicator.Constant(struct {
+    if nativehelpers.AtomicPredicator.RuntimeConstant(struct {
       Metadata *nativemetadata.MetadataSchema
       Name     string
     }{Metadata: props.Metadata, Name: c.Type}) {
@@ -642,7 +642,7 @@ func (checkerProgrammerNamespace) Decode(props CheckerProgrammer_DecodeProps) *s
   }
 
   for _, atom := range props.Metadata.Atomics {
-    if nativehelpers.AtomicPredicator.Atomic(struct {
+    if nativehelpers.AtomicPredicator.RuntimeAtomic(struct {
       Metadata *nativemetadata.MetadataSchema
       Name     string
     }{Metadata: props.Metadata, Name: atom.Type}) == false {

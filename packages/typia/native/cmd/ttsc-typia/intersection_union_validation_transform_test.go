@@ -14,7 +14,8 @@ import (
 // `(Individual | Corporation) & ({ partyRole: "customer" } | OtherRole)`.
 // The validator must accept a value whose left union branch contains a native
 // Date and whose right union branch is selected by another discriminator. The
-// same fixture also pins shared-field union guards whose metadata may overlap.
+// same fixture also pins shared-field guards and primitive/native overlap
+// decisions whose metadata may otherwise misroute union validation.
 //
 //  1. Transform the intersected-union fixture into JavaScript.
 //  2. Execute `is`, `validate`, `assert`, and direct validate entrypoints.
@@ -205,12 +206,17 @@ type ArrayTupleSharedUnion =
       right: string;
     };
 
+type BigIntPrimitiveOrInterface = bigint | BigInt;
+type BigIntLiteralOrInterface = 1n | BigInt;
+
 export const validateDateShared = typia.createValidate<DateSharedUnion>();
 export const validateBytesShared = typia.createValidate<BytesSharedUnion>();
 export const validatePrimitiveWrapperShared = typia.createValidate<PrimitiveWrapperSharedUnion>();
 export const validateSetShared = typia.createValidate<SetSharedUnion>();
 export const validateMapShared = typia.createValidate<MapSharedUnion>();
 export const validateArrayTupleShared = typia.createValidate<ArrayTupleSharedUnion>();
+export const validateBigIntPrimitiveOrInterface = typia.createValidate<BigIntPrimitiveOrInterface>();
+export const validateBigIntLiteralOrInterface = typia.createValidate<BigIntLiteralOrInterface>();
 `
 
 const intersectionUnionValidationRuntimeRunner = `const mod = require("./main.cjs");
@@ -333,6 +339,12 @@ const dateRight = mod.validateDateShared(validDateRight);
 if (dateRight.success !== true) {
   throw new Error("shared Date native union failed its right branch: " + JSON.stringify(dateRight));
 }
+if (mod.validateDateShared({
+  stamp: "2025-06-10T10:43:59.087Z",
+  right: "selected-right",
+}).success !== false) {
+  throw new Error("shared Date native union accepted invalid right branch stamp");
+}
 
 const validBytesRight = {
   bytes: new Uint8Array([1, 2, 3]),
@@ -342,6 +354,12 @@ const bytesRight = mod.validateBytesShared(validBytesRight);
 if (bytesRight.success !== true) {
   throw new Error("shared Uint8Array native union failed its right branch: " + JSON.stringify(bytesRight));
 }
+if (mod.validateBytesShared({
+  bytes: [1, 2, 3],
+  right: "selected-right",
+}).success !== false) {
+  throw new Error("shared Uint8Array native union accepted invalid right branch bytes");
+}
 
 const primitiveWrapperRight = mod.validatePrimitiveWrapperShared({
   value: "x",
@@ -349,6 +367,12 @@ const primitiveWrapperRight = mod.validatePrimitiveWrapperShared({
 });
 if (primitiveWrapperRight.success !== true) {
   throw new Error("shared primitive wrapper union failed its right branch: " + JSON.stringify(primitiveWrapperRight));
+}
+if (mod.validatePrimitiveWrapperShared({
+  value: 1,
+  right: "selected-right",
+}).success !== false) {
+  throw new Error("shared primitive wrapper union accepted invalid right branch value");
 }
 
 const setRight = mod.validateSetShared({
@@ -358,6 +382,12 @@ const setRight = mod.validateSetShared({
 if (setRight.success !== true) {
   throw new Error("shared empty Set union failed its right branch: " + JSON.stringify(setRight));
 }
+if (mod.validateSetShared({
+  items: new Set([true]),
+  right: "selected-right",
+}).success !== false) {
+  throw new Error("shared Set union accepted invalid right branch value");
+}
 
 const mapRight = mod.validateMapShared({
   lookup: new Map(),
@@ -366,6 +396,12 @@ const mapRight = mod.validateMapShared({
 if (mapRight.success !== true) {
   throw new Error("shared empty Map union failed its right branch: " + JSON.stringify(mapRight));
 }
+if (mod.validateMapShared({
+  lookup: new Map([[1, 2]]),
+  right: "selected-right",
+}).success !== false) {
+  throw new Error("shared Map union accepted invalid right branch entry");
+}
 
 const arrayTupleRight = mod.validateArrayTupleShared({
   items: [1],
@@ -373,5 +409,18 @@ const arrayTupleRight = mod.validateArrayTupleShared({
 });
 if (arrayTupleRight.success !== true) {
   throw new Error("shared array/tuple union failed its right branch: " + JSON.stringify(arrayTupleRight));
+}
+if (mod.validateArrayTupleShared({
+  items: ["x"],
+  right: "selected-right",
+}).success !== false) {
+  throw new Error("shared array/tuple union accepted invalid right branch item");
+}
+
+if (mod.validateBigIntPrimitiveOrInterface(1n).success !== true) {
+  throw new Error("bigint primitive should pass bigint | BigInt validation");
+}
+if (mod.validateBigIntLiteralOrInterface(1n).success !== true) {
+  throw new Error("bigint literal should pass 1n | BigInt validation");
 }
 `
