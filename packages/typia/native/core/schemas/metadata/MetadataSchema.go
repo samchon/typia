@@ -602,12 +602,10 @@ func metadataSchema_covers(x *MetadataSchema, y *MetadataSchema, escaped bool, v
         return false
       }
       for i := 0; i < len(yt.Type.Elements); i++ {
-        var elem *MetadataSchema
+        // rest == nil implies fixed == len(xt.Type.Elements) >= len(yt.Type.Elements),
+        // so every i < fixed there; rest only substitutes past the fixed prefix.
+        elem := rest
         if i < fixed {
-          elem = xt.Type.Elements[i]
-        } else if rest != nil {
-          elem = rest
-        } else {
           elem = xt.Type.Elements[i]
         }
         target := yt.Type.Elements[i]

@@ -12,13 +12,15 @@ import (
 // Tuple coverage must inspect each covered element. Otherwise same-length
 // tuples with incompatible element schemas incorrectly cover each other.
 //
-// 1. Assert a tuple covers another tuple with compatible elements.
-// 2. Assert same-length tuples with incompatible elements are not covered.
-// 3. Assert the existing repeated-extra-element behavior stays pinned.
-// 4. Assert repeated-extra coverage can wrap across multiple extra elements.
-// 5. Assert repeated-extra coverage also works for reused element pointers.
-// 6. Assert empty tuple targets and rest wrappers cannot fall through.
-// 7. Assert source tuple rest elements cover fixed target tail elements.
+//  1. Assert a tuple covers another tuple with compatible elements.
+//  2. Assert same-length tuples with incompatible elements are not covered.
+//  3. Assert the existing repeated-extra-element behavior stays pinned, and
+//     that a mismatched repeated-extra element fails.
+//  4. Assert repeated-extra coverage can wrap across multiple extra elements.
+//  5. Assert repeated-extra coverage also works for reused element pointers.
+//  6. Assert empty tuple targets and rest wrappers cannot fall through.
+//  7. Assert source tuple rest elements cover fixed target tail elements and
+//     align with compatible target rest tails only.
 func TestMetadataSchemaCoversTupleEntries(t *testing.T) {
   if !metadata.MetadataSchema_covers(
     testutil.TupleMetadata(testutil.AtomicMetadata("number")),
@@ -37,6 +39,12 @@ func TestMetadataSchemaCoversTupleEntries(t *testing.T) {
     testutil.TupleMetadata(testutil.AtomicMetadata("string")),
   ) {
     t.Fatal("tuple source should preserve repeated-extra-element coverage")
+  }
+  if metadata.MetadataSchema_covers(
+    testutil.TupleMetadata(testutil.AtomicMetadata("string"), testutil.AtomicMetadata("number")),
+    testutil.TupleMetadata(testutil.AtomicMetadata("string")),
+  ) {
+    t.Fatal("mismatched repeated-extra element should fail tuple coverage")
   }
   if !metadata.MetadataSchema_covers(
     testutil.TupleMetadata(
@@ -136,6 +144,30 @@ func TestMetadataSchemaCoversTupleEntries(t *testing.T) {
     ),
   ) {
     t.Fatal("source tuple rest should not cover mismatched target tail elements")
+  }
+  if !metadata.MetadataSchema_covers(
+    testutil.TupleMetadata(
+      testutil.AtomicMetadata("string"),
+      restElement(testutil.AtomicMetadata("number")),
+    ),
+    testutil.TupleMetadata(
+      testutil.StringConstantMetadata("head"),
+      restElement(testutil.NumberConstantMetadata(1)),
+    ),
+  ) {
+    t.Fatal("source tuple rest should align with a compatible target tuple rest tail")
+  }
+  if metadata.MetadataSchema_covers(
+    testutil.TupleMetadata(
+      testutil.AtomicMetadata("string"),
+      restElement(testutil.AtomicMetadata("number")),
+    ),
+    testutil.TupleMetadata(
+      testutil.StringConstantMetadata("head"),
+      restElement(testutil.AtomicMetadata("string")),
+    ),
+  ) {
+    t.Fatal("source tuple rest should not align with a mismatched target tuple rest tail")
   }
 }
 
