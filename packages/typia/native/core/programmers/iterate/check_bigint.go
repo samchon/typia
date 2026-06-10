@@ -34,15 +34,20 @@ func check_bigint_type_tags(props Check_bigintProps) [][]nativehelpers.ICheckEnt
   output := [][]nativehelpers.ICheckEntry_ICondition{}
   for _, row := range props.Atomic.Tags {
     tags := check_bigint_filter_validate(row)
-    if len(tags) == 0 {
-      continue
-    }
     conditions := make([]nativehelpers.ICheckEntry_ICondition, 0, len(tags))
     for _, tag := range tags {
       conditions = append(conditions, nativehelpers.ICheckEntry_ICondition{
         Expected:   "bigint & " + tag.Name,
         Expression: check_bigint_transpile(props.Context, tag.Validate)(props.Input),
       })
+    }
+    for _, tag := range row {
+      if condition := check_exclude_condition("bigint", tag, props.Input, props.Context.Emit); condition != nil {
+        conditions = append(conditions, *condition)
+      }
+    }
+    if len(conditions) == 0 {
+      continue
     }
     output = append(output, conditions)
   }

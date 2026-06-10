@@ -154,6 +154,27 @@ func (llmSchemaProgrammerNamespace) Validate(props struct {
         }
       }
     }
+    // OpenAI strict structured outputs cannot express the `not` keyword the
+    // exclude tag compiles to (supported subset: types, enum, anyOf, $defs).
+    excluded := false
+    scan := func(matrix [][]schemametadata.IMetadataTypeTag) {
+      for _, row := range matrix {
+        for _, tag := range row {
+          if tag.Kind == "exclude" {
+            excluded = true
+          }
+        }
+      }
+    }
+    for _, atomic := range props.Metadata.Atomics {
+      scan(atomic.Tags)
+    }
+    for _, template := range props.Metadata.Templates {
+      scan(template.Tags)
+    }
+    if excluded {
+      output = append(output, "Strict mode does not support exclude type tag.")
+    }
   }
   if schemametadata.MetadataSchema_hasBigint(props.Metadata) {
     output = append(output, "LLM schema does not support bigint type.")
