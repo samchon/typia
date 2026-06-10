@@ -48,7 +48,7 @@ func TestUnionPredicatorSkipsAtomicLikeNativeFields(t *testing.T) {
   for _, tc := range cases {
     tc := tc
     t.Run(tc.name, func(t *testing.T) {
-      specs := UnionPredicator.Object([]*nativemetadata.MetadataObjectType{
+      objects := []*nativemetadata.MetadataObjectType{
         unionPredicatorObject("Left",
           unionPredicatorProperty(tc.key, tc.left),
           unionPredicatorProperty("leftOnly", unionPredicatorAtomic("string")),
@@ -57,8 +57,9 @@ func TestUnionPredicatorSkipsAtomicLikeNativeFields(t *testing.T) {
           unionPredicatorProperty(tc.key, tc.right),
           unionPredicatorProperty("rightOnly", unionPredicatorAtomic("string")),
         ),
-      })
-      assertUnionPredicatorKeys(t, specs, tc.key, tc.expect)
+      }
+      specs := UnionPredicator.Object(objects)
+      assertUnionPredicatorKeys(t, objects, specs, tc.key, tc.expect)
     })
   }
 }

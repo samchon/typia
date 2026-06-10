@@ -56,8 +56,9 @@ func TestUnionPredicatorSkipsSharedNativeNames(t *testing.T) {
         unionPredicatorProperty("rightOnly", unionPredicatorAtomic("string")),
       )
 
-      specs := UnionPredicator.Object([]*nativemetadata.MetadataObjectType{left, right})
-      assertUnionPredicatorKeys(t, specs, tc.key, tc.expect)
+      objects := []*nativemetadata.MetadataObjectType{left, right}
+      specs := UnionPredicator.Object(objects)
+      assertUnionPredicatorKeys(t, objects, specs, tc.key, tc.expect)
     })
   }
 }
@@ -176,12 +177,27 @@ func unionPredicatorMap(key *nativemetadata.MetadataSchema, value *nativemetadat
   })
 }
 
-func assertUnionPredicatorKeys(t *testing.T, specs []UnionPredicator_ISpecialized, shared string, expect []string) {
+func assertUnionPredicatorKeys(
+  t *testing.T,
+  objects []*nativemetadata.MetadataObjectType,
+  specs []UnionPredicator_ISpecialized,
+  shared string,
+  expect []string,
+) {
   t.Helper()
   if len(specs) != len(expect) {
     t.Fatalf("unexpected specialization count: got %d want %d", len(specs), len(expect))
   }
   for i, spec := range specs {
+    if spec.Index != i {
+      t.Fatalf("unexpected specialization index at %d: got %d", i, spec.Index)
+    }
+    if i >= len(objects) {
+      t.Fatalf("specialization index %d exceeds object count %d", i, len(objects))
+    }
+    if spec.Object != objects[i] {
+      t.Fatalf("specialization %d should point at object %q", i, objects[i].Name)
+    }
     key := spec.Property.Key.GetSoleLiteral()
     if key == nil {
       t.Fatal("specialized property should be a literal key")
@@ -192,5 +208,32 @@ func assertUnionPredicatorKeys(t *testing.T, specs []UnionPredicator_ISpecialize
     if *key != expect[i] {
       t.Fatalf("unexpected specialized key at %d: got %q want %q", i, *key, expect[i])
     }
+    expectedProperty := unionPredicatorFindProperty(objects[i], expect[i])
+    if expectedProperty == nil {
+      t.Fatalf("expected property %q not found on object %q", expect[i], objects[i].Name)
+    }
+    if spec.Property != expectedProperty {
+      t.Fatalf("specialization %d should point at object-owned property %q", i, expect[i])
+    }
+    expectedNeighbor := false
+    for j, object := range objects {
+      if j != i && unionPredicatorFindProperty(object, expect[i]) != nil {
+        expectedNeighbor = true
+        break
+      }
+    }
+    if spec.Neighbor != expectedNeighbor {
+      t.Fatalf("unexpected neighbor flag for %q: got %v want %v", expect[i], spec.Neighbor, expectedNeighbor)
+    }
   }
+}
+
+func unionPredicatorFindProperty(object *nativemetadata.MetadataObjectType, key string) *nativemetadata.MetadataProperty {
+  for _, property := range object.Properties {
+    literal := property.Key.GetSoleLiteral()
+    if literal != nil && *literal == key {
+      return property
+    }
+  }
+  return nil
 }
