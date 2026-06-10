@@ -582,13 +582,17 @@ func metadataSchema_covers(x *MetadataSchema, y *MetadataSchema, escaped bool, v
   }
   for _, ya := range y.Arrays {
     if anyOf(x.Arrays, func(xa *MetadataArray) bool {
-      return metadataSchema_covers(xa.Type.Value, ya.Type.Value, false, visited)
+      return metadataSchema_coversTagMatrix(xa.Tags, ya.Tags) &&
+        metadataSchema_covers(xa.Type.Value, ya.Type.Value, false, visited)
     }) == false {
       return false
     }
   }
   for _, yt := range y.Tuples {
     if anyOf(x.Tuples, func(xt *MetadataTuple) bool {
+      if metadataSchema_coversTagMatrix(xt.Tags, yt.Tags) == false {
+        return false
+      }
       rest := (*MetadataSchema)(nil)
       fixed := len(xt.Type.Elements)
       if fixed != 0 && xt.Type.Elements[fixed-1].Rest != nil {
@@ -628,29 +632,40 @@ func metadataSchema_covers(x *MetadataSchema, y *MetadataSchema, escaped bool, v
   }
   for _, yo := range y.Objects {
     if anyOf(x.Objects, func(xo *MetadataObject) bool {
-      return MetadataObjectType_covers(xo.Type, yo.Type)
+      return metadataSchema_coversTagMatrix(xo.Tags, yo.Tags) &&
+        MetadataObjectType_covers(xo.Type, yo.Type)
     }) == false {
       return false
     }
   }
   for _, yd := range y.Aliases {
-    if anyOf(x.Aliases, func(xd *MetadataAlias) bool { return xd.Type.Name == yd.Type.Name }) == false {
+    if anyOf(x.Aliases, func(xd *MetadataAlias) bool {
+      return xd.Type.Name == yd.Type.Name &&
+        metadataSchema_coversTagMatrix(xd.Tags, yd.Tags)
+    }) == false {
       return false
     }
   }
   for _, yn := range y.Natives {
-    if anyOf(x.Natives, func(xn *MetadataNative) bool { return xn.Name == yn.Name }) == false {
+    if anyOf(x.Natives, func(xn *MetadataNative) bool {
+      return xn.Name == yn.Name &&
+        metadataSchema_coversTagMatrix(xn.Tags, yn.Tags)
+    }) == false {
       return false
     }
   }
   for _, ys := range y.Sets {
-    if anyOf(x.Sets, func(xs *MetadataSet) bool { return metadataSchema_covers(xs.Value, ys.Value, false, visited) }) == false {
+    if anyOf(x.Sets, func(xs *MetadataSet) bool {
+      return metadataSchema_coversTagMatrix(xs.Tags, ys.Tags) &&
+        metadataSchema_covers(xs.Value, ys.Value, false, visited)
+    }) == false {
       return false
     }
   }
   for _, ym := range y.Maps {
     if anyOf(x.Maps, func(xm *MetadataMap) bool {
-      return metadataSchema_covers(xm.Key, ym.Key, false, visited) &&
+      return metadataSchema_coversTagMatrix(xm.Tags, ym.Tags) &&
+        metadataSchema_covers(xm.Key, ym.Key, false, visited) &&
         metadataSchema_covers(xm.Value, ym.Value, false, visited)
     }) == false {
       return false
@@ -662,14 +677,19 @@ func metadataSchema_covers(x *MetadataSchema, y *MetadataSchema, escaped bool, v
     }
   }
   if anyOf(y.Atomics, func(ya *MetadataAtomic) bool {
-    return metadataSchema_hasAtomic(x, ya.Type) == false &&
+    return anyOf(x.Atomics, func(xa *MetadataAtomic) bool {
+      return xa.Type == ya.Type && metadataSchema_coversTagMatrix(xa.Tags, ya.Tags)
+    }) == false &&
       metadataSchema_hasAtomicLikeNative(x, ya.Type) == false &&
       (ya.Type != "boolean" || metadataSchema_hasBooleanLiteralPair(x) == false)
   }) {
     return false
   }
   for _, yc := range y.Constants {
-    if metadataSchema_hasAtomic(x, yc.Type) || metadataSchema_hasAtomicLikeNative(x, yc.Type) {
+    // A tag-constrained atomic may reject individual literals (covering
+    // `5` through `number & Minimum<10>` would require evaluating the
+    // predicate), so only an unconstrained atomic shortcuts the comparison.
+    if metadataSchema_hasUnconstrainedAtomic(x, yc.Type) || metadataSchema_hasAtomicLikeNative(x, yc.Type) {
       continue
     }
     var xc *MetadataConstant
@@ -877,7 +897,10 @@ func metadataSchema_intersectsAtomicLikeNative(nativeOwner *MetadataSchema, oppo
 }
 
 func metadataSchema_coversTemplate(x *MetadataSchema, y *MetadataTemplate) bool {
-  if metadataSchema_hasAtomic(x, "string") || metadataSchema_hasAtomicLikeNative(x, "string") {
+  // A tag-constrained string atomic may reject values the template accepts,
+  // so only an unconstrained one covers every template. Template-to-template
+  // comparison stays on GetName, which already embeds the tag matrix.
+  if metadataSchema_hasUnconstrainedAtomic(x, "string") || metadataSchema_hasAtomicLikeNative(x, "string") {
     return true
   }
   return anyOf(x.Templates, func(xt *MetadataTemplate) bool { return xt.GetName() == y.GetName() })
@@ -885,6 +908,90 @@ func metadataSchema_coversTemplate(x *MetadataSchema, y *MetadataTemplate) bool 
 
 func metadataSchema_hasAtomic(meta *MetadataSchema, atomic string) bool {
   return anyOf(meta.Atomics, func(elem *MetadataAtomic) bool { return elem.Type == atomic })
+}
+
+// metadataSchema_hasUnconstrainedAtomic reports whether the schema holds the
+// atomic without any validating type tag, i.e. it accepts every value of the
+// base type.
+func metadataSchema_hasUnconstrainedAtomic(meta *MetadataSchema, atomic string) bool {
+  return anyOf(meta.Atomics, func(elem *MetadataAtomic) bool {
+    if elem.Type != atomic {
+      return false
+    }
+    _, constrained := metadataSchema_validatingTagRows(elem.Tags)
+    return constrained == false
+  })
+}
+
+// metadataSchema_validatingTagRows reduces a tag matrix (an OR of AND rows)
+// to its runtime-constraining rows. Tags without a validate predicate accept
+// every value of the base type, and a row left with no predicates at all
+// unconstrains the whole matrix: the value passes through that row
+// unconditionally, so the matrix accepts everything (constrained == false).
+func metadataSchema_validatingTagRows(tags [][]IMetadataTypeTag) ([][]IMetadataTypeTag, bool) {
+  rows := make([][]IMetadataTypeTag, 0, len(tags))
+  for _, row := range tags {
+    filtered := []IMetadataTypeTag{}
+    for _, tag := range row {
+      if tag.Validate != "" {
+        filtered = append(filtered, tag)
+      }
+    }
+    if len(filtered) == 0 {
+      return nil, false
+    }
+    rows = append(rows, filtered)
+  }
+  return rows, len(rows) != 0
+}
+
+// metadataSchema_coversTagMatrix reports whether the x side accepts every
+// value the y side accepts, judged by validating type tags only. Without an
+// implication engine between predicates the sound approximation is row
+// inclusion: x accepts the union of its rows, so y's acceptance set is
+// contained when every y row appears among the x rows verbatim. Imprecision
+// only under-reports covers, which solely affects union sort order.
+func metadataSchema_coversTagMatrix(x [][]IMetadataTypeTag, y [][]IMetadataTypeTag) bool {
+  xRows, xConstrained := metadataSchema_validatingTagRows(x)
+  if xConstrained == false {
+    return true
+  }
+  yRows, yConstrained := metadataSchema_validatingTagRows(y)
+  if yConstrained == false {
+    return false
+  }
+  for _, yRow := range yRows {
+    if anyOf(xRows, func(xRow []IMetadataTypeTag) bool {
+      return metadataSchema_tagRowEquals(xRow, yRow)
+    }) == false {
+      return false
+    }
+  }
+  return true
+}
+
+// metadataSchema_tagRowEquals compares two AND rows of validating tags as
+// multisets, identified by tag name (which embeds the parameter value) and
+// predicate source.
+func metadataSchema_tagRowEquals(x []IMetadataTypeTag, y []IMetadataTypeTag) bool {
+  if len(x) != len(y) {
+    return false
+  }
+  used := make([]bool, len(y))
+  for _, xt := range x {
+    found := false
+    for i, yt := range y {
+      if used[i] == false && xt.Name == yt.Name && xt.Validate == yt.Validate {
+        used[i] = true
+        found = true
+        break
+      }
+    }
+    if found == false {
+      return false
+    }
+  }
+  return true
 }
 
 func metadataSchema_hasConstant(meta *MetadataSchema, atomic string) bool {
