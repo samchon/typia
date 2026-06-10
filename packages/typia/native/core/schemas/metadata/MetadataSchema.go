@@ -358,17 +358,7 @@ func (obj *MetadataSchema) IsSequence() bool {
   exists := func(tags [][]IMetadataTypeTag) bool {
     for _, row := range tags {
       for _, t := range row {
-        if t.Kind != "sequence" {
-          continue
-        }
-        schema, ok := t.Schema.(map[string]any)
-        if ok == false {
-          continue
-        }
-        if _, ok := schema["x-protobuf-sequence"].(float64); ok {
-          return true
-        }
-        if _, ok := schema["x-protobuf-sequence"].(int); ok {
+        if IMetadataTypeTag_getSequence(t) != nil {
           return true
         }
       }

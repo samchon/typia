@@ -767,31 +767,8 @@ func protobufFactory_firstTagRow(tags [][]schemametadata.IMetadataTypeTag) []sch
 
 func protobufFactory_getSequence(tags []schemametadata.IMetadataTypeTag) *int {
   for _, tag := range tags {
-    if tag.Kind != "sequence" {
-      continue
-    }
-    schema, ok := tag.Schema.(map[string]any)
-    if ok == false {
-      continue
-    }
-    raw, ok := schema["x-protobuf-sequence"]
-    if ok == false {
-      continue
-    }
-    switch value := raw.(type) {
-    case int:
-      return &value
-    case int64:
-      next := int(value)
-      return &next
-    case float64:
-      next := int(value)
-      return &next
-    case string:
-      next := 0
-      if _, err := fmt.Sscan(value, &next); err == nil {
-        return &next
-      }
+    if sequence := schemametadata.IMetadataTypeTag_getSequence(tag); sequence != nil {
+      return sequence
     }
   }
   return nil
